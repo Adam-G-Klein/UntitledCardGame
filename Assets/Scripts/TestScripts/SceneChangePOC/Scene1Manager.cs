@@ -1,16 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
-public class Scene1Manager : MonoBehaviour
+public class Scene1Manager : Manager 
 {
     public static Scene1Manager instance;
     private Scene2Manager scene2Manager;
+    private Button sceneChangeButton; 
 
-    private TextMeshProUGUI text1;
-    private TextMeshProUGUI text2;
+    private TextMeshPro text1;
+    private TextMeshPro text2;
     private string onLoadText = "This text was set by Scene1Manager on loading the scene";
     private string passedText = "This text was passed to Scene2Manager using Scene2Manager.loadScene2()";
 
@@ -21,8 +23,8 @@ public class Scene1Manager : MonoBehaviour
         {
             // Set this instance as the instance reference.
             instance = this;
-            // no one called loadScene...() on us, so findObjectsInScene won't be called from Start()
-            findObjectsInScene();
+            // no one called loadScene...() on us, so findObjectsInScene won't be called from there
+            scene1Init("");
         }
         else if(instance != this)
         {
@@ -49,22 +51,41 @@ public class Scene1Manager : MonoBehaviour
 
     }
 
-    public void loadScene1(string inText){
-        SceneManager.LoadScene("SceneChangeExample1");
-        //below function is failing to find, presumably because the scene isn't loaded
-        // need to use async load and a coroutine, to be done.
+    public void loadScene1(string placeholderText){
+        loadScene("SceneChangeExample1", placeholderText, scene1Init); 
+    }
+
+    public void scene1Init(string placeholderText){
         findObjectsInScene();
         text1.SetText(onLoadText);
-        text2.SetText(inText);
+        text2.SetText(placeholderText);
+        //very interesting finding, the listener needed to be
+        // re-added to the button when the scene was loaded
+        // even though the Start() method on the button should be running,
+        // as we're not preserving it between scenes.
+        //Definitely watch out for stuff like this, initialization actions that have to be
+        // done when loading a scene asynchronously even though they wouldn't normally be necessary
+
+        //doing it through a lil wait to stop the flickering between scenes 
+        Invoke("addButtonListener", 0.5f);
+    }
+
+    private void addButtonListener(){
+        sceneChangeButton.onClick.AddListener(sceneChangeButtonClicked);
     }
 
     public void sceneChangeButtonClicked(){
-        print("onclick called");
+        print("scene change button click");
         scene2Manager.loadScene2(passedText);
     }
 
     private void findObjectsInScene() {
-        text1 = GameObject.Find("text1").GetComponent<TextMeshProUGUI>();
-        text2 = GameObject.Find("text2").GetComponent<TextMeshProUGUI>();
+
+        GameObject canvas = GameObject.Find("Canvas");
+        text1 = canvas.transform.Find("text1").GetComponent<TextMeshPro>();
+        text2 = canvas.transform.Find("text2").GetComponent<TextMeshPro>();
+        sceneChangeButton = canvas.transform.Find("changeScene").GetComponent<Button>();
     }
+
+
 }
