@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -37,13 +38,33 @@ public class RoomManager : MonoBehaviour
     void Update() {}
 
     public void loadRoom(Room room) {
+        LoadRoomArgs args = new LoadRoomArgs(room, roomBuilder.buildRoom);
+        
         activeRoom = room;
-        SceneManager.LoadScene(room.getRoomSceneString());
-        SceneManager.sceneLoaded += OnRoomLoad;
+        StartCoroutine(loadRoomCoroutine(args));
     }
 
-    private void OnRoomLoad(Scene scene, LoadSceneMode mode)
+    private IEnumerator loadRoomCoroutine(LoadRoomArgs args)
     {
-        roomBuilder.buildRoom(activeRoom);
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(args.room.getRoomSceneString());
+
+        // Wait for the scene to actually fully load
+        while(!asyncLoad.isDone)
+        {
+            yield return null;
+        }
+        args.callback(args.room);
+    }
+}
+
+class LoadRoomArgs 
+{
+    public Room room;
+    public Action<Room> callback;
+
+    public LoadRoomArgs(Room room, Action<Room> callback)
+    {
+        this.room = room;
+        this.callback = callback;
     }
 }
