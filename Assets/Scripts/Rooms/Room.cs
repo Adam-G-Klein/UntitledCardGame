@@ -4,7 +4,8 @@ using UnityEngine;
 
 public interface Room
 {
-    public string getRoomSceneString();
-    public RoomType getRoomType();
-    public Dictionary<string, Vector2> getEncounterPoints();
+    string getRoomSceneString();
+    RoomType getRoomType();
+    List<Vector2> getEncounters();
+    void buildRoom();
 }

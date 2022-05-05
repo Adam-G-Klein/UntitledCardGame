@@ -6,30 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class RoomManager : MonoBehaviour
 {
-    private static RoomManager instance;
-    private RoomBuilder roomBuilder;
-
     private Room activeRoom = null;
-
-    void Awake()
-    {
-        // If the instance reference has not been set yet, 
-        if (instance == null)
-        {
-            // Set this instance as the instance reference.
-            instance = this;
-            roomBuilder = new RoomBuilder();
-        }
-        else if(instance != this)
-        {
-            // If the instance reference has already been set, and this is not the
-            // the instance reference, destroy this game object.
-            Destroy(gameObject);
-        }
-
-        // Do not destroy this object when we load a new scene
-        DontDestroyOnLoad(gameObject);
-    }
 
     // Start is called before the first frame update
     void Start() {}
@@ -38,7 +15,7 @@ public class RoomManager : MonoBehaviour
     void Update() {}
 
     public void loadRoom(Room room) {
-        LoadRoomArgs args = new LoadRoomArgs(room, roomBuilder.buildRoom);
+        LoadRoomArgs args = new LoadRoomArgs(room, room.buildRoom);
         
         activeRoom = room;
         StartCoroutine(loadRoomCoroutine(args));
@@ -53,16 +30,16 @@ public class RoomManager : MonoBehaviour
         {
             yield return null;
         }
-        args.callback(args.room);
+        args.callback();
     }
 }
 
 class LoadRoomArgs 
 {
     public Room room;
-    public Action<Room> callback;
+    public Action callback;
 
-    public LoadRoomArgs(Room room, Action<Room> callback)
+    public LoadRoomArgs(Room room, Action callback)
     {
         this.room = room;
         this.callback = callback;

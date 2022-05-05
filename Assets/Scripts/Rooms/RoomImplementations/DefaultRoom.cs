@@ -4,18 +4,12 @@ using UnityEngine;
 
 public class DefaultRoom : Room
 {
-    private Dictionary<string, string> encounterDict = new Dictionary<string, string>()
+    private List<Vector2> encounters = new List<Vector2>()
     {
-        {"1", "First Encounter Here"},
-        {"2", "Second Encounter Here"},
-        {"3", "Third Encounter Here"}
-    };
-
-    private Dictionary<string, Vector2> encounterPoints = new Dictionary<string, Vector2>()
-    {
-        {"1", new Vector2(-7.5f, 4.2f)},
-        {"2", new Vector2(2.3f, 4.5f)},
-        {"3", new Vector2(8.6f, 0.35f)}
+        // these will be encounters once they're created
+        new Vector2(-7.5f, 4.2f),
+        new Vector2(2.3f, 4.5f),
+        new Vector2(8.6f, 0.35f)
     };
 
     private string roomSceneString = "Scenes/Rooms/DefaultRoom";
@@ -37,8 +31,14 @@ public class DefaultRoom : Room
         return roomType;
     }
 
-    public Dictionary<string, Vector2> getEncounterPoints()
+    public List<Vector2> getEncounters()
     {
-        return encounterPoints;
+        return encounters;
+    }
+
+    public virtual void buildRoom()
+    {
+        DefaultRoomFactory roomFactory = new DefaultRoomFactory();
+        roomFactory.generateRoom(this);
     }
 }

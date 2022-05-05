@@ -5,15 +5,21 @@ using UnityEngine;
 public class LoadRoomTest : MonoBehaviour
 {
     public RoomManager roomManager;
-    public bool loadRoom = false;
+    public bool loadDefaultRoom = false;
+    public bool loadTestRoom = false;
 
     // Update is called once per frame
     void Update()
     {
-        if (loadRoom)
+        if (loadDefaultRoom)
         {
             roomManager.loadRoom(new DefaultRoom());
-            loadRoom = false;
+            loadDefaultRoom = false;
+        }
+        else if (loadTestRoom)
+        {
+            roomManager.loadRoom(new TestRoom());
+            loadTestRoom = false;
         }
     }
 }
