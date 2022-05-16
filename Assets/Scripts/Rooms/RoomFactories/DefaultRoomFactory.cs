@@ -6,12 +6,14 @@ public class DefaultRoomFactory
 {
     public void generateRoom(DefaultRoom room)
     {
-        // This is all just random test things room generation
-        // to test the room generation process
-        GameObject prefab = GameObject.Find("TestHoldPrefab").GetComponent<TestHoldThings>().getTestSprite();
-        foreach(Vector2 entry in room.getEncounters())
+        GameObject encounterInRoomPrefab = GameObject.Find("PrefabStore").GetComponent<PrefabStore>().getPrefabByName("EncounterInRoom");
+        GameObject obj;
+        EncounterInRoom encounterInRoom;
+        foreach(Encounter encounter in room.getEncounters())
         {
-            Object.Instantiate(prefab, entry, Quaternion.identity);
+            obj = Object.Instantiate(encounterInRoomPrefab, encounter.getLocationInRoom(), Quaternion.identity);
+            encounterInRoom = obj.GetComponent<EncounterInRoom>();
+            encounterInRoom.setEncounter(encounter);
         }
     }
 }

@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class DefaultRoom : Room
 {
-    private List<Vector2> encounters = new List<Vector2>()
+    private List<Encounter> encounters = new List<Encounter>()
     {
         // these will be encounters once they're created
-        new Vector2(-7.5f, 4.2f),
-        new Vector2(2.3f, 4.5f),
-        new Vector2(8.6f, 0.35f)
+        new DefaultEncounter(new Vector2(-7.5f, 4.2f)),
+        new DefaultEncounter(new Vector2(2.3f, 4.5f)),
+        new DefaultEncounter(new Vector2(8.6f, 0.35f))
     };
 
     private string roomSceneString = "Scenes/Rooms/DefaultRoom";
@@ -31,7 +31,7 @@ public class DefaultRoom : Room
         return roomType;
     }
 
-    public List<Vector2> getEncounters()
+    public List<Encounter> getEncounters()
     {
         return encounters;
     }

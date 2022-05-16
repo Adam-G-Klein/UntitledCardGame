@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class RoomManager : MonoBehaviour
+public class RoomManager : Manager 
 {
     private Room activeRoom = null;
 

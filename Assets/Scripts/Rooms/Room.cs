@@ -6,6 +6,6 @@ public interface Room
 {
     string getRoomSceneString();
     RoomType getRoomType();
-    List<Vector2> getEncounters();
+    List<Encounter> getEncounters();
     void buildRoom();
 }
