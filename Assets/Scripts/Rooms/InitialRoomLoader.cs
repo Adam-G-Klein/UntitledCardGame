@@ -12,7 +12,7 @@ public class InitialRoomLoader : MonoBehaviour
     }
 
     public void loadStartRoom(){
-        manager.loadScene(new StartRoom());
+        manager.loadScene(new MapGenerationLoadScene());
     }
 
 }
