@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class StartRoomFactory : DefaultRoomFactory
 {
-    
+    //room generation should almost certainly be kicked off here
 }

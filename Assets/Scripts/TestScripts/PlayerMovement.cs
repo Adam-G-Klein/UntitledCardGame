@@ -9,10 +9,14 @@ public class PlayerMovement : MonoBehaviour
     public Animator animator;
     public Vector2 speed = new Vector2(50, 50);
     public bool movementEnabled = true;
+    private RoomManager  roomManager;
 
     // Start is called before the first frame update
     void Start()
     {
+
+        RoomManager roomManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<RoomManager>();
+        Debug.Log("activeRoom at playerStart: " + roomManager.getActiveRoom().getSceneString());
         
     }
 

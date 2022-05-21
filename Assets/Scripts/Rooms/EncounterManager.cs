@@ -4,44 +4,42 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class EncounterManager : MonoBehaviour
+public class EncounterManager : Manager 
 {
-    private Encounter activeEncounter = null;
+    
+    private Encounter activeEncounter;
 
-    // Start is called before the first frame update
     void Start() {}
 
     // Update is called once per frame
     void Update() {}
-
-    public void loadEncounter(Encounter encounter) {
-        LoadEncounterArgs args = new LoadEncounterArgs(encounter, encounter.buildEncounter);
-        
+    public void setActiveEncounter(Encounter encounter){
         activeEncounter = encounter;
-        StartCoroutine(loadEncounterCoroutine(args));
     }
 
-    private IEnumerator loadEncounterCoroutine(LoadEncounterArgs args)
-    {
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(args.encounter.getEncounterSceneString());
+    public Encounter getActiveEncounter(){
+        return activeEncounter;
+    }
 
-        // Wait for the scene to actually fully load
-        while(!asyncLoad.isDone)
+    // singleton boiler plate
+    private static EncounterManager instance;
+    void Awake()
+    {
+        // If the instance reference has not been set yet, 
+        if (instance == null)
         {
-            yield return null;
+            // Set this instance as the instance reference.
+            instance = this;
         }
-        args.callback();
-    }
+        else if(instance != this)
+        {
+            // If the instance reference has already been set, and this is not the
+            // the instance reference, destroy this game object.
+            Destroy(gameObject);
+        }
+
+        // Do not destroy this object when we load a new scene
+        DontDestroyOnLoad(gameObject);
+    }   
 }
 
-class LoadEncounterArgs
-{
-    public Encounter encounter;
-    public Action callback;
-
-    public LoadEncounterArgs(Encounter encounter, Action callback)
-    {
-        this.encounter = encounter;
-        this.callback = callback;
-    }
-}

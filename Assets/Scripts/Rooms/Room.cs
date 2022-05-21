@@ -2,10 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface Room
+public interface Room : GameScene
 {
-    string getRoomSceneString();
     RoomType getRoomType();
     List<Encounter> getEncounters();
-    void buildRoom();
+
+    List<Vector2> getDoorLocations();
+    //for use in worldgen
+    void setEncounters(List<Encounter> encounters);
+    //for use in worldgen
+    void setConnectedRooms(List<Room> connectedRooms);
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TestRoom : DefaultRoom 
 {
-    public override void buildRoom()
+    public override void build()
     {
         TestRoomFactory roomFactory = new TestRoomFactory();
         roomFactory.generateRoom(this);

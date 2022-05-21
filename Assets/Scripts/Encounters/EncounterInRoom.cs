@@ -12,13 +12,11 @@ public class EncounterInRoom : MonoBehaviour
     void Start()
     {
         encounterManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<EncounterManager>();
-
-        
     }
     void OnCollisionEnter2D(Collision2D col)
     {
-        Debug.Log("encounter collision, going to " + encounter.getEncounterSceneString());
-        encounterManager.loadEncounter(encounter);
+        Debug.Log("encounter collision, going to " + encounter.getSceneString());
+        encounterManager.loadScene(encounter);
     }
 
     public void setEncounter(Encounter encounter){

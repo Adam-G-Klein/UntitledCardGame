@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class InitialRoomLoader : MonoBehaviour
 {
-    private RoomManager roomManager;
+    private Manager manager;
 
     void Start(){
-        roomManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<RoomManager>();
+        //grab the roomManager, doesn't matter which one
+        manager = GameObject.FindGameObjectWithTag("Managers").GetComponent<RoomManager>();
     }
 
     public void loadStartRoom(){
-        roomManager.loadRoom(new StartRoom());
+        manager.loadScene(new StartRoom());
     }
 
 }

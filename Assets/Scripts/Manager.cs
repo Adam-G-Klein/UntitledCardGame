@@ -1,27 +1,37 @@
 using System.Collections;
+using System;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class Manager : MonoBehaviour
 {
-    private static Manager instance;
     
-    void Awake()
-    {
-        // If the instance reference has not been set yet, 
-        if (instance == null)
-        {
-            // Set this instance as the instance reference.
-            instance = this;
-        }
-        else if(instance != this)
-        {
-            // If the instance reference has already been set, and this is not the
-            // the instance reference, destroy this game object.
-            Destroy(gameObject);
-        }
+    public void loadScene(GameScene scene) {
+        LoadSceneArgs args = new LoadSceneArgs(scene, scene.build);
+        StartCoroutine(loadSceneCoroutine(args));
+    }
 
-        // Do not destroy this object when we load a new scene
-        DontDestroyOnLoad(gameObject);
+    private IEnumerator loadSceneCoroutine(LoadSceneArgs args)
+    {
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(args.scene.getSceneString());
+
+        // Wait for the scene to actually fully load
+        while(!asyncLoad.isDone)
+        {
+            yield return null;
+        }
+        args.callback();
+    }   
+}
+class LoadSceneArgs 
+{
+    public GameScene scene;
+    public Action callback;
+
+    public LoadSceneArgs(GameScene scene, Action callback)
+    {
+        this.scene = scene;
+        this.callback = callback;
     }
 }

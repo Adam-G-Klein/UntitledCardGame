@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class DefaultEncounter : Encounter  
 {
+    
+
     private List<Enemy> enemies = new List<Enemy>() {
         new RedEnemy(),
         new BlueEnemy(),
         new GreenEnemy()
     };
-
     private string encounterSceneString = "Scenes/Encounters/DefaultEncounter";
     private EncounterType encounterType = EncounterType.DefaultEncounter;
     private Vector2 locationInRoom;
@@ -21,7 +22,7 @@ public class DefaultEncounter : Encounter
         return encounterType;
     }
 
-    public string getEncounterSceneString(){
+    public string getSceneString(){
         return encounterSceneString; 
     }
 
@@ -29,7 +30,7 @@ public class DefaultEncounter : Encounter
         return enemies;
     }
 
-    public void buildEncounter(){
+    public void build(){
         DefaultEncounterFactory encounterFactory = new DefaultEncounterFactory();
         encounterFactory.generateEncounter(this);
     }
