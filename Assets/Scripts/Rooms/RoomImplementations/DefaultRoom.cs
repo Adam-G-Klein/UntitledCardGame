@@ -57,6 +57,10 @@ public class DefaultRoom : Room
         this.connectedRooms= connectedRooms;
     }
 
+    public List<Room> getConnectedRooms(){
+        return connectedRooms;
+    }
+
     public List<Vector2> getDoorLocations(){
         if(connectedRooms.Count > doorStore.getTopLevelCount()) {
             Debug.LogError("Not enough doors for the amount of connected rooms in room: " 

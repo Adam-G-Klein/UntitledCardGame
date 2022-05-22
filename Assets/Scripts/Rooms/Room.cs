@@ -7,7 +7,8 @@ public interface Room : GameScene
     RoomType getRoomType();
     List<Encounter> getEncounters();
 
-    List<Vector2> getDoorLocations();
+    List<Room> getConnectedRooms();
+
     //for use in worldgen
     void setEncounters(List<Encounter> encounters);
     //for use in worldgen

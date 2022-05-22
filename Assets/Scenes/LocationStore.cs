@@ -22,7 +22,7 @@ public class LocationStore : MonoBehaviour
         return locDict2D[enemyCount];
     }
 
-    public Vector2 getLoc(int key){
+    public Vector2 getLoc(int key = 0){
         return locDict1D[key];
     }
 

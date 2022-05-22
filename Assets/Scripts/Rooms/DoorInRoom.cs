@@ -19,7 +19,7 @@ public class DoorInRoom : MonoBehaviour
         roomManager.loadScene(connectedRoom);
     }
 
-    public void setRoom(Room room){
+    public void setConnectedRoom(Room room){
         this.connectedRoom = room;
     }
 

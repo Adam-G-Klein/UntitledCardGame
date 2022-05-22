@@ -10,7 +10,7 @@ public class PlayerInEncounterFactory
         PrefabStore prefabStore = GameObject.Find("PrefabStore").GetComponent<PrefabStore>();
         Object.Instantiate(
             prefabStore.getPrefabByName(global.PlayerData.encounterPrefabName),
-            playerLoc.getLoc(1), 
+            playerLoc.getLoc(), 
             Quaternion.identity);
     }
 

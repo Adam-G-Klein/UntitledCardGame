@@ -32,6 +32,11 @@ public class MapManager : MonoBehaviour
 
     void generateMap(){
 
+        leftRoom.setConnectedRooms(new List<Room>(){startRoom});
+        rightRoom.setConnectedRooms(new List<Room>(){startRoom});
+        startRoom.setConnectedRooms(new List<Room>(){
+            leftRoom, rightRoom
+        });
         //generate the map and then
         roomManager.loadScene(startRoom);
 
