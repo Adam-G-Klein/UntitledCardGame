@@ -1,0 +1,55 @@
+<!-- TODO:
+- Encounters List definable and Encounters addable to rooms
+- being able to set the direction the player walks towards each connected room -->
+<Rooms>
+    <!-- Room list must contain a room with id "StartRoom", 
+        this is what the MapManager will start the game by loading-->
+    <Room 
+        type="StartRoom"
+        id="StartRoom"
+        >
+        <!-- Room type: the actual classname in Scripts/Rooms/RoomImplementations that 
+            this room should be an instantiation of -->
+        <!-- Room id: the string that other rooms will identify this room
+            by for purposes of connecting to it -->
+        <ConnectedRooms>
+            <!-- The rooms that will be connected to this room -->
+            <Room id="LeftRoom"/>
+            <Room id="RightRoom"/>
+        </ConnectedRooms>
+    </Room>
+    <Room
+        type="DefaultRoom"
+        id="LeftRoom"
+        >
+        <ConnectedRooms>
+            <Room id="StartRoom"/>
+            <Room id="FarLeftRoom"/>
+        </ConnectedRooms>
+    </Room>
+    <Room
+        type="DefaultRoom"
+        id="RightRoom"
+        >
+        <ConnectedRooms>
+            <Room id="StartRoom"/>
+            <Room id="FarRightRoom"/>
+        </ConnectedRooms>
+    </Room>
+    <Room
+        type="DefaultRoom"
+        id="FarRightRoom"
+        >
+        <ConnectedRooms>
+            <Room id="RightRoom"/>
+        </ConnectedRooms>
+    </Room>
+    <Room
+        type="DefaultRoom"
+        id="FarLeftRoom"
+        >
+        <ConnectedRooms>
+            <Room id="LeftRoom"/>
+        </ConnectedRooms>
+    </Room>
+</Rooms>

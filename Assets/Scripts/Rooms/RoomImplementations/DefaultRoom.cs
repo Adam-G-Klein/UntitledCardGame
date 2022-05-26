@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Xml.Serialization;
+using System.Xml;
 
 public class DefaultRoom : Room
 {
@@ -12,6 +14,9 @@ public class DefaultRoom : Room
         new DefaultEncounter(new Vector2(2.3f, 4.5f)),
         new DefaultEncounter(new Vector2(8.6f, 0.35f))
     };
+
+    [XmlAttribute("id")]
+    private string id = "unsetID!";
 
     //set at worldgen
     private List<Room> connectedRooms; 
@@ -71,5 +76,13 @@ public class DefaultRoom : Room
             retList.Add(doorStore.getLoc(i));
         }
         return retList;
+    }
+
+    public string getId(){
+        return id;
+    }
+
+    public void setId(string id){
+        this.id = id;
     }
 }

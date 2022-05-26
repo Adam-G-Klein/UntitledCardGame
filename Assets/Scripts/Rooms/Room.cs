@@ -4,6 +4,8 @@ using UnityEngine;
 
 public interface Room : GameScene
 {
+    string getId();
+    void setId(string id);
     RoomType getRoomType();
     List<Encounter> getEncounters();
 

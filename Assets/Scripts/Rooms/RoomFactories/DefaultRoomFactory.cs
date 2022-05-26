@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class DefaultRoomFactory
 {
@@ -15,6 +16,11 @@ public class DefaultRoomFactory
         generateEncounters(room);
         generateDoors(room);
         generatePlayer();
+        setRoomText(room);
+    }
+
+    private void setRoomText(DefaultRoom room){
+        GameObject.Find("RoomId").GetComponent<TextMeshProUGUI>().SetText(room.getId());
     }
 
     private void generatePlayer(){

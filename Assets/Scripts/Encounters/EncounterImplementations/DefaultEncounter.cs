@@ -11,6 +11,7 @@ public class DefaultEncounter : Encounter
         new BlueEnemy(),
         new GreenEnemy()
     };
+    private string id = "unsetID!";
     private string encounterSceneString = "Scenes/Encounters/DefaultEncounter";
     private EncounterType encounterType = EncounterType.DefaultEncounter;
     private Vector2 locationInRoom;
@@ -40,6 +41,13 @@ public class DefaultEncounter : Encounter
     }
     public void setLocationInRoom(Vector2 loc){
         locationInRoom = loc;
+    }
+    public string getId(){
+        return id;
+    }
+
+    public void setId(string id){
+        this.id = id;
     }
 
 }
