@@ -7,15 +7,17 @@ public class DefaultEncounterFactory
     public DefaultEncounterFactory(){}
 
     public void generateEncounter(DefaultEncounter encounter){
-        EncounterManager manager = GameObject.FindGameObjectWithTag("Managers").GetComponent<EncounterManager>();
+        GameObject managersGameObject = GameObject.FindGameObjectWithTag("Managers");
+        EncounterManager manager = managersGameObject.GetComponent<EncounterManager>();
         manager.setActiveEncounter(encounter);
-        RoomManager roomManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<RoomManager>();
+        RoomManager roomManager = managersGameObject.GetComponent<RoomManager>();
+        EnemyManager enemyManager = managersGameObject.GetComponent<EnemyManager>();
         Debug.Log("activeRoom at encounterGeneration: " + roomManager.getActiveRoom().getSceneString());
-        generateEnemies(encounter);
+        generateEnemies(encounter, enemyManager);
         generatePlayer();
     }
 
-    private void generateEnemies(DefaultEncounter encounter){
+    private void generateEnemies(DefaultEncounter encounter, EnemyManager enemyManager){
         PrefabStore prefabStore = GameObject.Find("PrefabStore").GetComponent<PrefabStore>();
         LocationStore locStore = GameObject.FindGameObjectWithTag("EnemyStore").GetComponent<LocationStore>();
         List<Enemy> enemies = encounter.getEnemies();
@@ -23,13 +25,11 @@ public class DefaultEncounterFactory
         Enemy enemy;
         for(int i = 0; i < enemies.Count ; i +=1 ){
             enemy = enemies[i];
-            // to be replaced by enemy factory call
-            // that replacement will also eliminate the need for the prefab store
-            Object.Instantiate(
+            enemy.buildEnemy(
                 prefabStore.getPrefabByName(enemy.getPrefabName()),
-                locList[i], 
-                Quaternion.identity);
+                locList[i]);
         }
+        enemyManager.setEnemies(enemies);
     }
 
     private void generatePlayer(){
