@@ -12,7 +12,6 @@ public class DefaultEnemyFactory
             prefab,
             location, 
             Quaternion.identity) as GameObject;
-        enemyGameObject.GetComponent<DisplayHealth>().setEntity(enemy);
-        enemyGameObject.GetComponent<EnemyDataStore>().setEnemy(enemy);
+        enemyGameObject.GetComponent<EnemyData>().setEnemy(enemy);
     }
 }

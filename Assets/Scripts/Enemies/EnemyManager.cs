@@ -13,55 +13,30 @@ public class EnemyManager : MonoBehaviour
     {
         eventBus = gameObject.GetComponent<BattleManager>().getEventBus();
         eventBus.Subscribe<DamageEvent>(onDamageEvent);
-        eventBus.Subscribe<EndPlayerTurnEvent>(onEndPlayerTurnEvent);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        eventBus.Subscribe<StartEnemyTurnEvent>(onStartEnemyTurnEvent);
     }
 
     private void onDamageEvent(DamageEvent damageEvent) {
         foreach(Enemy enemy in enemies) {
             if (enemy == damageEvent.getDestinationEntity()) {
+                // Multiple by -1 because the damage is 
+                // the damage taken as a positive number
                 enemy.changeHealth(damageEvent.getDamage() * -1);
             }
         }
     }
 
-    private void onEndPlayerTurnEvent(EndPlayerTurnEvent endPlayerTurnEvent) {
+    private void onStartEnemyTurnEvent(StartEnemyTurnEvent startEnemyTurnEvent) {
         Debug.Log("Do the enemy turn now");
-        StartCoroutine(sleepThenStartPlayerTurn());
+        StartCoroutine(sleepThenEndEnemyTurn());
     }
 
     public void setEnemies(List<Enemy> enemies) {
         this.enemies = enemies;
     }
 
-    IEnumerator sleepThenStartPlayerTurn() {
-        yield return new WaitForSeconds(2);
-        eventBus.Publish<StartPlayerTurnEvent>(new StartPlayerTurnEvent());
-    }
-
-     //boiler plate singleton code
-    private static EnemyManager instance;
-    void Awake()
-    {
-        // If the instance reference has not been set yet, 
-        if (instance == null)
-        {
-            // Set this instance as the instance reference.
-            instance = this;
-        }
-        else if(instance != this)
-        {
-            // If the instance reference has already been set, and this is not the
-            // the instance reference, destroy this game object.
-            Destroy(gameObject);
-        }
-
-        // Do not destroy this object when we load a new scene
-        DontDestroyOnLoad(gameObject);
+    IEnumerator sleepThenEndEnemyTurn() {
+        yield return new WaitForSeconds(1.5f);
+        eventBus.Publish<EndEnemyTurnEvent>(new EndEnemyTurnEvent());
     }
 }

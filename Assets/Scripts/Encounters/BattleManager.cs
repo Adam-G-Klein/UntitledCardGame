@@ -3,52 +3,76 @@ using System.Collections.Generic;
 using GameEventBus;
 using UnityEngine;
 
+public enum BattleState { 
+    Start,
+    PlayerTurn,
+    PlayerTurnEnd,
+    EnemyTurn,
+    EnemyTurnEnd,
+    Won,
+    Lost 
+}
+
 public class BattleManager : MonoBehaviour
 {
     private EventBus eventBus = new EventBus();
+    private BattleState battleState = BattleState.Start;
 
-    // Start is called before the first frame update
-    void Start()
-    {
+    public void Start() {
+        eventBus.Subscribe<StartPlayerTurnEvent>(onStartPlayerTurnEvent);
+        eventBus.Subscribe<EndPlayerTurnEvent>(onEndPlayerTurnEvent);
+        eventBus.Subscribe<StartEnemyTurnEvent>(onStartEnemyTurnEvent);
+        eventBus.Subscribe<EndEnemyTurnEvent>(onEndEnemyTurnEvent);
         
+        eventBus.Publish<StartPlayerTurnEvent>(new StartPlayerTurnEvent());
+        battleState = BattleState.PlayerTurn;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    private void onEndPlayerTurnEvent(EndPlayerTurnEvent endPlayerTurnEvent) {
+        if (battleState != BattleState.PlayerTurn) {
+            Debug.LogError("Can't end player turn while not in player turn");
+        }
+        battleState = BattleState.PlayerTurnEnd;
+        StartCoroutine(WaitForPlayerTurnEnd());
     }
 
-    public void endPlayerTurn() {
-        eventBus.Publish<EndPlayerTurnEvent>(new EndPlayerTurnEvent());
+    private IEnumerator WaitForPlayerTurnEnd() {
+        yield return new WaitForSeconds(1f);
+        eventBus.Publish<StartEnemyTurnEvent>(new StartEnemyTurnEvent());
     }
 
-    public void startPlayerTurn() {
+    private void onStartPlayerTurnEvent(StartPlayerTurnEvent startPlayerTurnEvent) {
+        if (battleState != BattleState.EnemyTurnEnd && battleState != BattleState.Start) {
+            Debug.LogError("Can't start player turn while not in enemy end turn");
+        }
+        battleState = BattleState.PlayerTurn;
+    } 
+
+    private void onEndEnemyTurnEvent(EndEnemyTurnEvent endEnemyTurnEvent) {
+        if (battleState != BattleState.EnemyTurn) {
+            Debug.LogError("Can't end enemy turn while not in enemy turn");
+        }
+        battleState = BattleState.EnemyTurnEnd;
+        StartCoroutine(WaitForEnemyTurnEnd());
+    }
+
+    private IEnumerator WaitForEnemyTurnEnd() {
+        yield return new WaitForSeconds(1f);
         eventBus.Publish<StartPlayerTurnEvent>(new StartPlayerTurnEvent());
     }
+
+    private void onStartEnemyTurnEvent(StartEnemyTurnEvent startEnemyTurnEvent) {
+        if (battleState != BattleState.PlayerTurnEnd) {
+            Debug.LogError("Can't start enemy turn while not in player end turn");
+        }
+        battleState = BattleState.EnemyTurn;
+    } 
 
     public EventBus getEventBus() {
         return eventBus;
     }
 
-     //boiler plate singleton code
-    private static BattleManager instance;
-    void Awake()
-    {
-        // If the instance reference has not been set yet, 
-        if (instance == null)
-        {
-            // Set this instance as the instance reference.
-            instance = this;
-        }
-        else if(instance != this)
-        {
-            // If the instance reference has already been set, and this is not the
-            // the instance reference, destroy this game object.
-            Destroy(gameObject);
-        }
-
-        // Do not destroy this object when we load a new scene
-        DontDestroyOnLoad(gameObject);
+    public BattleState getBattleState() {
+        return battleState;
     }
 }

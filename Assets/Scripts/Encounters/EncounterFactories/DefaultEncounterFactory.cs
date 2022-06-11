@@ -11,7 +11,7 @@ public class DefaultEncounterFactory
         EncounterManager manager = managersGameObject.GetComponent<EncounterManager>();
         manager.setActiveEncounter(encounter);
         RoomManager roomManager = managersGameObject.GetComponent<RoomManager>();
-        EnemyManager enemyManager = managersGameObject.GetComponent<EnemyManager>();
+        EnemyManager enemyManager = GameObject.FindGameObjectWithTag("BattleManager").GetComponent<EnemyManager>();
         Debug.Log("activeRoom at encounterGeneration: " + roomManager.getActiveRoom().getSceneString());
         generateEnemies(encounter, enemyManager);
         generatePlayer();

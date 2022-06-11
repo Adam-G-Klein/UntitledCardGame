@@ -6,25 +6,36 @@ using TMPro;
 
 public class TestTurnInfo : MonoBehaviour
 {
-    private EventBus eventBus;
+    private BattleManager battleManager;
     private TextMeshProUGUI text;
+    private bool updateNormally = true;
 
     // Start is called before the first frame update
     void Start()
     {
-        eventBus = GameObject.FindGameObjectWithTag("Managers")
-            .GetComponent<BattleManager>()
-            .getEventBus();
-        eventBus.Subscribe<EndPlayerTurnEvent>(onEndPlayerTurnEvent);
-        eventBus.Subscribe<StartPlayerTurnEvent>(onStartPlayerTurnEvent);
+        battleManager = GameObject.FindGameObjectWithTag("BattleManager")
+            .GetComponent<BattleManager>();
+        battleManager.getEventBus().Subscribe<TestAttackingEvent>(onTestAttackingEvent);
+        battleManager.getEventBus().Subscribe<TestStopAttackingEvent>(onTestStopAttackingEvent);
+        battleManager.getEventBus().Subscribe<DamageEvent>(onDamageEvent);
         text = gameObject.GetComponent<TextMeshProUGUI>();
     }
 
-    private void onEndPlayerTurnEvent(EndPlayerTurnEvent endEvent) {
-        text.text = "Enemy Turn";
+    void Update() {
+        if (updateNormally)
+            text.text = battleManager.getBattleState().ToString();
     }
 
-    private void onStartPlayerTurnEvent(StartPlayerTurnEvent startEvent) {
-        text.text = "Player Turn\nClick enemy to deal damage";
+    void onTestAttackingEvent(TestAttackingEvent testEvent) {
+        updateNormally = false;
+        text.text = "Click an enemy to deal damage!";
+    }
+
+    void onTestStopAttackingEvent(TestStopAttackingEvent testEvent) {
+        updateNormally = true;
+    }
+
+    void onDamageEvent(DamageEvent damageEvent) {
+        updateNormally = true;
     }
 }

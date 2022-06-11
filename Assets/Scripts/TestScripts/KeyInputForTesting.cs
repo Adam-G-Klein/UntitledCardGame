@@ -18,6 +18,10 @@ public class KeyInputForTesting : MonoBehaviour
             print("loading active room!");
             roomManager.loadActiveRoom();
         }
+    }
 
+    public void leaveEncounter() {
+        print("loading active room!");
+        roomManager.loadActiveRoom();
     }
 }
