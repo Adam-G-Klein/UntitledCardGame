@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Xml.Serialization;
 using System.Xml;
+using System.Linq;
 
 public class DefaultRoom : Room
 {
@@ -14,24 +15,24 @@ public class DefaultRoom : Room
         new DefaultEncounter(new Vector2(2.3f, 4.5f)),
         new DefaultEncounter(new Vector2(8.6f, 0.35f))
     };
+    private List<string> doorNames = new List<string>(){
+        "EastDoor",
+        "WestDoor"
+    };
 
-    [XmlAttribute("id")]
+    //map used for comparison in the map to match doors up, roomId needed so we know what room the door we're connecting to is in
+    private Dictionary<string, Door> outgoingDoors = new Dictionary<string, Door>();
+    private List<Door> incomingDoors = new List<Door>();
+    
+    public DefaultRoom(){
+    }
+
     private string id = "unsetID!";
-
-    //set at worldgen
-    private List<Room> connectedRooms; 
 
     private string roomSceneString = "Scenes/Rooms/DefaultRoom";
     private RoomType roomType = RoomType.DefaultRoom;
     private LocationStore doorStore;
 
-    // Start is called before the first frame update
-    void Start() {
-        doorStore = GameObject.FindGameObjectWithTag("DoorStore").GetComponent<LocationStore>();
-    }
-
-    // Update is called once per frame
-    void Update() {}
 
     public virtual string getSceneString()
     {
@@ -58,14 +59,9 @@ public class DefaultRoom : Room
         roomFactory.generateRoom(this);
     }
 
-    public void setConnectedRooms(List<Room> connectedRooms){
-        this.connectedRooms= connectedRooms;
-    }
 
-    public List<Room> getConnectedRooms(){
-        return connectedRooms;
-    }
-
+    //dead code I think
+    /*
     public List<Vector2> getDoorLocations(){
         if(connectedRooms.Count > doorStore.getTopLevelCount()) {
             Debug.LogError("Not enough doors for the amount of connected rooms in room: " 
@@ -77,6 +73,7 @@ public class DefaultRoom : Room
         }
         return retList;
     }
+    */
 
     public string getId(){
         return id;
@@ -85,4 +82,29 @@ public class DefaultRoom : Room
     public void setId(string id){
         this.id = id;
     }
+
+    public void addOutgoingDoor(Door door, string roomId){
+        //map used for comparison in the map to match doors up, roomId all that's needed
+        outgoingDoors.Add(roomId,door);
+    }
+    public void addIncomingDoor(Door door){
+        incomingDoors.Add(door);
+    } 
+    public Dictionary<string, Door> getOutgoingDoorsMapGen(){
+        return outgoingDoors;
+    }
+
+    public List<Door> getOutgoingDoors(){
+        return outgoingDoors.Values.ToList<Door>();
+    }
+    public List<Door> getIncomingDoors(){
+        return incomingDoors;
+    }
+
+    public void cleanupRoom(){
+        foreach(Door door in getOutgoingDoors()){
+            door.setEnteredThrough(false);
+        }
+    }
 }
+

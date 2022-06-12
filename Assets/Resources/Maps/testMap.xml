@@ -14,42 +14,51 @@
             by for purposes of connecting to it -->
         <ConnectedRooms>
             <!-- The rooms that will be connected to this room -->
-            <Room id="LeftRoom"/>
-            <Room id="RightRoom"/>
+            <Room id="WestRoom" door="WestDoor"/>
+            <Room id="EastRoom" door="EastDoor"/>
+            <Room id="NorthRoom" door="NorthDoor"/>
         </ConnectedRooms>
     </Room>
     <Room
         type="DefaultRoom"
-        id="LeftRoom"
+        id="NorthRoom"
         >
         <ConnectedRooms>
-            <Room id="StartRoom"/>
-            <Room id="FarLeftRoom"/>
+            <Room id="StartRoom" door="SouthDoor"/>
         </ConnectedRooms>
     </Room>
     <Room
         type="DefaultRoom"
-        id="RightRoom"
+        id="WestRoom"
         >
         <ConnectedRooms>
-            <Room id="StartRoom"/>
-            <Room id="FarRightRoom"/>
+            <Room id="StartRoom" door="EastDoor"/>
+            <Room id="FarWestRoom" door="WestDoor"/>
         </ConnectedRooms>
     </Room>
     <Room
         type="DefaultRoom"
-        id="FarRightRoom"
+        id="EastRoom"
         >
         <ConnectedRooms>
-            <Room id="RightRoom"/>
+            <Room id="StartRoom" door="WestDoor"/>
+            <Room id="FarEastRoom" door="EastDoor"/>
         </ConnectedRooms>
     </Room>
     <Room
         type="DefaultRoom"
-        id="FarLeftRoom"
+        id="FarEastRoom"
         >
         <ConnectedRooms>
-            <Room id="LeftRoom"/>
+            <Room id="EastRoom" door="WestDoor"/>
+        </ConnectedRooms>
+    </Room>
+    <Room
+        type="DefaultRoom"
+        id="FarWestRoom"
+        >
+        <ConnectedRooms>
+            <Room id="WestRoom" door="EastDoor"/>
         </ConnectedRooms>
     </Room>
 </Rooms>

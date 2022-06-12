@@ -14,7 +14,7 @@ public class DefaultRoomFactory
         manager.setActiveRoom(room);
         
         generateEncounters(room);
-        generateDoors(room);
+        generateDoors(room, manager);
         generatePlayer();
         setRoomText(room);
     }
@@ -46,21 +46,23 @@ public class DefaultRoomFactory
         }
     }
 
-    private void generateDoors(DefaultRoom room){
-        GameObject doorInRoomPrefab = GameObject.Find("PrefabStore").GetComponent<PrefabStore>().getPrefabByName("DoorInRoom");
-        GameObject obj;
-        DoorInRoom doorInRoom;
-        LocationStore encounterStore = GameObject.FindGameObjectWithTag("DoorStore").GetComponent<LocationStore>();
-        List<Room> connectedRooms = room.getConnectedRooms();
-        if(connectedRooms.Count > encounterStore.getTopLevelCount()){
-            Debug.LogError("Not enough encounter locations in EncounterStore for the amount of encounters in scene: " + room.getSceneString());
+    private void generateDoors(DefaultRoom room, RoomManager manager){
+        GameObject[] doorGameObjects = GameObject.FindGameObjectsWithTag("Door");
+        DoorInRoom doorScript;
+        foreach(Door door in room.getOutgoingDoors()){
+            foreach(GameObject go in doorGameObjects){
+                if(door.getDoorName().Equals(go.name)){
+                    doorScript = go.GetComponent<DoorInRoom>();
+                    doorScript.door = door;
+                }
+            }
+            door.setManager(manager); //won't be done by another room if we're in the start room
         }
-        for(int i = 0; i < connectedRooms.Count; i += 1)
-        {
-            //still weighing whether we should have a factory method to call here...
-            obj = Object.Instantiate(doorInRoomPrefab, encounterStore.getLoc(i), Quaternion.identity);
-            doorInRoom = obj.GetComponent<DoorInRoom>();
-            doorInRoom.setConnectedRoom(connectedRooms[i]);
+        // will be doors in the room that aren't in the door list because they don't have anything connected
+        foreach(GameObject go in doorGameObjects){
+            go.GetComponent<DoorInRoom>().initColor();
         }
+        
     }
+
 }

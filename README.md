@@ -2,6 +2,14 @@
 
 Unity project source for Untitled Card Game by Go Face Games
 
+## Room Creation
+
+Currently, the game's map is being generated from `Assets\Resources\Maps\testMap.xml`. Go take a peak at it before reading further here, the comments in the file should also help explain it.
+
+Each of the rooms, along with their roomType (the implementation class), the id they'll be referred to in the rest of the map document, and a list of connected rooms, each of which declares the room that's connected and the door the player can use to get there.
+
+To add a new room, you just need to add another top-level `<Room... />` element to the Room list, defining all of the above values in the element. The next feature to complete is the ability to define Encounters, and having all of these things split into different files.
+
 ## Dev Tips 
 
 #### "You are trying to create a Monobehavior using the "new" keyword" warning
@@ -42,3 +50,15 @@ Don't let it be you :P
 #### Literally trying to do anything with a button
 
 Buttons don't seem to be playing nicely at all with DoNotDestroyOnLoad(), this is the second time I've tracked an issue back to it. There's methods of making unity objects clickable/hoverable that we'll use instead of Unity's button script. For now I've just been sticking stuff in KeyInputForTesting.cs and putting the prefab wherever I need it.
+
+#### Things to try if your intellisense breaks (no error squigglies or function recommendations)
+
+1. Reinstall the .NET SDK and restart your machine. Download [here](https://dotnet.microsoft.com/en-us/download)
+
+2. In Unity, go to Edit -> Preferences -> External Tools
+    - Make sure External Script Editor is pointed to your VsCode installation (The Visual Studio Code executable can be found at /Applications/Visual Studio Code.app on macOS, %localappdata%\Programs\Microsoft VS Code\Code.exe on Windows by default.)
+    - Check all of the checkboxes under "create .csproj files for" and then click "Regenerate Project Files"
+
+3. Reinstall VsCode
+
+4. Reinstall Unity

@@ -9,10 +9,13 @@ public interface Room : GameScene
     RoomType getRoomType();
     List<Encounter> getEncounters();
 
-    List<Room> getConnectedRooms();
-
     //for use in worldgen
     void setEncounters(List<Encounter> encounters);
     //for use in worldgen
-    void setConnectedRooms(List<Room> connectedRooms);
+    void addOutgoingDoor(Door door, string roomId);
+    void addIncomingDoor(Door door); //doorId = RoomId.DoorName
+    Dictionary<string, Door> getOutgoingDoorsMapGen(); 
+    List<Door> getOutgoingDoors(); 
+    List<Door> getIncomingDoors(); 
+    void cleanupRoom(); //to be called when leaving a room
 }
