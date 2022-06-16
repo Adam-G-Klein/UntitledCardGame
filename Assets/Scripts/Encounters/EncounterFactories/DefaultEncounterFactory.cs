@@ -32,10 +32,15 @@ public class DefaultEncounterFactory
         enemyManager.setEnemies(enemies);
     }
 
-    private void generatePlayer(){
+    private void generatePlayer()
+    {
 
         PlayerInEncounterFactory playerInEncounterFactory = new PlayerInEncounterFactory();
         playerInEncounterFactory.generatePlayer();
+
+
+
+
     }
 
 }
