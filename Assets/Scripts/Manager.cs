@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class Manager : MonoBehaviour
 {
-    
     public void loadScene(GameScene scene) {
         LoadSceneArgs args = new LoadSceneArgs(scene, scene.build);
         StartCoroutine(loadSceneCoroutine(args));
