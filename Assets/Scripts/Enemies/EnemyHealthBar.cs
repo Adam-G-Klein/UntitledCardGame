@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class EnemyHealthBar : MonoBehaviour
 {
     public Slider slider;
+    public TextMeshProUGUI text;
     private Enemy enemy = null;
 
     // Update is called once per frame
@@ -13,11 +15,16 @@ public class EnemyHealthBar : MonoBehaviour
     {
         checkGetEnemy();
         updateSlider();
+        updateText();
     }
 
     void updateSlider() {
         float healthPercent = (float) enemy.getHealth() / (float) enemy.getMaxHealth();
         slider.value = healthPercent;
+    }
+
+    void updateText() {
+        text.text = enemy.getHealth().ToString() + "/" + enemy.getMaxHealth().ToString();
     }
 
     void checkGetEnemy() {

@@ -5,24 +5,24 @@ using GameEventBus.Events;
 
 public class DamageEvent : EventBase
 {
-    private TargetableEntity originEntity;
-    private TargetableEntity destinationEntity;
+    private Entity originEntity;
+    private Entity destinationEntity;
     private int damage;
 
     public DamageEvent(
-            TargetableEntity originEntity,
-            TargetableEntity destinationEntity,
+            Entity originEntity,
+            Entity destinationEntity,
             int damage) {
         this.damage = damage;
         this.destinationEntity = destinationEntity;
         this.originEntity = originEntity;
     }
 
-    public TargetableEntity getOriginEntity() {
+    public Entity getOriginEntity() {
         return originEntity;
     }
 
-    public TargetableEntity getDestinationEntity() {
+    public Entity getDestinationEntity() {
         return destinationEntity;
     }
 

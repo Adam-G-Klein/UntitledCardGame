@@ -3,7 +3,7 @@ namespace global
     static class PlayerData
     {
         // using the same prefab for now
-        public static string encounterPrefabName = "Player";
+        public static string encounterPrefabName = "PlayerWithHealthBar";
         public static string roomPrefabName = "Player";
         // some test vals
         public static int playerHp;

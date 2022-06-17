@@ -25,7 +25,7 @@ public class TestDealDamageToEnemy : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit)){
-                TargetableEntity enemy = hit.transform.gameObject.GetComponent<EnemyData>().getEnemy();
+                Entity enemy = hit.transform.gameObject.GetComponent<EnemyData>().getEnemy();
                 eventBus.Publish<DamageEvent>(new DamageEvent(null, enemy, 1));
                 eventBus.Publish<EndPlayerTurnEvent>(new EndPlayerTurnEvent());
                 canDealDamage = false;

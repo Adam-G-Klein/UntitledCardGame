@@ -1,4 +1,4 @@
-public interface TargetableEntity
+public interface Entity
 {
     int getHealth();
     int getMaxHealth();
