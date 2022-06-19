@@ -1,6 +1,7 @@
 <!-- TODO:
 - Encounters List definable and Encounters addable to rooms
 - being able to set the direction the player walks towards each connected room -->
+
 <Rooms>
     <!-- Room list must contain a room with id "StartRoom", 
         this is what the MapManager will start the game by loading-->
@@ -21,14 +22,6 @@
     </Room>
     <Room
         type="DefaultRoom"
-        id="NorthRoom"
-        >
-        <ConnectedRooms>
-            <Room id="StartRoom" door="SouthDoor"/>
-        </ConnectedRooms>
-    </Room>
-    <Room
-        type="DefaultRoom"
         id="WestRoom"
         >
         <ConnectedRooms>
@@ -45,20 +38,13 @@
             <Room id="FarEastRoom" door="EastDoor"/>
         </ConnectedRooms>
     </Room>
-    <Room
-        type="DefaultRoom"
-        id="FarEastRoom"
-        >
-        <ConnectedRooms>
-            <Room id="EastRoom" door="WestDoor"/>
-        </ConnectedRooms>
-    </Room>
-    <Room
-        type="DefaultRoom"
-        id="FarWestRoom"
-        >
-        <ConnectedRooms>
-            <Room id="WestRoom" door="EastDoor"/>
-        </ConnectedRooms>
-    </Room>
+    <!-- 
+        The "IMPORTED" type is a special room type, it means the room under this id
+        is declared in a separate file. Take a look at Assets/Resources/Maps/Rooms/NorthRoom.xml
+        to see how to do this for other rooms. A nice thing to do for scale when this map file might
+        get massive
+    -->
+    <Room type="IMPORTED" id="NorthRoom"/>
+    <Room type="IMPORTED" id="FarEastRoom"/>
+    <Room type="IMPORTED" id="FarWestRoom"/>
 </Rooms>

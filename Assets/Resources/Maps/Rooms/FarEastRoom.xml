@@ -1,0 +1,8 @@
+<Room
+    type="DefaultRoom"
+    id="FarEastRoom"
+    >
+    <ConnectedRooms>
+        <Room id="EastRoom" door="WestDoor"/>
+    </ConnectedRooms>
+</Room>

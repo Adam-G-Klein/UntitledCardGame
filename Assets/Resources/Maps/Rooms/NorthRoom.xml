@@ -1,0 +1,8 @@
+ <Room
+    type="DefaultRoom"
+    id="NorthRoom"
+    >
+    <ConnectedRooms>
+        <Room id="StartRoom" door="SouthDoor"/>
+    </ConnectedRooms>
+</Room>   

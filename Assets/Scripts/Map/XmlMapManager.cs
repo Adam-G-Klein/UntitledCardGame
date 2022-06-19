@@ -34,23 +34,25 @@ public class XmlMapManager : Manager, MapManager
         // pass 2: in connectRooms, get the doorNames 
 
         XmlDocument xmlDoc = new XmlDocument();
-        XmlRoomParser roomParser = new XmlRoomParser();
-        XmlDoorConnector doorConnector = new XmlDoorConnector();
         TextAsset f = Resources.Load<TextAsset>(mapFileName);
         xmlDoc.LoadXml(f.text);
         //Create a map of fresh Room objects, associate with their ids
-        roomsById = roomParser.getRoomsById(xmlDoc);
+        roomsById = XmlRoomParser.getRoomsById(xmlDoc);
         //set the id field on all the room objects
         setRoomIds(roomsById);
         printDict(roomsById);
-        doorConnector.connectRooms(xmlDoc, roomsById);
+        XmlDoorConnector.connectRooms(xmlDoc, roomsById);
         Room startRoom = roomsById[startRoomId];
         roomManager.loadScene(startRoom);
 
 
     }
     private void setRoomIds(Dictionary<string,Room> roomsById){
+        // tell the room objects what their id was declared as in the xml doc
         foreach(KeyValuePair<string,Room> kvp in roomsById){
+            if(kvp.Value == null) {
+                Debug.LogError("No room object found corresponding to id " + kvp.Key);
+            }
             kvp.Value.setId(kvp.Key);
         }
     }

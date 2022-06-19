@@ -11,7 +11,7 @@ public class XmlDoorConnector
 {
     public XmlDoorConnector(){}
 
-    public void connectRooms(XmlDocument xmlDoc, Dictionary<string, Room> roomsById){
+    public static void connectRooms(XmlDocument xmlDoc, Dictionary<string, Room> roomsById){
         string id;
         foreach(XmlElement node in xmlDoc.SelectNodes("Rooms/Room"))
         {
@@ -25,7 +25,7 @@ public class XmlDoorConnector
         }
     }
 
-    private void connectDoors(Dictionary<string,Room> roomsById, XmlNode roomsNode, string thisRoomId){
+    private static void connectDoors(Dictionary<string,Room> roomsById, XmlNode roomsNode, string thisRoomId){
         Room thisRoom = roomsById[thisRoomId];
         Room connectedRoom;
         foreach(KeyValuePair<string, Door> outgoingDoor in thisRoom.getOutgoingDoorsMapGen()){
@@ -43,11 +43,14 @@ public class XmlDoorConnector
         }
     }
 
-    private void addDoors(Dictionary<string,Room> roomsById, XmlNode roomsNode, string thisRoomId){
+    private static void addDoors(Dictionary<string,Room> roomsById, XmlElement roomsNode, string thisRoomId){
         string connectedRoomId;
         Room connectedRoom;
         Room thisRoom = roomsById[thisRoomId];
         Door thisRoomDoor;
+        if(roomsNode.GetAttribute("type") == XmlRoomParser.IMPORTED_KEYWORD) {
+            roomsNode = XmlRoomParser.getRoomElementFromFileName(roomsNode.GetAttribute("id"));
+        }
         foreach(XmlElement node in roomsNode.SelectNodes("ConnectedRooms/Room"))
         {
             connectedRoomId = node.GetAttribute("id");
