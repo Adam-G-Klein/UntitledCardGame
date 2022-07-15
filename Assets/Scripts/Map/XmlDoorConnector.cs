@@ -51,7 +51,7 @@ public class XmlDoorConnector
         if(roomsNode.GetAttribute("type") == XmlRoomParser.IMPORTED_KEYWORD) {
             roomsNode = XmlRoomParser.getRoomElementFromFileName(roomsNode.GetAttribute("id"));
         }
-        foreach(XmlElement node in roomsNode.SelectNodes("ConnectedRooms/Room"))
+        foreach(XmlElement node in roomsNode.SelectNodes("ConnectedRooms/ConnectedRoom"))
         {
             connectedRoomId = node.GetAttribute("id");
             connectedRoom = roomsById[connectedRoomId];

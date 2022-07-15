@@ -7,11 +7,10 @@ using UnityEditor;
 using System.Xml.Serialization;
 using System.Xml;
 
-public class XmlRoomParser 
+public static class XmlRoomParser 
 {
     public const string IMPORTED_KEYWORD = "IMPORTED";
     public const string ROOMS_FILE_PREFIX = "Maps/Rooms/";
-    public XmlRoomParser(){}
 
     public static Dictionary<string,Room> getRoomsById(XmlDocument xmlDoc){
         string id;

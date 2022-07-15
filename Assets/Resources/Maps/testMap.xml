@@ -15,18 +15,33 @@
             by for purposes of connecting to it -->
         <ConnectedRooms>
             <!-- The rooms that will be connected to this room -->
-            <Room id="WestRoom" door="WestDoor"/>
-            <Room id="EastRoom" door="EastDoor"/>
-            <Room id="NorthRoom" door="NorthDoor"/>
+            <ConnectedRoom id="WestRoom" door="WestDoor"/>
+            <ConnectedRoom id="EastRoom" door="EastDoor"/>
+            <ConnectedRoom id="NorthRoom" door="NorthDoor"/>
         </ConnectedRooms>
+        <!-- was workshopping this, led me to want a central ObjectRepository
+        <Encounters>
+            <Encounter id="RGB" type="DefaultEncounter">
+                <Enemy id="DefaultGreen" 
+                       type="GreenEnemy"
+                       hp=5 />
+                <Enemy id="DefaultRed" 
+                       type="RedEnemy"
+                       hp=3 />
+                <Enemy id="DefaultBlue" 
+                       type="BlueEnemy"
+                       hp=4 />
+            <Encounter/>
+        </Encounters>
+        -->
     </Room>
     <Room
         type="DefaultRoom"
         id="WestRoom"
         >
         <ConnectedRooms>
-            <Room id="StartRoom" door="EastDoor"/>
-            <Room id="FarWestRoom" door="WestDoor"/>
+            <ConnectedRoom id="StartRoom" door="EastDoor"/>
+            <ConnectedRoom id="FarWestRoom" door="WestDoor"/>
         </ConnectedRooms>
     </Room>
     <Room
@@ -34,8 +49,8 @@
         id="EastRoom"
         >
         <ConnectedRooms>
-            <Room id="StartRoom" door="WestDoor"/>
-            <Room id="FarEastRoom" door="EastDoor"/>
+            <ConnectedRoom id="StartRoom" door="WestDoor"/>
+            <ConnectedRoom id="FarEastRoom" door="EastDoor"/>
         </ConnectedRooms>
     </Room>
     <!-- 
