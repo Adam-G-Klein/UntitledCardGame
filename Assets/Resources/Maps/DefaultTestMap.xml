@@ -2,7 +2,7 @@
 - Encounters List definable and Encounters addable to rooms
 - being able to set the direction the player walks towards each connected room -->
 
-<Rooms>
+<Map>
     <!-- Room list must contain a room with id "StartRoom", 
         this is what the MapManager will start the game by loading-->
     <Room 
@@ -62,4 +62,4 @@
     <Room type="IMPORTED" id="NorthRoom"/>
     <Room type="IMPORTED" id="FarEastRoom"/>
     <Room type="IMPORTED" id="FarWestRoom"/>
-</Rooms>
+</Map>

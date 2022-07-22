@@ -7,6 +7,6 @@ using System.Collections.Generic;
 public interface MapManager 
 {
     // also needs to call roomManager.loadScene on startRoom
-    void generateMap(); 
+    Room generateMap(string mapName); 
 
 }

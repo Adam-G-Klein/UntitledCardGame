@@ -10,13 +10,14 @@ using System.Xml;
 public static class XmlRoomParser 
 {
     public const string IMPORTED_KEYWORD = "IMPORTED";
+    public const string ROOM_TAG = "Room";
     public const string ROOMS_FILE_PREFIX = "Maps/Rooms/";
 
     public static Dictionary<string,Room> getRoomsById(XmlDocument xmlDoc){
         string id;
         Room room;
         Dictionary<string,Room> newRoomsById = new Dictionary<string, Room>();
-        foreach(XmlElement node in xmlDoc.SelectNodes("Rooms/Room"))
+        foreach(XmlElement node in xmlDoc.SelectNodes(XmlMapManager.MAP_BASE_TAG + "/" + ROOM_TAG))
         {
             id = node.GetAttribute("id");
             room = getRoomWithExceptions(node);

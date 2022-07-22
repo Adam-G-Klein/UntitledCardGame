@@ -13,21 +13,27 @@ public class XmlMapManager : Manager, MapManager
     // will finish by calling the startRoom's factory method
 
 
+    public Boolean loadDefaultMap = false;
+    public static string MAP_BASE_TAG = "Map";
+    public static string DEFAULT_MAP_NAME = "DefaultTestMap";
     private Room startRoom = new StartRoom();
     private Room leftRoom = new DefaultRoom();
     private Room rightRoom = new DefaultRoom();
 
     private RoomManager roomManager;
-    private string mapFileName = "Maps/testMap";
+    private string PATH_TO_MAP = "Maps/";
     private string startRoomId = "StartRoom";
     private DeserializedMap deserializedMap;
 
     void Start(){
-        roomManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<RoomManager>();
-        generateMap();
+        if(loadDefaultMap){
+            Room startRoom = generateMap(DEFAULT_MAP_NAME);
+            roomManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<RoomManager>();
+            roomManager.loadScene(startRoom);
+        }
     }
 
-    public void generateMap(){
+    public Room generateMap(string mapName){
         //does three passes through the xml document
         // pass 1: in ObjRepository, build all of the object maps
         // pass 2: in DoorConnector.connectRooms, get the doorNames 
@@ -36,14 +42,14 @@ public class XmlMapManager : Manager, MapManager
         // see https://github.com/Adam-G-Klein/UntitledCardGame/commit/9d497eb425cfd400c95797d91e7ade4e2310c2e1#r77334961
 
         XmlDocument xmlDoc = new XmlDocument();
-        TextAsset f = Resources.Load<TextAsset>(mapFileName);
+        TextAsset f = Resources.Load<TextAsset>(PATH_TO_MAP + mapName);
+        if(!f) {
+            throw new Exception("No map by name " + mapName + ", please enter another map name");
+        }
         xmlDoc.LoadXml(f.text);
-        //Create a map of fresh Room objects, associate with their ids
         ObjectRepository.initialize(xmlDoc);
-        //set the id field on all the room objects
         XmlDoorConnector.connectRooms(xmlDoc, ObjectRepository.getRoomsById());
-        Room startRoom = ObjectRepository.getRoom(startRoomId);
-        roomManager.loadScene(startRoom);
+        return ObjectRepository.getRoom(startRoomId);
 
 
     }

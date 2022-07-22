@@ -13,12 +13,13 @@ public class XmlDoorConnector
 
     public static void connectRooms(XmlDocument xmlDoc, Dictionary<string, Room> roomsById){
         string id;
-        foreach(XmlElement node in xmlDoc.SelectNodes("Rooms/Room"))
+        string nodeSearch = XmlMapManager.MAP_BASE_TAG + "/" + XmlRoomParser.ROOM_TAG;
+        foreach(XmlElement node in xmlDoc.SelectNodes(nodeSearch))
         {
             id = node.GetAttribute("id");
             addDoors(roomsById, node, id);
         }
-        foreach(XmlElement node in xmlDoc.SelectNodes("Rooms/Room"))
+        foreach(XmlElement node in xmlDoc.SelectNodes(nodeSearch))
         {
             id = node.GetAttribute("id");
             connectDoors(roomsById, node, id);
