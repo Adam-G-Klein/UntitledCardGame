@@ -4,17 +4,21 @@ using UnityEngine;
 
 public class DefaultEncounterFactory 
 {
-    public DefaultEncounterFactory(){}
+    public DefaultEncounterFactory() { }
 
-    public void generateEncounter(DefaultEncounter encounter){
+    public void generateEncounter(DefaultEncounter encounter) {
         GameObject managersGameObject = GameObject.FindGameObjectWithTag("Managers");
         EncounterManager manager = managersGameObject.GetComponent<EncounterManager>();
         manager.setActiveEncounter(encounter);
+
         RoomManager roomManager = managersGameObject.GetComponent<RoomManager>();
         EnemyManager enemyManager = GameObject.FindGameObjectWithTag("BattleManager").GetComponent<EnemyManager>();
         Debug.Log("activeRoom at encounterGeneration: " + roomManager.getActiveRoom().getSceneString());
+
+        Player player = managersGameObject.GetComponent<PlayerManager>().getPlayer();
         generateEnemies(encounter, enemyManager);
-        generatePlayer();
+        generatePlayer(player);
+        enemyManager.setPlayer(player);
     }
 
     private void generateEnemies(DefaultEncounter encounter, EnemyManager enemyManager){
@@ -32,15 +36,10 @@ public class DefaultEncounterFactory
         enemyManager.setEnemies(enemies);
     }
 
-    private void generatePlayer()
+    private void generatePlayer(Player player)
     {
-
         PlayerInEncounterFactory playerInEncounterFactory = new PlayerInEncounterFactory();
-        playerInEncounterFactory.generatePlayer();
-
-
-
-
+        playerInEncounterFactory.generatePlayer(player);
     }
 
 }

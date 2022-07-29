@@ -1,24 +1,24 @@
-namespace global
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerData : MonoBehaviour, EntityInScene
 {
-    static class PlayerData
-    {
-        // using the same prefab for now
-        public static string encounterPrefabName = "PlayerWithHealthBar";
-        public static string roomPrefabName = "Player";
-        // some test vals
-        public static int playerHp;
-        static int _playerAtk;
+    // using the same prefab for now
+    public static string encounterPrefabName = "PlayerWithHealthBar";
+    public static string roomPrefabName = "Player";
 
+    private Player player;
 
-        static void Main(string[] args){
-            playerHp = 10;
-        }
-
-        public static int getsetcounter
-        {
-            set { _playerAtk = value; }
-            get { return _playerAtk; }
-        }
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 
+    public Player getPlayer() {
+        return player;
+    }
+
+    public Entity getEntity() {
+        return player;
+    }
 }

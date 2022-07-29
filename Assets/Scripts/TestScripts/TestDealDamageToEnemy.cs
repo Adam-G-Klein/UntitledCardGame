@@ -5,6 +5,8 @@ using GameEventBus;
 
 public class TestDealDamageToEnemy : MonoBehaviour
 {
+    public GameObject hitEffect;
+
     private EventBus eventBus;
     private bool canDealDamage = false;
 
@@ -25,10 +27,11 @@ public class TestDealDamageToEnemy : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit)){
-                Entity enemy = hit.transform.gameObject.GetComponent<EnemyData>().getEnemy();
+                Entity enemy = hit.transform.gameObject.GetComponent<EnemyInScene>().getEnemy();
                 eventBus.Publish<DamageEvent>(new DamageEvent(null, enemy, 1));
                 eventBus.Publish<EndPlayerTurnEvent>(new EndPlayerTurnEvent());
                 canDealDamage = false;
+                Instantiate(hitEffect, hit.point, Quaternion.identity);
             }
         }
     }

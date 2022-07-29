@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class PlayerInEncounterFactory 
 {
-    public PlayerInEncounterFactory(){}
-    public void generatePlayer(){
+    public PlayerInEncounterFactory() { }
+    public void generatePlayer(Player player) {
         LocationStore playerLoc = GameObject.FindGameObjectWithTag("PlayerStore").GetComponent<LocationStore>();
         PrefabStore prefabStore = GameObject.Find("PrefabStore").GetComponent<PrefabStore>();
-        Object.Instantiate(
-            prefabStore.getPrefabByName(global.PlayerData.encounterPrefabName),
+        GameObject playerGameObject = Object.Instantiate(
+            prefabStore.getPrefabByName(PlayerData.encounterPrefabName),
             playerLoc.getLoc(), 
             Quaternion.identity);
+        playerGameObject.GetComponent<PlayerData>().setPlayer(player);
     }
 
 }

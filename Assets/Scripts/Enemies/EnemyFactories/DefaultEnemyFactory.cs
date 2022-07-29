@@ -12,6 +12,6 @@ public class DefaultEnemyFactory
             prefab,
             location, 
             Quaternion.identity) as GameObject;
-        enemyGameObject.GetComponent<EnemyData>().setEnemy(enemy);
+        enemyGameObject.GetComponent<EnemyInScene>().setEnemy(enemy);
     }
 }

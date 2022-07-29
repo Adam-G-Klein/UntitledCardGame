@@ -7,6 +7,7 @@ public class EnemyManager : MonoBehaviour
 {
     private List<Enemy> enemies;
     private EventBus eventBus;
+    private Player player;
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +34,10 @@ public class EnemyManager : MonoBehaviour
 
     public void setEnemies(List<Enemy> enemies) {
         this.enemies = enemies;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 
     IEnumerator sleepThenEndEnemyTurn() {
