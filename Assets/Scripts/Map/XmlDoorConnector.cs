@@ -1,5 +1,6 @@
 using System.Collections;
 using System;
+using System.IO;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
@@ -7,11 +8,19 @@ using UnityEditor;
 using System.Xml.Serialization;
 using System.Xml;
 
-public class XmlDoorConnector
+public static class XmlDoorConnector
 {
-    public XmlDoorConnector(){}
 
-    public static void connectRooms(XmlDocument xmlDoc, Dictionary<string, Room> roomsById){
+    public static void connectRoomsInDirectory(string pathToDir, Dictionary<string, Room> roomsById){
+        string[] paths = Directory.GetFiles(pathToDir);
+        XmlDocument xmlDoc;
+        foreach(string path in paths){
+            xmlDoc = XmlParser<Room>.getXmlDocFromFilepath(path);
+            connectRoomsInXmlDocument(xmlDoc, roomsById);
+        }
+    }
+
+    public static void connectRoomsInXmlDocument(XmlDocument xmlDoc, Dictionary<string, Room> roomsById){
         string id;
         string nodeSearch = XmlMapManager.MAP_BASE_TAG + "/" + XmlRoomParser.ROOM_TAG;
         foreach(XmlElement node in xmlDoc.SelectNodes(nodeSearch))
@@ -44,15 +53,12 @@ public class XmlDoorConnector
         }
     }
 
-    private static void addDoors(Dictionary<string,Room> roomsById, XmlElement roomsNode, string thisRoomId){
+    private static void addDoors(Dictionary<string,Room> roomsById, XmlElement roomNode, string thisRoomId){
         string connectedRoomId;
         Room connectedRoom;
         Room thisRoom = roomsById[thisRoomId];
         Door thisRoomDoor;
-        if(roomsNode.GetAttribute("type") == XmlRoomParser.IMPORTED_KEYWORD) {
-            roomsNode = XmlRoomParser.getRoomElementFromFileName(roomsNode.GetAttribute("id"));
-        }
-        foreach(XmlElement node in roomsNode.SelectNodes("ConnectedRooms/ConnectedRoom"))
+        foreach(XmlElement node in roomNode.SelectNodes("ConnectedRooms/ConnectedRoom"))
         {
             connectedRoomId = node.GetAttribute("id");
             connectedRoom = roomsById[connectedRoomId];

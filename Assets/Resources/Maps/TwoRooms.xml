@@ -1,0 +1,11 @@
+<Map>
+    <Room 
+        type="StartRoom"
+        id="StartRoom"
+        >
+        <ConnectedRooms>
+            <ConnectedRoom id="NorthRoom" door="NorthDoor"/>
+        </ConnectedRooms>
+    </Room>
+    <Room id="NorthRoom"/>
+</Map>

@@ -47,8 +47,7 @@ public class XmlMapManager : Manager, MapManager
             throw new Exception("No map by name " + mapName + ", please enter another map name");
         }
         xmlDoc.LoadXml(f.text);
-        ObjectRepository.initialize(xmlDoc);
-        XmlDoorConnector.connectRooms(xmlDoc, ObjectRepository.getRoomsById());
+        ObjectRepository.initializeForMap(xmlDoc);
         return ObjectRepository.getRoom(startRoomId);
 
 

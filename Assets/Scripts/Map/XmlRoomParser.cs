@@ -11,7 +11,9 @@ public static class XmlRoomParser
 {
     public const string IMPORTED_KEYWORD = "IMPORTED";
     public const string ROOM_TAG = "Room";
-    public const string ROOMS_FILE_PREFIX = "Maps/Rooms/";
+    public const string ROOMS_PATH  = "Maps/Rooms/";
+    public const string ENCOUNTERS_PATH = "Maps/Encounters/";
+    public const string ENEMIES_PATH = "Maps/Enemies/";
 
     public static Dictionary<string,Room> getRoomsById(XmlDocument xmlDoc){
         string id;
@@ -38,7 +40,7 @@ public static class XmlRoomParser
 
     public static XmlElement getRoomElementFromFileName(string filename){
         XmlDocument xmlDoc = new XmlDocument();
-        TextAsset f = Resources.Load<TextAsset>(ROOMS_FILE_PREFIX + filename);
+        TextAsset f = Resources.Load<TextAsset>(ROOMS_PATH + filename);
         xmlDoc.LoadXml(f.text);
         XmlElement roomElement = xmlDoc.DocumentElement;
         Debug.Log("Found element with id " + roomElement.GetAttribute("id") + " from file");

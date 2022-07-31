@@ -7,6 +7,7 @@ public class DefaultEnemy : Enemy
     int health = 5;
     int maxHealth = 5;
     string prefabName = "DefaultEnemy";
+    string id;
 
     public virtual string getPrefabName(){
         return prefabName;
@@ -32,5 +33,13 @@ public class DefaultEnemy : Enemy
     {
         health = health + x;
         return health;
+    }
+
+    public void setId(string id){
+        this.id = id;
+    }
+
+    public string getId(){
+        return id;
     }
 }

@@ -2,10 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface Room : GameScene
+public interface Room : GameScene, MapObject
 {
-    string getId();
-    void setId(string id);
     RoomType getRoomType();
     List<Encounter> getEncounters();
 

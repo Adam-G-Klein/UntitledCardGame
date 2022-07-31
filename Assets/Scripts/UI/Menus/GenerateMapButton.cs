@@ -34,13 +34,13 @@ public class GenerateMapButton : MonoBehaviour
     }
 
     public void clicked(){
-        Debug.Log("button clicked!");
         Room startRoom;
         try {
             startRoom = mapManager.generateMap(inputField.text);
             roomManager.loadScene(startRoom);
         } catch (Exception e) {
             textOutputField.text = e.Message;
+            Debug.LogError(e.Message + "\n" + e.StackTrace);
         }
     }
 
