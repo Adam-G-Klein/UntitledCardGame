@@ -12,7 +12,7 @@ public class EnemyManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        eventBus = gameObject.GetComponent<BattleManager>().getEventBus();
+        eventBus = gameObject.GetComponent<TurnManager>().getEventBus();
         eventBus.Subscribe<DamageEvent>(onDamageEvent);
         eventBus.Subscribe<StartEnemyTurnEvent>(onStartEnemyTurnEvent);
     }

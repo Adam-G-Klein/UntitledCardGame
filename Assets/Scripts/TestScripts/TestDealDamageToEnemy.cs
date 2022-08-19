@@ -14,7 +14,7 @@ public class TestDealDamageToEnemy : MonoBehaviour
     void Start()
     {
         eventBus = GameObject.FindGameObjectWithTag("BattleManager")
-            .GetComponent<BattleManager>()
+            .GetComponent<TurnManager>()
             .getEventBus();
         eventBus.Subscribe<TestAttackingEvent>(onTestAttackingEvent);
         eventBus.Subscribe<TestStopAttackingEvent>(onTestStopAttackingEvent);

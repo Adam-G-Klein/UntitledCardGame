@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Player : Entity
 {
-    int maxHealth = 10;
-    int health = 10;
+    private int maxHealth = 10;
+    private int health = 10;
 
     public int getHealth()
     {

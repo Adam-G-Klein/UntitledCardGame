@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class DefaultEnemyFactory
 {
-    public void generateEnemy(DefaultEnemy enemy, GameObject prefab, Vector2 location)
-    {
+    public void generateEnemy(
+            DefaultEnemy enemy, 
+            GameObject prefab, 
+            Vector2 location) {
         GameObject enemyGameObject;
 
         enemyGameObject = Object.Instantiate(

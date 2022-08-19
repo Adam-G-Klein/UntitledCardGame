@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using GameEventBus;
 using UnityEngine;
 
-public enum BattleState { 
+public enum TurnState { 
     Start,
     PlayerTurn,
     PlayerTurnEnd,
@@ -13,10 +13,10 @@ public enum BattleState {
     Lost 
 }
 
-public class BattleManager : MonoBehaviour
+public class TurnManager : MonoBehaviour
 {
     private EventBus eventBus = new EventBus();
-    private BattleState battleState = BattleState.Start;
+    private TurnState turnState = TurnState.Start;
 
     public void Start() {
         eventBus.Subscribe<StartPlayerTurnEvent>(onStartPlayerTurnEvent);
@@ -25,14 +25,14 @@ public class BattleManager : MonoBehaviour
         eventBus.Subscribe<EndEnemyTurnEvent>(onEndEnemyTurnEvent);
         
         eventBus.Publish<StartPlayerTurnEvent>(new StartPlayerTurnEvent());
-        battleState = BattleState.PlayerTurn;
+        turnState = TurnState.PlayerTurn;
     }
 
     private void onEndPlayerTurnEvent(EndPlayerTurnEvent endPlayerTurnEvent) {
-        if (battleState != BattleState.PlayerTurn) {
+        if (turnState != TurnState.PlayerTurn) {
             Debug.LogError("Can't end player turn while not in player turn");
         }
-        battleState = BattleState.PlayerTurnEnd;
+        turnState = TurnState.PlayerTurnEnd;
         StartCoroutine(WaitForPlayerTurnEnd());
     }
 
@@ -42,17 +42,17 @@ public class BattleManager : MonoBehaviour
     }
 
     private void onStartPlayerTurnEvent(StartPlayerTurnEvent startPlayerTurnEvent) {
-        if (battleState != BattleState.EnemyTurnEnd && battleState != BattleState.Start) {
+        if (turnState != TurnState.EnemyTurnEnd && turnState != TurnState.Start) {
             Debug.LogError("Can't start player turn while not in enemy end turn");
         }
-        battleState = BattleState.PlayerTurn;
+        turnState = TurnState.PlayerTurn;
     } 
 
     private void onEndEnemyTurnEvent(EndEnemyTurnEvent endEnemyTurnEvent) {
-        if (battleState != BattleState.EnemyTurn) {
+        if (turnState != TurnState.EnemyTurn) {
             Debug.LogError("Can't end enemy turn while not in enemy turn");
         }
-        battleState = BattleState.EnemyTurnEnd;
+        turnState = TurnState.EnemyTurnEnd;
         StartCoroutine(WaitForEnemyTurnEnd());
     }
 
@@ -62,17 +62,17 @@ public class BattleManager : MonoBehaviour
     }
 
     private void onStartEnemyTurnEvent(StartEnemyTurnEvent startEnemyTurnEvent) {
-        if (battleState != BattleState.PlayerTurnEnd) {
+        if (turnState != TurnState.PlayerTurnEnd) {
             Debug.LogError("Can't start enemy turn while not in player end turn");
         }
-        battleState = BattleState.EnemyTurn;
+        turnState = TurnState.EnemyTurn;
     } 
 
     public EventBus getEventBus() {
         return eventBus;
     }
 
-    public BattleState getBattleState() {
-        return battleState;
+    public TurnState getBattleState() {
+        return turnState;
     }
 }

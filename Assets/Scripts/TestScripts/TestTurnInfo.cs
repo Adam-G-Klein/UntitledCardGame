@@ -6,7 +6,7 @@ using TMPro;
 
 public class TestTurnInfo : MonoBehaviour
 {
-    private BattleManager battleManager;
+    private TurnManager battleManager;
     private TextMeshProUGUI text;
     private bool updateNormally = true;
 
@@ -14,7 +14,7 @@ public class TestTurnInfo : MonoBehaviour
     void Start()
     {
         battleManager = GameObject.FindGameObjectWithTag("BattleManager")
-            .GetComponent<BattleManager>();
+            .GetComponent<TurnManager>();
         battleManager.getEventBus().Subscribe<TestAttackingEvent>(onTestAttackingEvent);
         battleManager.getEventBus().Subscribe<TestStopAttackingEvent>(onTestStopAttackingEvent);
         battleManager.getEventBus().Subscribe<DamageEvent>(onDamageEvent);

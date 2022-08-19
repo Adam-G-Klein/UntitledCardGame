@@ -20,7 +20,7 @@ public class TestAttckButton : MonoBehaviour
     void Start()
     {
         eventBus = GameObject.FindGameObjectWithTag("BattleManager")
-            .GetComponent<BattleManager>()
+            .GetComponent<TurnManager>()
             .getEventBus();
         eventBus.Subscribe<StartPlayerTurnEvent>(onStartPlayerTurnEvent);
         eventBus.Subscribe<EndPlayerTurnEvent>(onEndPlayerTurnEvent);
