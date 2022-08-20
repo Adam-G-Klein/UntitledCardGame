@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Draw Effect")]
 public class CardEffect_Draw: CardEffect
 {
     public int Scale = 1;
@@ -10,6 +9,6 @@ public class CardEffect_Draw: CardEffect
     {
         //TODO
         //call effect manager to draw Scale amount of cards
-        Debug.Log("DRAWING " + Scale + " CARDS");
+        Debug.Log("DRAWING " + Scale + " CARDS"); 
     }
 }
