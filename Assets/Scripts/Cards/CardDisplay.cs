@@ -4,6 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+//Won't execute in prefab edit mode, 
+// apparently there's some weird logic there
+// we'd have to account for
+[ExecuteInEditMode]
 public class CardDisplay : MonoBehaviour
 {
     public CardInfo cardInfo;
@@ -11,29 +15,21 @@ public class CardDisplay : MonoBehaviour
     public TMP_Text CardName;
     public TMP_Text CardDesc;
     public Image Artwork;
+    private Camera mainCamera;
 
     // Start is called before the first frame update
-    void Start()
+    void Update()
     {
+        runInEditMode = true;
         CardName.text = cardInfo.Name;
         CardDesc.text = cardInfo.Description;
         Artwork.sprite = cardInfo.Artwork;
     }
 
-    // TODO
-    // move this to a cardEffect Manager 
-    private void Update()
+    void Awake()
     {
-        // left click to Cast this card
-        if (Input.GetMouseButtonDown(0))
-        {
-            cardInfo.Cast();
-        }
+        mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+
     }
 
-
-    private void Awake()
-    {
-        DontDestroyOnLoad(gameObject);
-    }
 }

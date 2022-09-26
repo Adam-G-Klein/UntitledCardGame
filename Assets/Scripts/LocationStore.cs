@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+
+[ExecuteInEditMode]
 public class LocationStore : MonoBehaviour
 {
     //nest list for use in enemy placement
     private Dictionary<int, List<Vector2>> locDict2D = new Dictionary<int, List<Vector2>>();
     private Dictionary<int, Vector2> locDict1D = new Dictionary<int, Vector2>();
+    private bool dictsPopulated = false;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         //function populates the locDicts as a side-effect
         populateLocDicts();
@@ -18,11 +21,13 @@ public class LocationStore : MonoBehaviour
         // printDict(locDict);
     }
 
-    public List<Vector2> getLocs(int enemyCount){
-        return locDict2D[enemyCount];
+    public List<Vector2> getLocs(int baseIndex){
+        if(!dictsPopulated) populateLocDicts();
+        return locDict2D[baseIndex];
     }
 
     public Vector2 getLoc(int key = 0){
+        if(!dictsPopulated) populateLocDicts();
         return locDict1D[key];
     }
 
@@ -45,6 +50,7 @@ public class LocationStore : MonoBehaviour
             locDict2D.Add(childKey, getChildLocs(child));
             locDict1D.Add(childKey, child.position);
         }
+        dictsPopulated = true;
     }
 
     List<Vector2> getChildLocs(Transform parent){

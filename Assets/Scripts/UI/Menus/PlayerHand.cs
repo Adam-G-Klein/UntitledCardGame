@@ -1,0 +1,42 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+
+[ExecuteInEditMode]
+public class PlayerHand : MonoBehaviour
+{
+    public List<PlayableCard> cardsInHand;
+    //Temporary method of placing cards until we 
+    // wanna do math and have a hover-enlarge effect implemented
+    private LocationStore cardLocStore; 
+
+    [Header("Values For PrototypeUI Card Placement")]
+    [SerializeField]
+    private int cardYCoord = -200;
+    [SerializeField]
+    private int startXCoord = -700;
+    [SerializeField]
+    private int cardSpacing = 20;
+
+    void Awake() {
+        cardLocStore = GameObject.FindGameObjectWithTag("CardLocationStore").GetComponent<LocationStore>();
+
+    }
+
+    //TODO: only do this when cardsInHand changes
+    void Update() {
+        displayCards();
+
+    }
+
+    private void displayCards(){
+        float xLoc = startXCoord;
+        for(int i = 0; i < cardsInHand.Count; i++) {
+            cardsInHand[i].transform.localPosition = new Vector2(xLoc, cardYCoord);
+            xLoc += cardSpacing;
+        }
+
+    }
+}

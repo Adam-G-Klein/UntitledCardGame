@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 [CreateAssetMenu(
     fileName ="Card",
@@ -11,13 +12,14 @@ public class CardInfo : ScriptableObject
     public string Description;
     public int Cost;
     public Sprite Artwork;
-    public List<CardEffect> Effects;
+    public List<CardEffectData> EffectsList;
+    public string id = Id.newGuid();
 
     //called when cast to trigger series of effects on this card
-    public void Cast() {
+    public void Cast(CardCastArguments args) {
         Debug.Log("Casting " + Name + "!");
-        foreach (var Eff in Effects) {
-            Eff.Execute();
+        for(int i = 0; i < EffectsList.Count; i++) {
+            CardExecutor.executeCard(EffectsList[i], args);
         }
     }
 }
