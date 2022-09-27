@@ -4,6 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+public class CardDealtEventInfo {
+    public List<CardInfo> cards;
+
+    public CardDealtEventInfo(List<CardInfo> cards){
+        this.cards = cards;
+    }
+}
+
 [ExecuteInEditMode]
 public class PlayerHand : MonoBehaviour
 {
@@ -11,6 +19,9 @@ public class PlayerHand : MonoBehaviour
     //Temporary method of placing cards until we 
     // wanna do math and have a hover-enlarge effect implemented
     private LocationStore cardLocStore; 
+
+    [SerializeField]
+    private GameObject cardPrefab;
 
     [Header("Values For PrototypeUI Card Placement")]
     [SerializeField]
@@ -26,9 +37,20 @@ public class PlayerHand : MonoBehaviour
     }
 
     //TODO: only do this when cardsInHand changes
+    // Cards currently delete themselves from the list and destroy themselves
+    // will change when we have an event bus
     void Update() {
         displayCards();
 
+    }
+
+    public void cardDealtEventHandler(CardDealtEventInfo info){
+        PlayableCard newCard;
+        foreach(CardInfo cardInfo in info.cards) {
+            newCard = PrefabInstantiator.instantiateCard(cardPrefab, transform, cardInfo);
+            cardsInHand.Add(newCard);
+        }
+        displayCards();
     }
 
     private void displayCards(){
@@ -37,6 +59,5 @@ public class PlayerHand : MonoBehaviour
             cardsInHand[i].transform.localPosition = new Vector2(xLoc, cardYCoord);
             xLoc += cardSpacing;
         }
-
     }
 }

@@ -74,4 +74,10 @@ public class PlayableCard : MonoBehaviour
     }
     */
 
+    // Used when instantiating the card after Start has run
+    // See PrefabInstantiator
+    public void setCardInfo(CardInfo card){
+        this.cardInfo = card;
+    }
+
 }

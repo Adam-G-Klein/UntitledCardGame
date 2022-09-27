@@ -29,7 +29,6 @@ public class CardDisplay : MonoBehaviour
     void Awake()
     {
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
-
     }
 
 }

@@ -4,7 +4,10 @@ using UnityEngine;
 using System;
 
 [System.Serializable]
-public class Companion
+[CreateAssetMenu(
+    fileName = "Companion",
+    menuName = "Companions/TestCompanion")]
+public class Companion: ScriptableObject
 {
     public CompanionType companionType;
     public int currentHealth;
