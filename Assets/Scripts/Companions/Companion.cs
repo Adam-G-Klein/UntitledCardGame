@@ -3,11 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-[System.Serializable]
-[CreateAssetMenu(
-    fileName = "Companion",
-    menuName = "Companions/TestCompanion")]
-public class Companion: ScriptableObject
+[Serializable]
+public class Companion
 {
     public CompanionType companionType;
     public int currentHealth;
@@ -16,6 +13,7 @@ public class Companion: ScriptableObject
 
     public Companion(CompanionType companionType) 
     {
+        this.companionType = companionType;
         this.currentHealth = companionType.maxHealth;
         this.deck = new Deck(companionType.startingDeck);
     }

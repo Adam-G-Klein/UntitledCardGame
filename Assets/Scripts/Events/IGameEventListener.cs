@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IGameEventListener
+public interface IGameEventListener<T>
 {
-    void OnEventRaised();
+    void OnEventRaised(T item);
 }

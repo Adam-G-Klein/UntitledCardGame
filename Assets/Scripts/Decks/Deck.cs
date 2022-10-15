@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(
-    fileName = "Deck",
-    menuName = "Decks/TestDeck")]
-public class Deck: ScriptableObject
+
+[System.Serializable]
+public class Deck
 {
     public StartingDeck startingDeck;
     public List<CardInfo> cards;
