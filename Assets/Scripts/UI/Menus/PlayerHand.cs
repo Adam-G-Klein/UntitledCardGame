@@ -4,13 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class CardDealtEventInfo {
-    public List<CardInfo> cards;
-
-    public CardDealtEventInfo(List<CardInfo> cards){
-        this.cards = cards;
-    }
-}
 
 [ExecuteInEditMode]
 public class PlayerHand : MonoBehaviour
