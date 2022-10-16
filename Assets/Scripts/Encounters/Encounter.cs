@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class Encounter
 {
-    public EncounterType encounterType;
+    public EncounterTypeSO encounterType;
     public bool completed;
 
     public void Build() 

@@ -5,6 +5,6 @@ using UnityEngine;
 [System.Serializable]
 public class EnemyInEncounter
 {
-    public EnemyType enemy;
+    public EnemyTypeSO enemy;
     public Vector2 location;
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyInstance : MonoBehaviour {
     public int currentHealth;
-    public EnemyType enemyType;
+    public EnemyTypeSO enemyType;
     [Space(5)]
     public SpriteRenderer spriteRenderer;
     

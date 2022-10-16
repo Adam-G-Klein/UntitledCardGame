@@ -8,6 +8,6 @@ using TMPro;
 
 
 public class CardDealtEventListener : 
-    BaseGameEventListener<CardDealtEventInfo, BaseGameEvent<CardDealtEventInfo>, UnityEvent<CardDealtEventInfo>>
+    BaseGameEventListener<CardsDealtEventInfo, BaseGameEvent<CardsDealtEventInfo>, UnityEvent<CardsDealtEventInfo>>
 {
 }

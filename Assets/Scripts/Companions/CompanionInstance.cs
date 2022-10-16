@@ -50,7 +50,7 @@ public class CompanionInstance : MonoBehaviour
         }
         //TODO remove this reference, 
         //publish events to bus instead of calling directly
-        hand.cardDealtEventHandler(new CardDealtEventInfo(returnList));
+        hand.cardDealtEventHandler(new CardsDealtEventInfo(returnList));
 
 
 

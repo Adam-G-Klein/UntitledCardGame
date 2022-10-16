@@ -37,8 +37,9 @@ public class PlayerHand : MonoBehaviour
 
     }
 
-    public void cardDealtEventHandler(CardDealtEventInfo info){
+    public void cardDealtEventHandler(CardsDealtEventInfo info){
         PlayableCard newCard;
+        Debug.Log("Handling card dealt event");
         foreach(CardInfo cardInfo in info.cards) {
             newCard = PrefabInstantiator.instantiateCard(cardPrefab, transform, cardInfo);
             cardsInHand.Add(newCard);

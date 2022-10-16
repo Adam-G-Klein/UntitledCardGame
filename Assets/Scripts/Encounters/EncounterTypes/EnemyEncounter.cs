@@ -5,11 +5,12 @@ using UnityEngine;
 [CreateAssetMenu(
     fileName = "EnemyEncounter", 
     menuName = "Encounters/Encounter Type/Enemy Encounter")]
-public class EnemyEncounter : EncounterType
+public class EnemyEncounter : EncounterTypeSO
 {
     [Header("Enemies")]
     public List<EnemyInEncounter> enemyList;
     public GameObject enemyPrefab;
+    
     [Header("Companions")]
     public CompanionListVariable activeCompanions;
     public List<CompanionLocations> companionLocationsList;

@@ -3,4 +3,4 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class IntListener : BaseGameEventListener<int, BaseGameEvent<int>, UnityEvent<int>> {}
+public class IntGameEventListener : BaseGameEventListener<int, BaseGameEvent<int>, UnityEvent<int>> {}

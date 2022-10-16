@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(
     fileName = "CompanionType", 
     menuName = "Companions/Companion Type")]
-public class CompanionType : ScriptableObject
+public class CompanionTypeSO : ScriptableObject
 {
     public string companionName;
     public Sprite sprite;

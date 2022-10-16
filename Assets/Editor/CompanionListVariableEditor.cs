@@ -5,7 +5,7 @@ using UnityEditor;
 
 [CustomEditor(typeof(CompanionListVariable))]
 public class CompanionListVariableEditor : Editor {
-    private CompanionType companionType = null;
+    private CompanionTypeSO companionType = null;
 
     public override void OnInspectorGUI() {
         CompanionListVariable companionListVariable = (CompanionListVariable) target;
@@ -16,10 +16,9 @@ public class CompanionListVariableEditor : Editor {
         EditorGUILayout.Space(5);
 
         companionType = EditorGUILayout.ObjectField(
-            "", 
             companionType,
-            typeof(CompanionType),
-            false) as CompanionType;
+            typeof(CompanionTypeSO),
+            false) as CompanionTypeSO;
         
         if (GUILayout.Button("Add Companion")) {
             if (companionType != null)

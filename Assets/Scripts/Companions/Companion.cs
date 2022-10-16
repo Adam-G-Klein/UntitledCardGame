@@ -6,15 +6,16 @@ using System;
 [Serializable]
 public class Companion
 {
-    public CompanionType companionType;
+    public CompanionTypeSO companionType;
     public int currentHealth;
     public Deck deck;
     public string id = Id.newGuid();
 
-    public Companion(CompanionType companionType) 
+    public Companion(CompanionTypeSO companionType) 
     {
         this.companionType = companionType;
         this.currentHealth = companionType.maxHealth;
         this.deck = new Deck(companionType.startingDeck);
+        Debug.Log(JsonUtility.ToJson(this));
     }
 }
