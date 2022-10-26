@@ -13,4 +13,4 @@ public class CardsDealtEventInfo {
 [CreateAssetMenu(
     fileName = "CardDealtEvent", 
     menuName = "Events/Game Event/Cards Dealt Event")]
-public class CardsDealtGameEvent : BaseGameEvent<CardsDealtEventInfo> { }
+public class CardsDealtEvent : BaseGameEvent<CardsDealtEventInfo> { }

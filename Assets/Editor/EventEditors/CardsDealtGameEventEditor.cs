@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(CardsDealtGameEvent))]
+[CustomEditor(typeof(CardsDealtEvent))]
 public class CardsDealtGameEventEditor : Editor
 {
     CardInfo cardInfo = null;
 
     public override void OnInspectorGUI() {
-        CardsDealtGameEvent cardsDealtEvent = (CardsDealtGameEvent) target;
+        CardsDealtEvent cardsDealtEvent = (CardsDealtEvent) target;
         DrawDefaultInspector();
 
         cardInfo = EditorGUILayout.ObjectField(
@@ -18,9 +18,11 @@ public class CardsDealtGameEventEditor : Editor
             false) as CardInfo;
         
         if (GUILayout.Button("Test Raise Event")) {
-            cardsDealtEvent.Raise(new CardsDealtEventInfo(
-                new List<CardInfo>() { cardInfo }
-            ));
+            if(cardInfo != null) {
+                cardsDealtEvent.Raise(new CardsDealtEventInfo(
+                    new List<CardInfo>() { cardInfo }
+                ));
+            }
         }
     }
 }

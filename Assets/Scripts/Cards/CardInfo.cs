@@ -19,7 +19,7 @@ public class CardInfo : ScriptableObject
     public void Cast(CardCastArguments args) {
         Debug.Log("Casting " + Name + "!");
         for(int i = 0; i < EffectsList.Count; i++) {
-            CardExecutor.executeCard(EffectsList[i], args);
+            CardEffectExecutor.executeCard(EffectsList[i], args);
         }
     }
 }

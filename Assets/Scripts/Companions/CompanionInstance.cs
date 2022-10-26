@@ -10,50 +10,58 @@ public class DealCardEventInfo {
         this.scale = scale;
         this.target = target;
     }
-
-
 }
 public class CompanionInstance : MonoBehaviour
 {
     public Companion companion;
     [Space(10)]
     public SpriteRenderer spriteRenderer;
-    //TODO remove this reference, 
-    //publish events to bus instead of calling directly
-    private PlayerHand hand;
+    [SerializeField]
+    private CardsDealtEvent cardsDealtEvent;
+
 
     void Start()
     {
         this.spriteRenderer.sprite = companion.companionType.sprite;
-        //TODO remove this reference, 
-        //publish events to bus instead of calling directly
-        hand = GameObject.Find("PlayerHand").GetComponent<PlayerHand>();
     }
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.D)){
-            companionDealEventHandler(new DealCardEventInfo(Random.Range(0,3), companion.id));
-        }
     }
 
 
     public void companionDealEventHandler(DealCardEventInfo info){
         if(!info.target.Equals(companion.id)) return;
+        List<CardInfo> cards = getCardsFromDeck(info.scale);
+        cardsDealtEvent.Raise(new CardsDealtEventInfo(cards));
+    }
+
+    public List<CardInfo> getCardsFromDeck(int numCards){
         List<CardInfo> returnList = new List<CardInfo>();
         CardInfo card;
         List<CardInfo> deckCards = companion.deck.cards;
-        for(int i = 0; i < info.scale; i++){
+        for(int i = 0; i < numCards; i++){
             //Drawing with replacement for now
             card = deckCards[Random.Range(0,deckCards.Count)];
             returnList.Add(card);
         }
-        //TODO remove this reference, 
-        //publish events to bus instead of calling directly
-        hand.cardDealtEventHandler(new CardsDealtEventInfo(returnList));
-
-
-
-
+        return returnList;
     }
+
+    public void cardEffectEventHandler(CardEffectEventInfo info){
+        if(!info.targets.Contains(companion.id)) return;
+        switch(info.effectName) {
+            case CardEffectName.Draw:
+                List<CardInfo> cards = getCardsFromDeck(info.scale);
+                cardsDealtEvent.Raise(new CardsDealtEventInfo(cards));
+                break;
+            case CardEffectName.Damage:
+                companion.currentHealth -= info.scale;
+                break;
+            case CardEffectName.Buff:
+                companion.currentAttackDamage += info.scale; 
+                break;
+        }
+    }
+    
 }

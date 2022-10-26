@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerData : MonoBehaviour, EntityInScene
+public class PlayerData : MonoBehaviour 
 {
     // using the same prefab for now
     public static string encounterPrefabName = "PlayerWithHealthBar";

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class CardExecutor {
+public static class CardEffectExecutor {
     public static void executeCard(CardEffectData card, CardCastArguments args) {
         switch(card.effectName) {
             case CardEffectName.Draw:

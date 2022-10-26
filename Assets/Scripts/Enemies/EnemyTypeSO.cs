@@ -8,6 +8,7 @@ using UnityEngine;
 public class EnemyTypeSO : ScriptableObject
 {
     public int maxHealth;
+    public int baseAttackDamage;
     [Space]
     public Sprite sprite;
 }

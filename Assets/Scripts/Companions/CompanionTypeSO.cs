@@ -11,4 +11,5 @@ public class CompanionTypeSO : ScriptableObject
     public Sprite sprite;
     public int maxHealth;
     public StartingDeck startingDeck;
+    public int baseAttackDamage;
 }

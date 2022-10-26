@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+// TODO: have a discussion about Entity, I think it 
+// may still be useful for UI stuff like this health bar
 public class EntityHealthBar : MonoBehaviour
 {
     public Slider slider;
@@ -32,12 +34,11 @@ public class EntityHealthBar : MonoBehaviour
         // this needs to go in update instead of start since the entity
         // field of the data store might not be set yet when start is ran
         if (entity == null) {
-            EntityInScene entityInScene = GetComponentInParent<EntityInScene>();
-            if (entityInScene == null) {
+            entity = GetComponentInParent<Entity>();
+            if (entity == null) {
                 Debug.LogError("Cannot find entity data in parent game object");
                 return;
             }
-            entity = entityInScene.getEntity();
         }
     }
 }
