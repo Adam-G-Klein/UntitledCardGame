@@ -11,12 +11,18 @@ public class EnemyInstance : MonoBehaviour, Entity {
     [Space(5)]
     public SpriteRenderer spriteRenderer;
     public string id = Id.newGuid();
+    [SerializeField]
+    private EnemyInstantiatedEvent enemyInstantiatedEvent;
     
     // Start is called before the first frame update
     void Start() {
         this.currentHealth = enemyType.maxHealth;
         this.baseAttackDamage = enemyType.baseAttackDamage;
         this.spriteRenderer.sprite = enemyType.sprite;
+    }
+
+    void Awake() {
+        enemyInstantiatedEvent.Raise(new EnemyInstantiatedEventInfo(this));
     }
 
     public void cardEffectEventHandler(CardEffectEventInfo item){

@@ -18,11 +18,19 @@ public class CompanionInstance : MonoBehaviour
     public SpriteRenderer spriteRenderer;
     [SerializeField]
     private CardsDealtEvent cardsDealtEvent;
+    [SerializeField]
+    private CompanionInstantiatedEvent companionInstantiatedEvent;
 
 
     void Start()
     {
         this.spriteRenderer.sprite = companion.companionType.sprite;
+        // Tried doing this in Awake, but it looks like the fields of companion
+        // hadn't been initialized by then
+        companionInstantiatedEvent.Raise(new CompanionInstantiatedEventInfo(companion));
+    }
+
+    void Awake() {
     }
 
     void Update()

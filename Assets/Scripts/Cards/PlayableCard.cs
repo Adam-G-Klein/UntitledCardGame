@@ -27,6 +27,8 @@ public class PlayableCard : MonoBehaviour
     private CardInfo cardInfo;
     //TODO remove this reference, only here for testing purposes
     private PlayerHand hand; 
+    private EnemyManager enemyManager;
+    private CompanionManager companionManager;
 
     // Start is called before the first frame update
     void Start()
@@ -34,11 +36,17 @@ public class PlayableCard : MonoBehaviour
         cardInfo = GetComponent<CardDisplay>().cardInfo;
         //TODO remove this reference, only here for testing purposes
         hand = GameObject.Find("PlayerHand").GetComponent<PlayerHand>();
+        GameObject enemyManagerGO = GameObject.Find("EnemyManager");
+        GameObject companionManagerGO = GameObject.Find("CompanionManager");
+        // My attempt at null safing. We should def talk about how we want to 
+        // do this generally because it'll happen a lot with the modular scenes
+        if(enemyManagerGO) enemyManager = enemyManagerGO.GetComponent<EnemyManager>();
+        if(companionManagerGO) companionManager = companionManagerGO.GetComponent<CompanionManager>();
     }
 
     public void OnPointerClick(PointerEventData eventData) 
     {
-        CardCastArguments args = new CardCastArguments(Random.Range(0,10));
+        CardCastArguments args = new CardCastArguments(getCastTargets());
         cardInfo.Cast(args);
         //TODO do this as a part of the PlayerHand script handling the cast event
         //Can also consider removing based on cardinfo.id
@@ -47,6 +55,32 @@ public class PlayableCard : MonoBehaviour
         // meaning that destroying the onscreen prefab should be a part of the casting process
         Destroy(gameObject); 
     }
+
+
+    private List<string> getCastTargets(){
+        // Basically a stubbed function for now.
+        // I think actual targeting is going to involve a state
+        // machine in the event bus run by the UI, saying that the next click
+        // is to target something for the given card, checking that each click is a valid target
+        // before posting the cardWithTarget event, waiting for confirmation of target, and then
+        // actually getting to this part where we have a card we're casting with its targets
+        if(cardInfo.EffectsList[0].effectName == CardEffectName.Damage
+            && enemyManager){
+            return new List<string> { enemyManager.getRandomEnemyId() };
+        }
+        if(cardInfo.EffectsList[0].effectName == CardEffectName.Draw
+            || cardInfo.EffectsList[0].effectName == CardEffectName.Buff
+            && companionManager){
+            return new List<string> { companionManager.getRandomCompanionId() };
+        }
+        else{
+            return new List<string>();
+        }
+
+    }
+
+    // Keeping these here for reference as they will almost certainly
+    // be needed for UI effects in the future
     public void OnDrag(PointerEventData eventData)
     {
         print("I'm being dragged!");
@@ -62,17 +96,7 @@ public class PlayableCard : MonoBehaviour
         // print("pointer exit!");
     }
 
-    /*
-    private void Update()
-    {
-        // left click to Cast this card
-        if (Input.GetMouseButtonDown(0))
-        {
-            CardCastArguments args = new CardCastArguments(Random.Range(0,10));
-            cardInfo.Cast(args);
-        }
-    }
-    */
+    
 
     // Used when instantiating the card after Start has run
     // See PrefabInstantiator
