@@ -2,21 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(
-    fileName = "EnemyEncounter", 
-    menuName = "Encounters/Encounter Type/Enemy Encounter")]
-public class EnemyEncounter : EncounterTypeSO
+[System.Serializable]
+public class EnemyEncounter : Encounter
 {
     [Header("Enemies")]
-    public List<EnemyInEncounter> enemyList;
+    public List<Enemy> enemyList;
+    public List<Vector2> enemyLocations;
     public GameObject enemyPrefab;
     
     [Header("Companions")]
     public CompanionListVariable activeCompanions;
-    public List<CompanionLocations> companionLocationsList;
+    public List<Vector2> companionLocations;
     public GameObject companionPrefab;
 
-    public override void Build()
+    public override void build()
     {
         setupEnemies();
         setupCompanions();
@@ -25,40 +24,34 @@ public class EnemyEncounter : EncounterTypeSO
     private void setupEnemies()
     {
         GameObject instantiatedEnemy;
+        if (enemyList.Count > enemyLocations.Count) {
+            Debug.LogError("The enemy locations list does not contain enough locations");
+            return;
+        }
 
         for(int i = 0; i < enemyList.Count; i++)
         {
-            instantiatedEnemy = Instantiate(
+            instantiatedEnemy = GameObject.Instantiate(
                 enemyPrefab, 
-                enemyList[i].location,
+                enemyLocations[i],
                 Quaternion.identity);
-            instantiatedEnemy.GetComponent<EnemyInstance>().enemyType = enemyList[i].enemy;
+            instantiatedEnemy.GetComponent<EnemyInstance>().enemy = enemyList[i];
         }
     }
 
     private void setupCompanions()
     {
-        List<Vector2> companionLocations = null;
         GameObject instantiatedCompanion;
 
         int activeCompanionsCount = activeCompanions.companionList.Count;
-        for(int i = 0; i < companionLocationsList.Count; i++)
-        {
-            if (companionLocationsList[i].count == activeCompanionsCount)
-            {
-                companionLocations = companionLocationsList[i].locations;
-            }
-        }
-
-        if (companionLocations == null)
-        {
-            Debug.Log("Number of active companions doesn't exist in companion location store!");
+        if (activeCompanionsCount > companionLocations.Count) {
+            Debug.LogError("The companion locations list does not contain enough locations");
             return;
         }
 
         for(int i = 0; i < activeCompanionsCount; i++)
         {
-            instantiatedCompanion = Instantiate(
+            instantiatedCompanion = GameObject.Instantiate(
                 companionPrefab,
                 companionLocations[i],
                 Quaternion.identity);

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(
-    fileName = "EncounterVariable", 
+    fileName = "EncounterVariable",
     menuName = "Encounters/Encounter Variable")]
-public class EncounterVariable : ScriptableObject
-{
+public abstract class EncounterVariableSO : ScriptableObject {
+    [SerializeReference]
     public Encounter encounter;
 }

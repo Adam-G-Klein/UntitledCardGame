@@ -7,7 +7,8 @@ using UnityEngine;
 public class EnemyInstance : MonoBehaviour, Entity {
     public int currentHealth;
     public int baseAttackDamage;
-    public EnemyTypeSO enemyType;
+    public Enemy enemy;
+
     [Space(5)]
     public SpriteRenderer spriteRenderer;
     public string id = Id.newGuid();
@@ -16,9 +17,9 @@ public class EnemyInstance : MonoBehaviour, Entity {
     
     // Start is called before the first frame update
     void Start() {
-        this.currentHealth = enemyType.maxHealth;
-        this.baseAttackDamage = enemyType.baseAttackDamage;
-        this.spriteRenderer.sprite = enemyType.sprite;
+        this.currentHealth = enemy.enemyType.maxHealth;
+        this.baseAttackDamage = enemy.enemyType.baseAttackDamage;
+        this.spriteRenderer.sprite = enemy.enemyType.sprite;
     }
 
     void Awake() {
@@ -49,7 +50,7 @@ public class EnemyInstance : MonoBehaviour, Entity {
     }
 
     public int getMaxHealth() {
-        return enemyType.maxHealth;
+        return enemy.enemyType.maxHealth;
     }
 
 }

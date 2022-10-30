@@ -9,9 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e52fb5281101974ab9e4b5e1936afa4, type: 3}
+  m_Script: {fileID: 11500000, guid: d3400d79ddfa2c0418a7347b4f4553e6, type: 3}
   m_Name: TestShopEncounter
   m_EditorClassIdentifier: 
-  encounterId: TestShopEncounter
-  items:
-  - {fileID: 4798506008640871506, guid: 0556a32d0cf5e704db37d6e1528d886a, type: 3}
+  shopEncounter:
+    id: 2e351e64-584f-4828-b8b6-25c7d86c76ee
+    items:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}

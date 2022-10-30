@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class EnemyInEncounter
+public class Room
 {
-    public EnemyTypeSO enemy;
-    public Vector2 location;
+    public List<Encounter> encounters = new List<Encounter>();
 }
