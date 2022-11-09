@@ -5,9 +5,9 @@ using UnityEngine;
 // TODO: have a discussion about Entity, I think it 
 // may still be useful for UI stuff like this health bar
 public class EnemyInstance : MonoBehaviour, Entity {
+    public Enemy enemy;
     public int currentHealth;
     public int baseAttackDamage;
-    public Enemy enemy;
 
     [Space(5)]
     public SpriteRenderer spriteRenderer;

@@ -8,7 +8,7 @@ public class Companion
     public CompanionTypeSO companionType;
     public int currentHealth;
     public Deck deck;
-    public string id = Id.newGuid();
+    public string id;
     public int currentAttackDamage;
 
     public Companion(CompanionTypeSO companionType) 
@@ -17,6 +17,7 @@ public class Companion
         this.currentHealth = companionType.maxHealth;
         this.currentAttackDamage = companionType.baseAttackDamage;
         this.deck = new Deck(companionType.startingDeck);
+        this.id = Id.newGuid();
         Debug.Log(JsonUtility.ToJson(this));
     }
 }
