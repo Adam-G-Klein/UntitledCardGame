@@ -45,11 +45,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76ba3be6a84803746971d2d17d4cdada, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentHealth: 0
+  baseAttackDamage: 0
   enemy:
     enemyType: {fileID: 0}
     currentHealth: 0
     id: 
   spriteRenderer: {fileID: 1818299386579737521}
+  id: 7ead661e-1017-4804-b9f7-c7e1432618af
+  enemyInstantiatedEvent: {fileID: 11400000, guid: 992f15315eef2e1408f724871ffef4f7, type: 2}
 --- !u!1 &1818299386579737520
 GameObject:
   m_ObjectHideFlags: 0
