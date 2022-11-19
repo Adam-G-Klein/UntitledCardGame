@@ -29,6 +29,8 @@ public abstract class BaseGameEventListener<T, E, UER> : MonoBehaviour,
         GameEvent.UnregisterListener(this);
     }
 
+    // The biggest thing we could actually serve to override
+    // at some point, maybe providing our own OnEventRaised events
     public void OnEventRaised(T item)
     {
         if (unityEventResponse != null)

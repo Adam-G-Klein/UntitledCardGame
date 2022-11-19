@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 4760544786946118191}
   - component: {fileID: 4561785017579914571}
   - component: {fileID: 2164778495256607958}
+  - component: {fileID: -8001983030047706855}
   m_Layer: 0
   m_Name: CompanionManager
-  m_TagString: Untagged
+  m_TagString: CompanionManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -73,3 +74,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a68666832500969439be416d407bf376, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-8001983030047706855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1574343574642141741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09ba1624a5db93e4382b88f0bdc7c833, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 0}
+  unityEventResponse:
+    m_PersistentCalls:
+      m_Calls: []

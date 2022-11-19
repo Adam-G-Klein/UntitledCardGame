@@ -15,6 +15,8 @@ public class EnemyManager : MonoBehaviour
     // we have a Companion class. Going with EnemyInstance for now because
     // it's where we have the Ids
     private List<EnemyInstance> enemies = new List<EnemyInstance>();
+    [SerializeField]
+    private float delayBetweenEnemyAttacks = 0;
 
     public void enemyInstantiatedEventHandler(EnemyInstantiatedEventInfo info){
         Debug.Log("Enemy " + info.enemy.id + " Instantiated and added to manager");
@@ -24,5 +26,36 @@ public class EnemyManager : MonoBehaviour
     public string getRandomEnemyId(){
         return enemies[Random.Range(0,enemies.Count)].id;
     }
-    
+
+    // If we ever want them to attack one at a time, the only
+    // way I can see to avoid having the enemy manager do this
+    // is by having messages sent between the enemies
+    // to decide which one will attack 
+    // Not implementing that right now, can be a TODO
+
+    public void enemiesAttack() {
+
+        // See EnemyTurnFinishedEvent.cs for how this should work in the future
+        // Will want a callback that increments a counter and raises a turn phase
+        // event when all the enemies have attacked
+        foreach(EnemyInstance enemyInstance in enemies){
+            enemyInstance.attack();
+        }
+    }
+
+    public void turnPhaseEventHandler(TurnPhaseEventInfo info) {
+        switch(info.newPhase) {
+            case TurnPhase.START_ENEMY_TURN:
+                //no op for now
+                break;
+            case TurnPhase.ENEMY_ATTACK:
+                Debug.Log("Enemy Manager instructing enemies to attack");
+                enemiesAttack();
+                break;
+            case TurnPhase.END_ENEMY_TURN:
+                //no op for now
+                break;
+        }
+    }
+
 }

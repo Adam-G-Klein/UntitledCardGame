@@ -11,19 +11,25 @@ public class EnemyInstance : MonoBehaviour, Entity {
 
     [Space(5)]
     public SpriteRenderer spriteRenderer;
-    public string id = Id.newGuid();
+    public string id;
     [SerializeField]
     private EnemyInstantiatedEvent enemyInstantiatedEvent;
+    [SerializeField]
+    private EnemyEffectEvent enemyEffectEvent;
+    private CompanionManager companionManager;
+
     
     // Start is called before the first frame update
     void Start() {
         this.currentHealth = enemy.enemyType.maxHealth;
         this.baseAttackDamage = enemy.enemyType.baseAttackDamage;
         this.spriteRenderer.sprite = enemy.enemyType.sprite;
+        this.id = Id.newGuid();
+        enemyInstantiatedEvent.Raise(new EnemyInstantiatedEventInfo(this));
+        companionManager = GameObject.FindGameObjectWithTag("CompanionManager").GetComponent<CompanionManager>();
     }
 
     void Awake() {
-        enemyInstantiatedEvent.Raise(new EnemyInstantiatedEventInfo(this));
     }
 
     public void cardEffectEventHandler(CardEffectEventInfo item){
@@ -42,6 +48,19 @@ public class EnemyInstance : MonoBehaviour, Entity {
                 break;
 
         }
+
+    }
+
+    public void attack(){
+        // TODO: determine beforehand so the player can see intents 
+        string targetId = companionManager.getRandomCompanionId();
+        int damage = Random.Range(1,5);
+        enemyEffectEvent.Raise(
+            new EnemyEffectEventInfo(
+                EnemyEffectName.Damage, 
+                damage,
+                new List<string> {targetId}));
+        Debug.Log("Enemy " + id + " attacked companion " + targetId + " for " + damage + " damage");
 
     }
 

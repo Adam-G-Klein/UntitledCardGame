@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6818566753960476561}
   - component: {fileID: 3933523391136145077}
+  - component: {fileID: 1932960887706624899}
   - component: {fileID: 1166588629430621724}
   m_Layer: 0
   m_Name: EnemyManager
@@ -61,6 +62,22 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1932960887706624899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2578877830187565377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f54f1b2283029124ea05bdd4df6ffb1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 8731090c52e897e459ac12df3da5fc3a, type: 2}
+  unityEventResponse:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1166588629430621724
 MonoBehaviour:
   m_ObjectHideFlags: 0

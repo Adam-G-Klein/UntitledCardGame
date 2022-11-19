@@ -3,16 +3,15 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum CardEffectName {
-    Draw,
+public enum EnemyEffectName {
     Damage,
     Buff
 }
 
 [Serializable]
-public class CardEffectData
+public class EnemyEffectData
 {
     
-    public CardEffectName effectName;
+    public EnemyEffectName effectName;
     public int scale;
 }

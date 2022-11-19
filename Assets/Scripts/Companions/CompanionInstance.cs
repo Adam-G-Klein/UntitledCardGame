@@ -11,7 +11,7 @@ public class DealCardEventInfo {
         this.target = target;
     }
 }
-public class CompanionInstance : MonoBehaviour
+public class CompanionInstance : MonoBehaviour, Entity
 {
     public Companion companion;
     [Space(10)]
@@ -64,12 +64,34 @@ public class CompanionInstance : MonoBehaviour
                 cardsDealtEvent.Raise(new CardsDealtEventInfo(cards));
                 break;
             case CardEffectName.Damage:
+                // TODO: heal effect
                 companion.currentHealth -= info.scale;
                 break;
             case CardEffectName.Buff:
                 companion.currentAttackDamage += info.scale; 
                 break;
         }
+    }
+
+    public void enemyEffectEventHandler(EnemyEffectEventInfo info){
+        if(!info.targets.Contains(companion.id)) return;
+        switch(info.effectName) {
+            case EnemyEffectName.Damage:
+                companion.currentHealth -= info.scale;
+                break;
+            case EnemyEffectName.Buff: 
+                // TODO: weaken effect
+                companion.currentAttackDamage += info.scale; 
+                break;
+        }
+
+    }
+    public int getHealth(){
+        return companion.currentHealth;
+    }
+
+    public int getMaxHealth() {
+        return companion.companionType.maxHealth;
     }
     
 }
