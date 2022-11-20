@@ -53,10 +53,12 @@ MonoBehaviour:
     id: 
   currentHealth: 0
   baseAttackDamage: 0
+  attackTime: 1
   spriteRenderer: {fileID: 1818299386579737521}
   id: 7ead661e-1017-4804-b9f7-c7e1432618af
   enemyInstantiatedEvent: {fileID: 11400000, guid: 992f15315eef2e1408f724871ffef4f7, type: 2}
   enemyEffectEvent: {fileID: 11400000, guid: da8e3f7797bc6544b88b0ce5cef3214a, type: 2}
+  enemyTurnFinishedEvent: {fileID: 11400000, guid: 51c061742991bae4c97135431be9f531, type: 2}
 --- !u!114 &2877260948552900050
 MonoBehaviour:
   m_ObjectHideFlags: 0

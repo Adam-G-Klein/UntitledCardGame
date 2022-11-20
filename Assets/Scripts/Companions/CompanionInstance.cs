@@ -2,15 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//stubbing this here for now for testing purposes
-public class DealCardEventInfo {
-    public int scale;
-    public string target;
-    public DealCardEventInfo(int scale, string target){
-        this.scale = scale;
-        this.target = target;
-    }
-}
 public class CompanionInstance : MonoBehaviour, Entity
 {
     public Companion companion;

@@ -2,6 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public class DealCardEventInfo {
+    public int scale;
+    public string target;
+    public DealCardEventInfo(int scale, string target){
+        this.scale = scale;
+        this.target = target;
+    }
+}
+
 [System.Serializable]
 public class CardsDealtEventInfo {
     public List<CardInfo> cards;

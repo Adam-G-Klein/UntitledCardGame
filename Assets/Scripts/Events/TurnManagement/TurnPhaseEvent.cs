@@ -4,10 +4,10 @@ using UnityEngine;
 
 public enum TurnPhase {
     START_PLAYER_TURN,
-    PLAYER_DRAW,
+    PLAYER_TURN,
     END_PLAYER_TURN,
     START_ENEMY_TURN,
-    ENEMY_ATTACK,
+    ENEMIES_TURN,
     END_ENEMY_TURN
 }
 [System.Serializable]

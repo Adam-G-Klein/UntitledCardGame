@@ -9,6 +9,9 @@ public class EnemyInstance : MonoBehaviour, Entity {
     public int currentHealth;
     public int baseAttackDamage;
 
+    [SerializeField]
+    private float attackTime = 0.5f;
+
     [Space(5)]
     public SpriteRenderer spriteRenderer;
     public string id;
@@ -16,6 +19,10 @@ public class EnemyInstance : MonoBehaviour, Entity {
     private EnemyInstantiatedEvent enemyInstantiatedEvent;
     [SerializeField]
     private EnemyEffectEvent enemyEffectEvent;
+
+    [SerializeField]
+    private EnemyTurnFinishedEvent enemyTurnFinishedEvent;
+
     private CompanionManager companionManager;
 
     
@@ -27,9 +34,6 @@ public class EnemyInstance : MonoBehaviour, Entity {
         this.id = Id.newGuid();
         enemyInstantiatedEvent.Raise(new EnemyInstantiatedEventInfo(this));
         companionManager = GameObject.FindGameObjectWithTag("CompanionManager").GetComponent<CompanionManager>();
-    }
-
-    void Awake() {
     }
 
     public void cardEffectEventHandler(CardEffectEventInfo item){
@@ -51,7 +55,13 @@ public class EnemyInstance : MonoBehaviour, Entity {
 
     }
 
-    public void attack(){
+    public void turnStartEventHandler(){
+        StartCoroutine("attackCoroutine");
+        
+
+    }
+
+    IEnumerator attackCoroutine(){
         // TODO: determine beforehand so the player can see intents 
         string targetId = companionManager.getRandomCompanionId();
         int damage = Random.Range(1,5);
@@ -61,8 +71,11 @@ public class EnemyInstance : MonoBehaviour, Entity {
                 damage,
                 new List<string> {targetId}));
         Debug.Log("Enemy " + id + " attacked companion " + targetId + " for " + damage + " damage");
-
+        yield return new WaitForSeconds(attackTime);
+        enemyTurnFinishedEvent.Raise(new EnemyTurnFinishedEventInfo(id));
+        
     }
+
 
     public int getHealth(){
         return currentHealth;

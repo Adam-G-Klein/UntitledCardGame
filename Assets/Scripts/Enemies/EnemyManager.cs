@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(EnemyInstantiatedEventListener))]
+[RequireComponent(typeof(EnemyTurnFinishedEventListener))]
 public class EnemyManager : MonoBehaviour
 {
     /* There should never be much code in here if we 
@@ -14,9 +15,12 @@ public class EnemyManager : MonoBehaviour
     //For now it looks like we don't have an Enemy class the same way
     // we have a Companion class. Going with EnemyInstance for now because
     // it's where we have the Ids
+
+    public int enemiesDoneWithTurn = 0;
     private List<EnemyInstance> enemies = new List<EnemyInstance>();
+
     [SerializeField]
-    private float delayBetweenEnemyAttacks = 0;
+    private TurnPhaseEvent turnPhaseEvent;
 
     public void enemyInstantiatedEventHandler(EnemyInstantiatedEventInfo info){
         Debug.Log("Enemy " + info.enemy.id + " Instantiated and added to manager");
@@ -39,7 +43,15 @@ public class EnemyManager : MonoBehaviour
         // Will want a callback that increments a counter and raises a turn phase
         // event when all the enemies have attacked
         foreach(EnemyInstance enemyInstance in enemies){
-            enemyInstance.attack();
+            enemyInstance.turnStartEventHandler();
+        }
+    }
+
+    public void enemyTurnFinishedEventHandler(EnemyTurnFinishedEventInfo info){
+        enemiesDoneWithTurn++;
+        if(enemiesDoneWithTurn == enemies.Count){
+            turnPhaseEvent.Raise(new TurnPhaseEventInfo(TurnPhase.END_ENEMY_TURN));
+            enemiesDoneWithTurn = 0;
         }
     }
 
@@ -48,7 +60,7 @@ public class EnemyManager : MonoBehaviour
             case TurnPhase.START_ENEMY_TURN:
                 //no op for now
                 break;
-            case TurnPhase.ENEMY_ATTACK:
+            case TurnPhase.ENEMIES_TURN:
                 Debug.Log("Enemy Manager instructing enemies to attack");
                 enemiesAttack();
                 break;

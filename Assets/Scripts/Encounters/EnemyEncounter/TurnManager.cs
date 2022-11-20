@@ -7,6 +7,7 @@ Draw card from each companion
 Player plays cards until end turn is pressed
 Enemies deal damage
 */
+[RequireComponent(typeof(TurnPhaseEventListener))]
 public class TurnManager : MonoBehaviour
 {
     [SerializeField]
@@ -25,9 +26,18 @@ public class TurnManager : MonoBehaviour
 
     private IEnumerator LateStart() {
         yield return new WaitForEndOfFrame();
-        turnPhaseEvent.Raise(new TurnPhaseEventInfo(TurnPhase.ENEMY_ATTACK));
+        turnPhaseEvent.Raise(new TurnPhaseEventInfo(TurnPhase.ENEMIES_TURN));
+    }
 
-
-
+    public void turnPhaseChangedEventHandler(TurnPhaseEventInfo info){
+        switch(info.newPhase){
+            case TurnPhase.END_ENEMY_TURN:
+                turnPhaseEvent.Raise(new TurnPhaseEventInfo(TurnPhase.START_PLAYER_TURN));
+                break;
+            case TurnPhase.START_PLAYER_TURN:
+                // no op for now, companions and a bunch of ui elements will probably listen to this
+                turnPhaseEvent.Raise(new TurnPhaseEventInfo(TurnPhase.PLAYER_TURN));
+                break;
+        }
     }
 }
