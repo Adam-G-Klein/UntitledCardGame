@@ -11,6 +11,8 @@ public class CompanionInstance : MonoBehaviour, Entity
     private CardsDealtEvent cardsDealtEvent;
     [SerializeField]
     private CompanionInstantiatedEvent companionInstantiatedEvent;
+    [SerializeField]
+    private GameplayConstants constants;
 
 
     void Start()
@@ -29,9 +31,8 @@ public class CompanionInstance : MonoBehaviour, Entity
     }
 
 
-    public void companionDealEventHandler(DealCardEventInfo info){
-        if(!info.target.Equals(companion.id)) return;
-        List<CardInfo> cards = getCardsFromDeck(info.scale);
+    public void dealCards(int numCards){
+        List<CardInfo> cards = getCardsFromDeck(numCards);
         cardsDealtEvent.Raise(new CardsDealtEventInfo(cards));
     }
 
@@ -51,8 +52,7 @@ public class CompanionInstance : MonoBehaviour, Entity
         if(!info.targets.Contains(companion.id)) return;
         switch(info.effectName) {
             case CardEffectName.Draw:
-                List<CardInfo> cards = getCardsFromDeck(info.scale);
-                cardsDealtEvent.Raise(new CardsDealtEventInfo(cards));
+                dealCards(info.scale);
                 break;
             case CardEffectName.Damage:
                 // TODO: heal effect
@@ -75,7 +75,16 @@ public class CompanionInstance : MonoBehaviour, Entity
                 companion.currentAttackDamage += info.scale; 
                 break;
         }
+    }
 
+    public void turnPhaseChangedEventHandler(TurnPhaseEventInfo info){
+        switch(info.newPhase){
+            case TurnPhase.START_PLAYER_TURN:
+                // Don't see too much reason to implement this differently yet,
+                // but maybe turn start draws will be different at some point
+                dealCards(constants.START_TURN_DRAW_PER_COMPANION);
+                break;
+        }
     }
     public int getHealth(){
         return companion.currentHealth;

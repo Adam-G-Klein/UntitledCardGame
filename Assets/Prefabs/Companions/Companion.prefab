@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5285687428135354732}
   - component: {fileID: 5742178976953534560}
   - component: {fileID: 3027488464516499967}
+  - component: {fileID: 7088900252991716844}
   m_Layer: 0
   m_Name: Companion
   m_TagString: Untagged
@@ -59,6 +60,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 5285687428991271528}
   cardsDealtEvent: {fileID: 11400000, guid: e9a227fee840eff4bbfdfe43a95070e6, type: 2}
   companionInstantiatedEvent: {fileID: 11400000, guid: 5026156182e6a5d41bd8874340073d39, type: 2}
+  constants: {fileID: 11400000, guid: 73ad8dcd4be0ffc4f9958a74ee9f1a5e, type: 2}
 --- !u!114 &5742178976953534560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106,6 +108,34 @@ MonoBehaviour:
       - m_Target: {fileID: 5285687428135354732}
         m_TargetAssemblyTypeName: CompanionInstance, Assembly-CSharp
         m_MethodName: enemyEffectEventHandler
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &7088900252991716844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5285687428135354733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f54f1b2283029124ea05bdd4df6ffb1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 8731090c52e897e459ac12df3da5fc3a, type: 2}
+  unityEventResponse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5285687428135354732}
+        m_TargetAssemblyTypeName: CompanionInstance, Assembly-CSharp
+        m_MethodName: turnPhaseChangedEventHandler
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

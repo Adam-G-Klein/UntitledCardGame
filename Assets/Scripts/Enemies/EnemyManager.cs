@@ -59,6 +59,7 @@ public class EnemyManager : MonoBehaviour
         switch(info.newPhase) {
             case TurnPhase.START_ENEMY_TURN:
                 //no op for now
+                turnPhaseEvent.Raise(new TurnPhaseEventInfo(TurnPhase.ENEMIES_TURN));
                 break;
             case TurnPhase.ENEMIES_TURN:
                 Debug.Log("Enemy Manager instructing enemies to attack");

@@ -15,6 +15,7 @@ public class TurnPhaseIndicator : MonoBehaviour
     }
 
     public void turnPhaseChangedEventHandler(TurnPhaseEventInfo info){
+        Debug.Log("Turn phase changed to " + info.newPhase);
         turnPhaseText.text = "Turn phase: " + info.newPhase.ToString();
     }
 
