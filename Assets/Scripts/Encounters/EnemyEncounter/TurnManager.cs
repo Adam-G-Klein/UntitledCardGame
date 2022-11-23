@@ -30,19 +30,21 @@ public class TurnManager : MonoBehaviour
     }
 
     public void turnPhaseChangedEventHandler(TurnPhaseEventInfo info){
-        Debug.Log("Turn phase changed to " + info.newPhase);
         switch(info.newPhase){
             case TurnPhase.END_ENEMY_TURN:
                 // Currently raised by the EnemyManager
-                turnPhaseEvent.Raise(new TurnPhaseEventInfo(TurnPhase.START_PLAYER_TURN));
+                StartCoroutine(turnPhaseEvent.RaiseAtEndOfFrameCoroutine(new TurnPhaseEventInfo(TurnPhase.START_PLAYER_TURN)));
                 break;
             case TurnPhase.START_PLAYER_TURN:
-                turnPhaseEvent.Raise(new TurnPhaseEventInfo(TurnPhase.PLAYER_TURN));
+                // If we raise the event immediately, the end turn button hears the PLAYER_TURN
+                // event before the START_PLAYER_TURN event, and disables itself on hearing START_PLAYER_TURN
+                // Unsure if this will be needed everywhere
+                StartCoroutine(turnPhaseEvent.RaiseAtEndOfFrameCoroutine(new TurnPhaseEventInfo(TurnPhase.PLAYER_TURN)));
                 break;
             case TurnPhase.END_PLAYER_TURN:
                 // Currently just raised by the end turn button in the UI
                 // no op for now, companions and a bunch of ui elements will probably listen to this
-                turnPhaseEvent.Raise(new TurnPhaseEventInfo(TurnPhase.START_ENEMY_TURN));
+                StartCoroutine(turnPhaseEvent.RaiseAtEndOfFrameCoroutine(new TurnPhaseEventInfo(TurnPhase.START_ENEMY_TURN)));
                 break;
         }
     }

@@ -11,7 +11,6 @@ public class PlayerHand : MonoBehaviour
     public List<PlayableCard> cardsInHand;
     //Temporary method of placing cards until we 
     // wanna do math and have a hover-enlarge effect implemented
-    private LocationStore cardLocStore; 
 
     [SerializeField]
     private GameObject cardPrefab;
@@ -24,16 +23,11 @@ public class PlayerHand : MonoBehaviour
     [SerializeField]
     private int cardSpacing = 20;
 
-    void Awake() {
-        cardLocStore = GameObject.FindGameObjectWithTag("CardLocationStore").GetComponent<LocationStore>();
-
-    }
-
     //TODO: only do this when cardsInHand changes
     // Cards currently delete themselves from the list and destroy themselves
     // will change when we have an event bus
     void Update() {
-        displayCards();
+        // displayCards();
 
     }
 

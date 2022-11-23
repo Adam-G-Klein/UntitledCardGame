@@ -16,6 +16,12 @@ public class CardDisplay : MonoBehaviour
     public TMP_Text CardDesc;
     public Image Artwork;
     private Camera mainCamera;
+    [SerializeField]
+    private float hoverScale = 30f;
+    [SerializeField]
+    private float nonHoverScale = 20f;
+    [SerializeField]
+    private float hoverYDiff = 185f;
 
     // Start is called before the first frame update
     void Update()
@@ -29,6 +35,19 @@ public class CardDisplay : MonoBehaviour
     void Awake()
     {
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+    }
+
+    void OnMouseEnter()
+    {
+        print("Mouse entered, y before: " +  transform.localPosition.y);
+        transform.localScale = new Vector3(hoverScale, hoverScale, 1);
+        transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y + hoverYDiff, transform.localPosition.z);
+        print("Mouse entered, y after: " +  transform.localPosition.y);
+    }
+    void OnMouseExit()
+    {
+        transform.localScale = new Vector3(nonHoverScale, nonHoverScale, 1);
+        transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y - hoverYDiff, transform.localPosition.z);
     }
 
 }

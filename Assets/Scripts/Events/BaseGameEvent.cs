@@ -28,4 +28,10 @@ public abstract class BaseGameEvent<T> : ScriptableObject
             listeners.Remove(listener);
         }
     }
+
+    public IEnumerator RaiseAtEndOfFrameCoroutine(T item)
+    {
+        yield return new WaitForEndOfFrame();
+        Raise(item);
+    }
 }

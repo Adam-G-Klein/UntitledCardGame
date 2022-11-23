@@ -50,7 +50,7 @@ public class EnemyManager : MonoBehaviour
     public void enemyTurnFinishedEventHandler(EnemyTurnFinishedEventInfo info){
         enemiesDoneWithTurn++;
         if(enemiesDoneWithTurn == enemies.Count){
-            turnPhaseEvent.Raise(new TurnPhaseEventInfo(TurnPhase.END_ENEMY_TURN));
+            StartCoroutine(turnPhaseEvent.RaiseAtEndOfFrameCoroutine(new TurnPhaseEventInfo(TurnPhase.END_ENEMY_TURN)));
             enemiesDoneWithTurn = 0;
         }
     }
@@ -59,14 +59,14 @@ public class EnemyManager : MonoBehaviour
         switch(info.newPhase) {
             case TurnPhase.START_ENEMY_TURN:
                 //no op for now
-                turnPhaseEvent.Raise(new TurnPhaseEventInfo(TurnPhase.ENEMIES_TURN));
+                StartCoroutine(turnPhaseEvent.RaiseAtEndOfFrameCoroutine(new TurnPhaseEventInfo(TurnPhase.ENEMIES_TURN)));
                 break;
             case TurnPhase.ENEMIES_TURN:
                 Debug.Log("Enemy Manager instructing enemies to attack");
                 enemiesAttack();
                 break;
             case TurnPhase.END_ENEMY_TURN:
-                //no op for now
+                //no op for now, this event is picked up by the turn manager
                 break;
         }
     }
