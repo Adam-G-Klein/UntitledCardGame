@@ -21,10 +21,14 @@ public class CardInfo : ScriptableObject
     // See Cast() for why this is a problem
     [SerializeField]
     private CardEffectEvent cardEffectEvent;
+    // +1 to the above comment this is bad
+    [SerializeField]
+    private CardCastEvent cardCastEvent;
 
     //called when cast to trigger series of effects on this card
     public void Cast(CardCastArguments args) {
         Debug.Log("Casting " + Name + " with target: " + (args.targets.Count > 0 ? args.targets[0] : "null"));
+        cardCastEvent.Raise(new CardCastEventInfo(this));
         for(int i = 0; i < EffectsList.Count; i++) {
             // like, we need to raise the event, but I think the only way to get it here
             // is with a reference on the class unless we use Resources.Load 

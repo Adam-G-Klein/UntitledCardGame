@@ -6,6 +6,7 @@ using TMPro;
 
 
 [ExecuteInEditMode]
+[RequireComponent(typeof(CardCastEventListener))]
 public class PlayerHand : MonoBehaviour
 {
     public List<PlayableCard> cardsInHand;
@@ -40,10 +41,32 @@ public class PlayerHand : MonoBehaviour
         displayCards();
     }
 
+    public void cardCastEventHandler(CardCastEventInfo info){
+        PlayableCard cardToDestroy = null;
+        foreach(PlayableCard card in cardsInHand) {
+            print("seeing if card in hand id " + card.cardInfo.id + " matches " + info.cardInfo.id);
+            if(card.cardInfo.id == info.cardInfo.id) {
+                cardToDestroy = card;
+            }
+        }
+        if(cardToDestroy != null) {
+            cardsInHand.Remove(cardToDestroy);
+            print("Card " + cardToDestroy.gameObject.name + " removed from hand");
+            Destroy(cardToDestroy.gameObject);
+        }
+        displayCards();
+    }
+
+
     private void displayCards(){
         float xLoc = startXCoord;
+        PlayableCard card;
         for(int i = 0; i < cardsInHand.Count; i++) {
-            cardsInHand[i].transform.localPosition = new Vector2(xLoc, cardYCoord);
+            card = cardsInHand[i];
+            
+            card.transform.localPosition = new Vector2(
+                xLoc, 
+                card.hovered ? cardYCoord + card.hoverYDiff : cardYCoord);
             xLoc += cardSpacing;
         }
     }

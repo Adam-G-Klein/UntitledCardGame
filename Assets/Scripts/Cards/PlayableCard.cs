@@ -24,13 +24,20 @@ public class PlayableCard : MonoBehaviour
     , IPointerEnterHandler
     , IPointerExitHandler
 {
-    private CardInfo cardInfo;
+    public CardInfo cardInfo;
     //TODO remove this reference, only here for testing purposes
     private PlayerHand hand; 
     private EnemyManager enemyManager;
     private CompanionManager companionManager;
-
+    [SerializeField]
+    private float hoverScale = 30f;
+    [SerializeField]
+    private float nonHoverScale = 20f;
+    [SerializeField]
+    public float hoverYDiff = 185f;
+    private int preHoverSiblingIndex;
     // Start is called before the first frame update
+    public bool hovered = false;
     void Start()
     {
         cardInfo = GetComponent<CardDisplay>().cardInfo;
@@ -47,13 +54,9 @@ public class PlayableCard : MonoBehaviour
     public void OnPointerClick(PointerEventData eventData) 
     {
         CardCastArguments args = new CardCastArguments(getCastTargets());
+        // Cast event handler in PlayerHand.cs will handle the card 
+        // being removed from the hand
         cardInfo.Cast(args);
-        //TODO do this as a part of the PlayerHand script handling the cast event
-        //Can also consider removing based on cardinfo.id
-        hand.cardsInHand.Remove(this);
-        //Card information should be stored in the associated scriptable object,
-        // meaning that destroying the onscreen prefab should be a part of the casting process
-        Destroy(gameObject); 
     }
 
 
@@ -83,17 +86,25 @@ public class PlayableCard : MonoBehaviour
     // be needed for UI effects in the future
     public void OnDrag(PointerEventData eventData)
     {
-        print("I'm being dragged!");
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        // print("pointer enter!");
+        hovered = true;
+        preHoverSiblingIndex = transform.GetSiblingIndex();
+        transform.SetAsLastSibling();
+        transform.localScale = new Vector3(hoverScale, hoverScale, 1);
+        transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y + hoverYDiff, transform.localPosition.z);
     }
+
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        // print("pointer exit!");
+        if(!hovered) return;
+        hovered = false;
+        transform.SetSiblingIndex(preHoverSiblingIndex);
+        transform.localScale = new Vector3(nonHoverScale, nonHoverScale, 1);
+        transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y - hoverYDiff, transform.localPosition.z);
     }
 
     
