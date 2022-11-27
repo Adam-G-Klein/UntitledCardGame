@@ -10,8 +10,6 @@ using TMPro;
 public class PlayerHand : MonoBehaviour
 {
     public List<PlayableCard> cardsInHand;
-    //Temporary method of placing cards until we 
-    // wanna do math and have a hover-enlarge effect implemented
 
     [SerializeField]
     private GameObject cardPrefab;
@@ -24,19 +22,12 @@ public class PlayerHand : MonoBehaviour
     [SerializeField]
     private int cardSpacing = 20;
 
-    //TODO: only do this when cardsInHand changes
-    // Cards currently delete themselves from the list and destroy themselves
-    // will change when we have an event bus
-    void Update() {
-        // displayCards();
-
-    }
-
     public void cardDealtEventHandler(CardsDealtEventInfo info){
         PlayableCard newCard;
         foreach(CardInfo cardInfo in info.cards) {
-            newCard = PrefabInstantiator.instantiateCard(cardPrefab, transform, cardInfo);
+            newCard = PrefabInstantiator.instantiateCard(cardPrefab, transform, cardInfo, info.companionFrom);
             cardsInHand.Add(newCard);
+            print("Card dealt to hand: " + cardInfo.id);
         }
         displayCards();
     }
@@ -44,14 +35,12 @@ public class PlayerHand : MonoBehaviour
     public void cardCastEventHandler(CardCastEventInfo info){
         PlayableCard cardToDestroy = null;
         foreach(PlayableCard card in cardsInHand) {
-            print("seeing if card in hand id " + card.cardInfo.id + " matches " + info.cardInfo.id);
             if(card.cardInfo.id == info.cardInfo.id) {
                 cardToDestroy = card;
             }
         }
         if(cardToDestroy != null) {
             cardsInHand.Remove(cardToDestroy);
-            print("Card " + cardToDestroy.gameObject.name + " removed from hand");
             Destroy(cardToDestroy.gameObject);
         }
         displayCards();
@@ -61,9 +50,10 @@ public class PlayerHand : MonoBehaviour
     private void displayCards(){
         float xLoc = startXCoord;
         PlayableCard card;
+        print("Displaying cards: " + cardsInHand.Count);       
         for(int i = 0; i < cardsInHand.Count; i++) {
+            print("Displaying card " + i + ": " + cardsInHand[i]);
             card = cardsInHand[i];
-            
             card.transform.localPosition = new Vector2(
                 xLoc, 
                 card.hovered ? cardYCoord + card.hoverYDiff : cardYCoord);

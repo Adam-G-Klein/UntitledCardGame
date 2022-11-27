@@ -20,7 +20,7 @@ public class CompanionInstance : MonoBehaviour, Entity
         this.spriteRenderer.sprite = companion.companionType.sprite;
         // Tried doing this in Awake, but it looks like the fields of companion
         // hadn't been initialized by then
-        companionInstantiatedEvent.Raise(new CompanionInstantiatedEventInfo(companion));
+        StartCoroutine(companionInstantiatedEvent.RaiseAtEndOfFrameCoroutine(new CompanionInstantiatedEventInfo(companion)));
     }
 
     void Awake() {
@@ -33,7 +33,7 @@ public class CompanionInstance : MonoBehaviour, Entity
 
     public void dealCards(int numCards){
         List<CardInfo> cards = getCardsFromDeck(numCards);
-        cardsDealtEvent.Raise(new CardsDealtEventInfo(cards));
+        StartCoroutine(cardsDealtEvent.RaiseAtEndOfFrameCoroutine(new CardsDealtEventInfo(cards, companion)));
     }
 
     public List<CardInfo> getCardsFromDeck(int numCards){
@@ -59,7 +59,7 @@ public class CompanionInstance : MonoBehaviour, Entity
                 companion.currentHealth -= info.scale;
                 break;
             case CardEffectName.Buff:
-                companion.currentAttackDamage += info.scale; 
+                companion.strength += info.scale; 
                 break;
         }
     }
@@ -72,7 +72,7 @@ public class CompanionInstance : MonoBehaviour, Entity
                 break;
             case EnemyEffectName.Buff: 
                 // TODO: weaken effect
-                companion.currentAttackDamage += info.scale; 
+                companion.strength += info.scale; 
                 break;
         }
     }

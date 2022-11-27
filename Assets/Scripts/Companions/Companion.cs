@@ -9,13 +9,13 @@ public class Companion
     public int currentHealth;
     public Deck deck;
     public string id;
-    public int currentAttackDamage;
+    public int strength;
 
     public Companion(CompanionTypeSO companionType) 
     {
         this.companionType = companionType;
         this.currentHealth = companionType.maxHealth;
-        this.currentAttackDamage = companionType.baseAttackDamage;
+        this.strength = companionType.baseAttackDamage;
         this.deck = new Deck(companionType.startingDeck);
         this.id = Id.newGuid();
         Debug.Log(JsonUtility.ToJson(this));

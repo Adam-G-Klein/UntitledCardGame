@@ -28,6 +28,7 @@ public class CardEffectEventEditor : Editor
             targetId);
 
         if (GUILayout.Button("Raise Card Effect Event")) {
+            //TODO, figure out how to raise at end of frame
             cardEffectEvent.Raise(new CardEffectEventInfo(
                 effectName,
                 scale,

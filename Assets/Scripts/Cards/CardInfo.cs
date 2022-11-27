@@ -28,6 +28,8 @@ public class CardInfo : ScriptableObject
     //called when cast to trigger series of effects on this card
     public void Cast(CardCastArguments args) {
         Debug.Log("Casting " + Name + " with target: " + (args.targets.Count > 0 ? args.targets[0] : "null"));
+        // Can't start a coroutine here, oof
+        // Would suck to need something in the scene for starting coroutines
         cardCastEvent.Raise(new CardCastEventInfo(this));
         for(int i = 0; i < EffectsList.Count; i++) {
             // like, we need to raise the event, but I think the only way to get it here
@@ -38,8 +40,26 @@ public class CardInfo : ScriptableObject
             // on this line of code if I'm right
 
             cardEffectEvent.Raise(
-                new CardEffectEventInfo(EffectsList[i].effectName, EffectsList[i].scale, args.targets));
+                new CardEffectEventInfo(EffectsList[i].effectName, 
+                getEffectScale(EffectsList[i], args),
+                args.targets
+            ));
 
         }
+    }
+
+    private int getEffectScale(CardEffectData effect, CardCastArguments args) {
+        // Add effect increases here when we add them to CardCastArguments
+        switch(effect.effectName) {
+            case CardEffectName.Draw:
+                return effect.scale;
+            case CardEffectName.Damage:
+                return effect.scale + args.damageIncrease;
+            case CardEffectName.Buff:
+                return effect.scale;
+            default:
+                return effect.scale;
+        }
+
     }
 }

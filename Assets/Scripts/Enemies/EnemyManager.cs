@@ -39,9 +39,6 @@ public class EnemyManager : MonoBehaviour
 
     public void enemiesAttack() {
 
-        // See EnemyTurnFinishedEvent.cs for how this should work in the future
-        // Will want a callback that increments a counter and raises a turn phase
-        // event when all the enemies have attacked
         foreach(EnemyInstance enemyInstance in enemies){
             enemyInstance.turnStartEventHandler();
         }

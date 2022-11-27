@@ -32,7 +32,7 @@ public class EnemyInstance : MonoBehaviour, Entity {
         this.baseAttackDamage = enemy.enemyType.baseAttackDamage;
         this.spriteRenderer.sprite = enemy.enemyType.sprite;
         this.id = Id.newGuid();
-        enemyInstantiatedEvent.Raise(new EnemyInstantiatedEventInfo(this));
+        StartCoroutine(enemyInstantiatedEvent.RaiseAtEndOfFrameCoroutine(new EnemyInstantiatedEventInfo(this)));
         companionManager = GameObject.FindGameObjectWithTag("CompanionManager").GetComponent<CompanionManager>();
     }
 
@@ -65,11 +65,11 @@ public class EnemyInstance : MonoBehaviour, Entity {
         // TODO: determine beforehand so the player can see intents 
         string targetId = companionManager.getRandomCompanionId();
         int damage = Random.Range(1,5);
-        enemyEffectEvent.Raise(
+        StartCoroutine(enemyEffectEvent.RaiseAtEndOfFrameCoroutine(
             new EnemyEffectEventInfo(
                 EnemyEffectName.Damage, 
                 damage,
-                new List<string> {targetId}));
+                new List<string> {targetId})));
         Debug.Log("Enemy " + id + " attacked companion " + targetId + " for " + damage + " damage");
         yield return new WaitForSeconds(attackTime);
         enemyTurnFinishedEvent.Raise(new EnemyTurnFinishedEventInfo(id));

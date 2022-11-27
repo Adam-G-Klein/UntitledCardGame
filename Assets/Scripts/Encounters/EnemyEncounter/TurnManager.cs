@@ -26,7 +26,7 @@ public class TurnManager : MonoBehaviour
 
     private IEnumerator LateStart() {
         yield return new WaitForEndOfFrame();
-        turnPhaseEvent.Raise(new TurnPhaseEventInfo(TurnPhase.ENEMIES_TURN));
+        StartCoroutine(turnPhaseEvent.RaiseAtEndOfFrameCoroutine(new TurnPhaseEventInfo(TurnPhase.ENEMIES_TURN)));
     }
 
     public void turnPhaseChangedEventHandler(TurnPhaseEventInfo info){

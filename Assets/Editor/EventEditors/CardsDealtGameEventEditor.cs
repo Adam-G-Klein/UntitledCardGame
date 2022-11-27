@@ -7,6 +7,7 @@ using UnityEditor;
 public class CardsDealtGameEventEditor : Editor
 {
     CardInfo cardInfo = null;
+    CompanionTypeSO companionType = null;
 
     public override void OnInspectorGUI() {
         CardsDealtEvent cardsDealtEvent = (CardsDealtEvent) target;
@@ -16,11 +17,17 @@ public class CardsDealtGameEventEditor : Editor
             cardInfo,
             typeof(CardInfo),
             false) as CardInfo;
+
+        companionType = EditorGUILayout.ObjectField(
+            companionType,
+            typeof(CompanionTypeSO),
+            false) as CompanionTypeSO;
         
         if (GUILayout.Button("Test Raise Event")) {
             if(cardInfo != null) {
                 cardsDealtEvent.Raise(new CardsDealtEventInfo(
-                    new List<CardInfo>() { cardInfo }
+                    new List<CardInfo>() { cardInfo },
+                    new Companion(companionType)
                 ));
             }
         }

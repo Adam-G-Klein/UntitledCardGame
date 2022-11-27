@@ -25,10 +25,9 @@ public class PlayableCard : MonoBehaviour
     , IPointerExitHandler
 {
     public CardInfo cardInfo;
-    //TODO remove this reference, only here for testing purposes
-    private PlayerHand hand; 
     private EnemyManager enemyManager;
     private CompanionManager companionManager;
+    private Companion companionFrom;
     [SerializeField]
     private float hoverScale = 30f;
     [SerializeField]
@@ -41,8 +40,6 @@ public class PlayableCard : MonoBehaviour
     void Start()
     {
         cardInfo = GetComponent<CardDisplay>().cardInfo;
-        //TODO remove this reference, only here for testing purposes
-        hand = GameObject.Find("PlayerHand").GetComponent<PlayerHand>();
         GameObject enemyManagerGO = GameObject.Find("EnemyManager");
         GameObject companionManagerGO = GameObject.Find("CompanionManager");
         // My attempt at null safing. We should def talk about how we want to 
@@ -53,7 +50,7 @@ public class PlayableCard : MonoBehaviour
 
     public void OnPointerClick(PointerEventData eventData) 
     {
-        CardCastArguments args = new CardCastArguments(getCastTargets());
+        CardCastArguments args = new CardCastArguments(getCastTargets(), companionFrom.strength);
         // Cast event handler in PlayerHand.cs will handle the card 
         // being removed from the hand
         cardInfo.Cast(args);
@@ -110,9 +107,13 @@ public class PlayableCard : MonoBehaviour
     
 
     // Used when instantiating the card after Start has run
-    // See PrefabInstantiator
+    // See PrefabInstantiator.cs
     public void setCardInfo(CardInfo card){
         this.cardInfo = card;
+    }
+    
+    public void setCompanionFrom(Companion companion){
+        this.companionFrom = companion;
     }
 
 }
