@@ -2,7 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyInstance : MonoBehaviour, CombatEntityInstance {
+// Setting up for when we want to display this
+public class EnemyIntent {
+    public string target;
+    public int damage;
+    public Dictionary<StatusEffect, int> statusEffects;
+
+    public EnemyIntent(string target, int damage, Dictionary<StatusEffect, int> statusEffects) {
+        this.target = target;
+        this.damage = damage;
+        this.statusEffects = statusEffects;
+    }
+
+
+}
+public class EnemyInstance : CombatEntityInstance {
     public Enemy enemy;
     public int currentHealth;
     public int baseAttackDamage;
@@ -23,8 +37,6 @@ public class EnemyInstance : MonoBehaviour, CombatEntityInstance {
 
     private CompanionManager companionManager;
 
-    private CombatEntityInEncounterStats stats;
-    
     // Start is called before the first frame update
     void Start() {
         this.stats = new CombatEntityInEncounterStats(enemy);
@@ -46,7 +58,7 @@ public class EnemyInstance : MonoBehaviour, CombatEntityInstance {
                 stats.currentHealth -= item.scale;
                 break;
             case CardEffectName.Buff:
-                stats.currentAttackDamage += item.scale;
+                stats.strength += item.scale;
                 break;
 
         }
@@ -61,13 +73,14 @@ public class EnemyInstance : MonoBehaviour, CombatEntityInstance {
 
     IEnumerator attackCoroutine(){
         // TODO: determine beforehand so the player can see intents 
-        string targetId = companionManager.getRandomCompanionId();
-        int damage = Random.Range(1,5);
+        EnemyIntent intent = enemy.getNewEnemyIntent(companionManager.getCompanionIds(), stats);
+        string targetId = intent.target;
+        int damage = intent.damage;
         StartCoroutine(enemyEffectEvent.RaiseAtEndOfFrameCoroutine(
             new EnemyEffectEventInfo(
-                EnemyEffectName.Damage, 
                 damage,
-                new List<string> {targetId})));
+                new List<string> {targetId},
+                new Dictionary<StatusEffect, int> { {StatusEffect.Weakness, 1} })));
         Debug.Log("Enemy " + id + " attacked companion " + targetId + " for " + damage + " damage");
         yield return new WaitForSeconds(attackTime);
         enemyTurnFinishedEvent.Raise(new EnemyTurnFinishedEventInfo(id));
@@ -83,7 +96,7 @@ public class EnemyInstance : MonoBehaviour, CombatEntityInstance {
         return enemy.enemyType.maxHealth;
     }
 
-    public CombatEntityInEncounterStats getCombatEntityInEncounterStats(){
+    public override CombatEntityInEncounterStats getCombatEntityInEncounterStats(){
         return stats;
     }
 

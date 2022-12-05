@@ -12,6 +12,7 @@ public class CompanionManager : MonoBehaviour
         instantiations and knows about all of them
     */
     private List<Companion> companions = new List<Companion>();
+    private List<string> companionIds = new List<string>();
 
     public void companionInstantiatedEventHandler(CompanionInstantiatedEventInfo info){
         Debug.Log("Companion " + info.companion.id + " Instantiated and added to manager");
@@ -23,5 +24,14 @@ public class CompanionManager : MonoBehaviour
         print("CompanionManager.getRandomCompanionId() returning " + ret);
         return ret;
     }
+
+    public List<string> getCompanionIds(){
+        companionIds.Clear();
+        foreach(Companion companion in companions){
+            companionIds.Add(companion.id);
+        }
+        return companionIds;
+    }
+
     
 }

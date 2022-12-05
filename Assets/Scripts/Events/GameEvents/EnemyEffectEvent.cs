@@ -4,14 +4,14 @@ using UnityEngine;
 
 [System.Serializable]
 public class EnemyEffectEventInfo {
-    public EnemyEffectName effectName;
-    public int scale;
+    public int damage;
     public List<string> targets;
+    public Dictionary<StatusEffect, int> statusEffects;
 
-    public EnemyEffectEventInfo(EnemyEffectName effectName, int scale, List<string> targetIds){
-        this.effectName = effectName;
-        this.scale = scale;
-        this.targets = targetIds;
+    public EnemyEffectEventInfo(int damage, List<string> targets, Dictionary<StatusEffect, int> statusEffects) {
+        this.damage = damage;
+        this.targets = targets;
+        this.statusEffects = statusEffects;
     }
 
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CompanionInstance : MonoBehaviour, CombatEntityInstance
+public class CompanionInstance : CombatEntityInstance
 {
     public Companion companion;
     [Space(10)]
@@ -13,11 +13,11 @@ public class CompanionInstance : MonoBehaviour, CombatEntityInstance
     private CompanionInstantiatedEvent companionInstantiatedEvent;
     [SerializeField]
     private GameplayConstants constants;
-    private CombatEntityInEncounterStats stats;
 
 
     void Start()
     {
+        this.baseStats = companion;
         this.spriteRenderer.sprite = companion.companionType.sprite;
         stats = new CombatEntityInEncounterStats(companion);
         // Tried doing this in Awake, but it looks like the fields of companion
@@ -66,18 +66,7 @@ public class CompanionInstance : MonoBehaviour, CombatEntityInstance
         }
     }
 
-    public void enemyEffectEventHandler(EnemyEffectEventInfo info){
-        if(!info.targets.Contains(companion.id)) return;
-        switch(info.effectName) {
-            case EnemyEffectName.Damage:
-                stats.currentHealth -= info.scale;
-                break;
-            case EnemyEffectName.Buff: 
-                // TODO: weaken effect
-                stats.strength += info.scale; 
-                break;
-        }
-    }
+    
 
     public void turnPhaseChangedEventHandler(TurnPhaseEventInfo info){
         switch(info.newPhase){
@@ -89,11 +78,7 @@ public class CompanionInstance : MonoBehaviour, CombatEntityInstance
         }
     }
     
-    public CombatEntityBaseStats getCombatEntityBaseStats() {
-        return companion;
-    }
-
-    public CombatEntityInEncounterStats getCombatEntityInEncounterStats() {
+    public override CombatEntityInEncounterStats getCombatEntityInEncounterStats() {
         return stats;
     }
 }

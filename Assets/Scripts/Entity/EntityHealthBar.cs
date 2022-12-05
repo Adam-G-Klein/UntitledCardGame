@@ -34,9 +34,7 @@ public class EntityHealthBar : MonoBehaviour
         // this needs to go in update instead of start since the entity
         // field of the data store might not be set yet when start is ran
         if (entity == null) {
-            Debug.Log("EntityHealthBar: entity is null, getting entity");
             entity = GetComponentInParent<CombatEntityStatsDisplay>();
-            print("retrieved entity: " + entity);
             if (entity == null) {
                 Debug.LogError("Cannot find entity data in parent game object");
                 return;

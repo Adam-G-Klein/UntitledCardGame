@@ -8,5 +8,7 @@ public interface CombatEntityBaseStats
 {
     int getMaxHealth();
     int getBaseAttackDamage();
+
+    string getId();
     
 }

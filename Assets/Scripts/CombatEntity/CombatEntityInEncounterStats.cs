@@ -31,9 +31,6 @@ public class CombatEntityInEncounterStats
         get {
             return baseStats.getBaseAttackDamage() + this.strength - this.weakness;
         }
-        set {
-            this.currentAttackDamage = value;
-        }
     }
 
     public int maxHealth {

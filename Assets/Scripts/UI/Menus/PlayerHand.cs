@@ -50,9 +50,7 @@ public class PlayerHand : MonoBehaviour
     private void displayCards(){
         float xLoc = startXCoord;
         PlayableCard card;
-        print("Displaying cards: " + cardsInHand.Count);       
         for(int i = 0; i < cardsInHand.Count; i++) {
-            print("Displaying card " + i + ": " + cardsInHand[i]);
             card = cardsInHand[i];
             card.transform.localPosition = new Vector2(
                 xLoc, 

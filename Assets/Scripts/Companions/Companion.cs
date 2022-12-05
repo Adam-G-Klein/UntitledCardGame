@@ -27,4 +27,8 @@ public class Companion: CombatEntityBaseStats
     public int getMaxHealth() {
         return this.maxHealth;
     }
+
+    public string getId() {
+        return this.id;
+    }
 }

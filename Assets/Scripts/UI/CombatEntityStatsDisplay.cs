@@ -32,12 +32,52 @@ public class CombatEntityStatsDisplay: MonoBehaviour
         }
     }
 
+    private Dictionary<StatusEffect, StatusEffectDisplay> statusEffectDisplays = new Dictionary<StatusEffect, StatusEffectDisplay>();
+
     void Start()
     {
         // This code assumes we always want to reinitialize the
         // in encounter stats when a new encounter starts
         CombatEntityInstance entity = GetComponentInParent<CombatEntityInstance>();
         this.stats = entity.getCombatEntityInEncounterStats();
+    }
+
+    void Awake() {
+        StatusEffectDisplay[] arr = GetComponentsInChildren<StatusEffectDisplay>();
+
+        foreach (StatusEffectDisplay statusEffectDisplay in arr) {
+            statusEffectDisplays.Add(statusEffectDisplay.statusEffect, statusEffectDisplay);
+        }
+    }
+
+    void Update() {
+        // Should find a way to send a unity event to the children
+        // of the CombatEntity prefab every time there's a change to 
+        // the stats, so that they can update their own UI
+        if(strength != 0) {
+            statusEffectDisplays[StatusEffect.Strength].setText(strength.ToString());
+            statusEffectDisplays[StatusEffect.Strength].setDisplaying(true);
+        } else {
+            statusEffectDisplays[StatusEffect.Strength].setDisplaying(false);
+        }
+
+        if(weakness != 0) {
+            statusEffectDisplays[StatusEffect.Weakness].setText(weakness.ToString());
+            statusEffectDisplays[StatusEffect.Weakness].setDisplaying(true);
+        } else {
+            statusEffectDisplays[StatusEffect.Weakness].setDisplaying(false);
+        }
+
+    }
+
+    public float getNextStatusXLoc() {
+        float xLoc = 0;
+        foreach (KeyValuePair<StatusEffect, StatusEffectDisplay> kv in statusEffectDisplays) {
+            if (kv.Value.displaying) {
+                xLoc += kv.Value.GetComponent<RectTransform>().rect.width;
+            }
+        }
+        return xLoc;
     }
 
 }

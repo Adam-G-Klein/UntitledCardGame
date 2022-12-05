@@ -5,7 +5,8 @@ using UnityEngine;
 
 public enum EnemyEffectName {
     Damage,
-    Buff
+    Status
+    
 }
 
 [Serializable]
