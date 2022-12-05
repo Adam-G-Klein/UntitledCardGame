@@ -5,11 +5,11 @@ using UnityEngine;
 [System.Serializable]
 public class CardsDealtEventInfo {
     public List<CardInfo> cards;
-    public Companion companionFrom;
+    public CombatEntityInEncounterStats companionFromStats;
 
-    public CardsDealtEventInfo(List<CardInfo> cards, Companion companionFrom) {
+    public CardsDealtEventInfo(List<CardInfo> cards, CombatEntityInEncounterStats companionFromStats) {
         this.cards = cards;
-        this.companionFrom = companionFrom;
+        this.companionFromStats = companionFromStats;
     }
 }
 [CreateAssetMenu(

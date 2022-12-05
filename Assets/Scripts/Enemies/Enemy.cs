@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class Enemy {
+public class Enemy: CombatEntityBaseStats {
     public EnemyTypeSO enemyType;
     public int currentHealth;
     public string id = Id.newGuid();
@@ -17,5 +17,13 @@ public class Enemy {
         } else {
             this.currentHealth = maxHealth;
         }
+    }
+
+    public int getMaxHealth() {
+        return enemyType.maxHealth;
+    }
+
+    public int getBaseAttackDamage() {
+        return enemyType.baseAttackDamage;
     }
 }

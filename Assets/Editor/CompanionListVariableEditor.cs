@@ -25,6 +25,12 @@ public class CompanionListVariableEditor : Editor {
                 companionListVariable.companionList.Add(new Companion(companionType));
             else
                 Debug.LogWarning("Must set companion type first!");
+            
+            // These three calls cause the asset to actually be modified
+            // on disc when we hit the button
+            AssetDatabase.Refresh();
+            EditorUtility.SetDirty(companionListVariable);
+            AssetDatabase.SaveAssets();
         }
     }
 }

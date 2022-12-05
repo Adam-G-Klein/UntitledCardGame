@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CompanionInstance : MonoBehaviour, Entity
+public class CompanionInstance : MonoBehaviour, CombatEntityInstance
 {
     public Companion companion;
     [Space(10)]
@@ -13,11 +13,13 @@ public class CompanionInstance : MonoBehaviour, Entity
     private CompanionInstantiatedEvent companionInstantiatedEvent;
     [SerializeField]
     private GameplayConstants constants;
+    private CombatEntityInEncounterStats stats;
 
 
     void Start()
     {
         this.spriteRenderer.sprite = companion.companionType.sprite;
+        stats = new CombatEntityInEncounterStats(companion);
         // Tried doing this in Awake, but it looks like the fields of companion
         // hadn't been initialized by then
         StartCoroutine(companionInstantiatedEvent.RaiseAtEndOfFrameCoroutine(new CompanionInstantiatedEventInfo(companion)));
@@ -33,7 +35,7 @@ public class CompanionInstance : MonoBehaviour, Entity
 
     public void dealCards(int numCards){
         List<CardInfo> cards = getCardsFromDeck(numCards);
-        StartCoroutine(cardsDealtEvent.RaiseAtEndOfFrameCoroutine(new CardsDealtEventInfo(cards, companion)));
+        StartCoroutine(cardsDealtEvent.RaiseAtEndOfFrameCoroutine(new CardsDealtEventInfo(cards, stats)));
     }
 
     public List<CardInfo> getCardsFromDeck(int numCards){
@@ -56,10 +58,10 @@ public class CompanionInstance : MonoBehaviour, Entity
                 break;
             case CardEffectName.Damage:
                 // TODO: heal effect
-                companion.currentHealth -= info.scale;
+                stats.currentHealth -= info.scale;
                 break;
             case CardEffectName.Buff:
-                companion.strength += info.scale; 
+                stats.strength += info.scale; 
                 break;
         }
     }
@@ -68,11 +70,11 @@ public class CompanionInstance : MonoBehaviour, Entity
         if(!info.targets.Contains(companion.id)) return;
         switch(info.effectName) {
             case EnemyEffectName.Damage:
-                companion.currentHealth -= info.scale;
+                stats.currentHealth -= info.scale;
                 break;
             case EnemyEffectName.Buff: 
                 // TODO: weaken effect
-                companion.strength += info.scale; 
+                stats.strength += info.scale; 
                 break;
         }
     }
@@ -86,12 +88,12 @@ public class CompanionInstance : MonoBehaviour, Entity
                 break;
         }
     }
-    public int getHealth(){
-        return companion.currentHealth;
+    
+    public CombatEntityBaseStats getCombatEntityBaseStats() {
+        return companion;
     }
 
-    public int getMaxHealth() {
-        return companion.companionType.maxHealth;
+    public CombatEntityInEncounterStats getCombatEntityInEncounterStats() {
+        return stats;
     }
-    
 }

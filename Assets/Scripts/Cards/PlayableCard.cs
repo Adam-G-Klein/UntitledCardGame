@@ -27,7 +27,7 @@ public class PlayableCard : MonoBehaviour
     public CardInfo cardInfo;
     private EnemyManager enemyManager;
     private CompanionManager companionManager;
-    private Companion companionFrom;
+    private CombatEntityInEncounterStats companionFromStats;
     [SerializeField]
     private float hoverScale = 30f;
     [SerializeField]
@@ -50,7 +50,11 @@ public class PlayableCard : MonoBehaviour
 
     public void OnPointerClick(PointerEventData eventData) 
     {
-        CardCastArguments args = new CardCastArguments(getCastTargets(), companionFrom.strength);
+        // I think there's a good possibility that we'll want to pass the 
+        // whole companionStats here at some point, but for now we'll just
+        // pass each field individually
+        CardCastArguments args = new CardCastArguments(getCastTargets(), 
+            companionFromStats.currentAttackDamage);
         // Cast event handler in PlayerHand.cs will handle the card 
         // being removed from the hand
         cardInfo.Cast(args);
@@ -112,8 +116,9 @@ public class PlayableCard : MonoBehaviour
         this.cardInfo = card;
     }
     
-    public void setCompanionFrom(Companion companion){
-        this.companionFrom = companion;
+    // Should pass by reference so that the values stay updated
+    public void setCompanionFrom(CombatEntityInEncounterStats companionStats){
+        this.companionFromStats = companionStats;
     }
 
 }

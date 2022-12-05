@@ -2,9 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// TODO: have a discussion about Entity, I think it 
-// may still be useful for UI stuff like this health bar
-public class EnemyInstance : MonoBehaviour, Entity {
+public class EnemyInstance : MonoBehaviour, CombatEntityInstance {
     public Enemy enemy;
     public int currentHealth;
     public int baseAttackDamage;
@@ -25,11 +23,11 @@ public class EnemyInstance : MonoBehaviour, Entity {
 
     private CompanionManager companionManager;
 
+    private CombatEntityInEncounterStats stats;
     
     // Start is called before the first frame update
     void Start() {
-        this.currentHealth = enemy.enemyType.maxHealth;
-        this.baseAttackDamage = enemy.enemyType.baseAttackDamage;
+        this.stats = new CombatEntityInEncounterStats(enemy);
         this.spriteRenderer.sprite = enemy.enemyType.sprite;
         this.id = Id.newGuid();
         StartCoroutine(enemyInstantiatedEvent.RaiseAtEndOfFrameCoroutine(new EnemyInstantiatedEventInfo(this)));
@@ -45,10 +43,10 @@ public class EnemyInstance : MonoBehaviour, Entity {
                 Debug.LogWarning("omg an enemy is drawing cards what happened");
                 break;
             case CardEffectName.Damage:
-                currentHealth -= item.scale;
+                stats.currentHealth -= item.scale;
                 break;
             case CardEffectName.Buff:
-                baseAttackDamage += item.scale;
+                stats.currentAttackDamage += item.scale;
                 break;
 
         }
@@ -83,6 +81,10 @@ public class EnemyInstance : MonoBehaviour, Entity {
 
     public int getMaxHealth() {
         return enemy.enemyType.maxHealth;
+    }
+
+    public CombatEntityInEncounterStats getCombatEntityInEncounterStats(){
+        return stats;
     }
 
 }

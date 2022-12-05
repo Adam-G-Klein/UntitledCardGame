@@ -25,7 +25,7 @@ public class PlayerHand : MonoBehaviour
     public void cardDealtEventHandler(CardsDealtEventInfo info){
         PlayableCard newCard;
         foreach(CardInfo cardInfo in info.cards) {
-            newCard = PrefabInstantiator.instantiateCard(cardPrefab, transform, cardInfo, info.companionFrom);
+            newCard = PrefabInstantiator.instantiateCard(cardPrefab, transform, cardInfo, info.companionFromStats);
             cardsInHand.Add(newCard);
             print("Card dealt to hand: " + cardInfo.id);
         }

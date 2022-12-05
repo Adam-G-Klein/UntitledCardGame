@@ -31,7 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1818299386579736654}
-  - {fileID: 2207602846692138211}
+  - {fileID: 3340489530887454464}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -171,20 +171,16 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1001 &4109362509677580906
+--- !u!1001 &720107539851587977
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 1818299386461833455}
     m_Modifications:
-    - target: {fileID: 354454427165042643, guid: 4319f1ad3b11bf248bb1a167ccc5826d, type: 3}
-      propertyPath: m_PresetInfoIsWorld
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2332963860890905134, guid: 4319f1ad3b11bf248bb1a167ccc5826d, type: 3}
       propertyPath: m_Name
-      value: EnemyHealthBar
+      value: UICanvas
       objectReference: {fileID: 0}
     - target: {fileID: 2856857186655145609, guid: 4319f1ad3b11bf248bb1a167ccc5826d, type: 3}
       propertyPath: m_Pivot.x
@@ -220,7 +216,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2856857186655145609, guid: 4319f1ad3b11bf248bb1a167ccc5826d, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 39.4137
+      value: 819.94
       objectReference: {fileID: 0}
     - target: {fileID: 2856857186655145609, guid: 4319f1ad3b11bf248bb1a167ccc5826d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -240,15 +236,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2856857186655145609, guid: 4319f1ad3b11bf248bb1a167ccc5826d, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2856857186655145609, guid: 4319f1ad3b11bf248bb1a167ccc5826d, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2856857186655145609, guid: 4319f1ad3b11bf248bb1a167ccc5826d, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2856857186655145609, guid: 4319f1ad3b11bf248bb1a167ccc5826d, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -256,7 +252,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2856857186655145609, guid: 4319f1ad3b11bf248bb1a167ccc5826d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1.5910034
+      value: -0.06
       objectReference: {fileID: 0}
     - target: {fileID: 2856857186655145609, guid: 4319f1ad3b11bf248bb1a167ccc5826d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -270,14 +266,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4739351875750287045, guid: 4319f1ad3b11bf248bb1a167ccc5826d, type: 3}
+    - target: {fileID: 8654869402456176735, guid: 4319f1ad3b11bf248bb1a167ccc5826d, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4319f1ad3b11bf248bb1a167ccc5826d, type: 3}
---- !u!224 &2207602846692138211 stripped
+--- !u!224 &3340489530887454464 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2856857186655145609, guid: 4319f1ad3b11bf248bb1a167ccc5826d, type: 3}
-  m_PrefabInstance: {fileID: 4109362509677580906}
+  m_PrefabInstance: {fileID: 720107539851587977}
   m_PrefabAsset: {fileID: 0}

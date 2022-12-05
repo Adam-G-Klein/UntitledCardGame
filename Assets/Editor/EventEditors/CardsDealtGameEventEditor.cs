@@ -23,6 +23,8 @@ public class CardsDealtGameEventEditor : Editor
             typeof(CompanionTypeSO),
             false) as CompanionTypeSO;
         
+        /* I haven't actually been using this button in testing
+        // might fix it later
         if (GUILayout.Button("Test Raise Event")) {
             if(cardInfo != null) {
                 cardsDealtEvent.Raise(new CardsDealtEventInfo(
@@ -31,5 +33,6 @@ public class CardsDealtGameEventEditor : Editor
                 ));
             }
         }
+        */
     }
 }

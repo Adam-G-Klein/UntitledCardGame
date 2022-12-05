@@ -18,7 +18,4 @@ public class PlayerData : MonoBehaviour
         return player;
     }
 
-    public Entity getEntity() {
-        return player;
-    }
 }
