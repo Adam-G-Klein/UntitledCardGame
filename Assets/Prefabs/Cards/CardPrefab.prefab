@@ -139,6 +139,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02f443f9ac2e89547a6761fb72065c22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardInfo: {fileID: 0}
+  hoverScale: 30
+  nonHoverScale: 20
+  hoverYDiff: 185
+  hovered: 0
+  effectTargetRequestEvent: {fileID: 11400000, guid: 709caf6df9005934dbe5ec0e1bd93bb6, type: 2}
 --- !u!61 &294639024923325154
 BoxCollider2D:
   m_ObjectHideFlags: 0

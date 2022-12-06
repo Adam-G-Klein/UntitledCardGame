@@ -37,6 +37,10 @@ public class PlayableCard : MonoBehaviour
     private int preHoverSiblingIndex;
     // Start is called before the first frame update
     public bool hovered = false;
+
+    [SerializeField]
+    private EffectTargetRequestEvent effectTargetRequestEvent;
+
     void Start()
     {
         cardInfo = GetComponent<CardDisplay>().cardInfo;
@@ -57,7 +61,12 @@ public class PlayableCard : MonoBehaviour
             companionFromStats.currentAttackDamage);
         // Cast event handler in PlayerHand.cs will handle the card 
         // being removed from the hand
-        cardInfo.Cast(args);
+        // Not casting here for right now, need to handoff to the EffectTargeter
+        // cardInfo.Cast(args);
+        StartCoroutine(effectTargetRequestEvent.RaiseAtEndOfFrameCoroutine(
+            new EffectTargetRequestEventInfo(new List<System.Type>{typeof(EnemyInstance)},
+            companionFromStats.id, transform)));
+
     }
 
 
