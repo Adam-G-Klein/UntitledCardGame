@@ -27,7 +27,6 @@ public class PlayerHand : MonoBehaviour
         foreach(CardInfo cardInfo in info.cards) {
             newCard = PrefabInstantiator.instantiateCard(cardPrefab, transform, cardInfo, info.companionFromStats);
             cardsInHand.Add(newCard);
-            print("Card dealt to hand: " + cardInfo.id);
         }
         displayCards();
     }

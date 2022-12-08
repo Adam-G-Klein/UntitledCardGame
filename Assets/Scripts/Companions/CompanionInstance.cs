@@ -51,7 +51,7 @@ public class CompanionInstance : CombatEntityInstance
     }
 
     public void cardEffectEventHandler(CardEffectEventInfo info){
-        if(!info.targets.Contains(companion.id)) return;
+        if(!info.target.Contains(companion.id)) return;
         switch(info.effectName) {
             case CardEffectName.Draw:
                 dealCards(info.scale);

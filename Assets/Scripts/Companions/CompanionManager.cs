@@ -15,13 +15,11 @@ public class CompanionManager : MonoBehaviour
     private List<string> companionIds = new List<string>();
 
     public void companionInstantiatedEventHandler(CompanionInstantiatedEventInfo info){
-        Debug.Log("Companion " + info.companion.id + " Instantiated and added to manager");
         companions.Add(info.companion);
     }
 
     public string getRandomCompanionId(){
         string ret = companions[Random.Range(0,companions.Count)].id;
-        print("CompanionManager.getRandomCompanionId() returning " + ret);
         return ret;
     }
 

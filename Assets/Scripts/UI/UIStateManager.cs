@@ -26,6 +26,7 @@ public class UIStateManager : MonoBehaviour
     }
 
     public void uiStageChangeEventHandler(UIStateEventInfo info) {
+        Debug.Log("UI State Change Event Handler new state: " + info.newState);
         currentState = info.newState;
     }
 }

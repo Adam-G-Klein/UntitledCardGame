@@ -6,12 +6,13 @@ using UnityEngine;
 public class CardEffectEventInfo {
     public CardEffectName effectName;
     public int scale;
-    public List<string> targets;
+    public string target;
 
-    public CardEffectEventInfo(CardEffectName effectName, int scale, List<string> targetIds){
+    // TODO: multiple targets allowed
+    public CardEffectEventInfo(CardEffectName effectName, int scale, string target){
         this.effectName = effectName;
         this.scale = scale;
-        this.targets = targetIds;
+        this.target = target;
     }
 }
 [CreateAssetMenu(

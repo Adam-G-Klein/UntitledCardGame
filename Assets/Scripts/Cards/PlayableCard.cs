@@ -38,18 +38,22 @@ public class PlayableCard : MonoBehaviour
     // Start is called before the first frame update
     public bool hovered = false;
 
-    [SerializeField]
-    private EffectTargetRequestEvent effectTargetRequestEvent;
+    private CardCaster caster;
 
     void Start()
     {
         cardInfo = GetComponent<CardDisplay>().cardInfo;
         GameObject enemyManagerGO = GameObject.Find("EnemyManager");
         GameObject companionManagerGO = GameObject.Find("CompanionManager");
+        GameObject cardCasterGO = GameObject.Find("CardCaster");
         // My attempt at null safing. We should def talk about how we want to 
         // do this generally because it'll happen a lot with the modular scenes
         if(enemyManagerGO) enemyManager = enemyManagerGO.GetComponent<EnemyManager>();
+        else Debug.LogError("EnemyManager not found");
         if(companionManagerGO) companionManager = companionManagerGO.GetComponent<CompanionManager>();
+        else Debug.LogError("CompanionManager not found");
+        if(cardCasterGO) caster = cardCasterGO.GetComponent<CardCaster>();
+        else Debug.LogError("CardCaster not found");
     }
 
     public void OnPointerClick(PointerEventData eventData) 
@@ -58,14 +62,16 @@ public class PlayableCard : MonoBehaviour
         // whole companionStats here at some point, but for now we'll just
         // pass each field individually
         CardCastArguments args = new CardCastArguments(getCastTargets(), 
-            companionFromStats.currentAttackDamage);
+            companionFromStats.id,
+            companionFromStats.strength
+            );
         // Cast event handler in PlayerHand.cs will handle the card 
         // being removed from the hand
+
         // Not casting here for right now, need to handoff to the EffectTargeter
         // cardInfo.Cast(args);
-        StartCoroutine(effectTargetRequestEvent.RaiseAtEndOfFrameCoroutine(
-            new EffectTargetRequestEventInfo(new List<System.Type>{typeof(EnemyInstance)},
-            companionFromStats.id, transform)));
+        caster.Cast(cardInfo, args, transform);
+        
 
     }
 

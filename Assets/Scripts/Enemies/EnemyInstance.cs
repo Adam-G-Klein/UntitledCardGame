@@ -47,7 +47,7 @@ public class EnemyInstance : CombatEntityInstance {
     }
 
     public void cardEffectEventHandler(CardEffectEventInfo item){
-        if(!item.targets.Contains(this.id)){
+        if(!item.target.Contains(this.id)){
             return;
         }
         switch(item.effectName) {
@@ -67,9 +67,8 @@ public class EnemyInstance : CombatEntityInstance {
 
     public void turnStartEventHandler(){
         StartCoroutine("attackCoroutine");
-        
-
     }
+
 
     IEnumerator attackCoroutine(){
         // TODO: determine beforehand so the player can see intents 

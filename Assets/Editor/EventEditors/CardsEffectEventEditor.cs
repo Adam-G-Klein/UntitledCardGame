@@ -32,7 +32,7 @@ public class CardEffectEventEditor : Editor
             cardEffectEvent.Raise(new CardEffectEventInfo(
                 effectName,
                 scale,
-                new List<string>() { targetId }
+                targetId
             ));
         }
     }
