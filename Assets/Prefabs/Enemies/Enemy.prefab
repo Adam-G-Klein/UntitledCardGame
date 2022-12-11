@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1818299386461833455}
   - component: {fileID: 1818299386461833454}
   - component: {fileID: 2877260948552900050}
-  - component: {fileID: 1741683446053202319}
+  - component: {fileID: 6875156768114901962}
   - component: {fileID: 8605112425798008380}
   - component: {fileID: 1515253770649210757}
   m_Layer: 0
@@ -58,7 +58,6 @@ MonoBehaviour:
   baseAttackDamage: 0
   attackTime: 1
   spriteRenderer: {fileID: 1818299386579737521}
-  id: 7ead661e-1017-4804-b9f7-c7e1432618af
   enemyInstantiatedEvent: {fileID: 11400000, guid: 992f15315eef2e1408f724871ffef4f7, type: 2}
   enemyEffectEvent: {fileID: 11400000, guid: da8e3f7797bc6544b88b0ce5cef3214a, type: 2}
   enemyTurnFinishedEvent: {fileID: 11400000, guid: 51c061742991bae4c97135431be9f531, type: 2}
@@ -90,7 +89,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &1741683446053202319
+--- !u!114 &6875156768114901962
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -99,10 +98,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1818299386461833425}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8eef4bc4df288ea4982c95c82482d8a2, type: 3}
+  m_Script: {fileID: 11500000, guid: 75c11e5f11d6ef94082c995b691d256d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isTargetable: 1
+  isTargetable: 0
   effectTargetSuppliedEvent: {fileID: 11400000, guid: 16143db2a2228f2499361d860ef94748, type: 2}
 --- !u!114 &8605112425798008380
 MonoBehaviour:
@@ -120,8 +119,8 @@ MonoBehaviour:
   unityEventResponse:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1741683446053202319}
-        m_TargetAssemblyTypeName: EnemyTargetting, Assembly-CSharp
+      - m_Target: {fileID: 6875156768114901962}
+        m_TargetAssemblyTypeName: EntityTargetting, Assembly-CSharp
         m_MethodName: effectTargetRequestEventHandler
         m_Mode: 0
         m_Arguments:

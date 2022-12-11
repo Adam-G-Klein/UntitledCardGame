@@ -70,7 +70,7 @@ public class PlayableCard : MonoBehaviour
 
         // Not casting here for right now, need to handoff to the EffectTargeter
         // cardInfo.Cast(args);
-        caster.Cast(cardInfo, args, transform);
+        caster.newCastRequest(cardInfo, args, transform);
         
 
     }

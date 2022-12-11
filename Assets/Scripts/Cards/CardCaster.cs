@@ -22,7 +22,7 @@ public class CardCaster : MonoBehaviour {
     private CardInfo cardCasting;
     private CardCastArguments argsCasting;
 
-    public void Cast(CardInfo info, CardCastArguments args, Transform arrowRoot) {
+    public void newCastRequest(CardInfo info, CardCastArguments args, Transform arrowRoot) {
         // This could be a lot better
         // this class is just about the opposite of 
         // idempotent, I think a lot more events will be necessary to change this
@@ -39,10 +39,7 @@ public class CardCaster : MonoBehaviour {
         // The effectTargetSuppliedEventHandler will count the targets that have been supplied
         // and we'll cast with the final targets list 
         foreach(CardEffectData effect in info.EffectsList) {
-            // We need to know what the effect is so we can know what kind of target to request
-            // but we don't want to request the target until we know what the effect is
-            // so we'll just add the effect to the dictionary and then request the target
-            // and then when the target is supplied we'll know what effect it's for
+            // A somewhat hackey way of knowing when we have all the targets we need
             effectsToTargets.Add(effect, null);
         }
         print("raising effectTargetRequestEvent");
@@ -52,6 +49,7 @@ public class CardCaster : MonoBehaviour {
     }
 
     public void effectTargetSuppliedEventHandler(EffectTargetSuppliedEventInfo info){
+        print("Got target for effect: " + info.effect.effectName + " target was: " + info.target.baseStats);//.getId());
         effectsToTargets[info.effect] = info.target;
         if(effectsListFull(effectsToTargets)){
             castCardWithTargets();

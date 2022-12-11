@@ -5,23 +5,23 @@ using UnityEngine.EventSystems;
 
 // Setting up for when we want to display this
 
-public class EnemyTargetting : MonoBehaviour,
+public class EntityTargetting : MonoBehaviour,
     IPointerClickHandler {
 
-    private EnemyInstance enemyInstance;
-    public bool isTargetable = true;
+    private CombatEntityInstance entityInstance;
+    public bool isTargetable = false;
     private CardEffectData effect;
 
     [SerializeField]
     private EffectTargetSuppliedEvent effectTargetSuppliedEvent;
 
     void Start() {
-        enemyInstance = GetComponent<EnemyInstance>();
+        entityInstance = GetComponent<CombatEntityInstance>();
     }
 
     public void effectTargetRequestEventHandler(EffectTargetRequestEventInfo info){
-        if(info.effect.validTargets.Contains(EntityType.Enemy)){
-            print("Enemy " + enemyInstance.enemy.id + " is a valid target");
+        if(info.effect.validTargets.Contains(entityInstance.baseStats.getEntityType())){
+            print("Entity" + entityInstance.baseStats.getId() + " is a valid target");
             isTargetable = true;
             effect = info.effect;
         }
@@ -29,9 +29,10 @@ public class EnemyTargetting : MonoBehaviour,
 
     public void OnPointerClick(PointerEventData eventData){
         if(isTargetable){
-            print("Enemy " + enemyInstance.enemy.id + " was supplied as a target");
+            print("Entity" + entityInstance.baseStats.getId() + " was clicked and is targetable");
             // can assume we have an effect set if we're targetable
-            StartCoroutine(effectTargetSuppliedEvent.RaiseAtEndOfFrameCoroutine(new EffectTargetSuppliedEventInfo(effect, enemyInstance)));
+            StartCoroutine(effectTargetSuppliedEvent.RaiseAtEndOfFrameCoroutine(new EffectTargetSuppliedEventInfo(effect, entityInstance)));
+            isTargetable = false;
         }
     }
 

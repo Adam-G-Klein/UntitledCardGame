@@ -26,7 +26,6 @@ public class EnemyInstance : CombatEntityInstance {
 
     [Space(5)]
     public SpriteRenderer spriteRenderer;
-    public string id;
     [SerializeField]
     private EnemyInstantiatedEvent enemyInstantiatedEvent;
     [SerializeField]
@@ -39,15 +38,16 @@ public class EnemyInstance : CombatEntityInstance {
 
     // Start is called before the first frame update
     void Start() {
+        this.baseStats = enemy;
         this.stats = new CombatEntityInEncounterStats(enemy);
         this.spriteRenderer.sprite = enemy.enemyType.sprite;
-        this.id = Id.newGuid();
         StartCoroutine(enemyInstantiatedEvent.RaiseAtEndOfFrameCoroutine(new EnemyInstantiatedEventInfo(this)));
         companionManager = GameObject.FindGameObjectWithTag("CompanionManager").GetComponent<CompanionManager>();
     }
 
     public void cardEffectEventHandler(CardEffectEventInfo item){
-        if(!item.target.Contains(this.id)){
+        print("Enemy " + baseStats.getId() + " received card effect event");
+        if(!item.target.Equals(baseStats.getId())){
             return;
         }
         switch(item.effectName) {
@@ -55,6 +55,7 @@ public class EnemyInstance : CombatEntityInstance {
                 Debug.LogWarning("omg an enemy is drawing cards what happened");
                 break;
             case CardEffectName.Damage:
+                print("Enemy " + baseStats.getId() + " took " + item.scale + " damage");
                 stats.currentHealth -= item.scale;
                 break;
             case CardEffectName.Buff:
@@ -80,9 +81,9 @@ public class EnemyInstance : CombatEntityInstance {
                 damage,
                 new List<string> {targetId},
                 new Dictionary<StatusEffect, int> { {StatusEffect.Weakness, 1} })));
-        Debug.Log("Enemy " + id + " attacked companion " + targetId + " for " + damage + " damage");
+        Debug.Log("Enemy " + baseStats.getId() + " attacked companion " + targetId + " for " + damage + " damage");
         yield return new WaitForSeconds(attackTime);
-        enemyTurnFinishedEvent.Raise(new EnemyTurnFinishedEventInfo(id));
+        enemyTurnFinishedEvent.Raise(new EnemyTurnFinishedEventInfo(baseStats.getId()));
         
     }
 

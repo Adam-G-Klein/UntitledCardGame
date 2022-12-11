@@ -13,6 +13,9 @@ GameObject:
   - component: {fileID: 5742178976953534560}
   - component: {fileID: 3027488464516499967}
   - component: {fileID: 7088900252991716844}
+  - component: {fileID: -3368850642574770698}
+  - component: {fileID: -6536180466381847028}
+  - component: {fileID: 3925862087160112264}
   m_Layer: 0
   m_Name: Companion
   m_TagString: Untagged
@@ -145,6 +148,74 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &-3368850642574770698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5285687428135354733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75c11e5f11d6ef94082c995b691d256d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isTargetable: 0
+  effectTargetSuppliedEvent: {fileID: 11400000, guid: 16143db2a2228f2499361d860ef94748, type: 2}
+--- !u!114 &-6536180466381847028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5285687428135354733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5501327943af6c438db85bdcdb2ceac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 709caf6df9005934dbe5ec0e1bd93bb6, type: 2}
+  unityEventResponse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -3368850642574770698}
+        m_TargetAssemblyTypeName: EntityTargetting, Assembly-CSharp
+        m_MethodName: effectTargetRequestEventHandler
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!61 &3925862087160112264
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5285687428135354733}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.015674114, y: -0.015674114}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.5987434, y: 2.577845}
+  m_EdgeRadius: 0
 --- !u!1 &5285687428991271529
 GameObject:
   m_ObjectHideFlags: 0

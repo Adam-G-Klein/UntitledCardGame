@@ -10,5 +10,7 @@ public interface CombatEntityBaseStats
     int getBaseAttackDamage();
 
     string getId();
+
+    EntityType getEntityType();
     
 }

@@ -31,4 +31,8 @@ public class Companion: CombatEntityBaseStats
     public string getId() {
         return this.id;
     }
+
+    public EntityType getEntityType() {
+        return EntityType.Companion;
+    }
 }

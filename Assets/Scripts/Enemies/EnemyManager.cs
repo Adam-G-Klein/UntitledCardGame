@@ -23,12 +23,12 @@ public class EnemyManager : MonoBehaviour
     private TurnPhaseEvent turnPhaseEvent;
 
     public void enemyInstantiatedEventHandler(EnemyInstantiatedEventInfo info){
-        Debug.Log("Enemy " + info.enemy.id + " Instantiated and added to manager");
-        enemies.Add(info.enemy);
+        Debug.Log("Enemy " + info.enemyInstance.baseStats.getId() + " Instantiated and added to manager");
+        enemies.Add(info.enemyInstance);
     }
 
     public string getRandomEnemyId(){
-        return enemies[Random.Range(0,enemies.Count)].id;
+        return enemies[Random.Range(0,enemies.Count)].baseStats.getId();
     }
 
     // If we ever want them to attack one at a time, the only

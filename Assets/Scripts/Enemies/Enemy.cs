@@ -35,4 +35,8 @@ public class Enemy: CombatEntityBaseStats {
         return enemyType.getNewIntent(possibleTargets, selfStats);
 
     }
+
+    public EntityType getEntityType() {
+        return EntityType.Enemy;
+    }
 }
