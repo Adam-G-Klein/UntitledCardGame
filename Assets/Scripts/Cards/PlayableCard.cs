@@ -61,7 +61,7 @@ public class PlayableCard : MonoBehaviour
         // I think there's a good possibility that we'll want to pass the 
         // whole companionStats here at some point, but for now we'll just
         // pass each field individually
-        CardCastArguments args = new CardCastArguments(getCastTargets(), 
+        CardCastArguments args = new CardCastArguments(
             companionFromStats.id,
             companionFromStats.strength
             );
@@ -75,28 +75,6 @@ public class PlayableCard : MonoBehaviour
 
     }
 
-
-    private List<string> getCastTargets(){
-        // Basically a stubbed function for now.
-        // I think actual targeting is going to involve a state
-        // machine in the event bus run by the UI, saying that the next click
-        // is to target something for the given card, checking that each click is a valid target
-        // before posting the cardWithTarget event, waiting for confirmation of target, and then
-        // actually getting to this part where we have a card we're casting with its targets
-        if(cardInfo.EffectsList[0].effectName == CardEffectName.Damage
-            && enemyManager){
-            return new List<string> { enemyManager.getRandomEnemyId() };
-        }
-        if(cardInfo.EffectsList[0].effectName == CardEffectName.Draw
-            || cardInfo.EffectsList[0].effectName == CardEffectName.Buff
-            && companionManager){
-            return new List<string> { companionManager.getRandomCompanionId() };
-        }
-        else{
-            return new List<string>();
-        }
-
-    }
 
     // Keeping these here for reference as they will almost certainly
     // be needed for UI effects in the future

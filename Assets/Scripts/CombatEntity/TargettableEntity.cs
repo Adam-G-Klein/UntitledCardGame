@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 // Setting up for when we want to display this
 
-public class EntityTargetting : MonoBehaviour,
+public class TargettableEntity : MonoBehaviour,
     IPointerClickHandler {
 
     private CombatEntityInstance entityInstance;

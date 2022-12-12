@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EffectTargeter : MonoBehaviour
+[RequireComponent(typeof(EffectTargetRequestEventListener))]
+[RequireComponent(typeof(UIStateEventListener))]
+public class TargettingArrowController : MonoBehaviour
 {
 
     private List<Transform> children;
@@ -19,6 +21,12 @@ public class EffectTargeter : MonoBehaviour
         showArrow();
         foreach(Transform child in transform){
             child.position = info.source.transform.position;
+        }
+    }
+
+    public void uiStateChangeEventHandler(UIStateEventInfo info){
+        if(info.newState == UIState.DEFAULT){
+            hideArrow();
         }
     }
 

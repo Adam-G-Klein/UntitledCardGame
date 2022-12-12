@@ -1,10 +1,21 @@
 using System.Collections.Generic;
-using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems; 
 
+public class CastingCoroutineArgs{
+    public CardInfo cardInfo;
+    public CardCastArguments castArgs;
+    public Transform casterTransform;
+
+    public CastingCoroutineArgs(CardInfo cardInfo, CardCastArguments args, Transform casterTransform){
+        this.cardInfo = cardInfo;
+        this.castArgs = args;
+        this.casterTransform = casterTransform;
+    }
+}
 
 public class CardCaster : MonoBehaviour {
     // Handles casting cardInfo's  
@@ -17,10 +28,9 @@ public class CardCaster : MonoBehaviour {
 
     [SerializeField]
     private EffectTargetRequestEvent effectTargetRequestEvent;
+
     private Dictionary<CardEffectData, CombatEntityInstance> effectsToTargets = new Dictionary<CardEffectData, CombatEntityInstance>();
     public Transform defaultArrowRoot = null;
-    private CardInfo cardCasting;
-    private CardCastArguments argsCasting;
 
     public void newCastRequest(CardInfo info, CardCastArguments args, Transform arrowRoot) {
         // This could be a lot better
@@ -29,9 +39,7 @@ public class CardCaster : MonoBehaviour {
         // We could do this all with coroutines to maintain state too but
         // I worry that have a bunch of threads in flight will only complicate things
         // At least everything is synchronous here
-        cardCasting = info;
-        argsCasting = args;
-        populateTargetsList(info, args, arrowRoot);
+        StartCoroutine("castingCoroutine", new CastingCoroutineArgs(info, args, arrowRoot));
         
     }
 
@@ -51,28 +59,24 @@ public class CardCaster : MonoBehaviour {
     public void effectTargetSuppliedEventHandler(EffectTargetSuppliedEventInfo info){
         print("Got target for effect: " + info.effect.effectName + " target was: " + info.target.baseStats);//.getId());
         effectsToTargets[info.effect] = info.target;
+        /*
         if(effectsListFull(effectsToTargets)){
             castCardWithTargets();
         } 
+        */
     }
 
-    private void castCardWithTargets(){
+    private void castCardWithTargets(CardInfo info, CardCastArguments args, Dictionary<CardEffectData, CombatEntityInstance> targets){
         // We have all the targets we need, so we can cast the card
-        cardCastEvent.Raise(new CardCastEventInfo(cardCasting));
-        for(int i = 0; i < cardCasting.EffectsList.Count; i++) {
-            // like, we need to raise the event, but I think the only way to get it here
-            // is with a reference on the class unless we use Resources.Load 
-            // plz lmk if you have a better idea :/
-            // WAIT I BET ITS A CUSTOM EDITOR
-            // I don't know if I'll do that as a part of this commit just comment "yep" 
-            // on this line of code if I'm right
-            print("target: " + effectsToTargets[cardCasting.EffectsList[i]].baseStats.getId());
+        StartCoroutine(cardCastEvent.RaiseAtEndOfFrameCoroutine(new CardCastEventInfo(info)));
+        for(int i = 0; i < info.EffectsList.Count; i++) {
+            print("target: " + effectsToTargets[info.EffectsList[i]].baseStats.getId());
 
-            cardEffectEvent.Raise(
-                new CardEffectEventInfo(cardCasting.EffectsList[i].effectName, 
-                getEffectScale(cardCasting.EffectsList[i], argsCasting),
-                effectsToTargets[cardCasting.EffectsList[i]].baseStats.getId() // Lost the ability to target multiple things here, TODO put it back
-            ));
+            StartCoroutine(cardEffectEvent.RaiseAtEndOfFrameCoroutine(
+                new CardEffectEventInfo(info.EffectsList[i].effectName, 
+                getEffectScale(info.EffectsList[i], args),
+                effectsToTargets[info.EffectsList[i]].baseStats.getId() // Lost the ability to target multiple things here, TODO put it back
+            )));
 
         }
     }
@@ -80,6 +84,9 @@ public class CardCaster : MonoBehaviour {
 
     private int getEffectScale(CardEffectData effect, CardCastArguments args) {
         // Add effect increases here when we add them to CardCastArguments
+        // Important to note thjat this is different from the strength of companions
+        // which is handled in the EntityInEncounterStats class.
+        // This math adds to the *card's* base attack damage, for example
         switch(effect.effectName) {
             case CardEffectName.Draw:
                 return effect.scale;
@@ -101,6 +108,26 @@ public class CardCaster : MonoBehaviour {
             }
         }
         return true;
+    }
+
+    private Dictionary<CardEffectData, CombatEntityInstance> getEmptyTargetsList(List<CardEffectData> effectsList){
+        Dictionary<CardEffectData, CombatEntityInstance> dict = new Dictionary<CardEffectData, CombatEntityInstance>();
+        foreach(CardEffectData effect in effectsList){
+            dict.Add(effect, null);
+        }
+        return dict;
+    }
+
+    private IEnumerator castingCoroutine(CastingCoroutineArgs args){
+        effectsToTargets = getEmptyTargetsList(args.cardInfo.EffectsList);
+        foreach(CardEffectData effect in args.cardInfo.EffectsList) {
+            StartCoroutine(effectTargetRequestEvent.RaiseAtEndOfFrameCoroutine(
+                new EffectTargetRequestEventInfo(effect,
+                args.castArgs.casterId, args.casterTransform)));
+            yield return new WaitUntil(() => effectsToTargets[effect] != null);
+            print("continuing casting coroutine");
+        }
+        castCardWithTargets(args.cardInfo, args.castArgs, effectsToTargets);
     }
 
 

@@ -12,7 +12,7 @@ public class CardCastArguments {
     // Also see CardInfo.cs for how the effects get added to the 
     // effect events
 
-    public CardCastArguments (List<string> targets, string casterId, int damageIncrease ) { 
+    public CardCastArguments (string casterId, int damageIncrease ) { 
         this.damageIncrease = damageIncrease;
         this.casterId = casterId;
     }

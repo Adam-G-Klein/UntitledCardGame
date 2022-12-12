@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TargetLineController : MonoBehaviour
+[RequireComponent(typeof(LineRenderer))]
+public class TargettingArrow : MonoBehaviour
 {
     public Transform Point1;
     public Transform Point2;
@@ -10,6 +11,7 @@ public class TargetLineController : MonoBehaviour
     public LineRenderer linerenderer;
     public float vertexCount = 12;
     public float Point2Ypositio = 2;
+    public bool displaying = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +22,11 @@ public class TargetLineController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        DrawCurve();
+
+    }
+    
+    private void DrawCurve(){
         Point2.transform.position = new Vector3(
             (Point1.transform.position.x + Point3.transform.position.x)/2, Point2Ypositio, 
             (Point1.transform.position.z + Point3.transform.position.z) / 2);
@@ -37,4 +44,6 @@ public class TargetLineController : MonoBehaviour
         linerenderer.positionCount = pointList.Count;
         linerenderer.SetPositions(pointList.ToArray());
     }
+
+
 }
