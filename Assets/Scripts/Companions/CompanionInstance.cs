@@ -22,7 +22,7 @@ public class CompanionInstance : CombatEntityInstance
         stats = new CombatEntityInEncounterStats(companion);
         // Tried doing this in Awake, but it looks like the fields of companion
         // hadn't been initialized by then
-        StartCoroutine(companionInstantiatedEvent.RaiseAtEndOfFrameCoroutine(new CompanionInstantiatedEventInfo(companion)));
+        StartCoroutine(companionInstantiatedEvent.RaiseAtEndOfFrameCoroutine(new CompanionInstantiatedEventInfo(this)));
     }
 
     void Awake() {
@@ -51,7 +51,7 @@ public class CompanionInstance : CombatEntityInstance
     }
 
     public void cardEffectEventHandler(CardEffectEventInfo info){
-        if(!info.target.Contains(companion.id)) return;
+        if(!info.targets.Contains(companion.id)) return;
         switch(info.effectName) {
             case CardEffectName.Draw:
                 dealCards(info.scale);

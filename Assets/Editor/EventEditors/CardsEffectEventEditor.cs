@@ -10,6 +10,7 @@ public class CardEffectEventEditor : Editor
     int scale = 1;
     [SerializeField]
     string targetId = "Unset Id";
+    bool needsTargets = true;
 
     public override void OnInspectorGUI() {
         CardEffectEvent cardEffectEvent = (CardEffectEvent) target;
@@ -27,12 +28,17 @@ public class CardEffectEventEditor : Editor
         targetId = EditorGUILayout.TextField(
             targetId);
 
+        EditorGUILayout.LabelField("Needs Targets");
+        needsTargets = EditorGUILayout.Toggle(
+            needsTargets);
+
         if (GUILayout.Button("Raise Card Effect Event")) {
             //TODO, figure out how to raise at end of frame
+            Debug.LogWarning("Haven't added support for getting all valid targets in this event editor yet, so effects that target all companions or enemies won't work");
             cardEffectEvent.Raise(new CardEffectEventInfo(
                 effectName,
                 scale,
-                targetId
+                needsTargets ? new List<string> {targetId} : new List<string>()
             ));
         }
     }

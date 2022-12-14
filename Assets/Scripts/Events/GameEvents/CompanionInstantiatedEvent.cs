@@ -5,10 +5,10 @@ using UnityEngine;
 [System.Serializable]
 public class CompanionInstantiatedEventInfo {
 
-    public Companion companion;
+    public CombatEntityInstance companionInstance;
 
-    public CompanionInstantiatedEventInfo(Companion companion) {
-        this.companion = companion;
+    public CompanionInstantiatedEventInfo(CombatEntityInstance companion) {
+        this.companionInstance = companion;
     }
 }
 [CreateAssetMenu(

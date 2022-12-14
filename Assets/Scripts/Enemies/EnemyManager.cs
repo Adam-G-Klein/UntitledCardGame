@@ -44,6 +44,14 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
+    public List<string> getEnemyIds(){
+        List<string> returnList = new List<string>();
+        foreach(EnemyInstance instance in enemies) {
+            returnList.Add(instance.baseStats.getId());
+        }
+        return returnList;
+    }
+
     public void enemyTurnFinishedEventHandler(EnemyTurnFinishedEventInfo info){
         enemiesDoneWithTurn++;
         if(enemiesDoneWithTurn == enemies.Count){

@@ -15,7 +15,7 @@ public abstract class BaseGameEventListener<T, E, UER> : MonoBehaviour,
 
     private void OnEnable()
     {
-        if (gameEvent == null)
+        if (gameEvent == null) 
             return;
         
         GameEvent.RegisterListener(this);
@@ -38,4 +38,5 @@ public abstract class BaseGameEventListener<T, E, UER> : MonoBehaviour,
             unityEventResponse.Invoke(item);
         }
     }
+
 }

@@ -17,6 +17,8 @@ public class CastingCoroutineArgs{
     }
 }
 
+[RequireComponent(typeof(EffectTargetSuppliedEventListener))]
+[RequireComponent(typeof(UIStateEventListener))]
 public class CardCaster : MonoBehaviour {
     // Handles casting cardInfo's  
 
@@ -30,55 +32,82 @@ public class CardCaster : MonoBehaviour {
     private EffectTargetRequestEvent effectTargetRequestEvent;
 
     private Dictionary<CardEffectData, CombatEntityInstance> effectsToTargets = new Dictionary<CardEffectData, CombatEntityInstance>();
+    private CompanionManager companionManager;
+    private EnemyManager enemyManager;
     public Transform defaultArrowRoot = null;
 
+    void Start() {
+        // This may cause me to consider combining these into an EntityInstanceManager
+        GameObject companionManagerGO = GameObject.Find("CompanionManager");
+        if(!companionManagerGO) Debug.LogWarning("Card caster couldn't find companion manager, won't be able to cast effects that target all companions");
+        else companionManager = companionManagerGO.GetComponent<CompanionManager>();
+
+        GameObject enemyManagerGO = GameObject.Find("EnemyManager");
+        if(!enemyManagerGO) Debug.LogWarning("Card caster couldn't find enemy manager, won't be able to cast effects that target all enemies");
+        else enemyManager = enemyManagerGO.GetComponent<EnemyManager>();
+
+
+
+    }
     public void newCastRequest(CardInfo info, CardCastArguments args, Transform arrowRoot) {
-        // This could be a lot better
-        // this class is just about the opposite of 
-        // idempotent, I think a lot more events will be necessary to change this
-        // We could do this all with coroutines to maintain state too but
-        // I worry that have a bunch of threads in flight will only complicate things
-        // At least everything is synchronous here
+        StopCoroutine("castingCoroutine");
         StartCoroutine("castingCoroutine", new CastingCoroutineArgs(info, args, arrowRoot));
         
-    }
-
-    private void populateTargetsList(CardInfo info, CardCastArguments args, Transform arrowRoot){
-        // The effectTargetSuppliedEventHandler will count the targets that have been supplied
-        // and we'll cast with the final targets list 
-        foreach(CardEffectData effect in info.EffectsList) {
-            // A somewhat hackey way of knowing when we have all the targets we need
-            effectsToTargets.Add(effect, null);
-        }
-        print("raising effectTargetRequestEvent");
-        StartCoroutine(effectTargetRequestEvent.RaiseAtEndOfFrameCoroutine(
-            new EffectTargetRequestEventInfo(info.EffectsList[0],
-            args.casterId, arrowRoot)));
     }
 
     public void effectTargetSuppliedEventHandler(EffectTargetSuppliedEventInfo info){
         print("Got target for effect: " + info.effect.effectName + " target was: " + info.target.baseStats);//.getId());
         effectsToTargets[info.effect] = info.target;
-        /*
-        if(effectsListFull(effectsToTargets)){
-            castCardWithTargets();
-        } 
-        */
+    }
+
+    public void uiStateEventHandler(UIStateEventInfo info) {
+        if(info.newState == UIState.EFFECT_TARGETTING) {
+            // no change to be applied
+            return;
+        }
+        // If we're casting a card and the ui state changes, we need to cancel the cast
+        StopCoroutine("castingCoroutine");
+        effectsToTargets.Clear();
     }
 
     private void castCardWithTargets(CardInfo info, CardCastArguments args, Dictionary<CardEffectData, CombatEntityInstance> targets){
         // We have all the targets we need, so we can cast the card
         StartCoroutine(cardCastEvent.RaiseAtEndOfFrameCoroutine(new CardCastEventInfo(info)));
-        for(int i = 0; i < info.EffectsList.Count; i++) {
-            print("target: " + effectsToTargets[info.EffectsList[i]].baseStats.getId());
+        List<string> targetList = new List<string>();
+        foreach(CardEffectData effect in info.EffectsList) {
+            if(effect.needsTargets) {
+                print("casting effect: " + effect.effectName + " with target: " + effectsToTargets[effect].baseStats.getId());
+                targetList.Add(effectsToTargets[effect].baseStats.getId());
+            } else {
+                print("casting effect: " + effect.effectName + " targetting all valid targets");
+                targetList = getAllValidTargets(effect);
+            }
 
             StartCoroutine(cardEffectEvent.RaiseAtEndOfFrameCoroutine(
-                new CardEffectEventInfo(info.EffectsList[i].effectName, 
-                getEffectScale(info.EffectsList[i], args),
-                effectsToTargets[info.EffectsList[i]].baseStats.getId() // Lost the ability to target multiple things here, TODO put it back
+                new CardEffectEventInfo(effect.effectName, 
+                getEffectScale(effect, args),
+                targetList
             )));
 
         }
+    }
+
+    private List<string> getAllValidTargets(CardEffectData effect) {
+        List<string> returnList = new List<string>();
+        if(effect.validTargets.Contains(EntityType.Companion)){
+            if(companionManager)
+                returnList.AddRange(companionManager.getCompanionIds());
+            else
+                Debug.LogWarning("No companion manager in scene, couldn't cast effect that targets all companions");
+        }
+        if(effect.validTargets.Contains(EntityType.Enemy)){
+            if(enemyManager)
+                returnList.AddRange(enemyManager.getEnemyIds());
+            else
+                Debug.LogWarning("No enemy manager in scene, couldn't cast effect that targets all enemies");
+        }
+        return returnList;
+
     }
 
 
@@ -100,16 +129,6 @@ public class CardCaster : MonoBehaviour {
 
     }
 
-    // not generalizable because C# can't look into the dict
-    private bool effectsListFull(Dictionary<CardEffectData, CombatEntityInstance> dict){
-        foreach(CardEffectData key in dict.Keys){
-            if(dict[key] == null){
-                return false;
-            }
-        }
-        return true;
-    }
-
     private Dictionary<CardEffectData, CombatEntityInstance> getEmptyTargetsList(List<CardEffectData> effectsList){
         Dictionary<CardEffectData, CombatEntityInstance> dict = new Dictionary<CardEffectData, CombatEntityInstance>();
         foreach(CardEffectData effect in effectsList){
@@ -121,11 +140,13 @@ public class CardCaster : MonoBehaviour {
     private IEnumerator castingCoroutine(CastingCoroutineArgs args){
         effectsToTargets = getEmptyTargetsList(args.cardInfo.EffectsList);
         foreach(CardEffectData effect in args.cardInfo.EffectsList) {
-            StartCoroutine(effectTargetRequestEvent.RaiseAtEndOfFrameCoroutine(
-                new EffectTargetRequestEventInfo(effect,
-                args.castArgs.casterId, args.casterTransform)));
-            yield return new WaitUntil(() => effectsToTargets[effect] != null);
-            print("continuing casting coroutine");
+            if(effect.needsTargets) {
+                print("Getting target for effect: " + effect.effectName);
+                StartCoroutine(effectTargetRequestEvent.RaiseAtEndOfFrameCoroutine(
+                    new EffectTargetRequestEventInfo(effect,
+                    args.castArgs.casterId, args.casterTransform)));
+                yield return new WaitUntil(() => effectsToTargets[effect] != null);
+            }
         }
         castCardWithTargets(args.cardInfo, args.castArgs, effectsToTargets);
     }

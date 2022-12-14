@@ -5,6 +5,8 @@ using UnityEngine.EventSystems;
 
 // Setting up for when we want to display this
 
+[RequireComponent(typeof(EffectTargetRequestEventListener))]
+[RequireComponent(typeof(UIStateEventListener))]
 public class TargettableEntity : MonoBehaviour,
     IPointerClickHandler {
 
@@ -24,6 +26,15 @@ public class TargettableEntity : MonoBehaviour,
             print("Entity" + entityInstance.baseStats.getId() + " is a valid target");
             isTargetable = true;
             effect = info.effect;
+        }
+    }
+
+    public void uIStateEventListener(UIStateEventInfo info){
+        // For now we don't need any information besides the fact 
+        // that we're not targeting anymore
+        if(info.newState != UIState.EFFECT_TARGETTING) {
+            isTargetable = false;
+            effect = null;
         }
     }
 

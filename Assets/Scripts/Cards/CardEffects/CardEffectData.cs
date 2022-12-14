@@ -15,6 +15,7 @@ public class CardEffectData
     
     public CardEffectName effectName;
     public int scale;
+    public bool needsTargets;
     [SerializeField]
     public List<EntityType> validTargets;
 }

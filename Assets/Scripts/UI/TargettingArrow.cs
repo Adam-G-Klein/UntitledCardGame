@@ -11,7 +11,6 @@ public class TargettingArrow : MonoBehaviour
     public LineRenderer linerenderer;
     public float vertexCount = 12;
     public float Point2Ypositio = 2;
-    public bool displaying = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -44,6 +43,11 @@ public class TargettingArrow : MonoBehaviour
         linerenderer.positionCount = pointList.Count;
         linerenderer.SetPositions(pointList.ToArray());
     }
+
+    public void setColor(Color color){
+        linerenderer.endColor = color;
+    }
+
 
 
 }

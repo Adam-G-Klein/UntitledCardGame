@@ -46,10 +46,10 @@ public class EnemyInstance : CombatEntityInstance {
     }
 
     public void cardEffectEventHandler(CardEffectEventInfo item){
-        print("Enemy " + baseStats.getId() + " received card effect event");
-        if(!item.target.Equals(baseStats.getId())){
+        if(!item.targets.Contains(baseStats.getId())){
             return;
         }
+        print("Enemy " + baseStats.getId() + " processing card effect event");
         switch(item.effectName) {
             case CardEffectName.Draw:
                 Debug.LogWarning("omg an enemy is drawing cards what happened");
