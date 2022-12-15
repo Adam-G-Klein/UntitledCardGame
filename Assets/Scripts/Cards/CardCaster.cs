@@ -83,11 +83,15 @@ public class CardCaster : MonoBehaviour {
                 targetList = getAllValidTargets(effect);
             }
 
+            
             StartCoroutine(cardEffectEvent.RaiseAtEndOfFrameCoroutine(
                 new CardEffectEventInfo(effect.effectName, 
                 getEffectScale(effect, args),
-                targetList
+                // Create a copy of the target list because the event
+                // just gets a reference to it
+                new List<string>(targetList)
             )));
+            targetList.Clear();
 
         }
     }
