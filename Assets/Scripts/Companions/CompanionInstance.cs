@@ -53,14 +53,14 @@ public class CompanionInstance : CombatEntityInstance
     public void cardEffectEventHandler(CardEffectEventInfo info){
         if(!info.targets.Contains(companion.id)) return;
         switch(info.effectName) {
-            case CardEffectName.Draw:
+            case SimpleEffectName.Draw:
                 dealCards(info.scale);
                 break;
-            case CardEffectName.Damage:
+            case SimpleEffectName.Damage:
                 // TODO: heal effect
                 stats.currentHealth -= info.scale;
                 break;
-            case CardEffectName.Buff:
+            case SimpleEffectName.Buff:
                 stats.strength += info.scale; 
                 break;
         }

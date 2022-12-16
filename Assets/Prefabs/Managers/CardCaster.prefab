@@ -81,7 +81,8 @@ MonoBehaviour:
   cardEffectEvent: {fileID: 11400000, guid: 649dc1f48181c6f4ea744ea04ca53239, type: 2}
   cardCastEvent: {fileID: 11400000, guid: 8e2f201df9de731449d5a0e8ddb0d748, type: 2}
   effectTargetRequestEvent: {fileID: 11400000, guid: 709caf6df9005934dbe5ec0e1bd93bb6, type: 2}
-  defaultArrowRoot: {fileID: 9055853529238681092}
+  castingCardTransform: {fileID: 0}
+  procedure: {fileID: 11400000, guid: f7e00435b8ebdd8499125db3289ef255, type: 2}
 --- !u!114 &9055853530846638641
 MonoBehaviour:
   m_ObjectHideFlags: 0

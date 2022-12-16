@@ -23,11 +23,10 @@ public class TargettingArrowController : MonoBehaviour
 
     public void effectTargetRequestEventHandler(EffectTargetRequestEventInfo info){
         showArrow();
-        setArrowColor(info.effect.validTargets);
+        setArrowColor(info.validTargets);
         foreach(Transform child in transform){
             child.position = info.source.transform.position;
         }
-
     }
 
     public void uiStateChangeEventHandler(UIStateEventInfo info){

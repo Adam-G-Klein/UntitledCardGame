@@ -51,14 +51,14 @@ public class EnemyInstance : CombatEntityInstance {
         }
         print("Enemy " + baseStats.getId() + " processing card effect event");
         switch(item.effectName) {
-            case CardEffectName.Draw:
+            case SimpleEffectName.Draw:
                 Debug.LogWarning("omg an enemy is drawing cards what happened");
                 break;
-            case CardEffectName.Damage:
+            case SimpleEffectName.Damage:
                 print("Enemy " + baseStats.getId() + " took " + item.scale + " damage");
                 stats.currentHealth -= item.scale;
                 break;
-            case CardEffectName.Buff:
+            case SimpleEffectName.Buff:
                 stats.strength += item.scale;
                 break;
 

@@ -12,7 +12,6 @@ public class TargettableEntity : MonoBehaviour,
 
     private CombatEntityInstance entityInstance;
     public bool isTargetable = false;
-    private CardEffectData effect;
 
     [SerializeField]
     private EffectTargetSuppliedEvent effectTargetSuppliedEvent;
@@ -22,10 +21,9 @@ public class TargettableEntity : MonoBehaviour,
     }
 
     public void effectTargetRequestEventHandler(EffectTargetRequestEventInfo info){
-        if(info.effect.validTargets.Contains(entityInstance.baseStats.getEntityType())){
+        if(info.validTargets.Contains(entityInstance.baseStats.getEntityType())){
             print("Entity" + entityInstance.baseStats.getId() + " is a valid target");
             isTargetable = true;
-            effect = info.effect;
         }
     }
 
@@ -34,7 +32,6 @@ public class TargettableEntity : MonoBehaviour,
         // that we're not targeting anymore
         if(info.newState != UIState.EFFECT_TARGETTING) {
             isTargetable = false;
-            effect = null;
         }
     }
 
@@ -42,7 +39,7 @@ public class TargettableEntity : MonoBehaviour,
         if(isTargetable){
             print("Entity" + entityInstance.baseStats.getId() + " was clicked and is targetable");
             // can assume we have an effect set if we're targetable
-            StartCoroutine(effectTargetSuppliedEvent.RaiseAtEndOfFrameCoroutine(new EffectTargetSuppliedEventInfo(effect, entityInstance)));
+            StartCoroutine(effectTargetSuppliedEvent.RaiseAtEndOfFrameCoroutine(new EffectTargetSuppliedEventInfo(entityInstance)));
             isTargetable = false;
         }
     }

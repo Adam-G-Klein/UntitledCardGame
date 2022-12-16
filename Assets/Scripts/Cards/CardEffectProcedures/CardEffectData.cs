@@ -3,7 +3,12 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum CardEffectName {
+// Simple effects are actioned by 
+// listeners to SimpleEffectEvents
+// See EnemyInstance and CompanionInstance for their 
+// handler functions, where they deal damage to themselves
+// and handle buffs/debuffs
+public enum SimpleEffectName {
     Draw,
     Damage,
     Buff
@@ -13,7 +18,7 @@ public enum CardEffectName {
 public class CardEffectData
 {
     
-    public CardEffectName effectName;
+    public SimpleEffectName effectName;
     public int scale;
     public bool needsTargets;
     [SerializeField]

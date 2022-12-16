@@ -6,11 +6,9 @@ using UnityEngine;
 
 [System.Serializable]
 public class EffectTargetSuppliedEventInfo {
-    public CardEffectData effect;
     public CombatEntityInstance target;
 
-    public EffectTargetSuppliedEventInfo(CardEffectData effect, CombatEntityInstance target){
-        this.effect = effect;
+    public EffectTargetSuppliedEventInfo(CombatEntityInstance target){
         this.target = target;
     }
 }

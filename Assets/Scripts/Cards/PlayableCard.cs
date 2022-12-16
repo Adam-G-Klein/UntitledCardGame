@@ -61,10 +61,7 @@ public class PlayableCard : MonoBehaviour
         // I think there's a good possibility that we'll want to pass the 
         // whole companionStats here at some point, but for now we'll just
         // pass each field individually
-        CardCastArguments args = new CardCastArguments(
-            companionFromStats.id,
-            companionFromStats.strength
-            );
+        CardCastArguments args = new CardCastArguments(companionFromStats);
         // Cast event handler in PlayerHand.cs will handle the card 
         // being removed from the hand
 

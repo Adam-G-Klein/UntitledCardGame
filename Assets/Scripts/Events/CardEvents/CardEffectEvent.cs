@@ -4,12 +4,12 @@ using UnityEngine;
 
 [System.Serializable]
 public class CardEffectEventInfo {
-    public CardEffectName effectName;
+    public SimpleEffectName effectName;
     public int scale;
     public List<string> targets;
 
     // TODO: multiple targets allowed
-    public CardEffectEventInfo(CardEffectName effectName, int scale, List<string> targets){
+    public CardEffectEventInfo(SimpleEffectName effectName, int scale, List<string> targets){
         this.effectName = effectName;
         this.scale = scale;
         this.targets = targets;

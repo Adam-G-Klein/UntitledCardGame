@@ -16,9 +16,8 @@ MonoBehaviour:
   Description: Have some str 4 free cuz u wanna be beeg right?
   Cost: 0
   Artwork: {fileID: 21300000, guid: bdd59c505b86bf44cabf5f9f82a41064, type: 3}
-  EffectsList:
+  EffectProcedures:
   - effectName: 2
-    scale: 2
-    needsTargets: 1
+    baseScale: 2
     validTargets: 00000000
   id: 404a410e-a7e1-4865-ab66-d833c57d3af2

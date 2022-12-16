@@ -16,9 +16,8 @@ MonoBehaviour:
   Description: Draw one card for one mana because THATS BALANCED
   Cost: 1
   Artwork: {fileID: 21300000, guid: 1b0ccf3a0e7b0074bb900539fcac29bf, type: 3}
-  EffectsList:
+  EffectProcedures:
   - effectName: 0
-    scale: 2
-    needsTargets: 1
+    baseScale: 2
     validTargets: 00000000
   id: b9d5ec9d-bfed-4a8a-95c4-222c8bbefc7c

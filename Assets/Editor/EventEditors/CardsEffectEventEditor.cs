@@ -6,7 +6,7 @@ using UnityEditor;
 [CustomEditor(typeof(CardEffectEvent))]
 public class CardEffectEventEditor : Editor
 {
-    CardEffectName effectName;
+    SimpleEffectName effectName;
     int scale = 1;
     [SerializeField]
     string targetId = "Unset Id";
@@ -17,7 +17,7 @@ public class CardEffectEventEditor : Editor
         DrawDefaultInspector();
         EditorGUILayout.LabelField("Effect Name");
 
-        effectName  = (CardEffectName) EditorGUILayout.EnumPopup(
+        effectName  = (SimpleEffectName) EditorGUILayout.EnumPopup(
             effectName);
         
         EditorGUILayout.LabelField("Scale");
