@@ -11,7 +11,8 @@ using UnityEngine;
 public enum SimpleEffectName {
     Draw,
     Damage,
-    Buff
+    Buff,
+    Unset
 }
 
 [Serializable]

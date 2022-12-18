@@ -190,10 +190,11 @@ public class CardCaster : MonoBehaviour {
             companionManager, 
             enemyManager, 
             args.castArgs.casterStats);
+        print("EffectProcedures count: " + args.cardInfo.EffectProcedures.Count);
         foreach(EffectProcedure procedure in args.cardInfo.EffectProcedures){
             yield return StartCoroutine(procedure.invoke(currentContext));
         }
-        StartCoroutine(cardCastEvent.RaiseAtEndOfFrameCoroutine(new CardCastEventInfo(args.cardInfo)));
+        yield return StartCoroutine(cardCastEvent.RaiseAtEndOfFrameCoroutine(new CardCastEventInfo(args.cardInfo)));
     }
 
 /*

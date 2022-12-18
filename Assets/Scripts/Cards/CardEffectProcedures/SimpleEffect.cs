@@ -16,6 +16,12 @@ public class SimpleEffect: EffectProcedure {
     public List<EntityType> validTargets;
     private List<string> targets = new List<string>();
 
+    public SimpleEffect(SimpleEffectName effectName, int baseScale, List<EntityType> validTargets) {
+        this.effectName = effectName;
+        this.baseScale = baseScale;
+        this.validTargets = validTargets;
+    }
+
     public override IEnumerator invoke(EffectProcedureContext context) {
         this.context = context;
         targets.Clear();

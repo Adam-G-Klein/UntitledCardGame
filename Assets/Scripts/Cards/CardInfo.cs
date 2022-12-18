@@ -19,6 +19,7 @@ public class CardInfo : ScriptableObject
     /// for that EffectProcedureClassName that lets us set the fields
     /// wow written by autopilot I'm fucked lol
     [SerializeField]
-    public List<SimpleEffect> EffectProcedures;
+    public List<string> EffectProcedureNames;
+    public List<EffectProcedure> EffectProcedures;
     public string id = Id.newGuid();
 }
