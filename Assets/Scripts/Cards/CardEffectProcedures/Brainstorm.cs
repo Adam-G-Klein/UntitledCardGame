@@ -10,34 +10,29 @@ public class SimpleEffectArguments: EffectProcedureContext {
 }
 */
 [System.Serializable]
-public class SimpleEffect: EffectProcedure {
+public class Brainstorm: EffectProcedure {
     // Causes the whole class to serialize differently if this field 
     // has a default value. *shrug*
     public string procedureClass;
-    public SimpleEffectName effectName;
     public int baseScale = 0;
-    public bool targetAllValidTargets = false;
-    public List<EntityType> validTargets;
+    public List<EntityType> validTargets = new List<EntityType>() {EntityType.Enemy};
     private List<string> targets = new List<string>();
 
-    public SimpleEffect() {
-        procedureClass = "SimpleEffect";
+    public Brainstorm() {
+        procedureClass = "Brainstorm";
     }
     
     public override IEnumerator invoke(EffectProcedureContext context) {
         this.context = context;
         targets.Clear();
         //args.context.caster.raiseSimpleEffect(simpleEffectName);
-        if(targetAllValidTargets) {
-            targets.AddRange(context.caster.getAllValidTargets(validTargets));
-        }
-        else {
-            context.caster.requestTarget(validTargets, this);
-        }
+        context.caster.requestTarget(validTargets, this);
         yield return new WaitUntil(() => targets.Count > 0);
+        // Subtract 1 because we don't want to count the card we're playing
+        int damage = (context.playerHand.cardsInHand.Count - 1) * context.casterStats.strength;
         context.caster.raiseSimpleEffect(
-            effectName, 
-            context.caster.getEffectScale(effectName, baseScale),
+            SimpleEffectName.Damage, 
+            damage,
             targets);
     }
 

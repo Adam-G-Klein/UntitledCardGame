@@ -17,16 +17,19 @@ public class EffectProcedureContext {
     public CardCaster caster;
     public CompanionManager companionManager;
     public EnemyManager enemyManager;
-    public CombatEntityInEncounterStats stats;
+    public CombatEntityInEncounterStats casterStats;
+    public PlayerHand playerHand;
 
     public EffectProcedureContext (CardCaster caster, 
         CompanionManager companionManager, 
         EnemyManager enemyManager,
-        CombatEntityInEncounterStats stats) {
+        CombatEntityInEncounterStats stats,
+        PlayerHand playerHand) {
         this.caster = caster;
         this.companionManager = companionManager;
         this.enemyManager = enemyManager;
-        this.stats = stats;
+        this.casterStats = stats;
+        this.playerHand = playerHand;
 
     }
 }
@@ -51,7 +54,5 @@ public abstract class EffectProcedure
 
     // Would change to returning EffectProcedureOutput if we decide we need it
     public abstract IEnumerator invoke(EffectProcedureContext context);
-
-    public abstract void setProcedureClassName(string procedureClassName);
 
 }

@@ -26,6 +26,7 @@ MonoBehaviour:
       type: {class: SimpleEffect, ns: , asm: Assembly-CSharp}
       data:
         procedureClass: SimpleEffect
-        effectName: 0
-        baseScale: 0
-        validTargets: 
+        effectName: 1
+        baseScale: 2
+        targetAllValidTargets: 0
+        validTargets: 01000000

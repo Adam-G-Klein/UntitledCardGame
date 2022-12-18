@@ -10,30 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7904e26caac798846b1bef01c19a07f7, type: 3}
-  m_Name: Big Gun
+  m_Name: Brainstorm
   m_EditorClassIdentifier: 
-  Name: Big Gun
-  Description: OH SHIT HE'S GOT A GUN HOW DID HE GET THAT(Deal 4 damage, draw a card.)
+  Name: Brainstorm
+  Description: OH SHIT HE'S GOT A GUN HOW DID HE GET THAT(Deal card in your hand,
+    deal damage equal to this companion's strength.)
   Cost: 1
   Artwork: {fileID: 21300000, guid: 16d538f92b835a14381c8566e07acb49, type: 3}
   EffectProcedures:
-  - rid: 784857113120997384
-  - rid: 784857113120997385
+  - rid: 784857113897730052
   id: 471782f8-0d7c-45ce-b785-f3eb7b76087f
   references:
     version: 2
     RefIds:
-    - rid: 784857113120997384
-      type: {class: SimpleEffect, ns: , asm: Assembly-CSharp}
+    - rid: 784857113897730052
+      type: {class: Brainstorm, ns: , asm: Assembly-CSharp}
       data:
-        procedureClass: SimpleEffect
-        effectName: 1
-        baseScale: 2
+        procedureClass: Brainstorm
+        baseScale: 0
         validTargets: 01000000
-    - rid: 784857113120997385
-      type: {class: SimpleEffect, ns: , asm: Assembly-CSharp}
-      data:
-        procedureClass: SimpleEffect
-        effectName: 0
-        baseScale: 1
-        validTargets: 00000000

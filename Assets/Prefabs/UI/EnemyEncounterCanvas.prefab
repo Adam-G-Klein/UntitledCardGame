@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 4078377439131705079}
   - component: {fileID: 1859712966802467834}
   - component: {fileID: 6984004633526640634}
+  - component: {fileID: 2625472180118393334}
   m_Layer: 5
   m_Name: EnemyEncounterCanvas
   m_TagString: Untagged
@@ -206,6 +207,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentState: 0
   uiStateEvent: {fileID: 11400000, guid: 7fa89282fdc5197409a5e9b310da94f8, type: 2}
+--- !u!114 &2625472180118393334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7345001097657664343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38620049e120ba345beb222af44b5f64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 8e2f201df9de731449d5a0e8ddb0d748, type: 2}
+  unityEventResponse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6984004633526640634}
+        m_TargetAssemblyTypeName: UIStateManager, Assembly-CSharp
+        m_MethodName: cardCastEventListener
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &2866032634845591595
 PrefabInstance:
   m_ObjectHideFlags: 0

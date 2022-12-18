@@ -58,8 +58,10 @@ public class CardCaster : MonoBehaviour {
     private EnemyManager enemyManager;
     public Transform castingCardTransform;
     /// Don't rely on this being available, it's only set when a card is being cast
-    private EffectProcedure currentProcedure;
-    /// Don't rely on this being available, it's only set when a card is being cast
+    private IEnumerator currentProcedure;
+    private PlayerHand playerHand;
+    /// Don't rely on this being available outside of effectProcedure invokations, 
+    /// it's only set when a card is being cast
     private EffectProcedureContext currentContext;
 
     void Start() {
@@ -71,6 +73,10 @@ public class CardCaster : MonoBehaviour {
         GameObject enemyManagerGO = GameObject.Find("EnemyManager");
         if(!enemyManagerGO) Debug.LogWarning("Card caster couldn't find enemy manager, won't be able to cast effects that target all enemies");
         else enemyManager = enemyManagerGO.GetComponent<EnemyManager>();
+
+        GameObject playerHandGO = GameObject.Find("PlayerHand");
+        if(!playerHandGO) Debug.LogWarning("Card caster couldn't find player hand, won't be able to cast effects interacting with the player's hand (card counting, discard effects)");
+        else playerHand = playerHandGO.GetComponent<PlayerHand>();
     }
     public void newCastRequest(CardInfo info, CardCastArguments args, Transform arrowRoot) {
         StopCoroutine("castingCoroutine");
@@ -81,11 +87,6 @@ public class CardCaster : MonoBehaviour {
         
     }
 
-    public void effectTargetSuppliedEventHandler(EffectTargetSuppliedEventInfo info){
-        print("Caster got target: " + info.target.baseStats);//.getId());
-        //effectsToTargets[info.effect] = info.target;
-        requestedTarget = info.target.baseStats.getId();
-    }
 
     public void uiStateEventHandler(UIStateEventInfo info) {
         if(info.newState == UIState.EFFECT_TARGETTING) {
@@ -93,39 +94,13 @@ public class CardCaster : MonoBehaviour {
             return;
         }
         // If we're casting a card and the ui state changes, we need to cancel the cast
-        StopCoroutine("castingCoroutine");
-        //effectsToTargets.Clear();
-        requestedTarget = NO_TARGET;
+        // if we want to make casts uninterruptable, we'll need to check for a flag 
+        // on the caster from the UIStateManager before we change the state. If the 
+        // state is changed here, it means we're good to cancel.
+        resetCastingState();
     }
 
-/*
-    private void castCardWithTargets(CardInfo info, CardCastArguments args, Dictionary<CardEffectData, CombatEntityInstance> targets){
-        // We have all the targets we need, so we can cast the card
-        StartCoroutine(cardCastEvent.RaiseAtEndOfFrameCoroutine(new CardCastEventInfo(info)));
-        List<string> targetList = new List<string>();
-        foreach(CardEffectData effect in info.EffectsList) {
-            if(effect.needsTargets) {
-                print("casting effect: " + effect.effectName + " with target: " + effectsToTargets[effect].baseStats.getId());
-                targetList.Add(effectsToTargets[effect].baseStats.getId());
-            } else {
-                print("casting effect: " + effect.effectName + " targetting all valid targets");
-                targetList = getAllValidTargets(effect);
-            }
-
-            StartCoroutine(cardEffectEvent.RaiseAtEndOfFrameCoroutine(
-                new CardEffectEventInfo(effect.effectName, 
-                getEffectScale(effect, args),
-                // Create a copy of the target list because the event
-                // just gets a reference to it
-                new List<string>(targetList)
-            )));
-            targetList.Clear();
-
-        }
-    }
-    */
-
-    private List<string> getAllValidTargets(List<EntityType> validTargets) {
+    public List<string> getAllValidTargets(List<EntityType> validTargets) {
         List<string> returnList = new List<string>();
         if(validTargets.Contains(EntityType.Companion)){
             if(companionManager)
@@ -145,7 +120,7 @@ public class CardCaster : MonoBehaviour {
 
     public int getEffectScale(SimpleEffectName effect, int baseScale) {
         if(currentContext == null) Debug.LogError("No current context set, can't get effect scale. Try calling the overload that provides casterStats");
-        CombatEntityInEncounterStats casterStats = currentContext.stats;
+        CombatEntityInEncounterStats casterStats = currentContext.casterStats;
         switch(effect) {
             case SimpleEffectName.Draw:
                 return baseScale;
@@ -176,44 +151,23 @@ public class CardCaster : MonoBehaviour {
 
     }
 
-    private Dictionary<CardEffectData, CombatEntityInstance> getEmptyTargetsList(List<CardEffectData> effectsList){
-        Dictionary<CardEffectData, CombatEntityInstance> dict = new Dictionary<CardEffectData, CombatEntityInstance>();
-        foreach(CardEffectData effect in effectsList){
-            dict.Add(effect, null);
-        }
-        return dict;
-    }
-
     private IEnumerator castingCoroutine(CastingCoroutineArgs args){
         currentContext = new EffectProcedureContext(
             this, 
             companionManager, 
             enemyManager, 
-            args.castArgs.casterStats);
+            args.castArgs.casterStats,
+            playerHand);
         print("EffectProcedures count: " + args.cardInfo.EffectProcedures.Count);
         foreach(EffectProcedure procedure in args.cardInfo.EffectProcedures){
-            yield return StartCoroutine(procedure.invoke(currentContext));
+            // Track current procedure for casting cancellation
+            currentProcedure = procedure.invoke(currentContext);
+            yield return StartCoroutine(currentProcedure);
         }
         yield return StartCoroutine(cardCastEvent.RaiseAtEndOfFrameCoroutine(new CardCastEventInfo(args.cardInfo)));
     }
 
-/*
-    private IEnumerator castingCoroutine(CastingCoroutineArgs args){
-        effectsToTargets = getEmptyTargetsList(args.cardInfo.EffectsList);
-        foreach(CardEffectData effect in args.cardInfo.EffectsList) {
-            if(effect.needsTargets) {
-                print("Getting target for effect: " + effect.effectName);
-                StartCoroutine(effectTargetRequestEvent.RaiseAtEndOfFrameCoroutine(
-                    new EffectTargetRequestEventInfo(effect,
-                    args.casterTransform)));
-                yield return new WaitUntil(() => effectsToTargets[effect] != null);
-            }
-        }
-        castCardWithTargets(args.cardInfo, args.castArgs, effectsToTargets);
-    }
-    */
-
-    // Have to call this here to start it as a coroutine
+    // Have to call this here to start the effect as a coroutine
     public void raiseSimpleEffect(SimpleEffectName effectName, int scale, List<string> targets){
         StartCoroutine(cardEffectEvent.RaiseAtEndOfFrameCoroutine(
             new CardEffectEventInfo(effectName, scale, targets)));
@@ -223,13 +177,26 @@ public class CardCaster : MonoBehaviour {
         StartCoroutine("getTargetCoroutine", new GetTargetCoroutineArgs(validTargets, procedure));
     }
 
+    public void effectTargetSuppliedEventHandler(EffectTargetSuppliedEventInfo info){
+        print("Caster got target: " + info.target.baseStats);
+        requestedTarget = info.target.baseStats.getId();
+    }
+
     private IEnumerator getTargetCoroutine(GetTargetCoroutineArgs args) {
         requestedTarget = NO_TARGET;
         StartCoroutine(effectTargetRequestEvent.RaiseAtEndOfFrameCoroutine(
                 new EffectTargetRequestEventInfo(args.validTargets, castingCardTransform)));
+        // Waits until the effectTargetSuppliedHandler is called
         yield return new WaitUntil(() => !requestedTarget.Equals(NO_TARGET));
         Debug.Log("Get target coroutine providing target: " + requestedTarget);
         args.callbackProcedure.targetsSupplied(new List<string>() { requestedTarget });
+    }
+
+    private void resetCastingState(){
+        requestedTarget = NO_TARGET;
+        currentProcedure = null;
+        StopCoroutine("castingCoroutine");
+        StopCoroutine(currentProcedure);
     }
 
 

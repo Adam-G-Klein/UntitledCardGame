@@ -10,35 +10,33 @@ public class SimpleEffectArguments: EffectProcedureContext {
 }
 */
 [System.Serializable]
-public class SimpleEffect: EffectProcedure {
+public class MultiStrike: EffectProcedure {
     // Causes the whole class to serialize differently if this field 
     // has a default value. *shrug*
     public string procedureClass;
-    public SimpleEffectName effectName;
+    public int numStrikes;
     public int baseScale = 0;
-    public bool targetAllValidTargets = false;
-    public List<EntityType> validTargets;
+    public float strikeDelay = 0.2f;
+    public List<EntityType> validTargets = new List<EntityType>() {EntityType.Enemy};
     private List<string> targets = new List<string>();
 
-    public SimpleEffect() {
-        procedureClass = "SimpleEffect";
+    public MultiStrike() {
+        procedureClass = "MultiStrike";
     }
     
     public override IEnumerator invoke(EffectProcedureContext context) {
         this.context = context;
         targets.Clear();
         //args.context.caster.raiseSimpleEffect(simpleEffectName);
-        if(targetAllValidTargets) {
-            targets.AddRange(context.caster.getAllValidTargets(validTargets));
-        }
-        else {
-            context.caster.requestTarget(validTargets, this);
-        }
+        context.caster.requestTarget(validTargets, this);
         yield return new WaitUntil(() => targets.Count > 0);
-        context.caster.raiseSimpleEffect(
-            effectName, 
-            context.caster.getEffectScale(effectName, baseScale),
-            targets);
+        for(int i = 0; i < numStrikes; i++) {
+            context.caster.raiseSimpleEffect(
+                SimpleEffectName.Damage, 
+                context.caster.getEffectScale(SimpleEffectName.Damage, baseScale),
+                targets);
+            yield return new WaitForSeconds(strikeDelay);
+        }
     }
 
     public override void targetsSupplied(List<string> targets){
