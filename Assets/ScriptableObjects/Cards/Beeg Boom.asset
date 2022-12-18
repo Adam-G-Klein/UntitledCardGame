@@ -17,8 +17,16 @@ MonoBehaviour:
     enemies)
   Cost: 2
   Artwork: {fileID: -431476422, guid: 33ba4bd24a9cc384c880d4c9d5443278, type: 3}
-  EffectProcedureNames:
-  - SimpleEffect
-  - SimpleEffect
-  - SimpleEffect
+  EffectProcedures:
+  - rid: 784857113120997383
   id: accefde0-0ce2-4e36-92be-1fb1f4ef3965
+  references:
+    version: 2
+    RefIds:
+    - rid: 784857113120997383
+      type: {class: SimpleEffect, ns: , asm: Assembly-CSharp}
+      data:
+        procedureClass: SimpleEffect
+        effectName: 1
+        baseScale: 2
+        validTargets: 01000000

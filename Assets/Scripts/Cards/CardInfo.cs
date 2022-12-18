@@ -12,14 +12,10 @@ public class CardInfo : ScriptableObject
     public string Description;
     public int Cost;
     public Sprite Artwork;
-    /// I think the next step here is to have an EffectProcedureClassName
-    /// field and then have a dictionary of EffectProcedureClassName to
-    /// EffectProcedure. Then we can have a custom editor that lets us
-    /// select the EffectProcedureClassName and then have a custom editor
-    /// for that EffectProcedureClassName that lets us set the fields
-    /// wow written by autopilot I'm fucked lol
-    [SerializeField]
-    public List<string> EffectProcedureNames;
+    // Need to SerializeReference to have the ScriptableObject 
+    // Keep a reference to the procedures we add rather than
+    // trying to reinstantiate them by value all the time.
+    [SerializeReference]
     public List<EffectProcedure> EffectProcedures;
     public string id = Id.newGuid();
 }

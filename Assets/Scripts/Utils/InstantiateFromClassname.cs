@@ -8,10 +8,6 @@ public class InstantiateFromClassname {
             Debug.LogError("Could not find type " + className);
             return default(T);
         }
-        Debug.Log("Instantiating " + type);
-        foreach(object arg in args) {
-            Debug.Log("\t" + arg);
-        }
         return (T) Activator.CreateInstance(type, args);
     }
 }

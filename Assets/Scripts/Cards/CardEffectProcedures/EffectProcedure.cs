@@ -52,4 +52,6 @@ public abstract class EffectProcedure
     // Would change to returning EffectProcedureOutput if we decide we need it
     public abstract IEnumerator invoke(EffectProcedureContext context);
 
+    public abstract void setProcedureClassName(string procedureClassName);
+
 }

@@ -6,44 +6,39 @@ using UnityEditor;
 [CustomEditor(typeof(CardInfo))]
 public class CardInfoEditor : Editor {
 
-    SimpleEffectName simpleEffectName = SimpleEffectName.Unset;
-    string effectProcedureClassName = "";
+    string effectProcedureClassName = "SimpleEffect";
     public override void OnInspectorGUI() {
         CardInfo cardInfo = (CardInfo) target;
         DrawDefaultInspector();
-        if(cardInfo.EffectProcedures == null)
+        if(cardInfo.EffectProcedures == null) {
+            Debug.Log("EffectProcedures was null, setting to empty list");
             cardInfo.EffectProcedures = new List<EffectProcedure>();
-        EditorGUILayout.LabelField("EffectProcedureCount: " + cardInfo.EffectProcedures.Count);
+        }
 
         EditorGUILayout.Space(20);
         EditorGUILayout.LabelField("Effect Procedure Controls");
         EditorGUILayout.Space(5);
 
         effectProcedureClassName = EditorGUILayout.TextField(
-            "Enter new procedure class name",
+            "New procedure classname",
             effectProcedureClassName);
 
-        EditorGUILayout.LabelField("Effect Procedure Constructor Arguments");
-        EditorGUILayout.LabelField("Important: Do not include arguments not in the constructor");
-
-        object[] instantiationArgs = getInstantiationArgs();
-        
-
         if (GUILayout.Button("Add Effect Procedure")) {
-            if (cardInfo.EffectProcedures == null)
-                cardInfo.EffectProcedures = new List<EffectProcedure>();
-            
             EffectProcedure newProcedure = InstantiateFromClassname.Instantiate<EffectProcedure>(
                 effectProcedureClassName, 
-                instantiationArgs);
+                new object[] {});
 
             if(newProcedure == null) {
-                cardInfo.EffectProcedureNames.Add("Error instantiating effect procedure, see logs");
+                Debug.LogError("Failed to instantiate effect procedure, " +
+                "please check Scripts/Cards/CardEffectProcedures/* to verify the className for the  " +
+                " and verify that the arguments set in the editor correspond to " +
+                " the arguments in the constructor");
             }
             else {
-                cardInfo.EffectProcedureNames.Add(effectProcedureClassName);
-                if(cardInfo.EffectProcedures == null)
+                if(cardInfo.EffectProcedures == null) {
+                    Debug.Log("EffectProcedures was null, setting to empty list");
                     cardInfo.EffectProcedures = new List<EffectProcedure>();
+                }
                 cardInfo.EffectProcedures.Add(newProcedure);
             }
             
@@ -55,28 +50,4 @@ public class CardInfoEditor : Editor {
         }
     }
 
-    private object[] getInstantiationArgs() {
-
-        simpleEffectName = (SimpleEffectName) EditorGUILayout.EnumPopup(
-            "Simple Effect Name", 
-            simpleEffectName);
-
-        List<EntityType> validTargets = new List<EntityType>() {
-            // TODO selectors
-            EntityType.Enemy,
-            EntityType.Companion
-        };
-
-        int baseScale = EditorGUILayout.IntField("Base Scale", 0);
-
-        List<object> argsList = new List<object>();
-
-        if(simpleEffectName != SimpleEffectName.Unset) {
-            argsList.Add(simpleEffectName);
-            argsList.Add(baseScale);
-            argsList.Add(validTargets);
-        }
-
-        return argsList.ToArray();
-    }
 }

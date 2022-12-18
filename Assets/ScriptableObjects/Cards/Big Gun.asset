@@ -16,13 +16,24 @@ MonoBehaviour:
   Description: OH SHIT HE'S GOT A GUN HOW DID HE GET THAT(Deal 4 damage, draw a card.)
   Cost: 1
   Artwork: {fileID: 21300000, guid: 16d538f92b835a14381c8566e07acb49, type: 3}
-  EffectsList:
-  - effectName: 1
-    scale: 4
-    needsTargets: 1
-    validTargets: 01000000
-  - effectName: 0
-    scale: 1
-    needsTargets: 1
-    validTargets: 00000000
+  EffectProcedures:
+  - rid: 784857113120997384
+  - rid: 784857113120997385
   id: 471782f8-0d7c-45ce-b785-f3eb7b76087f
+  references:
+    version: 2
+    RefIds:
+    - rid: 784857113120997384
+      type: {class: SimpleEffect, ns: , asm: Assembly-CSharp}
+      data:
+        procedureClass: SimpleEffect
+        effectName: 1
+        baseScale: 2
+        validTargets: 01000000
+    - rid: 784857113120997385
+      type: {class: SimpleEffect, ns: , asm: Assembly-CSharp}
+      data:
+        procedureClass: SimpleEffect
+        effectName: 0
+        baseScale: 1
+        validTargets: 00000000
