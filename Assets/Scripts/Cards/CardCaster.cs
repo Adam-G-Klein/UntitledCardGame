@@ -6,11 +6,6 @@ using TMPro;
 using UnityEngine.EventSystems; 
 
 
-/* A card has a list of procedures
-A procedure can be a list of effects (like draw, damage, or a status effect),
-Or it can contain its own code. 
-*/
-
 public class CastingCoroutineArgs{
     public CardInfo cardInfo;
     public CardCastArguments castArgs;
@@ -60,9 +55,14 @@ public class CardCaster : MonoBehaviour {
     /// Don't rely on this being available, it's only set when a card is being cast
     private IEnumerator currentProcedure;
     private PlayerHand playerHand;
+    private ManaManager manaManager;
     /// Don't rely on this being available outside of effectProcedure invokations, 
     /// it's only set when a card is being cast
     private EffectProcedureContext currentContext;
+    // There's gotta be a better place for this,
+    // but this is where I'm putting it for now
+    // Tough to decide where an authoritative figure like this should go
+    // But I figure here - where it's being checked - is probably a decent place?
 
     void Start() {
         // This may cause me to consider combining these into an EntityInstanceManager
@@ -75,16 +75,28 @@ public class CardCaster : MonoBehaviour {
         else enemyManager = enemyManagerGO.GetComponent<EnemyManager>();
 
         GameObject playerHandGO = GameObject.Find("PlayerHand");
-        if(!playerHandGO) Debug.LogWarning("Card caster couldn't find player hand, won't be able to cast effects interacting with the player's hand (card counting, discard effects)");
+        if(!playerHandGO) Debug.LogWarning("Card caster couldn't find player hand, won't be able to cast effects interacting with the player's hand (card counting, discard effects). Can add this manager by adding the EnemyEncounterCanvas prefab");
         else playerHand = playerHandGO.GetComponent<PlayerHand>();
+
+        GameObject manaManagerGO = GameObject.Find("ManaManager");
+        if(!manaManagerGO) Debug.LogWarning("Card caster couldn't find mana manager, won't be checking card costs before casting. Can add this manager by adding the EnemyEncounterCanvas prefab");
+        else manaManager = manaManagerGO.GetComponent<ManaManager>();
     }
-    public void newCastRequest(CardInfo info, CardCastArguments args, Transform arrowRoot) {
-        StopCoroutine("castingCoroutine");
-        // TODO currentProcedure.cancel();
-        castingCardTransform = arrowRoot;
-        StartCoroutine("castingCoroutine", new CastingCoroutineArgs(info, args, arrowRoot));
-        // StartCoroutine(procedure.invoke(new EffectProcedureContext(this, companionManager, enemyManager, args.casterStats)));
-        
+
+    
+    public bool isValidCast(CardInfo info, CardCastArguments args) {
+        if(info.Cost > manaManager.currentMana) return false;
+        return true;
+    }
+    public void cardClickHandler(CardInfo info, CardCastArguments args, Transform arrowRoot) {
+        if(isValidCast(info, args)) {
+            resetCastingState();
+            castingCardTransform = arrowRoot;
+            StartCoroutine("castingCoroutine", new CastingCoroutineArgs(info, args, arrowRoot));
+            // StartCoroutine(procedure.invoke(new EffectProcedureContext(this, companionManager, enemyManager, args.casterStats)));
+        } else {
+            Debug.Log("Not casting card because we have insufficient mana");
+        }
     }
 
 
@@ -158,7 +170,6 @@ public class CardCaster : MonoBehaviour {
             enemyManager, 
             args.castArgs.casterStats,
             playerHand);
-        print("EffectProcedures count: " + args.cardInfo.EffectProcedures.Count);
         foreach(EffectProcedure procedure in args.cardInfo.EffectProcedures){
             // Track current procedure for casting cancellation
             currentProcedure = procedure.invoke(currentContext);
@@ -194,9 +205,13 @@ public class CardCaster : MonoBehaviour {
 
     private void resetCastingState(){
         requestedTarget = NO_TARGET;
-        currentProcedure = null;
         StopCoroutine("castingCoroutine");
-        StopCoroutine(currentProcedure);
+        if(currentProcedure != null) {
+            StopCoroutine(currentProcedure);
+            currentProcedure = null;
+            // Shouldn't be relying on this existing anyways, but just in case
+            currentContext = null; 
+        }
     }
 
 

@@ -13,6 +13,7 @@ public class CardDisplay : MonoBehaviour
     public CardInfo cardInfo;
 
     public TMP_Text CardName;
+    public TMP_Text CostText;
     public TMP_Text CardDesc;
     public Image Artwork;
     private Camera mainCamera;
@@ -23,6 +24,7 @@ public class CardDisplay : MonoBehaviour
         runInEditMode = true;
         CardName.text = cardInfo.Name;
         CardDesc.text = cardInfo.Description;
+        CostText.text = cardInfo.Cost.ToString();
         Artwork.sprite = cardInfo.Artwork;
     }
 

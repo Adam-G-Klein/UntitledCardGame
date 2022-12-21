@@ -65,9 +65,7 @@ public class PlayableCard : MonoBehaviour
         // Cast event handler in PlayerHand.cs will handle the card 
         // being removed from the hand
 
-        // Not casting here for right now, need to handoff to the EffectTargeter
-        // cardInfo.Cast(args);
-        caster.newCastRequest(cardInfo, args, transform);
+        caster.cardClickHandler(cardInfo, args, transform);
         
 
     }
