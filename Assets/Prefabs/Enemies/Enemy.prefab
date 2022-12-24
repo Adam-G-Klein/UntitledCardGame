@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1818299386461833455}
   - component: {fileID: 1818299386461833454}
   - component: {fileID: 2877260948552900050}
-  - component: {fileID: 6875156768114901962}
   - component: {fileID: 8605112425798008380}
   - component: {fileID: 1515253770649210757}
   - component: {fileID: 2382815032633642268}
@@ -51,6 +50,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76ba3be6a84803746971d2d17d4cdada, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: d2021cfc-1240-4409-bcc5-aa7d8c7f7265
+  entityType: 1
+  isTargetable: 0
+  effectTargetSuppliedEvent: {fileID: 11400000, guid: 16143db2a2228f2499361d860ef94748, type: 2}
   enemy:
     enemyType: {fileID: 11400000, guid: da0cdb6c0c9754d469d48629d5444b55, type: 2}
     currentHealth: 20
@@ -90,20 +93,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &6875156768114901962
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1818299386461833425}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75c11e5f11d6ef94082c995b691d256d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isTargetable: 0
-  effectTargetSuppliedEvent: {fileID: 11400000, guid: 16143db2a2228f2499361d860ef94748, type: 2}
 --- !u!114 &8605112425798008380
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,8 +109,8 @@ MonoBehaviour:
   unityEventResponse:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6875156768114901962}
-        m_TargetAssemblyTypeName: EntityTargetting, Assembly-CSharp
+      - m_Target: {fileID: 1818299386461833454}
+        m_TargetAssemblyTypeName: TargettableEntity, Assembly-CSharp
         m_MethodName: effectTargetRequestEventHandler
         m_Mode: 0
         m_Arguments:
@@ -174,7 +163,7 @@ MonoBehaviour:
   unityEventResponse:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6875156768114901962}
+      - m_Target: {fileID: 1818299386461833454}
         m_TargetAssemblyTypeName: TargettableEntity, Assembly-CSharp
         m_MethodName: uIStateEventListener
         m_Mode: 0

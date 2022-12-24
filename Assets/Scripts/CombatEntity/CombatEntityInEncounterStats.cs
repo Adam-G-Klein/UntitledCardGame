@@ -38,11 +38,6 @@ public class CombatEntityInEncounterStats
             return baseStats.getMaxHealth();
         }
     }
-    public string id {
-        get {
-            return baseStats.getId();
-        }
-    }
 
     public CombatEntityInEncounterStats(CombatEntityBaseStats entity) {
         this.strength = 0;

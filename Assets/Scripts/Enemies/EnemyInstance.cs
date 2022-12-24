@@ -39,6 +39,7 @@ public class EnemyInstance : CombatEntityInstance {
     // Start is called before the first frame update
     void Start() {
         this.baseStats = enemy;
+        this.id = enemy.id; // Crucial (and forgettable)
         this.stats = new CombatEntityInEncounterStats(enemy);
         this.spriteRenderer.sprite = enemy.enemyType.sprite;
         StartCoroutine(enemyInstantiatedEvent.RaiseAtEndOfFrameCoroutine(new EnemyInstantiatedEventInfo(this)));
@@ -46,16 +47,16 @@ public class EnemyInstance : CombatEntityInstance {
     }
 
     public void cardEffectEventHandler(CardEffectEventInfo item){
-        if(!item.targets.Contains(baseStats.getId())){
+        if(!item.targets.Contains(id)){
             return;
         }
-        print("Enemy " + baseStats.getId() + " processing card effect event");
+        print("Enemy " + id + " processing card effect event");
         switch(item.effectName) {
             case SimpleEffectName.Draw:
                 Debug.LogWarning("omg an enemy is drawing cards what happened");
                 break;
             case SimpleEffectName.Damage:
-                print("Enemy " + baseStats.getId() + " took " + item.scale + " damage");
+                print("Enemy " + id + " took " + item.scale + " damage");
                 stats.currentHealth -= item.scale;
                 break;
             case SimpleEffectName.Buff:
@@ -81,9 +82,9 @@ public class EnemyInstance : CombatEntityInstance {
                 damage,
                 new List<string> {targetId},
                 new Dictionary<StatusEffect, int> { {StatusEffect.Weakness, 1} })));
-        Debug.Log("Enemy " + baseStats.getId() + " attacked companion " + targetId + " for " + damage + " damage");
+        Debug.Log("Enemy " + id + " attacked companion " + targetId + " for " + damage + " damage");
         yield return new WaitForSeconds(attackTime);
-        enemyTurnFinishedEvent.Raise(new EnemyTurnFinishedEventInfo(baseStats.getId()));
+        enemyTurnFinishedEvent.Raise(new EnemyTurnFinishedEventInfo(id));
         
     }
 

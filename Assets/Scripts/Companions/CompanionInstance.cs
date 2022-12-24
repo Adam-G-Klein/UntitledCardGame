@@ -14,12 +14,15 @@ public class CompanionInstance : CombatEntityInstance
     [SerializeField]
     private GameplayConstants constants;
 
+    public InCombatDeck inCombatDeck;
 
     void Start()
     {
         this.baseStats = companion;
+        this.id = companion.id; // Crucial step to make sure we don't end up with different IDs for this entity
         this.spriteRenderer.sprite = companion.companionType.sprite;
         stats = new CombatEntityInEncounterStats(companion);
+        inCombatDeck = new InCombatDeck(companion.deck);
         // Tried doing this in Awake, but it looks like the fields of companion
         // hadn't been initialized by then
         StartCoroutine(companionInstantiatedEvent.RaiseAtEndOfFrameCoroutine(new CompanionInstantiatedEventInfo(this)));
@@ -34,24 +37,14 @@ public class CompanionInstance : CombatEntityInstance
 
 
     public void dealCards(int numCards){
-        List<CardInfo> cards = getCardsFromDeck(numCards);
+        List<CardInfo> cards = inCombatDeck.dealCardsFromDeck(numCards);
         StartCoroutine(cardsDealtEvent.RaiseAtEndOfFrameCoroutine(new CardsDealtEventInfo(cards, stats)));
     }
 
-    public List<CardInfo> getCardsFromDeck(int numCards){
-        List<CardInfo> returnList = new List<CardInfo>();
-        CardInfo card;
-        List<CardInfo> deckCards = companion.deck.cards;
-        for(int i = 0; i < numCards; i++){
-            //Drawing with replacement for now
-            card = deckCards[Random.Range(0,deckCards.Count)];
-            returnList.Add(card);
-        }
-        return returnList;
-    }
+    
 
     public void cardEffectEventHandler(CardEffectEventInfo info){
-        if(!info.targets.Contains(companion.id)) return;
+        if(!info.targets.Contains(id)) return;
         switch(info.effectName) {
             case SimpleEffectName.Draw:
                 dealCards(info.scale);

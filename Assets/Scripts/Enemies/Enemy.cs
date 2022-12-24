@@ -27,16 +27,13 @@ public class Enemy: CombatEntityBaseStats {
         return enemyType.baseAttackDamage;
     }
 
-    public string getId() {
-        return this.id;
-    }
-
     public EnemyIntent getNewEnemyIntent(List<string> possibleTargets, CombatEntityInEncounterStats selfStats) {
         return enemyType.getNewIntent(possibleTargets, selfStats);
 
     }
 
-    public EntityType getEntityType() {
-        return EntityType.Enemy;
+    public string getId() {
+        return this.id;
     }
+
 }

@@ -19,13 +19,13 @@ public class CompanionManager : MonoBehaviour
     }
 
     public string getRandomCompanionId(){
-        string ret = companions[Random.Range(0,companions.Count)].baseStats.getId();
+        string ret = companions[Random.Range(0,companions.Count)].id;
         return ret;
     }
 
     public CombatEntityInstance getCompanionInstanceById(string id){
         foreach(CombatEntityInstance instance in companions) {
-            if(instance.baseStats.getId().Equals(id)){
+            if(instance.id.Equals(id)){
                 return instance;
             }
         }
@@ -36,7 +36,7 @@ public class CompanionManager : MonoBehaviour
     public List<string> getCompanionIds(){
         companionIds.Clear();
         foreach(CombatEntityInstance companion in companions){
-            companionIds.Add(companion.baseStats.getId());
+            companionIds.Add(companion.id);
         }
         return companionIds;
     }

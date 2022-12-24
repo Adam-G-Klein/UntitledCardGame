@@ -189,8 +189,8 @@ public class CardCaster : MonoBehaviour {
     }
 
     public void effectTargetSuppliedEventHandler(EffectTargetSuppliedEventInfo info){
-        print("Caster got target: " + info.target.baseStats);
-        requestedTarget = info.target.baseStats.getId();
+        print("Caster got target: " + info.target.id);
+        requestedTarget = info.target.id;
     }
 
     private IEnumerator getTargetCoroutine(GetTargetCoroutineArgs args) {

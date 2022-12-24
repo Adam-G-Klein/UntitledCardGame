@@ -8,8 +8,13 @@ public class Companion: CombatEntityBaseStats
     public CompanionTypeSO companionType;
     public int maxHealth;
     public Deck deck;
-    public string id;
     public int baseAttackDamage;
+    // This might look like a duplicate id field from the one 
+    // that all Entities have. I thought it was. But we need it
+    // to keep track of the companion between encounters.
+    // So we'll just set the id on the Entity this becomes in the 
+    // scene to be the same as this one.
+    public string id;
     public Companion(CompanionTypeSO companionType) 
     {
         this.companionType = companionType;
@@ -28,11 +33,12 @@ public class Companion: CombatEntityBaseStats
         return this.maxHealth;
     }
 
-    public string getId() {
-        return this.id;
-    }
 
     public EntityType getEntityType() {
         return EntityType.Companion;
+    }
+
+    public string getId() {
+        return this.id;
     }
 }

@@ -11,6 +11,4 @@ public interface CombatEntityBaseStats
 
     string getId();
 
-    EntityType getEntityType();
-    
 }

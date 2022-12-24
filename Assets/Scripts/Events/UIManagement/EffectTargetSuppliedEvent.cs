@@ -6,9 +6,9 @@ using UnityEngine;
 
 [System.Serializable]
 public class EffectTargetSuppliedEventInfo {
-    public CombatEntityInstance target;
+    public TargettableEntity target;
 
-    public EffectTargetSuppliedEventInfo(CombatEntityInstance target){
+    public EffectTargetSuppliedEventInfo(TargettableEntity target){
         this.target = target;
     }
 }

@@ -15,4 +15,7 @@ MonoBehaviour:
   companionName: Ditto With A Gun
   sprite: {fileID: 21300000, guid: 8a6101d38c903424cbd7264288132aac, type: 3}
   maxHealth: 999
-  startingDeck: {fileID: 11400000, guid: bb2dd24e7cac49440ac4e14129eec39c, type: 2}
+  startingDeck:
+    drawPile: []
+    discardPile: []
+  baseAttackDamage: 0

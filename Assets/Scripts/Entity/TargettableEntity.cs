@@ -3,26 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems; 
 
-// Setting up for when we want to display this
-
 [RequireComponent(typeof(EffectTargetRequestEventListener))]
 [RequireComponent(typeof(UIStateEventListener))]
-public class TargettableEntity : MonoBehaviour,
+public class TargettableEntity : Entity,
     IPointerClickHandler {
 
-    private CombatEntityInstance entityInstance;
     public bool isTargetable = false;
 
     [SerializeField]
     private EffectTargetSuppliedEvent effectTargetSuppliedEvent;
 
     void Start() {
-        entityInstance = GetComponent<CombatEntityInstance>();
     }
 
     public void effectTargetRequestEventHandler(EffectTargetRequestEventInfo info){
-        if(info.validTargets.Contains(entityInstance.baseStats.getEntityType())){
-            print("Entity" + entityInstance.baseStats.getId() + " is a valid target");
+        if(info.validTargets.Contains(entityType)){
+            print("Entity" + id + " is a valid target");
             isTargetable = true;
         }
     }
@@ -37,9 +33,9 @@ public class TargettableEntity : MonoBehaviour,
 
     public void OnPointerClick(PointerEventData eventData){
         if(isTargetable){
-            print("Entity" + entityInstance.baseStats.getId() + " was clicked and is targetable");
+            print("Entity" + id + " was clicked and is targetable");
             // can assume we have an effect set if we're targetable
-            StartCoroutine(effectTargetSuppliedEvent.RaiseAtEndOfFrameCoroutine(new EffectTargetSuppliedEventInfo(entityInstance)));
+            StartCoroutine(effectTargetSuppliedEvent.RaiseAtEndOfFrameCoroutine(new EffectTargetSuppliedEventInfo(this)));
             isTargetable = false;
         }
     }

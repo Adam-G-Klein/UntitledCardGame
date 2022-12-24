@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 593eb25c5920df644b6575c357e030b5, type: 3}
   m_Name: blue
   m_EditorClassIdentifier: 
-  startingDeck: {fileID: 11400000, guid: bb2dd24e7cac49440ac4e14129eec39c, type: 2}
-  cards:
-  - {fileID: 11400000, guid: 37d55c634e40e504d9e2f16eab28a056, type: 2}
-  - {fileID: 11400000, guid: 37d55c634e40e504d9e2f16eab28a056, type: 2}
-  - {fileID: 11400000, guid: 37d55c634e40e504d9e2f16eab28a056, type: 2}
-  - {fileID: 11400000, guid: 37d55c634e40e504d9e2f16eab28a056, type: 2}
+  startingDeck: {fileID: 0}
+  drawPile:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  discardPile: []

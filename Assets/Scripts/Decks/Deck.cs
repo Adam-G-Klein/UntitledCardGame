@@ -11,8 +11,12 @@ public class Deck
 
     public Deck(StartingDeck startingDeck)
     {
-        this.startingDeck = startingDeck;
-        this.cards = new List<CardInfo>();
         this.cards.AddRange(startingDeck.cards);
     }
+    public Deck(List<CardInfo> cards)
+    {
+        this.startingDeck = new StartingDeck(cards);
+        this.cards.AddRange(startingDeck.cards);
+    }
+
 }

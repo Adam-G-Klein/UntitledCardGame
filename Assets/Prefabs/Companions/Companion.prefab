@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 5742178976953534560}
   - component: {fileID: 3027488464516499967}
   - component: {fileID: 7088900252991716844}
-  - component: {fileID: -3368850642574770698}
   - component: {fileID: -6536180466381847028}
   - component: {fileID: 3925862087160112264}
   - component: {fileID: 2595263955379066018}
@@ -53,18 +52,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94b7962f5bdabdc40a46cfbd77191848, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: a925efa7-6cd9-47cb-b526-afe51df97502
+  entityType: 0
+  isTargetable: 0
+  effectTargetSuppliedEvent: {fileID: 11400000, guid: 16143db2a2228f2499361d860ef94748, type: 2}
   companion:
     companionType: {fileID: 11400000, guid: 4960e72dbf9348c4bb2ab009998bd02a, type: 2}
     maxHealth: 0
     deck:
       startingDeck: {fileID: 0}
       cards: []
-    id: 
     baseAttackDamage: 0
+    id: 
   spriteRenderer: {fileID: 5285687428991271528}
   cardsDealtEvent: {fileID: 11400000, guid: e9a227fee840eff4bbfdfe43a95070e6, type: 2}
   companionInstantiatedEvent: {fileID: 11400000, guid: 5026156182e6a5d41bd8874340073d39, type: 2}
   constants: {fileID: 11400000, guid: 73ad8dcd4be0ffc4f9958a74ee9f1a5e, type: 2}
+  inCombatDeck:
+    sourceDeck:
+      startingDeck: {fileID: 0}
+      cards: []
+    drawPile: []
+    discardPile: []
 --- !u!114 &5742178976953534560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,20 +158,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &-3368850642574770698
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5285687428135354733}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75c11e5f11d6ef94082c995b691d256d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isTargetable: 0
-  effectTargetSuppliedEvent: {fileID: 11400000, guid: 16143db2a2228f2499361d860ef94748, type: 2}
 --- !u!114 &-6536180466381847028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,8 +174,8 @@ MonoBehaviour:
   unityEventResponse:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: -3368850642574770698}
-        m_TargetAssemblyTypeName: EntityTargetting, Assembly-CSharp
+      - m_Target: {fileID: 5285687428135354732}
+        m_TargetAssemblyTypeName: TargettableEntity, Assembly-CSharp
         m_MethodName: effectTargetRequestEventHandler
         m_Mode: 0
         m_Arguments:
@@ -233,7 +228,7 @@ MonoBehaviour:
   unityEventResponse:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: -3368850642574770698}
+      - m_Target: {fileID: 5285687428135354732}
         m_TargetAssemblyTypeName: TargettableEntity, Assembly-CSharp
         m_MethodName: uIStateEventListener
         m_Mode: 0
