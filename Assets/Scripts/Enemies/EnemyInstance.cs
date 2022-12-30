@@ -25,7 +25,6 @@ public class EnemyInstance : CombatEntityInstance {
     private float attackTime = 0.5f;
 
     [Space(5)]
-    public SpriteRenderer spriteRenderer;
     [SerializeField]
     private EnemyInstantiatedEvent enemyInstantiatedEvent;
     [SerializeField]
@@ -41,7 +40,6 @@ public class EnemyInstance : CombatEntityInstance {
         this.baseStats = enemy;
         this.id = enemy.id; // Crucial (and forgettable)
         this.stats = new CombatEntityInEncounterStats(enemy);
-        this.spriteRenderer.sprite = enemy.enemyType.sprite;
         StartCoroutine(enemyInstantiatedEvent.RaiseAtEndOfFrameCoroutine(new EnemyInstantiatedEventInfo(this)));
         companionManager = GameObject.FindGameObjectWithTag("CompanionManager").GetComponent<CompanionManager>();
     }

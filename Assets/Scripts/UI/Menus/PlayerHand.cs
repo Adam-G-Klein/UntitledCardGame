@@ -7,6 +7,8 @@ using TMPro;
 
 [ExecuteInEditMode]
 [RequireComponent(typeof(CardCastEventListener))]
+[RequireComponent(typeof(CardDealtEventListener))]
+[RequireComponent(typeof(TurnPhaseEventListener))]
 public class PlayerHand : MonoBehaviour
 {
     public List<PlayableCard> cardsInHand;
@@ -25,26 +27,35 @@ public class PlayerHand : MonoBehaviour
     public void cardDealtEventHandler(CardsDealtEventInfo info){
         PlayableCard newCard;
         foreach(CardInfo cardInfo in info.cards) {
-            newCard = PrefabInstantiator.instantiateCard(cardPrefab, transform, cardInfo, info.companionFromStats);
+            newCard = PrefabInstantiator.instantiateCard(cardPrefab, transform, cardInfo, info.fromStats, info.fromDeck);
             cardsInHand.Add(newCard);
         }
         displayCards();
     }
 
     public void cardCastEventHandler(CardCastEventInfo info){
-        PlayableCard cardToDestroy = null;
+        PlayableCard cardToDiscard = null;
         foreach(PlayableCard card in cardsInHand) {
             if(card.cardInfo.id == info.cardInfo.id) {
-                cardToDestroy = card;
+                cardToDiscard = card;
             }
         }
-        if(cardToDestroy != null) {
-            cardsInHand.Remove(cardToDestroy);
-            Destroy(cardToDestroy.gameObject);
+        if(cardToDiscard != null) {
+            cardsInHand.Remove(cardToDiscard);
+            Destroy(cardToDiscard.gameObject);
+            cardToDiscard.discard();
         }
         displayCards();
     }
 
+    public void turnPhaseChangedEventHandler(TurnPhaseEventInfo info){
+        if(info.newPhase == TurnPhase.END_PLAYER_TURN) {
+            foreach(PlayableCard card in cardsInHand) {
+                card.discard();
+            }
+            cardsInHand.Clear();
+        }
+    }
 
     private void displayCards(){
         float xLoc = startXCoord;

@@ -5,18 +5,6 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems; 
 
-/*
-Cards should be dealt to a hand canvas that's in the main UI
-EventManager should ask for a card from a specific companion,
-    which will then be dealt to the hand (will stub with keys for now)
-Can handle card placement with location repository
-Assuming  we're drawing with replacement for now, implementing w/o replacement
-    should just involve atomically removing the card from the deck
-Each companion needs a current deck ScriptableObject in addition to its
-    StartingDeck
-CompanionCreation causes the starting deck to be populated into the current deck
-
-*/
 [RequireComponent(typeof(CardDisplay))]
 public class PlayableCard : MonoBehaviour
     , IPointerClickHandler 
@@ -28,6 +16,8 @@ public class PlayableCard : MonoBehaviour
     private EnemyManager enemyManager;
     private CompanionManager companionManager;
     private CombatEntityInEncounterStats companionFromStats;
+    private InCombatDeck deckFrom; 
+
     [SerializeField]
     private float hoverScale = 30f;
     [SerializeField]
@@ -66,8 +56,10 @@ public class PlayableCard : MonoBehaviour
         // being removed from the hand
 
         caster.cardClickHandler(cardInfo, args, transform);
-        
+    }
 
+    public void discard() {
+        deckFrom.discardPile.Add(cardInfo);
     }
 
 
@@ -107,6 +99,10 @@ public class PlayableCard : MonoBehaviour
     // Should pass by reference so that the values stay updated
     public void setCompanionFrom(CombatEntityInEncounterStats companionStats){
         this.companionFromStats = companionStats;
+    }
+
+    public void setDeckFrom(InCombatDeck deck){
+        this.deckFrom = deck;
     }
 
 }

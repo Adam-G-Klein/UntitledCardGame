@@ -6,7 +6,6 @@ public class CompanionInstance : CombatEntityInstance
 {
     public Companion companion;
     [Space(10)]
-    public SpriteRenderer spriteRenderer;
     [SerializeField]
     private CardsDealtEvent cardsDealtEvent;
     [SerializeField]
@@ -20,7 +19,6 @@ public class CompanionInstance : CombatEntityInstance
     {
         this.baseStats = companion;
         this.id = companion.id; // Crucial step to make sure we don't end up with different IDs for this entity
-        this.spriteRenderer.sprite = companion.companionType.sprite;
         stats = new CombatEntityInEncounterStats(companion);
         inCombatDeck = new InCombatDeck(companion.deck);
         // Tried doing this in Awake, but it looks like the fields of companion
@@ -38,7 +36,7 @@ public class CompanionInstance : CombatEntityInstance
 
     public void dealCards(int numCards){
         List<CardInfo> cards = inCombatDeck.dealCardsFromDeck(numCards);
-        StartCoroutine(cardsDealtEvent.RaiseAtEndOfFrameCoroutine(new CardsDealtEventInfo(cards, stats)));
+        StartCoroutine(cardsDealtEvent.RaiseAtEndOfFrameCoroutine(new CardsDealtEventInfo(cards, inCombatDeck, stats)));
     }
 
     

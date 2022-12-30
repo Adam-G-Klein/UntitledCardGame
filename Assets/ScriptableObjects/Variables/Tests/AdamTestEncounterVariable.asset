@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3355b5197b408a46b3ca88e9297a78a, type: 3}
   m_Name: AdamTestEncounterVariable
   m_EditorClassIdentifier: 
+  locked: 0
   Value:
     rid: 6500575149198671881
   references:
@@ -29,6 +30,6 @@ MonoBehaviour:
         - {x: 6.68, y: 1.36, z: 0.027606305}
         activeCompanions: {fileID: 11400000, guid: 88debb02fba58644b959f3a10afb8a3e, type: 2}
         companionLocations:
-        - {x: -6.7, y: -1.99, z: 0.027606305}
-        - {x: -5.49, y: 0.41, z: 0.027606305}
-        - {x: -7.76, y: -0.11, z: 0.027606305}
+        - {x: -6.7, y: 1.3, z: 0.027606305}
+        - {x: -3.27, y: 0, z: 0.027606305}
+        - {x: -7.76, y: -3, z: 0.027606305}

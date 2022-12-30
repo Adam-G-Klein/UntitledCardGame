@@ -5,9 +5,9 @@ using UnityEngine;
 [System.Serializable]
 public class CompanionInstantiatedEventInfo {
 
-    public CombatEntityInstance companionInstance;
+    public CompanionInstance companionInstance;
 
-    public CompanionInstantiatedEventInfo(CombatEntityInstance companion) {
+    public CompanionInstantiatedEventInfo(CompanionInstance companion) {
         this.companionInstance = companion;
     }
 }

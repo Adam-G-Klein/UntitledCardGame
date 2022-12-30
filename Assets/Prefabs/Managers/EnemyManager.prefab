@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3933523391136145077}
   - component: {fileID: 1932960887706624899}
   - component: {fileID: 1166588629430621724}
+  - component: {fileID: 8766319595750925838}
   m_Layer: 0
   m_Name: EnemyManager
   m_TagString: Untagged
@@ -77,7 +78,19 @@ MonoBehaviour:
   gameEvent: {fileID: 11400000, guid: 8731090c52e897e459ac12df3da5fc3a, type: 2}
   unityEventResponse:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1166588629430621724}
+        m_TargetAssemblyTypeName: EnemyManager, Assembly-CSharp
+        m_MethodName: turnPhaseEventHandler
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1166588629430621724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90,3 +103,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75a55bcbd27ea374cb54cade9c967c3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemiesDoneWithTurn: 0
+  turnPhaseEvent: {fileID: 11400000, guid: 8731090c52e897e459ac12df3da5fc3a, type: 2}
+--- !u!114 &8766319595750925838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2578877830187565377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c9ae082e5a8cac4b8c391a3c599ebcf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 51c061742991bae4c97135431be9f531, type: 2}
+  unityEventResponse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1166588629430621724}
+        m_TargetAssemblyTypeName: EnemyManager, Assembly-CSharp
+        m_MethodName: enemyTurnFinishedEventHandler
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

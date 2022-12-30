@@ -11,7 +11,7 @@ public class CompanionManager : MonoBehaviour
         something in the scene that listens to companions/enemy
         instantiations and knows about all of them
     */
-    private List<CombatEntityInstance> companions = new List<CombatEntityInstance>();
+    private List<CompanionInstance> companions = new List<CompanionInstance>();
     private List<string> companionIds = new List<string>();
 
     public void companionInstantiatedEventHandler(CompanionInstantiatedEventInfo info){
@@ -23,8 +23,8 @@ public class CompanionManager : MonoBehaviour
         return ret;
     }
 
-    public CombatEntityInstance getCompanionInstanceById(string id){
-        foreach(CombatEntityInstance instance in companions) {
+    public CompanionInstance getCompanionInstanceById(string id){
+        foreach(CompanionInstance instance in companions) {
             if(instance.id.Equals(id)){
                 return instance;
             }
