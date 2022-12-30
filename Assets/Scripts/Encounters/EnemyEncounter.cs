@@ -7,12 +7,12 @@ public class EnemyEncounter : Encounter
 {
     [Header("Enemies")]
     public List<Enemy> enemyList;
-    public List<Vector2> enemyLocations;
+    public List<Vector3> enemyLocations;
     public GameObject enemyPrefab;
     
     [Header("Companions")]
     public CompanionListVariable activeCompanions;
-    public List<Vector2> companionLocations;
+    public List<Vector3> companionLocations;
     public GameObject companionPrefab;
 
     public override void build()

@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(
     fileName = "EncounterVariable",
     menuName = "Encounters/Encounter Variable")]
-public abstract class EncounterVariableSO : ScriptableObject {
+public class EncounterVariableSO : ScriptableObject {
     [SerializeReference]
     public Encounter encounter;
 }
