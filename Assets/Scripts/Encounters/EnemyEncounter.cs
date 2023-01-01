@@ -8,17 +8,19 @@ public class EnemyEncounter : Encounter
     [Header("Enemies")]
     public List<Enemy> enemyList;
     public List<Vector3> enemyLocations;
-    public GameObject enemyPrefab;
     
     [Header("Companions")]
-    public CompanionListVariable activeCompanions;
+    public CompanionListVariableSO activeCompanions;
     public List<Vector3> companionLocations;
-    public GameObject companionPrefab;
 
-    public override void build()
+    private EncounterConstants encounterConstants;
+
+    public override void build(EncounterConstants constants)
     {
+        this.encounterConstants = constants;
         setupEnemies();
         setupCompanions();
+        this.encounterType = EncounterType.Enemy;
     }
 
     private void setupEnemies()
@@ -32,7 +34,7 @@ public class EnemyEncounter : Encounter
         for(int i = 0; i < enemyList.Count; i++)
         {
             instantiatedEnemy = GameObject.Instantiate(
-                enemyPrefab, 
+                encounterConstants.enemyPrefab, 
                 enemyLocations[i],
                 Quaternion.identity);
             instantiatedEnemy.GetComponent<EnemyInstance>().enemy = enemyList[i];
@@ -52,7 +54,7 @@ public class EnemyEncounter : Encounter
         for(int i = 0; i < activeCompanionsCount; i++)
         {
             instantiatedCompanion = GameObject.Instantiate(
-                companionPrefab,
+                encounterConstants.companionPrefab,
                 companionLocations[i],
                 Quaternion.identity);
             instantiatedCompanion.GetComponent<CompanionInstance>().companion = 

@@ -8,8 +8,9 @@ public class ShopEncounter : Encounter
     [Header("Shop")]
     public List<GameObject> items;
 
-    public override void build()
+    public override void build(EncounterConstants constants)
     {
+        this.encounterType = EncounterType.Shop;
         return;
     }
 }

@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3355b5197b408a46b3ca88e9297a78a, type: 3}
+  m_Name: LukeTestEncounter2
+  m_EditorClassIdentifier: 
+  locked: 1
+  Value:
+    rid: 6500575149198671883
+  references:
+    version: 2
+    RefIds:
+    - rid: 6500575149198671883
+      type: {class: EnemyEncounter, ns: , asm: Assembly-CSharp}
+      data:
+        id: LukeTestEncounter2
+        enemyList:
+        - enemyType: {fileID: 11400000, guid: 7c2078d2e4f72954c9d9a3335c755ab9, type: 2}
+          currentHealth: 30
+          id: slime1
+        - enemyType: {fileID: 11400000, guid: 7c2078d2e4f72954c9d9a3335c755ab9, type: 2}
+          currentHealth: 30
+          id: slime2
+        enemyLocations:
+        - {x: 3.86, y: 1.63, z: 0.027606305}
+        - {x: 7.92, y: 1.63, z: 0.027606305}
+        activeCompanions: {fileID: 11400000, guid: 88debb02fba58644b959f3a10afb8a3e, type: 2}
+        companionLocations:
+        - {x: -6.7, y: -1.99, z: 0.027606305}
+        - {x: -5.49, y: 0.41, z: 0.027606305}
+        - {x: -7.76, y: -0.11, z: 0.027606305}

@@ -7,9 +7,19 @@ public enum EncounterType {
     Shop
 }
 
+[System.Serializable]
 public abstract class Encounter
 {
     public string id = Id.newGuid();
-    
-    public abstract void build();
+    public abstract void build(EncounterConstants constants);
+
+    protected EncounterType encounterType;
+
+    public void setId(string id) {
+        this.id = id;
+    }
+
+    public EncounterType getEncounterType() {
+        return this.encounterType;
+    }
 }

@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class EncounterBuilder : MonoBehaviour
 {
+    public EncounterConstants encounterConstants;
     public EncounterVariableSO encounterVariable;
 
     void Awake() {
-        encounterVariable.encounter.build();
+        encounterVariable.Value.build(encounterConstants);
     }
 }

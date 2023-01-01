@@ -1,8 +1,8 @@
 using UnityEngine;
 
 [CreateAssetMenu(
-    fileName ="Card",
-    menuName = "Constants/GameplayConstants")]
+    fileName ="GameplayConstants",
+    menuName = "Constants/Gameplay Constants")]
 public class GameplayConstants : ScriptableObject {
     public bool DEVELOPMENT_MODE = true;
     public int START_TURN_DRAW_PER_COMPANION = 1;

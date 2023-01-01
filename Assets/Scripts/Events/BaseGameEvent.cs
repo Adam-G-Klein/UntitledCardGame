@@ -4,11 +4,17 @@ using UnityEngine;
 
 public abstract class BaseGameEvent<T> : ScriptableObject
 {
+    private bool debugLogEvents = false;
+
 	private readonly List<IGameEventListener<T>> listeners = 
 		new List<IGameEventListener<T>>();
 
     public void Raise(T item)
     {
+        if (debugLogEvents) {
+            Debug.Log("GameEvent raised: " + item);
+        }
+        
         for(int i = listeners.Count -1; i >= 0; i--)
             listeners[i].OnEventRaised(item);
     }

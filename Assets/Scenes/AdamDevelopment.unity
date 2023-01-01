@@ -154,24 +154,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &133480143 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6256734607495897998, guid: 28a067a8b113e3a4aadb83e0e82a16bd, type: 3}
-  m_PrefabInstance: {fileID: 6256734608005973860}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &133480146
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 133480143}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 982fccabc7005584fad38e90fa8dd53c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  encounterVariable: {fileID: 11400000, guid: 4d838b63774f7ad4696260a493a27fe9, type: 2}
 --- !u!1001 &334459390
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -515,6 +497,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1672842995329863733, guid: 28a067a8b113e3a4aadb83e0e82a16bd, type: 3}
+      propertyPath: encounterVariable
+      value: 
+      objectReference: {fileID: 11400000, guid: 92ce92b4d68dd5b48ac9e23ad88b9523, type: 2}
     - target: {fileID: 6256734607495897998, guid: 28a067a8b113e3a4aadb83e0e82a16bd, type: 3}
       propertyPath: m_Name
       value: EncounterBuilder

@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3355b5197b408a46b3ca88e9297a78a, type: 3}
+  m_Name: AdamTestEncounterVariable
+  m_EditorClassIdentifier: 
+  Value:
+    rid: 6500575149198671881
+  references:
+    version: 2
+    RefIds:
+    - rid: 6500575149198671881
+      type: {class: EnemyEncounter, ns: , asm: Assembly-CSharp}
+      data:
+        id: 86f60ffa-9316-4e3e-bc44-8ca5eb33fd24
+        enemyList:
+        - enemyType: {fileID: 11400000, guid: da0cdb6c0c9754d469d48629d5444b55, type: 2}
+          currentHealth: 20
+          id: testGoblin1
+        enemyLocations:
+        - {x: 6.68, y: 1.36, z: 0.027606305}
+        activeCompanions: {fileID: 11400000, guid: 88debb02fba58644b959f3a10afb8a3e, type: 2}
+        companionLocations:
+        - {x: -6.7, y: -1.99, z: 0.027606305}
+        - {x: -5.49, y: 0.41, z: 0.027606305}
+        - {x: -7.76, y: -0.11, z: 0.027606305}
