@@ -39,7 +39,11 @@ public class CompanionInstance : CombatEntityInstance
         StartCoroutine(cardsDealtEvent.RaiseAtEndOfFrameCoroutine(new CardsDealtEventInfo(cards, inCombatDeck, stats)));
     }
 
-    
+    public override bool isTargetableByChildImpl(EffectTargetRequestEventInfo eventInfo)
+    {
+        return inCombatDeck.drawPile.Count > 0 
+            || inCombatDeck.discardPile.Count > 0;
+    }
 
     public void cardEffectEventHandler(CardEffectEventInfo info){
         if(!info.targets.Contains(id)) return;
@@ -73,3 +77,4 @@ public class CompanionInstance : CombatEntityInstance
         return stats;
     }
 }
+

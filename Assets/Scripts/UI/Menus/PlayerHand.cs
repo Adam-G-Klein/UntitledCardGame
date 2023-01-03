@@ -41,19 +41,13 @@ public class PlayerHand : MonoBehaviour
             }
         }
         if(cardToDiscard != null) {
-            cardsInHand.Remove(cardToDiscard);
-            Destroy(cardToDiscard.gameObject);
-            cardToDiscard.discard();
+            discardCard(cardToDiscard);
         }
-        displayCards();
     }
 
     public void turnPhaseChangedEventHandler(TurnPhaseEventInfo info){
         if(info.newPhase == TurnPhase.END_PLAYER_TURN) {
-            foreach(PlayableCard card in cardsInHand) {
-                card.discard();
-            }
-            cardsInHand.Clear();
+            discardHand();
         }
     }
 
@@ -67,5 +61,24 @@ public class PlayerHand : MonoBehaviour
                 card.hovered ? cardYCoord + card.hoverYDiff : cardYCoord);
             xLoc += cardSpacing;
         }
+    }
+
+    private void discardHand(){
+        foreach(PlayableCard card in cardsInHand) {
+            Destroy(card.gameObject);
+            card.discard();
+        }
+        // do this instead of calling remove for each
+        cardsInHand.Clear();
+        displayCards();
+    }
+
+    // Do not call on whole hand, only call on individual cards
+    // modifies the list of cards in hand 
+    private void discardCard(PlayableCard card){
+        cardsInHand.Remove(card);
+        Destroy(card.gameObject);
+        card.discard();
+        displayCards();
     }
 }

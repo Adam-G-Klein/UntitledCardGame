@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(EffectTargetRequestEventListener))]
 [RequireComponent(typeof(UIStateEventListener))]
-public class TargettableEntity : Entity,
+public abstract class TargettableEntity : Entity,
     IPointerClickHandler {
 
     public bool isTargetable = false;
@@ -16,8 +16,11 @@ public class TargettableEntity : Entity,
     void Start() {
     }
 
+    public virtual bool isTargetableByChildImpl(EffectTargetRequestEventInfo eventInfo) { return true; }
+    public virtual void onPointerClickChildImpl(PointerEventData eventData) {}
+
     public void effectTargetRequestEventHandler(EffectTargetRequestEventInfo info){
-        if(info.validTargets.Contains(entityType)){
+        if(info.validTargets.Contains(entityType) && isTargetableByChildImpl(info)){
             print("Entity" + id + " is a valid target");
             isTargetable = true;
         }
@@ -32,6 +35,7 @@ public class TargettableEntity : Entity,
     }
 
     public void OnPointerClick(PointerEventData eventData){
+        onPointerClickChildImpl(eventData);
         if(isTargetable){
             print("Entity" + id + " was clicked and is targetable");
             // can assume we have an effect set if we're targetable

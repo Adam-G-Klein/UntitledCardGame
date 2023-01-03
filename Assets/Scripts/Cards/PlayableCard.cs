@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine.EventSystems; 
 
 [RequireComponent(typeof(CardDisplay))]
-public class PlayableCard : MonoBehaviour
+public class PlayableCard : TargettableEntity
     , IPointerClickHandler 
     , IDragHandler
     , IPointerEnterHandler
@@ -33,6 +33,9 @@ public class PlayableCard : MonoBehaviour
     void Start()
     {
         cardInfo = GetComponent<CardDisplay>().cardInfo;
+        // IMPORTANT, will end up with duplicate IDs if we ever 
+        // forget to do this on an Entity
+        id = cardInfo.id;
         GameObject enemyManagerGO = GameObject.Find("EnemyManager");
         GameObject companionManagerGO = GameObject.Find("CompanionManager");
         GameObject cardCasterGO = GameObject.Find("CardCaster");
@@ -46,7 +49,7 @@ public class PlayableCard : MonoBehaviour
         else Debug.LogError("CardCaster not found");
     }
 
-    public void OnPointerClick(PointerEventData eventData) 
+    public override void onPointerClickChildImpl(PointerEventData eventData) 
     {
         // I think there's a good possibility that we'll want to pass the 
         // whole companionStats here at some point, but for now we'll just
