@@ -1,4 +1,5 @@
 public enum EntityType {
     Companion,
-    Enemy
+    Enemy, 
+    Card
 }

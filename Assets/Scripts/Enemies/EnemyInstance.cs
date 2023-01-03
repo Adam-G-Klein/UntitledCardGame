@@ -60,6 +60,9 @@ public class EnemyInstance : CombatEntityInstance {
             case SimpleEffectName.Buff:
                 stats.strength += item.scale;
                 break;
+            case SimpleEffectName.Discard:
+                Debug.LogWarning("omg an enemy being discarded what happened");
+                break;
 
         }
 

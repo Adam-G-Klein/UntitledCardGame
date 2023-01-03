@@ -41,7 +41,7 @@ public abstract class TargettableEntity : Entity,
             // can assume we have an effect set if we're targetable
             StartCoroutine(effectTargetSuppliedEvent.RaiseAtEndOfFrameCoroutine(new EffectTargetSuppliedEventInfo(this)));
             isTargetable = false;
-        }
+        } 
     }
 
 }

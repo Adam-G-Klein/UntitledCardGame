@@ -58,10 +58,11 @@ public class CompanionInstance : CombatEntityInstance
             case SimpleEffectName.Buff:
                 stats.strength += info.scale; 
                 break;
+            case SimpleEffectName.Discard:
+                Debug.LogWarning("Oh god a companion is getting discarded what happened");
+                break;
         }
     }
-
-    
 
     public void turnPhaseChangedEventHandler(TurnPhaseEventInfo info){
         switch(info.newPhase){

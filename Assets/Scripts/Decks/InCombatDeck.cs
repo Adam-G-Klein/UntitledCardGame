@@ -46,4 +46,8 @@ public class InCombatDeck
         Debug.Log("Dealt " + numCards + " cards from deck, " + drawPile.Count + " cards left in draw pile");
         return returnList;
     }
+
+    public void discardCards(List<CardInfo> cards){
+        discardPile.AddRange(cards);
+    }
 }

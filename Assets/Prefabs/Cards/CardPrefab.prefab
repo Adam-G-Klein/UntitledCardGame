@@ -300,6 +300,9 @@ GameObject:
   - component: {fileID: 5521833032725427037}
   - component: {fileID: 7331526774499434846}
   - component: {fileID: 294639024923325154}
+  - component: {fileID: 4480159738977207892}
+  - component: {fileID: 464090019210302972}
+  - component: {fileID: 4349296600016054478}
   m_Layer: 5
   m_Name: CardPrefab
   m_TagString: Untagged
@@ -352,6 +355,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02f443f9ac2e89547a6761fb72065c22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: b5af2c7a-9dcf-45fd-9b74-ff8954150d5c
+  entityType: 0
+  isTargetable: 0
+  effectTargetSuppliedEvent: {fileID: 11400000, guid: 16143db2a2228f2499361d860ef94748, type: 2}
   cardInfo: {fileID: 0}
   hoverScale: 30
   nonHoverScale: 20
@@ -383,6 +390,90 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 15.009653, y: 19.60037}
   m_EdgeRadius: 0
+--- !u!114 &4480159738977207892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5521833032725427039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 422f790a2c1a8a9409c78407946a8313, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 649dc1f48181c6f4ea744ea04ca53239, type: 2}
+  unityEventResponse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7331526774499434846}
+        m_TargetAssemblyTypeName: PlayableCard, Assembly-CSharp
+        m_MethodName: cardEffectEventHandler
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &464090019210302972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5521833032725427039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 529c80957274eb845ab857cc78a85129, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 7fa89282fdc5197409a5e9b310da94f8, type: 2}
+  unityEventResponse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7331526774499434846}
+        m_TargetAssemblyTypeName: TargettableEntity, Assembly-CSharp
+        m_MethodName: uIStateEventListener
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &4349296600016054478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5521833032725427039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5501327943af6c438db85bdcdb2ceac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 709caf6df9005934dbe5ec0e1bd93bb6, type: 2}
+  unityEventResponse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7331526774499434846}
+        m_TargetAssemblyTypeName: TargettableEntity, Assembly-CSharp
+        m_MethodName: effectTargetRequestEventHandler
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5521833032734208734
 GameObject:
   m_ObjectHideFlags: 0

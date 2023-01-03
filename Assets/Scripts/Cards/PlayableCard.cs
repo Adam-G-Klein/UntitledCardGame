@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine.EventSystems; 
 
 [RequireComponent(typeof(CardDisplay))]
+[RequireComponent(typeof(CardEffectEventListener))]
 public class PlayableCard : TargettableEntity
     , IPointerClickHandler 
     , IDragHandler
@@ -13,8 +14,7 @@ public class PlayableCard : TargettableEntity
     , IPointerExitHandler
 {
     public CardInfo cardInfo;
-    private EnemyManager enemyManager;
-    private CompanionManager companionManager;
+    private PlayerHand playerHand;
     private CombatEntityInEncounterStats companionFromStats;
     private InCombatDeck deckFrom; 
 
@@ -36,33 +36,41 @@ public class PlayableCard : TargettableEntity
         // IMPORTANT, will end up with duplicate IDs if we ever 
         // forget to do this on an Entity
         id = cardInfo.id;
-        GameObject enemyManagerGO = GameObject.Find("EnemyManager");
+        entityType = EntityType.Card;
         GameObject companionManagerGO = GameObject.Find("CompanionManager");
         GameObject cardCasterGO = GameObject.Find("CardCaster");
+        GameObject playerHandGO = GameObject.Find("PlayerHand");
         // My attempt at null safing. We should def talk about how we want to 
         // do this generally because it'll happen a lot with the modular scenes
-        if(enemyManagerGO) enemyManager = enemyManagerGO.GetComponent<EnemyManager>();
-        else Debug.LogError("EnemyManager not found");
-        if(companionManagerGO) companionManager = companionManagerGO.GetComponent<CompanionManager>();
-        else Debug.LogError("CompanionManager not found");
         if(cardCasterGO) caster = cardCasterGO.GetComponent<CardCaster>();
-        else Debug.LogError("CardCaster not found");
+        else Debug.LogError("CardCaster not found by card, won't be able to cast cards");
+        if(playerHandGO) playerHand = playerHandGO.GetComponent<PlayerHand>();
+        else Debug.LogError("PlayerHand not found by card, won't be able to discard cards");
     }
 
     public override void onPointerClickChildImpl(PointerEventData eventData) 
     {
-        // I think there's a good possibility that we'll want to pass the 
-        // whole companionStats here at some point, but for now we'll just
-        // pass each field individually
+        if (isTargetable) Debug.Log("clicked on a card as a targettableentity rather than as a card");
+        if (isTargetable) return; // card is about to be discarded, don't do anything
+
         CardCastArguments args = new CardCastArguments(companionFromStats);
         // Cast event handler in PlayerHand.cs will handle the card 
         // being removed from the hand
-
         caster.cardClickHandler(cardInfo, args, transform);
     }
 
-    public void discard() {
-        deckFrom.discardPile.Add(cardInfo);
+    public void cardEffectEventHandler(CardEffectEventInfo info){
+        if (!info.targets.Contains(id)) return;
+        switch(info.effectName){
+            case SimpleEffectName.Discard:
+                playerHand.discardCard(this);
+                break;
+        }
+    }
+
+    // Called by playerHand when the card is discarded from the hand
+    public void discardFromDeck() {
+        deckFrom.discardCards(new List<CardInfo>{cardInfo});
     }
 
 

@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7904e26caac798846b1bef01c19a07f7, type: 3}
+  m_Name: Tweak Out
+  m_EditorClassIdentifier: 
+  Name: Tweak Out
+  Description: Discard 2 Cards, deal 7 damage
+  Cost: 0
+  Artwork: {fileID: 21300000, guid: 13bbb4ba4642f9240914cd432071cc6a, type: 3}
+  EffectProcedures:
+  - rid: 7342827891663044608
+  - rid: 7342827891663044610
+  - rid: 7342827891663044611
+  - rid: 7342827891663044612
+  id: 326c2601-725b-4d6c-a367-e5f3a451d16e
+  references:
+    version: 2
+    RefIds:
+    - rid: 7342827891663044608
+      type: {class: SimpleEffect, ns: , asm: Assembly-CSharp}
+      data:
+        procedureClass: SimpleEffect
+        effectName: 3
+        baseScale: 1
+        targetAllValidTargets: 0
+        validTargets: 02000000
+    - rid: 7342827891663044610
+      type: {class: SimpleEffect, ns: , asm: Assembly-CSharp}
+      data:
+        procedureClass: SimpleEffect
+        effectName: 3
+        baseScale: 1
+        targetAllValidTargets: 0
+        validTargets: 02000000
+    - rid: 7342827891663044611
+      type: {class: SimpleEffect, ns: , asm: Assembly-CSharp}
+      data:
+        procedureClass: SimpleEffect
+        effectName: 1
+        baseScale: 20
+        targetAllValidTargets: 0
+        validTargets: 01000000
+    - rid: 7342827891663044612
+      type: {class: SimpleEffect, ns: , asm: Assembly-CSharp}
+      data:
+        procedureClass: SimpleEffect
+        effectName: 0
+        baseScale: 0
+        targetAllValidTargets: 0
+        validTargets: 

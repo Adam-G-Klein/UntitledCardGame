@@ -66,7 +66,7 @@ public class PlayerHand : MonoBehaviour
     private void discardHand(){
         foreach(PlayableCard card in cardsInHand) {
             Destroy(card.gameObject);
-            card.discard();
+            card.discardFromDeck();
         }
         // do this instead of calling remove for each
         cardsInHand.Clear();
@@ -75,10 +75,11 @@ public class PlayerHand : MonoBehaviour
 
     // Do not call on whole hand, only call on individual cards
     // modifies the list of cards in hand 
-    private void discardCard(PlayableCard card){
+    public void discardCard(PlayableCard card){
         cardsInHand.Remove(card);
         Destroy(card.gameObject);
-        card.discard();
+        card.discardFromDeck();
+        Debug.Log("Discarded card, " + card.cardInfo.name + " cardsinhand: " + cardsInHand.Count);
         displayCards();
     }
 }
