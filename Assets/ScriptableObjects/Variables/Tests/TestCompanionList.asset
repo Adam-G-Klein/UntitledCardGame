@@ -14,35 +14,45 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   companionList:
   - companionType: {fileID: 11400000, guid: 28f6a1b3b493fa743859f89dedcc23ca, type: 2}
-    maxHealth: 30
+    maxHealth: 10
     deck:
       startingDeck: {fileID: 11400000, guid: 83b10e15a862e1a48900e311e49378a4, type: 2}
       cards:
-      - {fileID: 11400000, guid: 8f732a455aec7f045969c1a6edb06379, type: 2}
-      - {fileID: 11400000, guid: 8f732a455aec7f045969c1a6edb06379, type: 2}
-      - {fileID: 11400000, guid: 3c969c5e6fc15814a9e4a22c059913fc, type: 2}
-    baseAttackDamage: 1
-    id: 30156411-de2f-4c02-81a9-9747577f3ae9
-  - companionType: {fileID: 11400000, guid: af270a8bf55a86547941d6065eb02679, type: 2}
-    maxHealth: 40
-    deck:
-      startingDeck: {fileID: 11400000, guid: bb2dd24e7cac49440ac4e14129eec39c, type: 2}
-      cards:
-      - {fileID: 11400000, guid: 37d55c634e40e504d9e2f16eab28a056, type: 2}
-      - {fileID: 11400000, guid: 37d55c634e40e504d9e2f16eab28a056, type: 2}
-      - {fileID: 11400000, guid: 1c3c69dd53a039e4780b6191a839fae8, type: 2}
-      - {fileID: 11400000, guid: 1c3c69dd53a039e4780b6191a839fae8, type: 2}
-      - {fileID: 11400000, guid: 37d55c634e40e504d9e2f16eab28a056, type: 2}
-    baseAttackDamage: 3
-    id: 3623308f-93dc-49eb-8b64-8dc52705c555
+      - cardType: {fileID: 11400000, guid: ec3c681e35f3b8541b4e30643c6d0ee7, type: 2}
+        id: 63834b83-42fb-480a-87af-d21068487657
+      - cardType: {fileID: 11400000, guid: ec3c681e35f3b8541b4e30643c6d0ee7, type: 2}
+        id: d924d34c-3019-48f5-a40b-617d1bd672d0
+      - cardType: {fileID: 11400000, guid: 462354a397a54954aab6c85e99376713, type: 2}
+        id: 3b4192ff-a92b-4ac1-9a3a-a7223e5d85aa
+      - cardType: {fileID: 11400000, guid: 462354a397a54954aab6c85e99376713, type: 2}
+        id: 851e0309-926a-4c43-b8b8-acc1ad2d8afd
+    baseAttackDamage: 0
+    id: 3edfef20-05a0-49eb-a8ef-9041cc9fb04b
   - companionType: {fileID: 11400000, guid: 4960e72dbf9348c4bb2ab009998bd02a, type: 2}
     maxHealth: 20
     deck:
       startingDeck: {fileID: 11400000, guid: f7a0ec0e3675bf547ad5338f4f36b0e7, type: 2}
       cards:
-      - {fileID: 11400000, guid: 7b363e44c94b5fb4a8cdd32d92d0adb0, type: 2}
-      - {fileID: 11400000, guid: 2a6bc8af38fee2545843e165b6f42ed0, type: 2}
-      - {fileID: 11400000, guid: 777b8c65e42838c46bdd2df6f916a688, type: 2}
-      - {fileID: 11400000, guid: 777b8c65e42838c46bdd2df6f916a688, type: 2}
+      - cardType: {fileID: 11400000, guid: 940a073ba558e9546b5f8d28c2b85af5, type: 2}
+        id: 56ce0960-69ec-4d87-8502-b685174996dc
+      - cardType: {fileID: 11400000, guid: 4a317ae5215e14440942c047943ac96a, type: 2}
+        id: ad7c7362-c9c8-408e-8fac-8a84eb715179
+      - cardType: {fileID: 11400000, guid: dfe47065bd90ef24bbe2f365807ba07d, type: 2}
+        id: 17b97b95-ae93-441a-b812-24a8c1299234
+    baseAttackDamage: 2
+    id: 076c608e-e3bd-4778-82b4-416b4d4156cf
+  - companionType: {fileID: 11400000, guid: af270a8bf55a86547941d6065eb02679, type: 2}
+    maxHealth: 999
+    deck:
+      startingDeck: {fileID: 11400000, guid: bb2dd24e7cac49440ac4e14129eec39c, type: 2}
+      cards:
+      - cardType: {fileID: 11400000, guid: 9b0feee7c8820b6419129508051d6f08, type: 2}
+        id: 2a6585f4-d2fa-4a87-a1f3-ecaaac7b036b
+      - cardType: {fileID: 11400000, guid: 9b0feee7c8820b6419129508051d6f08, type: 2}
+        id: f30531c7-f1cb-4dc4-b72f-65a8da3a66bb
+      - cardType: {fileID: 11400000, guid: 9b0feee7c8820b6419129508051d6f08, type: 2}
+        id: 5c83a70b-14dc-43b8-ba18-8e4592f8a5a9
+      - cardType: {fileID: 11400000, guid: 70fd57aa1f3fcb049a3725fd9b8474af, type: 2}
+        id: 91ad9e73-112b-4e86-96c3-4102bf35a836
     baseAttackDamage: 0
-    id: 58e87f95-94d1-4084-8e75-2971a0afeb8d
+    id: ff149c56-5c72-4229-8f07-9fca47bec3fc

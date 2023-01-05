@@ -26,7 +26,7 @@ public class PlayerHand : MonoBehaviour
 
     public void cardDealtEventHandler(CardsDealtEventInfo info){
         PlayableCard newCard;
-        foreach(CardInfo cardInfo in info.cards) {
+        foreach(Card cardInfo in info.cards) {
             newCard = PrefabInstantiator.instantiateCard(cardPrefab, transform, cardInfo, info.fromStats, info.fromDeck);
             cardsInHand.Add(newCard);
         }
@@ -36,7 +36,7 @@ public class PlayerHand : MonoBehaviour
     public void cardCastEventHandler(CardCastEventInfo info){
         PlayableCard cardToDiscard = null;
         foreach(PlayableCard card in cardsInHand) {
-            if(card.cardInfo.id == info.cardInfo.id) {
+            if(card.outOfCombatCard.id == info.cardInfo.id) {
                 cardToDiscard = card;
             }
         }
@@ -79,7 +79,7 @@ public class PlayerHand : MonoBehaviour
         cardsInHand.Remove(card);
         Destroy(card.gameObject);
         card.discardFromDeck();
-        Debug.Log("Discarded card, " + card.cardInfo.name + " cardsinhand: " + cardsInHand.Count);
+        Debug.Log("Discarded card, " + card.outOfCombatCard.name + " cardsinhand: " + cardsInHand.Count);
         displayCards();
     }
 }

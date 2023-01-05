@@ -30,6 +30,10 @@ public class MultiStrike: EffectProcedure {
         //args.context.caster.raiseSimpleEffect(simpleEffectName);
         context.caster.requestTarget(validTargets, this);
         yield return new WaitUntil(() => targets.Count > 0);
+    }
+
+    public override IEnumerator invoke(EffectProcedureContext context)
+    {
         for(int i = 0; i < numStrikes; i++) {
             context.caster.raiseSimpleEffect(
                 SimpleEffectName.Damage, 

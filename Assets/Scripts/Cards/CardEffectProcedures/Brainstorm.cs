@@ -28,12 +28,17 @@ public class Brainstorm: EffectProcedure {
         //args.context.caster.raiseSimpleEffect(simpleEffectName);
         context.caster.requestTarget(validTargets, this);
         yield return new WaitUntil(() => targets.Count > 0);
+    }
+
+    public override IEnumerator invoke(EffectProcedureContext context)
+    {
         // Subtract 1 because we don't want to count the card we're playing
         int damage = (context.playerHand.cardsInHand.Count - 1) * context.casterStats.strength;
         context.caster.raiseSimpleEffect(
             SimpleEffectName.Damage, 
             damage,
             targets);
+        yield return null;
     }
 
     public override void targetsSupplied(List<string> targets){

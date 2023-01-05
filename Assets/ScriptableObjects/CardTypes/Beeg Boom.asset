@@ -9,25 +9,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7904e26caac798846b1bef01c19a07f7, type: 3}
+  m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: Beeg Boom
   m_EditorClassIdentifier: 
   Name: Beeg Boom
-  Description: Make big boom (Deal damage equal to this companion's strength to all
-    enemies)
-  Cost: 2
-  Artwork: {fileID: -431476422, guid: 33ba4bd24a9cc384c880d4c9d5443278, type: 3}
+  Description: show them all.. SHOW THEM YOUR STRENGTH (deal damage to all companions
+    and enemies)
+  Cost: 1
+  Artwork: {fileID: -1111278743, guid: 33ba4bd24a9cc384c880d4c9d5443278, type: 3}
   EffectProcedures:
-  - rid: 784857113120997383
-  id: accefde0-0ce2-4e36-92be-1fb1f4ef3965
+  - rid: 7342827955594723334
   references:
     version: 2
     RefIds:
-    - rid: 784857113120997383
+    - rid: 7342827955594723334
       type: {class: SimpleEffect, ns: , asm: Assembly-CSharp}
       data:
         procedureClass: SimpleEffect
         effectName: 1
-        baseScale: 0
+        baseScale: 5
         targetAllValidTargets: 1
-        validTargets: 01000000
+        validTargets: 0000000001000000

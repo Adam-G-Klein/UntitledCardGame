@@ -3,17 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(CardInfo))]
-public class CardInfoEditor : Editor {
+[CustomEditor(typeof(CardType))]
+public class CardTypeEditor : Editor {
 
     string effectProcedureClassName = "SimpleEffect";
     public override void OnInspectorGUI() {
-        CardInfo cardInfo = (CardInfo) target;
+        CardType cardType = (CardType) target;
         DrawDefaultInspector();
-        if(cardInfo.EffectProcedures == null) {
-            Debug.Log("EffectProcedures was null, setting to empty list");
-            cardInfo.EffectProcedures = new List<EffectProcedure>();
-        }
 
         EditorGUILayout.Space(20);
         EditorGUILayout.LabelField("Effect Procedure Controls");
@@ -35,17 +31,13 @@ public class CardInfoEditor : Editor {
                 " the arguments in the constructor");
             }
             else {
-                if(cardInfo.EffectProcedures == null) {
-                    Debug.Log("EffectProcedures was null, setting to empty list");
-                    cardInfo.EffectProcedures = new List<EffectProcedure>();
-                }
-                cardInfo.EffectProcedures.Add(newProcedure);
+                cardType.EffectProcedures.Add(newProcedure);
             }
             
             // These three calls cause the asset to actually be modified
             // on disc when we hit the button
             AssetDatabase.Refresh();
-            EditorUtility.SetDirty(cardInfo);
+            EditorUtility.SetDirty(cardType);
             AssetDatabase.SaveAssets();
         }
     }

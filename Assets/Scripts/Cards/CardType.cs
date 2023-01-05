@@ -5,8 +5,9 @@ using System;
 
 [CreateAssetMenu(
     fileName ="Card",
-    menuName = "Cards/New Card")]
-public class CardInfo : ScriptableObject
+    menuName = "Cards/New Card Type")]
+[Serializable]
+public class CardType: ScriptableObject
 {
     public string Name;
     public string Description;
@@ -17,5 +18,4 @@ public class CardInfo : ScriptableObject
     // trying to reinstantiate them by value all the time.
     [SerializeReference]
     public List<EffectProcedure> EffectProcedures;
-    public string id = Id.newGuid();
 }

@@ -10,7 +10,7 @@ using TMPro;
 [ExecuteInEditMode]
 public class CardDisplay : MonoBehaviour
 {
-    public CardInfo cardInfo;
+    public Card cardInfo;
 
     public TMP_Text CardName;
     public TMP_Text CostText;
@@ -22,10 +22,10 @@ public class CardDisplay : MonoBehaviour
     void Update()
     {
         runInEditMode = true;
-        CardName.text = cardInfo.Name;
-        CardDesc.text = cardInfo.Description;
-        CostText.text = cardInfo.Cost.ToString();
-        Artwork.sprite = cardInfo.Artwork;
+        CardName.text = cardInfo.name;
+        CardDesc.text = cardInfo.description;
+        CostText.text = cardInfo.cost.ToString();
+        Artwork.sprite = cardInfo.artwork;
     }
 
     void Awake()

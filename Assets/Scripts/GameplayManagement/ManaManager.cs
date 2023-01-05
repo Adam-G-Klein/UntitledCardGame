@@ -25,7 +25,7 @@ public class ManaManager : MonoBehaviour {
     }
 
     public void cardCastEventHandler(CardCastEventInfo info){
-        currentMana -= info.cardInfo.Cost;
+        currentMana -= info.cardInfo.cost;
         updateText();
     }
 

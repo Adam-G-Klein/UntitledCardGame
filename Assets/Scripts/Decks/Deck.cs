@@ -7,16 +7,24 @@ using UnityEngine;
 public class Deck
 {
     public StartingDeck startingDeck;
-    public List<CardInfo> cards;
+    [SerializeField]
+    public List<Card> cards = new List<Card>();
 
     public Deck(StartingDeck startingDeck)
     {
-        this.cards.AddRange(startingDeck.cards);
+        this.startingDeck = startingDeck;
+        foreach(CardType cardType in startingDeck.cards)
+        {
+            cards.Add(new Card(cardType));
+        }
     }
-    public Deck(List<CardInfo> cards)
+    public Deck(List<Card> cards)
     {
         this.startingDeck = new StartingDeck(cards);
-        this.cards.AddRange(startingDeck.cards);
+        foreach(Card card in cards)
+        {
+            this.cards.Add(card);
+        }
     }
 
 }

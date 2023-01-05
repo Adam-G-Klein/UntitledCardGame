@@ -7,11 +7,11 @@ using UnityEngine.EventSystems;
 
 
 public class CastingCoroutineArgs{
-    public CardInfo cardInfo;
+    public Card cardInfo;
     public CardCastArguments castArgs;
     public Entity caster;
 
-    public CastingCoroutineArgs(CardInfo cardInfo, CardCastArguments args, Entity caster){
+    public CastingCoroutineArgs(Card cardInfo, CardCastArguments args, Entity caster){
         this.cardInfo = cardInfo;
         this.castArgs = args;
         this.caster = caster;
@@ -84,11 +84,11 @@ public class CardCaster : MonoBehaviour {
     }
 
     
-    public bool isValidCast(CardInfo info, CardCastArguments args) {
-        if(info.Cost > manaManager.currentMana) return false;
+    public bool isValidCast(Card info, CardCastArguments args) {
+        if(info.cost > manaManager.currentMana) return false;
         return true;
     }
-    public void cardClickHandler(CardInfo info, CardCastArguments args, Entity arrowRoot) {
+    public void cardClickHandler(Card info, CardCastArguments args, Entity arrowRoot) {
         if(isValidCast(info, args)) {
             resetCastingState();
             castingCard = arrowRoot;
@@ -170,12 +170,12 @@ public class CardCaster : MonoBehaviour {
             enemyManager, 
             args.castArgs.casterStats,
             playerHand);
-        foreach(EffectProcedure procedure in args.cardInfo.EffectProcedures){
+        foreach(EffectProcedure procedure in args.cardInfo.effectProcedures){
             // Track current procedure for casting cancellation
             currentProcedure = procedure.prepare(currentContext);
             yield return StartCoroutine(currentProcedure);
         }
-        foreach(EffectProcedure procedure in args.cardInfo.EffectProcedures){
+        foreach(EffectProcedure procedure in args.cardInfo.effectProcedures){
             // Track current procedure for casting cancellation
             currentProcedure = procedure.invoke(currentContext);
             yield return StartCoroutine(currentProcedure);

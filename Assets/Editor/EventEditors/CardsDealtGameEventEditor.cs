@@ -6,7 +6,7 @@ using UnityEditor;
 [CustomEditor(typeof(CardsDealtEvent))]
 public class CardsDealtGameEventEditor : Editor
 {
-    CardInfo cardInfo = null;
+    CardType cardInfo = null;
     string companionId = "unset ID";
 
     public override void OnInspectorGUI() {
@@ -17,8 +17,8 @@ public class CardsDealtGameEventEditor : Editor
         EditorGUILayout.LabelField("The card ScriptableObject");
         cardInfo = EditorGUILayout.ObjectField(
             cardInfo,
-            typeof(CardInfo),
-            false) as CardInfo;
+            typeof(CardType),
+            false) as CardType;
 
         EditorGUILayout.LabelField("The companion to attach this card's stats to");
         companionId = EditorGUILayout.TextField(companionId);
@@ -33,7 +33,7 @@ public class CardsDealtGameEventEditor : Editor
             InCombatDeck deckFrom = companionInstance.inCombatDeck;
             if(cardInfo != null) {
                 cardsDealtEvent.Raise(new CardsDealtEventInfo(
-                    new List<CardInfo>() { cardInfo },
+                    new List<Card>() { new Card(cardInfo) },
                     deckFrom,
                     stats
                 ));

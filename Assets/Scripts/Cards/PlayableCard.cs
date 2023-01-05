@@ -14,7 +14,7 @@ public class PlayableCard : TargettableEntity
     , IPointerEnterHandler
     , IPointerExitHandler
 {
-    public CardInfo cardInfo;
+    public Card outOfCombatCard;
     private PlayerHand playerHand;
     private CombatEntityInEncounterStats companionFromStats;
     private InCombatDeck deckFrom; 
@@ -35,10 +35,10 @@ public class PlayableCard : TargettableEntity
 
     void Start()
     {
-        cardInfo = GetComponent<CardDisplay>().cardInfo;
+        outOfCombatCard = GetComponent<CardDisplay>().cardInfo;
         // IMPORTANT, will end up with duplicate IDs if we ever 
         // forget to do this on an Entity
-        id = cardInfo.id;
+        id = outOfCombatCard.id;
         entityType = EntityType.Card;
         GameObject companionManagerGO = GameObject.Find("CompanionManager");
         GameObject cardCasterGO = GameObject.Find("CardCaster");
@@ -60,7 +60,7 @@ public class PlayableCard : TargettableEntity
         CardCastArguments args = new CardCastArguments(companionFromStats);
         // Cast event handler in PlayerHand.cs will handle the card 
         // being removed from the hand
-        caster.cardClickHandler(cardInfo, args, this);
+        caster.cardClickHandler(outOfCombatCard, args, this);
     }
 
     public override bool isTargetableByChildImpl(EffectTargetRequestEventInfo eventInfo)
@@ -87,7 +87,7 @@ public class PlayableCard : TargettableEntity
 
     // Called by playerHand when the card is discarded from the hand
     public void discardFromDeck() {
-        deckFrom.discardCards(new List<CardInfo>{cardInfo});
+        deckFrom.discardCards(new List<Card>{outOfCombatCard});
     }
 
 
@@ -120,8 +120,8 @@ public class PlayableCard : TargettableEntity
 
     // Used when instantiating the card after Start has run
     // See PrefabInstantiator.cs
-    public void setCardInfo(CardInfo card){
-        this.cardInfo = card;
+    public void setCardInfo(Card card){
+        this.outOfCombatCard = card;
     }
     
     // Should pass by reference so that the values stay updated

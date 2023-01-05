@@ -35,7 +35,7 @@ public class CompanionInstance : CombatEntityInstance
 
 
     public void dealCards(int numCards){
-        List<CardInfo> cards = inCombatDeck.dealCardsFromDeck(numCards);
+        List<Card> cards = inCombatDeck.dealCardsFromDeck(numCards);
         StartCoroutine(cardsDealtEvent.RaiseAtEndOfFrameCoroutine(new CardsDealtEventInfo(cards, inCombatDeck, stats)));
     }
 

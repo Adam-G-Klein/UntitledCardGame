@@ -6,9 +6,9 @@ using UnityEngine;
 // from the player hand, charges mana, kicks off animations
 [System.Serializable]
 public class CardCastEventInfo {
-    public CardInfo cardInfo;
+    public Card cardInfo;
 
-    public CardCastEventInfo(CardInfo cardInfo) {
+    public CardCastEventInfo(Card cardInfo) {
         this.cardInfo = cardInfo;
     }
 }

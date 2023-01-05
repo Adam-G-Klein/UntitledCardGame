@@ -9,23 +9,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7904e26caac798846b1bef01c19a07f7, type: 3}
-  m_Name: GrandpasRemembering
+  m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
+  m_Name: Grandpa's Remembering
   m_EditorClassIdentifier: 
-  Name: grandpa's remembering
-  Description: Draw one card for one mana because THATS BALANCED
+  Name: Grandpa's Remembering
+  Description: Draw cards for mana what more do you want from me
   Cost: 1
   Artwork: {fileID: 21300000, guid: 1b0ccf3a0e7b0074bb900539fcac29bf, type: 3}
   EffectProcedures:
-  - rid: 784857113120997388
-  id: b9d5ec9d-bfed-4a8a-95c4-222c8bbefc7c
+  - rid: 7342827955594723332
   references:
     version: 2
     RefIds:
-    - rid: 784857113120997388
+    - rid: 7342827955594723332
       type: {class: SimpleEffect, ns: , asm: Assembly-CSharp}
       data:
         procedureClass: SimpleEffect
         effectName: 0
         baseScale: 2
+        targetAllValidTargets: 0
         validTargets: 00000000

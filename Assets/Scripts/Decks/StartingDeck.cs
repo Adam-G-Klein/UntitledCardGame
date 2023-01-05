@@ -8,14 +8,23 @@ using UnityEngine;
     menuName = "Decks/Starting Deck")]
 public class StartingDeck : ScriptableObject
 {
-    public List<CardInfo> cards;
+    public List<CardType> cards;
 
     // Used by Deck(List<CardInfo>) constructor 
     // so that we can instantiate new decks
     // programmatically during runtime if we want
     // to create improving companions in the shop
-    public StartingDeck(List<CardInfo> cards)
+    public StartingDeck(List<CardType> cards)
     {
         this.cards = cards;
     }
+
+    public StartingDeck(List<Card> cards)
+    {
+        foreach(Card card in cards)
+        {
+            this.cards.Add(card.cardType);
+        }
+    }
+
 }
