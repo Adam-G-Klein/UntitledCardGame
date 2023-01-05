@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(EffectTargetRequestEventListener))]
+[RequireComponent(typeof(EffectTargetSuppliedEventListener))]
 [RequireComponent(typeof(UIStateEventListener))]
-public class TargettingArrowController : MonoBehaviour
+public class TargettingArrowsController : MonoBehaviour
 {
 
     private TargettingArrow arrow;
@@ -18,11 +19,14 @@ public class TargettingArrowController : MonoBehaviour
     }
 
     public void effectTargetRequestEventHandler(EffectTargetRequestEventInfo info){
-        if(currentArrow != null) {
-            currentArrow.frozen = true;
-        }
         currentArrow = createArrow(info);
         arrows.Add(currentArrow);
+    }
+
+    public void effectTargetRequestSuppliedHandler(EffectTargetSuppliedEventInfo info){
+        if(currentArrow != null) {
+            currentArrow.freeze(info.target.transform);
+        }
     }
 
     public void uiStateChangeEventHandler(UIStateEventInfo info){

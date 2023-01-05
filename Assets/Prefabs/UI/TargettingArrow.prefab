@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bfa3174c42790e4ba8060273d095965, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  followMouse: 1
 --- !u!1 &2592847280397825042
 GameObject:
   m_ObjectHideFlags: 0
@@ -221,12 +222,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa8980690b3d5af4d9ff8fa693ecced5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Point1: {fileID: 3901982001357336534}
-  Point2: {fileID: 2834537268054896697}
-  Point3: {fileID: 8251869319793567762}
+  Root: {fileID: 3901982001357336534}
+  BendToPoint: {fileID: 2834537268054896697}
+  FollowMouse: {fileID: 8251869319793567762}
   linerenderer: {fileID: 0}
   vertexCount: 12
   Point2Ypositio: 2
+  frozen: 0
 --- !u!1 &2720080294428696679
 GameObject:
   m_ObjectHideFlags: 0

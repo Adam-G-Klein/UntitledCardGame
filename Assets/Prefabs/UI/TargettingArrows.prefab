@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7748219508150753119}
   - component: {fileID: 4000328805793787320}
   - component: {fileID: 6517327882345347121}
+  - component: {fileID: 2712225330016784722}
   m_Layer: 0
   m_Name: TargettingArrows
   m_TagString: Untagged
@@ -95,6 +96,34 @@ MonoBehaviour:
       - m_Target: {fileID: 7748219508150753119}
         m_TargetAssemblyTypeName: TargettingArrowController, Assembly-CSharp
         m_MethodName: uiStateChangeEventHandler
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &2712225330016784722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6270573308823744844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2212db7a37b2f1448d7c63b3403380d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 16143db2a2228f2499361d860ef94748, type: 2}
+  unityEventResponse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7748219508150753119}
+        m_TargetAssemblyTypeName: TargettingArrowsController, Assembly-CSharp
+        m_MethodName: effectTargetRequestSuppliedHandler
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
