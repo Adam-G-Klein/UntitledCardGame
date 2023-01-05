@@ -24,7 +24,7 @@ public class MultiStrike: EffectProcedure {
         procedureClass = "MultiStrike";
     }
     
-    public override IEnumerator invoke(EffectProcedureContext context) {
+    public override IEnumerator prepare(EffectProcedureContext context) {
         this.context = context;
         targets.Clear();
         //args.context.caster.raiseSimpleEffect(simpleEffectName);

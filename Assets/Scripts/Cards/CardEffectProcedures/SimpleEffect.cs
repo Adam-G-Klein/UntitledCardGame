@@ -24,9 +24,9 @@ public class SimpleEffect: EffectProcedure {
         procedureClass = "SimpleEffect";
     }
     
-    public override IEnumerator invoke(EffectProcedureContext context) {
+    public override IEnumerator prepare(EffectProcedureContext context) {
         this.context = context;
-        targets.Clear();
+        resetState();
         //args.context.caster.raiseSimpleEffect(simpleEffectName);
         if(targetAllValidTargets) {
             targets.AddRange(context.caster.getAllValidTargets(validTargets));
@@ -35,15 +35,25 @@ public class SimpleEffect: EffectProcedure {
             context.caster.requestTarget(validTargets, this);
         }
         yield return new WaitUntil(() => targets.Count > 0);
+        // passes back to the cardCaster, where it will call invoke
+    }
+
+    public override IEnumerator invoke(EffectProcedureContext context)
+    {
         context.caster.raiseSimpleEffect(
             effectName, 
             context.caster.getEffectScale(effectName, baseScale),
             targets);
+        yield return null;
     }
 
     public override void targetsSupplied(List<string> targets){
         Debug.Log("Simple Effect targets supplied: " + targets.Count);
         this.targets.AddRange(targets);
+    }
+
+    private void resetState(){
+        targets.Clear();
     }
 
 }

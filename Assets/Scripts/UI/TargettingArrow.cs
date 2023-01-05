@@ -11,17 +11,23 @@ public class TargettingArrow : MonoBehaviour
     public LineRenderer linerenderer;
     public float vertexCount = 12;
     public float Point2Ypositio = 2;
+    public bool frozen = false;
+    
+    void Awake()
+    {
+        linerenderer = GetComponent<LineRenderer>();
+        frozen = false;
+    }
     // Start is called before the first frame update
     void Start()
     {
-        linerenderer = GetComponent<LineRenderer>();
-        
     }
 
     // Update is called once per frame
     void Update()
     {
-        DrawCurve();
+        if(!frozen)
+            DrawCurve();
 
     }
     
@@ -48,6 +54,10 @@ public class TargettingArrow : MonoBehaviour
         linerenderer.endColor = color;
     }
 
-
+    public void setAllChildrenPosition(Vector3 position){
+        foreach(Transform child in transform){
+            child.position = position;
+        }
+    }
 
 }

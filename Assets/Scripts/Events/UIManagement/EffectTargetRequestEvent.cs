@@ -13,10 +13,10 @@ public class EffectTargetRequestEventInfo {
     // we can make this a Dictionary mapping types to predicates
     // that return whether the object of that type is a valid target
     // That feels way too complex to implement right now though
-    public Transform source;
+    public Entity source;
     public List<EntityType> validTargets;
 
-    public EffectTargetRequestEventInfo(List<EntityType> validTargets, Transform source){
+    public EffectTargetRequestEventInfo(List<EntityType> validTargets, Entity source){
         this.validTargets = validTargets;
         this.source = source;
     }

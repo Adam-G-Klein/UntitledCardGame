@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(CardDisplay))]
 [RequireComponent(typeof(CardEffectEventListener))]
+[RequireComponent(typeof(UIStateEventListener))]
 public class PlayableCard : TargettableEntity
     , IPointerClickHandler 
     , IDragHandler
@@ -30,6 +31,8 @@ public class PlayableCard : TargettableEntity
 
     private CardCaster caster;
 
+    private UIState currentState;
+
     void Start()
     {
         cardInfo = GetComponent<CardDisplay>().cardInfo;
@@ -50,13 +53,27 @@ public class PlayableCard : TargettableEntity
 
     public override void onPointerClickChildImpl(PointerEventData eventData) 
     {
-        if (isTargetable) Debug.Log("clicked on a card as a targettableentity rather than as a card");
-        if (isTargetable) return; // card is about to be discarded, don't do anything
+        // TargettableEntity Onclick impl handles anything outside of the player clicking on the card to cast it
+        // (like if we're about to discard it)
+        if (currentState != UIState.DEFAULT) return; 
 
         CardCastArguments args = new CardCastArguments(companionFromStats);
         // Cast event handler in PlayerHand.cs will handle the card 
         // being removed from the hand
-        caster.cardClickHandler(cardInfo, args, transform);
+        caster.cardClickHandler(cardInfo, args, this);
+    }
+
+    public override bool isTargetableByChildImpl(EffectTargetRequestEventInfo eventInfo)
+    {
+        // parent function checks that this is targetting us, currently just making sure 
+        // that discard effects can't target the card that's discarding
+        // if we want a card to be able to target itself, we'll need to change this and 
+        // somehow check the effect name during the target request
+        return eventInfo.source.id != id;
+    }
+
+    public void uiStageChangeEventHandler(UIStateEventInfo info) {
+        currentState = info.newState;
     }
 
     public void cardEffectEventHandler(CardEffectEventInfo info){

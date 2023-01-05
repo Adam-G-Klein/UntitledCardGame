@@ -17,7 +17,7 @@ public class UIStateIndicator : MonoBehaviour
 
 
     public void effectTargetRequestEventHandler(EffectTargetRequestEventInfo info) {
-        UIStateText.text = "Getting target, press Q to cancel";
+        UIStateText.text = "Getting target, right click to cancel";
     }
 
 

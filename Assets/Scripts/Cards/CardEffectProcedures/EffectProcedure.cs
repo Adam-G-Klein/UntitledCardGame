@@ -52,7 +52,14 @@ public abstract class EffectProcedure
         context.caster.raiseSimpleEffect(simpleEffectName, scale, targets);
     }
 
-    // Would change to returning EffectProcedureOutput if we decide we need it
-    public abstract IEnumerator invoke(EffectProcedureContext context);
+    // Called before the procedure is invoked to allow the procedure to
+    // get targets, do any math it needs to, be ready to raise its events
+    public abstract IEnumerator prepare(EffectProcedureContext context);
+
+    // Called after prepare, where the procedure raises simple effects now that it 
+    // has all the information/targets it needs
+    public virtual IEnumerator invoke(EffectProcedureContext context) {
+        yield return null;
+    }
 
 }

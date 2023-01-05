@@ -435,8 +435,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7331526774499434846}
-        m_TargetAssemblyTypeName: TargettableEntity, Assembly-CSharp
-        m_MethodName: uIStateEventListener
+        m_TargetAssemblyTypeName: PlayableCard, Assembly-CSharp
+        m_MethodName: uiStageChangeEventHandler
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

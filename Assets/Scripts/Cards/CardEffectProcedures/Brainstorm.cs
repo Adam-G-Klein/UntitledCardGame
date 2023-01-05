@@ -22,7 +22,7 @@ public class Brainstorm: EffectProcedure {
         procedureClass = "Brainstorm";
     }
     
-    public override IEnumerator invoke(EffectProcedureContext context) {
+    public override IEnumerator prepare(EffectProcedureContext context) {
         this.context = context;
         targets.Clear();
         //args.context.caster.raiseSimpleEffect(simpleEffectName);

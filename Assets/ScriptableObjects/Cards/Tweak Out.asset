@@ -20,7 +20,6 @@ MonoBehaviour:
   - rid: 7342827891663044608
   - rid: 7342827891663044610
   - rid: 7342827891663044611
-  - rid: 7342827891663044612
   id: 326c2601-725b-4d6c-a367-e5f3a451d16e
   references:
     version: 2
@@ -49,11 +48,3 @@ MonoBehaviour:
         baseScale: 20
         targetAllValidTargets: 0
         validTargets: 01000000
-    - rid: 7342827891663044612
-      type: {class: SimpleEffect, ns: , asm: Assembly-CSharp}
-      data:
-        procedureClass: SimpleEffect
-        effectName: 0
-        baseScale: 0
-        targetAllValidTargets: 0
-        validTargets: 

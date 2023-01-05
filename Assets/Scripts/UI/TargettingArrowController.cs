@@ -7,41 +7,39 @@ using UnityEngine;
 public class TargettingArrowController : MonoBehaviour
 {
 
-    private List<Transform> children;
     private TargettingArrow arrow;
     [SerializeField]
     private UIColors colors;
+    public GameObject arrowPrefab;
+    private List<TargettingArrow> arrows = new List<TargettingArrow>();
+    private TargettingArrow currentArrow;
 
     void Start(){
-        arrow = GetComponentInChildren<TargettingArrow>();
-        children = new List<Transform>();
-        foreach(Transform child in transform){
-            children.Add(child);
-        }
-        hideArrow();
     }
 
     public void effectTargetRequestEventHandler(EffectTargetRequestEventInfo info){
-        showArrow();
-        setArrowColor(info.validTargets);
-        foreach(Transform child in transform){
-            child.position = info.source.transform.position;
+        if(currentArrow != null) {
+            currentArrow.frozen = true;
         }
+        currentArrow = createArrow(info);
+        arrows.Add(currentArrow);
     }
 
     public void uiStateChangeEventHandler(UIStateEventInfo info){
         if(info.newState != UIState.EFFECT_TARGETTING){
-            hideArrow();
+            clearArrows();
         }
     }
 
-    private void showArrow(){
-        foreach(Transform child in children){
-            child.gameObject.SetActive(true);
-        }
+    private TargettingArrow createArrow(EffectTargetRequestEventInfo info){
+        TargettingArrow newArrow = Instantiate(arrowPrefab, transform).GetComponent<TargettingArrow>();
+        setArrowColor(newArrow, info.validTargets);
+        newArrow.transform.position = info.source.transform.position;
+        newArrow.setAllChildrenPosition(info.source.transform.position);
+        return newArrow;
     }
 
-    private void setArrowColor(List<EntityType> validTargets){
+    private void setArrowColor(TargettingArrow arrow, List<EntityType> validTargets){
         if(validTargets.Contains(EntityType.Companion) && validTargets.Contains(EntityType.Enemy)){
             arrow.setColor(colors.neutralEffectColor);
         } else if(validTargets.Contains(EntityType.Enemy)){
@@ -53,9 +51,10 @@ public class TargettingArrowController : MonoBehaviour
         }
     }
 
-    private void hideArrow(){
-        foreach(Transform child in children){
-            child.gameObject.SetActive(false);
+    private void clearArrows(){
+        for(int i = 0; i < arrows.Count; i++){
+            Destroy(arrows[i].gameObject);
         }
+        arrows.Clear();
     }
 }

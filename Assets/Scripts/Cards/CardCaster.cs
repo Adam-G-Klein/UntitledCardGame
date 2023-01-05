@@ -9,12 +9,12 @@ using UnityEngine.EventSystems;
 public class CastingCoroutineArgs{
     public CardInfo cardInfo;
     public CardCastArguments castArgs;
-    public Transform casterTransform;
+    public Entity caster;
 
-    public CastingCoroutineArgs(CardInfo cardInfo, CardCastArguments args, Transform casterTransform){
+    public CastingCoroutineArgs(CardInfo cardInfo, CardCastArguments args, Entity caster){
         this.cardInfo = cardInfo;
         this.castArgs = args;
-        this.casterTransform = casterTransform;
+        this.caster = caster;
     }
 }
 
@@ -51,7 +51,7 @@ public class CardCaster : MonoBehaviour {
     private string requestedTarget = NO_TARGET;
     private CompanionManager companionManager;
     private EnemyManager enemyManager;
-    public Transform castingCardTransform;
+    public Entity castingCard;
     /// Don't rely on this being available, it's only set when a card is being cast
     private IEnumerator currentProcedure;
     private PlayerHand playerHand;
@@ -88,10 +88,10 @@ public class CardCaster : MonoBehaviour {
         if(info.Cost > manaManager.currentMana) return false;
         return true;
     }
-    public void cardClickHandler(CardInfo info, CardCastArguments args, Transform arrowRoot) {
+    public void cardClickHandler(CardInfo info, CardCastArguments args, Entity arrowRoot) {
         if(isValidCast(info, args)) {
             resetCastingState();
-            castingCardTransform = arrowRoot;
+            castingCard = arrowRoot;
             StartCoroutine("castingCoroutine", new CastingCoroutineArgs(info, args, arrowRoot));
             // StartCoroutine(procedure.invoke(new EffectProcedureContext(this, companionManager, enemyManager, args.casterStats)));
         } else {
@@ -172,6 +172,11 @@ public class CardCaster : MonoBehaviour {
             playerHand);
         foreach(EffectProcedure procedure in args.cardInfo.EffectProcedures){
             // Track current procedure for casting cancellation
+            currentProcedure = procedure.prepare(currentContext);
+            yield return StartCoroutine(currentProcedure);
+        }
+        foreach(EffectProcedure procedure in args.cardInfo.EffectProcedures){
+            // Track current procedure for casting cancellation
             currentProcedure = procedure.invoke(currentContext);
             yield return StartCoroutine(currentProcedure);
         }
@@ -196,7 +201,7 @@ public class CardCaster : MonoBehaviour {
     private IEnumerator getTargetCoroutine(GetTargetCoroutineArgs args) {
         requestedTarget = NO_TARGET;
         StartCoroutine(effectTargetRequestEvent.RaiseAtEndOfFrameCoroutine(
-                new EffectTargetRequestEventInfo(args.validTargets, castingCardTransform)));
+                new EffectTargetRequestEventInfo(args.validTargets, castingCard)));
         // Waits until the effectTargetSuppliedHandler is called
         yield return new WaitUntil(() => !requestedTarget.Equals(NO_TARGET));
         Debug.Log("Get target coroutine providing target: " + requestedTarget);
