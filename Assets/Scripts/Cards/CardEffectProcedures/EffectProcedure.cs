@@ -38,14 +38,10 @@ public abstract class EffectProcedure
 {
     
     protected  EffectProcedureContext context;
-    protected List<string> getTarget(List<EntityType> validTargets, bool getAllPossibleTargets){
-        if(context == null) Debug.LogError("Need procedure context to get targets, be sure to set the 'context' field of this procedure (in the parent class) before proceeding to code it");
-        // context.caster.get
-        return null;
-
-    }
 
     public abstract void targetsSupplied(List<string> targets);
+
+    public virtual void resetCastingState() {}
 
     protected void raiseSimpleEffect(SimpleEffectName simpleEffectName, int scale, List<string> targets) {
         if(context == null) Debug.LogError("Need procedure context to raiseSimpleEffect, be sure to set the 'context' field of this procedure (in the parent class) before proceeding to code it");

@@ -69,11 +69,14 @@ public class PlayableCard : TargettableEntity
         // that discard effects can't target the card that's discarding
         // if we want a card to be able to target itself, we'll need to change this and 
         // somehow check the effect name during the target request
-        return eventInfo.source.id != id;
+        bool retval = eventInfo.source.id != id;
+        Debug.Log("Card " + id + " is targetable by event from" + eventInfo.source.id + ": " + retval);
+        return retval;
     }
 
-    public void uiStageChangeEventHandler(UIStateEventInfo info) {
-        currentState = info.newState;
+    public override void uiStageChangeEventHandlerChildImpl(UIStateEventInfo eventInfo)
+    {
+        currentState = eventInfo.newState;
     }
 
     public void cardEffectEventHandler(CardEffectEventInfo info){

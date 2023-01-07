@@ -26,7 +26,7 @@ public class SimpleEffect: EffectProcedure {
     
     public override IEnumerator prepare(EffectProcedureContext context) {
         this.context = context;
-        resetState();
+        resetCastingState();
         //args.context.caster.raiseSimpleEffect(simpleEffectName);
         if(targetAllValidTargets) {
             targets.AddRange(context.caster.getAllValidTargets(validTargets));
@@ -52,7 +52,7 @@ public class SimpleEffect: EffectProcedure {
         this.targets.AddRange(targets);
     }
 
-    private void resetState(){
+    public override void resetCastingState(){
         targets.Clear();
     }
 

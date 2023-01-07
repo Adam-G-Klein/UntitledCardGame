@@ -79,7 +79,6 @@ public class PlayerHand : MonoBehaviour
         cardsInHand.Remove(card);
         Destroy(card.gameObject);
         card.discardFromDeck();
-        Debug.Log("Discarded card, " + card.outOfCombatCard.name + " cardsinhand: " + cardsInHand.Count);
         displayCards();
     }
 }

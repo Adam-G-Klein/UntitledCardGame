@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems; 
 
 public abstract class Entity : MonoBehaviour {
-    public string id = Id.newGuid();
+    public string id;
 
     public EntityType entityType;
 }

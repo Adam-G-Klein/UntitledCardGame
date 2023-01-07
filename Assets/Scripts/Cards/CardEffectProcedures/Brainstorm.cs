@@ -24,7 +24,7 @@ public class Brainstorm: EffectProcedure {
     
     public override IEnumerator prepare(EffectProcedureContext context) {
         this.context = context;
-        targets.Clear();
+        resetCastingState();
         //args.context.caster.raiseSimpleEffect(simpleEffectName);
         context.caster.requestTarget(validTargets, this);
         yield return new WaitUntil(() => targets.Count > 0);
@@ -44,6 +44,10 @@ public class Brainstorm: EffectProcedure {
     public override void targetsSupplied(List<string> targets){
         Debug.Log("Simple Effect targets supplied: " + targets.Count);
         this.targets.AddRange(targets);
+    }
+
+    public override void resetCastingState(){
+        targets.Clear();
     }
 
 }

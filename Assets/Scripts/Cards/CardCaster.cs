@@ -210,6 +210,7 @@ public class CardCaster : MonoBehaviour {
 
     private void resetCastingState(){
         requestedTarget = NO_TARGET;
+        StopCoroutine("getTargetCoroutine");
         StopCoroutine("castingCoroutine");
         if(currentProcedure != null) {
             StopCoroutine(currentProcedure);

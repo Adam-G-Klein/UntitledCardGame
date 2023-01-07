@@ -338,7 +338,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a26e7bfb688784647a076537cea01e55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardInfo: {fileID: 11400000, guid: 7b363e44c94b5fb4a8cdd32d92d0adb0, type: 2}
+  cardInfo:
+    cardType: {fileID: 0}
+    id: 
   CardName: {fileID: 5521833032734208732}
   CostText: {fileID: 5612962682102522699}
   CardDesc: {fileID: 5521833034104925168}
@@ -359,7 +361,9 @@ MonoBehaviour:
   entityType: 0
   isTargetable: 0
   effectTargetSuppliedEvent: {fileID: 11400000, guid: 16143db2a2228f2499361d860ef94748, type: 2}
-  cardInfo: {fileID: 0}
+  outOfCombatCard:
+    cardType: {fileID: 0}
+    id: 
   hoverScale: 30
   nonHoverScale: 20
   hoverYDiff: 185
@@ -435,8 +439,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7331526774499434846}
-        m_TargetAssemblyTypeName: PlayableCard, Assembly-CSharp
-        m_MethodName: uiStageChangeEventHandler
+        m_TargetAssemblyTypeName: TargettableEntity, Assembly-CSharp
+        m_MethodName: uIStateEventListener
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

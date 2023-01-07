@@ -18,6 +18,7 @@ public abstract class TargettableEntity : Entity,
 
     public virtual bool isTargetableByChildImpl(EffectTargetRequestEventInfo eventInfo) { return true; }
     public virtual void onPointerClickChildImpl(PointerEventData eventData) {}
+    public virtual void uiStageChangeEventHandlerChildImpl(UIStateEventInfo eventInfo) {}
 
     public void effectTargetRequestEventHandler(EffectTargetRequestEventInfo info){
         if(info.validTargets.Contains(entityType) && isTargetableByChildImpl(info)){
@@ -29,7 +30,9 @@ public abstract class TargettableEntity : Entity,
     public void uIStateEventListener(UIStateEventInfo info){
         // For now we don't need any information besides the fact 
         // that we're not targeting anymore
+        uiStageChangeEventHandlerChildImpl(info);
         if(info.newState != UIState.EFFECT_TARGETTING) {
+            Debug.Log("Entity " + id + " no longer targetable");
             isTargetable = false;
         }
     }
