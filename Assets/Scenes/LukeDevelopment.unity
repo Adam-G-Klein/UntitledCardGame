@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311918, g: 0.3807398, b: 0.35872716, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -903,18 +903,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.99, y: 2.48}
   m_EdgeRadius: 0
---- !u!114 &4787441373295973293
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5707403771916715692}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c36dcff77482ee48b11d94a2762bcd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!50 &5707403771916715681
 Rigidbody2D:
   serializedVersion: 4
@@ -969,7 +957,6 @@ GameObject:
   - component: {fileID: 5707403771916715681}
   - component: {fileID: 5707403771916715682}
   - component: {fileID: 2273901008838594579}
-  - component: {fileID: 4787441373295973293}
   m_Layer: 7
   m_Name: PlayerInEncounter
   m_TagString: Untagged

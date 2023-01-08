@@ -5,13 +5,13 @@ using UnityEngine;
 [System.Serializable]
 public class EncounterReference : Reference<Encounter, EncounterVariableSO> {
     [SerializeReference]
-    public Encounter ConstantValue;
+    public new Encounter ConstantValue;
 
     public EncounterReference(Encounter Value): base(Value) { }
 
     public EncounterReference() { }
 
-    public Encounter Value
+    public new Encounter Value
     {
         get { return UseConstant ? ConstantValue : Variable.Value; }
         set

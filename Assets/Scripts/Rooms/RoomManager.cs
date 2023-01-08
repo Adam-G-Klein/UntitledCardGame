@@ -45,7 +45,7 @@ public class RoomManager : MonoBehaviour
             if (encounterReference.Value.id == encounterId) {
                 activeEncounter.Value = encounterReference.Value;
                 // Need to actually check encounter type and load correct corresponding scene
-                SceneManager.LoadScene("LukeDevelopment");
+                SceneManager.LoadScene("PlaceholderEncounter");
                 return;
             }
         }
