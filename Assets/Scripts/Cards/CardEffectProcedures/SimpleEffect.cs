@@ -31,14 +31,14 @@ public class SimpleEffect: EffectProcedure {
         this.context = context;
         resetCastingState();
         if(targetAllValidTargets) {
-            targets.AddRange(context.caster.getAllValidTargets(validTargets));
+            currentTargets.AddRange(context.caster.getAllValidTargets(validTargets));
         }
         else {
             context.caster.requestTarget(validTargets, this,
                 requiresUniqueTarget ? context.alreadyTargetted : null);
         }
-        yield return new WaitUntil(() => targets.Count > 0);
-        context.alreadyTargetted.AddRange(targets);
+        yield return new WaitUntil(() => currentTargets.Count > 0);
+        context.alreadyTargetted.AddRange(currentTargets);
         // passes back to the cardCaster, where it will call invoke
     }
 
@@ -47,12 +47,12 @@ public class SimpleEffect: EffectProcedure {
         context.caster.raiseSimpleEffect(
             effectName, 
             context.caster.getEffectScale(effectName, baseScale),
-            targets);
+            currentTargets);
         yield return null;
     }
 
     public override void resetCastingState(){
-        targets.Clear();
+        currentTargets.Clear();
     }
 
 }

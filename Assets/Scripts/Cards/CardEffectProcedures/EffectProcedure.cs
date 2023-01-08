@@ -32,18 +32,13 @@ public class EffectProcedureContext {
     
 }
 [System.Serializable]
-public abstract class EffectProcedure
+public abstract class EffectProcedure: TargetRequester
 {
     
     protected  EffectProcedureContext context;
 
-    public void targetsSupplied(List<TargettableEntity> targets) {
-        this.targets = targets;
-    }
-
     public virtual void resetCastingState() {}
 
-    protected List<TargettableEntity> targets = new List<TargettableEntity>();
     protected void raiseSimpleEffect(SimpleEffectName simpleEffectName, int scale, List<TargettableEntity> targets) {
         if(context == null) Debug.LogError("Need procedure context to raiseSimpleEffect, be sure to set the 'context' field of this procedure (in the parent class) before proceeding to code it");
         context.caster.raiseSimpleEffect(simpleEffectName, scale, targets);

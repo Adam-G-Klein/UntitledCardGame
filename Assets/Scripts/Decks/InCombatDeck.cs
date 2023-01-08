@@ -43,7 +43,6 @@ public class InCombatDeck
             returnList.Add(card);
             drawPile.Remove(card);
         }
-        Debug.Log("Dealt " + numCards + " cards from deck, " + drawPile.Count + " cards left in draw pile");
         return returnList;
     }
 

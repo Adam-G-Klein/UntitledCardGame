@@ -26,7 +26,7 @@ public class Brainstorm: EffectProcedure {
         resetCastingState();
         //args.context.caster.raiseSimpleEffect(simpleEffectName);
         context.caster.requestTarget(validTargets, this);
-        yield return new WaitUntil(() => targets.Count > 0);
+        yield return new WaitUntil(() => currentTargets.Count > 0);
     }
 
     public override IEnumerator invoke(EffectProcedureContext context)
@@ -36,12 +36,12 @@ public class Brainstorm: EffectProcedure {
         context.caster.raiseSimpleEffect(
             SimpleEffectName.Damage, 
             damage,
-            targets);
+            currentTargets);
         yield return null;
     }
 
     public override void resetCastingState(){
-        targets.Clear();
+        currentTargets.Clear();
     }
 
 }

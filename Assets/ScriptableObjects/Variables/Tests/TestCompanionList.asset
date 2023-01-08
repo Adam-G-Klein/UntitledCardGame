@@ -62,10 +62,31 @@ MonoBehaviour:
     abilities:
     - rid: 7342828005710888961
     id: 26aeb784-39d0-41eb-b6c3-798189bd23d8
+  - companionType: {fileID: 11400000, guid: af270a8bf55a86547941d6065eb02679, type: 2}
+    maxHealth: 999
+    deck:
+      startingDeck: {fileID: 11400000, guid: bb2dd24e7cac49440ac4e14129eec39c, type: 2}
+      cards:
+      - cardType: {fileID: 11400000, guid: 9b0feee7c8820b6419129508051d6f08, type: 2}
+        id: c09d649d-6ff8-4fc9-8ab5-6e6561ec0f76
+      - cardType: {fileID: 11400000, guid: 9b0feee7c8820b6419129508051d6f08, type: 2}
+        id: 8edf6f0e-b514-4f24-991f-cb7de69e257f
+      - cardType: {fileID: 11400000, guid: 9b0feee7c8820b6419129508051d6f08, type: 2}
+        id: e8ded80a-e360-462d-851c-55526534ddd3
+      - cardType: {fileID: 11400000, guid: 70fd57aa1f3fcb049a3725fd9b8474af, type: 2}
+        id: ae7de2f1-0422-488c-ad8a-54c065ae6ad2
+    baseAttackDamage: 0
+    abilities:
+    - rid: 7342828023772610560
+    id: a195e82e-0fcd-4095-ba9c-ad867b147d4f
   references:
     version: 2
     RefIds:
     - rid: 7342828005710888961
+      type: {class: RetainCards, ns: , asm: Assembly-CSharp}
+      data:
+        abilityName: Retain Cards
+    - rid: 7342828023772610560
       type: {class: RetainCards, ns: , asm: Assembly-CSharp}
       data:
         abilityName: Retain Cards

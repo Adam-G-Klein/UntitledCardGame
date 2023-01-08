@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class TurnPhaseTrigger {
     public TurnPhase phase;
-    public bool isFinished = true;
-    public TurnPhaseTrigger(TurnPhase phase)
+    public IEnumerable triggerResponse;
+
+    public TurnPhaseTrigger(TurnPhase phase, IEnumerable triggerResponse)
     {
         this.phase = phase;
+        this.triggerResponse = triggerResponse;
     }
 }

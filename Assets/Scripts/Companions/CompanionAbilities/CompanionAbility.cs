@@ -15,21 +15,20 @@ public class CompanionAbilityContext {
         this.playerHand = playerHand;
     }
 }
+
 [System.Serializable]
-public abstract class CompanionAbility 
+public abstract class CompanionAbility : TargetRequester
 {
 
     public string abilityName;
-    protected List<TargettableEntity> currentAbilityTargets;
     public abstract void setupAbility(CompanionAbilityContext context);
-    public virtual void resetAbilityState() {
-        currentAbilityTargets.Clear();
-    }
 
-    public void targetsSupplied(List<TargettableEntity> targets)
+    // Using IEnumerable so that we can restart the method from the list of turnphase triggers each time
+    // apparently IEnumerator can't be restarted: https://forum.unity.com/threads/i-cant-call-a-coroutine-from-a-list-for-second-time.999421/
+    public abstract IEnumerable invoke(CompanionAbilityContext context);
+
+    public void resetAbilityState()
     {
-        this.currentAbilityTargets = targets;
+        base.resetTargets();
     }
-
-    public abstract IEnumerator invoke(CompanionAbilityContext context);
 }

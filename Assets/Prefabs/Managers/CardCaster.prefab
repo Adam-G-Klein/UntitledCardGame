@@ -78,12 +78,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3db1e791b91a30c45aca8add0f6ddd57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  effectTargetRequestEvent: {fileID: 11400000, guid: 709caf6df9005934dbe5ec0e1bd93bb6, type: 2}
   cardEffectEvent: {fileID: 11400000, guid: 649dc1f48181c6f4ea744ea04ca53239, type: 2}
   cardCastEvent: {fileID: 11400000, guid: 8e2f201df9de731449d5a0e8ddb0d748, type: 2}
   effectTargetRequestEvent: {fileID: 11400000, guid: 709caf6df9005934dbe5ec0e1bd93bb6, type: 2}
-  castingCardTransform: {fileID: 0}
-  constants: {fileID: 11400000, guid: 73ad8dcd4be0ffc4f9958a74ee9f1a5e, type: 2}
-  currentMana: 3
 --- !u!114 &9055853530846638641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,8 +99,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 9055853530846638640}
-        m_TargetAssemblyTypeName: CardCaster, Assembly-CSharp
-        m_MethodName: effectTargetSuppliedEventHandler
+        m_TargetAssemblyTypeName: TargetProvider, Assembly-CSharp
+        m_MethodName: effectTargetSuppliedHandler
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

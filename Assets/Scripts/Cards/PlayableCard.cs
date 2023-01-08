@@ -74,7 +74,6 @@ public class PlayableCard : TargettableEntity
         // if we want a card to be able to target itself, we'll need to change this and 
         // somehow check the effect name during the target request
         bool retval = eventInfo.source.id != id;
-        Debug.Log("Card " + id + " is targetable by event from" + eventInfo.source.id + ": " + retval);
         return retval;
     }
 

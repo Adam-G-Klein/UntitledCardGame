@@ -9,12 +9,10 @@ using UnityEngine.EventSystems;
 public class CastingCoroutineArgs{
     public Card cardInfo;
     public CardCastArguments castArgs;
-    public Entity caster;
 
-    public CastingCoroutineArgs(Card cardInfo, CardCastArguments args, Entity caster){
+    public CastingCoroutineArgs(Card cardInfo, CardCastArguments args){
         this.cardInfo = cardInfo;
         this.castArgs = args;
-        this.caster = caster;
     }
 }
 
@@ -31,9 +29,8 @@ public class GetTargetCoroutineArgs{
     }
 }
 
-[RequireComponent(typeof(EffectTargetSuppliedEventListener))]
 [RequireComponent(typeof(UIStateEventListener))]
-public class CardCaster : MonoBehaviour {
+public class CardCaster : TargetProvider {
     // Handles casting cardInfo's  
 
     [SerializeField]
@@ -42,15 +39,10 @@ public class CardCaster : MonoBehaviour {
     [SerializeField]
     private CardCastEvent cardCastEvent;
 
-    [SerializeField]
-    private EffectTargetRequestEvent effectTargetRequestEvent;
-
     //private Dictionary<CardEffectData, CombatEntityInstance> effectsToTargets = new Dictionary<CardEffectData, CombatEntityInstance>();
     // set to the empty string to designate no target set
-    private TargettableEntity requestedTarget = null;
     private CompanionManager companionManager;
     private EnemyManager enemyManager;
-    public Entity castingCard;
     /// Don't rely on this being available, it's only set when a card is being cast
     private IEnumerator currentProcedure;
     private PlayerHand playerHand;
@@ -87,11 +79,11 @@ public class CardCaster : MonoBehaviour {
         if(info.cost > manaManager.currentMana) return false;
         return true;
     }
-    public void cardClickHandler(Card info, CardCastArguments args, Entity arrowRoot) {
+    public void cardClickHandler(Card info, CardCastArguments args, Entity callingCard) {
         if(isValidCast(info, args)) {
             resetCastingState();
-            castingCard = arrowRoot;
-            StartCoroutine("castingCoroutine", new CastingCoroutineArgs(info, args, arrowRoot));
+            providingEntity = callingCard;
+            StartCoroutine("castingCoroutine", new CastingCoroutineArgs(info, args));
             // StartCoroutine(procedure.invoke(new EffectProcedureContext(this, companionManager, enemyManager, args.casterStats)));
         } else {
             Debug.Log("Not casting card because we have insufficient mana");
@@ -190,30 +182,8 @@ public class CardCaster : MonoBehaviour {
             new CardEffectEventInfo(effectName, scale, targets)));
     }
 
-    public void requestTarget(List<EntityType> validTargets, EffectProcedure procedure, List<TargettableEntity> alreadyTargetted = null){
-        StartCoroutine("getTargetCoroutine", new GetTargetCoroutineArgs(validTargets, procedure, alreadyTargetted));
-    }
-
-    public void effectTargetSuppliedEventHandler(EffectTargetSuppliedEventInfo info){
-        print("Caster got target: " + info.target.id);
-        requestedTarget = info.target;
-    }
-
-    private IEnumerator getTargetCoroutine(GetTargetCoroutineArgs args) {
-        requestedTarget = null;
-        StartCoroutine(effectTargetRequestEvent.RaiseAtEndOfFrameCoroutine(
-                new EffectTargetRequestEventInfo(args.validTargets, 
-                    castingCard, 
-                    args.disallowedTargets)));
-        // Waits until the effectTargetSuppliedHandler is called
-        yield return new WaitUntil(() => requestedTarget != null);
-        Debug.Log("Get target coroutine providing target: " + requestedTarget);
-        args.callbackProcedure.targetsSupplied(new List<TargettableEntity>() { requestedTarget });
-    }
-
     private void resetCastingState(){
-        requestedTarget = null;
-        StopCoroutine("getTargetCoroutine");
+        resetTargettingState();
         StopCoroutine("castingCoroutine");
         if(currentProcedure != null) {
             StopCoroutine(currentProcedure);

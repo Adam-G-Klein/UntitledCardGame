@@ -76,9 +76,15 @@ public class TurnManager : MonoBehaviour
     }
     
     private IEnumerator nextPhaseAfterTriggers(TurnPhase currentPhase) {
+        Debug.Log("nextPhaseAfterTriggers found " + turnPhaseTriggers[currentPhase].Count + " triggers for phase " + currentPhase);
+        foreach(TurnPhaseTrigger trigger in turnPhaseTriggers[currentPhase]) {
+            yield return StartCoroutine(trigger.triggerResponse.GetEnumerator());
+        }
+        /*
         yield return new WaitUntil(() => turnPhaseTriggers[currentPhase].All(
             trigger => trigger.isFinished)
         );
+        */
         StartCoroutine(turnPhaseEvent.RaiseAtEndOfFrameCoroutine(new TurnPhaseEventInfo(nextPhase[currentPhase])));
     }
 

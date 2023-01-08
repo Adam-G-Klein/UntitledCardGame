@@ -9,10 +9,6 @@ public abstract class TargettableEntity : Entity,
     IPointerClickHandler {
 
 
-    // A non-guid format string to designate no target
-    // has been returned from a target request
-    public static string NO_TARGET = "No target set";
-
     public bool isTargetable = false;
 
     [SerializeField]
@@ -33,7 +29,6 @@ public abstract class TargettableEntity : Entity,
 
     public void effectTargetRequestEventHandler(EffectTargetRequestEventInfo info){
         if(isTargetableBy(info)){
-            print("Entity" + id + " is a valid target");
             isTargetable = true;
         }
     }
@@ -43,7 +38,6 @@ public abstract class TargettableEntity : Entity,
         // that we're not targeting anymore
         uiStageChangeEventHandlerChildImpl(info);
         if(info.newState != UIState.EFFECT_TARGETTING) {
-            Debug.Log("Entity " + id + " no longer targetable");
             isTargetable = false;
         }
     }
@@ -57,5 +51,7 @@ public abstract class TargettableEntity : Entity,
             isTargetable = false;
         } 
     }
+
+    
 
 }

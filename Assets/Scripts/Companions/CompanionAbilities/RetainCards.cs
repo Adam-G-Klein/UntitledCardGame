@@ -13,40 +13,31 @@ public class RetainCards : CompanionAbility {
     public RetainCards()
     {
         abilityName = "RetainCards";
-        turnPhaseTrigger = new TurnPhaseTrigger(TurnPhase.BEFORE_END_PLAYER_TURN);
-        turnPhaseTrigger.isFinished = false;
     }
     
     public override void setupAbility(CompanionAbilityContext context)
     {
         context.invoker.turnPhaseEventAbilities.Add(TurnPhase.BEFORE_END_PLAYER_TURN, this);
+        turnPhaseTrigger = new TurnPhaseTrigger(TurnPhase.BEFORE_END_PLAYER_TURN, invoke(context));
         context.turnPhaseManager.addTurnPhaseTrigger(turnPhaseTrigger);
     }
 
-    public override IEnumerator invoke(CompanionAbilityContext context) {
+    public override IEnumerable invoke(CompanionAbilityContext context) {
         if(context.playerHand.cardsInHand.Count == 0)
         {
-            turnPhaseTrigger.isFinished = true;
+            Debug.Log("RetainCards found no cards in hand");
             yield return new WaitForEndOfFrame();
             resetAbilityState();
             yield break;
-        } else if (context.playerHand.cardsInHand.Count == 1)
-        {
-            currentAbilityTargets.Add(context.playerHand.cardsInHand[0]);
-        } else {
+        }  else {
+            Debug.Log("RetainCards requested target");
             context.invoker.requestTarget(new List<EntityType> { EntityType.Card }, this);
         }
-        yield return new WaitUntil(() => currentAbilityTargets.Count > 0);
-        PlayableCard retainedCard = (PlayableCard) currentAbilityTargets[0];
+        yield return new WaitUntil(() => currentTargets.Count > 0);
+        PlayableCard retainedCard = (PlayableCard) currentTargets[0];
         retainedCard.retained = true;
-        turnPhaseTrigger.isFinished = true;
         yield return new WaitForEndOfFrame();
         resetAbilityState();
     }
 
-    public override void resetAbilityState()
-    {
-        base.resetAbilityState();
-        turnPhaseTrigger.isFinished = false;
-    }
 }
