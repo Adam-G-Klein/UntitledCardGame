@@ -7,6 +7,7 @@ using UnityEngine;
 [RequireComponent(typeof(EffectTargetRequestEventListener))]
 [RequireComponent(typeof(EffectTargetSuppliedEventListener))]
 [RequireComponent(typeof(CardCastEventListener))]
+[RequireComponent(typeof(TurnPhaseEventListener))]
 public class UIStateManager : MonoBehaviour
 {
     public UIState currentState;
@@ -40,6 +41,13 @@ public class UIStateManager : MonoBehaviour
 
     public void cardCastEventListener(CardCastEventInfo info) {
         StartCoroutine(uiStateEvent.RaiseAtEndOfFrameCoroutine(new UIStateEventInfo(UIState.DEFAULT)));
+    }
+
+    public void turnPhaseChangedEventHandler(TurnPhaseEventInfo info) {
+        if(info.newPhase == TurnPhase.PLAYER_TURN){
+            Debug.Log("UI State Manager: Player Turn");
+            StartCoroutine(uiStateEvent.RaiseAtEndOfFrameCoroutine(new UIStateEventInfo(UIState.DEFAULT)));
+        }
     }
 
 }

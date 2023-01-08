@@ -64,12 +64,19 @@ public class PlayerHand : MonoBehaviour
     }
 
     private void discardHand(){
+        List<PlayableCard> retainedCards = new List<PlayableCard>();
         foreach(PlayableCard card in cardsInHand) {
-            Destroy(card.gameObject);
-            card.discardFromDeck();
+            if(card.retained) {
+                retainedCards.Add(card);
+                card.retained = false;
+            } else {
+                Destroy(card.gameObject);
+                card.discardFromDeck();
+            }
         }
         // do this instead of calling remove for each
-        cardsInHand.Clear();
+        // to prevent enumeration issues in the for loop
+        cardsInHand = retainedCards;
         displayCards();
     }
 

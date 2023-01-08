@@ -34,12 +34,16 @@ public class CardEffectEventEditor : Editor
 
         if (GUILayout.Button("Raise Card Effect Event")) {
             //TODO, figure out how to raise at end of frame
-            Debug.LogWarning("Haven't added support for getting all valid targets in this event editor yet, so effects that target all companions or enemies won't work");
+            Debug.LogWarning("Not raising event, because it's not working");
+
+            /*
+
             cardEffectEvent.Raise(new CardEffectEventInfo(
                 effectName,
                 scale,
-                needsTargets ? new List<string> {targetId} : new List<string>()
+                needsTargets ? new List<TargettableEntity> {targetId} : new List<string>()
             ));
+            */
         }
     }
 }

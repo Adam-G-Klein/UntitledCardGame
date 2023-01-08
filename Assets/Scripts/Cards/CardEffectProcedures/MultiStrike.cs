@@ -18,7 +18,6 @@ public class MultiStrike: EffectProcedure {
     public int baseScale = 0;
     public float strikeDelay = 0.2f;
     public List<EntityType> validTargets = new List<EntityType>() {EntityType.Enemy};
-    private List<string> targets = new List<string>();
 
     public MultiStrike() {
         procedureClass = "MultiStrike";
@@ -43,10 +42,6 @@ public class MultiStrike: EffectProcedure {
         }
     }
 
-    public override void targetsSupplied(List<string> targets){
-        Debug.Log("Simple Effect targets supplied: " + targets.Count);
-        this.targets.AddRange(targets);
-    }
 
     public override void resetCastingState(){
         targets.Clear();

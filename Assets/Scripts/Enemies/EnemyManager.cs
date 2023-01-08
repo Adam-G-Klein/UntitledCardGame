@@ -52,6 +52,10 @@ public class EnemyManager : MonoBehaviour
         return returnList;
     }
 
+    public List<EnemyInstance> getEnemies(){
+        return enemies;
+    }
+
     public void enemyTurnFinishedEventHandler(EnemyTurnFinishedEventInfo info){
         enemiesDoneWithTurn++;
         if(enemiesDoneWithTurn == enemies.Count){

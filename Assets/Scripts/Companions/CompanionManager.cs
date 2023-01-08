@@ -41,5 +41,8 @@ public class CompanionManager : MonoBehaviour
         return companionIds;
     }
 
+    public List<CompanionInstance> getCompanions(){
+        return companions;
+    }
     
 }

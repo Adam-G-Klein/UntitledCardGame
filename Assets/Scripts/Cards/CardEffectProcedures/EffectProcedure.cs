@@ -19,19 +19,17 @@ public class EffectProcedureContext {
     public EnemyManager enemyManager;
     public CombatEntityInEncounterStats casterStats;
     public PlayerHand playerHand;
+    public List<TargettableEntity> alreadyTargetted;
 
-    public EffectProcedureContext (CardCaster caster, 
-        CompanionManager companionManager, 
-        EnemyManager enemyManager,
-        CombatEntityInEncounterStats stats,
-        PlayerHand playerHand) {
+    public EffectProcedureContext(CardCaster caster, CompanionManager companionManager, EnemyManager enemyManager, CombatEntityInEncounterStats casterStats, PlayerHand playerHand, List<TargettableEntity> alreadySelectedTargets) {
         this.caster = caster;
         this.companionManager = companionManager;
         this.enemyManager = enemyManager;
-        this.casterStats = stats;
+        this.casterStats = casterStats;
         this.playerHand = playerHand;
-
+        this.alreadyTargetted = alreadySelectedTargets;
     }
+    
 }
 [System.Serializable]
 public abstract class EffectProcedure
@@ -39,11 +37,14 @@ public abstract class EffectProcedure
     
     protected  EffectProcedureContext context;
 
-    public abstract void targetsSupplied(List<string> targets);
+    public void targetsSupplied(List<TargettableEntity> targets) {
+        this.targets = targets;
+    }
 
     public virtual void resetCastingState() {}
 
-    protected void raiseSimpleEffect(SimpleEffectName simpleEffectName, int scale, List<string> targets) {
+    protected List<TargettableEntity> targets = new List<TargettableEntity>();
+    protected void raiseSimpleEffect(SimpleEffectName simpleEffectName, int scale, List<TargettableEntity> targets) {
         if(context == null) Debug.LogError("Need procedure context to raiseSimpleEffect, be sure to set the 'context' field of this procedure (in the parent class) before proceeding to code it");
         context.caster.raiseSimpleEffect(simpleEffectName, scale, targets);
     }

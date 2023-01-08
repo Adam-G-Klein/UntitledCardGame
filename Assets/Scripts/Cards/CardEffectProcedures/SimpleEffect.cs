@@ -18,7 +18,10 @@ public class SimpleEffect: EffectProcedure {
     public int baseScale = 0;
     public bool targetAllValidTargets = false;
     public List<EntityType> validTargets;
-    private List<string> targets = new List<string>();
+    [Tooltip("Specifies whether this effect must have a different target "
+        + "from other effects in the card. Example: a series of discard "
+        + "effects that each need to target a different card.")]
+    public bool requiresUniqueTarget;
 
     public SimpleEffect() {
         procedureClass = "SimpleEffect";
@@ -27,14 +30,15 @@ public class SimpleEffect: EffectProcedure {
     public override IEnumerator prepare(EffectProcedureContext context) {
         this.context = context;
         resetCastingState();
-        //args.context.caster.raiseSimpleEffect(simpleEffectName);
         if(targetAllValidTargets) {
             targets.AddRange(context.caster.getAllValidTargets(validTargets));
         }
         else {
-            context.caster.requestTarget(validTargets, this);
+            context.caster.requestTarget(validTargets, this,
+                requiresUniqueTarget ? context.alreadyTargetted : null);
         }
         yield return new WaitUntil(() => targets.Count > 0);
+        context.alreadyTargetted.AddRange(targets);
         // passes back to the cardCaster, where it will call invoke
     }
 
@@ -45,11 +49,6 @@ public class SimpleEffect: EffectProcedure {
             context.caster.getEffectScale(effectName, baseScale),
             targets);
         yield return null;
-    }
-
-    public override void targetsSupplied(List<string> targets){
-        Debug.Log("Simple Effect targets supplied: " + targets.Count);
-        this.targets.AddRange(targets);
     }
 
     public override void resetCastingState(){

@@ -16,7 +16,6 @@ public class Brainstorm: EffectProcedure {
     public string procedureClass;
     public int baseScale = 0;
     public List<EntityType> validTargets = new List<EntityType>() {EntityType.Enemy};
-    private List<string> targets = new List<string>();
 
     public Brainstorm() {
         procedureClass = "Brainstorm";
@@ -39,11 +38,6 @@ public class Brainstorm: EffectProcedure {
             damage,
             targets);
         yield return null;
-    }
-
-    public override void targetsSupplied(List<string> targets){
-        Debug.Log("Simple Effect targets supplied: " + targets.Count);
-        this.targets.AddRange(targets);
     }
 
     public override void resetCastingState(){

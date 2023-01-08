@@ -33,6 +33,10 @@ public class PlayableCard : TargettableEntity
 
     private UIState currentState;
 
+    // Checked by PlayerHand when discarding the whole hand
+    // set back to false there when it's checked
+    public bool retained = false;
+
     void Start()
     {
         outOfCombatCard = GetComponent<CardDisplay>().cardInfo;
@@ -80,7 +84,7 @@ public class PlayableCard : TargettableEntity
     }
 
     public void cardEffectEventHandler(CardEffectEventInfo info){
-        if (!info.targets.Contains(id)) return;
+        if (!info.targets.Contains(this)) return;
         switch(info.effectName){
             case SimpleEffectName.Discard:
                 playerHand.discardCard(this);
@@ -88,7 +92,7 @@ public class PlayableCard : TargettableEntity
         }
     }
 
-    // Called by playerHand when the card is discarded from the hand
+    // Called by playerHand.discardCard
     public void discardFromDeck() {
         deckFrom.discardCards(new List<Card>{outOfCombatCard});
     }

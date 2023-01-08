@@ -45,7 +45,7 @@ public class EnemyInstance : CombatEntityInstance {
     }
 
     public void cardEffectEventHandler(CardEffectEventInfo item){
-        if(!item.targets.Contains(id)){
+        if(!item.targets.Contains(this)){
             return;
         }
         print("Enemy " + id + " processing card effect event");

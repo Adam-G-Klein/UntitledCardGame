@@ -5,6 +5,7 @@ using UnityEngine;
 public enum TurnPhase {
     START_PLAYER_TURN,
     PLAYER_TURN,
+    BEFORE_END_PLAYER_TURN,
     END_PLAYER_TURN,
     START_ENEMY_TURN,
     ENEMIES_TURN,

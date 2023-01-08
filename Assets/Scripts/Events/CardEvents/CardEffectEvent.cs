@@ -6,10 +6,9 @@ using UnityEngine;
 public class CardEffectEventInfo {
     public SimpleEffectName effectName;
     public int scale;
-    public List<string> targets;
+    public List<TargettableEntity> targets;
 
-    // TODO: multiple targets allowed
-    public CardEffectEventInfo(SimpleEffectName effectName, int scale, List<string> targets){
+    public CardEffectEventInfo(SimpleEffectName effectName, int scale, List<TargettableEntity> targets){
         this.effectName = effectName;
         this.scale = scale;
         this.targets = targets;

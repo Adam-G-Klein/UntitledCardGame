@@ -27,6 +27,7 @@ MonoBehaviour:
       - cardType: {fileID: 11400000, guid: 462354a397a54954aab6c85e99376713, type: 2}
         id: 851e0309-926a-4c43-b8b8-acc1ad2d8afd
     baseAttackDamage: 0
+    abilities: []
     id: 3edfef20-05a0-49eb-a8ef-9041cc9fb04b
   - companionType: {fileID: 11400000, guid: 4960e72dbf9348c4bb2ab009998bd02a, type: 2}
     maxHealth: 20
@@ -42,6 +43,7 @@ MonoBehaviour:
       - cardType: {fileID: 11400000, guid: 940a073ba558e9546b5f8d28c2b85af5, type: 2}
         id: asfadws
     baseAttackDamage: 2
+    abilities: []
     id: 076c608e-e3bd-4778-82b4-416b4d4156cf
   - companionType: {fileID: 11400000, guid: af270a8bf55a86547941d6065eb02679, type: 2}
     maxHealth: 999
@@ -49,12 +51,21 @@ MonoBehaviour:
       startingDeck: {fileID: 11400000, guid: bb2dd24e7cac49440ac4e14129eec39c, type: 2}
       cards:
       - cardType: {fileID: 11400000, guid: 9b0feee7c8820b6419129508051d6f08, type: 2}
-        id: 2a6585f4-d2fa-4a87-a1f3-ecaaac7b036b
+        id: bc7dde0d-a48b-4019-a39c-09e68d220947
       - cardType: {fileID: 11400000, guid: 9b0feee7c8820b6419129508051d6f08, type: 2}
-        id: f30531c7-f1cb-4dc4-b72f-65a8da3a66bb
+        id: 070fb859-b447-4ecd-a9f3-1baa6d178a55
       - cardType: {fileID: 11400000, guid: 9b0feee7c8820b6419129508051d6f08, type: 2}
-        id: 5c83a70b-14dc-43b8-ba18-8e4592f8a5a9
+        id: e6bc0036-06b7-4fae-beec-243351cccca7
       - cardType: {fileID: 11400000, guid: 70fd57aa1f3fcb049a3725fd9b8474af, type: 2}
-        id: 91ad9e73-112b-4e86-96c3-4102bf35a836
+        id: 2c325028-31b3-4d59-82e6-c9eea7325d12
     baseAttackDamage: 0
-    id: ff149c56-5c72-4229-8f07-9fca47bec3fc
+    abilities:
+    - rid: 7342828005710888961
+    id: 26aeb784-39d0-41eb-b6c3-798189bd23d8
+  references:
+    version: 2
+    RefIds:
+    - rid: 7342828005710888961
+      type: {class: RetainCards, ns: , asm: Assembly-CSharp}
+      data:
+        abilityName: Retain Cards

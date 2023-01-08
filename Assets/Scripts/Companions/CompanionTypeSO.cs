@@ -8,8 +8,10 @@ using UnityEngine;
 public class CompanionTypeSO : ScriptableObject
 {
     public string companionName;
-    public Sprite sprite;
     public int maxHealth;
-    public StartingDeck startingDeck;
     public int baseAttackDamage;
+    public Sprite sprite;
+    public StartingDeck startingDeck;
+    [SerializeReference]
+    public List<CompanionAbility> abilities;
 }

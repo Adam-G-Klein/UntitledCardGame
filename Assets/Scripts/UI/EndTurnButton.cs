@@ -17,9 +17,7 @@ public class EndTurnButton : MonoBehaviour
     void Start() {
         button = GetComponent<Button>();
         button.onClick.AddListener(() => {
-
-            StartCoroutine(turnPhaseEvent.RaiseAtEndOfFrameCoroutine(new TurnPhaseEventInfo(TurnPhase.END_PLAYER_TURN)));
-            StartCoroutine(uiStateEvent.RaiseAtEndOfFrameCoroutine(new UIStateEventInfo(UIState.DEFAULT)));
+            StartCoroutine(turnPhaseEvent.RaiseAtEndOfFrameCoroutine(new TurnPhaseEventInfo(TurnPhase.BEFORE_END_PLAYER_TURN)));
         });
     }
 

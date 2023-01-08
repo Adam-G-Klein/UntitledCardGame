@@ -22,10 +22,12 @@ public class GetTargetCoroutineArgs{
 
     public List<EntityType> validTargets;
     public EffectProcedure callbackProcedure;
+    public List<TargettableEntity> disallowedTargets;
 
-    public GetTargetCoroutineArgs(List<EntityType> validTargets, EffectProcedure callbackProcedure) {
+    public GetTargetCoroutineArgs(List<EntityType> validTargets, EffectProcedure callbackProcedure, List<TargettableEntity> disallowedTargets = null){
         this.validTargets = validTargets;
         this.callbackProcedure = callbackProcedure;
+        this.disallowedTargets = disallowedTargets;
     }
 }
 
@@ -34,9 +36,6 @@ public class GetTargetCoroutineArgs{
 public class CardCaster : MonoBehaviour {
     // Handles casting cardInfo's  
 
-    // A non-guid format string to designate no target
-    // has been returned from a target request
-    public static string NO_TARGET = "No target set";
     [SerializeField]
     private CardEffectEvent cardEffectEvent;
     // +1 to the above comment this is bad
@@ -48,7 +47,7 @@ public class CardCaster : MonoBehaviour {
 
     //private Dictionary<CardEffectData, CombatEntityInstance> effectsToTargets = new Dictionary<CardEffectData, CombatEntityInstance>();
     // set to the empty string to designate no target set
-    private string requestedTarget = NO_TARGET;
+    private TargettableEntity requestedTarget = null;
     private CompanionManager companionManager;
     private EnemyManager enemyManager;
     public Entity castingCard;
@@ -112,17 +111,17 @@ public class CardCaster : MonoBehaviour {
         resetCastingState();
     }
 
-    public List<string> getAllValidTargets(List<EntityType> validTargets) {
-        List<string> returnList = new List<string>();
+    public List<TargettableEntity> getAllValidTargets(List<EntityType> validTargets) {
+        List<TargettableEntity> returnList = new List<TargettableEntity>();
         if(validTargets.Contains(EntityType.Companion)){
             if(companionManager)
-                returnList.AddRange(companionManager.getCompanionIds());
+                returnList.AddRange(companionManager.getCompanions());
             else
                 Debug.LogWarning("No companion manager in scene, couldn't cast effect that targets all companions");
         }
         if(validTargets.Contains(EntityType.Enemy)){
             if(enemyManager)
-                returnList.AddRange(enemyManager.getEnemyIds());
+                returnList.AddRange(enemyManager.getEnemies());
             else
                 Debug.LogWarning("No enemy manager in scene, couldn't cast effect that targets all enemies");
         }
@@ -143,8 +142,8 @@ public class CardCaster : MonoBehaviour {
             default:
                 return baseScale;
         }
-
     }
+
     public int getEffectScale(SimpleEffectName effect, int baseScale, CombatEntityInEncounterStats casterStats) {
         // Add effect increases here when we add them to CardCastArguments
         // Important to note thjat this is different from the strength of companions
@@ -164,12 +163,14 @@ public class CardCaster : MonoBehaviour {
     }
 
     private IEnumerator castingCoroutine(CastingCoroutineArgs args){
+        List<TargettableEntity> alreadyTargetted = new List<TargettableEntity>();
         currentContext = new EffectProcedureContext(
             this, 
             companionManager, 
             enemyManager, 
             args.castArgs.casterStats,
-            playerHand);
+            playerHand,
+            alreadyTargetted);
         foreach(EffectProcedure procedure in args.cardInfo.effectProcedures){
             // Track current procedure for casting cancellation
             currentProcedure = procedure.prepare(currentContext);
@@ -184,32 +185,34 @@ public class CardCaster : MonoBehaviour {
     }
 
     // Have to call this here to start the effect as a coroutine
-    public void raiseSimpleEffect(SimpleEffectName effectName, int scale, List<string> targets){
+    public void raiseSimpleEffect(SimpleEffectName effectName, int scale, List<TargettableEntity> targets){
         StartCoroutine(cardEffectEvent.RaiseAtEndOfFrameCoroutine(
             new CardEffectEventInfo(effectName, scale, targets)));
     }
 
-    public void requestTarget(List<EntityType> validTargets, EffectProcedure procedure){
-        StartCoroutine("getTargetCoroutine", new GetTargetCoroutineArgs(validTargets, procedure));
+    public void requestTarget(List<EntityType> validTargets, EffectProcedure procedure, List<TargettableEntity> alreadyTargetted = null){
+        StartCoroutine("getTargetCoroutine", new GetTargetCoroutineArgs(validTargets, procedure, alreadyTargetted));
     }
 
     public void effectTargetSuppliedEventHandler(EffectTargetSuppliedEventInfo info){
         print("Caster got target: " + info.target.id);
-        requestedTarget = info.target.id;
+        requestedTarget = info.target;
     }
 
     private IEnumerator getTargetCoroutine(GetTargetCoroutineArgs args) {
-        requestedTarget = NO_TARGET;
+        requestedTarget = null;
         StartCoroutine(effectTargetRequestEvent.RaiseAtEndOfFrameCoroutine(
-                new EffectTargetRequestEventInfo(args.validTargets, castingCard)));
+                new EffectTargetRequestEventInfo(args.validTargets, 
+                    castingCard, 
+                    args.disallowedTargets)));
         // Waits until the effectTargetSuppliedHandler is called
-        yield return new WaitUntil(() => !requestedTarget.Equals(NO_TARGET));
+        yield return new WaitUntil(() => requestedTarget != null);
         Debug.Log("Get target coroutine providing target: " + requestedTarget);
-        args.callbackProcedure.targetsSupplied(new List<string>() { requestedTarget });
+        args.callbackProcedure.targetsSupplied(new List<TargettableEntity>() { requestedTarget });
     }
 
     private void resetCastingState(){
-        requestedTarget = NO_TARGET;
+        requestedTarget = null;
         StopCoroutine("getTargetCoroutine");
         StopCoroutine("castingCoroutine");
         if(currentProcedure != null) {

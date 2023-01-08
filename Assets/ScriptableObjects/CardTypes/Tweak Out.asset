@@ -31,6 +31,7 @@ MonoBehaviour:
         baseScale: 1
         targetAllValidTargets: 0
         validTargets: 02000000
+        requiresUniqueTarget: 1
     - rid: 7342827955594723336
       type: {class: SimpleEffect, ns: , asm: Assembly-CSharp}
       data:
@@ -39,6 +40,7 @@ MonoBehaviour:
         baseScale: 1
         targetAllValidTargets: 0
         validTargets: 02000000
+        requiresUniqueTarget: 1
     - rid: 7342827955594723337
       type: {class: SimpleEffect, ns: , asm: Assembly-CSharp}
       data:
@@ -47,3 +49,4 @@ MonoBehaviour:
         baseScale: 10
         targetAllValidTargets: 0
         validTargets: 01000000
+        requiresUniqueTarget: 0

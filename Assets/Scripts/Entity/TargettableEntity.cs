@@ -8,6 +8,11 @@ using UnityEngine.EventSystems;
 public abstract class TargettableEntity : Entity,
     IPointerClickHandler {
 
+
+    // A non-guid format string to designate no target
+    // has been returned from a target request
+    public static string NO_TARGET = "No target set";
+
     public bool isTargetable = false;
 
     [SerializeField]
@@ -20,8 +25,14 @@ public abstract class TargettableEntity : Entity,
     public virtual void onPointerClickChildImpl(PointerEventData eventData) {}
     public virtual void uiStageChangeEventHandlerChildImpl(UIStateEventInfo eventInfo) {}
 
+    public bool isTargetableBy(EffectTargetRequestEventInfo eventInfo){
+        return eventInfo.validTargets.Contains(entityType) 
+            && (eventInfo.disallowedTargets == null || !eventInfo.disallowedTargets.Contains(this))
+            && isTargetableByChildImpl(eventInfo) ;
+    }
+
     public void effectTargetRequestEventHandler(EffectTargetRequestEventInfo info){
-        if(info.validTargets.Contains(entityType) && isTargetableByChildImpl(info)){
+        if(isTargetableBy(info)){
             print("Entity" + id + " is a valid target");
             isTargetable = true;
         }

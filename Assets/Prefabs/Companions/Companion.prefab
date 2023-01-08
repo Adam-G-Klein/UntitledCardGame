@@ -17,6 +17,8 @@ GameObject:
   - component: {fileID: 3925862087160112264}
   - component: {fileID: 2595263955379066018}
   - component: {fileID: 1725538437879479955}
+  - component: {fileID: 7574236911732710245}
+  - component: {fileID: 1133528425506943652}
   m_Layer: 0
   m_Name: Companion
   m_TagString: Untagged
@@ -63,6 +65,7 @@ MonoBehaviour:
       startingDeck: {fileID: 0}
       cards: []
     baseAttackDamage: 0
+    abilities: []
     id: 
   cardsDealtEvent: {fileID: 11400000, guid: e9a227fee840eff4bbfdfe43a95070e6, type: 2}
   companionInstantiatedEvent: {fileID: 11400000, guid: 5026156182e6a5d41bd8874340073d39, type: 2}
@@ -73,6 +76,9 @@ MonoBehaviour:
       cards: []
     drawPile: []
     discardPile: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!114 &5742178976953534560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,6 +153,18 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 5285687428135354732}
         m_TargetAssemblyTypeName: CompanionInstance, Assembly-CSharp
+        m_MethodName: turnPhaseChangedEventHandler
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7574236911732710245}
+        m_TargetAssemblyTypeName: CompanionAbilityInvoker, Assembly-CSharp
         m_MethodName: turnPhaseChangedEventHandler
         m_Mode: 0
         m_Arguments:
@@ -252,6 +270,47 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   companionDisplayImage: {fileID: 4007884920284817064}
+--- !u!114 &7574236911732710245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5285687428135354733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f58b9da13eee09448bb831f0ac34bd85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effectTargetRequestEvent: {fileID: 11400000, guid: 709caf6df9005934dbe5ec0e1bd93bb6, type: 2}
+--- !u!114 &1133528425506943652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5285687428135354733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2212db7a37b2f1448d7c63b3403380d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 16143db2a2228f2499361d860ef94748, type: 2}
+  unityEventResponse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7574236911732710245}
+        m_TargetAssemblyTypeName: CompanionAbilityInvoker, Assembly-CSharp
+        m_MethodName: effectTargetSuppliedHandler
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &2056790581140346251
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -259,6 +318,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5285687428135354735}
     m_Modifications:
+    - target: {fileID: 354454427165042643, guid: 4319f1ad3b11bf248bb1a167ccc5826d, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2332963860890905134, guid: 4319f1ad3b11bf248bb1a167ccc5826d, type: 3}
       propertyPath: m_Name
       value: UICanvas

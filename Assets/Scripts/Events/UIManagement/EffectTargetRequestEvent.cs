@@ -15,10 +15,12 @@ public class EffectTargetRequestEventInfo {
     // That feels way too complex to implement right now though
     public Entity source;
     public List<EntityType> validTargets;
+    public List<TargettableEntity> disallowedTargets;
 
-    public EffectTargetRequestEventInfo(List<EntityType> validTargets, Entity source){
+    public EffectTargetRequestEventInfo(List<EntityType> validTargets, Entity source, List<TargettableEntity> disallowedTargets = null){
         this.validTargets = validTargets;
         this.source = source;
+        this.disallowedTargets = disallowedTargets;
     }
 
 }
