@@ -9,21 +9,19 @@ public class CompanionInstance : CombatEntityInstance
     [SerializeField]
     private CardsDealtEvent cardsDealtEvent;
     [SerializeField]
-    private CompanionInstantiatedEvent companionInstantiatedEvent;
-    [SerializeField]
     private GameplayConstants constants;
 
     public InCombatDeck inCombatDeck;
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         this.baseStats = companion;
         this.id = companion.id; // Crucial step to make sure we don't end up with different IDs for this entity
         stats = new CombatEntityInEncounterStats(companion);
         inCombatDeck = new InCombatDeck(companion.deck);
         // Tried doing this in Awake, but it looks like the fields of companion
         // hadn't been initialized by then
-        StartCoroutine(companionInstantiatedEvent.RaiseAtEndOfFrameCoroutine(new CompanionInstantiatedEventInfo(this)));
     }
 
     void Awake() {

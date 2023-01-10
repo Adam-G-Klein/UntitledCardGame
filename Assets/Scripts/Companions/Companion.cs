@@ -7,6 +7,7 @@ public class Companion: CombatEntityBaseStats
 {
     public CompanionTypeSO companionType;
     public int maxHealth;
+    public int currentHealth;
     public Deck deck;
     public int baseAttackDamage;
 
@@ -22,6 +23,7 @@ public class Companion: CombatEntityBaseStats
     {
         this.companionType = companionType;
         this.maxHealth = companionType.maxHealth;
+        this.currentHealth = this.maxHealth;
         this.baseAttackDamage = companionType.baseAttackDamage;
         this.deck = new Deck(companionType.startingDeck);
         this.abilities = companionType.abilities;
@@ -37,6 +39,13 @@ public class Companion: CombatEntityBaseStats
         return this.maxHealth;
     }
 
+    public int getCurrentHealth() {
+        return this.currentHealth;
+    }
+
+    public void setCurrentHealth(int newHealth) {
+        this.currentHealth = newHealth;
+    }
 
     public EntityType getEntityType() {
         return EntityType.Companion;

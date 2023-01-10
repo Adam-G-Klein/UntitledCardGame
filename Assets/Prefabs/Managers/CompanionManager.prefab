@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4760544786946118191}
-  - component: {fileID: 4561785017579914571}
   - component: {fileID: 2164778495256607958}
-  - component: {fileID: -8001983030047706855}
+  - component: {fileID: 197861344368344095}
+  - component: {fileID: 3655952351604277004}
   m_Layer: 0
   m_Name: CompanionManager
   m_TagString: CompanionManager
@@ -34,34 +34,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4561785017579914571
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1574343574642141741}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8dbe2e1b9c3fd584db2d40ecfad62da2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: 5026156182e6a5d41bd8874340073d39, type: 2}
-  unityEventResponse:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2164778495256607958}
-        m_TargetAssemblyTypeName: CompanionManager, Assembly-CSharp
-        m_MethodName: companionInstantiatedEventHandler
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &2164778495256607958
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74,7 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a68666832500969439be416d407bf376, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-8001983030047706855
+  endEncounterEvent: {fileID: 11400000, guid: 55e16020de6958b4ca9bd9c38bb0ca17, type: 2}
+--- !u!114 &197861344368344095
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -83,10 +56,50 @@ MonoBehaviour:
   m_GameObject: {fileID: 1574343574642141741}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09ba1624a5db93e4382b88f0bdc7c833, type: 3}
+  m_Script: {fileID: 11500000, guid: d4287eaf6979f7d468403b34794dd1f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameEvent: {fileID: 0}
+  gameEvent: {fileID: 11400000, guid: 1dde0ba8d0451ad4bb38640a19fd3c5f, type: 2}
   unityEventResponse:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2164778495256607958}
+        m_TargetAssemblyTypeName: CompanionManager, Assembly-CSharp
+        m_MethodName: combatEntityInstantiatedHandler
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &3655952351604277004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1574343574642141741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b61431a0df26c1843bdab11d6a828200, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 954360d85e3873548b6bb8a78c158b04, type: 2}
+  unityEventResponse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2164778495256607958}
+        m_TargetAssemblyTypeName: CompanionManager, Assembly-CSharp
+        m_MethodName: combatEntityDeathHandler
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

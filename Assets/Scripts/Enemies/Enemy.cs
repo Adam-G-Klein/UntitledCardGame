@@ -9,18 +9,26 @@ public class Enemy: CombatEntityBaseStats {
     public int currentHealth;
     public string id = Id.newGuid();
 
-    public Enemy(EnemyTypeSO enemyType, int maxHealth = -1) {
+    public Enemy(EnemyTypeSO enemyType, int initHealth = -1) {
         this.enemyType = enemyType;
 
-        if (maxHealth == -1) {
+        if (initHealth == -1) {
             this.currentHealth = enemyType.maxHealth;
         } else {
-            this.currentHealth = maxHealth;
+            this.currentHealth = initHealth;
         }
     }
 
     public int getMaxHealth() {
         return enemyType.maxHealth;
+    }
+
+    public int getCurrentHealth() {
+        return currentHealth;
+    }
+
+    public void setCurrentHealth(int newHealth) {
+        this.currentHealth = newHealth;
     }
 
     public int getBaseAttackDamage() {
@@ -29,7 +37,6 @@ public class Enemy: CombatEntityBaseStats {
 
     public EnemyIntent getNewEnemyIntent(List<string> possibleTargets, CombatEntityInEncounterStats selfStats) {
         return enemyType.getNewIntent(possibleTargets, selfStats);
-
     }
 
     public string getId() {

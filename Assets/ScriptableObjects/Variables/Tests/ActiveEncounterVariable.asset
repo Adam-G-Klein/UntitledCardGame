@@ -12,10 +12,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3355b5197b408a46b3ca88e9297a78a, type: 3}
   m_Name: ActiveEncounterVariable
   m_EditorClassIdentifier: 
+  locked: 0
   Value:
-    rid: -2
+    rid: 7342828051551748100
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 7342828051551748100
+      type: {class: EnemyEncounter, ns: , asm: Assembly-CSharp}
+      data:
+        id: LukeTestEncounter1
+        enemyList:
+        - enemyType: {fileID: 11400000, guid: da0cdb6c0c9754d469d48629d5444b55, type: 2}
+          initHealth: 20
+          id: mindGoblin
+        - enemyType: {fileID: 11400000, guid: da0cdb6c0c9754d469d48629d5444b55, type: 2}
+          initHealth: 20
+          id: deezNuts
+        enemyLocations:
+        - {x: 3.86, y: 1.63, z: 0.027606305}
+        - {x: 7.65, y: 1.63, z: 0.027606305}
+        activeCompanions: {fileID: 11400000, guid: 88debb02fba58644b959f3a10afb8a3e, type: 2}
+        companionLocations:
+        - {x: -3.99, y: -1.99, z: 0.027606305}
+        - {x: -3.02, y: 0.41, z: 0.027606305}
+        - {x: -6.19, y: -0.11, z: 0.027606305}
+        - {x: -3, y: 0, z: 0.027606305}

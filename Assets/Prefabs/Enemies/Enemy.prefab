@@ -54,17 +54,15 @@ MonoBehaviour:
   entityType: 1
   isTargetable: 0
   effectTargetSuppliedEvent: {fileID: 11400000, guid: 16143db2a2228f2499361d860ef94748, type: 2}
+  instantiatedEvent: {fileID: 11400000, guid: 1dde0ba8d0451ad4bb38640a19fd3c5f, type: 2}
+  deathEvent: {fileID: 11400000, guid: 954360d85e3873548b6bb8a78c158b04, type: 2}
   enemy:
     enemyType: {fileID: 11400000, guid: da0cdb6c0c9754d469d48629d5444b55, type: 2}
-    currentHealth: 20
+    initHealth: 0
     id: 
-  currentHealth: 0
-  baseAttackDamage: 0
   attackTime: 1
-  spriteRenderer: {fileID: 0}
   enemyInstantiatedEvent: {fileID: 11400000, guid: 992f15315eef2e1408f724871ffef4f7, type: 2}
   enemyEffectEvent: {fileID: 11400000, guid: da8e3f7797bc6544b88b0ce5cef3214a, type: 2}
-  enemyTurnFinishedEvent: {fileID: 11400000, guid: 51c061742991bae4c97135431be9f531, type: 2}
 --- !u!114 &2877260948552900050
 MonoBehaviour:
   m_ObjectHideFlags: 0

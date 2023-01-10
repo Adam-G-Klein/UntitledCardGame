@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(CompanionInstantiatedEventListener))]
+[RequireComponent(typeof(CombatEntityInstantiatedEventListener))]
+[RequireComponent(typeof(CombatEntityDeathEventListener))]
 public class CompanionManager : MonoBehaviour
 {
     /* There should never be much code in here if we 
@@ -14,8 +15,22 @@ public class CompanionManager : MonoBehaviour
     private List<CompanionInstance> companions = new List<CompanionInstance>();
     private List<string> companionIds = new List<string>();
 
-    public void companionInstantiatedEventHandler(CompanionInstantiatedEventInfo info){
-        companions.Add(info.companionInstance);
+    [SerializeField]
+    private EndEncounterEvent endEncounterEvent;
+
+
+    public void combatEntityInstantiatedHandler(CombatEntityInstantiatedEventInfo info) {
+        if(info.instance is CompanionInstance){
+            companions.Add((CompanionInstance) info.instance);
+        }
+    }
+    public void combatEntityDeathHandler(CombatEntityDeathEventInfo info) {
+        if(info.instance is CompanionInstance){
+            companions.Remove((CompanionInstance) info.instance);
+            if(companions.Count == 0) {
+                StartCoroutine(endEncounterEvent.RaiseAtEndOfFrameCoroutine(new EndEncounterEventInfo(EncounterOutcome.Defeat)));
+            }
+        }
     }
 
     public string getRandomCompanionId(){

@@ -2,6 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+public class TurnPhaseTrigger {
+    public TurnPhase phase;
+    public IEnumerable triggerResponse;
+
+    public TurnPhaseTrigger(TurnPhase phase, IEnumerable triggerResponse)
+    {
+        this.phase = phase;
+        this.triggerResponse = triggerResponse;
+    }
+}
 
 /* Turn phases:
 Draw card from each companion
@@ -52,27 +62,13 @@ public class TurnManager : MonoBehaviour
     }
 
     public void turnPhaseChangedEventHandler(TurnPhaseEventInfo info){
-        switch(info.newPhase){
-            case TurnPhase.END_ENEMY_TURN:
-                // Currently raised by the EnemyManager
-                StartCoroutine(nextPhaseAfterTriggers(info.newPhase));
-                break;
-            case TurnPhase.START_PLAYER_TURN:
-                // If we raise the event immediately, the end turn button hears the PLAYER_TURN
-                // event before the START_PLAYER_TURN event, and disables itself on hearing START_PLAYER_TURN
-                // Unsure if this will be needed everywhere
-                StartCoroutine(nextPhaseAfterTriggers(info.newPhase));
-                break;
-            case TurnPhase.BEFORE_END_PLAYER_TURN: 
-                // Currently raised by the end turn button in the UI
-                StartCoroutine(nextPhaseAfterTriggers(info.newPhase));
-                break;
-            case TurnPhase.END_PLAYER_TURN:
-                // Currently just raised by the end turn button in the UI
-                // no op for now, companions and a bunch of ui elements will probably listen to this
-                StartCoroutine(nextPhaseAfterTriggers(info.newPhase));
-                break;
+        if(info.newPhase == TurnPhase.PLAYER_TURN) {
+            // The only phase where we just want to wait
+            // The end turn button will raise BEFORE_END_PLAYER_TURN
+            // to keep us moving
+            return;
         }
+        StartCoroutine(nextPhaseAfterTriggers(info.newPhase));
     }
     
     private IEnumerator nextPhaseAfterTriggers(TurnPhase currentPhase) {
@@ -90,5 +86,9 @@ public class TurnManager : MonoBehaviour
 
     public void addTurnPhaseTrigger(TurnPhaseTrigger trigger) {
         turnPhaseTriggers[trigger.phase].Add(trigger);
+    }
+
+    public void removeTurnPhaseTrigger(TurnPhaseTrigger trigger) {
+        turnPhaseTriggers[trigger.phase].Remove(trigger);
     }
 }

@@ -9,10 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6818566753960476561}
-  - component: {fileID: 3933523391136145077}
-  - component: {fileID: 1932960887706624899}
   - component: {fileID: 1166588629430621724}
-  - component: {fileID: 8766319595750925838}
+  - component: {fileID: 8911774494875825123}
+  - component: {fileID: 8234431464708286388}
   m_Layer: 0
   m_Name: EnemyManager
   m_TagString: Untagged
@@ -35,62 +34,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3933523391136145077
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2578877830187565377}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30c3ad43717cff8459ac2e2b508ad480, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: 992f15315eef2e1408f724871ffef4f7, type: 2}
-  unityEventResponse:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1166588629430621724}
-        m_TargetAssemblyTypeName: EnemyManager, Assembly-CSharp
-        m_MethodName: enemyInstantiatedEventHandler
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &1932960887706624899
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2578877830187565377}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f54f1b2283029124ea05bdd4df6ffb1a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: 8731090c52e897e459ac12df3da5fc3a, type: 2}
-  unityEventResponse:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1166588629430621724}
-        m_TargetAssemblyTypeName: EnemyManager, Assembly-CSharp
-        m_MethodName: turnPhaseEventHandler
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &1166588629430621724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -103,9 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75a55bcbd27ea374cb54cade9c967c3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemiesDoneWithTurn: 0
-  turnPhaseEvent: {fileID: 11400000, guid: 8731090c52e897e459ac12df3da5fc3a, type: 2}
---- !u!114 &8766319595750925838
+  endEncounterEvent: {fileID: 11400000, guid: 55e16020de6958b4ca9bd9c38bb0ca17, type: 2}
+--- !u!114 &8911774494875825123
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -114,16 +56,44 @@ MonoBehaviour:
   m_GameObject: {fileID: 2578877830187565377}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c9ae082e5a8cac4b8c391a3c599ebcf, type: 3}
+  m_Script: {fileID: 11500000, guid: d4287eaf6979f7d468403b34794dd1f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: 51c061742991bae4c97135431be9f531, type: 2}
+  gameEvent: {fileID: 11400000, guid: 1dde0ba8d0451ad4bb38640a19fd3c5f, type: 2}
   unityEventResponse:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1166588629430621724}
         m_TargetAssemblyTypeName: EnemyManager, Assembly-CSharp
-        m_MethodName: enemyTurnFinishedEventHandler
+        m_MethodName: combatEntityInstantiatedHandler
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &8234431464708286388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2578877830187565377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b61431a0df26c1843bdab11d6a828200, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 954360d85e3873548b6bb8a78c158b04, type: 2}
+  unityEventResponse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1166588629430621724}
+        m_TargetAssemblyTypeName: EnemyManager, Assembly-CSharp
+        m_MethodName: combatEntityDeathHandler
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

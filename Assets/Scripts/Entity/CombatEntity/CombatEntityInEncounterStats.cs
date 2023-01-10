@@ -25,7 +25,14 @@ public class CombatEntityInEncounterStats
 
     public int weakness;
     
-    public int currentHealth;
+    public int currentHealth {
+        get {
+            return baseStats.getCurrentHealth();
+        }
+        set {
+            baseStats.setCurrentHealth(value);
+        }
+    }
 
     public int currentAttackDamage {
         get {
@@ -42,9 +49,9 @@ public class CombatEntityInEncounterStats
     public CombatEntityInEncounterStats(CombatEntityBaseStats entity) {
         this.strength = 0;
         this.weakness = 0;
-        // Change this if we want health to persist between encounters
         this.baseStats = entity;
-        this.currentHealth = entity.getMaxHealth();
+        // Change this line if we want health to persist between encounters
+        this.currentHealth = this.maxHealth;
     }
 
 }

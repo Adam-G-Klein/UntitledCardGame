@@ -18,29 +18,29 @@ public class EnemyIntent {
 }
 public class EnemyInstance : CombatEntityInstance {
     public Enemy enemy;
-    public int currentHealth;
-    public int baseAttackDamage;
 
     [SerializeField]
     private float attackTime = 0.5f;
 
     [Space(5)]
     [SerializeField]
-    private EnemyInstantiatedEvent enemyInstantiatedEvent;
-    [SerializeField]
     private EnemyEffectEvent enemyEffectEvent;
 
-    [SerializeField]
-    private EnemyTurnFinishedEvent enemyTurnFinishedEvent;
-
     private CompanionManager companionManager;
+    private TurnManager turnManager;
+    private TurnPhaseTrigger turnPhaseTrigger;
 
     // Start is called before the first frame update
-    void Start() {
+    protected override void Start() {
+        base.Start();
         this.baseStats = enemy;
         this.id = enemy.id; // Crucial (and forgettable)
         this.stats = new CombatEntityInEncounterStats(enemy);
-        StartCoroutine(enemyInstantiatedEvent.RaiseAtEndOfFrameCoroutine(new EnemyInstantiatedEventInfo(this)));
+        GameObject turnManagerObject = GameObject.Find("TurnManager");
+        if(turnManagerObject != null)  turnManager = turnManagerObject.GetComponent<TurnManager>();
+        else Debug.LogError("No TurnManager found in scene, won't have the turn cycle occurring");
+        turnPhaseTrigger = new TurnPhaseTrigger(TurnPhase.ENEMIES_TURN, attackCoroutine());
+        turnManager.addTurnPhaseTrigger(turnPhaseTrigger);
         companionManager = GameObject.FindGameObjectWithTag("CompanionManager").GetComponent<CompanionManager>();
     }
 
@@ -54,8 +54,10 @@ public class EnemyInstance : CombatEntityInstance {
                 Debug.LogWarning("omg an enemy is drawing cards what happened");
                 break;
             case SimpleEffectName.Damage:
-                print("Enemy " + id + " took " + item.scale + " damage");
-                stats.currentHealth -= item.scale;
+                stats.currentHealth = Mathf.Max(stats.currentHealth - item.scale, 0);
+                if(stats.currentHealth == 0) {
+                    die();
+                }
                 break;
             case SimpleEffectName.Buff:
                 stats.strength += item.scale;
@@ -68,12 +70,18 @@ public class EnemyInstance : CombatEntityInstance {
 
     }
 
+    private void die() {
+        Debug.Log("Enemy " + id + " died");
+        turnManager.removeTurnPhaseTrigger(turnPhaseTrigger);
+        StartCoroutine(deathEvent.RaiseAtEndOfFrameCoroutine(new CombatEntityDeathEventInfo(this)));
+    }
+
     public void turnStartEventHandler(){
         StartCoroutine("attackCoroutine");
     }
 
 
-    IEnumerator attackCoroutine(){
+    IEnumerable attackCoroutine(){
         // TODO: determine beforehand so the player can see intents 
         EnemyIntent intent = enemy.getNewEnemyIntent(companionManager.getCompanionIds(), stats);
         string targetId = intent.target;
@@ -85,17 +93,6 @@ public class EnemyInstance : CombatEntityInstance {
                 new Dictionary<StatusEffect, int> { {StatusEffect.Weakness, 1} })));
         Debug.Log("Enemy " + id + " attacked companion " + targetId + " for " + damage + " damage");
         yield return new WaitForSeconds(attackTime);
-        enemyTurnFinishedEvent.Raise(new EnemyTurnFinishedEventInfo(id));
-        
-    }
-
-
-    public int getHealth(){
-        return currentHealth;
-    }
-
-    public int getMaxHealth() {
-        return enemy.enemyType.maxHealth;
     }
 
     public override CombatEntityInEncounterStats getCombatEntityInEncounterStats(){
