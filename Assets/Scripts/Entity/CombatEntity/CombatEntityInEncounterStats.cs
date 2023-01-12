@@ -51,6 +51,7 @@ public class CombatEntityInEncounterStats
         this.weakness = 0;
         this.baseStats = entity;
         // Change this line if we want health to persist between encounters
+        // Easier for testing if it resets every time for now
         this.currentHealth = this.maxHealth;
     }
 

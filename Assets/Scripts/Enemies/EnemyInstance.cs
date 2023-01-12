@@ -2,20 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Setting up for when we want to display this
 public class EnemyIntent {
-    public string target;
+    public List<TargettableEntity> targets;
     public int damage;
+    public float attackTime;
     public Dictionary<StatusEffect, int> statusEffects;
 
-    public EnemyIntent(string target, int damage, Dictionary<StatusEffect, int> statusEffects) {
-        this.target = target;
+    public EnemyIntent(List<TargettableEntity> targets, int damage, float attackTime, Dictionary<StatusEffect, int> statusEffects) {
+        this.targets = targets;
         this.damage = damage;
+        this.attackTime = attackTime;
         this.statusEffects = statusEffects;
     }
 
-
 }
+
 public class EnemyInstance : CombatEntityInstance {
     public Enemy enemy;
 
@@ -28,7 +29,10 @@ public class EnemyInstance : CombatEntityInstance {
 
     private CompanionManager companionManager;
     private TurnManager turnManager;
-    private TurnPhaseTrigger turnPhaseTrigger;
+    private TurnPhaseTrigger chooseIntentTrigger;
+    private TurnPhaseTrigger actTrigger;
+    private EnemyBrainContext brainContext;
+    public EnemyIntent currentIntent;
 
     // Start is called before the first frame update
     protected override void Start() {
@@ -39,9 +43,10 @@ public class EnemyInstance : CombatEntityInstance {
         GameObject turnManagerObject = GameObject.Find("TurnManager");
         if(turnManagerObject != null)  turnManager = turnManagerObject.GetComponent<TurnManager>();
         else Debug.LogError("No TurnManager found in scene, won't have the turn cycle occurring");
-        turnPhaseTrigger = new TurnPhaseTrigger(TurnPhase.ENEMIES_TURN, attackCoroutine());
-        turnManager.addTurnPhaseTrigger(turnPhaseTrigger);
         companionManager = GameObject.FindGameObjectWithTag("CompanionManager").GetComponent<CompanionManager>();
+
+        brainContext = new EnemyBrainContext(this, companionManager);
+        registerTurnPhaseTriggers(brainContext);
     }
 
     public void cardEffectEventHandler(CardEffectEventInfo item){
@@ -70,9 +75,17 @@ public class EnemyInstance : CombatEntityInstance {
 
     }
 
+    private void registerTurnPhaseTriggers(EnemyBrainContext brainContext) {
+        chooseIntentTrigger = new TurnPhaseTrigger(TurnPhase.START_PLAYER_TURN, enemy.chooseIntent(brainContext));
+        turnManager.addTurnPhaseTrigger(chooseIntentTrigger);
+        actTrigger = new TurnPhaseTrigger(TurnPhase.ENEMIES_TURN, enemy.act(brainContext));
+        turnManager.addTurnPhaseTrigger(actTrigger);
+    }
+
     private void die() {
         Debug.Log("Enemy " + id + " died");
-        turnManager.removeTurnPhaseTrigger(turnPhaseTrigger);
+        turnManager.removeTurnPhaseTrigger(chooseIntentTrigger);
+        turnManager.removeTurnPhaseTrigger(actTrigger);
         StartCoroutine(deathEvent.RaiseAtEndOfFrameCoroutine(new CombatEntityDeathEventInfo(this)));
     }
 
@@ -81,18 +94,8 @@ public class EnemyInstance : CombatEntityInstance {
     }
 
 
-    IEnumerable attackCoroutine(){
-        // TODO: determine beforehand so the player can see intents 
-        EnemyIntent intent = enemy.getNewEnemyIntent(companionManager.getCompanionIds(), stats);
-        string targetId = intent.target;
-        int damage = intent.damage;
-        StartCoroutine(enemyEffectEvent.RaiseAtEndOfFrameCoroutine(
-            new EnemyEffectEventInfo(
-                damage,
-                new List<string> {targetId},
-                new Dictionary<StatusEffect, int> { {StatusEffect.Weakness, 1} })));
-        Debug.Log("Enemy " + id + " attacked companion " + targetId + " for " + damage + " damage");
-        yield return new WaitForSeconds(attackTime);
+    public void raiseEnemyEffectEvent(EnemyEffectEventInfo info){
+        StartCoroutine(enemyEffectEvent.RaiseAtEndOfFrameCoroutine(info));
     }
 
     public override CombatEntityInEncounterStats getCombatEntityInEncounterStats(){

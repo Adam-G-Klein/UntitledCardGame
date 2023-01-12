@@ -35,8 +35,12 @@ public class Enemy: CombatEntityBaseStats {
         return enemyType.baseAttackDamage;
     }
 
-    public EnemyIntent getNewEnemyIntent(List<string> possibleTargets, CombatEntityInEncounterStats selfStats) {
-        return enemyType.getNewIntent(possibleTargets, selfStats);
+    public IEnumerable chooseIntent(EnemyBrainContext context) {
+        return enemyType.brain.chooseIntent(context);
+    }
+
+    public IEnumerable act(EnemyBrainContext context) {
+        return enemyType.brain.act(context);
     }
 
     public string getId() {

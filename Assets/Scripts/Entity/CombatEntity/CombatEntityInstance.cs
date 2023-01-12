@@ -22,7 +22,7 @@ public abstract class CombatEntityInstance: TargettableEntity
     // abstract the info passed in to allow for card draw
     // Also unsure if that should be done at all 
     public void enemyEffectEventHandler(EnemyEffectEventInfo info){
-        if(!info.targets.Contains(this.id)) return;
+        if(!info.targets.Contains(this)) return;
         Debug.Log("Companion " + this.id + " is being affected by " + info.ToString());
         foreach(KeyValuePair<StatusEffect, int> effect in info.statusEffects){
             applyStatusEffect(effect.Key, effect.Value);

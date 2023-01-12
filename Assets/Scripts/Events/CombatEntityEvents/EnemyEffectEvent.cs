@@ -5,14 +5,16 @@ using UnityEngine;
 // Combine with CardEffectEventInfo
 [System.Serializable]
 public class EnemyEffectEventInfo {
-    public int damage;
-    public List<string> targets;
     public Dictionary<StatusEffect, int> statusEffects;
+    public List<TargettableEntity> targets;
+    public int damage;
+    public EnemyIntent intent;
 
-    public EnemyEffectEventInfo(int damage, List<string> targets, Dictionary<StatusEffect, int> statusEffects) {
-        this.damage = damage;
-        this.targets = targets;
-        this.statusEffects = statusEffects;
+    public EnemyEffectEventInfo(EnemyIntent intent) {
+        this.intent = intent;
+        this.targets = intent.targets;
+        this.damage = intent.damage;
+        this.statusEffects = intent.statusEffects;
     }
 
 }

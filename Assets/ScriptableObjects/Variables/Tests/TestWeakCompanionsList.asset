@@ -15,19 +15,17 @@ MonoBehaviour:
   companionList:
   - companionType: {fileID: 11400000, guid: 28f6a1b3b493fa743859f89dedcc23ca, type: 2}
     maxHealth: 10
-    currentHealth: 10
+    currentHealth: 0
     deck:
       startingDeck: {fileID: 11400000, guid: 83b10e15a862e1a48900e311e49378a4, type: 2}
       cards:
-      - cardType: {fileID: 11400000, guid: ec3c681e35f3b8541b4e30643c6d0ee7, type: 2}
+      - cardType: {fileID: 11400000, guid: 462354a397a54954aab6c85e99376713, type: 2}
         id: deb51d62-3995-4041-8c16-03d7a2068d3c
-      - cardType: {fileID: 11400000, guid: ec3c681e35f3b8541b4e30643c6d0ee7, type: 2}
+      - cardType: {fileID: 11400000, guid: 462354a397a54954aab6c85e99376713, type: 2}
         id: d070c53f-34c9-496e-9099-3504b9b98210
       - cardType: {fileID: 11400000, guid: 462354a397a54954aab6c85e99376713, type: 2}
         id: 0d2c6064-2d9d-4544-95c5-a7ddd45d15c6
-      - cardType: {fileID: 11400000, guid: 462354a397a54954aab6c85e99376713, type: 2}
-        id: 6c40983f-9712-4812-a92a-74e659f6d723
-    baseAttackDamage: 0
+    baseAttackDamage: 5
     abilities: []
     id: bd1c1b93-6dd6-416a-9daf-874fe77da9b9
   references:
