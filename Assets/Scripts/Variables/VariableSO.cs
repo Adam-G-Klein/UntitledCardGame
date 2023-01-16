@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class VariableSO<T> : ScriptableObject {
+    public bool locked = false;
     [SerializeField]
     private T Value;
-    public bool locked = false;
 
     public T GetValue() {
         return Value;

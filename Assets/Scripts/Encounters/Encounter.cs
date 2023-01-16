@@ -11,6 +11,7 @@ public enum EncounterType {
 public abstract class Encounter
 {
     public string id = Id.newGuid();
+    public bool isCompleted = false;
     public abstract void build(EncounterConstants constants);
 
     protected EncounterType encounterType;

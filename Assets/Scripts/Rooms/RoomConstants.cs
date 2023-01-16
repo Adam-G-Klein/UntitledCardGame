@@ -6,6 +6,7 @@ using UnityEngine;
 public class RoomConstants : ScriptableObject {
     public GameObject doorPrefab;
     public GameObject shopPrefab;
+    public GameObject closedShopPrefab;
     public GameObject encounterPrefab;
 
     public Vector3 SHOPKEEP_POSITION = new Vector3(0.47f, 2.14f, 1f);

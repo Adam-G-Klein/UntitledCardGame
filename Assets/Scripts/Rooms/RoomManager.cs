@@ -8,14 +8,16 @@ using UnityEngine.SceneManagement;
 public class RoomManager : MonoBehaviour
 {
     public EncounterReference activeEncounter;
-    public RoomReference activeRoom;
+    public RoomVariableSO activeRoom;
     public MapReference activeMap;
 
     public RoomConstants roomConstants;
 
     void Awake()
     {
-        activeRoom.Value.build(roomConstants);
+        Debug.Log(activeRoom);
+        Debug.Log(activeRoom.GetValue().id);
+        activeRoom.GetValue().build(roomConstants);
     }
 
     // Update is called once per frame
@@ -30,7 +32,7 @@ public class RoomManager : MonoBehaviour
         List<RoomReference> roomReferences = currentMap.rooms;
         foreach(RoomReference roomReference in roomReferences) {
             if (roomReference.Value.id == roomId) {
-                activeRoom.Value = roomReference.Value;
+                activeRoom.SetValue(roomReference.Value);
                 SceneManager.LoadScene("PlaceholderRoom");
                 return;
             }
@@ -39,13 +41,20 @@ public class RoomManager : MonoBehaviour
 
     public void processEncounterInitiateEvent(string encounterId) {
         Debug.Log("Processing encounter initiate event in room manager");
-        Room currentRoom = activeRoom.Value;
+        Room currentRoom = activeRoom.GetValue();
         List<EncounterReference> encounterReferences = currentRoom.encounters;
         foreach (EncounterReference encounterReference in encounterReferences) {
             if (encounterReference.Value.id == encounterId) {
                 activeEncounter.Value = encounterReference.Value;
-                // Need to actually check encounter type and load correct corresponding scene
-                SceneManager.LoadScene("PlaceholderEncounter");
+                switch(encounterReference.Value.getEncounterType()) {
+                    case EncounterType.Enemy:
+                        SceneManager.LoadScene("PlaceholderEnemyEncounter");
+                    break;
+
+                    case EncounterType.Shop:
+                        SceneManager.LoadScene("PlaceholderShopEncounter");
+                    break;
+                }
                 return;
             }
         }

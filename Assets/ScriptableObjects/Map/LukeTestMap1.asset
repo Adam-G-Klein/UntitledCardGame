@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a2877297de46c84c84deda1b3e63d32, type: 3}
   m_Name: LukeTestMap1
   m_EditorClassIdentifier: 
+  locked: 1
   Value:
     rooms:
     - UseConstant: 0
@@ -26,7 +27,12 @@ MonoBehaviour:
         encounters: []
         doors: []
       Variable: {fileID: 11400000, guid: dbd16513647e523408ce26936c87cd7a, type: 2}
-  locked: 1
+    - UseConstant: 0
+      ConstantValue:
+        id: 
+        encounters: []
+        doors: []
+      Variable: {fileID: 11400000, guid: df9ebbc335ccc5b4ba69acc80e558789, type: 2}
   references:
     version: 2
     RefIds: []

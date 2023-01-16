@@ -8,6 +8,10 @@ public class EncounterBuilder : MonoBehaviour
     public EncounterVariableSO encounterVariable;
 
     void Awake() {
+        if (encounterVariable.Value.getEncounterType() != EncounterType.Enemy) {
+            Debug.LogError("Active encounter is not an enemy but an enemy was loaded!");
+            return;
+        }
         encounterVariable.Value.build(encounterConstants);
     }
 }

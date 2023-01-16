@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a12f20e4460fa2a4e8ffef0ef9bf8f2d, type: 3}
-  m_Name: LukeTestRoom2
+  m_Name: LukeTestRoom3
   m_EditorClassIdentifier: 
+  locked: 0
   Value:
-    id: LukeTestRoom2
+    id: LukeTestRoom3
     encounters:
     - UseConstant: 0
-      Variable: {fileID: 11400000, guid: 3fafa5096e051dc48bac7ea46dbbf974, type: 2}
+      Variable: {fileID: 11400000, guid: ba7cf682f1eb7b7469f4f66d8d5dde31, type: 2}
       ConstantValue:
         rid: -2
     doors:
     - id: doorToPreviousRoom
-      connectedRoomId: LukeTestRoom1
-  locked: 1
+      connectedRoomId: LukeTestRoom2
   references:
     version: 2
     RefIds:

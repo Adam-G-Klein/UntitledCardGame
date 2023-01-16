@@ -19,6 +19,7 @@ public class CardInShop : MonoBehaviour
     public Image hoverBackground;
 
     void Start() {
+        Debug.Log("CardInShop Start() method");
         this.priceText.text = price.ToString();
         this.id = Id.newGuid();
         this.hoverBackground.enabled = false;
@@ -45,5 +46,10 @@ public class CardInShop : MonoBehaviour
     public void OnPointerExit(PointerEventData eventData)
     {
         hoverBackground.enabled = false;
+    }
+
+    public void shopRefreshEventHandler() {
+        Debug.Log("Receive event");
+        Destroy(this.gameObject);
     }
 }

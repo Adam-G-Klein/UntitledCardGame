@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3355b5197b408a46b3ca88e9297a78a, type: 3}
+  m_Name: LukeTestShop1
+  m_EditorClassIdentifier: 
+  locked: 1
+  Value:
+    rid: 4170307053810352129
+  references:
+    version: 2
+    RefIds:
+    - rid: 4170307053810352129
+      type: {class: ShopEncounter, ns: , asm: Assembly-CSharp}
+      data:
+        id: 27fab977-644e-46ae-b93d-40b41af80560
+        isCompleted: 1
+        generateEncounter: 1
+        shopData: {fileID: 11400000, guid: 64b1d5221aac20348909c6cab7cc24d6, type: 2}
+        cardsInShop:
+        - cardType: {fileID: 11400000, guid: 70fd57aa1f3fcb049a3725fd9b8474af, type: 2}
+          price: 1
+        - cardType: {fileID: 11400000, guid: 70fd57aa1f3fcb049a3725fd9b8474af, type: 2}
+          price: 1
+        - cardType: {fileID: 11400000, guid: 462354a397a54954aab6c85e99376713, type: 2}
+          price: 1

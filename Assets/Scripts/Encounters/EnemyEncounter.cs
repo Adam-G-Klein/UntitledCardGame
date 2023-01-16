@@ -15,12 +15,16 @@ public class EnemyEncounter : Encounter
 
     private EncounterConstants encounterConstants;
 
+    public EnemyEncounter() {
+        this.encounterType = EncounterType.Enemy;
+    }
+
     public override void build(EncounterConstants constants)
     {
+        this.encounterType = EncounterType.Enemy;
         this.encounterConstants = constants;
         setupEnemies();
         setupCompanions();
-        this.encounterType = EncounterType.Enemy;
     }
 
     private void setupEnemies()

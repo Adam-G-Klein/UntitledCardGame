@@ -46,12 +46,28 @@ public class Room
     private void setupEncounters() {
         foreach(EncounterReference encounterReference in encounters) {
             Encounter encounter = encounterReference.Value;
-            if (encounter.getEncounterType() == EncounterType.Enemy) {
-                GameObject newEnemyEncounter = GameObject.Instantiate(
-                    roomConstants.encounterPrefab, 
-                    roomConstants.ENCOUNTER_LOCATION,
-                    Quaternion.identity);
-                newEnemyEncounter.GetComponent<EncounterInScene>().encounterId = encounter.id;
+            switch(encounter.getEncounterType()) {
+                case EncounterType.Enemy:
+                    if (encounter.isCompleted) {
+                        continue;
+                    }
+                    GameObject newEnemyEncounter = GameObject.Instantiate(
+                        roomConstants.encounterPrefab, 
+                        roomConstants.ENCOUNTER_LOCATION,
+                        Quaternion.identity);
+                    newEnemyEncounter.GetComponent<EncounterInScene>().encounterId = encounter.id;
+                break;
+
+                case EncounterType.Shop:
+                    GameObject prefab = encounter.isCompleted ? roomConstants.closedShopPrefab : roomConstants.shopPrefab;
+                    GameObject newShop = GameObject.Instantiate(
+                        prefab, 
+                        roomConstants.SHOPKEEP_POSITION,
+                        Quaternion.identity);
+                    if (!encounter.isCompleted) {
+                        newShop.GetComponent<EncounterInScene>().encounterId = encounter.id;
+                    }
+                break;
             }
         }
     }
