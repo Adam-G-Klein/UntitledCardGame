@@ -2,26 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum EnemyIntentType {
+    BigAttack,
+    SmallAttack,
+    Buff,
+    Debuff,
+    // Possible later inclusions
+    // Defend,
+    // Heal,
+    // None
+}
+
 public class EnemyIntent {
     public List<TargettableEntity> targets;
     public int damage;
     public float attackTime;
     public Dictionary<StatusEffect, int> statusEffects;
+    public EnemyIntentType intentType;
 
-    public EnemyIntent(List<TargettableEntity> targets, int damage, float attackTime, Dictionary<StatusEffect, int> statusEffects) {
+    public EnemyIntent(List<TargettableEntity> targets, int damage, float attackTime, Dictionary<StatusEffect, int> statusEffects, EnemyIntentType intentType) {
         this.targets = targets;
         this.damage = damage;
         this.attackTime = attackTime;
         this.statusEffects = statusEffects;
+        this.intentType = intentType;
     }
 
 }
 
 public class EnemyInstance : CombatEntityInstance {
     public Enemy enemy;
-
-    [SerializeField]
-    private float attackTime = 0.5f;
 
     [Space(5)]
     [SerializeField]
@@ -34,6 +44,8 @@ public class EnemyInstance : CombatEntityInstance {
     private EnemyBrainContext brainContext;
     public EnemyIntent currentIntent;
 
+    private EnemyManager enemyManager;
+
     // Start is called before the first frame update
     protected override void Start() {
         base.Start();
@@ -43,9 +55,16 @@ public class EnemyInstance : CombatEntityInstance {
         GameObject turnManagerObject = GameObject.Find("TurnManager");
         if(turnManagerObject != null)  turnManager = turnManagerObject.GetComponent<TurnManager>();
         else Debug.LogError("No TurnManager found in scene, won't have the turn cycle occurring");
-        companionManager = GameObject.FindGameObjectWithTag("CompanionManager").GetComponent<CompanionManager>();
 
-        brainContext = new EnemyBrainContext(this, companionManager);
+        GameObject companionManagerObject = GameObject.Find("CompanionManager");
+        if(companionManagerObject != null)  companionManager = companionManagerObject.GetComponent<CompanionManager>();
+        else Debug.LogError("No CompanionManager found in scene, enemies won't be able to find companions to target");
+
+        GameObject enemyManagerObject = GameObject.Find("EnemyManager");
+        if(enemyManagerObject != null)  enemyManager = enemyManagerObject.GetComponent<EnemyManager>();
+        else Debug.LogError("No EnemyManager found in scene, enemies won't be able to find other enemies to target");
+
+        brainContext = new EnemyBrainContext(this, companionManager, enemyManager);
         registerTurnPhaseTriggers(brainContext);
     }
 
@@ -68,7 +87,7 @@ public class EnemyInstance : CombatEntityInstance {
                 stats.strength += item.scale;
                 break;
             case SimpleEffectName.Discard:
-                Debug.LogWarning("omg an enemy being discarded what happened");
+                Debug.LogWarning("omg an enemy is being discarded what happened");
                 break;
 
         }
@@ -94,8 +113,8 @@ public class EnemyInstance : CombatEntityInstance {
     }
 
 
-    public void raiseEnemyEffectEvent(EnemyEffectEventInfo info){
-        StartCoroutine(enemyEffectEvent.RaiseAtEndOfFrameCoroutine(info));
+    public void raiseEnemyEffectEvent(EnemyIntent intent){
+        StartCoroutine(enemyEffectEvent.RaiseAtEndOfFrameCoroutine(new EnemyEffectEventInfo(this, intent)));
     }
 
     public override CombatEntityInEncounterStats getCombatEntityInEncounterStats(){

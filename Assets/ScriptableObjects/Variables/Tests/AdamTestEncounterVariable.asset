@@ -24,14 +24,18 @@ MonoBehaviour:
         id: 86f60ffa-9316-4e3e-bc44-8ca5eb33fd24
         enemyList:
         - enemyType: {fileID: 11400000, guid: da0cdb6c0c9754d469d48629d5444b55, type: 2}
-          initHealth: 0
+          currentHealth: 20
           id: testGoblin1
         - enemyType: {fileID: 11400000, guid: 7c2078d2e4f72954c9d9a3335c755ab9, type: 2}
-          initHealth: 0
+          currentHealth: 30
           id: safdsad
+        - enemyType: {fileID: 11400000, guid: 3f595268355432347aef2000672bce6d, type: 2}
+          currentHealth: 3
+          id: ksadhlgjkwae
         enemyLocations:
         - {x: 6.68, y: 1.36, z: 0.027606305}
-        - {x: 6.68, y: 0, z: 0.027606305}
+        - {x: 5, y: 0, z: 0.027606305}
+        - {x: 6, y: -1, z: 0.027606305}
         activeCompanions: {fileID: 11400000, guid: 88debb02fba58644b959f3a10afb8a3e, type: 2}
         companionLocations:
         - {x: -6.7, y: 1.3, z: 0.027606305}

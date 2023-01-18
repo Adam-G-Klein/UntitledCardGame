@@ -2,46 +2,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(EffectTargetRequestEventListener))]
-[RequireComponent(typeof(EffectTargetSuppliedEventListener))]
-[RequireComponent(typeof(UIStateEventListener))]
-public class TargettingArrowsController : MonoBehaviour
+public class EnemyIntentArrowsController : MonoBehaviour
 {
 
+    private TargettingArrow arrow;
     [SerializeField]
     private UIColors colors;
     public GameObject arrowPrefab;
     private List<TargettingArrow> arrows = new List<TargettingArrow>();
     private TargettingArrow currentArrow;
+    private EnemyInstance enemyInstance;
+
 
     void Start(){
+        enemyInstance = GetComponentInParent<EnemyInstance>();
     }
 
-    public void effectTargetRequestEventHandler(EffectTargetRequestEventInfo info){
-        currentArrow = createArrow(info);
-        arrows.Add(currentArrow);
-    }
+    public void updateArrows(EnemyIntent intent){
+        TargettingArrow newArrow = createArrow(intent.targets[0].transform, intent.targets[0].entityType);
+        arrows.Add(newArrow);
 
-    public void effectTargetRequestSuppliedHandler(EffectTargetSuppliedEventInfo info){
-        if(currentArrow != null) {
-            currentArrow.freeze(info.target.transform);
-        }
     }
-
-    public void uiStateChangeEventHandler(UIStateEventInfo info){
-        if(info.newState != UIState.EFFECT_TARGETTING){
-            clearArrows();
-        }
-    }
-
-    private TargettingArrow createArrow(EffectTargetRequestEventInfo info){
+    private TargettingArrow createArrow(Transform target, EntityType targetType){
         TargettingArrow newArrow = Instantiate(arrowPrefab, transform).GetComponent<TargettingArrow>();
-        setArrowColor(newArrow, info.validTargets);
-        newArrow.transform.position = info.source.transform.position;
-        newArrow.setAllChildrenPosition(info.source.transform.position);
+        // Todo: set of colors for enemy intent arrows
+        setArrowColor(newArrow, new List<EntityType>(){EntityType.Enemy});
+        newArrow.transform.position = enemyInstance.transform.position;
+        newArrow.setAllChildrenPosition(enemyInstance.transform.position);
+        newArrow.freeze(target);
         return newArrow;
     }
 
+    
     private void setArrowColor(TargettingArrow arrow, List<EntityType> validTargets){
         if(validTargets.Contains(EntityType.Companion) && validTargets.Contains(EntityType.Enemy)){
             arrow.setColor(colors.neutralEffectColor);
@@ -54,7 +46,7 @@ public class TargettingArrowsController : MonoBehaviour
         }
     }
 
-    private void clearArrows(){
+    public void clearArrows(){
         for(int i = 0; i < arrows.Count; i++){
             Destroy(arrows[i].gameObject);
         }

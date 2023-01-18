@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 3267900053236361367}
   - component: {fileID: 2978703734114059929}
   m_Layer: 0
-  m_Name: TargettingArrow
+  m_Name: EnemyIntentArrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -121,7 +121,7 @@ LineRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 5
   m_Positions:
   - {x: -0.80653095, y: -0.7928611, z: 0}
   - {x: 0, y: 0, z: 1}
@@ -130,7 +130,7 @@ LineRenderer:
   - {x: 7.2269716, y: 0.67921174, z: -2.8731904}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 1
+    widthMultiplier: 0.25
     widthCurve:
       serializedVersion: 2
       m_Curve:

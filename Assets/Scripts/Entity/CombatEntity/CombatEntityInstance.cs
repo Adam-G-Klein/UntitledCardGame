@@ -23,7 +23,9 @@ public abstract class CombatEntityInstance: TargettableEntity
     // Also unsure if that should be done at all 
     public void enemyEffectEventHandler(EnemyEffectEventInfo info){
         if(!info.targets.Contains(this)) return;
-        Debug.Log("Companion " + this.id + " is being affected by " + info.ToString());
+        if(this is EnemyInstance){
+            Debug.Log("Enemy " + this.id + " is getting buffer");
+        }
         foreach(KeyValuePair<StatusEffect, int> effect in info.statusEffects){
             applyStatusEffect(effect.Key, effect.Value);
         }

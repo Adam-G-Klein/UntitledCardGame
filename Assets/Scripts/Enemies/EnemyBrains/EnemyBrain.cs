@@ -6,10 +6,12 @@ using UnityEngine;
 public class EnemyBrainContext {
     public EnemyInstance enemyInstance;
     public CompanionManager companionManager;
+    public EnemyManager enemyManager;
 
-    public EnemyBrainContext(EnemyInstance enemyInstance, CompanionManager companionManager) {
+    public EnemyBrainContext(EnemyInstance enemyInstance, CompanionManager companionManager, EnemyManager enemyManager) {
         this.enemyInstance = enemyInstance;
         this.companionManager = companionManager;
+        this.enemyManager = enemyManager;
     }
 }
 
@@ -29,6 +31,8 @@ public class EnemyBrain: ScriptableObject {
     public List<EnemyBehavior> behaviors;
 
     private EnemyBrainContext context;
+    public bool sequentialBehaviors = false;
+    public int nextBehaviorIndex = 0;
 
 
     // IEnumerable because the enemy may need to figure
@@ -36,17 +40,19 @@ public class EnemyBrain: ScriptableObject {
     public virtual IEnumerable chooseIntent(EnemyBrainContext context) {
         // Just random for now
         Debug.Log("Enemy " + context.enemyInstance.id + " is choosing an intent");
-        context.enemyInstance.currentIntent = behaviors[UnityEngine.Random.Range(0, behaviors.Count)].getIntent(context);
+        int behaviorIndex = sequentialBehaviors ? nextBehaviorIndex : UnityEngine.Random.Range(0, behaviors.Count);
+        context.enemyInstance.currentIntent = behaviors[behaviorIndex].getIntent(context);
         yield return null;
+        nextBehaviorIndex = (nextBehaviorIndex + 1) % behaviors.Count;
     }
 
     public virtual IEnumerable act(EnemyBrainContext context) {
         EnemyIntent chosenIntent = context.enemyInstance.currentIntent;
         int damage = chosenIntent.damage;
-        context.enemyInstance.raiseEnemyEffectEvent(new EnemyEffectEventInfo(chosenIntent));
+        context.enemyInstance.raiseEnemyEffectEvent(chosenIntent);
         Debug.Log("Enemy " + context.enemyInstance.id + " attacked companion " + chosenIntent.targets[0].id + " for " + damage + " damage");
         yield return new WaitForSeconds(chosenIntent.attackTime);
-        chosenIntent = null;
+        context.enemyInstance.currentIntent = null;
     }
 
 }

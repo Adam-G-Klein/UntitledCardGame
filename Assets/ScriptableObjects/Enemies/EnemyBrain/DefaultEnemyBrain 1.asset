@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cedd9e2215b03944181b74e4ba2ae464, type: 3}
+  m_Name: DefaultEnemyBrain 1
+  m_EditorClassIdentifier: 
+  behaviors:
+  - rid: 7342828214101475328
+  - rid: 7342828214101475329
+  - rid: 7342828214101475330
+  - rid: 7342828214101475331
+  references:
+    version: 2
+    RefIds:
+    - rid: 7342828214101475328
+      type: {class: BuffBehavior, ns: , asm: Assembly-CSharp}
+      data:
+        enemyBehaviorClassName: BuffBehavior
+    - rid: 7342828214101475329
+      type: {class: BigAttackBehavior, ns: , asm: Assembly-CSharp}
+      data:
+        enemyBehaviorClassName: BigAttackBehavior
+    - rid: 7342828214101475330
+      type: {class: SmallAttackBehavior, ns: , asm: Assembly-CSharp}
+      data:
+        enemyBehaviorClassName: SmallAttackBehavior
+    - rid: 7342828214101475331
+      type: {class: DebuffBehavior, ns: , asm: Assembly-CSharp}
+      data:
+        enemyBehaviorClassName: DebuffBehavior
