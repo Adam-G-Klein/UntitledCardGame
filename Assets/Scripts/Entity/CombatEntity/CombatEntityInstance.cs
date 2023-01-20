@@ -37,10 +37,10 @@ public abstract class CombatEntityInstance: TargettableEntity
     protected void applyStatusEffect(StatusEffect effect, int scale){
         switch(effect) {
             case(StatusEffect.Weakness):
-                stats.weakness += scale;
+                stats.statusEffects[StatusEffect.Weakness] += scale;
                 break;
             case(StatusEffect.Strength):
-                stats.strength += scale;
+                stats.statusEffects[StatusEffect.Strength] += scale;
                 break;
         }
     }

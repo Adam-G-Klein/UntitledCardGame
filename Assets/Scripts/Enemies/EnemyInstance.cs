@@ -68,6 +68,9 @@ public class EnemyInstance : CombatEntityInstance {
         registerTurnPhaseTriggers(brainContext);
     }
 
+    // gotta put this into the base class somehow.
+    // problem is that enemies and companions handle this stuff differently.
+    // so idk
     public void cardEffectEventHandler(CardEffectEventInfo item){
         if(!item.targets.Contains(this)){
             return;
@@ -84,7 +87,10 @@ public class EnemyInstance : CombatEntityInstance {
                 }
                 break;
             case SimpleEffectName.Buff:
-                stats.strength += item.scale;
+                base.applyStatusEffect(StatusEffect.Strength, item.scale);
+                break;
+            case SimpleEffectName.Weaken:
+                base.applyStatusEffect(StatusEffect.Weakness, item.scale);
                 break;
             case SimpleEffectName.Discard:
                 Debug.LogWarning("omg an enemy is being discarded what happened");

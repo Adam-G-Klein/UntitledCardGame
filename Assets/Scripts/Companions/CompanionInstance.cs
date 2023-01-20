@@ -54,7 +54,10 @@ public class CompanionInstance : CombatEntityInstance
                 stats.currentHealth -= info.scale;
                 break;
             case SimpleEffectName.Buff:
-                stats.strength += info.scale; 
+                base.applyStatusEffect(StatusEffect.Strength, info.scale);
+                break;
+            case SimpleEffectName.Weaken:
+                base.applyStatusEffect(StatusEffect.Weakness, info.scale);
                 break;
             case SimpleEffectName.Discard:
                 Debug.LogWarning("Oh god a companion is getting discarded what happened");

@@ -12,7 +12,8 @@ public enum SimpleEffectName {
     Draw,
     Damage,
     Buff,
-    Discard
+    Discard,
+    Weaken
 }
 
 [Serializable]

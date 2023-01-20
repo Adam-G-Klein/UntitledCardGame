@@ -22,13 +22,13 @@ public class CombatEntityStatsDisplay: MonoBehaviour
 
     public int strength{
         get {
-            return stats.strength;
+            return stats.statusEffects[StatusEffect.Strength];
         }
     }
 
     public int weakness{
         get {
-            return stats.weakness;
+            return stats.statusEffects[StatusEffect.Weakness];
         }
     }
 

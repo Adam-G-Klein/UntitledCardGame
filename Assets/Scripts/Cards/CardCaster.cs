@@ -121,38 +121,6 @@ public class CardCaster : TargetProvider {
 
     }
 
-    public int getEffectScale(SimpleEffectName effect, int baseScale) {
-        if(currentContext == null) Debug.LogError("No current context set, can't get effect scale. Try calling the overload that provides casterStats");
-        CombatEntityInEncounterStats casterStats = currentContext.casterStats;
-        switch(effect) {
-            case SimpleEffectName.Draw:
-                return baseScale;
-            case SimpleEffectName.Damage:
-                return baseScale + casterStats.strength;
-            case SimpleEffectName.Buff:
-                return baseScale;
-            default:
-                return baseScale;
-        }
-    }
-
-    public int getEffectScale(SimpleEffectName effect, int baseScale, CombatEntityInEncounterStats casterStats) {
-        // Add effect increases here when we add them to CardCastArguments
-        // Important to note thjat this is different from the strength of companions
-        // which is handled in the EntityInEncounterStats class.
-        // This math adds to the *card's* base attack damage, for example
-        switch(effect) {
-            case SimpleEffectName.Draw:
-                return baseScale;
-            case SimpleEffectName.Damage:
-                return baseScale + casterStats.strength;
-            case SimpleEffectName.Buff:
-                return baseScale;
-            default:
-                return baseScale;
-        }
-
-    }
 
     private IEnumerator castingCoroutine(CastingCoroutineArgs args){
         List<TargettableEntity> alreadyTargetted = new List<TargettableEntity>();

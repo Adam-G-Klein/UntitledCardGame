@@ -46,13 +46,32 @@ public class SimpleEffect: EffectProcedure {
     {
         context.caster.raiseSimpleEffect(
             effectName, 
-            context.caster.getEffectScale(effectName, baseScale),
+            getEffectScale(effectName, context.casterStats, baseScale),
             currentTargets);
         yield return null;
     }
 
     public override void resetCastingState(){
         currentTargets.Clear();
+    }
+
+    // We don't know what entityStat we need to be querying unless we use a 
+    // switch case like this. Other effectProcedures should just grab the stat they need
+    // from EncounterStats
+    public static int getEffectScale(SimpleEffectName effect, CombatEntityInEncounterStats stats, int baseScale) {
+        switch(effect) {
+            case SimpleEffectName.Draw:
+                // no stat affecting draw yet
+                return baseScale;
+            case SimpleEffectName.Damage:
+                // use the getter from the stats object
+                return stats.currentAttackDamage;
+            case SimpleEffectName.Buff:
+                // no stat affecting buffing yet
+                return baseScale;
+            default:
+                return baseScale;
+        }
     }
 
 }

@@ -36,7 +36,7 @@ public class MultiStrike: EffectProcedure {
         for(int i = 0; i < numStrikes; i++) {
             context.caster.raiseSimpleEffect(
                 SimpleEffectName.Damage, 
-                context.caster.getEffectScale(SimpleEffectName.Damage, baseScale),
+                context.casterStats.currentAttackDamage,
                 currentTargets);
             yield return new WaitForSeconds(strikeDelay);
         }

@@ -21,9 +21,11 @@ public class CombatEntityInEncounterStats
 
     // The encounter-specific values that 
     // this class is solely responsible for tracking
-    public int strength;
 
-    public int weakness;
+    public Dictionary<StatusEffect, int> statusEffects = new Dictionary<StatusEffect, int>(){
+        {StatusEffect.Strength, 0},
+        {StatusEffect.Weakness, 0}
+    };
     
     public int currentHealth {
         get {
@@ -36,7 +38,9 @@ public class CombatEntityInEncounterStats
 
     public int currentAttackDamage {
         get {
-            return baseStats.getBaseAttackDamage() + this.strength - this.weakness;
+            return baseStats.getBaseAttackDamage() 
+                + statusEffects[StatusEffect.Strength] 
+                - statusEffects[StatusEffect.Weakness];
         }
     }
 
@@ -47,8 +51,6 @@ public class CombatEntityInEncounterStats
     }
 
     public CombatEntityInEncounterStats(CombatEntityBaseStats entity) {
-        this.strength = 0;
-        this.weakness = 0;
         this.baseStats = entity;
         // Change this line if we want health to persist between encounters
         // Easier for testing if it resets every time for now
