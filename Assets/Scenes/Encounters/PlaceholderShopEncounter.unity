@@ -781,6 +781,8 @@ GameObject:
   - component: {fileID: 827745535}
   - component: {fileID: 827745534}
   - component: {fileID: 827745533}
+  - component: {fileID: 827745536}
+  - component: {fileID: 827745537}
   m_Layer: 0
   m_Name: ShopManager
   m_TagString: Untagged
@@ -840,6 +842,7 @@ MonoBehaviour:
   shopUIManager: {fileID: 1266042997}
   encounterConstants: {fileID: 11400000, guid: 4000d3b01acf1f1459ac789f20856055, type: 2}
   shopRefreshEvent: {fileID: 11400000, guid: c35c2bcbec7c0934d9f4369bd321bc9c, type: 2}
+  companionViewUIPrefab: {fileID: 3579507360167916873, guid: 92f6b69ef1d79dc4fb334adb138997aa, type: 3}
 --- !u!4 &827745535
 Transform:
   m_ObjectHideFlags: 0
@@ -856,6 +859,62 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &827745536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 827745532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1ff1cf37b68c9948a040440320b0331, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 8e7c6c18b2e61d549a24b83d68a27ba0, type: 2}
+  unityEventResponse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 827745534}
+        m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
+        m_MethodName: processCompanionViewExitedEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &827745537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 827745532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3b176db31bb59c4391e7f19aa520916, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 42bf1378df2ac3a4bbc40becee88ecc7, type: 2}
+  unityEventResponse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 827745534}
+        m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
+        m_MethodName: processCompanionClickedEvent
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1083293099
 GameObject:
   m_ObjectHideFlags: 0

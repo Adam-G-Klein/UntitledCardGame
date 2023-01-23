@@ -57,7 +57,6 @@ public class ShopEncounter : Encounter
 
             CardInShop cardInShop = instantiatedCard.GetComponent<CardInShop>();
             cardInShop.price = price;
-            // cardInShop.Setup();
         }
     }
 

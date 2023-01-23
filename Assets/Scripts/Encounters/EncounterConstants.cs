@@ -11,4 +11,5 @@ public class EncounterConstants : ScriptableObject {
     public GameObject playerPrefab;
     [Header("Shop Encounter")]
     public GameObject cardInShopPrefab;
+    public GameObject cardSoldOutPrefab;
 }
