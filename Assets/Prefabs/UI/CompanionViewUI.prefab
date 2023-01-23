@@ -261,8 +261,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   positionsParent: {fileID: 6492892683251888205}
-  companionInViewPrefab: {fileID: 427355365856961249, guid: faf483a883e6ef34f87c58d18325d1a8, type: 3}
-  companionListVariable: {fileID: 11400000, guid: 88debb02fba58644b959f3a10afb8a3e, type: 2}
+  uICompanionPrefab: {fileID: 427355365856961249, guid: faf483a883e6ef34f87c58d18325d1a8, type: 3}
   companionViewExitedEvent: {fileID: 11400000, guid: 8e7c6c18b2e61d549a24b83d68a27ba0, type: 2}
 --- !u!1 &3579507360741725657
 GameObject:
@@ -432,8 +431,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -2.74, y: 5.91}
-  m_SizeDelta: {x: 1828.21, y: 997.46}
+  m_AnchoredPosition: {x: -9.8721, y: 7.2742}
+  m_SizeDelta: {x: 2014.2559, y: 1149.4517}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3579507361329326624
 CanvasRenderer:
@@ -456,7 +455,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.9224256, b: 0.71132076, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.9137255}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

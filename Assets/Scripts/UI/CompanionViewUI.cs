@@ -5,16 +5,11 @@ using UnityEngine;
 public class CompanionViewUI : MonoBehaviour
 {
     public GameObject positionsParent;
-    public GameObject companionInViewPrefab;
-    public CompanionListVariableSO companionListVariable;
+    public GameObject uICompanionPrefab;
     public VoidGameEvent companionViewExitedEvent;
 
-    public void Start() {
-        Debug.Log(transform);
-        setupCompanionDisplay(companionListVariable);
-    }
-
-    public void setupCompanionDisplay(CompanionListVariableSO companionList) {
+    public void setupCompanionDisplay(CompanionListVariableSO companionList,
+            List<CompanionActionType> actionTypes) {
         List<Vector3> positionsOnCanvas = new List<Vector3>();
         foreach (Transform child in positionsParent.transform) {
             positionsOnCanvas.Add(child.gameObject.GetComponent<RectTransform>().position);
@@ -26,14 +21,14 @@ public class CompanionViewUI : MonoBehaviour
 
         for (int i = 0; i < companionList.companionList.Count; i++) {
             GameObject companionImage = GameObject.Instantiate(
-                        companionInViewPrefab,
+                        uICompanionPrefab,
                         positionsOnCanvas[i],
                         Quaternion.identity,
                         transform);
-            CompanionInView companionInView = 
-                companionImage.GetComponent<CompanionInView>();
-            companionInView.companion = companionList.companionList[i];
-            companionInView.setup();
+            UICompanion uICompanion = 
+                companionImage.GetComponent<UICompanion>();
+            uICompanion.companion = companionList.companionList[i];
+            uICompanion.Setup(actionTypes);
         }
     }
 

@@ -59,13 +59,19 @@ public class ShopManager : MonoBehaviour
                         companionViewUIPrefab,
                         new Vector3(Screen.width / 2, Screen.height / 2, 0),
                         Quaternion.identity);
+            this.companionViewUI
+                .GetComponent<CompanionViewUI>()
+                .setupCompanionDisplay(activeCompanions, new List<CompanionActionType>() {
+                    CompanionActionType.SELECT,
+                    CompanionActionType.VIEW_DECK
+                });
         } else {
             shopUIManager.displayNeedMoreMoneyNotification();
         }
     }
 
-    public void processCompanionClickedEvent(Companion companion) {
-        // The player clicked on a companion, so the transaction is complete
+    public void processCompanionSelectedEvent(Companion companion) {
+        // The player selected a companion, so the transaction is complete
         // (assuming there is a transaction) and we're gonna add the card 
         // to the companion's deck and lets forcefully close the companion
         // view UI
