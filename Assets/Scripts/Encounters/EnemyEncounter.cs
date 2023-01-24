@@ -29,7 +29,6 @@ public class EnemyEncounter : Encounter
 
     private void setupEnemies()
     {
-        GameObject instantiatedEnemy;
         if (enemyList.Count > enemyLocations.Count) {
             Debug.LogError("The enemy locations list does not contain enough locations");
             return;
@@ -37,17 +36,15 @@ public class EnemyEncounter : Encounter
 
         for(int i = 0; i < enemyList.Count; i++)
         {
-            instantiatedEnemy = GameObject.Instantiate(
-                encounterConstants.enemyPrefab, 
-                enemyLocations[i],
-                Quaternion.identity);
-            instantiatedEnemy.GetComponent<EnemyInstance>().enemy = enemyList[i];
+            PrefabInstantiator.instantiateEnemy(
+                encounterConstants.enemyPrefab,
+                enemyList[i],
+                enemyLocations[i]);
         }
     }
 
     private void setupCompanions()
     {
-        GameObject instantiatedCompanion;
 
         int activeCompanionsCount = activeCompanions.companionList.Count;
         if (activeCompanionsCount > companionLocations.Count) {
@@ -57,12 +54,10 @@ public class EnemyEncounter : Encounter
 
         for(int i = 0; i < activeCompanionsCount; i++)
         {
-            instantiatedCompanion = GameObject.Instantiate(
+            PrefabInstantiator.instantiateCompanion(
                 encounterConstants.companionPrefab,
-                companionLocations[i],
-                Quaternion.identity);
-            instantiatedCompanion.GetComponent<CompanionInstance>().companion = 
-                activeCompanions.companionList[i];
+                activeCompanions.companionList[i],
+                companionLocations[i]);
         }
     }
 }

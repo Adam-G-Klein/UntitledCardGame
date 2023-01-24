@@ -6,15 +6,16 @@ using UnityEngine;
 public abstract class CombatEntityInstance: TargettableEntity
 {
     
+    // set in the prefab instantiator
     public CombatEntityBaseStats baseStats;
     public CombatEntityInEncounterStats stats;
-    public abstract CombatEntityInEncounterStats getCombatEntityInEncounterStats();
     [SerializeField]
     private CombatEntityInstantiatedEvent instantiatedEvent;
     [SerializeField]
     protected CombatEntityDeathEvent deathEvent;
 
     protected virtual void Start() {
+        this.stats = new CombatEntityInEncounterStats(baseStats);
         StartCoroutine(instantiatedEvent.RaiseAtEndOfFrameCoroutine(new CombatEntityInstantiatedEventInfo(this)));
     }
 

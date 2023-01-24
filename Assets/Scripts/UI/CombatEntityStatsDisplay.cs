@@ -39,7 +39,7 @@ public class CombatEntityStatsDisplay: MonoBehaviour
         // This code assumes we always want to reinitialize the
         // in encounter stats when a new encounter starts
         CombatEntityInstance entity = GetComponentInParent<CombatEntityInstance>();
-        this.stats = entity.getCombatEntityInEncounterStats();
+        this.stats = entity.stats;
     }
 
     void Awake() {

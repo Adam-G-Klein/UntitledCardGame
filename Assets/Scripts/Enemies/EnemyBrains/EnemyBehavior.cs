@@ -13,7 +13,7 @@ public abstract class EnemyBehavior {
         List<CompanionInstance> possibleTargets = context.companionManager.getCompanions();
         // gross gross just trying to get iteration 1 done with a default enemy behavior
         return new EnemyIntent(new List<TargettableEntity>() {possibleTargets[UnityEngine.Random.Range(0, possibleTargets.Count)]},
-            context.enemyInstance.getCombatEntityInEncounterStats().currentAttackDamage, 
+            context.enemyInstance.stats.currentAttackDamage, 
             0.2f, 
             new Dictionary<StatusEffect, int>() {
                 {StatusEffect.Weakness, 1}

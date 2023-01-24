@@ -2,20 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CompanionInstance : CombatEntityWithDeckInstance 
+public class MinionInstance : CombatEntityWithDeckInstance
 {
-    public Companion companion;
+    public Minion minion;
 
-    public override bool isTargetableByChildImpl(EffectTargetRequestEventInfo eventInfo)
-    {
-        // TODO: figure out a way to prevent companions from drawing from an empty deck
-        // like so but with a check before to see if it's a draw effect:
-        /*
-        return inCombatDeck.drawPile.Count > 0 
-            || inCombatDeck.discardPile.Count > 0;
-            */
-        return true;
+    void Awake() {
     }
+
+    void Update()
+    {
+    }
+
+
 
     public void cardEffectEventHandler(CardEffectEventInfo info){
         if(!info.targets.Contains(this)) return;
@@ -34,7 +32,7 @@ public class CompanionInstance : CombatEntityWithDeckInstance
                 base.applyStatusEffect(StatusEffect.Weakness, info.scale);
                 break;
             case SimpleEffectName.Discard:
-                Debug.LogWarning("Oh god a companion is getting discarded what happened");
+                Debug.LogWarning("Oh god a minion is getting discarded what happened");
                 break;
         }
     }

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class Companion: CombatEntityBaseStats, CombatEntityWithDeck 
+public class Minion: CombatEntityBaseStats, CombatEntityWithDeck
 {
-    public CompanionTypeSO companionType;
+    public MinionTypeSO minionType;
     public int maxHealth;
     public int currentHealth;
     public Deck deck;
@@ -19,14 +19,14 @@ public class Companion: CombatEntityBaseStats, CombatEntityWithDeck
     // So we'll just set the id on the Entity this becomes in the 
     // scene to be the same as this one.
     public string id;
-    public Companion(CompanionTypeSO companionType) 
+    public Minion(MinionTypeSO minionType) 
     {
-        this.companionType = companionType;
-        this.maxHealth = companionType.maxHealth;
+        this.minionType = minionType;
+        this.maxHealth = minionType.maxHealth;
         this.currentHealth = this.maxHealth;
-        this.baseAttackDamage = companionType.baseAttackDamage;
-        this.deck = new Deck(companionType.startingDeck);
-        this.abilities = companionType.abilities;
+        this.baseAttackDamage = minionType.baseAttackDamage;
+        this.deck = new Deck(minionType.startingDeck);
+        this.abilities = minionType.abilities;
         this.id = Id.newGuid();
         Debug.Log(JsonUtility.ToJson(this));
     }
@@ -56,7 +56,7 @@ public class Companion: CombatEntityBaseStats, CombatEntityWithDeck
     }
 
     public Sprite getSprite() {
-        return this.companionType.sprite;
+        return this.minionType.sprite;
     }
 
     public Deck getDeck() {

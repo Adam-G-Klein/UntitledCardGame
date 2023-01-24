@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 7574236911732710245}
   - component: {fileID: 5742178976953534560}
   - component: {fileID: 3027488464516499967}
-  - component: {fileID: 7088900252991716844}
   - component: {fileID: -6536180466381847028}
   - component: {fileID: 3925862087160112264}
   - component: {fileID: 2595263955379066018}
@@ -60,6 +59,12 @@ MonoBehaviour:
   effectTargetSuppliedEvent: {fileID: 11400000, guid: 16143db2a2228f2499361d860ef94748, type: 2}
   instantiatedEvent: {fileID: 11400000, guid: 1dde0ba8d0451ad4bb38640a19fd3c5f, type: 2}
   deathEvent: {fileID: 11400000, guid: 954360d85e3873548b6bb8a78c158b04, type: 2}
+  inCombatDeck:
+    sourceDeck:
+      startingDeck: {fileID: 0}
+      cards: []
+    drawPile: []
+    discardPile: []
   companion:
     companionType: {fileID: 11400000, guid: 4960e72dbf9348c4bb2ab009998bd02a, type: 2}
     maxHealth: 0
@@ -72,12 +77,6 @@ MonoBehaviour:
     id: 
   cardsDealtEvent: {fileID: 11400000, guid: e9a227fee840eff4bbfdfe43a95070e6, type: 2}
   constants: {fileID: 11400000, guid: 73ad8dcd4be0ffc4f9958a74ee9f1a5e, type: 2}
-  inCombatDeck:
-    sourceDeck:
-      startingDeck: {fileID: 0}
-      cards: []
-    drawPile: []
-    discardPile: []
   references:
     version: 2
     RefIds: []
@@ -94,7 +93,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effectTargetRequestEvent: {fileID: 11400000, guid: 709caf6df9005934dbe5ec0e1bd93bb6, type: 2}
-  uiStateEvent: {fileID: 0}
 --- !u!114 &5742178976953534560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,34 +149,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &7088900252991716844
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5285687428135354733}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f54f1b2283029124ea05bdd4df6ffb1a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: 8731090c52e897e459ac12df3da5fc3a, type: 2}
-  unityEventResponse:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5285687428135354732}
-        m_TargetAssemblyTypeName: CompanionInstance, Assembly-CSharp
-        m_MethodName: turnPhaseChangedEventHandler
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &-6536180466381847028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -220,7 +190,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.015674114, y: -0.015674114}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -273,7 +243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 349ddbe67ef882b41be54d064bd62ebd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  companionDisplayImage: {fileID: 4007884920284817064}
+  displayImage: {fileID: 4007884920284817064}
 --- !u!114 &1133528425506943652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -383,11 +353,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2856857186655145609, guid: 4319f1ad3b11bf248bb1a167ccc5826d, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.4875
+      value: 0.48749924
       objectReference: {fileID: 0}
     - target: {fileID: 2856857186655145609, guid: 4319f1ad3b11bf248bb1a167ccc5826d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.1
+      value: -0.099998474
       objectReference: {fileID: 0}
     - target: {fileID: 2856857186655145609, guid: 4319f1ad3b11bf248bb1a167ccc5826d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

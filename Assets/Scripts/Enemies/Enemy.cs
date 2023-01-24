@@ -47,4 +47,8 @@ public class Enemy: CombatEntityBaseStats {
         return this.id;
     }
 
+    public Sprite getSprite() {
+        return this.enemyType.sprite;
+    }
+
 }

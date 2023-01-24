@@ -49,9 +49,6 @@ public class EnemyInstance : CombatEntityInstance {
     // Start is called before the first frame update
     protected override void Start() {
         base.Start();
-        this.baseStats = enemy;
-        this.id = enemy.id; // Crucial (and forgettable)
-        this.stats = new CombatEntityInEncounterStats(enemy);
         GameObject turnManagerObject = GameObject.Find("TurnManager");
         if(turnManagerObject != null)  turnManager = turnManagerObject.GetComponent<TurnManager>();
         else Debug.LogError("No TurnManager found in scene, won't have the turn cycle occurring");
@@ -121,10 +118,6 @@ public class EnemyInstance : CombatEntityInstance {
 
     public void raiseEnemyEffectEvent(EnemyIntent intent){
         StartCoroutine(enemyEffectEvent.RaiseAtEndOfFrameCoroutine(new EnemyEffectEventInfo(this, intent)));
-    }
-
-    public override CombatEntityInEncounterStats getCombatEntityInEncounterStats(){
-        return stats;
     }
 
 }

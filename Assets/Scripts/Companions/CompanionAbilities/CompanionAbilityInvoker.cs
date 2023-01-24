@@ -10,7 +10,6 @@ public class CompanionAbilityInvoker : TargetProvider
     private CompanionAbilityContext context;
     private List<CompanionAbility> abilities;
     private TurnManager turnPhaseManager;
-    public UIStateEvent uiStateEvent;
 
     private CompanionInstance companionInstance;
 

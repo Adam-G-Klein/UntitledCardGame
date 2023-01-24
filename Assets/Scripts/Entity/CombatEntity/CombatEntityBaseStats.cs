@@ -14,4 +14,6 @@ public interface CombatEntityBaseStats
 
     string getId();
 
+    Sprite getSprite();
+
 }
