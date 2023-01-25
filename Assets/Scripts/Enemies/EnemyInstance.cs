@@ -45,6 +45,8 @@ public class EnemyInstance : CombatEntityInstance {
     public EnemyIntent currentIntent;
 
     private EnemyManager enemyManager;
+    // reference for resetting intent if the enemy is taunted
+    private EnemyIntentDisplay intentDisplay;
 
     // Start is called before the first frame update
     protected override void Start() {
@@ -62,6 +64,7 @@ public class EnemyInstance : CombatEntityInstance {
         else Debug.LogError("No EnemyManager found in scene, enemies won't be able to find other enemies to target");
 
         brainContext = new EnemyBrainContext(this, companionManager, enemyManager);
+        intentDisplay = GetComponentInChildren<EnemyIntentDisplay>();
         registerTurnPhaseTriggers(brainContext);
     }
 
@@ -80,7 +83,7 @@ public class EnemyInstance : CombatEntityInstance {
             case SimpleEffectName.Damage:
                 stats.currentHealth = Mathf.Max(stats.currentHealth - item.scale, 0);
                 if(stats.currentHealth == 0) {
-                    die();
+                    onDeath();
                 }
                 break;
             case SimpleEffectName.Buff:
@@ -92,7 +95,6 @@ public class EnemyInstance : CombatEntityInstance {
             case SimpleEffectName.Discard:
                 Debug.LogWarning("omg an enemy is being discarded what happened");
                 break;
-
         }
 
     }
@@ -104,15 +106,36 @@ public class EnemyInstance : CombatEntityInstance {
         turnManager.addTurnPhaseTrigger(actTrigger);
     }
 
-    private void die() {
+    protected override IEnumerator onDeath()
+    {
         Debug.Log("Enemy " + id + " died");
         turnManager.removeTurnPhaseTrigger(chooseIntentTrigger);
         turnManager.removeTurnPhaseTrigger(actTrigger);
-        StartCoroutine(deathEvent.RaiseAtEndOfFrameCoroutine(new CombatEntityDeathEventInfo(this)));
+        return base.onDeath();
     }
 
     public void turnStartEventHandler(){
         StartCoroutine("attackCoroutine");
+    }
+
+    public void setTauntedTarget(TargettableEntity target){
+        if(currentIntent.intentType == EnemyIntentType.Buff){
+            // not gonna overcomplicate this edge case right now
+            currentIntent = new EnemyIntent(new List<TargettableEntity>(){target},
+                currentIntent.damage, 
+                currentIntent.attackTime, 
+                new Dictionary<StatusEffect, int>(), 
+                EnemyIntentType.SmallAttack);
+        } else {
+            currentIntent = new EnemyIntent(new List<TargettableEntity>(){target},
+                currentIntent.damage, 
+                currentIntent.attackTime, 
+                currentIntent.statusEffects, 
+                currentIntent.intentType);
+        }
+        intentDisplay.clearIntent();
+        StartCoroutine(intentDisplay.displayIntent(this).GetEnumerator());
+
     }
 
 

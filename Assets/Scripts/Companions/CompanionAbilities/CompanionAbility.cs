@@ -29,7 +29,7 @@ public abstract class CompanionAbility : TargetRequester
 
     public abstract void onDeath(CompanionAbilityContext context);
 
-    public void resetAbilityState()
+    public virtual void resetAbilityState()
     {
         base.resetTargets();
     }

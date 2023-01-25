@@ -7,13 +7,14 @@ using UnityEngine.EventSystems;
 public abstract class TargetProvider: MonoBehaviour {
 
     protected Entity providingEntity;
-    protected TargettableEntity requestedTarget;
+    protected TargettableEntity requestedTarget = null;
 
     [SerializeField]
     private EffectTargetRequestEvent effectTargetRequestEvent;
     protected IEnumerator targettingCoroutine;
 
     public virtual void effectTargetSuppliedHandler(EffectTargetSuppliedEventInfo eventInfo){
+        Debug.Log("Target supplied");
         requestedTarget = eventInfo.target;
     }
     public void requestTarget(List<EntityType> validTargets, TargetRequester requester, List<TargettableEntity> disallowedTargets = null){
@@ -22,10 +23,12 @@ public abstract class TargetProvider: MonoBehaviour {
     }
     protected IEnumerator getTargetCoroutine(List<EntityType> validTargets, TargetRequester requester, List<TargettableEntity> disallowedTargets = null) {
         requestedTarget = null;
+        Debug.Log("Requesting target, field: " + requestedTarget);
         StartCoroutine(effectTargetRequestEvent.RaiseAtEndOfFrameCoroutine(
                 new EffectTargetRequestEventInfo(validTargets, providingEntity, disallowedTargets)));
         // Waits until the effectTargetSuppliedHandler is called
         yield return new WaitUntil(() => requestedTarget != null);
+        Debug.Log("Target acquired: " + requestedTarget);
         requester.targetsSupplied(new List<TargettableEntity>() { requestedTarget });
     }
 

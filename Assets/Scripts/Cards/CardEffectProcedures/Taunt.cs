@@ -3,41 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class MultiStrike: EffectProcedure {
+public class Taunt: EffectProcedure {
     // Causes the whole class to serialize differently if this field 
     // has a default value. *shrug*
     public string procedureClass;
-    public int numStrikes;
-    public int baseScale = 0;
-    public float strikeDelay = 0.2f;
+    public int baseScale = 1;
     public List<EntityType> validTargets = new List<EntityType>() {EntityType.Enemy};
 
-    public MultiStrike() {
-        procedureClass = "MultiStrike";
+    public Taunt() {
+        procedureClass = "Taunt";
     }
     
     public override IEnumerator prepare(EffectProcedureContext context) {
         this.context = context;
         resetCastingState();
         context.cardCastManager.requestTarget(validTargets, this);
+        Debug.Log("Taunt target requested, valid targets: " + validTargets.Count + " valid target: " + (validTargets[0] == EntityType.Enemy ? "Enemy" : "not enemy"));
         yield return new WaitUntil(() => currentTargets.Count > 0);
+        Debug.Log("Taunt target acquired." + currentTargets[0].GetType());
     }
 
     public override IEnumerator invoke(EffectProcedureContext context)
     {
-        for(int i = 0; i < numStrikes; i++) {
-            context.cardCastManager.raiseSimpleEffect(
-                SimpleEffectName.Damage, 
-                context.casterStats.currentAttackDamage,
-                currentTargets);
-            yield return new WaitForSeconds(strikeDelay);
-        }
+        
+        EnemyInstance enemy = ((EnemyInstance) currentTargets[0]);
+        enemy.setTauntedTarget(context.cardCaster);
+        yield return null;
     }
-
 
     public override void resetCastingState(){
         currentTargets.Clear();
     }
-
 
 }
