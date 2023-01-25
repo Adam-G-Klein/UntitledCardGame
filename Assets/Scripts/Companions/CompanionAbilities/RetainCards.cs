@@ -23,21 +23,39 @@ public class RetainCards : CompanionAbility {
     }
 
     public override IEnumerable invoke(CompanionAbilityContext context) {
+        PlayableCard lastCard = lastUnretainedCard(context.playerHand.cardsInHand);
         if(context.playerHand.cardsInHand.Count == 0)
         {
             Debug.Log("RetainCards found no cards in hand");
             yield return new WaitForEndOfFrame();
             resetAbilityState();
             yield break;
-        }  else {
+        }  else if (lastCard == null) {
             Debug.Log("RetainCards requested target");
             context.invoker.requestTarget(new List<EntityType> { EntityType.Card }, this);
+        } else {
+            currentTargets.Add(lastCard);
         }
         yield return new WaitUntil(() => currentTargets.Count > 0);
         PlayableCard retainedCard = (PlayableCard) currentTargets[0];
         retainedCard.retained = true;
         yield return new WaitForEndOfFrame();
         resetAbilityState();
+    }
+
+    private PlayableCard lastUnretainedCard(List<PlayableCard> cardsInHand)
+    {
+        PlayableCard lastUnretainedCard = null;
+        int unretainedCount = 0;
+        foreach (PlayableCard card in cardsInHand)
+        {
+            if (!card.retained)
+            {
+                unretainedCount += 1;
+                lastUnretainedCard = card;
+            } 
+        }
+        return unretainedCount == 1 ? lastUnretainedCard : null;
     }
 
     public override void onDeath(CompanionAbilityContext context)
