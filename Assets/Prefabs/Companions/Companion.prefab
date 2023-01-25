@@ -59,12 +59,16 @@ MonoBehaviour:
   effectTargetSuppliedEvent: {fileID: 11400000, guid: 16143db2a2228f2499361d860ef94748, type: 2}
   instantiatedEvent: {fileID: 11400000, guid: 1dde0ba8d0451ad4bb38640a19fd3c5f, type: 2}
   deathEvent: {fileID: 11400000, guid: 954360d85e3873548b6bb8a78c158b04, type: 2}
+  cardsDealtEvent: {fileID: 11400000, guid: e9a227fee840eff4bbfdfe43a95070e6, type: 2}
+  constants: {fileID: 11400000, guid: 73ad8dcd4be0ffc4f9958a74ee9f1a5e, type: 2}
   inCombatDeck:
     sourceDeck:
       startingDeck: {fileID: 0}
       cards: []
     drawPile: []
     discardPile: []
+  nextMinionSpawnTheta: 1.57
+  minionSpawnRadius: 1.5
   companion:
     companionType: {fileID: 11400000, guid: 4960e72dbf9348c4bb2ab009998bd02a, type: 2}
     maxHealth: 0
@@ -75,8 +79,6 @@ MonoBehaviour:
     baseAttackDamage: 0
     abilities: []
     id: 
-  cardsDealtEvent: {fileID: 11400000, guid: e9a227fee840eff4bbfdfe43a95070e6, type: 2}
-  constants: {fileID: 11400000, guid: 73ad8dcd4be0ffc4f9958a74ee9f1a5e, type: 2}
   references:
     version: 2
     RefIds: []
@@ -190,7 +192,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.4059478, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -201,7 +203,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.5987434, y: 2.577845}
+  m_Size: {x: 2.6393383, y: 2.577845}
   m_EdgeRadius: 0
 --- !u!114 &2595263955379066018
 MonoBehaviour:

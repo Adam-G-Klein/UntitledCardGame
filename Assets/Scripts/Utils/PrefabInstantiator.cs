@@ -6,14 +6,13 @@ public static class PrefabInstantiator {
     //We're probably going to end up doing a lot of this
     //I'm willing to bet something fancy with generic types involved
     //will be a move. Not gonna do that until we write our second function like this though
-    public static PlayableCard instantiateCard(GameObject cardPrefab, Transform parent, Card card, CombatEntityInEncounterStats fromStats, InCombatDeck fromDeck){
+    public static PlayableCard instantiateCard(GameObject cardPrefab, Transform parent, Card card, CombatEntityWithDeckInstance entityFrom){
         GameObject newCard = GameObject.Instantiate(cardPrefab, parent);
         CardDisplay cardDisplay = newCard.GetComponent<CardDisplay>();
         PlayableCard cardPlayable = newCard.GetComponent<PlayableCard>();
         cardDisplay.cardInfo = card;
         cardPlayable.setCardInfo(card);
-        cardPlayable.setCompanionFrom(fromStats);
-        cardPlayable.setDeckFrom(fromDeck);
+        cardPlayable.setEntityFrom(entityFrom);
         return cardPlayable;
     }
 
@@ -32,8 +31,8 @@ public static class PrefabInstantiator {
     }
 
     public static MinionInstance instantiateMinion(GameObject minionPrefab, Minion minion, Vector2 position){
-        GameObject newMinion = GameObject.Instantiate(minionPrefab, position, Quaternion.identity);
-        MinionInstance minionInstance = newMinion.GetComponent<MinionInstance>();
+        CombatEntityWithDeckInstance deckedInstance = instantiateCombatEntityWithDeck(minionPrefab, minion, position);
+        MinionInstance minionInstance = deckedInstance.GetComponent<MinionInstance>();
         minionInstance.minion = minion;
         return minionInstance;
     }

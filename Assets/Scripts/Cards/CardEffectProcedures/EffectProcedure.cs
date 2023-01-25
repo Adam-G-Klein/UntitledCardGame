@@ -2,32 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/*
-public class EffectProcedureOutput {
-    // Zero chance this is the final iteration of this class
-    // We will probably want something better than a big data
-    // class to throw around
-    public int cardsDrawn;
-    // Idea would be we have other pieces of info further procedures might
-    // want to know about down here
-}
-*/
-
 public class EffectProcedureContext {
-    public CardCaster caster;
+    public CardCastManager cardCastManager;
     public CompanionManager companionManager;
     public EnemyManager enemyManager;
     public CombatEntityInEncounterStats casterStats;
+    public CombatEntityWithDeckInstance cardCaster;
     public PlayerHand playerHand;
     public List<TargettableEntity> alreadyTargetted;
 
-    public EffectProcedureContext(CardCaster caster, CompanionManager companionManager, EnemyManager enemyManager, CombatEntityInEncounterStats casterStats, PlayerHand playerHand, List<TargettableEntity> alreadySelectedTargets) {
-        this.caster = caster;
+    
+    public EffectProcedureContext(CardCastManager caster, 
+        CompanionManager companionManager, 
+        EnemyManager enemyManager, 
+        CombatEntityWithDeckInstance cardCaster, 
+        PlayerHand playerHand, 
+        List<TargettableEntity> alreadyTargetted) {
+        this.cardCastManager = caster;
         this.companionManager = companionManager;
         this.enemyManager = enemyManager;
-        this.casterStats = casterStats;
+        this.cardCaster = cardCaster;
+        this.casterStats = cardCaster.stats;
         this.playerHand = playerHand;
-        this.alreadyTargetted = alreadySelectedTargets;
+        this.alreadyTargetted = alreadyTargetted;
     }
     
 }
@@ -41,7 +38,7 @@ public abstract class EffectProcedure: TargetRequester
 
     protected void raiseSimpleEffect(SimpleEffectName simpleEffectName, int scale, List<TargettableEntity> targets) {
         if(context == null) Debug.LogError("Need procedure context to raiseSimpleEffect, be sure to set the 'context' field of this procedure (in the parent class) before proceeding to code it");
-        context.caster.raiseSimpleEffect(simpleEffectName, scale, targets);
+        context.cardCastManager.raiseSimpleEffect(simpleEffectName, scale, targets);
     }
 
     // Called before the procedure is invoked to allow the procedure to

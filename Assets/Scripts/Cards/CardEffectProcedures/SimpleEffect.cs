@@ -31,10 +31,10 @@ public class SimpleEffect: EffectProcedure {
         this.context = context;
         resetCastingState();
         if(targetAllValidTargets) {
-            currentTargets.AddRange(context.caster.getAllValidTargets(validTargets));
+            currentTargets.AddRange(context.cardCastManager.getAllValidTargets(validTargets));
         }
         else {
-            context.caster.requestTarget(validTargets, this,
+            context.cardCastManager.requestTarget(validTargets, this,
                 requiresUniqueTarget ? context.alreadyTargetted : null);
         }
         yield return new WaitUntil(() => currentTargets.Count > 0);
@@ -44,7 +44,7 @@ public class SimpleEffect: EffectProcedure {
 
     public override IEnumerator invoke(EffectProcedureContext context)
     {
-        context.caster.raiseSimpleEffect(
+        context.cardCastManager.raiseSimpleEffect(
             effectName, 
             getEffectScale(effectName, context.casterStats, baseScale),
             currentTargets);
@@ -65,7 +65,7 @@ public class SimpleEffect: EffectProcedure {
                 return baseScale;
             case SimpleEffectName.Damage:
                 // use the getter from the stats object
-                return stats.currentAttackDamage;
+                return baseScale + stats.currentAttackDamage;
             case SimpleEffectName.Buff:
                 // no stat affecting buffing yet
                 return baseScale;

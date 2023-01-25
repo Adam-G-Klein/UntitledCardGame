@@ -39,5 +39,10 @@ public class GrotesqueETB : CompanionAbility {
         yield return new WaitForEndOfFrame();
         resetAbilityState();
     }
+    
+    public override void onDeath(CompanionAbilityContext context)
+    {
+        context.turnPhaseManager.removeTurnPhaseTrigger(turnPhaseTrigger);
+    }
 
 }

@@ -30,7 +30,7 @@ public class GetTargetCoroutineArgs{
 }
 
 [RequireComponent(typeof(UIStateEventListener))]
-public class CardCaster : TargetProvider {
+public class CardCastManager : TargetProvider {
     // Handles casting cardInfo's  
 
     [SerializeField]
@@ -117,6 +117,12 @@ public class CardCaster : TargetProvider {
             else
                 Debug.LogWarning("No enemy manager in scene, couldn't cast effect that targets all enemies");
         }
+        if(validTargets.Contains(EntityType.Minion)){
+            if(companionManager)
+                returnList.AddRange(companionManager.getMinions());
+            else
+                Debug.LogWarning("No player hand in scene, couldn't cast effect that targets the player");
+        }
         return returnList;
 
     }
@@ -128,7 +134,7 @@ public class CardCaster : TargetProvider {
             this, 
             companionManager, 
             enemyManager, 
-            args.castArgs.casterStats,
+            args.castArgs.caster,
             playerHand,
             alreadyTargetted);
         foreach(EffectProcedure procedure in args.cardInfo.effectProcedures){

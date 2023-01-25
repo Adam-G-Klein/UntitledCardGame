@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(CardEffectEventListener))]
 public class MinionInstance : CombatEntityWithDeckInstance
 {
     public Minion minion;
@@ -12,8 +13,6 @@ public class MinionInstance : CombatEntityWithDeckInstance
     void Update()
     {
     }
-
-
 
     public void cardEffectEventHandler(CardEffectEventInfo info){
         if(!info.targets.Contains(this)) return;

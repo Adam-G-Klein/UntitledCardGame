@@ -13,6 +13,7 @@ public abstract class CombatEntityDisplay : MonoBehaviour
 
     protected void Start() {
         instance = GetComponent<CombatEntityInstance>();
+        Debug.Log("Displaying " + instance.baseStats.getId());
         displayImage.sprite = instance.baseStats.getSprite();
     }
     

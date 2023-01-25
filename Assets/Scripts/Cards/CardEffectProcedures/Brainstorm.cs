@@ -2,13 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/*
-// Thinking we should just take in the procedure context rather than extending it
-public class SimpleEffectArguments: EffectProcedureContext {
-    public SimpleEffectArguments (CardCaster caster, CompanionManager companionManager, EnemyManager enemyManager): 
-        base(caster, companionManager, enemyManager){}
-}
-*/
 [System.Serializable]
 public class Brainstorm: EffectProcedure {
     // Causes the whole class to serialize differently if this field 
@@ -25,7 +18,7 @@ public class Brainstorm: EffectProcedure {
         this.context = context;
         resetCastingState();
         //args.context.caster.raiseSimpleEffect(simpleEffectName);
-        context.caster.requestTarget(validTargets, this);
+        context.cardCastManager.requestTarget(validTargets, this);
         yield return new WaitUntil(() => currentTargets.Count > 0);
     }
 
@@ -33,7 +26,7 @@ public class Brainstorm: EffectProcedure {
     {
         // Subtract 1 because we don't want to count the card we're playing
         int damage = (context.playerHand.cardsInHand.Count - 1) * context.casterStats.currentAttackDamage;
-        context.caster.raiseSimpleEffect(
+        context.cardCastManager.raiseSimpleEffect(
             SimpleEffectName.Damage, 
             damage,
             currentTargets);

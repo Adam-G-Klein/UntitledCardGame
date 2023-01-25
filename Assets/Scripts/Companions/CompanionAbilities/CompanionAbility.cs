@@ -27,6 +27,8 @@ public abstract class CompanionAbility : TargetRequester
     // apparently IEnumerator can't be restarted: https://forum.unity.com/threads/i-cant-call-a-coroutine-from-a-list-for-second-time.999421/
     public abstract IEnumerable invoke(CompanionAbilityContext context);
 
+    public abstract void onDeath(CompanionAbilityContext context);
+
     public void resetAbilityState()
     {
         base.resetTargets();

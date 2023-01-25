@@ -34,8 +34,7 @@ public class CardsDealtGameEventEditor : Editor
             if(cardInfo != null) {
                 cardsDealtEvent.Raise(new CardsDealtEventInfo(
                     new List<Card>() { new Card(cardInfo) },
-                    deckFrom,
-                    stats
+                    companionInstance
                 ));
             }
         }

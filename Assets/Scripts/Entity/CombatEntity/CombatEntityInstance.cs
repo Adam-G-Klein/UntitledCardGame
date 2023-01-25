@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(EnemyEffectEventListener))]
 // Extended by both companionInstance and enemyInstance
 public abstract class CombatEntityInstance: TargettableEntity
 {
@@ -19,6 +20,13 @@ public abstract class CombatEntityInstance: TargettableEntity
         StartCoroutine(instantiatedEvent.RaiseAtEndOfFrameCoroutine(new CombatEntityInstantiatedEventInfo(this)));
     }
 
+    protected virtual IEnumerator onDeath() {
+        Debug.Log("Entity " + this.id + " is dying");
+        yield return StartCoroutine(deathEvent.RaiseAtEndOfFrameCoroutine(new CombatEntityDeathEventInfo(this)));
+        // TODO, probably need to improve this
+        Destroy(this.gameObject);
+    }
+
     // This could totally work for companion effects too, just need to 
     // abstract the info passed in to allow for card draw
     // Also unsure if that should be done at all 
@@ -32,7 +40,7 @@ public abstract class CombatEntityInstance: TargettableEntity
         }
         stats.currentHealth = Mathf.Max(stats.currentHealth - info.damage, 0);
         if(stats.currentHealth == 0){
-            StartCoroutine(deathEvent.RaiseAtEndOfFrameCoroutine(new CombatEntityDeathEventInfo(this)));
+            StartCoroutine(onDeath());
         }
     }
     protected void applyStatusEffect(StatusEffect effect, int scale){

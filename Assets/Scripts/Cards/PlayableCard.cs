@@ -16,8 +16,7 @@ public class PlayableCard : TargettableEntity
 {
     public Card outOfCombatCard;
     private PlayerHand playerHand;
-    private CombatEntityInEncounterStats companionFromStats;
-    private InCombatDeck deckFrom; 
+    private CombatEntityWithDeckInstance entityFrom;
 
     [SerializeField]
     private float hoverScale = 30f;
@@ -29,7 +28,7 @@ public class PlayableCard : TargettableEntity
     // Start is called before the first frame update
     public bool hovered = false;
 
-    private CardCaster caster;
+    private CardCastManager caster;
 
     private UIState currentState;
 
@@ -49,7 +48,7 @@ public class PlayableCard : TargettableEntity
         GameObject playerHandGO = GameObject.Find("PlayerHand");
         // My attempt at null safing. We should def talk about how we want to 
         // do this generally because it'll happen a lot with the modular scenes
-        if(cardCasterGO) caster = cardCasterGO.GetComponent<CardCaster>();
+        if(cardCasterGO) caster = cardCasterGO.GetComponent<CardCastManager>();
         else Debug.LogError("CardCaster not found by card, won't be able to cast cards");
         if(playerHandGO) playerHand = playerHandGO.GetComponent<PlayerHand>();
         else Debug.LogError("PlayerHand not found by card, won't be able to discard cards");
@@ -61,7 +60,7 @@ public class PlayableCard : TargettableEntity
         // (like if we're about to discard it)
         if (currentState != UIState.DEFAULT) return; 
 
-        CardCastArguments args = new CardCastArguments(companionFromStats);
+        CardCastArguments args = new CardCastArguments(entityFrom);
         // Cast event handler in PlayerHand.cs will handle the card 
         // being removed from the hand
         caster.cardClickHandler(outOfCombatCard, args, this);
@@ -93,7 +92,7 @@ public class PlayableCard : TargettableEntity
 
     // Called by playerHand.discardCard
     public void discardFromDeck() {
-        deckFrom.discardCards(new List<Card>{outOfCombatCard});
+        entityFrom.inCombatDeck.discardCards(new List<Card>{outOfCombatCard});
     }
 
 
@@ -131,12 +130,8 @@ public class PlayableCard : TargettableEntity
     }
     
     // Should pass by reference so that the values stay updated
-    public void setCompanionFrom(CombatEntityInEncounterStats companionStats){
-        this.companionFromStats = companionStats;
-    }
-
-    public void setDeckFrom(InCombatDeck deck){
-        this.deckFrom = deck;
+    public void setEntityFrom(CombatEntityWithDeckInstance entityFrom) {
+        this.entityFrom = entityFrom;
     }
 
 }

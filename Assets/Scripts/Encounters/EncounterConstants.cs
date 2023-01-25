@@ -8,6 +8,7 @@ public class EncounterConstants : ScriptableObject {
     [Header("Enemy Encounter")]
     public GameObject companionPrefab;
     public GameObject enemyPrefab;
+    public GameObject minionPrefab;
     public GameObject playerPrefab;
     [Header("Shop Encounter")]
     public GameObject cardInShopPrefab;

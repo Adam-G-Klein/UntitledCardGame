@@ -2,9 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(CompanionAbilityInvoker))]
 public class CompanionInstance : CombatEntityWithDeckInstance 
 {
     public Companion companion;
+    private CompanionAbilityInvoker abilityInvoker;
+
+    protected override void Start() {
+        base.Start();
+        abilityInvoker = GetComponent<CompanionAbilityInvoker>();
+    }
+
+    protected override IEnumerator onDeath()
+    {
+        
+        abilityInvoker.onDeath();
+        return base.onDeath();
+    }
 
     public override bool isTargetableByChildImpl(EffectTargetRequestEventInfo eventInfo)
     {

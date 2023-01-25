@@ -10,7 +10,7 @@ public abstract class EnemyBehavior {
     public EnemyIntent intent;
 
     public virtual EnemyIntent getIntent(EnemyBrainContext context) {
-        List<CompanionInstance> possibleTargets = context.companionManager.getCompanions();
+        List<TargettableEntity> possibleTargets = context.companionManager.getEnemyTargets();
         // gross gross just trying to get iteration 1 done with a default enemy behavior
         return new EnemyIntent(new List<TargettableEntity>() {possibleTargets[UnityEngine.Random.Range(0, possibleTargets.Count)]},
             context.enemyInstance.stats.currentAttackDamage, 

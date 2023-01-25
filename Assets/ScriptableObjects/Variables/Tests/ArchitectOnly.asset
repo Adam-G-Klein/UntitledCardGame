@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4df9178e061cce447b55bdea396ec265, type: 3}
+  m_Name: ArchitectOnly
+  m_EditorClassIdentifier: 
+  companionList:
+  - companionType: {fileID: 11400000, guid: bb8900a5e0f2ab34a8c486d19dcef389, type: 2}
+    maxHealth: 30
+    currentHealth: 29
+    deck:
+      startingDeck: {fileID: 11400000, guid: 2591b9bcf7a348d418df529b4242c104, type: 2}
+      cards:
+      - cardType: {fileID: 11400000, guid: f89479d267b89ea40b6e76d533f2e6da, type: 2}
+        id: 53ff73aa-a392-44cd-9903-b440baf33612
+      - cardType: {fileID: 11400000, guid: f89479d267b89ea40b6e76d533f2e6da, type: 2}
+        id: 7a7df8a6-1d6b-412f-8f0b-1386f04ce4ed
+      - cardType: {fileID: 11400000, guid: ec3c681e35f3b8541b4e30643c6d0ee7, type: 2}
+        id: afsdfasfas
+      - cardType: {fileID: 11400000, guid: ec3c681e35f3b8541b4e30643c6d0ee7, type: 2}
+        id: fsafsa
+    baseAttackDamage: 0
+    abilities: []
+    id: 663a6b27-c0b1-49f0-ac2c-69cd11c0df46
+  - companionType: {fileID: 11400000, guid: af270a8bf55a86547941d6065eb02679, type: 2}
+    maxHealth: 999
+    currentHealth: 997
+    deck:
+      startingDeck: {fileID: 11400000, guid: bb2dd24e7cac49440ac4e14129eec39c, type: 2}
+      cards:
+      - cardType: {fileID: 11400000, guid: 9b0feee7c8820b6419129508051d6f08, type: 2}
+        id: 1b45fd17-b746-4380-bfe1-02dde65349d1
+      - cardType: {fileID: 11400000, guid: 9b0feee7c8820b6419129508051d6f08, type: 2}
+        id: c0c4be72-0b0d-4901-b25c-f5ad0922173b
+      - cardType: {fileID: 11400000, guid: 9b0feee7c8820b6419129508051d6f08, type: 2}
+        id: 227ce662-aab4-4a58-a4c7-105930e58fcf
+      - cardType: {fileID: 11400000, guid: 70fd57aa1f3fcb049a3725fd9b8474af, type: 2}
+        id: 39188142-1059-4548-a909-91bd0c9e5ec8
+    baseAttackDamage: 0
+    abilities:
+    - rid: 7342828388944969729
+    id: fc82333c-daf4-43a2-91aa-1945c2542abe
+  references:
+    version: 2
+    RefIds:
+    - rid: 7342828388944969729
+      type: {class: RetainCards, ns: , asm: Assembly-CSharp}
+      data:
+        abilityName: Retain Cards

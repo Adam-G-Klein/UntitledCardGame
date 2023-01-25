@@ -6,13 +6,12 @@ using UnityEngine;
 [RequireComponent(typeof(CombatEntityDeathEventListener))]
 public class CompanionManager : MonoBehaviour
 {
-    /* There should never be much code in here if we 
-        want to keep with the pattern of having very 
-        modular scenes. All I know right now is that we'll need 
-        something in the scene that listens to companions/enemy
-        instantiations and knows about all of them
-    */
+    [SerializeField]
+    // put this here when I wanted effect procedures to have access to it
+    // it's a hack, but I don't want to overthink this right now
+    public EncounterConstants encounterConstants;
     private List<CompanionInstance> companions = new List<CompanionInstance>();
+    private List<MinionInstance> minions = new List<MinionInstance>();
     private List<string> companionIds = new List<string>();
 
     [SerializeField]
@@ -22,6 +21,8 @@ public class CompanionManager : MonoBehaviour
     public void combatEntityInstantiatedHandler(CombatEntityInstantiatedEventInfo info) {
         if(info.instance is CompanionInstance){
             companions.Add((CompanionInstance) info.instance);
+        } else if(info.instance is MinionInstance){
+            minions.Add((MinionInstance) info.instance);
         }
     }
     public void combatEntityDeathHandler(CombatEntityDeathEventInfo info) {
@@ -30,6 +31,10 @@ public class CompanionManager : MonoBehaviour
             if(companions.Count == 0) {
                 StartCoroutine(endEncounterEvent.RaiseAtEndOfFrameCoroutine(new EndEncounterEventInfo(EncounterOutcome.Defeat)));
             }
+        }
+        if(info.instance is MinionInstance){
+            Debug.Log("Minion died, removing in companion manager");
+            minions.Remove((MinionInstance) info.instance);
         }
     }
 
@@ -60,4 +65,13 @@ public class CompanionManager : MonoBehaviour
         return companions;
     }
     
+    public List<MinionInstance> getMinions(){
+        return minions;
+    }
+
+    public List<TargettableEntity> getEnemyTargets(){
+        List<TargettableEntity> retList = new List<TargettableEntity>(minions);
+        retList.AddRange(companions);
+        return retList;
+    }
 }

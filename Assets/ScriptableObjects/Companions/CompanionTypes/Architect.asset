@@ -9,14 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58ac936d38b0f2d46a902b9f98409ec8, type: 3}
-  m_Name: Grotesque
+  m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
+  m_Name: Architect
   m_EditorClassIdentifier: 
-  minionName: Grotesque
-  maxHealth: 5
+  companionName: Architect
+  maxHealth: 30
   baseAttackDamage: 0
-  sprite: {fileID: 21300000, guid: 6f51dc02ad075bb4e8992b5405eb1221, type: 3}
-  startingDeck: {fileID: 11400000, guid: 8a941f5aa3005cc4d810aced7893ecfa, type: 2}
+  sprite: {fileID: 21300000, guid: cdd64b9d701fb334a804cb354ab2375b, type: 3}
+  startingDeck: {fileID: 11400000, guid: 2591b9bcf7a348d418df529b4242c104, type: 2}
   abilities: []
   references:
     version: 2

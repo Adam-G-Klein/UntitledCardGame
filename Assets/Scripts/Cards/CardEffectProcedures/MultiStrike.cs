@@ -2,13 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/*
-// Thinking we should just take in the procedure context rather than extending it
-public class SimpleEffectArguments: EffectProcedureContext {
-    public SimpleEffectArguments (CardCaster caster, CompanionManager companionManager, EnemyManager enemyManager): 
-        base(caster, companionManager, enemyManager){}
-}
-*/
 [System.Serializable]
 public class MultiStrike: EffectProcedure {
     // Causes the whole class to serialize differently if this field 
@@ -27,14 +20,14 @@ public class MultiStrike: EffectProcedure {
         this.context = context;
         resetCastingState();
         //args.context.caster.raiseSimpleEffect(simpleEffectName);
-        context.caster.requestTarget(validTargets, this);
+        context.cardCastManager.requestTarget(validTargets, this);
         yield return new WaitUntil(() => currentTargets.Count > 0);
     }
 
     public override IEnumerator invoke(EffectProcedureContext context)
     {
         for(int i = 0; i < numStrikes; i++) {
-            context.caster.raiseSimpleEffect(
+            context.cardCastManager.raiseSimpleEffect(
                 SimpleEffectName.Damage, 
                 context.casterStats.currentAttackDamage,
                 currentTargets);

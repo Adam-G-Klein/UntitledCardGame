@@ -40,4 +40,9 @@ public class RetainCards : CompanionAbility {
         resetAbilityState();
     }
 
+    public override void onDeath(CompanionAbilityContext context)
+    {
+        context.turnPhaseManager.removeTurnPhaseTrigger(turnPhaseTrigger);
+    }
+
 }

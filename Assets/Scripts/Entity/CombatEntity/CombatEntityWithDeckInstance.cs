@@ -15,7 +15,13 @@ public abstract class CombatEntityWithDeckInstance : CombatEntityInstance
     [SerializeField]
     private GameplayConstants constants;
     public InCombatDeck inCombatDeck;
-    private TurnManager turnManager;
+    protected TurnManager turnManager;
+
+    [SerializeField]
+    private float nextMinionSpawnTheta = Mathf.PI/2f;
+    [SerializeField]
+    private float minionSpawnRadius = 3f;
+    TurnPhaseTrigger startTurnTrigger;
 
     protected override void Start()
     {
@@ -24,19 +30,38 @@ public abstract class CombatEntityWithDeckInstance : CombatEntityInstance
         GameObject turnManagerObject = GameObject.Find("TurnManager");
         if(turnManagerObject != null)  turnManager = turnManagerObject.GetComponent<TurnManager>();
         else Debug.LogError("No TurnManager found in scene, companions won't deal cards");
-        turnManager.addTurnPhaseTrigger(new TurnPhaseTrigger(TurnPhase.START_PLAYER_TURN, dealStartTurnCards()));
+        startTurnTrigger = new TurnPhaseTrigger(TurnPhase.START_PLAYER_TURN, dealStartTurnCards());
+        turnManager.addTurnPhaseTrigger(startTurnTrigger);
         // Tried doing this in Awake, but it looks like the fields of companion
         // hadn't been initialized by then
     }
 
     public void dealCards(int numCards){
         List<Card> cards = inCombatDeck.dealCardsFromDeck(numCards);
-        StartCoroutine(cardsDealtEvent.RaiseAtEndOfFrameCoroutine(new CardsDealtEventInfo(cards, inCombatDeck, stats)));
+        StartCoroutine(cardsDealtEvent.RaiseAtEndOfFrameCoroutine(new CardsDealtEventInfo(cards, this)));
+    }
+
+    protected override IEnumerator onDeath() {
+        turnManager.removeTurnPhaseTrigger(startTurnTrigger);
+        yield return base.onDeath();
     }
 
     public IEnumerable dealStartTurnCards() {
         dealCards(constants.START_TURN_DRAW_PER_COMPANION);
         yield return null;
+    }
+
+    // any entity with a deck could *theoretically* summon minions
+    // maybe we raise this into combatentityinstance at some point
+    public Vector2 getNextMinionSpawnPosition() {
+        Vector2 center = transform.position;
+        // from copilot and https://answers.unity.com/questions/1545128/how-can-i-get-a-point-position-in-circle-line.html
+        Vector2 spawnLoc = new Vector2(
+            center.x + minionSpawnRadius * Mathf.Cos(nextMinionSpawnTheta),
+            center.y + minionSpawnRadius * Mathf.Sin(nextMinionSpawnTheta)
+        );
+        nextMinionSpawnTheta += 2 * Mathf.PI / constants.MAX_MINIONS_PER_COMPANION;
+        return spawnLoc;
     }
     
 }

@@ -42,5 +42,12 @@ public class CompanionAbilityInvoker : TargetProvider
         }
     }
 
+    public void onDeath(){
+        foreach (CompanionAbility ability in abilities)
+        {
+            ability.onDeath(context);
+        }
+    }
+
 }
 

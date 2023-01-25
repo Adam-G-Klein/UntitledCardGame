@@ -5,13 +5,13 @@ using UnityEngine;
 [System.Serializable]
 public class CardsDealtEventInfo {
     public List<Card> cards;
+    public CombatEntityWithDeckInstance entityFrom;
     public CombatEntityInEncounterStats fromStats;
-    public InCombatDeck fromDeck;
 
-    public CardsDealtEventInfo(List<Card> cards, InCombatDeck fromDeck, CombatEntityInEncounterStats fromStats) {
+    public CardsDealtEventInfo(List<Card> cards, CombatEntityWithDeckInstance entityFrom) {
         this.cards = cards;
-        this.fromStats = fromStats;
-        this.fromDeck = fromDeck;
+        this.entityFrom = entityFrom;
+        this.fromStats = entityFrom.stats;
     }
 }
 [CreateAssetMenu(

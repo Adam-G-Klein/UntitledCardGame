@@ -11,7 +11,7 @@ public class BigAttackBehavior: EnemyBehavior {
     }
 
     public override EnemyIntent getIntent(EnemyBrainContext context) {
-        List<CompanionInstance> possibleTargets = context.companionManager.getCompanions();
+        List<TargettableEntity> possibleTargets = context.companionManager.getEnemyTargets();
         return new EnemyIntent(new List<TargettableEntity>() {possibleTargets[UnityEngine.Random.Range(0, possibleTargets.Count)]},
             context.enemyInstance.stats.currentAttackDamage * damageMultiplier, 
             0.2f, 

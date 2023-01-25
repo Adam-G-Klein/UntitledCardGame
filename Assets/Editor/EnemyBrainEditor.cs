@@ -25,10 +25,8 @@ public class EnemyBrainEditor : Editor {
                 new object[] {});
 
             if(newBehavior == null) {
-                Debug.LogError("Failed to instantiate effect procedure, " +
-                "please check Scripts/Cards/CardEffectProcedures/* to verify the className for the  " +
-                " and verify that the arguments set in the editor correspond to " +
-                " the arguments in the constructor");
+                Debug.LogError("Failed to instantiate enemy behavior, " +
+                "please check Scripts/Enemies/EnemyBrains/* to verify the className ");
             }
 
             if(enemyBrain.behaviors == null) {
