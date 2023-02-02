@@ -32,6 +32,11 @@ public class CombatEntityStatsDisplay: MonoBehaviour
         }
     }
 
+    public int defended{
+        get {
+            return stats.statusEffects[StatusEffect.Defended];
+        }
+    }
     private Dictionary<StatusEffect, StatusEffectDisplay> statusEffectDisplays = new Dictionary<StatusEffect, StatusEffectDisplay>();
 
     void Start()
@@ -66,6 +71,13 @@ public class CombatEntityStatsDisplay: MonoBehaviour
             statusEffectDisplays[StatusEffect.Weakness].setDisplaying(true);
         } else {
             statusEffectDisplays[StatusEffect.Weakness].setDisplaying(false);
+        }
+
+        if(defended != 0) {
+            statusEffectDisplays[StatusEffect.Defended].setText(defended.ToString());
+            statusEffectDisplays[StatusEffect.Defended].setDisplaying(true);
+        } else {
+            statusEffectDisplays[StatusEffect.Defended].setDisplaying(false);
         }
 
     }

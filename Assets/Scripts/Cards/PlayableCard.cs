@@ -83,8 +83,17 @@ public class PlayableCard : TargettableEntity
 
     public void cardEffectEventHandler(CardEffectEventInfo info){
         if (!info.targets.Contains(this)) return;
-        switch(info.effectName){
-            case SimpleEffectName.Discard:
+        applyCardEffects(info.cardEffects);
+    }
+
+    private void applyCardEffects(Dictionary<CardEffect, int> effects) {
+        foreach (KeyValuePair<CardEffect, int> effect in effects) {
+            applyCardEffect(effect.Key, effect.Value);
+        }
+    }
+    private void applyCardEffect(CardEffect effect, int value) {
+        switch(effect) {
+            case CardEffect.Discard:
                 playerHand.discardCard(this);
                 break;
         }

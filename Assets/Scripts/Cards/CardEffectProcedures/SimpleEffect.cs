@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/*
-// Thinking we should just take in the procedure context rather than extending it
-public class SimpleEffectArguments: EffectProcedureContext {
-    public SimpleEffectArguments (CardCaster caster, CompanionManager companionManager, EnemyManager enemyManager): 
-        base(caster, companionManager, enemyManager){}
+public enum SimpleEffectName {
+    Draw,
+    Damage,
+    Strength,
+    Discard,
+    Weaken,
+    Defend
 }
-*/
 [System.Serializable]
 public class SimpleEffect: EffectProcedure {
     // Causes the whole class to serialize differently if this field 
@@ -23,6 +24,7 @@ public class SimpleEffect: EffectProcedure {
     [Tooltip("Specifies whether this effect must have a different target "
         + "from other effects in the card. Example: a series of discard "
         + "effects that each need to target a different card.")]
+
 
     public SimpleEffect() {
         procedureClass = "SimpleEffect";
@@ -69,8 +71,11 @@ public class SimpleEffect: EffectProcedure {
             case SimpleEffectName.Damage:
                 // use the getter from the stats object
                 return baseScale + stats.currentAttackDamage;
-            case SimpleEffectName.Buff:
+            case SimpleEffectName.Strength:
                 // no stat affecting buffing yet
+                return baseScale;
+            case SimpleEffectName.Defend:
+                // no stat affecting Defending yet
                 return baseScale;
             default:
                 return baseScale;

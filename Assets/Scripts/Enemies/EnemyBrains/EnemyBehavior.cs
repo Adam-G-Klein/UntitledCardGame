@@ -22,11 +22,11 @@ public abstract class EnemyBehavior {
     }
 
     public virtual EnemyIntent getIntent(EnemyBrainContext context) {
-        // gross gross just trying to get iteration 1 done with a default enemy behavior
+        int damage = context.enemyInstance.stats.currentAttackDamage;
         return new EnemyIntent(new List<TargettableEntity>() {getRandomTarget(context)},
-            context.enemyInstance.stats.currentAttackDamage, 
             0.2f, 
-            new Dictionary<StatusEffect, int>() {
+            new Dictionary<CombatEffect, int>() {
+                {CombatEffect.Damage, damage}
             },
             EnemyIntentType.SmallAttack);
     }

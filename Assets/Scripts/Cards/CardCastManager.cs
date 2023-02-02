@@ -34,6 +34,8 @@ public class CardCastManager : TargetProvider {
     // Handles casting cardInfo's  
 
     [SerializeField]
+    private CombatEffectEvent combatEffectEvent;
+    [SerializeField]
     private CardEffectEvent cardEffectEvent;
     // +1 to the above comment this is bad
     [SerializeField]
@@ -77,6 +79,7 @@ public class CardCastManager : TargetProvider {
     
     public bool isValidCast(Card info, CardCastArguments args) {
         if(info.cost > manaManager.currentMana) return false;
+        // theoretically we could check for other things here
         return true;
     }
     public void cardClickHandler(Card info, CardCastArguments args, Entity callingCard) {
@@ -84,7 +87,6 @@ public class CardCastManager : TargetProvider {
             resetCastingState();
             providingEntity = callingCard;
             StartCoroutine("castingCoroutine", new CastingCoroutineArgs(info, args));
-            // StartCoroutine(procedure.invoke(new EffectProcedureContext(this, companionManager, enemyManager, args.casterStats)));
         } else {
             Debug.Log("Not casting card because we have insufficient mana");
         }
@@ -152,13 +154,10 @@ public class CardCastManager : TargetProvider {
 
     // Have to call this here to start the effect as a coroutine
     public void raiseSimpleEffect(SimpleEffectName effectName, int scale, List<TargettableEntity> targets){
+        StartCoroutine(combatEffectEvent.RaiseAtEndOfFrameCoroutine(
+            new CombatEffectEventInfo(simpleEffectToCombatEffects(effectName, scale), targets)));
         StartCoroutine(cardEffectEvent.RaiseAtEndOfFrameCoroutine(
-            new CardEffectEventInfo(effectName, scale, targets, simpleEffectToStatusEffects(effectName, scale))));
-    }
-
-    public void raiseSimpleEffect(SimpleEffectName effectName, int scale, List<TargettableEntity> targets, Dictionary<StatusEffect, int> statusEffects){
-        StartCoroutine(cardEffectEvent.RaiseAtEndOfFrameCoroutine(
-            new CardEffectEventInfo(effectName, scale, targets, statusEffects)));
+            new CardEffectEventInfo(simpleEffectToCardEffects(effectName, scale), targets)));
     }
 
     private void resetCastingState(){
@@ -174,19 +173,37 @@ public class CardCastManager : TargetProvider {
 
     // A necessary evil to provide a nice interface for users.
     // The name of the simple effect will not always have a simple 1:1 mapping to a status effect
-    private Dictionary<StatusEffect, int> simpleEffectToStatusEffects(SimpleEffectName effectName, int scale){
-        Dictionary<StatusEffect, int> statusEffects = new Dictionary<StatusEffect, int>();
+    private Dictionary<CombatEffect, int> simpleEffectToCombatEffects(SimpleEffectName effectName, int scale){
+        Dictionary<CombatEffect, int> combatEffects = new Dictionary<CombatEffect, int>();
         switch(effectName){
-            case SimpleEffectName.Buff:
-                statusEffects.Add(StatusEffect.Strength, scale);
+            case SimpleEffectName.Strength:
+                combatEffects.Add(CombatEffect.Strength, scale);
                 break;
             case SimpleEffectName.Weaken:
-                statusEffects.Add(StatusEffect.Weakness, scale);
+                combatEffects.Add(CombatEffect.Weakness, scale);
+                break;
+            case SimpleEffectName.Damage:
+                combatEffects.Add(CombatEffect.Damage, scale);
+                break;
+            case SimpleEffectName.Draw:
+                combatEffects.Add(CombatEffect.DrawFrom, scale);
+                break;
+            case SimpleEffectName.Defend:
+                combatEffects.Add(CombatEffect.Defended, scale);
                 break;
         }
-        return statusEffects;
+        return combatEffects;
     }
-            
+
+    private Dictionary<CardEffect, int> simpleEffectToCardEffects(SimpleEffectName effectName, int scale){
+        Dictionary<CardEffect, int> cardEffects = new Dictionary<CardEffect, int>();
+        switch(effectName){
+            case SimpleEffectName.Discard:
+                cardEffects.Add(CardEffect.Discard, scale);
+                break;
+        }
+        return cardEffects;
+    }
 
 
 }

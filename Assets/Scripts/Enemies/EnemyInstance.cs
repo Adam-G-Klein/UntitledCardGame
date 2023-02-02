@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// for displaying the image above the enemy
 public enum EnemyIntentType {
     BigAttack,
     SmallAttack,
@@ -15,16 +16,14 @@ public enum EnemyIntentType {
 
 public class EnemyIntent {
     public List<TargettableEntity> targets;
-    public int damage;
     public float attackTime;
-    public Dictionary<StatusEffect, int> statusEffects;
+    public Dictionary<CombatEffect, int> combatEffects;
     public EnemyIntentType intentType;
 
-    public EnemyIntent(List<TargettableEntity> targets, int damage, float attackTime, Dictionary<StatusEffect, int> statusEffects, EnemyIntentType intentType) {
+    public EnemyIntent(List<TargettableEntity> targets, float attackTime, Dictionary<CombatEffect, int> statusEffects, EnemyIntentType intentType) {
         this.targets = targets;
-        this.damage = damage;
         this.attackTime = attackTime;
-        this.statusEffects = statusEffects;
+        this.combatEffects = statusEffects;
         this.intentType = intentType;
     }
 
@@ -34,8 +33,6 @@ public class EnemyInstance : CombatEntityInstance {
     public Enemy enemy;
 
     [Space(5)]
-    [SerializeField]
-    private EnemyEffectEvent enemyEffectEvent;
 
     private CompanionManager companionManager;
     private TurnManager turnManager;
@@ -47,6 +44,8 @@ public class EnemyInstance : CombatEntityInstance {
     private EnemyManager enemyManager;
     // reference for resetting intent if the enemy is taunted
     private EnemyIntentDisplay intentDisplay;
+    [SerializeField]
+    private CombatEffectEvent combatEffectEvent;
 
     // Start is called before the first frame update
     protected override void Start() {
@@ -71,6 +70,7 @@ public class EnemyInstance : CombatEntityInstance {
     // gotta put this into the base class somehow.
     // problem is that enemies and companions handle this stuff differently.
     // so idk
+    /*
     public void cardEffectEventHandler(CardEffectEventInfo item){
         if(!item.targets.Contains(this)){
             return;
@@ -86,11 +86,11 @@ public class EnemyInstance : CombatEntityInstance {
                     onDeath();
                 }
                 break;
-            case SimpleEffectName.Buff:
-                base.applyStatusEffect(StatusEffect.Strength, item.scale);
+            case SimpleEffectName.Strength:
+                base.applyCombatEffect(CombatEffect.Strength, item.scale);
                 break;
             case SimpleEffectName.Weaken:
-                base.applyStatusEffect(StatusEffect.Weakness, item.scale);
+                base.applyCombatEffect(CombatEffect.Weakness, item.scale);
                 break;
             case SimpleEffectName.Discard:
                 Debug.LogWarning("omg an enemy is being discarded what happened");
@@ -98,6 +98,7 @@ public class EnemyInstance : CombatEntityInstance {
         }
 
     }
+    */
 
     private void registerTurnPhaseTriggers(EnemyBrainContext brainContext) {
         chooseIntentTrigger = new TurnPhaseTrigger(TurnPhase.START_PLAYER_TURN, enemy.chooseIntent(brainContext));
@@ -111,6 +112,7 @@ public class EnemyInstance : CombatEntityInstance {
         Debug.Log("Enemy " + id + " died");
         turnManager.removeTurnPhaseTrigger(chooseIntentTrigger);
         turnManager.removeTurnPhaseTrigger(actTrigger);
+        turnManager.removeTurnPhaseTrigger(intentDisplay.displayIntentTrigger);
         return base.onDeath();
     }
 
@@ -122,15 +124,13 @@ public class EnemyInstance : CombatEntityInstance {
         if(currentIntent.intentType == EnemyIntentType.Buff){
             // not gonna overcomplicate this edge case right now
             currentIntent = new EnemyIntent(new List<TargettableEntity>(){target},
-                currentIntent.damage, 
                 currentIntent.attackTime, 
-                new Dictionary<StatusEffect, int>(), 
+                new Dictionary<CombatEffect, int>(), 
                 EnemyIntentType.SmallAttack);
         } else {
             currentIntent = new EnemyIntent(new List<TargettableEntity>(){target},
-                currentIntent.damage, 
                 currentIntent.attackTime, 
-                currentIntent.statusEffects, 
+                currentIntent.combatEffects, 
                 currentIntent.intentType);
         }
         intentDisplay.clearIntent();
@@ -138,9 +138,8 @@ public class EnemyInstance : CombatEntityInstance {
 
     }
 
-
     public void raiseEnemyEffectEvent(EnemyIntent intent){
-        StartCoroutine(enemyEffectEvent.RaiseAtEndOfFrameCoroutine(new EnemyEffectEventInfo(this, intent)));
+        StartCoroutine(combatEffectEvent.RaiseAtEndOfFrameCoroutine(new CombatEffectEventInfo(intent)));
     }
 
 }

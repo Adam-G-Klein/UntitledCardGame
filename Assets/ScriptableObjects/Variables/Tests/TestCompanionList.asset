@@ -13,23 +13,6 @@ MonoBehaviour:
   m_Name: TestCompanionList
   m_EditorClassIdentifier: 
   companionList:
-  - companionType: {fileID: 11400000, guid: 28f6a1b3b493fa743859f89dedcc23ca, type: 2}
-    maxHealth: 10
-    currentHealth: 7
-    deck:
-      startingDeck: {fileID: 11400000, guid: 83b10e15a862e1a48900e311e49378a4, type: 2}
-      cards:
-      - cardType: {fileID: 11400000, guid: ec3c681e35f3b8541b4e30643c6d0ee7, type: 2}
-        id: 63834b83-42fb-480a-87af-d21068487657
-      - cardType: {fileID: 11400000, guid: ec3c681e35f3b8541b4e30643c6d0ee7, type: 2}
-        id: d924d34c-3019-48f5-a40b-617d1bd672d0
-      - cardType: {fileID: 11400000, guid: 462354a397a54954aab6c85e99376713, type: 2}
-        id: 3b4192ff-a92b-4ac1-9a3a-a7223e5d85aa
-      - cardType: {fileID: 11400000, guid: dfe47065bd90ef24bbe2f365807ba07d, type: 2}
-        id: 64b67f1e-1b6a-4eaf-85f5-a6bef0b7782c
-    baseAttackDamage: 0
-    abilities: []
-    id: 3edfef20-05a0-49eb-a8ef-9041cc9fb04b
   - companionType: {fileID: 11400000, guid: 4960e72dbf9348c4bb2ab009998bd02a, type: 2}
     maxHealth: 20
     currentHealth: 20
@@ -51,7 +34,7 @@ MonoBehaviour:
     id: 076c608e-e3bd-4778-82b4-416b4d4156cf
   - companionType: {fileID: 11400000, guid: af270a8bf55a86547941d6065eb02679, type: 2}
     maxHealth: 999
-    currentHealth: 993
+    currentHealth: 999
     deck:
       startingDeck: {fileID: 11400000, guid: bb2dd24e7cac49440ac4e14129eec39c, type: 2}
       cards:
@@ -71,7 +54,7 @@ MonoBehaviour:
     id: 26aeb784-39d0-41eb-b6c3-798189bd23d8
   - companionType: {fileID: 11400000, guid: af270a8bf55a86547941d6065eb02679, type: 2}
     maxHealth: 999
-    currentHealth: 992
+    currentHealth: 999
     deck:
       startingDeck: {fileID: 11400000, guid: bb2dd24e7cac49440ac4e14129eec39c, type: 2}
       cards:
@@ -85,6 +68,23 @@ MonoBehaviour:
     abilities:
     - rid: 7342828023772610560
     id: a195e82e-0fcd-4095-ba9c-ad867b147d4f
+  - companionType: {fileID: 11400000, guid: bb8900a5e0f2ab34a8c486d19dcef389, type: 2}
+    maxHealth: 30
+    currentHealth: 30
+    deck:
+      startingDeck: {fileID: 11400000, guid: 2591b9bcf7a348d418df529b4242c104, type: 2}
+      cards:
+      - cardType: {fileID: 11400000, guid: f89479d267b89ea40b6e76d533f2e6da, type: 2}
+        id: ff884405-6430-450e-bb42-3511371b38f2
+      - cardType: {fileID: 11400000, guid: f89479d267b89ea40b6e76d533f2e6da, type: 2}
+        id: 360b4c7a-c5e3-4527-a198-9b408383629f
+      - cardType: {fileID: 11400000, guid: f89479d267b89ea40b6e76d533f2e6da, type: 2}
+        id: dee92d30-0a00-4bd2-a852-4045489501e8
+      - cardType: {fileID: 11400000, guid: ec3c681e35f3b8541b4e30643c6d0ee7, type: 2}
+        id: 7a159bde-81d2-47db-927d-8e06f075f4e1
+    baseAttackDamage: 0
+    abilities: []
+    id: 8bb436be-76e1-4490-bd2f-ccfd956a18e6
   references:
     version: 2
     RefIds:

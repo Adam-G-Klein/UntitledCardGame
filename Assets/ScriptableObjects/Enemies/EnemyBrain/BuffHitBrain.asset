@@ -15,8 +15,8 @@ MonoBehaviour:
   behaviors:
   - rid: 7342828214101475328
   - rid: 7342828214101475329
-  - rid: 7342828214101475330
-  - rid: 7342828214101475331
+  sequentialBehaviors: 0
+  nextBehaviorIndex: 1
   references:
     version: 2
     RefIds:
@@ -28,11 +28,4 @@ MonoBehaviour:
       type: {class: BigAttackBehavior, ns: , asm: Assembly-CSharp}
       data:
         enemyBehaviorClassName: BigAttackBehavior
-    - rid: 7342828214101475330
-      type: {class: SmallAttackBehavior, ns: , asm: Assembly-CSharp}
-      data:
-        enemyBehaviorClassName: SmallAttackBehavior
-    - rid: 7342828214101475331
-      type: {class: DebuffBehavior, ns: , asm: Assembly-CSharp}
-      data:
-        enemyBehaviorClassName: DebuffBehavior
+        damageMultiplier: 2

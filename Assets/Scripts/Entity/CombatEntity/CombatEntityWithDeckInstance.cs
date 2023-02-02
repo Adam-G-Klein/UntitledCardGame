@@ -40,6 +40,10 @@ public abstract class CombatEntityWithDeckInstance : CombatEntityInstance
         List<Card> cards = inCombatDeck.dealCardsFromDeck(numCards);
         StartCoroutine(cardsDealtEvent.RaiseAtEndOfFrameCoroutine(new CardsDealtEventInfo(cards, this)));
     }
+    protected override void onDraw(int scale)
+    {
+        dealCards(scale);
+    }
 
     protected override IEnumerator onDeath() {
         turnManager.removeTurnPhaseTrigger(startTurnTrigger);

@@ -9,11 +9,5 @@ public class SmallAttackBehavior: EnemyBehavior {
         enemyBehaviorClassName = "SmallAttackBehavior";
     }
 
-    public override EnemyIntent getIntent(EnemyBrainContext context) {
-        return new EnemyIntent(new List<TargettableEntity>() {getRandomTarget(context)},
-            context.enemyInstance.stats.currentAttackDamage, 
-            0.2f, 
-            new Dictionary<StatusEffect, int>(),
-            EnemyIntentType.SmallAttack);
-    }
+    // intent happens to be the same as the default behavior for now
 }

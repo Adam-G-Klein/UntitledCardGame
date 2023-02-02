@@ -2,19 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum CardEffect {
+    // Anything else that can be done to cards will go here
+    Discard
+}
+// An event that announces any effect that targets a card
 [System.Serializable]
 public class CardEffectEventInfo {
-    public SimpleEffectName effectName;
-    public int scale;
-    public Dictionary<StatusEffect, int> statusEffects;
+    public Dictionary<CardEffect, int> cardEffects;
     public List<TargettableEntity> targets;
 
-    public CardEffectEventInfo(SimpleEffectName effectName, int scale, List<TargettableEntity> targets, Dictionary<StatusEffect, int> statusEffects){
-        this.effectName = effectName;
-        this.scale = scale;
+    public CardEffectEventInfo(Dictionary<CardEffect, int> cardEffects, List<TargettableEntity> targets) {
+        this.cardEffects = cardEffects;
         this.targets = targets;
-        this.statusEffects = statusEffects;
     }
+
 }
 [CreateAssetMenu(
     fileName = "CardEffectEvent", 

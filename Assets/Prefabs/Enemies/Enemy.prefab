@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1515253770649210757}
   - component: {fileID: 2382815032633642268}
   - component: {fileID: 1563490288626582393}
-  - component: {fileID: 1744313376254019589}
+  - component: {fileID: 5437825517042753912}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -61,7 +61,7 @@ MonoBehaviour:
     enemyType: {fileID: 11400000, guid: da0cdb6c0c9754d469d48629d5444b55, type: 2}
     currentHealth: 0
     id: 
-  enemyEffectEvent: {fileID: 11400000, guid: da8e3f7797bc6544b88b0ce5cef3214a, type: 2}
+  combatEffectEvent: {fileID: 11400000, guid: 7b4f8952c0f9b4d4a80b72189e46bd3c, type: 2}
 --- !u!114 &2877260948552900050
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,7 +185,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   displayImage: {fileID: 2516311273493938858}
---- !u!114 &1744313376254019589
+--- !u!114 &5437825517042753912
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -194,16 +194,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1818299386461833425}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09ba1624a5db93e4382b88f0bdc7c833, type: 3}
+  m_Script: {fileID: 11500000, guid: 8b47a5fb9b71aa643bf65d5062677a1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: da8e3f7797bc6544b88b0ce5cef3214a, type: 2}
+  gameEvent: {fileID: 11400000, guid: 7b4f8952c0f9b4d4a80b72189e46bd3c, type: 2}
   unityEventResponse:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1818299386461833454}
         m_TargetAssemblyTypeName: CombatEntityInstance, Assembly-CSharp
-        m_MethodName: enemyEffectEventHandler
+        m_MethodName: combatEffectEventHandler
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -445,5 +445,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyIntent (EnemyOnly)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 233663434848499643, guid: d9e1b259e087fa345b6079167f443163, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: d9e1b259e087fa345b6079167f443163, type: 3}

@@ -48,9 +48,7 @@ public class EnemyBrain: ScriptableObject {
 
     public virtual IEnumerable act(EnemyBrainContext context) {
         EnemyIntent chosenIntent = context.enemyInstance.currentIntent;
-        int damage = chosenIntent.damage;
         context.enemyInstance.raiseEnemyEffectEvent(chosenIntent);
-        Debug.Log("Enemy " + context.enemyInstance.id + " attacked companion " + chosenIntent.targets[0].id + " for " + damage + " damage");
         yield return new WaitForSeconds(chosenIntent.attackTime);
         context.enemyInstance.currentIntent = null;
     }

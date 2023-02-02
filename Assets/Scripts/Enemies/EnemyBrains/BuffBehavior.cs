@@ -14,10 +14,9 @@ public class BuffBehavior: EnemyBehavior {
         // normal target acquisition route
         List<EnemyInstance> possibleTargets = context.enemyManager.getEnemies();
         return new EnemyIntent(new List<TargettableEntity>() {possibleTargets[UnityEngine.Random.Range(0, possibleTargets.Count)]},
-            0, 
             0.2f, 
-            new Dictionary<StatusEffect, int>() {
-                {StatusEffect.Strength, 1}
+            new Dictionary<CombatEffect, int>() {
+                {CombatEffect.Strength, 1}
             },
             EnemyIntentType.Buff);
     }

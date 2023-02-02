@@ -11,13 +11,12 @@ GameObject:
   - component: {fileID: 5285687428135354735}
   - component: {fileID: 5285687428135354732}
   - component: {fileID: 7574236911732710245}
-  - component: {fileID: 5742178976953534560}
-  - component: {fileID: 3027488464516499967}
   - component: {fileID: -6536180466381847028}
   - component: {fileID: 3925862087160112264}
   - component: {fileID: 2595263955379066018}
   - component: {fileID: 1725538437879479955}
   - component: {fileID: 1133528425506943652}
+  - component: {fileID: 9072497632964488160}
   m_Layer: 0
   m_Name: Companion
   m_TagString: Untagged
@@ -95,62 +94,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effectTargetRequestEvent: {fileID: 11400000, guid: 709caf6df9005934dbe5ec0e1bd93bb6, type: 2}
---- !u!114 &5742178976953534560
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5285687428135354733}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 422f790a2c1a8a9409c78407946a8313, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: 649dc1f48181c6f4ea744ea04ca53239, type: 2}
-  unityEventResponse:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5285687428135354732}
-        m_TargetAssemblyTypeName: CompanionInstance, Assembly-CSharp
-        m_MethodName: cardEffectEventHandler
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &3027488464516499967
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5285687428135354733}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09ba1624a5db93e4382b88f0bdc7c833, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: da8e3f7797bc6544b88b0ce5cef3214a, type: 2}
-  unityEventResponse:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5285687428135354732}
-        m_TargetAssemblyTypeName: CompanionInstance, Assembly-CSharp
-        m_MethodName: enemyEffectEventHandler
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &-6536180466381847028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -265,6 +208,34 @@ MonoBehaviour:
       - m_Target: {fileID: 7574236911732710245}
         m_TargetAssemblyTypeName: TargetProvider, Assembly-CSharp
         m_MethodName: effectTargetSuppliedHandler
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &9072497632964488160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5285687428135354733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b47a5fb9b71aa643bf65d5062677a1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 7b4f8952c0f9b4d4a80b72189e46bd3c, type: 2}
+  unityEventResponse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5285687428135354732}
+        m_TargetAssemblyTypeName: CombatEntityInstance, Assembly-CSharp
+        m_MethodName: combatEffectEventHandler
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

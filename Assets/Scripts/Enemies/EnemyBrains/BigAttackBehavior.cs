@@ -11,10 +11,12 @@ public class BigAttackBehavior: EnemyBehavior {
     }
 
     public override EnemyIntent getIntent(EnemyBrainContext context) {
+        int damage = context.enemyInstance.stats.currentAttackDamage * damageMultiplier;
         return new EnemyIntent(new List<TargettableEntity>() {getRandomTarget(context)},
-            context.enemyInstance.stats.currentAttackDamage * damageMultiplier, 
             0.2f, 
-            new Dictionary<StatusEffect, int>(),
+            new Dictionary<CombatEffect, int>(){
+                {CombatEffect.Damage, damage}
+            },
             EnemyIntentType.BigAttack);
     }
 }

@@ -24,7 +24,8 @@ public class CombatEntityInEncounterStats
 
     public Dictionary<StatusEffect, int> statusEffects = new Dictionary<StatusEffect, int>(){
         {StatusEffect.Strength, 0},
-        {StatusEffect.Weakness, 0}
+        {StatusEffect.Weakness, 0},
+        {StatusEffect.Defended, 0}
     };
     
     public int currentHealth {

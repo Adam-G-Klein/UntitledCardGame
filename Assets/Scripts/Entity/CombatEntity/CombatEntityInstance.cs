@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(EnemyEffectEventListener))]
+[RequireComponent(typeof(CombatEffectEventListener))]
 // Extended by both companionInstance and enemyInstance
 public abstract class CombatEntityInstance: TargettableEntity
 {
@@ -27,32 +27,34 @@ public abstract class CombatEntityInstance: TargettableEntity
         Destroy(this.gameObject);
     }
 
-    // This could totally work for companion effects too, just need to 
-    // abstract the info passed in to allow for card draw
-    // Also unsure if that should be done at all 
-    public void enemyEffectEventHandler(EnemyEffectEventInfo info){
+    public void combatEffectEventHandler(CombatEffectEventInfo info){
         if(!info.targets.Contains(this)) return;
-        applyStatusEffects(info.statusEffects);
-        takeDamage(info.damage);
+        applyCombatEffects(info.combatEffects);
     }
-    protected void applyStatusEffect(StatusEffect effect, int scale){
+    protected void applyCombatEffect(CombatEffect effect, int scale){
         switch(effect) {
-            case(StatusEffect.Weakness):
+            case(CombatEffect.Damage):
+                takeDamage(scale);
+                break;
+            case(CombatEffect.Weakness):
                 stats.statusEffects[StatusEffect.Weakness] += scale;
                 break;
-            case(StatusEffect.Strength):
+            case(CombatEffect.Strength):
                 Debug.Log("Applying strength effect to " + this.id);
                 stats.statusEffects[StatusEffect.Strength] += scale;
                 break;
-            case(StatusEffect.Defended):
+            case(CombatEffect.Defended):
                 stats.statusEffects[StatusEffect.Defended] += scale;
+                break;
+            case(CombatEffect.DrawFrom):
+                onDraw(scale); //overridden by CombatEntityWithDeckInstance
                 break;
         }
     }
-    protected void applyStatusEffects(Dictionary<StatusEffect, int> effects){
+    protected void applyCombatEffects(Dictionary<CombatEffect, int> effects){
         Debug.Log("Applying status effects for " + this.id);
-        foreach(KeyValuePair<StatusEffect, int> effect in effects){
-            applyStatusEffect(effect.Key, effect.Value);
+        foreach(KeyValuePair<CombatEffect, int> effect in effects){
+            applyCombatEffect(effect.Key, effect.Value);
         }
     }
 
@@ -75,4 +77,7 @@ public abstract class CombatEntityInstance: TargettableEntity
         }
         return damage;
     }
+
+    //overridden by CombatEntityWithDeckInstance
+    protected virtual void onDraw(int scale) {}
 }

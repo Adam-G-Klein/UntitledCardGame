@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(EnemyEffectEventListener))]
 public class EnemyIntentDisplay : MonoBehaviour
 {
     private List<EnemyIntentImage> intentImages = new List<EnemyIntentImage>();
@@ -10,6 +9,9 @@ public class EnemyIntentDisplay : MonoBehaviour
 
     private EnemyInstance enemyInstance;
     private TurnManager turnManager;
+    // public so that enemyinstance can remove it on death
+    // can figure out a better way to do it later
+    public TurnPhaseTrigger displayIntentTrigger;
 
     void Start() {
         enemyInstance = GetComponentInParent<EnemyInstance>();
@@ -19,35 +21,21 @@ public class EnemyIntentDisplay : MonoBehaviour
         if(turnManagerGO != null)
             turnManager = turnManagerGO.GetComponent<TurnManager>();
         else Debug.LogError("TurnManager not found in scene, won't be able to update enemy intent display");
-        TurnPhaseTrigger displayIntentTrigger = new TurnPhaseTrigger(TurnPhase.START_PLAYER_TURN, displayIntent(enemyInstance));
+        displayIntentTrigger = new TurnPhaseTrigger(TurnPhase.START_PLAYER_TURN, displayIntent(enemyInstance));
         turnManager.addTurnPhaseTrigger(displayIntentTrigger);
         transform.SetAsFirstSibling(); // Want the arrows to be on top of the enemies so that we can see them buffing each other
 
     }
     
     void Update() {
-        /*
-        if(enemyInstance.currentIntent == null) {
-            clearIntentImages();
-            arrowController.clearArrows();
-        } else {
-            updateIntentImages(enemyInstance.currentIntent);
-            arrowController.updateArrows(enemyInstance.currentIntent);
-        }
-        */
 
     }
 
     public IEnumerable displayIntent(EnemyInstance enemy)  {
+        clearIntent();
         updateIntentImages(enemy.currentIntent);
         arrowController.updateArrows(enemy.currentIntent);
         yield return null;
-    }
-
-    public void enemyEffectEventHandler(EnemyEffectEventInfo e) {
-        if(e.source == enemyInstance) {
-            clearIntent();
-        }
     }
 
     public void clearIntent() {

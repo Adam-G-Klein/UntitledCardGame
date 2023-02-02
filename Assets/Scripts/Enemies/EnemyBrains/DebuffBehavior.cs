@@ -11,10 +11,9 @@ public class DebuffBehavior: EnemyBehavior {
 
     public override EnemyIntent getIntent(EnemyBrainContext context) {
         return new EnemyIntent(new List<TargettableEntity>() {getRandomTarget(context)},
-            0, 
             0.2f, 
-            new Dictionary<StatusEffect, int>() {
-                {StatusEffect.Weakness, 1}
+            new Dictionary<CombatEffect, int>() {
+                {CombatEffect.Weakness, 1}
             },
             EnemyIntentType.Debuff);
     }
