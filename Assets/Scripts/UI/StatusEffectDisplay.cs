@@ -5,7 +5,9 @@ using TMPro;
 
 public enum StatusEffect {
     Strength,
-    Weakness
+    Weakness,
+    // How we'll implement block for now
+    Defended
 }
 public class StatusEffectDisplay: MonoBehaviour
 {

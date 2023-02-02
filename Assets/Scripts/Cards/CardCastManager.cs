@@ -153,7 +153,12 @@ public class CardCastManager : TargetProvider {
     // Have to call this here to start the effect as a coroutine
     public void raiseSimpleEffect(SimpleEffectName effectName, int scale, List<TargettableEntity> targets){
         StartCoroutine(cardEffectEvent.RaiseAtEndOfFrameCoroutine(
-            new CardEffectEventInfo(effectName, scale, targets)));
+            new CardEffectEventInfo(effectName, scale, targets, simpleEffectToStatusEffects(effectName, scale))));
+    }
+
+    public void raiseSimpleEffect(SimpleEffectName effectName, int scale, List<TargettableEntity> targets, Dictionary<StatusEffect, int> statusEffects){
+        StartCoroutine(cardEffectEvent.RaiseAtEndOfFrameCoroutine(
+            new CardEffectEventInfo(effectName, scale, targets, statusEffects)));
     }
 
     private void resetCastingState(){
@@ -166,6 +171,22 @@ public class CardCastManager : TargetProvider {
             currentContext = null; 
         }
     }
+
+    // A necessary evil to provide a nice interface for users.
+    // The name of the simple effect will not always have a simple 1:1 mapping to a status effect
+    private Dictionary<StatusEffect, int> simpleEffectToStatusEffects(SimpleEffectName effectName, int scale){
+        Dictionary<StatusEffect, int> statusEffects = new Dictionary<StatusEffect, int>();
+        switch(effectName){
+            case SimpleEffectName.Buff:
+                statusEffects.Add(StatusEffect.Strength, scale);
+                break;
+            case SimpleEffectName.Weaken:
+                statusEffects.Add(StatusEffect.Weakness, scale);
+                break;
+        }
+        return statusEffects;
+    }
+            
 
 
 }

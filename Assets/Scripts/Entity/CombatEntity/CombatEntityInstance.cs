@@ -32,16 +32,8 @@ public abstract class CombatEntityInstance: TargettableEntity
     // Also unsure if that should be done at all 
     public void enemyEffectEventHandler(EnemyEffectEventInfo info){
         if(!info.targets.Contains(this)) return;
-        if(this is EnemyInstance){
-            Debug.Log("Enemy " + this.id + " is getting buffer");
-        }
-        foreach(KeyValuePair<StatusEffect, int> effect in info.statusEffects){
-            applyStatusEffect(effect.Key, effect.Value);
-        }
-        stats.currentHealth = Mathf.Max(stats.currentHealth - info.damage, 0);
-        if(stats.currentHealth == 0){
-            StartCoroutine(onDeath());
-        }
+        applyStatusEffects(info.statusEffects);
+        takeDamage(info.damage);
     }
     protected void applyStatusEffect(StatusEffect effect, int scale){
         switch(effect) {
@@ -49,8 +41,38 @@ public abstract class CombatEntityInstance: TargettableEntity
                 stats.statusEffects[StatusEffect.Weakness] += scale;
                 break;
             case(StatusEffect.Strength):
+                Debug.Log("Applying strength effect to " + this.id);
                 stats.statusEffects[StatusEffect.Strength] += scale;
                 break;
+            case(StatusEffect.Defended):
+                stats.statusEffects[StatusEffect.Defended] += scale;
+                break;
         }
+    }
+    protected void applyStatusEffects(Dictionary<StatusEffect, int> effects){
+        Debug.Log("Applying status effects for " + this.id);
+        foreach(KeyValuePair<StatusEffect, int> effect in effects){
+            applyStatusEffect(effect.Key, effect.Value);
+        }
+    }
+
+    protected void takeDamage(int damage){
+        stats.currentHealth = Mathf.Max(stats.currentHealth - damageAfterDefense(damage), 0);
+        if(stats.currentHealth == 0){
+            StartCoroutine(onDeath());
+        }
+    }
+
+    protected int damageAfterDefense(int damage){
+        if(!stats.statusEffects.ContainsKey(StatusEffect.Defended)) 
+            return damage;
+        stats.statusEffects[StatusEffect.Defended] -= damage;
+        if(stats.statusEffects[StatusEffect.Defended] < 0){
+            damage = -stats.statusEffects[StatusEffect.Defended];
+            stats.statusEffects[StatusEffect.Defended] = 0;
+        } else {
+            damage = 0;
+        }
+        return damage;
     }
 }

@@ -31,21 +31,16 @@ public class CompanionInstance : CombatEntityWithDeckInstance
         return true;
     }
 
+    // So torn on whether to try to combine this with enemy effect handler
     public void cardEffectEventHandler(CardEffectEventInfo info){
         if(!info.targets.Contains(this)) return;
+        base.applyStatusEffects(info.statusEffects);
         switch(info.effectName) {
             case SimpleEffectName.Draw:
                 dealCards(info.scale);
                 break;
             case SimpleEffectName.Damage:
-                // TODO: heal effect
                 stats.currentHealth -= info.scale;
-                break;
-            case SimpleEffectName.Buff:
-                base.applyStatusEffect(StatusEffect.Strength, info.scale);
-                break;
-            case SimpleEffectName.Weaken:
-                base.applyStatusEffect(StatusEffect.Weakness, info.scale);
                 break;
             case SimpleEffectName.Discard:
                 Debug.LogWarning("Oh god a companion is getting discarded what happened");

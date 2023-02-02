@@ -16,12 +16,13 @@ public class SimpleEffect: EffectProcedure {
     public string procedureClass;
     public SimpleEffectName effectName;
     public int baseScale = 0;
+    public bool targetCaster = false;
+    public bool requiresUniqueTarget = false;
     public bool targetAllValidTargets = false;
     public List<EntityType> validTargets;
     [Tooltip("Specifies whether this effect must have a different target "
         + "from other effects in the card. Example: a series of discard "
         + "effects that each need to target a different card.")]
-    public bool requiresUniqueTarget;
 
     public SimpleEffect() {
         procedureClass = "SimpleEffect";
@@ -32,6 +33,8 @@ public class SimpleEffect: EffectProcedure {
         resetCastingState();
         if(targetAllValidTargets) {
             currentTargets.AddRange(context.cardCastManager.getAllValidTargets(validTargets));
+        } else if(targetCaster) {
+            currentTargets.Add(context.cardCaster);
         }
         else {
             context.cardCastManager.requestTarget(validTargets, this,
