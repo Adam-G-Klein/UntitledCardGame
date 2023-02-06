@@ -26,10 +26,14 @@ public class MultiStrike: EffectProcedure {
     public override IEnumerator invoke(EffectProcedureContext context)
     {
         for(int i = 0; i < numStrikes; i++) {
-            context.cardCastManager.raiseSimpleEffect(
-                SimpleEffectName.Damage, 
-                SimpleEffect.getEffectScale(SimpleEffectName.Damage, context.casterStats, baseScale),
-                currentTargets);
+            context.cardCastManager.raiseCombatEffect(
+                new CombatEffectEventInfo(
+                    new Dictionary<CombatEffect, int> {
+                        {CombatEffect.Damage, context.casterStats.getDamage(baseScale)}
+                    },
+                    currentTargets
+                )
+            );
             yield return new WaitForSeconds(strikeDelay);
         }
     }

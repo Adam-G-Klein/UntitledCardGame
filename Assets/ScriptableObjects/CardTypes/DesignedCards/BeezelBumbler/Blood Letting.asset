@@ -17,28 +17,23 @@ MonoBehaviour:
   Cost: 0
   Artwork: {fileID: 21300000, guid: 68e5a78013e33f247822a837e55b0ab4, type: 3}
   EffectProcedures:
-  - rid: 2812361713530961932
-  - rid: 2812361713530961933
+  - rid: 2812361769379692545
+  - rid: 2812361769379692547
   references:
     version: 2
     RefIds:
-    - rid: 2812361713530961932
-      type: {class: SimpleEffect, ns: , asm: Assembly-CSharp}
+    - rid: 2812361769379692545
+      type: {class: CombatEffectProcedure, ns: , asm: Assembly-CSharp}
       data:
-        procedureClass: SimpleEffect
-        effectName: 6
+        procedureClass: CombatEffectProcedure
+        effectName: 8
         baseScale: 3
         targetCaster: 1
-        requiresUniqueTarget: 0
         targetAllValidTargets: 0
         validTargets: 
-    - rid: 2812361713530961933
-      type: {class: SimpleEffect, ns: , asm: Assembly-CSharp}
+    - rid: 2812361769379692547
+      type: {class: IntEffectProcedure, ns: , asm: Assembly-CSharp}
       data:
-        procedureClass: SimpleEffect
-        effectName: 7
+        procedureClass: IntEffectProcedure
+        gameEvent: {fileID: 11400000, guid: c102a62a7fc128343b59ddb6cac89348, type: 2}
         baseScale: 2
-        targetCaster: 0
-        requiresUniqueTarget: 0
-        targetAllValidTargets: 0
-        validTargets: 

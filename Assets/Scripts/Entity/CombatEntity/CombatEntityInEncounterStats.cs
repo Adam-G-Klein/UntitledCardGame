@@ -71,4 +71,18 @@ public class CombatEntityInEncounterStats
                 return baseScale;
         }
     }
+    public int getEffectScale(DisplayedCombatEffect effect, int baseScale) {
+        switch(effect) {
+            case DisplayedCombatEffect.Damage:
+                // use the getter from the stats object
+                return (baseScale + currentAttackDamage) 
+                    * statusEffects[StatusEffect.DamageMultiply];
+            default:
+                return baseScale;
+        }
+    }
+
+    public int getDamage(int baseDamage) {
+        return getEffectScale(CombatEffect.Damage, baseDamage);
+    }
 }

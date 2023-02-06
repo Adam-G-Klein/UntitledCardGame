@@ -47,7 +47,8 @@ public class CardCastManager : TargetProvider {
     private CompanionManager companionManager;
     private EnemyManager enemyManager;
     /// Don't rely on this being available, it's only set when a card is being cast
-    private IEnumerator currentProcedure;
+    private IEnumerator currentCastingProcedure;
+    private IEnumerator currentEffectProcedure;
     private PlayerHand playerHand;
     private ManaManager manaManager;
     /// Don't rely on this being available outside of effectProcedure invokations, 
@@ -86,8 +87,9 @@ public class CardCastManager : TargetProvider {
     public void cardClickHandler(Card info, CardCastArguments args, Entity callingCard) {
         if(isValidCast(info, args)) {
             resetCastingState();
-            providingEntity = callingCard;
-            StartCoroutine("castingCoroutine", new CastingCoroutineArgs(info, args));
+            targetRequestingEntity = callingCard;
+            currentCastingProcedure = castingCoroutine(info, args);
+            StartCoroutine(currentCastingProcedure);
         } else {
             Debug.Log("Not casting card because we have insufficient mana");
         }
@@ -137,28 +139,28 @@ public class CardCastManager : TargetProvider {
     }
 
 
-    private IEnumerator castingCoroutine(CastingCoroutineArgs args){
+    private IEnumerator castingCoroutine(Card card, CardCastArguments args) {
         List<TargettableEntity> alreadyTargetted = new List<TargettableEntity>();
         currentContext = new EffectProcedureContext(
             this, 
             companionManager, 
             enemyManager, 
-            args.castArgs.caster,
+            args.caster,
             playerHand,
             alreadyTargetted,
             combatEffectEvent);
-        foreach(EffectProcedure procedure in args.cardInfo.effectProcedures){
+        foreach(EffectProcedure procedure in card.effectProcedures){
             // Track current procedure for casting cancellation
-            currentProcedure = procedure.prepare(currentContext);
-            yield return StartCoroutine(currentProcedure);
+            currentEffectProcedure = procedure.prepare(currentContext);
+            yield return StartCoroutine(currentEffectProcedure);
         }
-        foreach(EffectProcedure procedure in args.cardInfo.effectProcedures){
+        foreach(EffectProcedure procedure in card.effectProcedures){
             // Track current procedure for casting cancellation
-            currentProcedure = procedure.invoke(currentContext);
-            yield return StartCoroutine(currentProcedure);
+            currentEffectProcedure = procedure.invoke(currentContext);
+            yield return StartCoroutine(currentEffectProcedure);
         }
-        yield return StartCoroutine(manaChangeEvent.RaiseAtEndOfFrameCoroutine(-args.cardInfo.cost));
-        yield return StartCoroutine(cardCastEvent.RaiseAtEndOfFrameCoroutine(new CardCastEventInfo(args.cardInfo)));
+        yield return StartCoroutine(manaChangeEvent.RaiseAtEndOfFrameCoroutine( -card.cost));
+        yield return StartCoroutine(cardCastEvent.RaiseAtEndOfFrameCoroutine(new CardCastEventInfo(card)));
     }
 
     public void raiseCombatEffect(CombatEffectEventInfo info){
@@ -173,85 +175,15 @@ public class CardCastManager : TargetProvider {
         StartCoroutine(gameEvent.RaiseAtEndOfFrameCoroutine(value));
     }
 
-    // Have to call this here to start the effect as a coroutine
-    public void raiseSimpleEffect(SimpleEffectName effectName, int scale, List<TargettableEntity> targets){
-        List<IEnumerator> eventCoroutines = simpleEffectToCoroutines(effectName, scale, targets);
-        foreach(IEnumerator eventCoroutine in eventCoroutines){
-            StartCoroutine(eventCoroutine);
-        }
-    }
-
-    // Get all of the combat effects that this simple effect should raise,
-    // get all of the card effects it should raise,
-    // then add any one-off events it might raise (like a mana change)
-    // this mapping is pretty harsh, but I think the simple effect interface for effectProcedures is worth it,
-    // and this prevents the rest of our code from having to care about the simple effects.
-    // Keeps a nice separation between the different events/ event listeners for everyone involved, allowing 
-    // for more code sharing in the handlers (see combatEntityInstance's combatEffectEventHandler for an exampleq)
-    private List<IEnumerator> simpleEffectToCoroutines(SimpleEffectName effectName, int scale, List<TargettableEntity> targets){
-        List<IEnumerator> coroutines = new List<IEnumerator>();
-        Dictionary<CombatEffect, int> combatEffects = simpleEffectToCombatEffects(effectName, scale);
-        coroutines.Add(combatEffectEvent.RaiseAtEndOfFrameCoroutine(new CombatEffectEventInfo(combatEffects, targets)));
-        Dictionary<CardEffect, int> cardEffects = simpleEffectToCardEffects(effectName, scale);
-        coroutines.Add(cardEffectEvent.RaiseAtEndOfFrameCoroutine(new CardEffectEventInfo(cardEffects, targets)));
-        switch(effectName){
-            case SimpleEffectName.ManaChange:
-                coroutines.Add(manaChangeEvent.RaiseAtEndOfFrameCoroutine(scale));
-                break;
-        }
-        return coroutines;
-    }
-
-    // A necessary evil to provide a nice interface for users.
-    // The name of the simple effect will not always have a simple 1:1 mapping to a status effect
-    private Dictionary<CombatEffect, int> simpleEffectToCombatEffects(SimpleEffectName effectName, int scale){
-        Dictionary<CombatEffect, int> combatEffects = new Dictionary<CombatEffect, int>();
-        switch(effectName){
-            case SimpleEffectName.Strength:
-                combatEffects.Add(CombatEffect.Strength, scale);
-                break;
-            case SimpleEffectName.Weaken:
-                combatEffects.Add(CombatEffect.Weakness, scale);
-                break;
-            case SimpleEffectName.Damage:
-                combatEffects.Add(CombatEffect.Damage, scale);
-                break;
-            case SimpleEffectName.FixedDamage:
-                // difference is how this scale is passed in from SimpleEffect.cs
-                combatEffects.Add(CombatEffect.Damage, scale);
-                break;
-            case SimpleEffectName.Draw:
-                combatEffects.Add(CombatEffect.DrawFrom, scale);
-                break;
-            case SimpleEffectName.Defend:
-                combatEffects.Add(CombatEffect.Defended, scale);
-                break;
-            case SimpleEffectName.SetHealth:
-                combatEffects.Add(CombatEffect.SetHealth, scale);
-                break;
-            case SimpleEffectName.DamageMultiply:
-                combatEffects.Add(CombatEffect.AddToDamageMultiply, scale);
-                break;
-        }
-        return combatEffects;
-    }
-
-    private Dictionary<CardEffect, int> simpleEffectToCardEffects(SimpleEffectName effectName, int scale){
-        Dictionary<CardEffect, int> cardEffects = new Dictionary<CardEffect, int>();
-        switch(effectName){
-            case SimpleEffectName.Discard:
-                cardEffects.Add(CardEffect.Discard, scale);
-                break;
-        }
-        return cardEffects;
-    }
-
     private void resetCastingState(){
         resetTargettingState();
-        StopCoroutine("castingCoroutine");
-        if(currentProcedure != null) {
-            StopCoroutine(currentProcedure);
-            currentProcedure = null;
+        if(currentCastingProcedure != null) {
+            StopCoroutine(currentCastingProcedure);
+            currentCastingProcedure = null;
+        }
+        if(currentEffectProcedure != null) {
+            StopCoroutine(currentEffectProcedure);
+            currentEffectProcedure = null;
             // Shouldn't be relying on this existing anyways, but just in case
             currentContext = null; 
         }

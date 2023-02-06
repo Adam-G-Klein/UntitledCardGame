@@ -17,15 +17,16 @@ MonoBehaviour:
   Cost: 1
   Artwork: {fileID: 21300000, guid: 5ee06d5c5a1188a48a0f852ac84514bf, type: 3}
   EffectProcedures:
-  - rid: 7342827955594723328
+  - rid: 2812361760619102224
   references:
     version: 2
     RefIds:
-    - rid: 7342827955594723328
-      type: {class: SimpleEffect, ns: , asm: Assembly-CSharp}
+    - rid: 2812361760619102224
+      type: {class: CombatEffectProcedure, ns: , asm: Assembly-CSharp}
       data:
-        procedureClass: SimpleEffect
-        effectName: 1
+        procedureClass: CombatEffectProcedure
+        effectName: 0
         baseScale: 3
+        targetCaster: 0
         targetAllValidTargets: 0
         validTargets: 01000000

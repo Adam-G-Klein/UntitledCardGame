@@ -18,7 +18,7 @@ public class CompanionAbilityInvoker : TargetProvider
     void Start() {
         companionInstance = GetComponent<CompanionInstance>();
         abilities = companionInstance.companion.abilities;
-        providingEntity = companionInstance;
+        targetRequestingEntity = companionInstance;
         GameObject turnPhaseManagerGO = GameObject.Find("TurnManager");
         if(turnPhaseManagerGO != null)
             turnPhaseManager = GameObject.Find("TurnManager").GetComponent<TurnManager>();

@@ -41,11 +41,6 @@ public abstract class EffectProcedure: TargetRequester
         resetTargets();
     }
 
-    protected void raiseSimpleEffect(SimpleEffectName simpleEffectName, int scale, List<TargettableEntity> targets) {
-        if(context == null) Debug.LogError("Need procedure context to raiseSimpleEffect, be sure to set the 'context' field of this procedure (in the parent class) before proceeding to code it");
-        context.cardCastManager.raiseSimpleEffect(simpleEffectName, scale, targets);
-    }
-
     // Called before the procedure is invoked to allow the procedure to
     // get targets, do any math it needs to, be ready to raise its events
     public virtual IEnumerator prepare(EffectProcedureContext context) {
@@ -54,7 +49,7 @@ public abstract class EffectProcedure: TargetRequester
         yield return null;
     }
 
-    // Called after prepare, where the procedure raises simple effects now that it 
+    // Called after prepare, where the procedure raises effects now that it 
     // has all the information/targets it needs
     public virtual IEnumerator invoke(EffectProcedureContext context) {
         yield return null;

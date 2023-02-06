@@ -17,36 +17,34 @@ MonoBehaviour:
   Cost: 0
   Artwork: {fileID: 21300000, guid: 13bbb4ba4642f9240914cd432071cc6a, type: 3}
   EffectProcedures:
-  - rid: 7342827955594723335
-  - rid: 7342827955594723336
-  - rid: 7342827955594723337
+  - rid: 2812361760619102226
+  - rid: 2812361760619102227
+  - rid: 2812361760619102228
   references:
     version: 2
     RefIds:
-    - rid: 7342827955594723335
-      type: {class: SimpleEffect, ns: , asm: Assembly-CSharp}
+    - rid: 2812361760619102226
+      type: {class: CardEffectProcedure, ns: , asm: Assembly-CSharp}
       data:
-        procedureClass: SimpleEffect
-        effectName: 3
+        procedureClass: CardEffectProcedure
+        effectName: 0
         baseScale: 1
         targetAllValidTargets: 0
-        validTargets: 03000000
         requiresUniqueTarget: 1
-    - rid: 7342827955594723336
-      type: {class: SimpleEffect, ns: , asm: Assembly-CSharp}
+    - rid: 2812361760619102227
+      type: {class: CardEffectProcedure, ns: , asm: Assembly-CSharp}
       data:
-        procedureClass: SimpleEffect
-        effectName: 3
+        procedureClass: CardEffectProcedure
+        effectName: 0
         baseScale: 1
         targetAllValidTargets: 0
-        validTargets: 03000000
         requiresUniqueTarget: 1
-    - rid: 7342827955594723337
-      type: {class: SimpleEffect, ns: , asm: Assembly-CSharp}
+    - rid: 2812361760619102228
+      type: {class: CombatEffectProcedure, ns: , asm: Assembly-CSharp}
       data:
-        procedureClass: SimpleEffect
-        effectName: 1
+        procedureClass: CombatEffectProcedure
+        effectName: 0
         baseScale: 10
+        targetCaster: 0
         targetAllValidTargets: 0
         validTargets: 01000000
-        requiresUniqueTarget: 0

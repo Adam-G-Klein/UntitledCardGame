@@ -13,32 +13,30 @@ MonoBehaviour:
   m_Name: Blood Sacrifice
   m_EditorClassIdentifier: 
   Name: Blood Sacrifice
-  Description: This companion takes x damage then give a minion y strength
+  Description: This companion takes 3 damage then give a companion 5 strength
   Cost: 1
   Artwork: {fileID: 21300000, guid: 9c7b553a4a5050646818dbc514a54e9a, type: 3}
   EffectProcedures:
-  - rid: 2812361713530961930
-  - rid: 2812361713530961931
+  - rid: 2812361769379692548
+  - rid: 2812361769379692549
   references:
     version: 2
     RefIds:
-    - rid: 2812361713530961930
-      type: {class: SimpleEffect, ns: , asm: Assembly-CSharp}
+    - rid: 2812361769379692548
+      type: {class: CombatEffectProcedure, ns: , asm: Assembly-CSharp}
       data:
-        procedureClass: SimpleEffect
-        effectName: 7
+        procedureClass: CombatEffectProcedure
+        effectName: 8
         baseScale: 3
         targetCaster: 1
-        requiresUniqueTarget: 0
         targetAllValidTargets: 0
         validTargets: 
-    - rid: 2812361713530961931
-      type: {class: SimpleEffect, ns: , asm: Assembly-CSharp}
+    - rid: 2812361769379692549
+      type: {class: CombatEffectProcedure, ns: , asm: Assembly-CSharp}
       data:
-        procedureClass: SimpleEffect
-        effectName: 2
-        baseScale: 2
+        procedureClass: CombatEffectProcedure
+        effectName: 1
+        baseScale: 5
         targetCaster: 0
-        requiresUniqueTarget: 0
         targetAllValidTargets: 0
-        validTargets: 0000000002000000
+        validTargets: 00000000

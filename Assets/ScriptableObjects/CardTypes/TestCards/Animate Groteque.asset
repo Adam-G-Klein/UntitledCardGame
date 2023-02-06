@@ -10,23 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: Animate Grotesque
+  m_Name: Animate Groteque
   m_EditorClassIdentifier: 
   Name: Animate Grotesque
-  Description: This grotesque deals 3 damage to target enemy
+  Description: This minion deals 3 damage to target enemy
   Cost: 0
   Artwork: {fileID: 21300000, guid: 35cf9e6f10062dc448b7327fbd33e37d, type: 3}
   EffectProcedures:
-  - rid: 7342828275927351296
+  - rid: 2812361769379692544
   references:
     version: 2
     RefIds:
-    - rid: 7342828275927351296
-      type: {class: SimpleEffect, ns: , asm: Assembly-CSharp}
+    - rid: 2812361769379692544
+      type: {class: CombatEffectProcedure, ns: , asm: Assembly-CSharp}
       data:
-        procedureClass: SimpleEffect
-        effectName: 1
+        procedureClass: CombatEffectProcedure
+        effectName: 0
         baseScale: 3
+        targetCaster: 0
         targetAllValidTargets: 0
         validTargets: 01000000
-        requiresUniqueTarget: 0

@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 [RequireComponent(typeof(EffectTargetSuppliedEventListener))]
 public abstract class TargetProvider: MonoBehaviour {
 
-    protected Entity providingEntity;
+    protected Entity targetRequestingEntity;
     protected TargettableEntity requestedTarget = null;
 
     [SerializeField]
@@ -23,7 +23,7 @@ public abstract class TargetProvider: MonoBehaviour {
     protected IEnumerator getTargetCoroutine(List<EntityType> validTargets, TargetRequester requester, List<TargettableEntity> disallowedTargets = null) {
         requestedTarget = null;
         StartCoroutine(effectTargetRequestEvent.RaiseAtEndOfFrameCoroutine(
-                new EffectTargetRequestEventInfo(validTargets, providingEntity, disallowedTargets)));
+                new EffectTargetRequestEventInfo(validTargets, targetRequestingEntity, disallowedTargets)));
         // Waits until the effectTargetSuppliedHandler is called
         yield return new WaitUntil(() => requestedTarget != null);
         requester.targetsSupplied(new List<TargettableEntity>() { requestedTarget });

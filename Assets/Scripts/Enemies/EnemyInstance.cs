@@ -67,38 +67,6 @@ public class EnemyInstance : CombatEntityInstance {
         registerTurnPhaseTriggers(brainContext);
     }
 
-    // gotta put this into the base class somehow.
-    // problem is that enemies and companions handle this stuff differently.
-    // so idk
-    /*
-    public void cardEffectEventHandler(CardEffectEventInfo item){
-        if(!item.targets.Contains(this)){
-            return;
-        }
-        print("Enemy " + id + " processing card effect event");
-        switch(item.effectName) {
-            case SimpleEffectName.Draw:
-                Debug.LogWarning("omg an enemy is drawing cards what happened");
-                break;
-            case SimpleEffectName.Damage:
-                stats.currentHealth = Mathf.Max(stats.currentHealth - item.scale, 0);
-                if(stats.currentHealth == 0) {
-                    onDeath();
-                }
-                break;
-            case SimpleEffectName.Strength:
-                base.applyCombatEffect(CombatEffect.Strength, item.scale);
-                break;
-            case SimpleEffectName.Weaken:
-                base.applyCombatEffect(CombatEffect.Weakness, item.scale);
-                break;
-            case SimpleEffectName.Discard:
-                Debug.LogWarning("omg an enemy is being discarded what happened");
-                break;
-        }
-
-    }
-    */
 
     private void registerTurnPhaseTriggers(EnemyBrainContext brainContext) {
         chooseIntentTrigger = new TurnPhaseTrigger(TurnPhase.START_PLAYER_TURN, enemy.chooseIntent(brainContext));

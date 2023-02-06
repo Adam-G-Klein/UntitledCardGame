@@ -26,6 +26,8 @@ public class Taunt: EffectProcedure {
     public override IEnumerator invoke(EffectProcedureContext context)
     {
         
+        // Is this a train wreck if our targetting system messes up? yes
+        // Am I choosing to trust it? also yes
         EnemyInstance enemy = ((EnemyInstance) currentTargets[0]);
         enemy.setTauntedTarget(context.cardCaster);
         yield return null;

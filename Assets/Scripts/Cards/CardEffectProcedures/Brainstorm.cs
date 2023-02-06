@@ -17,7 +17,6 @@ public class Brainstorm: EffectProcedure {
     public override IEnumerator prepare(EffectProcedureContext context) {
         this.context = context;
         resetCastingState();
-        //args.context.caster.raiseSimpleEffect(simpleEffectName);
         context.cardCastManager.requestTarget(validTargets, this);
         yield return new WaitUntil(() => currentTargets.Count > 0);
     }
@@ -25,11 +24,15 @@ public class Brainstorm: EffectProcedure {
     public override IEnumerator invoke(EffectProcedureContext context)
     {
         // Subtract 1 because we don't want to count the card we're playing
-        int damage = (context.playerHand.cardsInHand.Count - 1) * context.casterStats.currentAttackDamage + baseScale;
-        context.cardCastManager.raiseSimpleEffect(
-            SimpleEffectName.Damage, 
-            damage,
-            currentTargets);
+        int damage = (context.playerHand.cardsInHand.Count - 1);
+        context.cardCastManager.raiseCombatEffect(
+            new CombatEffectEventInfo(
+                new Dictionary<CombatEffect, int> {
+                    {CombatEffect.Damage, context.casterStats.getDamage(damage)}
+                },
+                currentTargets
+            )
+        );
         yield return null;
     }
 
