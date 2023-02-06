@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MinionInstance : CombatEntityWithDeckInstance
+public class MinionInstance : CombatEntityFriendly
 {
     public Minion minion;
 

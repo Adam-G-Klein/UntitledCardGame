@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CompanionAbilityInvoker))]
-public class CompanionInstance : CombatEntityWithDeckInstance 
+public class CompanionInstance : CombatEntityFriendly 
 {
     public Companion companion;
     private CompanionAbilityInvoker abilityInvoker;
@@ -15,7 +15,6 @@ public class CompanionInstance : CombatEntityWithDeckInstance
 
     protected override IEnumerator onDeath()
     {
-        
         abilityInvoker.onDeath();
         return base.onDeath();
     }
