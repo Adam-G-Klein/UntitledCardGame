@@ -10,17 +10,22 @@ public enum CombatEffect {
     DrawFrom,
     SetHealth,
     Sacrifice,
-    AddToDamageMultiply
+    AddToDamageMultiply,
+    ApplyInvulnerability,
+    Heal,
+    ApplyMaxHpBounty
 }
 
 [System.Serializable]
 public class CombatEffectEventInfo {
+    public CombatEntityInstance effector;
     public Dictionary<CombatEffect, int> combatEffects;
     public List<TargettableEntity> targets;
 
-    public CombatEffectEventInfo(Dictionary<CombatEffect, int> combatEffects, List<TargettableEntity> targets) {
+    public CombatEffectEventInfo(Dictionary<CombatEffect, int> combatEffects, List<TargettableEntity> targets, CombatEntityInstance effector) {
         this.combatEffects = combatEffects;
         this.targets = targets;
+        this.effector = effector;
     }
 
     public CombatEffectEventInfo(EnemyIntent intent) {
@@ -39,6 +44,8 @@ public class CombatEffectEvent : BaseGameEvent<CombatEffectEventInfo> {
         {CombatEffect.Strength, StatusEffect.Strength},
         {CombatEffect.Defended, StatusEffect.Defended},
         {CombatEffect.AddToDamageMultiply, StatusEffect.DamageMultiply},
+        {CombatEffect.ApplyInvulnerability, StatusEffect.Invulnerability},
+        {CombatEffect.ApplyMaxHpBounty, StatusEffect.MaxHpBounty}
     };
 
     // Applies the status effects in the provided combatEffect dictionary to the statusEffects dictionary

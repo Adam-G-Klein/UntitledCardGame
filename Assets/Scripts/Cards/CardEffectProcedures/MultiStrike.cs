@@ -6,7 +6,7 @@ using UnityEngine;
 public class MultiStrike: EffectProcedure {
     // Causes the whole class to serialize differently if this field 
     // has a default value. *shrug*
-    public string procedureClass;
+    public const string description = "Perform multiple separate strikes";
     public int numStrikes;
     public int baseScale = 0;
     public float strikeDelay = 0.2f;
@@ -31,7 +31,8 @@ public class MultiStrike: EffectProcedure {
                     new Dictionary<CombatEffect, int> {
                         {CombatEffect.Damage, context.casterStats.getDamage(baseScale)}
                     },
-                    currentTargets
+                    currentTargets,
+                    context.cardCaster
                 )
             );
             yield return new WaitForSeconds(strikeDelay);

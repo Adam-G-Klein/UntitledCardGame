@@ -45,9 +45,9 @@ public abstract class CombatEntityWithDeckInstance : CombatEntityInstance
         dealCards(scale);
     }
 
-    protected override IEnumerator onDeath() {
+    protected override IEnumerator onDeath(CombatEntityInstance killer) {
         turnManager.removeTurnPhaseTrigger(startTurnTrigger);
-        yield return base.onDeath();
+        yield return base.onDeath(killer);
     }
 
     public IEnumerable dealStartTurnCards() {

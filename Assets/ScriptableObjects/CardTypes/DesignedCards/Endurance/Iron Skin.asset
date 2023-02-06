@@ -10,24 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: Sheltering Presence
+  m_Name: Iron Skin
   m_EditorClassIdentifier: 
-  Name: Sheltering Presence
-  Description: Give all minions and companions 5 block
-  Cost: 1
-  Artwork: {fileID: 21300000, guid: 8e08e747b4d361444a5bb9a11845b849, type: 3}
+  Name: Iron Skin
+  Description: Apply 1 turn of invulnerability to target companion
+  Cost: 3
+  Artwork: {fileID: 21300000, guid: fbe9f68bddb51af429e4fbf72a4725a9, type: 3}
   EffectProcedures:
-  - rid: 2812361769379692555
+  - rid: 2812361779766886403
   references:
     version: 2
     RefIds:
-    - rid: 2812361769379692555
+    - rid: 2812361779766886403
       type: {class: CombatEffectProcedure, ns: , asm: Assembly-CSharp}
       data:
         procedureClass: CombatEffectProcedure
-        effectName: 3
-        baseScale: 5
+        effectName: 9
+        baseScale: 1
         targetCaster: 0
-        targetAllValidTargets: 1
+        targetAllValidTargets: 0
         targetToUse: -1
-        validTargets: 0000000002000000
+        validTargets: 00000000

@@ -38,6 +38,9 @@ public class Minion: CombatEntityBaseStats, CombatEntityWithDeck
     public int getMaxHealth() {
         return this.maxHealth;
     }
+    public void setMaxHealth(int newMaxHealth) {
+        this.maxHealth = newMaxHealth;
+    }
 
     public int getCurrentHealth() {
         return this.currentHealth;

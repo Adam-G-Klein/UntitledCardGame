@@ -39,6 +39,10 @@ public class Companion: CombatEntityBaseStats, CombatEntityWithDeck
         return this.maxHealth;
     }
 
+    public void setMaxHealth(int newMaxHealth) {
+        this.maxHealth = newMaxHealth;
+    }
+
     public int getCurrentHealth() {
         return this.currentHealth;
     }

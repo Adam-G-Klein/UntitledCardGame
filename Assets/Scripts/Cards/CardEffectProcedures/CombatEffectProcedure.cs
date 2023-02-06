@@ -4,33 +4,38 @@ using UnityEngine;
 
 public enum DisplayedCombatEffect {
     Damage,
-    Strength,
-    Weakness,
-    Defended,
+    Strengthen,
+    Weaken,
+    ApplyDefended,
     DrawFrom,
     SetHealth,
     Sacrifice,
     AddToDamageMultiply,
     // for things like fixed damage effects
-    FixedDamage
+    FixedDamage,
+    ApplyInvulnerability,
+    Heal,
+    ApplyMaxHpBounty
 }
 [System.Serializable]
 public class CombatEffectProcedure: EffectProcedure {
-    public string procedureClass;
 
     public DisplayedCombatEffect effectName;
     private CombatEffect internalEffectName;
 
     private Dictionary<DisplayedCombatEffect, CombatEffect> displayedToCombatEffect = new Dictionary<DisplayedCombatEffect, CombatEffect>() {
         {DisplayedCombatEffect.Damage, CombatEffect.Damage},
-        {DisplayedCombatEffect.Strength, CombatEffect.Strength},
-        {DisplayedCombatEffect.Weakness, CombatEffect.Weakness},
-        {DisplayedCombatEffect.Defended, CombatEffect.Defended},
+        {DisplayedCombatEffect.Strengthen, CombatEffect.Strength},
+        {DisplayedCombatEffect.Weaken, CombatEffect.Weakness},
+        {DisplayedCombatEffect.ApplyDefended, CombatEffect.Defended},
         {DisplayedCombatEffect.DrawFrom, CombatEffect.DrawFrom},
         {DisplayedCombatEffect.SetHealth, CombatEffect.SetHealth},
         {DisplayedCombatEffect.Sacrifice, CombatEffect.Sacrifice},
         {DisplayedCombatEffect.AddToDamageMultiply, CombatEffect.AddToDamageMultiply},
         {DisplayedCombatEffect.FixedDamage, CombatEffect.Damage},
+        {DisplayedCombatEffect.ApplyInvulnerability, CombatEffect.ApplyInvulnerability},
+        {DisplayedCombatEffect.Heal, CombatEffect.Heal},
+        {DisplayedCombatEffect.ApplyMaxHpBounty, CombatEffect.ApplyMaxHpBounty}
     };
     public int baseScale = 0;
     public bool targetCaster = false;
@@ -83,7 +88,8 @@ public class CombatEffectProcedure: EffectProcedure {
                         // in the entitystats
                         context.casterStats.getEffectScale(effectName, baseScale)}
                 },
-                currentTargets
+                currentTargets,
+                context.cardCaster
             )
         );
         yield return null;

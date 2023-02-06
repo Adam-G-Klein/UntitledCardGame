@@ -13,10 +13,10 @@ public class CompanionInstance : CombatEntityFriendly
         abilityInvoker = GetComponent<CompanionAbilityInvoker>();
     }
 
-    protected override IEnumerator onDeath()
+    protected override IEnumerator onDeath(CombatEntityInstance killer)
     {
         abilityInvoker.onDeath();
-        return base.onDeath();
+        return base.onDeath(killer);
     }
 
     public override bool isTargetableByChildImpl(EffectTargetRequestEventInfo eventInfo)

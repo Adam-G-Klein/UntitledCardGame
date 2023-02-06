@@ -28,7 +28,8 @@ public abstract class EnemyBehavior {
             new Dictionary<CombatEffect, int>() {
                 {CombatEffect.Damage, damage}
             },
-            EnemyIntentType.SmallAttack);
+            EnemyIntentType.SmallAttack,
+            context.enemyInstance);
     }
 
 }

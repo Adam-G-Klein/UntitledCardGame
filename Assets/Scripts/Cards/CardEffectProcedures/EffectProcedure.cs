@@ -34,6 +34,8 @@ public class EffectProcedureContext {
 [System.Serializable]
 public abstract class EffectProcedure: TargetRequester
 {
+
+    public string procedureClass;
     
     protected  EffectProcedureContext context;
 

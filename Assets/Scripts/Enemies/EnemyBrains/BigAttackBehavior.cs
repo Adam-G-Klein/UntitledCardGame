@@ -17,6 +17,7 @@ public class BigAttackBehavior: EnemyBehavior {
             new Dictionary<CombatEffect, int>(){
                 {CombatEffect.Damage, damage}
             },
-            EnemyIntentType.BigAttack);
+            EnemyIntentType.BigAttack,
+            context.enemyInstance);
     }
 }

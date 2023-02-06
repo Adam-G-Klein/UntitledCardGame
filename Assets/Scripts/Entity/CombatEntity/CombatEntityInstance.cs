@@ -20,8 +20,13 @@ public abstract class CombatEntityInstance: TargettableEntity
         StartCoroutine(instantiatedEvent.RaiseAtEndOfFrameCoroutine(new CombatEntityInstantiatedEventInfo(this)));
     }
 
-    protected virtual IEnumerator onDeath() {
-        Debug.Log("Entity " + this.id + " is dying");
+    protected virtual IEnumerator onDeath(CombatEntityInstance killer) {
+        Debug.Log("OnDeath called for " + this.id + " with killer " + killer?.id);
+        // can replace this with a process bounties function if we get more of them
+        if(killer != null && stats.statusEffects[StatusEffect.MaxHpBounty] > 0) {
+            Debug.Log("Adding bounty to " + killer.id);
+            killer.baseStats.setMaxHealth(killer.baseStats.getMaxHealth() + stats.statusEffects[StatusEffect.MaxHpBounty]);
+        }
         yield return StartCoroutine(deathEvent.RaiseAtEndOfFrameCoroutine(new CombatEntityDeathEventInfo(this)));
         // TODO, probably need to improve this
         Destroy(this.gameObject);
@@ -29,14 +34,25 @@ public abstract class CombatEntityInstance: TargettableEntity
 
     public void combatEffectEventHandler(CombatEffectEventInfo info){
         if(!info.targets.Contains(this)) return;
-        applyCombatEffects(info.combatEffects);
+        applyCombatEffects(info.combatEffects, info.effector);
     }
-    protected void applyNonStatusCombatEffect(CombatEffect effect, int scale){
+    protected void applyCombatEffects(Dictionary<CombatEffect, int> effects, CombatEntityInstance effector){
+        Debug.Log("Applying combat effects for " + this.id);
+        CombatEffectEvent.applyCombatEffectStatuses(effects, stats.statusEffects);
+        foreach(KeyValuePair<CombatEffect, int> effect in effects){
+            applyNonStatusCombatEffect(effect.Key, effect.Value, effector);
+        }
+    }
+    
+    protected void applyNonStatusCombatEffect(CombatEffect effect, int scale, CombatEntityInstance effector){
         // All the non-status-effect combat effects are handled here
         // status effects are handled in applyCombatEffects
         switch(effect) {
             case(CombatEffect.Damage):
-                takeDamage(scale);
+                takeDamage(scale, effector);
+                break;
+            case(CombatEffect.Heal):
+                stats.currentHealth = Mathf.Min(stats.currentHealth + scale, stats.maxHealth);
                 break;
             case(CombatEffect.DrawFrom):
                 onDraw(scale); //overridden by CombatEntityWithDeckInstance
@@ -46,23 +62,19 @@ public abstract class CombatEntityInstance: TargettableEntity
                 break;
         }
     }
-    protected void applyCombatEffects(Dictionary<CombatEffect, int> effects){
-        Debug.Log("Applying combat effects for " + this.id);
-        CombatEffectEvent.applyCombatEffectStatuses(effects, stats.statusEffects);
-        foreach(KeyValuePair<CombatEffect, int> effect in effects){
-            applyNonStatusCombatEffect(effect.Key, effect.Value);
-        }
-    }
+    
 
-    protected void takeDamage(int damage){
+    protected void takeDamage(int damage, CombatEntityInstance attacker){
         stats.currentHealth = Mathf.Max(stats.currentHealth - damageAfterDefense(damage), 0);
         if(stats.currentHealth == 0){
-            StartCoroutine(onDeath());
+            StartCoroutine(onDeath(attacker));
         }
     }
 
     protected int damageAfterDefense(int damage){
-        if(!stats.statusEffects.ContainsKey(StatusEffect.Defended)) 
+        if(stats.statusEffects[StatusEffect.Invulnerability] > 0)
+            return 0;
+        if(stats.statusEffects[StatusEffect.Defended] == 0) 
             return damage;
         stats.statusEffects[StatusEffect.Defended] -= damage;
         if(stats.statusEffects[StatusEffect.Defended] < 0){

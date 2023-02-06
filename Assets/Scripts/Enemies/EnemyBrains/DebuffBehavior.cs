@@ -15,6 +15,7 @@ public class DebuffBehavior: EnemyBehavior {
             new Dictionary<CombatEffect, int>() {
                 {CombatEffect.Weakness, 1}
             },
-            EnemyIntentType.Debuff);
+            EnemyIntentType.Debuff,
+            context.enemyInstance);
     }
 }

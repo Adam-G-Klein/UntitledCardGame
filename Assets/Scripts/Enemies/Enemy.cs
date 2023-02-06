@@ -7,10 +7,13 @@ using UnityEngine;
 public class Enemy: CombatEntityBaseStats {
     public EnemyTypeSO enemyType;
     public int currentHealth;
+    public int maxHealth;
     public string id = Id.newGuid();
 
     public Enemy(EnemyTypeSO enemyType, int initHealth = -1) {
         this.enemyType = enemyType;
+        this.maxHealth = enemyType.maxHealth;
+        Debug.Log("Enemy.maxHealth: " + enemyType.maxHealth);
 
         if (initHealth == -1) {
             this.currentHealth = enemyType.maxHealth;
@@ -20,7 +23,11 @@ public class Enemy: CombatEntityBaseStats {
     }
 
     public int getMaxHealth() {
-        return enemyType.maxHealth;
+        return this.maxHealth;
+    }
+
+    public void setMaxHealth(int newMaxHealth) {
+        this.maxHealth = newMaxHealth;
     }
 
     public int getCurrentHealth() {

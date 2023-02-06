@@ -6,7 +6,7 @@ using UnityEngine;
 public class Taunt: EffectProcedure {
     // Causes the whole class to serialize differently if this field 
     // has a default value. *shrug*
-    public string procedureClass;
+    public const string description = "Taunt an enemy to attack the casting companion instead of its current target";
     public int baseScale = 1;
     public List<EntityType> validTargets = new List<EntityType>() {EntityType.Enemy};
 

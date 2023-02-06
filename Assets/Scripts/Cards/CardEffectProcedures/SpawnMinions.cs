@@ -6,7 +6,7 @@ using UnityEngine;
 public class SpawnMinions: EffectProcedure {
     // Causes the whole class to serialize differently if this field 
     // has a default value. *shrug*
-    public string procedureClass;
+    public const string description = "Spawn the chosen amount of minions";
     public int baseScale = 1;
     public MinionTypeSO minionType;
 

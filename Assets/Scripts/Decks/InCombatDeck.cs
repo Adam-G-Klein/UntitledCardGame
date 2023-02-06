@@ -49,4 +49,8 @@ public class InCombatDeck
     public void discardCards(List<Card> cards){
         discardPile.AddRange(cards);
     }
+
+    public void shuffleIntoDraw(List<Card> cards){
+        drawPile.AddRange(cards);
+    }
 }

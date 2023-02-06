@@ -6,7 +6,6 @@ using UnityEngine;
 public class CardEffectProcedure: EffectProcedure {
     // Causes the whole class to serialize differently if this field 
     // has a default value. *shrug*
-    public string procedureClass;
     public CardEffect effectName;
     public int baseScale = 0;
     public bool targetAllValidTargets = false;

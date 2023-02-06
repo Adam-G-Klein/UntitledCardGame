@@ -21,14 +21,17 @@ public class CombatEntityInEncounterStats
 
     // The encounter-specific values that 
     // this class is solely responsible for tracking
-
-    public Dictionary<StatusEffect, int> statusEffects = new Dictionary<StatusEffect, int>(){
+    public static Dictionary<StatusEffect, int> initialStatusEffects = new Dictionary<StatusEffect, int>(){
         {StatusEffect.Strength, 0},
         {StatusEffect.Weakness, 0},
         {StatusEffect.Defended, 0},
-        {StatusEffect.DamageMultiply, 1}
+        {StatusEffect.DamageMultiply, 1},
+        {StatusEffect.Invulnerability, 0},
+        {StatusEffect.MaxHpBounty, 0},
     };
-    
+
+    public Dictionary<StatusEffect, int> statusEffects = new Dictionary<StatusEffect, int>(initialStatusEffects);
+
     public int currentHealth {
         get {
             return baseStats.getCurrentHealth();

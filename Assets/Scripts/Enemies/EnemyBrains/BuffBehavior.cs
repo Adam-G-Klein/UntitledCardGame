@@ -18,6 +18,7 @@ public class BuffBehavior: EnemyBehavior {
             new Dictionary<CombatEffect, int>() {
                 {CombatEffect.Strength, 1}
             },
-            EnemyIntentType.Buff);
+            EnemyIntentType.Buff,
+            context.enemyInstance);
     }
 }

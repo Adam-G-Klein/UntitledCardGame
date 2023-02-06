@@ -6,7 +6,7 @@ using UnityEngine;
 public class IntEffectProcedure: EffectProcedure {
     // Causes the whole class to serialize differently if this field 
     // has a default value. *shrug*
-    public string procedureClass;
+    public const string description = "Raise an int event. Example: Raise a mana change";
     public IntGameEvent gameEvent;
     public int baseScale = 0;
 

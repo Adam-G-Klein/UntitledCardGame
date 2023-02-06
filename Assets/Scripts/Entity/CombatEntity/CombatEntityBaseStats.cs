@@ -7,6 +7,7 @@ using UnityEngine;
 public interface CombatEntityBaseStats
 {
     int getMaxHealth();
+    void setMaxHealth(int newMaxHealth);
     int getCurrentHealth();
     // For use when leaving combat and persisting companion health
     void setCurrentHealth(int newHealth);

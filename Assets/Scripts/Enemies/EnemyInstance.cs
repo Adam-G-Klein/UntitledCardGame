@@ -15,16 +15,18 @@ public enum EnemyIntentType {
 }
 
 public class EnemyIntent {
+    public TargettableEntity attacker;
     public List<TargettableEntity> targets;
     public float attackTime;
     public Dictionary<CombatEffect, int> combatEffects;
     public EnemyIntentType intentType;
 
-    public EnemyIntent(List<TargettableEntity> targets, float attackTime, Dictionary<CombatEffect, int> statusEffects, EnemyIntentType intentType) {
+    public EnemyIntent(List<TargettableEntity> targets, float attackTime, Dictionary<CombatEffect, int> statusEffects, EnemyIntentType intentType, TargettableEntity attacker) {
         this.targets = targets;
         this.attackTime = attackTime;
         this.combatEffects = statusEffects;
         this.intentType = intentType;
+        this.attacker = attacker;
     }
 
 }
@@ -38,6 +40,7 @@ public class EnemyInstance : CombatEntityInstance {
     private TurnManager turnManager;
     private TurnPhaseTrigger chooseIntentTrigger;
     private TurnPhaseTrigger actTrigger;
+    private TurnPhaseTrigger clearBlockTrigger;
     private EnemyBrainContext brainContext;
     public EnemyIntent currentIntent;
 
@@ -73,15 +76,22 @@ public class EnemyInstance : CombatEntityInstance {
         turnManager.addTurnPhaseTrigger(chooseIntentTrigger);
         actTrigger = new TurnPhaseTrigger(TurnPhase.ENEMIES_TURN, enemy.act(brainContext));
         turnManager.addTurnPhaseTrigger(actTrigger);
+        clearBlockTrigger = new TurnPhaseTrigger(TurnPhase.END_PLAYER_TURN, clearBlock());
     }
 
-    protected override IEnumerator onDeath()
+    private IEnumerable clearBlock() {
+        stats.statusEffects[StatusEffect.Defended] = 0;
+        yield return null;
+    }
+
+    protected override IEnumerator onDeath(CombatEntityInstance killer)
     {
         Debug.Log("Enemy " + id + " died");
         turnManager.removeTurnPhaseTrigger(chooseIntentTrigger);
         turnManager.removeTurnPhaseTrigger(actTrigger);
         turnManager.removeTurnPhaseTrigger(intentDisplay.displayIntentTrigger);
-        return base.onDeath();
+        turnManager.removeTurnPhaseTrigger(clearBlockTrigger);
+        return base.onDeath(killer);
     }
 
     public void turnStartEventHandler(){
@@ -94,12 +104,12 @@ public class EnemyInstance : CombatEntityInstance {
             currentIntent = new EnemyIntent(new List<TargettableEntity>(){target},
                 currentIntent.attackTime, 
                 new Dictionary<CombatEffect, int>(), 
-                EnemyIntentType.SmallAttack);
+                EnemyIntentType.SmallAttack, this);
         } else {
             currentIntent = new EnemyIntent(new List<TargettableEntity>(){target},
                 currentIntent.attackTime, 
                 currentIntent.combatEffects, 
-                currentIntent.intentType);
+                currentIntent.intentType, this);
         }
         intentDisplay.clearIntent();
         StartCoroutine(intentDisplay.displayIntent(this).GetEnumerator());

@@ -6,21 +6,24 @@ using UnityEngine;
 // and companions 
 public abstract class CombatEntityFriendly : CombatEntityWithDeckInstance
 {
-    private TurnPhaseTrigger clearBlockTrigger;
+    private TurnPhaseTrigger updateStatusTrigger;
     protected override void Start() {
         base.Start();
-        clearBlockTrigger = new TurnPhaseTrigger(TurnPhase.END_ENEMY_TURN, clearBlock());
-        turnManager.addTurnPhaseTrigger(clearBlockTrigger);
+        updateStatusTrigger = new TurnPhaseTrigger(TurnPhase.END_ENEMY_TURN, updateStatus());
+        turnManager.addTurnPhaseTrigger(updateStatusTrigger);
     }
 
-    private IEnumerable clearBlock() {
+    private IEnumerable updateStatus() {
         stats.statusEffects[StatusEffect.Defended] = 0;
+        stats.statusEffects[StatusEffect.Invulnerability] = Mathf.Max(0, stats.statusEffects[StatusEffect.Invulnerability] - 1);
+        // this should clear at the end of the player's turn
+        //stats.statusEffects[StatusEffect.Weakness] = Mathf.Max(0, stats.statusEffects[StatusEffect.Weakness] - 1);
         yield return null;
     }
 
-    protected override IEnumerator onDeath() {
-        turnManager.removeTurnPhaseTrigger(clearBlockTrigger);
-        yield return base.onDeath();
+    protected override IEnumerator onDeath(CombatEntityInstance killer) {
+        turnManager.removeTurnPhaseTrigger(updateStatusTrigger);
+        yield return base.onDeath(killer);
     }
     
     
