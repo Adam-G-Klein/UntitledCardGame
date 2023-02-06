@@ -7,7 +7,10 @@ public enum CombatEffect {
     Strength,
     Weakness,
     Defended,
-    DrawFrom
+    DrawFrom,
+    SetHealth,
+    Sacrifice,
+    DamageMultiply
 }
 
 [System.Serializable]

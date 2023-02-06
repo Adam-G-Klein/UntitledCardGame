@@ -7,7 +7,8 @@ public enum StatusEffect {
     Strength,
     Weakness,
     // How we'll implement block for now
-    Defended
+    Defended,
+    DamageMultiply
 }
 public class StatusEffectDisplay: MonoBehaviour
 {

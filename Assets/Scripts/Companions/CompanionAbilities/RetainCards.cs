@@ -17,7 +17,6 @@ public class RetainCards : CompanionAbility {
     
     public override void setupAbility(CompanionAbilityContext context)
     {
-        context.invoker.turnPhaseEventAbilities.Add(TurnPhase.BEFORE_END_PLAYER_TURN, this);
         turnPhaseTrigger = new TurnPhaseTrigger(TurnPhase.BEFORE_END_PLAYER_TURN, invoke(context));
         context.turnPhaseManager.addTurnPhaseTrigger(turnPhaseTrigger);
     }

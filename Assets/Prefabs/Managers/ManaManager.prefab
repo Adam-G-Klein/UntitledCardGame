@@ -147,8 +147,8 @@ GameObject:
   - component: {fileID: 8240249142970465260}
   - component: {fileID: 421675536468758986}
   - component: {fileID: 1859504791819314557}
-  - component: {fileID: 2890278009347917763}
   - component: {fileID: 4893102151637820301}
+  - component: {fileID: 3806068632879567181}
   m_Layer: 5
   m_Name: ManaManager
   m_TagString: Untagged
@@ -229,34 +229,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentMana: 3
   constants: {fileID: 11400000, guid: 73ad8dcd4be0ffc4f9958a74ee9f1a5e, type: 2}
---- !u!114 &2890278009347917763
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7195151875496105077}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38620049e120ba345beb222af44b5f64, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: 8e2f201df9de731449d5a0e8ddb0d748, type: 2}
-  unityEventResponse:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1859504791819314557}
-        m_TargetAssemblyTypeName: ManaManager, Assembly-CSharp
-        m_MethodName: cardCastEventHandler
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &4893102151637820301
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -276,6 +248,34 @@ MonoBehaviour:
       - m_Target: {fileID: 1859504791819314557}
         m_TargetAssemblyTypeName: ManaManager, Assembly-CSharp
         m_MethodName: turnPhaseEventHandler
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &3806068632879567181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7195151875496105077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65f222990b9e6d14fb2f2a5660f9004d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: c102a62a7fc128343b59ddb6cac89348, type: 2}
+  unityEventResponse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1859504791819314557}
+        m_TargetAssemblyTypeName: ManaManager, Assembly-CSharp
+        m_MethodName: manaEventHandler
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

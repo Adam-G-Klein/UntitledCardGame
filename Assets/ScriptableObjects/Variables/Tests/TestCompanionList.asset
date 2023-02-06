@@ -15,84 +15,15 @@ MonoBehaviour:
   companionList:
   - companionType: {fileID: 11400000, guid: 4960e72dbf9348c4bb2ab009998bd02a, type: 2}
     maxHealth: 20
-    currentHealth: 20
+    currentHealth: 1
     deck:
       startingDeck: {fileID: 11400000, guid: f7a0ec0e3675bf547ad5338f4f36b0e7, type: 2}
       cards:
-      - cardType: {fileID: 11400000, guid: 940a073ba558e9546b5f8d28c2b85af5, type: 2}
-        id: 56ce0960-69ec-4d87-8502-b685174996dc
-      - cardType: {fileID: 11400000, guid: 4a317ae5215e14440942c047943ac96a, type: 2}
-        id: ad7c7362-c9c8-408e-8fac-8a84eb715179
-      - cardType: {fileID: 11400000, guid: dfe47065bd90ef24bbe2f365807ba07d, type: 2}
-        id: 17b97b95-ae93-441a-b812-24a8c1299234
-      - cardType: {fileID: 11400000, guid: 940a073ba558e9546b5f8d28c2b85af5, type: 2}
-        id: asfadws
-      - cardType: {fileID: 11400000, guid: dfe47065bd90ef24bbe2f365807ba07d, type: 2}
-        id: b5a1ce47-3783-4fc6-86bc-f9e498fb5521
-    baseAttackDamage: 2
-    abilities: []
-    id: 076c608e-e3bd-4778-82b4-416b4d4156cf
-  - companionType: {fileID: 11400000, guid: af270a8bf55a86547941d6065eb02679, type: 2}
-    maxHealth: 999
-    currentHealth: 999
-    deck:
-      startingDeck: {fileID: 11400000, guid: bb2dd24e7cac49440ac4e14129eec39c, type: 2}
-      cards:
-      - cardType: {fileID: 11400000, guid: 9b0feee7c8820b6419129508051d6f08, type: 2}
-        id: bc7dde0d-a48b-4019-a39c-09e68d220947
-      - cardType: {fileID: 11400000, guid: 9b0feee7c8820b6419129508051d6f08, type: 2}
-        id: 070fb859-b447-4ecd-a9f3-1baa6d178a55
-      - cardType: {fileID: 11400000, guid: 9b0feee7c8820b6419129508051d6f08, type: 2}
-        id: e6bc0036-06b7-4fae-beec-243351cccca7
-      - cardType: {fileID: 11400000, guid: 70fd57aa1f3fcb049a3725fd9b8474af, type: 2}
-        id: 2c325028-31b3-4d59-82e6-c9eea7325d12
-      - cardType: {fileID: 11400000, guid: 9b0feee7c8820b6419129508051d6f08, type: 2}
-        id: 1b84274b-2ffb-4384-808e-612181c598a5
-    baseAttackDamage: 0
-    abilities:
-    - rid: 7342828005710888961
-    id: 26aeb784-39d0-41eb-b6c3-798189bd23d8
-  - companionType: {fileID: 11400000, guid: af270a8bf55a86547941d6065eb02679, type: 2}
-    maxHealth: 999
-    currentHealth: 999
-    deck:
-      startingDeck: {fileID: 11400000, guid: bb2dd24e7cac49440ac4e14129eec39c, type: 2}
-      cards:
-      - cardType: {fileID: 11400000, guid: 012591bfb3b94444b8d34b2168c3c2fb, type: 2}
-        id: awerfwabvwaefvweaveaw
-      - cardType: {fileID: 11400000, guid: 012591bfb3b94444b8d34b2168c3c2fb, type: 2}
-        id: fwafaefveae
-      - cardType: {fileID: 11400000, guid: 012591bfb3b94444b8d34b2168c3c2fb, type: 2}
-        id: vewavas
-    baseAttackDamage: 0
-    abilities:
-    - rid: 7342828023772610560
-    id: a195e82e-0fcd-4095-ba9c-ad867b147d4f
-  - companionType: {fileID: 11400000, guid: bb8900a5e0f2ab34a8c486d19dcef389, type: 2}
-    maxHealth: 30
-    currentHealth: 30
-    deck:
-      startingDeck: {fileID: 11400000, guid: 2591b9bcf7a348d418df529b4242c104, type: 2}
-      cards:
-      - cardType: {fileID: 11400000, guid: f89479d267b89ea40b6e76d533f2e6da, type: 2}
-        id: ff884405-6430-450e-bb42-3511371b38f2
-      - cardType: {fileID: 11400000, guid: f89479d267b89ea40b6e76d533f2e6da, type: 2}
-        id: 360b4c7a-c5e3-4527-a198-9b408383629f
-      - cardType: {fileID: 11400000, guid: f89479d267b89ea40b6e76d533f2e6da, type: 2}
-        id: dee92d30-0a00-4bd2-a852-4045489501e8
-      - cardType: {fileID: 11400000, guid: ec3c681e35f3b8541b4e30643c6d0ee7, type: 2}
-        id: 7a159bde-81d2-47db-927d-8e06f075f4e1
+      - cardType: {fileID: 11400000, guid: 6f04568326184884eaef2da243b0354d, type: 2}
+        id: ef34b0a6-dce5-4053-8ecd-25bd79abaeb0
     baseAttackDamage: 0
     abilities: []
-    id: 8bb436be-76e1-4490-bd2f-ccfd956a18e6
+    id: 9436c714-f85f-4b91-a295-27006c5f43eb
   references:
     version: 2
-    RefIds:
-    - rid: 7342828005710888961
-      type: {class: RetainCards, ns: , asm: Assembly-CSharp}
-      data:
-        abilityName: Retain Cards
-    - rid: 7342828023772610560
-      type: {class: RetainCards, ns: , asm: Assembly-CSharp}
-      data:
-        abilityName: Retain Cards
+    RefIds: []

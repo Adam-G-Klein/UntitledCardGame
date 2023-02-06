@@ -37,9 +37,10 @@ public class CardCastManager : TargetProvider {
     private CombatEffectEvent combatEffectEvent;
     [SerializeField]
     private CardEffectEvent cardEffectEvent;
-    // +1 to the above comment this is bad
     [SerializeField]
     private CardCastEvent cardCastEvent;
+    [SerializeField]
+    private IntGameEvent manaChangeEvent;
 
     //private Dictionary<CardEffectData, CombatEntityInstance> effectsToTargets = new Dictionary<CardEffectData, CombatEntityInstance>();
     // set to the empty string to designate no target set
@@ -138,7 +139,8 @@ public class CardCastManager : TargetProvider {
             enemyManager, 
             args.castArgs.caster,
             playerHand,
-            alreadyTargetted);
+            alreadyTargetted,
+            combatEffectEvent);
         foreach(EffectProcedure procedure in args.cardInfo.effectProcedures){
             // Track current procedure for casting cancellation
             currentProcedure = procedure.prepare(currentContext);
@@ -149,26 +151,45 @@ public class CardCastManager : TargetProvider {
             currentProcedure = procedure.invoke(currentContext);
             yield return StartCoroutine(currentProcedure);
         }
+        yield return StartCoroutine(manaChangeEvent.RaiseAtEndOfFrameCoroutine(-args.cardInfo.cost));
         yield return StartCoroutine(cardCastEvent.RaiseAtEndOfFrameCoroutine(new CardCastEventInfo(args.cardInfo)));
+    }
+
+    // Alright, after all of that simple effect stuff, adding this because we 
+    // don't want to deal with adding simple effects just for the editor if
+    // we think the only place an effect will be used is in an EffectProcedure.
+    // See FinalForm.cs for an example of this
+    public void raiseCombatEffect(CombatEffectEventInfo info){
+        StartCoroutine(combatEffectEvent.RaiseAtEndOfFrameCoroutine(info));
     }
 
     // Have to call this here to start the effect as a coroutine
     public void raiseSimpleEffect(SimpleEffectName effectName, int scale, List<TargettableEntity> targets){
-        StartCoroutine(combatEffectEvent.RaiseAtEndOfFrameCoroutine(
-            new CombatEffectEventInfo(simpleEffectToCombatEffects(effectName, scale), targets)));
-        StartCoroutine(cardEffectEvent.RaiseAtEndOfFrameCoroutine(
-            new CardEffectEventInfo(simpleEffectToCardEffects(effectName, scale), targets)));
+        List<IEnumerator> eventCoroutines = simpleEffectToCoroutines(effectName, scale, targets);
+        foreach(IEnumerator eventCoroutine in eventCoroutines){
+            StartCoroutine(eventCoroutine);
+        }
     }
 
-    private void resetCastingState(){
-        resetTargettingState();
-        StopCoroutine("castingCoroutine");
-        if(currentProcedure != null) {
-            StopCoroutine(currentProcedure);
-            currentProcedure = null;
-            // Shouldn't be relying on this existing anyways, but just in case
-            currentContext = null; 
+    // Get all of the combat effects that this simple effect should raise,
+    // get all of the card effects it should raise,
+    // then add any one-off events it might raise (like a mana change)
+    // this mapping is pretty harsh, but I think the simple effect interface for effectProcedures is worth it,
+    // and this prevents the rest of our code from having to care about the simple effects.
+    // Keeps a nice separation between the different events/ event listeners for everyone involved, allowing 
+    // for more code sharing in the handlers (see combatEntityInstance's combatEffectEventHandler for an exampleq)
+    private List<IEnumerator> simpleEffectToCoroutines(SimpleEffectName effectName, int scale, List<TargettableEntity> targets){
+        List<IEnumerator> coroutines = new List<IEnumerator>();
+        Dictionary<CombatEffect, int> combatEffects = simpleEffectToCombatEffects(effectName, scale);
+        coroutines.Add(combatEffectEvent.RaiseAtEndOfFrameCoroutine(new CombatEffectEventInfo(combatEffects, targets)));
+        Dictionary<CardEffect, int> cardEffects = simpleEffectToCardEffects(effectName, scale);
+        coroutines.Add(cardEffectEvent.RaiseAtEndOfFrameCoroutine(new CardEffectEventInfo(cardEffects, targets)));
+        switch(effectName){
+            case SimpleEffectName.ManaChange:
+                coroutines.Add(manaChangeEvent.RaiseAtEndOfFrameCoroutine(scale));
+                break;
         }
+        return coroutines;
     }
 
     // A necessary evil to provide a nice interface for users.
@@ -185,11 +206,21 @@ public class CardCastManager : TargetProvider {
             case SimpleEffectName.Damage:
                 combatEffects.Add(CombatEffect.Damage, scale);
                 break;
+            case SimpleEffectName.FixedDamage:
+                // difference is how this scale is passed in from SimpleEffect.cs
+                combatEffects.Add(CombatEffect.Damage, scale);
+                break;
             case SimpleEffectName.Draw:
                 combatEffects.Add(CombatEffect.DrawFrom, scale);
                 break;
             case SimpleEffectName.Defend:
                 combatEffects.Add(CombatEffect.Defended, scale);
+                break;
+            case SimpleEffectName.SetHealth:
+                combatEffects.Add(CombatEffect.SetHealth, scale);
+                break;
+            case SimpleEffectName.DamageMultiply:
+                combatEffects.Add(CombatEffect.DamageMultiply, scale);
                 break;
         }
         return combatEffects;
@@ -204,6 +235,17 @@ public class CardCastManager : TargetProvider {
         }
         return cardEffects;
     }
+
+    private void resetCastingState(){
+        resetTargettingState();
+        StopCoroutine("castingCoroutine");
+        if(currentProcedure != null) {
+            StopCoroutine(currentProcedure);
+            currentProcedure = null;
+            // Shouldn't be relying on this existing anyways, but just in case
+            currentContext = null; 
+        }
+    }   
 
 
 }

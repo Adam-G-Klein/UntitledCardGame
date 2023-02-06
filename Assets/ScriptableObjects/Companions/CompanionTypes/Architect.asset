@@ -17,7 +17,14 @@ MonoBehaviour:
   baseAttackDamage: 0
   sprite: {fileID: 21300000, guid: cdd64b9d701fb334a804cb354ab2375b, type: 3}
   startingDeck: {fileID: 11400000, guid: 2591b9bcf7a348d418df529b4242c104, type: 2}
-  abilities: []
+  abilities:
+  - rid: 2812361713530961920
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 2812361713530961920
+      type: {class: MinionSpawnETB, ns: , asm: Assembly-CSharp}
+      data:
+        abilityName: GrotesqueETB
+        numMinions: 1
+        minionType: {fileID: 11400000, guid: acf491015f67b06468095238a670ef7b, type: 2}

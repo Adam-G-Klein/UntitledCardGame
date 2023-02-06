@@ -25,7 +25,7 @@ public class Brainstorm: EffectProcedure {
     public override IEnumerator invoke(EffectProcedureContext context)
     {
         // Subtract 1 because we don't want to count the card we're playing
-        int damage = (context.playerHand.cardsInHand.Count - 1) * context.casterStats.currentAttackDamage;
+        int damage = (context.playerHand.cardsInHand.Count - 1) * context.casterStats.currentAttackDamage + baseScale;
         context.cardCastManager.raiseSimpleEffect(
             SimpleEffectName.Damage, 
             damage,

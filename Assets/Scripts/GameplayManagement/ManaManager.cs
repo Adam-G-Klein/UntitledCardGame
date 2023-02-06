@@ -3,7 +3,6 @@ using System.Collections;
 using UnityEngine;
 using TMPro;
 
-[RequireComponent(typeof(CardCastEventListener))]
 [RequireComponent(typeof(TurnPhaseEventListener))]
 public class ManaManager : MonoBehaviour {
 
@@ -24,8 +23,8 @@ public class ManaManager : MonoBehaviour {
         }
     }
 
-    public void cardCastEventHandler(CardCastEventInfo info){
-        currentMana -= info.cardInfo.cost;
+    public void manaEventHandler(int info) {
+        currentMana += info;
         updateText();
     }
 

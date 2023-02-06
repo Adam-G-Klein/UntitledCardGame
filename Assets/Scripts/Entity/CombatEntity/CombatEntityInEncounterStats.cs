@@ -25,7 +25,8 @@ public class CombatEntityInEncounterStats
     public Dictionary<StatusEffect, int> statusEffects = new Dictionary<StatusEffect, int>(){
         {StatusEffect.Strength, 0},
         {StatusEffect.Weakness, 0},
-        {StatusEffect.Defended, 0}
+        {StatusEffect.Defended, 0},
+        {StatusEffect.DamageMultiply, 1}
     };
     
     public int currentHealth {
@@ -39,9 +40,9 @@ public class CombatEntityInEncounterStats
 
     public int currentAttackDamage {
         get {
-            return baseStats.getBaseAttackDamage() 
+            return (baseStats.getBaseAttackDamage() 
                 + statusEffects[StatusEffect.Strength] 
-                - statusEffects[StatusEffect.Weakness];
+                - statusEffects[StatusEffect.Weakness]);
         }
     }
 
@@ -58,4 +59,16 @@ public class CombatEntityInEncounterStats
         this.currentHealth = this.maxHealth;
     }
 
+    // takes the base damage of an effect,
+    // does math on it based on statuses, and returns the damage that should be done
+    public int getEffectScale(CombatEffect effect, int baseScale) {
+        switch(effect) {
+            case CombatEffect.Damage:
+                // use the getter from the stats object
+                return (baseScale + currentAttackDamage) 
+                    * statusEffects[StatusEffect.DamageMultiply];
+            default:
+                return baseScale;
+        }
+    }
 }

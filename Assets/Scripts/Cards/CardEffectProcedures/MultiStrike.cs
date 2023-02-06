@@ -28,7 +28,7 @@ public class MultiStrike: EffectProcedure {
         for(int i = 0; i < numStrikes; i++) {
             context.cardCastManager.raiseSimpleEffect(
                 SimpleEffectName.Damage, 
-                context.casterStats.currentAttackDamage,
+                SimpleEffect.getEffectScale(SimpleEffectName.Damage, context.casterStats, baseScale),
                 currentTargets);
             yield return new WaitForSeconds(strikeDelay);
         }

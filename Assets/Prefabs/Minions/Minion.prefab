@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 3793161618878564126}
   - component: {fileID: 1554480019664448233}
   - component: {fileID: 3787606817897791769}
-  - component: {fileID: 4978364200176472419}
   - component: {fileID: 729362133214241401}
   m_Layer: 0
   m_Name: Minion
@@ -175,34 +174,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.1136765, y: 2.5055265}
   m_EdgeRadius: 0
---- !u!114 &4978364200176472419
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3793161618878564120}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09ba1624a5db93e4382b88f0bdc7c833, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: da8e3f7797bc6544b88b0ce5cef3214a, type: 2}
-  unityEventResponse:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3793161618878564126}
-        m_TargetAssemblyTypeName: CombatEntityInstance, Assembly-CSharp
-        m_MethodName: enemyEffectEventHandler
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &729362133214241401
 MonoBehaviour:
   m_ObjectHideFlags: 0

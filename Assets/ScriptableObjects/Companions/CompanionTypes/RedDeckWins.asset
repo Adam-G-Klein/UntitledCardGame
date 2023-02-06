@@ -13,7 +13,11 @@ MonoBehaviour:
   m_Name: RedDeckWins
   m_EditorClassIdentifier: 
   companionName: RedDeckWins
-  sprite: {fileID: 21300000, guid: 5ee06d5c5a1188a48a0f852ac84514bf, type: 3}
   maxHealth: 20
+  baseAttackDamage: 0
+  sprite: {fileID: 21300000, guid: 5ee06d5c5a1188a48a0f852ac84514bf, type: 3}
   startingDeck: {fileID: 11400000, guid: f7a0ec0e3675bf547ad5338f4f36b0e7, type: 2}
-  baseAttackDamage: 2
+  abilities: []
+  references:
+    version: 2
+    RefIds: []

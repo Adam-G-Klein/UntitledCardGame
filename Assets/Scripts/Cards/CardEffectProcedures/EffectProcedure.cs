@@ -8,6 +8,7 @@ public class EffectProcedureContext {
     public EnemyManager enemyManager;
     public CombatEntityInEncounterStats casterStats;
     public CombatEntityWithDeckInstance cardCaster;
+    public CombatEffectEvent combatEffectEvent;
     public PlayerHand playerHand;
     public List<TargettableEntity> alreadyTargetted;
 
@@ -17,7 +18,8 @@ public class EffectProcedureContext {
         EnemyManager enemyManager, 
         CombatEntityWithDeckInstance cardCaster, 
         PlayerHand playerHand, 
-        List<TargettableEntity> alreadyTargetted) {
+        List<TargettableEntity> alreadyTargetted, 
+        CombatEffectEvent combatEffectEvent) {
         this.cardCastManager = caster;
         this.companionManager = companionManager;
         this.enemyManager = enemyManager;
@@ -25,6 +27,7 @@ public class EffectProcedureContext {
         this.casterStats = cardCaster.stats;
         this.playerHand = playerHand;
         this.alreadyTargetted = alreadyTargetted;
+        this.combatEffectEvent = combatEffectEvent;
     }
     
 }
@@ -34,7 +37,9 @@ public abstract class EffectProcedure: TargetRequester
     
     protected  EffectProcedureContext context;
 
-    public virtual void resetCastingState() {}
+    public virtual void resetCastingState() {
+        resetTargets();
+    }
 
     protected void raiseSimpleEffect(SimpleEffectName simpleEffectName, int scale, List<TargettableEntity> targets) {
         if(context == null) Debug.LogError("Need procedure context to raiseSimpleEffect, be sure to set the 'context' field of this procedure (in the parent class) before proceeding to code it");

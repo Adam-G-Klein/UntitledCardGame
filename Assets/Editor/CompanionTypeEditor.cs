@@ -16,19 +16,17 @@ public class CompanionTypeEditor : Editor {
         EditorGUILayout.Space(5);
 
         companionAbilityClassName = EditorGUILayout.TextField(
-            "New procedure classname",
+            "New ability classname",
             companionAbilityClassName);
 
-        if (GUILayout.Button("Add Effect Procedure")) {
+        if (GUILayout.Button("Add Companion Ability")) {
             CompanionAbility newAbility = InstantiateFromClassname.Instantiate<CompanionAbility>(
                 companionAbilityClassName, 
                 new object[] {});
 
             if(newAbility == null) {
-                Debug.LogError("Failed to instantiate effect procedure, " +
-                "please check Scripts/Cards/CardEffectProcedures/* to verify the className for the  " +
-                " and verify that the arguments set in the editor correspond to " +
-                " the arguments in the constructor");
+                Debug.LogError("Failed to instantiate companion ability , " +
+                "please check Scripts/Companions/CompanionAbilities/* to verify the className");
             }
             else {
                 companionTypeSO.abilities.Add(newAbility);

@@ -49,6 +49,12 @@ public abstract class CombatEntityInstance: TargettableEntity
             case(CombatEffect.DrawFrom):
                 onDraw(scale); //overridden by CombatEntityWithDeckInstance
                 break;
+            case(CombatEffect.SetHealth):
+                stats.currentHealth = scale;
+                break;
+            case(CombatEffect.DamageMultiply):
+                stats.statusEffects[StatusEffect.DamageMultiply] = scale;
+                break;
         }
     }
     protected void applyCombatEffects(Dictionary<CombatEffect, int> effects){

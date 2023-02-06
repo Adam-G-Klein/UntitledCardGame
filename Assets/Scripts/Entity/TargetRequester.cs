@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems; 
 
 public abstract class TargetRequester {
-    protected List<TargettableEntity> currentTargets;
+    protected List<TargettableEntity> currentTargets = new List<TargettableEntity>();
     public virtual void resetTargets() {
         currentTargets.Clear();
     }

@@ -7,13 +7,18 @@ public class CompanionAbilityContext {
     public CompanionAbilityInvoker invoker;
     public TurnManager turnPhaseManager;
     public PlayerHand playerHand;
+    public CompanionManager companionManager;
+    public CompanionInstance companionInstance;
 
-    public CompanionAbilityContext(CompanionAbilityInvoker invoker, TurnManager turnPhaseManager, PlayerHand playerHand)
+    public CompanionAbilityContext(CompanionAbilityInvoker invoker, TurnManager turnPhaseManager, PlayerHand playerHand, CompanionManager companionManager, CompanionInstance companionInstance)
     {
         this.invoker = invoker;
         this.turnPhaseManager = turnPhaseManager;
         this.playerHand = playerHand;
+        this.companionManager = companionManager;
+        this.companionInstance = companionInstance;
     }
+    
 }
 
 [System.Serializable]

@@ -10,24 +10,35 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: Block
+  m_Name: Blood Letting
   m_EditorClassIdentifier: 
-  Name: DEFEND
-  Description: BLOCKKKKK 15
-  Cost: 1
-  Artwork: {fileID: 21300000, guid: dc2691b0a220a3a45b5946651905449b, type: 3}
+  Name: Bloodletting
+  Description: lose 3 health, gain 2 mana
+  Cost: 0
+  Artwork: {fileID: 21300000, guid: 68e5a78013e33f247822a837e55b0ab4, type: 3}
   EffectProcedures:
-  - rid: 2812361676688195584
+  - rid: 2812361713530961932
+  - rid: 2812361713530961933
   references:
     version: 2
     RefIds:
-    - rid: 2812361676688195584
+    - rid: 2812361713530961932
       type: {class: SimpleEffect, ns: , asm: Assembly-CSharp}
       data:
         procedureClass: SimpleEffect
-        effectName: 5
-        baseScale: 15
+        effectName: 6
+        baseScale: 3
+        targetCaster: 1
+        requiresUniqueTarget: 0
+        targetAllValidTargets: 0
+        validTargets: 
+    - rid: 2812361713530961933
+      type: {class: SimpleEffect, ns: , asm: Assembly-CSharp}
+      data:
+        procedureClass: SimpleEffect
+        effectName: 7
+        baseScale: 2
         targetCaster: 0
         requiresUniqueTarget: 0
         targetAllValidTargets: 0
-        validTargets: 00000000
+        validTargets: 

@@ -37,6 +37,12 @@ public class CombatEntityStatsDisplay: MonoBehaviour
             return stats.statusEffects[StatusEffect.Defended];
         }
     }
+
+    public int damageMultiply{
+        get {
+            return stats.statusEffects[StatusEffect.DamageMultiply];
+        }
+    }
     private Dictionary<StatusEffect, StatusEffectDisplay> statusEffectDisplays = new Dictionary<StatusEffect, StatusEffectDisplay>();
 
     void Start()
@@ -78,6 +84,13 @@ public class CombatEntityStatsDisplay: MonoBehaviour
             statusEffectDisplays[StatusEffect.Defended].setDisplaying(true);
         } else {
             statusEffectDisplays[StatusEffect.Defended].setDisplaying(false);
+        }
+
+        if(damageMultiply != 1) {
+            statusEffectDisplays[StatusEffect.DamageMultiply].setText(damageMultiply.ToString());
+            statusEffectDisplays[StatusEffect.DamageMultiply].setDisplaying(true);
+        } else {
+            statusEffectDisplays[StatusEffect.DamageMultiply].setDisplaying(false);
         }
 
     }
