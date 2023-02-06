@@ -48,7 +48,11 @@ public abstract class EffectProcedure: TargetRequester
 
     // Called before the procedure is invoked to allow the procedure to
     // get targets, do any math it needs to, be ready to raise its events
-    public abstract IEnumerator prepare(EffectProcedureContext context);
+    public virtual IEnumerator prepare(EffectProcedureContext context) {
+        this.context = context;
+        resetCastingState();
+        yield return null;
+    }
 
     // Called after prepare, where the procedure raises simple effects now that it 
     // has all the information/targets it needs

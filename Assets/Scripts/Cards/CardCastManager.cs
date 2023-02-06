@@ -126,6 +126,12 @@ public class CardCastManager : TargetProvider {
             else
                 Debug.LogWarning("No player hand in scene, couldn't cast effect that targets the player");
         }
+        if(validTargets.Contains(EntityType.Card)){
+            if(playerHand)
+                returnList.AddRange(playerHand.cardsInHand);
+            else
+                Debug.LogWarning("No player hand in scene, couldn't cast effect that targets the player");
+        }
         return returnList;
 
     }
@@ -155,12 +161,16 @@ public class CardCastManager : TargetProvider {
         yield return StartCoroutine(cardCastEvent.RaiseAtEndOfFrameCoroutine(new CardCastEventInfo(args.cardInfo)));
     }
 
-    // Alright, after all of that simple effect stuff, adding this because we 
-    // don't want to deal with adding simple effects just for the editor if
-    // we think the only place an effect will be used is in an EffectProcedure.
-    // See FinalForm.cs for an example of this
     public void raiseCombatEffect(CombatEffectEventInfo info){
         StartCoroutine(combatEffectEvent.RaiseAtEndOfFrameCoroutine(info));
+    }
+
+    public void raiseCardEffect(CardEffectEventInfo info){
+        StartCoroutine(cardEffectEvent.RaiseAtEndOfFrameCoroutine(info));
+    }
+
+    public void raiseIntEvent(IntGameEvent gameEvent, int value){
+        StartCoroutine(gameEvent.RaiseAtEndOfFrameCoroutine(value));
     }
 
     // Have to call this here to start the effect as a coroutine
@@ -220,7 +230,7 @@ public class CardCastManager : TargetProvider {
                 combatEffects.Add(CombatEffect.SetHealth, scale);
                 break;
             case SimpleEffectName.DamageMultiply:
-                combatEffects.Add(CombatEffect.DamageMultiply, scale);
+                combatEffects.Add(CombatEffect.AddToDamageMultiply, scale);
                 break;
         }
         return combatEffects;

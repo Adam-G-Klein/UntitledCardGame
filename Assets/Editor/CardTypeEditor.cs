@@ -6,7 +6,7 @@ using UnityEditor;
 [CustomEditor(typeof(CardType))]
 public class CardTypeEditor : Editor {
 
-    string effectProcedureClassName = "SimpleEffect";
+    string effectProcedureClassName = "CombatEffectProcedure";
     public override void OnInspectorGUI() {
         CardType cardType = (CardType) target;
         DrawDefaultInspector();

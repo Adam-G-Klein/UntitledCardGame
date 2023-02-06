@@ -10,7 +10,7 @@ public enum CombatEffect {
     DrawFrom,
     SetHealth,
     Sacrifice,
-    DamageMultiply
+    AddToDamageMultiply
 }
 
 [System.Serializable]
@@ -38,6 +38,7 @@ public class CombatEffectEvent : BaseGameEvent<CombatEffectEventInfo> {
         {CombatEffect.Weakness, StatusEffect.Weakness},
         {CombatEffect.Strength, StatusEffect.Strength},
         {CombatEffect.Defended, StatusEffect.Defended},
+        {CombatEffect.AddToDamageMultiply, StatusEffect.DamageMultiply},
     };
 
     // Applies the status effects in the provided combatEffect dictionary to the statusEffects dictionary
@@ -58,6 +59,9 @@ public class CombatEffectEvent : BaseGameEvent<CombatEffectEventInfo> {
             return;
         }
         else {
+            // this code is nice enough that I'm willing to work in other places
+            // to preserve this: a combat effect's scale signifies what's being added to the 
+            // status effect's scale
             statusEffects[combatEffectToStatusEffect[combatEffect]] += scale;
         }
     }

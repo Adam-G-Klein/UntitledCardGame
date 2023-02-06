@@ -1,0 +1,92 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4df9178e061cce447b55bdea396ec265, type: 3}
+  m_Name: allCardsTestCompanionList
+  m_EditorClassIdentifier: 
+  companionList:
+  - companionType: {fileID: 11400000, guid: bb8900a5e0f2ab34a8c486d19dcef389, type: 2}
+    maxHealth: 30
+    currentHealth: 25
+    deck:
+      startingDeck: {fileID: 11400000, guid: 2591b9bcf7a348d418df529b4242c104, type: 2}
+      cards:
+      - cardType: {fileID: 11400000, guid: f89479d267b89ea40b6e76d533f2e6da, type: 2}
+        id: 49183c05-d0b6-4c18-9b2b-c6e115984082
+      - cardType: {fileID: 11400000, guid: f89479d267b89ea40b6e76d533f2e6da, type: 2}
+        id: 78a98baf-7b3f-4d21-8a67-86bbb5762ac6
+      - cardType: {fileID: 11400000, guid: f89479d267b89ea40b6e76d533f2e6da, type: 2}
+        id: 58e4f517-4809-4c0d-9676-463cb055a87f
+      - cardType: {fileID: 11400000, guid: ec3c681e35f3b8541b4e30643c6d0ee7, type: 2}
+        id: 9522349a-a097-4f00-bf55-00c0df0dbebb
+    baseAttackDamage: 0
+    abilities:
+    - rid: 2812361760619102213
+    id: a1a11239-b718-43f5-9021-26d076c5fac8
+  - companionType: {fileID: 11400000, guid: 28f6a1b3b493fa743859f89dedcc23ca, type: 2}
+    maxHealth: 10
+    currentHealth: 5
+    deck:
+      startingDeck: {fileID: 11400000, guid: 83b10e15a862e1a48900e311e49378a4, type: 2}
+      cards:
+      - cardType: {fileID: 11400000, guid: ec3c681e35f3b8541b4e30643c6d0ee7, type: 2}
+        id: 576edb1e-f595-4cd4-b8d4-8086578a9b6f
+      - cardType: {fileID: 11400000, guid: ec3c681e35f3b8541b4e30643c6d0ee7, type: 2}
+        id: 6d296900-efe2-42f2-a596-c05a51691dfd
+      - cardType: {fileID: 11400000, guid: 462354a397a54954aab6c85e99376713, type: 2}
+        id: ec528b7c-5b01-4c84-8493-5b42e4f41925
+      - cardType: {fileID: 11400000, guid: 462354a397a54954aab6c85e99376713, type: 2}
+        id: 849a2a1d-7239-476c-abeb-1ca93c9948f1
+    baseAttackDamage: 0
+    abilities: []
+    id: 7bac5f67-10ba-4220-a2e5-10c99f275f0b
+  - companionType: {fileID: 11400000, guid: af270a8bf55a86547941d6065eb02679, type: 2}
+    maxHealth: 999
+    currentHealth: 992
+    deck:
+      startingDeck: {fileID: 11400000, guid: bb2dd24e7cac49440ac4e14129eec39c, type: 2}
+      cards:
+      - cardType: {fileID: 11400000, guid: 9b0feee7c8820b6419129508051d6f08, type: 2}
+        id: 7a190e83-ef12-4ab1-87f2-4588ccf6c893
+      - cardType: {fileID: 11400000, guid: 9b0feee7c8820b6419129508051d6f08, type: 2}
+        id: b12f0672-51df-4e74-80cb-4287da7cb983
+      - cardType: {fileID: 11400000, guid: 9b0feee7c8820b6419129508051d6f08, type: 2}
+        id: e57af517-d360-4b24-a517-76f116735c0e
+      - cardType: {fileID: 11400000, guid: 70fd57aa1f3fcb049a3725fd9b8474af, type: 2}
+        id: 5a7c239c-7e04-475a-9388-9e9e513dc14c
+    baseAttackDamage: 0
+    abilities:
+    - rid: 2812361760619102214
+    id: cc5727bd-8792-4b01-9276-205d0f657e58
+  - companionType: {fileID: 11400000, guid: 4960e72dbf9348c4bb2ab009998bd02a, type: 2}
+    maxHealth: 20
+    currentHealth: 15
+    deck:
+      startingDeck: {fileID: 11400000, guid: f7a0ec0e3675bf547ad5338f4f36b0e7, type: 2}
+      cards:
+      - cardType: {fileID: 11400000, guid: 940a073ba558e9546b5f8d28c2b85af5, type: 2}
+        id: c7a53a7f-4adb-4d28-8b4f-6c78a8c28f5a
+    baseAttackDamage: 0
+    abilities: []
+    id: c9e796cc-1c30-4db4-a3cc-f5c9138bcba4
+  references:
+    version: 2
+    RefIds:
+    - rid: 2812361760619102213
+      type: {class: MinionSpawnETB, ns: , asm: Assembly-CSharp}
+      data:
+        abilityName: GrotesqueETB
+        numMinions: 1
+        minionType: {fileID: 11400000, guid: acf491015f67b06468095238a670ef7b, type: 2}
+    - rid: 2812361760619102214
+      type: {class: RetainCards, ns: , asm: Assembly-CSharp}
+      data:
+        abilityName: Retain Cards

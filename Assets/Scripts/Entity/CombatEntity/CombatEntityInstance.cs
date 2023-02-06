@@ -31,20 +31,12 @@ public abstract class CombatEntityInstance: TargettableEntity
         if(!info.targets.Contains(this)) return;
         applyCombatEffects(info.combatEffects);
     }
-    protected void applyCombatEffect(CombatEffect effect, int scale){
+    protected void applyNonStatusCombatEffect(CombatEffect effect, int scale){
+        // All the non-status-effect combat effects are handled here
+        // status effects are handled in applyCombatEffects
         switch(effect) {
             case(CombatEffect.Damage):
                 takeDamage(scale);
-                break;
-            case(CombatEffect.Weakness):
-                stats.statusEffects[StatusEffect.Weakness] += scale;
-                break;
-            case(CombatEffect.Strength):
-                Debug.Log("Applying strength effect to " + this.id);
-                stats.statusEffects[StatusEffect.Strength] += scale;
-                break;
-            case(CombatEffect.Defended):
-                stats.statusEffects[StatusEffect.Defended] += scale;
                 break;
             case(CombatEffect.DrawFrom):
                 onDraw(scale); //overridden by CombatEntityWithDeckInstance
@@ -52,15 +44,13 @@ public abstract class CombatEntityInstance: TargettableEntity
             case(CombatEffect.SetHealth):
                 stats.currentHealth = scale;
                 break;
-            case(CombatEffect.DamageMultiply):
-                stats.statusEffects[StatusEffect.DamageMultiply] = scale;
-                break;
         }
     }
     protected void applyCombatEffects(Dictionary<CombatEffect, int> effects){
-        Debug.Log("Applying status effects for " + this.id);
+        Debug.Log("Applying combat effects for " + this.id);
+        CombatEffectEvent.applyCombatEffectStatuses(effects, stats.statusEffects);
         foreach(KeyValuePair<CombatEffect, int> effect in effects){
-            applyCombatEffect(effect.Key, effect.Value);
+            applyNonStatusCombatEffect(effect.Key, effect.Value);
         }
     }
 
