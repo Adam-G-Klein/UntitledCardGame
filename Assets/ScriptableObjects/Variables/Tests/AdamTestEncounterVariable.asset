@@ -25,19 +25,22 @@ MonoBehaviour:
         isCompleted: 0
         enemyList:
         - enemyType: {fileID: 11400000, guid: da0cdb6c0c9754d469d48629d5444b55, type: 2}
-          currentHealth: 20
-          id: testGoblin1
+          currentHealth: 0
+          maxHealth: 20
+          id: afdavwevs
         - enemyType: {fileID: 11400000, guid: 7c2078d2e4f72954c9d9a3335c755ab9, type: 2}
           currentHealth: 30
-          id: safdsad
+          maxHealth: 30
+          id: afsdsawawwwwwww
         - enemyType: {fileID: 11400000, guid: 3f595268355432347aef2000672bce6d, type: 2}
-          currentHealth: 3
-          id: ksadhlgjkwae
+          currentHealth: 0
+          maxHealth: 3
+          id: sddddddddd
         enemyLocations:
         - {x: 6.68, y: 1.36, z: 0.027606305}
         - {x: 5, y: 0, z: 0.027606305}
         - {x: 6, y: -1, z: 0.027606305}
-        activeCompanions: {fileID: 11400000, guid: 88debb02fba58644b959f3a10afb8a3e, type: 2}
+        activeCompanions: {fileID: 11400000, guid: b2d455a521839634eab625bc46b7e672, type: 2}
         companionLocations:
         - {x: -0.65, y: -0.65, z: 0.027606305}
         - {x: -7, y: -2, z: 0.027606305}

@@ -46,6 +46,7 @@ public class CardCastManager : TargetProvider {
     // set to the empty string to designate no target set
     private CompanionManager companionManager;
     private EnemyManager enemyManager;
+    private CardSelectionManager cardSelectionManager;
     /// Don't rely on this being available, it's only set when a card is being cast
     private IEnumerator currentCastingProcedure;
     private IEnumerator currentEffectProcedure;
@@ -76,6 +77,10 @@ public class CardCastManager : TargetProvider {
         GameObject manaManagerGO = GameObject.Find("ManaManager");
         if(!manaManagerGO) Debug.LogWarning("Card caster couldn't find mana manager, won't be checking card costs before casting. Can add this manager by adding the EnemyEncounterCanvas prefab");
         else manaManager = manaManagerGO.GetComponent<ManaManager>();
+        
+        GameObject cardSelectionManagerGO = GameObject.Find("CardSelectionManager");
+        if(!cardSelectionManagerGO) Debug.LogWarning("Card caster couldn't find card selection manager, won't be able to cast effects that require selecting cards from a group of cards displayed through the cardViewUI overlay. Can add this manager by adding the EnemyEncounterCanvas prefab");
+        else cardSelectionManager = cardSelectionManagerGO.GetComponent<CardSelectionManager>();
     }
 
     
@@ -148,7 +153,8 @@ public class CardCastManager : TargetProvider {
             args.caster,
             playerHand,
             alreadyTargetted,
-            combatEffectEvent);
+            combatEffectEvent,
+            cardSelectionManager);
         foreach(EffectProcedure procedure in card.effectProcedures){
             // Track current procedure for casting cancellation
             currentEffectProcedure = procedure.prepare(currentContext);

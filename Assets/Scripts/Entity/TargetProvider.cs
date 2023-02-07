@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems; 
 
 [RequireComponent(typeof(EffectTargetSuppliedEventListener))]
 public abstract class TargetProvider: MonoBehaviour {
@@ -16,7 +15,7 @@ public abstract class TargetProvider: MonoBehaviour {
     public virtual void effectTargetSuppliedHandler(EffectTargetSuppliedEventInfo eventInfo){
         requestedTarget = eventInfo.target;
     }
-    public void requestTarget(List<EntityType> validTargets, TargetRequester requester, List<TargettableEntity> disallowedTargets = null){
+    public virtual void requestTarget(List<EntityType> validTargets, TargetRequester requester, List<TargettableEntity> disallowedTargets = null){
         this.targettingCoroutine = getTargetCoroutine(validTargets, requester, disallowedTargets);
         StartCoroutine(targettingCoroutine);
     }
