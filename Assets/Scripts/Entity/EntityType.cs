@@ -2,5 +2,6 @@ public enum EntityType {
     Companion,
     Enemy, 
     Minion,
-    Card
+    PlayableCard,
+    UICard
 }

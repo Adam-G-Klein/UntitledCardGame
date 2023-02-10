@@ -163,6 +163,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5645320489653517868}
   - component: {fileID: 5620027923160373796}
+  - component: {fileID: 8722452810737244100}
+  - component: {fileID: 4170346440579783855}
+  - component: {fileID: 2269818625202538432}
   m_Layer: 5
   m_Name: UICardDisplay
   m_TagString: Untagged
@@ -214,6 +217,84 @@ MonoBehaviour:
   CostText: {fileID: 5645320490510720521}
   CardDesc: {fileID: 5645320490183815525}
   Artwork: {fileID: 5645320489827365127}
+--- !u!114 &8722452810737244100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5645320489653517871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5501327943af6c438db85bdcdb2ceac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 709caf6df9005934dbe5ec0e1bd93bb6, type: 2}
+  unityEventResponse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2269818625202538432}
+        m_TargetAssemblyTypeName: TargettableEntity, Assembly-CSharp
+        m_MethodName: effectTargetRequestEventHandler
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &4170346440579783855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5645320489653517871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 529c80957274eb845ab857cc78a85129, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 7fa89282fdc5197409a5e9b310da94f8, type: 2}
+  unityEventResponse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2269818625202538432}
+        m_TargetAssemblyTypeName: TargettableEntity, Assembly-CSharp
+        m_MethodName: uIStateEventListener
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &2269818625202538432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5645320489653517871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0cbba9f6cd96344fa8dfda0cbfc7047, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 
+  entityType: 4
+  isTargetable: 0
+  effectTargetSuppliedEvent: {fileID: 11400000, guid: 16143db2a2228f2499361d860ef94748, type: 2}
+  card:
+    cardType: {fileID: 0}
+    id: 
+  cardSelectedEvent: {fileID: 11400000, guid: 152f92604c333844cbe39664029bb681, type: 2}
+  cardDeselectedEvent: {fileID: 11400000, guid: db2b36361af374547b48c6ee587290fa, type: 2}
+  selected: 0
 --- !u!1 &5645320489694670181
 GameObject:
   m_ObjectHideFlags: 0

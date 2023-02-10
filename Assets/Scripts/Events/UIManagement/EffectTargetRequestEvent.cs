@@ -17,7 +17,7 @@ public class EffectTargetRequestEventInfo {
     public List<EntityType> validTargets;
     public List<TargettableEntity> disallowedTargets;
 
-    public EffectTargetRequestEventInfo(List<EntityType> validTargets, Entity source, List<TargettableEntity> disallowedTargets = null){
+    public EffectTargetRequestEventInfo(List<EntityType> validTargets, Entity source = null, List<TargettableEntity> disallowedTargets = null){
         this.validTargets = validTargets;
         this.source = source;
         this.disallowedTargets = disallowedTargets;

@@ -10,7 +10,7 @@ public class CardEffectProcedure: EffectProcedure {
     public int baseScale = 0;
     public bool targetAllValidTargets = false;
     public bool requiresUniqueTarget = false;
-    private List<EntityType> validTargets = new List<EntityType>(){EntityType.Card};
+    private List<EntityType> validTargets = new List<EntityType>(){EntityType.PlayableCard};
 
     public CardEffectProcedure() {
         procedureClass = "CardEffectProcedure";

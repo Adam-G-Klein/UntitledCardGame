@@ -41,6 +41,8 @@ public class CardCastManager : TargetProvider {
     private CardCastEvent cardCastEvent;
     [SerializeField]
     private IntGameEvent manaChangeEvent;
+    [SerializeField]
+    private CardSelectionRequestEvent cardSelectionRequestEvent;
 
     //private Dictionary<CardEffectData, CombatEntityInstance> effectsToTargets = new Dictionary<CardEffectData, CombatEntityInstance>();
     // set to the empty string to designate no target set
@@ -133,7 +135,7 @@ public class CardCastManager : TargetProvider {
             else
                 Debug.LogWarning("No player hand in scene, couldn't cast effect that targets the player");
         }
-        if(validTargets.Contains(EntityType.Card)){
+        if(validTargets.Contains(EntityType.PlayableCard)){
             if(playerHand)
                 returnList.AddRange(playerHand.cardsInHand);
             else
@@ -179,6 +181,10 @@ public class CardCastManager : TargetProvider {
 
     public void raiseIntEvent(IntGameEvent gameEvent, int value){
         StartCoroutine(gameEvent.RaiseAtEndOfFrameCoroutine(value));
+    }
+
+    public void raiseCardSelectionRequest(CardSelectionRequestEventInfo info){
+        StartCoroutine(cardSelectionRequestEvent.RaiseAtEndOfFrameCoroutine(info));
     }
 
     private void resetCastingState(){

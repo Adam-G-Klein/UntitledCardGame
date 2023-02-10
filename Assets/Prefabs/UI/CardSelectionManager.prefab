@@ -10,7 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 992160027888929684}
   - component: {fileID: 7365031172802313781}
-  - component: {fileID: 6643726468913728191}
+  - component: {fileID: 3466630450177065713}
+  - component: {fileID: 5711439064292001886}
+  - component: {fileID: 2034547596358314560}
+  - component: {fileID: 8480183450986398343}
   m_Layer: 0
   m_Name: CardSelectionManager
   m_TagString: Untagged
@@ -45,9 +48,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6b0fd33618a6674e84362ab5db354ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardSelectionUIPrefab: {fileID: 5377055111114097650, guid: 1fd8415aef0620b4eaee61fe5e3ed571, type: 3}
   effectTargetRequestEvent: {fileID: 11400000, guid: 709caf6df9005934dbe5ec0e1bd93bb6, type: 2}
-  cardViewUIPrefab: {fileID: 5377055111114097650, guid: 43af0a6b355f5bc44b438074fee9d9a6, type: 3}
---- !u!114 &6643726468913728191
+  cardSelectionValidEvent: {fileID: 11400000, guid: ed30f73c5f8ea4d4bac74a75a83b7c54, type: 2}
+--- !u!114 &3466630450177065713
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -56,17 +60,101 @@ MonoBehaviour:
   m_GameObject: {fileID: 7625191492190917948}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2212db7a37b2f1448d7c63b3403380d, type: 3}
+  m_Script: {fileID: 11500000, guid: 8d4dd47d93965574dbea59e299212985, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: 16143db2a2228f2499361d860ef94748, type: 2}
+  gameEvent: {fileID: 11400000, guid: 152f92604c333844cbe39664029bb681, type: 2}
   unityEventResponse:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7365031172802313781}
-        m_TargetAssemblyTypeName: TargetProvider, Assembly-CSharp
-        m_MethodName: effectTargetSuppliedHandler
+        m_TargetAssemblyTypeName: CardSelectionManager, Assembly-CSharp
+        m_MethodName: cardSelectedEventHandler
         m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &5711439064292001886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7625191492190917948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d4dd47d93965574dbea59e299212985, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: db2b36361af374547b48c6ee587290fa, type: 2}
+  unityEventResponse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7365031172802313781}
+        m_TargetAssemblyTypeName: CardSelectionManager, Assembly-CSharp
+        m_MethodName: cardDeselectedEventHandler
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &2034547596358314560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7625191492190917948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e11839e47efa5744f845d7a1c5dee75e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: b553b6932fd9487468103b779284dbcd, type: 2}
+  unityEventResponse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7365031172802313781}
+        m_TargetAssemblyTypeName: CardSelectionManager, Assembly-CSharp
+        m_MethodName: cardSelectionRequestHandler
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &8480183450986398343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7625191492190917948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1ff1cf37b68c9948a040440320b0331, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: e90338377a639c14a8388d96c83edafd, type: 2}
+  unityEventResponse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7365031172802313781}
+        m_TargetAssemblyTypeName: CardSelectionManager, Assembly-CSharp
+        m_MethodName: UiCardsSelectionConfirmed
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

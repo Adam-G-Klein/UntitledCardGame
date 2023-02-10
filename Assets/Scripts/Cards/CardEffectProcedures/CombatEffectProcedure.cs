@@ -53,7 +53,7 @@ public class CombatEffectProcedure: EffectProcedure {
         this.context = context;
         resetCastingState();
         internalEffectName = displayedToCombatEffect[effectName];
-        if(validTargets.Contains(EntityType.Card)) {
+        if(validTargets.Contains(EntityType.PlayableCard)) {
             Debug.LogError("Ah sorry friend. You can't target cards with combat effects. They're technically entities on the software side, and they need to listen to entity events, which is why they show up in that drop down :/ Just go ahead and use CardEffectProcedure instead :)");
             yield break;
         }

@@ -14,9 +14,6 @@ public abstract class TargettableEntity : Entity,
     [SerializeField]
     private EffectTargetSuppliedEvent effectTargetSuppliedEvent;
 
-    void Start() {
-    }
-
     public virtual bool isTargetableByChildImpl(EffectTargetRequestEventInfo eventInfo) { return true; }
     public virtual void onPointerClickChildImpl(PointerEventData eventData) {}
     public virtual void uiStageChangeEventHandlerChildImpl(UIStateEventInfo eventInfo) {}
@@ -37,9 +34,8 @@ public abstract class TargettableEntity : Entity,
         // For now we don't need any information besides the fact 
         // that we're not targeting anymore
         uiStageChangeEventHandlerChildImpl(info);
-        if(info.newState != UIState.EFFECT_TARGETTING) {
-            isTargetable = false;
-        }
+        isTargetable = (info.newState == UIState.EFFECT_TARGETTING) 
+            || (entityType == EntityType.UICard && info.newState == UIState.CARD_SELECTION_DISPLAY);
     }
 
     public void OnPointerClick(PointerEventData eventData){

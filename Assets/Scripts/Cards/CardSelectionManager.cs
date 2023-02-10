@@ -2,34 +2,91 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Can make a card selection manager that extends this class
-// could pass a reference to it in with EffectProcedureContext
-// can override requestTarget to first ...
-// what if we use UIState?
-// Set the UIState to card selecting... and then every click on 
-// a card will raise an effect Target Supplied Event
-public class CardSelectionManager: TargetProvider {
-    public GameObject cardViewUIPrefab;
-    public override void requestTarget(List<EntityType> validTargets, TargetRequester requester, List<TargettableEntity> disallowedTargets = null){
-        this.targettingCoroutine = getTargetCoroutine(validTargets, requester, disallowedTargets);
-        StartCoroutine(targettingCoroutine);
+// Okay so current idea is that the selected cards will 
+// have one action associated with them, and the unselected cards
+// will have a different one (add to hand, discard)
+
+[RequireComponent(typeof(CardListEventListener))]
+[RequireComponent(typeof(CardSelectionRequestEventListener))]
+public class CardSelectionManager: MonoBehaviour{
+    public GameObject cardSelectionUIPrefab;
+    [SerializeField]
+    private EffectTargetRequestEvent effectTargetRequestEvent;
+    [SerializeField]
+    private BoolGameEvent cardSelectionValidEvent;
+
+    private IEnumerator selectionCoroutine;
+    private List<Card> selectedCards = new List<Card>();
+    private List<Card> unselectedCards = new List<Card>();
+    private bool selectionConfirmed = false;
+    private int currentMinSelection = 0;
+    private CardSelectionAction currentSelectedAction;
+    private CardSelectionAction currentUnselectedAction;
+
+    public void cardSelectedEventHandler(CardListEventInfo info){
+        selectedCards.AddRange(info.cards);
+        unselectedCards.RemoveAll(c => info.cards.Contains(c));
+        StartCoroutine(cardSelectionValidEvent.RaiseAtEndOfFrameCoroutine(selectedCards.Count > currentMinSelection));
     }
 
-    public void requestCardTargetFromList(List<Card> cards, TargetRequester requester) {
-        this.targettingCoroutine = getCardTargetCoroutine(cards, requester);
-        StartCoroutine(targettingCoroutine);
+    public void cardDeselectedEventHandler(CardListEventInfo info){
+        unselectedCards.AddRange(info.cards);
+        selectedCards.RemoveAll(c => info.cards.Contains(c));
+        StartCoroutine(cardSelectionValidEvent.RaiseAtEndOfFrameCoroutine(selectedCards.Count > currentMinSelection));
     }
 
-    private IEnumerator getCardTargetCoroutine(List<Card> cards, TargetRequester requester) {
-        requestedTarget = null;
-        displayCardGroup(cards);
-        yield return null;
+    public void UiCardsSelectionConfirmed() {
+        Debug.Log("Selection confirmed");
+        foreach(Card card in selectedCards) {
+            applyCardAction(card, this.currentSelectedAction);
+        }
+        foreach(Card card in unselectedCards) {
+            applyCardAction(card, this.currentUnselectedAction);
+        }
+        resetSelectionState();
+    }
+
+    public void applyCardAction(Card card, CardSelectionAction action) {
+        switch(action) {
+            case CardSelectionAction.ADD_TO_HAND:
+                Debug.Log("Adding card " + card.id + " to hand");
+                break;
+            case CardSelectionAction.DISCARD:
+                Debug.Log("Discarding card " + card.id); 
+                break;
+            case CardSelectionAction.EXHAUST:
+                Debug.Log("Exhausting card " + card.id);
+                break;
+            case CardSelectionAction.PURGE:
+                Debug.Log("Purging card " + card.id);
+                break;
+        }
+    }
+    public void cardSelectionRequestHandler(CardSelectionRequestEventInfo info) {
+        resetSelectionState();
+        unselectedCards.AddRange(info.cards);
+        this.currentMinSelection = info.minSelections;
+        this.currentSelectedAction = info.selectedAction;
+        this.currentUnselectedAction = info.unselectedAction;
+        displayCardGroup(info.cards);
+        // using this event allows us to reuse the logic in TargettableEntity in UICard
+        // even though we're not using the TargetSupplied event to pass them back
+        StartCoroutine(effectTargetRequestEvent.RaiseAtEndOfFrameCoroutine(new EffectTargetRequestEventInfo(new List<EntityType>(){EntityType.UICard})));
     }
 
     private void displayCardGroup(List<Card> cards) {
-        GameObject cardSelectionUI = Instantiate(cardViewUIPrefab);
+        GameObject cardSelectionUI = Instantiate(cardSelectionUIPrefab);
         CardViewUI cardViewUI = cardSelectionUI.GetComponent<CardViewUI>();
         cardViewUI.Setup(cards);
+    }
+
+    private void resetSelectionState() {
+        selectionConfirmed = false;
+        selectedCards.Clear();
+        unselectedCards.Clear();
+        this.currentMinSelection = 0;
+        this.currentSelectedAction = CardSelectionAction.DISCARD;
+        this.currentUnselectedAction = CardSelectionAction.DISCARD;
     }
 
 

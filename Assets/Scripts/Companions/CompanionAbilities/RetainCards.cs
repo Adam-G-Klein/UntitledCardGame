@@ -31,7 +31,7 @@ public class RetainCards : CompanionAbility {
             yield break;
         }  else if (lastCard == null) {
             Debug.Log("RetainCards requested target");
-            context.invoker.requestTarget(new List<EntityType> { EntityType.Card }, this);
+            context.invoker.requestTarget(new List<EntityType> { EntityType.PlayableCard }, this);
         } else {
             currentTargets.Add(lastCard);
         }

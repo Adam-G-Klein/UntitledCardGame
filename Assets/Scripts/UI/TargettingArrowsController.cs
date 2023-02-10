@@ -18,6 +18,10 @@ public class TargettingArrowsController : MonoBehaviour
     }
 
     public void effectTargetRequestEventHandler(EffectTargetRequestEventInfo info){
+        if(info.source == null){
+            // a null source means that the requestor didn't want an arrow displayed
+            return;
+        }
         currentArrow = createArrow(info);
         arrows.Add(currentArrow);
     }
@@ -29,6 +33,8 @@ public class TargettingArrowsController : MonoBehaviour
     }
 
     public void uiStateChangeEventHandler(UIStateEventInfo info){
+        // might have to update this if we want targetting arrows
+        // to stay during card UI selection
         if(info.newState != UIState.EFFECT_TARGETTING){
             clearArrows();
         }

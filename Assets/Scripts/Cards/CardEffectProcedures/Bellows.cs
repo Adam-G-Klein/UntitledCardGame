@@ -23,7 +23,7 @@ public class Bellows: EffectProcedure {
     {
         CombatEntityWithDeckInstance target = (CombatEntityWithDeckInstance)currentTargets[0];
         List<Card> cards = target.inCombatDeck.dealCardsFromDeck(cardsToDraw);
-        context.cardSelectionManager.requestCardTargetFromList(cards, this);
+        context.cardCastManager.raiseCardSelectionRequest(new CardSelectionRequestEventInfo(cards, CardSelectionAction.EXHAUST, CardSelectionAction.ADD_TO_HAND));
         yield return null;
     }
 

@@ -42,7 +42,7 @@ public class PlayableCard : TargettableEntity
         // IMPORTANT, will end up with duplicate IDs if we ever 
         // forget to do this on an Entity
         id = outOfCombatCard.id;
-        entityType = EntityType.Card;
+        entityType = EntityType.PlayableCard;
         GameObject companionManagerGO = GameObject.Find("CompanionManager");
         GameObject cardCasterGO = GameObject.Find("CardCaster");
         GameObject playerHandGO = GameObject.Find("PlayerHand");
