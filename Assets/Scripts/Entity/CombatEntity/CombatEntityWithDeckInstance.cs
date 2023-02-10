@@ -4,6 +4,7 @@ using UnityEngine;
 
 // Just in the hierarchy so that we don't duplicate this code for minions
 // and companions 
+[RequireComponent(typeof(CardEffectEventListener))]
 public abstract class CombatEntityWithDeckInstance : CombatEntityInstance
 {
     //  Don't have great justification for this being public,
@@ -43,6 +44,52 @@ public abstract class CombatEntityWithDeckInstance : CombatEntityInstance
     protected override void onDraw(int scale)
     {
         dealCards(scale);
+    }
+
+    // Here so that we can target cards in decks with effect events
+    public void onCardEffectEvent(CardEffectEventInfo info)
+    {
+        foreach(Card card in info.cards) {
+            if(inCombatDeck.Contains(card)) {
+                applyCardEffects(info.cardEffects, card);
+            }
+        }
+    }
+
+    public void applyCardEffects(Dictionary<CardEffect, int> effects, Card card)
+    {
+        foreach(KeyValuePair<CardEffect, int> effect in effects)
+        {
+            applyCardEffect(effect.Key, effect.Value, card);
+        }
+    }
+
+    public void applyCardEffect(CardEffect effect, int scale, Card card)
+    {
+        switch(effect)
+        {
+            case CardEffect.AddToHand:
+                // if we're here, the card is in the deck
+                // so for now we won't differentiate between this and 
+                // just drawing it (even though MTG would not trigger draw card effects)
+                Debug.Log("Adding card to hand " + card.name + " " + card.id);
+                inCombatDeck.removeFromDraw(card);
+                StartCoroutine(cardsDealtEvent.RaiseAtEndOfFrameCoroutine(
+                        new CardsDealtEventInfo(new List<Card>{card}, this)));
+                break;
+            case CardEffect.Exhaust:
+                inCombatDeck.exhaustCard(card);
+                break;
+            case CardEffect.Discard:
+                inCombatDeck.discardCard(card);
+                break;
+            case CardEffect.Purge:
+                inCombatDeck.purgeCard(card);
+                break;
+            default:
+                Debug.LogError("Unrecognized card effect " + effect);
+                break;
+        }
     }
 
     protected override IEnumerator onDeath(CombatEntityInstance killer) {

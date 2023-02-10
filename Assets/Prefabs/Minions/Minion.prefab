@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1554480019664448233}
   - component: {fileID: 3787606817897791769}
   - component: {fileID: 729362133214241401}
+  - component: {fileID: 3006863526209320846}
   m_Layer: 0
   m_Name: Minion
   m_TagString: Untagged
@@ -193,6 +194,34 @@ MonoBehaviour:
       - m_Target: {fileID: 3793161618878564126}
         m_TargetAssemblyTypeName: CombatEntityInstance, Assembly-CSharp
         m_MethodName: combatEffectEventHandler
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &3006863526209320846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3793161618878564120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 422f790a2c1a8a9409c78407946a8313, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 649dc1f48181c6f4ea744ea04ca53239, type: 2}
+  unityEventResponse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3793161618878564126}
+        m_TargetAssemblyTypeName: CombatEntityWithDeckInstance, Assembly-CSharp
+        m_MethodName: onCardEffectEvent
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

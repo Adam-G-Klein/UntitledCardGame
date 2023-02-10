@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class Bellows: EffectProcedure {
     public int cardsToDraw = 4;
-    public int cardsToExhaust = 2;
+    public int cardsToExhaust = 1;
     private List<EntityType> validTargets = new List<EntityType>(){EntityType.Companion, EntityType.Minion};
 
     public Bellows() {
@@ -21,9 +21,10 @@ public class Bellows: EffectProcedure {
 
     public override IEnumerator invoke(EffectProcedureContext context)
     {
-        CombatEntityWithDeckInstance target = (CombatEntityWithDeckInstance)currentTargets[0];
-        List<Card> cards = target.inCombatDeck.dealCardsFromDeck(cardsToDraw);
-        context.cardCastManager.raiseCardSelectionRequest(new CardSelectionRequestEventInfo(cards, CardSelectionAction.EXHAUST, CardSelectionAction.ADD_TO_HAND));
+        CombatEntityWithDeckInstance target = (CombatEntityWithDeckInstance) currentTargets[0];
+        List<Card> cards = target.inCombatDeck.dealCardsFromDeck(cardsToDraw, true);
+        // will make this into a combatEffectProcedure if we end up using it again
+        context.cardCastManager.raiseCardSelectionRequest(new CardSelectionRequestEventInfo(cards, CardEffect.Exhaust, CardEffect.AddToHand, cardsToExhaust, cardsToExhaust));
         yield return null;
     }
 
