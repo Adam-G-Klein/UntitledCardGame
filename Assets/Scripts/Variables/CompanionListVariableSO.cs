@@ -8,4 +8,6 @@ using UnityEngine;
 public class CompanionListVariableSO : ScriptableObject
 {
     public List<Companion> companionList;
+
+    public List<Companion> companionBench;
 }
