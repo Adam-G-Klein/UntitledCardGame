@@ -11,7 +11,10 @@ public enum CardEffect {
     [Description("Add To Hand")]
     AddToHand,
     Exhaust,
-    Purge
+    Purge,
+    // For things like when we want to just keep a card in the deck after scrying 
+    // or when we want to keep it in the hand after deciding not to discard it
+    None
 }
 // An event that announces any effect that targets a card
 [System.Serializable]

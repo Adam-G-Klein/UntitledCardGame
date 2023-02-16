@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: Tweak Out
+  m_Name: SuperTweak
   m_EditorClassIdentifier: 
-  Name: Tweak Out
-  Description: Discard two cards to deal 10 damaage
+  Name: SUPER Tweak Out
+  Description: EXHAUST your whole hand to deal 30 damaage
   Cost: 0
   Artwork: {fileID: 21300000, guid: 13bbb4ba4642f9240914cd432071cc6a, type: 3}
   EffectProcedures:
@@ -26,8 +26,8 @@ MonoBehaviour:
       type: {class: CardEffectProcedure, ns: , asm: Assembly-CSharp}
       data:
         procedureClass: CardEffectProcedure
-        targetType: 1
-        selectedEffect: 0
+        targetType: 2
+        selectedEffect: 2
         unselectedEffect: 4
         cardsToDraw: 0
         minSelections: 2

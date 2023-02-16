@@ -6,8 +6,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(CardListEventListener))]
 public class UICard : TargettableEntity {
     public Card card;
-    // hot take having these be separate events,
-    // but it allows us to reuse the event *shrug*
+    public PlayableCard inHandCard = null;
     [SerializeField]
     private CardListEvent cardSelectedEvent;
     [SerializeField]

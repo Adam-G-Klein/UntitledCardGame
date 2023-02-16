@@ -12,6 +12,7 @@ public class EffectProcedureContext {
     public CombatEffectEvent combatEffectEvent;
     public PlayerHand playerHand;
     public List<TargettableEntity> alreadyTargetted;
+    public Card cardCasting;
 
     
     public EffectProcedureContext(CardCastManager caster, 
@@ -21,7 +22,8 @@ public class EffectProcedureContext {
         PlayerHand playerHand, 
         List<TargettableEntity> alreadyTargetted, 
         CombatEffectEvent combatEffectEvent,
-        CardSelectionManager cardSelectionManager) {
+        CardSelectionManager cardSelectionManager,
+        Card cardCasting) {
         this.cardCastManager = caster;
         this.companionManager = companionManager;
         this.enemyManager = enemyManager;
@@ -31,6 +33,7 @@ public class EffectProcedureContext {
         this.alreadyTargetted = alreadyTargetted;
         this.combatEffectEvent = combatEffectEvent;
         this.cardSelectionManager = cardSelectionManager;
+        this.cardCasting = cardCasting;
     }
     
 }

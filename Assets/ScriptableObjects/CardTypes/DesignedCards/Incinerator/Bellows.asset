@@ -17,13 +17,17 @@ MonoBehaviour:
   Cost: 1
   Artwork: {fileID: 21300000, guid: a25201c1880e82047ad39afad0b9ab94, type: 3}
   EffectProcedures:
-  - rid: 2812361790881529856
+  - rid: 2812361940082098176
   references:
     version: 2
     RefIds:
-    - rid: 2812361790881529856
-      type: {class: Bellows, ns: , asm: Assembly-CSharp}
+    - rid: 2812361940082098176
+      type: {class: CardEffectProcedure, ns: , asm: Assembly-CSharp}
       data:
-        procedureClass: Bellows
-        cardsToDraw: 3
-        cardsToExhaust: 1
+        procedureClass: CardEffectProcedure
+        targetType: 0
+        selectedEffect: 2
+        unselectedEffect: 1
+        cardsToDraw: 4
+        minSelections: 1
+        maxSelections: 1

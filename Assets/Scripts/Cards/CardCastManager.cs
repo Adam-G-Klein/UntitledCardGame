@@ -57,10 +57,9 @@ public class CardCastManager : TargetProvider {
     /// Don't rely on this being available outside of effectProcedure invokations, 
     /// it's only set when a card is being cast
     private EffectProcedureContext currentContext;
-    // There's gotta be a better place for this,
-    // but this is where I'm putting it for now
-    // Tough to decide where an authoritative figure like this should go
-    // But I figure here - where it's being checked - is probably a decent place?
+    // So that we can wait for the card selection manager to finish selecting cards
+    // before getting targets for other effects on the card
+    private bool cardSelectionConfirmed = false; 
 
     void Start() {
         // This may cause me to consider combining these into an EntityInstanceManager
@@ -156,7 +155,8 @@ public class CardCastManager : TargetProvider {
             playerHand,
             alreadyTargetted,
             combatEffectEvent,
-            cardSelectionManager);
+            cardSelectionManager,
+            card);
         foreach(EffectProcedure procedure in card.effectProcedures){
             // Track current procedure for casting cancellation
             currentEffectProcedure = procedure.prepare(currentContext);
@@ -175,16 +175,25 @@ public class CardCastManager : TargetProvider {
         StartCoroutine(combatEffectEvent.RaiseAtEndOfFrameCoroutine(info));
     }
 
-    public void raiseCardEffect(CardEffectEventInfo info){
-        StartCoroutine(cardEffectEvent.RaiseAtEndOfFrameCoroutine(info));
+    public IEnumerator raiseCardEffect(CardEffectEventInfo info){
+        IEnumerator effectCoroutine = cardEffectEvent.RaiseAtEndOfFrameCoroutine(info);
+        StartCoroutine(effectCoroutine);
+        return effectCoroutine;
     }
 
     public void raiseIntEvent(IntGameEvent gameEvent, int value){
         StartCoroutine(gameEvent.RaiseAtEndOfFrameCoroutine(value));
     }
 
-    public void raiseCardSelectionRequest(CardSelectionRequestEventInfo info){
-        StartCoroutine(cardSelectionRequestEvent.RaiseAtEndOfFrameCoroutine(info));
+    public void cardSelectionConfirmationHandler(){
+        cardSelectionConfirmed = true;
+    }
+
+    public IEnumerator raiseCardSelectionRequest(CardSelectionRequestEventInfo info){
+        IEnumerator requestCoroutine = cardSelectionRequestEvent.RaiseAtEndOfFrameCoroutine(info);
+        StartCoroutine(requestCoroutine);
+        yield return new WaitUntil(() => cardSelectionConfirmed);
+        cardSelectionConfirmed = false;
     }
 
     private void resetCastingState(){

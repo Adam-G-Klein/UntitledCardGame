@@ -33,8 +33,6 @@ public abstract class CombatEntityWithDeckInstance : CombatEntityInstance
         else Debug.LogError("No TurnManager found in scene, companions won't deal cards");
         startTurnTrigger = new TurnPhaseTrigger(TurnPhase.START_PLAYER_TURN, dealStartTurnCards());
         turnManager.addTurnPhaseTrigger(startTurnTrigger);
-        // Tried doing this in Awake, but it looks like the fields of companion
-        // hadn't been initialized by then
     }
 
     public void dealCards(int numCards){
@@ -47,6 +45,7 @@ public abstract class CombatEntityWithDeckInstance : CombatEntityInstance
     }
 
     // Here so that we can target cards in decks with effect events
+    // see CardEffectProcedure.cs and CardSelectionManager.cs
     public void onCardEffectEvent(CardEffectEventInfo info)
     {
         foreach(Card card in info.cards) {
@@ -85,6 +84,9 @@ public abstract class CombatEntityWithDeckInstance : CombatEntityInstance
                 break;
             case CardEffect.Purge:
                 inCombatDeck.purgeCard(card);
+                break;
+            case CardEffect.None:
+                // no op
                 break;
             default:
                 Debug.LogError("Unrecognized card effect " + effect);

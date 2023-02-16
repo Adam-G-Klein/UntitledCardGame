@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-// Okay so current idea is that the selected cards will 
+// the selected cards will 
 // have one action associated with them, and the unselected cards
 // will have a different one (add to hand, discard)
 
@@ -23,7 +23,6 @@ public class CardSelectionManager: MonoBehaviour{
     private IEnumerator selectionCoroutine;
     private List<Card> selectedCards = new List<Card>();
     private List<Card> unselectedCards = new List<Card>();
-    private bool selectionConfirmed = false;
     private int currentMinSelection = 0;
     private int currentMaxSelection = 0;
     private CardEffect currentSelectedAction;
@@ -75,6 +74,10 @@ public class CardSelectionManager: MonoBehaviour{
 
     public void cardSelectionRequestHandler(CardSelectionRequestEventInfo info) {
         resetSelectionState();
+        if(info.autoSelectAllAvailale) {
+            // skip straight to actioning the selection
+            // basically just here as a shortcut for CardEffectProcedure.cs
+        }
         unselectedCards.AddRange(info.cards);
         this.currentMinSelection = Mathf.Min(info.minSelections, info.cards.Count);
         this.currentMaxSelection = info.maxSelections;
@@ -108,13 +111,12 @@ public class CardSelectionManager: MonoBehaviour{
     }
 
     private void resetSelectionState() {
-        selectionConfirmed = false;
         selectedCards.Clear();
         unselectedCards.Clear();
         this.currentMinSelection = 0;
         this.currentMaxSelection = int.MaxValue;
-        this.currentSelectedAction = CardEffect.Discard;
-        this.currentUnselectedAction = CardEffect.Discard;
+        this.currentSelectedAction = CardEffect.None;
+        this.currentUnselectedAction = CardEffect.None;
     }
 
 

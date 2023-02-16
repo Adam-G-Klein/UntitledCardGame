@@ -37,20 +37,14 @@ MonoBehaviour:
     deck:
       startingDeck: {fileID: 11400000, guid: 83b10e15a862e1a48900e311e49378a4, type: 2}
       cards:
-      - cardType: {fileID: 11400000, guid: ec3c681e35f3b8541b4e30643c6d0ee7, type: 2}
+      - cardType: {fileID: 11400000, guid: 940a073ba558e9546b5f8d28c2b85af5, type: 2}
         id: 576edb1e-f595-4cd4-b8d4-8086578a9b6f
-      - cardType: {fileID: 11400000, guid: ec3c681e35f3b8541b4e30643c6d0ee7, type: 2}
-        id: 6d296900-efe2-42f2-a596-c05a51691dfd
-      - cardType: {fileID: 11400000, guid: 462354a397a54954aab6c85e99376713, type: 2}
-        id: ec528b7c-5b01-4c84-8493-5b42e4f41925
-      - cardType: {fileID: 11400000, guid: 462354a397a54954aab6c85e99376713, type: 2}
-        id: 849a2a1d-7239-476c-abeb-1ca93c9948f1
     baseAttackDamage: 0
     abilities: []
     id: 7bac5f67-10ba-4220-a2e5-10c99f275f0b
   - companionType: {fileID: 11400000, guid: af270a8bf55a86547941d6065eb02679, type: 2}
     maxHealth: 1004
-    currentHealth: 1004
+    currentHealth: 1003
     deck:
       startingDeck: {fileID: 11400000, guid: bb2dd24e7cac49440ac4e14129eec39c, type: 2}
       cards:
@@ -76,9 +70,12 @@ MonoBehaviour:
       cards:
       - cardType: {fileID: 11400000, guid: 3ea4fc4054021ce4788b5012ed153111, type: 2}
         id: awevds
+      - cardType: {fileID: 11400000, guid: 318cb09bc9a5e144cae2ae4552f4a96d, type: 2}
+        id: awevds
     baseAttackDamage: 0
     abilities: []
     id: c9e796cc-1c30-4db4-a3cc-f5c9138bcba4
+  companionBench: []
   references:
     version: 2
     RefIds:

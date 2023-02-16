@@ -82,7 +82,7 @@ public class PlayableCard : TargettableEntity
     }
 
     public void cardEffectEventHandler(CardEffectEventInfo info){
-        if (!info.targets.Contains(this)) return;
+        if (!info.targets.Contains(this) && !info.cards.Contains(outOfCombatCard)) return;
         applyCardEffects(info.cardEffects);
     }
 
@@ -95,6 +95,19 @@ public class PlayableCard : TargettableEntity
         switch(effect) {
             case CardEffect.Discard:
                 playerHand.discardCard(this);
+                break;
+            case CardEffect.Exhaust:
+                playerHand.discardCard(this);
+                entityFrom.inCombatDeck.exhaustCard(outOfCombatCard);
+                break;
+            case CardEffect.Purge:
+                playerHand.discardCard(this);
+                entityFrom.inCombatDeck.purgeCard(outOfCombatCard);
+                break;
+            case CardEffect.None:
+                break;
+            case CardEffect.AddToHand:
+                // already in hand, no case where we have a PlayableCard anywhere else right now
                 break;
         }
     }
