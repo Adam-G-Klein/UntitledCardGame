@@ -41,8 +41,6 @@ public class CardCastManager : TargetProvider {
     private CardCastEvent cardCastEvent;
     [SerializeField]
     private IntGameEvent manaChangeEvent;
-    [SerializeField]
-    private CardSelectionRequestEvent cardSelectionRequestEvent;
 
     //private Dictionary<CardEffectData, CombatEntityInstance> effectsToTargets = new Dictionary<CardEffectData, CombatEntityInstance>();
     // set to the empty string to designate no target set
@@ -175,12 +173,28 @@ public class CardCastManager : TargetProvider {
         StartCoroutine(combatEffectEvent.RaiseAtEndOfFrameCoroutine(info));
     }
 
+    public IEnumerator raiseCardEffects(CardEffect selectedAction, CardEffect unselectedAction, List<Card> selected, List<Card> unselected){
+        foreach(Card card in selected){
+            yield return StartCoroutine(raiseCardEffect(card, selectedAction));
+        }
+        foreach(Card card in unselected){
+            yield return StartCoroutine(raiseCardEffect(card, unselectedAction));
+        }
+    }
+
     public IEnumerator raiseCardEffect(CardEffectEventInfo info){
         IEnumerator effectCoroutine = cardEffectEvent.RaiseAtEndOfFrameCoroutine(info);
         StartCoroutine(effectCoroutine);
         return effectCoroutine;
     }
 
+    private IEnumerator raiseCardEffect(Card card, CardEffect action) {
+        yield return StartCoroutine(cardEffectEvent.RaiseAtEndOfFrameCoroutine(
+            new CardEffectEventInfo(
+                new Dictionary<CardEffect, int>(){ {action, 1} }, 
+                null, 
+                new List<Card>(){card})));
+    }
     public void raiseIntEvent(IntGameEvent gameEvent, int value){
         StartCoroutine(gameEvent.RaiseAtEndOfFrameCoroutine(value));
     }
@@ -190,7 +204,7 @@ public class CardCastManager : TargetProvider {
     }
 
     public IEnumerator raiseCardSelectionRequest(CardSelectionRequestEventInfo info){
-        IEnumerator requestCoroutine = cardSelectionRequestEvent.RaiseAtEndOfFrameCoroutine(info);
+        IEnumerator requestCoroutine = this.cardSelectionRequestEvent.RaiseAtEndOfFrameCoroutine(info);
         StartCoroutine(requestCoroutine);
         yield return new WaitUntil(() => cardSelectionConfirmed);
         cardSelectionConfirmed = false;

@@ -14,17 +14,13 @@ public class Bellows: EffectProcedure {
     
     public override IEnumerator prepare(EffectProcedureContext context) {
         yield return base.prepare(context);
-        context.cardCastManager.requestTarget(validTargets, this);
-        yield return new WaitUntil(() => currentTargets.Count > 0);
-        context.alreadyTargetted.AddRange(currentTargets);
+        context.cardCastManager.requestCardTargets(CardEffectTargetType.FromDeckWithReshuffle, CardEffect.Exhaust, cardsToDraw, cardsToExhaust, cardsToExhaust, this);
+        yield return new WaitUntil(() => this.currentUnselectedCardTargets.Count > 0 || this.currentSelectedCardTargets.Count > 0);
     }
 
     public override IEnumerator invoke(EffectProcedureContext context)
     {
-        CombatEntityWithDeckInstance target = (CombatEntityWithDeckInstance) currentTargets[0];
-        List<Card> cards = target.inCombatDeck.dealCardsFromDeck(cardsToDraw, true);
-        // will make this into a combatEffectProcedure if we end up using it again
-        context.cardCastManager.raiseCardSelectionRequest(new CardSelectionRequestEventInfo(cards, CardEffect.Exhaust, CardEffect.AddToHand, cardsToExhaust, cardsToExhaust));
+        context.cardCastManager.raiseCardEffects(CardEffect.Exhaust, CardEffect.AddToHand, currentSelectedCardTargets, currentUnselectedCardTargets);
         yield return null;
     }
 

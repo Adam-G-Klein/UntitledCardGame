@@ -4,21 +4,14 @@ using UnityEngine;
 
 [System.Serializable]
 public class CardSelectionRequestSuppliedEventInfo {
-    public List<Card> cards;
-    public int minSelections;
-    public int maxSelections;
-    public bool autoSelectAllAvailale = false;
-    public CardEffect selectedAction;
-    public CardEffect unselectedAction;
+    public List<Card> selectedCards;
+    public List<Card> unselectedCards;
 
-    public CardSelectionRequestSuppliedEventInfo(List<Card> cards, CardEffect selectedAction, CardEffect unselectedAction, int minSelections = 0, int maxSelections = int.MaxValue, bool autoSelectAllAvailale = false) {
-        this.cards = cards;
-        this.selectedAction = selectedAction;
-        this.unselectedAction = unselectedAction;
-        this.minSelections = minSelections;
-        this.maxSelections = maxSelections;
-        this.autoSelectAllAvailale = autoSelectAllAvailale;
+    public CardSelectionRequestSuppliedEventInfo(List<Card> selectedCards, List<Card> unselectedCards) {
+        this.selectedCards = selectedCards;
+        this.unselectedCards = unselectedCards;
     }
+
 }
 [CreateAssetMenu(
     fileName = "CardSelectionRequestSuppliedEvent", 

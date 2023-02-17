@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 8539263782326318635}
   - component: {fileID: 1858601868258829549}
   - component: {fileID: 8736205326340983209}
+  - component: {fileID: 3384248161517199814}
   m_Layer: 0
   m_Name: CardCaster
   m_TagString: Untagged
@@ -136,11 +137,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effectTargetRequestEvent: {fileID: 11400000, guid: 709caf6df9005934dbe5ec0e1bd93bb6, type: 2}
+  cardSelectionRequestEvent: {fileID: 11400000, guid: b553b6932fd9487468103b779284dbcd, type: 2}
+  playerHandContentsRequestEvent: {fileID: 0}
   combatEffectEvent: {fileID: 11400000, guid: 7b4f8952c0f9b4d4a80b72189e46bd3c, type: 2}
   cardEffectEvent: {fileID: 11400000, guid: 649dc1f48181c6f4ea744ea04ca53239, type: 2}
   cardCastEvent: {fileID: 11400000, guid: 8e2f201df9de731449d5a0e8ddb0d748, type: 2}
   manaChangeEvent: {fileID: 11400000, guid: c102a62a7fc128343b59ddb6cac89348, type: 2}
-  cardSelectionRequestEvent: {fileID: 11400000, guid: b553b6932fd9487468103b779284dbcd, type: 2}
 --- !u!114 &8736205326340983209
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,6 +163,34 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: CardCastManager, Assembly-CSharp
         m_MethodName: cardSelectionConfirmationHandler
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &3384248161517199814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9055853530846638642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 944fb218adb21b647bc13612b55276ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 6ac4b963c49086e46a30afc0fb1addc9, type: 2}
+  unityEventResponse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1858601868258829549}
+        m_TargetAssemblyTypeName: TargetProvider, Assembly-CSharp
+        m_MethodName: cardSelectionSuppliedHandler
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

@@ -28,6 +28,7 @@ public class TargettingArrowsController : MonoBehaviour
 
     public void effectTargetRequestSuppliedHandler(EffectTargetSuppliedEventInfo info){
         if(currentArrow != null) {
+            Debug.Log("Froze arrow");
             currentArrow.freeze(info.target.transform);
         }
     }

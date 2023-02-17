@@ -5,16 +5,15 @@ using UnityEngine;
 [System.Serializable]
 public class CardSelectionRequestEventInfo {
     public List<Card> cards;
+    // for display in the ui
+    public CardEffect selectedEffect;
     public int minSelections;
     public int maxSelections;
     public bool autoSelectAllAvailale = false;
-    public CardEffect selectedAction;
-    public CardEffect unselectedAction;
 
-    public CardSelectionRequestEventInfo(List<Card> cards, CardEffect selectedAction, CardEffect unselectedAction, int minSelections = 0, int maxSelections = int.MaxValue, bool autoSelectAllAvailale = false) {
+    public CardSelectionRequestEventInfo(List<Card> cards, CardEffect selectedEffect, int minSelections, int maxSelections, bool autoSelectAllAvailale = false) {
         this.cards = cards;
-        this.selectedAction = selectedAction;
-        this.unselectedAction = unselectedAction;
+        this.selectedEffect = selectedEffect;
         this.minSelections = minSelections;
         this.maxSelections = maxSelections;
         this.autoSelectAllAvailale = autoSelectAllAvailale;

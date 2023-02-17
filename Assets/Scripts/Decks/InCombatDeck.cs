@@ -61,6 +61,12 @@ public class InCombatDeck
         }
     }
 
+    public int totalCards {
+        get {
+            return drawPile.Count + discardPile.Count;
+        }
+    }
+
     private void shuffleDiscardIntoDraw(){
         drawPile.AddRange(discardPile);
         drawPile.Shuffle();

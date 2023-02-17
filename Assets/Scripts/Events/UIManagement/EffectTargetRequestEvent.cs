@@ -16,11 +16,17 @@ public class EffectTargetRequestEventInfo {
     public Entity source;
     public List<EntityType> validTargets;
     public List<TargettableEntity> disallowedTargets;
+    public bool allowCancel = true; 
+    public bool displayArrow = true;
 
-    public EffectTargetRequestEventInfo(List<EntityType> validTargets, Entity source = null, List<TargettableEntity> disallowedTargets = null){
-        this.validTargets = validTargets;
-        this.source = source;
-        this.disallowedTargets = disallowedTargets;
+    public EffectTargetRequestEventInfo(List<EntityType> validTargets, 
+        Entity source = null, 
+        List<TargettableEntity> disallowedTargets = null, 
+        bool allowCancel = true, 
+        bool displayArrow = true) {
+            this.validTargets = validTargets;
+            this.source = source;
+            this.disallowedTargets = disallowedTargets;
     }
 
 }

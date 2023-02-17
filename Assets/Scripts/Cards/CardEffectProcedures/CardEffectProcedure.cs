@@ -2,19 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum CardEffectTargetType {
-    // Select some cards from the draw pile, reshuffling to replenish if possible and necessary
-    CompanionDeckWithReshuffle,
-    // Select a few cards from the hand
-    Hand,
-    // Effect targets entire hand
-    EntireHand,
-    // effect targets entire deck of targeted companion
-    EntireDeck
-    //TODO:
-    //CompanionDeckWithoutReshuffle,
-}
-
 [System.Serializable]
 public class CardEffectProcedure: EffectProcedure {
     // Causes the whole class to serialize differently if this field 
@@ -33,12 +20,13 @@ public class CardEffectProcedure: EffectProcedure {
     }
     
     public override IEnumerator prepare(EffectProcedureContext context) {
+        /*
         this.context = context;
         resetCastingState();
         List<PlayableCard> cardsInHand = context.playerHand.cardsInHand;
         // damn this code is messy. Will clean it up if I need to revisit it
         switch(targetType) {
-            case CardEffectTargetType.CompanionDeckWithReshuffle:
+            case CardEffectTargetType.FromDeckWithReshuffle:
                 context.cardCastManager.requestTarget(new List<EntityType>(){EntityType.Companion}, this);
                 yield return new WaitUntil(() => currentTargets.Count > 0);
                 CombatEntityWithDeckInstance target = (CombatEntityWithDeckInstance) currentTargets[0];
@@ -61,7 +49,7 @@ public class CardEffectProcedure: EffectProcedure {
                         ));
                 }
                 break;
-            case CardEffectTargetType.Hand:
+            case CardEffectTargetType.FromHand:
                 cardsToSelectFrom.AddRange(cardsInHand.ConvertAll(c => c.outOfCombatCard));
                 cardsToSelectFrom.Remove(context.cardCasting);
                 // need to do this here because it's technically target selection,
@@ -85,6 +73,8 @@ public class CardEffectProcedure: EffectProcedure {
 
         }
         // passes back to the cardCaster, where it will call invoke
+        */
+        yield break;
     }
 
     public override IEnumerator invoke(EffectProcedureContext context)
@@ -93,7 +83,7 @@ public class CardEffectProcedure: EffectProcedure {
     }
 
     public bool effectNeedsTargets(CombatEffect effect) {
-        return targetType != CardEffectTargetType.Hand;
+        return targetType != CardEffectTargetType.FromHand;
     }
 
     public override void resetCastingState() {

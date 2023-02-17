@@ -8,6 +8,8 @@ using UnityEngine;
 [RequireComponent(typeof(EffectTargetSuppliedEventListener))]
 [RequireComponent(typeof(CardCastEventListener))]
 [RequireComponent(typeof(TurnPhaseEventListener))]
+[RequireComponent(typeof(CardSelectionRequestEventListener))]
+[RequireComponent(typeof(CardSelectionRequestSuppliedEventListener))]
 public class UIStateManager : MonoBehaviour
 {
     public UIState currentState;
@@ -30,6 +32,14 @@ public class UIStateManager : MonoBehaviour
     public void uiStageChangeEventHandler(UIStateEventInfo info) {
         Debug.Log("UI State Change Event Handler new state: " + info.newState);
         currentState = info.newState;
+    }
+
+    public void cardSelectionRequestEventHandler(CardSelectionRequestEventInfo info) {
+        StartCoroutine(uiStateEvent.RaiseAtEndOfFrameCoroutine(new UIStateEventInfo(UIState.CARD_SELECTION_DISPLAY)));
+    }
+
+    public void cardSelectionRequestSuppliedEventHandler(CardSelectionRequestSuppliedEventInfo info) {
+        StartCoroutine(uiStateEvent.RaiseAtEndOfFrameCoroutine(new UIStateEventInfo(UIState.DEFAULT)));
     }
 
     public void effectTargetSuppliedEventHandler(EffectTargetSuppliedEventInfo info) {
