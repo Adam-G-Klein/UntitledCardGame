@@ -36,7 +36,7 @@ public class PlayerHand : MonoBehaviour
     public void cardCastEventHandler(CardCastEventInfo info){
         PlayableCard cardToDiscard = null;
         foreach(PlayableCard card in cardsInHand) {
-            if(card.outOfCombatCard.id == info.cardInfo.id) {
+            if(card.card.id == info.cardInfo.id) {
                 cardToDiscard = card;
             }
         }

@@ -12,6 +12,13 @@ public class CompanionManager : MonoBehaviour
     public EncounterConstants encounterConstants;
     private List<CompanionInstance> companions = new List<CompanionInstance>();
     private List<MinionInstance> minions = new List<MinionInstance>();
+    private List<TargettableEntity> minionsAndCompanions {
+        get {
+            List<TargettableEntity> retList = new List<TargettableEntity>(minions);
+            retList.AddRange(companions);
+            return retList;
+        }
+    }
     private List<string> companionIds = new List<string>();
 
     [SerializeField]
@@ -73,5 +80,11 @@ public class CompanionManager : MonoBehaviour
         List<TargettableEntity> retList = new List<TargettableEntity>(minions);
         retList.AddRange(companions);
         return retList;
+    }
+
+    public Vector3 getRandomMinionSpawnPosition(){
+        Vector3 randomSpawn = minionsAndCompanions[Random.Range(0, minionsAndCompanions.Count)].transform.position;
+        // hack right now to make minions clickable over companions
+        return new Vector3(randomSpawn.x, randomSpawn.y, -0.1f);
     }
 }

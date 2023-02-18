@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 3006863526209320846}
   m_Layer: 0
   m_Name: Minion
-  m_TagString: Untagged
+  m_TagString: Minion
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -123,6 +123,8 @@ MonoBehaviour:
     discardPile: []
   nextMinionSpawnTheta: 0
   minionSpawnRadius: 2
+  minionPrefab: {fileID: 3793161618878564120}
+  onDeathMinionType: {fileID: 11400000, guid: acf491015f67b06468095238a670ef7b, type: 2}
   minion:
     minionType: {fileID: 11400000, guid: acf491015f67b06468095238a670ef7b, type: 2}
     maxHealth: 0
@@ -159,7 +161,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.089999914, y: 1.8190427}

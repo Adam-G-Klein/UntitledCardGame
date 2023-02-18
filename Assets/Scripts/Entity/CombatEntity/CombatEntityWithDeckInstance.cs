@@ -16,7 +16,6 @@ public abstract class CombatEntityWithDeckInstance : CombatEntityInstance
     [SerializeField]
     private GameplayConstants constants;
     public InCombatDeck inCombatDeck;
-    protected TurnManager turnManager;
 
     [SerializeField]
     private float nextMinionSpawnTheta = Mathf.PI/2f;
@@ -29,8 +28,6 @@ public abstract class CombatEntityWithDeckInstance : CombatEntityInstance
         base.Start();
         inCombatDeck = new InCombatDeck(deckEntity.getDeck());
         GameObject turnManagerObject = GameObject.Find("TurnManager");
-        if(turnManagerObject != null)  turnManager = turnManagerObject.GetComponent<TurnManager>();
-        else Debug.LogError("No TurnManager found in scene, companions won't deal cards");
         startTurnTrigger = new TurnPhaseTrigger(TurnPhase.START_PLAYER_TURN, dealStartTurnCards());
         turnManager.addTurnPhaseTrigger(startTurnTrigger);
         // Tried doing this in Awake, but it looks like the fields of companion

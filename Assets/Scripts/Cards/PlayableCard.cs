@@ -14,7 +14,7 @@ public class PlayableCard : TargettableEntity
     , IPointerEnterHandler
     , IPointerExitHandler
 {
-    public Card outOfCombatCard;
+    public Card card;
     private PlayerHand playerHand;
     private CombatEntityWithDeckInstance entityFrom;
 
@@ -38,10 +38,10 @@ public class PlayableCard : TargettableEntity
 
     void Start()
     {
-        outOfCombatCard = GetComponent<CardDisplay>().cardInfo;
+        card = GetComponent<CardDisplay>().cardInfo;
         // IMPORTANT, will end up with duplicate IDs if we ever 
         // forget to do this on an Entity
-        id = outOfCombatCard.id;
+        id = card.id;
         entityType = EntityType.PlayableCard;
         GameObject companionManagerGO = GameObject.Find("CompanionManager");
         GameObject cardCasterGO = GameObject.Find("CardCaster");
@@ -63,7 +63,7 @@ public class PlayableCard : TargettableEntity
         CardCastArguments args = new CardCastArguments(entityFrom);
         // Cast event handler in PlayerHand.cs will handle the card 
         // being removed from the hand
-        caster.cardClickHandler(outOfCombatCard, args, this);
+        caster.cardClickHandler(card, args, this);
     }
 
     public override bool isTargetableByChildImpl(EffectTargetRequestEventInfo eventInfo)
@@ -101,7 +101,7 @@ public class PlayableCard : TargettableEntity
 
     // Called by playerHand.discardCard
     public void discardFromDeck() {
-        entityFrom.inCombatDeck.discardCards(new List<Card>{outOfCombatCard});
+        entityFrom.inCombatDeck.discardCards(new List<Card>{card});
     }
 
 
@@ -135,7 +135,7 @@ public class PlayableCard : TargettableEntity
     // Used when instantiating the card after Start has run
     // See PrefabInstantiator.cs
     public void setCardInfo(Card card){
-        this.outOfCombatCard = card;
+        this.card = card;
     }
     
     // Should pass by reference so that the values stay updated

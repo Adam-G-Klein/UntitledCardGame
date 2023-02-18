@@ -30,20 +30,20 @@ public static class PrefabInstantiator {
         return enemyInstance;
     }
 
-    public static MinionInstance instantiateMinion(GameObject minionPrefab, Minion minion, Vector2 position){
+    public static MinionInstance instantiateMinion(GameObject minionPrefab, Minion minion, Vector3 position){
         CombatEntityWithDeckInstance deckedInstance = instantiateCombatEntityWithDeck(minionPrefab, minion, position);
         MinionInstance minionInstance = deckedInstance.GetComponent<MinionInstance>();
         minionInstance.minion = minion;
         return minionInstance;
     }
 
-    private static CombatEntityWithDeckInstance instantiateCombatEntityWithDeck(GameObject combatEntityPrefab, CombatEntityWithDeck baseStats, Vector2 position){
+    private static CombatEntityWithDeckInstance instantiateCombatEntityWithDeck(GameObject combatEntityPrefab, CombatEntityWithDeck baseStats, Vector3 position){
         CombatEntityWithDeckInstance deckedInstance = instantiateCombatEntity(combatEntityPrefab, baseStats, position).GetComponent<CombatEntityWithDeckInstance>();
         deckedInstance.deckEntity = baseStats;
         return deckedInstance;
     }
 
-    private static CombatEntityInstance instantiateCombatEntity(GameObject combatEntityPrefab, CombatEntityBaseStats baseStats, Vector2 position){
+    private static CombatEntityInstance instantiateCombatEntity(GameObject combatEntityPrefab, CombatEntityBaseStats baseStats, Vector3 position){
         GameObject newCombatEntity = GameObject.Instantiate(combatEntityPrefab, position, Quaternion.identity);
         CombatEntityInstance combatEntityInstance = newCombatEntity.GetComponent<CombatEntityInstance>();
         combatEntityInstance.baseStats = baseStats;

@@ -37,7 +37,6 @@ public class EnemyInstance : CombatEntityInstance {
     [Space(5)]
 
     private CompanionManager companionManager;
-    private TurnManager turnManager;
     private TurnPhaseTrigger chooseIntentTrigger;
     private TurnPhaseTrigger actTrigger;
     private TurnPhaseTrigger clearBlockTrigger;

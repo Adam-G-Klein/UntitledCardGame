@@ -20,7 +20,7 @@ GameObject:
   - component: {fileID: 5283207278247214877}
   m_Layer: 0
   m_Name: Companion
-  m_TagString: Untagged
+  m_TagString: Companion
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -69,6 +69,8 @@ MonoBehaviour:
     discardPile: []
   nextMinionSpawnTheta: 1.57
   minionSpawnRadius: 1.5
+  minionPrefab: {fileID: 3793161618878564120, guid: 86773367736110f48bef92cbf342bb6f, type: 3}
+  onDeathMinionType: {fileID: 11400000, guid: acf491015f67b06468095238a670ef7b, type: 2}
   companion:
     companionType: {fileID: 11400000, guid: 4960e72dbf9348c4bb2ab009998bd02a, type: 2}
     maxHealth: 0

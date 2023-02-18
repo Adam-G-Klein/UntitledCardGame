@@ -7,10 +7,20 @@ using UnityEngine;
 public abstract class CombatEntityFriendly : CombatEntityWithDeckInstance
 {
     private TurnPhaseTrigger updateStatusTrigger;
+    // a hack that's necessary because we don't have a way to store
+    // different minion types in the status effect right now
+    [SerializeField]
+    private GameObject minionPrefab;
+    [SerializeField]
+    private MinionTypeSO onDeathMinionType;
+    private CompanionManager companionManager;
     protected override void Start() {
         base.Start();
         updateStatusTrigger = new TurnPhaseTrigger(TurnPhase.END_ENEMY_TURN, updateStatus());
         turnManager.addTurnPhaseTrigger(updateStatusTrigger);
+        GameObject companionManagerObject = GameObject.Find("CompanionManager");
+        if(companionManagerObject != null)  companionManager = companionManagerObject.GetComponent<CompanionManager>();
+        else Debug.LogError("No CompanionManager found in scene, minion spawns on death won't work");
     }
 
     // should just move this whole class into CombatEntityInstance and check if it's an enemy or not for the turn phase
@@ -25,8 +35,20 @@ public abstract class CombatEntityFriendly : CombatEntityWithDeckInstance
 
     protected override IEnumerator onDeath(CombatEntityInstance killer) {
         turnManager.removeTurnPhaseTrigger(updateStatusTrigger);
+        if(stats.statusEffects[StatusEffect.MinionsOnDeath] > 0) {
+            spawnMinions(stats.statusEffects[StatusEffect.MinionsOnDeath]);
+        }
         yield return base.onDeath(killer);
     }
+
+    private void spawnMinions(int numMinions) {
+        Vector3 spawnPoint;
+        for(int i = 0; i < numMinions; i++) {
+            spawnPoint = companionManager.getRandomMinionSpawnPosition();
+            PrefabInstantiator.instantiateMinion(minionPrefab, new Minion(onDeathMinionType), spawnPoint);
+        }
+    }
+
     
     
 }

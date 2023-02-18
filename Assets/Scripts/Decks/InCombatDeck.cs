@@ -14,7 +14,9 @@ public class InCombatDeck
     {
         this.sourceDeck = startingDeck;
         this.drawPile = new List<Card>();
-        this.drawPile.AddRange(startingDeck.cards);
+        foreach(Card card in startingDeck.cards) {
+            this.drawPile.Add(new Card(card));
+        }
         this.discardPile = new List<Card>();
     }
     public InCombatDeck(List<Card> cards)
@@ -72,6 +74,7 @@ public class InCombatDeck
     }
 
     public void shuffleIntoDraw(List<Card> cards){
+        Debug.Log("Shuffling " + cards.Count + " cards into draw pile");
         drawPile.AddRange(cards);
     }
 

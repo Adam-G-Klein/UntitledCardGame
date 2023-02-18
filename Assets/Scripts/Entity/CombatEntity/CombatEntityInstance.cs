@@ -15,7 +15,7 @@ public abstract class CombatEntityInstance: TargettableEntity
     [SerializeField]
     protected CombatEntityDeathEvent deathEvent;
     private TurnPhaseTrigger oneTurnEffectTrigger;
-    private TurnManager turnManager;
+    protected TurnManager turnManager;
 
     protected virtual void Start() {
         this.stats = new CombatEntityInEncounterStats(baseStats);
@@ -66,7 +66,12 @@ public abstract class CombatEntityInstance: TargettableEntity
                 onDraw(scale); //overridden by CombatEntityWithDeckInstance
                 break;
             case(CombatEffect.SetHealth):
+                // won't work for setting health to 0. Pretty sure we should just use sacrifice for that
+                // in all cases though
                 stats.currentHealth = scale;
+                break;
+            case(CombatEffect.Sacrifice):
+                StartCoroutine(onDeath(effector));
                 break;
         }
     }

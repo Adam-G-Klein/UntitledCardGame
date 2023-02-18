@@ -65,6 +65,12 @@ public class Card: IEquatable<Card>
         id = Id.newGuid();
     }
 
+    public Card(Card card) {
+        this.cardType = card.cardType;
+        id = Id.newGuid();
+        this.effectBuffs = card.effectBuffs;
+    }
+
     public static bool operator !=(Card a, Card b) {
         return !(a == b);
     }
