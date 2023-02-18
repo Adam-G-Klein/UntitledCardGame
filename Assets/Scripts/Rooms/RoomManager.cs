@@ -26,6 +26,7 @@ public class RoomManager : MonoBehaviour
         
     }
 
+/*
     public void processRoomChangeEvent(string roomId) {
         Debug.Log("Processing room change event in room manager");
         Map currentMap = activeMap.Value;
@@ -38,6 +39,7 @@ public class RoomManager : MonoBehaviour
             }
         }
     }
+    */
 
     public void processEncounterInitiateEvent(string encounterId) {
         Debug.Log("Processing encounter initiate event in room manager");

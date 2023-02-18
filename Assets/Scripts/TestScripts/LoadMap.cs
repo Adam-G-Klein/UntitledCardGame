@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class LoadMap : MonoBehaviour
 {
     public MapVariableSO mapReference;
-    public RoomVariableSO roomReference;
+    public EncounterReference encounterReference;
 
     public void loadMap() {
         if (mapReference.GetValue() == null) {
@@ -14,11 +14,12 @@ public class LoadMap : MonoBehaviour
             return;
         }
         Map map = mapReference.GetValue();
-        if (map.rooms.Count == 0) {
-            Debug.LogError("Map has no rooms!");
+        if (map.encounters.Count == 0) {
+            Debug.LogError("Map has no encounters!");
             return;
         }
-        roomReference.SetValue(map.rooms[0]);
-        SceneManager.LoadScene("PlaceholderRoom");
+        encounterReference.SetValue(map.encounters[0]);
+        string sceneName = encounterReference.Value.getEncounterType() == EncounterType.Enemy ? "PlaceholderEnemyEncounter" : "PlaceholderShopEncounter";
+        SceneManager.LoadScene(sceneName);
     }
 }

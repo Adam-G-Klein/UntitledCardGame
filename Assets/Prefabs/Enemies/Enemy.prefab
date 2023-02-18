@@ -60,6 +60,7 @@ MonoBehaviour:
   enemy:
     enemyType: {fileID: 11400000, guid: da0cdb6c0c9754d469d48629d5444b55, type: 2}
     currentHealth: 0
+    maxHealth: 0
     id: 
   combatEffectEvent: {fileID: 11400000, guid: 7b4f8952c0f9b4d4a80b72189e46bd3c, type: 2}
 --- !u!114 &2877260948552900050
@@ -220,6 +221,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1818299386461833455}
     m_Modifications:
+    - target: {fileID: 443941875861522772, guid: 4319f1ad3b11bf248bb1a167ccc5826d, type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 2332963860890905134, guid: 4319f1ad3b11bf248bb1a167ccc5826d, type: 3}
       propertyPath: m_Name
       value: UICanvas

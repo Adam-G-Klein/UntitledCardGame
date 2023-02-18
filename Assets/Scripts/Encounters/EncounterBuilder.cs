@@ -6,6 +6,7 @@ public class EncounterBuilder : MonoBehaviour
 {
     public EncounterConstants encounterConstants;
     public EncounterVariableSO encounterVariable;
+    public MapReference map;
 
     void Awake() {
         if (encounterVariable.Value.getEncounterType() != EncounterType.Enemy) {
@@ -13,5 +14,16 @@ public class EncounterBuilder : MonoBehaviour
             return;
         }
         encounterVariable.Value.build(encounterConstants);
+    }
+
+    public void endEncounterHandler(EndEncounterEventInfo info) {
+        // check index in list before setting value
+        // load correct scene
+        // builder in new scene will set it up
+        /*
+        encounterReference.SetValue(map.encounters[0]);
+        string sceneName = encounterReference.Value.getEncounterType() == EncounterType.Enemy ? "PlaceholderEnemyEncounter" : "PlaceholderShopEncounter";
+        SceneManager.LoadScene(sceneName);
+        */
     }
 }

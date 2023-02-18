@@ -37,6 +37,10 @@ public static class PrefabInstantiator {
         return minionInstance;
     }
 
+    public static void instantiateRandomBackground(GameObject randomBackgroundPrefab, Vector3 position){
+        GameObject.Instantiate(randomBackgroundPrefab, position, Quaternion.identity);
+    }
+
     private static CombatEntityWithDeckInstance instantiateCombatEntityWithDeck(GameObject combatEntityPrefab, CombatEntityWithDeck baseStats, Vector3 position){
         CombatEntityWithDeckInstance deckedInstance = instantiateCombatEntity(combatEntityPrefab, baseStats, position).GetComponent<CombatEntityWithDeckInstance>();
         deckedInstance.deckEntity = baseStats;
