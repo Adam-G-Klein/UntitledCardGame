@@ -10,20 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: Bellows2
+  m_Name: PurifyingInferno
   m_EditorClassIdentifier: 
-  Name: Bellows
-  Description: Draw 3 cards, choose 1 of them to exhaust
+  Name: Purifying Inferno
+  Description: Choose one card from a companion's deck. Add it to your hand, then
+    exhaust the rest of the deck.
   Cost: 1
-  Artwork: {fileID: 21300000, guid: a25201c1880e82047ad39afad0b9ab94, type: 3}
+  Artwork: {fileID: 21300000, guid: c649f560f07711e41a82bbf9233eb6cd, type: 3}
+  playable: 1
   EffectProcedures:
-  - rid: 2812361790881529856
+  - rid: 2812362037732048909
   references:
     version: 2
     RefIds:
-    - rid: 2812361790881529856
-      type: {class: Bellows, ns: , asm: Assembly-CSharp}
+    - rid: 2812362037732048909
+      type: {class: PurifyingInferno, ns: , asm: Assembly-CSharp}
       data:
-        procedureClass: Bellows
-        cardsToDraw: 3
-        cardsToExhaust: 1
+        procedureClass: PurifyingInferno
+        cardsToChoose: 1

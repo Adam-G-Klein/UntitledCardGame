@@ -13,7 +13,9 @@ public enum CombatEffect {
     AddToDamageMultiply,
     ApplyInvulnerability,
     Heal,
-    ApplyMaxHpBounty
+    ApplyMaxHpBounty,
+    ApplyTemporaryStrength,
+    ApplyMinionsOnDeath
 }
 
 [System.Serializable]
@@ -45,7 +47,9 @@ public class CombatEffectEvent : BaseGameEvent<CombatEffectEventInfo> {
         {CombatEffect.Defended, StatusEffect.Defended},
         {CombatEffect.AddToDamageMultiply, StatusEffect.DamageMultiply},
         {CombatEffect.ApplyInvulnerability, StatusEffect.Invulnerability},
-        {CombatEffect.ApplyMaxHpBounty, StatusEffect.MaxHpBounty}
+        {CombatEffect.ApplyMaxHpBounty, StatusEffect.MaxHpBounty},
+        {CombatEffect.ApplyTemporaryStrength, StatusEffect.TemporaryStrength},
+        {CombatEffect.ApplyMinionsOnDeath, StatusEffect.MinionsOnDeath}
     };
 
     // Applies the status effects in the provided combatEffect dictionary to the statusEffects dictionary

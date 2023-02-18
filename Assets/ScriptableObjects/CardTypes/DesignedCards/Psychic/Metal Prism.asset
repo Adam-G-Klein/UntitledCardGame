@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
+  m_Name: Metal Prism
+  m_EditorClassIdentifier: 
+  Name: Metal Prism
+  Description: Draw 2 cards, gain 10 block
+  Cost: 1
+  Artwork: {fileID: 21300000, guid: 47f910eeeb6ac4644abf639f1e84eba6, type: 3}
+  playable: 1
+  EffectProcedures:
+  - rid: 2812362037732048911
+  - rid: 2812362037732048912
+  references:
+    version: 2
+    RefIds:
+    - rid: 2812362037732048911
+      type: {class: CombatEffectProcedure, ns: , asm: Assembly-CSharp}
+      data:
+        procedureClass: CombatEffectProcedure
+        effectName: 4
+        baseScale: 2
+        targetCaster: 0
+        targetAllValidTargets: 0
+        targetToUse: -1
+        validTargets: 0000000002000000
+    - rid: 2812362037732048912
+      type: {class: CombatEffectProcedure, ns: , asm: Assembly-CSharp}
+      data:
+        procedureClass: CombatEffectProcedure
+        effectName: 3
+        baseScale: 10
+        targetCaster: 1
+        targetAllValidTargets: 0
+        targetToUse: -1
+        validTargets: 

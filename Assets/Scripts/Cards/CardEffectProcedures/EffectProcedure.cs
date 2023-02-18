@@ -12,6 +12,8 @@ public class EffectProcedureContext {
     public CombatEffectEvent combatEffectEvent;
     public PlayerHand playerHand;
     public List<TargettableEntity> alreadyTargetted;
+    // Here just so that EffectIncreasesOnPlay can modify the card
+    public Card castingCard;
 
     
     public EffectProcedureContext(CardCastManager caster, 
@@ -21,7 +23,8 @@ public class EffectProcedureContext {
         PlayerHand playerHand, 
         List<TargettableEntity> alreadyTargetted, 
         CombatEffectEvent combatEffectEvent,
-        CardSelectionManager cardSelectionManager) {
+        CardSelectionManager cardSelectionManager,
+        Card castingCard) {
         this.cardCastManager = caster;
         this.companionManager = companionManager;
         this.enemyManager = enemyManager;
@@ -31,6 +34,7 @@ public class EffectProcedureContext {
         this.alreadyTargetted = alreadyTargetted;
         this.combatEffectEvent = combatEffectEvent;
         this.cardSelectionManager = cardSelectionManager;
+        this.castingCard = castingCard;
     }
     
 }

@@ -114,6 +114,6 @@ public abstract class CombatEntityWithDeckInstance : CombatEntityInstance
         nextMinionSpawnTheta += 2 * Mathf.PI / constants.MAX_MINIONS_PER_COMPANION;
         return spawnLoc;
     }
-    
+
 }
 

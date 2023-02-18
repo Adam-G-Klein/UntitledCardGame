@@ -120,6 +120,17 @@ public class InCombatDeck
         sourceDeck.cards.Remove(card);
     }
 
+    public void addToDiscard(Card card){
+        discardPile.Add(card);
+    }
+
+    public List<Card> getAllCards(){
+        List<Card> cards = new List<Card>();
+        cards.AddRange(drawPile);
+        cards.AddRange(discardPile);
+        return cards;
+    }
+
     public bool Contains(Card card){
         return drawPile.Contains(card) || discardPile.Contains(card);
     }

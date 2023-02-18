@@ -8,7 +8,6 @@ using UnityEngine.EventSystems;
 public abstract class TargettableEntity : Entity,
     IPointerClickHandler {
 
-
     public bool isTargetable = false;
 
     [SerializeField]
@@ -34,8 +33,13 @@ public abstract class TargettableEntity : Entity,
         // For now we don't need any information besides the fact 
         // that we're not targeting anymore
         uiStageChangeEventHandlerChildImpl(info);
-        isTargetable = (info.newState == UIState.EFFECT_TARGETTING) 
-            || (entityType == EntityType.UICard && info.newState == UIState.CARD_SELECTION_DISPLAY);
+        // Tried to boolean optimize this logic, but it reduced the readability. not worth it
+        if(info.newState != UIState.EFFECT_TARGETTING) {
+            isTargetable = false;
+        }
+        if(entityType == EntityType.UICard && info.newState == UIState.CARD_SELECTION_DISPLAY) {
+            isTargetable = true;
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData){

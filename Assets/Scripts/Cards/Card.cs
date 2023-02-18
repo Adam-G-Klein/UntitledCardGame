@@ -34,12 +34,26 @@ public class Card: IEquatable<Card>
             return cardType.EffectProcedures;
         }
     }
+    // IMPORTANT TODO: only effects cards that use effectIncreasesOnPlay right now, other things don't poll for this
+    // Need to add this into the getEffectScale that's currently in the CasterStats right now
+    private Dictionary<CombatEffect, int> effectBuffs = new Dictionary<CombatEffect, int>();
 
+    [HideInInspector]
     public string description {
         get {
-            return cardType.Description;
+            String retDescription = cardType.Description;
+            if (effectBuffs == null || effectBuffs.Count == 0) {
+                return retDescription;
+            }
+            foreach(CombatEffect effect in effectBuffs.Keys){
+                if(effectBuffs[effect] != 0) {
+                    retDescription += "\n" + "(" + effectBuffs[effect] + " additional " + effect.ToString() + ")";
+                }
+            }
+            return retDescription;
         }
     }
+
 
     [SerializeReference]
     public CardType cardType;
@@ -80,5 +94,28 @@ public class Card: IEquatable<Card>
     public override int GetHashCode()
     {
         return id.GetHashCode();
+    }
+
+    public int getEffectBuff(CombatEffect effect) {
+        // static constructor not working for the dict, don't know why 
+        if(effectBuffs == null) {
+            effectBuffs = new Dictionary<CombatEffect, int>();
+        }
+        if (effectBuffs.ContainsKey(effect)) {
+            return effectBuffs[effect];
+        }
+        return 0;
+    }
+
+    public void buffEffect(CombatEffect effect, int buff) {
+        // static constructor not working for the dict, don't know why 
+        if(effectBuffs == null) {
+            effectBuffs = new Dictionary<CombatEffect, int>();
+        }
+        if (effectBuffs.ContainsKey(effect)) {
+            effectBuffs[effect] += buff;
+        } else {
+            effectBuffs.Add(effect, buff);
+        }
     }
 }

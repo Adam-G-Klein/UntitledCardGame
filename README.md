@@ -2,13 +2,17 @@
 
 Unity project source for Untitled Card Game by Go Face Games
 
-## Room Creation
-
-Currently, the game's map is being generated from `Assets\Resources\Maps\testMap.xml`. Go take a peak at it before reading further here, the comments in the file should also help explain it.
-
-Each of the rooms, along with their roomType (the implementation class), the id they'll be referred to in the rest of the map document, and a list of connected rooms, each of which declares the room that's connected and the door the player can use to get there.
-
-To add a new room, you just need to add another top-level `<Room... />` element to the Room list, defining all of the above values in the element. The next feature to complete is the ability to define Encounters, and having all of these things split into different files.
+## Add a status effect
+* Add displayedEffect in CombatEffectProcedure.
+* Add mapping displayed->combateffect in CombatEffectProcedure
+* Add CombatEffect in CombatEffectEvent
+* Add StatusEffect in StatusEffectDisplay
+* Add mapping to status effect in CombatEffectEvent
+* Add Initial value in CombatEntityInEncounterStats
+* Add prefab to StatusEffectDisplays prefab, setting the enum value on the StatusEffectDisplay component
+* (optional) add wearing off in CombatEntityFriendly
+* (optional) add onDeath trigger in CombatEntityFriendly
+* (optional) add effect on stats/effects in CombatEntityInEncounterStats
 
 ## Dev Tips 
 

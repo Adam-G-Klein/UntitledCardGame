@@ -14,10 +14,18 @@ public abstract class CombatEntityInstance: TargettableEntity
     private CombatEntityInstantiatedEvent instantiatedEvent;
     [SerializeField]
     protected CombatEntityDeathEvent deathEvent;
+    private TurnPhaseTrigger oneTurnEffectTrigger;
+    private TurnManager turnManager;
 
     protected virtual void Start() {
         this.stats = new CombatEntityInEncounterStats(baseStats);
         StartCoroutine(instantiatedEvent.RaiseAtEndOfFrameCoroutine(new CombatEntityInstantiatedEventInfo(this)));
+        GameObject turnManagerObject = GameObject.Find("TurnManager");
+        if(turnManagerObject != null) {
+            turnManager = turnManagerObject.GetComponent<TurnManager>();
+        } else {
+            Debug.LogError("TurnManager not found, won't be able to do one turn effects");
+        }
     }
 
     protected virtual IEnumerator onDeath(CombatEntityInstance killer) {
@@ -88,4 +96,26 @@ public abstract class CombatEntityInstance: TargettableEntity
 
     //overridden by CombatEntityWithDeckInstance
     protected virtual void onDraw(int scale) {}
+
+    /* We'll do this if we need to do one turn effects for more than block and strength
+    public void oneTurnEffect(CombatEffect effect, int scale){
+        CombatEffectEvent.applyCombatEffectStatuses(new Dictionary<CombatEffect, int>(){ {effect, scale} }, stats.statusEffects);
+        TurnPhase endPhase;
+        if(this is EnemyInstance) {
+            endPhase = TurnPhase.END_ENEMY_TURN;
+        } else {
+            endPhase = TurnPhase.END_PLAYER_TURN;
+        }
+        oneTurnEffectTrigger = new TurnPhaseTrigger(endPhase, removeStatusEffect(CombatEffectEvent.combatEffectToStatusEffect[effect], scale));
+        turnManager.addTurnPhaseTrigger(oneTurnEffectTrigger);
+    }
+
+    private IEnumerable removeStatusEffect(StatusEffect effect, int scale){
+        stats.statusEffects[effect] -= scale;
+        turnManager.removeTurnPhaseTrigger(oneTurnEffectTrigger);
+        oneTurnEffectTrigger = null;
+        yield return null;
+    }
+    */
+
 }

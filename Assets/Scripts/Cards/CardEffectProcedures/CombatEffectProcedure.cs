@@ -11,11 +11,13 @@ public enum DisplayedCombatEffect {
     SetHealth,
     Sacrifice,
     AddToDamageMultiply,
-    // for things like fixed damage effects
+    // for things like paying health to do damage 
     FixedDamage,
     ApplyInvulnerability,
     Heal,
-    ApplyMaxHpBounty
+    ApplyMaxHpBounty,
+    ApplyTemporaryStrength,
+    MinionsOnDeath
 }
 [System.Serializable]
 public class CombatEffectProcedure: EffectProcedure {
@@ -23,7 +25,7 @@ public class CombatEffectProcedure: EffectProcedure {
     public DisplayedCombatEffect effectName;
     private CombatEffect internalEffectName;
 
-    private Dictionary<DisplayedCombatEffect, CombatEffect> displayedToCombatEffect = new Dictionary<DisplayedCombatEffect, CombatEffect>() {
+    public static Dictionary<DisplayedCombatEffect, CombatEffect> displayedToCombatEffect = new Dictionary<DisplayedCombatEffect, CombatEffect>() {
         {DisplayedCombatEffect.Damage, CombatEffect.Damage},
         {DisplayedCombatEffect.Strengthen, CombatEffect.Strength},
         {DisplayedCombatEffect.Weaken, CombatEffect.Weakness},
@@ -35,7 +37,9 @@ public class CombatEffectProcedure: EffectProcedure {
         {DisplayedCombatEffect.FixedDamage, CombatEffect.Damage},
         {DisplayedCombatEffect.ApplyInvulnerability, CombatEffect.ApplyInvulnerability},
         {DisplayedCombatEffect.Heal, CombatEffect.Heal},
-        {DisplayedCombatEffect.ApplyMaxHpBounty, CombatEffect.ApplyMaxHpBounty}
+        {DisplayedCombatEffect.ApplyMaxHpBounty, CombatEffect.ApplyMaxHpBounty},
+        {DisplayedCombatEffect.ApplyTemporaryStrength, CombatEffect.ApplyTemporaryStrength},
+        {DisplayedCombatEffect.MinionsOnDeath, CombatEffect.ApplyMinionsOnDeath}
     };
     public int baseScale = 0;
     public bool targetCaster = false;

@@ -6,29 +6,6 @@ using TMPro;
 using UnityEngine.EventSystems; 
 
 
-public class CastingCoroutineArgs{
-    public Card cardInfo;
-    public CardCastArguments castArgs;
-
-    public CastingCoroutineArgs(Card cardInfo, CardCastArguments args){
-        this.cardInfo = cardInfo;
-        this.castArgs = args;
-    }
-}
-
-public class GetTargetCoroutineArgs{
-
-    public List<EntityType> validTargets;
-    public EffectProcedure callbackProcedure;
-    public List<TargettableEntity> disallowedTargets;
-
-    public GetTargetCoroutineArgs(List<EntityType> validTargets, EffectProcedure callbackProcedure, List<TargettableEntity> disallowedTargets = null){
-        this.validTargets = validTargets;
-        this.callbackProcedure = callbackProcedure;
-        this.disallowedTargets = disallowedTargets;
-    }
-}
-
 [RequireComponent(typeof(UIStateEventListener))]
 public class CardCastManager : TargetProvider {
     // Handles casting cardInfo's  
@@ -87,7 +64,7 @@ public class CardCastManager : TargetProvider {
 
     
     public bool isValidCast(Card info, CardCastArguments args) {
-        if(info.cost > manaManager.currentMana) return false;
+        if(info.cost > manaManager.currentMana || !info.cardType.playable) return false;
         // theoretically we could check for other things here
         return true;
     }
@@ -156,7 +133,8 @@ public class CardCastManager : TargetProvider {
             playerHand,
             alreadyTargetted,
             combatEffectEvent,
-            cardSelectionManager);
+            cardSelectionManager, 
+            card);
         foreach(EffectProcedure procedure in card.effectProcedures){
             // Track current procedure for casting cancellation
             currentEffectProcedure = procedure.prepare(currentContext);
@@ -173,6 +151,30 @@ public class CardCastManager : TargetProvider {
 
     public void raiseCombatEffect(CombatEffectEventInfo info){
         StartCoroutine(combatEffectEvent.RaiseAtEndOfFrameCoroutine(info));
+    }
+
+    public void raiseCombatEffect(CombatEffect effect, int scale, List<TargettableEntity> targets, CombatEntityInstance caster) {
+        raiseCombatEffect(
+            new CombatEffectEventInfo(
+                new Dictionary<CombatEffect, int> {
+                    {effect, caster.stats.getEffectScale(effect, scale)}
+                },
+                targets,
+                caster
+            )
+        );
+    }
+
+    public void raiseCombatEffect(CombatEffect effect, int scale, TargettableEntity target, CombatEntityInstance caster) {
+        raiseCombatEffect(
+            new CombatEffectEventInfo(
+                new Dictionary<CombatEffect, int> {
+                    {effect, caster.stats.getEffectScale(effect, scale)}
+                },
+                new List<TargettableEntity> {target},
+                caster
+            )
+        );
     }
 
     public void raiseCardEffect(CardEffectEventInfo info){

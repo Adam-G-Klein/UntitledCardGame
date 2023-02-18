@@ -13,9 +13,11 @@ public abstract class CombatEntityFriendly : CombatEntityWithDeckInstance
         turnManager.addTurnPhaseTrigger(updateStatusTrigger);
     }
 
+    // should just move this whole class into CombatEntityInstance and check if it's an enemy or not for the turn phase
     private IEnumerable updateStatus() {
         stats.statusEffects[StatusEffect.Defended] = 0;
         stats.statusEffects[StatusEffect.Invulnerability] = Mathf.Max(0, stats.statusEffects[StatusEffect.Invulnerability] - 1);
+        stats.statusEffects[StatusEffect.TemporaryStrength] = 0;
         // this should clear at the end of the player's turn
         //stats.statusEffects[StatusEffect.Weakness] = Mathf.Max(0, stats.statusEffects[StatusEffect.Weakness] - 1);
         yield return null;

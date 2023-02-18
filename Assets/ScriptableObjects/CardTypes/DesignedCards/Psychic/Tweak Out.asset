@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
+  m_Name: Tweak Out
+  m_EditorClassIdentifier: 
+  Name: Tweak Out
+  Description: Discard two cards to gain 2 mana
+  Cost: 1
+  Artwork: {fileID: 21300000, guid: 22317dc648a0f694ba636fea2613a92c, type: 3}
+  playable: 1
+  EffectProcedures:
+  - rid: 2812361760619102226
+  - rid: 2812361760619102227
+  - rid: 2812362037732048910
+  references:
+    version: 2
+    RefIds:
+    - rid: 2812361760619102226
+      type: {class: CardEffectProcedure, ns: , asm: Assembly-CSharp}
+      data:
+        procedureClass: CardEffectProcedure
+        effectName: 0
+        baseScale: 1
+        targetAllValidTargets: 0
+        requiresUniqueTarget: 1
+    - rid: 2812361760619102227
+      type: {class: CardEffectProcedure, ns: , asm: Assembly-CSharp}
+      data:
+        procedureClass: CardEffectProcedure
+        effectName: 0
+        baseScale: 1
+        targetAllValidTargets: 0
+        requiresUniqueTarget: 1
+    - rid: 2812362037732048910
+      type: {class: IntEffectProcedure, ns: , asm: Assembly-CSharp}
+      data:
+        procedureClass: IntEffectProcedure
+        gameEvent: {fileID: 11400000, guid: c102a62a7fc128343b59ddb6cac89348, type: 2}
+        baseScale: 2

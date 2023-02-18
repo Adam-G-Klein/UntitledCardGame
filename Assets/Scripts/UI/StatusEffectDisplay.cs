@@ -10,7 +10,9 @@ public enum StatusEffect {
     Defended,
     DamageMultiply,
     Invulnerability,
-    MaxHpBounty
+    MaxHpBounty,
+    TemporaryStrength,
+    MinionsOnDeath
 }
 public class StatusEffectDisplay: MonoBehaviour
 {
