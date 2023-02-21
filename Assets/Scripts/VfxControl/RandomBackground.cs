@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Image))]
+[RequireComponent(typeof(Canvas))]
 public class RandomBackground: MonoBehaviour
 {
     
+    private Canvas canvas;
     void Start() {
+        canvas = GetComponent<Canvas>();
+        canvas.worldCamera = Camera.main;
         Sprite[] backgroundSprites = Resources.LoadAll<Sprite>("Backgrounds");
-        GetComponent<Image>().sprite = backgroundSprites[Random.Range(0, backgroundSprites.Length)];
+        GetComponentInChildren<Image>().sprite = backgroundSprites[Random.Range(0, backgroundSprites.Length)];
     }
 }
