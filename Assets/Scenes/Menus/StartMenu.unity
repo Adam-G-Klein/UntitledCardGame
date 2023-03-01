@@ -153,7 +153,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapReference: {fileID: 11400000, guid: 803b13df67096244eac41a3110e024f5, type: 2}
-  roomReference: {fileID: 11400000, guid: 9a6d5ff644c2eec468197c2dc633d3c4, type: 2}
+  encounterReference:
+    UseConstant: 0
+    Variable: {fileID: 11400000, guid: eca78fb783e4dc1478ecf954eaedad26, type: 2}
+    ConstantValue:
+      rid: -2
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
 --- !u!4 &729152080
 Transform:
   m_ObjectHideFlags: 0
@@ -530,9 +539,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Enter Start Room
-
-'
+  m_text: Enter First Encounter
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

@@ -14,25 +14,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   locked: 1
   Value:
-    rooms:
+    encounters:
     - UseConstant: 0
+      Variable: {fileID: 11400000, guid: 56fc836c3680a98459de9a289a9cdc7c, type: 2}
       ConstantValue:
-        id: 
-        encounters: []
-        doors: []
-      Variable: {fileID: 11400000, guid: 736e302f2aa66b748a4f2cf39cb89bb8, type: 2}
+        rid: -2
     - UseConstant: 0
+      Variable: {fileID: 11400000, guid: ba7cf682f1eb7b7469f4f66d8d5dde31, type: 2}
       ConstantValue:
-        id: 
-        encounters: []
-        doors: []
-      Variable: {fileID: 11400000, guid: dbd16513647e523408ce26936c87cd7a, type: 2}
+        rid: -2
     - UseConstant: 0
+      Variable: {fileID: 11400000, guid: 3fafa5096e051dc48bac7ea46dbbf974, type: 2}
       ConstantValue:
-        id: 
-        encounters: []
-        doors: []
-      Variable: {fileID: 11400000, guid: df9ebbc335ccc5b4ba69acc80e558789, type: 2}
+        rid: -2
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }

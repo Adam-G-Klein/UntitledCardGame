@@ -12,6 +12,7 @@ public class CompanionTypeSO : ScriptableObject
     public int baseAttackDamage;
     public Sprite sprite;
     public StartingDeck startingDeck;
+    public Sprite keepsake;
 
     [SerializeReference]
     public List<CompanionAbility> abilities;

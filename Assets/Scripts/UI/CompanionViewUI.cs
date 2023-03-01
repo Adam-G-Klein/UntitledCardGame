@@ -31,7 +31,6 @@ public class CompanionViewUI : MonoBehaviour, IPointerClickHandler
     private CompanionListVariableSO companionList;
     private List<CompanionActionType> actionTypes;
     private UICompanion clickedCompanion;
-    private bool isCompanionClicked = false;
 
     public void setupCompanionDisplay(CompanionListVariableSO companionList,
             List<CompanionActionType> actionTypes) {

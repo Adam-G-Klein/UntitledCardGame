@@ -3,36 +3,40 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems; 
 using TMPro;
 
-public class CardInShop : MonoBehaviour
+public class KeepsakeInShop : MonoBehaviour
     , IPointerClickHandler
     , IPointerEnterHandler
     , IPointerExitHandler
 {
     public int price;
     public string id;
-    public CardBuyRequestEvent cardBuyEvent;
+    public CompanionBuyRequestEvent companionBuyEvent;
 
     public TMP_Text priceText;
-    public CardDisplay cardDisplay;
+    public Companion companion;
+    public Image keepsakeImage;
     public Image hoverBackground;
 
-    void Start() {
-        Debug.Log("CardInShop Start() method");
+    // Start is called before the first frame update
+    void Start()
+    {
         this.priceText.text = price.ToString();
         this.id = Id.newGuid();
         this.hoverBackground.enabled = false;
+        this.keepsakeImage.sprite = companion.companionType.keepsake;
     }
 
     public void Setup() {
         Start();
     }
 
+
     public void OnPointerClick(PointerEventData eventData) {
-        CardBuyRequest cardBuyRequest = new CardBuyRequest(
-            cardDisplay.cardInfo, 
+        CompanionBuyRequest companionBuyRequest = new CompanionBuyRequest(
+            companion, 
             price, 
             gameObject);
-        cardBuyEvent.Raise(cardBuyRequest);
+        companionBuyEvent.Raise(companionBuyRequest);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -44,10 +48,5 @@ public class CardInShop : MonoBehaviour
     public void OnPointerExit(PointerEventData eventData)
     {
         hoverBackground.enabled = false;
-    }
-
-    public void shopRefreshEventHandler() {
-        Debug.Log("Receive event");
-        Destroy(this.gameObject);
     }
 }

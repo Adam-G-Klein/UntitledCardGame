@@ -47,12 +47,8 @@ public class ShopManager : MonoBehaviour
         }
     }
 
-    public void processBuyRequest(CardBuyRequest cardBuyRequest) {
+    public void processCardBuyRequest(CardBuyRequest cardBuyRequest) {
         if (playerData.Value.gold >= cardBuyRequest.price) {
-            // Add the card to the minion (how decide what minion???)
-            // Debug.Log("Card (not) added to minion");
-            // playerData.Value.gold -= cardBuyRequest.price;
-            // Destroy(cardBuyRequest.cardInShop);
             this.buyingCard = true;
             this.currentBuyRequest = cardBuyRequest;
             this.companionViewUI = GameObject.Instantiate(
@@ -65,6 +61,20 @@ public class ShopManager : MonoBehaviour
                     CompanionActionType.SELECT,
                     CompanionActionType.VIEW_DECK
                 });
+        } else {
+            shopUIManager.displayNeedMoreMoneyNotification();
+        }
+    }
+
+    public void processCompanionBuyRequest(CompanionBuyRequest request) {
+        if (playerData.Value.gold >= request.price) {
+            this.activeCompanions.companionBench.Add(request.companion);
+            playerData.Value.gold -= request.price;
+            GameObject.Instantiate(
+                encounterConstants.cardSoldOutPrefab, 
+                request.keepsakeInShop.transform.position, 
+                Quaternion.identity);
+            Destroy(request.keepsakeInShop);
         } else {
             shopUIManager.displayNeedMoreMoneyNotification();
         }

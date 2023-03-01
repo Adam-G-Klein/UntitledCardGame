@@ -22,10 +22,6 @@ public class EncounterReference : Reference<Encounter, EncounterVariableSO> {
                 Variable.Value = value;
         }
     }
-
-    public void SetValue(Encounter value) {
-        Value = value;
-    }
 }
 
 [CreateAssetMenu(

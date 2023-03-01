@@ -14,18 +14,28 @@ public class CardInShopWithPrice {
 }
 
 [System.Serializable]
+public class KeepsakeInShopWithPrice {
+    public CompanionTypeSO companionType;
+    public int price;
+
+    public KeepsakeInShopWithPrice(CompanionTypeSO companionType, int price) {
+        this.companionType = companionType;
+        this.price = price;
+    }
+}
+
+[System.Serializable]
 public class ShopEncounter : Encounter
 {
     public bool generateEncounter;
     public ShopDataSO shopData;
     public List<CardInShopWithPrice> cardsInShop;
-
+    public List<KeepsakeInShopWithPrice> keepsakesInShop;
     private EncounterConstants encounterConstants;
 
     public ShopEncounter() {
         this.encounterType = EncounterType.Shop;
     }
-
 
     public override void build(EncounterConstants constants)
     {
@@ -35,6 +45,7 @@ public class ShopEncounter : Encounter
             generateShopEncounter();
         }
         setupCards();
+        setupKeepsakes();
     }
 
     private void setupCards() {
@@ -60,10 +71,38 @@ public class ShopEncounter : Encounter
         }
     }
 
-    private void generateShopEncounter() {
-        // Since we're generating the shop, lets clear the current cards in shop
-        cardsInShop = new List<CardInShopWithPrice>();
+    private void setupKeepsakes() {
+        if (keepsakesInShop.Count > shopData.keepsakeLocations.Count) {
+            Debug.LogError("Unable to setup keepsakes in shop encounter, not enough locations for keepsakes");
+            return;
+        }
 
+        for (int i = 0; i < keepsakesInShop.Count; i++) {
+            GameObject instantiatedKeepsake = GameObject.Instantiate(
+                encounterConstants.keepsakeInShopPrefab, 
+                shopData.keepsakeLocations[i],
+                Quaternion.identity);
+
+            CompanionTypeSO companionType = keepsakesInShop[i].companionType;
+            int price = keepsakesInShop[i].price;
+
+            KeepsakeInShop keepsakeInShop = instantiatedKeepsake.GetComponent<KeepsakeInShop>();
+            keepsakeInShop.price = price;
+            keepsakeInShop.companion = new Companion(companionType);
+            keepsakeInShop.Setup();
+        }
+    }
+
+    private void generateShopEncounter() {
+        // Since we're generating the shop, lets clear the current shop
+        cardsInShop = new List<CardInShopWithPrice>();
+        keepsakesInShop = new List<KeepsakeInShopWithPrice>();
+
+        generateCards();
+        generateKeepsakes();
+    }
+
+    private void generateCards() {
         int numCardsToGenerate = shopData.cardLocations.Count;
         int totalPercentage = shopData.getTotalCardPercentage();
         int commonCardPercentage = shopData.commonCardPercentage;
@@ -90,6 +129,36 @@ public class ShopEncounter : Encounter
             int cardNumber = Random.Range(0, cardPool.Count);
             cardsInShop.Add(
                 new CardInShopWithPrice(cardPool[cardNumber], cardPrice));
+        }
+    }
+
+    public void generateKeepsakes() {
+        int numKeepsakesToGenerate = shopData.keepsakeLocations.Count;
+        int totalPercentage = shopData.getTotalCompanionPercentage();
+        int commonPercentage = shopData.commonCompanionPercentage;
+        int uncommonPercentage = shopData.uncommonCompanionPercentage;
+        int rarePercentage = shopData.rareCompanionPercentage;
+
+        for (int i = 0; i < numKeepsakesToGenerate; i++) {
+            // Determine what the companion pool is for this single keepsake being generated
+            List<CompanionTypeSO> companionPool = new List<CompanionTypeSO>();
+            int keepsakePrice = 0;
+            int randomNumber = Random.Range(0, totalPercentage); // min inclusive, max exclusive
+            if (randomNumber < commonPercentage) {
+                companionPool = shopData.commonCompanions;
+                keepsakePrice = shopData.commonCompanionPrice;
+            } else if (randomNumber < commonPercentage + uncommonPercentage) {
+                companionPool = shopData.uncommonCompanions;
+                keepsakePrice = shopData.uncommonCompanionPrice;
+            } else {
+                companionPool = shopData.rareCompanions;
+                keepsakePrice = shopData.rareCompanionPrice;
+            }
+
+            // Pick a card from the pool and add it to the shop's cards
+            int number = Random.Range(0, companionPool.Count);
+            keepsakesInShop.Add(
+                new KeepsakeInShopWithPrice(companionPool[number], keepsakePrice));
         }
     }
 }
