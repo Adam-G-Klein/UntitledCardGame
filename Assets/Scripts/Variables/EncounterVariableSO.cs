@@ -30,4 +30,20 @@ public class EncounterReference : Reference<Encounter, EncounterVariableSO> {
 public class EncounterVariableSO : VariableSO<Encounter> {
     [SerializeReference]
     public Encounter Value;
+
+    public new Encounter GetValue() {
+        return Value;
+    }
+
+    public new void SetValue(Encounter value)
+    {
+        if (!locked)
+            Value = value;
+    }
+
+    public void SetValue(EncounterVariableSO value)
+    {
+        if (!locked)
+            Value = value.Value;
+    }
 }

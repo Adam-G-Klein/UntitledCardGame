@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(CardBuyRequestEventListener))]
 public class ShopManager : MonoBehaviour
@@ -9,7 +8,7 @@ public class ShopManager : MonoBehaviour
     public bool IS_DEVELOPMENT_MODE = false;
     [Header("Variables")]
     public EncounterVariableSO activeEncounter;
-    public RoomVariableSO activeRoom;
+    public MapVariableSO map;
     public CompanionListVariableSO activeCompanions;
     public PlayerDataReference playerData;
     [Header("Shop")]
@@ -23,9 +22,7 @@ public class ShopManager : MonoBehaviour
     private CardBuyRequest currentBuyRequest;
 
     // Start is called before the first frame update
-    void Start()
-    {
-        Debug.Log(activeRoom.GetValue().id);
+    void Start() {
         if (activeEncounter.Value.getEncounterType() != EncounterType.Shop) {
             Debug.LogError("Active encounter is not a shop but a shop was loaded!");
             return;
@@ -114,6 +111,6 @@ public class ShopManager : MonoBehaviour
 
     public void exitShop() {
         activeEncounter.Value.isCompleted = true;
-        SceneManager.LoadScene("PlaceholderRoom");
+        map.GetValue().loadNextEncounter(activeEncounter);
     }
 }

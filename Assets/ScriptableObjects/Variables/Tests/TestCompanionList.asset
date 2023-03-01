@@ -15,54 +15,18 @@ MonoBehaviour:
   companionList:
   - companionType: {fileID: 11400000, guid: 4960e72dbf9348c4bb2ab009998bd02a, type: 2}
     maxHealth: 20
-    currentHealth: 0
+    currentHealth: 20
     deck:
       startingDeck: {fileID: 11400000, guid: f7a0ec0e3675bf547ad5338f4f36b0e7, type: 2}
       cards:
-      - cardType: {fileID: 11400000, guid: a5ede245bff98944c8b58cac0b6d206a, type: 2}
-        id: as
       - cardType: {fileID: 11400000, guid: dfe47065bd90ef24bbe2f365807ba07d, type: 2}
-        id: 346f485c-b6b6-44d5-8404-aee60570e925
+        id: a147788f-2771-49c9-bf07-ddcf38403dab
+      - cardType: {fileID: 11400000, guid: dfe47065bd90ef24bbe2f365807ba07d, type: 2}
+        id: iDeezNuts
     baseAttackDamage: 0
     abilities: []
-    id: 9436c714-f85f-4b91-a295-27006c5f43eb
+    id: 59fcb8e3-6617-4853-809f-ba1d673b3e3c
   companionBench:
-  - companionType: {fileID: 11400000, guid: bb8900a5e0f2ab34a8c486d19dcef389, type: 2}
-    maxHealth: 30
-    currentHealth: 30
-    deck:
-      startingDeck: {fileID: 11400000, guid: 2591b9bcf7a348d418df529b4242c104, type: 2}
-      cards:
-      - cardType: {fileID: 11400000, guid: f89479d267b89ea40b6e76d533f2e6da, type: 2}
-        id: 47bec87b-291d-406f-855e-73e670606358
-      - cardType: {fileID: 11400000, guid: f89479d267b89ea40b6e76d533f2e6da, type: 2}
-        id: 862758f3-4be2-493e-b8f4-6bc85fcbcf60
-      - cardType: {fileID: 11400000, guid: f89479d267b89ea40b6e76d533f2e6da, type: 2}
-        id: 01b591a3-6c80-4c82-a6c7-792e035103f1
-      - cardType: {fileID: 11400000, guid: ec3c681e35f3b8541b4e30643c6d0ee7, type: 2}
-        id: 46ac6951-9cea-438b-b09b-456444a32f3a
-    baseAttackDamage: 0
-    abilities:
-    - rid: 7785644468622065668
-    id: addb7cf8-ddec-42f1-b513-eadeea65aa78
-  - companionType: {fileID: 11400000, guid: af270a8bf55a86547941d6065eb02679, type: 2}
-    maxHealth: 999
-    currentHealth: 999
-    deck:
-      startingDeck: {fileID: 11400000, guid: bb2dd24e7cac49440ac4e14129eec39c, type: 2}
-      cards:
-      - cardType: {fileID: 11400000, guid: 9b0feee7c8820b6419129508051d6f08, type: 2}
-        id: 78b32649-eeee-471c-8f2c-a47d403e28cf
-      - cardType: {fileID: 11400000, guid: 9b0feee7c8820b6419129508051d6f08, type: 2}
-        id: a5f2e4f6-d712-42e5-aa6e-1e4502de1f82
-      - cardType: {fileID: 11400000, guid: 9b0feee7c8820b6419129508051d6f08, type: 2}
-        id: fbc0a074-8f0f-4dcb-a211-6ac00580d7d8
-      - cardType: {fileID: 11400000, guid: 70fd57aa1f3fcb049a3725fd9b8474af, type: 2}
-        id: aeb1c0af-bdae-47ad-a81b-5d56b7558fbe
-    baseAttackDamage: 0
-    abilities:
-    - rid: 7785644468622065669
-    id: d4d76440-e7c6-41a2-8672-ab4a013fbb6d
   - companionType: {fileID: 11400000, guid: 28f6a1b3b493fa743859f89dedcc23ca, type: 2}
     maxHealth: 10
     currentHealth: 10
@@ -82,14 +46,4 @@ MonoBehaviour:
     id: cb472b25-b58a-432d-8db5-eb5d7b4692cb
   references:
     version: 2
-    RefIds:
-    - rid: 7785644468622065668
-      type: {class: MinionSpawnETB, ns: , asm: Assembly-CSharp}
-      data:
-        abilityName: GrotesqueETB
-        numMinions: 1
-        minionType: {fileID: 11400000, guid: acf491015f67b06468095238a670ef7b, type: 2}
-    - rid: 7785644468622065669
-      type: {class: RetainCards, ns: , asm: Assembly-CSharp}
-      data:
-        abilityName: Retain Cards
+    RefIds: []

@@ -17,13 +17,6 @@ public class EncounterBuilder : MonoBehaviour
     }
 
     public void endEncounterHandler(EndEncounterEventInfo info) {
-        // check index in list before setting value
-        // load correct scene
-        // builder in new scene will set it up
-        /*
-        encounterReference.SetValue(map.encounters[0]);
-        string sceneName = encounterReference.Value.getEncounterType() == EncounterType.Enemy ? "PlaceholderEnemyEncounter" : "PlaceholderShopEncounter";
-        SceneManager.LoadScene(sceneName);
-        */
+        map.Value.loadNextEncounter(encounterVariable);
     }
 }

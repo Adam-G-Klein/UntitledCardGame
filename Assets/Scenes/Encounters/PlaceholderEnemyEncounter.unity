@@ -180,6 +180,50 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: abbc737ab6d00f942a8e0a7af933c3dd, type: 3}
+--- !u!1 &81762630 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6256734607495897998, guid: 28a067a8b113e3a4aadb83e0e82a16bd, type: 3}
+  m_PrefabInstance: {fileID: 1300297840}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &81762631 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1672842995329863733, guid: 28a067a8b113e3a4aadb83e0e82a16bd, type: 3}
+  m_PrefabInstance: {fileID: 1300297840}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 81762630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 982fccabc7005584fad38e90fa8dd53c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &81762633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 81762630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 119c16e2552d62c418ffa9112f75f174, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 55e16020de6958b4ca9bd9c38bb0ca17, type: 2}
+  unityEventResponse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 81762631}
+        m_TargetAssemblyTypeName: EncounterBuilder, Assembly-CSharp
+        m_MethodName: endEncounterHandler
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &819277624
 GameObject:
   m_ObjectHideFlags: 0
@@ -406,6 +450,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1672842995329863733, guid: 28a067a8b113e3a4aadb83e0e82a16bd, type: 3}
+      propertyPath: map.Variable
+      value: 
+      objectReference: {fileID: 11400000, guid: 803b13df67096244eac41a3110e024f5, type: 2}
     - target: {fileID: 1672842995329863733, guid: 28a067a8b113e3a4aadb83e0e82a16bd, type: 3}
       propertyPath: encounterVariable
       value: 
