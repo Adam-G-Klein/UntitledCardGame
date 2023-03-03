@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a3355b5197b408a46b3ca88e9297a78a, type: 3}
-  m_Name: LukeTestShop1
+  m_Name: AdamTestShop1
   m_EditorClassIdentifier: 
   locked: 1
   Value:
@@ -21,21 +21,15 @@ MonoBehaviour:
     - rid: 4170307053810352129
       type: {class: ShopEncounter, ns: , asm: Assembly-CSharp}
       data:
-        id: 27fab977-644e-46ae-b93d-40b41af80560
+        id: adamTest
         isCompleted: 1
         generateEncounter: 0
         shopData: {fileID: 11400000, guid: 64b1d5221aac20348909c6cab7cc24d6, type: 2}
         cardsInShop:
-        - cardType: {fileID: 11400000, guid: dfe47065bd90ef24bbe2f365807ba07d, type: 2}
+        - cardType: {fileID: 11400000, guid: 70fd57aa1f3fcb049a3725fd9b8474af, type: 2}
           price: 1
-        - cardType: {fileID: 11400000, guid: dfe47065bd90ef24bbe2f365807ba07d, type: 2}
-          price: 1
-        - cardType: {fileID: 11400000, guid: 940a073ba558e9546b5f8d28c2b85af5, type: 2}
-          price: 3
-        keepsakesInShop:
-        - companionType: {fileID: 11400000, guid: bb8900a5e0f2ab34a8c486d19dcef389, type: 2}
-          price: 1
-        - companionType: {fileID: 11400000, guid: af270a8bf55a86547941d6065eb02679, type: 2}
+        - cardType: {fileID: 11400000, guid: ec3c681e35f3b8541b4e30643c6d0ee7, type: 2}
           price: 2
-        - companionType: {fileID: 11400000, guid: 28f6a1b3b493fa743859f89dedcc23ca, type: 2}
-          price: 3
+        - cardType: {fileID: 11400000, guid: ec3c681e35f3b8541b4e30643c6d0ee7, type: 2}
+          price: 2
+        keepsakesInShop: []

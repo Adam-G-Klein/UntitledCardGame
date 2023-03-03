@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3935233051979025337}
   - component: {fileID: 2540149458852991212}
   - component: {fileID: 3104649457191744291}
+  - component: {fileID: 274535063935901083}
   m_Layer: 5
   m_Name: EntitySprite
   m_TagString: Untagged
@@ -58,7 +59,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: 0a34a4cad77e30c4da91158bef02111d, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -76,6 +77,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &274535063935901083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 736414160327615768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 755aff2ef7bcbca438372b4fd4efc30b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  idleOutlineWidth: 6.6
 --- !u!1 &2332963860890905134
 GameObject:
   m_ObjectHideFlags: 0

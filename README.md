@@ -13,6 +13,7 @@ Unity project source for Untitled Card Game by Go Face Games
 * (optional) add wearing off in CombatEntityFriendly
 * (optional) add onDeath trigger in CombatEntityFriendly
 * (optional) add effect on stats/effects in CombatEntityInEncounterStats
+* (optional) add effect on damage taken in CombatEntityInstance
 
 ## Dev Tips 
 

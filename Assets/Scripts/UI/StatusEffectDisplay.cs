@@ -12,7 +12,8 @@ public enum StatusEffect {
     Invulnerability,
     MaxHpBounty,
     TemporaryStrength,
-    MinionsOnDeath
+    MinionsOnDeath,
+    PlatedArmor
 }
 public class StatusEffectDisplay: MonoBehaviour
 {

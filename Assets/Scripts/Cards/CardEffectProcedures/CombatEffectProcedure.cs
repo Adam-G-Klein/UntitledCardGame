@@ -17,7 +17,8 @@ public enum DisplayedCombatEffect {
     Heal,
     ApplyMaxHpBounty,
     ApplyTemporaryStrength,
-    MinionsOnDeath
+    MinionsOnDeath,
+    PlatedArmor
 }
 [System.Serializable]
 public class CombatEffectProcedure: EffectProcedure {
@@ -39,7 +40,8 @@ public class CombatEffectProcedure: EffectProcedure {
         {DisplayedCombatEffect.Heal, CombatEffect.Heal},
         {DisplayedCombatEffect.ApplyMaxHpBounty, CombatEffect.ApplyMaxHpBounty},
         {DisplayedCombatEffect.ApplyTemporaryStrength, CombatEffect.ApplyTemporaryStrength},
-        {DisplayedCombatEffect.MinionsOnDeath, CombatEffect.ApplyMinionsOnDeath}
+        {DisplayedCombatEffect.MinionsOnDeath, CombatEffect.ApplyMinionsOnDeath},
+        {DisplayedCombatEffect.PlatedArmor, CombatEffect.ApplyPlatedArmor}
     };
     public int baseScale = 0;
     public bool targetCaster = false;
@@ -90,7 +92,7 @@ public class CombatEffectProcedure: EffectProcedure {
                     {internalEffectName, 
                         // Feed the displayed name into the overloaded effectScale provider
                         // in the entitystats
-                        context.casterStats.getEffectScale(effectName, baseScale)}
+                        context.casterStats.getEffectScale(internalEffectName, baseScale)}
                 },
                 currentTargets,
                 context.cardCaster

@@ -30,6 +30,7 @@ public class CombatEntityInEncounterStats
         {StatusEffect.MaxHpBounty, 0},
         {StatusEffect.TemporaryStrength, 0},
         {StatusEffect.MinionsOnDeath, 0},
+        {StatusEffect.PlatedArmor, 0}
     };
 
     public Dictionary<StatusEffect, int> statusEffects = new Dictionary<StatusEffect, int>(initialStatusEffects);
@@ -46,7 +47,7 @@ public class CombatEntityInEncounterStats
     public int currentAttackDamage {
         get {
             return (baseStats.getBaseAttackDamage() 
-                + statusEffects[StatusEffect.Strength] 
+                + statusEffects[StatusEffect.Strength]
                 + statusEffects[StatusEffect.TemporaryStrength]
                 - statusEffects[StatusEffect.Weakness]);
         }

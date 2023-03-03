@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3355b5197b408a46b3ca88e9297a78a, type: 3}
+  m_Name: HaymakerEnemyEncounter
+  m_EditorClassIdentifier: 
+  locked: 1
+  Value:
+    rid: 6500575149198671882
+  references:
+    version: 2
+    RefIds:
+    - rid: 6500575149198671882
+      type: {class: EnemyEncounter, ns: , asm: Assembly-CSharp}
+      data:
+        id: haymakers
+        isCompleted: 0
+        enemyList:
+        - enemyType: {fileID: 11400000, guid: a92e98aa28c792a46a7fa6e4adce1db7, type: 2}
+          currentHealth: 100
+          maxHealth: 100
+          id: mindGoblin
+        - enemyType: {fileID: 11400000, guid: a92e98aa28c792a46a7fa6e4adce1db7, type: 2}
+          currentHealth: 20
+          maxHealth: 20
+          id: strongthug
+        enemyLocations:
+        - {x: 3.86, y: 1.63, z: 0.027606305}
+        - {x: 7.65, y: 1.63, z: 0.027606305}
+        activeCompanions: {fileID: 11400000, guid: 88debb02fba58644b959f3a10afb8a3e, type: 2}
+        companionLocations:
+        - {x: -3.99, y: -1.99, z: 0.027606305}
+        - {x: -3.02, y: 0.41, z: 0.027606305}
+        - {x: -6.19, y: -0.11, z: 0.027606305}

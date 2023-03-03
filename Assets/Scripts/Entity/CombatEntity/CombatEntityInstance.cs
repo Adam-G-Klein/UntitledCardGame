@@ -87,6 +87,9 @@ public abstract class CombatEntityInstance: TargettableEntity
     protected int damageAfterDefense(int damage){
         if(stats.statusEffects[StatusEffect.Invulnerability] > 0)
             return 0;
+        if(stats.statusEffects[StatusEffect.PlatedArmor] > damage) {
+            damage = 0;
+        }
         if(stats.statusEffects[StatusEffect.Defended] == 0) 
             return damage;
         stats.statusEffects[StatusEffect.Defended] -= damage;
@@ -95,6 +98,9 @@ public abstract class CombatEntityInstance: TargettableEntity
             stats.statusEffects[StatusEffect.Defended] = 0;
         } else {
             damage = 0;
+        }
+        if(damage > 0) {
+            stats.statusEffects[StatusEffect.PlatedArmor] -= 1;
         }
         return damage;
     }

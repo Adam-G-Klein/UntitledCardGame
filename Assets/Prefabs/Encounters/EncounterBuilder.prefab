@@ -9,7 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6256734607495897999}
-  - component: {fileID: 1672842995329863733}
+  - component: {fileID: 81762633}
+  - component: {fileID: 1897512560337364438}
   m_Layer: 0
   m_Name: EncounterBuilder
   m_TagString: Untagged
@@ -32,7 +33,35 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1672842995329863733
+--- !u!114 &81762633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6256734607495897998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 119c16e2552d62c418ffa9112f75f174, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 55e16020de6958b4ca9bd9c38bb0ca17, type: 2}
+  unityEventResponse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1897512560337364438}
+        m_TargetAssemblyTypeName: EncounterBuilder, Assembly-CSharp
+        m_MethodName: endEncounterHandler
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1897512560337364438
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -45,4 +74,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   encounterConstants: {fileID: 11400000, guid: 4000d3b01acf1f1459ac789f20856055, type: 2}
-  encounterVariable: {fileID: 0}
+  encounterVariable: {fileID: 11400000, guid: eca78fb783e4dc1478ecf954eaedad26, type: 2}
+  map:
+    UseConstant: 0
+    ConstantValue:
+      encounters: []
+    Variable: {fileID: 11400000, guid: 9e4d4152f3bf0b04d90453ff7017cecc, type: 2}
+  references:
+    version: 2
+    RefIds: []
