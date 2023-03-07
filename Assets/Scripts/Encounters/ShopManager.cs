@@ -111,6 +111,6 @@ public class ShopManager : MonoBehaviour
 
     public void exitShop() {
         activeEncounter.Value.isCompleted = true;
-        map.GetValue().loadNextEncounter(activeEncounter);
+        map.GetValue().loadMapScene();
     }
 }

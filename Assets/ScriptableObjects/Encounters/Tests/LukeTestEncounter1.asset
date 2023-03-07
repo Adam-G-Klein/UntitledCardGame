@@ -22,14 +22,14 @@ MonoBehaviour:
       type: {class: EnemyEncounter, ns: , asm: Assembly-CSharp}
       data:
         id: LukeTestEncounter1
-        isCompleted: 0
+        isCompleted: 1
         enemyList:
         - enemyType: {fileID: 11400000, guid: da0cdb6c0c9754d469d48629d5444b55, type: 2}
-          currentHealth: 20
+          currentHealth: 0
           maxHealth: 20
           id: mindGoblin
         - enemyType: {fileID: 11400000, guid: da0cdb6c0c9754d469d48629d5444b55, type: 2}
-          currentHealth: 20
+          currentHealth: 0
           maxHealth: 20
           id: deezNuts
         enemyLocations:

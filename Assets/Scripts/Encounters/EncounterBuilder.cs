@@ -17,6 +17,7 @@ public class EncounterBuilder : MonoBehaviour
     }
 
     public void endEncounterHandler(EndEncounterEventInfo info) {
-        map.Value.loadNextEncounter(encounterVariable);
+        encounterVariable.Value.isCompleted = true;
+        map.Value.loadMapScene();
     }
 }
