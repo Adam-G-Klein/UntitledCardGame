@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
+// Good idle vals: wave freq 65, speed -0.05
 public class OutlineControl : MonoBehaviour
 {
     public float outlineWidth = 0.1f;
@@ -17,7 +18,8 @@ public class OutlineControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        spriteRenderer.material.SetFloat("OutlineThickness", outlineWidth);
+        Debug.Log("OutlineControl: " + outlineWidth);
+        spriteRenderer.material.SetFloat("_OutlineThickness", outlineWidth);
         
     }
 }

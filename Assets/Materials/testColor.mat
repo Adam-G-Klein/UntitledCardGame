@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: AnimateSpriteOutline
-  m_Shader: {fileID: -6465566751694194690, guid: 0680b59c76de07e40811c798aeb33719, type: 3}
+  m_Name: testColor
+  m_Shader: {fileID: -6465566751694194690, guid: dd54a6c9ac7680e4cb66d8d9e16a56ac, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -24,7 +24,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 9b488e83c145ad749884e5716bba11bf, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskTex:
@@ -50,14 +50,9 @@ Material:
     m_Ints: []
     m_Floats:
     - _EnableExternalAlpha: 0
-    - _OutlineThickness: 6.6
-    - _WaveFrequency: 65
-    - _WaveSpeed: -0.05
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _OutlineColor: {r: 0, g: 0.851073, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
-    - _offsetDir: {r: 0, g: 0, b: 0, a: 0}
-    - _testColor: {r: 0, g: 0, b: 0, a: 0}
+    - _testColor: {r: 1, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []

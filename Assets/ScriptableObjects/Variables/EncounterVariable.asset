@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3355b5197b408a46b3ca88e9297a78a, type: 3}
+  m_Name: EncounterVariable
+  m_EditorClassIdentifier: 
+  locked: 0
+  Value:
+    rid: 5847359171616309249
+  references:
+    version: 2
+    RefIds:
+    - rid: 5847359171616309249
+      type: {class: ShopEncounter, ns: , asm: Assembly-CSharp}
+      data:
+        id: 45d12f50-a0e6-41e9-86d0-01ac09ea2e12
+        isCompleted: 0
+        generateEncounter: 0
+        shopData: {fileID: 11400000, guid: e332b66696a29684b9e5d1e520632f0a, type: 2}
+        cardsInShop: []
+        keepsakesInShop: []
