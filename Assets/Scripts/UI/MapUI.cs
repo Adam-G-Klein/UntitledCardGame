@@ -7,8 +7,10 @@ public class MapUI : MonoBehaviour
     public GameObject iconPrefab;
     public MapReference mapReference;
     public EncounterVariableSO activeEncounterVariable;
+    public CompanionListVariableSO activeCompanions;
     public GameObject iconGroup;
     public LineRenderer lineRenderer;
+    public GameObject companionViewUIPrefab;
     
     private List<Transform> iconPositions = new List<Transform>();
     
@@ -51,5 +53,19 @@ public class MapUI : MonoBehaviour
 
     public void encounterInitiateEventHandler(string encounterId) {
         mapReference.Value.loadEncounterById(encounterId, activeEncounterVariable);
+    }
+
+    public void showCompanionView() {
+        GameObject companionViewUI = GameObject.Instantiate(
+                        companionViewUIPrefab,
+                        new Vector3(Screen.width / 2, Screen.height / 2, 0),
+                        Quaternion.identity);
+        companionViewUI
+            .GetComponent<CompanionViewUI>()
+            .setupCompanionDisplay(activeCompanions, new List<CompanionActionType>() {
+                CompanionActionType.SELECT,
+                CompanionActionType.VIEW_DECK,
+                CompanionActionType.MOVE_COMPANION
+            });
     }
 }
