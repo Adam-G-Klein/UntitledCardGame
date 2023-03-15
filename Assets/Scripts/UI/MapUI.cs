@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class MapUI : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class MapUI : MonoBehaviour
     public GameObject iconGroup;
     public LineRenderer lineRenderer;
     public GameObject companionViewUIPrefab;
+    public TMP_Text playerGoldTMPText;
     
     private List<Transform> iconPositions = new List<Transform>();
     
@@ -51,10 +53,6 @@ public class MapUI : MonoBehaviour
         lineRenderer.SetPositions(points);
     }
 
-    public void encounterInitiateEventHandler(string encounterId) {
-        mapReference.Value.loadEncounterById(encounterId, activeEncounterVariable);
-    }
-
     public void showCompanionView() {
         GameObject companionViewUI = GameObject.Instantiate(
                         companionViewUIPrefab,
@@ -63,9 +61,12 @@ public class MapUI : MonoBehaviour
         companionViewUI
             .GetComponent<CompanionViewUI>()
             .setupCompanionDisplay(activeCompanions, new List<CompanionActionType>() {
-                CompanionActionType.SELECT,
                 CompanionActionType.VIEW_DECK,
                 CompanionActionType.MOVE_COMPANION
             });
+    }
+
+    public void setGoldUIHandler(int gold) {
+        playerGoldTMPText.text = gold.ToString();
     }
 }

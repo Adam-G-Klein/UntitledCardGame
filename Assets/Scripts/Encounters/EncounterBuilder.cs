@@ -6,6 +6,7 @@ public class EncounterBuilder : MonoBehaviour
 {
     public EncounterConstants encounterConstants;
     public EncounterVariableSO encounterVariable;
+    public PlayerDataReference playerDataReference;
     public MapReference map;
 
     void Awake() {
@@ -18,6 +19,7 @@ public class EncounterBuilder : MonoBehaviour
 
     public void endEncounterHandler(EndEncounterEventInfo info) {
         encounterVariable.Value.isCompleted = true;
+        playerDataReference.Value.gold += 3;
         map.Value.loadMapScene();
     }
 }

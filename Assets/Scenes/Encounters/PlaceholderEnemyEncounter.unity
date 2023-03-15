@@ -406,9 +406,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1897512560337364438, guid: 28a067a8b113e3a4aadb83e0e82a16bd, type: 3}
+      propertyPath: playerDataVariable
+      value: 
+      objectReference: {fileID: 11400000, guid: e8a05bd2a62c57a43b5944766f76ecd8, type: 2}
+    - target: {fileID: 1897512560337364438, guid: 28a067a8b113e3a4aadb83e0e82a16bd, type: 3}
+      propertyPath: playerDataReference.Variable
+      value: 
+      objectReference: {fileID: 11400000, guid: e8a05bd2a62c57a43b5944766f76ecd8, type: 2}
     - target: {fileID: 6256734607495897998, guid: 28a067a8b113e3a4aadb83e0e82a16bd, type: 3}
       propertyPath: m_Name
-      value: EncounterBuilder
+      value: EncounterManager
       objectReference: {fileID: 0}
     - target: {fileID: 6256734607495897999, guid: 28a067a8b113e3a4aadb83e0e82a16bd, type: 3}
       propertyPath: m_RootOrder
