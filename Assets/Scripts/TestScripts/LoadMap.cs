@@ -18,7 +18,7 @@ public class LoadMap : MonoBehaviour
             Debug.LogError("Map has no encounters!");
             return;
         }
-        encounterReference.Value = map.encounters[0].Value;
+        encounterReference.Value = map.encounters[0];
         string sceneName = encounterReference.Value.getEncounterType() == EncounterType.Enemy ? "PlaceholderEnemyEncounter" : "PlaceholderShopEncounter";
         SceneManager.LoadScene(sceneName);
     }

@@ -5,31 +5,42 @@ using UnityEngine;
 [System.Serializable]
 public class EnemyEncounter : Encounter
 {
-    [Header("Enemies")]
-    public List<Enemy> enemyList;
-    public List<Vector3> enemyLocations;
-    
-    [Header("Companions")]
-    public CompanionListVariableSO activeCompanions;
-    public List<Vector3> companionLocations;
-
+    private List<Enemy> enemyList;
+    private EnemyEncounterTypeSO enemyEncounterType;
     private EncounterConstants encounterConstants;
 
-    public EnemyEncounter() {
+    // Just going to hardcode these here for now, will figure this out later
+    private static List<Vector3> COMPANION_LOCATIONS = new List<Vector3>() {
+        new Vector3(-4, -2, 0),
+        new Vector3(-3, 0.5f, 0),
+        new Vector3(-6, 0, 0)
+    };
+
+    private static List<Vector3> ENEMY_LOCATIONS = new List<Vector3>() {
+        new Vector3(3.75f, 1.5f, 0),
+        new Vector3(7.5f, 1.5f, 0)
+    };
+
+    public EnemyEncounter(EnemyEncounterTypeSO enemyEncounterType) {
         this.encounterType = EncounterType.Enemy;
+        this.enemyEncounterType = enemyEncounterType;
+
+        foreach (EnemyTypeSO enemyType in this.enemyEncounterType.enemies) {
+            enemyList.Add(new Enemy(enemyType));
+        }
     }
 
-    public override void build(EncounterConstants constants)
+    public override void build(List<Companion> companionList, EncounterConstants constants)
     {
         this.encounterType = EncounterType.Enemy;
         this.encounterConstants = constants;
-        setupEnemies();
-        setupCompanions();
+        buildEnemies();
+        buildCompanions(companionList);
     }
 
-    private void setupEnemies()
+    private void buildEnemies()
     {
-        if (enemyList.Count > enemyLocations.Count) {
+        if (enemyList.Count > ENEMY_LOCATIONS.Count) {
             Debug.LogError("The enemy locations list does not contain enough locations");
             return;
         }
@@ -39,15 +50,15 @@ public class EnemyEncounter : Encounter
             PrefabInstantiator.instantiateEnemy(
                 encounterConstants.enemyPrefab,
                 enemyList[i],
-                enemyLocations[i]);
+                ENEMY_LOCATIONS[i]);
         }
     }
 
-    private void setupCompanions()
+    private void buildCompanions(List<Companion> companionList)
     {
 
-        int activeCompanionsCount = activeCompanions.companionList.Count;
-        if (activeCompanionsCount > companionLocations.Count) {
+        int activeCompanionsCount = companionList.Count;
+        if (activeCompanionsCount > COMPANION_LOCATIONS.Count) {
             Debug.LogError("The companion locations list does not contain enough locations");
             return;
         }
@@ -56,8 +67,8 @@ public class EnemyEncounter : Encounter
         {
             PrefabInstantiator.instantiateCompanion(
                 encounterConstants.companionPrefab,
-                activeCompanions.companionList[i],
-                companionLocations[i]);
+                companionList[i],
+                COMPANION_LOCATIONS[i]);
         }
     }
 }

@@ -406,6 +406,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1897512560337364438, guid: 28a067a8b113e3a4aadb83e0e82a16bd, type: 3}
+      propertyPath: activeEncounter
+      value: 
+      objectReference: {fileID: 11400000, guid: eca78fb783e4dc1478ecf954eaedad26, type: 2}
+    - target: {fileID: 1897512560337364438, guid: 28a067a8b113e3a4aadb83e0e82a16bd, type: 3}
+      propertyPath: activeCompanions
+      value: 
+      objectReference: {fileID: 11400000, guid: 88debb02fba58644b959f3a10afb8a3e, type: 2}
     - target: {fileID: 6256734607495897998, guid: 28a067a8b113e3a4aadb83e0e82a16bd, type: 3}
       propertyPath: m_Name
       value: EncounterBuilder

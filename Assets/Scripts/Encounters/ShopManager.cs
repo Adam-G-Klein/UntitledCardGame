@@ -27,7 +27,7 @@ public class ShopManager : MonoBehaviour
             Debug.LogError("Active encounter is not a shop but a shop was loaded!");
             return;
         }
-        activeEncounter.Value.build(encounterConstants);
+        activeEncounter.Value.build(activeCompanions.companionList, encounterConstants);
     }
 
     void Update() {
@@ -35,7 +35,7 @@ public class ShopManager : MonoBehaviour
         if(IS_DEVELOPMENT_MODE && Input.GetKeyDown(KeyCode.R)) {
             shopRefreshEvent.Raise(null);
             ((ShopEncounter) activeEncounter.Value).generateEncounter = true;
-            activeEncounter.Value.build(encounterConstants);
+            activeEncounter.Value.build(activeCompanions.companionList, encounterConstants);
             ((ShopEncounter) activeEncounter.Value).generateEncounter = false;
         }
 

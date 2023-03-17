@@ -22,14 +22,14 @@ MonoBehaviour:
       type: {class: ShopEncounter, ns: , asm: Assembly-CSharp}
       data:
         id: adamTest
-        isCompleted: 1
+        isCompleted: 0
         generateEncounter: 0
         shopData: {fileID: 11400000, guid: 64b1d5221aac20348909c6cab7cc24d6, type: 2}
         cardsInShop:
+        - cardType: {fileID: 11400000, guid: 4a317ae5215e14440942c047943ac96a, type: 2}
+          price: 3
+        - cardType: {fileID: 11400000, guid: dfe47065bd90ef24bbe2f365807ba07d, type: 2}
+          price: 1
         - cardType: {fileID: 11400000, guid: 70fd57aa1f3fcb049a3725fd9b8474af, type: 2}
           price: 1
-        - cardType: {fileID: 11400000, guid: ec3c681e35f3b8541b4e30643c6d0ee7, type: 2}
-          price: 2
-        - cardType: {fileID: 11400000, guid: ec3c681e35f3b8541b4e30643c6d0ee7, type: 2}
-          price: 2
         keepsakesInShop: []

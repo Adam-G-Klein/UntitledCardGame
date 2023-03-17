@@ -4,7 +4,7 @@ using UnityEngine;
 
 [CreateAssetMenu(
     fileName = "Shop",
-    menuName = "Encounters/Shop/New Shop")]
+    menuName = "Encounters/Shop/Shop Data")]
 public class ShopDataSO : ScriptableObject
 {
 

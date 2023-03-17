@@ -12,7 +12,7 @@ public abstract class Encounter
 {
     public string id = Id.newGuid();
     public bool isCompleted = false;
-    public abstract void build(EncounterConstants constants);
+    public abstract void build(List<Companion> companionList, EncounterConstants constants);
 
     protected EncounterType encounterType;
 

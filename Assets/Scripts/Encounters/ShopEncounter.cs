@@ -37,7 +37,7 @@ public class ShopEncounter : Encounter
         this.encounterType = EncounterType.Shop;
     }
 
-    public override void build(EncounterConstants constants)
+    public override void build(List<Companion> companionList, EncounterConstants constants)
     {
         this.encounterType = EncounterType.Shop;
         this.encounterConstants = constants;

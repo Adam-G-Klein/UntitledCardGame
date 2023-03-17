@@ -5,19 +5,20 @@ using UnityEngine;
 public class EncounterBuilder : MonoBehaviour
 {
     public EncounterConstants encounterConstants;
-    public EncounterVariableSO encounterVariable;
+    public EncounterVariableSO activeEncounter;
+    public CompanionListVariableSO activeCompanions;
     public MapReference map;
 
     void Awake() {
-        if (encounterVariable.Value.getEncounterType() != EncounterType.Enemy) {
+        if (activeEncounter.Value.getEncounterType() != EncounterType.Enemy) {
             Debug.LogError("Active encounter is not an enemy but an enemy was loaded!");
             return;
         }
-        encounterVariable.Value.build(encounterConstants);
+        activeEncounter.Value.build(activeCompanions.companionList, encounterConstants);
     }
 
     public void endEncounterHandler(EndEncounterEventInfo info) {
-        encounterVariable.Value.isCompleted = true;
+        activeEncounter.Value.isCompleted = true;
         map.Value.loadMapScene();
     }
 }

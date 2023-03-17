@@ -23,7 +23,7 @@ public class EncounterBuilderEditor : Editor {
         
         if (GUILayout.Button("Set Active Encounter")) {
             if (encounterToSet != null)
-                encounterBuilder.encounterVariable.SetValue(encounterToSet);
+                encounterBuilder.activeEncounter.SetValue(encounterToSet);
             else
                 Debug.LogWarning("Must set encounter to set first!");
             

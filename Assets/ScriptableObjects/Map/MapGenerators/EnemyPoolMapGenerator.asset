@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b9ce09c10058504c8f709d0e1ab4bb1, type: 3}
+  m_Name: EnemyPoolMapGenerator
+  m_EditorClassIdentifier: 
+  enemyEncounterPools:
+  - pool:
+    - {fileID: 11400000, guid: fdf99afce7f6415499157d0dd3253577, type: 2}
+    - {fileID: 11400000, guid: 520c99bd2578f794d9d94ab68c7bc1ba, type: 2}
+  - pool:
+    - {fileID: 11400000, guid: fdf99afce7f6415499157d0dd3253577, type: 2}
+    - {fileID: 11400000, guid: 520c99bd2578f794d9d94ab68c7bc1ba, type: 2}
+  - pool:
+    - {fileID: 11400000, guid: fdf99afce7f6415499157d0dd3253577, type: 2}
+    - {fileID: 11400000, guid: 520c99bd2578f794d9d94ab68c7bc1ba, type: 2}
+  shopData: {fileID: 0}

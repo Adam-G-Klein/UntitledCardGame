@@ -21,7 +21,7 @@ public class EncounterVariableSOEditor : Editor {
         if (GUILayout.Button("Set Encounter")) {
             switch(encounterType) {
                 case EncounterType.Enemy:
-                    encounterVariable.Value = new EnemyEncounter();
+                    // encounterVariable.Value = new EnemyEncounter();
                 break;
                 
                 case EncounterType.Shop:
