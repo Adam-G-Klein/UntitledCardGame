@@ -18,25 +18,28 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 462354a397a54954aab6c85e99376713, type: 2}
   - {fileID: 11400000, guid: 70fd57aa1f3fcb049a3725fd9b8474af, type: 2}
   - {fileID: 11400000, guid: dfe47065bd90ef24bbe2f365807ba07d, type: 2}
-  commonCompanionPercentage: 0
-  commonCompanionPrice: 0
-  commonCompanions: []
+  commonCompanionPercentage: 55
+  commonCompanionPrice: 1
+  commonCompanions:
+  - {fileID: 11400000, guid: bb8900a5e0f2ab34a8c486d19dcef389, type: 2}
   uncommonCardPercentage: 30
   uncommonCardPrice: 2
   uncommonCards:
   - {fileID: 11400000, guid: ec3c681e35f3b8541b4e30643c6d0ee7, type: 2}
   - {fileID: 11400000, guid: 9b0feee7c8820b6419129508051d6f08, type: 2}
-  uncommonCompanionPercentage: 0
-  uncommonCompanionPrice: 0
-  uncommonCompanions: []
+  uncommonCompanionPercentage: 30
+  uncommonCompanionPrice: 2
+  uncommonCompanions:
+  - {fileID: 11400000, guid: 28f6a1b3b493fa743859f89dedcc23ca, type: 2}
   rareCardPercentage: 15
   rareCardPrice: 3
   rareCards:
   - {fileID: 11400000, guid: 4a317ae5215e14440942c047943ac96a, type: 2}
   - {fileID: 11400000, guid: 940a073ba558e9546b5f8d28c2b85af5, type: 2}
-  rareCompanionPercentage: 0
-  rareCompanionPrice: 0
-  rareCompanions: []
+  rareCompanionPercentage: 15
+  rareCompanionPrice: 3
+  rareCompanions:
+  - {fileID: 11400000, guid: af270a8bf55a86547941d6065eb02679, type: 2}
   cardLocations:
   - {x: -5.92, y: 1.65, z: 0}
   - {x: -0.23, y: 1.65, z: 0}

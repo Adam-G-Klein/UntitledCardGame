@@ -7,13 +7,13 @@ public class ShopManager : MonoBehaviour
 {
     public bool IS_DEVELOPMENT_MODE = false;
     [Header("Variables")]
-    public EncounterVariableSO activeEncounter;
+    public EncounterVariableSO activeEncounterVariable;
     public MapVariableSO map;
-    public CompanionListVariableSO activeCompanions;
-    public PlayerDataReference playerData;
+    public CompanionListVariableSO activeCompanionsVariable;
+    public PlayerDataVariableSO activePlayerDataVariable;
     [Header("Shop")]
     public ShopUIManager shopUIManager;
-    public EncounterConstants encounterConstants;
+    public EncounterConstantsSO encounterConstants;
     public VoidGameEvent shopRefreshEvent;
     public GameObject companionViewUIPrefab;
     
@@ -23,29 +23,29 @@ public class ShopManager : MonoBehaviour
 
     // Start is called before the first frame update
     void Start() {
-        if (activeEncounter.Value.getEncounterType() != EncounterType.Shop) {
+        if (activeEncounterVariable.GetValue().getEncounterType() != EncounterType.Shop) {
             Debug.LogError("Active encounter is not a shop but a shop was loaded!");
             return;
         }
-        activeEncounter.Value.build(encounterConstants);
+        activeEncounterVariable.GetValue().build(activeCompanionsVariable.companionList, encounterConstants);
     }
 
     void Update() {
         // I want to make it very clear this is frowned upon and is only for testing
         if(IS_DEVELOPMENT_MODE && Input.GetKeyDown(KeyCode.R)) {
             shopRefreshEvent.Raise(null);
-            ((ShopEncounter) activeEncounter.Value).generateEncounter = true;
-            activeEncounter.Value.build(encounterConstants);
-            ((ShopEncounter) activeEncounter.Value).generateEncounter = false;
+            ((ShopEncounter) activeEncounterVariable.GetValue()).generateEncounter = true;
+            activeEncounterVariable.GetValue().build(activeCompanionsVariable.companionList, encounterConstants);
+            ((ShopEncounter) activeEncounterVariable.GetValue()).generateEncounter = false;
         }
 
         if (IS_DEVELOPMENT_MODE && Input.GetKeyDown(KeyCode.G)) {
-            playerData.Value.gold += 1;
+            activePlayerDataVariable.GetValue().gold += 1;
         }
     }
 
     public void processCardBuyRequest(CardBuyRequest cardBuyRequest) {
-        if (playerData.Value.gold >= cardBuyRequest.price) {
+        if (activePlayerDataVariable.GetValue().gold >= cardBuyRequest.price) {
             this.buyingCard = true;
             this.currentBuyRequest = cardBuyRequest;
             this.companionViewUI = GameObject.Instantiate(
@@ -54,7 +54,7 @@ public class ShopManager : MonoBehaviour
                         Quaternion.identity);
             this.companionViewUI
                 .GetComponent<CompanionViewUI>()
-                .setupCompanionDisplay(activeCompanions, new List<CompanionActionType>() {
+                .setupCompanionDisplay(activeCompanionsVariable, new List<CompanionActionType>() {
                     CompanionActionType.SELECT,
                     CompanionActionType.VIEW_DECK
                 });
@@ -64,9 +64,9 @@ public class ShopManager : MonoBehaviour
     }
 
     public void processCompanionBuyRequest(CompanionBuyRequest request) {
-        if (playerData.Value.gold >= request.price) {
-            this.activeCompanions.companionBench.Add(request.companion);
-            playerData.Value.gold -= request.price;
+        if (activePlayerDataVariable.GetValue().gold >= request.price) {
+            this.activeCompanionsVariable.companionBench.Add(request.companion);
+            activePlayerDataVariable.GetValue().gold -= request.price;
             GameObject.Instantiate(
                 encounterConstants.cardSoldOutPrefab, 
                 request.keepsakeInShop.transform.position, 
@@ -84,7 +84,7 @@ public class ShopManager : MonoBehaviour
         // view UI
         if (this.buyingCard) {
             companion.deck.cards.Add(currentBuyRequest.cardInfo);
-            playerData.Value.gold -= currentBuyRequest.price;
+            activePlayerDataVariable.GetValue().gold -= currentBuyRequest.price;
             Vector3 cardPosition = currentBuyRequest.cardInShop.transform.position;
             Destroy(currentBuyRequest.cardInShop);
             this.buyingCard = false;
@@ -110,7 +110,7 @@ public class ShopManager : MonoBehaviour
     }
 
     public void exitShop() {
-        activeEncounter.Value.isCompleted = true;
+        activeEncounterVariable.GetValue().isCompleted = true;
         map.GetValue().loadMapScene();
     }
 }

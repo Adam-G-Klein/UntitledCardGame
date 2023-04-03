@@ -9,7 +9,7 @@ public class CompanionManager : MonoBehaviour
     [SerializeField]
     // put this here when I wanted effect procedures to have access to it
     // it's a hack, but I don't want to overthink this right now
-    public EncounterConstants encounterConstants;
+    public EncounterConstantsSO encounterConstants;
     private List<CompanionInstance> companions = new List<CompanionInstance>();
     private List<MinionInstance> minions = new List<MinionInstance>();
     private List<TargettableEntity> minionsAndCompanions {

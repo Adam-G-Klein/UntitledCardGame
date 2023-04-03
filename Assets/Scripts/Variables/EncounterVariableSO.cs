@@ -2,40 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class EncounterReference : Reference<Encounter, EncounterVariableSO> {
-    [SerializeReference]
-    public new Encounter ConstantValue;
-
-    public EncounterReference(Encounter Value): base(Value) { }
-
-    public EncounterReference() { }
-
-    public new Encounter Value
-    {
-        get { return UseConstant ? ConstantValue : Variable.Value; }
-        set
-        {
-            if (UseConstant)
-                ConstantValue = value;
-            else
-                Variable.Value = value;
-        }
-    }
-}
-
 [CreateAssetMenu(
     fileName = "EncounterVariable",
     menuName = "Encounters/Encounter Variable")]
-public class EncounterVariableSO : VariableSO<Encounter> {
+public class EncounterVariableSO : ScriptableObject {
+    public bool locked = false;
     [SerializeReference]
     public Encounter Value;
 
-    public new Encounter GetValue() {
+    public Encounter GetValue() {
         return Value;
     }
 
-    public new void SetValue(Encounter value)
+    public void SetValue(Encounter value)
     {
         if (!locked)
             Value = value;

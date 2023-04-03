@@ -29,15 +29,21 @@ public class ShopEncounter : Encounter
 {
     public bool generateEncounter;
     public ShopDataSO shopData;
-    public List<CardInShopWithPrice> cardsInShop;
-    public List<KeepsakeInShopWithPrice> keepsakesInShop;
-    private EncounterConstants encounterConstants;
+    public List<CardInShopWithPrice> cardsInShop = new List<CardInShopWithPrice>();
+    public List<KeepsakeInShopWithPrice> keepsakesInShop = new List<KeepsakeInShopWithPrice>();
+    private EncounterConstantsSO encounterConstants;
 
     public ShopEncounter() {
         this.encounterType = EncounterType.Shop;
     }
 
-    public override void build(EncounterConstants constants)
+    public ShopEncounter(ShopDataSO shopData) {
+        this.encounterType = EncounterType.Shop;
+        this.shopData = shopData;
+        generateShopEncounter();
+    }
+
+    public override void build(List<Companion> companionList, EncounterConstantsSO constants)
     {
         this.encounterType = EncounterType.Shop;
         this.encounterConstants = constants;

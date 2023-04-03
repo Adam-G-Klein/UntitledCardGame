@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class MapManager : MonoBehaviour
 {
-    public MapReference mapReference;
+    public MapVariableSO activeMapVariable;
     public EncounterVariableSO activeEncounterVariable;
-    public PlayerDataReference playerDataReference;
+    public PlayerDataVariableSO playerDataVariable;
     public IntGameEvent setGoldUIEvent;
 
     void Start() {
-        setGoldUIEvent.Raise(playerDataReference.Value.gold);
+        setGoldUIEvent.Raise(playerDataVariable.GetValue().gold);
     }
 
     public void encounterInitiateEventHandler(string encounterId) {
-        mapReference.Value.loadEncounterById(encounterId, activeEncounterVariable);
+        activeMapVariable.GetValue().loadEncounterById(encounterId, activeEncounterVariable);
     }
 }

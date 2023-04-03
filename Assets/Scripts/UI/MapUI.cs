@@ -6,7 +6,7 @@ using TMPro;
 public class MapUI : MonoBehaviour
 {
     public GameObject iconPrefab;
-    public MapReference mapReference;
+    public MapVariableSO activeMapVariable;
     public EncounterVariableSO activeEncounterVariable;
     public CompanionListVariableSO activeCompanions;
     public GameObject iconGroup;
@@ -20,8 +20,8 @@ public class MapUI : MonoBehaviour
     void Start()
     {
         bool isEncounterOutOfRange = false;
-        foreach (EncounterReference encounterReference in mapReference.Value.encounters) {
-            Encounter encounter = encounterReference.Value;
+        foreach (Encounter encounter in activeMapVariable.GetValue().encounters) {
+            // Encounter encounter = encounterVariable.GetValue();
             IconState iconState;
             if (encounter.isCompleted) {
                 iconState = IconState.COMPLETED;

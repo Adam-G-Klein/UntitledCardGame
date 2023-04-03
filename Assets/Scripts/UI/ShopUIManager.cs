@@ -5,7 +5,7 @@ using TMPro;
 
 public class ShopUIManager : MonoBehaviour
 {
-    public PlayerDataReference playerData;
+    public PlayerDataVariableSO playerDataVariable;
     [Space(10)]
     public TMP_Text playerGoldTMPText;
     [Space(10)]
@@ -21,7 +21,7 @@ public class ShopUIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        playerGoldTMPText.text = playerData.Value.gold.ToString();
+        playerGoldTMPText.text = playerDataVariable.GetValue().gold.ToString();
     }
 
     public void displayNeedMoreMoneyNotification() {

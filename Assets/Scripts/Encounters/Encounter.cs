@@ -8,11 +8,13 @@ public enum EncounterType {
 }
 
 [System.Serializable]
-public abstract class Encounter
+public class Encounter
 {
     public string id = Id.newGuid();
     public bool isCompleted = false;
-    public abstract void build(EncounterConstants constants);
+    public virtual void build(List<Companion> companionList, EncounterConstantsSO constants) {
+        return;
+    }
 
     protected EncounterType encounterType;
 

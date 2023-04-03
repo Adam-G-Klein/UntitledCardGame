@@ -6,7 +6,12 @@ using UnityEngine.SceneManagement;
 [System.Serializable]
 public class Map
 {
-    public List<EncounterReference> encounters;
+    [SerializeReference]
+    public List<Encounter> encounters;
+
+    public Map(List<Encounter> encounters) {
+        this.encounters = encounters;
+    }
 
     public void loadEncounterById(string id, EncounterVariableSO encounterVariable) {
         Encounter encounterToLoad = getEncounterById(id);
@@ -63,11 +68,11 @@ public class Map
 
     private Encounter getNextEncounter(Encounter activeEncounter) {
         for(int i = 0; i < encounters.Count; i++) {
-            if (encounters[i].Value.id == activeEncounter.id) {
+            if (encounters[i].id == activeEncounter.id) {
                 if (i+1 == encounters.Count) {
                     return null;
                 }
-                return encounters[i+1].Value;
+                return encounters[i+1];
             }
         }
         Debug.LogError("Active encounter not found in encounters list");
@@ -75,9 +80,9 @@ public class Map
     }
 
     private Encounter getEncounterById(string id) {
-        foreach (EncounterReference encounterReference in this.encounters) {
-            if (encounterReference.Value.id == id) {
-                return encounterReference.Value;
+        foreach (Encounter encounter in this.encounters) {
+            if (encounter.id == id) {
+                return encounter;
             }
         }
 
