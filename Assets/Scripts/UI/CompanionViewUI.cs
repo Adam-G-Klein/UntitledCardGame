@@ -20,17 +20,25 @@ public class CompanionAction {
 public class CompanionViewUI : MonoBehaviour, IPointerClickHandler
 {
     public GameObject activeCompanionsParent;
+    public GameObject companionSlotsParent;
     public GameObject benchCompanionsParent;
+    public GameObject benchCompanionSlotsParent;
     public GameObject uICompanionPrefab;
+    public GameObject uICompanionSlotPrefab;
+    public Color companionSlotUnselectedColor;
+    public Color companionSlotSelectedColor;
     public GameObject actionButtonsParent;
     public GameObject deckViewUIPrefab;
     public List<CompanionAction> companionActions;
     public VoidGameEvent companionViewExitedEvent;
     public CompanionEvent companionSelectedEvent;
+    public int NUMBER_OF_BENCH_COMPANION_SLOTS;
 
     private CompanionListVariableSO companionList;
     private List<CompanionActionType> actionTypes;
     private UICompanion clickedCompanion;
+    private List<GameObject> companionSlots = new List<GameObject>();
+    private List<GameObject> benchCompanionSlots = new List<GameObject>();
 
     public void setupCompanionDisplay(CompanionListVariableSO companionList,
             List<CompanionActionType> actionTypes) {
@@ -38,6 +46,7 @@ public class CompanionViewUI : MonoBehaviour, IPointerClickHandler
         this.actionTypes = actionTypes;
 
         setupActiveCompanions();
+        setupCompanionSlots();
         setupBenchCompanions();
         setupButtons();
     }
@@ -74,6 +83,27 @@ public class CompanionViewUI : MonoBehaviour, IPointerClickHandler
         uICompanion.companionViewUI = this;
     }
 
+    private void setupCompanionSlots() {
+        for (int i = 0; i < companionList.currentCompanionSlots; i++) {
+            GameObject companionSlot = GameObject.Instantiate(
+                uICompanionSlotPrefab,
+                Vector3.zero,
+                Quaternion.identity,
+                companionSlotsParent.transform);
+            setCompanionSlotUnselected(companionSlot);
+            companionSlots.Add(companionSlot);
+        }
+        for (int i = 0; i < NUMBER_OF_BENCH_COMPANION_SLOTS; i++) {
+            GameObject companionSlot = GameObject.Instantiate(
+                uICompanionSlotPrefab,
+                Vector3.zero,
+                Quaternion.identity,
+                benchCompanionSlotsParent.transform);
+            setCompanionSlotUnselected(companionSlot);
+            benchCompanionSlots.Add(companionSlot);
+        }
+    }
+
     private void setupBenchCompanions() {
         for (int i = 0; i < companionList.companionBench.Count; i++) {
             setupBenchCompanion(companionList.companionBench[i]);
@@ -86,7 +116,6 @@ public class CompanionViewUI : MonoBehaviour, IPointerClickHandler
             Vector3.zero,
             Quaternion.identity,
             benchCompanionsParent.transform);
-        // companionImage.transform.localScale = new Vector3(0.5f, 0.5f, 1);
         UICompanion uICompanion = 
             companionImage.GetComponent<UICompanion>();
         uICompanion.companion = companion;
@@ -94,9 +123,17 @@ public class CompanionViewUI : MonoBehaviour, IPointerClickHandler
         uICompanion.companionViewUI = this;
     }
 
+    private void setCompanionSlotSelected(GameObject companionSlot) {
+        companionSlot.GetComponent<Image>().color = companionSlotSelectedColor;
+    }
+
+    private void setCompanionSlotUnselected(GameObject companionSlot) {
+        companionSlot.GetComponent<Image>().color = companionSlotUnselectedColor;
+    }
+
     public void OnPointerClick(PointerEventData eventData) {
         if (clickedCompanion != null) {
-            clickedCompanion.toggleBackground();
+            updateBackground(clickedCompanion);
             clickedCompanion = null;
         }
         actionButtonsParent.SetActive(false);
@@ -106,22 +143,58 @@ public class CompanionViewUI : MonoBehaviour, IPointerClickHandler
         // No companion was actively clicked
         if (clickedCompanion == null) {
             clickedCompanion = uiCompanion;
-            clickedCompanion.toggleBackground();
+            updateBackground(clickedCompanion);
             actionButtonsParent.SetActive(true);
         }
         // Companion clicked was the last clicked companion
         else if (clickedCompanion == uiCompanion) {
-            clickedCompanion.toggleBackground();
+            updateBackground(clickedCompanion);
             clickedCompanion = null;
             actionButtonsParent.SetActive(false);
         }
         // Companion clicked was not the last companion clicked
         else {
-            clickedCompanion.toggleBackground();
+            updateBackground(clickedCompanion);
             clickedCompanion = uiCompanion;
-            clickedCompanion.toggleBackground();
+            updateBackground(clickedCompanion);
             actionButtonsParent.SetActive(true);
         }
+    }
+
+    private void updateBackground(UICompanion uiCompanion) {
+        int i = 0;
+        i = companionList.companionList.IndexOf(uiCompanion.companion);
+        if ( i != -1) {
+            uiCompanion.isSelected = !uiCompanion.isSelected;
+            setBackgroundForActiveSlot(i, uiCompanion.isSelected);
+            return;
+        }
+
+        i = companionList.companionBench.IndexOf(uiCompanion.companion);
+        if (i == -1) {
+            Debug.LogError("Can't find companion in list, something is wrong");
+            return;
+        }
+        
+        uiCompanion.isSelected = !uiCompanion.isSelected;
+        setBackgroundForBenchSlot(i, uiCompanion.isSelected);
+    }
+
+
+    private void setBackgroundForActiveSlot(int slotNumber, bool state) {
+        GameObject slot = companionSlots[slotNumber];
+        if (state)
+            setCompanionSlotSelected(slot);
+        else
+            setCompanionSlotUnselected(slot);
+    }
+
+    private void setBackgroundForBenchSlot(int slotNumber, bool state) {
+        GameObject slot = benchCompanionSlots[slotNumber];
+        if (state)
+            setCompanionSlotSelected(slot);
+        else
+            setCompanionSlotUnselected(slot);
     }
 
     public void selectButtonOnClick() {
@@ -143,6 +216,7 @@ public class CompanionViewUI : MonoBehaviour, IPointerClickHandler
             Debug.LogError("Can't move companion to bench that is already there!");
             return;
         }
+        updateBackground(this.clickedCompanion);
         Destroy(this.clickedCompanion.gameObject);
         companionList.companionList.Remove(companion);
         setupBenchCompanion(companion);
@@ -157,6 +231,10 @@ public class CompanionViewUI : MonoBehaviour, IPointerClickHandler
             Debug.LogError("Can't move companion to active that is already there!");
             return;
         }
+        if (companionList.companionList.Count == companionList.currentCompanionSlots) {
+            return;
+        }
+        updateBackground(this.clickedCompanion);
         Destroy(this.clickedCompanion.gameObject);
         companionList.companionBench.Remove(companion);
         setupActiveCompanion(companion);

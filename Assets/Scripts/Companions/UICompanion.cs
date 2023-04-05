@@ -11,7 +11,7 @@ public class UICompanion : MonoBehaviour
     public Companion companion;
     public CompanionViewUI companionViewUI;
     public Image image;
-    public GameObject background;
+    public bool isSelected = false;
 
     public void setup() {
         this.image.sprite = companion.getSprite();
@@ -19,13 +19,5 @@ public class UICompanion : MonoBehaviour
 
     public void companionClickedEventHandler() {
         companionViewUI.companionClickedEventHandler(this);
-    }
-
-    public void toggleBackground() {
-        if (background.activeSelf == true) {
-            background.SetActive(false);
-        } else {
-            background.SetActive(true);
-        }
     }
 }

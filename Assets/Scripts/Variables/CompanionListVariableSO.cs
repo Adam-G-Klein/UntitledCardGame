@@ -8,6 +8,7 @@ using UnityEngine;
 public class CompanionListVariableSO : ScriptableObject
 {
     public List<Companion> companionList;
-
     public List<Companion> companionBench;
+    public int baseCompanionSlots;
+    public int currentCompanionSlots;
 }
