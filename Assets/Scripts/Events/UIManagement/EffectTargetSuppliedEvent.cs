@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System;
 using UnityEngine;
 
 
@@ -14,6 +11,6 @@ public class EffectTargetSuppliedEventInfo {
 }
 
 [CreateAssetMenu(
-    fileName = "EffectTargetSuppliedEvent",
-    menuName = "Events/Game Event/Effect Target Supplied Event")]
+    fileName = "NewEffectTargetSuppliedEvent",
+    menuName = "Events/UI Management/Effect Target Supplied Event")]
 public class EffectTargetSuppliedEvent : BaseGameEvent<EffectTargetSuppliedEventInfo> { }

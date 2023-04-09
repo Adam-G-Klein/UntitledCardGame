@@ -52,6 +52,7 @@ public class ShopEncounter : Encounter
         }
         setupCards();
         setupKeepsakes();
+        this.shopData.shopEncounterEvent.Raise(this);
     }
 
     private void setupCards() {

@@ -238,6 +238,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1128341323615547366}
   - component: {fileID: 561985494791233743}
+  - component: {fileID: 1698269501373472623}
   m_Layer: 0
   m_Name: KeepsakeInShop
   m_TagString: Untagged
@@ -292,6 +293,34 @@ MonoBehaviour:
   references:
     version: 2
     RefIds: []
+--- !u!114 &1698269501373472623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1128341323615547365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1ff1cf37b68c9948a040440320b0331, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: c35c2bcbec7c0934d9f4369bd321bc9c, type: 2}
+  unityEventResponse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 561985494791233743}
+        m_TargetAssemblyTypeName: KeepsakeInShop, Assembly-CSharp
+        m_MethodName: shopRefreshEventHandler
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1128341323924198722
 GameObject:
   m_ObjectHideFlags: 0

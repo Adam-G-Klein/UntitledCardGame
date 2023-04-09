@@ -1,0 +1,84 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab8ea54faf5a15e429a5a40d1f6f4818, type: 3}
+  m_Name: TestManualMapGenerator
+  m_EditorClassIdentifier: 
+  map:
+    encounters:
+    - rid: 5669414205568843794
+    - rid: 5669414205568843795
+    - rid: 5669414205568843796
+    - rid: 5669414205568843797
+    - rid: 5669414205568843798
+  references:
+    version: 2
+    RefIds:
+    - rid: 5669414205568843794
+      type: {class: EnemyEncounter, ns: , asm: Assembly-CSharp}
+      data:
+        id: 3b0176fe-70b2-4231-a09c-05ad7a43b118
+        isCompleted: 0
+        enemyList:
+        - enemyType: {fileID: 11400000, guid: 3f595268355432347aef2000672bce6d, type: 2}
+          currentHealth: 0
+          maxHealth: 0
+          id: testWeakGoblin
+    - rid: 5669414205568843795
+      type: {class: ShopEncounter, ns: , asm: Assembly-CSharp}
+      data:
+        id: 5d102337-e5da-4665-9721-97c51136acce
+        isCompleted: 0
+        generateEncounter: 1
+        shopData: {fileID: 11400000, guid: 64b1d5221aac20348909c6cab7cc24d6, type: 2}
+        cardsInShop: []
+        keepsakesInShop: []
+    - rid: 5669414205568843796
+      type: {class: EnemyEncounter, ns: , asm: Assembly-CSharp}
+      data:
+        id: 10976603-6d63-4e54-aba2-d878a6d297fd
+        isCompleted: 0
+        enemyList:
+        - enemyType: {fileID: 11400000, guid: 3f595268355432347aef2000672bce6d, type: 2}
+          currentHealth: 0
+          maxHealth: 0
+          id: 1
+        - enemyType: {fileID: 11400000, guid: 3f595268355432347aef2000672bce6d, type: 2}
+          currentHealth: 0
+          maxHealth: 0
+          id: 2
+    - rid: 5669414205568843797
+      type: {class: ShopEncounter, ns: , asm: Assembly-CSharp}
+      data:
+        id: 4ce11762-561c-421f-8074-72d46f9bfd53
+        isCompleted: 0
+        generateEncounter: 0
+        shopData: {fileID: 11400000, guid: 64b1d5221aac20348909c6cab7cc24d6, type: 2}
+        cardsInShop: []
+        keepsakesInShop: []
+    - rid: 5669414205568843798
+      type: {class: EnemyEncounter, ns: , asm: Assembly-CSharp}
+      data:
+        id: 5c481b3f-7ad3-455a-bab3-c16d2b8d4eb3
+        isCompleted: 0
+        enemyList:
+        - enemyType: {fileID: 11400000, guid: da0cdb6c0c9754d469d48629d5444b55, type: 2}
+          currentHealth: 0
+          maxHealth: 0
+          id: 
+        - enemyType: {fileID: 11400000, guid: 7c2078d2e4f72954c9d9a3335c755ab9, type: 2}
+          currentHealth: 0
+          maxHealth: 0
+          id: 
+        - enemyType: {fileID: 11400000, guid: da0cdb6c0c9754d469d48629d5444b55, type: 2}
+          currentHealth: 0
+          maxHealth: 0
+          id: 

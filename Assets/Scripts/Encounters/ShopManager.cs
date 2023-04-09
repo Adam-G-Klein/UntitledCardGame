@@ -17,6 +17,7 @@ public class ShopManager : MonoBehaviour
     public VoidGameEvent shopRefreshEvent;
     public GameObject companionViewUIPrefab;
     
+    private ShopEncounter shopEncounter;
     private GameObject companionViewUI = null;
     private bool buyingCard = false;
     private CardBuyRequest currentBuyRequest;
@@ -33,10 +34,7 @@ public class ShopManager : MonoBehaviour
     void Update() {
         // I want to make it very clear this is frowned upon and is only for testing
         if(IS_DEVELOPMENT_MODE && Input.GetKeyDown(KeyCode.R)) {
-            shopRefreshEvent.Raise(null);
-            ((ShopEncounter) activeEncounterVariable.GetValue()).generateEncounter = true;
-            activeEncounterVariable.GetValue().build(activeCompanionsVariable.companionList, encounterConstants);
-            ((ShopEncounter) activeEncounterVariable.GetValue()).generateEncounter = false;
+            rerollShop();
         }
 
         if (IS_DEVELOPMENT_MODE && Input.GetKeyDown(KeyCode.G)) {
@@ -107,6 +105,37 @@ public class ShopManager : MonoBehaviour
         // choosing to null this is hopes that if we see an NPE here then we know
         // something went wrong;
         this.currentBuyRequest = null;
+    }
+
+    // Attached as a UnityEvent to the UpgradeShop button
+    public void processUpgradeShopClick() {
+        if (activePlayerDataVariable.GetValue().gold >= shopEncounter.shopData.upgradeShopPrice) {
+            activePlayerDataVariable.GetValue().gold -= shopEncounter.shopData.upgradeShopPrice;
+            activeCompanionsVariable.currentCompanionSlots += 1;
+        } else {
+            shopUIManager.displayNeedMoreMoneyNotification();
+        }
+    }
+
+    // Attached as a UnityEvent to the RerollShop button
+    public void processRerollShopClick() {
+        if (activePlayerDataVariable.GetValue().gold >= shopEncounter.shopData.rerollShopPrice) {
+            activePlayerDataVariable.GetValue().gold -= shopEncounter.shopData.rerollShopPrice;
+            rerollShop();
+        } else {
+            shopUIManager.displayNeedMoreMoneyNotification();
+        }
+    }
+
+    private void rerollShop() {
+        shopRefreshEvent.Raise(null);
+        shopEncounter.generateEncounter = true;
+        activeEncounterVariable.GetValue().build(activeCompanionsVariable.companionList, encounterConstants);
+        shopEncounter.generateEncounter = false;
+    }
+
+    public void saveShopEncounter(ShopEncounter shopEncounter) {
+        this.shopEncounter = shopEncounter;
     }
 
     public void exitShop() {

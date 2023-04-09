@@ -59,13 +59,36 @@ MonoBehaviour:
     baseAttackDamage: 0
     abilities: []
     id: 317f246a-4816-4f3b-a83a-19ea7cc2b6c6
-  companionBench: []
-  baseCompanionSlots: 3
+  companionBench:
+  - companionType: {fileID: 11400000, guid: bb8900a5e0f2ab34a8c486d19dcef389, type: 2}
+    maxHealth: 30
+    currentHealth: 30
+    deck:
+      startingDeck: {fileID: 11400000, guid: 2591b9bcf7a348d418df529b4242c104, type: 2}
+      cards:
+      - cardType: {fileID: 11400000, guid: f89479d267b89ea40b6e76d533f2e6da, type: 2}
+        id: bb16e426-54a9-4c0d-aed5-486426c43645
+      - cardType: {fileID: 11400000, guid: f89479d267b89ea40b6e76d533f2e6da, type: 2}
+        id: 0c37d5b8-2c92-4a22-bcd0-6d08730e1a74
+      - cardType: {fileID: 11400000, guid: f89479d267b89ea40b6e76d533f2e6da, type: 2}
+        id: cae831f1-0b43-41c6-9c5e-69a8721c139b
+      - cardType: {fileID: 11400000, guid: ec3c681e35f3b8541b4e30643c6d0ee7, type: 2}
+        id: eb8913e2-11e6-4532-9321-dea9a912042f
+    baseAttackDamage: 0
+    abilities:
+    - rid: 5669414205568843777
+    id: 8e48dcd3-eddb-42b7-8ab1-d8343caff98e
   currentCompanionSlots: 3
   references:
     version: 2
     RefIds:
     - rid: 5669414078719459328
+      type: {class: MinionSpawnETB, ns: , asm: Assembly-CSharp}
+      data:
+        abilityName: GrotesqueETB
+        numMinions: 1
+        minionType: {fileID: 11400000, guid: acf491015f67b06468095238a670ef7b, type: 2}
+    - rid: 5669414205568843777
       type: {class: MinionSpawnETB, ns: , asm: Assembly-CSharp}
       data:
         abilityName: GrotesqueETB

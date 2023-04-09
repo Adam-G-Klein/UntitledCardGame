@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public enum UIState {
@@ -19,7 +17,8 @@ public class UIStateEventInfo {
         this.newState = newState;
     }
 }
+
 [CreateAssetMenu(
-    fileName = "UIStateEvent", 
-    menuName = "Events/Game Event/UI State Event")]
+    fileName = "NewUIStateEvent", 
+    menuName = "Events/UI Management/UI State Event")]
 public class UIStateEvent : BaseGameEvent<UIStateEventInfo> { }

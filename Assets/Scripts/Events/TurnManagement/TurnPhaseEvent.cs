@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public enum TurnPhase {
@@ -13,6 +11,7 @@ public enum TurnPhase {
     END_ENEMY_TURN,
     END_ENCOUNTER
 }
+
 [System.Serializable]
 public class TurnPhaseEventInfo {
     public TurnPhase newPhase;
@@ -21,7 +20,8 @@ public class TurnPhaseEventInfo {
         this.newPhase = newPhase;
     }
 }
+
 [CreateAssetMenu(
-    fileName = "TurnPhaseEvent", 
-    menuName = "Events/Game Event/Turn Phase Event")]
+    fileName = "NewTurnPhaseEvent", 
+    menuName = "Events/Turn Management/Turn Phase Event")]
 public class TurnPhaseEvent : BaseGameEvent<TurnPhaseEventInfo> { }

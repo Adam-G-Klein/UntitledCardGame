@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using System;
 using UnityEngine;
 
 
@@ -26,6 +24,6 @@ public class EffectTargetRequestEventInfo {
 }
 
 [CreateAssetMenu(
-    fileName = "EffectTargetRequestEvent",
-    menuName = "Events/Game Event/Effect Target Request Event")]
+    fileName = "NewEffectTargetRequestEvent",
+    menuName = "Events/UI Management/Effect Target Request Event")]
 public class EffectTargetRequestEvent : BaseGameEvent<EffectTargetRequestEventInfo> { }

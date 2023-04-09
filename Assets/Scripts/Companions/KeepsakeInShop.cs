@@ -49,4 +49,8 @@ public class KeepsakeInShop : MonoBehaviour
     {
         hoverBackground.enabled = false;
     }
+
+    public void shopRefreshEventHandler() {
+        Destroy(this.gameObject);
+    }
 }

@@ -14,30 +14,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   locked: 0
   Value:
-    rid: 7342828051551748100
+    rid: 5669414205568843776
   references:
     version: 2
     RefIds:
-    - rid: 7342828051551748100
-      type: {class: EnemyEncounter, ns: , asm: Assembly-CSharp}
+    - rid: 5669414205568843776
+      type: {class: ShopEncounter, ns: , asm: Assembly-CSharp}
       data:
-        id: LukeTestEncounter1
+        id: 24f28ac7-a381-49b5-b7a3-14957efd4475
         isCompleted: 0
-        enemyList:
-        - enemyType: {fileID: 11400000, guid: da0cdb6c0c9754d469d48629d5444b55, type: 2}
-          currentHealth: 20
-          maxHealth: 20
-          id: mindGoblin
-        - enemyType: {fileID: 11400000, guid: da0cdb6c0c9754d469d48629d5444b55, type: 2}
-          currentHealth: 20
-          maxHealth: 20
-          id: deezNuts
-        enemyLocations:
-        - {x: 3.86, y: 1.63, z: 0.027606305}
-        - {x: 7.65, y: 1.63, z: 0.027606305}
-        activeCompanions: {fileID: 11400000, guid: 88debb02fba58644b959f3a10afb8a3e, type: 2}
-        companionLocations:
-        - {x: -3.99, y: -1.99, z: 0.027606305}
-        - {x: -3.02, y: 0.41, z: 0.027606305}
-        - {x: -6.19, y: -0.11, z: 0.027606305}
-        - {x: -3, y: 0, z: 0.027606305}
+        generateEncounter: 1
+        shopData: {fileID: 11400000, guid: 64b1d5221aac20348909c6cab7cc24d6, type: 2}
+        cardsInShop:
+        - cardType: {fileID: 11400000, guid: 9b0feee7c8820b6419129508051d6f08, type: 2}
+          price: 2
+        - cardType: {fileID: 11400000, guid: ec3c681e35f3b8541b4e30643c6d0ee7, type: 2}
+          price: 2
+        - cardType: {fileID: 11400000, guid: ec3c681e35f3b8541b4e30643c6d0ee7, type: 2}
+          price: 2
+        keepsakesInShop:
+        - companionType: {fileID: 11400000, guid: bb8900a5e0f2ab34a8c486d19dcef389, type: 2}
+          price: 1
+        - companionType: {fileID: 11400000, guid: bb8900a5e0f2ab34a8c486d19dcef389, type: 2}
+          price: 1
+        - companionType: {fileID: 11400000, guid: 28f6a1b3b493fa743859f89dedcc23ca, type: 2}
+          price: 2

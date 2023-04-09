@@ -6,6 +6,7 @@ using UnityEditor;
 [CustomEditor(typeof(CompanionListVariableSO))]
 public class CompanionListVariableEditor : Editor {
     private CompanionTypeSO companionType = null;
+    private int indexNumber = 0;
 
     public override void OnInspectorGUI() {
         CompanionListVariableSO companionListVariable = (CompanionListVariableSO) target;
@@ -31,6 +32,21 @@ public class CompanionListVariableEditor : Editor {
             AssetDatabase.Refresh();
             EditorUtility.SetDirty(companionListVariable);
             AssetDatabase.SaveAssets();
+        }
+
+        EditorGUILayout.Space(5);
+
+        indexNumber = EditorGUILayout.IntField(indexNumber);
+
+        if (GUILayout.Button("Move companion from active to bench")) {
+            Companion companion = companionListVariable.companionList[indexNumber];
+            companionListVariable.companionList.Remove(companion);
+            companionListVariable.companionBench.Add(companion);
+        }
+        if (GUILayout.Button("Move companion from bench to active")) {
+            Companion companion = companionListVariable.companionBench[indexNumber];
+            companionListVariable.companionBench.Remove(companion);
+            companionListVariable.companionList.Add(companion);
         }
     }
 }
