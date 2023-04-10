@@ -17,7 +17,8 @@ public abstract class CombatEntityInstance: TargettableEntity
     private TurnPhaseTrigger oneTurnEffectTrigger;
     protected TurnManager turnManager;
 
-    protected virtual void Start() {
+    protected override void Start() {
+        base.Start();
         this.stats = new CombatEntityInEncounterStats(baseStats);
         StartCoroutine(instantiatedEvent.RaiseAtEndOfFrameCoroutine(new CombatEntityInstantiatedEventInfo(this)));
         GameObject turnManagerObject = GameObject.Find("TurnManager");

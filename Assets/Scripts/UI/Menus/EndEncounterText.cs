@@ -19,10 +19,10 @@ public class EndEncounterText : MonoBehaviour
     public void endEncounterEventHandler(EndEncounterEventInfo info) {
         switch(info.outcome) {
             case(EncounterOutcome.Victory):
-                endEncounterText.text = "Ayyyyyy what's poppin winnerrrrr?!";
+                endEncounterText.text = "Victory!";
                 break;
             case(EncounterOutcome.Defeat):
-                endEncounterText.text = "dam u kinda lost huh";
+                endEncounterText.text = "Defeat!";
                 break;
         }
     }

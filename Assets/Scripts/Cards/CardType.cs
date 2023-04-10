@@ -13,6 +13,7 @@ public class CardType: ScriptableObject
     public string Description;
     public int Cost;
     public Sprite Artwork;
+    public GameObject vfxPrefab;
     // For unplayable status cards
     public bool playable = true;
     // Need to SerializeReference to have the ScriptableObject 

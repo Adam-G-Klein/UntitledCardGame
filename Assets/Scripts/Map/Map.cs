@@ -88,4 +88,20 @@ public class Map
 
         return null;
     }
+
+    public float getCompletionPercentage() {
+        int completedEncounters = 0;
+        foreach (EncounterReference encounterReference in this.encounters) {
+            if (encounterReference.Value.isCompleted) {
+                completedEncounters++;
+            }
+        }
+        return (float)completedEncounters / (float)this.encounters.Count * 100f;
+    }
+
+    public void resetCompletion(){
+        foreach (EncounterReference encounterReference in this.encounters) {
+            encounterReference.Value.isCompleted = false;
+        }
+    }
 }

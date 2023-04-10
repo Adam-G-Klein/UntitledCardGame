@@ -124,7 +124,12 @@ public class CardCastManager : TargetProvider {
 
 
     private IEnumerator castingCoroutine(Card card, CardCastArguments args) {
+        // tracking who's already been targetted for situations like discarding multiple
+        // cards to a discard effect. Tech designer can select whether they want unique targets
+        // in a card type using a boolean in the ui
         List<TargettableEntity> alreadyTargetted = new List<TargettableEntity>();
+        // an area for improvement, shouldn't be passing object references for direct function
+        // calls, should be using events instead
         currentContext = new EffectProcedureContext(
             this, 
             companionManager, 
@@ -147,6 +152,8 @@ public class CardCastManager : TargetProvider {
         }
         yield return StartCoroutine(manaChangeEvent.RaiseAtEndOfFrameCoroutine( -card.cost));
         yield return StartCoroutine(cardCastEvent.RaiseAtEndOfFrameCoroutine(new CardCastEventInfo(card)));
+        // instantiate card's VFX prefab
+        // PrefabInstantiator.InstantiatePrefab(card.vfxPrefab, args.caster.transform.position, Quaternion.identity);
     }
 
     public void raiseCombatEffect(CombatEffectEventInfo info){

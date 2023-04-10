@@ -16,6 +16,7 @@ MonoBehaviour:
   Description: whoa big strong look at you <_<
   Cost: 0
   Artwork: {fileID: 21300000, guid: bdd59c505b86bf44cabf5f9f82a41064, type: 3}
+  playable: 1
   EffectProcedures:
   - rid: 2812361760619102222
   references:
@@ -29,4 +30,5 @@ MonoBehaviour:
         baseScale: 3
         targetCaster: 0
         targetAllValidTargets: 0
-        validTargets: 00000000
+        targetToUse: -1
+        validTargets: 0000000002000000

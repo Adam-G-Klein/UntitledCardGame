@@ -34,8 +34,4 @@ public class BodySlam: EffectProcedure {
         yield return null;
     }
 
-    public override void resetCastingState(){
-        currentTargets.Clear();
-    }
-
 }
