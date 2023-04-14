@@ -12,6 +12,7 @@ public class EnemyIntentDisplay : MonoBehaviour
     // public so that enemyinstance can remove it on death
     // can figure out a better way to do it later
     public TurnPhaseTrigger displayIntentTrigger;
+    public TurnPhaseTriggerEvent registerTurnPhaseTriggerEvent;
 
     void Start() {
         enemyInstance = GetComponentInParent<EnemyInstance>();
@@ -22,7 +23,7 @@ public class EnemyIntentDisplay : MonoBehaviour
             turnManager = turnManagerGO.GetComponent<TurnManager>();
         else Debug.LogError("TurnManager not found in scene, won't be able to update enemy intent display");
         displayIntentTrigger = new TurnPhaseTrigger(TurnPhase.START_PLAYER_TURN, displayIntent(enemyInstance));
-        turnManager.addTurnPhaseTrigger(displayIntentTrigger);
+        registerTurnPhaseTriggerEvent.Raise(new TurnPhaseTriggerEventInfo(displayIntentTrigger));
         transform.SetAsFirstSibling(); // Want the arrows to be on top of the enemies so that we can see them buffing each other
 
     }

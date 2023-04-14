@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3144669866545972071}
   - component: {fileID: 2467740756247403719}
   - component: {fileID: 6347894265720275397}
-  - component: {fileID: 233663434848499643}
   m_Layer: 5
   m_Name: EnemyIntent (EnemyOnly)
   m_TagString: Untagged
@@ -55,6 +54,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49dae7b92ef5bc449b4ecc4db98b4a0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  registerTurnPhaseTriggerEvent: {fileID: 11400000, guid: f82cd01826dfef44391e6a853f3d2e89, type: 2}
 --- !u!114 &6347894265720275397
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69,34 +69,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   colors: {fileID: 11400000, guid: 0e1a20d3aee811141b41ded0ebefd9ca, type: 2}
   arrowPrefab: {fileID: 2592847280397825042, guid: a89d69c7855746345b791fd451bdda13, type: 3}
---- !u!114 &233663434848499643
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6124871086785288290}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09ba1624a5db93e4382b88f0bdc7c833, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: da8e3f7797bc6544b88b0ce5cef3214a, type: 2}
-  unityEventResponse:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2467740756247403719}
-        m_TargetAssemblyTypeName: EnemyIntentDisplay, Assembly-CSharp
-        m_MethodName: enemyEffectEventHandler
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1001 &122011209160626447
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,23 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
-public class TurnPhaseTrigger {
-    public TurnPhase phase;
-    public IEnumerable triggerResponse;
 
-    public TurnPhaseTrigger(TurnPhase phase, IEnumerable triggerResponse)
-    {
-        this.phase = phase;
-        this.triggerResponse = triggerResponse;
-    }
-}
 
-/* Turn phases:
-Draw card from each companion
-Player plays cards until end turn is pressed
-Enemies deal damage
-*/
+// Turnphases can be found in TurnPhaseEvent.cs
 [RequireComponent(typeof(TurnPhaseEventListener))]
 public class TurnManager : MonoBehaviour
 {
@@ -78,15 +64,18 @@ public class TurnManager : MonoBehaviour
         foreach(TurnPhaseTrigger trigger in turnPhaseTriggers[currentPhase]) {
             yield return StartCoroutine(trigger.triggerResponse.GetEnumerator());
         }
-        /*
-        yield return new WaitUntil(() => turnPhaseTriggers[currentPhase].All(
-            trigger => trigger.isFinished)
-        );
-        */
         StartCoroutine(turnPhaseEvent.RaiseAtEndOfFrameCoroutine(new TurnPhaseEventInfo(nextPhase[currentPhase])));
     }
 
-    public void addTurnPhaseTrigger(TurnPhaseTrigger trigger) {
+    public void registerTurnPhaseTriggerEventHandler(TurnPhaseTriggerEventInfo info) {
+        addTurnPhaseTrigger(info.turnPhaseTrigger);
+    }
+
+    public void removeTurnPhaseTriggerEventHandler(TurnPhaseTriggerEventInfo info) {
+        removeTurnPhaseTrigger(info.turnPhaseTrigger);
+    }
+
+    private void addTurnPhaseTrigger(TurnPhaseTrigger trigger) {
         turnPhaseTriggers[trigger.phase].Add(trigger);
     }
 

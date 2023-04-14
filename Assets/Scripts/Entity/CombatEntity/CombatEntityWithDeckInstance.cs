@@ -21,7 +21,7 @@ public abstract class CombatEntityWithDeckInstance : CombatEntityInstance
     private float nextMinionSpawnTheta = Mathf.PI/2f;
     [SerializeField]
     private float minionSpawnRadius = 3f;
-    TurnPhaseTrigger startTurnTrigger;
+    private TurnPhaseTrigger startTurnTrigger;
 
     protected override void Start()
     {
@@ -29,7 +29,7 @@ public abstract class CombatEntityWithDeckInstance : CombatEntityInstance
         inCombatDeck = new InCombatDeck(deckEntity.getDeck());
         GameObject turnManagerObject = GameObject.Find("TurnManager");
         startTurnTrigger = new TurnPhaseTrigger(TurnPhase.START_PLAYER_TURN, dealStartTurnCards());
-        turnManager.addTurnPhaseTrigger(startTurnTrigger);
+        registerTurnPhaseTriggerEvent.Raise(new TurnPhaseTriggerEventInfo(startTurnTrigger));
         // Tried doing this in Awake, but it looks like the fields of companion
         // hadn't been initialized by then
     }
@@ -90,7 +90,7 @@ public abstract class CombatEntityWithDeckInstance : CombatEntityInstance
     }
 
     protected override IEnumerator onDeath(CombatEntityInstance killer) {
-        turnManager.removeTurnPhaseTrigger(startTurnTrigger);
+        yield return StartCoroutine(removeTurnPhaseTriggerEvent.RaiseAtEndOfFrameCoroutine(new TurnPhaseTriggerEventInfo(startTurnTrigger)));
         yield return base.onDeath(killer);
     }
 

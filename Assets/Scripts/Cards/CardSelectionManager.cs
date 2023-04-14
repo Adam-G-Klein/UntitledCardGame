@@ -23,7 +23,6 @@ public class CardSelectionManager: MonoBehaviour{
     private IEnumerator selectionCoroutine;
     private List<Card> selectedCards = new List<Card>();
     private List<Card> unselectedCards = new List<Card>();
-    private bool selectionConfirmed = false;
     private int currentMinSelection = 0;
     private int currentMaxSelection = 0;
     private CardEffect currentSelectedAction;
@@ -108,7 +107,6 @@ public class CardSelectionManager: MonoBehaviour{
     }
 
     private void resetSelectionState() {
-        selectionConfirmed = false;
         selectedCards.Clear();
         unselectedCards.Clear();
         this.currentMinSelection = 0;

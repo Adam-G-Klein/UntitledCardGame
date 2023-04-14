@@ -14,6 +14,11 @@ public class CompanionAbilityInvoker : TargetProvider
 
     private PlayerHand playerHand;
     private CompanionManager companionManager;
+    
+    [SerializeField]
+    private TurnPhaseTriggerEvent registerTurnPhaseTriggerEvent;
+    [SerializeField]
+    private TurnPhaseTriggerEvent removeTurnPhaseTriggerEvent;
 
     void Start() {
         companionInstance = GetComponent<CompanionInstance>();
@@ -53,6 +58,16 @@ public class CompanionAbilityInvoker : TargetProvider
         {
             ability.onDeath(context);
         }
+    }
+
+    public void registerTurnPhaseTrigger(TurnPhaseTrigger turnPhaseTrigger)
+    {
+        StartCoroutine(registerTurnPhaseTriggerEvent.RaiseAtEndOfFrameCoroutine(new TurnPhaseTriggerEventInfo(turnPhaseTrigger)));
+    }
+
+    public void removeTurnPhaseTrigger(TurnPhaseTrigger turnPhaseTrigger)
+    {
+        StartCoroutine(removeTurnPhaseTriggerEvent.RaiseAtEndOfFrameCoroutine(new TurnPhaseTriggerEventInfo(turnPhaseTrigger)));
     }
 
 }

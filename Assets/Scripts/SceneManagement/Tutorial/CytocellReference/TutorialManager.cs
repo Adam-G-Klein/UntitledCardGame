@@ -35,7 +35,6 @@ public class TutorialManager : MonoBehaviour
     private int initStep = 0;
     public string[] stepNames;
     public int stepCounter = 0;
-    private int stepsInitialized = 0;
     private string currentStep;
     public GameObject textPrefab;
     public GenericTextStep genericText;

@@ -57,6 +57,8 @@ MonoBehaviour:
   effectTargetSuppliedEvent: {fileID: 11400000, guid: 16143db2a2228f2499361d860ef94748, type: 2}
   instantiatedEvent: {fileID: 11400000, guid: 1dde0ba8d0451ad4bb38640a19fd3c5f, type: 2}
   deathEvent: {fileID: 11400000, guid: 954360d85e3873548b6bb8a78c158b04, type: 2}
+  registerTurnPhaseTriggerEvent: {fileID: 11400000, guid: f82cd01826dfef44391e6a853f3d2e89, type: 2}
+  removeTurnPhaseTriggerEvent: {fileID: 11400000, guid: 88acfcb7f9a9846468020e4e3854b467, type: 2}
   enemy:
     enemyType: {fileID: 11400000, guid: da0cdb6c0c9754d469d48629d5444b55, type: 2}
     currentHealth: 0
@@ -450,6 +452,5 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyIntent (EnemyOnly)
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 233663434848499643, guid: d9e1b259e087fa345b6079167f443163, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9e1b259e087fa345b6079167f443163, type: 3}

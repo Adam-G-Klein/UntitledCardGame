@@ -14,7 +14,10 @@ public abstract class CombatEntityInstance: TargettableEntity
     private CombatEntityInstantiatedEvent instantiatedEvent;
     [SerializeField]
     protected CombatEntityDeathEvent deathEvent;
-    private TurnPhaseTrigger oneTurnEffectTrigger;
+    [SerializeField]
+    protected TurnPhaseTriggerEvent registerTurnPhaseTriggerEvent;
+    [SerializeField]
+    protected TurnPhaseTriggerEvent removeTurnPhaseTriggerEvent;
     protected TurnManager turnManager;
 
     protected override void Start() {

@@ -8,7 +8,7 @@ public abstract class CombatEntityFriendly : CombatEntityWithDeckInstance
 {
     private TurnPhaseTrigger updateStatusTrigger;
     // a hack that's necessary because we don't have a way to store
-    // different minion types in the status effect right now
+    // different minion types in the "minonsOnDeath" status effect right now
     [SerializeField]
     private GameObject minionPrefab;
     [SerializeField]
@@ -17,7 +17,7 @@ public abstract class CombatEntityFriendly : CombatEntityWithDeckInstance
     protected override void Start() {
         base.Start();
         updateStatusTrigger = new TurnPhaseTrigger(TurnPhase.END_ENEMY_TURN, updateStatus());
-        turnManager.addTurnPhaseTrigger(updateStatusTrigger);
+        registerTurnPhaseTriggerEvent.Raise(new TurnPhaseTriggerEventInfo(updateStatusTrigger));
         GameObject companionManagerObject = GameObject.Find("CompanionManager");
         if(companionManagerObject != null)  companionManager = companionManagerObject.GetComponent<CompanionManager>();
         else Debug.LogError("No CompanionManager found in scene, minion spawns on death won't work");
@@ -34,13 +34,15 @@ public abstract class CombatEntityFriendly : CombatEntityWithDeckInstance
     }
 
     protected override IEnumerator onDeath(CombatEntityInstance killer) {
-        turnManager.removeTurnPhaseTrigger(updateStatusTrigger);
+        yield return StartCoroutine(removeTurnPhaseTriggerEvent.RaiseAtEndOfFrameCoroutine(new TurnPhaseTriggerEventInfo(updateStatusTrigger)));
         if(stats.statusEffects[StatusEffect.MinionsOnDeath] > 0) {
             spawnMinions(stats.statusEffects[StatusEffect.MinionsOnDeath]);
         }
         yield return base.onDeath(killer);
     }
 
+    // this will definitely need to improve when we have more information about 
+    // where we want to be placing the minions on the screen
     private void spawnMinions(int numMinions) {
         Vector3 spawnPoint;
         for(int i = 0; i < numMinions; i++) {

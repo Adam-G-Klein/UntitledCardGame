@@ -16,7 +16,7 @@ public class MinionSpawnETB : CompanionAbility {
     public override void setupAbility(CompanionAbilityContext context)
     {
         turnPhaseTrigger = new TurnPhaseTrigger(TurnPhase.START_ENCOUNTER, invoke(context));
-        context.turnPhaseManager.addTurnPhaseTrigger(turnPhaseTrigger);
+        context.invoker.registerTurnPhaseTrigger(turnPhaseTrigger);
     }
 
     public override IEnumerable invoke(CompanionAbilityContext context) {

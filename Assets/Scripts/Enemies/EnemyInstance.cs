@@ -37,9 +37,7 @@ public class EnemyInstance : CombatEntityInstance {
     [Space(5)]
 
     private CompanionManager companionManager;
-    private TurnPhaseTrigger chooseIntentTrigger;
-    private TurnPhaseTrigger actTrigger;
-    private TurnPhaseTrigger clearBlockTrigger;
+    
     private EnemyBrainContext brainContext;
     public EnemyIntent currentIntent;
 
@@ -48,14 +46,11 @@ public class EnemyInstance : CombatEntityInstance {
     private EnemyIntentDisplay intentDisplay;
     [SerializeField]
     private CombatEffectEvent combatEffectEvent;
+    private List<TurnPhaseTrigger> turnPhaseTriggers = new List<TurnPhaseTrigger>();
 
     // Start is called before the first frame update
     protected override void Start() {
         base.Start();
-        GameObject turnManagerObject = GameObject.Find("TurnManager");
-        if(turnManagerObject != null)  turnManager = turnManagerObject.GetComponent<TurnManager>();
-        else Debug.LogError("No TurnManager found in scene, won't have the turn cycle occurring");
-
         GameObject companionManagerObject = GameObject.Find("CompanionManager");
         if(companionManagerObject != null)  companionManager = companionManagerObject.GetComponent<CompanionManager>();
         else Debug.LogError("No CompanionManager found in scene, enemies won't be able to find companions to target");
@@ -71,11 +66,12 @@ public class EnemyInstance : CombatEntityInstance {
 
 
     private void registerTurnPhaseTriggers(EnemyBrainContext brainContext) {
-        chooseIntentTrigger = new TurnPhaseTrigger(TurnPhase.START_PLAYER_TURN, enemy.chooseIntent(brainContext));
-        turnManager.addTurnPhaseTrigger(chooseIntentTrigger);
-        actTrigger = new TurnPhaseTrigger(TurnPhase.ENEMIES_TURN, enemy.act(brainContext));
-        turnManager.addTurnPhaseTrigger(actTrigger);
-        clearBlockTrigger = new TurnPhaseTrigger(TurnPhase.END_PLAYER_TURN, clearBlock());
+        turnPhaseTriggers.Add(new TurnPhaseTrigger(TurnPhase.START_PLAYER_TURN, enemy.chooseIntent(brainContext)));
+        turnPhaseTriggers.Add(new TurnPhaseTrigger(TurnPhase.ENEMIES_TURN, enemy.act(brainContext)));
+        turnPhaseTriggers.Add(new TurnPhaseTrigger(TurnPhase.END_PLAYER_TURN, clearBlock()));
+        foreach(TurnPhaseTrigger trigger in turnPhaseTriggers) {
+            registerTurnPhaseTriggerEvent.Raise(new TurnPhaseTriggerEventInfo(trigger));
+        }
     }
 
     private IEnumerable clearBlock() {
@@ -86,11 +82,10 @@ public class EnemyInstance : CombatEntityInstance {
     protected override IEnumerator onDeath(CombatEntityInstance killer)
     {
         Debug.Log("Enemy " + id + " died");
-        turnManager.removeTurnPhaseTrigger(chooseIntentTrigger);
-        turnManager.removeTurnPhaseTrigger(actTrigger);
-        turnManager.removeTurnPhaseTrigger(intentDisplay.displayIntentTrigger);
-        turnManager.removeTurnPhaseTrigger(clearBlockTrigger);
-        return base.onDeath(killer);
+        foreach(TurnPhaseTrigger trigger in turnPhaseTriggers) {
+            yield return StartCoroutine(removeTurnPhaseTriggerEvent.RaiseAtEndOfFrameCoroutine(new TurnPhaseTriggerEventInfo(trigger)));
+        }
+        yield return base.onDeath(killer);
     }
 
     public void turnStartEventHandler(){
