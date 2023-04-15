@@ -12,6 +12,7 @@ public enum StatusEffect {
     Invulnerability,
     MaxHpBounty,
     TemporaryStrength,
+    // Disabled, see comment in processOnDeathStatusEffects in CombatEntityInstance
     MinionsOnDeath,
     PlatedArmor
 }

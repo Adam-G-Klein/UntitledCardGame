@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CompanionAbilityInvoker))]
-public class CompanionInstance : CombatEntityFriendly 
+public class CompanionInstance : CombatEntityWithDeckInstance 
 {
     public Companion companion;
     private CompanionAbilityInvoker abilityInvoker;

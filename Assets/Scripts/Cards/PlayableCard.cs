@@ -36,8 +36,9 @@ public class PlayableCard : TargettableEntity
     // set back to false there when it's checked
     public bool retained = false;
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         card = GetComponent<CardDisplay>().cardInfo;
         // IMPORTANT, will end up with duplicate IDs if we ever 
         // forget to do this on an Entity

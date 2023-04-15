@@ -12,7 +12,8 @@ public class EnemyEncounter : Encounter
     private static List<Vector3> COMPANION_LOCATIONS = new List<Vector3>() {
         new Vector3(-4, -2, 0),
         new Vector3(-3, 0.5f, 0),
-        new Vector3(-6, 0, 0)
+        new Vector3(-6, 0, 0),
+        new Vector3(-5, 0, 0)
     };
 
     private static List<Vector3> ENEMY_LOCATIONS = new List<Vector3>() {

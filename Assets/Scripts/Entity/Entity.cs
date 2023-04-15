@@ -7,4 +7,5 @@ public abstract class Entity : MonoBehaviour {
     public string id;
 
     public EntityType entityType;
+
 }
