@@ -29,8 +29,8 @@ MonoBehaviour:
         isCompleted: 0
         enemyList:
         - enemyType: {fileID: 11400000, guid: 3f595268355432347aef2000672bce6d, type: 2}
-          currentHealth: 0
-          maxHealth: 0
+          currentHealth: 1
+          maxHealth: 1
           id: testWeakGoblin
     - rid: 5669414205568843795
       type: {class: ShopEncounter, ns: , asm: Assembly-CSharp}

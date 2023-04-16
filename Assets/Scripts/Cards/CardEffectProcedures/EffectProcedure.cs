@@ -2,6 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum EffectProcedureType {
+    Bellows,
+    BodySlam,
+    Brainstorm,
+    CardEffectProcedure,
+    CombatEffectProcedure,
+    EffectForStatusCards,
+    EffectIncreaseOnPlay,
+    IntEffectProcedure,
+    MultiStrike,
+    Mutate,
+    PurifyingInferno,
+    ShuffleIn,
+    SpawnMinions,
+    Taunt
+}
+
 public class EffectProcedureContext {
     public CardCastManager cardCastManager;
     public CompanionManager companionManager;

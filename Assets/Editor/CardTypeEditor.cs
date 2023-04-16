@@ -6,7 +6,8 @@ using UnityEditor;
 [CustomEditor(typeof(CardType))]
 public class CardTypeEditor : Editor {
 
-    string effectProcedureClassName = "CombatEffectProcedure";
+    EffectProcedureType effectProcedureType = 
+        EffectProcedureType.CombatEffectProcedure;
     public override void OnInspectorGUI() {
         CardType cardType = (CardType) target;
         DrawDefaultInspector();
@@ -15,13 +16,13 @@ public class CardTypeEditor : Editor {
         EditorGUILayout.LabelField("Effect Procedure Controls");
         EditorGUILayout.Space(5);
 
-        effectProcedureClassName = EditorGUILayout.TextField(
+        effectProcedureType = (EffectProcedureType) EditorGUILayout.EnumPopup(
             "New procedure classname",
-            effectProcedureClassName);
+            effectProcedureType);
 
         if (GUILayout.Button("Add Effect Procedure")) {
             EffectProcedure newProcedure = InstantiateFromClassname.Instantiate<EffectProcedure>(
-                effectProcedureClassName, 
+                effectProcedureType.ToString(), 
                 new object[] {});
 
             if(newProcedure == null) {
