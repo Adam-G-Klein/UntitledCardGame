@@ -2,10 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// The list of events we can currently trigger 
+// companion abilities on
+// Should definitely include turn phases rather than 
+// doing that directly through the turn phase manager, as abilities currently do
+public enum AbilityEvent {
+    ON_COMBAT_ENTITY_INSTANCE_DEATH
+}
+
 [RequireComponent(typeof(CompanionInstance))]
 public class CompanionAbilityInvoker : TargetProvider 
 {
-    public delegate void TurnPhaseEventDelegate(TurnPhaseEventInfo eventInfo);
+    private Dictionary<AbilityEvent, List<AbilityEventTrigger>> abilityEventTriggers = new Dictionary<AbilityEvent, List<AbilityEventTrigger>>(){
+        {AbilityEvent.ON_COMBAT_ENTITY_INSTANCE_DEATH, new List<AbilityEventTrigger>()}
+    };
     private CompanionAbilityContext context;
     private List<CompanionAbility> abilities;
     private TurnManager turnPhaseManager;
@@ -57,6 +67,25 @@ public class CompanionAbilityInvoker : TargetProvider
         foreach (CompanionAbility ability in abilities)
         {
             ability.onDeath(context);
+        }
+    }
+
+    public void addAbilityEventTrigger(AbilityEventTrigger abilityEventTrigger)
+    {
+        abilityEventTriggers[abilityEventTrigger.abilityEvent].Add(abilityEventTrigger);
+    }
+
+    public void removeAbilityEventTrigger(AbilityEventTrigger abilityEventTrigger)
+    {
+        abilityEventTriggers[abilityEventTrigger.abilityEvent].Remove(abilityEventTrigger);
+    }
+
+    // Can find a way to generalize this later
+    public void combatEntityInstanceDeathEventHandler(CombatEntityDeathEventInfo eventInfo) {
+        foreach (AbilityEventTrigger abilityEventTrigger in abilityEventTriggers[AbilityEvent.ON_COMBAT_ENTITY_INSTANCE_DEATH])
+        {
+            if(abilityEventTrigger.triggerResponse != null)
+                StartCoroutine(abilityEventTrigger.triggerResponse.GetEnumerator());
         }
     }
 

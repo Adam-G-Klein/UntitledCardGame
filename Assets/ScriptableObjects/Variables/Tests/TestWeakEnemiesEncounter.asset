@@ -22,23 +22,17 @@ MonoBehaviour:
       type: {class: EnemyEncounter, ns: , asm: Assembly-CSharp}
       data:
         id: 86f60ffa-9316-4e3e-bc44-8ca5eb33fd24
+        isCompleted: 0
         enemyList:
         - enemyType: {fileID: 11400000, guid: 3f595268355432347aef2000672bce6d, type: 2}
           currentHealth: 3
+          maxHealth: 3
           id: LUKE
         - enemyType: {fileID: 11400000, guid: 3f595268355432347aef2000672bce6d, type: 2}
           currentHealth: 3
+          maxHealth: 3
           id: DO YOU MIND
         - enemyType: {fileID: 11400000, guid: 3f595268355432347aef2000672bce6d, type: 2}
           currentHealth: 3
+          maxHealth: 3
           id: GOBLIN
-        enemyLocations:
-        - {x: 6.68, y: 1.36, z: 0.027606305}
-        - {x: 6.68, y: 0, z: 0.027606305}
-        - {x: 6.68, y: -1, z: 0.027606305}
-        activeCompanions: {fileID: 11400000, guid: ae7dc58f06c2c9146bbfd15b8efb487b, type: 2}
-        companionLocations:
-        - {x: -6.7, y: 1.3, z: 0.027606305}
-        - {x: -3.27, y: 0, z: 0.027606305}
-        - {x: -7.76, y: -3, z: 0.027606305}
-        - {x: -1, y: -0.7, z: 0.027606305}

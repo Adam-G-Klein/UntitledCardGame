@@ -21,6 +21,17 @@ public class CompanionAbilityContext {
     
 }
 
+public class AbilityEventTrigger {
+    public AbilityEvent abilityEvent; 
+    public IEnumerable triggerResponse;
+
+    public AbilityEventTrigger(AbilityEvent abilityEvent, IEnumerable triggerResponse)
+    {
+        this.abilityEvent = abilityEvent;
+        this.triggerResponse = triggerResponse;
+    }
+}
+
 [System.Serializable]
 public abstract class CompanionAbility : TargetRequester
 {

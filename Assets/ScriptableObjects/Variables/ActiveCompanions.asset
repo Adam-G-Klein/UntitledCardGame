@@ -59,6 +59,26 @@ MonoBehaviour:
     baseAttackDamage: 0
     abilities: []
     id: 317f246a-4816-4f3b-a83a-19ea7cc2b6c6
+  - companionType: {fileID: 11400000, guid: f64c62bd77fcea846a5c19bed998aeb6, type: 2}
+    maxHealth: 20
+    currentHealth: 20
+    deck:
+      startingDeck: {fileID: 11400000, guid: 17489518ceb9d7341947bea0c6f7629e, type: 2}
+      cards:
+      - cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
+        id: 08417226-bd15-4aff-bc35-021d9dad4d61
+      - cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
+        id: 3ab2f2d5-3e93-41b0-8598-e906b3df29a5
+      - cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
+        id: 31cf612d-24ad-4fcd-af20-12c0910c393d
+      - cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
+        id: 17a24848-2875-423a-a5ad-46ff5f605ee3
+      - cardType: {fileID: 11400000, guid: f47b99629a3e52649bec2a99ec283add, type: 2}
+        id: 65ef49af-b8e3-4a4c-94fd-d1de24146cd9
+    baseAttackDamage: 0
+    abilities:
+    - rid: 4472866491299004417
+    id: a482e086-c1e1-4875-8ef7-0dd347234aa9
   companionBench:
   - companionType: {fileID: 11400000, guid: bb8900a5e0f2ab34a8c486d19dcef389, type: 2}
     maxHealth: 30
@@ -82,6 +102,10 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: 4472866491299004417
+      type: {class: GainMaxHpOnEntityDeath, ns: , asm: Assembly-CSharp}
+      data:
+        abilityName: GainMaxHpOnEntityDeath
     - rid: 5669414078719459328
       type: {class: MinionSpawnETB, ns: , asm: Assembly-CSharp}
       data:

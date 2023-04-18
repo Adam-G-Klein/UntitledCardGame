@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 1133528425506943652}
   - component: {fileID: 9072497632964488160}
   - component: {fileID: 5283207278247214877}
+  - component: {fileID: 4361685581455189968}
   m_Layer: 0
   m_Name: Companion
   m_TagString: Companion
@@ -71,8 +72,6 @@ MonoBehaviour:
     discardPile: []
   nextMinionSpawnTheta: 1.57
   minionSpawnRadius: 1.5
-  minionPrefab: {fileID: 3793161618878564120, guid: 86773367736110f48bef92cbf342bb6f, type: 3}
-  onDeathMinionType: {fileID: 11400000, guid: acf491015f67b06468095238a670ef7b, type: 2}
   companion:
     companionType: {fileID: 11400000, guid: 4960e72dbf9348c4bb2ab009998bd02a, type: 2}
     maxHealth: 0
@@ -271,6 +270,34 @@ MonoBehaviour:
       - m_Target: {fileID: 5285687428135354732}
         m_TargetAssemblyTypeName: CombatEntityWithDeckInstance, Assembly-CSharp
         m_MethodName: onCardEffectEvent
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &4361685581455189968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5285687428135354733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b61431a0df26c1843bdab11d6a828200, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 954360d85e3873548b6bb8a78c158b04, type: 2}
+  unityEventResponse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7574236911732710245}
+        m_TargetAssemblyTypeName: CompanionAbilityInvoker, Assembly-CSharp
+        m_MethodName: combatEntityInstanceDeathEventHandler
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

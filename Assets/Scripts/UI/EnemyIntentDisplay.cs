@@ -13,6 +13,7 @@ public class EnemyIntentDisplay : MonoBehaviour
     // can figure out a better way to do it later
     public TurnPhaseTrigger displayIntentTrigger;
     public TurnPhaseTriggerEvent registerTurnPhaseTriggerEvent;
+    public TurnPhaseTriggerEvent removeTurnPhaseTriggerEvent;
 
     void Start() {
         enemyInstance = GetComponentInParent<EnemyInstance>();
@@ -30,6 +31,10 @@ public class EnemyIntentDisplay : MonoBehaviour
     
     void Update() {
 
+    }
+
+    void OnDestroy() {
+        removeTurnPhaseTriggerEvent.Raise(new TurnPhaseTriggerEventInfo(displayIntentTrigger));
     }
 
     public IEnumerable displayIntent(EnemyInstance enemy)  {

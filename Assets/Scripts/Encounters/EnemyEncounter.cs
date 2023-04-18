@@ -18,7 +18,8 @@ public class EnemyEncounter : Encounter
 
     private static List<Vector3> ENEMY_LOCATIONS = new List<Vector3>() {
         new Vector3(3.75f, 1.5f, 0),
-        new Vector3(7.5f, 1.5f, 0)
+        new Vector3(7.5f, 1.5f, 0),
+        new Vector3(5f, 0f, 0)
     };
 
     public EnemyEncounter() {

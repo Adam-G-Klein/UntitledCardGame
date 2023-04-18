@@ -14,28 +14,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   locked: 0
   Value:
-    rid: 5669414413873971200
+    rid: 4472866491299004423
   references:
     version: 2
     RefIds:
-    - rid: 5669414413873971200
-      type: {class: ShopEncounter, ns: , asm: Assembly-CSharp}
+    - rid: 4472866491299004423
+      type: {class: EnemyEncounter, ns: , asm: Assembly-CSharp}
       data:
-        id: 4aa5876f-81cf-46ff-b24d-26ac3142743f
+        id: 86f60ffa-9316-4e3e-bc44-8ca5eb33fd24
         isCompleted: 0
-        generateEncounter: 0
-        shopData: {fileID: 11400000, guid: 64b1d5221aac20348909c6cab7cc24d6, type: 2}
-        cardsInShop:
-        - cardType: {fileID: 11400000, guid: ec3c681e35f3b8541b4e30643c6d0ee7, type: 2}
-          price: 2
-        - cardType: {fileID: 11400000, guid: ec3c681e35f3b8541b4e30643c6d0ee7, type: 2}
-          price: 2
-        - cardType: {fileID: 11400000, guid: ec3c681e35f3b8541b4e30643c6d0ee7, type: 2}
-          price: 2
-        keepsakesInShop:
-        - companionType: {fileID: 11400000, guid: bb8900a5e0f2ab34a8c486d19dcef389, type: 2}
-          price: 1
-        - companionType: {fileID: 11400000, guid: 28f6a1b3b493fa743859f89dedcc23ca, type: 2}
-          price: 2
-        - companionType: {fileID: 11400000, guid: bb8900a5e0f2ab34a8c486d19dcef389, type: 2}
-          price: 1
+        enemyList:
+        - enemyType: {fileID: 11400000, guid: 3f595268355432347aef2000672bce6d, type: 2}
+          currentHealth: 0
+          maxHealth: 0
+          id: LUKE
+        - enemyType: {fileID: 11400000, guid: 3f595268355432347aef2000672bce6d, type: 2}
+          currentHealth: 0
+          maxHealth: 0
+          id: DO YOU MIND
+        - enemyType: {fileID: 11400000, guid: 3f595268355432347aef2000672bce6d, type: 2}
+          currentHealth: 0
+          maxHealth: 0
+          id: GOBLIN
