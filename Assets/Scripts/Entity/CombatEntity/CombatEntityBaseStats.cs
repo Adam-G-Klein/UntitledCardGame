@@ -12,9 +12,11 @@ public interface CombatEntityBaseStats
     // For use when leaving combat and persisting companion health
     void setCurrentHealth(int newHealth);
     int getBaseAttackDamage();
+    void setBaseAttackDamage(int newBaseAttackDamage);
 
     string getId();
 
     Sprite getSprite();
+
 
 }

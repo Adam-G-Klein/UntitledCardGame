@@ -42,6 +42,11 @@ public class Enemy: CombatEntityBaseStats {
         return enemyType.baseAttackDamage;
     }
 
+    public void setBaseAttackDamage(int newBaseAttackDamage) {
+        //TODO
+        Debug.LogWarning("Enemy.setBaseAttackDamage() not implemented, need to be instantiating enemies");
+    }
+
     public IEnumerable chooseIntent(EnemyBrainContext context) {
         return enemyType.brain.chooseIntent(context);
     }

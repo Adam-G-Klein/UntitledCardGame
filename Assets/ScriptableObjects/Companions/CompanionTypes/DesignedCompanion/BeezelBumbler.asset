@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
+  m_Name: BeezelBumbler
+  m_EditorClassIdentifier: 
+  companionName: Endurance
+  maxHealth: 20
+  baseAttackDamage: 0
+  sprite: {fileID: 21300000, guid: 55f54c6a316157744972e8bc8b5c7a30, type: 3}
+  startingDeck: {fileID: 11400000, guid: 539df5bf5b9a2cf498d76437062d3987, type: 2}
+  keepsake: {fileID: 21300000, guid: 3b995bf12c221eb40b99580cae3e50a4, type: 3}
+  abilities:
+  - rid: 4472866491299004427
+  references:
+    version: 2
+    RefIds:
+    - rid: 4472866491299004427
+      type: {class: GainBaseAttackDamageOnDeath, ns: , asm: Assembly-CSharp}
+      data:
+        abilityName: GainBaseStrengthOnDeath

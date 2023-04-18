@@ -35,6 +35,10 @@ public class Minion: CombatEntityBaseStats, CombatEntityWithDeck
         return this.baseAttackDamage;
     }
 
+    public void setBaseAttackDamage(int newBaseAttackDamage) {
+        this.baseAttackDamage = newBaseAttackDamage;
+    }
+
     public int getMaxHealth() {
         return this.maxHealth;
     }

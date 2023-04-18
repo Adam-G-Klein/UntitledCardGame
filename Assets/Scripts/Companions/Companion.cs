@@ -66,4 +66,8 @@ public class Companion: CombatEntityBaseStats, CombatEntityWithDeck
     public Deck getDeck() {
         return this.deck;
     }
+
+    public void setBaseAttackDamage(int newBaseStrength) {
+        this.baseAttackDamage = newBaseStrength;
+    }
 }

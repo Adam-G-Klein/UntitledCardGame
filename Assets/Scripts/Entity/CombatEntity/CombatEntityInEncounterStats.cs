@@ -46,6 +46,8 @@ public class CombatEntityInEncounterStats
 
     public int currentAttackDamage {
         get {
+            // TODO: add an icon for an increase in base strength
+            // can totally just be a statusEffectDisplay
             return (baseStats.getBaseAttackDamage() 
                 + statusEffects[StatusEffect.Strength]
                 + statusEffects[StatusEffect.TemporaryStrength]
