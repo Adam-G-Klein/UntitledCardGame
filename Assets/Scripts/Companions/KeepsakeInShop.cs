@@ -10,7 +10,6 @@ public class KeepsakeInShop : MonoBehaviour
 {
     public int price;
     public string id;
-    public CompanionBuyRequestEvent companionBuyEvent;
 
     public TMP_Text priceText;
     public Companion companion;
@@ -36,7 +35,7 @@ public class KeepsakeInShop : MonoBehaviour
             companion, 
             price, 
             gameObject);
-        companionBuyEvent.Raise(companionBuyRequest);
+        ShopManager.Instance.processCompanionBuyRequest(companionBuyRequest);
     }
 
     public void OnPointerEnter(PointerEventData eventData)

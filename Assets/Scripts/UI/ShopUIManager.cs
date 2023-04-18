@@ -1,11 +1,9 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
 public class ShopUIManager : MonoBehaviour
 {
-    public PlayerDataVariableSO playerDataVariable;
     [Space(10)]
     public TMP_Text playerGoldTMPText;
     [Space(10)]
@@ -16,26 +14,21 @@ public class ShopUIManager : MonoBehaviour
     [TextArea(1,5)]
     public string needMoreMoneyText;
 
-    private ShopEncounter shopEncounter;
-
     void Start() {
         needMoreMoneyTMPText.text = "";
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        playerGoldTMPText.text = playerDataVariable.GetValue().gold.ToString();
-        upgradeShopButtonGoldText.text = shopEncounter.shopData.upgradeShopPrice.ToString();
-        rerollShopButtonGoldText.text = shopEncounter.shopData.rerollShopPrice.ToString();
+    void Update() {
+        playerGoldTMPText.text = ShopManager.Instance.activePlayerDataVariable
+            .GetValue().gold.ToString();
+        upgradeShopButtonGoldText.text = ShopManager.Instance.getShopEncounter()
+            .shopData.upgradeShopPrice.ToString();
+        rerollShopButtonGoldText.text = ShopManager.Instance.getShopEncounter()
+            .shopData.rerollShopPrice.ToString();
     }
 
     public void displayNeedMoreMoneyNotification() {
         StartCoroutine("displayNeedMoreMoneyText");
-    }
-
-    public void saveShopEncounter(ShopEncounter shopEncounter) {
-        this.shopEncounter = shopEncounter;
     }
 
     IEnumerator displayNeedMoreMoneyText() {

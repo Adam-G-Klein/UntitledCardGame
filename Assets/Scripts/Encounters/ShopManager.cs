@@ -1,16 +1,16 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(CardBuyRequestEventListener))]
-public class ShopManager : MonoBehaviour
+public class ShopManager : GenericSingleton<ShopManager>
 {
     public bool IS_DEVELOPMENT_MODE = false;
+
     [Header("Variables")]
     public EncounterVariableSO activeEncounterVariable;
     public MapVariableSO map;
     public CompanionListVariableSO activeCompanionsVariable;
     public PlayerDataVariableSO activePlayerDataVariable;
+
     [Header("Shop")]
     public ShopUIManager shopUIManager;
     public EncounterConstantsSO encounterConstants;
@@ -141,5 +141,9 @@ public class ShopManager : MonoBehaviour
     public void exitShop() {
         activeEncounterVariable.GetValue().isCompleted = true;
         map.GetValue().loadMapScene();
+    }
+
+    public ShopEncounter getShopEncounter() {
+        return this.shopEncounter;
     }
 }

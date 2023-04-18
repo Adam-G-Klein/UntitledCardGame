@@ -46,6 +46,7 @@ public class ShopEncounter : Encounter
     public override void build(List<Companion> companionList, EncounterConstantsSO constants)
     {
         this.encounterType = EncounterType.Shop;
+        ShopManager.Instance.saveShopEncounter(this);
         this.encounterConstants = constants;
         if (generateEncounter) {
             generateShopEncounter();

@@ -10,7 +10,6 @@ public class CardInShop : MonoBehaviour
 {
     public int price;
     public string id;
-    public CardBuyRequestEvent cardBuyEvent;
 
     public TMP_Text priceText;
     public CardDisplay cardDisplay;
@@ -32,14 +31,13 @@ public class CardInShop : MonoBehaviour
             cardDisplay.cardInfo, 
             price, 
             gameObject);
-        cardBuyEvent.Raise(cardBuyRequest);
+        ShopManager.Instance.processCardBuyRequest(cardBuyRequest);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
         hoverBackground.enabled = true;
     }
-
 
     public void OnPointerExit(PointerEventData eventData)
     {
