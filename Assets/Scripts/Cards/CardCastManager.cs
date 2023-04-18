@@ -18,8 +18,6 @@ public class CardCastManager : TargetProvider {
     private CardCastEvent cardCastEvent;
     [SerializeField]
     private IntGameEvent manaChangeEvent;
-    [SerializeField]
-    private CardSelectionRequestEvent cardSelectionRequestEvent;
 
     //private Dictionary<CardEffectData, CombatEntityInstance> effectsToTargets = new Dictionary<CardEffectData, CombatEntityInstance>();
     // set to the empty string to designate no target set
@@ -192,9 +190,6 @@ public class CardCastManager : TargetProvider {
         StartCoroutine(gameEvent.RaiseAtEndOfFrameCoroutine(value));
     }
 
-    public void raiseCardSelectionRequest(CardSelectionRequestEventInfo info){
-        StartCoroutine(cardSelectionRequestEvent.RaiseAtEndOfFrameCoroutine(info));
-    }
 
     private void resetCastingState(){
         resetTargettingState();

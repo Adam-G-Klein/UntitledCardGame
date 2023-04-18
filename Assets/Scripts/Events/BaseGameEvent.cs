@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class BaseGameEvent<T> : ScriptableObject
 {
-    private bool debugLogEvents = false;
+    private bool debugLogEvents = true;
 
 	private readonly List<IGameEventListener<T>> listeners = 
 		new List<IGameEventListener<T>>();

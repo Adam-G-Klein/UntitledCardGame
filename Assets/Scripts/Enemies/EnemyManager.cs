@@ -8,7 +8,7 @@ public class EnemyManager : MonoBehaviour
 {
 
     [SerializeField]
-    private EndEncounterEvent endEncounterEvent;
+    private TurnPhaseEvent turnPhaseEvent;
     
     private List<EnemyInstance> enemies = new List<EnemyInstance>();
 
@@ -33,7 +33,7 @@ public class EnemyManager : MonoBehaviour
         if(info.instance is EnemyInstance){
             enemies.Remove((EnemyInstance) info.instance);
             if(enemies.Count == 0) {
-                StartCoroutine(endEncounterEvent.RaiseAtEndOfFrameCoroutine(new EndEncounterEventInfo(EncounterOutcome.Victory)));
+                StartCoroutine(turnPhaseEvent.RaiseAtEndOfFrameCoroutine(new TurnPhaseEventInfo(TurnPhase.END_ENCOUNTER)));
             }
         }
     }

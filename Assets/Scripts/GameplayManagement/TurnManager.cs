@@ -10,6 +10,8 @@ public class TurnManager : MonoBehaviour
     [SerializeField]
     private TurnPhaseEvent turnPhaseEvent;
     // Start is called before the first frame update
+    [SerializeField]
+    private EndEncounterEvent endEncounterEvent;
 
     private Dictionary<TurnPhase, TurnPhase> nextPhase = new Dictionary<TurnPhase, TurnPhase>(){
         {TurnPhase.START_ENCOUNTER, TurnPhase.START_PLAYER_TURN},
@@ -30,7 +32,8 @@ public class TurnManager : MonoBehaviour
         {TurnPhase.END_PLAYER_TURN, new List<TurnPhaseTrigger>()},
         {TurnPhase.START_ENEMY_TURN, new List<TurnPhaseTrigger>()},
         {TurnPhase.ENEMIES_TURN, new List<TurnPhaseTrigger>()},
-        {TurnPhase.END_ENEMY_TURN, new List<TurnPhaseTrigger>()}
+        {TurnPhase.END_ENEMY_TURN, new List<TurnPhaseTrigger>()},
+        {TurnPhase.END_ENCOUNTER, new List<TurnPhaseTrigger>()}
     };
 
     void Start()
@@ -55,16 +58,35 @@ public class TurnManager : MonoBehaviour
             // The end turn button will raise BEFORE_END_PLAYER_TURN
             // to keep us moving
             return;
+        } 
+        if(info.newPhase == TurnPhase.END_ENCOUNTER) {
+            StartCoroutine(runEndEncounterTriggers());
+            return;
         }
         StartCoroutine(nextPhaseAfterTriggers(info.newPhase));
     }
     
     private IEnumerator nextPhaseAfterTriggers(TurnPhase currentPhase) {
         Debug.Log("nextPhaseAfterTriggers found " + turnPhaseTriggers[currentPhase].Count + " triggers for phase " + currentPhase);
-        foreach(TurnPhaseTrigger trigger in turnPhaseTriggers[currentPhase]) {
+        yield return StartCoroutine(runTriggersForPhase(currentPhase));
+        StartCoroutine(turnPhaseEvent.RaiseAtEndOfFrameCoroutine(new TurnPhaseEventInfo(nextPhase[currentPhase])));
+    }
+
+    private IEnumerator runTriggersForPhase(TurnPhase phase) {
+        foreach(TurnPhaseTrigger trigger in turnPhaseTriggers[phase]) {
             yield return StartCoroutine(trigger.triggerResponse.GetEnumerator());
         }
-        StartCoroutine(turnPhaseEvent.RaiseAtEndOfFrameCoroutine(new TurnPhaseEventInfo(nextPhase[currentPhase])));
+    }
+
+    private IEnumerator runEndEncounterTriggers() {
+        foreach(TurnPhaseTrigger trigger in turnPhaseTriggers[TurnPhase.END_ENCOUNTER]) {
+            yield return StartCoroutine(trigger.triggerResponse.GetEnumerator());
+        }
+        // has to be in a coroutine so we can wait for all the triggers before doing this
+        // TODO: implement defeat. I think having the companion/enemy manager raise the end encounter turn phase
+        // is correct so we can catch the triggers, but we definitely can't pass the outcome along with that
+        Debug.Log("Victory!");
+        endEncounterEvent.Raise(new EndEncounterEventInfo(EncounterOutcome.Victory));
     }
 
     public void registerTurnPhaseTriggerEventHandler(TurnPhaseTriggerEventInfo info) {

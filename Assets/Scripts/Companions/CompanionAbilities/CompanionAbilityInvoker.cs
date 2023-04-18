@@ -99,5 +99,24 @@ public class CompanionAbilityInvoker : TargetProvider
         StartCoroutine(removeTurnPhaseTriggerEvent.RaiseAtEndOfFrameCoroutine(new TurnPhaseTriggerEventInfo(turnPhaseTrigger)));
     }
 
+    // using this as a hack to be able to tell the Purge Cards ability
+    // that it can yield to the end of the encounter (After completing the card selection request)
+    // if that's not necessary as you're reading this please feel free to 
+    // delete it :)
+    public void cardEffectHandler(CardEffectEventInfo eventInfo)
+    {
+        if(eventInfo.cardEffects.ContainsKey(CardEffect.Purge))
+        {
+            foreach (CompanionAbility ability in abilities)
+            {
+                if(ability.abilityName == "PurgeCardOnEncounterEnd")
+                {
+                    // provide a dummy target so the ability can yield to the end of the encounter
+                    ability.targetsSupplied(new List<TargettableEntity> {companionInstance});
+                }
+            }
+        }
+    }
+
 }
 

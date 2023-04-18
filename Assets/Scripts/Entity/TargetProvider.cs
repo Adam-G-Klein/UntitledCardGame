@@ -11,6 +11,8 @@ public abstract class TargetProvider: MonoBehaviour {
     [SerializeField]
     private EffectTargetRequestEvent effectTargetRequestEvent;
     protected IEnumerator targettingCoroutine;
+    [SerializeField]
+    private CardSelectionRequestEvent cardSelectionRequestEvent;
 
     public virtual void effectTargetSuppliedHandler(EffectTargetSuppliedEventInfo eventInfo){
         requestedTarget = eventInfo.target;
@@ -34,4 +36,7 @@ public abstract class TargetProvider: MonoBehaviour {
             StopCoroutine(targettingCoroutine);
     }
 
+    public void raiseCardSelectionRequest(CardSelectionRequestEventInfo info){
+        StartCoroutine(cardSelectionRequestEvent.RaiseAtEndOfFrameCoroutine(info));
+    }
 }

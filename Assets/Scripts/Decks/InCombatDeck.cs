@@ -9,6 +9,7 @@ public class InCombatDeck
     public Deck sourceDeck;
     public List<Card> drawPile;
     public List<Card> discardPile;
+    public List<Card> inHand;
 
     public InCombatDeck(Deck startingDeck)
     {
@@ -18,6 +19,7 @@ public class InCombatDeck
             this.drawPile.Add(new Card(card));
         }
         this.discardPile = new List<Card>();
+        this.inHand = new List<Card>();
     }
     public InCombatDeck(List<Card> cards)
     {
@@ -34,6 +36,7 @@ public class InCombatDeck
         for(int i = 0; i < numCards; i++){
             dealCardFromDeckToList(returnList, withReplacement, i);
         }
+        inHand.AddRange(returnList);
         return returnList;
     }
 
@@ -70,6 +73,7 @@ public class InCombatDeck
     }
 
     public void discardCards(List<Card> cards){
+        inHand.RemoveAll(c => cards.Contains(c));
         discardPile.AddRange(cards);
     }
 
@@ -102,6 +106,9 @@ public class InCombatDeck
         else if(discardPile.Contains(card)){
             Debug.Log("Exhausting card " + card.id + " from discard pile");
             discardPile.Remove(card);
+        } else if (inHand.Contains(card)) {
+            Debug.Log("Exhausting card " + card.id + " from hand");
+            inHand.Remove(card);
         }
     }
 
@@ -110,27 +117,38 @@ public class InCombatDeck
             Debug.Log("Discarding card " + card.id + " from draw pile");
             drawPile.Remove(card);
             discardPile.Add(card);
+        } else if (inHand.Contains(card)) {
+            Debug.Log("Discarding card " + card.id + " from hand");
+            inHand.Remove(card);
+            discardPile.Add(card);
         }
     }
 
     public void purgeCard(Card card){
+        Debug.Log("Purging card " + card.id + " from deck");
         if(drawPile.Contains(card)){
             drawPile.Remove(card);
         }
         else if(discardPile.Contains(card)){
             discardPile.Remove(card);
+        } else if (inHand.Contains(card)) {
+            inHand.Remove(card);
         }
-        sourceDeck.cards.Remove(card);
+        sourceDeck.purgeCard(card.id);
     }
 
     public void addToDiscard(Card card){
         discardPile.Add(card);
+        if(inHand.Contains(card)) {
+            inHand.Remove(card);
+        }
     }
 
     public List<Card> getAllCards(){
         List<Card> cards = new List<Card>();
         cards.AddRange(drawPile);
         cards.AddRange(discardPile);
+        cards.AddRange(inHand);
         return cards;
     }
 

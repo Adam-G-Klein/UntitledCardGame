@@ -22,7 +22,7 @@ public class CompanionManager : MonoBehaviour
     private List<string> companionIds = new List<string>();
 
     [SerializeField]
-    private EndEncounterEvent endEncounterEvent;
+    private TurnPhaseEvent turnPhaseEvent;
 
 
     public void combatEntityInstantiatedHandler(CombatEntityInstantiatedEventInfo info) {
@@ -36,7 +36,7 @@ public class CompanionManager : MonoBehaviour
         if(info.instance is CompanionInstance){
             companions.Remove((CompanionInstance) info.instance);
             if(companions.Count == 0) {
-                StartCoroutine(endEncounterEvent.RaiseAtEndOfFrameCoroutine(new EndEncounterEventInfo(EncounterOutcome.Defeat)));
+                StartCoroutine(turnPhaseEvent.RaiseAtEndOfFrameCoroutine(new TurnPhaseEventInfo(TurnPhase.END_ENCOUNTER)));
             }
         }
         if(info.instance is MinionInstance){

@@ -67,7 +67,7 @@ public class Card: IEquatable<Card>
 
     public Card(Card card) {
         this.cardType = card.cardType;
-        id = Id.newGuid();
+        id = card.id;
         this.effectBuffs = card.effectBuffs;
     }
 

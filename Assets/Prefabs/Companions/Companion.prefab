@@ -70,6 +70,7 @@ MonoBehaviour:
       cards: []
     drawPile: []
     discardPile: []
+    inHand: []
   nextMinionSpawnTheta: 1.57
   minionSpawnRadius: 1.5
   companion:
@@ -98,6 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effectTargetRequestEvent: {fileID: 11400000, guid: 709caf6df9005934dbe5ec0e1bd93bb6, type: 2}
+  cardSelectionRequestEvent: {fileID: 11400000, guid: b553b6932fd9487468103b779284dbcd, type: 2}
   registerTurnPhaseTriggerEvent: {fileID: 11400000, guid: f82cd01826dfef44391e6a853f3d2e89, type: 2}
   removeTurnPhaseTriggerEvent: {fileID: 11400000, guid: 88acfcb7f9a9846468020e4e3854b467, type: 2}
 --- !u!114 &-6536180466381847028
@@ -270,6 +272,18 @@ MonoBehaviour:
       - m_Target: {fileID: 5285687428135354732}
         m_TargetAssemblyTypeName: CombatEntityWithDeckInstance, Assembly-CSharp
         m_MethodName: onCardEffectEvent
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7574236911732710245}
+        m_TargetAssemblyTypeName: CompanionAbilityInvoker, Assembly-CSharp
+        m_MethodName: cardEffectHandler
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

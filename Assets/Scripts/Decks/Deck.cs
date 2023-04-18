@@ -27,4 +27,9 @@ public class Deck
         }
     }
 
+    public void purgeCard(string cardId)
+    {
+        cards.RemoveAll(card => card.id == cardId);
+    }
+
 }

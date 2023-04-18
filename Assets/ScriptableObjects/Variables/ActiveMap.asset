@@ -25,17 +25,17 @@ MonoBehaviour:
       type: {class: EnemyEncounter, ns: , asm: Assembly-CSharp}
       data:
         id: c9fa0043-3fe1-41c6-980a-a18a623a8983
-        isCompleted: 0
+        isCompleted: 1
         enemyList:
         - enemyType: {fileID: 11400000, guid: da0cdb6c0c9754d469d48629d5444b55, type: 2}
-          currentHealth: 10
+          currentHealth: 0
           maxHealth: 10
           id: testGoblin1
     - rid: 5669414078719459334
       type: {class: EnemyEncounter, ns: , asm: Assembly-CSharp}
       data:
         id: 5b41ed03-e1c3-4d52-9def-b6c28f865647
-        isCompleted: 0
+        isCompleted: 1
         enemyList:
         - enemyType: {fileID: 11400000, guid: 7c2078d2e4f72954c9d9a3335c755ab9, type: 2}
           currentHealth: 0
@@ -48,6 +48,6 @@ MonoBehaviour:
         isCompleted: 0
         enemyList:
         - enemyType: {fileID: 11400000, guid: a92e98aa28c792a46a7fa6e4adce1db7, type: 2}
-          currentHealth: 71
+          currentHealth: 56
           maxHealth: 99
           id: testThug1
