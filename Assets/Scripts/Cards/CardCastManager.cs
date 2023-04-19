@@ -133,7 +133,6 @@ public class CardCastManager : TargetProvider {
             companionManager, 
             enemyManager, 
             args.caster,
-            playerHand,
             alreadyTargetted,
             combatEffectEvent,
             cardSelectionManager, 

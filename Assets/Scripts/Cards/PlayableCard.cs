@@ -19,9 +19,9 @@ public class PlayableCard : TargettableEntity
     private CombatEntityWithDeckInstance entityFrom;
 
     [SerializeField]
-    private float hoverScale = 30f;
+    private float hoverScale = 1.5f;
     [SerializeField]
-    private float nonHoverScale = 20f;
+    private float nonHoverScale = 1f;
     [SerializeField]
     public float hoverYDiff = 185f;
     private int preHoverSiblingIndex;
@@ -115,10 +115,8 @@ public class PlayableCard : TargettableEntity
     public void OnPointerEnter(PointerEventData eventData)
     {
         hovered = true;
-        preHoverSiblingIndex = transform.GetSiblingIndex();
-        transform.SetAsLastSibling();
         transform.localScale = new Vector3(hoverScale, hoverScale, 1);
-        transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y + hoverYDiff, transform.localPosition.z);
+        PlayerHand.Instance.updateLayout();
     }
 
 
@@ -126,9 +124,8 @@ public class PlayableCard : TargettableEntity
     {
         if(!hovered) return;
         hovered = false;
-        transform.SetSiblingIndex(preHoverSiblingIndex);
         transform.localScale = new Vector3(nonHoverScale, nonHoverScale, 1);
-        transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y - hoverYDiff, transform.localPosition.z);
+        PlayerHand.Instance.updateLayout();
     }
 
     

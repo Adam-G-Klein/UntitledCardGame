@@ -22,8 +22,8 @@ public class RetainCards : CompanionAbility {
     }
 
     public override IEnumerable invoke(CompanionAbilityContext context) {
-        PlayableCard lastCard = lastUnretainedCard(context.playerHand.cardsInHand);
-        if(context.playerHand.cardsInHand.Count == 0)
+        PlayableCard lastCard = lastUnretainedCard(PlayerHand.Instance.cardsInHand);
+        if(PlayerHand.Instance.cardsInHand.Count == 0)
         {
             Debug.Log("RetainCards found no cards in hand");
             yield return new WaitForEndOfFrame();

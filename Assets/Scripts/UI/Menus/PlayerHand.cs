@@ -9,28 +9,26 @@ using TMPro;
 [RequireComponent(typeof(CardCastEventListener))]
 [RequireComponent(typeof(CardDealtEventListener))]
 [RequireComponent(typeof(TurnPhaseEventListener))]
-public class PlayerHand : MonoBehaviour
+public class PlayerHand : GenericSingleton<PlayerHand>
 {
     public List<PlayableCard> cardsInHand;
 
     [SerializeField]
     private GameObject cardPrefab;
 
-    [Header("Values For PrototypeUI Card Placement")]
     [SerializeField]
-    private int cardYCoord = -200;
-    [SerializeField]
-    private int startXCoord = -700;
-    [SerializeField]
-    private int cardSpacing = 20;
+    private RectTransform layoutGroup;
 
     public void cardDealtEventHandler(CardsDealtEventInfo info){
         PlayableCard newCard;
         foreach(Card cardInfo in info.cards) {
-            newCard = PrefabInstantiator.instantiateCard(cardPrefab, transform, cardInfo, info.entityFrom);
+            newCard = PrefabInstantiator.instantiateCard(
+                cardPrefab, 
+                layoutGroup, 
+                cardInfo, 
+                info.entityFrom);
             cardsInHand.Add(newCard);
         }
-        displayCards();
     }
 
     public void cardCastEventHandler(CardCastEventInfo info){
@@ -51,18 +49,6 @@ public class PlayerHand : MonoBehaviour
         }
     }
 
-    private void displayCards(){
-        float xLoc = startXCoord;
-        PlayableCard card;
-        for(int i = 0; i < cardsInHand.Count; i++) {
-            card = cardsInHand[i];
-            card.transform.localPosition = new Vector2(
-                xLoc, 
-                card.hovered ? cardYCoord + card.hoverYDiff : cardYCoord);
-            xLoc += cardSpacing;
-        }
-    }
-
     private void discardHand(){
         List<PlayableCard> retainedCards = new List<PlayableCard>();
         foreach(PlayableCard card in cardsInHand) {
@@ -77,7 +63,6 @@ public class PlayerHand : MonoBehaviour
         // do this instead of calling remove for each
         // to prevent enumeration issues in the for loop
         cardsInHand = retainedCards;
-        displayCards();
     }
 
     // Do not call on whole hand, only call on individual cards
@@ -86,6 +71,10 @@ public class PlayerHand : MonoBehaviour
         cardsInHand.Remove(card);
         Destroy(card.gameObject);
         card.discardFromDeck();
-        displayCards();
+    }
+
+    public void updateLayout() {
+        LayoutRebuilder.ForceRebuildLayoutImmediate(layoutGroup);
+
     }
 }
