@@ -23,7 +23,6 @@ public class CompanionAbilityInvoker : TargetProvider
     private CompanionInstance companionInstance;
 
     private PlayerHand playerHand;
-    private CompanionManager companionManager;
     
     [SerializeField]
     private TurnPhaseTriggerEvent registerTurnPhaseTriggerEvent;
@@ -44,13 +43,7 @@ public class CompanionAbilityInvoker : TargetProvider
             playerHand = playerHandGO.GetComponent<PlayerHand>();
         else 
             Debug.LogError("CompanionAbilityInvoker: PlayerHand not found. Companion abilities that require a target from the player's hand won't fire");
-
-        GameObject companionManagerGO = GameObject.Find("CompanionManager");
-        if(companionManagerGO != null)
-            companionManager = companionManagerGO.GetComponent<CompanionManager>();
-        else 
-            Debug.LogError("CompanionAbilityInvoker: CompanionManager not found. Companion abilities that require information about other companions won't work");
-        context = new CompanionAbilityContext(this, turnPhaseManager, playerHand, companionManager, companionInstance);
+        context = new CompanionAbilityContext(this, turnPhaseManager, playerHand, companionInstance);
         setupAbilities(abilities, context);
     }
 

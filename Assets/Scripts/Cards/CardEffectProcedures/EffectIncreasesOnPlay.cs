@@ -16,7 +16,7 @@ public class EffectIncreasesOnPlay: EffectProcedure {
     public override IEnumerator prepare(EffectProcedureContext context) {
         this.context = context;
         resetCastingState();
-        context.cardCastManager.requestTarget(validTargets, this);
+        TargettingManager.Instance.requestTargets(this, context.origin, validTargets);
         yield return new WaitUntil(() => currentTargets.Count > 0);
     }
 
@@ -25,9 +25,19 @@ public class EffectIncreasesOnPlay: EffectProcedure {
         CombatEffect internalEffect = CombatEffectProcedure.displayedToCombatEffect[combatEffect];
         // Instantiates a new CombatEffectEventInfo, so we don't need to worry about messing up the reference
         Debug.Log("effectBuffs: " + context.castingCard.getEffectBuff(internalEffect));
-        context.cardCastManager.raiseCombatEffect(internalEffect, 
-            context.castingCard.getEffectBuff(internalEffect) + baseScale ,
-            currentTargets, context.cardCaster);
+        int scale = context.castingCard.getEffectBuff(internalEffect) + baseScale;
+        CombatEntityManager.Instance.handleCombatEffect(
+            new CombatEffectEventInfo(
+                new Dictionary<CombatEffect, int> {
+                    {
+                        internalEffect,
+                        context.cardCaster.stats.getEffectScale(internalEffect, scale)
+                    }
+                },
+                currentTargets,
+                context.cardCaster
+            )
+        );
         context.castingCard.buffEffect(internalEffect, increaseOnPlay);
         yield return null;
     }

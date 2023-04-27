@@ -15,7 +15,7 @@ public class BuffBehavior: EnemyBehavior {
     public override EnemyIntent getIntent(EnemyBrainContext context) {
         // there's the taunt case we need to take care of here, because we're not going the 
         // normal target acquisition route
-        List<EnemyInstance> possibleTargets = context.enemyManager.getEnemies();
+        List<EnemyInstance> possibleTargets = CombatEntityManager.Instance.getEnemies();
         return new EnemyIntent(
             new List<TargettableEntity>() {
                 possibleTargets[UnityEngine.Random.Range(0, possibleTargets.Count)]},

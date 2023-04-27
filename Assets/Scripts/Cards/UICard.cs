@@ -15,7 +15,8 @@ public class UICard : TargettableEntity {
     public GameObject selectionFrame;
     public bool selected = false;
 
-    void Start() {
+    protected override void Start() {
+        base.Start();
         card = GetComponent<CardDisplay>().cardInfo;
     }
 

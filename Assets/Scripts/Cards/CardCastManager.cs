@@ -20,15 +20,10 @@ public class CardCastManager : TargetProvider {
     private IntGameEvent manaChangeEvent;
 
     //private Dictionary<CardEffectData, CombatEntityInstance> effectsToTargets = new Dictionary<CardEffectData, CombatEntityInstance>();
-    // set to the empty string to designate no target set
-    private CompanionManager companionManager;
-    private EnemyManager enemyManager;
-    private CardSelectionManager cardSelectionManager;
+
     /// Don't rely on this being available, it's only set when a card is being cast
     private IEnumerator currentCastingProcedure;
     private IEnumerator currentEffectProcedure;
-    private PlayerHand playerHand;
-    private ManaManager manaManager;
     /// Don't rely on this being available outside of effectProcedure invokations, 
     /// it's only set when a card is being cast
     private EffectProcedureContext currentContext;
@@ -38,31 +33,11 @@ public class CardCastManager : TargetProvider {
     // But I figure here - where it's being checked - is probably a decent place?
 
     void Start() {
-        // This may cause me to consider combining these into an EntityInstanceManager
-        GameObject companionManagerGO = GameObject.Find("CompanionManager");
-        if(!companionManagerGO) Debug.LogWarning("Card caster couldn't find companion manager, won't be able to cast effects that target all companions");
-        else companionManager = companionManagerGO.GetComponent<CompanionManager>();
-
-        GameObject enemyManagerGO = GameObject.Find("EnemyManager");
-        if(!enemyManagerGO) Debug.LogWarning("Card caster couldn't find enemy manager, won't be able to cast effects that target all enemies");
-        else enemyManager = enemyManagerGO.GetComponent<EnemyManager>();
-
-        GameObject playerHandGO = GameObject.Find("PlayerHand");
-        if(!playerHandGO) Debug.LogWarning("Card caster couldn't find player hand, won't be able to cast effects interacting with the player's hand (card counting, discard effects). Can add this manager by adding the EnemyEncounterCanvas prefab");
-        else playerHand = playerHandGO.GetComponent<PlayerHand>();
-
-        GameObject manaManagerGO = GameObject.Find("ManaManager");
-        if(!manaManagerGO) Debug.LogWarning("Card caster couldn't find mana manager, won't be checking card costs before casting. Can add this manager by adding the EnemyEncounterCanvas prefab");
-        else manaManager = manaManagerGO.GetComponent<ManaManager>();
-        
-        GameObject cardSelectionManagerGO = GameObject.Find("CardSelectionManager");
-        if(!cardSelectionManagerGO) Debug.LogWarning("Card caster couldn't find card selection manager, won't be able to cast effects that require selecting cards from a group of cards displayed through the cardViewUI overlay. Can add this manager by adding the EnemyEncounterCanvas prefab");
-        else cardSelectionManager = cardSelectionManagerGO.GetComponent<CardSelectionManager>();
     }
 
     
     public bool isValidCast(Card info, CardCastArguments args) {
-        if(info.cost > manaManager.currentMana || !info.cardType.playable) return false;
+        if(info.cost > ManaManager.Instance.currentMana || !info.cardType.playable) return false;
         // theoretically we could check for other things here
         return true;
     }
@@ -93,31 +68,18 @@ public class CardCastManager : TargetProvider {
     public List<TargettableEntity> getAllValidTargets(List<EntityType> validTargets) {
         List<TargettableEntity> returnList = new List<TargettableEntity>();
         if(validTargets.Contains(EntityType.Companion)){
-            if(companionManager)
-                returnList.AddRange(companionManager.getCompanions());
-            else
-                Debug.LogWarning("No companion manager in scene, couldn't cast effect that targets all companions");
+            returnList.AddRange(CombatEntityManager.Instance.getCompanions());
         }
         if(validTargets.Contains(EntityType.Enemy)){
-            if(enemyManager)
-                returnList.AddRange(enemyManager.getEnemies());
-            else
-                Debug.LogWarning("No enemy manager in scene, couldn't cast effect that targets all enemies");
+            returnList.AddRange(CombatEntityManager.Instance.getEnemies());
         }
         if(validTargets.Contains(EntityType.Minion)){
-            if(companionManager)
-                returnList.AddRange(companionManager.getMinions());
-            else
-                Debug.LogWarning("No player hand in scene, couldn't cast effect that targets the player");
+            returnList.AddRange(CombatEntityManager.Instance.getEnemies());
         }
         if(validTargets.Contains(EntityType.PlayableCard)){
-            if(playerHand)
-                returnList.AddRange(playerHand.cardsInHand);
-            else
-                Debug.LogWarning("No player hand in scene, couldn't cast effect that targets the player");
+            returnList.AddRange(PlayerHand.Instance.cardsInHand);
         }
         return returnList;
-
     }
 
 
@@ -129,14 +91,11 @@ public class CardCastManager : TargetProvider {
         // an area for improvement, shouldn't be passing object references for direct function
         // calls, should be using events instead
         currentContext = new EffectProcedureContext(
-            this, 
-            companionManager, 
-            enemyManager, 
             args.caster,
             alreadyTargetted,
             combatEffectEvent,
-            cardSelectionManager, 
-            card);
+            card,
+            args.origin);
         foreach(EffectProcedure procedure in card.effectProcedures){
             // Track current procedure for casting cancellation
             currentEffectProcedure = procedure.prepare(currentContext);
@@ -164,18 +123,6 @@ public class CardCastManager : TargetProvider {
                     {effect, caster.stats.getEffectScale(effect, scale)}
                 },
                 targets,
-                caster
-            )
-        );
-    }
-
-    public void raiseCombatEffect(CombatEffect effect, int scale, TargettableEntity target, CombatEntityInstance caster) {
-        raiseCombatEffect(
-            new CombatEffectEventInfo(
-                new Dictionary<CombatEffect, int> {
-                    {effect, caster.stats.getEffectScale(effect, scale)}
-                },
-                new List<TargettableEntity> {target},
                 caster
             )
         );

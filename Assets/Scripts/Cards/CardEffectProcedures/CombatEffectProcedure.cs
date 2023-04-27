@@ -73,11 +73,13 @@ public class CombatEffectProcedure: EffectProcedure {
                 Debug.LogError("targetToUse wasn't found in the alreadyTargetted list, either set it to -1 or a value lower than the cardinality of this effect");
             }
         } else if(targetAllValidTargets) {
-            currentTargets.AddRange(context.cardCastManager.getAllValidTargets(validTargets));
+            currentTargets.AddRange(TargettingManager.Instance
+                .getAllValidTargets(validTargets));
         } else if(targetCaster) {
             currentTargets.Add(context.cardCaster);
         } else {
-            context.cardCastManager.requestTarget(validTargets, this);
+            // context.cardCastManager.requestTarget(validTargets, this);
+            TargettingManager.Instance.requestTargets(this, context.origin, validTargets);
         }
         yield return new WaitUntil(() => currentTargets.Count > 0);
         context.alreadyTargetted.AddRange(currentTargets);
@@ -86,7 +88,7 @@ public class CombatEffectProcedure: EffectProcedure {
 
     public override IEnumerator invoke(EffectProcedureContext context)
     {
-        context.cardCastManager.raiseCombatEffect(
+        CombatEntityManager.Instance.handleCombatEffect(
             new CombatEffectEventInfo(
                 new Dictionary<CombatEffect, int> {
                     {internalEffectName, 

@@ -8,7 +8,7 @@ using UnityEngine;
 [RequireComponent(typeof(EffectTargetSuppliedEventListener))]
 [RequireComponent(typeof(CardCastEventListener))]
 [RequireComponent(typeof(TurnPhaseEventListener))]
-public class UIStateManager : MonoBehaviour
+public class UIStateManager : GenericSingleton<UIStateManager>
 {
     // huge hack to fix the purge card issue, but I know targetting
     // changing soon anyways
@@ -35,14 +35,14 @@ public class UIStateManager : MonoBehaviour
     void Update()
     {
         if(Input.GetMouseButtonDown(1) 
-            && currentState == UIState.EFFECT_TARGETTING
-            && targettingCancellable){
-            cancelTargetting();
+            && currentState == UIState.EFFECT_TARGETTING){
+            setState(UIState.DEFAULT);
         }
     }
 
-    private void cancelTargetting(){
-        StartCoroutine(uiStateEvent.RaiseAtEndOfFrameCoroutine(new UIStateEventInfo(UIState.DEFAULT)));
+    public void setState(UIState newState) {
+        StartCoroutine(uiStateEvent
+            .RaiseAtEndOfFrameCoroutine(new UIStateEventInfo(newState)));
     }
 
     public void uiStageChangeEventHandler(UIStateEventInfo info) {
@@ -54,17 +54,17 @@ public class UIStateManager : MonoBehaviour
     }
 
     public void effectTargetRequestEventHandler(EffectTargetRequestEventInfo info) {
-        StartCoroutine(uiStateEvent.RaiseAtEndOfFrameCoroutine(new UIStateEventInfo(UIState.EFFECT_TARGETTING)));
+        setState(UIState.EFFECT_TARGETTING);
     }
 
     public void cardCastEventListener(CardCastEventInfo info) {
-        StartCoroutine(uiStateEvent.RaiseAtEndOfFrameCoroutine(new UIStateEventInfo(UIState.DEFAULT)));
+        setState(UIState.DEFAULT);
     }
 
     public void turnPhaseChangedEventHandler(TurnPhaseEventInfo info) {
         if(info.newPhase == TurnPhase.PLAYER_TURN){
             Debug.Log("UI State Manager: Player Turn");
-            StartCoroutine(uiStateEvent.RaiseAtEndOfFrameCoroutine(new UIStateEventInfo(UIState.DEFAULT)));
+            setState(UIState.DEFAULT);
         }
     }
 

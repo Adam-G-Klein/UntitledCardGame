@@ -4,7 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(CombatEntityDeathEventListener))]
 [RequireComponent(typeof(CombatEntityInstantiatedEventListener))]
-public class EnemyManager : MonoBehaviour
+public class EnemyManager : GenericSingleton<EnemyManager>
 {
 
     [SerializeField]
@@ -12,15 +12,8 @@ public class EnemyManager : MonoBehaviour
     
     private List<EnemyInstance> enemies = new List<EnemyInstance>();
 
-    public string getRandomEnemyId(){
+    public string getRandomEnemyId() {
         return enemies[Random.Range(0,enemies.Count)].id;
-    }
-
-    public void enemiesAttack() {
-
-        foreach(EnemyInstance enemyInstance in enemies){
-            enemyInstance.turnStartEventHandler();
-        }
     }
 
     public void combatEntityInstantiatedHandler(CombatEntityInstantiatedEventInfo info) {

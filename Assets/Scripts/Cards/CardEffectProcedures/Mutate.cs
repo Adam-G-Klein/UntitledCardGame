@@ -4,9 +4,14 @@ using UnityEngine;
 
 [System.Serializable]
 public class Mutate: EffectProcedure {
+    /*
+        Shuffle X copies of a card in your hand into each minion token’s deck.
+    */
     public int numCopies = 1;
     public bool targetAllValidTargets = false;
-    public List<EntityType> validTargets = new List<EntityType>() {EntityType.Minion};
+    public List<EntityType> validTargets = new List<EntityType>() {
+        EntityType.Minion
+    };
     private List<Card> cardsToShuffleIn = new List<Card>();
 
     public Mutate() {
@@ -17,18 +22,23 @@ public class Mutate: EffectProcedure {
         this.context = context;
         resetCastingState();
         // get card target
-        context.cardCastManager.requestTarget(new List<EntityType>(){EntityType.PlayableCard}, this);
+        TargettingManager.Instance.requestTargets(
+            this,
+            context.origin,
+            new List<EntityType>() { EntityType.PlayableCard });
         yield return new WaitUntil(() => currentTargets.Count > 0);
-        Card cardToShuffleIn = ((PlayableCard)currentTargets[0]).card;
+        Card cardToShuffleIn = PlayerHand.Instance
+            .getCardById(currentTargets[0].id).card;
         // clear to prep to use the list for the targets of the shuffling in
         currentTargets.Clear(); 
         for(int i = 0; i < numCopies; i++) {
             cardsToShuffleIn.Add(new Card(cardToShuffleIn));
         }
         if(targetAllValidTargets) {
-            currentTargets.AddRange(context.cardCastManager.getAllValidTargets(validTargets));
+            currentTargets.AddRange(
+                TargettingManager.Instance.getAllValidTargets(validTargets));
         } else {
-            context.cardCastManager.requestTarget(validTargets, this);
+            TargettingManager.Instance.requestTargets(this, context.origin, validTargets);
         }
         yield return new WaitUntil(() => currentTargets.Count > 0);
     }

@@ -29,7 +29,6 @@ public abstract class CombatEntityInstance: TargettableEntity
         {
             this.stats.currentHealth = this.baseStats.getMaxHealth();
         }
-        StartCoroutine(instantiatedEvent.RaiseAtEndOfFrameCoroutine(new CombatEntityInstantiatedEventInfo(this)));
         GameObject turnManagerObject = GameObject.Find("TurnManager");
         if(turnManagerObject != null) {
             turnManager = turnManagerObject.GetComponent<TurnManager>();
@@ -43,7 +42,7 @@ public abstract class CombatEntityInstance: TargettableEntity
         Debug.Log("OnDeath called for " + this.id + " with killer " + killer?.id);
         processOnDeathStatusEffects(killer);
         yield return StartCoroutine(removeTurnPhaseTriggerEvent.RaiseAtEndOfFrameCoroutine(new TurnPhaseTriggerEventInfo(updateStatusTrigger)));
-        yield return StartCoroutine(deathEvent.RaiseAtEndOfFrameCoroutine(new CombatEntityDeathEventInfo(this)));
+        CombatEntityManager.Instance.combatEntityDied(this);
         Destroy(this.gameObject);
     }
 

@@ -4,8 +4,15 @@ using UnityEngine;
 
 [System.Serializable]
 public class PurifyingInferno: EffectProcedure {
+    /*
+        Choose a card in a minion’s deck.
+        Add it to your hand. Exhaust the rest of the deck
+    */
     public int cardsToChoose = 1;
-    private List<EntityType> validTargets = new List<EntityType>(){EntityType.Companion, EntityType.Minion};
+    private List<EntityType> validTargets = new List<EntityType>() {
+        EntityType.Companion,
+        EntityType.Minion
+    };
 
     public PurifyingInferno() {
         procedureClass = "PurifyingInferno";
@@ -13,16 +20,23 @@ public class PurifyingInferno: EffectProcedure {
     
     public override IEnumerator prepare(EffectProcedureContext context) {
         yield return base.prepare(context);
-        context.cardCastManager.requestTarget(validTargets, this);
+        TargettingManager.Instance.requestTargets(this, context.origin, validTargets);
         yield return new WaitUntil(() => currentTargets.Count > 0);
         context.alreadyTargetted.AddRange(currentTargets);
     }
 
     public override IEnumerator invoke(EffectProcedureContext context)
     {
-        CombatEntityWithDeckInstance target = (CombatEntityWithDeckInstance) currentTargets[0];
+        CombatEntityWithDeckInstance target = CombatEntityManager.Instance
+            .getEntityWithDeckById(currentTargets[0].id);
         List<Card> cards = target.inCombatDeck.getAllCards();
-        context.cardCastManager.raiseCardSelectionRequest(new CardSelectionRequestEventInfo(cards, CardEffect.AddToHand, CardEffect.Exhaust, cardsToChoose, cardsToChoose));
+        TargettingManager.Instance.raiseCardSelectionRequest(
+            new CardSelectionRequestEventInfo(
+                cards,
+                CardEffect.AddToHand,
+                CardEffect.Exhaust,
+                cardsToChoose,
+                cardsToChoose));
         yield return null;
     }
 
