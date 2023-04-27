@@ -5,13 +5,9 @@ using UnityEngine;
 
 public class EnemyBrainContext {
     public EnemyInstance enemyInstance;
-    public CompanionManager companionManager;
-    public EnemyManager enemyManager;
 
-    public EnemyBrainContext(EnemyInstance enemyInstance, CompanionManager companionManager, EnemyManager enemyManager) {
+    public EnemyBrainContext(EnemyInstance enemyInstance) {
         this.enemyInstance = enemyInstance;
-        this.companionManager = companionManager;
-        this.enemyManager = enemyManager;
     }
 }
 

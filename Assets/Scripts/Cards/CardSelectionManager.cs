@@ -9,7 +9,7 @@ using TMPro;
 
 [RequireComponent(typeof(CardListEventListener))]
 [RequireComponent(typeof(CardSelectionRequestEventListener))]
-public class CardSelectionManager: MonoBehaviour{
+public class CardSelectionManager: GenericSingleton<CardSelectionManager> {
     public GameObject cardSelectionUIPrefab;
     [SerializeField]
     private EffectTargetRequestEvent effectTargetRequestEvent;

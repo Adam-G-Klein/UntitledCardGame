@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 
 [RequireComponent(typeof(TurnPhaseEventListener))]
-public class ManaManager : MonoBehaviour {
+public class ManaManager : GenericSingleton<ManaManager> {
 
     public int currentMana = 3;
 
@@ -25,6 +25,11 @@ public class ManaManager : MonoBehaviour {
 
     public void manaEventHandler(int info) {
         currentMana += info;
+        updateText();
+    }
+
+    public void updateMana(int change) {
+        currentMana += change;
         updateText();
     }
 

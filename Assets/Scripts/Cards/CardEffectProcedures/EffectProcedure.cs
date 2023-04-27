@@ -20,36 +20,28 @@ public enum EffectProcedureType {
 }
 
 public class EffectProcedureContext {
-    public CardCastManager cardCastManager;
-    public CompanionManager companionManager;
-    public EnemyManager enemyManager;
-    public CardSelectionManager cardSelectionManager;
+
     public CombatEntityInEncounterStats casterStats;
     public CombatEntityWithDeckInstance cardCaster;
     public CombatEffectEvent combatEffectEvent;
-    public PlayerHand playerHand;
+    public Entity origin;
     public List<TargettableEntity> alreadyTargetted;
     // Here just so that EffectIncreasesOnPlay can modify the card
     public Card castingCard;
 
     
-    public EffectProcedureContext(CardCastManager caster, 
-        CompanionManager companionManager, 
-        EnemyManager enemyManager, 
-        CombatEntityWithDeckInstance cardCaster, 
-        List<TargettableEntity> alreadyTargetted, 
-        CombatEffectEvent combatEffectEvent,
-        CardSelectionManager cardSelectionManager,
-        Card castingCard) {
-        this.cardCastManager = caster;
-        this.companionManager = companionManager;
-        this.enemyManager = enemyManager;
+    public EffectProcedureContext(
+            CombatEntityWithDeckInstance cardCaster, 
+            List<TargettableEntity> alreadyTargetted, 
+            CombatEffectEvent combatEffectEvent,
+            Card castingCard,
+            Entity origin) {
         this.cardCaster = cardCaster;
         this.casterStats = cardCaster.stats;
         this.alreadyTargetted = alreadyTargetted;
         this.combatEffectEvent = combatEffectEvent;
-        this.cardSelectionManager = cardSelectionManager;
         this.castingCard = castingCard;
+        this.origin = origin;
     }
     
 }

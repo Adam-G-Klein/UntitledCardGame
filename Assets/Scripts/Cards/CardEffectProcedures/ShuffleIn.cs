@@ -23,7 +23,7 @@ public class ShuffleIn: EffectProcedure {
         if(targetCaster) {
             currentTargets.Add(context.cardCaster);
         } else {
-            context.cardCastManager.requestTarget(validTargets, this);
+            TargettingManager.Instance.requestTargets(this, context.origin, validTargets);
         }
         yield return new WaitUntil(() => currentTargets.Count > 0);
     }

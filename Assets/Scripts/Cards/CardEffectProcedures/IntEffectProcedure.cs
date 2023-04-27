@@ -23,7 +23,7 @@ public class IntEffectProcedure: EffectProcedure {
 
     public override IEnumerator invoke(EffectProcedureContext context)
     {
-        context.cardCastManager.raiseIntEvent(gameEvent, baseScale);
+        TargettingManager.Instance.StartCoroutine(gameEvent.RaiseAtEndOfFrameCoroutine(baseScale));
         yield return null;
     }
 

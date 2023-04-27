@@ -11,6 +11,7 @@ public class CompanionInstance : CombatEntityWithDeckInstance
     protected override void Start() {
         base.Start();
         abilityInvoker = GetComponent<CompanionAbilityInvoker>();
+        CombatEntityManager.Instance.registerCompanion(this);
     }
 
     protected override IEnumerator onDeath(CombatEntityInstance killer)

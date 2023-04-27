@@ -30,7 +30,7 @@ public class CardDisplay : MonoBehaviour
 
     void Awake()
     {
-        mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        mainCamera = Camera.main;
     }
 
     // Looks like double calls happen when something in the hierarchy is using OnGUI()

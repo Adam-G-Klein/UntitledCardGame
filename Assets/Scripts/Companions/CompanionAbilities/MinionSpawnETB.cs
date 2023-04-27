@@ -22,7 +22,7 @@ public class MinionSpawnETB : CompanionAbility {
     public override IEnumerable invoke(CompanionAbilityContext context) {
         for(int i = 0; i < numMinions; i++) {
             PrefabInstantiator.instantiateMinion(
-                context.companionManager.encounterConstants.minionPrefab,
+                CombatEntityManager.Instance.encounterConstants.minionPrefab,
                 new Minion(minionType),
                 // Temp
                 context.companionInstance.getNextMinionSpawnPosition()
