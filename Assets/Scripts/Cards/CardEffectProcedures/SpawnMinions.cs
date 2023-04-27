@@ -20,10 +20,9 @@ public class SpawnMinions: EffectProcedure {
 
     public override IEnumerator invoke(EffectProcedureContext context)
     {
-        
         for(int i = 0; i < baseScale; i++) {
             PrefabInstantiator.instantiateMinion(
-                context.companionManager.encounterConstants.minionPrefab,
+                CombatEntityManager.Instance.encounterConstants.minionPrefab,
                 new Minion(minionType),
                 // Temp
                 context.cardCaster.getNextMinionSpawnPosition()

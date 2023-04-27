@@ -9,7 +9,12 @@ public class CardSelectionRequestEventInfo {
     public CardEffect selectedAction;
     public CardEffect unselectedAction;
 
-    public CardSelectionRequestEventInfo(List<Card> cards, CardEffect selectedAction, CardEffect unselectedAction, int minSelections = 0, int maxSelections = int.MaxValue) {
+    public CardSelectionRequestEventInfo(
+            List<Card> cards,
+            CardEffect selectedAction,
+            CardEffect unselectedAction,
+            int minSelections = 0,
+            int maxSelections = int.MaxValue) {
         this.cards = cards;
         this.selectedAction = selectedAction;
         this.unselectedAction = unselectedAction;

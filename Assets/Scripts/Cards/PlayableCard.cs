@@ -15,7 +15,6 @@ public class PlayableCard : TargettableEntity
     , IPointerExitHandler
 {
     public Card card;
-    private PlayerHand playerHand;
     private CombatEntityWithDeckInstance entityFrom;
 
     [SerializeField]
@@ -23,14 +22,15 @@ public class PlayableCard : TargettableEntity
     [SerializeField]
     private float nonHoverScale = 1f;
     [SerializeField]
-    public float hoverYDiff = 185f;
-    private int preHoverSiblingIndex;
-    // Start is called before the first frame update
+    private CombatEffectEvent combatEffectEvent;
+    [SerializeField]
+    private CardCastEvent cardCastEvent;
     public bool hovered = false;
 
-    private CardCastManager caster;
-
     private UIState currentState;
+    private IEnumerator currentCastingProcedure;
+    private IEnumerator currentEffectProcedure;
+    private EffectProcedureContext currentContext;
 
     // Checked by PlayerHand when discarding the whole hand
     // set back to false there when it's checked
@@ -44,15 +44,6 @@ public class PlayableCard : TargettableEntity
         // forget to do this on an Entity
         id = card.id;
         entityType = EntityType.PlayableCard;
-        GameObject companionManagerGO = GameObject.Find("CompanionManager");
-        GameObject cardCasterGO = GameObject.Find("CardCaster");
-        GameObject playerHandGO = GameObject.Find("PlayerHand");
-        // My attempt at null safing. We should def talk about how we want to 
-        // do this generally because it'll happen a lot with the modular scenes
-        if(cardCasterGO) caster = cardCasterGO.GetComponent<CardCastManager>();
-        else Debug.LogError("CardCaster not found by card, won't be able to cast cards");
-        if(playerHandGO) playerHand = playerHandGO.GetComponent<PlayerHand>();
-        else Debug.LogError("PlayerHand not found by card, won't be able to discard cards");
     }
 
     public override void onPointerClickChildImpl(PointerEventData eventData) 
@@ -61,11 +52,69 @@ public class PlayableCard : TargettableEntity
         // (like if we're about to discard it)
         if (currentState != UIState.DEFAULT) return; 
 
-        CardCastArguments args = new CardCastArguments(entityFrom);
+        CardCastArguments args = new CardCastArguments(entityFrom, this);
         // Cast event handler in PlayerHand.cs will handle the card 
         // being removed from the hand
-        caster.cardClickHandler(card, args, this);
+        // caster.cardClickHandler(card, args, this);
+        castCard();
     }
+
+    private void castCard() {
+        // Check for valid cast
+        if (card.cost > ManaManager.Instance.currentMana 
+                || !card.cardType.playable) {
+            // Theoretically we'd have some kind of indicator
+            // to the player that they can't cast this
+            return;
+        }
+
+        resetCastingState();
+        CardCastArguments args = new CardCastArguments(entityFrom, this);
+        currentCastingProcedure = castingCoroutine(card, args);
+        StartCoroutine(currentCastingProcedure);
+    }
+
+    private IEnumerator castingCoroutine(Card card, CardCastArguments args) {
+        // tracking who's already been targetted for situations like discarding multiple
+        // cards to a discard effect. Tech designer can select whether they want unique targets
+        // in a card type using a boolean in the ui
+        List<TargettableEntity> alreadyTargetted = new List<TargettableEntity>();
+        // an area for improvement, shouldn't be passing object references for direct function
+        // calls, should be using events instead
+        currentContext = new EffectProcedureContext(
+            args.caster,
+            alreadyTargetted,
+            combatEffectEvent,
+            card,
+            args.origin);
+        foreach(EffectProcedure procedure in card.effectProcedures){
+            // Track current procedure for casting cancellation
+            currentEffectProcedure = procedure.prepare(currentContext);
+            yield return StartCoroutine(currentEffectProcedure);
+        }
+        foreach(EffectProcedure procedure in card.effectProcedures){
+            // Track current procedure for casting cancellation
+            currentEffectProcedure = procedure.invoke(currentContext);
+            yield return StartCoroutine(currentEffectProcedure);
+        }
+        ManaManager.Instance.updateMana(-card.cost);
+        yield return StartCoroutine(cardCastEvent.RaiseAtEndOfFrameCoroutine(new CardCastEventInfo(card)));
+        // instantiate card's VFX prefab
+        // PrefabInstantiator.InstantiatePrefab(card.vfxPrefab, args.caster.transform.position, Quaternion.identity);
+    }
+
+    private void resetCastingState() {
+        if(currentCastingProcedure != null) {
+            StopCoroutine(currentCastingProcedure);
+            currentCastingProcedure = null;
+        }
+        if(currentEffectProcedure != null) {
+            StopCoroutine(currentEffectProcedure);
+            currentEffectProcedure = null;
+            // Shouldn't be relying on this existing anyways, but just in case
+            currentContext = null; 
+        }
+    }   
 
     public override bool isTargetableByChildImpl(EffectTargetRequestEventInfo eventInfo)
     {
@@ -77,12 +126,11 @@ public class PlayableCard : TargettableEntity
         return retval;
     }
 
-    public override void uiStageChangeEventHandlerChildImpl(UIStateEventInfo eventInfo)
-    {
+    public override void uiStageChangeEventHandlerChildImpl(UIStateEventInfo eventInfo) {
         currentState = eventInfo.newState;
     }
 
-    public void cardEffectEventHandler(CardEffectEventInfo info){
+    public void cardEffectEventHandler(CardEffectEventInfo info) {
         if (!info.targets.Contains(this)) return;
         applyCardEffects(info.cardEffects);
     }
@@ -95,7 +143,7 @@ public class PlayableCard : TargettableEntity
     private void applyCardEffect(CardEffect effect, int value) {
         switch(effect) {
             case CardEffect.Discard:
-                playerHand.discardCard(this);
+                PlayerHand.Instance.discardCard(this);
                 break;
         }
     }
@@ -105,12 +153,9 @@ public class PlayableCard : TargettableEntity
         entityFrom.inCombatDeck.discardCards(new List<Card>{card});
     }
 
-
     // Keeping these here for reference as they will almost certainly
     // be needed for UI effects in the future
-    public void OnDrag(PointerEventData eventData)
-    {
-    }
+    public void OnDrag(PointerEventData eventData) { }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
@@ -119,7 +164,6 @@ public class PlayableCard : TargettableEntity
         PlayerHand.Instance.updateLayout();
     }
 
-
     public void OnPointerExit(PointerEventData eventData)
     {
         if(!hovered) return;
@@ -127,8 +171,6 @@ public class PlayableCard : TargettableEntity
         transform.localScale = new Vector3(nonHoverScale, nonHoverScale, 1);
         PlayerHand.Instance.updateLayout();
     }
-
-    
 
     // Used when instantiating the card after Start has run
     // See PrefabInstantiator.cs

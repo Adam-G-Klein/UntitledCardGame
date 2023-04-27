@@ -8,12 +8,14 @@ public class CardCastArguments {
 
     public CombatEntityWithDeckInstance caster;
     public CombatEntityInEncounterStats casterStats;
+    public Entity origin;
     // Can put stuff like increased draw or other effects here
     // Also see CardInfo.cs for how the effects get added to the 
     // effect events
 
-    public CardCastArguments(CombatEntityWithDeckInstance caster){
+    public CardCastArguments(CombatEntityWithDeckInstance caster, Entity origin){
         this.caster = caster;
         this.casterStats = caster.stats;
+        this.origin = origin;
     }
 }

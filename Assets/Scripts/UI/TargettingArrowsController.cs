@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(EffectTargetRequestEventListener))]
 [RequireComponent(typeof(EffectTargetSuppliedEventListener))]
 [RequireComponent(typeof(UIStateEventListener))]
-public class TargettingArrowsController : MonoBehaviour
+public class TargettingArrowsController : GenericSingleton<TargettingArrowsController>
 {
 
     [SerializeField]
@@ -22,7 +22,7 @@ public class TargettingArrowsController : MonoBehaviour
             // a null source means that the requestor didn't want an arrow displayed
             return;
         }
-        currentArrow = createArrow(info);
+        currentArrow = createArrow(info.validTargets, info.source);
         arrows.Add(currentArrow);
     }
 
@@ -40,11 +40,20 @@ public class TargettingArrowsController : MonoBehaviour
         }
     }
 
-    private TargettingArrow createArrow(EffectTargetRequestEventInfo info){
+    public void createTargettingArrow(
+            List<EntityType> validTargets,
+            Entity entity) {
+        currentArrow = createArrow(validTargets, entity);
+        arrows.Add(currentArrow);
+    }
+
+    private TargettingArrow createArrow(
+            List<EntityType> validTargets,
+            Entity entity) {
         TargettingArrow newArrow = Instantiate(arrowPrefab, transform).GetComponent<TargettingArrow>();
-        setArrowColor(newArrow, info.validTargets);
-        newArrow.transform.position = info.source.transform.position;
-        newArrow.setAllChildrenPosition(info.source.transform.position);
+        setArrowColor(newArrow, validTargets);
+        newArrow.transform.position = entity.transform.position;
+        newArrow.setAllChildrenPosition(entity.transform.position);
         return newArrow;
     }
 

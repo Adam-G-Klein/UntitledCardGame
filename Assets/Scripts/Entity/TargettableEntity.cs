@@ -48,6 +48,9 @@ public abstract class TargettableEntity : Entity,
     }
 
     public void OnPointerClick(PointerEventData eventData){
+        if (UIStateManager.Instance.currentState == UIState.EFFECT_TARGETTING) {
+            TargettingManager.Instance.attemptToTarget(this);
+        }
         onPointerClickChildImpl(eventData);
         if(isTargetable){
             print("Entity" + id + " was clicked and is targetable");

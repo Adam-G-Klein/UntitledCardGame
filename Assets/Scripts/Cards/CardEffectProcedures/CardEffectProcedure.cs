@@ -20,10 +20,13 @@ public class CardEffectProcedure: EffectProcedure {
         this.context = context;
         resetCastingState();
         if(targetAllValidTargets) {
-            currentTargets.AddRange(context.cardCastManager
-                .getAllValidTargets(validTargets));
+            currentTargets.AddRange(
+                TargettingManager.Instance.getAllValidTargets(validTargets));
         } else {
-            context.cardCastManager.requestTarget(validTargets, this,
+            TargettingManager.Instance.requestTargets(
+                this,
+                context.origin,
+                validTargets,
                 requiresUniqueTarget ? context.alreadyTargetted : null);
         }
         yield return new WaitUntil(() => currentTargets.Count > 0);
@@ -33,7 +36,7 @@ public class CardEffectProcedure: EffectProcedure {
 
     public override IEnumerator invoke(EffectProcedureContext context)
     {
-        context.cardCastManager.raiseCardEffect(
+        TargettingManager.Instance.raiseCardEffect(
             new CardEffectEventInfo(
                 new Dictionary<CardEffect, int> {
                     {effectName, baseScale}

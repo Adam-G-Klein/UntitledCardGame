@@ -35,13 +35,10 @@ public class EnemyInstance : CombatEntityInstance {
     public Enemy enemy;
 
     [Space(5)]
-
-    private CompanionManager companionManager;
     
     private EnemyBrainContext brainContext;
     public EnemyIntent currentIntent;
 
-    private EnemyManager enemyManager;
     // reference for resetting intent if the enemy is taunted
     private EnemyIntentDisplay intentDisplay;
     [SerializeField]
@@ -51,15 +48,8 @@ public class EnemyInstance : CombatEntityInstance {
     // Start is called before the first frame update
     protected override void Start() {
         base.Start();
-        GameObject companionManagerObject = GameObject.Find("CompanionManager");
-        if(companionManagerObject != null)  companionManager = companionManagerObject.GetComponent<CompanionManager>();
-        else Debug.LogError("No CompanionManager found in scene, enemies won't be able to find companions to target");
-
-        GameObject enemyManagerObject = GameObject.Find("EnemyManager");
-        if(enemyManagerObject != null)  enemyManager = enemyManagerObject.GetComponent<EnemyManager>();
-        else Debug.LogError("No EnemyManager found in scene, enemies won't be able to find other enemies to target");
-
-        brainContext = new EnemyBrainContext(this, companionManager, enemyManager);
+        CombatEntityManager.Instance.registerEnemy(this);
+        brainContext = new EnemyBrainContext(this);
         intentDisplay = GetComponentInChildren<EnemyIntentDisplay>();
         registerTurnPhaseTriggers(brainContext);
     }
@@ -86,10 +76,6 @@ public class EnemyInstance : CombatEntityInstance {
             yield return StartCoroutine(removeTurnPhaseTriggerEvent.RaiseAtEndOfFrameCoroutine(new TurnPhaseTriggerEventInfo(trigger)));
         }
         yield return base.onDeath(killer);
-    }
-
-    public void turnStartEventHandler(){
-        StartCoroutine("attackCoroutine");
     }
 
     public void setTauntedTarget(TargettableEntity target){

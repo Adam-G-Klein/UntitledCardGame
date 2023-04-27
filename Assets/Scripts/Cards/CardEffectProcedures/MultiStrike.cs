@@ -10,7 +10,9 @@ public class MultiStrike: EffectProcedure {
     public int numStrikes;
     public int baseScale = 0;
     public float strikeDelay = 0.2f;
-    public List<EntityType> validTargets = new List<EntityType>() {EntityType.Enemy};
+    public List<EntityType> validTargets = new List<EntityType>() {
+        EntityType.Enemy
+    };
 
     public MultiStrike() {
         procedureClass = "MultiStrike";
@@ -19,14 +21,14 @@ public class MultiStrike: EffectProcedure {
     public override IEnumerator prepare(EffectProcedureContext context) {
         this.context = context;
         resetCastingState();
-        context.cardCastManager.requestTarget(validTargets, this);
+        TargettingManager.Instance.requestTargets(this, context.origin, validTargets);
         yield return new WaitUntil(() => currentTargets.Count > 0);
     }
 
     public override IEnumerator invoke(EffectProcedureContext context)
     {
         for(int i = 0; i < numStrikes; i++) {
-            context.cardCastManager.raiseCombatEffect(
+            CombatEntityManager.Instance.handleCombatEffect(
                 new CombatEffectEventInfo(
                     new Dictionary<CombatEffect, int> {
                         {CombatEffect.Damage, context.casterStats.getDamage(baseScale)}

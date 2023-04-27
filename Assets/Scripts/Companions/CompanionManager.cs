@@ -4,7 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(CombatEntityInstantiatedEventListener))]
 [RequireComponent(typeof(CombatEntityDeathEventListener))]
-public class CompanionManager : MonoBehaviour
+public class CompanionManager : GenericSingleton<CompanionManager>
 {
     [SerializeField]
     // put this here when I wanted effect procedures to have access to it

@@ -21,7 +21,7 @@ public abstract class EnemyBehavior {
         // worth noting that this doesn't work if we want the enemy to attack the whole squad.
         // that enemy behavior will have to make its own list and deliberately ignore taunts
         // Also, probably as expected, taunts won't affect the enemy deciding to buff its team members
-        return context.companionManager.getEnemyTargets();
+        return CombatEntityManager.Instance.getEnemyTargets();
     }
 
     protected virtual TargettableEntity getRandomTarget(EnemyBrainContext context) {

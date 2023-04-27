@@ -24,11 +24,11 @@ public class CardsDealtGameEventEditor : Editor
         companionId = EditorGUILayout.TextField(companionId);
         
         if (GUILayout.Button("Test Raise Event")) {
-            CompanionManager companionManager = GameObject.Find("CompanionManager").GetComponent<CompanionManager>();
-            CompanionInstance companionInstance = companionManager.getCompanionInstanceById(companionId);
+            CompanionInstance companionInstance = CombatEntityManager.Instance
+                .getCompanionInstanceById(companionId);
             // If you're getting a null pointer error here, it's probably because the id pasted
-            // into the field above isn't corresponding to an id the companionManager was made 
-            // aware of through a companionInstantiated event
+            // into the field above isn't corresponding to an id the CombatEntityManager was made 
+            // aware of
             CombatEntityInEncounterStats stats = companionInstance.stats;
             InCombatDeck deckFrom = companionInstance.inCombatDeck;
             if(cardInfo != null) {

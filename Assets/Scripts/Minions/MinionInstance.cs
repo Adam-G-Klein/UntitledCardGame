@@ -6,12 +6,9 @@ public class MinionInstance : CombatEntityWithDeckInstance
 {
     public Minion minion;
 
-    void Awake() {
+    protected override void Start() {
+        base.Start();
+        CombatEntityManager.Instance.registerMinion(this);
     }
-
-    void Update()
-    {
-    }
-
 }
 

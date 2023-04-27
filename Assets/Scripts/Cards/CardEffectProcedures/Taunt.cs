@@ -17,7 +17,7 @@ public class Taunt: EffectProcedure {
     public override IEnumerator prepare(EffectProcedureContext context) {
         this.context = context;
         resetCastingState();
-        context.cardCastManager.requestTarget(validTargets, this);
+        TargettingManager.Instance.requestTargets(this, context.origin, validTargets);
         Debug.Log("Taunt target requested, valid targets: " + validTargets.Count + " valid target: " + (validTargets[0] == EntityType.Enemy ? "Enemy" : "not enemy"));
         yield return new WaitUntil(() => currentTargets.Count > 0);
         Debug.Log("Taunt target acquired." + currentTargets[0].GetType());
@@ -28,7 +28,8 @@ public class Taunt: EffectProcedure {
         
         // Is this a train wreck if our targetting system messes up? yes
         // Am I choosing to trust it? also yes
-        EnemyInstance enemy = ((EnemyInstance) currentTargets[0]);
+        EnemyInstance enemy = CombatEntityManager.Instance
+            .getEnemyInstanceById(currentTargets[0].id);
         enemy.setTauntedTarget(context.cardCaster);
         yield return null;
     }

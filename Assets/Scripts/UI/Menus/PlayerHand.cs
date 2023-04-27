@@ -77,4 +77,14 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         LayoutRebuilder.ForceRebuildLayoutImmediate(layoutGroup);
 
     }
+
+    public PlayableCard getCardById(string id) {
+        foreach (PlayableCard card in cardsInHand) {
+            if (card.id == id) {
+                return card;
+            }
+        }
+        Debug.LogError("PlayerHand: Unable to find card in hand with id " + id);
+        return null;
+    }
 }
