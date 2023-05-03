@@ -148,8 +148,9 @@ public abstract class CombatEntityInstance: TargettableEntity
 
     private IEnumerable updateStatusEffects() {
         stats.statusEffects[StatusEffect.Defended] = 0;
-        stats.statusEffects[StatusEffect.Invulnerability] = Mathf.Max(0, stats.statusEffects[StatusEffect.Invulnerability] - 1);
         stats.statusEffects[StatusEffect.TemporaryStrength] = 0;
+        stats.statusEffects[StatusEffect.Invulnerability] = Mathf.Max(0, stats.statusEffects[StatusEffect.Invulnerability] - 1);
+        stats.statusEffects[StatusEffect.Weakness] = Mathf.Max(0, stats.statusEffects[StatusEffect.Weakness] - 1);
         yield return null;
     }
 

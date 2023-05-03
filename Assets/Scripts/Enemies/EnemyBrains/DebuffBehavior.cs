@@ -5,6 +5,7 @@ using UnityEngine;
 
 [System.Serializable]
 public class DebuffBehavior: EnemyBehavior {
+    public int scale = 1;
     public DebuffBehavior() {
         enemyBehaviorClassName = "DebuffBehavior";
     }
@@ -13,7 +14,7 @@ public class DebuffBehavior: EnemyBehavior {
         return new EnemyIntent(new List<TargettableEntity>() {getRandomTarget(context)},
             0.2f, 
             new Dictionary<CombatEffect, int>() {
-                {CombatEffect.Weakness, 1}
+                {CombatEffect.Weakness, scale}
             },
             EnemyIntentType.Debuff,
             context.enemyInstance);

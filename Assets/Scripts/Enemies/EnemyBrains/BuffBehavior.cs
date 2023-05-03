@@ -5,6 +5,7 @@ using UnityEngine;
 
 [System.Serializable]
 public class BuffBehavior: EnemyBehavior {
+    public int scale = 1;
     public BuffBehavior() {
         enemyBehaviorClassName = "BuffBehavior";
     }
@@ -16,7 +17,7 @@ public class BuffBehavior: EnemyBehavior {
         return new EnemyIntent(new List<TargettableEntity>() {possibleTargets[UnityEngine.Random.Range(0, possibleTargets.Count)]},
             0.2f, 
             new Dictionary<CombatEffect, int>() {
-                {CombatEffect.Strength, 1}
+                {CombatEffect.Strength, scale}
             },
             EnemyIntentType.Buff,
             context.enemyInstance);
