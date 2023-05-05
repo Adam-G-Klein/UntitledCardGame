@@ -33,6 +33,8 @@ public class ShopEncounter : Encounter
     public List<KeepsakeInShopWithPrice> keepsakesInShop = new List<KeepsakeInShopWithPrice>();
     private EncounterConstantsSO encounterConstants;
 
+    private ShopUIManager shopUIManager;
+
     public ShopEncounter() {
         this.encounterType = EncounterType.Shop;
     }
@@ -40,33 +42,46 @@ public class ShopEncounter : Encounter
     public ShopEncounter(ShopDataSO shopData) {
         this.encounterType = EncounterType.Shop;
         this.shopData = shopData;
+
+        //TODO: Implement this later
         generateShopEncounter();
     }
 
     public override void build(List<Companion> companionList, EncounterConstantsSO constants)
     {
+        if (shopUIManager == default) {
+            findShopSection();
+        }
+
         this.encounterType = EncounterType.Shop;
         ShopManager.Instance.saveShopEncounter(this);
         this.encounterConstants = constants;
         if (generateEncounter) {
-            generateShopEncounter();
+            generateShopEncounter2(companionList);
         }
         setupCards();
         setupKeepsakes();
         this.shopData.shopEncounterEvent.Raise(this);
     }
 
+    private void findShopSection() {
+        shopUIManager = GameObject.FindObjectOfType<ShopUIManager>();
+
+        Debug.Assert(shopUIManager, "Unable to find shope UI manager, required to set up the cards and keepsakes for sale!");
+    }
+
     private void setupCards() {
+        //TODO: Remove this(I leave this here for clean up later)
         if (cardsInShop.Count > shopData.cardLocations.Count) {
-            Debug.LogError("Unable to setup cards in shop encounter, not enough locations for cards");
-            return;
+            //Debug.LogError("Unable to setup cards in shop encounter, not enough locations for cards");
+            //return;
         }
         
         for (int i = 0; i < cardsInShop.Count; i++) {
             GameObject instantiatedCard = GameObject.Instantiate(
                 encounterConstants.cardInShopPrefab, 
-                shopData.cardLocations[i],
-                Quaternion.identity);
+                shopUIManager.cardSection
+                );
 
             CardType cardType = cardsInShop[i].cardType;
             int price = cardsInShop[i].price;
@@ -88,8 +103,7 @@ public class ShopEncounter : Encounter
         for (int i = 0; i < keepsakesInShop.Count; i++) {
             GameObject instantiatedKeepsake = GameObject.Instantiate(
                 encounterConstants.keepsakeInShopPrefab, 
-                shopData.keepsakeLocations[i],
-                Quaternion.identity);
+                shopUIManager.keepSakeSection);
 
             CompanionTypeSO companionType = keepsakesInShop[i].companionType;
             int price = keepsakesInShop[i].price;
@@ -108,6 +122,59 @@ public class ShopEncounter : Encounter
 
         generateCards();
         generateKeepsakes();
+    }
+
+    //TODO: This is only here to keep compatibility with the encounters
+    private void generateShopEncounter2(List<Companion> companionList) {
+        cardsInShop = new List<CardInShopWithPrice>();
+        keepsakesInShop = new List<KeepsakeInShopWithPrice>();
+
+        generateCards2(companionList);
+        generateKeepsakes();
+    }
+
+    private void generateCards2(List<Companion> companionList) {
+        Debug.Log("Companion List count: " + companionList.Count);
+        //determine which companion to spawn a card from, remove them from the set
+        //move companion types to a hashSet
+        HashSet<CompanionTypeSO> companionTypes = new HashSet<CompanionTypeSO>();
+
+        foreach (Companion companion in companionList) {
+            companionTypes.Add(companion.companionType);
+        }
+
+        Debug.Log("Companion types: " + companionTypes.Count);
+
+        foreach (CompanionTypeSO companionType in companionTypes) {
+            //pick a random card based on random algorithm
+            CardPoolSO currentCardPool = companionType.cardPool;
+            int totalPercentage = currentCardPool.getTotalCardPercentage();
+            int commonCardPercentage = currentCardPool.commonCardPercentage;
+            int uncommonCardPercentage = currentCardPool.uncommonCardPercentage;
+            int rareCardPercentage = currentCardPool.rareCardPercentage;
+
+
+            // Determine what the card pool is for this single card being generated
+            List<CardType> cardPool = new List<CardType>();
+            int cardPrice = 0;
+            int randomNumber = Random.Range(0, totalPercentage); // min inclusive, max exclusive
+            if (randomNumber < commonCardPercentage) {
+                cardPool = currentCardPool.commonCards;
+                cardPrice = currentCardPool.commonCardPrice;
+            } else if (randomNumber < commonCardPercentage + uncommonCardPercentage) {
+                cardPool = currentCardPool.uncommonCards;
+                cardPrice = currentCardPool.uncommonCardPrice;
+            } else {
+                cardPool = currentCardPool.rareCards;
+                cardPrice = currentCardPool.rareCardPrice;
+            }
+
+            // Pick a card from the pool and add it to the shop's cards
+            int cardNumber = Random.Range(0, cardPool.Count);
+            cardsInShop.Add(
+                new CardInShopWithPrice(cardPool[cardNumber], cardPrice));
+        }
+
     }
 
     private void generateCards() {

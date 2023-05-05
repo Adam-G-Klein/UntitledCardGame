@@ -14,6 +14,9 @@ public class ShopUIManager : MonoBehaviour
     [TextArea(1,5)]
     public string needMoreMoneyText;
 
+    public Transform cardSection;
+    public Transform keepSakeSection;
+
     void Start() {
         needMoreMoneyTMPText.text = "";
     }

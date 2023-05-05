@@ -13,6 +13,7 @@ public class CompanionTypeSO : ScriptableObject
     public Sprite sprite;
     public StartingDeck startingDeck;
     public Sprite keepsake;
+    public CardPoolSO cardPool;
 
     [SerializeReference]
     public List<CompanionAbility> abilities;
