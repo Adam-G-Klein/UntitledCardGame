@@ -3,5 +3,6 @@ public enum EntityType {
     Enemy, 
     Minion,
     PlayableCard,
-    UICard
+    UICard,
+    Unknown
 }

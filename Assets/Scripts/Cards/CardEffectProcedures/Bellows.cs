@@ -4,6 +4,7 @@ using UnityEngine;
 
 [System.Serializable]
 public class Bellows: EffectProcedure {
+    // Draw X cards, then exhaust X
     public int cardsToDraw = 4;
     public int cardsToExhaust = 1;
     private List<EntityType> validTargets = new List<EntityType>() {

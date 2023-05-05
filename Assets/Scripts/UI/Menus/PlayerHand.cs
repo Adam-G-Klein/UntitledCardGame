@@ -6,8 +6,6 @@ using TMPro;
 
 
 [ExecuteInEditMode]
-[RequireComponent(typeof(CardCastEventListener))]
-[RequireComponent(typeof(CardDealtEventListener))]
 [RequireComponent(typeof(TurnPhaseEventListener))]
 public class PlayerHand : GenericSingleton<PlayerHand>
 {
@@ -19,19 +17,22 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     [SerializeField]
     private RectTransform layoutGroup;
 
-    public void cardDealtEventHandler(CardsDealtEventInfo info){
+    public List<PlayableCard> dealCards(List<Card> cards, CombatEntityWithDeckInstance entityFrom) {
+        List<PlayableCard> cardsDelt = new List<PlayableCard>();
         PlayableCard newCard;
-        foreach(Card cardInfo in info.cards) {
+        foreach(Card cardInfo in cards) {
             newCard = PrefabInstantiator.instantiateCard(
                 cardPrefab, 
                 layoutGroup, 
                 cardInfo, 
-                info.entityFrom);
+                entityFrom);
             cardsInHand.Add(newCard);
+            cardsDelt.Add(newCard);
         }
+        return cardsDelt;
     }
 
-    public void cardCastEventHandler(CardCastEventInfo info){
+    public void cardCastEventHandler(CardCastEventInfo info) {
         PlayableCard cardToDiscard = null;
         foreach(PlayableCard card in cardsInHand) {
             if(card.card.id == info.cardInfo.id) {
@@ -43,13 +44,13 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         }
     }
 
-    public void turnPhaseChangedEventHandler(TurnPhaseEventInfo info){
+    public void turnPhaseChangedEventHandler(TurnPhaseEventInfo info) {
         if(info.newPhase == TurnPhase.END_PLAYER_TURN) {
             discardHand();
         }
     }
 
-    private void discardHand(){
+    private void discardHand() {
         List<PlayableCard> retainedCards = new List<PlayableCard>();
         foreach(PlayableCard card in cardsInHand) {
             if(card.retained) {
@@ -67,7 +68,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
 
     // Do not call on whole hand, only call on individual cards
     // modifies the list of cards in hand 
-    public void discardCard(PlayableCard card){
+    public void discardCard(PlayableCard card) {
         cardsInHand.Remove(card);
         Destroy(card.gameObject);
         card.discardFromDeck();
