@@ -15,7 +15,7 @@ public class PlayableCard : TargettableEntity
     , IPointerExitHandler
 {
     public Card card;
-    private CombatEntityWithDeckInstance entityFrom;
+    public CombatEntityWithDeckInstance entityFrom;
 
     [SerializeField]
     private float hoverScale = 1.5f;

@@ -34,9 +34,10 @@ public abstract class CombatEntityWithDeckInstance : CombatEntityInstance
         // hadn't been initialized by then
     }
 
-    public void dealCards(int numCards){
+    public List<PlayableCard> dealCards(int numCards){
         List<Card> cards = inCombatDeck.dealCardsFromDeck(numCards);
-        StartCoroutine(cardsDealtEvent.RaiseAtEndOfFrameCoroutine(new CardsDealtEventInfo(cards, this)));
+        // StartCoroutine(cardsDealtEvent.RaiseAtEndOfFrameCoroutine(new CardsDealtEventInfo(cards, this)));
+        return PlayerHand.Instance.dealCards(cards, this);
     }
     protected override void onDraw(int scale)
     {

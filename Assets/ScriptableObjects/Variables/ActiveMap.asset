@@ -15,6 +15,7 @@ MonoBehaviour:
   locked: 0
   Value:
     encounters:
+    - rid: 9024302311422820352
     - rid: 5669414078719459333
     - rid: 5669414078719459334
     - rid: 5669414078719459335
@@ -25,7 +26,7 @@ MonoBehaviour:
       type: {class: EnemyEncounter, ns: , asm: Assembly-CSharp}
       data:
         id: c9fa0043-3fe1-41c6-980a-a18a623a8983
-        isCompleted: 1
+        isCompleted: 0
         enemyList:
         - enemyType: {fileID: 11400000, guid: da0cdb6c0c9754d469d48629d5444b55, type: 2}
           currentHealth: 0
@@ -35,7 +36,7 @@ MonoBehaviour:
       type: {class: EnemyEncounter, ns: , asm: Assembly-CSharp}
       data:
         id: 5b41ed03-e1c3-4d52-9def-b6c28f865647
-        isCompleted: 1
+        isCompleted: 0
         enemyList:
         - enemyType: {fileID: 11400000, guid: 7c2078d2e4f72954c9d9a3335c755ab9, type: 2}
           currentHealth: 0
@@ -51,3 +52,12 @@ MonoBehaviour:
           currentHealth: 56
           maxHealth: 99
           id: testThug1
+    - rid: 9024302311422820352
+      type: {class: ShopEncounter, ns: , asm: Assembly-CSharp}
+      data:
+        id: 4ade28ec-f8d2-4797-89f0-e90785e31bcb
+        isCompleted: 0
+        generateEncounter: 0
+        shopData: {fileID: 0}
+        cardsInShop: []
+        keepsakesInShop: []
