@@ -32,6 +32,12 @@ public class TargettingArrowsController : GenericSingleton<TargettingArrowsContr
         }
     }
 
+    public void freezeArrow(TargettableEntity target) {
+        if(currentArrow != null) {
+            currentArrow.freeze(target.transform);
+        }
+    }
+
     public void uiStateChangeEventHandler(UIStateEventInfo info){
         // might have to update this if we want targetting arrows
         // to stay during card UI selection

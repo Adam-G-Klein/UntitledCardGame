@@ -21,7 +21,12 @@ public class EnemyIntent {
     public Dictionary<CombatEffect, int> combatEffects;
     public EnemyIntentType intentType;
 
-    public EnemyIntent(List<TargettableEntity> targets, float attackTime, Dictionary<CombatEffect, int> statusEffects, EnemyIntentType intentType, TargettableEntity attacker) {
+    public EnemyIntent(
+            List<TargettableEntity> targets,
+            float attackTime,
+            Dictionary<CombatEffect, int> statusEffects,
+            EnemyIntentType intentType,
+            TargettableEntity attacker) {
         this.targets = targets;
         this.attackTime = attackTime;
         this.combatEffects = statusEffects;
