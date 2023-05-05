@@ -21,7 +21,7 @@ public class CardDisplay : MonoBehaviour
     // Start is called before the first frame update
     void Update()
     {
-        runInEditMode = true;
+        // runInEditMode = true;
         CardName.text = cardInfo.name;
         CardDesc.text = cardInfo.description;
         CostText.text = cardInfo.cost.ToString();

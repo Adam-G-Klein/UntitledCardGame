@@ -276,6 +276,11 @@ MonoBehaviour:
   mapGenerator: {fileID: 11400000, guid: 90858ca28bf641e4d86221577a5a874b, type: 2}
   activeMapVariable: {fileID: 11400000, guid: 7e91f004ca90908449ef9a393cc677e0, type: 2}
   activeCompanionList: {fileID: 11400000, guid: 5aacade559de1c74491436053ef47d73, type: 2}
+  playerData: {fileID: 11400000, guid: 987a9f55256d63844a2b205199d32013, type: 2}
+  startingCompanions:
+  - {fileID: 11400000, guid: bb8900a5e0f2ab34a8c486d19dcef389, type: 2}
+  - {fileID: 11400000, guid: a388cdca9749764489c477a814a4dd5b, type: 2}
+  - {fileID: 11400000, guid: f64c62bd77fcea846a5c19bed998aeb6, type: 2}
 --- !u!114 &663117524
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -416,7 +421,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Go
+  m_text: Start
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -597,8 +602,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.0000076293945}
-  m_SizeDelta: {x: 596.84, y: 194.61}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 596.84, y: 213.59}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1717635512
 MonoBehaviour:

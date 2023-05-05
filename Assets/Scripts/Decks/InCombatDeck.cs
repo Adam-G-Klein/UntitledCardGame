@@ -33,6 +33,7 @@ public class InCombatDeck
     // have tried breaking this function up a couple times, 
     public List<Card> dealCardsFromDeck(int numCards, bool withReplacement = false){
         List<Card> returnList = new List<Card>();
+        shuffleDeck();
         for(int i = 0; i < numCards; i++){
             dealCardFromDeckToList(returnList, withReplacement, i);
         }
@@ -65,6 +66,21 @@ public class InCombatDeck
             toList.Add(card);
         }
     }
+
+    private void shuffleDeck() {
+         System.Random _random = new System.Random();
+         Card temp;
+ 
+         int n = drawPile.Count;
+         for (int i = 0; i < n; i++)
+         {
+             // NextDouble returns a random number between 0 and 1
+             int r = i + (int)(_random.NextDouble() * (n - i));
+             temp = drawPile[r];
+             drawPile[r] = drawPile[i];
+             drawPile[i] = temp;
+         }
+     }
 
     private void shuffleDiscardIntoDraw(){
         drawPile.AddRange(discardPile);

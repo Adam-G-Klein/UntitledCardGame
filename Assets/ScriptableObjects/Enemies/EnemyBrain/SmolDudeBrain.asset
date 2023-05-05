@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cedd9e2215b03944181b74e4ba2ae464, type: 3}
-  m_Name: debuffBrain
+  m_Name: SmolDudeBrain
   m_EditorClassIdentifier: 
   behaviors:
-  - rid: 2812361779766886402
+  - rid: 9024302272613711876
   sequentialBehaviors: 0
   nextBehaviorIndex: 0
   references:
     version: 2
     RefIds:
-    - rid: 2812361779766886402
-      type: {class: DebuffBehavior, ns: , asm: Assembly-CSharp}
+    - rid: 9024302272613711876
+      type: {class: SmallAttackBehavior, ns: , asm: Assembly-CSharp}
       data:
-        enemyBehaviorClassName: DebuffBehavior
+        enemyBehaviorClassName: SmallAttackBehavior

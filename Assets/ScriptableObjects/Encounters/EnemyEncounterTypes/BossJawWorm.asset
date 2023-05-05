@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24f95da87f612e047aaeac10756d2ec7, type: 3}
-  m_Name: EasyEnemyEncounterPool
+  m_Script: {fileID: 11500000, guid: 17a7027b6d1213c4fa7f5d4be961eaab, type: 3}
+  m_Name: BossJawWorm
   m_EditorClassIdentifier: 
-  enemyEncounterTypes:
-  - {fileID: 11400000, guid: 3ef66f88dd4a99747922c007e34eceda, type: 2}
-  - {fileID: 11400000, guid: c5fcfd26ba693a149985c5317f366bd5, type: 2}
+  enemies:
+  - {fileID: 11400000, guid: cdc84f13be66a7f46b78be14be7966a5, type: 2}

@@ -6,7 +6,8 @@ using UnityEditor;
 [CustomEditor(typeof(EnemyBrain))]
 public class EnemyBrainEditor : Editor {
 
-    string enemyBehaviorClassName = "DefaultEnemyBehavior";
+    EnemyBehaviorType behaviorType = EnemyBehaviorType.DefaultEnemyBehavior;
+    
     public override void OnInspectorGUI() {
         EnemyBrain enemyBrain = (EnemyBrain) target;
         DrawDefaultInspector();
@@ -15,13 +16,13 @@ public class EnemyBrainEditor : Editor {
         EditorGUILayout.LabelField("Enemy Behavior Controls");
         EditorGUILayout.Space(5);
 
-        enemyBehaviorClassName = EditorGUILayout.TextField(
-            "New procedure classname",
-            enemyBehaviorClassName);
+        behaviorType = (EnemyBehaviorType) EditorGUILayout.EnumPopup(
+            "New behavior classname",
+            behaviorType);
 
         if (GUILayout.Button("Add Enemy Behavior")) {
             EnemyBehavior newBehavior = InstantiateFromClassname.Instantiate<EnemyBehavior>(
-                enemyBehaviorClassName, 
+                behaviorType.ToString(), 
                 new object[] {});
 
             if(newBehavior == null) {

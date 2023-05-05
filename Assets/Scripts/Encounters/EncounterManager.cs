@@ -27,7 +27,7 @@ public class EncounterManager : MonoBehaviour
 
     public void endEncounterHandler(EndEncounterEventInfo info) {
         activeEncounterVariable.GetValue().isCompleted = true;
-        activePlayerDataVariable.GetValue().gold += 3;
+        activePlayerDataVariable.GetValue().gold += 5;
         activeMapVariable.GetValue().loadMapScene();
     }
 }

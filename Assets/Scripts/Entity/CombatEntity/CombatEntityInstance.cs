@@ -111,28 +111,39 @@ public abstract class CombatEntityInstance: TargettableEntity
         }
     }
 
-    protected int damageAfterDefense(int damage){
-        if(stats.statusEffects[StatusEffect.Invulnerability] > 0)
+    protected int damageAfterDefense(int damage) {
+        // Invulnerability removal is handled at end of turn
+        if (stats.statusEffects[StatusEffect.Invulnerability] > 0)
             return 0;
-        if(stats.statusEffects[StatusEffect.PlatedArmor] > damage) {
+        
+        if (stats.statusEffects[StatusEffect.PlatedArmor] > 0) {
+            // We have plated armor, so set damage and remove 1 armor
             damage = 0;
-        }
-        if(stats.statusEffects[StatusEffect.Defended] == 0) 
-            return damage;
-        stats.statusEffects[StatusEffect.Defended] -= damage;
-        if(stats.statusEffects[StatusEffect.Defended] < 0){
-            damage = -stats.statusEffects[StatusEffect.Defended];
-            stats.statusEffects[StatusEffect.Defended] = 0;
-        } else {
-            damage = 0;
-        }
-        if(damage > 0) {
             stats.statusEffects[StatusEffect.PlatedArmor] -= 1;
         }
+
+        // No block, so just taking full damage
+        if(stats.statusEffects[StatusEffect.Defended] == 0) 
+            return damage;
+        
+        if (stats.statusEffects[StatusEffect.Defended] > damage) {
+            Debug.Log(1);
+            stats.statusEffects[StatusEffect.Defended] -= damage;
+            damage = 0;
+        } else if (stats.statusEffects[StatusEffect.Defended] < damage) {
+            Debug.Log(2);
+            damage -= stats.statusEffects[StatusEffect.Defended];
+            stats.statusEffects[StatusEffect.Defended] = 0;
+        } else {
+            Debug.Log(3);
+            stats.statusEffects[StatusEffect.Defended] = 0;
+            damage = 0;
+        }
+
         return damage;
     }
 
-    //overridden by CombatEntityWithDeckInstance
+    // overridden by CombatEntityWithDeckInstance
     protected virtual void onDraw(int scale) {}
 
     // For effects that need to be updated every turn
@@ -141,7 +152,7 @@ public abstract class CombatEntityInstance: TargettableEntity
     // mapping if we want some effects to update at different times
 
     private void registerUpdateStatusEffects(){
-        TurnPhase updatePhase = entityType == EntityType.Enemy ? TurnPhase.END_ENEMY_TURN : TurnPhase.END_PLAYER_TURN;
+        TurnPhase updatePhase = entityType == EntityType.Enemy ? TurnPhase.END_PLAYER_TURN : TurnPhase.END_ENEMY_TURN;
         updateStatusTrigger = new TurnPhaseTrigger(updatePhase, updateStatusEffects());
         StartCoroutine(registerTurnPhaseTriggerEvent.RaiseAtEndOfFrameCoroutine(new TurnPhaseTriggerEventInfo(updateStatusTrigger)));
     }

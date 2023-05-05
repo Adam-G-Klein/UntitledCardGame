@@ -16,4 +16,8 @@ public class MapManager : MonoBehaviour
     public void encounterInitiateEventHandler(string encounterId) {
         activeMapVariable.GetValue().loadEncounterById(encounterId, activeEncounterVariable);
     }
+
+    public void exitGame() {
+        Application.Quit();
+    }
 }

@@ -6,11 +6,14 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Map/GenerateMap.unity
+    guid: 46b80017c922b29488fddffc0e23fa8a
+  - enabled: 1
+    path: Assets/Scenes/Map/Map.unity
+    guid: 9babd6ad42f5bef4bb1c7ff19e584a83
+  - enabled: 1
     path: Assets/Scenes/Encounters/PlaceholderEnemyEncounter.unity
     guid: 5e8679015a439d541a60ef72f16f9d00
-  - enabled: 1
-    path: Assets/Scenes/Loading/MapGenerationLoading.unity
-    guid: b35a95c2dca2e5c468c7d2437e4d9d2a
   - enabled: 1
     path: Assets/Scenes/Menus/StartMenu.unity
     guid: de78f280728a96342aaac27a22574663
@@ -26,7 +29,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Encounters/PlaceholderShopEncounter.unity
     guid: 9541a10b80d48b745b48a9e796d1381a
-  - enabled: 1
-    path: Assets/Scenes/Map/Map.unity
-    guid: 9babd6ad42f5bef4bb1c7ff19e584a83
   m_configObjects: {}
