@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   behaviors:
   - rid: 9024302272613711891
+  - rid: 9024302309370494984
   sequentialBehaviors: 0
   nextBehaviorIndex: 0
   references:
@@ -23,3 +24,8 @@ MonoBehaviour:
       type: {class: SmallAttackBehavior, ns: , asm: Assembly-CSharp}
       data:
         enemyBehaviorClassName: SmallAttackBehavior
+    - rid: 9024302309370494984
+      type: {class: DebuffBehavior, ns: , asm: Assembly-CSharp}
+      data:
+        enemyBehaviorClassName: DebuffBehavior
+        scale: 1
