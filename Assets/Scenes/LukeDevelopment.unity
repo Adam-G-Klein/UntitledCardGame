@@ -350,10 +350,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effects:
   - rid: 9024302209514864640
-  - rid: 9024302229368078336
-  - rid: 9024302229368078337
-  - rid: 9024302229368078339
-  - rid: 9024302229368078340
+  - rid: 9024302334433034241
+  - rid: 9024302334433034244
+  - rid: 9024302334433034240
   references:
     version: 2
     RefIds:
@@ -363,46 +362,37 @@ MonoBehaviour:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: 
-        validTargets: 02000000
+        outputKey: target
+        validTargets: 00000000
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
-    - rid: 9024302229368078336
-      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+    - rid: 9024302334433034240
+      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: DrawCards
-        inputKey: 
-        outputKey: 
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
-    - rid: 9024302229368078337
-      type: {class: ManaChange, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: ManaChange
+        effectStepName: AddCardsToDeck
+        inputKey: target
+        cardTypes: []
+        getCardsFromKey: 1
+        inputCardsKey: cards
         scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
-    - rid: 9024302229368078339
-      type: {class: SummonMinion, ns: , asm: Assembly-CSharp}
+    - rid: 9024302334433034241
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: SummonMinion
-        minionType: {fileID: 11400000, guid: acf491015f67b06468095238a670ef7b, type: 2}
-        inputKey: 
-        outputKey: 
+        effectStepName: DrawCards
+        inputKey: target
+        outputKey: drawnCards
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
-    - rid: 9024302229368078340
-      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+    - rid: 9024302334433034244
+      type: {class: ConvertPlayableCardToCard, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: ApplyStatus
-        inputKey: 
-        statusEffect: 0
-        scale: 0
-        getScaleFromKey: 0
-        inputScaleKey: 
+        effectStepName: ConvertPlayableCardToCard
+        inputKey: drawnCards
+        outputKey: cards
 --- !u!4 &484844188
 Transform:
   m_ObjectHideFlags: 0

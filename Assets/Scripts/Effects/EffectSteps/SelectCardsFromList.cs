@@ -20,6 +20,16 @@ public class SelectCardsFromList : EffectStep {
 
     public override IEnumerator invoke(EffectDocument document)
     {
+        if (!document.cardMap.containsValueWithKey(inputKey)) {
+            Debug.LogError("SelctCardsFromList EffectStep: InputKey " + inputKey +
+                " doesn't exist in the EffectDocument");
+            yield return null;
+        }
+
+        List<Card> cardOptions = document.cardMap.getList(inputKey);
+
+        // TODO: Use the list above and activate UI card selection
+
         yield return null;
     }
 }

@@ -25,6 +25,23 @@ public class EffectDocument
     
     public Dictionary<string, string> stringMap = new Dictionary<string, string>();
 
+    public List<CombatEntityInstance> getCombatEntityInstances(string key) {
+        List<CombatEntityInstance> returnList = new List<CombatEntityInstance>();
+        if (companionMap.containsValueWithKey(key)) {
+            returnList.AddRange(companionMap.getList(key));
+        }
+
+        if (minionMap.containsValueWithKey(key)) {
+            returnList.AddRange(minionMap.getList(key));
+        }
+
+        if (enemyMap.containsValueWithKey(key)) {
+            returnList.AddRange(enemyMap.getList(key));
+        }
+
+        return returnList;
+    }
+
     public List<CombatEntityWithDeckInstance> getCombatEntitiesWithDeckInstance(string key) {
         List<CombatEntityWithDeckInstance> returnList = new List<CombatEntityWithDeckInstance>();
         if (companionMap.containsValueWithKey(key)) {
