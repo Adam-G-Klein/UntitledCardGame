@@ -7,7 +7,11 @@ public enum EffectStepName {
     SummonMinion,
     DrawCards,
     ManaChange,
-    ApplyStatus
+    ApplyStatus,
+    SelectCardsFromList,
+    AddCardsToDeck,
+    ConvertPlayableCardToCard,
+    PermanentStatIncrease
 }
 
 [System.Serializable]

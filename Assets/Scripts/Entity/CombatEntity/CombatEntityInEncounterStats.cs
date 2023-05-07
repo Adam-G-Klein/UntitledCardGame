@@ -21,7 +21,7 @@ public class CombatEntityInEncounterStats
 
     // The encounter-specific values that 
     // this class is solely responsible for tracking
-    public static Dictionary<StatusEffect, int> initialStatusEffects = new Dictionary<StatusEffect, int>(){
+    public static Dictionary<StatusEffect, int> initialStatusEffects = new Dictionary<StatusEffect, int>() {
         {StatusEffect.Strength, 0},
         {StatusEffect.Weakness, 0},
         {StatusEffect.Defended, 0},
