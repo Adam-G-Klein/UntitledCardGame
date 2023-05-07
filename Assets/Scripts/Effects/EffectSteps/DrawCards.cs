@@ -6,7 +6,7 @@ using UnityEngine;
     The effect that causes the player to draw from one or multiple decks
 
     Input: One or more entities with a deck (companion or minion)
-    Output: Stores the cards that were delt
+    Output: Stores the cards that were delt (as PlayableCard)
     Parameters:
         - Scale: The fixed scale if GetScaleFromKey is not enabled
         - GetScaleFromKey: If checked, the scale will be pulled from a previous step
@@ -36,9 +36,11 @@ public class DrawCards : EffectStep
         if (getScaleFromKey && document.intMap.ContainsKey(inputScaleKey)) {
             finalScale = document.intMap[inputScaleKey];
         }
+        List<PlayableCard> cardsDelt = new List<PlayableCard>();
         foreach (CombatEntityWithDeckInstance instance in instances) {
-            instance.dealCards(finalScale);
+            cardsDelt.AddRange(instance.dealCards(finalScale));
         }
+        document.playableCardMap.addItems(outputKey, cardsDelt);
         yield return null;
     }
 }

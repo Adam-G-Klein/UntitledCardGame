@@ -103,13 +103,13 @@ public class TargettingManager : GenericSingleton<TargettingManager>
         if (!validTargets.Contains(target.entityType)) return;
 
         // Check if we only want to pick from a specific list of targets
-        if (specificTargetOptions == null) {
-            return;
-        } else if (!specificTargetOptions.Contains(target)) {
+        if (specificTargetOptions != null && !specificTargetOptions.Contains(target)) {
             return;
         }
 
         // Passed above checks, so we're good to set the target
+        Debug.Log(target);
+        Debug.Log(targetList);
         targetList.Add(target);
         TargettingArrowsController.Instance.freezeArrow(target);
 
