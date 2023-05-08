@@ -10,10 +10,29 @@ public class EnemyEncounter : Encounter
     private EncounterConstantsSO encounterConstants;
     // Just going to hardcode these here for now, will figure this out later
     private static List<Vector3> COMPANION_LOCATIONS = new List<Vector3>() {
-        new Vector3(-4, -2, 0),
+        new Vector3(-4, 0.5f, 0),
+        new Vector3(-4, -1f, 0),
+        new Vector3(-7.5f, 0.5f, 0),
+        new Vector3(-7.5f, -1f, 0),
+        new Vector3(-1f, 0.5f, 0),
+        new Vector3(-1f, -1f, 0),
+        new Vector3(-4, -2f, 0),
+        new Vector3(-7.5f, -2f, 0)
+        /*
         new Vector3(-3, 0.5f, 0),
+        new Vector3(-3, 0.5f, 0),
+        new Vector3(-3, 0.5f, 0),
+        new Vector3(-3, 0.5f, 0),
+        new Vector3(-3, 0.5f, 0),
+        new Vector3(-3, 0.5f, 0),
+        new Vector3(-3, 0.5f, 0),
+        new Vector3(-3, 0.5f, 0),
+        new Vector3(-3, 0.5f, 0),
+        new Vector3(-3, 0.5f, 0),
+        new Vector3(-4, -2, 0),
         new Vector3(-6, 0, 0),
         new Vector3(-5, 0, 0)
+        */
     };
 
     private static List<Vector3> ENEMY_LOCATIONS = new List<Vector3>() {

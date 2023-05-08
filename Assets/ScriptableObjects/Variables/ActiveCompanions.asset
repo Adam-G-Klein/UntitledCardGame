@@ -91,8 +91,77 @@ MonoBehaviour:
     abilities:
     - rid: 4472866491299004432
     id: a54705d9-ead8-4192-a42e-8a538df13de6
+  - companionType: {fileID: 11400000, guid: a388cdca9749764489c477a814a4dd5b, type: 2}
+    maxHealth: 20
+    currentHealth: 20
+    deck:
+      startingDeck: {fileID: 11400000, guid: 539df5bf5b9a2cf498d76437062d3987, type: 2}
+      cards:
+      - cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
+        id: 55f8bc62-7c03-4ffe-a09f-6d84405d05b8
+      - cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
+        id: 3227d838-280f-41b1-a7ec-8f8c409c3f4e
+      - cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
+        id: c61a410f-9237-4fb0-9da9-129b0c483bb8
+      - cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
+        id: dbe69b93-bb1e-4d83-873e-254750583fc6
+      - cardType: {fileID: 11400000, guid: 3fe89f2c7b366cb46b2bbe3f4e462aa5, type: 2}
+        id: fe548da6-3ea0-4be3-bb2a-78ebaad93dae
+    baseAttackDamage: 0
+    abilities:
+    - rid: 6081791525480824832
+    id: 718cc7c0-a024-4406-9a78-f6bdc0ff2a4f
+  - companionType: {fileID: 11400000, guid: af270a8bf55a86547941d6065eb02679, type: 2}
+    maxHealth: 999
+    currentHealth: 999
+    deck:
+      startingDeck: {fileID: 11400000, guid: bb2dd24e7cac49440ac4e14129eec39c, type: 2}
+      cards:
+      - cardType: {fileID: 11400000, guid: 9b0feee7c8820b6419129508051d6f08, type: 2}
+        id: 463075b9-b21e-41b4-b4e9-8138ea90ecdd
+      - cardType: {fileID: 11400000, guid: 9b0feee7c8820b6419129508051d6f08, type: 2}
+        id: 15265474-477a-42d5-80ba-d9d97be86d9e
+      - cardType: {fileID: 11400000, guid: 9b0feee7c8820b6419129508051d6f08, type: 2}
+        id: 7b35a24f-45e7-408b-8ebe-d64a2f4bd3ca
+      - cardType: {fileID: 11400000, guid: 70fd57aa1f3fcb049a3725fd9b8474af, type: 2}
+        id: b8d190d8-8098-40ef-a968-2881e067ba8c
+    baseAttackDamage: 0
+    abilities:
+    - rid: 6081791525480824833
+    id: 0278cad8-6ad8-4f29-9ba7-bd566489fd24
+  - companionType: {fileID: 11400000, guid: c106de03c6bb3ab4e952724e5e4a073c, type: 2}
+    maxHealth: 20
+    currentHealth: 20
+    deck:
+      startingDeck: {fileID: 11400000, guid: 1e6712d15d797514aa606a6a0d84a059, type: 2}
+      cards:
+      - cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
+        id: 2b1df182-986d-4faa-97dd-4054bf4c1227
+      - cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
+        id: b826f939-ab26-4a92-b023-898490296bfb
+      - cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
+        id: 9698c354-bc3e-4f52-96bf-65416464e10f
+      - cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
+        id: eabcda2b-a9ae-4d5e-9d4b-0208b22607fd
+      - cardType: {fileID: 11400000, guid: af631239de690bd4f9c3504152e145d7, type: 2}
+        id: 2c1ac4db-55f9-48f2-bafc-0c55d3ef2496
+    baseAttackDamage: 0
+    abilities:
+    - rid: 6081791525480824834
+    id: d683bc04-3521-40a5-a017-9057bcac7070
+  - companionType: {fileID: 11400000, guid: 4960e72dbf9348c4bb2ab009998bd02a, type: 2}
+    maxHealth: 20
+    currentHealth: 20
+    deck:
+      startingDeck: {fileID: 11400000, guid: f7a0ec0e3675bf547ad5338f4f36b0e7, type: 2}
+      cards:
+      - cardType: {fileID: 11400000, guid: f81164c1e256fb340b76c150339e4004, type: 2}
+        id: ab34fbba-adac-4fb5-9efd-fca4aeac68e5
+    baseAttackDamage: 0
+    abilities: []
+    id: f4a7b96e-8823-4ae0-bf3b-c93d85cc3a01
   companionBench: []
-  currentCompanionSlots: 3
+  currentCompanionSlots: 8
   references:
     version: 2
     RefIds:
@@ -114,3 +183,15 @@ MonoBehaviour:
         abilityName: GrotesqueETB
         numMinions: 1
         minionType: {fileID: 11400000, guid: acf491015f67b06468095238a670ef7b, type: 2}
+    - rid: 6081791525480824832
+      type: {class: GainBaseAttackDamageOnDeath, ns: , asm: Assembly-CSharp}
+      data:
+        abilityName: GainBaseStrengthOnDeath
+    - rid: 6081791525480824833
+      type: {class: RetainCards, ns: , asm: Assembly-CSharp}
+      data:
+        abilityName: Retain Cards
+    - rid: 6081791525480824834
+      type: {class: RetainCards, ns: , asm: Assembly-CSharp}
+      data:
+        abilityName: RetainCards
