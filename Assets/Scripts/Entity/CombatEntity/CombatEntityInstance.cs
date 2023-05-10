@@ -71,6 +71,11 @@ public abstract class CombatEntityInstance: TargettableEntity
         if(!info.targets.Contains(this)) return;
         applyCombatEffects(info.combatEffects, info.effector);
     }
+
+    public void applyStatusEffects(StatusEffect statusEffect, int scale) {
+        stats.statusEffects[statusEffect] += scale;
+    }
+
     protected void applyCombatEffects(Dictionary<CombatEffect, int> effects, CombatEntityInstance effector){
         Debug.Log("Applying combat effects for " + this.id);
         CombatEffectEvent.applyCombatEffectStatuses(effects, stats.statusEffects);
@@ -79,7 +84,7 @@ public abstract class CombatEntityInstance: TargettableEntity
         }
     }
     
-    protected void applyNonStatusCombatEffect(CombatEffect effect, int scale, CombatEntityInstance effector){
+    public void applyNonStatusCombatEffect(CombatEffect effect, int scale, CombatEntityInstance effector) {
         // All the non-status-effect combat effects are handled here
         // status effects are handled in applyCombatEffects
         switch(effect) {
@@ -111,7 +116,7 @@ public abstract class CombatEntityInstance: TargettableEntity
         }
     }
 
-    protected int damageAfterDefense(int damage){
+    protected int damageAfterDefense(int damage) {
         if(stats.statusEffects[StatusEffect.Invulnerability] > 0)
             return 0;
         if(stats.statusEffects[StatusEffect.PlatedArmor] > damage) {
@@ -132,7 +137,7 @@ public abstract class CombatEntityInstance: TargettableEntity
         return damage;
     }
 
-    //overridden by CombatEntityWithDeckInstance
+    // overridden by CombatEntityWithDeckInstance
     protected virtual void onDraw(int scale) {}
 
     // For effects that need to be updated every turn
