@@ -140,7 +140,7 @@ public class PlayableCard : TargettableEntity
             applyCardEffect(effect.Key, effect.Value);
         }
     }
-    private void applyCardEffect(CardEffect effect, int value) {
+    public void applyCardEffect(CardEffect effect, int value) {
         switch(effect) {
             case CardEffect.Discard:
                 PlayerHand.Instance.discardCard(this);
@@ -148,9 +148,18 @@ public class PlayableCard : TargettableEntity
         }
     }
 
+    public void discardCardFromHand() {
+        PlayerHand.Instance.discardCard(this);
+    }
+
+    public void exhaustCard() {
+        entityFrom.inCombatDeck.exhaustCard(card);
+        Destroy(this);
+    }
+
     // Called by playerHand.discardCard
     public void discardFromDeck() {
-        entityFrom.inCombatDeck.discardCards(new List<Card>{card});
+        entityFrom.inCombatDeck.discardCards(new List<Card> { card });
     }
 
     // Keeping these here for reference as they will almost certainly

@@ -74,6 +74,11 @@ public abstract class CombatEntityInstance: TargettableEntity
         if(!info.targets.Contains(this)) return;
         applyCombatEffects(info.combatEffects, info.effector);
     }
+
+    public void applyStatusEffects(StatusEffect statusEffect, int scale) {
+        stats.statusEffects[statusEffect] += scale;
+    }
+
     protected void applyCombatEffects(Dictionary<CombatEffect, int> effects, CombatEntityInstance effector){
         Debug.Log("Applying combat effects for " + this.id);
         CombatEffectEvent.applyCombatEffectStatuses(effects, stats.statusEffects);
@@ -82,7 +87,7 @@ public abstract class CombatEntityInstance: TargettableEntity
         }
     }
     
-    protected void applyNonStatusCombatEffect(CombatEffect effect, int scale, CombatEntityInstance effector){
+    public void applyNonStatusCombatEffect(CombatEffect effect, int scale, CombatEntityInstance effector) {
         // All the non-status-effect combat effects are handled here
         // status effects are handled in applyCombatEffects
         switch(effect) {

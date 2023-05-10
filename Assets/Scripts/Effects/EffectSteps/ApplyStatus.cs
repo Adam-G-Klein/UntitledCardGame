@@ -3,7 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /*
-    Unimplemented
+    Effect that adds a status of some kind to an entity
+
+    Input: Entity to add the status to
+    Output: NA
+    Parameters:
+        - StatusEffect: The status effect to add to the entity
+        - Scale: The fixed scale if GetScaleFromKey is not enabled
+        - GetScaleFromKey: If checked, the scale will be pulled from a previous step
+        - InputScaleKey: The key from which to pull the scale integer from
 */
 public class ApplyStatus : EffectStep
 {
@@ -26,8 +34,22 @@ public class ApplyStatus : EffectStep
         effectStepName = "ApplyStatus";
     }
 
-    public override IEnumerator invoke(EffectDocument document)
-    {
+    public override IEnumerator invoke(EffectDocument document) {
+        List<CombatEntityInstance> entities = document.getCombatEntityInstances(inputKey);
+        if (entities.Count == 0) {
+            Debug.LogError("ApplyStatus Effect: No input targets present for key " + inputKey);
+            yield return null;
+        }
+
+        // Setup the scale
+        int finalScale = scale;
+        if (getScaleFromKey && document.intMap.ContainsKey(inputScaleKey)) {
+            finalScale = document.intMap[inputScaleKey];
+        }
+
+        foreach (CombatEntityInstance entity in entities) {
+            entity.applyStatusEffects(statusEffect, finalScale);
+        }
         yield return null;
     }
 }
