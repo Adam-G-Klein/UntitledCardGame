@@ -11,7 +11,9 @@ public enum EffectStepName {
     SelectCardsFromList,
     AddCardsToDeck,
     ConvertPlayableCardToCard,
-    PermanentStatIncrease
+    PermanentStatIncrease,
+    CombatEffectStep,
+    CardInHandEffect,
 }
 
 [System.Serializable]
