@@ -31,8 +31,8 @@ public class Bellows: EffectProcedure {
         CardSelectionManager.Instance.cardSelectionRequestHandler(
             new CardSelectionRequestEventInfo(
                 cards,
-                CardEffect.Exhaust,
-                CardEffect.AddToHand,
+                CardEffectType.Exhaust,
+                CardEffectType.AddToHand,
                 cardsToExhaust,
                 cardsToExhaust));
         yield return null;

@@ -45,6 +45,10 @@ public class SummonMinion : EffectStep
         }
 
         List<CompanionInstance> companions = document.companionMap.getList(inputKey);
+        if (companions.Count == 0) {
+            EffectError("No valid input targets under key " + inputKey);
+            yield return null;
+        }
         List<MinionInstance> summonedMinions = new List<MinionInstance>();
 
         // No idea why we'd want multiple companions to get minions summoned at once

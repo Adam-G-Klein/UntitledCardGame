@@ -3,21 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /*
-    Effect that adds card(s) to a deck
+    Effect that adds card(s) to the player hand
 
-    Input: One or more entities with a deck (companion or minion)
+    Input: Using EntityFromKey, an entity that is set as the card's origin entity
     Output: NA
     Parameters:
         - CardTypes: List of card types to add to deck if GetCardsFromKey is unchecked
-        - GetCardsFromKey: If checked, uses cards from input docoument to add to a deck(s)
+        - GetCardsFromKey: If checked, uses cards from input docoument to add to the hand
         - InputCardsKey: The key to get the card(s) from when GetCardsFromKey is checked
         - Scale: The fixed scale if GetScaleFromKey is not enabled
         - GetScaleFromKey: If checked, the scale will be pulled from a previous step
         - InputScaleKey: The key from which to pull the scale integer from
 */
-public class AddCardsToDeck : EffectStep {
+public class AddCardsToHand : EffectStep {
     [SerializeField]
-    private string inputKey = "";
+    private string entityFromKey = "";
     [SerializeField]
     private List<CardType> cardTypes;
     [SerializeField]
@@ -31,19 +31,20 @@ public class AddCardsToDeck : EffectStep {
     [SerializeField]
     private string inputScaleKey = "";
 
-    public AddCardsToDeck() {
-        effectStepName = "AddCardsToDeck";
+    public AddCardsToHand() {
+        effectStepName = "AddCardsToHand";
     }
 
     public override IEnumerator invoke(EffectDocument document) {
-        // Check for valid entity with deck target(s)
+        // Check for valid entity target
         List<CombatEntityWithDeckInstance> entities = 
-            document.getCombatEntitiesWithDeckInstance(inputKey);
-        if (entities.Count == 0) {
-            EffectError("No valid inputs for adding card to deck");
+            document.getCombatEntitiesWithDeckInstance(entityFromKey);
+        if (entities.Count == 0 || entities.Count > 1) {
+            EffectError("Either no valid target or " + 
+                "too many valid targets to use as entity from for Card");
             yield return null;
         }
-
+        
         // Setup list of card types to add to the target(s)
         List<CardType> cardTypesToAdd = new List<CardType>();
         if (getCardsFromKey) {
@@ -66,23 +67,21 @@ public class AddCardsToDeck : EffectStep {
         }
 
         // Add the cards
-        addCardsToEntities(entities, cardTypesToAdd, finalScale);
+        addCardsToHand(cardTypesToAdd, finalScale, entities[0]);
 
         yield return null;
     }
 
-    private void addCardsToEntities(
-            List<CombatEntityWithDeckInstance> entities,
-            List<CardType> cardTypes,
-            int scale) {
-        foreach (CombatEntityWithDeckInstance entity in entities) {
-            for (int i = 0; i < scale; i++) {
-                List<Card> cards = new List<Card>();
-                foreach (CardType cardType in cardTypes) {
-                    cards.Add(new Card(cardType));
-                }
-                entity.inCombatDeck.shuffleIntoDraw(cards);
+    private void addCardsToHand(
+        List<CardType> cardTypes,
+        int scale,
+        CombatEntityWithDeckInstance entityFrom) {
+        for (int i = 0; i < scale; i++) {
+            List<Card> cards = new List<Card>();
+            foreach (CardType cardType in cardTypes) {
+                cards.Add(new Card(cardType));
             }
+            PlayerHand.Instance.dealCards(cards, entityFrom);
         }
     }
 }

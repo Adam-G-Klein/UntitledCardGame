@@ -33,8 +33,8 @@ public class PurifyingInferno: EffectProcedure {
         TargettingManager.Instance.raiseCardSelectionRequest(
             new CardSelectionRequestEventInfo(
                 cards,
-                CardEffect.AddToHand,
-                CardEffect.Exhaust,
+                CardEffectType.AddToHand,
+                CardEffectType.Exhaust,
                 cardsToChoose,
                 cardsToChoose));
         yield return null;

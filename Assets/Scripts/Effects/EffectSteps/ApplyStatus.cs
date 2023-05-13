@@ -37,7 +37,7 @@ public class ApplyStatus : EffectStep
     public override IEnumerator invoke(EffectDocument document) {
         List<CombatEntityInstance> entities = document.getCombatEntityInstances(inputKey);
         if (entities.Count == 0) {
-            Debug.LogError("ApplyStatus Effect: No input targets present for key " + inputKey);
+            EffectError("No input targets present for key " + inputKey);
             yield return null;
         }
 

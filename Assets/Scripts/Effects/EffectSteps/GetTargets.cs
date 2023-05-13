@@ -115,13 +115,13 @@ public class GetTargets : EffectStep
             return playableCard;
         }
 
-        Debug.LogError("GetTargets EffectStep: Origin entity was not specified");
+        EffectError("Origin entity was not specified");
         return null;
     }
 
     public void addOriginCardEntityFromToDocument(EffectDocument document) {
         if (document.originEntityType != EntityType.PlayableCard) {
-            Debug.LogError("GetTargets EffectStep: TargetCompanionThatDeltCard" +
+            EffectError("TargetCompanionThatDeltCard" +
                 " rule set, but origin of effect isn't a PlayableCard");
             return;
         }
@@ -141,7 +141,7 @@ public class GetTargets : EffectStep
 
     public void addSelfToDocument(EffectDocument document) {
         if (document.originEntityType == EntityType.Unknown) {
-            Debug.LogError("GetTargets EffectStep: TargetSelf rule checked but" +
+            EffectError("TargetSelf rule checked but" +
                 " the origin entity was not specified");
             return;
         }
