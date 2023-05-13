@@ -6,13 +6,13 @@ public class CardSelectionRequestEventInfo {
     public List<Card> cards;
     public int minSelections;
     public int maxSelections;
-    public CardEffect selectedAction;
-    public CardEffect unselectedAction;
+    public CardEffectType selectedAction;
+    public CardEffectType unselectedAction;
 
     public CardSelectionRequestEventInfo(
             List<Card> cards,
-            CardEffect selectedAction,
-            CardEffect unselectedAction,
+            CardEffectType selectedAction,
+            CardEffectType unselectedAction,
             int minSelections = 0,
             int maxSelections = int.MaxValue) {
         this.cards = cards;

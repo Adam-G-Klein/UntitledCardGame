@@ -98,7 +98,7 @@ public class CompanionAbilityInvoker : TargetProvider
     // delete it :)
     public void cardEffectHandler(CardEffectEventInfo eventInfo)
     {
-        if(eventInfo.cardEffects.ContainsKey(CardEffect.Purge))
+        if(eventInfo.cardEffects.ContainsKey(CardEffectType.Purge))
         {
             foreach (CompanionAbility ability in abilities)
             {

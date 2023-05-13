@@ -23,7 +23,7 @@ public class PurgeCardOnEncounterEnd : CompanionAbility {
         context.invoker.requestTarget(new List<EntityType> { EntityType.Companion}, this);
         yield return new WaitUntil(() => currentTargets.Count > 0);
         CompanionInstance target = (CompanionInstance) currentTargets[0];
-        context.invoker.raiseCardSelectionRequest(new CardSelectionRequestEventInfo(target.inCombatDeck.getAllCards(), CardEffect.Purge, CardEffect.Discard, 1, 1));
+        context.invoker.raiseCardSelectionRequest(new CardSelectionRequestEventInfo(target.inCombatDeck.getAllCards(), CardEffectType.Purge, CardEffectType.Discard, 1, 1));
         currentTargets.Clear();
         // hack: invoker will give us a dummy target when the selection is complete
         yield return new WaitUntil(() => currentTargets.Count > 0);

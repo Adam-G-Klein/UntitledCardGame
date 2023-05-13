@@ -74,6 +74,18 @@ public class EffectDocument
         }
     }
 
+    public void printIntMap() {
+        foreach (KeyValuePair<string, int> pair in intMap) {
+            Debug.Log("Key: " + pair.Key + "\nvalue: " + pair.Value);
+        }
+    }
+
+    public void printStringMap() {
+        foreach (KeyValuePair<string, string> pair in stringMap) {
+            Debug.Log("Key: " + pair.Key + "\nvalue: " + pair.Value);
+        }
+    }
+
     public class ListMap<T> {
         public Dictionary<string, List<T>> dict = new Dictionary<string, List<T>>();
 
@@ -116,6 +128,12 @@ public class EffectDocument
                 return true;
             }
             return false;
+        }
+
+        public void printDictionary() {
+            foreach (KeyValuePair<string, List<T>> pair in dict) {
+                Debug.Log("Key: " + pair.Key + "\nvalue: " + pair.Value);
+            }
         }
     }
 }

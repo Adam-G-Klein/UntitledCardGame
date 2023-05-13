@@ -29,7 +29,7 @@ public class ConvertPlayableCardToCard : EffectStep
 
     public override IEnumerator invoke(EffectDocument document) {
         if (!document.playableCardMap.containsValueWithKey(inputKey)) {
-            Debug.LogError("ConvertPlayableCardToCard Effect: No value under InputKey " + inputKey);
+            EffectError("No value under InputKey " + inputKey);
             yield return null;
         }
         List<PlayableCard> playableCards = document.playableCardMap.getList(inputKey);

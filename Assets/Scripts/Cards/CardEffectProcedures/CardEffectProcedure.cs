@@ -6,7 +6,7 @@ using UnityEngine;
 public class CardEffectProcedure: EffectProcedure {
     // Causes the whole class to serialize differently if this field 
     // has a default value. *shrug*
-    public CardEffect effectName;
+    public CardEffectType effectName;
     public int baseScale = 0;
     public bool targetAllValidTargets = false;
     public bool requiresUniqueTarget = false;
@@ -38,7 +38,7 @@ public class CardEffectProcedure: EffectProcedure {
     {
         TargettingManager.Instance.raiseCardEffect(
             new CardEffectEventInfo(
-                new Dictionary<CardEffect, int> {
+                new Dictionary<CardEffectType, int> {
                     {effectName, baseScale}
                 },
                 currentTargets

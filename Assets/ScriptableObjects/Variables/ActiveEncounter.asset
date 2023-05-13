@@ -14,25 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   locked: 0
   Value:
-    rid: 4472866491299004423
+    rid: 9024302470308298753
   references:
     version: 2
     RefIds:
-    - rid: 4472866491299004423
+    - rid: 9024302470308298753
       type: {class: EnemyEncounter, ns: , asm: Assembly-CSharp}
       data:
-        id: 86f60ffa-9316-4e3e-bc44-8ca5eb33fd24
+        id: 326b78bc-0231-4d6d-939f-186b35041f80
         isCompleted: 0
         enemyList:
-        - enemyType: {fileID: 11400000, guid: 3f595268355432347aef2000672bce6d, type: 2}
+        - enemyType: {fileID: 11400000, guid: da0cdb6c0c9754d469d48629d5444b55, type: 2}
           currentHealth: 1
           maxHealth: 1
-          id: LUKE
-        - enemyType: {fileID: 11400000, guid: 3f595268355432347aef2000672bce6d, type: 2}
-          currentHealth: 1
-          maxHealth: 1
-          id: DO YOU MIND
-        - enemyType: {fileID: 11400000, guid: 3f595268355432347aef2000672bce6d, type: 2}
-          currentHealth: 1
-          maxHealth: 1
-          id: GOBLIN
+          id: mind

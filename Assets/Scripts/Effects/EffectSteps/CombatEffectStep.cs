@@ -34,7 +34,7 @@ public class CombatEffectStep : EffectStep
     public override IEnumerator invoke(EffectDocument document) {
         List<CombatEntityInstance> entities = document.getCombatEntityInstances(inputKey);
         if (entities.Count == 0) {
-            Debug.LogError("Damage Effect: No input targets present for key " + inputKey);
+            EffectError("No input targets present for key " + inputKey);
             yield return null;
         }
 
@@ -48,7 +48,7 @@ public class CombatEffectStep : EffectStep
         } else if (document.companionMap.containsValueWithKey(EffectDocument.ORIGIN)) {
             origin = document.companionMap.getItem(EffectDocument.ORIGIN, 0);
         } else {
-            Debug.LogError("Damage Effect: No origin set in EffectDocument to pull stats from");
+            EffectError("No origin set in EffectDocument to pull stats from");
             yield return null;
         }
 

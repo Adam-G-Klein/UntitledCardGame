@@ -32,6 +32,11 @@ public class DrawCards : EffectStep
     public override IEnumerator invoke(EffectDocument document) {
         List<CombatEntityWithDeckInstance> instances = 
             document.getCombatEntitiesWithDeckInstance(inputKey);
+        if (instances.Count == 0) {
+            EffectError("No valid entities with deck under InputKey " + inputKey);
+            yield return null;
+        }
+        
         int finalScale = scale;
         if (getScaleFromKey && document.intMap.ContainsKey(inputScaleKey)) {
             finalScale = document.intMap[inputScaleKey];
