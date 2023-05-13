@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
 
-public enum CardEffect {
+public enum CardEffectType {
     // Anything else that can be done to cards will go here
     Discard,
     // Uses the enumUtils to generate a nice description when displaying the action
@@ -17,11 +17,11 @@ public enum CardEffect {
 [System.Serializable]
 public class CardEffectEventInfo {
     // in case we want to add a buff effect in the future
-    public Dictionary<CardEffect, int> cardEffects;
+    public Dictionary<CardEffectType, int> cardEffects;
     public List<Card> cards;
     public List<TargettableEntity> targets;
 
-    public CardEffectEventInfo(Dictionary<CardEffect, int> cardEffects, List<TargettableEntity> targets = null, List<Card> cards = null) {
+    public CardEffectEventInfo(Dictionary<CardEffectType, int> cardEffects, List<TargettableEntity> targets = null, List<Card> cards = null) {
         this.cardEffects = cardEffects;
         this.targets = targets;
         this.cards = cards;

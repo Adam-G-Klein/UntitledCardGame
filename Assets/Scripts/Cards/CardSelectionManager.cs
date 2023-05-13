@@ -25,8 +25,8 @@ public class CardSelectionManager: GenericSingleton<CardSelectionManager> {
     private List<Card> unselectedCards = new List<Card>();
     private int currentMinSelection = 0;
     private int currentMaxSelection = 0;
-    private CardEffect currentSelectedAction;
-    private CardEffect currentUnselectedAction;
+    private CardEffectType currentSelectedAction;
+    private CardEffectType currentUnselectedAction;
     
 
     public void cardSelectedEventHandler(CardListEventInfo info){
@@ -56,7 +56,7 @@ public class CardSelectionManager: GenericSingleton<CardSelectionManager> {
         resetSelectionState();
     }
 
-    public void applyCardAction(Card card, CardEffect action) {
+    public void applyCardAction(Card card, CardEffectType action) {
         // this function might get more complicated in the future if 
         // any of the actions aren't just handled by the listeners on 
         // the entity that owns the card
@@ -64,10 +64,10 @@ public class CardSelectionManager: GenericSingleton<CardSelectionManager> {
         raiseCardEffect(card, action);
     }
 
-    private void raiseCardEffect(Card card, CardEffect action) {
+    private void raiseCardEffect(Card card, CardEffectType action) {
         StartCoroutine(cardEffectEvent.RaiseAtEndOfFrameCoroutine(
             new CardEffectEventInfo(
-                new Dictionary<CardEffect, int>(){ {action, 1} }, 
+                new Dictionary<CardEffectType, int>(){ {action, 1} }, 
                 null, 
                 new List<Card>(){card})));
     }
@@ -85,7 +85,7 @@ public class CardSelectionManager: GenericSingleton<CardSelectionManager> {
         StartCoroutine(effectTargetRequestEvent.RaiseAtEndOfFrameCoroutine(new EffectTargetRequestEventInfo(new List<EntityType>(){EntityType.UICard})));
     }
 
-    private void displayCardGroup(List<Card> cards, CardEffect selectedAction, int minSelections) {
+    private void displayCardGroup(List<Card> cards, CardEffectType selectedAction, int minSelections) {
         GameObject cardSelectionUI = Instantiate(cardSelectionUIPrefab);
         CardViewUI cardViewUI = cardSelectionUI.GetComponent<CardViewUI>();
         TextMeshProUGUI prompt = cardSelectionUI.GetComponentInChildren<TextMeshProUGUI>();
@@ -111,8 +111,8 @@ public class CardSelectionManager: GenericSingleton<CardSelectionManager> {
         unselectedCards.Clear();
         this.currentMinSelection = 0;
         this.currentMaxSelection = int.MaxValue;
-        this.currentSelectedAction = CardEffect.Discard;
-        this.currentUnselectedAction = CardEffect.Discard;
+        this.currentSelectedAction = CardEffectType.Discard;
+        this.currentUnselectedAction = CardEffectType.Discard;
     }
 
 

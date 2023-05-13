@@ -36,7 +36,7 @@ public class PermanentStatIncrease : EffectStep {
     public override IEnumerator invoke(EffectDocument document) {
         List<CombatEntityInstance> entities = document.getCombatEntityInstances(inputKey);
         if (entities.Count == 0) {
-            Debug.LogError("PermanentStatIncrease Effect: No valid inputs for increasing stats");
+            EffectError("No valid inputs for increasing stats");
             yield return null;
         }
 
@@ -55,7 +55,7 @@ public class PermanentStatIncrease : EffectStep {
             break;
 
             default:
-                Debug.LogError("PermanentStatIncrease Effect: StatIncreaseType " + statIncreaseType + 
+                EffectError("StatIncreaseType " + statIncreaseType + 
                     " not yet supported");
             break;
         }

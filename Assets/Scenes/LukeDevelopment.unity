@@ -350,7 +350,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effects:
   - rid: 9024302209514864640
-  - rid: 9024302334433034249
+  - rid: 9024302470308298754
+  - rid: 9024302470308298755
+  - rid: 9024302470308298756
   references:
     version: 2
     RefIds:
@@ -365,15 +367,32 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
-    - rid: 9024302334433034249
-      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+    - rid: 9024302470308298754
+      type: {class: GetCardsFromDeck, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: ApplyStatus
+        effectStepName: GetCardsFromDeck
         inputKey: target
-        statusEffect: 5
-        scale: 7
-        getScaleFromKey: 0
-        inputScaleKey: 
+        getLimitedNumber: 1
+        numberOfCardsToGet: 1
+        outputKey: cards
+    - rid: 9024302470308298755
+      type: {class: CardInDeckEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardInDeckEffect
+        inputCardsKey: cards
+        inputEntityKey: target
+        effect: 0
+    - rid: 9024302470308298756
+      type: {class: DebugEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DebugEffectStep
+        companions: 1
+        minions: 1
+        enemies: 1
+        cards: 1
+        playableCards: 1
+        ints: 1
+        strings: 1
 --- !u!4 &484844188
 Transform:
   m_ObjectHideFlags: 0

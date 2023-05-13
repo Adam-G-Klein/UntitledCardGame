@@ -54,19 +54,19 @@ public abstract class CombatEntityWithDeckInstance : CombatEntityInstance
         }
     }
 
-    public void applyCardEffects(Dictionary<CardEffect, int> effects, Card card)
+    public void applyCardEffects(Dictionary<CardEffectType, int> effects, Card card)
     {
-        foreach(KeyValuePair<CardEffect, int> effect in effects)
+        foreach(KeyValuePair<CardEffectType, int> effect in effects)
         {
             applyCardEffect(effect.Key, effect.Value, card);
         }
     }
 
-    public void applyCardEffect(CardEffect effect, int scale, Card card)
+    public void applyCardEffect(CardEffectType effect, int scale, Card card)
     {
         switch(effect)
         {
-            case CardEffect.AddToHand:
+            case CardEffectType.AddToHand:
                 // if we're here, the card is in the deck
                 // so for now we won't differentiate between this and 
                 // just drawing it (even though MTG would not trigger draw card effects)
@@ -75,13 +75,13 @@ public abstract class CombatEntityWithDeckInstance : CombatEntityInstance
                 StartCoroutine(cardsDealtEvent.RaiseAtEndOfFrameCoroutine(
                         new CardsDealtEventInfo(new List<Card>{card}, this)));
                 break;
-            case CardEffect.Exhaust:
+            case CardEffectType.Exhaust:
                 inCombatDeck.exhaustCard(card);
                 break;
-            case CardEffect.Discard:
+            case CardEffectType.Discard:
                 inCombatDeck.discardCard(card);
                 break;
-            case CardEffect.Purge:
+            case CardEffectType.Purge:
                 inCombatDeck.purgeCard(card);
                 break;
             default:

@@ -23,7 +23,7 @@ public class CardInHandEffect : EffectStep
 
     public override IEnumerator invoke(EffectDocument document) {
         if (!document.playableCardMap.containsValueWithKey(inputKey)) {
-            Debug.LogError("CardInHandEffect Effect: No input PlayableCard for given key " + inputKey);
+           EffectError("No input PlayableCard for given key " + inputKey);
             yield return null;
         }
 

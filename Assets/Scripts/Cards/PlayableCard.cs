@@ -135,14 +135,14 @@ public class PlayableCard : TargettableEntity
         applyCardEffects(info.cardEffects);
     }
 
-    private void applyCardEffects(Dictionary<CardEffect, int> effects) {
-        foreach (KeyValuePair<CardEffect, int> effect in effects) {
+    private void applyCardEffects(Dictionary<CardEffectType, int> effects) {
+        foreach (KeyValuePair<CardEffectType, int> effect in effects) {
             applyCardEffect(effect.Key, effect.Value);
         }
     }
-    public void applyCardEffect(CardEffect effect, int value) {
+    public void applyCardEffect(CardEffectType effect, int value) {
         switch(effect) {
-            case CardEffect.Discard:
+            case CardEffectType.Discard:
                 PlayerHand.Instance.discardCard(this);
                 break;
         }
