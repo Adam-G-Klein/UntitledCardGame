@@ -13,11 +13,14 @@ MonoBehaviour:
   m_Name: BeegBoiCardPool
   m_EditorClassIdentifier: 
   commonCards:
-  - {fileID: 11400000, guid: ec3c681e35f3b8541b4e30643c6d0ee7, type: 2}
+    SetData:
+    - {fileID: 11400000, guid: 26b69850efca5e349815157530230bac, type: 2}
   uncommonCards:
-  - {fileID: 11400000, guid: 462354a397a54954aab6c85e99376713, type: 2}
+    SetData:
+    - {fileID: 11400000, guid: 3bb18e26132af3849b13f8666d2b207c, type: 2}
   rareCards:
-  - {fileID: 11400000, guid: af631239de690bd4f9c3504152e145d7, type: 2}
+    SetData:
+    - {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
   commonCardPercentage: 25
   commonCardPrice: 1
   uncommonCardPercentage: 25

@@ -16,6 +16,9 @@ public class KeepsakeInShop : MonoBehaviour
     public Image keepsakeImage;
     public Image hoverBackground;
 
+    [SerializeField]
+    private GameObject soldOutSign;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +26,7 @@ public class KeepsakeInShop : MonoBehaviour
         this.id = Id.newGuid();
         this.hoverBackground.enabled = false;
         this.keepsakeImage.sprite = companion.companionType.keepsake;
+        this.soldOutSign.SetActive(false);
     }
 
     public void Setup() {
@@ -34,7 +38,7 @@ public class KeepsakeInShop : MonoBehaviour
         CompanionBuyRequest companionBuyRequest = new CompanionBuyRequest(
             companion, 
             price, 
-            gameObject);
+            this);
         ShopManager.Instance.processCompanionBuyRequest(companionBuyRequest);
     }
 
@@ -51,5 +55,10 @@ public class KeepsakeInShop : MonoBehaviour
 
     public void shopRefreshEventHandler() {
         Destroy(this.gameObject);
+    }
+
+    public void sold() {
+        soldOutSign.SetActive(true);
+        keepsakeImage.gameObject.SetActive(false);
     }
 }

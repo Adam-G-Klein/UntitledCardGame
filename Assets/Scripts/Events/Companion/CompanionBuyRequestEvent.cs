@@ -4,9 +4,9 @@ using UnityEngine;
 public class CompanionBuyRequest {
     public Companion companion;
     public int price;
-    public GameObject keepsakeInShop;
+    public KeepsakeInShop keepsakeInShop;
 
-    public CompanionBuyRequest(Companion companion, int price, GameObject keepsakeInShop) {
+    public CompanionBuyRequest(Companion companion, int price, KeepsakeInShop keepsakeInShop) {
         this.companion = companion;
         this.price = price;
         this.keepsakeInShop = keepsakeInShop;

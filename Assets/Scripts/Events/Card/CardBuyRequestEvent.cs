@@ -4,9 +4,9 @@ using UnityEngine;
 public class CardBuyRequest {
     public Card cardInfo;
     public int price;
-    public GameObject cardInShop;
+    public CardInShop cardInShop;
 
-    public CardBuyRequest(Card cardInfo, int price, GameObject cardInShop) {
+    public CardBuyRequest(Card cardInfo, int price, CardInShop cardInShop) {
         this.cardInfo = cardInfo;
         this.price = price;
         this.cardInShop = cardInShop;

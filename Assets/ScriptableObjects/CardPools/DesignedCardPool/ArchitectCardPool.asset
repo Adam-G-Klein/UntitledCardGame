@@ -13,11 +13,14 @@ MonoBehaviour:
   m_Name: ArchitectCardPool
   m_EditorClassIdentifier: 
   commonCards:
-  - {fileID: 11400000, guid: ec3c681e35f3b8541b4e30643c6d0ee7, type: 2}
+    SetData:
+    - {fileID: 11400000, guid: a8f12a81286a58e4ab318b9e422ab903, type: 2}
   uncommonCards:
-  - {fileID: 11400000, guid: 462354a397a54954aab6c85e99376713, type: 2}
+    SetData:
+    - {fileID: 11400000, guid: 785e2fe862918604d96c5e348d76ee95, type: 2}
   rareCards:
-  - {fileID: 11400000, guid: af631239de690bd4f9c3504152e145d7, type: 2}
+    SetData:
+    - {fileID: 11400000, guid: c607a4473b410db46b6ccf755331ec14, type: 2}
   commonCardPercentage: 25
   commonCardPrice: 1
   uncommonCardPercentage: 25

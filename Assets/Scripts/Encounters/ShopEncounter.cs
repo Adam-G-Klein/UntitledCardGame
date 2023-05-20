@@ -27,7 +27,6 @@ public class KeepsakeInShopWithPrice {
 [System.Serializable]
 public class ShopEncounter : Encounter
 {
-    public bool generateEncounter;
     public ShopDataSO shopData;
     public List<CardInShopWithPrice> cardsInShop = new List<CardInShopWithPrice>();
     public List<KeepsakeInShopWithPrice> keepsakesInShop = new List<KeepsakeInShopWithPrice>();
@@ -42,9 +41,6 @@ public class ShopEncounter : Encounter
     public ShopEncounter(ShopDataSO shopData) {
         this.encounterType = EncounterType.Shop;
         this.shopData = shopData;
-
-        //TODO: Implement this later
-        generateShopEncounter();
     }
 
     public override void build(List<Companion> companionList, EncounterConstantsSO constants)
@@ -56,10 +52,9 @@ public class ShopEncounter : Encounter
         this.encounterType = EncounterType.Shop;
         ShopManager.Instance.saveShopEncounter(this);
         this.encounterConstants = constants;
-        if (generateEncounter) {
-            generateShopEncounter2(companionList);
-        }
-        setupCards();
+        
+        generateShopEncounter(companionList);
+        setupCards(companionList);
         setupKeepsakes();
         this.shopData.shopEncounterEvent.Raise(this);
     }
@@ -70,13 +65,7 @@ public class ShopEncounter : Encounter
         Debug.Assert(shopUIManager, "Unable to find shope UI manager, required to set up the cards and keepsakes for sale!");
     }
 
-    private void setupCards() {
-        //TODO: Remove this(I leave this here for clean up later)
-        if (cardsInShop.Count > shopData.cardLocations.Count) {
-            //Debug.LogError("Unable to setup cards in shop encounter, not enough locations for cards");
-            //return;
-        }
-        
+    private void setupCards(List<Companion> companionList) {        
         for (int i = 0; i < cardsInShop.Count; i++) {
             GameObject instantiatedCard = GameObject.Instantiate(
                 encounterConstants.cardInShopPrefab, 
@@ -86,20 +75,18 @@ public class ShopEncounter : Encounter
             CardType cardType = cardsInShop[i].cardType;
             int price = cardsInShop[i].price;
 
-            CardDisplay cardDisplay = instantiatedCard.GetComponent<CardDisplay>();
-            cardDisplay.cardInfo = new Card(cardType);
-
             CardInShop cardInShop = instantiatedCard.GetComponent<CardInShop>();
             cardInShop.price = price;
+
+            CardDisplay cardDisplay = cardInShop.cardDisplay;
+            cardDisplay.cardInfo = new Card(cardType);
+
+            //NOTE: Assumes that the companion list and the order their cards are displayed are the same
+            cardInShop.keepSake.sprite = companionList[i].companionType.keepsake;
         }
     }
 
     private void setupKeepsakes() {
-        if (keepsakesInShop.Count > shopData.keepsakeLocations.Count) {
-            Debug.LogError("Unable to setup keepsakes in shop encounter, not enough locations for keepsakes");
-            return;
-        }
-
         for (int i = 0; i < keepsakesInShop.Count; i++) {
             GameObject instantiatedKeepsake = GameObject.Instantiate(
                 encounterConstants.keepsakeInShopPrefab, 
@@ -115,25 +102,15 @@ public class ShopEncounter : Encounter
         }
     }
 
-    private void generateShopEncounter() {
-        // Since we're generating the shop, lets clear the current shop
+    private void generateShopEncounter(List<Companion> companionList) {
         cardsInShop = new List<CardInShopWithPrice>();
         keepsakesInShop = new List<KeepsakeInShopWithPrice>();
 
-        generateCards();
+        generateCards(companionList);
         generateKeepsakes();
     }
 
-    //TODO: This is only here to keep compatibility with the encounters
-    private void generateShopEncounter2(List<Companion> companionList) {
-        cardsInShop = new List<CardInShopWithPrice>();
-        keepsakesInShop = new List<KeepsakeInShopWithPrice>();
-
-        generateCards2(companionList);
-        generateKeepsakes();
-    }
-
-    private void generateCards2(List<Companion> companionList) {
+    private void generateCards(List<Companion> companionList) {
         Debug.Log("Companion List count: " + companionList.Count);
         //determine which companion to spawn a card from, remove them from the set
         //move companion types to a hashSet
@@ -155,60 +132,41 @@ public class ShopEncounter : Encounter
 
 
             // Determine what the card pool is for this single card being generated
-            List<CardType> cardPool = new List<CardType>();
+            SerializableHashSet<CardType> cardSet = new SerializableHashSet<CardType>();
             int cardPrice = 0;
             int randomNumber = Random.Range(0, totalPercentage); // min inclusive, max exclusive
             if (randomNumber < commonCardPercentage) {
-                cardPool = currentCardPool.commonCards;
+                cardSet = currentCardPool.commonCards;
                 cardPrice = currentCardPool.commonCardPrice;
             } else if (randomNumber < commonCardPercentage + uncommonCardPercentage) {
-                cardPool = currentCardPool.uncommonCards;
+                cardSet = currentCardPool.uncommonCards;
                 cardPrice = currentCardPool.uncommonCardPrice;
             } else {
-                cardPool = currentCardPool.rareCards;
+                cardSet = currentCardPool.rareCards;
                 cardPrice = currentCardPool.rareCardPrice;
             }
 
             // Pick a card from the pool and add it to the shop's cards
-            int cardNumber = Random.Range(0, cardPool.Count);
-            cardsInShop.Add(
-                new CardInShopWithPrice(cardPool[cardNumber], cardPrice));
-        }
+            int cardNumber = Random.Range(0, cardSet.Count);
 
-    }
-
-    private void generateCards() {
-        int numCardsToGenerate = shopData.cardLocations.Count;
-        int totalPercentage = shopData.getTotalCardPercentage();
-        int commonCardPercentage = shopData.commonCardPercentage;
-        int uncommonCardPercentage = shopData.uncommonCardPercentage;
-        int rareCardPercentage = shopData.rareCardPercentage;
-
-        for (int i = 0; i < numCardsToGenerate; i++) {
-            // Determine what the card pool is for this single card being generated
-            List<CardType> cardPool = new List<CardType>();
-            int cardPrice = 0;
-            int randomNumber = Random.Range(0, totalPercentage); // min inclusive, max exclusive
-            if (randomNumber < commonCardPercentage) {
-                cardPool = shopData.commonCards;
-                cardPrice = shopData.commonCardPrice;
-            } else if (randomNumber < commonCardPercentage + uncommonCardPercentage) {
-                cardPool = shopData.uncommonCards;
-                cardPrice = shopData.uncommonCardPrice;
-            } else {
-                cardPool = shopData.rareCards;
-                cardPrice = shopData.rareCardPrice;
+            //super cool and efficent random selection from a hashSet(it has to iterate through the collection, there is no index in a hashset)
+            CardType selectedCard = default;
+            int i = 0;
+            foreach (CardType card in cardSet) {
+                if (i == cardNumber) {
+                    selectedCard = card;
+                    break;
+                }
+                i++;
             }
 
-            // Pick a card from the pool and add it to the shop's cards
-            int cardNumber = Random.Range(0, cardPool.Count);
-            cardsInShop.Add(
-                new CardInShopWithPrice(cardPool[cardNumber], cardPrice));
+            cardsInShop.Add(new CardInShopWithPrice(selectedCard, cardPrice));
         }
+
     }
 
     public void generateKeepsakes() {
-        int numKeepsakesToGenerate = shopData.keepsakeLocations.Count;
+        int numKeepsakesToGenerate = shopData.keepsakeCount;
         int totalPercentage = shopData.getTotalCompanionPercentage();
         int commonPercentage = shopData.commonCompanionPercentage;
         int uncommonPercentage = shopData.uncommonCompanionPercentage;

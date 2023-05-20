@@ -50,15 +50,50 @@ public class ShopManager : GenericSingleton<ShopManager>
                         companionViewUIPrefab,
                         new Vector3(Screen.width / 2, Screen.height / 2, 0),
                         Quaternion.identity);
+
             this.companionViewUI
                 .GetComponent<CompanionViewUI>()
-                .setupCompanionDisplay(activeCompanionsVariable, new List<CompanionActionType>() {
+                .setupCompanionDisplay(determineApplicableCompanions(cardBuyRequest.cardInfo), new List<CompanionActionType>() {
                     CompanionActionType.SELECT,
                     CompanionActionType.VIEW_DECK
                 });
         } else {
             shopUIManager.displayNeedMoreMoneyNotification();
         }
+    }
+
+
+    public List<Companion> companionList;
+    public List<Companion> companionBench;
+
+    private CompanionListVariableSO determineApplicableCompanions(Card cardInfo) {
+        List<Companion> companionList = new();
+        List<Companion> companionBench = new();
+
+        //set up companion list
+        foreach (var companion in activeCompanionsVariable.companionList) {
+            //Now this is Epic
+            if (companion.companionType.cardPool.commonCards.Contains(cardInfo.cardType) ||
+                companion.companionType.cardPool.uncommonCards.Contains(cardInfo.cardType) ||
+                companion.companionType.cardPool.rareCards.Contains(cardInfo.cardType)) {
+                companionList.Add(companion);
+            }
+        }
+
+        //set up bench list
+        foreach (var companion in activeCompanionsVariable.companionBench) {
+            if (companion.companionType.cardPool.commonCards.Contains(cardInfo.cardType) ||
+                companion.companionType.cardPool.uncommonCards.Contains(cardInfo.cardType) ||
+                companion.companionType.cardPool.rareCards.Contains(cardInfo.cardType)) {
+                companionBench.Add(companion);
+            }
+        }
+
+        CompanionListVariableSO companionListVariableSO = ScriptableObject.CreateInstance<CompanionListVariableSO>();
+        companionListVariableSO.companionList = companionList;
+        companionListVariableSO.companionBench = companionBench;
+        companionListVariableSO.currentCompanionSlots = activeCompanionsVariable.currentCompanionSlots;
+        return companionListVariableSO;
     }
 
     public void processCompanionBuyRequest(CompanionBuyRequest request) {
@@ -69,7 +104,7 @@ public class ShopManager : GenericSingleton<ShopManager>
                 encounterConstants.cardSoldOutPrefab, 
                 request.keepsakeInShop.transform.position, 
                 Quaternion.identity);
-            Destroy(request.keepsakeInShop);
+            request.keepsakeInShop.sold();
         } else {
             shopUIManager.displayNeedMoreMoneyNotification();
         }
@@ -84,14 +119,12 @@ public class ShopManager : GenericSingleton<ShopManager>
             companion.deck.cards.Add(currentBuyRequest.cardInfo);
             activePlayerDataVariable.GetValue().gold -= currentBuyRequest.price;
             Vector3 cardPosition = currentBuyRequest.cardInShop.transform.position;
-            Destroy(currentBuyRequest.cardInShop);
+            currentBuyRequest.cardInShop.GetComponent<CardInShop>().sold();
             this.buyingCard = false;
             Destroy(this.companionViewUI);
             this.companionViewUI = null;
-            GameObject.Instantiate(
-                encounterConstants.cardSoldOutPrefab, 
-                cardPosition, 
-                Quaternion.identity);
+
+            
         } else {
             Debug.LogError("Processing companion click event with no transaction");
         }
@@ -129,9 +162,7 @@ public class ShopManager : GenericSingleton<ShopManager>
 
     private void rerollShop() {
         shopRefreshEvent.Raise(null);
-        shopEncounter.generateEncounter = true;
         activeEncounterVariable.GetValue().build(activeCompanionsVariable.companionList, encounterConstants);
-        shopEncounter.generateEncounter = false;
     }
 
     public void saveShopEncounter(ShopEncounter shopEncounter) {

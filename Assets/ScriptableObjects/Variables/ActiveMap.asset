@@ -15,39 +15,40 @@ MonoBehaviour:
   locked: 0
   Value:
     encounters:
-    - rid: 5669414078719459333
-    - rid: 5669414078719459334
-    - rid: 5669414078719459335
+    - rid: 510962017951547466
+    - rid: 510962017951547467
   references:
     version: 2
     RefIds:
-    - rid: 5669414078719459333
+    - rid: 510962017951547466
       type: {class: EnemyEncounter, ns: , asm: Assembly-CSharp}
       data:
-        id: c9fa0043-3fe1-41c6-980a-a18a623a8983
+        id: 1883ca30-d1c2-4966-bdf3-3643acc60a41
         isCompleted: 1
         enemyList:
-        - enemyType: {fileID: 11400000, guid: da0cdb6c0c9754d469d48629d5444b55, type: 2}
+        - enemyType: {fileID: 11400000, guid: 3f595268355432347aef2000672bce6d, type: 2}
           currentHealth: 0
-          maxHealth: 10
-          id: testGoblin1
-    - rid: 5669414078719459334
-      type: {class: EnemyEncounter, ns: , asm: Assembly-CSharp}
+          maxHealth: 3
+          id: dd28c843-9ee5-4e8a-aa77-dea6ad3dc172
+    - rid: 510962017951547467
+      type: {class: ShopEncounter, ns: , asm: Assembly-CSharp}
       data:
-        id: 5b41ed03-e1c3-4d52-9def-b6c28f865647
-        isCompleted: 1
-        enemyList:
-        - enemyType: {fileID: 11400000, guid: 7c2078d2e4f72954c9d9a3335c755ab9, type: 2}
-          currentHealth: 0
-          maxHealth: 1
-          id: testSlime1
-    - rid: 5669414078719459335
-      type: {class: EnemyEncounter, ns: , asm: Assembly-CSharp}
-      data:
-        id: 4b18d971-3f7a-4c1d-9195-e0d26bdb6b72
+        id: f226cf60-f699-4807-b0d0-daa75ad3e5ee
         isCompleted: 0
-        enemyList:
-        - enemyType: {fileID: 11400000, guid: a92e98aa28c792a46a7fa6e4adce1db7, type: 2}
-          currentHealth: 56
-          maxHealth: 99
-          id: testThug1
+        shopData: {fileID: 11400000, guid: 64b1d5221aac20348909c6cab7cc24d6, type: 2}
+        cardsInShop:
+        - cardType: {fileID: 11400000, guid: ec3c681e35f3b8541b4e30643c6d0ee7, type: 2}
+          price: 1
+        - cardType: {fileID: 11400000, guid: 26b69850efca5e349815157530230bac, type: 2}
+          price: 3
+        - cardType: {fileID: 11400000, guid: 78a27ef3bc4f6a444870763e331eec61, type: 2}
+          price: 2
+        - cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
+          price: 3
+        keepsakesInShop:
+        - companionType: {fileID: 11400000, guid: 28f6a1b3b493fa743859f89dedcc23ca, type: 2}
+          price: 2
+        - companionType: {fileID: 11400000, guid: bb8900a5e0f2ab34a8c486d19dcef389, type: 2}
+          price: 1
+        - companionType: {fileID: 11400000, guid: 28f6a1b3b493fa743859f89dedcc23ca, type: 2}
+          price: 2

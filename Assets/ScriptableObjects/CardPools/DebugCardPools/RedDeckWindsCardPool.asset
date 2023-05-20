@@ -13,11 +13,14 @@ MonoBehaviour:
   m_Name: RedDeckWindsCardPool
   m_EditorClassIdentifier: 
   commonCards:
-  - {fileID: 11400000, guid: 6f04568326184884eaef2da243b0354d, type: 2}
+    SetData:
+    - {fileID: 11400000, guid: 8c5768a3af910ea499bffeb7285ab3bb, type: 2}
   uncommonCards:
-  - {fileID: 11400000, guid: 6f04568326184884eaef2da243b0354d, type: 2}
+    SetData:
+    - {fileID: 11400000, guid: 785e2fe862918604d96c5e348d76ee95, type: 2}
   rareCards:
-  - {fileID: 11400000, guid: 6f04568326184884eaef2da243b0354d, type: 2}
+    SetData:
+    - {fileID: 11400000, guid: 9704282f0a4484b4ea93a504433ec325, type: 2}
   commonCardPercentage: 25
   commonCardPrice: 1
   uncommonCardPercentage: 25

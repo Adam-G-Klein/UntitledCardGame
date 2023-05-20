@@ -13,11 +13,14 @@ MonoBehaviour:
   m_Name: BeezelBumblerCardPool
   m_EditorClassIdentifier: 
   commonCards:
-  - {fileID: 11400000, guid: bd2ee77eb2ebce146a5d53a2613e9f65, type: 2}
+    SetData:
+    - {fileID: 11400000, guid: 9b0feee7c8820b6419129508051d6f08, type: 2}
   uncommonCards:
-  - {fileID: 11400000, guid: 78a27ef3bc4f6a444870763e331eec61, type: 2}
+    SetData:
+    - {fileID: 11400000, guid: 87ab4d36a94800d42be192b974e1b67f, type: 2}
   rareCards:
-  - {fileID: 11400000, guid: 6045b3fbbcfc5664484f03f2ba3b2907, type: 2}
+    SetData:
+    - {fileID: 11400000, guid: 3bb18e26132af3849b13f8666d2b207c, type: 2}
   commonCardPercentage: 25
   commonCardPrice: 1
   uncommonCardPercentage: 25

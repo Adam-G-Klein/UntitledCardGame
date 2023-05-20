@@ -7,9 +7,9 @@ using UnityEngine;
     menuName = "Cards/Card Pool")]
 public class CardPoolSO: ScriptableObject {
     
-    public List<CardType> commonCards;
-    public List<CardType> uncommonCards;
-    public List<CardType> rareCards;
+    public SerializableHashSet<CardType> commonCards;
+    public SerializableHashSet<CardType> uncommonCards;
+    public SerializableHashSet<CardType> rareCards;
 
     public int commonCardPercentage;
     public int commonCardPrice;

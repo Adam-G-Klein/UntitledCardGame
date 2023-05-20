@@ -13,11 +13,14 @@ MonoBehaviour:
   m_Name: EntropyCardPool
   m_EditorClassIdentifier: 
   commonCards:
-  - {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
+    SetData:
+    - {fileID: 11400000, guid: 9b0feee7c8820b6419129508051d6f08, type: 2}
   uncommonCards:
-  - {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
+    SetData:
+    - {fileID: 11400000, guid: 4a317ae5215e14440942c047943ac96a, type: 2}
   rareCards:
-  - {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
+    SetData:
+    - {fileID: 11400000, guid: 8f19923da99a6e447b5d51790f725453, type: 2}
   commonCardPercentage: 25
   commonCardPrice: 1
   uncommonCardPercentage: 25

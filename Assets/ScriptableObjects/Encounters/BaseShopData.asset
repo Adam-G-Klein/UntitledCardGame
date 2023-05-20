@@ -12,65 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e34d394278f1a1d49b4df179ce5c1804, type: 3}
   m_Name: BaseShopData
   m_EditorClassIdentifier: 
-  commonCardPercentage: 60
-  commonCardPrice: 1
-  commonCards:
-  - {fileID: 11400000, guid: 3fe89f2c7b366cb46b2bbe3f4e462aa5, type: 2}
-  - {fileID: 11400000, guid: 316d443a77d87d447990d1ed770ed81b, type: 2}
-  - {fileID: 11400000, guid: 8f19923da99a6e447b5d51790f725453, type: 2}
-  - {fileID: 11400000, guid: 15155d363853e57459451d867d20f580, type: 2}
-  - {fileID: 11400000, guid: 6045b3fbbcfc5664484f03f2ba3b2907, type: 2}
-  - {fileID: 11400000, guid: f47b99629a3e52649bec2a99ec283add, type: 2}
-  - {fileID: 11400000, guid: 3ea4fc4054021ce4788b5012ed153111, type: 2}
-  - {fileID: 11400000, guid: 9704282f0a4484b4ea93a504433ec325, type: 2}
-  - {fileID: 11400000, guid: 314f300daa2125c4692a084d1d08f824, type: 2}
-  - {fileID: 11400000, guid: af631239de690bd4f9c3504152e145d7, type: 2}
-  - {fileID: 11400000, guid: 96c736cbff241624a991b3e5550a5c27, type: 2}
-  - {fileID: 11400000, guid: 303f0d64116674d4e8439993cb60ae3a, type: 2}
-  - {fileID: 11400000, guid: 29447d4ce5e609b46814ceac547e725f, type: 2}
-  - {fileID: 11400000, guid: 8c5768a3af910ea499bffeb7285ab3bb, type: 2}
-  uncommonCardPercentage: 30
-  uncommonCardPrice: 2
-  uncommonCards:
-  - {fileID: 11400000, guid: 2fb1ff5b996cff848acc4cbd846ebc49, type: 2}
-  - {fileID: 11400000, guid: dbac0a62f7025e141a050cc499d0a42c, type: 2}
-  - {fileID: 11400000, guid: a5ede245bff98944c8b58cac0b6d206a, type: 2}
-  - {fileID: 11400000, guid: f81164c1e256fb340b76c150339e4004, type: 2}
-  - {fileID: 11400000, guid: 4694d4bfddf36a547af718d16d9dc506, type: 2}
-  - {fileID: 11400000, guid: 87ab4d36a94800d42be192b974e1b67f, type: 2}
-  - {fileID: 11400000, guid: 26b69850efca5e349815157530230bac, type: 2}
-  - {fileID: 11400000, guid: a8f12a81286a58e4ab318b9e422ab903, type: 2}
-  rareCardPercentage: 10
-  rareCardPrice: 3
-  rareCards:
-  - {fileID: 11400000, guid: 6f04568326184884eaef2da243b0354d, type: 2}
-  - {fileID: 11400000, guid: 3bb18e26132af3849b13f8666d2b207c, type: 2}
-  - {fileID: 11400000, guid: e9034de62baf86140b8ce459e61f56ee, type: 2}
-  - {fileID: 11400000, guid: 98be7179751738444af1e4d5d1747244, type: 2}
-  - {fileID: 11400000, guid: 785e2fe862918604d96c5e348d76ee95, type: 2}
-  - {fileID: 11400000, guid: a6dcdfe1492c4ca42beab1d49b42eb88, type: 2}
-  commonCompanionPercentage: 100
+  commonCompanionPercentage: 55
   commonCompanionPrice: 1
   commonCompanions:
   - {fileID: 11400000, guid: bb8900a5e0f2ab34a8c486d19dcef389, type: 2}
-  - {fileID: 11400000, guid: a388cdca9749764489c477a814a4dd5b, type: 2}
-  - {fileID: 11400000, guid: f64c62bd77fcea846a5c19bed998aeb6, type: 2}
-  - {fileID: 11400000, guid: 4d253e77b533ea64ba6355a37741c0cf, type: 2}
-  - {fileID: 11400000, guid: c106de03c6bb3ab4e952724e5e4a073c, type: 2}
-  uncommonCompanionPercentage: 0
-  uncommonCompanionPrice: 0
-  uncommonCompanions: []
-  rareCompanionPercentage: 0
-  rareCompanionPrice: 0
-  rareCompanions: []
+  uncommonCompanionPercentage: 30
+  uncommonCompanionPrice: 2
+  uncommonCompanions:
+  - {fileID: 11400000, guid: 28f6a1b3b493fa743859f89dedcc23ca, type: 2}
+  rareCompanionPercentage: 15
+  rareCompanionPrice: 3
+  rareCompanions:
+  - {fileID: 11400000, guid: af270a8bf55a86547941d6065eb02679, type: 2}
+  keepsakeCount: 3
   rerollShopPrice: 1
   upgradeShopPrice: 10
-  cardLocations:
-  - {x: -2.67, y: 1.6, z: 0}
-  - {x: 1.62, y: 1.6, z: 0}
-  - {x: 5.75, y: 1.6, z: 0}
-  keepsakeLocations:
-  - {x: -2.67, y: -2.63, z: 0}
-  - {x: 1.62, y: -2.65, z: 0}
-  - {x: 5.75, y: -2.67, z: 0}
   shopEncounterEvent: {fileID: 11400000, guid: d82ee33fc33d20544bce205c53a0832e, type: 2}

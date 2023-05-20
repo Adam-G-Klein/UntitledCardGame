@@ -14,12 +14,17 @@ public class CardInShop : MonoBehaviour
     public TMP_Text priceText;
     public CardDisplay cardDisplay;
     public Image hoverBackground;
+    public Image keepSake;
+
+    [SerializeField]
+    private GameObject soldOutSign;
 
     void Start() {
         Debug.Log("CardInShop Start() method");
         this.priceText.text = price.ToString();
         this.id = Id.newGuid();
         this.hoverBackground.enabled = false;
+        this.soldOutSign.SetActive(false);
     }
 
     public void Setup() {
@@ -30,7 +35,7 @@ public class CardInShop : MonoBehaviour
         CardBuyRequest cardBuyRequest = new CardBuyRequest(
             cardDisplay.cardInfo, 
             price, 
-            gameObject);
+            this);
         ShopManager.Instance.processCardBuyRequest(cardBuyRequest);
     }
 
@@ -47,5 +52,10 @@ public class CardInShop : MonoBehaviour
     public void shopRefreshEventHandler() {
         Debug.Log("Receive event");
         Destroy(this.gameObject);
+    }
+
+    public void sold() {
+        soldOutSign.SetActive(true);
+        cardDisplay.gameObject.SetActive(false);
     }
 }

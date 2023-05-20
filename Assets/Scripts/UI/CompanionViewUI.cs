@@ -40,6 +40,8 @@ public class CompanionViewUI : MonoBehaviour, IPointerClickHandler
     private List<GameObject> companionSlots = new List<GameObject>();
     private List<GameObject> benchCompanionSlots = new List<GameObject>();
 
+    //TODO: Adjust to pass in two lists
+    //TODO: Show all companions, note which ones are selectable
     public void setupCompanionDisplay(CompanionListVariableSO companionList,
             List<CompanionActionType> actionTypes) {
         this.companionList = companionList;
