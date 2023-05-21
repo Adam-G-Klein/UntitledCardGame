@@ -10,26 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: Defend
+  m_Name: Weaken
   m_EditorClassIdentifier: 
-  Name: Defend
-  Description: Give target companion 5 block
-  Cost: 1
-  Artwork: {fileID: 21300000, guid: ac2f6571b8a37954abd0657d090050d5, type: 3}
+  Name: weaken
+  Description: weak!
+  Cost: 0
+  Artwork: {fileID: 21300000, guid: 9eec12afe5623f54abf4eb6c5d9261ee, type: 3}
   vfxPrefab: {fileID: 0}
   playable: 1
   EffectProcedures:
-  - rid: 5847359311090548737
+  - rid: 6081791816702099458
   references:
     version: 2
     RefIds:
-    - rid: 5847359311090548737
+    - rid: 6081791816702099458
       type: {class: CombatEffectProcedure, ns: , asm: Assembly-CSharp}
       data:
         procedureClass: CombatEffectProcedure
-        effectName: 3
-        baseScale: 5
+        effectName: 2
+        baseScale: 1
         targetCaster: 0
         targetAllValidTargets: 0
         targetToUse: -1
-        validTargets: 0000000002000000
+        validTargets: 01000000

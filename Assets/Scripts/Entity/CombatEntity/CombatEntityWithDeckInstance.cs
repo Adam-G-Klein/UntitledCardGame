@@ -14,7 +14,7 @@ public abstract class CombatEntityWithDeckInstance : CombatEntityInstance
     [SerializeField]
     private CardsDealtEvent cardsDealtEvent;
     [SerializeField]
-    private GameplayConstants constants;
+    private int cardsDealtPerTurn = 1;
     public InCombatDeck inCombatDeck;
 
     [SerializeField]
@@ -95,7 +95,7 @@ public abstract class CombatEntityWithDeckInstance : CombatEntityInstance
     }
 
     public IEnumerable dealStartTurnCards() {
-        dealCards(constants.START_TURN_DRAW_PER_COMPANION);
+        dealCards(deckEntity.getDealtPerTurn());
         yield return null;
     }
 
@@ -108,7 +108,7 @@ public abstract class CombatEntityWithDeckInstance : CombatEntityInstance
             center.x + minionSpawnRadius * Mathf.Cos(nextMinionSpawnTheta),
             center.y + minionSpawnRadius * Mathf.Sin(nextMinionSpawnTheta)
         );
-        nextMinionSpawnTheta += 2 * Mathf.PI / constants.MAX_MINIONS_PER_COMPANION;
+        nextMinionSpawnTheta += 2 * Mathf.PI / GameplayConstantsSingleton.Instance.gameplayConstants.MAX_MINIONS_PER_COMPANION;
         return spawnLoc;
     }
 

@@ -11,7 +11,7 @@ public class EncounterManager : MonoBehaviour
     public  CompanionListVariableSO activeCompanionsVariable;
     public MapVariableSO activeMapVariable;
     private bool inPlayMode = false;
-    public bool refreshCompanionsOnPlay = true;
+    public bool refreshCombatEntitiesOnPlay = true;
 
     void Awake() {
         if (activeEncounterVariable.GetValue().getEncounterType() != EncounterType.Enemy) {
@@ -22,6 +22,9 @@ public class EncounterManager : MonoBehaviour
     }
 
     void Update() {
+        if(Input.GetKeyDown(KeyCode.Escape)) {
+            Application.Quit();
+        }
         
     }
 

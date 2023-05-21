@@ -7,5 +7,7 @@ using UnityEngine;
 public interface CombatEntityWithDeck : CombatEntityBaseStats
 {
     Deck getDeck();
+    int getDealtPerTurn();
+    void setDealtPerTurn(int dealtPerTurn);
 
 }

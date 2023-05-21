@@ -48,10 +48,10 @@ public class CombatEntityInEncounterStats
         get {
             // TODO: add an icon for an increase in base strength
             // can totally just be a statusEffectDisplay
-            return (baseStats.getBaseAttackDamage() 
+            return Mathf.Max(0, (baseStats.getBaseAttackDamage() 
                 + statusEffects[StatusEffect.Strength]
                 + statusEffects[StatusEffect.TemporaryStrength]
-                - statusEffects[StatusEffect.Weakness]);
+                - statusEffects[StatusEffect.Weakness]));
         }
     }
 
@@ -63,9 +63,6 @@ public class CombatEntityInEncounterStats
 
     public CombatEntityInEncounterStats(CombatEntityBaseStats entity) {
         this.baseStats = entity;
-        // Change this line if we want health to persist between encounters
-        // Easier for testing if it resets every time for now
-        this.currentHealth = this.maxHealth;
     }
 
     // takes the base damage of an effect,

@@ -10,6 +10,7 @@ public class Minion: CombatEntityBaseStats, CombatEntityWithDeck
     public int currentHealth;
     public Deck deck;
     public int baseAttackDamage;
+    public int cardsDealtPerTurn = 1;
 
     [SerializeReference]
     public List<CompanionAbility> abilities;
@@ -68,5 +69,12 @@ public class Minion: CombatEntityBaseStats, CombatEntityWithDeck
 
     public Deck getDeck() {
         return this.deck;
+    }
+    public int getDealtPerTurn() {
+        return this.cardsDealtPerTurn;
+    }
+
+    public void setDealtPerTurn(int dealtPerTurn) {
+        this.cardsDealtPerTurn = dealtPerTurn;
     }
 }

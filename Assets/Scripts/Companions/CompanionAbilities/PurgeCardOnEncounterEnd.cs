@@ -19,6 +19,7 @@ public class PurgeCardOnEncounterEnd : CompanionAbility {
 
     public override IEnumerable invoke(CompanionAbilityContext context) {
         resetAbilityState(); // adding this here because of the hacks we're doing to stall on card selection
+        UIStateManager.Instance.targettingCancellable = false;
         context.invoker.requestTarget(new List<EntityType> { EntityType.Companion}, this);
         yield return new WaitUntil(() => currentTargets.Count > 0);
         CompanionInstance target = (CompanionInstance) currentTargets[0];
@@ -28,6 +29,7 @@ public class PurgeCardOnEncounterEnd : CompanionAbility {
         yield return new WaitUntil(() => currentTargets.Count > 0);
         Debug.Log("purge card on encounter end complete");
         resetAbilityState();
+        UIStateManager.Instance.targettingCancellable = true;
     }
 
     public override void onDeath(CompanionAbilityContext context)

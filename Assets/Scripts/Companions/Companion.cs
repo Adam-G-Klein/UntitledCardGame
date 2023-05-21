@@ -10,6 +10,8 @@ public class Companion: CombatEntityBaseStats, CombatEntityWithDeck
     public int currentHealth;
     public Deck deck;
     public int baseAttackDamage;
+    
+    public int cardsDealtPerTurn = 1;
 
     [SerializeReference]
     public List<CompanionAbility> abilities;
@@ -69,5 +71,13 @@ public class Companion: CombatEntityBaseStats, CombatEntityWithDeck
 
     public void setBaseAttackDamage(int newBaseStrength) {
         this.baseAttackDamage = newBaseStrength;
+    }
+
+    public int getDealtPerTurn() {
+        return this.cardsDealtPerTurn;
+    }
+
+    public void setDealtPerTurn(int dealtPerTurn) {
+        this.cardsDealtPerTurn = dealtPerTurn;
     }
 }

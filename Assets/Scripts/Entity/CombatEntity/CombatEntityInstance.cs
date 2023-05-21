@@ -25,6 +25,10 @@ public abstract class CombatEntityInstance: TargettableEntity
     protected override void Start() {
         base.Start();
         this.stats = new CombatEntityInEncounterStats(baseStats);
+        if(GameplayConstantsSingleton.Instance.gameplayConstants.DEVELOPMENT_MODE)
+        {
+            this.stats.currentHealth = this.baseStats.getMaxHealth();
+        }
         StartCoroutine(instantiatedEvent.RaiseAtEndOfFrameCoroutine(new CombatEntityInstantiatedEventInfo(this)));
         GameObject turnManagerObject = GameObject.Find("TurnManager");
         if(turnManagerObject != null) {
@@ -152,7 +156,7 @@ public abstract class CombatEntityInstance: TargettableEntity
     // mapping if we want some effects to update at different times
 
     private void registerUpdateStatusEffects(){
-        TurnPhase updatePhase = entityType == EntityType.Enemy ? TurnPhase.END_PLAYER_TURN : TurnPhase.END_ENEMY_TURN;
+        TurnPhase updatePhase = entityType == EntityType.Enemy ? TurnPhase.END_ENEMY_TURN : TurnPhase.END_PLAYER_TURN;
         updateStatusTrigger = new TurnPhaseTrigger(updatePhase, updateStatusEffects());
         StartCoroutine(registerTurnPhaseTriggerEvent.RaiseAtEndOfFrameCoroutine(new TurnPhaseTriggerEventInfo(updateStatusTrigger)));
     }
