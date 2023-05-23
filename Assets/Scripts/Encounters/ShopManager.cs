@@ -51,9 +51,14 @@ public class ShopManager : GenericSingleton<ShopManager>
                         new Vector3(Screen.width / 2, Screen.height / 2, 0),
                         Quaternion.identity);
 
+
+
             this.companionViewUI
                 .GetComponent<CompanionViewUI>()
-                .setupCompanionDisplay(determineApplicableCompanions(cardBuyRequest.cardInfo), new List<CompanionActionType>() {
+                .setupCompanionDisplay(determineApplicableActiveCompanions(cardBuyRequest.cardInfo), 
+                determineApplicableBenchCompanions(cardBuyRequest.cardInfo), 
+                activeCompanionsVariable.currentCompanionSlots, 
+                new List<CompanionActionType>() {
                     CompanionActionType.SELECT,
                     CompanionActionType.VIEW_DECK
                 });
@@ -62,13 +67,8 @@ public class ShopManager : GenericSingleton<ShopManager>
         }
     }
 
-
-    public List<Companion> companionList;
-    public List<Companion> companionBench;
-
-    private CompanionListVariableSO determineApplicableCompanions(Card cardInfo) {
+    private List<Companion> determineApplicableActiveCompanions(Card cardInfo) {
         List<Companion> companionList = new();
-        List<Companion> companionBench = new();
 
         //set up companion list
         foreach (var companion in activeCompanionsVariable.companionList) {
@@ -80,20 +80,23 @@ public class ShopManager : GenericSingleton<ShopManager>
             }
         }
 
+        return companionList;
+    }
+
+    private List<Companion> determineApplicableBenchCompanions(Card cardInfo) {
+        
+        List<Companion> companionList = new();
+
         //set up bench list
         foreach (var companion in activeCompanionsVariable.companionBench) {
             if (companion.companionType.cardPool.commonCards.Contains(cardInfo.cardType) ||
                 companion.companionType.cardPool.uncommonCards.Contains(cardInfo.cardType) ||
                 companion.companionType.cardPool.rareCards.Contains(cardInfo.cardType)) {
-                companionBench.Add(companion);
+                companionList.Add(companion);
             }
         }
 
-        CompanionListVariableSO companionListVariableSO = ScriptableObject.CreateInstance<CompanionListVariableSO>();
-        companionListVariableSO.companionList = companionList;
-        companionListVariableSO.companionBench = companionBench;
-        companionListVariableSO.currentCompanionSlots = activeCompanionsVariable.currentCompanionSlots;
-        return companionListVariableSO;
+        return companionList;
     }
 
     public void processCompanionBuyRequest(CompanionBuyRequest request) {

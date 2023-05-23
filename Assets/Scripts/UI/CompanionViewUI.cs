@@ -34,19 +34,39 @@ public class CompanionViewUI : MonoBehaviour, IPointerClickHandler
     public CompanionEvent companionSelectedEvent;
     public int NUMBER_OF_BENCH_COMPANION_SLOTS;
 
-    private CompanionListVariableSO companionList;
+    private List<Companion> companionList;
+    private List<Companion> companionBench;
+    private int currentCompanionSlots;
+
     private List<CompanionActionType> actionTypes;
     private UICompanion clickedCompanion;
     private List<GameObject> companionSlots = new List<GameObject>();
     private List<GameObject> benchCompanionSlots = new List<GameObject>();
 
-    //TODO: Adjust to pass in two lists
-    //TODO: Show all companions, note which ones are selectable
-    public void setupCompanionDisplay(CompanionListVariableSO companionList,
-            List<CompanionActionType> actionTypes) {
-        this.companionList = companionList;
+    public void setupCompanionDisplay(CompanionListVariableSO companionListVariableSO,
+        List<CompanionActionType> actionTypes) {
+        //Since this is an SO, copy the refernces for later use
+        this.companionList = companionListVariableSO.companionList;
+        this.companionBench = companionListVariableSO.companionBench;
+        this.currentCompanionSlots = companionListVariableSO.currentCompanionSlots;
+
         this.actionTypes = actionTypes;
 
+        setupCompanionDisplayHelper();
+    }
+
+    //This is for when you want to display a modified companion set
+    public void setupCompanionDisplay(List<Companion> companionList, List<Companion> companionBench, int currentCompanionSlots,
+            List<CompanionActionType> actionTypes) {
+        this.companionList = companionList;
+        this.companionBench = companionBench;
+        this.currentCompanionSlots = currentCompanionSlots;
+        this.actionTypes = actionTypes;
+
+        setupCompanionDisplayHelper();
+    }
+
+    private void setupCompanionDisplayHelper() {
         setupActiveCompanions();
         setupCompanionSlots();
         setupBenchCompanions();
@@ -66,8 +86,8 @@ public class CompanionViewUI : MonoBehaviour, IPointerClickHandler
     }
 
     private void setupActiveCompanions() {
-        for (int i = 0; i < companionList.companionList.Count; i++) {
-            setupActiveCompanion(companionList.companionList[i]);
+        for (int i = 0; i < companionList.Count; i++) {
+            setupActiveCompanion(companionList[i]);
         }
     }
 
@@ -86,7 +106,7 @@ public class CompanionViewUI : MonoBehaviour, IPointerClickHandler
     }
 
     private void setupCompanionSlots() {
-        for (int i = 0; i < companionList.currentCompanionSlots; i++) {
+        for (int i = 0; i < currentCompanionSlots; i++) {
             GameObject companionSlot = GameObject.Instantiate(
                 uICompanionSlotPrefab,
                 Vector3.zero,
@@ -107,8 +127,8 @@ public class CompanionViewUI : MonoBehaviour, IPointerClickHandler
     }
 
     private void setupBenchCompanions() {
-        for (int i = 0; i < companionList.companionBench.Count; i++) {
-            setupBenchCompanion(companionList.companionBench[i]);
+        for (int i = 0; i < companionBench.Count; i++) {
+            setupBenchCompanion(companionBench[i]);
         }
     }
 
@@ -165,14 +185,14 @@ public class CompanionViewUI : MonoBehaviour, IPointerClickHandler
 
     private void updateBackground(UICompanion uiCompanion) {
         int i = 0;
-        i = companionList.companionList.IndexOf(uiCompanion.companion);
+        i = companionList.IndexOf(uiCompanion.companion);
         if ( i != -1) {
             uiCompanion.isSelected = !uiCompanion.isSelected;
             setBackgroundForActiveSlot(i, uiCompanion.isSelected);
             return;
         }
 
-        i = companionList.companionBench.IndexOf(uiCompanion.companion);
+        i = companionBench.IndexOf(uiCompanion.companion);
         if (i == -1) {
             Debug.LogError("Can't find companion in list, something is wrong");
             return;
@@ -214,33 +234,33 @@ public class CompanionViewUI : MonoBehaviour, IPointerClickHandler
 
     public void toBenchButtonOnClick() {
         Companion companion = this.clickedCompanion.companion;
-        if (companionList.companionBench.Contains(companion)) {
+        if (companionBench.Contains(companion)) {
             Debug.LogError("Can't move companion to bench that is already there!");
             return;
         }
         updateBackground(this.clickedCompanion);
         Destroy(this.clickedCompanion.gameObject);
-        companionList.companionList.Remove(companion);
+        companionList.Remove(companion);
         setupBenchCompanion(companion);
-        companionList.companionBench.Add(companion);
+        companionBench.Add(companion);
         this.clickedCompanion = null;
         actionButtonsParent.SetActive(false);
     }
 
     public void toActiveButtonOnClick() {
         Companion companion = this.clickedCompanion.companion;
-        if (companionList.companionList.Contains(companion)) {
+        if (companionList.Contains(companion)) {
             Debug.LogError("Can't move companion to active that is already there!");
             return;
         }
-        if (companionList.companionList.Count == companionList.currentCompanionSlots) {
+        if (companionList.Count == currentCompanionSlots) {
             return;
         }
         updateBackground(this.clickedCompanion);
         Destroy(this.clickedCompanion.gameObject);
-        companionList.companionBench.Remove(companion);
+        companionBench.Remove(companion);
         setupActiveCompanion(companion);
-        companionList.companionList.Add(companion);
+        companionList.Add(companion);
         this.clickedCompanion = null;
         actionButtonsParent.SetActive(false);
     }
