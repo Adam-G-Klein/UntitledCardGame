@@ -94,6 +94,9 @@ public abstract class CombatEntityInstance: TargettableEntity
             case(CombatEffect.Damage):
                 takeDamage(scale, effector);
                 break;
+            case(CombatEffect.FixedDamage):
+                takeDamage(scale, effector);
+                break;
             case(CombatEffect.Heal):
                 stats.currentHealth = Mathf.Min(stats.currentHealth + scale, stats.maxHealth);
                 break;

@@ -55,6 +55,27 @@ public class EffectDocument
         return returnList;
     }
 
+    public List<TargettableEntity> getTargettableEntities(string key) {
+        List<TargettableEntity> entities = new List<TargettableEntity>();
+        if (companionMap.containsValueWithKey(key)) {
+            entities.AddRange(companionMap.getList(key));
+        }
+
+        if (minionMap.containsValueWithKey(key)) {
+            entities.AddRange(minionMap.getList(key));
+        }
+
+        if (enemyMap.containsValueWithKey(key)) {
+            entities.AddRange(enemyMap.getList(key));
+        }
+
+        if (playableCardMap.containsValueWithKey(key)) {
+            entities.AddRange(playableCardMap.getList(key));
+        }
+
+        return entities;
+    }
+
     public void addEntityToDocument(string key, TargettableEntity entity) {
         if (entity is CompanionInstance) {
             CompanionInstance companion = entity as CompanionInstance;
@@ -68,9 +89,6 @@ public class EffectDocument
         } else if (entity is PlayableCard) {
             PlayableCard playableCard = entity as PlayableCard;
             playableCardMap.addItem(key, playableCard);
-        } else if (entity is UICard) {
-            UICard uiCard = entity as UICard;
-            uiCardMap.addItem(key, uiCard);
         }
     }
 
@@ -131,6 +149,7 @@ public class EffectDocument
         }
 
         public void printDictionary() {
+            Debug.Log("Printing Map Contents");
             foreach (KeyValuePair<string, List<T>> pair in dict) {
                 Debug.Log("Key: " + pair.Key + "\nvalue: " + pair.Value);
             }

@@ -16,24 +16,39 @@ MonoBehaviour:
   Description: lose 3 health, gain 2 mana
   Cost: 0
   Artwork: {fileID: 21300000, guid: 68e5a78013e33f247822a837e55b0ab4, type: 3}
-  EffectProcedures:
-  - rid: 2812361769379692545
-  - rid: 2812361769379692547
+  vfxPrefab: {fileID: 0}
+  playable: 1
+  effectSteps:
+  - rid: 9024302470308298767
+  - rid: 9024302470308298769
+  - rid: 9024302470308298770
   references:
     version: 2
     RefIds:
-    - rid: 2812361769379692545
-      type: {class: CombatEffectProcedure, ns: , asm: Assembly-CSharp}
+    - rid: 9024302470308298767
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
-        procedureClass: CombatEffectProcedure
-        effectName: 8
-        baseScale: 3
-        targetCaster: 1
-        targetAllValidTargets: 0
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: target
         validTargets: 
-    - rid: 2812361769379692547
-      type: {class: IntEffectProcedure, ns: , asm: Assembly-CSharp}
+        number: 1
+        specialTargetRule: 4
+        cantCancelTargetting: 0
+    - rid: 9024302470308298769
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
-        procedureClass: IntEffectProcedure
-        gameEvent: {fileID: 11400000, guid: c102a62a7fc128343b59ddb6cac89348, type: 2}
-        baseScale: 2
+        effectStepName: CombatEffectStep
+        inputKey: target
+        combatEffect: 14
+        scale: 3
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 9024302470308298770
+      type: {class: ManaChange, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ManaChange
+        scale: 2
+        getScaleFromKey: 0
+        inputScaleKey: 

@@ -17,29 +17,41 @@ MonoBehaviour:
     of the encounter.
   Cost: 1
   Artwork: {fileID: 21300000, guid: 8a6101d38c903424cbd7264288132aac, type: 3}
-  EffectProcedures:
-  - rid: 2812361769379692550
-  - rid: 2812361769379692552
+  vfxPrefab: {fileID: 0}
+  playable: 1
+  effectSteps:
+  - rid: 9024302470308298778
+  - rid: 9024302470308298779
+  - rid: 9024302470308298780
   references:
     version: 2
     RefIds:
-    - rid: 2812361769379692550
-      type: {class: CombatEffectProcedure, ns: , asm: Assembly-CSharp}
+    - rid: 9024302470308298778
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
-        procedureClass: CombatEffectProcedure
-        effectName: 5
-        baseScale: 1
-        targetCaster: 0
-        targetAllValidTargets: 0
-        targetToUse: -1
-        validTargets: 0000000002000000
-    - rid: 2812361769379692552
-      type: {class: CombatEffectProcedure, ns: , asm: Assembly-CSharp}
-      data:
-        procedureClass: CombatEffectProcedure
-        effectName: 7
-        baseScale: 1
-        targetCaster: 0
-        targetAllValidTargets: 0
-        targetToUse: 0
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: 
         validTargets: 
+        number: 1
+        specialTargetRule: 4
+        cantCancelTargetting: 0
+    - rid: 9024302470308298779
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: 
+        combatEffect: 5
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 9024302470308298780
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: 
+        statusEffect: 3
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 

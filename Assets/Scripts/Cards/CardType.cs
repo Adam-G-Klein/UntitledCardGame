@@ -16,9 +16,6 @@ public class CardType: ScriptableObject
     public GameObject vfxPrefab;
     // For unplayable status cards
     public bool playable = true;
-    // Need to SerializeReference to have the ScriptableObject 
-    // Keep a reference to the procedures we add rather than
-    // trying to reinstantiate them by value all the time.
     [SerializeReference]
-    public List<EffectProcedure> EffectProcedures;
+    public List<EffectStep> effectSteps;
 }
