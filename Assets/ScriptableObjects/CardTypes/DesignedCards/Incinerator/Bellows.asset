@@ -16,14 +16,50 @@ MonoBehaviour:
   Description: Draw 3 cards, choose 1 of them to exhaust
   Cost: 1
   Artwork: {fileID: 21300000, guid: a25201c1880e82047ad39afad0b9ab94, type: 3}
-  EffectProcedures:
-  - rid: 2812361790881529856
+  vfxPrefab: {fileID: 0}
+  playable: 1
+  effectSteps:
+  - rid: 9024302470308298798
+  - rid: 9024302470308298797
+  - rid: 9024302470308298800
+  - rid: 9024302470308298799
   references:
     version: 2
     RefIds:
-    - rid: 2812361790881529856
-      type: {class: Bellows, ns: , asm: Assembly-CSharp}
+    - rid: 9024302470308298797
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:
-        procedureClass: Bellows
-        cardsToDraw: 3
-        cardsToExhaust: 1
+        effectStepName: DrawCards
+        inputKey: origin
+        outputKey: drawnCards
+        scale: 3
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 9024302470308298798
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: origin
+        validTargets: 
+        number: 1
+        specialTargetRule: 4
+        cantCancelTargetting: 0
+    - rid: 9024302470308298799
+      type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardInHandEffect
+        inputKey: cardToExhaust
+        effect: 1
+    - rid: 9024302470308298800
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 1
+        inputKey: drawnCards
+        outputKey: cardToExhaust
+        validTargets: 03000000
+        number: 1
+        specialTargetRule: 5
+        cantCancelTargetting: 0

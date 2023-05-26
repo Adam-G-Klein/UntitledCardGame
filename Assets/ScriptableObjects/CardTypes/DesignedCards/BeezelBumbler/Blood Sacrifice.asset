@@ -16,27 +16,53 @@ MonoBehaviour:
   Description: This companion takes 3 damage then give a companion 5 strength
   Cost: 1
   Artwork: {fileID: 21300000, guid: 9c7b553a4a5050646818dbc514a54e9a, type: 3}
-  EffectProcedures:
-  - rid: 2812361769379692548
-  - rid: 2812361769379692549
+  vfxPrefab: {fileID: 0}
+  playable: 1
+  effectSteps:
+  - rid: 9024302470308298771
+  - rid: 9024302470308298774
+  - rid: 9024302470308298772
+  - rid: 9024302470308298773
   references:
     version: 2
     RefIds:
-    - rid: 2812361769379692548
-      type: {class: CombatEffectProcedure, ns: , asm: Assembly-CSharp}
+    - rid: 9024302470308298771
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
-        procedureClass: CombatEffectProcedure
-        effectName: 8
-        baseScale: 3
-        targetCaster: 1
-        targetAllValidTargets: 0
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: origin
         validTargets: 
-    - rid: 2812361769379692549
-      type: {class: CombatEffectProcedure, ns: , asm: Assembly-CSharp}
+        number: 1
+        specialTargetRule: 4
+        cantCancelTargetting: 0
+    - rid: 9024302470308298772
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
-        procedureClass: CombatEffectProcedure
-        effectName: 1
-        baseScale: 5
-        targetCaster: 0
-        targetAllValidTargets: 0
-        validTargets: 00000000
+        effectStepName: CombatEffectStep
+        inputKey: origin
+        combatEffect: 14
+        scale: 3
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 9024302470308298773
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: statusTarget
+        statusEffect: 0
+        scale: 5
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 9024302470308298774
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: statusTarget
+        validTargets: 0000000002000000
+        number: 1
+        specialTargetRule: 0
+        cantCancelTargetting: 0

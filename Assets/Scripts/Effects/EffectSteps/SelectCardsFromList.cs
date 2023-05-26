@@ -19,6 +19,9 @@ public class SelectCardsFromList : EffectStep {
     [SerializeField]
     private string outputKey = "";
     [SerializeField]
+    [TextArea]
+    private string promptText = "";
+    [SerializeField]
     private int targets;
     [SerializeField]
     private bool getNumberOfTargetsFromKey = false;
@@ -38,7 +41,7 @@ public class SelectCardsFromList : EffectStep {
 
         List<Card> cardOptions = document.cardMap.getList(inputKey);
 
-        // TODO: Use the list above and activate UI card selection
+        TargettingManager.Instance.selectCards(cardOptions, promptText, targets);
 
         yield return null;
     }

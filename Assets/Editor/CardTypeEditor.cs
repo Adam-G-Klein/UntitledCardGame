@@ -6,40 +6,33 @@ using UnityEditor;
 [CustomEditor(typeof(CardType))]
 public class CardTypeEditor : Editor {
 
-    EffectProcedureType effectProcedureType = 
-        EffectProcedureType.CombatEffectProcedure;
+    EffectStepName stepName = EffectStepName.Default;
     public override void OnInspectorGUI() {
         CardType cardType = (CardType) target;
         DrawDefaultInspector();
 
         EditorGUILayout.Space(20);
-        EditorGUILayout.LabelField("Effect Procedure Controls");
+        EditorGUILayout.LabelField("Effect Step Controls");
         EditorGUILayout.Space(5);
 
-        effectProcedureType = (EffectProcedureType) EditorGUILayout.EnumPopup(
-            "New procedure classname",
-            effectProcedureType);
+        stepName = (EffectStepName) EditorGUILayout.EnumPopup(
+            "New effect",
+            stepName);
 
-        if (GUILayout.Button("Add Effect Procedure")) {
-            EffectProcedure newProcedure = InstantiateFromClassname.Instantiate<EffectProcedure>(
-                effectProcedureType.ToString(), 
+        if (GUILayout.Button("Add Effect")) {
+            EffectStep newEffect = InstantiateFromClassname.Instantiate<EffectStep>(
+                stepName.ToString(), 
                 new object[] {});
 
-            if(newProcedure == null) {
-                Debug.LogError("Failed to instantiate effect procedure, " +
-                "please check Scripts/Cards/CardEffectProcedures/* to verify the className for the  " +
+            if(newEffect == null) {
+                Debug.LogError("Failed to instantiate effect step, " +
+                "please check Scripts/Effects/EffectSteps/* to verify the className for the  " +
                 " and verify that the arguments set in the editor correspond to " +
                 " the arguments in the constructor");
             }
             else {
-                cardType.EffectProcedures.Add(newProcedure);
+                cardType.effectSteps.Add(newEffect);
             }
-            
-            // These three calls cause the asset to actually be modified
-            // on disc when we hit the button
-            AssetDatabase.Refresh();
-            EditorUtility.SetDirty(cardType);
-            AssetDatabase.SaveAssets();
         }
     }
 

@@ -16,9 +16,13 @@ MonoBehaviour:
   Description: Give target companion 5 block
   Cost: 1
   Artwork: {fileID: 21300000, guid: ac2f6571b8a37954abd0657d090050d5, type: 3}
+  vfxPrefab: {fileID: 0}
   playable: 1
   EffectProcedures:
   - rid: 5847359311090548737
+  effectSteps:
+  - rid: 9024302470308298760
+  - rid: 9024302470308298761
   references:
     version: 2
     RefIds:
@@ -32,3 +36,23 @@ MonoBehaviour:
         targetAllValidTargets: 0
         targetToUse: -1
         validTargets: 0000000002000000
+    - rid: 9024302470308298760
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: targets
+        validTargets: 0000000002000000
+        number: 1
+        specialTargetRule: 0
+        cantCancelTargetting: 0
+    - rid: 9024302470308298761
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: targets
+        statusEffect: 2
+        scale: 5
+        getScaleFromKey: 0
+        inputScaleKey: 

@@ -14,17 +14,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   locked: 0
   Value:
-    rid: 9024302470308298753
+    rid: 9024302470308298766
   references:
     version: 2
     RefIds:
-    - rid: 9024302470308298753
+    - rid: 9024302470308298766
       type: {class: EnemyEncounter, ns: , asm: Assembly-CSharp}
       data:
-        id: 326b78bc-0231-4d6d-939f-186b35041f80
+        id: 3bb8df42-fced-45f5-add4-0f139daea843
         isCompleted: 0
         enemyList:
         - enemyType: {fileID: 11400000, guid: da0cdb6c0c9754d469d48629d5444b55, type: 2}
-          currentHealth: 1
-          maxHealth: 1
+          currentHealth: 300
+          maxHealth: 300
           id: mind
+        - enemyType: {fileID: 11400000, guid: da0cdb6c0c9754d469d48629d5444b55, type: 2}
+          currentHealth: 300
+          maxHealth: 300
+          id: goblin

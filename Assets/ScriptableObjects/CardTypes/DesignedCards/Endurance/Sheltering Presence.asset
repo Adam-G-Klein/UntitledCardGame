@@ -16,18 +16,31 @@ MonoBehaviour:
   Description: Give all minions and companions 5 block
   Cost: 1
   Artwork: {fileID: 21300000, guid: 8e08e747b4d361444a5bb9a11845b849, type: 3}
-  EffectProcedures:
-  - rid: 2812361769379692555
+  vfxPrefab: {fileID: 0}
+  playable: 1
+  effectSteps:
+  - rid: 9024302470308298795
+  - rid: 9024302470308298796
   references:
     version: 2
     RefIds:
-    - rid: 2812361769379692555
-      type: {class: CombatEffectProcedure, ns: , asm: Assembly-CSharp}
+    - rid: 9024302470308298795
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
-        procedureClass: CombatEffectProcedure
-        effectName: 3
-        baseScale: 5
-        targetCaster: 0
-        targetAllValidTargets: 1
-        targetToUse: -1
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: 
         validTargets: 0000000002000000
+        number: 1
+        specialTargetRule: 1
+        cantCancelTargetting: 0
+    - rid: 9024302470308298796
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: 
+        statusEffect: 2
+        scale: 5
+        getScaleFromKey: 0
+        inputScaleKey: 

@@ -90,7 +90,7 @@ public class CardSelectionManager: GenericSingleton<CardSelectionManager> {
         CardViewUI cardViewUI = cardSelectionUI.GetComponent<CardViewUI>();
         TextMeshProUGUI prompt = cardSelectionUI.GetComponentInChildren<TextMeshProUGUI>();
         prompt.text = getCurrentPromptText();
-        cardViewUI.Setup(cards);
+        // cardViewUI.Setup(cards);
     }
 
     private string getCurrentPromptText() {

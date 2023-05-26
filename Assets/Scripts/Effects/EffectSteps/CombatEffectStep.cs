@@ -52,18 +52,31 @@ public class CombatEffectStep : EffectStep
             yield return null;
         }
 
-        int finalScale;
+        int baseScale;
         if (getScaleFromKey && document.intMap.ContainsKey(inputScaleKey)) {
-            finalScale = document.intMap[inputScaleKey];
+            baseScale = document.intMap[inputScaleKey];
         } else {
-            finalScale = (scale + origin.stats.currentAttackDamage) 
-                    * origin.stats.statusEffects[StatusEffect.DamageMultiply];
+            baseScale = scale;
         }
+
+        int finalScale = updateScaleForEffect(baseScale, origin);
 
         foreach (CombatEntityInstance entity in entities) {
             entity.applyNonStatusCombatEffect(combatEffect, finalScale, origin);
         }
 
         yield return null;
+    }
+
+    private int updateScaleForEffect(int baseScale, CombatEntityInstance origin) {
+        int newScale = baseScale;
+        switch (combatEffect) {
+            case CombatEffect.Damage:
+                newScale = (baseScale + origin.stats.currentAttackDamage) 
+                    * origin.stats.statusEffects[StatusEffect.DamageMultiply];
+            break;
+        }
+
+        return newScale;
     }
 }

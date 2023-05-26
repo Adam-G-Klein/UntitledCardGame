@@ -15,7 +15,8 @@ public enum CombatEffect {
     ApplyMaxHpBounty,
     ApplyTemporaryStrength,
     ApplyMinionsOnDeath,
-    ApplyPlatedArmor
+    ApplyPlatedArmor,
+    FixedDamage,
 }
 
 [System.Serializable]
