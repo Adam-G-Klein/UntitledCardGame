@@ -27,13 +27,6 @@ public class Card: IEquatable<Card>
             return cardType.Artwork;
         }
     }
-
-    [HideInInspector]
-    public List<EffectProcedure> effectProcedures {
-        get {
-            return cardType.EffectProcedures;
-        }
-    }
     // IMPORTANT TODO: only effects cards that use effectIncreasesOnPlay right now, other things don't poll for this
     // Need to add this into the getEffectScale that's currently in the CasterStats right now
     private Dictionary<CombatEffect, int> effectBuffs = new Dictionary<CombatEffect, int>();

@@ -64,31 +64,4 @@ public class CombatEntityInEncounterStats
     public CombatEntityInEncounterStats(CombatEntityBaseStats entity) {
         this.baseStats = entity;
     }
-
-    // takes the base damage of an effect,
-    // does math on it based on statuses, and returns the damage that should be done
-    public int getEffectScale(CombatEffect effect, int baseScale) {
-        switch(effect) {
-            case CombatEffect.Damage:
-                // use the getter from the stats object
-                return (baseScale + currentAttackDamage) 
-                    * statusEffects[StatusEffect.DamageMultiply];
-            default:
-                return baseScale;
-        }
-    }
-    public int getEffectScale(DisplayedCombatEffect effect, int baseScale) {
-        switch(effect) {
-            case DisplayedCombatEffect.Damage:
-                // use the getter from the stats object
-                return (baseScale + currentAttackDamage) 
-                    * statusEffects[StatusEffect.DamageMultiply];
-            default:
-                return baseScale;
-        }
-    }
-
-    public int getDamage(int baseDamage) {
-        return getEffectScale(CombatEffect.Damage, baseDamage);
-    }
 }

@@ -1,49 +1,79 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class CardViewUI : MonoBehaviour
 {
-    public GameObject cardPrefab;
-    public int cardPadding;
-    public int cardsPerRow;
+    [SerializeField]
+    private GameObject cardPrefab;
+    [SerializeField]
+    private RectTransform cardPrefabParent;
+    [SerializeField]
+    private TMP_Text prompt;
+    private string promptText;
+    private IEnumerator currentCoroutine = null;
 
-    public void Setup(List<Card> cards) {
-        int i = 0;
+    private int numberOfSelections;
+    private List<UICard> selectedCards = new List<UICard>();
+
+    public void Setup(List<Card> cards, int numSelections, string promptText) {
         foreach (Card card in cards) {
-            createCard(card, i);
-            i++;
+            createCard(card);
         }
+        this.promptText = promptText;
+        this.prompt.text = promptText;
+        this.numberOfSelections = numSelections;
     }
 
-    private void createCard(Card card, int i) {
-        // Start at the upper left and move to the right
-        // then move down, creating cards
+    private void createCard(Card card) {
         GameObject cardObj = GameObject.Instantiate(
             cardPrefab,
             Vector3.zero,
             Quaternion.identity,
-            transform);
+            cardPrefabParent);
 
         CardDisplay cardDisplay = cardObj.GetComponent<CardDisplay>();
         cardDisplay.cardInfo = card;
-        
-        RectTransform parentTransform = gameObject.GetComponent<RectTransform>();
-        RectTransform cardTransform = cardObj.GetComponent<RectTransform>();
+        UICard uiCard = cardObj.GetComponent<UICard>();
+        uiCard.onclickEvent.AddListener(uiCardSelected);
+    }
 
-        int numberInRow = i % cardsPerRow;
-        float xPos = (parentTransform.rect.width / 2) * -1;
-        xPos += (cardTransform.rect.width / 2);
-        xPos += cardTransform.rect.width * numberInRow;
-        xPos += cardPadding * numberInRow;
-        float yPos = (parentTransform.rect.height / 2);
-        yPos -= (cardTransform.rect.height / 2);
-        yPos -= (cardTransform.rect.height * Mathf.FloorToInt(i / cardsPerRow));
-        yPos -= cardPadding * Mathf.FloorToInt(i / cardsPerRow);
-        cardTransform.localPosition = new Vector3(xPos, yPos, 0);
+    private void uiCardSelected(UICard card) {
+        if (card.selected) {
+            card.selected = false;
+            card.selectionFrame.SetActive(false);
+            selectedCards.Remove(card);
+            return;
+        }
+
+        if (selectedCards.Count >= numberOfSelections) {
+            return;
+        }
+
+        card.selected = true;
+        card.selectionFrame.SetActive(true);
+        selectedCards.Add(card);
     }
 
     public void exitView() {
+        if (selectedCards.Count < numberOfSelections) {
+            if (currentCoroutine == null) {
+                currentCoroutine = changePromptText("Please select " + 
+                    (numberOfSelections - selectedCards.Count) + " more cards");
+                StartCoroutine(currentCoroutine);
+            }
+            return;
+        }
+        // Raise the selection event
         Destroy(this.gameObject);
+    }
+
+    private IEnumerator changePromptText(string newText) {
+        prompt.text = newText;
+        yield return new WaitForSeconds(1.5f);
+        prompt.text = promptText;
+        currentCoroutine = null;
+        yield return null;
     }
 }

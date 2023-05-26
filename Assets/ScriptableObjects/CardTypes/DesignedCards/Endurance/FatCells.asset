@@ -16,18 +16,31 @@ MonoBehaviour:
   Description: Heal target companion or minion by 5 health
   Cost: 0
   Artwork: {fileID: 21300000, guid: 9bbb0580b47c1a0458a81a39014da27c, type: 3}
-  EffectProcedures:
-  - rid: 2812361779766886405
+  vfxPrefab: {fileID: 0}
+  playable: 1
+  effectSteps:
+  - rid: 9024302470308298791
+  - rid: 9024302470308298792
   references:
     version: 2
     RefIds:
-    - rid: 2812361779766886405
-      type: {class: CombatEffectProcedure, ns: , asm: Assembly-CSharp}
+    - rid: 9024302470308298791
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
-        procedureClass: CombatEffectProcedure
-        effectName: 10
-        baseScale: 5
-        targetCaster: 0
-        targetAllValidTargets: 0
-        targetToUse: -1
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: 
         validTargets: 0000000002000000
+        number: 1
+        specialTargetRule: 0
+        cantCancelTargetting: 0
+    - rid: 9024302470308298792
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: 
+        combatEffect: 9
+        scale: 5
+        getScaleFromKey: 0
+        inputScaleKey: 

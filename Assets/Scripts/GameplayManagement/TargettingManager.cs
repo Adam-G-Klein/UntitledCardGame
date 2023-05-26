@@ -8,6 +8,8 @@ public class TargettingManager : GenericSingleton<TargettingManager>
     private CardEffectEvent cardEffectEvent;
     [SerializeField]
     private CardSelectionRequestEvent cardSelectionRequestEvent;
+    [SerializeField]
+    private GameObject cardSelectionUIPrefab;
 
     private List<TargettableEntity> targetList;
     private Entity origin;
@@ -125,5 +127,14 @@ public class TargettingManager : GenericSingleton<TargettingManager>
             targetList = null;
             UIStateManager.Instance.setState(UIState.DEFAULT);
         }
+    }
+
+    public void selectCards(List<Card> cards, string promptText, int cardsToSelect) {
+        GameObject gameObject = GameObject.Instantiate(
+            cardSelectionUIPrefab,
+            Vector3.zero,
+            Quaternion.identity);
+        CardViewUI cardViewUI = gameObject.GetComponent<CardViewUI>();
+        cardViewUI.Setup(cards, cardsToSelect, promptText);
     }
 }

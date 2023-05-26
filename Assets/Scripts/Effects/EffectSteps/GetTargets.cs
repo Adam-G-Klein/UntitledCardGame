@@ -76,6 +76,11 @@ public class GetTargets : EffectStep
             disallowedTargets = new List<TargettableEntity>() { self };
         }
 
+        List<TargettableEntity> limitOptions = null;
+        if (useInputToLimitOptions) {
+            limitOptions = document.getTargettableEntities(inputKey);
+        }
+
         if (specialTargetRule == SpecialTargetRule.TargetAllValidTargets || 
                 specialTargetRule == SpecialTargetRule.TargetAllValidTargetsExceptSelf) {
             getAllValidTargets = true;
@@ -87,7 +92,8 @@ public class GetTargets : EffectStep
             validTargets,
             getAllValidTargets,
             number,
-            disallowedTargets);
+            disallowedTargets,
+            limitOptions);
 
         if (getAllValidTargets) {
             yield return new WaitUntil(() => targetList.Count > 0);

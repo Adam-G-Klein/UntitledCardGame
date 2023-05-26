@@ -229,7 +229,7 @@ public class CompanionViewUI : MonoBehaviour, IPointerClickHandler
                         new Vector3(Screen.width / 2, Screen.height / 2, 0),
                         Quaternion.identity);
         CardViewUI cardView = deckViewUI.GetComponent<CardViewUI>();
-        cardView.Setup(this.clickedCompanion.companion.deck.cards);
+        cardView.Setup(this.clickedCompanion.companion.deck.cards, 0, "");
     }
 
     public void toBenchButtonOnClick() {

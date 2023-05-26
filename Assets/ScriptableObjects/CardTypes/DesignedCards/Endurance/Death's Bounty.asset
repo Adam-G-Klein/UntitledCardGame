@@ -13,22 +13,35 @@ MonoBehaviour:
   m_Name: Death's Bounty
   m_EditorClassIdentifier: 
   Name: Death's Bounty
-  Description: Target enemy rewards 5 maxHp to the companion or minion that kills
+  Description: Target enemy rewards 5 max HP to the companion or minion that kills
     it.
   Cost: 2
   Artwork: {fileID: 21300000, guid: 338cb3a5841b4284fbf3bf201b4d0cf2, type: 3}
-  EffectProcedures:
-  - rid: 2812361779766886407
+  vfxPrefab: {fileID: 0}
+  playable: 1
+  effectSteps:
+  - rid: 9024302470308298787
+  - rid: 9024302470308298788
   references:
     version: 2
     RefIds:
-    - rid: 2812361779766886407
-      type: {class: CombatEffectProcedure, ns: , asm: Assembly-CSharp}
+    - rid: 9024302470308298787
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
-        procedureClass: CombatEffectProcedure
-        effectName: 11
-        baseScale: 5
-        targetCaster: 0
-        targetAllValidTargets: 0
-        targetToUse: -1
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: 
         validTargets: 01000000
+        number: 1
+        specialTargetRule: 0
+        cantCancelTargetting: 0
+    - rid: 9024302470308298788
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: 
+        statusEffect: 5
+        scale: 5
+        getScaleFromKey: 0
+        inputScaleKey: 

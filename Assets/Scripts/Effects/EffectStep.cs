@@ -19,7 +19,8 @@ public enum EffectStepName {
     ManaChange,
     PermanentStatIncrease,
     SelectCardsFromList,
-    SummonMinion
+    SummonMinion,
+    CountCards
 }
 
 [System.Serializable]
