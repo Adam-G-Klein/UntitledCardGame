@@ -11,6 +11,8 @@ public class CardViewUI : MonoBehaviour
     private RectTransform cardPrefabParent;
     [SerializeField]
     private TMP_Text prompt;
+    [SerializeField]
+    private CardListEvent cardsSelectedEvent;
     private string promptText;
     private IEnumerator currentCoroutine = null;
 
@@ -65,7 +67,11 @@ public class CardViewUI : MonoBehaviour
             }
             return;
         }
-        // Raise the selection event
+        List<Card> outputCards = new List<Card>();
+        foreach (UICard uiCard in selectedCards) {
+            outputCards.Add(uiCard.card);
+        }
+        cardsSelectedEvent.Raise(new CardListEventInfo(outputCards));
         Destroy(this.gameObject);
     }
 
