@@ -2,15 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(CardListEventListener))]
 public class TargettingManager : GenericSingleton<TargettingManager>
 {
     [SerializeField]
-    private CardEffectEvent cardEffectEvent;
-    [SerializeField]
-    private CardSelectionRequestEvent cardSelectionRequestEvent;
-    [SerializeField]
     private GameObject cardSelectionUIPrefab;
 
+    // ========== Normal Targetting ========== //
     private List<TargettableEntity> targetList;
     private Entity origin;
     private List<EntityType> validTargets;
@@ -19,29 +17,9 @@ public class TargettingManager : GenericSingleton<TargettingManager>
     private List<TargettableEntity> specificTargetOptions;
     private bool lookingForTarget;
 
-    // old function
-    public void requestTargets(
-            TargetRequester requester,
-            Entity source,
-            List<EntityType> validTargets, 
-            List<TargettableEntity> disallowedTargets = null) {
-        UIStateManager.Instance.setState(UIState.EFFECT_TARGETTING);
-        lookingForTarget = true;
-        this.validTargets = validTargets;
-        // this.requester = requester;
-        this.disallowedTargets = disallowedTargets;
-        TargettingArrowsController.Instance.createTargettingArrow(validTargets, source);
-    }
-
-    public void raiseCardEffect(CardEffectEventInfo info) {
-        StartCoroutine(cardEffectEvent.RaiseAtEndOfFrameCoroutine(info));
-    }
-
-    public void raiseCardSelectionRequest(CardSelectionRequestEventInfo info) {
-        StartCoroutine(cardSelectionRequestEvent.RaiseAtEndOfFrameCoroutine(info));
-    }
-
-    // ===================================================================== //
+    // ========== Card Selecting ========== //
+    private bool lookingForCardSelections;
+    private List<Card> cardSelectionsList;
 
     public void requestTargets(
             List<TargettableEntity> targetListToAddTo,
@@ -129,12 +107,29 @@ public class TargettingManager : GenericSingleton<TargettingManager>
         }
     }
 
-    public void selectCards(List<Card> cards, string promptText, int cardsToSelect) {
+    public void selectCards(
+            List<Card> options,
+            string promptText,
+            int cardsToSelect,
+            List<Card> output) {
         GameObject gameObject = GameObject.Instantiate(
             cardSelectionUIPrefab,
             Vector3.zero,
             Quaternion.identity);
         CardViewUI cardViewUI = gameObject.GetComponent<CardViewUI>();
-        cardViewUI.Setup(cards, cardsToSelect, promptText);
+        cardViewUI.Setup(options, cardsToSelect, promptText);
+        cardSelectionsList = output;
+        lookingForCardSelections = true;
+    }
+
+    public void cardsSelectedEventHandler(CardListEventInfo eventInfo) {
+        if (!lookingForCardSelections) {
+            Debug.LogError("TargettingManager: Cards selected event raised but" +
+            " not looking for card selections!");
+            return;
+        }
+        cardSelectionsList.AddRange(eventInfo.cards);
+        lookingForCardSelections = false;
+        cardSelectionsList = null;
     }
 }

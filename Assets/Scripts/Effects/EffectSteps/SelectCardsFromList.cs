@@ -40,8 +40,13 @@ public class SelectCardsFromList : EffectStep {
         }
 
         List<Card> cardOptions = document.cardMap.getList(inputKey);
+        List<Card> selections = new List<Card>();
 
-        TargettingManager.Instance.selectCards(cardOptions, promptText, targets);
+        TargettingManager.Instance.selectCards(cardOptions, promptText, targets, selections);
+        yield return new WaitUntil(() => selections.Count > 0);
+        Debug.Log("Test");
+
+        document.cardMap.addItems(outputKey, selections);
 
         yield return null;
     }

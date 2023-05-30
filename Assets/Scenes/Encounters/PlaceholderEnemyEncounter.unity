@@ -433,6 +433,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1231297680}
   - component: {fileID: 1231297679}
+  - component: {fileID: 1231297681}
   m_Layer: 0
   m_Name: TargettingManager
   m_TagString: Untagged
@@ -452,8 +453,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6122610dd3c54c4996674674708e1ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardEffectEvent: {fileID: 11400000, guid: 649dc1f48181c6f4ea744ea04ca53239, type: 2}
-  cardSelectionRequestEvent: {fileID: 0}
+  cardsSelectedEvent: {fileID: 11400000, guid: 152f92604c333844cbe39664029bb681, type: 2}
+  cardSelectionUIPrefab: {fileID: 5377055111114097650, guid: 1fd8415aef0620b4eaee61fe5e3ed571, type: 3}
 --- !u!4 &1231297680
 Transform:
   m_ObjectHideFlags: 0
@@ -469,6 +470,34 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1231297681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1231297678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d4dd47d93965574dbea59e299212985, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 152f92604c333844cbe39664029bb681, type: 2}
+  unityEventResponse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1231297679}
+        m_TargetAssemblyTypeName: TargettingManager, Assembly-CSharp
+        m_MethodName: cardsSelectedEventHandler
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &1300297840
 PrefabInstance:
   m_ObjectHideFlags: 0
