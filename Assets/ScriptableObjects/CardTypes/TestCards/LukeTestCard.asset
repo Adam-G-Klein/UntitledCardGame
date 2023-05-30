@@ -18,18 +18,38 @@ MonoBehaviour:
   Artwork: {fileID: 21300000, guid: ed55b8c3c8cddf84e9879c69c720553a, type: 3}
   vfxPrefab: {fileID: 0}
   playable: 1
-  EffectProcedures:
-  - rid: 5669414624235880451
+  effectSteps:
+  - rid: 9024302837437038592
+  - rid: 9024302837437038599
+  - rid: 9024302837437038598
   references:
     version: 2
     RefIds:
-    - rid: 5669414624235880451
-      type: {class: CombatEffectProcedure, ns: , asm: Assembly-CSharp}
+    - rid: 9024302837437038592
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
-        procedureClass: CombatEffectProcedure
-        effectName: 0
-        baseScale: 1
-        targetCaster: 0
-        targetAllValidTargets: 0
-        targetToUse: -1
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: 
         validTargets: 01000000
+        number: 1
+        specialTargetRule: 0
+        cantCancelTargetting: 0
+    - rid: 9024302837437038598
+      type: {class: Taunt, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: Taunt
+        inputTargetsKey: 
+        inputOriginKey: originEntity
+    - rid: 9024302837437038599
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: originEntity
+        validTargets: 
+        number: 1
+        specialTargetRule: 4
+        cantCancelTargetting: 0
