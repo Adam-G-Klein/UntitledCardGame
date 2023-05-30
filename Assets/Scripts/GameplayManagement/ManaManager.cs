@@ -15,7 +15,7 @@ public class ManaManager : GenericSingleton<ManaManager> {
     }
 
     void Update() {
-        if(GameplayConstantsSingleton.Instance.gameplayConstants.DEVELOPMENT_MODE && Input.GetKeyDown(KeyCode.M)) {
+        if (GameplayConstantsSingleton.Instance.gameplayConstants.DEVELOPMENT_MODE && Input.GetKeyDown(KeyCode.M)) {
             currentMana += 1;
             updateText();
         }
