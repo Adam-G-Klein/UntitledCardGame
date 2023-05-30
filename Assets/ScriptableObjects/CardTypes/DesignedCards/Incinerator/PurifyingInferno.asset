@@ -17,14 +17,61 @@ MonoBehaviour:
     exhaust the rest of the deck.
   Cost: 1
   Artwork: {fileID: 21300000, guid: c649f560f07711e41a82bbf9233eb6cd, type: 3}
+  vfxPrefab: {fileID: 0}
   playable: 1
-  EffectProcedures:
-  - rid: 2812362037732048909
+  effectSteps:
+  - rid: 9024302837437038720
+  - rid: 9024302837437038721
+  - rid: 9024302837437038722
+  - rid: 9024302837437038723
+  - rid: 9024302837437038724
   references:
     version: 2
     RefIds:
-    - rid: 2812362037732048909
-      type: {class: PurifyingInferno, ns: , asm: Assembly-CSharp}
+    - rid: 9024302837437038720
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
-        procedureClass: PurifyingInferno
-        cardsToChoose: 1
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: friendlyTarget
+        validTargets: 0000000002000000
+        number: 1
+        specialTargetRule: 0
+        cantCancelTargetting: 0
+    - rid: 9024302837437038721
+      type: {class: GetCardsFromDeck, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetCardsFromDeck
+        inputKey: friendlyTarget
+        getLimitedNumber: 0
+        numberOfCardsToGet: 1
+        outputKey: cardsInDeck
+    - rid: 9024302837437038722
+      type: {class: SelectCardsFromList, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: SelectCardsFromList
+        inputKey: cardsInDeck
+        outputKey: selectedCard
+        promptText: Select 1 card
+        targets: 1
+        getNumberOfTargetsFromKey: 0
+        inputTargetsKey: 
+    - rid: 9024302837437038723
+      type: {class: CardInDeckEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardInDeckEffect
+        inputCardsKey: cardsInDeck
+        inputEntityKey: friendlyTarget
+        effect: 0
+    - rid: 9024302837437038724
+      type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: AddCardsToHand
+        entityFromKey: friendlyTarget
+        cardTypes: []
+        getCardsFromKey: 1
+        inputCardsKey: selectedCard
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 

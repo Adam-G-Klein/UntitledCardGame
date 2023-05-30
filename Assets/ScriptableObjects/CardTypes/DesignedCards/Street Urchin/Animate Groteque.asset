@@ -16,17 +16,31 @@ MonoBehaviour:
   Description: This minion deals 3 damage to target enemy
   Cost: 0
   Artwork: {fileID: 21300000, guid: 35cf9e6f10062dc448b7327fbd33e37d, type: 3}
-  EffectProcedures:
-  - rid: 2812361769379692544
+  vfxPrefab: {fileID: 0}
+  playable: 1
+  effectSteps:
+  - rid: 9024302837437038695
+  - rid: 9024302837437038696
   references:
     version: 2
     RefIds:
-    - rid: 2812361769379692544
-      type: {class: CombatEffectProcedure, ns: , asm: Assembly-CSharp}
+    - rid: 9024302837437038695
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
-        procedureClass: CombatEffectProcedure
-        effectName: 0
-        baseScale: 3
-        targetCaster: 0
-        targetAllValidTargets: 0
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: 
         validTargets: 01000000
+        number: 1
+        specialTargetRule: 0
+        cantCancelTargetting: 0
+    - rid: 9024302837437038696
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: 
+        combatEffect: 0
+        scale: 3
+        getScaleFromKey: 0
+        inputScaleKey: 
