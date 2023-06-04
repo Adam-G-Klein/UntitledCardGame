@@ -83,6 +83,8 @@ public class ShopEncounter : Encounter
 
             //NOTE: Assumes that the companion list and the order their cards are displayed are the same
             cardInShop.keepSake.sprite = companionList[i].companionType.keepsake;
+
+            cardInShop.Setup();
         }
     }
 

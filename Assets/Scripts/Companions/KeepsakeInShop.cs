@@ -19,6 +19,8 @@ public class KeepsakeInShop : MonoBehaviour
     [SerializeField]
     private GameObject soldOutSign;
 
+    bool isSold = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,6 +37,7 @@ public class KeepsakeInShop : MonoBehaviour
 
 
     public void OnPointerClick(PointerEventData eventData) {
+        if (isSold) return;
         CompanionBuyRequest companionBuyRequest = new CompanionBuyRequest(
             companion, 
             price, 
@@ -44,12 +47,14 @@ public class KeepsakeInShop : MonoBehaviour
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if (isSold) return;
         hoverBackground.enabled = true;
     }
 
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        if (isSold) return;
         hoverBackground.enabled = false;
     }
 
@@ -58,6 +63,8 @@ public class KeepsakeInShop : MonoBehaviour
     }
 
     public void sold() {
+        isSold = true;
+        hoverBackground.enabled = false;
         soldOutSign.SetActive(true);
         keepsakeImage.gameObject.SetActive(false);
     }

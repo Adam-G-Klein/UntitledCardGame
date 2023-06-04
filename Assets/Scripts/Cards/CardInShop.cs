@@ -19,6 +19,8 @@ public class CardInShop : MonoBehaviour
     [SerializeField]
     private GameObject soldOutSign;
 
+    private bool isSold = false;
+
     void Start() {
         Debug.Log("CardInShop Start() method");
         this.priceText.text = price.ToString();
@@ -32,6 +34,7 @@ public class CardInShop : MonoBehaviour
     }
 
     public void OnPointerClick(PointerEventData eventData) {
+        if (isSold) return;
         CardBuyRequest cardBuyRequest = new CardBuyRequest(
             cardDisplay.cardInfo, 
             price, 
@@ -41,11 +44,13 @@ public class CardInShop : MonoBehaviour
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if (isSold) return;
         hoverBackground.enabled = true;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        if (isSold) return;
         hoverBackground.enabled = false;
     }
 
@@ -55,6 +60,8 @@ public class CardInShop : MonoBehaviour
     }
 
     public void sold() {
+        isSold = true;
+        hoverBackground.enabled = false;
         soldOutSign.SetActive(true);
         cardDisplay.gameObject.SetActive(false);
     }
