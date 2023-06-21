@@ -16,17 +16,44 @@ MonoBehaviour:
   Description: Give a companion 5 strength and shuffle a burn into their deck
   Cost: 1
   Artwork: {fileID: 21300000, guid: 67b1ae87f57383941be2b8a710c22449, type: 3}
+  vfxPrefab: {fileID: 0}
   playable: 1
-  EffectProcedures:
-  - rid: 2812362037732048896
+  effectSteps:
+  - rid: 1886371092460208247
+  - rid: 1886371092460208248
+  - rid: 1886371092460208249
   references:
     version: 2
     RefIds:
-    - rid: 2812362037732048896
-      type: {class: EffectForStatusCards, ns: , asm: Assembly-CSharp}
+    - rid: 1886371092460208247
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
-        procedureClass: EffectForStatusCards
-        combatEffect: 1
-        effectScale: 5
-        statusCardsToShuffle: 1
-        statusCardType: {fileID: 11400000, guid: bd2ee77eb2ebce146a5d53a2613e9f65, type: 2}
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: target
+        validTargets: 0000000002000000
+        number: 1
+        specialTargetRule: 0
+        cantCancelTargetting: 0
+    - rid: 1886371092460208248
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: target
+        statusEffect: 0
+        scale: 5
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 1886371092460208249
+      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: AddCardsToDeck
+        inputKey: target
+        cardTypes:
+        - {fileID: 11400000, guid: bd2ee77eb2ebce146a5d53a2613e9f65, type: 2}
+        getCardsFromKey: 0
+        inputCardsKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 

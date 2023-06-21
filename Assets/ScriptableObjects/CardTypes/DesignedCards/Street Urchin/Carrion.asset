@@ -16,19 +16,9 @@ MonoBehaviour:
   Description: Choose a minion. When it dies, spawn two minions.
   Cost: 1
   Artwork: {fileID: 21300000, guid: ff1c19216e9ac0145abe8b4b882485a5, type: 3}
+  vfxPrefab: {fileID: 0}
   playable: 1
-  EffectProcedures:
-  - rid: 2812362051130490880
+  effectSteps: []
   references:
     version: 2
-    RefIds:
-    - rid: 2812362051130490880
-      type: {class: CombatEffectProcedure, ns: , asm: Assembly-CSharp}
-      data:
-        procedureClass: CombatEffectProcedure
-        effectName: 13
-        baseScale: 2
-        targetCaster: 0
-        targetAllValidTargets: 0
-        targetToUse: -1
-        validTargets: 02000000
+    RefIds: []

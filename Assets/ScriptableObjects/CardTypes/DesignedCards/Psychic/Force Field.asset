@@ -16,19 +16,31 @@ MonoBehaviour:
   Description: Give a companion 20 block
   Cost: 1
   Artwork: {fileID: 21300000, guid: 193d15b569c0e194b95f3fdf8f931b36, type: 3}
+  vfxPrefab: {fileID: 0}
   playable: 1
-  EffectProcedures:
-  - rid: 2812362037732048915
+  effectSteps:
+  - rid: 1886371092460208260
+  - rid: 1886371092460208261
   references:
     version: 2
     RefIds:
-    - rid: 2812362037732048915
-      type: {class: CombatEffectProcedure, ns: , asm: Assembly-CSharp}
+    - rid: 1886371092460208260
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
-        procedureClass: CombatEffectProcedure
-        effectName: 3
-        baseScale: 20
-        targetCaster: 0
-        targetAllValidTargets: 0
-        targetToUse: -1
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: friendlyTarget
         validTargets: 0000000002000000
+        number: 1
+        specialTargetRule: 0
+        cantCancelTargetting: 0
+    - rid: 1886371092460208261
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: friendlyTarget
+        statusEffect: 2
+        scale: 20
+        getScaleFromKey: 0
+        inputScaleKey: 

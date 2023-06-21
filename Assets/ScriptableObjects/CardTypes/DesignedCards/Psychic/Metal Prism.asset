@@ -16,30 +16,53 @@ MonoBehaviour:
   Description: Draw 2 cards, gain 10 block
   Cost: 1
   Artwork: {fileID: 21300000, guid: 47f910eeeb6ac4644abf639f1e84eba6, type: 3}
+  vfxPrefab: {fileID: 0}
   playable: 1
-  EffectProcedures:
-  - rid: 2812362037732048911
-  - rid: 2812362037732048912
+  effectSteps:
+  - rid: 1886371092460208262
+  - rid: 1886371092460208263
+  - rid: 1886371092460208264
+  - rid: 1886371092460208265
   references:
     version: 2
     RefIds:
-    - rid: 2812362037732048911
-      type: {class: CombatEffectProcedure, ns: , asm: Assembly-CSharp}
+    - rid: 1886371092460208262
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
-        procedureClass: CombatEffectProcedure
-        effectName: 4
-        baseScale: 2
-        targetCaster: 0
-        targetAllValidTargets: 0
-        targetToUse: -1
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: drawTarget
         validTargets: 0000000002000000
-    - rid: 2812362037732048912
-      type: {class: CombatEffectProcedure, ns: , asm: Assembly-CSharp}
+        number: 1
+        specialTargetRule: 0
+        cantCancelTargetting: 0
+    - rid: 1886371092460208263
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
-        procedureClass: CombatEffectProcedure
-        effectName: 3
-        baseScale: 10
-        targetCaster: 1
-        targetAllValidTargets: 0
-        targetToUse: -1
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: selfTarget
         validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 1886371092460208264
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DrawCards
+        inputKey: 
+        outputKey: drawTarget
+        scale: 2
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 1886371092460208265
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: selfTarget
+        statusEffect: 2
+        scale: 10
+        getScaleFromKey: 0
+        inputScaleKey: 

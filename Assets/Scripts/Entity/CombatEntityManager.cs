@@ -11,6 +11,13 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
     private List<MinionInstance> minions = new List<MinionInstance>();
     private List<EnemyInstance> enemies = new List<EnemyInstance>();
 
+    private Dictionary<CombatEntityTrigger, List<IEnumerable>> combatEntityTriggers =
+            new Dictionary<CombatEntityTrigger, List<IEnumerable>>() {
+                {CombatEntityTrigger.COMPANION_DIED, new List<IEnumerable>()},
+                {CombatEntityTrigger.ENEMY_DIED, new List<IEnumerable>()},
+                {CombatEntityTrigger.MINION_DIED, new List<IEnumerable>()}
+            };
+
     public void registerCompanion(CompanionInstance companion) {
         companions.Add(companion);
     }
@@ -108,6 +115,7 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
             case EntityType.Companion:
                 CompanionInstance companion = getCompanionInstanceById(instance.id);
                 companions.Remove(companion);
+                executeTriggers(CombatEntityTrigger.COMPANION_DIED);
                 if (companions.Count == 0) {
                     StartCoroutine(
                         turnPhaseEvent.RaiseAtEndOfFrameCoroutine(
@@ -118,11 +126,13 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
             case EntityType.Minion:
                 MinionInstance minion = getMinionInstanceById(instance.id);
                 minions.Remove(minion);
+                executeTriggers(CombatEntityTrigger.MINION_DIED);
             break;
 
             case EntityType.Enemy:
                 EnemyInstance enemy = getEnemyInstanceById(instance.id);
                 enemies.Remove(enemy);
+                executeTriggers(CombatEntityTrigger.ENEMY_DIED);
                 if (enemies.Count == 0) {
                     StartCoroutine(
                         turnPhaseEvent.RaiseAtEndOfFrameCoroutine(
@@ -131,4 +141,16 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
             break;
         }
     }
+
+    public void executeTriggers(CombatEntityTrigger trigger) {
+        foreach (IEnumerable ienumerable in combatEntityTriggers[trigger]) {
+            StartCoroutine(ienumerable.GetEnumerator());
+        }
+    }
+}
+
+public enum CombatEntityTrigger {
+    COMPANION_DIED,
+    ENEMY_DIED,
+    MINION_DIED
 }

@@ -13,12 +13,11 @@ public class EndTurnButton : MonoBehaviour
     private TurnPhaseEvent turnPhaseEvent;
     [SerializeField]
     private UIStateEvent uiStateEvent;
+    [SerializeField]
     private Button button;
-    void Start() {
-        button = GetComponent<Button>();
-        button.onClick.AddListener(() => {
-            StartCoroutine(turnPhaseEvent.RaiseAtEndOfFrameCoroutine(new TurnPhaseEventInfo(TurnPhase.BEFORE_END_PLAYER_TURN)));
-        });
+
+    public void endTurnButtonHandler() {
+        StartCoroutine(turnPhaseEvent.RaiseAtEndOfFrameCoroutine(new TurnPhaseEventInfo(TurnPhase.BEFORE_END_PLAYER_TURN)));
     }
 
     public void turnPhaseChangedEventHandler(TurnPhaseEventInfo info)
@@ -32,7 +31,4 @@ public class EndTurnButton : MonoBehaviour
             button.interactable = false;
         }
     }
-
-
-
 }

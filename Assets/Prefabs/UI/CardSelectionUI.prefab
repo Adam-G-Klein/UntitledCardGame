@@ -103,8 +103,6 @@ GameObject:
   - component: {fileID: 5377055109475459934}
   - component: {fileID: 5377055109475459937}
   - component: {fileID: 5377055109475459936}
-  - component: {fileID: 8481307823763189627}
-  - component: {fileID: 5235821796962883777}
   m_Layer: 5
   m_Name: ConfirmButton
   m_TagString: Untagged
@@ -218,47 +216,6 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: CardViewUI, Assembly-CSharp
         m_MethodName: exitView
         m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &8481307823763189627
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5377055109475459938}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76e96254747f1f743ae83af4d967d668, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  selectionConfirmedEvent: {fileID: 11400000, guid: e90338377a639c14a8388d96c83edafd, type: 2}
---- !u!114 &5235821796962883777
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5377055109475459938}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef1d3b901d98a65458968f52333d58fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: ed30f73c5f8ea4d4bac74a75a83b7c54, type: 2}
-  unityEventResponse:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8481307823763189627}
-        m_TargetAssemblyTypeName: CardSelectionUIConfirmButton, Assembly-CSharp
-        m_MethodName: OnSelectionValidChanged
-        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

@@ -16,30 +16,53 @@ MonoBehaviour:
   Description: Deal 6 damage, draw a card
   Cost: 1
   Artwork: {fileID: 21300000, guid: d2a517d36b5671d41afe764624992dc3, type: 3}
+  vfxPrefab: {fileID: 0}
   playable: 1
-  EffectProcedures:
-  - rid: 2812362037732048913
-  - rid: 2812362037732048914
+  effectSteps:
+  - rid: 1886371092460208266
+  - rid: 1886371092460208267
+  - rid: 1886371092460208268
+  - rid: 1886371092460208269
   references:
     version: 2
     RefIds:
-    - rid: 2812362037732048913
-      type: {class: CombatEffectProcedure, ns: , asm: Assembly-CSharp}
+    - rid: 1886371092460208266
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
-        procedureClass: CombatEffectProcedure
-        effectName: 0
-        baseScale: 6
-        targetCaster: 0
-        targetAllValidTargets: 0
-        targetToUse: -1
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: enemyTarget
         validTargets: 01000000
-    - rid: 2812362037732048914
-      type: {class: CombatEffectProcedure, ns: , asm: Assembly-CSharp}
+        number: 1
+        specialTargetRule: 0
+        cantCancelTargetting: 0
+    - rid: 1886371092460208267
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
-        procedureClass: CombatEffectProcedure
-        effectName: 4
-        baseScale: 1
-        targetCaster: 0
-        targetAllValidTargets: 0
-        targetToUse: -1
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: drawTarget
         validTargets: 0000000002000000
+        number: 1
+        specialTargetRule: 0
+        cantCancelTargetting: 0
+    - rid: 1886371092460208268
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: enemyTarget
+        combatEffect: 0
+        scale: 6
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 1886371092460208269
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DrawCards
+        inputKey: drawTarget
+        outputKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 

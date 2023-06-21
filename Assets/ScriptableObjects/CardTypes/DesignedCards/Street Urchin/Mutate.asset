@@ -13,19 +13,48 @@ MonoBehaviour:
   m_Name: Mutate
   m_EditorClassIdentifier: 
   Name: Mutate
-  Description: Shuffle 3 copies of target card into all minion's decks
+  Description: Shuffle 3 copies of card in hand into all minion's decks
   Cost: 1
   Artwork: {fileID: 21300000, guid: 8a6f0b89483467d499e7cc88b15ef15f, type: 3}
+  vfxPrefab: {fileID: 0}
   playable: 1
-  EffectProcedures:
-  - rid: 2812362051130490889
+  effectSteps:
+  - rid: 1886371092460208280
+  - rid: 1886371092460208281
+  - rid: 1886371092460208282
   references:
     version: 2
     RefIds:
-    - rid: 2812362051130490889
-      type: {class: Mutate, ns: , asm: Assembly-CSharp}
+    - rid: 1886371092460208280
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
-        procedureClass: Mutate
-        numCopies: 3
-        targetAllValidTargets: 1
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: allMinions
         validTargets: 02000000
+        number: 1
+        specialTargetRule: 1
+        cantCancelTargetting: 0
+    - rid: 1886371092460208281
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: cardInHand
+        validTargets: 03000000
+        number: 1
+        specialTargetRule: 2
+        cantCancelTargetting: 0
+    - rid: 1886371092460208282
+      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: AddCardsToDeck
+        inputKey: allMinions
+        cardTypes: []
+        getCardsFromKey: 1
+        inputCardsKey: cardInHand
+        scale: 3
+        getScaleFromKey: 0
+        inputScaleKey: 

@@ -35,34 +35,27 @@ public class InCombatDeck
         List<Card> returnList = new List<Card>();
         shuffleDeck();
         for(int i = 0; i < numCards; i++){
-            dealCardFromDeckToList(returnList, withReplacement, i);
+            dealCardFromDeckToList(returnList, withReplacement);
         }
         inHand.AddRange(returnList);
         return returnList;
     }
 
-    // pass the list reference around for the case where the deck is empty
-    // so we don't have to do any weird logic around checking null on the return value
-    // *Note* this function will shuffle the deck to get a card if the draw pile is empty
-    // TODO: a scrying function that doesn't shuffle if we need it
-    private void dealCardFromDeckToList(List<Card> toList, bool withReplacement = false, int cardinality = 0) {
-        int totalCards = drawPile.Count + discardPile.Count;
-        if(cardinality >= totalCards)
-            return;
-        // cardinality = 0 and drawpile = 0 is a case where we need to shuffle the discard pile into the draw pile
-        if (drawPile.Count <= cardinality) {
+    private void dealCardFromDeckToList(List<Card> toList, bool withReplacement = false) {
+        // Check to see if the draw pile is empty
+        if (drawPile.Count == 0) {
+            // If draw pile is empty, the options are shuffle in the discard pile then draw,
+            // or we just get no draw since both are empty :(
             if (discardPile.Count == 0) {
-                // No cards left in deck or discard pile
-                // Don't add anything to the list
+                // big loser moment
                 return;
             }
-            // Shuffle discard pile into draw pile
             shuffleDiscardIntoDraw();
         }
-        Card card = drawPile[cardinality];
+        Card card = drawPile[0];
         if (!withReplacement)
             drawPile.Remove(card);
-        if(!toList.Contains(card)) {
+        if (!toList.Contains(card)) {
             toList.Add(card);
         }
     }

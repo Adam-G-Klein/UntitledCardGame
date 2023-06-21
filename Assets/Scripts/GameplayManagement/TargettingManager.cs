@@ -7,6 +7,8 @@ public class TargettingManager : GenericSingleton<TargettingManager>
 {
     [SerializeField]
     private GameObject cardSelectionUIPrefab;
+    [SerializeField]
+    private TargettingArrowsController targettingArrows;
 
     // ========== Normal Targetting ========== //
     private List<TargettableEntity> targetList;
@@ -42,7 +44,7 @@ public class TargettingManager : GenericSingleton<TargettingManager>
         this.numberOfTargets = numberOfTargets;
         this.disallowedTargets = disallowedTargets;
         this.specificTargetOptions = specificTargetOptions;
-        TargettingArrowsController.Instance.createTargettingArrow(validTargets, origin);
+        targettingArrows.createTargettingArrow(validTargets, origin);
     }
 
     public List<TargettableEntity> getAllValidTargets(
@@ -91,10 +93,10 @@ public class TargettingManager : GenericSingleton<TargettingManager>
         Debug.Log(target);
         Debug.Log(targetList);
         targetList.Add(target);
-        TargettingArrowsController.Instance.freezeArrow(target);
+        targettingArrows.freezeArrow(target);
 
         if (numberOfTargets > targetList.Count) {
-            TargettingArrowsController.Instance.createTargettingArrow(validTargets, origin);
+            targettingArrows.createTargettingArrow(validTargets, origin);
         } else {
             // Reset targetting state
             lookingForTarget = false;

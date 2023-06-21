@@ -41,12 +41,6 @@ public class TurnManager : MonoBehaviour
         StartCoroutine("LateStart");
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private IEnumerator LateStart() {
         yield return new WaitForEndOfFrame();
         StartCoroutine(turnPhaseEvent.RaiseAtEndOfFrameCoroutine(new TurnPhaseEventInfo(TurnPhase.START_ENCOUNTER)));

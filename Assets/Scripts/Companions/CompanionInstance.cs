@@ -2,21 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(CompanionAbilityInvoker))]
 public class CompanionInstance : CombatEntityWithDeckInstance 
 {
     public Companion companion;
-    private CompanionAbilityInvoker abilityInvoker;
 
     protected override void Start() {
         base.Start();
-        abilityInvoker = GetComponent<CompanionAbilityInvoker>();
         CombatEntityManager.Instance.registerCompanion(this);
     }
 
     protected override IEnumerator onDeath(CombatEntityInstance killer)
     {
-        abilityInvoker.onDeath();
         return base.onDeath(killer);
     }
 

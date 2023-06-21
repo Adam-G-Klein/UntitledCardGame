@@ -18,8 +18,13 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: bdd59c505b86bf44cabf5f9f82a41064, type: 3}
   startingDeck: {fileID: 11400000, guid: 83b10e15a862e1a48900e311e49378a4, type: 2}
   keepsake: {fileID: 21300000, guid: a100f38fb92da834786807cb66e2ebba, type: 3}
-  cardPool: {fileID: 11400000, guid: 6ff9c85cdf48f0145b152ab0a7fafc04, type: 2}
-  abilities: []
+  ability:
+    rid: 1886370794371285028
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 1886370794371285028
+      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
+      data:
+        companionAbilityTrigger: 0
+        effectSteps: []

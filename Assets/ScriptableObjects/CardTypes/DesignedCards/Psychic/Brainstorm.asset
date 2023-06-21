@@ -16,15 +16,60 @@ MonoBehaviour:
   Description: Deal 3 damage for each of the cards in your hand
   Cost: 1
   Artwork: {fileID: 21300000, guid: e214fa1b4dba7e0418f0b2af6b7d6df3, type: 3}
+  vfxPrefab: {fileID: 0}
   playable: 1
-  EffectProcedures:
-  - rid: 7342827955594723333
+  effectSteps:
+  - rid: 1886371092460208250
+  - rid: 1886371092460208252
+  - rid: 1886371092460208277
+  - rid: 1886371092460208255
+  - rid: 1886371092460208256
   references:
     version: 2
     RefIds:
-    - rid: 7342827955594723333
-      type: {class: Brainstorm, ns: , asm: Assembly-CSharp}
+    - rid: 1886371092460208250
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
-        procedureClass: Brainstorm
-        baseScale: 3
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: enemyTarget
         validTargets: 01000000
+        number: 1
+        specialTargetRule: 0
+        cantCancelTargetting: 0
+    - rid: 1886371092460208252
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: cardsInHand
+        validTargets: 03000000
+        number: 1
+        specialTargetRule: 1
+        cantCancelTargetting: 0
+    - rid: 1886371092460208255
+      type: {class: MathStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: MathStep
+        inputKey: numberOfCardsInHand
+        operation: 2
+        scale: 3
+        outputKey: finalDamage
+    - rid: 1886371092460208256
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: enemyTarget
+        combatEffect: 14
+        scale: 0
+        getScaleFromKey: 1
+        inputScaleKey: finalDamage
+    - rid: 1886371092460208277
+      type: {class: CountStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CountStep
+        inputKey: cardsInHand
+        typesToCount: 01000000
+        outputKey: numberOfCardsInHand

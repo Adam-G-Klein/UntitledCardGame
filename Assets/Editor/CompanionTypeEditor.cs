@@ -6,37 +6,38 @@ using UnityEditor;
 [CustomEditor(typeof(CompanionTypeSO))]
 public class CompanionTypeEditor : Editor {
 
-    string companionAbilityClassName = "RetainCards";
+    EffectStepName stepName = EffectStepName.Default;
+
     public override void OnInspectorGUI() {
         CompanionTypeSO companionTypeSO = (CompanionTypeSO) target;
         DrawDefaultInspector();
 
         EditorGUILayout.Space(20);
-        EditorGUILayout.LabelField("Effect Procedure Controls");
+        EditorGUILayout.LabelField("Effect Step Controls");
         EditorGUILayout.Space(5);
 
-        companionAbilityClassName = EditorGUILayout.TextField(
-            "New ability classname",
-            companionAbilityClassName);
+        stepName = (EffectStepName) EditorGUILayout.EnumPopup(
+            "New effect",
+            stepName);
 
-        if (GUILayout.Button("Add Companion Ability")) {
-            CompanionAbility newAbility = InstantiateFromClassname.Instantiate<CompanionAbility>(
-                companionAbilityClassName, 
+        if (GUILayout.Button("Add Effect")) {
+            EffectStep newEffect = InstantiateFromClassname.Instantiate<EffectStep>(
+                stepName.ToString(), 
                 new object[] {});
 
-            if(newAbility == null) {
-                Debug.LogError("Failed to instantiate companion ability , " +
-                "please check Scripts/Companions/CompanionAbilities/* to verify the className");
+            if(newEffect == null) {
+                Debug.LogError("Failed to instantiate effect step, " +
+                "please check Scripts/Effects/EffectSteps/* to verify the className for the  " +
+                " and verify that the arguments set in the editor correspond to " +
+                " the arguments in the constructor");
             }
             else {
-                companionTypeSO.abilities.Add(newAbility);
+                if (companionTypeSO.ability == null) {
+                    companionTypeSO.ability = new CompanionAbility();
+                    companionTypeSO.ability.effectSteps = new List<EffectStep>();
+                }
+                companionTypeSO.ability.effectSteps.Add(newEffect);
             }
-            
-            // These three calls cause the asset to actually be modified
-            // on disc when we hit the button
-            AssetDatabase.Refresh();
-            EditorUtility.SetDirty(companionTypeSO);
-            AssetDatabase.SaveAssets();
         }
     }
 

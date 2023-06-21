@@ -16,37 +16,61 @@ MonoBehaviour:
   Description: Sacrifice a minion, draw 2 cards, gain one mana
   Cost: 0
   Artwork: {fileID: 21300000, guid: 34473788bb1226e4bb7e16f1ba1d67b3, type: 3}
+  vfxPrefab: {fileID: 0}
   playable: 1
-  EffectProcedures:
-  - rid: 2812362051130490881
-  - rid: 2812362051130490882
-  - rid: 2812362051130490884
+  effectSteps:
+  - rid: 1886371092460208283
+  - rid: 1886371092460208285
+  - rid: 1886371092460208286
+  - rid: 1886371092460208284
+  - rid: 1886371092460208287
   references:
     version: 2
     RefIds:
-    - rid: 2812362051130490881
-      type: {class: CombatEffectProcedure, ns: , asm: Assembly-CSharp}
+    - rid: 1886371092460208283
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
-        procedureClass: CombatEffectProcedure
-        effectName: 6
-        baseScale: 1
-        targetCaster: 0
-        targetAllValidTargets: 0
-        targetToUse: -1
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: THE_SACRIFICE
         validTargets: 02000000
-    - rid: 2812362051130490882
-      type: {class: CombatEffectProcedure, ns: , asm: Assembly-CSharp}
+        number: 1
+        specialTargetRule: 0
+        cantCancelTargetting: 0
+    - rid: 1886371092460208284
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:
-        procedureClass: CombatEffectProcedure
-        effectName: 4
-        baseScale: 2
-        targetCaster: 0
-        targetAllValidTargets: 0
-        targetToUse: -1
+        effectStepName: DrawCards
+        inputKey: cardDrawTarget
+        outputKey: 
+        scale: 2
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 1886371092460208285
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: cardDrawTarget
         validTargets: 0000000002000000
-    - rid: 2812362051130490884
-      type: {class: IntEffectProcedure, ns: , asm: Assembly-CSharp}
+        number: 1
+        specialTargetRule: 0
+        cantCancelTargetting: 0
+    - rid: 1886371092460208286
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
-        procedureClass: IntEffectProcedure
-        gameEvent: {fileID: 11400000, guid: c102a62a7fc128343b59ddb6cac89348, type: 2}
-        baseScale: 1
+        effectStepName: CombatEffectStep
+        inputKey: THE_SACRIFICE
+        combatEffect: 6
+        scale: 0
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 1886371092460208287
+      type: {class: ManaChange, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ManaChange
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 

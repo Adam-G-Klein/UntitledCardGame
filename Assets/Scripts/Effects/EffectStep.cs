@@ -20,8 +20,9 @@ public enum EffectStepName {
     PermanentStatIncrease,
     SelectCardsFromList,
     SummonMinion,
-    CountCards,
-    Taunt
+    CountStep,
+    Taunt,
+    MathStep
 }
 
 [System.Serializable]

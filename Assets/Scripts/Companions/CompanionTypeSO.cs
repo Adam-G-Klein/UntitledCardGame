@@ -16,5 +16,5 @@ public class CompanionTypeSO : ScriptableObject
     public CardPoolSO cardPool;
 
     [SerializeReference]
-    public List<CompanionAbility> abilities;
+    public CompanionAbility ability;
 }

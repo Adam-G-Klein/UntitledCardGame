@@ -14,7 +14,7 @@ public class Companion: CombatEntityBaseStats, CombatEntityWithDeck
     public int cardsDealtPerTurn = 1;
 
     [SerializeReference]
-    public List<CompanionAbility> abilities;
+    public CompanionAbility ability;
     // This might look like a duplicate id field from the one 
     // that all Entities have. I thought it was. But we need it
     // to keep track of the companion between encounters.
@@ -28,9 +28,9 @@ public class Companion: CombatEntityBaseStats, CombatEntityWithDeck
         this.currentHealth = this.maxHealth;
         this.baseAttackDamage = companionType.baseAttackDamage;
         this.deck = new Deck(companionType.startingDeck);
-        this.abilities = companionType.abilities;
+        this.ability = companionType.ability;
         this.id = Id.newGuid();
-        Debug.Log(JsonUtility.ToJson(this));
+        // Debug.Log(JsonUtility.ToJson(this));
     }
 
     public int getBaseAttackDamage() {

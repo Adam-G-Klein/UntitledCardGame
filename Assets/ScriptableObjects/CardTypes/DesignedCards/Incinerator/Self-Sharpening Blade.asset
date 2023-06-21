@@ -16,17 +16,9 @@ MonoBehaviour:
   Description: Deal 5 Damage, deal 3 additional damage next time
   Cost: 1
   Artwork: {fileID: 21300000, guid: 024f36b3d30d33240ad25029f517c25a, type: 3}
+  vfxPrefab: {fileID: 0}
   playable: 1
-  EffectProcedures:
-  - rid: 2812362037732048898
+  effectSteps: []
   references:
     version: 2
-    RefIds:
-    - rid: 2812362037732048898
-      type: {class: EffectIncreasesOnPlay, ns: , asm: Assembly-CSharp}
-      data:
-        procedureClass: EffectIncreasesOnPlay
-        combatEffect: 0
-        baseScale: 5
-        increaseOnPlay: 3
-        validTargets: 01000000
+    RefIds: []
