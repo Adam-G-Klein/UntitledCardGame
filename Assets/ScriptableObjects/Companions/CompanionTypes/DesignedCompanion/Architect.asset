@@ -15,16 +15,16 @@ MonoBehaviour:
   companionName: Architect
   maxHealth: 30
   baseAttackDamage: 0
-  sprite: {fileID: 21300000, guid: cdd64b9d701fb334a804cb354ab2375b, type: 3}
+  sprite: {fileID: 21300000, guid: f0be75aad7c198b43a2fe0441902d37e, type: 3}
   startingDeck: {fileID: 11400000, guid: 10c5c659ceb55d941aaae63b3041edf6, type: 2}
   keepsake: {fileID: 21300000, guid: a7eb0f0f0eaaf6943843625fe73cba7d, type: 3}
   cardPool: {fileID: 11400000, guid: 93ba74ca5330296459b14af153d9e296, type: 2}
   abilities:
-  - rid: 2812361713530961920
+  - rid: 5828584026221052422
   references:
     version: 2
     RefIds:
-    - rid: 2812361713530961920
+    - rid: 5828584026221052422
       type: {class: MinionSpawnETB, ns: , asm: Assembly-CSharp}
       data:
         abilityName: GrotesqueETB

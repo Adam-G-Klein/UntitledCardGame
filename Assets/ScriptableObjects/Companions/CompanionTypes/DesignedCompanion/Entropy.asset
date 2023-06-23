@@ -15,16 +15,16 @@ MonoBehaviour:
   companionName: Entropy
   maxHealth: 20
   baseAttackDamage: 0
-  sprite: {fileID: 21300000, guid: c1209c0903950dd4d95e3e8bd730622d, type: 3}
+  sprite: {fileID: 21300000, guid: f0be75aad7c198b43a2fe0441902d37e, type: 3}
   startingDeck: {fileID: 11400000, guid: f88499d65b2d43848a8f72b8bcfa65df, type: 2}
   keepsake: {fileID: 21300000, guid: c1209c0903950dd4d95e3e8bd730622d, type: 3}
   cardPool: {fileID: 11400000, guid: 60d7889b0e28b8a46a7b627807eccacf, type: 2}
   abilities:
-  - rid: 4472866491299004431
+  - rid: 5828584026221052429
   references:
     version: 2
     RefIds:
-    - rid: 4472866491299004431
+    - rid: 5828584026221052429
       type: {class: PurgeCardOnEncounterEnd, ns: , asm: Assembly-CSharp}
       data:
         abilityName: PurgeCardOnEncounterEnd

@@ -15,16 +15,16 @@ MonoBehaviour:
   companionName: Endurance
   maxHealth: 20
   baseAttackDamage: 0
-  sprite: {fileID: 21300000, guid: 28b3c9fcc50215a41a060c956d5d2f9e, type: 3}
+  sprite: {fileID: 21300000, guid: f0be75aad7c198b43a2fe0441902d37e, type: 3}
   startingDeck: {fileID: 11400000, guid: 17489518ceb9d7341947bea0c6f7629e, type: 2}
   keepsake: {fileID: 21300000, guid: a100f38fb92da834786807cb66e2ebba, type: 3}
   cardPool: {fileID: 11400000, guid: 3e33e8a22ef5f3e46bf67e48ebcbea1c, type: 2}
   abilities:
-  - rid: 4472866491299004416
+  - rid: 5828584026221052419
   references:
     version: 2
     RefIds:
-    - rid: 4472866491299004416
+    - rid: 5828584026221052419
       type: {class: GainMaxHpOnEntityDeath, ns: , asm: Assembly-CSharp}
       data:
         abilityName: GainMaxHpOnEntityDeath
