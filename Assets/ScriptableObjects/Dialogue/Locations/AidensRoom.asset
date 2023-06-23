@@ -12,5 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5ee9684e54597d41b5066d4131c0a48, type: 3}
   m_Name: AidensRoom
   m_EditorClassIdentifier: 
+<<<<<<< HEAD:Assets/ScriptableObjects/Dialogue/Locations/AidensRoom.asset
   sequencesAtLocation:
   - {fileID: 11400000, guid: 279293789af81b946aa0d000da2f2198, type: 2}
+=======
+  maxHealth: 30
+  baseAttackDamage: 5
+  sprite: {fileID: 21300000, guid: cf60b5e463ab9444c89775818bee8c87, type: 3}
+  brain: {fileID: 11400000, guid: d1737685277d3b74fa9c52ba4c9b293d, type: 2}
+>>>>>>> e6e5a69 (Art Integration with Correct Unity):Assets/ScriptableObjects/Enemies/Slime.asset
