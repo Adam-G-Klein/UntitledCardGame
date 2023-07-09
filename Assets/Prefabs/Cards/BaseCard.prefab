@@ -33,12 +33,13 @@ RectTransform:
   - {fileID: 4183466308522564346}
   - {fileID: 4183466308563975379}
   - {fileID: 6555415324687867078}
+  - {fileID: 8134602418876163753}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -21.0579}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 274.7842, y: 368.513}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &4183466307204269013
@@ -211,7 +212,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.080000006, y: 0.08265393}
   m_AnchorMax: {x: 0.9291079, y: 0.37465394}
-  m_AnchoredPosition: {x: 0.501709, y: 0.10003662}
+  m_AnchoredPosition: {x: 0.501709, y: 0.100097656}
   m_SizeDelta: {x: 2.0899963, y: -0.2593994}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4183466308522564348
@@ -474,7 +475,7 @@ GameObject:
   - component: {fileID: 8134602418876163753}
   - component: {fileID: 5357484929522757895}
   - component: {fileID: 4272484758180893248}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: CardCostText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -488,18 +489,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7128766889198953313}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6555415324687867078}
-  m_RootOrder: 0
+  m_Father: {fileID: 8920477793246675867}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.012909, y: -0.00054932}
-  m_SizeDelta: {x: 2054.9, y: 1677.7}
+  m_AnchorMin: {x: 0.73363924, y: 0.8121409}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: -0.000061035156, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5357484929522757895
 CanvasRenderer:
@@ -556,12 +557,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 1562.7
-  m_fontSizeBase: 1562.7
+  m_fontSize: 61.95
+  m_fontSizeBase: 69
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 350
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -609,7 +610,7 @@ GameObject:
   - component: {fileID: 6555415324687867078}
   - component: {fileID: 5922129382619890406}
   - component: {fileID: 3411309023801896387}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: CardCost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -625,17 +626,16 @@ RectTransform:
   m_GameObject: {fileID: 8772765853504905672}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.04, y: 0.04, z: 0.01}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 8134602418876163753}
+  m_Children: []
   m_Father: {fileID: 8920477793246675867}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 100.7, y: 149.4}
-  m_SizeDelta: {x: 1856.9685, y: 1712.3}
+  m_AnchorMin: {x: 0.73363924, y: 0.8121409}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: -0.000030517578}
+  m_SizeDelta: {x: -0.000061035156, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5922129382619890406
 CanvasRenderer:

@@ -522,7 +522,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.012148857, y: 0.19957447}
+  m_Offset: {x: -45.83008, y: -49.143463}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -533,7 +533,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 15.009653, y: 19.60037}
+  m_Size: {x: 1480.0391, y: 1993.3193}
   m_EdgeRadius: 0
 --- !u!114 &8952371309157492456
 MonoBehaviour:
@@ -571,6 +571,8 @@ MonoBehaviour:
   priceText: {fileID: 9061607336424955294}
   cardDisplay: {fileID: 8952371309157492456}
   hoverBackground: {fileID: 4743878075719178875}
+  keepSake: {fileID: 0}
+  soldOutSign: {fileID: 0}
 --- !u!114 &7533518680429018692
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -612,30 +614,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4183466307204269014, guid: d235b184f6564184b93f762200dec9e5, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 2.4487915
+      value: 2.4487305
       objectReference: {fileID: 0}
     - target: {fileID: 4183466307204269014, guid: d235b184f6564184b93f762200dec9e5, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1.2999878
+      value: 1.2998047
       objectReference: {fileID: 0}
     - target: {fileID: 4183466307204269015, guid: d235b184f6564184b93f762200dec9e5, type: 3}
       propertyPath: m_fontSize
       value: 94.65
-      objectReference: {fileID: 0}
-    - target: {fileID: 4183466308522564346, guid: d235b184f6564184b93f762200dec9e5, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0.099975586
       objectReference: {fileID: 0}
     - target: {fileID: 4183466308522564347, guid: d235b184f6564184b93f762200dec9e5, type: 3}
       propertyPath: m_fontSize
       value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4183466308563975379, guid: d235b184f6564184b93f762200dec9e5, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0.5
+      propertyPath: m_AnchoredPosition.y
+      value: -0.50061035
       objectReference: {fileID: 0}
-    - target: {fileID: 4398611049511405469, guid: d235b184f6564184b93f762200dec9e5, type: 3}
-      propertyPath: m_AnchoredPosition.x
+    - target: {fileID: 4272484758180893248, guid: d235b184f6564184b93f762200dec9e5, type: 3}
+      propertyPath: m_fontSize
+      value: 336.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6555415324687867078, guid: d235b184f6564184b93f762200dec9e5, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8920477793246675867, guid: d235b184f6564184b93f762200dec9e5, type: 3}

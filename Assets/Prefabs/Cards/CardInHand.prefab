@@ -81,6 +81,7 @@ MonoBehaviour:
   card:
     cardType: {fileID: 0}
     id: 
+  entityFrom: {fileID: 0}
   hoverScale: 1.5
   nonHoverScale: 1
   combatEffectEvent: {fileID: 11400000, guid: 7b4f8952c0f9b4d4a80b72189e46bd3c, type: 2}
@@ -208,6 +209,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: BaseCard
       objectReference: {fileID: 0}
+    - target: {fileID: 4183466307204269015, guid: d235b184f6564184b93f762200dec9e5, type: 3}
+      propertyPath: m_fontSize
+      value: 16.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4183466308522564347, guid: d235b184f6564184b93f762200dec9e5, type: 3}
+      propertyPath: m_fontSize
+      value: 20.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4272484758180893248, guid: d235b184f6564184b93f762200dec9e5, type: 3}
+      propertyPath: m_fontSize
+      value: 63.35
+      objectReference: {fileID: 0}
     - target: {fileID: 8920477793246675867, guid: d235b184f6564184b93f762200dec9e5, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -238,11 +251,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8920477793246675867, guid: d235b184f6564184b93f762200dec9e5, type: 3}
       propertyPath: m_SizeDelta.x
-      value: -0.00094604
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8920477793246675867, guid: d235b184f6564184b93f762200dec9e5, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0.000030518
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8920477793246675867, guid: d235b184f6564184b93f762200dec9e5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -274,11 +287,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8920477793246675867, guid: d235b184f6564184b93f762200dec9e5, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.00048828125
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8920477793246675867, guid: d235b184f6564184b93f762200dec9e5, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.000015258789
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8920477793246675867, guid: d235b184f6564184b93f762200dec9e5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
