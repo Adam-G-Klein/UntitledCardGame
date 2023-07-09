@@ -18,6 +18,7 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 28b3c9fcc50215a41a060c956d5d2f9e, type: 3}
   startingDeck: {fileID: 11400000, guid: 17489518ceb9d7341947bea0c6f7629e, type: 2}
   keepsake: {fileID: 21300000, guid: a100f38fb92da834786807cb66e2ebba, type: 3}
+  cardPool: {fileID: 0}
   ability:
     rid: 1886370794371285022
   references:
@@ -26,5 +27,27 @@ MonoBehaviour:
     - rid: 1886370794371285022
       type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
       data:
-        companionAbilityTrigger: 0
-        effectSteps: []
+        companionAbilityTrigger: 3
+        effectSteps:
+        - rid: 8939928036647632950
+        - rid: 8939928036647632951
+    - rid: 8939928036647632950
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 8939928036647632951
+      type: {class: PermanentStatIncrease, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: PermanentStatIncrease
+        inputKey: self
+        statIncreaseType: 1
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 

@@ -5,15 +5,20 @@ using UnityEngine;
 public class CompanionInstance : CombatEntityWithDeckInstance 
 {
     public Companion companion;
+    private IEnumerable deathCallback;
 
     protected override void Start() {
         base.Start();
+        companion.ability.Setup(this);
         CombatEntityManager.Instance.registerCompanion(this);
     }
 
     protected override IEnumerator onDeath(CombatEntityInstance killer)
     {
-        return base.onDeath(killer);
+        if (deathCallback != null) {
+            yield return StartCoroutine(deathCallback.GetEnumerator());
+        }
+        yield return base.onDeath(killer);
     }
 
     public override bool isTargetableByChildImpl(EffectTargetRequestEventInfo eventInfo)
@@ -27,5 +32,8 @@ public class CompanionInstance : CombatEntityWithDeckInstance
         return true;
     }
 
+    public void setOnDeath(IEnumerable callback) {
+        this.deathCallback = callback;
+    }
 }
 

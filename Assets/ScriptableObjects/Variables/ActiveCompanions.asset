@@ -13,29 +13,72 @@ MonoBehaviour:
   m_Name: ActiveCompanions
   m_EditorClassIdentifier: 
   companionList:
-  - companionType: {fileID: 11400000, guid: f64c62bd77fcea846a5c19bed998aeb6, type: 2}
+  - companionType: {fileID: 11400000, guid: c106de03c6bb3ab4e952724e5e4a073c, type: 2}
     maxHealth: 20
-    currentHealth: 300
+    currentHealth: 20
     deck:
-      startingDeck: {fileID: 11400000, guid: 17489518ceb9d7341947bea0c6f7629e, type: 2}
+      startingDeck: {fileID: 11400000, guid: 1e6712d15d797514aa606a6a0d84a059, type: 2}
       cards:
-      - cardType: {fileID: 11400000, guid: 9d2a2670e51cb324291329aeb32e9c64, type: 2}
-        id: 159731b0-b255-4b0e-99a0-7fdeec56c548
-      - cardType: {fileID: 11400000, guid: 9d2a2670e51cb324291329aeb32e9c64, type: 2}
-        id: 2
-      - cardType: {fileID: 11400000, guid: 9d2a2670e51cb324291329aeb32e9c64, type: 2}
-        id: 3
+      - cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
+        id: a82c6788-6421-4d2c-af45-2efcb25b60bb
+      - cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
+        id: ca25c79f-76a1-4d4c-8d82-735504272d82
+      - cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
+        id: 0be6f1d7-3913-44b9-b510-54a188ab40db
+      - cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
+        id: 80feee88-be52-4442-9663-726900ba49a2
+      - cardType: {fileID: 11400000, guid: af631239de690bd4f9c3504152e145d7, type: 2}
+        id: 9afe630c-e521-465c-8ac4-a78ff90f786b
     baseAttackDamage: 0
     cardsDealtPerTurn: 1
-    abilities:
-    - rid: 1886370794371284994
-    id: 3bbc4966-bb32-47c4-a439-97d4dc9d13c8
+    ability:
+      rid: 8939928036647633529
+    id: d96e2925-b0a2-4318-875d-10abd14f4b4d
   companionBench: []
   currentCompanionSlots: 3
   references:
     version: 2
     RefIds:
-    - rid: 1886370794371284994
-      type: {class: GainMaxHpOnEntityDeath, ns: , asm: Assembly-CSharp}
+    - rid: 8939928036647633529
+      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
       data:
-        abilityName: GainMaxHpOnEntityDeath
+        companionAbilityTrigger: 2
+        effectSteps:
+        - rid: 8939928036647633530
+        - rid: 8939928036647633531
+        - rid: 8939928036647633532
+        - rid: 8939928036647633533
+    - rid: 8939928036647633530
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: allCardsInHand
+        validTargets: 03000000
+        number: 1
+        specialTargetRule: 1
+        cantCancelTargetting: 0
+    - rid: 8939928036647633531
+      type: {class: EndWorkflowIfNoMapElement, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfNoMapElement
+        keyToCheck: allCardsInHand
+        mapToCheck: 4
+    - rid: 8939928036647633532
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: cardToRetain
+        validTargets: 03000000
+        number: 1
+        specialTargetRule: 0
+        cantCancelTargetting: 0
+    - rid: 8939928036647633533
+      type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardInHandEffect
+        inputKey: cardToRetain
+        effect: 2

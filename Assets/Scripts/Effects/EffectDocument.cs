@@ -25,6 +25,8 @@ public class EffectDocument
     
     public Dictionary<string, string> stringMap = new Dictionary<string, string>();
 
+    public Dictionary<string, bool> boolMap = new Dictionary<string, bool>();
+
     public List<CombatEntityInstance> getCombatEntityInstances(string key) {
         List<CombatEntityInstance> returnList = new List<CombatEntityInstance>();
         if (companionMap.containsValueWithKey(key)) {

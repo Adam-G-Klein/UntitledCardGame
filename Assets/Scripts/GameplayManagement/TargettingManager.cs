@@ -33,6 +33,11 @@ public class TargettingManager : GenericSingleton<TargettingManager>
             List<TargettableEntity> specificTargetOptions = null) {
         if (targetAllValidTargets) {
             targetListToAddTo.AddRange(getAllValidTargets(validTargets, disallowedTargets));
+            // Make targetting not break if there are no valid targets but we accidentally
+            // force targetting. Revisit this later
+            if (targetListToAddTo.Count == 0) {
+                targetListToAddTo.Add(null);
+            }
             return;
         }
 

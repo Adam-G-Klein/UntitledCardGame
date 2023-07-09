@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class EffectManager : GenericSingleton<EffectManager>
 {
+    public bool interruptEffectWorkflow = false;
     private IEnumerator currentEffectWorkflow;
     private IEnumerator currentEffectStep;
 
@@ -16,11 +17,26 @@ public class EffectManager : GenericSingleton<EffectManager>
         StartCoroutine(currentEffectWorkflow);
     }
 
+    public IEnumerator invokeEffectWorkflowCoroutine(
+            EffectDocument document,
+            List<EffectStep> effectSteps,
+            Action callback) {
+        Debug.Log("Invoking effect workflow");
+        currentEffectWorkflow = effectWorkflowCoroutine(document, effectSteps, callback);
+        yield return StartCoroutine(currentEffectWorkflow);
+    }
+
     private IEnumerator effectWorkflowCoroutine(
             EffectDocument document,
             List<EffectStep> effectSteps,
             Action callback) {
         foreach (EffectStep step in effectSteps) {
+            if (interruptEffectWorkflow) {
+                Debug.Log("Breaking from workflow");
+                interruptEffectWorkflow = false;
+                break;
+            }
+            Debug.Log("Invoking Step");
             currentEffectStep = step.invoke(document);
             yield return StartCoroutine(currentEffectStep);
         }

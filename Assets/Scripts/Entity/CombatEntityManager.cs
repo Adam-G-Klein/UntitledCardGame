@@ -142,6 +142,10 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
         }
     }
 
+    public void registerTrigger(CombatEntityTrigger trigger, IEnumerable callback) {
+        combatEntityTriggers[trigger].Add(callback);
+    }
+
     public void executeTriggers(CombatEntityTrigger trigger) {
         foreach (IEnumerable ienumerable in combatEntityTriggers[trigger]) {
             StartCoroutine(ienumerable.GetEnumerator());

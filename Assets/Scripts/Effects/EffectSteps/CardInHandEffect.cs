@@ -38,6 +38,10 @@ public class CardInHandEffect : EffectStep
                     card.discardCardFromHand();
                     card.exhaustCard();
                 break;
+
+                case CardInHandEffectName.Retain:
+                    card.retained = true;
+                break;
             }
         }
 
@@ -46,6 +50,7 @@ public class CardInHandEffect : EffectStep
 
     public enum CardInHandEffectName {
         Discard,
-        Exhaust
+        Exhaust,
+        Retain
     }
 }

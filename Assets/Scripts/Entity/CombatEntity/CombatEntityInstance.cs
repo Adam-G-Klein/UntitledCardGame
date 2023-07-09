@@ -163,7 +163,7 @@ public abstract class CombatEntityInstance: TargettableEntity
     // mapping if we want some effects to update at different times
 
     private void registerUpdateStatusEffects(){
-        TurnPhase updatePhase = entityType == EntityType.Enemy ? TurnPhase.END_ENEMY_TURN : TurnPhase.END_PLAYER_TURN;
+        TurnPhase updatePhase = entityType == EntityType.Enemy ? TurnPhase.END_PLAYER_TURN : TurnPhase.END_ENEMY_TURN;
         updateStatusTrigger = new TurnPhaseTrigger(updatePhase, updateStatusEffects());
         StartCoroutine(registerTurnPhaseTriggerEvent.RaiseAtEndOfFrameCoroutine(new TurnPhaseTriggerEventInfo(updateStatusTrigger)));
     }

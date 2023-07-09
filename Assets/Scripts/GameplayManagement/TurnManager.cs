@@ -5,7 +5,7 @@ using UnityEngine;
 
 // Turnphases can be found in TurnPhaseEvent.cs
 [RequireComponent(typeof(TurnPhaseEventListener))]
-public class TurnManager : MonoBehaviour
+public class TurnManager : GenericSingleton<TurnManager>
 {
     [SerializeField]
     private TurnPhaseEvent turnPhaseEvent;
@@ -91,7 +91,7 @@ public class TurnManager : MonoBehaviour
         removeTurnPhaseTrigger(info.turnPhaseTrigger);
     }
 
-    private void addTurnPhaseTrigger(TurnPhaseTrigger trigger) {
+    public void addTurnPhaseTrigger(TurnPhaseTrigger trigger) {
         turnPhaseTriggers[trigger.phase].Add(trigger);
     }
 

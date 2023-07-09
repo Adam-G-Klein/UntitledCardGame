@@ -22,6 +22,8 @@ public class GetCardsFromDeck : EffectStep {
     private int numberOfCardsToGet = 1;
     [SerializeField]
     private string outputKey = "";
+    [SerializeField]
+    private bool getCardsFromAllPiles = false;
 
     public GetCardsFromDeck() {
         effectStepName = "GetCardsFromDeck";
@@ -37,13 +39,17 @@ public class GetCardsFromDeck : EffectStep {
         }
 
         List<Card> outputCards = new List<Card>();
-        int num;
-        if (getLimitedNumber) {
-            num = numberOfCardsToGet;
+        if (getCardsFromAllPiles) {
+            outputCards.AddRange(entities[0].inCombatDeck.sourceDeck.cards);
         } else {
-            num = entities[0].inCombatDeck.drawPile.Count;
+            int num;
+            if (getLimitedNumber) {
+                num = numberOfCardsToGet;
+            } else {
+                num = entities[0].inCombatDeck.drawPile.Count;
+            }
+            getCardsFromInCombatDeck(entities[0].inCombatDeck, num, outputCards);
         }
-        getCardsFromInCombatDeck(entities[0].inCombatDeck, num, outputCards);
         document.cardMap.addItems(outputKey, outputCards);
         yield return null;
     }

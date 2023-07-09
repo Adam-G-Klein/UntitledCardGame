@@ -102,7 +102,9 @@ public class GetTargets : EffectStep
         }
 
         foreach (TargettableEntity entity in targetList) {
-            document.addEntityToDocument(outputKey, entity);
+            if (entity != null) {
+                document.addEntityToDocument(outputKey, entity);
+            }
         }
 
         yield return null;

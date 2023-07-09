@@ -22,7 +22,8 @@ public enum EffectStepName {
     SummonMinion,
     CountStep,
     Taunt,
-    MathStep
+    MathStep,
+    EndWorkflowIfNoMapElement
 }
 
 [System.Serializable]
