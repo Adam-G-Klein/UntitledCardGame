@@ -24,4 +24,8 @@ public class GenerateMap : MonoBehaviour
         activeMapVariable.SetValue(mapGenerator.generateMap());
         SceneManager.LoadScene("Map");
     }
+
+    public void backButtonHandler() {
+        SceneManager.LoadScene("MainMenu");
+    }
 }

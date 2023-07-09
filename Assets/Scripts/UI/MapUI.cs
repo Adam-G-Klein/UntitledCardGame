@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class MapUI : MonoBehaviour
@@ -13,6 +14,7 @@ public class MapUI : MonoBehaviour
     public LineRenderer lineRenderer;
     public GameObject companionViewUIPrefab;
     public TMP_Text playerGoldTMPText;
+    public ScrollRect mapScrollRect;
     
     private List<Transform> iconPositions = new List<Transform>();
     
@@ -20,11 +22,13 @@ public class MapUI : MonoBehaviour
     void Start()
     {
         bool isEncounterOutOfRange = false;
+        int activeEncounterIndex = -2;
         foreach (Encounter encounter in activeMapVariable.GetValue().encounters) {
             // Encounter encounter = encounterVariable.GetValue();
             IconState iconState;
             if (encounter.isCompleted) {
                 iconState = IconState.COMPLETED;
+                activeEncounterIndex++;
             } else if (isEncounterOutOfRange) {
                 iconState = IconState.OUT_OF_RANGE;
             } else {
@@ -40,6 +44,8 @@ public class MapUI : MonoBehaviour
             MapIcon mapIcon = newIcon.GetComponent<MapIcon>();
             mapIcon.Setup(encounter, iconState);
         }
+        float scrollRectPosition = (float) activeEncounterIndex / (float) activeMapVariable.GetValue().encounters.Count;
+        mapScrollRect.horizontalNormalizedPosition = Mathf.Max(scrollRectPosition, 0f);
     }
 
     void Update() {
