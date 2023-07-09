@@ -10,19 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 98c54fe17bbfaba4697c85c1618843f4, type: 3}
-  m_Name: EntropyCardPool
+  m_Name: PsychicCardPool
   m_EditorClassIdentifier: 
   commonCards:
     SetData:
-    - {fileID: 11400000, guid: 3ea4fc4054021ce4788b5012ed153111, type: 2}
-    - {fileID: 11400000, guid: 314f300daa2125c4692a084d1d08f824, type: 2}
-    - {fileID: 11400000, guid: 9704282f0a4484b4ea93a504433ec325, type: 2}
+    - {fileID: 11400000, guid: af631239de690bd4f9c3504152e145d7, type: 2}
+    - {fileID: 11400000, guid: 96c736cbff241624a991b3e5550a5c27, type: 2}
+    - {fileID: 11400000, guid: 303f0d64116674d4e8439993cb60ae3a, type: 2}
   uncommonCards:
     SetData:
-    - {fileID: 11400000, guid: f81164c1e256fb340b76c150339e4004, type: 2}
+    - {fileID: 11400000, guid: 4694d4bfddf36a547af718d16d9dc506, type: 2}
+    - {fileID: 11400000, guid: 87ab4d36a94800d42be192b974e1b67f, type: 2}
   rareCards:
     SetData:
-    - {fileID: 11400000, guid: e9034de62baf86140b8ce459e61f56ee, type: 2}
+    - {fileID: 11400000, guid: 98be7179751738444af1e4d5d1747244, type: 2}
   commonCardPercentage: 25
   commonCardPrice: 1
   uncommonCardPercentage: 25
