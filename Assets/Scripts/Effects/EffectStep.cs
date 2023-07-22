@@ -23,7 +23,8 @@ public enum EffectStepName {
     CountStep,
     Taunt,
     MathStep,
-    EndWorkflowIfNoMapElement
+    EndWorkflowIfNoMapElement,
+    InstantiatePrefab
 }
 
 [System.Serializable]

@@ -18,24 +18,19 @@ MonoBehaviour:
   Artwork: {fileID: 21300000, guid: 3b995bf12c221eb40b99580cae3e50a4, type: 3}
   vfxPrefab: {fileID: 0}
   playable: 1
-  EffectProcedures:
-  - rid: 5847359311090548736
   effectSteps:
   - rid: 9024302470308298763
   - rid: 9024302470308298764
+  - rid: 8939928337977442304
   references:
     version: 2
     RefIds:
-    - rid: 5847359311090548736
-      type: {class: CombatEffectProcedure, ns: , asm: Assembly-CSharp}
+    - rid: 8939928337977442304
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
-        procedureClass: CombatEffectProcedure
-        effectName: 0
-        baseScale: 5
-        targetCaster: 0
-        targetAllValidTargets: 0
-        targetToUse: -1
-        validTargets: 01000000
+        effectStepName: InstantiatePrefab
+        inputKey: target
+        prefabToInstantiate: {fileID: 4798506008640871506, guid: 0556a32d0cf5e704db37d6e1528d886a, type: 3}
     - rid: 9024302470308298763
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
