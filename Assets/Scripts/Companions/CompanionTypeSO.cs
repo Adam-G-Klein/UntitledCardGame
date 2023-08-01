@@ -17,4 +17,7 @@ public class CompanionTypeSO : ScriptableObject
 
     [SerializeReference]
     public CompanionAbility ability;
+
+    [SerializeReference]
+    public CompanionUpgradeSO upgradeInfo;
 }

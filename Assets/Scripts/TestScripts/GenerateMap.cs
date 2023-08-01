@@ -9,7 +9,8 @@ public class GenerateMap : MonoBehaviour
     public MapVariableSO activeMapVariable;
     public CompanionListVariableSO activeCompanionList;
     public PlayerDataVariableSO playerData;
-    public List<CompanionTypeSO> startingCompanions;
+    public List<CompanionTypeSO> startingActiveCompanions;
+    public List<CompanionTypeSO> startingBenchCompanions;
 
     public void go() {
         activeCompanionList.companionBench = new List<Companion>();
@@ -18,9 +19,14 @@ public class GenerateMap : MonoBehaviour
 
         playerData.GetValue().gold = 3;
         
-        foreach (CompanionTypeSO companionType in startingCompanions) {
+        foreach (CompanionTypeSO companionType in startingActiveCompanions) {
             activeCompanionList.companionList.Add(new Companion(companionType));
         }
+
+        foreach(CompanionTypeSO companionType in startingBenchCompanions) {
+            activeCompanionList.companionBench.Add(new Companion(companionType));
+        }
+
         activeMapVariable.SetValue(mapGenerator.generateMap());
         SceneManager.LoadScene("Map");
     }

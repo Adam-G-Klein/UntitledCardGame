@@ -68,7 +68,8 @@ public class MapUI : MonoBehaviour
             .GetComponent<CompanionViewUI>()
             .setupCompanionDisplay(activeCompanions, new List<CompanionActionType>() {
                 CompanionActionType.VIEW_DECK,
-                CompanionActionType.MOVE_COMPANION
+                CompanionActionType.MOVE_COMPANION,
+                CompanionActionType.COMBINE_COMPANION
             });
     }
 

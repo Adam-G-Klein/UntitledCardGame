@@ -7,7 +7,9 @@ using UnityEngine.EventSystems;
 public enum CompanionActionType {
     SELECT,
     VIEW_DECK,
-    MOVE_COMPANION
+    MOVE_COMPANION,
+    COMBINE_COMPANION,
+    END_COMBINE
 }
 
 [System.Serializable]
@@ -43,6 +45,17 @@ public class CompanionViewUI : MonoBehaviour, IPointerClickHandler
     private List<GameObject> companionSlots = new List<GameObject>();
     private List<GameObject> benchCompanionSlots = new List<GameObject>();
 
+    private bool isCombining;
+    private HashSet<UICompanion> combiningCompanions = new HashSet<UICompanion>();
+    
+    private List<CompanionActionType> tempActionTypes;
+
+    private int currentNeededToCombine;
+    private void Start() {
+        //This does not need to update often right now, so this will work for now
+        currentNeededToCombine = CompanionUpgrader.companionsNeededToCombine;
+    }
+
     public void setupCompanionDisplay(CompanionListVariableSO companionListVariableSO,
         List<CompanionActionType> actionTypes) {
         //Since this is an SO, copy the refernces for later use
@@ -73,7 +86,7 @@ public class CompanionViewUI : MonoBehaviour, IPointerClickHandler
         setupButtons();
     }
 
-    private void setupButtons() {
+    private void setupButtons(bool disableButtons = true) {
         foreach (CompanionAction action in companionActions) {
             if (this.actionTypes.Contains(action.companionActionType)) {
                 action.button.SetActive(true);
@@ -82,10 +95,22 @@ public class CompanionViewUI : MonoBehaviour, IPointerClickHandler
                 action.button.SetActive(false);
             }
         }
-        actionButtonsParent.SetActive(false);
+
+        if (disableButtons) {
+            actionButtonsParent.SetActive(false);
+        }
+    }
+
+    private void clearChildren(Transform parent) {
+        //clear if necessary
+        foreach (Transform child in parent) {
+            Destroy(child.gameObject);
+        }
     }
 
     private void setupActiveCompanions() {
+        clearChildren(activeCompanionsParent.transform);
+
         for (int i = 0; i < companionList.Count; i++) {
             setupActiveCompanion(companionList[i]);
         }
@@ -127,6 +152,8 @@ public class CompanionViewUI : MonoBehaviour, IPointerClickHandler
     }
 
     private void setupBenchCompanions() {
+        clearChildren(benchCompanionsParent.transform);
+
         for (int i = 0; i < companionBench.Count; i++) {
             setupBenchCompanion(companionBench[i]);
         }
@@ -158,10 +185,28 @@ public class CompanionViewUI : MonoBehaviour, IPointerClickHandler
             updateBackground(clickedCompanion);
             clickedCompanion = null;
         }
-        actionButtonsParent.SetActive(false);
+
+        //deselect the combination companions
+        foreach(var companion in combiningCompanions) {
+            updateBackground(companion);
+        }
+
+        combiningCompanions.Clear();
+
+        if (!isCombining) {
+            actionButtonsParent.SetActive(false);
+        }
     }
 
     public void companionClickedEventHandler(UICompanion uiCompanion) {
+        if (isCombining) {
+            handleCombiningSelection(uiCompanion);
+        } else {
+            handleStandardSelection(uiCompanion);
+        }
+    }
+
+    private void handleStandardSelection(UICompanion uiCompanion) {
         // No companion was actively clicked
         if (clickedCompanion == null) {
             clickedCompanion = uiCompanion;
@@ -172,51 +217,83 @@ public class CompanionViewUI : MonoBehaviour, IPointerClickHandler
         else if (clickedCompanion == uiCompanion) {
             updateBackground(clickedCompanion);
             clickedCompanion = null;
+
             actionButtonsParent.SetActive(false);
         }
         // Companion clicked was not the last companion clicked
         else {
             updateBackground(clickedCompanion);
             clickedCompanion = uiCompanion;
+
             updateBackground(clickedCompanion);
             actionButtonsParent.SetActive(true);
         }
     }
 
+    private void handleCombiningSelection(UICompanion uiCompanion) {
+        //determine if this companions has been clicked in this current selection and that we are not selecting more than specified number
+        //deselect
+        if (combiningCompanions.Contains(uiCompanion)) {
+            updateBackground(uiCompanion);
+            combiningCompanions.Remove(uiCompanion);
+        }
+        else if (combiningCompanions.Count == CompanionUpgrader.companionsNeededToCombine) {
+            return;
+        }
+        else {
+            //add it to the 
+            updateBackground(uiCompanion);
+            combiningCompanions.Add(uiCompanion);
+        }
+    }
+
+    //Toggles the background
     private void updateBackground(UICompanion uiCompanion) {
-        int i = 0;
-        i = companionList.IndexOf(uiCompanion.companion);
-        if ( i != -1) {
-            uiCompanion.isSelected = !uiCompanion.isSelected;
-            setBackgroundForActiveSlot(i, uiCompanion.isSelected);
-            return;
-        }
-
-        i = companionBench.IndexOf(uiCompanion.companion);
-        if (i == -1) {
-            Debug.LogError("Can't find companion in list, something is wrong");
-            return;
-        }
-        
         uiCompanion.isSelected = !uiCompanion.isSelected;
-        setBackgroundForBenchSlot(i, uiCompanion.isSelected);
+
+        GameObject uiCompanionSlot = getCompanionUISlot(uiCompanion);
+
+        if (uiCompanionSlot) {
+            setBackgroundSlot(uiCompanionSlot, uiCompanion.isSelected);
+        }
+    }
+
+    private GameObject getCompanionUISlot(UICompanion uiCompanion) {
+        int slot = companionList.IndexOf(uiCompanion.companion);
+
+        if (slot != -1) {
+            return companionSlots[slot];
+        }
+
+        slot = companionBench.IndexOf(uiCompanion.companion);
+
+        if (slot != -1) {
+            return benchCompanionSlots[slot];
+        }
+
+        Debug.LogError("Can't find companion in list, something is wrong");
+        return default;
     }
 
 
-    private void setBackgroundForActiveSlot(int slotNumber, bool state) {
-        GameObject slot = companionSlots[slotNumber];
-        if (state)
-            setCompanionSlotSelected(slot);
-        else
-            setCompanionSlotUnselected(slot);
+    private void forceSetCompanionSelected(UICompanion uiCompanion, bool state) {
+        uiCompanion.isSelected = state;
+
+        GameObject uiCompanionSlot = getCompanionUISlot(uiCompanion);
+
+        if (uiCompanionSlot != default) {
+            if (state)
+                setCompanionSlotSelected(uiCompanionSlot);
+            else
+                setCompanionSlotUnselected(uiCompanionSlot);
+        }
     }
 
-    private void setBackgroundForBenchSlot(int slotNumber, bool state) {
-        GameObject slot = benchCompanionSlots[slotNumber];
+    private void setBackgroundSlot(GameObject companionSlot, bool state) {
         if (state)
-            setCompanionSlotSelected(slot);
+            setCompanionSlotSelected(companionSlot);
         else
-            setCompanionSlotUnselected(slot);
+            setCompanionSlotUnselected(companionSlot);
     }
 
     public void selectButtonOnClick() {
@@ -268,5 +345,68 @@ public class CompanionViewUI : MonoBehaviour, IPointerClickHandler
     public void exitView() {
         companionViewExitedEvent.Raise(null);
         Destroy(this.gameObject);
+    }
+
+    public void combineOnClick() {
+        if (isCombining) {
+            handleCombineAttempt();
+        }
+        else {
+            handleCombineStart();
+        }
+
+    }
+
+    private void handleCombineStart() {
+        isCombining = true;
+
+        //transfer the currently selected companion over to the combiningCompanions list
+        combiningCompanions.Add(clickedCompanion);
+
+        //deselect for state managment
+        clickedCompanion = null;
+
+        //Hide the other buttons and show the ones that are necessary for the combining
+        //must be able to restore the old actions
+        tempActionTypes = actionTypes;
+        actionTypes = new List<CompanionActionType> { CompanionActionType.COMBINE_COMPANION, CompanionActionType.END_COMBINE };
+
+        setupButtons(false);
+    }
+
+    private void handleCombineAttempt() {
+        handleCombine();
+    }
+
+    public void exitCombine() {
+        isCombining = false;
+
+        actionTypes = tempActionTypes;
+        foreach(var companion in combiningCompanions) {
+            forceSetCompanionSelected(companion, false);
+        }
+        combiningCompanions.Clear();
+
+        setupButtons();
+    }
+
+    public void handleCombine() {
+        if (currentNeededToCombine == combiningCompanions.Count) {
+            List<Companion> combiningCompanionsList = new();
+
+            foreach (var UIcompanion in combiningCompanions) {
+                combiningCompanionsList.Add(UIcompanion.companion);
+                forceSetCompanionSelected(UIcompanion, false);
+                Destroy(UIcompanion.gameObject);
+            }
+
+            combiningCompanions.Clear();
+
+            CompanionUpgrader.Combine(companionList, companionBench, combiningCompanionsList);
+
+            //update the U.I to Reflect the new companions
+            setupActiveCompanions();
+            setupBenchCompanions();
+        }
     }
 }
