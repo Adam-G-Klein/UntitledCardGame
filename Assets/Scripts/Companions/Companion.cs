@@ -10,7 +10,7 @@ public class Companion: CombatEntityBaseStats, CombatEntityWithDeck
     public int currentHealth;
     public Deck deck;
     public int baseAttackDamage;
-    
+    public CompanionUpgradeSO upgradeInfo;
     public int cardsDealtPerTurn = 1;
 
     [SerializeReference]
@@ -30,8 +30,11 @@ public class Companion: CombatEntityBaseStats, CombatEntityWithDeck
         this.deck = new Deck(companionType.startingDeck);
         this.abilities = companionType.abilities;
         this.id = Id.newGuid();
+        this.upgradeInfo = companionType.upgradeInfo;
         Debug.Log(JsonUtility.ToJson(this));
     }
+
+
 
     public int getBaseAttackDamage() {
         return this.baseAttackDamage;
@@ -79,5 +82,24 @@ public class Companion: CombatEntityBaseStats, CombatEntityWithDeck
 
     public void setDealtPerTurn(int dealtPerTurn) {
         this.cardsDealtPerTurn = dealtPerTurn;
+    }
+
+    public void Upgrade(List<Companion> companionsCombined) {
+        Debug.Assert(upgradeInfo != default, "There is no information on upgrading, please add the \"CompanionUpgradeSO\" Scriptable Object");
+
+        //if this upgrade initiated from combining companions go ahead and replace the current deck with a superset of all the other companions
+        if (companionsCombined != default && (companionsCombined.Count > 0)) {
+            deck.cards.Clear();
+            foreach (var companion in companionsCombined) {
+
+                deck.addCards(companion.deck);
+            }
+        }
+
+        //reset health to the new max
+        this.maxHealth *= upgradeInfo.healthUpgradeFactor;
+        this.currentHealth = this.maxHealth;
+        
+        this.cardsDealtPerTurn += upgradeInfo.cardPerTurnUpgrade;
     }
 }

@@ -32,4 +32,10 @@ public class Deck
         cards.RemoveAll(card => card.id == cardId);
     }
 
+    public void addCards(Deck other) {
+        foreach (var card in other.cards) {
+            cards.Add(card);
+        }
+    }
+
 }

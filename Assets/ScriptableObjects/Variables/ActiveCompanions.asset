@@ -13,127 +13,34 @@ MonoBehaviour:
   m_Name: ActiveCompanions
   m_EditorClassIdentifier: 
   companionList:
-  - companionType: {fileID: 11400000, guid: bb8900a5e0f2ab34a8c486d19dcef389, type: 2}
-    maxHealth: 30
-    currentHealth: 30
-    deck:
-      startingDeck: {fileID: 11400000, guid: 2591b9bcf7a348d418df529b4242c104, type: 2}
-      cards:
-      - cardType: {fileID: 11400000, guid: f89479d267b89ea40b6e76d533f2e6da, type: 2}
-        id: efcadc96-9a2d-47ca-b7c9-1bde260c3a07
-      - cardType: {fileID: 11400000, guid: f89479d267b89ea40b6e76d533f2e6da, type: 2}
-        id: 54ebda0c-fa93-4864-8b23-46cc8ee3c299
-      - cardType: {fileID: 11400000, guid: f89479d267b89ea40b6e76d533f2e6da, type: 2}
-        id: 2f6214d5-74e3-40b0-9637-71af7940237c
-      - cardType: {fileID: 11400000, guid: ec3c681e35f3b8541b4e30643c6d0ee7, type: 2}
-        id: 06caddbf-e6e2-4ec8-ba8f-223256eb2134
-    baseAttackDamage: 0
-    abilities:
-    - rid: 5669414078719459328
-    id: c42c7041-4448-4ab8-ac5d-59d879f4c25a
-  - companionType: {fileID: 11400000, guid: f64c62bd77fcea846a5c19bed998aeb6, type: 2}
-    maxHealth: 34
-    currentHealth: 34
-    deck:
-      startingDeck: {fileID: 11400000, guid: 17489518ceb9d7341947bea0c6f7629e, type: 2}
-      cards:
-      - cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
-        id: 08417226-bd15-4aff-bc35-021d9dad4d61
-      - cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
-        id: 3ab2f2d5-3e93-41b0-8598-e906b3df29a5
-      - cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
-        id: 31cf612d-24ad-4fcd-af20-12c0910c393d
-      - cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
-        id: 17a24848-2875-423a-a5ad-46ff5f605ee3
-      - cardType: {fileID: 11400000, guid: f47b99629a3e52649bec2a99ec283add, type: 2}
-        id: 65ef49af-b8e3-4a4c-94fd-d1de24146cd9
-    baseAttackDamage: 0
-    abilities:
-    - rid: 4472866491299004417
-    id: a482e086-c1e1-4875-8ef7-0dd347234aa9
-  - companionType: {fileID: 11400000, guid: a388cdca9749764489c477a814a4dd5b, type: 2}
-    maxHealth: 20
-    currentHealth: 20
-    deck:
-      startingDeck: {fileID: 11400000, guid: 539df5bf5b9a2cf498d76437062d3987, type: 2}
-      cards:
-      - cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
-        id: d4393568-3a05-4fc2-9f4a-c39db89b6f4e
-      - cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
-        id: beef9688-8211-4ce4-8672-37d4ec374a37
-      - cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
-        id: 48ca41c4-614d-4bc5-8564-c480ff2abdf1
-      - cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
-        id: d26bca70-bb6a-4f76-a021-91fd315d28d7
-      - cardType: {fileID: 11400000, guid: 3fe89f2c7b366cb46b2bbe3f4e462aa5, type: 2}
-        id: e515810b-d5f1-460c-8416-82d8a61c86b2
-    baseAttackDamage: 1
-    abilities:
-    - rid: 4472866491299004428
-    id: fa08998a-1fe2-4864-96b3-a0086a4d2b30
   - companionType: {fileID: 11400000, guid: 4d253e77b533ea64ba6355a37741c0cf, type: 2}
-    maxHealth: 20
-    currentHealth: 20
+    maxHealth: 40
+    currentHealth: 40
     deck:
       startingDeck: {fileID: 11400000, guid: f88499d65b2d43848a8f72b8bcfa65df, type: 2}
       cards:
       - cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
-        id: a26c4221-b1f6-49fd-a70e-59d44d7aba53
+        id: d1293d35-0218-4da3-a8f6-2b1d0432af1d
       - cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
-        id: 3aef05c1-0030-4d6a-98a2-39237277bd5e
+        id: 5daffb30-a9d6-4690-873e-7cc5810bf7e0
       - cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
-        id: b78b06fd-3e9c-4220-b1be-8e24f2ba2dd9
+        id: c7e1c6a1-2d64-4401-81d9-0e8f4beaa8f6
       - cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
-        id: 1b924fd9-4665-4e83-bcfe-9b42311cf6c6
+        id: 0193eca2-9b19-44d5-9d05-9e2336e6c804
       - cardType: {fileID: 11400000, guid: 3ea4fc4054021ce4788b5012ed153111, type: 2}
-        id: cd6369d5-1665-48bc-8ec7-ac304b079489
+        id: ebf86be5-01cc-4702-9372-02d8533f7c3c
     baseAttackDamage: 0
+    upgradeInfo: {fileID: 11400000, guid: 99076b48c6110564cb87cbbb29a513b6, type: 2}
+    cardsDealtPerTurn: 2
     abilities:
-    - rid: 4472866491299004432
-    id: a54705d9-ead8-4192-a42e-8a538df13de6
-  companionBench:
-  - companionType: {fileID: 11400000, guid: af270a8bf55a86547941d6065eb02679, type: 2}
-    maxHealth: 999
-    currentHealth: 999
-    deck:
-      startingDeck: {fileID: 11400000, guid: bb2dd24e7cac49440ac4e14129eec39c, type: 2}
-      cards:
-      - cardType: {fileID: 11400000, guid: 9b0feee7c8820b6419129508051d6f08, type: 2}
-        id: 96f02e43-1221-4596-8962-c07d4a8b811c
-      - cardType: {fileID: 11400000, guid: 9b0feee7c8820b6419129508051d6f08, type: 2}
-        id: b9e036ba-50fa-4ed6-a179-a3960a1d6356
-      - cardType: {fileID: 11400000, guid: 9b0feee7c8820b6419129508051d6f08, type: 2}
-        id: b4555d47-b5fd-4dc1-a616-fd79bd8b8a04
-      - cardType: {fileID: 11400000, guid: 70fd57aa1f3fcb049a3725fd9b8474af, type: 2}
-        id: b0e814f3-66d7-4461-95de-6156fa7b1bac
-    baseAttackDamage: 0
-    cardsDealtPerTurn: 1
-    abilities:
-    - rid: 510961859457712140
-    id: f1720f29-060d-4fbc-93d4-075f0908037e
+    - rid: 2641080830867800319
+    id: dc4bbe9b-a9eb-4b85-b9ae-d3160ee22a05
+  companionBench: []
   currentCompanionSlots: 3
   references:
     version: 2
     RefIds:
-    - rid: 510961859457712140
-      type: {class: RetainCards, ns: , asm: Assembly-CSharp}
-      data:
-        abilityName: Retain Cards
-    - rid: 4472866491299004417
-      type: {class: GainMaxHpOnEntityDeath, ns: , asm: Assembly-CSharp}
-      data:
-        abilityName: GainMaxHpOnEntityDeath
-    - rid: 4472866491299004428
-      type: {class: GainBaseAttackDamageOnDeath, ns: , asm: Assembly-CSharp}
-      data:
-        abilityName: GainBaseStrengthOnDeath
-    - rid: 4472866491299004432
+    - rid: 2641080830867800319
       type: {class: PurgeCardOnEncounterEnd, ns: , asm: Assembly-CSharp}
       data:
         abilityName: PurgeCardOnEncounterEnd
-    - rid: 5669414078719459328
-      type: {class: MinionSpawnETB, ns: , asm: Assembly-CSharp}
-      data:
-        abilityName: GrotesqueETB
-        numMinions: 1
-        minionType: {fileID: 11400000, guid: acf491015f67b06468095238a670ef7b, type: 2}
