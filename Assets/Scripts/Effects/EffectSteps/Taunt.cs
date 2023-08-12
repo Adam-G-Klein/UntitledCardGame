@@ -29,14 +29,14 @@ public class Taunt : EffectStep {
             yield return null;
         }
 
-        List<TargettableEntity> originEntities = document.getTargettableEntities(inputOriginKey);
+        List<CombatInstance> originEntities = document.GetCombatInstances(inputOriginKey);
         if (originEntities.Count == 0 || originEntities.Count > 1) {
             EffectError("None or too many origin entities provided for key " + inputOriginKey);
             yield return null;
         }
 
         foreach (EnemyInstance enemyInstance in enemies) {
-            enemyInstance.setTauntedTarget(originEntities[0]);
+            enemyInstance.SetTauntedTarget(originEntities[0]);
         }
 
         yield return null;

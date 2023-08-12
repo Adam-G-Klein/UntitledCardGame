@@ -1,48 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-// for displaying the image above the enemy
-public enum EnemyIntentType {
-    BigAttack,
-    SmallAttack,
-    Buff,
-    Debuff,
-    // Possible later inclusions
-    // Defend,
-    // Heal,
-    // None
-}
-
-public class EnemyIntent {
-    public TargettableEntity attacker;
-    public List<TargettableEntity> targets;
-    public float attackTime;
-    public Dictionary<CombatEffect, int> combatEffects;
-    public EnemyIntentType intentType;
-
-    public EnemyIntent(
-            List<TargettableEntity> targets,
-            float attackTime,
-            Dictionary<CombatEffect, int> statusEffects,
-            EnemyIntentType intentType,
-            TargettableEntity attacker) {
-        this.targets = targets;
-        this.attackTime = attackTime;
-        this.combatEffects = statusEffects;
-        this.intentType = intentType;
-        this.attacker = attacker;
-    }
-
-}
-
-public class EnemyInstance : CombatEntityInstance {
+[RequireComponent(typeof(CombatInstance))]
+[RequireComponent(typeof(Targetable))]
+public class EnemyInstance : MonoBehaviour {
     public Enemy enemy;
+    public CombatInstance combatInstance;
+    public Image spriteImage;
 
-    [Space(5)]
-    
-    private EnemyBrainContext brainContext;
     public EnemyIntent currentIntent;
+    public TurnPhaseTriggerEvent registerTurnPhaseTriggerEvent;
+    public TurnPhaseTriggerEvent removeTurnPhaseTriggerEvent;
 
     // reference for resetting intent if the enemy is taunted
     private EnemyIntentDisplay intentDisplay;
@@ -51,58 +21,80 @@ public class EnemyInstance : CombatEntityInstance {
     private List<TurnPhaseTrigger> turnPhaseTriggers = new List<TurnPhaseTrigger>();
 
     // Start is called before the first frame update
-    protected override void Start() {
-        base.Start();
+    public void Start() {
         CombatEntityManager.Instance.registerEnemy(this);
-        brainContext = new EnemyBrainContext(this);
-        intentDisplay = GetComponentInChildren<EnemyIntentDisplay>();
-        registerTurnPhaseTriggers(brainContext);
+        this.intentDisplay = GetComponentInChildren<EnemyIntentDisplay>();
+        spriteImage.sprite = enemy.enemyType.sprite;
+        combatInstance.combatStats = enemy.combatStats;
+        combatInstance.SetId(enemy.id);
+        combatInstance.onDeathHandler += OnDeath;
+        RegisterTurnPhaseTriggers();
     }
 
 
-    private void registerTurnPhaseTriggers(EnemyBrainContext brainContext) {
-        turnPhaseTriggers.Add(new TurnPhaseTrigger(TurnPhase.START_PLAYER_TURN, enemy.chooseIntent(brainContext)));
-        turnPhaseTriggers.Add(new TurnPhaseTrigger(TurnPhase.ENEMIES_TURN, enemy.act(brainContext)));
-        turnPhaseTriggers.Add(new TurnPhaseTrigger(TurnPhase.END_PLAYER_TURN, clearBlock()));
+    private void RegisterTurnPhaseTriggers() {
+        turnPhaseTriggers.Add(new TurnPhaseTrigger(TurnPhase.START_PLAYER_TURN, DeclareIntent()));
+        turnPhaseTriggers.Add(new TurnPhaseTrigger(TurnPhase.ENEMIES_TURN, EnactIntent()));
+        turnPhaseTriggers.Add(new TurnPhaseTrigger(TurnPhase.END_PLAYER_TURN, ClearBlock()));
         foreach(TurnPhaseTrigger trigger in turnPhaseTriggers) {
             registerTurnPhaseTriggerEvent.Raise(new TurnPhaseTriggerEventInfo(trigger));
         }
     }
 
-    private IEnumerable clearBlock() {
-        stats.statusEffects[StatusEffect.Defended] = 0;
+    private void UnregisterTurnPhaseTriggers() {
+        foreach(TurnPhaseTrigger trigger in turnPhaseTriggers) {
+            removeTurnPhaseTriggerEvent.Raise(new TurnPhaseTriggerEventInfo(trigger));
+        }
+    }
+
+    private IEnumerable DeclareIntent() {
+        currentIntent = enemy.ChooseIntent();
         yield return null;
     }
 
-    protected override IEnumerator onDeath(CombatEntityInstance killer)
-    {
-        Debug.Log("Enemy " + id + " died");
-        foreach(TurnPhaseTrigger trigger in turnPhaseTriggers) {
-            yield return StartCoroutine(removeTurnPhaseTriggerEvent.RaiseAtEndOfFrameCoroutine(new TurnPhaseTriggerEventInfo(trigger)));
-        }
-        yield return base.onDeath(killer);
+    private IEnumerable EnactIntent() {
+        yield return new WaitForSeconds(currentIntent.attackTime);
+        EffectDocument document = new EffectDocument();
+        document.enemyMap.addItem(EffectDocument.ORIGIN, this);
+        document.originEntityType = EntityType.Enemy;
+        document.map.AddItems<CombatInstance>(currentIntent.targetsKey, currentIntent.targets);
+        EffectManager.Instance.invokeEffectWorkflow(document, currentIntent.effectSteps, null);
+        yield return null;
     }
 
-    public void setTauntedTarget(TargettableEntity target){
-        if(currentIntent.intentType == EnemyIntentType.Buff){
-            // not gonna overcomplicate this edge case right now
-            currentIntent = new EnemyIntent(new List<TargettableEntity>(){target},
-                currentIntent.attackTime, 
-                new Dictionary<CombatEffect, int>(), 
-                EnemyIntentType.SmallAttack, this);
-        } else {
-            currentIntent = new EnemyIntent(new List<TargettableEntity>(){target},
-                currentIntent.attackTime, 
-                currentIntent.combatEffects, 
-                currentIntent.intentType, this);
-        }
-        intentDisplay.clearIntent();
-        StartCoroutine(intentDisplay.displayIntent(this).GetEnumerator());
+    private IEnumerable ClearBlock() {
+        combatInstance.statusEffects[StatusEffect.Defended] = 0;
+        yield return null;
+    }
+    
+    // I'm breaking this for now, will most likely stay broken but it isn't needed
+    // so thats ok.
+    public void SetTauntedTarget(CombatInstance target){
+        // if(currentIntent.intentType == EnemyIntentType.Buff){
+        //     // not gonna overcomplicate this edge case right now
+        //     currentIntent = new EnemyIntent(new List<CombatInstance>(){target},
+        //         currentIntent.attackTime, 
+        //         new Dictionary<CombatEffect, int>(), 
+        //         EnemyIntentType.SmallAttack, this);
+        // } else {
+        //     currentIntent = new EnemyIntent(new List<CombatInstance>(){target},
+        //         currentIntent.attackTime, 
+        //         currentIntent.combatEffects, 
+        //         currentIntent.intentType, this);
+        // }
+        // intentDisplay.clearIntent();
+        // StartCoroutine(intentDisplay.displayIntent(this).GetEnumerator());
 
     }
 
-    public void raiseEnemyEffectEvent(EnemyIntent intent){
-        StartCoroutine(combatEffectEvent.RaiseAtEndOfFrameCoroutine(new CombatEffectEventInfo(intent)));
+    public void RaiseEnemyEffectEvent(EnemyIntent intent){
+        // StartCoroutine(combatEffectEvent.RaiseAtEndOfFrameCoroutine(new CombatEffectEventInfo(intent)));
     }
 
+    private IEnumerator OnDeath(CombatInstance killer) {
+        Debug.Log("EnemyInstance OnDeath handler");
+        UnregisterTurnPhaseTriggers();
+        CombatEntityManager.Instance.EnemyDied(this);
+        yield return null;
+    }
 }

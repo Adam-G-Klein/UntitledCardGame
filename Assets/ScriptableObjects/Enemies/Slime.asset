@@ -15,4 +15,52 @@ MonoBehaviour:
   maxHealth: 30
   baseAttackDamage: 5
   sprite: {fileID: 21300000, guid: fe5748b149e8b274ab967608681b48c4, type: 3}
-  brain: {fileID: 11400000, guid: d1737685277d3b74fa9c52ba4c9b293d, type: 2}
+  enemyPattern:
+    behaviors:
+    - intent: 1
+      enemyTargetMethod: 0
+      targetsKey: target
+      effectSteps:
+      - rid: 7005139344655122578
+      - rid: 7005139344655122576
+    - intent: 0
+      enemyTargetMethod: 0
+      targetsKey: target
+      effectSteps:
+      - rid: 7005139344655122579
+      - rid: 7005139344655122577
+    sequentialBehaviors: 0
+    nextBehaviorIndex: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 7005139344655122576
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: target
+        combatEffect: 0
+        scale: 0
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 7005139344655122577
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: target
+        combatEffect: 0
+        scale: 5
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 7005139344655122578
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: target
+        prefabToInstantiate: {fileID: 4798506008640871506, guid: 0556a32d0cf5e704db37d6e1528d886a, type: 3}
+    - rid: 7005139344655122579
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: target
+        prefabToInstantiate: {fileID: 4798506008640871506, guid: 0556a32d0cf5e704db37d6e1528d886a, type: 3}

@@ -19,11 +19,11 @@ public class EnemyIntentArrowsController : MonoBehaviour
     }
 
     public void updateArrows(EnemyIntent intent){
-        TargettingArrow newArrow = createArrow(intent.targets[0].transform, intent.targets[0].entityType);
+        TargettingArrow newArrow = createArrow(intent.targets[0].transform, intent.intentType);
         arrows.Add(newArrow);
 
     }
-    private TargettingArrow createArrow(Transform target, EntityType targetType){
+    private TargettingArrow createArrow(Transform target, EnemyIntentType intentType){
         TargettingArrow newArrow = Instantiate(arrowPrefab, transform).GetComponent<TargettingArrow>();
         // Todo: set of colors for enemy intent arrows
         setArrowColor(newArrow, new List<EntityType>(){EntityType.Enemy});

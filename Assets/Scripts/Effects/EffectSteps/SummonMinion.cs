@@ -55,11 +55,11 @@ public class SummonMinion : EffectStep
         // but it's gonna be possible because theoretically we can pass in multiple companion inputs
         foreach (CompanionInstance companion in companions) {
             for (int i = 0; i < finalScale; i++) {
-                summonedMinions.Add(PrefabInstantiator.instantiateMinion(
+                summonedMinions.Add(PrefabInstantiator.InstantiateMinion(
                     CombatEntityManager.Instance.encounterConstants.minionPrefab,
                     new Minion(minionType),
                     // Temp
-                    companion.getNextMinionSpawnPosition()
+                    companion.deckInstance.getNextMinionSpawnPosition()
                 ));
             }
         }

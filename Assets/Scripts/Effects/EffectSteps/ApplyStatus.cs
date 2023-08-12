@@ -35,8 +35,8 @@ public class ApplyStatus : EffectStep
     }
 
     public override IEnumerator invoke(EffectDocument document) {
-        List<CombatEntityInstance> entities = document.getCombatEntityInstances(inputKey);
-        if (entities.Count == 0) {
+        List<CombatInstance> combatInstances = document.GetCombatInstances(inputKey);
+        if (combatInstances.Count == 0) {
             EffectError("No input targets present for key " + inputKey);
             yield return null;
         }
@@ -47,8 +47,8 @@ public class ApplyStatus : EffectStep
             finalScale = document.intMap[inputScaleKey];
         }
 
-        foreach (CombatEntityInstance entity in entities) {
-            entity.applyStatusEffects(statusEffect, finalScale);
+        foreach (CombatInstance combatInstance in combatInstances) {
+            combatInstance.ApplyStatusEffects(statusEffect, finalScale);
         }
         yield return null;
     }

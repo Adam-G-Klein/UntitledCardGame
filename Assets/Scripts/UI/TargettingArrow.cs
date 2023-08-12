@@ -63,8 +63,6 @@ public class TargettingArrow : MonoBehaviour
 
         for(float ratio = 0;ratio<=1;ratio+= 1/vertexCount)
         {
-            
-            
             var tangent1 = Vector3.Lerp(lerpPoints[0], lerpPoints[1], ratio);
             var tangent2 = Vector3.Lerp(lerpPoints[1], lerpPoints[2], ratio);
             var tangent3 = Vector3.Lerp(lerpPoints[2], lerpPoints[3], ratio);

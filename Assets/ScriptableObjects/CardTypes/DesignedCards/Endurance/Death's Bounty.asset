@@ -31,8 +31,8 @@ MonoBehaviour:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: 
-        validTargets: 01000000
+        outputKey: target
+        validTargets: 02000000
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
@@ -40,7 +40,7 @@ MonoBehaviour:
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ApplyStatus
-        inputKey: 
+        inputKey: target
         statusEffect: 5
         scale: 5
         getScaleFromKey: 0

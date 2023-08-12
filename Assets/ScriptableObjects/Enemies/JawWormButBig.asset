@@ -15,4 +15,45 @@ MonoBehaviour:
   maxHealth: 60
   baseAttackDamage: 4
   sprite: {fileID: 21300000, guid: d7a75da2f6037ad47b2638069e02b403, type: 3}
-  brain: {fileID: 11400000, guid: 49d15410a8b623e4391bcf87c9b1925d, type: 2}
+  enemyPattern:
+    behaviors:
+    - intent: 0
+      enemyTargetMethod: 0
+      targetsKey: target
+      effectSteps:
+      - rid: 7005139344655122584
+      - rid: 7005139344655122583
+    - intent: 2
+      enemyTargetMethod: 2
+      targetsKey: enemyTarget
+      effectSteps:
+      - rid: 7005139344655122582
+    sequentialBehaviors: 1
+    nextBehaviorIndex: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 7005139344655122582
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: enemyTarget
+        statusEffect: 0
+        scale: 5
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 7005139344655122583
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: target
+        combatEffect: 0
+        scale: 0
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 7005139344655122584
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: target
+        prefabToInstantiate: {fileID: 4798506008640871506, guid: 0556a32d0cf5e704db37d6e1528d886a, type: 3}

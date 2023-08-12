@@ -13,27 +13,35 @@ MonoBehaviour:
   m_Name: ActiveCompanions
   m_EditorClassIdentifier: 
   companionList:
-  - companionType: {fileID: 11400000, guid: c106de03c6bb3ab4e952724e5e4a073c, type: 2}
-    maxHealth: 20
-    currentHealth: 20
+  - id: d96e2925-b0a2-4318-875d-10abd14f4b4d
+    entityType: 0
+    companionType: {fileID: 11400000, guid: c106de03c6bb3ab4e952724e5e4a073c, type: 2}
+    upgradeInfo: {fileID: 0}
     deck:
       startingDeck: {fileID: 11400000, guid: 1e6712d15d797514aa606a6a0d84a059, type: 2}
       cards:
-      - cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
-        id: a82c6788-6421-4d2c-af45-2efcb25b60bb
-      - cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
-        id: ca25c79f-76a1-4d4c-8d82-735504272d82
-      - cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
-        id: 0be6f1d7-3913-44b9-b510-54a188ab40db
-      - cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
-        id: 80feee88-be52-4442-9663-726900ba49a2
-      - cardType: {fileID: 11400000, guid: af631239de690bd4f9c3504152e145d7, type: 2}
-        id: 9afe630c-e521-465c-8ac4-a78ff90f786b
-    baseAttackDamage: 0
-    cardsDealtPerTurn: 1
+      - id: a82c6788-6421-4d2c-af45-2efcb25b60bb
+        entityType: 0
+        cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
+      - id: ca25c79f-76a1-4d4c-8d82-735504272d82
+        entityType: 0
+        cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
+      - id: 0be6f1d7-3913-44b9-b510-54a188ab40db
+        entityType: 0
+        cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
+      - id: 80feee88-be52-4442-9663-726900ba49a2
+        entityType: 0
+        cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
+      - id: 9afe630c-e521-465c-8ac4-a78ff90f786b
+        entityType: 0
+        cardType: {fileID: 11400000, guid: af631239de690bd4f9c3504152e145d7, type: 2}
+      cardsDealtPerTurn: 1
+    combatStats:
+      maxHealth: 20
+      currentHealth: 20
+      baseAttackDamage: 0
     ability:
       rid: 8939928036647633529
-    id: d96e2925-b0a2-4318-875d-10abd14f4b4d
   companionBench: []
   currentCompanionSlots: 3
   references:

@@ -20,9 +20,6 @@ public class GenericSingleton<T> : MonoBehaviour where T : Component
                 // and attach the generic instance
                 if (instance == null)
                 {
-                    Debug.LogError("Could not find instance of "
-                        + instance.GetType().Name +
-                        " so one is being instantiated");
                     GameObject obj = new GameObject();
                     obj.name = typeof(T).Name;
                     instance = obj.AddComponent<T>();

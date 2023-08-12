@@ -37,9 +37,8 @@ public class AddCardsToDeck : EffectStep {
 
     public override IEnumerator invoke(EffectDocument document) {
         // Check for valid entity with deck target(s)
-        List<CombatEntityWithDeckInstance> entities = 
-            document.getCombatEntitiesWithDeckInstance(inputKey);
-        if (entities.Count == 0) {
+        List<DeckInstance> deckInstances = document.GetDeckInstances(inputKey);
+        if (deckInstances.Count == 0) {
             EffectError("No valid inputs for adding card to deck");
             yield return null;
         }
@@ -66,22 +65,22 @@ public class AddCardsToDeck : EffectStep {
         }
 
         // Add the cards
-        addCardsToEntities(entities, cardTypesToAdd, finalScale);
+        addCardsToEntities(deckInstances, cardTypesToAdd, finalScale);
 
         yield return null;
     }
 
     private void addCardsToEntities(
-            List<CombatEntityWithDeckInstance> entities,
+            List<DeckInstance> deckInstances,
             List<CardType> cardTypes,
             int scale) {
-        foreach (CombatEntityWithDeckInstance entity in entities) {
+        foreach (DeckInstance deckInstance in deckInstances) {
             for (int i = 0; i < scale; i++) {
                 List<Card> cards = new List<Card>();
                 foreach (CardType cardType in cardTypes) {
                     cards.Add(new Card(cardType));
                 }
-                entity.inCombatDeck.shuffleIntoDraw(cards);
+                deckInstance.ShuffleIntoDraw(cards);
             }
         }
     }

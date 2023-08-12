@@ -14,5 +14,5 @@ public class MinionTypeSO : ScriptableObject
     public StartingDeck startingDeck;
 
     [SerializeReference]
-    public List<CompanionAbility> abilities;
+    public CompanionAbility ability;
 }

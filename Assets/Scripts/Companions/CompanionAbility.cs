@@ -12,8 +12,12 @@ public class CompanionAbility
 
     private CompanionInstance companionInstance;
 
+    private List<TurnPhaseTrigger> turnPhaseTriggers = new List<TurnPhaseTrigger>();
+    private List<CombatEntityTrigger> combatEntityTriggers = new List<CombatEntityTrigger>();
+
     public void Setup(CompanionInstance companionInstance) {
         this.companionInstance = companionInstance;
+        this.companionInstance.combatInstance.onDeathHandler += OnDeath;
         registerTrigger();
     }
 
@@ -32,25 +36,41 @@ public class CompanionAbility
             break;
 
             case CompanionAbilityTrigger.OnFriendOrFoeDeath:
-                CombatEntityManager.Instance.registerTrigger(
-                    CombatEntityTrigger.COMPANION_DIED, setupAndInvokeAbility());
-                CombatEntityManager.Instance.registerTrigger(
-                    CombatEntityTrigger.ENEMY_DIED, setupAndInvokeAbility());  
-                CombatEntityManager.Instance.registerTrigger(
-                    CombatEntityTrigger.MINION_DIED, setupAndInvokeAbility());
+                CombatEntityTrigger companionDeathTrigger = new CombatEntityTrigger(
+                    CombatEntityTriggerType.COMPANION_DIED,
+                    setupAndInvokeAbility());
+                CombatEntityTrigger enemyDeathTrigger = new CombatEntityTrigger(
+                    CombatEntityTriggerType.ENEMY_DIED,
+                    setupAndInvokeAbility());
+                CombatEntityTrigger minionDeathTrigger = new CombatEntityTrigger(
+                    CombatEntityTriggerType.MINION_DIED,
+                    setupAndInvokeAbility());
+                CombatEntityManager.Instance.registerTrigger(companionDeathTrigger);
+                CombatEntityManager.Instance.registerTrigger(enemyDeathTrigger);  
+                CombatEntityManager.Instance.registerTrigger(minionDeathTrigger);
             break;
 
             case CompanionAbilityTrigger.OnDeath:
-                this.companionInstance.setOnDeath(setupAndInvokeAbility());
+                this.companionInstance.SetCompanionAbilityDeathCallback(setupAndInvokeAbility());
             break;
         }
     }
 
     private void setupForTurnPhaseTrigger(TurnPhase turnPhase) {
-        TurnManager.Instance.addTurnPhaseTrigger(
-            new TurnPhaseTrigger(
-                turnPhase, 
-                setupAndInvokeAbility()));
+        TurnPhaseTrigger newTrigger = new TurnPhaseTrigger(turnPhase, setupAndInvokeAbility());
+        turnPhaseTriggers.Add(newTrigger);
+        TurnManager.Instance.addTurnPhaseTrigger(newTrigger);
+    }
+
+    private IEnumerator OnDeath(CombatInstance killer) {
+        foreach (TurnPhaseTrigger trigger in turnPhaseTriggers) {
+            TurnManager.Instance.removeTurnPhaseTrigger(trigger);
+        }
+
+        foreach (CombatEntityTrigger trigger in combatEntityTriggers) {
+            CombatEntityManager.Instance.unregisterTrigger(trigger);
+        }
+        yield return null;
     }
 
     private IEnumerable setupAndInvokeAbility() {

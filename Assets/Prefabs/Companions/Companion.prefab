@@ -10,15 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 5285687428135354735}
   - component: {fileID: 5285687428135354732}
-  - component: {fileID: 7574236911732710245}
-  - component: {fileID: -6536180466381847028}
+  - component: {fileID: 8670881613562720748}
+  - component: {fileID: 6559890015023456123}
+  - component: {fileID: 3339967006749357629}
   - component: {fileID: 3925862087160112264}
   - component: {fileID: 2595263955379066018}
-  - component: {fileID: 1725538437879479955}
-  - component: {fileID: 1133528425506943652}
   - component: {fileID: 9072497632964488160}
-  - component: {fileID: 5283207278247214877}
-  - component: {fileID: 4361685581455189968}
   m_Layer: 0
   m_Name: Companion
   m_TagString: Companion
@@ -54,39 +51,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94b7962f5bdabdc40a46cfbd77191848, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: a925efa7-6cd9-47cb-b526-afe51df97502
-  entityType: 0
-  isTargetable: 0
-  effectTargetSuppliedEvent: {fileID: 11400000, guid: 16143db2a2228f2499361d860ef94748, type: 2}
-  instantiatedEvent: {fileID: 11400000, guid: 1dde0ba8d0451ad4bb38640a19fd3c5f, type: 2}
-  deathEvent: {fileID: 11400000, guid: 954360d85e3873548b6bb8a78c158b04, type: 2}
-  registerTurnPhaseTriggerEvent: {fileID: 11400000, guid: f82cd01826dfef44391e6a853f3d2e89, type: 2}
-  removeTurnPhaseTriggerEvent: {fileID: 11400000, guid: 88acfcb7f9a9846468020e4e3854b467, type: 2}
-  cardsDealtEvent: {fileID: 11400000, guid: e9a227fee840eff4bbfdfe43a95070e6, type: 2}
-  constants: {fileID: 11400000, guid: 73ad8dcd4be0ffc4f9958a74ee9f1a5e, type: 2}
-  inCombatDeck:
-    sourceDeck:
-      startingDeck: {fileID: 0}
-      cards: []
-    drawPile: []
-    discardPile: []
-    inHand: []
-  nextMinionSpawnTheta: 1.57
-  minionSpawnRadius: 1.5
   companion:
+    id: 
+    entityType: 0
     companionType: {fileID: 11400000, guid: 4960e72dbf9348c4bb2ab009998bd02a, type: 2}
-    maxHealth: 0
-    currentHealth: 0
+    upgradeInfo: {fileID: 0}
     deck:
       startingDeck: {fileID: 0}
       cards: []
-    baseAttackDamage: 0
-    abilities: []
-    id: 
+      cardsDealtPerTurn: 0
+    combatStats:
+      maxHealth: 0
+      currentHealth: 0
+      baseAttackDamage: 0
+    ability:
+      rid: -2
+  spriteImage: {fileID: 4007884920284817064}
+  combatInstance: {fileID: 6559890015023456123}
+  deckInstance: {fileID: 8670881613562720748}
   references:
     version: 2
-    RefIds: []
---- !u!114 &7574236911732710245
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+--- !u!114 &8670881613562720748
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -95,14 +83,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 5285687428135354733}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f58b9da13eee09448bb831f0ac34bd85, type: 3}
+  m_Script: {fileID: 11500000, guid: 7337bbcd7d9a48a46886b5b15924a20b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effectTargetRequestEvent: {fileID: 11400000, guid: 709caf6df9005934dbe5ec0e1bd93bb6, type: 2}
-  cardSelectionRequestEvent: {fileID: 11400000, guid: b553b6932fd9487468103b779284dbcd, type: 2}
-  registerTurnPhaseTriggerEvent: {fileID: 11400000, guid: f82cd01826dfef44391e6a853f3d2e89, type: 2}
-  removeTurnPhaseTriggerEvent: {fileID: 11400000, guid: 88acfcb7f9a9846468020e4e3854b467, type: 2}
---- !u!114 &-6536180466381847028
+  sourceDeck:
+    startingDeck: {fileID: 0}
+    cards: []
+    cardsDealtPerTurn: 0
+  drawPile: []
+  discardPile: []
+  inHand: []
+  combatInstance: {fileID: 6559890015023456123}
+--- !u!114 &6559890015023456123
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -111,25 +103,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 5285687428135354733}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5501327943af6c438db85bdcdb2ceac, type: 3}
+  m_Script: {fileID: 11500000, guid: 6313169911ebb424ab43540f736697e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: 709caf6df9005934dbe5ec0e1bd93bb6, type: 2}
-  unityEventResponse:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5285687428135354732}
-        m_TargetAssemblyTypeName: TargettableEntity, Assembly-CSharp
-        m_MethodName: effectTargetRequestEventHandler
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  combatStats:
+    maxHealth: 0
+    currentHealth: 0
+    baseAttackDamage: 0
+--- !u!114 &3339967006749357629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5285687428135354733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f188f9181bc8dca4c833a56fda282f4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!61 &3925862087160112264
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -184,47 +176,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &1725538437879479955
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5285687428135354733}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 349ddbe67ef882b41be54d064bd62ebd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  displayImage: {fileID: 4007884920284817064}
---- !u!114 &1133528425506943652
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5285687428135354733}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2212db7a37b2f1448d7c63b3403380d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: 16143db2a2228f2499361d860ef94748, type: 2}
-  unityEventResponse:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7574236911732710245}
-        m_TargetAssemblyTypeName: TargetProvider, Assembly-CSharp
-        m_MethodName: effectTargetSuppliedHandler
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &9072497632964488160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -244,74 +195,6 @@ MonoBehaviour:
       - m_Target: {fileID: 5285687428135354732}
         m_TargetAssemblyTypeName: CombatEntityInstance, Assembly-CSharp
         m_MethodName: combatEffectEventHandler
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &5283207278247214877
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5285687428135354733}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 422f790a2c1a8a9409c78407946a8313, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: 649dc1f48181c6f4ea744ea04ca53239, type: 2}
-  unityEventResponse:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5285687428135354732}
-        m_TargetAssemblyTypeName: CombatEntityWithDeckInstance, Assembly-CSharp
-        m_MethodName: onCardEffectEvent
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 7574236911732710245}
-        m_TargetAssemblyTypeName: CompanionAbilityInvoker, Assembly-CSharp
-        m_MethodName: cardEffectHandler
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &4361685581455189968
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5285687428135354733}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b61431a0df26c1843bdab11d6a828200, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: 954360d85e3873548b6bb8a78c158b04, type: 2}
-  unityEventResponse:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7574236911732710245}
-        m_TargetAssemblyTypeName: CompanionAbilityInvoker, Assembly-CSharp
-        m_MethodName: combatEntityInstanceDeathEventHandler
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 
 [Serializable]
-public class Card: IEquatable<Card> 
+public class Card : Entity, IEquatable<Card> 
 {
     
     [HideInInspector]
@@ -50,12 +50,11 @@ public class Card: IEquatable<Card>
 
     [SerializeReference]
     public CardType cardType;
-    public string id;
 
     public Card(CardType cardType)
     {
         this.cardType = cardType;
-        id = Id.newGuid();
+        this.id = Id.newGuid();
     }
 
     public Card(Card card) {
@@ -95,7 +94,7 @@ public class Card: IEquatable<Card>
         return id.GetHashCode();
     }
 
-    public int getEffectBuff(CombatEffect effect) {
+    public int GetEffectBuff(CombatEffect effect) {
         // static constructor not working for the dict, don't know why 
         if(effectBuffs == null) {
             effectBuffs = new Dictionary<CombatEffect, int>();
@@ -106,7 +105,7 @@ public class Card: IEquatable<Card>
         return 0;
     }
 
-    public void buffEffect(CombatEffect effect, int buff) {
+    public void BuffEffect(CombatEffect effect, int buff) {
         // static constructor not working for the dict, don't know why 
         if(effectBuffs == null) {
             effectBuffs = new Dictionary<CombatEffect, int>();

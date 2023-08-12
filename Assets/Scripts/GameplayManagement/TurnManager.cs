@@ -36,6 +36,8 @@ public class TurnManager : GenericSingleton<TurnManager>
         {TurnPhase.END_ENCOUNTER, new List<TurnPhaseTrigger>()}
     };
 
+    private List<string> turnPhaseChangeBlockers = new List<string>();
+
     void Start()
     {
         StartCoroutine("LateStart");
@@ -46,7 +48,15 @@ public class TurnManager : GenericSingleton<TurnManager>
         StartCoroutine(turnPhaseEvent.RaiseAtEndOfFrameCoroutine(new TurnPhaseEventInfo(TurnPhase.START_ENCOUNTER)));
     }
 
-    public void turnPhaseChangedEventHandler(TurnPhaseEventInfo info){
+    public void turnPhaseChangedEventHandler(TurnPhaseEventInfo info) {
+        // This is a bit of a hack until we revisit all the different triggers
+        // and how we want to architect triggering bettter.
+        // There's a nonzero chance this is introducing a race condition, I haven't 
+        // done all the timing math yet.
+        if (turnPhaseChangeBlockers.Count > 0) {
+            StartCoroutine(changeTurnPhaseContinueCoroutine(info));
+            return;
+        }
         if(info.newPhase == TurnPhase.PLAYER_TURN) {
             // The only phase where we just want to wait
             // The end turn button will raise BEFORE_END_PLAYER_TURN
@@ -59,6 +69,13 @@ public class TurnManager : GenericSingleton<TurnManager>
         }
         StartCoroutine(nextPhaseAfterTriggers(info.newPhase));
     }
+
+    private IEnumerator changeTurnPhaseContinueCoroutine(TurnPhaseEventInfo info) {
+        while(turnPhaseChangeBlockers.Count > 0) {
+            yield return null;
+        }
+        turnPhaseChangedEventHandler(info);
+    }
     
     private IEnumerator nextPhaseAfterTriggers(TurnPhase currentPhase) {
         Debug.Log("nextPhaseAfterTriggers found " + turnPhaseTriggers[currentPhase].Count + " triggers for phase " + currentPhase);
@@ -67,6 +84,7 @@ public class TurnManager : GenericSingleton<TurnManager>
     }
 
     private IEnumerator runTriggersForPhase(TurnPhase phase) {
+        Debug.Log("TurnPhaseManager: Running triggers for turn phase " + phase);
         foreach(TurnPhaseTrigger trigger in turnPhaseTriggers[phase]) {
             yield return StartCoroutine(trigger.triggerResponse.GetEnumerator());
         }
@@ -97,5 +115,13 @@ public class TurnManager : GenericSingleton<TurnManager>
 
     public void removeTurnPhaseTrigger(TurnPhaseTrigger trigger) {
         turnPhaseTriggers[trigger.phase].Remove(trigger);
+    }
+
+    public void addTurnPhaseBlocker(string blocker) {
+        turnPhaseChangeBlockers.Add(blocker);
+    }
+
+    public void removeTurnPhaseBlocker(string blocker) {
+        turnPhaseChangeBlockers.Remove(blocker);
     }
 }

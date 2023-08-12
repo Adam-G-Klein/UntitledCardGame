@@ -208,7 +208,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 200
+  m_fontSize: 131.05
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -546,12 +546,10 @@ MonoBehaviour:
   activeCompanionList: {fileID: 11400000, guid: 5aacade559de1c74491436053ef47d73, type: 2}
   playerData: {fileID: 11400000, guid: 987a9f55256d63844a2b205199d32013, type: 2}
   startingActiveCompanions:
-  - {fileID: 11400000, guid: 4d253e77b533ea64ba6355a37741c0cf, type: 2}
   - {fileID: 11400000, guid: bb8900a5e0f2ab34a8c486d19dcef389, type: 2}
+  - {fileID: 11400000, guid: a388cdca9749764489c477a814a4dd5b, type: 2}
   - {fileID: 11400000, guid: f64c62bd77fcea846a5c19bed998aeb6, type: 2}
-  startingBenchCompanions:
-  - {fileID: 11400000, guid: 4d253e77b533ea64ba6355a37741c0cf, type: 2}
-  - {fileID: 11400000, guid: 4d253e77b533ea64ba6355a37741c0cf, type: 2}
+  startingBenchCompanions: []
 --- !u!114 &663117524
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -723,7 +721,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 164.6
+  m_fontSize: 82.45
   m_fontSizeBase: 136.42
   m_fontWeight: 400
   m_enableAutoSizing: 1

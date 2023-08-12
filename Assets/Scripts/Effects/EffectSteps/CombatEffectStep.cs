@@ -32,21 +32,23 @@ public class CombatEffectStep : EffectStep
     }
 
     public override IEnumerator invoke(EffectDocument document) {
-        List<CombatEntityInstance> entities = document.getCombatEntityInstances(inputKey);
-        if (entities.Count == 0) {
+        List<CombatInstance> instances = document.GetCombatInstances(inputKey);
+        if (instances.Count == 0) {
             EffectError("No input targets present for key " + inputKey);
             yield return null;
         }
 
-        CombatEntityInstance origin = null;
+        CombatInstance origin = null;
         // Determine whether origin of damage is from a card or a companion ability
         // and get either the entity that delt the card or the companion who's ability
         // is going off
         if (document.playableCardMap.containsValueWithKey(EffectDocument.ORIGIN)) {
             PlayableCard card = document.playableCardMap.getItem(EffectDocument.ORIGIN, 0);
-            origin = card.entityFrom;
+            origin = card.deckFrom.combatInstance;
         } else if (document.companionMap.containsValueWithKey(EffectDocument.ORIGIN)) {
-            origin = document.companionMap.getItem(EffectDocument.ORIGIN, 0);
+            origin = document.companionMap.getItem(EffectDocument.ORIGIN, 0).combatInstance;
+        } else if (document.enemyMap.containsValueWithKey(EffectDocument.ORIGIN)) {
+            origin = document.enemyMap.getItem(EffectDocument.ORIGIN, 0).combatInstance;
         } else {
             EffectError("No origin set in EffectDocument to pull stats from");
             yield return null;
@@ -59,21 +61,21 @@ public class CombatEffectStep : EffectStep
             baseScale = scale;
         }
 
-        int finalScale = updateScaleForEffect(baseScale, origin);
+        int finalScale = UpdateScaleForEffect(baseScale, origin);
 
-        foreach (CombatEntityInstance entity in entities) {
-            entity.applyNonStatusCombatEffect(combatEffect, finalScale, origin);
+        foreach (CombatInstance instance in instances) {
+            instance.ApplyNonStatusCombatEffect(combatEffect, finalScale, origin);
         }
 
         yield return null;
     }
 
-    private int updateScaleForEffect(int baseScale, CombatEntityInstance origin) {
+    private int UpdateScaleForEffect(int baseScale, CombatInstance origin) {
         int newScale = baseScale;
         switch (combatEffect) {
             case CombatEffect.Damage:
-                newScale = (baseScale + origin.stats.currentAttackDamage) 
-                    * origin.stats.statusEffects[StatusEffect.DamageMultiply];
+                newScale = (baseScale + origin.GetCurrentDamage()) 
+                    * origin.statusEffects[StatusEffect.DamageMultiply];
             break;
         }
 

@@ -10,7 +10,7 @@ public class EntityHealthBar : MonoBehaviour
 {
     public Slider slider;
     public TextMeshProUGUI text;
-    private CombatEntityStatsDisplay entity = null;
+    private CombatStats combatStats = null;
 
     // Update is called once per frame
     void Update()
@@ -21,22 +21,23 @@ public class EntityHealthBar : MonoBehaviour
     }
 
     void updateSlider() {
-        float healthPercent = (float) entity.currentHealth / (float) entity.maxHealth;
+        float healthPercent = (float)combatStats.currentHealth /
+            (float) combatStats.maxHealth;
         slider.value = healthPercent;
     }
 
     void updateText() {
-        text.text = entity.currentHealth.ToString() + "/" + entity.maxHealth.ToString();
+        text.text = combatStats.currentHealth.ToString() + "/" + combatStats.maxHealth.ToString();
     }
 
     void checkGetEntity() {
         // Since the entity game objects are instantiated then set up,
         // this needs to go in update instead of start since the entity
         // field of the data store might not be set yet when start is ran
-        if (entity == null) {
-            entity = GetComponentInParent<CombatEntityStatsDisplay>();
-            if (entity == null) {
-                Debug.LogError("Cannot find entity data in parent game object");
+        if (combatStats == null) {
+            combatStats = GetComponentInParent<CombatInstance>().combatStats;
+            if (combatStats == null) {
+                Debug.LogError("Cannot find combat stats data in parent game object");
                 return;
             }
         }

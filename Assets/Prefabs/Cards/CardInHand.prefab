@@ -13,8 +13,7 @@ GameObject:
   - component: {fileID: 7331526774499434846}
   - component: {fileID: 294639024923325154}
   - component: {fileID: 464090019210302972}
-  - component: {fileID: 4349296600016054478}
-  - component: {fileID: 7431014383139129412}
+  - component: {fileID: 7857896304447221337}
   m_Layer: 5
   m_Name: CardInHand
   m_TagString: Untagged
@@ -56,8 +55,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardInfo:
-    cardType: {fileID: 0}
     id: 
+    entityType: 0
+    cardType: {fileID: 0}
   CardName: {fileID: 5521833032734208732}
   CostText: {fileID: 5612962682102522699}
   CardDesc: {fileID: 5521833034104925168}
@@ -74,17 +74,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02f443f9ac2e89547a6761fb72065c22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: b5af2c7a-9dcf-45fd-9b74-ff8954150d5c
-  entityType: 3
-  isTargetable: 0
-  effectTargetSuppliedEvent: {fileID: 11400000, guid: 16143db2a2228f2499361d860ef94748, type: 2}
   card:
-    cardType: {fileID: 0}
     id: 
-  entityFrom: {fileID: 0}
+    entityType: 0
+    cardType: {fileID: 0}
+  deckFrom: {fileID: 0}
   hoverScale: 1.5
   nonHoverScale: 1
-  combatEffectEvent: {fileID: 11400000, guid: 7b4f8952c0f9b4d4a80b72189e46bd3c, type: 2}
   cardCastEvent: {fileID: 11400000, guid: 8e2f201df9de731449d5a0e8ddb0d748, type: 2}
   hovered: 0
   retained: 0
@@ -131,64 +127,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7331526774499434846}
-        m_TargetAssemblyTypeName: TargettableEntity, Assembly-CSharp
-        m_MethodName: uIStateEventListener
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &4349296600016054478
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5521833032725427039}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5501327943af6c438db85bdcdb2ceac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: 709caf6df9005934dbe5ec0e1bd93bb6, type: 2}
-  unityEventResponse:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7331526774499434846}
-        m_TargetAssemblyTypeName: TargettableEntity, Assembly-CSharp
-        m_MethodName: effectTargetRequestEventHandler
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &7431014383139129412
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5521833032725427039}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 422f790a2c1a8a9409c78407946a8313, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: 649dc1f48181c6f4ea744ea04ca53239, type: 2}
-  unityEventResponse:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7331526774499434846}
         m_TargetAssemblyTypeName: PlayableCard, Assembly-CSharp
-        m_MethodName: cardEffectEventHandler
+        m_MethodName: uiStateEventHandler
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -198,6 +138,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &7857896304447221337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5521833032725427039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f188f9181bc8dca4c833a56fda282f4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetType: 3
 --- !u!1001 &8552289041173328139
 PrefabInstance:
   m_ObjectHideFlags: 0

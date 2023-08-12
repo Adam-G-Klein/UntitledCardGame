@@ -35,7 +35,7 @@ MonoBehaviour:
         useInputToLimitOptions: 0
         inputKey: 
         outputKey: friendlyTarget
-        validTargets: 0000000002000000
+        validTargets: 0000000001000000
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
@@ -47,6 +47,7 @@ MonoBehaviour:
         getLimitedNumber: 0
         numberOfCardsToGet: 1
         outputKey: cardsInDeck
+        getCardsFromAllPiles: 0
     - rid: 9024302837437038722
       type: {class: SelectCardsFromList, ns: , asm: Assembly-CSharp}
       data:
@@ -62,7 +63,7 @@ MonoBehaviour:
       data:
         effectStepName: CardInDeckEffect
         inputCardsKey: cardsInDeck
-        inputEntityKey: friendlyTarget
+        inputDeckKey: 
         effect: 0
     - rid: 9024302837437038724
       type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}

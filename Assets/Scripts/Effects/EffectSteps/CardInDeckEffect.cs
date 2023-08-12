@@ -15,7 +15,7 @@ public class CardInDeckEffect : EffectStep
     [SerializeField]
     private string inputCardsKey = "";
     [SerializeField]
-    private string inputEntityKey = "";
+    private string inputDeckKey = "";
     [SerializeField]
     private CardInDeckEffectName effect;
 
@@ -25,10 +25,9 @@ public class CardInDeckEffect : EffectStep
 
     public override IEnumerator invoke(EffectDocument document) {
         // Check for valid entity with deck target(s)
-        List<CombatEntityWithDeckInstance> entities = 
-            document.getCombatEntitiesWithDeckInstance(inputEntityKey);
-        if (entities.Count == 0 || entities.Count > 1) {
-            EffectError("No valid entity with deck input for key " + inputEntityKey);
+        List<DeckInstance> deckInstances = document.GetDeckInstances(inputDeckKey);
+        if (deckInstances.Count == 0 || deckInstances.Count > 1) {
+            EffectError("No valid entity with deck input for key " + inputDeckKey);
             yield return null;
         }
 
@@ -40,11 +39,11 @@ public class CardInDeckEffect : EffectStep
         foreach (Card card in cards) {
             switch (effect) {
                 case CardInDeckEffectName.Exhaust:
-                    entities[0].inCombatDeck.removeFromDraw(card);
+                    deckInstances[0].RemoveFromDraw(card);
                 break;
 
                 case CardInDeckEffectName.Purge:
-                    entities[0].deckEntity.getDeck().purgeCard(card.id);
+                    deckInstances[0].sourceDeck.PurgeCard(card.id);
                 break;
             }
         }

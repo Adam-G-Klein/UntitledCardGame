@@ -22,13 +22,19 @@ MonoBehaviour:
       type: {class: EnemyEncounter, ns: , asm: Assembly-CSharp}
       data:
         id: 3bb8df42-fced-45f5-add4-0f139daea843
-        isCompleted: 0
+        isCompleted: 1
         enemyList:
-        - enemyType: {fileID: 11400000, guid: da0cdb6c0c9754d469d48629d5444b55, type: 2}
-          currentHealth: 300
-          maxHealth: 300
-          id: mind
-        - enemyType: {fileID: 11400000, guid: da0cdb6c0c9754d469d48629d5444b55, type: 2}
-          currentHealth: 300
-          maxHealth: 300
-          id: goblin
+        - id: mind
+          entityType: 0
+          enemyType: {fileID: 11400000, guid: da0cdb6c0c9754d469d48629d5444b55, type: 2}
+          combatStats:
+            maxHealth: 10
+            currentHealth: 10
+            baseAttackDamage: 1
+        - id: goblin
+          entityType: 0
+          enemyType: {fileID: 11400000, guid: da0cdb6c0c9754d469d48629d5444b55, type: 2}
+          combatStats:
+            maxHealth: 10
+            currentHealth: 10
+            baseAttackDamage: 1

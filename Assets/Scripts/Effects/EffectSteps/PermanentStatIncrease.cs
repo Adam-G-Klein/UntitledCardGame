@@ -34,8 +34,8 @@ public class PermanentStatIncrease : EffectStep {
     }
 
     public override IEnumerator invoke(EffectDocument document) {
-        List<CombatEntityInstance> entities = document.getCombatEntityInstances(inputKey);
-        if (entities.Count == 0) {
+        List<CombatInstance> instances = document.GetCombatInstances(inputKey);
+        if (instances.Count == 0) {
             EffectError("No valid inputs for increasing stats");
             yield return null;
         }
@@ -47,11 +47,11 @@ public class PermanentStatIncrease : EffectStep {
 
         switch(statIncreaseType) {
             case StatIncreaseType.AttackDamage:
-                increaseAttackDamage(entities, finalScale);
+                increaseAttackDamage(instances, finalScale);
             break;
 
             case StatIncreaseType.Health:
-                increaseHealth(entities, finalScale);
+                increaseHealth(instances, finalScale);
             break;
 
             default:
@@ -62,20 +62,20 @@ public class PermanentStatIncrease : EffectStep {
         yield return null;
     }
 
-    private void increaseAttackDamage(List<CombatEntityInstance> entities, int scale) {
-        foreach (CombatEntityInstance entity in entities) {
-            entity.baseStats.setBaseAttackDamage(entity.baseStats.getBaseAttackDamage() + scale);
+    private void increaseAttackDamage(List<CombatInstance> instances, int scale) {
+        foreach (CombatInstance instance in instances) {
+            instance.combatStats.IncreaseBaseAttackDamage(scale);
         }
     }
 
-    private void increaseHealth(List<CombatEntityInstance> entities, int scale) {
-        foreach (CombatEntityInstance entity in entities) {
-            entity.baseStats.setMaxHealth(entity.baseStats.getMaxHealth() + scale);
+    private void increaseHealth(List<CombatInstance> instances, int scale) {
+        foreach (CombatInstance instance in instances) {
+            instance.combatStats.IncreaseMaxHealth(scale);
             // Choosing to immediately give the health increase to the entity
             // Example: Without this, if a entity health is 20/20 and we increase
             // max health by 1, then the entity would have 20/21 health and it would
             // visually look like it took damage even though it didn't.
-            entity.baseStats.setCurrentHealth(entity.baseStats.getCurrentHealth() + scale);
+            instance.combatStats.currentHealth += scale;
         }
     }
 

@@ -9,6 +9,7 @@ public class Deck
     public StartingDeck startingDeck;
     [SerializeField]
     public List<Card> cards = new List<Card>();
+    public int cardsDealtPerTurn = 1;
 
     public Deck(StartingDeck startingDeck)
     {
@@ -27,12 +28,12 @@ public class Deck
         }
     }
 
-    public void purgeCard(string cardId)
+    public void PurgeCard(string cardId)
     {
         cards.RemoveAll(card => card.id == cardId);
     }
 
-    public void addCards(Deck other) {
+    public void AddCards(Deck other) {
         foreach (var card in other.cards) {
             cards.Add(card);
         }
