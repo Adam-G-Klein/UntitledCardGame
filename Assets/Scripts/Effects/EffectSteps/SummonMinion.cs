@@ -44,7 +44,7 @@ public class SummonMinion : EffectStep
             finalScale = document.intMap[inputScaleKey];
         }
 
-        List<CompanionInstance> companions = document.companionMap.getList(inputKey);
+        List<CompanionInstance> companions = document.map.GetList<CompanionInstance>(inputKey);
         if (companions.Count == 0) {
             EffectError("No valid input targets under key " + inputKey);
             yield return null;
@@ -64,7 +64,7 @@ public class SummonMinion : EffectStep
             }
         }
 
-        document.minionMap.addItems(outputKey, summonedMinions);
+        document.map.AddItems(outputKey, summonedMinions);
 
         yield return null;
     }

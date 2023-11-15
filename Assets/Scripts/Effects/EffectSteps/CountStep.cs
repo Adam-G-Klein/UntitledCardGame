@@ -44,52 +44,52 @@ public class CountStep : EffectStep {
     }
 
     private int countCard(EffectDocument document) {
-        if (!document.cardMap.containsValueWithKey(inputKey)) {
+        if (!document.map.ContainsValueWithKey<Card>(inputKey)) {
             EffectError("No input cards found under key " + inputKey);
             return 0;
         }
 
-        List<Card> cards = document.cardMap.getList(inputKey);
+        List<Card> cards = document.map.GetList<Card>(inputKey);
         return cards.Count;
     }
 
     private int countCardInHand(EffectDocument document) {
-        if (!document.playableCardMap.containsValueWithKey(inputKey)) {
+        if (!document.map.ContainsValueWithKey<PlayableCard>(inputKey)) {
             EffectError("No input PlayableCard for given key " + inputKey);
             return 0;
         }
 
-        List<PlayableCard> cards = document.playableCardMap.getList(inputKey);
+        List<PlayableCard> cards = document.map.GetList<PlayableCard>(inputKey);
         return cards.Count;
     }
 
     private int countCompanions(EffectDocument document) {
-        if (!document.companionMap.containsValueWithKey(inputKey)) {
+        if (!document.map.ContainsValueWithKey<CompanionInstance>(inputKey)) {
             EffectError("No input companions for given key " + inputKey);
             return 0;
         }
 
-        List<CompanionInstance> companions = document.companionMap.getList(inputKey);
+        List<CompanionInstance> companions = document.map.GetList<CompanionInstance>(inputKey);
         return companions.Count;
     }
 
     private int countMinions(EffectDocument document) {
-        if (!document.minionMap.containsValueWithKey(inputKey)) {
+        if (!document.map.ContainsValueWithKey<MinionInstance>(inputKey)) {
             EffectError("No input minions for given key " + inputKey);
             return 0;
         }
 
-        List<MinionInstance> minions = document.minionMap.getList(inputKey);
+        List<MinionInstance> minions = document.map.GetList<MinionInstance>(inputKey);
         return minions.Count;
     }
 
     private int countEnemies(EffectDocument document) {
-        if (!document.enemyMap.containsValueWithKey(inputKey)) {
+        if (!document.map.ContainsValueWithKey<EnemyInstance>(inputKey)) {
             EffectError("No input enemies for given key " + inputKey);
             return 0;
         }
 
-        List<EnemyInstance> enemies = document.enemyMap.getList(inputKey);
+        List<EnemyInstance> enemies = document.map.GetList<EnemyInstance>(inputKey);
         return enemies.Count;
     }
 

@@ -31,7 +31,7 @@ public class GetCardsFromDeck : EffectStep {
 
     public override IEnumerator invoke(EffectDocument document) {
         // Check for valid entity with deck target(s)
-        List<DeckInstance> instances = document.GetDeckInstances(inputKey);
+        List<DeckInstance> instances = document.map.GetList<DeckInstance>(inputKey);
         if (instances.Count == 0 || instances.Count > 1) {
             EffectError("No valid entity with deck input");
             yield return null;
@@ -49,7 +49,7 @@ public class GetCardsFromDeck : EffectStep {
             }
             getCardsFromInCombatDeck(instances[0], num, outputCards);
         }
-        document.cardMap.addItems(outputKey, outputCards);
+        document.map.AddItems<Card>(outputKey, outputCards);
         yield return null;
     }
 

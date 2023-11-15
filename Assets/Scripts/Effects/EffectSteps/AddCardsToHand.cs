@@ -37,7 +37,7 @@ public class AddCardsToHand : EffectStep {
 
     public override IEnumerator invoke(EffectDocument document) {
         // Check for valid entity target
-        List<DeckInstance> deckInstances = document.GetDeckInstances(entityFromKey);
+        List<DeckInstance> deckInstances = document.map.GetList<DeckInstance>(entityFromKey);
         if (deckInstances.Count == 0 || deckInstances.Count > 1) {
             EffectError("Either no valid target or " + 
                 "too many valid targets to use as entity from for Card");
@@ -47,11 +47,11 @@ public class AddCardsToHand : EffectStep {
         // Setup list of card types to add to the target(s)
         List<CardType> cardTypesToAdd = new List<CardType>();
         if (getCardsFromKey) {
-            if (!document.cardMap.containsValueWithKey(inputCardsKey)) {
+            if (!document.map.ContainsValueWithKey<Card>(inputCardsKey)) {
                 EffectError("No valid card input but GetCardsFromKey was set");
                 yield return null;
             }
-            List<Card> cardsFromMap = document.cardMap.getList(inputCardsKey);
+            List<Card> cardsFromMap = document.map.GetList<Card>(inputCardsKey);
             foreach (Card card in cardsFromMap) {
                 cardTypesToAdd.Add(card.cardType);
             }

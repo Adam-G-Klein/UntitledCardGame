@@ -32,23 +32,22 @@ public class CombatEffectStep : EffectStep
     }
 
     public override IEnumerator invoke(EffectDocument document) {
-        List<CombatInstance> instances = document.GetCombatInstances(inputKey);
+        List<CombatInstance> instances = document.map.GetList<CombatInstance>(inputKey);
         if (instances.Count == 0) {
             EffectError("No input targets present for key " + inputKey);
             yield return null;
         }
 
         CombatInstance origin = null;
-        // Determine whether origin of damage is from a card or a companion ability
-        // and get either the entity that delt the card or the companion who's ability
-        // is going off
-        if (document.playableCardMap.containsValueWithKey(EffectDocument.ORIGIN)) {
-            PlayableCard card = document.playableCardMap.getItem(EffectDocument.ORIGIN, 0);
+        // Determine whether origin of damage is from a card, companion ability, or enemy attack
+        // and get that origin
+        if (document.map.ContainsValueWithKey<PlayableCard>(EffectDocument.ORIGIN)) {
+            PlayableCard card = document.map.GetItem<PlayableCard>(EffectDocument.ORIGIN, 0);
             origin = card.deckFrom.combatInstance;
-        } else if (document.companionMap.containsValueWithKey(EffectDocument.ORIGIN)) {
-            origin = document.companionMap.getItem(EffectDocument.ORIGIN, 0).combatInstance;
-        } else if (document.enemyMap.containsValueWithKey(EffectDocument.ORIGIN)) {
-            origin = document.enemyMap.getItem(EffectDocument.ORIGIN, 0).combatInstance;
+        } else if (document.map.ContainsValueWithKey<CompanionInstance>(EffectDocument.ORIGIN)) {
+            origin = document.map.GetItem<CompanionInstance>(EffectDocument.ORIGIN, 0).combatInstance;
+        } else if (document.map.ContainsValueWithKey<EnemyInstance>(EffectDocument.ORIGIN)) {
+            origin = document.map.GetItem<EnemyInstance>(EffectDocument.ORIGIN, 0).combatInstance;
         } else {
             EffectError("No origin set in EffectDocument to pull stats from");
             yield return null;

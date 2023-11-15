@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -151,6 +152,37 @@ public class CombatInstance : MonoBehaviour
         statusEffects[StatusEffect.Weakness] = Mathf.Max(0, statusEffects[StatusEffect.Weakness] - 1);
         yield return null;
     }
+
+    // This function is setup the way it is because certain statuses need to be
+    // updated at different times. Making this function take in a list of statuses
+    // allows us to separate when one status is updated vs another
+    public IEnumerable UpdateStatusEffects(List<StatusEffect> statuses) {
+        foreach (StatusEffect effect in statuses) {
+            UpdateStatusEffect(effect);
+        }
+        yield return null;
+    }
+
+    private void UpdateStatusEffect(StatusEffect status) {
+        switch (status) {
+            case StatusEffect.Defended:
+                statusEffects[StatusEffect.Defended] = 0;
+            break;
+
+            case StatusEffect.TemporaryStrength:
+                statusEffects[StatusEffect.TemporaryStrength] = 0;
+            break;
+
+            case StatusEffect.Invulnerability:
+                statusEffects[StatusEffect.Invulnerability] = Mathf.Max(0, statusEffects[StatusEffect.Invulnerability] - 1);
+            break;
+
+            case StatusEffect.Weakness:
+                statusEffects[StatusEffect.Weakness] = Mathf.Max(0, statusEffects[StatusEffect.Weakness] - 1);
+            break;
+        }
+    }
+
 
     public void SetId(string id) {
         this.id = id;

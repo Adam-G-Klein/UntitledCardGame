@@ -39,7 +39,7 @@ public class TargettingArrowsController : GenericSingleton<TargettingArrowsContr
         return newArrow;
     }
 
-    private void setArrowColor(TargettingArrow arrow, List<Targetable.TargetType> validTypes){
+    private void setArrowColor(TargettingArrow arrow, List<Targetable.TargetType> validTypes) {
         if(validTypes.Contains(Targetable.TargetType.Enemy)){
             arrow.setColor(colors.enemyEffectColor);
         } else if(validTypes.Contains(Targetable.TargetType.Companion)){
@@ -49,7 +49,7 @@ public class TargettingArrowsController : GenericSingleton<TargettingArrowsContr
         }
     }
 
-    public void uiStateChangeEventHandler(UIStateEventInfo info){
+    public void uiStateChangeEventHandler(UIStateEventInfo info) {
         // might have to update this if we want targetting arrows
         // to stay during card UI selection
         if(info.newState != UIState.EFFECT_TARGETTING){
@@ -57,7 +57,7 @@ public class TargettingArrowsController : GenericSingleton<TargettingArrowsContr
         }
     }
 
-    private void clearArrows(){
+    private void clearArrows() {
         for(int i = 0; i < arrows.Count; i++){
             Destroy(arrows[i].gameObject);
         }

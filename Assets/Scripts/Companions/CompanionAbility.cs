@@ -75,7 +75,7 @@ public class CompanionAbility
 
     private IEnumerable setupAndInvokeAbility() {
         EffectDocument document = new EffectDocument();
-        document.companionMap.addItem(EffectDocument.ORIGIN, this.companionInstance);
+        document.map.AddItem(EffectDocument.ORIGIN, this.companionInstance);
         document.originEntityType = EntityType.Companion;
         yield return EffectManager.Instance.invokeEffectWorkflowCoroutine(document,  effectSteps, () => {});
     }

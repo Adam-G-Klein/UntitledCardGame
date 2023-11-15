@@ -97,10 +97,12 @@ public class GetTargets : EffectStep
             GetAllValidTargets(document);
         } else {
             TargettingManager.Instance.targetSuppliedHandler += TargetSuppliedHandler;
+            TargettingManager.Instance.cancelTargettingHandler += CancelHandler;
             TargettingArrowsController.Instance.createTargettingArrow(validTargets, self);
             UIStateManager.Instance.setState(UIState.EFFECT_TARGETTING);
             yield return new WaitUntil(() => targetsList.Count == number);
             TargettingManager.Instance.targetSuppliedHandler -= TargetSuppliedHandler;
+            TargettingManager.Instance.cancelTargettingHandler -= CancelHandler;
 
             AddTargetsToDocument(document);
         }
@@ -112,19 +114,19 @@ public class GetTargets : EffectStep
         foreach (Targetable target in targetsList) {
             switch (target.targetType) {
                 case Targetable.TargetType.Companion:
-                    document.companionMap.addItem(outputKey, target.GetComponent<CompanionInstance>());
+                    AddCompanionToDocument(document, outputKey, target.GetComponent<CompanionInstance>());
                 break;
 
                 case Targetable.TargetType.Minion:
-                    document.minionMap.addItem(outputKey, target.GetComponent<MinionInstance>());
+                    AddMinionToDocument(document, outputKey, target.GetComponent<MinionInstance>());
                 break;
 
                 case Targetable.TargetType.Enemy:
-                    document.enemyMap.addItem(outputKey, target.GetComponent<EnemyInstance>());
+                    AddEnemyToDocument(document, outputKey, target.GetComponent<EnemyInstance>());
                 break;
 
                 case Targetable.TargetType.Card:
-                    document.playableCardMap.addItem(outputKey, target.GetComponent<PlayableCard>());
+                    AddPlayableCardToDocument(document, outputKey, target.GetComponent<PlayableCard>());
                 break;
             }
         }
@@ -155,34 +157,87 @@ public class GetTargets : EffectStep
         }
     }
 
+    private void CancelHandler(CancelContext context) {
+        if (cantCancelTargetting) {
+            context.canCancel = false;
+        } else {
+            context.canCancel = true;
+            EffectManager.Instance.CancelEffectWorkflow();
+            TargettingManager.Instance.targetSuppliedHandler -= TargetSuppliedHandler;
+            TargettingManager.Instance.cancelTargettingHandler -= CancelHandler;
+        }
+    }
+
     private void GetAllValidTargets(EffectDocument document) {
         if (validTargets.Contains(Targetable.TargetType.Companion)) {
-            document.companionMap.addItems(outputKey, CombatEntityManager.Instance.getCompanions()
-                .FindAll(instance => !disallowedTargets.Contains(instance.gameObject)));
+            List<CompanionInstance> companions = CombatEntityManager.Instance.getCompanions()
+                .FindAll(instance => !disallowedTargets.Contains(instance.gameObject));
+            companions.ForEach(companion => {
+                AddCompanionToDocument(document, outputKey, companion);
+            });
         }
         if (validTargets.Contains(Targetable.TargetType.Enemy)) {
-            document.enemyMap.addItems(outputKey, CombatEntityManager.Instance.getEnemies()
-                .FindAll(instance => !disallowedTargets.Contains(instance.gameObject)));
+            List<EnemyInstance> enemies = CombatEntityManager.Instance.getEnemies()
+                .FindAll(instance => !disallowedTargets.Contains(instance.gameObject));
+            enemies.ForEach(enemy => AddEnemyToDocument(document, outputKey, enemy));
         }
         if (validTargets.Contains(Targetable.TargetType.Minion)) {
-            document.minionMap.addItems(outputKey, CombatEntityManager.Instance.getMinions()
-                .FindAll(instance => !disallowedTargets.Contains(instance.gameObject)));
+            List<MinionInstance> minions = CombatEntityManager.Instance.getMinions()
+                .FindAll(instance => !disallowedTargets.Contains(instance.gameObject));
+            minions.ForEach(minion => {
+                AddMinionToDocument(document, outputKey, minion);
+            });
         }
         if (validTargets.Contains(Targetable.TargetType.Card)) {
-            document.playableCardMap.addItems(outputKey, PlayerHand.Instance.cardsInHand
-                .FindAll(card => !disallowedTargets.Contains(card.gameObject)));
+            List<PlayableCard> playableCards = PlayerHand.Instance.cardsInHand
+                .FindAll(card => !disallowedTargets.Contains(card.gameObject));
+            playableCards.ForEach(playableCard => AddPlayableCardToDocument(document, outputKey, playableCard));
         }
+    }
+
+    private void AddCompanionToDocument(
+            EffectDocument document,
+            string key,
+            CompanionInstance companion) {
+        document.map.AddItem(key, companion);
+        document.map.AddItem(key, companion.combatInstance);
+        document.map.AddItem(key, companion.deckInstance);
+    }
+
+    private void AddMinionToDocument(
+            EffectDocument document,
+            string key,
+            MinionInstance minion) {
+        document.map.AddItem(key, minion);
+        document.map.AddItem(key, minion.combatInstance);
+        document.map.AddItem(key, minion.deckInstance);
+    }
+
+    private void AddEnemyToDocument(
+            EffectDocument document,
+            string key,
+            EnemyInstance enemy) {
+        document.map.AddItem(key, enemy);
+        document.map.AddItem(key, enemy.combatInstance);
+    }
+
+    private void AddPlayableCardToDocument(
+            EffectDocument document,
+            string key,
+            PlayableCard playableCard) {
+        document.map.AddItem(key, playableCard);
+        document.map.AddItem(key, playableCard.card);
     }
 
     public GameObject getSelf(EffectDocument document) {
         // A companion is the source of the effect
         if (document.originEntityType == EntityType.Companion) {
-            CompanionInstance companion = document.companionMap.getItem(
+            CompanionInstance companion = document.map.GetItem<CompanionInstance>(
                 EffectDocument.ORIGIN, 0);
             return companion.gameObject;
         // A playable card is the source of the effect
         } else if (document.originEntityType == EntityType.Card) {
-            PlayableCard playableCard = document.playableCardMap.getItem(
+            PlayableCard playableCard = document.map.GetItem<PlayableCard>(
                 EffectDocument.ORIGIN, 0);
             return playableCard.gameObject;
         }
@@ -198,17 +253,15 @@ public class GetTargets : EffectStep
             return;
         }
 
-        PlayableCard playableCard = document.playableCardMap.getItem(
+        PlayableCard playableCard = document.map.GetItem<PlayableCard>(
             EffectDocument.ORIGIN, 0);
         DeckInstance deckFrom = playableCard.deckFrom;
 
         if (deckFrom.TryGetComponent(out MinionInstance minion)) {
-            document.minionMap.addItem(outputKey, minion); // Legacy
             document.map.AddItem<MinionInstance>(outputKey, minion);
             document.map.AddItem<CombatInstance>(outputKey, minion.combatInstance);
             document.map.AddItem<DeckInstance>(outputKey, minion.deckInstance);
         } else if (deckFrom.TryGetComponent(out CompanionInstance companion)) {
-            document.companionMap.addItem(outputKey, companion);
             document.map.AddItem<CompanionInstance>(outputKey, companion);
             document.map.AddItem<CombatInstance>(outputKey, companion.combatInstance);
             document.map.AddItem<DeckInstance>(outputKey, companion.deckInstance);
@@ -224,18 +277,22 @@ public class GetTargets : EffectStep
 
         // A companion is the source of the effect
         if (document.originEntityType == EntityType.Companion) {
-            CompanionInstance companion = document.companionMap.getItem(
+            CompanionInstance companion = document.map.GetItem<CompanionInstance>(
                 EffectDocument.ORIGIN, 0);
-            document.companionMap.addItem(outputKey, companion); // Legacy
             document.map.AddItem<CompanionInstance>(outputKey, companion);
             document.map.AddItem<CombatInstance>(outputKey, companion.combatInstance);
             document.map.AddItem<DeckInstance>(outputKey, companion.deckInstance);
         // A playable card is the source of the effect
         } else if (document.originEntityType == EntityType.Card) {
-            PlayableCard playableCard = document.playableCardMap.getItem(
+            PlayableCard playableCard = document.map.GetItem<PlayableCard>(
                 EffectDocument.ORIGIN, 0);
-            document.playableCardMap.addItem(outputKey, playableCard);
             document.map.AddItem<PlayableCard>(outputKey, playableCard);
+            document.map.AddItem<Card>(outputKey, playableCard.card);
+        } else if (document.originEntityType == EntityType.Enemy) {
+            EnemyInstance enemy = document.map.GetItem<EnemyInstance>(
+                EffectDocument.ORIGIN, 0);
+            document.map.AddItem<EnemyInstance>(outputKey, enemy);
+            document.map.AddItem<CombatInstance>(outputKey, enemy.combatInstance);
         }
     }
 

@@ -4,15 +4,7 @@ using UnityEngine;
 
 public class DebugEffectStep : EffectStep {
     [SerializeField]
-    private bool companions;
-    [SerializeField]
-    private bool minions;
-    [SerializeField]
-    private bool enemies;
-    [SerializeField]
-    private bool cards;
-    [SerializeField]
-    private bool playableCards;
+    private bool genericMap;
     [SerializeField]
     private bool ints;
     [SerializeField]
@@ -23,16 +15,8 @@ public class DebugEffectStep : EffectStep {
     }
 
     public override IEnumerator invoke(EffectDocument document) {
-        if (companions)
-            document.companionMap.printDictionary();
-        if (minions)
-            document.minionMap.printDictionary();
-        if (enemies)
-            document.enemyMap.printDictionary();
-        if (cards)
-            document.cardMap.printDictionary();
-        if (playableCards)
-            document.playableCardMap.printDictionary();
+        if (genericMap)
+            document.map.Print();
         if (ints)
             document.printIntMap();
         if (strings)

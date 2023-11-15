@@ -13,15 +13,22 @@ public class EffectManager : GenericSingleton<EffectManager>
             EffectDocument document,
             List<EffectStep> effectSteps,
             Action callback) {
+        Debug.Log("Invoking effect workflow via sync call");
         currentEffectWorkflow = effectWorkflowCoroutine(document, effectSteps, callback);
         StartCoroutine(currentEffectWorkflow);
+    }
+
+    public void CancelEffectWorkflow() {
+        Debug.Log("EffectManager: Stopping effect coroutines");
+        StopCoroutine(currentEffectStep);
+        StopCoroutine(currentEffectWorkflow);
     }
 
     public IEnumerator invokeEffectWorkflowCoroutine(
             EffectDocument document,
             List<EffectStep> effectSteps,
             Action callback) {
-        Debug.Log("Invoking effect workflow");
+        Debug.Log("Invoking effect workflow via coroutine");
         currentEffectWorkflow = effectWorkflowCoroutine(document, effectSteps, callback);
         yield return StartCoroutine(currentEffectWorkflow);
     }

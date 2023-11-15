@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -55,7 +56,7 @@ public class EnemyInstance : MonoBehaviour {
     private IEnumerable EnactIntent() {
         yield return new WaitForSeconds(currentIntent.attackTime);
         EffectDocument document = new EffectDocument();
-        document.enemyMap.addItem(EffectDocument.ORIGIN, this);
+        document.map.AddItem(EffectDocument.ORIGIN, this);
         document.originEntityType = EntityType.Enemy;
         document.map.AddItems<CombatInstance>(currentIntent.targetsKey, currentIntent.targets);
         EffectManager.Instance.invokeEffectWorkflow(document, currentIntent.effectSteps, null);
@@ -67,28 +68,8 @@ public class EnemyInstance : MonoBehaviour {
         yield return null;
     }
     
-    // I'm breaking this for now, will most likely stay broken but it isn't needed
-    // so thats ok.
     public void SetTauntedTarget(CombatInstance target){
-        // if(currentIntent.intentType == EnemyIntentType.Buff){
-        //     // not gonna overcomplicate this edge case right now
-        //     currentIntent = new EnemyIntent(new List<CombatInstance>(){target},
-        //         currentIntent.attackTime, 
-        //         new Dictionary<CombatEffect, int>(), 
-        //         EnemyIntentType.SmallAttack, this);
-        // } else {
-        //     currentIntent = new EnemyIntent(new List<CombatInstance>(){target},
-        //         currentIntent.attackTime, 
-        //         currentIntent.combatEffects, 
-        //         currentIntent.intentType, this);
-        // }
-        // intentDisplay.clearIntent();
-        // StartCoroutine(intentDisplay.displayIntent(this).GetEnumerator());
-
-    }
-
-    public void RaiseEnemyEffectEvent(EnemyIntent intent){
-        // StartCoroutine(combatEffectEvent.RaiseAtEndOfFrameCoroutine(new CombatEffectEventInfo(intent)));
+        throw new NotImplementedException();
     }
 
     private IEnumerator OnDeath(CombatInstance killer) {

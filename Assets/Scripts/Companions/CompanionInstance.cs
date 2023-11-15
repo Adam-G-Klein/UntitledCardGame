@@ -15,7 +15,7 @@ public class CompanionInstance : MonoBehaviour
 
     private IEnumerable companionAbilityDeathCallback;
 
-    private TurnPhaseTrigger statusEffectTrigger;
+    private List<TurnPhaseTrigger> statusEffectTriggers = new List<TurnPhaseTrigger>();
 
     public void Start() {
         companion.ability.Setup(this);
@@ -28,14 +28,23 @@ public class CompanionInstance : MonoBehaviour
     }
 
     private void RegisterUpdateStatusEffects() {
-        statusEffectTrigger = new TurnPhaseTrigger(
+        statusEffectTriggers.Add(new TurnPhaseTrigger(
+            TurnPhase.END_ENEMY_TURN,
+            combatInstance.UpdateStatusEffects(new List<StatusEffect> {
+                StatusEffect.Defended,
+                StatusEffect.TemporaryStrength,
+                StatusEffect.Invulnerability })
+        ));
+        statusEffectTriggers.Add(new TurnPhaseTrigger(
             TurnPhase.END_PLAYER_TURN,
-            combatInstance.UpdateStatusEffects());
-        TurnManager.Instance.addTurnPhaseTrigger(statusEffectTrigger);
+            combatInstance.UpdateStatusEffects(new List<StatusEffect> {
+                StatusEffect.Weakness})
+        ));
+        statusEffectTriggers.ForEach(trigger => TurnManager.Instance.addTurnPhaseTrigger(trigger));
     }
 
     private void UnregisterUpdateStatusEffects() {
-        TurnManager.Instance.removeTurnPhaseTrigger(statusEffectTrigger);
+        statusEffectTriggers.ForEach(trigger => TurnManager.Instance.removeTurnPhaseTrigger(trigger));
     }
 
     public IEnumerator OnDeath(CombatInstance killer)

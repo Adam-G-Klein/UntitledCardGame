@@ -34,7 +34,11 @@ public class UIStateManager : GenericSingleton<UIStateManager>
     {
         if(Input.GetMouseButtonDown(1) 
             && currentState == UIState.EFFECT_TARGETTING){
-            setState(UIState.DEFAULT);
+            CancelContext context = new CancelContext();
+            TargettingManager.Instance.cancelTargettingHandler.Invoke(context);
+            if (context.canCancel) {
+                setState(UIState.DEFAULT);                   
+            }
         }
     }
 
