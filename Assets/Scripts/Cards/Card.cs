@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.Rendering;
 
 [Serializable]
 public class Card : Entity, IEquatable<Card> 
@@ -31,17 +32,19 @@ public class Card : Entity, IEquatable<Card>
     [HideInInspector]
     public List<EffectStep> effectSteps {
         get {
-            if(cardType.effectWorkflows.Count <= chapter) {
-                Debug.LogError("Attempted to cast chapter " + chapter + " of card " +
-                name + ", but it only has " + (cardType.effectWorkflows.Count + 1) + " chapter(s)");
+            if(cardType.effectWorkflows.Count < workflowIndex) {
+                Debug.LogError("Attempted to get workflow " + workflowIndex + " of card " +
+                name + ", but it only has " + (cardType.effectWorkflows.Count + 1) + " workflows");
             }
-            return cardType.effectWorkflows[chapter - 1].effectSteps;
+            return cardType.effectWorkflows[workflowIndex].effectSteps;
         }
 
     }
 
     // For sagas, determines the index into the EffectWorkflowList that we'll return from GetEffectWorkflow
-    public int chapter = 1;
+    // For non-sagas, will always stay at 0
+    private int workflowIndex = 0;
+    public int castCount = 0;
     // IMPORTANT TODO: only effects cards that use effectIncreasesOnPlay right now, other things don't poll for this
     // Need to add this into the getEffectScale that's currently in the CasterStats right now
     private Dictionary<CombatEffect, int> effectBuffs = new Dictionary<CombatEffect, int>();
@@ -130,5 +133,13 @@ public class Card : Entity, IEquatable<Card>
         } else {
             effectBuffs.Add(effect, buff);
         }
+    }
+
+    public int GetWorkflowIndex(){
+        return workflowIndex;
+    }
+
+    public void SetWorkflowIndex(int newIndex){
+        workflowIndex = Mathf.Min(newIndex, cardType.effectWorkflows.Count - 1);
     }
 }

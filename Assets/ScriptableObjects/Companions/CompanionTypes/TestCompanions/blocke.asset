@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
+  m_Name: blocke
+  m_EditorClassIdentifier: 
+  companionName: Beeg Boi
+  maxHealth: 10
+  baseAttackDamage: 0
+  sprite: {fileID: 21300000, guid: bdd59c505b86bf44cabf5f9f82a41064, type: 3}
+  startingDeck: {fileID: 11400000, guid: 955876fe0c18483459bd65e7c6fb9d0a, type: 2}
+  keepsake: {fileID: 21300000, guid: a100f38fb92da834786807cb66e2ebba, type: 3}
+  cardPool: {fileID: 0}
+  ability:
+    rid: 1886370794371285028
+  upgradeInfo: {fileID: 11400000, guid: 99076b48c6110564cb87cbbb29a513b6, type: 2}
+  references:
+    version: 2
+    RefIds:
+    - rid: 1886370794371285028
+      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
+      data:
+        companionAbilityTrigger: 0
+        effectSteps: []

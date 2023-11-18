@@ -25,7 +25,9 @@ public enum EffectStepName {
     MathStep,
     EndWorkflowIfNoMapElement,
     InstantiatePrefab,
-    CountStatusEffectsStep
+    CountStatusEffectsStep,
+    GetCastCountFromCard,
+    SetCardEffectWorkflow
 }
 
 [System.Serializable]

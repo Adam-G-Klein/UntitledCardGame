@@ -38,10 +38,7 @@ public class CardTypeEditor : Editor {
                 "the amount of effect workflows you have in the list, and the zero-indexed value you have in " +
                 "editedEffectWorkflow");
             } else {
-                Debug.Log("effectWorkflows null: " + cardType.effectWorkflows == null ? " yes " : " no ");
-                Debug.Log("effectWorkflows count: " + cardType.effectWorkflows.Count);
                 retrievedWorkflow = cardType.effectWorkflows[editedEffectWorkflow];
-                Debug.Log("retrievedWorkflow null: " + retrievedWorkflow == null ? " yes " : " no ");
             }
             
             if(retrievedWorkflow == null) {
@@ -66,10 +63,6 @@ public class CardTypeEditor : Editor {
             save(cardType);
         }
 
-        if (GUILayout.Button("Migrate EffectSteps")) {
-            cardType.effectWorkflows.Insert(0, new EffectWorkflow(cardType.effectSteps));
-            save(cardType);
-        }
     }
 
     private void save(CardType cardType) {
