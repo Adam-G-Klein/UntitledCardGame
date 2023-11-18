@@ -31,8 +31,8 @@ MonoBehaviour:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: 
-        validTargets: 01000000
+        outputKey: target
+        validTargets: 02000000
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
@@ -40,7 +40,7 @@ MonoBehaviour:
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
-        inputKey: 
+        inputKey: target
         combatEffect: 0
         scale: 4
         getScaleFromKey: 0
@@ -49,7 +49,7 @@ MonoBehaviour:
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
-        inputKey: 
+        inputKey: target
         combatEffect: 0
         scale: 4
         getScaleFromKey: 0

@@ -1,39 +1,54 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class CompanionInstance : CombatEntityWithDeckInstance 
+[RequireComponent(typeof(CombatInstance))]
+[RequireComponent(typeof(DeckInstance))]
+[RequireComponent(typeof(Targetable))]
+public class CompanionInstance : MonoBehaviour 
 {
     public Companion companion;
-    private IEnumerable deathCallback;
+    public Image spriteImage;
+    public CombatInstance combatInstance;
+    public DeckInstance deckInstance;
 
-    protected override void Start() {
-        base.Start();
+    private IEnumerable companionAbilityDeathCallback;
+
+    private TurnPhaseTrigger statusEffectTrigger;
+
+    public void Start() {
         companion.ability.Setup(this);
         CombatEntityManager.Instance.registerCompanion(this);
+        spriteImage.sprite = companion.getSprite();
+        combatInstance.combatStats = companion.combatStats;
+        combatInstance.onDeathHandler += OnDeath;
+        deckInstance.sourceDeck = companion.deck;
+        RegisterUpdateStatusEffects();
     }
 
-    protected override IEnumerator onDeath(CombatEntityInstance killer)
+    private void RegisterUpdateStatusEffects() {
+        statusEffectTrigger = new TurnPhaseTrigger(
+            TurnPhase.END_PLAYER_TURN,
+            combatInstance.UpdateStatusEffects());
+        TurnManager.Instance.addTurnPhaseTrigger(statusEffectTrigger);
+    }
+
+    private void UnregisterUpdateStatusEffects() {
+        TurnManager.Instance.removeTurnPhaseTrigger(statusEffectTrigger);
+    }
+
+    public IEnumerator OnDeath(CombatInstance killer)
     {
-        if (deathCallback != null) {
-            yield return StartCoroutine(deathCallback.GetEnumerator());
+        if (companionAbilityDeathCallback != null) {
+            yield return StartCoroutine(companionAbilityDeathCallback.GetEnumerator());
         }
-        yield return base.onDeath(killer);
+        UnregisterUpdateStatusEffects();
+        CombatEntityManager.Instance.CompanionDied(this);
     }
 
-    public override bool isTargetableByChildImpl(EffectTargetRequestEventInfo eventInfo)
-    {
-        // TODO: figure out a way to prevent companions from drawing from an empty deck
-        // like so but with a check before to see if it's a draw effect:
-        /*
-        return inCombatDeck.drawPile.Count > 0 
-            || inCombatDeck.discardPile.Count > 0;
-            */
-        return true;
-    }
-
-    public void setOnDeath(IEnumerable callback) {
-        this.deathCallback = callback;
+    public void SetCompanionAbilityDeathCallback(IEnumerable callback) {
+        this.companionAbilityDeathCallback = callback;
     }
 }
 

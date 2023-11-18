@@ -30,8 +30,7 @@ public class DrawCards : EffectStep
     }
 
     public override IEnumerator invoke(EffectDocument document) {
-        List<CombatEntityWithDeckInstance> instances = 
-            document.getCombatEntitiesWithDeckInstance(inputKey);
+        List<DeckInstance> instances = document.GetDeckInstances(inputKey);
         if (instances.Count == 0) {
             EffectError("No valid entities with deck under InputKey " + inputKey);
             yield return null;
@@ -42,8 +41,8 @@ public class DrawCards : EffectStep
             finalScale = document.intMap[inputScaleKey];
         }
         List<PlayableCard> cardsDelt = new List<PlayableCard>();
-        foreach (CombatEntityWithDeckInstance instance in instances) {
-            cardsDelt.AddRange(instance.dealCards(finalScale));
+        foreach (DeckInstance instance in instances) {
+            cardsDelt.AddRange(instance.DealCardsToPlayerHand(finalScale));
         }
         document.playableCardMap.addItems(outputKey, cardsDelt);
         yield return null;

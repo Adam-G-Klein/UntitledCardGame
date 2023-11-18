@@ -30,7 +30,7 @@ MonoBehaviour:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: 
+        outputKey: target
         validTargets: 
         number: 1
         specialTargetRule: 4
@@ -39,7 +39,7 @@ MonoBehaviour:
       type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: AddCardsToDeck
-        inputKey: 
+        inputKey: target
         cardTypes:
         - {fileID: 11400000, guid: 76c940ac09415954d897a92f7b06e313, type: 2}
         getCardsFromKey: 0

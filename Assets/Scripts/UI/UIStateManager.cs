@@ -4,8 +4,6 @@ using UnityEngine;
 
 
 [RequireComponent(typeof(UIStateEventListener))]
-[RequireComponent(typeof(EffectTargetRequestEventListener))]
-[RequireComponent(typeof(EffectTargetSuppliedEventListener))]
 [RequireComponent(typeof(CardCastEventListener))]
 [RequireComponent(typeof(TurnPhaseEventListener))]
 public class UIStateManager : GenericSingleton<UIStateManager>
@@ -48,13 +46,6 @@ public class UIStateManager : GenericSingleton<UIStateManager>
     public void uiStageChangeEventHandler(UIStateEventInfo info) {
         Debug.Log("UI State Change Event Handler new state: " + info.newState);
         currentState = info.newState;
-    }
-
-    public void effectTargetSuppliedEventHandler(EffectTargetSuppliedEventInfo info) {
-    }
-
-    public void effectTargetRequestEventHandler(EffectTargetRequestEventInfo info) {
-        setState(UIState.EFFECT_TARGETTING);
     }
 
     public void cardCastEventListener(CardCastEventInfo info) {

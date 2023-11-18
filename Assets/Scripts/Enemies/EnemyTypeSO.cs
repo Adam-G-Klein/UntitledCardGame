@@ -17,6 +17,5 @@ public class EnemyTypeSO : ScriptableObject
     [Space]
     public Sprite sprite;
 
-    public EnemyBrain brain;
-    
+    public EnemyBrain enemyPattern;
 }

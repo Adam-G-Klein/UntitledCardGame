@@ -37,9 +37,8 @@ public class AddCardsToHand : EffectStep {
 
     public override IEnumerator invoke(EffectDocument document) {
         // Check for valid entity target
-        List<CombatEntityWithDeckInstance> entities = 
-            document.getCombatEntitiesWithDeckInstance(entityFromKey);
-        if (entities.Count == 0 || entities.Count > 1) {
+        List<DeckInstance> deckInstances = document.GetDeckInstances(entityFromKey);
+        if (deckInstances.Count == 0 || deckInstances.Count > 1) {
             EffectError("Either no valid target or " + 
                 "too many valid targets to use as entity from for Card");
             yield return null;
@@ -67,7 +66,7 @@ public class AddCardsToHand : EffectStep {
         }
 
         // Add the cards
-        addCardsToHand(cardTypesToAdd, finalScale, entities[0]);
+        addCardsToHand(cardTypesToAdd, finalScale, deckInstances[0]);
 
         yield return null;
     }
@@ -75,13 +74,13 @@ public class AddCardsToHand : EffectStep {
     private void addCardsToHand(
         List<CardType> cardTypes,
         int scale,
-        CombatEntityWithDeckInstance entityFrom) {
+        DeckInstance entityFrom) {
         for (int i = 0; i < scale; i++) {
             List<Card> cards = new List<Card>();
             foreach (CardType cardType in cardTypes) {
                 cards.Add(new Card(cardType));
             }
-            PlayerHand.Instance.dealCards(cards, entityFrom);
+            PlayerHand.Instance.DealCards(cards, entityFrom);
         }
     }
 }

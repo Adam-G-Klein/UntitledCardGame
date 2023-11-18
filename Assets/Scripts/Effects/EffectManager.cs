@@ -40,7 +40,7 @@ public class EffectManager : GenericSingleton<EffectManager>
             currentEffectStep = step.invoke(document);
             yield return StartCoroutine(currentEffectStep);
         }
-        callback();
+        if (callback != null) callback();
         yield return null;
     }
 }

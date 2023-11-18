@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Mono.Cecil.Cil;
 using UnityEngine;
 
 /*
@@ -42,7 +44,7 @@ public class GetTargets : EffectStep
     [SerializeField]
     private string outputKey = "";
     [SerializeField]
-    private List<EntityType> validTargets;
+    private List<Targetable.TargetType> validTargets;
     [Tooltip(
         "If either of the TargetAllValidTargets rules are set, number is ignored"
     )]
@@ -52,6 +54,11 @@ public class GetTargets : EffectStep
     private SpecialTargetRule specialTargetRule = SpecialTargetRule.None;
     [SerializeField]
     private bool cantCancelTargetting = false;
+
+    private List<Targetable> targetsList;
+    private List<GameObject> limitOptions;
+    private List<GameObject> disallowedTargets;
+    private GameObject self;
 
     public GetTargets() {
         effectStepName = "GetTargets";
@@ -67,18 +74,18 @@ public class GetTargets : EffectStep
             yield break;
         }
 
-        List<TargettableEntity> targetList = new List<TargettableEntity>();
-        TargettableEntity self = getSelf(document);
-        List<TargettableEntity> disallowedTargets = null;
+        targetsList = new List<Targetable>();
+        this.self = getSelf(document);
+        disallowedTargets = new List<GameObject>();
         bool getAllValidTargets = false;
         if (specialTargetRule == SpecialTargetRule.TargetAllValidTargetsExceptSelf ||
                 specialTargetRule == SpecialTargetRule.CantTargetSelf) {
-            disallowedTargets = new List<TargettableEntity>() { self };
+            disallowedTargets.Add(self);
         }
 
-        List<TargettableEntity> limitOptions = null;
+        limitOptions = null;
         if (useInputToLimitOptions) {
-            limitOptions = document.getTargettableEntities(inputKey);
+            limitOptions = document.GetGameObjects(inputKey);
         }
 
         if (specialTargetRule == SpecialTargetRule.TargetAllValidTargets || 
@@ -86,41 +93,98 @@ public class GetTargets : EffectStep
             getAllValidTargets = true;
         }
 
-        TargettingManager.Instance.requestTargets(
-            targetList,
-            self,
-            validTargets,
-            getAllValidTargets,
-            number,
-            disallowedTargets,
-            limitOptions);
-
         if (getAllValidTargets) {
-            yield return new WaitUntil(() => targetList.Count > 0);
+            GetAllValidTargets(document);
         } else {
-            yield return new WaitUntil(() => targetList.Count == number);
-        }
+            TargettingManager.Instance.targetSuppliedHandler += TargetSuppliedHandler;
+            TargettingArrowsController.Instance.createTargettingArrow(validTargets, self);
+            UIStateManager.Instance.setState(UIState.EFFECT_TARGETTING);
+            yield return new WaitUntil(() => targetsList.Count == number);
+            TargettingManager.Instance.targetSuppliedHandler -= TargetSuppliedHandler;
 
-        foreach (TargettableEntity entity in targetList) {
-            if (entity != null) {
-                document.addEntityToDocument(outputKey, entity);
-            }
+            AddTargetsToDocument(document);
         }
 
         yield return null;
     }
 
-    public TargettableEntity getSelf(EffectDocument document) {
+    private void AddTargetsToDocument(EffectDocument document) {
+        foreach (Targetable target in targetsList) {
+            switch (target.targetType) {
+                case Targetable.TargetType.Companion:
+                    document.companionMap.addItem(outputKey, target.GetComponent<CompanionInstance>());
+                break;
+
+                case Targetable.TargetType.Minion:
+                    document.minionMap.addItem(outputKey, target.GetComponent<MinionInstance>());
+                break;
+
+                case Targetable.TargetType.Enemy:
+                    document.enemyMap.addItem(outputKey, target.GetComponent<EnemyInstance>());
+                break;
+
+                case Targetable.TargetType.Card:
+                    document.playableCardMap.addItem(outputKey, target.GetComponent<PlayableCard>());
+                break;
+            }
+        }
+    }
+
+    private void TargetSuppliedHandler(Targetable target) {
+        // Check if the provided target is disallowed
+        if (disallowedTargets != null && disallowedTargets.Contains(target.gameObject)) 
+            return;
+
+        // Check if we only want to pick from a specific list of targets
+        if (limitOptions != null && !limitOptions.Contains(target.gameObject)) {
+            return;
+        }
+
+        // Check if the entity type is correct
+        if (!validTargets.Contains(target.targetType)) {
+            return;
+        }
+
+        TargettingArrowsController.Instance.createTargettingArrow(validTargets, self);
+        targetsList.Add(target);
+
+        if (number > targetsList.Count) {
+            TargettingArrowsController.Instance.createTargettingArrow(validTargets, self);
+        } else {
+            UIStateManager.Instance.setState(UIState.DEFAULT);
+        }
+    }
+
+    private void GetAllValidTargets(EffectDocument document) {
+        if (validTargets.Contains(Targetable.TargetType.Companion)) {
+            document.companionMap.addItems(outputKey, CombatEntityManager.Instance.getCompanions()
+                .FindAll(instance => !disallowedTargets.Contains(instance.gameObject)));
+        }
+        if (validTargets.Contains(Targetable.TargetType.Enemy)) {
+            document.enemyMap.addItems(outputKey, CombatEntityManager.Instance.getEnemies()
+                .FindAll(instance => !disallowedTargets.Contains(instance.gameObject)));
+        }
+        if (validTargets.Contains(Targetable.TargetType.Minion)) {
+            document.minionMap.addItems(outputKey, CombatEntityManager.Instance.getMinions()
+                .FindAll(instance => !disallowedTargets.Contains(instance.gameObject)));
+        }
+        if (validTargets.Contains(Targetable.TargetType.Card)) {
+            document.playableCardMap.addItems(outputKey, PlayerHand.Instance.cardsInHand
+                .FindAll(card => !disallowedTargets.Contains(card.gameObject)));
+        }
+    }
+
+    public GameObject getSelf(EffectDocument document) {
         // A companion is the source of the effect
         if (document.originEntityType == EntityType.Companion) {
             CompanionInstance companion = document.companionMap.getItem(
                 EffectDocument.ORIGIN, 0);
-            return companion;
+            return companion.gameObject;
         // A playable card is the source of the effect
-        } else if (document.originEntityType == EntityType.PlayableCard) {
+        } else if (document.originEntityType == EntityType.Card) {
             PlayableCard playableCard = document.playableCardMap.getItem(
                 EffectDocument.ORIGIN, 0);
-            return playableCard;
+            return playableCard.gameObject;
         }
 
         EffectError("Origin entity was not specified");
@@ -128,7 +192,7 @@ public class GetTargets : EffectStep
     }
 
     public void addOriginCardEntityFromToDocument(EffectDocument document) {
-        if (document.originEntityType != EntityType.PlayableCard) {
+        if (document.originEntityType != EntityType.Card) {
             EffectError("TargetCompanionThatDeltCard" +
                 " rule set, but origin of effect isn't a PlayableCard");
             return;
@@ -136,14 +200,18 @@ public class GetTargets : EffectStep
 
         PlayableCard playableCard = document.playableCardMap.getItem(
             EffectDocument.ORIGIN, 0);
-        CombatEntityWithDeckInstance entityFrom = playableCard.entityFrom;
+        DeckInstance deckFrom = playableCard.deckFrom;
 
-        if (entityFrom is MinionInstance) {
-            MinionInstance minion = entityFrom as MinionInstance;
-            document.minionMap.addItem(outputKey, minion);
-        } else if (entityFrom is CompanionInstance) {
-            CompanionInstance companion = entityFrom as CompanionInstance;
+        if (deckFrom.TryGetComponent(out MinionInstance minion)) {
+            document.minionMap.addItem(outputKey, minion); // Legacy
+            document.map.AddItem<MinionInstance>(outputKey, minion);
+            document.map.AddItem<CombatInstance>(outputKey, minion.combatInstance);
+            document.map.AddItem<DeckInstance>(outputKey, minion.deckInstance);
+        } else if (deckFrom.TryGetComponent(out CompanionInstance companion)) {
             document.companionMap.addItem(outputKey, companion);
+            document.map.AddItem<CompanionInstance>(outputKey, companion);
+            document.map.AddItem<CombatInstance>(outputKey, companion.combatInstance);
+            document.map.AddItem<DeckInstance>(outputKey, companion.deckInstance);
         }
     }
 
@@ -158,12 +226,16 @@ public class GetTargets : EffectStep
         if (document.originEntityType == EntityType.Companion) {
             CompanionInstance companion = document.companionMap.getItem(
                 EffectDocument.ORIGIN, 0);
-            document.companionMap.addItem(outputKey, companion);
+            document.companionMap.addItem(outputKey, companion); // Legacy
+            document.map.AddItem<CompanionInstance>(outputKey, companion);
+            document.map.AddItem<CombatInstance>(outputKey, companion.combatInstance);
+            document.map.AddItem<DeckInstance>(outputKey, companion.deckInstance);
         // A playable card is the source of the effect
-        } else if (document.originEntityType == EntityType.PlayableCard) {
+        } else if (document.originEntityType == EntityType.Card) {
             PlayableCard playableCard = document.playableCardMap.getItem(
                 EffectDocument.ORIGIN, 0);
             document.playableCardMap.addItem(outputKey, playableCard);
+            document.map.AddItem<PlayableCard>(outputKey, playableCard);
         }
     }
 

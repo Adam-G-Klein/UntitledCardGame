@@ -58,7 +58,7 @@ public class StatusEffectDisplay: MonoBehaviour
 
     private void show() {
         transform.localScale = originalScale;
-        transform.localPosition = new Vector3(statusEffectsDisplay.getNextStatusXLoc(), 0, 0);
+        // transform.localPosition = new Vector3(statusEffectsDisplay.getNextStatusXLoc(), 0, 0);
     }
 
     private void setXLoc(float xLoc) {

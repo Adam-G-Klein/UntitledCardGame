@@ -4,63 +4,26 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class Enemy: CombatEntityBaseStats {
+public class Enemy : Entity, ICombatStats {
     public EnemyTypeSO enemyType;
-    public int currentHealth;
-    public int maxHealth;
-    public string id = Id.newGuid();
 
-    public Enemy(EnemyTypeSO enemyType, int initHealth = -1) {
+    public CombatStats combatStats;
+
+    public Enemy(EnemyTypeSO enemyType) {
         this.enemyType = enemyType;
-        this.maxHealth = enemyType.maxHealth;
-        Debug.Log("Enemy.maxHealth: " + enemyType.maxHealth);
-
-        if (initHealth == -1) {
-            this.currentHealth = enemyType.maxHealth;
-        } else {
-            this.currentHealth = initHealth;
-        }
+        this.id = Id.newGuid();
+        this.entityType = EntityType.Enemy;
+        this.combatStats = new CombatStats(
+            enemyType.maxHealth,
+            enemyType.baseAttackDamage);
     }
 
-    public int getMaxHealth() {
-        return this.maxHealth;
+    public EnemyIntent ChooseIntent() {
+        return enemyType.enemyPattern.ChooseIntent();
     }
 
-    public void setMaxHealth(int newMaxHealth) {
-        this.maxHealth = newMaxHealth;
+    public CombatStats GetCombatStats()
+    {
+        return this.combatStats;
     }
-
-    public int getCurrentHealth() {
-        return currentHealth;
-    }
-
-    public void setCurrentHealth(int newHealth) {
-        this.currentHealth = newHealth;
-    }
-
-    public int getBaseAttackDamage() {
-        return enemyType.baseAttackDamage;
-    }
-
-    public void setBaseAttackDamage(int newBaseAttackDamage) {
-        //TODO
-        Debug.LogWarning("Enemy.setBaseAttackDamage() not implemented, need to be instantiating enemies");
-    }
-
-    public IEnumerable chooseIntent(EnemyBrainContext context) {
-        return enemyType.brain.chooseIntent(context);
-    }
-
-    public IEnumerable act(EnemyBrainContext context) {
-        return enemyType.brain.act(context);
-    }
-
-    public string getId() {
-        return this.id;
-    }
-
-    public Sprite getSprite() {
-        return this.enemyType.sprite;
-    }
-
 }

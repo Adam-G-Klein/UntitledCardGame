@@ -4,10 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-// Won't execute in prefab edit mode, 
-// apparently there's some weird logic there
-// we'd have to account for
-[ExecuteInEditMode]
 public class CardDisplay : MonoBehaviour
 {
     public Card cardInfo;

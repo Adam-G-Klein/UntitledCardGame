@@ -6,17 +6,17 @@ using UnityEngine;
 // those values to the UI by implementing Entity
 public class CombatEntityStatsDisplay: MonoBehaviour
 {
-    private CombatEntityInEncounterStats stats;
+    private CombatInstance entity;
 
     public int maxHealth{
         get {
-            return stats.maxHealth;
+            return entity.combatStats.maxHealth;
         }
     }
 
     public int currentHealth{
         get {
-            return stats.currentHealth;
+            return entity.combatStats.currentHealth;
         }
     }
 
@@ -26,8 +26,7 @@ public class CombatEntityStatsDisplay: MonoBehaviour
     {
         // This code assumes we always want to reinitialize the
         // in encounter stats when a new encounter starts
-        CombatEntityInstance entity = GetComponentInParent<CombatEntityInstance>();
-        this.stats = entity.stats;
+        entity = GetComponentInParent<CombatInstance>();
     }
 
     void Awake() {
@@ -44,9 +43,9 @@ public class CombatEntityStatsDisplay: MonoBehaviour
         // the stats, so that they can update their own UI
         bool statusShouldDisplay = false;
         foreach(KeyValuePair<StatusEffect, StatusEffectDisplay> kv in statusEffectDisplays) {
-            statusShouldDisplay = stats.statusEffects[kv.Key] != CombatEntityInEncounterStats.initialStatusEffects[kv.Key];
+            statusShouldDisplay = entity.statusEffects[kv.Key] != CombatInstance.initialStatusEffects[kv.Key];
             kv.Value.setDisplaying(statusShouldDisplay);
-            if(statusShouldDisplay) kv.Value.setText(stats.statusEffects[kv.Key].ToString());
+            if(statusShouldDisplay) kv.Value.setText(entity.statusEffects[kv.Key].ToString());
         }
 
     }
@@ -60,5 +59,4 @@ public class CombatEntityStatsDisplay: MonoBehaviour
         }
         return xLoc;
     }
-
 }

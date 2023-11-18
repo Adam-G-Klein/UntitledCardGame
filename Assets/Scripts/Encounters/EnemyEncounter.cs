@@ -87,7 +87,7 @@ public class EnemyEncounter : Encounter
 
         for(int i = 0; i < activeCompanionsCount; i++)
         {
-            PrefabInstantiator.instantiateCompanion(
+            PrefabInstantiator.InstantiateCompanion(
                 encounterConstants.companionPrefab,
                 companionList[i],
                 COMPANION_LOCATIONS[i]);

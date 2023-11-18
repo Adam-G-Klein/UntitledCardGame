@@ -21,20 +21,24 @@ public enum CombatEffect {
 
 [System.Serializable]
 public class CombatEffectEventInfo {
-    public CombatEntityInstance effector;
+    public CombatInstance effector;
     public Dictionary<CombatEffect, int> combatEffects;
-    public List<TargettableEntity> targets;
+    public List<CombatInstance> targets;
 
-    public CombatEffectEventInfo(Dictionary<CombatEffect, int> combatEffects, List<TargettableEntity> targets, CombatEntityInstance effector) {
+    public CombatEffectEventInfo(
+        Dictionary<CombatEffect, int> combatEffects,
+        List<CombatInstance> targets,
+        CombatInstance effector)
+    {
         this.combatEffects = combatEffects;
         this.targets = targets;
         this.effector = effector;
     }
 
-    public CombatEffectEventInfo(EnemyIntent intent) {
-        this.targets = intent.targets;
-        this.combatEffects = intent.combatEffects;
-    }
+    // public CombatEffectEventInfo(EnemyIntent intent) {
+    //     this.targets = intent.targets;
+    //     this.combatEffects = intent.combatEffects;
+    // }
 }
 
 [CreateAssetMenu(

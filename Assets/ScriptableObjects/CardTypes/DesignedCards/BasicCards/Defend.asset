@@ -20,8 +20,8 @@ MonoBehaviour:
   playable: 1
   effectSteps:
   - rid: 9024302470308298760
-  - rid: 9024302470308298761
   - rid: 8939928337977442491
+  - rid: 9024302470308298761
   references:
     version: 2
     RefIds:
@@ -29,7 +29,7 @@ MonoBehaviour:
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
-        inputKey: targets
+        inputKey: target
         prefabToInstantiate: {fileID: 1966380700444338563, guid: b2d92db04e285ef43be25942c5294f6d, type: 3}
     - rid: 9024302470308298760
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -37,8 +37,8 @@ MonoBehaviour:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: targets
-        validTargets: 0000000002000000
+        outputKey: target
+        validTargets: 00000000
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
@@ -46,7 +46,7 @@ MonoBehaviour:
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ApplyStatus
-        inputKey: targets
+        inputKey: target
         statusEffect: 2
         scale: 5
         getScaleFromKey: 0

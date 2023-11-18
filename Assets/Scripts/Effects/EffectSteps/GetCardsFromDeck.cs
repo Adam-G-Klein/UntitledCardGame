@@ -31,40 +31,42 @@ public class GetCardsFromDeck : EffectStep {
 
     public override IEnumerator invoke(EffectDocument document) {
         // Check for valid entity with deck target(s)
-        List<CombatEntityWithDeckInstance> entities = 
-            document.getCombatEntitiesWithDeckInstance(inputKey);
-        if (entities.Count == 0 || entities.Count > 1) {
+        List<DeckInstance> instances = document.GetDeckInstances(inputKey);
+        if (instances.Count == 0 || instances.Count > 1) {
             EffectError("No valid entity with deck input");
             yield return null;
         }
 
         List<Card> outputCards = new List<Card>();
         if (getCardsFromAllPiles) {
-            outputCards.AddRange(entities[0].inCombatDeck.sourceDeck.cards);
+            outputCards.AddRange(instances[0].sourceDeck.cards);
         } else {
             int num;
             if (getLimitedNumber) {
                 num = numberOfCardsToGet;
             } else {
-                num = entities[0].inCombatDeck.drawPile.Count;
+                num = instances[0].drawPile.Count;
             }
-            getCardsFromInCombatDeck(entities[0].inCombatDeck, num, outputCards);
+            getCardsFromInCombatDeck(instances[0], num, outputCards);
         }
         document.cardMap.addItems(outputKey, outputCards);
         yield return null;
     }
 
-    private void getCardsFromInCombatDeck(InCombatDeck deck, int num, List<Card> cardList) {
+    private void getCardsFromInCombatDeck(
+            DeckInstance deckInstance,
+            int num,
+            List<Card> cardList) {
         if (num == 0) {
             EffectError("Can't get 0 cards from a deck");
             return;
         }
 
-        if (deck.drawPile.Count <= num) {
-            cardList.AddRange(deck.drawPile);
+        if (deckInstance.drawPile.Count <= num) {
+            cardList.AddRange(deckInstance.drawPile);
             return;
         }
 
-        cardList.AddRange(deck.drawPile.GetRange(0, num));
+        cardList.AddRange(deckInstance.drawPile.GetRange(0, num));
     }
 }

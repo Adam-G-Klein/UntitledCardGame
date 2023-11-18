@@ -178,7 +178,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: TargettingArrows
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2712225330016784722, guid: ce02976a382a8164aa755999f50777f6, type: 3}
+    - {fileID: 4000328805793787320, guid: ce02976a382a8164aa755999f50777f6, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ce02976a382a8164aa755999f50777f6, type: 3}
 --- !u!4 &56903198 stripped
 Transform:
@@ -417,6 +419,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 417dbc88ad319d240902e47ccc989b98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interruptEffectWorkflow: 0
 --- !u!4 &475172660
 Transform:
   m_ObjectHideFlags: 0
@@ -526,6 +529,10 @@ PrefabInstance:
     - target: {fileID: 4047814548016967373, guid: 63dfb323aea5cb14da568cc4b853b96e, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0.10533905
+      objectReference: {fileID: 0}
+    - target: {fileID: 4430479312520714569, guid: 63dfb323aea5cb14da568cc4b853b96e, type: 3}
+      propertyPath: unityEventResponse.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: TurnPhaseChangedEventHandler
       objectReference: {fileID: 0}
     - target: {fileID: 4509756766530585596, guid: 63dfb323aea5cb14da568cc4b853b96e, type: 3}
       propertyPath: m_Name

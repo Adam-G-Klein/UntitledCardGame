@@ -10,12 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1818299386461833455}
   - component: {fileID: 1818299386461833454}
-  - component: {fileID: 2877260948552900050}
-  - component: {fileID: 8605112425798008380}
+  - component: {fileID: 6706516355190666426}
   - component: {fileID: 1515253770649210757}
   - component: {fileID: 2382815032633642268}
-  - component: {fileID: 1563490288626582393}
   - component: {fileID: 5437825517042753912}
+  - component: {fileID: 1981669375319240908}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -51,21 +50,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76ba3be6a84803746971d2d17d4cdada, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: d2021cfc-1240-4409-bcc5-aa7d8c7f7265
-  entityType: 1
-  isTargetable: 0
-  effectTargetSuppliedEvent: {fileID: 11400000, guid: 16143db2a2228f2499361d860ef94748, type: 2}
-  instantiatedEvent: {fileID: 11400000, guid: 1dde0ba8d0451ad4bb38640a19fd3c5f, type: 2}
-  deathEvent: {fileID: 11400000, guid: 954360d85e3873548b6bb8a78c158b04, type: 2}
+  enemy:
+    id: 
+    entityType: 1
+    enemyType: {fileID: 11400000, guid: da0cdb6c0c9754d469d48629d5444b55, type: 2}
+    combatStats:
+      maxHealth: 0
+      currentHealth: 0
+      baseAttackDamage: 0
+  combatInstance: {fileID: 6706516355190666426}
+  spriteImage: {fileID: 2516311273493938858}
   registerTurnPhaseTriggerEvent: {fileID: 11400000, guid: f82cd01826dfef44391e6a853f3d2e89, type: 2}
   removeTurnPhaseTriggerEvent: {fileID: 11400000, guid: 88acfcb7f9a9846468020e4e3854b467, type: 2}
-  enemy:
-    enemyType: {fileID: 11400000, guid: da0cdb6c0c9754d469d48629d5444b55, type: 2}
-    currentHealth: 0
-    maxHealth: 0
-    id: 
   combatEffectEvent: {fileID: 11400000, guid: 7b4f8952c0f9b4d4a80b72189e46bd3c, type: 2}
---- !u!114 &2877260948552900050
+--- !u!114 &6706516355190666426
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -74,53 +72,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1818299386461833425}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 422f790a2c1a8a9409c78407946a8313, type: 3}
+  m_Script: {fileID: 11500000, guid: 6313169911ebb424ab43540f736697e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: 649dc1f48181c6f4ea744ea04ca53239, type: 2}
-  unityEventResponse:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1818299386461833454}
-        m_TargetAssemblyTypeName: EnemyInstance, Assembly-CSharp
-        m_MethodName: cardEffectEventHandler
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &8605112425798008380
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1818299386461833425}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5501327943af6c438db85bdcdb2ceac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: 709caf6df9005934dbe5ec0e1bd93bb6, type: 2}
-  unityEventResponse:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1818299386461833454}
-        m_TargetAssemblyTypeName: TargettableEntity, Assembly-CSharp
-        m_MethodName: effectTargetRequestEventHandler
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  combatStats:
+    maxHealth: 0
+    currentHealth: 0
+    baseAttackDamage: 0
 --- !u!61 &1515253770649210757
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -175,19 +133,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &1563490288626582393
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1818299386461833425}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2144966cabc93cc4c9ee1aa45ca0d0f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  displayImage: {fileID: 2516311273493938858}
 --- !u!114 &5437825517042753912
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,6 +161,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1981669375319240908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1818299386461833425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f188f9181bc8dca4c833a56fda282f4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetType: 2
 --- !u!1001 &720107539851587977
 PrefabInstance:
   m_ObjectHideFlags: 0

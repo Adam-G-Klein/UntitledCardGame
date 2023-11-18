@@ -14,10 +14,10 @@ public class InstantiatePrefab : EffectStep
     }
 
     public override IEnumerator invoke(EffectDocument document) {
-        List<TargettableEntity> entities = document.getTargettableEntities(inputKey);
+        List<GameObject> objects = document.GetGameObjects(inputKey);
         
-        foreach (TargettableEntity entity in entities) {
-            Vector3 location = entity.transform.position;
+        foreach (GameObject obj in objects) {
+            Vector3 location = obj.transform.position;
             GameObject.Instantiate(
                 prefabToInstantiate,
                 location,

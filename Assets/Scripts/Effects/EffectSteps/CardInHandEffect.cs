@@ -31,12 +31,12 @@ public class CardInHandEffect : EffectStep
         foreach (PlayableCard card in playableCards) {
             switch (effect) {
                 case CardInHandEffectName.Discard:
-                    card.discardCardFromHand();
+                    card.DiscardCardFromHand();
                 break;
 
                 case CardInHandEffectName.Exhaust:
-                    card.discardCardFromHand();
-                    card.exhaustCard();
+                    card.DiscardCardFromHand();
+                    card.ExhaustCard();
                 break;
 
                 case CardInHandEffectName.Retain:

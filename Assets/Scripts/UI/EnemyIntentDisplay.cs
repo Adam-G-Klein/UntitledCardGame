@@ -19,10 +19,7 @@ public class EnemyIntentDisplay : MonoBehaviour
         enemyInstance = GetComponentInParent<EnemyInstance>();
         arrowController = GetComponent<EnemyIntentArrowsController>();
         intentImages.AddRange(GetComponentsInChildren<EnemyIntentImage>());
-        GameObject turnManagerGO = GameObject.Find("TurnManager");
-        if(turnManagerGO != null)
-            turnManager = turnManagerGO.GetComponent<TurnManager>();
-        else Debug.LogError("TurnManager not found in scene, won't be able to update enemy intent display");
+        turnManager = TurnManager.Instance;
         displayIntentTrigger = new TurnPhaseTrigger(TurnPhase.START_PLAYER_TURN, displayIntent(enemyInstance));
         registerTurnPhaseTriggerEvent.Raise(new TurnPhaseTriggerEventInfo(displayIntentTrigger));
         transform.SetAsFirstSibling(); // Want the arrows to be on top of the enemies so that we can see them buffing each other

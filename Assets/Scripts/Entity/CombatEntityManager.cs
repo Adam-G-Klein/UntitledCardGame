@@ -11,11 +11,11 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
     private List<MinionInstance> minions = new List<MinionInstance>();
     private List<EnemyInstance> enemies = new List<EnemyInstance>();
 
-    private Dictionary<CombatEntityTrigger, List<IEnumerable>> combatEntityTriggers =
-            new Dictionary<CombatEntityTrigger, List<IEnumerable>>() {
-                {CombatEntityTrigger.COMPANION_DIED, new List<IEnumerable>()},
-                {CombatEntityTrigger.ENEMY_DIED, new List<IEnumerable>()},
-                {CombatEntityTrigger.MINION_DIED, new List<IEnumerable>()}
+    private Dictionary<CombatEntityTriggerType, List<CombatEntityTrigger>> combatEntityTriggers =
+            new Dictionary<CombatEntityTriggerType, List<CombatEntityTrigger>>() {
+                {CombatEntityTriggerType.COMPANION_DIED, new List<CombatEntityTrigger>()},
+                {CombatEntityTriggerType.ENEMY_DIED, new List<CombatEntityTrigger>()},
+                {CombatEntityTriggerType.MINION_DIED, new List<CombatEntityTrigger>()}
             };
 
     public void registerCompanion(CompanionInstance companion) {
@@ -36,7 +36,7 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
 
     public CompanionInstance getCompanionInstanceById(string id) {
         foreach (CompanionInstance instance in companions) {
-            if (instance.id.Equals(id)){
+            if (instance.companion.id.Equals(id)){
                 return instance;
             }
         }
@@ -50,7 +50,7 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
 
     public MinionInstance getMinionInstanceById(string id) {
         foreach (MinionInstance instance in minions) {
-            if (instance.id.Equals(id)) {
+            if (instance.minion.id.Equals(id)) {
                 return instance;
             }
         }
@@ -58,102 +58,104 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
         return null;
     }
 
-    public CombatEntityWithDeckInstance getEntityWithDeckById(string id) {
-        CombatEntityWithDeckInstance instance = getCompanionInstanceById(id);
-        if (instance != null) {
-            return instance;
+    public List<CombatInstance> getEnemyTargets() {
+        List<CombatInstance> retList = new List<CombatInstance>();
+        foreach (CompanionInstance companionInstance in companions) {
+            retList.Add(companionInstance.combatInstance);
         }
-        instance = getMinionInstanceById(id);
-        if (instance == null) {
-            Debug.LogError("CombatEntityManager: getEntityWithDeckById can't find entity with id " + id);
+        foreach (MinionInstance minionInstance in minions) {
+            retList.Add(minionInstance.combatInstance);
         }
-        return instance;
-    }
-
-    public List<TargettableEntity> getEnemyTargets() {
-        List<TargettableEntity> retList = new List<TargettableEntity>(minions);
-        retList.AddRange(companions);
         return retList;
     }
 
     public List<EnemyInstance> getEnemies() {
         return enemies;
     }
-    
-    public EnemyInstance getEnemyInstanceById(string id) {
-        foreach (EnemyInstance instance in enemies) {
-            if (instance.id.Equals(id)) {
-                return instance;
-            }
-        }
-        Debug.LogWarning("No enemy found by id: " + id);
-        return null;
-    }
 
-    public void handleCombatEffect(CombatEffectEventInfo info) {
-        foreach (CompanionInstance companion in companions) {
-            if (info.targets.Contains(companion)) {
-                companion.combatEffectEventHandler(info);
-            }
-        }
-
-        foreach (EnemyInstance enemy in enemies) {
-            if (info.targets.Contains(enemy)) {
-                enemy.combatEffectEventHandler(info);
-            }
-        }
-
-        foreach (MinionInstance minion in minions) {
-            if (info.targets.Contains(minion)) {
-                minion.combatEffectEventHandler(info);
-            }
+    public void EnemyDied(EnemyInstance enemyInstance) {
+        enemies.Remove(enemyInstance);
+        executeTriggers(CombatEntityTriggerType.ENEMY_DIED);
+        if (enemies.Count == 0) {
+            StartCoroutine(
+                turnPhaseEvent.RaiseAtEndOfFrameCoroutine(
+                    new TurnPhaseEventInfo(TurnPhase.END_ENCOUNTER)));
         }
     }
 
-    public void combatEntityDied(CombatEntityInstance instance) {
-        switch (instance.entityType) {
-            case EntityType.Companion:
-                CompanionInstance companion = getCompanionInstanceById(instance.id);
-                companions.Remove(companion);
-                executeTriggers(CombatEntityTrigger.COMPANION_DIED);
-                if (companions.Count == 0) {
-                    StartCoroutine(
-                        turnPhaseEvent.RaiseAtEndOfFrameCoroutine(
-                            new TurnPhaseEventInfo(TurnPhase.END_ENCOUNTER)));
-                }
-            break;
-
-            case EntityType.Minion:
-                MinionInstance minion = getMinionInstanceById(instance.id);
-                minions.Remove(minion);
-                executeTriggers(CombatEntityTrigger.MINION_DIED);
-            break;
-
-            case EntityType.Enemy:
-                EnemyInstance enemy = getEnemyInstanceById(instance.id);
-                enemies.Remove(enemy);
-                executeTriggers(CombatEntityTrigger.ENEMY_DIED);
-                if (enemies.Count == 0) {
-                    StartCoroutine(
-                        turnPhaseEvent.RaiseAtEndOfFrameCoroutine(
-                            new TurnPhaseEventInfo(TurnPhase.END_ENCOUNTER)));
-                }
-            break;
+    public void CompanionDied(CompanionInstance companionInstance) {
+        companions.Remove(companionInstance);
+        executeTriggers(CombatEntityTriggerType.COMPANION_DIED);
+        if (companions.Count == 0) {
+            StartCoroutine(
+                turnPhaseEvent.RaiseAtEndOfFrameCoroutine(
+                    new TurnPhaseEventInfo(TurnPhase.END_ENCOUNTER)));
         }
     }
 
-    public void registerTrigger(CombatEntityTrigger trigger, IEnumerable callback) {
-        combatEntityTriggers[trigger].Add(callback);
+    public void MinionDied(MinionInstance minionInstance) {
+        minions.Remove(minionInstance);
+        executeTriggers(CombatEntityTriggerType.MINION_DIED);
     }
 
-    public void executeTriggers(CombatEntityTrigger trigger) {
-        foreach (IEnumerable ienumerable in combatEntityTriggers[trigger]) {
-            StartCoroutine(ienumerable.GetEnumerator());
+    // public void combatEntityDied(CombatInstance instance) {
+    //     switch (instance.entityType) {
+    //         case EntityType.Companion:
+    //             CompanionInstance companion = getCompanionInstanceById(instance.id);
+    //             companions.Remove(companion);
+    //             executeTriggers(CombatEntityTrigger.COMPANION_DIED);
+    //             if (companions.Count == 0) {
+    //                 StartCoroutine(
+    //                     turnPhaseEvent.RaiseAtEndOfFrameCoroutine(
+    //                         new TurnPhaseEventInfo(TurnPhase.END_ENCOUNTER)));
+    //             }
+    //         break;
+
+    //         case EntityType.Minion:
+    //             MinionInstance minion = getMinionInstanceById(instance.id);
+    //             minions.Remove(minion);
+    //             executeTriggers(CombatEntityTrigger.MINION_DIED);
+    //         break;
+
+    //         case EntityType.Enemy:
+    //             EnemyInstance enemy = getEnemyInstanceById(instance.id);
+    //             enemies.Remove(enemy);
+    //             executeTriggers(CombatEntityTrigger.ENEMY_DIED);
+    //             if (enemies.Count == 0) {
+    //                 StartCoroutine(
+    //                     turnPhaseEvent.RaiseAtEndOfFrameCoroutine(
+    //                         new TurnPhaseEventInfo(TurnPhase.END_ENCOUNTER)));
+    //             }
+    //         break;
+    //     }
+    // }
+
+    public void registerTrigger(CombatEntityTrigger trigger) {
+        combatEntityTriggers[trigger.type].Add(trigger);
+    }
+
+    public void unregisterTrigger(CombatEntityTrigger trigger) {
+        combatEntityTriggers[trigger.type].Remove(trigger);
+    }
+
+    public void executeTriggers(CombatEntityTriggerType triggerType) {
+        foreach (CombatEntityTrigger trigger in combatEntityTriggers[triggerType]) {
+            StartCoroutine(trigger.callback.GetEnumerator());
         }
     }
 }
 
-public enum CombatEntityTrigger {
+public class CombatEntityTrigger {
+    public CombatEntityTriggerType type;
+    public IEnumerable callback;
+
+    public CombatEntityTrigger(CombatEntityTriggerType type, IEnumerable callback) {
+        this.type = type;
+        this.callback = callback;
+    }
+}
+
+public enum CombatEntityTriggerType {
     COMPANION_DIED,
     ENEMY_DIED,
     MINION_DIED
