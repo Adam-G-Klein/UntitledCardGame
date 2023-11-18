@@ -27,6 +27,21 @@ public class Card : Entity, IEquatable<Card>
             return cardType.Artwork;
         }
     }
+
+    [HideInInspector]
+    public List<EffectStep> effectSteps {
+        get {
+            if(cardType.effectWorkflows.Count <= chapter) {
+                Debug.LogError("Attempted to cast chapter " + chapter + " of card " +
+                name + ", but it only has " + (cardType.effectWorkflows.Count + 1) + " chapter(s)");
+            }
+            return cardType.effectWorkflows[chapter - 1].effectSteps;
+        }
+
+    }
+
+    // For sagas, determines the index into the EffectWorkflowList that we'll return from GetEffectWorkflow
+    public int chapter = 1;
     // IMPORTANT TODO: only effects cards that use effectIncreasesOnPlay right now, other things don't poll for this
     // Need to add this into the getEffectScale that's currently in the CasterStats right now
     private Dictionary<CombatEffect, int> effectBuffs = new Dictionary<CombatEffect, int>();

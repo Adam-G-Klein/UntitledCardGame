@@ -23,9 +23,19 @@ MonoBehaviour:
   - rid: 9024302470308298797
   - rid: 9024302470308298800
   - rid: 9024302470308298799
+  effectWorkflows:
+  - rid: 2116895648763871336
   references:
     version: 2
     RefIds:
+    - rid: 2116895648763871336
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 9024302470308298798
+        - rid: 9024302470308298797
+        - rid: 9024302470308298800
+        - rid: 9024302470308298799
     - rid: 9024302470308298797
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:

@@ -23,9 +23,18 @@ MonoBehaviour:
   - rid: 9024302470308298778
   - rid: 9024302470308298779
   - rid: 9024302470308298780
+  effectWorkflows:
+  - rid: 2116895648763871352
   references:
     version: 2
     RefIds:
+    - rid: 2116895648763871352
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 9024302470308298778
+        - rid: 9024302470308298779
+        - rid: 9024302470308298780
     - rid: 9024302470308298778
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

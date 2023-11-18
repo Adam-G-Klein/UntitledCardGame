@@ -21,6 +21,8 @@ MonoBehaviour:
   effectSteps:
   - rid: 1886371092460208289
   - rid: 1886371092460208288
+  effectWorkflows:
+  - rid: 2116895648763871329
   references:
     version: 2
     RefIds:
@@ -45,3 +47,9 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 4
         cantCancelTargetting: 0
+    - rid: 2116895648763871329
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 1886371092460208289
+        - rid: 1886371092460208288

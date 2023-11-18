@@ -22,6 +22,8 @@ MonoBehaviour:
   - rid: 1886371092460208270
   - rid: 1886371092460208272
   - rid: 1886371092460208273
+  effectWorkflows:
+  - rid: 2116895648763871335
   references:
     version: 2
     RefIds:
@@ -49,3 +51,10 @@ MonoBehaviour:
         scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
+    - rid: 2116895648763871335
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 1886371092460208270
+        - rid: 1886371092460208272
+        - rid: 1886371092460208273

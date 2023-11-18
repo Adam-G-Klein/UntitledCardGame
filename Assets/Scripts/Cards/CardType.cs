@@ -18,4 +18,7 @@ public class CardType: ScriptableObject
     public bool playable = true;
     [SerializeReference]
     public List<EffectStep> effectSteps;
+
+    [SerializeReference]
+    public List<EffectWorkflow> effectWorkflows;
 }
