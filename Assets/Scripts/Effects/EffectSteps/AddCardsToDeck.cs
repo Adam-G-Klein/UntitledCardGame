@@ -37,7 +37,7 @@ public class AddCardsToDeck : EffectStep {
 
     public override IEnumerator invoke(EffectDocument document) {
         // Check for valid entity with deck target(s)
-        List<DeckInstance> deckInstances = document.GetDeckInstances(inputKey);
+        List<DeckInstance> deckInstances = document.map.GetList<DeckInstance>(inputKey);
         if (deckInstances.Count == 0) {
             EffectError("No valid inputs for adding card to deck");
             yield return null;
@@ -46,11 +46,11 @@ public class AddCardsToDeck : EffectStep {
         // Setup list of card types to add to the target(s)
         List<CardType> cardTypesToAdd = new List<CardType>();
         if (getCardsFromKey) {
-            if (!document.cardMap.containsValueWithKey(inputCardsKey)) {
+            if (!document.map.ContainsValueWithKey<Card>(inputCardsKey)) {
                 EffectError("No valid card input but GetCardsFromKey was set");
                 yield return null;
             }
-            List<Card> cardsFromMap = document.cardMap.getList(inputCardsKey);
+            List<Card> cardsFromMap = document.map.GetList<Card>(inputCardsKey);
             foreach (Card card in cardsFromMap) {
                 cardTypesToAdd.Add(card.cardType);
             }

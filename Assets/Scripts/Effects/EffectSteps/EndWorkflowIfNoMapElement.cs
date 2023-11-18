@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,20 +15,16 @@ using UnityEngine;
 public class EndWorkflowIfNoMapElement : EffectStep {
     [SerializeField]
     private string keyToCheck = "";
-    [SerializeField]
-    private MapToCheck mapToCheck;
 
     public EndWorkflowIfNoMapElement() {
         effectStepName = "EndWorkflowIfNoMapElement";
     }
 
     public override IEnumerator invoke(EffectDocument document) {
-        switch(mapToCheck) {
-            case MapToCheck.PlayableCard:
-                if (document.playableCardMap.getList(keyToCheck).Count == 0) {
-                    EffectManager.Instance.interruptEffectWorkflow = true;
-                }
-            break;
+        foreach(KeyValuePair<Tuple<string, Type>, List<object>> pair in document.map.GetDict()) {
+            if (pair.Key.Item1 == keyToCheck && pair.Value.Count > 0) {
+                EffectManager.Instance.interruptEffectWorkflow = true;
+            }
         }
         yield return null;
     }

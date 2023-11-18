@@ -22,12 +22,12 @@ public class CardInHandEffect : EffectStep
     }
 
     public override IEnumerator invoke(EffectDocument document) {
-        if (!document.playableCardMap.containsValueWithKey(inputKey)) {
+        if (!document.map.ContainsValueWithKey<PlayableCard>(inputKey)) {
            EffectError("No input PlayableCard for given key " + inputKey);
             yield return null;
         }
 
-        List<PlayableCard> playableCards = document.playableCardMap.getList(inputKey);
+        List<PlayableCard> playableCards = document.map.GetList<PlayableCard>(inputKey);
         foreach (PlayableCard card in playableCards) {
             switch (effect) {
                 case CardInHandEffectName.Discard:

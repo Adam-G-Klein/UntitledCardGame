@@ -98,38 +98,6 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
         executeTriggers(CombatEntityTriggerType.MINION_DIED);
     }
 
-    // public void combatEntityDied(CombatInstance instance) {
-    //     switch (instance.entityType) {
-    //         case EntityType.Companion:
-    //             CompanionInstance companion = getCompanionInstanceById(instance.id);
-    //             companions.Remove(companion);
-    //             executeTriggers(CombatEntityTrigger.COMPANION_DIED);
-    //             if (companions.Count == 0) {
-    //                 StartCoroutine(
-    //                     turnPhaseEvent.RaiseAtEndOfFrameCoroutine(
-    //                         new TurnPhaseEventInfo(TurnPhase.END_ENCOUNTER)));
-    //             }
-    //         break;
-
-    //         case EntityType.Minion:
-    //             MinionInstance minion = getMinionInstanceById(instance.id);
-    //             minions.Remove(minion);
-    //             executeTriggers(CombatEntityTrigger.MINION_DIED);
-    //         break;
-
-    //         case EntityType.Enemy:
-    //             EnemyInstance enemy = getEnemyInstanceById(instance.id);
-    //             enemies.Remove(enemy);
-    //             executeTriggers(CombatEntityTrigger.ENEMY_DIED);
-    //             if (enemies.Count == 0) {
-    //                 StartCoroutine(
-    //                     turnPhaseEvent.RaiseAtEndOfFrameCoroutine(
-    //                         new TurnPhaseEventInfo(TurnPhase.END_ENCOUNTER)));
-    //             }
-    //         break;
-    //     }
-    // }
-
     public void registerTrigger(CombatEntityTrigger trigger) {
         combatEntityTriggers[trigger.type].Add(trigger);
     }

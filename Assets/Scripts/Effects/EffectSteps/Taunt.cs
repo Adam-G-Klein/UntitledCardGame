@@ -23,13 +23,13 @@ public class Taunt : EffectStep {
     }
 
     public override IEnumerator invoke(EffectDocument document) {
-        List<EnemyInstance> enemies = document.enemyMap.getList(inputTargetsKey);
+        List<EnemyInstance> enemies = document.map.GetList<EnemyInstance>(inputTargetsKey);
         if (enemies.Count == 0) {
             EffectError("No input targets present for key " + inputTargetsKey);
             yield return null;
         }
 
-        List<CombatInstance> originEntities = document.GetCombatInstances(inputOriginKey);
+        List<CombatInstance> originEntities = document.map.GetList<CombatInstance>(inputOriginKey);
         if (originEntities.Count == 0 || originEntities.Count > 1) {
             EffectError("None or too many origin entities provided for key " + inputOriginKey);
             yield return null;

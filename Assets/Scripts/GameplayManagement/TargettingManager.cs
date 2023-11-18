@@ -8,6 +8,7 @@ using UnityEngine.UIElements;
 public class TargettingManager : GenericSingleton<TargettingManager>
 {
     public Action<Targetable> targetSuppliedHandler;
+    public Action<CancelContext> cancelTargettingHandler;
 
     [SerializeField]
     private GameObject cardSelectionUIPrefab;
@@ -22,6 +23,12 @@ public class TargettingManager : GenericSingleton<TargettingManager>
         Debug.Log("Target supplied");
         if (targetSuppliedHandler != null) {
             targetSuppliedHandler.Invoke(target);
+        }
+    }
+
+    public void InvokeCancelTargettingHandler(CancelContext context) {
+        if (cancelTargettingHandler != null) {
+            cancelTargettingHandler.Invoke(context);
         }
     }
 
@@ -50,4 +57,8 @@ public class TargettingManager : GenericSingleton<TargettingManager>
         lookingForCardSelections = false;
         cardSelectionsList = null;
     }
+}
+
+public class CancelContext {
+    public bool canCancel;
 }

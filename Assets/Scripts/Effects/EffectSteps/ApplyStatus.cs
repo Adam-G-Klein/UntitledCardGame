@@ -35,7 +35,7 @@ public class ApplyStatus : EffectStep
     }
 
     public override IEnumerator invoke(EffectDocument document) {
-        List<CombatInstance> combatInstances = document.GetCombatInstances(inputKey);
+        List<CombatInstance> combatInstances = document.map.GetList<CombatInstance>(inputKey);
         if (combatInstances.Count == 0) {
             EffectError("No input targets present for key " + inputKey);
             yield return null;

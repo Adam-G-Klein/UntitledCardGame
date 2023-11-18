@@ -24,19 +24,17 @@ public class CardsDealtGameEventEditor : Editor
         companionId = EditorGUILayout.TextField(companionId);
         
         if (GUILayout.Button("Test Raise Event")) {
-            // CompanionInstance companionInstance = CombatEntityManager.Instance
-            //     .getCompanionInstanceById(companionId);
-            // // If you're getting a null pointer error here, it's probably because the id pasted
-            // // into the field above isn't corresponding to an id the CombatEntityManager was made 
-            // // aware of
-            // CombatEntityInEncounterStats stats = companionInstance.stats;
-            // InCombatDeck deckFrom = companionInstance.inCombatDeck;
-            // if(cardInfo != null) {
-            //     cardsDealtEvent.Raise(new CardsDealtEventInfo(
-            //         new List<Card>() { new Card(cardInfo) },
-            //         companionInstance
-            //     ));
-            // }
+            CompanionInstance companionInstance = CombatEntityManager.Instance
+                .getCompanionInstanceById(companionId);
+            // If you're getting a null pointer error here, it's probably because the id pasted
+            // into the field above isn't corresponding to an id the CombatEntityManager was made 
+            // aware of
+            if(cardInfo != null) {
+                cardsDealtEvent.Raise(new CardsDealtEventInfo(
+                    new List<Card>() { new Card(cardInfo) },
+                    companionInstance.deckInstance
+                ));
+            }
         }
     }
 }

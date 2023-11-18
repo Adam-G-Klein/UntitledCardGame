@@ -48,7 +48,7 @@ public class PlayableCard : MonoBehaviour,
         }
 
         EffectDocument document = new EffectDocument();
-        document.playableCardMap.addItem(EffectDocument.ORIGIN, this);
+        document.map.AddItem(EffectDocument.ORIGIN, this);
         document.originEntityType = EntityType.Card;
         EffectManager.Instance.invokeEffectWorkflow(document, card.cardType.effectSteps, CardFinishCastingCallback);
     }

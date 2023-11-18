@@ -34,19 +34,19 @@ public class SelectCardsFromList : EffectStep {
 
     public override IEnumerator invoke(EffectDocument document)
     {
-        if (!document.cardMap.containsValueWithKey(inputKey)) {
+        if (!document.map.ContainsValueWithKey<Card>(inputKey)) {
             EffectError("InputKey " + inputKey + " doesn't exist in the EffectDocument");
             yield return null;
         }
 
-        List<Card> cardOptions = document.cardMap.getList(inputKey);
+        List<Card> cardOptions = document.map.GetList<Card>(inputKey);
         List<Card> selections = new List<Card>();
 
         TargettingManager.Instance.selectCards(cardOptions, promptText, targets, selections);
         yield return new WaitUntil(() => selections.Count > 0);
         Debug.Log("Test");
 
-        document.cardMap.addItems(outputKey, selections);
+        document.map.AddItems<Card>(outputKey, selections);
 
         yield return null;
     }

@@ -28,16 +28,16 @@ public class ConvertPlayableCardToCard : EffectStep
     }
 
     public override IEnumerator invoke(EffectDocument document) {
-        if (!document.playableCardMap.containsValueWithKey(inputKey)) {
+        if (!document.map.ContainsValueWithKey<PlayableCard>(inputKey)) {
             EffectError("No value under InputKey " + inputKey);
             yield return null;
         }
-        List<PlayableCard> playableCards = document.playableCardMap.getList(inputKey);
+        List<PlayableCard> playableCards = document.map.GetList<PlayableCard>(inputKey);
         List<Card> cards = new List<Card>();
         foreach (PlayableCard playableCard in playableCards) {
             cards.Add(playableCard.card);
         }
-        document.cardMap.addItems(outputKey, cards);
+        document.map.AddItems<Card>(outputKey, cards);
         yield return null;
     }
 }

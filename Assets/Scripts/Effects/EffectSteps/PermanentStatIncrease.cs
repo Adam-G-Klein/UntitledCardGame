@@ -34,7 +34,7 @@ public class PermanentStatIncrease : EffectStep {
     }
 
     public override IEnumerator invoke(EffectDocument document) {
-        List<CombatInstance> instances = document.GetCombatInstances(inputKey);
+        List<CombatInstance> instances = document.map.GetList<CombatInstance>(inputKey);
         if (instances.Count == 0) {
             EffectError("No valid inputs for increasing stats");
             yield return null;
