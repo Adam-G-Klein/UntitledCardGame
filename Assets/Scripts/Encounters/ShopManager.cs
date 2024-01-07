@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using UnityEngine;
 
 public class ShopManager : GenericSingleton<ShopManager>
@@ -7,7 +8,7 @@ public class ShopManager : GenericSingleton<ShopManager>
 
     [Header("Variables")]
     public EncounterVariableSO activeEncounterVariable;
-    public MapVariableSO map;
+    public MapVariableSO mapVariable;
     public CompanionListVariableSO activeCompanionsVariable;
     public PlayerDataVariableSO activePlayerDataVariable;
 
@@ -18,6 +19,7 @@ public class ShopManager : GenericSingleton<ShopManager>
     public GameObject companionViewUIPrefab;
     
     private ShopEncounter shopEncounter;
+    private ShopLevel shopLevel;
     private GameObject companionViewUI = null;
     private bool buyingCard = false;
     private CardBuyRequest currentBuyRequest;
@@ -29,6 +31,7 @@ public class ShopManager : GenericSingleton<ShopManager>
             return;
         }
         activeEncounterVariable.GetValue().build(activeCompanionsVariable.companionList, encounterConstants);
+        shopLevel = shopEncounter.shopData.GetShopLevel(activePlayerDataVariable.GetValue().shopLevel);
     }
 
     void Update() {
@@ -145,9 +148,13 @@ public class ShopManager : GenericSingleton<ShopManager>
 
     // Attached as a UnityEvent to the UpgradeShop button
     public void processUpgradeShopClick() {
-        if (activePlayerDataVariable.GetValue().gold >= shopEncounter.shopData.upgradeShopPrice) {
-            activePlayerDataVariable.GetValue().gold -= shopEncounter.shopData.upgradeShopPrice;
-            activeCompanionsVariable.currentCompanionSlots += 1;
+        if (activePlayerDataVariable.GetValue().gold >= shopLevel.upgradeCost) {
+            activePlayerDataVariable.GetValue().gold -= shopLevel.upgradeCost;
+            activeCompanionsVariable.SetCompanionSlots(shopLevel.teamSize);
+            // Handle mana increase
+            activePlayerDataVariable.GetValue().shopLevel += 1;
+            shopLevel = shopEncounter.shopData.GetShopLevel(activePlayerDataVariable.GetValue().shopLevel);
+
         } else {
             shopUIManager.displayNeedMoreMoneyNotification();
         }
@@ -174,7 +181,7 @@ public class ShopManager : GenericSingleton<ShopManager>
 
     public void exitShop() {
         activeEncounterVariable.GetValue().isCompleted = true;
-        map.GetValue().loadMapScene();
+        mapVariable.GetValue().loadMapScene();
     }
 
     public ShopEncounter getShopEncounter() {

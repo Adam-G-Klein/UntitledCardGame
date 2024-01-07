@@ -32,7 +32,7 @@ public class ShopEncounter : Encounter
     public List<KeepsakeInShopWithPrice> keepsakesInShop = new List<KeepsakeInShopWithPrice>();
     private EncounterConstantsSO encounterConstants;
 
-    private ShopUIManager shopUIManager;
+    private ShopManager shopManager;
 
     public ShopEncounter() {
         this.encounterType = EncounterType.Shop;
@@ -45,31 +45,26 @@ public class ShopEncounter : Encounter
 
     public override void build(List<Companion> companionList, EncounterConstantsSO constants)
     {
-        if (shopUIManager == default) {
-            findShopSection();
-        }
+        this.shopManager = ShopManager.Instance;
+        this.shopManager.saveShopEncounter(this);
 
         this.encounterType = EncounterType.Shop;
-        ShopManager.Instance.saveShopEncounter(this);
         this.encounterConstants = constants;
+
+        ShopLevel shopLevel = shopData.GetShopLevel(
+            shopManager.activePlayerDataVariable.GetValue().shopLevel);
         
-        generateShopEncounter(companionList);
+        generateShopEncounter(shopLevel, companionList);
         setupCards(companionList);
         setupKeepsakes();
         this.shopData.shopEncounterEvent.Raise(this);
-    }
-
-    private void findShopSection() {
-        shopUIManager = GameObject.FindObjectOfType<ShopUIManager>();
-
-        Debug.Assert(shopUIManager, "Unable to find shope UI manager, required to set up the cards and keepsakes for sale!");
     }
 
     private void setupCards(List<Companion> companionList) {        
         for (int i = 0; i < cardsInShop.Count; i++) {
             GameObject instantiatedCard = GameObject.Instantiate(
                 encounterConstants.cardInShopPrefab, 
-                shopUIManager.cardSection
+                this.shopManager.shopUIManager.cardSection
                 );
 
             CardType cardType = cardsInShop[i].cardType;
@@ -81,7 +76,7 @@ public class ShopEncounter : Encounter
             CardDisplay cardDisplay = cardInShop.cardDisplay;
             cardDisplay.cardInfo = new Card(cardType);
 
-            //NOTE: Assumes that the companion list and the order their cards are displayed are the same
+            // NOTE: Assumes that the companion list and the order their cards are displayed are the same
             cardInShop.keepSake.sprite = companionList[i].companionType.keepsake;
 
             cardInShop.Setup();
@@ -92,7 +87,7 @@ public class ShopEncounter : Encounter
         for (int i = 0; i < keepsakesInShop.Count; i++) {
             GameObject instantiatedKeepsake = GameObject.Instantiate(
                 encounterConstants.keepsakeInShopPrefab, 
-                shopUIManager.keepSakeSection);
+                this.shopManager.shopUIManager.keepSakeSection);
 
             CompanionTypeSO companionType = keepsakesInShop[i].companionType;
             int price = keepsakesInShop[i].price;
@@ -104,15 +99,15 @@ public class ShopEncounter : Encounter
         }
     }
 
-    private void generateShopEncounter(List<Companion> companionList) {
+    private void generateShopEncounter(ShopLevel shopLevel, List<Companion> companionList) {
         cardsInShop = new List<CardInShopWithPrice>();
         keepsakesInShop = new List<KeepsakeInShopWithPrice>();
 
-        generateCards(companionList);
-        generateKeepsakes();
+        generateCards(shopLevel, companionList);
+        generateKeepsakes(shopLevel);
     }
 
-    private void generateCards(List<Companion> companionList) {
+    private void generateCards(ShopLevel shopLevel, List<Companion> companionList) {
         Debug.Log("Companion List count: " + companionList.Count);
         //determine which companion to spawn a card from, remove them from the set
         //move companion types to a hashSet
@@ -127,73 +122,130 @@ public class ShopEncounter : Encounter
         foreach (CompanionTypeSO companionType in companionTypes) {
             //pick a random card based on random algorithm
             CardPoolSO currentCardPool = companionType.cardPool;
-            int totalPercentage = currentCardPool.getTotalCardPercentage();
-            int commonCardPercentage = currentCardPool.commonCardPercentage;
-            int uncommonCardPercentage = currentCardPool.uncommonCardPercentage;
-            int rareCardPercentage = currentCardPool.rareCardPercentage;
-
+            Rarity rarity = PickRarity(
+                shopLevel.commonCardPercentage,
+                shopLevel.uncommonCardPercentage,
+                shopLevel.rareCardPercentage,
+                currentCardPool.commonCards.Count > 0,
+                currentCardPool.uncommonCards.Count > 0,
+                currentCardPool.rareCards.Count > 0
+            );
 
             // Determine what the card pool is for this single card being generated
-            SerializableHashSet<CardType> cardSet = new SerializableHashSet<CardType>();
+            List<CardType> cardSet = new List<CardType>();
             int cardPrice = 0;
-            int randomNumber = Random.Range(0, totalPercentage); // min inclusive, max exclusive
-            if (randomNumber < commonCardPercentage) {
-                cardSet = currentCardPool.commonCards;
-                cardPrice = currentCardPool.commonCardPrice;
-            } else if (randomNumber < commonCardPercentage + uncommonCardPercentage) {
-                cardSet = currentCardPool.uncommonCards;
-                cardPrice = currentCardPool.uncommonCardPrice;
-            } else {
-                cardSet = currentCardPool.rareCards;
-                cardPrice = currentCardPool.rareCardPrice;
+            switch (rarity) {
+                case Rarity.Common:
+                    cardSet = currentCardPool.commonCards;
+                    cardPrice = currentCardPool.commonCardPrice;
+                break;
+
+                case Rarity.Uncommon:
+                    cardSet = currentCardPool.uncommonCards;
+                    cardPrice = currentCardPool.uncommonCardPrice;
+                break;
+
+                case Rarity.Rare:
+                    cardSet = currentCardPool.rareCards;
+                    cardPrice = currentCardPool.rareCardPrice;
+                break;
             }
 
             // Pick a card from the pool and add it to the shop's cards
             int cardNumber = Random.Range(0, cardSet.Count);
 
             //super cool and efficent random selection from a hashSet(it has to iterate through the collection, there is no index in a hashset)
-            CardType selectedCard = default;
-            int i = 0;
-            foreach (CardType card in cardSet) {
-                if (i == cardNumber) {
-                    selectedCard = card;
-                    break;
-                }
-                i++;
-            }
-
+            CardType selectedCard = cardSet[cardNumber];
             cardsInShop.Add(new CardInShopWithPrice(selectedCard, cardPrice));
         }
 
     }
 
-    public void generateKeepsakes() {
+    public void generateKeepsakes(ShopLevel shopLevel) {
         int numKeepsakesToGenerate = shopData.keepsakeCount;
-        int totalPercentage = shopData.getTotalCompanionPercentage();
-        int commonPercentage = shopData.commonCompanionPercentage;
-        int uncommonPercentage = shopData.uncommonCompanionPercentage;
-        int rarePercentage = shopData.rareCompanionPercentage;
 
         for (int i = 0; i < numKeepsakesToGenerate; i++) {
             // Determine what the companion pool is for this single keepsake being generated
-            List<CompanionTypeSO> companionPool = new List<CompanionTypeSO>();
+            Rarity rarity = PickRarity(
+                shopLevel.commonCompanionPercentage,
+                shopLevel.uncommonCompanionPercentage,
+                shopLevel.rareCompanionPercentage,
+                shopData.companionPool.commonCompanions.Count > 0,
+                shopData.companionPool.uncommonCompanions.Count > 0,
+                shopData.companionPool.rareCompanions.Count > 0
+            );
+
+            List<CompanionTypeSO> companions = new List<CompanionTypeSO>();
             int keepsakePrice = 0;
-            int randomNumber = Random.Range(0, totalPercentage); // min inclusive, max exclusive
-            if (randomNumber < commonPercentage) {
-                companionPool = shopData.commonCompanions;
-                keepsakePrice = shopData.commonCompanionPrice;
-            } else if (randomNumber < commonPercentage + uncommonPercentage) {
-                companionPool = shopData.uncommonCompanions;
-                keepsakePrice = shopData.uncommonCompanionPrice;
-            } else {
-                companionPool = shopData.rareCompanions;
-                keepsakePrice = shopData.rareCompanionPrice;
+            switch(rarity) {
+                case Rarity.Common:
+                    companions = shopData.companionPool.commonCompanions;
+                    keepsakePrice = shopData.companionPool.commonCompanionPrice;
+                break;
+
+                case Rarity.Uncommon:
+                    companions = shopData.companionPool.uncommonCompanions;
+                    keepsakePrice = shopData.companionPool.uncommonCompanionPrice;
+                break;
+
+                case Rarity.Rare:
+                    companions = shopData.companionPool.rareCompanions;
+                    keepsakePrice = shopData.companionPool.rareCompanionPrice;
+                break;
             }
 
             // Pick a card from the pool and add it to the shop's cards
-            int number = Random.Range(0, companionPool.Count);
+            int number = Random.Range(0, companions.Count);
             keepsakesInShop.Add(
-                new KeepsakeInShopWithPrice(companionPool[number], keepsakePrice));
+                new KeepsakeInShopWithPrice(companions[number], keepsakePrice));
         }
+    }
+
+    private Rarity PickRarity(
+            int commonPercent,
+            int uncommonPercent,
+            int rarePercent,
+            bool commons,
+            bool uncommons,
+            bool rares) {
+        List<Rarity> rarityPool = new List<Rarity>();
+        List<int> percents = new List<int>();
+        if (commons) {
+            rarityPool.Add(Rarity.Common);
+            percents.Add(commonPercent);
+        }
+
+        if (uncommons) {
+            rarityPool.Add(Rarity.Uncommon);
+            percents.Add(uncommonPercent);
+        }
+
+        if (rares) {
+            rarityPool.Add(Rarity.Rare);
+            percents.Add(rarePercent);
+        }
+
+        int totalPercentage = 0;
+        foreach (int i in percents) {
+            totalPercentage = totalPercentage + i;
+        }
+
+        int randomNumber = Random.Range(0, totalPercentage); // min inclusive, max exclusive
+        int currentPercentageCheck = 0;
+        for (int i = 0; i < percents.Count; i++) {
+            currentPercentageCheck = currentPercentageCheck + percents[i];
+            if (randomNumber < currentPercentageCheck) {
+                return rarityPool[i];
+            }
+        }
+
+        // Should never hit this case
+        return Rarity.Common;
+    }
+
+    private enum Rarity {
+        Common,
+        Uncommon,
+        Rare
     }
 }

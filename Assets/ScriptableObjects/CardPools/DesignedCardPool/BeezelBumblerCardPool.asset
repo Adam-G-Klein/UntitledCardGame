@@ -13,19 +13,13 @@ MonoBehaviour:
   m_Name: BeezelBumblerCardPool
   m_EditorClassIdentifier: 
   commonCards:
-    SetData:
-    - {fileID: 11400000, guid: 3fe89f2c7b366cb46b2bbe3f4e462aa5, type: 2}
-    - {fileID: 11400000, guid: 316d443a77d87d447990d1ed770ed81b, type: 2}
-    - {fileID: 11400000, guid: 8f19923da99a6e447b5d51790f725453, type: 2}
-  uncommonCards:
-    SetData:
-    - {fileID: 11400000, guid: 2fb1ff5b996cff848acc4cbd846ebc49, type: 2}
-  rareCards:
-    SetData:
-    - {fileID: 11400000, guid: 6f04568326184884eaef2da243b0354d, type: 2}
-  commonCardPercentage: 25
+  - {fileID: 11400000, guid: 2fb1ff5b996cff848acc4cbd846ebc49, type: 2}
+  - {fileID: 11400000, guid: 316d443a77d87d447990d1ed770ed81b, type: 2}
+  - {fileID: 11400000, guid: 3fe89f2c7b366cb46b2bbe3f4e462aa5, type: 2}
+  - {fileID: 11400000, guid: 6f04568326184884eaef2da243b0354d, type: 2}
+  - {fileID: 11400000, guid: 8f19923da99a6e447b5d51790f725453, type: 2}
+  uncommonCards: []
+  rareCards: []
   commonCardPrice: 1
-  uncommonCardPercentage: 25
   uncommonCardPrice: 2
-  rareCardPercentage: 25
   rareCardPrice: 3

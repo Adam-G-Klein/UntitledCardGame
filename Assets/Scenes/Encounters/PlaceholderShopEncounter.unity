@@ -1137,7 +1137,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IS_DEVELOPMENT_MODE: 1
   activeEncounterVariable: {fileID: 11400000, guid: eca78fb783e4dc1478ecf954eaedad26, type: 2}
-  map: {fileID: 11400000, guid: 7e91f004ca90908449ef9a393cc677e0, type: 2}
+  mapVariable: {fileID: 11400000, guid: 7e91f004ca90908449ef9a393cc677e0, type: 2}
   activeCompanionsVariable: {fileID: 11400000, guid: 5aacade559de1c74491436053ef47d73, type: 2}
   activePlayerDataVariable: {fileID: 11400000, guid: 987a9f55256d63844a2b205199d32013, type: 2}
   shopUIManager: {fileID: 1266042997}
@@ -1698,6 +1698,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5238379fda94c984a97869fef36b4a1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shopManager: {fileID: 827745534}
   playerGoldTMPText: {fileID: 2047034854}
   needMoreMoneyTMPText: {fileID: 1647803259}
   upgradeShopButtonGoldText: {fileID: 1833218469}

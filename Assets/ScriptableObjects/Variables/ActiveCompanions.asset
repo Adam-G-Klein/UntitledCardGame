@@ -13,36 +13,31 @@ MonoBehaviour:
   m_Name: ActiveCompanions
   m_EditorClassIdentifier: 
   companionList:
-  - id: 370c7f2d-f891-4eed-880a-40768310dba0
+  - id: e5a2ba4c-cbe7-412a-b994-459a1bf855aa
     entityType: 0
     companionType: {fileID: 11400000, guid: bb8900a5e0f2ab34a8c486d19dcef389, type: 2}
     upgradeInfo: {fileID: 11400000, guid: 99076b48c6110564cb87cbbb29a513b6, type: 2}
     deck:
       startingDeck: {fileID: 11400000, guid: 10c5c659ceb55d941aaae63b3041edf6, type: 2}
       cards:
-      - id: 02d3a32c-14fb-42b4-a9fe-270b7c578cd1
+      - id: d35adc55-c3c3-4400-9715-b93e330cd64f
         entityType: 0
-        workflowIndex: 0
         castCount: 0
         cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
-      - id: 3d38070c-8632-4ee6-b041-c438ff3a0590
+      - id: 30d59c30-c442-4d3c-831c-05a1706cc4aa
         entityType: 0
-        workflowIndex: 0
         castCount: 0
         cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
-      - id: a93b2ef6-a319-42b7-8c19-b6d1f6e2c55d
+      - id: 6a65d053-c859-4136-b14e-7f72a596ef9b
         entityType: 0
-        workflowIndex: 0
         castCount: 0
         cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
-      - id: 3021ad41-d108-4829-99dc-5eec69e9bf34
+      - id: 78461c1b-e36d-4732-a82b-097f04afa16c
         entityType: 0
-        workflowIndex: 0
         castCount: 0
         cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
-      - id: a2d178d4-5c50-49e1-9578-d350901dd6f2
+      - id: cfcb7b48-baaf-4b93-8cf6-1b89089156ec
         entityType: 0
-        workflowIndex: 0
         castCount: 0
         cardType: {fileID: 11400000, guid: 29447d4ce5e609b46814ceac547e725f, type: 2}
       cardsDealtPerTurn: 1
@@ -51,37 +46,32 @@ MonoBehaviour:
       currentHealth: 30
       baseAttackDamage: 0
     ability:
-      rid: 2116895649468252219
-  - id: b471ed3b-4eb1-4f1b-8dfe-64b72bfae4b4
+      rid: 1935436395326210053
+  - id: cbe0df1d-b917-41a7-a80b-68bb150dc457
     entityType: 0
     companionType: {fileID: 11400000, guid: a388cdca9749764489c477a814a4dd5b, type: 2}
     upgradeInfo: {fileID: 11400000, guid: 99076b48c6110564cb87cbbb29a513b6, type: 2}
     deck:
       startingDeck: {fileID: 11400000, guid: 539df5bf5b9a2cf498d76437062d3987, type: 2}
       cards:
-      - id: ed0efa20-c72c-41d5-9140-5df31ca254b1
+      - id: d74843f1-c5d1-47e8-8db1-a62e75c88695
         entityType: 0
-        workflowIndex: 0
         castCount: 0
         cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
-      - id: df89ca75-a527-4ba1-8995-fcb46c2a58ac
+      - id: 0c43ef1e-b2ca-4bd2-8d51-59f32c973e37
         entityType: 0
-        workflowIndex: 0
         castCount: 0
         cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
-      - id: ce5d58a3-e031-4386-af26-19ec807a76fa
+      - id: fa4bad32-de8a-4a93-afb3-e8c623f5c553
         entityType: 0
-        workflowIndex: 0
         castCount: 0
         cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
-      - id: 9f44d1ff-c15f-4176-80bc-e0f4934d0c31
+      - id: 9c7c40e7-d84a-4548-926c-1c05615887b9
         entityType: 0
-        workflowIndex: 0
         castCount: 0
         cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
-      - id: f1efe082-3dc3-4ecc-8e2b-1057c98c3244
+      - id: 4067727d-469d-4f86-a3f8-3a8343cade56
         entityType: 0
-        workflowIndex: 0
         castCount: 0
         cardType: {fileID: 11400000, guid: 3fe89f2c7b366cb46b2bbe3f4e462aa5, type: 2}
       cardsDealtPerTurn: 1
@@ -90,73 +80,61 @@ MonoBehaviour:
       currentHealth: 20
       baseAttackDamage: 0
     ability:
-      rid: 2116895649468252220
-  - id: 0319438f-d315-4d39-abf2-43ab584db37b
+      rid: 1935436395326210054
+  - id: 04aa6a2a-1f96-4673-9366-cd991ae0e63d
     entityType: 0
-    companionType: {fileID: 11400000, guid: f64c62bd77fcea846a5c19bed998aeb6, type: 2}
+    companionType: {fileID: 11400000, guid: 4d253e77b533ea64ba6355a37741c0cf, type: 2}
     upgradeInfo: {fileID: 11400000, guid: 99076b48c6110564cb87cbbb29a513b6, type: 2}
     deck:
-      startingDeck: {fileID: 11400000, guid: 17489518ceb9d7341947bea0c6f7629e, type: 2}
+      startingDeck: {fileID: 11400000, guid: f88499d65b2d43848a8f72b8bcfa65df, type: 2}
       cards:
-      - id: 2daeb629-16a1-4621-82d8-c47bf45f89b3
+      - id: cb8d0aa3-4949-488d-8bf4-bc67fe11d355
         entityType: 0
-        workflowIndex: 0
         castCount: 0
         cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
-      - id: 9b8acf86-0e49-45bc-b1f4-ede25677f40f
+      - id: ac324e4a-11d9-49e3-8499-ac51e82af03a
         entityType: 0
-        workflowIndex: 0
         castCount: 0
         cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
-      - id: ebff5e9e-e579-40b5-9893-44b98467dd6b
+      - id: e0e2f7e3-0135-46a4-b739-958dcba6b004
         entityType: 0
-        workflowIndex: 0
         castCount: 0
         cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
-      - id: 5507f794-8adf-435f-a7f6-e754ef93ec6c
+      - id: 95914202-3b90-4ad3-8e06-5d89ef18900a
         entityType: 0
-        workflowIndex: 0
         castCount: 0
         cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
-      - id: b8cd93f2-f98e-4b68-b743-f274f64152f5
+      - id: b8462c15-2ba1-4412-98a1-b6932d191f83
         entityType: 0
-        workflowIndex: 0
         castCount: 0
-        cardType: {fileID: 11400000, guid: f47b99629a3e52649bec2a99ec283add, type: 2}
+        cardType: {fileID: 11400000, guid: 3ea4fc4054021ce4788b5012ed153111, type: 2}
       cardsDealtPerTurn: 1
     combatStats:
       maxHealth: 20
       currentHealth: 20
       baseAttackDamage: 0
     ability:
-      rid: 2116895649468252221
+      rid: 1935436395326210060
   companionBench: []
   currentCompanionSlots: 3
   references:
     version: 2
     RefIds:
-    - rid: 2116895649468252219
+    - rid: 1935436395326210053
       type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
       data:
         companionAbilityTrigger: 0
         effectSteps:
-        - rid: 2116895649468252222
-        - rid: 2116895649468252223
-    - rid: 2116895649468252220
+        - rid: 1935436395326210056
+        - rid: 1935436395326210057
+    - rid: 1935436395326210054
       type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
       data:
         companionAbilityTrigger: 4
         effectSteps:
-        - rid: 2116895649468252224
-        - rid: 2116895649468252225
-    - rid: 2116895649468252221
-      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
-      data:
-        companionAbilityTrigger: 3
-        effectSteps:
-        - rid: 2116895649468252226
-        - rid: 2116895649468252227
-    - rid: 2116895649468252222
+        - rid: 1935436395326210058
+        - rid: 1935436395326210059
+    - rid: 1935436395326210056
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
@@ -167,7 +145,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
-    - rid: 2116895649468252223
+    - rid: 1935436395326210057
       type: {class: SummonMinion, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: SummonMinion
@@ -177,7 +155,7 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
-    - rid: 2116895649468252224
+    - rid: 1935436395326210058
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
@@ -188,7 +166,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
-    - rid: 2116895649468252225
+    - rid: 1935436395326210059
       type: {class: PermanentStatIncrease, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: PermanentStatIncrease
@@ -197,23 +175,49 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
-    - rid: 2116895649468252226
+    - rid: 1935436395326210060
+      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
+      data:
+        companionAbilityTrigger: 1
+        effectSteps:
+        - rid: 1935436395326210061
+        - rid: 1935436395326210062
+        - rid: 1935436395326210063
+        - rid: 1935436395326210064
+    - rid: 1935436395326210061
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: self
-        validTargets: 
+        outputKey: target
+        validTargets: 00000000
         number: 1
-        specialTargetRule: 3
+        specialTargetRule: 0
         cantCancelTargetting: 0
-    - rid: 2116895649468252227
-      type: {class: PermanentStatIncrease, ns: , asm: Assembly-CSharp}
+    - rid: 1935436395326210062
+      type: {class: GetCardsFromDeck, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: PermanentStatIncrease
-        inputKey: self
-        statIncreaseType: 1
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
+        effectStepName: GetCardsFromDeck
+        inputKey: target
+        getLimitedNumber: 0
+        numberOfCardsToGet: 1
+        outputKey: allCardsInDeck
+        getCardsFromAllPiles: 1
+    - rid: 1935436395326210063
+      type: {class: SelectCardsFromList, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: SelectCardsFromList
+        inputKey: allCardsInDeck
+        outputKey: cardToPurge
+        promptText: Select a card to purge from the deck
+        targets: 1
+        getNumberOfTargetsFromKey: 0
+        inputTargetsKey: 
+    - rid: 1935436395326210064
+      type: {class: CardInDeckEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardInDeckEffect
+        inputCardsKey: cardToPurge
+        inputDeckKey: target
+        effect: 1

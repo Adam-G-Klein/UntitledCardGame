@@ -12,18 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98c54fe17bbfaba4697c85c1618843f4, type: 3}
   m_Name: DittoWithGunCardPool
   m_EditorClassIdentifier: 
-  commonCards:
-    SetData:
-    - {fileID: 11400000, guid: 3bb18e26132af3849b13f8666d2b207c, type: 2}
-  uncommonCards:
-    SetData:
-    - {fileID: 11400000, guid: 96c736cbff241624a991b3e5550a5c27, type: 2}
-  rareCards:
-    SetData:
-    - {fileID: 11400000, guid: c607a4473b410db46b6ccf755331ec14, type: 2}
-  commonCardPercentage: 25
+  commonCards: []
+  uncommonCards: []
+  rareCards: []
   commonCardPrice: 1
-  uncommonCardPercentage: 25
   uncommonCardPrice: 2
-  rareCardPercentage: 25
   rareCardPrice: 3

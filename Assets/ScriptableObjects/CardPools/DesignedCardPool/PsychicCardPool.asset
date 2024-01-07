@@ -13,20 +13,15 @@ MonoBehaviour:
   m_Name: PsychicCardPool
   m_EditorClassIdentifier: 
   commonCards:
-    SetData:
-    - {fileID: 11400000, guid: af631239de690bd4f9c3504152e145d7, type: 2}
-    - {fileID: 11400000, guid: 96c736cbff241624a991b3e5550a5c27, type: 2}
-    - {fileID: 11400000, guid: 303f0d64116674d4e8439993cb60ae3a, type: 2}
-  uncommonCards:
-    SetData:
-    - {fileID: 11400000, guid: 4694d4bfddf36a547af718d16d9dc506, type: 2}
-    - {fileID: 11400000, guid: 87ab4d36a94800d42be192b974e1b67f, type: 2}
-  rareCards:
-    SetData:
-    - {fileID: 11400000, guid: 98be7179751738444af1e4d5d1747244, type: 2}
-  commonCardPercentage: 25
+  - {fileID: 11400000, guid: 87ab4d36a94800d42be192b974e1b67f, type: 2}
+  - {fileID: 11400000, guid: 62bcdaf982dd22e4c896401cbc1745be, type: 2}
+  - {fileID: 11400000, guid: 98be7179751738444af1e4d5d1747244, type: 2}
+  - {fileID: 11400000, guid: 4694d4bfddf36a547af718d16d9dc506, type: 2}
+  - {fileID: 11400000, guid: 96c736cbff241624a991b3e5550a5c27, type: 2}
+  - {fileID: 11400000, guid: 303f0d64116674d4e8439993cb60ae3a, type: 2}
+  - {fileID: 11400000, guid: af631239de690bd4f9c3504152e145d7, type: 2}
+  uncommonCards: []
+  rareCards: []
   commonCardPrice: 1
-  uncommonCardPercentage: 25
   uncommonCardPrice: 2
-  rareCardPercentage: 25
   rareCardPrice: 3

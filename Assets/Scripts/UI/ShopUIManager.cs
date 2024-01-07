@@ -2,8 +2,9 @@ using System.Collections;
 using UnityEngine;
 using TMPro;
 
-public class ShopUIManager : MonoBehaviour
+public class ShopUIManager : GenericSingleton<ShopUIManager>
 {
+    public ShopManager shopManager;
     [Space(10)]
     public TMP_Text playerGoldTMPText;
     [Space(10)]
@@ -22,11 +23,11 @@ public class ShopUIManager : MonoBehaviour
     }
 
     void Update() {
-        playerGoldTMPText.text = ShopManager.Instance.activePlayerDataVariable
+        playerGoldTMPText.text = shopManager.activePlayerDataVariable
             .GetValue().gold.ToString();
-        upgradeShopButtonGoldText.text = ShopManager.Instance.getShopEncounter()
+        upgradeShopButtonGoldText.text = shopManager.getShopEncounter()
             .shopData.upgradeShopPrice.ToString();
-        rerollShopButtonGoldText.text = ShopManager.Instance.getShopEncounter()
+        rerollShopButtonGoldText.text = shopManager.getShopEncounter()
             .shopData.rerollShopPrice.ToString();
     }
 

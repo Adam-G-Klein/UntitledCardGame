@@ -13,20 +13,15 @@ MonoBehaviour:
   m_Name: EnduranceCardPool
   m_EditorClassIdentifier: 
   commonCards:
-    SetData:
-    - {fileID: 11400000, guid: 15155d363853e57459451d867d20f580, type: 2}
-    - {fileID: 11400000, guid: 6045b3fbbcfc5664484f03f2ba3b2907, type: 2}
-    - {fileID: 11400000, guid: f47b99629a3e52649bec2a99ec283add, type: 2}
-  uncommonCards:
-    SetData:
-    - {fileID: 11400000, guid: dbac0a62f7025e141a050cc499d0a42c, type: 2}
-    - {fileID: 11400000, guid: a5ede245bff98944c8b58cac0b6d206a, type: 2}
-  rareCards:
-    SetData:
-    - {fileID: 11400000, guid: 3bb18e26132af3849b13f8666d2b207c, type: 2}
-  commonCardPercentage: 25
+  - {fileID: 11400000, guid: 6045b3fbbcfc5664484f03f2ba3b2907, type: 2}
+  - {fileID: 11400000, guid: 3bb18e26132af3849b13f8666d2b207c, type: 2}
+  - {fileID: 11400000, guid: a5ede245bff98944c8b58cac0b6d206a, type: 2}
+  - {fileID: 11400000, guid: 76c940ac09415954d897a92f7b06e313, type: 2}
+  - {fileID: 11400000, guid: dbac0a62f7025e141a050cc499d0a42c, type: 2}
+  - {fileID: 11400000, guid: 15155d363853e57459451d867d20f580, type: 2}
+  - {fileID: 11400000, guid: f47b99629a3e52649bec2a99ec283add, type: 2}
+  uncommonCards: []
+  rareCards: []
   commonCardPrice: 1
-  uncommonCardPercentage: 25
   uncommonCardPrice: 2
-  rareCardPercentage: 25
   rareCardPrice: 3

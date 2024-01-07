@@ -7,23 +7,13 @@ using UnityEngine;
     menuName = "Cards/Card Pool")]
 public class CardPoolSO: ScriptableObject {
     
-    public SerializableHashSet<CardType> commonCards;
-    public SerializableHashSet<CardType> uncommonCards;
-    public SerializableHashSet<CardType> rareCards;
-
-    public int commonCardPercentage;
+    public List<CardType> commonCards;
+    public List<CardType> uncommonCards;
+    public List<CardType> rareCards;
+    
     public int commonCardPrice;
     
-    public int uncommonCardPercentage;
     public int uncommonCardPrice;
 
-    public int rareCardPercentage;
     public int rareCardPrice;
-
-    public int getTotalCardPercentage() {
-        return commonCardPercentage +
-            uncommonCardPercentage +
-            rareCardPercentage;
-    }
-
 }
