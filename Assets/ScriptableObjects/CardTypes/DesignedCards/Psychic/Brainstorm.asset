@@ -24,6 +24,8 @@ MonoBehaviour:
   - rid: 1886371092460208277
   - rid: 1886371092460208255
   - rid: 1886371092460208256
+  effectWorkflows:
+  - rid: 2116895648763871330
   references:
     version: 2
     RefIds:
@@ -73,3 +75,12 @@ MonoBehaviour:
         inputKey: cardsInHand
         typesToCount: 01000000
         outputKey: numberOfCardsInHand
+    - rid: 2116895648763871330
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 1886371092460208250
+        - rid: 1886371092460208252
+        - rid: 1886371092460208277
+        - rid: 1886371092460208255
+        - rid: 1886371092460208256

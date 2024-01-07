@@ -16,8 +16,15 @@ MonoBehaviour:
   Description: Ouch. Takes up space in the deck.
   Cost: 0
   Artwork: {fileID: 21300000, guid: 8d4e86e0a7911224ea47d026355ef835, type: 3}
+  vfxPrefab: {fileID: 0}
   playable: 0
-  EffectProcedures: []
+  effectSteps: []
+  effectWorkflows:
+  - rid: 2116895648763871337
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 2116895648763871337
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps: []

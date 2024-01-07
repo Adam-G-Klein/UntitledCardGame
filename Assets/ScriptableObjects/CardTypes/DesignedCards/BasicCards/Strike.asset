@@ -22,9 +22,18 @@ MonoBehaviour:
   - rid: 9024302470308298763
   - rid: 8939928337977442304
   - rid: 9024302470308298764
+  effectWorkflows:
+  - rid: 2116895648763871355
   references:
     version: 2
     RefIds:
+    - rid: 2116895648763871355
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 9024302470308298763
+        - rid: 8939928337977442304
+        - rid: 9024302470308298764
     - rid: 8939928337977442304
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:

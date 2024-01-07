@@ -16,6 +16,7 @@ public class CardType: ScriptableObject
     public GameObject vfxPrefab;
     // For unplayable status cards
     public bool playable = true;
+
     [SerializeReference]
-    public List<EffectStep> effectSteps;
+    public List<EffectWorkflow> effectWorkflows;
 }

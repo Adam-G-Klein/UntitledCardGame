@@ -19,6 +19,12 @@ MonoBehaviour:
   vfxPrefab: {fileID: 0}
   playable: 1
   effectSteps: []
+  effectWorkflows:
+  - rid: 2116895648763871339
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 2116895648763871339
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps: []

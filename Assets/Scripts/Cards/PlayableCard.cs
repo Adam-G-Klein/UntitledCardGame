@@ -50,13 +50,18 @@ public class PlayableCard : MonoBehaviour,
         EffectDocument document = new EffectDocument();
         document.map.AddItem(EffectDocument.ORIGIN, this);
         document.originEntityType = EntityType.Card;
-        EffectManager.Instance.invokeEffectWorkflow(document, card.cardType.effectSteps, CardFinishCastingCallback);
+        EffectManager.Instance.invokeEffectWorkflow(document, card.effectSteps, CardFinishCastingCallback);
     }
 
     private void CardFinishCastingCallback() {
         ManaManager.Instance.updateMana(-card.cost);
         StartCoroutine(cardCastEvent.RaiseAtEndOfFrameCoroutine(new CardCastEventInfo(card)));
         DiscardCardFromHand();
+        IncrementCastCount();
+    }
+
+    private void IncrementCastCount(){
+        card.castCount += 1;
     }
 
     public void DiscardCardFromHand() {
