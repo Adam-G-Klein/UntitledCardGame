@@ -208,7 +208,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 131.05
+  m_fontSize: 84.65
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -258,6 +258,82 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 247260947}
   m_CullTransparentMesh: 1
+--- !u!1 &489070705
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 489070707}
+  - component: {fileID: 489070706}
+  - component: {fileID: 489070708}
+  m_Layer: 5
+  m_Name: UIDocument
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &489070706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 489070705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PanelSettings: {fileID: 11400000, guid: 11b8d0abb1470a54783bcc5c2141ac05, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: e7aacf3222b746643adbc078e31ccff0, type: 3}
+  m_SortingOrder: 0
+--- !u!4 &489070707
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 489070705}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &489070708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 489070705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97e5ac283274978498a8163622b70e22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mapGenerator: {fileID: 11400000, guid: 90858ca28bf641e4d86221577a5a874b, type: 2}
+  activeMapVariable: {fileID: 11400000, guid: 7e91f004ca90908449ef9a393cc677e0, type: 2}
+  activeCompanionList: {fileID: 11400000, guid: 5aacade559de1c74491436053ef47d73, type: 2}
+  playerData: {fileID: 11400000, guid: 987a9f55256d63844a2b205199d32013, type: 2}
+  team1ActiveCompanions:
+  - {fileID: 11400000, guid: bb8900a5e0f2ab34a8c486d19dcef389, type: 2}
+  - {fileID: 11400000, guid: a388cdca9749764489c477a814a4dd5b, type: 2}
+  - {fileID: 11400000, guid: 4d253e77b533ea64ba6355a37741c0cf, type: 2}
+  team1BenchCompanions: []
+  team2ActiveCompanions:
+  - {fileID: 11400000, guid: c106de03c6bb3ab4e952724e5e4a073c, type: 2}
+  - {fileID: 11400000, guid: bb8900a5e0f2ab34a8c486d19dcef389, type: 2}
+  - {fileID: 11400000, guid: af270a8bf55a86547941d6065eb02679, type: 2}
+  team2BenchCompanions: []
+  deckViewUIPrefab: {fileID: 5377055111114097650, guid: 43af0a6b355f5bc44b438074fee9d9a6, type: 3}
 --- !u!1 &578768873
 GameObject:
   m_ObjectHideFlags: 0
@@ -341,7 +417,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 663117523}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GenerateMap, Assembly-CSharp
         m_MethodName: backButtonHandler
         m_Mode: 1
@@ -521,7 +597,6 @@ GameObject:
   - component: {fileID: 663117526}
   - component: {fileID: 663117525}
   - component: {fileID: 663117524}
-  - component: {fileID: 663117523}
   m_Layer: 5
   m_Name: GenerateMap
   m_TagString: Untagged
@@ -529,27 +604,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &663117523
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 663117522}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97e5ac283274978498a8163622b70e22, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mapGenerator: {fileID: 11400000, guid: 90858ca28bf641e4d86221577a5a874b, type: 2}
-  activeMapVariable: {fileID: 11400000, guid: 7e91f004ca90908449ef9a393cc677e0, type: 2}
-  activeCompanionList: {fileID: 11400000, guid: 5aacade559de1c74491436053ef47d73, type: 2}
-  playerData: {fileID: 11400000, guid: 987a9f55256d63844a2b205199d32013, type: 2}
-  startingActiveCompanions:
-  - {fileID: 11400000, guid: bb8900a5e0f2ab34a8c486d19dcef389, type: 2}
-  - {fileID: 11400000, guid: a388cdca9749764489c477a814a4dd5b, type: 2}
-  - {fileID: 11400000, guid: 4d253e77b533ea64ba6355a37741c0cf, type: 2}
-  startingBenchCompanions: []
 --- !u!114 &663117524
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -721,7 +775,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 82.45
+  m_fontSize: 53.2
   m_fontSizeBase: 136.42
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -922,7 +976,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 663117523}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GenerateMap, Assembly-CSharp
         m_MethodName: go
         m_Mode: 1

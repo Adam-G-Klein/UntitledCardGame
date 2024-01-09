@@ -1,0 +1,23 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/common.uss?fileID=7433441132597879392&amp;guid=8d0bc28a2ed710a44b762e4c857ac6f9&amp;type=3#common" />
+    <ui:VisualElement style="width: 100%; height: 100%; background-image: resource(&apos;Backgrounds/GenerateMapBackground&apos;);">
+        <ui:VisualElement style="position: absolute;" />
+        <ui:VisualElement class="empty-book">
+            <ui:Button text="Back" display-tooltip-when-elided="true" name="backButton" style="position: absolute;" />
+            <ui:VisualElement style="align-items: flex-start; justify-content: flex-start; width: 60%; height: 75%; left: 20%; top: 10%; flex-direction: column; flex-wrap: nowrap;">
+                <ui:VisualElement style="flex-direction: row; flex-wrap: wrap;">
+                    <ui:VisualElement name="team-1-container" class="character-select-container">
+                        <ui:VisualElement name="header" class="team-select-header">
+                            <ui:Label text="Team One" display-tooltip-when-elided="true" class="team-header-label" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="team-2-container" class="character-select-container">
+                        <ui:VisualElement name="header" class="team-select-header" style="align-items: auto;">
+                            <ui:Label text="Team Two" display-tooltip-when-elided="true" class="team-header-label" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
