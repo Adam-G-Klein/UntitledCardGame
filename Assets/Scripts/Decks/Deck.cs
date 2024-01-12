@@ -11,14 +11,16 @@ public class Deck
     public List<Card> cards = new List<Card>();
     public int cardsDealtPerTurn = 1;
 
-    public Deck(StartingDeck startingDeck)
+    public Deck(StartingDeck startingDeck, int cardsDealtPerTurn = 1)
     {
         this.startingDeck = startingDeck;
+        this.cardsDealtPerTurn = cardsDealtPerTurn;
         foreach(CardType cardType in startingDeck.cards)
         {
             cards.Add(new Card(cardType));
         }
     }
+    
     public Deck(List<Card> cards)
     {
         this.startingDeck = new StartingDeck(cards);
