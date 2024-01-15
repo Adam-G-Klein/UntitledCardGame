@@ -10,29 +10,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
-  m_Name: Endurance
+  m_Name: Aborah
   m_EditorClassIdentifier: 
-  companionName: Endurance
+  companionName: Warrior
   maxHealth: 20
   baseAttackDamage: 0
-  sprite: {fileID: 21300000, guid: 28b3c9fcc50215a41a060c956d5d2f9e, type: 3}
-  startingDeck: {fileID: 11400000, guid: 17489518ceb9d7341947bea0c6f7629e, type: 2}
-  keepsake: {fileID: 21300000, guid: a100f38fb92da834786807cb66e2ebba, type: 3}
-  cardPool: {fileID: 11400000, guid: 3e33e8a22ef5f3e46bf67e48ebcbea1c, type: 2}
+  initialCardsDealtPerTurn: 1
+  sprite: {fileID: 21300000, guid: 9b488e83c145ad749884e5716bba11bf, type: 3}
+  startingDeck: {fileID: 11400000, guid: 539df5bf5b9a2cf498d76437062d3987, type: 2}
+  keepsake: {fileID: 21300000, guid: 3b995bf12c221eb40b99580cae3e50a4, type: 3}
+  cardPool: {fileID: 11400000, guid: 998068d5fdd3d4a4daece7c710652474, type: 2}
   ability:
-    rid: 1886370794371285022
+    rid: 1886370794371285018
   upgradeInfo: {fileID: 11400000, guid: 99076b48c6110564cb87cbbb29a513b6, type: 2}
   references:
     version: 2
     RefIds:
-    - rid: 1886370794371285022
+    - rid: 1886370794371285018
       type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
       data:
-        companionAbilityTrigger: 3
+        companionAbilityTrigger: 4
         effectSteps:
-        - rid: 8939928036647632950
-        - rid: 8939928036647632951
-    - rid: 8939928036647632950
+        - rid: 8939928036647632948
+        - rid: 8939928036647632949
+    - rid: 8939928036647632948
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
@@ -43,12 +44,12 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
-    - rid: 8939928036647632951
+    - rid: 8939928036647632949
       type: {class: PermanentStatIncrease, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: PermanentStatIncrease
         inputKey: self
-        statIncreaseType: 1
+        statIncreaseType: 0
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
