@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEditor;
 
@@ -35,7 +36,7 @@ public class EncounterManager : MonoBehaviour
         int baseGoldEarnedPerBattle = 10;
         int increments = 10; // Increments of how much does the player need to have before earning 1 more
 
-        int extraGold = Math.floor(activePlayerDataVariable.GetValue().gold / increments);
+        int extraGold = Mathf.FloorToInt(activePlayerDataVariable.GetValue().gold / increments);
         activePlayerDataVariable.GetValue().gold += baseGoldEarnedPerBattle + extraGold;
 
 
