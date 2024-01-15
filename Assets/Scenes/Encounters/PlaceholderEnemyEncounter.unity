@@ -1107,6 +1107,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 81762633, guid: 28a067a8b113e3a4aadb83e0e82a16bd, type: 3}
+      propertyPath: unityEventResponse.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: EndEncounterHandler
+      objectReference: {fileID: 0}
     - target: {fileID: 6256734607495897998, guid: 28a067a8b113e3a4aadb83e0e82a16bd, type: 3}
       propertyPath: m_Name
       value: EncounterManager

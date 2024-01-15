@@ -28,9 +28,17 @@ public class EncounterManager : MonoBehaviour
         
     }
 
-    public void endEncounterHandler(EndEncounterEventInfo info) {
+    public void EndEncounterHandler(EndEncounterEventInfo info) {
         activeEncounterVariable.GetValue().isCompleted = true;
-        activePlayerDataVariable.GetValue().gold += 5;
+
+        // Gold interest calculation
+        int baseGoldEarnedPerBattle = 10;
+        int increments = 10; // Increments of how much does the player need to have before earning 1 more
+
+        int extraGold = Math.floor(activePlayerDataVariable.GetValue().gold / increments);
+        activePlayerDataVariable.GetValue().gold += baseGoldEarnedPerBattle + extraGold;
+
+
         activeMapVariable.GetValue().loadMapScene();
     }
 }
