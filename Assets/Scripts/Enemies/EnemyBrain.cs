@@ -16,6 +16,10 @@ public class EnemyBrain
     public EnemyIntent ChooseIntent() {
         // Just randomly choose behavior for now, but there's room to make this more smarter
         int behaviorIndex = sequentialBehaviors ? nextBehaviorIndex : UnityEngine.Random.Range(0, behaviors.Count);
+        if(behaviors.Count == 0) {
+            Debug.LogError("No behaviors defined for enemy");
+            return null;
+        }
         nextBehaviorIndex = (nextBehaviorIndex + 1) % behaviors.Count;
         EnemyBehavior action = behaviors[behaviorIndex];
         CombatInstance target = ChooseTargets(action.enemyTargetMethod);

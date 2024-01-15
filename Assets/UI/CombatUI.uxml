@@ -2,4 +2,8 @@
     <Style src="project://database/Assets/UI/combatUI.uss?fileID=7433441132597879392&amp;guid=57de3c55c446df347ac9c0130dc7ec8f&amp;type=3#combatUI" />
     <ui:VisualElement name="enemy-portraits" class="character-portraits" style="align-items: flex-start; width: 25%; height: 100%; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 25px; padding-right: 25px; padding-top: 25px; padding-bottom: 25px; position: absolute; left: 75%;" />
     <ui:VisualElement name="character-portraits" class="character-portraits" style="align-items: flex-start; width: 25%; height: 100%; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 25px; padding-right: 25px; padding-top: 25px; padding-bottom: 25px;" />
+    <ui:Button text="End Turn" display-tooltip-when-elided="true" name="end-turn-button" class="end-turn-button" style="right: 5%;" />
+    <ui:VisualElement name="mana-meter" class="mana-meter">
+        <ui:Label text="0" display-tooltip-when-elided="true" enable-rich-text="true" name="mana-counter" class="mana-counter" style="font-size: 25%;" />
+    </ui:VisualElement>
 </ui:UXML>

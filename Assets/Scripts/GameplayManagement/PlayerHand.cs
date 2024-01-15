@@ -32,18 +32,6 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         return cardsDelt;
     }
 
-    public void CardCastEventHandler(CardCastEventInfo info) {
-        PlayableCard cardToDiscard = null;
-        foreach(PlayableCard card in cardsInHand) {
-            if(card.card.id == info.cardInfo.id) {
-                cardToDiscard = card;
-            }
-        }
-        if(cardToDiscard != null) {
-            DiscardCard(cardToDiscard);
-        }
-    }
-
     public void TurnPhaseChangedEventHandler(TurnPhaseEventInfo info) {
         if(info.newPhase == TurnPhase.END_PLAYER_TURN) {
             DiscardHand();

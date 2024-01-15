@@ -36,6 +36,9 @@ public class EnemyIntentDisplay : MonoBehaviour
 
     public IEnumerable displayIntent(EnemyInstance enemy)  {
         clearIntent();
+        if(enemy.currentIntent == null) {
+            yield break;
+        }
         updateIntentImages(enemy.currentIntent);
         arrowController.updateArrows(enemy.currentIntent);
         yield return null;

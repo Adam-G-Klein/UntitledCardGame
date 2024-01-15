@@ -21,6 +21,41 @@
 }
 
 .health-text {
-    color: rgba(253, 0, 20, 255);
+    color: rgb(253, 0, 20);
     font-size: 20px;
+}
+
+.end-turn-button {
+    right: 2%;
+    width: 71px;
+    bottom: 2%;
+    top: auto;
+    left: auto;
+    position: absolute;
+}
+
+.mana-meter {
+    position: absolute;
+    width: 7%;
+    height: 7%;
+    top: auto;
+    left: auto;
+    right: 5%;
+    bottom: 10%;
+    background-color: rgba(0, 251, 255, 0);
+    background-image: url('project://database/Assets/Sprites/TestSprite.png?fileID=2800000&guid=ec2124577eb0fe94fb0ad86834e39e15&type=3#TestSprite');
+    -unity-background-image-tint-color: rgb(0, 255, 231);
+}
+
+.mana-counter {
+    position: absolute;
+    top: 3%;
+    bottom: auto;
+    -unity-text-align: middle-center;
+    -unity-font: url('project://database/Assets/TextMesh%20Pro/Fonts/LiberationSans.ttf?fileID=12800000&guid=e3265ab4bf004d28a9537516768c1c75&type=3#LiberationSans');
+    white-space: normal;
+    left: 37%;
+    -unity-font-style: bold;
+    text-shadow: 0 0 0 rgb(0, 0, 0);
+    font-size: 25;
 }

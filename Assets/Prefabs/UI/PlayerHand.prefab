@@ -13,8 +13,6 @@ GameObject:
   - component: {fileID: 4767234933966660723}
   - component: {fileID: 4767234933966660720}
   - component: {fileID: 4767234933966660724}
-  - component: {fileID: 4767234933966660727}
-  - component: {fileID: 3775201061964779521}
   - component: {fileID: 1925860625891090786}
   m_Layer: 5
   m_Name: PlayerHand
@@ -87,7 +85,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &4767234933966660720
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,62 +118,6 @@ MonoBehaviour:
   cardsInHand: []
   cardPrefab: {fileID: 5521833032725427039, guid: 78a82ad030985f349857f9b27993fd06, type: 3}
   layoutGroup: {fileID: 7019056156382605020}
---- !u!114 &4767234933966660727
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4767234933966660721}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5f91b1626adc0142bc45106bd5443b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: e9a227fee840eff4bbfdfe43a95070e6, type: 2}
-  unityEventResponse:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4767234933966660724}
-        m_TargetAssemblyTypeName: PlayerHand, Assembly-CSharp
-        m_MethodName: cardDealtEventHandler
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &3775201061964779521
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4767234933966660721}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38620049e120ba345beb222af44b5f64, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: 8e2f201df9de731449d5a0e8ddb0d748, type: 2}
-  unityEventResponse:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4767234933966660724}
-        m_TargetAssemblyTypeName: PlayerHand, Assembly-CSharp
-        m_MethodName: cardCastEventHandler
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &1925860625891090786
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,7 +136,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4767234933966660724}
         m_TargetAssemblyTypeName: PlayerHand, Assembly-CSharp
-        m_MethodName: turnPhaseChangedEventHandler
+        m_MethodName: TurnPhaseChangedEventHandler
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

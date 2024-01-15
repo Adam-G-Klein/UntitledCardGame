@@ -15,6 +15,7 @@ MonoBehaviour:
   companionName: Psychic
   maxHealth: 20
   baseAttackDamage: 0
+  initialCardsDealtPerTurn: 2
   sprite: {fileID: 21300000, guid: 44a1c2e16b32f414fa6cb6f5e1db21b1, type: 3}
   startingDeck: {fileID: 11400000, guid: 1e6712d15d797514aa606a6a0d84a059, type: 2}
   keepsake: {fileID: 21300000, guid: 216c53aef79eaaf40a1800cc5e542dc3, type: 3}
@@ -28,43 +29,5 @@ MonoBehaviour:
     - rid: 1886370794371285026
       type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
       data:
-        companionAbilityTrigger: 2
-        effectSteps:
-        - rid: 8939928036647633326
-        - rid: 8939928036647633325
-        - rid: 8939928036647633292
-        - rid: 8939928036647633293
-    - rid: 8939928036647633292
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: cardToRetain
-        validTargets: 03000000
-        number: 1
-        specialTargetRule: 0
-        cantCancelTargetting: 0
-    - rid: 8939928036647633293
-      type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CardInHandEffect
-        inputKey: cardToRetain
-        effect: 2
-    - rid: 8939928036647633325
-      type: {class: EndWorkflowIfNoMapElement, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: EndWorkflowIfNoMapElement
-        keyToCheck: allCardsInHand
-        mapToCheck: 4
-    - rid: 8939928036647633326
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: allCardsInHand
-        validTargets: 03000000
-        number: 1
-        specialTargetRule: 1
-        cantCancelTargetting: 0
+        companionAbilityTrigger: 0
+        effectSteps: []
