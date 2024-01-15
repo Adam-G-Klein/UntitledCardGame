@@ -25,8 +25,7 @@ public class ShopUIManager : GenericSingleton<ShopUIManager>
     void Update() {
         playerGoldTMPText.text = shopManager.activePlayerDataVariable
             .GetValue().gold.ToString();
-        upgradeShopButtonGoldText.text = shopManager.getShopEncounter()
-            .shopData.upgradeShopPrice.ToString();
+        upgradeShopButtonGoldText.text = shopManager.GetShopLevel().upgradeCost.ToString();
         rerollShopButtonGoldText.text = shopManager.getShopEncounter()
             .shopData.rerollShopPrice.ToString();
     }

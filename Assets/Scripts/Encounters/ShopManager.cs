@@ -187,4 +187,8 @@ public class ShopManager : GenericSingleton<ShopManager>
     public ShopEncounter getShopEncounter() {
         return this.shopEncounter;
     }
+
+    public ShopLevel GetShopLevel() {
+        return shopLevel;
+    }
 }
