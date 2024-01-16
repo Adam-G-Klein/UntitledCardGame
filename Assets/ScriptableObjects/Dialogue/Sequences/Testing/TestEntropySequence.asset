@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 23517bc57e0f44146a39f61c3db5a303, type: 3}
-  m_Name: testSequence
+  m_Name: TestEntropySequence
   m_EditorClassIdentifier: 
-  requiredSpeaker: {fileID: 11400000, guid: 76fc1ea2d414956428399f565e424d83, type: 2}
+  requiredSpeakers:
+  - {fileID: 11400000, guid: 16a6a477166d98c4d9b79b1d5ae69638, type: 2}
   dialogueLines:
   - rid: 55651043461562368
   - rid: 55651043461562369
@@ -24,20 +25,20 @@ MonoBehaviour:
     - rid: 55651043461562368
       type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
       data:
-        speakerType: {fileID: 11400000, guid: 76fc1ea2d414956428399f565e424d83, type: 2}
-        dialogueText: Alright lets mess em up
+        speaker: {fileID: 11400000, guid: 16a6a477166d98c4d9b79b1d5ae69638, type: 2}
+        line: I'm Entropy!
     - rid: 55651043461562369
       type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
       data:
-        speakerType: {fileID: 11400000, guid: 0ffd109ae66c2a54cb93828dea1a7219, type: 2}
-        dialogueText: We'll do our best, no way to be sure how this loop goes
+        speaker: {fileID: 11400000, guid: 0ffd109ae66c2a54cb93828dea1a7219, type: 2}
+        line: Hey Aborah I'm Aiden
     - rid: 55651043461562370
       type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
       data:
-        speakerType: {fileID: 11400000, guid: 9e835f3c4c49e9f4da934369a0a7132b, type: 2}
-        dialogueText: The leaves are always restless here.
+        speaker: {fileID: 11400000, guid: 9e835f3c4c49e9f4da934369a0a7132b, type: 2}
+        line: Sup guys if I'm here I'll tell you my name's Jean
     - rid: 55651043461562371
       type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
       data:
-        speakerType: {fileID: 11400000, guid: 76fc1ea2d414956428399f565e424d83, type: 2}
-        dialogueText: Restlessness means nothing before my blades
+        speaker: {fileID: 11400000, guid: 76fc1ea2d414956428399f565e424d83, type: 2}
+        line: Wow what a cool conversation we've just had

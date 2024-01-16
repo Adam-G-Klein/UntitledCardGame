@@ -6,6 +6,6 @@ using UnityEngine;
 public class DialogueLine 
 {
     public DialogueLine(){}
-    public SpeakerTypeSO speakerType;
-    public string dialogueText;
+    public SpeakerTypeSO speaker;
+    public string line;
 }

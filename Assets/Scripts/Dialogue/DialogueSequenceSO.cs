@@ -8,7 +8,7 @@ using UnityEngine;
     menuName = "Dialogue/Dialogue Sequence")]
 public class DialogueSequenceSO: ScriptableObject
 {
-    public SpeakerTypeSO requiredSpeaker; // Can make this into a list later if we want
+    public List<SpeakerTypeSO> requiredSpeakers; // Can make this into a list later if we want
     [SerializeReference]
     public List<DialogueLine> dialogueLines;
 }
