@@ -17,6 +17,7 @@ public class EncounterManager : MonoBehaviour, IEncounterBuilder
     void Awake() {
         // This ends up calling BuildEnemyEncounter below
         activeEncounterVariable.GetValue().BuildWithEncounterBuilder(this);
+        ManaManager.Instance.SetManaPerTurn(activePlayerDataVariable.GetValue().manaPerTurn);
     }
 
     public void BuildEnemyEncounter(EnemyEncounter encounter) {

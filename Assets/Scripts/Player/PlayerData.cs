@@ -7,4 +7,5 @@ public class PlayerData
 {
     public int gold = 0;
     public int shopLevel = 0;
+    public int manaPerTurn = 3;
 } 

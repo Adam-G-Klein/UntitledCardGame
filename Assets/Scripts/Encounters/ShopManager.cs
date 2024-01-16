@@ -149,13 +149,13 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
     // Attached as a UnityEvent to the UpgradeShop button
     public void processUpgradeShopClick() {
-        if (activePlayerDataVariable.GetValue().gold >= shopLevel.upgradeCost) {
-            activePlayerDataVariable.GetValue().gold -= shopLevel.upgradeCost;
+        PlayerData playerData = activePlayerDataVariable.GetValue();
+        if (playerData.gold >= shopLevel.upgradeCost) {
+            playerData.gold -= shopLevel.upgradeCost;
+            playerData.shopLevel += 1;
+            shopLevel = shopEncounter.shopData.GetShopLevel(playerData.shopLevel);
             activeCompanionsVariable.SetCompanionSlots(shopLevel.teamSize);
-            // Handle mana increase
-            activePlayerDataVariable.GetValue().shopLevel += 1;
-            shopLevel = shopEncounter.shopData.GetShopLevel(activePlayerDataVariable.GetValue().shopLevel);
-
+            playerData.manaPerTurn += shopLevel.manaIncrease;
         } else {
             shopUIManager.displayNeedMoreMoneyNotification();
         }

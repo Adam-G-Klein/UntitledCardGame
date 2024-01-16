@@ -7,6 +7,7 @@ using TMPro;
 public class ManaManager : GenericSingleton<ManaManager> {
 
     public int currentMana = 3;
+    public int manaPerTurn;
     private TextMeshProUGUI text;
 
     void Start() {
@@ -27,9 +28,13 @@ public class ManaManager : GenericSingleton<ManaManager> {
         currentMana += change;
     }
 
+    public void SetManaPerTurn(int num) {
+        this.manaPerTurn = num;
+    }
+
     public void turnPhaseEventHandler(TurnPhaseEventInfo info) {
         if(info.newPhase == TurnPhase.START_PLAYER_TURN) {
-            currentMana = GameplayConstantsSingleton.Instance.gameplayConstants.START_TURN_MANA;
+            currentMana = manaPerTurn;
         }
     }
 
