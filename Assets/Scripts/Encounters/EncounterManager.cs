@@ -4,7 +4,7 @@ using System;
 using UnityEngine;
 using UnityEditor;
 
-public class EncounterManager : MonoBehaviour
+public class EncounterManager : MonoBehaviour, IEncounterBuilder
 {
     public EncounterConstantsSO encounterConstants;
     public EncounterVariableSO activeEncounterVariable;
@@ -15,18 +15,18 @@ public class EncounterManager : MonoBehaviour
     public bool refreshCombatEntitiesOnPlay = true;
 
     void Awake() {
-        if (activeEncounterVariable.GetValue().getEncounterType() != EncounterType.Enemy) {
-            Debug.LogError("Active encounter is not an enemy but an enemy was loaded!");
-            return;
-        }
-        activeEncounterVariable.GetValue().build(activeCompanionsVariable.companionList, encounterConstants);
+        // This ends up calling BuildEnemyEncounter below
+        activeEncounterVariable.GetValue().BuildWithEncounterBuilder(this);
+    }
+
+    public void BuildEnemyEncounter(EnemyEncounter encounter) {
+        encounter.Build(activeCompanionsVariable.companionList, encounterConstants);
     }
 
     void Update() {
         if(Input.GetKeyDown(KeyCode.Escape)) {
             Application.Quit();
         }
-        
     }
 
     public void EndEncounterHandler(EndEncounterEventInfo info) {
@@ -41,5 +41,12 @@ public class EncounterManager : MonoBehaviour
 
 
         activeMapVariable.GetValue().loadMapScene();
+    }
+
+    // This exists to satisfy the IEncounterBuilder interface.
+    // The IEncounterBuilder interface exists to avoid type casting at runtime
+    public void BuildShopEncounter(ShopEncounter encounter) {
+        Debug.LogError("The enemy encounter scene was loaded but the active encounter is a shop!");
+        return;
     }
 }

@@ -43,21 +43,21 @@ public class ShopEncounter : Encounter
         this.shopData = shopData;
     }
 
-    public override void build(List<Companion> companionList, EncounterConstantsSO constants)
-    {
-        this.shopManager = ShopManager.Instance;
-        this.shopManager.saveShopEncounter(this);
-
-        this.encounterType = EncounterType.Shop;
+    public void Build(
+            ShopManager shopManager,
+            List<Companion> companionList,
+            EncounterConstantsSO constants,
+            ShopLevel shopLevel) {
+        this.shopManager = shopManager;
         this.encounterConstants = constants;
-
-        ShopLevel shopLevel = shopData.GetShopLevel(
-            shopManager.activePlayerDataVariable.GetValue().shopLevel);
-        
+        this.encounterType = EncounterType.Shop;
         generateShopEncounter(shopLevel, companionList);
         setupCards(companionList);
         setupKeepsakes();
-        this.shopData.shopEncounterEvent.Raise(this);
+    }
+
+    public override void BuildWithEncounterBuilder(IEncounterBuilder encounterBuilder) {
+        encounterBuilder.BuildShopEncounter(this);
     }
 
     private void setupCards(List<Companion> companionList) {        

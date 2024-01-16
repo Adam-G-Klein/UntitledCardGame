@@ -8,6 +8,7 @@ public class EnemyEncounter : Encounter
     public List<Enemy> enemyList = new List<Enemy>();
 
     private EncounterConstantsSO encounterConstants;
+
     // Just going to hardcode these here for now, will figure this out later
     private static List<Vector3> COMPANION_LOCATIONS = new List<Vector3>() {
         new Vector3(-4, 0.5f, 0),
@@ -18,21 +19,6 @@ public class EnemyEncounter : Encounter
         new Vector3(-1f, -1f, 0),
         new Vector3(-4, -2f, 0),
         new Vector3(-7.5f, -2f, 0)
-        /*
-        new Vector3(-3, 0.5f, 0),
-        new Vector3(-3, 0.5f, 0),
-        new Vector3(-3, 0.5f, 0),
-        new Vector3(-3, 0.5f, 0),
-        new Vector3(-3, 0.5f, 0),
-        new Vector3(-3, 0.5f, 0),
-        new Vector3(-3, 0.5f, 0),
-        new Vector3(-3, 0.5f, 0),
-        new Vector3(-3, 0.5f, 0),
-        new Vector3(-3, 0.5f, 0),
-        new Vector3(-4, -2, 0),
-        new Vector3(-6, 0, 0),
-        new Vector3(-5, 0, 0)
-        */
     };
 
     private static List<Vector3> ENEMY_LOCATIONS = new List<Vector3>() {
@@ -53,7 +39,11 @@ public class EnemyEncounter : Encounter
         }
     }
 
-    public override void build(List<Companion> companionList, EncounterConstantsSO constants)
+    public override void BuildWithEncounterBuilder(IEncounterBuilder encounterBuilder) {
+        encounterBuilder.BuildEnemyEncounter(this);
+    }
+
+    public void Build(List<Companion> companionList, EncounterConstantsSO constants)
     {
         this.encounterType = EncounterType.Enemy;
         this.encounterConstants = constants;

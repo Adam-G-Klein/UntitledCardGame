@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Design;
 using UnityEngine;
 
-public class ShopManager : GenericSingleton<ShopManager>
+public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 {
     public bool IS_DEVELOPMENT_MODE = false;
 
@@ -24,14 +24,15 @@ public class ShopManager : GenericSingleton<ShopManager>
     private bool buyingCard = false;
     private CardBuyRequest currentBuyRequest;
 
-    // Start is called before the first frame update
-    void Start() {
-        if (activeEncounterVariable.GetValue().getEncounterType() != EncounterType.Shop) {
-            Debug.LogError("Active encounter is not a shop but a shop was loaded!");
-            return;
-        }
-        activeEncounterVariable.GetValue().build(activeCompanionsVariable.companionList, encounterConstants);
-        shopLevel = shopEncounter.shopData.GetShopLevel(activePlayerDataVariable.GetValue().shopLevel);
+    void Awake() {
+        // This ends up calling BuildShopEncounter below
+        activeEncounterVariable.GetValue().BuildWithEncounterBuilder(this);
+    }
+
+    public void BuildShopEncounter(ShopEncounter shopEncounter) {
+        this.shopEncounter = shopEncounter;
+        this.shopLevel = shopEncounter.shopData.GetShopLevel(activePlayerDataVariable.GetValue().shopLevel);
+        shopEncounter.Build(this, activeCompanionsVariable.companionList, encounterConstants, this.shopLevel);
     }
 
     void Update() {
@@ -172,7 +173,7 @@ public class ShopManager : GenericSingleton<ShopManager>
 
     private void rerollShop() {
         shopRefreshEvent.Raise(null);
-        activeEncounterVariable.GetValue().build(activeCompanionsVariable.companionList, encounterConstants);
+        shopEncounter.Build(this, activeCompanionsVariable.companionList, encounterConstants, shopLevel);
     }
 
     public void saveShopEncounter(ShopEncounter shopEncounter) {
@@ -190,5 +191,12 @@ public class ShopManager : GenericSingleton<ShopManager>
 
     public ShopLevel GetShopLevel() {
         return shopLevel;
+    }
+
+    // This exists to satisfy the IEncounterBuilder interface.
+    // The IEncounterBuilder interface exists to avoid type casting at runtime
+    public void BuildEnemyEncounter(EnemyEncounter encounter) {
+        Debug.LogError("The shop encounter scene was loaded but the active encounter is an enemy encounter!");
+        return;
     }
 }
