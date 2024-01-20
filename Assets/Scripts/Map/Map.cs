@@ -22,6 +22,11 @@ public class Map
             return;
         }
 
+        if(encounterVariable == null) {
+            Debug.LogError("Encounter variable is null, it's likely you need to create an empty " +
+            "EncounterVariableSO and set it to activeEncounter or nextEncounter in the GameStateVariable");
+            return;
+        }
         encounterVariable.SetValue(encounterToLoad);
         switch (encounterToLoad.getEncounterType()) {
             case EncounterType.Enemy:

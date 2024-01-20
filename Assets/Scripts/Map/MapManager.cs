@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MapManager : MonoBehaviour
 {
+    public GameStateVariableSO gameState;
     public MapVariableSO activeMapVariable;
     public EncounterVariableSO activeEncounterVariable;
     public PlayerDataVariableSO playerDataVariable;
@@ -14,7 +15,7 @@ public class MapManager : MonoBehaviour
     }
 
     public void encounterInitiateEventHandler(string encounterId) {
-        activeMapVariable.GetValue().loadEncounterById(encounterId, activeEncounterVariable);
+        gameState.map.GetValue().loadEncounterById(encounterId, gameState.activeEncounter);
     }
 
     public void exitGame() {

@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GenerateMap : MonoBehaviour
 {
+    public GameStateVariableSO gameState;
     public MapGeneratorSO mapGenerator;
     public MapVariableSO activeMapVariable;
     public CompanionListVariableSO activeCompanionList;
@@ -25,13 +26,11 @@ public class GenerateMap : MonoBehaviour
         makeTeamView(root.Q<VisualElement>("team-1-container"), team1ActiveCompanions);
         makeTeamView(root.Q<VisualElement>("team-2-container"), team2ActiveCompanions);
     }
-    public void goWith(List<CompanionTypeSO> team)
+    public void initializeRun(List<CompanionTypeSO> team)
     {
         activeCompanionList.companionBench = new List<Companion>();
         activeCompanionList.companionList = new List<Companion>();
         activeCompanionList.currentCompanionSlots = 3;
-
-        playerData.GetValue().gold = 3;
 
         foreach (CompanionTypeSO companionType in team)
         {
@@ -39,6 +38,10 @@ public class GenerateMap : MonoBehaviour
         }
 
         activeMapVariable.SetValue(mapGenerator.generateMap());
+        gameState.companions = activeCompanionList;
+        gameState.map = activeMapVariable;
+        playerData.initializeRun();
+        gameState.playerData = playerData;
         SceneManager.LoadScene("Map");
     }
 
@@ -52,7 +55,7 @@ public class GenerateMap : MonoBehaviour
         //Redo this when more details
         var confirm = new Button();
         confirm.text = "Sign this team";
-        confirm.clicked += () => goWith(companionTypes);
+        confirm.clicked += () => initializeRun(companionTypes);
         container.Add(confirm);
     }
     private VisualElement makeCharacterView(CompanionTypeSO companionType) {

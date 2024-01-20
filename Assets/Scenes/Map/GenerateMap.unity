@@ -208,7 +208,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 49.65
+  m_fontSize: 55.05
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -319,6 +319,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97e5ac283274978498a8163622b70e22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameState: {fileID: 11400000, guid: 9e326417f60894341a96cc8d02868bbe, type: 2}
   mapGenerator: {fileID: 11400000, guid: c46246f7205143546a3ccd62b98f5342, type: 2}
   activeMapVariable: {fileID: 11400000, guid: 7e91f004ca90908449ef9a393cc677e0, type: 2}
   activeCompanionList: {fileID: 11400000, guid: 5aacade559de1c74491436053ef47d73, type: 2}
@@ -775,7 +776,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 41.9
+  m_fontSize: 34.6
   m_fontSizeBase: 136.42
   m_fontWeight: 400
   m_enableAutoSizing: 1

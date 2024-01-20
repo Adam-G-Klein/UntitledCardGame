@@ -5,4 +5,11 @@ using UnityEngine;
 [CreateAssetMenu(
     fileName = "PlayerDataVariable",
     menuName = "Player/Player Data Variable")]
-public class PlayerDataVariableSO : VariableSO<PlayerData> { }
+public class PlayerDataVariableSO : VariableSO<PlayerData> {
+    public void initializeRun() {
+        SetValue(new PlayerData());
+        GetValue().gold = 3;
+
+    }
+}
+
