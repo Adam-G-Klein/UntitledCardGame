@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class ShopUIManager : GenericSingleton<ShopUIManager>
@@ -14,9 +15,11 @@ public class ShopUIManager : GenericSingleton<ShopUIManager>
     public float needMoreMoneySeconds;
     [TextArea(1,5)]
     public string needMoreMoneyText;
-
+    [Space(10)]
     public Transform cardSection;
     public Transform keepSakeSection;
+    [Space(10)]
+    public Button upgradeButton;
 
     void Start() {
         needMoreMoneyTMPText.text = "";
@@ -28,6 +31,11 @@ public class ShopUIManager : GenericSingleton<ShopUIManager>
         upgradeShopButtonGoldText.text = shopManager.GetShopLevel().upgradeCost.ToString();
         rerollShopButtonGoldText.text = shopManager.getShopEncounter()
             .shopData.rerollShopPrice.ToString();
+    }
+
+    public void DisableUpgradeButton() {
+        upgradeButton.interactable = false;
+        upgradeShopButtonGoldText.gameObject.SetActive(false);
     }
 
     public void displayNeedMoreMoneyNotification() {

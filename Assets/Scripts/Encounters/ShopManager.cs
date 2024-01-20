@@ -33,6 +33,8 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         this.shopEncounter = shopEncounter;
         this.shopLevel = shopEncounter.shopData.GetShopLevel(activePlayerDataVariable.GetValue().shopLevel);
         shopEncounter.Build(this, activeCompanionsVariable.companionList, encounterConstants, this.shopLevel);
+
+        CheckDisableUpgradeButton();
     }
 
     void Update() {
@@ -156,8 +158,16 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             shopLevel = shopEncounter.shopData.GetShopLevel(playerData.shopLevel);
             activeCompanionsVariable.SetCompanionSlots(shopLevel.teamSize);
             playerData.manaPerTurn += shopLevel.manaIncrease;
+
+            CheckDisableUpgradeButton();
         } else {
             shopUIManager.displayNeedMoreMoneyNotification();
+        }
+    }
+
+    private void CheckDisableUpgradeButton() {
+        if (shopEncounter.shopData.shopLevels.Count - 1 <= shopLevel.level) {
+            shopUIManager.DisableUpgradeButton();
         }
     }
 
