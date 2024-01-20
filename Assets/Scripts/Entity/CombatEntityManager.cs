@@ -76,6 +76,7 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
     public void EnemyDied(EnemyInstance enemyInstance) {
         enemies.Remove(enemyInstance);
         executeTriggers(CombatEntityTriggerType.ENEMY_DIED);
+        Debug.Log("EnemyDied: " + enemies.Count);
         if (enemies.Count == 0) {
             StartCoroutine(
                 turnPhaseEvent.RaiseAtEndOfFrameCoroutine(

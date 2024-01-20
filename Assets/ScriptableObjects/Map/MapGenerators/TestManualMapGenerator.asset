@@ -14,20 +14,48 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   map:
     encounters:
-    - rid: 5669414205568843794
+    - rid: 55651152728948767
+    - rid: 55651152728948769
+    - rid: 55651152728948770
   references:
     version: 2
     RefIds:
-    - rid: 5669414205568843794
+    - rid: 55651152728948767
       type: {class: EnemyEncounter, ns: , asm: Assembly-CSharp}
       data:
-        id: 3b0176fe-70b2-4231-a09c-05ad7a43b118
+        id: 9847baf2-2794-4fca-a0d1-16127d2d25e4
         isCompleted: 1
         enemyList:
-        - id: LukeTestEnemy
+        - id: dontTESTme
           entityType: 1
-          enemyType: {fileID: 11400000, guid: f3447f9e0080f7547ab79778e3ef25d3, type: 2}
+          enemyType: {fileID: 11400000, guid: 3f595268355432347aef2000672bce6d, type: 2}
           combatStats:
-            maxHealth: 99
-            currentHealth: 99
-            baseAttackDamage: 10
+            maxHealth: 1
+            currentHealth: 0
+            baseAttackDamage: 1
+    - rid: 55651152728948769
+      type: {class: EnemyEncounter, ns: , asm: Assembly-CSharp}
+      data:
+        id: 3e53fcba-ce16-4067-8e82-380468e2456b
+        isCompleted: 1
+        enemyList:
+        - id: dontTESTme2
+          entityType: 1
+          enemyType: {fileID: 11400000, guid: 3f595268355432347aef2000672bce6d, type: 2}
+          combatStats:
+            maxHealth: 1
+            currentHealth: 0
+            baseAttackDamage: 1
+    - rid: 55651152728948770
+      type: {class: EnemyEncounter, ns: , asm: Assembly-CSharp}
+      data:
+        id: afa0a9ac-17ac-40bf-9565-b71f5c3199cb
+        isCompleted: 1
+        enemyList:
+        - id: dontTESTme3
+          entityType: 1
+          enemyType: {fileID: 11400000, guid: 3f595268355432347aef2000672bce6d, type: 2}
+          combatStats:
+            maxHealth: 1
+            currentHealth: 0
+            baseAttackDamage: 1

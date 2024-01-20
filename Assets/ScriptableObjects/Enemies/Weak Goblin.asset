@@ -15,4 +15,24 @@ MonoBehaviour:
   maxHealth: 3
   baseAttackDamage: 1
   sprite: {fileID: -2013906114, guid: 52ef76537258f7d43a3a9dc144329c2f, type: 3}
-  brain: {fileID: 11400000, guid: 424bdde5678f8f6419b1e9c02711e633, type: 2}
+  enemyPattern:
+    behaviors:
+    - intent: 1
+      enemyTargetMethod: 0
+      targetsKey: 
+      effectSteps:
+      - rid: 55651152728948768
+    sequentialBehaviors: 0
+    nextBehaviorIndex: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 55651152728948768
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: 
+        combatEffect: 0
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 

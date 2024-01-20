@@ -171,6 +171,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Entropy
       objectReference: {fileID: 0}
+    - target: {fileID: 5850579774522474452, guid: 3084bca90e5f1c74888bed3ec1705a48, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5850579774522474455, guid: 3084bca90e5f1c74888bed3ec1705a48, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1172,7 +1176,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.19647917, y: 0.025286524}
   m_AnchorMax: {x: 0.3666042, y: 0.08680899}
-  m_AnchoredPosition: {x: -5.5, y: -7.000122}
+  m_AnchoredPosition: {x: -5.5, y: -6.9995117}
   m_SizeDelta: {x: -167, y: -38}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1775001133

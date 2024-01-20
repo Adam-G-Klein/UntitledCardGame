@@ -4,6 +4,7 @@ using System;
 using UnityEngine;
 using UnityEditor;
 
+[RequireComponent(typeof(EndEncounterEventListener))]
 public class EncounterManager : MonoBehaviour, IEncounterBuilder
 {
     public EncounterConstantsSO encounterConstants;
@@ -39,7 +40,6 @@ public class EncounterManager : MonoBehaviour, IEncounterBuilder
 
         int extraGold = Mathf.FloorToInt(activePlayerDataVariable.GetValue().gold / increments);
         activePlayerDataVariable.GetValue().gold += baseGoldEarnedPerBattle + extraGold;
-
 
         activeMapVariable.GetValue().loadMapScene();
     }
