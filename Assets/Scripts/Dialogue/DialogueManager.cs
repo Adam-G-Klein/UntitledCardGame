@@ -5,6 +5,8 @@ using System.Linq;
 
 public class DialogueManager : GenericSingleton<DialogueManager>
 {
+    [SerializeField]
+    private bool advanceSceneAfterComplete = false; //TODO: base this on what scene we're in. Ask the CutsceneManager.
     private List<DialogueSpeaker> dialogueSpeakers;
     public DialogueLocationSO dialogueLocation;
     public bool dialogueInProgress = false;
@@ -40,12 +42,24 @@ public class DialogueManager : GenericSingleton<DialogueManager>
     }
 
     private DialogueSequenceSO GetDialogueSequence() {
-        var presentSpeakers = dialogueSpeakers.Select(speaker => speaker.speaker).ToHashSet();
-        return dialogueLocation.sequencesAtLocation
-            .Where(sequence => !alreadyViewedSequences.Contains(sequence)
-                // check that all of the required speakers are present
-                && sequence.requiredSpeakers.All(speaker => presentSpeakers.Contains(speaker)))
-            .FirstOrDefault();
+        var withPresentSpeakers = GetDialogueSequencesWithPresentSpeakers();
+        var unviewed = withPresentSpeakers.Where(sequence => !alreadyViewedSequences.Contains(sequence));
+        return unviewed.FirstOrDefault();
+    }
+
+    private HashSet<SpeakerTypeSO> GetPresentSpeakers() {
+        return dialogueSpeakers.Select(speaker => speaker.speaker).ToHashSet();
+    }
+
+    private List<DialogueSequenceSO> GetDialogueSequencesWithPresentSpeakers() {
+       var presentSpeakers = GetPresentSpeakers();
+       return dialogueLocation.sequencesAtLocation
+            .Where( (sequence) =>
+                 AreAllSpeakersPresent(sequence.requiredSpeakers)).ToList();
+    }
+
+    private bool AreAllSpeakersPresent(List<SpeakerTypeSO> requiredSpeakers) {
+        return requiredSpeakers.All(speaker => dialogueSpeakers.Any(s => s.speaker == speaker));
     }
 
     private void StartDialogueSequence(DialogueSequenceSO dialogueSequence) {
@@ -71,11 +85,17 @@ public class DialogueManager : GenericSingleton<DialogueManager>
             currentDialogueIndex += 1;
         }
         dialogueInProgress = false;
+        if(advanceSceneAfterComplete) {
+            CutsceneManager.Instance.NextScene();
+        }
     }
     public void UserClick()
     {
-        if(currentLineSpeaker != null)
+        if(currentLineSpeaker != null) {
+            // Current line speaker will either fast forward or finish waiting its coroutine,
+            // yielding for the next line to be spoken in dialogueSequenceCoroutine above
             currentLineSpeaker.UserButtonClick();
+        }
     }
 
     private IEnumerator validateSpeakers() {
@@ -106,7 +126,11 @@ public class DialogueManager : GenericSingleton<DialogueManager>
         if(dialogueLocation.sequencesAtLocation.Count == 0) {
             yield break;
         }
+        int usableSequences = 0;
         foreach(DialogueSequenceSO s in dialogueLocation.sequencesAtLocation) {
+            if(AreAllSpeakersPresent(s.requiredSpeakers)) {
+                usableSequences += 1;
+            }
             s.requiredSpeakers.ForEach(speaker => {
                 if(speaker == null) {
                     Debug.LogError("Dialogue sequence " + s.name + " has a null speaker type in its required speakers.");
@@ -117,6 +141,9 @@ public class DialogueManager : GenericSingleton<DialogueManager>
                     Debug.LogError("Dialogue sequence " + s.name + " has a null dialogue line.");
                 }
             });
+        }
+        if(usableSequences == 0) {
+            Debug.LogError("No dialogue sequences found for present speakers at location: " + dialogueLocation.name);
         }
     }
 }
