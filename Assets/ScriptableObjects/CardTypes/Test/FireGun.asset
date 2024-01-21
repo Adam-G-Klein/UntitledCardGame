@@ -27,15 +27,15 @@ MonoBehaviour:
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
-        - rid: 55651160039358552
         - rid: 55651160039358553
+        - rid: 55651160039358552
     - rid: 55651160039358552
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
-        inputKey: 
+        inputKey: t
         combatEffect: 0
-        scale: 0
+        scale: 1000
         getScaleFromKey: 0
         inputScaleKey: 
     - rid: 55651160039358553
@@ -44,8 +44,8 @@ MonoBehaviour:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: 
-        validTargets: 
+        outputKey: t
+        validTargets: 02000000
         number: 1
-        specialTargetRule: 0
+        specialTargetRule: 1
         cantCancelTargetting: 0
