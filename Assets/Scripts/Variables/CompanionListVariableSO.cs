@@ -19,4 +19,12 @@ public class CompanionListVariableSO : ScriptableObject
         }
         currentCompanionSlots = slots;
     }
+
+    public List<CompanionTypeSO> GetCompanionTypes() {
+        List<CompanionTypeSO> companionTypes = new List<CompanionTypeSO>();
+        foreach (Companion companion in companionList) {
+            companionTypes.Add(companion.companionType);
+        }
+        return companionTypes;
+    }
 }

@@ -9,6 +9,7 @@ public class MainMenuUIController : MonoBehaviour
     private void OnEnable()
     {
         var root = GetComponent<UIDocument>().rootVisualElement;
-        root.Q<Button>("playButton").clicked += () => SceneManager.LoadScene("GenerateMap");
+        GenerateMap generateMap = GetComponent<GenerateMap>();
+        root.Q<Button>("playButton").clicked += () => generateMap.generateMapAndChangeScenes();
     }
 }
