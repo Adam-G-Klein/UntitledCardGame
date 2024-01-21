@@ -51,7 +51,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8734870270850589833}
         m_TargetAssemblyTypeName: EncounterManager, Assembly-CSharp
-        m_MethodName: endEncounterHandler
+        m_MethodName: EndEncounterHandler
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -73,8 +73,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 982fccabc7005584fad38e90fa8dd53c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameState: {fileID: 11400000, guid: 9e326417f60894341a96cc8d02868bbe, type: 2}
   encounterConstants: {fileID: 11400000, guid: 4000d3b01acf1f1459ac789f20856055, type: 2}
-  activeEncounterVariable: {fileID: 11400000, guid: eca78fb783e4dc1478ecf954eaedad26, type: 2}
-  activePlayerDataVariable: {fileID: 11400000, guid: 987a9f55256d63844a2b205199d32013, type: 2}
-  activeCompanionsVariable: {fileID: 11400000, guid: 5aacade559de1c74491436053ef47d73, type: 2}
-  activeMapVariable: {fileID: 11400000, guid: 7e91f004ca90908449ef9a393cc677e0, type: 2}

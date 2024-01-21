@@ -7,9 +7,7 @@ using TMPro;
 public class MapUI : MonoBehaviour
 {
     public GameObject iconPrefab;
-    public MapVariableSO activeMapVariable;
-    public EncounterVariableSO activeEncounterVariable;
-    public CompanionListVariableSO activeCompanions;
+    public GameStateVariableSO gameState;
     public GameObject iconGroup;
     public LineRenderer lineRenderer;
     public GameObject companionViewUIPrefab;
@@ -23,7 +21,7 @@ public class MapUI : MonoBehaviour
     {
         bool isEncounterOutOfRange = false;
         int activeEncounterIndex = -2;
-        foreach (Encounter encounter in activeMapVariable.GetValue().encounters) {
+        foreach (Encounter encounter in gameState.map.GetValue().encounters) {
             // Encounter encounter = encounterVariable.GetValue();
             IconState iconState;
             if (encounter.isCompleted) {
@@ -44,7 +42,7 @@ public class MapUI : MonoBehaviour
             MapIcon mapIcon = newIcon.GetComponent<MapIcon>();
             mapIcon.Setup(encounter, iconState);
         }
-        float scrollRectPosition = (float) activeEncounterIndex / (float) activeMapVariable.GetValue().encounters.Count;
+        float scrollRectPosition = (float) activeEncounterIndex / (float) gameState.map.GetValue().encounters.Count;
         mapScrollRect.horizontalNormalizedPosition = Mathf.Max(scrollRectPosition, 0f);
     }
 
@@ -66,7 +64,7 @@ public class MapUI : MonoBehaviour
                         Quaternion.identity);
         companionViewUI
             .GetComponent<CompanionViewUI>()
-            .setupCompanionDisplay(activeCompanions, new List<CompanionActionType>() {
+            .setupCompanionDisplay(gameState.companions, new List<CompanionActionType>() {
                 CompanionActionType.VIEW_DECK,
                 CompanionActionType.MOVE_COMPANION,
                 CompanionActionType.COMBINE_COMPANION

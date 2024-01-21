@@ -5,13 +5,10 @@ using UnityEngine;
 public class MapManager : MonoBehaviour
 {
     public GameStateVariableSO gameState;
-    public MapVariableSO activeMapVariable;
-    public EncounterVariableSO activeEncounterVariable;
-    public PlayerDataVariableSO playerDataVariable;
     public IntGameEvent setGoldUIEvent;
 
     void Start() {
-        setGoldUIEvent.Raise(playerDataVariable.GetValue().gold);
+        setGoldUIEvent.Raise(gameState.playerData.GetValue().gold);
     }
 
     public void encounterInitiateEventHandler(string encounterId) {

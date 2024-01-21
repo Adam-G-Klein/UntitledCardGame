@@ -8,8 +8,6 @@ public class GenerateMap : MonoBehaviour
 {
     public GameStateVariableSO gameState;
     public MapGeneratorSO mapGenerator;
-    public MapVariableSO activeMapVariable;
-    public CompanionListVariableSO activeCompanionList;
     public PlayerDataVariableSO playerData;
     public List<CompanionTypeSO> team1ActiveCompanions;
     public List<CompanionTypeSO> team1BenchCompanions;
@@ -28,20 +26,20 @@ public class GenerateMap : MonoBehaviour
     }
     public void initializeRun(List<CompanionTypeSO> team)
     {
-        activeCompanionList.companionBench = new List<Companion>();
-        activeCompanionList.companionList = new List<Companion>();
-        activeCompanionList.currentCompanionSlots = 3;
+        gameState.companions.companionBench = new List<Companion>();
+        gameState.companions.companionList = new List<Companion>();
+        gameState.companions.currentCompanionSlots = 3;
 
         foreach (CompanionTypeSO companionType in team)
         {
-            activeCompanionList.companionList.Add(new Companion(companionType));
+            gameState.companions.companionList.Add(new Companion(companionType));
         }
+        Debug.Log("got here!");
 
-        activeMapVariable.SetValue(mapGenerator.generateMap());
-        gameState.companions = activeCompanionList;
-        gameState.map = activeMapVariable;
-        playerData.initializeRun();
-        gameState.playerData = playerData;
+        // companionList isn't a VariableSO, so we have to set it manually
+        gameState.map.SetValue(mapGenerator.generateMap());
+        gameState.playerData.initializeRun();
+        Debug.Log("got here2!");
         SceneManager.LoadScene("Map");
     }
 
@@ -95,26 +93,4 @@ public class GenerateMap : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
-    // Potentially obsolete
-    public void go()
-    {
-        activeCompanionList.companionBench = new List<Companion>();
-        activeCompanionList.companionList = new List<Companion>();
-        activeCompanionList.currentCompanionSlots = 3;
-
-        playerData.GetValue().gold = 3;
-
-        foreach (CompanionTypeSO companionType in team1ActiveCompanions)
-        {
-            activeCompanionList.companionList.Add(new Companion(companionType));
-        }
-
-        foreach (CompanionTypeSO companionType in team1BenchCompanions)
-        {
-            activeCompanionList.companionBench.Add(new Companion(companionType));
-        }
-
-        activeMapVariable.SetValue(mapGenerator.generateMap());
-        SceneManager.LoadScene("Map");
-    }
 }

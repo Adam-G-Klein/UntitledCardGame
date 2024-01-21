@@ -49,7 +49,6 @@ public class CompanionViewUI : MonoBehaviour, IPointerClickHandler
     private HashSet<UICompanion> combiningCompanions = new HashSet<UICompanion>();
     
     private List<CompanionActionType> tempActionTypes;
-
     private int currentNeededToCombine;
     private void Start() {
         //This does not need to update often right now, so this will work for now

@@ -9,7 +9,6 @@ public class PlayerDataVariableSO : VariableSO<PlayerData> {
     public void initializeRun() {
         SetValue(new PlayerData());
         GetValue().gold = 3;
-
     }
 }
 

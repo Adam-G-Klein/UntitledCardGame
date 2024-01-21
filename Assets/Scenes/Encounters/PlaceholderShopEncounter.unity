@@ -1136,10 +1136,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IS_DEVELOPMENT_MODE: 1
-  activeEncounterVariable: {fileID: 11400000, guid: eca78fb783e4dc1478ecf954eaedad26, type: 2}
-  mapVariable: {fileID: 11400000, guid: 7e91f004ca90908449ef9a393cc677e0, type: 2}
-  activeCompanionsVariable: {fileID: 11400000, guid: 5aacade559de1c74491436053ef47d73, type: 2}
-  activePlayerDataVariable: {fileID: 11400000, guid: 987a9f55256d63844a2b205199d32013, type: 2}
+  gameState: {fileID: 11400000, guid: 9e326417f60894341a96cc8d02868bbe, type: 2}
   shopUIManager: {fileID: 1266042997}
   encounterConstants: {fileID: 11400000, guid: 4000d3b01acf1f1459ac789f20856055, type: 2}
   shopRefreshEvent: {fileID: 11400000, guid: c35c2bcbec7c0934d9f4369bd321bc9c, type: 2}

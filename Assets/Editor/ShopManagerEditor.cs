@@ -23,7 +23,7 @@ public class ShopManagerEditor : Editor {
         
         if (GUILayout.Button("Set Active Encounter")) {
             if (encounterToSet != null)
-                shopManager.activeEncounterVariable.SetValue(encounterToSet);
+                shopManager.gameState.activeEncounter.SetValue(encounterToSet);
             else
                 Debug.LogWarning("Must set encounter to set first!");
             

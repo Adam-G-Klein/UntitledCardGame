@@ -10,12 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0a2877297de46c84c84deda1b3e63d32, type: 3}
-  m_Name: ActiveMap
+  m_Name: ActiveMap_GameState
   m_EditorClassIdentifier: 
   locked: 0
   Value:
     encounters:
-    - rid: 1935436395326210144
     - rid: 1935436395326210145
     - rid: 1935436395326210146
     - rid: 1935436395326210147
@@ -37,26 +36,6 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 1935436395326210144
-      type: {class: ShopEncounter, ns: , asm: Assembly-CSharp}
-      data:
-        id: 708b4d46-b886-4513-a35b-a22fbf41c43a
-        isCompleted: 0
-        shopData: {fileID: 11400000, guid: 64b1d5221aac20348909c6cab7cc24d6, type: 2}
-        cardsInShop:
-        - cardType: {fileID: 11400000, guid: a6dcdfe1492c4ca42beab1d49b42eb88, type: 2}
-          price: 1
-        - cardType: {fileID: 11400000, guid: 3fe89f2c7b366cb46b2bbe3f4e462aa5, type: 2}
-          price: 1
-        - cardType: {fileID: 11400000, guid: 9704282f0a4484b4ea93a504433ec325, type: 2}
-          price: 1
-        keepsakesInShop:
-        - companionType: {fileID: 11400000, guid: 4d253e77b533ea64ba6355a37741c0cf, type: 2}
-          price: 1
-        - companionType: {fileID: 11400000, guid: a388cdca9749764489c477a814a4dd5b, type: 2}
-          price: 1
-        - companionType: {fileID: 11400000, guid: f64c62bd77fcea846a5c19bed998aeb6, type: 2}
-          price: 1
     - rid: 1935436395326210145
       type: {class: EnemyEncounter, ns: , asm: Assembly-CSharp}
       data:

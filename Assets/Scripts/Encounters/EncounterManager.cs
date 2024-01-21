@@ -7,22 +7,17 @@ using UnityEditor;
 [RequireComponent(typeof(EndEncounterEventListener))]
 public class EncounterManager : MonoBehaviour, IEncounterBuilder
 {
+    public GameStateVariableSO gameState;
     public EncounterConstantsSO encounterConstants;
-    public EncounterVariableSO activeEncounterVariable;
-    public PlayerDataVariableSO activePlayerDataVariable;
-    public  CompanionListVariableSO activeCompanionsVariable;
-    public MapVariableSO activeMapVariable;
-    private bool inPlayMode = false;
-    public bool refreshCombatEntitiesOnPlay = true;
 
     void Awake() {
         // This ends up calling BuildEnemyEncounter below
-        activeEncounterVariable.GetValue().BuildWithEncounterBuilder(this);
-        ManaManager.Instance.SetManaPerTurn(activePlayerDataVariable.GetValue().manaPerTurn);
+        gameState.activeEncounter.GetValue().BuildWithEncounterBuilder(this);
+        ManaManager.Instance.SetManaPerTurn(gameState.playerData.GetValue().manaPerTurn);
     }
 
     public void BuildEnemyEncounter(EnemyEncounter encounter) {
-        encounter.Build(activeCompanionsVariable.companionList, encounterConstants);
+        encounter.Build(gameState.companions.companionList, encounterConstants);
     }
 
     void Update() {
@@ -32,16 +27,16 @@ public class EncounterManager : MonoBehaviour, IEncounterBuilder
     }
 
     public void EndEncounterHandler(EndEncounterEventInfo info) {
-        activeEncounterVariable.GetValue().isCompleted = true;
+        gameState.activeEncounter.GetValue().isCompleted = true;
 
         // Gold interest calculation
         int baseGoldEarnedPerBattle = 10;
         int increments = 10; // Increments of how much does the player need to have before earning 1 more
 
-        int extraGold = Mathf.FloorToInt(activePlayerDataVariable.GetValue().gold / increments);
-        activePlayerDataVariable.GetValue().gold += baseGoldEarnedPerBattle + extraGold;
+        int extraGold = Mathf.FloorToInt(gameState.playerData.GetValue().gold / increments);
+        gameState.playerData.GetValue().gold += baseGoldEarnedPerBattle + extraGold;
 
-        activeMapVariable.GetValue().loadMapScene();
+        gameState.map.GetValue().loadMapScene();
     }
 
     // This exists to satisfy the IEncounterBuilder interface.

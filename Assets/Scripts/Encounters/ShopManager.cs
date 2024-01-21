@@ -7,10 +7,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     public bool IS_DEVELOPMENT_MODE = false;
 
     [Header("Variables")]
-    public EncounterVariableSO activeEncounterVariable;
-    public MapVariableSO mapVariable;
-    public CompanionListVariableSO activeCompanionsVariable;
-    public PlayerDataVariableSO activePlayerDataVariable;
+    public GameStateVariableSO gameState;
 
     [Header("Shop")]
     public ShopUIManager shopUIManager;
@@ -26,13 +23,13 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
     void Awake() {
         // This ends up calling BuildShopEncounter below
-        activeEncounterVariable.GetValue().BuildWithEncounterBuilder(this);
+        gameState.activeEncounter.GetValue().BuildWithEncounterBuilder(this);
     }
 
     public void BuildShopEncounter(ShopEncounter shopEncounter) {
         this.shopEncounter = shopEncounter;
-        this.shopLevel = shopEncounter.shopData.GetShopLevel(activePlayerDataVariable.GetValue().shopLevel);
-        shopEncounter.Build(this, activeCompanionsVariable.companionList, encounterConstants, this.shopLevel);
+        this.shopLevel = shopEncounter.shopData.GetShopLevel(gameState.playerData.GetValue().shopLevel);
+        shopEncounter.Build(this, gameState.companions.companionList, encounterConstants, this.shopLevel);
 
         CheckDisableUpgradeButton();
     }
@@ -44,12 +41,12 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         }
 
         if (IS_DEVELOPMENT_MODE && Input.GetKeyDown(KeyCode.G)) {
-            activePlayerDataVariable.GetValue().gold += 1;
+            gameState.playerData.GetValue().gold += 1;
         }
     }
 
     public void processCardBuyRequest(CardBuyRequest cardBuyRequest) {
-        if (activePlayerDataVariable.GetValue().gold >= cardBuyRequest.price) {
+        if (gameState.playerData.GetValue().gold >= cardBuyRequest.price) {
             this.buyingCard = true;
             this.currentBuyRequest = cardBuyRequest;
             this.companionViewUI = GameObject.Instantiate(
@@ -63,7 +60,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
                 .GetComponent<CompanionViewUI>()
                 .setupCompanionDisplay(determineApplicableActiveCompanions(cardBuyRequest.cardInfo), 
                 determineApplicableBenchCompanions(cardBuyRequest.cardInfo), 
-                activeCompanionsVariable.currentCompanionSlots, 
+                gameState.companions.currentCompanionSlots, 
                 new List<CompanionActionType>() {
                     CompanionActionType.SELECT,
                     CompanionActionType.VIEW_DECK
@@ -77,7 +74,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         List<Companion> companionList = new();
 
         //set up companion list
-        foreach (var companion in activeCompanionsVariable.companionList) {
+        foreach (var companion in gameState.companions.companionList) {
             //Now this is Epic
             if (companion.companionType.cardPool.commonCards.Contains(cardInfo.cardType) ||
                 companion.companionType.cardPool.uncommonCards.Contains(cardInfo.cardType) ||
@@ -94,7 +91,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         List<Companion> companionList = new();
 
         //set up bench list
-        foreach (var companion in activeCompanionsVariable.companionBench) {
+        foreach (var companion in gameState.companions.companionBench) {
             if (companion.companionType.cardPool.commonCards.Contains(cardInfo.cardType) ||
                 companion.companionType.cardPool.uncommonCards.Contains(cardInfo.cardType) ||
                 companion.companionType.cardPool.rareCards.Contains(cardInfo.cardType)) {
@@ -106,9 +103,9 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     }
 
     public void processCompanionBuyRequest(CompanionBuyRequest request) {
-        if (activePlayerDataVariable.GetValue().gold >= request.price) {
-            this.activeCompanionsVariable.companionBench.Add(request.companion);
-            activePlayerDataVariable.GetValue().gold -= request.price;
+        if (gameState.playerData.GetValue().gold >= request.price) {
+            this.gameState.companions.companionBench.Add(request.companion);
+            gameState.playerData.GetValue().gold -= request.price;
             GameObject.Instantiate(
                 encounterConstants.cardSoldOutPrefab, 
                 request.keepsakeInShop.transform.position, 
@@ -126,7 +123,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         // view UI
         if (this.buyingCard) {
             companion.deck.cards.Add(currentBuyRequest.cardInfo);
-            activePlayerDataVariable.GetValue().gold -= currentBuyRequest.price;
+            gameState.playerData.GetValue().gold -= currentBuyRequest.price;
             Vector3 cardPosition = currentBuyRequest.cardInShop.transform.position;
             currentBuyRequest.cardInShop.GetComponent<CardInShop>().sold();
             this.buyingCard = false;
@@ -151,12 +148,12 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
     // Attached as a UnityEvent to the UpgradeShop button
     public void processUpgradeShopClick() {
-        PlayerData playerData = activePlayerDataVariable.GetValue();
+        PlayerData playerData = gameState.playerData.GetValue();
         if (playerData.gold >= shopLevel.upgradeCost) {
             playerData.gold -= shopLevel.upgradeCost;
             playerData.shopLevel += 1;
             shopLevel = shopEncounter.shopData.GetShopLevel(playerData.shopLevel);
-            activeCompanionsVariable.SetCompanionSlots(shopLevel.teamSize);
+            gameState.companions.SetCompanionSlots(shopLevel.teamSize);
             playerData.manaPerTurn += shopLevel.manaIncrease;
 
             CheckDisableUpgradeButton();
@@ -173,8 +170,8 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
     // Attached as a UnityEvent to the RerollShop button
     public void processRerollShopClick() {
-        if (activePlayerDataVariable.GetValue().gold >= shopEncounter.shopData.rerollShopPrice) {
-            activePlayerDataVariable.GetValue().gold -= shopEncounter.shopData.rerollShopPrice;
+        if (gameState.playerData.GetValue().gold >= shopEncounter.shopData.rerollShopPrice) {
+            gameState.playerData.GetValue().gold -= shopEncounter.shopData.rerollShopPrice;
             rerollShop();
         } else {
             shopUIManager.displayNeedMoreMoneyNotification();
@@ -183,7 +180,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
     private void rerollShop() {
         shopRefreshEvent.Raise(null);
-        shopEncounter.Build(this, activeCompanionsVariable.companionList, encounterConstants, shopLevel);
+        shopEncounter.Build(this, gameState.companions.companionList, encounterConstants, shopLevel);
     }
 
     public void saveShopEncounter(ShopEncounter shopEncounter) {
@@ -191,8 +188,10 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     }
 
     public void exitShop() {
-        activeEncounterVariable.GetValue().isCompleted = true;
-        mapVariable.GetValue().loadMapScene();
+        gameState.activeEncounter.GetValue().isCompleted = true;
+        Debug.Log("gameState active encounter id: " + gameState.activeEncounter.GetValue().id);
+        Debug.Log("gameState active encounter complete: " + gameState.activeEncounter.GetValue().isCompleted);
+        gameState.map.GetValue().loadMapScene();
     }
 
     public ShopEncounter getShopEncounter() {
