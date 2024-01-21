@@ -22,6 +22,9 @@ public class CompanionInstance : MonoBehaviour
         CombatEntityManager.Instance.registerCompanion(this);
         spriteImage.sprite = companion.getSprite();
         combatInstance.combatStats = companion.combatStats;
+        if (combatInstance.combatStats.currentHealth == 0) {
+            combatInstance.combatStats.currentHealth = 1;
+        }
         combatInstance.onDeathHandler += OnDeath;
         deckInstance.sourceDeck = companion.deck;
         RegisterUpdateStatusEffects();

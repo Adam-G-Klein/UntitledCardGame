@@ -99,6 +99,16 @@ public class EffectDocument
             }
             return false;
         }
+        
+        public List<object> GetAllItemsWithKeyString(string key) {
+            List<object> returnList = new List<object>();
+            foreach (KeyValuePair<Tuple<string, Type>, List<object>> keyValuePair in _dict) {
+                if (keyValuePair.Key.Item1.Equals(key)) {
+                    returnList.AddRange(keyValuePair.Value);
+                }
+            }
+            return returnList;
+        }
 
         public void Print() {
             foreach (KeyValuePair<Tuple<string, Type>, List<object>> pair in _dict) {

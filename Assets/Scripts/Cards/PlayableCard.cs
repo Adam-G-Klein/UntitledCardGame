@@ -58,6 +58,7 @@ public class PlayableCard : MonoBehaviour,
         StartCoroutine(cardCastEvent.RaiseAtEndOfFrameCoroutine(new CardCastEventInfo(card)));
         DiscardCardFromHand();
         IncrementCastCount();
+        EnemyEncounterManager.Instance.combatEncounterState.cardsCastThisTurn.Add(card);
     }
 
     private void IncrementCastCount(){

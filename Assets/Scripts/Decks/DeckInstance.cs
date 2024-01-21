@@ -128,10 +128,6 @@ public class DeckInstance : MonoBehaviour
         return card;
     }
 
-    public void RemoveFromDraw(Card card){
-        drawPile.Remove(card);
-    }
-
     public void ExhaustCard(Card card){
         if(drawPile.Contains(card)){
             Debug.Log("Exhausting card " + card.id + " from draw pile");
@@ -144,6 +140,7 @@ public class DeckInstance : MonoBehaviour
             Debug.Log("Exhausting card " + card.id + " from hand");
             inHand.Remove(card);
         }
+        EnemyEncounterManager.Instance.combatEncounterState.cardsExhaustThisTurn.Add(card);
     }
 
     public void DiscardCard(Card card){

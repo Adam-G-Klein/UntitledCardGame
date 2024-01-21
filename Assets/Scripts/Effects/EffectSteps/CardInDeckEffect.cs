@@ -39,7 +39,7 @@ public class CardInDeckEffect : EffectStep
         foreach (Card card in cards) {
             switch (effect) {
                 case CardInDeckEffectName.Exhaust:
-                    deckInstances[0].RemoveFromDraw(card);
+                    deckInstances[0].ExhaustCard(card);
                 break;
 
                 case CardInDeckEffectName.Purge:

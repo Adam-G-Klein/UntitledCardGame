@@ -19,6 +19,11 @@ public class TurnPhaseTriggerEventInfo {
     public TurnPhaseTriggerEventInfo (TurnPhaseTrigger newPhaseTrigger){
         this.turnPhaseTrigger = newPhaseTrigger;
     }
+
+    public override string ToString()
+    {
+        return "TurnPhaseTrigger " + turnPhaseTrigger.phase + " " + turnPhaseTrigger.triggerResponse;
+    }
 }
 
 [CreateAssetMenu(
