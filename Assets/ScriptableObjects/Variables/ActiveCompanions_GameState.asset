@@ -20,30 +20,18 @@ MonoBehaviour:
     deck:
       startingDeck: {fileID: 11400000, guid: 10c5c659ceb55d941aaae63b3041edf6, type: 2}
       cards:
-      - id: d35adc55-c3c3-4400-9715-b93e330cd64f
-        entityType: 0
-        castCount: 0
-        cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
-      - id: 30d59c30-c442-4d3c-831c-05a1706cc4aa
-        entityType: 0
-        castCount: 0
-        cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
-      - id: 6a65d053-c859-4136-b14e-7f72a596ef9b
-        entityType: 0
-        castCount: 0
-        cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
-      - id: 78461c1b-e36d-4732-a82b-097f04afa16c
-        entityType: 0
-        castCount: 0
-        cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
       - id: cfcb7b48-baaf-4b93-8cf6-1b89089156ec
         entityType: 0
         castCount: 0
-        cardType: {fileID: 11400000, guid: 29447d4ce5e609b46814ceac547e725f, type: 2}
+        cardType: {fileID: 11400000, guid: 869002539beb5cb44b593a5ffdffa0b7, type: 2}
+      - id: cardId3432234
+        entityType: 0
+        castCount: 0
+        cardType: {fileID: 11400000, guid: 869002539beb5cb44b593a5ffdffa0b7, type: 2}
       cardsDealtPerTurn: 1
     combatStats:
       maxHealth: 30
-      currentHealth: 30
+      currentHealth: 24
       baseAttackDamage: 0
     ability:
       rid: 1935436395326210053
@@ -77,8 +65,8 @@ MonoBehaviour:
       cardsDealtPerTurn: 1
     combatStats:
       maxHealth: 20
-      currentHealth: 20
-      baseAttackDamage: 0
+      currentHealth: 19
+      baseAttackDamage: 1
     ability:
       rid: 1935436395326210054
   - id: 04aa6a2a-1f96-4673-9366-cd991ae0e63d

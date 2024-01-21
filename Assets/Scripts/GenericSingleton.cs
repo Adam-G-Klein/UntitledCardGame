@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 // <> denotes this is a generic class
@@ -14,7 +15,17 @@ public class GenericSingleton<T> : MonoBehaviour where T : Component
             if (instance == null)
             {
                 // find the generic instance
-                instance = FindObjectOfType<T>();
+                T[] objs = FindObjectsOfType<T>();
+
+                if (objs.Length > 0) {
+                    instance = objs[0];
+                }
+
+                if (objs.Length > 1) {
+                    for (int i = 1; i < objs.Length; i++) {
+                        Destroy(objs[i].gameObject);
+                    }
+                }
 
                 // if it's null again create a new object
                 // and attach the generic instance
@@ -27,13 +38,5 @@ public class GenericSingleton<T> : MonoBehaviour where T : Component
             }
             return instance;
         }
-    }
-
-    private void Awake()
-    {
-        if (instance == null)
-            instance = this as T;
-        else
-            Destroy(gameObject);
     }
 }

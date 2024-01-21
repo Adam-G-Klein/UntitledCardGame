@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(EncounterManager))]
+[CustomEditor(typeof(EnemyEncounterManager))]
 [CanEditMultipleObjects]
 public class EncounterBuilderEditor : Editor {
     public EncounterVariableSO encounterToSet;
@@ -17,7 +17,7 @@ public class EncounterBuilderEditor : Editor {
         
 
     public override void OnInspectorGUI() {
-        EncounterManager encounterManager = (EncounterManager) serializedObject.targetObject;
+        EnemyEncounterManager encounterManager = (EnemyEncounterManager) serializedObject.targetObject;
         DrawDefaultInspector();
         
         EditorGUILayout.Space(20);

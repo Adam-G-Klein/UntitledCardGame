@@ -5,15 +5,17 @@ using UnityEngine;
 using UnityEditor;
 
 [RequireComponent(typeof(EndEncounterEventListener))]
-public class EncounterManager : MonoBehaviour, IEncounterBuilder
+public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IEncounterBuilder
 {
     public GameStateVariableSO gameState;
     public EncounterConstantsSO encounterConstants;
+    public CombatEncounterState combatEncounterState;
 
     void Awake() {
         // This ends up calling BuildEnemyEncounter below
         gameState.activeEncounter.GetValue().BuildWithEncounterBuilder(this);
         ManaManager.Instance.SetManaPerTurn(gameState.playerData.GetValue().manaPerTurn);
+        RegisterCombatEncounterStateActions();
     }
 
     public void BuildEnemyEncounter(EnemyEncounter encounter) {
@@ -44,5 +46,17 @@ public class EncounterManager : MonoBehaviour, IEncounterBuilder
     public void BuildShopEncounter(ShopEncounter encounter) {
         Debug.LogError("The enemy encounter scene was loaded but the active encounter is a shop!");
         return;
+    }
+
+    private void RegisterCombatEncounterStateActions() {
+        TurnPhaseTrigger trigger = new TurnPhaseTrigger(
+            TurnPhase.END_PLAYER_TURN,
+            UpdateCombatEncounterState());
+        TurnManager.Instance.addTurnPhaseTrigger(trigger);
+    }
+
+    private IEnumerable UpdateCombatEncounterState() {
+        combatEncounterState.UpdateStateOnEndTurn();
+        yield return null;
     }
 }

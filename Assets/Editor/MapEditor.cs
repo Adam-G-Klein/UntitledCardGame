@@ -33,5 +33,15 @@ public class MapEditor : Editor {
                 break;
             }
         }
+        EditorGUILayout.Space(5);
+        if (GUILayout.Button("Reset Map")) {
+            foreach (Encounter encounter in mapVariable.GetValue().encounters) {
+                encounter.isCompleted = false;
+                if (encounter.getEncounterType() == EncounterType.Enemy) {
+                    EnemyEncounter enemyEncounter = encounter as EnemyEncounter;
+                    enemyEncounter.enemyList.ForEach((enemy) => enemy.combatStats.currentHealth = enemy.combatStats.maxHealth);
+                }
+            }
+        }
     }
 }
