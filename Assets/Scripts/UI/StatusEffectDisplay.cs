@@ -14,8 +14,10 @@ public enum StatusEffect {
     TemporaryStrength,
     // Disabled, see comment in processOnDeathStatusEffects in CombatEntityInstance
     MinionsOnDeath,
-    PlatedArmor
+    PlatedArmor,
+    Orb
 }
+
 public class StatusEffectDisplay: MonoBehaviour
 {
     
@@ -33,36 +35,30 @@ public class StatusEffectDisplay: MonoBehaviour
     }
 
     void Start() {
-        hide();
+        Hide();
         text = GetComponentInChildren<TextMeshProUGUI>();
         statusEffectsDisplay = GetComponentInParent<CombatEntityStatsDisplay>();
         rectTransform = GetComponent<RectTransform>();
     }
 
-    public void setDisplaying(bool val) {
+    public void SetDisplaying(bool val) {
         if (displaying && !val) {
-            hide();
+            Hide();
         } else if (!displaying && val) {
-            show();
+            Show();
         }
         displaying = val;
     }
 
-    public void setText(string newVal) {
+    public void SetText(string newVal) {
         text.text = newVal;
     }
 
-    private void hide() {
-        transform.localScale = Vector3.zero;
+    private void Hide() {
+        gameObject.SetActive(false);
     }
 
-    private void show() {
-        transform.localScale = originalScale;
-        // transform.localPosition = new Vector3(statusEffectsDisplay.getNextStatusXLoc(), 0, 0);
+    private void Show() {
+        gameObject.SetActive(true);
     }
-
-    private void setXLoc(float xLoc) {
-        rectTransform.anchoredPosition.Set(xLoc, 0);
-    }
-
 }

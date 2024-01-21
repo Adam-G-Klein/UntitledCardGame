@@ -42,21 +42,10 @@ public class CombatEntityStatsDisplay: MonoBehaviour
         // of the CombatEntity prefab every time there's a change to 
         // the stats, so that they can update their own UI
         bool statusShouldDisplay = false;
-        foreach(KeyValuePair<StatusEffect, StatusEffectDisplay> kv in statusEffectDisplays) {
-            statusShouldDisplay = entity.statusEffects[kv.Key] != CombatInstance.initialStatusEffects[kv.Key];
-            kv.Value.setDisplaying(statusShouldDisplay);
-            if(statusShouldDisplay) kv.Value.setText(entity.statusEffects[kv.Key].ToString());
-        }
-
-    }
-
-    public float getNextStatusXLoc() {
-        float xLoc = 0;
         foreach (KeyValuePair<StatusEffect, StatusEffectDisplay> kv in statusEffectDisplays) {
-            if (kv.Value.displaying) {
-                xLoc += kv.Value.GetComponent<RectTransform>().rect.width;
-            }
+            statusShouldDisplay = entity.statusEffects[kv.Key] != CombatInstance.initialStatusEffects[kv.Key];
+            kv.Value.SetDisplaying(statusShouldDisplay);
+            if (statusShouldDisplay) kv.Value.SetText(entity.statusEffects[kv.Key].ToString());
         }
-        return xLoc;
     }
 }

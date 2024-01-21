@@ -33,7 +33,8 @@ public class CompanionInstance : MonoBehaviour
             combatInstance.UpdateStatusEffects(new List<StatusEffect> {
                 StatusEffect.Defended,
                 StatusEffect.TemporaryStrength,
-                StatusEffect.Invulnerability })
+                StatusEffect.Invulnerability,
+                StatusEffect.Orb})
         ));
         statusEffectTriggers.Add(new TurnPhaseTrigger(
             TurnPhase.END_PLAYER_TURN,

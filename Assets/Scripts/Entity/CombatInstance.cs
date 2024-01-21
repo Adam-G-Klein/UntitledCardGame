@@ -24,7 +24,8 @@ public class CombatInstance : MonoBehaviour
             { StatusEffect.MaxHpBounty, 0 },
             { StatusEffect.TemporaryStrength, 0 },
             { StatusEffect.MinionsOnDeath, 0 },
-            { StatusEffect.PlatedArmor, 0 }
+            { StatusEffect.PlatedArmor, 0 },
+            { StatusEffect.Orb, 0 }
         };
 
     public Dictionary<StatusEffect, int> statusEffects = 
@@ -145,14 +146,6 @@ public class CombatInstance : MonoBehaviour
         */
     }
 
-    public IEnumerable UpdateStatusEffects() {
-        statusEffects[StatusEffect.Defended] = 0;
-        statusEffects[StatusEffect.TemporaryStrength] = 0;
-        statusEffects[StatusEffect.Invulnerability] = Mathf.Max(0, statusEffects[StatusEffect.Invulnerability] - 1);
-        statusEffects[StatusEffect.Weakness] = Mathf.Max(0, statusEffects[StatusEffect.Weakness] - 1);
-        yield return null;
-    }
-
     // This function is setup the way it is because certain statuses need to be
     // updated at different times. Making this function take in a list of statuses
     // allows us to separate when one status is updated vs another
@@ -166,21 +159,20 @@ public class CombatInstance : MonoBehaviour
     private void UpdateStatusEffect(StatusEffect status) {
         switch (status) {
             case StatusEffect.Defended:
-                statusEffects[StatusEffect.Defended] = 0;
-            break;
-
             case StatusEffect.TemporaryStrength:
-                statusEffects[StatusEffect.TemporaryStrength] = 0;
+                statusEffects[status] = 0;
             break;
 
             case StatusEffect.Invulnerability:
-                statusEffects[StatusEffect.Invulnerability] = Mathf.Max(0, statusEffects[StatusEffect.Invulnerability] - 1);
-            break;
-
             case StatusEffect.Weakness:
-                statusEffects[StatusEffect.Weakness] = Mathf.Max(0, statusEffects[StatusEffect.Weakness] - 1);
+            case StatusEffect.Orb:
+                statusEffects[status] = DecrementStatus(statusEffects[status]);
             break;
         }
+    }
+
+    private int DecrementStatus(int currentCount) {
+        return Mathf.Max(0, currentCount - 1);
     }
 
 
