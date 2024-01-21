@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
+  m_Name: FireGun
+  m_EditorClassIdentifier: 
+  Name: Fire Gun
+  Description: It's ditto! He has a gun! Where'd he get a gun?!
+  Cost: 0
+  Artwork: {fileID: 21300000, guid: 16d538f92b835a14381c8566e07acb49, type: 3}
+  vfxPrefab: {fileID: 4798506008640871506, guid: 0556a32d0cf5e704db37d6e1528d886a, type: 3}
+  playable: 1
+  effectWorkflows:
+  - rid: 55651160039358551
+  references:
+    version: 2
+    RefIds:
+    - rid: 55651160039358551
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 55651160039358552
+        - rid: 55651160039358553
+    - rid: 55651160039358552
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: 
+        combatEffect: 0
+        scale: 0
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 55651160039358553
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: 
+        validTargets: 
+        number: 1
+        specialTargetRule: 0
+        cantCancelTargetting: 0

@@ -51,6 +51,7 @@ public class ShopEncounter : Encounter
         this.shopManager = shopManager;
         this.encounterConstants = constants;
         this.encounterType = EncounterType.Shop;
+        validateShopData();
         generateShopEncounter(shopLevel, companionList);
         setupCards(companionList);
         setupKeepsakes();
@@ -238,6 +239,8 @@ public class ShopEncounter : Encounter
                 return rarityPool[i];
             }
         }
+        Debug.LogError("ShopEncounter:PickRarity: Failed to pick rarity. " +
+            "It's likely that the card pool for this companion is empty");
 
         // Should never hit this case
         return Rarity.Common;
@@ -248,4 +251,22 @@ public class ShopEncounter : Encounter
         Uncommon,
         Rare
     }
+
+    private void validateShopData(){
+        List<CompanionTypeSO> allCompanions = new List<CompanionTypeSO>();
+        allCompanions.AddRange(shopData.companionPool.commonCompanions);
+        allCompanions.AddRange(shopData.companionPool.uncommonCompanions);
+        allCompanions.AddRange(shopData.companionPool.rareCompanions);
+        foreach(CompanionTypeSO companion in allCompanions) {
+            if (companion.cardPool.commonCards.Count == 0 &&
+                companion.cardPool.uncommonCards.Count == 0 &&
+                companion.cardPool.rareCards.Count == 0) {
+                    Debug.LogError("Companion " + companion.name + " has no cards in its pool. " +
+                        "This will cause an error when generating a shop encounter.");
+
+            }
+
+        }
+    }
+
 }
