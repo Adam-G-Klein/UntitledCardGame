@@ -13,7 +13,7 @@ public class Map
         this.encounters = encounters;
     }
 
-    public void loadEncounterById(string id, EncounterVariableSO encounterVariable) {
+    public void loadEncounterById(string id, GameStateVariableSO gameState) {
         Encounter encounterToLoad = getEncounterById(id);
         if (encounterToLoad == null) {
             // Make this actually do something
@@ -22,19 +22,19 @@ public class Map
             return;
         }
 
-        if(encounterVariable == null) {
+        if(gameState.activeEncounter  == null) {
             Debug.LogError("Encounter variable is null, it's likely you need to create an empty " +
             "EncounterVariableSO and set it to activeEncounter or nextEncounter in the GameStateVariable");
             return;
         }
-        encounterVariable.SetValue(encounterToLoad);
+        gameState.nextEncounter.SetValue(encounterToLoad);
         switch (encounterToLoad.getEncounterType()) {
             case EncounterType.Enemy:
-                SceneManager.LoadScene("PlaceholderEnemyEncounter");
+                gameState.LoadNextLocation(Location.TEAM_SELECT);
             break;
 
             case EncounterType.Shop:
-                SceneManager.LoadScene("PlaceholderShopEncounter");
+                gameState.LoadNextLocation(Location.SHOP);
             break;
 
             default:
@@ -44,47 +44,7 @@ public class Map
         }
     }
 
-    public void loadMapScene() {
-        SceneManager.LoadScene("Map");
-    }
-
-    public void loadNextEncounter(EncounterVariableSO activeEncounterVariable) {
-        Encounter nextEncounter = getNextEncounter(activeEncounterVariable.GetValue());
-        if (nextEncounter == null) {
-            // Make this actually do something
-            SceneManager.LoadScene("End");
-        }
-        activeEncounterVariable.SetValue(nextEncounter);
-        switch (nextEncounter.getEncounterType()) {
-            case EncounterType.Enemy:
-                SceneManager.LoadScene("PlaceholderEnemyEncounter");
-            break;
-
-            case EncounterType.Shop:
-                SceneManager.LoadScene("PlaceholderShopEncounter");
-            break;
-
-            default:
-                // Also make this do something
-                SceneManager.LoadScene("End");
-            break;
-        }
-    }
-
-    private Encounter getNextEncounter(Encounter activeEncounter) {
-        for(int i = 0; i < encounters.Count; i++) {
-            if (encounters[i].id == activeEncounter.id) {
-                if (i+1 == encounters.Count) {
-                    return null;
-                }
-                return encounters[i+1];
-            }
-        }
-        Debug.LogError("Active encounter not found in encounters list");
-        return null;
-    }
-
-    private Encounter getEncounterById(string id) {
+    public Encounter getEncounterById(string id) {
         foreach (Encounter encounter in this.encounters) {
             if (encounter.id == id) {
                 return encounter;

@@ -9,8 +9,7 @@ public class CutsceneManager : GenericSingleton<CutsceneManager> {
     private GameStateVariableSO gameState;
 
     public void NextScene() {
-        // TODO: base this on the current gameState scene
-        SceneManager.LoadScene("TeamSigning");
+        gameState.LoadNextLocation();
     }
 
 

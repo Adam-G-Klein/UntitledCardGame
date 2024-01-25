@@ -17,6 +17,18 @@ public abstract class Encounter
 
     protected EncounterType encounterType;
 
+    public Location ToLocation(){
+        switch (this.encounterType) {
+            case EncounterType.Enemy:
+                return Location.COMBAT;
+            case EncounterType.Shop:
+                return Location.SHOP;
+            default:
+                Debug.LogError("Encounter with id " + this.id + " has an invalid encounter type");
+                return Location.NONE;
+        }
+    }
+
     public void setId(string id) {
         this.id = id;
     }

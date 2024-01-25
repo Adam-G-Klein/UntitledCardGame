@@ -191,7 +191,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         gameState.activeEncounter.GetValue().isCompleted = true;
         Debug.Log("gameState active encounter id: " + gameState.activeEncounter.GetValue().id);
         Debug.Log("gameState active encounter complete: " + gameState.activeEncounter.GetValue().isCompleted);
-        gameState.map.GetValue().loadMapScene();
+        gameState.LoadNextLocation();
     }
 
     public ShopEncounter getShopEncounter() {

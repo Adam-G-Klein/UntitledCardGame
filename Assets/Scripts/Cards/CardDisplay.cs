@@ -27,6 +27,10 @@ public class CardDisplay : MonoBehaviour
     void Awake()
     {
         mainCamera = Camera.main;
+        if(cardInfo == null)
+        {
+            Debug.LogError("CardDisplay " + gameObject.name + " has no cardInfo");
+        }
     }
 
     // Looks like double calls happen when something in the hierarchy is using OnGUI()

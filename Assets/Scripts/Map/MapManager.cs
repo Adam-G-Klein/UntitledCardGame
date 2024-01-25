@@ -12,7 +12,9 @@ public class MapManager : MonoBehaviour
     }
 
     public void encounterInitiateEventHandler(string encounterId) {
-        gameState.map.GetValue().loadEncounterById(encounterId, gameState.activeEncounter);
+        Encounter nextEncounter = gameState.map
+            .GetValue().getEncounterById(encounterId);
+        gameState.LoadNextLocation(nextEncounter.ToLocation());
     }
 
     public void exitGame() {

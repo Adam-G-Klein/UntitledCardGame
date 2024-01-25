@@ -34,7 +34,7 @@ public class TeamSelectionUI : MonoBehaviour
             gameState.companions.companionList.Add(new Companion(companionType));
         }
 
-        SceneManager.LoadScene("Map");
+        gameState.LoadNextLocation();
     }
 
     private void makeTeamView(VisualElement container, List<CompanionTypeSO> companionTypes)

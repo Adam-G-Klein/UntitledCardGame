@@ -734,6 +734,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyEncounterCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 7345001097657664343, guid: 63dfb323aea5cb14da568cc4b853b96e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7345001097657664362, guid: 63dfb323aea5cb14da568cc4b853b96e, type: 3}
       propertyPath: m_Camera
       value: 
@@ -912,6 +916,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8677009555334584952, guid: 63dfb323aea5cb14da568cc4b853b96e, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027410621212684802, guid: 63dfb323aea5cb14da568cc4b853b96e, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9066366250281228240, guid: 63dfb323aea5cb14da568cc4b853b96e, type: 3}
@@ -1195,6 +1203,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8734870270850589833, guid: 28a067a8b113e3a4aadb83e0e82a16bd, type: 3}
+      propertyPath: postCombatUI
+      value: 
+      objectReference: {fileID: 1894496486}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1428,6 +1440,11 @@ Transform:
   - {fileID: 56903198}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1894496486 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9027410621212684802, guid: 63dfb323aea5cb14da568cc4b853b96e, type: 3}
+  m_PrefabInstance: {fileID: 595443444}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1941419468
 GameObject:
   m_ObjectHideFlags: 0

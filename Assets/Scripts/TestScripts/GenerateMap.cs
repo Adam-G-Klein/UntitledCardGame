@@ -17,7 +17,8 @@ public class GenerateMap : MonoBehaviour
     public void generateMapAndChangeScenes() {
         gameState.map.SetValue(mapGenerator.generateMap());
         gameState.playerData.initializeRun();
-        SceneManager.LoadScene("TeamSigning");
+        gameState.SetLocation(Location.MAIN_MENU);
+        gameState.LoadNextLocation();
     }
 
 }

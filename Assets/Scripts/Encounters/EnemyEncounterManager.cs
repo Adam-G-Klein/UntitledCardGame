@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEditor;
+using Unity.VisualScripting;
 
 [RequireComponent(typeof(EndEncounterEventListener))]
 public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IEncounterBuilder
@@ -10,6 +11,10 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     public GameStateVariableSO gameState;
     public EncounterConstantsSO encounterConstants;
     public CombatEncounterState combatEncounterState;
+    [SerializeField]
+    // There's so many ways we could do this
+    // choosing the simplest one for now
+    private GameObject postCombatUI;
 
     void Awake() {
         // This ends up calling BuildEnemyEncounter below
@@ -37,8 +42,8 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
 
         int extraGold = Mathf.FloorToInt(gameState.playerData.GetValue().gold / increments);
         gameState.playerData.GetValue().gold += baseGoldEarnedPerBattle + extraGold;
-
-        gameState.map.GetValue().loadMapScene();
+        gameState.LoadNextLocation();
+        postCombatUI.SetActive(true);
     }
 
     // This exists to satisfy the IEncounterBuilder interface.
