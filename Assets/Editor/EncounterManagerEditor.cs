@@ -7,7 +7,6 @@ using UnityEditor;
 [CanEditMultipleObjects]
 public class EncounterBuilderEditor : Editor {
     public EncounterVariableSO encounterToSet;
-    private bool inPlayMode = false;
     public bool refreshCompanionsOnPlay = true;
     [SerializeReference]
     // would have been preferred to have this as its own ScriptableObject
