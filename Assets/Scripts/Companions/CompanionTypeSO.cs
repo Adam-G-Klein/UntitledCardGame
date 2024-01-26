@@ -9,7 +9,6 @@ public class CompanionTypeSO : ScriptableObject
 {
     public string companionName;
     public int maxHealth;
-    public int baseAttackDamage;
     public int initialCardsDealtPerTurn = 1;
     public Sprite sprite;
     public StartingDeck startingDeck;

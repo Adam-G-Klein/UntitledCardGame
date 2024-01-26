@@ -9,7 +9,7 @@ public class CombatStats
     public int currentHealth;
     public int baseAttackDamage;
 
-    public CombatStats(int maxHealth, int baseAttackDamage) {
+    public CombatStats(int maxHealth, int baseAttackDamage = 0) {
         this.maxHealth = maxHealth;
         this.currentHealth = maxHealth;
         this.baseAttackDamage = baseAttackDamage;
