@@ -13,76 +13,170 @@ MonoBehaviour:
   m_Name: TestCompanionList
   m_EditorClassIdentifier: 
   companionList:
-  - companionType: {fileID: 11400000, guid: 4d253e77b533ea64ba6355a37741c0cf, type: 2}
-    maxHealth: 20
-    currentHealth: 20
+  - id: 49fef8e0-4728-468a-bd3d-ae4cb8d562ff
+    entityType: 0
+    companionType: {fileID: 11400000, guid: bb8900a5e0f2ab34a8c486d19dcef389, type: 2}
+    upgradeInfo: {fileID: 0}
     deck:
-      startingDeck: {fileID: 11400000, guid: f7a0ec0e3675bf547ad5338f4f36b0e7, type: 2}
+      startingDeck: {fileID: 0}
       cards:
-      - cardType: {fileID: 11400000, guid: f81164c1e256fb340b76c150339e4004, type: 2}
-        id: 4fe7cfd6-71eb-4d05-9f84-b505e29da1fc
-    baseAttackDamage: 0
-    abilities: []
-    id: 9d3b54ed-f1e2-4d52-aa63-2c478ad5bbe4
-  - companionType: {fileID: 11400000, guid: bb8900a5e0f2ab34a8c486d19dcef389, type: 2}
-    maxHealth: 30
-    currentHealth: 30
+      - id: 4c3833d7-d47a-4b2a-af01-7123f28c3a6b
+        entityType: 0
+        castCount: 0
+        cardType: {fileID: 0}
+      - id: a905528c-9bc2-425e-b0a0-c4d7502674e2
+        entityType: 0
+        castCount: 0
+        cardType: {fileID: 0}
+      - id: d8e81d80-c571-402f-8b8d-c2ad04e4b505
+        entityType: 0
+        castCount: 0
+        cardType: {fileID: 0}
+      - id: 9afdf535-d8ff-493c-acdc-6a72f27fe377
+        entityType: 0
+        castCount: 0
+        cardType: {fileID: 0}
+      cardsDealtPerTurn: 0
+    combatStats:
+      maxHealth: 0
+      currentHealth: 0
+      baseAttackDamage: 0
+    ability:
+      rid: -2
+  - id: 65404614-dcb0-448a-be40-9ef0a51088a8
+    entityType: 0
+    companionType: {fileID: 11400000, guid: c106de03c6bb3ab4e952724e5e4a073c, type: 2}
+    upgradeInfo: {fileID: 11400000, guid: 99076b48c6110564cb87cbbb29a513b6, type: 2}
     deck:
-      startingDeck: {fileID: 11400000, guid: 2591b9bcf7a348d418df529b4242c104, type: 2}
+      startingDeck: {fileID: 11400000, guid: 1e6712d15d797514aa606a6a0d84a059, type: 2}
       cards:
-      - cardType: {fileID: 11400000, guid: f89479d267b89ea40b6e76d533f2e6da, type: 2}
-        id: 4c3833d7-d47a-4b2a-af01-7123f28c3a6b
-      - cardType: {fileID: 11400000, guid: f89479d267b89ea40b6e76d533f2e6da, type: 2}
-        id: a905528c-9bc2-425e-b0a0-c4d7502674e2
-      - cardType: {fileID: 11400000, guid: f89479d267b89ea40b6e76d533f2e6da, type: 2}
-        id: d8e81d80-c571-402f-8b8d-c2ad04e4b505
-      - cardType: {fileID: 11400000, guid: ec3c681e35f3b8541b4e30643c6d0ee7, type: 2}
-        id: 9afdf535-d8ff-493c-acdc-6a72f27fe377
-    baseAttackDamage: 0
-    abilities:
-    - rid: 5847359171616309250
-    id: 49fef8e0-4728-468a-bd3d-ae4cb8d562ff
-  - companionType: {fileID: 11400000, guid: 28f6a1b3b493fa743859f89dedcc23ca, type: 2}
-    maxHealth: 10
-    currentHealth: 10
+      - id: b4ac5d65-a487-4474-a2a2-005ba0fe3e92
+        entityType: 0
+        castCount: 0
+        cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
+      - id: 131f0bad-652f-416f-a63d-5fe1c5f4f4c8
+        entityType: 0
+        castCount: 0
+        cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
+      - id: 3dd5a782-5425-41e1-8490-bfa677c03e9a
+        entityType: 0
+        castCount: 0
+        cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
+      - id: 5e0e0bc1-84c6-4225-bf4c-4326d8b39c9e
+        entityType: 0
+        castCount: 0
+        cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
+      - id: 296afafc-711c-4204-9edd-23b75d300ae1
+        entityType: 0
+        castCount: 0
+        cardType: {fileID: 11400000, guid: af631239de690bd4f9c3504152e145d7, type: 2}
+      cardsDealtPerTurn: 2
+    combatStats:
+      maxHealth: 20
+      currentHealth: 20
+      baseAttackDamage: 0
+    ability:
+      rid: 55651286439690371
+  - id: 4567f6c5-5874-48a9-bd1c-d1ecb3f2d3c7
+    entityType: 0
+    companionType: {fileID: 11400000, guid: a388cdca9749764489c477a814a4dd5b, type: 2}
+    upgradeInfo: {fileID: 11400000, guid: 99076b48c6110564cb87cbbb29a513b6, type: 2}
     deck:
-      startingDeck: {fileID: 11400000, guid: 83b10e15a862e1a48900e311e49378a4, type: 2}
+      startingDeck: {fileID: 11400000, guid: 539df5bf5b9a2cf498d76437062d3987, type: 2}
       cards:
-      - cardType: {fileID: 11400000, guid: ec3c681e35f3b8541b4e30643c6d0ee7, type: 2}
-        id: e9cb91a3-1ba4-4374-b7c4-00b9a2954f43
-      - cardType: {fileID: 11400000, guid: ec3c681e35f3b8541b4e30643c6d0ee7, type: 2}
-        id: 986dd6a2-8fa6-4e8c-a5cf-ecac8389d598
-      - cardType: {fileID: 11400000, guid: 462354a397a54954aab6c85e99376713, type: 2}
-        id: 7e3aab4f-a4ce-4366-a7ef-f323be84ac20
-      - cardType: {fileID: 11400000, guid: 462354a397a54954aab6c85e99376713, type: 2}
-        id: 6d6b4965-a4fc-4392-99e0-045481d77e12
-    baseAttackDamage: 0
-    abilities: []
-    id: db7028b0-d1fa-43ce-b35d-097e741346a5
+      - id: 8653d48a-7ed9-42fc-b6c5-2c4ba81312e2
+        entityType: 0
+        castCount: 0
+        cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
+      - id: 4096bb5d-3b90-4917-96a4-ce25e96e3124
+        entityType: 0
+        castCount: 0
+        cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
+      - id: 8db10586-9afb-4350-b909-6ec9121f5514
+        entityType: 0
+        castCount: 0
+        cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
+      - id: 78ef9444-c177-4933-becb-a546bf26e923
+        entityType: 0
+        castCount: 0
+        cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
+      - id: 816c6864-75ee-4ae8-9f72-42e07535693d
+        entityType: 0
+        castCount: 0
+        cardType: {fileID: 11400000, guid: 3fe89f2c7b366cb46b2bbe3f4e462aa5, type: 2}
+      cardsDealtPerTurn: 1
+    combatStats:
+      maxHealth: 20
+      currentHealth: 20
+      baseAttackDamage: 0
+    ability:
+      rid: 55651315063193600
   companionBench:
-  - companionType: {fileID: 11400000, guid: 28f6a1b3b493fa743859f89dedcc23ca, type: 2}
-    maxHealth: 10
-    currentHealth: 10
+  - id: cb472b25-b58a-432d-8db5-eb5d7b4692cb
+    entityType: 0
+    companionType: {fileID: 11400000, guid: 28f6a1b3b493fa743859f89dedcc23ca, type: 2}
+    upgradeInfo: {fileID: 0}
     deck:
       startingDeck: {fileID: 11400000, guid: 83b10e15a862e1a48900e311e49378a4, type: 2}
       cards:
-      - cardType: {fileID: 11400000, guid: ec3c681e35f3b8541b4e30643c6d0ee7, type: 2}
-        id: 7b92d9cd-5ea8-4adf-b90a-61bfa0c7f788
-      - cardType: {fileID: 11400000, guid: ec3c681e35f3b8541b4e30643c6d0ee7, type: 2}
-        id: 8bffe56e-7115-4924-ae00-f971cae3be37
-      - cardType: {fileID: 11400000, guid: 462354a397a54954aab6c85e99376713, type: 2}
-        id: 475891f5-6fd9-4a78-b246-8af493a96af0
-      - cardType: {fileID: 11400000, guid: 462354a397a54954aab6c85e99376713, type: 2}
-        id: 0b0da0ff-10eb-4744-b9c6-fa50a119209a
-    baseAttackDamage: 0
-    abilities: []
-    id: cb472b25-b58a-432d-8db5-eb5d7b4692cb
+      - id: 7b92d9cd-5ea8-4adf-b90a-61bfa0c7f788
+        entityType: 0
+        castCount: 0
+        cardType: {fileID: 0}
+      - id: 8bffe56e-7115-4924-ae00-f971cae3be37
+        entityType: 0
+        castCount: 0
+        cardType: {fileID: 0}
+      - id: 475891f5-6fd9-4a78-b246-8af493a96af0
+        entityType: 0
+        castCount: 0
+        cardType: {fileID: 0}
+      - id: 0b0da0ff-10eb-4744-b9c6-fa50a119209a
+        entityType: 0
+        castCount: 0
+        cardType: {fileID: 0}
+      cardsDealtPerTurn: 0
+    combatStats:
+      maxHealth: 0
+      currentHealth: 0
+      baseAttackDamage: 0
+    ability:
+      rid: -2
+  currentCompanionSlots: 0
   references:
     version: 2
     RefIds:
-    - rid: 5847359171616309250
-      type: {class: MinionSpawnETB, ns: , asm: Assembly-CSharp}
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 55651286439690371
+      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
       data:
-        abilityName: GrotesqueETB
-        numMinions: 1
-        minionType: {fileID: 11400000, guid: acf491015f67b06468095238a670ef7b, type: 2}
+        companionAbilityTrigger: 0
+        effectSteps: []
+    - rid: 55651315063193600
+      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
+      data:
+        companionAbilityTrigger: 4
+        effectSteps:
+        - rid: 55651315063193601
+        - rid: 55651315063193602
+    - rid: 55651315063193601
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 55651315063193602
+      type: {class: PermanentStatIncrease, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: PermanentStatIncrease
+        inputKey: self
+        statIncreaseType: 0
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 

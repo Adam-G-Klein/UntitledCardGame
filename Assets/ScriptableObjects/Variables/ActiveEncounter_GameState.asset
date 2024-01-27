@@ -14,20 +14,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   locked: 0
   Value:
-    rid: 55651275623366659
+    rid: 55651275623366689
   references:
     version: 2
     RefIds:
-    - rid: 55651275623366659
+    - rid: 55651275623366689
       type: {class: EnemyEncounter, ns: , asm: Assembly-CSharp}
       data:
-        id: ac31e9f7-039f-4e65-acd9-ff66ca551f1d
+        id: 09a6b1d7-3aec-42cf-9903-b5f205d371ad
         isCompleted: 0
         enemyList:
-        - id: ea64a27d-6f32-4fd5-ac0d-d49232c0ab20
+        - id: 6f8f7e9f-3460-4d28-adbd-9bc4f764894a
           entityType: 1
           enemyType: {fileID: 11400000, guid: 3f595268355432347aef2000672bce6d, type: 2}
           combatStats:
             maxHealth: 3
-            currentHealth: 0
+            currentHealth: 3
+            baseAttackDamage: 1
+        - id: 6f8f7e9f-3460-4d28-adbd-9bc4f764894a
+          entityType: 1
+          enemyType: {fileID: 11400000, guid: 3f595268355432347aef2000672bce6d, type: 2}
+          combatStats:
+            maxHealth: 3
+            currentHealth: 3
             baseAttackDamage: 1

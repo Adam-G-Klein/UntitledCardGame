@@ -14,11 +14,16 @@ public class TeamSelectionUI : MonoBehaviour
     public CompanionListVariableSO team2BenchCompanions;
     public GameObject deckViewUIPrefab;
     private VisualElement root;
+    [SerializeField]
+    private bool displayOnStart = true;
 
 
     private void OnEnable()
     {
         root = GetComponent<UIDocument>().rootVisualElement;
+        if(!displayOnStart) {
+            root.style.display = DisplayStyle.None;
+        }
         root.Q<Button>("backButton").clicked += backButtonHandler;
         makeTeamView(root.Q<VisualElement>("team-1-container"), team1ActiveCompanions.GetCompanionTypes());
         makeTeamView(root.Q<VisualElement>("team-2-container"), team2ActiveCompanions.GetCompanionTypes());
@@ -85,6 +90,15 @@ public class TeamSelectionUI : MonoBehaviour
 
     public void backButtonHandler() {
         SceneManager.LoadScene("MainMenu");
+    }
+
+    public void toggleDisplay() {
+        Debug.Log("Toggling display");
+        if(root.style.display == DisplayStyle.None) {
+            root.style.display = DisplayStyle.Flex;
+        } else {
+            root.style.display = DisplayStyle.None;
+        }
     }
 
 }

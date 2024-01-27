@@ -152,6 +152,7 @@ public class GameStateVariableSO : ScriptableObject
                 Debug.Log("Invalid location in LoadNextLocation switch case");
                 break;
         }
+        updateMusic(currentLocation);
         LoadCurrentLocationScene();
     }
 
@@ -180,6 +181,13 @@ public class GameStateVariableSO : ScriptableObject
 
     public void SetLocation(Location newLocation) {
         currentLocation = newLocation;
+    }
+
+    private void updateMusic(Location newLocation) {
+        // Just not changing the music on the map right now
+        if(newLocation != Location.MAP && MusicController.Instance != null) {
+            MusicController.Instance.PlayMusicForLocation(newLocation);
+        }
     }
 
 }

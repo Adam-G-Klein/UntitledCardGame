@@ -2,11 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.Events;
 
 public class DialogueManager : GenericSingleton<DialogueManager>
 {
-    [SerializeField]
-    private bool advanceSceneAfterComplete = false; //TODO: base this on what scene we're in. Ask the CutsceneManager.
     private List<DialogueSpeaker> dialogueSpeakers;
     public DialogueLocationSO dialogueLocation;
     public bool dialogueInProgress = false;
@@ -16,6 +15,17 @@ public class DialogueManager : GenericSingleton<DialogueManager>
     private DialogueSpeaker currentLineSpeaker;
     public IEnumerator currentDialogueSequenceCoroutine;
     private List<DialogueSequenceSO> alreadyViewedSequences = new List<DialogueSequenceSO>();
+    // TODO: make this configurable on a per-sequence basis
+    // This was the fastest way I could think of to make the team signing sequence work
+    // Putting this here for reference: https://forum.unity.com/threads/playing-a-coroutine-in-timeline.982128/
+    // Could be a good starting place for our second iteration dialogue system if we end up needing it
+    [SerializeField]
+    private List<UnityEvent> postSequenceEvents = new List<UnityEvent>();
+    [SerializeField]
+    private int nextPostSequenceEventIndex = 0;
+    [SerializeField]
+    private DialogueSequenceSO tutorialSequence;
+    
 
     public void RegisterDialogueSpeaker(DialogueSpeaker dialogueSpeaker)
     {
@@ -35,8 +45,22 @@ public class DialogueManager : GenericSingleton<DialogueManager>
     // Pulls any dialogue sequence from the location 
     // that hasn't been viewed yet and has the required speaker present
     public void StartAnyDialogueSequence() {
+        Debug.Log("Starting any dialogue sequence");
         if(dialogueInProgress) return;
+        
         DialogueSequenceSO toStart = GetDialogueSequence();
+        // laughing at myself right now. first iteration first iteration its just a first iteration
+        // TODO - do this sensibly
+        if(toStart == tutorialSequence) {
+            if(EnemyEncounterManager.Instance.gameState.playerData.GetValue().seenTutorial) {
+                Debug.Log("Player has seen tutorial, not starting any dialogue sequence");
+                return;
+            } else {
+                Debug.Log("Player has not seen tutorial, starting tutorial");
+                EnemyEncounterManager.Instance.gameState.playerData.GetValue().seenTutorial = true;
+            }
+        }
+        
         if(toStart != null)
             StartDialogueSequence(toStart);
     }
@@ -63,6 +87,7 @@ public class DialogueManager : GenericSingleton<DialogueManager>
     }
 
     private void StartDialogueSequence(DialogueSequenceSO dialogueSequence) {
+        Debug.Log("Starting dialogue sequence: " + dialogueSequence.name);
         currentDialogueSequenceCoroutine = dialogueSequenceCoroutine(dialogueSequence);
         StartCoroutine(currentDialogueSequenceCoroutine);
         alreadyViewedSequences.Add(dialogueSequence);
@@ -85,8 +110,9 @@ public class DialogueManager : GenericSingleton<DialogueManager>
             currentDialogueIndex += 1;
         }
         dialogueInProgress = false;
-        if(advanceSceneAfterComplete) {
-            CutsceneManager.Instance.NextScene();
+        if(nextPostSequenceEventIndex < postSequenceEvents.Count) {
+            postSequenceEvents[nextPostSequenceEventIndex].Invoke();
+            nextPostSequenceEventIndex += 1;
         }
     }
     public void UserClick()
