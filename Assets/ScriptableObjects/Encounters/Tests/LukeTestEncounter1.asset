@@ -22,21 +22,19 @@ MonoBehaviour:
       type: {class: EnemyEncounter, ns: , asm: Assembly-CSharp}
       data:
         id: LukeTestEncounter1
-        isCompleted: 0
+        isCompleted: 1
         enemyList:
-        - enemyType: {fileID: 11400000, guid: da0cdb6c0c9754d469d48629d5444b55, type: 2}
-          currentHealth: 20
-          maxHealth: 20
-          id: mindGoblin
-        - enemyType: {fileID: 11400000, guid: da0cdb6c0c9754d469d48629d5444b55, type: 2}
-          currentHealth: 20
-          maxHealth: 20
-          id: deezNuts
-        enemyLocations:
-        - {x: 3.86, y: 1.63, z: 0.027606305}
-        - {x: 7.65, y: 1.63, z: 0.027606305}
-        activeCompanions: {fileID: 11400000, guid: 88debb02fba58644b959f3a10afb8a3e, type: 2}
-        companionLocations:
-        - {x: -3.99, y: -1.99, z: 0.027606305}
-        - {x: -3.02, y: 0.41, z: 0.027606305}
-        - {x: -6.19, y: -0.11, z: 0.027606305}
+        - id: mindGoblin
+          entityType: 0
+          enemyType: {fileID: 11400000, guid: da0cdb6c0c9754d469d48629d5444b55, type: 2}
+          combatStats:
+            maxHealth: 1
+            currentHealth: 1
+            baseAttackDamage: 1
+        - id: deezNuts
+          entityType: 0
+          enemyType: {fileID: 11400000, guid: da0cdb6c0c9754d469d48629d5444b55, type: 2}
+          combatStats:
+            maxHealth: 1
+            currentHealth: 1
+            baseAttackDamage: 1

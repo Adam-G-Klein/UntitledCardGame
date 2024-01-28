@@ -50,24 +50,5 @@ public class SetCardEffectWorkflow : EffectStep {
         }
         Debug.Log("new workflow index" + card.GetWorkflowIndex());
         yield return null;
-
-
-    }
-
-    private void getCardsFromInCombatDeck(
-            DeckInstance deckInstance,
-            int num,
-            List<Card> cardList) {
-        if (num == 0) {
-            EffectError("Can't get 0 cards from a deck");
-            return;
-        }
-
-        if (deckInstance.drawPile.Count <= num) {
-            cardList.AddRange(deckInstance.drawPile);
-            return;
-        }
-
-        cardList.AddRange(deckInstance.drawPile.GetRange(0, num));
     }
 }

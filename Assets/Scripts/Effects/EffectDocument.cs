@@ -64,6 +64,20 @@ public class EffectDocument
             }
         }
 
+        public void AddItemOfType(string key, object value, Type type) {
+            Tuple<string, Type> dictKey = new Tuple<string, Type>(key, type);
+            if (!_dict.ContainsKey(dictKey)) {
+                _dict[dictKey] = new List<object>();
+            }
+            _dict[dictKey].Add(value);
+        }
+
+        public void AddItemsOfType(string key, List<object> items, Type type) {
+            foreach (object item in items) {
+                AddItemOfType(key, item, type);
+            }
+        }
+
         public T GetItem<T>(string key, int index) where T : class {
             Tuple<string, Type> dictKey = new Tuple<string, Type>(key, typeof(T));
             if (!_dict.ContainsKey(dictKey)) {

@@ -23,7 +23,7 @@ public class GetCardsFromDeck : EffectStep {
     [SerializeField]
     private string outputKey = "";
     [SerializeField]
-    private bool getCardsFromAllPiles = false;
+    private bool getCardsFromSourceDeck = false;
 
     public GetCardsFromDeck() {
         effectStepName = "GetCardsFromDeck";
@@ -38,7 +38,7 @@ public class GetCardsFromDeck : EffectStep {
         }
 
         List<Card> outputCards = new List<Card>();
-        if (getCardsFromAllPiles) {
+        if (getCardsFromSourceDeck) {
             outputCards.AddRange(instances[0].sourceDeck.cards);
         } else {
             int num;

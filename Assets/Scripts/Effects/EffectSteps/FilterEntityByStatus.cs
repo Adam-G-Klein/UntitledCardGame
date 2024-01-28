@@ -2,20 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CountStatusEffectsStep : EffectStep
+public class FilterEntityByStatus : EffectStep
 {
     [SerializeField]
-     private string inputKey = "";
+    private string inputKey = "";
     [SerializeField]
-    private StatusEffect statusEffect;
-    [SerializeField]
-    private bool onlyCountStatusOnce = false;
+    private StatusEffect status;
     [SerializeField]
     private string outputKey = "";
 
-
-    public CountStatusEffectsStep() {
-        effectStepName = "CountStatusEffectStep";
+    public FilterEntityByStatus() {
+        effectStepName = "FilterEntityByStatus";
     }
 
     public override IEnumerator invoke(EffectDocument document) {
@@ -24,17 +21,13 @@ public class CountStatusEffectsStep : EffectStep
             EffectError("No input targets present for key " + inputKey);
             yield return null;
         }
-        
-        int total = 0;
+        List<CombatInstance> filteredList = new List<CombatInstance>();
         foreach (CombatInstance instance in combatInstances) {
-            if (onlyCountStatusOnce && instance.statusEffects[statusEffect] > 0) {
-                total = total + 1;
-            } else if (!onlyCountStatusOnce) {
-                total = total + instance.statusEffects[statusEffect];
+            if (instance.statusEffects[status] > 0) {
+                filteredList.Add(instance);
             }
         }
-
-        document.intMap.Add(outputKey, total);
+        document.map.AddItems<CombatInstance>(outputKey, filteredList);
         yield return null;
     }
 }

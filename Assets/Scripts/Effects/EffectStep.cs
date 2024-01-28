@@ -27,7 +27,11 @@ public enum EffectStepName {
     InstantiatePrefab,
     CountStatusEffectsStep,
     GetCastCountFromCard,
-    SetCardEffectWorkflow
+    SetCardEffectWorkflow,
+    BooleanComparison,
+    FilterEntityByStatus,
+    RemoveStatus,
+    GetCardsFromDiscard
 }
 
 [System.Serializable]

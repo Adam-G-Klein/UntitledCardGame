@@ -6,7 +6,7 @@ using UnityEngine;
     Effect that deals with various actions to take on a card in a deck
 
     Input: 1) Card(s) in the deck to target, 2) Entity with deck to do card effect on
-    Output: NA
+    Output: the number of cards action was taken on
     Parameters:
         - Effect: The effect to enact on the card(s)
 */
@@ -18,6 +18,8 @@ public class CardInDeckEffect : EffectStep
     private string inputDeckKey = "";
     [SerializeField]
     private CardInDeckEffectName effect;
+    [SerializeField]
+    private string outputKey = "";
 
     public CardInDeckEffect() {
         effectStepName = "CardInDeckEffect";
@@ -35,8 +37,10 @@ public class CardInDeckEffect : EffectStep
             EffectError("No valid card inputs with key " + inputCardsKey);
             yield return null;
         }
+        int numberOfCardsTakenActionOn = 0;
         List<Card> cards = document.map.GetList<Card>(inputCardsKey);
         foreach (Card card in cards) {
+            numberOfCardsTakenActionOn++;
             switch (effect) {
                 case CardInDeckEffectName.Exhaust:
                     deckInstances[0].ExhaustCard(card);
@@ -47,7 +51,7 @@ public class CardInDeckEffect : EffectStep
                 break;
             }
         }
-
+        document.intMap.Add(outputKey, numberOfCardsTakenActionOn);
         yield return null;
     }
     

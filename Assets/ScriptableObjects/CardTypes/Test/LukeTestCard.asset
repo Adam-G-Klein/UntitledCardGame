@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
+  m_Name: LukeTestCard
+  m_EditorClassIdentifier: 
+  Name: Bing Bong
+  Description: I cannot be stopped I am too powerful.
+  Cost: 0
+  Artwork: {fileID: 21300000, guid: 21631059f2c81c04c9664407e7242c63, type: 3}
+  cardCategory: 1
+  vfxPrefab: {fileID: 0}
+  playable: 1
+  effectWorkflows:
+  - rid: 1935436885617803282
+  references:
+    version: 2
+    RefIds:
+    - rid: 1935436885617803282
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 1935436885617803284
+        - rid: 1935436885617803283
+        - rid: 1935436885617803285
+    - rid: 1935436885617803283
+      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: AddCardsToDeck
+        inputKey: self
+        cardTypes:
+        - {fileID: 11400000, guid: 869002539beb5cb44b593a5ffdffa0b7, type: 2}
+        addToDeckMethod: 0
+        getCardsFromKey: 0
+        inputCardsKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 1935436885617803284
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 4
+        cantCancelTargetting: 0
+    - rid: 1935436885617803285
+      type: {class: DebugEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DebugEffectStep
+        genericMap: 1
+        ints: 0
+        strings: 0

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,6 +21,8 @@ public class AddCardsToDeck : EffectStep {
     private string inputKey = "";
     [SerializeField]
     private List<CardType> cardTypes;
+    [SerializeField]
+    private AddMethod addToDeckMethod = AddMethod.ShuffleIn;
     [SerializeField]
     private bool getCardsFromKey = false;
     [SerializeField]
@@ -80,8 +83,22 @@ public class AddCardsToDeck : EffectStep {
                 foreach (CardType cardType in cardTypes) {
                     cards.Add(new Card(cardType));
                 }
-                deckInstance.ShuffleIntoDraw(cards);
+
+                switch (addToDeckMethod) {
+                    case AddMethod.ShuffleIn:
+                        deckInstance.ShuffleIntoDraw(cards);
+                    break;
+
+                    case AddMethod.AddToTop:
+                        deckInstance.AddCardsToTopOfDeck(cards);
+                    break;
+                }
             }
         }
+    }
+
+    private enum AddMethod {
+        AddToTop,
+        ShuffleIn
     }
 }

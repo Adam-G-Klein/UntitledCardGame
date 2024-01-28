@@ -8,6 +8,7 @@ public class DeckInstance : MonoBehaviour
     public List<Card> drawPile;
     public List<Card> discardPile;
     public List<Card> inHand;
+    public List<Card> exhaustPile;
     public CombatInstance combatInstance;
 
     private TurnPhaseTrigger drawCardsTurnPhaseTrigger;
@@ -49,6 +50,7 @@ public class DeckInstance : MonoBehaviour
         }
         this.discardPile = new List<Card>();
         this.inHand = new List<Card>();
+        ShuffleDeck();
     }
 
     public List<PlayableCard> DealCardsToPlayerHand(int numCards) {
@@ -58,7 +60,6 @@ public class DeckInstance : MonoBehaviour
 
     public List<Card> DealCardsFromDeck(int numCards, bool withReplacement = false){
         List<Card> returnList = new List<Card>();
-        ShuffleDeck();
         for(int i = 0; i < numCards; i++){
             DealCardFromDeckToList(returnList, withReplacement);
         }
@@ -116,6 +117,14 @@ public class DeckInstance : MonoBehaviour
         drawPile.AddRange(cards);
     }
 
+    public void AddCardsToTopOfDeck(List<Card> cards){
+        Debug.Log("Adding " + cards.Count + " cards to top of draw pile");
+        List<Card> newDrawPile = new List<Card>();
+        newDrawPile.AddRange(cards);
+        newDrawPile.AddRange(drawPile);
+        drawPile = newDrawPile;
+    }
+
     public bool ContainsCardById(string id){
         return drawPile.Exists(c => c.id == id) || discardPile.Exists(c => c.id == id);
     }
@@ -140,6 +149,7 @@ public class DeckInstance : MonoBehaviour
             Debug.Log("Exhausting card " + card.id + " from hand");
             inHand.Remove(card);
         }
+        exhaustPile.Add(card);
         EnemyEncounterManager.Instance.combatEncounterState.cardsExhaustThisTurn.Add(card);
     }
 
