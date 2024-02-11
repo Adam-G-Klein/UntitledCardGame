@@ -31,7 +31,9 @@ public enum EffectStepName {
     BooleanComparison,
     FilterEntityByStatus,
     RemoveStatus,
-    GetCardsFromDiscard
+    GetCardsFromDiscard,
+    FilterByCardCategory,
+    AddManaNextTurn
 }
 
 [System.Serializable]

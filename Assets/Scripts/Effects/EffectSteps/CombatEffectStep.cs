@@ -38,16 +38,17 @@ public class CombatEffectStep : EffectStep
             yield return null;
         }
 
-        CombatInstance origin = null;
+        CombatInstance originCombatInstance = null;
+        PlayableCard originCard = null;
         // Determine whether origin of damage is from a card, companion ability, or enemy attack
         // and get that origin
         if (document.map.ContainsValueWithKey<PlayableCard>(EffectDocument.ORIGIN)) {
-            PlayableCard card = document.map.GetItem<PlayableCard>(EffectDocument.ORIGIN, 0);
-            origin = card.deckFrom.combatInstance;
+            originCard = document.map.GetItem<PlayableCard>(EffectDocument.ORIGIN, 0);
+            originCombatInstance = originCard.deckFrom.combatInstance;
         } else if (document.map.ContainsValueWithKey<CompanionInstance>(EffectDocument.ORIGIN)) {
-            origin = document.map.GetItem<CompanionInstance>(EffectDocument.ORIGIN, 0).combatInstance;
+            originCombatInstance = document.map.GetItem<CompanionInstance>(EffectDocument.ORIGIN, 0).combatInstance;
         } else if (document.map.ContainsValueWithKey<EnemyInstance>(EffectDocument.ORIGIN)) {
-            origin = document.map.GetItem<EnemyInstance>(EffectDocument.ORIGIN, 0).combatInstance;
+            originCombatInstance = document.map.GetItem<EnemyInstance>(EffectDocument.ORIGIN, 0).combatInstance;
         } else {
             EffectError("No origin set in EffectDocument to pull stats from");
             yield return null;
@@ -60,21 +61,26 @@ public class CombatEffectStep : EffectStep
             baseScale = scale;
         }
 
-        int finalScale = UpdateScaleForEffect(baseScale, origin);
+        int finalScale = UpdateScaleForEffect(baseScale, originCombatInstance, originCard);
 
         foreach (CombatInstance instance in instances) {
-            instance.ApplyNonStatusCombatEffect(combatEffect, finalScale, origin);
+            instance.ApplyNonStatusCombatEffect(combatEffect, finalScale, originCombatInstance);
         }
 
         yield return null;
     }
 
-    private int UpdateScaleForEffect(int baseScale, CombatInstance origin) {
+    private int UpdateScaleForEffect(
+            int baseScale,
+            CombatInstance origin,
+            PlayableCard card = null) {
         int newScale = baseScale;
         switch (combatEffect) {
             case CombatEffect.Damage:
-                newScale = (baseScale + origin.GetCurrentDamage()) 
-                    * origin.statusEffects[StatusEffect.DamageMultiply];
+                newScale = baseScale + origin.GetCurrentDamage();
+                if (card != null) {
+                    newScale = card.card.UpdateScaleForCardModifications(newScale);
+                }
             break;
         }
 

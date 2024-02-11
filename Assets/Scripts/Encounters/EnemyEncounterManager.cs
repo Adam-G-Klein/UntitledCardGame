@@ -11,6 +11,8 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     public GameStateVariableSO gameState;
     public EncounterConstantsSO encounterConstants;
     public CombatEncounterState combatEncounterState;
+    public delegate void OnEncounterEndHandler();
+    public event OnEncounterEndHandler onEncounterEndHandler;
     [SerializeField]
     // There's so many ways we could do this
     // choosing the simplest one for now
@@ -42,6 +44,13 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
 
         int extraGold = Mathf.FloorToInt(gameState.playerData.GetValue().gold / increments);
         gameState.playerData.GetValue().gold += baseGoldEarnedPerBattle + extraGold;
+
+        if (onEncounterEndHandler != null) {
+            foreach (OnEncounterEndHandler handler in onEncounterEndHandler.GetInvocationList()) {
+                handler.Invoke();
+            }
+        }
+
         gameState.LoadNextLocation();
         postCombatUI.SetActive(true);
     }
@@ -63,5 +72,9 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     private IEnumerable UpdateCombatEncounterState() {
         combatEncounterState.UpdateStateOnEndTurn();
         yield return null;
+    }
+
+    public void DeckShuffled(DeckInstance instance) {
+        combatEncounterState.DeckShuffled(instance);
     }
 }

@@ -40,7 +40,7 @@ public class PlayableCard : MonoBehaviour,
     {
         if (currentState != UIState.DEFAULT) return; 
 
-        if (card.cost > ManaManager.Instance.currentMana 
+        if (card.GetManaCost() > ManaManager.Instance.currentMana 
                 || !card.cardType.playable) {
             // Theoretically we'd have some kind of indicator
             // to the player that they can't cast this

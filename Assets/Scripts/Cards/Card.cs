@@ -47,7 +47,9 @@ public class Card : Entity, IEquatable<Card>
     public int castCount = 0;
     // IMPORTANT TODO: only effects cards that use effectIncreasesOnPlay right now, other things don't poll for this
     // Need to add this into the getEffectScale that's currently in the CasterStats right now
+    // Deprecated
     private Dictionary<CombatEffect, int> effectBuffs = new Dictionary<CombatEffect, int>();
+    private Dictionary<CardModification, int> cardModifications = new Dictionary<CardModification, int>();
 
     [HideInInspector]
     public string description {
@@ -112,34 +114,38 @@ public class Card : Entity, IEquatable<Card>
         return id.GetHashCode();
     }
 
-    public int GetEffectBuff(CombatEffect effect) {
-        // static constructor not working for the dict, don't know why 
-        if(effectBuffs == null) {
-            effectBuffs = new Dictionary<CombatEffect, int>();
-        }
-        if (effectBuffs.ContainsKey(effect)) {
-            return effectBuffs[effect];
-        }
-        return 0;
-    }
-
-    public void BuffEffect(CombatEffect effect, int buff) {
-        // static constructor not working for the dict, don't know why 
-        if(effectBuffs == null) {
-            effectBuffs = new Dictionary<CombatEffect, int>();
-        }
-        if (effectBuffs.ContainsKey(effect)) {
-            effectBuffs[effect] += buff;
-        } else {
-            effectBuffs.Add(effect, buff);
-        }
-    }
-
-    public int GetWorkflowIndex(){
+    public int GetWorkflowIndex() {
         return workflowIndex;
     }
 
     public void SetWorkflowIndex(int newIndex){
         workflowIndex = Mathf.Min(newIndex, cardType.effectWorkflows.Count - 1);
+    }
+
+    public int GetManaCost() {
+        return cardType.Cost - cardModifications[CardModification.TempManaDecrease];
+    }
+
+    public int UpdateScaleForCardModifications(int oldScale) {
+        int newScale = oldScale;
+        if (cardModifications.ContainsKey(CardModification.FixedDamageIncrease)) {
+            newScale += cardModifications[CardModification.FixedDamageIncrease];
+        }
+
+        if (cardModifications.ContainsKey(CardModification.DoubleDamageIncrease)) {
+            newScale = newScale * (int)(Mathf.Pow(2, cardModifications[CardModification.FixedDamageIncrease]));
+        }
+
+        return newScale;
+    }
+
+    public void ResetTempCardModifications() {
+        if (cardModifications[CardModification.TempManaDecrease] != 0) {
+            cardModifications[CardModification.TempManaDecrease] = 0;
+        }
+    }
+
+    public void ResetCardModifications() {
+        cardModifications = new Dictionary<CardModification, int>();
     }
 }

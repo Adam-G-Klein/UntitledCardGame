@@ -25,5 +25,7 @@ public class CardType: ScriptableObject
 public enum CardCategory {
     None,
     Attack,
-    NonAttack
+    NonAttack,
+    Saga,
+    Status
 }

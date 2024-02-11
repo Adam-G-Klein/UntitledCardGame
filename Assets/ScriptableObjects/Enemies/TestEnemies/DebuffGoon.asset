@@ -16,23 +16,9 @@ MonoBehaviour:
   baseAttackDamage: 0
   sprite: {fileID: 21300000, guid: af0fdebf2a0f45f4a99b9b32143d4b4a, type: 3}
   enemyPattern:
-    enemyActions:
-    - intent: 3
-      enemyTargetMethod: 0
-      targetsKey: target
-      effectSteps:
-      - rid: 7005139344655122440
+    behaviors: []
     sequentialBehaviors: 0
     nextBehaviorIndex: 0
   references:
     version: 2
-    RefIds:
-    - rid: 7005139344655122440
-      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: ApplyStatus
-        inputKey: target
-        statusEffect: 1
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
+    RefIds: []

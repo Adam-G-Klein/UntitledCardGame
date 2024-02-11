@@ -19,23 +19,11 @@ MonoBehaviour:
     upgradeInfo: {fileID: 11400000, guid: 99076b48c6110564cb87cbbb29a513b6, type: 2}
     deck:
       startingDeck: {fileID: 11400000, guid: 5881341dc9d32d547851c7de48e1938e, type: 2}
-      cards:
-      - id: 09951969-1de2-4ed5-aa83-f4e20a9cc24a
-        entityType: 3
-        castCount: 0
-        cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
-      - id: testId2
-        entityType: 3
-        castCount: 0
-        cardType: {fileID: 11400000, guid: f6bd9433d859c7a44ae26877bbd3863c, type: 2}
-      - id: testId3
-        entityType: 3
-        castCount: 0
-        cardType: {fileID: 11400000, guid: f6bd9433d859c7a44ae26877bbd3863c, type: 2}
+      cards: []
       cardsDealtPerTurn: 1
     combatStats:
       maxHealth: 100
-      currentHealth: 99
+      currentHealth: 97
       baseAttackDamage: 0
     ability:
       rid: 1935436885617803281

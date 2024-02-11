@@ -12,6 +12,7 @@ public class DeckInstance : MonoBehaviour
     public CombatInstance combatInstance;
 
     private TurnPhaseTrigger drawCardsTurnPhaseTrigger;
+    private TurnPhaseTrigger resetTempCardModificationsTrigger;
 
     private float nextMinionSpawnTheta = Mathf.PI/2f;
     private float minionSpawnRadius = 3f;
@@ -19,14 +20,27 @@ public class DeckInstance : MonoBehaviour
     public void Start() {
         SetupPiles(sourceDeck);
         RegisterDrawTrigger();
+        RegisterEndTurnTrigger();
+        RegisterEndOfEncounterHandler();
         combatInstance.onDeathHandler += OnDeath;
+    }
+
+    private void RegisterEndOfEncounterHandler() {
+        EnemyEncounterManager.Instance.onEncounterEndHandler += OnEndEncounter;
     }
 
     private void RegisterDrawTrigger() {
         drawCardsTurnPhaseTrigger = new TurnPhaseTrigger(
-            TurnPhase.START_PLAYER_TURN, dealStartPlayerTurnCards());
+            TurnPhase.START_PLAYER_TURN, DealStartPlayerTurnCards());
         TurnManager.Instance.addTurnPhaseTrigger(drawCardsTurnPhaseTrigger);
     }
+
+    private void RegisterEndTurnTrigger() {
+        resetTempCardModificationsTrigger = new TurnPhaseTrigger(
+            TurnPhase.END_PLAYER_TURN, ResetTempCardModifications());
+        TurnManager.Instance.addTurnPhaseTrigger(resetTempCardModificationsTrigger);
+    }
+
 
     private void UnregisterDrawTrigger() {
         TurnManager.Instance.removeTurnPhaseTrigger(drawCardsTurnPhaseTrigger);
@@ -37,7 +51,7 @@ public class DeckInstance : MonoBehaviour
         yield return null;
     }
 
-    public IEnumerable dealStartPlayerTurnCards() {
+    public IEnumerable DealStartPlayerTurnCards() {
         DealCardsToPlayerHand(sourceDeck.cardsDealtPerTurn);
         yield return null;
     }
@@ -102,6 +116,7 @@ public class DeckInstance : MonoBehaviour
      }
 
     private void ShuffleDiscardIntoDraw(){
+        EnemyEncounterManager.Instance.DeckShuffled(this);
         drawPile.AddRange(discardPile);
         drawPile.Shuffle();
         discardPile.Clear();
@@ -206,5 +221,30 @@ public class DeckInstance : MonoBehaviour
         );
         nextMinionSpawnTheta += 2 * Mathf.PI / GameplayConstantsSingleton.Instance.gameplayConstants.MAX_MINIONS_PER_COMPANION;
         return spawnLoc;
+    }
+
+    private void OnEndEncounter() {
+        foreach (Card card in sourceDeck.cards) {
+            card.ResetCardModifications();
+        }
+    }
+
+    private IEnumerable ResetTempCardModifications() {
+        foreach (Card card in drawPile) {
+            card.ResetTempCardModifications();
+        }
+
+        foreach (Card card in discardPile) {
+            card.ResetTempCardModifications();
+        }
+
+        foreach (Card card in inHand) {
+            card.ResetTempCardModifications();
+        }
+
+        foreach (Card card in exhaustPile) {
+            card.ResetTempCardModifications();
+        }
+        yield break;
     }
 }
