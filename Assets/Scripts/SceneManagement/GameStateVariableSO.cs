@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -19,17 +20,7 @@ public enum Location {
     PRE_BOSSFIGHT_COMBAT_SPLASH,
     BOSSFIGHT
 }
-/*
 
-team-selection
-pre-combat splash
-combat
-post-combat (could just be a popup over the enemy combat)
-post-combat-map (Probably clunky to implement the map as a separate scene)
-shop
-pre-bossfight-combat splash (fun idea of non-skippable villain monologue)
-
-*/
 [CreateAssetMenu(
     fileName = "NewGameStateVariable",
     menuName = "Variables/Game State Variable")]
@@ -43,6 +34,8 @@ public class GameStateVariableSO : ScriptableObject
     [Header("The Next Combat or Shop Encounter we'll enter")]
     public EncounterVariableSO nextEncounter;
     public Location currentLocation;
+    [SerializeField]
+    private DialogueLocationSO testLocation;
     private Dictionary<Location, string> locationToScene = new Dictionary<Location, string>() {
         {Location.MAIN_MENU, "MainMenu"},
         {Location.WAKE_UP_ROOM, "AidensRoom"},
@@ -177,6 +170,13 @@ public class GameStateVariableSO : ScriptableObject
         } else {
             Debug.LogError("ERROR: LoadNextEncounter called, no more encounters in map");
         }
+    }
+
+    public int GetTeamSelectionIndex() {
+        // nextMapIndex is incremented before the tutorial, and before the first shop. Subtract 2
+        // so that we get index 0 for the first team selection
+        Debug.Log("Returning team selection index: " + Mathf.FloorToInt((nextMapIndex - 2) / 2));
+        return Mathf.FloorToInt((nextMapIndex - 2) / 2);
     }
 
     public void SetLocation(Location newLocation) {

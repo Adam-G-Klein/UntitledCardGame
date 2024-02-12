@@ -1,0 +1,31 @@
+- Replace background.
+- Create a TeamSelectionManager
+    - (done) Make TeamSelectionIndex available from gameState
+    - (done) Create DialogueLocationListVariableSO, set a list of locations to be the dialogues we
+        want to play in the teamSelection screens.
+    - (done) TeamSelectionManager picks the proper DialogueLocation for the TeamSelection, prints out the names of the dialogueSequences
+    - (done) TeamSelectionManager sets the dialogueLocation to the DialogueManager
+    - (done) DialogueManager waits for dialogueLocation and then prints out the sequences
+- (done) Get all of our DialogueSpeakers into the room. Have the speakers register with the dialogueManager so that the sequences returned comply with speaker presence requirements.
+- Create the companion prefab:
+    - (done) Sets its sprite from the companionType and speakerType during initialization
+    - Has an exclamation mark icon (DialogueInitiationIndicatorView)
+    - (done)Has a DialogueSpeaker component, which registers with the DialogueManager
+    - DialogueSequenceSO has an optional field to override who the initiator of the convo is.
+    - DialogueManager sets a bool on DialogueSpeakers that are the initiator (defaults to first speaker) in a valid (all speakers present) DialogueSequence
+    - Stub InitiateDialogue to print
+    - Has a TeamSelectionCompanion component
+        - Has a reference to an exclamation icon that indicates a dialogue option is present. Displays it and sets a listening bool 
+            if DialogueSpeaker is an initiator (check and set for that in a LateStart)
+        - Listens for a click on the exclamation icon. If it gets one, it:
+            - hides the exclamation icon
+            - calls InitiateDialogue on the DialogueSpeaker
+            - yields on InitiateDialogue, displays InitiationIndicator in done state when complete
+    - DialogueSpeaker initiates dialogue with the DialogueManager on InitiateDialogue
+- Get the same UI from the figma for adjust roster and proceed to combat
+    - Proceed to combat button works
+- Get roster adjustments working
+    - CompanionDisplay works in the scene
+- CompanionDisplay adjusts ActiveCompanionList cardinality
+    - Drag and drop functionality (to be broken down)
+

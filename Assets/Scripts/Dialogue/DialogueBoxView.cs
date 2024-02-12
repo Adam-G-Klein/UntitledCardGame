@@ -18,16 +18,19 @@ public class DialogueBoxView : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        text = GetComponentInChildren<TextMeshProUGUI>();
-        text.text = "";
-        boxAndPortrait = GetComponentsInChildren<Image>().ToList();
-        boxAndPortrait.ForEach(image => image.enabled = false);
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void InitializeView() {
+        text = GetComponentInChildren<TextMeshProUGUI>();
+        text.text = "";
+        boxAndPortrait = GetComponentsInChildren<Image>().ToList();
+        boxAndPortrait.ForEach(image => image.enabled = false);
     }
 
     public IEnumerator DisplayDialogue(DialogueLine dialogueLine)

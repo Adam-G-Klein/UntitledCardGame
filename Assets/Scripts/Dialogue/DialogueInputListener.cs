@@ -4,7 +4,7 @@ using UnityEngine;
 
 /*
 
-Seperating this out from the DialogueManager because I can imagine a lot of 
+Separating this out from the DialogueManager because I can imagine a lot of 
 logic for determining whether input is actually directed at the dialogue system.
 This is where that should live.
 
@@ -26,6 +26,12 @@ public class DialogueInputListener : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(0)) {
             dialogueManager.UserClick();
+        }
+        if(Input.GetKeyDown(KeyCode.R)) {
+            dialogueManager.StartAnyDialogueSequence();
+        }
+        if(Input.GetKeyDown(KeyCode.S)) {
+            CutsceneManager.Instance.NextScene();
         }
     }
 

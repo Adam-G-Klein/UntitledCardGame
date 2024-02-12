@@ -14,6 +14,7 @@ public class CompanionTypeSO : ScriptableObject
     public StartingDeck startingDeck;
     public Sprite keepsake;
     public CardPoolSO cardPool;
+    public SpeakerTypeSO speakerType;
 
     [SerializeReference]
     public CompanionAbility ability;

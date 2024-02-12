@@ -7,7 +7,8 @@ using UnityEngine.Events;
 public class DialogueManager : GenericSingleton<DialogueManager>
 {
     private List<DialogueSpeaker> dialogueSpeakers;
-    public DialogueLocationSO dialogueLocation;
+    [SerializeField]
+    private DialogueLocationSO dialogueLocation;
     public bool dialogueInProgress = false;
     [SerializeReference]
     private DialogueLine currentLine;
@@ -25,20 +26,35 @@ public class DialogueManager : GenericSingleton<DialogueManager>
     private int nextPostSequenceEventIndex = 0;
     [SerializeField]
     private DialogueSequenceSO tutorialSequence;
+    // So other scripts can check if the dialogue manager is ready
+    public bool initialized = false;
+    // Wait on the TeamSelectionManager, or the scene equivalent, to set the location
+    private bool locationInitialized = false;
     
 
     public void RegisterDialogueSpeaker(DialogueSpeaker dialogueSpeaker)
     {
+        Debug.Log("Registering dialogue speaker: " + dialogueSpeaker.speakerType.speakerType);
         dialogueSpeakers.Add(dialogueSpeaker);
     }
 
     void Awake() {
         dialogueSpeakers = new List<DialogueSpeaker>();
+        initialized = false;
+
     }
 
     void Start() {
-        StartCoroutine(validateSpeakers());
+        // Script execution order in Team select is making this not work: 
+        // StartCoroutine(validateSpeakers());
         StartCoroutine(validateDialogueSequences());
+        StartCoroutine(initialize());
+        // TODO: initiating speakers have bool set
+    }
+
+    private IEnumerator initialize() {
+        yield return new WaitUntil(() => locationInitialized);
+        initialized = true;
     }
 
     // For use cases like the shop, post-combat screen, pre-combat screen.
@@ -65,6 +81,16 @@ public class DialogueManager : GenericSingleton<DialogueManager>
             StartDialogueSequence(toStart);
     }
 
+    public List<DialogueSequenceSO> GetDialogueSequencesWithPresentSpeakers() {
+       var presentSpeakers = GetPresentSpeakers();
+       foreach(DialogueSequenceSO sequence in dialogueLocation.sequencesAtLocation) {
+           Debug.Log("sequence at loc: " + sequence.name);
+       }
+       return dialogueLocation.sequencesAtLocation
+            .Where( (sequence) =>
+                 AreAllSpeakersPresent(sequence.requiredSpeakers)).ToList();
+    }
+
     private DialogueSequenceSO GetDialogueSequence() {
         var withPresentSpeakers = GetDialogueSequencesWithPresentSpeakers();
         var unviewed = withPresentSpeakers.Where(sequence => !alreadyViewedSequences.Contains(sequence));
@@ -72,18 +98,12 @@ public class DialogueManager : GenericSingleton<DialogueManager>
     }
 
     private HashSet<SpeakerTypeSO> GetPresentSpeakers() {
-        return dialogueSpeakers.Select(speaker => speaker.speaker).ToHashSet();
+        return dialogueSpeakers.Select(speaker => speaker.speakerType).ToHashSet();
     }
 
-    private List<DialogueSequenceSO> GetDialogueSequencesWithPresentSpeakers() {
-       var presentSpeakers = GetPresentSpeakers();
-       return dialogueLocation.sequencesAtLocation
-            .Where( (sequence) =>
-                 AreAllSpeakersPresent(sequence.requiredSpeakers)).ToList();
-    }
 
     private bool AreAllSpeakersPresent(List<SpeakerTypeSO> requiredSpeakers) {
-        return requiredSpeakers.All(speaker => dialogueSpeakers.Any(s => s.speaker == speaker));
+        return requiredSpeakers.All(speaker => dialogueSpeakers.Any(s => s.speakerType == speaker));
     }
 
     private void StartDialogueSequence(DialogueSequenceSO dialogueSequence) {
@@ -100,7 +120,7 @@ public class DialogueManager : GenericSingleton<DialogueManager>
         while(currentDialogueIndex < dialogueSequence.dialogueLines.Count) {
             currentLine = dialogueSequence.dialogueLines[currentDialogueIndex];
             // find a speaker in the scene that matches the speaker type of the current line
-            currentLineSpeaker = dialogueSpeakers.Where(speaker => speaker.speaker == currentLine.speaker)
+            currentLineSpeaker = dialogueSpeakers.Where(speaker => speaker.speakerType == currentLine.speaker)
                 .FirstOrDefault();
             if(currentLineSpeaker != null) {
                 // will wait until the line is done displaying and the player has provided input
@@ -132,15 +152,15 @@ public class DialogueManager : GenericSingleton<DialogueManager>
                 " Or do we still need to place the DialogueSpeaker prefabs in it?");
         }
         foreach(DialogueSpeaker speaker in dialogueSpeakers
-            .Where(speaker => speaker.speaker == null)) {
+            .Where(speaker => speaker.speakerType == null)) {
             Debug.LogError("Dialogue speaker " + speaker.name + " has no speaker type set.");
 
         }
 
         foreach(DialogueSpeaker speaker in dialogueSpeakers.
             Where(speaker => 
-                speaker.speaker.companionType == null
-                && !SpeakerTypeSO.NonCompanionSpeakers.Contains(speaker.speaker.speakerType)))
+                speaker.speakerType.companionType == null
+                && !SpeakerTypeSO.NonCompanionSpeakers.Contains(speaker.speakerType.speakerType)))
                 {
                     Debug.LogError("Dialogue speaker " + speaker.name + " (with parent) " + speaker.transform.parent.name + " has no companion type set.");
                 }
@@ -172,4 +192,15 @@ public class DialogueManager : GenericSingleton<DialogueManager>
             Debug.LogError("No dialogue sequences found for present speakers at location: " + dialogueLocation.name);
         }
     }
+
+    public void SetDialogueLocation(DialogueLocationSO location) {
+        Debug.Log("Setting dialogue location to: " + location.name);
+        dialogueLocation = location;
+        locationInitialized = true;
+    }
+
+    public int GetDialogueSpeakersCount() {
+        return dialogueSpeakers.Count;
+    }   
+
 }

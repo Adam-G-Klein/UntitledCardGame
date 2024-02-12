@@ -55,29 +55,19 @@ public static class PrefabInstantiator {
         return enemyInstance;
     }
 
-    // public static MinionInstance instantiateMinion(GameObject minionPrefab, Minion minion, Vector3 position){
-    //     CombatEntityWithDeckInstance deckedInstance = instantiateCombatEntityWithDeck(minionPrefab, minion, position);
-    //     MinionInstance minionInstance = deckedInstance.GetComponent<MinionInstance>();
-    //     minionInstance.minion = minion;
-    //     return minionInstance;
-    // }
-
-    // public static void instantiateRandomBackground(GameObject randomBackgroundPrefab, Vector3 position){
-    //     GameObject.Instantiate(randomBackgroundPrefab, position, Quaternion.identity);
-    // }
-
-    // private static CombatEntityWithDeckInstance instantiateCombatEntityWithDeck(GameObject combatEntityPrefab, CombatEntityWithDeck baseStats, Vector3 position){
-    //     CombatEntityWithDeckInstance deckedInstance = instantiateCombatEntity(combatEntityPrefab, baseStats, position).GetComponent<CombatEntityWithDeckInstance>();
-    //     deckedInstance.deckEntity = baseStats;
-    //     return deckedInstance;
-    // }
-
-    // private static CombatEntityInstance instantiateCombatEntity(GameObject combatEntityPrefab, CombatEntityBaseStats baseStats, Vector3 position){
-    //     GameObject newCombatEntity = GameObject.Instantiate(combatEntityPrefab, position, Quaternion.identity);
-    //     CombatEntityInstance combatEntityInstance = newCombatEntity.GetComponent<CombatEntityInstance>();
-    //     combatEntityInstance.baseStats = baseStats;
-    //     combatEntityInstance.id = baseStats.getId();
-    //     return combatEntityInstance;
-    // }
+    public static TeamSelectionCompanion InstantiateTeamSelectionCompanion(
+        GameObject teamSelectionCompanionPrefab,
+        Companion companion,
+        Vector2 position,
+        Transform parentCanvas)
+    {
+        GameObject companionGO = GameObject.Instantiate(
+            teamSelectionCompanionPrefab,
+            position,
+            Quaternion.identity, parentCanvas);
+        TeamSelectionCompanion teamSelectionCompanion = companionGO.GetComponent<TeamSelectionCompanion>();
+        teamSelectionCompanion.Initialize(companion);
+        return teamSelectionCompanion;
+    }
 
 }

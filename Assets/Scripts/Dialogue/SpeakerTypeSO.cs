@@ -23,4 +23,5 @@ public class SpeakerTypeSO : ScriptableObject
         SpeakerType.MainCharacter,
         SpeakerType.Concierge
     };
+
 }
