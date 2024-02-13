@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 20
   baseAttackDamage: 3
-<<<<<<< HEAD:Assets/ScriptableObjects/Enemies/TestEnemies/Goblin.asset
   sprite: {fileID: -2013906114, guid: 52ef76537258f7d43a3a9dc144329c2f, type: 3}
   enemyPattern:
     behaviors:
@@ -37,7 +36,3 @@ MonoBehaviour:
         scale: 0
         getScaleFromKey: 0
         inputScaleKey: 
-=======
-  sprite: {fileID: 21300000, guid: cf60b5e463ab9444c89775818bee8c87, type: 3}
-  brain: {fileID: 11400000, guid: 4723f6c8d6c3ab043b3fc33b4753ccd8, type: 2}
->>>>>>> e6e5a69 (Art Integration with Correct Unity):Assets/ScriptableObjects/Enemies/Goblin.asset

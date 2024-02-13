@@ -685,6 +685,10 @@ PrefabInstance:
       propertyPath: speaker
       value: 
       objectReference: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
+    - target: {fileID: 6154439932395738019, guid: 32fd1538696afa44c98a238adaf5f2ff, type: 3}
+      propertyPath: speakerType
+      value: 
+      objectReference: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
     - target: {fileID: 6154439932395738020, guid: 32fd1538696afa44c98a238adaf5f2ff, type: 3}
       propertyPath: m_Name
       value: ConciergeSpeaker
@@ -1413,6 +1417,10 @@ PrefabInstance:
       propertyPath: m_PresetInfoIsWorld
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6154439932395738019, guid: 32fd1538696afa44c98a238adaf5f2ff, type: 3}
+      propertyPath: speakerType
+      value: 
+      objectReference: {fileID: 11400000, guid: 0ffd109ae66c2a54cb93828dea1a7219, type: 2}
     - target: {fileID: 6154439932395738020, guid: 32fd1538696afa44c98a238adaf5f2ff, type: 3}
       propertyPath: m_Name
       value: AidenSpeaker

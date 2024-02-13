@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5645320489653517868}
   - component: {fileID: 5620027923160373796}
-  - component: {fileID: 8722452810737244100}
   - component: {fileID: 4170346440579783855}
   - component: {fileID: 2269818625202538432}
   - component: {fileID: 5398155801327605066}
@@ -36,7 +35,6 @@ RectTransform:
   - {fileID: 6574263333962394450}
   - {fileID: 5066305890691937119}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -56,40 +54,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardInfo:
-    cardType: {fileID: 0}
     id: 
+    entityType: 0
+    castCount: 0
+    cardType: {fileID: 0}
   CardName: {fileID: 543366990806004499}
   CostText: {fileID: 490381460284859012}
   CardDesc: {fileID: 543366991623137855}
   Artwork: {fileID: 543366991597456405}
---- !u!114 &8722452810737244100
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5645320489653517871}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5501327943af6c438db85bdcdb2ceac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: 709caf6df9005934dbe5ec0e1bd93bb6, type: 2}
-  unityEventResponse:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2269818625202538432}
-        m_TargetAssemblyTypeName: TargettableEntity, Assembly-CSharp
-        m_MethodName: effectTargetRequestEventHandler
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &4170346440579783855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,8 +106,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   card:
-    cardType: {fileID: 0}
     id: 
+    entityType: 0
+    castCount: 0
+    cardType: {fileID: 0}
   selectionFrame: {fileID: 8912284919161795999}
   selected: 0
 --- !u!114 &5398155801327605066
@@ -197,7 +171,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5645320489653517868}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -247,23 +220,36 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 5645320489653517868}
     m_Modifications:
     - target: {fileID: 647632408210706004, guid: d235b184f6564184b93f762200dec9e5, type: 3}
       propertyPath: m_Name
       value: BaseCard
       objectReference: {fileID: 0}
+    - target: {fileID: 4183466307204269014, guid: d235b184f6564184b93f762200dec9e5, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 10.299988
+      objectReference: {fileID: 0}
     - target: {fileID: 4183466307204269015, guid: d235b184f6564184b93f762200dec9e5, type: 3}
       propertyPath: m_fontSize
-      value: 32.35
+      value: 58.5
       objectReference: {fileID: 0}
     - target: {fileID: 4183466308522564347, guid: d235b184f6564184b93f762200dec9e5, type: 3}
       propertyPath: m_fontSize
-      value: 36.35
+      value: 51.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 4183466308563975379, guid: d235b184f6564184b93f762200dec9e5, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 3.100006
       objectReference: {fileID: 0}
     - target: {fileID: 4272484758180893248, guid: d235b184f6564184b93f762200dec9e5, type: 3}
       propertyPath: m_fontSize
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4398611049511405469, guid: d235b184f6564184b93f762200dec9e5, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.61520386
       objectReference: {fileID: 0}
     - target: {fileID: 6555415324687867078, guid: d235b184f6564184b93f762200dec9e5, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -362,6 +348,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d235b184f6564184b93f762200dec9e5, type: 3}
 --- !u!114 &490381460284859012 stripped
 MonoBehaviour:

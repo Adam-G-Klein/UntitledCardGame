@@ -15,7 +15,6 @@ MonoBehaviour:
   companionName: Beeg Boi
   maxHealth: 10
   baseAttackDamage: 0
-<<<<<<< HEAD:Assets/ScriptableObjects/Companions/CompanionTypes/TestCompanions/blocke.asset
   sprite: {fileID: 21300000, guid: bdd59c505b86bf44cabf5f9f82a41064, type: 3}
   startingDeck: {fileID: 11400000, guid: 955876fe0c18483459bd65e7c6fb9d0a, type: 2}
   keepsake: {fileID: 21300000, guid: a100f38fb92da834786807cb66e2ebba, type: 3}
@@ -28,19 +27,6 @@ MonoBehaviour:
     RefIds:
     - rid: 1886370794371285028
       type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
-=======
-  sprite: {fileID: 21300000, guid: f0be75aad7c198b43a2fe0441902d37e, type: 3}
-  startingDeck: {fileID: 11400000, guid: 17489518ceb9d7341947bea0c6f7629e, type: 2}
-  keepsake: {fileID: 21300000, guid: a100f38fb92da834786807cb66e2ebba, type: 3}
-  cardPool: {fileID: 11400000, guid: 3e33e8a22ef5f3e46bf67e48ebcbea1c, type: 2}
-  abilities:
-  - rid: 5828584026221052419
-  references:
-    version: 2
-    RefIds:
-    - rid: 5828584026221052419
-      type: {class: GainMaxHpOnEntityDeath, ns: , asm: Assembly-CSharp}
->>>>>>> e6e5a69 (Art Integration with Correct Unity):Assets/ScriptableObjects/Companions/CompanionTypes/DesignedCompanion/Endurance.asset
       data:
         companionAbilityTrigger: 0
         effectSteps: []

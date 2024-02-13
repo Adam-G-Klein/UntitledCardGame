@@ -225,7 +225,7 @@ public class DeckInstance : MonoBehaviour
 
     private void OnEndEncounter() {
         foreach (Card card in sourceDeck.cards) {
-            card.ResetCardModifications();
+            card.InitializeCardModifications();
         }
     }
 

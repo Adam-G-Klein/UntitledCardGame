@@ -75,12 +75,14 @@ public class Card : Entity, IEquatable<Card>
     {
         this.cardType = cardType;
         this.id = Id.newGuid();
+        InitializeCardModifications();
     }
 
     public Card(Card card) {
         this.cardType = card.cardType;
         id = card.id;
         this.effectBuffs = card.effectBuffs;
+        InitializeCardModifications();
     }
 
     public static bool operator !=(Card a, Card b) {
@@ -145,7 +147,10 @@ public class Card : Entity, IEquatable<Card>
         }
     }
 
-    public void ResetCardModifications() {
+    public void InitializeCardModifications() {
         cardModifications = new Dictionary<CardModification, int>();
+        foreach(int i in Enum.GetValues(typeof(CardModification))) {
+            cardModifications.Add((CardModification)i, 0);
+        }
     }
 }
