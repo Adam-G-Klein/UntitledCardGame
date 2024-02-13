@@ -55,19 +55,4 @@ public static class PrefabInstantiator {
         return enemyInstance;
     }
 
-    public static TeamSelectionCompanion InstantiateTeamSelectionCompanion(
-        GameObject teamSelectionCompanionPrefab,
-        Companion companion,
-        Vector2 position,
-        Transform parentCanvas)
-    {
-        GameObject companionGO = GameObject.Instantiate(
-            teamSelectionCompanionPrefab,
-            position,
-            Quaternion.identity, parentCanvas);
-        TeamSelectionCompanion teamSelectionCompanion = companionGO.GetComponent<TeamSelectionCompanion>();
-        teamSelectionCompanion.Initialize(companion);
-        return teamSelectionCompanion;
-    }
-
 }

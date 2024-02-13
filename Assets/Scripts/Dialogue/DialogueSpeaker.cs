@@ -13,14 +13,18 @@ public class DialogueSpeaker : MonoBehaviour
 
     public bool hasInitiatableDialogue = false;
     public bool initialized = false;
+    public bool alwaysActive = false;
+    private InteractionPromptView interactionPromptView;
     // Start is called before the first frame update
     void Start()
     {
-        if(!initialized) {
+        // For speakers that are always enabled in the scene
+        if(!initialized && alwaysActive) {
             if(speakerType == null) {
-                Debug.LogError("Speaker type not set on " + gameObject.name + " DialogueSpeaker");
+                Debug.Log("Speaker type not set on " + gameObject.name + " DialogueSpeaker");
+            } else {
+                InitializeSpeaker(true, speakerType);
             }
-            InitializeSpeaker(speakerType);
         }
     }
 
@@ -30,16 +34,24 @@ public class DialogueSpeaker : MonoBehaviour
         
     }
 
-    public void InitializeSpeaker(SpeakerTypeSO speaker) {
+    public void InitializeSpeaker(bool enabled, 
+        SpeakerTypeSO speaker = null, 
+        // InteractionPrompt for team selection screen companions
+        InteractionPromptView interactionPromptView = null) {
         if (initialized) {
+            return;
+        }
+        this.interactionPromptView = interactionPromptView;
+        initialized = true;
+        dialogueBoxView = GetComponent<DialogueBoxView>();
+        dialogueBoxView.InitializeView();
+        if(!enabled) {
+            dialogueBoxView.Clear();
             return;
         }
         this.speakerType = speaker;
         Debug.Log("Speaker initialized: " + speakerType);
-        dialogueBoxView = GetComponent<DialogueBoxView>();
-        dialogueBoxView.InitializeView();
         DialogueManager.Instance.RegisterDialogueSpeaker(this);
-        initialized = true;
     }
 
     public IEnumerator SpeakLine(DialogueLine dialogueLine) {
@@ -47,7 +59,12 @@ public class DialogueSpeaker : MonoBehaviour
             dialogueBoxView.Clear();
             StopCoroutine(currentLineCoroutine);
         }
-        currentLineCoroutine = dialogueBoxView.DisplayDialogue(dialogueLine);
+        if(interactionPromptView != null) {
+            interactionPromptView.SetVisible(false);
+        }
+        currentLineCoroutine = dialogueBoxView.DisplayDialogue(dialogueLine, () => { 
+            if(interactionPromptView != null) interactionPromptView.SetVisible(true);
+        });
         userProceeded = false;
         StartCoroutine(currentLineCoroutine);
         yield return new WaitUntil(() => userProceeded);

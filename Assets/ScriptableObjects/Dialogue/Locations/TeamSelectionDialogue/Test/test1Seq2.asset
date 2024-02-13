@@ -16,6 +16,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3bef4ef49705e2940af4cd5d02251f0f, type: 2}
   dialogueLines:
   - rid: 326914648116035618
+  - rid: 326915015574028289
   references:
     version: 2
     RefIds:
@@ -24,3 +25,8 @@ MonoBehaviour:
       data:
         speaker: {fileID: 11400000, guid: 3bef4ef49705e2940af4cd5d02251f0f, type: 2}
         line: Rene testing team selection screen 1 sequence 2!
+    - rid: 326915015574028289
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 9e835f3c4c49e9f4da934369a0a7132b, type: 2}
+        line: Pythia testing too

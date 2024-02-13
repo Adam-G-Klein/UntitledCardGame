@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.Events;
+using System;
 
 public class DialogueManager : GenericSingleton<DialogueManager>
 {
@@ -34,7 +35,6 @@ public class DialogueManager : GenericSingleton<DialogueManager>
 
     public void RegisterDialogueSpeaker(DialogueSpeaker dialogueSpeaker)
     {
-        Debug.Log("Registering dialogue speaker: " + dialogueSpeaker.speakerType.speakerType);
         dialogueSpeakers.Add(dialogueSpeaker);
     }
 
@@ -106,15 +106,15 @@ public class DialogueManager : GenericSingleton<DialogueManager>
         return requiredSpeakers.All(speaker => dialogueSpeakers.Any(s => s.speakerType == speaker));
     }
 
-    private void StartDialogueSequence(DialogueSequenceSO dialogueSequence) {
+    public void StartDialogueSequence(DialogueSequenceSO dialogueSequence, Action callback = null) {
         Debug.Log("Starting dialogue sequence: " + dialogueSequence.name);
-        currentDialogueSequenceCoroutine = dialogueSequenceCoroutine(dialogueSequence);
+        currentDialogueSequenceCoroutine = dialogueSequenceCoroutine(dialogueSequence, callback);
         StartCoroutine(currentDialogueSequenceCoroutine);
         alreadyViewedSequences.Add(dialogueSequence);
     }
 
     
-    private IEnumerator dialogueSequenceCoroutine(DialogueSequenceSO dialogueSequence) {
+    private IEnumerator dialogueSequenceCoroutine(DialogueSequenceSO dialogueSequence, Action callback = null) {
         dialogueInProgress = true;
         currentDialogueIndex = 0;
         while(currentDialogueIndex < dialogueSequence.dialogueLines.Count) {
@@ -134,6 +134,7 @@ public class DialogueManager : GenericSingleton<DialogueManager>
             postSequenceEvents[nextPostSequenceEventIndex].Invoke();
             nextPostSequenceEventIndex += 1;
         }
+        if(callback != null) callback.Invoke();
     }
     public void UserClick()
     {
