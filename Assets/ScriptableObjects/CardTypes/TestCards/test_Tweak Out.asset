@@ -15,7 +15,9 @@ MonoBehaviour:
   Name: Tweak Out
   Description: Discard two cards to deal 10 damaage
   Cost: 0
-  Artwork: {fileID: 21300000, guid: 13bbb4ba4642f9240914cd432071cc6a, type: 3}
+  Artwork: {fileID: 21300000, guid: 901427690b387254b80e3a4248bbbda6, type: 3}
+  vfxPrefab: {fileID: 0}
+  playable: 1
   EffectProcedures:
   - rid: 2812361760619102226
   - rid: 2812361760619102227
@@ -47,4 +49,5 @@ MonoBehaviour:
         baseScale: 10
         targetCaster: 0
         targetAllValidTargets: 0
+        targetToUse: -1
         validTargets: 01000000

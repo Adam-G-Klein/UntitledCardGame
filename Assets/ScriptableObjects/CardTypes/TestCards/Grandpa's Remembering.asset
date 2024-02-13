@@ -15,7 +15,9 @@ MonoBehaviour:
   Name: Grandpa's Remembering
   Description: Draw cards for mana what more do you want from me
   Cost: 1
-  Artwork: {fileID: 21300000, guid: 1b0ccf3a0e7b0074bb900539fcac29bf, type: 3}
+  Artwork: {fileID: 21300000, guid: 901427690b387254b80e3a4248bbbda6, type: 3}
+  vfxPrefab: {fileID: 0}
+  playable: 1
   EffectProcedures:
   - rid: 2812361760619102223
   references:
@@ -29,4 +31,5 @@ MonoBehaviour:
         baseScale: 2
         targetCaster: 0
         targetAllValidTargets: 0
+        targetToUse: -1
         validTargets: 0000000002000000

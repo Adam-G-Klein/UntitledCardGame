@@ -16,7 +16,9 @@ MonoBehaviour:
   Description: show them all.. SHOW THEM YOUR STRENGTH (deal damage to all companions
     and enemies)
   Cost: 1
-  Artwork: {fileID: -1111278743, guid: 33ba4bd24a9cc384c880d4c9d5443278, type: 3}
+  Artwork: {fileID: 21300000, guid: 901427690b387254b80e3a4248bbbda6, type: 3}
+  vfxPrefab: {fileID: 0}
+  playable: 1
   EffectProcedures:
   - rid: 2812361760619102219
   references:
@@ -30,4 +32,5 @@ MonoBehaviour:
         baseScale: 5
         targetCaster: 0
         targetAllValidTargets: 1
+        targetToUse: -1
         validTargets: 000000000100000002000000
