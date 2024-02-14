@@ -15,6 +15,7 @@ public class CardDisplay : MonoBehaviour
     private Camera mainCamera;
 
     // Start is called before the first frame update
+    // TODO, run on instantiation
     void Update()
     {
         // runInEditMode = true;
