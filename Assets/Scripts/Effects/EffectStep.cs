@@ -33,7 +33,11 @@ public enum EffectStepName {
     RemoveStatus,
     GetCardsFromDiscard,
     FilterByCardCategory,
-    AddManaNextTurn
+    AddManaNextTurn,
+    EndWorkflowIfConditionMet,
+    CheckTypeOfMostRecentlyPlayedCard,
+    HasCardActionBeenTakenThisTurn,
+    QuantityOfCardTypePlayedThisTurn
 }
 
 [System.Serializable]

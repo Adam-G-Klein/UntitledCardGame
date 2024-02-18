@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98c54fe17bbfaba4697c85c1618843f4, type: 3}
+  m_Name: BeezelBumblerCardPool 1
+  m_EditorClassIdentifier: 
+  commonCards:
+  - {fileID: 11400000, guid: 2fb1ff5b996cff848acc4cbd846ebc49, type: 2}
+  - {fileID: 11400000, guid: 316d443a77d87d447990d1ed770ed81b, type: 2}
+  - {fileID: 11400000, guid: 3fe89f2c7b366cb46b2bbe3f4e462aa5, type: 2}
+  - {fileID: 11400000, guid: 6f04568326184884eaef2da243b0354d, type: 2}
+  - {fileID: 11400000, guid: 8f19923da99a6e447b5d51790f725453, type: 2}
+  uncommonCards: []
+  rareCards: []
+  commonCardPrice: 1
+  uncommonCardPrice: 2
+  rareCardPrice: 3
