@@ -9,6 +9,10 @@ using UnityEngine;
 public class BooleanComparison : EffectStep
 {
     [SerializeField]
+    private int hardCodedInputKey1 = 0;
+    [SerializeField]
+    private bool useHardCodedInputKey1 = false;
+    [SerializeField]
     private string inputKey1 = "";
     [SerializeField]
     private Operation operation;
@@ -22,11 +26,16 @@ public class BooleanComparison : EffectStep
     }
 
     public override IEnumerator invoke(EffectDocument document) {
-        if (!document.intMap.ContainsKey(inputKey1) || !document.intMap.ContainsKey(inputKey2)) {
+        if ((!useHardCodedInputKey1 && !document.intMap.ContainsKey(inputKey1)) || !document.intMap.ContainsKey(inputKey2)) {
             EffectError("Missing either key " + inputKey1 + " or key " + inputKey2 + "in int map!");
             yield return null;
         }
-        int num1 = document.intMap[inputKey1];
+        int num1;
+        if (useHardCodedInputKey1) {
+            num1 = hardCodedInputKey1;
+        } else {
+            num1 = document.intMap[inputKey1];
+        }
         int num2 = document.intMap[inputKey2];
         bool result = false;
         switch (operation) {

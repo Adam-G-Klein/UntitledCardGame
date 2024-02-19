@@ -26,6 +26,12 @@ public class CombatEffectStep : EffectStep
     private bool getScaleFromKey = false;
     [SerializeField]
     private string inputScaleKey = "";
+    [SerializeField]
+    private int multiplicity = 1;
+    [SerializeField]
+    private bool getMultiplicityFromKey = false;
+    [SerializeField]
+    private string inputMultiplicityKey = "";
 
     public CombatEffectStep() {
         effectStepName = "CombatEffectStep";
@@ -61,10 +67,21 @@ public class CombatEffectStep : EffectStep
             baseScale = scale;
         }
 
+        int baseMultiplicity;
+        if (getMultiplicityFromKey && document.intMap.ContainsKey(inputMultiplicityKey)) {
+            baseMultiplicity = document.intMap[inputMultiplicityKey];
+        } else {
+            baseMultiplicity = multiplicity;
+        }
+
         int finalScale = UpdateScaleForEffect(baseScale, originCombatInstance, originCard);
 
         foreach (CombatInstance instance in instances) {
-            instance.ApplyNonStatusCombatEffect(combatEffect, finalScale, originCombatInstance);
+            for (int i = 0; i < baseMultiplicity; i++) {
+                if (instance != null) { // This protects against the case in which the enemy is destroyed before all hits of the damage are completed
+                    instance.ApplyNonStatusCombatEffect(combatEffect, finalScale, originCombatInstance);
+                }
+            }
         }
 
         yield return null;
