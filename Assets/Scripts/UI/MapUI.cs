@@ -22,16 +22,15 @@ public class MapUI : MonoBehaviour
         bool isEncounterOutOfRange = false;
         int activeEncounterIndex = -2;
         foreach (Encounter encounter in gameState.map.GetValue().encounters) {
-            // Encounter encounter = encounterVariable.GetValue();
             IconState iconState;
-            if (encounter.isCompleted) {
-                iconState = IconState.COMPLETED;
-                activeEncounterIndex++;
+            if (encounter.id == gameState.activeEncounter.GetValue().id) {
+                iconState = IconState.UPCOMING;
+                isEncounterOutOfRange = true;
             } else if (isEncounterOutOfRange) {
                 iconState = IconState.OUT_OF_RANGE;
             } else {
-                iconState = IconState.UPCOMING;
-                isEncounterOutOfRange = true;
+                iconState = IconState.COMPLETED;
+                activeEncounterIndex++;
             }
             GameObject newIcon = GameObject.Instantiate(
                 iconPrefab, 

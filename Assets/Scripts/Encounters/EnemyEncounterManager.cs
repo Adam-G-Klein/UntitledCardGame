@@ -37,6 +37,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
 
     public void EndEncounterHandler(EndEncounterEventInfo info) {
         gameState.activeEncounter.GetValue().isCompleted = true;
+        Debug.Log("EndEncounterHandler called, activeEncounter is " + gameState.activeEncounter.GetValue().id + " isCompleted is " + gameState.activeEncounter.GetValue().isCompleted);
 
         // Gold interest calculation
         int baseGoldEarnedPerBattle = 10;

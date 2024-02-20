@@ -34,8 +34,6 @@ public class GameStateVariableSO : ScriptableObject
     [Header("The Next Combat or Shop Encounter we'll enter")]
     public EncounterVariableSO nextEncounter;
     public Location currentLocation;
-    [SerializeField]
-    private DialogueLocationSO testLocation;
     private Dictionary<Location, string> locationToScene = new Dictionary<Location, string>() {
         {Location.MAIN_MENU, "MainMenu"},
         {Location.WAKE_UP_ROOM, "AidensRoom"},
@@ -77,7 +75,6 @@ public class GameStateVariableSO : ScriptableObject
     // what our current game state is. Lmk your thoughts though.
     public void LoadNextLocation(Location nextLocation = Location.NONE) { 
         Debug.Log("Loading next location, current location is: " + currentLocation);
-        // Thanks for genning this copilot <3 :)
         if(nextLocation == Location.NONE && !locationToNextLocation.ContainsKey(currentLocation)) {
             Debug.LogError("Location " + currentLocation + " is not in the locationToNextLocation dictionary");
             return;
