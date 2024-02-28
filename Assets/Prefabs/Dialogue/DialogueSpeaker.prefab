@@ -372,7 +372,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &6154439932395738022
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -402,9 +402,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 461596d9d484cb94dba0e60eb1620b20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speaker: {fileID: 11400000, guid: 0ffd109ae66c2a54cb93828dea1a7219, type: 2}
+  speakerType: {fileID: 0}
   isSpeaking: 0
   userProceeded: 1
+  hasInitiatableDialogue: 0
+  initialized: 0
+  alwaysActive: 0
 --- !u!114 &6154439932395738018
 MonoBehaviour:
   m_ObjectHideFlags: 0

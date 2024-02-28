@@ -26,7 +26,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     }
 
     public void BuildEnemyEncounter(EnemyEncounter encounter) {
-        encounter.Build(gameState.companions.companionList, encounterConstants);
+        encounter.Build(gameState.companions.activeCompanions, encounterConstants);
     }
 
     void Update() {
@@ -54,6 +54,8 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
 
         gameState.LoadNextLocation();
         postCombatUI.SetActive(true);
+        DialogueManager.Instance.SetDialogueLocation(gameState);
+        DialogueManager.Instance.StartAnyDialogueSequence();
     }
 
     // This exists to satisfy the IEncounterBuilder interface.

@@ -29,9 +29,15 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     public void BuildShopEncounter(ShopEncounter shopEncounter) {
         this.shopEncounter = shopEncounter;
         this.shopLevel = shopEncounter.shopData.GetShopLevel(gameState.playerData.GetValue().shopLevel);
-        shopEncounter.Build(this, gameState.companions.companionList, encounterConstants, this.shopLevel);
+        shopEncounter.Build(this, gameState.companions.activeCompanions, encounterConstants, this.shopLevel);
 
         CheckDisableUpgradeButton();
+        DialogueManager.Instance.SetDialogueLocation(
+            gameState.dialogueLocations.GetDialogueLocation(
+                gameState.currentLocation, 
+                gameState.GetLoopIndex(),
+                gameState.playerData.GetValue().seenTutorial));
+        DialogueManager.Instance.StartAnyDialogueSequence();
     }
 
     void Update() {
@@ -74,7 +80,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         List<Companion> companionList = new();
 
         //set up companion list
-        foreach (var companion in gameState.companions.companionList) {
+        foreach (var companion in gameState.companions.activeCompanions) {
             //Now this is Epic
             if (companion.companionType.cardPool.commonCards.Contains(cardInfo.cardType) ||
                 companion.companionType.cardPool.uncommonCards.Contains(cardInfo.cardType) ||
@@ -91,7 +97,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         List<Companion> companionList = new();
 
         //set up bench list
-        foreach (var companion in gameState.companions.companionBench) {
+        foreach (var companion in gameState.companions.benchedCompanions) {
             if (companion.companionType.cardPool.commonCards.Contains(cardInfo.cardType) ||
                 companion.companionType.cardPool.uncommonCards.Contains(cardInfo.cardType) ||
                 companion.companionType.cardPool.rareCards.Contains(cardInfo.cardType)) {
@@ -104,7 +110,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
     public void processCompanionBuyRequest(CompanionBuyRequest request) {
         if (gameState.playerData.GetValue().gold >= request.price) {
-            this.gameState.companions.companionBench.Add(request.companion);
+            this.gameState.companions.benchedCompanions.Add(request.companion);
             gameState.playerData.GetValue().gold -= request.price;
             GameObject.Instantiate(
                 encounterConstants.cardSoldOutPrefab, 
@@ -180,7 +186,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
     private void rerollShop() {
         shopRefreshEvent.Raise(null);
-        shopEncounter.Build(this, gameState.companions.companionList, encounterConstants, shopLevel);
+        shopEncounter.Build(this, gameState.companions.activeCompanions, encounterConstants, shopLevel);
     }
 
     public void saveShopEncounter(ShopEncounter shopEncounter) {

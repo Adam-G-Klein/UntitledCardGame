@@ -1,0 +1,201 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4df9178e061cce447b55bdea396ec265, type: 3}
+  m_Name: CompanionListB
+  m_EditorClassIdentifier: 
+  activeCompanions:
+  - id: c0ed667c-9080-4e3a-a995-1f1b70109d39
+    entityType: 0
+    companionType: {fileID: 11400000, guid: a388cdca9749764489c477a814a4dd5b, type: 2}
+    upgradeInfo: {fileID: 11400000, guid: 99076b48c6110564cb87cbbb29a513b6, type: 2}
+    deck:
+      startingDeck: {fileID: 11400000, guid: 43310908266524bf6a55b921e6299942, type: 2}
+      cards:
+      - id: 93bcc40c-4427-45b2-8279-312403de4cc0
+        entityType: 0
+        castCount: 0
+        cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
+      - id: 49f17b60-870b-4f10-9313-5d9d230374e8
+        entityType: 0
+        castCount: 0
+        cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
+      - id: 41ffb57a-bd77-4f00-b5ae-c0a0c8f070cd
+        entityType: 0
+        castCount: 0
+        cardType: {fileID: 11400000, guid: 0923090ee0f834ecab2593fbd362c502, type: 2}
+      - id: b12c204f-0b87-4e94-a351-2dd0790c526a
+        entityType: 0
+        castCount: 0
+        cardType: {fileID: 11400000, guid: 0923090ee0f834ecab2593fbd362c502, type: 2}
+      - id: b75a4300-7252-4bc6-b169-e974a72de8cb
+        entityType: 0
+        castCount: 0
+        cardType: {fileID: 11400000, guid: ed9b1014bfda04e5a881b8a30b841704, type: 2}
+      cardsDealtPerTurn: 1
+    combatStats:
+      maxHealth: 20
+      currentHealth: 20
+      baseAttackDamage: 0
+    ability:
+      rid: 594700683536498780
+  - id: 433e60f1-b593-4200-8eac-fa81baa22d10
+    entityType: 0
+    companionType: {fileID: 11400000, guid: c106de03c6bb3ab4e952724e5e4a073c, type: 2}
+    upgradeInfo: {fileID: 11400000, guid: 99076b48c6110564cb87cbbb29a513b6, type: 2}
+    deck:
+      startingDeck: {fileID: 11400000, guid: 1e6712d15d797514aa606a6a0d84a059, type: 2}
+      cards:
+      - id: cee77c85-8e5b-406e-b85b-e3b13b3c4bed
+        entityType: 0
+        castCount: 0
+        cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
+      - id: 0851232a-1cf5-47e4-ba40-9eb7d571f6d0
+        entityType: 0
+        castCount: 0
+        cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
+      - id: d680f459-24bf-43ef-bfb9-74ac6c8b9b7f
+        entityType: 0
+        castCount: 0
+        cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
+      - id: f0fa7071-5422-4220-bc3d-3bfc4dcf6efd
+        entityType: 0
+        castCount: 0
+        cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
+      - id: 79d5c5ea-2e18-496a-8bfd-bf734306df18
+        entityType: 0
+        castCount: 0
+        cardType: {fileID: 11400000, guid: af631239de690bd4f9c3504152e145d7, type: 2}
+      cardsDealtPerTurn: 2
+    combatStats:
+      maxHealth: 20
+      currentHealth: 20
+      baseAttackDamage: 0
+    ability:
+      rid: 594700683536498783
+  - id: 14f2fe07-b09c-4cc0-a557-713ec46da29c
+    entityType: 0
+    companionType: {fileID: 11400000, guid: 4d253e77b533ea64ba6355a37741c0cf, type: 2}
+    upgradeInfo: {fileID: 11400000, guid: 99076b48c6110564cb87cbbb29a513b6, type: 2}
+    deck:
+      startingDeck: {fileID: 11400000, guid: f88499d65b2d43848a8f72b8bcfa65df, type: 2}
+      cards:
+      - id: 34e8cf00-045c-47d7-ad58-24f1e5bc6e73
+        entityType: 0
+        castCount: 0
+        cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
+      - id: ff2b1a72-761c-47c9-9127-919993e2ff64
+        entityType: 0
+        castCount: 0
+        cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
+      - id: aac87a35-8087-4f28-b1f6-8a020acb2522
+        entityType: 0
+        castCount: 0
+        cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
+      - id: 5f1968d6-138b-4725-afca-1ae065f436ec
+        entityType: 0
+        castCount: 0
+        cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
+      - id: 314e65d4-088f-49d2-a782-7d9da6311c48
+        entityType: 0
+        castCount: 0
+        cardType: {fileID: 11400000, guid: 3ea4fc4054021ce4788b5012ed153111, type: 2}
+      cardsDealtPerTurn: 1
+    combatStats:
+      maxHealth: 20
+      currentHealth: 20
+      baseAttackDamage: 0
+    ability:
+      rid: 594700683536498784
+  benchedCompanions: []
+  currentCompanionSlots: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 594700683536498780
+      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
+      data:
+        companionAbilityTrigger: 4
+        effectSteps:
+        - rid: 594700683536498781
+        - rid: 594700683536498782
+    - rid: 594700683536498781
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 594700683536498782
+      type: {class: PermanentStatIncrease, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: PermanentStatIncrease
+        inputKey: self
+        statIncreaseType: 0
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 594700683536498783
+      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
+      data:
+        companionAbilityTrigger: 0
+        effectSteps: []
+    - rid: 594700683536498784
+      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
+      data:
+        companionAbilityTrigger: 1
+        effectSteps:
+        - rid: 594700683536498785
+        - rid: 594700683536498786
+        - rid: 594700683536498787
+        - rid: 594700683536498788
+    - rid: 594700683536498785
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: target
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 0
+        cantCancelTargetting: 0
+    - rid: 594700683536498786
+      type: {class: GetCardsFromDeck, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetCardsFromDeck
+        inputKey: target
+        getLimitedNumber: 0
+        numberOfCardsToGet: 1
+        outputKey: allCardsInDeck
+        getCardsFromSourceDeck: 0
+    - rid: 594700683536498787
+      type: {class: SelectCardsFromList, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: SelectCardsFromList
+        inputKey: allCardsInDeck
+        outputKey: cardToPurge
+        promptText: Select a card to purge from the deck
+        targets: 1
+        getNumberOfTargetsFromKey: 0
+        inputTargetsKey: 
+    - rid: 594700683536498788
+      type: {class: CardInDeckEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardInDeckEffect
+        inputCardsKey: cardToPurge
+        inputDeckKey: target
+        effect: 1
+        outputKey: 

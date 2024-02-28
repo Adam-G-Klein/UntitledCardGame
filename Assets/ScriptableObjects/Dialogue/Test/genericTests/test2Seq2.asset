@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 23517bc57e0f44146a39f61c3db5a303, type: 3}
-  m_Name: test3Seq1
+  m_Name: test2Seq2
   m_EditorClassIdentifier: 
   requiredSpeakers:
-  - {fileID: 11400000, guid: 9e835f3c4c49e9f4da934369a0a7132b, type: 2}
+  - {fileID: 11400000, guid: 76fc1ea2d414956428399f565e424d83, type: 2}
   dialogueLines:
+  - rid: 594700683536498809
   - rid: 326914648116035618
   references:
     version: 2
@@ -22,5 +23,10 @@ MonoBehaviour:
     - rid: 326914648116035618
       type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
       data:
-        speaker: {fileID: 11400000, guid: 9e835f3c4c49e9f4da934369a0a7132b, type: 2}
-        line: pythia testing team selection screen 2 sequence 1!
+        speaker: {fileID: 11400000, guid: 16a6a477166d98c4d9b79b1d5ae69638, type: 2}
+        line: Entropy testing team selection screen 2 sequence 2!
+    - rid: 594700683536498809
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 76fc1ea2d414956428399f565e424d83, type: 2}
+        line: test aborah line

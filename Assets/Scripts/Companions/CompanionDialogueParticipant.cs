@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TeamSelectionCompanion : MonoBehaviour 
+public class CompanionDialogueParticipant : MonoBehaviour 
 {
     // initialize and instantiate here, have this initialize the dialogueSpeaker
     [Tooltip("This companion's type, used to set the image in the scene. Searched for by the TeamSelectionManager")]
@@ -14,28 +14,38 @@ public class TeamSelectionCompanion : MonoBehaviour
     private DialogueSpeaker dialogueSpeaker;
     [SerializeField]
     [Tooltip("This image is set from this component's companionType, using its sprite field")]
-    private Image image;
+    private Image spriteInScene;
     private InteractionPromptView interactionPromptView;
     private DialogueSequenceSO initiatableDialogue;
 
 
-    public void Initialize(bool enabled, Companion companion = null) {
-        interactionPromptView = GetComponentInChildren<InteractionPromptView>();
+    public void InitializeCompanion(bool enabled, Location currentLocation, Companion companion = null) {
+        // Get the components so that we don't null ptr in any erroneous future calls
         dialogueSpeaker = GetComponentInChildren<DialogueSpeaker>();
-        interactionPromptView.InitializeView(enabled);
-        if(!enabled) return;
+        if(!enabled) {
+            dialogueSpeaker.InitializeSpeaker(enabled);
+            return;
+        }
         this.companion = companion;
-        image.sprite = companion.companionType.sprite;
-        image.enabled = enabled;
+        if(currentLocation == Location.TEAM_SELECT) {
+            spriteInScene.sprite = companion.companionType.sprite;
+            spriteInScene.enabled = enabled;
+        } 
         dialogueSpeaker.InitializeSpeaker(enabled, 
             companion.companionType.speakerType, 
             interactionPromptView);
     }
 
-
-    public void SetInitiatableDialogue(DialogueSequenceSO dialogueSequence) {
-        Debug.Log("TSC " + gameObject.name + " Setting initiatable dialogue: " + dialogueSequence.name);
-        interactionPromptView.SetVisible(true);
+    // have to do this as a second step, the dialogue manager doesn't know
+    // if we'll have a dialogue to initiate before it gets all of the 
+    // speakers initialized and registered
+    public void InitializePromptView(bool enabled, DialogueSequenceSO dialogueSequence) {
+        if(!enabled) return;
+        interactionPromptView = GetComponentInChildren<InteractionPromptView>();
+        if(interactionPromptView) {
+            interactionPromptView.SetVisible(enabled);
+            interactionPromptView.InitializeView(enabled);
+        }
         initiatableDialogue = dialogueSequence;
     }
 

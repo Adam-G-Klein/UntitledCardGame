@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61d50f794d2508647aa5dc1c215a339d, type: 3}
+  m_Name: TestTeamSelectionDialogueList
+  m_EditorClassIdentifier: 
+  aidenRooms: []
+  teamSelectionScreens:
+  - {fileID: 11400000, guid: beb69d160b30de24fa32b5a0953eae3a, type: 2}
+  - {fileID: 11400000, guid: b33faa4d86464cb47b7bc2690d10bfdd, type: 2}
+  preCombatScreens:
+  - {fileID: 11400000, guid: b33faa4d86464cb47b7bc2690d10bfdd, type: 2}
+  - {fileID: 11400000, guid: c848460199bf42143991d3c273edffeb, type: 2}
+  shops:
+  - {fileID: 11400000, guid: c848460199bf42143991d3c273edffeb, type: 2}
+  combats:
+  - {fileID: 11400000, guid: c848460199bf42143991d3c273edffeb, type: 2}
+  postCombats:
+  - {fileID: 11400000, guid: c848460199bf42143991d3c273edffeb, type: 2}
+  tutorialAidensRoom: {fileID: 11400000, guid: 293e0c8d7ef149849a56e7c908f17f35, type: 2}
+  tutorialTeamSigning: {fileID: 11400000, guid: 4aec72614c557ac4d93d4b56e8db3c1e, type: 2}
+  tutorialMap1: {fileID: 11400000, guid: ad502a93da6e9eb4c9fef6fc89b67004, type: 2}
+  tutorialTeamSelect1: {fileID: 11400000, guid: c848460199bf42143991d3c273edffeb, type: 2}
+  tutorialPrecombatSplash1: {fileID: 11400000, guid: e69495ce9e70fb649b2b2d9bd24de004, type: 2}
+  tutorialCombat1: {fileID: 11400000, guid: 2c2e19f6e05fc314393f61f006caf89c, type: 2}
+  tutorialPostCombat1: {fileID: 11400000, guid: 28890d51e7747a84c8bd45f4c3b3be09, type: 2}
+  tutorialShop1: {fileID: 11400000, guid: b802b0d5845d70047987d0a932a9fc76, type: 2}
+  tutorialMap2: {fileID: 11400000, guid: ad502a93da6e9eb4c9fef6fc89b67004, type: 2}
+  tutorialTeamSelect2: {fileID: 11400000, guid: ad502a93da6e9eb4c9fef6fc89b67004, type: 2}
+  tutorialPrecombatSplash2: {fileID: 11400000, guid: ad502a93da6e9eb4c9fef6fc89b67004, type: 2}
+  tutorialCombat2: {fileID: 11400000, guid: fd8570a40a145b64182420ad6dff9f05, type: 2}
+  tutorialPostCombat2: {fileID: 11400000, guid: e03857b4295282f40b9b3fa2a8e1ef84, type: 2}
+  tutorialShop2: {fileID: 11400000, guid: 5e2489b35a0aed14fa8ee9f998a5f3fc, type: 2}
+  bossFightShop: {fileID: 0}
+  bossFightPrecombatSplash: {fileID: 0}
+  bossFightCombat: []

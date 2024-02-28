@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23517bc57e0f44146a39f61c3db5a303, type: 3}
+  m_Name: tut2seq
+  m_EditorClassIdentifier: 
+  requiredSpeakers: []
+  dialogueLines:
+  - rid: 594700701925638145
+  - rid: 594700701925638146
+  - rid: 594700701925638147
+  references:
+    version: 2
+    RefIds:
+    - rid: 594700701925638145
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
+        line: test tutorial combat 2!
+    - rid: 594700701925638146
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 0ffd109ae66c2a54cb93828dea1a7219, type: 2}
+        line: ye ye testing
+    - rid: 594700701925638147
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 9e835f3c4c49e9f4da934369a0a7132b, type: 2}
+        line: i gotchu

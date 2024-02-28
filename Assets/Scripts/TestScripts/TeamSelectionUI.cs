@@ -9,9 +9,7 @@ public class TeamSelectionUI : MonoBehaviour
     public GameStateVariableSO gameState;
     // TODO: package these into companionListVariables
     public CompanionListVariableSO team1ActiveCompanions;
-    public CompanionListVariableSO team1BenchCompanions;
     public CompanionListVariableSO team2ActiveCompanions;
-    public CompanionListVariableSO team2BenchCompanions;
     public GameObject deckViewUIPrefab;
     private VisualElement root;
     [SerializeField]
@@ -30,13 +28,13 @@ public class TeamSelectionUI : MonoBehaviour
     }
     public void initializeRun(List<CompanionTypeSO> team)
     {
-        gameState.companions.companionBench = new List<Companion>();
-        gameState.companions.companionList = new List<Companion>();
+        gameState.companions.benchedCompanions = new List<Companion>();
+        gameState.companions.activeCompanions = new List<Companion>();
         gameState.companions.currentCompanionSlots = 3;
 
         foreach (CompanionTypeSO companionType in team)
         {
-            gameState.companions.companionList.Add(new Companion(companionType));
+            gameState.companions.activeCompanions.Add(new Companion(companionType));
         }
 
         gameState.LoadNextLocation();

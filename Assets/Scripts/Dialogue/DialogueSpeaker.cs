@@ -23,6 +23,7 @@ public class DialogueSpeaker : MonoBehaviour
             if(speakerType == null) {
                 Debug.Log("Speaker type not set on " + gameObject.name + " DialogueSpeaker");
             } else {
+                Debug.Log("Initialized always active speaker from start: " + speakerType);
                 InitializeSpeaker(true, speakerType);
             }
         }

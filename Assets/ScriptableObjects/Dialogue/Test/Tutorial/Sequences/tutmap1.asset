@@ -10,17 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 23517bc57e0f44146a39f61c3db5a303, type: 3}
-  m_Name: test2Seq2
+  m_Name: tutmap1
   m_EditorClassIdentifier: 
-  requiredSpeakers:
-  - {fileID: 11400000, guid: 3bef4ef49705e2940af4cd5d02251f0f, type: 2}
+  requiredSpeakers: []
   dialogueLines:
-  - rid: 326914648116035618
+  - rid: 594700706687483939
   references:
     version: 2
     RefIds:
-    - rid: 326914648116035618
+    - rid: 594700706687483939
       type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
       data:
-        speaker: {fileID: 11400000, guid: 3bef4ef49705e2940af4cd5d02251f0f, type: 2}
-        line: Rene testing team selection screen 2 sequence 2!
+        speaker: {fileID: 11400000, guid: 0ffd109ae66c2a54cb93828dea1a7219, type: 2}
+        line: whoa this is the first time ive seen the map egads

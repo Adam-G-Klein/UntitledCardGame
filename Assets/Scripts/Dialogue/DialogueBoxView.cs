@@ -38,6 +38,7 @@ public class DialogueBoxView : MonoBehaviour
 
     public IEnumerator DisplayDialogue(DialogueLine dialogueLine, Action redisplayPromptCallback = null)
     {
+        Debug.Log("Displaying dialogue: " + dialogueLine.line);
         this.redisplayPromptCallback = redisplayPromptCallback;
         SetImagesEnabled(true);
         text.enabled = true;

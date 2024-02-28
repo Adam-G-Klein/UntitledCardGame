@@ -58,8 +58,8 @@ public class CompanionViewUI : MonoBehaviour, IPointerClickHandler
     public void setupCompanionDisplay(CompanionListVariableSO companionListVariableSO,
         List<CompanionActionType> actionTypes) {
         //Since this is an SO, copy the refernces for later use
-        this.companionList = companionListVariableSO.companionList;
-        this.companionBench = companionListVariableSO.companionBench;
+        this.companionList = companionListVariableSO.activeCompanions;
+        this.companionBench = companionListVariableSO.benchedCompanions;
         this.currentCompanionSlots = companionListVariableSO.currentCompanionSlots;
 
         this.actionTypes = actionTypes;

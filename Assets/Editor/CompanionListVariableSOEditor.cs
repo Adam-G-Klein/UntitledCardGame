@@ -23,7 +23,7 @@ public class CompanionListVariableEditor : Editor {
         
         if (GUILayout.Button("Add Companion")) {
             if (companionType != null)
-                companionListVariable.companionList.Add(new Companion(companionType));
+                companionListVariable.activeCompanions.Add(new Companion(companionType));
             else
                 Debug.LogWarning("Must set companion type first!");
             
@@ -39,14 +39,14 @@ public class CompanionListVariableEditor : Editor {
         indexNumber = EditorGUILayout.IntField(indexNumber);
 
         if (GUILayout.Button("Move companion from active to bench")) {
-            Companion companion = companionListVariable.companionList[indexNumber];
-            companionListVariable.companionList.Remove(companion);
-            companionListVariable.companionBench.Add(companion);
+            Companion companion = companionListVariable.activeCompanions[indexNumber];
+            companionListVariable.activeCompanions.Remove(companion);
+            companionListVariable.benchedCompanions.Add(companion);
         }
         if (GUILayout.Button("Move companion from bench to active")) {
-            Companion companion = companionListVariable.companionBench[indexNumber];
-            companionListVariable.companionBench.Remove(companion);
-            companionListVariable.companionList.Add(companion);
+            Companion companion = companionListVariable.benchedCompanions[indexNumber];
+            companionListVariable.benchedCompanions.Remove(companion);
+            companionListVariable.activeCompanions.Add(companion);
         }
     }
 }
