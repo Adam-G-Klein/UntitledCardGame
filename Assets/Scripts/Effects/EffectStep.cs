@@ -37,7 +37,8 @@ public enum EffectStepName {
     EndWorkflowIfConditionMet,
     CheckTypeOfMostRecentlyPlayedCard,
     HasCardActionBeenTakenThisTurn,
-    QuantityOfCardTypePlayedThisTurn
+    QuantityOfCardTypePlayedThisTurn,
+    CardModificationEffect
 }
 
 [System.Serializable]

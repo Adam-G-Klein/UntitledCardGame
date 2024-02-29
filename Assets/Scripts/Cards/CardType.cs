@@ -20,6 +20,20 @@ public class CardType: ScriptableObject
 
     [SerializeReference]
     public List<EffectWorkflow> effectWorkflows;
+
+    // Revisit this implementation of card type level modifications
+    public Dictionary<CardModification, int> cardModifications = new Dictionary<CardModification, int>();
+
+    public void ResetCardModifications() {
+        cardModifications = new Dictionary<CardModification, int>();
+        foreach(int i in Enum.GetValues(typeof(CardModification))) {
+            cardModifications.Add((CardModification)i, 0);
+        }
+    }
+
+    public void ChangeCardModification(CardModification modification, int scale) {
+        cardModifications[modification] += scale;
+    }
 }
 
 public enum CardCategory {

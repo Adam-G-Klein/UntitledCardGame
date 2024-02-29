@@ -75,14 +75,14 @@ public class Card : Entity, IEquatable<Card>
     {
         this.cardType = cardType;
         this.id = Id.newGuid();
-        InitializeCardModifications();
+        ResetCardModifications();
     }
 
     public Card(Card card) {
         this.cardType = card.cardType;
         id = card.id;
         this.effectBuffs = card.effectBuffs;
-        InitializeCardModifications();
+        ResetCardModifications();
     }
 
     public static bool operator !=(Card a, Card b) {
@@ -125,32 +125,38 @@ public class Card : Entity, IEquatable<Card>
     }
 
     public int GetManaCost() {
-        return cardType.Cost - cardModifications[CardModification.TempManaDecrease];
+        int totalReduction = 0;
+        totalReduction += cardModifications[CardModification.TempManaDecrease];
+        totalReduction += cardType.cardModifications[CardModification.TempManaDecrease];
+        
+        return Mathf.Max(0, cardType.Cost - totalReduction);
     }
 
     public int UpdateScaleForCardModifications(int oldScale) {
         int newScale = oldScale;
-        if (cardModifications.ContainsKey(CardModification.FixedDamageIncrease)) {
-            newScale += cardModifications[CardModification.FixedDamageIncrease];
-        }
-
-        if (cardModifications.ContainsKey(CardModification.DoubleDamageIncrease)) {
-            newScale = newScale * (int)(Mathf.Pow(2, cardModifications[CardModification.FixedDamageIncrease]));
-        }
+        // Making the choice to do fixed damage first, then multiplication. I don't think it will matter unless
+        // both effects end up on one single card
+        newScale += cardModifications[CardModification.FixedDamageIncrease];
+        newScale += cardType.cardModifications[CardModification.FixedDamageIncrease];
+        newScale = newScale * (int)(Mathf.Pow(2, cardModifications[CardModification.DoubleDamageIncrease]));
+        newScale = newScale * (int)(Mathf.Pow(2, cardType.cardModifications[CardModification.DoubleDamageIncrease]));
 
         return newScale;
     }
 
     public void ResetTempCardModifications() {
-        if (cardModifications[CardModification.TempManaDecrease] != 0) {
-            cardModifications[CardModification.TempManaDecrease] = 0;
-        }
+        cardModifications[CardModification.TempManaDecrease] = 0;
     }
 
-    public void InitializeCardModifications() {
+    public void ResetCardModifications() {
         cardModifications = new Dictionary<CardModification, int>();
         foreach(int i in Enum.GetValues(typeof(CardModification))) {
             cardModifications.Add((CardModification)i, 0);
         }
+        cardType.ResetCardModifications();
+    }
+
+    public void ChangeCardModification(CardModification modification, int scale) {
+        cardModifications[modification] += scale;
     }
 }
