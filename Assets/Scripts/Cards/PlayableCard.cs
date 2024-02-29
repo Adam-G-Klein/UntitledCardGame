@@ -59,6 +59,7 @@ public class PlayableCard : MonoBehaviour,
         DiscardCardFromHand();
         IncrementCastCount();
         EnemyEncounterManager.Instance.combatEncounterState.cardsCastThisTurn.Add(card);
+        Destroy(this.gameObject);
     }
 
     private void IncrementCastCount(){
@@ -71,7 +72,6 @@ public class PlayableCard : MonoBehaviour,
 
     public void ExhaustCard() {
         deckFrom.ExhaustCard(card);
-        Destroy(gameObject);
     }
 
     // Called by playerHand.discardCard

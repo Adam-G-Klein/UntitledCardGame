@@ -8,6 +8,11 @@ public class EffectManager : GenericSingleton<EffectManager>
     public bool interruptEffectWorkflow = false;
     private IEnumerator currentEffectWorkflow;
     private IEnumerator currentEffectStep;
+    private List<EffectWorkflow> effectWorkflowQueue;
+
+    void Awake() {
+        effectWorkflowQueue = new List<EffectWorkflow>();
+    }
 
     public void invokeEffectWorkflow(
             EffectDocument document,
@@ -22,6 +27,10 @@ public class EffectManager : GenericSingleton<EffectManager>
         Debug.Log("EffectManager: Stopping effect coroutines");
         StopCoroutine(currentEffectStep);
         StopCoroutine(currentEffectWorkflow);
+    }
+
+    public void QueueEffectWorkflow(EffectWorkflow workflow) {
+        effectWorkflowQueue.Add(workflow);
     }
 
     public IEnumerator invokeEffectWorkflowCoroutine(
@@ -47,7 +56,19 @@ public class EffectManager : GenericSingleton<EffectManager>
             currentEffectStep = step.invoke(document);
             yield return StartCoroutine(currentEffectStep);
         }
+
         if (callback != null) callback();
+
+        // If the previous effect worklfow queue'd up a new one, then execute the new one
+        if (effectWorkflowQueue.Count > 0) {
+            Debug.Log("Kicking off queued effect workflow");
+            EffectWorkflow workflow = effectWorkflowQueue[0];
+            effectWorkflowQueue.RemoveAt(0);
+            document.originEntityType = EntityType.Unknown;
+            currentEffectWorkflow = effectWorkflowCoroutine(document, workflow.effectSteps, null);
+            StartCoroutine(currentEffectWorkflow);
+        }
+
         yield return null;
     }
 }

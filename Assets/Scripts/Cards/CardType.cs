@@ -21,6 +21,9 @@ public class CardType: ScriptableObject
     [SerializeReference]
     public List<EffectWorkflow> effectWorkflows;
 
+    [SerializeReference]
+    public EffectWorkflow onExhaustEffectWorkflow;
+
     // Revisit this implementation of card type level modifications
     public Dictionary<CardModification, int> cardModifications = new Dictionary<CardModification, int>();
 

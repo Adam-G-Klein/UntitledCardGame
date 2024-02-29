@@ -166,6 +166,9 @@ public class DeckInstance : MonoBehaviour
         }
         exhaustPile.Add(card);
         EnemyEncounterManager.Instance.combatEncounterState.cardsExhaustThisTurn.Add(card);
+        if (card.cardType.onExhaustEffectWorkflow != null) {
+            EffectManager.Instance.QueueEffectWorkflow(card.cardType.onExhaustEffectWorkflow);
+        }
     }
 
     public void DiscardCard(Card card){

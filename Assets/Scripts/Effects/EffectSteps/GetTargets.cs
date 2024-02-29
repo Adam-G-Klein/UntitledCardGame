@@ -239,10 +239,12 @@ public class GetTargets : EffectStep
             PlayableCard playableCard = document.map.GetItem<PlayableCard>(
                 EffectDocument.ORIGIN, 0);
             return playableCard.gameObject;
+        } else {
+            // This is a hack to get around targetting in the case a card has an
+            // effect that triggers on exhaust. The card goes away, but the targetting arrows
+            // wont have a game object to position the base of the arrow at.
+            return new GameObject();
         }
-
-        EffectError("Origin entity was not specified");
-        return null;
     }
 
     public void addOriginCardEntityFromToDocument(EffectDocument document) {

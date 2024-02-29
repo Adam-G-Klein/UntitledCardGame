@@ -57,9 +57,12 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     // Do not call on whole hand, only call on individual cards
     // modifies the list of cards in hand 
     public void DiscardCard(PlayableCard card) {
-        cardsInHand.Remove(card);
-        Destroy(card.gameObject);
-        card.DiscardFromDeck();
+        // If statement is here to take into account if a card exhausts itself
+        // as part of its effect workflow
+        if (cardsInHand.Contains(card)) {
+            cardsInHand.Remove(card);
+            card.DiscardFromDeck();
+        }
     }
 
     public void UpdateLayout() {
