@@ -54,7 +54,7 @@ public class PlayableCard : MonoBehaviour,
     }
 
     private void CardFinishCastingCallback() {
-        ManaManager.Instance.updateMana(-card.cost);
+        ManaManager.Instance.updateMana(-card.GetManaCost());
         StartCoroutine(cardCastEvent.RaiseAtEndOfFrameCoroutine(new CardCastEventInfo(card)));
         DiscardCardFromHand();
         IncrementCastCount();

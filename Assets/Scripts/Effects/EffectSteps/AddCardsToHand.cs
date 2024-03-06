@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 
 /*
     Effect that adds card(s) to the player hand
 
     Input: Using EntityFromKey, an entity that is set as the card's origin entity
-    Output: NA
+    Output: The cards that have been added to the player's hand
     Parameters:
         - CardTypes: List of card types to add to deck if GetCardsFromKey is unchecked
         - GetCardsFromKey: If checked, uses cards from input docoument to add to the hand
@@ -30,6 +31,8 @@ public class AddCardsToHand : EffectStep {
     private bool getScaleFromKey = false;
     [SerializeField]
     private string inputScaleKey = "";
+    [SerializeField]
+    private string outputKey = "";
 
     public AddCardsToHand() {
         effectStepName = "AddCardsToHand";
@@ -66,21 +69,23 @@ public class AddCardsToHand : EffectStep {
         }
 
         // Add the cards
-        addCardsToHand(cardTypesToAdd, finalScale, deckInstances[0]);
+        document.map.AddItems(outputKey, addCardsToHand(cardTypesToAdd, finalScale, deckInstances[0]));
 
         yield return null;
     }
 
-    private void addCardsToHand(
-        List<CardType> cardTypes,
-        int scale,
-        DeckInstance entityFrom) {
+    private List<PlayableCard> addCardsToHand(
+            List<CardType> cardTypes,
+            int scale,
+            DeckInstance entityFrom) {
+        List<PlayableCard> cardsAdded = new List<PlayableCard>();
         for (int i = 0; i < scale; i++) {
             List<Card> cards = new List<Card>();
             foreach (CardType cardType in cardTypes) {
                 cards.Add(new Card(cardType));
             }
-            PlayerHand.Instance.DealCards(cards, entityFrom);
+            cardsAdded.AddRange(PlayerHand.Instance.DealCards(cards, entityFrom));
         }
+        return cardsAdded;
     }
 }

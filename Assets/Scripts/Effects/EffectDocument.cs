@@ -124,6 +124,16 @@ public class EffectDocument
             return returnList;
         }
 
+        public List<Type> GetTypesWithKey(string key) {
+            List<Type> returnList = new List<Type>();
+            foreach (KeyValuePair<Tuple<string, Type>, List<object>> keyValuePair in _dict) {
+                if (keyValuePair.Key.Item1.Equals(key)) {
+                    returnList.Add(keyValuePair.Key.Item2);
+                }
+            }
+            return returnList;
+        }
+
         public void Print() {
             foreach (KeyValuePair<Tuple<string, Type>, List<object>> pair in _dict) {
                 Debug.Log("Key: " + pair.Key.Item1 + 

@@ -21,7 +21,7 @@ public class CardDisplay : MonoBehaviour
         // runInEditMode = true;
         CardName.text = cardInfo.name;
         CardDesc.text = cardInfo.description;
-        CostText.text = cardInfo.cost.ToString();
+        CostText.text = cardInfo.GetManaCost().ToString();
         Artwork.sprite = cardInfo.artwork;
     }
 
