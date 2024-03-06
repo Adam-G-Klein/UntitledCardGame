@@ -50,8 +50,13 @@ public class TeamSelectionUI : MonoBehaviour
         }
 
         //Redo this when more details
+        //var centeringWrapper = new VisualElement();
+        //centeringWrapper.style.alignItems = Align.Center;
+        //container.Add(centeringWrapper);
         var confirm = new Button();
         confirm.text = "Sign this team";
+        confirm.style.alignSelf = Align.Center;
+        confirm.style.marginTop = 20;
         confirm.clicked += () => initializeRun(companionTypes);
         container.Add(confirm);
     }
@@ -69,16 +74,16 @@ public class TeamSelectionUI : MonoBehaviour
    
         var name = new Label();
         name.text = companionType.companionName;
-        name.AddToClassList("character-name");
+        stripMarginAndPadding(name).AddToClassList("character-name");
         textContainer.Add(name);
 
         var archetype = new Label();
-        archetype.AddToClassList("archetype-name");
+        stripMarginAndPadding(archetype).AddToClassList("archetype-name");
         archetype.text = "IDK probably something";
         textContainer.Add(archetype);
 
         var desc = new Label();
-        desc.AddToClassList("description");
+        stripMarginAndPadding(desc).AddToClassList("description");
         desc.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. lmao gottem";
         textContainer.Add(desc);
 
@@ -86,6 +91,14 @@ public class TeamSelectionUI : MonoBehaviour
 
 
         return container;
+    }
+
+    private Label stripMarginAndPadding(Label label) {
+        label.style.marginBottom = 0;
+        label.style.marginTop = 0;
+        label.style.paddingBottom = 0;
+        label.style.paddingTop = 0;
+        return label;    
     }
 
     public void backButtonHandler() {

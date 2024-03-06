@@ -13,12 +13,11 @@
 }
 
 .team-select-header {
-    background-color: rgba(94, 94, 94, 255);
-    left: 20%;
-    padding-left: 50px;
-    padding-right: 50px;
-    padding-top: 25px;
-    padding-bottom: 25px;
+    background-color: rgb(94, 94, 94);
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 12px;
+    padding-bottom: 12px;
 }
 
 .team-header-label {
@@ -27,41 +26,49 @@
 }
 
 .character-container {
-    width: 75%;
-    padding-top: 40px;
+    width: 100%;
+    padding-top: 6px;
     flex-direction: row;
+    padding-bottom: 6px;
+    background-color: rgba(254, 0, 255, 0);
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 6px;
+    padding-right: 6px;
 }
 
 .character-portrait {
-    width: 100px;
-    height: 100px;
+    width: 50px;
+    height: 50px;
 }
 
 .text-container {
-    width: 57.26%;
+    width: 100%;
     align-items: flex-start;
     padding-left: 20px;
     padding-right: 0;
     padding-top: 0;
     padding-bottom: 0;
+    font-size: 10px;
+    background-color: rgba(18, 34, 255, 0);
 }
 
 .character-name {
     font-size: 12px;
     -unity-font-style: bold;
-    color: rgba(0, 0, 0, 255);
+    color: rgb(0, 0, 0);
 }
 
 .archetype-name {
-    color: rgba(0, 0, 0, 255);
+    color: rgb(0, 0, 0);
     -unity-font-style: italic;
-    font-size: 12px;
+    font-size: 10px;
 }
 
 .description {
     background-color: rgba(255, 255, 255, 0);
-    color: rgba(0, 0, 0, 255);
+    color: rgb(0, 0, 0);
     white-space: normal;
-    font-size: 12px;
+    font-size: 10px;
     max-width: 100%;
 }
