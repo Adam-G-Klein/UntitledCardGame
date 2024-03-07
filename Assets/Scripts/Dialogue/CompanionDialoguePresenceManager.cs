@@ -38,9 +38,7 @@ public class CompanionDialoguePresenceManager : MonoBehaviour
         int locationIndex = gameState.GetLoopIndex();
         Debug.Log("initializing dialogue manager location, seen tutorial? " + gameState.playerData.GetValue().seenTutorial);
         DialogueLocationSO loc = gameState.dialogueLocations.GetDialogueLocation(
-            gameState.currentLocation, 
-            gameState.GetLoopIndex(), 
-            gameState.playerData.GetValue().seenTutorial);
+            gameState);
         DialogueManager.Instance.SetDialogueLocation(loc);
         Debug.Log("dialogue manager location initialized");
         

@@ -207,10 +207,7 @@ public class DialogueManager : GenericSingleton<DialogueManager>
     }
 
     public void SetDialogueLocation(GameStateVariableSO gameState) {
-        dialogueLocation = gameState.dialogueLocations.GetDialogueLocation(
-            gameState.currentLocation, 
-            gameState.GetLoopIndex(), 
-            gameState.playerData.GetValue().seenTutorial);
+        dialogueLocation = gameState.dialogueLocations.GetDialogueLocation(gameState);
 
     }
     public void SetSpeakersInitialized() {

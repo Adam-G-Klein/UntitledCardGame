@@ -37,20 +37,39 @@ public class AllDialogueLocationsSO: ScriptableObject
     public DialogueLocationSO bossFightPrecombatSplash;
     public List<DialogueSequenceSO> bossFightCombat;
 
-    public DialogueLocationSO GetDialogueLocation(Location loc, int loopIndex, bool seenTutorial) {
-        Debug.Log("Getting dialogue location for " + loc + " loop index " + loopIndex + " seen tutorial " + seenTutorial);
-        if(seenTutorial) {
-            List<DialogueLocationSO> locList = GetDialogueLocationList(loc);
-            if(loopIndex >= locList.Count) {
-                Debug.LogWarning("Location index " + loopIndex + " is out of range for location " + loc + ", just using the last one");
-                return locList.Last();
-            } else {
-                return locList[loopIndex];
-            }
+    public DialogueLocationSO GetDialogueLocation(GameStateVariableSO gameState) {
+        int loopIndex = gameState.GetLoopIndex();
+        Location loc = gameState.currentLocation;
+        bool seenTutorial = gameState.playerData.GetValue().seenTutorial;
+        bool inTutorialRun = gameState.playerData.GetValue().inTutorialRun;
+        Debug.Log("Getting dialogue location for " + loc + " loop index " + loopIndex + " seen tutorial " + gameState.playerData.GetValue().seenTutorial);
+        if(seenTutorial && !inTutorialRun) {
+            return GetDialogueLocationAtIndex(loc, loopIndex);
+        } else if (inTutorialRun && seenTutorial){
+            // add two loops for the tuto
+            return GetDialogueLocationAtIndex(loc, loopIndex - 2);
+        }
+        else if (!seenTutorial && inTutorialRun) {
+            return GetTutorialLocation(gameState);
         } else {
-            return GetTutorialLocation(loc, loopIndex);
+            Debug.LogError("Player has not seen tutorial and is not in tutorial run, wrong dialogue will display");
+            Debug.LogError("Current location: " + loc);
+            Debug.LogError("seen tutorial: " + gameState.playerData.GetValue().seenTutorial);
+            Debug.LogError("in tutorial run: " + gameState.playerData.GetValue().inTutorialRun);
+            Debug.LogError("loop index: " + loopIndex);
+            return GetDialogueLocationAtIndex(loc, loopIndex);
         }
         
+    }
+
+    private DialogueLocationSO GetDialogueLocationAtIndex(Location loc, int index) {
+        List<DialogueLocationSO> locList = GetDialogueLocationList(loc);
+        if(index >= locList.Count || index < 0) {
+            Debug.LogWarning("Location index " + index + " is out of range for location " + loc + ", just using the last one");
+            return locList.Last();
+        } else {
+            return locList[index];
+        }
     }
     // Lemme know if you can think of a cleaner way to do this
     // static dictionary doesn't work because we want the list from the specific instance
@@ -75,7 +94,9 @@ public class AllDialogueLocationsSO: ScriptableObject
     }
 
     // loop index is from gameState.GetLoopIndex()
-    private DialogueLocationSO GetTutorialLocation(Location loc, int loopIndex) {
+    private DialogueLocationSO GetTutorialLocation(GameStateVariableSO gameState) {
+        Location loc = gameState.currentLocation;
+        int loopIndex = gameState.GetLoopIndex();
         switch(loc) {
             case Location.WAKE_UP_ROOM:
                 return tutorialAidensRoom;
@@ -118,7 +139,7 @@ public class AllDialogueLocationsSO: ScriptableObject
                     return tutorialShop2;
                 }
             default:
-                return GetDialogueLocation(loc, loopIndex, true);
+                return GetDialogueLocation(gameState);
         }
     }
 

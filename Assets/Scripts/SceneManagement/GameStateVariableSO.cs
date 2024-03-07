@@ -28,6 +28,7 @@ public class GameStateVariableSO : ScriptableObject
     public CompanionListVariableSO companions;
     public PlayerDataVariableSO playerData;
     public MapVariableSO map;
+    private MapGeneratorSO mapGenerator;
     [Header("The Combat or Shop Encounter we're currently in")]
     public EncounterVariableSO activeEncounter;
     [Header("The Next Combat or Shop Encounter we'll enter")]
@@ -172,14 +173,25 @@ public class GameStateVariableSO : ScriptableObject
         }
     }
 
-    // Returns the loop we're on, 1 for the tutorial, 2 for the first post-tutorial encounter, and so on
+    // Returns the loop we're on, 1 and 2 for the tutorial, 
     // used to index into all of the dialogueLocationLists
     public int GetLoopIndex() {
         Debug.Log("Returning loop index: " + Mathf.FloorToInt(nextMapIndex / 2));
         return Mathf.FloorToInt((nextMapIndex) / 2);
     }
+
     public void SetLocation(Location newLocation) {
         currentLocation = newLocation;
+    }
+
+    public void KillPlayer() {
+        Debug.Log("killing player");
+        playerData.respawn();
+        companions.respawn();
+        map.SetValue(mapGenerator.generateMap());
+        SetLocation(Location.WAKE_UP_ROOM);
+        LoadCurrentLocationScene();
+
     }
 
     private void updateMusic(Location newLocation) {
@@ -187,6 +199,10 @@ public class GameStateVariableSO : ScriptableObject
         if(newLocation != Location.MAP && MusicController.Instance != null) {
             MusicController.Instance.PlayMusicForLocation(newLocation);
         }
+    }
+
+    public void setMapGenerator(MapGeneratorSO mapGeneratorSO) {
+        mapGenerator = mapGeneratorSO;
     }
 
 }

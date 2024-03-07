@@ -6,10 +6,18 @@ using UnityEngine;
     fileName = "PlayerDataVariable",
     menuName = "Player/Player Data Variable")]
 public class PlayerDataVariableSO : VariableSO<PlayerData> {
-    public void initializeRun() {
+    public void initialize() {
         SetValue(new PlayerData());
         GetValue().gold = 3;
         GetValue().seenTutorial = false;
+        GetValue().inTutorialRun = true;
+    }
+
+    public void respawn() {
+        SetValue(new PlayerData());
+        GetValue().gold = 3;
+        GetValue().seenTutorial = true;
+        GetValue().inTutorialRun = false;
     }
 }
 

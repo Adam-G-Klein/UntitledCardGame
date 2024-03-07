@@ -33,10 +33,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
         CheckDisableUpgradeButton();
         DialogueManager.Instance.SetDialogueLocation(
-            gameState.dialogueLocations.GetDialogueLocation(
-                gameState.currentLocation, 
-                gameState.GetLoopIndex(),
-                gameState.playerData.GetValue().seenTutorial));
+            gameState.dialogueLocations.GetDialogueLocation(gameState));
         DialogueManager.Instance.StartAnyDialogueSequence();
     }
 

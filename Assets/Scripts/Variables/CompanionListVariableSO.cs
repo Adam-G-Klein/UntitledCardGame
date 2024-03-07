@@ -30,4 +30,10 @@ public class CompanionListVariableSO : ScriptableObject
         }
         return companionTypes;
     }
+
+    public void respawn() {
+        activeCompanions = new List<Companion>();
+        benchedCompanions = new List<Companion>();
+        currentCompanionSlots = 3;
+    }
 }
