@@ -7,6 +7,7 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
     public EncounterConstantsSO encounterConstants;
     public TurnPhaseEvent turnPhaseEvent;
 
+    // This list assumes ordering
     private List<CompanionInstance> companions = new List<CompanionInstance>();
     private List<MinionInstance> minions = new List<MinionInstance>();
     private List<EnemyInstance> enemies = new List<EnemyInstance>();
@@ -32,6 +33,14 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
 
     public List<CompanionInstance> getCompanions() {
         return companions;
+    }
+
+    public CompanionInstance GetFrontCompanion() {
+        return companions[0];
+    }
+
+    public CompanionInstance GetBackCompanion() {
+        return companions[companions.Count - 1];
     }
 
     public CompanionInstance getCompanionInstanceById(string id) {

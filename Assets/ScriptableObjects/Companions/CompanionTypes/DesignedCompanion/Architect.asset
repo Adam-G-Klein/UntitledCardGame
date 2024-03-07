@@ -29,28 +29,39 @@ MonoBehaviour:
     - rid: 1886370794371285020
       type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
       data:
-        companionAbilityTrigger: 0
+        companionAbilityTrigger: 3
         effectSteps:
         - rid: 8939928036647632897
-        - rid: 8939928036647632896
-    - rid: 8939928036647632896
-      type: {class: SummonMinion, ns: , asm: Assembly-CSharp}
+        - rid: 3931529386857070617
+        - rid: 3931529386857070618
+    - rid: 3931529386857070617
+      type: {class: FilterEntityByStatus, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: SummonMinion
-        minionType: {fileID: 11400000, guid: acf491015f67b06468095238a670ef7b, type: 2}
-        inputKey: self
-        outputKey: 
+        effectStepName: FilterEntityByStatus
+        inputKey: allCompanions
+        status: 9
+        outputKey: withOrb
+    - rid: 3931529386857070618
+      type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: AddCardsToHand
+        entityFromKey: withOrb
+        cardTypes:
+        - {fileID: 11400000, guid: 8ac3c6ab98795bc478560ad2d78e80ae, type: 2}
+        getCardsFromKey: 0
+        inputCardsKey: 
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+        outputKey: cardsAddedToHand
     - rid: 8939928036647632897
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: self
-        validTargets: 
+        outputKey: allCompanions
+        validTargets: 00000000
         number: 1
-        specialTargetRule: 3
+        specialTargetRule: 1
         cantCancelTargetting: 0

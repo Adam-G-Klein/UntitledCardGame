@@ -49,7 +49,7 @@ public class EnemyInstance : MonoBehaviour {
     }
 
     private IEnumerable DeclareIntent() {
-        currentIntent = enemy.ChooseIntent();
+        currentIntent = enemy.ChooseIntent(this);
         yield return null;
     }
 

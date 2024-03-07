@@ -38,7 +38,8 @@ public enum EffectStepName {
     CheckTypeOfMostRecentlyPlayedCard,
     HasCardActionBeenTakenThisTurn,
     QuantityOfCardTypePlayedThisTurn,
-    CardModificationEffect
+    CardModificationEffect,
+    GetAdjacentCompanions
 }
 
 [System.Serializable]

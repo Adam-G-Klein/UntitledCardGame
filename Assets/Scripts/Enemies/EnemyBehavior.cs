@@ -14,5 +14,7 @@ public class EnemyBehavior {
 public enum EnemyTargetMethod {
     FirstCompanion,
     LastCompanion,
-    RandomEnemy
+    RandomEnemyNotSelf,
+    RandomCompanion,
+    LowestHealth
 }

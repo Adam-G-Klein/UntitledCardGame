@@ -35,6 +35,10 @@ public class CompanionAbility
                 setupForTurnPhaseTrigger(TurnPhase.BEFORE_END_PLAYER_TURN);
             break;
 
+            case CompanionAbilityTrigger.EndOfEnemyTurn:
+                setupForTurnPhaseTrigger(TurnPhase.END_ENEMY_TURN);
+            break;
+
             case CompanionAbilityTrigger.OnFriendOrFoeDeath:
                 CombatEntityTrigger companionDeathTrigger = new CombatEntityTrigger(
                     CombatEntityTriggerType.COMPANION_DIED,
@@ -84,6 +88,7 @@ public class CompanionAbility
         EnterTheBattlefield,
         EndOfCombat,
         EndOfPlayerTurn,
+        EndOfEnemyTurn,
         OnFriendOrFoeDeath,
         OnDeath
     }

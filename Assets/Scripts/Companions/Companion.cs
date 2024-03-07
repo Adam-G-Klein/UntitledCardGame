@@ -11,16 +11,12 @@ public class Companion : Entity, ICombatStats, IDeckEntity
     public Deck deck;
     public CombatStats combatStats;
 
-    [SerializeReference]
-    public CompanionAbility ability;
-
     public Companion(CompanionTypeSO companionType) 
     {
         this.companionType = companionType;
         this.combatStats = new CombatStats(
                 companionType.maxHealth);
         this.deck = new Deck(companionType.startingDeck, companionType.initialCardsDealtPerTurn);
-        this.ability = companionType.ability;
         this.id = Id.newGuid();
         this.entityType = EntityType.Companion;
         this.upgradeInfo = companionType.upgradeInfo;

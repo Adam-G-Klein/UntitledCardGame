@@ -18,7 +18,7 @@ public class CompanionInstance : MonoBehaviour
     private List<TurnPhaseTrigger> statusEffectTriggers = new List<TurnPhaseTrigger>();
 
     public void Start() {
-        companion.ability.Setup(this);
+        companion.companionType.ability.Setup(this);
         CombatEntityManager.Instance.registerCompanion(this);
         spriteImage.sprite = companion.getSprite();
         combatInstance.combatStats = companion.combatStats;
@@ -36,7 +36,11 @@ public class CompanionInstance : MonoBehaviour
             combatInstance.UpdateStatusEffects(new List<StatusEffect> {
                 StatusEffect.Defended,
                 StatusEffect.TemporaryStrength,
-                StatusEffect.Invulnerability,
+                StatusEffect.Invulnerability})
+        ));
+        statusEffectTriggers.Add(new TurnPhaseTrigger(
+            TurnPhase.START_PLAYER_TURN,
+            combatInstance.UpdateStatusEffects(new List<StatusEffect> {
                 StatusEffect.Orb})
         ));
         statusEffectTriggers.Add(new TurnPhaseTrigger(

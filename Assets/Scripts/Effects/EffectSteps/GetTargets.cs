@@ -113,19 +113,19 @@ public class GetTargets : EffectStep
         foreach (Targetable target in targetsList) {
             switch (target.targetType) {
                 case Targetable.TargetType.Companion:
-                    AddCompanionToDocument(document, outputKey, target.GetComponent<CompanionInstance>());
+                    EffectUtils.AddCompanionToDocument(document, outputKey, target.GetComponent<CompanionInstance>());
                 break;
 
                 case Targetable.TargetType.Minion:
-                    AddMinionToDocument(document, outputKey, target.GetComponent<MinionInstance>());
+                    EffectUtils.AddMinionToDocument(document, outputKey, target.GetComponent<MinionInstance>());
                 break;
 
                 case Targetable.TargetType.Enemy:
-                    AddEnemyToDocument(document, outputKey, target.GetComponent<EnemyInstance>());
+                    EffectUtils.AddEnemyToDocument(document, outputKey, target.GetComponent<EnemyInstance>());
                 break;
 
                 case Targetable.TargetType.Card:
-                    AddPlayableCardToDocument(document, outputKey, target.GetComponent<PlayableCard>());
+                    EffectUtils.AddPlayableCardToDocument(document, outputKey, target.GetComponent<PlayableCard>());
                 break;
             }
         }
@@ -172,61 +172,29 @@ public class GetTargets : EffectStep
             List<CompanionInstance> companions = CombatEntityManager.Instance.getCompanions()
                 .FindAll(instance => !disallowedTargets.Contains(instance.gameObject));
             companions.ForEach(companion => {
-                AddCompanionToDocument(document, outputKey, companion);
+                EffectUtils.AddCompanionToDocument(document, outputKey, companion);
             });
         }
         if (validTargets.Contains(Targetable.TargetType.Enemy)) {
             List<EnemyInstance> enemies = CombatEntityManager.Instance.getEnemies()
                 .FindAll(instance => !disallowedTargets.Contains(instance.gameObject));
-            enemies.ForEach(enemy => AddEnemyToDocument(document, outputKey, enemy));
+            enemies.ForEach(enemy => EffectUtils.AddEnemyToDocument(document, outputKey, enemy));
         }
         if (validTargets.Contains(Targetable.TargetType.Minion)) {
             List<MinionInstance> minions = CombatEntityManager.Instance.getMinions()
                 .FindAll(instance => !disallowedTargets.Contains(instance.gameObject));
             minions.ForEach(minion => {
-                AddMinionToDocument(document, outputKey, minion);
+                EffectUtils.AddMinionToDocument(document, outputKey, minion);
             });
         }
         if (validTargets.Contains(Targetable.TargetType.Card)) {
             List<PlayableCard> playableCards = PlayerHand.Instance.cardsInHand
                 .FindAll(card => !disallowedTargets.Contains(card.gameObject));
-            playableCards.ForEach(playableCard => AddPlayableCardToDocument(document, outputKey, playableCard));
+            playableCards.ForEach(playableCard => EffectUtils.AddPlayableCardToDocument(document, outputKey, playableCard));
         }
     }
 
-    private void AddCompanionToDocument(
-            EffectDocument document,
-            string key,
-            CompanionInstance companion) {
-        document.map.AddItem(key, companion);
-        document.map.AddItem(key, companion.combatInstance);
-        document.map.AddItem(key, companion.deckInstance);
-    }
-
-    private void AddMinionToDocument(
-            EffectDocument document,
-            string key,
-            MinionInstance minion) {
-        document.map.AddItem(key, minion);
-        document.map.AddItem(key, minion.combatInstance);
-        document.map.AddItem(key, minion.deckInstance);
-    }
-
-    private void AddEnemyToDocument(
-            EffectDocument document,
-            string key,
-            EnemyInstance enemy) {
-        document.map.AddItem(key, enemy);
-        document.map.AddItem(key, enemy.combatInstance);
-    }
-
-    private void AddPlayableCardToDocument(
-            EffectDocument document,
-            string key,
-            PlayableCard playableCard) {
-        document.map.AddItem(key, playableCard);
-        document.map.AddItem(key, playableCard.card);
-    }
+    
 
     public GameObject getSelf(EffectDocument document) {
         // A companion is the source of the effect
