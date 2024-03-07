@@ -123,8 +123,6 @@ public class CompanionDialoguePresenceManager : MonoBehaviour
             }
         }
         yield return null;
-        
-
     }
     
 }

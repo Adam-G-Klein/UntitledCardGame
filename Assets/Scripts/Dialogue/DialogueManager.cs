@@ -186,7 +186,7 @@ public class DialogueManager : GenericSingleton<DialogueManager>
                     Debug.LogError("Dialogue sequence " + s.name + " has a null speaker type in its required speakers.");
                 }
             });
-            if(!s.requiredSpeakers.Contains(s.dialogueLines.First().speaker)) {
+            if(s.requiredSpeakers.Count > 0 && !s.requiredSpeakers.Contains(s.dialogueLines.First().speaker)) {
                 Debug.LogWarning("Dialogue sequence " + s.name + " has a first line speaker that is not in its required speakers. This will cause issues if it's displayed in the team selection screen, where that speaker must initiate the conversation");
             }
             s.dialogueLines.ForEach(line => {

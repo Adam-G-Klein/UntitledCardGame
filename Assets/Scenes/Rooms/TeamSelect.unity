@@ -414,6 +414,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: TeamSelectionDialogueSpeakers
       objectReference: {fileID: 0}
+    - target: {fileID: 5498679393384752912, guid: c655253e4574bb2448bc99891e1551c4, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7108655689919848805, guid: c655253e4574bb2448bc99891e1551c4, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -769,7 +777,6 @@ GameObject:
   - component: {fileID: 1791140677}
   - component: {fileID: 1791140676}
   - component: {fileID: 1791140675}
-  - component: {fileID: 1791140679}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: MainCanvas
@@ -863,21 +870,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &1791140679
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1791140674}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8ed18a18c274364fadc6352167f9d9d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameState: {fileID: 11400000, guid: 9e326417f60894341a96cc8d02868bbe, type: 2}
-  speakersInScene: []
-  initializationTimeout: 2
 --- !u!224 &2001467438 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1529805887474585643, guid: 5777925187e17c84580b863054481d33, type: 3}

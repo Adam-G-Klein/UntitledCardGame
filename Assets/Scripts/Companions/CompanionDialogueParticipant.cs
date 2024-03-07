@@ -43,8 +43,8 @@ public class CompanionDialogueParticipant : MonoBehaviour
         if(!enabled) return;
         interactionPromptView = GetComponentInChildren<InteractionPromptView>();
         if(interactionPromptView) {
-            interactionPromptView.SetVisible(enabled);
             interactionPromptView.InitializeView(enabled);
+            interactionPromptView.SetVisible(enabled);
         }
         initiatableDialogue = dialogueSequence;
     }
