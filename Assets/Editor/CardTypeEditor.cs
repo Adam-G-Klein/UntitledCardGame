@@ -9,6 +9,7 @@ using System.Drawing.Printing;
 public class CardTypeEditor : Editor {
 
     EffectStepName stepName = EffectStepName.Default;
+    EffectStepName onExhaustStepName = EffectStepName.Default;
     int editedEffectWorkflow = 0;
     public override void OnInspectorGUI() {
         CardType cardType = (CardType) target;
@@ -62,6 +63,24 @@ public class CardTypeEditor : Editor {
             save(cardType);
         }
 
+        EditorGUILayout.Space(20);
+        EditorGUILayout.LabelField("On Exhaust ffect Step Controls");
+        EditorGUILayout.Space(5);
+
+        onExhaustStepName = (EffectStepName) EditorGUILayout.EnumPopup(
+            "New effect",
+            onExhaustStepName);
+        
+        if (GUILayout.Button("Add Effect")) {
+            EffectStep newEffect = InstantiateFromClassname.Instantiate<EffectStep>(
+                stepName.ToString(), 
+                new object[] {});
+            if (cardType.onExhaustEffectWorkflow == null) {
+                cardType.onExhaustEffectWorkflow = new EffectWorkflow();
+            }
+
+            cardType.onExhaustEffectWorkflow.effectSteps.Add(newEffect);
+        }
     }
 
     private void save(CardType cardType) {
