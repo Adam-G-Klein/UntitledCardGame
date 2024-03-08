@@ -57,6 +57,10 @@ public class CompanionAbility
             case CompanionAbilityTrigger.OnDeath:
                 this.companionInstance.SetCompanionAbilityDeathCallback(setupAndInvokeAbility());
             break;
+
+            case CompanionAbilityTrigger.OnAttackCardPlayed:
+                this.companionInstance.deckInstance.onCardCastHandler += CheckAttackCardPlayed;
+            break;
         }
     }
 
@@ -81,8 +85,16 @@ public class CompanionAbility
         EffectDocument document = new EffectDocument();
         document.map.AddItem(EffectDocument.ORIGIN, this.companionInstance);
         document.originEntityType = EntityType.Companion;
-        yield return EffectManager.Instance.invokeEffectWorkflowCoroutine(document,  effectSteps, () => {});
+        yield return EffectManager.Instance.invokeEffectWorkflowCoroutine(document,  effectSteps, null);
     }
+
+    // This is a bit of a hack, but I'm ok with it being here for now
+    private IEnumerator CheckAttackCardPlayed(PlayableCard card) {
+        if (card.card.cardType.cardCategory == CardCategory.Attack) {
+            yield return companionInstance.StartCoroutine(setupAndInvokeAbility().GetEnumerator());
+        }
+    }
+
 
     public enum CompanionAbilityTrigger {
         EnterTheBattlefield,
@@ -90,6 +102,7 @@ public class CompanionAbility
         EndOfPlayerTurn,
         EndOfEnemyTurn,
         OnFriendOrFoeDeath,
-        OnDeath
+        OnDeath,
+        OnAttackCardPlayed
     }
 }

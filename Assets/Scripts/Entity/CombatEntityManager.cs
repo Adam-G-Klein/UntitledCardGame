@@ -87,9 +87,7 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
         executeTriggers(CombatEntityTriggerType.ENEMY_DIED);
         Debug.Log("EnemyDied: " + enemies.Count);
         if (enemies.Count == 0) {
-            StartCoroutine(
-                turnPhaseEvent.RaiseAtEndOfFrameCoroutine(
-                    new TurnPhaseEventInfo(TurnPhase.END_ENCOUNTER)));
+            StartCoroutine(EndCombatAfterEffectsResolve());
         }
     }
 
@@ -120,6 +118,15 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
         foreach (CombatEntityTrigger trigger in combatEntityTriggers[triggerType]) {
             StartCoroutine(trigger.callback.GetEnumerator());
         }
+    }
+
+    private IEnumerator EndCombatAfterEffectsResolve() {
+        Debug.Log("Waiting for all effects running to resolve");
+        yield return new WaitUntil(() => EffectManager.Instance.IsEffectRunning() == false);
+        Debug.Log("All effects resolved");
+        StartCoroutine(
+            turnPhaseEvent.RaiseAtEndOfFrameCoroutine(
+                new TurnPhaseEventInfo(TurnPhase.END_ENCOUNTER)));
     }
 }
 

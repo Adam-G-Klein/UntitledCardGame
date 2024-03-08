@@ -73,6 +73,11 @@ public class CombatInstance : MonoBehaviour
     }
 
     private void TakeDamage(int damage, CombatInstance attacker){
+        // This is necessary to solve a race condition with a multi-damage attack
+        // Fix this later
+        if (combatStats.currentHealth == 0) {
+            return;
+        }
         combatStats.currentHealth = Mathf.Max(combatStats.currentHealth - DamageAfterDefense(damage), 0);
         if(combatStats.currentHealth == 0){
             StartCoroutine(OnDeath(attacker));
