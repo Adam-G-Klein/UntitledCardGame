@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DialogueSpeaker : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class DialogueSpeaker : MonoBehaviour
     public bool initialized = false;
     public bool alwaysActive = false;
     private InteractionPromptView interactionPromptView;
+
     // Start is called before the first frame update
     void Start()
     {

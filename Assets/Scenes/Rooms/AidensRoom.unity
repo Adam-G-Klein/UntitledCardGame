@@ -386,6 +386,38 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4865956437483633005, guid: 04d99c4ae05c32d499e1117b24615e95, type: 3}
+      propertyPath: alwaysActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4865956437483633007, guid: 04d99c4ae05c32d499e1117b24615e95, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5494734285131751961, guid: 04d99c4ae05c32d499e1117b24615e95, type: 3}
+      propertyPath: alwaysActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5494734285131751963, guid: 04d99c4ae05c32d499e1117b24615e95, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6132405414663076715, guid: 04d99c4ae05c32d499e1117b24615e95, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6132405414663076718, guid: 04d99c4ae05c32d499e1117b24615e95, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6722699601049918635, guid: 04d99c4ae05c32d499e1117b24615e95, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6722699601049918638, guid: 04d99c4ae05c32d499e1117b24615e95, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6974883060502523874, guid: 04d99c4ae05c32d499e1117b24615e95, type: 3}
       propertyPath: m_Name
       value: PortraitDialogueSpeakers
@@ -785,8 +817,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 644212349}
   - {fileID: 132487957}
+  - {fileID: 644212349}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
