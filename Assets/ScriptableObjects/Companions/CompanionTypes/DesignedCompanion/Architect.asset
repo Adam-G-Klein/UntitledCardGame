@@ -22,6 +22,8 @@ MonoBehaviour:
   speakerType: {fileID: 11400000, guid: df40c41b591c1bb40830f7abc22a1ad0, type: 2}
   ability:
     rid: 1886370794371285020
+  abilities:
+  - rid: 3931529445166809108
   upgradeInfo: {fileID: 11400000, guid: 99076b48c6110564cb87cbbb29a513b6, type: 2}
   references:
     version: 2
@@ -54,6 +56,40 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         outputKey: cardsAddedToHand
+    - rid: 3931529445166809108
+      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
+      data:
+        companionAbilityTrigger: 0
+        effectSteps:
+        - rid: 3931529445166809111
+        - rid: 3931529445166809110
+        - rid: 3931529445166809112
+    - rid: 3931529445166809110
+      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetAdjacentCompanions
+        inputKey: self
+        outputKey: adjacent
+    - rid: 3931529445166809111
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 3931529445166809112
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: adjacent
+        statusEffect: 9
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
     - rid: 8939928036647632897
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

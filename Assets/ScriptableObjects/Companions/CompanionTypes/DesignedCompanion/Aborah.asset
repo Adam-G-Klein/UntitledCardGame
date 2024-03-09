@@ -15,13 +15,16 @@ MonoBehaviour:
   companionName: Warrior
   maxHealth: 20
   initialCardsDealtPerTurn: 1
-  startingDeck: {fileID: 11400000, guid: 43310908266524bf6a55b921e6299942, type: 2}
   sprite: {fileID: 21300000, guid: 2e87ba94a361f154aab860e0db613c2c, type: 3}
+  startingDeck: {fileID: 11400000, guid: 43310908266524bf6a55b921e6299942, type: 2}
   keepsake: {fileID: 21300000, guid: 3b995bf12c221eb40b99580cae3e50a4, type: 3}
   cardPool: {fileID: 11400000, guid: 998068d5fdd3d4a4daece7c710652474, type: 2}
   speakerType: {fileID: 11400000, guid: 76fc1ea2d414956428399f565e424d83, type: 2}
   ability:
     rid: 1886370794371285018
+  abilities:
+  - rid: 3931529445166809098
+  - rid: 3931529445166809103
   upgradeInfo: {fileID: 11400000, guid: 99076b48c6110564cb87cbbb29a513b6, type: 2}
   references:
     version: 2
@@ -33,6 +36,60 @@ MonoBehaviour:
         effectSteps:
         - rid: 8939928036647632948
         - rid: 8939928036647632949
+    - rid: 3931529445166809098
+      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
+      data:
+        companionAbilityTrigger: 0
+        effectSteps:
+        - rid: 3931529445166809101
+        - rid: 3931529445166809102
+    - rid: 3931529445166809101
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 3931529445166809102
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: self
+        statusEffect: 6
+        scale: 4
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 3931529445166809103
+      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
+      data:
+        companionAbilityTrigger: 6
+        effectSteps:
+        - rid: 3931529445166809104
+        - rid: 3931529445166809105
+    - rid: 3931529445166809104
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 3931529445166809105
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: self
+        statusEffect: 6
+        scale: -1
+        getScaleFromKey: 0
+        inputScaleKey: 
     - rid: 8939928036647632948
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

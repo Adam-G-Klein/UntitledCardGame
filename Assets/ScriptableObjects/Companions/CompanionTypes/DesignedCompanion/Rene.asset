@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
   m_Name: Rene
   m_EditorClassIdentifier: 
-  companionName: Endurance
+  companionName: Clown
   maxHealth: 20
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: 25fc9e685b3fdf14597e21f20fc72824, type: 3}
@@ -22,6 +22,8 @@ MonoBehaviour:
   speakerType: {fileID: 11400000, guid: 3bef4ef49705e2940af4cd5d02251f0f, type: 2}
   ability:
     rid: 1886370794371285022
+  abilities:
+  - rid: 3931529445166809118
   upgradeInfo: {fileID: 11400000, guid: 99076b48c6110564cb87cbbb29a513b6, type: 2}
   references:
     version: 2
@@ -33,6 +35,52 @@ MonoBehaviour:
         effectSteps:
         - rid: 8939928036647632950
         - rid: 8939928036647632951
+    - rid: 3931529445166809118
+      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
+      data:
+        companionAbilityTrigger: 2
+        effectSteps:
+        - rid: 3931529445166809119
+        - rid: 3931529445166809120
+        - rid: 3931529445166809121
+        - rid: 3931529445166809122
+    - rid: 3931529445166809119
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 3931529445166809120
+      type: {class: GetCardsFromDeck, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetCardsFromDeck
+        inputKey: self
+        getLimitedNumber: 1
+        numberOfCardsToGet: 1
+        outputKey: topOfDeck
+        getCardsFromSourceDeck: 0
+    - rid: 3931529445166809121
+      type: {class: CardInDeckEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardInDeckEffect
+        inputCardsKey: topOfDeck
+        inputDeckKey: self
+        effect: 0
+        outputKey: cardExhaust
+    - rid: 3931529445166809122
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: self
+        statusEffect: 2
+        scale: 3
+        getScaleFromKey: 0
+        inputScaleKey: 
     - rid: 8939928036647632950
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

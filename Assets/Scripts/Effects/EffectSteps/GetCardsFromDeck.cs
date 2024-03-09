@@ -46,6 +46,11 @@ public class GetCardsFromDeck : EffectStep {
                 num = numberOfCardsToGet;
             } else {
                 num = instances[0].drawPile.Count;
+                if (num == 0) {
+                    // If we need to retrieve cards from a deck's draw pile, then we need to shuffle
+                    instances[0].ShuffleDiscardIntoDraw();
+                    num = instances[0].drawPile.Count;
+                }
             }
             getCardsFromInCombatDeck(instances[0], num, outputCards);
         }

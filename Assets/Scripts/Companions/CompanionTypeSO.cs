@@ -17,7 +17,7 @@ public class CompanionTypeSO : ScriptableObject
     public SpeakerTypeSO speakerType;
 
     [SerializeReference]
-    public CompanionAbility ability;
+    public List<CompanionAbility> abilities;
 
     [SerializeReference]
     public CompanionUpgradeSO upgradeInfo;

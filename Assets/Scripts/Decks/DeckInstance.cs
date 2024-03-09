@@ -125,7 +125,7 @@ public class DeckInstance : MonoBehaviour
          }
      }
 
-    private void ShuffleDiscardIntoDraw(){
+    public void ShuffleDiscardIntoDraw(){
         EnemyEncounterManager.Instance.DeckShuffled(this);
         drawPile.AddRange(discardPile);
         drawPile.Shuffle();

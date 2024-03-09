@@ -18,7 +18,10 @@ public class CompanionInstance : MonoBehaviour
     private List<TurnPhaseTrigger> statusEffectTriggers = new List<TurnPhaseTrigger>();
 
     public void Start() {
-        companion.companionType.ability.Setup(this);
+        // companion.companionType.ability.Setup(this);
+        foreach (CompanionAbility ability in companion.companionType.abilities) {
+            ability.Setup(this);
+        }
         CombatEntityManager.Instance.registerCompanion(this);
         spriteImage.sprite = companion.getSprite();
         combatInstance.combatStats = companion.combatStats;

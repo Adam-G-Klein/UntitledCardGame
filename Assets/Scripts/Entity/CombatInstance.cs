@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -36,6 +37,7 @@ public class CombatInstance : MonoBehaviour
     }
 
     public void ApplyStatusEffects(StatusEffect statusEffect, int scale) {
+        Debug.Log(String.Format("Applying status with scale {0}", scale));
         statusEffects[statusEffect] += scale;
     }
 
@@ -164,10 +166,10 @@ public class CombatInstance : MonoBehaviour
     private void UpdateStatusEffect(StatusEffect status) {
         switch (status) {
             case StatusEffect.Defended:
-            case StatusEffect.TemporaryStrength:
                 statusEffects[status] = 0;
             break;
 
+            case StatusEffect.TemporaryStrength:
             case StatusEffect.Invulnerability:
             case StatusEffect.Weakness:
             case StatusEffect.Orb:

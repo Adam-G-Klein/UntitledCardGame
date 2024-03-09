@@ -78,6 +78,11 @@ public class CompanionAbility
         foreach (CombatEntityTrigger trigger in combatEntityTriggers) {
             CombatEntityManager.Instance.unregisterTrigger(trigger);
         }
+
+        if (companionAbilityTrigger == CompanionAbilityTrigger.OnAttackCardPlayed) {
+            this.companionInstance.deckInstance.onCardCastHandler -= CheckAttackCardPlayed;
+        }
+        
         yield return null;
     }
 
