@@ -71,7 +71,9 @@ public class CardViewUI : MonoBehaviour
         foreach (UICard uiCard in selectedCards) {
             outputCards.Add(uiCard.card);
         }
-        cardsSelectedEvent.Raise(new CardListEventInfo(outputCards));
+        if (numberOfSelections != 0) {
+            cardsSelectedEvent.Raise(new CardListEventInfo(outputCards));
+        }
         Destroy(this.gameObject);
     }
 
