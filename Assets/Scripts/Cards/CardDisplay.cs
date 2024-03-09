@@ -45,11 +45,15 @@ public class CardDisplay : MonoBehaviour
         if(CardNameGO == null || CostTextGO == null || CardDescGO == null || ArtworkGO == null)
         {
             Debug.LogError("CardDisplay " + cardInfo.cardType + " is missing a reference to a UI element");
+        } else if (!initialized) {
+            Debug.Log("CardDisplay " + cardInfo.cardType + " is not initialized");
         } else {
+            /*
             CardNameGO.text = cardInfo.name;
             CardDescGO.text = cardInfo.description;
             CostTextGO.text = cardInfo.GetManaCost().ToString();
             ArtworkGO.sprite = cardInfo.artwork;
+            */
 
         }
     }
@@ -85,7 +89,7 @@ public class CardDisplay : MonoBehaviour
             if (companionType == null)
                 Debug.LogError("No companion from provided to cardDisplay or present in cardInfo. cardInfo: " + cardInfo.name + " companionType: " + companionType);
         }
-        if(companionType.cardIdleVfxPrefab) {
+        if(companionType != null && companionType.cardIdleVfxPrefab) {
             vfxGO = Instantiate(companionType.cardIdleVfxPrefab, transform);
             vfxGO.transform.SetSiblingIndex(0);
         }
