@@ -2,7 +2,7 @@
     <Style src="project://database/Assets/UI/common.uss?fileID=7433441132597879392&amp;guid=8d0bc28a2ed710a44b762e4c857ac6f9&amp;type=3#common" />
     <ui:VisualElement style="width: 100%; height: 100%; background-image: none;">
         <ui:VisualElement style="position: absolute;" />
-        <ui:VisualElement class="empty-book" style="top: 21%; height: 76%;">
+        <ui:VisualElement class="empty-book" style="top: 21%; height: 76%; background-image: url(&apos;project://database/Assets/ScrapbookArt/full_book_test_no_text.png?fileID=21300000&amp;guid=1954ccfbea571814687e69b4e491f15d&amp;type=3#full_book_test_no_text&apos;);">
             <ui:Button text="Back" display-tooltip-when-elided="true" name="backButton" style="position: absolute; top: 79%;" />
             <ui:VisualElement style="align-items: flex-start; justify-content: flex-start; width: 60%; height: 75%; left: 20%; top: 10%; flex-direction: column; flex-wrap: nowrap;">
                 <ui:VisualElement style="flex-direction: row; flex-wrap: wrap;">
