@@ -53,7 +53,7 @@ public class DialogueSpeaker : MonoBehaviour
             return;
         }
         this.speakerType = speaker;
-        Debug.Log("Speaker initialized: " + speakerType);
+        Debug.Log("Speaker initialized: " + speakerType + " interactionPromptView: " + interactionPromptView);
         DialogueManager.Instance.RegisterDialogueSpeaker(this);
     }
 

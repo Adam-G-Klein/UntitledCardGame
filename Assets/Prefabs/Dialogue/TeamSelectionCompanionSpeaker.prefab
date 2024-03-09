@@ -149,14 +149,7 @@ MonoBehaviour:
       maxHealth: 0
       currentHealth: 0
       baseAttackDamage: 0
-    ability:
-      rid: -2
   spriteInScene: {fileID: 5921421402927948033}
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
 --- !u!1 &6054710479943699425
 GameObject:
   m_ObjectHideFlags: 0
@@ -466,15 +459,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6154439931370296080, guid: 32fd1538696afa44c98a238adaf5f2ff, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6154439932216108167, guid: 32fd1538696afa44c98a238adaf5f2ff, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6154439932395738017, guid: 32fd1538696afa44c98a238adaf5f2ff, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6154439932395738018, guid: 32fd1538696afa44c98a238adaf5f2ff, type: 3}
+      propertyPath: portrait
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6154439932395738018, guid: 32fd1538696afa44c98a238adaf5f2ff, type: 3}
+      propertyPath: displayPortraitDuringDialogue
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6154439932395738020, guid: 32fd1538696afa44c98a238adaf5f2ff, type: 3}
       propertyPath: m_Name

@@ -28,6 +28,7 @@ public class InteractionPromptView : MonoBehaviour
         // in order to know whether we have a sequence to intiiate we need to know whether the sequnece has all its 
         // required speakers.
         // We just need to initiate the prompt after everything else then right?
+        Debug.Log("interaction prompt Setting visible: " + visible + " enabledInScene: " + enabledInScene);
         if(!enabledInScene) return;
         button.enabled = visible;
         clickedImage.enabled = visible;

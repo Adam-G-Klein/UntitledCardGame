@@ -17,6 +17,8 @@ public class DialogueBoxView : MonoBehaviour
     // For re-displaying the prompt after the dialogue has been completed
     // We only know the user's proceeded when the dialogue box is cleared again 
     private Action redisplayPromptCallback = null;
+    [Header("For team selection screen where we don't want portraits")]
+    public bool displayPortraitDuringDialogue = true;
 
     [Header("Image assets (hi Kalila!)")]
     [SerializeField]
@@ -42,7 +44,7 @@ public class DialogueBoxView : MonoBehaviour
         if(dialogueBoxBackground == null) {
             Debug.LogError("DialogueBoxView: dialogueBoxBackground not set, gameobject: " + gameObject.name);
         }
-        if(portrait == null) {
+        if(displayPortraitDuringDialogue && portrait == null) {
             Debug.LogError("DialogueBoxView: portrait not set, gameobject: " + gameObject.name);
         }
         if(textGameObject == null) {
@@ -93,7 +95,7 @@ public class DialogueBoxView : MonoBehaviour
     private void SetGameObjectsEnabled(bool enabled) {
         Debug.Log("Setting images enabled: " + enabled + " gameobject: " + gameObject.name);
         dialogueBoxBackground.SetActive(enabled);
-        portrait.SetActive(enabled);
+        if(displayPortraitDuringDialogue) portrait.SetActive(enabled);
         textGameObject.SetActive(enabled);
     }
     

@@ -75,6 +75,7 @@ public class TargettingArrow : MonoBehaviour
 
         linerenderer.positionCount = pointList.Count;
         linerenderer.SetPositions(pointList.ToArray());
+        linerenderer.enabled = true;
     }
 
     public void setColor(Color color){
