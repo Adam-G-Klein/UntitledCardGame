@@ -36,7 +36,7 @@ public class CardInShop : MonoBehaviour
     public void OnPointerClick(PointerEventData eventData) {
         if (isSold) return;
         CardBuyRequest cardBuyRequest = new CardBuyRequest(
-            cardDisplay.cardInfo, 
+            cardDisplay.getCardInfo(), 
             price, 
             this);
         ShopManager.Instance.processCardBuyRequest(cardBuyRequest);

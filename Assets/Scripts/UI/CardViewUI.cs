@@ -36,7 +36,7 @@ public class CardViewUI : MonoBehaviour
             cardPrefabParent);
 
         CardDisplay cardDisplay = cardObj.GetComponent<CardDisplay>();
-        cardDisplay.cardInfo = card;
+        cardDisplay.Initialize(card);
         UICard uiCard = cardObj.GetComponent<UICard>();
         uiCard.onclickEvent.AddListener(uiCardSelected);
     }

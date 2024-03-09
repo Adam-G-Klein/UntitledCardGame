@@ -41,6 +41,9 @@ public class Card : Entity, IEquatable<Card>
 
     }
 
+    [HideInInspector]
+    private CompanionTypeSO companionFrom;
+
     // For sagas, determines the index into the EffectWorkflowList that we'll return from GetEffectWorkflow
     // For non-sagas, will always stay at 0
     private int workflowIndex = 0;
@@ -158,5 +161,13 @@ public class Card : Entity, IEquatable<Card>
 
     public void ChangeCardModification(CardModification modification, int scale) {
         cardModifications[modification] += scale;
+    }
+
+    public void setCompanionFrom(CompanionTypeSO companion) {
+        companionFrom = companion;
+    }
+    
+    public CompanionTypeSO getCompanionFrom() {
+        return companionFrom;
     }
 }
