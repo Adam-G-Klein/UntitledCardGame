@@ -40,6 +40,7 @@ public class CompanionDialogueParticipant : MonoBehaviour
     // if we'll have a dialogue to initiate before it gets all of the 
     // speakers initialized and registered
     public void InitializePromptView(bool enabled, DialogueSequenceSO dialogueSequence) {
+        Debug.Log("Initializing prompt view. Enabled: " + enabled + " dialogueSequence: " + dialogueSequence);
         if(!enabled) return;
         interactionPromptView = GetComponentInChildren<InteractionPromptView>();
         if(interactionPromptView) {
