@@ -18,4 +18,11 @@ public class EnemyTypeSO : ScriptableObject
     public Sprite sprite;
 
     public EnemyBrain enemyPattern;
+    public List<InitialStatus> initialStatuses = new List<InitialStatus>();
+}
+
+[System.Serializable]
+public class InitialStatus {
+    public StatusEffect status;
+    public int scale;
 }

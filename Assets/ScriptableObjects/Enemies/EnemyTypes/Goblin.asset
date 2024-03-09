@@ -10,34 +10,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
-  m_Name: Weak Goblin
+  m_Name: Goblin
   m_EditorClassIdentifier: 
-  maxHealth: 3
-  baseAttackDamage: 0
-  sprite: {fileID: -2013906114, guid: 52ef76537258f7d43a3a9dc144329c2f, type: 3}
+  maxHealth: 10
+  baseAttackDamage: 1
+  sprite: {fileID: 21300000, guid: cfb5c19085900f34584a8be8667ecd18, type: 3}
   enemyPattern:
     behaviors:
     - intent: 1
-      enemyTargetMethod: 0
-      targetsKey: 
-      displayValue: 1
+      enemyTargetMethod: 1
+      targetsKey: target
       effectSteps:
-      - rid: 55651152728948768
+      - rid: 3931529445166809315
     sequentialBehaviors: 0
     nextBehaviorIndex: 0
-  initialStatuses:
-  - status: 10
-    scale: 5
   references:
     version: 2
     RefIds:
-    - rid: 55651152728948768
+    - rid: 3931529445166809315
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
-        inputKey: 
+        inputKey: target
         combatEffect: 0
-        scale: 1
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1

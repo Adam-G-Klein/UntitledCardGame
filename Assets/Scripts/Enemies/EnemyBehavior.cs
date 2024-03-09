@@ -7,6 +7,7 @@ public class EnemyBehavior {
     public EnemyIntentType intent;
     public EnemyTargetMethod enemyTargetMethod = EnemyTargetMethod.FirstCompanion;
     public string targetsKey = "";
+    public int displayValue = 0;
     [SerializeReference]
     public List<EffectStep> effectSteps;
 }
@@ -16,5 +17,6 @@ public enum EnemyTargetMethod {
     LastCompanion,
     RandomEnemyNotSelf,
     RandomCompanion,
-    LowestHealth
+    LowestHealth,
+    None
 }

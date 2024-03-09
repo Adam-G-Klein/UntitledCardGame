@@ -29,6 +29,7 @@ public class EnemyBrain
             attackTime, 
             action.intent,
             action.targetsKey,
+            action.displayValue,
             action.effectSteps);
     } 
 

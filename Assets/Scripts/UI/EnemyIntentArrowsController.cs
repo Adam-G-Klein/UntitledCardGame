@@ -18,7 +18,10 @@ public class EnemyIntentArrowsController : MonoBehaviour
         enemyInstance = GetComponentInParent<EnemyInstance>();
     }
 
-    public void updateArrows(EnemyIntent intent){
+    public void updateArrows(EnemyIntent intent) {
+        if (intent.targets[0] == null) {
+            return;
+        }
         TargettingArrow newArrow = createArrow(intent.targets[0].transform, intent.intentType);
         arrows.Add(newArrow);
 

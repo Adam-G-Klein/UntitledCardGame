@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class EnemyIntentDisplay : MonoBehaviour
 {
-    private List<EnemyIntentImage> intentImages = new List<EnemyIntentImage>();
+    // private List<EnemyIntentImage> intentImages = new List<EnemyIntentImage>();
+    public List<IntentImage> intentImages = new List<IntentImage>();
     private EnemyIntentArrowsController arrowController;
 
     private EnemyInstance enemyInstance;
@@ -14,19 +16,16 @@ public class EnemyIntentDisplay : MonoBehaviour
     public TurnPhaseTrigger displayIntentTrigger;
     public TurnPhaseTriggerEvent registerTurnPhaseTriggerEvent;
     public TurnPhaseTriggerEvent removeTurnPhaseTriggerEvent;
+    public TextMeshProUGUI valueText;
 
     void Start() {
         enemyInstance = GetComponentInParent<EnemyInstance>();
         arrowController = GetComponent<EnemyIntentArrowsController>();
-        intentImages.AddRange(GetComponentsInChildren<EnemyIntentImage>());
+        // intentImages.AddRange(GetComponentsInChildren<EnemyIntentImage>());
         turnManager = TurnManager.Instance;
         displayIntentTrigger = new TurnPhaseTrigger(TurnPhase.START_PLAYER_TURN, displayIntent(enemyInstance));
         registerTurnPhaseTriggerEvent.Raise(new TurnPhaseTriggerEventInfo(displayIntentTrigger));
         transform.SetAsFirstSibling(); // Want the arrows to be on top of the enemies so that we can see them buffing each other
-
-    }
-    
-    void Update() {
 
     }
 
@@ -41,21 +40,23 @@ public class EnemyIntentDisplay : MonoBehaviour
         }
         updateIntentImages(enemy.currentIntent);
         arrowController.updateArrows(enemy.currentIntent);
+        valueText.gameObject.SetActive(true);
+        valueText.text = enemy.currentIntent.displayValue.ToString();
         yield return null;
     }
 
     public void clearIntent() {
         clearIntentImages();
         arrowController.clearArrows();
+        valueText.gameObject.SetActive(false);
     }
 
     private void updateIntentImages(EnemyIntent intent) {
-        for(int i = 0; i < intentImages.Count; i++) {
-            EnemyIntentImage img = intentImages[i];
-            if(img.intentType == intent.intentType) {
-                img.gameObject.SetActive(true);
+        foreach (IntentImage image in intentImages) {
+            if (image.intent == intent.intentType) {
+                image.gameObject.SetActive(true);
             } else {
-                img.gameObject.SetActive(false);
+                image.gameObject.SetActive(false);
             }
         }
     }
@@ -65,5 +66,10 @@ public class EnemyIntentDisplay : MonoBehaviour
             intentImages[i].gameObject.SetActive(false);
         }
     }
-    
+}
+
+[System.Serializable]
+public class IntentImage {
+    public EnemyIntentType intent;
+    public GameObject gameObject;
 }
