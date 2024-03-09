@@ -12,18 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
   m_Name: Goon
   m_EditorClassIdentifier: 
-  maxHealth: 10
-  baseAttackDamage: 1
+  maxHealth: 40
+  baseAttackDamage: 0
   sprite: {fileID: 21300000, guid: 9bd71e2f3cc128d41905a6db51025fd0, type: 3}
   enemyPattern:
     behaviors:
     - intent: 1
       enemyTargetMethod: 0
       targetsKey: target
+      displayValue: 8
       effectSteps:
+      - rid: 3931529445166809420
       - rid: 3931529445166809313
     sequentialBehaviors: 0
     nextBehaviorIndex: 0
+  initialStatuses: []
   references:
     version: 2
     RefIds:
@@ -33,9 +36,20 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: target
         combatEffect: 0
-        scale: 3
+        scale: 8
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+    - rid: 3931529445166809420
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0

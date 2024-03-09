@@ -35,12 +35,14 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
         return companions;
     }
 
-    public CompanionInstance GetFrontCompanion() {
-        return companions[0];
-    }
+    // position 0 is front
+    // position -1 is back
+    public CompanionInstance GetCompanionInstanceAtPosition(int position) {
+        if (position == -1 || position >= companions.Count) {
+            return companions[companions.Count - 1];
+        }
 
-    public CompanionInstance GetBackCompanion() {
-        return companions[companions.Count - 1];
+        return companions[position];
     }
 
     public CompanionInstance getCompanionInstanceById(string id) {

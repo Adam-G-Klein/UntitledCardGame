@@ -29,7 +29,7 @@ public class EnemyBrain
             attackTime, 
             action.intent,
             action.targetsKey,
-            action.displayValue,
+            action.displayValue + self.combatInstance.combatStats.baseAttackDamage,
             action.effectSteps);
     } 
 
@@ -38,11 +38,19 @@ public class EnemyBrain
         List<CombatInstance> possibleTargets = new List<CombatInstance>();
         switch (targetMethod) {
             case EnemyTargetMethod.FirstCompanion:
-                target = CombatEntityManager.Instance.GetFrontCompanion().combatInstance;
+                target = CombatEntityManager.Instance.GetCompanionInstanceAtPosition(0).combatInstance;
             break;
 
             case EnemyTargetMethod.LastCompanion:
-                target = CombatEntityManager.Instance.GetBackCompanion().combatInstance;
+                target = CombatEntityManager.Instance.GetCompanionInstanceAtPosition(-1).combatInstance;
+            break;
+
+            case EnemyTargetMethod.SecondFromFront:
+                target = CombatEntityManager.Instance.GetCompanionInstanceAtPosition(1).combatInstance;
+            break;
+
+            case EnemyTargetMethod.ThirdFromFront:
+                target = CombatEntityManager.Instance.GetCompanionInstanceAtPosition(2).combatInstance;
             break;
 
             case EnemyTargetMethod.RandomCompanion:

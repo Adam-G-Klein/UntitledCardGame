@@ -22,9 +22,13 @@ MonoBehaviour:
   playable: 1
   effectWorkflows:
   - rid: 2116895648763871351
+  onExhaustEffectWorkflow:
+    rid: -2
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 2116895648763871351
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -89,7 +93,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: 
         statusEffect: 0
-        scale: 0
+        scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
     - rid: 9024302470308298775

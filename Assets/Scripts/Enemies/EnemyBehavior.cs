@@ -14,6 +14,8 @@ public class EnemyBehavior {
 
 public enum EnemyTargetMethod {
     FirstCompanion,
+    SecondFromFront,
+    ThirdFromFront,
     LastCompanion,
     RandomEnemyNotSelf,
     RandomCompanion,
