@@ -13,7 +13,13 @@ MonoBehaviour:
   m_Name: TutShop2Seq 1
   m_EditorClassIdentifier: 
   requiredSpeakers: []
-  dialogueLines: []
+  dialogueLines:
+  - rid: 594700756359577665
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 594700756359577665
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 0ffd109ae66c2a54cb93828dea1a7219, type: 2}
+        line: whoa this is the second tutorial shop!

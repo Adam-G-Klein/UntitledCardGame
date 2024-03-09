@@ -13,6 +13,7 @@ public class DisplayTeamSigningUI : MonoBehaviour
     }
 
     public void DisplayTeamSigning() {
+        Debug.Log("Displaying team signing UI");
         teamSelectionUI.toggleDisplay();
         // TODO: Make this play the specific next sequence.
         // This only works for now because we only have two sequences in the scene
