@@ -41,9 +41,8 @@ public class AddCardsToHand : EffectStep {
     public override IEnumerator invoke(EffectDocument document) {
         // Check for valid entity target
         List<DeckInstance> deckInstances = document.map.GetList<DeckInstance>(entityFromKey);
-        if (deckInstances.Count == 0 || deckInstances.Count > 1) {
-            EffectError("Either no valid target or " + 
-                "too many valid targets to use as entity from for Card");
+        if (deckInstances.Count == 0) {
+            EffectError("No valid target to use as entity from for Card");
             yield return null;
         }
         
@@ -69,7 +68,7 @@ public class AddCardsToHand : EffectStep {
         }
 
         // Add the cards
-        document.map.AddItems(outputKey, addCardsToHand(cardTypesToAdd, finalScale, deckInstances[0]));
+        document.map.AddItems(outputKey, addCardsToHand(cardTypesToAdd, finalScale, deckInstances));
 
         yield return null;
     }
@@ -77,14 +76,22 @@ public class AddCardsToHand : EffectStep {
     private List<PlayableCard> addCardsToHand(
             List<CardType> cardTypes,
             int scale,
-            DeckInstance entityFrom) {
+            List<DeckInstance> entitiesFrom) {
         List<PlayableCard> cardsAdded = new List<PlayableCard>();
-        for (int i = 0; i < scale; i++) {
-            List<Card> cards = new List<Card>();
-            foreach (CardType cardType in cardTypes) {
-                cards.Add(new Card(cardType));
+        foreach (DeckInstance entityFrom in entitiesFrom) {
+            CompanionTypeSO companionTypeSO = entityFrom.GetCompanionTypeSO();
+            if(companionTypeSO != null) {
+                for (int i = 0; i < scale; i++) {
+                    List<Card> cards = new List<Card>();
+                    foreach (CardType cardType in cardTypes) {
+                        cards.Add(new Card(cardType, companionTypeSO));
+                    }
+                    cardsAdded.AddRange(PlayerHand.Instance.DealCards(cards, entityFrom));
+                }
+            } else {
+                Debug.LogError("DeckInstance does not have a companion type, cannot create new cards to add to it. won't know how to display their frames and icons without the companion reference");
             }
-            cardsAdded.AddRange(PlayerHand.Instance.DealCards(cards, entityFrom));
+            
         }
         return cardsAdded;
     }

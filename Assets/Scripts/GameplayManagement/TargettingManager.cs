@@ -35,14 +35,15 @@ public class TargettingManager : GenericSingleton<TargettingManager>
     public void selectCards(
             List<Card> options,
             string promptText,
-            int cardsToSelect,
+            int minCardsToSelect,
+            int maxCardsToSelect,
             List<Card> output) {
         GameObject gameObject = GameObject.Instantiate(
             cardSelectionUIPrefab,
             Vector3.zero,
             Quaternion.identity);
         CardViewUI cardViewUI = gameObject.GetComponent<CardViewUI>();
-        cardViewUI.Setup(options, cardsToSelect, promptText);
+        cardViewUI.Setup(options, minCardsToSelect, promptText, maxCardsToSelect);
         cardSelectionsList = output;
         lookingForCardSelections = true;
     }

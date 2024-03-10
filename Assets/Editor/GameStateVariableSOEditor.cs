@@ -93,7 +93,7 @@ public class GameStateVariableSOEditor : Editor {
         EditorGUILayout.Space(10);
 
         if(GUILayout.Button("Reset Player Data")) {
-            gameStateVariableSO.playerData.initializeRun();
+            gameStateVariableSO.playerData.initialize();
         }
         
         EditorGUILayout.Space(20);

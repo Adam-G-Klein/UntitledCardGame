@@ -41,6 +41,9 @@ public class Card : Entity, IEquatable<Card>
 
     }
 
+    [HideInInspector]
+    private CompanionTypeSO companionFrom;
+
     // For sagas, determines the index into the EffectWorkflowList that we'll return from GetEffectWorkflow
     // For non-sagas, will always stay at 0
     private int workflowIndex = 0;
@@ -71,10 +74,11 @@ public class Card : Entity, IEquatable<Card>
     [SerializeReference]
     public CardType cardType;
 
-    public Card(CardType cardType)
+    public Card(CardType cardType, CompanionTypeSO companionFrom)
     {
         this.cardType = cardType;
         this.id = Id.newGuid();
+        this.setCompanionFrom(companionFrom);
         ResetCardModifications();
     }
 
@@ -82,6 +86,7 @@ public class Card : Entity, IEquatable<Card>
         this.cardType = card.cardType;
         id = card.id;
         this.effectBuffs = card.effectBuffs;
+        this.setCompanionFrom(card.getCompanionFrom());
         ResetCardModifications();
     }
 
@@ -126,6 +131,7 @@ public class Card : Entity, IEquatable<Card>
 
     public int GetManaCost() {
         int totalReduction = 0;
+        Debug.Log("CardModifications: " + cardModifications);
         totalReduction += cardModifications[CardModification.TempManaDecrease];
         totalReduction += cardType.cardModifications[CardModification.TempManaDecrease];
         
@@ -158,5 +164,13 @@ public class Card : Entity, IEquatable<Card>
 
     public void ChangeCardModification(CardModification modification, int scale) {
         cardModifications[modification] += scale;
+    }
+
+    public void setCompanionFrom(CompanionTypeSO companion) {
+        companionFrom = companion;
+    }
+    
+    public CompanionTypeSO getCompanionFrom() {
+        return companionFrom;
     }
 }

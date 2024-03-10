@@ -9,6 +9,8 @@ public class MapManager : MonoBehaviour
 
     void Start() {
         setGoldUIEvent.Raise(gameState.playerData.GetValue().gold);
+        DialogueManager.Instance.SetDialogueLocation(gameState);
+        DialogueManager.Instance.StartAnyDialogueSequence();
     }
 
     public void encounterInitiateEventHandler(string encounterId) {

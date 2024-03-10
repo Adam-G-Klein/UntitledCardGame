@@ -75,10 +75,11 @@ public class ShopEncounter : Encounter
             cardInShop.price = price;
 
             CardDisplay cardDisplay = cardInShop.cardDisplay;
-            cardDisplay.cardInfo = new Card(cardType);
+            CompanionTypeSO companionType = companionList[i].companionType;
+            cardInShop.keepSake.sprite = companionType.keepsake;
+            cardDisplay.Initialize(new Card(cardType, companionType));
 
             // NOTE: Assumes that the companion list and the order their cards are displayed are the same
-            cardInShop.keepSake.sprite = companionList[i].companionType.keepsake;
 
             cardInShop.Setup();
         }

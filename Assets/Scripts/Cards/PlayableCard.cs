@@ -33,7 +33,7 @@ public class PlayableCard : MonoBehaviour,
 
     public void Start()
     {
-        card = GetComponent<CardDisplay>().cardInfo;
+        card = GetComponent<CardDisplay>().getCardInfo();
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -50,15 +50,16 @@ public class PlayableCard : MonoBehaviour,
         EffectDocument document = new EffectDocument();
         document.map.AddItem(EffectDocument.ORIGIN, this);
         document.originEntityType = EntityType.Card;
-        EffectManager.Instance.invokeEffectWorkflow(document, card.effectSteps, CardFinishCastingCallback);
+        EffectManager.Instance.invokeEffectWorkflow(document, card.effectSteps, CardFinishCastingCallback());
     }
 
-    private void CardFinishCastingCallback() {
+    private IEnumerator CardFinishCastingCallback() {
         ManaManager.Instance.updateMana(-card.GetManaCost());
         StartCoroutine(cardCastEvent.RaiseAtEndOfFrameCoroutine(new CardCastEventInfo(card)));
         DiscardCardFromHand();
         IncrementCastCount();
         EnemyEncounterManager.Instance.combatEncounterState.cardsCastThisTurn.Add(card);
+        yield return StartCoroutine(deckFrom.OnCardCast(this));
         Destroy(this.gameObject);
     }
 

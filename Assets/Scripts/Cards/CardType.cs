@@ -25,7 +25,11 @@ public class CardType: ScriptableObject
     public EffectWorkflow onExhaustEffectWorkflow;
 
     // Revisit this implementation of card type level modifications
-    public Dictionary<CardModification, int> cardModifications = new Dictionary<CardModification, int>();
+    public Dictionary<CardModification, int> cardModifications = new Dictionary<CardModification, int>() {
+        {CardModification.FixedDamageIncrease, 0},
+        {CardModification.DoubleDamageIncrease, 0},
+        {CardModification.TempManaDecrease, 0}
+    };
 
     public void ResetCardModifications() {
         cardModifications = new Dictionary<CardModification, int>();

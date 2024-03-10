@@ -60,7 +60,6 @@ public class CombatUIController : MonoBehaviour
             //BindEnemy(enemies[i].enemy.GetCombatStats(), i);
         }
         combatUI.rootVisualElement.Q<Button>("end-turn-button").clicked += endTurnButtonHandler;
-        manaCounter = combatUI.rootVisualElement.Q<Label>("mana-counter");
     }
 
     // Update is called once per frame
@@ -69,8 +68,8 @@ public class CombatUIController : MonoBehaviour
         //TODO make these update functions run on a subscribe, not on update;
         UpdateCompanionUI();
         UpdateEnemyUI();
-        UpdatePlayerUI();
     }
+
     private void UpdateEnemyUI() 
     {
         var enemies = combatEntityManager.getEnemies();
@@ -113,11 +112,6 @@ public class CombatUIController : MonoBehaviour
         }
     }
 
-    private void UpdatePlayerUI()
-    {
-        var mana = ManaManager.Instance.currentMana;
-        manaCounter.text = mana.ToString();
-    }
 
     private void endTurnButtonHandler() {
         if(endTurnButtonEnabled)
@@ -135,17 +129,9 @@ public class CombatUIController : MonoBehaviour
             endTurnButtonEnabled = false;
         }
 
-        if(info.newPhase == TurnPhase.START_PLAYER_TURN) {
-            manaCounter.text = ManaManager.Instance.currentMana.ToString();
-        }
     }
 
-    private void manaEventHandler(int info)
-    {
-        // Would be best to set this from the ManaManager,
-        // but we can't know which listener will get activated first
-        manaCounter.text += info;
-    }
+    
 
 /*    public void BindCompanion(CompanionInstance companion, VisualElement portrait)
     {

@@ -11,7 +11,13 @@ public static class PrefabInstantiator {
         GameObject newCard = GameObject.Instantiate(cardPrefab, parent);
         CardDisplay cardDisplay = newCard.GetComponent<CardDisplay>();
         PlayableCard cardPlayable = newCard.GetComponent<PlayableCard>();
-        cardDisplay.cardInfo = card;
+        // information flowing the wrong direction, deck should have it set
+        CompanionInstance companionInstance = deckFrom.gameObject.GetComponent<CompanionInstance>();
+        if (companionInstance) {
+            cardDisplay.Initialize(card);
+        } else {
+            cardDisplay.Initialize(card);
+        }
         cardPlayable.SetCardInfo(card);
         cardPlayable.SetDeckFrom(deckFrom);
         return cardPlayable;

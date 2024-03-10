@@ -16,16 +16,18 @@ public class CardViewUI : MonoBehaviour
     private string promptText;
     private IEnumerator currentCoroutine = null;
 
-    private int numberOfSelections;
+    private int minSelections;
+    private int maxSelections;
     private List<UICard> selectedCards = new List<UICard>();
 
-    public void Setup(List<Card> cards, int numSelections, string promptText) {
+    public void Setup(List<Card> cards, int minSelections, string promptText, int maxSelections = -1) {
         foreach (Card card in cards) {
             createCard(card);
         }
         this.promptText = promptText;
         this.prompt.text = promptText;
-        this.numberOfSelections = numSelections;
+        this.minSelections = minSelections;
+        this.maxSelections = maxSelections;
     }
 
     private void createCard(Card card) {
@@ -36,7 +38,7 @@ public class CardViewUI : MonoBehaviour
             cardPrefabParent);
 
         CardDisplay cardDisplay = cardObj.GetComponent<CardDisplay>();
-        cardDisplay.cardInfo = card;
+        cardDisplay.Initialize(card);
         UICard uiCard = cardObj.GetComponent<UICard>();
         uiCard.onclickEvent.AddListener(uiCardSelected);
     }
@@ -49,7 +51,7 @@ public class CardViewUI : MonoBehaviour
             return;
         }
 
-        if (selectedCards.Count >= numberOfSelections) {
+        if (maxSelections != -1 && selectedCards.Count >= maxSelections) {
             return;
         }
 
@@ -59,10 +61,10 @@ public class CardViewUI : MonoBehaviour
     }
 
     public void exitView() {
-        if (selectedCards.Count < numberOfSelections) {
+        if (selectedCards.Count < minSelections) {
             if (currentCoroutine == null) {
                 currentCoroutine = changePromptText("Please select " + 
-                    (numberOfSelections - selectedCards.Count) + " more cards");
+                    (minSelections - selectedCards.Count) + " more cards");
                 StartCoroutine(currentCoroutine);
             }
             return;
@@ -71,7 +73,9 @@ public class CardViewUI : MonoBehaviour
         foreach (UICard uiCard in selectedCards) {
             outputCards.Add(uiCard.card);
         }
-        cardsSelectedEvent.Raise(new CardListEventInfo(outputCards));
+        if (outputCards.Count != 0) {
+            cardsSelectedEvent.Raise(new CardListEventInfo(outputCards));
+        }
         Destroy(this.gameObject);
     }
 

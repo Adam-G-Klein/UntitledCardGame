@@ -13,7 +13,7 @@ public class EnemyBrain
     // To be revisited
     private float attackTime = 0.5f;
 
-    public EnemyIntent ChooseIntent() {
+    public EnemyIntent ChooseIntent(EnemyInstance self) {
         // Just randomly choose behavior for now, but there's room to make this more smarter
         int behaviorIndex = sequentialBehaviors ? nextBehaviorIndex : UnityEngine.Random.Range(0, behaviors.Count);
         if(behaviors.Count == 0) {
@@ -22,31 +22,71 @@ public class EnemyBrain
         }
         nextBehaviorIndex = (nextBehaviorIndex + 1) % behaviors.Count;
         EnemyBehavior action = behaviors[behaviorIndex];
-        CombatInstance target = ChooseTargets(action.enemyTargetMethod);
+        CombatInstance target = ChooseTargets(action.enemyTargetMethod, self);
         return new EnemyIntent(
             // I'm aware this is bad, stick with me for a sec
             new List<CombatInstance>() { target },
             attackTime, 
             action.intent,
             action.targetsKey,
+            UpdateDisplayValue(self, action.displayValue, action),
             action.effectSteps);
     } 
 
-    private CombatInstance ChooseTargets(EnemyTargetMethod targetMethod) {
+    private CombatInstance ChooseTargets(EnemyTargetMethod targetMethod, EnemyInstance self) {
+        CombatInstance target = null;
         List<CombatInstance> possibleTargets = new List<CombatInstance>();
         switch (targetMethod) {
-            // TODO: For now this is just going to be random because we don't have the companion
-            // ordering implemented yet.
             case EnemyTargetMethod.FirstCompanion:
-            case EnemyTargetMethod.LastCompanion:
-                possibleTargets.AddRange(CombatEntityManager.Instance.getEnemyTargets());
+                target = CombatEntityManager.Instance.GetCompanionInstanceAtPosition(0).combatInstance;
             break;
 
-            case EnemyTargetMethod.RandomEnemy:
+            case EnemyTargetMethod.LastCompanion:
+                target = CombatEntityManager.Instance.GetCompanionInstanceAtPosition(-1).combatInstance;
+            break;
+
+            case EnemyTargetMethod.SecondFromFront:
+                target = CombatEntityManager.Instance.GetCompanionInstanceAtPosition(1).combatInstance;
+            break;
+
+            case EnemyTargetMethod.ThirdFromFront:
+                target = CombatEntityManager.Instance.GetCompanionInstanceAtPosition(2).combatInstance;
+            break;
+
+            case EnemyTargetMethod.RandomCompanion:
+                CombatEntityManager.Instance.getCompanions()
+                    .ForEach(companion => possibleTargets.Add(companion.combatInstance));
+                target = possibleTargets[UnityEngine.Random.Range(0, possibleTargets.Count)];
+            break;
+
+            case EnemyTargetMethod.RandomEnemyNotSelf:
                 CombatEntityManager.Instance.getEnemies()
-                    .ForEach(enemy => possibleTargets.Add(enemy.combatInstance));
+                    .ForEach(enemy => {
+                        if (enemy != self) {
+                            possibleTargets.Add(enemy.combatInstance);
+                        }
+                    });
+                target = possibleTargets[UnityEngine.Random.Range(0, possibleTargets.Count)];
+            break;
+
+            case EnemyTargetMethod.LowestHealth:
+                List<CompanionInstance> companions = CombatEntityManager.Instance.getCompanions();
+                target = companions[0].combatInstance;
+                foreach (CompanionInstance instance in companions) {
+                    if (instance.combatInstance.combatStats.currentHealth < target.combatStats.currentHealth) {
+                        target = instance.combatInstance;
+                    }
+                }
             break;
         }
-        return possibleTargets[UnityEngine.Random.Range(0, possibleTargets.Count)];
+        return target;
+    }
+
+    private int UpdateDisplayValue(EnemyInstance instance, int value, EnemyBehavior behavior) {
+        if (behavior.intent != EnemyIntentType.BigAttack || behavior.intent != EnemyIntentType.SmallAttack) {
+            return value;
+        }
+
+        return value + instance.combatInstance.combatStats.baseAttackDamage;
     }
 }

@@ -16,4 +16,6 @@ public class EncounterConstantsSO : ScriptableObject {
     public GameObject cardSoldOutPrefab;
     public GameObject keepsakeInShopPrefab;
     public GameObject randomBackgroundPrefab;
+    [Header("Misc")]
+    public CardType cardGeneratedByOrb;
 }

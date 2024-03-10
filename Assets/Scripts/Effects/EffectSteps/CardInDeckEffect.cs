@@ -49,6 +49,14 @@ public class CardInDeckEffect : EffectStep
                 case CardInDeckEffectName.Purge:
                     deckInstances[0].sourceDeck.PurgeCard(card.id);
                 break;
+
+                case CardInDeckEffectName.Discard:
+                    deckInstances[0].DiscardCard(card);
+                break;
+
+                case CardInDeckEffectName.AddToHand:
+                    deckInstances[0].AddCardFromDeckToHand(card);
+                break;
             }
         }
         document.intMap.Add(outputKey, numberOfCardsTakenActionOn);
@@ -57,6 +65,8 @@ public class CardInDeckEffect : EffectStep
     
     public enum CardInDeckEffectName {
         Exhaust,
-        Purge
+        Purge,
+        Discard,
+        AddToHand
     }
 }

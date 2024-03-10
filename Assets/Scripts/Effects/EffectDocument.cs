@@ -45,36 +45,43 @@ public class EffectDocument
 
     public class GenericListDictionary {
         private Dictionary<Tuple<string, Type>, List<object>> _dict = new Dictionary<Tuple<string, Type>, List<object>>();
+        private Dictionary<Tuple<string, Type>, string> _linkDict = new Dictionary<Tuple<string, Type>, string>();
 
         public Dictionary<Tuple<string, Type>, List<object>> GetDict() {
             return _dict;
         }
 
-        public void AddItem<T>(string key, T value) where T : class {
+        public void AddItem<T>(string key, T value, string link = null) where T : class {
             Tuple<string, Type> dictKey = new Tuple<string, Type>(key, typeof(T));
             if (!_dict.ContainsKey(dictKey)) {
                 _dict[dictKey] = new List<object>();
             }
             _dict[dictKey].Add(value);
-        }
-
-        public void AddItems<T>(string key, List<T> items) where T : class {
-            foreach (T item in items) {
-                AddItem<T>(key, item);
+            if (link != null) {
+                _linkDict[dictKey] = link;
             }
         }
 
-        public void AddItemOfType(string key, object value, Type type) {
+        public void AddItems<T>(string key, List<T> items, string link = null) where T : class {
+            foreach (T item in items) {
+                AddItem<T>(key, item, link);
+            }
+        }
+
+        public void AddItemOfType(string key, object value, Type type, string link = null) {
             Tuple<string, Type> dictKey = new Tuple<string, Type>(key, type);
             if (!_dict.ContainsKey(dictKey)) {
                 _dict[dictKey] = new List<object>();
             }
             _dict[dictKey].Add(value);
+            if (link != null) {
+                _linkDict[dictKey] = link;
+            }
         }
 
-        public void AddItemsOfType(string key, List<object> items, Type type) {
+        public void AddItemsOfType(string key, List<object> items, Type type, string link = null) {
             foreach (object item in items) {
-                AddItemOfType(key, item, type);
+                AddItemOfType(key, item, type, link);
             }
         }
 
@@ -113,15 +120,21 @@ public class EffectDocument
             }
             return false;
         }
-        
-        public List<object> GetAllItemsWithKeyString(string key) {
-            List<object> returnList = new List<object>();
+
+        public int CountItemsWithKeyString(string key) {
+            int count = 0;
+            HashSet<string> dedupeLinks = new HashSet<string>();
             foreach (KeyValuePair<Tuple<string, Type>, List<object>> keyValuePair in _dict) {
                 if (keyValuePair.Key.Item1.Equals(key)) {
-                    returnList.AddRange(keyValuePair.Value);
+                    if (_linkDict.ContainsKey(keyValuePair.Key) && !dedupeLinks.Contains(_linkDict[keyValuePair.Key])) {
+                        dedupeLinks.Add(_linkDict[keyValuePair.Key]);
+                        count++;
+                    } else {
+                        count++;
+                    }
                 }
             }
-            return returnList;
+            return count;
         }
 
         public List<Type> GetTypesWithKey(string key) {

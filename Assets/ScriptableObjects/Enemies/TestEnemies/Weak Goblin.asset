@@ -13,17 +13,21 @@ MonoBehaviour:
   m_Name: Weak Goblin
   m_EditorClassIdentifier: 
   maxHealth: 3
-  baseAttackDamage: 1
+  baseAttackDamage: 0
   sprite: {fileID: -2013906114, guid: 52ef76537258f7d43a3a9dc144329c2f, type: 3}
   enemyPattern:
     behaviors:
     - intent: 1
       enemyTargetMethod: 0
       targetsKey: 
+      displayValue: 1
       effectSteps:
       - rid: 55651152728948768
     sequentialBehaviors: 0
     nextBehaviorIndex: 0
+  initialStatuses:
+  - status: 10
+    scale: 5
   references:
     version: 2
     RefIds:
@@ -36,3 +40,6 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 

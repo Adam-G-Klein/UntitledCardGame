@@ -1,0 +1,17 @@
+using System;
+using Unity;
+
+// not working, can't import and dont have wifi to debug it
+public class InitializationTimeout {
+    private float startTime;
+    private float timeout;
+
+    public InitializationTimeout(float startTime, float timeout) {
+        this.startTime = startTime;
+        this.timeout = timeout;
+    }
+
+    public bool exceeded(float currentTime) {
+        return startTime - currentTime >= timeout;
+    }
+}

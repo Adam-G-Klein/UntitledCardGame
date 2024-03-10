@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -25,7 +26,9 @@ public class CombatInstance : MonoBehaviour
             { StatusEffect.TemporaryStrength, 0 },
             { StatusEffect.MinionsOnDeath, 0 },
             { StatusEffect.PlatedArmor, 0 },
-            { StatusEffect.Orb, 0 }
+            { StatusEffect.Orb, 0 },
+            { StatusEffect.Thorns, 0 },
+            { StatusEffect.MoneyOnDeath, 0 }
         };
 
     public Dictionary<StatusEffect, int> statusEffects = 
@@ -36,6 +39,7 @@ public class CombatInstance : MonoBehaviour
     }
 
     public void ApplyStatusEffects(StatusEffect statusEffect, int scale) {
+        Debug.Log(String.Format("Applying status with scale {0}", scale));
         statusEffects[statusEffect] += scale;
     }
 
@@ -72,10 +76,20 @@ public class CombatInstance : MonoBehaviour
         }
     }
 
-    private void TakeDamage(int damage, CombatInstance attacker){
+    private void TakeDamage(int damage, CombatInstance attacker) {
+        // This is necessary to solve a race condition with a multi-damage attack
+        // Fix this later
+        if (combatStats.currentHealth == 0) {
+            return;
+        }
         combatStats.currentHealth = Mathf.Max(combatStats.currentHealth - DamageAfterDefense(damage), 0);
-        if(combatStats.currentHealth == 0){
+
+        if (combatStats.currentHealth == 0){
             StartCoroutine(OnDeath(attacker));
+        }
+
+        if (statusEffects[StatusEffect.Thorns] > 0) {
+            attacker.ApplyNonStatusCombatEffect(CombatEffect.FixedDamage, statusEffects[StatusEffect.Thorns], this);
         }
     }
 
@@ -132,18 +146,11 @@ public class CombatInstance : MonoBehaviour
             killer.combatStats.maxHealth += statusEffects[StatusEffect.MaxHpBounty];
             killer.combatStats.currentHealth += statusEffects[StatusEffect.MaxHpBounty];
         }
-        // Okay, checked with the mechanics team and we do not need this right now
-        // if we do need to do this someday, it's somewhat complicated.
-        // Best idea I've had was to have special event for it, just have the 
-        // listener for it on the companion instances, and create a new method on BaseGameEvent
-        // for calling just an int subset of an event's listeners. Felt like way too much 
-        // pattern setting just for one status effect though, so letting this chill
-        // until we need to do something similar
-        /*
-        if(stats.statusEffects[StatusEffect.MinionsOnDeath] > 0) {
-            spawnMinions(stats.statusEffects[StatusEffect.MinionsOnDeath]);
+
+        if (statusEffects[StatusEffect.MoneyOnDeath] > 0) {
+            PlayerData playerData = EnemyEncounterManager.Instance.gameState.playerData.GetValue();
+            playerData.gold += statusEffects[StatusEffect.MoneyOnDeath];
         }
-        */
     }
 
     // This function is setup the way it is because certain statuses need to be
@@ -159,13 +166,20 @@ public class CombatInstance : MonoBehaviour
     private void UpdateStatusEffect(StatusEffect status) {
         switch (status) {
             case StatusEffect.Defended:
-            case StatusEffect.TemporaryStrength:
+            case StatusEffect.Thorns:
                 statusEffects[status] = 0;
             break;
 
+            case StatusEffect.TemporaryStrength:
             case StatusEffect.Invulnerability:
             case StatusEffect.Weakness:
             case StatusEffect.Orb:
+                statusEffects[status] = DecrementStatus(statusEffects[status]);
+            break;
+            
+            // This is separate from the above for now since this might
+            // need special logic
+            case StatusEffect.MoneyOnDeath:
                 statusEffects[status] = DecrementStatus(statusEffects[status]);
             break;
         }

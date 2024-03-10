@@ -15,8 +15,9 @@ public class GenerateMap : MonoBehaviour
     public MapGeneratorSO mapGenerator;
 
     public void generateMapAndChangeScenes() {
+        gameState.setMapGenerator(mapGenerator);
         gameState.map.SetValue(mapGenerator.generateMap());
-        gameState.playerData.initializeRun();
+        gameState.playerData.initialize();
         gameState.SetLocation(Location.MAIN_MENU);
         gameState.LoadNextLocation();
     }

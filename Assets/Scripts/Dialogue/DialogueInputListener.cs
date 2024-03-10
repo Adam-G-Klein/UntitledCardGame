@@ -33,6 +33,10 @@ public class DialogueInputListener : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.S)) {
             CutsceneManager.Instance.NextScene();
         }
+        if(Input.GetKeyDown(KeyCode.K)) {
+            Debug.Log("killing player");
+            DialogueManager.Instance.gameState.KillPlayer();
+        }
     }
 
 }

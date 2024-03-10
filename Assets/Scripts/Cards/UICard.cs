@@ -10,7 +10,7 @@ public class UICard : MonoBehaviour, IPointerClickHandler {
     public bool selected = false;
 
     public void Start() {
-        card = GetComponent<CardDisplay>().cardInfo;
+        card = GetComponent<CardDisplay>().getCardInfo();
     }
 
     public void OnPointerClick(PointerEventData eventData) {

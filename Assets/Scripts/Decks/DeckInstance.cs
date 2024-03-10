@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// gross, but now cards won't be able to display break if we don't have this component. Still have error checks everywhere for it not being present
+// arch was gonna rot over time, might as well use it to speed up the demo right
+[RequireComponent(typeof(CompanionInstance))]
 public class DeckInstance : MonoBehaviour
 {
     public Deck sourceDeck;
@@ -10,6 +13,8 @@ public class DeckInstance : MonoBehaviour
     public List<Card> inHand;
     public List<Card> exhaustPile;
     public CombatInstance combatInstance;
+    public delegate IEnumerator OnCardCastHandler(PlayableCard card);
+    public event OnCardCastHandler onCardCastHandler;
 
     private TurnPhaseTrigger drawCardsTurnPhaseTrigger;
     private TurnPhaseTrigger resetTempCardModificationsTrigger;
@@ -56,6 +61,14 @@ public class DeckInstance : MonoBehaviour
         yield return null;
     }
 
+    public IEnumerator OnCardCast(PlayableCard card) {
+        if (onCardCastHandler != null) {
+            foreach (OnCardCastHandler handler in onCardCastHandler.GetInvocationList()) {
+                yield return StartCoroutine(handler.Invoke(card));
+            }
+        }
+    }
+
     private void SetupPiles(Deck sourceDeck) {
         this.sourceDeck = sourceDeck;
         this.drawPile = new List<Card>();
@@ -70,6 +83,13 @@ public class DeckInstance : MonoBehaviour
     public List<PlayableCard> DealCardsToPlayerHand(int numCards) {
         List<Card> cards = DealCardsFromDeck(numCards);
         return PlayerHand.Instance.DealCards(cards, this);
+    }
+
+    public void AddCardFromDeckToHand(Card card) {
+        if (drawPile.Contains(card)) {
+            drawPile.Remove(card);
+            PlayerHand.Instance.DealCards(new List<Card>() {card}, this);
+        }
     }
 
     public List<Card> DealCardsFromDeck(int numCards, bool withReplacement = false){
@@ -115,7 +135,7 @@ public class DeckInstance : MonoBehaviour
          }
      }
 
-    private void ShuffleDiscardIntoDraw(){
+    public void ShuffleDiscardIntoDraw(){
         EnemyEncounterManager.Instance.DeckShuffled(this);
         drawPile.AddRange(discardPile);
         drawPile.Shuffle();
@@ -224,6 +244,16 @@ public class DeckInstance : MonoBehaviour
         );
         nextMinionSpawnTheta += 2 * Mathf.PI / GameplayConstantsSingleton.Instance.gameplayConstants.MAX_MINIONS_PER_COMPANION;
         return spawnLoc;
+    }
+
+    public CompanionTypeSO GetCompanionTypeSO() {
+        CompanionInstance companionInstance = GetComponent<CompanionInstance>();
+        if(companionInstance == null) {
+            Debug.LogError("DeckInstance " + this + " does not have a companion instance, cannot get companion type");
+            return null;
+        } else {
+            return companionInstance.companion.companionType;
+        }
     }
 
     private void OnEndEncounter() {

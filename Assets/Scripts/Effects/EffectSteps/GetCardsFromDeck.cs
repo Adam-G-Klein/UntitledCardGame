@@ -24,6 +24,8 @@ public class GetCardsFromDeck : EffectStep {
     private string outputKey = "";
     [SerializeField]
     private bool getCardsFromSourceDeck = false;
+    [SerializeField]
+    private bool getAllFromOnlyDrawPile = false;
 
     public GetCardsFromDeck() {
         effectStepName = "GetCardsFromDeck";
@@ -38,14 +40,27 @@ public class GetCardsFromDeck : EffectStep {
         }
 
         List<Card> outputCards = new List<Card>();
+        DeckInstance instance = instances[0];
         if (getCardsFromSourceDeck) {
-            outputCards.AddRange(instances[0].sourceDeck.cards);
+            outputCards.AddRange(instance.sourceDeck.cards);
+        } else if (getAllFromOnlyDrawPile) {
+            outputCards.AddRange(instance.drawPile);
         } else {
             int num;
             if (getLimitedNumber) {
                 num = numberOfCardsToGet;
+                // Need to see if the number to get exceeds all possible cards to retrieve
+                num = Mathf.Min(num, instance.drawPile.Count + instance.discardPile.Count);
+                if (num > instance.drawPile.Count) {
+                    instance.ShuffleDiscardIntoDraw();
+                }
             } else {
-                num = instances[0].drawPile.Count;
+                num = instance.drawPile.Count;
+                if (num == 0) {
+                    // If we need to retrieve cards from a deck's draw pile and it's empty, then we need to shuffle
+                    instance.ShuffleDiscardIntoDraw();
+                    num = instance.drawPile.Count;
+                }
             }
             getCardsFromInCombatDeck(instances[0], num, outputCards);
         }

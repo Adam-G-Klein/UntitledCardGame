@@ -1,21 +1,16 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/common.uss?fileID=7433441132597879392&amp;guid=8d0bc28a2ed710a44b762e4c857ac6f9&amp;type=3#common" />
-    <ui:VisualElement style="width: 100%; height: 100%; background-image: none;">
-        <ui:VisualElement style="position: absolute;" />
-        <ui:VisualElement class="empty-book" style="top: 21%; height: 76%;">
-            <ui:Button text="Back" display-tooltip-when-elided="true" name="backButton" style="position: absolute; top: 79%;" />
-            <ui:VisualElement style="align-items: flex-start; justify-content: flex-start; width: 60%; height: 75%; left: 20%; top: 10%; flex-direction: column; flex-wrap: nowrap;">
-                <ui:VisualElement style="flex-direction: row; flex-wrap: wrap;">
-                    <ui:VisualElement name="team-1-container" class="character-select-container">
-                        <ui:VisualElement name="header" class="team-select-header">
-                            <ui:Label text="Team One" display-tooltip-when-elided="true" class="team-header-label" />
-                        </ui:VisualElement>
-                    </ui:VisualElement>
-                    <ui:VisualElement name="team-2-container" class="character-select-container">
-                        <ui:VisualElement name="header" class="team-select-header" style="align-items: auto;">
-                            <ui:Label text="Team Two" display-tooltip-when-elided="true" class="team-header-label" />
-                        </ui:VisualElement>
-                    </ui:VisualElement>
+    <ui:VisualElement style="top: auto; height: 100%;">
+        <ui:Button text="Back" display-tooltip-when-elided="true" name="backButton" style="position: absolute; top: 698px; left: 0;" />
+        <ui:VisualElement name="VisualElement" style="align-items: flex-start; justify-content: flex-start; width: 40%; height: 54%; left: 30%; top: 22%; flex-direction: row; flex-wrap: nowrap; background-color: rgba(250, 0, 0, 0);">
+            <ui:VisualElement name="team-1-container" class="character-select-container" style="height: 100%; width: 100%; background-color: rgba(56, 250, 8, 0);">
+                <ui:VisualElement name="header" class="team-select-header" style="align-self: center;">
+                    <ui:Label text="Team One" display-tooltip-when-elided="true" class="team-header-label" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="team-2-container" class="character-select-container" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; height: 100%; width: 100%;">
+                <ui:VisualElement name="header" class="team-select-header" style="align-items: auto; max-width: 126px; max-height: 53px; align-self: center;">
+                    <ui:Label text="Team Two" display-tooltip-when-elided="true" class="team-header-label" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>

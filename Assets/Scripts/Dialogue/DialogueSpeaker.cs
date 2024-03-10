@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DialogueSpeaker : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class DialogueSpeaker : MonoBehaviour
     public bool initialized = false;
     public bool alwaysActive = false;
     private InteractionPromptView interactionPromptView;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +25,7 @@ public class DialogueSpeaker : MonoBehaviour
             if(speakerType == null) {
                 Debug.Log("Speaker type not set on " + gameObject.name + " DialogueSpeaker");
             } else {
+                Debug.Log("Initialized always active speaker from start: " + speakerType);
                 InitializeSpeaker(true, speakerType);
             }
         }
@@ -50,7 +53,7 @@ public class DialogueSpeaker : MonoBehaviour
             return;
         }
         this.speakerType = speaker;
-        Debug.Log("Speaker initialized: " + speakerType);
+        Debug.Log("Speaker initialized: " + speakerType + " interactionPromptView: " + interactionPromptView);
         DialogueManager.Instance.RegisterDialogueSpeaker(this);
     }
 

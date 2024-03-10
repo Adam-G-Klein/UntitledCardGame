@@ -13,17 +13,19 @@ MonoBehaviour:
   m_Name: Goblin
   m_EditorClassIdentifier: 
   maxHealth: 20
-  baseAttackDamage: 3
+  baseAttackDamage: 0
   sprite: {fileID: -2013906114, guid: 52ef76537258f7d43a3a9dc144329c2f, type: 3}
   enemyPattern:
     behaviors:
     - intent: 1
       enemyTargetMethod: 0
       targetsKey: target
+      displayValue: 3
       effectSteps:
       - rid: 55650973645275139
     sequentialBehaviors: 1
     nextBehaviorIndex: 0
+  initialStatuses: []
   references:
     version: 2
     RefIds:
@@ -33,6 +35,9 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: target
         combatEffect: 0
-        scale: 0
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 

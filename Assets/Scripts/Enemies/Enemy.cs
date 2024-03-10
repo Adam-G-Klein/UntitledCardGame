@@ -18,8 +18,8 @@ public class Enemy : Entity, ICombatStats {
             enemyType.baseAttackDamage);
     }
 
-    public EnemyIntent ChooseIntent() {
-        return enemyType.enemyPattern.ChooseIntent();
+    public EnemyIntent ChooseIntent(EnemyInstance enemyInstance) {
+        return enemyType.enemyPattern.ChooseIntent(enemyInstance);
     }
 
     public CombatStats GetCombatStats()

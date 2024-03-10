@@ -58,8 +58,8 @@ public class CompanionViewUI : MonoBehaviour, IPointerClickHandler
     public void setupCompanionDisplay(CompanionListVariableSO companionListVariableSO,
         List<CompanionActionType> actionTypes) {
         //Since this is an SO, copy the refernces for later use
-        this.companionList = companionListVariableSO.companionList;
-        this.companionBench = companionListVariableSO.companionBench;
+        this.companionList = companionListVariableSO.activeCompanions;
+        this.companionBench = companionListVariableSO.benchedCompanions;
         this.currentCompanionSlots = companionListVariableSO.currentCompanionSlots;
 
         this.actionTypes = actionTypes;
@@ -305,7 +305,7 @@ public class CompanionViewUI : MonoBehaviour, IPointerClickHandler
                         new Vector3(Screen.width / 2, Screen.height / 2, 0),
                         Quaternion.identity);
         CardViewUI cardView = deckViewUI.GetComponent<CardViewUI>();
-        cardView.Setup(this.clickedCompanion.companion.deck.cards, 0, "");
+        cardView.Setup(this.clickedCompanion.companion.deck.cards, 0, "", 0);
     }
 
     public void toBenchButtonOnClick() {

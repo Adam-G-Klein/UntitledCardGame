@@ -14,27 +14,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   locked: 0
   Value:
-    rid: 55651275623366689
+    rid: 594700683536498854
   references:
     version: 2
     RefIds:
-    - rid: 55651275623366689
-      type: {class: EnemyEncounter, ns: , asm: Assembly-CSharp}
+    - rid: 594700683536498854
+      type: {class: ShopEncounter, ns: , asm: Assembly-CSharp}
       data:
-        id: 09a6b1d7-3aec-42cf-9903-b5f205d371ad
+        id: db2726ad-313f-47de-bb3f-9ee48562799b
         isCompleted: 0
-        enemyList:
-        - id: 6f8f7e9f-3460-4d28-adbd-9bc4f764894a
-          entityType: 1
-          enemyType: {fileID: 11400000, guid: 3f595268355432347aef2000672bce6d, type: 2}
-          combatStats:
-            maxHealth: 3
-            currentHealth: 3
-            baseAttackDamage: 1
-        - id: 6f8f7e9f-3460-4d28-adbd-9bc4f764894a
-          entityType: 1
-          enemyType: {fileID: 11400000, guid: 3f595268355432347aef2000672bce6d, type: 2}
-          combatStats:
-            maxHealth: 3
-            currentHealth: 3
-            baseAttackDamage: 1
+        shopData: {fileID: 11400000, guid: 64b1d5221aac20348909c6cab7cc24d6, type: 2}
+        cardsInShop:
+        - cardType: {fileID: 11400000, guid: af631239de690bd4f9c3504152e145d7, type: 2}
+          price: 1
+        - cardType: {fileID: 11400000, guid: 6f04568326184884eaef2da243b0354d, type: 2}
+          price: 1
+        - cardType: {fileID: 11400000, guid: 76c940ac09415954d897a92f7b06e313, type: 2}
+          price: 1
+        keepsakesInShop:
+        - companionType: {fileID: 11400000, guid: a388cdca9749764489c477a814a4dd5b, type: 2}
+          price: 1
+        - companionType: {fileID: 11400000, guid: c106de03c6bb3ab4e952724e5e4a073c, type: 2}
+          price: 1
+        - companionType: {fileID: 11400000, guid: bb8900a5e0f2ab34a8c486d19dcef389, type: 2}
+          price: 1

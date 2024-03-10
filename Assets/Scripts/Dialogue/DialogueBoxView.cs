@@ -11,13 +11,23 @@ public class DialogueBoxView : MonoBehaviour
 {
 
     private TextMeshProUGUI text;
-    private List<Image> boxAndPortrait; // leaving this until we know the full view
     public bool doneDisplaying = false;
     public float charDelay = 0.1f;
     private IEnumerator displayingCoroutine;
     // For re-displaying the prompt after the dialogue has been completed
     // We only know the user's proceeded when the dialogue box is cleared again 
     private Action redisplayPromptCallback = null;
+    [Header("For team selection screen where we don't want portraits")]
+    public bool displayPortraitDuringDialogue = true;
+
+    [Header("Image assets (hi Kalila!)")]
+    [SerializeField]
+
+    private GameObject portrait;
+    [SerializeField]
+    private GameObject dialogueBoxBackground;
+    [SerializeField]
+    private GameObject textGameObject;
 
     // Start is called before the first frame update
     void Start()
@@ -31,16 +41,24 @@ public class DialogueBoxView : MonoBehaviour
     }
 
     public void InitializeView() {
-        text = GetComponentInChildren<TextMeshProUGUI>();
-        boxAndPortrait = GetComponentsInChildren<Image>().ToList();
+        if(dialogueBoxBackground == null) {
+            Debug.LogError("DialogueBoxView: dialogueBoxBackground not set, gameobject: " + gameObject.name);
+        }
+        if(displayPortraitDuringDialogue && portrait == null) {
+            Debug.LogError("DialogueBoxView: portrait not set, gameobject: " + gameObject.name);
+        }
+        if(textGameObject == null) {
+            Debug.LogError("DialogueBoxView: text not set, gameobject: " + gameObject.name);
+        }
+        text = textGameObject.GetComponent<TextMeshProUGUI>();
         Clear();
     }
 
     public IEnumerator DisplayDialogue(DialogueLine dialogueLine, Action redisplayPromptCallback = null)
     {
+        Debug.Log("Displaying dialogue: " + dialogueLine.line);
         this.redisplayPromptCallback = redisplayPromptCallback;
-        SetImagesEnabled(true);
-        text.enabled = true;
+        SetGameObjectsEnabled(true);
         doneDisplaying = false;
         displayingCoroutine = DisplayText(dialogueLine.line);
         StartCoroutine(displayingCoroutine);
@@ -55,9 +73,8 @@ public class DialogueBoxView : MonoBehaviour
 
     public void Clear() {
         StopAllCoroutines();
+        SetGameObjectsEnabled(false);
         text.text = "";
-        text.enabled = false;
-        SetImagesEnabled(false);
         doneDisplaying = true;
         if(redisplayPromptCallback != null) {
             redisplayPromptCallback.Invoke();
@@ -75,8 +92,11 @@ public class DialogueBoxView : MonoBehaviour
 
     }
 
-    private void SetImagesEnabled(bool enabled) {
-        boxAndPortrait.ForEach(image => image.enabled = enabled);
+    private void SetGameObjectsEnabled(bool enabled) {
+        Debug.Log("Setting images enabled: " + enabled + " gameobject: " + gameObject.name);
+        dialogueBoxBackground.SetActive(enabled);
+        if(displayPortraitDuringDialogue) portrait.SetActive(enabled);
+        textGameObject.SetActive(enabled);
     }
     
 }

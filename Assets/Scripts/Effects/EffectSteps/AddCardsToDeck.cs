@@ -78,21 +78,29 @@ public class AddCardsToDeck : EffectStep {
             List<CardType> cardTypes,
             int scale) {
         foreach (DeckInstance deckInstance in deckInstances) {
-            for (int i = 0; i < scale; i++) {
-                List<Card> cards = new List<Card>();
-                foreach (CardType cardType in cardTypes) {
-                    cards.Add(new Card(cardType));
-                }
+            CompanionTypeSO companionType = deckInstance.GetCompanionTypeSO();
+            if(companionType != null) {
+                addCardsToEntity(deckInstance, cardTypes, scale, companionType);
+            } else {
+                Debug.LogError("DeckInstance does not have a companion type, cannot create new cards to add to it. won't know how to display their frames and icons without the companion reference");
+            }
+        }
+    }
 
-                switch (addToDeckMethod) {
-                    case AddMethod.ShuffleIn:
-                        deckInstance.ShuffleIntoDraw(cards);
-                    break;
+    private void addCardsToEntity(DeckInstance deckInstance, List<CardType> cardTypes, int scale, CompanionTypeSO companionType) {
+        for (int i = 0; i < scale; i++) {
+            List<Card> cards = new List<Card>();
+            foreach (CardType cardType in cardTypes) {
+                cards.Add(new Card(cardType, companionType));
+            }
 
-                    case AddMethod.AddToTop:
-                        deckInstance.AddCardsToTopOfDeck(cards);
+            switch (addToDeckMethod) {
+                case AddMethod.ShuffleIn:
+                    deckInstance.ShuffleIntoDraw(cards);
                     break;
-                }
+                case AddMethod.AddToTop:
+                    deckInstance.AddCardsToTopOfDeck(cards);
+                    break;
             }
         }
     }

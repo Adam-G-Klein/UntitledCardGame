@@ -29,6 +29,15 @@ public class FilterByCardCategory : EffectStep {
         }
 
         document.map.AddItems<Card>(outputKey, outputCards);
+
+        List<PlayableCard> playableCards = document.map.GetList<PlayableCard>(inputKey);
+        List<PlayableCard> outputPlayableCards = new List<PlayableCard>();
+        foreach (PlayableCard card in playableCards) {
+            if (outputCards.Contains(card.card)) {
+                outputPlayableCards.Add(card);
+            }
+        }
+        document.map.AddItems<PlayableCard>(outputKey, outputPlayableCards);
         yield return null;
     }
 }

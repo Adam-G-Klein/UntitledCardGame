@@ -55,6 +55,7 @@ GameObject:
   - component: {fileID: 6587562538019316389}
   - component: {fileID: 1186559462819736292}
   - component: {fileID: 8572008018031415410}
+  - component: {fileID: 8016049358635749021}
   m_Layer: 0
   m_Name: DialogueManager
   m_TagString: Untagged
@@ -90,10 +91,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffba1eb2d6123e045aaa96751fa2065f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameState: {fileID: 11400000, guid: 9e326417f60894341a96cc8d02868bbe, type: 2}
   dialogueLocation: {fileID: 11400000, guid: 4d3b0f921d82a8a478e8e1a474a2e7d2, type: 2}
   dialogueInProgress: 0
   currentLine:
     rid: -2
+  postSequenceEvents: []
+  nextPostSequenceEventIndex: 0
+  tutorialSequence: {fileID: 11400000, guid: 1fb436fda8c0ec44fb10c299c6d4707c, type: 2}
   references:
     version: 2
     RefIds:
@@ -129,3 +134,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &8016049358635749021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8477419822310613658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8ed18a18c274364fadc6352167f9d9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameState: {fileID: 11400000, guid: 9e326417f60894341a96cc8d02868bbe, type: 2}
+  speakersInScene: []
+  initializationTimeout: 2

@@ -14,7 +14,7 @@ public class CountStep : EffectStep {
     }
 
     public override IEnumerator invoke(EffectDocument document) {
-        document.intMap[outputKey] = document.map.GetAllItemsWithKeyString(inputKey).Count;
+        document.intMap[outputKey] = document.map.CountItemsWithKeyString(inputKey);
         yield return null;
     }
 }

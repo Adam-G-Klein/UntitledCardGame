@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EffectManager : GenericSingleton<EffectManager>
@@ -10,14 +11,20 @@ public class EffectManager : GenericSingleton<EffectManager>
     private IEnumerator currentEffectStep;
     private List<EffectWorkflow> effectWorkflowQueue;
 
+    private bool effectRunning = false;
+
     void Awake() {
         effectWorkflowQueue = new List<EffectWorkflow>();
+    }
+
+    public bool IsEffectRunning() {
+        return effectRunning;
     }
 
     public void invokeEffectWorkflow(
             EffectDocument document,
             List<EffectStep> effectSteps,
-            Action callback) {
+            IEnumerator callback) {
         Debug.Log("Invoking effect workflow via sync call");
         currentEffectWorkflow = effectWorkflowCoroutine(document, effectSteps, callback);
         StartCoroutine(currentEffectWorkflow);
@@ -36,7 +43,7 @@ public class EffectManager : GenericSingleton<EffectManager>
     public IEnumerator invokeEffectWorkflowCoroutine(
             EffectDocument document,
             List<EffectStep> effectSteps,
-            Action callback) {
+            IEnumerator callback) {
         Debug.Log("Invoking effect workflow via coroutine");
         currentEffectWorkflow = effectWorkflowCoroutine(document, effectSteps, callback);
         yield return StartCoroutine(currentEffectWorkflow);
@@ -45,7 +52,8 @@ public class EffectManager : GenericSingleton<EffectManager>
     private IEnumerator effectWorkflowCoroutine(
             EffectDocument document,
             List<EffectStep> effectSteps,
-            Action callback) {
+            IEnumerator callback) {
+        effectRunning = true;
         foreach (EffectStep step in effectSteps) {
             if (interruptEffectWorkflow) {
                 Debug.Log("Breaking from workflow");
@@ -57,7 +65,7 @@ public class EffectManager : GenericSingleton<EffectManager>
             yield return StartCoroutine(currentEffectStep);
         }
 
-        if (callback != null) callback();
+        if (callback != null) yield return StartCoroutine(callback);
 
         // If the previous effect worklfow queue'd up a new one, then execute the new one
         if (effectWorkflowQueue.Count > 0) {
@@ -67,6 +75,8 @@ public class EffectManager : GenericSingleton<EffectManager>
             document.originEntityType = EntityType.Unknown;
             currentEffectWorkflow = effectWorkflowCoroutine(document, workflow.effectSteps, null);
             StartCoroutine(currentEffectWorkflow);
+        } else {
+            effectRunning = false;
         }
 
         yield return null;

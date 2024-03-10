@@ -32,10 +32,12 @@ public class TargettingArrowsController : GenericSingleton<TargettingArrowsContr
     private TargettingArrow createArrow(
             List<Targetable.TargetType> validTypes,
             GameObject origin) {
+                //test
+        Vector3 rootPosition = origin.transform.position;
         TargettingArrow newArrow = Instantiate(arrowPrefab, transform).GetComponent<TargettingArrow>();
         setArrowColor(newArrow, validTypes);
-        newArrow.transform.position = origin.transform.position;
-        newArrow.setAllChildrenPosition(origin.transform.position);
+        newArrow.transform.position = rootPosition;
+        newArrow.setAllChildrenPosition(rootPosition);
         return newArrow;
     }
 

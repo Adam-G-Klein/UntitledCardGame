@@ -8,6 +8,7 @@ using System;
 public class DialogueManager : GenericSingleton<DialogueManager>
 {
     private List<DialogueSpeaker> dialogueSpeakers;
+    public GameStateVariableSO gameState;
     [SerializeField]
     private DialogueLocationSO dialogueLocation;
     public bool dialogueInProgress = false;
@@ -28,9 +29,11 @@ public class DialogueManager : GenericSingleton<DialogueManager>
     [SerializeField]
     private DialogueSequenceSO tutorialSequence;
     // So other scripts can check if the dialogue manager is ready
-    public bool initialized = false;
+    public bool initialized { 
+        get {return locationInitialized && speakersInitialized;}} 
     // Wait on the TeamSelectionManager, or the scene equivalent, to set the location
     private bool locationInitialized = false;
+    private bool speakersInitialized = false;
     
 
     public void RegisterDialogueSpeaker(DialogueSpeaker dialogueSpeaker)
@@ -40,21 +43,19 @@ public class DialogueManager : GenericSingleton<DialogueManager>
 
     void Awake() {
         dialogueSpeakers = new List<DialogueSpeaker>();
-        initialized = false;
-
     }
 
     void Start() {
         // Script execution order in Team select is making this not work: 
         // StartCoroutine(validateSpeakers());
-        StartCoroutine(validateDialogueSequences());
         StartCoroutine(initialize());
         // TODO: initiating speakers have bool set
     }
 
     private IEnumerator initialize() {
         yield return new WaitUntil(() => locationInitialized);
-        initialized = true;
+        yield return new WaitUntil(() => speakersInitialized);
+        StartCoroutine(validateDialogueSequences());
     }
 
     // For use cases like the shop, post-combat screen, pre-combat screen.
@@ -62,23 +63,23 @@ public class DialogueManager : GenericSingleton<DialogueManager>
     // that hasn't been viewed yet and has the required speaker present
     public void StartAnyDialogueSequence() {
         Debug.Log("Starting any dialogue sequence");
-        if(dialogueInProgress) return;
+        if(dialogueInProgress) {
+            // TODO: make it possible to enqueue dialogue
+            Debug.LogWarning("Dialogue already in progress, not starting any dialogue sequence");
+            return;
+        } 
+        // hey man I'm just tryna make a living out here yknow what I mean
+        StartCoroutine(runOnceInitialized( () => {
+            DialogueSequenceSO toStart = GetDialogueSequence();
+            if(toStart != null)
+                StartDialogueSequence(toStart);
+        }));
         
-        DialogueSequenceSO toStart = GetDialogueSequence();
-        // laughing at myself right now. first iteration first iteration its just a first iteration
-        // TODO - do this sensibly
-        if(toStart == tutorialSequence) {
-            if(EnemyEncounterManager.Instance.gameState.playerData.GetValue().seenTutorial) {
-                Debug.Log("Player has seen tutorial, not starting any dialogue sequence");
-                return;
-            } else {
-                Debug.Log("Player has not seen tutorial, starting tutorial");
-                EnemyEncounterManager.Instance.gameState.playerData.GetValue().seenTutorial = true;
-            }
-        }
-        
-        if(toStart != null)
-            StartDialogueSequence(toStart);
+    }
+
+    private IEnumerator runOnceInitialized(Action callback) {
+        yield return new WaitUntil(() => initialized);
+        callback.Invoke();
     }
 
     public List<DialogueSequenceSO> GetDialogueSequencesWithPresentSpeakers() {
@@ -117,6 +118,7 @@ public class DialogueManager : GenericSingleton<DialogueManager>
     private IEnumerator dialogueSequenceCoroutine(DialogueSequenceSO dialogueSequence, Action callback = null) {
         dialogueInProgress = true;
         currentDialogueIndex = 0;
+        Debug.Log("Starting dialogue sequence coroutine: " + dialogueSequence.name);
         while(currentDialogueIndex < dialogueSequence.dialogueLines.Count) {
             currentLine = dialogueSequence.dialogueLines[currentDialogueIndex];
             // find a speaker in the scene that matches the speaker type of the current line
@@ -125,6 +127,7 @@ public class DialogueManager : GenericSingleton<DialogueManager>
             if(currentLineSpeaker != null) {
                 // will wait until the line is done displaying and the player has provided input
                 // right now, the manager passes input to the speaker in NextDialogue()
+                Debug.Log("Starting line speaker coroutine for speaker " + currentLineSpeaker.speakerType.name);
                 yield return StartCoroutine(currentLineSpeaker.SpeakLine(currentLine));
             }
             currentDialogueIndex += 1;
@@ -183,6 +186,9 @@ public class DialogueManager : GenericSingleton<DialogueManager>
                     Debug.LogError("Dialogue sequence " + s.name + " has a null speaker type in its required speakers.");
                 }
             });
+            if(s.requiredSpeakers.Count > 0 && !s.requiredSpeakers.Contains(s.dialogueLines.First().speaker)) {
+                Debug.LogWarning("Dialogue sequence " + s.name + " has a first line speaker that is not in its required speakers. This will cause issues if it's displayed in the team selection screen, where that speaker must initiate the conversation");
+            }
             s.dialogueLines.ForEach(line => {
                 if(line == null) {
                     Debug.LogError("Dialogue sequence " + s.name + " has a null dialogue line.");
@@ -200,8 +206,20 @@ public class DialogueManager : GenericSingleton<DialogueManager>
         locationInitialized = true;
     }
 
+    public void SetDialogueLocation(GameStateVariableSO gameState) {
+        dialogueLocation = gameState.dialogueLocations.GetDialogueLocation(gameState);
+
+    }
+    public void SetSpeakersInitialized() {
+        speakersInitialized = true;
+    }
+
     public int GetDialogueSpeakersCount() {
         return dialogueSpeakers.Count;
     }   
+
+    public List<DialogueSpeaker> GetDialogueSpeakers() {
+        return dialogueSpeakers;
+    }
 
 }

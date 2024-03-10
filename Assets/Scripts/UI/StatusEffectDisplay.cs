@@ -15,7 +15,9 @@ public enum StatusEffect {
     // Disabled, see comment in processOnDeathStatusEffects in CombatEntityInstance
     MinionsOnDeath,
     PlatedArmor,
-    Orb
+    Orb,
+    Thorns,
+    MoneyOnDeath
 }
 
 public class StatusEffectDisplay: MonoBehaviour

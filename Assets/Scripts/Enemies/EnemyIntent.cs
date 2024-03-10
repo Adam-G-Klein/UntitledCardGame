@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,7 @@ public enum EnemyIntentType {
     SmallAttack,
     Buff,
     Debuff,
+    ChargingUp,
     // Possible later inclusions
     // Defend,
     // Heal,
@@ -19,6 +21,7 @@ public class EnemyIntent {
     public float attackTime;
     public EnemyIntentType intentType;
     public string targetsKey;
+    public int displayValue;
     public List<EffectStep> effectSteps;
 
     public EnemyIntent(
@@ -26,11 +29,13 @@ public class EnemyIntent {
             float attackTime,
             EnemyIntentType intentType,
             string targetsKey,
+            int displayValue,
             List<EffectStep> effectSteps) {
         this.targets = targets;
         this.attackTime = attackTime;
         this.intentType = intentType;
         this.targetsKey = targetsKey;
+        this.displayValue = displayValue;
         this.effectSteps = effectSteps;
     }
 }

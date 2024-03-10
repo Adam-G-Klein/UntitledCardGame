@@ -35,6 +35,10 @@ public class CompanionAbility
                 setupForTurnPhaseTrigger(TurnPhase.BEFORE_END_PLAYER_TURN);
             break;
 
+            case CompanionAbilityTrigger.EndOfEnemyTurn:
+                setupForTurnPhaseTrigger(TurnPhase.END_ENEMY_TURN);
+            break;
+
             case CompanionAbilityTrigger.OnFriendOrFoeDeath:
                 CombatEntityTrigger companionDeathTrigger = new CombatEntityTrigger(
                     CombatEntityTriggerType.COMPANION_DIED,
@@ -53,6 +57,10 @@ public class CompanionAbility
             case CompanionAbilityTrigger.OnDeath:
                 this.companionInstance.SetCompanionAbilityDeathCallback(setupAndInvokeAbility());
             break;
+
+            case CompanionAbilityTrigger.OnAttackCardPlayed:
+                this.companionInstance.deckInstance.onCardCastHandler += CheckAttackCardPlayed;
+            break;
         }
     }
 
@@ -70,6 +78,11 @@ public class CompanionAbility
         foreach (CombatEntityTrigger trigger in combatEntityTriggers) {
             CombatEntityManager.Instance.unregisterTrigger(trigger);
         }
+
+        if (companionAbilityTrigger == CompanionAbilityTrigger.OnAttackCardPlayed) {
+            this.companionInstance.deckInstance.onCardCastHandler -= CheckAttackCardPlayed;
+        }
+        
         yield return null;
     }
 
@@ -77,14 +90,24 @@ public class CompanionAbility
         EffectDocument document = new EffectDocument();
         document.map.AddItem(EffectDocument.ORIGIN, this.companionInstance);
         document.originEntityType = EntityType.Companion;
-        yield return EffectManager.Instance.invokeEffectWorkflowCoroutine(document,  effectSteps, () => {});
+        yield return EffectManager.Instance.invokeEffectWorkflowCoroutine(document,  effectSteps, null);
     }
+
+    // This is a bit of a hack, but I'm ok with it being here for now
+    private IEnumerator CheckAttackCardPlayed(PlayableCard card) {
+        if (card.card.cardType.cardCategory == CardCategory.Attack) {
+            yield return companionInstance.StartCoroutine(setupAndInvokeAbility().GetEnumerator());
+        }
+    }
+
 
     public enum CompanionAbilityTrigger {
         EnterTheBattlefield,
         EndOfCombat,
         EndOfPlayerTurn,
+        EndOfEnemyTurn,
         OnFriendOrFoeDeath,
-        OnDeath
+        OnDeath,
+        OnAttackCardPlayed
     }
 }

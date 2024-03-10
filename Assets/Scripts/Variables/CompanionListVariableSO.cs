@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [CreateAssetMenu(
@@ -8,8 +9,9 @@ using UnityEngine;
 // TODO: make this actually a variableSO
 public class CompanionListVariableSO : ScriptableObject
 {
-    public List<Companion> companionList;
-    public List<Companion> companionBench;
+    public List<Companion> activeCompanions;
+    public List<Companion> benchedCompanions;
+    public List<Companion> allCompanions { get { return activeCompanions.Concat(benchedCompanions).ToList(); } }
     public int currentCompanionSlots;
 
     public void SetCompanionSlots(int slots) {
@@ -23,9 +25,15 @@ public class CompanionListVariableSO : ScriptableObject
 
     public List<CompanionTypeSO> GetCompanionTypes() {
         List<CompanionTypeSO> companionTypes = new List<CompanionTypeSO>();
-        foreach (Companion companion in companionList) {
+        foreach (Companion companion in activeCompanions) {
             companionTypes.Add(companion.companionType);
         }
         return companionTypes;
+    }
+
+    public void respawn() {
+        activeCompanions = new List<Companion>();
+        benchedCompanions = new List<Companion>();
+        currentCompanionSlots = 3;
     }
 }

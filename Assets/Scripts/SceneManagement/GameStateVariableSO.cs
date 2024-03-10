@@ -9,7 +9,6 @@ public enum Location {
     MAIN_MENU,
     WAKE_UP_ROOM,
     TEAM_SIGNING,
-    TUTORIAL,
     MAP,
     TEAM_SELECT,
     PRE_COMBAT_SPLASH,
@@ -29,16 +28,17 @@ public class GameStateVariableSO : ScriptableObject
     public CompanionListVariableSO companions;
     public PlayerDataVariableSO playerData;
     public MapVariableSO map;
+    private MapGeneratorSO mapGenerator;
     [Header("The Combat or Shop Encounter we're currently in")]
     public EncounterVariableSO activeEncounter;
     [Header("The Next Combat or Shop Encounter we'll enter")]
     public EncounterVariableSO nextEncounter;
     public Location currentLocation;
+    public AllDialogueLocationsSO dialogueLocations;
     private Dictionary<Location, string> locationToScene = new Dictionary<Location, string>() {
         {Location.MAIN_MENU, "MainMenu"},
         {Location.WAKE_UP_ROOM, "AidensRoom"},
         {Location.TEAM_SIGNING, "TeamSigning"},
-        {Location.TUTORIAL, "PlaceholderEnemyEncounter"},
         {Location.MAP, "Map"},
         {Location.TEAM_SELECT, "TeamSelect"},
         {Location.PRE_COMBAT_SPLASH, "PreCombatSplash"},
@@ -54,13 +54,12 @@ public class GameStateVariableSO : ScriptableObject
     private Dictionary<Location, Location> locationToNextLocation = new Dictionary<Location, Location>() {
         {Location.MAIN_MENU, Location.WAKE_UP_ROOM},
         {Location.WAKE_UP_ROOM, Location.TEAM_SIGNING},
-        {Location.TEAM_SIGNING, Location.TUTORIAL},
-        {Location.TUTORIAL, Location.POST_COMBAT},
+        {Location.TEAM_SIGNING, Location.COMBAT},
         {Location.TEAM_SELECT, Location.PRE_COMBAT_SPLASH},
         {Location.PRE_COMBAT_SPLASH, Location.COMBAT},
         {Location.COMBAT, Location.POST_COMBAT},
         {Location.POST_COMBAT, Location.MAP},
-        {Location.SHOP, Location.MAP},
+        {Location.SHOP, Location.TEAM_SELECT},
         {Location.FAKE_SHOP, Location.PRE_BOSSFIGHT_COMBAT_SPLASH},
         {Location.PRE_BOSSFIGHT_COMBAT_SPLASH, Location.BOSSFIGHT},
         {Location.BOSSFIGHT, Location.MAP}
@@ -95,9 +94,6 @@ public class GameStateVariableSO : ScriptableObject
             case Location.TEAM_SIGNING:
                 currentLocation = locationToNextLocation[currentLocation];
                 break;
-            case Location.TUTORIAL:
-                currentLocation = locationToNextLocation[currentLocation];
-                break;
             // map probably shouldn't stay its own location
             // but we'll need to force the player to choose the next destination at some point.
             // unsure
@@ -130,6 +126,7 @@ public class GameStateVariableSO : ScriptableObject
                 break;
             case Location.SHOP:
                 currentLocation = locationToNextLocation[currentLocation];
+                EndTutorialLoop();
                 AdvanceEncounter();
                 break;
             case Location.FAKE_SHOP:
@@ -157,6 +154,13 @@ public class GameStateVariableSO : ScriptableObject
         }
     }
 
+    private void EndTutorialLoop() {
+        if(GetLoopIndex() >= 2) {
+            Debug.Log("Tutorial loop ended");
+            playerData.GetValue().seenTutorial = true;
+        }
+    }
+
     // TODO: Change this logic if we want map choices to ever actually matter
     private void AdvanceEncounter() {
         activeEncounter.SetValue(nextEncounter.GetValue());
@@ -169,15 +173,25 @@ public class GameStateVariableSO : ScriptableObject
         }
     }
 
-    public int GetTeamSelectionIndex() {
-        // nextMapIndex is incremented before the tutorial, and before the first shop. Subtract 2
-        // so that we get index 0 for the first team selection
-        Debug.Log("Returning team selection index: " + Mathf.FloorToInt((nextMapIndex - 2) / 2));
-        return Mathf.FloorToInt((nextMapIndex - 2) / 2);
+    // Returns the loop we're on, 1 and 2 for the tutorial, 
+    // used to index into all of the dialogueLocationLists
+    public int GetLoopIndex() {
+        Debug.Log("Returning loop index: " + Mathf.FloorToInt(nextMapIndex / 2));
+        return Mathf.FloorToInt((nextMapIndex) / 2);
     }
 
     public void SetLocation(Location newLocation) {
         currentLocation = newLocation;
+    }
+
+    public void KillPlayer() {
+        Debug.Log("killing player");
+        playerData.respawn();
+        companions.respawn();
+        map.SetValue(mapGenerator.generateMap());
+        SetLocation(Location.WAKE_UP_ROOM);
+        LoadCurrentLocationScene();
+
     }
 
     private void updateMusic(Location newLocation) {
@@ -185,6 +199,10 @@ public class GameStateVariableSO : ScriptableObject
         if(newLocation != Location.MAP && MusicController.Instance != null) {
             MusicController.Instance.PlayMusicForLocation(newLocation);
         }
+    }
+
+    public void setMapGenerator(MapGeneratorSO mapGeneratorSO) {
+        mapGenerator = mapGeneratorSO;
     }
 
 }

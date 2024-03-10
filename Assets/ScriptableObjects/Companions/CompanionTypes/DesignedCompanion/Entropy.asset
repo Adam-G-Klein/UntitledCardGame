@@ -22,6 +22,8 @@ MonoBehaviour:
   speakerType: {fileID: 11400000, guid: 16a6a477166d98c4d9b79b1d5ae69638, type: 2}
   ability:
     rid: 1886370794371285024
+  abilities:
+  - rid: 3931529445166809113
   upgradeInfo: {fileID: 11400000, guid: 99076b48c6110564cb87cbbb29a513b6, type: 2}
   references:
     version: 2
@@ -35,6 +37,53 @@ MonoBehaviour:
         - rid: 8939928036647632954
         - rid: 8939928036647632955
         - rid: 8939928036647632956
+    - rid: 3931529445166809113
+      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
+      data:
+        companionAbilityTrigger: 1
+        effectSteps:
+        - rid: 3931529445166809114
+        - rid: 3931529445166809115
+        - rid: 3931529445166809116
+        - rid: 3931529445166809117
+    - rid: 3931529445166809114
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: target
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 0
+        cantCancelTargetting: 0
+    - rid: 3931529445166809115
+      type: {class: GetCardsFromDeck, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetCardsFromDeck
+        inputKey: target
+        getLimitedNumber: 0
+        numberOfCardsToGet: 1
+        outputKey: allCardsInDeck
+        getCardsFromSourceDeck: 1
+    - rid: 3931529445166809116
+      type: {class: SelectCardsFromList, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: SelectCardsFromList
+        inputKey: allCardsInDeck
+        outputKey: cardToPurge
+        promptText: Select a card to purge from the deck
+        targets: 1
+        getNumberOfTargetsFromKey: 0
+        inputTargetsKey: 
+    - rid: 3931529445166809117
+      type: {class: CardInDeckEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardInDeckEffect
+        inputCardsKey: cardToPurge
+        inputDeckKey: target
+        effect: 1
+        outputKey: 
     - rid: 8939928036647632952
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

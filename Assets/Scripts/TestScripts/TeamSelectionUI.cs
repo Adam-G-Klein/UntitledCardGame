@@ -9,9 +9,7 @@ public class TeamSelectionUI : MonoBehaviour
     public GameStateVariableSO gameState;
     // TODO: package these into companionListVariables
     public CompanionListVariableSO team1ActiveCompanions;
-    public CompanionListVariableSO team1BenchCompanions;
     public CompanionListVariableSO team2ActiveCompanions;
-    public CompanionListVariableSO team2BenchCompanions;
     public GameObject deckViewUIPrefab;
     private VisualElement root;
     [SerializeField]
@@ -30,13 +28,13 @@ public class TeamSelectionUI : MonoBehaviour
     }
     public void initializeRun(List<CompanionTypeSO> team)
     {
-        gameState.companions.companionBench = new List<Companion>();
-        gameState.companions.companionList = new List<Companion>();
+        gameState.companions.benchedCompanions = new List<Companion>();
+        gameState.companions.activeCompanions = new List<Companion>();
         gameState.companions.currentCompanionSlots = 3;
 
         foreach (CompanionTypeSO companionType in team)
         {
-            gameState.companions.companionList.Add(new Companion(companionType));
+            gameState.companions.activeCompanions.Add(new Companion(companionType));
         }
 
         gameState.LoadNextLocation();
@@ -50,8 +48,13 @@ public class TeamSelectionUI : MonoBehaviour
         }
 
         //Redo this when more details
+        //var centeringWrapper = new VisualElement();
+        //centeringWrapper.style.alignItems = Align.Center;
+        //container.Add(centeringWrapper);
         var confirm = new Button();
         confirm.text = "Sign this team";
+        confirm.style.alignSelf = Align.Center;
+        confirm.style.marginTop = 20;
         confirm.clicked += () => initializeRun(companionTypes);
         container.Add(confirm);
     }
@@ -69,16 +72,16 @@ public class TeamSelectionUI : MonoBehaviour
    
         var name = new Label();
         name.text = companionType.companionName;
-        name.AddToClassList("character-name");
+        stripMarginAndPadding(name).AddToClassList("character-name");
         textContainer.Add(name);
 
         var archetype = new Label();
-        archetype.AddToClassList("archetype-name");
+        stripMarginAndPadding(archetype).AddToClassList("archetype-name");
         archetype.text = "IDK probably something";
         textContainer.Add(archetype);
 
         var desc = new Label();
-        desc.AddToClassList("description");
+        stripMarginAndPadding(desc).AddToClassList("description");
         desc.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. lmao gottem";
         textContainer.Add(desc);
 
@@ -86,6 +89,14 @@ public class TeamSelectionUI : MonoBehaviour
 
 
         return container;
+    }
+
+    private Label stripMarginAndPadding(Label label) {
+        label.style.marginBottom = 0;
+        label.style.marginTop = 0;
+        label.style.paddingBottom = 0;
+        label.style.paddingTop = 0;
+        return label;    
     }
 
     public void backButtonHandler() {
