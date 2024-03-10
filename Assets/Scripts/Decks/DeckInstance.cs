@@ -85,6 +85,13 @@ public class DeckInstance : MonoBehaviour
         return PlayerHand.Instance.DealCards(cards, this);
     }
 
+    public void AddCardFromDeckToHand(Card card) {
+        if (drawPile.Contains(card)) {
+            drawPile.Remove(card);
+            PlayerHand.Instance.DealCards(new List<Card>() {card}, this);
+        }
+    }
+
     public List<Card> DealCardsFromDeck(int numCards, bool withReplacement = false){
         List<Card> returnList = new List<Card>();
         for(int i = 0; i < numCards; i++){

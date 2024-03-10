@@ -24,6 +24,8 @@ public class GetCardsFromDeck : EffectStep {
     private string outputKey = "";
     [SerializeField]
     private bool getCardsFromSourceDeck = false;
+    [SerializeField]
+    private bool getAllFromOnlyDrawPile = false;
 
     public GetCardsFromDeck() {
         effectStepName = "GetCardsFromDeck";
@@ -41,6 +43,8 @@ public class GetCardsFromDeck : EffectStep {
         DeckInstance instance = instances[0];
         if (getCardsFromSourceDeck) {
             outputCards.AddRange(instance.sourceDeck.cards);
+        } else if (getAllFromOnlyDrawPile) {
+            outputCards.AddRange(instance.drawPile);
         } else {
             int num;
             if (getLimitedNumber) {

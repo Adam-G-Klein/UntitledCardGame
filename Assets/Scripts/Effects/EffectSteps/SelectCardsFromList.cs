@@ -30,6 +30,8 @@ public class SelectCardsFromList : EffectStep {
     private bool getNumberOfTargetsFromKey = false;
     [SerializeField]
     private string inputTargetsKey = "";
+    [SerializeField]
+    private bool randomizeOrder = false;
 
     public SelectCardsFromList() {
         effectStepName = "SelectCardsFromList";
@@ -43,6 +45,9 @@ public class SelectCardsFromList : EffectStep {
         }
 
         List<Card> cardOptions = document.map.GetList<Card>(inputKey);
+        if (randomizeOrder) {
+            cardOptions = ShuffleCards(new List<Card>(cardOptions));
+        }
         List<Card> selections = new List<Card>();
 
         TargettingManager.Instance.selectCards(cardOptions, promptText, minTargets, maxTargets, selections);
@@ -51,5 +56,21 @@ public class SelectCardsFromList : EffectStep {
         document.map.AddItems<Card>(outputKey, selections);
 
         yield return null;
+    }
+
+    private List<Card> ShuffleCards(List<Card> cards) {
+        System.Random _random = new System.Random();
+        Card temp;
+
+        int n = cards.Count;
+        for (int i = 0; i < n; i++)
+        {
+            // NextDouble returns a random number between 0 and 1
+            int r = i + (int)(_random.NextDouble() * (n - i));
+            temp = cards[r];
+            cards[r] = cards[i];
+            cards[i] = temp;
+        }
+        return cards;
     }
 }
