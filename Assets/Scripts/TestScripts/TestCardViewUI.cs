@@ -18,6 +18,6 @@ public class TestCardViewUI : MonoBehaviour
                         cardViewUIPrefab,
                         new Vector3(Screen.width / 2, Screen.height / 2, 0),
                         Quaternion.identity);
-        cardViewUI.GetComponent<CardViewUI>().Setup(cards, selections, promptText);
+        cardViewUI.GetComponent<CardViewUI>().Setup(cards, selections, promptText, selections);
     }
 }

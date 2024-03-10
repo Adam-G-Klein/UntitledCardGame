@@ -10,7 +10,8 @@ public class QuantityOfCardTypePlayedThisTurn : EffectStep
 {
     [SerializeField]
     private CardCategory cardCategory; 
-    
+    [SerializeField]
+    private bool getAll = false;
     [SerializeField]
     private string outputKey = "";
     
@@ -22,7 +23,9 @@ public class QuantityOfCardTypePlayedThisTurn : EffectStep
         List<Card> cards = EnemyEncounterManager.Instance.combatEncounterState.cardsCastThisTurn;
         int count = 0;
         foreach (Card card in cards) {
-            if (card.cardType.cardCategory == cardCategory) {
+            if (getAll) {
+                count += 1;
+            } else if (card.cardType.cardCategory == cardCategory) {
                 count += 1;
             }
         }

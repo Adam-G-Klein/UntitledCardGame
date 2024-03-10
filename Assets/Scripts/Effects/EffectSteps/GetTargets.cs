@@ -94,6 +94,8 @@ public class GetTargets : EffectStep
 
         if (getAllValidTargets) {
             GetAllValidTargets(document);
+        } else if (specialTargetRule == SpecialTargetRule.TargetRandom) {
+            GetTargetsRandomly(document);
         } else {
             TargettingManager.Instance.targetSuppliedHandler += TargetSuppliedHandler;
             TargettingManager.Instance.cancelTargettingHandler += CancelHandler;
@@ -195,6 +197,34 @@ public class GetTargets : EffectStep
     }
 
     
+    private void GetTargetsRandomly(EffectDocument document) {
+        for (int i = 0; i < number ; i++) {
+            if (validTargets.Contains(Targetable.TargetType.Companion)) {
+                List<CompanionInstance> companions = CombatEntityManager.Instance.getCompanions()
+                    .FindAll(instance => !disallowedTargets.Contains(instance.gameObject));
+                CompanionInstance target = companions[UnityEngine.Random.Range(0, companions.Count)];
+                EffectUtils.AddCompanionToDocument(document, outputKey, target);
+            }
+            if (validTargets.Contains(Targetable.TargetType.Enemy)) {
+                List<EnemyInstance> enemies = CombatEntityManager.Instance.getEnemies()
+                    .FindAll(instance => !disallowedTargets.Contains(instance.gameObject));
+                EnemyInstance target = enemies[UnityEngine.Random.Range(0, enemies.Count)];
+                EffectUtils.AddEnemyToDocument(document, outputKey, target);
+            }
+            if (validTargets.Contains(Targetable.TargetType.Minion)) {
+                List<MinionInstance> minions = CombatEntityManager.Instance.getMinions()
+                    .FindAll(instance => !disallowedTargets.Contains(instance.gameObject));
+                MinionInstance target = minions[UnityEngine.Random.Range(0, minions.Count)];
+                EffectUtils.AddMinionToDocument(document, outputKey, target);
+            }
+            if (validTargets.Contains(Targetable.TargetType.Card)) {
+                List<PlayableCard> playableCards = PlayerHand.Instance.cardsInHand
+                    .FindAll(card => !disallowedTargets.Contains(card.gameObject));
+                PlayableCard target = playableCards[UnityEngine.Random.Range(0, playableCards.Count)];
+                EffectUtils.AddPlayableCardToDocument(document, outputKey, target);
+            }
+        }
+    }
 
     public GameObject getSelf(EffectDocument document) {
         // A companion is the source of the effect
@@ -271,6 +301,7 @@ public class GetTargets : EffectStep
         TargetAllValidTargetsExceptSelf,
         TargetSelf,
         TargetEntityThatDeltCard,
-        CantTargetSelf
+        CantTargetSelf,
+        TargetRandom
     }
 }

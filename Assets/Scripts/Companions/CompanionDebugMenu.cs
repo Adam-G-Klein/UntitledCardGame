@@ -54,6 +54,6 @@ public class CompanionDebugMenu : MonoBehaviour, IPointerClickHandler
             cardViewUIPrefab,
             Vector3.zero,
             Quaternion.identity);
-        cardViewUI.Setup(cards, 0, "");
+        cardViewUI.Setup(cards, 0, "", 0);
     }
 }

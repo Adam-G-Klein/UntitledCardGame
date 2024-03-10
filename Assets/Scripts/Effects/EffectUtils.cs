@@ -18,9 +18,10 @@ public class EffectUtils {
             EffectDocument document,
             string key,
             CompanionInstance companion) {
-        document.map.AddItem(key, companion);
-        document.map.AddItem(key, companion.combatInstance);
-        document.map.AddItem(key, companion.deckInstance);
+        string dedupeLink = companion.companion.id;
+        document.map.AddItem(key, companion, dedupeLink);
+        document.map.AddItem(key, companion.combatInstance, dedupeLink);
+        document.map.AddItem(key, companion.deckInstance, dedupeLink);
     }
 
     public static void AddMinionsToDocument(
@@ -36,9 +37,10 @@ public class EffectUtils {
             EffectDocument document,
             string key,
             MinionInstance minion) {
-        document.map.AddItem(key, minion);
-        document.map.AddItem(key, minion.combatInstance);
-        document.map.AddItem(key, minion.deckInstance);
+        string dedupeLink = minion.minion.id;
+        document.map.AddItem(key, minion, dedupeLink);
+        document.map.AddItem(key, minion.combatInstance, dedupeLink);
+        document.map.AddItem(key, minion.deckInstance, dedupeLink);
     }
 
     public static void AddEnemiesToDocument(
@@ -54,8 +56,9 @@ public class EffectUtils {
             EffectDocument document,
             string key,
             EnemyInstance enemy) {
-        document.map.AddItem(key, enemy);
-        document.map.AddItem(key, enemy.combatInstance);
+        string dedupeLink = enemy.enemy.id;
+        document.map.AddItem(key, enemy, dedupeLink);
+        document.map.AddItem(key, enemy.combatInstance, dedupeLink);
     }
 
     public static void AddPlayableCardsToDocument(
@@ -71,7 +74,8 @@ public class EffectUtils {
             EffectDocument document,
             string key,
             PlayableCard playableCard) {
-        document.map.AddItem(key, playableCard);
-        document.map.AddItem(key, playableCard.card);
+        string dedupeLink = playableCard.card.id;
+        document.map.AddItem(key, playableCard, dedupeLink);
+        document.map.AddItem(key, playableCard.card, dedupeLink);
     }
 }

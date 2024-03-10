@@ -29,7 +29,7 @@ public class EnemyBrain
             attackTime, 
             action.intent,
             action.targetsKey,
-            action.displayValue + self.combatInstance.combatStats.baseAttackDamage,
+            UpdateDisplayValue(self, action.displayValue, action),
             action.effectSteps);
     } 
 
@@ -80,5 +80,13 @@ public class EnemyBrain
             break;
         }
         return target;
+    }
+
+    private int UpdateDisplayValue(EnemyInstance instance, int value, EnemyBehavior behavior) {
+        if (behavior.intent != EnemyIntentType.BigAttack || behavior.intent != EnemyIntentType.SmallAttack) {
+            return value;
+        }
+
+        return value + instance.combatInstance.combatStats.baseAttackDamage;
     }
 }

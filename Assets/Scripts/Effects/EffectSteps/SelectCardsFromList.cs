@@ -22,7 +22,10 @@ public class SelectCardsFromList : EffectStep {
     [TextArea]
     private string promptText = "";
     [SerializeField]
-    private int targets;
+    private int minTargets = 1;
+    [SerializeField]
+    [Header("If -1, no max number of targets")]
+    private int maxTargets = -1;
     [SerializeField]
     private bool getNumberOfTargetsFromKey = false;
     [SerializeField]
@@ -42,9 +45,8 @@ public class SelectCardsFromList : EffectStep {
         List<Card> cardOptions = document.map.GetList<Card>(inputKey);
         List<Card> selections = new List<Card>();
 
-        TargettingManager.Instance.selectCards(cardOptions, promptText, targets, selections);
+        TargettingManager.Instance.selectCards(cardOptions, promptText, minTargets, maxTargets, selections);
         yield return new WaitUntil(() => selections.Count > 0);
-        Debug.Log("Test");
 
         document.map.AddItems<Card>(outputKey, selections);
 
