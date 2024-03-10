@@ -10,17 +10,16 @@ public class Deck
     [SerializeField]
     public List<Card> cards = new List<Card>();
     public int cardsDealtPerTurn = 1;
-
-    public Deck(StartingDeck startingDeck, int cardsDealtPerTurn = 1)
+    public Deck(CompanionTypeSO companionType)
     {
-        this.startingDeck = startingDeck;
-        this.cardsDealtPerTurn = cardsDealtPerTurn;
-        foreach(CardType cardType in startingDeck.cards)
+        this.startingDeck = companionType.startingDeck;
+        this.cardsDealtPerTurn = companionType.initialCardsDealtPerTurn;
+        foreach(CardType cardType in companionType.startingDeck.cards)
         {
-            cards.Add(new Card(cardType));
+            cards.Add(new Card(cardType, companionType));
         }
     }
-    
+
     public Deck(List<Card> cards)
     {
         this.startingDeck = new StartingDeck(cards);

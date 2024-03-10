@@ -16,7 +16,7 @@ public class Companion : Entity, ICombatStats, IDeckEntity
         this.companionType = companionType;
         this.combatStats = new CombatStats(
                 companionType.maxHealth);
-        this.deck = new Deck(companionType.startingDeck, companionType.initialCardsDealtPerTurn);
+        this.deck = new Deck(companionType);
         this.id = Id.newGuid();
         this.entityType = EntityType.Companion;
         this.upgradeInfo = companionType.upgradeInfo;

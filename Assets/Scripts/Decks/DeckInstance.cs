@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// gross, but now cards won't be able to display break if we don't have this component. Still have error checks everywhere for it not being present
+// arch was gonna rot over time, might as well use it to speed up the demo right
+[RequireComponent(typeof(CompanionInstance))]
 public class DeckInstance : MonoBehaviour
 {
     public Deck sourceDeck;
@@ -234,6 +237,16 @@ public class DeckInstance : MonoBehaviour
         );
         nextMinionSpawnTheta += 2 * Mathf.PI / GameplayConstantsSingleton.Instance.gameplayConstants.MAX_MINIONS_PER_COMPANION;
         return spawnLoc;
+    }
+
+    public CompanionTypeSO GetCompanionTypeSO() {
+        CompanionInstance companionInstance = GetComponent<CompanionInstance>();
+        if(companionInstance == null) {
+            Debug.LogError("DeckInstance " + this + " does not have a companion instance, cannot get companion type");
+            return null;
+        } else {
+            return companionInstance.companion.companionType;
+        }
     }
 
     private void OnEndEncounter() {

@@ -77,7 +77,7 @@ public class ShopEncounter : Encounter
             CardDisplay cardDisplay = cardInShop.cardDisplay;
             CompanionTypeSO companionType = companionList[i].companionType;
             cardInShop.keepSake.sprite = companionType.keepsake;
-            cardDisplay.Initialize(new Card(cardType), companionType);
+            cardDisplay.Initialize(new Card(cardType, companionType));
 
             // NOTE: Assumes that the companion list and the order their cards are displayed are the same
 

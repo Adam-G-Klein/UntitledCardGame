@@ -66,11 +66,11 @@ public class CardDisplay : MonoBehaviour
         }
     }
 
-    public void Initialize(Card cardInfo, CompanionTypeSO companionType = null) {
-        StartCoroutine(InitializeCorout(cardInfo, companionType));
+    public void Initialize(Card cardInfo) {
+        StartCoroutine(InitializeCorout(cardInfo));
     }
 
-    public IEnumerator InitializeCorout(Card cardInfo, CompanionTypeSO companionType = null) {
+    public IEnumerator InitializeCorout(Card cardInfo) {
         this.cardInfo = cardInfo;
         // these are also done on Update(), keeping em here in case we wanna remove that
         // easy perf boost if we can
@@ -78,18 +78,14 @@ public class CardDisplay : MonoBehaviour
         CardDescGO.text = cardInfo.description;
         CostTextGO.text = cardInfo.GetManaCost().ToString();
         ArtworkGO.sprite = cardInfo.artwork;
-        if(companionType != null) {
-            cardInfo.setCompanionFrom(companionType);
-            Debug.Log("companion type had needed assets? " + 
-                (companionType.typeIcon != null) + " " + 
-                (companionType.cardBack != null) + " " + 
-                (companionType.cardFrame != null));
-        } else {
-            companionType = cardInfo.getCompanionFrom();
-            if (companionType == null)
-                Debug.LogError("No companion from provided to cardDisplay or present in cardInfo. cardInfo: " + cardInfo.name + " companionType: " + companionType);
-        }
-        if(companionType != null && companionType.cardIdleVfxPrefab) {
+        CompanionTypeSO companionType = cardInfo.getCompanionFrom();
+        if (companionType == null)
+            Debug.LogError("No companion from provided to cardDisplay or present in cardInfo. cardInfo: " + cardInfo.name + " companionType: " + companionType);
+        Debug.Log("companion type had needed assets? " + 
+            (companionType.typeIcon != null) + " " + 
+            (companionType.cardBack != null) + " " + 
+            (companionType.cardFrame != null));
+        if(companionType.cardIdleVfxPrefab) {
             vfxGO = Instantiate(companionType.cardIdleVfxPrefab, transform);
             vfxGO.transform.SetSiblingIndex(0);
         }

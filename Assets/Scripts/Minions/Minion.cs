@@ -15,6 +15,8 @@ public class Minion : Entity, ICombatStats, IDeckEntity
 
     public Minion(MinionTypeSO minionType) 
     {
+        Debug.LogError("Minions deprecated when binding companionTypes to cards for different card frames per companion. undeprecate by abstracting the reference cards have to something that can be represented by a shared datatype with minions");
+        /*
         this.minionType = minionType;
         this.combatStats = new CombatStats(
                 minionType.maxHealth,
@@ -23,6 +25,7 @@ public class Minion : Entity, ICombatStats, IDeckEntity
         this.ability = minionType.ability;
         this.id = Id.newGuid();
         this.entityType = EntityType.Minion;
+        */
     }
 
     public Deck getDeck() {

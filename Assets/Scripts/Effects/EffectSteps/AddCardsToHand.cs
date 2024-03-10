@@ -79,13 +79,19 @@ public class AddCardsToHand : EffectStep {
             List<DeckInstance> entitiesFrom) {
         List<PlayableCard> cardsAdded = new List<PlayableCard>();
         foreach (DeckInstance entityFrom in entitiesFrom) {
-            for (int i = 0; i < scale; i++) {
-                List<Card> cards = new List<Card>();
-                foreach (CardType cardType in cardTypes) {
-                    cards.Add(new Card(cardType));
+            CompanionTypeSO companionTypeSO = entityFrom.GetCompanionTypeSO();
+            if(companionTypeSO != null) {
+                for (int i = 0; i < scale; i++) {
+                    List<Card> cards = new List<Card>();
+                    foreach (CardType cardType in cardTypes) {
+                        cards.Add(new Card(cardType, companionTypeSO));
+                    }
+                    cardsAdded.AddRange(PlayerHand.Instance.DealCards(cards, entityFrom));
                 }
-                cardsAdded.AddRange(PlayerHand.Instance.DealCards(cards, entityFrom));
+            } else {
+                Debug.LogError("DeckInstance does not have a companion type, cannot create new cards to add to it. won't know how to display their frames and icons without the companion reference");
             }
+            
         }
         return cardsAdded;
     }

@@ -14,7 +14,7 @@ public static class PrefabInstantiator {
         // information flowing the wrong direction, deck should have it set
         CompanionInstance companionInstance = deckFrom.gameObject.GetComponent<CompanionInstance>();
         if (companionInstance) {
-            cardDisplay.Initialize(card, companionInstance.companion.companionType);
+            cardDisplay.Initialize(card);
         } else {
             cardDisplay.Initialize(card);
         }

@@ -74,10 +74,11 @@ public class Card : Entity, IEquatable<Card>
     [SerializeReference]
     public CardType cardType;
 
-    public Card(CardType cardType)
+    public Card(CardType cardType, CompanionTypeSO companionFrom)
     {
         this.cardType = cardType;
         this.id = Id.newGuid();
+        this.setCompanionFrom(companionFrom);
         ResetCardModifications();
     }
 
@@ -85,6 +86,7 @@ public class Card : Entity, IEquatable<Card>
         this.cardType = card.cardType;
         id = card.id;
         this.effectBuffs = card.effectBuffs;
+        this.setCompanionFrom(card.getCompanionFrom());
         ResetCardModifications();
     }
 
