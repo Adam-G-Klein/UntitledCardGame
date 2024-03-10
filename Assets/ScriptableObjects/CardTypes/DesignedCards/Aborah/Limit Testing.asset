@@ -15,7 +15,7 @@ MonoBehaviour:
   Name: Limit Testing
   Description: Gain 1 strength. Gain 2 strength instead if this Aborah is at 1 strength
     or lower.
-  Cost: 2
+  Cost: 1
   Artwork: {fileID: 21300000, guid: 2812c1179dd157242bb5fec368979bfd, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
@@ -50,7 +50,7 @@ MonoBehaviour:
         hardCodedInputKey1: 1
         useHardCodedInputKey1: 1
         inputKey1: currentStrength
-        operation: 2
+        operation: 4
         inputKey2: currentStrength
         outputKey: outputBoolean
     - rid: 5592738617237438504
@@ -86,5 +86,5 @@ MonoBehaviour:
         outputKey: target
         validTargets: 
         number: 1
-        specialTargetRule: 3
+        specialTargetRule: 4
         cantCancelTargetting: 0

@@ -29,28 +29,7 @@ MonoBehaviour:
       data:
         effectSteps:
         - rid: 9024302470308298775
-        - rid: 9024302470308298776
         - rid: 9024302470308298777
-        - rid: 5592738617237438465
-        - rid: 5592738617237438466
-    - rid: 5592738617237438465
-      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CombatEffectStep
-        inputKey: target
-        combatEffect: 0
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
-    - rid: 5592738617237438466
-      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CombatEffectStep
-        inputKey: target
-        combatEffect: 0
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
     - rid: 9024302470308298775
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -62,15 +41,6 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
-    - rid: 9024302470308298776
-      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CombatEffectStep
-        inputKey: target
-        combatEffect: 0
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
     - rid: 9024302470308298777
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
@@ -80,3 +50,6 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+        multiplicity: 4
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 

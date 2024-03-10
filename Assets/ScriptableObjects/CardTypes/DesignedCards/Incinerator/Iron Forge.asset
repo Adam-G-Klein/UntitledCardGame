@@ -1,0 +1,142 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
+  m_Name: Iron Forge
+  m_EditorClassIdentifier: 
+  Name: Iron Forge
+  Description: Exhaust two target cards in hand. Conjure a self-sharpening blade
+    into hand.
+  Cost: 0
+  Artwork: {fileID: 21300000, guid: 2812c1179dd157242bb5fec368979bfd, type: 3}
+  cardCategory: 3
+  vfxPrefab: {fileID: 0}
+  playable: 1
+  effectWorkflows:
+  - rid: 2116895648763871351
+  - rid: 5592738912264781831
+  onExhaustEffectWorkflow:
+    rid: -2
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 1488501494564520005
+      type: {class: SetCardEffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: SetCardEffectWorkflow
+        cardInputKey: 
+        chapterInputKey: 
+        increment: 1
+        modifyThisCard: 1
+    - rid: 1488501494564520006
+      type: {class: SetCardEffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: SetCardEffectWorkflow
+        cardInputKey: 
+        chapterInputKey: 
+        increment: 1
+        modifyThisCard: 1
+    - rid: 2116895648763871351
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 9024302470308298775
+        - rid: 5592738912264781845
+        - rid: 5592738912264781847
+        - rid: 5592738912264781846
+        - rid: 1488501494564520005
+    - rid: 5592738912264781831
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 5592738912264781848
+        - rid: 5592738912264781849
+        - rid: 5592738912264781850
+        - rid: 1488501494564520006
+    - rid: 5592738912264781845
+      type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardInHandEffect
+        inputKey: cards
+        effect: 1
+    - rid: 5592738912264781846
+      type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: AddCardsToHand
+        entityFromKey: companion
+        cardTypes:
+        - {fileID: 11400000, guid: f81164c1e256fb340b76c150339e4004, type: 2}
+        getCardsFromKey: 0
+        inputCardsKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        outputKey: 
+    - rid: 5592738912264781847
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: companion
+        validTargets: 
+        number: 1
+        specialTargetRule: 4
+        cantCancelTargetting: 0
+    - rid: 5592738912264781848
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: companion
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 5592738912264781849
+      type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: AddCardsToHand
+        entityFromKey: companion
+        cardTypes:
+        - {fileID: 11400000, guid: f81164c1e256fb340b76c150339e4004, type: 2}
+        getCardsFromKey: 0
+        inputCardsKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        outputKey: self-sharpening-blade
+    - rid: 5592738912264781850
+      type: {class: CardModificationEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardModificationEffect
+        inputKey: self-sharpening-blade
+        scale: 1
+        cardType: {fileID: 0}
+        useHardCodedCardTypes: 0
+        affectsAllCardsOfType: 0
+        getScaleFromKey: 0
+        scaleKey: 
+        modification: 2
+    - rid: 9024302470308298775
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: cards
+        validTargets: 03000000
+        number: 2
+        specialTargetRule: 5
+        cantCancelTargetting: 0

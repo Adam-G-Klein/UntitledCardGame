@@ -21,19 +21,15 @@ MonoBehaviour:
   playable: 1
   effectWorkflows:
   - rid: 2116895648763871351
-  onExhaustEffectWorkflow:
-    rid: -2
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
     - rid: 2116895648763871351
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
         - rid: 9024302470308298775
-        - rid: 9024302470308298776
+        - rid: 9024302470308298777
     - rid: 9024302470308298775
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -45,7 +41,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
-    - rid: 9024302470308298776
+    - rid: 9024302470308298777
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep

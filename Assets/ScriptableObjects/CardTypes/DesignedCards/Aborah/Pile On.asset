@@ -38,7 +38,6 @@ MonoBehaviour:
         - rid: 5592738617237438506
         - rid: 5592738617237438507
         - rid: 5592738617237438509
-        - rid: 5592738617237438508
         - rid: 5592738821432410228
     - rid: 5592738617237438472
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
@@ -64,18 +63,6 @@ MonoBehaviour:
         effectStepName: EndWorkflowIfConditionMet
         inputKey1: wasLastCardPlayedAnAttack
         conditionToEndOn: 0
-    - rid: 5592738617237438508
-      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CombatEffectStep
-        inputKey: self
-        combatEffect: 1
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
     - rid: 5592738617237438509
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -91,7 +78,7 @@ MonoBehaviour:
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ApplyStatus
-        inputKey: 
+        inputKey: self
         statusEffect: 0
         scale: 1
         getScaleFromKey: 0

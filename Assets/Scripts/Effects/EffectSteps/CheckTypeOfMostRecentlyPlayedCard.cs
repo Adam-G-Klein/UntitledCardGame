@@ -22,7 +22,6 @@ public class CheckTypeOfMostRecentlyPlayedCard : EffectStep
         List<Card> cardsCastThisCombat = EnemyEncounterManager.Instance.combatEncounterState.cardsCastThisCombat;
         List<Card> cardsCastThisTurn = EnemyEncounterManager.Instance.combatEncounterState.cardsCastThisTurn;
         bool result = false;
-        Debug.Log("------------------");
         if (cardsCastThisTurn.Count == 0) {
             if (cardsCastThisCombat.Count > 0 && cardsCastThisCombat[cardsCastThisCombat.Count - 1].cardType.cardCategory == cardCategory) {
                     result = true;
@@ -32,9 +31,6 @@ public class CheckTypeOfMostRecentlyPlayedCard : EffectStep
                 result = true;
             }
         }
-        
-        Debug.Log("cardCategory" + cardCategory);
-        Debug.Log("result" + result);
         document.boolMap[outputKey] = result;
         yield return null;
     }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Bellows
   m_EditorClassIdentifier: 
   Name: Bellows
-  Description: Draw 3 cards, choose 1 of them to exhaust
+  Description: Draw 2 cards, choose 1 of them to exhaust
   Cost: 1
   Artwork: {fileID: 21300000, guid: a25201c1880e82047ad39afad0b9ab94, type: 3}
   cardCategory: 0
@@ -40,9 +40,9 @@ MonoBehaviour:
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: DrawCards
-        inputKey: origin
-        outputKey: drawnCards
-        scale: 3
+        inputKey: targetCompanion
+        outputKey: 
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
     - rid: 9024302470308298798
@@ -54,7 +54,7 @@ MonoBehaviour:
         outputKey: origin
         validTargets: 03000000
         number: 1
-        specialTargetRule: 4
+        specialTargetRule: 0
         cantCancelTargetting: 0
     - rid: 9024302470308298799
       type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
@@ -66,8 +66,8 @@ MonoBehaviour:
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
-        useInputToLimitOptions: 1
-        inputKey: drawnCards
+        useInputToLimitOptions: 0
+        inputKey: 
         outputKey: cardToExhaust
         validTargets: 03000000
         number: 1
