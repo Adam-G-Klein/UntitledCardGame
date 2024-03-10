@@ -25,16 +25,6 @@ public class CardModificationEffect : EffectStep {
     }
 
     public override IEnumerator invoke(EffectDocument document) {
-        if (useHardCodedCardTypes) {
-            cardType.ChangeCardModification(modification, newScale);
-            yield return null;
-        }
-        
-        if (!document.map.ContainsValueWithKey<Card>(inputKey)) {
-            EffectError("No input Card for given key " + inputKey);
-            yield return null;
-        }
-
         int newScale = scale;
         if (getScaleFromKey) {
             if (!document.intMap.ContainsKey(scaleKey)) {
@@ -43,12 +33,21 @@ public class CardModificationEffect : EffectStep {
             }
             newScale = document.intMap[scaleKey];
         }
+        
+        if (useHardCodedCardTypes) {
+            cardType.ChangeCardModification(modification, newScale);
+            yield return null;
+        }
+
+        if (!document.map.ContainsValueWithKey<Card>(inputKey)) {
+            EffectError("No input Card for given key " + inputKey);
+            yield return null;
+        }
 
         List<Card> cards = document.map.GetList<Card>(inputKey);
         foreach (Card card in cards) {
             if (affectsAllCardsOfType) {
                     card.cardType.ChangeCardModification(modification, newScale);
-                }
             } else {
                 card.ChangeCardModification(modification, newScale);
             }
