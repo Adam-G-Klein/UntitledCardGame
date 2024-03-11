@@ -16,44 +16,21 @@ MonoBehaviour:
   Description: Give target companion 5 block
   Cost: 1
   Artwork: {fileID: 21300000, guid: ac2f6571b8a37954abd0657d090050d5, type: 3}
-  cardCategory: 0
+  cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
   effectWorkflows:
   - rid: 2116895648763871354
-  onExhaustEffectWorkflow:
-    rid: -2
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
     - rid: 2116895648763871354
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
         - rid: 9024302470308298760
-        - rid: 8567962109358637080
         - rid: 8939928337977442491
         - rid: 9024302470308298761
-        - rid: 8567962109358637081
-    - rid: 8567962109358637080
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: card
-        validTargets: 
-        number: 1
-        specialTargetRule: 3
-        cantCancelTargetting: 0
-    - rid: 8567962109358637081
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: 
-        prefabToInstantiate: {fileID: 0}
     - rid: 8939928337977442491
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
