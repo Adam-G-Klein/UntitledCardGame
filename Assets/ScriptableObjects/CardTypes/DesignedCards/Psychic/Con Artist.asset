@@ -1,0 +1,162 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
+  m_Name: Con Artist
+  m_EditorClassIdentifier: 
+  Name: Con Artist (saga)
+  Description: Changes on cast (Don't have text replacement yet)
+  Cost: 1
+  Artwork: {fileID: 21300000, guid: cea2c9bf87b0c4dfdafb697a3ff00959, type: 3}
+  vfxPrefab: {fileID: 0}
+  playable: 1
+  effectWorkflows:
+  - rid: 2116895648763871334
+  - rid: 2116895650466496513
+  - rid: 2116895650466496521
+  references:
+    version: 2
+    RefIds:
+    - rid: 2116895648763871334
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 2116895650466496512
+        - rid: 2116895650466496519
+    - rid: 2116895650466496512
+      type: {class: ManaChange, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ManaChange
+        scale: 2
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 2116895650466496513
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 2116895650466496515
+        - rid: 2116895650466496514
+        - rid: 2116895650466496516
+        - rid: 2116895650466496517
+        - rid: 2116895650466496520
+    - rid: 2116895650466496514
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DrawCards
+        inputKey: draw_target
+        outputKey: 
+        scale: 3
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 2116895650466496515
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: draw_target
+        validTargets: 
+        number: 1
+        specialTargetRule: 4
+        cantCancelTargetting: 0
+    - rid: 2116895650466496516
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: discard_target
+        validTargets: 03000000
+        number: 3
+        specialTargetRule: 5
+        cantCancelTargetting: 1
+    - rid: 2116895650466496517
+      type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardInHandEffect
+        inputKey: discard_target
+        effect: 0
+    - rid: 2116895650466496519
+      type: {class: SetCardEffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: SetCardEffectWorkflow
+        cardInputKey: 
+        chapterInputKey: 
+        increment: 1
+        modifyThisCard: 1
+    - rid: 2116895650466496520
+      type: {class: SetCardEffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: SetCardEffectWorkflow
+        cardInputKey: 
+        chapterInputKey: 
+        increment: 1
+        modifyThisCard: 1
+    - rid: 2116895650466496521
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 2116895650466496522
+        - rid: 2116895650466496524
+        - rid: 2116895650466496526
+        - rid: 2116895650466496527
+        - rid: 2116895650466496528
+        - rid: 2116895650466496529
+    - rid: 2116895650466496522
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: target
+        validTargets: 02000000
+        number: 1
+        specialTargetRule: 0
+        cantCancelTargetting: 0
+    - rid: 2116895650466496524
+      type: {class: GetNumberOfCardsInHand, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetNumberOfCardsInHand
+        outputKey: cardsInHand
+    - rid: 2116895650466496526
+      type: {class: GetCastCountFromCard, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetCastCountFromCard
+        inputKey: 
+        outputKey: castCount
+        countFromThisCard: 1
+    - rid: 2116895650466496527
+      type: {class: MathStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: MathStep
+        inputKey: castCount
+        operand2InputKey: 
+        operation: 0
+        scale: 1
+        outputKey: castCountPlusOne
+    - rid: 2116895650466496528
+      type: {class: MathStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: MathStep
+        inputKey: cardsInHand
+        operand2InputKey: castCountPlusOne
+        operation: 2
+        scale: 0
+        outputKey: damage
+    - rid: 2116895650466496529
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: target
+        combatEffect: 0
+        scale: 0
+        getScaleFromKey: 1
+        inputScaleKey: damage

@@ -13,13 +13,12 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     public CombatEncounterState combatEncounterState;
     public delegate void OnEncounterEndHandler();
     public event OnEncounterEndHandler onEncounterEndHandler;
-    public CharacterPortraitController characterPortraitController;
     [SerializeField]
     // There's so many ways we could do this
     // choosing the simplest one for now
     private GameObject postCombatUI;
 
-    void Start() {
+    void Awake() {
         // This ends up calling BuildEnemyEncounter below
         gameState.activeEncounter.GetValue().BuildWithEncounterBuilder(this);
         ManaManager.Instance.SetManaPerTurn(gameState.playerData.GetValue().manaPerTurn);
@@ -28,7 +27,6 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
 
     public void BuildEnemyEncounter(EnemyEncounter encounter) {
         encounter.Build(gameState.companions.activeCompanions, encounterConstants);
-        characterPortraitController.SetupCharacterPortraits(gameState.companions.activeCompanions);
     }
 
     void Update() {

@@ -73,7 +73,7 @@ public class CardTypeEditor : Editor {
         
         if (GUILayout.Button("Add Effect")) {
             EffectStep newEffect = InstantiateFromClassname.Instantiate<EffectStep>(
-                onExhaustStepName.ToString(),
+                onExhaustStepName.ToString(), 
                 new object[] {});
             if (cardType.onExhaustEffectWorkflow == null) {
                 cardType.onExhaustEffectWorkflow = new EffectWorkflow();

@@ -1,0 +1,90 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
+  m_Name: Limit Testing
+  m_EditorClassIdentifier: 
+  Name: Limit Testing
+  Description: Gain 1 strength. Gain 2 strength instead if this Aborah is at 1 strength
+    or lower.
+  Cost: 2
+  Artwork: {fileID: 21300000, guid: 2812c1179dd157242bb5fec368979bfd, type: 3}
+  cardCategory: 2
+  vfxPrefab: {fileID: 0}
+  playable: 1
+  effectWorkflows:
+  - rid: 2116895648763871351
+  references:
+    version: 2
+    RefIds:
+    - rid: 2116895648763871351
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 9024302470308298775
+        - rid: 5592738617237438471
+        - rid: 5592738821432410189
+        - rid: 5592738617237438473
+        - rid: 5592738617237438504
+        - rid: 5592738821432410190
+    - rid: 5592738617237438471
+      type: {class: CountStatusEffectsStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CountStatusEffectStep
+        inputKey: target
+        statusEffect: 0
+        onlyCountStatusOnce: 0
+        outputKey: currentStrength
+    - rid: 5592738617237438473
+      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: BooleanComparison
+        hardCodedInputKey1: 1
+        useHardCodedInputKey1: 1
+        inputKey1: currentStrength
+        operation: 2
+        inputKey2: currentStrength
+        outputKey: outputBoolean
+    - rid: 5592738617237438504
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: outputBoolean
+        conditionToEndOn: 0
+    - rid: 5592738821432410189
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: target
+        statusEffect: 0
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 5592738821432410190
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: target
+        statusEffect: 0
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 9024302470308298775
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: target
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
