@@ -182,9 +182,9 @@ MonoBehaviour:
   CostTextGO: {fileID: 8364406301424066529}
   CardDescGO: {fileID: 1218430187738907287}
   ArtworkGO: {fileID: 1218430187696432317}
-  FrameGO: {fileID: 4793717403309249248}
+  FrameGO: {fileID: 7382580656667401982}
   TypeIconGO: {fileID: 2905906613826202601}
-  vfxPrefab: {fileID: 0}
+  vfxGO: {fileID: 0}
   Frame: {fileID: 0}
   TypeIcon: {fileID: 0}
   CardBack: {fileID: 0}
@@ -392,9 +392,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4793717403309249248 stripped
+--- !u!224 &5849600836069334007 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8920477793246675867, guid: d235b184f6564184b93f762200dec9e5, type: 3}
+  m_PrefabInstance: {fileID: 3091179899030280300}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7382580656667401982 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7521195172434807436, guid: d235b184f6564184b93f762200dec9e5, type: 3}
+  m_CorrespondingSourceObject: {fileID: 5517510167137322642, guid: d235b184f6564184b93f762200dec9e5, type: 3}
   m_PrefabInstance: {fileID: 3091179899030280300}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
@@ -403,11 +408,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!224 &5849600836069334007 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 8920477793246675867, guid: d235b184f6564184b93f762200dec9e5, type: 3}
-  m_PrefabInstance: {fileID: 3091179899030280300}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &8364406301424066529 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6841606149799446413, guid: d235b184f6564184b93f762200dec9e5, type: 3}

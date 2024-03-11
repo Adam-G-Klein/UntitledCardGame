@@ -62,10 +62,9 @@ MonoBehaviour:
   CostTextGO: {fileID: 2908640472261375622}
   CardDescGO: {fileID: 5521833034104925168}
   ArtworkGO: {fileID: 5521833034063482330}
-  FrameGO: {fileID: 2220119289351256967}
+  FrameGO: {fileID: 4196782908008675225}
   TypeIconGO: {fileID: 8366030614990455438}
-  CardBackGO: {fileID: 4619160798014891075}
-  vfxPrefab: {fileID: 1197104556551464921, guid: 41c864d1fe5f8f7408115df2a3791577, type: 3}
+  vfxGO: {fileID: 0}
   Frame: {fileID: 0}
   TypeIcon: {fileID: 0}
   CardBack: {fileID: 0}
@@ -296,17 +295,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8920477793246675867, guid: d235b184f6564184b93f762200dec9e5, type: 3}
   m_PrefabInstance: {fileID: 8552289041173328139}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2220119289351256967 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7521195172434807436, guid: d235b184f6564184b93f762200dec9e5, type: 3}
-  m_PrefabInstance: {fileID: 8552289041173328139}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2908640472261375622 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6841606149799446413, guid: d235b184f6564184b93f762200dec9e5, type: 3}
@@ -318,11 +306,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!212 &4619160798014891075 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 3942158030317835592, guid: d235b184f6564184b93f762200dec9e5, type: 3}
+--- !u!114 &4196782908008675225 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5517510167137322642, guid: d235b184f6564184b93f762200dec9e5, type: 3}
   m_PrefabInstance: {fileID: 8552289041173328139}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &5521833032734208732 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4183466307204269015, guid: d235b184f6564184b93f762200dec9e5, type: 3}
