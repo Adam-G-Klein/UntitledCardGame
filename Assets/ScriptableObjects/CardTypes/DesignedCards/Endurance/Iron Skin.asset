@@ -15,15 +15,19 @@ MonoBehaviour:
   Name: Iron Skin
   Description: Apply 1 turn of invulnerability to target companion
   Cost: 3
-  Artwork: {fileID: 21300000, guid: fbe9f68bddb51af429e4fbf72a4725a9, type: 3}
+  Artwork: {fileID: 21300000, guid: e3425c0bf387f4d47907af9ce0eff56b, type: 3}
   cardCategory: 0
   vfxPrefab: {fileID: 0}
   playable: 1
   effectWorkflows:
   - rid: 2116895648763871346
+  onExhaustEffectWorkflow:
+    rid: -2
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 2116895648763871346
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:

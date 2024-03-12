@@ -15,20 +15,19 @@ MonoBehaviour:
   Name: Brainstorm
   Description: Deal 3 damage for each of the cards in your hand
   Cost: 1
-  Artwork: {fileID: 21300000, guid: e214fa1b4dba7e0418f0b2af6b7d6df3, type: 3}
+  Artwork: {fileID: 21300000, guid: 7d13e867f4dd988488e4c5a179fa0857, type: 3}
+  cardCategory: 0
   vfxPrefab: {fileID: 0}
   playable: 1
-  effectSteps:
-  - rid: 1886371092460208250
-  - rid: 1886371092460208252
-  - rid: 1886371092460208277
-  - rid: 1886371092460208255
-  - rid: 1886371092460208256
   effectWorkflows:
   - rid: 2116895648763871330
+  onExhaustEffectWorkflow:
+    rid: -2
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 1886371092460208250
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -56,6 +55,7 @@ MonoBehaviour:
       data:
         effectStepName: MathStep
         inputKey: numberOfCardsInHand
+        operand2InputKey: UNUSED
         operation: 2
         scale: 3
         outputKey: finalDamage
@@ -68,12 +68,14 @@ MonoBehaviour:
         scale: 0
         getScaleFromKey: 1
         inputScaleKey: finalDamage
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 1886371092460208277
       type: {class: CountStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CountStep
         inputKey: cardsInHand
-        typesToCount: 01000000
         outputKey: numberOfCardsInHand
     - rid: 2116895648763871330
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}

@@ -15,18 +15,19 @@ MonoBehaviour:
   Name: Taunt
   Description: Force target enemy to target this companion next turn
   Cost: 1
-  Artwork: {fileID: 21300000, guid: 7aece9b174928f44e847cf6b871ab4e5, type: 3}
+  Artwork: {fileID: 21300000, guid: cf5aa02f77468564190f8694f7007ee1, type: 3}
+  cardCategory: 0
   vfxPrefab: {fileID: 0}
   playable: 1
-  effectSteps:
-  - rid: 9024302837437038646
-  - rid: 9024302837437038670
-  - rid: 9024302837437038671
   effectWorkflows:
   - rid: 2116895648763871348
+  onExhaustEffectWorkflow:
+    rid: -2
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 2116895648763871348
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:

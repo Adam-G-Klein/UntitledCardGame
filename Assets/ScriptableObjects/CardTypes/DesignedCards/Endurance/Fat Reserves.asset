@@ -15,17 +15,19 @@ MonoBehaviour:
   Name: Fat Reserves
   Description: Shuffle 3 fat cells cards into this companion's draw pile
   Cost: 2
-  Artwork: {fileID: 21300000, guid: 80d4761388c4135438103bd7a0000ea2, type: 3}
+  Artwork: {fileID: 21300000, guid: 6cb44060d9d637b44a6b0567dd3ff92f, type: 3}
+  cardCategory: 0
   vfxPrefab: {fileID: 0}
   playable: 1
-  effectSteps:
-  - rid: 9024302470308298789
-  - rid: 9024302470308298790
   effectWorkflows:
   - rid: 2116895648763871344
+  onExhaustEffectWorkflow:
+    rid: -2
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 2116895648763871344
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -50,6 +52,7 @@ MonoBehaviour:
         inputKey: target
         cardTypes:
         - {fileID: 11400000, guid: 76c940ac09415954d897a92f7b06e313, type: 2}
+        addToDeckMethod: 1
         getCardsFromKey: 0
         inputCardsKey: 
         scale: 3
