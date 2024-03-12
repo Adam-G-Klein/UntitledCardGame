@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61d50f794d2508647aa5dc1c215a339d, type: 3}
+  m_Name: DemoLocationsList
+  m_EditorClassIdentifier: 
+  aidenRooms: []
+  teamSelectionScreens: []
+  preCombatScreens: []
+  shops: []
+  combats: []
+  postCombats: []
+  tutorialAidensRoom: {fileID: 11400000, guid: 293e0c8d7ef149849a56e7c908f17f35, type: 2}
+  tutorialTeamSigning: {fileID: 11400000, guid: 4aec72614c557ac4d93d4b56e8db3c1e, type: 2}
+  tutorialMap1: {fileID: 11400000, guid: 6b6300ad89b0c414b878fe8b1b23b389, type: 2}
+  tutorialTeamSelect1: {fileID: 11400000, guid: 8845bfbab573849418d3e703f8add718, type: 2}
+  tutorialPrecombatSplash1: {fileID: 11400000, guid: 1a7a781a9da29194fad15472280322f4, type: 2}
+  tutorialCombat1: {fileID: 11400000, guid: 2c2e19f6e05fc314393f61f006caf89c, type: 2}
+  tutorialPostCombat1: {fileID: 11400000, guid: 28890d51e7747a84c8bd45f4c3b3be09, type: 2}
+  tutorialShop1: {fileID: 11400000, guid: d9777261582cd324fbc2362cf54ad3e8, type: 2}
+  tutorialMap2: {fileID: 11400000, guid: fdc519b19f3f01a42aca6a2cf23a9fbb, type: 2}
+  tutorialTeamSelect2: {fileID: 11400000, guid: 390c80a153b939a4fbe374e1ac73bfbf, type: 2}
+  tutorialPrecombatSplash2: {fileID: 11400000, guid: 23957e0587582b841a7c1efd384d11cb, type: 2}
+  tutorialCombat2: {fileID: 11400000, guid: 1cd6e1ee3f834d740a77ae7841f657fb, type: 2}
+  tutorialPostCombat2: {fileID: 11400000, guid: 2f2dc0278c47f4f40bd3091e31456770, type: 2}
+  tutorialShop2: {fileID: 11400000, guid: c1ab259c446c49844a9b65eabe659bad, type: 2}
+  bossFightShop: {fileID: 0}
+  bossFightPrecombatSplash: {fileID: 0}
+  bossFightCombat: []
