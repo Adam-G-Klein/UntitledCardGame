@@ -15,18 +15,19 @@ MonoBehaviour:
   Name: Tweak Out
   Description: Discard two cards to gain 2 mana
   Cost: 1
-  Artwork: {fileID: 21300000, guid: 22317dc648a0f694ba636fea2613a92c, type: 3}
+  Artwork: {fileID: 21300000, guid: 47602993e540997478144938c9b7ec9b, type: 3}
+  cardCategory: 0
   vfxPrefab: {fileID: 0}
   playable: 1
-  effectSteps:
-  - rid: 1886371092460208270
-  - rid: 1886371092460208272
-  - rid: 1886371092460208273
   effectWorkflows:
   - rid: 2116895648763871335
+  onExhaustEffectWorkflow:
+    rid: -2
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 1886371092460208270
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

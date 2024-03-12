@@ -15,16 +15,21 @@ MonoBehaviour:
   Name: Con Artist (saga)
   Description: Changes on cast (Don't have text replacement yet)
   Cost: 1
-  Artwork: {fileID: 21300000, guid: cea2c9bf87b0c4dfdafb697a3ff00959, type: 3}
+  Artwork: {fileID: 21300000, guid: 7607e6c7d31b76649be88556bf71c132, type: 3}
+  cardCategory: 0
   vfxPrefab: {fileID: 0}
   playable: 1
   effectWorkflows:
   - rid: 2116895648763871334
   - rid: 2116895650466496513
   - rid: 2116895650466496521
+  onExhaustEffectWorkflow:
+    rid: -2
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 2116895648763871334
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -160,3 +165,6 @@ MonoBehaviour:
         scale: 0
         getScaleFromKey: 1
         inputScaleKey: damage
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 

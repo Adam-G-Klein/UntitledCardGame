@@ -15,17 +15,19 @@ MonoBehaviour:
   Name: Animate Grotesque
   Description: This minion deals 3 damage to target enemy
   Cost: 0
-  Artwork: {fileID: 21300000, guid: 35cf9e6f10062dc448b7327fbd33e37d, type: 3}
+  Artwork: {fileID: 21300000, guid: b6a3a72ddfbd65c429c809259c81ca0b, type: 3}
+  cardCategory: 0
   vfxPrefab: {fileID: 0}
   playable: 1
-  effectSteps:
-  - rid: 9024302837437038695
-  - rid: 9024302837437038696
   effectWorkflows:
   - rid: 2116895648763871323
+  onExhaustEffectWorkflow:
+    rid: -2
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 2116895648763871323
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -52,3 +54,6 @@ MonoBehaviour:
         scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 

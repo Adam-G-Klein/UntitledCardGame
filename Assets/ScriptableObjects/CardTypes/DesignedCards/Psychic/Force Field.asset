@@ -15,17 +15,19 @@ MonoBehaviour:
   Name: Force Field
   Description: Give a companion 20 block
   Cost: 1
-  Artwork: {fileID: 21300000, guid: 193d15b569c0e194b95f3fdf8f931b36, type: 3}
+  Artwork: {fileID: 21300000, guid: c0e53d043957bac4c8fb2528ecd0a1b9, type: 3}
+  cardCategory: 0
   vfxPrefab: {fileID: 0}
   playable: 1
-  effectSteps:
-  - rid: 1886371092460208260
-  - rid: 1886371092460208261
   effectWorkflows:
   - rid: 2116895648763871332
+  onExhaustEffectWorkflow:
+    rid: -2
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 1886371092460208260
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

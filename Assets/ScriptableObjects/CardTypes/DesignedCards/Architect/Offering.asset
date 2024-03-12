@@ -15,20 +15,19 @@ MonoBehaviour:
   Name: Offering
   Description: Sacrifice a minion, draw 2 cards, gain one mana
   Cost: 0
-  Artwork: {fileID: 21300000, guid: 34473788bb1226e4bb7e16f1ba1d67b3, type: 3}
+  Artwork: {fileID: 21300000, guid: db26ea4bdc4531f4a9d89b36175475e6, type: 3}
+  cardCategory: 0
   vfxPrefab: {fileID: 0}
   playable: 1
-  effectSteps:
-  - rid: 1886371092460208283
-  - rid: 1886371092460208285
-  - rid: 1886371092460208286
-  - rid: 1886371092460208284
-  - rid: 1886371092460208287
   effectWorkflows:
   - rid: 2116895648763871328
+  onExhaustEffectWorkflow:
+    rid: -2
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 1886371092460208283
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -69,6 +68,9 @@ MonoBehaviour:
         scale: 0
         getScaleFromKey: 0
         inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 1886371092460208287
       type: {class: ManaChange, ns: , asm: Assembly-CSharp}
       data:

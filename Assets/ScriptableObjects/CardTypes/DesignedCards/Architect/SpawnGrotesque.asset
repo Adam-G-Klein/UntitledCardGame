@@ -15,17 +15,19 @@ MonoBehaviour:
   Name: Spawn Grotesque
   Description: Create a lil gargoyle to fight w ya!
   Cost: 2
-  Artwork: {fileID: 21300000, guid: 6f51dc02ad075bb4e8992b5405eb1221, type: 3}
+  Artwork: {fileID: 21300000, guid: 46c78f719703f154f896d900ed853b52, type: 3}
+  cardCategory: 0
   vfxPrefab: {fileID: 0}
   playable: 1
-  effectSteps:
-  - rid: 1886371092460208289
-  - rid: 1886371092460208288
   effectWorkflows:
   - rid: 2116895648763871329
+  onExhaustEffectWorkflow:
+    rid: -2
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 1886371092460208288
       type: {class: SummonMinion, ns: , asm: Assembly-CSharp}
       data:
