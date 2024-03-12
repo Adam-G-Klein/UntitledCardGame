@@ -74,6 +74,11 @@ public class DialogueSpeaker : MonoBehaviour
         dialogueBoxView.Clear();
     }
 
+    public void SkipLine() {
+        StopAllCoroutines();
+        dialogueBoxView.Clear();
+    }
+
     public void UserButtonClick() {
         if(dialogueBoxView.doneDisplaying) {
             userProceeded = true;
@@ -81,5 +86,5 @@ public class DialogueSpeaker : MonoBehaviour
             dialogueBoxView.FastForward();
         }
     }
-    
+
 }

@@ -31,6 +31,10 @@ public class GameStateVariableSO : ScriptableObject
     private MapGeneratorSO mapGenerator;
     [Header("The Combat or Shop Encounter we're currently in")]
     public EncounterVariableSO activeEncounter;
+    [Header("Our map and loop index, used to determine things like which dialogue to display")]
+    public int nextMapIndex = 0;
+    [SerializeField]
+    private int currentLoopIndex = 0;
     [Header("The Next Combat or Shop Encounter we'll enter")]
     public EncounterVariableSO nextEncounter;
     public Location currentLocation;
@@ -65,7 +69,11 @@ public class GameStateVariableSO : ScriptableObject
         {Location.BOSSFIGHT, Location.MAP}
     };
 
-    public int nextMapIndex = 0;
+    
+    [Header("Settings for the demo")]
+    public int lastTutorialLoopIndex = 2;
+    public int bossFightLoopIndex = 6;
+    public int tutorialLoops = 2;
 
     // TODO: make this more versatile if we want the map to actually do things.
     // also want to field criticism about whether this should live here.
@@ -89,6 +97,7 @@ public class GameStateVariableSO : ScriptableObject
                 currentLocation = locationToNextLocation[currentLocation];
                 break;
             case Location.WAKE_UP_ROOM:
+                Debug.Log("LEAVING WAKE UP ROOM");
                 currentLocation = locationToNextLocation[currentLocation];
                 break;
             case Location.TEAM_SIGNING:
@@ -140,7 +149,15 @@ public class GameStateVariableSO : ScriptableObject
                 break;
         }
         updateMusic(currentLocation);
+        cancelCurrentDialogue();
         LoadCurrentLocationScene();
+        currentLoopIndex = GetLoopIndex();
+    }
+
+    public void cancelCurrentDialogue() {
+        if(DialogueManager.Instance != null) {
+            DialogueManager.Instance.skipCurrentDialogue();
+        }
     }
 
     public void LoadCurrentLocationScene() {
@@ -175,6 +192,7 @@ public class GameStateVariableSO : ScriptableObject
 
     // Returns the loop we're on, 1 and 2 for the tutorial, 
     // used to index into all of the dialogueLocationLists
+    // the way to think about it is that we start on loop 0, and each postCombat starts the next loop
     public int GetLoopIndex() {
         Debug.Log("Returning loop index: " + Mathf.FloorToInt(nextMapIndex / 2));
         return Mathf.FloorToInt((nextMapIndex) / 2);

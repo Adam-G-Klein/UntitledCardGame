@@ -31,7 +31,7 @@ public class DialogueInputListener : MonoBehaviour
             dialogueManager.StartAnyDialogueSequence();
         }
         if(Input.GetKeyDown(KeyCode.S)) {
-            CutsceneManager.Instance.NextScene();
+            dialogueManager.skipCurrentDialogue();
         }
         if(Input.GetKeyDown(KeyCode.K)) {
             Debug.Log("killing player");

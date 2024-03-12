@@ -26,7 +26,6 @@ public class AllDialogueLocationsSO: ScriptableObject
     public DialogueLocationSO tutorialPostCombat1;
     public DialogueLocationSO tutorialShop1;
     public DialogueLocationSO tutorialMap2;
-    public DialogueLocationSO tutorialTeamSelect2;
     public DialogueLocationSO tutorialPrecombatSplash2;
     public DialogueLocationSO tutorialCombat2;
     public DialogueLocationSO tutorialPostCombat2;
@@ -97,53 +96,54 @@ public class AllDialogueLocationsSO: ScriptableObject
     // loop index is from gameState.GetLoopIndex()
     private DialogueLocationSO GetTutorialLocation(GameStateVariableSO gameState) {
         Location loc = gameState.currentLocation;
+        int lastTutorialCombatLoop = gameState.lastTutorialLoopIndex;
+        int lastTutorialShop = gameState.lastTutorialLoopIndex + 1;
         int loopIndex = gameState.GetLoopIndex();
+        /*
+        loop index to tutorial location mapping:
+        0 -> tutorialAidensRoom
+        0 -> tutorialTeamsigning
+        0,1 -> precombatSplash
+        0,1 -> combat
+        1,2 -> postcombat
+        1,2 -> shop
+        1,2 -> tutorialTeamselect
+
+        */
         switch(loc) {
             case Location.WAKE_UP_ROOM:
                 return tutorialAidensRoom;
             case Location.TEAM_SIGNING:
                 return tutorialTeamSigning;
-            case Location.MAP:
-                if(loopIndex == 0) {
-                    return tutorialMap1;
-                } else {
-                    return tutorialMap2;
-                }
             case Location.TEAM_SELECT:
-                if(loopIndex == 0) {
-                    return tutorialTeamSelect1;
-                } else {
-                    return tutorialTeamSelect2;
-                }
+                return tutorialTeamSelect1;
             case Location.PRE_COMBAT_SPLASH:
-                if(loopIndex == 0) {
-                    return tutorialPrecombatSplash1;
-                } else {
-                    return tutorialPrecombatSplash2;
-                }
+                return selectTutorialLocOnLoopIndex(loopIndex, lastTutorialCombatLoop, tutorialPrecombatSplash1, tutorialPrecombatSplash2);
             case Location.COMBAT:
-                if(loopIndex == 0) {
-                    return tutorialCombat1;
-                } else {
-                    return tutorialCombat2;
-                }
+                return selectTutorialLocOnLoopIndex(loopIndex, lastTutorialCombatLoop, tutorialCombat1, tutorialCombat2);
             case Location.POST_COMBAT:
-                if(loopIndex == 0) {
-                    return tutorialPostCombat1;
-                } else {
-                    return tutorialPostCombat2;
-                }
+                return selectTutorialLocOnLoopIndex(loopIndex, lastTutorialCombatLoop, tutorialPostCombat1, tutorialPostCombat2);
+            // AdvanceEncounter is called after postcombat
+            case Location.MAP:
+                return selectTutorialLocOnLoopIndex(loopIndex, lastTutorialShop, tutorialMap1, tutorialMap2);
             case Location.SHOP:
-                if(loopIndex == 0) {
-                    return tutorialShop1;
-                } else {
-                    return tutorialShop2;
-                }
+                return selectTutorialLocOnLoopIndex(loopIndex, lastTutorialShop, tutorialShop1, tutorialShop2);
             default:
-                return GetDialogueLocation(gameState);
+                Debug.LogError("Location " + loc + " not found in AllDialogueLocationsSO");
+                return null;
+                
         }
     }
 
-    
+    private DialogueLocationSO selectTutorialLocOnLoopIndex(int loopIndex, int lastTutorialLoopIndex, DialogueLocationSO loc1, DialogueLocationSO loc2) {
+        if(lastTutorialLoopIndex - loopIndex == 1) {
+            return loc1;
+        } else if (lastTutorialLoopIndex - loopIndex == 0) {
+            return loc2;
+        } else {
+            Debug.LogError("Loop index " + loopIndex + " is not 1 or 0 away from last tutorial loop index " + lastTutorialLoopIndex);
+            return loc1;
+        }
+    }
 
 }

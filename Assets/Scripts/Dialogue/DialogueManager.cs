@@ -17,6 +17,7 @@ public class DialogueManager : GenericSingleton<DialogueManager>
     private int currentDialogueIndex = 0;
     private DialogueSpeaker currentLineSpeaker;
     public IEnumerator currentDialogueSequenceCoroutine;
+    private Action currentDialogueSequenceCallback;
     private List<DialogueSequenceSO> alreadyViewedSequences = new List<DialogueSequenceSO>();
     // TODO: make this configurable on a per-sequence basis
     // This was the fastest way I could think of to make the team signing sequence work
@@ -26,8 +27,6 @@ public class DialogueManager : GenericSingleton<DialogueManager>
     private List<UnityEvent> postSequenceEvents = new List<UnityEvent>();
     [SerializeField]
     private int nextPostSequenceEventIndex = 0;
-    [SerializeField]
-    private DialogueSequenceSO tutorialSequence;
     // So other scripts can check if the dialogue manager is ready
     public bool initialized { 
         get {return locationInitialized && speakersInitialized;}} 
@@ -111,6 +110,7 @@ public class DialogueManager : GenericSingleton<DialogueManager>
     public void StartDialogueSequence(DialogueSequenceSO dialogueSequence, Action callback = null) {
         Debug.Log("Starting dialogue sequence: " + dialogueSequence.name);
         currentDialogueSequenceCoroutine = dialogueSequenceCoroutine(dialogueSequence, callback);
+        currentDialogueSequenceCallback = callback;
         StartCoroutine(currentDialogueSequenceCoroutine);
         alreadyViewedSequences.Add(dialogueSequence);
     }
@@ -133,13 +133,26 @@ public class DialogueManager : GenericSingleton<DialogueManager>
             }
             currentDialogueIndex += 1;
         }
+        dialogueFinished();
+        
+    }
+
+    public void skipCurrentDialogue() {
+        // sue me :)
+        if(!dialogueInProgress) return;
+        currentLineSpeaker.SkipLine();
+        StopCoroutine(currentDialogueSequenceCoroutine);
+        dialogueFinished();
+    }
+
+    private void dialogueFinished() {
         dialogueInProgress = false;
         if(nextPostSequenceEventIndex < postSequenceEvents.Count) {
             Debug.Log("invoking post sequence event " + nextPostSequenceEventIndex + " of " + postSequenceEvents.Count);
             postSequenceEvents[nextPostSequenceEventIndex].Invoke();
             nextPostSequenceEventIndex += 1;
         }
-        if(callback != null) callback.Invoke();
+        if(currentDialogueSequenceCallback != null) currentDialogueSequenceCallback.Invoke();
     }
     public void UserClick()
     {
