@@ -9,15 +9,16 @@ public class DisplayTeamSigningUI : MonoBehaviour
     private TeamSelectionUI teamSelectionUI;
 
     void Start() {
-        teamSelectionUI = teamSigningUIGO.GetComponent<TeamSelectionUI>();
+        teamSelectionUI = teamSigningUIGO.GetComponentInChildren<TeamSelectionUI>();
     }
 
     public void DisplayTeamSigning() {
         Debug.Log("Displaying team signing UI");
+        teamSigningUIGO.SetActive(true);
         teamSelectionUI.toggleDisplay();
         // TODO: Make this play the specific next sequence.
         // This only works for now because we only have two sequences in the scene
         DialogueManager.Instance.StartAnyDialogueSequence();
     }
-    
+
 }

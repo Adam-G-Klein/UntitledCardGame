@@ -41,21 +41,7 @@ public class CardDisplay : MonoBehaviour
     // TODO, run on instantiation
     void Update()
     {
-        // runInEditMode = true;
-        if(CardNameGO == null || CostTextGO == null || CardDescGO == null || ArtworkGO == null)
-        {
-            Debug.LogError("CardDisplay " + cardInfo.cardType + " is missing a reference to a UI element");
-        } else if (!initialized) {
-            Debug.Log("CardDisplay " + cardInfo.cardType + " is not initialized");
-        } else {
-            /*
-            CardNameGO.text = cardInfo.name;
-            CardDescGO.text = cardInfo.description;
-            CostTextGO.text = cardInfo.GetManaCost().ToString();
-            ArtworkGO.sprite = cardInfo.artwork;
-            */
-
-        }
+        
     }
 
     void Awake()

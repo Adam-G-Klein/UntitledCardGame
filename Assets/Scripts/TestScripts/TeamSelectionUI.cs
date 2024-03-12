@@ -1,35 +1,42 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class TeamSelectionUI : MonoBehaviour
 {
     public GameStateVariableSO gameState;
     // TODO: package these into companionListVariables
     public CompanionListVariableSO team1ActiveCompanions;
+    public CompanionListVariableSO team1BenchCompanions;
     public CompanionListVariableSO team2ActiveCompanions;
+    public CompanionListVariableSO team2BenchCompanions;
     public GameObject deckViewUIPrefab;
     private VisualElement root;
     [SerializeField]
     private bool displayOnStart = true;
+    [SerializeField]
+    private GameObject bookImageGO;
+    private UnityEngine.UI.Image bookImage;
 
 
     private void OnEnable()
     {
+        bookImage = bookImageGO.GetComponent<UnityEngine.UI.Image>();
         root = GetComponent<UIDocument>().rootVisualElement;
         if(!displayOnStart) {
             root.style.display = DisplayStyle.None;
         }
-        root.Q<Button>("backButton").clicked += backButtonHandler;
+        root.Q<UnityEngine.UIElements.Button>("backButton").clicked += backButtonHandler;
         makeTeamView(root.Q<VisualElement>("team-1-container"), team1ActiveCompanions.GetCompanionTypes());
         makeTeamView(root.Q<VisualElement>("team-2-container"), team2ActiveCompanions.GetCompanionTypes());
     }
     public void initializeRun(List<CompanionTypeSO> team)
     {
-        gameState.companions.benchedCompanions = new List<Companion>();
         gameState.companions.activeCompanions = new List<Companion>();
+        gameState.companions.benchedCompanions = new List<Companion>();
         gameState.companions.currentCompanionSlots = 3;
 
         foreach (CompanionTypeSO companionType in team)
@@ -51,7 +58,7 @@ public class TeamSelectionUI : MonoBehaviour
         //var centeringWrapper = new VisualElement();
         //centeringWrapper.style.alignItems = Align.Center;
         //container.Add(centeringWrapper);
-        var confirm = new Button();
+        var confirm = new UnityEngine.UIElements.Button();
         confirm.text = "Sign this team";
         confirm.style.alignSelf = Align.Center;
         confirm.style.marginTop = 20;
@@ -106,8 +113,10 @@ public class TeamSelectionUI : MonoBehaviour
     public void toggleDisplay() {
         Debug.Log("Toggling display");
         if(root.style.display == DisplayStyle.None) {
+            bookImage.enabled = true;
             root.style.display = DisplayStyle.Flex;
         } else {
+            bookImage.enabled = true;
             root.style.display = DisplayStyle.None;
         }
     }

@@ -61,7 +61,7 @@ public class DialogueManager : GenericSingleton<DialogueManager>
     // For use cases like the shop, post-combat screen, pre-combat screen.
     // Pulls any dialogue sequence from the location 
     // that hasn't been viewed yet and has the required speaker present
-    public void StartAnyDialogueSequence() {
+    public void StartAnyDialogueSequence(float delay = 0f) {
         Debug.Log("Starting any dialogue sequence");
         if(dialogueInProgress) {
             // TODO: make it possible to enqueue dialogue
@@ -73,12 +73,13 @@ public class DialogueManager : GenericSingleton<DialogueManager>
             DialogueSequenceSO toStart = GetDialogueSequence();
             if(toStart != null)
                 StartDialogueSequence(toStart);
-        }));
+        }, delay));
         
     }
 
-    private IEnumerator runOnceInitialized(Action callback) {
+    private IEnumerator runOnceInitialized(Action callback, float delay = 0f) {
         yield return new WaitUntil(() => initialized);
+        yield return new WaitForSeconds(delay);
         callback.Invoke();
     }
 
@@ -134,6 +135,7 @@ public class DialogueManager : GenericSingleton<DialogueManager>
         }
         dialogueInProgress = false;
         if(nextPostSequenceEventIndex < postSequenceEvents.Count) {
+            Debug.Log("invoking post sequence event " + nextPostSequenceEventIndex + " of " + postSequenceEvents.Count);
             postSequenceEvents[nextPostSequenceEventIndex].Invoke();
             nextPostSequenceEventIndex += 1;
         }

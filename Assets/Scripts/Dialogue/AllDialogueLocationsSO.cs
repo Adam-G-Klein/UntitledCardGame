@@ -77,6 +77,7 @@ public class AllDialogueLocationsSO: ScriptableObject
         switch(loc) {
             case Location.WAKE_UP_ROOM:
                 return aidenRooms;
+            // TODO implement team signing for after revival
             case Location.PRE_COMBAT_SPLASH:
                 return preCombatScreens;
             case Location.TEAM_SELECT:
