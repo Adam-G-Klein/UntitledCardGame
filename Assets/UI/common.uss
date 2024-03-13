@@ -29,17 +29,19 @@
     width: 100%;
     padding-top: 6px;
     flex-direction: row;
-    padding-bottom: 6px;
+    padding-bottom: 15px;
     background-color: rgba(254, 0, 255, 0);
     margin-left: 0;
     margin-right: 0;
     padding-left: 6px;
     padding-right: 6px;
+    background-image: url('project://database/Assets/Sprites/AidensRoom/DialogueBox.png?fileID=2800000&guid=e1a81dd917fe696459cd192b12e9b3fc&type=3#DialogueBox');
 }
 
 .character-portrait {
     width: 50px;
     height: 50px;
+    background-image: none;
 }
 
 .text-container {
@@ -49,12 +51,12 @@
     padding-right: 0;
     padding-top: 0;
     padding-bottom: 0;
-    font-size: 10px;
+    font-size: 8px;
     background-color: rgba(18, 34, 255, 0);
 }
 
 .character-name {
-    font-size: 12px;
+    font-size: 10px;
     -unity-font-style: bold;
     color: rgb(0, 0, 0);
 }
@@ -62,14 +64,14 @@
 .archetype-name {
     color: rgb(0, 0, 0);
     -unity-font-style: italic;
-    font-size: 10px;
+    font-size: 8px;
 }
 
 .description {
     background-color: rgba(255, 255, 255, 0);
     color: rgb(0, 0, 0);
     white-space: normal;
-    font-size: 10px;
+    font-size: 8px;
     max-width: 100%;
 }
 

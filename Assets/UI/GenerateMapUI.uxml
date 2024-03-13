@@ -2,7 +2,7 @@
     <Style src="project://database/Assets/UI/common.uss?fileID=7433441132597879392&amp;guid=8d0bc28a2ed710a44b762e4c857ac6f9&amp;type=3#common" />
     <ui:VisualElement style="top: auto; height: 100%; display: flex;">
         <ui:Button text="Back" display-tooltip-when-elided="true" name="backButton" style="position: absolute; top: 698px; left: 0;" />
-        <ui:VisualElement name="VisualElement" style="align-items: flex-start; justify-content: flex-start; width: 508px; height: 305px; left: 30%; top: 22%; flex-direction: row; flex-wrap: nowrap; background-color: rgba(255, 1, 1, 0);">
+        <ui:VisualElement name="VisualElement" style="align-items: flex-start; justify-content: flex-start; width: 517px; height: 284px; left: 35%; top: 25%; flex-direction: row; flex-wrap: nowrap; background-color: rgba(255, 1, 1, 0);">
             <ui:VisualElement name="team-1-container" class="character-select-container" style="height: 100%; width: 100%; background-color: rgba(56, 250, 8, 0);">
                 <ui:VisualElement name="header" class="team-select-header" style="align-self: center; display: flex;">
                     <ui:Label text="Team One" display-tooltip-when-elided="true" class="team-header-label" />

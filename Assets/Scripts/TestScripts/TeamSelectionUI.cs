@@ -58,7 +58,7 @@ public class TeamSelectionUI : MonoBehaviour
         var confirm = new UnityEngine.UIElements.Button();
         confirm.text = "Sign this team";
         confirm.style.alignSelf = Align.Center;
-        confirm.style.marginTop = 20;
+        confirm.style.marginTop = 7;
         confirm.clicked += () => initializeRun(companionTypes);
         container.Add(confirm);
     }
