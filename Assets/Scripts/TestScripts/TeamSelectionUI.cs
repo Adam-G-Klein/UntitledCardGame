@@ -19,12 +19,9 @@ public class TeamSelectionUI : MonoBehaviour
     private bool displayOnStart = true;
     [SerializeField]
     private GameObject bookImageGO;
-    private UnityEngine.UI.Image bookImage;
-
 
     private void OnEnable()
     {
-        bookImage = bookImageGO.GetComponent<UnityEngine.UI.Image>();
         root = GetComponent<UIDocument>().rootVisualElement;
         if(!displayOnStart) {
             root.style.display = DisplayStyle.None;
@@ -113,10 +110,10 @@ public class TeamSelectionUI : MonoBehaviour
     public void toggleDisplay() {
         Debug.Log("Toggling display");
         if(root.style.display == DisplayStyle.None) {
-            bookImage.enabled = true;
+            bookImageGO.SetActive(true);
             root.style.display = DisplayStyle.Flex;
         } else {
-            bookImage.enabled = true;
+            bookImageGO.SetActive(false);
             root.style.display = DisplayStyle.None;
         }
     }
