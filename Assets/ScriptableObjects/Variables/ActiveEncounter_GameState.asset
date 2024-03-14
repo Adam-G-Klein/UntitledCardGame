@@ -14,34 +14,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   locked: 0
   Value:
-    rid: 3931529545569009675
+    rid: 594700888168726531
   references:
     version: 2
     RefIds:
-    - rid: 3931529545569009675
+    - rid: 594700888168726531
       type: {class: EnemyEncounter, ns: , asm: Assembly-CSharp}
       data:
-        id: 9d27d9bc-8378-4a65-8bbd-f7402fc8ffec
+        id: 5c08b211-5782-490d-af2a-f151e8305b92
         isCompleted: 0
         enemyList:
-        - id: 897f0624-eca4-4564-b9be-1ef832620abe
-          entityType: 1
-          enemyType: {fileID: 11400000, guid: 3f595268355432347aef2000672bce6d, type: 2}
-          combatStats:
-            maxHealth: 3
-            currentHealth: 3
-            baseAttackDamage: 0
-        - id: 897f0624-eca4-4564-b9be-1ef832620abe
+        - id: testEnemy1
           entityType: 1
           enemyType: {fileID: 11400000, guid: a42524e3f45743242a9dba2f8e863ecb, type: 2}
           combatStats:
-            maxHealth: 3
-            currentHealth: 3
+            maxHealth: 10
+            currentHealth: 10
             baseAttackDamage: 0
-        - id: 897f0624-eca4-4564-b9be-1ef832620abe
+        - id: testEnemy2
           entityType: 1
-          enemyType: {fileID: 11400000, guid: 5664842284d8162488ff53c6f0317a44, type: 2}
+          enemyType: {fileID: 11400000, guid: c38d30bb882be924ab2f53c6140a8ed4, type: 2}
           combatStats:
-            maxHealth: 3
-            currentHealth: 3
+            maxHealth: 10
+            currentHealth: 10
+            baseAttackDamage: 0
+        - id: testEnemy3
+          entityType: 1
+          enemyType: {fileID: 11400000, guid: cc09f44be0bee0c428bd60688ac9d9cb, type: 2}
+          combatStats:
+            maxHealth: 10
+            currentHealth: 10
             baseAttackDamage: 0

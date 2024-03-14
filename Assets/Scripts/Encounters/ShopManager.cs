@@ -207,8 +207,12 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
     // This exists to satisfy the IEncounterBuilder interface.
     // The IEncounterBuilder interface exists to avoid type casting at runtime
-    public void BuildEnemyEncounter(EnemyEncounter encounter) {
+    public void BuildEnemyEncounter(EnemyEncounter encounter, LocationStore companionLocationStore, LocationStore enemyLocationStore) {
         Debug.LogError("The shop encounter scene was loaded but the active encounter is an enemy encounter!");
         return;
     }
+
+    // To satisfy interface. Unused
+    public LocationStore companionLocationStore { get; set; }
+    public LocationStore enemyLocationStore { get; set; }
 }

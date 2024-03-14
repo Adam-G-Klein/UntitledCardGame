@@ -9,23 +9,8 @@ public class EnemyEncounter : Encounter
 
     private EncounterConstantsSO encounterConstants;
 
-    // Just going to hardcode these here for now, will figure this out later
-    private static List<Vector3> COMPANION_LOCATIONS = new List<Vector3>() {
-        new Vector3(-4, 0.5f, 0),
-        new Vector3(-4, -1f, 0),
-        new Vector3(-7.5f, 0.5f, 0),
-        new Vector3(-7.5f, -1f, 0),
-        new Vector3(-1f, 0.5f, 0),
-        new Vector3(-1f, -1f, 0),
-        new Vector3(-4, -2f, 0),
-        new Vector3(-7.5f, -2f, 0)
-    };
-
-    private static List<Vector3> ENEMY_LOCATIONS = new List<Vector3>() {
-        new Vector3(3.75f, 1.5f, 0),
-        new Vector3(7.5f, 1.5f, 0),
-        new Vector3(5f, 0f, 0)
-    };
+    private LocationStore companionLocationStore;
+    private LocationStore enemyLocationStore;
 
     public EnemyEncounter() {
         this.encounterType = EncounterType.Enemy;
@@ -39,25 +24,30 @@ public class EnemyEncounter : Encounter
         }
     }
 
+    // sorry to mess up the beautiful pattern but we gotta go fast here
     public override void BuildWithEncounterBuilder(IEncounterBuilder encounterBuilder) {
-        encounterBuilder.BuildEnemyEncounter(this);
+        encounterBuilder.BuildEnemyEncounter(this, encounterBuilder.companionLocationStore, encounterBuilder.enemyLocationStore);
     }
 
     public void Build(
             List<Companion> companionList,
             EncounterConstantsSO constants,
             List<CompanionInstance> createdCompanions,
-            List<EnemyInstance> createdEnemies)
+            List<EnemyInstance> createdEnemies,
+            LocationStore companionLocationStore,
+            LocationStore enemyLocationStore)
     {
         this.encounterType = EncounterType.Enemy;
         this.encounterConstants = constants;
+        this.companionLocationStore = companionLocationStore;
+        this.enemyLocationStore = enemyLocationStore;   
         setupEnemies(createdEnemies);
         setupCompanions(companionList, createdCompanions);
     }
 
     private void setupEnemies(List<EnemyInstance> createdEnemies)
     {
-        if (enemyList.Count > ENEMY_LOCATIONS.Count) {
+        if (enemyList.Count > enemyLocationStore.getTopLevelCount()) {
             Debug.LogError("The enemy locations list does not contain enough locations");
             return;
         }
@@ -67,14 +57,14 @@ public class EnemyEncounter : Encounter
             createdEnemies.Add(PrefabInstantiator.instantiateEnemy(
                 encounterConstants.enemyPrefab,
                 enemyList[i],
-                ENEMY_LOCATIONS[i]));
+                enemyLocationStore.getLoc(i)));
         }
     }
 
     private void setupCompanions(List<Companion> companionList, List<CompanionInstance> createdCompanions)
     {
         int activeCompanionsCount = companionList.Count;
-        if (activeCompanionsCount > COMPANION_LOCATIONS.Count) {
+        if (activeCompanionsCount > companionLocationStore.getTopLevelCount()) {
             Debug.LogError("The companion locations list does not contain enough locations");
             return;
         }
@@ -84,7 +74,7 @@ public class EnemyEncounter : Encounter
             createdCompanions.Add(PrefabInstantiator.InstantiateCompanion(
                 encounterConstants.companionPrefab,
                 companionList[i],
-                COMPANION_LOCATIONS[i]));
+                companionLocationStore.getLoc(i)));
         }
     }
 }

@@ -14,6 +14,13 @@ using UnityEngine;
 */
 public interface IEncounterBuilder
 {
-    public void BuildEnemyEncounter(EnemyEncounter encounter);
+    public void BuildEnemyEncounter(EnemyEncounter encounter, LocationStore companionLocationStore, LocationStore enemyLocationStore);
     public void BuildShopEncounter(ShopEncounter encounter);
+
+    // yep sorry, gotta break things :( This pattern was obviously not meant to take in things from the 
+    // scene but we have to in order to get companion locations properly integrated
+
+    public LocationStore companionLocationStore { get; set; }
+    public LocationStore enemyLocationStore { get; set; }
+
 }

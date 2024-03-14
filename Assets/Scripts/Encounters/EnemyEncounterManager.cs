@@ -20,6 +20,31 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     // choosing the simplest one for now
     private GameObject postCombatUI;
 
+    [SerializeField]
+    private GameObject companionLocationStoreGO;
+    [SerializeField]
+    private GameObject enemyLocationStoreGO;
+
+    public LocationStore companionLocationStore { 
+        get {
+        if(companionLocationStoreGO == null) {
+            Debug.LogError("companionLocationStoreGO is null");
+            return null;
+        } else return companionLocationStoreGO.GetComponent<LocationStore>();
+        } set {
+            companionLocationStore = value;
+        }
+    }
+    public LocationStore enemyLocationStore { 
+        get {
+        if(enemyLocationStoreGO == null) {
+            Debug.LogError("enemyLocationStoreGO is null");
+            return null;
+        } else return enemyLocationStoreGO.GetComponent<LocationStore>();
+        } set {
+            enemyLocationStore = value;
+        }
+    }
     void Start() {
         // This ends up calling BuildEnemyEncounter below
         gameState.activeEncounter.GetValue().BuildWithEncounterBuilder(this);
@@ -27,10 +52,17 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         RegisterCombatEncounterStateActions();
     }
 
-    public void BuildEnemyEncounter(EnemyEncounter encounter) {
+    public void BuildEnemyEncounter(EnemyEncounter encounter, 
+        LocationStore companionLocationStore,
+        LocationStore enemyLocationStore) {
         List<CompanionInstance> createdCompanions = new List<CompanionInstance>();
         List<EnemyInstance> createdEnemies = new List<EnemyInstance>();
-        encounter.Build(gameState.companions.activeCompanions, encounterConstants, createdCompanions, createdEnemies);
+        encounter.Build(gameState.companions.activeCompanions, 
+            encounterConstants, 
+            createdCompanions, 
+            createdEnemies,
+            companionLocationStore,
+            enemyLocationStore);
         characterPortraitController.SetupCharacterPortraits(createdCompanions);
         enemyPortraitController.SetupEnemyPortraits(createdEnemies);
     }
