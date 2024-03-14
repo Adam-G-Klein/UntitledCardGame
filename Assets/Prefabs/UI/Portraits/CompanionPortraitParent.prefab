@@ -180,8 +180,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 1534037446779357315}
-  healthBar: {fileID: 654286964336753078}
-  deckDisplay: {fileID: 5235871706079783027}
+  healthBar: {fileID: 5478648056364886729}
+  deckDisplay: {fileID: 905143863561609521}
   statusEffectsController: {fileID: 1234447362894385434}
 --- !u!1 &7888316220057461215
 GameObject:
@@ -492,9 +492,9 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2856857186655145609, guid: 2cab70061d66330449dc3e86c31d151e, type: 3}
   m_PrefabInstance: {fileID: 2564459570769678233}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &654286964336753078 stripped
+--- !u!114 &5478648056364886729 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3063209585610733103, guid: 2cab70061d66330449dc3e86c31d151e, type: 3}
+  m_CorrespondingSourceObject: {fileID: 8043106799816058192, guid: 2cab70061d66330449dc3e86c31d151e, type: 3}
   m_PrefabInstance: {fileID: 2564459570769678233}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
@@ -1023,7 +1023,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 313867117486475584, guid: 2f9015824aaba7145a03aed814584f30, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -2.4999886
+      value: -2.4999924
       objectReference: {fileID: 0}
     - target: {fileID: 865028083631183829, guid: 2f9015824aaba7145a03aed814584f30, type: 3}
       propertyPath: m_Pivot.x
@@ -1122,9 +1122,9 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f9015824aaba7145a03aed814584f30, type: 3}
---- !u!114 &5235871706079783027 stripped
+--- !u!114 &905143863561609521 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3807045035379754733, guid: 2f9015824aaba7145a03aed814584f30, type: 3}
+  m_CorrespondingSourceObject: {fileID: 8138969164265557935, guid: 2f9015824aaba7145a03aed814584f30, type: 3}
   m_PrefabInstance: {fileID: 8970285185167715998}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}

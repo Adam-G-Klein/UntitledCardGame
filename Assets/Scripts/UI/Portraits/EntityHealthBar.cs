@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using Unity.VisualScripting;
 
 // TODO: have a discussion about Entity, I think it 
 // may still be useful for UI stuff like this health bar
