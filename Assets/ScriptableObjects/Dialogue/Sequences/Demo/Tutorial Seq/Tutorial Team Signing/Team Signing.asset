@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23517bc57e0f44146a39f61c3db5a303, type: 3}
+  m_Name: Team Signing
+  m_EditorClassIdentifier: 
+  requiredSpeakers:
+  - {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
+  - {fileID: 11400000, guid: 0ffd109ae66c2a54cb93828dea1a7219, type: 2}
+  dialogueLines:
+  - rid: 164776441536315456
+  - rid: 164776441536315397
+  - rid: 164776441536315398
+  - rid: 164776441536315399
+  - rid: 164776441536315424
+  - rid: 164776441536315400
+  - rid: 164776441536315413
+  - rid: 164776441536315401
+  - rid: 164776441536315402
+  references:
+    version: 2
+    RefIds:
+    - rid: 164776441536315397
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
+        line: Will you be playing with your usual companions?
+    - rid: 164776441536315398
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 0ffd109ae66c2a54cb93828dea1a7219, type: 2}
+        line: I don't know what that means.
+    - rid: 164776441536315399
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 0ffd109ae66c2a54cb93828dea1a7219, type: 2}
+        line: Heck, I'm not playing anything! I'm getting out of here.
+    - rid: 164776441536315400
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
+        line: Come come, Mr. Dyer, your companions are waiting.
+    - rid: 164776441536315401
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
+        line: Allow me to speed up the process.
+    - rid: 164776441536315402
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
+        line: Sign at the bottom of the page on the right.
+    - rid: 164776441536315413
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
+        line: The usual rabble of poor, fragmented souls have gathered to assist
+          you.
+    - rid: 164776441536315424
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 0ffd109ae66c2a54cb93828dea1a7219, type: 2}
+        line: Where's the exit? The front door?
+    - rid: 164776441536315456
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 0ffd109ae66c2a54cb93828dea1a7219, type: 2}
+        line: ...

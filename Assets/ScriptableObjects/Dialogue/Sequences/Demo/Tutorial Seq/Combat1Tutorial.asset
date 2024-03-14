@@ -1,0 +1,195 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23517bc57e0f44146a39f61c3db5a303, type: 3}
+  m_Name: Combat1Tutorial
+  m_EditorClassIdentifier: 
+  requiredSpeakers:
+  - {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
+  - {fileID: 11400000, guid: 0ffd109ae66c2a54cb93828dea1a7219, type: 2}
+  - {fileID: 11400000, guid: 9e835f3c4c49e9f4da934369a0a7132b, type: 2}
+  - {fileID: 11400000, guid: 76fc1ea2d414956428399f565e424d83, type: 2}
+  - {fileID: 11400000, guid: 16a6a477166d98c4d9b79b1d5ae69638, type: 2}
+  dialogueLines:
+  - rid: 55651313614323736
+  - rid: 164776441536315396
+  - rid: 55651313614323740
+  - rid: 164776401133371470
+  - rid: 55651313614323737
+  - rid: 55651313614323738
+  - rid: 55651313614323739
+  - rid: 55651313614323777
+  - rid: 55651313614323778
+  - rid: 55651313614323781
+  - rid: 55651313614323779
+  - rid: 55651313614323780
+  - rid: 55651313614323782
+  - rid: 164776401133371471
+  - rid: 164776401133371472
+  - rid: 164776401133371473
+  - rid: 164776401133371474
+  - rid: 164776401133371475
+  - rid: 164776401133371476
+  - rid: 164776401133371477
+  - rid: 164776401133371479
+  - rid: 164776401133371481
+  - rid: 164776401133371480
+  - rid: 164776401133371482
+  - rid: 164776401133371483
+  - rid: 164776401133371484
+  - rid: 164776401133371485
+  - rid: 164776401133371486
+  references:
+    version: 2
+    RefIds:
+    - rid: 55651313614323736
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
+        line: Yes. Everything seems to be in order.
+    - rid: 55651313614323737
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
+        line: Best of luck, sir.
+    - rid: 55651313614323738
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 0ffd109ae66c2a54cb93828dea1a7219, type: 2}
+        line: Hold on! Where are you going?
+    - rid: 55651313614323739
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 9e835f3c4c49e9f4da934369a0a7132b, type: 2}
+        line: Psst. Quiet! Don't bring that ratbag back!
+    - rid: 55651313614323740
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
+        line: ' I''m sure you don''t need this portion explained as well.'
+    - rid: 55651313614323777
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 9e835f3c4c49e9f4da934369a0a7132b, type: 2}
+        line: ' Is he gone?'
+    - rid: 55651313614323778
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 76fc1ea2d414956428399f565e424d83, type: 2}
+        line: The concierge will not interfere. We should begin.
+    - rid: 55651313614323779
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 16a6a477166d98c4d9b79b1d5ae69638, type: 2}
+        line: 'Distress. Grief. Confusion. Fear. '
+    - rid: 55651313614323780
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 76fc1ea2d414956428399f565e424d83, type: 2}
+        line: The elderly are slow to start. He will learn as we go. As he always
+          does.
+    - rid: 55651313614323781
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 16a6a477166d98c4d9b79b1d5ae69638, type: 2}
+        line: I am detecting an expression of confusion on Aiden's face.
+    - rid: 55651313614323782
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 9e835f3c4c49e9f4da934369a0a7132b, type: 2}
+        line: A blessing that I should never be so ancient.
+    - rid: 164776401133371470
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
+        line: You are, after all, a returning guest.
+    - rid: 164776401133371471
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 0ffd109ae66c2a54cb93828dea1a7219, type: 2}
+        line: I'm right here.
+    - rid: 164776401133371472
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 9e835f3c4c49e9f4da934369a0a7132b, type: 2}
+        line: I know, old man, and so are those devils so pay attention.
+    - rid: 164776401133371473
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 76fc1ea2d414956428399f565e424d83, type: 2}
+        line: Entropy? A short refresher perhaps?
+    - rid: 164776401133371474
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 16a6a477166d98c4d9b79b1d5ae69638, type: 2}
+        line: Observe the cards in your hand below. Hover over them to see what they
+          do.
+    - rid: 164776401133371475
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 16a6a477166d98c4d9b79b1d5ae69638, type: 2}
+        line: Note the energy level required on the top left of the card.
+    - rid: 164776401133371476
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 16a6a477166d98c4d9b79b1d5ae69638, type: 2}
+        line: When all energy is spent, you will not be able to use more cards for
+          that turn.
+    - rid: 164776401133371477
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 16a6a477166d98c4d9b79b1d5ae69638, type: 2}
+        line: Select a card now.
+    - rid: 164776401133371479
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 16a6a477166d98c4d9b79b1d5ae69638, type: 2}
+        line: 'You should see a RED or BLUE arrow. '
+    - rid: 164776401133371480
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 16a6a477166d98c4d9b79b1d5ae69638, type: 2}
+        line: A BLUE arrow indicates that the effect will target a COMPANION.
+    - rid: 164776401133371481
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 16a6a477166d98c4d9b79b1d5ae69638, type: 2}
+        line: A RED arrow indicates that the effect will target an ENEMY.
+    - rid: 164776401133371482
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 16a6a477166d98c4d9b79b1d5ae69638, type: 2}
+        line: A WHITE arrow indicates that it may target a CARD, ENEMY, or COMPANION.
+    - rid: 164776401133371483
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 9e835f3c4c49e9f4da934369a0a7132b, type: 2}
+        line: ...Where did the white arrow come from?
+    - rid: 164776401133371484
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 76fc1ea2d414956428399f565e424d83, type: 2}
+        line: Focus. Pick a target for your card, Aiden.
+    - rid: 164776401133371485
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 76fc1ea2d414956428399f565e424d83, type: 2}
+        line: When the enemy is destroyed, we will proceed.
+    - rid: 164776401133371486
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 9e835f3c4c49e9f4da934369a0a7132b, type: 2}
+        line: Don't fail us now, old man.
+    - rid: 164776441536315396
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
+        line: Take a seat, Mr. Dyer.
