@@ -272,6 +272,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9591629e92a786b4392188dfda8eabac, type: 3}
+--- !u!114 &333827797 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2882924787890415387, guid: 9591629e92a786b4392188dfda8eabac, type: 3}
+  m_PrefabInstance: {fileID: 333827796}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &529055707
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -743,6 +754,10 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3010547880545165060, guid: 200a71ba1a0a77544b1be132387d87af, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 4.949997
+      objectReference: {fileID: 0}
     - target: {fileID: 9174663276776941365, guid: 200a71ba1a0a77544b1be132387d87af, type: 3}
       propertyPath: m_fontSize
       value: 54
@@ -831,6 +846,14 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9174663278186510046, guid: 200a71ba1a0a77544b1be132387d87af, type: 3}
+      propertyPath: mapUI
+      value: 
+      objectReference: {fileID: 333827797}
+    - target: {fileID: 9174663278186510046, guid: 200a71ba1a0a77544b1be132387d87af, type: 3}
+      propertyPath: mapDocument
+      value: 
+      objectReference: {fileID: 333827797}
     - target: {fileID: 9174663278186510047, guid: 200a71ba1a0a77544b1be132387d87af, type: 3}
       propertyPath: m_Pivot.x
       value: 0

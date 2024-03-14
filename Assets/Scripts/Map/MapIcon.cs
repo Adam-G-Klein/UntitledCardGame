@@ -61,8 +61,12 @@ public class MapIcon : MonoBehaviour
     }
 
     public void OnPointerClick(PointerEventData eventData) {
+        raiseEncounter(encounterId);
+    }
+    public void raiseEncounter(string encounterId) {
         if (this.iconState == IconState.UPCOMING) {
             encounterInitiateEvent.Raise(encounterId);
         }
     }
+
 }
