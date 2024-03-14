@@ -8,6 +8,8 @@ public class StatusEffectDisplaysController : MonoBehaviour
     private Dictionary<StatusEffect, StatusEffectDisplay> statusEffectDisplays = new Dictionary<StatusEffect, StatusEffectDisplay>();
 
     public void Setup(CombatInstance combatInstance)  {
+        Debug.Log("Setting up status effect displays for " + combatInstance.name);
+
         this.entity = combatInstance;
     }
 

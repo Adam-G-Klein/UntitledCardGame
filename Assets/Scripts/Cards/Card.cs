@@ -132,6 +132,9 @@ public class Card : Entity, IEquatable<Card>
     public int GetManaCost() {
         int totalReduction = 0;
         Debug.Log("CardModifications: " + cardModifications);
+        if(cardModifications == null) {
+            ResetCardModifications();
+        }
         totalReduction += cardModifications[CardModification.TempManaDecrease];
         totalReduction += cardType.cardModifications[CardModification.TempManaDecrease];
         
