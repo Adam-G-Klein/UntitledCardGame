@@ -27,6 +27,7 @@ public class EnemyInstance : MonoBehaviour {
         this.intentDisplay = GetComponentInChildren<EnemyIntentDisplay>();
         spriteImage.sprite = enemy.enemyType.sprite;
         combatInstance.combatStats = enemy.combatStats;
+        Debug.Log("EnemyInstance Start for enemy " + enemy.id + " initialized with combat stats (health): " + combatInstance.combatStats.currentHealth);
         combatInstance.SetId(enemy.id);
         combatInstance.onDeathHandler += OnDeath;
         RegisterTurnPhaseTriggers();

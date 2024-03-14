@@ -25,6 +25,7 @@ public class CompanionInstance : MonoBehaviour
         CombatEntityManager.Instance.registerCompanion(this);
         spriteImage.sprite = companion.getSprite();
         combatInstance.combatStats = companion.combatStats;
+        Debug.Log("CompanionInstance Start for companion " + companion.id + " initialized with combat stats (health): " + combatInstance.combatStats.currentHealth);
         if (combatInstance.combatStats.currentHealth == 0) {
             combatInstance.combatStats.currentHealth = 1;
         }
