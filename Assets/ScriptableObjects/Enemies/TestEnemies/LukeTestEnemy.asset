@@ -14,32 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 69
   baseAttackDamage: 69
-  sprite: {fileID: 21300000, guid: 0ccc508108fa6ed4fa11b4a467d7f609, type: 3}
+  sprite: {fileID: 21300000, guid: 75d48219ba751ee48831234b9c4a6041, type: 3}
   enemyPattern:
-    enemyActions:
-    - intent: 0
-      enemyTargetMethod: 0
-      targetsKey: target
-      effectSteps:
-      - rid: 7005139330004156421
-      - rid: 7005139330004156422
+    behaviors: []
     sequentialBehaviors: 1
     nextBehaviorIndex: 0
+  initialStatuses: []
   references:
     version: 2
-    RefIds:
-    - rid: 7005139330004156421
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: target
-        prefabToInstantiate: {fileID: 4798506008640871506, guid: 0556a32d0cf5e704db37d6e1528d886a, type: 3}
-    - rid: 7005139330004156422
-      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CombatEffectStep
-        inputKey: target
-        combatEffect: 14
-        scale: 0
-        getScaleFromKey: 0
-        inputScaleKey: 
+    RefIds: []
