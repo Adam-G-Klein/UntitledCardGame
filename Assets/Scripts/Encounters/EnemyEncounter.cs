@@ -57,7 +57,8 @@ public class EnemyEncounter : Encounter
             createdEnemies.Add(PrefabInstantiator.instantiateEnemy(
                 encounterConstants.enemyPrefab,
                 enemyList[i],
-                enemyLocationStore.getLoc(i)));
+                enemyLocationStore.getLoc(i),
+                enemyLocationStore.transform));
         }
     }
 
@@ -74,7 +75,8 @@ public class EnemyEncounter : Encounter
             createdCompanions.Add(PrefabInstantiator.InstantiateCompanion(
                 encounterConstants.companionPrefab,
                 companionList[i],
-                companionLocationStore.getLoc(i)));
+                companionLocationStore.getLoc(i),
+                companionLocationStore.transform));
         }
     }
 }

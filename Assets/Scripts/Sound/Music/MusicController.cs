@@ -3,6 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+
+the plan:
+- we want to play an alternating track from a set of tracks for each new location
+
+
+
+*/
 public class MusicController : GenericSingleton<MusicController>
 {
     private AudioSource audioSource;

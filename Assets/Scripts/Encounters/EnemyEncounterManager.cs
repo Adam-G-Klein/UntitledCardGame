@@ -92,6 +92,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
 
         gameState.LoadNextLocation();
         postCombatUI.SetActive(true);
+        postCombatUI.transform.SetSiblingIndex(postCombatUI.transform.parent.childCount - 1);
         DialogueManager.Instance.SetDialogueLocation(gameState);
         DialogueManager.Instance.StartAnyDialogueSequence();
     }
