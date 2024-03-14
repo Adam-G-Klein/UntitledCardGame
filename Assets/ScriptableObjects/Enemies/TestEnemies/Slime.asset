@@ -14,23 +14,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 30
   baseAttackDamage: 5
-  sprite: {fileID: 21300000, guid: fe5748b149e8b274ab967608681b48c4, type: 3}
+  sprite: {fileID: 21300000, guid: b2fa9488d9c432548acaaa32c198825c, type: 3}
   enemyPattern:
     behaviors:
     - intent: 1
       enemyTargetMethod: 0
       targetsKey: target
+      displayValue: 0
       effectSteps:
       - rid: 7005139344655122578
       - rid: 7005139344655122576
     - intent: 0
       enemyTargetMethod: 0
       targetsKey: target
+      displayValue: 0
       effectSteps:
       - rid: 7005139344655122579
       - rid: 7005139344655122577
     sequentialBehaviors: 0
     nextBehaviorIndex: 0
+  initialStatuses: []
   references:
     version: 2
     RefIds:
@@ -43,6 +46,9 @@ MonoBehaviour:
         scale: 0
         getScaleFromKey: 0
         inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 7005139344655122577
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
@@ -52,6 +58,9 @@ MonoBehaviour:
         scale: 5
         getScaleFromKey: 0
         inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 7005139344655122578
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
