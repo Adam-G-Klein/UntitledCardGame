@@ -6,12 +6,13 @@ using UnityEngine;
 public class CombatStats
 {
     public int maxHealth;
-    public int currentHealth;
+    private int currentHealth;
     public int baseAttackDamage;
 
     public CombatStats(int maxHealth, int baseAttackDamage = 0) {
+        Debug.Log("Combat Stats constructor called with maxHealth: " + maxHealth + " and baseAttackDamage: " + baseAttackDamage);
         this.maxHealth = maxHealth;
-        this.currentHealth = maxHealth;
+        this.setCurrentHealth(maxHealth);
         this.baseAttackDamage = baseAttackDamage;
     }
 
@@ -35,5 +36,14 @@ public class CombatStats
 
     public void IncreaseBaseAttackDamage(int scale) {
         this.baseAttackDamage += scale;
+    }
+
+    public int getCurrentHealth() {
+        return currentHealth;
+    }
+
+    public void setCurrentHealth(int newHealth) {
+        Debug.Log("Setting current health to " + newHealth + " from " + currentHealth);
+        this.currentHealth = newHealth;
     }
 }

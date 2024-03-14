@@ -65,9 +65,10 @@ public class CardDisplay : MonoBehaviour
         CostTextGO.text = cardInfo.GetManaCost().ToString();
         ArtworkGO.sprite = cardInfo.artwork;
         CompanionTypeSO companionType = cardInfo.getCompanionFrom();
-        if (companionType == null)
+        if (companionType == null) {
             Debug.LogError("No companion from provided to cardDisplay or present in cardInfo. cardInfo: " + cardInfo.name + " companionType: " + companionType);
-        if(companionType.cardIdleVfxPrefab) {
+        }
+        else if(companionType.cardIdleVfxPrefab) {
             vfxGO = Instantiate(companionType.cardIdleVfxPrefab, transform);
             vfxGO.transform.SetSiblingIndex(0);
         }

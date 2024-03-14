@@ -25,9 +25,9 @@ public class CompanionInstance : MonoBehaviour
         CombatEntityManager.Instance.registerCompanion(this);
         spriteImage.sprite = companion.getSprite();
         combatInstance.combatStats = companion.combatStats;
-        Debug.Log("CompanionInstance Start for companion " + companion.id + " initialized with combat stats (health): " + combatInstance.combatStats.currentHealth);
-        if (combatInstance.combatStats.currentHealth == 0) {
-            combatInstance.combatStats.currentHealth = 1;
+        Debug.Log("CompanionInstance Start for companion " + companion.id + " initialized with combat stats (health): " + combatInstance.combatStats.getCurrentHealth());
+        if (combatInstance.combatStats.getCurrentHealth() == 0) {
+            combatInstance.combatStats.setCurrentHealth(1);
         }
         combatInstance.onDeathHandler += OnDeath;
         deckInstance.sourceDeck = companion.deck;

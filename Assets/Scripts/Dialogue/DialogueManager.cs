@@ -73,7 +73,16 @@ public class DialogueManager : GenericSingleton<DialogueManager>
             if(toStart != null)
                 StartDialogueSequence(toStart);
         }, delay));
-        
+    }
+
+    public void StartDialogueSequenceFromLocation(DialogueLocationSO location, float delay = 0f) {
+        Debug.Log("Starting dialogue sequence from location: " + location.name);
+        StartCoroutine(runOnceInitialized( () => {
+            // choose a random element from the location.sequences list
+            DialogueSequenceSO toStart = location.sequencesAtLocation[UnityEngine.Random.Range(0, location.sequencesAtLocation.Count)];
+            if(toStart != null)
+                StartDialogueSequence(toStart);
+        }, delay));
     }
 
     private IEnumerator runOnceInitialized(Action callback, float delay = 0f) {

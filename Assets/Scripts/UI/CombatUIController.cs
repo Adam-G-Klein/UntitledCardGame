@@ -33,7 +33,7 @@ public class CombatUIController : MonoBehaviour
             portrait.AddToClassList("character-portrait");
             var health = new Label();
             health.name = "Health";
-            var hp = companions[i].companion.GetCombatStats().currentHealth;
+            var hp = companions[i].companion.GetCombatStats().getCurrentHealth();
             var maxHp = companions[i].companion.GetCombatStats().maxHealth;
             health.text = hp + "/" + maxHp;
             health.AddToClassList("health-text");
@@ -50,7 +50,7 @@ public class CombatUIController : MonoBehaviour
             portrait.AddToClassList("character-portrait");
             var health = new Label();
             health.name = "Health";
-            var hp = enemies[i].enemy.GetCombatStats().currentHealth;
+            var hp = enemies[i].enemy.GetCombatStats().getCurrentHealth();
             var maxHp = enemies[i].enemy.GetCombatStats().maxHealth;
             health.text = hp + "/" + maxHp;
             health.AddToClassList("health-text");
@@ -82,7 +82,7 @@ public class CombatUIController : MonoBehaviour
             }
             else
             {
-                var hp = enemies[i].enemy.GetCombatStats().currentHealth;
+                var hp = enemies[i].enemy.GetCombatStats().getCurrentHealth();
                 var maxHp = enemies[i].enemy.GetCombatStats().maxHealth;
                 
                 this.enemies[i].style.backgroundImage = new StyleBackground(enemies[i].enemy.enemyType.sprite);
@@ -103,7 +103,7 @@ public class CombatUIController : MonoBehaviour
             }
             else
             {
-                var hp = companions[i].companion.GetCombatStats().currentHealth;
+                var hp = companions[i].companion.GetCombatStats().getCurrentHealth();
                 var maxHp = companions[i].companion.GetCombatStats().maxHealth;
 
                 (friendlies[i].Q("Health") as Label).text = hp + "/" + maxHp;

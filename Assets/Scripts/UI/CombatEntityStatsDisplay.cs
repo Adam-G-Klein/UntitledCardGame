@@ -16,7 +16,7 @@ public class CombatEntityStatsDisplay: MonoBehaviour
 
     public int currentHealth{
         get {
-            return entity.combatStats.currentHealth;
+            return entity.combatStats.getCurrentHealth();
         }
     }
 

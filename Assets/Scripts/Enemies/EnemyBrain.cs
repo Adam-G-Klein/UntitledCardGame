@@ -73,7 +73,7 @@ public class EnemyBrain
                 List<CompanionInstance> companions = CombatEntityManager.Instance.getCompanions();
                 target = companions[0].combatInstance;
                 foreach (CompanionInstance instance in companions) {
-                    if (instance.combatInstance.combatStats.currentHealth < target.combatStats.currentHealth) {
+                    if (instance.combatInstance.combatStats.getCurrentHealth() < target.combatStats.getCurrentHealth()) {
                         target = instance.combatInstance;
                     }
                 }

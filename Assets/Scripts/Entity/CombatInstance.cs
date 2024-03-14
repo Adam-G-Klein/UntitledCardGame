@@ -60,7 +60,7 @@ public class CombatInstance : MonoBehaviour
                 TakeDamage(scale, effector);
                 break;
             case CombatEffect.Heal:
-                combatStats.currentHealth = Mathf.Min(combatStats.currentHealth + scale, combatStats.maxHealth);
+                combatStats.setCurrentHealth(Mathf.Min(combatStats.getCurrentHealth() + scale, combatStats.maxHealth));
                 break;
             case CombatEffect.DrawFrom:
                 // This no longer needs to be here, completely handled by DeckInstance
@@ -68,7 +68,7 @@ public class CombatInstance : MonoBehaviour
             case CombatEffect.SetHealth:
                 // won't work for setting health to 0, misses the death check. Pretty sure we should just use sacrifice for that
                 // in all cases though
-                combatStats.currentHealth = scale;
+                combatStats.setCurrentHealth(scale);
                 break;
             case CombatEffect.Sacrifice:
                 StartCoroutine(OnDeath(effector));
@@ -79,12 +79,13 @@ public class CombatInstance : MonoBehaviour
     private void TakeDamage(int damage, CombatInstance attacker) {
         // This is necessary to solve a race condition with a multi-damage attack
         // Fix this later
-        if (combatStats.currentHealth == 0) {
+        if (combatStats.getCurrentHealth() == 0) {
             return;
         }
-        combatStats.currentHealth = Mathf.Max(combatStats.currentHealth - DamageAfterDefense(damage), 0);
+        Debug.Log("Take Damage is Setting current health to " + Mathf.Max(combatStats.getCurrentHealth() - DamageAfterDefense(damage), 0));
+        combatStats.setCurrentHealth(Mathf.Max(combatStats.getCurrentHealth() - DamageAfterDefense(damage), 0));
 
-        if (combatStats.currentHealth == 0){
+        if (combatStats.getCurrentHealth() == 0){
             StartCoroutine(OnDeath(attacker));
         }
 
@@ -144,7 +145,7 @@ public class CombatInstance : MonoBehaviour
     private void ProcessOnDeathStatusEffects(CombatInstance killer) {
         if (killer != null && statusEffects[StatusEffect.MaxHpBounty] > 0) {
             killer.combatStats.maxHealth += statusEffects[StatusEffect.MaxHpBounty];
-            killer.combatStats.currentHealth += statusEffects[StatusEffect.MaxHpBounty];
+            killer.combatStats.setCurrentHealth(killer.combatStats.getCurrentHealth() + statusEffects[StatusEffect.MaxHpBounty]);
         }
 
         if (statusEffects[StatusEffect.MoneyOnDeath] > 0) {

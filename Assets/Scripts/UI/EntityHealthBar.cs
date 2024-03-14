@@ -19,17 +19,17 @@ public class EntityHealthBar : MonoBehaviour
         checkGetEntity();
         updateSlider();
         updateText();
-        Debug.Log("EntityHealthBar update.\ncombatInstanceGO name: " + combatInstance.gameObject.name + "\ncombatStats: " + combatStats + "\ncombatStats.currentHealth: " + combatStats.currentHealth + "\ncombatStats.maxHealth: " + combatStats.maxHealth);
+        Debug.Log("EntityHealthBar update.\ncombatInstanceGO name: " + combatInstance.gameObject.name + "\ncombatStats: " + combatStats + "\ncombatStats.currentHealth: " + combatStats.getCurrentHealth() + "\ncombatStats.maxHealth: " + combatStats.maxHealth);
     }
 
     void updateSlider() {
-        float healthPercent = (float)combatStats.currentHealth /
+        float healthPercent = (float)combatStats.getCurrentHealth() /
             (float) combatStats.maxHealth;
         slider.value = healthPercent;
     }
 
     void updateText() {
-        text.text = combatStats.currentHealth.ToString() + "/" + combatStats.maxHealth.ToString();
+        text.text = combatStats.getCurrentHealth().ToString() + "/" + combatStats.maxHealth.ToString();
     }
 
     void checkGetEntity() {

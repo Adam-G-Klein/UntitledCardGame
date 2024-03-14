@@ -18,30 +18,29 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 5a1597236809fef4db103287236c1664, type: 3}
   startingDeck: {fileID: 11400000, guid: f88499d65b2d43848a8f72b8bcfa65df, type: 2}
   keepsake: {fileID: 21300000, guid: c1209c0903950dd4d95e3e8bd730622d, type: 3}
+  cardBack: {fileID: 0}
+  cardFrame: {fileID: 0}
+  typeIcon: {fileID: 0}
+  cardIdleVfxPrefab: {fileID: 0}
   cardPool: {fileID: 11400000, guid: 60d7889b0e28b8a46a7b627807eccacf, type: 2}
   speakerType: {fileID: 11400000, guid: 16a6a477166d98c4d9b79b1d5ae69638, type: 2}
-  ability:
-    rid: 1886370794371285024
   abilities:
   - rid: 3931529445166809113
   upgradeInfo: {fileID: 11400000, guid: 99076b48c6110564cb87cbbb29a513b6, type: 2}
   references:
     version: 2
     RefIds:
-    - rid: 1886370794371285024
-      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
+    - rid: 594700862979571865
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
       data:
-        companionAbilityTrigger: 1
-        effectSteps:
-        - rid: 8939928036647632952
-        - rid: 8939928036647632954
-        - rid: 8939928036647632955
-        - rid: 8939928036647632956
+        effectStepName: DialogueStep
+        dialogueLocationSO: {fileID: 11400000, guid: 96a88075fb0082e418ba82f1bed11310, type: 2}
     - rid: 3931529445166809113
       type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
       data:
         companionAbilityTrigger: 1
         effectSteps:
+        - rid: 594700862979571865
         - rid: 3931529445166809114
         - rid: 3931529445166809115
         - rid: 3931529445166809116
@@ -66,6 +65,7 @@ MonoBehaviour:
         numberOfCardsToGet: 1
         outputKey: allCardsInDeck
         getCardsFromSourceDeck: 1
+        getAllFromOnlyDrawPile: 0
     - rid: 3931529445166809116
       type: {class: SelectCardsFromList, ns: , asm: Assembly-CSharp}
       data:
@@ -73,48 +73,12 @@ MonoBehaviour:
         inputKey: allCardsInDeck
         outputKey: cardToPurge
         promptText: Select a card to purge from the deck
-        targets: 1
+        minTargets: 1
+        maxTargets: -1
         getNumberOfTargetsFromKey: 0
         inputTargetsKey: 
+        randomizeOrder: 0
     - rid: 3931529445166809117
-      type: {class: CardInDeckEffect, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CardInDeckEffect
-        inputCardsKey: cardToPurge
-        inputDeckKey: target
-        effect: 1
-        outputKey: 
-    - rid: 8939928036647632952
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: target
-        validTargets: 00000000
-        number: 1
-        specialTargetRule: 0
-        cantCancelTargetting: 0
-    - rid: 8939928036647632954
-      type: {class: GetCardsFromDeck, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetCardsFromDeck
-        inputKey: target
-        getLimitedNumber: 0
-        numberOfCardsToGet: 1
-        outputKey: allCardsInDeck
-        getCardsFromSourceDeck: 0
-    - rid: 8939928036647632955
-      type: {class: SelectCardsFromList, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: SelectCardsFromList
-        inputKey: allCardsInDeck
-        outputKey: cardToPurge
-        promptText: Select a card to purge from the deck
-        targets: 1
-        getNumberOfTargetsFromKey: 0
-        inputTargetsKey: 
-    - rid: 8939928036647632956
       type: {class: CardInDeckEffect, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CardInDeckEffect

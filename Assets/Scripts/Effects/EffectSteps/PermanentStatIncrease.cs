@@ -75,7 +75,7 @@ public class PermanentStatIncrease : EffectStep {
             // Example: Without this, if a entity health is 20/20 and we increase
             // max health by 1, then the entity would have 20/21 health and it would
             // visually look like it took damage even though it didn't.
-            instance.combatStats.currentHealth += scale;
+            instance.combatStats.setCurrentHealth(instance.combatStats.getCurrentHealth() + scale);
         }
     }
 

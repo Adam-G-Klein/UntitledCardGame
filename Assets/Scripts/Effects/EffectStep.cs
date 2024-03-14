@@ -40,7 +40,8 @@ public enum EffectStepName {
     SelectCardsFromList,
     SetCardEffectWorkflow,
     SummonMinion,
-    Taunt
+    Taunt,
+    DialogueStep
 }
 
 [System.Serializable]
