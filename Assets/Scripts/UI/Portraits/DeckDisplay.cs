@@ -7,14 +7,18 @@ using TMPro;
 // those values to the UI by implementing Entity
 public class DeckDisplay : MonoBehaviour
 {
+    public TextMeshProUGUI drawPileCountText;
+    public TextMeshProUGUI discardPileCountText;
+
     private DeckInstance deckInstance;
-    private TextMeshProUGUI drawPileCountText;
-    private TextMeshProUGUI discardPileCountText;
 
     void Start() {
-        deckInstance = GetComponentInParent<DeckInstance>();
-        drawPileCountText = transform.Find("DrawPileCount").GetComponent<TextMeshProUGUI>();
-        discardPileCountText = transform.Find("DiscardPileCount").GetComponent<TextMeshProUGUI>();
+        if (deckInstance == null)
+            deckInstance = GetComponentInParent<DeckInstance>();
+    }
+
+    public void Setup(DeckInstance deckInstance) {
+        this.deckInstance = deckInstance;
     }
 
     void Update() {

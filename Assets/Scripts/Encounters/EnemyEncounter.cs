@@ -43,15 +43,19 @@ public class EnemyEncounter : Encounter
         encounterBuilder.BuildEnemyEncounter(this);
     }
 
-    public void Build(List<Companion> companionList, EncounterConstantsSO constants)
+    public void Build(
+            List<Companion> companionList,
+            EncounterConstantsSO constants,
+            List<CompanionInstance> createdCompanions,
+            List<EnemyInstance> createdEnemies)
     {
         this.encounterType = EncounterType.Enemy;
         this.encounterConstants = constants;
-        setupEnemies();
-        setupCompanions(companionList);
+        setupEnemies(createdEnemies);
+        setupCompanions(companionList, createdCompanions);
     }
 
-    private void setupEnemies()
+    private void setupEnemies(List<EnemyInstance> createdEnemies)
     {
         if (enemyList.Count > ENEMY_LOCATIONS.Count) {
             Debug.LogError("The enemy locations list does not contain enough locations");
@@ -60,14 +64,14 @@ public class EnemyEncounter : Encounter
 
         for(int i = 0; i < enemyList.Count; i++)
         {
-            PrefabInstantiator.instantiateEnemy(
+            createdEnemies.Add(PrefabInstantiator.instantiateEnemy(
                 encounterConstants.enemyPrefab,
                 enemyList[i],
-                ENEMY_LOCATIONS[i]);
+                ENEMY_LOCATIONS[i]));
         }
     }
 
-    private void setupCompanions(List<Companion> companionList)
+    private void setupCompanions(List<Companion> companionList, List<CompanionInstance> createdCompanions)
     {
         int activeCompanionsCount = companionList.Count;
         if (activeCompanionsCount > COMPANION_LOCATIONS.Count) {
@@ -77,10 +81,10 @@ public class EnemyEncounter : Encounter
 
         for(int i = 0; i < activeCompanionsCount; i++)
         {
-            PrefabInstantiator.InstantiateCompanion(
+            createdCompanions.Add(PrefabInstantiator.InstantiateCompanion(
                 encounterConstants.companionPrefab,
                 companionList[i],
-                COMPANION_LOCATIONS[i]);
+                COMPANION_LOCATIONS[i]));
         }
     }
 }

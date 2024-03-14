@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7808579431365209811}
   - component: {fileID: 347839103126772987}
   - component: {fileID: 5020590693968658866}
+  - component: {fileID: 1101829965511848977}
   m_Layer: 0
   m_Name: Minion
   m_TagString: Minion
@@ -29,6 +30,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3793161618878564120}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.3, y: 0.3, z: 1}
@@ -36,7 +38,6 @@ Transform:
   m_Children:
   - {fileID: 2505692507260305330}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3793161618878564125
 MonoBehaviour:
@@ -109,6 +110,25 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -173,12 +193,42 @@ MonoBehaviour:
   drawPile: []
   discardPile: []
   inHand: []
+  exhaustPile: []
   combatInstance: {fileID: 7808579431365209811}
+--- !u!114 &1101829965511848977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3793161618878564120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94b7962f5bdabdc40a46cfbd77191848, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  companion:
+    id: 
+    entityType: 0
+    companionType: {fileID: 0}
+    upgradeInfo: {fileID: 0}
+    deck:
+      startingDeck: {fileID: 0}
+      cards: []
+      cardsDealtPerTurn: 0
+    combatStats:
+      maxHealth: 0
+      currentHealth: 0
+      baseAttackDamage: 0
+  spriteImage: {fileID: 0}
+  combatInstance: {fileID: 0}
+  deckInstance: {fileID: 0}
 --- !u!1001 &388323828155134267
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 3793161618878564127}
     m_Modifications:
     - target: {fileID: 443941875861522772, guid: 4319f1ad3b11bf248bb1a167ccc5826d, type: 3}
@@ -298,6 +348,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 2856857186655145609, guid: 4319f1ad3b11bf248bb1a167ccc5826d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6289999137935592114}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4319f1ad3b11bf248bb1a167ccc5826d, type: 3}
 --- !u!224 &2505692507260305330 stripped
 RectTransform:
@@ -309,6 +365,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 2505692507260305330}
     m_Modifications:
     - target: {fileID: 313867117486475584, guid: 2f9015824aaba7145a03aed814584f30, type: 3}
@@ -408,4 +465,12 @@ PrefabInstance:
       value: -4.9814453
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f9015824aaba7145a03aed814584f30, type: 3}
+--- !u!224 &6289999137935592114 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 865028083631183829, guid: 2f9015824aaba7145a03aed814584f30, type: 3}
+  m_PrefabInstance: {fileID: 6578530448580336999}
+  m_PrefabAsset: {fileID: 0}

@@ -19,23 +19,51 @@ public class EnemyIntentDisplay : MonoBehaviour
     public TextMeshProUGUI valueText;
 
     void Start() {
-        enemyInstance = GetComponentInParent<EnemyInstance>();
-        arrowController = GetComponent<EnemyIntentArrowsController>();
-        // intentImages.AddRange(GetComponentsInChildren<EnemyIntentImage>());
+        // enemyInstance = GetComponentInParent<EnemyInstance>();
+        // arrowController = GetComponent<EnemyIntentArrowsController>();
+        // turnManager = TurnManager.Instance;
+        // displayIntentTrigger = new TurnPhaseTrigger(TurnPhase.START_PLAYER_TURN, displayIntent(enemyInstance));
+        // registerTurnPhaseTriggerEvent.Raise(new TurnPhaseTriggerEventInfo(displayIntentTrigger));
+        // transform.SetAsFirstSibling(); // Want the arrows to be on top of the enemies so that we can see them buffing each other
+    }
+
+    public void Setup(EnemyInstance enemyInstance) {
+        this.enemyInstance = enemyInstance;
+        this.arrowController = enemyInstance.GetComponentInChildren<EnemyIntentArrowsController>();
         turnManager = TurnManager.Instance;
         displayIntentTrigger = new TurnPhaseTrigger(TurnPhase.START_PLAYER_TURN, displayIntent(enemyInstance));
         registerTurnPhaseTriggerEvent.Raise(new TurnPhaseTriggerEventInfo(displayIntentTrigger));
-        transform.SetAsFirstSibling(); // Want the arrows to be on top of the enemies so that we can see them buffing each other
-
+        enemyInstance.combatInstance.onDeathHandler += OnDeath;
     }
 
     void OnDestroy() {
         removeTurnPhaseTriggerEvent.Raise(new TurnPhaseTriggerEventInfo(displayIntentTrigger));
     }
 
+    public IEnumerator OnDeath(CombatInstance killer) {
+        clearIntent();
+        removeTurnPhaseTriggerEvent.Raise(new TurnPhaseTriggerEventInfo(displayIntentTrigger));
+        yield return null;
+    }
+
     public IEnumerable displayIntent(EnemyInstance enemy)  {
         clearIntent();
-        if(enemy.currentIntent == null) {
+        if (enemy.currentIntent == null) {
+            StartCoroutine(displayIntentAfterDelay(enemy));
+            yield break;
+        }
+        updateIntentImages(enemy.currentIntent);
+        arrowController.updateArrows(enemy.currentIntent);
+        valueText.gameObject.SetActive(true);
+        valueText.text = enemy.currentIntent.displayValue.ToString();
+        yield return null;
+    }
+
+    private IEnumerator displayIntentAfterDelay(EnemyInstance enemy) {
+        yield return new WaitForEndOfFrame();
+        clearIntent();
+        if (enemy.currentIntent == null) {
+            StartCoroutine(displayIntentAfterDelay(enemy));
             yield break;
         }
         updateIntentImages(enemy.currentIntent);

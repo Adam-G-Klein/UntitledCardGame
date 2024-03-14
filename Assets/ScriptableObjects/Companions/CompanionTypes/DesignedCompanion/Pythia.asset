@@ -21,17 +21,12 @@ MonoBehaviour:
   cardBack: {fileID: 21300000, guid: d72b830c014fec04190fbb044d03f83a, type: 3}
   cardFrame: {fileID: 0}
   typeIcon: {fileID: 0}
-  vfxPrefab: {fileID: 0}
+  portrait: {fileID: 21300000, guid: b42fcc3abb714ae4bbfa5f07956e0c17, type: 3}
+  cardIdleVfxPrefab: {fileID: 0}
   cardPool: {fileID: 11400000, guid: d166911316f360542abd552b6c68b023, type: 2}
   speakerType: {fileID: 11400000, guid: 9e835f3c4c49e9f4da934369a0a7132b, type: 2}
-  ability:
-    rid: 1886370794371285026
+  abilities: []
   upgradeInfo: {fileID: 11400000, guid: 99076b48c6110564cb87cbbb29a513b6, type: 2}
   references:
     version: 2
-    RefIds:
-    - rid: 1886370794371285026
-      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
-      data:
-        companionAbilityTrigger: 0
-        effectSteps: []
+    RefIds: []

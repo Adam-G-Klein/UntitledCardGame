@@ -6,7 +6,7 @@ using UnityEngine;
 public class CombatStats
 {
     public int maxHealth;
-    private int currentHealth;
+    public int currentHealth;
     public int baseAttackDamage;
 
     public CombatStats(int maxHealth, int baseAttackDamage = 0) {

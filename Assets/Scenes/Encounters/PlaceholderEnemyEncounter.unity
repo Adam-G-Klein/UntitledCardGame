@@ -856,8 +856,8 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 430066739}
     - target: {fileID: 7345001097657664362, guid: 63dfb323aea5cb14da568cc4b853b96e, type: 3}
-      propertyPath: m_SortingOrder
-      value: -10
+      propertyPath: m_PlaneDistance
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7345001097657664363, guid: 63dfb323aea5cb14da568cc4b853b96e, type: 3}
       propertyPath: m_Pivot.x
@@ -939,10 +939,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7734325096754476305, guid: 63dfb323aea5cb14da568cc4b853b96e, type: 3}
-      propertyPath: m_PresetInfoIsWorld
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -950,13 +946,24 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 63dfb323aea5cb14da568cc4b853b96e, type: 3}
 --- !u!114 &595443445 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3211758712486013894, guid: 63dfb323aea5cb14da568cc4b853b96e, type: 3}
+  m_CorrespondingSourceObject: {fileID: 4963141556828032920, guid: 63dfb323aea5cb14da568cc4b853b96e, type: 3}
   m_PrefabInstance: {fileID: 595443444}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dd0e9d7cac756534c9965e3fe1d21391, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &595443446 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2794129356521623045, guid: 63dfb323aea5cb14da568cc4b853b96e, type: 3}
+  m_PrefabInstance: {fileID: 595443444}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe40e63ddfef0e74983cba1dcf2acb24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &738544722
@@ -1307,6 +1314,10 @@ PrefabInstance:
       propertyPath: postCombatUI
       value: 
       objectReference: {fileID: 1894496486}
+    - target: {fileID: 8734870270850589833, guid: 28a067a8b113e3a4aadb83e0e82a16bd, type: 3}
+      propertyPath: enemyPortraitController
+      value: 
+      objectReference: {fileID: 595443446}
     - target: {fileID: 8734870270850589833, guid: 28a067a8b113e3a4aadb83e0e82a16bd, type: 3}
       propertyPath: characterPortraitController
       value: 

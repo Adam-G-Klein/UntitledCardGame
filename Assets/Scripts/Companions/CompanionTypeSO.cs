@@ -16,7 +16,8 @@ public class CompanionTypeSO : ScriptableObject
     public Sprite keepsake;
     public Sprite cardBack; 
     public Sprite cardFrame; 
-    public Sprite typeIcon; 
+    public Sprite typeIcon;
+    public Sprite portrait;
     public GameObject cardIdleVfxPrefab;
     [Header("Card pool")]
     public CardPoolSO cardPool;

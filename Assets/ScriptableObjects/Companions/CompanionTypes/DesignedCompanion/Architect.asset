@@ -18,44 +18,19 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 5e10494be1b5a27429f2a0bd7c0c7b4b, type: 3}
   startingDeck: {fileID: 11400000, guid: 10c5c659ceb55d941aaae63b3041edf6, type: 2}
   keepsake: {fileID: 21300000, guid: a7eb0f0f0eaaf6943843625fe73cba7d, type: 3}
+  cardBack: {fileID: 0}
+  cardFrame: {fileID: 0}
+  typeIcon: {fileID: 0}
+  portrait: {fileID: 21300000, guid: bf7004643a1b7cb47813068f0ada5d78, type: 3}
+  cardIdleVfxPrefab: {fileID: 0}
   cardPool: {fileID: 11400000, guid: 93ba74ca5330296459b14af153d9e296, type: 2}
   speakerType: {fileID: 11400000, guid: df40c41b591c1bb40830f7abc22a1ad0, type: 2}
-  ability:
-    rid: 1886370794371285020
   abilities:
   - rid: 3931529445166809108
   upgradeInfo: {fileID: 11400000, guid: 99076b48c6110564cb87cbbb29a513b6, type: 2}
   references:
     version: 2
     RefIds:
-    - rid: 1886370794371285020
-      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
-      data:
-        companionAbilityTrigger: 3
-        effectSteps:
-        - rid: 8939928036647632897
-        - rid: 3931529386857070617
-        - rid: 3931529386857070618
-    - rid: 3931529386857070617
-      type: {class: FilterEntityByStatus, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: FilterEntityByStatus
-        inputKey: allCompanions
-        status: 9
-        outputKey: withOrb
-    - rid: 3931529386857070618
-      type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: AddCardsToHand
-        entityFromKey: withOrb
-        cardTypes:
-        - {fileID: 11400000, guid: 8ac3c6ab98795bc478560ad2d78e80ae, type: 2}
-        getCardsFromKey: 0
-        inputCardsKey: 
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
-        outputKey: cardsAddedToHand
     - rid: 3931529445166809108
       type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
       data:
@@ -90,14 +65,3 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
-    - rid: 8939928036647632897
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: allCompanions
-        validTargets: 00000000
-        number: 1
-        specialTargetRule: 1
-        cantCancelTargetting: 0

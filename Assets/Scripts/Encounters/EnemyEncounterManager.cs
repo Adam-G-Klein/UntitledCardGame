@@ -14,6 +14,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     public delegate void OnEncounterEndHandler();
     public event OnEncounterEndHandler onEncounterEndHandler;
     public CharacterPortraitController characterPortraitController;
+    public EnemyPortraitController enemyPortraitController;
     [SerializeField]
     // There's so many ways we could do this
     // choosing the simplest one for now
@@ -27,8 +28,11 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     }
 
     public void BuildEnemyEncounter(EnemyEncounter encounter) {
-        encounter.Build(gameState.companions.activeCompanions, encounterConstants);
-        characterPortraitController.SetupCharacterPortraits(gameState.companions.activeCompanions);
+        List<CompanionInstance> createdCompanions = new List<CompanionInstance>();
+        List<EnemyInstance> createdEnemies = new List<EnemyInstance>();
+        encounter.Build(gameState.companions.activeCompanions, encounterConstants, createdCompanions, createdEnemies);
+        characterPortraitController.SetupCharacterPortraits(createdCompanions);
+        enemyPortraitController.SetupEnemyPortraits(createdEnemies);
     }
 
     void Update() {

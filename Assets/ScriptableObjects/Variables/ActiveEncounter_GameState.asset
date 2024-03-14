@@ -14,27 +14,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   locked: 0
   Value:
-    rid: 594700683536498854
+    rid: 3931529545569009675
   references:
     version: 2
     RefIds:
-    - rid: 594700683536498854
-      type: {class: ShopEncounter, ns: , asm: Assembly-CSharp}
+    - rid: 3931529545569009675
+      type: {class: EnemyEncounter, ns: , asm: Assembly-CSharp}
       data:
-        id: db2726ad-313f-47de-bb3f-9ee48562799b
+        id: 9d27d9bc-8378-4a65-8bbd-f7402fc8ffec
         isCompleted: 0
-        shopData: {fileID: 11400000, guid: 64b1d5221aac20348909c6cab7cc24d6, type: 2}
-        cardsInShop:
-        - cardType: {fileID: 11400000, guid: af631239de690bd4f9c3504152e145d7, type: 2}
-          price: 1
-        - cardType: {fileID: 11400000, guid: 6f04568326184884eaef2da243b0354d, type: 2}
-          price: 1
-        - cardType: {fileID: 11400000, guid: 76c940ac09415954d897a92f7b06e313, type: 2}
-          price: 1
-        keepsakesInShop:
-        - companionType: {fileID: 11400000, guid: a388cdca9749764489c477a814a4dd5b, type: 2}
-          price: 1
-        - companionType: {fileID: 11400000, guid: c106de03c6bb3ab4e952724e5e4a073c, type: 2}
-          price: 1
-        - companionType: {fileID: 11400000, guid: bb8900a5e0f2ab34a8c486d19dcef389, type: 2}
-          price: 1
+        enemyList:
+        - id: 897f0624-eca4-4564-b9be-1ef832620abe
+          entityType: 1
+          enemyType: {fileID: 11400000, guid: 3f595268355432347aef2000672bce6d, type: 2}
+          combatStats:
+            maxHealth: 3
+            currentHealth: 3
+            baseAttackDamage: 0
+        - id: 897f0624-eca4-4564-b9be-1ef832620abe
+          entityType: 1
+          enemyType: {fileID: 11400000, guid: a42524e3f45743242a9dba2f8e863ecb, type: 2}
+          combatStats:
+            maxHealth: 3
+            currentHealth: 3
+            baseAttackDamage: 0
+        - id: 897f0624-eca4-4564-b9be-1ef832620abe
+          entityType: 1
+          enemyType: {fileID: 11400000, guid: 5664842284d8162488ff53c6f0317a44, type: 2}
+          combatStats:
+            maxHealth: 3
+            currentHealth: 3
+            baseAttackDamage: 0
