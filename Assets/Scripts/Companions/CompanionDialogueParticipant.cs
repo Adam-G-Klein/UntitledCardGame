@@ -28,7 +28,7 @@ public class CompanionDialogueParticipant : MonoBehaviour
         }
         this.companion = companion;
         if(currentLocation == Location.TEAM_SELECT) {
-            spriteInScene.sprite = companion.companionType.sprite;
+            spriteInScene.sprite = companion.companionType.teamSelectSprite;
             spriteInScene.enabled = enabled;
         } 
         dialogueSpeaker.InitializeSpeaker(enabled, 

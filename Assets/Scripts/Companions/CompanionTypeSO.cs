@@ -18,6 +18,7 @@ public class CompanionTypeSO : ScriptableObject
     public Sprite cardFrame; 
     public Sprite typeIcon;
     public Sprite portrait;
+    public Sprite teamSelectSprite;
     public GameObject cardIdleVfxPrefab;
     [Header("Card pool")]
     public CardPoolSO cardPool;
