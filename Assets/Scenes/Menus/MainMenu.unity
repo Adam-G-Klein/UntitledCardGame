@@ -487,7 +487,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameState: {fileID: 11400000, guid: 9e326417f60894341a96cc8d02868bbe, type: 2}
-  mapGenerator: {fileID: 11400000, guid: c46246f7205143546a3ccd62b98f5342, type: 2}
+  mapGenerator: {fileID: 11400000, guid: 9b902a6128d401a4cb2170a2e24f4629, type: 2}
 --- !u!1001 &1488288606357421138
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -562,7 +562,7 @@ PrefabInstance:
       objectReference: {fileID: 543958280}
     - target: {fileID: 6599440597774311068, guid: 409f8940f4da5f44a9a7b0c89889885c, type: 3}
       propertyPath: delayTime
-      value: 6.5
+      value: 6.25
       objectReference: {fileID: 0}
     - target: {fileID: 6599440597774311068, guid: 409f8940f4da5f44a9a7b0c89889885c, type: 3}
       propertyPath: gameState

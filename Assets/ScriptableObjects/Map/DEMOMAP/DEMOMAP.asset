@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10bb6c7959ec2e941bd0719e0daed280, type: 3}
+  m_Name: DEMOMAP
+  m_EditorClassIdentifier: 
+  enemyEncounterTypes:
+  - {fileID: 11400000, guid: 58951daeff5308b48a4da0922c8af249, type: 2}
+  - {fileID: 11400000, guid: 2581592a330e79647b5526255355599a, type: 2}
+  - {fileID: 11400000, guid: 618a27a173614c5449ffe55fa085cb09, type: 2}
+  - {fileID: 11400000, guid: 4b710c9d13c40744ba7a7e7039cba1c7, type: 2}
+  - {fileID: 11400000, guid: d38dcf1543f3b1e4d86ae204f751b589, type: 2}
+  - {fileID: 11400000, guid: be6ff01ca67bfd24cbf55df0b32058d6, type: 2}
+  shopData: {fileID: 11400000, guid: 64b1d5221aac20348909c6cab7cc24d6, type: 2}

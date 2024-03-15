@@ -58,6 +58,10 @@ public class MusicController : GenericSingleton<MusicController>
 
     public void PlayMusicForLocation(Location location, bool inTutorial = false)
     {
+        if(audioSource == null) {
+            Debug.LogWarning("No audio source found");
+            return;
+        }
         if(inTutorial && (location == Location.PRE_COMBAT_SPLASH || location == Location.COMBAT)) {
             if(audioSource.clip != tutorialClip) {
                 audioSource.clip = tutorialClip;
@@ -108,6 +112,10 @@ public class MusicController : GenericSingleton<MusicController>
     }
 
     public void PlaySFX(AudioClip clip, float volume = -1) {
+        if(sfxSource == null) {
+            Debug.LogWarning("No sfx source found");
+            return;
+        }
         if(volume == -1) {
             volume = defaultSFXVolume;
         }
