@@ -16,20 +16,19 @@ MonoBehaviour:
   Description: Choose one card from a companion's deck. Add it to your hand, then
     exhaust the rest of the deck.
   Cost: 1
-  Artwork: {fileID: 21300000, guid: c649f560f07711e41a82bbf9233eb6cd, type: 3}
+  Artwork: {fileID: 21300000, guid: fccdd43ca64c8644fa54c06ab327bdd3, type: 3}
+  cardCategory: 0
   vfxPrefab: {fileID: 0}
   playable: 1
-  effectSteps:
-  - rid: 9024302837437038720
-  - rid: 9024302837437038721
-  - rid: 9024302837437038722
-  - rid: 9024302837437038723
-  - rid: 9024302837437038724
   effectWorkflows:
   - rid: 2116895648763871338
+  onExhaustEffectWorkflow:
+    rid: -2
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 2116895648763871338
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -58,7 +57,8 @@ MonoBehaviour:
         getLimitedNumber: 0
         numberOfCardsToGet: 1
         outputKey: cardsInDeck
-        getCardsFromAllPiles: 0
+        getCardsFromSourceDeck: 0
+        getAllFromOnlyDrawPile: 0
     - rid: 9024302837437038722
       type: {class: SelectCardsFromList, ns: , asm: Assembly-CSharp}
       data:
@@ -66,9 +66,11 @@ MonoBehaviour:
         inputKey: cardsInDeck
         outputKey: selectedCard
         promptText: Select 1 card
-        targets: 1
+        minTargets: 1
+        maxTargets: -1
         getNumberOfTargetsFromKey: 0
         inputTargetsKey: 
+        randomizeOrder: 0
     - rid: 9024302837437038723
       type: {class: CardInDeckEffect, ns: , asm: Assembly-CSharp}
       data:
@@ -76,6 +78,7 @@ MonoBehaviour:
         inputCardsKey: cardsInDeck
         inputDeckKey: 
         effect: 0
+        outputKey: 
     - rid: 9024302837437038724
       type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
       data:
@@ -87,3 +90,4 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+        outputKey: 
