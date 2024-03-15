@@ -7,6 +7,9 @@ using UnityEngine;
 
 the plan:
 - we want to play an alternating track from a set of tracks for each new location
+- pre combat splash and post combat are now the only two places that music switches during
+    the normal loop
+- 
 
 
 
@@ -14,50 +17,79 @@ the plan:
 public class MusicController : GenericSingleton<MusicController>
 {
     private AudioSource audioSource;
-    [Header("Workaround for a serialized map")]
     [SerializeField]
-    private List<Location> locationOrder = new List<Location>();
+    private List<AudioClip> precombatClips = new List<AudioClip>();
+    [SerializeField]
+    private List<AudioClip> postcombatClips = new List<AudioClip>();
+    [SerializeField]
+    private AudioClip tutorialClip;
+
+    [Header("Only clips in use below are main menu, tutorial, and bossfight")]
+    [SerializeField]
+    private List<Location> locationKeys = new List<Location>();
     [SerializeField]
     private List<AudioClip> musicClipsOrderedByLocation = new List<AudioClip>();
-    [SerializeField]
-    private List<float> clipStartTimes = new List<float>();
 
+    [SerializeField]
+    private List<int> clipStartTimes = new List<int>();
+    [SerializeField]
+    private float introVolume = 0.5f;
 
     void Awake()
     {
         // A rare use case for this, we want our music to give nary a FLINCH at a scene change
         // GenericSingleton handles deduping across scenes
         DontDestroyOnLoad(this.gameObject);
-        int i = 0;
-        while(i <= (int)Location.BOSSFIGHT) {
-            Location location = (Location) i;
-            locationOrder.Add(location);
-            i += 1;
-        }
     }
 
     void Start() {
         audioSource = GetComponent<AudioSource>();
-        if(musicClipsOrderedByLocation.Count > 0) {
-            PlayMusicForLocation(locationOrder[1]);
-        } else {
-            Debug.LogError("No music clips found");
+        PlayMusicForLocation(Location.MAIN_MENU);
+    }
+
+    public void PlayMusicForLocation(Location location, bool inTutorial = false)
+    {
+        if(inTutorial && (location == Location.PRE_COMBAT_SPLASH || location == Location.COMBAT)) {
+            if(audioSource.clip != tutorialClip) {
+                audioSource.clip = tutorialClip;
+                audioSource.Play();
+            }
+            return;
+        }
+        switch(location) {
+            case Location.PRE_COMBAT_SPLASH:
+                audioSource.clip = precombatClips[Random.Range(0, precombatClips.Count)];
+                audioSource.Play();
+                break;
+            case Location.POST_COMBAT:
+                audioSource.clip = postcombatClips[Random.Range(0, postcombatClips.Count)];
+                audioSource.Play();
+                break;
+            default:
+                PlayMusicForLocationFromList(location);
+                break;
         }
     }
 
-    public void PlayMusicForLocation(Location location)
+    public void PlayMusicForLocationFromList(Location location)
     {
         if(Instance == null || audioSource == null) {
             Debug.LogWarning("No music controller found");
             return;
         }
-        if(audioSource.clip == musicClipsOrderedByLocation[(int)location]) {
+        int indexOfLocation = locationKeys.IndexOf(location);
+        if(indexOfLocation == -1 || audioSource.clip == musicClipsOrderedByLocation[indexOfLocation]) {
             return;
         }
-        audioSource.clip = musicClipsOrderedByLocation[(int)location];
-        audioSource.time = clipStartTimes[(int)location];
+        if(location == Location.WAKE_UP_ROOM || location == Location.TEAM_SIGNING) {
+            audioSource.volume = introVolume;
+        } else {
+            audioSource.volume = 1;
+        }
+        Debug.Log("playing clip");
+        audioSource.clip = musicClipsOrderedByLocation[indexOfLocation];
+        audioSource.time = clipStartTimes[indexOfLocation];
         audioSource.Play();
-
     }
 
 }
