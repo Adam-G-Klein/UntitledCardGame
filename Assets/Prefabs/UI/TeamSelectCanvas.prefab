@@ -513,9 +513,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: LoadNextSceneButton
       objectReference: {fileID: 0}
+    - target: {fileID: 7113289287253783084, guid: 5777925187e17c84580b863054481d33, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7113289287253783084, guid: 5777925187e17c84580b863054481d33, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c1295640e92e3c24d95eca3f4d8a08e0, type: 3}
     - target: {fileID: 7733943832071370897, guid: 5777925187e17c84580b863054481d33, type: 3}
       propertyPath: m_text
       value: TO THE DRAMA
+      objectReference: {fileID: 0}
+    - target: {fileID: 7733943832071370897, guid: 5777925187e17c84580b863054481d33, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7733943832071370897, guid: 5777925187e17c84580b863054481d33, type: 3}
       propertyPath: m_fontSize
@@ -528,13 +540,36 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5880996763453988219, guid: 5777925187e17c84580b863054481d33, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1340444962256721328}
   m_SourcePrefab: {fileID: 100100000, guid: 5777925187e17c84580b863054481d33, type: 3}
 --- !u!224 &1582232131917457813 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1529805887474585643, guid: 5777925187e17c84580b863054481d33, type: 3}
   m_PrefabInstance: {fileID: 58478508885637566}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &5859955526959031493 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5880996763453988219, guid: 5777925187e17c84580b863054481d33, type: 3}
+  m_PrefabInstance: {fileID: 58478508885637566}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1340444962256721328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5859955526959031493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 5, y: -5}
+  m_UseGraphicAlpha: 1
 --- !u!1001 &6498150542613918837
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -732,6 +767,10 @@ PrefabInstance:
     - target: {fileID: 5498679393384752912, guid: c655253e4574bb2448bc99891e1551c4, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6339970382200123969, guid: c655253e4574bb2448bc99891e1551c4, type: 3}
+      propertyPath: portrait
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6339970382200123970, guid: c655253e4574bb2448bc99891e1551c4, type: 3}
       propertyPath: m_PresetInfoIsWorld
