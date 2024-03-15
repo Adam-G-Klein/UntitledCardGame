@@ -4,7 +4,7 @@
         <ui:VisualElement name="background" class="dark" style="left: auto; top: auto; align-items: flex-end; height: 902px; width: 1227px; align-self: center;">
             <ui:Label text="Signified" display-tooltip-when-elided="true" style="-unity-text-align: upper-center; font-size: 150px; padding-top: 0; color: rgb(0, 0, 0); -unity-font-style: bold; align-items: center; align-self: center;" />
             <ui:Button text="Play Game" display-tooltip-when-elided="true" name="playButton" class="main-menu-button" style="align-self: center;" />
-            <ui:Label text="Wait for it... (or just click)" display-tooltip-when-elided="true" style="-unity-text-align: upper-center; font-size: 60px; padding-top: 0; color: rgb(255, 255, 255); -unity-font-style: bold; align-items: center; align-self: center; bottom: 0;" />
+            <ui:Label text="Wait for it... (or just click)" display-tooltip-when-elided="true" style="-unity-text-align: upper-center; font-size: 60px; padding-top: 0; color: rgb(255, 255, 255); -unity-font-style: bold; align-items: center; align-self: center; bottom: 0; -unity-font: url(&apos;project://database/Assets/Fonts/Antique%20Hunter%20Demo.ttf?fileID=12800000&amp;guid=c76d8c5cd8942ab44830d27b817c2e1f&amp;type=3#Antique Hunter Demo&apos;);" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
