@@ -320,9 +320,33 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6776026775712146023}
     m_Modifications:
+    - target: {fileID: 666070743826668620, guid: a4ddb1bd377ee554d9fd1cf8d09555e9, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 666070743826668620, guid: a4ddb1bd377ee554d9fd1cf8d09555e9, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c1295640e92e3c24d95eca3f4d8a08e0, type: 3}
+    - target: {fileID: 6693314783923239545, guid: a4ddb1bd377ee554d9fd1cf8d09555e9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6959111143313449418, guid: a4ddb1bd377ee554d9fd1cf8d09555e9, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 156
+      objectReference: {fileID: 0}
+    - target: {fileID: 6959111143313449418, guid: a4ddb1bd377ee554d9fd1cf8d09555e9, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 60
+      objectReference: {fileID: 0}
     - target: {fileID: 8463661968212919159, guid: a4ddb1bd377ee554d9fd1cf8d09555e9, type: 3}
       propertyPath: m_Name
       value: AprilLetter
+      objectReference: {fileID: 0}
+    - target: {fileID: 8463661968212919159, guid: a4ddb1bd377ee554d9fd1cf8d09555e9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8740928566654835808, guid: a4ddb1bd377ee554d9fd1cf8d09555e9, type: 3}
       propertyPath: m_Pivot.x
@@ -404,13 +428,48 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8930195274231988657, guid: a4ddb1bd377ee554d9fd1cf8d09555e9, type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.b
+      value: 0.6037736
+      objectReference: {fileID: 0}
+    - target: {fileID: 8930195274231988657, guid: a4ddb1bd377ee554d9fd1cf8d09555e9, type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.g
+      value: 0.6037736
+      objectReference: {fileID: 0}
+    - target: {fileID: 8930195274231988657, guid: a4ddb1bd377ee554d9fd1cf8d09555e9, type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.r
+      value: 0.6037736
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4104898790453302973, guid: a4ddb1bd377ee554d9fd1cf8d09555e9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8130007128069732716}
   m_SourcePrefab: {fileID: 100100000, guid: a4ddb1bd377ee554d9fd1cf8d09555e9, type: 3}
 --- !u!224 &1032805395871551636 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8740928566654835808, guid: a4ddb1bd377ee554d9fd1cf8d09555e9, type: 3}
   m_PrefabInstance: {fileID: 8582531792165227764}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &5759189691742493257 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4104898790453302973, guid: a4ddb1bd377ee554d9fd1cf8d09555e9, type: 3}
+  m_PrefabInstance: {fileID: 8582531792165227764}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8130007128069732716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5759189691742493257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 5, y: -5}
+  m_UseGraphicAlpha: 0
