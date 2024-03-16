@@ -33,7 +33,13 @@ public class MusicController : GenericSingleton<MusicController>
     [SerializeField]
     private List<int> clipStartTimes = new List<int>();
     [SerializeField]
-    private float introVolume = 0.5f;
+    private float introVolume = 0.15f;
+
+
+    [SerializeField]
+    private float otherVolume = 0.3f;
+
+    private AudioSource sfxSource;
 
     void Awake()
     {
@@ -44,6 +50,7 @@ public class MusicController : GenericSingleton<MusicController>
 
     void Start() {
         audioSource = GetComponent<AudioSource>();
+        sfxSource = transform.GetChild(0).GetComponent<AudioSource>();  
         PlayMusicForLocation(Location.MAIN_MENU);
     }
 
@@ -84,12 +91,16 @@ public class MusicController : GenericSingleton<MusicController>
         if(location == Location.WAKE_UP_ROOM || location == Location.TEAM_SIGNING) {
             audioSource.volume = introVolume;
         } else {
-            audioSource.volume = 1;
+            audioSource.volume = otherVolume;
         }
         Debug.Log("playing clip");
         audioSource.clip = musicClipsOrderedByLocation[indexOfLocation];
         audioSource.time = clipStartTimes[indexOfLocation];
         audioSource.Play();
+    }
+
+    public void PlaySFX(AudioClip clip) {
+        sfxSource.PlayOneShot(clip);
     }
 
 }

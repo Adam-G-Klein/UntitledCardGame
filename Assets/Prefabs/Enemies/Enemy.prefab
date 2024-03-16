@@ -79,6 +79,8 @@ MonoBehaviour:
     maxHealth: 0
     currentHealth: 0
     baseAttackDamage: 0
+  genericInteractionSFX: {fileID: 0}
+  genericInteractionVFX: {fileID: 0}
 --- !u!61 &1515253770649210757
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -205,6 +207,8 @@ GameObject:
   - component: {fileID: 3031636639335360444}
   - component: {fileID: 4048388475856471772}
   - component: {fileID: 2797497970312966068}
+  - component: {fileID: 1899820206001018905}
+  - component: {fileID: 8147698733170252572}
   m_Layer: 5
   m_Name: EntitySprite
   m_TagString: Untagged
@@ -288,3 +292,33 @@ MonoBehaviour:
     speed: 0
     color: {r: 0, g: 0, b: 0, a: 0}
   testColor: {r: 1, g: 0, b: 0, a: 1}
+--- !u!114 &1899820206001018905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8802389412929484848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 529c80957274eb845ab857cc78a85129, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 0}
+  unityEventResponse:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &8147698733170252572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8802389412929484848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82a57da86f9c0144e841d2bc2d918650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colors: {fileID: 11400000, guid: 0e1a20d3aee811141b41ded0ebefd9ca, type: 2}
+  arrowPrefab: {fileID: 2592847280397825042, guid: c46d94ec1b401534cb7d61b1a8a9f64e, type: 3}

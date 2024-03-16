@@ -102,6 +102,7 @@ public class TurnManager : GenericSingleton<TurnManager>
     }
 
     public void registerTurnPhaseTriggerEventHandler(TurnPhaseTriggerEventInfo info) {
+        Debug.Log("Registering turn phase trigger event handler for phase " + info.turnPhaseTrigger.phase + " method is : " + info.turnPhaseTrigger.triggerResponse);
         addTurnPhaseTrigger(info.turnPhaseTrigger);
     }
 

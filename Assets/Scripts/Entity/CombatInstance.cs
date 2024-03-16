@@ -12,6 +12,9 @@ public class CombatInstance : MonoBehaviour
     public delegate IEnumerator OnDeathHandler(CombatInstance killer);
     public event OnDeathHandler onDeathHandler;
 
+    public AudioClip genericInteractionSFX;
+    public GameObject genericInteractionVFX;
+
     // Only used for debugging purposes, will be set by some other script
     private string id;
 
@@ -41,6 +44,10 @@ public class CombatInstance : MonoBehaviour
     public void ApplyStatusEffects(StatusEffect statusEffect, int scale) {
         Debug.Log(String.Format("Applying status with scale {0}", scale));
         statusEffects[statusEffect] += scale;
+        if(statusEffect != StatusEffect.Orb && statusEffect != StatusEffect.Strength && statusEffect != StatusEffect.TemporaryStrength) {
+            PlaySFX();
+            AddVFX();
+        }
     }
 
     public int GetCurrentDamage() {
@@ -52,12 +59,15 @@ public class CombatInstance : MonoBehaviour
     }
 
     public void ApplyNonStatusCombatEffect(CombatEffect effect, int scale, CombatInstance effector) {
+        
         // All the non-status-effect combat effects are handled here
         // status effects are handled in applyCombatEffects
         switch(effect) {
             case CombatEffect.Damage:
             case CombatEffect.FixedDamage:
                 TakeDamage(scale, effector);
+                PlaySFX(effector);
+                AddVFX(effector);
                 break;
             case CombatEffect.Heal:
                 combatStats.setCurrentHealth(Mathf.Min(combatStats.getCurrentHealth() + scale, combatStats.maxHealth));
@@ -77,6 +87,7 @@ public class CombatInstance : MonoBehaviour
     }
 
     private void TakeDamage(int damage, CombatInstance attacker) {
+        
         // This is necessary to solve a race condition with a multi-damage attack
         // Fix this later
         if (combatStats.getCurrentHealth() == 0) {
@@ -197,5 +208,21 @@ public class CombatInstance : MonoBehaviour
 
     public string GetId() {
         return this.id;
+    }
+
+    private void PlaySFX(CombatInstance effector = null) {
+        if(genericInteractionSFX != null) {
+            MusicController.Instance.PlaySFX(genericInteractionSFX);
+        } else if (effector != null && effector.genericInteractionSFX != null) {
+            MusicController.Instance.PlaySFX(effector.genericInteractionSFX);
+        }
+    }
+
+    private void AddVFX(CombatInstance effector = null) {
+        if(effector != null && effector.genericInteractionSFX != null) {
+            Instantiate(effector.genericInteractionVFX, transform.position, Quaternion.identity);
+        } else if (genericInteractionVFX != null) {
+            Instantiate(genericInteractionVFX, transform.position, Quaternion.identity);
+        }
     }
 }

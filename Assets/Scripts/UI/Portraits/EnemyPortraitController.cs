@@ -11,6 +11,7 @@ public class EnemyPortraitController : MonoBehaviour
     }
     
     public void SetupEnemyPortraits(List<EnemyInstance> enemies) {
+        Debug.Log("Setting up enemy portraits, count:   " + enemies.Count);
         foreach (EnemyInstance enemy in enemies) {
             GameObject parentPortrait = Instantiate(
                 portraitParentGO,

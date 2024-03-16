@@ -20,6 +20,8 @@ public class CompanionTypeSO : ScriptableObject
     public Sprite portrait;
     public Sprite teamSelectSprite;
     public GameObject cardIdleVfxPrefab;
+    public AudioClip genericCompanionSFX;
+    public GameObject genericCompanionVFX;
     [Header("Card pool")]
     public CardPoolSO cardPool;
     [Header("Dialogue hook-in")]

@@ -28,11 +28,12 @@ public class EnemyIntentDisplay : MonoBehaviour
     }
 
     public void Setup(EnemyInstance enemyInstance) {
+        Debug.Log("Setting up enemy intent display for " + enemyInstance.name);
         this.enemyInstance = enemyInstance;
         this.arrowController = enemyInstance.GetComponentInChildren<EnemyIntentArrowsController>();
         turnManager = TurnManager.Instance;
         displayIntentTrigger = new TurnPhaseTrigger(TurnPhase.START_PLAYER_TURN, displayIntent(enemyInstance));
-        registerTurnPhaseTriggerEvent.Raise(new TurnPhaseTriggerEventInfo(displayIntentTrigger));
+        turnManager.registerTurnPhaseTriggerEventHandler(new TurnPhaseTriggerEventInfo(displayIntentTrigger));
         enemyInstance.combatInstance.onDeathHandler += OnDeath;
     }
 
@@ -47,11 +48,14 @@ public class EnemyIntentDisplay : MonoBehaviour
     }
 
     public IEnumerable displayIntent(EnemyInstance enemy)  {
+        Debug.Log("here im here im here");
         clearIntent();
         if (enemy.currentIntent == null) {
+            Debug.Log("Enemy " + enemy.name + " has no current intent");
             StartCoroutine(displayIntentAfterDelay(enemy));
             yield break;
         }
+        Debug.Log("Displaying intent for " + enemy.name + " with intent " + enemy.currentIntent.intentType);
         updateIntentImages(enemy.currentIntent);
         arrowController.updateArrows(enemy.currentIntent);
         valueText.gameObject.SetActive(true);

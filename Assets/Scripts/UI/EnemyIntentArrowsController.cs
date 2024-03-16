@@ -19,6 +19,7 @@ public class EnemyIntentArrowsController : MonoBehaviour
     }
 
     public void updateArrows(EnemyIntent intent) {
+        Debug.Log("Updating arrows");
         if (intent.targets[0] == null) {
             return;
         }

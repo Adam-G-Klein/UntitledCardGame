@@ -30,6 +30,8 @@ public class CompanionInstance : MonoBehaviour
             combatInstance.combatStats.setCurrentHealth(1);
         }
         combatInstance.onDeathHandler += OnDeath;
+        combatInstance.genericInteractionSFX = companion.companionType.genericCompanionSFX;
+        combatInstance.genericInteractionVFX = companion.companionType.genericCompanionVFX;
         deckInstance.sourceDeck = companion.deck;
         RegisterUpdateStatusEffects();
     }
