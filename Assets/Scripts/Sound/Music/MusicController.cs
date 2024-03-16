@@ -52,7 +52,8 @@ public class MusicController : GenericSingleton<MusicController>
 
     void Start() {
         audioSource = GetComponent<AudioSource>();
-        sfxSource = transform.GetChild(0).GetComponent<AudioSource>();  
+        if(sfxSource != null)
+            sfxSource = transform.GetChild(0).GetComponent<AudioSource>();  
         PlayMusicForLocation(Location.MAIN_MENU);
     }
 
