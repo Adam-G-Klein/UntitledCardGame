@@ -49,6 +49,9 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     }
 
     public void processCardBuyRequest(CardBuyRequest cardBuyRequest) {
+        if(DialogueManager.Instance.dialogueInProgress) {
+            return;
+        }
         if (gameState.playerData.GetValue().gold >= cardBuyRequest.price) {
             this.buyingCard = true;
             this.currentBuyRequest = cardBuyRequest;
@@ -106,6 +109,9 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     }
 
     public void processCompanionBuyRequest(CompanionBuyRequest request) {
+        if(DialogueManager.Instance.dialogueInProgress) {
+            return;
+        }
         if (gameState.playerData.GetValue().gold >= request.price) {
             this.gameState.companions.benchedCompanions.Add(request.companion);
             gameState.playerData.GetValue().gold -= request.price;
@@ -151,6 +157,9 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
     // Attached as a UnityEvent to the UpgradeShop button
     public void processUpgradeShopClick() {
+        if(DialogueManager.Instance.dialogueInProgress) {
+            return;
+        }
         PlayerData playerData = gameState.playerData.GetValue();
         if (playerData.gold >= shopLevel.upgradeCost) {
             playerData.gold -= shopLevel.upgradeCost;
@@ -173,6 +182,9 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
     // Attached as a UnityEvent to the RerollShop button
     public void processRerollShopClick() {
+        if(DialogueManager.Instance.dialogueInProgress) {
+            return;
+        }
         if (gameState.playerData.GetValue().gold >= shopEncounter.shopData.rerollShopPrice) {
             gameState.playerData.GetValue().gold -= shopEncounter.shopData.rerollShopPrice;
             rerollShop();
