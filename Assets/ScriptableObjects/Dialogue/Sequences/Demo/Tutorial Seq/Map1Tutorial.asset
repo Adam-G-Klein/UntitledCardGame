@@ -19,12 +19,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 16a6a477166d98c4d9b79b1d5ae69638, type: 2}
   dialogueLines:
   - rid: 164776401133371558
-  - rid: 164776401133371559
-  - rid: 164776401133371560
-  - rid: 164776401133371561
   - rid: 164776401133371562
-  - rid: 164776401133371563
   - rid: 164776401133371564
+  - rid: 164776401133371563
   references:
     version: 2
     RefIds:
@@ -32,22 +29,7 @@ MonoBehaviour:
       type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
       data:
         speaker: {fileID: 11400000, guid: 0ffd109ae66c2a54cb93828dea1a7219, type: 2}
-        line: The next? How big is this place?
-    - rid: 164776401133371559
-      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
-      data:
-        speaker: {fileID: 11400000, guid: 16a6a477166d98c4d9b79b1d5ae69638, type: 2}
-        line: The Estate is 194012223--
-    - rid: 164776401133371560
-      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
-      data:
-        speaker: {fileID: 11400000, guid: 9e835f3c4c49e9f4da934369a0a7132b, type: 2}
-        line: 'It''s big. Very big. '
-    - rid: 164776401133371561
-      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
-      data:
-        speaker: {fileID: 11400000, guid: 9e835f3c4c49e9f4da934369a0a7132b, type: 2}
-        line: Don't get the automaton started or we'll be here all day.
+        line: The next? How do I know where to go?
     - rid: 164776401133371562
       type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
       data:
@@ -57,7 +39,7 @@ MonoBehaviour:
       type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
       data:
         speaker: {fileID: 11400000, guid: 76fc1ea2d414956428399f565e424d83, type: 2}
-        line: We should not linger in the halls.
+        line: We should not linger in the halls if we can help it.
     - rid: 164776401133371564
       type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
       data:

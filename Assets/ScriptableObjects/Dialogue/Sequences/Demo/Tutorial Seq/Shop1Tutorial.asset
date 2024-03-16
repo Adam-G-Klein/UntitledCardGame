@@ -19,13 +19,13 @@ MonoBehaviour:
   - rid: 164776401903288321
   - rid: 164776441536315492
   - rid: 164776401903288322
-  - rid: 164776401903288323
-  - rid: 164776401903288324
   - rid: 164776441536315480
   - rid: 164776441536315481
   - rid: 164776401903288325
   - rid: 164776401903288326
   - rid: 164776401903288327
+  - rid: 164776471424663662
+  - rid: 164776471424663661
   - rid: 164776401903288328
   - rid: 164776441536315477
   - rid: 164776441536315478
@@ -46,18 +46,8 @@ MonoBehaviour:
       type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
       data:
         speaker: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
-        line: I must warn you that I cannot hold onto items left unpurchased.
-    - rid: 164776401903288323
-      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
-      data:
-        speaker: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
-        line: 'In addition, as I''m sure you recall, we do not entertain rebates
-          here. '
-    - rid: 164776401903288324
-      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
-      data:
-        speaker: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
-        line: Prices are as listed regardless of the content of your purse.
+        line: I must warn you that prices are as listed regardless of the content
+          of your purse.
     - rid: 164776401903288325
       type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
       data:
@@ -74,12 +64,12 @@ MonoBehaviour:
       type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
       data:
         speaker: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
-        line: You may roll again or try your chances the next time we cross paths.
+        line: You may roll again and dance on the precipice of probability...
     - rid: 164776401903288328
       type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
       data:
         speaker: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
-        line: The door is to the left when you are ready to leave.
+        line: If the last, the door is to the left when you are ready to leave.
     - rid: 164776441536315477
       type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
       data:
@@ -99,9 +89,20 @@ MonoBehaviour:
       type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
       data:
         speaker: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
-        line: Victory has its rewards here, Mr. Dyer.
+        line: Victory has its rewards here, as you well know, Mr. Dyer.
     - rid: 164776441536315492
       type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
       data:
         speaker: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
         line: If you think it will help.
+    - rid: 164776471424663661
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
+        line: You may even wait to try your chances the next time we cross paths.
+    - rid: 164776471424663662
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
+        line: ...or attempt to influence the laws of supply and demand for better
+          stock.
