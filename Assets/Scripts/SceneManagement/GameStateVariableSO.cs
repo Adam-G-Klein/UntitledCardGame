@@ -39,6 +39,7 @@ public class GameStateVariableSO : ScriptableObject
     public EncounterVariableSO nextEncounter;
     public Location currentLocation;
     public AllDialogueLocationsSO dialogueLocations;
+    public List<DialogueSequenceSO> viewedSequences;
     private Dictionary<Location, string> locationToScene = new Dictionary<Location, string>() {
         {Location.MAIN_MENU, "MainMenu"},
         {Location.WAKE_UP_ROOM, "AidensRoom"},
@@ -221,6 +222,15 @@ public class GameStateVariableSO : ScriptableObject
 
     public void setMapGenerator(MapGeneratorSO mapGeneratorSO) {
         mapGenerator = mapGeneratorSO;
+    }
+
+    public void StartNewRun(MapGeneratorSO mapGeneratorSO) {
+        setMapGenerator(mapGeneratorSO);
+        map.SetValue(mapGenerator.generateMap());
+        playerData.initialize();
+        viewedSequences = new List<DialogueSequenceSO>();
+        SetLocation(Location.MAIN_MENU);
+        LoadNextLocation();
     }
 
 }

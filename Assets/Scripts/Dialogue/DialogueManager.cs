@@ -18,7 +18,6 @@ public class DialogueManager : GenericSingleton<DialogueManager>
     private DialogueSpeaker currentLineSpeaker;
     public IEnumerator currentDialogueSequenceCoroutine;
     private Action currentDialogueSequenceCallback;
-    private List<DialogueSequenceSO> alreadyViewedSequences = new List<DialogueSequenceSO>();
     // TODO: make this configurable on a per-sequence basis
     // This was the fastest way I could think of to make the team signing sequence work
     // Putting this here for reference: https://forum.unity.com/threads/playing-a-coroutine-in-timeline.982128/
@@ -103,7 +102,25 @@ public class DialogueManager : GenericSingleton<DialogueManager>
 
     private DialogueSequenceSO GetDialogueSequence() {
         var withPresentSpeakers = GetDialogueSequencesWithPresentSpeakers();
-        var unviewed = withPresentSpeakers.Where(sequence => !alreadyViewedSequences.Contains(sequence));
+        List<DialogueSequenceSO> unviewed = new List<DialogueSequenceSO>();
+
+            // bro don't make fun of me its the day before GDC
+        foreach(DialogueSequenceSO sequence in withPresentSpeakers) {
+            bool seqViewed = false;
+            foreach(DialogueSequenceSO viewed in gameState.viewedSequences) {
+                if(sequence.name == viewed.name) {
+                    seqViewed = true;
+                    Debug.Log("sequence " + sequence.name + " has already been viewed");
+                } 
+            }
+            if(!seqViewed) {
+                unviewed.Add(sequence);
+            }
+        }
+        foreach(DialogueSequenceSO unview in unviewed) {
+            Debug.Log("unviewed sequence with present speakers: " + unview.name);
+        }
+        if(unviewed.Count() == 0) return null;
         return unviewed.FirstOrDefault();
     }
 
@@ -121,7 +138,8 @@ public class DialogueManager : GenericSingleton<DialogueManager>
         currentDialogueSequenceCoroutine = dialogueSequenceCoroutine(dialogueSequence, callback);
         currentDialogueSequenceCallback = callback;
         StartCoroutine(currentDialogueSequenceCoroutine);
-        alreadyViewedSequences.Add(dialogueSequence);
+        gameState.viewedSequences.Add(dialogueSequence);
+        Debug.Log("Added " + dialogueSequence.name + " to already viewed sequences");
     }
 
     

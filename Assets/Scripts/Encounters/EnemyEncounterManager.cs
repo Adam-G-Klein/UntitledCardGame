@@ -25,6 +25,9 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     [SerializeField]
     private GameObject enemyLocationStoreGO;
 
+    [SerializeField]
+    private EndEncounterEvent endEncounterEvent;
+
     public LocationStore companionLocationStore { 
         get {
         if(companionLocationStoreGO == null) {
@@ -45,6 +48,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
             enemyLocationStore = value;
         }
     }
+
     void Start() {
         // This ends up calling BuildEnemyEncounter below
         gameState.activeEncounter.GetValue().BuildWithEncounterBuilder(this);
@@ -68,6 +72,10 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     }
 
     void Update() {
+
+        if(Input.GetKeyDown(KeyCode.S)) {
+            endEncounterEvent.Raise(new EndEncounterEventInfo(EncounterOutcome.Victory));
+        }
         if(Input.GetKeyDown(KeyCode.Escape)) {
             Application.Quit();
         }
