@@ -188,7 +188,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: bef25fc00ffa0694db73cc4460bc8066, type: 3}
   - {fileID: 8300000, guid: bef25fc00ffa0694db73cc4460bc8066, type: 3}
   clipStartTimes: 120000000000000000000000
-  introVolume: 0.5
+  introVolume: 0.15
+  otherVolume: 0.3
+  defaultSFXVolume: 0.1
 --- !u!82 &2893979411728819029
 AudioSource:
   m_ObjectHideFlags: 0

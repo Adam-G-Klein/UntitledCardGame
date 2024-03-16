@@ -30,6 +30,8 @@ public class PlayableCard : MonoBehaviour,
     // Checked by PlayerHand when discarding the whole hand
     // set back to false there when it's checked
     public bool retained = false;
+    public AudioClip cardHover;
+    public float hoverSFXVolume = 0.1f;
 
     public void Start()
     {
@@ -87,6 +89,7 @@ public class PlayableCard : MonoBehaviour,
     public void OnPointerEnter(PointerEventData eventData)
     {
         hovered = true;
+        MusicController.Instance.PlaySFX(cardHover, hoverSFXVolume);
         transform.localScale = new Vector3(hoverScale, hoverScale, 1);
         PlayerHand.Instance.UpdateLayout();
     }

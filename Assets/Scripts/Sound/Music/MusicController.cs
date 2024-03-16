@@ -38,6 +38,8 @@ public class MusicController : GenericSingleton<MusicController>
 
     [SerializeField]
     private float otherVolume = 0.3f;
+    [SerializeField]
+    private float defaultSFXVolume = 0.5f;  
 
     private AudioSource sfxSource;
 
@@ -99,8 +101,11 @@ public class MusicController : GenericSingleton<MusicController>
         audioSource.Play();
     }
 
-    public void PlaySFX(AudioClip clip) {
-        sfxSource.PlayOneShot(clip);
+    public void PlaySFX(AudioClip clip, float volume = -1) {
+        if(volume == -1) {
+            volume = defaultSFXVolume;
+        }
+        sfxSource.PlayOneShot(clip, volume);
     }
 
 }
