@@ -28,35 +28,35 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 1488501614819147784
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: enemies
+        combatEffect: 0
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 0
+        getMultiplicityFromKey: 1
+        inputMultiplicityKey: cardsPlayed
     - rid: 2116895648763871329
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
         - rid: 5592738912264781859
-        - rid: 5592738912264781858
         - rid: 5592738912264781879
-    - rid: 5592738912264781858
-      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CombatEffectStep
-        inputKey: enemy
-        combatEffect: 0
-        scale: 0
-        getScaleFromKey: 1
-        inputScaleKey: numberOfCompanionsWithOrbs
-        multiplicity: 3
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
+        - rid: 1488501614819147784
     - rid: 5592738912264781859
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: enemy
+        outputKey: enemies
         validTargets: 02000000
         number: 1
-        specialTargetRule: 0
+        specialTargetRule: 1
         cantCancelTargetting: 0
     - rid: 5592738912264781879
       type: {class: QuantityOfCardTypePlayedThisTurn, ns: , asm: Assembly-CSharp}
@@ -64,4 +64,4 @@ MonoBehaviour:
         effectStepName: QuantityOfCardTypePlayedThisTurn
         cardCategory: 0
         getAll: 1
-        outputKey: 
+        outputKey: cardsPlayed

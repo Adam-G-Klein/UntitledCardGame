@@ -67,12 +67,12 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: enemy
         combatEffect: 0
-        scale: 0
-        getScaleFromKey: 1
-        inputScaleKey: numberOfCompanionsWithOrbs
-        multiplicity: 3
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
+        scale: 3
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 0
+        getMultiplicityFromKey: 1
+        inputMultiplicityKey: numberOfCompanionsWithOrbs
     - rid: 5592738912264781859
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

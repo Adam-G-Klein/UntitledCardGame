@@ -90,6 +90,18 @@ MonoBehaviour:
         effectStepName: EndWorkflowIfConditionMet
         inputKey1: noCardsInHand
         conditionToEndOn: 1
+    - rid: 1488501614819147780
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: 
+        combatEffect: 0
+        scale: 0
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 2116895648763871339
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -102,6 +114,7 @@ MonoBehaviour:
         - rid: 1488501494564520026
         - rid: 1488501494564520023
         - rid: 1488501494564520017
+        - rid: 1488501614819147780
     - rid: 5592738912264781842
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -110,6 +123,6 @@ MonoBehaviour:
         inputKey: 
         outputKey: enemies
         validTargets: 02000000
-        number: 1
+        number: 0
         specialTargetRule: 1
         cantCancelTargetting: 0

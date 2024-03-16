@@ -28,18 +28,6 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 1488501494564519944
-      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CombatEffectStep
-        inputKey: self
-        combatEffect: 3
-        scale: 10
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
     - rid: 1488501494564519946
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -63,14 +51,23 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+    - rid: 1488501614819147793
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: self
+        statusEffect: 2
+        scale: 10
+        getScaleFromKey: 0
+        inputScaleKey: 
     - rid: 2116895648763871351
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
         - rid: 9024302470308298775
         - rid: 1488501494564519946
-        - rid: 1488501494564519944
         - rid: 1488501494564519947
+        - rid: 1488501614819147793
     - rid: 9024302470308298775
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

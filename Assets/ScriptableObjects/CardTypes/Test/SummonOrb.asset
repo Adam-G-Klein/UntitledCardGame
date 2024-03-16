@@ -14,15 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Summon Orb
   Description: Stick an orb on someone!
-  Cost: 0
+  Cost: 1
   Artwork: {fileID: 21300000, guid: e23c6c9ca6adcce4890845210178dc7e, type: 3}
+  cardCategory: 0
   vfxPrefab: {fileID: 0}
   playable: 1
   effectWorkflows:
   - rid: 1935436727922196480
+  onExhaustEffectWorkflow:
+    rid: -2
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 1935436727922196480
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -46,6 +51,6 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: target
         statusEffect: 9
-        scale: 3
+        scale: 1
         getScaleFromKey: 0
         inputScaleKey: 

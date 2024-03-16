@@ -29,25 +29,22 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 1488501614819147796
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: target
+        statusEffect: 2
+        scale: 5
+        getScaleFromKey: 0
+        inputScaleKey: 
     - rid: 2116895648763871351
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
         - rid: 9024302470308298775
-        - rid: 5592738617237438472
         - rid: 5592738912264781880
-    - rid: 5592738617237438472
-      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CombatEffectStep
-        inputKey: target
-        combatEffect: 3
-        scale: 5
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
+        - rid: 1488501614819147796
     - rid: 5592738912264781880
       type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
       data:

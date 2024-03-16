@@ -71,6 +71,12 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 1
         cantCancelTargetting: 0
+    - rid: 1488501614819147782
+      type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardInHandEffect
+        inputKey: 
+        effect: 0
     - rid: 2116895648763871339
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -81,6 +87,7 @@ MonoBehaviour:
         - rid: 1488501494564520019
         - rid: 1488501494564520022
         - rid: 1488501494564520021
+        - rid: 1488501614819147782
     - rid: 5592738912264781842
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -90,5 +97,5 @@ MonoBehaviour:
         outputKey: cards
         validTargets: 03000000
         number: 1
-        specialTargetRule: 1
+        specialTargetRule: 2
         cantCancelTargetting: 0

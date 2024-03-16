@@ -76,24 +76,6 @@ MonoBehaviour:
         operation: 2
         inputKey2: totalNumberOfCards
         outputKey: companionHasTenOrMorecard
-    - rid: 1488501494564519943
-      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: EndWorkflowIfConditionMet
-        inputKey1: companionHasTenOrMorecard
-        conditionToEndOn: 0
-    - rid: 1488501494564519944
-      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CombatEffectStep
-        inputKey: companion
-        combatEffect: 3
-        scale: 6
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
     - rid: 1488501494564519945
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
@@ -117,21 +99,46 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
+    - rid: 1488501614819147790
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: companion
+        statusEffect: 2
+        scale: 6
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 1488501614819147791
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: companionHasTenOrMorecard
+        conditionToEndOn: 0
+    - rid: 1488501614819147792
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: companion
+        statusEffect: 2
+        scale: 6
+        getScaleFromKey: 0
+        inputScaleKey: 
     - rid: 2116895648763871351
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
         - rid: 9024302470308298775
         - rid: 1488501494564519946
-        - rid: 1488501494564519944
         - rid: 1488501494564519937
         - rid: 1488501494564519940
         - rid: 1488501494564519938
         - rid: 1488501494564519941
         - rid: 1488501494564519939
         - rid: 1488501494564519942
-        - rid: 1488501494564519943
         - rid: 1488501494564519945
+        - rid: 1488501614819147790
+        - rid: 1488501614819147791
+        - rid: 1488501614819147792
     - rid: 9024302470308298775
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

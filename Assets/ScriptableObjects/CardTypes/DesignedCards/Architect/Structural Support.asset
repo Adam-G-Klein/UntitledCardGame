@@ -35,10 +35,10 @@ MonoBehaviour:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: self
-        validTargets: 
+        outputKey: companion
+        validTargets: 00000000
         number: 1
-        specialTargetRule: 4
+        specialTargetRule: 0
         cantCancelTargetting: 0
     - rid: 2116895648763871329
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
@@ -53,7 +53,7 @@ MonoBehaviour:
       type: {class: CountStatusEffectsStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CountStatusEffectStep
-        inputKey: 
+        inputKey: companion
         statusEffect: 9
         onlyCountStatusOnce: 0
         outputKey: orbs
@@ -70,7 +70,7 @@ MonoBehaviour:
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ApplyStatus
-        inputKey: self
+        inputKey: companion
         statusEffect: 2
         scale: 0
         getScaleFromKey: 1
