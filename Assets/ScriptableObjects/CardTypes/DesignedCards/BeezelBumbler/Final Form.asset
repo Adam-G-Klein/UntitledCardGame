@@ -16,18 +16,19 @@ MonoBehaviour:
   Description: Set target companion's HP to 1. They deal double damage for the rest
     of the encounter.
   Cost: 1
-  Artwork: {fileID: 21300000, guid: 8a6101d38c903424cbd7264288132aac, type: 3}
+  Artwork: {fileID: 21300000, guid: 27ec1549f8e73da4c93e706a368e736b, type: 3}
+  cardCategory: 0
   vfxPrefab: {fileID: 0}
   playable: 1
-  effectSteps:
-  - rid: 9024302470308298778
-  - rid: 9024302470308298779
-  - rid: 9024302470308298780
   effectWorkflows:
   - rid: 2116895648763871352
+  onExhaustEffectWorkflow:
+    rid: -2
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 2116895648763871352
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -55,6 +56,9 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 9024302470308298780
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
