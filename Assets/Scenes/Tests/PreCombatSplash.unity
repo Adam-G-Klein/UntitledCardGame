@@ -295,7 +295,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0.00024414}
-  m_SizeDelta: {x: 2560, y: 1440}
+  m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &580347414
 MonoBehaviour:
@@ -317,7 +317,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 40d8fe5b7bdf6e643bfaf8e1510ea250, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 54422279e0cb43542a85feaa2e350d03, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -882,23 +882,86 @@ PrefabInstance:
       propertyPath: m_Name
       value: LoadNextSceneButton
       objectReference: {fileID: 0}
+    - target: {fileID: 7113289287253783084, guid: 5777925187e17c84580b863054481d33, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7113289287253783084, guid: 5777925187e17c84580b863054481d33, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7658c1c9cdcd39645bfab6bea3fa37fd, type: 3}
     - target: {fileID: 7733943832071370897, guid: 5777925187e17c84580b863054481d33, type: 3}
       propertyPath: m_text
       value: TO BATTLE
       objectReference: {fileID: 0}
     - target: {fileID: 7733943832071370897, guid: 5777925187e17c84580b863054481d33, type: 3}
       propertyPath: m_fontSize
-      value: 115
+      value: 72
       objectReference: {fileID: 0}
+    - target: {fileID: 7733943832071370897, guid: 5777925187e17c84580b863054481d33, type: 3}
+      propertyPath: m_margin.w
+      value: 53.525192
+      objectReference: {fileID: 0}
+    - target: {fileID: 7733943832071370897, guid: 5777925187e17c84580b863054481d33, type: 3}
+      propertyPath: m_margin.x
+      value: 32.450928
+      objectReference: {fileID: 0}
+    - target: {fileID: 7733943832071370897, guid: 5777925187e17c84580b863054481d33, type: 3}
+      propertyPath: m_margin.y
+      value: 40.911972
+      objectReference: {fileID: 0}
+    - target: {fileID: 7733943832071370897, guid: 5777925187e17c84580b863054481d33, type: 3}
+      propertyPath: m_margin.z
+      value: 28.743042
+      objectReference: {fileID: 0}
+    - target: {fileID: 7733943832071370897, guid: 5777925187e17c84580b863054481d33, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 0a9ac2d3d13b80846af173a14eb7c7a9, type: 2}
     - target: {fileID: 7733943832071370897, guid: 5777925187e17c84580b863054481d33, type: 3}
       propertyPath: m_fontSizeBase
       value: 115
       objectReference: {fileID: 0}
+    - target: {fileID: 7733943832071370897, guid: 5777925187e17c84580b863054481d33, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -7090538367109287897, guid: 0a9ac2d3d13b80846af173a14eb7c7a9, type: 2}
+    - target: {fileID: 7733943832071370897, guid: 5777925187e17c84580b863054481d33, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7733943832071370897, guid: 5777925187e17c84580b863054481d33, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5880996763453988219, guid: 5777925187e17c84580b863054481d33, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 768885825989030177}
   m_SourcePrefab: {fileID: 100100000, guid: 5777925187e17c84580b863054481d33, type: 3}
+--- !u!1 &768885825989030176 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5880996763453988219, guid: 5777925187e17c84580b863054481d33, type: 3}
+  m_PrefabInstance: {fileID: 768885825989030175}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &768885825989030177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 768885825989030176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 5, y: -5}
+  m_UseGraphicAlpha: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
