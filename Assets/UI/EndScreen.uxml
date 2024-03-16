@@ -1,0 +1,21 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/common.uss?fileID=7433441132597879392&amp;guid=8d0bc28a2ed710a44b762e4c857ac6f9&amp;type=3#common" />
+    <ui:VisualElement name="VisualElement" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); position: relative; height: auto; width: auto; top: 0; left: 0; flex-wrap: wrap; background-image: url(&apos;project://database/Assets/ScrapbookArt/PortraitArea.png?fileID=2800000&amp;guid=dcc72639e587dab46a0201406220794e&amp;type=3#PortraitArea&apos;);">
+        <ui:VisualElement style="flex-direction: row; justify-content: center; align-items: center; height: auto; width: auto; padding-bottom: 20px;">
+            <ui:Button text="Aiden J. Dyer" display-tooltip-when-elided="true" name="Aiden" class="end-screen-button" />
+            <ui:Button text="Aborah" display-tooltip-when-elided="true" name="Aborah" class="end-screen-button" />
+            <ui:Button text="Jean" display-tooltip-when-elided="true" name="Jean" class="end-screen-button" />
+            <ui:Button text="René" display-tooltip-when-elided="true" name="Rene" class="end-screen-button" />
+            <ui:Button text="The Architect" display-tooltip-when-elided="true" name="Architect" class="end-screen-button" />
+            <ui:Button text="Entropy (NTRO-P1)" display-tooltip-when-elided="true" name="Entropy" class="end-screen-button" />
+            <ui:Button text="The Concierge" display-tooltip-when-elided="true" name="Concierge" class="end-screen-button" />
+            <ui:Button text="The Estate" display-tooltip-when-elided="true" name="Estate" class="end-screen-button" />
+        </ui:VisualElement>
+        <ui:VisualElement name="VisualElement" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); align-items: flex-start;">
+            <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" name="Name" style="position: relative; height: auto; width: auto; font-size: 40px; left: 150px;" />
+            <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" name="Flavor" style="font-size: 20px; -unity-font-style: italic; left: 150px;" />
+            <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" name="Description" style="font-size: 12px; height: 80%; width: 50%; align-items: auto; justify-content: flex-start; align-self: auto; -unity-text-align: upper-left; flex-wrap: wrap; white-space: normal; left: 150px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="Image" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); position: absolute; background-image: url(&apos;project://database/Assets/Sprites/MainMenuSprites/image%20(3).jpg?fileID=2800000&amp;guid=ff3a1a2fcae27d74ba2c1f2b91fc244c&amp;type=3#image (3)&apos;); height: 255px; width: 291px; top: 93px; left: 780px;" />
+</ui:UXML>
