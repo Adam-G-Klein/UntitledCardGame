@@ -1,0 +1,126 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23517bc57e0f44146a39f61c3db5a303, type: 3}
+  m_Name: TS ArchitectRene
+  m_EditorClassIdentifier: 
+  requiredSpeakers:
+  - {fileID: 0}
+  dialogueLines:
+  - rid: 164776441536315553
+  - rid: 164776473915818147
+  - rid: 164776473915818148
+  - rid: 164776473915818160
+  - rid: 164776473915818149
+  - rid: 164776473915818150
+  - rid: 164776473915818151
+  - rid: 164776473915818164
+  - rid: 164776473915818165
+  - rid: 164776473915818152
+  - rid: 164776473915818153
+  - rid: 164776473915818154
+  - rid: 164776473915818162
+  - rid: 164776473915818156
+  - rid: 164776473915818158
+  - rid: 164776473915818157
+  - rid: 164776473915818159
+  references:
+    version: 2
+    RefIds:
+    - rid: 164776441536315553
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 3bef4ef49705e2940af4cd5d02251f0f, type: 2}
+        line: --laughter is the best medicine! Especially when times are rough.
+    - rid: 164776473915818147
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: df40c41b591c1bb40830f7abc22a1ad0, type: 2}
+        line: Medicine doesn't solve life's problems. Laughter, less so.
+    - rid: 164776473915818148
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 3bef4ef49705e2940af4cd5d02251f0f, type: 2}
+        line: Spoken like a man who's downed a bottle on "doctors orders."
+    - rid: 164776473915818149
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 3bef4ef49705e2940af4cd5d02251f0f, type: 2}
+        line: 'I know my onions, old boy. '
+    - rid: 164776473915818150
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 3bef4ef49705e2940af4cd5d02251f0f, type: 2}
+        line: I had audiences in stitches when I wasn't even a decade old.
+    - rid: 164776473915818151
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: df40c41b591c1bb40830f7abc22a1ad0, type: 2}
+        line: Sure. Your point is?
+    - rid: 164776473915818152
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 3bef4ef49705e2940af4cd5d02251f0f, type: 2}
+        line: Laughter is the glue that binds people together.
+    - rid: 164776473915818153
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 3bef4ef49705e2940af4cd5d02251f0f, type: 2}
+        line: When things get tough, sure you can't always laugh your way out of
+          it.
+    - rid: 164776473915818154
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 3bef4ef49705e2940af4cd5d02251f0f, type: 2}
+        line: But you can share a laugh with friends who'll bail you out because
+          of it.
+    - rid: 164776473915818156
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: df40c41b591c1bb40830f7abc22a1ad0, type: 2}
+        line: Sounds naive. And hollow. Superficial, even.
+    - rid: 164776473915818157
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 3bef4ef49705e2940af4cd5d02251f0f, type: 2}
+        line: Alright, Chuckles.
+    - rid: 164776473915818158
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: df40c41b591c1bb40830f7abc22a1ad0, type: 2}
+        line: No amount of laughter will stop someone from leaving you when they
+          need to prioritize themself over you.
+    - rid: 164776473915818159
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 3bef4ef49705e2940af4cd5d02251f0f, type: 2}
+        line: You're not completely wrong but man are you a downer.
+    - rid: 164776473915818160
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: df40c41b591c1bb40830f7abc22a1ad0, type: 2}
+        line: ...
+    - rid: 164776473915818162
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 3bef4ef49705e2940af4cd5d02251f0f, type: 2}
+        line: Even strangers will give you a second chance, a helping hand, if you
+          share a laugh.
+    - rid: 164776473915818164
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 3bef4ef49705e2940af4cd5d02251f0f, type: 2}
+        line: There's nothing like an audience laughing together.
+    - rid: 164776473915818165
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 3bef4ef49705e2940af4cd5d02251f0f, type: 2}
+        line: And nothing like a friendship forged in laughing through the bad times.

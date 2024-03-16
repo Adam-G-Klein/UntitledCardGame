@@ -1,0 +1,101 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23517bc57e0f44146a39f61c3db5a303, type: 3}
+  m_Name: Shop Convo 5
+  m_EditorClassIdentifier: 
+  requiredSpeakers:
+  - {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
+  - {fileID: 11400000, guid: 0ffd109ae66c2a54cb93828dea1a7219, type: 2}
+  dialogueLines:
+  - rid: 164776441536315553
+  - rid: 164776441536315567
+  - rid: 164776441536315576
+  - rid: 164776441536315578
+  - rid: 164776441536315568
+  - rid: 164776441536315575
+  - rid: 164776441536315577
+  - rid: 164776441536315569
+  - rid: 164776441536315588
+  - rid: 164776441536315574
+  - rid: 164776441536315584
+  - rid: 164776441536315585
+  - rid: 164776441536315587
+  references:
+    version: 2
+    RefIds:
+    - rid: 164776441536315553
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
+        line: I do so enjoy our conversations, Mr. Dyer.
+    - rid: 164776441536315567
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 0ffd109ae66c2a54cb93828dea1a7219, type: 2}
+        line: Wish I could say the same.
+    - rid: 164776441536315568
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
+        line: That is not to your liking, I take it?
+    - rid: 164776441536315569
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 0ffd109ae66c2a54cb93828dea1a7219, type: 2}
+        line: I've had enough of wisdom.
+    - rid: 164776441536315574
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
+        line: I have noted your preference in preparation for our next inevitable
+          encounter.
+    - rid: 164776441536315575
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 0ffd109ae66c2a54cb93828dea1a7219, type: 2}
+        line: Does anyone like losing their mind?
+    - rid: 164776441536315576
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
+        line: How might I entertain you better?
+    - rid: 164776441536315577
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
+        line: Madness can sometimes be wisdom donning a strange disguise.
+    - rid: 164776441536315578
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 0ffd109ae66c2a54cb93828dea1a7219, type: 2}
+        line: I feel like I lose my grip on reality the more I speak to you.
+    - rid: 164776441536315584
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 0ffd109ae66c2a54cb93828dea1a7219, type: 2}
+        line: Are you planning on doing something different now?
+    - rid: 164776441536315585
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
+        line: No need. I will simply return you to your default state by not speaking
+          to you.
+    - rid: 164776441536315587
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 0ffd109ae66c2a54cb93828dea1a7219, type: 2}
+        line: That's... That's what I wanted by why do I feel like I lost somehow?
+    - rid: 164776441536315588
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 0ffd109ae66c2a54cb93828dea1a7219, type: 2}
+        line: I want to be stupid. Stupid and sane.

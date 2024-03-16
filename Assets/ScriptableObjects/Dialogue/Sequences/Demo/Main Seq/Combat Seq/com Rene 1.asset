@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23517bc57e0f44146a39f61c3db5a303, type: 3}
+  m_Name: com Rene 1
+  m_EditorClassIdentifier: 
+  requiredSpeakers:
+  - {fileID: 11400000, guid: 3bef4ef49705e2940af4cd5d02251f0f, type: 2}
+  dialogueLines:
+  - rid: 164776441536315553
+  references:
+    version: 2
+    RefIds:
+    - rid: 164776441536315553
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 3bef4ef49705e2940af4cd5d02251f0f, type: 2}
+        line: Let's give them a good show.

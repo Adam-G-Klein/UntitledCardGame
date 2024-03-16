@@ -1,0 +1,95 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23517bc57e0f44146a39f61c3db5a303, type: 3}
+  m_Name: TS JeanAborahEntropy
+  m_EditorClassIdentifier: 
+  requiredSpeakers:
+  - {fileID: 11400000, guid: 76fc1ea2d414956428399f565e424d83, type: 2}
+  - {fileID: 11400000, guid: 9e835f3c4c49e9f4da934369a0a7132b, type: 2}
+  - {fileID: 11400000, guid: 16a6a477166d98c4d9b79b1d5ae69638, type: 2}
+  dialogueLines:
+  - rid: 164776441536315553
+  - rid: 164776471424663558
+  - rid: 164776471424663559
+  - rid: 164776471424663560
+  - rid: 164776473915818166
+  - rid: 164776473915818167
+  - rid: 164776473915818168
+  - rid: 164776473915818169
+  - rid: 164776473915818170
+  - rid: 164776473915818171
+  - rid: 164776473915818173
+  - rid: 164776473915818172
+  references:
+    version: 2
+    RefIds:
+    - rid: 164776441536315553
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 9e835f3c4c49e9f4da934369a0a7132b, type: 2}
+        line: You'd do well to heed my words, Aborah.
+    - rid: 164776471424663558
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 9e835f3c4c49e9f4da934369a0a7132b, type: 2}
+        line: Strength is an admirable quality, I can admit.
+    - rid: 164776471424663559
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 9e835f3c4c49e9f4da934369a0a7132b, type: 2}
+        line: But it's no match for the power of foresight.
+    - rid: 164776471424663560
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 9e835f3c4c49e9f4da934369a0a7132b, type: 2}
+        line: When you can see the obstacle coming, you don't have to blast your
+          way through.
+    - rid: 164776473915818166
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 9e835f3c4c49e9f4da934369a0a7132b, type: 2}
+        line: You may simply choose another path and avoid it.
+    - rid: 164776473915818167
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 76fc1ea2d414956428399f565e424d83, type: 2}
+        line: I will rely on my own instincts and judgment, thank you.
+    - rid: 164776473915818168
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 76fc1ea2d414956428399f565e424d83, type: 2}
+        line: I would rather risk personal failure from hubris...
+    - rid: 164776473915818169
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 76fc1ea2d414956428399f565e424d83, type: 2}
+        line: Than to trust the immoral tricks you pull.
+    - rid: 164776473915818170
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 76fc1ea2d414956428399f565e424d83, type: 2}
+        line: Even if it's for our gain, it does not sit right with me.
+    - rid: 164776473915818171
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 9e835f3c4c49e9f4da934369a0a7132b, type: 2}
+        line: Is it immoral to be informed?
+    - rid: 164776473915818172
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 16a6a477166d98c4d9b79b1d5ae69638, type: 2}
+        line: Day 4062. The girls are fighting again.
+    - rid: 164776473915818173
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 76fc1ea2d414956428399f565e424d83, type: 2}
+        line: It is when it involves crushing the innocent!

@@ -1,0 +1,142 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23517bc57e0f44146a39f61c3db5a303, type: 3}
+  m_Name: Shop1Tutorial 1
+  m_EditorClassIdentifier: 
+  requiredSpeakers:
+  - {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
+  dialogueLines:
+  - rid: 164776401903288320
+  - rid: 164776401903288322
+  - rid: 164776441536315480
+  - rid: 164776441536315481
+  - rid: 164776401903288325
+  - rid: 164776401903288326
+  - rid: 164776401903288327
+  - rid: 164776471424663662
+  - rid: 164776471424663661
+  - rid: 164776401903288328
+  - rid: 164776441536315477
+  - rid: 164776473915818093
+  - rid: 164776473915818094
+  - rid: 164776473915818095
+  - rid: 164776473915818096
+  - rid: 164776473915818097
+  - rid: 164776473915818091
+  - rid: 164776473915818090
+  - rid: 164776473915818092
+  - rid: 164776473915818100
+  references:
+    version: 2
+    RefIds:
+    - rid: 164776401903288320
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
+        line: Ah, Mr. Dyer. We meet once more.
+    - rid: 164776401903288322
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
+        line: In anticipation of the questions you may have about our offerings....
+    - rid: 164776401903288325
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
+        line: The bottom row are items "aligned" with spirits in the Estate.
+    - rid: 164776401903288326
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
+        line: Simply put, purchasing one will add to the shades who flock to your
+          person.
+    - rid: 164776401903288327
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
+        line: '"Purchasing a new companion," if I may put it in such base terms.'
+    - rid: 164776401903288328
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
+        line: It is all part of the grand game.
+    - rid: 164776441536315477
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
+        line: You need only concern yourself with winning.
+    - rid: 164776441536315480
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 0ffd109ae66c2a54cb93828dea1a7219, type: 2}
+        line: 'Observe. The top row are cards. '
+    - rid: 164776441536315481
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
+        line: These I'm sure you are familiar with by now?
+    - rid: 164776471424663661
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
+        line: Nor are they alive to contest it.
+    - rid: 164776471424663662
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
+        line: Don't give me that look, Mr. Dyer. It is not true ownership.
+    - rid: 164776473915818090
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
+        line: As a service, you will find a reminder of those rewards to the upper
+          left.
+    - rid: 164776473915818091
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
+        line: Victory has its rewards here, as you seem to have forgotten, Mr. Dyer.
+    - rid: 164776473915818092
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
+        line: 'It does not need to be said but spending will only lead to more victories. '
+    - rid: 164776473915818093
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 0ffd109ae66c2a54cb93828dea1a7219, type: 2}
+        line: 'Okay, I''ll bite. '
+    - rid: 164776473915818094
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 0ffd109ae66c2a54cb93828dea1a7219, type: 2}
+        line: How am I supposed to pay for any of this?
+    - rid: 164776473915818095
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 0ffd109ae66c2a54cb93828dea1a7219, type: 2}
+        line: Sell my soul to you?
+    - rid: 164776473915818096
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
+        line: Nothing so vulgar as that.
+    - rid: 164776473915818097
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
+        line: It would be of little value to me anyway.
+    - rid: 164776473915818100
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
+        line: You will reap the rewards of your upfront investment in no time.

@@ -1,0 +1,108 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23517bc57e0f44146a39f61c3db5a303, type: 3}
+  m_Name: OLDShop1Tutorial
+  m_EditorClassIdentifier: 
+  requiredSpeakers:
+  - {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
+  dialogueLines:
+  - rid: 164776401903288320
+  - rid: 164776401903288321
+  - rid: 164776441536315492
+  - rid: 164776401903288322
+  - rid: 164776441536315480
+  - rid: 164776441536315481
+  - rid: 164776401903288325
+  - rid: 164776401903288326
+  - rid: 164776401903288327
+  - rid: 164776471424663662
+  - rid: 164776471424663661
+  - rid: 164776401903288328
+  - rid: 164776441536315477
+  - rid: 164776441536315478
+  references:
+    version: 2
+    RefIds:
+    - rid: 164776401903288320
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
+        line: Ah, Mr. Dyer. We meet once more.
+    - rid: 164776401903288321
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
+        line: 'Please, examine our selection at your leisure. '
+    - rid: 164776401903288322
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
+        line: I must warn you that prices are as listed regardless of the content
+          of your purse.
+    - rid: 164776401903288325
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
+        line: As a service, you will find a reminder of your winnings to the upper
+          left.
+    - rid: 164776401903288326
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
+        line: And, in the unlikely case you should fail to find anything here to
+          your liking...
+    - rid: 164776401903288327
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
+        line: You may roll again and dance on the precipice of probability...
+    - rid: 164776401903288328
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
+        line: If the last, the door is to the left when you are ready to leave.
+    - rid: 164776441536315477
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
+        line: Though you are welcome to stay as long as you wish.
+    - rid: 164776441536315478
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
+        line: An eternity even. Ha!
+    - rid: 164776441536315480
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 0ffd109ae66c2a54cb93828dea1a7219, type: 2}
+        line: Prices? I don't have any money on me. I checked.
+    - rid: 164776441536315481
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
+        line: Victory has its rewards here, as you well know, Mr. Dyer.
+    - rid: 164776441536315492
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
+        line: If you think it will help.
+    - rid: 164776471424663661
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
+        line: You may even wait to try your chances the next time we cross paths.
+    - rid: 164776471424663662
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 4adb102d5c6988346a9049e9ac86db46, type: 2}
+        line: ...or attempt to influence the laws of supply and demand for better
+          stock.
