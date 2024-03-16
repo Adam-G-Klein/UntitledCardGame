@@ -39,6 +39,8 @@ public class GameStateVariableSO : ScriptableObject
     public EncounterVariableSO nextEncounter;
     public Location currentLocation;
     public AllDialogueLocationsSO dialogueLocations;
+    [Header("Prevents dialogue seqs from being added to the viewed list")]
+    public bool debugSingleEncounterMode = false;
     public List<DialogueSequenceSO> viewedSequences;
     private Dictionary<Location, string> locationToScene = new Dictionary<Location, string>() {
         {Location.MAIN_MENU, "MainMenu"},

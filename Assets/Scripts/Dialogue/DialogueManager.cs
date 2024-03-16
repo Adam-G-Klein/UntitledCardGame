@@ -138,8 +138,10 @@ public class DialogueManager : GenericSingleton<DialogueManager>
         currentDialogueSequenceCoroutine = dialogueSequenceCoroutine(dialogueSequence, callback);
         currentDialogueSequenceCallback = callback;
         StartCoroutine(currentDialogueSequenceCoroutine);
-        gameState.viewedSequences.Add(dialogueSequence);
-        Debug.Log("Added " + dialogueSequence.name + " to already viewed sequences");
+        if(!gameState.debugSingleEncounterMode) {
+            gameState.viewedSequences.Add(dialogueSequence);
+            Debug.Log("Added " + dialogueSequence.name + " to already viewed sequences");
+        }
     }
 
     

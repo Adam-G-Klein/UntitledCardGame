@@ -29,6 +29,12 @@ public class DialogueBoxView : MonoBehaviour
     [SerializeField]
     private GameObject textGameObject;
 
+    [Header("Speech sounds")]
+    public AudioClip speechSound;
+    public int numCharsPerSound = 3;
+    public float pitchRange = 0.5f;
+    public float centerPitch = 1.0f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -83,9 +89,21 @@ public class DialogueBoxView : MonoBehaviour
 
     private IEnumerator DisplayText(string textToDisplay) {
         int currentChar = 0;
+        int numCharsSinceLastSound = 0;
+        float speechPitch;
         while(currentChar < textToDisplay.Length) {
             text.text += textToDisplay[currentChar];
             currentChar++;
+            if(speechSound != null) {
+                numCharsSinceLastSound++;
+                Debug.Log("counting char, numCharsSinceLastSound: " + numCharsSinceLastSound + " numCharsPerSound: " + numCharsPerSound + " currentChar: " + currentChar); 
+                if(numCharsSinceLastSound >= numCharsPerSound) {
+                    Debug.Log("Playing speech sound");
+                    numCharsSinceLastSound = 0;
+                    speechPitch = centerPitch + UnityEngine.Random.Range(-pitchRange, pitchRange);
+                    MusicController.Instance.PlaySFX(speechSound, -1, speechPitch);
+                }
+            }
             yield return new WaitForSeconds(charDelay);
         }
         doneDisplaying = true;
@@ -98,5 +116,4 @@ public class DialogueBoxView : MonoBehaviour
         if(displayPortraitDuringDialogue) portrait.SetActive(enabled);
         textGameObject.SetActive(enabled);
     }
-    
 }

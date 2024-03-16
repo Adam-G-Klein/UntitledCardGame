@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(UIStateEventListener))]
 public class EnemyIntentArrowsController : MonoBehaviour
 {
 
@@ -55,5 +56,11 @@ public class EnemyIntentArrowsController : MonoBehaviour
             Destroy(arrows[i].gameObject);
         }
         arrows.Clear();
+    }
+
+    public void uiStateChangeEventHandler(UIStateEventInfo info){
+        if(info.newState == UIState.END_ENCOUNTER){
+            clearArrows();
+        }
     }
 }

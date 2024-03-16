@@ -304,10 +304,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 529c80957274eb845ab857cc78a85129, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameEvent: {fileID: 0}
+  gameEvent: {fileID: 11400000, guid: 7fa89282fdc5197409a5e9b310da94f8, type: 2}
   unityEventResponse:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8147698733170252572}
+        m_TargetAssemblyTypeName: EnemyIntentArrowsController, Assembly-CSharp
+        m_MethodName: uiStateChangeEventHandler
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &8147698733170252572
 MonoBehaviour:
   m_ObjectHideFlags: 0

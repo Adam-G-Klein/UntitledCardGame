@@ -169,6 +169,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2053730527909729777}
     m_Modifications:
+    - target: {fileID: 2204947684134159888, guid: f2311ded71c6ecd4f85e341984d3e7d8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2204947684302682944, guid: f2311ded71c6ecd4f85e341984d3e7d8, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -177,13 +181,45 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 0.9750061
       objectReference: {fileID: 0}
+    - target: {fileID: 2204947685068786896, guid: f2311ded71c6ecd4f85e341984d3e7d8, type: 3}
+      propertyPath: m_margin.y
+      value: 14.783348
+      objectReference: {fileID: 0}
+    - target: {fileID: 2204947685068786898, guid: f2311ded71c6ecd4f85e341984d3e7d8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2204947685068786899, guid: f2311ded71c6ecd4f85e341984d3e7d8, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2204947685068786899, guid: f2311ded71c6ecd4f85e341984d3e7d8, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.48178595
+      objectReference: {fileID: 0}
+    - target: {fileID: 2204947685068786899, guid: f2311ded71c6ecd4f85e341984d3e7d8, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.037663102
+      objectReference: {fileID: 0}
+    - target: {fileID: 2204947685068786899, guid: f2311ded71c6ecd4f85e341984d3e7d8, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.32946396
+      objectReference: {fileID: 0}
+    - target: {fileID: 2204947685068786899, guid: f2311ded71c6ecd4f85e341984d3e7d8, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -53.13572
+      objectReference: {fileID: 0}
+    - target: {fileID: 2204947685068786899, guid: f2311ded71c6ecd4f85e341984d3e7d8, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -19.777315
+      objectReference: {fileID: 0}
     - target: {fileID: 2204947685068786899, guid: f2311ded71c6ecd4f85e341984d3e7d8, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.6101074
+      value: -6.8028717
       objectReference: {fileID: 0}
     - target: {fileID: 2204947685068786899, guid: f2311ded71c6ecd4f85e341984d3e7d8, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -5.440399
+      value: 21.453913
       objectReference: {fileID: 0}
     - target: {fileID: 2204947685290376176, guid: f2311ded71c6ecd4f85e341984d3e7d8, type: 3}
       propertyPath: m_Pivot.x
@@ -1047,6 +1083,10 @@ PrefabInstance:
       propertyPath: m_PresetInfoIsWorld
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 827713301585259922, guid: 0f8ec8818a801a04eb16ccd8b2449d5f, type: 3}
+      propertyPath: speechSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 282c30d0d78e0b74984e3574884f6f63, type: 3}
     - target: {fileID: 827713301585259924, guid: 0f8ec8818a801a04eb16ccd8b2449d5f, type: 3}
       propertyPath: m_Name
       value: combat_ConciergeSpeaker

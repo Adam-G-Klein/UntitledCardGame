@@ -1002,13 +1002,45 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7345001097657664363}
     m_Modifications:
+    - target: {fileID: 176354627828165984, guid: 04d99c4ae05c32d499e1117b24615e95, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 176354627828165985, guid: 04d99c4ae05c32d499e1117b24615e95, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 176354627828165985, guid: 04d99c4ae05c32d499e1117b24615e95, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.59141886
+      objectReference: {fileID: 0}
+    - target: {fileID: 176354627828165985, guid: 04d99c4ae05c32d499e1117b24615e95, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 176354627828165985, guid: 04d99c4ae05c32d499e1117b24615e95, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.43131858
+      objectReference: {fileID: 0}
+    - target: {fileID: 176354627828165985, guid: 04d99c4ae05c32d499e1117b24615e95, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -68.13572
+      objectReference: {fileID: 0}
+    - target: {fileID: 176354627828165985, guid: 04d99c4ae05c32d499e1117b24615e95, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -24.777313
+      objectReference: {fileID: 0}
     - target: {fileID: 176354627828165985, guid: 04d99c4ae05c32d499e1117b24615e95, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -4.135132
+      value: 3.3648682
       objectReference: {fileID: 0}
     - target: {fileID: 176354627828165985, guid: 04d99c4ae05c32d499e1117b24615e95, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1.4949646
+      value: 15.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 176354628626520818, guid: 04d99c4ae05c32d499e1117b24615e95, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 176354628626520819, guid: 04d99c4ae05c32d499e1117b24615e95, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1016,15 +1048,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 176354628794509218, guid: 04d99c4ae05c32d499e1117b24615e95, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 176354629752494658, guid: 04d99c4ae05c32d499e1117b24615e95, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.31716672
+      objectReference: {fileID: 0}
+    - target: {fileID: 176354629752494658, guid: 04d99c4ae05c32d499e1117b24615e95, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 176354629752494658, guid: 04d99c4ae05c32d499e1117b24615e95, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.09220833
+      objectReference: {fileID: 0}
+    - target: {fileID: 176354629752494658, guid: 04d99c4ae05c32d499e1117b24615e95, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.4657778
+      objectReference: {fileID: 0}
+    - target: {fileID: 176354629752494658, guid: 04d99c4ae05c32d499e1117b24615e95, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -37
+      objectReference: {fileID: 0}
+    - target: {fileID: 176354629752494658, guid: 04d99c4ae05c32d499e1117b24615e95, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 36
       objectReference: {fileID: 0}
     - target: {fileID: 176354629752494658, guid: 04d99c4ae05c32d499e1117b24615e95, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 163.20007
+      value: 14.700073
       objectReference: {fileID: 0}
     - target: {fileID: 176354629752494658, guid: 04d99c4ae05c32d499e1117b24615e95, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 88.38611
+      value: -6
       objectReference: {fileID: 0}
     - target: {fileID: 176354629752494660, guid: 04d99c4ae05c32d499e1117b24615e95, type: 3}
       propertyPath: m_PresetInfoIsWorld

@@ -27,6 +27,8 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
 
     [SerializeField]
     private EndEncounterEvent endEncounterEvent;
+    [SerializeField]
+    private UIStateEvent uIStateEvent;
 
     public LocationStore companionLocationStore { 
         get {
@@ -100,6 +102,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
 
         gameState.LoadNextLocation();
         postCombatUI.SetActive(true);
+        uIStateEvent.Raise(new UIStateEventInfo(UIState.END_ENCOUNTER));
         postCombatUI.transform.SetSiblingIndex(postCombatUI.transform.parent.childCount - 1);
         DialogueManager.Instance.SetDialogueLocation(gameState);
         DialogueManager.Instance.StartAnyDialogueSequence();

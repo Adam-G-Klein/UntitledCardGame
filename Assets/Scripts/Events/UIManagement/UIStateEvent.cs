@@ -5,7 +5,8 @@ public enum UIState {
     EFFECT_TARGETTING,
     // Rest of these are currently unused
     CARD_SELECTION_DISPLAY, // Something like when Slay the spire puts up cards you can choose from a potion
-    COMPANION_SUBMENU // When you click on a companion, you get a submenu displayed 
+    COMPANION_SUBMENU, // When you click on a companion, you get a submenu displayed 
+    END_ENCOUNTER
 
 }
 

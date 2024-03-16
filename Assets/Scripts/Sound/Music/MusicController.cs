@@ -40,8 +40,12 @@ public class MusicController : GenericSingleton<MusicController>
     private float otherVolume = 0.3f;
     [SerializeField]
     private float defaultSFXVolume = 0.5f;  
+    [SerializeField]
+    private float defaultSFXPitch = 1.0f;
 
     private AudioSource sfxSource;
+
+
 
     void Awake()
     {
@@ -112,13 +116,26 @@ public class MusicController : GenericSingleton<MusicController>
         audioSource.Play();
     }
 
-    public void PlaySFX(AudioClip clip, float volume = -1) {
+    // spaghetti!
+    public void PlaySFX(AudioClip clip, float volume = -1, float pitch = 1.0f) {
         if(sfxSource == null) {
-            Debug.LogWarning("No sfx source found");
-            return;
+            if(transform.childCount == 0) {
+                Debug.LogWarning("No sfx source found");
+                return;
+            }
+            sfxSource = transform.GetChild(0).GetComponent<AudioSource>();
+            if(sfxSource == null) {
+                Debug.LogWarning("No sfx source found");
+                return;
+            }
         }
         if(volume == -1) {
             volume = defaultSFXVolume;
+        }
+        if(!Mathf.Equals(pitch, 1.0f)) {
+            sfxSource.pitch = pitch;
+        } else {
+            sfxSource.pitch = defaultSFXPitch;
         }
         sfxSource.PlayOneShot(clip, volume);
     }
