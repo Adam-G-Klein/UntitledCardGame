@@ -15,15 +15,19 @@ MonoBehaviour:
   Name: Tempest
   Description: Deal 1 damage four times
   Cost: 2
-  Artwork: {fileID: 21300000, guid: 2812c1179dd157242bb5fec368979bfd, type: 3}
+  Artwork: {fileID: 21300000, guid: 5f4a5816818fe0841957c1e340e8a570, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
   effectWorkflows:
   - rid: 2116895648763871351
+  onExhaustEffectWorkflow:
+    rid: -2
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 2116895648763871351
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -42,6 +46,9 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 5592738617237438466
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
@@ -51,6 +58,9 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 9024302470308298775
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -71,6 +81,9 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 9024302470308298777
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
@@ -80,3 +93,6 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 

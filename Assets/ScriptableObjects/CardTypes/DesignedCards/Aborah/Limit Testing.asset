@@ -16,15 +16,19 @@ MonoBehaviour:
   Description: Gain 1 strength. Gain 2 strength instead if this Aborah is at 1 strength
     or lower.
   Cost: 2
-  Artwork: {fileID: 21300000, guid: 2812c1179dd157242bb5fec368979bfd, type: 3}
+  Artwork: {fileID: 21300000, guid: 52f62e90b62fa9249aac77854a45e7d5, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
   effectWorkflows:
   - rid: 2116895648763871351
+  onExhaustEffectWorkflow:
+    rid: -2
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 2116895648763871351
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
