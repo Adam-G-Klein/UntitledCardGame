@@ -67,10 +67,16 @@ public class MusicController : GenericSingleton<MusicController>
         }
         switch(location) {
             case Location.PRE_COMBAT_SPLASH:
+                if(precombatClips.Count == 0) {
+                    return;
+                }
                 audioSource.clip = precombatClips[Random.Range(0, precombatClips.Count)];
                 audioSource.Play();
                 break;
             case Location.POST_COMBAT:
+                if(postcombatClips.Count == 0) {
+                    return;
+                }
                 audioSource.clip = postcombatClips[Random.Range(0, postcombatClips.Count)];
                 audioSource.Play();
                 break;

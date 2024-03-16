@@ -16,7 +16,7 @@ MonoBehaviour:
   Description: "Shuffle 2 'Star Struck' into this companion\u2019s deck. Double the
     damage of all heartburns."
   Cost: 1
-  Artwork: {fileID: 21300000, guid: 2812c1179dd157242bb5fec368979bfd, type: 3}
+  Artwork: {fileID: 21300000, guid: 5f66e07752da0d34ca5ca0b6a327d011, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
@@ -35,8 +35,6 @@ MonoBehaviour:
         effectStepName: CardModificationEffect
         inputKey: 
         scale: 1
-        cardType: {fileID: 11400000, guid: a93f235e18c4c45c6ab94f95e20b9813, type: 2}
-        useHardCodedCardTypes: 1
         affectsAllCardsOfType: 1
         getScaleFromKey: 0
         scaleKey: 

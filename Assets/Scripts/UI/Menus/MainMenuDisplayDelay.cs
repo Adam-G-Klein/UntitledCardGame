@@ -23,7 +23,7 @@ public class MainMenuDisplayDelay : MonoBehaviour
     }
 
     private IEnumerator DelayMainMenuDisplay() {
-        yield return new WaitForSeconds(delayTime);
+        yield return new WaitForSecondsRealtime(delayTime);
         mainMenu.SetActive(true);
         mainMenu.GetComponent<CanvasShaker>().ScreenShakeForTime(0.25f, mainMenu.gameObject.GetComponent<Canvas>());
        

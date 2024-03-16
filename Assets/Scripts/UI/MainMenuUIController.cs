@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class MainMenuUIController : MonoBehaviour
 {
 
+    [Header("Real delay is found in mainMenuDisplayDelay.cs")]
     public float delay = 1.5f;
     public bool clicked = false;
 
