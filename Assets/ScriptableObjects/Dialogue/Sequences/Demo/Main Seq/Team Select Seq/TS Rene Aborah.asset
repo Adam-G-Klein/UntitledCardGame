@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23517bc57e0f44146a39f61c3db5a303, type: 3}
+  m_Name: TS Rene Aborah
+  m_EditorClassIdentifier: 
+  requiredSpeakers:
+  - {fileID: 11400000, guid: 3bef4ef49705e2940af4cd5d02251f0f, type: 2}
+  - {fileID: 11400000, guid: 76fc1ea2d414956428399f565e424d83, type: 2}
+  dialogueLines:
+  - rid: 164776441536315553
+  - rid: 164776471424663567
+  - rid: 164776471424663568
+  - rid: 164776471424663569
+  - rid: 164776471424663570
+  - rid: 164776471424663571
+  - rid: 164776471424663587
+  references:
+    version: 2
+    RefIds:
+    - rid: 164776441536315553
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 3bef4ef49705e2940af4cd5d02251f0f, type: 2}
+        line: That last guy really shook you up.
+    - rid: 164776471424663567
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 76fc1ea2d414956428399f565e424d83, type: 2}
+        line: Most opponents I have faced only had four limbs rather than eight.
+    - rid: 164776471424663568
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 76fc1ea2d414956428399f565e424d83, type: 2}
+        line: The creatures lurking in these halls are unlike any I have seen.
+    - rid: 164776471424663569
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 3bef4ef49705e2940af4cd5d02251f0f, type: 2}
+        line: You know, I fought a giant eight legged creature once.
+    - rid: 164776471424663570
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 76fc1ea2d414956428399f565e424d83, type: 2}
+        line: ...There are giant spiders in your country?
+    - rid: 164776471424663571
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 3bef4ef49705e2940af4cd5d02251f0f, type: 2}
+        line: No, just two clowns stacked on top of each other.
+    - rid: 164776471424663587
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 3bef4ef49705e2940af4cd5d02251f0f, type: 2}
+        line: Let me tell you, you never see that lower pie to the face coming.

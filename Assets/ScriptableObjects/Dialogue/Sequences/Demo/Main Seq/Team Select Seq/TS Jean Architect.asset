@@ -1,0 +1,93 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23517bc57e0f44146a39f61c3db5a303, type: 3}
+  m_Name: TS Jean Architect
+  m_EditorClassIdentifier: 
+  requiredSpeakers:
+  - {fileID: 11400000, guid: 9e835f3c4c49e9f4da934369a0a7132b, type: 2}
+  - {fileID: 11400000, guid: df40c41b591c1bb40830f7abc22a1ad0, type: 2}
+  dialogueLines:
+  - rid: 164776441536315553
+  - rid: 164776471424663626
+  - rid: 164776471424663627
+  - rid: 164776471424663631
+  - rid: 164776471424663628
+  - rid: 164776471424663629
+  - rid: 164776471424663630
+  - rid: 164776471424663636
+  - rid: 164776471424663637
+  - rid: 164776471424663638
+  - rid: 164776471424663632
+  - rid: 164776471424663634
+  references:
+    version: 2
+    RefIds:
+    - rid: 164776441536315553
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 9e835f3c4c49e9f4da934369a0a7132b, type: 2}
+        line: Mr. Black?
+    - rid: 164776471424663626
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 9e835f3c4c49e9f4da934369a0a7132b, type: 2}
+        line: Mr. Black? Are you listening?
+    - rid: 164776471424663627
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: df40c41b591c1bb40830f7abc22a1ad0, type: 2}
+        line: Oh, me. You're talking to me.
+    - rid: 164776471424663628
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: df40c41b591c1bb40830f7abc22a1ad0, type: 2}
+        line: I... it's been a while since I heard it called.
+    - rid: 164776471424663629
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 9e835f3c4c49e9f4da934369a0a7132b, type: 2}
+        line: Or perhaps it was never what you were called to begin with?
+    - rid: 164776471424663630
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: df40c41b591c1bb40830f7abc22a1ad0, type: 2}
+        line: That sounds like an unfounded claim.
+    - rid: 164776471424663631
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 9e835f3c4c49e9f4da934369a0a7132b, type: 2}
+        line: Rather odd that you don't respond to your own name.
+    - rid: 164776471424663632
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 9e835f3c4c49e9f4da934369a0a7132b, type: 2}
+        line: I have reason to believe you are concealing something, "Mr. Black."
+    - rid: 164776471424663634
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: df40c41b591c1bb40830f7abc22a1ad0, type: 2}
+        line: You of all people shouldn't be pointing fingers.
+    - rid: 164776471424663636
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 9e835f3c4c49e9f4da934369a0a7132b, type: 2}
+        line: 'Names are important in my line of work. '
+    - rid: 164776471424663637
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 9e835f3c4c49e9f4da934369a0a7132b, type: 2}
+        line: You can tell a lot about a man by how a name sits in his mouth.
+    - rid: 164776471424663638
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 9e835f3c4c49e9f4da934369a0a7132b, type: 2}
+        line: How it contorts his face when it reaches his ear.

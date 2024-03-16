@@ -1,0 +1,95 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23517bc57e0f44146a39f61c3db5a303, type: 3}
+  m_Name: precom ArchitectEntropy
+  m_EditorClassIdentifier: 
+  requiredSpeakers:
+  - {fileID: 11400000, guid: df40c41b591c1bb40830f7abc22a1ad0, type: 2}
+  - {fileID: 11400000, guid: 16a6a477166d98c4d9b79b1d5ae69638, type: 2}
+  dialogueLines:
+  - rid: 164776441536315553
+  - rid: 164776473915818103
+  - rid: 164776473915818104
+  - rid: 164776473915818105
+  - rid: 164776473915818106
+  - rid: 164776473915818107
+  - rid: 164776473915818108
+  - rid: 164776473915818110
+  - rid: 164776473915818109
+  - rid: 164776473915818112
+  - rid: 164776473915818113
+  - rid: 164776473915818114
+  references:
+    version: 2
+    RefIds:
+    - rid: 164776441536315553
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: df40c41b591c1bb40830f7abc22a1ad0, type: 2}
+        line: We should have more in-depth plan if we want to survive the next part
+          of the Estate.
+    - rid: 164776473915818103
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: df40c41b591c1bb40830f7abc22a1ad0, type: 2}
+        line: Entropy, any thoughts?
+    - rid: 164776473915818104
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 16a6a477166d98c4d9b79b1d5ae69638, type: 2}
+        line: Observe opponent tactics, exploit their weaknesses, process the data,
+          calculate the probability of counter strikes...
+    - rid: 164776473915818105
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 16a6a477166d98c4d9b79b1d5ae69638, type: 2}
+        line: Simulate a minimum of 500 encounters, process the data again...
+    - rid: 164776473915818106
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 16a6a477166d98c4d9b79b1d5ae69638, type: 2}
+        line: When you are certain of victory with no statistical error...
+    - rid: 164776473915818107
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 16a6a477166d98c4d9b79b1d5ae69638, type: 2}
+        line: 'Then and only then should we strike. '
+    - rid: 164776473915818108
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: df40c41b591c1bb40830f7abc22a1ad0, type: 2}
+        line: You seem more hesitant than usual.
+    - rid: 164776473915818109
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 16a6a477166d98c4d9b79b1d5ae69638, type: 2}
+        line: I am incapable of fear.
+    - rid: 164776473915818110
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: 16a6a477166d98c4d9b79b1d5ae69638, type: 2}
+        line: To be cautious is to survive.
+    - rid: 164776473915818112
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: df40c41b591c1bb40830f7abc22a1ad0, type: 2}
+        line: I... didn't ask if you were afraid.
+    - rid: 164776473915818113
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: df40c41b591c1bb40830f7abc22a1ad0, type: 2}
+        line: But if you were, I think that would be okay too.
+    - rid: 164776473915818114
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: df40c41b591c1bb40830f7abc22a1ad0, type: 2}
+        line: No shame in running away.
