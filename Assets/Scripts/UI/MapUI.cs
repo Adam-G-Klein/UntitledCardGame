@@ -24,26 +24,25 @@ public class MapUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        print(mapDocument);
         root = mapDocument.GetComponent<UIDocument>().rootVisualElement; 
         bool isEncounterOutOfRange = false;
         int activeEncounterIndex = -2;
         int currentIndex = 0;
-        Debug.Log("here" + gameState.map.GetValue().encounters.Count);
         foreach (Encounter encounter in gameState.map.GetValue().encounters) {
             IconState iconState;
             var button = root.Q<UnityEngine.UIElements.Button>(currentIndex.ToString());
-            Debug.Log("asf:" + button);
-            button.style.unityBackgroundImageTintColor = UnityEngine.Color.white.WithAlpha(0.3f);
+            Color c = Color.white;
+            c.a = 0.3f;
+            button.style.unityBackgroundImageTintColor = c;
             if (encounter.id == gameState.activeEncounter.GetValue().id) {
                 iconState = IconState.UPCOMING;
                 isEncounterOutOfRange = true;
-                button.style.unityBackgroundImageTintColor = UnityEngine.Color.white.WithAlpha(1f);
+                button.style.unityBackgroundImageTintColor = Color.white;
             } else if (isEncounterOutOfRange) {
                 iconState = IconState.OUT_OF_RANGE;
-                button.style.unityBackgroundImageTintColor = UnityEngine.Color.white.WithAlpha(0.3f);
+                button.style.unityBackgroundImageTintColor = c;
             } else {
-                button.style.unityBackgroundImageTintColor = UnityEngine.Color.green.WithAlpha(1f);
+                button.style.unityBackgroundImageTintColor = Color.green;
                 iconState = IconState.COMPLETED;
                 activeEncounterIndex++;
                 
