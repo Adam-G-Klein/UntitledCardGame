@@ -15,11 +15,13 @@ public class TeamSelection : MonoBehaviour
     private bool displayOnStart = true;
     [SerializeField]
     private GameObject bookImageGO;
+    private int maxTeamSlots;
 
 
     private void OnEnable()
     {
         teamCompanions = gameState.companions;
+        maxTeamSlots = gameState.companions.currentCompanionSlots;
         root = GetComponent<UIDocument>().rootVisualElement;
         if(!displayOnStart) {
             root.style.display = DisplayStyle.None;
@@ -31,6 +33,7 @@ public class TeamSelection : MonoBehaviour
 
     private void makeActiveTeam(VisualElement container, List<Companion> companions)
     {
+        root.Q<Label>("ActiveTeamLabel").text = "Active Team (" + companions.Count + " / " + maxTeamSlots + ")";
         for(int i = 0; i < companions.Count; i++) {
             container.Add(makeActiveCharacterView(companions[i], i));
         }
@@ -56,18 +59,28 @@ public class TeamSelection : MonoBehaviour
             upArrow.clicked += () => UpArrowPressed(companion, index);
             verticalButtonContainer.Add(upArrow);
         }
-        if (index < 4 && teamCompanions.activeCompanions.Count > 1) {
+        if (index <=  maxTeamSlots && teamCompanions.activeCompanions.Count > 1) {
             var downArrow = new UnityEngine.UIElements.Button();
             downArrow.AddToClassList("arrow-down");
             downArrow.clicked += () => DownArrowPressed(companion, index);
             verticalButtonContainer.Add(downArrow);
         }
 
+        var charContainer = new VisualElement();
+        charContainer.style.alignItems = Align.Center;
         var portrait = new VisualElement();
         portrait.AddToClassList("team-character-portrait");
         portrait.style.backgroundImage = new StyleBackground(companion.companionType.sprite);
-        container.Add(portrait);
+        charContainer.Add(portrait);
+        var healthLabel = new Label();
+        healthLabel.style.fontSize = 10;
+        healthLabel.style.color = Color.red;
+        healthLabel.style.marginTop = 3;
+        healthLabel.style.paddingTop = 0;
+        healthLabel.text = companion.combatStats.currentHealth + " / " + companion.combatStats.maxHealth;
+        charContainer.Add(healthLabel);
 
+        container.Add(charContainer);
         var rightArrow = new UnityEngine.UIElements.Button();
         rightArrow.AddToClassList("arrow-right");
         rightArrow.clicked += () => RightArrowPressed(companion);
@@ -80,7 +93,7 @@ public class TeamSelection : MonoBehaviour
         var container = new VisualElement();
         container.AddToClassList("character-bench-item");
 
-        if (teamCompanions.activeCompanions.Count <= 4) {
+        if (teamCompanions.activeCompanions.Count < maxTeamSlots) {
             var leftArrow = new UnityEngine.UIElements.Button();
             leftArrow.AddToClassList("arrow-left");
             leftArrow.clicked += () => LeftArrowPressed(companion);
@@ -126,9 +139,9 @@ public class TeamSelection : MonoBehaviour
         refreshBench();
     }
     public void LeftArrowPressed(Companion companion) {
-        // if (teamCompanions.activeCompanions.Count >= 5) {
-        //     return;
-        // } 
+        if (teamCompanions.activeCompanions.Count >= maxTeamSlots) {
+             return;
+        } 
         teamCompanions.benchedCompanions.Remove(companion);
         teamCompanions.activeCompanions.Add(companion);
         refreshActiveTeam();
