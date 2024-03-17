@@ -36,15 +36,19 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 25e1e720163f27d40901bebdeae9db29, type: 3}
+        m_Texture: {fileID: 2800000, guid: c9c8b73ce1b3c5f4d9c117af03fcf27e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Mask:
-        m_Texture: {fileID: 2800000, guid: 5be6cb2a47e28a0409520908183dcda5, type: 3}
+        m_Texture: {fileID: 2800000, guid: 32d7539258a47e44da80bb40d60967ab, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Mask_Distorion_Texture:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Mask_Gradient:
+        m_Texture: {fileID: 2800000, guid: d125b7d326bf4554e9e6af9aa4304fd9, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Noise_Texture:
@@ -56,10 +60,6 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_aabe0c7c8c5c4b6fa51df49aa7981171_Texture_1:
-        m_Texture: {fileID: 2800000, guid: 9772170420fc6594e89ff9f299320c51, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_aabe0c7c8c5c4b6fa51df49aa7981171_Texture_1_Texture2D:
         m_Texture: {fileID: 2800000, guid: 9772170420fc6594e89ff9f299320c51, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -86,31 +86,32 @@ Material:
     m_Ints: []
     m_Floats:
     - _Add: 0
-    - _Bottom_Gradient_Mask_Strength: 3
+    - _Bottom_Gradient_Mask_Strength: 0.5
     - _Bottom_Gradpient_mask: 1.87
-    - _Distorion_Strength: 0.5
+    - _Distorion_Strength: 0
     - _Distort_the_Mask: 0
     - _Edge_1: 0
     - _Edge_2: 0
-    - _Invert: 1
+    - _Invert: 0
     - _Mask_Distorion_Strength: 0.1
-    - _Mask_Edge_1: 1
-    - _Mask_Edge_2: 0
+    - _Mask_Edge_1: 0
+    - _Mask_Edge_2: 1
     - _Mask_Power: 1
     - _Mask_Scale: 1.26
     - _Noise_Strength: 1
-    - _Outline: 1
+    - _Outline: 0
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Thickness: 20
+    - _Scale: 1
+    - _Thickness: 44.84
     m_Colors:
-    - _Color: {r: 0, g: 1.4980392, b: 1.4032618, a: 1}
-    - _Distorion_Seeed: {r: 0, g: 0.05, b: 0, a: 0}
-    - _Distorion_Tiling: {r: 0.5, g: 0.5, b: 0, a: 0}
+    - _Color: {r: 1.8358681, g: 2, b: 0, a: 1}
+    - _Distorion_Seeed: {r: 0, g: 0.01, b: 0, a: 0}
+    - _Distorion_Tiling: {r: 1, g: 1, b: 0, a: 0}
     - _Mask_Distorion_Seeed: {r: 0, g: 0, b: 0, a: 0}
     - _Mask_Distorion_Tiling: {r: 1, g: 1, b: 0, a: 0}
     - _Mask_Offset: {r: 0, g: 0, b: 0, a: 0}
-    - _Noise_Speed: {r: 0, g: -0.05, b: 0, a: 0}
+    - _Noise_Speed: {r: 0, g: 0.04, b: 0, a: 0}
     - _Noise_Tiling_and_Offset: {r: 2, g: 2, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &7934959145037439734

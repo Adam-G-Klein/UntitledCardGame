@@ -38,7 +38,7 @@ Material:
     m_TexEnvs:
     - _Dissolve_Texture:
         m_Texture: {fileID: 2800000, guid: 569d7fb86845e1245982f905358d117a, type: 3}
-        m_Scale: {x: 0.25, y: 0.25}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Distortion_Tex:
         m_Texture: {fileID: 2800000, guid: 0009a37dcf5808e4fbf074aeca753987, type: 3}
@@ -65,6 +65,7 @@ Material:
     - _Dissolve_Amount: 0
     - _Distortion_Strength: 0
     - _Fresnel: 0
+    - _Not_using_Dist_in_Custom_Data: 1
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
