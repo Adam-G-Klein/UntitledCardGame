@@ -42,7 +42,12 @@ public class MapUI : MonoBehaviour
                 iconState = IconState.OUT_OF_RANGE;
                 button.style.unityBackgroundImageTintColor = c;
             } else {
-                button.style.unityBackgroundImageTintColor = Color.green;
+                //button.style.unityBackgroundImageTintColor = Color.green;
+                var done = button.Q<VisualElement>("done");
+                if (done != null)
+                {
+                   done.style.unityBackgroundImageTintColor = Color.black;
+                }
                 iconState = IconState.COMPLETED;
                 activeEncounterIndex++;
                 
