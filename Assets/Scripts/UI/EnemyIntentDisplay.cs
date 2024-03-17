@@ -48,7 +48,6 @@ public class EnemyIntentDisplay : MonoBehaviour
     }
 
     public IEnumerable displayIntent(EnemyInstance enemy)  {
-        Debug.Log("here im here im here");
         clearIntent();
         if (enemy.currentIntent == null) {
             Debug.Log("Enemy " + enemy.name + " has no current intent");

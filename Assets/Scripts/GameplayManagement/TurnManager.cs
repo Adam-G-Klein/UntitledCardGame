@@ -97,8 +97,8 @@ public class TurnManager : GenericSingleton<TurnManager>
         // has to be in a coroutine so we can wait for all the triggers before doing this
         // TODO: implement defeat. I think having the companion/enemy manager raise the end encounter turn phase
         // is correct so we can catch the triggers, but we definitely can't pass the outcome along with that
-        Debug.Log("Victory!");
-        endEncounterEvent.Raise(new EndEncounterEventInfo(EncounterOutcome.Victory));
+        EncounterOutcome outcome = CombatEntityManager.Instance.getCompanions().Count > 0 ? EncounterOutcome.Victory : EncounterOutcome.Defeat;
+        endEncounterEvent.Raise(new EndEncounterEventInfo(outcome));
     }
 
     public void registerTurnPhaseTriggerEventHandler(TurnPhaseTriggerEventInfo info) {

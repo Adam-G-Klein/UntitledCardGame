@@ -81,12 +81,12 @@ public class TeamSelectionUI : MonoBehaviour
 
         var archetype = new Label();
         stripMarginAndPadding(archetype).AddToClassList("archetype-name");
-        archetype.text = "IDK probably something";
+        archetype.text = "Lorem ipsum dolor sit amet";
         textContainer.Add(archetype);
 
         var desc = new Label();
         stripMarginAndPadding(desc).AddToClassList("description");
-        desc.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. lmao gottem";
+        desc.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ";
         textContainer.Add(desc);
 
         container.Add(textContainer);

@@ -38,6 +38,7 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
     // position 0 is front
     // position -1 is back
     public CompanionInstance GetCompanionInstanceAtPosition(int position) {
+        if(companions.Count <= 0) return null;
         if (position == -1 || position >= companions.Count) {
             return companions[companions.Count - 1];
         }

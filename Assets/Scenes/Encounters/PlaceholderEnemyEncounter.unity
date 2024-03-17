@@ -1487,6 +1487,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1894496486}
     - target: {fileID: 8734870270850589833, guid: 28a067a8b113e3a4aadb83e0e82a16bd, type: 3}
+      propertyPath: postGamePopup
+      value: 
+      objectReference: {fileID: 2140288242}
+    - target: {fileID: 8734870270850589833, guid: 28a067a8b113e3a4aadb83e0e82a16bd, type: 3}
       propertyPath: enemyLocationStoreGO
       value: 
       objectReference: {fileID: 1176866126}
@@ -2543,6 +2547,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2140288242 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7007626260683874089, guid: 63dfb323aea5cb14da568cc4b853b96e, type: 3}
+  m_PrefabInstance: {fileID: 595443444}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

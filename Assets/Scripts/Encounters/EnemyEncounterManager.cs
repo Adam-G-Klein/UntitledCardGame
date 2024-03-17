@@ -29,6 +29,8 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     private EndEncounterEvent endEncounterEvent;
     [SerializeField]
     private UIStateEvent uIStateEvent;
+    [SerializeField]
+    private GameObject postGamePopup;
 
     public LocationStore companionLocationStore { 
         get {
@@ -84,6 +86,12 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     }
 
     public void EndEncounterHandler(EndEncounterEventInfo info) {
+        Debug.Log("EndEncounterHandler called, info.outcome is " + info.outcome + " gameState.GetLoopIndex() is " + gameState.GetLoopIndex() + " gameState.lastTutorialLoopIndex is " + gameState.lastTutorialLoopIndex);
+        if(info.outcome == EncounterOutcome.Defeat
+            || gameState.GetLoopIndex() >= gameState.bossFightLoopIndex) {
+            postGamePopup.SetActive(true);
+            return;
+        }
         gameState.activeEncounter.GetValue().isCompleted = true;
         Debug.Log("EndEncounterHandler called, activeEncounter is " + gameState.activeEncounter.GetValue().id + " isCompleted is " + gameState.activeEncounter.GetValue().isCompleted);
 
