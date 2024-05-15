@@ -410,6 +410,84 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scaleAmount: 4
   canvasToScale: {fileID: 543958284}
+--- !u!1 &1000025144
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1000025146}
+  - component: {fileID: 1000025145}
+  m_Layer: 0
+  m_Name: TutorialManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1000025145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000025144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dce3f58cfdded54b9787d2f011e9c23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tutorialSteps:
+  - rid: 6693290547241287680
+  - rid: 6693290548432994306
+  currentStepIndex: 0
+  initStep: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 6693290547241287680
+      type: {class: UnityEventTutorialStep, ns: , asm: Assembly-CSharp}
+      data:
+        tutorialStepType: UnityEventTutorialStep
+        stepName: test1
+        actions:
+        - rid: 6693290548432994305
+        initAction: 0
+    - rid: 6693290548432994305
+      type: {class: DebugAction, ns: , asm: Assembly-CSharp}
+      data:
+        tutorialActionType: DebugAction
+        debugString: TESTING IM HERE
+    - rid: 6693290548432994306
+      type: {class: UnityEventTutorialStep, ns: , asm: Assembly-CSharp}
+      data:
+        tutorialStepType: UnityEventTutorialStep
+        stepName: test2
+        actions:
+        - rid: 6693290548432994307
+        initAction: 0
+    - rid: 6693290548432994307
+      type: {class: DebugAction, ns: , asm: Assembly-CSharp}
+      data:
+        tutorialActionType: DebugAction
+        debugString: AND NOW IM HERE!!!
+--- !u!4 &1000025146
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000025144}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1768978785
 GameObject:
   m_ObjectHideFlags: 0
@@ -734,3 +812,4 @@ SceneRoots:
   - {fileID: 1768978787}
   - {fileID: 352837023}
   - {fileID: 1488288606357421138}
+  - {fileID: 1000025146}
