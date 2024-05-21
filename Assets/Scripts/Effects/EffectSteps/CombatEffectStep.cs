@@ -38,6 +38,8 @@ public class CombatEffectStep : EffectStep
         effectStepName = "CombatEffectStep";
     }
 
+    public int Scale { get { return scale; } }
+
     public override IEnumerator invoke(EffectDocument document) {
         List<CombatInstance> instances = document.map.GetList<CombatInstance>(inputKey);
         if (instances.Count == 0) {

@@ -54,19 +54,42 @@ public class Card : Entity, IEquatable<Card>
     private Dictionary<CombatEffect, int> effectBuffs = new Dictionary<CombatEffect, int>();
     private Dictionary<CardModification, int> cardModifications = new Dictionary<CardModification, int>();
 
-    [HideInInspector]
-    public string description {
-        get {
-            String retDescription = cardType.Description;
-            if (effectBuffs == null || effectBuffs.Count == 0) {
-                return retDescription;
+    public string GetDescription(CombatInstance combatInstance) {
+        int baseDamage = 0;
+
+        foreach (var effect in cardType.effectWorkflows[workflowIndex].effectSteps) {
+            if (effect is CombatEffectStep) {
+                baseDamage = ((CombatEffectStep)effect).Scale;
             }
-            foreach(CombatEffect effect in effectBuffs.Keys){
-                if(effectBuffs[effect] != 0) {
-                    retDescription += "\n" + "(" + effectBuffs[effect] + " additional " + effect.ToString() + ")";
-                }
-            }
+        }
+
+        String retDescription = updateDescriptionVariables(cardType.Description, combatInstance, baseDamage);
+
+        if (effectBuffs == null || effectBuffs.Count == 0) {
             return retDescription;
+        }
+
+        foreach (CombatEffect effect in effectBuffs.Keys) {
+            if (effectBuffs[effect] != 0) {
+                retDescription += "\n" + "(" + effectBuffs[effect] + " additional " + effect.ToString() + ")";
+            }
+        }
+
+        return retDescription;
+    }
+
+    private string updateDescriptionVariables(string inputString, CombatInstance combatInstance, int baseDamage) {
+        const string strengthIdentifier = "{strength}";
+
+        //Calculate the new value that will be inserted
+
+        if (combatInstance != default) {
+            int finalDamage = combatInstance.GetCurrentDamage() + baseDamage;
+
+            return inputString.Replace(strengthIdentifier, finalDamage.ToString());
+        }
+        else {
+            return inputString.Replace(strengthIdentifier, "AHHHHHH FIX THIS PLEASe AHHHAHHAH");
         }
     }
 

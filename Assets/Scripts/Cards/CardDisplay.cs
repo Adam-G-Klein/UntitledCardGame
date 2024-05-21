@@ -66,16 +66,16 @@ public class CardDisplay : MonoBehaviour
         }
     }
 
-    public void Initialize(Card cardInfo) {
-        StartCoroutine(InitializeCorout(cardInfo));
+    public void Initialize(Card cardInfo, CombatInstance combatInstance = default) {
+        StartCoroutine(InitializeCorout(cardInfo, combatInstance));
     }
 
-    public IEnumerator InitializeCorout(Card cardInfo) {
+    public IEnumerator InitializeCorout(Card cardInfo, CombatInstance combatInstance) {
         this.cardInfo = cardInfo;
         // these are also done on Update(), keeping em here in case we wanna remove that
         // easy perf boost if we can
         CardNameGO.text = cardInfo.name;
-        CardDescGO.text = cardInfo.description;
+        CardDescGO.text = cardInfo.GetDescription(combatInstance);
         CostTextGO.text = cardInfo.GetManaCost().ToString();
         ArtworkGO.sprite = cardInfo.artwork;
         CompanionTypeSO companionType = cardInfo.getCompanionFrom();

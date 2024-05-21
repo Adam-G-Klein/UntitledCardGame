@@ -45,8 +45,7 @@ public class CombatInstance : MonoBehaviour
 
     public int GetCurrentDamage() {
         return Mathf.Max(0, (
-                combatStats.baseAttackDamage 
-                + statusEffects[StatusEffect.Strength]
+                statusEffects[StatusEffect.Strength]
                 + statusEffects[StatusEffect.TemporaryStrength]
                 - statusEffects[StatusEffect.Weakness]));
     }
