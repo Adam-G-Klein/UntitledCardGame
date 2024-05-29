@@ -16,7 +16,7 @@ public class TargettingManager : GenericSingleton<TargettingManager>
     private TargettingArrowsController targettingArrows;
 
     // ========== Card Selecting ========== //
-    private bool lookingForCardSelections;
+    public bool lookingForCardSelections;
     private List<Card> cardSelectionsList;
 
     public void InvokeTargetSuppliedHandler(Targetable target) {
@@ -37,7 +37,8 @@ public class TargettingManager : GenericSingleton<TargettingManager>
             string promptText,
             int minCardsToSelect,
             int maxCardsToSelect,
-            List<Card> output) {
+            List<Card> output 
+            ) {
         GameObject gameObject = GameObject.Instantiate(
             cardSelectionUIPrefab,
             Vector3.zero,

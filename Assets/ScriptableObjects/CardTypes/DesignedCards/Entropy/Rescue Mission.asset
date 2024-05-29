@@ -35,12 +35,12 @@ MonoBehaviour:
         - rid: 9024302470308298798
         - rid: 5592738912264781825
         - rid: 5592738912264781826
-        - rid: 9024302470308298799
+        - rid: 6693290932869791760
     - rid: 5592738912264781825
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ApplyStatus
-        inputKey: 
+        inputKey: targetCompanion
         statusEffect: 2
         scale: 5
         getScaleFromKey: 0
@@ -49,12 +49,20 @@ MonoBehaviour:
       type: {class: GetCardsFromDeck, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetCardsFromDeck
-        inputKey: 
+        inputKey: targetCompanion
         getLimitedNumber: 1
         numberOfCardsToGet: 1
         outputKey: cardToExhaust
         getCardsFromSourceDeck: 1
         getAllFromOnlyDrawPile: 0
+    - rid: 6693290932869791760
+      type: {class: CardInDeckEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardInDeckEffect
+        inputCardsKey: 
+        inputDeckKey: 
+        effect: 0
+        outputKey: 
     - rid: 9024302470308298798
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -66,9 +74,3 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
-    - rid: 9024302470308298799
-      type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CardInHandEffect
-        inputKey: cardToExhaust
-        effect: 1

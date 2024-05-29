@@ -29,7 +29,7 @@ public class SelectCardsFromList : EffectStep {
     [SerializeField]
     private bool getNumberOfTargetsFromKey = false;
     [SerializeField]
-    private string inputTargetsKey = "";
+    private string inputNumberOfTargetsKey = "";
     [SerializeField]
     private bool randomizeOrder = false;
 
@@ -51,7 +51,7 @@ public class SelectCardsFromList : EffectStep {
         List<Card> selections = new List<Card>();
 
         TargettingManager.Instance.selectCards(cardOptions, promptText, minTargets, maxTargets, selections);
-        yield return new WaitUntil(() => selections.Count > 0);
+        yield return new WaitUntil(() => selections.Count > 0 || !TargettingManager.Instance.lookingForCardSelections);
 
         document.map.AddItems<Card>(outputKey, selections);
 

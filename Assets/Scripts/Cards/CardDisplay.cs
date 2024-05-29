@@ -72,7 +72,13 @@ public class CardDisplay : MonoBehaviour
             vfxGO = Instantiate(companionType.cardIdleVfxPrefab, transform);
             vfxGO.transform.SetSiblingIndex(0);
         }
+        if(companionType.cardFrame == null) {
+            Debug.LogError("CompanionTypeSO " + companionType.name + " has no cardFrame set");
+        }  
         FrameGO.sprite = companionType.cardFrame;
+        if(companionType.typeIcon == null) {
+            Debug.LogError("CompanionTypeSO " + companionType.name + " has no typeIcon set");
+        }
         TypeIconGO.sprite = companionType.typeIcon;
         yield return null;
 

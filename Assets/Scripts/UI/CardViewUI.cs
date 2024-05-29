@@ -20,7 +20,7 @@ public class CardViewUI : MonoBehaviour
     private int maxSelections;
     private List<UICard> selectedCards = new List<UICard>();
 
-    public void Setup(List<Card> cards, int minSelections, string promptText, int maxSelections = -1) {
+    public void Setup(List<Card> cards, int minSelections, string promptText, int maxSelections = -1, CompanionInstance companionFrom = null) {
         foreach (Card card in cards) {
             createCard(card);
         }
@@ -73,9 +73,7 @@ public class CardViewUI : MonoBehaviour
         foreach (UICard uiCard in selectedCards) {
             outputCards.Add(uiCard.card);
         }
-        if (outputCards.Count != 0) {
-            cardsSelectedEvent.Raise(new CardListEventInfo(outputCards));
-        }
+        cardsSelectedEvent.Raise(new CardListEventInfo(outputCards));
         Destroy(this.gameObject);
     }
 

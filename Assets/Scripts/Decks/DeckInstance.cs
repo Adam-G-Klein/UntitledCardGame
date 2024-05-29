@@ -73,11 +73,23 @@ public class DeckInstance : MonoBehaviour
         this.sourceDeck = sourceDeck;
         this.drawPile = new List<Card>();
         foreach(Card card in sourceDeck.cards) {
-            this.drawPile.Add(new Card(card));
+            Card newCard = new Card(card);
+            SetCompanionFromOnCard(newCard);
+            this.drawPile.Add(newCard);
         }
         this.discardPile = new List<Card>();
         this.inHand = new List<Card>();
         ShuffleDeck();
+    }
+
+    private void SetCompanionFromOnCard(Card card) {
+        CompanionInstance companionInstance = GetComponent<CompanionInstance>();
+        if(companionInstance == null) {
+            Debug.LogError("DeckInstance " + this + " does not have a companion instance, cannot set companion from");
+            return;
+        } else {
+            card.setCompanionFrom(companionInstance.companion.companionType);
+        }
     }
 
     public List<PlayableCard> DealCardsToPlayerHand(int numCards) {
@@ -183,6 +195,7 @@ public class DeckInstance : MonoBehaviour
         } else if (inHand.Contains(card)) {
             Debug.Log("Exhausting card " + card.id + " from hand");
             inHand.Remove(card);
+            PlayerHand.Instance.RemoveCardFromHand(card);
         }
         exhaustPile.Add(card);
         EnemyEncounterManager.Instance.combatEncounterState.cardsExhaustThisTurn.Add(card);

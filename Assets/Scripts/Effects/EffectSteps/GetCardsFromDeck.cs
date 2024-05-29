@@ -20,11 +20,18 @@ public class GetCardsFromDeck : EffectStep {
     private bool getLimitedNumber = false;
     [SerializeField]
     private int numberOfCardsToGet = 1;
+
+    [SerializeField]
+    [Header("If checked, we shuffle the discard pile into the draw pile if the draw pile is empty")]
+    private bool shuffleIfEmpty = true;
+
     [SerializeField]
     private string outputKey = "";
+    [Header("If checked, we don't need an instance in inputKey, we'll get the cards from the entity casting this effect")]
     [SerializeField]
     private bool getCardsFromSourceDeck = false;
     [SerializeField]
+    [Header("If checked, ignore the numberOfCards and return the whole draw pile of the target deck")]
     private bool getAllFromOnlyDrawPile = false;
 
     public GetCardsFromDeck() {
@@ -51,12 +58,12 @@ public class GetCardsFromDeck : EffectStep {
                 num = numberOfCardsToGet;
                 // Need to see if the number to get exceeds all possible cards to retrieve
                 num = Mathf.Min(num, instance.drawPile.Count + instance.discardPile.Count);
-                if (num > instance.drawPile.Count) {
+                if (num > instance.drawPile.Count && shuffleIfEmpty) {
                     instance.ShuffleDiscardIntoDraw();
                 }
             } else {
                 num = instance.drawPile.Count;
-                if (num == 0) {
+                if (num == 0 && shuffleIfEmpty) {
                     // If we need to retrieve cards from a deck's draw pile and it's empty, then we need to shuffle
                     instance.ShuffleDiscardIntoDraw();
                     num = instance.drawPile.Count;

@@ -58,11 +58,10 @@ public class PlayableCard : MonoBehaviour,
     private IEnumerator CardFinishCastingCallback() {
         ManaManager.Instance.updateMana(-card.GetManaCost());
         StartCoroutine(cardCastEvent.RaiseAtEndOfFrameCoroutine(new CardCastEventInfo(card)));
-        DiscardCardFromHand();
         IncrementCastCount();
         EnemyEncounterManager.Instance.combatEncounterState.cardsCastThisTurn.Add(card);
         yield return StartCoroutine(deckFrom.OnCardCast(this));
-        Destroy(this.gameObject);
+        DiscardCardFromHand();
     }
 
     private void IncrementCastCount(){
@@ -71,10 +70,12 @@ public class PlayableCard : MonoBehaviour,
 
     public void DiscardCardFromHand() {
         PlayerHand.Instance.DiscardCard(this);
+        Destroy(this.gameObject);
     }
 
     public void ExhaustCard() {
         deckFrom.ExhaustCard(card);
+        Destroy(this.gameObject);
     }
 
     // Called by playerHand.discardCard

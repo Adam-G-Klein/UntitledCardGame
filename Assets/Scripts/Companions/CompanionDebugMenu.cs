@@ -21,8 +21,12 @@ public class CompanionDebugMenu : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        Debug.LogWarning("CompanionDebugMenu has been temporarily deprecated. Idk where the buttonsGameObject object went but it's not in the Companion.prefab anymore. Don't want to drown in errors for now"); 
+        // TODO: reimplement the buttonsGameObject in the Companion prefab
+        /*
         bool areButtonsActive = buttonsGameObject.activeSelf;
         buttonsGameObject.SetActive(!areButtonsActive);
+        */
     }
 
     public void ViewDrawPile() {

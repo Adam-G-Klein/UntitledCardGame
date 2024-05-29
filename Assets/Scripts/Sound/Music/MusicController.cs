@@ -120,12 +120,13 @@ public class MusicController : GenericSingleton<MusicController>
     public void PlaySFX(AudioClip clip, float volume = -1, float pitch = 1.0f) {
         if(sfxSource == null) {
             if(transform.childCount == 0) {
-                Debug.LogWarning("No sfx source found");
+                // TODO: completely refactor the sound system. No point in improving this marginally
+                // Debug.LogWarning("No sfx source found");
                 return;
             }
             sfxSource = transform.GetChild(0).GetComponent<AudioSource>();
             if(sfxSource == null) {
-                Debug.LogWarning("No sfx source found");
+                // Debug.LogWarning("No sfx source found");
                 return;
             }
         }

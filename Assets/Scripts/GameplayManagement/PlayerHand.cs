@@ -54,6 +54,11 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         cardsInHand = retainedCards;
     }
 
+    public void RemoveCardFromHand(Card card) {
+        cardsInHand.Remove(GetCardById(card.id));
+        UpdateLayout();
+    }
+
     // Do not call on whole hand, only call on individual cards
     // modifies the list of cards in hand 
     public void DiscardCard(PlayableCard card) {
@@ -63,6 +68,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             cardsInHand.Remove(card);
             card.DiscardFromDeck();
         }
+        UpdateLayout();
     }
 
     public void UpdateLayout() {

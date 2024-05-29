@@ -29,6 +29,15 @@ public class GameStateVariableSOEditor : Editor {
         }
 
         EditorGUILayout.Space(20);
+        EditorGUILayout.LabelField("Companion List Controls");
+        EditorGUILayout.Space(10);
+        if(GUILayout.Button("Heal Companions")) { 
+            foreach(Companion companion in gameStateVariableSO.companions.activeCompanions) {
+                companion.combatStats.currentHealth = companion.combatStats.maxHealth;
+            }
+        }
+
+        EditorGUILayout.Space(20);
         EditorGUILayout.LabelField("Active Encounter Controls");
         EditorGUILayout.Space(10);
         encounterType = (EncounterType) EditorGUILayout.EnumPopup("Encounter Type:", encounterType);

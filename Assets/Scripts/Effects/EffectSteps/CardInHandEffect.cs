@@ -35,7 +35,6 @@ public class CardInHandEffect : EffectStep
                 break;
 
                 case CardInHandEffectName.Exhaust:
-                    card.DiscardCardFromHand();
                     card.ExhaustCard();
                 break;
 

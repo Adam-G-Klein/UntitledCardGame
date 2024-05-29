@@ -41,7 +41,7 @@ MonoBehaviour:
       data:
         effectStepName: DrawCards
         inputKey: targetCompanion
-        outputKey: 
+        outputKey: cards
         scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
@@ -51,8 +51,8 @@ MonoBehaviour:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: origin
-        validTargets: 03000000
+        outputKey: targetCompanion
+        validTargets: 00000000
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
@@ -66,10 +66,10 @@ MonoBehaviour:
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
+        useInputToLimitOptions: 1
+        inputKey: cards
         outputKey: cardToExhaust
         validTargets: 03000000
         number: 1
         specialTargetRule: 5
-        cantCancelTargetting: 0
+        cantCancelTargetting: 1
