@@ -31,6 +31,13 @@ MonoBehaviour:
   abilities:
   - rid: 3931529445166809118
   upgradeInfo: {fileID: 11400000, guid: 99076b48c6110564cb87cbbb29a513b6, type: 2}
+  tooltip:
+    empty: 0
+    lines:
+    - title: Rene, The Clown
+      description: Laughs off damage. Each turn, exhausts the top card of his deck
+        and gains 3 block.
+      image: {fileID: 0}
   references:
     version: 2
     RefIds:
@@ -61,6 +68,7 @@ MonoBehaviour:
         inputKey: self
         getLimitedNumber: 1
         numberOfCardsToGet: 1
+        shuffleIfEmpty: 1
         outputKey: topOfDeck
         getCardsFromSourceDeck: 0
         getAllFromOnlyDrawPile: 0

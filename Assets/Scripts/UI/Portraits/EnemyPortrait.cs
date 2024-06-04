@@ -9,7 +9,7 @@ public class EnemyPortrait : MonoBehaviour
     [SerializeField] private EntityHealthBar healthBar;
     [SerializeField] private StatusEffectDisplaysController statusEffectsController;
     [SerializeField] private EnemyIntentDisplay enemyIntentDisplay;
-    private EnemyInstance enemyInstance;
+    public EnemyInstance enemyInstance;
 
     public void Setup(EnemyInstance enemyInstance) {
         Debug.Log("Setting up enemy portrait for " + enemyInstance.name);

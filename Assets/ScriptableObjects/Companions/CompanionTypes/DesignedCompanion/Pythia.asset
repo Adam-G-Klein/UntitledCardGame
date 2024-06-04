@@ -30,6 +30,13 @@ MonoBehaviour:
   speakerType: {fileID: 11400000, guid: 9e835f3c4c49e9f4da934369a0a7132b, type: 2}
   abilities: []
   upgradeInfo: {fileID: 11400000, guid: 99076b48c6110564cb87cbbb29a513b6, type: 2}
+  tooltip:
+    empty: 0
+    lines:
+    - title: Pythia, the Psychic
+      description: Manipulates the decks of others, provides card advantage. Draw
+        an extra card from her deck every turn.
+      image: {fileID: 0}
   references:
     version: 2
     RefIds: []

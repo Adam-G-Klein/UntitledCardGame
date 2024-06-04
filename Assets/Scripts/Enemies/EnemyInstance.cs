@@ -19,7 +19,8 @@ public class EnemyInstance : MonoBehaviour {
     private EnemyIntentDisplay intentDisplay;
     [SerializeField]
     private CombatEffectEvent combatEffectEvent;
-    private List<TurnPhaseTrigger> turnPhaseTriggers = new List<TurnPhaseTrigger>();
+    [HideInInspector]
+    public List<TurnPhaseTrigger> turnPhaseTriggers = new List<TurnPhaseTrigger>();
 
     // Start is called before the first frame update
     public void Start() {

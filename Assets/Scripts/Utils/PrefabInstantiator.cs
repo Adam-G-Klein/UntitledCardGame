@@ -65,4 +65,17 @@ public static class PrefabInstantiator {
         return enemyInstance;
     }
 
+    public static TooltipView instantiateTooltipView(GameObject tooltipPrefab, Tooltip tooltip, Vector2 position, Transform parent) {
+        GameObject tooltipGO = GameObject.Instantiate(
+            tooltipPrefab,
+            position,
+            Quaternion.identity,
+            parent);
+
+        TooltipView view = tooltipGO.GetComponent<TooltipView>();
+        Debug.Log("Tooltip: view after instantiation: " + view + " tooltip empty? " + tooltip.empty);
+        view.tooltip = tooltip;
+        return view;
+    }
+
 }

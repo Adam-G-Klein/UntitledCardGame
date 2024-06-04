@@ -54,8 +54,10 @@ MonoBehaviour:
         inputKey: target
         getLimitedNumber: 1
         numberOfCardsToGet: 1
+        shuffleIfEmpty: 0
         outputKey: topCard
         getCardsFromSourceDeck: 0
+        getAllFromOnlyDrawPile: 0
     - rid: 3931529445166809458
       type: {class: SelectCardsFromList, ns: , asm: Assembly-CSharp}
       data:
@@ -66,7 +68,8 @@ MonoBehaviour:
         minTargets: 0
         maxTargets: 1
         getNumberOfTargetsFromKey: 0
-        inputTargetsKey: 
+        inputNumberOfTargetsKey: 
+        randomizeOrder: 0
     - rid: 3931529445166809459
       type: {class: CardInDeckEffect, ns: , asm: Assembly-CSharp}
       data:

@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8b474d75c39b454ea3270f39065ab8a, type: 3}
+  m_Name: TooltipMapSO
+  m_EditorClassIdentifier: 
+  effectTooltipMappings:
+  - title: Strength
+    description: Increases every instance of damage this companion deals
+    image: {fileID: 0}
+    tooltipKeyword: 6
+  - title: Block
+    description: Prevents up to X damage dealt to this companion until next turn
+    image: {fileID: 0}
+    tooltipKeyword: 7
+  - title: Exhaust
+    description: Removes a card for the rest of combat
+    image: {fileID: 0}
+    tooltipKeyword: 0
+  - title: Draw
+    description: Choose a companion to draw X cards from
+    image: {fileID: 0}
+    tooltipKeyword: 3
+  - title: Scry
+    description: Look at the top X cards of a chosen deck, discard any number of
+      them.
+    image: {fileID: 0}
+    tooltipKeyword: 5
+  - title: Discard
+    description: Moves the card to the companion's discard pile
+    image: {fileID: 0}
+    tooltipKeyword: 2
+  - title: Attacking
+    description: This enemy will attack you next turn
+    image: {fileID: 0}
+    tooltipKeyword: 11
+  - title: Debuffing
+    description: This enemy will debuff you next turn
+    image: {fileID: 0}
+    tooltipKeyword: 12
+  - title: Charging
+    description: This enemy is just charging up this turn
+    image: {fileID: 0}
+    tooltipKeyword: 13

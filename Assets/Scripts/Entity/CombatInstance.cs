@@ -178,16 +178,23 @@ public class CombatInstance : MonoBehaviour
     private void UpdateStatusEffect(StatusEffect status) {
         switch (status) {
             case StatusEffect.Defended:
+                statusEffects[status] = 0;
+                break;
             case StatusEffect.Thorns:
                 statusEffects[status] = 0;
-            break;
+                break;
 
             case StatusEffect.TemporaryStrength:
+                statusEffects[status] = 0;
+                break;
             case StatusEffect.Invulnerability:
+                statusEffects[status] = 0;
+                break;
             case StatusEffect.Weakness:
-            case StatusEffect.Orb:
                 statusEffects[status] = DecrementStatus(statusEffects[status]);
-            break;
+                break;
+            case StatusEffect.Orb:
+                break;
             
             // This is separate from the above for now since this might
             // need special logic
