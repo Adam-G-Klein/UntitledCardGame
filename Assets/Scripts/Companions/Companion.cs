@@ -51,6 +51,7 @@ public class Companion : Entity, ICombatStats, IDeckEntity
 
         //reset health to the new max
         this.combatStats.MultiplyMaxHealth((float) upgradeInfo.healthUpgradeFactor);
+        this.combatStats.currentHealth = this.combatStats.maxHealth;
         
         this.deck.cardsDealtPerTurn += upgradeInfo.cardPerTurnUpgrade;
     }
