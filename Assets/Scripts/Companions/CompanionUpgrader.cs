@@ -2,6 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+
+
+TODO:
+- implement rudimentary tooltip system?
+- call upgrade and combine automatically if the number of companions is high enough
+- make the companion purchase button glow if the player has enough companions to combine
+
+Tooltips:
+- tooltip component, instantiate object that follows mouse on hover after a delay
+- tooltip view, populates an attached textmeshpro with the string in the tooltip object
+- tooltip object, serializeReference from TooltipInstantiator
+*/
 public static class CompanionUpgrader 
 {
     public static int companionsNeededToCombine = 3;

@@ -52,15 +52,16 @@ MonoBehaviour:
         inputKey: targetCompanion
         getLimitedNumber: 1
         numberOfCardsToGet: 1
+        shuffleIfEmpty: 0
         outputKey: cardToExhaust
-        getCardsFromSourceDeck: 1
+        getCardsFromSourceDeck: 0
         getAllFromOnlyDrawPile: 0
     - rid: 6693290932869791760
       type: {class: CardInDeckEffect, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CardInDeckEffect
-        inputCardsKey: 
-        inputDeckKey: 
+        inputCardsKey: cardToExhaust
+        inputDeckKey: targetCompanion
         effect: 0
         outputKey: 
     - rid: 9024302470308298798
