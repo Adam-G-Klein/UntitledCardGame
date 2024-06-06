@@ -13,7 +13,7 @@ using UnityEngine;
         - GetScaleFromKey: If checked, the scale will be pulled from a previous step
         - InputScaleKey: The key from which to pull the scale integer from
 */
-public class ApplyStatus : EffectStep
+public class ApplyStatus : EffectStep, ITooltipProvider
 {
     [SerializeField]
     [Tooltip(
@@ -51,5 +51,14 @@ public class ApplyStatus : EffectStep
             combatInstance.ApplyStatusEffects(statusEffect, finalScale);
         }
         yield return null;
+    }
+
+    public Tooltip GetTooltip() {
+        //Resources.Load<TooltipMapSO>("TooltipConfig/TooltipMapSO").GetTooltip(TooltipKeyword.ApplyStatus);
+        if(KeywordTooltipProvider.Instance.HasTooltip(statusEffect))
+        {
+            return KeywordTooltipProvider.Instance.GetTooltip(statusEffect);
+        }
+        return new Tooltip(empty: true);
     }
 }

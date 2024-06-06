@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 8572008018031415410}
   - component: {fileID: 8016049358635749021}
   m_Layer: 0
-  m_Name: DialogueManager
+  m_Name: SceneManagerGO
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -98,7 +98,6 @@ MonoBehaviour:
     rid: -2
   postSequenceEvents: []
   nextPostSequenceEventIndex: 0
-  tutorialSequence: {fileID: 11400000, guid: 1fb436fda8c0ec44fb10c299c6d4707c, type: 2}
   references:
     version: 2
     RefIds:
