@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 294639024923325154}
   - component: {fileID: 464090019210302972}
   - component: {fileID: 7857896304447221337}
+  - component: {fileID: 2856606210207048352}
   - component: {fileID: 4255508994755942842}
   m_Layer: 5
   m_Name: CardInHand
@@ -180,6 +181,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetType: 3
+--- !u!114 &2856606210207048352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5521833032725427039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28ab8638594f3ad4e8fbce374926ceac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4255508994755942842
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,7 +208,7 @@ MonoBehaviour:
   tooltipPrefab: {fileID: 2816874809441598624, guid: 39e007ab3d5dc2a489824af9da1f4bae, type: 3}
   tooltip:
     rid: 5476467400653144066
-  positionOffset: {x: 0, y: -10, z: 0}
+  positionOffset: {x: 0, y: 2.5, z: 0}
   displayWaitTime: 1
   references:
     version: 2
@@ -203,6 +216,7 @@ MonoBehaviour:
     - rid: 5476467400653144066
       type: {class: Tooltip, ns: , asm: Assembly-CSharp}
       data:
+        empty: 0
         plainText: 'Test card tooltip! '
 --- !u!1001 &8552289041173328139
 PrefabInstance:

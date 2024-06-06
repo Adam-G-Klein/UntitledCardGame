@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8b474d75c39b454ea3270f39065ab8a, type: 3}
+  m_Name: TooltipMapSO
+  m_EditorClassIdentifier: 
+  effectTooltipMappings:
+  - tooltip:
+      empty: 0
+      plainText: strength tip!
+    tooltipKeyword: 6
+  - tooltip:
+      empty: 0
+      plainText: block tip!
+    tooltipKeyword: 7
+  - tooltip:
+      empty: 0
+      plainText: exhaust tip!
+    tooltipKeyword: 0
+  - tooltip:
+      empty: 0
+      plainText: draw tip!
+    tooltipKeyword: 3

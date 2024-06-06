@@ -4,11 +4,31 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+[System.Serializable]
 public class Tooltip {
+    public bool empty;
     public string plainText;
 
     public Tooltip(string plainText) {
         this.plainText = plainText;
+        this.empty = false;
+    }
+
+    public Tooltip(bool empty = true) {
+        this.empty = empty;
+        this.plainText = "";
+    }
+
+    // To be expanded upon with images and headers later
+    public static Tooltip operator +(Tooltip a, Tooltip b) {
+        if(a.empty && b.empty) {
+            return new Tooltip();
+        } else if(a.empty) {
+            return b;
+        } else if(b.empty) {
+            return a;
+        }
+        return new Tooltip(a.plainText + "\n" + b.plainText);
     }
 }
 
