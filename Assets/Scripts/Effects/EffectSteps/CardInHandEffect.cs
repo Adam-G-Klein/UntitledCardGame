@@ -10,12 +10,17 @@ using UnityEngine;
     Parameters:
         - Effect: The effect to enact on the card(s)
 */
-public class CardInHandEffect : EffectStep
+public class CardInHandEffect : EffectStep, ITooltipProvider
 {
     [SerializeField]
     private string inputKey = "";
     [SerializeField]
     private CardInHandEffectName effect;
+
+    private static Dictionary<CardInHandEffectName, TooltipKeyword> tooltipMapping = new Dictionary<CardInHandEffectName, TooltipKeyword>() {
+        {CardInHandEffectName.Discard, TooltipKeyword.Discard},
+        {CardInHandEffectName.Exhaust, TooltipKeyword.Exhaust}
+    };
 
     public CardInHandEffect() {
         effectStepName = "CardInHandEffect";
@@ -52,4 +57,12 @@ public class CardInHandEffect : EffectStep
         Exhaust,
         Retain
     }
+
+    public Tooltip GetTooltip(){
+        if(KeywordTooltipProvider.Instance.HasTooltip(tooltipMapping[effect])){
+            return KeywordTooltipProvider.Instance.GetTooltip(tooltipMapping[effect]);
+        }
+        else return new Tooltip(empty: true);
+    }
+
 }

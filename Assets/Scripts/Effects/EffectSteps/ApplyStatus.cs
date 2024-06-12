@@ -54,7 +54,6 @@ public class ApplyStatus : EffectStep, ITooltipProvider
     }
 
     public Tooltip GetTooltip() {
-        //Resources.Load<TooltipMapSO>("TooltipConfig/TooltipMapSO").GetTooltip(TooltipKeyword.ApplyStatus);
         if(KeywordTooltipProvider.Instance.HasTooltip(statusEffect))
         {
             return KeywordTooltipProvider.Instance.GetTooltip(statusEffect);

@@ -37,4 +37,13 @@ public class TooltipMapSO: ScriptableObject
         Debug.LogError("TooltipMapSO: effectTooltipMappings is null");
         return new Tooltip("TooltipMapSO: effectTooltipMappings is null");
     }
+
+    public bool HasTooltip(TooltipKeyword tooltipKeyword) {
+        foreach(KeywordTooltipMapping mapping in effectTooltipMappings) {
+            if(mapping.tooltipKeyword == tooltipKeyword) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

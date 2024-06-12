@@ -5,21 +5,41 @@ using UnityEngine.UI;
 using TMPro;
 
 [System.Serializable]
+public class TooltipLine {
+
+    public string title;
+    public string description;
+    public Image image;
+
+    public TooltipLine(string title, string description, Image image = null) {
+        this.title = title;
+        this.description = description;
+        this.image = image;
+    }
+}
+[System.Serializable]
 public class Tooltip {
     public bool empty;
-    public string plainText;
+    public List<TooltipLine> lines;
 
-    public Tooltip(string plainText) {
-        this.plainText = plainText;
+    public Tooltip(string title, string description, Image image = null) {
         this.empty = false;
+        this.lines = new List<TooltipLine>();
+        lines.Add(new TooltipLine(title, description));
+    }
+
+    public Tooltip(List<TooltipLine> lines) {
+        this.lines = lines;
     }
 
     public Tooltip(bool empty = true) {
         this.empty = empty;
-        this.plainText = "";
     }
 
     // To be expanded upon with images and headers later
+    // TODO: prevent duplicate tooltips from getting added together
+    // VERY likely to happen if someone adds the strength keyword to a cardtype's
+    // tooltipKeyword list when the strength status is already on the card
     public static Tooltip operator +(Tooltip a, Tooltip b) {
         if(a.empty && b.empty) {
             return new Tooltip();
@@ -28,7 +48,7 @@ public class Tooltip {
         } else if(b.empty) {
             return a;
         }
-        return new Tooltip(a.plainText + "\n" + b.plainText);
+        return new Tooltip(a.lines.Concat(b.lines).ToList());
     }
 }
 
@@ -39,25 +59,13 @@ public class TooltipView : MonoBehaviour
     public Tooltip tooltip = null;
 
     void Start() {
-        if(tooltip == null) {
-            Debug.LogError("TooltipView instantiated without a tooltip object!");
-            return;
-        }
+        text = GetComponentInChildren<TextMeshProUGUI>();
         text.text = tooltip.plainText;
     }
 
     public void Hide() {
         // TODO: add a quick fade or dissolve effect for funsies?
-        Destroy(this.gameObject);
+        Destroy(gameObject);
     }
-
-    /*
-    void Update() {
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Debug.Log("Input.mousePos: " + Input.mousePosition + " screenToWorld: " + mousePos);
-        transform.position = new Vector3(mousePos.x, mousePos.y, mousePos.z);
-    }
-    */
-
 
 }

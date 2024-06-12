@@ -14,25 +14,36 @@ public class KeywordTooltipProvider: GenericSingleton<KeywordTooltipProvider>
     public TooltipMapSO tooltipMap = null;
     public Tooltip GetTooltip(TooltipKeyword keyword)
     {
-        if(tooltipMap == null)
-        {
-            tooltipMap = Resources.Load<TooltipMapSO>("TooltipConfig/TooltipMapSO");
-        }
+        LoadTooltipMap();
         return tooltipMap.GetTooltip(keyword);
     }
 
     public bool HasTooltip(StatusEffect statusEffect)
     {
-        return statusEffectToTooltipKeyword.ContainsKey(statusEffect);
+        LoadTooltipMap();
+        return statusEffectToTooltipKeyword.ContainsKey(statusEffect) && HasTooltip(statusEffectToTooltipKeyword[statusEffect]);
+    }
+
+    public bool HasTooltip(TooltipKeyword tooltipKeyword)
+    {
+        LoadTooltipMap();
+        return tooltipMap.HasTooltip(tooltipKeyword);
     }
 
     public Tooltip GetTooltip(StatusEffect statusEffect)
     {
-        if(statusEffectToTooltipKeyword.ContainsKey(statusEffect))
+        if(HasTooltip(statusEffect))
         {
             return GetTooltip(statusEffectToTooltipKeyword[statusEffect]);
         }
         Debug.LogError("Call HasTooltip first: Tooltip not found for statusEffect " + statusEffect);
         return new Tooltip("Tooltip not found for statusEffect: " + statusEffect);
+    }
+
+    private void LoadTooltipMap() {
+        if(tooltipMap == null)
+        {
+            tooltipMap = Resources.Load<TooltipMapSO>("TooltipConfig/TooltipMapSO");
+        }
     }
 }

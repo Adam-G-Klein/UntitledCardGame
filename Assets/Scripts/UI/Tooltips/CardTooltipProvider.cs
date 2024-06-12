@@ -21,15 +21,23 @@ public class CardTooltipProvder : MonoBehaviour
         tooltipOnHover = GetComponent<TooltipOnHover>();
         tooltipOnHover.tooltip = new Tooltip();
         PlayableCard card = GetComponent<PlayableCard>();
+        if(card) {
+            AddTooltipForPlayableCard(card);
+        } 
+        
+    }
+
+    private void AddTooltipForPlayableCard(PlayableCard card){
         CardType cardType = card.card.cardType;
         List<EffectWorkflow> effectWorkflows = cardType.effectWorkflows;
+        Tooltip tooltip = null;
         Debug.Log("CardTooltipProvider: Found " + effectWorkflows.Count + " effect workflows");
         foreach(EffectWorkflow workflow in effectWorkflows) {
             foreach(EffectStep step in workflow.effectSteps) {
                 Debug.Log("CardTooltipProvider: Found effect step " + step.effectStepName);
                 if(step is ITooltipProvider) {
                     ITooltipProvider tooltipProvider = (ITooltipProvider) step;
-                    Tooltip tooltip = tooltipProvider.GetTooltip();
+                    tooltip = tooltipProvider.GetTooltip();
                     // + is overridden in Tooltip class to concatenate plaintext strings
                     // this code should stay operable when images are added if we update the
                     // operation override 
@@ -38,7 +46,8 @@ public class CardTooltipProvder : MonoBehaviour
                 }
             }
         }
+        tooltipOnHover.tooltip += cardType.GetTooltip();
 
-        
+
     }
 }

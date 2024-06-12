@@ -31,22 +31,29 @@ public class TooltipOnHover : MonoBehaviour,
     private bool coroutineIsRunning = false;
 
 
+    private bool Active() {
+        return tooltip != null && !tooltip.empty;
+    }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log("Tooltip: Enter");
-        ResetCoroutine();
-        currentCoroutine = DisplayTooltip();
-        StartCoroutine(currentCoroutine);
+        if(Active()) {
+            Debug.Log("Tooltip: Enter");
+            ResetCoroutine();
+            currentCoroutine = DisplayTooltip();
+            StartCoroutine(currentCoroutine);
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        Debug.Log("Tooltip: Exit");
-        ResetCoroutine();
-        if(currentView == null) return;
-        Debug.Log("Tooltip: hiding current view");
-        currentView.Hide();
+        if(Active()) {
+            Debug.Log("Tooltip: Exit");
+            ResetCoroutine();
+            if(currentView == null) return;
+            Debug.Log("Tooltip: hiding current view");
+            currentView.Hide();
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData) {}

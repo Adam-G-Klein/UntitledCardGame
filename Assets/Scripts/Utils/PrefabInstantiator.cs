@@ -72,7 +72,8 @@ public static class PrefabInstantiator {
             Quaternion.identity,
             parent);
 
-        TooltipView view = tooltipGO.GetComponentInChildren<TooltipView>();
+        TooltipView view = tooltipGO.GetComponent<TooltipView>();
+        Debug.Log("Tooltip: view after instantiation: " + view + " tooltip empty? " + tooltip.empty);
         view.tooltip = tooltip;
         return view;
     }

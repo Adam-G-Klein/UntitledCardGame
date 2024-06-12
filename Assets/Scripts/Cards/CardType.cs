@@ -7,7 +7,7 @@ using System;
     fileName ="Card",
     menuName = "Cards/New Card Type")]
 [Serializable]
-public class CardType: ScriptableObject
+public class CardType: ScriptableObject, ITooltipProvider
 {
     public string Name;
     public string Description;
@@ -23,6 +23,13 @@ public class CardType: ScriptableObject
 
     [SerializeReference]
     public EffectWorkflow onExhaustEffectWorkflow;
+
+    [SerializeField]
+    // TODO: re-arch this if it becomes a big enough pain
+    [Header("Add any tooltipKeyword from Resources/TooltipConfig/TooltipMap\n" + 
+            "NOTE: Some effects (ApplyStatus, some CardInHand/Deck effects) auto-add to the tooltip,\n" + 
+            "Adding their keywords here will cause duplicates in the resulting tooltip")]
+    public List<TooltipKeyword> tooltips;
 
     // Revisit this implementation of card type level modifications
     public Dictionary<CardModification, int> cardModifications = new Dictionary<CardModification, int>() {
@@ -40,6 +47,14 @@ public class CardType: ScriptableObject
 
     public void ChangeCardModification(CardModification modification, int scale) {
         cardModifications[modification] += scale;
+    }
+
+    public Tooltip GetTooltip() {
+        Tooltip tooltip = new Tooltip(empty: true);
+        foreach(TooltipKeyword keyword in tooltips) {
+            tooltip += KeywordTooltipProvider.Instance.GetTooltip(keyword);
+        }
+        return tooltip;
     }
 }
 

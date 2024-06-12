@@ -145,6 +145,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7085454649214345597}
+  - component: {fileID: 5472400731984195765}
   m_Layer: 0
   m_Name: TooltipView
   m_TagString: Untagged
@@ -168,6 +169,22 @@ Transform:
   - {fileID: 3205555945404781097}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5472400731984195765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2816874809441598624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51786f32c3b635a40927c1b219d0c5bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 4646626029162781636}
+  tooltip:
+    empty: 0
+    plainText: 
 --- !u!1 &4952930615624047196
 GameObject:
   m_ObjectHideFlags: 0
@@ -281,7 +298,6 @@ GameObject:
   - component: {fileID: 4725868041678257666}
   - component: {fileID: 1231821358048079368}
   - component: {fileID: 5041637880908833314}
-  - component: {fileID: 901827306858868013}
   m_Layer: 0
   m_Name: Tooltip
   m_TagString: Untagged
@@ -347,16 +363,3 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &901827306858868013
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8192868801432918903}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51786f32c3b635a40927c1b219d0c5bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  text: {fileID: 4646626029162781636}

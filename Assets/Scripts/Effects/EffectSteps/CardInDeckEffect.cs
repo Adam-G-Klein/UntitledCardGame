@@ -10,7 +10,7 @@ using UnityEngine;
     Parameters:
         - Effect: The effect to enact on the card(s)
 */
-public class CardInDeckEffect : EffectStep
+public class CardInDeckEffect : EffectStep, ITooltipProvider
 {
     [SerializeField]
     private string inputCardsKey = "";
@@ -20,6 +20,12 @@ public class CardInDeckEffect : EffectStep
     private CardInDeckEffectName effect;
     [SerializeField]
     private string outputKey = "";
+
+    private static Dictionary<CardInDeckEffectName, TooltipKeyword> tooltipMapping = new Dictionary<CardInDeckEffectName, TooltipKeyword>() {
+        {CardInDeckEffectName.Discard, TooltipKeyword.Discard},
+        {CardInDeckEffectName.Exhaust, TooltipKeyword.Exhaust},
+        {CardInDeckEffectName.Purge, TooltipKeyword.Purge}
+    };
 
     public CardInDeckEffect() {
         effectStepName = "CardInDeckEffect";
@@ -68,5 +74,11 @@ public class CardInDeckEffect : EffectStep
         Purge,
         Discard,
         AddToHand
+    }
+    public Tooltip GetTooltip(){
+        if(KeywordTooltipProvider.Instance.HasTooltip(tooltipMapping[effect])){
+            return KeywordTooltipProvider.Instance.GetTooltip(tooltipMapping[effect]);
+        }
+        else return new Tooltip(empty: true);
     }
 }
