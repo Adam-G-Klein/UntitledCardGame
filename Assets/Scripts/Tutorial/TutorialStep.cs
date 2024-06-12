@@ -25,6 +25,7 @@ public abstract class TutorialStep
     private TutorialAction currentAction;
     [SerializeField]
     private int initAction = 0;
+
     private bool stepComplete = true;
 
     public virtual void Init(TutorialManager manager) {
