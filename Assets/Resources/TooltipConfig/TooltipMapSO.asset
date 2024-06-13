@@ -13,23 +13,28 @@ MonoBehaviour:
   m_Name: TooltipMapSO
   m_EditorClassIdentifier: 
   effectTooltipMappings:
-  - tooltip:
-      empty: 0
-      plainText: strength tip!
+  - title: Strength
+    description: Increases every instance of damage this companion deals
+    image: {fileID: 0}
     tooltipKeyword: 6
-  - tooltip:
-      empty: 0
-      plainText: block tip!
+  - title: Block
+    description: Prevents up to X damage dealt to this companion until next turn
+    image: {fileID: 0}
     tooltipKeyword: 7
-  - tooltip:
-      empty: 0
-      plainText: exhaust tip!
+  - title: Exhaust
+    description: Removes a card for the rest of combat
+    image: {fileID: 0}
     tooltipKeyword: 0
-  - tooltip:
-      empty: 0
-      plainText: draw tip!
+  - title: Draw
+    description: Choose a companion to draw X cards from
+    image: {fileID: 0}
     tooltipKeyword: 3
-  - tooltip:
-      empty: 0
-      plainText: 'Scry: check out a card on da top of da deck!'
+  - title: Scry
+    description: Look at the top X cards of a chosen deck, discard any number of
+      them.
+    image: {fileID: 0}
     tooltipKeyword: 5
+  - title: Discard
+    description: Moves the card to the companion's discard pile
+    image: {fileID: 0}
+    tooltipKeyword: 2

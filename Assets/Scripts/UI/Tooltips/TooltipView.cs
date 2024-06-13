@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Linq;
+using System.Runtime.InteropServices;
 
 [System.Serializable]
 public class TooltipLine {
@@ -21,11 +23,26 @@ public class TooltipLine {
 public class Tooltip {
     public bool empty;
     public List<TooltipLine> lines;
+    public string plainText {
+        get {
+            string text = "";
+            foreach(TooltipLine line in lines) {
+                text += "*" + line.title + "*\n" + line.description + "\n";
+            }
+            return text;
+        }
+    }
 
     public Tooltip(string title, string description, Image image = null) {
         this.empty = false;
         this.lines = new List<TooltipLine>();
         lines.Add(new TooltipLine(title, description));
+    }
+
+    public Tooltip(string plainText) {
+        this.empty = false;
+        this.lines = new List<TooltipLine>();
+        lines.Add(new TooltipLine("", plainText));
     }
 
     public Tooltip(List<TooltipLine> lines) {
@@ -48,7 +65,8 @@ public class Tooltip {
         } else if(b.empty) {
             return a;
         }
-        return new Tooltip(a.lines.Concat(b.lines).ToList());
+        a.lines.AddRange(b.lines);
+        return new Tooltip(a.lines);
     }
 }
 
@@ -61,6 +79,10 @@ public class TooltipView : MonoBehaviour
     void Start() {
         text = GetComponentInChildren<TextMeshProUGUI>();
         text.text = tooltip.plainText;
+        // hack to get tooltips in front, temporary until ui doc rework
+        Canvas canvas = GetComponentInChildren<Canvas>(); 
+        canvas.overrideSorting = true;
+        canvas.sortingOrder = 25;
     }
 
     public void Hide() {

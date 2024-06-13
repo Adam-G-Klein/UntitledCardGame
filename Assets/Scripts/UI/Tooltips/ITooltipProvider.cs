@@ -16,8 +16,12 @@ public enum TooltipKeyword {
     Card,
     // For now..
     StarStruck,
-
-
+    // we COULD make a separate map for the companions. I don't see why we would though
+    Aborah,
+    Pythia,
+    Rene,
+    Entropy,
+    Architect
 
 }
 public interface ITooltipProvider

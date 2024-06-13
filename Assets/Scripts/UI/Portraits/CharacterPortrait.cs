@@ -19,13 +19,6 @@ public class CharacterPortrait : MonoBehaviour
         UpdatePortrait();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        // This could theoretically be event based in the future
-        UpdatePortrait();
-    }
-
     private void UpdatePortrait() {
         this.image.sprite = companionInstance.companion.companionType.portrait;
     }

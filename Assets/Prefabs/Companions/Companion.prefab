@@ -17,6 +17,8 @@ GameObject:
   - component: {fileID: 2595263955379066018}
   - component: {fileID: 9072497632964488160}
   - component: {fileID: 2968781624745438164}
+  - component: {fileID: 1520036689927399670}
+  - component: {fileID: -4785001928966702165}
   m_Layer: 0
   m_Name: Companion
   m_TagString: Companion
@@ -34,7 +36,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.7253561, y: 0.193294, z: 0.2666891}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1544021486351490468}
@@ -237,6 +239,40 @@ MonoBehaviour:
   buttonsGameObject: {fileID: 0}
   companionInstance: {fileID: 5285687428135354732}
   cardViewUIPrefab: {fileID: 5377055111114097653, guid: 1fd8415aef0620b4eaee61fe5e3ed571, type: 3}
+--- !u!114 &1520036689927399670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5285687428135354733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 047152731ba5f1943a7c416983ad68e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tooltipPrefab: {fileID: 2816874809441598624, guid: 39e007ab3d5dc2a489824af9da1f4bae, type: 3}
+  tooltip:
+    rid: -2
+  positionOffset: {x: 1.5, y: 1, z: 0}
+  displayWaitTime: 0.3
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+--- !u!114 &-4785001928966702165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5285687428135354733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 181099cf226cb014d8b73f4cd5723070, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8063096909956034173
 GameObject:
   m_ObjectHideFlags: 0
@@ -265,7 +301,7 @@ RectTransform:
   m_GameObject: {fileID: 8063096909956034173}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 0}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5285687428135354735}

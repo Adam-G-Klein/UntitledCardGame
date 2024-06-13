@@ -4,32 +4,44 @@ using UnityEngine;
 using UnityEditor;
 using System;
 using System.Drawing.Printing;
+using UnityEngine.UI;
 
 [CustomEditor(typeof(TooltipMapSO))]
 public class ToolipMapSOEditor : Editor {
 
     TooltipMapSO tooltipMapSO;
-    string tooltipPlaintext;
+    string tooltipTitle;
+    string tooltipDescription;
+    Image tooltipImage;
     TooltipKeyword tooltipKeyword;
     public override void OnInspectorGUI() {
         tooltipMapSO = (TooltipMapSO) target;
         DrawDefaultInspector();
 
         EditorGUILayout.Space(20);
-        EditorGUILayout.LabelField("Map Controls");
+        EditorGUILayout.LabelField("Controls");
         EditorGUILayout.Space(5);
 
-        tooltipPlaintext = EditorGUILayout.TextField(
-        "Tooltip plaintext",
-        tooltipPlaintext);
+        tooltipTitle = EditorGUILayout.TextField(
+        "Tooltip Title",
+        tooltipTitle);
+
+        tooltipDescription = EditorGUILayout.TextField(
+        "Tooltip Description",
+        tooltipDescription);
 
         tooltipKeyword = (TooltipKeyword) EditorGUILayout.EnumPopup(
             "Tooltip Keyword",
             tooltipKeyword);
 
+        tooltipImage = (Image) EditorGUILayout.ObjectField(
+            "Tooltip Image",
+            tooltipImage,
+            typeof(Image),
+            true);
+
         if (GUILayout.Button("Create Tooltip")) {
-            Tooltip newTooltip = new Tooltip(tooltipPlaintext);
-            tooltipMapSO.effectTooltipMappings.Add(new KeywordTooltipMapping(newTooltip, tooltipKeyword));
+            tooltipMapSO.effectTooltipMappings.Add(new KeywordTooltipMapping(tooltipTitle, tooltipDescription, tooltipImage, tooltipKeyword));
             save(tooltipMapSO);
         }
     }

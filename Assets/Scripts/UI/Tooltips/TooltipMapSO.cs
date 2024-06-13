@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
+using UnityEngine.UI;
 using UnityEngine;
 
 // The idea here is to eventually give this an image field, a header field, and a description field
@@ -8,10 +10,17 @@ using UnityEngine;
 // people enter in the scriptable object
 [System.Serializable]
 public class KeywordTooltipMapping {
-    public Tooltip tooltip;
+    public string title;
+    public string description;
+    public Image image;
+    [HideInInspector]
+    public Tooltip tooltip { get {
+        return new Tooltip(title, description, image);
+    }}
     public TooltipKeyword tooltipKeyword;
-    public KeywordTooltipMapping(Tooltip tooltip, TooltipKeyword tooltipKeyword) {
-        this.tooltip = tooltip;
+    public KeywordTooltipMapping(string title, string description, Image image, TooltipKeyword tooltipKeyword) {
+        this.title = title;
+        this.description = description;
         this.tooltipKeyword = tooltipKeyword;
     }
 
