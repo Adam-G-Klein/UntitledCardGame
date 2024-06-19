@@ -21,7 +21,7 @@ public class EnemyPortraitTooltipProvder : MonoBehaviour
     private List<TurnPhaseTrigger> turnPhaseTriggers = new List<TurnPhaseTrigger>();
     void Start() {
         tooltipOnHover = GetComponent<TooltipOnHover>();
-        tooltipOnHover.tooltip = new Tooltip();
+        tooltipOnHover.tooltip = new TooltipViewModel();
         if(!portrait) {
             Debug.LogError("No portrait attached to EnemyPortraitTooltipProvider");
             return;
@@ -39,7 +39,7 @@ public class EnemyPortraitTooltipProvder : MonoBehaviour
         yield return null;
     }
 
-    private Tooltip GetTooltipFromIntent(EnemyIntent intent) {
+    private TooltipViewModel GetTooltipFromIntent(EnemyIntent intent) {
         // TODO: make this more intelligently grab information from the intent.
         switch(intent.intentType) {
             case EnemyIntentType.BigAttack:
@@ -51,7 +51,7 @@ public class EnemyPortraitTooltipProvder : MonoBehaviour
             case EnemyIntentType.ChargingUp:
                 return KeywordTooltipProvider.Instance.GetTooltip(TooltipKeyword.ChargingIntent);
             default:
-                return new Tooltip("Unknown", "This enemy will do something.");
+                return new TooltipViewModel("Unknown", "This enemy will do something.");
         }
     }
 

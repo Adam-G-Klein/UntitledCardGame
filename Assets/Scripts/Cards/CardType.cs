@@ -49,8 +49,8 @@ public class CardType: ScriptableObject, ITooltipProvider
         cardModifications[modification] += scale;
     }
 
-    public Tooltip GetTooltip() {
-        Tooltip tooltip = new Tooltip(empty: true);
+    public TooltipViewModel GetTooltip() {
+        TooltipViewModel tooltip = new TooltipViewModel(empty: true);
         foreach(TooltipKeyword keyword in tooltips) {
             tooltip += KeywordTooltipProvider.Instance.GetTooltip(keyword);
         }

@@ -50,7 +50,7 @@ public class DrawCards : EffectStep, ITooltipProvider
         yield return null;
     }
 
-    public Tooltip GetTooltip() {
+    public TooltipViewModel GetTooltip() {
         return KeywordTooltipProvider.Instance.GetTooltip(TooltipKeyword.Draw);
     }
 }

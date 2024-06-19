@@ -19,7 +19,7 @@ public class CardTooltipProvder : MonoBehaviour
     private TooltipOnHover tooltipOnHover;
     void Start() {
         tooltipOnHover = GetComponent<TooltipOnHover>();
-        tooltipOnHover.tooltip = new Tooltip();
+        tooltipOnHover.tooltip = new TooltipViewModel();
         PlayableCard card = GetComponent<PlayableCard>();
         if(card) {
             AddTooltipForPlayableCard(card);
@@ -30,8 +30,9 @@ public class CardTooltipProvder : MonoBehaviour
     private void AddTooltipForPlayableCard(PlayableCard card){
         CardType cardType = card.card.cardType;
         List<EffectWorkflow> effectWorkflows = cardType.effectWorkflows;
-        Tooltip tooltip = null;
+        TooltipViewModel tooltip = null;
         Debug.Log("CardTooltipProvider: Found " + effectWorkflows.Count + " effect workflows");
+        tooltipOnHover.tooltip += cardType.GetTooltip();
         foreach(EffectWorkflow workflow in effectWorkflows) {
             foreach(EffectStep step in workflow.effectSteps) {
                 Debug.Log("CardTooltipProvider: Found effect step " + step.effectStepName);
@@ -46,7 +47,6 @@ public class CardTooltipProvder : MonoBehaviour
                 }
             }
         }
-        tooltipOnHover.tooltip += cardType.GetTooltip();
 
 
     }

@@ -58,7 +58,7 @@ public class CompanionTypeEditor : Editor {
         }
 
         if(GUILayout.Button("Add Tooltip")) {
-            companionTypeSO.tooltip = new Tooltip();
+            companionTypeSO.tooltip = new TooltipViewModel();
         }
     }
 }

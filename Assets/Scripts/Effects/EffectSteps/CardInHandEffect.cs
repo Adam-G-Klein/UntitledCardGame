@@ -58,11 +58,11 @@ public class CardInHandEffect : EffectStep, ITooltipProvider
         Retain
     }
 
-    public Tooltip GetTooltip(){
+    public TooltipViewModel GetTooltip(){
         if(KeywordTooltipProvider.Instance.HasTooltip(tooltipMapping[effect])){
             return KeywordTooltipProvider.Instance.GetTooltip(tooltipMapping[effect]);
         }
-        else return new Tooltip(empty: true);
+        else return new TooltipViewModel(empty: true);
     }
 
 }

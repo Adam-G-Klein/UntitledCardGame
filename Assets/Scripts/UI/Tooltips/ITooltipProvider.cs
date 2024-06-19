@@ -24,6 +24,6 @@ public enum TooltipKeyword {
 }
 public interface ITooltipProvider
 {
-    Tooltip GetTooltip();
+    TooltipViewModel GetTooltip();
     
 }

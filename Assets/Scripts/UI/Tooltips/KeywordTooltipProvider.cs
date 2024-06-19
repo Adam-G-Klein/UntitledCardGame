@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+// ADAPTER PATTERN
 public class KeywordTooltipProvider: GenericSingleton<KeywordTooltipProvider>
 {
 
@@ -12,7 +13,7 @@ public class KeywordTooltipProvider: GenericSingleton<KeywordTooltipProvider>
     };
 
     public TooltipMapSO tooltipMap = null;
-    public Tooltip GetTooltip(TooltipKeyword keyword)
+    public TooltipViewModel GetTooltip(TooltipKeyword keyword)
     {
         LoadTooltipMap();
         return tooltipMap.GetTooltip(keyword);
@@ -30,14 +31,14 @@ public class KeywordTooltipProvider: GenericSingleton<KeywordTooltipProvider>
         return tooltipMap.HasTooltip(tooltipKeyword);
     }
 
-    public Tooltip GetTooltip(StatusEffect statusEffect)
+    public TooltipViewModel GetTooltip(StatusEffect statusEffect)
     {
         if(HasTooltip(statusEffect))
         {
             return GetTooltip(statusEffectToTooltipKeyword[statusEffect]);
         }
         Debug.LogError("Call HasTooltip first: Tooltip not found for statusEffect " + statusEffect);
-        return new Tooltip("Tooltip not found for statusEffect: " + statusEffect);
+        return new TooltipViewModel("Tooltip not found for statusEffect: " + statusEffect);
     }
 
     private void LoadTooltipMap() {

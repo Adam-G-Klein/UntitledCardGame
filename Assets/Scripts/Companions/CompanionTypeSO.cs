@@ -33,5 +33,5 @@ public class CompanionTypeSO : ScriptableObject
 
     [SerializeReference]
     public CompanionUpgradeSO upgradeInfo;
-    public Tooltip tooltip;
+    public TooltipViewModel tooltip;
 }

@@ -20,7 +20,7 @@ public class CombatCompanionPortraitTooltipProvder : MonoBehaviour
     private CharacterPortrait portrait;
     void Start() {
         tooltipOnHover = GetComponent<TooltipOnHover>();
-        tooltipOnHover.tooltip = new Tooltip();
+        tooltipOnHover.tooltip = new TooltipViewModel();
         if(!portrait) {
             Debug.LogError("No portrait attached to CombatCompanionPortraitTooltipProvider");
             return;

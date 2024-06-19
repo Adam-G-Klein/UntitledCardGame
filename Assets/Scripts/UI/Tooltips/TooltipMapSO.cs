@@ -14,8 +14,8 @@ public class KeywordTooltipMapping {
     public string description;
     public Image image;
     [HideInInspector]
-    public Tooltip tooltip { get {
-        return new Tooltip(title, description, image);
+    public TooltipViewModel tooltip { get {
+        return new TooltipViewModel(title, description, image);
     }}
     public TooltipKeyword tooltipKeyword;
     public KeywordTooltipMapping(string title, string description, Image image, TooltipKeyword tooltipKeyword) {
@@ -29,7 +29,7 @@ public class KeywordTooltipMapping {
 public class TooltipMapSO: ScriptableObject
 {
     public List<KeywordTooltipMapping> effectTooltipMappings;
-    public Tooltip GetTooltip(TooltipKeyword tooltipKeyword)
+    public TooltipViewModel GetTooltip(TooltipKeyword tooltipKeyword)
     {
         if(effectTooltipMappings != null)
         {
@@ -41,10 +41,10 @@ public class TooltipMapSO: ScriptableObject
                 }
             }
             Debug.LogError("Tooltip not found for tooltipKeyword: " + tooltipKeyword);
-            return new Tooltip("Tooltip not found for tooltipKeyword: " + tooltipKeyword);
+            return new TooltipViewModel("Tooltip not found for tooltipKeyword: " + tooltipKeyword);
         }
         Debug.LogError("TooltipMapSO: effectTooltipMappings is null");
-        return new Tooltip("TooltipMapSO: effectTooltipMappings is null");
+        return new TooltipViewModel("TooltipMapSO: effectTooltipMappings is null");
     }
 
     public bool HasTooltip(TooltipKeyword tooltipKeyword) {

@@ -17,7 +17,7 @@ public class TooltipOnHover : MonoBehaviour,
     public GameObject tooltipPrefab;
 
     [SerializeReference]
-    public Tooltip tooltip;
+    public TooltipViewModel tooltip;
 
     [Header("Where, in the object's local space, the tooltip will be instantiated.\nDon't touch the Z coord unless you know what you're doing :)")]
     public Vector3 positionOffset;

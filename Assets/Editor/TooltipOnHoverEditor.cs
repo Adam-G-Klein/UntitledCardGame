@@ -24,7 +24,7 @@ public class TooltipOnHoverEditor : Editor {
             tooltipPlaintext);
 
         if (GUILayout.Button("Set Tooltip")) {
-            Tooltip newTooltip = new Tooltip(tooltipPlaintext);
+            TooltipViewModel newTooltip = new TooltipViewModel(tooltipPlaintext);
             tooltipOnHover.tooltip = newTooltip;
         }
     }

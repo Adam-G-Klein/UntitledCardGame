@@ -53,11 +53,11 @@ public class ApplyStatus : EffectStep, ITooltipProvider
         yield return null;
     }
 
-    public Tooltip GetTooltip() {
+    public TooltipViewModel GetTooltip() {
         if(KeywordTooltipProvider.Instance.HasTooltip(statusEffect))
         {
             return KeywordTooltipProvider.Instance.GetTooltip(statusEffect);
         }
-        return new Tooltip(empty: true);
+        return new TooltipViewModel(empty: true);
     }
 }

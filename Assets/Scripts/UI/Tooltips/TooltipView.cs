@@ -20,7 +20,7 @@ public class TooltipLine {
     }
 }
 [System.Serializable]
-public class Tooltip {
+public class TooltipViewModel {
     public bool empty;
     public List<TooltipLine> lines;
     public string plainText {
@@ -33,23 +33,23 @@ public class Tooltip {
         }
     }
 
-    public Tooltip(string title, string description, Image image = null) {
+    public TooltipViewModel(string title, string description, Image image = null) {
         this.empty = false;
         this.lines = new List<TooltipLine>();
         lines.Add(new TooltipLine(title, description));
     }
 
-    public Tooltip(string plainText) {
+    public TooltipViewModel(string plainText) {
         this.empty = false;
         this.lines = new List<TooltipLine>();
         lines.Add(new TooltipLine("", plainText));
     }
 
-    public Tooltip(List<TooltipLine> lines) {
+    public TooltipViewModel(List<TooltipLine> lines) {
         this.lines = lines;
     }
 
-    public Tooltip(bool empty = true) {
+    public TooltipViewModel(bool empty = true) {
         this.empty = empty;
     }
 
@@ -57,16 +57,16 @@ public class Tooltip {
     // TODO: prevent duplicate tooltips from getting added together
     // VERY likely to happen if someone adds the strength keyword to a cardtype's
     // tooltipKeyword list when the strength status is already on the card
-    public static Tooltip operator +(Tooltip a, Tooltip b) {
+    public static TooltipViewModel operator +(TooltipViewModel a, TooltipViewModel b) {
         if(a.empty && b.empty) {
-            return new Tooltip();
+            return new TooltipViewModel();
         } else if(a.empty) {
             return b;
         } else if(b.empty) {
             return a;
         }
         a.lines.AddRange(b.lines);
-        return new Tooltip(a.lines);
+        return new TooltipViewModel(a.lines);
     }
 }
 
@@ -74,16 +74,20 @@ public class TooltipView : MonoBehaviour
 {
     public TextMeshProUGUI text;
 
-    public Tooltip tooltip = null;
+    public TooltipViewModel tooltip = null;
 
     void Start() {
         Debug.Log("TooltipView: Start");
         text = GetComponentInChildren<TextMeshProUGUI>();
-        text.text = tooltip.plainText;
         // hack to get tooltips in front, temporary until ui doc rework
         Canvas canvas = GetComponentInChildren<Canvas>(); 
         canvas.overrideSorting = true;
         canvas.sortingOrder = 25;
+        Fill();
+    }
+
+    public void Fill() {
+        text.text = tooltip.plainText;
     }
 
     public void Hide() {
