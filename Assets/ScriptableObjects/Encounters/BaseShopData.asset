@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shopLevels:
   - level: 0
-    mana: 3
+    manaIncrease: 0
     teamSize: 3
     upgradeCost: 4
     commonCompanionPercentage: 70
@@ -24,7 +24,7 @@ MonoBehaviour:
     uncommonCardPercentage: 30
     rareCardPercentage: 0
   - level: 1
-    mana: 3
+    manaIncrease: 0
     teamSize: 4
     upgradeCost: 8
     commonCompanionPercentage: 50
@@ -34,7 +34,7 @@ MonoBehaviour:
     uncommonCardPercentage: 50
     rareCardPercentage: 0
   - level: 2
-    mana: 3
+    manaIncrease: 0
     teamSize: 4
     upgradeCost: 20
     commonCompanionPercentage: 30
@@ -44,7 +44,7 @@ MonoBehaviour:
     uncommonCardPercentage: 60
     rareCardPercentage: 10
   - level: 3
-    mana: 4
+    manaIncrease: 0
     teamSize: 5
     upgradeCost: 24
     commonCompanionPercentage: 20
@@ -53,7 +53,7 @@ MonoBehaviour:
     commonCardPercentage: 20
     uncommonCardPercentage: 50
     rareCardPercentage: 30
-  companionPool: {fileID: 11400000, guid: d976d5844af545840815aeb6a0087dd4, type: 2}
+  companionPool: {fileID: 11400000, guid: 4113f0ac393ad43499c4e9e9a4e6d97e, type: 2}
   keepsakeCount: 3
   rerollShopPrice: 1
   upgradeShopPrice: 10
