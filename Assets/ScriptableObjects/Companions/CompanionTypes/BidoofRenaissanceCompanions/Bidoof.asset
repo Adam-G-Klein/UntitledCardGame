@@ -12,21 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
   m_Name: Bidoof
   m_EditorClassIdentifier: 
-  companionName: 
-  maxHealth: 0
+  companionName: Bidoof
+  maxHealth: 25
   initialCardsDealtPerTurn: 1
-  sprite: {fileID: 0}
-  startingDeck: {fileID: 0}
-  keepsake: {fileID: 0}
-  cardBack: {fileID: 0}
-  cardFrame: {fileID: 0}
+  sprite: {fileID: 21300000, guid: ecf91a3bbc5ca489fb729a99ecc4974c, type: 3}
+  startingDeck: {fileID: 11400000, guid: bf6401d447a5b491382ab14a197ef5ed, type: 2}
+  keepsake: {fileID: 21300000, guid: 7a51d6d5cbbba644cbef012d1be241ab, type: 3}
+  cardBack: {fileID: 21300000, guid: 20b46ccd593516f4badbdcdb021f67c1, type: 3}
+  cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
   typeIcon: {fileID: 0}
   portrait: {fileID: 0}
-  teamSelectSprite: {fileID: 0}
+  teamSelectSprite: {fileID: 21300000, guid: ecf91a3bbc5ca489fb729a99ecc4974c, type: 3}
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 0}
   genericCompanionVFX: {fileID: 0}
-  cardPool: {fileID: 0}
+  cardPool: {fileID: 11400000, guid: f196524d31ef54898813ddd113b536e2, type: 2}
   speakerType: {fileID: 0}
   abilities: []
   upgradeInfo: {fileID: 0}
