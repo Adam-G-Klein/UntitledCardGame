@@ -18,9 +18,15 @@ public class CompanionInstance : MonoBehaviour
     private List<TurnPhaseTrigger> statusEffectTriggers = new List<TurnPhaseTrigger>();
 
     public void Start() {
-        // companion.companionType.ability.Setup(this);
+        // We cannot perform "Setup" on the ability itself, because that is global on the
+        // CompanionTypeSO.
+        // If you have multiple copies of the same companion type on the team, they would
+        // all try to write state to the same Ability class.
+        // Thus, we do this hack around for now where we create a "CompanionAbilityInstance"
+        // that has a read-only reference to the Ability but keeps its own state.
         foreach (CompanionAbility ability in companion.companionType.abilities) {
-            ability.Setup(this);
+            CompanionAbilityInstance abilityInstance = new(ability, this);
+            abilityInstance.Setup();
         }
         CombatEntityManager.Instance.registerCompanion(this);
         spriteImage.sprite = companion.getSprite();
