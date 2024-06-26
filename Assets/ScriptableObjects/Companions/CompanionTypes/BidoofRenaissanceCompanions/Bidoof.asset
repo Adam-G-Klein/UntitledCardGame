@@ -28,11 +28,39 @@ MonoBehaviour:
   genericCompanionVFX: {fileID: 0}
   cardPool: {fileID: 11400000, guid: f196524d31ef54898813ddd113b536e2, type: 2}
   speakerType: {fileID: 0}
-  abilities: []
+  abilities:
+  - rid: 9154689434420772964
   upgradeInfo: {fileID: 0}
   tooltip:
     empty: 0
     lines: []
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 9154689434420772964
+      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
+      data:
+        companionAbilityTrigger: 0
+        effectSteps:
+        - rid: 9154689434420772965
+        - rid: 9154689434420772966
+    - rid: 9154689434420772965
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 9154689434420772966
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: self
+        statusEffect: 6
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
