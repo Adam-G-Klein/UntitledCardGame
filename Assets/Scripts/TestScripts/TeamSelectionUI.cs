@@ -28,7 +28,7 @@ public class TeamSelectionUI : MonoBehaviour
         }
         root.Q<UnityEngine.UIElements.Button>("backButton").clicked += backButtonHandler;
         makeTeamView(root.Q<VisualElement>("team-1-container"), team1ActiveCompanions.GetCompanionTypes());
-        makeTeamView(root.Q<VisualElement>("team-2-container"), team2ActiveCompanions.GetCompanionTypes());
+        // makeTeamView(root.Q<VisualElement>("team-2-container"), team2ActiveCompanions.GetCompanionTypes());
     }
     public void initializeRun(List<CompanionTypeSO> team)
     {
