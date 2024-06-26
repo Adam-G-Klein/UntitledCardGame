@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Not currently in use
 [CreateAssetMenu(
     fileName = "StartinDeck", 
     menuName = "Decks/Starting Deck")]
