@@ -79,20 +79,6 @@ public class MapUI : MonoBehaviour
         lineRenderer.SetPositions(points);
     }
 
-    public void showCompanionView() {
-        GameObject companionViewUI = GameObject.Instantiate(
-                        companionViewUIPrefab,
-                        new Vector3(Screen.width / 2, Screen.height / 2, 0),
-                        Quaternion.identity);
-        companionViewUI
-            .GetComponent<CompanionViewUI>()
-            .setupCompanionDisplay(gameState.companions, new List<CompanionActionType>() {
-                CompanionActionType.VIEW_DECK,
-                CompanionActionType.MOVE_COMPANION,
-                CompanionActionType.COMBINE_COMPANION
-            });
-    }
-
     public void encounterClicked(MapIcon icon, Encounter encounter) {
         print("here");
         icon.raiseEncounter(encounter.id);
