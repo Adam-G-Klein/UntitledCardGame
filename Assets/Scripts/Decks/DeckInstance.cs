@@ -172,6 +172,14 @@ public class DeckInstance : MonoBehaviour
         drawPile = newDrawPile;
     }
 
+    public void AddCardsToBottomOfDeck(List<Card> cards){
+        Debug.Log("Adding " + cards.Count + " cards to the bottom of the draw pile");
+        List<Card> newDrawPile = new List<Card>();
+        newDrawPile.AddRange(drawPile);
+        newDrawPile.AddRange(cards);
+        drawPile = newDrawPile;
+    }
+
     public bool ContainsCardById(string id){
         return drawPile.Exists(c => c.id == id) || discardPile.Exists(c => c.id == id);
     }

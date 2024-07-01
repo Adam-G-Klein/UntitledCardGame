@@ -101,12 +101,16 @@ public class AddCardsToDeck : EffectStep {
                 case AddMethod.AddToTop:
                     deckInstance.AddCardsToTopOfDeck(cards);
                     break;
+                case AddMethod.AddToBottom:
+                    deckInstance.AddCardsToBottomOfDeck(cards);
+                    break;
             }
         }
     }
 
     private enum AddMethod {
         AddToTop,
-        ShuffleIn
+        ShuffleIn,
+        AddToBottom
     }
 }
