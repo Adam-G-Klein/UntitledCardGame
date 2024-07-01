@@ -19,8 +19,9 @@ MonoBehaviour:
   cardCategory: 0
   vfxPrefab: {fileID: 0}
   playable: 1
+  exhaustsWhenPlayed: 1
   effectWorkflows:
-  - rid: 5602892491280613517
+  - rid: 5602892491280613571
   onExhaustEffectWorkflow:
     rid: 5602892491280613515
   tooltips: 
@@ -30,27 +31,36 @@ MonoBehaviour:
     - rid: 5602892491280613515
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
-        effectSteps: []
-    - rid: 5602892491280613517
+        effectSteps:
+        - rid: 5602892491280613573
+    - rid: 5602892491280613571
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
-        - rid: 5602892491280613538
-        - rid: 5602892491280613537
-    - rid: 5602892491280613537
-      type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
+        - rid: 5602892491280613574
+        - rid: 5602892491280613575
+    - rid: 5602892491280613573
+      type: {class: AddManaNextTurn, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: CardInHandEffect
-        inputKey: buriedTreasureCard
-        effect: 1
-    - rid: 5602892491280613538
+        effectStepName: 
+        manaToAdd: 2
+    - rid: 5602892491280613574
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: buriedTreasureCard
-        validTargets: 03000000
+        outputKey: self
+        validTargets: 00000000
         number: 1
-        specialTargetRule: 3
+        specialTargetRule: 4
         cantCancelTargetting: 0
+    - rid: 5602892491280613575
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: 
+        statusEffect: 0
+        scale: 0
+        getScaleFromKey: 0
+        inputScaleKey: 
