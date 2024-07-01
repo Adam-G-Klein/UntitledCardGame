@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
+  m_Name: BuriedTreasure
+  m_EditorClassIdentifier: 
+  Name: Buried Treasure
+  Description: Gain $3. Exhaust
+  Cost: 1
+  Artwork: {fileID: 0}
+  cardCategory: 0
+  vfxPrefab: {fileID: 0}
+  playable: 1
+  effectWorkflows:
+  - rid: 5602892491280613517
+  onExhaustEffectWorkflow:
+    rid: 5602892491280613515
+  tooltips: 
+  references:
+    version: 2
+    RefIds:
+    - rid: 5602892491280613515
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps: []
+    - rid: 5602892491280613517
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 5602892491280613538
+        - rid: 5602892491280613537
+    - rid: 5602892491280613537
+      type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardInHandEffect
+        inputKey: buriedTreasureCard
+        effect: 1
+    - rid: 5602892491280613538
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: buriedTreasureCard
+        validTargets: 03000000
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
