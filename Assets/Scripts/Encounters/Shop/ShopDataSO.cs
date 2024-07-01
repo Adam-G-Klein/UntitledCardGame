@@ -10,10 +10,13 @@ public class ShopDataSO : ScriptableObject
 {
     public List<ShopLevel> shopLevels;
     public CompanionPoolSO companionPool;
-    public int keepsakeCount;
     public int rerollShopPrice;
-    public int upgradeShopPrice;
     public ShopEncounterEvent shopEncounterEvent;
+
+    public int cardPrice;
+    public int companionKeepsakePrice;
+
+    public CardPoolSO neutralCardPool;
 
     public ShopLevel GetShopLevel(int level) {
         foreach (ShopLevel shopLevel in shopLevels) {
@@ -34,6 +37,8 @@ public class ShopLevel {
     public int manaIncrease;
     public int teamSize;
     public int upgradeCost;
+    public int numCardsToShow;
+    public int numKeepsakesToShow;
 
     [Space(10)]
     [Header("Percentage Manipulation")]

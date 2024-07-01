@@ -7,9 +7,19 @@ public class CardInShopWithPrice {
     public CardType cardType;
     public int price;
 
+    // Nullable for neutral cards.
+    public CompanionTypeSO sourceCompanion;
+
     public CardInShopWithPrice(CardType cardType, int price) {
         this.cardType = cardType;
         this.price = price;
+        this.sourceCompanion = null;
+    }
+
+    public CardInShopWithPrice(CardType cardType, int price, CompanionTypeSO companionType) {
+        this.cardType = cardType;
+        this.price = price;
+        this.sourceCompanion = companionType;
     }
 }
 
@@ -61,25 +71,26 @@ public class ShopEncounter : Encounter
         encounterBuilder.BuildShopEncounter(this);
     }
 
-    private void setupCards(List<Companion> companionList) {        
+    private void setupCards(List<Companion> companionList) {
         for (int i = 0; i < cardsInShop.Count; i++) {
             GameObject instantiatedCard = GameObject.Instantiate(
-                encounterConstants.cardInShopPrefab, 
+                encounterConstants.cardInShopPrefab,
                 this.shopManager.shopUIManager.cardSection
                 );
 
             CardType cardType = cardsInShop[i].cardType;
-            int price = cardsInShop[i].price;
+            // Nullable for neutral cards, otherwise it will be attached to a specific companion type.
+            CompanionTypeSO companionType = cardsInShop[i].sourceCompanion;
 
             CardInShop cardInShop = instantiatedCard.GetComponent<CardInShop>();
-            cardInShop.price = price;
+            cardInShop.price = cardsInShop[i].price;
+            cardInShop.sourceCompanion = cardsInShop[i].sourceCompanion;
 
             CardDisplay cardDisplay = cardInShop.cardDisplay;
-            CompanionTypeSO companionType = companionList[i].companionType;
-            cardInShop.keepSake.sprite = companionType.keepsake;
+            if (companionType != null) {
+                cardInShop.keepSake.sprite = companionType.keepsake;
+            }
             cardDisplay.Initialize(new Card(cardType, companionType));
-
-            // NOTE: Assumes that the companion list and the order their cards are displayed are the same
 
             cardInShop.Setup();
         }
@@ -88,7 +99,7 @@ public class ShopEncounter : Encounter
     private void setupKeepsakes() {
         for (int i = 0; i < keepsakesInShop.Count; i++) {
             GameObject instantiatedKeepsake = GameObject.Instantiate(
-                encounterConstants.keepsakeInShopPrefab, 
+                encounterConstants.keepsakeInShopPrefab,
                 this.shopManager.shopUIManager.keepSakeSection);
 
             CompanionTypeSO companionType = keepsakesInShop[i].companionType;
@@ -110,61 +121,75 @@ public class ShopEncounter : Encounter
     }
 
     private void generateCards(ShopLevel shopLevel, List<Companion> companionList) {
-        Debug.Log("Companion List count: " + companionList.Count);
         //determine which companion to spawn a card from, remove them from the set
         //move companion types to a hashSet
-        HashSet<CompanionTypeSO> companionTypes = new HashSet<CompanionTypeSO>();
-
+        HashSet<CompanionTypeSO> companionTypes = new();
         foreach (Companion companion in companionList) {
             companionTypes.Add(companion.companionType);
         }
-
-        Debug.Log("Companion types: " + companionTypes.Count);
-
+        List<CardInShopWithPrice> commonShopCards = new();
+        List<CardInShopWithPrice> uncommonShopCards = new();
+        List<CardInShopWithPrice> rareShopCards = new();
+        // Add the card pools for each companion that is on your team.
+        // We do not want to show cards for companions that you do not have.
         foreach (CompanionTypeSO companionType in companionTypes) {
-            //pick a random card based on random algorithm
-            CardPoolSO currentCardPool = companionType.cardPool;
+            foreach (CardType card in companionType.cardPool.commonCards) {
+                commonShopCards.Add(new CardInShopWithPrice(card, shopData.cardPrice, companionType));
+            }
+            foreach (CardType card in companionType.cardPool.uncommonCards) {
+                uncommonShopCards.Add(new CardInShopWithPrice(card, shopData.cardPrice, companionType));
+            }
+            foreach (CardType card in companionType.cardPool.rareCards) {
+                rareShopCards.Add(new CardInShopWithPrice(card, shopData.cardPrice, companionType));
+            }
+        }
+        // Add the neutral cards to each card pool; note, they are not attached to a
+        // specific companion.
+        foreach (CardType card in shopData.neutralCardPool.commonCards) {
+            commonShopCards.Add(new CardInShopWithPrice(card, shopData.cardPrice));
+        }
+        foreach (CardType card in shopData.neutralCardPool.uncommonCards) {
+            uncommonShopCards.Add(new CardInShopWithPrice(card, shopData.cardPrice));
+        }
+        foreach (CardType card in shopData.neutralCardPool.rareCards) {
+            rareShopCards.Add(new CardInShopWithPrice(card, shopData.cardPrice));
+        }
+
+        for (int i = 0; i < shopLevel.numCardsToShow; i++) {
             Rarity rarity = PickRarity(
                 shopLevel.commonCardPercentage,
                 shopLevel.uncommonCardPercentage,
                 shopLevel.rareCardPercentage,
-                currentCardPool.commonCards.Count > 0,
-                currentCardPool.uncommonCards.Count > 0,
-                currentCardPool.rareCards.Count > 0
+                commonShopCards.Count > 0,
+                uncommonShopCards.Count > 0,
+                rareShopCards.Count > 0
             );
 
             // Determine what the card pool is for this single card being generated
-            List<CardType> cardSet = new List<CardType>();
-            int cardPrice = 0;
+            List<CardInShopWithPrice> finalShopCardsPool = new();
             switch (rarity) {
                 case Rarity.Common:
-                    cardSet = currentCardPool.commonCards;
-                    cardPrice = currentCardPool.commonCardPrice;
+                    finalShopCardsPool = commonShopCards;
                 break;
 
                 case Rarity.Uncommon:
-                    cardSet = currentCardPool.uncommonCards;
-                    cardPrice = currentCardPool.uncommonCardPrice;
+                    finalShopCardsPool = uncommonShopCards;
                 break;
 
                 case Rarity.Rare:
-                    cardSet = currentCardPool.rareCards;
-                    cardPrice = currentCardPool.rareCardPrice;
+                    finalShopCardsPool = rareShopCards;
                 break;
             }
 
-            // Pick a card from the pool and add it to the shop's cards
-            int cardNumber = Random.Range(0, cardSet.Count);
+            int selectedCardIndex = Random.Range(0, finalShopCardsPool.Count);
+            CardInShopWithPrice selectedCard = finalShopCardsPool[selectedCardIndex];
 
-            //super cool and efficent random selection from a hashSet(it has to iterate through the collection, there is no index in a hashset)
-            CardType selectedCard = cardSet[cardNumber];
-            cardsInShop.Add(new CardInShopWithPrice(selectedCard, cardPrice));
+            cardsInShop.Add(selectedCard);
         }
-
     }
 
     public void generateKeepsakes(ShopLevel shopLevel) {
-        int numKeepsakesToGenerate = shopData.keepsakeCount;
+        int numKeepsakesToGenerate = shopLevel.numKeepsakesToShow;
 
         for (int i = 0; i < numKeepsakesToGenerate; i++) {
             // Determine what the companion pool is for this single keepsake being generated

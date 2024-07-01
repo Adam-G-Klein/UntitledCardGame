@@ -17,6 +17,8 @@ MonoBehaviour:
     manaIncrease: 0
     teamSize: 3
     upgradeCost: 4
+    numCardsToShow: 2
+    numKeepsakesToShow: 1
     commonCompanionPercentage: 70
     uncommonCompanionPercentage: 30
     rareCompanionPercentage: 0
@@ -27,6 +29,8 @@ MonoBehaviour:
     manaIncrease: 0
     teamSize: 4
     upgradeCost: 8
+    numCardsToShow: 3
+    numKeepsakesToShow: 2
     commonCompanionPercentage: 50
     uncommonCompanionPercentage: 50
     rareCompanionPercentage: 0
@@ -37,6 +41,8 @@ MonoBehaviour:
     manaIncrease: 0
     teamSize: 4
     upgradeCost: 20
+    numCardsToShow: 5
+    numKeepsakesToShow: 2
     commonCompanionPercentage: 30
     uncommonCompanionPercentage: 60
     rareCompanionPercentage: 10
@@ -47,6 +53,8 @@ MonoBehaviour:
     manaIncrease: 0
     teamSize: 5
     upgradeCost: 24
+    numCardsToShow: 4
+    numKeepsakesToShow: 3
     commonCompanionPercentage: 20
     uncommonCompanionPercentage: 50
     rareCompanionPercentage: 30
@@ -56,5 +64,7 @@ MonoBehaviour:
   companionPool: {fileID: 11400000, guid: 4113f0ac393ad43499c4e9e9a4e6d97e, type: 2}
   keepsakeCount: 3
   rerollShopPrice: 1
-  upgradeShopPrice: 10
   shopEncounterEvent: {fileID: 11400000, guid: d82ee33fc33d20544bce205c53a0832e, type: 2}
+  cardPrice: 1
+  companionKeepsakePrice: 3
+  neutralCardPool: {fileID: 11400000, guid: 0a925285304694dc3920946135833078, type: 2}

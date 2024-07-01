@@ -86,10 +86,10 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
         //set up companion list
         foreach (var companion in gameState.companions.activeCompanions) {
-            //Now this is Epic
-            if (companion.companionType.cardPool.commonCards.Contains(cardInfo.cardType) ||
-                companion.companionType.cardPool.uncommonCards.Contains(cardInfo.cardType) ||
-                companion.companionType.cardPool.rareCards.Contains(cardInfo.cardType)) {
+            CompanionTypeSO cardSourceCompanion = cardInfo.getCompanionFrom();
+            // Source companion will be null if the card is neutral; in that case, we should include all
+            // companions.
+            if (cardSourceCompanion == null || cardSourceCompanion == companion.companionType) {
                 companionList.Add(companion);
             }
         }
@@ -103,9 +103,10 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
         //set up bench list
         foreach (var companion in gameState.companions.benchedCompanions) {
-            if (companion.companionType.cardPool.commonCards.Contains(cardInfo.cardType) ||
-                companion.companionType.cardPool.uncommonCards.Contains(cardInfo.cardType) ||
-                companion.companionType.cardPool.rareCards.Contains(cardInfo.cardType)) {
+            CompanionTypeSO cardSourceCompanion = cardInfo.getCompanionFrom();
+            // Source companion will be null if the card is neutral; in that case, we should include all
+            // companions.
+            if (cardSourceCompanion == null || cardSourceCompanion == companion.companionType) {
                 companionList.Add(companion);
             }
         }
