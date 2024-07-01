@@ -42,6 +42,7 @@ MonoBehaviour:
       data:
         companionAbilityTrigger: 0
         effectSteps:
+        - rid: 5602892491280613497
         - rid: 5602892491280613460
         - rid: 5602892491280613461
     - rid: 5602892491280613460
@@ -62,9 +63,14 @@ MonoBehaviour:
         inputKey: randomTarget
         cardTypes:
         - {fileID: 11400000, guid: 327b4666084294998a22242fc25b9c72, type: 2}
-        addToDeckMethod: 1
+        addToDeckMethod: 2
         getCardsFromKey: 0
         inputCardsKey: 
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+    - rid: 5602892491280613497
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        dialogueLocationSO: {fileID: 0}
