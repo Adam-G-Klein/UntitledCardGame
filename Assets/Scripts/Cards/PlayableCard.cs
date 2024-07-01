@@ -61,7 +61,11 @@ public class PlayableCard : MonoBehaviour,
         IncrementCastCount();
         EnemyEncounterManager.Instance.combatEncounterState.cardsCastThisTurn.Add(card);
         yield return StartCoroutine(deckFrom.OnCardCast(this));
-        DiscardCardFromHand();
+        if (card.cardType.exhaustsWhenPlayed) {
+            ExhaustCard();
+        } else {
+            DiscardCardFromHand();
+        }
     }
 
     private void IncrementCastCount(){

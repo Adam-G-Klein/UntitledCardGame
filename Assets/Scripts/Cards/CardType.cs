@@ -18,6 +18,9 @@ public class CardType: ScriptableObject, ITooltipProvider
     // For unplayable status cards
     public bool playable = true;
 
+    // When the card is played, it will be exhausted.
+    public bool exhaustsWhenPlayed = false;
+
     [SerializeReference]
     public List<EffectWorkflow> effectWorkflows;
 
