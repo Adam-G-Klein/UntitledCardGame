@@ -30,6 +30,7 @@ public enum EffectStepName {
     GetNumberOfCardsInHand,
     GetPercentOfMaxHP,
     GetTargets,
+    GoldManipulation,
     HasCardActionBeenTakenThisTurn,
     InstantiatePrefab,
     ManaChange,
