@@ -82,9 +82,15 @@ public class ShopEncounter : Encounter
             // Nullable for neutral cards, otherwise it will be attached to a specific companion type.
             CompanionTypeSO companionType = cardsInShop[i].sourceCompanion;
 
+            // This structuring is a piece of garbage.
+            // The same Script is used in two places; one on the parent `CardInShopHolder`
+            // and one in the child `CardInShop` gameobject.
+            // The `instantiatedCard` object is a CardInShopHolder prefab.
+            // Its CardInShop script component is used to control the display.
+            // The poorly named CardInShop gameobject intercepts click events and processes
+            // buy requests - all we have to do for it is set the price.
             CardInShop cardInShop = instantiatedCard.GetComponent<CardInShop>();
             cardInShop.price = cardsInShop[i].price;
-            cardInShop.sourceCompanion = cardsInShop[i].sourceCompanion;
 
             CardDisplay cardDisplay = cardInShop.cardDisplay;
             if (companionType != null) {
@@ -93,6 +99,10 @@ public class ShopEncounter : Encounter
             cardDisplay.Initialize(new Card(cardType, companionType));
 
             cardInShop.Setup();
+
+            CardInShop childCardInShop = instantiatedCard.transform.GetChild(0).GetComponent<CardInShop>();
+            childCardInShop.price = cardsInShop[i].price;
+            childCardInShop.Setup();
         }
     }
 

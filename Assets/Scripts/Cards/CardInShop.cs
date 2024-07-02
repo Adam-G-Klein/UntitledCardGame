@@ -19,9 +19,6 @@ public class CardInShop : MonoBehaviour
     [SerializeField]
     private GameObject soldOutSign;
 
-    // Nullable for neutral cards.
-    public CompanionTypeSO sourceCompanion;
-
     private bool isSold = false;
     [SerializeField]
     private AudioClip cardHover;
