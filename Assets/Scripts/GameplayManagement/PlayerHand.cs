@@ -22,9 +22,9 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         PlayableCard newCard;
         foreach(Card cardInfo in cards) {
             newCard = PrefabInstantiator.InstantiateCard(
-                cardPrefab, 
-                layoutGroup, 
-                cardInfo, 
+                cardPrefab,
+                layoutGroup,
+                cardInfo,
                 deckFrom);
             cardsInHand.Add(newCard);
             cardsDelt.Add(newCard);
@@ -60,7 +60,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     }
 
     // Do not call on whole hand, only call on individual cards
-    // modifies the list of cards in hand 
+    // modifies the list of cards in hand
     public void DiscardCard(PlayableCard card) {
         // If statement is here to take into account if a card exhausts itself
         // as part of its effect workflow

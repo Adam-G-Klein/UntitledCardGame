@@ -26,9 +26,9 @@ public class CardDisplay : MonoBehaviour
 
     public bool initialized {
         get {
-            return CardNameGO != null 
-                && CostTextGO != null 
-                && CardDescGO != null 
+            return CardNameGO != null
+                && CostTextGO != null
+                && CardDescGO != null
                 && ArtworkGO != null
                 && FrameGO != null
                 && TypeIconGO != null
@@ -50,7 +50,7 @@ public class CardDisplay : MonoBehaviour
             } else {
                 manaCostText.color = initManaCostColor;
             }
-        
+
     }
 
     void Awake()
@@ -78,6 +78,7 @@ public class CardDisplay : MonoBehaviour
         CompanionTypeSO companionType = cardInfo.getCompanionFrom();
         if (companionType == null) {
             Debug.LogError("No companion from provided to cardDisplay or present in cardInfo. cardInfo: " + cardInfo.name + " companionType: " + companionType);
+            yield return null;
         }
         else if(companionType.cardIdleVfxPrefab) {
             vfxGO = Instantiate(companionType.cardIdleVfxPrefab, transform);
@@ -85,7 +86,7 @@ public class CardDisplay : MonoBehaviour
         }
         if(companionType.cardFrame == null) {
             Debug.LogError("CompanionTypeSO " + companionType.name + " has no cardFrame set");
-        }  
+        }
         FrameGO.sprite = companionType.cardFrame;
         Frame = FrameGO.sprite;
         if(companionType.typeIcon == null) {

@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems; 
+using UnityEngine.EventSystems;
 using TMPro;
 
 public class CardInShop : MonoBehaviour
@@ -42,8 +42,8 @@ public class CardInShop : MonoBehaviour
     public void OnPointerClick(PointerEventData eventData) {
         if (isSold) return;
         CardBuyRequest cardBuyRequest = new CardBuyRequest(
-            cardDisplay.getCardInfo(), 
-            price, 
+            cardDisplay.getCardInfo(),
+            price,
             this);
         ShopManager.Instance.processCardBuyRequest(cardBuyRequest);
     }
