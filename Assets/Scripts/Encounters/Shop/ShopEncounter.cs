@@ -63,7 +63,7 @@ public class ShopEncounter : Encounter
         this.encounterType = EncounterType.Shop;
         validateShopData();
         generateShopEncounter(shopLevel, companionList);
-        setupCards(companionList);
+        setupCards();
         setupKeepsakes();
     }
 
@@ -71,7 +71,7 @@ public class ShopEncounter : Encounter
         encounterBuilder.BuildShopEncounter(this);
     }
 
-    private void setupCards(List<Companion> companionList) {
+    private void setupCards() {
         for (int i = 0; i < cardsInShop.Count; i++) {
             GameObject instantiatedCard = GameObject.Instantiate(
                 encounterConstants.cardInShopPrefab,
