@@ -27,10 +27,15 @@ public class CardType: ScriptableObject, ITooltipProvider
     [SerializeReference]
     public EffectWorkflow onExhaustEffectWorkflow;
 
+    [SerializeReference]
+    // When the card is kept in hand for the end of the turn, we can do
+    // an optional effect workflow, like "lose 2 HP".
+    public EffectWorkflow inPlayerHandEndOfTurnWorkflow;
+
     [SerializeField]
     // TODO: re-arch this if it becomes a big enough pain
-    [Header("Add any tooltipKeyword from Resources/TooltipConfig/TooltipMap\n" + 
-            "NOTE: Some effects (ApplyStatus, some CardInHand/Deck effects) auto-add to the tooltip,\n" + 
+    [Header("Add any tooltipKeyword from Resources/TooltipConfig/TooltipMap\n" +
+            "NOTE: Some effects (ApplyStatus, some CardInHand/Deck effects) auto-add to the tooltip,\n" +
             "Adding their keywords here will cause duplicates in the resulting tooltip")]
     public List<TooltipKeyword> tooltips;
 

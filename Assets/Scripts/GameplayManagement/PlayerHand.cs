@@ -34,6 +34,14 @@ public class PlayerHand : GenericSingleton<PlayerHand>
 
     public void TurnPhaseChangedEventHandler(TurnPhaseEventInfo info) {
         if(info.newPhase == TurnPhase.END_PLAYER_TURN) {
+            // Run the effect workflows for all the cards left in the hand.
+            foreach (PlayableCard card in cardsInHand) {
+                CardType ct = card.card.cardType;
+                if (ct.inPlayerHandEndOfTurnWorkflow != null) {
+                    EffectManager.Instance.QueueEffectWorkflow(ct.inPlayerHandEndOfTurnWorkflow);
+                }
+            }
+
             DiscardHand();
         }
     }

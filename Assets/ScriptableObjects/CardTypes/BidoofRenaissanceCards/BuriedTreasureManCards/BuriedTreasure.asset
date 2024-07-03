@@ -24,6 +24,8 @@ MonoBehaviour:
   - rid: 5602892491280613593
   onExhaustEffectWorkflow:
     rid: 5602892491280613515
+  inPlayerHandEndOfTurnWorkflow:
+    rid: 5602892533381726224
   tooltips: 
   references:
     version: 2
@@ -42,3 +44,7 @@ MonoBehaviour:
       data:
         effectStepName: 
         goldToAdd: 3
+    - rid: 5602892533381726224
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps: []

@@ -10,6 +10,9 @@ public class CardTypeEditor : Editor {
 
     EffectStepName stepName = EffectStepName.Default;
     EffectStepName onExhaustStepName = EffectStepName.Default;
+
+    EffectStepName inPlayerHandEndOfTurnStepName = EffectStepName.Default;
+
     int editedEffectWorkflow = 0;
     public override void OnInspectorGUI() {
         CardType cardType = (CardType) target;
@@ -26,9 +29,9 @@ public class CardTypeEditor : Editor {
 
         if (GUILayout.Button("Add Effect")) {
             EffectStep newEffect = InstantiateFromClassname.Instantiate<EffectStep>(
-                stepName.ToString(), 
+                stepName.ToString(),
                 new object[] {});
-            
+
             EffectWorkflow retrievedWorkflow = null;
             if (cardType.effectWorkflows.Count == 0) {
                 cardType.effectWorkflows.Add(new EffectWorkflow());
@@ -40,7 +43,7 @@ public class CardTypeEditor : Editor {
             } else {
                 retrievedWorkflow = cardType.effectWorkflows[editedEffectWorkflow];
             }
-            
+
             if(retrievedWorkflow == null) {
                 Debug.LogError("Error while attempting to retrieve the workflow to add a new effect to");
             }
@@ -64,22 +67,41 @@ public class CardTypeEditor : Editor {
         }
 
         EditorGUILayout.Space(20);
-        EditorGUILayout.LabelField("On Exhaust ffect Step Controls");
+        EditorGUILayout.LabelField("On Exhaust effect Step Controls");
         EditorGUILayout.Space(5);
 
         onExhaustStepName = (EffectStepName) EditorGUILayout.EnumPopup(
             "New effect",
             onExhaustStepName);
-        
+
         if (GUILayout.Button("Add Effect")) {
             EffectStep newEffect = InstantiateFromClassname.Instantiate<EffectStep>(
-                onExhaustStepName.ToString(), 
+                onExhaustStepName.ToString(),
                 new object[] {});
             if (cardType.onExhaustEffectWorkflow == null) {
                 cardType.onExhaustEffectWorkflow = new EffectWorkflow();
             }
 
             cardType.onExhaustEffectWorkflow.effectSteps.Add(newEffect);
+        }
+
+        EditorGUILayout.Space(20);
+        EditorGUILayout.LabelField("In Player hand end of turn effect step controls");
+        EditorGUILayout.Space(5);
+
+        inPlayerHandEndOfTurnStepName = (EffectStepName) EditorGUILayout.EnumPopup(
+            "New effect",
+            inPlayerHandEndOfTurnStepName);
+
+        if (GUILayout.Button("Add Effect")) {
+            EffectStep newEffect = InstantiateFromClassname.Instantiate<EffectStep>(
+                inPlayerHandEndOfTurnStepName.ToString(),
+                new object[] {});
+            if (cardType.inPlayerHandEndOfTurnWorkflow == null) {
+                cardType.inPlayerHandEndOfTurnWorkflow = new EffectWorkflow();
+            }
+
+            cardType.inPlayerHandEndOfTurnWorkflow.effectSteps.Add(newEffect);
         }
     }
 
