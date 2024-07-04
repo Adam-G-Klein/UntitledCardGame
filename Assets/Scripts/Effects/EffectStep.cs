@@ -13,6 +13,7 @@ public enum EffectStepName {
     CheckTypeOfMostRecentlyPlayedCard,
     CombatEffectStep,
     ConvertPlayableCardToCard,
+    CountCardsInDeck,
     CountStatusEffectsStep,
     CountStep,
     DebugEffectStep,
