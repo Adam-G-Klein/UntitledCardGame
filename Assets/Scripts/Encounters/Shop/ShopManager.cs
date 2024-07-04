@@ -14,7 +14,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     public EncounterConstantsSO encounterConstants;
     public VoidGameEvent shopRefreshEvent;
     public GameObject companionViewUIPrefab;
-    
+
     private ShopEncounter shopEncounter;
     private ShopLevel shopLevel;
     private GameObject companionViewUI = null;
@@ -69,9 +69,9 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
             this.companionViewUI
                 .GetComponent<CompanionViewUI>()
-                .setupCompanionDisplay(determineApplicableActiveCompanions(cardBuyRequest.cardInfo), 
-                determineApplicableBenchCompanions(cardBuyRequest.cardInfo), 
-                gameState.companions.currentCompanionSlots, 
+                .setupCompanionDisplay(determineApplicableActiveCompanions(cardBuyRequest.cardInfo),
+                determineApplicableBenchCompanions(cardBuyRequest.cardInfo),
+                gameState.companions.currentCompanionSlots,
                 new List<CompanionActionType>() {
                     CompanionActionType.SELECT,
                     CompanionActionType.VIEW_DECK
@@ -98,7 +98,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     }
 
     private List<Companion> determineApplicableBenchCompanions(Card cardInfo) {
-        
+
         List<Companion> companionList = new();
 
         //set up bench list
@@ -123,8 +123,8 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
             gameState.playerData.GetValue().gold -= request.price;
             GameObject.Instantiate(
-                encounterConstants.cardSoldOutPrefab, 
-                request.keepsakeInShop.transform.position, 
+                encounterConstants.cardSoldOutPrefab,
+                request.keepsakeInShop.transform.position,
                 Quaternion.identity);
             request.keepsakeInShop.sold();
             if(!companionCombinationManager.AttemptUpgradeCompanion(request.companion)){
@@ -138,10 +138,11 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
     public void processCompanionSelectedEvent(Companion companion) {
         // The player selected a companion, so the transaction is complete
-        // (assuming there is a transaction) and we're gonna add the card 
+        // (assuming there is a transaction) and we're gonna add the card
         // to the companion's deck and lets forcefully close the companion
         // view UI
         if (this.buyingCard) {
+            currentBuyRequest.cardInfo.setCompanionFrom(companion.companionType);
             companion.deck.cards.Add(currentBuyRequest.cardInfo);
             gameState.playerData.GetValue().gold -= currentBuyRequest.price;
             Vector3 cardPosition = currentBuyRequest.cardInShop.transform.position;
@@ -150,17 +151,17 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             Destroy(this.companionViewUI);
             this.companionViewUI = null;
 
-            
+
         } else {
             Debug.LogError("Processing companion click event with no transaction");
         }
     }
-    
+
     public void processCompanionViewExitedEvent() {
         // The player did not assign a companion to add the card to
         // so stop buying a card
         this.buyingCard = false;
-        
+
         // choosing to null this is hopes that if we see an NPE here then we know
         // something went wrong;
         this.currentBuyRequest = null;

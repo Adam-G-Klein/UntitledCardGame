@@ -19,6 +19,8 @@ public class CardInDeckEffect : EffectStep, ITooltipProvider
     [SerializeField]
     private CardInDeckEffectName effect;
     [SerializeField]
+    private CardType cardToTransformInto;
+    [SerializeField]
     private string outputKey = "";
 
     private static Dictionary<CardInDeckEffectName, TooltipKeyword> tooltipMapping = new Dictionary<CardInDeckEffectName, TooltipKeyword>() {
@@ -52,6 +54,11 @@ public class CardInDeckEffect : EffectStep, ITooltipProvider
                     deckInstances[0].ExhaustCard(card);
                 break;
 
+                case CardInDeckEffectName.Transform:
+                    deckInstances[0].sourceDeck.cards.Add(new Card(cardToTransformInto, card.getCompanionFrom()));
+                    deckInstances[0].sourceDeck.PurgeCard(card.id);
+                break;
+
                 case CardInDeckEffectName.Purge:
                     deckInstances[0].sourceDeck.PurgeCard(card.id);
                 break;
@@ -68,12 +75,13 @@ public class CardInDeckEffect : EffectStep, ITooltipProvider
         document.intMap.Add(outputKey, numberOfCardsTakenActionOn);
         yield return null;
     }
-    
+
     public enum CardInDeckEffectName {
         Exhaust,
         Purge,
         Discard,
-        AddToHand
+        AddToHand,
+        Transform,
     }
     public TooltipViewModel GetTooltip(){
         if(KeywordTooltipProvider.Instance.HasTooltip(tooltipMapping[effect])){

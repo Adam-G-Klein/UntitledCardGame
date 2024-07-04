@@ -101,5 +101,17 @@ MonoBehaviour:
       maxHealth: 25
       currentHealth: 25
       baseAttackDamage: 0
+  - id: 96dbb1f5-a04f-4f3d-9779-6fa43904959d
+    entityType: 0
+    companionType: {fileID: 11400000, guid: fb779bf01568f45f9bdea9e30bb824f3, type: 2}
+    upgradeInfo: {fileID: 11400000, guid: 99076b48c6110564cb87cbbb29a513b6, type: 2}
+    deck:
+      startingDeck: {fileID: 11400000, guid: 583b1de8b4e66492eb4afaaa9e408467, type: 2}
+      cards: []
+      cardsDealtPerTurn: 1
+    combatStats:
+      maxHealth: 20
+      currentHealth: 20
+      baseAttackDamage: 0
   benchedCompanions: []
   currentCompanionSlots: 0
