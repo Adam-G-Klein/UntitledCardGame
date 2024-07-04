@@ -135,7 +135,7 @@ public class DeckInstance : MonoBehaviour
     private void ShuffleDeck() {
          System.Random _random = new System.Random();
          Card temp;
- 
+
          int n = drawPile.Count;
          for (int i = 0; i < n; i++)
          {
@@ -162,6 +162,8 @@ public class DeckInstance : MonoBehaviour
     public void ShuffleIntoDraw(List<Card> cards){
         Debug.Log("Shuffling " + cards.Count + " cards into draw pile");
         drawPile.AddRange(cards);
+
+        drawPile.Shuffle();
     }
 
     public void AddCardsToTopOfDeck(List<Card> cards){
