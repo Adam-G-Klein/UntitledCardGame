@@ -20,6 +20,7 @@ public class CompanionAbility
         EndOfPlayerTurn,
         EndOfEnemyTurn,
         OnFriendOrFoeDeath,
+        OnFriendDeath,
         OnDeath,
         OnAttackCardPlayed,
         OnCombine

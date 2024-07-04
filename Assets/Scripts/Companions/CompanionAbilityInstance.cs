@@ -50,8 +50,14 @@ public class CompanionAbilityInstance
                     CombatEntityTriggerType.MINION_DIED,
                     setupAndInvokeAbility());
                 CombatEntityManager.Instance.registerTrigger(companionDeathTrigger);
-                CombatEntityManager.Instance.registerTrigger(enemyDeathTrigger);  
+                CombatEntityManager.Instance.registerTrigger(enemyDeathTrigger);
                 CombatEntityManager.Instance.registerTrigger(minionDeathTrigger);
+            break;
+
+            case CompanionAbility.CompanionAbilityTrigger.OnFriendDeath:
+                CombatEntityManager.Instance.registerTrigger(new CombatEntityTrigger(
+                    CombatEntityTriggerType.COMPANION_DIED,
+                    setupAndInvokeAbility()));
             break;
 
             case CompanionAbility.CompanionAbilityTrigger.OnDeath:
@@ -88,7 +94,7 @@ public class CompanionAbilityInstance
         if (ability.companionAbilityTrigger == CompanionAbility.CompanionAbilityTrigger.OnAttackCardPlayed) {
             this.companionInstance.deckInstance.onCardCastHandler -= CheckAttackCardPlayed;
         }
-        
+
         yield return null;
     }
 

@@ -40,5 +40,27 @@ MonoBehaviour:
     - rid: 5602892559406858240
       type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
       data:
-        companionAbilityTrigger: 1
-        effectSteps: []
+        companionAbilityTrigger: 5
+        effectSteps:
+        - rid: 5602892559406858262
+        - rid: 5602892559406858261
+    - rid: 5602892559406858261
+      type: {class: PermanentStatIncrease, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: PermanentStatIncrease
+        inputKey: self
+        statIncreaseType: 0
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 5602892559406858262
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
