@@ -18,7 +18,7 @@ public class CombatInstance : MonoBehaviour
     // Only used for debugging purposes, will be set by some other script
     private string id;
 
-    public static Dictionary<StatusEffect, int> initialStatusEffects = 
+    public static Dictionary<StatusEffect, int> initialStatusEffects =
         new Dictionary<StatusEffect, int>() {
             { StatusEffect.Strength, 0 },
             { StatusEffect.Weakness, 0 },
@@ -34,7 +34,7 @@ public class CombatInstance : MonoBehaviour
             { StatusEffect.MoneyOnDeath, 0 }
         };
 
-    public Dictionary<StatusEffect, int> statusEffects = 
+    public Dictionary<StatusEffect, int> statusEffects =
         new Dictionary<StatusEffect, int> (initialStatusEffects);
 
     public void Start() {
@@ -52,14 +52,14 @@ public class CombatInstance : MonoBehaviour
 
     public int GetCurrentDamage() {
         return Mathf.Max(0, (
-                combatStats.baseAttackDamage 
+                combatStats.baseAttackDamage
                 + statusEffects[StatusEffect.Strength]
                 + statusEffects[StatusEffect.TemporaryStrength]
                 - statusEffects[StatusEffect.Weakness]));
     }
 
     public void ApplyNonStatusCombatEffect(CombatEffect effect, int scale, CombatInstance effector) {
-        
+
         // All the non-status-effect combat effects are handled here
         // status effects are handled in applyCombatEffects
         switch(effect) {
@@ -87,14 +87,15 @@ public class CombatInstance : MonoBehaviour
     }
 
     private void TakeDamage(int damage, CombatInstance attacker) {
-        
+
         // This is necessary to solve a race condition with a multi-damage attack
         // Fix this later
         if (combatStats.getCurrentHealth() == 0) {
             return;
         }
-        Debug.Log("Take Damage is Setting current health to " + Mathf.Max(combatStats.getCurrentHealth() - DamageAfterDefense(damage), 0));
-        combatStats.setCurrentHealth(Mathf.Max(combatStats.getCurrentHealth() - DamageAfterDefense(damage), 0));
+        int damageAfterDefense = DamageAfterDefense(damage);
+        Debug.Log("Take Damage is Setting current health to " + Mathf.Max(combatStats.getCurrentHealth() - damageAfterDefense, 0));
+        combatStats.setCurrentHealth(Mathf.Max(combatStats.getCurrentHealth() - damageAfterDefense, 0));
 
         if (combatStats.getCurrentHealth() == 0){
             StartCoroutine(OnDeath(attacker));
@@ -109,7 +110,7 @@ public class CombatInstance : MonoBehaviour
         // Invulnerability removal is handled at end of turn
         if (statusEffects[StatusEffect.Invulnerability] > 0)
             return 0;
-        
+
         if (statusEffects[StatusEffect.PlatedArmor] > 0) {
             // We have plated armor, so set damage and remove 1 armor
             damage = 0;
@@ -117,9 +118,9 @@ public class CombatInstance : MonoBehaviour
         }
 
         // No block, so just taking full damage
-        if(statusEffects[StatusEffect.Defended] == 0) 
+        if(statusEffects[StatusEffect.Defended] == 0)
             return damage;
-        
+
         if (statusEffects[StatusEffect.Defended] > damage) {
             statusEffects[StatusEffect.Defended] -= damage;
             damage = 0;
@@ -195,7 +196,7 @@ public class CombatInstance : MonoBehaviour
                 break;
             case StatusEffect.Orb:
                 break;
-            
+
             // This is separate from the above for now since this might
             // need special logic
             case StatusEffect.MoneyOnDeath:
