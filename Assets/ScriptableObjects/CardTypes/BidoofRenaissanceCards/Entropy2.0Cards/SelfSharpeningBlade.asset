@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: Cutting Edge
+  m_Name: SelfSharpeningBlade
   m_EditorClassIdentifier: 
-  Name: Cutting Edge
+  Name: Self-Sharpening Blade
   Description: Deal 5 damage. Increase the damage of ALL self-sharpening blade cards
     by 5 this combat
   Cost: 1
@@ -20,10 +20,14 @@ MonoBehaviour:
   cardCategory: 1
   vfxPrefab: {fileID: 0}
   playable: 1
+  exhaustsWhenPlayed: 0
   effectWorkflows:
   - rid: 2116895648763871339
   onExhaustEffectWorkflow:
     rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  tooltips: 
   references:
     version: 2
     RefIds:
