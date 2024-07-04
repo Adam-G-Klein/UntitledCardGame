@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
+  m_Name: Beezelbumbler
+  m_EditorClassIdentifier: 
+  companionName: Beezelbumbler
+  maxHealth: 20
+  initialCardsDealtPerTurn: 1
+  sprite: {fileID: 21300000, guid: ad930400c27494d68ae6ba500d2e3fdc, type: 3}
+  startingDeck: {fileID: 11400000, guid: 03db7753a8eb34b8fa1ccf858b7c2c0e, type: 2}
+  keepsake: {fileID: 21300000, guid: ad930400c27494d68ae6ba500d2e3fdc, type: 3}
+  cardBack: {fileID: 21300000, guid: 3296a63e824de414bb4b578c4822fbdb, type: 3}
+  cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
+  typeIcon: {fileID: 21300000, guid: ad930400c27494d68ae6ba500d2e3fdc, type: 3}
+  portrait: {fileID: 21300000, guid: ad930400c27494d68ae6ba500d2e3fdc, type: 3}
+  teamSelectSprite: {fileID: 21300000, guid: ad930400c27494d68ae6ba500d2e3fdc, type: 3}
+  cardIdleVfxPrefab: {fileID: 0}
+  genericCompanionSFX: {fileID: 0}
+  genericCompanionVFX: {fileID: 0}
+  cardPool: {fileID: 11400000, guid: 4d23c731d10ea45218cc9e44a4ca61f3, type: 2}
+  speakerType: {fileID: 0}
+  abilities:
+  - rid: 5602892559406858240
+  upgradeInfo: {fileID: 0}
+  tooltip:
+    empty: 0
+    lines: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 5602892559406858240
+      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
+      data:
+        companionAbilityTrigger: 1
+        effectSteps: []
