@@ -20,7 +20,8 @@ MonoBehaviour:
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 1
-  effectWorkflows: []
+  effectWorkflows:
+  - rid: 5602892561590780065
   onExhaustEffectWorkflow:
     rid: 5602892557111787552
   inPlayerHandEndOfTurnWorkflow:
@@ -60,3 +61,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+    - rid: 5602892561590780065
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps: []
