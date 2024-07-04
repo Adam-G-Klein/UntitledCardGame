@@ -33,8 +33,9 @@ public static class PrefabInstantiator {
         GameObject companionGO = GameObject.Instantiate(
             companionPrefab,
             position,
-            Quaternion.identity, 
+            Quaternion.identity,
             parent);
+        companionGO.name = companion.companionType.name;
         CompanionInstance companionInstance = companionGO.GetComponent<CompanionInstance>();
         companionInstance.companion = companion;
         return companionInstance;

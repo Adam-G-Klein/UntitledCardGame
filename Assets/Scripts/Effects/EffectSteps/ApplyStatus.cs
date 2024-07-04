@@ -17,7 +17,7 @@ public class ApplyStatus : EffectStep, ITooltipProvider
 {
     [SerializeField]
     [Tooltip(
-        "Designates what entity to add status to based on " + 
+        "Designates what entity to add status to based on " +
         "the key the entity was saved to from a previous effect"
     )]
     private string inputKey = "";
