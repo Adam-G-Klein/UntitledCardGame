@@ -15,7 +15,7 @@ MonoBehaviour:
   Name: Rodents of Unusual Size
   Description: Lose 1 strength. Give all other companions on your team 1 strength.
   Cost: 1
-  Artwork: {fileID: 0}
+  Artwork: {fileID: 21300000, guid: 3708c5d775e17b749bf81d2b922f6024, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
@@ -49,7 +49,7 @@ MonoBehaviour:
         outputKey: self
         validTargets: 00000000
         number: 1
-        specialTargetRule: 3
+        specialTargetRule: 4
         cantCancelTargetting: 0
     - rid: 5602892533381726234
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
@@ -57,7 +57,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: self
         statusEffect: 0
-        scale: -1
+        scale: -2
         getScaleFromKey: 0
         inputScaleKey: 
     - rid: 5602892533381726236
@@ -66,16 +66,16 @@ MonoBehaviour:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: others
+        outputKey: all
         validTargets: 00000000
-        number: 1
-        specialTargetRule: 2
+        number: 0
+        specialTargetRule: 1
         cantCancelTargetting: 0
     - rid: 5602892533381726237
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ApplyStatus
-        inputKey: others
+        inputKey: all
         statusEffect: 0
         scale: 1
         getScaleFromKey: 0
