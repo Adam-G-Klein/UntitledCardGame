@@ -34,7 +34,10 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     public void BuildShopEncounter(ShopEncounter shopEncounter) {
         this.shopEncounter = shopEncounter;
         this.shopLevel = shopEncounter.shopData.GetShopLevel(gameState.playerData.GetValue().shopLevel);
-        shopEncounter.Build(this, gameState.companions.activeCompanions, encounterConstants, this.shopLevel);
+        List<Companion> allCompanions = new();
+        allCompanions.AddRange(gameState.companions.activeCompanions);
+        allCompanions.AddRange(gameState.companions.benchedCompanions);
+        shopEncounter.Build(this, allCompanions, encounterConstants, this.shopLevel);
 
         CheckDisableUpgradeButton();
         DialogueManager.Instance.SetDialogueLocation(
@@ -207,7 +210,10 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
     private void rerollShop() {
         shopRefreshEvent.Raise(null);
-        shopEncounter.Build(this, gameState.companions.activeCompanions, encounterConstants, shopLevel);
+        List<Companion> allCompanions = new();
+        allCompanions.AddRange(gameState.companions.activeCompanions);
+        allCompanions.AddRange(gameState.companions.benchedCompanions);
+        shopEncounter.Build(this, allCompanions, encounterConstants, shopLevel);
     }
 
     public void saveShopEncounter(ShopEncounter shopEncounter) {
