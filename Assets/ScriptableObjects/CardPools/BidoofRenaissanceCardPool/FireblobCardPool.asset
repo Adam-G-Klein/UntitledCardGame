@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98c54fe17bbfaba4697c85c1618843f4, type: 3}
   m_Name: FireblobCardPool
   m_EditorClassIdentifier: 
-  commonCards: []
+  commonCards:
+  - {fileID: 11400000, guid: 52627ce2e2d9e42d9befc44e79ac9856, type: 2}
+  - {fileID: 11400000, guid: 0b97d0a99835b442c84d499af88d21da, type: 2}
   uncommonCards: []
   rareCards: []
-  commonCardPrice: 1
-  uncommonCardPrice: 0
-  rareCardPrice: 0

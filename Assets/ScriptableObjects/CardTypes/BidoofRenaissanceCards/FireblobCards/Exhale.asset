@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
+  m_Name: Exhale
+  m_EditorClassIdentifier: 
+  Name: Exhale
+  Description: Shuffle 3 Firebreath into this companion's deck.
+  Cost: 1
+  Artwork: {fileID: 21300000, guid: 27219c2682ae3af4fa76a9968109666f, type: 3}
+  cardCategory: 2
+  vfxPrefab: {fileID: 0}
+  playable: 1
+  exhaustsWhenPlayed: 0
+  effectWorkflows:
+  - rid: 5602892561590779907
+  onExhaustEffectWorkflow:
+    rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  tooltips: 
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 5602892561590779907
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 5602892561590779908
+        - rid: 5602892561590779909
+    - rid: 5602892561590779908
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 4
+        cantCancelTargetting: 0
+    - rid: 5602892561590779909
+      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: AddCardsToDeck
+        inputKey: self
+        cardTypes:
+        - {fileID: 11400000, guid: eec5b177fb6f749e0a93744b0309167a, type: 2}
+        addToDeckMethod: 1
+        getCardsFromKey: 0
+        inputCardsKey: 
+        scale: 3
+        getScaleFromKey: 0
+        inputScaleKey: 

@@ -13,101 +13,97 @@ MonoBehaviour:
   m_Name: BidoofStartingTeam
   m_EditorClassIdentifier: 
   activeCompanions:
-  - id: 64939dfa-1d69-4dfe-8f57-8c6b01f57a6a
-    entityType: 0
-    companionType: {fileID: 11400000, guid: 3099bd8e763a8462e8061e119f6e9ee0, type: 2}
-    upgradeInfo: {fileID: 0}
-    deck:
-      startingDeck: {fileID: 11400000, guid: bf6401d447a5b491382ab14a197ef5ed, type: 2}
-      cards:
-      - id: 3e96c96f-91e6-4ba2-a53d-9a6adab1691b
-        entityType: 0
-        castCount: 0
-        cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
-      - id: 384d6d75-30ea-4142-aa4a-d80a162011bc
-        entityType: 0
-        castCount: 0
-        cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
-      - id: d4f199b1-93eb-4f40-b631-9acc7d83a668
-        entityType: 0
-        castCount: 0
-        cardType: {fileID: 11400000, guid: 0b98548c5ec06473e9759cc94d160cd7, type: 2}
-      - id: bc053dbb-887a-4413-9e52-29c54f270b1d
-        entityType: 0
-        castCount: 0
-        cardType: {fileID: 11400000, guid: 0b98548c5ec06473e9759cc94d160cd7, type: 2}
-      - id: 238a3710-2e19-4959-be71-994a218494bb
-        entityType: 0
-        castCount: 0
-        cardType: {fileID: 11400000, guid: 0b98548c5ec06473e9759cc94d160cd7, type: 2}
-      cardsDealtPerTurn: 1
-    combatStats:
-      maxHealth: 25
-      currentHealth: 25
-      baseAttackDamage: 0
-  - id: d785389a-885c-4719-919c-87105b98d340
-    entityType: 0
-    companionType: {fileID: 11400000, guid: ddba054ceef954be5a2f4619af3e78c2, type: 2}
-    upgradeInfo: {fileID: 0}
-    deck:
-      startingDeck: {fileID: 11400000, guid: e8874d8a511b54b13b6fa125f643d72b, type: 2}
-      cards:
-      - id: 84573c3b-fa34-4a96-bf3f-4a6d9c32746c
-        entityType: 0
-        castCount: 0
-        cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
-      - id: 276d2f29-2880-4238-a41e-c0548e052208
-        entityType: 0
-        castCount: 0
-        cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
-      - id: b233759e-58a0-43c6-a134-8ced57f5c156
-        entityType: 0
-        castCount: 0
-        cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
-      - id: 466003b3-f588-4618-9693-7ee103ee53e5
-        entityType: 0
-        castCount: 0
-        cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
-      cardsDealtPerTurn: 1
-    combatStats:
-      maxHealth: 20
-      currentHealth: 20
-      baseAttackDamage: 0
-  - id: d0ed71c9-a82b-4b7b-9466-22fbcc6750b7
+  - id: 2b2fe266-fb04-4661-8e22-a037f324f148
     entityType: 0
     companionType: {fileID: 11400000, guid: 489004eb9fb4841a3b06dab06b9b3d15, type: 2}
     upgradeInfo: {fileID: 0}
     deck:
       startingDeck: {fileID: 11400000, guid: e99468c9ae12a4996a527ac53fb7625a, type: 2}
       cards:
-      - id: 1ab01efc-4576-498d-88cc-9835feae4b62
+      - id: 21923fe0-4a8a-4c12-8fe4-e1d008d54750
         entityType: 0
         castCount: 0
         cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
-      - id: ec505c3b-3f0f-456c-b110-2925ccd855ea
+      - id: 22a08645-80b5-43e0-8818-4414b48e0591
         entityType: 0
         castCount: 0
         cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
-      - id: d918c610-c6e0-4c1f-a4b0-90ec5afc9325
+      - id: 73708488-31f3-4fc2-86db-1d317a07f97e
         entityType: 0
         castCount: 0
-        cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
-      - id: 25e1ff11-234f-4dea-995b-93ea8b3d4178
+        cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
+      - id: dd95275d-47a0-453e-b76a-4b8445873fd2
         entityType: 0
         castCount: 0
-        cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
+        cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
+      - id: 9d995c40-9420-40aa-8712-0724ca9d2108
+        entityType: 0
+        castCount: 0
+        cardType: {fileID: 11400000, guid: 52627ce2e2d9e42d9befc44e79ac9856, type: 2}
       cardsDealtPerTurn: 1
     combatStats:
       maxHealth: 25
       currentHealth: 25
       baseAttackDamage: 0
-  - id: 96dbb1f5-a04f-4f3d-9779-6fa43904959d
+  - id: 3c53e0d9-3a4a-48e7-a486-483c8b662139
     entityType: 0
-    companionType: {fileID: 11400000, guid: fb779bf01568f45f9bdea9e30bb824f3, type: 2}
-    upgradeInfo: {fileID: 11400000, guid: 99076b48c6110564cb87cbbb29a513b6, type: 2}
+    companionType: {fileID: 11400000, guid: 3099bd8e763a8462e8061e119f6e9ee0, type: 2}
+    upgradeInfo: {fileID: 0}
     deck:
-      startingDeck: {fileID: 11400000, guid: 583b1de8b4e66492eb4afaaa9e408467, type: 2}
-      cards: []
+      startingDeck: {fileID: 11400000, guid: bf6401d447a5b491382ab14a197ef5ed, type: 2}
+      cards:
+      - id: 6b6a3153-4806-4538-9388-6a7a68cc83cc
+        entityType: 0
+        castCount: 0
+        cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
+      - id: 409743cc-283e-431b-bed3-0897f9e38660
+        entityType: 0
+        castCount: 0
+        cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
+      - id: e66a08de-3fe1-40df-915c-0c1b265c0ced
+        entityType: 0
+        castCount: 0
+        cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
+      - id: 5ca38553-1a54-48e1-ae23-8f0405158210
+        entityType: 0
+        castCount: 0
+        cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
+      - id: b8bc0a1d-f42d-4a00-bfb2-9158809644f2
+        entityType: 0
+        castCount: 0
+        cardType: {fileID: 11400000, guid: 64d1cb23d6f004d3c8431d86c57f5594, type: 2}
+      cardsDealtPerTurn: 1
+    combatStats:
+      maxHealth: 25
+      currentHealth: 25
+      baseAttackDamage: 0
+  - id: 82a36f80-afc8-4ea9-9727-2ff1f7a77b67
+    entityType: 0
+    companionType: {fileID: 11400000, guid: e80bed6b977594eb1b8a6fcf030f5300, type: 2}
+    upgradeInfo: {fileID: 0}
+    deck:
+      startingDeck: {fileID: 11400000, guid: 03db7753a8eb34b8fa1ccf858b7c2c0e, type: 2}
+      cards:
+      - id: 3a2b615a-9852-4e41-b6b8-d4326bf254be
+        entityType: 0
+        castCount: 0
+        cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
+      - id: eab71011-0b26-47ac-b870-e7f34a925955
+        entityType: 0
+        castCount: 0
+        cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
+      - id: 5a0aa858-c131-4265-85ac-fd2f980f7295
+        entityType: 0
+        castCount: 0
+        cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
+      - id: 5968c8a9-bd0d-46f1-a775-320f1abc04db
+        entityType: 0
+        castCount: 0
+        cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
+      - id: 44e928e6-0ed7-4b11-bdeb-182c76d8e900
+        entityType: 0
+        castCount: 0
+        cardType: {fileID: 11400000, guid: 37e079e46203847309bfa4815576ff1c, type: 2}
       cardsDealtPerTurn: 1
     combatStats:
       maxHealth: 20
