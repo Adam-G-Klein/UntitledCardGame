@@ -10,6 +10,9 @@ public class CardModificationEffect : EffectStep {
     [SerializeField]
     private bool affectsAllCardsOfType = false;
     [SerializeField]
+    // CardTypeToModify is only used if the `affectsAllCardsOfType` is checked.
+    private CardType cardTypeToModify;
+    [SerializeField]
     private bool getScaleFromKey = false;
     [SerializeField]
     private string scaleKey = "";
@@ -21,11 +24,6 @@ public class CardModificationEffect : EffectStep {
     }
 
     public override IEnumerator invoke(EffectDocument document) {
-        if (!document.map.ContainsValueWithKey<Card>(inputKey)) {
-            EffectError("No input Card for given key " + inputKey);
-            yield return null;
-        }
-
         int newScale = scale;
         if (getScaleFromKey) {
             if (!document.intMap.ContainsKey(scaleKey)) {
@@ -35,13 +33,18 @@ public class CardModificationEffect : EffectStep {
             newScale = document.intMap[scaleKey];
         }
 
+        if (affectsAllCardsOfType) {
+            cardTypeToModify.ChangeCardModification(modification, newScale);
+            yield return null;
+        }
+        if (!document.map.ContainsValueWithKey<Card>(inputKey)) {
+            EffectError("No input Card for given key " + inputKey);
+            yield return null;
+        }
+
         List<Card> cards = document.map.GetList<Card>(inputKey);
         foreach (Card card in cards) {
-            if (affectsAllCardsOfType) {
-                card.cardType.ChangeCardModification(modification, newScale);
-            } else {
-                card.ChangeCardModification(modification, newScale);
-            }
+            card.ChangeCardModification(modification, newScale);
         }
 
         yield return null;

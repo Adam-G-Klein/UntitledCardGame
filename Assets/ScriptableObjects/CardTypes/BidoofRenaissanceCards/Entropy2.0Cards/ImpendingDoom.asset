@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
+  m_Name: ImpendingDoom
+  m_EditorClassIdentifier: 
+  Name: Impending Doom
+  Description: Double the damage of all Self-Sharpening Blades
+  Cost: 2
+  Artwork: {fileID: 21300000, guid: 90fa2971dfe769a49a60ad648e956340, type: 3}
+  cardCategory: 2
+  vfxPrefab: {fileID: 0}
+  playable: 1
+  exhaustsWhenPlayed: 0
+  effectWorkflows:
+  - rid: 5602892563578093750
+  onExhaustEffectWorkflow:
+    rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  tooltips: 
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 5602892563578093750
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 5602892563578093751
+    - rid: 5602892563578093751
+      type: {class: CardModificationEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardModificationEffect
+        inputKey: 
+        scale: 0
+        affectsAllCardsOfType: 1
+        cardTypeToModify: {fileID: 11400000, guid: 62fdc51643d8849a4b4b4c1498a15598, type: 2}
+        getScaleFromKey: 0
+        scaleKey: 
+        modification: 1
