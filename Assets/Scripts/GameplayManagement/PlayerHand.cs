@@ -38,7 +38,10 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             foreach (PlayableCard card in cardsInHand) {
                 CardType ct = card.card.cardType;
                 if (ct.inPlayerHandEndOfTurnWorkflow != null) {
-                    EffectManager.Instance.QueueEffectWorkflow(ct.inPlayerHandEndOfTurnWorkflow);
+                    EffectDocument document = new EffectDocument();
+                    document.map.AddItem(EffectDocument.ORIGIN, card);
+                    document.originEntityType = EntityType.Card;
+                    EffectManager.Instance.invokeEffectWorkflow(document, ct.inPlayerHandEndOfTurnWorkflow.effectSteps, null);
                 }
             }
 
