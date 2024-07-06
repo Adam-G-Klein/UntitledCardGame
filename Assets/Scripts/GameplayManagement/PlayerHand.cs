@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.Collections;
 
 
 [ExecuteInEditMode]
@@ -34,35 +35,37 @@ public class PlayerHand : GenericSingleton<PlayerHand>
 
     public void TurnPhaseChangedEventHandler(TurnPhaseEventInfo info) {
         if(info.newPhase == TurnPhase.END_PLAYER_TURN) {
-            // Run the effect workflows for all the cards left in the hand.
+            List<PlayableCard> retainedCards = new();
+            // Run the effect workflows for all the cards left in the hand,
+            // then discard / retain them with the callback.
+            // The reason we want to use the callback is that otherwise, the
+            // game objects are destroyed before the effect workflow can complete.
             foreach (PlayableCard card in cardsInHand) {
-                CardType ct = card.card.cardType;
-                if (ct.inPlayerHandEndOfTurnWorkflow != null) {
-                    EffectDocument document = new EffectDocument();
-                    document.map.AddItem(EffectDocument.ORIGIN, card);
-                    document.originEntityType = EntityType.Card;
-                    EffectManager.Instance.invokeEffectWorkflow(document, ct.inPlayerHandEndOfTurnWorkflow.effectSteps, null);
+                IEnumerator callback = null;
+                if (card.retained) {
+                    retainedCards.Add(card);
+                } else {
+                    callback = DiscardAndDestroyCallback(card);
                 }
+                CardType ct = card.card.cardType;
+                List<EffectStep> workflowSteps = new();
+                if (ct.inPlayerHandEndOfTurnWorkflow != null) {
+                    workflowSteps = ct.inPlayerHandEndOfTurnWorkflow.effectSteps;
+                }
+                EffectDocument document = new EffectDocument();
+                document.map.AddItem(EffectDocument.ORIGIN, card.GetComponent<PlayableCard>());
+                document.originEntityType = EntityType.Card;
+                EffectManager.Instance.invokeEffectWorkflow(document, workflowSteps, callback);
             }
 
-            DiscardHand();
+            cardsInHand = retainedCards;
         }
     }
 
-    private void DiscardHand() {
-        List<PlayableCard> retainedCards = new List<PlayableCard>();
-        foreach(PlayableCard card in cardsInHand) {
-            if(card.retained) {
-                retainedCards.Add(card);
-                card.retained = false;
-            } else {
-                Destroy(card.gameObject);
-                card.DiscardFromDeck();
-            }
-        }
-        // do this instead of calling remove for each
-        // to prevent enumeration issues in the for loop
-        cardsInHand = retainedCards;
+    private IEnumerator DiscardAndDestroyCallback(PlayableCard card) {
+        Destroy(card.gameObject);
+        card.DiscardFromDeck();
+        yield return null;
     }
 
     public void RemoveCardFromHand(Card card) {
