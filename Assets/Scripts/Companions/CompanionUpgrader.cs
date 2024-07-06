@@ -35,24 +35,21 @@ public static class CompanionUpgrader
         Companion companion = new Companion(companionsToCombine[0].companionType);
         
         companion.Upgrade(companionsToCombine);
-
         //add the upgraded companion back to the benched companions
         benchCompanions.Add(companion);
     }
 
     private static bool areCompanionsTheSame(List<Companion> companionsToCombine) {
-        var lastCompanion = companionsToCombine[0].companionType;
-
+        // it's 3 elements I'm using a doubly nested loop :p
         for (int i = 1; i < companionsToCombine.Count; i++) {
-
             var currentCompanion = companionsToCombine[i].companionType;
-            if (lastCompanion != currentCompanion) {
-                return false;
+            for(int j = 0; j < companionsToCombine.Count; j++) {
+                var lastCompanion = companionsToCombine[j].companionType;
+                if (lastCompanion != currentCompanion) {
+                    return false;
+                }
             }
-
-            lastCompanion = currentCompanion;
         }
-        
         return true;
     }
 

@@ -11,7 +11,9 @@ public class CompanionListVariableSO : ScriptableObject
 {
     public List<Companion> activeCompanions;
     public List<Companion> benchedCompanions;
-    public List<Companion> allCompanions { get { return activeCompanions.Concat(benchedCompanions).ToList(); } }
+    public List<Companion> allCompanions { get { 
+        return activeCompanions.Concat(benchedCompanions).ToList(); } }
+    public bool spaceInActiveCompanions { get { return activeCompanions.Count < currentCompanionSlots; } }
     public int currentCompanionSlots;
 
     public void SetCompanionSlots(int slots) {

@@ -813,6 +813,7 @@ GameObject:
   - component: {fileID: 5309632205080498564}
   - component: {fileID: 730168205578750882}
   - component: {fileID: 2518479398236477512}
+  - component: {fileID: 508284841902976836}
   m_Layer: 0
   m_Name: ShopManager
   m_TagString: Untagged
@@ -910,6 +911,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &508284841902976836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3701935023595913666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a38915570ab3cd247813fe4258084ddd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameState: {fileID: 11400000, guid: 9e326417f60894341a96cc8d02868bbe, type: 2}
+  gameplayConstants: {fileID: 11400000, guid: a6db1936fe0d3a647b09f3d8297fef23, type: 2}
+  celebrationParticles: {fileID: 1835809017065047754, guid: 6163b5b10b6c4534fb3967577996e2da, type: 3}
 --- !u!1 &4037506046362703525
 GameObject:
   m_ObjectHideFlags: 0

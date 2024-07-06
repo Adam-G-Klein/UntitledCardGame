@@ -6,10 +6,10 @@ using UnityEngine;
 public class Companion : Entity, ICombatStats, IDeckEntity 
 {
     public CompanionTypeSO companionType;
-    public CompanionUpgradeSO upgradeInfo;
 
     public Deck deck;
     public CombatStats combatStats;
+    public int companionLevel = 1;
 
     public Companion(CompanionTypeSO companionType) 
     {
@@ -19,7 +19,6 @@ public class Companion : Entity, ICombatStats, IDeckEntity
         this.deck = new Deck(companionType);
         this.id = Id.newGuid();
         this.entityType = EntityType.Companion;
-        this.upgradeInfo = companionType.upgradeInfo;
     }
 
     public Sprite getSprite() {
@@ -39,7 +38,6 @@ public class Companion : Entity, ICombatStats, IDeckEntity
     }
 
     public void Upgrade(List<Companion> companionsCombined) {
-        Debug.Assert(upgradeInfo != default, "There is no information on upgrading, please add the \"CompanionUpgradeSO\" Scriptable Object");
 
         // if this upgrade initiated from combining companions go ahead and replace the current deck with a superset of all the other companions
         if (companionsCombined != default && (companionsCombined.Count > 0)) {
@@ -50,10 +48,11 @@ public class Companion : Entity, ICombatStats, IDeckEntity
         }
 
         //reset health to the new max
-        this.combatStats.MultiplyMaxHealth((float) upgradeInfo.healthUpgradeFactor);
         this.combatStats.currentHealth = this.combatStats.maxHealth;
-        
-        this.deck.cardsDealtPerTurn += upgradeInfo.cardPerTurnUpgrade;
+        // temp
+        this.combatStats.maxHealth += 40;
+        this.deck.cardsDealtPerTurn += 1;
+        this.companionLevel += 1;
     }
 
     public CombatStats GetCombatStats()

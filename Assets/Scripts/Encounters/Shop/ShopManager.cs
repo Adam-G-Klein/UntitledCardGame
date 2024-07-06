@@ -20,11 +20,16 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     private GameObject companionViewUI = null;
     private bool buyingCard = false;
     private CardBuyRequest currentBuyRequest;
+    private CompanionCombinationManager companionCombinationManager;
 
     void Awake() {
         // This ends up calling BuildShopEncounter below
         gameState.activeEncounter.GetValue().BuildWithEncounterBuilder(this);
     }
+    void Start() {
+        companionCombinationManager = GetComponent<CompanionCombinationManager>();
+    }
+
 
     public void BuildShopEncounter(ShopEncounter shopEncounter) {
         this.shopEncounter = shopEncounter;
@@ -113,13 +118,18 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             return;
         }
         if (gameState.playerData.GetValue().gold >= request.price) {
-            this.gameState.companions.benchedCompanions.Add(request.companion);
+            
+
             gameState.playerData.GetValue().gold -= request.price;
             GameObject.Instantiate(
                 encounterConstants.cardSoldOutPrefab, 
                 request.keepsakeInShop.transform.position, 
                 Quaternion.identity);
             request.keepsakeInShop.sold();
+            if(!companionCombinationManager.AttemptUpgradeCompanion(request.companion)){
+                Debug.Log("Upgrade not appicable, adding to benched companions");
+                this.gameState.companions.benchedCompanions.Add(request.companion);
+            } 
         } else {
             shopUIManager.displayNeedMoreMoneyNotification();
         }
