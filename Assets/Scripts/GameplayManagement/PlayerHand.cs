@@ -37,13 +37,15 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         if(info.newPhase == TurnPhase.END_PLAYER_TURN) {
             List<PlayableCard> retainedCards = new();
             // Run the effect workflows for all the cards left in the hand,
-            // then discard / retain them with the callback.
+            // then destroy them with the callback.
             // The reason we want to use the callback is that otherwise, the
             // game objects are destroyed before the effect workflow can complete.
             foreach (PlayableCard card in cardsInHand) {
                 IEnumerator callback = null;
+                // Do not destroy the card if it is retained.
                 if (card.retained) {
                     retainedCards.Add(card);
+                    card.retained = false;
                 } else {
                     callback = DiscardAndDestroyCallback(card);
                 }
@@ -63,8 +65,8 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     }
 
     private IEnumerator DiscardAndDestroyCallback(PlayableCard card) {
-        Destroy(card.gameObject);
         card.DiscardFromDeck();
+        Destroy(card.gameObject);
         yield return null;
     }
 
