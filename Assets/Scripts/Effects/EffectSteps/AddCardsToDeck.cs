@@ -104,6 +104,9 @@ public class AddCardsToDeck : EffectStep {
                 case AddMethod.AddToBottom:
                     deckInstance.AddCardsToBottomOfDeck(cards);
                     break;
+                case AddMethod.PermanentlyAdd:
+                    deckInstance.sourceDeck.cards.AddRange(cards);
+                    break;
             }
         }
     }
@@ -111,6 +114,7 @@ public class AddCardsToDeck : EffectStep {
     private enum AddMethod {
         AddToTop,
         ShuffleIn,
-        AddToBottom
+        AddToBottom,
+        PermanentlyAdd,
     }
 }

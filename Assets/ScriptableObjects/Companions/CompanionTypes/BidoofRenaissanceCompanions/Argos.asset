@@ -16,23 +16,62 @@ MonoBehaviour:
   maxHealth: 20
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: 42b7bbec2591e4197827dd3f15208d81, type: 3}
-  startingDeck: {fileID: 0}
+  startingDeck: {fileID: 11400000, guid: 7fa17c4fa43804b51918678571ad5cdc, type: 2}
   keepsake: {fileID: 21300000, guid: 42b7bbec2591e4197827dd3f15208d81, type: 3}
-  cardBack: {fileID: 0}
-  cardFrame: {fileID: 0}
-  typeIcon: {fileID: 0}
-  portrait: {fileID: 0}
-  teamSelectSprite: {fileID: 0}
+  cardBack: {fileID: 21300000, guid: a5222a8d127763c49b397cce916345ec, type: 3}
+  cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
+  typeIcon: {fileID: 21300000, guid: 42b7bbec2591e4197827dd3f15208d81, type: 3}
+  portrait: {fileID: 21300000, guid: 42b7bbec2591e4197827dd3f15208d81, type: 3}
+  teamSelectSprite: {fileID: 21300000, guid: 42b7bbec2591e4197827dd3f15208d81, type: 3}
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 0}
   genericCompanionVFX: {fileID: 0}
-  cardPool: {fileID: 0}
+  cardPool: {fileID: 11400000, guid: 61336306d4d8d494d90e203697769475, type: 2}
   speakerType: {fileID: 0}
-  abilities: []
-  upgradeInfo: {fileID: 0}
+  abilities:
+  - rid: 5602892563578094077
+  upgradeTo: {fileID: 0}
   tooltip:
     empty: 0
     lines: []
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 5602892563578094077
+      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
+      data:
+        companionAbilityTrigger: 1
+        effectSteps:
+        - rid: 5602892563578094080
+        - rid: 5602892563578094081
+        - rid: 5602892563578094100
+    - rid: 5602892563578094080
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 5602892563578094081
+      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetAdjacentCompanions
+        inputKey: self
+        outputKey: adjacentCompanions
+    - rid: 5602892563578094100
+      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: AddCardsToDeck
+        inputKey: adjacentCompanions
+        cardTypes:
+        - {fileID: 11400000, guid: b9e0adbcf6fe84184866b60213d4a8f1, type: 2}
+        addToDeckMethod: 3
+        getCardsFromKey: 0
+        inputCardsKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
