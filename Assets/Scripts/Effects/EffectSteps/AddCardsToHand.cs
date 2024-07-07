@@ -45,7 +45,7 @@ public class AddCardsToHand : EffectStep {
             EffectError("No valid target to use as entity from for Card");
             yield return null;
         }
-        
+
         // Setup list of card types to add to the target(s)
         List<CardType> cardTypesToAdd = new List<CardType>();
         if (getCardsFromKey) {
@@ -86,12 +86,14 @@ public class AddCardsToHand : EffectStep {
                     foreach (CardType cardType in cardTypes) {
                         cards.Add(new Card(cardType, companionTypeSO));
                     }
+                    // Add to both the hand and the deck.
+                    entityFrom.inHand.AddRange(cards);
                     cardsAdded.AddRange(PlayerHand.Instance.DealCards(cards, entityFrom));
                 }
             } else {
                 Debug.LogError("DeckInstance does not have a companion type, cannot create new cards to add to it. won't know how to display their frames and icons without the companion reference");
             }
-            
+
         }
         return cardsAdded;
     }
