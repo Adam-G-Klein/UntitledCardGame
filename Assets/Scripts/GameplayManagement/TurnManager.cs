@@ -51,7 +51,7 @@ public class TurnManager : GenericSingleton<TurnManager>
     public void turnPhaseChangedEventHandler(TurnPhaseEventInfo info) {
         // This is a bit of a hack until we revisit all the different triggers
         // and how we want to architect triggering bettter.
-        // There's a nonzero chance this is introducing a race condition, I haven't 
+        // There's a nonzero chance this is introducing a race condition, I haven't
         // done all the timing math yet.
         if (turnPhaseChangeBlockers.Count > 0) {
             StartCoroutine(changeTurnPhaseContinueCoroutine(info));
@@ -62,7 +62,7 @@ public class TurnManager : GenericSingleton<TurnManager>
             // The end turn button will raise BEFORE_END_PLAYER_TURN
             // to keep us moving
             return;
-        } 
+        }
         if(info.newPhase == TurnPhase.END_ENCOUNTER) {
             StartCoroutine(runEndEncounterTriggers());
             return;
@@ -76,7 +76,7 @@ public class TurnManager : GenericSingleton<TurnManager>
         }
         turnPhaseChangedEventHandler(info);
     }
-    
+
     private IEnumerator nextPhaseAfterTriggers(TurnPhase currentPhase) {
         Debug.Log("nextPhaseAfterTriggers found " + turnPhaseTriggers[currentPhase].Count + " triggers for phase " + currentPhase);
         yield return StartCoroutine(runTriggersForPhase(currentPhase));
@@ -85,7 +85,12 @@ public class TurnManager : GenericSingleton<TurnManager>
 
     private IEnumerator runTriggersForPhase(TurnPhase phase) {
         Debug.Log("TurnPhaseManager: Running triggers for turn phase " + phase);
+        // Copy over the list, because the triggers may result in mutations to the `turnPhaseTriggers` list.
+        List<TurnPhaseTrigger> triggersToRun = new();
         foreach(TurnPhaseTrigger trigger in turnPhaseTriggers[phase]) {
+            triggersToRun.Add(trigger);
+        }
+        foreach(TurnPhaseTrigger trigger in triggersToRun) {
             yield return StartCoroutine(trigger.triggerResponse.GetEnumerator());
         }
     }
