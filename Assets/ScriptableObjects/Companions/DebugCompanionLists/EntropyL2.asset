@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
-  m_Name: Entropy
+  m_Name: EntropyL2
   m_EditorClassIdentifier: 
-  companionName: Entropy
-  maxHealth: 20
+  companionName: EntropyL2
+  maxHealth: 40
   initialCardsDealtPerTurn: 1
-  sprite: {fileID: 21300000, guid: 5a1597236809fef4db103287236c1664, type: 3}
+  sprite: {fileID: 21300000, guid: 21631059f2c81c04c9664407e7242c63, type: 3}
   startingDeck: {fileID: 11400000, guid: f88499d65b2d43848a8f72b8bcfa65df, type: 2}
   keepsake: {fileID: 21300000, guid: bd6d81cc33ab43a4d8f819e3f4621728, type: 3}
   cardBack: {fileID: 21300000, guid: 20b46ccd593516f4badbdcdb021f67c1, type: 3}
   cardFrame: {fileID: 21300000, guid: e44243240dcfea04b91f6a9793d745e8, type: 3}
   typeIcon: {fileID: 21300000, guid: 9dcd5e58ee426e840a202b9accb8036b, type: 3}
-  portrait: {fileID: 21300000, guid: 63af55f83f017224fad40eae959c8210, type: 3}
+  portrait: {fileID: 21300000, guid: 21631059f2c81c04c9664407e7242c63, type: 3}
   teamSelectSprite: {fileID: 21300000, guid: 5a1597236809fef4db103287236c1664, type: 3}
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 8300000, guid: 00f4851429c4dbd44a4203ebbd575679, type: 3}
@@ -30,8 +30,8 @@ MonoBehaviour:
   speakerType: {fileID: 11400000, guid: 16a6a477166d98c4d9b79b1d5ae69638, type: 2}
   abilities:
   - rid: 3931529445166809113
-  - rid: 9148895673158729732
-  upgradeTo: {fileID: 11400000, guid: 1bec436a9ab0eac4988b45afccd4211c, type: 2}
+  - rid: 3931529445166809113
+  upgradeTo: {fileID: 0}
   tooltip:
     empty: 0
     lines:
@@ -102,30 +102,3 @@ MonoBehaviour:
         inputDeckKey: target
         effect: 1
         outputKey: 
-    - rid: 9148895673158729732
-      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
-      data:
-        companionAbilityTrigger: 7
-        effectSteps:
-        - rid: 9148895673158729733
-        - rid: 9148895673158729738
-        - rid: 9148895673158729739
-    - rid: 9148895673158729733
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: 
-        prefabToInstantiate: {fileID: 1835809017065047754, guid: e614f49fced06d54e9ee9ea7a674942a, type: 3}
-    - rid: 9148895673158729738
-      type: {class: DebugEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: DebugEffectStep
-        genericMap: 1
-        ints: 1
-        strings: 1
-    - rid: 9148895673158729739
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: 
-        prefabToInstantiate: {fileID: 1835809017065047754, guid: e614f49fced06d54e9ee9ea7a674942a, type: 3}

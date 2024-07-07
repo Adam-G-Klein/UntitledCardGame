@@ -9,9 +9,10 @@ public abstract class Entity {
 }
 
 public enum EntityType {
-    Companion,
+    CompanionInstance,
     Enemy, 
     Minion,
     Card,
-    Unknown
+    Unknown,
+    Companion
 }

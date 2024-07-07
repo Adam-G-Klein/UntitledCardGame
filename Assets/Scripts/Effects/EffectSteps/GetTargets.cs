@@ -228,7 +228,7 @@ public class GetTargets : EffectStep
 
     public GameObject getSelf(EffectDocument document) {
         // A companion is the source of the effect
-        if (document.originEntityType == EntityType.Companion) {
+        if (document.originEntityType == EntityType.CompanionInstance) {
             CompanionInstance companion = document.map.GetItem<CompanionInstance>(
                 EffectDocument.ORIGIN, 0);
             return companion.gameObject;
@@ -275,7 +275,7 @@ public class GetTargets : EffectStep
         }
 
         // A companion is the source of the effect
-        if (document.originEntityType == EntityType.Companion) {
+        if (document.originEntityType == EntityType.CompanionInstance) {
             CompanionInstance companion = document.map.GetItem<CompanionInstance>(
                 EffectDocument.ORIGIN, 0);
             document.map.AddItem<CompanionInstance>(outputKey, companion);

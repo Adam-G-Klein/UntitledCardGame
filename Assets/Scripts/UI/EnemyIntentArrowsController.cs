@@ -40,11 +40,11 @@ public class EnemyIntentArrowsController : MonoBehaviour
 
     
     private void setArrowColor(TargettingArrow arrow, List<EntityType> validTargets){
-        if(validTargets.Contains(EntityType.Companion) && validTargets.Contains(EntityType.Enemy)){
+        if(validTargets.Contains(EntityType.CompanionInstance) && validTargets.Contains(EntityType.Enemy)){
             arrow.setColor(colors.neutralEffectColor);
         } else if(validTargets.Contains(EntityType.Enemy)){
             arrow.setColor(colors.enemyEffectColor);
-        } else if(validTargets.Contains(EntityType.Companion)){
+        } else if(validTargets.Contains(EntityType.CompanionInstance)){
             arrow.setColor(colors.friendlyEffectColor);
         } else {
             arrow.setColor(colors.neutralEffectColor);

@@ -14,7 +14,6 @@ public class CompanionInstance : MonoBehaviour
     public DeckInstance deckInstance;
 
     private IEnumerable companionAbilityDeathCallback;
-
     private List<TurnPhaseTrigger> statusEffectTriggers = new List<TurnPhaseTrigger>();
 
     public void Start() {

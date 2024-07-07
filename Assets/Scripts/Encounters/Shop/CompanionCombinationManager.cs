@@ -23,16 +23,20 @@ public class CompanionCombinationManager : MonoBehaviour
     [SerializeField]
     private GameObject celebrationParticles;
      
-    public bool AttemptUpgradeCompanion(Companion companion) {
-        if(companion.companionType.upgradeTo == null) {
-            Debug.LogError("Trying to upgrade companion, but no upgradeTo companionType set");
-            return false;
-        }
-        List<Companion> companions = CompanionsOfType(companion.companionType);
+    public bool AttemptUpgradeCompanion(Companion purchasedCompanion) {
+        
+        List<Companion> companions = CompanionsOfType(purchasedCompanion.companionType);
         // Add the one that was just purchased
-        companions.Add(companion);
+        companions.Add(purchasedCompanion);
 
         if(companions.Count >= gameplayConstants.COMPANIONS_FOR_COMBINATION) {
+            if(purchasedCompanion.companionType.upgradeTo == null) {
+                Debug.LogWarning("Attempting to upgrade companion, but no upgradeTo companionType set");
+                return false;
+            }
+            // trigger the ability before combination, all the information about combined
+            // companions will still be readily available that way
+            purchasedCompanion.InvokeOnCombineAbilities();
             CombineCompanions(companions);
             Instantiate(celebrationParticles, gameObject.transform.position, Quaternion.identity);
             return true;

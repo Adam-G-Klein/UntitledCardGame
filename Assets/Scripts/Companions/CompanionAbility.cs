@@ -9,6 +9,10 @@ public class CompanionAbility
     public CompanionAbilityTrigger companionAbilityTrigger;
     [SerializeReference]
     public List<EffectStep> effectSteps;
+    public EffectWorkflow effectWorkflow { get {
+        return new EffectWorkflow(effectSteps);
+        } 
+    }
 
     public enum CompanionAbilityTrigger {
         EnterTheBattlefield,
@@ -17,6 +21,7 @@ public class CompanionAbility
         EndOfEnemyTurn,
         OnFriendOrFoeDeath,
         OnDeath,
-        OnAttackCardPlayed
+        OnAttackCardPlayed,
+        OnCombine
     }
 }

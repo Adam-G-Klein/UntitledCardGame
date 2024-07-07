@@ -61,6 +61,12 @@ public class CompanionAbilityInstance
             case CompanionAbility.CompanionAbilityTrigger.OnAttackCardPlayed:
                 this.companionInstance.deckInstance.onCardCastHandler += CheckAttackCardPlayed;
             break;
+            case CompanionAbility.CompanionAbilityTrigger.OnCombine:
+                // This is handled in the Companion class's constructor.
+                // It's messy, but CompanionInstance and therefore this class just never exist
+                // in the shop as of this writing
+                break;
+
         }
     }
 
@@ -89,7 +95,7 @@ public class CompanionAbilityInstance
     private IEnumerable setupAndInvokeAbility() {
         EffectDocument document = new EffectDocument();
         document.map.AddItem(EffectDocument.ORIGIN, this.companionInstance);
-        document.originEntityType = EntityType.Companion;
+        document.originEntityType = EntityType.CompanionInstance;
         yield return EffectManager.Instance.invokeEffectWorkflowCoroutine(document, ability.effectSteps, null);
     }
 

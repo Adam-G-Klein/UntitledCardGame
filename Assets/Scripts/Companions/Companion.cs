@@ -10,6 +10,8 @@ public class Companion : Entity, ICombatStats, IDeckEntity
     public Deck deck;
     public CombatStats combatStats;
     public int companionLevel = 1;
+    [Header("This is here because CompanionInstance doesn't currently exist in the shop")]
+    public List<EffectWorkflow> onCombineAbilities = new List<EffectWorkflow>();
 
     public Companion(CompanionTypeSO companionType) 
     {
@@ -18,7 +20,16 @@ public class Companion : Entity, ICombatStats, IDeckEntity
                 companionType.maxHealth);
         this.deck = new Deck(companionType);
         this.id = Id.newGuid();
-        this.entityType = EntityType.Companion;
+        this.entityType = EntityType.CompanionInstance;
+        setupOnCombineAbilities(companionType);
+    }
+
+    private void setupOnCombineAbilities(CompanionTypeSO companionType) {
+        foreach(CompanionAbility ability in companionType.abilities) {
+            if (ability.companionAbilityTrigger == CompanionAbility.CompanionAbilityTrigger.OnCombine) {
+                onCombineAbilities.Add(ability.effectWorkflow);
+            }
+        }
     }
 
     public Sprite getSprite() {
@@ -58,5 +69,20 @@ public class Companion : Entity, ICombatStats, IDeckEntity
     public CombatStats GetCombatStats()
     {
         return this.combatStats;
+    }
+
+    public void InvokeOnCombineAbilities() {
+        if(onCombineAbilities != null && onCombineAbilities.Count > 0) {
+            EffectDocument document = new EffectDocument();
+            document.map.AddItem(EffectDocument.ORIGIN, this);
+            document.originEntityType = EntityType.Companion;
+            EffectManager.Instance.invokeEffectWorkflow(document, onCombineAbilities[0], null);
+        }
+        foreach(EffectWorkflow effectWorkflow in onCombineAbilities.GetRange(1, onCombineAbilities.Count - 1)) {
+            EffectDocument document = new EffectDocument();
+            document.map.AddItem(EffectDocument.ORIGIN, this);
+            document.originEntityType = EntityType.Companion;
+            EffectManager.Instance.QueueEffectWorkflow(effectWorkflow);
+        }
     }
 }
