@@ -257,13 +257,9 @@ public class GetTargets : EffectStep
         DeckInstance deckFrom = playableCard.deckFrom;
 
         if (deckFrom.TryGetComponent(out MinionInstance minion)) {
-            document.map.AddItem<MinionInstance>(outputKey, minion);
-            document.map.AddItem<CombatInstance>(outputKey, minion.combatInstance);
-            document.map.AddItem<DeckInstance>(outputKey, minion.deckInstance);
+            EffectUtils.AddMinionToDocument(document, outputKey, minion);
         } else if (deckFrom.TryGetComponent(out CompanionInstance companion)) {
-            document.map.AddItem<CompanionInstance>(outputKey, companion);
-            document.map.AddItem<CombatInstance>(outputKey, companion.combatInstance);
-            document.map.AddItem<DeckInstance>(outputKey, companion.deckInstance);
+            EffectUtils.AddCompanionToDocument(document, outputKey, companion);
         }
     }
 

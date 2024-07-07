@@ -23,6 +23,7 @@ MonoBehaviour:
   - rid: 2116895648763871351
   onExhaustEffectWorkflow:
     rid: -2
+  tooltips: 
   references:
     version: 2
     RefIds:
@@ -33,7 +34,31 @@ MonoBehaviour:
       data:
         effectSteps:
         - rid: 9024302470308298775
+        - rid: 7688767477935243264
         - rid: 9024302470308298776
+        - rid: 7688767477935243266
+    - rid: 7688767477935243264
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: companion
+        validTargets: 
+        number: 1
+        specialTargetRule: 4
+        cantCancelTargetting: 0
+    - rid: 7688767477935243266
+      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FXEffectStep
+        waitForEffect: 0
+        fXExperiencePrefab: {fileID: 4718147213966508192, guid: a821f1bd0357cec49bc0c1f9614d78ac, type: 3}
+        keyMappingList:
+        - fromWorkflow: companion
+          toFxExperience: startLocation
+        - fromWorkflow: target
+          toFxExperience: endLocation
     - rid: 9024302470308298775
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

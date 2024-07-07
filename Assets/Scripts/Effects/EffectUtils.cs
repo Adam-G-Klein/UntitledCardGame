@@ -22,6 +22,7 @@ public class EffectUtils {
         document.map.AddItem(key, companion, dedupeLink);
         document.map.AddItem(key, companion.combatInstance, dedupeLink);
         document.map.AddItem(key, companion.deckInstance, dedupeLink);
+        document.map.AddItem(key, companion.gameObject, dedupeLink);
     }
 
     public static void AddMinionsToDocument(
@@ -41,6 +42,7 @@ public class EffectUtils {
         document.map.AddItem(key, minion, dedupeLink);
         document.map.AddItem(key, minion.combatInstance, dedupeLink);
         document.map.AddItem(key, minion.deckInstance, dedupeLink);
+        document.map.AddItem(key, minion.gameObject, dedupeLink);
     }
 
     public static void AddEnemiesToDocument(
@@ -59,6 +61,7 @@ public class EffectUtils {
         string dedupeLink = enemy.enemy.id;
         document.map.AddItem(key, enemy, dedupeLink);
         document.map.AddItem(key, enemy.combatInstance, dedupeLink);
+        document.map.AddItem(key, enemy.gameObject, dedupeLink);
     }
 
     public static void AddPlayableCardsToDocument(
@@ -77,5 +80,6 @@ public class EffectUtils {
         string dedupeLink = playableCard.card.id;
         document.map.AddItem(key, playableCard, dedupeLink);
         document.map.AddItem(key, playableCard.card, dedupeLink);
+        document.map.AddItem(key, playableCard.gameObject, dedupeLink);
     }
 }
