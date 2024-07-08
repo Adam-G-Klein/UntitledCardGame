@@ -33,7 +33,10 @@ MonoBehaviour:
   upgradeTo: {fileID: 11400000, guid: bc8d1ef2bb3554ea9969a4c871f3a1e4, type: 2}
   tooltip:
     empty: 0
-    lines: []
+    lines:
+    - title: Fireblob
+      description: Gain 5 max HP at the end of combat
+      image: {fileID: 0}
   references:
     version: 2
     RefIds:
