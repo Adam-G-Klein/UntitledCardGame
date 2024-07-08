@@ -33,7 +33,11 @@ MonoBehaviour:
   upgradeTo: {fileID: 0}
   tooltip:
     empty: 0
-    lines: []
+    lines:
+    - title: L2 Fireblob
+      description: At the end of the turn, gain 1 block for each status card in the
+        deck.
+      image: {fileID: 0}
   references:
     version: 2
     RefIds:
