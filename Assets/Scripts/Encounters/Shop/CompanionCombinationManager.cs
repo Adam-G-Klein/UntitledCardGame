@@ -65,6 +65,11 @@ public class CompanionCombinationManager : MonoBehaviour
         Companion combinedCompanion = new Companion(companions[0].companionType.upgradeTo);
         combinedCompanion.deck = combinedDeck;
         combinedCompanion.deck.cardsDealtPerTurn = companions[0].companionType.upgradeTo.initialCardsDealtPerTurn;
+
+        combinedCompanion.combatStats.maxHealth = maxHealthForCombinedCompanion(companions);
+        combinedCompanion.combatStats.currentHealth = (int) (combinedCompanion.combatStats.maxHealth * currentHealthPctForCombinedCompanion(companions));
+        combinedCompanion.combatStats.baseAttackDamage = baseAttackDamageForCombinedCompanion(companions);
+
         if(gameState.companions.spaceInActiveCompanions) {
             gameState.companions.activeCompanions.Add(combinedCompanion);
         } else {
@@ -88,5 +93,20 @@ public class CompanionCombinationManager : MonoBehaviour
             }
         }
         return selectedDeck;
+    }
+
+    private int maxHealthForCombinedCompanion(List<Companion> companions) {
+        // Average together the max health of each companion.
+        return (int) companions.Select(c => c.combatStats.maxHealth).ToList().Average();
+    }
+
+    private double currentHealthPctForCombinedCompanion(List<Companion> companions) {
+        // Average together the current health % of each companion.
+        return companions.Select(c => ((double) c.combatStats.currentHealth) / c.combatStats.maxHealth).ToList().Average();
+    }
+
+    private int baseAttackDamageForCombinedCompanion(List<Companion> companions) {
+        // Sum up the base attack damages of each companion.
+        return companions.Select(c => c.combatStats.baseAttackDamage).ToList().Sum();
     }
 }
