@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class Companion : Entity, ICombatStats, IDeckEntity 
+public class Companion : Entity, ICombatStats, IDeckEntity
 {
     public CompanionTypeSO companionType;
 
@@ -13,7 +13,7 @@ public class Companion : Entity, ICombatStats, IDeckEntity
     [Header("This is here because CompanionInstance doesn't currently exist in the shop")]
     public List<EffectWorkflow> onCombineAbilities = new List<EffectWorkflow>();
 
-    public Companion(CompanionTypeSO companionType) 
+    public Companion(CompanionTypeSO companionType)
     {
         this.companionType = companionType;
         this.combatStats = new CombatStats(
@@ -72,17 +72,18 @@ public class Companion : Entity, ICombatStats, IDeckEntity
     }
 
     public void InvokeOnCombineAbilities() {
-        if(onCombineAbilities != null && onCombineAbilities.Count > 0) {
-            EffectDocument document = new EffectDocument();
-            document.map.AddItem(EffectDocument.ORIGIN, this);
-            document.originEntityType = EntityType.Companion;
-            EffectManager.Instance.invokeEffectWorkflow(document, onCombineAbilities[0], null);
+        if (onCombineAbilities == null) {
+            return;
         }
-        foreach(EffectWorkflow effectWorkflow in onCombineAbilities.GetRange(1, onCombineAbilities.Count - 1)) {
-            EffectDocument document = new EffectDocument();
-            document.map.AddItem(EffectDocument.ORIGIN, this);
-            document.originEntityType = EntityType.Companion;
-            EffectManager.Instance.QueueEffectWorkflow(effectWorkflow);
+        for (int i = 0; i < onCombineAbilities.Count; i++) {
+            if (i == 0) {
+                EffectDocument document = new();
+                document.map.AddItem(EffectDocument.ORIGIN, this);
+                document.originEntityType = EntityType.Companion;
+                EffectManager.Instance.invokeEffectWorkflow(document, onCombineAbilities[i], null);
+            } else {
+                EffectManager.Instance.QueueEffectWorkflow(onCombineAbilities[i]);
+            }
         }
     }
 }

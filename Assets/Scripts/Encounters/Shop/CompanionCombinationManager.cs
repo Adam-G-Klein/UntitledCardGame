@@ -22,9 +22,9 @@ public class CompanionCombinationManager : MonoBehaviour
 
     [SerializeField]
     private GameObject celebrationParticles;
-     
+
     public bool AttemptUpgradeCompanion(Companion purchasedCompanion) {
-        
+
         List<Companion> companions = CompanionsOfType(purchasedCompanion.companionType);
         // Add the one that was just purchased
         companions.Add(purchasedCompanion);
@@ -58,8 +58,13 @@ public class CompanionCombinationManager : MonoBehaviour
                 gameState.companions.benchedCompanions.Remove(c);
             }
         }
+
+        Deck combinedDeck = selectDeckForCombinedCompanions(companions);
+
         // TODO: change this combined companion with whatever mechanics ends up wanting
         Companion combinedCompanion = new Companion(companions[0].companionType.upgradeTo);
+        combinedCompanion.deck = combinedDeck;
+        combinedCompanion.deck.cardsDealtPerTurn = companions[0].companionType.upgradeTo.initialCardsDealtPerTurn;
         if(gameState.companions.spaceInActiveCompanions) {
             gameState.companions.activeCompanions.Add(combinedCompanion);
         } else {
@@ -69,5 +74,19 @@ public class CompanionCombinationManager : MonoBehaviour
 
     private List<Companion> CompanionsOfType(CompanionTypeSO companionType) {
         return gameState.companions.allCompanions.FindAll(c => c.companionType == companionType);
+    }
+
+    private Deck selectDeckForCombinedCompanions(List<Companion> companions) {
+        // TODO(): Allow the player to choose which deck they want to use.
+        // For now, select the largest deck, because presumably that will contain
+        // the most cards the player bought.
+        // It should be a good heuristic for now.
+        Deck selectedDeck = companions[0].deck;
+        for (int i = 1; i < companions.Count; i++) {
+            if (companions[i].deck.cards.Count > selectedDeck.cards.Count) {
+                selectedDeck = companions[i].deck;
+            }
+        }
+        return selectedDeck;
     }
 }
