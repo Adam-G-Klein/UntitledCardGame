@@ -30,6 +30,7 @@ MonoBehaviour:
   speakerType: {fileID: 0}
   abilities:
   - rid: 3931529445166809113
+  - rid: 5602892650873356427
   upgradeTo: {fileID: 0}
   tooltip:
     empty: 0
@@ -102,3 +103,33 @@ MonoBehaviour:
         effect: 1
         cardToTransformInto: {fileID: 0}
         outputKey: 
+    - rid: 5602892650873356427
+      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
+      data:
+        companionAbilityTrigger: 9
+        effectSteps:
+        - rid: 5602892650873356428
+        - rid: 5602892650873356429
+    - rid: 5602892650873356428
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: targetEnemy
+        validTargets: 02000000
+        number: 1
+        specialTargetRule: 6
+        cantCancelTargetting: 0
+    - rid: 5602892650873356429
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: targetEnemy
+        combatEffect: 0
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
