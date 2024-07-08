@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
-  m_Name: Fireblob
+  m_Name: L2Fireblob
   m_EditorClassIdentifier: 
   companionName: Fireblob
   maxHealth: 25
   initialCardsDealtPerTurn: 1
-  sprite: {fileID: 21300000, guid: e9bdfaf4fb3e34bdab6efd8c9d262e48, type: 3}
+  sprite: {fileID: 21300000, guid: 2b5d849700e054f9b816967db94093b1, type: 3}
   startingDeck: {fileID: 11400000, guid: e99468c9ae12a4996a527ac53fb7625a, type: 2}
-  keepsake: {fileID: 21300000, guid: e9bdfaf4fb3e34bdab6efd8c9d262e48, type: 3}
+  keepsake: {fileID: 21300000, guid: 2b5d849700e054f9b816967db94093b1, type: 3}
   cardBack: {fileID: 21300000, guid: 3296a63e824de414bb4b578c4822fbdb, type: 3}
   cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
-  typeIcon: {fileID: 21300000, guid: e9bdfaf4fb3e34bdab6efd8c9d262e48, type: 3}
-  portrait: {fileID: 21300000, guid: e9bdfaf4fb3e34bdab6efd8c9d262e48, type: 3}
+  typeIcon: {fileID: 21300000, guid: 2b5d849700e054f9b816967db94093b1, type: 3}
+  portrait: {fileID: 21300000, guid: 2b5d849700e054f9b816967db94093b1, type: 3}
   teamSelectSprite: {fileID: 0}
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 0}
@@ -30,7 +30,7 @@ MonoBehaviour:
   speakerType: {fileID: 0}
   abilities:
   - rid: 5602892491280613392
-  upgradeTo: {fileID: 11400000, guid: bc8d1ef2bb3554ea9969a4c871f3a1e4, type: 2}
+  upgradeTo: {fileID: 0}
   tooltip:
     empty: 0
     lines: []
@@ -40,19 +40,11 @@ MonoBehaviour:
     - rid: 5602892491280613392
       type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
       data:
-        companionAbilityTrigger: 1
+        companionAbilityTrigger: 2
         effectSteps:
         - rid: 5602892491280613394
-        - rid: 5602892491280613393
-    - rid: 5602892491280613393
-      type: {class: PermanentStatIncrease, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: PermanentStatIncrease
-        inputKey: self
-        statIncreaseType: 1
-        scale: 5
-        getScaleFromKey: 0
-        inputScaleKey: 
+        - rid: 5602892650873356318
+        - rid: 5602892650873356319
     - rid: 5602892491280613394
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -64,3 +56,22 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
+    - rid: 5602892650873356318
+      type: {class: CountCardsInDeck, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CountCardsInDeck
+        inputDeckKey: self
+        categoryToCount: 4
+        includeDrawPile: 1
+        includeDiscardPile: 1
+        includeCardsInHand: 1
+        outputKey: numStatusCards
+    - rid: 5602892650873356319
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: self
+        statusEffect: 2
+        scale: 0
+        getScaleFromKey: 1
+        inputScaleKey: numStatusCards
