@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
-  m_Name: BuriedTreasureMan
+  m_Name: L2BuriedTreasureMan
   m_EditorClassIdentifier: 
   companionName: Buried Treasure Man
   maxHealth: 20
   initialCardsDealtPerTurn: 1
-  sprite: {fileID: 21300000, guid: b38254b318ff44869ae33fb0fe33c4a2, type: 3}
+  sprite: {fileID: 21300000, guid: 80b71e9d7565047ddb3ac1b2091c9693, type: 3}
   startingDeck: {fileID: 11400000, guid: e8874d8a511b54b13b6fa125f643d72b, type: 2}
-  keepsake: {fileID: 21300000, guid: b38254b318ff44869ae33fb0fe33c4a2, type: 3}
+  keepsake: {fileID: 21300000, guid: 80b71e9d7565047ddb3ac1b2091c9693, type: 3}
   cardBack: {fileID: 21300000, guid: 3296a63e824de414bb4b578c4822fbdb, type: 3}
   cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
-  typeIcon: {fileID: 21300000, guid: b38254b318ff44869ae33fb0fe33c4a2, type: 3}
-  portrait: {fileID: 21300000, guid: b38254b318ff44869ae33fb0fe33c4a2, type: 3}
-  teamSelectSprite: {fileID: 21300000, guid: b38254b318ff44869ae33fb0fe33c4a2, type: 3}
+  typeIcon: {fileID: 21300000, guid: 80b71e9d7565047ddb3ac1b2091c9693, type: 3}
+  portrait: {fileID: 21300000, guid: 80b71e9d7565047ddb3ac1b2091c9693, type: 3}
+  teamSelectSprite: {fileID: 21300000, guid: 80b71e9d7565047ddb3ac1b2091c9693, type: 3}
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 0}
   genericCompanionVFX: {fileID: 0}
@@ -30,13 +30,13 @@ MonoBehaviour:
   speakerType: {fileID: 0}
   abilities:
   - rid: 5602892491280613443
-  upgradeTo: {fileID: 11400000, guid: 07493795f887747499efadbf94ce0028, type: 2}
+  upgradeTo: {fileID: 0}
   tooltip:
     empty: 0
     lines:
-    - title: Buried Treasure Man
-      description: At the start of combat, put a Buried Treasure on the bottom of
-        a random companion's deck.
+    - title: L2 Buried Treasure Man
+      description: At the start of combat, put a buried treasure on the bottom of
+        each companion's deck.
       image: {fileID: 0}
   references:
     version: 2
@@ -54,16 +54,16 @@ MonoBehaviour:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: randomTarget
+        outputKey: allCompanions
         validTargets: 00000000
-        number: 1
-        specialTargetRule: 6
+        number: 0
+        specialTargetRule: 1
         cantCancelTargetting: 0
     - rid: 5602892491280613461
       type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: AddCardsToDeck
-        inputKey: randomTarget
+        inputKey: allCompanions
         cardTypes:
         - {fileID: 11400000, guid: 32eae75392814445b8a952edf781d892, type: 2}
         addToDeckMethod: 2
