@@ -18,6 +18,9 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     [SerializeField]
     private RectTransform layoutGroup;
 
+    public delegate IEnumerator OnCardExhaustHandler(PlayableCard card);
+    public event OnCardExhaustHandler onCardExhaustHandler;
+
     public List<PlayableCard> DealCards(List<Card> cards, DeckInstance deckFrom) {
         List<PlayableCard> cardsDelt = new List<PlayableCard>();
         PlayableCard newCard;
@@ -73,6 +76,14 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     public void RemoveCardFromHand(Card card) {
         cardsInHand.Remove(GetCardById(card.id));
         UpdateLayout();
+    }
+
+    public IEnumerator OnCardExhaust(PlayableCard card) {
+        if (onCardExhaustHandler != null) {
+            foreach (OnCardExhaustHandler handler in onCardExhaustHandler.GetInvocationList()) {
+                yield return StartCoroutine(handler.Invoke(card));
+            }
+        }
     }
 
     // Do not call on whole hand, only call on individual cards

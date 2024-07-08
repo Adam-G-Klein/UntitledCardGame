@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.EventSystems; 
+using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(CardDisplay))]
 [RequireComponent(typeof(UIStateEventListener))]
@@ -40,9 +40,9 @@ public class PlayableCard : MonoBehaviour,
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (currentState != UIState.DEFAULT) return; 
+        if (currentState != UIState.DEFAULT) return;
 
-        if (card.GetManaCost() > ManaManager.Instance.currentMana 
+        if (card.GetManaCost() > ManaManager.Instance.currentMana
                 || !card.cardType.playable) {
             // Theoretically we'd have some kind of indicator
             // to the player that they can't cast this
@@ -62,6 +62,7 @@ public class PlayableCard : MonoBehaviour,
         EnemyEncounterManager.Instance.combatEncounterState.cardsCastThisTurn.Add(card);
         yield return StartCoroutine(deckFrom.OnCardCast(this));
         if (card.cardType.exhaustsWhenPlayed) {
+            yield return StartCoroutine(PlayerHand.Instance.OnCardExhaust(this));
             ExhaustCard();
         } else {
             DiscardCardFromHand();
@@ -112,7 +113,7 @@ public class PlayableCard : MonoBehaviour,
     public void SetCardInfo(Card card){
         this.card = card;
     }
-    
+
     // Should pass by reference so that the values stay updated
     public void SetDeckFrom(DeckInstance deckFrom) {
         this.deckFrom = deckFrom;

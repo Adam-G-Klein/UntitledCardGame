@@ -11,7 +11,7 @@ public class CompanionAbility
     public List<EffectStep> effectSteps;
     public EffectWorkflow effectWorkflow { get {
         return new EffectWorkflow(effectSteps);
-        } 
+        }
     }
 
     public enum CompanionAbilityTrigger {
@@ -23,6 +23,7 @@ public class CompanionAbility
         OnFriendDeath,
         OnDeath,
         OnAttackCardPlayed,
-        OnCombine
+        OnCombine,
+        OnCardExhausted,
     }
 }

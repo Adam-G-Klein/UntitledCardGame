@@ -72,7 +72,9 @@ public class CompanionAbilityInstance
                 // It's messy, but CompanionInstance and therefore this class just never exist
                 // in the shop as of this writing
                 break;
-
+            case CompanionAbility.CompanionAbilityTrigger.OnCardExhausted:
+                PlayerHand.Instance.onCardExhaustHandler += OnCardExhaust;
+                break;
         }
     }
 
@@ -95,6 +97,13 @@ public class CompanionAbilityInstance
             this.companionInstance.deckInstance.onCardCastHandler -= CheckAttackCardPlayed;
         }
 
+        // This way of unsubscribing is giga sketchy, because PlayerHand is a generic singleton
+        // and persists longer than the "Instance" game objects.
+        // When should we unsubscribe so that we do not get memory leaks?
+        if (ability.companionAbilityTrigger == CompanionAbility.CompanionAbilityTrigger.OnCardExhausted) {
+            PlayerHand.Instance.onCardExhaustHandler -= OnCardExhaust;
+        }
+
         yield return null;
     }
 
@@ -110,5 +119,13 @@ public class CompanionAbilityInstance
         if (card.card.cardType.cardCategory == CardCategory.Attack) {
             yield return companionInstance.StartCoroutine(setupAndInvokeAbility().GetEnumerator());
         }
+    }
+
+    private IEnumerator OnCardExhaust(PlayableCard card) {
+        EffectDocument document = new EffectDocument();
+        document.map.AddItem(EffectDocument.ORIGIN, this.companionInstance);
+        document.originEntityType = EntityType.CompanionInstance;
+        document.map.AddItem("exhaustedCard", card);
+        yield return EffectManager.Instance.invokeEffectWorkflowCoroutine(document, ability.effectSteps, null);
     }
 }
