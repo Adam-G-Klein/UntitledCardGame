@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
-  m_Name: Entropy2.0
+  m_Name: L2Entropy2.0
   m_EditorClassIdentifier: 
   companionName: Entropy
   maxHealth: 20
   initialCardsDealtPerTurn: 1
-  sprite: {fileID: 21300000, guid: af4b16f5768a8499d8f1f53424420905, type: 3}
+  sprite: {fileID: 21300000, guid: a848363ac68964bd5bb84f6370e93ece, type: 3}
   startingDeck: {fileID: 11400000, guid: 583b1de8b4e66492eb4afaaa9e408467, type: 2}
-  keepsake: {fileID: 21300000, guid: af4b16f5768a8499d8f1f53424420905, type: 3}
+  keepsake: {fileID: 21300000, guid: a848363ac68964bd5bb84f6370e93ece, type: 3}
   cardBack: {fileID: 21300000, guid: 20b46ccd593516f4badbdcdb021f67c1, type: 3}
   cardFrame: {fileID: 21300000, guid: e44243240dcfea04b91f6a9793d745e8, type: 3}
-  typeIcon: {fileID: 21300000, guid: af4b16f5768a8499d8f1f53424420905, type: 3}
-  portrait: {fileID: 21300000, guid: af4b16f5768a8499d8f1f53424420905, type: 3}
-  teamSelectSprite: {fileID: 21300000, guid: af4b16f5768a8499d8f1f53424420905, type: 3}
+  typeIcon: {fileID: 21300000, guid: a848363ac68964bd5bb84f6370e93ece, type: 3}
+  portrait: {fileID: 21300000, guid: a848363ac68964bd5bb84f6370e93ece, type: 3}
+  teamSelectSprite: {fileID: 21300000, guid: a848363ac68964bd5bb84f6370e93ece, type: 3}
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 8300000, guid: 00f4851429c4dbd44a4203ebbd575679, type: 3}
   genericCompanionVFX: {fileID: 4439872921359724599, guid: a4b17b01a56f2a14f89ce77b567a2ba8, type: 3}
@@ -30,13 +30,16 @@ MonoBehaviour:
   speakerType: {fileID: 0}
   abilities:
   - rid: 3931529445166809113
-  upgradeTo: {fileID: 11400000, guid: 9ba17cfe1baaf456fb2d9e950442b2fc, type: 2}
+  upgradeTo: {fileID: 0}
   tooltip:
     empty: 0
     lines:
-    - title: Entropy
-      description: Thins decks, scales in power. Transform 1 card into an exhaustable
-        Burn at the end of combat.
+    - title: L2 Entropy
+      description: Thins decks, scales in power. Purge one card from a chosen deck
+        at end of combat.
+      image: {fileID: 0}
+    - title: Purge
+      description: Permanently removes a card from its deck.
       image: {fileID: 0}
   references:
     version: 2
@@ -84,7 +87,7 @@ MonoBehaviour:
         effectStepName: SelectCardsFromList
         inputKey: allCardsInDeck
         outputKey: cardToTransform
-        promptText: Select a card to transform into Entropy's Burn
+        promptText: Select a card to purge.
         minTargets: 1
         maxTargets: 1
         getNumberOfTargetsFromKey: 0
@@ -96,6 +99,6 @@ MonoBehaviour:
         effectStepName: CardInDeckEffect
         inputCardsKey: cardToTransform
         inputDeckKey: target
-        effect: 4
-        cardToTransformInto: {fileID: 11400000, guid: c00025e95f9a449b59c853e77403c30b, type: 2}
+        effect: 1
+        cardToTransformInto: {fileID: 0}
         outputKey: 
