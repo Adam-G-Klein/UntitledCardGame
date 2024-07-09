@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: HurtfulStrike
+  m_Name: DemonSpin
   m_EditorClassIdentifier: 
-  Name: HurtfulStrike
-  Description: Lose 3 HP. Deal 3 damage twice.
-  Cost: 1
-  Artwork: {fileID: 21300000, guid: 8f7d978fe57e96342a8335f56279ee7e, type: 3}
+  Name: Demon Spin
+  Description: Lose 3 HP. Deal 2 damage to all enemies 3 times.
+  Cost: 2
+  Artwork: {fileID: 21300000, guid: 5f4a5816818fe0841957c1e340e8a570, type: 3}
   cardCategory: 1
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
   effectWorkflows:
-  - rid: 5602892561590779947
+  - rid: 5602892675124822090
   onExhaustEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
@@ -32,15 +32,15 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 5602892561590779947
+    - rid: 5602892675124822090
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
-        - rid: 5602892561590779948
-        - rid: 5602892561590779949
-        - rid: 5602892561590779950
-        - rid: 5602892561590779951
-    - rid: 5602892561590779948
+        - rid: 5602892675124822091
+        - rid: 5602892675124822094
+        - rid: 5602892675124822095
+        - rid: 5602892675124822096
+    - rid: 5602892675124822091
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
@@ -51,7 +51,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 4
         cantCancelTargetting: 0
-    - rid: 5602892561590779949
+    - rid: 5602892675124822094
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
@@ -63,26 +63,26 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-    - rid: 5602892561590779950
+    - rid: 5602892675124822095
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: enemy
+        outputKey: enemies
         validTargets: 02000000
         number: 1
-        specialTargetRule: 0
+        specialTargetRule: 1
         cantCancelTargetting: 0
-    - rid: 5602892561590779951
+    - rid: 5602892675124822096
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
-        inputKey: enemy
+        inputKey: enemies
         combatEffect: 0
-        scale: 3
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
-        multiplicity: 2
+        multiplicity: 3
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
