@@ -63,6 +63,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        ignoreCompanionStats: 1
     - rid: 5602892675124822095
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -86,3 +87,4 @@ MonoBehaviour:
         multiplicity: 3
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        ignoreCompanionStats: 0
