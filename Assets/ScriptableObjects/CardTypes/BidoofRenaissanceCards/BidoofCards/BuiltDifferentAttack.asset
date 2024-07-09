@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: Erholen
+  m_Name: BuiltDifferentAttack
   m_EditorClassIdentifier: 
-  Name: Erholen
-  Description: Give target companion 3 strength
+  Name: Built Different Atack
+  Description: Deal 2 damage to all enemies 3 times
   Cost: 2
-  Artwork: {fileID: 21300000, guid: 690997149efc2d74888e3d1bfed1b225, type: 3}
-  cardCategory: 2
+  Artwork: {fileID: 21300000, guid: ff1c19216e9ac0145abe8b4b882485a5, type: 3}
+  cardCategory: 1
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
   effectWorkflows:
-  - rid: 5602892533381726226
+  - rid: 5602892675124822192
   onExhaustEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
@@ -32,29 +32,33 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 5602892533381726226
+    - rid: 5602892675124822192
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
-        - rid: 5602892533381726227
-        - rid: 5602892533381726228
-    - rid: 5602892533381726227
+        - rid: 5602892675124822193
+        - rid: 5602892675124822194
+    - rid: 5602892675124822193
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: targetCompanion
-        validTargets: 00000000
+        outputKey: enemies
+        validTargets: 02000000
         number: 1
-        specialTargetRule: 0
+        specialTargetRule: 1
         cantCancelTargetting: 0
-    - rid: 5602892533381726228
-      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+    - rid: 5602892675124822194
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: ApplyStatus
-        inputKey: targetCompanion
-        statusEffect: 0
-        scale: 3
+        effectStepName: CombatEffectStep
+        inputKey: enemies
+        combatEffect: 0
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
+        multiplicity: 3
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        ignoreCompanionStats: 0

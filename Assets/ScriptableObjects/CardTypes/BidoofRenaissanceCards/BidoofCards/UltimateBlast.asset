@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: Erholen
+  m_Name: UltimateBlast
   m_EditorClassIdentifier: 
-  Name: Erholen
-  Description: Give target companion 3 strength
-  Cost: 2
-  Artwork: {fileID: 21300000, guid: 690997149efc2d74888e3d1bfed1b225, type: 3}
-  cardCategory: 2
+  Name: Ultimate Blast
+  Description: Deal 1 damage 7 times.
+  Cost: 3
+  Artwork: {fileID: -1102274441, guid: 33ba4bd24a9cc384c880d4c9d5443278, type: 3}
+  cardCategory: 1
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
   effectWorkflows:
-  - rid: 5602892533381726226
+  - rid: 5602892675124822189
   onExhaustEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
@@ -32,29 +32,33 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 5602892533381726226
+    - rid: 5602892675124822189
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
-        - rid: 5602892533381726227
-        - rid: 5602892533381726228
-    - rid: 5602892533381726227
+        - rid: 5602892675124822190
+        - rid: 5602892675124822191
+    - rid: 5602892675124822190
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: targetCompanion
-        validTargets: 00000000
+        outputKey: enemy
+        validTargets: 02000000
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
-    - rid: 5602892533381726228
-      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+    - rid: 5602892675124822191
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: ApplyStatus
-        inputKey: targetCompanion
-        statusEffect: 0
-        scale: 3
+        effectStepName: CombatEffectStep
+        inputKey: enemy
+        combatEffect: 0
+        scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+        multiplicity: 7
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        ignoreCompanionStats: 0
