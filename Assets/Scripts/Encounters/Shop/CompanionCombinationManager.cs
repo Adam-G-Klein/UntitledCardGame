@@ -36,7 +36,7 @@ public class CompanionCombinationManager : MonoBehaviour
             }
             // trigger the ability before combination, all the information about combined
             // companions will still be readily available that way
-            purchasedCompanion.InvokeOnCombineAbilities();
+            purchasedCompanion.InvokeOnCombineAbilities(gameState);
             CombineCompanions(companions);
             Instantiate(celebrationParticles, gameObject.transform.position, Quaternion.identity);
             return true;

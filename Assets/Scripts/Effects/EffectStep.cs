@@ -35,6 +35,7 @@ public enum EffectStepName {
     HasCardActionBeenTakenThisTurn,
     InstantiatePrefab,
     ManaChange,
+    ManualOnCombineInShop,
     MathStep,
     PermanentStatIncrease,
     QuantityOfCardTypePlayedThisTurn,

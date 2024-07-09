@@ -71,19 +71,19 @@ public class Companion : Entity, ICombatStats, IDeckEntity
         return this.combatStats;
     }
 
-    public void InvokeOnCombineAbilities() {
-        if (onCombineAbilities == null) {
+    public void InvokeOnCombineAbilities(GameStateVariableSO gameState) {
+        if (onCombineAbilities == null || onCombineAbilities.Count < 1) {
             return;
         }
-        for (int i = 0; i < onCombineAbilities.Count; i++) {
-            if (i == 0) {
-                EffectDocument document = new();
-                document.map.AddItem(EffectDocument.ORIGIN, this);
-                document.originEntityType = EntityType.Companion;
-                EffectManager.Instance.invokeEffectWorkflow(document, onCombineAbilities[i], null);
-            } else {
-                EffectManager.Instance.QueueEffectWorkflow(onCombineAbilities[i]);
-            }
+        if (onCombineAbilities.Count > 1) {
+            Debug.Log("Companion " + this.companionType.name + " should only have 1 on combine ability, instead it has multiple.");
         }
+        EffectDocument document = new();
+        document.map.AddItem(EffectDocument.ORIGIN, this);
+        document.originEntityType = EntityType.Companion;
+        // Add the game state to the map so that the manual on combine workflows can
+        // edit game state.
+        document.map.AddItem("gameState", gameState);
+        EffectManager.Instance.invokeEffectWorkflow(document, onCombineAbilities[0], null);
     }
 }
