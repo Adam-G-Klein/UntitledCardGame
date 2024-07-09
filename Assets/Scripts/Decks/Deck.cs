@@ -34,6 +34,19 @@ public class Deck
         cards.RemoveAll(card => card.id == cardId);
     }
 
+     public void TransformAllCardsOfType(CardType targetCardType, CardType cardTypeToTransformInto) {
+        Debug.Log("Transforming all cards of type" + targetCardType.name + " from deck into type " + cardTypeToTransformInto.name);
+        List<Card> transformedDeck = new();
+        foreach (Card card in cards) {
+            if (card.cardType == targetCardType) {
+                transformedDeck.Add(new Card(cardTypeToTransformInto, card.getCompanionFrom()));
+            } else {
+                transformedDeck.Add(card);
+            }
+        }
+        cards = transformedDeck;
+    }
+
     public void AddCards(Deck other) {
         foreach (var card in other.cards) {
             cards.Add(card);
