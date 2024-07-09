@@ -30,7 +30,8 @@ MonoBehaviour:
   speakerType: {fileID: 11400000, guid: 9e835f3c4c49e9f4da934369a0a7132b, type: 2}
   abilities:
   - rid: 5602892650873356440
-  upgradeTo: {fileID: 0}
+  - rid: 5602892675124822030
+  upgradeTo: {fileID: 11400000, guid: e8c26b8d205c446d7a74a4c055d7d437, type: 2}
   tooltip:
     empty: 0
     lines: []
@@ -73,10 +74,24 @@ MonoBehaviour:
       data:
         effectStepName: AddCardsToDeck
         inputKey: target
-        cardTypes: []
+        cardTypes:
+        - {fileID: 11400000, guid: b189fb1d6d01a4fc69154f1e3f45b734, type: 2}
         addToDeckMethod: 3
         getCardsFromKey: 0
         inputCardsKey: 
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+    - rid: 5602892675124822030
+      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
+      data:
+        companionAbilityTrigger: 8
+        effectSteps:
+        - rid: 5602892675124822031
+    - rid: 5602892675124822031
+      type: {class: ManualOnCombineInShop, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ManualOnCombineInShop
+        selectedOnCombineWorkflow: 0
+        mabTargetCardType: {fileID: 11400000, guid: b189fb1d6d01a4fc69154f1e3f45b734, type: 2}
+        mabDestCardType: {fileID: 11400000, guid: 988bb1f9451434efa90a62c6d2695416, type: 2}
