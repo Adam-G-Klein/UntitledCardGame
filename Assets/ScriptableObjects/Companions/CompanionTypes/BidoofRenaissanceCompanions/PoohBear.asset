@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
+  m_Name: PoohBear
+  m_EditorClassIdentifier: 
+  companionName: Pooh Bear
+  maxHealth: 20
+  initialCardsDealtPerTurn: 1
+  sprite: {fileID: 21300000, guid: 63fd223d9517a474fa6a87985ac69790, type: 3}
+  startingDeck: {fileID: 0}
+  keepsake: {fileID: 21300000, guid: 63fd223d9517a474fa6a87985ac69790, type: 3}
+  cardBack: {fileID: 21300000, guid: f48743304e0580f4fbfc67f629b1dabe, type: 3}
+  cardFrame: {fileID: 21300000, guid: 1d7c5bff8d35e56428259e9e973815a7, type: 3}
+  typeIcon: {fileID: 21300000, guid: 63fd223d9517a474fa6a87985ac69790, type: 3}
+  portrait: {fileID: 21300000, guid: 63fd223d9517a474fa6a87985ac69790, type: 3}
+  teamSelectSprite: {fileID: 21300000, guid: 63fd223d9517a474fa6a87985ac69790, type: 3}
+  cardIdleVfxPrefab: {fileID: 0}
+  genericCompanionSFX: {fileID: 0}
+  genericCompanionVFX: {fileID: 0}
+  cardPool: {fileID: 0}
+  speakerType: {fileID: 0}
+  abilities: []
+  upgradeTo: {fileID: 0}
+  tooltip:
+    empty: 0
+    lines: []
+  references:
+    version: 2
+    RefIds: []
