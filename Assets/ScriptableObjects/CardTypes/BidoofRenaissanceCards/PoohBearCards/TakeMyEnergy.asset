@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: Mitosis
+  m_Name: TakeMyEnergy
   m_EditorClassIdentifier: 
-  Name: Mitosis
-  Description: Give adjacent companions 1 aura.
-  Cost: 2
-  Artwork: {fileID: 21300000, guid: 50bbe2ab14b04f54c96e28c3e3f8e313, type: 3}
+  Name: Take My Energy
+  Description: Give target companion 1 strength for each aura stack they have.
+  Cost: 1
+  Artwork: {fileID: 21300000, guid: 5e40f858eddaed340a6366c33c4e216f, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
   effectWorkflows:
-  - rid: 5602892679876706340
+  - rid: 5602892679876706420
   onExhaustEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
@@ -32,36 +32,38 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 5602892679876706340
+    - rid: 5602892679876706420
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
-        - rid: 5602892679876706341
-        - rid: 5602892679876706342
-        - rid: 5602892679876706343
-    - rid: 5602892679876706341
+        - rid: 5602892679876706421
+        - rid: 5602892679876706422
+        - rid: 5602892679876706423
+    - rid: 5602892679876706421
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: self
-        validTargets: 
+        outputKey: target
+        validTargets: 00000000
         number: 1
-        specialTargetRule: 4
+        specialTargetRule: 0
         cantCancelTargetting: 0
-    - rid: 5602892679876706342
-      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
+    - rid: 5602892679876706422
+      type: {class: CountStatusEffectsStep, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: GetAdjacentCompanions
-        inputKey: self
-        outputKey: adjacent
-    - rid: 5602892679876706343
+        effectStepName: CountStatusEffectStep
+        inputKey: target
+        statusEffect: 9
+        onlyCountStatusOnce: 0
+        outputKey: numOrbs
+    - rid: 5602892679876706423
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ApplyStatus
-        inputKey: adjacent
+        inputKey: target
         statusEffect: 9
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
+        scale: 0
+        getScaleFromKey: 1
+        inputScaleKey: numOrbs

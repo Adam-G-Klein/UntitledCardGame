@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: Mitosis
+  m_Name: FireWithin
   m_EditorClassIdentifier: 
-  Name: Mitosis
-  Description: Give adjacent companions 1 aura.
-  Cost: 2
-  Artwork: {fileID: 21300000, guid: 50bbe2ab14b04f54c96e28c3e3f8e313, type: 3}
+  Name: Fire Within
+  Description: Give each companion on your team 1 aura stack
+  Cost: 3
+  Artwork: {fileID: 21300000, guid: fccdd43ca64c8644fa54c06ab327bdd3, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
   effectWorkflows:
-  - rid: 5602892679876706340
+  - rid: 5602892679876706412
   onExhaustEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
@@ -32,35 +32,28 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 5602892679876706340
+    - rid: 5602892679876706412
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
-        - rid: 5602892679876706341
-        - rid: 5602892679876706342
-        - rid: 5602892679876706343
-    - rid: 5602892679876706341
+        - rid: 5602892679876706413
+        - rid: 5602892679876706414
+    - rid: 5602892679876706413
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: self
-        validTargets: 
+        outputKey: allCompanions
+        validTargets: 00000000
         number: 1
-        specialTargetRule: 4
+        specialTargetRule: 1
         cantCancelTargetting: 0
-    - rid: 5602892679876706342
-      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetAdjacentCompanions
-        inputKey: self
-        outputKey: adjacent
-    - rid: 5602892679876706343
+    - rid: 5602892679876706414
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ApplyStatus
-        inputKey: adjacent
+        inputKey: allCompanions
         statusEffect: 9
         scale: 1
         getScaleFromKey: 0
