@@ -97,8 +97,12 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         Debug.Log("EndEncounterHandler called, activeEncounter is " + gameState.activeEncounter.GetValue().id + " isCompleted is " + gameState.activeEncounter.GetValue().isCompleted);
 
         // Gold interest calculation
-        int baseGoldEarnedPerBattle = encounterConstants.baseGoldEarnedPerBattle;
-        int extraGold = Mathf.FloorToInt(encounterConstants.interestRate * gameState.playerData.GetValue().gold);
+        int baseGoldEarnedPerBattle = gameState.baseShopData.goldEarnedPerBattle;
+        int extraGold = Mathf.FloorToInt(gameState.baseShopData.interestRate * gameState.playerData.GetValue().gold);
+        if (extraGold > gameState.baseShopData.interestCap) {
+            Debug.Log("capping extra gold " + extraGold.ToString() + " at interest cap " + gameState.baseShopData.interestCap.ToString());
+            extraGold = gameState.baseShopData.interestCap;
+        }
         gameState.playerData.GetValue().gold += baseGoldEarnedPerBattle + extraGold;
 
         if (onEncounterEndHandler != null) {

@@ -28,6 +28,7 @@ public class GameStateVariableSO : ScriptableObject
     public CompanionListVariableSO companions;
     public PlayerDataVariableSO playerData;
     public MapVariableSO map;
+    public ShopDataSO baseShopData;
     private MapGeneratorSO mapGenerator;
     [Header("The Combat or Shop Encounter we're currently in")]
     public EncounterVariableSO activeEncounter;
@@ -72,7 +73,7 @@ public class GameStateVariableSO : ScriptableObject
         {Location.BOSSFIGHT, Location.MAP}
     };
 
-    
+
     [Header("Settings for the demo")]
     public int lastTutorialLoopIndex = 2;
     public int bossFightLoopIndex = 6;
@@ -80,10 +81,10 @@ public class GameStateVariableSO : ScriptableObject
 
     // TODO: make this more versatile if we want the map to actually do things.
     // also want to field criticism about whether this should live here.
-    // My only argument for placing it here is that this is one of the main 
-    // functions of the GameStateVariable, and the logic is based entirely on 
+    // My only argument for placing it here is that this is one of the main
+    // functions of the GameStateVariable, and the logic is based entirely on
     // what our current game state is. Lmk your thoughts though.
-    public void LoadNextLocation(Location nextLocation = Location.NONE) { 
+    public void LoadNextLocation(Location nextLocation = Location.NONE) {
         Debug.Log("Loading next location, current location is: " + currentLocation);
         if(nextLocation == Location.NONE && !locationToNextLocation.ContainsKey(currentLocation)) {
             Debug.LogError("Location " + currentLocation + " is not in the locationToNextLocation dictionary");
@@ -193,7 +194,7 @@ public class GameStateVariableSO : ScriptableObject
         }
     }
 
-    // Returns the loop we're on, 1 and 2 for the tutorial, 
+    // Returns the loop we're on, 1 and 2 for the tutorial,
     // used to index into all of the dialogueLocationLists
     // the way to think about it is that we start on loop 0, and each postCombat starts the next loop
     public int GetLoopIndex() {

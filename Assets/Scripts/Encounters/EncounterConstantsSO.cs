@@ -11,8 +11,6 @@ public class EncounterConstantsSO : ScriptableObject {
     public GameObject minionPrefab;
     public GameObject playerPrefab;
     public GameObject cardPrefab;
-    public int baseGoldEarnedPerBattle;
-    public float interestRate;
     [Header("Shop Encounter")]
     public GameObject cardInShopPrefab;
     public GameObject cardSoldOutPrefab;

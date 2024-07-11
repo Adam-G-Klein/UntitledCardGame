@@ -16,6 +16,11 @@ public class ShopDataSO : ScriptableObject
     public int cardPrice;
     public int companionKeepsakePrice;
 
+    [Header("Earning post combat")]
+    public int goldEarnedPerBattle;
+    public float interestRate;
+    public int interestCap;
+
     public CardPoolSO neutralCardPool;
 
     public ShopLevel GetShopLevel(int level) {
@@ -52,7 +57,7 @@ public class ShopLevel {
     public int GetTotalCompanionPercentage() {
         return commonCompanionPercentage +
             uncommonCompanionPercentage +
-            rareCompanionPercentage;                
+            rareCompanionPercentage;
     }
 
     public int GetTotalCardPercentage() {
