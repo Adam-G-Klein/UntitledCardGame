@@ -56,14 +56,13 @@ MonoBehaviour:
       data:
         effectStepName: CombatEffectStep
         inputKey: self
-        combatEffect: 0
+        combatEffect: 14
         scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        ignoreCompanionStats: 1
     - rid: 5602892675124822095
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -87,4 +86,3 @@ MonoBehaviour:
         multiplicity: 3
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        ignoreCompanionStats: 0

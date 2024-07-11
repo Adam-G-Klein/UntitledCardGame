@@ -33,8 +33,6 @@ public class CombatEffectStep : EffectStep
     private bool getMultiplicityFromKey = false;
     [SerializeField]
     private string inputMultiplicityKey = "";
-    [SerializeField]
-    private bool ignoreCompanionStats = false;
 
     public CombatEffectStep() {
         effectStepName = "CombatEffectStep";
@@ -97,9 +95,7 @@ public class CombatEffectStep : EffectStep
         int newScale = baseScale;
         switch (combatEffect) {
             case CombatEffect.Damage:
-                if (!ignoreCompanionStats) {
-                    newScale = baseScale + origin.GetCurrentDamage();
-                }
+                newScale = baseScale + origin.GetCurrentDamage();
                 if (card != null) {
                     newScale = card.card.UpdateScaleForCardModifications(newScale);
                 }
