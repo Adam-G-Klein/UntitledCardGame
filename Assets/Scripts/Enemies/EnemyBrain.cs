@@ -9,7 +9,7 @@ public class EnemyBrain
     public List<EnemyBehavior> behaviors;
     public bool sequentialBehaviors = false;
     public int nextBehaviorIndex = 0;
-    
+
     // To be revisited
     private float attackTime = 0.5f;
 
@@ -26,12 +26,12 @@ public class EnemyBrain
         return new EnemyIntent(
             // I'm aware this is bad, stick with me for a sec
             new List<CombatInstance>() { target },
-            attackTime, 
+            attackTime,
             action.intent,
             action.targetsKey,
             UpdateDisplayValue(self, action.displayValue, action),
             action.effectSteps);
-    } 
+    }
 
     private CombatInstance ChooseTargets(EnemyTargetMethod targetMethod, EnemyInstance self) {
         CombatInstance target = null;
@@ -83,7 +83,7 @@ public class EnemyBrain
     }
 
     private int UpdateDisplayValue(EnemyInstance instance, int value, EnemyBehavior behavior) {
-        if (behavior.intent != EnemyIntentType.BigAttack || behavior.intent != EnemyIntentType.SmallAttack) {
+        if (behavior.intent != EnemyIntentType.BigAttack && behavior.intent != EnemyIntentType.SmallAttack) {
             return value;
         }
 

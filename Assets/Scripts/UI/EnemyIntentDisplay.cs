@@ -49,16 +49,7 @@ public class EnemyIntentDisplay : MonoBehaviour
 
     public IEnumerable displayIntent(EnemyInstance enemy)  {
         clearIntent();
-        if (enemy.currentIntent == null) {
-            Debug.Log("Enemy " + enemy.name + " has no current intent");
-            StartCoroutine(displayIntentAfterDelay(enemy));
-            yield break;
-        }
-        Debug.Log("Displaying intent for " + enemy.name + " with intent " + enemy.currentIntent.intentType);
-        updateIntentImages(enemy.currentIntent);
-        arrowController.updateArrows(enemy.currentIntent);
-        valueText.gameObject.SetActive(true);
-        valueText.text = enemy.currentIntent.displayValue.ToString();
+        StartCoroutine(displayIntentAfterDelay(enemy));
         yield return null;
     }
 
