@@ -99,10 +99,6 @@ public class ShopEncounter : Encounter
             cardDisplay.Initialize(new Card(cardType, companionType));
 
             cardInShop.Setup();
-
-            CardInShop childCardInShop = instantiatedCard.transform.GetChild(0).GetComponent<CardInShop>();
-            childCardInShop.price = cardsInShop[i].price;
-            childCardInShop.Setup();
         }
     }
 

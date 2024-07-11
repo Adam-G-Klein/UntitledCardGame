@@ -461,6 +461,7 @@ MonoBehaviour:
   keepSake: {fileID: 8204483023420530613}
   soldOutSign: {fileID: 1046513197762210227}
   cardHover: {fileID: 8300000, guid: b19a222c3b3035246a78b1850315e70f, type: 3}
+  hoverSFXVolume: 0.1
 --- !u!114 &3549927547358299385
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -579,11 +580,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1218430186337262523, guid: 0125b71e48682a14386f4701e489938d, type: 3}
       propertyPath: m_fontSize
-      value: 37.9
+      value: 34.45
       objectReference: {fileID: 0}
     - target: {fileID: 1218430187738907287, guid: 0125b71e48682a14386f4701e489938d, type: 3}
       propertyPath: m_fontSize
-      value: 50.75
+      value: 46.3
       objectReference: {fileID: 0}
     - target: {fileID: 2650191115347414960, guid: 0125b71e48682a14386f4701e489938d, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -609,6 +610,14 @@ PrefabInstance:
       propertyPath: keepSake
       value: 
       objectReference: {fileID: 8204483023420530613}
+    - target: {fileID: 4109081379432609215, guid: 0125b71e48682a14386f4701e489938d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4109081379432609215, guid: 0125b71e48682a14386f4701e489938d, type: 3}
+      propertyPath: priceText
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4109081379432609215, guid: 0125b71e48682a14386f4701e489938d, type: 3}
       propertyPath: soldOutSign
       value: 
@@ -657,7 +666,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: CardInShop
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4109081379432609215, guid: 0125b71e48682a14386f4701e489938d, type: 3}
+    - {fileID: 7533518680429018692, guid: 0125b71e48682a14386f4701e489938d, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
