@@ -18,7 +18,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     [SerializeField]
     private RectTransform layoutGroup;
 
-    public delegate IEnumerator OnCardExhaustHandler(PlayableCard card);
+    public delegate IEnumerator OnCardExhaustHandler(DeckInstance deckFrom, Card card);
     public event OnCardExhaustHandler onCardExhaustHandler;
 
     public List<PlayableCard> DealCards(List<Card> cards, DeckInstance deckFrom) {
@@ -78,10 +78,10 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         UpdateLayout();
     }
 
-    public IEnumerator OnCardExhaust(PlayableCard card) {
+    public IEnumerator OnCardExhaust(DeckInstance deckFrom, Card card) {
         if (onCardExhaustHandler != null) {
             foreach (OnCardExhaustHandler handler in onCardExhaustHandler.GetInvocationList()) {
-                yield return StartCoroutine(handler.Invoke(card));
+                yield return StartCoroutine(handler.Invoke(deckFrom, card));
             }
         }
     }

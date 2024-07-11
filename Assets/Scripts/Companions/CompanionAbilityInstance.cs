@@ -121,12 +121,10 @@ public class CompanionAbilityInstance
         }
     }
 
-    private IEnumerator OnCardExhaust(PlayableCard card) {
+    private IEnumerator OnCardExhaust(DeckInstance deckFrom, Card card) {
         EffectDocument document = new EffectDocument();
         document.map.AddItem(EffectDocument.ORIGIN, this.companionInstance);
         document.originEntityType = EntityType.CompanionInstance;
-        document.map.AddItem("exhaustedCard", card);
-        DeckInstance deckFrom = card.deckFrom;
         if (deckFrom.TryGetComponent(out CompanionInstance companion)) {
             document.map.AddItem<CompanionInstance>("companionExhaustedFrom", companion);
             document.map.AddItem<CombatInstance>("companionExhaustedFrom", companion.combatInstance);
