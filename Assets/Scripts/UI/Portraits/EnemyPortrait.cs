@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -29,5 +30,9 @@ public class EnemyPortrait : MonoBehaviour
 
     private void UpdatePortrait() {
         this.image.sprite = enemyInstance.enemy.enemyType.sprite;
+        if (enemyInstance.currentIntent != null) {
+            TMP_Text text = enemyIntentDisplay.GetComponentInChildren<TMP_Text>();
+            text.text = enemyInstance.currentIntent.displayValue.ToString();
+        }
     }
 }
