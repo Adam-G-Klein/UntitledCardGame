@@ -12,6 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98c54fe17bbfaba4697c85c1618843f4, type: 3}
   m_Name: PythiaCardPool
   m_EditorClassIdentifier: 
-  commonCards: []
-  uncommonCards: []
-  rareCards: []
+  commonCards:
+  - {fileID: 11400000, guid: 1f08e1790b935465c855038f6fdc537e, type: 2}
+  - {fileID: 11400000, guid: 8c84965baf5d746b6aefcf0bc859d9d4, type: 2}
+  - {fileID: 11400000, guid: df76d850c05e245beb0deb9441ec73c0, type: 2}
+  uncommonCards:
+  - {fileID: 11400000, guid: 1089ac978ba164db1afbe089b16bfe2e, type: 2}
+  - {fileID: 11400000, guid: 9b05005198a0c4fbb93a3579485299f5, type: 2}
+  rareCards:
+  - {fileID: 11400000, guid: 03b2f523eb4a74d9eb3847873a809a1b, type: 2}

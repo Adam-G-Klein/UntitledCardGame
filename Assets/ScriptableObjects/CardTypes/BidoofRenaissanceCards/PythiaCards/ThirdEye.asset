@@ -10,20 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: SecondSight
+  m_Name: ThirdEye
   m_EditorClassIdentifier: 
-  Name: Second Sight
-  Description: Scry 1
+  Name: Third Eye
+  Description: Scry 2
   Cost: 0
-  Artwork: {fileID: 21300000, guid: 04bf14070e798284f9f39ea08b676c4a, type: 3}
+  Artwork: {fileID: 21300000, guid: 18251cc3bb6c59d4794bd522032e2ee3, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
+  exhaustsWhenPlayed: 0
   effectWorkflows:
   - rid: 3931529445166809455
   onExhaustEffectWorkflow:
     rid: -2
-  tooltips: 05000000
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  tooltips: 
   references:
     version: 2
     RefIds:
@@ -54,8 +57,8 @@ MonoBehaviour:
         effectStepName: GetCardsFromDeck
         inputKey: target
         getLimitedNumber: 1
-        numberOfCardsToGet: 1
-        shuffleIfEmpty: 0
+        numberOfCardsToGet: 2
+        shuffleIfEmpty: 1
         outputKey: topCard
         getCardsFromSourceDeck: 0
         getAllFromOnlyDrawPile: 0
@@ -67,7 +70,7 @@ MonoBehaviour:
         outputKey: discarded
         promptText: Choose a card to discard.
         minTargets: 0
-        maxTargets: 1
+        maxTargets: 2
         getNumberOfTargetsFromKey: 0
         inputNumberOfTargetsKey: 
         randomizeOrder: 0
@@ -78,4 +81,5 @@ MonoBehaviour:
         inputCardsKey: discarded
         inputDeckKey: target
         effect: 2
+        cardToTransformInto: {fileID: 0}
         outputKey: 
