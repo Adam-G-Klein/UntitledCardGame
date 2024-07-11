@@ -32,7 +32,10 @@ MonoBehaviour:
   upgradeTo: {fileID: 11400000, guid: 63d215cc93af64400a7924504312f5fd, type: 2}
   tooltip:
     empty: 0
-    lines: []
+    lines:
+    - title: Pythia
+      description: At the start of the turn, draw an extra card from this companion
+      image: {fileID: 0}
   references:
     version: 2
     RefIds: []
