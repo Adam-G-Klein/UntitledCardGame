@@ -64,7 +64,6 @@ public class CompanionCombinationManager : MonoBehaviour
         // TODO: change this combined companion with whatever mechanics ends up wanting
         Companion combinedCompanion = new Companion(companions[0].companionType.upgradeTo);
         combinedCompanion.deck = combinedDeck;
-        combinedCompanion.deck.cardsDealtPerTurn = companions[0].companionType.upgradeTo.initialCardsDealtPerTurn;
 
         combinedCompanion.combatStats.maxHealth = maxHealthForCombinedCompanion(companions);
         combinedCompanion.combatStats.currentHealth = (int) (combinedCompanion.combatStats.maxHealth * currentHealthPctForCombinedCompanion(companions));
