@@ -4,6 +4,7 @@ using System;
 using UnityEngine;
 using UnityEditor;
 using Unity.VisualScripting;
+using TMPro;
 
 [RequireComponent(typeof(EndEncounterEventListener))]
 public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IEncounterBuilder
@@ -32,7 +33,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     [SerializeField]
     private GameObject postGamePopup;
 
-    public LocationStore companionLocationStore { 
+    public LocationStore companionLocationStore {
         get {
         if(companionLocationStoreGO == null) {
             Debug.LogError("companionLocationStoreGO is null");
@@ -42,7 +43,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
             companionLocationStore = value;
         }
     }
-    public LocationStore enemyLocationStore { 
+    public LocationStore enemyLocationStore {
         get {
         if(enemyLocationStoreGO == null) {
             Debug.LogError("enemyLocationStoreGO is null");
@@ -60,14 +61,14 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         RegisterCombatEncounterStateActions();
     }
 
-    public void BuildEnemyEncounter(EnemyEncounter encounter, 
+    public void BuildEnemyEncounter(EnemyEncounter encounter,
         LocationStore companionLocationStore,
         LocationStore enemyLocationStore) {
         List<CompanionInstance> createdCompanions = new List<CompanionInstance>();
         List<EnemyInstance> createdEnemies = new List<EnemyInstance>();
-        encounter.Build(gameState.companions.activeCompanions, 
-            encounterConstants, 
-            createdCompanions, 
+        encounter.Build(gameState.companions.activeCompanions,
+            encounterConstants,
+            createdCompanions,
             createdEnemies,
             companionLocationStore,
             enemyLocationStore);
@@ -112,6 +113,9 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         postCombatUI.SetActive(true);
         uIStateEvent.Raise(new UIStateEventInfo(UIState.END_ENCOUNTER));
         postCombatUI.transform.SetSiblingIndex(postCombatUI.transform.parent.childCount - 1);
+        TMP_Text[] texts = postCombatUI.GetComponentsInChildren<TMP_Text>();
+        TMP_Text rewardText = texts[1];
+        rewardText.text = "Base gold " + baseGoldEarnedPerBattle.ToString() + ", Interest " + extraGold.ToString();
         DialogueManager.Instance.SetDialogueLocation(gameState);
         DialogueManager.Instance.StartAnyDialogueSequence();
     }
