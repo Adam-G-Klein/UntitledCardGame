@@ -126,6 +126,12 @@ public class CompanionAbilityInstance
         document.map.AddItem(EffectDocument.ORIGIN, this.companionInstance);
         document.originEntityType = EntityType.CompanionInstance;
         document.map.AddItem("exhaustedCard", card);
+        DeckInstance deckFrom = card.deckFrom;
+        if (deckFrom.TryGetComponent(out CompanionInstance companion)) {
+            document.map.AddItem<CompanionInstance>("companionExhaustedFrom", companion);
+            document.map.AddItem<CombatInstance>("companionExhaustedFrom", companion.combatInstance);
+            document.map.AddItem<DeckInstance>("companionExhaustedFrom", companion.deckInstance);
+        }
         yield return EffectManager.Instance.invokeEffectWorkflowCoroutine(document, ability.effectSteps, null);
     }
 }
