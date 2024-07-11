@@ -96,8 +96,8 @@ public class CompanionCombinationManager : MonoBehaviour
     }
 
     private int maxHealthForCombinedCompanion(List<Companion> companions) {
-        // Average together the max health of each companion.
-        return (int) companions.Select(c => c.combatStats.maxHealth).ToList().Average();
+        // Sum together the max health of each companion.
+        return (int) companions.Select(c => c.combatStats.maxHealth).ToList().Sum();
     }
 
     private double currentHealthPctForCombinedCompanion(List<Companion> companions) {
