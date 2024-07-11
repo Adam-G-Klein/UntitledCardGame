@@ -11,9 +11,9 @@ public class EffectDocument
     public static string ORIGIN = "Origin";
     public EntityType originEntityType = EntityType.Unknown;
     public GenericListDictionary map = new GenericListDictionary();
-    
+
     public Dictionary<string, int> intMap = new Dictionary<string, int>();
-    
+
     public Dictionary<string, string> stringMap = new Dictionary<string, string>();
 
     public Dictionary<string, bool> boolMap = new Dictionary<string, bool>();
@@ -126,11 +126,13 @@ public class EffectDocument
             HashSet<string> dedupeLinks = new HashSet<string>();
             foreach (KeyValuePair<Tuple<string, Type>, List<object>> keyValuePair in _dict) {
                 if (keyValuePair.Key.Item1.Equals(key)) {
-                    if (_linkDict.ContainsKey(keyValuePair.Key) && !dedupeLinks.Contains(_linkDict[keyValuePair.Key])) {
+                    // If the keyValuePair is not part of a linked group, count all the elements as normal.
+                    // Otherwise, we only want to count the number of elements of a linked group once.
+                    if (!_linkDict.ContainsKey(keyValuePair.Key)) {
+                        count += keyValuePair.Value.Count;
+                    } else if (!dedupeLinks.Contains(_linkDict[keyValuePair.Key])) {
                         dedupeLinks.Add(_linkDict[keyValuePair.Key]);
-                        count++;
-                    } else {
-                        count++;
+                        count += keyValuePair.Value.Count;
                     }
                 }
             }
@@ -149,7 +151,7 @@ public class EffectDocument
 
         public void Print() {
             foreach (KeyValuePair<Tuple<string, Type>, List<object>> pair in _dict) {
-                Debug.Log("Key: " + pair.Key.Item1 + 
+                Debug.Log("Key: " + pair.Key.Item1 +
                     "\nType: " + pair.Key.Item2 + "\nValue: " + pair.Value);
             }
         }
