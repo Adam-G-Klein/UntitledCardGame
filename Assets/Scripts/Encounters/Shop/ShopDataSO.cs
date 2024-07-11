@@ -39,7 +39,7 @@ public class ShopDataSO : ScriptableObject
 public class ShopLevel {
     [Header("Basic Data")]
     public int level;
-    public int manaIncrease;
+    public int mana;
     public int teamSize;
     public int upgradeCost;
     public int numCardsToShow;

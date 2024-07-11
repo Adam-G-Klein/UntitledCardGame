@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shopLevels:
   - level: 0
-    manaIncrease: 0
+    mana: 3
     teamSize: 3
-    upgradeCost: 4
+    upgradeCost: 15
     numCardsToShow: 2
     numKeepsakesToShow: 1
     commonCompanionPercentage: 90
@@ -26,23 +26,23 @@ MonoBehaviour:
     uncommonCardPercentage: 10
     rareCardPercentage: 0
   - level: 1
-    manaIncrease: 0
+    mana: 3
     teamSize: 4
     upgradeCost: 20
-    numCardsToShow: 2
+    numCardsToShow: 3
     numKeepsakesToShow: 1
     commonCompanionPercentage: 50
     uncommonCompanionPercentage: 50
     rareCompanionPercentage: 0
     commonCardPercentage: 50
-    uncommonCardPercentage: 50
-    rareCardPercentage: 0
+    uncommonCardPercentage: 48
+    rareCardPercentage: 2
   - level: 2
-    manaIncrease: 0
+    mana: 4
     teamSize: 4
     upgradeCost: 40
     numCardsToShow: 3
-    numKeepsakesToShow: 1
+    numKeepsakesToShow: 2
     commonCompanionPercentage: 30
     uncommonCompanionPercentage: 60
     rareCompanionPercentage: 10
@@ -50,7 +50,7 @@ MonoBehaviour:
     uncommonCardPercentage: 60
     rareCardPercentage: 10
   - level: 3
-    manaIncrease: 0
+    mana: 4
     teamSize: 5
     upgradeCost: 50
     numCardsToShow: 4

@@ -122,7 +122,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             return;
         }
         if (gameState.playerData.GetValue().gold >= request.price) {
-            
+
 
             gameState.playerData.GetValue().gold -= request.price;
             GameObject.Instantiate(
@@ -133,7 +133,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             if(!companionCombinationManager.AttemptUpgradeCompanion(request.companion)){
                 Debug.Log("Upgrade not appicable, adding to benched companions");
                 this.gameState.companions.benchedCompanions.Add(request.companion);
-            } 
+            }
         } else {
             shopUIManager.displayNeedMoreMoneyNotification();
         }
@@ -181,7 +181,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             playerData.shopLevel += 1;
             shopLevel = shopEncounter.shopData.GetShopLevel(playerData.shopLevel);
             gameState.companions.SetCompanionSlots(shopLevel.teamSize);
-            playerData.manaPerTurn += shopLevel.manaIncrease;
+            playerData.manaPerTurn = shopLevel.mana;
 
             CheckDisableUpgradeButton();
         } else {
