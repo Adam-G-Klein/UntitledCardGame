@@ -19,8 +19,8 @@ MonoBehaviour:
     upgradeCost: 15
     numCardsToShow: 2
     numKeepsakesToShow: 1
-    commonCompanionPercentage: 90
-    uncommonCompanionPercentage: 10
+    commonCompanionPercentage: 100
+    uncommonCompanionPercentage: 0
     rareCompanionPercentage: 0
     commonCardPercentage: 90
     uncommonCardPercentage: 10
@@ -31,8 +31,8 @@ MonoBehaviour:
     upgradeCost: 20
     numCardsToShow: 3
     numKeepsakesToShow: 1
-    commonCompanionPercentage: 50
-    uncommonCompanionPercentage: 50
+    commonCompanionPercentage: 70
+    uncommonCompanionPercentage: 30
     rareCompanionPercentage: 0
     commonCardPercentage: 50
     uncommonCardPercentage: 48
@@ -43,11 +43,11 @@ MonoBehaviour:
     upgradeCost: 40
     numCardsToShow: 3
     numKeepsakesToShow: 2
-    commonCompanionPercentage: 30
-    uncommonCompanionPercentage: 60
+    commonCompanionPercentage: 50
+    uncommonCompanionPercentage: 40
     rareCompanionPercentage: 10
-    commonCardPercentage: 30
-    uncommonCardPercentage: 60
+    commonCardPercentage: 49
+    uncommonCardPercentage: 40
     rareCardPercentage: 10
   - level: 3
     mana: 4
@@ -55,17 +55,17 @@ MonoBehaviour:
     upgradeCost: 50
     numCardsToShow: 4
     numKeepsakesToShow: 2
-    commonCompanionPercentage: 20
-    uncommonCompanionPercentage: 50
+    commonCompanionPercentage: 30
+    uncommonCompanionPercentage: 40
     rareCompanionPercentage: 30
-    commonCardPercentage: 20
-    uncommonCardPercentage: 50
+    commonCardPercentage: 30
+    uncommonCardPercentage: 40
     rareCardPercentage: 30
   companionPool: {fileID: 11400000, guid: 4113f0ac393ad43499c4e9e9a4e6d97e, type: 2}
-  rerollShopPrice: 1
+  rerollShopPrice: 2
   shopEncounterEvent: {fileID: 11400000, guid: d82ee33fc33d20544bce205c53a0832e, type: 2}
-  cardPrice: 1
-  companionKeepsakePrice: 3
+  cardPrice: 2
+  companionKeepsakePrice: 4
   goldEarnedPerBattle: 10
   interestRate: 0.1
   interestCap: 10

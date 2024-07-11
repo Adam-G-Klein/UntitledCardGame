@@ -213,28 +213,24 @@ public class ShopEncounter : Encounter
             );
 
             List<CompanionTypeSO> companions = new List<CompanionTypeSO>();
-            int keepsakePrice = 0;
             switch(rarity) {
                 case Rarity.Common:
                     companions = shopData.companionPool.commonCompanions;
-                    keepsakePrice = shopData.companionPool.commonCompanionPrice;
                 break;
 
                 case Rarity.Uncommon:
                     companions = shopData.companionPool.uncommonCompanions;
-                    keepsakePrice = shopData.companionPool.uncommonCompanionPrice;
                 break;
 
                 case Rarity.Rare:
                     companions = shopData.companionPool.rareCompanions;
-                    keepsakePrice = shopData.companionPool.rareCompanionPrice;
                 break;
             }
 
             // Pick a card from the pool and add it to the shop's cards
             int number = Random.Range(0, companions.Count);
             keepsakesInShop.Add(
-                new KeepsakeInShopWithPrice(companions[number], keepsakePrice));
+                new KeepsakeInShopWithPrice(companions[number], shopData.companionKeepsakePrice));
         }
     }
 
