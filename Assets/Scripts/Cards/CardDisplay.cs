@@ -78,7 +78,7 @@ public class CardDisplay : MonoBehaviour
         CompanionTypeSO companionType = cardInfo.getCompanionFrom();
         if (companionType == null) {
             Debug.LogError("No companion from provided to cardDisplay or present in cardInfo. cardInfo: " + cardInfo.name + " companionType: " + companionType);
-            yield return null;
+            yield break;
         }
         else if(companionType.cardIdleVfxPrefab) {
             vfxGO = Instantiate(companionType.cardIdleVfxPrefab, transform);
