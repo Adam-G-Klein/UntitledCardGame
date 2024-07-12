@@ -52,7 +52,7 @@ public class EnemyInstance : MonoBehaviour {
 
     private IEnumerable DeclareIntent() {
         currentIntent = enemy.ChooseIntent(this);
-        yield return null;
+        yield return intentDisplay.displayIntent(this);
     }
 
     private IEnumerable EnactIntent() {
@@ -69,7 +69,7 @@ public class EnemyInstance : MonoBehaviour {
         combatInstance.statusEffects[StatusEffect.Defended] = 0;
         yield return null;
     }
-    
+
     public void SetTauntedTarget(CombatInstance target){
         throw new NotImplementedException();
     }
