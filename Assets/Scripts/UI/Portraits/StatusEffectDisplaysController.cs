@@ -29,11 +29,15 @@ public class StatusEffectDisplaysController : MonoBehaviour
     }
 
     private void UpdateStatusDisplays() {
-        bool statusShouldDisplay = false;
+        bool statusShouldDisplay;
         foreach (KeyValuePair<StatusEffect, StatusEffectDisplay> kv in statusEffectDisplays) {
-            statusShouldDisplay = entity.statusEffects[kv.Key] != CombatInstance.initialStatusEffects[kv.Key];
+            int statusValue = entity.statusEffects[kv.Key];
+            if (kv.Key == StatusEffect.Strength) {
+                statusValue += entity.combatStats.baseAttackDamage;
+            }
+            statusShouldDisplay = statusValue != CombatInstance.initialStatusEffects[kv.Key];
             kv.Value.SetDisplaying(statusShouldDisplay);
-            if (statusShouldDisplay) kv.Value.SetText(entity.statusEffects[kv.Key].ToString());
+            if (statusShouldDisplay) kv.Value.SetText(statusValue.ToString());
         }
     }
 }
