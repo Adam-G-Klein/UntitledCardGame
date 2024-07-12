@@ -175,7 +175,6 @@ MonoBehaviour:
     id: 
     entityType: 0
     companionType: {fileID: 0}
-    upgradeInfo: {fileID: 0}
     deck:
       startingDeck: {fileID: 0}
       cards: []
@@ -184,9 +183,14 @@ MonoBehaviour:
       maxHealth: 0
       currentHealth: 0
       baseAttackDamage: 0
+    companionLevel: 0
+    onCombineAbilities: []
   keepsakeImage: {fileID: 2460636779024374434}
   hoverBackground: {fileID: 2460636779292744212}
   soldOutSign: {fileID: 271131785574931549}
+  references:
+    version: 2
+    RefIds: []
 --- !u!114 &271131787034329510
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -250,7 +254,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -54.300003, y: 84}
+  m_AnchoredPosition: {x: -30.1, y: 84}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2460636778988090484
