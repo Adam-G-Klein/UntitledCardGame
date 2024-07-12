@@ -32,10 +32,10 @@ MonoBehaviour:
     numCardsToShow: 3
     numKeepsakesToShow: 1
     commonCompanionPercentage: 70
-    uncommonCompanionPercentage: 30
-    rareCompanionPercentage: 0
-    commonCardPercentage: 50
-    uncommonCardPercentage: 48
+    uncommonCompanionPercentage: 28
+    rareCompanionPercentage: 2
+    commonCardPercentage: 70
+    uncommonCardPercentage: 28
     rareCardPercentage: 2
   - level: 2
     mana: 4
@@ -46,7 +46,7 @@ MonoBehaviour:
     commonCompanionPercentage: 50
     uncommonCompanionPercentage: 40
     rareCompanionPercentage: 10
-    commonCardPercentage: 49
+    commonCardPercentage: 50
     uncommonCardPercentage: 40
     rareCardPercentage: 10
   - level: 3
@@ -64,8 +64,8 @@ MonoBehaviour:
   companionPool: {fileID: 11400000, guid: 4113f0ac393ad43499c4e9e9a4e6d97e, type: 2}
   rerollShopPrice: 2
   shopEncounterEvent: {fileID: 11400000, guid: d82ee33fc33d20544bce205c53a0832e, type: 2}
-  cardPrice: 2
-  companionKeepsakePrice: 4
+  cardPrice: 1
+  companionKeepsakePrice: 3
   goldEarnedPerBattle: 10
   interestRate: 0.1
   interestCap: 10
