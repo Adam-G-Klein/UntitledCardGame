@@ -27,7 +27,7 @@ public class GetPercentOfMaxHP : EffectStep {
         // Check for valid entity target
         List<CombatInstance> instances = document.map.GetList<CombatInstance>(inputKey);
         if (instances.Count == 0 || instances.Count > 1) {
-            EffectError("Either no valid target or too many valid targets" + 
+            EffectError("Either no valid target or too many valid targets" +
                 " to get percent of max health from under key " + inputKey);
             yield return null;
         }

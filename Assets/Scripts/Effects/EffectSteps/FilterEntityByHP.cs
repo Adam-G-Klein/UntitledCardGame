@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,9 @@ public class FilterEntityByHP : EffectStep
 {
     [SerializeField]
     private string inputKey = "";
+    [SerializeField]
+    private double percentThreshold = 0.5;
+
     [SerializeField]
     private string outputKey = "";
 
@@ -21,9 +25,12 @@ public class FilterEntityByHP : EffectStep
         }
         List<CombatInstance> filteredList = new List<CombatInstance>();
         foreach (CombatInstance instance in combatInstances) {
-            filteredList.Add(instance);
+            int threshold = Convert.ToInt32(instance.combatStats.maxHealth * percentThreshold);
+            if (instance.combatStats.currentHealth <= threshold) {
+                filteredList.Add(instance);
+            }
         }
-        document.map.AddItems<CombatInstance>(outputKey, filteredList);
+        document.map.AddItems<CombatInstance>(outputKey, filteredList, "hpLink");
         FilterCompanionInstances(document, filteredList);
         FilterEnemyInstances(document, filteredList);
         FilterDeckInstances(document, filteredList);
@@ -40,7 +47,7 @@ public class FilterEntityByHP : EffectStep
                 filteredCompanionInstances.Add(instance);
             }
         }
-        document.map.AddItems<CompanionInstance>(outputKey, filteredCompanionInstances);
+        document.map.AddItems<CompanionInstance>(outputKey, filteredCompanionInstances, "hpLink");
     }
 
     private void FilterEnemyInstances(
@@ -53,7 +60,7 @@ public class FilterEntityByHP : EffectStep
                 filteredEnemyInstances.Add(instance);
             }
         }
-        document.map.AddItems<EnemyInstance>(outputKey, filteredEnemyInstances);
+        document.map.AddItems<EnemyInstance>(outputKey, filteredEnemyInstances, "hpLink");
     }
 
     private void FilterDeckInstances(
@@ -66,6 +73,6 @@ public class FilterEntityByHP : EffectStep
                 filteredDeckInstances.Add(instance);
             }
         }
-        document.map.AddItems<DeckInstance>(outputKey, filteredDeckInstances);
+        document.map.AddItems<DeckInstance>(outputKey, filteredDeckInstances, "hpLink");
     }
 }

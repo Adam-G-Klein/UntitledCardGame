@@ -38,7 +38,13 @@ MonoBehaviour:
       data:
         effectSteps:
         - rid: 5602892723852673319
-        - rid: 5602892723852673320
+        - rid: 5602892723852673323
+        - rid: 5602892723852673324
+        - rid: 5602892723852673325
+        - rid: 5602892723852673326
+        - rid: 5602892723852673327
+        - rid: 5602892723852673328
+        - rid: 5602892723852673329
     - rid: 5602892723852673319
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -50,10 +56,57 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
-    - rid: 5602892723852673320
-      type: {class: GetPercentOfMaxHP, ns: , asm: Assembly-CSharp}
+    - rid: 5602892723852673323
+      type: {class: FilterEntityByHP, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: GetPercentOfMaxHP
-        inputKey: 
-        percent: 0.5
-        outputKey: 
+        effectStepName: FilterEntityByHP
+        inputKey: target
+        percentThreshold: 0.5
+        outputKey: targetBelowHalfHP
+    - rid: 5602892723852673324
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: target
+        statusEffect: 2
+        scale: 7
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 5602892723852673325
+      type: {class: CountStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CountStep
+        inputKey: targetBelowHalfHP
+        outputKey: numBelowHalfHP
+    - rid: 5602892723852673326
+      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: BooleanComparison
+        hardCodedInputKey1: 1
+        useHardCodedInputKey1: 1
+        inputKey1: 
+        operation: 0
+        inputKey2: numBelowHalfHP
+        outputKey: isBelowHalfHP
+    - rid: 5602892723852673327
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: isBelowHalfHP
+        conditionToEndOn: 0
+    - rid: 5602892723852673328
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: target
+        statusEffect: 2
+        scale: 5
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 5602892723852673329
+      type: {class: DebugEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DebugEffectStep
+        genericMap: 0
+        ints: 0
+        strings: 0
