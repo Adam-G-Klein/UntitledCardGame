@@ -42,9 +42,9 @@ MonoBehaviour:
         - rid: 5602892723852673324
         - rid: 5602892723852673325
         - rid: 5602892723852673326
+        - rid: 5602892723852673329
         - rid: 5602892723852673327
         - rid: 5602892723852673328
-        - rid: 5602892723852673329
     - rid: 5602892723852673319
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -107,6 +107,6 @@ MonoBehaviour:
       type: {class: DebugEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: DebugEffectStep
-        genericMap: 0
-        ints: 0
-        strings: 0
+        genericMap: 1
+        ints: 1
+        strings: 1
