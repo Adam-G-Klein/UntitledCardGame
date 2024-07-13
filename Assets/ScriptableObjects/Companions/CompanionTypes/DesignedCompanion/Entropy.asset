@@ -109,7 +109,6 @@ MonoBehaviour:
         effectSteps:
         - rid: 9148895673158729733
         - rid: 9148895673158729738
-        - rid: 9148895673158729739
     - rid: 9148895673158729733
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -123,9 +122,3 @@ MonoBehaviour:
         genericMap: 1
         ints: 1
         strings: 1
-    - rid: 9148895673158729739
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: 
-        prefabToInstantiate: {fileID: 1835809017065047754, guid: e614f49fced06d54e9ee9ea7a674942a, type: 3}

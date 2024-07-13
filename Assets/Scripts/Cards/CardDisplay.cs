@@ -20,7 +20,9 @@ public class CardDisplay : MonoBehaviour
     [Header("Set by referencing the companionType passed in code")]
     public Sprite Frame;
     public Sprite TypeIcon;
-    public Sprite CardBack;
+    public Color modifiedManaCostColor = Color.green;
+    public Color initManaCostColor;
+    public TextMeshProUGUI manaCostText;
 
     public bool initialized {
         get {
@@ -32,8 +34,7 @@ public class CardDisplay : MonoBehaviour
                 && TypeIconGO != null
                 && FrameGO != null
                 && Frame != null
-                && TypeIcon != null
-                && CardBack != null;
+                && TypeIcon != null;
         }
     }
 
@@ -41,6 +42,14 @@ public class CardDisplay : MonoBehaviour
     // TODO, run on instantiation
     void Update()
     {
+        // this code is changing anyways :p
+        if(initialized && (cardInfo.CardModificationsHasKey(CardModification.ThisTurnManaDecrease)
+            || cardInfo.CardModificationsHasKey(CardModification.ThisCombatManaDecrease))) {
+                manaCostText.color = modifiedManaCostColor;
+                manaCostText.text = cardInfo.GetManaCost().ToString();
+            } else {
+                manaCostText.color = initManaCostColor;
+            }
         
     }
 
@@ -63,6 +72,8 @@ public class CardDisplay : MonoBehaviour
         CardNameGO.text = cardInfo.name;
         CardDescGO.text = cardInfo.description;
         CostTextGO.text = cardInfo.GetManaCost().ToString();
+        manaCostText = CostTextGO.GetComponent<TextMeshProUGUI>();
+        initManaCostColor = manaCostText.color;
         ArtworkGO.sprite = cardInfo.artwork;
         CompanionTypeSO companionType = cardInfo.getCompanionFrom();
         if (companionType == null) {
@@ -76,10 +87,12 @@ public class CardDisplay : MonoBehaviour
             Debug.LogError("CompanionTypeSO " + companionType.name + " has no cardFrame set");
         }  
         FrameGO.sprite = companionType.cardFrame;
+        Frame = FrameGO.sprite;
         if(companionType.typeIcon == null) {
             Debug.LogError("CompanionTypeSO " + companionType.name + " has no typeIcon set");
         }
         TypeIconGO.sprite = companionType.typeIcon;
+        TypeIcon = TypeIconGO.sprite;
         yield return null;
 
 

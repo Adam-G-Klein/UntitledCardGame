@@ -6,5 +6,6 @@ using System;
 public enum CardModification {
     FixedDamageIncrease,
     DoubleDamageIncrease,
-    TempManaDecrease
+    ThisTurnManaDecrease,
+    ThisCombatManaDecrease
 }

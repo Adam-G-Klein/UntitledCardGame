@@ -48,11 +48,12 @@ public class Card : Entity, IEquatable<Card>
     // For non-sagas, will always stay at 0
     private int workflowIndex = 0;
     public int castCount = 0;
+    public int tempManaCost = -1;
     // IMPORTANT TODO: only effects cards that use effectIncreasesOnPlay right now, other things don't poll for this
     // Need to add this into the getEffectScale that's currently in the CasterStats right now
     // Deprecated
     private Dictionary<CombatEffect, int> effectBuffs = new Dictionary<CombatEffect, int>();
-    private Dictionary<CardModification, int> cardModifications = new Dictionary<CardModification, int>();
+    public Dictionary<CardModification, int> cardModifications = new Dictionary<CardModification, int>();
 
     [HideInInspector]
     public string description {
@@ -131,12 +132,13 @@ public class Card : Entity, IEquatable<Card>
 
     public int GetManaCost() {
         int totalReduction = 0;
-        Debug.Log("CardModifications: " + cardModifications);
         if(cardModifications == null) {
             ResetCardModifications();
         }
-        totalReduction += cardModifications[CardModification.TempManaDecrease];
-        totalReduction += cardType.cardModifications[CardModification.TempManaDecrease];
+        totalReduction += cardModifications[CardModification.ThisTurnManaDecrease];
+        totalReduction += cardType.cardModifications[CardModification.ThisTurnManaDecrease];
+        totalReduction += cardModifications[CardModification.ThisCombatManaDecrease];
+        totalReduction += cardType.cardModifications[CardModification.ThisCombatManaDecrease];
         
         return Mathf.Max(0, cardType.Cost - totalReduction);
     }
@@ -154,7 +156,7 @@ public class Card : Entity, IEquatable<Card>
     }
 
     public void ResetTempCardModifications() {
-        cardModifications[CardModification.TempManaDecrease] = 0;
+        cardModifications[CardModification.ThisTurnManaDecrease] = 0;
     }
 
     public void ResetCardModifications() {
@@ -166,6 +168,7 @@ public class Card : Entity, IEquatable<Card>
     }
 
     public void ChangeCardModification(CardModification modification, int scale) {
+        Debug.Log("Changing card id " + id + ": " + modification + " by " + scale);
         cardModifications[modification] += scale;
     }
 
@@ -175,5 +178,9 @@ public class Card : Entity, IEquatable<Card>
     
     public CompanionTypeSO getCompanionFrom() {
         return companionFrom;
+    }
+
+    public bool CardModificationsHasKey(CardModification mod) {
+        return cardModifications.ContainsKey(mod) && cardModifications[mod] != 0;
     }
 }

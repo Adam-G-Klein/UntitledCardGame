@@ -1,0 +1,99 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
+  m_Name: CheapStrikes
+  m_EditorClassIdentifier: 
+  Name: CheapStrikes!
+  Description: make all ya attacks 1 cheapah
+  Cost: 0
+  Artwork: {fileID: 21300000, guid: 3296a63e824de414bb4b578c4822fbdb, type: 3}
+  cardCategory: 2
+  vfxPrefab: {fileID: 0}
+  playable: 1
+  effectWorkflows:
+  - rid: 9148895829179236352
+  onExhaustEffectWorkflow:
+    rid: -2
+  tooltips: 
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 9148895829179236352
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 9148895829179236353
+        - rid: 9148895829179236354
+        - rid: 9148895829179236378
+        - rid: 9148895829179236355
+        - rid: 9148895829179236375
+        - rid: 9148895829179236377
+    - rid: 9148895829179236353
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: companions
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 1
+        cantCancelTargetting: 0
+    - rid: 9148895829179236354
+      type: {class: GetCardsFromDeck, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetCardsFromDeck
+        inputKey: companions
+        getLimitedNumber: 0
+        numberOfCardsToGet: 1
+        shuffleIfEmpty: 0
+        outputKey: allCards
+        getAllCardsFromEntities: 1
+        getCardsFromSourceDeck: 0
+        getAllFromOnlyDrawPile: 0
+    - rid: 9148895829179236355
+      type: {class: DebugEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DebugEffectStep
+        genericMap: 1
+        ints: 1
+        strings: 1
+    - rid: 9148895829179236375
+      type: {class: FilterByCardCategory, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: 
+        inputKey: allCards
+        cardCategoriesToInclude: 01000000
+        outputKey: justAttacks
+    - rid: 9148895829179236377
+      type: {class: CardModificationEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardModificationEffect
+        inputKey: justAttacks
+        scale: 1
+        affectsAllCardsOfType: 0
+        getScaleFromKey: 0
+        scaleKey: 
+        modification: 3
+    - rid: 9148895829179236378
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: allCards
+        validTargets: 03000000
+        number: 1
+        specialTargetRule: 1
+        cantCancelTargetting: 0

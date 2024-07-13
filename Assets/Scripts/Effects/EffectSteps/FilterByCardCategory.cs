@@ -7,6 +7,8 @@ using Unity.VisualScripting;
 
 public class FilterByCardCategory : EffectStep {
 
+    [Header("Gets the PlayableCards and Cards at input key, returns all Cards that meet filter condition from both,\n" + 
+        "also outputs PlayableCards meeting condition at the same key")]
     [SerializeField]
     private string inputKey = "";
     [SerializeField]
@@ -14,30 +16,34 @@ public class FilterByCardCategory : EffectStep {
     [SerializeField]
     private string outputKey = "";
 
-    public override IEnumerator invoke(EffectDocument document) {
-        List<Card> inputCards  = document.map.GetList<Card>(inputKey);
-        if (inputCards.Count == 0) {
-            EffectError("Found no cards to filter in the effect document!");
-            yield break;
-        }
+    public FilterByCardCategory() {
+        effectStepName = "FilterByCardCategory";
+    }
 
+    public override IEnumerator invoke(EffectDocument document) {
+        List<Card> inputCards = new List<Card>();
+        List<PlayableCard> inputPlayableCards = new List<PlayableCard>();
+        if(document.map.ContainsValueWithKey<Card>(inputKey)) {
+            inputCards = document.map.GetList<Card>(inputKey);
+        }
+        if(document.map.ContainsValueWithKey<PlayableCard>(inputKey)) {
+            inputPlayableCards = document.map.GetList<PlayableCard>(inputKey);
+        }
         List<Card> outputCards = new List<Card>();
+        List<PlayableCard> playableCards = new List<PlayableCard>();
         foreach (Card card in inputCards) {
             if (cardCategoriesToInclude.Contains(card.cardType.cardCategory)) {
                 outputCards.Add(card);
             }
         }
-
-        document.map.AddItems<Card>(outputKey, outputCards);
-
-        List<PlayableCard> playableCards = document.map.GetList<PlayableCard>(inputKey);
-        List<PlayableCard> outputPlayableCards = new List<PlayableCard>();
-        foreach (PlayableCard card in playableCards) {
-            if (outputCards.Contains(card.card)) {
-                outputPlayableCards.Add(card);
+        foreach (PlayableCard card in inputPlayableCards) {
+            if (cardCategoriesToInclude.Contains(card.card.cardType.cardCategory)) {
+                playableCards.Add(card);
+                outputCards.Add(card.card);
             }
         }
-        document.map.AddItems<PlayableCard>(outputKey, outputPlayableCards);
+        document.map.AddItems<Card>(outputKey, outputCards);
+        document.map.AddItems<PlayableCard>(outputKey, playableCards);
         yield return null;
     }
 }
