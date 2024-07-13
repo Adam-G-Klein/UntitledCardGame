@@ -67,8 +67,26 @@ public class TweenMixerBehaviour : PlayableBehaviour
 
     Vector3 TweenPosition(TweenBehaviour tweenInput, float progress, float weight)
     {
-        Vector3 startPosition = tweenInput.startLocation;
-        Vector3 endPosition = tweenInput.endLocation;
+        Vector3 startPosition;
+        Vector3 endPosition;
+
+        if (tweenInput.fXExperience == null) {
+            startPosition = tweenInput.editorStartLocation;
+            endPosition = tweenInput.editorEndLocation;
+            return Vector3.Lerp(startPosition, endPosition, progress) * weight;
+        }
+        
+        if (!tweenInput.fXExperience.ContainsLocationForKey(tweenInput.startLocationKey)) {
+            startPosition = tweenInput.editorStartLocation;
+        } else {
+            startPosition = tweenInput.fXExperience.GetLocationFromKey(tweenInput.startLocationKey);
+        }
+
+        if (!tweenInput.fXExperience.ContainsLocationForKey(tweenInput.endLocationKey)) {
+            endPosition = tweenInput.editorEndLocation;
+        } else {
+            endPosition = tweenInput.fXExperience.GetLocationFromKey(tweenInput.endLocationKey);
+        }
 
         return Vector3.Lerp(startPosition, endPosition, progress) * weight;
     }

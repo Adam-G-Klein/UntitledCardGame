@@ -78,4 +78,8 @@ public static class PrefabInstantiator {
         return view;
     }
 
+    public static FXExperience instantiateFXExperience(GameObject prefab, Vector2 position) {
+        GameObject fxExperienceGO = GameObject.Instantiate(prefab, position, Quaternion.identity);
+        return fxExperienceGO.GetComponent<FXExperience>();
+    }
 }

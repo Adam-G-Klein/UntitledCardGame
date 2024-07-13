@@ -40,20 +40,11 @@ public class TweenClip : PlayableAsset, ITimelineClipAsset, IPropertyPreview
         ScriptPlayable<TweenBehaviour> playable = ScriptPlayable<TweenBehaviour>.Create(graph);
         TweenBehaviour tween = playable.GetBehaviour();
 
-        FXExperience experience = experienceReference.Resolve(graph.GetResolver());
-
-        if (experience.ContainsLocationForKey(startLocationKey)) {
-            tween.startLocation = experience.GetLocationFromKey(startLocationKey);
-        } else {
-            tween.startLocation = startLocation;
-        }
-
-        if (experience.ContainsLocationForKey(endLocationKey)) {
-            tween.endLocation = experience.GetLocationFromKey(endLocationKey);
-        } else {
-            tween.endLocation = endLocation;
-        }
-
+        tween.fXExperience = experienceReference.Resolve(graph.GetResolver());
+        tween.editorStartLocation = startLocation;
+        tween.editorEndLocation = endLocation;
+        tween.endLocationKey = endLocationKey;
+        tween.startLocationKey = startLocationKey;
 
         // set the behaviour's data
         tween.curve = curve;
