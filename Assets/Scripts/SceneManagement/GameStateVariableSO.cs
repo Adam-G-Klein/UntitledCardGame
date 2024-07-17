@@ -60,13 +60,11 @@ public class GameStateVariableSO : ScriptableObject
     };
 
     private Dictionary<Location, Location> locationToNextLocation = new Dictionary<Location, Location>() {
-        {Location.MAIN_MENU, Location.WAKE_UP_ROOM},
-        {Location.WAKE_UP_ROOM, Location.TEAM_SIGNING},
-        {Location.TEAM_SIGNING, Location.PRE_COMBAT_SPLASH},
-        {Location.TEAM_SELECT, Location.PRE_COMBAT_SPLASH},
-        {Location.PRE_COMBAT_SPLASH, Location.COMBAT},
+        {Location.MAIN_MENU, Location.TEAM_SIGNING},
+        {Location.TEAM_SIGNING, Location.COMBAT},
+        {Location.TEAM_SELECT, Location.COMBAT},
         {Location.COMBAT, Location.POST_COMBAT},
-        {Location.POST_COMBAT, Location.MAP},
+        {Location.POST_COMBAT, Location.SHOP},
         {Location.SHOP, Location.TEAM_SELECT},
         {Location.FAKE_SHOP, Location.PRE_BOSSFIGHT_COMBAT_SPLASH},
         {Location.PRE_BOSSFIGHT_COMBAT_SPLASH, Location.BOSSFIGHT},
