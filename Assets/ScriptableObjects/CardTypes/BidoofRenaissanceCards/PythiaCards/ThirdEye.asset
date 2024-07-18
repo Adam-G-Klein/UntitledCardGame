@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ThirdEye
   m_EditorClassIdentifier: 
   Name: Third Eye
-  Description: Scry 2
+  Description: Scry 3
   Cost: 0
   Artwork: {fileID: 21300000, guid: 18251cc3bb6c59d4794bd522032e2ee3, type: 3}
   cardCategory: 2
@@ -57,9 +57,10 @@ MonoBehaviour:
         effectStepName: GetCardsFromDeck
         inputKey: target
         getLimitedNumber: 1
-        numberOfCardsToGet: 2
+        numberOfCardsToGet: 3
         shuffleIfEmpty: 1
         outputKey: topCard
+        getAllCardsFromEntities: 0
         getCardsFromSourceDeck: 0
         getAllFromOnlyDrawPile: 0
     - rid: 3931529445166809458
@@ -70,7 +71,7 @@ MonoBehaviour:
         outputKey: discarded
         promptText: Choose cards to discard.
         minTargets: 0
-        maxTargets: 2
+        maxTargets: 3
         getNumberOfTargetsFromKey: 0
         inputNumberOfTargetsKey: 
         randomizeOrder: 0

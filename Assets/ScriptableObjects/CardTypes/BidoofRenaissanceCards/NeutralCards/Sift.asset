@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Sift
   m_EditorClassIdentifier: 
   Name: Sift
-  Description: Draw 2 cards from target companion
+  Description: Draw 3 cards from target companion
   Cost: 1
   Artwork: {fileID: 21300000, guid: 04bf14070e798284f9f39ea08b676c4a, type: 3}
   cardCategory: 2
@@ -55,6 +55,6 @@ MonoBehaviour:
         effectStepName: DrawCards
         inputKey: target
         outputKey: 
-        scale: 2
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Scry the Stomach
   Description: "Shuffle 1 'Firebreath'  into this companion\u2019s deck, then scry
-    1"
+    2"
   Cost: 0
   Artwork: {fileID: 21300000, guid: 18251cc3bb6c59d4794bd522032e2ee3, type: 3}
   cardCategory: 2
@@ -72,9 +72,10 @@ MonoBehaviour:
         effectStepName: GetCardsFromDeck
         inputKey: target
         getLimitedNumber: 1
-        numberOfCardsToGet: 1
+        numberOfCardsToGet: 2
         shuffleIfEmpty: 1
         outputKey: topCard
+        getAllCardsFromEntities: 0
         getCardsFromSourceDeck: 0
         getAllFromOnlyDrawPile: 0
     - rid: 3931529445166809458
@@ -85,7 +86,7 @@ MonoBehaviour:
         outputKey: discarded
         promptText: Choose a card to discard.
         minTargets: 0
-        maxTargets: 1
+        maxTargets: 2
         getNumberOfTargetsFromKey: 0
         inputNumberOfTargetsKey: 
         randomizeOrder: 0

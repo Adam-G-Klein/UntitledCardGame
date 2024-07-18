@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Legerdemain
   m_EditorClassIdentifier: 
   Name: Legerdemain
-  Description: Draw 3 cards
+  Description: Draw 4 cards
   Cost: 1
   Artwork: {fileID: 21300000, guid: 90fa2971dfe769a49a60ad648e956340, type: 3}
   cardCategory: 2
@@ -38,7 +38,7 @@ MonoBehaviour:
         effectStepName: DrawCards
         inputKey: companion
         outputKey: 
-        scale: 3
+        scale: 4
         getScaleFromKey: 0
         inputScaleKey: 
     - rid: 1886371092460208259
