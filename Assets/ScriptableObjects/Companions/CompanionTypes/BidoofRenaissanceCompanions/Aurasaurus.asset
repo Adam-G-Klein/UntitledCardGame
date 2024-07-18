@@ -16,7 +16,7 @@ MonoBehaviour:
   maxHealth: 25
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: dd5dc1421c6084835872fd966a0bf8df, type: 3}
-  startingDeck: {fileID: 0}
+  startingDeck: {fileID: 11400000, guid: b9d3e1231b15642b9802057f5950b8c7, type: 2}
   keepsake: {fileID: 21300000, guid: dd5dc1421c6084835872fd966a0bf8df, type: 3}
   cardBack: {fileID: 21300000, guid: a5222a8d127763c49b397cce916345ec, type: 3}
   cardFrame: {fileID: 21300000, guid: 106aacbbfd302814982ff4ed944fbaed, type: 3}
@@ -26,9 +26,11 @@ MonoBehaviour:
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 0}
   genericCompanionVFX: {fileID: 0}
-  cardPool: {fileID: 0}
+  cardPool: {fileID: 11400000, guid: 2edb6f5c86b0f4cf99a457f5501dce3a, type: 2}
   speakerType: {fileID: 0}
-  abilities: []
+  abilities:
+  - rid: 5602892874868589145
+  - rid: 5602892874868589149
   upgradeTo: {fileID: 11400000, guid: c9af295a537294ffe815c1c613b5d6df, type: 2}
   tooltip:
     empty: 0
@@ -39,4 +41,73 @@ MonoBehaviour:
       image: {fileID: 0}
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 5602892874868589145
+      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
+      data:
+        companionAbilityTrigger: 0
+        effectSteps:
+        - rid: 5602892874868589146
+        - rid: 5602892874868589147
+        - rid: 5602892874868589148
+    - rid: 5602892874868589146
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 5602892874868589147
+      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetAdjacentCompanions
+        inputKey: self
+        outputKey: adjacent
+    - rid: 5602892874868589148
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: adjacent
+        statusEffect: 9
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 5602892874868589149
+      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
+      data:
+        companionAbilityTrigger: 2
+        effectSteps:
+        - rid: 5602892874868589150
+        - rid: 5602892874868589151
+        - rid: 5602892874868589152
+    - rid: 5602892874868589150
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: allCompanions
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 1
+        cantCancelTargetting: 0
+    - rid: 5602892874868589151
+      type: {class: FilterEntityByStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FilterEntityByStatus
+        inputKey: allCompanions
+        status: 9
+        outputKey: allCompanionsWithOrbs
+    - rid: 5602892874868589152
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: allCompanionsWithOrbs
+        statusEffect: 2
+        scale: 4
+        getScaleFromKey: 0
+        inputScaleKey: 
