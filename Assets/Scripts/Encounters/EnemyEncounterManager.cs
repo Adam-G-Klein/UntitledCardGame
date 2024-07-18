@@ -88,8 +88,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
 
     public void EndEncounterHandler(EndEncounterEventInfo info) {
         Debug.Log("EndEncounterHandler called, info.outcome is " + info.outcome + " gameState.GetLoopIndex() is " + gameState.GetLoopIndex() + " gameState.lastTutorialLoopIndex is " + gameState.lastTutorialLoopIndex);
-        if(info.outcome == EncounterOutcome.Defeat
-            || gameState.GetLoopIndex() >= gameState.bossFightLoopIndex) {
+        if(info.outcome == EncounterOutcome.Defeat) {
             postGamePopup.SetActive(true);
             return;
         }
