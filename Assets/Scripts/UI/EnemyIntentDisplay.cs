@@ -54,7 +54,7 @@ public class EnemyIntentDisplay : MonoBehaviour
     }
 
     private IEnumerator displayIntentAfterDelay(EnemyInstance enemy) {
-        yield return new WaitForEndOfFrame();
+        yield return new WaitForSeconds(1);
         clearIntent();
         if (enemy.currentIntent == null) {
             StartCoroutine(displayIntentAfterDelay(enemy));
