@@ -28,15 +28,79 @@ MonoBehaviour:
   genericCompanionVFX: {fileID: 0}
   cardPool: {fileID: 11400000, guid: 2edb6f5c86b0f4cf99a457f5501dce3a, type: 2}
   speakerType: {fileID: 0}
-  abilities: []
+  abilities:
+  - rid: 5602892874868589179
+  - rid: 5602892874868589183
   upgradeTo: {fileID: 0}
   tooltip:
     empty: 0
     lines:
     - title: Aurasaurus
-      description: 'At the start of combat, give adjacent companions 1 aura stack.
-        End of turn, each companion gets 3 block for each aura stack it has. '
+      description: 'At the start of combat, give your entire team 1 aura stack. End
+        of turn, each companion with at least 1 orb gets 6 block '
       image: {fileID: 0}
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 5602892874868589179
+      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
+      data:
+        companionAbilityTrigger: 0
+        effectSteps:
+        - rid: 5602892874868589180
+        - rid: 5602892874868589182
+    - rid: 5602892874868589180
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: all
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 1
+        cantCancelTargetting: 0
+    - rid: 5602892874868589182
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: all
+        statusEffect: 9
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 5602892874868589183
+      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
+      data:
+        companionAbilityTrigger: 2
+        effectSteps:
+        - rid: 5602892874868589184
+        - rid: 5602892874868589185
+        - rid: 5602892874868589186
+    - rid: 5602892874868589184
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: all
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 1
+        cantCancelTargetting: 0
+    - rid: 5602892874868589185
+      type: {class: FilterEntityByStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FilterEntityByStatus
+        inputKey: all
+        status: 9
+        outputKey: allWithOrb
+    - rid: 5602892874868589186
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: allWithOrb
+        statusEffect: 2
+        scale: 6
+        getScaleFromKey: 0
+        inputScaleKey: 
