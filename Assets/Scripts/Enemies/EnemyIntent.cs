@@ -17,7 +17,7 @@ public enum EnemyIntentType {
 }
 
 public class EnemyIntent {
-    public List<CombatInstance> targets;
+    public List<CompanionInstance> targets;
     public float attackTime;
     public EnemyIntentType intentType;
     public string targetsKey;
@@ -25,7 +25,7 @@ public class EnemyIntent {
     public List<EffectStep> effectSteps;
 
     public EnemyIntent(
-            List<CombatInstance> targets,
+            List<CompanionInstance> targets,
             float attackTime,
             EnemyIntentType intentType,
             string targetsKey,

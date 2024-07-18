@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -60,7 +61,10 @@ public class EnemyInstance : MonoBehaviour {
         EffectDocument document = new EffectDocument();
         document.map.AddItem(EffectDocument.ORIGIN, this);
         document.originEntityType = EntityType.Enemy;
-        document.map.AddItems<CombatInstance>(currentIntent.targetsKey, currentIntent.targets);
+        List<CombatInstance> combatInstanceTargets = currentIntent.targets.Select(x => x.combatInstance).ToList();
+        List<DeckInstance> deckInstanceTargets = currentIntent.targets.Select(x => x.deckInstance).ToList();
+        document.map.AddItems<CombatInstance>(currentIntent.targetsKey, combatInstanceTargets);
+        document.map.AddItems<DeckInstance>(currentIntent.targetsKey, deckInstanceTargets);
         EffectManager.Instance.invokeEffectWorkflow(document, currentIntent.effectSteps, null);
         yield return null;
     }

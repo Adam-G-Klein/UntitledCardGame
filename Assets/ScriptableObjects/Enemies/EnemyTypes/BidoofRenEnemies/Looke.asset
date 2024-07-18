@@ -23,7 +23,7 @@ MonoBehaviour:
       displayValue: 0
       effectSteps:
       - rid: 5602892723852673492
-      - rid: 5602892723852673493
+      - rid: 5602892874868588570
     - intent: 0
       enemyTargetMethod: 5
       targetsKey: randomCompanion
@@ -33,7 +33,7 @@ MonoBehaviour:
       - rid: 5602892723852673495
       - rid: 5602892723852673496
     sequentialBehaviors: 0
-    nextBehaviorIndex: 1
+    nextBehaviorIndex: 0
   initialStatuses: []
   references:
     version: 2
@@ -51,17 +51,6 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
-    - rid: 5602892723852673493
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: 
-        validTargets: 
-        number: 1
-        specialTargetRule: 0
-        cantCancelTargetting: 0
     - rid: 5602892723852673494
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -94,3 +83,10 @@ MonoBehaviour:
         scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
+    - rid: 5602892874868588570
+      type: {class: DebugEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DebugEffectStep
+        genericMap: 1
+        ints: 0
+        strings: 0

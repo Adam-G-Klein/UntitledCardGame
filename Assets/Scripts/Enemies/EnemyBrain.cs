@@ -22,10 +22,10 @@ public class EnemyBrain
         }
         nextBehaviorIndex = (nextBehaviorIndex + 1) % behaviors.Count;
         EnemyBehavior action = behaviors[behaviorIndex];
-        CombatInstance target = ChooseTargets(action.enemyTargetMethod, self);
+        CompanionInstance target = ChooseTargets(action.enemyTargetMethod, self);
         return new EnemyIntent(
             // I'm aware this is bad, stick with me for a sec
-            new List<CombatInstance>() { target },
+            new List<CompanionInstance>() { target },
             attackTime,
             action.intent,
             action.targetsKey,
@@ -33,48 +33,48 @@ public class EnemyBrain
             action.effectSteps);
     }
 
-    private CombatInstance ChooseTargets(EnemyTargetMethod targetMethod, EnemyInstance self) {
-        CombatInstance target = null;
-        List<CombatInstance> possibleTargets = new List<CombatInstance>();
+    private CompanionInstance ChooseTargets(EnemyTargetMethod targetMethod, EnemyInstance self) {
+        CompanionInstance target = null;
+        List<CompanionInstance> possibleTargets = new List<CompanionInstance>();
         switch (targetMethod) {
             case EnemyTargetMethod.FirstCompanion:
-                target = CombatEntityManager.Instance.GetCompanionInstanceAtPosition(0).combatInstance;
+                target = CombatEntityManager.Instance.GetCompanionInstanceAtPosition(0);
             break;
 
             case EnemyTargetMethod.LastCompanion:
-                target = CombatEntityManager.Instance.GetCompanionInstanceAtPosition(-1).combatInstance;
+                target = CombatEntityManager.Instance.GetCompanionInstanceAtPosition(-1);
             break;
 
             case EnemyTargetMethod.SecondFromFront:
-                target = CombatEntityManager.Instance.GetCompanionInstanceAtPosition(1).combatInstance;
+                target = CombatEntityManager.Instance.GetCompanionInstanceAtPosition(1);
             break;
 
             case EnemyTargetMethod.ThirdFromFront:
-                target = CombatEntityManager.Instance.GetCompanionInstanceAtPosition(2).combatInstance;
+                target = CombatEntityManager.Instance.GetCompanionInstanceAtPosition(2);
             break;
 
             case EnemyTargetMethod.RandomCompanion:
                 CombatEntityManager.Instance.getCompanions()
-                    .ForEach(companion => possibleTargets.Add(companion.combatInstance));
+                    .ForEach(companion => possibleTargets.Add(companion));
                 target = possibleTargets[UnityEngine.Random.Range(0, possibleTargets.Count)];
             break;
 
-            case EnemyTargetMethod.RandomEnemyNotSelf:
-                CombatEntityManager.Instance.getEnemies()
-                    .ForEach(enemy => {
-                        if (enemy != self) {
-                            possibleTargets.Add(enemy.combatInstance);
-                        }
-                    });
-                target = possibleTargets[UnityEngine.Random.Range(0, possibleTargets.Count)];
-            break;
+            // case EnemyTargetMethod.RandomEnemyNotSelf:
+            //     CombatEntityManager.Instance.getEnemies()
+            //         .ForEach(enemy => {
+            //             if (enemy != self) {
+            //                 possibleTargets.Add(enemy.combatInstance);
+            //             }
+            //         });
+            //     target = possibleTargets[UnityEngine.Random.Range(0, possibleTargets.Count)];
+            // break;
 
             case EnemyTargetMethod.LowestHealth:
                 List<CompanionInstance> companions = CombatEntityManager.Instance.getCompanions();
-                target = companions[0].combatInstance;
+                target = companions[0];
                 foreach (CompanionInstance instance in companions) {
-                    if (instance.combatInstance.combatStats.getCurrentHealth() < target.combatStats.getCurrentHealth()) {
-                        target = instance.combatInstance;
+                    if (instance.combatInstance.combatStats.getCurrentHealth() < target.combatInstance.combatStats.getCurrentHealth()) {
+                        target = instance;
                     }
                 }
             break;

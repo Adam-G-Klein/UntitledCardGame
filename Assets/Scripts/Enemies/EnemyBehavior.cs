@@ -17,7 +17,7 @@ public enum EnemyTargetMethod {
     SecondFromFront,
     ThirdFromFront,
     LastCompanion,
-    RandomEnemyNotSelf,
+    // RandomEnemyNotSelf,
     RandomCompanion,
     LowestHealth,
     None
