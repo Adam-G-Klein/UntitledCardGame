@@ -21,10 +21,15 @@ public class CompanionViewController : MonoBehaviour
                         Quaternion.identity);
         companionViewUI
             .GetComponent<CompanionViewUI>()
-            .setupCompanionDisplay(gameState.companions, new List<CompanionActionType>() {
-                CompanionActionType.VIEW_DECK,
-                CompanionActionType.MOVE_COMPANION,
-                CompanionActionType.COMBINE_COMPANION
-            });
+            .setupCompanionDisplay(
+                gameState.companions,
+                new List<CompanionActionType>() {
+                    CompanionActionType.VIEW_DECK,
+                    CompanionActionType.MOVE_COMPANION,
+                    CompanionActionType.SELL
+                },
+                gameState.playerData,
+                gameState.baseShopData
+            );
     }
 }

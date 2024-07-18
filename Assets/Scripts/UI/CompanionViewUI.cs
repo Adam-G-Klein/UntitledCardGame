@@ -3,20 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public enum CompanionActionType {
     SELECT,
     VIEW_DECK,
     MOVE_COMPANION,
     COMBINE_COMPANION,
-    END_COMBINE
+    END_COMBINE,
+    SELL,
 }
 
 [System.Serializable]
 public class CompanionAction {
     public GameObject button;
     public Button.ButtonClickedEvent buttonClickedEvent;
-    public CompanionActionType companionActionType;    
+    public CompanionActionType companionActionType;
 }
 
 public class CompanionViewUI : MonoBehaviour, IPointerClickHandler
@@ -27,6 +29,7 @@ public class CompanionViewUI : MonoBehaviour, IPointerClickHandler
     public GameObject benchCompanionSlotsParent;
     public GameObject uICompanionPrefab;
     public GameObject uICompanionSlotPrefab;
+    public GameObject sellConfirmationPrefab;
     public Color companionSlotUnselectedColor;
     public Color companionSlotSelectedColor;
     public GameObject actionButtonsParent;
@@ -47,7 +50,12 @@ public class CompanionViewUI : MonoBehaviour, IPointerClickHandler
 
     private bool isCombining;
     private HashSet<UICompanion> combiningCompanions = new HashSet<UICompanion>();
-    
+
+    // playerData is used to manipulate the player's gold.
+    private PlayerDataVariableSO playerData;
+
+    private ShopDataSO shopDataSO;
+
     private List<CompanionActionType> tempActionTypes;
     private int currentNeededToCombine;
     private void Start() {
@@ -55,14 +63,21 @@ public class CompanionViewUI : MonoBehaviour, IPointerClickHandler
         currentNeededToCombine = CompanionUpgrader.companionsNeededToCombine;
     }
 
-    public void setupCompanionDisplay(CompanionListVariableSO companionListVariableSO,
-        List<CompanionActionType> actionTypes) {
+    public void setupCompanionDisplay(
+        CompanionListVariableSO companionListVariableSO,
+        List<CompanionActionType> actionTypes,
+        PlayerDataVariableSO playerData,
+        ShopDataSO shopData
+    ) {
         //Since this is an SO, copy the refernces for later use
         this.companionList = companionListVariableSO.activeCompanions;
         this.companionBench = companionListVariableSO.benchedCompanions;
         this.currentCompanionSlots = companionListVariableSO.currentCompanionSlots;
 
         this.actionTypes = actionTypes;
+
+        this.playerData = playerData;
+        this.shopDataSO = shopData;
 
         setupCompanionDisplayHelper();
     }
@@ -122,7 +137,7 @@ public class CompanionViewUI : MonoBehaviour, IPointerClickHandler
             Quaternion.identity,
             activeCompanionsParent.transform);
         // companionImage.transform.localScale = new Vector3(0.8f, 0.8f, 1);
-        UICompanion uICompanion = 
+        UICompanion uICompanion =
             companionImage.GetComponent<UICompanion>();
         uICompanion.companion = companion;
         uICompanion.setup();
@@ -164,7 +179,7 @@ public class CompanionViewUI : MonoBehaviour, IPointerClickHandler
             Vector3.zero,
             Quaternion.identity,
             benchCompanionsParent.transform);
-        UICompanion uICompanion = 
+        UICompanion uICompanion =
             companionImage.GetComponent<UICompanion>();
         uICompanion.companion = companion;
         uICompanion.setup();
@@ -240,7 +255,7 @@ public class CompanionViewUI : MonoBehaviour, IPointerClickHandler
             return;
         }
         else {
-            //add it to the 
+            //add it to the
             updateBackground(uiCompanion);
             combiningCompanions.Add(uiCompanion);
         }
@@ -339,6 +354,41 @@ public class CompanionViewUI : MonoBehaviour, IPointerClickHandler
         companionList.Add(companion);
         this.clickedCompanion = null;
         actionButtonsParent.SetActive(false);
+    }
+
+    public void sellButtonOnClick() {
+        Companion companion = this.clickedCompanion.companion;
+        updateBackground(this.clickedCompanion);
+
+        // Calculate the sell value with the following formula (assuming integer division).
+        // Sell value = (companion price) / 2 + (num cards in deck / discount constant) * (card price)
+        // We want the player to recoup some of the value if they put a lot of cards on a single companion.
+        int sellValue = shopDataSO.companionKeepsakePrice / 2 + companion.deck.cards.Count / 5 * shopDataSO.cardPrice;
+        playerData.GetValue().gold += sellValue;
+
+        GameObject sellSign = Instantiate(
+            sellConfirmationPrefab,
+            this.gameObject.transform
+        );
+        TMP_Text moneyText = sellSign.GetComponent<TMP_Text>();
+        moneyText.text = "+$" + sellValue.ToString();
+        StartCoroutine(removeSellConfirmationSign(sellSign));
+
+        Destroy(this.clickedCompanion.gameObject);
+        // Note: Remove does not throw an Exception if the list does not contain it.
+        companionList.Remove(companion);
+        companionBench.Remove(companion);
+
+        Debug.Log("Sold the companion " + companion.companionType.name);
+
+        this.clickedCompanion = null;
+        actionButtonsParent.SetActive(false);
+    }
+
+    private IEnumerator removeSellConfirmationSign(GameObject sellSign) {
+        yield return new WaitForSeconds(3);
+
+        Destroy(sellSign);
     }
 
     public void exitView() {

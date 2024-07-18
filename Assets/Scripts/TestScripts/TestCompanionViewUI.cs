@@ -22,6 +22,6 @@ public class TestCompanionViewUI : MonoBehaviour
                 CompanionActionType.SELECT,
                 CompanionActionType.VIEW_DECK,
                 CompanionActionType.MOVE_COMPANION
-            });
+            }, null, null);
     }
 }
