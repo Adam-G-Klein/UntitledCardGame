@@ -1,0 +1,110 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
+  m_Name: GreedyBlade
+  m_EditorClassIdentifier: 
+  Name: Greedy Blade
+  Description: Deal 7 damage. If it kills an enemy, gain $2
+  Cost: 1
+  Artwork: {fileID: 21300000, guid: d2a517d36b5671d41afe764624992dc3, type: 3}
+  cardCategory: 1
+  vfxPrefab: {fileID: 0}
+  playable: 1
+  exhaustsWhenPlayed: 0
+  effectWorkflows:
+  - rid: 5602892874868589222
+  onExhaustEffectWorkflow:
+    rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  tooltips: 
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 5602892874868589222
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 5602892874868589223
+        - rid: 5602892874868589224
+        - rid: 5602892874868589225
+        - rid: 5602892874868589226
+        - rid: 5602892874868589227
+        - rid: 5602892874868589228
+        - rid: 5602892874868589229
+        - rid: 5602892874868589282
+    - rid: 5602892874868589223
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: target
+        validTargets: 02000000
+        number: 1
+        specialTargetRule: 0
+        cantCancelTargetting: 0
+    - rid: 5602892874868589224
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: target
+        combatEffect: 0
+        scale: 7
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+    - rid: 5602892874868589225
+      type: {class: FilterEntityByHP, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FilterEntityByHP
+        inputKey: target
+        percentThreshold: 0
+        outputKey: targetAtZeroHealth
+    - rid: 5602892874868589226
+      type: {class: CountStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CountStep
+        inputKey: targetAtZeroHealth
+        outputKey: numTargetAtZeroHealth
+    - rid: 5602892874868589227
+      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: BooleanComparison
+        hardCodedInputKey1: 0
+        useHardCodedInputKey1: 1
+        inputKey1: 0
+        operation: 0
+        inputKey2: numTargetAtZeroHealth
+        outputKey: enemyLived
+    - rid: 5602892874868589228
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: enemyLived
+        conditionToEndOn: 1
+    - rid: 5602892874868589229
+      type: {class: GoldManipulation, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: 
+        goldToAdd: 2
+    - rid: 5602892874868589282
+      type: {class: DebugEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DebugEffectStep
+        genericMap: 0
+        ints: 0
+        strings: 0

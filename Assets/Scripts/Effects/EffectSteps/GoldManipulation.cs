@@ -9,6 +9,8 @@ public class GoldManipulation : EffectStep
     public override IEnumerator invoke(EffectDocument document) {
         PlayerData playerData = EnemyEncounterManager.Instance.gameState.playerData.GetValue();
 
+        Debug.Log("Giving the player $" + goldToAdd.ToString());
+
         playerData.gold += goldToAdd;
 
         yield return null;
