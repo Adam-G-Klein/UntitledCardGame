@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BiggusDickus
   m_EditorClassIdentifier: 
   Name: Biggus Dickus
-  Description: Give target companion 4 block + 2 block for each status card in their
+  Description: Give target companion 6 block + 2 block for each status card in their
     deck.
   Cost: 1
   Artwork: {fileID: 21300000, guid: 5f66e07752da0d34ca5ca0b6a327d011, type: 3}
@@ -79,7 +79,7 @@ MonoBehaviour:
         inputKey: outScaled
         operand2InputKey: UNUSED
         operation: 0
-        scale: 4
+        scale: 6
         outputKey: outScaledPlusBase
     - rid: 5602892723852673248
       type: {class: MathStep, ns: , asm: Assembly-CSharp}
