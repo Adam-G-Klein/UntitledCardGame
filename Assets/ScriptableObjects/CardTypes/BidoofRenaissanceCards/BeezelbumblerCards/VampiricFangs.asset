@@ -40,12 +40,12 @@ MonoBehaviour:
         - rid: 5602892874868589362
         - rid: 5602892874868589363
         - rid: 5602892874868589364
+        - rid: 5602892874868589423
         - rid: 5602892874868589422
         - rid: 5602892874868589365
         - rid: 5602892874868589366
         - rid: 5602892874868589367
         - rid: 5602892874868589368
-        - rid: 5602892874868589423
     - rid: 5602892874868589362
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -75,7 +75,7 @@ MonoBehaviour:
         effectStepName: FilterEntityByHP
         inputKey: targetEnemy
         percentThreshold: 0
-        outputKey: numDeadEnemies
+        outputKey: deadEnemies
     - rid: 5602892874868589365
       type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
       data:
@@ -101,7 +101,7 @@ MonoBehaviour:
         outputKey: self
         validTargets: 
         number: 1
-        specialTargetRule: 3
+        specialTargetRule: 4
         cantCancelTargetting: 0
     - rid: 5602892874868589368
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
@@ -126,5 +126,5 @@ MonoBehaviour:
       type: {class: CountStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CountStep
-        inputKey: 
-        outputKey: 
+        inputKey: deadEnemies
+        outputKey: numDeadEnemies
