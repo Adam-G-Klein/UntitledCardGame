@@ -62,27 +62,15 @@ MonoBehaviour:
         effectSteps:
         - rid: 1488501614819147776
         - rid: 1488501614819147777
-        - rid: 5592738912264781842
         - rid: 5592738912264781840
     - rid: 5592738912264781840
       type: {class: CardModificationEffect, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CardModificationEffect
-        inputKey: self
+        inputKey: 
         scale: 5
         affectsAllCardsOfType: 1
         cardTypeToModify: {fileID: 11400000}
         getScaleFromKey: 0
         scaleKey: 
         modification: 0
-    - rid: 5592738912264781842
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: self
-        validTargets: 
-        number: 1
-        specialTargetRule: 3
-        cantCancelTargetting: 0

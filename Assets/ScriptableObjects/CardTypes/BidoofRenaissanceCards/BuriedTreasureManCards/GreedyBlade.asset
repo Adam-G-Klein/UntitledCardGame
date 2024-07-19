@@ -43,7 +43,6 @@ MonoBehaviour:
         - rid: 5602892874868589227
         - rid: 5602892874868589228
         - rid: 5602892874868589229
-        - rid: 5602892874868589282
     - rid: 5602892874868589223
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -101,10 +100,3 @@ MonoBehaviour:
       data:
         effectStepName: 
         goldToAdd: 2
-    - rid: 5602892874868589282
-      type: {class: DebugEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: DebugEffectStep
-        genericMap: 0
-        ints: 0
-        strings: 0
