@@ -10,28 +10,40 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
-  m_Name: MungryKobold
+  m_Name: BRBloodseeker
   m_EditorClassIdentifier: 
-  maxHealth: 30
+  maxHealth: 70
   baseAttackDamage: 0
-  sprite: {fileID: 21300000, guid: 75d48219ba751ee48831234b9c4a6041, type: 3}
+  sprite: {fileID: 21300000, guid: 86313e022c582cf4ba37873bc6a0b704, type: 3}
   enemyPattern:
     behaviors:
     - intent: 1
-      enemyTargetMethod: 2
+      enemyTargetMethod: 5
       targetsKey: target
-      displayValue: 3
+      displayValue: 1
       effectSteps:
-      - rid: 3931529445166809426
-      - rid: 3931529445166809427
-      - rid: 3931529445166809428
-    sequentialBehaviors: 0
+      - rid: 3931529445166809429
+      - rid: 3931529445166809326
+      - rid: 3931529445166809430
+    sequentialBehaviors: 1
     nextBehaviorIndex: 0
   initialStatuses: []
   references:
     version: 2
     RefIds:
-    - rid: 3931529445166809426
+    - rid: 3931529445166809326
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: target
+        combatEffect: 0
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+    - rid: 3931529445166809429
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
@@ -42,24 +54,12 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
-    - rid: 3931529445166809427
-      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CombatEffectStep
-        inputKey: target
-        combatEffect: 0
-        scale: 3
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
-    - rid: 3931529445166809428
+    - rid: 3931529445166809430
       type: {class: PermanentStatIncrease, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: PermanentStatIncrease
         inputKey: self
         statIncreaseType: 0
-        scale: 3
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
