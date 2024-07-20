@@ -3,36 +3,37 @@ using System;
 using UnityEngine.UIElements;
 using System.Collections;
 using UnityEditor;
+using UnityEngine.UI;
 
 [InitializeOnLoad]
+[RequireComponent(typeof(RawImage))]
 [RequireComponent(typeof(UIDocument))]
-public class MiniUIDocumentWorldspace : MonoBehaviour {
+public class UIDocumentScreenspace : MonoBehaviour {
 
     private UIDocument doc;
-    private MeshRenderer meshRenderer;
+    private RawImage image;
     [SerializeField]
     private Texture2D texture {get;set;}
-
     void Start() {
         
         doc = GetComponent<UIDocument>();
-        doc.panelSettings = doc.panelSettings;
-        //defaultTexture = doc.panelSettings.targetTexture;
-        StartCoroutine(GetVETextureCoroutine(
-            doc.panelSettings, 1920, 1080,
-            (tex) => {
-                print("completion action invoked!");
-                // Do something with the texture here.
-                meshRenderer = gameObject.GetComponent<MeshRenderer>();
-                meshRenderer.material.mainTexture = tex;
-            }
-        ));
 
         EditorApplication.playModeStateChanged += (PlayModeStateChange state) => {
             if (state == PlayModeStateChange.ExitingPlayMode) {
                 OnExitPlaymode();
             }
         };
+
+        StartCoroutine(GetVETextureCoroutine(
+            doc.panelSettings, Screen.width, Screen.height,
+            (tex) => {
+                print("completion action invoked!");
+                // Do something with the texture here.
+                image = gameObject.GetComponent<RawImage>();
+                image.texture = tex;
+                image.material.mainTexture = tex;
+            }
+        ));
     }
     /*
     stolen from: https://forum.unity.com/threads/render-visualelement-to-texture.1169015/
@@ -67,7 +68,6 @@ public class MiniUIDocumentWorldspace : MonoBehaviour {
     }
 
     void OnExitPlaymode(){
-//        doc.panelSettings.targetTexture = defaultTexture;
+        //doc.panelSettings.targetTexture = defaultTexture;
     }
-    
 }
