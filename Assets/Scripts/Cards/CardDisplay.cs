@@ -6,8 +6,7 @@ using TMPro;
 
 public class CardDisplay : MonoBehaviour
 {
-    [SerializeField]
-    private Card cardInfo;
+    public Card cardInfo;
 
     public TMP_Text CardNameGO;
     public TMP_Text CostTextGO;

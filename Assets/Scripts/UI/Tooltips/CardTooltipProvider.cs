@@ -21,14 +21,23 @@ public class CardTooltipProvder : MonoBehaviour
         tooltipOnHover = GetComponent<TooltipOnHover>();
         tooltipOnHover.tooltip = new TooltipViewModel();
         PlayableCard card = GetComponent<PlayableCard>();
+        CardInShop cardInShop = GetComponent<CardInShop>();
         if(card) {
             AddTooltipForPlayableCard(card);
-        } 
+        } else if (cardInShop) {
+            AddTooltipForCardType(cardInShop.cardDisplay.cardInfo.cardType);
+        }
+
         
     }
 
     private void AddTooltipForPlayableCard(PlayableCard card){
+        // TODO: add tooltips for in combat card modifications
         CardType cardType = card.card.cardType;
+        AddTooltipForCardType(cardType);
+    }
+
+    private void AddTooltipForCardType(CardType cardType){
         List<EffectWorkflow> effectWorkflows = cardType.effectWorkflows;
         TooltipViewModel tooltip = null;
         Debug.Log("CardTooltipProvider: Found " + effectWorkflows.Count + " effect workflows");
@@ -47,7 +56,5 @@ public class CardTooltipProvder : MonoBehaviour
                 }
             }
         }
-
-
     }
 }

@@ -373,6 +373,8 @@ GameObject:
   - component: {fileID: 8204483024423312323}
   - component: {fileID: 6265946302025501170}
   - component: {fileID: 3549927547358299385}
+  - component: {fileID: 8824538972577930956}
+  - component: {fileID: 1466956452870649171}
   m_Layer: 5
   m_Name: CardInShopHolder
   m_TagString: Untagged
@@ -490,6 +492,40 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &8824538972577930956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8204483024423312325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 047152731ba5f1943a7c416983ad68e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tooltipPrefab: {fileID: 2816874809441598624, guid: 39e007ab3d5dc2a489824af9da1f4bae, type: 3}
+  tooltip:
+    rid: -2
+  positionOffset: {x: 0, y: 0, z: 0}
+  displayWaitTime: 0.3
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+--- !u!114 &1466956452870649171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8204483024423312325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28ab8638594f3ad4e8fbce374926ceac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7024130944350366682
 PrefabInstance:
   m_ObjectHideFlags: 0
