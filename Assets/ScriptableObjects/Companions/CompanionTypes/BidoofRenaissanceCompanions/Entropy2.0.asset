@@ -38,6 +38,9 @@ MonoBehaviour:
       description: Thins decks, scales in power. Transform 1 card into an exhaustable
         Burn at the end of combat.
       image: {fileID: 0}
+  keepsakeTitle: Entropy's Gadget
+  keepsakeDescription: Keepsake for summoning Entropy, the robotnik who can thin
+    decks and pummel enemies with recursive spells
   references:
     version: 2
     RefIds:
@@ -76,6 +79,7 @@ MonoBehaviour:
         numberOfCardsToGet: 1
         shuffleIfEmpty: 1
         outputKey: allCardsInDeck
+        getAllCardsFromEntities: 0
         getCardsFromSourceDeck: 1
         getAllFromOnlyDrawPile: 0
     - rid: 3931529445166809116
