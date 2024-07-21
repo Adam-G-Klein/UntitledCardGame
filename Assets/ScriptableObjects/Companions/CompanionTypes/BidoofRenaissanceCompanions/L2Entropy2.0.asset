@@ -36,11 +36,11 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: L2 Entropy
-      description: Thins decks, scales in power. Purge one card from a chosen deck
-        at end of combat.
+      description: Whenever a card is exhausted, Entropy deals 5 damage to a random
+        enemy
       image: {fileID: 0}
     - title: Purge
-      description: Permanently removes a card from its deck.
+      description: Entropy permanently removes a card at the end of combat.
       image: {fileID: 0}
   references:
     version: 2
@@ -80,6 +80,7 @@ MonoBehaviour:
         numberOfCardsToGet: 1
         shuffleIfEmpty: 1
         outputKey: allCardsInDeck
+        getAllCardsFromEntities: 0
         getCardsFromSourceDeck: 1
         getAllFromOnlyDrawPile: 0
     - rid: 3931529445166809116
@@ -127,7 +128,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: targetEnemy
         combatEffect: 0
-        scale: 1
+        scale: 5
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
