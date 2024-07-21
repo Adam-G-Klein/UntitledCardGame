@@ -38,6 +38,11 @@ public class ShopUIManager : GenericSingleton<ShopUIManager>
         upgradeShopButtonGoldText.gameObject.SetActive(false);
     }
 
+    public void RefreshUpgradeButtonTooltip() {
+        UpgradeButtonTooltipProvider provider = upgradeButton.GetComponent<UpgradeButtonTooltipProvider>();
+        provider.RefreshTooltip();
+    }
+
     public void displayNeedMoreMoneyNotification() {
         StartCoroutine("displayNeedMoreMoneyText");
     }

@@ -183,6 +183,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             gameState.companions.SetCompanionSlots(shopLevel.teamSize);
             playerData.manaPerTurn = shopLevel.mana;
 
+            shopUIManager.RefreshUpgradeButtonTooltip();
             CheckDisableUpgradeButton();
         } else {
             shopUIManager.displayNeedMoreMoneyNotification();
