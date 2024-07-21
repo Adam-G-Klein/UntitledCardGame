@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -11,32 +12,35 @@ public class TeamSelectionUI : MonoBehaviour
     // TODO: package these into companionListVariables
     public CompanionListVariableSO team1ActiveCompanions;
     public CompanionListVariableSO team1BenchCompanions;
-    public CompanionListVariableSO team2ActiveCompanions;
-    public CompanionListVariableSO team2BenchCompanions;
     public GameObject deckViewUIPrefab;
     private VisualElement root;
     [SerializeField]
     private bool displayOnStart = true;
-    [SerializeField]
-    private GameObject bookImageGO;
+    private int currentlySelectedCompanion = 0;
+    private List<VisualElement> contentToRedraw = new List<VisualElement>();
 
     private void OnEnable()
     {
         root = GetComponent<UIDocument>().rootVisualElement;
-        if(!displayOnStart) {
-            root.style.display = DisplayStyle.None;
-        }
-        root.Q<UnityEngine.UIElements.Button>("backButton").clicked += backButtonHandler;
-        makeTeamView(root.Q<VisualElement>("team-1-container"), team1ActiveCompanions.GetCompanionTypes());
-        // makeTeamView(root.Q<VisualElement>("team-2-container"), team2ActiveCompanions.GetCompanionTypes());
+        //root.Q<UnityEngine.UIElements.Button>("backButton").clicked += backButtonHandler;
+        updateState();
+
+        var next = root.Q<UnityEngine.UIElements.Button>("Next");
+        next.clicked += () => initializeRun();
     }
-    public void initializeRun(List<CompanionTypeSO> team)
+
+    private void updateState() {
+        makeTeamView(root.Q<VisualElement>("CompanionPortaitsContainer"), team1ActiveCompanions.GetCompanionTypes());
+        makeInfoView(root.Q<VisualElement>("InfoContainer"), team1ActiveCompanions.GetCompanionTypes()[currentlySelectedCompanion]);
+
+    }
+    public void initializeRun()
     {
         gameState.companions.activeCompanions = new List<Companion>();
         gameState.companions.benchedCompanions = new List<Companion>();
         gameState.companions.currentCompanionSlots = 3;
 
-        foreach (CompanionTypeSO companionType in team)
+        foreach (CompanionTypeSO companionType in team1ActiveCompanions.GetCompanionTypes())
         {
             gameState.companions.activeCompanions.Add(new Companion(companionType));
         }
@@ -50,72 +54,88 @@ public class TeamSelectionUI : MonoBehaviour
         {
             container.Add(makeCharacterView(companionType));
         }
-
-        //Redo this when more details
-        //var centeringWrapper = new VisualElement();
-        //centeringWrapper.style.alignItems = Align.Center;
-        //container.Add(centeringWrapper);
-        var confirm = new UnityEngine.UIElements.Button();
-        confirm.text = "Sign this team";
-        confirm.style.alignSelf = Align.Center;
-        confirm.style.marginTop = 7;
-        confirm.clicked += () => initializeRun(companionTypes);
-        container.Add(confirm);
     }
     private VisualElement makeCharacterView(CompanionTypeSO companionType) {
         var container = new VisualElement();
-        container.AddToClassList("character-container");
+        container.AddToClassList("companion-info-container");
+
+        container.AddManipulator(new Clickable(evt => companionClicked(companionType)));
+        if (currentlySelectedCompanion == team1ActiveCompanions.GetCompanionTypes().IndexOf(companionType))
+        {
+            container.AddToClassList("companion-info-container-selected");
+        }
+
 
         var portrait = new VisualElement();
-        portrait.AddToClassList("character-portrait");
+        portrait.AddToClassList("companion-portrait");
         portrait.style.backgroundImage = new StyleBackground(companionType.sprite);
         container.Add(portrait);
-
-        var textContainer = new VisualElement();
-        textContainer.AddToClassList("text-container");
    
         var name = new Label();
         name.text = companionType.companionName;
-        stripMarginAndPadding(name).AddToClassList("character-name");
-        textContainer.Add(name);
+        name.AddToClassList("companion-name-label");
+        container.Add(name);
 
         var archetype = new Label();
-        stripMarginAndPadding(archetype).AddToClassList("archetype-name");
-        archetype.text = "Lorem ipsum dolor sit amet";
-        textContainer.Add(archetype);
+        archetype.AddToClassList("companion-title-label");
+        archetype.text = companionType.keepsakeTitle;
+        container.Add(archetype);
 
-        var desc = new Label();
-        stripMarginAndPadding(desc).AddToClassList("description");
-        desc.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ";
-        textContainer.Add(desc);
-
-        container.Add(textContainer);
-
-
+        contentToRedraw.Add(container);
         return container;
     }
 
-    private Label stripMarginAndPadding(Label label) {
-        label.style.marginBottom = 0;
-        label.style.marginTop = 0;
-        label.style.paddingBottom = 0;
-        label.style.paddingTop = 0;
-        return label;    
+    private void makeInfoView(VisualElement container, CompanionTypeSO companionType)
+    {
+        VisualElement keepImg = container.Q<VisualElement>("KeepsakeImage");
+        keepImg.style.backgroundImage = new StyleBackground(companionType.keepsake);
+        container.Q<Label>("keepsakeName").text = companionType.keepsakeTitle;
+        container.Q<Label>("keepsakeDesc").text = companionType.keepsakeDescription;
+
+        VisualElement cards = container.Q<VisualElement>("cardsContainer");
+
+        foreach (CardType card in companionType.startingDeck.cards) {
+          cards.Add(makeCardView(card));
+        }
     }
+
+    private VisualElement makeCardView(CardType card) {
+        var container = new VisualElement();
+        container.AddToClassList("card-container");
+
+        var manaCost = new Label();
+        manaCost.AddToClassList("mana-card-label");
+        manaCost.text = card.Cost.ToString();
+        container.Add(manaCost);
+
+        var image = new VisualElement();
+        image.AddToClassList("card-image");
+        image.style.backgroundImage = new StyleBackground(card.Artwork);
+        container.Add(image);
+
+        var name = new Label();
+        name.AddToClassList("card-title-label");
+        name.text = card.Name;
+        container.Add(name);
+
+        var desc = new Label();
+        desc.AddToClassList("card-desc-label");
+        desc.text = card.Description;
+        container.Add(desc);
+
+        contentToRedraw.Add(container);
+        return container;
+    }
+
+    public void companionClicked(CompanionTypeSO companionType) {
+        foreach (VisualElement content in contentToRedraw) {
+            content.RemoveFromHierarchy();
+        }
+        currentlySelectedCompanion = team1ActiveCompanions.GetCompanionTypes().IndexOf(companionType);
+        updateState();
+     }
 
     public void backButtonHandler() {
         SceneManager.LoadScene("MainMenu");
     }
-
-    public void toggleDisplay() {
-        Debug.Log("Toggling display");
-        if(root.style.display == DisplayStyle.None) {
-            bookImageGO.SetActive(true);
-            root.style.display = DisplayStyle.Flex;
-        } else {
-            bookImageGO.SetActive(false);
-            root.style.display = DisplayStyle.None;
-        }
-    }
-
 }

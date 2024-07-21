@@ -427,13 +427,77 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 79654232493363095, guid: 607fb3500676b2f4b9224240dd2d6e46, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -17.169525
+      objectReference: {fileID: 0}
+    - target: {fileID: 131377096413073510, guid: 607fb3500676b2f4b9224240dd2d6e46, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 131377096413073510, guid: 607fb3500676b2f4b9224240dd2d6e46, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1080
+      objectReference: {fileID: 0}
+    - target: {fileID: 131377096413073510, guid: 607fb3500676b2f4b9224240dd2d6e46, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.000061035
+      objectReference: {fileID: 0}
+    - target: {fileID: 131377096413073510, guid: 607fb3500676b2f4b9224240dd2d6e46, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 969790588217436717, guid: 607fb3500676b2f4b9224240dd2d6e46, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 969790588217436717, guid: 607fb3500676b2f4b9224240dd2d6e46, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1080
+      objectReference: {fileID: 0}
+    - target: {fileID: 969790588217436717, guid: 607fb3500676b2f4b9224240dd2d6e46, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 969790588217436717, guid: 607fb3500676b2f4b9224240dd2d6e46, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1093242360702527882, guid: 607fb3500676b2f4b9224240dd2d6e46, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -17.170013
+      objectReference: {fileID: 0}
     - target: {fileID: 1396644470098806566, guid: 607fb3500676b2f4b9224240dd2d6e46, type: 3}
       propertyPath: team1ActiveCompanions
       value: 
       objectReference: {fileID: 11400000, guid: 37ec4ad31a22644e2bd65adc476bb734, type: 2}
+    - target: {fileID: 1769066372050923557, guid: 607fb3500676b2f4b9224240dd2d6e46, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 5.856018
+      objectReference: {fileID: 0}
+    - target: {fileID: 1769066372050923557, guid: 607fb3500676b2f4b9224240dd2d6e46, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -3.6475525
+      objectReference: {fileID: 0}
+    - target: {fileID: 4633242730971975982, guid: 607fb3500676b2f4b9224240dd2d6e46, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -27.99997
+      objectReference: {fileID: 0}
     - target: {fileID: 5427687416918855016, guid: 607fb3500676b2f4b9224240dd2d6e46, type: 3}
       propertyPath: m_Name
       value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 5533410869656153930, guid: 607fb3500676b2f4b9224240dd2d6e46, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6741367797297197198, guid: 607fb3500676b2f4b9224240dd2d6e46, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 5.856018
+      objectReference: {fileID: 0}
+    - target: {fileID: 6741367797297197198, guid: 607fb3500676b2f4b9224240dd2d6e46, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -3.6475525
       objectReference: {fileID: 0}
     - target: {fileID: 6776026775712146023, guid: 607fb3500676b2f4b9224240dd2d6e46, type: 3}
       propertyPath: m_Pivot.x
@@ -516,7 +580,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 500468162309177850, guid: 607fb3500676b2f4b9224240dd2d6e46, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 607fb3500676b2f4b9224240dd2d6e46, type: 3}
