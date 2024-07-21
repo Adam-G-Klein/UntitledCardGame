@@ -54,6 +54,10 @@ public class ShopLevel {
     public int uncommonCardPercentage;
     public int rareCardPercentage;
 
+    [Space(10)]
+    [Header("Help the player understand this shit")]
+    public TooltipViewModel upgradeTooltip;
+
     public int GetTotalCompanionPercentage() {
         return commonCompanionPercentage +
             uncommonCompanionPercentage +

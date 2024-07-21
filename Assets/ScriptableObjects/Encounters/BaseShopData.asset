@@ -25,6 +25,12 @@ MonoBehaviour:
     commonCardPercentage: 90
     uncommonCardPercentage: 10
     rareCardPercentage: 0
+    upgradeTooltip:
+      empty: 0
+      lines:
+      - title: Upgrade to Level 2
+        description: +1 team size, increase shop rarity
+        image: {fileID: 0}
   - level: 1
     mana: 3
     teamSize: 4
@@ -35,8 +41,14 @@ MonoBehaviour:
     uncommonCompanionPercentage: 28
     rareCompanionPercentage: 2
     commonCardPercentage: 70
-    uncommonCardPercentage: 28
-    rareCardPercentage: 2
+    uncommonCardPercentage: 25
+    rareCardPercentage: 5
+    upgradeTooltip:
+      empty: 0
+      lines:
+      - title: Upgrade to Level 3
+        description: +1 mana, increase shop rarity
+        image: {fileID: 0}
   - level: 2
     mana: 4
     teamSize: 4
@@ -49,6 +61,12 @@ MonoBehaviour:
     commonCardPercentage: 50
     uncommonCardPercentage: 40
     rareCardPercentage: 10
+    upgradeTooltip:
+      empty: 0
+      lines:
+      - title: Upgrade to Level 4
+        description: +1 team size, increase shop rarity
+        image: {fileID: 0}
   - level: 3
     mana: 4
     teamSize: 5
@@ -61,6 +79,9 @@ MonoBehaviour:
     commonCardPercentage: 30
     uncommonCardPercentage: 40
     rareCardPercentage: 30
+    upgradeTooltip:
+      empty: 0
+      lines: []
   companionPool: {fileID: 11400000, guid: 4113f0ac393ad43499c4e9e9a4e6d97e, type: 2}
   rerollShopPrice: 2
   shopEncounterEvent: {fileID: 11400000, guid: d82ee33fc33d20544bce205c53a0832e, type: 2}

@@ -872,10 +872,57 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 769442872913067365, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4573181857404763394}
+    - targetCorrespondingSourceObject: {fileID: 769442872913067365, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4573181857404763395}
     - targetCorrespondingSourceObject: {fileID: 624278721722885037, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+--- !u!1 &4573181857404763393 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 769442872913067365, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+  m_PrefabInstance: {fileID: 4573181857404763392}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4573181857404763394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4573181857404763393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 047152731ba5f1943a7c416983ad68e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tooltipPrefab: {fileID: 2816874809441598624, guid: 39e007ab3d5dc2a489824af9da1f4bae, type: 3}
+  tooltip:
+    rid: -2
+  positionOffset: {x: 0, y: 0, z: 0}
+  displayWaitTime: 0.5
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+--- !u!114 &4573181857404763395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4573181857404763393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10d95b06956ca45998f3e97be62b9727, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shopData: {fileID: 11400000, guid: 64b1d5221aac20348909c6cab7cc24d6, type: 2}
+  playerData: {fileID: 11400000, guid: 04fd9f244e2a13e4d9e28d6e1a2f7a9a, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
