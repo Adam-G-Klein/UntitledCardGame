@@ -34,7 +34,14 @@ MonoBehaviour:
   upgradeTo: {fileID: 11400000, guid: e8c26b8d205c446d7a74a4c055d7d437, type: 2}
   tooltip:
     empty: 0
-    lines: []
+    lines:
+    - title: Mab
+      description: 'At the end of combat, heal a companion 5 HP and permanently add
+        a Mab''s Boon to their deckpermanently add a '
+      image: {fileID: 0}
+    - title: Mab's Boon
+      description: Card that exhausts on play and heals
+      image: {fileID: 0}
   references:
     version: 2
     RefIds:
