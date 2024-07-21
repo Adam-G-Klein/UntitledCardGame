@@ -10,6 +10,7 @@ public class DisplayTeamSigningUI : MonoBehaviour
 
     void Start() {
         teamSelectionUI = teamSigningUIGO.GetComponentInChildren<TeamSelectionUI>();
+        DisplayTeamSigning();
     }
 
     public void DisplayTeamSigning() {
