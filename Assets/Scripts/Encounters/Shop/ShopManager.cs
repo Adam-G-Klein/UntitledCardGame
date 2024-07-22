@@ -92,7 +92,9 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             CompanionTypeSO cardSourceCompanion = cardInfo.getCompanionFrom();
             // Source companion will be null if the card is neutral; in that case, we should include all
             // companions.
-            if (cardSourceCompanion == null || cardSourceCompanion == companion.companionType) {
+            // Also, do it based on card pool so the same card can be assigned to a
+            // level 1 or level 2 companion of the same type.
+            if (cardSourceCompanion == null || cardSourceCompanion.cardPool == companion.companionType.cardPool) {
                 companionList.Add(companion);
             }
         }
@@ -109,7 +111,9 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             CompanionTypeSO cardSourceCompanion = cardInfo.getCompanionFrom();
             // Source companion will be null if the card is neutral; in that case, we should include all
             // companions.
-            if (cardSourceCompanion == null || cardSourceCompanion == companion.companionType) {
+            // Also, do it based on card pool so the same card can be assigned to a
+            // level 1 or level 2 companion of the same type.
+            if (cardSourceCompanion == null || cardSourceCompanion.cardPool == companion.companionType.cardPool) {
                 companionList.Add(companion);
             }
         }
