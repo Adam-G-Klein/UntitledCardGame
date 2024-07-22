@@ -30,6 +30,9 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                 layoutGroup,
                 cardInfo,
                 deckFrom);
+            if (newCard.card.cardType.retain) {
+                newCard.retained = true;
+            }
             cardsInHand.Add(newCard);
             cardsDelt.Add(newCard);
         }
@@ -48,7 +51,11 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                 // Do not destroy the card if it is retained.
                 if (card.retained) {
                     retainedCards.Add(card);
-                    card.retained = false;
+                    // If the retain is a temporary effect and not innate to the card,
+                    // remove the "retain".
+                    if (!card.card.cardType.retain) {
+                        card.retained = false;
+                    }
                 } else {
                     callback = DiscardAndDestroyCallback(card);
                 }
