@@ -46,4 +46,29 @@ MonoBehaviour:
       type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
       data:
         companionAbilityTrigger: 7
-        effectSteps: []
+        effectSteps:
+        - rid: 5602892949302280341
+        - rid: 5602892949302280342
+    - rid: 5602892949302280341
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: enemy
+        validTargets: 02000000
+        number: 1
+        specialTargetRule: 6
+        cantCancelTargetting: 0
+    - rid: 5602892949302280342
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: enemy
+        combatEffect: 14
+        scale: 2
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
