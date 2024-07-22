@@ -126,34 +126,35 @@ public class ShopEncounter : Encounter
         foreach (Companion companion in companionList) {
             companionTypes.Add(companion.companionType);
         }
+        // Add the card pools for each companion that is on your team.
+        // We do not want to show cards for companions that you do not have.
+        // Note: L1 and L2 companions share the same card pool, so we don't want
+        // to overindex and show double the amount of cards from that card pool
+        // if you have both on your team.
+        Dictionary<CardPoolSO, CompanionTypeSO> cardPools = new();
+        foreach (Companion companion in companionList) {
+            if (!cardPools.ContainsKey(companion.companionType.cardPool)) {
+                cardPools.Add(companion.companionType.cardPool, companion.companionType);
+            }
+        }
+        // Add the neutral card pool to the list.
+        // Note, if we want to weigh the proportion of neutral cards differently in the future,
+        // it is worth revisiting how we do this.
+        cardPools.Add(shopData.neutralCardPool, null);
         List<CardInShopWithPrice> commonShopCards = new();
         List<CardInShopWithPrice> uncommonShopCards = new();
         List<CardInShopWithPrice> rareShopCards = new();
-        // Add the card pools for each companion that is on your team.
-        // We do not want to show cards for companions that you do not have.
-        foreach (CompanionTypeSO companionType in companionTypes) {
-            foreach (CardType card in companionType.cardPool.commonCards) {
-                commonShopCards.Add(new CardInShopWithPrice(card, shopData.cardPrice, companionType));
+        foreach (KeyValuePair<CardPoolSO, CompanionTypeSO> cardPoolPair in cardPools) {
+            foreach (CardType card in cardPoolPair.Key.commonCards) {
+                commonShopCards.Add(new CardInShopWithPrice(card, shopData.cardPrice, cardPoolPair.Value));
             }
-            foreach (CardType card in companionType.cardPool.uncommonCards) {
-                uncommonShopCards.Add(new CardInShopWithPrice(card, shopData.cardPrice, companionType));
+            foreach (CardType card in cardPoolPair.Key.uncommonCards) {
+                uncommonShopCards.Add(new CardInShopWithPrice(card, shopData.cardPrice, cardPoolPair.Value));
             }
-            foreach (CardType card in companionType.cardPool.rareCards) {
-                rareShopCards.Add(new CardInShopWithPrice(card, shopData.cardPrice, companionType));
+            foreach (CardType card in cardPoolPair.Key.rareCards) {
+                rareShopCards.Add(new CardInShopWithPrice(card, shopData.cardPrice, cardPoolPair.Value));
             }
         }
-        // Add the neutral cards to each card pool; note, they are not attached to a
-        // specific companion.
-        foreach (CardType card in shopData.neutralCardPool.commonCards) {
-            commonShopCards.Add(new CardInShopWithPrice(card, shopData.cardPrice));
-        }
-        foreach (CardType card in shopData.neutralCardPool.uncommonCards) {
-            uncommonShopCards.Add(new CardInShopWithPrice(card, shopData.cardPrice));
-        }
-        foreach (CardType card in shopData.neutralCardPool.rareCards) {
-            rareShopCards.Add(new CardInShopWithPrice(card, shopData.cardPrice));
-        }
-
         for (int i = 0; i < shopLevel.numCardsToShow; i++) {
             Rarity rarity = PickRarity(
                 shopLevel.commonCardPercentage,
