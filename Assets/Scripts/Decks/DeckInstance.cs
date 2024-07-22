@@ -138,7 +138,9 @@ public class DeckInstance : MonoBehaviour
      }
 
     public void ShuffleDiscardIntoDraw(){
+        Debug.Log("Shuffling discard pile into draw pile, triggering downstream effects");
         EnemyEncounterManager.Instance.DeckShuffled(this);
+        PlayerHand.Instance.StartCoroutine(PlayerHand.Instance.OnDeckShuffled(this));
         drawPile.AddRange(discardPile);
         drawPile.Shuffle();
         discardPile.Clear();

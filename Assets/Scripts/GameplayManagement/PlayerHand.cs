@@ -24,6 +24,9 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     public delegate IEnumerator OnCardCastHandler(PlayableCard card);
     public event OnCardCastHandler onCardCastHandler;
 
+    public delegate IEnumerator OnDeckShuffleHandler(DeckInstance deckFrom);
+    public event OnDeckShuffleHandler onDeckShuffledHandler;
+
     public List<PlayableCard> DealCards(List<Card> cards, DeckInstance deckFrom) {
         List<PlayableCard> cardsDelt = new List<PlayableCard>();
         PlayableCard newCard;
@@ -127,6 +130,14 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         if (onCardCastHandler != null) {
             foreach (OnCardCastHandler handler in onCardCastHandler.GetInvocationList()) {
                 yield return StartCoroutine(handler.Invoke(card));
+            }
+        }
+    }
+
+    public IEnumerator OnDeckShuffled(DeckInstance deck) {
+        if (onDeckShuffledHandler != null) {
+            foreach (OnDeckShuffleHandler handler in onDeckShuffledHandler.GetInvocationList()) {
+                yield return StartCoroutine(handler.Invoke(deck));
             }
         }
     }

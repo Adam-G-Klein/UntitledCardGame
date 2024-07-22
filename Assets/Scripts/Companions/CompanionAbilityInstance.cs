@@ -75,6 +75,9 @@ public class CompanionAbilityInstance
             case CompanionAbility.CompanionAbilityTrigger.OnCardExhausted:
                 PlayerHand.Instance.onCardExhaustHandler += OnCardExhaust;
                 break;
+            case CompanionAbility.CompanionAbilityTrigger.OnDeckShuffled:
+                PlayerHand.Instance.onDeckShuffledHandler += OnDeckShuffled;
+                break;
         }
     }
 
@@ -103,6 +106,9 @@ public class CompanionAbilityInstance
         if (ability.companionAbilityTrigger == CompanionAbility.CompanionAbilityTrigger.OnCardExhausted) {
             PlayerHand.Instance.onCardExhaustHandler -= OnCardExhaust;
         }
+        if (ability.companionAbilityTrigger == CompanionAbility.CompanionAbilityTrigger.OnDeckShuffled) {
+            PlayerHand.Instance.onDeckShuffledHandler -= OnDeckShuffled;
+        }
 
         yield return null;
     }
@@ -111,6 +117,7 @@ public class CompanionAbilityInstance
         EffectDocument document = new EffectDocument();
         document.map.AddItem(EffectDocument.ORIGIN, this.companionInstance);
         document.originEntityType = EntityType.CompanionInstance;
+        Debug.Log("Ability has " + ability.effectSteps.Count.ToString() + " steps");
         yield return EffectManager.Instance.invokeEffectWorkflowCoroutine(document, ability.effectSteps, null);
     }
 
@@ -133,5 +140,10 @@ public class CompanionAbilityInstance
             document.map.AddItem<DeckInstance>("companionExhaustedFrom", companion.deckInstance);
         }
         yield return EffectManager.Instance.invokeEffectWorkflowCoroutine(document, ability.effectSteps, null);
+    }
+
+    private IEnumerator OnDeckShuffled(DeckInstance deckFrom) {
+        Debug.Log("Activating deck shuffled ability for companion " + this.companionInstance.companion.companionType.name);
+        yield return setupAndInvokeAbility().GetEnumerator();
     }
 }
