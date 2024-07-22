@@ -35,8 +35,8 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: L2 Pythia
-      description: Whenever you shuffle a deck, give all companions on your team
-        5 block
+      description: Whenever you shuffle a draw pile, give all companions on your
+        team 3 block
       image: {fileID: 0}
   keepsakeTitle: 
   keepsakeDescription: 
@@ -67,6 +67,6 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: allCompanions
         statusEffect: 2
-        scale: 5
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
