@@ -20,6 +20,7 @@ MonoBehaviour:
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 1
+  retain: 0
   effectWorkflows:
   - rid: 2116895648763871331
   onExhaustEffectWorkflow:
@@ -43,7 +44,7 @@ MonoBehaviour:
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: DrawCards
-        inputKey: 
+        inputKey: target
         outputKey: 
         scale: 2
         getScaleFromKey: 0
@@ -52,5 +53,17 @@ MonoBehaviour:
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
-        - rid: 1886371092460208257
+        - rid: 5602892949302280672
         - rid: 1886371092460208258
+        - rid: 1886371092460208257
+    - rid: 5602892949302280672
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: target
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 0
+        cantCancelTargetting: 0
