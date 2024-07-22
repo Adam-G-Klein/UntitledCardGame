@@ -15,7 +15,7 @@ MonoBehaviour:
   Name: Eureka
   Description: Exhaust. Gain 2 mana, draw two cards
   Cost: 0
-  Artwork: {fileID: 21300000, guid: 18251cc3bb6c59d4794bd522032e2ee3, type: 3}
+  Artwork: {fileID: 21300000, guid: 5ee06d5c5a1188a48a0f852ac84514bf, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
@@ -48,21 +48,9 @@ MonoBehaviour:
         scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
-    - rid: 1886371092460208259
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: 
-        validTargets: 0000000001000000
-        number: 1
-        specialTargetRule: 0
-        cantCancelTargetting: 0
     - rid: 2116895648763871331
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
-        - rid: 1886371092460208259
         - rid: 1886371092460208257
         - rid: 1886371092460208258
