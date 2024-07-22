@@ -21,6 +21,9 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     public delegate IEnumerator OnCardExhaustHandler(DeckInstance deckFrom, Card card);
     public event OnCardExhaustHandler onCardExhaustHandler;
 
+    public delegate IEnumerator OnCardCastHandler(PlayableCard card);
+    public event OnCardCastHandler onCardCastHandler;
+
     public List<PlayableCard> DealCards(List<Card> cards, DeckInstance deckFrom) {
         List<PlayableCard> cardsDelt = new List<PlayableCard>();
         PlayableCard newCard;
@@ -118,5 +121,13 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         }
         Debug.LogError("PlayerHand: Unable to find card in hand with id " + id);
         return null;
+    }
+
+    public IEnumerator OnCardCast(PlayableCard card) {
+        if (onCardCastHandler != null) {
+            foreach (OnCardCastHandler handler in onCardCastHandler.GetInvocationList()) {
+                yield return StartCoroutine(handler.Invoke(card));
+            }
+        }
     }
 }

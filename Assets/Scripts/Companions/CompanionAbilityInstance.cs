@@ -64,8 +64,8 @@ public class CompanionAbilityInstance
                 this.companionInstance.SetCompanionAbilityDeathCallback(setupAndInvokeAbility());
             break;
 
-            case CompanionAbility.CompanionAbilityTrigger.OnAttackCardPlayed:
-                this.companionInstance.deckInstance.onCardCastHandler += CheckAttackCardPlayed;
+            case CompanionAbility.CompanionAbilityTrigger.OnCardCast:
+                PlayerHand.Instance.onCardCastHandler += OnCardCast;
             break;
             case CompanionAbility.CompanionAbilityTrigger.OnCombine:
                 // This is handled in the Companion class's constructor.
@@ -93,8 +93,8 @@ public class CompanionAbilityInstance
             CombatEntityManager.Instance.unregisterTrigger(trigger);
         }
 
-        if (ability.companionAbilityTrigger == CompanionAbility.CompanionAbilityTrigger.OnAttackCardPlayed) {
-            this.companionInstance.deckInstance.onCardCastHandler -= CheckAttackCardPlayed;
+        if (ability.companionAbilityTrigger == CompanionAbility.CompanionAbilityTrigger.OnCardCast) {
+            PlayerHand.Instance.onCardCastHandler -= OnCardCast;
         }
 
         // This way of unsubscribing is giga sketchy, because PlayerHand is a generic singleton
@@ -115,10 +115,12 @@ public class CompanionAbilityInstance
     }
 
     // This is a bit of a hack, but I'm ok with it being here for now
-    private IEnumerator CheckAttackCardPlayed(PlayableCard card) {
-        if (card.card.cardType.cardCategory == CardCategory.Attack) {
-            yield return companionInstance.StartCoroutine(setupAndInvokeAbility().GetEnumerator());
-        }
+    private IEnumerator OnCardCast(PlayableCard card) {
+        EffectDocument document = new EffectDocument();
+        document.map.AddItem(EffectDocument.ORIGIN, this.companionInstance);
+        document.originEntityType = EntityType.CompanionInstance;
+        document.map.AddItem<PlayableCard>("cardPlayed", card);
+        yield return EffectManager.Instance.invokeEffectWorkflowCoroutine(document, ability.effectSteps, null);
     }
 
     private IEnumerator OnCardExhaust(DeckInstance deckFrom, Card card) {

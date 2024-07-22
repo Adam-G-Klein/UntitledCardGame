@@ -22,7 +22,7 @@ public class CompanionAbility
         OnFriendOrFoeDeath,
         OnFriendDeath,
         OnDeath,
-        OnAttackCardPlayed,
+        OnCardCast,
         OnCombine,
         OnCardExhausted,
     }

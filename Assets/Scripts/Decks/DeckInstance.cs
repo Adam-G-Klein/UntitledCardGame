@@ -13,8 +13,6 @@ public class DeckInstance : MonoBehaviour
     public List<Card> inHand;
     public List<Card> exhaustPile;
     public CombatInstance combatInstance;
-    public delegate IEnumerator OnCardCastHandler(PlayableCard card);
-    public event OnCardCastHandler onCardCastHandler;
 
     private TurnPhaseTrigger drawCardsTurnPhaseTrigger;
     private TurnPhaseTrigger resetTempCardModificationsTrigger;
@@ -59,14 +57,6 @@ public class DeckInstance : MonoBehaviour
     public IEnumerable DealStartPlayerTurnCards() {
         DealCardsToPlayerHand(sourceDeck.cardsDealtPerTurn);
         yield return null;
-    }
-
-    public IEnumerator OnCardCast(PlayableCard card) {
-        if (onCardCastHandler != null) {
-            foreach (OnCardCastHandler handler in onCardCastHandler.GetInvocationList()) {
-                yield return StartCoroutine(handler.Invoke(card));
-            }
-        }
     }
 
     private void SetupPiles(Deck sourceDeck) {
