@@ -20,6 +20,7 @@ MonoBehaviour:
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
+  retain: 0
   effectWorkflows:
   - rid: 3931529445166809455
   onExhaustEffectWorkflow:
@@ -58,7 +59,7 @@ MonoBehaviour:
         inputKey: target
         getLimitedNumber: 1
         numberOfCardsToGet: 3
-        shuffleIfEmpty: 1
+        shuffleIfEmpty: 0
         outputKey: topCard
         getAllCardsFromEntities: 0
         getCardsFromSourceDeck: 0
