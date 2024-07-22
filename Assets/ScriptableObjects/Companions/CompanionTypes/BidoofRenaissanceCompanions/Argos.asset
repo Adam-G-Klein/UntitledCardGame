@@ -30,7 +30,7 @@ MonoBehaviour:
   speakerType: {fileID: 0}
   abilities:
   - rid: 5602892563578094077
-  upgradeTo: {fileID: 0}
+  upgradeTo: {fileID: 11400000, guid: 3b42d32224eeb40459eb4d23d3843769, type: 2}
   tooltip:
     empty: 0
     lines:
@@ -38,6 +38,8 @@ MonoBehaviour:
       description: At the end of combat, permanently add an Eye of Argos to each
         adjacent companion's deck.
       image: {fileID: 0}
+  keepsakeTitle: 
+  keepsakeDescription: 
   references:
     version: 2
     RefIds:
