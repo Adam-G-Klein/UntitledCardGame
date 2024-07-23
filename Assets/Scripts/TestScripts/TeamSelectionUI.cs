@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
+using System;
 
 public class TeamSelectionUI : MonoBehaviour
 {
@@ -19,8 +20,27 @@ public class TeamSelectionUI : MonoBehaviour
     private int currentlySelectedCompanion = 0;
     private List<VisualElement> contentToRedraw = new List<VisualElement>();
 
+    public bool randomStarterCompanionGen = true;
+
     private void OnEnable()
     {
+        // Randomly choose 3 of the common companions for the starting team.
+        // Random selection without replacement.
+        if (randomStarterCompanionGen) {
+            System.Random rnd = new();
+            List<CompanionTypeSO> commoners = new List<CompanionTypeSO>(gameState.baseShopData.companionPool.commonCompanions);
+            CompanionListVariableSO chosen = new();
+            chosen.activeCompanions = new List<Companion>();
+            for (int i = 0; i < 3; i++) {
+                int chosenIndex = rnd.Next(commoners.Count);
+                CompanionTypeSO chosenCompanion = commoners[chosenIndex];
+                commoners.Remove(chosenCompanion);
+
+                chosen.activeCompanions.Add(new Companion(chosenCompanion));
+            }
+            team1ActiveCompanions = chosen;
+        }
+
         root = GetComponent<UIDocument>().rootVisualElement;
         //root.Q<UnityEngine.UIElements.Button>("backButton").clicked += backButtonHandler;
         updateState();
@@ -70,7 +90,7 @@ public class TeamSelectionUI : MonoBehaviour
         portrait.AddToClassList("companion-portrait");
         portrait.style.backgroundImage = new StyleBackground(companionType.sprite);
         container.Add(portrait);
-   
+
         var name = new Label();
         name.text = companionType.companionName;
         name.AddToClassList("companion-name-label");
