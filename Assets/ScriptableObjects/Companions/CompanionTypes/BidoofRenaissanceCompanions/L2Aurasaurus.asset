@@ -16,7 +16,7 @@ MonoBehaviour:
   maxHealth: 25
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: b83b435acb4b74464a4b6be77184da43, type: 3}
-  startingDeck: {fileID: 0}
+  startingDeck: {fileID: 11400000, guid: b9d3e1231b15642b9802057f5950b8c7, type: 2}
   keepsake: {fileID: 21300000, guid: b83b435acb4b74464a4b6be77184da43, type: 3}
   cardBack: {fileID: 21300000, guid: a5222a8d127763c49b397cce916345ec, type: 3}
   cardFrame: {fileID: 21300000, guid: 106aacbbfd302814982ff4ed944fbaed, type: 3}
@@ -36,9 +36,11 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Aurasaurus
-      description: 'At the start of combat, give your entire team 1 aura stack. End
-        of turn, each companion with at least 1 orb gets 6 block '
+      description: At the start of combat, give your entire team 1 aura stack. End
+        of turn, give each companion 4 block for each aura stack they have.
       image: {fileID: 0}
+  keepsakeTitle: 
+  keepsakeDescription: 
   references:
     version: 2
     RefIds:
@@ -69,6 +71,7 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+        multiplyByNumAuraStacks: 0
     - rid: 5602892874868589183
       type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
       data:
@@ -101,6 +104,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: allWithOrb
         statusEffect: 2
-        scale: 6
+        scale: 4
         getScaleFromKey: 0
         inputScaleKey: 
+        multiplyByNumAuraStacks: 1

@@ -34,7 +34,14 @@ MonoBehaviour:
   upgradeTo: {fileID: 0}
   tooltip:
     empty: 0
-    lines: []
+    lines:
+    - title: L2 Pooh Bear
+      description: Pooh bear starts combat with an aura stack. At the end of each
+        turn, each companion on your team gains 1 strength for each aura stack they
+        have.
+      image: {fileID: 0}
+  keepsakeTitle: 
+  keepsakeDescription: 
   references:
     version: 2
     RefIds:
@@ -44,9 +51,7 @@ MonoBehaviour:
         companionAbilityTrigger: 0
         effectSteps:
         - rid: 5602892679876706443
-        - rid: 5602892679876706445
         - rid: 5602892679876706444
-        - rid: 5602892679876706446
     - rid: 5602892679876706443
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -67,21 +72,7 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
-    - rid: 5602892679876706445
-      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetAdjacentCompanions
-        inputKey: self
-        outputKey: adjacent
-    - rid: 5602892679876706446
-      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: ApplyStatus
-        inputKey: adjacent
-        statusEffect: 9
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
     - rid: 5602892679876706447
       type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
       data:
@@ -117,3 +108,4 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+        multiplyByNumAuraStacks: 1
