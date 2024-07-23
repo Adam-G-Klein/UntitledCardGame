@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
+  m_Name: KingOfPain
+  m_EditorClassIdentifier: 
+  companionName: King of Pain
+  maxHealth: 30
+  initialCardsDealtPerTurn: 1
+  sprite: {fileID: 21300000, guid: e7fac6430b61f4e379c435119ab1ec86, type: 3}
+  startingDeck: {fileID: 11400000, guid: 1c73175d985fa4a2bb8ef49e809c32a7, type: 2}
+  keepsake: {fileID: 21300000, guid: e7fac6430b61f4e379c435119ab1ec86, type: 3}
+  cardBack: {fileID: 21300000, guid: 3296a63e824de414bb4b578c4822fbdb, type: 3}
+  cardFrame: {fileID: 21300000, guid: 75fee76dd9726374f94da1fe30e8a250, type: 3}
+  typeIcon: {fileID: 21300000, guid: e7fac6430b61f4e379c435119ab1ec86, type: 3}
+  portrait: {fileID: 21300000, guid: e7fac6430b61f4e379c435119ab1ec86, type: 3}
+  teamSelectSprite: {fileID: 21300000, guid: e7fac6430b61f4e379c435119ab1ec86, type: 3}
+  cardIdleVfxPrefab: {fileID: 0}
+  genericCompanionSFX: {fileID: 0}
+  genericCompanionVFX: {fileID: 0}
+  cardPool: {fileID: 11400000, guid: 54aef68170b384d81be04efc17cbf69c, type: 2}
+  speakerType: {fileID: 0}
+  abilities:
+  - rid: 5602892949302280752
+  upgradeTo: {fileID: 0}
+  tooltip:
+    empty: 0
+    lines:
+    - title: King of Pain
+      description: Whenever a companion takes damage, it gains 3 block
+      image: {fileID: 0}
+  keepsakeTitle: 
+  keepsakeDescription: 
+  references:
+    version: 2
+    RefIds:
+    - rid: 5602892949302280752
+      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
+      data:
+        companionAbilityTrigger: 11
+        effectSteps:
+        - rid: 5602892949302280753
+    - rid: 5602892949302280753
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: damagedCompanion
+        statusEffect: 2
+        scale: 3
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
