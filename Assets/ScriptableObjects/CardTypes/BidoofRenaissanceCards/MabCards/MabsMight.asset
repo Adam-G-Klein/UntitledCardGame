@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: MabsMight
   m_EditorClassIdentifier: 
   Name: Mab's Might
-  Description: Exhaust. Give 7 block to and draw 1 from this companion
+  Description: Retain. Exhaust. Give 7 block to and draw 1 from this companion
   Cost: 0
   Artwork: {fileID: 21300000, guid: 70dd24a7c98646b44870b00b67a720f4, type: 3}
-  cardCategory: 2
+  cardCategory: 4
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 1
+  retain: 1
   effectWorkflows:
   - rid: 5602892675124822046
   onExhaustEffectWorkflow:
@@ -59,6 +60,7 @@ MonoBehaviour:
         scale: 7
         getScaleFromKey: 0
         inputScaleKey: 
+        multiplyByNumAuraStacks: 0
     - rid: 5602892675124822050
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:
