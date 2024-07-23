@@ -155,6 +155,10 @@ public class CompanionAbilityInstance
 
     private IEnumerator OnDamageTaken(CombatInstance damagedInstance) {
         Debug.Log("Activating on damage taken ability for companion " + this.companionInstance.companion.companionType.name);
-        yield return setupAndInvokeAbility().GetEnumerator();
+        EffectDocument document = new EffectDocument();
+        document.map.AddItem(EffectDocument.ORIGIN, this.companionInstance);
+        document.originEntityType = EntityType.CompanionInstance;
+        document.map.AddItem<CombatInstance>("damagedCompanion", damagedInstance);
+        yield return EffectManager.Instance.invokeEffectWorkflowCoroutine(document, ability.effectSteps, null);
     }
 }
