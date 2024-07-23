@@ -18,6 +18,9 @@ public class CombatInstance : MonoBehaviour
     // Only used for debugging purposes, will be set by some other script
     private string id;
 
+    // Distinguish between enemies and companions for combat instances.
+    public CombatInstanceParent parentType;
+
     public static Dictionary<StatusEffect, int> initialStatusEffects =
         new Dictionary<StatusEffect, int>() {
             { StatusEffect.Strength, 0 },
@@ -240,5 +243,10 @@ public class CombatInstance : MonoBehaviour
         } else if (genericInteractionVFX != null) {
             Instantiate(genericInteractionVFX, transform.position, Quaternion.identity);
         }
+    }
+
+    public enum CombatInstanceParent {
+        COMPANION,
+        ENEMY
     }
 }

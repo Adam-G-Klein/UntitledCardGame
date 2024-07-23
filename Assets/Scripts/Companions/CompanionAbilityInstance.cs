@@ -154,6 +154,10 @@ public class CompanionAbilityInstance
     }
 
     private IEnumerator OnDamageTaken(CombatInstance damagedInstance) {
+        // Do not run this trigger on enemies taking damage.
+        if (damagedInstance.parentType != CombatInstance.CombatInstanceParent.COMPANION) {
+            yield break;
+        }
         Debug.Log("Activating on damage taken ability for companion " + this.companionInstance.companion.companionType.name);
         EffectDocument document = new EffectDocument();
         document.map.AddItem(EffectDocument.ORIGIN, this.companionInstance);
