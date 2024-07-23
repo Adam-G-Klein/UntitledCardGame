@@ -94,6 +94,14 @@ public class CombatInstance : MonoBehaviour
             return;
         }
         int damageAfterDefense = DamageAfterDefense(damage);
+
+        if (damageAfterDefense > 0) {
+            // If there are on-damage effects from companion abilities,
+            // we invoke them here.
+            // Note: this only should run if there is damage dealt to the guy.
+            StartCoroutine(CombatEntityManager.Instance.OnDamageTaken(this));
+        }
+
         Debug.Log("Take Damage is Setting current health to " + Mathf.Max(combatStats.getCurrentHealth() - damageAfterDefense, 0));
         combatStats.setCurrentHealth(Mathf.Max(combatStats.getCurrentHealth() - damageAfterDefense, 0));
 

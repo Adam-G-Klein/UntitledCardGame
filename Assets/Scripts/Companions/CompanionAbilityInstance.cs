@@ -78,6 +78,9 @@ public class CompanionAbilityInstance
             case CompanionAbility.CompanionAbilityTrigger.OnDeckShuffled:
                 PlayerHand.Instance.onDeckShuffledHandler += OnDeckShuffled;
                 break;
+            case CompanionAbility.CompanionAbilityTrigger.OnFriendDamageTaken:
+                CombatEntityManager.Instance.onCompanionDamageHandler += OnDamageTaken;
+                break;
         }
     }
 
@@ -108,6 +111,9 @@ public class CompanionAbilityInstance
         }
         if (ability.companionAbilityTrigger == CompanionAbility.CompanionAbilityTrigger.OnDeckShuffled) {
             PlayerHand.Instance.onDeckShuffledHandler -= OnDeckShuffled;
+        }
+        if (ability.companionAbilityTrigger == CompanionAbility.CompanionAbilityTrigger.OnFriendDamageTaken) {
+            CombatEntityManager.Instance.onCompanionDamageHandler -= OnDamageTaken;
         }
 
         yield return null;
@@ -144,6 +150,11 @@ public class CompanionAbilityInstance
 
     private IEnumerator OnDeckShuffled(DeckInstance deckFrom) {
         Debug.Log("Activating deck shuffled ability for companion " + this.companionInstance.companion.companionType.name);
+        yield return setupAndInvokeAbility().GetEnumerator();
+    }
+
+    private IEnumerator OnDamageTaken(CombatInstance damagedInstance) {
+        Debug.Log("Activating on damage taken ability for companion " + this.companionInstance.companion.companionType.name);
         yield return setupAndInvokeAbility().GetEnumerator();
     }
 }

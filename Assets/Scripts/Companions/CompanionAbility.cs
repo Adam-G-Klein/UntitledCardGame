@@ -25,6 +25,7 @@ public class CompanionAbility
         OnCardCast,
         OnCombine,
         OnCardExhausted,
-        OnDeckShuffled
+        OnDeckShuffled,
+        OnFriendDamageTaken
     }
 }
