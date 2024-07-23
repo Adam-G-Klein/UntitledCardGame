@@ -37,7 +37,7 @@ MonoBehaviour:
     lines:
     - title: Aurasaurus
       description: At the start of combat, give your entire team 1 aura stack. End
-        of turn, give each companion 4 block for each aura stack they have.
+        of turn, give each companion 3 block for each aura stack they have.
       image: {fileID: 0}
   keepsakeTitle: 
   keepsakeDescription: 
@@ -104,7 +104,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: allWithOrb
         statusEffect: 2
-        scale: 4
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 1
