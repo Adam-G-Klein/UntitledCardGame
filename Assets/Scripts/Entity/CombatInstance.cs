@@ -83,6 +83,9 @@ public class CombatInstance : MonoBehaviour
                 // in all cases though
                 combatStats.setCurrentHealth(scale);
                 break;
+            case CombatEffect.SetToHalfHealth:
+                combatStats.setCurrentHealth(combatStats.maxHealth / 2);
+                break;
             case CombatEffect.Sacrifice:
                 StartCoroutine(OnDeath(effector));
                 break;
