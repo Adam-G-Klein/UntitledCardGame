@@ -18,7 +18,6 @@ public class CompanionAbility
         EnterTheBattlefield,
         EndOfCombat,
         EndOfPlayerTurn,
-        StartOfPlayerTurn,
         EndOfEnemyTurn,
         OnFriendOrFoeDeath,
         OnFriendDeath,
@@ -27,6 +26,7 @@ public class CompanionAbility
         OnCombine,
         OnCardExhausted,
         OnDeckShuffled,
-        OnFriendDamageTaken
+        OnFriendDamageTaken,
+        StartOfPlayerTurn,
     }
 }
