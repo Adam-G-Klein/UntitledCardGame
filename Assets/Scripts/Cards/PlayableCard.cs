@@ -60,7 +60,7 @@ public class PlayableCard : MonoBehaviour,
         StartCoroutine(cardCastEvent.RaiseAtEndOfFrameCoroutine(new CardCastEventInfo(card)));
         IncrementCastCount();
         EnemyEncounterManager.Instance.combatEncounterState.cardsCastThisTurn.Add(card);
-        yield return StartCoroutine(deckFrom.OnCardCast(this));
+        yield return StartCoroutine(PlayerHand.Instance.OnCardCast(this));
         if (card.cardType.exhaustsWhenPlayed) {
             ExhaustCard();
         } else {

@@ -28,11 +28,45 @@ MonoBehaviour:
   genericCompanionVFX: {fileID: 0}
   cardPool: {fileID: 11400000, guid: 8f34b8b074f024b64a128d5f7d0d2294, type: 2}
   speakerType: {fileID: 0}
-  abilities: []
+  abilities:
+  - rid: 5602892949302280369
   upgradeTo: {fileID: 0}
   tooltip:
     empty: 0
-    lines: []
+    lines:
+    - title: L2 Pythia
+      description: Whenever you shuffle a draw pile, give all companions on your
+        team 3 block
+      image: {fileID: 0}
+  keepsakeTitle: 
+  keepsakeDescription: 
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 5602892949302280369
+      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
+      data:
+        companionAbilityTrigger: 10
+        effectSteps:
+        - rid: 5602892949302280370
+        - rid: 5602892949302280371
+    - rid: 5602892949302280370
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: allCompanions
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 1
+        cantCancelTargetting: 0
+    - rid: 5602892949302280371
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: allCompanions
+        statusEffect: 2
+        scale: 3
+        getScaleFromKey: 0
+        inputScaleKey: 

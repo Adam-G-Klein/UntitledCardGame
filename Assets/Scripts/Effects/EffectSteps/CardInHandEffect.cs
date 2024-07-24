@@ -46,6 +46,14 @@ public class CardInHandEffect : EffectStep, ITooltipProvider
                 case CardInHandEffectName.Retain:
                     card.retained = true;
                 break;
+
+                case CardInHandEffectName.Copy:
+                    Card duplicatedCard = new Card(card.card.cardType, card.card.getCompanionFrom());
+                    card.deckFrom.inHand.Add(duplicatedCard);
+                    List<Card> cardsToBeDealt = new();
+                    cardsToBeDealt.Add(duplicatedCard);
+                    PlayerHand.Instance.DealCards(cardsToBeDealt, card.deckFrom);
+                break;
             }
         }
 
@@ -55,7 +63,8 @@ public class CardInHandEffect : EffectStep, ITooltipProvider
     public enum CardInHandEffectName {
         Discard,
         Exhaust,
-        Retain
+        Retain,
+        Copy
     }
 
     public TooltipViewModel GetTooltip(){

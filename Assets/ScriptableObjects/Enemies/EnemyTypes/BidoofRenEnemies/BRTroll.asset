@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
-  m_Name: ThickKobold
+  m_Name: BRTroll
   m_EditorClassIdentifier: 
   maxHealth: 40
   baseAttackDamage: 0
-  sprite: {fileID: 21300000, guid: 16cb6fc58ac5bce41a520368b5f166f2, type: 3}
+  sprite: {fileID: 21300000, guid: 4dd16061175a93546911c5e1d64ef624, type: 3}
   enemyPattern:
     behaviors:
     - intent: 1
@@ -22,16 +22,17 @@ MonoBehaviour:
       targetsKey: target
       displayValue: 4
       effectSteps:
-      - rid: 3931529445166809426
-      - rid: 3931529445166809427
-      - rid: 3931529445166809428
+      - rid: 3931529445166809422
+      - rid: 3931529445166809421
+      - rid: 8567962217532358682
+      - rid: 3931529445166809423
     sequentialBehaviors: 0
     nextBehaviorIndex: 0
   initialStatuses: []
   references:
     version: 2
     RefIds:
-    - rid: 3931529445166809426
+    - rid: 3931529445166809421
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
@@ -42,7 +43,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
-    - rid: 3931529445166809427
+    - rid: 3931529445166809422
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
@@ -54,7 +55,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-    - rid: 3931529445166809428
+    - rid: 3931529445166809423
       type: {class: PermanentStatIncrease, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: PermanentStatIncrease
@@ -63,3 +64,9 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+    - rid: 8567962217532358682
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: target
+        prefabToInstantiate: {fileID: 8840291848490931058, guid: c1eb44dbe0121024fa34c2b6e5b71ce4, type: 3}

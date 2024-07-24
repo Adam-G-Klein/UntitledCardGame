@@ -28,6 +28,7 @@ public class EnemyInstance : MonoBehaviour {
         CombatEntityManager.Instance.registerEnemy(this);
         this.intentDisplay = GetComponentInChildren<EnemyIntentDisplay>();
         spriteImage.sprite = enemy.enemyType.sprite;
+        combatInstance.parentType = CombatInstance.CombatInstanceParent.ENEMY;
         combatInstance.combatStats = enemy.combatStats;
         Debug.Log("EnemyInstance Start for enemy " + enemy.id + " initialized with combat stats (health): " + combatInstance.combatStats.getCurrentHealth());
         combatInstance.SetId(enemy.id);

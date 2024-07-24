@@ -18,6 +18,9 @@ public class CombatInstance : MonoBehaviour
     // Only used for debugging purposes, will be set by some other script
     private string id;
 
+    // Distinguish between enemies and companions for combat instances.
+    public CombatInstanceParent parentType;
+
     public static Dictionary<StatusEffect, int> initialStatusEffects =
         new Dictionary<StatusEffect, int>() {
             { StatusEffect.Strength, 0 },
@@ -80,6 +83,9 @@ public class CombatInstance : MonoBehaviour
                 // in all cases though
                 combatStats.setCurrentHealth(scale);
                 break;
+            case CombatEffect.SetToHalfHealth:
+                combatStats.setCurrentHealth(combatStats.maxHealth / 2);
+                break;
             case CombatEffect.Sacrifice:
                 StartCoroutine(OnDeath(effector));
                 break;
@@ -94,6 +100,14 @@ public class CombatInstance : MonoBehaviour
             return;
         }
         int damageAfterDefense = DamageAfterDefense(damage);
+
+        if (damageAfterDefense > 0) {
+            // If there are on-damage effects from companion abilities,
+            // we invoke them here.
+            // Note: this only should run if there is damage dealt to the guy.
+            StartCoroutine(CombatEntityManager.Instance.OnDamageTaken(this));
+        }
+
         Debug.Log("Take Damage is Setting current health to " + Mathf.Max(combatStats.getCurrentHealth() - damageAfterDefense, 0));
         combatStats.setCurrentHealth(Mathf.Max(combatStats.getCurrentHealth() - damageAfterDefense, 0));
 
@@ -232,5 +246,10 @@ public class CombatInstance : MonoBehaviour
         } else if (genericInteractionVFX != null) {
             Instantiate(genericInteractionVFX, transform.position, Quaternion.identity);
         }
+    }
+
+    public enum CombatInstanceParent {
+        COMPANION,
+        ENEMY
     }
 }

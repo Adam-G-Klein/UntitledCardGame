@@ -17,6 +17,7 @@ public enum CombatEffect {
     ApplyMinionsOnDeath,
     ApplyPlatedArmor,
     FixedDamage,
+    SetToHalfHealth,
 }
 
 [System.Serializable]
@@ -42,9 +43,9 @@ public class CombatEffectEventInfo {
 }
 
 [CreateAssetMenu(
-    fileName = "NewCombatEffectEvent", 
+    fileName = "NewCombatEffectEvent",
     menuName = "Events/Card/Combat Effect Event")]
-public class CombatEffectEvent : BaseGameEvent<CombatEffectEventInfo> { 
+public class CombatEffectEvent : BaseGameEvent<CombatEffectEventInfo> {
 
     public static Dictionary<CombatEffect, StatusEffect> combatEffectToStatusEffect = new Dictionary<CombatEffect, StatusEffect>() {
         {CombatEffect.Weakness, StatusEffect.Weakness},
@@ -61,23 +62,23 @@ public class CombatEffectEvent : BaseGameEvent<CombatEffectEventInfo> {
     // Applies the status effects in the provided combatEffect dictionary to the statusEffects dictionary
     // yeah this should probably be a non-static method on the eventInfo class but I don't wanna move it
     // and refactor for that rn
-    public static void applyCombatEffectStatuses(Dictionary<CombatEffect, int> combatEffects, 
-        Dictionary<StatusEffect, int> statusEffects) 
+    public static void applyCombatEffectStatuses(Dictionary<CombatEffect, int> combatEffects,
+        Dictionary<StatusEffect, int> statusEffects)
     {
         foreach (KeyValuePair<CombatEffect, int> entry in combatEffects) {
             applyCombatEffectStatus(entry.Key, entry.Value, statusEffects);
         }
     }
 
-    public static void applyCombatEffectStatus(CombatEffect combatEffect, int scale, 
-        Dictionary<StatusEffect, int> statusEffects) 
+    public static void applyCombatEffectStatus(CombatEffect combatEffect, int scale,
+        Dictionary<StatusEffect, int> statusEffects)
     {
         if(!combatEffectToStatusEffect.ContainsKey(combatEffect)) {
             return;
         }
         else {
             // this code is nice enough that I'm willing to work in other places
-            // to preserve this: a combat effect's scale signifies what's being added to the 
+            // to preserve this: a combat effect's scale signifies what's being added to the
             // status effect's scale
             statusEffects[combatEffectToStatusEffect[combatEffect]] += scale;
         }

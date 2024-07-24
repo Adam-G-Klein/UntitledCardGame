@@ -6,7 +6,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(CombatInstance))]
 [RequireComponent(typeof(DeckInstance))]
 [RequireComponent(typeof(Targetable))]
-public class CompanionInstance : MonoBehaviour 
+public class CompanionInstance : MonoBehaviour
 {
     public Companion companion;
     public Image spriteImage;
@@ -29,6 +29,7 @@ public class CompanionInstance : MonoBehaviour
         }
         CombatEntityManager.Instance.registerCompanion(this);
         spriteImage.sprite = companion.getSprite();
+        combatInstance.parentType = CombatInstance.CombatInstanceParent.COMPANION;
         combatInstance.combatStats = companion.combatStats;
         Debug.Log("CompanionInstance Start for companion " + companion.id + " initialized with combat stats (health): " + combatInstance.combatStats.getCurrentHealth());
         if (combatInstance.combatStats.getCurrentHealth() == 0) {

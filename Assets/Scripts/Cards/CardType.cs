@@ -21,6 +21,10 @@ public class CardType: ScriptableObject, ITooltipProvider
     // When the card is played, it will be exhausted.
     public bool exhaustsWhenPlayed = false;
 
+    // When the card is drawn, it will be retained across turns.
+    // When you play it, it goes to the discard as normal.
+    public bool retain = false;
+
     [SerializeReference]
     public List<EffectWorkflow> effectWorkflows;
 

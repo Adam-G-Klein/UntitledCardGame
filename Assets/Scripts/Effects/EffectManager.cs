@@ -69,7 +69,7 @@ public class EffectManager : GenericSingleton<EffectManager>
                 interruptEffectWorkflow = false;
                 break;
             }
-            Debug.Log("Invoking Step");
+            Debug.Log("Invoking Step [" + step.effectStepName + "]");
             currentEffectStep = step.invoke(document);
             yield return StartCoroutine(currentEffectStep);
         }

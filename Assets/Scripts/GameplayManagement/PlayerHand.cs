@@ -21,6 +21,12 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     public delegate IEnumerator OnCardExhaustHandler(DeckInstance deckFrom, Card card);
     public event OnCardExhaustHandler onCardExhaustHandler;
 
+    public delegate IEnumerator OnCardCastHandler(PlayableCard card);
+    public event OnCardCastHandler onCardCastHandler;
+
+    public delegate IEnumerator OnDeckShuffleHandler(DeckInstance deckFrom);
+    public event OnDeckShuffleHandler onDeckShuffledHandler;
+
     public List<PlayableCard> DealCards(List<Card> cards, DeckInstance deckFrom) {
         List<PlayableCard> cardsDelt = new List<PlayableCard>();
         PlayableCard newCard;
@@ -30,6 +36,9 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                 layoutGroup,
                 cardInfo,
                 deckFrom);
+            if (newCard.card.cardType.retain) {
+                newCard.retained = true;
+            }
             cardsInHand.Add(newCard);
             cardsDelt.Add(newCard);
         }
@@ -48,7 +57,11 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                 // Do not destroy the card if it is retained.
                 if (card.retained) {
                     retainedCards.Add(card);
-                    card.retained = false;
+                    // If the retain is a temporary effect and not innate to the card,
+                    // remove the "retain".
+                    if (!card.card.cardType.retain) {
+                        card.retained = false;
+                    }
                 } else {
                     callback = DiscardAndDestroyCallback(card);
                 }
@@ -111,5 +124,21 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         }
         Debug.LogError("PlayerHand: Unable to find card in hand with id " + id);
         return null;
+    }
+
+    public IEnumerator OnCardCast(PlayableCard card) {
+        if (onCardCastHandler != null) {
+            foreach (OnCardCastHandler handler in onCardCastHandler.GetInvocationList()) {
+                yield return StartCoroutine(handler.Invoke(card));
+            }
+        }
+    }
+
+    public IEnumerator OnDeckShuffled(DeckInstance deck) {
+        if (onDeckShuffledHandler != null) {
+            foreach (OnDeckShuffleHandler handler in onDeckShuffledHandler.GetInvocationList()) {
+                yield return StartCoroutine(handler.Invoke(deck));
+            }
+        }
     }
 }

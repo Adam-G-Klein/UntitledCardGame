@@ -29,6 +29,8 @@ public class ApplyStatus : EffectStep, ITooltipProvider
     private bool getScaleFromKey = false;
     [SerializeField]
     private string inputScaleKey = "";
+    [SerializeField]
+    private bool multiplyByNumAuraStacks = false;
 
     public ApplyStatus() {
         effectStepName = "ApplyStatus";
@@ -48,7 +50,14 @@ public class ApplyStatus : EffectStep, ITooltipProvider
         }
 
         foreach (CombatInstance combatInstance in combatInstances) {
-            combatInstance.ApplyStatusEffects(statusEffect, finalScale);
+            int personalizedScale = finalScale;
+            // Certain companion abilities have effects like "give each
+            // companion on the team 4 block for each aura stack they have".
+            if (multiplyByNumAuraStacks) {
+                personalizedScale *= combatInstance.statusEffects[StatusEffect.Orb];
+            }
+
+            combatInstance.ApplyStatusEffects(statusEffect, personalizedScale);
         }
         yield return null;
     }

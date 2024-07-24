@@ -19,6 +19,9 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
                 {CombatEntityTriggerType.MINION_DIED, new List<CombatEntityTrigger>()}
             };
 
+    public delegate IEnumerator OnCompanionDamage(CombatInstance companion);
+    public event OnCompanionDamage onCompanionDamageHandler;
+
     public void registerCompanion(CompanionInstance companion) {
         companions.Add(companion);
     }
@@ -55,7 +58,7 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
         Debug.LogWarning("No companion found by id: " + id);
         return null;
     }
-    
+
     public List<MinionInstance> getMinions() {
         return minions;
     }
@@ -130,6 +133,14 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
         StartCoroutine(
             turnPhaseEvent.RaiseAtEndOfFrameCoroutine(
                 new TurnPhaseEventInfo(TurnPhase.END_ENCOUNTER)));
+    }
+
+    public IEnumerator OnDamageTaken(CombatInstance combatInstance) {
+        if (onCompanionDamageHandler != null) {
+            foreach (OnCompanionDamage handler in onCompanionDamageHandler.GetInvocationList()) {
+                yield return StartCoroutine(handler.Invoke(combatInstance));
+            }
+        }
     }
 }
 
