@@ -4,7 +4,6 @@ using UnityEngine.UIElements;
 using System.Collections;
 using UnityEditor;
 
-[InitializeOnLoad]
 [RequireComponent(typeof(UIDocument))]
 public class MiniUIDocumentWorldspace : MonoBehaviour {
 
