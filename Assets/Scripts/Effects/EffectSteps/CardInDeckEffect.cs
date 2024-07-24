@@ -55,7 +55,9 @@ public class CardInDeckEffect : EffectStep, ITooltipProvider
                 break;
 
                 case CardInDeckEffectName.Transform:
-                    deckInstances[0].sourceDeck.cards.Add(new Card(cardToTransformInto, card.getCompanionFrom()));
+                    Card transformedCard = new Card(cardToTransformInto, card.getCompanionFrom());
+                    transformedCard.generated = true;
+                    deckInstances[0].sourceDeck.cards.Add(transformedCard);
                     deckInstances[0].sourceDeck.PurgeCard(card.id);
                 break;
 

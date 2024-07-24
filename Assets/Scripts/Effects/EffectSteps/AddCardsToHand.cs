@@ -84,7 +84,9 @@ public class AddCardsToHand : EffectStep {
                 for (int i = 0; i < scale; i++) {
                     List<Card> cards = new List<Card>();
                     foreach (CardType cardType in cardTypes) {
-                        cards.Add(new Card(cardType, companionTypeSO));
+                        Card newCard = new Card(cardType, companionTypeSO);
+                        newCard.generated = true;
+                        cards.Add(newCard);
                     }
                     // Add to both the hand and the deck.
                     entityFrom.inHand.AddRange(cards);

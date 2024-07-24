@@ -91,7 +91,9 @@ public class AddCardsToDeck : EffectStep {
         for (int i = 0; i < scale; i++) {
             List<Card> cards = new List<Card>();
             foreach (CardType cardType in cardTypes) {
-                cards.Add(new Card(cardType, companionType));
+                Card newCard = new Card(cardType, companionType);
+                newCard.generated = true;
+                cards.Add(newCard);
             }
 
             switch (addToDeckMethod) {

@@ -57,17 +57,22 @@ MonoBehaviour:
     id: 
     entityType: 0
     castCount: 0
+    tempManaCost: 0
+    generated: 0
     cardType: {fileID: 0}
   CardNameGO: {fileID: 543366990806004499}
   CostTextGO: {fileID: 7167058365313414985}
   CardDescGO: {fileID: 543366991623137855}
+  CardCategoryGO: {fileID: 732878691905746344}
   ArtworkGO: {fileID: 543366991597456405}
   FrameGO: {fileID: 8148954926484059734}
   TypeIconGO: {fileID: 4553433900810322753}
   vfxGO: {fileID: 0}
   Frame: {fileID: 0}
   TypeIcon: {fileID: 0}
-  CardBack: {fileID: 0}
+  modifiedManaCostColor: {r: 0, g: 1, b: 0, a: 1}
+  initManaCostColor: {r: 0, g: 0, b: 0, a: 0}
+  manaCostText: {fileID: 0}
 --- !u!114 &4170346440579783855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,6 +120,8 @@ MonoBehaviour:
     id: 
     entityType: 0
     castCount: 0
+    tempManaCost: 0
+    generated: 0
     cardType: {fileID: 0}
   selectionFrame: {fileID: 8912284919161795999}
   selected: 0
@@ -291,7 +298,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4183466307204269015, guid: d235b184f6564184b93f762200dec9e5, type: 3}
       propertyPath: m_fontSize
-      value: 51.4
+      value: 53.05
       objectReference: {fileID: 0}
     - target: {fileID: 4183466307204269015, guid: d235b184f6564184b93f762200dec9e5, type: 3}
       propertyPath: m_margin.w
@@ -323,7 +330,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4183466308522564347, guid: d235b184f6564184b93f762200dec9e5, type: 3}
       propertyPath: m_fontSize
-      value: 61.7
+      value: 65.4
       objectReference: {fileID: 0}
     - target: {fileID: 4183466308522564347, guid: d235b184f6564184b93f762200dec9e5, type: 3}
       propertyPath: m_margin.x
@@ -415,7 +422,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6841606149799446413, guid: d235b184f6564184b93f762200dec9e5, type: 3}
       propertyPath: m_fontSize
-      value: 52.15
+      value: 62.55
       objectReference: {fileID: 0}
     - target: {fileID: 8920477793246675867, guid: d235b184f6564184b93f762200dec9e5, type: 3}
       propertyPath: m_Pivot.x
@@ -527,6 +534,17 @@ MonoBehaviour:
 --- !u!114 &543366991623137855 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4183466308522564347, guid: d235b184f6564184b93f762200dec9e5, type: 3}
+  m_PrefabInstance: {fileID: 4432884636738384068}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &732878691905746344 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4012549345150584172, guid: d235b184f6564184b93f762200dec9e5, type: 3}
   m_PrefabInstance: {fileID: 4432884636738384068}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
