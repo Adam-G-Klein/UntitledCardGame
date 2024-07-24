@@ -37,8 +37,7 @@ MonoBehaviour:
     lines:
     - title: L2 Pooh Bear
       description: Pooh bear starts combat with an aura stack. At the end of each
-        turn, each companion on your team gains 1 strength for each aura stack they
-        have.
+        turn, each companion on your team with at least 1 aura stack gains 1 strength
       image: {fileID: 0}
   keepsakeTitle: 
   keepsakeDescription: 
@@ -108,4 +107,4 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
-        multiplyByNumAuraStacks: 1
+        multiplyByNumAuraStacks: 0
