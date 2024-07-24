@@ -18,6 +18,7 @@ public class CompanionAbility
         EnterTheBattlefield,
         EndOfCombat,
         EndOfPlayerTurn,
+        StartOfPlayerTurn,
         EndOfEnemyTurn,
         OnFriendOrFoeDeath,
         OnFriendDeath,
