@@ -20,6 +20,7 @@ MonoBehaviour:
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
+  retain: 0
   effectWorkflows:
   - rid: 5602892949302281038
   onExhaustEffectWorkflow:
@@ -38,6 +39,7 @@ MonoBehaviour:
         effectSteps:
         - rid: 5602892949302281039
         - rid: 5602892949302281040
+        - rid: 5602892949302281177
         - rid: 5602892949302281043
         - rid: 5602892949302281042
         - rid: 5602892949302281044
@@ -74,7 +76,7 @@ MonoBehaviour:
         useHardCodedInputKey1: 1
         inputKey1: 
         operation: 0
-        inputKey2: targetWithOrb
+        inputKey2: numTargetWithOrb
         outputKey: targetHasNoOrb
     - rid: 5602892949302281044
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
@@ -85,6 +87,7 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+        multiplyByNumAuraStacks: 0
     - rid: 5602892949302281045
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
@@ -94,3 +97,10 @@ MonoBehaviour:
         scale: -1
         getScaleFromKey: 0
         inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+    - rid: 5602892949302281177
+      type: {class: CountStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CountStep
+        inputKey: targetWithOrb
+        outputKey: numTargetWithOrb
