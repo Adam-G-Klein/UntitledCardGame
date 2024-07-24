@@ -31,7 +31,7 @@ public class TargettableEntityOutlineControl : MonoBehaviour
     public OutlineState outlineState;
     public OutlineVals currentOutlineVals;
     public Color testColor;
-    private Image entityImage;
+    private Material material;
 
     private static Dictionary<OutlineState, OutlineVals> outlineValsMap = new Dictionary<OutlineState, OutlineVals>() {
         // can use the global colors scriptable object for more granularity here
@@ -45,9 +45,18 @@ public class TargettableEntityOutlineControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        entityImage = GetComponent<Image>();
+        Image entityImage = GetComponent<Image>();
+        SpriteRenderer entitySpriteRenderer = GetComponent<SpriteRenderer>();
+        if (entityImage) {
+            material = new Material(entityImage.material);
+            entityImage.material = material;
+        } else if (entitySpriteRenderer) {
+            material = new Material(entitySpriteRenderer.material);
+            entitySpriteRenderer.material = material;
+        } else {
+            Debug.LogError("TargettableEntityOutlineControl: No image or sprite renderer found on entity");
+        }
         // makes a copy of the material so that the original material is not modified
-        entityImage.material = new Material(entityImage.material);
         setOutlineState(OutlineState.Idle);
     }
 
@@ -61,9 +70,9 @@ public class TargettableEntityOutlineControl : MonoBehaviour
     public void setOutlineState(OutlineState newOutlineState) {
         this.outlineState = newOutlineState;
         currentOutlineVals = outlineValsMap[newOutlineState];
-        entityImage.material.SetFloat("_OutlineThickness", currentOutlineVals.outlineWidth);
-        entityImage.material.SetFloat("_WaveFrequency", currentOutlineVals.waveFrequency);
-        entityImage.material.SetFloat("_WaveSpeed", currentOutlineVals.speed);
-        entityImage.material.SetColor("_OutlineColor", currentOutlineVals.color);
+        material.SetFloat("_OutlineThickness", currentOutlineVals.outlineWidth);
+        material.SetFloat("_WaveFrequency", currentOutlineVals.waveFrequency);
+        material.SetFloat("_WaveSpeed", currentOutlineVals.speed);
+        material.SetColor("_OutlineColor", currentOutlineVals.color);
     }
 }

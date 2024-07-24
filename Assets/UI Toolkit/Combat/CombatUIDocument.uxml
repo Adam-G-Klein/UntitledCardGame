@@ -1,5 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:VisualElement picking-mode="Ignore" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); background-image: url(&apos;project://database/Assets/Sprites/newbackground.png?fileID=2800000&amp;guid=ca583b0352cc6ef4fabc0a2608878106&amp;type=3#newbackground&apos;);">
+    <ui:VisualElement picking-mode="Ignore" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); background-image: none;">
         <ui:Label tabindex="-1" text="BROUGHT TO YOU BY UI DOCUMENT :D" display-tooltip-when-elided="true" name="Label" style="color: rgb(255, 255, 255); font-size: 38px; overflow: visible; flex-wrap: wrap; height: 259px; width: 344px;" />
         <ui:Label tabindex="-1" text=":p" display-tooltip-when-elided="true" style="color: rgb(255, 255, 255);" />
         <ui:Button text="Button" display-tooltip-when-elided="true" />
