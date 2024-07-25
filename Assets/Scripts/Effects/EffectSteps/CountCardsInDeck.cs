@@ -9,6 +9,8 @@ public class CountCardsInDeck : EffectStep
     [SerializeField]
     private CardCategory categoryToCount = CardCategory.None;
     [SerializeField]
+    private bool onlyGeneratedCards = false;
+    [SerializeField]
     private bool includeDrawPile = true;
     [SerializeField]
     private bool includeDiscardPile = false;
@@ -49,6 +51,10 @@ public class CountCardsInDeck : EffectStep
         int count = 0;
         foreach (Card c in cards) {
             if (categoryToCount == CardCategory.None || c.cardType.cardCategory == categoryToCount) {
+                // Skip non-generated cards if we have selected only generated cards.
+                if (onlyGeneratedCards && !c.generated) {
+                    continue;
+                }
                 count++;
             }
         }
