@@ -90,6 +90,7 @@ public class Card : Entity, IEquatable<Card>
         this.cardType = card.cardType;
         id = card.id;
         this.effectBuffs = card.effectBuffs;
+        this.generated = card.generated;
         this.setCompanionFrom(card.getCompanionFrom());
         ResetCardModifications();
     }
