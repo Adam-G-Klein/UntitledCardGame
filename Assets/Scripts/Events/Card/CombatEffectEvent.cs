@@ -18,6 +18,7 @@ public enum CombatEffect {
     ApplyPlatedArmor,
     FixedDamage,
     SetToHalfHealth,
+    FixedDamageThatIgnoresBlock,
 }
 
 [System.Serializable]
