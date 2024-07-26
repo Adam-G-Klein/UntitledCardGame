@@ -15,11 +15,12 @@ MonoBehaviour:
   Name: Bloodied Blade
   Description: Lose 2 HP. Deal 9 damage to target.
   Cost: 1
-  Artwork: {fileID: 21300000, guid: cfb5c19085900f34584a8be8667ecd18, type: 3}
+  Artwork: {fileID: 21300000, guid: 0f5ecf3627abce84490e1f8ec8e4f24f, type: 3}
   cardCategory: 1
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
+  retain: 0
   effectWorkflows:
   - rid: 5602892949302281046
   onExhaustEffectWorkflow:
