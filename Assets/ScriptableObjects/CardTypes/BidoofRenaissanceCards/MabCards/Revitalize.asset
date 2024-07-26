@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: Revitalize
   m_EditorClassIdentifier: 
   Name: Revitalize
-  Description: Heal target companion 1 hp for each augmentation they have. Exhaust.
+  Description: Exhaust. Heal target companion 1 hp for each Generated card they have.
   Cost: 2
-  Artwork: {fileID: 21300000, guid: c4c548a339b4d41a590928c0c98934a7, type: 3}
+  Artwork: {fileID: 21300000, guid: 8c16952da6b2cfa4181be941e4a49469, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
-  exhaustsWhenPlayed: 0
+  exhaustsWhenPlayed: 1
   retain: 0
   effectWorkflows:
   - rid: 5602892949302280915
