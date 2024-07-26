@@ -1,0 +1,90 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
+  m_Name: L2RobberBaron
+  m_EditorClassIdentifier: 
+  companionName: Robber Baron
+  maxHealth: 25
+  initialCardsDealtPerTurn: 1
+  sprite: {fileID: 0}
+  startingDeck: {fileID: 11400000, guid: 5ca10396d316c4bec9b5d4552234498d, type: 2}
+  keepsake: {fileID: 0}
+  cardBack: {fileID: 0}
+  cardFrame: {fileID: 0}
+  typeIcon: {fileID: 0}
+  portrait: {fileID: 0}
+  teamSelectSprite: {fileID: 0}
+  cardIdleVfxPrefab: {fileID: 0}
+  genericCompanionSFX: {fileID: 0}
+  genericCompanionVFX: {fileID: 0}
+  cardPool: {fileID: 11400000, guid: 9b7e5bf09446140ad8676018d597b7a8, type: 2}
+  speakerType: {fileID: 0}
+  abilities:
+  - rid: 5602893017534169429
+  upgradeTo: {fileID: 0}
+  tooltip:
+    empty: 0
+    lines:
+    - title: L2 Robber Baron
+      description: At the end of combat, lose $5 and give your whole team 1 permanent
+        strength and 10 max HP
+      image: {fileID: 0}
+  keepsakeTitle: 
+  keepsakeDescription: 
+  references:
+    version: 2
+    RefIds:
+    - rid: 5602893017534169429
+      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
+      data:
+        companionAbilityTrigger: 1
+        effectSteps:
+        - rid: 5602893017534169461
+        - rid: 5602893017534169462
+        - rid: 5602893017534169463
+        - rid: 5602893017534169464
+    - rid: 5602893017534169461
+      type: {class: GoldManipulation, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: 
+        goldToAdd: -5
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 5602893017534169462
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: all
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 1
+        cantCancelTargetting: 0
+    - rid: 5602893017534169463
+      type: {class: PermanentStatIncrease, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: PermanentStatIncrease
+        inputKey: all
+        statIncreaseType: 0
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 5602893017534169464
+      type: {class: PermanentStatIncrease, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: PermanentStatIncrease
+        inputKey: all
+        statIncreaseType: 1
+        scale: 10
+        getScaleFromKey: 0
+        inputScaleKey: 
