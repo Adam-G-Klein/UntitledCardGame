@@ -13,14 +13,15 @@ MonoBehaviour:
   m_Name: BiggusDickus
   m_EditorClassIdentifier: 
   Name: Biggus Dickus
-  Description: Give target companion 6 block + 2 block for each status card in their
-    deck.
+  Description: Give target companion 6 block + 2 block for each Generated card in
+    their deck.
   Cost: 1
   Artwork: {fileID: 21300000, guid: 5f66e07752da0d34ca5ca0b6a327d011, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
+  retain: 0
   effectWorkflows:
   - rid: 5602892563578093568
   onExhaustEffectWorkflow:
@@ -58,7 +59,8 @@ MonoBehaviour:
       data:
         effectStepName: CountCardsInDeck
         inputDeckKey: target
-        categoryToCount: 4
+        categoryToCount: 0
+        onlyGeneratedCards: 1
         includeDrawPile: 1
         includeDiscardPile: 1
         includeCardsInHand: 1
@@ -72,6 +74,7 @@ MonoBehaviour:
         scale: 0
         getScaleFromKey: 1
         inputScaleKey: outScaledPlusBase
+        multiplyByNumAuraStacks: 0
     - rid: 5602892563578093573
       type: {class: MathStep, ns: , asm: Assembly-CSharp}
       data:
