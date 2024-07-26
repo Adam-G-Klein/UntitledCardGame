@@ -183,6 +183,8 @@ public class ShopEncounter : Encounter
 
             int selectedCardIndex = Random.Range(0, finalShopCardsPool.Count);
             CardInShopWithPrice selectedCard = finalShopCardsPool[selectedCardIndex];
+            // Remove the card from the pool, so it doesn't show up more than once.
+            finalShopCardsPool.Remove(selectedCard);
 
             cardsInShop.Add(selectedCard);
         }
