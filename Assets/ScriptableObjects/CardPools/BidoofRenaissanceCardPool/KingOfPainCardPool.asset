@@ -12,6 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98c54fe17bbfaba4697c85c1618843f4, type: 3}
   m_Name: KingOfPainCardPool
   m_EditorClassIdentifier: 
-  commonCards: []
-  uncommonCards: []
-  rareCards: []
+  commonCards:
+  - {fileID: 11400000, guid: d841ea01f4c9b4ef4aba07899d1a2ccb, type: 2}
+  - {fileID: 11400000, guid: 1a4092357041b4997aaef22c2b4d1a9e, type: 2}
+  - {fileID: 11400000, guid: 3c8844fb21cd04616b7dd9b75425f93d, type: 2}
+  uncommonCards:
+  - {fileID: 11400000, guid: faba05d11deb54cc4b5de0c5fb11152a, type: 2}
+  - {fileID: 11400000, guid: a44336ea84e114ad8afeaa441f4afd89, type: 2}
+  rareCards:
+  - {fileID: 11400000, guid: 808815c2ac1064eb3bb4f564548f3a83, type: 2}
