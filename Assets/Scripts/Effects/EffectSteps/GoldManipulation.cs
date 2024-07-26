@@ -20,9 +20,15 @@ public class GoldManipulation : EffectStep
 
         PlayerData playerData = EnemyEncounterManager.Instance.gameState.playerData.GetValue();
 
-        Debug.Log("Giving the player $" + finalScale.ToString());
 
         playerData.gold += finalScale;
+
+        // Hack until we deal with not allowing the player to lose money.
+        if (playerData.gold < 0) {
+            playerData.gold = 0;
+        }
+
+        Debug.Log("Giving the player $" + finalScale.ToString() + ", player now has $" + playerData.gold.ToString());
 
         yield return null;
     }
