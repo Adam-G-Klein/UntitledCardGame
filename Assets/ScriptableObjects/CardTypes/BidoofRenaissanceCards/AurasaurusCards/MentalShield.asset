@@ -1,0 +1,92 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
+  m_Name: MentalShield
+  m_EditorClassIdentifier: 
+  Name: Mental Shield
+  Description: Give a companion 5 block + 4 additional block for each aura stack
+    they have.
+  Cost: 1
+  Artwork: {fileID: 21300000, guid: ac2f6571b8a37954abd0657d090050d5, type: 3}
+  cardCategory: 2
+  vfxPrefab: {fileID: 0}
+  playable: 1
+  exhaustsWhenPlayed: 0
+  retain: 0
+  effectWorkflows:
+  - rid: 5602893017534169517
+  onExhaustEffectWorkflow:
+    rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  tooltips: 
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 5602893017534169517
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 5602893017534169518
+        - rid: 5602893017534169519
+        - rid: 5602893017534169520
+        - rid: 5602893017534169521
+        - rid: 5602893017534169522
+    - rid: 5602893017534169518
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: target
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 0
+        cantCancelTargetting: 0
+    - rid: 5602893017534169519
+      type: {class: CountStatusEffectsStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CountStatusEffectStep
+        inputKey: target
+        statusEffect: 9
+        onlyCountStatusOnce: 0
+        outputKey: numOrb
+    - rid: 5602893017534169520
+      type: {class: MathStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: MathStep
+        inputKey: numOrb
+        operand2InputKey: UNUSED
+        operation: 2
+        scale: 4
+        outputKey: blockFromOrb
+    - rid: 5602893017534169521
+      type: {class: MathStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: MathStep
+        inputKey: blockFromOrb
+        operand2InputKey: UNUSED
+        operation: 0
+        scale: 5
+        outputKey: totalBlock
+    - rid: 5602893017534169522
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: target
+        statusEffect: 2
+        scale: 0
+        getScaleFromKey: 1
+        inputScaleKey: totalBlock
+        multiplyByNumAuraStacks: 0
