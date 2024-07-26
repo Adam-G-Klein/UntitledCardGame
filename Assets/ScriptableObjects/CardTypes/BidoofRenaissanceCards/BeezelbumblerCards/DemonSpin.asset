@@ -20,6 +20,7 @@ MonoBehaviour:
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
+  retain: 0
   effectWorkflows:
   - rid: 5602892675124822090
   onExhaustEffectWorkflow:
@@ -56,7 +57,7 @@ MonoBehaviour:
       data:
         effectStepName: CombatEffectStep
         inputKey: self
-        combatEffect: 14
+        combatEffect: 16
         scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
