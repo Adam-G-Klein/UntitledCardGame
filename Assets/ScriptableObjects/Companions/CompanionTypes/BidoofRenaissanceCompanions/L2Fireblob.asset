@@ -35,9 +35,11 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: L2 Fireblob
-      description: At the end of the turn, gain 1 block for each status card in the
-        deck.
+      description: At the end of the turn, gain 1 block for each Generated card in
+        the deck
       image: {fileID: 0}
+  keepsakeTitle: 
+  keepsakeDescription: 
   references:
     version: 2
     RefIds:
@@ -65,11 +67,12 @@ MonoBehaviour:
       data:
         effectStepName: CountCardsInDeck
         inputDeckKey: self
-        categoryToCount: 4
+        categoryToCount: 0
+        onlyGeneratedCards: 1
         includeDrawPile: 1
         includeDiscardPile: 1
         includeCardsInHand: 1
-        outputKey: numStatusCards
+        outputKey: numGen
     - rid: 5602892650873356319
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
@@ -78,4 +81,5 @@ MonoBehaviour:
         statusEffect: 2
         scale: 0
         getScaleFromKey: 1
-        inputScaleKey: numStatusCards
+        inputScaleKey: numGen
+        multiplyByNumAuraStacks: 0

@@ -20,6 +20,7 @@ MonoBehaviour:
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
+  retain: 0
   effectWorkflows:
   - rid: 5602892561590779947
   onExhaustEffectWorkflow:
@@ -37,9 +38,9 @@ MonoBehaviour:
       data:
         effectSteps:
         - rid: 5602892561590779948
-        - rid: 5602892561590779949
         - rid: 5602892561590779950
         - rid: 5602892561590779951
+        - rid: 5602892561590779949
     - rid: 5602892561590779948
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -56,7 +57,7 @@ MonoBehaviour:
       data:
         effectStepName: CombatEffectStep
         inputKey: self
-        combatEffect: 14
+        combatEffect: 16
         scale: 3
         getScaleFromKey: 0
         inputScaleKey: 

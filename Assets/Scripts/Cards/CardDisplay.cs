@@ -11,6 +11,9 @@ public class CardDisplay : MonoBehaviour
     public TMP_Text CardNameGO;
     public TMP_Text CostTextGO;
     public TMP_Text CardDescGO;
+
+    public TMP_Text CardCategoryGO;
+
     public Image ArtworkGO;
     public Image FrameGO;
     public Image TypeIconGO;
@@ -71,6 +74,12 @@ public class CardDisplay : MonoBehaviour
         CardNameGO.text = cardInfo.name;
         CardDescGO.text = cardInfo.description;
         CostTextGO.text = cardInfo.GetManaCost().ToString();
+        string cardCategoryText = "";
+        if (cardInfo.generated) {
+            cardCategoryText += "Generated - ";
+        }
+        cardCategoryText += cardInfo.cardType.cardCategory.ToString();
+        CardCategoryGO.text = cardCategoryText;
         manaCostText = CostTextGO.GetComponent<TextMeshProUGUI>();
         initManaCostColor = manaCostText.color;
         ArtworkGO.sprite = cardInfo.artwork;

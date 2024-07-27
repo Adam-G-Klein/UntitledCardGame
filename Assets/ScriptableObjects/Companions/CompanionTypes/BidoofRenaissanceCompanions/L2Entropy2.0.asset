@@ -24,8 +24,8 @@ MonoBehaviour:
   portrait: {fileID: 21300000, guid: a848363ac68964bd5bb84f6370e93ece, type: 3}
   teamSelectSprite: {fileID: 21300000, guid: a848363ac68964bd5bb84f6370e93ece, type: 3}
   cardIdleVfxPrefab: {fileID: 0}
-  genericCompanionSFX: {fileID: 8300000, guid: 00f4851429c4dbd44a4203ebbd575679, type: 3}
-  genericCompanionVFX: {fileID: 4439872921359724599, guid: a4b17b01a56f2a14f89ce77b567a2ba8, type: 3}
+  genericCompanionSFX: {fileID: 0}
+  genericCompanionVFX: {fileID: 0}
   cardPool: {fileID: 11400000, guid: 84991beb0ccb94fed9ed7113a742c8bb, type: 2}
   speakerType: {fileID: 0}
   abilities:
@@ -36,12 +36,14 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: L2 Entropy
-      description: Whenever a card is exhausted, Entropy deals 5 damage to a random
+      description: Whenever a card is exhausted, Entropy deals 3 damage to a random
         enemy
       image: {fileID: 0}
     - title: Purge
       description: Entropy permanently removes a card at the end of combat.
       image: {fileID: 0}
+  keepsakeTitle: 
+  keepsakeDescription: 
   references:
     version: 2
     RefIds:
@@ -128,7 +130,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: targetEnemy
         combatEffect: 0
-        scale: 5
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1

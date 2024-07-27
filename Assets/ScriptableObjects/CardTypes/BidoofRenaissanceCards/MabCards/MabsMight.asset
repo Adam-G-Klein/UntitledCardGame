@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MabsMight
   m_EditorClassIdentifier: 
   Name: Mab's Might
-  Description: Retain. Exhaust. Give 7 block to and draw 1 from this companion
+  Description: Retain. Exhaust. Target companion loses 1 HP, then heal 6 HP
   Cost: 0
   Artwork: {fileID: 21300000, guid: 70dd24a7c98646b44870b00b67a720f4, type: 3}
   cardCategory: 4
@@ -38,35 +38,40 @@ MonoBehaviour:
       data:
         effectSteps:
         - rid: 5602892675124822048
-        - rid: 5602892675124822049
-        - rid: 5602892675124822050
+        - rid: 5602893017534169424
+        - rid: 5602893017534169425
     - rid: 5602892675124822048
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: thisCompanion
+        outputKey: target
         validTargets: 00000000
         number: 1
-        specialTargetRule: 4
+        specialTargetRule: 0
         cantCancelTargetting: 0
-    - rid: 5602892675124822049
-      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+    - rid: 5602893017534169424
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: ApplyStatus
-        inputKey: thisCompanion
-        statusEffect: 2
-        scale: 7
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplyByNumAuraStacks: 0
-    - rid: 5602892675124822050
-      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: DrawCards
-        inputKey: thisCompanion
-        outputKey: 
+        effectStepName: CombatEffectStep
+        inputKey: target
+        combatEffect: 16
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+    - rid: 5602893017534169425
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: target
+        combatEffect: 9
+        scale: 6
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 

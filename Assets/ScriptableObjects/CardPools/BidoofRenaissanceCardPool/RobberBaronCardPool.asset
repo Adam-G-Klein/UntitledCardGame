@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98c54fe17bbfaba4697c85c1618843f4, type: 3}
+  m_Name: RobberBaronCardPool
+  m_EditorClassIdentifier: 
+  commonCards:
+  - {fileID: 11400000, guid: 4a7ce77c176ac46b2a3be4d5b8c77bca, type: 2}
+  - {fileID: 11400000, guid: 23760ea4e9e344a338592618668bdc15, type: 2}
+  - {fileID: 11400000, guid: cde144a962c1f463abc827a9e471885b, type: 2}
+  uncommonCards:
+  - {fileID: 11400000, guid: a000cc6973b2a4a6ba74acaa7aaa165c, type: 2}
+  - {fileID: 11400000, guid: 02956116b83cd490692faac7a882a62e, type: 2}
+  rareCards:
+  - {fileID: 11400000, guid: c2bb7d2dcacd84160801c0386670ffab, type: 2}

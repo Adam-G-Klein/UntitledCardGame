@@ -68,7 +68,8 @@ public class CombatInstance : MonoBehaviour
         switch(effect) {
             case CombatEffect.Damage:
             case CombatEffect.FixedDamage:
-                TakeDamage(scale, effector);
+            case CombatEffect.FixedDamageThatIgnoresBlock:
+                TakeDamage(effect, scale, effector);
                 PlaySFX(effector);
                 AddVFX(effector);
                 break;
@@ -92,14 +93,14 @@ public class CombatInstance : MonoBehaviour
         }
     }
 
-    private void TakeDamage(int damage, CombatInstance attacker) {
+    private void TakeDamage(CombatEffect combatEffect, int damage, CombatInstance attacker) {
 
         // This is necessary to solve a race condition with a multi-damage attack
         // Fix this later
         if (combatStats.getCurrentHealth() == 0) {
             return;
         }
-        int damageAfterDefense = DamageAfterDefense(damage);
+        int damageAfterDefense = DamageAfterDefense(combatEffect, damage);
 
         if (damageAfterDefense > 0) {
             // If there are on-damage effects from companion abilities,
@@ -120,10 +121,15 @@ public class CombatInstance : MonoBehaviour
         }
     }
 
-    private int DamageAfterDefense(int damage) {
+    private int DamageAfterDefense(CombatEffect combatEffect, int damage) {
         // Invulnerability removal is handled at end of turn
         if (statusEffects[StatusEffect.Invulnerability] > 0)
             return 0;
+
+        // This is commonly used for pay HP as a cost cards.
+        if (combatEffect == CombatEffect.FixedDamageThatIgnoresBlock) {
+            return damage;
+        }
 
         if (statusEffects[StatusEffect.PlatedArmor] > 0) {
             // We have plated armor, so set damage and remove 1 armor

@@ -5,9 +5,9 @@ using System;
 using UnityEngine.Rendering;
 
 [Serializable]
-public class Card : Entity, IEquatable<Card> 
+public class Card : Entity, IEquatable<Card>
 {
-    
+
     [HideInInspector]
     public string name {
         get {
@@ -49,6 +49,9 @@ public class Card : Entity, IEquatable<Card>
     private int workflowIndex = 0;
     public int castCount = 0;
     public int tempManaCost = -1;
+
+    // Generated cards
+    public bool generated = false;
     // IMPORTANT TODO: only effects cards that use effectIncreasesOnPlay right now, other things don't poll for this
     // Need to add this into the getEffectScale that's currently in the CasterStats right now
     // Deprecated
@@ -87,6 +90,7 @@ public class Card : Entity, IEquatable<Card>
         this.cardType = card.cardType;
         id = card.id;
         this.effectBuffs = card.effectBuffs;
+        this.generated = card.generated;
         this.setCompanionFrom(card.getCompanionFrom());
         ResetCardModifications();
     }
@@ -116,7 +120,7 @@ public class Card : Entity, IEquatable<Card>
     {
         return other == this;
     }
-    
+
     public override int GetHashCode()
     {
         return id.GetHashCode();
@@ -139,7 +143,7 @@ public class Card : Entity, IEquatable<Card>
         totalReduction += cardType.cardModifications[CardModification.ThisTurnManaDecrease];
         totalReduction += cardModifications[CardModification.ThisCombatManaDecrease];
         totalReduction += cardType.cardModifications[CardModification.ThisCombatManaDecrease];
-        
+
         return Mathf.Max(0, cardType.Cost - totalReduction);
     }
 
@@ -175,7 +179,7 @@ public class Card : Entity, IEquatable<Card>
     public void setCompanionFrom(CompanionTypeSO companion) {
         companionFrom = companion;
     }
-    
+
     public CompanionTypeSO getCompanionFrom() {
         return companionFrom;
     }

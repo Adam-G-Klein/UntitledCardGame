@@ -811,6 +811,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: -42.438965
       objectReference: {fileID: 0}
+    - target: {fileID: 1057532882820878284, guid: 63dfb323aea5cb14da568cc4b853b96e, type: 3}
+      propertyPath: m_fontSize
+      value: 40.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1057532882820878284, guid: 63dfb323aea5cb14da568cc4b853b96e, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 40.9
+      objectReference: {fileID: 0}
     - target: {fileID: 1212913184421606852, guid: 63dfb323aea5cb14da568cc4b853b96e, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 1.0374756
@@ -2059,6 +2067,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardSelectionUIPrefab: {fileID: 5377055111114097650, guid: 1fd8415aef0620b4eaee61fe5e3ed571, type: 3}
   targettingArrows: {fileID: 349401361}
+  lookingForCardSelections: 0
 --- !u!4 &1642680359
 Transform:
   m_ObjectHideFlags: 0
