@@ -38,6 +38,7 @@ MonoBehaviour:
       data:
         effectSteps:
         - rid: 5602892723852673193
+        - rid: 5602893017534169689
         - rid: 6501745997973028892
         - rid: 6501745997973028893
     - rid: 5602892723852673193
@@ -51,11 +52,22 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
+    - rid: 5602893017534169689
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 4
+        cantCancelTargetting: 0
     - rid: 6501745997973028892
       type: {class: CountCardsInDeck, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CountCardsInDeck
-        inputDeckKey: target
+        inputDeckKey: self
         categoryToCount: 0
         onlyGeneratedCards: 1
         includeDrawPile: 1
