@@ -10,52 +10,56 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: Bulwark
+  m_Name: FutureResolve
   m_EditorClassIdentifier: 
-  Name: Bulwark
-  Description: Unplayable. At the end of the turn, parent companion gains 5 block
-  Cost: 0
-  Artwork: {fileID: 21300000, guid: a100f38fb92da834786807cb66e2ebba, type: 3}
-  cardCategory: 4
+  Name: Future Resolve
+  Description: Shuffle 2 Bulwark cards into target companion's deck
+  Cost: 1
+  Artwork: {fileID: 21300000, guid: 41bb3702aaa398246841ebfbe63585b2, type: 3}
+  cardCategory: 0
   vfxPrefab: {fileID: 0}
-  playable: 0
+  playable: 1
   exhaustsWhenPlayed: 0
   retain: 0
-  effectWorkflows: []
+  effectWorkflows:
+  - rid: 5602893017534169754
   onExhaustEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
-    rid: 5602893017534169720
+    rid: -2
   tooltips: 
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 5602893017534169720
+    - rid: 5602893017534169754
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
-        - rid: 5602893017534169721
-        - rid: 5602893017534169753
-    - rid: 5602893017534169721
+        - rid: 5602893017534169755
+        - rid: 5602893017534169756
+    - rid: 5602893017534169755
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: self
+        outputKey: target
         validTargets: 00000000
         number: 1
-        specialTargetRule: 4
+        specialTargetRule: 0
         cantCancelTargetting: 0
-    - rid: 5602893017534169753
-      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+    - rid: 5602893017534169756
+      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: ApplyStatus
-        inputKey: self
-        statusEffect: 2
-        scale: 5
+        effectStepName: AddCardsToDeck
+        inputKey: target
+        cardTypes:
+        - {fileID: 11400000, guid: fb5112d7114d644848303c68c05bb03a, type: 2}
+        addToDeckMethod: 1
+        getCardsFromKey: 0
+        inputCardsKey: 
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
-        multiplyByNumAuraStacks: 0

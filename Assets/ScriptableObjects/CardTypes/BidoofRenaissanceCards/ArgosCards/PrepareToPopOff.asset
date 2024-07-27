@@ -10,19 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: AllSeer
+  m_Name: PrepareToPopOff
   m_EditorClassIdentifier: 
-  Name: All-Seer
-  Description: Create an Eye of Argos in hand for each adjacent companion.
-  Cost: 1
-  Artwork: {fileID: 21300000, guid: 18251cc3bb6c59d4794bd522032e2ee3, type: 3}
+  Name: Prepare To Pop Off
+  Description: Add an Eye of Argos card to the top of each companion's deck. Gain
+    2 energy next turn.
+  Cost: 2
+  Artwork: {fileID: 21300000, guid: 024f36b3d30d33240ad25029f517c25a, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
   retain: 0
   effectWorkflows:
-  - rid: 5602892563578094203
+  - rid: 5602893017534169757
   onExhaustEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
@@ -33,40 +34,39 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 5602892563578094203
+    - rid: 5602893017534169757
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
-        - rid: 5602892563578094204
-        - rid: 5602892563578094205
-        - rid: 5602892563578094206
-    - rid: 5602892563578094204
+        - rid: 5602893017534169758
+        - rid: 5602893017534169760
+        - rid: 5602893017534169759
+    - rid: 5602893017534169758
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: self
+        outputKey: all
         validTargets: 00000000
         number: 1
-        specialTargetRule: 4
+        specialTargetRule: 1
         cantCancelTargetting: 0
-    - rid: 5602892563578094205
-      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
+    - rid: 5602893017534169759
+      type: {class: AddManaNextTurn, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: GetAdjacentCompanions
-        inputKey: self
-        outputKey: adjacentCompanions
-    - rid: 5602892563578094206
-      type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
+        effectStepName: 
+        manaToAdd: 2
+    - rid: 5602893017534169760
+      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: AddCardsToHand
-        entityFromKey: adjacentCompanions
+        effectStepName: AddCardsToDeck
+        inputKey: all
         cardTypes:
         - {fileID: 11400000, guid: b9e0adbcf6fe84184866b60213d4a8f1, type: 2}
+        addToDeckMethod: 0
         getCardsFromKey: 0
         inputCardsKey: 
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
-        outputKey: 
