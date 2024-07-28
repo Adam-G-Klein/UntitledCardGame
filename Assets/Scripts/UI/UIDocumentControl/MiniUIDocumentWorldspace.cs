@@ -30,11 +30,6 @@ public class MiniUIDocumentWorldspace : MonoBehaviour {
             }
         ));
 
-        EditorApplication.playModeStateChanged += (PlayModeStateChange state) => {
-            if (state == PlayModeStateChange.ExitingPlayMode) {
-                OnExitPlaymode();
-            }
-        };
     }
     /*
     stolen from: https://forum.unity.com/threads/render-visualelement-to-texture.1169015/
