@@ -38,6 +38,7 @@ public class EnemyInstance : MonoBehaviour {
 
 
     private void RegisterTurnPhaseTriggers() {
+        // Don't need this for now, portraits are covering
         turnPhaseTriggers.Add(new TurnPhaseTrigger(TurnPhase.START_PLAYER_TURN, DeclareIntent()));
         turnPhaseTriggers.Add(new TurnPhaseTrigger(TurnPhase.ENEMIES_TURN, EnactIntent()));
         turnPhaseTriggers.Add(new TurnPhaseTrigger(TurnPhase.END_PLAYER_TURN, ClearBlock()));
@@ -54,7 +55,8 @@ public class EnemyInstance : MonoBehaviour {
 
     private IEnumerable DeclareIntent() {
         currentIntent = enemy.ChooseIntent(this);
-        yield return intentDisplay.displayIntent(this);
+        yield return null;
+        // yield return intentDisplay.displayIntent(this);
     }
 
     private IEnumerable EnactIntent() {

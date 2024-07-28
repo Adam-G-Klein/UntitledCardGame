@@ -11,12 +11,15 @@ public class EnemyIntentDisplay : MonoBehaviour
 
     private EnemyInstance enemyInstance;
     private TurnManager turnManager;
+    private CombatEntityManager combatEntityManager;
     // public so that enemyinstance can remove it on death
     // can figure out a better way to do it later
     public TurnPhaseTrigger displayIntentTrigger;
     public TurnPhaseTriggerEvent registerTurnPhaseTriggerEvent;
     public TurnPhaseTriggerEvent removeTurnPhaseTriggerEvent;
     public TextMeshProUGUI valueText;
+
+    private CombatEntityTrigger onCompanionDeathTrigger;
 
     void Start() {
         // enemyInstance = GetComponentInParent<EnemyInstance>();
@@ -32,8 +35,11 @@ public class EnemyIntentDisplay : MonoBehaviour
         this.enemyInstance = enemyInstance;
         this.arrowController = enemyInstance.GetComponentInChildren<EnemyIntentArrowsController>();
         turnManager = TurnManager.Instance;
+        combatEntityManager = CombatEntityManager.Instance;
         displayIntentTrigger = new TurnPhaseTrigger(TurnPhase.START_PLAYER_TURN, displayIntent(enemyInstance));
         turnManager.registerTurnPhaseTriggerEventHandler(new TurnPhaseTriggerEventInfo(displayIntentTrigger));
+        onCompanionDeathTrigger = new CombatEntityTrigger(CombatEntityTriggerType.COMPANION_DIED, UpdateDisplayAfterCompanionDies());
+        combatEntityManager.registerTrigger(onCompanionDeathTrigger);
         enemyInstance.combatInstance.onDeathHandler += OnDeath;
     }
 
@@ -44,12 +50,26 @@ public class EnemyIntentDisplay : MonoBehaviour
     public IEnumerator OnDeath(CombatInstance killer) {
         clearIntent();
         removeTurnPhaseTriggerEvent.Raise(new TurnPhaseTriggerEventInfo(displayIntentTrigger));
+        combatEntityManager.unregisterTrigger(onCompanionDeathTrigger);
         yield return null;
     }
 
     public IEnumerable displayIntent(EnemyInstance enemy)  {
         clearIntent();
         StartCoroutine(displayIntentAfterDelay(enemy));
+        yield return null;
+    }
+
+    public IEnumerable UpdateDisplayAfterCompanionDies() {
+        List<CompanionInstance> targets = enemyInstance.currentIntent.targets;
+        List<CompanionInstance> newTargets = new List<CompanionInstance>();
+        foreach (CompanionInstance companion in targets) {
+            if (combatEntityManager.getCompanions().Contains(companion)) {
+                newTargets.Add(companion);
+            }
+        }
+        enemyInstance.currentIntent.targets = newTargets;
+        StartCoroutine(displayIntentAfterDelay(enemyInstance));
         yield return null;
     }
 

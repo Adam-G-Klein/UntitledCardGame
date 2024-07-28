@@ -19,21 +19,35 @@ MonoBehaviour:
   cardCategory: 1
   vfxPrefab: {fileID: 0}
   playable: 1
+  exhaustsWhenPlayed: 0
+  retain: 0
   effectWorkflows:
   - rid: 2116895648763871355
   onExhaustEffectWorkflow:
     rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  tooltips: 
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 642454092972556505
+      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FXEffectStep
+        waitForEffect: 0
+        fXExperiencePrefab: {fileID: 6082503972762956323, guid: c4c4b4c4f1d65a3419c7f43b97342fda, type: 3}
+        rootLocationGameObjectKey: target
+        keyMappingList: []
     - rid: 2116895648763871355
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
         - rid: 9024302470308298763
         - rid: 9024302470308298764
+        - rid: 642454092972556505
     - rid: 9024302470308298763
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
