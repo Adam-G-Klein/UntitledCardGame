@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: IndebtedBlock
   m_EditorClassIdentifier: 
   Name: Indebted Block
-  Description: Give target companion 10 block and shuffle a Debt card into their
+  Description: Give target companion 12 block and shuffle a Debt card into their
     deck.
   Cost: 1
   Artwork: {fileID: 21300000, guid: c409a9e17667b4e42b9d784f4024d3c6, type: 3}
@@ -21,6 +21,7 @@ MonoBehaviour:
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
+  retain: 0
   effectWorkflows:
   - rid: 5602892563578093592
   onExhaustEffectWorkflow:
@@ -70,6 +71,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: targetCompanion
         statusEffect: 2
-        scale: 10
+        scale: 12
         getScaleFromKey: 0
         inputScaleKey: 
+        multiplyByNumAuraStacks: 0

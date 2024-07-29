@@ -10,48 +10,34 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
-  m_Name: BRLooke
+  m_Name: BRBigYoshi
   m_EditorClassIdentifier: 
-  maxHealth: 120
-  baseAttackDamage: 3
-  sprite: {fileID: 21300000, guid: 21631059f2c81c04c9664407e7242c63, type: 3}
+  maxHealth: 200
+  baseAttackDamage: 5
+  sprite: {fileID: 21300000, guid: bdd59c505b86bf44cabf5f9f82a41064, type: 3}
   enemyPattern:
     behaviors:
-    - intent: 3
-      enemyTargetMethod: 4
-      targetsKey: randomCompanion
-      displayValue: 0
+    - intent: 1
+      enemyTargetMethod: 0
+      targetsKey: target
+      displayValue: 3
       effectSteps:
-      - rid: 5602892723852673492
-      - rid: 5602892874868588570
+      - rid: 5602893111447519363
+      - rid: 5602893111447519364
+      - rid: 5602893111447519365
     - intent: 0
       enemyTargetMethod: 0
-      targetsKey: first
-      displayValue: 1
+      targetsKey: target
+      displayValue: 6
       effectSteps:
-      - rid: 5602892723852673494
-      - rid: 5602892723852673495
-      - rid: 5602892723852673496
+      - rid: 5602893111447519367
     sequentialBehaviors: 0
     nextBehaviorIndex: 1
   initialStatuses: []
   references:
     version: 2
     RefIds:
-    - rid: 5602892723852673492
-      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: AddCardsToDeck
-        inputKey: randomCompanion
-        cardTypes:
-        - {fileID: 11400000, guid: a535962886ec249abbbbfa66a0e43eb0, type: 2}
-        addToDeckMethod: 0
-        getCardsFromKey: 0
-        inputCardsKey: 
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
-    - rid: 5602892723852673494
+    - rid: 5602893111447519363
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
@@ -62,31 +48,36 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
-    - rid: 5602892723852673495
+    - rid: 5602893111447519364
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
-        inputKey: first
+        inputKey: target
         combatEffect: 0
-        scale: 1
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-    - rid: 5602892723852673496
+    - rid: 5602893111447519365
       type: {class: PermanentStatIncrease, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: PermanentStatIncrease
         inputKey: self
         statIncreaseType: 0
-        scale: 2
+        scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
-    - rid: 5602892874868588570
-      type: {class: DebugEffectStep, ns: , asm: Assembly-CSharp}
+    - rid: 5602893111447519367
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: DebugEffectStep
-        genericMap: 1
-        ints: 0
-        strings: 0
+        effectStepName: CombatEffectStep
+        inputKey: target
+        combatEffect: 0
+        scale: 6
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 

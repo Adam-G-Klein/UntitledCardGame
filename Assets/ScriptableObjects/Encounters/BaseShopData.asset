@@ -16,7 +16,7 @@ MonoBehaviour:
   - level: 0
     mana: 3
     teamSize: 3
-    upgradeCost: 15
+    upgradeCost: 20
     numCardsToShow: 3
     numKeepsakesToShow: 1
     commonCompanionPercentage: 100
@@ -34,7 +34,7 @@ MonoBehaviour:
   - level: 1
     mana: 3
     teamSize: 4
-    upgradeCost: 30
+    upgradeCost: 35
     numCardsToShow: 3
     numKeepsakesToShow: 1
     commonCompanionPercentage: 70
@@ -88,6 +88,6 @@ MonoBehaviour:
   cardPrice: 1
   companionKeepsakePrice: 3
   goldEarnedPerBattle: 10
-  interestRate: 0.2
-  interestCap: 10
+  interestRate: 0.1
+  interestCap: 5
   neutralCardPool: {fileID: 11400000, guid: 0a925285304694dc3920946135833078, type: 2}

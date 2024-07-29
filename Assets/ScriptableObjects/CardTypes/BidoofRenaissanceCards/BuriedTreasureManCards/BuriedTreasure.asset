@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: BuriedTreasure
   m_EditorClassIdentifier: 
   Name: Buried Treasure
-  Description: Gain $3. Exhaust
-  Cost: 0
+  Description: Gain $2. Exhaust
+  Cost: 1
   Artwork: {fileID: 21300000, guid: de23c3e9343118d4aabf90e19c84243a, type: 3}
-  cardCategory: 0
+  cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 1
+  retain: 0
   effectWorkflows:
   - rid: 5602892491280613593
   onExhaustEffectWorkflow:
@@ -43,7 +44,9 @@ MonoBehaviour:
       type: {class: GoldManipulation, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: 
-        goldToAdd: 3
+        goldToAdd: 2
+        getScaleFromKey: 0
+        inputScaleKey: 
     - rid: 5602892533381726224
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
