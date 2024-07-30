@@ -24,7 +24,10 @@ MonoBehaviour:
       effectSteps:
       - rid: 3931529445166809429
       - rid: 3931529445166809326
-      - rid: 3931529445166809430
+      - rid: 5602893111447519606
+      - rid: 5602893111447519608
+      - rid: 5602893111447519609
+      - rid: 5602893111447519607
     sequentialBehaviors: 1
     nextBehaviorIndex: 0
   initialStatuses: []
@@ -54,12 +57,37 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
-    - rid: 3931529445166809430
-      type: {class: PermanentStatIncrease, ns: , asm: Assembly-CSharp}
+    - rid: 5602893111447519606
+      type: {class: CountStatusEffectsStep, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: PermanentStatIncrease
+        effectStepName: CountStatusEffectStep
         inputKey: self
-        statIncreaseType: 0
+        statusEffect: 0
+        onlyCountStatusOnce: 0
+        outputKey: numStrength
+    - rid: 5602893111447519607
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: self
+        statusEffect: 0
         scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+    - rid: 5602893111447519608
+      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: BooleanComparison
+        hardCodedInputKey1: 8
+        useHardCodedInputKey1: 1
+        inputKey1: 
+        operation: 2
+        inputKey2: numStrength
+        outputKey: pastStrengthThreshold
+    - rid: 5602893111447519609
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: pastStrengthThreshold
+        conditionToEndOn: 1

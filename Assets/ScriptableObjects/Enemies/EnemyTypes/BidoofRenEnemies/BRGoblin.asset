@@ -12,19 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
   m_Name: BRGoblin
   m_EditorClassIdentifier: 
-  maxHealth: 35
+  maxHealth: 25
   baseAttackDamage: 0
   sprite: {fileID: 21300000, guid: b2fa9488d9c432548acaaa32c198825c, type: 3}
   enemyPattern:
     behaviors:
     - intent: 1
-      enemyTargetMethod: 1
+      enemyTargetMethod: 0
       targetsKey: target
       displayValue: 5
       effectSteps:
-      - rid: 3931529445166809425
       - rid: 3931529445166809315
-      - rid: 3931529445166809424
     sequentialBehaviors: 0
     nextBehaviorIndex: 0
   initialStatuses: []
@@ -43,23 +41,3 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-    - rid: 3931529445166809424
-      type: {class: PermanentStatIncrease, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: PermanentStatIncrease
-        inputKey: self
-        statIncreaseType: 0
-        scale: 2
-        getScaleFromKey: 0
-        inputScaleKey: 
-    - rid: 3931529445166809425
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: self
-        validTargets: 
-        number: 1
-        specialTargetRule: 3
-        cantCancelTargetting: 0
