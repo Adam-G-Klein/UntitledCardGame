@@ -18,7 +18,7 @@ MonoBehaviour:
   Artwork: {fileID: 21300000, guid: 6638d90bebdd6894586b2eee2eac3ffc, type: 3}
   cardCategory: 4
   vfxPrefab: {fileID: 0}
-  playable: 0
+  playable: 1
   exhaustsWhenPlayed: 1
   retain: 0
   effectWorkflows:
@@ -36,29 +36,29 @@ MonoBehaviour:
     - rid: 5602892563578093590
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
-        effectSteps: []
+        effectSteps:
+        - rid: 5602893111447519944
+        - rid: 5602893111447519945
     - rid: 5602893111447519696
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
-        effectSteps:
-        - rid: 5602893111447519697
-        - rid: 5602893111447519698
-    - rid: 5602893111447519697
+        effectSteps: []
+    - rid: 5602893111447519944
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: target
+        outputKey: self
         validTargets: 
         number: 1
         specialTargetRule: 4
         cantCancelTargetting: 0
-    - rid: 5602893111447519698
+    - rid: 5602893111447519945
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
-        inputKey: target
+        inputKey: self
         combatEffect: 14
         scale: 3
         getScaleFromKey: 0
