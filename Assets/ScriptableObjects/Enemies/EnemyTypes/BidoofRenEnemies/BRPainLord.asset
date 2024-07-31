@@ -10,43 +10,59 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
-  m_Name: BRBloodseeker
+  m_Name: BRPainLord
   m_EditorClassIdentifier: 
-  maxHealth: 75
+  maxHealth: 170
   baseAttackDamage: 0
-  sprite: {fileID: 21300000, guid: 86313e022c582cf4ba37873bc6a0b704, type: 3}
+  sprite: {fileID: 21300000, guid: bf7004643a1b7cb47813068f0ada5d78, type: 3}
   enemyPattern:
     behaviors:
-    - intent: 1
-      enemyTargetMethod: 5
+    - intent: 3
+      enemyTargetMethod: 4
       targetsKey: target
-      displayValue: 1
+      displayValue: 0
       effectSteps:
-      - rid: 3931529445166809429
-      - rid: 3931529445166809326
-      - rid: 5602893111447519606
-      - rid: 5602893111447519608
-      - rid: 5602893111447519609
-      - rid: 5602893111447519607
-    sequentialBehaviors: 1
-    nextBehaviorIndex: 0
+      - rid: 5602893111447519699
+    - intent: 1
+      enemyTargetMethod: 0
+      targetsKey: target
+      displayValue: 8
+      effectSteps:
+      - rid: 5602893111447519700
+      - rid: 5602893111447519701
+      - rid: 5602893111447519702
+    sequentialBehaviors: 0
+    nextBehaviorIndex: 1
   initialStatuses: []
   references:
     version: 2
     RefIds:
-    - rid: 3931529445166809326
+    - rid: 5602893111447519699
+      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: AddCardsToDeck
+        inputKey: target
+        cardTypes:
+        - {fileID: 11400000, guid: 1fd3c5fc899b645adb2bf0b798774a67, type: 2}
+        addToDeckMethod: 1
+        getCardsFromKey: 0
+        inputCardsKey: 
+        scale: 2
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 5602893111447519700
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
         inputKey: target
         combatEffect: 0
-        scale: 1
+        scale: 8
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-    - rid: 3931529445166809429
+    - rid: 5602893111447519701
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
@@ -57,37 +73,13 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
-    - rid: 5602893111447519606
-      type: {class: CountStatusEffectsStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CountStatusEffectStep
-        inputKey: self
-        statusEffect: 0
-        onlyCountStatusOnce: 0
-        outputKey: numStrength
-    - rid: 5602893111447519607
+    - rid: 5602893111447519702
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ApplyStatus
         inputKey: self
         statusEffect: 0
-        scale: 2
+        scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
-    - rid: 5602893111447519608
-      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: BooleanComparison
-        hardCodedInputKey1: 8
-        useHardCodedInputKey1: 1
-        inputKey1: 
-        operation: 2
-        inputKey2: numStrength
-        outputKey: pastStrengthThreshold
-    - rid: 5602893111447519609
-      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: EndWorkflowIfConditionMet
-        inputKey1: pastStrengthThreshold
-        conditionToEndOn: 1

@@ -10,38 +10,40 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: StimulusCheck
+  m_Name: PainfulReminder
   m_EditorClassIdentifier: 
-  Name: Stimulus Check
-  Description: Gain 3 energy and put a Debt card on the bottom of this companion's
-    deck
+  Name: Painful Reminder
+  Description: Unplayable. Take 3 damage if in hand at the end of the turn
   Cost: 0
-  Artwork: {fileID: 21300000, guid: e8c1b164e48b3ed4ea21cc0ef5d14b1a, type: 3}
-  cardCategory: 2
+  Artwork: {fileID: 21300000, guid: 6638d90bebdd6894586b2eee2eac3ffc, type: 3}
+  cardCategory: 4
   vfxPrefab: {fileID: 0}
-  playable: 1
+  playable: 0
   exhaustsWhenPlayed: 0
   retain: 0
   effectWorkflows:
-  - rid: 5602892874868589218
+  - rid: 5602893111447519696
   onExhaustEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
-    rid: -2
+    rid: 5602892563578093590
   tooltips: 
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 5602892874868589218
+    - rid: 5602892563578093590
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
-        - rid: 5602892874868589219
-        - rid: 5602892874868589220
-        - rid: 5602892874868589221
-    - rid: 5602892874868589219
+        - rid: 5602893111447519944
+        - rid: 5602893111447519945
+    - rid: 5602893111447519696
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps: []
+    - rid: 5602893111447519944
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
@@ -50,25 +52,17 @@ MonoBehaviour:
         outputKey: self
         validTargets: 
         number: 1
-        specialTargetRule: 3
+        specialTargetRule: 4
         cantCancelTargetting: 0
-    - rid: 5602892874868589220
-      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
+    - rid: 5602893111447519945
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: AddCardsToDeck
+        effectStepName: CombatEffectStep
         inputKey: self
-        cardTypes:
-        - {fileID: 11400000, guid: 367e46b6621aa4d0186413c566fc3329, type: 2}
-        addToDeckMethod: 2
-        getCardsFromKey: 0
-        inputCardsKey: 
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
-    - rid: 5602892874868589221
-      type: {class: ManaChange, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: ManaChange
+        combatEffect: 14
         scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 

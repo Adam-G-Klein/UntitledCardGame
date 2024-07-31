@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
   m_Name: BRAngryKobold
   m_EditorClassIdentifier: 
-  maxHealth: 30
+  maxHealth: 25
   baseAttackDamage: 0
   sprite: {fileID: 21300000, guid: e8f284b8ccdbaf24888660bc74fa02b4, type: 3}
   enemyPattern:
@@ -60,6 +60,6 @@ MonoBehaviour:
         effectStepName: PermanentStatIncrease
         inputKey: self
         statIncreaseType: 0
-        scale: 3
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 

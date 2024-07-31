@@ -36,12 +36,14 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Mab
-      description: 'At the end of combat, heal a companion 5 HP and permanently add
-        a Mab''s Boon to their deckpermanently add a '
+      description: At the end of combat, heal a companion 20% of their max HP and
+        permanently add a Mab's Boon to their deck
       image: {fileID: 0}
     - title: Mab's Boon
       description: Card that exhausts on play and heals
       image: {fileID: 0}
+  keepsakeTitle: 
+  keepsakeDescription: 
   references:
     version: 2
     RefIds:
@@ -51,6 +53,7 @@ MonoBehaviour:
         companionAbilityTrigger: 1
         effectSteps:
         - rid: 5602892650873356441
+        - rid: 5602893111447519473
         - rid: 5602892650873356442
         - rid: 5602892650873356454
     - rid: 5602892650873356441
@@ -70,9 +73,9 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: target
         combatEffect: 9
-        scale: 5
-        getScaleFromKey: 0
-        inputScaleKey: 
+        scale: 0
+        getScaleFromKey: 1
+        inputScaleKey: numToHeal
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
@@ -102,3 +105,10 @@ MonoBehaviour:
         selectedOnCombineWorkflow: 0
         mabTargetCardType: {fileID: 11400000, guid: b189fb1d6d01a4fc69154f1e3f45b734, type: 2}
         mabDestCardType: {fileID: 11400000, guid: 988bb1f9451434efa90a62c6d2695416, type: 2}
+    - rid: 5602893111447519473
+      type: {class: GetPercentOfMaxHP, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetPercentOfMaxHP
+        inputKey: target
+        percent: 0.2
+        outputKey: numToHeal

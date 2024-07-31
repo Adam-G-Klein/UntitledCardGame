@@ -116,7 +116,14 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         postCombatUI.transform.SetSiblingIndex(postCombatUI.transform.parent.childCount - 1);
         TMP_Text[] texts = postCombatUI.GetComponentsInChildren<TMP_Text>();
         TMP_Text rewardText = texts[1];
-        rewardText.text = "Base gold " + baseGoldEarnedPerBattle.ToString() + ", Interest " + extraGold.ToString();
+        rewardText.text = "Base gold earned\n$" +
+            baseGoldEarnedPerBattle.ToString() +
+            "\ninterest (" +
+            gameState.baseShopData.interestRate.ToString("P0") +
+            ", capped at $" +
+            gameState.baseShopData.interestCap.ToString() +
+            ")\n$" +
+            extraGold.ToString();
         DialogueManager.Instance.SetDialogueLocation(gameState);
         DialogueManager.Instance.StartAnyDialogueSequence();
     }

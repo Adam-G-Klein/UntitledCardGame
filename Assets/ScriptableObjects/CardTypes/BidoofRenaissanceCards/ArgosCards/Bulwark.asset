@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Bulwark
   m_EditorClassIdentifier: 
   Name: Bulwark
-  Description: Unplayable. At the end of the turn, parent companion gains 5 block
+  Description: Unplayable. At the end of the turn, parent companion gains 7 block
   Cost: 0
   Artwork: {fileID: 21300000, guid: a100f38fb92da834786807cb66e2ebba, type: 3}
   cardCategory: 4
@@ -55,7 +55,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: self
         statusEffect: 2
-        scale: 5
+        scale: 7
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0

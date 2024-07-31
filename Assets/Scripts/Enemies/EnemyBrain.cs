@@ -87,6 +87,6 @@ public class EnemyBrain
             return value;
         }
 
-        return value + instance.combatInstance.combatStats.baseAttackDamage;
+        return value + instance.combatInstance.combatStats.baseAttackDamage + instance.combatInstance.statusEffects[StatusEffect.Strength];
     }
 }

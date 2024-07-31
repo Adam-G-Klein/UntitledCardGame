@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: Cartomancy
   m_EditorClassIdentifier: 
   Name: Cartomancy
-  Description: Deal 1 damage for each of the cards in your hand
+  Description: Deal 2 damage for each of the cards in your hand
   Cost: 1
   Artwork: {fileID: 21300000, guid: 7d13e867f4dd988488e4c5a179fa0857, type: 3}
   cardCategory: 1
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
+  retain: 0
   effectWorkflows:
   - rid: 2116895648763871330
   onExhaustEffectWorkflow:
@@ -60,7 +61,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: enemyTarget
         combatEffect: 0
-        scale: 1
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 0

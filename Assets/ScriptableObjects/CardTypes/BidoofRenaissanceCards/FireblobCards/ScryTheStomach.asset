@@ -38,7 +38,7 @@ MonoBehaviour:
       type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: AddCardsToDeck
-        inputKey: self
+        inputKey: target
         cardTypes:
         - {fileID: 11400000, guid: eec5b177fb6f749e0a93744b0309167a, type: 2}
         addToDeckMethod: 1
