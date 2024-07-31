@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
   m_Name: BRBigYoshi
   m_EditorClassIdentifier: 
-  maxHealth: 140
-  baseAttackDamage: 3
+  maxHealth: 110
+  baseAttackDamage: 4
   sprite: {fileID: 21300000, guid: bdd59c505b86bf44cabf5f9f82a41064, type: 3}
   enemyPattern:
     behaviors:
@@ -32,7 +32,7 @@ MonoBehaviour:
       effectSteps:
       - rid: 5602893111447519367
     sequentialBehaviors: 0
-    nextBehaviorIndex: 1
+    nextBehaviorIndex: 0
   initialStatuses: []
   references:
     version: 2
