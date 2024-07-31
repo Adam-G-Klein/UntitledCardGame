@@ -36,8 +36,9 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: L2 Pooh Bear
-      description: Pooh bear starts combat with an aura stack. At the end of each
-        turn, each companion on your team with at least 1 aura stack gains 1 strength
+      description: Pooh bear and adjacent companions start combat with an aura stack.
+        At the start of each turn, create a powerful Aural Knife in your hand for
+        each companion with at least 1 aura stack
       image: {fileID: 0}
   keepsakeTitle: 
   keepsakeDescription: 
@@ -51,6 +52,8 @@ MonoBehaviour:
         effectSteps:
         - rid: 5602892679876706443
         - rid: 5602892679876706444
+        - rid: 5602893111447520025
+        - rid: 5602893111447520026
     - rid: 5602892679876706443
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -75,11 +78,11 @@ MonoBehaviour:
     - rid: 5602892679876706447
       type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
       data:
-        companionAbilityTrigger: 2
+        companionAbilityTrigger: 12
         effectSteps:
         - rid: 5602892679876706449
         - rid: 5602892679876706448
-        - rid: 5602892679876706450
+        - rid: 5602893111447520024
     - rid: 5602892679876706448
       type: {class: FilterEntityByStatus, ns: , asm: Assembly-CSharp}
       data:
@@ -98,12 +101,31 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 1
         cantCancelTargetting: 0
-    - rid: 5602892679876706450
+    - rid: 5602893111447520024
+      type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: AddCardsToHand
+        entityFromKey: companionsWithOrbs
+        cardTypes:
+        - {fileID: 11400000, guid: 59874a9b5e5a94390a53aaec50c329d6, type: 2}
+        getCardsFromKey: 0
+        inputCardsKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        outputKey: 
+    - rid: 5602893111447520025
+      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetAdjacentCompanions
+        inputKey: self
+        outputKey: adj
+    - rid: 5602893111447520026
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ApplyStatus
-        inputKey: companionsWithOrbs
-        statusEffect: 0
+        inputKey: adj
+        statusEffect: 9
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
