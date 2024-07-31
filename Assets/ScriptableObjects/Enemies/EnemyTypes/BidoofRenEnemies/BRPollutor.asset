@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
-  m_Name: BRSolicitor
+  m_Name: BRPollutor
   m_EditorClassIdentifier: 
   maxHealth: 50
   baseAttackDamage: 0
@@ -23,7 +23,6 @@ MonoBehaviour:
       displayValue: 0
       effectSteps:
       - rid: 5602892723852673492
-      - rid: 5602892874868588570
     sequentialBehaviors: 0
     nextBehaviorIndex: 1
   initialStatuses: []
@@ -43,10 +42,3 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
-    - rid: 5602892874868588570
-      type: {class: DebugEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: DebugEffectStep
-        genericMap: 1
-        ints: 0
-        strings: 0
