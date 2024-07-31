@@ -120,7 +120,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
             baseGoldEarnedPerBattle.ToString() +
             "\ninterest (" +
             gameState.baseShopData.interestRate.ToString("P0") +
-            ", capped at " +
+            ", capped at $" +
             gameState.baseShopData.interestCap.ToString() +
             ")\n$" +
             extraGold.ToString();
