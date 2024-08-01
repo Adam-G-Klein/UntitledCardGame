@@ -13,13 +13,15 @@ MonoBehaviour:
   m_Name: TakeMyEnergy
   m_EditorClassIdentifier: 
   Name: Take My Energy
-  Description: Give target companion 1 strength for each aura stack they have.
+  Description: Give target companion 1 strength + 1 strength for each aura stack
+    they have.
   Cost: 1
   Artwork: {fileID: 21300000, guid: 5e40f858eddaed340a6366c33c4e216f, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
+  retain: 0
   effectWorkflows:
   - rid: 5602892679876706420
   onExhaustEffectWorkflow:
@@ -38,6 +40,7 @@ MonoBehaviour:
         effectSteps:
         - rid: 5602892679876706421
         - rid: 5602892679876706422
+        - rid: 5602893111447520106
         - rid: 5602892679876706423
     - rid: 5602892679876706421
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -66,4 +69,14 @@ MonoBehaviour:
         statusEffect: 0
         scale: 0
         getScaleFromKey: 1
-        inputScaleKey: numOrbs
+        inputScaleKey: numStrength
+        multiplyByNumAuraStacks: 0
+    - rid: 5602893111447520106
+      type: {class: MathStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: MathStep
+        inputKey: numOrbs
+        operand2InputKey: UNUSED
+        operation: 0
+        scale: 1
+        outputKey: numStrength

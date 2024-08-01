@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: VampiricFangs
   m_EditorClassIdentifier: 
   Name: Vampiric Fangs
-  Description: Deal 6 damage to target enemy. If it kills it, this companion heals
+  Description: Deal 8 damage to target enemy. If it kills it, this companion heals
     5 HP
   Cost: 1
   Artwork: {fileID: 21300000, guid: 0f5ecf3627abce84490e1f8ec8e4f24f, type: 3}
@@ -21,6 +21,7 @@ MonoBehaviour:
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
+  retain: 0
   effectWorkflows:
   - rid: 5602892874868589361
   onExhaustEffectWorkflow:
@@ -63,7 +64,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: targetEnemy
         combatEffect: 0
-        scale: 6
+        scale: 8
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1

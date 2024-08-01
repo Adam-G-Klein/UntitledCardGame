@@ -35,7 +35,7 @@ public class CardModificationEffect : EffectStep {
 
         if (affectsAllCardsOfType) {
             cardTypeToModify.ChangeCardModification(modification, newScale);
-            yield return null;
+            yield break;
         }
         if (!document.map.ContainsValueWithKey<Card>(inputKey)) {
             EffectError("No input Card for given key " + inputKey);

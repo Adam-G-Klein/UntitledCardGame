@@ -10,16 +10,13 @@ public class CardInShopWithPrice {
     // Nullable for neutral cards.
     public CompanionTypeSO sourceCompanion;
 
-    public CardInShopWithPrice(CardType cardType, int price) {
-        this.cardType = cardType;
-        this.price = price;
-        this.sourceCompanion = null;
-    }
+    public Card.CardRarity rarity;
 
-    public CardInShopWithPrice(CardType cardType, int price, CompanionTypeSO companionType) {
+    public CardInShopWithPrice(CardType cardType, int price, CompanionTypeSO companionType, Card.CardRarity rarity) {
         this.cardType = cardType;
         this.price = price;
         this.sourceCompanion = companionType;
+        this.rarity = rarity;
     }
 }
 
@@ -89,7 +86,7 @@ public class ShopEncounter : Encounter
             if (companionType != null) {
                 cardInShop.keepSake.sprite = companionType.keepsake;
             }
-            cardDisplay.Initialize(new Card(cardType, companionType));
+            cardDisplay.Initialize(new Card(cardType, companionType, cardsInShop[i].rarity));
 
             cardInShop.Setup();
         }
@@ -146,13 +143,13 @@ public class ShopEncounter : Encounter
         List<CardInShopWithPrice> rareShopCards = new();
         foreach (KeyValuePair<CardPoolSO, CompanionTypeSO> cardPoolPair in cardPools) {
             foreach (CardType card in cardPoolPair.Key.commonCards) {
-                commonShopCards.Add(new CardInShopWithPrice(card, shopData.cardPrice, cardPoolPair.Value));
+                commonShopCards.Add(new CardInShopWithPrice(card, shopData.cardPrice, cardPoolPair.Value, Card.CardRarity.COMMON));
             }
             foreach (CardType card in cardPoolPair.Key.uncommonCards) {
-                uncommonShopCards.Add(new CardInShopWithPrice(card, shopData.cardPrice, cardPoolPair.Value));
+                uncommonShopCards.Add(new CardInShopWithPrice(card, shopData.cardPrice, cardPoolPair.Value, Card.CardRarity.UNCOMMON));
             }
             foreach (CardType card in cardPoolPair.Key.rareCards) {
-                rareShopCards.Add(new CardInShopWithPrice(card, shopData.cardPrice, cardPoolPair.Value));
+                rareShopCards.Add(new CardInShopWithPrice(card, shopData.cardPrice, cardPoolPair.Value, Card.CardRarity.RARE));
             }
         }
         for (int i = 0; i < shopLevel.numCardsToShow; i++) {

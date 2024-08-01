@@ -10,18 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: Knife
+  m_Name: CalmBeforeTheStorm
   m_EditorClassIdentifier: 
-  Name: Knife
-  Description: Exhaust. Deal 2 damage.
-  Cost: 0
-  Artwork: {fileID: 21300000, guid: dcfdc6d5b4c40644b90c3330582adb6a, type: 3}
-  cardCategory: 1
+  Name: Calm Before the Storm
+  Description: Retain your  hand. Gain 1 energy next turn.
+  Cost: 1
+  Artwork: {fileID: 21300000, guid: 8c16952da6b2cfa4181be941e4a49469, type: 3}
+  cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
-  exhaustsWhenPlayed: 1
+  exhaustsWhenPlayed: 0
+  retain: 0
   effectWorkflows:
-  - rid: 5602892563578094210
+  - rid: 5602893111447520323
   onExhaustEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
@@ -32,32 +33,32 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 5602892563578094210
+    - rid: 5602893111447520323
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
-        - rid: 5602892563578094211
-        - rid: 5602892563578094212
-    - rid: 5602892563578094211
+        - rid: 5602893111447520324
+        - rid: 5602893111447520325
+        - rid: 5602893111447520326
+    - rid: 5602893111447520324
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: target
-        validTargets: 02000000
+        outputKey: cards
+        validTargets: 03000000
         number: 1
-        specialTargetRule: 0
+        specialTargetRule: 2
         cantCancelTargetting: 0
-    - rid: 5602892563578094212
-      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+    - rid: 5602893111447520325
+      type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: CombatEffectStep
-        inputKey: target
-        combatEffect: 0
-        scale: 2
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
+        effectStepName: CardInHandEffect
+        inputKey: cards
+        effect: 2
+    - rid: 5602893111447520326
+      type: {class: AddManaNextTurn, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: 
+        manaToAdd: 1

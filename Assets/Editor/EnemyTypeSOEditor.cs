@@ -8,6 +8,7 @@ public class EnemyTypeSOEditor : Editor {
 
     EffectStepName stepName = EffectStepName.Default;
     int index = 0;
+    bool editBelowHalfHPPattern = false;
 
     public override void OnInspectorGUI() {
         EnemyTypeSO enemyType = (EnemyTypeSO) target;
@@ -21,9 +22,10 @@ public class EnemyTypeSOEditor : Editor {
             "New effect",
             stepName);
         index = EditorGUILayout.IntField("Action Index", index);
+        editBelowHalfHPPattern = EditorGUILayout.Toggle("Edit the below half HP pattern", editBelowHalfHPPattern);
         if (GUILayout.Button("Add Effect")) {
             EffectStep newEffect = InstantiateFromClassname.Instantiate<EffectStep>(
-                stepName.ToString(), 
+                stepName.ToString(),
                 new object[] {});
 
             if(newEffect == null) {
@@ -31,8 +33,11 @@ public class EnemyTypeSOEditor : Editor {
                 "please check Scripts/Effects/EffectSteps/* to verify the className for the  " +
                 " and verify that the arguments set in the editor correspond to " +
                 " the arguments in the constructor");
+                return;
             }
-            else {
+            if (editBelowHalfHPPattern) {
+                enemyType.belowHalfHPEnemyPattern.behaviors[index].effectSteps.Add(newEffect);
+            } else {
                 enemyType.enemyPattern.behaviors[index].effectSteps.Add(newEffect);
             }
         }

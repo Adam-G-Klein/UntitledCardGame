@@ -12,17 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
   m_Name: BRPainLord
   m_EditorClassIdentifier: 
-  maxHealth: 170
+  maxHealth: 250
   baseAttackDamage: 0
   sprite: {fileID: 21300000, guid: bf7004643a1b7cb47813068f0ada5d78, type: 3}
   enemyPattern:
     behaviors:
     - intent: 3
-      enemyTargetMethod: 4
+      enemyTargetMethod: 6
       targetsKey: target
       displayValue: 0
       effectSteps:
-      - rid: 5602893111447519699
+      - rid: 4463205916933358052
+      - rid: 4463205916933358053
     - intent: 1
       enemyTargetMethod: 0
       targetsKey: target
@@ -31,23 +32,34 @@ MonoBehaviour:
       - rid: 5602893111447519700
       - rid: 5602893111447519701
       - rid: 5602893111447519702
-    sequentialBehaviors: 0
-    nextBehaviorIndex: 1
+    sequentialBehaviors: 1
+    nextBehaviorIndex: 0
   initialStatuses: []
   references:
     version: 2
     RefIds:
-    - rid: 5602893111447519699
+    - rid: 4463205916933358052
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: targets
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 1
+        cantCancelTargetting: 0
+    - rid: 4463205916933358053
       type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: AddCardsToDeck
-        inputKey: target
+        inputKey: targets
         cardTypes:
         - {fileID: 11400000, guid: 1fd3c5fc899b645adb2bf0b798774a67, type: 2}
         addToDeckMethod: 1
         getCardsFromKey: 0
         inputCardsKey: 
-        scale: 2
+        scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
     - rid: 5602893111447519700
@@ -79,7 +91,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: self
         statusEffect: 0
-        scale: 1
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0

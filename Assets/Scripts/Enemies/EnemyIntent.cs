@@ -10,6 +10,7 @@ public enum EnemyIntentType {
     Buff,
     Debuff,
     ChargingUp,
+    IrishGoodbye,
     // Possible later inclusions
     // Defend,
     // Heal,

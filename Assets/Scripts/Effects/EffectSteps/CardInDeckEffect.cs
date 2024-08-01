@@ -54,7 +54,7 @@ public class CardInDeckEffect : EffectStep, ITooltipProvider
                     deckInstances[0].ExhaustCard(card);
                 break;
 
-                case CardInDeckEffectName.Transform:
+                case CardInDeckEffectName.PermaTransform:
                     Card transformedCard = new Card(cardToTransformInto, card.getCompanionFrom());
                     transformedCard.generated = true;
                     deckInstances[0].sourceDeck.cards.Add(transformedCard);
@@ -83,7 +83,7 @@ public class CardInDeckEffect : EffectStep, ITooltipProvider
         Purge,
         Discard,
         AddToHand,
-        Transform,
+        PermaTransform,
     }
     public TooltipViewModel GetTooltip(){
         if(KeywordTooltipProvider.Instance.HasTooltip(tooltipMapping[effect])){

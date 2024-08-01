@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ArtilleryStrike
   m_EditorClassIdentifier: 
   Name: Artillery Strike
-  Description: Deal 5 damage for each aura stack on your team.
+  Description: Deal 6 damage for each aura stack on your team.
   Cost: 1
   Artwork: {fileID: 21300000, guid: 70dd24a7c98646b44870b00b67a720f4, type: 3}
   cardCategory: 1
@@ -58,7 +58,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: enemy
         combatEffect: 0
-        scale: 5
+        scale: 6
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1

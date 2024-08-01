@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: IndebtedBlock
   m_EditorClassIdentifier: 
   Name: Indebted Block
-  Description: Give target companion 12 block and shuffle a Debt card into their
-    deck.
+  Description: Give target companion 12 block and add a Debt card to the bottom of
+    their deck
   Cost: 1
   Artwork: {fileID: 21300000, guid: c409a9e17667b4e42b9d784f4024d3c6, type: 3}
   cardCategory: 2
@@ -59,7 +59,7 @@ MonoBehaviour:
         inputKey: targetCompanion
         cardTypes:
         - {fileID: 11400000, guid: 367e46b6621aa4d0186413c566fc3329, type: 2}
-        addToDeckMethod: 1
+        addToDeckMethod: 2
         getCardsFromKey: 0
         inputCardsKey: 
         scale: 1

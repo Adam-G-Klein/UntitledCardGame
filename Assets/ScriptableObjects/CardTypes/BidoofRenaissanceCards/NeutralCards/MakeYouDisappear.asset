@@ -16,12 +16,12 @@ MonoBehaviour:
   Description: Exhaust. Exhaust target card and permanently remove it from its source
     deck.
   Cost: 1
-  Artwork: {fileID: 0}
-  cardCategory: 0
+  Artwork: {fileID: -1830818641, guid: 55d5638d741203a4ca8817fb78e3a385, type: 3}
+  cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 1
-  retain: 1
+  retain: 0
   effectWorkflows:
   - rid: 5602893017534169679
   onExhaustEffectWorkflow:

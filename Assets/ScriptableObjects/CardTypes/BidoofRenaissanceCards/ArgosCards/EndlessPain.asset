@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EndlessPain
   m_EditorClassIdentifier: 
   Name: Endless Pain
-  Description: Retain. Deal 1 damage for each card you played this turn
+  Description: Retain. Deal 2 damage for each card you played this turn
   Cost: 1
   Artwork: {fileID: 21300000, guid: 5500487feb715b54490f91e1c9796e9c, type: 3}
   cardCategory: 1
@@ -64,7 +64,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: enemy
         combatEffect: 0
-        scale: 1
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1

@@ -10,18 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: ManyKnife
+  m_Name: ShieldsUp
   m_EditorClassIdentifier: 
-  Name: Many Knife
-  Description: Create a 0 mana, exhaust deal damage for each companion on your team
-  Cost: 1
-  Artwork: {fileID: 21300000, guid: 3dd0d533e03397448a54f341499e747d, type: 3}
+  Name: Shields Up
+  Description: Create a Bulwark card in hand for each companion
+  Cost: 2
+  Artwork: {fileID: 21300000, guid: 024f36b3d30d33240ad25029f517c25a, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
+  retain: 0
   effectWorkflows:
-  - rid: 5602892563578094207
+  - rid: 5602893017534169757
   onExhaustEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
@@ -32,30 +33,30 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 5602892563578094207
+    - rid: 5602893017534169757
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
-        - rid: 5602892563578094208
-        - rid: 5602892563578094209
-    - rid: 5602892563578094208
+        - rid: 5602893017534169758
+        - rid: 5602893111447520353
+    - rid: 5602893017534169758
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: allCompanions
+        outputKey: all
         validTargets: 00000000
         number: 1
         specialTargetRule: 1
         cantCancelTargetting: 0
-    - rid: 5602892563578094209
+    - rid: 5602893111447520353
       type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: AddCardsToHand
-        entityFromKey: allCompanions
+        entityFromKey: all
         cardTypes:
-        - {fileID: 11400000, guid: f9ddc379418214caf942666c006ffdfd, type: 2}
+        - {fileID: 11400000, guid: fb5112d7114d644848303c68c05bb03a, type: 2}
         getCardsFromKey: 0
         inputCardsKey: 
         scale: 1

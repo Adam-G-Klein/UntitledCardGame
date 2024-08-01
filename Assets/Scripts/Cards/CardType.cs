@@ -47,7 +47,8 @@ public class CardType: ScriptableObject, ITooltipProvider
     public Dictionary<CardModification, int> cardModifications = new Dictionary<CardModification, int>() {
         {CardModification.FixedDamageIncrease, 0},
         {CardModification.DoubleDamageIncrease, 0},
-        {CardModification.ThisTurnManaDecrease, 0}
+        {CardModification.ThisTurnManaDecrease, 0},
+        {CardModification.ThisCombatManaDecrease, 0},
     };
 
     public void ResetCardModifications() {

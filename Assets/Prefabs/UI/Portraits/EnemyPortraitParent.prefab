@@ -574,6 +574,26 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -0.00019073486
       objectReference: {fileID: 0}
+    - target: {fileID: 2467740756247403719, guid: d9e1b259e087fa345b6079167f443163, type: 3}
+      propertyPath: intentImages.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2467740756247403719, guid: d9e1b259e087fa345b6079167f443163, type: 3}
+      propertyPath: intentImages.Array.data[5].intent
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2467740756247403719, guid: d9e1b259e087fa345b6079167f443163, type: 3}
+      propertyPath: intentImages.Array.data[5].gameObject
+      value: 
+      objectReference: {fileID: 6526436568346147994}
+    - target: {fileID: 2660271097860081551, guid: d9e1b259e087fa345b6079167f443163, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2660271097860081551, guid: d9e1b259e087fa345b6079167f443163, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 1876035926, guid: a858744b83e5a80448c69680deac9279, type: 3}
     - target: {fileID: 2824540717301244742, guid: d9e1b259e087fa345b6079167f443163, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0.0001411438
@@ -707,6 +727,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49dae7b92ef5bc449b4ecc4db98b4a0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &6526436568346147994 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8478959712244961159, guid: d9e1b259e087fa345b6079167f443163, type: 3}
+  m_PrefabInstance: {fileID: 3402996827322168093}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5884209662954259216
 PrefabInstance:
   m_ObjectHideFlags: 0
