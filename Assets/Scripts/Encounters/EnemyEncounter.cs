@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Dynamic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 [System.Serializable]
 public class EnemyEncounter : Encounter
@@ -9,8 +11,8 @@ public class EnemyEncounter : Encounter
 
     private EncounterConstantsSO encounterConstants;
 
-    private LocationStore companionLocationStore;
-    private LocationStore enemyLocationStore;
+    private UIDocumentGameObjectPlacer placer;
+    private IEncounterBuilder encounterBuilder;
 
     public EnemyEncounter() {
         this.encounterType = EncounterType.Enemy;
@@ -26,7 +28,8 @@ public class EnemyEncounter : Encounter
 
     // sorry to mess up the beautiful pattern but we gotta go fast here
     public override void BuildWithEncounterBuilder(IEncounterBuilder encounterBuilder) {
-        encounterBuilder.BuildEnemyEncounter(this, encounterBuilder.companionLocationStore, encounterBuilder.enemyLocationStore);
+        this.encounterBuilder = encounterBuilder;
+        encounterBuilder.BuildEnemyEncounter(this, encounterBuilder.placer);
     }
 
     public void Build(
@@ -34,49 +37,54 @@ public class EnemyEncounter : Encounter
             EncounterConstantsSO constants,
             List<CompanionInstance> createdCompanions,
             List<EnemyInstance> createdEnemies,
-            LocationStore companionLocationStore,
-            LocationStore enemyLocationStore)
+            UIDocumentGameObjectPlacer placer)
     {
         this.encounterType = EncounterType.Enemy;
         this.encounterConstants = constants;
-        this.companionLocationStore = companionLocationStore;
-        this.enemyLocationStore = enemyLocationStore;   
+        this.placer = placer;
         setupEnemies(createdEnemies);
         setupCompanions(companionList, createdCompanions);
     }
 
     private void setupEnemies(List<EnemyInstance> createdEnemies)
     {
-        if (enemyList.Count > enemyLocationStore.getTopLevelCount()) {
-            Debug.LogError("The enemy locations list does not contain enough locations");
+        if (enemyList.Count > placer.getEnemyPlacesCount()) {
+            Debug.LogError("The UIDocument does not contain enough enemy places!");
             return;
         }
 
+        Debug.Log("EnemyEncounter: enemy list count: " + enemyList.Count);
+
         for(int i = 0; i < enemyList.Count; i++)
         {
-            createdEnemies.Add(PrefabInstantiator.instantiateEnemy(
+            EnemyInstance newEnemy = PrefabInstantiator.instantiateEnemy(
                 encounterConstants.enemyPrefab,
                 enemyList[i],
-                enemyLocationStore.getLoc(i),
-                enemyLocationStore.transform));
+                placer.getNextEnemyPosition(),
+                encounterBuilder.transform);
+            createdEnemies.Add(newEnemy);
+            placer.addMapping(newEnemy.gameObject);
         }
     }
 
     private void setupCompanions(List<Companion> companionList, List<CompanionInstance> createdCompanions)
     {
-        int activeCompanionsCount = companionList.Count;
-        if (activeCompanionsCount > companionLocationStore.getTopLevelCount()) {
-            Debug.LogError("The companion locations list does not contain enough locations");
+        if (companionList.Count > placer.getCompanionPlacesCount()) {
+            Debug.LogError("The UIDocument does not contain enough companion places!");
             return;
         }
 
-        for(int i = 0; i < activeCompanionsCount; i++)
+        Debug.Log("EnemyEncounter: companion list count: " + companionList.Count);
+
+        for(int i = 0; i < enemyList.Count; i++)
         {
-            createdCompanions.Add(PrefabInstantiator.InstantiateCompanion(
+            CompanionInstance newCompanion = PrefabInstantiator.InstantiateCompanion(
                 encounterConstants.companionPrefab,
                 companionList[i],
-                companionLocationStore.getLoc(i),
-                companionLocationStore.transform));
+                placer.getNextCompanionPosition(),
+                encounterBuilder.transform);
+            createdCompanions.Add(newCompanion);
+            placer.addMapping(newCompanion.gameObject);
         }
     }
 }

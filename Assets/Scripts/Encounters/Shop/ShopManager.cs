@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 {
@@ -21,6 +22,8 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     private bool buyingCard = false;
     private CardBuyRequest currentBuyRequest;
     private CompanionCombinationManager companionCombinationManager;
+    [SerializeField]
+    public UIDocumentGameObjectPlacer placer { get; set; }
 
     void Awake() {
         // This ends up calling BuildShopEncounter below
@@ -242,7 +245,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
     // This exists to satisfy the IEncounterBuilder interface.
     // The IEncounterBuilder interface exists to avoid type casting at runtime
-    public void BuildEnemyEncounter(EnemyEncounter encounter, LocationStore companionLocationStore, LocationStore enemyLocationStore) {
+    public void BuildEnemyEncounter(EnemyEncounter encounter, UIDocumentGameObjectPlacer placer) {
         Debug.LogError("The shop encounter scene was loaded but the active encounter is an enemy encounter!");
         return;
     }

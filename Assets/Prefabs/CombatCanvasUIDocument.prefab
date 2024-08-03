@@ -62,7 +62,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PanelSettings: {fileID: 11400000, guid: ea87fbca648add448846dd009fa39a13, type: 2}
   m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 9197481963319205126, guid: f1ea58a663b141e4badf8a303537b662, type: 3}
+  sourceAsset: {fileID: 9197481963319205126, guid: fa8c0f5856aa9974c881308fb739787f, type: 3}
   m_SortingOrder: -22.31
 --- !u!114 &3491427938049875242
 MonoBehaviour:
@@ -118,8 +118,9 @@ MonoBehaviour:
   autoPlaceEnemies: 1
   autoPlaceCompanions: 1
   mappings:
-  - UIDocumentElementName: mana-ring
+  - UIDocumentElementName: aborah
     gameObject: {fileID: 0}
+  zPlane: 0
 --- !u!1 &2627483554680799874
 GameObject:
   m_ObjectHideFlags: 0
@@ -176,7 +177,7 @@ Canvas:
   m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 10
-  m_PixelPerfect: 0
+  m_PixelPerfect: 1
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
@@ -346,7 +347,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4933409660824212659
 RectTransform:
   m_ObjectHideFlags: 0

@@ -5,7 +5,6 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 
-[RequireComponent(typeof(CardDisplay))]
 [RequireComponent(typeof(UIStateEventListener))]
 [RequireComponent(typeof(Targetable))]
 public class PlayableCard : MonoBehaviour,
@@ -35,11 +34,11 @@ public class PlayableCard : MonoBehaviour,
 
     public void Start()
     {
-        card = GetComponent<CardDisplay>().getCardInfo();
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        Debug.Log("Card clicked");
         if (currentState != UIState.DEFAULT) return;
 
         if (card.GetManaCost() > ManaManager.Instance.currentMana

@@ -12,7 +12,6 @@ public class PlayerHand : GenericSingleton<PlayerHand>
 {
     public List<PlayableCard> cardsInHand;
 
-    [SerializeField]
     private GameObject cardPrefab;
 
     [SerializeField]
@@ -27,15 +26,21 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     public delegate IEnumerator OnDeckShuffleHandler(DeckInstance deckFrom);
     public event OnDeckShuffleHandler onDeckShuffledHandler;
 
+    void Start() {
+        cardPrefab = EnemyEncounterManager.Instance.encounterConstants.cardPrefab;
+    }
+
     public List<PlayableCard> DealCards(List<Card> cards, DeckInstance deckFrom) {
         List<PlayableCard> cardsDelt = new List<PlayableCard>();
         PlayableCard newCard;
         foreach(Card cardInfo in cards) {
             newCard = PrefabInstantiator.InstantiateCard(
                 cardPrefab,
-                layoutGroup,
+                EnemyEncounterManager.Instance.transform,
                 cardInfo,
-                deckFrom);
+                deckFrom,
+                UIDocumentGameObjectPlacer.Instance.getNextCardPosition());
+            UIDocumentGameObjectPlacer.Instance.addMapping(newCard.gameObject);
             if (newCard.card.cardType.retain) {
                 newCard.retained = true;
             }

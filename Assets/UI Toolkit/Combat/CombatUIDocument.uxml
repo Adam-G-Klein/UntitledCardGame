@@ -1,8 +1,21 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:VisualElement picking-mode="Ignore" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); background-image: none;">
-        <ui:Label tabindex="-1" text="BROUGHT TO YOU BY UI DOCUMENT :D" display-tooltip-when-elided="true" name="Label" style="color: rgb(255, 255, 255); font-size: 38px; overflow: visible; flex-wrap: wrap; height: 259px; width: 344px;" />
+        <ui:VisualElement name="VisualElement" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); align-items: auto; flex-direction: row;">
+            <ui:VisualElement name="enemy1" style="flex-grow: initial; background-color: rgba(0, 0, 0, 0); flex-shrink: initial; min-width: 20%; min-height: 100px;" />
+            <ui:VisualElement name="enemy2" style="flex-grow: initial; background-color: rgba(0, 0, 0, 0); flex-shrink: initial; min-width: 20%; min-height: 100px;" />
+            <ui:VisualElement name="enemy3" style="flex-grow: initial; background-color: rgba(0, 0, 0, 0); flex-shrink: initial; min-width: 20%; min-height: 100px;" />
+            <ui:VisualElement name="enemy4" style="flex-grow: initial; background-color: rgba(0, 0, 0, 0); flex-shrink: initial; min-width: 20%; min-height: 100px;" />
+            <ui:VisualElement name="enemy5" style="flex-grow: initial; background-color: rgba(0, 0, 0, 0); flex-shrink: initial; min-width: 20%; min-height: 100px;" />
+        </ui:VisualElement>
         <ui:Label tabindex="-1" text=":p" display-tooltip-when-elided="true" style="color: rgb(255, 255, 255);" />
         <ui:Button text="Button" display-tooltip-when-elided="true" />
         <ui:Label tabindex="-1" display-tooltip-when-elided="true" name="mana-ring" style="color: rgb(255, 255, 255);" />
+    </ui:VisualElement>
+    <ui:VisualElement name="VisualElement" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); align-items: auto; flex-direction: row;">
+        <ui:VisualElement name="companion1" style="flex-grow: initial; background-color: rgba(0, 0, 0, 0); flex-shrink: initial; min-width: 20%; min-height: 100px;" />
+        <ui:VisualElement name="companion2" style="flex-grow: initial; background-color: rgba(0, 0, 0, 0); flex-shrink: initial; min-width: 20%; min-height: 100px;" />
+        <ui:VisualElement name="comanion3" style="flex-grow: initial; background-color: rgba(0, 0, 0, 0); flex-shrink: initial; min-width: 20%; min-height: 100px;" />
+        <ui:VisualElement name="companion4" style="flex-grow: initial; background-color: rgba(0, 0, 0, 0); flex-shrink: initial; min-width: 20%; min-height: 100px;" />
+        <ui:VisualElement name="companion5" style="flex-grow: initial; background-color: rgba(0, 0, 0, 0); flex-shrink: initial; min-width: 20%; min-height: 100px;" />
     </ui:VisualElement>
 </ui:UXML>

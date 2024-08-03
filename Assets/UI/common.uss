@@ -298,6 +298,19 @@
     align-items: center;
 }
 
+.worldspace-card-container {
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0);
+    /* no idea if this is how I should do this plz fix it Patrick :) */
+    width: 100%;
+    height: 100%;
+    background-image: url('project://database/Assets/Prefabs/Cards/CardArt/CardFrameWIP.PNG?fileID=2800000&guid=a555ab66854985e40bfda3ce226ed303&type=3#CardFrameWIP');
+    align-self: auto;
+    justify-content: flex-start;
+    align-items: center;
+    picking-mode: ignore;
+}
+
 .mana-card-label {
     align-self: flex-start;
     margin-left: 10px;

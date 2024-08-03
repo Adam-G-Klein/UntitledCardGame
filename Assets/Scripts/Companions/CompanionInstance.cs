@@ -9,12 +9,16 @@ using UnityEngine.UI;
 public class CompanionInstance : MonoBehaviour
 {
     public Companion companion;
+    [Header("Image or SpriteRenderer required in children")]
     public Image spriteImage;
+    public SpriteRenderer spriteRenderer;
     public CombatInstance combatInstance;
     public DeckInstance deckInstance;
 
     private IEnumerable companionAbilityDeathCallback;
     private List<TurnPhaseTrigger> statusEffectTriggers = new List<TurnPhaseTrigger>();
+
+    public static Vector2 COMPANION_SIZE = new Vector2(1f, 1f);
 
     public void Start() {
         // We cannot perform "Setup" on the ability itself, because that is global on the
@@ -28,7 +32,14 @@ public class CompanionInstance : MonoBehaviour
             abilityInstance.Setup();
         }
         CombatEntityManager.Instance.registerCompanion(this);
-        spriteImage.sprite = companion.getSprite();
+        this.spriteImage = GetComponentInChildren<Image>();
+        this.spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        if(spriteImage) {
+            spriteImage.sprite = companion.getSprite();
+        } else if (spriteRenderer) {
+            spriteRenderer.sprite = companion.getSprite();
+            spriteRenderer.size = COMPANION_SIZE;
+        }
         combatInstance.parentType = CombatInstance.CombatInstanceParent.COMPANION;
         combatInstance.combatStats = companion.combatStats;
         Debug.Log("CompanionInstance Start for companion " + companion.id + " initialized with combat stats (health): " + combatInstance.combatStats.getCurrentHealth());

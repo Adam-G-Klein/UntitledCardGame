@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEditor;
 using Unity.VisualScripting;
 using TMPro;
+using UnityEngine.UIElements;
 
 [RequireComponent(typeof(EndEncounterEventListener))]
 public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IEncounterBuilder
@@ -22,58 +23,56 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     private GameObject postCombatUI;
 
     [SerializeField]
-    private GameObject companionLocationStoreGO;
-    [SerializeField]
-    private GameObject enemyLocationStoreGO;
-
-    [SerializeField]
     private EndEncounterEvent endEncounterEvent;
     [SerializeField]
     private UIStateEvent uIStateEvent;
     [SerializeField]
     private GameObject postGamePopup;
+    [SerializeField]
+    public GameObject placerGO; 
 
-    public LocationStore companionLocationStore {
-        get {
-        if(companionLocationStoreGO == null) {
+    public UIDocumentGameObjectPlacer placer { get 
+    {
+        if(placerGO == null) {
             Debug.LogError("companionLocationStoreGO is null");
             return null;
-        } else return companionLocationStoreGO.GetComponent<LocationStore>();
+        } else return placerGO.GetComponent<UIDocumentGameObjectPlacer>();
         } set {
-            companionLocationStore = value;
+            placer = value;
         }
     }
-    public LocationStore enemyLocationStore {
-        get {
-        if(enemyLocationStoreGO == null) {
-            Debug.LogError("enemyLocationStoreGO is null");
-            return null;
-        } else return enemyLocationStoreGO.GetComponent<LocationStore>();
-        } set {
-            enemyLocationStore = value;
-        }
-    }
+
 
     void Start() {
         // This ends up calling BuildEnemyEncounter below
+        StartCoroutine(StartWhenUIDocReady());
+    }
+
+    IEnumerator StartWhenUIDocReady() {
+        yield return new WaitUntil(() => placer.UIDocumentReady());
+        LateStart();
+    }
+
+    void LateStart() {
         gameState.activeEncounter.GetValue().BuildWithEncounterBuilder(this);
         ManaManager.Instance.SetManaPerTurn(gameState.playerData.GetValue().manaPerTurn);
         RegisterCombatEncounterStateActions();
     }
 
     public void BuildEnemyEncounter(EnemyEncounter encounter,
-        LocationStore companionLocationStore,
-        LocationStore enemyLocationStore) {
+        UIDocumentGameObjectPlacer placer) {
         List<CompanionInstance> createdCompanions = new List<CompanionInstance>();
         List<EnemyInstance> createdEnemies = new List<EnemyInstance>();
         encounter.Build(gameState.companions.activeCompanions,
             encounterConstants,
             createdCompanions,
             createdEnemies,
-            companionLocationStore,
-            enemyLocationStore);
-        characterPortraitController.SetupCharacterPortraits(createdCompanions);
-        enemyPortraitController.SetupEnemyPortraits(createdEnemies);
+            placer
+            );
+        if(characterPortraitController)
+            characterPortraitController.SetupCharacterPortraits(createdCompanions);
+        if(enemyPortraitController)
+            enemyPortraitController.SetupEnemyPortraits(createdEnemies);
     }
 
     void Update() {

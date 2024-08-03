@@ -18,12 +18,6 @@ public class UIDocumentScreenspace : MonoBehaviour {
         
         doc = GetComponent<UIDocument>();
 
-        EditorApplication.playModeStateChanged += (PlayModeStateChange state) => {
-            if (state == PlayModeStateChange.ExitingPlayMode) {
-                OnExitPlaymode();
-            }
-        };
-
         StartCoroutine(GetVETextureCoroutine(
             doc.panelSettings, Screen.width, Screen.height,
             (tex) => {
@@ -34,6 +28,15 @@ public class UIDocumentScreenspace : MonoBehaviour {
                 image.material.mainTexture = tex;
             }
         ));
+
+        SetAllPickingModeIgnore(doc.rootVisualElement);
+    }
+
+    private void SetAllPickingModeIgnore(VisualElement ve){
+        ve.pickingMode = PickingMode.Ignore;
+        foreach (VisualElement child in ve.Children()){
+            SetAllPickingModeIgnore(child);
+        }
     }
     /*
     stolen from: https://forum.unity.com/threads/render-visualelement-to-texture.1169015/
