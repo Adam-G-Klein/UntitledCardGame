@@ -5,6 +5,7 @@ using System.Collections;
 using UnityEditor;
 using UnityEngine.UI;
 using UnityEngine.Playables;
+using Unity.VisualScripting;
 
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(UIDocument))]
@@ -14,6 +15,7 @@ public class UIDocumentCard : MonoBehaviour {
     private Card card;
     private UIDocument doc;
     private SpriteRenderer spriteRenderer;
+    private BoxCollider2D boxCollider;
     [SerializeField]
     private Texture2D texture {get;set;}
     public static Vector2Int CARD_REFERENCE_RESOLUTION = new (400, 700);
@@ -29,11 +31,12 @@ public class UIDocumentCard : MonoBehaviour {
     }
     void LateStart() {
         
+        boxCollider = GetComponent<BoxCollider2D>();
         doc = GetComponent<UIDocument>();
         doc.panelSettings = CardPanelSettingsPooler.Instance.GetPanelSettings();
         // TODO: take in card rather than cardtype
         doc.rootVisualElement.Add(UIDocumentUtils.makeWorldspaceCardView(card.cardType));
-        doc.rootVisualElement.pickingMode = PickingMode.Ignore;
+        UIDocumentUtils.SetAllPickingModeIgnore(doc.rootVisualElement);
         spriteRenderer = GetComponent<SpriteRenderer>();
         runCoroutine();
 
@@ -52,6 +55,7 @@ public class UIDocumentCard : MonoBehaviour {
             // Do something with the texture here.
             spriteRenderer.material.SetTexture("_SecondTex", tex);
             spriteRenderer.size = CARD_SIZE;
+            boxCollider.size = CARD_SIZE;
         };
 
         IEnumerable coroutine = GetVETextureCoroutine(

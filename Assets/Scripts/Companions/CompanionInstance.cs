@@ -19,6 +19,7 @@ public class CompanionInstance : MonoBehaviour
     private List<TurnPhaseTrigger> statusEffectTriggers = new List<TurnPhaseTrigger>();
 
     public static Vector2 COMPANION_SIZE = new Vector2(1f, 1f);
+    private BoxCollider2D boxCollider2D;
 
     public void Start() {
         // We cannot perform "Setup" on the ability itself, because that is global on the
@@ -32,13 +33,16 @@ public class CompanionInstance : MonoBehaviour
             abilityInstance.Setup();
         }
         CombatEntityManager.Instance.registerCompanion(this);
+        // TODO, split these next couple lines into a CompanionDisplay class
         this.spriteImage = GetComponentInChildren<Image>();
         this.spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        this.boxCollider2D = GetComponentInChildren<BoxCollider2D>();
         if(spriteImage) {
             spriteImage.sprite = companion.getSprite();
         } else if (spriteRenderer) {
             spriteRenderer.sprite = companion.getSprite();
             spriteRenderer.size = COMPANION_SIZE;
+            boxCollider2D.size = COMPANION_SIZE;
         }
         combatInstance.parentType = CombatInstance.CombatInstanceParent.COMPANION;
         combatInstance.combatStats = companion.combatStats;

@@ -33,6 +33,7 @@ public class TargettingArrowsController : GenericSingleton<TargettingArrowsContr
             List<Targetable.TargetType> validTypes,
             GameObject origin) {
                 //test
+        Debug.Log("TargettingArrows: Creating arrow with origin: " + origin.name);
         Vector3 rootPosition = origin.transform.position;
         TargettingArrow newArrow = Instantiate(arrowPrefab, transform).GetComponent<TargettingArrow>();
         setArrowColor(newArrow, validTypes);

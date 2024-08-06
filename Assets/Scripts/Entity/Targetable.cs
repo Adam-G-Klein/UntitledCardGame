@@ -9,6 +9,15 @@ public class Targetable : MonoBehaviour, IPointerClickHandler
     
     public void OnPointerClick(PointerEventData eventData)
     {
+        if(targetType == TargetType.Companion) {
+            Debug.Log("Targetable: Clicked on companion");
+        } else if(targetType == TargetType.Minion) {
+            Debug.Log("Targetable: Clicked on minion");
+        } else if(targetType == TargetType.Enemy) {
+            Debug.Log("Targetable: Clicked on enemy");
+        } else if(targetType == TargetType.Card) {
+            Debug.Log("Targetable: Clicked on card");
+        }
         TargettingManager.Instance.InvokeTargetSuppliedHandler(this);
     }
 

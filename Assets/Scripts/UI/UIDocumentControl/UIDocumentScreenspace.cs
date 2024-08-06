@@ -29,15 +29,9 @@ public class UIDocumentScreenspace : MonoBehaviour {
             }
         ));
 
-        SetAllPickingModeIgnore(doc.rootVisualElement);
+        UIDocumentUtils.SetAllPickingModeIgnore(doc.rootVisualElement);
     }
 
-    private void SetAllPickingModeIgnore(VisualElement ve){
-        ve.pickingMode = PickingMode.Ignore;
-        foreach (VisualElement child in ve.Children()){
-            SetAllPickingModeIgnore(child);
-        }
-    }
     /*
     stolen from: https://forum.unity.com/threads/render-visualelement-to-texture.1169015/
     */

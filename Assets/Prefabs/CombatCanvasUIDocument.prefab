@@ -14,6 +14,9 @@ GameObject:
   - component: {fileID: 3491427938049875242}
   - component: {fileID: 1482792757737945907}
   - component: {fileID: 8104869312425162302}
+  - component: {fileID: 559762870808071398}
+  - component: {fileID: 1704252872585834326}
+  - component: {fileID: 7450656872853957637}
   m_Layer: 5
   m_Name: UIDocumentAndRenderTarget
   m_TagString: Untagged
@@ -121,6 +124,59 @@ MonoBehaviour:
   - UIDocumentElementName: aborah
     gameObject: {fileID: 0}
   zPlane: 0
+--- !u!114 &559762870808071398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 782343934611933542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f54f1b2283029124ea05bdd4df6ffb1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 0}
+  unityEventResponse:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &1704252872585834326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 782343934611933542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b458032db5467024b8efa5ba14e9e79b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardsInHand: []
+  layoutGroup: {fileID: 0}
+--- !u!114 &7450656872853957637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 782343934611933542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be56800790d51ba40881aca502ac95f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panelSettingsPool:
+  - {fileID: 11400000, guid: 97c73e73c4e3b3e45b48a7ae25296741, type: 2}
+  - {fileID: 11400000, guid: bee0e53d635a06e458e61c8f2457cbc3, type: 2}
+  - {fileID: 11400000, guid: 29e67726013399e4e9aad114fba359e7, type: 2}
+  - {fileID: 11400000, guid: ef8066847a47ccc428c44078ca4f5542, type: 2}
+  - {fileID: 11400000, guid: b55476578d8c7024c905d67de78e9520, type: 2}
+  - {fileID: 11400000, guid: 241dcba9d86ba664aa222d80d06dadf0, type: 2}
+  - {fileID: 11400000, guid: 23e0569ea0b03264aabd7e8befcf975d, type: 2}
+  - {fileID: 11400000, guid: 083e747f475742541ad1874e404ca707, type: 2}
+  - {fileID: 11400000, guid: 1d26c439c8bf2df429c81e12c0a78715, type: 2}
+  - {fileID: 11400000, guid: 099bc062a079cbf40b6295f795457910, type: 2}
 --- !u!1 &2627483554680799874
 GameObject:
   m_ObjectHideFlags: 0
@@ -185,7 +241,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: -229093509
+  m_SortingLayerID: 0
   m_SortingOrder: -10
   m_TargetDisplay: 0
 --- !u!114 &603483477408528675
@@ -204,7 +260,7 @@ MonoBehaviour:
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
-  m_ScreenMatchMode: 0
+  m_ScreenMatchMode: 1
   m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96

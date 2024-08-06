@@ -60,6 +60,7 @@ MonoBehaviour:
       baseAttackDamage: 0
   combatInstance: {fileID: 6706516355190666426}
   spriteImage: {fileID: 0}
+  spriteRenderer: {fileID: 0}
   registerTurnPhaseTriggerEvent: {fileID: 11400000, guid: f82cd01826dfef44391e6a853f3d2e89, type: 2}
   removeTurnPhaseTriggerEvent: {fileID: 11400000, guid: 88acfcb7f9a9846468020e4e3854b467, type: 2}
   combatEffectEvent: {fileID: 11400000, guid: 7b4f8952c0f9b4d4a80b72189e46bd3c, type: 2}
@@ -321,7 +322,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: -876546973899608171, guid: 0680b59c76de07e40811c798aeb33719, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -76,7 +76,7 @@ public class EnemyEncounter : Encounter
 
         Debug.Log("EnemyEncounter: companion list count: " + companionList.Count);
 
-        for(int i = 0; i < enemyList.Count; i++)
+        for(int i = 0; i < companionList.Count; i++)
         {
             CompanionInstance newCompanion = PrefabInstantiator.InstantiateCompanion(
                 encounterConstants.companionPrefab,
