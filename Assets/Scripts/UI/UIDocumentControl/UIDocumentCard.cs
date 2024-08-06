@@ -39,8 +39,6 @@ public class UIDocumentCard : MonoBehaviour {
         UIDocumentUtils.SetAllPickingModeIgnore(doc.rootVisualElement);
         spriteRenderer = GetComponent<SpriteRenderer>();
         runCoroutine();
-
-
     }
     
     void Update(){
@@ -64,8 +62,10 @@ public class UIDocumentCard : MonoBehaviour {
         StartCoroutine(coroutine.GetEnumerator());
     }
 
-    void OnDisable() {
+    private void OnDestroy() {
+        Debug.Log("UIDocumentCard: OnDestroy");
         CardPanelSettingsPooler.Instance.ReturnPanelSettings(doc.panelSettings);
+        UIDocumentGameObjectPlacer.Instance.removeMapping(gameObject);
     }
     /*
     stolen from: https://forum.unity.com/threads/render-visualelement-to-texture.1169015/

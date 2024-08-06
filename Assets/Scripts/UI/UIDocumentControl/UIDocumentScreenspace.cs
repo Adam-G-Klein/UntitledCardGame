@@ -10,26 +10,53 @@ using UnityEngine.UI;
 [RequireComponent(typeof(UIDocument))]
 public class UIDocumentScreenspace : MonoBehaviour {
 
+    [SerializeField]
     private UIDocument doc;
     private RawImage image;
     [SerializeField]
     private Texture2D texture {get;set;}
+    [SerializeField]
+    public bool stateDirty = true;
+
+    void Awake() {
+        if(!doc) {
+            Debug.LogError("UIDocumentScreenspace: No UIDocument component set on this script. Please set it from the component attached to the gameobject so we load the scene 1 frame faster :)");
+        }
+        // Do this in awake so individual controllers can enable clicking on the elements they care about
+        UIDocumentUtils.SetAllPickingModeIgnore(doc.rootVisualElement);
+
+        // Do this in Awake so we can query for element positions sooner
+        UpdateRenderTexture();
+    }
     void Start() {
         
-        doc = GetComponent<UIDocument>();
+    }
 
+    void Update() {
+        if (stateDirty){
+            UpdateRenderTexture();
+        }
+    }
+
+    public void SetStateDirty(){
+        stateDirty = true;
+    }
+
+    private void UpdateRenderTexture(){
         StartCoroutine(GetVETextureCoroutine(
             doc.panelSettings, Screen.width, Screen.height,
             (tex) => {
-                print("completion action invoked!");
                 // Do something with the texture here.
                 image = gameObject.GetComponent<RawImage>();
                 image.texture = tex;
                 image.material.mainTexture = tex;
+                stateDirty = false;
             }
         ));
+    }
 
-        UIDocumentUtils.SetAllPickingModeIgnore(doc.rootVisualElement);
+    public VisualElement GetVisualElement(string name){
+        return doc.rootVisualElement.Q<VisualElement>(name);
     }
 
     /*
@@ -64,7 +91,4 @@ public class UIDocumentScreenspace : MonoBehaviour {
         completionAction?.Invoke(texture);
     }
 
-    void OnExitPlaymode(){
-        //doc.panelSettings.targetTexture = defaultTexture;
-    }
 }

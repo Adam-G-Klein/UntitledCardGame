@@ -9,13 +9,24 @@ using System.Collections.Generic;
 [System.Serializable]
 // A mapping between a gameObject and a UIDocument element name
 public class UIDocGOMapping {
-    public string UIDocumentElementName;
+    public string elementName;
     public GameObject gameObject;
     
     public UIDocGOMapping(GameObject gameObject, string UIDocumentElementName) {
-        this.UIDocumentElementName = UIDocumentElementName;
+        this.elementName = UIDocumentElementName;
         this.gameObject = gameObject;
     }
+}
+
+public class UIElementPlacement {
+    public string elementName;
+    public bool inUse;
+
+    public UIElementPlacement(string elementName, bool inUse) {
+        this.elementName = elementName;
+        this.inUse = inUse;
+    }
+
 }
 
 // Feel free to rename if you can think of a better name
@@ -23,10 +34,10 @@ public class UIDocGOMapping {
 // for the next placed gameObject in the UIdoc.
 // Could be combined with the mapping in the future, but for now this
 // is more specific
-public class ElementIndex {
+public class PlacementPool {
     public int index;
     public string prefix;
-    public ElementIndex(string prefix, int index) {
+    public PlacementPool(string prefix, int index) {
         this.index = index;
         this.prefix = prefix;
     }
@@ -63,15 +74,15 @@ public class UIDocumentGameObjectPlacer : GenericSingleton<UIDocumentGameObjectP
     [SerializeField]
     private bool autoPlaceCompanions = true;
     public List<UIDocGOMapping> mappings = new List<UIDocGOMapping>();
-    private ElementIndex companionIndex = new ElementIndex(COMPANION_UIDOC_ELEMENT_PREFIX, INITIAL_INDEX);
-    private ElementIndex enemyIndex = new ElementIndex(ENEMY_UIDOC_ELEMENT_PREFIX, INITIAL_INDEX);
-    private ElementIndex cardIndex = new ElementIndex(CARD_UIDOC_ELEMENT_PREFIX, INITIAL_INDEX);
+    private PlacementPool companionIndex = new PlacementPool(COMPANION_UIDOC_ELEMENT_PREFIX, INITIAL_INDEX);
+    private PlacementPool enemyIndex = new PlacementPool(ENEMY_UIDOC_ELEMENT_PREFIX, INITIAL_INDEX);
+    private PlacementPool cardIndex = new PlacementPool(CARD_UIDOC_ELEMENT_PREFIX, INITIAL_INDEX);
 
     public float zPlane = -10;
     void Start() {
-        companionIndex = new ElementIndex(COMPANION_UIDOC_ELEMENT_PREFIX, INITIAL_INDEX);
-        enemyIndex = new ElementIndex(ENEMY_UIDOC_ELEMENT_PREFIX, INITIAL_INDEX);        
-        cardIndex = new ElementIndex(CARD_UIDOC_ELEMENT_PREFIX, INITIAL_INDEX);         
+        companionIndex = new PlacementPool(COMPANION_UIDOC_ELEMENT_PREFIX, INITIAL_INDEX);
+        enemyIndex = new PlacementPool(ENEMY_UIDOC_ELEMENT_PREFIX, INITIAL_INDEX);        
+        cardIndex = new PlacementPool(CARD_UIDOC_ELEMENT_PREFIX, INITIAL_INDEX);         
     }
 
     void Update() {
@@ -116,11 +127,11 @@ public class UIDocumentGameObjectPlacer : GenericSingleton<UIDocumentGameObjectP
 
     public void removeMapping(GameObject gameObject) {
         string elementName = getElementIndexFromGameObject(gameObject).getAndDecrement();
-        mappings.RemoveAll(mapping => mapping.UIDocumentElementName == elementName);
+        mappings.RemoveAll(mapping => mapping.elementName == elementName);
     }
 
     // TODO: a class for each of the indices, and a method to get the next index while incrementing
-    private ElementIndex getElementIndexFromGameObject(GameObject gameObject, bool incrementIndex = false) {
+    private PlacementPool getElementIndexFromGameObject(GameObject gameObject, bool incrementIndex = false) {
         if(gameObject.GetComponent<CompanionInstance>() != null) {
             return companionIndex;
         } else if(gameObject.GetComponent<EnemyInstance>() != null) {
@@ -140,7 +151,7 @@ public class UIDocumentGameObjectPlacer : GenericSingleton<UIDocumentGameObjectP
     }
 
     private Vector3 getWorldPositionFromMapping(UIDocGOMapping mapping) {
-        return getWorldPositionFromElementName(mapping.UIDocumentElementName);
+        return getWorldPositionFromElementName(mapping.elementName);
     }
 
     private UIDocGOMapping getMappingFromGameObject(GameObject gameObject) {
@@ -178,13 +189,17 @@ public class UIDocumentGameObjectPlacer : GenericSingleton<UIDocumentGameObjectP
         }
     }
 
-    private Vector3 getNextPositionFromIndex(ElementIndex index) {
+    private Vector3 getNextPositionFromIndex(PlacementPool index) {
         return getWorldPositionFromElementName(index.get());
     }
 
     private Vector3 getWorldPositionFromElementName(string elementName) {
         Debug.Log("Getting world position for element: " + elementName);
         VisualElement element = GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>(elementName);
+        if(element == null) {
+            Debug.LogError("UIDocumentGameObjectPlacer: Element not found for name: " + elementName);
+            return new Vector3(0, 0, 0);
+        }
         Debug.Log("element: " + element);
         Vector3 uiDocumentPosition =  new Vector3(
             element.worldBound.center.x,
@@ -220,7 +235,7 @@ public class UIDocumentGameObjectPlacer : GenericSingleton<UIDocumentGameObjectP
 
 
     private int getPlacesCount(string prefix) {
-        ElementIndex index = new ElementIndex(prefix, 1);
+        PlacementPool index = new PlacementPool(prefix, 1);
         int loopSaver = 0;
         while(GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>(index.getAndIncrement()) != null && loopSaver < 1000) { 
             Debug.Log("UIDocumentGameObjectPlacer.getPlacesCount: found element before: " + index.get());
