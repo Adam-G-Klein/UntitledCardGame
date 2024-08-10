@@ -68,7 +68,7 @@ public class UIDocumentGameObjectPlacer : GenericSingleton<UIDocumentGameObjectP
     private bool autoPlaceEnemies = true;
     private static string ENEMY_UIDOC_ELEMENT_PREFIX = "enemy";
     private static string COMPANION_UIDOC_ELEMENT_PREFIX = "companion";
-    private static string HAND_UIDOC_ELEMENT_PREFIX = "hand";
+    private static string CARD_UIDOC_ELEMENT_PREFIX = "card";
     private static int INITIAL_INDEX = 1;
 
     [SerializeField]
@@ -76,13 +76,13 @@ public class UIDocumentGameObjectPlacer : GenericSingleton<UIDocumentGameObjectP
     public List<UIDocGOMapping> mappings = new List<UIDocGOMapping>();
     private PlacementPool companionIndex = new PlacementPool(COMPANION_UIDOC_ELEMENT_PREFIX, INITIAL_INDEX);
     private PlacementPool enemyIndex = new PlacementPool(ENEMY_UIDOC_ELEMENT_PREFIX, INITIAL_INDEX);
-    private PlacementPool handIndex = new PlacementPool(HAND_UIDOC_ELEMENT_PREFIX, INITIAL_INDEX);
+    private PlacementPool cardIndex = new PlacementPool(CARD_UIDOC_ELEMENT_PREFIX, INITIAL_INDEX);
 
     public float zPlane = -10;
     void Start() {
         companionIndex = new PlacementPool(COMPANION_UIDOC_ELEMENT_PREFIX, INITIAL_INDEX);
         enemyIndex = new PlacementPool(ENEMY_UIDOC_ELEMENT_PREFIX, INITIAL_INDEX);        
-        handIndex = new PlacementPool(HAND_UIDOC_ELEMENT_PREFIX, INITIAL_INDEX);         
+        cardIndex = new PlacementPool(CARD_UIDOC_ELEMENT_PREFIX, INITIAL_INDEX);         
     }
 
     void Update() {
@@ -137,7 +137,7 @@ public class UIDocumentGameObjectPlacer : GenericSingleton<UIDocumentGameObjectP
         } else if(gameObject.GetComponent<EnemyInstance>() != null) {
             return enemyIndex;
         } else if(gameObject.GetComponent<PlayableCard>() != null) {
-            return handIndex;
+            return cardIndex;
         } else {
             Debug.LogError("GameObject does not have a valid component for UIDocumentGameObjectPlacer");
             return null;
@@ -172,8 +172,8 @@ public class UIDocumentGameObjectPlacer : GenericSingleton<UIDocumentGameObjectP
 
     // Used for the initial prefab instantiation call, so we don't flicker
     // objects to random positions before their mappings are added
-    public Vector3 getNextHandPosition() {
-        return getNextPosition(HAND_UIDOC_ELEMENT_PREFIX);
+    public Vector3 getNextCardPosition() {
+        return getNextPosition(CARD_UIDOC_ELEMENT_PREFIX);
     }
 
     private Vector3 getNextPosition(string prefix) {
@@ -181,8 +181,8 @@ public class UIDocumentGameObjectPlacer : GenericSingleton<UIDocumentGameObjectP
             return getNextPositionFromIndex(enemyIndex);
         } else if(prefix == COMPANION_UIDOC_ELEMENT_PREFIX) {
             return getNextPositionFromIndex(companionIndex);
-        } else if (prefix == HAND_UIDOC_ELEMENT_PREFIX) {
-            return getNextPositionFromIndex(handIndex);
+        } else if (prefix == CARD_UIDOC_ELEMENT_PREFIX) {
+            return getNextPositionFromIndex(cardIndex);
         } else {
             Debug.LogError("Invalid prefix for getNextPosition");
             return new Vector3(0, 0, 0);

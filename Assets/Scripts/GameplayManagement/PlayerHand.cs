@@ -39,7 +39,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                 EnemyEncounterManager.Instance.transform,
                 cardInfo,
                 deckFrom,
-                UIDocumentGameObjectPlacer.Instance.getNextHandPosition());
+                UIDocumentGameObjectPlacer.Instance.getNextCardPosition());
             UIDocumentGameObjectPlacer.Instance.addMapping(newCard.gameObject);
             if (newCard.card.cardType.retain) {
                 newCard.retained = true;
