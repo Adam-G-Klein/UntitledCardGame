@@ -48,12 +48,13 @@ public class EnemyEncounter : Encounter
 
     private void setupEnemies(List<EnemyInstance> createdEnemies)
     {
+        Debug.Log("EnemyEncounter: enemy list count: " + enemyList.Count + "=?" + placer.getEnemyPlacesCount());
+
         if (enemyList.Count > placer.getEnemyPlacesCount()) {
             Debug.LogError("The UIDocument does not contain enough enemy places!");
             return;
         }
 
-        Debug.Log("EnemyEncounter: enemy list count: " + enemyList.Count);
 
         for(int i = 0; i < enemyList.Count; i++)
         {
@@ -69,14 +70,14 @@ public class EnemyEncounter : Encounter
 
     private void setupCompanions(List<Companion> companionList, List<CompanionInstance> createdCompanions)
     {
-        if (companionList.Count > placer.getCompanionPlacesCount()) {
+        Debug.Log("EnemyEncounter: companion list count: " + companionList.Count + "=?" + placer.getCompanionPlacesCount());
+        if (companionList.Count > placer.getCompanionPlacesCount())
+        {
             Debug.LogError("The UIDocument does not contain enough companion places!");
             return;
         }
 
-        Debug.Log("EnemyEncounter: companion list count: " + companionList.Count);
-
-        for(int i = 0; i < companionList.Count; i++)
+        for (int i = 0; i < companionList.Count; i++)
         {
             CompanionInstance newCompanion = PrefabInstantiator.InstantiateCompanion(
                 encounterConstants.companionPrefab,

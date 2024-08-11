@@ -1,14 +1,20 @@
-using System.Collections.Generic;
-using System.Collections;
 using UnityEngine;
 using TMPro;
 
 [RequireComponent(typeof(TurnPhaseEventListener))]
 public class ManaManager : GenericSingleton<ManaManager> {
+    public int _currentMana = 3;
+    public int currentMana { get {
+            return _currentMana;
+        }set {
+            listener.GetComponent<CombatEncounterView>().updateMana(value);
+            _currentMana = value;
 
-    public int currentMana = 3;
+        }
+    }
     public int extraManaNextTurn = 0;
     public int manaPerTurn;
+    public GameObject listener;
     private TextMeshProUGUI text;
 
     void Start() {

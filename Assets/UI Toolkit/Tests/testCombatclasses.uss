@@ -7,3 +7,224 @@
     -unity-text-outline-width: 2px;
     background-image: url('project://database/Assets/Sprites/CardArt/EntropysCards/EntrophyCardFront2.PNG?fileID=2800000&guid=c97940a1e9a2e1a4092225af645c54fb&type=3#EntrophyCardFront2');
 }
+
+.pillar-tab-text {
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    color: rgb(255, 255, 255);
+    font-size: 10px;
+    -unity-text-align: upper-center;
+}
+
+.entity-pillar {
+    flex-grow: 1;
+    width: 12.5%;
+    height: 100%;
+    max-width: 12.5%;
+    border-left-color: rgb(174, 151, 126);
+    border-right-color: rgb(174, 151, 126);
+    border-top-color: rgb(174, 151, 126);
+    border-bottom-color: rgb(174, 151, 126);
+}
+
+.top-triangle {
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0);
+    height: 43px;
+    background-image: url('project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=8300712400058098730&guid=2c4993762e2fe7540a557437d8f8f4ab&type=3#dropdown-arrow@2x');
+    -unity-background-image-tint-color: rgb(174, 151, 126);
+    -unity-background-scale-mode: stretch-to-fill;
+    rotate: 180deg;
+}
+
+.container {
+    flex-grow: 1;
+    background-color: rgb(174, 151, 126);
+    height: 70%;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+}
+
+.pillar-container {
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0);
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    min-width: auto;
+    min-height: auto;
+}
+
+.armorTab {
+    flex-grow: 1;
+    background-color: rgb(88, 67, 44);
+    position: absolute;
+    width: 10%;
+    height: 6.5%;
+    top: 20px;
+    left: 178px;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+}
+
+.portrait-container {
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0);
+    height: 50%;
+    background-image: url('project://database/Assets/Sprites/AborahArt/Aborah.png?fileID=2800000&guid=262098d4fa988884b9c5220534731c26&type=3#Aborah');
+}
+
+.pillar-details {
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0);
+    height: 50%;
+    align-items: center;
+}
+
+.pillar-name {
+    flex-grow: 1;
+    background-color: rgb(174, 151, 126);
+    height: 20%;
+    width: 110%;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    align-items: center;
+}
+
+.pillar-name {
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 16px;
+    -unity-text-align: upper-center;
+}
+
+.pillar-text {
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0);
+    height: 80%;
+    width: 100%;
+}
+
+.nuthin {
+    flex-grow: 1;
+    background-color: rgb(88, 67, 44);
+    position: absolute;
+    width: 10%;
+    height: 6.5%;
+    top: 50px;
+    left: 178px;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+}
+
+.shield {
+    flex-grow: 1;
+    background-color: rgb(88, 67, 44);
+    position: absolute;
+    width: 10%;
+    height: 6.5%;
+    top: 50px;
+    left: -18px;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+}
+
+.healthTab {
+    flex-grow: 1;
+    background-color: rgb(88, 67, 44);
+    position: absolute;
+    width: 10%;
+    height: 6.5%;
+    top: 20px;
+    left: -18px;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    justify-content: center;
+}
+
+.pillar-desc-label {
+    height: 100%;
+    width: 100%;
+    white-space: normal;
+    align-self: flex-start;
+    -unity-text-align: upper-center;
+}
+
+.cardPlace {
+    width: 50%;
+    background-image: none;
+    height: 80%;
+}
+
+.companion-cards-placer {
+    flex-grow: 0;
+    background-color: rgba(0, 0, 0, 0);
+    min-width: auto;
+    min-height: auto;
+    width: 30%;
+    flex-direction: row;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
