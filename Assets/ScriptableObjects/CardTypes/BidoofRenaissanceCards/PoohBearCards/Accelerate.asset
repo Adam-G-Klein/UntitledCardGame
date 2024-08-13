@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Accelerate
   Description: Consume 1 aura stack from target companion to draw 2 cards from that
-    companion and gain 1 mana.
+    companion and gain 2 energy
   Cost: 0
   Artwork: {fileID: 21300000, guid: 47602993e540997478144938c9b7ec9b, type: 3}
   cardCategory: 2
@@ -89,11 +89,12 @@ MonoBehaviour:
         scale: -1
         getScaleFromKey: 0
         inputScaleKey: 
+        multiplyByNumAuraStacks: 0
     - rid: 5602892679876706357
       type: {class: ManaChange, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ManaChange
-        scale: 1
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
     - rid: 5602892679876706358

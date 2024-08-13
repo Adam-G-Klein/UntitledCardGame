@@ -7,25 +7,45 @@ using UnityEngine;
 public class EnemyBrain
 {
     public List<EnemyBehavior> behaviors;
-    public bool sequentialBehaviors = false;
+    [SerializeField]
+    public EnemyBehaviorPattern behaviorType;
     public int nextBehaviorIndex = 0;
 
     // To be revisited
     private float attackTime = 0.5f;
 
     public EnemyIntent ChooseIntent(EnemyInstance self) {
-        // Just randomly choose behavior for now, but there's room to make this more smarter
-        int behaviorIndex = sequentialBehaviors ? nextBehaviorIndex : UnityEngine.Random.Range(0, behaviors.Count);
         if(behaviors.Count == 0) {
             Debug.LogError("No behaviors defined for enemy");
             return null;
         }
-        nextBehaviorIndex = (nextBehaviorIndex + 1) % behaviors.Count;
+        int behaviorIndex = 0;
+        switch (behaviorType) {
+            case EnemyBehaviorPattern.SequentialCycling:
+                behaviorIndex = nextBehaviorIndex;
+                nextBehaviorIndex = (nextBehaviorIndex + 1) % behaviors.Count;
+                break;
+            case EnemyBehaviorPattern.Random:
+                behaviorIndex = UnityEngine.Random.Range(0, behaviors.Count);
+                break;
+            case EnemyBehaviorPattern.SequentialWithSinkAtLastElement:
+                behaviorIndex = nextBehaviorIndex;
+                // Advance until we reach the end of the defined behaviors.
+                nextBehaviorIndex = Math.Min(nextBehaviorIndex + 1, behaviors.Count - 1);
+                break;
+        }
         EnemyBehavior action = behaviors[behaviorIndex];
+        // Note: this only allows the enemies to target companions for now.
+        // There is nothing that allows targeting other enemies, but this is not
+        // an important behavior to support for now.
         CompanionInstance target = ChooseTargets(action.enemyTargetMethod, self);
+        List<CompanionInstance> targetList = new();
+        if (target != null) {
+            targetList.Add(target);
+        }
         return new EnemyIntent(
             // I'm aware this is bad, stick with me for a sec
-            new List<CompanionInstance>() { target },
+            targetList,
             attackTime,
             action.intent,
             action.targetsKey,
@@ -88,5 +108,14 @@ public class EnemyBrain
         }
 
         return value + instance.combatInstance.combatStats.baseAttackDamage + instance.combatInstance.statusEffects[StatusEffect.Strength];
+    }
+
+    public enum EnemyBehaviorPattern {
+        // Cycle through the behaviors in sequence.
+        SequentialCycling,
+        // Choose a behavior at random.
+        Random,
+        // Terminate on the last behavior and repeat until combat is over.
+        SequentialWithSinkAtLastElement,
     }
 }

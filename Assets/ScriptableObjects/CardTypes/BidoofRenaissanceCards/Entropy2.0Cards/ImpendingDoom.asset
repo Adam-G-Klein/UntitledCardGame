@@ -13,13 +13,15 @@ MonoBehaviour:
   m_Name: ImpendingDoom
   m_EditorClassIdentifier: 
   Name: Impending Doom
-  Description: Double the damage of all Self-Sharpening Blades
+  Description: Retain. Choose a card in your hand. Transform all copies of it in
+    your hand and deck into Self-Sharpening Blade for the rest of combat
   Cost: 2
   Artwork: {fileID: 21300000, guid: 90fa2971dfe769a49a60ad648e956340, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
+  retain: 1
   effectWorkflows:
   - rid: 5602892563578093750
   onExhaustEffectWorkflow:
@@ -32,19 +34,51 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 4463206030013891497
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: target
+        validTargets: 03000000
+        number: 1
+        specialTargetRule: 5
+        cantCancelTargetting: 0
+    - rid: 4463206030013891498
+      type: {class: ConvertPlayableCardToCard, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ConvertPlayableCardToCard
+        inputKey: target
+        outputKey: card
+    - rid: 4463206030013891499
+      type: {class: TransmogrifyCard, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: TransmogrifyCard
+        inputDeckInstancesKey: 
+        targetCardType: {fileID: 0}
+        cardToTransformInto: {fileID: 11400000, guid: 62fdc51643d8849a4b4b4c1498a15598, type: 2}
+        getCardTypeFromKey: 1
+        inputCardKey: card
+        includeDrawPile: 1
+        includeDiscardPile: 1
+        includeCardsInHand: 1
+    - rid: 4463206030013891500
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: all
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 1
+        cantCancelTargetting: 0
     - rid: 5602892563578093750
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
-        - rid: 5602892563578093751
-    - rid: 5602892563578093751
-      type: {class: CardModificationEffect, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CardModificationEffect
-        inputKey: 
-        scale: 0
-        affectsAllCardsOfType: 1
-        cardTypeToModify: {fileID: 11400000, guid: 62fdc51643d8849a4b4b4c1498a15598, type: 2}
-        getScaleFromKey: 0
-        scaleKey: 
-        modification: 1
+        - rid: 4463206030013891497
+        - rid: 4463206030013891498
+        - rid: 4463206030013891500
+        - rid: 4463206030013891499

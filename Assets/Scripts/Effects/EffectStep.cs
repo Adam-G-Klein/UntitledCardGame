@@ -46,6 +46,7 @@ public enum EffectStepName {
     SetCardEffectWorkflow,
     SummonMinion,
     Taunt,
+    TransmogrifyCard,
     DialogueStep,
     FXEffectStep
 }

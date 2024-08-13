@@ -10,18 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: ManyAuralKnife
+  m_Name: AuraKnife
   m_EditorClassIdentifier: 
-  Name: Many Aural Knife
-  Description: Create an Aural Knife for each companion on your team
-  Cost: 2
-  Artwork: {fileID: 21300000, guid: 5500487feb715b54490f91e1c9796e9c, type: 3}
-  cardCategory: 2
+  Name: Aura Knife
+  Description: Exhaust. Deal 4 damage.
+  Cost: 0
+  Artwork: {fileID: 21300000, guid: dcfdc6d5b4c40644b90c3330582adb6a, type: 3}
+  cardCategory: 1
   vfxPrefab: {fileID: 0}
   playable: 1
-  exhaustsWhenPlayed: 0
+  exhaustsWhenPlayed: 1
+  retain: 0
   effectWorkflows:
-  - rid: 5602892563578094207
+  - rid: 5602892563578094210
   onExhaustEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
@@ -32,33 +33,32 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 5602892563578094207
+    - rid: 5602892563578094210
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
-        - rid: 5602892563578094208
-        - rid: 5602892563578094209
-    - rid: 5602892563578094208
+        - rid: 5602892563578094211
+        - rid: 5602892563578094212
+    - rid: 5602892563578094211
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: allCompanions
-        validTargets: 00000000
+        outputKey: target
+        validTargets: 02000000
         number: 1
-        specialTargetRule: 1
+        specialTargetRule: 0
         cantCancelTargetting: 0
-    - rid: 5602892563578094209
-      type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
+    - rid: 5602892563578094212
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: AddCardsToHand
-        entityFromKey: allCompanions
-        cardTypes:
-        - {fileID: 11400000, guid: 59874a9b5e5a94390a53aaec50c329d6, type: 2}
-        getCardsFromKey: 0
-        inputCardsKey: 
-        scale: 1
+        effectStepName: CombatEffectStep
+        inputKey: target
+        combatEffect: 0
+        scale: 4
         getScaleFromKey: 0
         inputScaleKey: 
-        outputKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 

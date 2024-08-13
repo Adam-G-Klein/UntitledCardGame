@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: MabsMight
   m_EditorClassIdentifier: 
   Name: Mab's Might
-  Description: Exhaust. Target companion loses 1 HP, then heal 6 HP. Draw 1 card
+  Description: Exhaust. Target companion loses 1 HP, then heals 20% of their max
+    health. Draw 1 card from them
   Cost: 0
-  Artwork: {fileID: 21300000, guid: 70dd24a7c98646b44870b00b67a720f4, type: 3}
+  Artwork: {fileID: 21300000, guid: 28b3c9fcc50215a41a060c956d5d2f9e, type: 3}
   cardCategory: 4
   vfxPrefab: {fileID: 0}
   playable: 1
@@ -39,6 +40,7 @@ MonoBehaviour:
         effectSteps:
         - rid: 5602892675124822048
         - rid: 5602893017534169424
+        - rid: 5602893111447520467
         - rid: 5602893017534169425
         - rid: 5602893111447519917
     - rid: 5602892675124822048
@@ -71,8 +73,8 @@ MonoBehaviour:
         inputKey: target
         combatEffect: 9
         scale: 6
-        getScaleFromKey: 0
-        inputScaleKey: 
+        getScaleFromKey: 1
+        inputScaleKey: healAmt
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
@@ -85,3 +87,10 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+    - rid: 5602893111447520467
+      type: {class: GetPercentOfMaxHP, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetPercentOfMaxHP
+        inputKey: target
+        percent: 0.2
+        outputKey: healAmt

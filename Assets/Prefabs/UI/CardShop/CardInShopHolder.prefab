@@ -75,6 +75,81 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &3849503118396954050
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 145959971325594030}
+  - component: {fileID: 5081323690404085998}
+  - component: {fileID: 4976050200768859901}
+  m_Layer: 0
+  m_Name: CardRarity
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &145959971325594030
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3849503118396954050}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3483337598618349613}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 102.3668, y: 8.3736}
+  m_SizeDelta: {x: 47.8864, y: 43.5474}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &5081323690404085998
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3849503118396954050}
+  m_CullTransparentMesh: 1
+--- !u!114 &4976050200768859901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3849503118396954050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: d72b830c014fec04190fbb044d03f83a, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &6627903356724744950
 GameObject:
   m_ObjectHideFlags: 0
@@ -218,8 +293,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: ??
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 0a9ac2d3d13b80846af173a14eb7c7a9, type: 2}
-  m_sharedMaterial: {fileID: -7090538367109287897, guid: 0a9ac2d3d13b80846af173a14eb7c7a9, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -616,11 +691,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1218430186337262523, guid: 0125b71e48682a14386f4701e489938d, type: 3}
       propertyPath: m_fontSize
-      value: 34.45
+      value: 35.35
       objectReference: {fileID: 0}
     - target: {fileID: 1218430187738907287, guid: 0125b71e48682a14386f4701e489938d, type: 3}
       propertyPath: m_fontSize
-      value: 46.3
+      value: 47.25
       objectReference: {fileID: 0}
     - target: {fileID: 2650191115347414960, guid: 0125b71e48682a14386f4701e489938d, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -696,8 +771,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8364406301424066529, guid: 0125b71e48682a14386f4701e489938d, type: 3}
       propertyPath: m_fontSize
-      value: 40.15
+      value: 48.2
       objectReference: {fileID: 0}
+    - target: {fileID: 8952371309157492456, guid: 0125b71e48682a14386f4701e489938d, type: 3}
+      propertyPath: rarityDisplayGO
+      value: 
+      objectReference: {fileID: 4976050200768859901}
+    - target: {fileID: 8952371309157492456, guid: 0125b71e48682a14386f4701e489938d, type: 3}
+      propertyPath: rareRaritySymbol
+      value: 
+      objectReference: {fileID: 21300000, guid: d80ece043d1a341cea63a51e209dc7c7, type: 3}
+    - target: {fileID: 8952371309157492456, guid: 0125b71e48682a14386f4701e489938d, type: 3}
+      propertyPath: commonRaritySymbol
+      value: 
+      objectReference: {fileID: 21300000, guid: 521f4197c0e2c4854892e3581a17d1c6, type: 3}
+    - target: {fileID: 8952371309157492456, guid: 0125b71e48682a14386f4701e489938d, type: 3}
+      propertyPath: uncommonRaritySymbol
+      value: 
+      objectReference: {fileID: 21300000, guid: 06c3e5b8b8bc64ebfa2ec17b9ccec7df, type: 3}
     - target: {fileID: 8952371309157492458, guid: 0125b71e48682a14386f4701e489938d, type: 3}
       propertyPath: m_Name
       value: CardInShop
@@ -706,7 +797,10 @@ PrefabInstance:
     - {fileID: 4109081379432609215, guid: 0125b71e48682a14386f4701e489938d, type: 3}
     - {fileID: 7533518680429018692, guid: 0125b71e48682a14386f4701e489938d, type: 3}
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 5849600836069334007, guid: 0125b71e48682a14386f4701e489938d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 145959971325594030}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0125b71e48682a14386f4701e489938d, type: 3}
 --- !u!114 &2109812896835702066 stripped
@@ -720,6 +814,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a26e7bfb688784647a076537cea01e55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &3483337598618349613 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5849600836069334007, guid: 0125b71e48682a14386f4701e489938d, type: 3}
+  m_PrefabInstance: {fileID: 7024130944350366682}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &5378545107470286178 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3161201103588775608, guid: 0125b71e48682a14386f4701e489938d, type: 3}

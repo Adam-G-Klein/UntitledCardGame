@@ -44,6 +44,8 @@ public class Card : Entity, IEquatable<Card>
     [HideInInspector]
     private CompanionTypeSO companionFrom;
 
+    public CardRarity shopRarity = CardRarity.NONE;
+
     // For sagas, determines the index into the EffectWorkflowList that we'll return from GetEffectWorkflow
     // For non-sagas, will always stay at 0
     private int workflowIndex = 0;
@@ -78,9 +80,10 @@ public class Card : Entity, IEquatable<Card>
     [SerializeReference]
     public CardType cardType;
 
-    public Card(CardType cardType, CompanionTypeSO companionFrom)
+    public Card(CardType cardType, CompanionTypeSO companionFrom, CardRarity rarity = CardRarity.NONE)
     {
         this.cardType = cardType;
+        this.shopRarity = rarity;
         this.id = Id.newGuid();
         this.setCompanionFrom(companionFrom);
         ResetCardModifications();
@@ -168,7 +171,7 @@ public class Card : Entity, IEquatable<Card>
         foreach(int i in Enum.GetValues(typeof(CardModification))) {
             cardModifications.Add((CardModification)i, 0);
         }
-        cardType.ResetCardModifications();
+        // cardType.ResetCardModifications();
     }
 
     public void ChangeCardModification(CardModification modification, int scale) {
@@ -186,5 +189,12 @@ public class Card : Entity, IEquatable<Card>
 
     public bool CardModificationsHasKey(CardModification mod) {
         return cardModifications.ContainsKey(mod) && cardModifications[mod] != 0;
+    }
+
+    public enum CardRarity {
+        NONE,
+        COMMON,
+        UNCOMMON,
+        RARE,
     }
 }

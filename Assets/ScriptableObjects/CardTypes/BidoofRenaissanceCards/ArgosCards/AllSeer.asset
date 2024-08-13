@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AllSeer
   m_EditorClassIdentifier: 
   Name: All-Seer
-  Description: Create an Eye of Argos in hand for each adjacent companion.
+  Description: Create an Eye of Argos card from each adjacent companion
   Cost: 1
   Artwork: {fileID: 21300000, guid: 18251cc3bb6c59d4794bd522032e2ee3, type: 3}
   cardCategory: 2
@@ -33,14 +33,7 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 5602892563578094203
-      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
-      data:
-        effectSteps:
-        - rid: 5602892563578094204
-        - rid: 5602892563578094205
-        - rid: 5602892563578094206
-    - rid: 5602892563578094204
+    - rid: 4463205916933357570
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
@@ -51,17 +44,17 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 4
         cantCancelTargetting: 0
-    - rid: 5602892563578094205
+    - rid: 4463205916933357571
       type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetAdjacentCompanions
         inputKey: self
-        outputKey: adjacentCompanions
-    - rid: 5602892563578094206
+        outputKey: adj
+    - rid: 4463205916933357572
       type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: AddCardsToHand
-        entityFromKey: adjacentCompanions
+        entityFromKey: adj
         cardTypes:
         - {fileID: 11400000, guid: b9e0adbcf6fe84184866b60213d4a8f1, type: 2}
         getCardsFromKey: 0
@@ -70,3 +63,10 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         outputKey: 
+    - rid: 5602892563578094203
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 4463205916933357570
+        - rid: 4463205916933357571
+        - rid: 4463205916933357572

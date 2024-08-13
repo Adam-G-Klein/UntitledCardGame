@@ -26,6 +26,11 @@ public class CardDisplay : MonoBehaviour
     public Color initManaCostColor;
     public TextMeshProUGUI manaCostText;
 
+    public Image rarityDisplayGO;
+    public Sprite commonRaritySymbol;
+    public Sprite uncommonRaritySymbol;
+    public Sprite rareRaritySymbol;
+
     public bool initialized {
         get {
             return CardNameGO != null
@@ -84,24 +89,39 @@ public class CardDisplay : MonoBehaviour
         initManaCostColor = manaCostText.color;
         ArtworkGO.sprite = cardInfo.artwork;
         CompanionTypeSO companionType = cardInfo.getCompanionFrom();
-        if (companionType == null) {
-            Debug.LogError("No companion from provided to cardDisplay or present in cardInfo. cardInfo: " + cardInfo.name + " companionType: " + companionType);
-            yield break;
-        }
-        else if(companionType.cardIdleVfxPrefab) {
+        if (companionType != null) {
+            if(companionType.cardIdleVfxPrefab) {
             vfxGO = Instantiate(companionType.cardIdleVfxPrefab, transform);
             vfxGO.transform.SetSiblingIndex(0);
+            }
+            if(companionType.cardFrame == null) {
+                Debug.LogError("CompanionTypeSO " + companionType.name + " has no cardFrame set");
+            }
+            FrameGO.sprite = companionType.cardFrame;
+            Frame = FrameGO.sprite;
+            if(companionType.typeIcon == null) {
+                Debug.LogError("CompanionTypeSO " + companionType.name + " has no typeIcon set");
+            }
+            TypeIconGO.sprite = companionType.typeIcon;
+            TypeIcon = TypeIconGO.sprite;
         }
-        if(companionType.cardFrame == null) {
-            Debug.LogError("CompanionTypeSO " + companionType.name + " has no cardFrame set");
+        if (rarityDisplayGO != null) {
+            switch (cardInfo.shopRarity) {
+            case Card.CardRarity.NONE:
+                rarityDisplayGO.enabled = false;
+                break;
+            case Card.CardRarity.COMMON:
+                rarityDisplayGO.sprite = commonRaritySymbol;
+                break;
+            case Card.CardRarity.UNCOMMON:
+                rarityDisplayGO.sprite = uncommonRaritySymbol;
+                break;
+            case Card.CardRarity.RARE:
+                rarityDisplayGO.sprite = rareRaritySymbol;
+                break;
+            }
         }
-        FrameGO.sprite = companionType.cardFrame;
-        Frame = FrameGO.sprite;
-        if(companionType.typeIcon == null) {
-            Debug.LogError("CompanionTypeSO " + companionType.name + " has no typeIcon set");
-        }
-        TypeIconGO.sprite = companionType.typeIcon;
-        TypeIcon = TypeIconGO.sprite;
+
         yield return null;
 
 

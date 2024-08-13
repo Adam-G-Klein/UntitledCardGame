@@ -10,19 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: GlassHalfFull
+  m_Name: ManyEmbuedKnife
   m_EditorClassIdentifier: 
-  Name: Glass Half Full
-  Description: Gain 1 energy for each companion on your team below half HP
-  Cost: 1
-  Artwork: {fileID: 21300000, guid: da1a1978bec27b446a94d96c66f7fb55, type: 3}
+  Name: Many Embued Knife
+  Description: Create an Embued Knife for each companion on your team with an aura
+    stack
+  Cost: 2
+  Artwork: {fileID: 21300000, guid: 5500487feb715b54490f91e1c9796e9c, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
   retain: 0
   effectWorkflows:
-  - rid: 5602892949302280977
+  - rid: 5602892563578094207
   onExhaustEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
@@ -33,15 +34,14 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 5602892949302280977
+    - rid: 5602892563578094207
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
-        - rid: 5602892949302280978
-        - rid: 5602892949302280979
-        - rid: 5602892949302280980
-        - rid: 5602892949302280981
-    - rid: 5602892949302280978
+        - rid: 5602892563578094208
+        - rid: 5602893111447520296
+        - rid: 5602892563578094209
+    - rid: 5602892563578094208
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
@@ -52,23 +52,23 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 1
         cantCancelTargetting: 0
-    - rid: 5602892949302280979
-      type: {class: FilterEntityByHP, ns: , asm: Assembly-CSharp}
+    - rid: 5602892563578094209
+      type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: FilterEntityByHP
+        effectStepName: AddCardsToHand
+        entityFromKey: companionsWithAura
+        cardTypes:
+        - {fileID: 11400000, guid: 59874a9b5e5a94390a53aaec50c329d6, type: 2}
+        getCardsFromKey: 0
+        inputCardsKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        outputKey: 
+    - rid: 5602893111447520296
+      type: {class: FilterEntityByStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FilterEntityByStatus
         inputKey: allCompanions
-        percentThreshold: 0.5
-        outputKey: allCompanionsBelowHalf
-    - rid: 5602892949302280980
-      type: {class: CountStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CountStep
-        inputKey: allCompanionsBelowHalf
-        outputKey: numBelow
-    - rid: 5602892949302280981
-      type: {class: ManaChange, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: ManaChange
-        scale: 0
-        getScaleFromKey: 1
-        inputScaleKey: numBelow
+        status: 9
+        outputKey: companionsWithAura
