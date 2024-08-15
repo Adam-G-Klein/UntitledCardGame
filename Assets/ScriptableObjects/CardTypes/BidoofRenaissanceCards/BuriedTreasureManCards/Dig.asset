@@ -13,16 +13,19 @@ MonoBehaviour:
   m_Name: Dig
   m_EditorClassIdentifier: 
   Name: Dig
-  Description: Scry 3, then draw 1 from target companion
-  Cost: 1
+  Description: Scry 2, then draw 1 from target companion
+  Cost: 0
   Artwork: {fileID: 21300000, guid: 193d15b569c0e194b95f3fdf8f931b36, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
+  retain: 0
   effectWorkflows:
   - rid: 3931529445166809455
   onExhaustEffectWorkflow:
+    rid: -2
+  inPlayerHandEndOfTurnWorkflow:
     rid: -2
   tooltips: 
   references:
@@ -56,9 +59,10 @@ MonoBehaviour:
         effectStepName: GetCardsFromDeck
         inputKey: target
         getLimitedNumber: 1
-        numberOfCardsToGet: 3
+        numberOfCardsToGet: 2
         shuffleIfEmpty: 0
         outputKey: topCard
+        getAllCardsFromEntities: 0
         getCardsFromSourceDeck: 0
         getAllFromOnlyDrawPile: 0
     - rid: 3931529445166809458
@@ -67,9 +71,9 @@ MonoBehaviour:
         effectStepName: SelectCardsFromList
         inputKey: topCard
         outputKey: discarded
-        promptText: Choose a card to discard.
+        promptText: Choose card(s) to discard.
         minTargets: 0
-        maxTargets: 3
+        maxTargets: 2
         getNumberOfTargetsFromKey: 0
         inputNumberOfTargetsKey: 
         randomizeOrder: 0
@@ -80,6 +84,7 @@ MonoBehaviour:
         inputCardsKey: discarded
         inputDeckKey: target
         effect: 2
+        cardToTransformInto: {fileID: 0}
         outputKey: 
     - rid: 5602892491280613707
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}
