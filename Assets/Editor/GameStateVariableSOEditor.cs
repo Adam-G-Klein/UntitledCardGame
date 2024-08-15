@@ -31,7 +31,7 @@ public class GameStateVariableSOEditor : Editor {
         EditorGUILayout.Space(20);
         EditorGUILayout.LabelField("Companion List Controls");
         EditorGUILayout.Space(10);
-        if(GUILayout.Button("Heal Companions")) { 
+        if(GUILayout.Button("Heal Companions")) {
             foreach(Companion companion in gameStateVariableSO.companions.activeCompanions) {
                 companion.combatStats.currentHealth = companion.combatStats.maxHealth;
             }
@@ -48,7 +48,7 @@ public class GameStateVariableSOEditor : Editor {
         Rect textRect = GUILayoutUtility.GetRect(new GUIContent(text), textStyle);
         EditorGUI.LabelField(textRect, text, textStyle);
         mapIndex = EditorGUILayout.IntField("Map Index:", mapIndex);
-        
+
         if (GUILayout.Button("Set Active Encounter")) {
             Encounter encounter;
             if(mapIndex != -1) {
@@ -102,9 +102,9 @@ public class GameStateVariableSOEditor : Editor {
         EditorGUILayout.Space(10);
 
         if(GUILayout.Button("Reset Player Data")) {
-            gameStateVariableSO.playerData.initialize();
+            gameStateVariableSO.playerData.initialize(gameStateVariableSO.baseShopData);
         }
-        
+
         EditorGUILayout.Space(20);
         EditorGUILayout.LabelField("Other");
         EditorGUILayout.Space(10);

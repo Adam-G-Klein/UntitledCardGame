@@ -206,7 +206,7 @@ public class GameStateVariableSO : ScriptableObject
 
     public void KillPlayer() {
         Debug.Log("killing player");
-        playerData.respawn();
+        playerData.respawn(baseShopData);
         companions.respawn();
         map.SetValue(mapGenerator.generateMap());
         SetLocation(Location.WAKE_UP_ROOM);
@@ -228,7 +228,7 @@ public class GameStateVariableSO : ScriptableObject
     public void StartNewRun(MapGeneratorSO mapGeneratorSO) {
         setMapGenerator(mapGeneratorSO);
         map.SetValue(mapGenerator.generateMap());
-        playerData.initialize();
+        playerData.initialize(baseShopData);
         viewedSequences = new List<DialogueSequenceSO>();
         SetLocation(Location.MAIN_MENU);
         LoadNextLocation();
