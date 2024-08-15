@@ -85,6 +85,8 @@ public class TurnManager : GenericSingleton<TurnManager>
         // right now are not managed as coroutines.
         // Otherwise, we could wait on them all to complete with only the `yield return StartCoroutine`
         // expression.
+        // Note: this is a lil racy, it depends on the EffectManager being marked as running
+        // by another coroutine before this coroutine resumes and checks; not foolproof.
         yield return new WaitUntil(() => EffectManager.Instance.IsEffectRunning() == false);
         StartCoroutine(turnPhaseEvent.RaiseAtEndOfFrameCoroutine(new TurnPhaseEventInfo(nextPhase[currentPhase])));
     }
