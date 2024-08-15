@@ -80,6 +80,12 @@ public class TurnManager : GenericSingleton<TurnManager>
     private IEnumerator nextPhaseAfterTriggers(TurnPhase currentPhase) {
         Debug.Log("nextPhaseAfterTriggers found " + turnPhaseTriggers[currentPhase].Count + " triggers for phase " + currentPhase);
         yield return StartCoroutine(runTriggersForPhase(currentPhase));
+        // Wait for effects to resolve before raising the next turn phase event.
+        // We need to do this because many of the "runTriggersForPhase" in the game
+        // right now are not managed as coroutines.
+        // Otherwise, we could wait on them all to complete with only the `yield return StartCoroutine`
+        // expression.
+        yield return new WaitUntil(() => EffectManager.Instance.IsEffectRunning() == false);
         StartCoroutine(turnPhaseEvent.RaiseAtEndOfFrameCoroutine(new TurnPhaseEventInfo(nextPhase[currentPhase])));
     }
 
