@@ -25,6 +25,11 @@ public class CombatEncounterView : MonoBehaviour
         setupEntities(root.Q<VisualElement>("enemyContainer"), enemies.Cast<Entity>().ToList(), true);
         setupEntities(root.Q<VisualElement>("companionContainer"), companions.Cast<Entity>().ToList(), false);
         setupCards();
+        EnemyEncounterViewModel.Instance.SetListener(this);
+    }
+
+    public void UpdateView() {
+        // get all the shit you need from EnemyEncounterViewModel.Instance
 
     }
 
