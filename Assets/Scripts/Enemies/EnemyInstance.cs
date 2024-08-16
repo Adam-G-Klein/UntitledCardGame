@@ -63,6 +63,8 @@ public class EnemyInstance : MonoBehaviour {
 
     private IEnumerable DeclareIntent() {
         currentIntent = enemy.ChooseIntent(this);
+        Debug.Log("EnemyInstance: UpdateView");
+        EnemyEncounterViewModel.Instance.SetStateDirty();
         yield return null;
         // yield return intentDisplay.displayIntent(this);
     }

@@ -51,6 +51,7 @@ public class CombatInstance : MonoBehaviour
             PlaySFX();
             AddVFX();
         }
+        UpdateView();
     }
 
     public int GetCurrentDamage() {
@@ -91,6 +92,7 @@ public class CombatInstance : MonoBehaviour
                 StartCoroutine(OnDeath(effector));
                 break;
         }
+        UpdateView();
     }
 
     private void TakeDamage(CombatEffect combatEffect, int damage, CombatInstance attacker) {
@@ -119,6 +121,8 @@ public class CombatInstance : MonoBehaviour
         if (statusEffects[StatusEffect.Thorns] > 0) {
             attacker.ApplyNonStatusCombatEffect(CombatEffect.FixedDamage, statusEffects[StatusEffect.Thorns], this);
         }
+        // could easily double-update with method above
+        UpdateView();
     }
 
     private int DamageAfterDefense(CombatEffect combatEffect, int damage) {
@@ -151,6 +155,7 @@ public class CombatInstance : MonoBehaviour
             statusEffects[StatusEffect.Defended] = 0;
             damage = 0;
         }
+        UpdateView();
 
         return damage;
     }
@@ -167,6 +172,7 @@ public class CombatInstance : MonoBehaviour
         }
         // CombatEntityManager.Instance.combatEntityDied(this);
         TurnManager.Instance.removeTurnPhaseBlocker(blockerId);
+        UpdateView();
         Destroy(this.gameObject);
         yield return null;
     }
@@ -184,6 +190,7 @@ public class CombatInstance : MonoBehaviour
             PlayerData playerData = EnemyEncounterManager.Instance.gameState.playerData.GetValue();
             playerData.gold += statusEffects[StatusEffect.MoneyOnDeath];
         }
+        UpdateView();
     }
 
     // This function is setup the way it is because certain statuses need to be
@@ -193,6 +200,7 @@ public class CombatInstance : MonoBehaviour
         foreach (StatusEffect effect in statuses) {
             UpdateStatusEffect(effect);
         }
+        UpdateView();
         yield return null;
     }
 
@@ -223,6 +231,7 @@ public class CombatInstance : MonoBehaviour
                 statusEffects[status] = DecrementStatus(statusEffects[status]);
             break;
         }
+        UpdateView();
     }
 
     private int DecrementStatus(int currentCount) {
@@ -252,6 +261,11 @@ public class CombatInstance : MonoBehaviour
         } else if (genericInteractionVFX != null) {
             Instantiate(genericInteractionVFX, transform.position, Quaternion.identity);
         }
+    }
+
+    private void UpdateView() {
+        Debug.Log("CombatInstance: update view");
+        EnemyEncounterViewModel.Instance.SetStateDirty();
     }
 
     public enum CombatInstanceParent {

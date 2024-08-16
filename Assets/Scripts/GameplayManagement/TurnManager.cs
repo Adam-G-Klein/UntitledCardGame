@@ -46,6 +46,7 @@ public class TurnManager : GenericSingleton<TurnManager>
     private IEnumerator LateStart() {
         yield return new WaitForEndOfFrame();
         StartCoroutine(turnPhaseEvent.RaiseAtEndOfFrameCoroutine(new TurnPhaseEventInfo(TurnPhase.START_ENCOUNTER)));
+        EnemyEncounterViewModel.Instance.SetStateDirty();
     }
 
     public void turnPhaseChangedEventHandler(TurnPhaseEventInfo info) {
@@ -68,6 +69,8 @@ public class TurnManager : GenericSingleton<TurnManager>
             return;
         }
         StartCoroutine(nextPhaseAfterTriggers(info.newPhase));
+        Debug.Log("EnemyInstance: UpdateView");
+        EnemyEncounterViewModel.Instance.SetStateDirty();
     }
 
     private IEnumerator changeTurnPhaseContinueCoroutine(TurnPhaseEventInfo info) {
@@ -81,6 +84,8 @@ public class TurnManager : GenericSingleton<TurnManager>
         Debug.Log("nextPhaseAfterTriggers found " + turnPhaseTriggers[currentPhase].Count + " triggers for phase " + currentPhase);
         yield return StartCoroutine(runTriggersForPhase(currentPhase));
         StartCoroutine(turnPhaseEvent.RaiseAtEndOfFrameCoroutine(new TurnPhaseEventInfo(nextPhase[currentPhase])));
+        Debug.Log("EnemyInstance: UpdateView");
+        EnemyEncounterViewModel.Instance.SetStateDirty();
     }
 
     private IEnumerator runTriggersForPhase(TurnPhase phase) {

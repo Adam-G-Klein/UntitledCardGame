@@ -25,6 +25,8 @@ public class EnemyEncounterViewModel : GenericSingleton<EnemyEncounterViewModel>
 {
 
     private CombatEncounterView listener;
+    public List<EnemyInstance> enemies;
+    public List<CompanionInstance> companions;
 
     public void SetStateDirty() {
         listener.UpdateView();
@@ -32,6 +34,15 @@ public class EnemyEncounterViewModel : GenericSingleton<EnemyEncounterViewModel>
 
     public void SetListener(CombatEncounterView listener) {
         this.listener = listener;
+    }
+
+    private DeckInstance GetDeckInstanceFromCompanionInstance(CompanionInstance companionInstance){
+        // guaranteed by RequireComponent
+        return companionInstance.GetComponent<DeckInstance>();
+    }
+
+    private Dictionary<StatusEffect, int> GetStatusEffects(CombatInstance combatInstance){
+        return combatInstance.statusEffects;
     }
 
 }

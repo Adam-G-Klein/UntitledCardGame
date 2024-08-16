@@ -51,7 +51,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     IEnumerator StartWhenUIDocReady() {
         yield return new WaitUntil(() => placer.UIDocumentReady());
         LateStart();
-    }
+}
 
     void LateStart() {
         gameState.activeEncounter.GetValue().BuildWithEncounterBuilder(this);
@@ -73,6 +73,8 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
             characterPortraitController.SetupCharacterPortraits(createdCompanions);
         if(enemyPortraitController)
             enemyPortraitController.SetupEnemyPortraits(createdEnemies);
+        EnemyEncounterViewModel.Instance.companions = createdCompanions;
+        EnemyEncounterViewModel.Instance.enemies = createdEnemies;
     }
 
     void Update() {
