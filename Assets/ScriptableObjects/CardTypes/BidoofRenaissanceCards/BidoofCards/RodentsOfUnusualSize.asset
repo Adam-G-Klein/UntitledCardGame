@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: RodentsOfUnusualSize
   m_EditorClassIdentifier: 
   Name: Rodents of Unusual Size
-  Description: Lose 1 strength. Give all other companions on your team 1 strength.
+  Description: Give all companions on your team 1 strength.
   Cost: 1
   Artwork: {fileID: 21300000, guid: deea7b3a1097502488875a6717d4fb34, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
+  retain: 0
   effectWorkflows:
   - rid: 5602892533381726232
   onExhaustEffectWorkflow:
@@ -36,30 +37,8 @@ MonoBehaviour:
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
-        - rid: 5602892533381726233
-        - rid: 5602892533381726234
         - rid: 5602892533381726236
         - rid: 5602892533381726237
-    - rid: 5602892533381726233
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: self
-        validTargets: 00000000
-        number: 1
-        specialTargetRule: 4
-        cantCancelTargetting: 0
-    - rid: 5602892533381726234
-      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: ApplyStatus
-        inputKey: self
-        statusEffect: 0
-        scale: -2
-        getScaleFromKey: 0
-        inputScaleKey: 
     - rid: 5602892533381726236
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -80,3 +59,4 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+        multiplyByNumAuraStacks: 0
