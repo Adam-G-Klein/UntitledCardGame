@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DemonSpin
   m_EditorClassIdentifier: 
   Name: Demon Spin
-  Description: Lose 1 HP. Deal 2 damage to all enemies 3 times.
+  Description: Lose 2 HP. Deal 2 damage to all enemies 3 times.
   Cost: 2
   Artwork: {fileID: 21300000, guid: 5f4a5816818fe0841957c1e340e8a570, type: 3}
   cardCategory: 1
@@ -58,7 +58,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: self
         combatEffect: 16
-        scale: 1
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
