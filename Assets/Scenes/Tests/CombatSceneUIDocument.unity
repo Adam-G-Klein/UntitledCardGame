@@ -318,10 +318,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fff1c7e9da0de13449ff63ae89d7645f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ReadMe: 'This object is a temporary solution. Wanna implement something like this
-    so we can have SpriteRenderers instead:  https://gamedev.stackexchange.com/questions/204167/resize-sprite-to-match-screen-size
-
-'
+  ReadMe: 
 --- !u!114 &419459966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1385,7 +1382,9 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 430066739}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7450656872853957637, guid: a01603c96ed613e4dadddb16c94272d3, type: 3}
+    - {fileID: 1704252872585834326, guid: a01603c96ed613e4dadddb16c94272d3, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

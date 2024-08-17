@@ -18,15 +18,20 @@ public class UIDocumentScreenspace : MonoBehaviour {
     [SerializeField]
     public bool stateDirty = true;
 
+    public PickingMode pickingMode = PickingMode.Ignore;
+
     void Awake() {
         if(!doc) {
             Debug.LogError("UIDocumentScreenspace: No UIDocument component set on this script. Please set it from the component attached to the gameobject so we load the scene 1 frame faster :)");
         }
         // Do this in awake so individual controllers can enable clicking on the elements they care about
-        UIDocumentUtils.SetAllPickingModeIgnore(doc.rootVisualElement);
+        UIDocumentUtils.SetAllPickingMode(doc.rootVisualElement, pickingMode);
 
         // Do this in Awake so we can query for element positions sooner
         UpdateRenderTexture();
+
+        // Set all of the onclick / onhover / on interact for all elements to call state dirty as a callback
+        // TODO
     }
     void Start() {
         
@@ -89,6 +94,12 @@ public class UIDocumentScreenspace : MonoBehaviour {
         // (RenderTextures are not garbage collected objects).
         rt.Release();
         completionAction?.Invoke(texture);
+    }
+
+    public void SetAllPickingModePosition(){
+        Debug.Log("Setting all picking mode to position");
+        pickingMode = PickingMode.Position;
+        UIDocumentUtils.SetAllPickingMode(doc.rootVisualElement, pickingMode);
     }
 
 }

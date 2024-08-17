@@ -37,10 +37,12 @@ public class UIDocumentUtils : MonoBehaviour
         return container;
     }
 
-    public static void SetAllPickingModeIgnore(VisualElement ve){
-        ve.pickingMode = PickingMode.Ignore;
+    public static void SetAllPickingMode(VisualElement ve, PickingMode pickingMode){
+        ve.pickingMode = pickingMode;
         foreach (VisualElement child in ve.Children()){
-            SetAllPickingModeIgnore(child);
+            SetAllPickingMode(child, pickingMode);
         }
     }
+
+
 }
