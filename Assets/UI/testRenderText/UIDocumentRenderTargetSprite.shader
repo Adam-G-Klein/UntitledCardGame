@@ -1,8 +1,9 @@
-Shader "Signified/UIDocumentRenderTarget"
+Shader "Signified/UIDocumentRenderTargetSprite"
 {
         Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
+        _SecondTex ("Texture", 2D) = "white" {}
     }
     SubShader
     {
@@ -32,18 +33,24 @@ Shader "Signified/UIDocumentRenderTarget"
             sampler2D _MainTex;
             float4 _MainTex_ST;
 
+            sampler2D _SecondTex;
+            float4 _SecondTex_ST;
+
             v2f vert (appdata v)
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
-                o.uv = TRANSFORM_TEX(v.uv, _MainTex);
+                o.uv = TRANSFORM_TEX(v.uv, _SecondTex);
                 return o;
             }
             
             fixed4 frag (v2f i) : SV_Target
             {
-                fixed4 col = tex2D(_MainTex, i.uv);
-                if(col.a == 0) discard;
+                fixed4 col = tex2D(_SecondTex, i.uv);
+                if(col.a == 0)
+                {
+                    discard;
+                }
                 return col;
             }
             ENDCG
