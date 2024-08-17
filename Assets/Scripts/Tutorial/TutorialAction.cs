@@ -3,7 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum TutorialActionName {
-    DebugAction
+    DebugAction,
+    ButtonAction,
+    EventAction,
+    WaitAction,
+    WaitEventAction,
+    DialogueAction
 }
 
 /* The base class for the individual actions a tutorialStep
