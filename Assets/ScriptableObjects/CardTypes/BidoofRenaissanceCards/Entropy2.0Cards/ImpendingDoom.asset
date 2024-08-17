@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: ImpendingDoom
   m_EditorClassIdentifier: 
   Name: Impending Doom
-  Description: Retain. Choose a card in your hand. Transform all copies of it in
-    your hand and deck into Self-Sharpening Blade for the rest of combat
+  Description: Retain. Exhaust. Transform all copies of Entropy's Burn into copies
+    of target card for the rest of combat.
   Cost: 2
   Artwork: {fileID: 21300000, guid: 90fa2971dfe769a49a60ad648e956340, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
-  exhaustsWhenPlayed: 0
+  exhaustsWhenPlayed: 1
   retain: 1
   effectWorkflows:
   - rid: 5602892563578093750
@@ -55,10 +55,10 @@ MonoBehaviour:
       type: {class: TransmogrifyCard, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: TransmogrifyCard
-        inputDeckInstancesKey: 
-        targetCardType: {fileID: 0}
-        cardToTransformInto: {fileID: 11400000, guid: 62fdc51643d8849a4b4b4c1498a15598, type: 2}
-        getCardTypeFromKey: 1
+        inputDeckInstancesKey: all
+        targetCardType: {fileID: 11400000, guid: c00025e95f9a449b59c853e77403c30b, type: 2}
+        cardToTransformInto: {fileID: 0}
+        getCardToTransformIntoFromKey: 1
         inputCardKey: card
         includeDrawPile: 1
         includeDiscardPile: 1

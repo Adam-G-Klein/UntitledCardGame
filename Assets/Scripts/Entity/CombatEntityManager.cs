@@ -59,6 +59,15 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
         return null;
     }
 
+    public CompanionInstance getCompanionInstanceForCombatInstance(CombatInstance combatInstance) {
+        foreach (CompanionInstance instance in companions) {
+            if (instance.combatInstance == combatInstance) {
+                return instance;
+            }
+        }
+        return null;
+    }
+
     public List<MinionInstance> getMinions() {
         return minions;
     }

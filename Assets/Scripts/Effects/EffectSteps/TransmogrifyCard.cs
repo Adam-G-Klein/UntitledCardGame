@@ -17,7 +17,7 @@ public class TransmogrifyCard : EffectStep
     private CardType cardToTransformInto;
 
     [SerializeField]
-    private bool getCardTypeFromKey = false;
+    private bool getCardToTransformIntoFromKey = false;
     [SerializeField]
     private string inputCardKey = "";
 
@@ -42,7 +42,7 @@ public class TransmogrifyCard : EffectStep
         }
 
         CardType destinationCardType = cardToTransformInto;
-        if (getCardTypeFromKey) {
+        if (getCardToTransformIntoFromKey) {
             if (!document.map.ContainsValueWithKey<Card>(inputCardKey)) {
                 EffectError("No valid card input but getCardTypeFromKey was set");
                 yield return null;

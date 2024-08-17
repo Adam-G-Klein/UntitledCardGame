@@ -16,6 +16,8 @@ public class ShopDataSO : ScriptableObject
     public int cardPrice;
     public int companionKeepsakePrice;
 
+    public int startingGold;
+
     [Header("Earning post combat")]
     public int goldEarnedPerBattle;
     public float interestRate;

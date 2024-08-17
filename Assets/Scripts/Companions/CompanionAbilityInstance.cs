@@ -166,7 +166,12 @@ public class CompanionAbilityInstance
         EffectDocument document = new EffectDocument();
         document.map.AddItem(EffectDocument.ORIGIN, this.companionInstance);
         document.originEntityType = EntityType.CompanionInstance;
-        document.map.AddItem<CombatInstance>("damagedCompanion", damagedInstance);
+        CompanionInstance companion = CombatEntityManager.Instance.getCompanionInstanceForCombatInstance(damagedInstance);
+        if (companion != null) {
+            document.map.AddItem<CompanionInstance>("damagedCompanion", companion);
+            document.map.AddItem<CombatInstance>("damagedCompanion", companion.combatInstance);
+            document.map.AddItem<DeckInstance>("damagedCompanion", companion.deckInstance);
+        }
         yield return EffectManager.Instance.invokeEffectWorkflowCoroutine(document, ability.effectSteps, null);
     }
 }
