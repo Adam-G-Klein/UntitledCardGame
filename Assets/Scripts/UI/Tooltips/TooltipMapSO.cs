@@ -12,16 +12,18 @@ using UnityEngine;
 public class KeywordTooltipMapping {
     public string title;
     public string description;
+    public int relateBehaviorIndex;
     public Image image;
     [HideInInspector]
     public TooltipViewModel tooltip { get {
-        return new TooltipViewModel(title, description, image);
+        return new TooltipViewModel(title, description, relateBehaviorIndex, image);
     }}
     public TooltipKeyword tooltipKeyword;
-    public KeywordTooltipMapping(string title, string description, Image image, TooltipKeyword tooltipKeyword) {
+    public KeywordTooltipMapping(string title, string description, int relateBehaviorIndex, Image image, TooltipKeyword tooltipKeyword) {
         this.title = title;
         this.description = description;
         this.tooltipKeyword = tooltipKeyword;
+        this.relateBehaviorIndex = relateBehaviorIndex;
     }
 
 }

@@ -41,5 +41,8 @@ public class EnemyTypeSOEditor : Editor {
                 enemyType.enemyPattern.behaviors[index].effectSteps.Add(newEffect);
             }
         }
+        if(GUILayout.Button("Add Tooltip")) {
+            enemyType.tooltip = new TooltipViewModel();
+        }
     }
 }

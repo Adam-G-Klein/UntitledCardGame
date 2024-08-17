@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 2382815032633642268}
   - component: {fileID: 5437825517042753912}
   - component: {fileID: 1981669375319240908}
+  - component: {fileID: 7877005627855503728}
+  - component: {fileID: 5969048243918303917}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -81,6 +83,7 @@ MonoBehaviour:
     baseAttackDamage: 0
   genericInteractionSFX: {fileID: 0}
   genericInteractionVFX: {fileID: 0}
+  parentType: 0
 --- !u!61 &1515253770649210757
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -195,6 +198,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetType: 2
+--- !u!114 &7877005627855503728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1818299386461833425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 047152731ba5f1943a7c416983ad68e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tooltipPrefab: {fileID: 2816874809441598624, guid: 39e007ab3d5dc2a489824af9da1f4bae, type: 3}
+  tooltip:
+    rid: -2
+  positionOffset: {x: 0, y: 0, z: 0}
+  displayWaitTime: 1
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+--- !u!114 &5969048243918303917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1818299386461833425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1570a5276bf874eb3ac8891c439e2049, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8802389412929484848
 GameObject:
   m_ObjectHideFlags: 0

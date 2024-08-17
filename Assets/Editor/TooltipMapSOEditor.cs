@@ -12,6 +12,7 @@ public class ToolipMapSOEditor : Editor {
     TooltipMapSO tooltipMapSO;
     string tooltipTitle;
     string tooltipDescription;
+    int tooltipRelevantBehaviorIndex;
     Image tooltipImage;
     TooltipKeyword tooltipKeyword;
     public override void OnInspectorGUI() {
@@ -30,6 +31,10 @@ public class ToolipMapSOEditor : Editor {
         "Tooltip Description",
         tooltipDescription);
 
+        tooltipRelevantBehaviorIndex = EditorGUILayout.IntField(
+        "Tooltip Description",
+        tooltipRelevantBehaviorIndex);
+
         tooltipKeyword = (TooltipKeyword) EditorGUILayout.EnumPopup(
             "Tooltip Keyword",
             tooltipKeyword);
@@ -41,7 +46,7 @@ public class ToolipMapSOEditor : Editor {
             true);
 
         if (GUILayout.Button("Create Tooltip")) {
-            tooltipMapSO.effectTooltipMappings.Add(new KeywordTooltipMapping(tooltipTitle, tooltipDescription, tooltipImage, tooltipKeyword));
+            tooltipMapSO.effectTooltipMappings.Add(new KeywordTooltipMapping(tooltipTitle, tooltipDescription, tooltipRelevantBehaviorIndex, tooltipImage, tooltipKeyword));
             save(tooltipMapSO);
         }
     }
