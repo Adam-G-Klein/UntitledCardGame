@@ -191,6 +191,53 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &98064712
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 98064714}
+  - component: {fileID: 98064713}
+  m_Layer: 0
+  m_Name: TutorialData
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &98064713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 98064712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43b170993154d56489f14a45022b2d00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data:
+  - {fileID: 1076249249}
+--- !u!4 &98064714
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 98064712}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1076249250}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &450341874 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8572008018031415410, guid: a582e4d9a458ff542889f5612f4672bc, type: 3}
@@ -385,6 +432,77 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a582e4d9a458ff542889f5612f4672bc, type: 3}
+--- !u!1 &1076249248
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1076249250}
+  - component: {fileID: 1076249249}
+  m_Layer: 0
+  m_Name: Tutorial1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1076249249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1076249248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70dea128a7df7ff44ae935f204a2b1e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: Second
+  Steps:
+  - rid: 3866478217215868936
+  nextTutorialName: 
+  isNextTutorialSameScene: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 3866478217215868936
+      type: {class: UnityEventTutorialStep, ns: , asm: Assembly-CSharp}
+      data:
+        tutorialStepType: UnityEventTutorialStep
+        stepName: gimme a name!
+        actions:
+        - rid: 3866478217215868937
+        - rid: 6591284524624904260
+        initAction: 0
+    - rid: 3866478217215868937
+      type: {class: DebugAction, ns: , asm: Assembly-CSharp}
+      data:
+        tutorialActionType: DebugAction
+        debugString: Hello From Tutorial 2, from another scene
+    - rid: 6591284524624904260
+      type: {class: DialogueAction, ns: , asm: Assembly-CSharp}
+      data:
+        tutorialActionType: Dialouge Action
+        dialogueSequenceSO: {fileID: 11400000, guid: ad2b1bb4db0950d4fa0c0aff2c120602, type: 2}
+--- !u!4 &1076249250
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1076249248}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 98064714}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1183873185
 GameObject:
   m_ObjectHideFlags: 0
@@ -1015,3 +1133,4 @@ SceneRoots:
   - {fileID: 81285511}
   - {fileID: 693908250}
   - {fileID: 1041063642392878096}
+  - {fileID: 98064714}

@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23517bc57e0f44146a39f61c3db5a303, type: 3}
+  m_Name: MalloryIntro
+  m_EditorClassIdentifier: 
+  requiredSpeakers: []
+  dialogueLines:
+  - rid: 6591284527365881856
+  - rid: 6591284527365881857
+  - rid: 6591284527365881858
+  - rid: 6591284527365881859
+  - rid: 6591284527365881860
+  references:
+    version: 2
+    RefIds:
+    - rid: 6591284527365881856
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: e5efa8d383bdf2046953f747a6dba9c0, type: 2}
+        line: Are you a new resident?
+    - rid: 6591284527365881857
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: e5efa8d383bdf2046953f747a6dba9c0, type: 2}
+        line: It's been a while since we've had someone new.
+    - rid: 6591284527365881858
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: e5efa8d383bdf2046953f747a6dba9c0, type: 2}
+        line: Are you interested in playing?
+    - rid: 6591284527365881859
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: e5efa8d383bdf2046953f747a6dba9c0, type: 2}
+        line: Let's set you up with a deck. Don't worry. I've got extra cards.
+    - rid: 6591284527365881860
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: e5efa8d383bdf2046953f747a6dba9c0, type: 2}
+        line: You just pick the one you think looks nice.
