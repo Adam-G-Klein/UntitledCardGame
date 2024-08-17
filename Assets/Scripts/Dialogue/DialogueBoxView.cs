@@ -72,6 +72,19 @@ public class DialogueBoxView : MonoBehaviour
         text.text = dialogueLine.line;
     }
 
+    public IEnumerator DisplayDialogue(string dialogueLine, CompanionTypeSO companion, Action redisplayPromptCallback = null)
+    {
+        Debug.Log("Displaying dialogue: " + dialogueLine);
+        this.redisplayPromptCallback = redisplayPromptCallback;
+        this.portrait.GetComponent<Image>().sprite = companion.portrait;
+        SetGameObjectsEnabled(true);
+        doneDisplaying = false;
+        displayingCoroutine = DisplayText(dialogueLine);
+        StartCoroutine(displayingCoroutine);
+        yield return new WaitUntil(() => doneDisplaying);
+        text.text = dialogueLine;
+    }
+
     public void FastForward() {
         StopCoroutine(displayingCoroutine);
         doneDisplaying = true;

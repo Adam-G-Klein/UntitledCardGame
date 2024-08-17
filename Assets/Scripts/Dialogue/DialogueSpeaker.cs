@@ -74,12 +74,30 @@ public class DialogueSpeaker : MonoBehaviour
         dialogueBoxView.Clear();
     }
 
+    public IEnumerator SpeakLine(string line, CompanionTypeSO speaker, float timeAfterLine = 1.0f) {
+        if(currentLineCoroutine != null) {
+            dialogueBoxView.Clear();
+            StopCoroutine(currentLineCoroutine);
+        }
+        if(interactionPromptView != null) {
+            interactionPromptView.SetVisible(false);
+        }
+        currentLineCoroutine = dialogueBoxView.DisplayDialogue(line, speaker, () => { 
+            if(interactionPromptView != null) interactionPromptView.SetVisible(true);
+        });
+        userProceeded = false;
+        StartCoroutine(currentLineCoroutine);
+        yield return new WaitForSeconds(timeAfterLine);
+        dialogueBoxView.Clear();
+    }
+
     public void SkipLine() {
         StopAllCoroutines();
         dialogueBoxView.Clear();
     }
 
     public void UserButtonClick() {
+        Debug.Log("User clicked, userProceeded: " + userProceeded);
         if(dialogueBoxView.doneDisplaying) {
             userProceeded = true;
         } else {

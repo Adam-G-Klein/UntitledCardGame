@@ -32,6 +32,7 @@ public class DialogueManager : GenericSingleton<DialogueManager>
     // Wait on the TeamSelectionManager, or the scene equivalent, to set the location
     private bool locationInitialized = false;
     private bool speakersInitialized = false;
+    private GenericEntityDialogueParticipant genericEntityDialogueParticipant;
     
 
     public void RegisterDialogueSpeaker(DialogueSpeaker dialogueSpeaker)
