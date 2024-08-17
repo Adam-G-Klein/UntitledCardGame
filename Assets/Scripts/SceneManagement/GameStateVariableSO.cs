@@ -77,9 +77,6 @@ public class GameStateVariableSO : ScriptableObject
     public int lastTutorialLoopIndex = 2;
     public int bossFightLoopIndex = 6;
     public int tutorialLoops = 2;
-
-    [Header("Settings for tutorials")]
-    public int currentTutorial = 0;
     
     // TODO: make this more versatile if we want the map to actually do things.
     // also want to field criticism about whether this should live here.

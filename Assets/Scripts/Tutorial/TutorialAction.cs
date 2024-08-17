@@ -6,7 +6,9 @@ public enum TutorialActionName {
     DebugAction,
     ButtonAction,
     EventAction,
-    WaitAction
+    WaitAction,
+    WaitEventAction,
+    DialogueAction
 }
 
 /* The base class for the individual actions a tutorialStep

@@ -7,8 +7,11 @@ using UnityEngine;
 public class TutorialData : MonoBehaviour
 {
     [SerializeField]
-    public int ID;
+    public string ID;
 
     [SerializeReference]
     public List<TutorialStep> Steps;
+
+    public string nextTutorialName;
+    public bool isNextTutorialSameScene;
 }

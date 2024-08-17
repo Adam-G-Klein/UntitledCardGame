@@ -222,7 +222,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data:
   - {fileID: 1076249249}
-  - {fileID: 0}
 --- !u!4 &98064714
 Transform:
   m_ObjectHideFlags: 0
@@ -462,9 +461,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70dea128a7df7ff44ae935f204a2b1e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 1
+  ID: Second
   Steps:
   - rid: 3866478217215868936
+  nextTutorialName: 
+  isNextTutorialSameScene: 0
   references:
     version: 2
     RefIds:
@@ -475,12 +476,18 @@ MonoBehaviour:
         stepName: gimme a name!
         actions:
         - rid: 3866478217215868937
+        - rid: 6591284524624904260
         initAction: 0
     - rid: 3866478217215868937
       type: {class: DebugAction, ns: , asm: Assembly-CSharp}
       data:
         tutorialActionType: DebugAction
         debugString: Hello From Tutorial 2, from another scene
+    - rid: 6591284524624904260
+      type: {class: DialogueAction, ns: , asm: Assembly-CSharp}
+      data:
+        tutorialActionType: Dialouge Action
+        dialogueSequenceSO: {fileID: 11400000, guid: ad2b1bb4db0950d4fa0c0aff2c120602, type: 2}
 --- !u!4 &1076249250
 Transform:
   m_ObjectHideFlags: 0

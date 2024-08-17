@@ -404,7 +404,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &827713301585259926
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -458,3 +458,7 @@ MonoBehaviour:
   portrait: {fileID: 827713300630638711}
   dialogueBoxBackground: {fileID: 827713300463217959}
   textGameObject: {fileID: 827713301269961397}
+  speechSound: {fileID: 0}
+  numCharsPerSound: 3
+  pitchRange: 0.5
+  centerPitch: 1
