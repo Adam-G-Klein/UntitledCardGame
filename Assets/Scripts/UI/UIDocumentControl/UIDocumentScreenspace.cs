@@ -96,10 +96,12 @@ public class UIDocumentScreenspace : MonoBehaviour {
         completionAction?.Invoke(texture);
     }
 
-    public void SetAllPickingModePosition(){
+    public void ActiveAllClickInteractions(){
         Debug.Log("Setting all picking mode to position");
         pickingMode = PickingMode.Position;
-        UIDocumentUtils.SetAllPickingMode(doc.rootVisualElement, pickingMode);
+        UIDocumentUtils.RecursivelySetAllPointerEventsToCallback(doc.rootVisualElement, () => {
+            SetStateDirty();
+        });
     }
 
 }

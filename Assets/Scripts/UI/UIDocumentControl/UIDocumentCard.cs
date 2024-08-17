@@ -36,7 +36,7 @@ public class UIDocumentCard : MonoBehaviour {
         doc.panelSettings = CardPanelSettingsPooler.Instance.GetPanelSettings();
         // TODO: take in card rather than cardtype
         doc.rootVisualElement.Add(UIDocumentUtils.makeWorldspaceCardView(card.cardType));
-        UIDocumentUtils.SetAllPickingModeIgnore(doc.rootVisualElement);
+        UIDocumentUtils.SetAllPickingMode(doc.rootVisualElement, PickingMode.Ignore);
         spriteRenderer = GetComponent<SpriteRenderer>();
         runCoroutine();
     }

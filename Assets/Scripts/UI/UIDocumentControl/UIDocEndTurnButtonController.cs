@@ -6,7 +6,7 @@ using UnityEditor;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(UIDocumentScreenspace))]
-public class EndTurnButtonController : MonoBehaviour {
+public class UIDocEndTurnButtonController : MonoBehaviour {
 
     private UIDocumentScreenspace screenspaceDoc;
 
