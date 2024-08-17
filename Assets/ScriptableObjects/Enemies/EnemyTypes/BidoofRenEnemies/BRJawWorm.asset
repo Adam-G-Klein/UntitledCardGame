@@ -31,9 +31,28 @@ MonoBehaviour:
       displayValue: 11
       effectSteps:
       - rid: 4463205916933358109
-    sequentialBehaviors: 1
-    nextBehaviorIndex: 1
+    behaviorType: 0
+    nextBehaviorIndex: 0
+  belowHalfHPEnemyPattern:
+    behaviors: []
+    behaviorType: 0
+    nextBehaviorIndex: 0
   initialStatuses: []
+  tooltip:
+    empty: 0
+    lines:
+    - title: Strike
+      description: Simple Attack
+      image: {fileID: 0}
+      relatedBehaviorIndex: 1
+    - title: Guarded Strike
+      description: Attack & Block
+      image: {fileID: 0}
+      relatedBehaviorIndex: 0
+    - title: Block
+      description: Block prevents damage
+      image: {fileID: 0}
+      relatedBehaviorIndex: -1
   references:
     version: 2
     RefIds:

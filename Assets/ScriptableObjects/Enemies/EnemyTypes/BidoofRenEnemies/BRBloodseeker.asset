@@ -28,9 +28,19 @@ MonoBehaviour:
       - rid: 5602893111447519608
       - rid: 5602893111447519609
       - rid: 5602893111447519607
-    sequentialBehaviors: 1
+    behaviorType: 0
+    nextBehaviorIndex: 0
+  belowHalfHPEnemyPattern:
+    behaviors: []
+    behaviorType: 0
     nextBehaviorIndex: 0
   initialStatuses: []
+  tooltip:
+    empty: 0
+    lines:
+    - title: Smells Fear
+      description: Attacks the companion with the lowest HP
+      image: {fileID: 0}
   references:
     version: 2
     RefIds:

@@ -23,9 +23,20 @@ MonoBehaviour:
       displayValue: 10
       effectSteps:
       - rid: 4463205916933358569
-    sequentialBehaviors: 0
+    behaviorType: 0
+    nextBehaviorIndex: 0
+  belowHalfHPEnemyPattern:
+    behaviors: []
+    behaviorType: 0
     nextBehaviorIndex: 0
   initialStatuses: []
+  tooltip:
+    empty: 0
+    lines:
+    - title: 
+      description: 
+      image: {fileID: 0}
+      relatedBehaviorIndex: 0
   references:
     version: 2
     RefIds:
