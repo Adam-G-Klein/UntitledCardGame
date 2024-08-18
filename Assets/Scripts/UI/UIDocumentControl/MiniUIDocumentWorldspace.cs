@@ -7,19 +7,16 @@ using UnityEditor;
 [RequireComponent(typeof(UIDocument))]
 public class MiniUIDocumentWorldspace : MonoBehaviour {
 
-    public UIDocument doc;
+    private UIDocument doc;
     private MeshRenderer meshRenderer;
     [SerializeField]
     private Texture2D texture {get;set;}
-    [SerializeField]
-    [Header("Needed so that the panelSettings can be restored after we exit\nplaymode in editor. Otherwise the Game view will be useless.")]
-    private RenderTexture defaultTexture;
 
     void Start() {
         
         doc = GetComponent<UIDocument>();
         doc.panelSettings = doc.panelSettings;
-        defaultTexture = doc.panelSettings.targetTexture;
+        //defaultTexture = doc.panelSettings.targetTexture;
         StartCoroutine(GetVETextureCoroutine(
             doc.panelSettings, 1920, 1080,
             (tex) => {
@@ -64,7 +61,7 @@ public class MiniUIDocumentWorldspace : MonoBehaviour {
     }
 
     void OnExitPlaymode(){
-        doc.panelSettings.targetTexture = defaultTexture;
+//        doc.panelSettings.targetTexture = defaultTexture;
     }
     
 }

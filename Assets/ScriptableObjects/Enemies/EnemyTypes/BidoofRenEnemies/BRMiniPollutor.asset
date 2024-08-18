@@ -23,9 +23,22 @@ MonoBehaviour:
       displayValue: 0
       effectSteps:
       - rid: 4463205916933358110
-    sequentialBehaviors: 0
+    behaviorType: 0
+    nextBehaviorIndex: 0
+  belowHalfHPEnemyPattern:
+    behaviors: []
+    behaviorType: 0
     nextBehaviorIndex: 0
   initialStatuses: []
+  tooltip:
+    empty: 1
+    lines:
+    - title: Infectious Spore
+      description: Adds a USELESSCARD to target companions deck
+      image: {fileID: 0}
+    - title: UESLESS CARD
+      description: This card is USELESS!
+      image: {fileID: 0}
   references:
     version: 2
     RefIds:

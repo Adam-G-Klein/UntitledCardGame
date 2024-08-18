@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Reinforce
   m_EditorClassIdentifier: 
   Name: Reinforce
-  Description: Give 6 block to and draw 2 cards from target companion
+  Description: Give target companion 7 block. If they are below half HP, draw 2 cards
+    from them
   Cost: 1
-  Artwork: {fileID: 21300000, guid: da1a1978bec27b446a94d96c66f7fb55, type: 3}
+  Artwork: {fileID: 21300000, guid: b0388336af3869341bb50af8ec281a8a, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
@@ -39,7 +40,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: target
         statusEffect: 2
-        scale: 6
+        scale: 7
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
@@ -47,17 +48,50 @@ MonoBehaviour:
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: DrawCards
-        inputKey: target
+        inputKey: targetBelowHalf
         outputKey: 
         scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
+    - rid: 4463206079571952049
+      type: {class: FilterEntityByHP, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FilterEntityByHP
+        inputKey: target
+        percentThreshold: 0.5
+        outputKey: targetBelowHalf
+    - rid: 4463206079571952050
+      type: {class: CountStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CountStep
+        inputKey: targetBelowHalf
+        outputKey: numBelowHalf
+    - rid: 4463206079571952051
+      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: BooleanComparison
+        hardCodedInputKey1: 1
+        useHardCodedInputKey1: 1
+        inputKey1: 
+        operation: 2
+        inputKey2: numBelowHalf
+        outputKey: existsBelowHalf
+    - rid: 4463206079571952052
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: existsBelowHalf
+        conditionToEndOn: 0
     - rid: 5602892949302280977
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
         - rid: 5602892949302280978
         - rid: 4463205916933357573
+        - rid: 4463206079571952049
+        - rid: 4463206079571952050
+        - rid: 4463206079571952051
+        - rid: 4463206079571952052
         - rid: 4463205916933357574
     - rid: 5602892949302280978
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}

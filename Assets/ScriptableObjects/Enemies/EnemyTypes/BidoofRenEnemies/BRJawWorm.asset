@@ -28,12 +28,31 @@ MonoBehaviour:
     - intent: 0
       enemyTargetMethod: 0
       targetsKey: target
-      displayValue: 11
+      displayValue: 9
       effectSteps:
       - rid: 4463205916933358109
-    sequentialBehaviors: 1
-    nextBehaviorIndex: 1
+    behaviorType: 0
+    nextBehaviorIndex: 0
+  belowHalfHPEnemyPattern:
+    behaviors: []
+    behaviorType: 0
+    nextBehaviorIndex: 0
   initialStatuses: []
+  tooltip:
+    empty: 0
+    lines:
+    - title: Strike
+      description: Simple Attack
+      image: {fileID: 0}
+      relatedBehaviorIndex: 1
+    - title: Guarded Strike
+      description: Attack & Block
+      image: {fileID: 0}
+      relatedBehaviorIndex: 0
+    - title: Block
+      description: Block prevents damage
+      image: {fileID: 0}
+      relatedBehaviorIndex: -1
   references:
     version: 2
     RefIds:
@@ -54,7 +73,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: self
         statusEffect: 2
-        scale: 12
+        scale: 8
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
@@ -76,7 +95,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: target
         combatEffect: 0
-        scale: 11
+        scale: 9
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1

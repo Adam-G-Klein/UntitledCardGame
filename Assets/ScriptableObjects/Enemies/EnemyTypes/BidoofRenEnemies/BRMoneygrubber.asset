@@ -52,6 +52,17 @@ MonoBehaviour:
   initialStatuses:
   - status: 11
     scale: 4
+  tooltip:
+    empty: 0
+    lines:
+    - title: Bounty
+      description: Killing this unit gives you 4 gold!
+      image: {fileID: 0}
+      relatedBehaviorIndex: -1
+    - title: Irish Goodbye
+      description: Leaves the combat if not killed quickly enough.
+      image: {fileID: 0}
+      relatedBehaviorIndex: -1
   references:
     version: 2
     RefIds:

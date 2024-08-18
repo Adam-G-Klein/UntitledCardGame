@@ -22,7 +22,6 @@ public class CombatCompanionTooltipProvder : MonoBehaviour
         tooltipOnHover.tooltip = new TooltipViewModel();
         CompanionInstance companion = GetComponent<CompanionInstance>();
         tooltipOnHover.tooltip += companion.companion.companionType.tooltip;
-
     }
     
 }
