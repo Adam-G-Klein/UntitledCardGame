@@ -21,9 +21,13 @@ public class TutorialManager : MonoBehaviour
     [SerializeField]
     private int initStep = 0;
 
+
+    [Header("Editor Settings")]
     //used for debugging
     [SerializeField]
     private bool shouldStartTutorialImmediate = false;
+    [SerializeField]
+    private string editorStartTutorial = "Intro";
 
     private string upcomingTutorialID;
 
@@ -53,6 +57,8 @@ public class TutorialManager : MonoBehaviour
             //do not call set up as this will start in the main menu
             //can add logic here to remove the tutorial manager once it has been completed
             if (shouldStartTutorialImmediate) {
+                //Also replace the FirstTutorialID
+                upcomingTutorialID = editorStartTutorial;
                 FindTutorialInfo();
             }
         }
