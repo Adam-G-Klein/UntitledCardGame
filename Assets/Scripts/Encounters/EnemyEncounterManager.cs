@@ -16,6 +16,9 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     public event OnEncounterEndHandler onEncounterEndHandler;
     public CharacterPortraitController characterPortraitController;
     public EnemyPortraitController enemyPortraitController;
+
+    public CompanionInstanceController companionInstanceController;
+
     [SerializeField]
     // There's so many ways we could do this
     // choosing the simplest one for now
@@ -66,6 +69,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         LocationStore enemyLocationStore) {
         List<CompanionInstance> createdCompanions = new List<CompanionInstance>();
         List<EnemyInstance> createdEnemies = new List<EnemyInstance>();
+        createdCompanions = companionInstanceController.SetupCompanions(gameState.companions.activeCompanions, encounterConstants);
         encounter.Build(gameState.companions.activeCompanions,
             encounterConstants,
             createdCompanions,
