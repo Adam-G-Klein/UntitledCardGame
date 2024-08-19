@@ -64,12 +64,7 @@ public class TutorialManager : MonoBehaviour
 
         Debug.Log("finding tutorial level data");
 
-        if (tutorialLevelData == default) {
-            Debug.Log("Unable to find tutorial data in scene.");
-
-            RemoveTutorialManager();
-        }
-        else {
+        if (tutorialLevelData != default) {
             SetupNextTutorial();
         }
     }
@@ -81,9 +76,7 @@ public class TutorialManager : MonoBehaviour
             StartCoroutine(RunTutorial());
         }
         else {
-            Debug.Log("Unable to find specified tutorial.");
-
-            RemoveTutorialManager();
+            //Debug.Log("Unable to find specified tutorial.");
         }
     }
 
