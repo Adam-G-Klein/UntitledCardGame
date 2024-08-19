@@ -31,27 +31,32 @@ public class TutorialManager : MonoBehaviour
 
     private static TutorialManager instance = default;
 
+    private HashSet<string> playedTutorials = new();
+
     void Start() {
         //Not using Generic singleton because it requires use of "Instance" before it self destroys
         //manually here, also this is not supposed to be accessed global, but there should only be one
         if (instance != default && instance != this) {
-            
+
             Destroy(this.gameObject);
-            
+
+        } else {
+            instance = this;
+
+            DontDestroyOnLoad(this.gameObject);
+
+            //When a scene is loaded run this function
+            SceneManager.sceneLoaded += OnSceneLoaded;
+
+            upcomingTutorialID = FirstTutorialID;
+
+            //do not call set up as this will start in the main menu
+            //can add logic here to remove the tutorial manager once it has been completed
+            if (shouldStartTutorialImmediate) {
+                FindTutorialInfo();
+            }
         }
-        instance = this;
 
-        DontDestroyOnLoad(this.gameObject);
-        //When a scene is loaded run this function
-        SceneManager.sceneLoaded += OnSceneLoaded;
-
-        upcomingTutorialID = FirstTutorialID;
-
-        //do not call set up as this will start in the main menu
-        //can add logic here to remove the tutorial manager once it has been completed
-        if (shouldStartTutorialImmediate) {
-            FindTutorialInfo();
-        }
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
@@ -72,7 +77,7 @@ public class TutorialManager : MonoBehaviour
     private void SetupNextTutorial() {
         currTutorial = tutorialLevelData.Get(upcomingTutorialID);
 
-        if (currTutorial) {
+        if (currTutorial && !playedTutorials.Contains(currTutorial.ID)) {
             StartCoroutine(RunTutorial());
         }
         else {
@@ -97,6 +102,8 @@ public class TutorialManager : MonoBehaviour
             currentStepIndex += 1;
             yield return null;
         }
+
+        playedTutorials.Add(currTutorial.ID);
 
         DetermineNextTutorial();
     }
