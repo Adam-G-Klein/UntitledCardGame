@@ -6,7 +6,8 @@ public class TutorialEventRaise : MonoBehaviour
 {
     public TutorialEvent tutorialEvent;
 
-    public void TimeToRAISE() {
+    public void Raise() { // just raises the event
+        Debug.Log("testing pls be here");
         tutorialEvent.Raise(null);
     }
 }
