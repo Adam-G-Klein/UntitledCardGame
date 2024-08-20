@@ -131,11 +131,14 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
 
             gameState.playerData.GetValue().gold -= request.price;
-            GameObject.Instantiate(
+            // check that this wasn't purchased with debug tooling
+            if(request.keepsakeInShop != null) {
+                GameObject.Instantiate(
                 encounterConstants.cardSoldOutPrefab,
                 request.keepsakeInShop.transform.position,
                 Quaternion.identity);
-            request.keepsakeInShop.sold();
+                request.keepsakeInShop.sold();
+            }
             if(!companionCombinationManager.AttemptUpgradeCompanion(request.companion)){
                 Debug.Log("Upgrade not appicable, adding to benched companions");
                 this.gameState.companions.benchedCompanions.Add(request.companion);

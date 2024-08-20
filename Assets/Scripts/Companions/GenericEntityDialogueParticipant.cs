@@ -8,8 +8,6 @@ public class GenericEntityDialogueParticipant : GenericSingleton<GenericEntityDi
 {
     // initialize and instantiate here, have this initialize the dialogueSpeaker
     private DialogueSpeaker dialogueSpeaker;
-    [SerializeField]
-    private float timeAfterLine = 1.0f;
 
     void Start() {
         dialogueSpeaker = GetComponentInChildren<DialogueSpeaker>();

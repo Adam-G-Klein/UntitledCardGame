@@ -12,12 +12,15 @@ public class DialogueStep : EffectStep {
     }
 
     public override IEnumerator invoke(EffectDocument document) {
-        CompanionInstance origin = document.map.GetItem<CompanionInstance>(EffectDocument.ORIGIN, 0);
-        if(origin == null) {
-            EffectError("No companion instance in origin for dialogue step. Support for other entities is not yet implemented, just gotta write a switch case n shit");
-            yield return null;
+        CompanionInstance instanceOrigin = document.map.GetItem<CompanionInstance>(EffectDocument.ORIGIN, 0);
+        Companion companionOrigin = document.map.GetItem<Companion>(EffectDocument.ORIGIN, 0);
+        if(instanceOrigin != null) {
+            yield return GenericEntityDialogueParticipant.Instance.SpeakCompanionLine(line, instanceOrigin.companion.companionType, lineTime);
+        } else if (companionOrigin != null) {
+            yield return GenericEntityDialogueParticipant.Instance.SpeakCompanionLine(line, companionOrigin.companionType, lineTime);
+        } else {
+            Debug.LogError("DialogueStep: No companion origin found");
         }
-        yield return GenericEntityDialogueParticipant.Instance.SpeakCompanionLine(line, origin.companion.companionType, lineTime);
         Debug.Log("Dialogue step finished");
     }
 }

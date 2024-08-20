@@ -30,6 +30,7 @@ MonoBehaviour:
   speakerType: {fileID: 0}
   abilities:
   - rid: 5602892559406858240
+  - rid: 9063059299879878660
   upgradeTo: {fileID: 11400000, guid: ba6b9a342dc39444a93852daa417a706, type: 2}
   tooltip:
     empty: 0
@@ -78,3 +79,15 @@ MonoBehaviour:
         effectStepName: DialogueStep
         line: dieeeeee
         lineTime: 2
+    - rid: 9063059299879878660
+      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
+      data:
+        companionAbilityTrigger: 8
+        effectSteps:
+        - rid: 9063059299879878661
+    - rid: 9063059299879878661
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: watch out!
+        lineTime: 1

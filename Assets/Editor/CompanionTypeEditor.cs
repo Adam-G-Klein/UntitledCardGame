@@ -48,6 +48,7 @@ public class CompanionTypeEditor : Editor {
 
                  companionTypeSO.abilities[abilityIndex].effectSteps.Add(newEffect);
             }
+            save(companionTypeSO);
         }
 
         if (GUILayout.Button("Add New Ability")) {
@@ -55,10 +56,21 @@ public class CompanionTypeEditor : Editor {
                 companionTypeSO.abilities = new List<CompanionAbility>();
             }
             companionTypeSO.abilities.Add(new CompanionAbility());
+            save(companionTypeSO);
         }
 
         if(GUILayout.Button("Add Tooltip")) {
             companionTypeSO.tooltip = new TooltipViewModel();
+            save(companionTypeSO);
         }
     }
+    private void save(CompanionTypeSO companionTypeSO) {
+        // These three calls cause the asset to actually be modified
+        // on disc when we hit the button
+        AssetDatabase.Refresh();
+        EditorUtility.SetDirty(companionTypeSO);
+        AssetDatabase.SaveAssets();
+
+    }
 }
+
