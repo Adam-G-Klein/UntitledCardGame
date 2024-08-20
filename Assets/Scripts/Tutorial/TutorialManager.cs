@@ -33,19 +33,21 @@ public class TutorialManager : MonoBehaviour
 
     private TutorialLevelData tutorialLevelData;
 
-    private static TutorialManager instance = default;
+    public static TutorialManager Instance = default;
 
     private HashSet<string> playedTutorials = new();
+
+    public bool IsTutorialPlaying = false;
 
     void Start() {
         //Not using Generic singleton because it requires use of "Instance" before it self destroys
         //manually here, also this is not supposed to be accessed global, but there should only be one
-        if (instance != default && instance != this) {
+        if (Instance != default && Instance != this) {
 
             Destroy(this.gameObject);
 
         } else {
-            instance = this;
+            Instance = this;
 
             DontDestroyOnLoad(this.gameObject);
 
@@ -66,6 +68,7 @@ public class TutorialManager : MonoBehaviour
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
+        IsTutorialPlaying = false;
         FindTutorialInfo();
     }
 
@@ -85,8 +88,7 @@ public class TutorialManager : MonoBehaviour
 
         if (currTutorial && !playedTutorials.Contains(currTutorial.ID)) {
             StartCoroutine(RunTutorial());
-        }
-        else {
+        } else {
             //Debug.Log("Unable to find specified tutorial.");
         }
     }
@@ -96,25 +98,26 @@ public class TutorialManager : MonoBehaviour
         upcomingTutorialID = currTutorial.nextTutorialName;
         currentStepIndex = 0;
 
-        foreach(TutorialStep step in currTutorial.Steps) {
+        playedTutorials.Add(currTutorial.ID);
+        IsTutorialPlaying = true;
+        foreach (TutorialStep step in currTutorial.Steps) {
             // TODO: implement stopping the tutorial early
             currentStep = step;
             // need to invoke the steps actions here because we 
             // can't have non-monobehavior classes own coroutines
-            foreach(TutorialAction action in currentStep.actions) {
+            foreach (TutorialAction action in currentStep.actions) {
                 yield return StartCoroutine(action.Invoke());
             }
             yield return new WaitUntil(step.GetStepComplete);
             currentStepIndex += 1;
             yield return null;
         }
-
-        playedTutorials.Add(currTutorial.ID);
-
+        IsTutorialPlaying = false;
         DetermineNextTutorial();
     }
 
     public void DetermineNextTutorial() {
+        IsTutorialPlaying = false;
         if (currTutorial.isNextTutorialSameScene) {
             //find the next tutorial and begin
             SetupNextTutorial();
@@ -122,7 +125,7 @@ public class TutorialManager : MonoBehaviour
     }
 
     public void UnityEventStepComplete(string stepName) {
-        if(currentStep.stepName == stepName) {
+        if (currentStep.stepName == stepName) {
             //currentStep.StepComplete();
             currentStepIndex += 1;
         }

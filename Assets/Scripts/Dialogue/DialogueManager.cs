@@ -134,7 +134,8 @@ public class DialogueManager : GenericSingleton<DialogueManager>
         return requiredSpeakers.All(speaker => dialogueSpeakers.Any(s => s.speakerType == speaker));
     }
 
-    public void StartDialogueSequence(DialogueSequenceSO dialogueSequence, Action callback = null) {
+    public void StartDialogueSequence(DialogueSequenceSO dialogueSequence, Action callback = null, bool fromTutorial = false) {
+        if (TutorialManager.Instance.IsTutorialPlaying && !fromTutorial) return;
         Debug.Log("Starting dialogue sequence: " + dialogueSequence.name);
         currentDialogueSequenceCoroutine = dialogueSequenceCoroutine(dialogueSequence, callback);
         currentDialogueSequenceCallback = callback;
@@ -168,7 +169,7 @@ public class DialogueManager : GenericSingleton<DialogueManager>
     }
 
     public void skipCurrentDialogue() {
-        // sue me :)
+        // sue me :) - okay litigation incoming
         if(!dialogueInProgress) return;
         currentLineSpeaker.SkipLine();
         StopCoroutine(currentDialogueSequenceCoroutine);

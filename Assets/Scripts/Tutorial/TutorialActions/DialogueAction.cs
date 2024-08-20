@@ -16,7 +16,7 @@ public class DialogueAction : TutorialAction
     public override IEnumerator Invoke() {
         Debug.Log("==== Debug tutorial action: " + tutorialActionType + " ====");
 
-        DialogueManager.Instance.StartDialogueSequence(dialogueSequenceSO, Done);
+        DialogueManager.Instance.StartDialogueSequence(dialogueSequenceSO, Done, true);
 
         //For now we must poll
         yield return new WaitUntil(() => doneSpeaking);
