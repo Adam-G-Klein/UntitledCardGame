@@ -12,8 +12,8 @@ public class DialogueStep : EffectStep {
     }
 
     public override IEnumerator invoke(EffectDocument document) {
-        CompanionInstance instanceOrigin = document.map.GetItem<CompanionInstance>(EffectDocument.ORIGIN, 0);
-        Companion companionOrigin = document.map.GetItem<Companion>(EffectDocument.ORIGIN, 0);
+        CompanionInstance instanceOrigin = document.map.TryGetItem<CompanionInstance>(EffectDocument.ORIGIN, 0);
+        Companion companionOrigin = document.map.TryGetItem<Companion>(EffectDocument.ORIGIN, 0);
         if(instanceOrigin != null) {
             yield return GenericEntityDialogueParticipant.Instance.SpeakCompanionLine(line, instanceOrigin.companion.companionType, lineTime);
         } else if (companionOrigin != null) {

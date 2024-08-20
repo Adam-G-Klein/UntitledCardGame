@@ -85,6 +85,19 @@ public class EffectDocument
             }
         }
 
+        public T TryGetItem<T>(string key, int index) where T : class {
+            Tuple<string, Type> dictKey = new Tuple<string, Type>(key, typeof(T));
+            if (!_dict.ContainsKey(dictKey)) {
+                return default(T);
+            }
+
+            if (index >= _dict[dictKey].Count) {
+                return default(T);
+            }
+
+            return _dict[dictKey][index] as T;
+        }
+
         public T GetItem<T>(string key, int index) where T : class {
             Tuple<string, Type> dictKey = new Tuple<string, Type>(key, typeof(T));
             if (!_dict.ContainsKey(dictKey)) {
