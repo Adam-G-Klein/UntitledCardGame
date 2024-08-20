@@ -19,10 +19,15 @@ MonoBehaviour:
   cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
+  exhaustsWhenPlayed: 0
+  retain: 0
   effectWorkflows:
   - rid: 2116895648763871354
   onExhaustEffectWorkflow:
     rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  tooltips: 
   references:
     version: 2
     RefIds:
@@ -40,7 +45,7 @@ MonoBehaviour:
       data:
         effectStepName: InstantiatePrefab
         inputKey: target
-        prefabToInstantiate: {fileID: 1966380700444338563, guid: b2d92db04e285ef43be25942c5294f6d, type: 3}
+        prefabToInstantiate: {fileID: 98836261379580132, guid: 09d8d7322d3a06e46a9bee225d04a5bd, type: 3}
     - rid: 9024302470308298760
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -61,3 +66,4 @@ MonoBehaviour:
         scale: 5
         getScaleFromKey: 0
         inputScaleKey: 
+        multiplyByNumAuraStacks: 0

@@ -33,6 +33,13 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 1274772038231786384
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: enemy
+        prefabToInstantiate: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}
+        scale: 2.5
     - rid: 5602893017534169716
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -40,6 +47,7 @@ MonoBehaviour:
         - rid: 5602893017534169717
         - rid: 5602893017534169718
         - rid: 5602893017534169719
+        - rid: 1274772038231786384
     - rid: 5602893017534169717
       type: {class: QuantityOfCardTypePlayedThisTurn, ns: , asm: Assembly-CSharp}
       data:
