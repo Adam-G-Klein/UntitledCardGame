@@ -25,9 +25,20 @@ MonoBehaviour:
       - rid: 5602893111447519363
       - rid: 5602893111447519364
       - rid: 5602893111447519365
-    sequentialBehaviors: 0
+    behaviorType: 0
+    nextBehaviorIndex: 0
+  belowHalfHPEnemyPattern:
+    behaviors: []
+    behaviorType: 0
     nextBehaviorIndex: 0
   initialStatuses: []
+  tooltip:
+    empty: 0
+    lines:
+    - title: Empowering Strike
+      description: Attacks and grows stronger
+      image: {fileID: 0}
+      relatedBehaviorIndex: -1
   references:
     version: 2
     RefIds:

@@ -33,7 +33,11 @@ MonoBehaviour:
   initialStatuses: []
   tooltip:
     empty: 0
-    lines: []
+    lines:
+    - title: Protective Gaze
+      description: Shields the entire enemy team.
+      image: {fileID: 0}
+      relatedBehaviorIndex: -1
   references:
     version: 2
     RefIds:

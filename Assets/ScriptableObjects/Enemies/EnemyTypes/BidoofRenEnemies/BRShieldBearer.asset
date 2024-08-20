@@ -24,9 +24,20 @@ MonoBehaviour:
       effectSteps:
       - rid: 4463205916933357946
       - rid: 4463205916933357947
-    sequentialBehaviors: 0
+    behaviorType: 0
+    nextBehaviorIndex: 0
+  belowHalfHPEnemyPattern:
+    behaviors: []
+    behaviorType: 0
     nextBehaviorIndex: 0
   initialStatuses: []
+  tooltip:
+    empty: 0
+    lines:
+    - title: Protective Gaze
+      description: Gives block to each enemy
+      image: {fileID: 0}
+      relatedBehaviorIndex: 0
   references:
     version: 2
     RefIds:

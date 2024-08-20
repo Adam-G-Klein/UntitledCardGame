@@ -33,7 +33,7 @@ MonoBehaviour:
       - rid: 4463206030013890984
       - rid: 4463206030013890983
     behaviorType: 0
-    nextBehaviorIndex: 0
+    nextBehaviorIndex: 1
   belowHalfHPEnemyPattern:
     behaviors:
     - intent: 4
@@ -53,6 +53,17 @@ MonoBehaviour:
     behaviorType: 2
     nextBehaviorIndex: 0
   initialStatuses: []
+  tooltip:
+    empty: 0
+    lines:
+    - title: Impending Doom
+      description: Adds the SeedOfDestruction to you deck
+      image: {fileID: 0}
+      relatedBehaviorIndex: 1
+    - title: Malicious Attack
+      description: 'Attacks and adds the SeedOfDestruction '
+      image: {fileID: 0}
+      relatedBehaviorIndex: 0
   references:
     version: 2
     RefIds:
@@ -124,7 +135,7 @@ MonoBehaviour:
         inputDeckInstancesKey: all
         targetCardType: {fileID: 11400000, guid: 76831d643e8ef431ea248464a3df368e, type: 2}
         cardToTransformInto: {fileID: 11400000, guid: 8d5886ed6558f4976b9ef97e1361d022, type: 2}
-        getCardTypeFromKey: 0
+        getCardToTransformIntoFromKey: 0
         inputCardKey: 
         includeDrawPile: 1
         includeDiscardPile: 1
