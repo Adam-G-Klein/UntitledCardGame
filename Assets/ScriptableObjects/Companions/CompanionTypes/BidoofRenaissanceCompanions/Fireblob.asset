@@ -37,6 +37,7 @@ MonoBehaviour:
     - title: Fireblob
       description: Gain 5 max HP at the end of combat
       image: {fileID: 0}
+      relatedBehaviorIndex: 0
   keepsakeTitle: Fireblob's Gel
   keepsakeDescription: Keepsake for summoning the trusty Fireblob, a large, steady
     presence on your team that feeds on status cards
@@ -50,6 +51,7 @@ MonoBehaviour:
         effectSteps:
         - rid: 5602892491280613394
         - rid: 5602892491280613393
+        - rid: 9063059298205827088
     - rid: 5602892491280613393
       type: {class: PermanentStatIncrease, ns: , asm: Assembly-CSharp}
       data:
@@ -70,3 +72,9 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
+    - rid: 9063059298205827088
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: ha ha i go bigggg
+        lineTime: 1

@@ -27,11 +27,11 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     private GameObject enemyLocationStoreGO;
 
     [SerializeField]
-    private EndEncounterEvent endEncounterEvent;
-    [SerializeField]
     private UIStateEvent uIStateEvent;
     [SerializeField]
     private GameObject postGamePopup;
+    [SerializeField]
+    private TurnPhaseEvent turnPhaseEvent;
 
     public LocationStore companionLocationStore {
         get {
@@ -79,7 +79,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     void Update() {
 
         if(Input.GetKeyDown(KeyCode.S)) {
-            endEncounterEvent.Raise(new EndEncounterEventInfo(EncounterOutcome.Victory));
+            turnPhaseEvent.Raise(new TurnPhaseEventInfo(TurnPhase.END_ENCOUNTER));
         }
         if(Input.GetKeyDown(KeyCode.Escape)) {
             Application.Quit();
@@ -124,8 +124,10 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
             gameState.baseShopData.interestCap.ToString() +
             ")\n$" +
             extraGold.ToString();
+        /* re-enable for the companions to talk at the end of the encounter 
         DialogueManager.Instance.SetDialogueLocation(gameState);
         DialogueManager.Instance.StartAnyDialogueSequence();
+        */
     }
 
     // This exists to satisfy the IEncounterBuilder interface.

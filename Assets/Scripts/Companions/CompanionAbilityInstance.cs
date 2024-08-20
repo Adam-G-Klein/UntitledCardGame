@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 [System.Serializable]
@@ -89,6 +90,7 @@ public class CompanionAbilityInstance
     }
 
     private void setupForTurnPhaseTrigger(TurnPhase turnPhase) {
+        Debug.Log("Companion " + companionInstance.gameObject.name + "Setting up turn phase trigger for " + turnPhase.ToString());
         TurnPhaseTrigger newTrigger = new TurnPhaseTrigger(turnPhase, setupAndInvokeAbility());
         turnPhaseTriggers.Add(newTrigger);
         TurnManager.Instance.addTurnPhaseTrigger(newTrigger);
