@@ -39,9 +39,11 @@ MonoBehaviour:
       description: Whenever a card is exhausted, Entropy deals 3 damage to a random
         enemy
       image: {fileID: 0}
+      relatedBehaviorIndex: 0
     - title: Purge
       description: Entropy permanently removes a card at the end of combat.
       image: {fileID: 0}
+      relatedBehaviorIndex: 0
   keepsakeTitle: 
   keepsakeDescription: 
   references:
@@ -51,7 +53,8 @@ MonoBehaviour:
       type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: DialogueStep
-        dialogueLocationSO: {fileID: 11400000, guid: 96a88075fb0082e418ba82f1bed11310, type: 2}
+        line: BEEP BOOP. PREPARE DECK THINNING BEAM
+        lineTime: 1
     - rid: 3931529445166809113
       type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
       data:
@@ -91,7 +94,7 @@ MonoBehaviour:
         effectStepName: SelectCardsFromList
         inputKey: allCardsInDeck
         outputKey: cardToTransform
-        promptText: Select a card to purge.
+        promptText: Select a card to PERMANENTLY remove.
         minTargets: 1
         maxTargets: 1
         getNumberOfTargetsFromKey: 0

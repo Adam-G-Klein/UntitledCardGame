@@ -53,8 +53,8 @@ MonoBehaviour:
       type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: DialogueStep
-        line: 
-        lineTime: 1
+        line: Beep boop. Whose deck should I thin?
+        lineTime: 2
     - rid: 3931529445166809113
       type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
       data:
@@ -65,7 +65,6 @@ MonoBehaviour:
         - rid: 3931529445166809115
         - rid: 3931529445166809116
         - rid: 3931529445166809117
-        - rid: 9063059299879878669
     - rid: 3931529445166809114
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -110,9 +109,3 @@ MonoBehaviour:
         effect: 4
         cardToTransformInto: {fileID: 11400000, guid: c00025e95f9a449b59c853e77403c30b, type: 2}
         outputKey: 
-    - rid: 9063059299879878669
-      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: DialogueStep
-        line: Lemme perma-transform one of your cards!
-        lineTime: 1
