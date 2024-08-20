@@ -40,9 +40,9 @@ public class EnemyEncounter : Encounter
         this.encounterType = EncounterType.Enemy;
         this.encounterConstants = constants;
         this.companionLocationStore = companionLocationStore;
-        this.enemyLocationStore = enemyLocationStore;   
+        this.enemyLocationStore = enemyLocationStore;
         setupEnemies(createdEnemies);
-        setupCompanions(companionList, createdCompanions);
+        // setupCompanions(companionList, createdCompanions);
     }
 
     private void setupEnemies(List<EnemyInstance> createdEnemies)
@@ -70,13 +70,13 @@ public class EnemyEncounter : Encounter
             return;
         }
 
-        for(int i = 0; i < activeCompanionsCount; i++)
-        {
-            createdCompanions.Add(PrefabInstantiator.InstantiateCompanion(
-                encounterConstants.companionPrefab,
-                companionList[i],
-                companionLocationStore.getLoc(i),
-                companionLocationStore.transform));
-        }
+        // for(int i = 0; i < activeCompanionsCount; i++)
+        // {
+        //     createdCompanions.Add(PrefabInstantiator.InstantiateCompanion(
+        //         encounterConstants.companionPrefab,
+        //         companionList[i],
+        //         companionLocationStore.getLoc(i),
+        //         companionLocationStore.transform));
+        // }
     }
 }
