@@ -30,7 +30,6 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         companionCombinationManager = GetComponent<CompanionCombinationManager>();
     }
 
-
     public void BuildShopEncounter(ShopEncounter shopEncounter) {
         this.shopEncounter = shopEncounter;
         this.shopLevel = shopEncounter.shopData.GetShopLevel(gameState.playerData.GetValue().shopLevel);
@@ -40,9 +39,11 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         shopEncounter.Build(this, allCompanions, encounterConstants, this.shopLevel);
 
         CheckDisableUpgradeButton();
+        /* uncomment to re-enable shop dialogue
         DialogueManager.Instance.SetDialogueLocation(
             gameState.dialogueLocations.GetDialogueLocation(gameState));
         DialogueManager.Instance.StartAnyDialogueSequence();
+        */
     }
 
     void Update() {
@@ -122,6 +123,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     }
 
     public void processCompanionBuyRequest(CompanionBuyRequest request) {
+        Debug.Log("Processing companion buy request");
         if(DialogueManager.Instance.dialogueInProgress) {
             return;
         }
