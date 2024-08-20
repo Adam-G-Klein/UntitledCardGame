@@ -15,38 +15,129 @@ MonoBehaviour:
   effectTooltipMappings:
   - title: Strength
     description: Increases every instance of damage this companion deals
+    relateBehaviorIndex: 0
     image: {fileID: 0}
     tooltipKeyword: 6
   - title: Block
     description: Prevents up to X damage dealt to this companion until next turn
+    relateBehaviorIndex: 0
     image: {fileID: 0}
     tooltipKeyword: 7
   - title: Exhaust
     description: Removes a card for the rest of combat
+    relateBehaviorIndex: 0
     image: {fileID: 0}
     tooltipKeyword: 0
   - title: Draw
     description: Choose a companion to draw X cards from
+    relateBehaviorIndex: 0
     image: {fileID: 0}
     tooltipKeyword: 3
   - title: Scry
     description: Look at the top X cards of a chosen deck, discard any number of
       them.
+    relateBehaviorIndex: 0
     image: {fileID: 0}
     tooltipKeyword: 5
   - title: Discard
     description: Moves the card to the companion's discard pile
+    relateBehaviorIndex: 0
     image: {fileID: 0}
     tooltipKeyword: 2
   - title: Attacking
     description: This enemy will attack you next turn
+    relateBehaviorIndex: 0
     image: {fileID: 0}
     tooltipKeyword: 11
   - title: Debuffing
     description: This enemy will debuff you next turn
+    relateBehaviorIndex: 0
     image: {fileID: 0}
     tooltipKeyword: 12
   - title: Charging
     description: This enemy is just charging up this turn
+    relateBehaviorIndex: 0
     image: {fileID: 0}
     tooltipKeyword: 13
+  - title: Eye Of Argos
+    description: Exhaust. Draw 1 card from this companion, and draw 1 card from a
+      random companion
+    relateBehaviorIndex: 0
+    image: {fileID: 0}
+    tooltipKeyword: 14
+  - title: Retain
+    description: Cards with retain are not discarded at the end of your turn.
+    relateBehaviorIndex: 0
+    image: {fileID: 0}
+    tooltipKeyword: 15
+  - title: Consume
+    description: Remove one aura stack from target companion for an efect
+    relateBehaviorIndex: 0
+    image: {fileID: 0}
+    tooltipKeyword: 17
+  - title: Aura
+    description: Status that each companion can have. Often grants these companions
+      additional powers
+    relateBehaviorIndex: 0
+    image: {fileID: 0}
+    tooltipKeyword: 4
+  - title: Invulnerable
+    description: A companion with invulnerability takes no damage. Goes away at the
+      end of the turn.
+    relateBehaviorIndex: 0
+    image: {fileID: 0}
+    tooltipKeyword: 18
+  - title: Debt
+    description: Unplayable. Lose $1 at the end of the turn
+    relateBehaviorIndex: 0
+    image: {fileID: 0}
+    tooltipKeyword: 19
+  - title: Transform
+    description: Turn one card into another card. Effect only lasts until end of
+      combat.
+    relateBehaviorIndex: 0
+    image: {fileID: 0}
+    tooltipKeyword: 20
+  - title: Entropy's Burn
+    description: Exhaust. When exhausted, deal 5 damage to a random enemy.
+    relateBehaviorIndex: 0
+    image: {fileID: 0}
+    tooltipKeyword: 21
+  - title: Firebreath
+    description: Unplayable. At the end of turn, deal 6 damage to a random enemy.
+    relateBehaviorIndex: 0
+    image: {fileID: 0}
+    tooltipKeyword: 22
+  - title: Arterial Blade
+    description: Lose 1 HP. Deal 1 damage twice. Draw 1 card from this companion
+    relateBehaviorIndex: 0
+    image: {fileID: 0}
+    tooltipKeyword: 25
+  - title: Mabs Might
+    description: Exhaust. Target companion loses 1 HP, then heals 7 HP. Draw 1 card
+      from them
+    relateBehaviorIndex: 0
+    image: {fileID: 0}
+    tooltipKeyword: 24
+  - title: Mabs Boon
+    description: Exhaust. Heal target companion 3HP.
+    relateBehaviorIndex: 0
+    image: {fileID: 0}
+    tooltipKeyword: 23
+  - title: Embued Knife
+    description: Exhaust. Deal 3 damage for each aura stack on this companion
+    relateBehaviorIndex: 0
+    image: {fileID: 0}
+    tooltipKeyword: 26
+  - title: Generated Card
+    description: A card added to your deck in any way other than by purchasing it
+      at the shop.
+    relateBehaviorIndex: 0
+    image: {fileID: 0}
+    tooltipKeyword: 27
+  - title: Permanently Remove
+    description: Removes a card for a companions deck permanently. This card will
+      not return at the end of combat.
+    relateBehaviorIndex: 0
+    image: {fileID: 0}
+    tooltipKeyword: 28

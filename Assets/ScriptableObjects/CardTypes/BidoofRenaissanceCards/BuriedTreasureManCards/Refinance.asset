@@ -27,7 +27,7 @@ MonoBehaviour:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
-  tooltips: 
+  tooltips: 0f0000001400000013000000
   references:
     version: 2
     RefIds:
@@ -59,7 +59,7 @@ MonoBehaviour:
         inputDeckInstancesKey: companions
         targetCardType: {fileID: 11400000, guid: 367e46b6621aa4d0186413c566fc3329, type: 2}
         cardToTransformInto: {fileID: 0}
-        getCardTypeFromKey: 1
+        getCardToTransformIntoFromKey: 0
         inputCardKey: underlyingCard
         includeDrawPile: 0
         includeDiscardPile: 0
