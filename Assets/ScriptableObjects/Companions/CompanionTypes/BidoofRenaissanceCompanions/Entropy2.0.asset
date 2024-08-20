@@ -38,6 +38,11 @@ MonoBehaviour:
       description: Thins decks, scales in power. Transform 1 card into an exhaustable
         Burn at the end of combat.
       image: {fileID: 0}
+      relatedBehaviorIndex: 0
+    - title: Entropys Burn
+      description: Exhaust. When exhausted, deal 5 damage to a random enemy.
+      image: {fileID: 0}
+      relatedBehaviorIndex: 0
   keepsakeTitle: Entropy's Gadget
   keepsakeDescription: Keepsake for summoning Entropy, the little robot who can thin
     decks and pummel enemies with recursive spells
