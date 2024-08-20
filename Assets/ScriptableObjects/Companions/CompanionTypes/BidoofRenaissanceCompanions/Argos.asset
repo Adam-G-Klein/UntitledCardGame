@@ -49,11 +49,18 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: 4463206214708757049
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: i sit. i wait. i watch. the eye of argos sees all.
+        lineTime: 2
     - rid: 5602892563578094077
       type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
       data:
         companionAbilityTrigger: 1
         effectSteps:
+        - rid: 4463206214708757049
         - rid: 5602892563578094080
         - rid: 5602892563578094081
         - rid: 5602892563578094100

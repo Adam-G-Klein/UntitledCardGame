@@ -37,11 +37,19 @@ MonoBehaviour:
     - title: Robber Baron
       description: At the end of combat, gain $2 for each companion below half HP
       image: {fileID: 0}
+      relatedBehaviorIndex: 0
   keepsakeTitle: 
   keepsakeDescription: 
   references:
     version: 2
     RefIds:
+    - rid: 4463206214708757050
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: the more companions below half health, the more i can extort. keep
+          it up
+        lineTime: 2
     - rid: 5602893017534169429
       type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
       data:
@@ -52,6 +60,7 @@ MonoBehaviour:
         - rid: 5602893017534169432
         - rid: 5602893017534169433
         - rid: 5602893017534169434
+        - rid: 4463206214708757050
     - rid: 5602893017534169430
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
