@@ -38,12 +38,12 @@ public class CardInDeckEffect : EffectStep, ITooltipProvider
         List<DeckInstance> deckInstances = document.map.GetList<DeckInstance>(inputDeckKey);
         if (deckInstances.Count == 0 || deckInstances.Count > 1) {
             EffectError("No valid entity with deck input for key " + inputDeckKey);
-            yield return null;
+            yield break;
         }
 
         if (!document.map.ContainsValueWithKey<Card>(inputCardsKey)) {
             EffectError("No valid card inputs with key " + inputCardsKey);
-            yield return null;
+            yield break;
         }
         int numberOfCardsTakenActionOn = 0;
         List<Card> cards = document.map.GetList<Card>(inputCardsKey);
