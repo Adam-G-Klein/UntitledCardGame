@@ -35,8 +35,9 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: L2 Argos
-      description: Whenever you play a card, deal 2 damage to a random enemy
+      description: Whenever you play a card, deal 1 damage to a random enemy
       image: {fileID: 0}
+      relatedBehaviorIndex: 0
   keepsakeTitle: 
   keepsakeDescription: 
   references:
@@ -66,7 +67,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: enemy
         combatEffect: 14
-        scale: 2
+        scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
