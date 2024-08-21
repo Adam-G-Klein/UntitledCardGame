@@ -44,12 +44,6 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 9063059298486059040
-      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: DialogueStep
-        line: haha me ge stwong
-        lineTime: 2
     - rid: 9154689434420772964
       type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
       data:
@@ -57,7 +51,6 @@ MonoBehaviour:
         effectSteps:
         - rid: 9154689434420772965
         - rid: 9154689434420772966
-        - rid: 9063059298486059040
     - rid: 9154689434420772965
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
