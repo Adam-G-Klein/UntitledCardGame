@@ -10,11 +10,16 @@ public class UICompanion : MonoBehaviour
 {
     public Companion companion;
     public CompanionViewUI companionViewUI;
+    public CombatInstance combatInstance;
     public Image image;
     public bool isSelected = false;
 
+    public EntityHealthBar healthBar;
+
     public void setup() {
         this.image.sprite = companion.getSprite();
+        combatInstance.combatStats = companion.combatStats;
+        healthBar.Setup(combatInstance);
     }
 
     public void companionClickedEventHandler() {
