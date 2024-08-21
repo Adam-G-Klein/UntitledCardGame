@@ -31,10 +31,7 @@ MonoBehaviour:
       enemyTargetMethod: 6
       targetsKey: 
       displayValue: 0
-      effectSteps:
-      - rid: 4463205916933358319
-      - rid: 4463205916933358412
-      - rid: 4463205916933358347
+      effectSteps: []
     - intent: 5
       enemyTargetMethod: 6
       targetsKey: 
@@ -44,7 +41,7 @@ MonoBehaviour:
       - rid: 4463205916933358412
       - rid: 4463205916933358347
     behaviorType: 0
-    nextBehaviorIndex: 0
+    nextBehaviorIndex: 3
   belowHalfHPEnemyPattern:
     behaviors: []
     behaviorType: 0
