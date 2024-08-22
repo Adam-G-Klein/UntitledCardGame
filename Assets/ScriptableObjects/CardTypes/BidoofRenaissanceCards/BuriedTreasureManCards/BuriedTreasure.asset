@@ -31,6 +31,24 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: 1274772082283774281
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: selfCard
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 1274772082283774282
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: selfCard
+        prefabToInstantiate: {fileID: 7939549763701254822, guid: c8dfaebc711375e4197bd5bc58a6d8e9, type: 3}
+        scale: 4
     - rid: 5602892491280613515
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -40,6 +58,8 @@ MonoBehaviour:
       data:
         effectSteps:
         - rid: 5602892491280613594
+        - rid: 1274772082283774281
+        - rid: 1274772082283774282
     - rid: 5602892491280613594
       type: {class: GoldManipulation, ns: , asm: Assembly-CSharp}
       data:

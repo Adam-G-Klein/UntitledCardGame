@@ -33,7 +33,27 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 1274772082283774359
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: seflCard
+        prefabToInstantiate: {fileID: 7939549763701254822, guid: c8dfaebc711375e4197bd5bc58a6d8e9, type: 3}
+        scale: 4
+    - rid: 1274772082283774360
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: seflCard
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
     - rid: 4463206030013890926
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
-        effectSteps: []
+        effectSteps:
+        - rid: 1274772082283774360
+        - rid: 1274772082283774359
