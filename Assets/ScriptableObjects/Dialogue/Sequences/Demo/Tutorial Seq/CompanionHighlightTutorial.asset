@@ -10,15 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 23517bc57e0f44146a39f61c3db5a303, type: 3}
-  m_Name: EnemyIntentTutorial
+  m_Name: CompanionHighlightTutorial
   m_EditorClassIdentifier: 
   requiredSpeakers: []
   dialogueLines:
   - rid: 6591284527365881856
   - rid: 8205569917033382007
-  - rid: 6591284527365881857
-  - rid: 8205569917033382837
-  - rid: 6591284527365881858
+  - rid: 8205569917033382835
+  - rid: 8205569917033382836
   references:
     version: 2
     RefIds:
@@ -26,25 +25,22 @@ MonoBehaviour:
       type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
       data:
         speaker: {fileID: 11400000, guid: e5efa8d383bdf2046953f747a6dba9c0, type: 2}
-        line: In the top right you can see what the enemy plans to do during it's
-          next turn.
-    - rid: 6591284527365881857
-      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
-      data:
-        speaker: {fileID: 11400000, guid: e5efa8d383bdf2046953f747a6dba9c0, type: 2}
-        line: This time they are planning the attack your front companion for 4 damage!
-    - rid: 6591284527365881858
-      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
-      data:
-        speaker: {fileID: 11400000, guid: e5efa8d383bdf2046953f747a6dba9c0, type: 2}
-        line: Hover over enemies to learn more about their current intent.
+        line: These are the companions on your team!
     - rid: 8205569917033382007
       type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
       data:
         speaker: {fileID: 11400000, guid: e5efa8d383bdf2046953f747a6dba9c0, type: 2}
-        line: After each player turn the enemy takes a turn.
-    - rid: 8205569917033382837
+        line: Each one has a unique deck of cards and they perform the actions on
+          the card in their deck
+    - rid: 8205569917033382835
       type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
       data:
         speaker: {fileID: 11400000, guid: e5efa8d383bdf2046953f747a6dba9c0, type: 2}
-        line: Generally enemies attack your companions from right to left.
+        line: For example, if you play an attack card that belongs to a unit with
+          strength it will do additional damage
+    - rid: 8205569917033382836
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: e5efa8d383bdf2046953f747a6dba9c0, type: 2}
+        line: Hover over any of your companions to remind yourself of their special
+          passive abilities!
