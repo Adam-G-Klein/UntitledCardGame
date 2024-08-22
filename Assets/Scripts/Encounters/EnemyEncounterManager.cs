@@ -19,6 +19,8 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
 
     public CompanionInstanceController companionInstanceController;
 
+    public EnemyInstanceController enemyInstanceController;
+
     [SerializeField]
     // There's so many ways we could do this
     // choosing the simplest one for now
@@ -67,15 +69,14 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     public void BuildEnemyEncounter(EnemyEncounter encounter,
         LocationStore companionLocationStore,
         LocationStore enemyLocationStore) {
-        List<CompanionInstance> createdCompanions = new List<CompanionInstance>();
-        List<EnemyInstance> createdEnemies = new List<EnemyInstance>();
-        createdCompanions = companionInstanceController.SetupCompanions(gameState.companions.activeCompanions, encounterConstants);
-        encounter.Build(gameState.companions.activeCompanions,
-            encounterConstants,
-            createdCompanions,
-            createdEnemies,
-            companionLocationStore,
-            enemyLocationStore);
+        List<CompanionInstance> createdCompanions = companionInstanceController.SetupCompanions(
+            gameState.companions.activeCompanions,
+            encounterConstants
+        );
+        List<EnemyInstance> createdEnemies = enemyInstanceController.SetupEnemies(
+            encounter.enemyList,
+            encounterConstants
+        );
         characterPortraitController.SetupCharacterPortraits(createdCompanions);
         enemyPortraitController.SetupEnemyPortraits(createdEnemies);
     }
@@ -128,7 +129,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
             gameState.baseShopData.interestCap.ToString() +
             ")\n$" +
             extraGold.ToString();
-        /* re-enable for the companions to talk at the end of the encounter 
+        /* re-enable for the companions to talk at the end of the encounter
         DialogueManager.Instance.SetDialogueLocation(gameState);
         DialogueManager.Instance.StartAnyDialogueSequence();
         */
