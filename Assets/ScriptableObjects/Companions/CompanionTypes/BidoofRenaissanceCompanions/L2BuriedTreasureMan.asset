@@ -48,6 +48,12 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: 4463206214708757119
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: mhm - there's treasure buried everywhere!
+        lineTime: 2
     - rid: 5602892491280613443
       type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
       data:
@@ -55,6 +61,7 @@ MonoBehaviour:
         effectSteps:
         - rid: 5602892491280613460
         - rid: 5602892491280613461
+        - rid: 4463206214708757119
     - rid: 5602892491280613460
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

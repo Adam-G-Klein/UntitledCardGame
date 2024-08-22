@@ -39,19 +39,28 @@ MonoBehaviour:
       description: At the end of combat, heal a companion 20% of their max HP and
         permanently add a Mab's Boon to their deck
       image: {fileID: 0}
+      relatedBehaviorIndex: 0
     - title: Mab's Boon
       description: Card that exhausts on play and heals
       image: {fileID: 0}
+      relatedBehaviorIndex: 0
   keepsakeTitle: 
   keepsakeDescription: 
   references:
     version: 2
     RefIds:
+    - rid: 4463206214708757052
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: who should i heal? there may be... side effects
+        lineTime: 2
     - rid: 5602892650873356440
       type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
       data:
         companionAbilityTrigger: 1
         effectSteps:
+        - rid: 4463206214708757052
         - rid: 5602892650873356441
         - rid: 5602893111447519473
         - rid: 5602892650873356442
