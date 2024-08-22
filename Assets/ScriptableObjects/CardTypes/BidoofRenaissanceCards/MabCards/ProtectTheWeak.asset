@@ -34,6 +34,13 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 1274772082283774959
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: target
+        prefabToInstantiate: {fileID: 98836261379580132, guid: 09d8d7322d3a06e46a9bee225d04a5bd, type: 3}
+        scale: 3
     - rid: 5602892723852673317
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -46,6 +53,7 @@ MonoBehaviour:
         - rid: 5602892723852673329
         - rid: 5602892723852673327
         - rid: 5602892723852673328
+        - rid: 1274772082283774959
     - rid: 5602892723852673319
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
