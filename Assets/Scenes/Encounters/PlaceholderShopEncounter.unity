@@ -402,7 +402,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -819, y: -166}
+  m_AnchoredPosition: {x: -818.99994, y: -166}
   m_SizeDelta: {x: -1911.9738, y: -1069.6259}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &650471079
@@ -488,6 +488,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: Third
   Steps:
+  - rid: 8205570031766208644
   - rid: 6591284524624904358
   - rid: 8205569917033382169
   - rid: 8205569917033382174
@@ -804,6 +805,19 @@ MonoBehaviour:
         tutorialActionType: CanvasDisableButtonsAction
         canvas: {fileID: 4573181857404763397}
         buttonsToLeaveEnabled: []
+    - rid: 8205570031766208644
+      type: {class: UnityEventTutorialStep, ns: , asm: Assembly-CSharp}
+      data:
+        tutorialStepType: UnityEventTutorialStep
+        stepName: Whatsgoingon
+        actions:
+        - rid: 8205570031766208646
+        initAction: 0
+    - rid: 8205570031766208646
+      type: {class: DebugAction, ns: , asm: Assembly-CSharp}
+      data:
+        tutorialActionType: DebugAction
+        debugString: Is this getting hit?
 --- !u!4 &717460620
 Transform:
   m_ObjectHideFlags: 0
