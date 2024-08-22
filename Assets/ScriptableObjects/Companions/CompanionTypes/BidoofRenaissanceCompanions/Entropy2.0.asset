@@ -30,6 +30,7 @@ MonoBehaviour:
   speakerType: {fileID: 0}
   abilities:
   - rid: 3931529445166809113
+  - rid: 8205570031766208666
   upgradeTo: {fileID: 11400000, guid: 9ba17cfe1baaf456fb2d9e950442b2fc, type: 2}
   tooltip:
     empty: 0
@@ -109,3 +110,15 @@ MonoBehaviour:
         effect: 4
         cardToTransformInto: {fileID: 11400000, guid: c00025e95f9a449b59c853e77403c30b, type: 2}
         outputKey: 
+    - rid: 8205570031766208666
+      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
+      data:
+        companionAbilityTrigger: 8
+        effectSteps:
+        - rid: 8205570031766208667
+    - rid: 8205570031766208667
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: I now remove cards permanently!
+        lineTime: 3

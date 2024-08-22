@@ -31,6 +31,7 @@ MonoBehaviour:
   abilities:
   - rid: 5602892874868589145
   - rid: 5602892874868589149
+  - rid: 8205570031766208660
   upgradeTo: {fileID: 11400000, guid: c9af295a537294ffe815c1c613b5d6df, type: 2}
   tooltip:
     empty: 0
@@ -39,6 +40,9 @@ MonoBehaviour:
       description: 'At the start of combat, give adjacent companions 1 aura stack.
         End of turn, each companion with at least 1 aura stack gets 4 block. '
       image: {fileID: 0}
+      relatedBehaviorIndex: 0
+  keepsakeTitle: 
+  keepsakeDescription: 
   references:
     version: 2
     RefIds:
@@ -50,6 +54,7 @@ MonoBehaviour:
         - rid: 5602892874868589146
         - rid: 5602892874868589147
         - rid: 5602892874868589148
+        - rid: 8205570031766208648
     - rid: 5602892874868589146
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -76,6 +81,7 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+        multiplyByNumAuraStacks: 0
     - rid: 5602892874868589149
       type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
       data:
@@ -84,6 +90,7 @@ MonoBehaviour:
         - rid: 5602892874868589150
         - rid: 5602892874868589151
         - rid: 5602892874868589152
+        - rid: 8205570031766208649
     - rid: 5602892874868589150
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -111,3 +118,30 @@ MonoBehaviour:
         scale: 4
         getScaleFromKey: 0
         inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+    - rid: 8205570031766208648
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: adjacent
+        prefabToInstantiate: {fileID: 1694406742967473385, guid: a6181747c84ef6b41a01c8ae8084f953, type: 3}
+        scale: 5
+    - rid: 8205570031766208649
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: allCompanionsWithOrbs
+        prefabToInstantiate: {fileID: 98836261379580132, guid: 09d8d7322d3a06e46a9bee225d04a5bd, type: 3}
+        scale: 5
+    - rid: 8205570031766208660
+      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
+      data:
+        companionAbilityTrigger: 8
+        effectSteps:
+        - rid: 8205570031766208661
+    - rid: 8205570031766208661
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: I can now protect our entire team!
+        lineTime: 3

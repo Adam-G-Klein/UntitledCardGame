@@ -30,6 +30,7 @@ MonoBehaviour:
   speakerType: {fileID: 0}
   abilities:
   - rid: 5602892949302280752
+  - rid: 8205570031766208670
   upgradeTo: {fileID: 11400000, guid: 5b7a03f16dfe04bebb92e414c5ba944e, type: 2}
   tooltip:
     empty: 0
@@ -38,6 +39,7 @@ MonoBehaviour:
       description: Whenever a companion takes damage, King of Pain deals 2 damage
         to a random enemy
       image: {fileID: 0}
+      relatedBehaviorIndex: 0
   keepsakeTitle: 
   keepsakeDescription: 
   references:
@@ -73,3 +75,15 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+    - rid: 8205570031766208670
+      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
+      data:
+        companionAbilityTrigger: 8
+        effectSteps:
+        - rid: 8205570031766208671
+    - rid: 8205570031766208671
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: I now strengthen companions each time they take damage.
+        lineTime: 3
