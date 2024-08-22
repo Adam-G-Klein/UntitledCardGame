@@ -37,6 +37,7 @@ MonoBehaviour:
     - title: L2 Mab
       description: Whenever a companion takes damage, it gains 3 block
       image: {fileID: 0}
+      relatedBehaviorIndex: 0
   keepsakeTitle: 
   keepsakeDescription: 
   references:
@@ -48,6 +49,7 @@ MonoBehaviour:
         companionAbilityTrigger: 11
         effectSteps:
         - rid: 5602892679876706501
+        - rid: 8205570031766208513
     - rid: 5602892679876706501
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
@@ -58,3 +60,10 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+    - rid: 8205570031766208513
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: damagedCompanion
+        prefabToInstantiate: {fileID: 98836261379580132, guid: 09d8d7322d3a06e46a9bee225d04a5bd, type: 3}
+        scale: 5

@@ -30,6 +30,7 @@ MonoBehaviour:
   speakerType: {fileID: 0}
   abilities:
   - rid: 9154689434420772964
+  - rid: 8205570031766208662
   upgradeTo: {fileID: 11400000, guid: 9e58397c3f778471eb854ffa3c62f2d2, type: 2}
   tooltip:
     empty: 0
@@ -44,6 +45,18 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: 8205570031766208662
+      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
+      data:
+        companionAbilityTrigger: 8
+        effectSteps:
+        - rid: 8205570031766208663
+    - rid: 8205570031766208663
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: Bidoof now has the strength of 4 Bidoofs!
+        lineTime: 3
     - rid: 9154689434420772964
       type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
       data:

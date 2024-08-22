@@ -37,6 +37,7 @@ MonoBehaviour:
     - title: L2 Beezelbumbler
       description: Whenever a companion loses HP, draw 1 card from them.
       image: {fileID: 0}
+      relatedBehaviorIndex: 0
   keepsakeTitle: 
   keepsakeDescription: 
   references:
@@ -57,3 +58,11 @@ MonoBehaviour:
         companionAbilityTrigger: 11
         effectSteps:
         - rid: 4463206079571952085
+        - rid: 8205570031766208512
+    - rid: 8205570031766208512
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: damagedCompanion
+        prefabToInstantiate: {fileID: 1694406742967473385, guid: a6181747c84ef6b41a01c8ae8084f953, type: 3}
+        scale: 5

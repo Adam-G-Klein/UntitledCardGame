@@ -107,6 +107,7 @@ MonoBehaviour:
         companionAbilityTrigger: 8
         effectSteps:
         - rid: 5602892675124822031
+        - rid: 8205570031766208515
     - rid: 5602892675124822031
       type: {class: ManualOnCombineInShop, ns: , asm: Assembly-CSharp}
       data:
@@ -121,3 +122,9 @@ MonoBehaviour:
         inputKey: target
         percent: 0.2
         outputKey: numToHeal
+    - rid: 8205570031766208515
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: All Mabs boons have been transformed into the all powerful Mabs Might!
+        lineTime: 3
