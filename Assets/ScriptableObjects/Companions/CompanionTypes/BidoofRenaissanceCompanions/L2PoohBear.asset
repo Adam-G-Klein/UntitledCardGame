@@ -57,6 +57,7 @@ MonoBehaviour:
         effectSteps:
         - rid: 5602892679876706443
         - rid: 5602892679876706444
+        - rid: 8205570031766208654
     - rid: 5602892679876706443
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -86,6 +87,7 @@ MonoBehaviour:
         - rid: 5602892679876706449
         - rid: 5602892679876706448
         - rid: 5602893111447520024
+        - rid: 8205570031766208655
     - rid: 5602892679876706448
       type: {class: FilterEntityByStatus, ns: , asm: Assembly-CSharp}
       data:
@@ -117,3 +119,17 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         outputKey: 
+    - rid: 8205570031766208654
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 1694406742967473385, guid: a6181747c84ef6b41a01c8ae8084f953, type: 3}
+        scale: 1
+    - rid: 8205570031766208655
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: companionsWithOrbs
+        prefabToInstantiate: {fileID: 1694406742967473385, guid: a6181747c84ef6b41a01c8ae8084f953, type: 3}
+        scale: 1

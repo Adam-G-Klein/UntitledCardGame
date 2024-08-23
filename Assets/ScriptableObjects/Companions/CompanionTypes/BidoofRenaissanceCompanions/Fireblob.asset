@@ -30,6 +30,7 @@ MonoBehaviour:
   speakerType: {fileID: 0}
   abilities:
   - rid: 5602892491280613392
+  - rid: 8205570031766208668
   upgradeTo: {fileID: 11400000, guid: bc8d1ef2bb3554ea9969a4c871f3a1e4, type: 2}
   tooltip:
     empty: 0
@@ -72,6 +73,18 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
+    - rid: 8205570031766208668
+      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
+      data:
+        companionAbilityTrigger: 8
+        effectSteps:
+        - rid: 8205570031766208669
+    - rid: 8205570031766208669
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: I now gain block at the end of each turn!
+        lineTime: 3
     - rid: 9063059298205827088
       type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
       data:

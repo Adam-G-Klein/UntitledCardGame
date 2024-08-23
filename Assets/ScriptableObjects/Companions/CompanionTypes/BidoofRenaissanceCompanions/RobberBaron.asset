@@ -30,6 +30,7 @@ MonoBehaviour:
   speakerType: {fileID: 0}
   abilities:
   - rid: 5602893017534169429
+  - rid: 8205570031766208675
   upgradeTo: {fileID: 11400000, guid: 669e87fa114624b88ae4455ef0762f7e, type: 2}
   tooltip:
     empty: 0
@@ -101,3 +102,15 @@ MonoBehaviour:
         goldToAdd: 0
         getScaleFromKey: 1
         inputScaleKey: totalGold
+    - rid: 8205570031766208675
+      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
+      data:
+        companionAbilityTrigger: 8
+        effectSteps:
+        - rid: 8205570031766208676
+    - rid: 8205570031766208676
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: I now allow you to pay money to give your team lasting stats boosts!
+        lineTime: 3

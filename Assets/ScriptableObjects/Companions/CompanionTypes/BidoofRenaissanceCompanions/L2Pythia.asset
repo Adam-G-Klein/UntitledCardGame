@@ -38,6 +38,7 @@ MonoBehaviour:
       description: Whenever you shuffle a draw pile, give all companions on your
         team 3 block
       image: {fileID: 0}
+      relatedBehaviorIndex: 0
   keepsakeTitle: 
   keepsakeDescription: 
   references:
@@ -50,6 +51,7 @@ MonoBehaviour:
         effectSteps:
         - rid: 5602892949302280370
         - rid: 5602892949302280371
+        - rid: 8205570031766208674
     - rid: 5602892949302280370
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -70,3 +72,11 @@ MonoBehaviour:
         scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+    - rid: 8205570031766208674
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: allCompanions
+        prefabToInstantiate: {fileID: 98836261379580132, guid: 09d8d7322d3a06e46a9bee225d04a5bd, type: 3}
+        scale: 5

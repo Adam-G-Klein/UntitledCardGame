@@ -30,6 +30,7 @@ MonoBehaviour:
   speakerType: {fileID: 0}
   abilities:
   - rid: 5602892563578094077
+  - rid: 8205570031766208658
   upgradeTo: {fileID: 11400000, guid: 3b42d32224eeb40459eb4d23d3843769, type: 2}
   tooltip:
     empty: 0
@@ -94,3 +95,15 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+    - rid: 8205570031766208658
+      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
+      data:
+        companionAbilityTrigger: 8
+        effectSteps:
+        - rid: 8205570031766208659
+    - rid: 8205570031766208659
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: We will destroy our enemies with a thousand cuts!
+        lineTime: 3

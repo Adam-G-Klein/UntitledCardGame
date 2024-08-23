@@ -30,6 +30,7 @@ MonoBehaviour:
   speakerType: {fileID: 0}
   abilities:
   - rid: 5602892491280613443
+  - rid: 8205570031766208664
   upgradeTo: {fileID: 11400000, guid: 07493795f887747499efadbf94ce0028, type: 2}
   tooltip:
     empty: 0
@@ -87,3 +88,15 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+    - rid: 8205570031766208664
+      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
+      data:
+        companionAbilityTrigger: 8
+        effectSteps:
+        - rid: 8205570031766208665
+    - rid: 8205570031766208665
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: Now I have treasure for everyone!
+        lineTime: 3
