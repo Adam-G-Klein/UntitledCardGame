@@ -33,6 +33,13 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 1274772082283774355
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: card
+        prefabToInstantiate: {fileID: 1694406742967473385, guid: a6181747c84ef6b41a01c8ae8084f953, type: 3}
+        scale: 1.5
     - rid: 4463206030013890709
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -41,6 +48,7 @@ MonoBehaviour:
         - rid: 4463206030013890713
         - rid: 4463206030013890712
         - rid: 4463206030013890711
+        - rid: 1274772082283774355
     - rid: 4463206030013890710
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -59,7 +67,7 @@ MonoBehaviour:
         inputDeckInstancesKey: companions
         targetCardType: {fileID: 11400000, guid: 367e46b6621aa4d0186413c566fc3329, type: 2}
         cardToTransformInto: {fileID: 0}
-        getCardToTransformIntoFromKey: 0
+        getCardToTransformIntoFromKey: 1
         inputCardKey: underlyingCard
         includeDrawPile: 0
         includeDiscardPile: 0

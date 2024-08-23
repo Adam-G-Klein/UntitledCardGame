@@ -48,7 +48,8 @@ public enum EffectStepName {
     Taunt,
     TransmogrifyCard,
     DialogueStep,
-    FXEffectStep
+    FXEffectStep,
+    WaitForSecondsEffect
 }
 
 [System.Serializable]
