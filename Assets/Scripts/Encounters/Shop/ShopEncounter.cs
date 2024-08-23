@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [System.Serializable]
@@ -113,7 +115,7 @@ public class ShopEncounter : Encounter
         keepsakesInShop = new List<KeepsakeInShopWithPrice>();
 
         generateCards(shopLevel, companionList);
-        generateKeepsakes(shopLevel);
+        generateKeepsakes(shopLevel, companionList);
     }
 
     private void generateCards(ShopLevel shopLevel, List<Companion> companionList) {
@@ -178,7 +180,7 @@ public class ShopEncounter : Encounter
                 break;
             }
 
-            int selectedCardIndex = Random.Range(0, finalShopCardsPool.Count);
+            int selectedCardIndex = UnityEngine.Random.Range(0, finalShopCardsPool.Count);
             CardInShopWithPrice selectedCard = finalShopCardsPool[selectedCardIndex];
             // Remove the card from the pool, so it doesn't show up more than once.
             finalShopCardsPool.Remove(selectedCard);
@@ -187,8 +189,12 @@ public class ShopEncounter : Encounter
         }
     }
 
-    public void generateKeepsakes(ShopLevel shopLevel) {
+    public void generateKeepsakes(ShopLevel shopLevel, List<Companion> team) {
         int numKeepsakesToGenerate = shopLevel.numKeepsakesToShow;
+
+        // Maintain a list of the keepsakes that are out of the shop pool.
+        // All companion types on your team are not considered in the pool.
+        List<CompanionTypeSO> keepsakesOutOfPool = team.Select(x => x.companionType).ToList();
 
         for (int i = 0; i < numKeepsakesToGenerate; i++) {
             // Determine what the companion pool is for this single keepsake being generated
@@ -216,11 +222,42 @@ public class ShopEncounter : Encounter
                 break;
             }
 
-            // Pick a card from the pool and add it to the shop's cards
-            int number = Random.Range(0, companions.Count);
-            keepsakesInShop.Add(
-                new KeepsakeInShopWithPrice(companions[number], shopData.companionKeepsakePrice));
+            // Simple weighted sampling algorithm: N copies of each companion type in the list,
+            // where N corresponds to their weight.
+            // Then we pick one uniformly at random.
+            List<CompanionTypeSO> companionSampleDist = new();
+            foreach (CompanionTypeSO c in companions) {
+                // "Scarcity" mechanic; we reduce the number of companions
+                // available by removing the keepsake count after pool.
+                int numAvailable = shopData.numKeepsakeCopies - numCompanionsOfType(keepsakesOutOfPool, c);
+                // in the case, where we exhaust all the companions of a given type, let there
+                // be 1 available always, just so it is possible but much less likely.
+                numAvailable = Math.Max(1, numAvailable);
+                companionSampleDist.AddRange(Enumerable.Repeat(c, numAvailable));
+                Debug.Log("Shop scarcity. " + c.name + ": " + numAvailable.ToString());
+            }
+
+            // Pick a keepsake from the sample distribution and add it to the shop's cards
+            int number = UnityEngine.Random.Range(0, companionSampleDist.Count);
+            CompanionTypeSO selected = companionSampleDist[number];
+            keepsakesInShop.Add(new KeepsakeInShopWithPrice(selected, shopData.companionKeepsakePrice));
+            keepsakesOutOfPool.Add(selected);
         }
+    }
+
+    private int numCompanionsOfType(List<CompanionTypeSO> companions, CompanionTypeSO companionType) {
+        int count = 0;
+        foreach (CompanionTypeSO c in companions) {
+            if (c == companionType) {
+                count++;
+            }
+            // If we have a combined version on the team, that effectively
+            // means we bought 3 of the same kind.
+            if (c == companionType.upgradeTo) {
+                count += 3;
+            }
+        }
+        return count;
     }
 
     private Rarity PickRarity(
@@ -252,7 +289,7 @@ public class ShopEncounter : Encounter
             totalPercentage = totalPercentage + i;
         }
 
-        int randomNumber = Random.Range(0, totalPercentage); // min inclusive, max exclusive
+        int randomNumber = UnityEngine.Random.Range(0, totalPercentage); // min inclusive, max exclusive
         int currentPercentageCheck = 0;
         for (int i = 0; i < percents.Count; i++) {
             currentPercentageCheck = currentPercentageCheck + percents[i];

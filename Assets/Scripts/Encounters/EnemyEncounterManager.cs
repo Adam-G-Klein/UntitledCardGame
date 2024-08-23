@@ -115,6 +115,13 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
             }
         }
 
+        // Revive all companions that died during combat to death's door.
+        foreach (Companion companion in gameState.companions.allCompanions) {
+            if (companion.combatStats.currentHealth <= 0) {
+                companion.combatStats.setCurrentHealth(1);
+            }
+        }
+
         gameState.LoadNextLocation();
         postCombatUI.SetActive(true);
         uIStateEvent.Raise(new UIStateEventInfo(UIState.END_ENCOUNTER));

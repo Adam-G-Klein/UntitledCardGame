@@ -16,6 +16,11 @@ public class ShopDataSO : ScriptableObject
     public int cardPrice;
     public int companionKeepsakePrice;
 
+    // The number of keepsake copies avaialble in the shop.
+    // There is a finite amount of each companion available, in order
+    // to force the player to try other strategies.
+    public int numKeepsakeCopies;
+
     public int startingGold;
 
     [Header("Earning post combat")]
