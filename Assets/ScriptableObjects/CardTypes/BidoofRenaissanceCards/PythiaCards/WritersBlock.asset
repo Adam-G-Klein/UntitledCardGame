@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: WritersBlock
   m_EditorClassIdentifier: 
   Name: Writer's Block
-  Description: Give target companion 5 block plus 2 block for each card in your hand.
+  Description: Give target companion 2 block for each card in your hand.
   Cost: 2
   Artwork: {fileID: 21300000, guid: e485a5f74ee5d074187ebd614e44b7fd, type: 3}
   cardCategory: 2
@@ -41,7 +41,6 @@ MonoBehaviour:
         - rid: 5602892679876706654
         - rid: 5602892679876706655
         - rid: 5602892723852673247
-        - rid: 5602892679876706656
         - rid: 5602892679876706657
     - rid: 5602892679876706653
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -71,15 +70,6 @@ MonoBehaviour:
         effectStepName: CountStep
         inputKey: cardsInHand
         outputKey: numCards
-    - rid: 5602892679876706656
-      type: {class: MathStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: MathStep
-        inputKey: numCardsScaled
-        operand2InputKey: UNUSED
-        operation: 0
-        scale: 5
-        outputKey: numCardsPlusBase
     - rid: 5602892679876706657
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
@@ -88,7 +78,7 @@ MonoBehaviour:
         statusEffect: 2
         scale: 0
         getScaleFromKey: 1
-        inputScaleKey: numCardsPlusBase
+        inputScaleKey: numCardsScaled
         multiplyByNumAuraStacks: 0
     - rid: 5602892723852673247
       type: {class: MathStep, ns: , asm: Assembly-CSharp}
