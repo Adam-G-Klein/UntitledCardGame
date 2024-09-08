@@ -100,6 +100,11 @@ public class CombatEffectStep : EffectStep
                     newScale = card.card.UpdateScaleForCardModifications(newScale);
                 }
             break;
+            case CombatEffect.FixedDamageWithCardModifications:
+                if (card != null) {
+                    newScale = card.card.UpdateScaleForCardModifications(newScale);
+                }
+            break;
         }
 
         return newScale;

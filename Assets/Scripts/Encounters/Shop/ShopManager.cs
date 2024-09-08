@@ -33,7 +33,6 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         companionCombinationManager = GetComponent<CompanionCombinationManager>();
     }
 
-
     public void BuildShopEncounter(ShopEncounter shopEncounter) {
         this.shopEncounter = shopEncounter;
         this.shopLevel = shopEncounter.shopData.GetShopLevel(gameState.playerData.GetValue().shopLevel);
@@ -43,9 +42,11 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         shopEncounter.Build(this, allCompanions, encounterConstants, this.shopLevel);
 
         CheckDisableUpgradeButton();
+        /* uncomment to re-enable shop dialogue
         DialogueManager.Instance.SetDialogueLocation(
             gameState.dialogueLocations.GetDialogueLocation(gameState));
         DialogueManager.Instance.StartAnyDialogueSequence();
+        */
     }
 
     void Update() {
@@ -125,6 +126,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     }
 
     public void processCompanionBuyRequest(CompanionBuyRequest request) {
+        Debug.Log("Processing companion buy request");
         if(DialogueManager.Instance.dialogueInProgress) {
             return;
         }
@@ -132,11 +134,14 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
 
             gameState.playerData.GetValue().gold -= request.price;
-            GameObject.Instantiate(
+            // check that this wasn't purchased with debug tooling
+            if(request.keepsakeInShop != null) {
+                GameObject.Instantiate(
                 encounterConstants.cardSoldOutPrefab,
                 request.keepsakeInShop.transform.position,
                 Quaternion.identity);
-            request.keepsakeInShop.sold();
+                request.keepsakeInShop.sold();
+            }
             if(!companionCombinationManager.AttemptUpgradeCompanion(request.companion)){
                 Debug.Log("Upgrade not appicable, adding to benched companions");
                 this.gameState.companions.benchedCompanions.Add(request.companion);

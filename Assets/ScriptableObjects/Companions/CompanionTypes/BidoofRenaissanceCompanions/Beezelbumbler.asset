@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Beezelbumbler
   m_EditorClassIdentifier: 
   companionName: Beezelbumbler
-  maxHealth: 20
+  maxHealth: 15
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: e0ab2143b8408423ab692d481858408a, type: 3}
   startingDeck: {fileID: 11400000, guid: 03db7753a8eb34b8fa1ccf858b7c2c0e, type: 2}
@@ -30,6 +30,7 @@ MonoBehaviour:
   speakerType: {fileID: 0}
   abilities:
   - rid: 5602892559406858240
+  - rid: 9063059299879878660
   upgradeTo: {fileID: 11400000, guid: ba6b9a342dc39444a93852daa417a706, type: 2}
   tooltip:
     empty: 0
@@ -37,6 +38,7 @@ MonoBehaviour:
     - title: Beezelbumbler
       description: Whenever a companion dies, Beezelbumbler gains 1 strength permanently.
       image: {fileID: 0}
+      relatedBehaviorIndex: 0
   keepsakeTitle: Bumbler's Deviltooth
   keepsakeDescription: Keepsake for the powerful Beezelbumbler, a glass cannon damage
     dealer that dances with death.
@@ -50,6 +52,7 @@ MonoBehaviour:
         effectSteps:
         - rid: 5602892559406858262
         - rid: 5602892559406858261
+        - rid: 9063059246832943106
     - rid: 5602892559406858261
       type: {class: PermanentStatIncrease, ns: , asm: Assembly-CSharp}
       data:
@@ -70,3 +73,21 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
+    - rid: 9063059246832943106
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: EVERY DEATH, I GROW STRONGER >:)
+        lineTime: 2
+    - rid: 9063059299879878660
+      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
+      data:
+        companionAbilityTrigger: 8
+        effectSteps:
+        - rid: 9063059299879878661
+    - rid: 9063059299879878661
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: Now we draw cards every time we lose hp!
+        lineTime: 3

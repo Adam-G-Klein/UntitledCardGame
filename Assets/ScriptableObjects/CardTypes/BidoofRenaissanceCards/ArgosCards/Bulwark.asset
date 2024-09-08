@@ -13,15 +13,17 @@ MonoBehaviour:
   m_Name: Bulwark
   m_EditorClassIdentifier: 
   Name: Bulwark
-  Description: Unplayable. At the end of the turn, parent companion gains 7 block
+  Description: Draw 1 from this companion. If in hand at the end of the turn, parent
+    companion gains 7 block
   Cost: 0
-  Artwork: {fileID: 21300000, guid: a100f38fb92da834786807cb66e2ebba, type: 3}
+  Artwork: {fileID: 21300000, guid: 9dcd5e58ee426e840a202b9accb8036b, type: 3}
   cardCategory: 4
   vfxPrefab: {fileID: 0}
-  playable: 0
+  playable: 1
   exhaustsWhenPlayed: 0
   retain: 0
-  effectWorkflows: []
+  effectWorkflows:
+  - rid: 5602893111447520107
   onExhaustEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
@@ -32,6 +34,13 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 1274772038231786314
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: target
+        prefabToInstantiate: {fileID: 1694406742967473385, guid: a6181747c84ef6b41a01c8ae8084f953, type: 3}
+        scale: 1.5
     - rid: 5602893017534169720
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -59,3 +68,30 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+    - rid: 5602893111447520107
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 5602893111447520108
+        - rid: 5602893111447520109
+        - rid: 1274772038231786314
+    - rid: 5602893111447520108
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: target
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 4
+        cantCancelTargetting: 0
+    - rid: 5602893111447520109
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DrawCards
+        inputKey: target
+        outputKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 

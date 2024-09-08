@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: StimulusCheck
   m_EditorClassIdentifier: 
   Name: Stimulus Check
-  Description: Gain 3 energy and put a Debt card on the bottom of this companion's
-    deck
+  Description: Draw 1 card from each companion and put a Debt card on the bottom
+    of this companion's deck
   Cost: 0
   Artwork: {fileID: 21300000, guid: e8c1b164e48b3ed4ea21cc0ef5d14b1a, type: 3}
   cardCategory: 2
@@ -28,19 +28,48 @@ MonoBehaviour:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
-  tooltips: 
+  tooltips: 13000000
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 1274772082283774356
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: all
+        prefabToInstantiate: {fileID: 1694406742967473385, guid: a6181747c84ef6b41a01c8ae8084f953, type: 3}
+        scale: 1.5
+    - rid: 4463206079571951821
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: all
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 1
+        cantCancelTargetting: 0
+    - rid: 4463206079571951822
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DrawCards
+        inputKey: all
+        outputKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
     - rid: 5602892874868589218
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
         - rid: 5602892874868589219
         - rid: 5602892874868589220
-        - rid: 5602892874868589221
+        - rid: 4463206079571951821
+        - rid: 4463206079571951822
+        - rid: 1274772082283774356
     - rid: 5602892874868589219
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -63,12 +92,5 @@ MonoBehaviour:
         getCardsFromKey: 0
         inputCardsKey: 
         scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
-    - rid: 5602892874868589221
-      type: {class: ManaChange, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: ManaChange
-        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 

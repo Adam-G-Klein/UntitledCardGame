@@ -13,13 +13,15 @@ MonoBehaviour:
   m_Name: EyeOfArgos
   m_EditorClassIdentifier: 
   Name: Eye of Argos
-  Description: Exhaust. Scry 1, then draw 1 from this companion.
+  Description: Exhaust. Draw 1 card from this companion, and draw 1 card from a random
+    companion
   Cost: 0
   Artwork: {fileID: 21300000, guid: e370307552346ed469561d12300d30d8, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 1
+  retain: 0
   effectWorkflows:
   - rid: 3931529445166809455
   onExhaustEffectWorkflow:
@@ -32,15 +34,30 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 1274772038231786451
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 1694406742967473385, guid: a6181747c84ef6b41a01c8ae8084f953, type: 3}
+        scale: 1.5
+    - rid: 1274772038231786452
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: target
+        prefabToInstantiate: {fileID: 1694406742967473385, guid: a6181747c84ef6b41a01c8ae8084f953, type: 3}
+        scale: 1.5
     - rid: 3931529445166809455
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
         - rid: 3931529445166809456
-        - rid: 3931529445166809457
-        - rid: 3931529445166809458
-        - rid: 3931529445166809459
         - rid: 5602892491280613707
+        - rid: 4463205916933357568
+        - rid: 4463205916933357569
+        - rid: 1274772038231786451
+        - rid: 1274772038231786452
     - rid: 3931529445166809456
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -50,40 +67,28 @@ MonoBehaviour:
         outputKey: target
         validTargets: 00000000
         number: 1
+        specialTargetRule: 6
+        cantCancelTargetting: 0
+    - rid: 4463205916933357568
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 00000000
+        number: 1
         specialTargetRule: 4
         cantCancelTargetting: 0
-    - rid: 3931529445166809457
-      type: {class: GetCardsFromDeck, ns: , asm: Assembly-CSharp}
+    - rid: 4463205916933357569
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: GetCardsFromDeck
-        inputKey: target
-        getLimitedNumber: 1
-        numberOfCardsToGet: 1
-        shuffleIfEmpty: 0
-        outputKey: topCard
-        getCardsFromSourceDeck: 0
-        getAllFromOnlyDrawPile: 0
-    - rid: 3931529445166809458
-      type: {class: SelectCardsFromList, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: SelectCardsFromList
-        inputKey: topCard
-        outputKey: discarded
-        promptText: Choose a card to discard.
-        minTargets: 0
-        maxTargets: 1
-        getNumberOfTargetsFromKey: 0
-        inputNumberOfTargetsKey: 
-        randomizeOrder: 0
-    - rid: 3931529445166809459
-      type: {class: CardInDeckEffect, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CardInDeckEffect
-        inputCardsKey: discarded
-        inputDeckKey: target
-        effect: 2
-        cardToTransformInto: {fileID: 0}
+        effectStepName: DrawCards
+        inputKey: self
         outputKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
     - rid: 5602892491280613707
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:

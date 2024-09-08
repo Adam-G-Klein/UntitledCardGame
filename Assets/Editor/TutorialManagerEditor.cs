@@ -5,16 +5,16 @@ using UnityEditor;
 using System;
 using System.Drawing.Printing;
 
-[CustomEditor(typeof(TutorialManager))]
+[CustomEditor(typeof(TutorialData))]
 public class TutorialManagerEditor : Editor {
 
     TutorialStepName stepName = TutorialStepName.UnityEventTutorialStep;
     TutorialActionName actionName = TutorialActionName.DebugAction;
-    TutorialManager manager;
+    TutorialData manager;
     int stepToAddTo = 0;
 
     public override void OnInspectorGUI() {
-        manager = (TutorialManager) target;
+        manager = (TutorialData) target;
         DrawDefaultInspector();
 
         EditorGUILayout.Space(20);
@@ -30,9 +30,9 @@ public class TutorialManagerEditor : Editor {
                 stepName.ToString(), 
                 new object[] {});
             
-            if(manager.tutorialSteps == null)
-                manager.tutorialSteps = new List<TutorialStep>();
-            manager.tutorialSteps.Add(newStep);
+            if(manager.Steps == null)
+                manager.Steps = new List<TutorialStep>();
+            manager.Steps.Add(newStep);
         }
 
         EditorGUILayout.Space(20);
@@ -51,11 +51,11 @@ public class TutorialManagerEditor : Editor {
     }
 
     private void AddAction(){
-        if(manager.tutorialSteps == null || stepToAddTo >= manager.tutorialSteps.Count) {
+        if(manager.Steps == null || stepToAddTo >= manager.Steps.Count) {
             Debug.LogError("Can't find step " + stepToAddTo + " in TutorialSteps list, please add tutorial steps or decrease stepToAddTo");
             return;
         }
-        TutorialStep editedStep = manager.tutorialSteps[stepToAddTo];
+        TutorialStep editedStep = manager.Steps[stepToAddTo];
 
         TutorialAction newAction = InstantiateFromClassname.Instantiate<TutorialAction>(
             actionName.ToString(), 

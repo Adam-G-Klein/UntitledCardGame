@@ -16,7 +16,7 @@ public enum CombatEffect {
     ApplyTemporaryStrength,
     ApplyMinionsOnDeath,
     ApplyPlatedArmor,
-    FixedDamage,
+    FixedDamageWithCardModifications,
     SetToHalfHealth,
     FixedDamageThatIgnoresBlock,
 }

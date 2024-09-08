@@ -17,7 +17,8 @@ public enum Location {
     SHOP,
     FAKE_SHOP,
     PRE_BOSSFIGHT_COMBAT_SPLASH,
-    BOSSFIGHT
+    BOSSFIGHT,
+    INTRO_CUTSCENE
 }
 
 [CreateAssetMenu(
@@ -53,6 +54,7 @@ public class GameStateVariableSO : ScriptableObject
         {Location.COMBAT, "PlaceholderEnemyEncounter"},
         {Location.POST_COMBAT, "PlaceholderEnemyEncounter"},
         {Location.SHOP, "PlaceholderShopEncounter"},
+        {Location.INTRO_CUTSCENE, "IntroCutscene"},
         // not implemented yet
         {Location.FAKE_SHOP, "FakeShop"},
         {Location.PRE_BOSSFIGHT_COMBAT_SPLASH, "PreBossfightCombatSplash"},
@@ -60,7 +62,8 @@ public class GameStateVariableSO : ScriptableObject
     };
 
     private Dictionary<Location, Location> locationToNextLocation = new Dictionary<Location, Location>() {
-        {Location.MAIN_MENU, Location.TEAM_SIGNING},
+        {Location.MAIN_MENU, Location.INTRO_CUTSCENE},
+        {Location.INTRO_CUTSCENE, Location.TEAM_SIGNING},
         {Location.TEAM_SIGNING, Location.COMBAT},
         {Location.TEAM_SELECT, Location.COMBAT},
         {Location.COMBAT, Location.POST_COMBAT},
@@ -76,7 +79,7 @@ public class GameStateVariableSO : ScriptableObject
     public int lastTutorialLoopIndex = 2;
     public int bossFightLoopIndex = 6;
     public int tutorialLoops = 2;
-
+    
     // TODO: make this more versatile if we want the map to actually do things.
     // also want to field criticism about whether this should live here.
     // My only argument for placing it here is that this is one of the main
@@ -96,6 +99,9 @@ public class GameStateVariableSO : ScriptableObject
                 nextMapIndex = 0;
                 nextEncounter.SetValue(map.GetValue().encounters[nextMapIndex]);
                 AdvanceEncounter();
+                currentLocation = locationToNextLocation[currentLocation];
+                break;
+            case Location.INTRO_CUTSCENE:
                 currentLocation = locationToNextLocation[currentLocation];
                 break;
             case Location.WAKE_UP_ROOM:
@@ -206,7 +212,7 @@ public class GameStateVariableSO : ScriptableObject
 
     public void KillPlayer() {
         Debug.Log("killing player");
-        playerData.respawn();
+        playerData.respawn(baseShopData);
         companions.respawn();
         map.SetValue(mapGenerator.generateMap());
         SetLocation(Location.WAKE_UP_ROOM);
@@ -228,7 +234,7 @@ public class GameStateVariableSO : ScriptableObject
     public void StartNewRun(MapGeneratorSO mapGeneratorSO) {
         setMapGenerator(mapGeneratorSO);
         map.SetValue(mapGenerator.generateMap());
-        playerData.initialize();
+        playerData.initialize(baseShopData);
         viewedSequences = new List<DialogueSequenceSO>();
         SetLocation(Location.MAIN_MENU);
         LoadNextLocation();

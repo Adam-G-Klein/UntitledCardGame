@@ -1,0 +1,86 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
+  m_Name: TurnUpTheHeat
+  m_EditorClassIdentifier: 
+  Name: Turn Up the Heat
+  Description: Increase damage of all Firebreath cards by 3 for the rest of combat.
+    Shuffle a Firebreath card into this companion's deck.
+  Cost: 1
+  Artwork: {fileID: 21300000, guid: 67b1ae87f57383941be2b8a710c22449, type: 3}
+  cardCategory: 2
+  vfxPrefab: {fileID: 0}
+  playable: 1
+  exhaustsWhenPlayed: 0
+  retain: 0
+  effectWorkflows:
+  - rid: 4463206030013890564
+  onExhaustEffectWorkflow:
+    rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  tooltips: 16000000
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 1274772082283774710
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 1694406742967473385, guid: a6181747c84ef6b41a01c8ae8084f953, type: 3}
+        scale: 1.5
+    - rid: 4463206030013890564
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 4463206030013890565
+        - rid: 4463206030013890566
+        - rid: 4463206030013890568
+        - rid: 1274772082283774710
+    - rid: 4463206030013890565
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 4
+        cantCancelTargetting: 0
+    - rid: 4463206030013890566
+      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: AddCardsToDeck
+        inputKey: self
+        cardTypes:
+        - {fileID: 11400000, guid: eec5b177fb6f749e0a93744b0309167a, type: 2}
+        addToDeckMethod: 1
+        getCardsFromKey: 0
+        inputCardsKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 4463206030013890568
+      type: {class: CardModificationEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardModificationEffect
+        inputKey: 
+        scale: 3
+        affectsAllCardsOfType: 1
+        cardTypeToModify: {fileID: 11400000, guid: eec5b177fb6f749e0a93744b0309167a, type: 2}
+        getScaleFromKey: 0
+        scaleKey: 
+        modification: 0

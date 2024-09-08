@@ -8,6 +8,8 @@ public class InstantiatePrefab : EffectStep
     private string inputKey = "";
     [SerializeField]
     private GameObject prefabToInstantiate;
+    [SerializeField]
+    private float scale = 5.0f;
 
     public InstantiatePrefab() {
         effectStepName = "InstantiatePrefab";
@@ -18,10 +20,14 @@ public class InstantiatePrefab : EffectStep
         
         foreach (GameObject obj in objects) {
             Vector3 location = obj.transform.position;
-            GameObject.Instantiate(
+            GameObject gameObject = GameObject.Instantiate(
                 prefabToInstantiate,
                 location,
                 Quaternion.identity);
+            gameObject.transform.localScale *= scale;
+            foreach (Transform child in gameObject.transform) {
+                child.localScale *= scale;
+            }
         }
 
         yield return null;

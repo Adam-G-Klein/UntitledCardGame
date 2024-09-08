@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: IndebtedBlock
   m_EditorClassIdentifier: 
   Name: Indebted Block
-  Description: Give target companion 12 block and shuffle a Debt card into their
-    deck.
+  Description: Give target companion 12 block and add a Debt card to the bottom of
+    their deck
   Cost: 1
   Artwork: {fileID: 21300000, guid: c409a9e17667b4e42b9d784f4024d3c6, type: 3}
   cardCategory: 2
@@ -28,12 +28,19 @@ MonoBehaviour:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
-  tooltips: 
+  tooltips: 13000000
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 1274772082283774319
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: targetCompanion
+        prefabToInstantiate: {fileID: 98836261379580132, guid: 09d8d7322d3a06e46a9bee225d04a5bd, type: 3}
+        scale: 3
     - rid: 5602892563578093592
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -41,6 +48,7 @@ MonoBehaviour:
         - rid: 5602892563578093593
         - rid: 5602892563578093594
         - rid: 5602892563578093595
+        - rid: 1274772082283774319
     - rid: 5602892563578093593
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -59,7 +67,7 @@ MonoBehaviour:
         inputKey: targetCompanion
         cardTypes:
         - {fileID: 11400000, guid: 367e46b6621aa4d0186413c566fc3329, type: 2}
-        addToDeckMethod: 1
+        addToDeckMethod: 2
         getCardsFromKey: 0
         inputCardsKey: 
         scale: 1

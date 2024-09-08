@@ -19,8 +19,22 @@ public enum TooltipKeyword {
 
     AttackIntent,
     DebuffIntent,
-    ChargingIntent
-
+    ChargingIntent, 
+    EyeOfArgos,
+    Retain,
+    Bulwark,
+    Consume,
+    Invulnerable,
+    Debt,
+    Transform,
+    EntropysBurn,
+    Firebreath,
+    MabsBoon,
+    MabsMight,
+    ArterialBlade,
+    EmbuedKnife,
+    GeneratedCard,
+    PermanentlyRemove,
 }
 public interface ITooltipProvider
 {

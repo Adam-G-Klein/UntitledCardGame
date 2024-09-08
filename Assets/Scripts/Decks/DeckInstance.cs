@@ -231,6 +231,43 @@ public class DeckInstance : MonoBehaviour
         sourceDeck.PurgeCard(card.id);
     }
 
+    public void TransformAllCardsOfType(
+        CardType target,
+        CardType destType,
+        bool includeCardsInHand,
+        bool includeDrawPile,
+        bool includeDiscardPile
+
+    ) {
+        if (includeCardsInHand) {
+            List<Card> newCardsToDeal = new();
+            for (int i = 0; i < inHand.Count; i++) {
+                if (inHand[i].cardType == target) {
+                    PlayableCard card = PlayerHand.Instance.GetCardById(inHand[i].id);
+                    Destroy(card.gameObject);
+                    PlayerHand.Instance.RemoveCardFromHand(inHand[i]);
+                    inHand[i] = new Card(destType, inHand[i].getCompanionFrom());
+                    newCardsToDeal.Add(inHand[i]);
+                }
+            }
+            PlayerHand.Instance.DealCards(newCardsToDeal, this);
+        }
+        if (includeDrawPile) {
+            for (int i = 0; i < drawPile.Count; i++) {
+                if (drawPile[i].cardType == target) {
+                    drawPile[i] = new Card(destType, drawPile[i].getCompanionFrom());
+                }
+            }
+        }
+        if (includeDiscardPile) {
+            for (int i = 0; i < discardPile.Count; i++) {
+                if (discardPile[i].cardType == target) {
+                    discardPile[i] = new Card(destType, discardPile[i].getCompanionFrom());
+                }
+            }
+        }
+    }
+
     public void AddToDiscard(Card card){
         discardPile.Add(card);
         if(inHand.Contains(card)) {
@@ -272,8 +309,16 @@ public class DeckInstance : MonoBehaviour
     }
 
     private void OnEndEncounter() {
-        foreach (Card card in sourceDeck.cards) {
+        // Ensure we reset the modifications for all cards that were present on this companion,
+        // including temporary generated cards.
+        List<Card> allCards = new();
+        allCards.AddRange(inHand);
+        allCards.AddRange(drawPile);
+        allCards.AddRange(discardPile);
+        allCards.AddRange(exhaustPile);
+        foreach (Card card in allCards) {
             card.ResetCardModifications();
+            card.cardType.ResetCardModifications();
         }
     }
 

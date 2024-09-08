@@ -33,21 +33,19 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 642454092972556505
-      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
+    - rid: 1274772038231785891
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: FXEffectStep
-        waitForEffect: 0
-        fXExperiencePrefab: {fileID: 6082503972762956323, guid: c4c4b4c4f1d65a3419c7f43b97342fda, type: 3}
-        rootLocationGameObjectKey: target
-        keyMappingList: []
+        effectStepName: InstantiatePrefab
+        inputKey: target
+        prefabToInstantiate: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}
     - rid: 2116895648763871355
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
         - rid: 9024302470308298763
         - rid: 9024302470308298764
-        - rid: 642454092972556505
+        - rid: 1274772038231785891
     - rid: 9024302470308298763
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

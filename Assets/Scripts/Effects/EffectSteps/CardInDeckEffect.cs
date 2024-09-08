@@ -38,12 +38,12 @@ public class CardInDeckEffect : EffectStep, ITooltipProvider
         List<DeckInstance> deckInstances = document.map.GetList<DeckInstance>(inputDeckKey);
         if (deckInstances.Count == 0 || deckInstances.Count > 1) {
             EffectError("No valid entity with deck input for key " + inputDeckKey);
-            yield return null;
+            yield break;
         }
 
         if (!document.map.ContainsValueWithKey<Card>(inputCardsKey)) {
             EffectError("No valid card inputs with key " + inputCardsKey);
-            yield return null;
+            yield break;
         }
         int numberOfCardsTakenActionOn = 0;
         List<Card> cards = document.map.GetList<Card>(inputCardsKey);
@@ -54,7 +54,7 @@ public class CardInDeckEffect : EffectStep, ITooltipProvider
                     deckInstances[0].ExhaustCard(card);
                 break;
 
-                case CardInDeckEffectName.Transform:
+                case CardInDeckEffectName.PermaTransform:
                     Card transformedCard = new Card(cardToTransformInto, card.getCompanionFrom());
                     transformedCard.generated = true;
                     deckInstances[0].sourceDeck.cards.Add(transformedCard);
@@ -83,7 +83,7 @@ public class CardInDeckEffect : EffectStep, ITooltipProvider
         Purge,
         Discard,
         AddToHand,
-        Transform,
+        PermaTransform,
     }
     public TooltipViewModel GetTooltip(){
         if(KeywordTooltipProvider.Instance.HasTooltip(tooltipMapping[effect])){

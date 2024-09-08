@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: PainfulRitual
   m_EditorClassIdentifier: 
   Name: Painful Ritual
-  Description: Target companion loses 3 HP and gains 1 strength and 1 aura stack
-  Cost: 1
+  Description: Target companion loses 2 HP and gains 1 strength and 1 aura stack
+  Cost: 0
   Artwork: {fileID: 21300000, guid: d88429aecc6977642baae99d9f8466d6, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
@@ -27,12 +27,31 @@ MonoBehaviour:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
-  tooltips: 
+  tooltips: 04000000
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 1274772082283774783
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: target
+        prefabToInstantiate: {fileID: 6137048663962808129, guid: 5402fcf7e9bbd5f42ae61c6efcc721a0, type: 3}
+        scale: 2
+    - rid: 1274772082283774784
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: target
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
+        scale: 1.5
+    - rid: 1274772082283774785
+      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: WaitForSecondsEffect
+        seconds: 0.5
     - rid: 5602893017534169568
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -41,6 +60,9 @@ MonoBehaviour:
         - rid: 5602893017534169571
         - rid: 5602893017534169572
         - rid: 5602893017534169573
+        - rid: 1274772082283774783
+        - rid: 1274772082283774785
+        - rid: 1274772082283774784
     - rid: 5602893017534169569
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

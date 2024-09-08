@@ -27,18 +27,26 @@ MonoBehaviour:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
-  tooltips: 
+  tooltips: 19000000
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 1274772082283774748
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: cardsCreated
+        prefabToInstantiate: {fileID: 1694406742967473385, guid: a6181747c84ef6b41a01c8ae8084f953, type: 3}
+        scale: 1.5
     - rid: 5602893017534169593
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
         - rid: 5602893017534169594
         - rid: 5602893017534169595
+        - rid: 1274772082283774748
     - rid: 5602893017534169594
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -62,4 +70,4 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
-        outputKey: 
+        outputKey: cardsCreated

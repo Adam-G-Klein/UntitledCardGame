@@ -68,7 +68,7 @@ public class CombatInstance : MonoBehaviour
         // status effects are handled in applyCombatEffects
         switch(effect) {
             case CombatEffect.Damage:
-            case CombatEffect.FixedDamage:
+            case CombatEffect.FixedDamageWithCardModifications:
             case CombatEffect.FixedDamageThatIgnoresBlock:
                 TakeDamage(effect, scale, effector);
                 PlaySFX(effector);
@@ -119,7 +119,7 @@ public class CombatInstance : MonoBehaviour
         }
 
         if (statusEffects[StatusEffect.Thorns] > 0) {
-            attacker.ApplyNonStatusCombatEffect(CombatEffect.FixedDamage, statusEffects[StatusEffect.Thorns], this);
+            attacker.ApplyNonStatusCombatEffect(CombatEffect.FixedDamageWithCardModifications, statusEffects[StatusEffect.Thorns], this);
         }
         // could easily double-update with method above
         UpdateView();

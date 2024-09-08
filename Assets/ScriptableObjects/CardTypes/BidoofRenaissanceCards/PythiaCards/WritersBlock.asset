@@ -20,6 +20,7 @@ MonoBehaviour:
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
+  retain: 0
   effectWorkflows:
   - rid: 5602892679876706652
   onExhaustEffectWorkflow:
@@ -88,6 +89,7 @@ MonoBehaviour:
         scale: 0
         getScaleFromKey: 1
         inputScaleKey: numCardsPlusBase
+        multiplyByNumAuraStacks: 0
     - rid: 5602892723852673247
       type: {class: MathStep, ns: , asm: Assembly-CSharp}
       data:

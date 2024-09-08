@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: ReplicatingStrike
   m_EditorClassIdentifier: 
   Name: Replicating Strike
-  Description: Exhaust. Deal 2 damage. Add a Replicating Strike to each adjacent
-    companion's deck.  Increase the damage of ALL Replicating Strikes by 1 this combat
+  Description: Exhaust. Deal 2 damage. Add a Replicating Strike to the bottom of
+    each adjacent companion's deck.  Increase the damage of ALL Replicating Strikes
+    by 1 this combat
   Cost: 0
   Artwork: {fileID: 21300000, guid: bd6d81cc33ab43a4d8f819e3f4621728, type: 3}
   cardCategory: 1
@@ -91,7 +92,7 @@ MonoBehaviour:
         inputKey: adjacent
         cardTypes:
         - {fileID: 11400000}
-        addToDeckMethod: 1
+        addToDeckMethod: 2
         getCardsFromKey: 0
         inputCardsKey: 
         scale: 1

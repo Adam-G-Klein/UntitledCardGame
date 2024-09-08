@@ -20,13 +20,14 @@ MonoBehaviour:
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
+  retain: 0
   effectWorkflows:
   - rid: 5602892679876706412
   onExhaustEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
-  tooltips: 
+  tooltips: 04000000
   references:
     version: 2
     RefIds:
@@ -58,3 +59,4 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+        multiplyByNumAuraStacks: 0

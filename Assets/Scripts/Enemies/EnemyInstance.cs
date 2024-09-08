@@ -38,9 +38,15 @@ public class EnemyInstance : MonoBehaviour {
         }
         combatInstance.parentType = CombatInstance.CombatInstanceParent.ENEMY;
         combatInstance.combatStats = enemy.combatStats;
+        // Reset the behavior indices on the EnemyBrain to zero.
+        enemy.enemyType.enemyPattern.nextBehaviorIndex = 0;
+        enemy.enemyType.belowHalfHPEnemyPattern.nextBehaviorIndex = 0;
         Debug.Log("EnemyInstance Start for enemy " + enemy.id + " initialized with combat stats (health): " + combatInstance.combatStats.getCurrentHealth());
         combatInstance.SetId(enemy.id);
         combatInstance.onDeathHandler += OnDeath;
+        foreach (InitialStatus status in enemy.enemyType.initialStatuses) {
+            combatInstance.statusEffects[status.status] = status.scale;
+        }
         RegisterTurnPhaseTriggers();
     }
 

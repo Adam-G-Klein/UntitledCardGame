@@ -34,6 +34,13 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 1274772082283774576
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: enemy
+        prefabToInstantiate: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}
+        scale: 3
     - rid: 1488501614819147776
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -64,6 +71,7 @@ MonoBehaviour:
         - rid: 1488501614819147776
         - rid: 1488501614819147777
         - rid: 5592738912264781840
+        - rid: 1274772082283774576
     - rid: 5592738912264781840
       type: {class: CardModificationEffect, ns: , asm: Assembly-CSharp}
       data:

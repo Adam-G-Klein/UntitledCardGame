@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 [System.Serializable]
@@ -89,6 +90,7 @@ public class CompanionAbilityInstance
     }
 
     private void setupForTurnPhaseTrigger(TurnPhase turnPhase) {
+        Debug.Log("Companion " + companionInstance.gameObject.name + "Setting up turn phase trigger for " + turnPhase.ToString());
         TurnPhaseTrigger newTrigger = new TurnPhaseTrigger(turnPhase, setupAndInvokeAbility());
         turnPhaseTriggers.Add(newTrigger);
         TurnManager.Instance.addTurnPhaseTrigger(newTrigger);
@@ -166,7 +168,12 @@ public class CompanionAbilityInstance
         EffectDocument document = new EffectDocument();
         document.map.AddItem(EffectDocument.ORIGIN, this.companionInstance);
         document.originEntityType = EntityType.CompanionInstance;
-        document.map.AddItem<CombatInstance>("damagedCompanion", damagedInstance);
+        CompanionInstance companion = CombatEntityManager.Instance.getCompanionInstanceForCombatInstance(damagedInstance);
+        if (companion != null) {
+            document.map.AddItem<CompanionInstance>("damagedCompanion", companion);
+            document.map.AddItem<CombatInstance>("damagedCompanion", companion.combatInstance);
+            document.map.AddItem<DeckInstance>("damagedCompanion", companion.deckInstance);
+        }
         yield return EffectManager.Instance.invokeEffectWorkflowCoroutine(document, ability.effectSteps, null);
     }
 }

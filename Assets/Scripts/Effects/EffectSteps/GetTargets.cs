@@ -12,17 +12,17 @@ using UnityEngine;
         - UseInputToLimitOptions: If checked, will limit the targetting system
             to only allow the player to target what was taken from a previous
             step, saved to the key designated by the InputKey field
-        - ValidTargets: What type of entities can be targetted, 
+        - ValidTargets: What type of entities can be targetted,
             and will hence be stored under the output key
         - Number: If no special targetting rules, how many targets are required
         - SpecialTargetRule: An enum that influences targetting
-        - CantCancelTargetting: Currently not implemented, but will eventually 
+        - CantCancelTargetting: Currently not implemented, but will eventually
             prevent the player from cancelling this targetting effect if checked
 
     SpecialTargetRules:
-        - TargetAllValidTargets: Get all targets of the given valid 
+        - TargetAllValidTargets: Get all targets of the given valid
             targets that exist
-        - TargetAllValidTargetsExceptSelf: Same as TargetAllValidTargets, 
+        - TargetAllValidTargetsExceptSelf: Same as TargetAllValidTargets,
             but excludes the originator of the effect (card or companion)
         - TargetSelf: Target saved is the originator of the effect
         - TargetEntityThatDeltCard: Only used for effects on cards, target
@@ -87,7 +87,7 @@ public class GetTargets : EffectStep
             limitOptions = document.GetGameObjects(inputKey);
         }
 
-        if (specialTargetRule == SpecialTargetRule.TargetAllValidTargets || 
+        if (specialTargetRule == SpecialTargetRule.TargetAllValidTargets ||
                 specialTargetRule == SpecialTargetRule.TargetAllValidTargetsExceptSelf) {
             getAllValidTargets = true;
         }
@@ -137,7 +137,7 @@ public class GetTargets : EffectStep
     private void TargetSuppliedHandler(Targetable target) {
         Debug.Log("Target supplied: " + target.gameObject.name);
         // Check if the provided target is disallowed
-        if (disallowedTargets != null && disallowedTargets.Contains(target.gameObject)) 
+        if (disallowedTargets != null && disallowedTargets.Contains(target.gameObject))
             return;
 
         // Check if we only want to pick from a specific list of targets
@@ -198,7 +198,7 @@ public class GetTargets : EffectStep
         }
     }
 
-    
+
     private void GetTargetsRandomly(EffectDocument document) {
         for (int i = 0; i < number ; i++) {
             if (validTargets.Contains(Targetable.TargetType.Companion)) {
@@ -239,6 +239,10 @@ public class GetTargets : EffectStep
             PlayableCard playableCard = document.map.GetItem<PlayableCard>(
                 EffectDocument.ORIGIN, 0);
             return playableCard.gameObject;
+        } else if (document.originEntityType == EntityType.Enemy) {
+            EnemyInstance enemy = document.map.GetItem<EnemyInstance>(
+                EffectDocument.ORIGIN, 0);
+            return enemy.gameObject;
         } else {
             // This is a hack to get around targetting in the case a card has an
             // effect that triggers on exhaust. The card goes away, but the targetting arrows

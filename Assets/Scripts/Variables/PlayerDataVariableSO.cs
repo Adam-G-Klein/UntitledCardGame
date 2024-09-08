@@ -6,16 +6,16 @@ using UnityEngine;
     fileName = "PlayerDataVariable",
     menuName = "Player/Player Data Variable")]
 public class PlayerDataVariableSO : VariableSO<PlayerData> {
-    public void initialize() {
+    public void initialize(ShopDataSO shopData) {
         SetValue(new PlayerData());
-        GetValue().gold = 3;
+        GetValue().gold = shopData.startingGold;
         GetValue().seenTutorial = false;
         GetValue().inTutorialRun = true;
     }
 
-    public void respawn() {
+    public void respawn(ShopDataSO shopData) {
         SetValue(new PlayerData());
-        GetValue().gold = 3;
+        GetValue().gold = shopData.startingGold;
         GetValue().seenTutorial = true;
         GetValue().inTutorialRun = false;
     }

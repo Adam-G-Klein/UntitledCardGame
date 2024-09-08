@@ -46,8 +46,10 @@ public enum EffectStepName {
     SetCardEffectWorkflow,
     SummonMinion,
     Taunt,
+    TransmogrifyCard,
     DialogueStep,
-    FXEffectStep
+    FXEffectStep,
+    WaitForSecondsEffect
 }
 
 [System.Serializable]

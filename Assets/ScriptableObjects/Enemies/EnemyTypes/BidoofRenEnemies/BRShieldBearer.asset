@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
+  m_Name: BRShieldBearer
+  m_EditorClassIdentifier: 
+  maxHealth: 40
+  baseAttackDamage: 0
+  sprite: {fileID: 21300000, guid: 93a7499cb5229d0489c64e0b4e341ff5, type: 3}
+  enemyPattern:
+    behaviors:
+    - intent: 2
+      enemyTargetMethod: 6
+      targetsKey: 
+      displayValue: 0
+      effectSteps:
+      - rid: 4463205916933357946
+      - rid: 4463205916933357947
+    behaviorType: 0
+    nextBehaviorIndex: 0
+  belowHalfHPEnemyPattern:
+    behaviors: []
+    behaviorType: 0
+    nextBehaviorIndex: 0
+  initialStatuses: []
+  tooltip:
+    empty: 0
+    lines:
+    - title: Protective Gaze
+      description: Gives block to each enemy
+      image: {fileID: 0}
+      relatedBehaviorIndex: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 4463205916933357946
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: enemies
+        validTargets: 02000000
+        number: 1
+        specialTargetRule: 1
+        cantCancelTargetting: 0
+    - rid: 4463205916933357947
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: enemies
+        statusEffect: 2
+        scale: 10
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0

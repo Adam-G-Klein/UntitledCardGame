@@ -16,7 +16,7 @@ MonoBehaviour:
   - level: 0
     mana: 3
     teamSize: 3
-    upgradeCost: 15
+    upgradeCost: 10
     numCardsToShow: 3
     numKeepsakesToShow: 1
     commonCompanionPercentage: 100
@@ -31,10 +31,11 @@ MonoBehaviour:
       - title: Upgrade to Level 2
         description: +1 team size, increase shop rarity
         image: {fileID: 0}
+        relatedBehaviorIndex: 0
   - level: 1
     mana: 3
     teamSize: 4
-    upgradeCost: 25
+    upgradeCost: 20
     numCardsToShow: 3
     numKeepsakesToShow: 1
     commonCompanionPercentage: 70
@@ -49,10 +50,11 @@ MonoBehaviour:
       - title: Upgrade to Level 3
         description: +1 mana, increase shop rarity
         image: {fileID: 0}
+        relatedBehaviorIndex: 0
   - level: 2
     mana: 4
     teamSize: 4
-    upgradeCost: 40
+    upgradeCost: 35
     numCardsToShow: 4
     numKeepsakesToShow: 2
     commonCompanionPercentage: 50
@@ -67,6 +69,7 @@ MonoBehaviour:
       - title: Upgrade to Level 4
         description: +1 team size, increase shop rarity
         image: {fileID: 0}
+        relatedBehaviorIndex: 0
   - level: 3
     mana: 4
     teamSize: 5
@@ -87,6 +90,8 @@ MonoBehaviour:
   shopEncounterEvent: {fileID: 11400000, guid: d82ee33fc33d20544bce205c53a0832e, type: 2}
   cardPrice: 1
   companionKeepsakePrice: 3
+  numKeepsakeCopies: 7
+  startingGold: 3
   goldEarnedPerBattle: 8
   interestRate: 0.2
   interestCap: 5

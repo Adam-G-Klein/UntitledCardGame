@@ -68,7 +68,7 @@ public class CompanionDialoguePresenceManager : MonoBehaviour
         List<Companion> presentCompanions = gameState.companions.allCompanions;
         foreach(Companion companion in presentCompanions) {
             if(companion.companionType.speakerType == null) {
-                Debug.LogError("Companion " + companion.companionType.name + " has no speaker type, speaker initialization will fail");
+                Debug.LogWarning("Companion " + companion.companionType.name + " has no speaker type, speaker initialization will fail");
             }
             foreach(CompanionDialogueParticipant cdp in speakersInScene) {
                 if(cdp.companionType == companion.companionType) {

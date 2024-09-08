@@ -36,10 +36,15 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: L2 Pooh Bear
-      description: Pooh bear and adjacent companions start combat with an aura stack.
-        At the start of each turn, create a powerful Aural Knife in your hand for
-        each companion with at least 1 aura stack
+      description: Pooh bear starts combat with an aura stack. At the start of each
+        turn, create a powerful Embued Knife in your hand for each companion with
+        at least 1 aura stack
       image: {fileID: 0}
+      relatedBehaviorIndex: 0
+    - title: Embued Knife
+      description: Exhaust. Deal 3 damage for each aura stack on this companion
+      image: {fileID: 0}
+      relatedBehaviorIndex: 0
   keepsakeTitle: 
   keepsakeDescription: 
   references:
@@ -52,8 +57,7 @@ MonoBehaviour:
         effectSteps:
         - rid: 5602892679876706443
         - rid: 5602892679876706444
-        - rid: 5602893111447520025
-        - rid: 5602893111447520026
+        - rid: 8205570031766208654
     - rid: 5602892679876706443
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -83,6 +87,7 @@ MonoBehaviour:
         - rid: 5602892679876706449
         - rid: 5602892679876706448
         - rid: 5602893111447520024
+        - rid: 8205570031766208655
     - rid: 5602892679876706448
       type: {class: FilterEntityByStatus, ns: , asm: Assembly-CSharp}
       data:
@@ -114,19 +119,17 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         outputKey: 
-    - rid: 5602893111447520025
-      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
+    - rid: 8205570031766208654
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: GetAdjacentCompanions
+        effectStepName: InstantiatePrefab
         inputKey: self
-        outputKey: adj
-    - rid: 5602893111447520026
-      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: ApplyStatus
-        inputKey: adj
-        statusEffect: 9
+        prefabToInstantiate: {fileID: 1694406742967473385, guid: a6181747c84ef6b41a01c8ae8084f953, type: 3}
         scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplyByNumAuraStacks: 0
+    - rid: 8205570031766208655
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: companionsWithOrbs
+        prefabToInstantiate: {fileID: 1694406742967473385, guid: a6181747c84ef6b41a01c8ae8084f953, type: 3}
+        scale: 1

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: HurtfulStrike
   m_EditorClassIdentifier: 
   Name: HurtfulStrike
-  Description: Lose 2 HP. Deal 3 damage twice.
+  Description: Lose 1 HP. Deal 4 damage twice.
   Cost: 1
   Artwork: {fileID: 21300000, guid: 8f7d978fe57e96342a8335f56279ee7e, type: 3}
   cardCategory: 1
@@ -33,6 +33,20 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 1274772082283774270
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 6137048663962808129, guid: 5402fcf7e9bbd5f42ae61c6efcc721a0, type: 3}
+        scale: 0.75
+    - rid: 1274772082283774271
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: enemy
+        prefabToInstantiate: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}
+        scale: 1.5
     - rid: 5602892561590779947
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -41,6 +55,8 @@ MonoBehaviour:
         - rid: 5602892561590779950
         - rid: 5602892561590779951
         - rid: 5602892561590779949
+        - rid: 1274772082283774270
+        - rid: 1274772082283774271
     - rid: 5602892561590779948
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -58,7 +74,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: self
         combatEffect: 16
-        scale: 2
+        scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
@@ -81,7 +97,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: enemy
         combatEffect: 0
-        scale: 3
+        scale: 4
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 2

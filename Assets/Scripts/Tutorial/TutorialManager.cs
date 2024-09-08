@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /* quick thought as I'm realizing we CAN use a coroutine because 
 we're having this manager span scenes with DoNotDestroyOnLoad...
@@ -9,40 +10,141 @@ Saving that UX problem for V2*/
 
 public class TutorialManager : MonoBehaviour
 {
-    [SerializeReference]
-    public List<TutorialStep> tutorialSteps;
+    public static string FirstTutorialID = "Intro";
+
+    public GameStateVariableSO gameState;
+
+    private TutorialData currTutorial;
     private TutorialStep currentStep;
     [SerializeField]
     private int currentStepIndex;
     [SerializeField]
     private int initStep = 0;
 
+
+    [Header("Editor Settings")]
+    //used for debugging
+    [SerializeField]
+    private bool shouldStartTutorialImmediate = false;
+    [SerializeField]
+    private string editorStartTutorial = "Intro";
+
+    private string upcomingTutorialID;
+
+    private TutorialLevelData tutorialLevelData;
+
+    public static TutorialManager Instance = default;
+
+    private HashSet<string> playedTutorials = new();
+
+    public bool IsTutorialPlaying = false;
+
     void Start() {
-        currentStep = tutorialSteps[initStep];
-        // TODO: call init on all tutorial steps
-        StartCoroutine(RunTutorial());
+        //Not using Generic singleton because it requires use of "Instance" before it self destroys
+        //manually here, also this is not supposed to be accessed global, but there should only be one
+        if (Instance != default && Instance != this) {
+
+            Destroy(this.gameObject);
+
+        } else {
+            Instance = this;
+
+            DontDestroyOnLoad(this.gameObject);
+
+            //When a scene is loaded run this function
+            SceneManager.sceneLoaded += OnSceneLoaded;
+
+            upcomingTutorialID = FirstTutorialID;
+
+            //do not call set up as this will start in the main menu
+            //can add logic here to remove the tutorial manager once it has been completed
+            if (shouldStartTutorialImmediate) {
+                //Also replace the FirstTutorialID
+                upcomingTutorialID = editorStartTutorial;
+                FindTutorialInfo();
+            }
+        }
+
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
+        IsTutorialPlaying = false;
+        FindTutorialInfo();
+    }
+
+    private void FindTutorialInfo() {
+        //check to see if tutorial is being run in sequence.
+        tutorialLevelData = FindObjectOfType<TutorialLevelData>();
+
+        Debug.Log("finding tutorial level data");
+
+        if (tutorialLevelData != default) {
+            SetupNextTutorial();
+        }
+    }
+
+    private void SetupNextTutorial() {
+        currTutorial = tutorialLevelData.Get(upcomingTutorialID);
+
+        if (currTutorial && !playedTutorials.Contains(currTutorial.ID)) {
+            StartCoroutine(RunTutorial());
+        } else {
+            //Debug.Log("Unable to find specified tutorial.");
+        }
     }
 
     private IEnumerator RunTutorial() {
-        foreach(TutorialStep step in tutorialSteps) {
+        //set up the next tutorial incase this one is stopped mid
+        upcomingTutorialID = currTutorial.nextTutorialName;
+        currentStepIndex = 0;
+
+        playedTutorials.Add(currTutorial.ID);
+        IsTutorialPlaying = true;
+        foreach (TutorialStep step in currTutorial.Steps) {
             // TODO: implement stopping the tutorial early
             currentStep = step;
             // need to invoke the steps actions here because we 
             // can't have non-monobehavior classes own coroutines
-            foreach(TutorialAction action in currentStep.actions) {
+            foreach (TutorialAction action in currentStep.actions) {
                 yield return StartCoroutine(action.Invoke());
             }
-            //yield return new WaitUntil(step.StepComplete());
+            yield return new WaitUntil(step.GetStepComplete);
             currentStepIndex += 1;
             yield return null;
+        }
+        IsTutorialPlaying = false;
+        DetermineNextTutorial();
+    }
+
+    public void DetermineNextTutorial() {
+        IsTutorialPlaying = false;
+        if (currTutorial.isNextTutorialSameScene) {
+            //find the next tutorial and begin
+            SetupNextTutorial();
         }
     }
 
     public void UnityEventStepComplete(string stepName) {
-        if(currentStep.stepName == stepName) {
+        if (currentStep.stepName == stepName) {
             //currentStep.StepComplete();
             currentStepIndex += 1;
         }
     }
 
+    //event handlers
+    //need to know essentially that something has been completed, as of right now we will not need an argument, at the most potentially take in a int to reduce possible permutations
+    public void EventHandle(object obj) {
+        //cast the 
+
+        Debug.Log("We have recieved an event from: ");
+    }
+
+    private void RemoveTutorialManager() {
+        Debug.Log("Removing tutorial manager.");
+
+        //Goodbye
+        if (this != default) {
+            Destroy(gameObject);
+        }
+    }
 }

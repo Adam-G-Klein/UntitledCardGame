@@ -19,6 +19,14 @@ public class Enemy : Entity, ICombatStats {
     }
 
     public EnemyIntent ChooseIntent(EnemyInstance enemyInstance) {
+        bool belowHalf = enemyInstance.combatInstance.combatStats.currentHealth <= enemyInstance.combatInstance.combatStats.maxHealth / 2;
+        if (enemyType.belowHalfHPEnemyPattern != null &&
+            enemyType.belowHalfHPEnemyPattern.behaviors != null &&
+            enemyType.belowHalfHPEnemyPattern.behaviors.Count > 0 &&
+            belowHalf
+        ) {
+            return enemyType.belowHalfHPEnemyPattern.ChooseIntent(enemyInstance);
+        }
         return enemyType.enemyPattern.ChooseIntent(enemyInstance);
     }
 

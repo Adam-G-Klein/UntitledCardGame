@@ -20,6 +20,7 @@ MonoBehaviour:
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
+  retain: 0
   effectWorkflows:
   - rid: 5602892563578093692
   onExhaustEffectWorkflow:
@@ -32,13 +33,29 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 1274772082283774506
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: allCompanions
+        prefabToInstantiate: {fileID: 1694406742967473385, guid: a6181747c84ef6b41a01c8ae8084f953, type: 3}
+        scale: 1.5
+    - rid: 1274772082283774507
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: cardToExhaust
+        prefabToInstantiate: {fileID: 7939549763701254822, guid: c8dfaebc711375e4197bd5bc58a6d8e9, type: 3}
+        scale: 4
     - rid: 5602892563578093692
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
         - rid: 5602892563578093693
         - rid: 5602892563578093694
+        - rid: 1274772082283774506
         - rid: 5602892563578093695
+        - rid: 1274772082283774507
         - rid: 5602892563578093696
     - rid: 5602892563578093693
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}

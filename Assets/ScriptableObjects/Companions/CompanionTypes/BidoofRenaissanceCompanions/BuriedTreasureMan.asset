@@ -30,6 +30,7 @@ MonoBehaviour:
   speakerType: {fileID: 0}
   abilities:
   - rid: 5602892491280613443
+  - rid: 8205570031766208664
   upgradeTo: {fileID: 11400000, guid: 07493795f887747499efadbf94ce0028, type: 2}
   tooltip:
     empty: 0
@@ -38,12 +39,23 @@ MonoBehaviour:
       description: At the start of combat, put a Buried Treasure on the bottom of
         a random companion's deck.
       image: {fileID: 0}
+      relatedBehaviorIndex: 0
+    - title: Buried Treasure
+      description: 1 Mana. Exhaust. Gain 2 Gold.
+      image: {fileID: 0}
+      relatedBehaviorIndex: 0
   keepsakeTitle: Spare Change
   keepsakeDescription: Keepsake for summoning the Buried Treasure Man, a nimble creature
     with a nose for buried treasure
   references:
     version: 2
     RefIds:
+    - rid: 4463206214708757051
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: '*sniff* *sniff* ... must be treasure around here somewhere'
+        lineTime: 2
     - rid: 5602892491280613443
       type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
       data:
@@ -51,6 +63,7 @@ MonoBehaviour:
         effectSteps:
         - rid: 5602892491280613460
         - rid: 5602892491280613461
+        - rid: 4463206214708757051
     - rid: 5602892491280613460
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -75,3 +88,15 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+    - rid: 8205570031766208664
+      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
+      data:
+        companionAbilityTrigger: 8
+        effectSteps:
+        - rid: 8205570031766208665
+    - rid: 8205570031766208665
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: Now I have treasure for everyone!
+        lineTime: 3

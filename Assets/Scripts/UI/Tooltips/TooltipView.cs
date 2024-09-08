@@ -12,11 +12,13 @@ public class TooltipLine {
     public string title;
     public string description;
     public Image image;
+    public int relatedBehaviorIndex;
 
-    public TooltipLine(string title, string description, Image image = null) {
+    public TooltipLine(string title, string description, int relatedBehaviorIndex = -1, Image image = null) {
         this.title = title;
         this.description = description;
         this.image = image;
+        this.relatedBehaviorIndex = relatedBehaviorIndex;
     }
 }
 [System.Serializable]
@@ -33,10 +35,10 @@ public class TooltipViewModel {
         }
     }
 
-    public TooltipViewModel(string title, string description, Image image = null) {
+    public TooltipViewModel(string title, string description, int relateBehaviorIndex = -1, Image image = null) {
         this.empty = false;
         this.lines = new List<TooltipLine>();
-        lines.Add(new TooltipLine(title, description));
+        lines.Add(new TooltipLine(title, description, relateBehaviorIndex));
     }
 
     public TooltipViewModel(string plainText) {
