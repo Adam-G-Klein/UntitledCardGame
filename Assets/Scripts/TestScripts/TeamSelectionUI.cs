@@ -42,6 +42,7 @@ public class TeamSelectionUI : MonoBehaviour
         }
 
         root = GetComponent<UIDocument>().rootVisualElement;
+        UIDocumentUtils.SetAllPickingMode(root, PickingMode.Position);
         //root.Q<UnityEngine.UIElements.Button>("backButton").clicked += backButtonHandler;
         updateState();
 
@@ -52,7 +53,6 @@ public class TeamSelectionUI : MonoBehaviour
     private void updateState() {
         makeTeamView(root.Q<VisualElement>("CompanionPortaitsContainer"), team1ActiveCompanions.GetCompanionTypes());
         makeInfoView(root.Q<VisualElement>("InfoContainer"), team1ActiveCompanions.GetCompanionTypes()[currentlySelectedCompanion]);
-
     }
     public void initializeRun()
     {
