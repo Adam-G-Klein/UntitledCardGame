@@ -19,10 +19,12 @@ public class TutorialLevelData : MonoBehaviour
                 if (tutorialData.ID == tutorialID) {
                     return tutorialData;
                 }
+            } else {
+                Debug.Log("TUTORIAL ERROR: null tutorial data in level data");
             }
         }
 
-        //Debug.LogError("Unable to find specified tutorial: " + tutorialID.ToString());
+        Debug.Log("TUTORIAL ERROR: Unable to find specified tutorial: " + tutorialID.ToString());
         return default;
     }
 }

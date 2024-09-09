@@ -10,6 +10,7 @@ public class MainMenuDisplayDelay : MonoBehaviour
     public float delayTime;
     public GameStateVariableSO gameState;
     public GenerateMap generateMap;
+    private bool skipped = false;
 
     void Start() {
         StartCoroutine(DelayMainMenuDisplay());
@@ -19,13 +20,16 @@ public class MainMenuDisplayDelay : MonoBehaviour
     void Update() {
         if(Input.GetKeyDown(KeyCode.S) && gameState.currentLocation == Location.MAIN_MENU){
             generateMap.generateMapAndChangeScenes();
+            skipped = true;
         }
     }
 
     private IEnumerator DelayMainMenuDisplay() {
         yield return new WaitForSecondsRealtime(delayTime);
-        mainMenu.SetActive(true);
-        mainMenu.GetComponent<CanvasShaker>().ScreenShakeForTime(0.25f, mainMenu.gameObject.GetComponent<Canvas>());
+        if(!skipped) {
+            mainMenu.SetActive(true);
+            mainMenu.GetComponent<CanvasShaker>().ScreenShakeForTime(0.25f, mainMenu.gameObject.GetComponent<Canvas>());
+        }
         yield return null;
     }
 

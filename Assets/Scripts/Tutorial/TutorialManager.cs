@@ -39,6 +39,9 @@ public class TutorialManager : MonoBehaviour
 
     public bool IsTutorialPlaying = false;
 
+    private IEnumerator tutorialCoroutine;
+    private bool tutorialSkipped = false;
+
     void Start() {
         //Not using Generic singleton because it requires use of "Instance" before it self destroys
         //manually here, also this is not supposed to be accessed global, but there should only be one
@@ -78,7 +81,7 @@ public class TutorialManager : MonoBehaviour
 
         Debug.Log("finding tutorial level data");
 
-        if (tutorialLevelData != default) {
+        if (!tutorialSkipped && tutorialLevelData != default) {
             SetupNextTutorial();
         }
     }
@@ -87,9 +90,10 @@ public class TutorialManager : MonoBehaviour
         currTutorial = tutorialLevelData.Get(upcomingTutorialID);
 
         if (currTutorial && !playedTutorials.Contains(currTutorial.ID)) {
-            StartCoroutine(RunTutorial());
+            tutorialCoroutine = RunTutorial();
+            StartCoroutine(tutorialCoroutine);
         } else {
-            //Debug.Log("Unable to find specified tutorial.");
+            Debug.Log("TUTORIAL ERROR: Unable to find specified tutorial.");
         }
     }
 
@@ -128,6 +132,15 @@ public class TutorialManager : MonoBehaviour
         if (currentStep.stepName == stepName) {
             //currentStep.StepComplete();
             currentStepIndex += 1;
+        }
+    }
+
+    // for making s to skip work
+    public void EndEncounterHandler(){
+        StopCoroutine(tutorialCoroutine);
+        tutorialSkipped = true;
+        foreach (TutorialStep step in currTutorial.Steps) {
+            step.SetStepComplete();
         }
     }
 
