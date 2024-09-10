@@ -5,64 +5,96 @@ using System.Collections;
 using UnityEditor;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
-[System.Serializable]
-// A mapping between a gameObject and a UIDocument element name
-public class UIDocGOMapping {
-    public string elementName;
-    public GameObject gameObject;
+public class WorldPositionVisualElement {
+    public Vector3 worldPos;
+    public VisualElement ve;
+    public WorldPositionVisualElement(VisualElement ve, Vector3 worldPos) {
+        this.ve = ve;
+        this.worldPos = worldPos;
+    }
+    public WorldPositionVisualElement() {
+        this.worldPos = Vector3.zero;
+    }
     
-    public UIDocGOMapping(GameObject gameObject, string UIDocumentElementName) {
-        this.elementName = UIDocumentElementName;
-        this.gameObject = gameObject;
-    }
 }
 
-public class UIElementPlacement {
-    public string elementName;
-    public bool inUse;
-
-    public UIElementPlacement(string elementName, bool inUse) {
-        this.elementName = elementName;
-        this.inUse = inUse;
-    }
-
-}
-
-// Feel free to rename if you can think of a better name
-// This is used to get / keep track of the name we should be using 
-// for the next placed gameObject in the UIdoc.
-// Could be combined with the mapping in the future, but for now this
-// is more specific
 public class PlacementPool {
-    public int index;
     public string prefix;
-    public PlacementPool(string prefix, int index) {
-        this.index = index;
+    private VisualElement root;
+    Dictionary<WorldPositionVisualElement, GameObject> placements;
+    // Used by encounterBuilder to get the position before instantiation
+    // so the gameobject isn't available yet
+    private WorldPositionVisualElement placementOnDeck;
+    public PlacementPool(string prefix, VisualElement root) {
         this.prefix = prefix;
+        this.root = root;
+        placements = new Dictionary<WorldPositionVisualElement, GameObject>();
     }
 
-    public string get() {
-        return prefix + index;
+    // Called by the gameobject placer once it detects the UIDocument is ready for us
+    // there's at least one frame of delay because of the render texture
+    public void InitializeMap(){
+        int index = UIDocumentGameObjectPlacer.INITIAL_INDEX;
+        VisualElement ve = root.Q<VisualElement>(prefix + index);
+        while(ve != null) {
+            Vector3 worldPos = UIDocumentGameObjectPlacer.GetWorldPositionFromElement(ve);
+            placements.Add(new WorldPositionVisualElement(ve, worldPos), null);
+            index += 1;
+            ve = root.Q<VisualElement>(prefix + index);
+        }
+        Debug.Log("UIDocGameObjectPlacer: " + prefix + " has " + (index - 1) + "placements");
     }
 
-    public string getAndIncrement() {
-        if(index < 0) {
-            Debug.LogError("Element index is less than 0 for prefix: " + prefix);
+    // I'd rather eat a raw can full of tomato sauce than make this better than O(N)
+    /// <summary>
+    /// adds a mapping between a visualElement and a gameObject
+    /// WorldPositionVisualElement must first have been checked out
+    /// This is so that encounterbuilders can get positions for objects before having instantiated them
+    /// </summary>
+    /// <param name="ve"></param>
+    /// <param name="go"></param>
+    public void addMapping(WorldPositionVisualElement ve, GameObject go){
+        if(ve != placementOnDeck) {
+            Debug.LogError("UIDocGameObjectPlacer: visual element " + ve.ve.name + " mapped without being requested first");
         }
-        return prefix + index++;
+        placements[ve] = go;
+
     }
-    
-    public string getAndDecrement() {
-        string s = prefix + index--;
-        if (index < 0) {
-            Debug.LogError("Element index is less than 0 for prefix: " + prefix);
+
+    public void removeMapping(GameObject go) {
+        // feels weird but I'm not holding a reverse map.
+        // talk to me when we're saving non-gpu cycles
+        foreach(KeyValuePair<WorldPositionVisualElement, GameObject> kvp in placements) {
+            if(kvp.Value == go) {
+                placements[kvp.Key] = null;
+            }
         }
-        return s;
+        Debug.LogError("UIDocGameObjectPlacer: failed to remove gameobject " + go.name + " from placements, it wasn't in there somehow");
     }
+
+    public int getCount() {
+        return placements.Count;
+    }
+
+    public WorldPositionVisualElement checkoutPlacement(){
+        foreach(KeyValuePair<WorldPositionVisualElement, GameObject> kvp in placements) {
+            if(kvp.Value == null) {
+                placementOnDeck = kvp.Key;
+                return kvp.Key;
+            }
+        }
+        Debug.LogError("UIDocGameObjectPlacer: failed to checkout placement from prefix " + prefix + ", not enough UIDoc placements");
+        return new WorldPositionVisualElement(null, Vector3.zero);
+    }
+
 }
 // lets make this a singleton, it should work as our new location store with the encounterBuilder
 public class UIDocumentGameObjectPlacer : GenericSingleton<UIDocumentGameObjectPlacer> {
+    [Header("Set from component on this gameObj to save\nthe GetComponent and Start() calls on an already slow scene load time")]
+    [SerializeField]
+    private UIDocument uiDoc;
 
     [SerializeField]
     private bool autoPlaceEnemies = true;
@@ -71,18 +103,25 @@ public class UIDocumentGameObjectPlacer : GenericSingleton<UIDocumentGameObjectP
     public static string CARD_UIDOC_ELEMENT_PREFIX = "card";
     public static int INITIAL_INDEX = 1;
 
-    [SerializeField]
-    private bool autoPlaceCompanions = true;
-    public List<UIDocGOMapping> mappings = new List<UIDocGOMapping>();
-    private PlacementPool companionIndex = new PlacementPool(COMPANION_UIDOC_ELEMENT_PREFIX, INITIAL_INDEX);
-    private PlacementPool enemyIndex = new PlacementPool(ENEMY_UIDOC_ELEMENT_PREFIX, INITIAL_INDEX);
-    private PlacementPool cardIndex = new PlacementPool(CARD_UIDOC_ELEMENT_PREFIX, INITIAL_INDEX);
+    private PlacementPool companionPlacements;
+    private PlacementPool enemyPlacements;
+    private PlacementPool cardPlacements;
+    private List<PlacementPool> placementPools; 
+    private bool mapsInitialized = false;
 
-    public float zPlane = -10;
-    void Start() {
-        companionIndex = new PlacementPool(COMPANION_UIDOC_ELEMENT_PREFIX, INITIAL_INDEX);
-        enemyIndex = new PlacementPool(ENEMY_UIDOC_ELEMENT_PREFIX, INITIAL_INDEX);        
-        cardIndex = new PlacementPool(CARD_UIDOC_ELEMENT_PREFIX, INITIAL_INDEX);         
+    public static float zPlane = 0;
+    void Awake() {
+        mapsInitialized = false;
+        VisualElement root = uiDoc.rootVisualElement;
+        companionPlacements = new PlacementPool(COMPANION_UIDOC_ELEMENT_PREFIX, root);
+        enemyPlacements = new PlacementPool(ENEMY_UIDOC_ELEMENT_PREFIX, root);        
+        cardPlacements = new PlacementPool(CARD_UIDOC_ELEMENT_PREFIX, root);         
+        placementPools = new List<PlacementPool>(){
+            companionPlacements,
+            enemyPlacements,
+            cardPlacements
+        };
+        StartCoroutine(InitializeMapsWhenReady());
     }
 
     void Update() {
@@ -91,113 +130,86 @@ public class UIDocumentGameObjectPlacer : GenericSingleton<UIDocumentGameObjectP
         //PlaceMappings();
     }
 
-    private void PlaceMappings() {
-        foreach(UIDocGOMapping mapping in mappings) {
-            mapping.gameObject.transform.position = getWorldPositionFromMapping(mapping);
-        }
+    public bool IsReady(){
+        return mapsInitialized;
     }
 
-    public bool UIDocumentReady() {
-        VisualElement element = GetComponent<UIDocument>().rootVisualElement;
+    private IEnumerator InitializeMapsWhenReady() {
+        yield return new WaitUntil(() => readyToInitializeMaps());
+        Debug.Log("UIDocumentGameObjectPlacer: Ready to initialize maps");
+        foreach(PlacementPool pool in placementPools) {
+            pool.InitializeMap();
+        }
+        mapsInitialized = true;
+        Debug.Log("UIDocumentGameObjectPlacer: Maps initialized, ready");
+        // Hit it with one more picking mode ignore now that we know everything's spawned in
+        UIDocumentUtils.SetAllPickingMode(uiDoc.rootVisualElement, PickingMode.Ignore);
+    }
+
+    private bool readyToInitializeMaps() {
+        if(uiDoc == null) {
+            Debug.LogError("No UIDoc set on UIDocGameObject placer. Just drag a ref to its game object onto the field");
+            return false;
+        }
+        VisualElement element = uiDoc.rootVisualElement;
         if(element == null) {
-            Debug.LogError("UIDocumentGameObjectPlacer: UIDocument rootVisualElement is null");
+            Debug.Log("UIDocumentGameObjectPlacer: STALLING, UIDocument rootVisualElement is null");
             return false;
         }
         VisualElement enemyElement = element.Q<VisualElement>(ENEMY_UIDOC_ELEMENT_PREFIX + INITIAL_INDEX);
-        if(enemyElement == null || enemyElement.worldBound.width == float.NaN) {
-            Debug.LogError("UIDocumentGameObjectPlacer: Enemy element not ready");
+        if(enemyElement == null || float.IsNaN(enemyElement.worldBound.width)) {
+            Debug.Log("UIDocumentGameObjectPlacer: STALLING, Enemy element not ready");
             return false;
         }
 
         VisualElement companionElement = element.Q<VisualElement>(COMPANION_UIDOC_ELEMENT_PREFIX + INITIAL_INDEX);
-        if(companionElement == null || companionElement.worldBound.width == float.NaN) {
-            Debug.LogError("UIDocumentGameObjectPlacer: Companion element not ready");
+        if(companionElement == null || float.IsNaN(companionElement.worldBound.width)) {
+            Debug.Log("UIDocumentGameObjectPlacer: STALLING,  Companion element not ready");
             return false;
         }
         return true;
 
     }
 
+    public WorldPositionVisualElement checkoutCompanionMapping(){
+        return companionPlacements.checkoutPlacement();
+    }
 
-    public Vector3 addMapping(GameObject gameObject) {
-        string elementName = getElementIndexFromGameObject(gameObject).getAndIncrement();
-        mappings.Add(new UIDocGOMapping(gameObject, elementName));
-        return getWorldPositionFromGameObject(gameObject);
+    public WorldPositionVisualElement checkoutEnemyMapping(){
+        return enemyPlacements.checkoutPlacement();
+    }
+
+    public WorldPositionVisualElement checkoutCardMapping(){
+        return cardPlacements.checkoutPlacement();
+    }
+
+    public void addMapping(WorldPositionVisualElement wpve, GameObject go) {
+        addGameObjectToPlacementPool(wpve, go);
     }
 
     public void removeMapping(GameObject gameObject) {
-        string elementName = getElementIndexFromGameObject(gameObject).getAndDecrement();
-        mappings.RemoveAll(mapping => mapping.elementName == elementName);
     }
 
     // TODO: a class for each of the indices, and a method to get the next index while incrementing
-    private PlacementPool getElementIndexFromGameObject(GameObject gameObject, bool incrementIndex = false) {
-        if(gameObject.GetComponent<CompanionInstance>() != null) {
-            return companionIndex;
-        } else if(gameObject.GetComponent<EnemyInstance>() != null) {
-            return enemyIndex;
-        } else if(gameObject.GetComponent<PlayableCard>() != null) {
-            return cardIndex;
+    private void addGameObjectToPlacementPool(WorldPositionVisualElement wpve, GameObject go) {
+        PlacementPool pool;
+        if(go.GetComponent<CompanionInstance>() != null) {
+            pool = companionPlacements;
+        } else if(go.GetComponent<EnemyInstance>() != null) {
+            pool = enemyPlacements;
+        } else if(go.GetComponent<PlayableCard>() != null) {
+            pool = cardPlacements;
         } else {
             Debug.LogError("GameObject does not have a valid component for UIDocumentGameObjectPlacer");
-            return null;
+            return;
         }
+        pool.addMapping(wpve, go);
     }
 
-    private Vector3 getWorldPositionFromGameObject(GameObject gameObject) {
-        UIDocGOMapping mapping = getMappingFromGameObject(gameObject);
-        Debug.Log("UIDocumentGameObjectPlacer: UIDocGOMapping from gamebject " + gameObject.name + ": " + mapping);
-        return getWorldPositionFromMapping(mapping);
-    }
-
-    private Vector3 getWorldPositionFromMapping(UIDocGOMapping mapping) {
-        return getWorldPositionFromElementName(mapping.elementName);
-    }
-
-    private UIDocGOMapping getMappingFromGameObject(GameObject gameObject) {
-        return mappings.Find(mapping => mapping.gameObject == gameObject);
-    }
-
-    // Used for the initial prefab instantiation call, so we don't flicker
-    // objects to random positions before their mappings are added
-    public Vector3 getNextEnemyPosition() {
-        return getNextPosition(ENEMY_UIDOC_ELEMENT_PREFIX);
-    }
-
-    // Used for the initial prefab instantiation call, so we don't flicker
-    // objects to random positions before their mappings are added
-    public Vector3 getNextCompanionPosition() {
-        return getNextPosition(COMPANION_UIDOC_ELEMENT_PREFIX);
-    }
-
-    // Used for the initial prefab instantiation call, so we don't flicker
-    // objects to random positions before their mappings are added
-    public Vector3 getNextCardPosition() {
-        return getNextPosition(CARD_UIDOC_ELEMENT_PREFIX);
-    }
-
-    private Vector3 getNextPosition(string prefix) {
-        if(prefix == ENEMY_UIDOC_ELEMENT_PREFIX) {
-            return getNextPositionFromIndex(enemyIndex);
-        } else if(prefix == COMPANION_UIDOC_ELEMENT_PREFIX) {
-            return getNextPositionFromIndex(companionIndex);
-        } else if (prefix == CARD_UIDOC_ELEMENT_PREFIX) {
-            return getNextPositionFromIndex(cardIndex);
-        } else {
-            Debug.LogError("Invalid prefix for getNextPosition");
-            return new Vector3(0, 0, 0);
-        }
-    }
-
-    private Vector3 getNextPositionFromIndex(PlacementPool index) {
-        return getWorldPositionFromElementName(index.get());
-    }
-
-    private Vector3 getWorldPositionFromElementName(string elementName) {
-        Debug.Log("Getting world position for element: " + elementName);
-        VisualElement element = GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>(elementName);
+    public static Vector3 GetWorldPositionFromElement(VisualElement element) {
+        Debug.Log("Getting world position for element: " + element.name);
         if(element == null) {
-            Debug.LogError("UIDocumentGameObjectPlacer: Element not found for name: " + elementName);
+            Debug.LogError("UIDocumentGameObjectPlacer: Element not found for name: " + element.name);
             return new Vector3(0, 0, 0);
         }
         Debug.Log("element: " + element);
@@ -221,32 +233,21 @@ public class UIDocumentGameObjectPlacer : GenericSingleton<UIDocumentGameObjectP
         return worldPositionZCorrected;
     }
 
-    public int getEnemyPlacesCount() {
-        int count = getPlacesCount(ENEMY_UIDOC_ELEMENT_PREFIX);
-        Debug.Log("Enemy places count: " + count);
-        return count;
-    }
+    
 
     public int getCompanionPlacesCount() {
-        int count = getPlacesCount(COMPANION_UIDOC_ELEMENT_PREFIX);
+        int count = companionPlacements.getCount();
         Debug.Log("Companion places count: " + count);
         return count;
     }
 
-
-    private int getPlacesCount(string prefix) {
-        PlacementPool index = new PlacementPool(prefix, 1);
-        int loopSaver = 0;
-        while(GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>(index.getAndIncrement()) != null && loopSaver < 1000) { 
-            Debug.Log("UIDocumentGameObjectPlacer.getPlacesCount: found element before: " + index.get());
-            loopSaver++; 
-            }
-        if (loopSaver >= 1000) {
-            Debug.LogError("UIDocumentGameObjectPlacer.getPlacesCount looped more than 1000 times, returning 0");
-            return 0;
-        }
-        return index.index - 2;
+    public int getEnemyPlacesCount() {
+        int count = enemyPlacements.getCount();
+        Debug.Log("Companion places count: " + count);
+        return count;
     }
+
+    
 
 
 

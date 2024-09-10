@@ -17,7 +17,6 @@ public interface IEncounterBuilder
 {
     public void BuildEnemyEncounter(EnemyEncounter encounter, UIDocumentGameObjectPlacer placer);
     public void BuildShopEncounter(ShopEncounter encounter);
-
     public UIDocumentGameObjectPlacer placer { get; set; }
     public Transform transform { get; }
 

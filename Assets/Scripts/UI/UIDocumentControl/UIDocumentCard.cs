@@ -27,6 +27,10 @@ public class UIDocumentCard : MonoBehaviour {
     private bool renderTextureCoroutineIsRunning = false;
     void Start() {
         card = GetComponent<PlayableCard>().card;
+        if(card == null) {
+            Debug.LogError("UIDocumentCard: No card in playableCard component");
+            return;
+        }
         Invoke("LateStart", 0.1f);
     }
     void LateStart() {

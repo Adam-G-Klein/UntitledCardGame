@@ -44,7 +44,7 @@ public class TurnManager : GenericSingleton<TurnManager>
     }
 
     private IEnumerator LateStart() {
-        yield return new WaitForEndOfFrame();
+        yield return new WaitUntil(() => EnemyEncounterManager.Instance.IsEncounterBuilt());
         StartCoroutine(turnPhaseEvent.RaiseAtEndOfFrameCoroutine(new TurnPhaseEventInfo(TurnPhase.START_ENCOUNTER)));
         EnemyEncounterViewModel.Instance.SetStateDirty();
     }

@@ -58,13 +58,14 @@ public class EnemyEncounter : Encounter
 
         for(int i = 0; i < enemyList.Count; i++)
         {
+            WorldPositionVisualElement newEnemyPlacement = placer.checkoutEnemyMapping();
             EnemyInstance newEnemy = PrefabInstantiator.instantiateEnemy(
                 encounterConstants.enemyPrefab,
                 enemyList[i],
-                placer.getNextEnemyPosition(),
+                newEnemyPlacement.worldPos,
                 encounterBuilder.transform);
             createdEnemies.Add(newEnemy);
-            placer.addMapping(newEnemy.gameObject);
+            placer.addMapping(newEnemyPlacement, newEnemy.gameObject);
         }
     }
 
@@ -79,13 +80,14 @@ public class EnemyEncounter : Encounter
 
         for (int i = 0; i < companionList.Count; i++)
         {
+            WorldPositionVisualElement newCompanionPlacement = placer.checkoutCompanionMapping();
             CompanionInstance newCompanion = PrefabInstantiator.InstantiateCompanion(
                 encounterConstants.companionPrefab,
                 companionList[i],
-                placer.getNextCompanionPosition(),
+                newCompanionPlacement.worldPos,
                 encounterBuilder.transform);
             createdCompanions.Add(newCompanion);
-            placer.addMapping(newCompanion.gameObject);
+            placer.addMapping(newCompanionPlacement, newCompanion.gameObject);
         }
     }
 }

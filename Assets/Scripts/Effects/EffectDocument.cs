@@ -126,6 +126,14 @@ public class EffectDocument
             return returnList;
         }
 
+        public List<T> TryGetList<T>(string key) where T : class {
+            if(ContainsValueWithKey<T>(key)) {
+                return GetList<T>(key);
+            } else {
+                return new List<T>();
+            }
+        }
+
         public bool ContainsValueWithKey<T>(string key) {
             Tuple<string, Type> dictKey = new Tuple<string, Type>(key, typeof(T));
             if (_dict.ContainsKey(dictKey) && _dict[dictKey].Count > 0) {

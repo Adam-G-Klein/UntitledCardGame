@@ -34,13 +34,14 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         List<PlayableCard> cardsDelt = new List<PlayableCard>();
         PlayableCard newCard;
         foreach(Card cardInfo in cards) {
+            WorldPositionVisualElement newCardPlacement = UIDocumentGameObjectPlacer.Instance.checkoutCardMapping();
             newCard = PrefabInstantiator.InstantiateCard(
                 cardPrefab,
                 EnemyEncounterManager.Instance.transform,
                 cardInfo,
                 deckFrom,
-                UIDocumentGameObjectPlacer.Instance.getNextCardPosition());
-            UIDocumentGameObjectPlacer.Instance.addMapping(newCard.gameObject);
+                newCardPlacement.worldPos);
+            UIDocumentGameObjectPlacer.Instance.addMapping(newCardPlacement, newCard.gameObject);
             if (newCard.card.cardType.retain) {
                 newCard.retained = true;
             }

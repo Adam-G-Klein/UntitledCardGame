@@ -30,6 +30,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     private GameObject postGamePopup;
     [SerializeField]
     public GameObject placerGO; 
+    private bool encounterBuilt = false;
 
     public UIDocumentGameObjectPlacer placer { get 
     {
@@ -43,15 +44,17 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     }
 
 
-    void Start() {
+    void Awake() {
+        encounterBuilt = false;
         // This ends up calling BuildEnemyEncounter below
         StartCoroutine(StartWhenUIDocReady());
     }
 
     IEnumerator StartWhenUIDocReady() {
-        yield return new WaitUntil(() => placer.UIDocumentReady());
+        yield return new WaitUntil(() => placer.IsReady());
+        Debug.Log("EnemyEncounterManager: UIDocumentGameObjectPlacer is ready, building encounter");
         LateStart();
-}
+    }
 
     void LateStart() {
         gameState.activeEncounter.GetValue().BuildWithEncounterBuilder(this);
@@ -75,6 +78,11 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
             enemyPortraitController.SetupEnemyPortraits(createdEnemies);
         EnemyEncounterViewModel.Instance.companions = createdCompanions;
         EnemyEncounterViewModel.Instance.enemies = createdEnemies;
+        encounterBuilt = true;
+    }
+
+    public bool IsEncounterBuilt(){
+        return encounterBuilt;
     }
 
     void Update() {

@@ -38,7 +38,6 @@ public class CombatEncounterView : MonoBehaviour
         var index = UIDocumentGameObjectPlacer.INITIAL_INDEX;
         foreach (var entity in entities) {
             container.Add(setupEntity(entity, index, isEnemy));
-            print("HI" + index);
             index++;
         }
     }
@@ -169,7 +168,6 @@ public class CombatEncounterView : MonoBehaviour
     }
 
     public void updateMana(int mana) {
-        print("here" + mana);
         root.Q<Label>("manaCounter").text = mana.ToString();
         docRenderer.SetStateDirty();
     }
