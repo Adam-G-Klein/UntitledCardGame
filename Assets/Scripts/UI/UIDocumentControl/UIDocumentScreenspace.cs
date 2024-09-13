@@ -11,12 +11,13 @@ using UnityEngine.UI;
 public class UIDocumentScreenspace : MonoBehaviour {
 
     [SerializeField]
-    private UIDocument doc;
+    public UIDocument doc;
     private RawImage image;
     [SerializeField]
     private Texture2D texture {get;set;}
     [SerializeField]
     public bool stateDirty = true;
+    public bool initialized = false;
 
     void Awake() {
         if(!doc) {
@@ -27,7 +28,15 @@ public class UIDocumentScreenspace : MonoBehaviour {
 
         // Do this in Awake so we can query for element positions sooner
         UpdateRenderTexture();
+        initialized = true;
     }
+
+    void OnEnable() {
+        if(!initialized) {
+            Awake();
+        }
+    }
+
     void Start() {
         
     }

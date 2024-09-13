@@ -912,7 +912,7 @@ PrefabInstance:
     - target: {fileID: 8734870270850589833, guid: 28a067a8b113e3a4aadb83e0e82a16bd, type: 3}
       propertyPath: postCombatUI
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1780558700}
     - target: {fileID: 8734870270850589833, guid: 28a067a8b113e3a4aadb83e0e82a16bd, type: 3}
       propertyPath: postGamePopup
       value: 
@@ -1171,6 +1171,11 @@ Transform:
   - {fileID: 56903198}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1780558700 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 782144209338830068, guid: a01603c96ed613e4dadddb16c94272d3, type: 3}
+  m_PrefabInstance: {fileID: 7403373190793623571}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1941419468
 GameObject:
   m_ObjectHideFlags: 0
