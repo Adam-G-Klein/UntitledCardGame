@@ -14,9 +14,6 @@ public class PlayerHand : GenericSingleton<PlayerHand>
 
     private GameObject cardPrefab;
 
-    [SerializeField]
-    private RectTransform layoutGroup;
-
     public delegate IEnumerator OnCardExhaustHandler(DeckInstance deckFrom, Card card);
     public event OnCardExhaustHandler onCardExhaustHandler;
 
@@ -25,6 +22,8 @@ public class PlayerHand : GenericSingleton<PlayerHand>
 
     public delegate IEnumerator OnDeckShuffleHandler(DeckInstance deckFrom);
     public event OnDeckShuffleHandler onDeckShuffledHandler;
+
+    private bool cardsInHandLocked = false;
 
     void Start() {
         cardPrefab = EnemyEncounterManager.Instance.encounterConstants.cardPrefab;
@@ -58,6 +57,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             // then destroy them with the callback.
             // The reason we want to use the callback is that otherwise, the
             // game objects are destroyed before the effect workflow can complete.
+            cardsInHandLocked = true;
             foreach (PlayableCard card in cardsInHand) {
                 IEnumerator callback = null;
                 // Do not destroy the card if it is retained.
@@ -69,7 +69,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                         card.retained = false;
                     }
                 } else {
-                    callback = DiscardAndDestroyCallback(card);
+                    callback = DiscardFromHandCallback(card);
                 }
                 CardType ct = card.card.cardType;
                 List<EffectStep> workflowSteps = new();
@@ -79,22 +79,29 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                 EffectDocument document = new EffectDocument();
                 document.map.AddItem(EffectDocument.ORIGIN, card.GetComponent<PlayableCard>());
                 document.originEntityType = EntityType.Card;
+                Debug.Log("Invoking effect workflow with steps: " + workflowSteps.Count);
                 EffectManager.Instance.invokeEffectWorkflow(document, workflowSteps, callback);
             }
+            cardsInHandLocked = false;
 
             cardsInHand = retainedCards;
         }
     }
 
-    private IEnumerator DiscardAndDestroyCallback(PlayableCard card) {
-        card.DiscardFromDeck();
-        Destroy(card.gameObject);
+    private IEnumerator DiscardFromHandCallback(PlayableCard card) {
+        Debug.Log("PlayerHand: DiscardFromHandCallback for card: " + card.card);
+        StartCoroutine(SafeRemoveCardFromHand(card));
+        DiscardCard(card);
         yield return null;
     }
 
-    public void RemoveCardFromHand(Card card) {
-        cardsInHand.Remove(GetCardById(card.id));
-        UpdateLayout();
+    IEnumerator SafeRemoveCardFromHand(PlayableCard card) {
+        yield return new WaitUntil(() => !cardsInHandLocked);
+        cardsInHand.Remove(card);
+    }
+
+    public void SafeRemoveCardFromHand(Card card) {
+        StartCoroutine(SafeRemoveCardFromHand(GetCardById(card.id)));
     }
 
     public IEnumerator OnCardExhaust(DeckInstance deckFrom, Card card) {
@@ -108,18 +115,14 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     // Do not call on whole hand, only call on individual cards
     // modifies the list of cards in hand
     public void DiscardCard(PlayableCard card) {
-        // If statement is here to take into account if a card exhausts itself
+        // If statements are here to take into account if a card exhausts itself
         // as part of its effect workflow
         if (cardsInHand.Contains(card)) {
-            cardsInHand.Remove(card);
-            card.DiscardFromDeck();
+            StartCoroutine(SafeRemoveCardFromHand(card));
         }
-        UpdateLayout();
-    }
-
-    public void UpdateLayout() {
-        LayoutRebuilder.ForceRebuildLayoutImmediate(layoutGroup);
-
+        if(card.gameObject.activeSelf) {
+            card.DiscardToDeck();
+        }
     }
 
     public PlayableCard GetCardById(string id) {

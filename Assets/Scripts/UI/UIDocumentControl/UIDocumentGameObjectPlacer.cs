@@ -56,6 +56,12 @@ public class PlacementPool {
     /// <param name="ve"></param>
     /// <param name="go"></param>
     public void addMapping(WorldPositionVisualElement ve, GameObject go){
+        if(ve == null) {
+            Debug.LogError("UIDocGameObjectPlacer: WorldPosVE null in addmapping");
+        }
+        if(ve.ve == null) {
+            Debug.LogError("UIDocGameObjectPlacer: WorldPosVE.ve null in addmapping");
+        }
         if(ve != placementOnDeck) {
             Debug.LogError("UIDocGameObjectPlacer: visual element " + ve.ve.name + " mapped without being requested first");
         }
@@ -64,14 +70,18 @@ public class PlacementPool {
     }
 
     public void removeMapping(GameObject go) {
-        // feels weird but I'm not holding a reverse map.
-        // talk to me when we're saving non-gpu cycles
+        WorldPositionVisualElement placementToNull = null;
         foreach(KeyValuePair<WorldPositionVisualElement, GameObject> kvp in placements) {
             if(kvp.Value == go) {
-                placements[kvp.Key] = null;
+                // don't modify during iteration
+                placementToNull = kvp.Key;
             }
         }
-        Debug.LogError("UIDocGameObjectPlacer: failed to remove gameobject " + go.name + " from placements, it wasn't in there somehow");
+        if (placementToNull != null) {
+            placements[placementToNull] = null;
+        } else {
+            Debug.LogError("UIDocGameObjectPlacer: failed to remove gameobject " + go.name + " from placements, it wasn't in there somehow");
+        }
     }
 
     public int getCount() {
@@ -184,26 +194,26 @@ public class UIDocumentGameObjectPlacer : GenericSingleton<UIDocumentGameObjectP
     }
 
     public void addMapping(WorldPositionVisualElement wpve, GameObject go) {
-        addGameObjectToPlacementPool(wpve, go);
+        PlacementPool pool = getPoolFromGameObject(go);
+        pool.addMapping(wpve, go);
     }
 
     public void removeMapping(GameObject gameObject) {
+        PlacementPool pool = getPoolFromGameObject(gameObject);
+        pool.removeMapping(gameObject);
     }
 
-    // TODO: a class for each of the indices, and a method to get the next index while incrementing
-    private void addGameObjectToPlacementPool(WorldPositionVisualElement wpve, GameObject go) {
-        PlacementPool pool;
+    private PlacementPool getPoolFromGameObject(GameObject go) {
         if(go.GetComponent<CompanionInstance>() != null) {
-            pool = companionPlacements;
+            return companionPlacements;
         } else if(go.GetComponent<EnemyInstance>() != null) {
-            pool = enemyPlacements;
+            return enemyPlacements;
         } else if(go.GetComponent<PlayableCard>() != null) {
-            pool = cardPlacements;
+            return cardPlacements;
         } else {
             Debug.LogError("GameObject does not have a valid component for UIDocumentGameObjectPlacer");
-            return;
+            return null;
         }
-        pool.addMapping(wpve, go);
     }
 
     public static Vector3 GetWorldPositionFromElement(VisualElement element) {

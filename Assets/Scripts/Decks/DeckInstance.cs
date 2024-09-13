@@ -197,7 +197,7 @@ public class DeckInstance : MonoBehaviour
         } else if (inHand.Contains(card)) {
             Debug.Log("Exhausting card " + card.id + " from hand");
             inHand.Remove(card);
-            PlayerHand.Instance.RemoveCardFromHand(card);
+            PlayerHand.Instance.SafeRemoveCardFromHand(card);
         }
         exhaustPile.Add(card);
         if (card.cardType.onExhaustEffectWorkflow != null) {
@@ -245,7 +245,7 @@ public class DeckInstance : MonoBehaviour
                 if (inHand[i].cardType == target) {
                     PlayableCard card = PlayerHand.Instance.GetCardById(inHand[i].id);
                     Destroy(card.gameObject);
-                    PlayerHand.Instance.RemoveCardFromHand(inHand[i]);
+                    PlayerHand.Instance.SafeRemoveCardFromHand(inHand[i]);
                     inHand[i] = new Card(destType, inHand[i].getCompanionFrom());
                     newCardsToDeal.Add(inHand[i]);
                 }
