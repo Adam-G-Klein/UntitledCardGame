@@ -10,26 +10,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
-  m_Name: BROgre
+  m_Name: BRGreatWorm
   m_EditorClassIdentifier: 
-  maxHealth: 70
+  maxHealth: 150
   baseAttackDamage: 0
-  sprite: {fileID: 21300000, guid: e8f284b8ccdbaf24888660bc74fa02b4, type: 3}
+  sprite: {fileID: 21300000, guid: d7a75da2f6037ad47b2638069e02b403, type: 3}
   enemyPattern:
     behaviors:
     - intent: 1
       enemyTargetMethod: 0
       targetsKey: target
-      displayValue: 8
+      displayValue: 10
       effectSteps:
-      - rid: 3931529445166809422
-      - rid: 3931529445166809421
-      - rid: 5602893111447519692
-      - rid: 5602893111447519693
-      - rid: 5602893111447519694
-      - rid: 5602893111447519695
+      - rid: 4463205916933358106
+      - rid: 4463205916933358108
+      - rid: 4463205916933358107
+      - rid: 4463206262261416267
+    - intent: 0
+      enemyTargetMethod: 0
+      targetsKey: target
+      displayValue: 27
+      effectSteps:
+      - rid: 4463205916933358109
     behaviorType: 0
-    nextBehaviorIndex: 0
+    nextBehaviorIndex: 1
   belowHalfHPEnemyPattern:
     behaviors: []
     behaviorType: 0
@@ -38,14 +42,22 @@ MonoBehaviour:
   tooltip:
     empty: 0
     lines:
-    - title: Empowered Strike
-      description: Attacks and grows in strength
+    - title: Strike
+      description: Simple Attack
       image: {fileID: 0}
-      relatedBehaviorIndex: -1
+      relatedBehaviorIndex: 0
+    - title: Guarded Strike
+      description: Attack & Block
+      image: {fileID: 0}
+      relatedBehaviorIndex: 1
+    - title: Block
+      description: Block prevents damage
+      image: {fileID: 0}
+      relatedBehaviorIndex: 1
   references:
     version: 2
     RefIds:
-    - rid: 3931529445166809421
+    - rid: 4463205916933358106
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
@@ -56,49 +68,47 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
-    - rid: 3931529445166809422
+    - rid: 4463205916933358107
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: self
+        statusEffect: 2
+        scale: 30
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+    - rid: 4463205916933358108
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
         inputKey: target
         combatEffect: 0
-        scale: 8
+        scale: 10
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-    - rid: 5602893111447519692
-      type: {class: CountStatusEffectsStep, ns: , asm: Assembly-CSharp}
+    - rid: 4463205916933358109
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: CountStatusEffectStep
-        inputKey: self
-        statusEffect: 0
-        onlyCountStatusOnce: 0
-        outputKey: numStrength
-    - rid: 5602893111447519693
-      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: BooleanComparison
-        hardCodedInputKey1: 12
-        useHardCodedInputKey1: 1
-        inputKey1: 
-        operation: 2
-        inputKey2: numStrength
-        outputKey: atThreshold
-    - rid: 5602893111447519694
-      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: EndWorkflowIfConditionMet
-        inputKey1: atThreshold
-        conditionToEndOn: 1
-    - rid: 5602893111447519695
+        effectStepName: CombatEffectStep
+        inputKey: target
+        combatEffect: 0
+        scale: 27
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+    - rid: 4463206262261416267
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ApplyStatus
         inputKey: self
         statusEffect: 0
-        scale: 1
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
