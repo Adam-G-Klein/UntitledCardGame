@@ -4,13 +4,21 @@ using UnityEngine.UIElements;
 using System.Collections;
 using UnityEditor;
 
+
+[RequireComponent(typeof(MeshFilter))]
+[RequireComponent(typeof(MeshRenderer))]
 [RequireComponent(typeof(UIDocument))]
 public class MiniUIDocumentWorldspace : MonoBehaviour {
 
-    private UIDocument doc;
+    public UIDocument doc;
     private MeshRenderer meshRenderer;
     [SerializeField]
     private Texture2D texture {get;set;}
+
+    [SerializeField]
+    private int width = 1920;
+    [SerializeField]
+    private int height = 1080;
 
     void Start() {
         
@@ -18,7 +26,7 @@ public class MiniUIDocumentWorldspace : MonoBehaviour {
         doc.panelSettings = doc.panelSettings;
         //defaultTexture = doc.panelSettings.targetTexture;
         StartCoroutine(GetVETextureCoroutine(
-            doc.panelSettings, 1920, 1080,
+            doc.panelSettings, this.width, this.height,
             (tex) => {
                 print("completion action invoked!");
                 // Do something with the texture here.

@@ -43,6 +43,7 @@ public class CompanionInstance : MonoBehaviour
             spriteRenderer.sprite = companion.getSprite();
             spriteRenderer.size = COMPANION_SIZE;
             boxCollider2D.size = COMPANION_SIZE;
+            boxCollider2D.offset = new Vector2(0, 0);
         }
         combatInstance.parentType = CombatInstance.CombatInstanceParent.COMPANION;
         combatInstance.combatStats = companion.combatStats;

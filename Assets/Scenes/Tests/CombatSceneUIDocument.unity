@@ -252,6 +252,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TurnManager
       objectReference: {fileID: 0}
+    - target: {fileID: 7874900494231256866, guid: 819cb9061d26fcd40830451cab260ed3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -587,6 +591,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CutsceneManager
       objectReference: {fileID: 0}
+    - target: {fileID: 4293761625100760864, guid: e445f637aca579f4491fe4f1bedd0ae3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8584188328819036410, guid: e445f637aca579f4491fe4f1bedd0ae3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1866.6704
@@ -675,6 +683,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 1818299386461833425, guid: 603aceebdfe11e048a59677fdbc3a90c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1818299386461833455, guid: 603aceebdfe11e048a59677fdbc3a90c, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
@@ -739,6 +751,10 @@ PrefabInstance:
     - target: {fileID: 428804735140336026, guid: b3624fa3d2367944f9f9ff9793633969, type: 3}
       propertyPath: m_Name
       value: Singletons
+      objectReference: {fileID: 0}
+    - target: {fileID: 428804735140336026, guid: b3624fa3d2367944f9f9ff9793633969, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4658088288143552190, guid: b3624fa3d2367944f9f9ff9793633969, type: 3}
       propertyPath: m_RootOrder
@@ -1042,6 +1058,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ManaManager
       objectReference: {fileID: 0}
+    - target: {fileID: 7195151875496105077, guid: e441e414e09d0544e8a2cd6a1c894efa, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 421675536468758986, guid: e441e414e09d0544e8a2cd6a1c894efa, type: 3}
     m_RemovedGameObjects: []
@@ -1317,6 +1337,10 @@ PrefabInstance:
     - target: {fileID: 2627483554680799874, guid: a01603c96ed613e4dadddb16c94272d3, type: 3}
       propertyPath: m_Name
       value: CombatCanvasUIDocument
+      objectReference: {fileID: 0}
+    - target: {fileID: 2627483554680799874, guid: a01603c96ed613e4dadddb16c94272d3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2709482351621439903, guid: a01603c96ed613e4dadddb16c94272d3, type: 3}
       propertyPath: m_Pivot.x

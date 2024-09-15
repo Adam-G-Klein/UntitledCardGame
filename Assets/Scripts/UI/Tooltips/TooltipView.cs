@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 using TMPro;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -11,13 +12,26 @@ public class TooltipLine {
 
     public string title;
     public string description;
-    public Image image;
     public int relatedBehaviorIndex;
+    public VisualElement GetVisualElement() {
+        VisualElement ve = new VisualElement();
+        // below class doesn't exist yet
+        // ve.AddToClassList("tooltip-line");
 
-    public TooltipLine(string title, string description, int relatedBehaviorIndex = -1, Image image = null) {
+        Label title = new Label(this.title);
+        title.AddToClassList("tooltip-title");
+        ve.Add(title);
+
+        Label text = new Label(this.description);
+        text.AddToClassList("tooltip-text");
+        ve.Add(text);
+
+        return ve;
+    }
+
+    public TooltipLine(string title, string description, int relatedBehaviorIndex = -1, UnityEngine.UIElements.Image image = null) {
         this.title = title;
         this.description = description;
-        this.image = image;
         this.relatedBehaviorIndex = relatedBehaviorIndex;
     }
 }
@@ -35,7 +49,17 @@ public class TooltipViewModel {
         }
     }
 
-    public TooltipViewModel(string title, string description, int relateBehaviorIndex = -1, Image image = null) {
+    public VisualElement GetVisualElement() {
+        VisualElement ve = new VisualElement();
+        // below class doesn't exist yet
+        // ve.AddToClassList("tooltip-view");
+        foreach(TooltipLine line in lines) {
+            ve.Add(line.GetVisualElement());
+        }
+        return ve;
+    }
+
+    public TooltipViewModel(string title, string description, int relateBehaviorIndex = -1, UnityEngine.UIElements.Image image = null) {
         this.empty = false;
         this.lines = new List<TooltipLine>();
         lines.Add(new TooltipLine(title, description, relateBehaviorIndex));
@@ -72,24 +96,27 @@ public class TooltipViewModel {
     }
 }
 
+[RequireComponent(typeof(MiniUIDocumentWorldspace))]
 public class TooltipView : MonoBehaviour
 {
-    public TextMeshProUGUI text;
-
+    
     public TooltipViewModel tooltip = null;
+
+    [SerializeField]
+    [Header("Set below to true to display the tooltipView in the scene at all times.\nUseful for debugging with the prefab manually added to the scene")]
+    private bool debugDisplayTooltip = false;
+
+    public VisualElement background;
 
     void Start() {
         Debug.Log("TooltipView: Start");
-        text = GetComponentInChildren<TextMeshProUGUI>();
-        // hack to get tooltips in front, temporary until ui doc rework
-        Canvas canvas = GetComponentInChildren<Canvas>(); 
-        canvas.overrideSorting = true;
-        canvas.sortingOrder = 25;
+        VisualElement root = GetComponent<MiniUIDocumentWorldspace>().doc.rootVisualElement;
+        background = root.Q<VisualElement>("tooltip-background");
         Fill();
     }
 
     public void Fill() {
-        text.text = tooltip.plainText;
+        background.Add(tooltip.GetVisualElement());
     }
 
     public void Hide() {

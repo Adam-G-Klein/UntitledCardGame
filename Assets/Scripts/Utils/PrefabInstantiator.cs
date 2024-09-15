@@ -61,7 +61,7 @@ public static class PrefabInstantiator {
         return enemyInstance;
     }
 
-    public static TooltipView instantiateTooltipView(GameObject tooltipPrefab, TooltipViewModel tooltip, Vector2 position, Transform parent) {
+    public static TooltipView instantiateTooltipView(GameObject tooltipPrefab, TooltipViewModel tooltip, Vector3 position, Transform parent) {
         GameObject tooltipGO = GameObject.Instantiate(
             tooltipPrefab,
             position,
