@@ -7,7 +7,11 @@ using UnityEngine.Timeline;
 // Represents the serialized data for a clip on the Tween track
 [Serializable]
 [DisplayName("Tween Clip")]
-public class TweenClip : PlayableAsset, ITimelineClipAsset, IPropertyPreview
+public class TweenClip : 
+        PlayableAsset,
+        ITimelineClipAsset,
+        IPropertyPreview,
+        IFXExperienceClip
 {
     [Header("These values are only used when modifying the clip in the editor.")]
     public Vector3 startLocation;
@@ -65,5 +69,10 @@ public class TweenClip : PlayableAsset, ITimelineClipAsset, IPropertyPreview
         driver.AddFromName<Transform>(kLocalRotation + ".y");
         driver.AddFromName<Transform>(kLocalRotation + ".z");
         driver.AddFromName<Transform>(kLocalRotation + ".w");
+    }
+
+    public ExposedReference<FXExperience> GetExposedReference()
+    {
+        return experienceReference;
     }
 }
