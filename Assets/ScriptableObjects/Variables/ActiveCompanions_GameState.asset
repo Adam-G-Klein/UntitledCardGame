@@ -13,54 +13,6 @@ MonoBehaviour:
   m_Name: ActiveCompanions_GameState
   m_EditorClassIdentifier: 
   activeCompanions:
-  - id: c39651b5-27d4-4626-8182-27f9bec4a59d
-    entityType: 0
-    companionType: {fileID: 11400000, guid: fb779bf01568f45f9bdea9e30bb824f3, type: 2}
-    deck:
-      startingDeck: {fileID: 11400000, guid: 583b1de8b4e66492eb4afaaa9e408467, type: 2}
-      cards:
-      - id: de9c24b8-b925-4359-8a13-956cc9fd19b6
-        entityType: 0
-        shopRarity: 0
-        castCount: 0
-        tempManaCost: -1
-        generated: 0
-        cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
-      - id: 6c9c366c-a365-4962-9ab7-ddf2571d0164
-        entityType: 0
-        shopRarity: 0
-        castCount: 0
-        tempManaCost: -1
-        generated: 0
-        cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
-      - id: 08762814-7e3c-4365-998a-2625d4e773e8
-        entityType: 0
-        shopRarity: 0
-        castCount: 0
-        tempManaCost: -1
-        generated: 0
-        cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
-      - id: 1910d617-328d-415e-8839-5ec8a0b81664
-        entityType: 0
-        shopRarity: 0
-        castCount: 0
-        tempManaCost: -1
-        generated: 0
-        cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
-      - id: 8c5e43c6-1322-4e73-b506-966df3575776
-        entityType: 0
-        shopRarity: 0
-        castCount: 0
-        tempManaCost: -1
-        generated: 0
-        cardType: {fileID: 11400000, guid: 62fdc51643d8849a4b4b4c1498a15598, type: 2}
-      cardsDealtPerTurn: 1
-    combatStats:
-      maxHealth: 20
-      currentHealth: 958
-      baseAttackDamage: 0
-    companionLevel: 1
-    onCombineAbilities: []
   - id: 2966f7df-91b8-4344-8d94-05bbeb097629
     entityType: 0
     companionType: {fileID: 11400000, guid: 9e58397c3f778471eb854ffa3c62f2d2, type: 2}
@@ -105,7 +57,7 @@ MonoBehaviour:
       cardsDealtPerTurn: 1
     combatStats:
       maxHealth: 40
-      currentHealth: 40
+      currentHealth: 19
       baseAttackDamage: 0
     companionLevel: 1
     onCombineAbilities: []
@@ -153,7 +105,7 @@ MonoBehaviour:
       cardsDealtPerTurn: 1
     combatStats:
       maxHealth: 40
-      currentHealth: 40
+      currentHealth: 0
       baseAttackDamage: 0
     companionLevel: 1
     onCombineAbilities: []

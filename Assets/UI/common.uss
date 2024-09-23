@@ -315,17 +315,21 @@
     margin-left: 10px;
     color: rgb(255, 255, 255);
     background-color: rgb(97, 97, 255);
-    font-size: 8px;
+    font-size: 30px;
 }
 
 .card-desc-label {
     -unity-font-style: italic;
-    font-size: 10px;
+    font-size: 50px;
+    white-space: normal;
+    align-self: center;
 }
 
 .card-title-label {
-    font-size: 10px;
+    font-size: 100px;
     -unity-font-style: bold;
+    white-space: normal;
+    
 }
 
 .card-image {

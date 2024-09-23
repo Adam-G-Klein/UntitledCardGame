@@ -21,6 +21,8 @@ public class CombatInstance : MonoBehaviour
     // Distinguish between enemies and companions for combat instances.
     public CombatInstanceParent parentType;
 
+    public bool killed = false;
+
     public static Dictionary<StatusEffect, int> initialStatusEffects =
         new Dictionary<StatusEffect, int>() {
             { StatusEffect.Strength, 0 },
@@ -97,9 +99,7 @@ public class CombatInstance : MonoBehaviour
 
     private void TakeDamage(CombatEffect combatEffect, int damage, CombatInstance attacker) {
 
-        // This is necessary to solve a race condition with a multi-damage attack
-        // Fix this later
-        if (combatStats.getCurrentHealth() == 0) {
+        if (killed) {
             return;
         }
         int damageAfterDefense = DamageAfterDefense(combatEffect, damage);
@@ -162,6 +162,7 @@ public class CombatInstance : MonoBehaviour
 
     private IEnumerator OnDeath(CombatInstance killer) {
         string blockerId = Id.newGuid();
+        killed = true;
         TurnManager.Instance.addTurnPhaseBlocker(blockerId);
         Debug.Log("OnDeath called for " + this.id + " with killer " + killer.GetId());
         ProcessOnDeathStatusEffects(killer);

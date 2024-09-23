@@ -109,6 +109,7 @@ public class TurnManager : GenericSingleton<TurnManager>
     }
 
     private IEnumerator runEndEncounterTriggers() {
+        Debug.Log("TurnPhaseManager: Running triggers for endEncounter");
         foreach(TurnPhaseTrigger trigger in turnPhaseTriggers[TurnPhase.END_ENCOUNTER]) {
             yield return StartCoroutine(trigger.triggerResponse.GetEnumerator());
         }
