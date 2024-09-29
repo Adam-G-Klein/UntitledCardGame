@@ -18,6 +18,7 @@ public class UIDocumentScreenspace : MonoBehaviour {
     [SerializeField]
     public bool stateDirty = true;
     public bool initialized = false;
+    public bool constantStateUpdate = false;
 
     void Awake() {
         if(!doc) {
@@ -42,7 +43,7 @@ public class UIDocumentScreenspace : MonoBehaviour {
     }
 
     void Update() {
-        if (stateDirty){
+        if (stateDirty || constantStateUpdate){
             UpdateRenderTexture();
         }
     }

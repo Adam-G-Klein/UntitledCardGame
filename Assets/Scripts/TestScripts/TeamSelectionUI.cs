@@ -22,6 +22,8 @@ public class TeamSelectionUI : MonoBehaviour
 
     public bool randomStarterCompanionGen = true;
 
+    public UIDocumentScreenspace docRenderer;
+
     private void OnEnable()
     {
         // Randomly choose 3 of the common companions for the starting team.
@@ -40,10 +42,24 @@ public class TeamSelectionUI : MonoBehaviour
             }
             team1ActiveCompanions = chosen;
         }
+        docRenderer = GetComponent<UIDocumentScreenspace>();
 
         root = GetComponent<UIDocument>().rootVisualElement;
         UIDocumentUtils.SetAllPickingMode(root, PickingMode.Position);
         //root.Q<UnityEngine.UIElements.Button>("backButton").clicked += backButtonHandler;
+        docRenderer.constantStateUpdate = true;
+        /*
+        EventCallback<MouseEnterEvent> mouseEnter = new EventCallback<MouseEnterEvent>(
+            evt => {
+                docRenderer.SetStateDirty();
+            });
+
+        EventCallback<MouseLeaveEvent> mouseLeave = new EventCallback<MouseLeaveEvent>(
+            evt => {
+                docRenderer.SetStateDirty();
+            });
+        UIDocumentUtils.SetAllMouseMotionCallbacks(root, mouseEnter, mouseLeave);
+        */
         updateState();
 
         var next = root.Q<UnityEngine.UIElements.Button>("Next");

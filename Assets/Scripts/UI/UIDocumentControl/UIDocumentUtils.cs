@@ -43,4 +43,12 @@ public class UIDocumentUtils : MonoBehaviour
             SetAllPickingMode(child, mode);
         }
     }
+
+    public static void SetAllMouseMotionCallbacks(VisualElement ve, EventCallback<MouseEnterEvent> mouseEnter, EventCallback<MouseLeaveEvent> mouseLeave){
+        ve.RegisterCallback<MouseEnterEvent>(mouseEnter);
+        ve.RegisterCallback<MouseLeaveEvent>(mouseLeave);
+        foreach (VisualElement child in ve.Children()){
+            SetAllMouseMotionCallbacks(child, mouseEnter, mouseLeave);
+        }
+    }
 }
