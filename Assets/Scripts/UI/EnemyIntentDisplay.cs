@@ -33,7 +33,7 @@ public class EnemyIntentDisplay : MonoBehaviour
     public void Setup(EnemyInstance enemyInstance) {
         Debug.Log("Setting up enemy intent display for " + enemyInstance.name);
         this.enemyInstance = enemyInstance;
-        this.arrowController = enemyInstance.GetComponentInChildren<EnemyIntentArrowsController>();
+        this.arrowController = enemyInstance.GetComponent<EnemyIntentArrowsController>();
         turnManager = TurnManager.Instance;
         combatEntityManager = CombatEntityManager.Instance;
         displayIntentTrigger = new TurnPhaseTrigger(TurnPhase.START_PLAYER_TURN, displayIntent(enemyInstance));
@@ -73,6 +73,7 @@ public class EnemyIntentDisplay : MonoBehaviour
         yield return null;
     }
 
+    // Todo, needn't be waiting
     private IEnumerator displayIntentAfterDelay(EnemyInstance enemy) {
         yield return new WaitForSeconds(1);
         clearIntent();

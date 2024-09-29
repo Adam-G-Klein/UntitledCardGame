@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 2382815032633642268}
   - component: {fileID: 5437825517042753912}
   - component: {fileID: 1981669375319240908}
+  - component: {fileID: 9136375820836015438}
+  - component: {fileID: 7412025818965109248}
   m_Layer: 0
   m_Name: WorldspaceEnemy
   m_TagString: Untagged
@@ -83,6 +85,7 @@ MonoBehaviour:
   genericInteractionSFX: {fileID: 0}
   genericInteractionVFX: {fileID: 0}
   parentType: 0
+  killed: 0
 --- !u!61 &1515253770649210757
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -197,6 +200,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetType: 2
+--- !u!114 &9136375820836015438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1818299386461833425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49dae7b92ef5bc449b4ecc4db98b4a0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  intentImages: []
+  registerTurnPhaseTriggerEvent: {fileID: 11400000, guid: f82cd01826dfef44391e6a853f3d2e89, type: 2}
+  removeTurnPhaseTriggerEvent: {fileID: 11400000, guid: 88acfcb7f9a9846468020e4e3854b467, type: 2}
+  valueText: {fileID: 0}
+--- !u!114 &7412025818965109248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1818299386461833425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82a57da86f9c0144e841d2bc2d918650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colors: {fileID: 11400000, guid: 0e1a20d3aee811141b41ded0ebefd9ca, type: 2}
+  arrowPrefab: {fileID: 2592847280397825042, guid: c46d94ec1b401534cb7d61b1a8a9f64e, type: 3}
 --- !u!1 &8802389412929484848
 GameObject:
   m_ObjectHideFlags: 0
@@ -209,7 +242,6 @@ GameObject:
   - component: {fileID: 3031636639335360444}
   - component: {fileID: 2797497970312966068}
   - component: {fileID: 1899820206001018905}
-  - component: {fileID: 8147698733170252572}
   - component: {fileID: 3451200121033988225}
   m_Layer: 5
   m_Name: EntitySprite
@@ -276,7 +308,7 @@ MonoBehaviour:
   unityEventResponse:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8147698733170252572}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: EnemyIntentArrowsController, Assembly-CSharp
         m_MethodName: uiStateChangeEventHandler
         m_Mode: 0
@@ -288,20 +320,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &8147698733170252572
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8802389412929484848}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82a57da86f9c0144e841d2bc2d918650, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  colors: {fileID: 11400000, guid: 0e1a20d3aee811141b41ded0ebefd9ca, type: 2}
-  arrowPrefab: {fileID: 2592847280397825042, guid: c46d94ec1b401534cb7d61b1a8a9f64e, type: 3}
 --- !u!212 &3451200121033988225
 SpriteRenderer:
   m_ObjectHideFlags: 0

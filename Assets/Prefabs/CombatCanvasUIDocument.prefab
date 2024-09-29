@@ -105,6 +105,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doc: {fileID: 4147916199906028967}
   stateDirty: 1
+  initialized: 0
 --- !u!114 &6406590083850505850
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -228,6 +229,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doc: {fileID: 5558227210676135366}
   stateDirty: 1
+  initialized: 0
 --- !u!114 &8104869312425162302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -360,6 +362,7 @@ GameObject:
   - component: {fileID: 3826401947949297435}
   - component: {fileID: 1041624913425169990}
   - component: {fileID: 2172759985719326252}
+  - component: {fileID: 7190278600534378222}
   m_Layer: 5
   m_Name: CombatCanvasUIDocument
   m_TagString: Untagged
@@ -551,6 +554,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &7190278600534378222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2627483554680799874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe40e63ddfef0e74983cba1dcf2acb24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  portraitParentGO: {fileID: 3144027459112361922, guid: b7872d82861667f44b422061cff0bd48, type: 3}
 --- !u!1001 &4366447700427818451
 PrefabInstance:
   m_ObjectHideFlags: 0
