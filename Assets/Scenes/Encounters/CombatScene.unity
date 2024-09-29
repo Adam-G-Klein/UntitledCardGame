@@ -252,6 +252,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TurnManager
       objectReference: {fileID: 0}
+    - target: {fileID: 7874900494231256866, guid: 819cb9061d26fcd40830451cab260ed3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -318,7 +322,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fff1c7e9da0de13449ff63ae89d7645f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ReadMe: 
+  ReadMe: 'This object is a temporary solution. Wanna implement something like this
+    so we can have SpriteRenderers instead:  https://gamedev.stackexchange.com/questions/204167/resize-sprite-to-match-screen-size
+
+'
 --- !u!114 &419459966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -584,6 +591,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CutsceneManager
       objectReference: {fileID: 0}
+    - target: {fileID: 4293761625100760864, guid: e445f637aca579f4491fe4f1bedd0ae3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8584188328819036410, guid: e445f637aca579f4491fe4f1bedd0ae3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1866.6704
@@ -660,63 +671,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &950221460
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1818299386461833425, guid: 603aceebdfe11e048a59677fdbc3a90c, type: 3}
-      propertyPath: m_Name
-      value: Enemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 1818299386461833455, guid: 603aceebdfe11e048a59677fdbc3a90c, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -5.29
-      objectReference: {fileID: 0}
-    - target: {fileID: 1818299386461833455, guid: 603aceebdfe11e048a59677fdbc3a90c, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -1.69
-      objectReference: {fileID: 0}
-    - target: {fileID: 1818299386461833455, guid: 603aceebdfe11e048a59677fdbc3a90c, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1818299386461833455, guid: 603aceebdfe11e048a59677fdbc3a90c, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1818299386461833455, guid: 603aceebdfe11e048a59677fdbc3a90c, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1818299386461833455, guid: 603aceebdfe11e048a59677fdbc3a90c, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1818299386461833455, guid: 603aceebdfe11e048a59677fdbc3a90c, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1818299386461833455, guid: 603aceebdfe11e048a59677fdbc3a90c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1818299386461833455, guid: 603aceebdfe11e048a59677fdbc3a90c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1818299386461833455, guid: 603aceebdfe11e048a59677fdbc3a90c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 603aceebdfe11e048a59677fdbc3a90c, type: 3}
 --- !u!1001 &1043076831
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -728,6 +682,10 @@ PrefabInstance:
     - target: {fileID: 428804735140336026, guid: b3624fa3d2367944f9f9ff9793633969, type: 3}
       propertyPath: m_Name
       value: Singletons
+      objectReference: {fileID: 0}
+    - target: {fileID: 428804735140336026, guid: b3624fa3d2367944f9f9ff9793633969, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4658088288143552190, guid: b3624fa3d2367944f9f9ff9793633969, type: 3}
       propertyPath: m_RootOrder
@@ -846,6 +804,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 81762633, guid: 28a067a8b113e3a4aadb83e0e82a16bd, type: 3}
+      propertyPath: unityEventResponse.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: EnemyEncounterManager, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 6256734607495897998, guid: 28a067a8b113e3a4aadb83e0e82a16bd, type: 3}
       propertyPath: m_Name
       value: EncounterManager
@@ -901,7 +863,7 @@ PrefabInstance:
     - target: {fileID: 8734870270850589833, guid: 28a067a8b113e3a4aadb83e0e82a16bd, type: 3}
       propertyPath: postCombatUI
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1780558700}
     - target: {fileID: 8734870270850589833, guid: 28a067a8b113e3a4aadb83e0e82a16bd, type: 3}
       propertyPath: postGamePopup
       value: 
@@ -935,6 +897,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1859504791819314557, guid: e441e414e09d0544e8a2cd6a1c894efa, type: 3}
+      propertyPath: listener
+      value: 
+      objectReference: {fileID: 343170799}
     - target: {fileID: 2320420030167575750, guid: e441e414e09d0544e8a2cd6a1c894efa, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1027,6 +993,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ManaManager
       objectReference: {fileID: 0}
+    - target: {fileID: 7195151875496105077, guid: e441e414e09d0544e8a2cd6a1c894efa, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 421675536468758986, guid: e441e414e09d0544e8a2cd6a1c894efa, type: 3}
     m_RemovedGameObjects: []
@@ -1064,6 +1034,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   encounterConstants: {fileID: 11400000, guid: 4000d3b01acf1f1459ac789f20856055, type: 2}
   turnPhaseEvent: {fileID: 11400000, guid: 8731090c52e897e459ac12df3da5fc3a, type: 2}
+  enemies: []
 --- !u!4 &1385568340
 Transform:
   m_ObjectHideFlags: 0
@@ -1156,6 +1127,11 @@ Transform:
   - {fileID: 56903198}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1780558700 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 782144209338830068, guid: a01603c96ed613e4dadddb16c94272d3, type: 3}
+  m_PrefabInstance: {fileID: 7403373190793623571}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1941419468
 GameObject:
   m_ObjectHideFlags: 0
@@ -1298,6 +1274,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CombatCanvasUIDocument
       objectReference: {fileID: 0}
+    - target: {fileID: 2627483554680799874, guid: a01603c96ed613e4dadddb16c94272d3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2709482351621439903, guid: a01603c96ed613e4dadddb16c94272d3, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1382,9 +1362,15 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 430066739}
-    m_RemovedComponents:
-    - {fileID: 7450656872853957637, guid: a01603c96ed613e4dadddb16c94272d3, type: 3}
-    - {fileID: 1704252872585834326, guid: a01603c96ed613e4dadddb16c94272d3, type: 3}
+    - target: {fileID: 4147916199906028967, guid: a01603c96ed613e4dadddb16c94272d3, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8153826115907633482, guid: a01603c96ed613e4dadddb16c94272d3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -1408,4 +1394,3 @@ SceneRoots:
   - {fileID: 1332886775}
   - {fileID: 700600524}
   - {fileID: 1087128280}
-  - {fileID: 950221460}

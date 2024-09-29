@@ -6,7 +6,7 @@ using TMPro;
 
 public class CardDisplay : MonoBehaviour
 {
-    public Card cardInfo;
+    public Card card;
 
     public TMP_Text CardNameGO;
     public TMP_Text CostTextGO;
@@ -50,10 +50,10 @@ public class CardDisplay : MonoBehaviour
     void Update()
     {
         // this code is changing anyways :p
-        if(initialized && (cardInfo.CardModificationsHasKey(CardModification.ThisTurnManaDecrease)
-            || cardInfo.CardModificationsHasKey(CardModification.ThisCombatManaDecrease))) {
+        if(initialized && (card.CardModificationsHasKey(CardModification.ThisTurnManaDecrease)
+            || card.CardModificationsHasKey(CardModification.ThisCombatManaDecrease))) {
                 manaCostText.color = modifiedManaCostColor;
-                manaCostText.text = cardInfo.GetManaCost().ToString();
+                manaCostText.text = card.GetManaCost().ToString();
             } else {
                 manaCostText.color = initManaCostColor;
             }
@@ -62,7 +62,7 @@ public class CardDisplay : MonoBehaviour
 
     void Awake()
     {
-        if(cardInfo == null)
+        if(card == null)
         {
             Debug.LogError("CardDisplay " + gameObject.name + " has no cardInfo");
         }
@@ -73,7 +73,7 @@ public class CardDisplay : MonoBehaviour
     }
 
     public IEnumerator InitializeCorout(Card cardInfo) {
-        this.cardInfo = cardInfo;
+        this.card = cardInfo;
         // these are also done on Update(), keeping em here in case we wanna remove that
         // easy perf boost if we can
         CardNameGO.text = cardInfo.name;
@@ -137,7 +137,7 @@ public class CardDisplay : MonoBehaviour
     }
 
     public Card getCardInfo() {
-        return cardInfo;
+        return card;
     }
 
 

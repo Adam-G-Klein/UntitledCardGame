@@ -44,8 +44,9 @@ public class TurnManager : GenericSingleton<TurnManager>
     }
 
     private IEnumerator LateStart() {
-        yield return new WaitForEndOfFrame();
+        yield return new WaitUntil(() => EnemyEncounterManager.Instance.IsEncounterBuilt());
         StartCoroutine(turnPhaseEvent.RaiseAtEndOfFrameCoroutine(new TurnPhaseEventInfo(TurnPhase.START_ENCOUNTER)));
+        EnemyEncounterViewModel.Instance.SetStateDirty();
     }
 
     public void turnPhaseChangedEventHandler(TurnPhaseEventInfo info) {
@@ -68,6 +69,8 @@ public class TurnManager : GenericSingleton<TurnManager>
             return;
         }
         StartCoroutine(nextPhaseAfterTriggers(info.newPhase));
+        Debug.Log("EnemyInstance: UpdateView");
+        EnemyEncounterViewModel.Instance.SetStateDirty();
     }
 
     private IEnumerator changeTurnPhaseContinueCoroutine(TurnPhaseEventInfo info) {
@@ -89,6 +92,8 @@ public class TurnManager : GenericSingleton<TurnManager>
         // by another coroutine before this coroutine resumes and checks; not foolproof.
         yield return new WaitUntil(() => EffectManager.Instance.IsEffectRunning() == false);
         StartCoroutine(turnPhaseEvent.RaiseAtEndOfFrameCoroutine(new TurnPhaseEventInfo(nextPhase[currentPhase])));
+        Debug.Log("EnemyInstance: UpdateView");
+        EnemyEncounterViewModel.Instance.SetStateDirty();
     }
 
     private IEnumerator runTriggersForPhase(TurnPhase phase) {
@@ -104,6 +109,7 @@ public class TurnManager : GenericSingleton<TurnManager>
     }
 
     private IEnumerator runEndEncounterTriggers() {
+        Debug.Log("TurnPhaseManager: Running triggers for endEncounter");
         foreach(TurnPhaseTrigger trigger in turnPhaseTriggers[TurnPhase.END_ENCOUNTER]) {
             yield return StartCoroutine(trigger.triggerResponse.GetEnumerator());
         }

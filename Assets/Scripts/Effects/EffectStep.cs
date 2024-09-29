@@ -59,6 +59,8 @@ public abstract class EffectStep
     public string effectStepName;
     public virtual IEnumerator invoke(EffectDocument document) {
         yield return null;
+        Debug.Log("EffectStep: UpdateView");
+        EnemyEncounterViewModel.Instance.SetStateDirty();
     }
 
     protected void EffectError(string errorString) {

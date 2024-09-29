@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 
-[RequireComponent(typeof(CardDisplay))]
+[RequireComponent(typeof(UIDocumentCard))]
 [RequireComponent(typeof(UIStateEventListener))]
 [RequireComponent(typeof(Targetable))]
 public class PlayableCard : MonoBehaviour,
@@ -33,13 +33,16 @@ public class PlayableCard : MonoBehaviour,
     public AudioClip cardHover;
     public float hoverSFXVolume = 0.1f;
 
+    private UIDocumentCard docCard;
+
     public void Start()
     {
-        card = GetComponent<CardDisplay>().getCardInfo();
+        docCard = GetComponent<UIDocumentCard>();
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        Debug.Log("Card clicked");
         if (currentState != UIState.DEFAULT) return;
 
         if (card.GetManaCost() > ManaManager.Instance.currentMana
@@ -73,18 +76,25 @@ public class PlayableCard : MonoBehaviour,
     }
 
     public void DiscardCardFromHand() {
+        // PlayerHand calls discard from deck when done discarding from hand
         PlayerHand.Instance.DiscardCard(this);
-        Destroy(this.gameObject);
     }
 
     public void ExhaustCard() {
         deckFrom.ExhaustCard(card);
-        Destroy(this.gameObject);
+        cleanupAndDestroy();
     }
 
     // Called by playerHand.discardCard
-    public void DiscardFromDeck() {
+    public void DiscardToDeck() {
         deckFrom.DiscardCards(new List<Card> { card });
+        cleanupAndDestroy();
+    }
+
+    public void cleanupAndDestroy() {
+        docCard.Cleanup(() => {
+            Destroy(this.gameObject);
+        });
     }
 
     // Keeping these here for reference as they will almost certainly
@@ -96,7 +106,6 @@ public class PlayableCard : MonoBehaviour,
         hovered = true;
         MusicController.Instance.PlaySFX(cardHover, hoverSFXVolume);
         transform.localScale = new Vector3(hoverScale, hoverScale, 1);
-        PlayerHand.Instance.UpdateLayout();
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -104,7 +113,6 @@ public class PlayableCard : MonoBehaviour,
         if (!hovered) return;
         hovered = false;
         transform.localScale = new Vector3(nonHoverScale, nonHoverScale, 1);
-        PlayerHand.Instance.UpdateLayout();
     }
 
     // Used when instantiating the card after Start has run

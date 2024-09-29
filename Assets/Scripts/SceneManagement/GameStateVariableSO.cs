@@ -51,8 +51,8 @@ public class GameStateVariableSO : ScriptableObject
         {Location.MAP, "Map"},
         {Location.TEAM_SELECT, "TeamSelect"},
         {Location.PRE_COMBAT_SPLASH, "PreCombatSplash"},
-        {Location.COMBAT, "PlaceholderEnemyEncounter"},
-        {Location.POST_COMBAT, "PlaceholderEnemyEncounter"},
+        {Location.COMBAT, "CombatScene"},
+        {Location.POST_COMBAT, "CombatScene"},
         {Location.SHOP, "PlaceholderShopEncounter"},
         {Location.INTRO_CUTSCENE, "IntroCutscene"},
         // not implemented yet

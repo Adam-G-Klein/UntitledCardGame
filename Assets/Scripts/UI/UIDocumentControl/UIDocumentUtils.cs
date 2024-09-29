@@ -37,45 +37,10 @@ public class UIDocumentUtils : MonoBehaviour
         return container;
     }
 
-    public static void SetAllPickingMode(VisualElement ve, PickingMode pickingMode){
-        ve.pickingMode = pickingMode;
+    public static void SetAllPickingMode(VisualElement ve, PickingMode mode){
+        ve.pickingMode = mode;
         foreach (VisualElement child in ve.Children()){
-            SetAllPickingMode(child, pickingMode);
+            SetAllPickingMode(child, mode);
         }
     }
-
-    // TODO, this method could be flexible enough to register different methods for all of these pointer actions
-    // leavin it easy for now because I'm just using it for setStateDirty
-    public static void SetAllPointerEventsToCallback(VisualElement ve, Action callback){
-        ve.pickingMode = PickingMode.Position;
-
-        // so we get the nice default hover animation
-        ve.RegisterCallback<PointerEnterEvent>((evt) => {
-            callback.Invoke();
-        });
-
-        ve.RegisterCallback<PointerLeaveEvent>((evt) => {
-            callback.Invoke();
-        });
-
-        ve.RegisterCallback<ClickEvent>((evt) => {
-            callback.Invoke();
-        });
-    }
-
-    /// <summary>
-    /// Recursively sets all pointer events on a visual element and its children to a callback
-    /// DO NOT USE UNLESS YOU'RE READY FOR THIS CALLBACK TO BE CALLED A LOT
-    /// This is just a slight optimization over calling the callback in Update()
-    /// </summary>
-    /// <param name="ve"></param>
-    /// <param name="callback"></param>
-    public static void RecursivelySetAllPointerEventsToCallback(VisualElement ve, Action callback) {
-        SetAllPointerEventsToCallback(ve, callback);
-        foreach (VisualElement child in ve.Children()){
-            RecursivelySetAllPointerEventsToCallback(child, callback);
-        }
-    }
-
-
 }

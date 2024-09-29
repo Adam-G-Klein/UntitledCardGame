@@ -1,0 +1,13 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/Tests/testCombatclasses.uss?fileID=7433441132597879392&amp;guid=7374c19a601730c40b5268ed26901695&amp;type=3#testCombatclasses" />
+    <Style src="project://database/Assets/UI/common.uss?fileID=7433441132597879392&amp;guid=8d0bc28a2ed710a44b762e4c857ac6f9&amp;type=3#common" />
+    <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); margin-left: 100px; margin-right: 100px; margin-top: 100px; margin-bottom: 100px; -unity-text-align: middle-center;">
+        <ui:VisualElement name="VisualElement" style="flex-grow: 1; background-color: rgb(255, 255, 255); flex-direction: column; -unity-text-align: middle-center;">
+            <ui:Label tabindex="-1" text="END OF COMBAT INTERSTITIAL" display-tooltip-when-elided="true" />
+            <ui:Label tabindex="-1" text="someone should TOTALLYYY make this prettier :&apos;)" display-tooltip-when-elided="true" />
+            <ui:Label tabindex="-1" text="actually wait yknow what" display-tooltip-when-elided="true" />
+            <ui:Label tabindex="-1" text="this is perfectly fine. fuckin ship it. I can do no wrong" display-tooltip-when-elided="true" />
+            <ui:Button text="click for next scene&#10;" display-tooltip-when-elided="true" name="next-scene" style="font-size: 20px; position: absolute; top: 261px; left: 72px; width: 191px; height: 65px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

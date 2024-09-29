@@ -10,7 +10,9 @@ using UnityEngine.UI;
 public class EnemyInstance : MonoBehaviour {
     public Enemy enemy;
     public CombatInstance combatInstance;
+    [Header("Image or SpriteRenderer required in children")]
     public Image spriteImage;
+    public SpriteRenderer spriteRenderer;
 
     public EnemyIntent currentIntent;
     public TurnPhaseTriggerEvent registerTurnPhaseTriggerEvent;
@@ -27,7 +29,13 @@ public class EnemyInstance : MonoBehaviour {
     public void Start() {
         CombatEntityManager.Instance.registerEnemy(this);
         this.intentDisplay = GetComponentInChildren<EnemyIntentDisplay>();
-        spriteImage.sprite = enemy.enemyType.sprite;
+        this.spriteImage = GetComponentInChildren<Image>();
+        this.spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        if(spriteImage) {
+            spriteImage.sprite = enemy.enemyType.sprite;
+        } else if (spriteRenderer) {
+            spriteRenderer.sprite = enemy.enemyType.sprite;
+        }
         combatInstance.parentType = CombatInstance.CombatInstanceParent.ENEMY;
         combatInstance.combatStats = enemy.combatStats;
         // Reset the behavior indices on the EnemyBrain to zero.
@@ -61,6 +69,8 @@ public class EnemyInstance : MonoBehaviour {
 
     private IEnumerable DeclareIntent() {
         currentIntent = enemy.ChooseIntent(this);
+        Debug.Log("EnemyInstance: UpdateView");
+        EnemyEncounterViewModel.Instance.SetStateDirty();
         yield return null;
         // yield return intentDisplay.displayIntent(this);
     }

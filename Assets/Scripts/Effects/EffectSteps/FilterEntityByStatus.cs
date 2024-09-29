@@ -52,7 +52,7 @@ public class FilterEntityByStatus : EffectStep
     private void FilterEnemyInstances(
             EffectDocument document,
             List<CombatInstance> filteredCombatInstances) {
-        List<EnemyInstance> enemyInstances = document.map.GetList<EnemyInstance>(inputKey);
+        List<EnemyInstance> enemyInstances = document.map.TryGetList<EnemyInstance>(inputKey);
         List<EnemyInstance> filteredEnemyInstances = new List<EnemyInstance>();
         foreach (EnemyInstance instance in enemyInstances) {
             if (filteredCombatInstances.Contains(instance.combatInstance)) {
@@ -65,7 +65,7 @@ public class FilterEntityByStatus : EffectStep
     private void FilterDeckInstances(
             EffectDocument document,
             List<CombatInstance> filteredCombatInstances) {
-        List<DeckInstance> deckInstances = document.map.GetList<DeckInstance>(inputKey);
+        List<DeckInstance> deckInstances = document.map.TryGetList<DeckInstance>(inputKey);
         List<DeckInstance> filteredDeckInstances = new List<DeckInstance>();
         foreach (DeckInstance instance in deckInstances) {
             if (filteredCombatInstances.Contains(instance.combatInstance)) {

@@ -2,35 +2,41 @@ using UnityEngine;
 using System;
 using UnityEngine.UIElements;
 using System.Collections;
+using UnityEditor;
 using UnityEngine.UI;
 
+[InitializeOnLoad]
 [RequireComponent(typeof(RawImage))]
 [RequireComponent(typeof(UIDocument))]
 public class UIDocumentScreenspace : MonoBehaviour {
 
     [SerializeField]
-    private UIDocument doc;
+    public UIDocument doc;
     private RawImage image;
     [SerializeField]
     private Texture2D texture {get;set;}
     [SerializeField]
     public bool stateDirty = true;
-
-    public PickingMode pickingMode = PickingMode.Ignore;
+    public bool initialized = false;
 
     void Awake() {
         if(!doc) {
             Debug.LogError("UIDocumentScreenspace: No UIDocument component set on this script. Please set it from the component attached to the gameobject so we load the scene 1 frame faster :)");
         }
         // Do this in awake so individual controllers can enable clicking on the elements they care about
-        UIDocumentUtils.SetAllPickingMode(doc.rootVisualElement, pickingMode);
+        UIDocumentUtils.SetAllPickingMode(doc.rootVisualElement, PickingMode.Ignore);
 
         // Do this in Awake so we can query for element positions sooner
         UpdateRenderTexture();
-
-        // Set all of the onclick / onhover / on interact for all elements to call state dirty as a callback
-        // TODO
+        initialized = true;
     }
+
+    void OnEnable() {
+        if(!initialized) {
+            Awake();
+        }
+    }
+
     void Start() {
         
     }
@@ -92,14 +98,6 @@ public class UIDocumentScreenspace : MonoBehaviour {
         // (RenderTextures are not garbage collected objects).
         rt.Release();
         completionAction?.Invoke(texture);
-    }
-
-    public void ActiveAllClickInteractions(){
-        Debug.Log("Setting all picking mode to position");
-        pickingMode = PickingMode.Position;
-        UIDocumentUtils.RecursivelySetAllPointerEventsToCallback(doc.rootVisualElement, () => {
-            SetStateDirty();
-        });
     }
 
 }

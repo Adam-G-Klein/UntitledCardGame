@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 /*
     This interface is implementing the visitor pattern for our encounter objects.
@@ -14,13 +15,11 @@ using UnityEngine;
 */
 public interface IEncounterBuilder
 {
-    public void BuildEnemyEncounter(EnemyEncounter encounter, LocationStore companionLocationStore, LocationStore enemyLocationStore);
+    public void BuildEnemyEncounter(EnemyEncounter encounter, UIDocumentGameObjectPlacer placer);
     public void BuildShopEncounter(ShopEncounter encounter);
+    public UIDocumentGameObjectPlacer placer { get; set; }
+    public Transform transform { get; }
 
-    // yep sorry, gotta break things :( This pattern was obviously not meant to take in things from the 
-    // scene but we have to in order to get companion locations properly integrated
 
-    public LocationStore companionLocationStore { get; set; }
-    public LocationStore enemyLocationStore { get; set; }
 
 }

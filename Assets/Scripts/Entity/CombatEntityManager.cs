@@ -10,6 +10,7 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
     // This list assumes ordering
     private List<CompanionInstance> companions = new List<CompanionInstance>();
     private List<MinionInstance> minions = new List<MinionInstance>();
+    [SerializeField]
     private List<EnemyInstance> enemies = new List<EnemyInstance>();
 
     private Dictionary<CombatEntityTriggerType, List<CombatEntityTrigger>> combatEntityTriggers =

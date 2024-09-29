@@ -1,0 +1,283 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/Tests/testCombatclasses.uss?fileID=7433441132597879392&amp;guid=7374c19a601730c40b5268ed26901695&amp;type=3#testCombatclasses" />
+    <Style src="project://database/Assets/UI/common.uss?fileID=7433441132597879392&amp;guid=8d0bc28a2ed710a44b762e4c857ac6f9&amp;type=3#common" />
+    <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: column;">
+        <ui:VisualElement name="VisualElement" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); height: 33%; justify-content: center; flex-direction: row; align-self: auto; align-items: flex-end;">
+            <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); min-width: 80%; min-height: 100%; flex-direction: row; width: 80%; height: 100%; max-width: 80%; max-height: 100%; justify-content: space-around; align-items: flex-start;">
+                <ui:VisualElement name="EntityPillar" class="entity-pillar">
+                    <ui:VisualElement name="triangle" class="top-triangle" />
+                    <ui:VisualElement name="container" class="container">
+                        <ui:VisualElement name="CardContainer" class="pillar-container">
+                            <ui:VisualElement name="Armor" class="armorTab">
+                                <ui:Label tabindex="-1" display-tooltip-when-elided="true" name="armorLabel" text="99" class="pillar-tab-text" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="Health" class="healthTab">
+                                <ui:Label tabindex="-1" display-tooltip-when-elided="true" text="10" name="healthLabel" class="pillar-tab-text" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="Nuthin" class="nuthin">
+                                <ui:Label tabindex="-1" display-tooltip-when-elided="true" name="nuthinLabel" class="pillar-tab-text" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="Shield" class="shield">
+                                <ui:Label tabindex="-1" display-tooltip-when-elided="true" name="shieldLabel" text="99" class="pillar-tab-text" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="PortraitContainer" class="portrait-container" />
+                            <ui:VisualElement class="pillar-details">
+                                <ui:VisualElement name="VisualElement" class="pillar-name">
+                                    <ui:Label tabindex="-1" text="Aborah - Beta" display-tooltip-when-elided="true" name="CharacterNameLabel" class="pillar-name" />
+                                </ui:VisualElement>
+                                <ui:VisualElement class="pillar-text">
+                                    <ui:Label tabindex="-1" text="There was was a man who was sleepy so he poured himself a pot of coffee soon oh the anxiety comes, so he drinks more and more!" display-tooltip-when-elided="true" name="CharacterText" class="pillar-desc-label" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="EntityPillar" class="entity-pillar">
+                    <ui:VisualElement name="triangle" class="top-triangle" />
+                    <ui:VisualElement name="container" class="container">
+                        <ui:VisualElement name="CardContainer" class="pillar-container">
+                            <ui:VisualElement name="Armor" class="armorTab">
+                                <ui:Label tabindex="-1" display-tooltip-when-elided="true" name="armorLabel" class="pillar-tab-text" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="Health" style="flex-grow: 1; background-color: rgb(88, 67, 44); position: absolute; width: 10%; height: 6.5%; top: 20px; left: -18px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; justify-content: center;">
+                                <ui:Label tabindex="-1" display-tooltip-when-elided="true" text="10" name="healthLabel" class="pillar-tab-text" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="PortraitContainer" class="portrait-container" />
+                            <ui:VisualElement class="pillar-details">
+                                <ui:VisualElement class="pillar-name">
+                                    <ui:Label tabindex="-1" text="Aborah - Beta&#10;" display-tooltip-when-elided="true" name="CharacterNameLabel" class="pillar-name" />
+                                </ui:VisualElement>
+                                <ui:VisualElement class="pillar-text">
+                                    <ui:Label tabindex="-1" text="There was was a man who was sleepy so he poured himself a pot of coffee soon oh the anxiety comes, so he drinks more and more!" display-tooltip-when-elided="true" name="CharacterText" style="height: 100%; width: 100%; white-space: normal; align-self: flex-start; -unity-text-align: upper-center;" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                            <ui:VisualElement name="Nuthin" class="nuthin">
+                                <ui:Label tabindex="-1" display-tooltip-when-elided="true" name="nuthinLabel" class="pillar-tab-text" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="Shield" class="shield">
+                                <ui:Label tabindex="-1" display-tooltip-when-elided="true" name="shieldLabel" class="pillar-tab-text" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); height: 33%; align-items: center;">
+            <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); min-width: 80%; min-height: 100%; flex-direction: row; width: 80%; height: 100%; max-width: 80%; max-height: 100%; justify-content: space-around; align-items: flex-start;">
+                <ui:VisualElement name="EntityPillar" class="entity-pillar">
+                    <ui:VisualElement name="triangle" class="top-triangle" />
+                    <ui:VisualElement name="container" class="container">
+                        <ui:VisualElement name="CardContainer" class="pillar-container">
+                            <ui:VisualElement name="Armor" class="armorTab">
+                                <ui:Label tabindex="-1" display-tooltip-when-elided="true" name="armorLabel" class="pillar-tab-text" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="Health" style="flex-grow: 1; background-color: rgb(88, 67, 44); position: absolute; width: 10%; height: 6.5%; top: 20px; left: -18px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; justify-content: center;">
+                                <ui:Label tabindex="-1" display-tooltip-when-elided="true" text="10" name="healthLabel" class="pillar-tab-text healthTab" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="PortraitContainer" class="portrait-container" />
+                            <ui:VisualElement class="pillar-details">
+                                <ui:VisualElement class="pillar-name">
+                                    <ui:Label tabindex="-1" text="Aborah - Beta&#10;" display-tooltip-when-elided="true" name="CharacterNameLabel" class="pillar-name" />
+                                </ui:VisualElement>
+                                <ui:VisualElement class="pillar-text">
+                                    <ui:Label tabindex="-1" text="There was was a man who was sleepy so he poured himself a pot of coffee soon oh the anxiety comes, so he drinks more and more!" display-tooltip-when-elided="true" name="CharacterText" style="height: 100%; width: 100%; white-space: normal; align-self: flex-start; -unity-text-align: upper-center;" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                            <ui:VisualElement name="Nuthin" class="nuthin">
+                                <ui:Label tabindex="-1" display-tooltip-when-elided="true" name="nuthinLabel" class="pillar-tab-text" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="Shield" class="shield">
+                                <ui:Label tabindex="-1" display-tooltip-when-elided="true" name="shieldLabel" class="pillar-tab-text" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="EntityPillar" class="entity-pillar">
+                    <ui:VisualElement name="triangle" class="top-triangle" />
+                    <ui:VisualElement name="container" class="container">
+                        <ui:VisualElement name="CardContainer" class="pillar-container">
+                            <ui:VisualElement name="Armor" class="armorTab">
+                                <ui:Label tabindex="-1" display-tooltip-when-elided="true" name="armorLabel" class="pillar-tab-text" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="Health" style="flex-grow: 1; background-color: rgb(88, 67, 44); position: absolute; width: 10%; height: 6.5%; top: 20px; left: -18px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; justify-content: center;">
+                                <ui:Label tabindex="-1" display-tooltip-when-elided="true" text="10" name="healthLabel" class="pillar-tab-text healthTab" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="PortraitContainer" class="portrait-container" />
+                            <ui:VisualElement class="pillar-details">
+                                <ui:VisualElement class="pillar-name">
+                                    <ui:Label tabindex="-1" text="Aborah - Beta&#10;" display-tooltip-when-elided="true" name="CharacterNameLabel" class="pillar-name" />
+                                </ui:VisualElement>
+                                <ui:VisualElement class="pillar-text">
+                                    <ui:Label tabindex="-1" text="There was was a man who was sleepy so he poured himself a pot of coffee soon oh the anxiety comes, so he drinks more and more!" display-tooltip-when-elided="true" name="CharacterText" style="height: 100%; width: 100%; white-space: normal; align-self: flex-start; -unity-text-align: upper-center;" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                            <ui:VisualElement name="Nuthin" class="nuthin">
+                                <ui:Label tabindex="-1" display-tooltip-when-elided="true" name="nuthinLabel" class="pillar-tab-text" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="Shield" class="shield">
+                                <ui:Label tabindex="-1" display-tooltip-when-elided="true" name="shieldLabel" class="pillar-tab-text" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="EntityPillar" class="entity-pillar">
+                    <ui:VisualElement name="triangle" class="top-triangle" />
+                    <ui:VisualElement name="container" class="container">
+                        <ui:VisualElement name="CardContainer" class="pillar-container">
+                            <ui:VisualElement name="Armor" class="armorTab">
+                                <ui:Label tabindex="-1" display-tooltip-when-elided="true" name="armorLabel" class="pillar-tab-text" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="Health" style="flex-grow: 1; background-color: rgb(88, 67, 44); position: absolute; width: 10%; height: 6.5%; top: 20px; left: -18px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; justify-content: center;">
+                                <ui:Label tabindex="-1" display-tooltip-when-elided="true" text="10" name="healthLabel" class="pillar-tab-text healthTab" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="PortraitContainer" class="portrait-container" />
+                            <ui:VisualElement class="pillar-details">
+                                <ui:VisualElement class="pillar-name">
+                                    <ui:Label tabindex="-1" text="Aborah - Beta&#10;" display-tooltip-when-elided="true" name="CharacterNameLabel" class="pillar-name" />
+                                </ui:VisualElement>
+                                <ui:VisualElement class="pillar-text">
+                                    <ui:Label tabindex="-1" text="There was was a man who was sleepy so he poured himself a pot of coffee soon oh the anxiety comes, so he drinks more and more!" display-tooltip-when-elided="true" name="CharacterText" style="height: 100%; width: 100%; white-space: normal; align-self: flex-start; -unity-text-align: upper-center;" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                            <ui:VisualElement name="Nuthin" class="nuthin">
+                                <ui:Label tabindex="-1" display-tooltip-when-elided="true" name="nuthinLabel" class="pillar-tab-text" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="Shield" class="shield">
+                                <ui:Label tabindex="-1" display-tooltip-when-elided="true" name="shieldLabel" class="pillar-tab-text" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="EntityPillar" class="entity-pillar">
+                    <ui:VisualElement name="triangle" class="top-triangle" />
+                    <ui:VisualElement name="container" class="container">
+                        <ui:VisualElement name="CardContainer" class="pillar-container">
+                            <ui:VisualElement name="Armor" class="armorTab">
+                                <ui:Label tabindex="-1" display-tooltip-when-elided="true" name="armorLabel" class="pillar-tab-text" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="Health" style="flex-grow: 1; background-color: rgb(88, 67, 44); position: absolute; width: 10%; height: 6.5%; top: 20px; left: -18px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; justify-content: center;">
+                                <ui:Label tabindex="-1" display-tooltip-when-elided="true" text="10" name="healthLabel" class="pillar-tab-text healthTab" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="PortraitContainer" class="portrait-container" />
+                            <ui:VisualElement class="pillar-details">
+                                <ui:VisualElement class="pillar-name">
+                                    <ui:Label tabindex="-1" text="Aborah - Beta&#10;" display-tooltip-when-elided="true" name="CharacterNameLabel" class="pillar-name" />
+                                </ui:VisualElement>
+                                <ui:VisualElement class="pillar-text">
+                                    <ui:Label tabindex="-1" text="There was was a man who was sleepy so he poured himself a pot of coffee soon oh the anxiety comes, so he drinks more and more!" display-tooltip-when-elided="true" name="CharacterText" style="height: 100%; width: 100%; white-space: normal; align-self: flex-start; -unity-text-align: upper-center;" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                            <ui:VisualElement name="Nuthin" class="nuthin">
+                                <ui:Label tabindex="-1" display-tooltip-when-elided="true" name="nuthinLabel" class="pillar-tab-text" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="Shield" class="shield">
+                                <ui:Label tabindex="-1" display-tooltip-when-elided="true" name="shieldLabel" class="pillar-tab-text" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="EntityPillar" class="entity-pillar">
+                    <ui:VisualElement name="triangle" class="top-triangle" />
+                    <ui:VisualElement name="container" class="container">
+                        <ui:VisualElement name="CardContainer" class="pillar-container">
+                            <ui:VisualElement name="Armor" class="armorTab">
+                                <ui:Label tabindex="-1" display-tooltip-when-elided="true" name="armorLabel" class="pillar-tab-text" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="Health" style="flex-grow: 1; background-color: rgb(88, 67, 44); position: absolute; width: 10%; height: 6.5%; top: 20px; left: -18px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; justify-content: center;">
+                                <ui:Label tabindex="-1" display-tooltip-when-elided="true" text="10" name="healthLabel" class="pillar-tab-text healthTab" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="PortraitContainer" class="portrait-container" />
+                            <ui:VisualElement class="pillar-details">
+                                <ui:VisualElement class="pillar-name">
+                                    <ui:Label tabindex="-1" text="Aborah - Beta&#10;" display-tooltip-when-elided="true" name="CharacterNameLabel" class="pillar-name" />
+                                </ui:VisualElement>
+                                <ui:VisualElement class="pillar-text">
+                                    <ui:Label tabindex="-1" text="There was was a man who was sleepy so he poured himself a pot of coffee soon oh the anxiety comes, so he drinks more and more!" display-tooltip-when-elided="true" name="CharacterText" style="height: 100%; width: 100%; white-space: normal; align-self: flex-start; -unity-text-align: upper-center;" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                            <ui:VisualElement name="Nuthin" class="nuthin">
+                                <ui:Label tabindex="-1" display-tooltip-when-elided="true" name="nuthinLabel" class="pillar-tab-text" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="Shield" class="shield">
+                                <ui:Label tabindex="-1" display-tooltip-when-elided="true" name="shieldLabel" class="pillar-tab-text" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); height: 33%; align-items: center;">
+            <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); width: 80%; flex-direction: row; justify-content: space-around;">
+                <ui:VisualElement name="VisualElement" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); min-width: auto; min-height: auto; width: 30%; flex-direction: row; height: 100%; justify-content: center; align-items: center;">
+                    <ui:VisualElement name="card-1" class="card-container" style="width: 50%;">
+                        <ui:Label tabindex="-1" text="1" display-tooltip-when-elided="true" class="mana-card-label" />
+                        <ui:VisualElement class="card-image" />
+                        <ui:Label tabindex="-1" text="CardName" display-tooltip-when-elided="true" class="card-title-label" />
+                        <ui:Label tabindex="-1" text="Card Desc" display-tooltip-when-elided="true" class="card-desc-label" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="card-1" class="card-container" style="width: 50%;">
+                        <ui:Label tabindex="-1" text="1" display-tooltip-when-elided="true" class="mana-card-label" />
+                        <ui:VisualElement class="card-image" />
+                        <ui:Label tabindex="-1" text="CardName" display-tooltip-when-elided="true" class="card-title-label" />
+                        <ui:Label tabindex="-1" text="Card Desc" display-tooltip-when-elided="true" class="card-desc-label" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="VisualElement" class="companion-cards-placer">
+                    <ui:VisualElement name="card-1" class="card-container" style="width: 50%;">
+                        <ui:Label tabindex="-1" text="1" display-tooltip-when-elided="true" class="mana-card-label" />
+                        <ui:VisualElement class="card-image" />
+                        <ui:Label tabindex="-1" text="CardName" display-tooltip-when-elided="true" class="card-title-label" />
+                        <ui:Label tabindex="-1" text="Card Desc" display-tooltip-when-elided="true" class="card-desc-label" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="card-1" class="cardPlace" />
+                </ui:VisualElement>
+                <ui:VisualElement name="VisualElement" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); min-width: auto; min-height: auto; width: 30%; flex-direction: row; height: 100%; justify-content: center; align-items: center;">
+                    <ui:VisualElement name="card-1" class="card-container" style="width: 50%;">
+                        <ui:Label tabindex="-1" text="1" display-tooltip-when-elided="true" class="mana-card-label" />
+                        <ui:VisualElement class="card-image" />
+                        <ui:Label tabindex="-1" text="CardName" display-tooltip-when-elided="true" class="card-title-label" />
+                        <ui:Label tabindex="-1" text="Card Desc" display-tooltip-when-elided="true" class="card-desc-label" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="card-1" class="card-container" style="width: 50%;">
+                        <ui:Label tabindex="-1" text="1" display-tooltip-when-elided="true" class="mana-card-label" />
+                        <ui:VisualElement class="card-image" />
+                        <ui:Label tabindex="-1" text="CardName" display-tooltip-when-elided="true" class="card-title-label" />
+                        <ui:Label tabindex="-1" text="Card Desc" display-tooltip-when-elided="true" class="card-desc-label" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="VisualElement" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); min-width: auto; min-height: auto; width: 30%; flex-direction: row; height: 100%; justify-content: center; align-items: center;">
+                    <ui:VisualElement name="card-1" class="card-container" style="width: 50%;">
+                        <ui:Label tabindex="-1" text="1" display-tooltip-when-elided="true" class="mana-card-label" />
+                        <ui:VisualElement class="card-image" />
+                        <ui:Label tabindex="-1" text="CardName" display-tooltip-when-elided="true" class="card-title-label" />
+                        <ui:Label tabindex="-1" text="Card Desc" display-tooltip-when-elided="true" class="card-desc-label" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="card-1" class="card-container" style="width: 50%;">
+                        <ui:Label tabindex="-1" text="1" display-tooltip-when-elided="true" class="mana-card-label" />
+                        <ui:VisualElement class="card-image" />
+                        <ui:Label tabindex="-1" text="CardName" display-tooltip-when-elided="true" class="card-title-label" />
+                        <ui:Label tabindex="-1" text="Card Desc" display-tooltip-when-elided="true" class="card-desc-label" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="VisualElement" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); min-width: auto; min-height: auto; width: 30%; flex-direction: row; height: 100%; justify-content: center; align-items: center;">
+                    <ui:VisualElement name="card-1" class="card-container" style="width: 50%;">
+                        <ui:Label tabindex="-1" text="1" display-tooltip-when-elided="true" class="mana-card-label" />
+                        <ui:VisualElement class="card-image" />
+                        <ui:Label tabindex="-1" text="CardName" display-tooltip-when-elided="true" class="card-title-label" />
+                        <ui:Label tabindex="-1" text="Card Desc" display-tooltip-when-elided="true" class="card-desc-label" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="card-1" class="card-container" style="width: 50%;">
+                        <ui:Label tabindex="-1" text="1" display-tooltip-when-elided="true" class="mana-card-label" />
+                        <ui:VisualElement class="card-image" />
+                        <ui:Label tabindex="-1" text="CardName" display-tooltip-when-elided="true" class="card-title-label" />
+                        <ui:Label tabindex="-1" text="Card Desc" display-tooltip-when-elided="true" class="card-desc-label" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:Button text="End Turn" display-tooltip-when-elided="true" name="end-turn" style="font-size: 20px; position: absolute; top: 1019px; left: 1816px; width: 5%; height: 5%;" />
+        <ui:VisualElement name="mamna" style="flex-grow: 1; background-color: rgba(37, 51, 40, 0); background-image: url(&apos;project://database/Assets/Sprites/CardArt/mana.png?fileID=2800000&amp;guid=ebd3d0dd729f80e40a80297099aa71d5&amp;type=3#mana&apos;); position: absolute; top: 881px; left: -2px; height: 200px; width: 200px; align-items: center; align-self: auto; justify-content: center;">
+            <ui:Label tabindex="-1" text="-1" display-tooltip-when-elided="true" name="CounterUh" style="margin-top: -10px; font-size: 50px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

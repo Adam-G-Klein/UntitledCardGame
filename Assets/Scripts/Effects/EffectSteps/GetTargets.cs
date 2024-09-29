@@ -97,6 +97,7 @@ public class GetTargets : EffectStep
         } else if (specialTargetRule == SpecialTargetRule.TargetRandom) {
             GetTargetsRandomly(document);
         } else {
+            Debug.Log("TargettingManager.Instance.targetSuppliedHandler += TargetSuppliedHandler;");
             TargettingManager.Instance.targetSuppliedHandler += TargetSuppliedHandler;
             TargettingManager.Instance.cancelTargettingHandler += CancelHandler;
             TargettingArrowsController.Instance.createTargettingArrow(validTargets, self);
@@ -134,6 +135,7 @@ public class GetTargets : EffectStep
     }
 
     private void TargetSuppliedHandler(Targetable target) {
+        Debug.Log("Target supplied: " + target.gameObject.name);
         // Check if the provided target is disallowed
         if (disallowedTargets != null && disallowedTargets.Contains(target.gameObject))
             return;

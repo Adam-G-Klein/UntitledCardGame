@@ -13,7 +13,7 @@ public class KeywordTooltipMapping {
     public string title;
     public string description;
     public int relateBehaviorIndex;
-    public Image image;
+    public UnityEngine.UIElements.Image image;
     [HideInInspector]
     public TooltipViewModel tooltip { get {
         return new TooltipViewModel(title, description, relateBehaviorIndex, image);

@@ -9,7 +9,6 @@ using Unity.VisualScripting;
 
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(UIDocument))]
-[RequireComponent(typeof(PlayableCard))]
 public class UIDocumentCard : MonoBehaviour {
 
     private Card card;
@@ -26,8 +25,19 @@ public class UIDocumentCard : MonoBehaviour {
     public bool renderTextureConstantly = false;
     private bool renderTextureCoroutineIsRunning = false;
     void Start() {
-        card = GetComponent<PlayableCard>().card;
-        Invoke("LateStart", 0.1f);
+        PlayableCard pCard = GetComponent<PlayableCard>();
+        if(pCard != null) {
+            card = pCard.card;
+            Invoke("LateStart", 0.1f);
+            return;
+        }
+        CardInShop cCard = GetComponent<CardInShop>();
+        if(cCard != null) {
+            card = cCard.cardDisplay.card;
+            Invoke("LateStart", 0.1f);
+            return;
+        }
+        Debug.LogError("UIDocumentCard: No card in playableCard component");
     }
     void LateStart() {
         
@@ -62,10 +72,11 @@ public class UIDocumentCard : MonoBehaviour {
         StartCoroutine(coroutine.GetEnumerator());
     }
 
-    private void OnDestroy() {
-        Debug.Log("UIDocumentCard: OnDestroy");
+    public void Cleanup(Action postCleanupCallback) {
         CardPanelSettingsPooler.Instance.ReturnPanelSettings(doc.panelSettings);
         UIDocumentGameObjectPlacer.Instance.removeMapping(gameObject);
+        Debug.Log("UIDocumentCard: OnExitScreen");
+        postCleanupCallback.Invoke();
     }
     /*
     stolen from: https://forum.unity.com/threads/render-visualelement-to-texture.1169015/

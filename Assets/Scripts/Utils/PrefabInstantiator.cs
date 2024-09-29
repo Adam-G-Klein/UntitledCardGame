@@ -6,19 +6,14 @@ public static class PrefabInstantiator {
         GameObject cardPrefab,
         Transform parent,
         Card card,
-        DeckInstance deckFrom)
+        DeckInstance deckFrom,
+        Vector3 position)
     {
-        GameObject newCard = GameObject.Instantiate(cardPrefab, parent);
-        CardDisplay cardDisplay = newCard.GetComponent<CardDisplay>();
+        GameObject newCard = GameObject.Instantiate(cardPrefab, position, Quaternion.identity, parent);
         PlayableCard cardPlayable = newCard.GetComponent<PlayableCard>();
         // information flowing the wrong direction, deck should have it set
         CompanionInstance companionInstance = deckFrom.gameObject.GetComponent<CompanionInstance>();
         card.setCompanionFrom(companionInstance.companion.companionType);
-        if (companionInstance) {
-            cardDisplay.Initialize(card);
-        } else {
-            cardDisplay.Initialize(card);
-        }
         cardPlayable.SetCardInfo(card);
         cardPlayable.SetDeckFrom(deckFrom);
         return cardPlayable;
@@ -66,7 +61,7 @@ public static class PrefabInstantiator {
         return enemyInstance;
     }
 
-    public static TooltipView instantiateTooltipView(GameObject tooltipPrefab, TooltipViewModel tooltip, Vector2 position, Transform parent) {
+    public static TooltipView instantiateTooltipView(GameObject tooltipPrefab, TooltipViewModel tooltip, Vector3 position, Transform parent) {
         GameObject tooltipGO = GameObject.Instantiate(
             tooltipPrefab,
             position,

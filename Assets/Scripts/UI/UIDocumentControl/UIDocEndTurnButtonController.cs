@@ -18,6 +18,12 @@ public class UIDocEndTurnButtonController : MonoBehaviour {
     private VisualElement endTurnElement;
 
     void Start() {
+        StartCoroutine(LateStart());
+        
+    }
+
+    private IEnumerator LateStart() {
+        yield return new WaitUntil(() => UIDocumentGameObjectPlacer.Instance.IsReady());
         screenspaceDoc = GetComponent<UIDocumentScreenspace>();
 
         endTurnElement = screenspaceDoc.GetVisualElement("end-turn");
@@ -38,12 +44,12 @@ public class UIDocEndTurnButtonController : MonoBehaviour {
             endTurnButtonHandler();
         });
 
-
     }
 
     public void endTurnButtonHandler() {
-        if(endTurnButtonEnabled)
+        if(endTurnButtonEnabled) {
             StartCoroutine(turnPhaseEvent.RaiseAtEndOfFrameCoroutine(new TurnPhaseEventInfo(TurnPhase.BEFORE_END_PLAYER_TURN)));
+        }
     }
     public void turnPhaseChangedEventHandler(TurnPhaseEventInfo info)
     {

@@ -25,7 +25,7 @@ public class CardTooltipProvder : MonoBehaviour
         if(card) {
             AddTooltipForPlayableCard(card);
         } else if (cardInShop) {
-            AddTooltipForCardType(cardInShop.cardDisplay.cardInfo.cardType);
+            AddTooltipForCardType(cardInShop.cardDisplay.card.cardType);
         }
 
         
