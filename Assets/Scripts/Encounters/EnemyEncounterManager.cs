@@ -72,10 +72,6 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
             createdEnemies,
             placer
             );
-        if(characterPortraitController)
-            characterPortraitController.SetupCharacterPortraits(createdCompanions);
-        if(enemyPortraitController)
-            enemyPortraitController.SetupEnemyPortraits(createdEnemies);
         EnemyEncounterViewModel.Instance.companions = createdCompanions;
         EnemyEncounterViewModel.Instance.enemies = createdEnemies;
         encounterBuilt = true;

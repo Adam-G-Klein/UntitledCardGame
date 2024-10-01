@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using Microsoft.Unity.VisualStudio.Editor;
 using TMPro;
 using UnityEngine;
 
+[RequireComponent(typeof(EnemyIntentArrowsController))]
 public class EnemyIntentDisplay : MonoBehaviour
 {
     // private List<EnemyIntentImage> intentImages = new List<EnemyIntentImage>();
@@ -33,7 +35,7 @@ public class EnemyIntentDisplay : MonoBehaviour
     public void Setup(EnemyInstance enemyInstance) {
         Debug.Log("Setting up enemy intent display for " + enemyInstance.name);
         this.enemyInstance = enemyInstance;
-        this.arrowController = enemyInstance.GetComponent<EnemyIntentArrowsController>();
+        this.arrowController = GetComponent<EnemyIntentArrowsController>();
         turnManager = TurnManager.Instance;
         combatEntityManager = CombatEntityManager.Instance;
         displayIntentTrigger = new TurnPhaseTrigger(TurnPhase.START_PLAYER_TURN, displayIntent(enemyInstance));
@@ -83,18 +85,16 @@ public class EnemyIntentDisplay : MonoBehaviour
         }
         updateIntentImages(enemy.currentIntent);
         arrowController.updateArrows(enemy.currentIntent);
-        valueText.gameObject.SetActive(true);
-        valueText.text = enemy.currentIntent.displayValue.ToString();
         yield return null;
     }
 
     public void clearIntent() {
-        clearIntentImages();
+        //clearIntentImages();
         arrowController.clearArrows();
-        valueText.gameObject.SetActive(false);
     }
 
     private void updateIntentImages(EnemyIntent intent) {
+        /*
         foreach (IntentImage image in intentImages) {
             if (image.intent == intent.intentType) {
                 image.gameObject.SetActive(true);
@@ -105,14 +105,16 @@ public class EnemyIntentDisplay : MonoBehaviour
     }
 
     private void clearIntentImages() {
+    /*
         for(int i = 0; i < intentImages.Count; i++) {
             intentImages[i].gameObject.SetActive(false);
         }
+        */
     }
 }
 
 [System.Serializable]
 public class IntentImage {
     public EnemyIntentType intent;
-    public GameObject gameObject;
+    public Image image;
 }

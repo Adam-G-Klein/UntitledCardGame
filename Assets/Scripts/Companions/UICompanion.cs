@@ -14,7 +14,7 @@ public class UICompanion : MonoBehaviour
     public Image image;
     public bool isSelected = false;
 
-    public EntityHealthBar healthBar;
+    public EntityHealthViewController healthBar;
 
     public void setup() {
         this.image.sprite = companion.getSprite();

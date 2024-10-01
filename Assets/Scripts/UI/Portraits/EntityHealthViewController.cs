@@ -6,7 +6,7 @@ using TMPro;
 
 // TODO: have a discussion about Entity, I think it 
 // may still be useful for UI stuff like this health bar
-public class EntityHealthBar : MonoBehaviour
+public class EntityHealthViewController : MonoBehaviour
 {
     public Slider slider;
     public TextMeshProUGUI text;

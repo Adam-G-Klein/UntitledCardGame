@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyPortraitController : MonoBehaviour
 {
+    /*
     [SerializeField] private GameObject portraitParentGO;
 
     public void Awake() {
@@ -17,8 +18,9 @@ public class EnemyPortraitController : MonoBehaviour
                 Vector3.zero,
                 Quaternion.identity,
                 enemy.transform);
-            EnemyPortrait portrait = parentPortrait.GetComponent<EnemyPortrait>();
+            EnemyPillarController portrait = parentPortrait.GetComponent<EnemyPillarController>();
             portrait.Setup(enemy);
         }
     }
+    */
 }

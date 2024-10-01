@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class CharacterPortrait : MonoBehaviour
 {
     [SerializeField] private Image image;
-    [SerializeField] private EntityHealthBar healthBar;
+    [SerializeField] private EntityHealthViewController healthBar;
     [SerializeField] private DeckDisplay deckDisplay;
     [SerializeField] private StatusEffectDisplaysController statusEffectsController;
     public CompanionInstance companionInstance;

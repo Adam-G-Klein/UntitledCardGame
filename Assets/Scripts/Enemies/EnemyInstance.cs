@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(EnemyPillarUIController))]
 [RequireComponent(typeof(CombatInstance))]
 [RequireComponent(typeof(Targetable))]
 public class EnemyInstance : MonoBehaviour {
@@ -22,13 +23,17 @@ public class EnemyInstance : MonoBehaviour {
     private EnemyIntentDisplay intentDisplay;
     [SerializeField]
     private CombatEffectEvent combatEffectEvent;
+
+    private EnemyPillarUIController enemyPillarUIController;
     [HideInInspector]
     public List<TurnPhaseTrigger> turnPhaseTriggers = new List<TurnPhaseTrigger>();
 
     // Start is called before the first frame update
-    public void Start() {
+    public void Setup() {
         CombatEntityManager.Instance.registerEnemy(this);
         this.intentDisplay = GetComponentInChildren<EnemyIntentDisplay>();
+        this.enemyPillarUIController = GetComponent<EnemyPillarUIController>();
+        enemyPillarUIController.Setup(this);
         this.spriteImage = GetComponentInChildren<Image>();
         this.spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         if(spriteImage) {

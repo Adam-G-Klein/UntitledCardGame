@@ -16,7 +16,7 @@ public class EnemyPortraitTooltipProvder : MonoBehaviour
 {
     private TooltipOnHover tooltipOnHover;
     [SerializeField]
-    private EnemyPortrait portrait;
+    private EnemyPillarUIController portrait;
     public TurnPhaseTriggerEvent registerTurnPhaseTriggerEvent;
     private List<TurnPhaseTrigger> turnPhaseTriggers = new List<TurnPhaseTrigger>();
     void Start() {
