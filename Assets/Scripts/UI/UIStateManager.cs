@@ -11,6 +11,8 @@ public class UIStateManager : GenericSingleton<UIStateManager>
     // huge hack to fix the purge card issue, but I know targetting
     // changing soon anyways
     public static UIStateManager Instance { get; private set; }
+    public UIDocumentScreenspace screenspaceDoc;
+    public bool constantStateUpdate = false;
     private void Awake() 
     { 
         // If there is an instance, and it's not me, delete myself.
@@ -23,11 +25,17 @@ public class UIStateManager : GenericSingleton<UIStateManager>
         { 
             Instance = this; 
         } 
+
+        screenspaceDoc = GetComponentInChildren<UIDocumentScreenspace>();
     }
     public UIState currentState;
     [SerializeField]
     private UIStateEvent uiStateEvent;
     public bool targettingCancellable = true; 
+
+    public void SetUIDocDirty() {
+        screenspaceDoc.SetStateDirty();
+    }
 
     // Start is called before the first frame update
     void Update()
@@ -39,6 +47,9 @@ public class UIStateManager : GenericSingleton<UIStateManager>
             if (context.canCancel) {
                 setState(UIState.DEFAULT);                   
             }
+        }
+        if(constantStateUpdate){
+            SetUIDocDirty();
         }
     }
 

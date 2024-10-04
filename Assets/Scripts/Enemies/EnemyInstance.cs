@@ -28,11 +28,13 @@ public class EnemyInstance : MonoBehaviour {
     [HideInInspector]
     public List<TurnPhaseTrigger> turnPhaseTriggers = new List<TurnPhaseTrigger>();
 
-    // Start is called before the first frame update
-    public void Setup() {
+    public WorldPositionVisualElement placement;
+
+    public void Setup(WorldPositionVisualElement placement) {
         CombatEntityManager.Instance.registerEnemy(this);
         this.intentDisplay = GetComponentInChildren<EnemyIntentDisplay>();
         this.enemyPillarUIController = GetComponent<EnemyPillarUIController>();
+        this.placement = placement;
         enemyPillarUIController.Setup(this);
         this.spriteImage = GetComponentInChildren<Image>();
         this.spriteRenderer = GetComponentInChildren<SpriteRenderer>();

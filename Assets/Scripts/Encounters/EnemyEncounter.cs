@@ -64,7 +64,7 @@ public class EnemyEncounter : Encounter
                 enemyList[i],
                 newEnemyPlacement.worldPos,
                 encounterBuilder.transform);
-            newEnemy.Setup();
+            newEnemy.Setup(newEnemyPlacement);
             createdEnemies.Add(newEnemy);
             placer.addMapping(newEnemyPlacement, newEnemy.gameObject);
         }

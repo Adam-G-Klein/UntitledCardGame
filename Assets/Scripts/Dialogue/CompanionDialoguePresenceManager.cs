@@ -36,15 +36,14 @@ public class CompanionDialoguePresenceManager : MonoBehaviour
 
     private IEnumerator initializeDialogueManagerLocation() {
         int locationIndex = gameState.GetLoopIndex();
+        Debug.Log("initializing dialogue manager location, seen tutorial? " + gameState.playerData.GetValue().seenTutorial);
         DialogueLocationSO loc = gameState.dialogueLocations.GetDialogueLocation(
             gameState);
-        if(loc == null) {
-            Debug.Log("DIALOGUE ERROR: No dialogue location found for " + gameState.currentLocation);
-            yield break;
-        }
         DialogueManager.Instance.SetDialogueLocation(loc);
         Debug.Log("dialogue manager location initialized");
+        
         yield return null;
+
     }
     
     private IEnumerator getSpeakersInScene() {
@@ -54,10 +53,6 @@ public class CompanionDialoguePresenceManager : MonoBehaviour
         allCompanionsInScene = gos
             .Select(go => go.GetComponent<CompanionDialogueParticipant>()).ToList();
         foreach(CompanionDialogueParticipant cdp in allCompanionsInScene) {
-            if(cdp == null) {
-                Debug.Log("DIALOGUE ERROR: CompanionDialogueParticipant not found on a gameobject tagged with CompanionDialogueParticipant");
-                break;
-            }
             if(presentCompanionTypes.Contains(cdp.companionType)) {
                 speakersInScene.Add(cdp);
                 participantCompanionBySpeakerType.Add(cdp.companionType.speakerType, cdp);
@@ -99,7 +94,7 @@ public class CompanionDialoguePresenceManager : MonoBehaviour
         }
         Debug.Log("registered " + cnt + " dialogue speakers, expected " + gameState.companions.activeCompanions.Count);
         if(Time.time - initStartTime > initializationTimeout) {
-            Debug.Log("DIALOGUE ERROR: Dialogue initialization failed timeout");
+            Debug.LogError("Dialogue initialization failed timeout");
         }
         DialogueManager.Instance.SetSpeakersInitialized();
         if(gameState.currentLocation == Location.TEAM_SELECT)

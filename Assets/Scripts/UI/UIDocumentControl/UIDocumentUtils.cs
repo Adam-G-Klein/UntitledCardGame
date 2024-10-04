@@ -51,4 +51,11 @@ public class UIDocumentUtils : MonoBehaviour
             SetAllMouseMotionCallbacks(child, mouseEnter, mouseLeave);
         }
     }
+
+    public static VisualElement GetRootElement(VisualElement ve){
+        if (ve.parent == null){
+            return ve;
+        }
+        return GetRootElement(ve.parent);
+    }
 }

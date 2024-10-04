@@ -15,6 +15,10 @@ public class CombatEncounterView : MonoBehaviour
     private List<Companion> companions;
     UIDocumentScreenspace docRenderer;
 
+    public static string DETAILS_CONTAINER_SUFFIX = "-details";
+    public static string DETAILS_HEADER_SUFFIX = "-details-title";
+    public static string DETAILS_DESCRIPTION_SUFFIX = "-details-desc";
+
 
     private void OnEnable()
     {
@@ -72,18 +76,20 @@ public class CombatEncounterView : MonoBehaviour
         container.Add(portraitContainer);
 
         var detailsContainer = new VisualElement();
-        detailsContainer.AddToClassList("pillar-details");
+        // TODO: figure out how to avoid querying from root. All the elements we want to query need to have 
+        // unique names from root for now. 
+        detailsContainer.AddToClassList(portraitContainer.name + DETAILS_CONTAINER_SUFFIX);
 
         var titleContainer = new VisualElement();
         titleContainer.AddToClassList("pillar-name");
         var titleLabel = new Label();
-        titleLabel.AddToClassList("pillar-name");
+        titleLabel.AddToClassList(portraitContainer.name + DETAILS_HEADER_SUFFIX);
         titleContainer.Add(titleLabel);
         detailsContainer.Add(titleContainer);
         var descContainer = new VisualElement();
         descContainer.AddToClassList("pillar-text");
         var descLabel = new Label();
-        descLabel.AddToClassList("pillar-desc-label");
+        descLabel.AddToClassList(portraitContainer.name + DETAILS_DESCRIPTION_SUFFIX);
         descContainer.Add(descLabel);
 
         detailsContainer.Add(descContainer);
