@@ -61,10 +61,9 @@ public class EnemyEncounter : Encounter
             WorldPositionVisualElement newEnemyPlacement = placer.checkoutEnemyMapping();
             EnemyInstance newEnemy = PrefabInstantiator.instantiateEnemy(
                 encounterConstants.enemyPrefab,
-                enemyList[i],
                 newEnemyPlacement.worldPos,
                 encounterBuilder.transform);
-            newEnemy.Setup(newEnemyPlacement);
+            newEnemy.Setup(newEnemyPlacement, enemyList[i]);
             createdEnemies.Add(newEnemy);
             placer.addMapping(newEnemyPlacement, newEnemy.gameObject);
         }
@@ -84,9 +83,9 @@ public class EnemyEncounter : Encounter
             WorldPositionVisualElement newCompanionPlacement = placer.checkoutCompanionMapping();
             CompanionInstance newCompanion = PrefabInstantiator.InstantiateCompanion(
                 encounterConstants.companionPrefab,
-                companionList[i],
                 newCompanionPlacement.worldPos,
                 encounterBuilder.transform);
+            newCompanion.Setup(newCompanionPlacement, companionList[i]);
             createdCompanions.Add(newCompanion);
             placer.addMapping(newCompanionPlacement, newCompanion.gameObject);
         }

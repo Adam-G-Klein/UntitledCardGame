@@ -30,6 +30,10 @@ public class Enemy : Entity, ICombatStats {
         return enemyType.enemyPattern.ChooseIntent(enemyInstance);
     }
 
+    public Sprite getSprite() {
+        return this.enemyType.sprite;
+    }
+
     public CombatStats GetCombatStats()
     {
         return this.combatStats;

@@ -11,9 +11,6 @@ using UnityEngine.UI;
 public class EnemyInstance : MonoBehaviour {
     public Enemy enemy;
     public CombatInstance combatInstance;
-    [Header("Image or SpriteRenderer required in children")]
-    public Image spriteImage;
-    public SpriteRenderer spriteRenderer;
 
     public EnemyIntent currentIntent;
     public TurnPhaseTriggerEvent registerTurnPhaseTriggerEvent;
@@ -30,19 +27,14 @@ public class EnemyInstance : MonoBehaviour {
 
     public WorldPositionVisualElement placement;
 
-    public void Setup(WorldPositionVisualElement placement) {
+    public void Setup(WorldPositionVisualElement placement, Enemy enemy) {
+        this.enemy = enemy;
+        gameObject.name = enemy.enemyType.name;
         CombatEntityManager.Instance.registerEnemy(this);
         this.intentDisplay = GetComponentInChildren<EnemyIntentDisplay>();
         this.enemyPillarUIController = GetComponent<EnemyPillarUIController>();
         this.placement = placement;
         enemyPillarUIController.Setup(this);
-        this.spriteImage = GetComponentInChildren<Image>();
-        this.spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-        if(spriteImage) {
-            spriteImage.sprite = enemy.enemyType.sprite;
-        } else if (spriteRenderer) {
-            spriteRenderer.sprite = enemy.enemyType.sprite;
-        }
         combatInstance.parentType = CombatInstance.CombatInstanceParent.ENEMY;
         combatInstance.combatStats = enemy.combatStats;
         // Reset the behavior indices on the EnemyBrain to zero.
@@ -54,6 +46,7 @@ public class EnemyInstance : MonoBehaviour {
         foreach (InitialStatus status in enemy.enemyType.initialStatuses) {
             combatInstance.statusEffects[status.status] = status.scale;
         }
+        GetComponentInChildren<CombatInstanceDisplayWorldspace>().Setup(combatInstance, placement);
         RegisterTurnPhaseTriggers();
     }
 

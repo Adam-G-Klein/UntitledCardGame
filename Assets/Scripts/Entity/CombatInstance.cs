@@ -205,6 +205,17 @@ public class CombatInstance : MonoBehaviour
         yield return null;
     }
 
+    public Sprite GetSprite() {
+        switch(parentType) {
+            case CombatInstanceParent.COMPANION:
+                return GetComponent<CompanionInstance>().companion.getSprite();
+            case CombatInstanceParent.ENEMY:
+                return GetComponent<EnemyInstance>().enemy.getSprite();
+            default:
+                return null;
+        }
+    }
+
     private void UpdateStatusEffect(StatusEffect status) {
         switch (status) {
             case StatusEffect.Defended:

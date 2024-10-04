@@ -21,7 +21,6 @@ public static class PrefabInstantiator {
 
     public static CompanionInstance InstantiateCompanion(
         GameObject companionPrefab,
-        Companion companion,
         Vector2 position,
         Transform parent)
     {
@@ -30,9 +29,7 @@ public static class PrefabInstantiator {
             position,
             Quaternion.identity,
             parent);
-        companionGO.name = companion.companionType.name;
         CompanionInstance companionInstance = companionGO.GetComponent<CompanionInstance>();
-        companionInstance.companion = companion;
         return companionInstance;
     }
 
@@ -50,14 +47,13 @@ public static class PrefabInstantiator {
         return minionInstance;
     }
 
-    public static EnemyInstance instantiateEnemy(GameObject enemyPrefab, Enemy enemy, Vector2 position, Transform parent){
+    public static EnemyInstance instantiateEnemy(GameObject enemyPrefab, Vector2 position, Transform parent){
         GameObject enemyGO = GameObject.Instantiate(
             enemyPrefab,
             position,
             Quaternion.identity,
             parent);
         EnemyInstance enemyInstance = enemyGO.GetComponent<EnemyInstance>();
-        enemyInstance.enemy = enemy;
         return enemyInstance;
     }
 
