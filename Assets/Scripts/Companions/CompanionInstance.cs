@@ -10,8 +10,6 @@ public class CompanionInstance : MonoBehaviour
 {
     public Companion companion;
     [Header("Image or SpriteRenderer required in children")]
-    public Image spriteImage;
-    public SpriteRenderer spriteRenderer;
     public CombatInstance combatInstance;
     public DeckInstance deckInstance;
 

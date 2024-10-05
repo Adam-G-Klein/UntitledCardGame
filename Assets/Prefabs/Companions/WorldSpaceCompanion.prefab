@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.755, y: 1.919, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5285687428135354735}
@@ -80,7 +80,7 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 1
+  m_DrawMode: 0
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
@@ -118,6 +118,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ca4d5c1a7bb0104b80d90d8af7255b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  arbitraryInteriorPaddingPixels: 15
+  arbitraryBottomPlacementPixels: 8
 --- !u!61 &8934727644576399116
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -157,7 +159,7 @@ BoxCollider2D:
     oldSize: {x: 1.755, y: 1.919}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
-    drawMode: 1
+    drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
@@ -230,8 +232,6 @@ MonoBehaviour:
       baseAttackDamage: 0
     companionLevel: 0
     onCombineAbilities: []
-  spriteImage: {fileID: 0}
-  spriteRenderer: {fileID: 0}
   combatInstance: {fileID: 6559890015023456123}
   deckInstance: {fileID: 8670881613562720748}
   references:
