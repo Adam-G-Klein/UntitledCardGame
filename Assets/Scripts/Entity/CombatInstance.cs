@@ -42,9 +42,7 @@ public class CombatInstance : MonoBehaviour
     public Dictionary<StatusEffectType, int> statusEffects =
         new Dictionary<StatusEffectType, int> (initialStatusEffects);
 
-    public void Start() {
-
-    }
+    private StatusEffectsDisplay statusEffectsDisplay;
 
     public void ApplyStatusEffects(StatusEffectType statusEffect, int scale) {
         Debug.Log(String.Format("Applying status with scale {0}", scale));
@@ -56,6 +54,16 @@ public class CombatInstance : MonoBehaviour
         UpdateView();
     }
 
+    public void Setup(CombatStats combatStats, CombatInstanceParent parentType, WorldPositionVisualElement wpve) {
+        this.combatStats = combatStats;
+        this.parentType = parentType;
+        if (combatStats.getCurrentHealth() == 0) {
+            combatStats.setCurrentHealth(1);
+        }
+        this.statusEffectsDisplay = GetComponent<StatusEffectsDisplay>();
+        statusEffectsDisplay.Setup(this, wpve);
+    }
+
     public int GetCurrentDamage() {
         return Mathf.Max(0, (
                 combatStats.baseAttackDamage
@@ -63,6 +71,7 @@ public class CombatInstance : MonoBehaviour
                 + statusEffects[StatusEffectType.TemporaryStrength]
                 - statusEffects[StatusEffectType.Weakness]));
     }
+
 
     public void ApplyNonStatusCombatEffect(CombatEffect effect, int scale, CombatInstance effector) {
 

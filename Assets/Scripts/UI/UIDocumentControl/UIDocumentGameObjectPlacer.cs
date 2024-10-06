@@ -10,9 +10,19 @@ using Unity.VisualScripting;
 public class WorldPositionVisualElement {
     public Vector3 worldPos;
     public VisualElement ve;
+
+    public string portraitContainerName { 
+        get {
+            return ve.name;
+        }
+    }
+
+    public VisualElement rootElement;
+
     public WorldPositionVisualElement(VisualElement ve, Vector3 worldPos) {
         this.ve = ve;
         this.worldPos = worldPos;
+        rootElement = UIDocumentUtils.GetRootElement(ve);
     }
     public WorldPositionVisualElement() {
         this.worldPos = Vector3.zero;

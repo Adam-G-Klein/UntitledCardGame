@@ -4,13 +4,12 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(EnemyIntentDisplay))]
+[RequireComponent(typeof(StatusEffectsDisplay))]
 public class EnemyPillarUIController : MonoBehaviour
 {
     [SerializeField] private EntityHealthViewController healthBar;
     [SerializeField] private StatusEffectDisplaysController statusEffectsController;
-    [SerializeField] private EnemyIntentDisplay enemyIntentDisplay;
-    public EnemyInstance enemyInstance;
+    public CompanionInstance companionInstance;
 
     public void Setup(EnemyInstance enemyInstance) {
         Debug.Log("Setting up enemy portrait for " + enemyInstance.name);

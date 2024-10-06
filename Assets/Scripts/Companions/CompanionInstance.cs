@@ -18,7 +18,28 @@ public class CompanionInstance : MonoBehaviour
 
     private BoxCollider2D boxCollider2D;
 
-    public void Start() {
+    public void Setup(WorldPositionVisualElement wpve, Companion companion) {
+        
+        // ---- set some local member variables ----
+        this.companion = companion;
+        gameObject.name = companion.companionType.name;
+        this.combatInstance = GetComponent<CombatInstance>();
+        this.deckInstance = GetComponent<DeckInstance>();
+        // ---- set up the combatInstance, which has all the logic this shares with all companions/enemies ----
+        combatInstance.Setup(companion.combatStats, CombatInstance.CombatInstanceParent.COMPANION, wpve);
+        Debug.Log("CompanionInstance Start for companion " + companion.id + " initialized with combat stats (health): " + combatInstance.combatStats.getCurrentHealth());
+        combatInstance.onDeathHandler += OnDeath;
+        combatInstance.genericInteractionSFX = companion.companionType.genericCompanionSFX;
+        combatInstance.genericInteractionVFX = companion.companionType.genericCompanionVFX;
+        // ---- set up the deck for this entity ----
+        deckInstance.sourceDeck = companion.deck;
+        // ---- set up the sprite for this entity in the world ----
+        GetComponentInChildren<CombatInstanceDisplayWorldspace>().Setup(combatInstance, wpve);
+        // ---- set up status effects turn triggers, so they update when turn phases change ----
+        RegisterUpdateStatusEffects();
+
+
+        // ---- set up abilities ----
         // We cannot perform "Setup" on the ability itself, because that is global on the
         // CompanionTypeSO.
         // If you have multiple copies of the same companion type on the team, they would
@@ -29,39 +50,9 @@ public class CompanionInstance : MonoBehaviour
             CompanionAbilityInstance abilityInstance = new(ability, this);
             abilityInstance.Setup();
         }
+        // ---- register with the manager, which will track things like whether there's no companions or enemies left when 
+        // one dies and end the encounter ----
         CombatEntityManager.Instance.registerCompanion(this);
-
-        combatInstance.parentType = CombatInstance.CombatInstanceParent.COMPANION;
-        combatInstance.combatStats = companion.combatStats;
-        Debug.Log("CompanionInstance Start for companion " + companion.id + " initialized with combat stats (health): " + combatInstance.combatStats.getCurrentHealth());
-        if (combatInstance.combatStats.getCurrentHealth() == 0) {
-            combatInstance.combatStats.setCurrentHealth(1);
-        }
-        combatInstance.onDeathHandler += OnDeath;
-        combatInstance.genericInteractionSFX = companion.companionType.genericCompanionSFX;
-        combatInstance.genericInteractionVFX = companion.companionType.genericCompanionVFX;
-        deckInstance.sourceDeck = companion.deck;
-        RegisterUpdateStatusEffects();
-    }
-
-    public void Setup(WorldPositionVisualElement wpve, Companion companion) {
-        this.companion = companion;
-        gameObject.name = companion.companionType.name;
-        this.combatInstance = GetComponent<CombatInstance>();
-        this.deckInstance = GetComponent<DeckInstance>();
-        combatInstance.parentType = CombatInstance.CombatInstanceParent.COMPANION;
-        combatInstance.combatStats = companion.combatStats;
-        Debug.Log("CompanionInstance Start for companion " + companion.id + " initialized with combat stats (health): " + combatInstance.combatStats.getCurrentHealth());
-        if (combatInstance.combatStats.getCurrentHealth() == 0) {
-            combatInstance.combatStats.setCurrentHealth(1);
-        }
-        combatInstance.onDeathHandler += OnDeath;
-        combatInstance.genericInteractionSFX = companion.companionType.genericCompanionSFX;
-        combatInstance.genericInteractionVFX = companion.companionType.genericCompanionVFX;
-        deckInstance.sourceDeck = companion.deck;
-        GetComponentInChildren<CombatInstanceDisplayWorldspace>().Setup(combatInstance, wpve);
-        RegisterUpdateStatusEffects();
-
     }
 
     private void RegisterUpdateStatusEffects() {

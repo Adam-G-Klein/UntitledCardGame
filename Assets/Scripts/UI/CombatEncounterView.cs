@@ -21,6 +21,8 @@ public class CombatEncounterView : MonoBehaviour
 
     [Header("Needs its own reference because the singleton isn't alive in time")]
     public GameplayConstantsSO gameplayConstants;
+    private static string STATUS_EFFECTS_CONTAINER_SUFFIX = "-status-effects";
+    private static string STATUS_EFFECTS_TAB_CLASSNAME = "status-effect";
 
     private void OnEnable()
     {
