@@ -35,7 +35,7 @@
     margin-right: 0;
     padding-left: 6px;
     padding-right: 6px;
-    background-image: url('project://database/Assets/Sprites/AidensRoom/DialogueBox.png?fileID=2800000&guid=e1a81dd917fe696459cd192b12e9b3fc&type=3#DialogueBox');
+    background-image: url("project://database/Assets/Sprites/AidensRoom/DialogueBox.png?fileID=2800000&guid=e1a81dd917fe696459cd192b12e9b3fc&type=3#DialogueBox");
 }
 
 .character-portrait {
@@ -111,7 +111,7 @@
     align-items: center;
     flex-grow: initial;
     height: 115px;
-    background-image: url('project://database/Assets/ScrapbookArt/PortraitArea.png?fileID=2800000&guid=dcc72639e587dab46a0201406220794e&type=3#PortraitArea');
+    background-image: url("project://database/Assets/ScrapbookArt/PortraitArea.png?fileID=2800000&guid=dcc72639e587dab46a0201406220794e&type=3#PortraitArea");
 }
 
 .char {
@@ -128,7 +128,7 @@
     justify-content: space-between;
     align-items: center;
     margin-top: 5px;
-    background-image: url('project://database/Assets/ScrapbookArt/PortraitArea.png?fileID=2800000&guid=dcc72639e587dab46a0201406220794e&type=3#PortraitArea');
+    background-image: url("project://database/Assets/ScrapbookArt/PortraitArea.png?fileID=2800000&guid=dcc72639e587dab46a0201406220794e&type=3#PortraitArea");
     padding-top: 10px;
     padding-bottom: 10px;
     margin-bottom: 0;
@@ -156,7 +156,7 @@
     width: 20px;
     height: 20px;
     background-color: rgba(188, 188, 188, 0);
-    background-image: url('project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=-4528830608231651361&guid=2c4993762e2fe7540a557437d8f8f4ab&type=3#arrow-up@2x');
+    background-image: url("project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=-4528830608231651361&guid=2c4993762e2fe7540a557437d8f8f4ab&type=3#arrow-up@2x");
 }
 
 .arrow-down {
@@ -175,7 +175,7 @@
     width: 20px;
     height: 20px;
     background-color: rgba(188, 188, 188, 0);
-    background-image: url('project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=-1304905567622442630&guid=2c4993762e2fe7540a557437d8f8f4ab&type=3#arrow-down@2x');
+    background-image: url("project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=-1304905567622442630&guid=2c4993762e2fe7540a557437d8f8f4ab&type=3#arrow-down@2x");
 }
 
 .arrow-right {
@@ -191,7 +191,7 @@
     border-right-width: 0;
     border-top-width: 0;
     border-bottom-width: 0;
-    background-image: url('project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=-1087164816274819069&guid=2c4993762e2fe7540a557437d8f8f4ab&type=3#arrow-right@2x');
+    background-image: url("project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=-1087164816274819069&guid=2c4993762e2fe7540a557437d8f8f4ab&type=3#arrow-right@2x");
     width: 20px;
     height: 20px;
     background-color: rgba(188, 188, 188, 0);
@@ -199,7 +199,7 @@
 
 .arrow-left {
     background-color: rgba(188, 188, 188, 0);
-    background-image: url('project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=-2236324273849735119&guid=2c4993762e2fe7540a557437d8f8f4ab&type=3#arrow-left@2x');
+    background-image: url("project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=-2236324273849735119&guid=2c4993762e2fe7540a557437d8f8f4ab&type=3#arrow-left@2x");
     border-left-width: 0;
     border-right-width: 0;
     border-top-width: 0;
@@ -220,7 +220,7 @@
     position: relative;
     top: 0;
     left: 0;
-    background-image: url('project://database/Assets/Sprites/AidensRoom/DialogueBox.png?fileID=2800000&guid=e1a81dd917fe696459cd192b12e9b3fc&type=3#DialogueBox');
+    background-image: url("project://database/Assets/Sprites/AidensRoom/DialogueBox.png?fileID=2800000&guid=e1a81dd917fe696459cd192b12e9b3fc&type=3#DialogueBox");
     -unity-font: resource('Fonts & Materials/Antique Hunter Demo');
     border-left-color: rgba(149, 149, 149, 0);
     border-right-color: rgba(149, 149, 149, 0);
@@ -290,12 +290,14 @@
 .card-container {
     flex-grow: 0;
     background-color: rgba(0, 0, 0, 0);
-    width: 15%;
+    width: 43%;
     height: 80%;
-    background-image: url('project://database/Assets/Prefabs/Cards/CardArt/CardFrameWIP.PNG?fileID=2800000&guid=a555ab66854985e40bfda3ce226ed303&type=3#CardFrameWIP');
+    background-image: url("project://database/Assets/Prefabs/Cards/CardArt/CardFrameWIP.PNG?fileID=2800000&guid=a555ab66854985e40bfda3ce226ed303&type=3#CardFrameWIP");
     align-self: auto;
     justify-content: flex-start;
     align-items: center;
+    max-width: 503px;
+    max-height: 93%;
 }
 
 .worldspace-card-container {
@@ -303,7 +305,7 @@
     background-color: rgba(0, 0, 0, 0);
     width: 100%;
     height: 100%;
-    background-image: url('project://database/Assets/Prefabs/Cards/CardArt/CardFrameWIP.PNG?fileID=2800000&guid=a555ab66854985e40bfda3ce226ed303&type=3#CardFrameWIP');
+    background-image: url("project://database/Assets/Prefabs/Cards/CardArt/CardFrameWIP.PNG?fileID=2800000&guid=a555ab66854985e40bfda3ce226ed303&type=3#CardFrameWIP");
     align-self: auto;
     justify-content: flex-start;
     align-items: center;
@@ -314,7 +316,7 @@
     align-self: flex-start;
     margin-left: 10px;
     color: rgb(255, 255, 255);
-    background-color: rgb(97, 97, 255);
+    background-color: rgb(255, 0, 9);
     font-size: 30px;
 }
 
@@ -329,7 +331,6 @@
     font-size: 100px;
     -unity-font-style: bold;
     white-space: normal;
-    
 }
 
 .card-image {
@@ -337,7 +338,7 @@
     background-color: rgba(0, 0, 0, 0);
     height: 40%;
     width: 90%;
-    background-image: url('project://database/Assets/Prefabs/Cards/CardArt/CardImageWIP%201.png?fileID=2800000&guid=3dd0d533e03397448a54f341499e747d&type=3#CardImageWIP 1');
+    background-image: url("project://database/Assets/Prefabs/Cards/CardArt/CardImageWIP%201.png?fileID=2800000&guid=3dd0d533e03397448a54f341499e747d&type=3#CardImageWIP 1");
 }
 
 .keepsake-image {
@@ -346,7 +347,7 @@
     width: 23%;
     height: 100%;
     position: absolute;
-    background-image: url('project://database/Assets/Sprites/Z_OldPlaceholderSprites/defaultKeepsake.png?fileID=2800000&guid=1ef197dac8e9a034cb9c352de359ac2b&type=3#defaultKeepsake');
+    background-image: url("project://database/Assets/Sprites/Z_OldPlaceholderSprites/defaultKeepsake.png?fileID=2800000&guid=1ef197dac8e9a034cb9c352de359ac2b&type=3#defaultKeepsake");
 }
 
 .companion-info-container-selected {
@@ -378,7 +379,7 @@
 }
 
 .tooltip-title {
-    font-size: 100px;
+    font-size: 19px;
 }
 
 .tooltip-text {
@@ -388,5 +389,5 @@
 .tooltip-background {
     flex-grow: 1;
     background-color: rgba(0, 0, 0, 0);
-    background-image: url('project://database/Assets/Sprites/AidensRoom/DialogueBox.png?fileID=2800000&guid=e1a81dd917fe696459cd192b12e9b3fc&type=3#DialogueBox');
+    background-image: url("project://database/Assets/Sprites/AidensRoom/DialogueBox.png?fileID=2800000&guid=e1a81dd917fe696459cd192b12e9b3fc&type=3#DialogueBox");
 }
