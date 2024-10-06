@@ -107,7 +107,7 @@ public class EnemyBrain
             return value;
         }
 
-        return value + instance.combatInstance.combatStats.baseAttackDamage + instance.combatInstance.statusEffects[StatusEffect.Strength];
+        return value + instance.combatInstance.combatStats.baseAttackDamage + instance.combatInstance.statusEffects[StatusEffectType.Strength];
     }
 
     public enum EnemyBehaviorPattern {

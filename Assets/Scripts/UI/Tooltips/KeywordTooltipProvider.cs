@@ -6,10 +6,10 @@ using UnityEngine;
 public class KeywordTooltipProvider: GenericSingleton<KeywordTooltipProvider>
 {
 
-    public Dictionary<StatusEffect, TooltipKeyword> statusEffectToTooltipKeyword = new Dictionary<StatusEffect, TooltipKeyword>() {
-        {StatusEffect.Strength, TooltipKeyword.Strength},
-        {StatusEffect.Defended, TooltipKeyword.Block},
-        {StatusEffect.TemporaryStrength, TooltipKeyword.TemporaryStrength},
+    public Dictionary<StatusEffectType, TooltipKeyword> statusEffectToTooltipKeyword = new Dictionary<StatusEffectType, TooltipKeyword>() {
+        {StatusEffectType.Strength, TooltipKeyword.Strength},
+        {StatusEffectType.Defended, TooltipKeyword.Block},
+        {StatusEffectType.TemporaryStrength, TooltipKeyword.TemporaryStrength},
     };
 
     public TooltipMapSO tooltipMap = null;
@@ -19,7 +19,7 @@ public class KeywordTooltipProvider: GenericSingleton<KeywordTooltipProvider>
         return tooltipMap.GetTooltip(keyword);
     }
 
-    public bool HasTooltip(StatusEffect statusEffect)
+    public bool HasTooltip(StatusEffectType statusEffect)
     {
         LoadTooltipMap();
         return statusEffectToTooltipKeyword.ContainsKey(statusEffect) && HasTooltip(statusEffectToTooltipKeyword[statusEffect]);
@@ -31,7 +31,7 @@ public class KeywordTooltipProvider: GenericSingleton<KeywordTooltipProvider>
         return tooltipMap.HasTooltip(tooltipKeyword);
     }
 
-    public TooltipViewModel GetTooltip(StatusEffect statusEffect)
+    public TooltipViewModel GetTooltip(StatusEffectType statusEffect)
     {
         if(HasTooltip(statusEffect))
         {

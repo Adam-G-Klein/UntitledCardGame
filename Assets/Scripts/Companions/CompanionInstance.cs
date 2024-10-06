@@ -67,20 +67,20 @@ public class CompanionInstance : MonoBehaviour
     private void RegisterUpdateStatusEffects() {
         statusEffectTriggers.Add(new TurnPhaseTrigger(
             TurnPhase.END_ENEMY_TURN,
-            combatInstance.UpdateStatusEffects(new List<StatusEffect> {
-                StatusEffect.Defended,
-                StatusEffect.TemporaryStrength,
-                StatusEffect.Invulnerability})
+            combatInstance.UpdateStatusEffects(new List<StatusEffectType> {
+                StatusEffectType.Defended,
+                StatusEffectType.TemporaryStrength,
+                StatusEffectType.Invulnerability})
         ));
         statusEffectTriggers.Add(new TurnPhaseTrigger(
             TurnPhase.START_PLAYER_TURN,
-            combatInstance.UpdateStatusEffects(new List<StatusEffect> {
-                StatusEffect.Orb})
+            combatInstance.UpdateStatusEffects(new List<StatusEffectType> {
+                StatusEffectType.Orb})
         ));
         statusEffectTriggers.Add(new TurnPhaseTrigger(
             TurnPhase.END_PLAYER_TURN,
-            combatInstance.UpdateStatusEffects(new List<StatusEffect> {
-                StatusEffect.Weakness})
+            combatInstance.UpdateStatusEffects(new List<StatusEffectType> {
+                StatusEffectType.Weakness})
         ));
         statusEffectTriggers.ForEach(trigger => TurnManager.Instance.addTurnPhaseTrigger(trigger));
     }

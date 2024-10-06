@@ -26,6 +26,6 @@ public class EnemyTypeSO : ScriptableObject
 
 [System.Serializable]
 public class InitialStatus {
-    public StatusEffect status;
+    public StatusEffectType status;
     public int scale;
 }

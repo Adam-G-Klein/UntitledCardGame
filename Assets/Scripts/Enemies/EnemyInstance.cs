@@ -89,7 +89,7 @@ public class EnemyInstance : MonoBehaviour {
     }
 
     private IEnumerable ClearBlock() {
-        combatInstance.statusEffects[StatusEffect.Defended] = 0;
+        combatInstance.statusEffects[StatusEffectType.Defended] = 0;
         yield return null;
     }
 

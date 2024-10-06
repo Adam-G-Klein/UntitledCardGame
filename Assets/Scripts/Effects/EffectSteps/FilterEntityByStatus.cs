@@ -7,7 +7,7 @@ public class FilterEntityByStatus : EffectStep
     [SerializeField]
     private string inputKey = "";
     [SerializeField]
-    private StatusEffect status;
+    private StatusEffectType status;
     [SerializeField]
     private string outputKey = "";
 

@@ -7,7 +7,7 @@ public class CountStatusEffectsStep : EffectStep
     [SerializeField]
      private string inputKey = "";
     [SerializeField]
-    private StatusEffect statusEffect;
+    private StatusEffectType statusEffect;
     [SerializeField]
     private bool onlyCountStatusOnce = false;
     [SerializeField]

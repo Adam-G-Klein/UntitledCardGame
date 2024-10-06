@@ -7,7 +7,7 @@ public class RemoveStatus : EffectStep
     [SerializeField]
     private string inputKey = "";
     [SerializeField]
-    private StatusEffect statusEffect;
+    private StatusEffectType statusEffect;
     [SerializeField]
     private int scale = 0;
     [SerializeField]

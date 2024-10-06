@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public enum StatusEffect {
+public enum StatusEffectType {
     Strength,
     Weakness,
     // How we'll implement block for now
@@ -20,11 +20,11 @@ public enum StatusEffect {
     MoneyOnDeath
 }
 
-public class StatusEffectDisplay: MonoBehaviour
+public class CombatInstanceStatusEffectDisplay: MonoBehaviour
 {
     
     public bool displaying = false;
-    public StatusEffect statusEffect;
+    public StatusEffectType statusEffect;
 
     private Vector3 originalScale;
     private TextMeshProUGUI text;

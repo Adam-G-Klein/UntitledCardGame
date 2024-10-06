@@ -5,7 +5,7 @@ using UnityEngine;
 public class StatusEffectDisplaysController : MonoBehaviour
 {
     private CombatInstance entity;
-    private Dictionary<StatusEffect, StatusEffectDisplay> statusEffectDisplays = new Dictionary<StatusEffect, StatusEffectDisplay>();
+    private Dictionary<StatusEffectType, CombatInstanceStatusEffectDisplay> statusEffectDisplays = new Dictionary<StatusEffectType, CombatInstanceStatusEffectDisplay>();
 
     public void Setup(CombatInstance combatInstance)  {
         Debug.Log("Setting up status effect displays for " + combatInstance.name);
@@ -15,9 +15,9 @@ public class StatusEffectDisplaysController : MonoBehaviour
 
     void Awake()
     {
-        StatusEffectDisplay[] arr = GetComponentsInChildren<StatusEffectDisplay>();
+        CombatInstanceStatusEffectDisplay[] arr = GetComponentsInChildren<CombatInstanceStatusEffectDisplay>();
 
-        foreach (StatusEffectDisplay statusEffectDisplay in arr) {
+        foreach (CombatInstanceStatusEffectDisplay statusEffectDisplay in arr) {
             statusEffectDisplays.Add(statusEffectDisplay.statusEffect, statusEffectDisplay);
         }
     }
@@ -30,9 +30,9 @@ public class StatusEffectDisplaysController : MonoBehaviour
 
     private void UpdateStatusDisplays() {
         bool statusShouldDisplay;
-        foreach (KeyValuePair<StatusEffect, StatusEffectDisplay> kv in statusEffectDisplays) {
+        foreach (KeyValuePair<StatusEffectType, CombatInstanceStatusEffectDisplay> kv in statusEffectDisplays) {
             int statusValue = entity.statusEffects[kv.Key];
-            if (kv.Key == StatusEffect.Strength) {
+            if (kv.Key == StatusEffectType.Strength) {
                 statusValue += entity.combatStats.baseAttackDamage;
             }
             statusShouldDisplay = statusValue != CombatInstance.initialStatusEffects[kv.Key];

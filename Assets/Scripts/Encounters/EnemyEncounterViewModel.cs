@@ -41,7 +41,7 @@ public class EnemyEncounterViewModel : GenericSingleton<EnemyEncounterViewModel>
         return companionInstance.GetComponent<DeckInstance>();
     }
 
-    private Dictionary<StatusEffect, int> GetStatusEffects(CombatInstance combatInstance){
+    private Dictionary<StatusEffectType, int> GetStatusEffects(CombatInstance combatInstance){
         return combatInstance.statusEffects;
     }
 

@@ -23,33 +23,33 @@ public class CombatInstance : MonoBehaviour
 
     public bool killed = false;
 
-    public static Dictionary<StatusEffect, int> initialStatusEffects =
-        new Dictionary<StatusEffect, int>() {
-            { StatusEffect.Strength, 0 },
-            { StatusEffect.Weakness, 0 },
-            { StatusEffect.Defended, 0 },
-            { StatusEffect.DamageMultiply, 1 },
-            { StatusEffect.Invulnerability, 0 },
-            { StatusEffect.MaxHpBounty, 0 },
-            { StatusEffect.TemporaryStrength, 0 },
-            { StatusEffect.MinionsOnDeath, 0 },
-            { StatusEffect.PlatedArmor, 0 },
-            { StatusEffect.Orb, 0 },
-            { StatusEffect.Thorns, 0 },
-            { StatusEffect.MoneyOnDeath, 0 }
+    public static Dictionary<StatusEffectType, int> initialStatusEffects =
+        new Dictionary<StatusEffectType, int>() {
+            { StatusEffectType.Strength, 0 },
+            { StatusEffectType.Weakness, 0 },
+            { StatusEffectType.Defended, 0 },
+            { StatusEffectType.DamageMultiply, 1 },
+            { StatusEffectType.Invulnerability, 0 },
+            { StatusEffectType.MaxHpBounty, 0 },
+            { StatusEffectType.TemporaryStrength, 0 },
+            { StatusEffectType.MinionsOnDeath, 0 },
+            { StatusEffectType.PlatedArmor, 0 },
+            { StatusEffectType.Orb, 0 },
+            { StatusEffectType.Thorns, 0 },
+            { StatusEffectType.MoneyOnDeath, 0 }
         };
 
-    public Dictionary<StatusEffect, int> statusEffects =
-        new Dictionary<StatusEffect, int> (initialStatusEffects);
+    public Dictionary<StatusEffectType, int> statusEffects =
+        new Dictionary<StatusEffectType, int> (initialStatusEffects);
 
     public void Start() {
 
     }
 
-    public void ApplyStatusEffects(StatusEffect statusEffect, int scale) {
+    public void ApplyStatusEffects(StatusEffectType statusEffect, int scale) {
         Debug.Log(String.Format("Applying status with scale {0}", scale));
         statusEffects[statusEffect] += scale;
-        if(statusEffect != StatusEffect.Orb && statusEffect != StatusEffect.Strength && statusEffect != StatusEffect.TemporaryStrength) {
+        if(statusEffect != StatusEffectType.Orb && statusEffect != StatusEffectType.Strength && statusEffect != StatusEffectType.TemporaryStrength) {
             PlaySFX();
             AddVFX();
         }
@@ -59,9 +59,9 @@ public class CombatInstance : MonoBehaviour
     public int GetCurrentDamage() {
         return Mathf.Max(0, (
                 combatStats.baseAttackDamage
-                + statusEffects[StatusEffect.Strength]
-                + statusEffects[StatusEffect.TemporaryStrength]
-                - statusEffects[StatusEffect.Weakness]));
+                + statusEffects[StatusEffectType.Strength]
+                + statusEffects[StatusEffectType.TemporaryStrength]
+                - statusEffects[StatusEffectType.Weakness]));
     }
 
     public void ApplyNonStatusCombatEffect(CombatEffect effect, int scale, CombatInstance effector) {
@@ -118,8 +118,8 @@ public class CombatInstance : MonoBehaviour
             StartCoroutine(OnDeath(attacker));
         }
 
-        if (statusEffects[StatusEffect.Thorns] > 0) {
-            attacker.ApplyNonStatusCombatEffect(CombatEffect.FixedDamageWithCardModifications, statusEffects[StatusEffect.Thorns], this);
+        if (statusEffects[StatusEffectType.Thorns] > 0) {
+            attacker.ApplyNonStatusCombatEffect(CombatEffect.FixedDamageWithCardModifications, statusEffects[StatusEffectType.Thorns], this);
         }
         // could easily double-update with method above
         UpdateView();
@@ -127,7 +127,7 @@ public class CombatInstance : MonoBehaviour
 
     private int DamageAfterDefense(CombatEffect combatEffect, int damage) {
         // Invulnerability removal is handled at end of turn
-        if (statusEffects[StatusEffect.Invulnerability] > 0)
+        if (statusEffects[StatusEffectType.Invulnerability] > 0)
             return 0;
 
         // This is commonly used for pay HP as a cost cards.
@@ -135,24 +135,24 @@ public class CombatInstance : MonoBehaviour
             return damage;
         }
 
-        if (statusEffects[StatusEffect.PlatedArmor] > 0) {
+        if (statusEffects[StatusEffectType.PlatedArmor] > 0) {
             // We have plated armor, so set damage and remove 1 armor
             damage = 0;
-            statusEffects[StatusEffect.PlatedArmor] -= 1;
+            statusEffects[StatusEffectType.PlatedArmor] -= 1;
         }
 
         // No block, so just taking full damage
-        if(statusEffects[StatusEffect.Defended] == 0)
+        if(statusEffects[StatusEffectType.Defended] == 0)
             return damage;
 
-        if (statusEffects[StatusEffect.Defended] > damage) {
-            statusEffects[StatusEffect.Defended] -= damage;
+        if (statusEffects[StatusEffectType.Defended] > damage) {
+            statusEffects[StatusEffectType.Defended] -= damage;
             damage = 0;
-        } else if (statusEffects[StatusEffect.Defended] < damage) {
-            damage -= statusEffects[StatusEffect.Defended];
-            statusEffects[StatusEffect.Defended] = 0;
+        } else if (statusEffects[StatusEffectType.Defended] < damage) {
+            damage -= statusEffects[StatusEffectType.Defended];
+            statusEffects[StatusEffectType.Defended] = 0;
         } else {
-            statusEffects[StatusEffect.Defended] = 0;
+            statusEffects[StatusEffectType.Defended] = 0;
             damage = 0;
         }
         UpdateView();
@@ -182,14 +182,14 @@ public class CombatInstance : MonoBehaviour
     // like, should they be able to call their own custom coroutines when something
     // happens to the entity they're on?
     private void ProcessOnDeathStatusEffects(CombatInstance killer) {
-        if (killer != null && statusEffects[StatusEffect.MaxHpBounty] > 0) {
-            killer.combatStats.maxHealth += statusEffects[StatusEffect.MaxHpBounty];
-            killer.combatStats.setCurrentHealth(killer.combatStats.getCurrentHealth() + statusEffects[StatusEffect.MaxHpBounty]);
+        if (killer != null && statusEffects[StatusEffectType.MaxHpBounty] > 0) {
+            killer.combatStats.maxHealth += statusEffects[StatusEffectType.MaxHpBounty];
+            killer.combatStats.setCurrentHealth(killer.combatStats.getCurrentHealth() + statusEffects[StatusEffectType.MaxHpBounty]);
         }
 
-        if (statusEffects[StatusEffect.MoneyOnDeath] > 0) {
+        if (statusEffects[StatusEffectType.MoneyOnDeath] > 0) {
             PlayerData playerData = EnemyEncounterManager.Instance.gameState.playerData.GetValue();
-            playerData.gold += statusEffects[StatusEffect.MoneyOnDeath];
+            playerData.gold += statusEffects[StatusEffectType.MoneyOnDeath];
         }
         UpdateView();
     }
@@ -197,8 +197,8 @@ public class CombatInstance : MonoBehaviour
     // This function is setup the way it is because certain statuses need to be
     // updated at different times. Making this function take in a list of statuses
     // allows us to separate when one status is updated vs another
-    public IEnumerable UpdateStatusEffects(List<StatusEffect> statuses) {
-        foreach (StatusEffect effect in statuses) {
+    public IEnumerable UpdateStatusEffects(List<StatusEffectType> statuses) {
+        foreach (StatusEffectType effect in statuses) {
             UpdateStatusEffect(effect);
         }
         UpdateView();
@@ -216,30 +216,30 @@ public class CombatInstance : MonoBehaviour
         }
     }
 
-    private void UpdateStatusEffect(StatusEffect status) {
+    private void UpdateStatusEffect(StatusEffectType status) {
         switch (status) {
-            case StatusEffect.Defended:
+            case StatusEffectType.Defended:
                 statusEffects[status] = 0;
                 break;
-            case StatusEffect.Thorns:
+            case StatusEffectType.Thorns:
                 statusEffects[status] = 0;
                 break;
 
-            case StatusEffect.TemporaryStrength:
+            case StatusEffectType.TemporaryStrength:
                 statusEffects[status] = 0;
                 break;
-            case StatusEffect.Invulnerability:
+            case StatusEffectType.Invulnerability:
                 statusEffects[status] = 0;
                 break;
-            case StatusEffect.Weakness:
+            case StatusEffectType.Weakness:
                 statusEffects[status] = DecrementStatus(statusEffects[status]);
                 break;
-            case StatusEffect.Orb:
+            case StatusEffectType.Orb:
                 break;
 
             // This is separate from the above for now since this might
             // need special logic
-            case StatusEffect.MoneyOnDeath:
+            case StatusEffectType.MoneyOnDeath:
                 statusEffects[status] = DecrementStatus(statusEffects[status]);
             break;
         }

@@ -2,37 +2,44 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public class CombatEntityStatsDisplayViewModel {
+    public int currentHealth;
+    public int maxHealth;
+    public Dictionary<StatusEffectType, string> statusEffects = new Dictionary<StatusEffectType, string>();
+    
+}
 // Handles displaying a companion's stats/providing
 // those values to the UI by implementing Entity
 public class CombatEntityStatsDisplay: MonoBehaviour
 {
-    private CombatInstance entity;
+    private CombatInstance combatInstance;
 
     public int maxHealth{
         get {
-            return entity.combatStats.maxHealth;
+            return combatInstance.combatStats.maxHealth;
         }
     }
 
     public int currentHealth{
         get {
-            return entity.combatStats.getCurrentHealth();
+            return combatInstance.combatStats.getCurrentHealth();
         }
     }
 
-    private Dictionary<StatusEffect, StatusEffectDisplay> statusEffectDisplays = new Dictionary<StatusEffect, StatusEffectDisplay>();
+    private Dictionary<StatusEffectType, CombatInstanceStatusEffectDisplay> statusEffectDisplays = new Dictionary<StatusEffectType, CombatInstanceStatusEffectDisplay>();
 
-    void Start()
-    {
-        // This code assumes we always want to reinitialize the
-        // in encounter stats when a new encounter starts
-        entity = GetComponentInParent<CombatInstance>();
+    public void Setup(CombatInstance combatInstance) {
+        this.combatInstance = combatInstance;   
+    }
+
+    public void SetStateDirty() {
+
     }
 
     void Awake() {
-        StatusEffectDisplay[] arr = GetComponentsInChildren<StatusEffectDisplay>();
+        CombatInstanceStatusEffectDisplay[] arr = GetComponentsInChildren<CombatInstanceStatusEffectDisplay>();
 
-        foreach (StatusEffectDisplay statusEffectDisplay in arr) {
+        foreach (CombatInstanceStatusEffectDisplay statusEffectDisplay in arr) {
             statusEffectDisplays.Add(statusEffectDisplay.statusEffect, statusEffectDisplay);
         }
     }
@@ -42,10 +49,10 @@ public class CombatEntityStatsDisplay: MonoBehaviour
         // of the CombatEntity prefab every time there's a change to 
         // the stats, so that they can update their own UI
         bool statusShouldDisplay = false;
-        foreach (KeyValuePair<StatusEffect, StatusEffectDisplay> kv in statusEffectDisplays) {
-            statusShouldDisplay = entity.statusEffects[kv.Key] != CombatInstance.initialStatusEffects[kv.Key];
+        foreach (KeyValuePair<StatusEffectType, CombatInstanceStatusEffectDisplay> kv in statusEffectDisplays) {
+            statusShouldDisplay = combatInstance.statusEffects[kv.Key] != CombatInstance.initialStatusEffects[kv.Key];
             kv.Value.SetDisplaying(statusShouldDisplay);
-            if (statusShouldDisplay) kv.Value.SetText(entity.statusEffects[kv.Key].ToString());
+            if (statusShouldDisplay) kv.Value.SetText(combatInstance.statusEffects[kv.Key].ToString());
         }
     }
 }

@@ -22,7 +22,7 @@ public class ApplyStatus : EffectStep, ITooltipProvider
     )]
     private string inputKey = "";
     [SerializeField]
-    private StatusEffect statusEffect;
+    private StatusEffectType statusEffect;
     [SerializeField]
     private int scale;
     [SerializeField]
@@ -54,7 +54,7 @@ public class ApplyStatus : EffectStep, ITooltipProvider
             // Certain companion abilities have effects like "give each
             // companion on the team 4 block for each aura stack they have".
             if (multiplyByNumAuraStacks) {
-                personalizedScale *= combatInstance.statusEffects[StatusEffect.Orb];
+                personalizedScale *= combatInstance.statusEffects[StatusEffectType.Orb];
             }
 
             combatInstance.ApplyStatusEffects(statusEffect, personalizedScale);
