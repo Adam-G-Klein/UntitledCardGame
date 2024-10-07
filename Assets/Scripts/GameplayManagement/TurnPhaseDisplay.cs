@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class TurnPhaseDisplay : MonoBehaviour {
     
+    public GameObject effectParent;
     public GameObject playerTurnPrefab;
     public GameObject enemyTurnPrefab;
     // TODO: make this configurable in game settings, game speed type vibe/beat
@@ -26,13 +27,13 @@ public class TurnPhaseDisplay : MonoBehaviour {
     }
 
     public IEnumerable DisplayPlayerTurn() {
-        GameObject playerTurn = Instantiate(playerTurnPrefab, transform); 
+        GameObject playerTurn = Instantiate(playerTurnPrefab, effectParent.transform); 
         yield return new WaitForSeconds(turnDisplayDuration);
         Destroy(playerTurn);
     }
 
     public IEnumerable DisplayEnemyTurn() {
-        GameObject playerTurn = Instantiate(playerTurnPrefab, transform); 
+        GameObject playerTurn = Instantiate(enemyTurnPrefab, effectParent.transform); 
         yield return new WaitForSeconds(turnDisplayDuration);
         Destroy(playerTurn);
     }
