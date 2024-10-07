@@ -1,0 +1,112 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: M_BackgroundTurn 1
+  m_Shader: {fileID: -6465566751694194690, guid: 1e9898d2e3d5da5449fc780baf7da18d, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _Distortion:
+        m_Texture: {fileID: 2800000, guid: 8af83b91fd6dfb44794fa1e3947b88a8, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 8f1f583c89435f844a21303af75b21ca, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Mask_Distortion:
+        m_Texture: {fileID: 2800000, guid: 0e015d0db94a6c9419e4580b5f87495a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Mask_Tex:
+        m_Texture: {fileID: 2800000, guid: d50569c4e8032c3408b54117313f5ff2, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture_1:
+        m_Texture: {fileID: 2800000, guid: 2254fd76d0b472d459f003a34da6abfb, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture_2:
+        m_Texture: {fileID: 2800000, guid: 7e33bedd367ac7b40999d8748d306acb, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture_3:
+        m_Texture: {fileID: 2800000, guid: b6c29d662d1a0004a8875476c88a4b10, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _Cutoff: -1
+    - _Cutoff_1: -1
+    - _Dissolve_Strength: 0
+    - _Distortion_Strength: 0.1
+    - _Distortion_Strength_Main_Tex: 0.05
+    - _Distortion_Strength_Mask: 0
+    - _L_Power: 1
+    - _L_R_Power: 1
+    - _Mask_Distortion_Power: 1
+    - _Mask_Power: 1
+    - _N2_Power: 2
+    - _N3_Strength: 0.05
+    - _Power: 1
+    - _Power_1: 1
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _R_L_Power: 1
+    - _R_Power: 1
+    - _Softness: 0.2
+    - _Step: -0.11
+    m_Colors:
+    - _Colour: {r: 0.7490197, g: 0.7490197, b: 0.7490197, a: 1}
+    - _Distortion_Noise: {r: 0, g: 0, b: 0, a: 0}
+    - _Distortion_Speed: {r: -0.09, g: 0, b: 0, a: 0}
+    - _Mask_Distortion_SPeed: {r: 0.1, g: 0, b: 0, a: 0}
+    - _Mask_Distortion_Speed: {r: -0.1, g: 0, b: 0, a: 0}
+    - _Mask_Speed: {r: -0.1, g: 0, b: 0, a: 0}
+    - _N2_Speed: {r: -0.1, g: -0.1, b: 0, a: 0}
+    - _N2_Tiling_and_Offset: {r: 1, g: 1, b: 0, a: 0}
+    - _N3_Speed: {r: 0, g: 0.1, b: 0, a: 0}
+    - _N3_Tiling_and_Offset: {r: 1, g: 1, b: 0, a: 0}
+  m_BuildTextureStacks: []
+--- !u!114 &779481407209918938
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 7
