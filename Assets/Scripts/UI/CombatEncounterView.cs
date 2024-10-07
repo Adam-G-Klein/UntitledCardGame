@@ -24,6 +24,10 @@ public class CombatEncounterView : MonoBehaviour
     {
         docRenderer = gameObject.GetComponent<UIDocumentScreenspace>();
         root = GetComponent<UIDocument>().rootVisualElement;
+        if(!gameState.activeEncounter.GetValue().GetType().Equals(typeof(EnemyEncounter))) {
+            Debug.LogError("Active encounter is not an EnemyEncounter, Go to ScriptableObjects/Variables/GameState.so and hit Set Active Encounter to set the encounter to an enemy encounter");
+            return;
+        }
         var enemies = ((EnemyEncounter)gameState.activeEncounter.GetValue()).enemyList;
         companions = gameState.companions.activeCompanions;
         setupEntities(root.Q<VisualElement>("enemyContainer"), enemies.Cast<Entity>().ToList(), true);
