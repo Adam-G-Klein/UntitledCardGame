@@ -32,12 +32,15 @@ public class PlayableCard : MonoBehaviour,
     public bool retained = false;
     public AudioClip cardHover;
     public float hoverSFXVolume = 0.1f;
+    public float hoverYOffset = 1.5f;
+    public float hoverZOffset = 0.5f;
 
     private UIDocumentCard docCard;
 
     public void Start()
     {
         docCard = GetComponent<UIDocumentCard>();
+        transform.localScale = new Vector3(nonHoverScale, nonHoverScale, 1);
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -106,6 +109,8 @@ public class PlayableCard : MonoBehaviour,
         hovered = true;
         MusicController.Instance.PlaySFX(cardHover, hoverSFXVolume);
         transform.localScale = new Vector3(hoverScale, hoverScale, 1);
+        transform.position = new Vector3(transform.position.x, transform.position.y + hoverYOffset, transform.position.z + hoverZOffset);
+        transform.SetAsLastSibling();
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -113,6 +118,7 @@ public class PlayableCard : MonoBehaviour,
         if (!hovered) return;
         hovered = false;
         transform.localScale = new Vector3(nonHoverScale, nonHoverScale, 1);
+        transform.position = new Vector3(transform.position.x, transform.position.y - hoverYOffset, transform.position.z - hoverZOffset);
     }
 
     // Used when instantiating the card after Start has run

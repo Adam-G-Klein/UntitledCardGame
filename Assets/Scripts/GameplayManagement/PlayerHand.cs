@@ -33,6 +33,10 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         List<PlayableCard> cardsDelt = new List<PlayableCard>();
         PlayableCard newCard;
         foreach(Card cardInfo in cards) {
+            if(cardsInHand.Count >= GameplayConstantsSingleton.Instance.gameplayConstants.MAX_HAND_SIZE) {
+                Debug.Log("PlayerHand: Hand is full, not dealing card");
+                break;
+            }
             WorldPositionVisualElement newCardPlacement = UIDocumentGameObjectPlacer.Instance.checkoutCardMapping();
             newCard = PrefabInstantiator.InstantiateCard(
                 cardPrefab,
@@ -40,6 +44,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                 cardInfo,
                 deckFrom,
                 newCardPlacement.worldPos);
+            newCard.gameObject.name = cardInfo.name;
             UIDocumentGameObjectPlacer.Instance.addMapping(newCardPlacement, newCard.gameObject);
             if (newCard.card.cardType.retain) {
                 newCard.retained = true;

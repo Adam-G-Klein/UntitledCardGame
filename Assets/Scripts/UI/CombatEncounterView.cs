@@ -19,7 +19,6 @@ public class CombatEncounterView : MonoBehaviour
     public static string DETAILS_HEADER_SUFFIX = "-details-title";
     public static string DETAILS_DESCRIPTION_SUFFIX = "-details-desc";
 
-
     private void OnEnable()
     {
         docRenderer = gameObject.GetComponent<UIDocumentScreenspace>();
@@ -165,7 +164,8 @@ public class CombatEncounterView : MonoBehaviour
     {
         var container = root.Q<VisualElement>("cardContainer");
         int index = UIDocumentGameObjectPlacer.INITIAL_INDEX;
-        foreach (Companion companion in companions) {
+        int maxHandSize = GameplayConstantsSingleton.Instance.gameplayConstants.MAX_HAND_SIZE;
+        for (int i = 0; i < maxHandSize; i++) {
             VisualElement cardContainer = new VisualElement();
             cardContainer.AddToClassList("companion-card-placer");
             container.Add(cardContainer);

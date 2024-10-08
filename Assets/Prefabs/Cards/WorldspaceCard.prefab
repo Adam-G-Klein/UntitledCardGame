@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 6901440839600862463}
   - component: {fileID: -8509860225040359179}
   m_Layer: 0
-  m_Name: WorldspaceUIDocumentCard
+  m_Name: WorldspaceCard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34,7 +34,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.2551, y: -1.4118, z: 0}
-  m_LocalScale: {x: 0.5097, y: 0.4485, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -172,18 +172,21 @@ MonoBehaviour:
   card:
     id: f8f26321-96b2-45ef-8939-b0c5f6da1641
     entityType: 0
+    shopRarity: 0
     castCount: 0
     tempManaCost: -1
     generated: 0
     cardType: {fileID: 11400000, guid: 7f02d48d505b64fafa218f5fc04a149b, type: 2}
   deckFrom: {fileID: 0}
-  hoverScale: 1.5
-  nonHoverScale: 1
+  hoverScale: 3
+  nonHoverScale: 1.5
   cardCastEvent: {fileID: 11400000, guid: 8e2f201df9de731449d5a0e8ddb0d748, type: 2}
   hovered: 0
   retained: 0
   cardHover: {fileID: 0}
   hoverSFXVolume: 0.1
+  hoverYOffset: 1.5
+  hoverZOffset: -0.5
 --- !u!61 &-8509860225040359179
 BoxCollider2D:
   m_ObjectHideFlags: 0

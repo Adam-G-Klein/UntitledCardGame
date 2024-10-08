@@ -9,4 +9,6 @@ public class GameplayConstantsSO : ScriptableObject {
     public int COMPANIONS_FOR_COMBINATION = 3;
     // not being enforced right now, just for spawn locations
     public int MAX_MINIONS_PER_COMPANION = 4;
+
+    public int MAX_HAND_SIZE = 10;
 }
