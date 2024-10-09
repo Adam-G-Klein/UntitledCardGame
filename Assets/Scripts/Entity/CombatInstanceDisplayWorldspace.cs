@@ -16,6 +16,7 @@ public class CombatInstanceDisplayWorldspace : MonoBehaviour
     [SerializeField]
     [Header("Added because I threw in the towel on getting the positioning perfect")]
     private int arbitraryBottomPlacementPixels = 5;
+    public bool debugMousePosition = false;
 
     void Start(){
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -24,8 +25,10 @@ public class CombatInstanceDisplayWorldspace : MonoBehaviour
 
     void Update() {
         // debug print the mouse position on the screen
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Debug.Log("Mouse position world: " + mousePos + " screen: " + Input.mousePosition);
+        if(debugMousePosition) {
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Debug.Log("Mouse position world: " + mousePos + " screen: " + Input.mousePosition);
+        }
     }
 
     public void Setup(CombatInstance combatInstance, WorldPositionVisualElement wpve) {

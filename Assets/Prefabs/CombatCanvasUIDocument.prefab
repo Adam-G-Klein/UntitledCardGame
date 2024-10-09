@@ -29,7 +29,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 782144209338830068}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 3.56}
+  m_LocalPosition: {x: 0, y: 0, z: -0.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -63,7 +63,7 @@ MonoBehaviour:
   m_PanelSettings: {fileID: 11400000, guid: 34dded08666491d4e86234a1176ceed5, type: 2}
   m_ParentUI: {fileID: 0}
   sourceAsset: {fileID: 9197481963319205126, guid: bb117d782bf73ba4da35ae9f35cd970b, type: 3}
-  m_SortingOrder: -22.31
+  m_SortingOrder: 1
 --- !u!114 &5385532665509002608
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -358,6 +358,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameState: {fileID: 11400000, guid: 9e326417f60894341a96cc8d02868bbe, type: 2}
+  gameplayConstants: {fileID: 11400000, guid: a6db1936fe0d3a647b09f3d8297fef23, type: 2}
 --- !u!1 &2627483554680799874
 GameObject:
   m_ObjectHideFlags: 0
