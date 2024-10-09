@@ -236,3 +236,21 @@
 .xyuz {
     max-width: 25%;
 }
+
+.status-effect {
+    flex-grow: 1;
+    background-color: rgb(88, 67, 44);
+    position: relative;
+    width: 10%;
+    height: 6.5%;
+    top: 30px;
+    left: 191px;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+}

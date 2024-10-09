@@ -21,8 +21,8 @@ public class CombatEncounterView : MonoBehaviour
 
     [Header("Needs its own reference because the singleton isn't alive in time")]
     public GameplayConstantsSO gameplayConstants;
-    private static string STATUS_EFFECTS_CONTAINER_SUFFIX = "-status-effects";
-    private static string STATUS_EFFECTS_TAB_CLASSNAME = "status-effect";
+    public static string STATUS_EFFECTS_CONTAINER_SUFFIX = "-status-effects";
+    public static string STATUS_EFFECTS_TAB_CLASSNAME = "status-effect";
 
     private void OnEnable()
     {
@@ -82,6 +82,7 @@ public class CombatEncounterView : MonoBehaviour
         portraitContainer.name = baseString + index.ToString();
         portraitContainer.AddToClassList("portrait-container");
         container.Add(portraitContainer);
+        container.AddToClassList(portraitContainer.name + STATUS_EFFECTS_CONTAINER_SUFFIX);
 
         var detailsContainer = new VisualElement();
         // TODO: figure out how to avoid querying from root. All the elements we want to query need to have 

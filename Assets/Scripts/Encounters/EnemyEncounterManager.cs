@@ -15,7 +15,6 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     public CombatEncounterState combatEncounterState;
     public delegate void OnEncounterEndHandler();
     public event OnEncounterEndHandler onEncounterEndHandler;
-    public CharacterPortraitController characterPortraitController;
     public EnemyPortraitController enemyPortraitController;
     [SerializeField]
     // There's so many ways we could do this

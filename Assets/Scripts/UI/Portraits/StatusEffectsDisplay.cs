@@ -40,13 +40,15 @@ public class StatusEffectsDisplay: MonoBehaviour
         this.combatInstance = combatInstance;
 
         statusEffectsParent = wpve.rootElement.Q<VisualElement>(
-            wpve.portraitContainerName + CombatEncounterView.DETAILS_CONTAINER_SUFFIX
+            className: wpve.portraitContainerName + CombatEncounterView.STATUS_EFFECTS_CONTAINER_SUFFIX
         );
         for(int i = 0; i < 3 ; i++) {
             VisualElement statusEffectDisplay = new VisualElement();
-            statusEffectDisplay.AddToClassList("status-effect");
+            statusEffectDisplay.AddToClassList(CombatEncounterView.STATUS_EFFECTS_TAB_CLASSNAME);
+            statusEffectDisplay.BringToFront();
             statusEffectsParent.Add(statusEffectDisplay);
         }
+        UIStateManager.Instance.SetUIDocDirty();
 
     }
 

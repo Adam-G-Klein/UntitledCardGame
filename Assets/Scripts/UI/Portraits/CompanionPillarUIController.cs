@@ -5,20 +5,15 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(StatusEffectsDisplay))]
-public class EnemyPillarUIController : MonoBehaviour
+public class CompanionPillarUIController : MonoBehaviour
 {
-    [SerializeField] private EntityHealthViewController healthBar;
-    [SerializeField] private StatusEffectDisplaysController statusEffectsController;
+    [SerializeField] private StatusEffectsDisplay statusEffectsDisplay;
     public CompanionInstance companionInstance;
 
-    public void Setup(EnemyInstance enemyInstance) {
-        Debug.Log("Setting up enemy portrait for " + enemyInstance.name);
-        this.enemyInstance = enemyInstance;
-        // TODO: add this back here
-        //this.statusEffectsController.Setup(enemyInstance.combatInstance);
-        // 
-        enemyIntentDisplay = GetComponent<EnemyIntentDisplay>();
-        this.enemyIntentDisplay.Setup(enemyInstance);
+    public void Setup(CompanionInstance companionInstance, WorldPositionVisualElement wpve) {
+        Debug.Log("Setting up UI for " + companionInstance.name);
+        this.companionInstance = companionInstance;
+        this.statusEffectsDisplay.Setup(companionInstance.combatInstance, wpve);
     }
 
 }

@@ -120,6 +120,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   arbitraryInteriorPaddingPixels: 15
   arbitraryBottomPlacementPixels: 8
+  debugMousePosition: 0
 --- !u!61 &8934727644576399116
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -183,6 +184,8 @@ GameObject:
   - component: {fileID: 2968781624745438164}
   - component: {fileID: 1520036689927399670}
   - component: {fileID: -4785001928966702165}
+  - component: {fileID: 8494857512198128503}
+  - component: {fileID: 160789473182807700}
   m_Layer: 0
   m_Name: WorldSpaceCompanion
   m_TagString: Companion
@@ -397,3 +400,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 181099cf226cb014d8b73f4cd5723070, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8494857512198128503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5285687428135354733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0c5067f45263eb488ce31824f440aef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &160789473182807700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5285687428135354733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1dc4e7816a47be478c84aadea351adb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 0}
+  statusEffectsDisplay: {fileID: 0}
+  companionInstance: {fileID: 0}
