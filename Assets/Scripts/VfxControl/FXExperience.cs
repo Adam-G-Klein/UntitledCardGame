@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEngine.Playables;
+using UnityEngine.Timeline;
 
 [RequireComponent(typeof(PlayableDirector))]
 public class FXExperience : MonoBehaviour
@@ -26,6 +27,19 @@ public class FXExperience : MonoBehaviour
 
     public void AddLocationToKey(string key, Vector3 location) {
         locations.Add(new Location(key, location));
+    }
+
+    public void BindGameObjectsToTracks(Dictionary<String, GameObject> bindingsMap) {
+        if (playableDirector == null) {
+            playableDirector = GetComponent<PlayableDirector>();
+        }
+
+        TimelineAsset timeline = (TimelineAsset) playableDirector.playableAsset;
+        foreach (var track in timeline.GetOutputTracks()) {
+            if (bindingsMap.ContainsKey(track.name)) {
+                playableDirector.SetGenericBinding(track, bindingsMap[track.name].transform);
+            }
+        }
     }
 
     public Vector3 GetLocationFromKey(string key) {

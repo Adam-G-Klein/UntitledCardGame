@@ -280,20 +280,16 @@ public class GetTargets : EffectStep
         if (document.originEntityType == EntityType.CompanionInstance) {
             CompanionInstance companion = document.map.GetItem<CompanionInstance>(
                 EffectDocument.ORIGIN, 0);
-            document.map.AddItem<CompanionInstance>(outputKey, companion);
-            document.map.AddItem<CombatInstance>(outputKey, companion.combatInstance);
-            document.map.AddItem<DeckInstance>(outputKey, companion.deckInstance);
+            EffectUtils.AddCompanionToDocument(document, outputKey, companion);
         // A playable card is the source of the effect
         } else if (document.originEntityType == EntityType.Card) {
             PlayableCard playableCard = document.map.GetItem<PlayableCard>(
                 EffectDocument.ORIGIN, 0);
-            document.map.AddItem<PlayableCard>(outputKey, playableCard);
-            document.map.AddItem<Card>(outputKey, playableCard.card);
+            EffectUtils.AddPlayableCardToDocument(document, outputKey, playableCard);
         } else if (document.originEntityType == EntityType.Enemy) {
             EnemyInstance enemy = document.map.GetItem<EnemyInstance>(
                 EffectDocument.ORIGIN, 0);
-            document.map.AddItem<EnemyInstance>(outputKey, enemy);
-            document.map.AddItem<CombatInstance>(outputKey, enemy.combatInstance);
+            EffectUtils.AddEnemyToDocument(document, outputKey, enemy);
         }
     }
 

@@ -23,6 +23,7 @@ MonoBehaviour:
       displayValue: 4
       effectSteps:
       - rid: 3931529445166809420
+      - rid: 4053950154463772708
       - rid: 3931529445166809313
     behaviorType: 0
     nextBehaviorIndex: 0
@@ -36,7 +37,7 @@ MonoBehaviour:
     lines:
     - title: Strike
       description: Simple Attack
-      image: {fileID: 0}
+      relatedBehaviorIndex: 0
   references:
     version: 2
     RefIds:
@@ -63,3 +64,18 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
+    - rid: 4053950154463772708
+      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FXEffectStep
+        waitForEffect: 1
+        fXExperiencePrefab: {fileID: 7374988516867921400, guid: 080ebf6cafefa59438cf877ee502d109, type: 3}
+        rootLocationGameObjectKey: self
+        positionMappingList:
+        - fromWorkflow: target
+          toFxExperience: companionLocation
+        - fromWorkflow: self
+          toFxExperience: enemyLocation
+        gameobjectMappingList:
+        - fromWorkflow: self
+          toFxExperience: enemy

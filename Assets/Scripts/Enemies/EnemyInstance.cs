@@ -81,8 +81,10 @@ public class EnemyInstance : MonoBehaviour {
         document.originEntityType = EntityType.Enemy;
         List<CombatInstance> combatInstanceTargets = currentIntent.targets.Select(x => x.combatInstance).ToList();
         List<DeckInstance> deckInstanceTargets = currentIntent.targets.Select(x => x.deckInstance).ToList();
+        List<GameObject> gameObjectTargets = currentIntent.targets.Select(x => x.gameObject).ToList();
         document.map.AddItems<CombatInstance>(currentIntent.targetsKey, combatInstanceTargets);
         document.map.AddItems<DeckInstance>(currentIntent.targetsKey, deckInstanceTargets);
+        document.map.AddItems<GameObject>(currentIntent.targetsKey, gameObjectTargets);
         EffectManager.Instance.invokeEffectWorkflow(document, currentIntent.effectSteps, null);
         yield return null;
     }

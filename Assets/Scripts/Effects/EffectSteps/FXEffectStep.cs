@@ -14,7 +14,9 @@ public class FXEffectStep: EffectStep {
     [SerializeField]
     private string rootLocationGameObjectKey = "";
     [SerializeField]
-    private List<Mapping> keyMappingList = new List<Mapping>();
+    private List<Mapping> positionMappingList = new List<Mapping>();
+    [SerializeField]
+    private List<Mapping> gameobjectMappingList = new List<Mapping>();
 
     private bool isEffectCompleted;
 
@@ -33,14 +35,25 @@ public class FXEffectStep: EffectStep {
 
         FXExperience experience = PrefabInstantiator.instantiateFXExperience(fXExperiencePrefab, rootLocation);
 
-        foreach (Mapping keyMapping in keyMappingList) {
-            List<GameObject> gameObjects = document.map.GetList<GameObject>(keyMapping.fromWorkflow);
+        foreach (Mapping posMapping in positionMappingList) {
+            List<GameObject> gameObjects = document.map.GetList<GameObject>(posMapping.fromWorkflow);
             if (gameObjects.Count != 1) {
                 EffectError(String.Format("Can't bind map object to FXExperience because there were {0} options", gameObjects.Count));
                 yield break;
             }
-            experience.AddLocationToKey(keyMapping.toFxExperience, gameObjects[0].transform.position);
+            experience.AddLocationToKey(posMapping.toFxExperience, gameObjects[0].transform.position);
         }
+
+        Dictionary<String, GameObject> keyToGameObjectDict = new Dictionary<String, GameObject>();
+        foreach (Mapping goMapping in gameobjectMappingList) {
+            List<GameObject> gameObjects = document.map.GetList<GameObject>(goMapping.fromWorkflow);
+            if (gameObjects.Count != 1) {
+                EffectError(String.Format("Can't bind map object to FXExperience because there were {0} options", gameObjects.Count));
+                yield break;
+            }
+            keyToGameObjectDict.Add(goMapping.toFxExperience, gameObjects[0]);
+        }
+        experience.BindGameObjectsToTracks(keyToGameObjectDict);
 
         if (waitForEffect) {
             isEffectCompleted = false;
