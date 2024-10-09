@@ -78,6 +78,7 @@ public class CombatInstanceDisplayWorldspace : MonoBehaviour
         float scaleRatio = boxWidthInPixels / spriteWidthInPixels;
         //print(transform.parent.name + " scale ratio: " + scaleRatio);
         // 5
+        boxCollider2D.size = new Vector2(spriteRenderer.sprite.rect.width / spritePixelsPerUnit, spriteRenderer.sprite.rect.height / spritePixelsPerUnit);
         transform.localScale = new Vector3(scaleRatio, scaleRatio, 1);
     }
 }
