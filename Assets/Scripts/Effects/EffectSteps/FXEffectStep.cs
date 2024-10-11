@@ -26,11 +26,16 @@ public class FXEffectStep: EffectStep {
 
     public override IEnumerator invoke(EffectDocument document) {
         Vector3 rootLocation = Vector3.zero;
-        List<GameObject> rootLocationGameObjects = document.map.GetList<GameObject>(rootLocationGameObjectKey);
-        if (rootLocationGameObjects.Count > 1) {
-            EffectError(String.Format("Can't set root FXExpreience location because {0} were found", rootLocationGameObjects.Count));
-        } else if (rootLocationGameObjects.Count == 1) {
-            rootLocation = rootLocationGameObjects[0].transform.position;
+        try {
+            List<GameObject> rootLocationGameObjects = document.map.GetList<GameObject>(rootLocationGameObjectKey);
+            if (rootLocationGameObjects.Count > 1) {
+                EffectError(String.Format("Can't set root FXExpreience location because {0} were found", rootLocationGameObjects.Count));
+            } else if (rootLocationGameObjects.Count == 1) {
+                rootLocation = rootLocationGameObjects[0].transform.position;
+            }
+        } catch (Exception e) {
+            // I know this is terrible, but I don't want to go refactor the
+            // effect document map code at the moment
         }
 
         FXExperience experience = PrefabInstantiator.instantiateFXExperience(fXExperiencePrefab, rootLocation);

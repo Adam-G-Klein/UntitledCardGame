@@ -31,6 +31,7 @@ MonoBehaviour:
       - rid: 4463206030013890987
       - rid: 4463206030013890988
       - rid: 4463206030013890989
+      - rid: 4053950218419044438
     behaviorType: 0
     nextBehaviorIndex: 1
   belowHalfHPEnemyPattern:
@@ -43,15 +44,28 @@ MonoBehaviour:
     lines:
     - title: Empowered Strike
       description: Attacks and grows in strength
-      image: {fileID: 0}
       relatedBehaviorIndex: 0
     - title: Drain strength
       description: Reduces the strength of the targetted companion!
-      image: {fileID: 0}
       relatedBehaviorIndex: 1
   references:
     version: 2
     RefIds:
+    - rid: 4053950218419044438
+      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FXEffectStep
+        waitForEffect: 1
+        fXExperiencePrefab: {fileID: 7374988516867921400, guid: 080ebf6cafefa59438cf877ee502d109, type: 3}
+        rootLocationGameObjectKey: 
+        positionMappingList:
+        - fromWorkflow: self
+          toFxExperience: enemyLocation
+        - fromWorkflow: target
+          toFxExperience: companionLocation
+        gameobjectMappingList:
+        - fromWorkflow: self
+          toFxExperience: enemy
     - rid: 4463206030013890985
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:

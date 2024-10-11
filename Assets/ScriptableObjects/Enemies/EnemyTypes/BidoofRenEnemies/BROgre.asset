@@ -22,12 +22,13 @@ MonoBehaviour:
       targetsKey: target
       displayValue: 8
       effectSteps:
-      - rid: 3931529445166809422
       - rid: 3931529445166809421
+      - rid: 3931529445166809422
       - rid: 5602893111447519692
       - rid: 5602893111447519693
       - rid: 5602893111447519694
       - rid: 5602893111447519695
+      - rid: 4053950218419044435
     behaviorType: 0
     nextBehaviorIndex: 0
   belowHalfHPEnemyPattern:
@@ -40,7 +41,6 @@ MonoBehaviour:
     lines:
     - title: Empowered Strike
       description: Attacks and grows in strength
-      image: {fileID: 0}
       relatedBehaviorIndex: -1
   references:
     version: 2
@@ -68,6 +68,21 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+    - rid: 4053950218419044435
+      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FXEffectStep
+        waitForEffect: 1
+        fXExperiencePrefab: {fileID: 7374988516867921400, guid: 080ebf6cafefa59438cf877ee502d109, type: 3}
+        rootLocationGameObjectKey: 
+        positionMappingList:
+        - fromWorkflow: self
+          toFxExperience: enemyLocation
+        - fromWorkflow: target
+          toFxExperience: companionLocation
+        gameobjectMappingList:
+        - fromWorkflow: self
+          toFxExperience: enemy
     - rid: 5602893111447519692
       type: {class: CountStatusEffectsStep, ns: , asm: Assembly-CSharp}
       data:

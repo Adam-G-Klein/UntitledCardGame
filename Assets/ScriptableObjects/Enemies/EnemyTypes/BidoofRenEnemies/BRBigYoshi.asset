@@ -25,6 +25,7 @@ MonoBehaviour:
       - rid: 5602893111447519363
       - rid: 5602893111447519364
       - rid: 5602893111447519365
+      - rid: 4053950218419044387
     behaviorType: 0
     nextBehaviorIndex: 0
   belowHalfHPEnemyPattern:
@@ -37,11 +38,25 @@ MonoBehaviour:
     lines:
     - title: Empowering Strike
       description: Attacks and grows stronger
-      image: {fileID: 0}
       relatedBehaviorIndex: -1
   references:
     version: 2
     RefIds:
+    - rid: 4053950218419044387
+      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FXEffectStep
+        waitForEffect: 1
+        fXExperiencePrefab: {fileID: 7374988516867921400, guid: 080ebf6cafefa59438cf877ee502d109, type: 3}
+        rootLocationGameObjectKey: 
+        positionMappingList:
+        - fromWorkflow: self
+          toFxExperience: enemyLocation
+        - fromWorkflow: target
+          toFxExperience: companionLocation
+        gameobjectMappingList:
+        - fromWorkflow: self
+          toFxExperience: enemy
     - rid: 5602893111447519363
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

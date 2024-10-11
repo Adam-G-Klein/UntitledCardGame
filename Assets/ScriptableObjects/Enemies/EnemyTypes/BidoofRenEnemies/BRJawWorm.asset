@@ -25,12 +25,14 @@ MonoBehaviour:
       - rid: 4463205916933358106
       - rid: 4463205916933358108
       - rid: 4463205916933358107
+      - rid: 4053950218419044431
     - intent: 0
       enemyTargetMethod: 0
       targetsKey: target
       displayValue: 9
       effectSteps:
       - rid: 4463205916933358109
+      - rid: 4053950218419044432
     behaviorType: 0
     nextBehaviorIndex: 1
   belowHalfHPEnemyPattern:
@@ -43,19 +45,40 @@ MonoBehaviour:
     lines:
     - title: Strike
       description: Simple Attack
-      image: {fileID: 0}
       relatedBehaviorIndex: 0
     - title: Guarded Strike
       description: Attack & Block
-      image: {fileID: 0}
       relatedBehaviorIndex: 1
     - title: Block
       description: Block prevents damage
-      image: {fileID: 0}
       relatedBehaviorIndex: 1
   references:
     version: 2
     RefIds:
+    - rid: 4053950218419044431
+      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FXEffectStep
+        waitForEffect: 1
+        fXExperiencePrefab: {fileID: 7374988516867921400, guid: 080ebf6cafefa59438cf877ee502d109, type: 3}
+        rootLocationGameObjectKey: 
+        positionMappingList:
+        - fromWorkflow: self
+          toFxExperience: enemyLocation
+        - fromWorkflow: target
+          toFxExperience: companionLocation
+        gameobjectMappingList:
+        - fromWorkflow: self
+          toFxExperience: enemy
+    - rid: 4053950218419044432
+      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FXEffectStep
+        waitForEffect: 1
+        fXExperiencePrefab: {fileID: 7374988516867921400, guid: 080ebf6cafefa59438cf877ee502d109, type: 3}
+        rootLocationGameObjectKey: 
+        positionMappingList: []
+        gameobjectMappingList: []
     - rid: 4463205916933358106
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

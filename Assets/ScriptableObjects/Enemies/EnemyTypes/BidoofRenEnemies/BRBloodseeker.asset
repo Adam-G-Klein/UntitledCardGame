@@ -28,6 +28,7 @@ MonoBehaviour:
       - rid: 5602893111447519608
       - rid: 5602893111447519609
       - rid: 5602893111447519607
+      - rid: 4053950218419044423
     behaviorType: 0
     nextBehaviorIndex: 0
   belowHalfHPEnemyPattern:
@@ -40,7 +41,7 @@ MonoBehaviour:
     lines:
     - title: Smells Fear
       description: Attacks the companion with the lowest HP
-      image: {fileID: 0}
+      relatedBehaviorIndex: 0
   references:
     version: 2
     RefIds:
@@ -67,6 +68,21 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
+    - rid: 4053950218419044423
+      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FXEffectStep
+        waitForEffect: 1
+        fXExperiencePrefab: {fileID: 7374988516867921400, guid: 080ebf6cafefa59438cf877ee502d109, type: 3}
+        rootLocationGameObjectKey: 
+        positionMappingList:
+        - fromWorkflow: target
+          toFxExperience: companionLocation
+        - fromWorkflow: self
+          toFxExperience: enemyLocation
+        gameobjectMappingList:
+        - fromWorkflow: self
+          toFxExperience: enemy
     - rid: 5602893111447519606
       type: {class: CountStatusEffectsStep, ns: , asm: Assembly-CSharp}
       data:

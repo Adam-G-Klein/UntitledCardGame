@@ -32,6 +32,7 @@ MonoBehaviour:
       - rid: 4463206030013890865
       - rid: 4463206030013890984
       - rid: 4463206030013890983
+      - rid: 4053950218419044424
     behaviorType: 0
     nextBehaviorIndex: 1
   belowHalfHPEnemyPattern:
@@ -58,15 +59,28 @@ MonoBehaviour:
     lines:
     - title: Impending Doom
       description: Adds the SeedOfDestruction to you deck
-      image: {fileID: 0}
       relatedBehaviorIndex: 1
     - title: Malicious Attack
       description: 'Attacks and adds the SeedOfDestruction '
-      image: {fileID: 0}
       relatedBehaviorIndex: 0
   references:
     version: 2
     RefIds:
+    - rid: 4053950218419044424
+      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FXEffectStep
+        waitForEffect: 1
+        fXExperiencePrefab: {fileID: 7374988516867921400, guid: 080ebf6cafefa59438cf877ee502d109, type: 3}
+        rootLocationGameObjectKey: 
+        positionMappingList:
+        - fromWorkflow: self
+          toFxExperience: enemyLocation
+        - fromWorkflow: first
+          toFxExperience: companionLocation
+        gameobjectMappingList:
+        - fromWorkflow: self
+          toFxExperience: enemy
     - rid: 4463206030013890833
       type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
       data:

@@ -32,6 +32,7 @@ MonoBehaviour:
       - rid: 5602893111447519700
       - rid: 5602893111447519701
       - rid: 5602893111447519702
+      - rid: 4053950218419044437
     behaviorType: 0
     nextBehaviorIndex: 0
   belowHalfHPEnemyPattern:
@@ -44,19 +45,31 @@ MonoBehaviour:
     lines:
     - title: Painful Memory
       description: Shuffles in a painful reminder to all companions deck
-      image: {fileID: 0}
       relatedBehaviorIndex: 1
     - title: Painful Reminder
       description: Unplayable. Take 3 damage if in hand at the end of the turn
-      image: {fileID: 0}
       relatedBehaviorIndex: 1
     - title: Empowered Strike
       description: Attacks and becomes more powerful
-      image: {fileID: 0}
       relatedBehaviorIndex: 0
   references:
     version: 2
     RefIds:
+    - rid: 4053950218419044437
+      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FXEffectStep
+        waitForEffect: 1
+        fXExperiencePrefab: {fileID: 7374988516867921400, guid: 080ebf6cafefa59438cf877ee502d109, type: 3}
+        rootLocationGameObjectKey: 
+        positionMappingList:
+        - fromWorkflow: self
+          toFxExperience: enemyLocation
+        - fromWorkflow: target
+          toFxExperience: companionLocation
+        gameobjectMappingList:
+        - fromWorkflow: self
+          toFxExperience: enemy
     - rid: 4463205916933358052
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

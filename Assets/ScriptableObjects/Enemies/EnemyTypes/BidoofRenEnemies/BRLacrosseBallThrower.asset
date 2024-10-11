@@ -22,7 +22,9 @@ MonoBehaviour:
       targetsKey: target
       displayValue: 10
       effectSteps:
+      - rid: 4053950218419044434
       - rid: 4463205916933358569
+      - rid: 4053950218419044433
     behaviorType: 0
     nextBehaviorIndex: 0
   belowHalfHPEnemyPattern:
@@ -35,11 +37,36 @@ MonoBehaviour:
     lines:
     - title: Barrage
       description: Medium Attack
-      image: {fileID: 0}
       relatedBehaviorIndex: -1
   references:
     version: 2
     RefIds:
+    - rid: 4053950218419044433
+      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FXEffectStep
+        waitForEffect: 1
+        fXExperiencePrefab: {fileID: 0}
+        rootLocationGameObjectKey: 
+        positionMappingList:
+        - fromWorkflow: self
+          toFxExperience: enemyLocation
+        - fromWorkflow: target
+          toFxExperience: companionLocation
+        gameobjectMappingList:
+        - fromWorkflow: self
+          toFxExperience: enemy
+    - rid: 4053950218419044434
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
     - rid: 4463205916933358569
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
