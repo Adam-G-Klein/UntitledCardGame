@@ -76,6 +76,7 @@ public class EnemyInstance : MonoBehaviour {
 
     private IEnumerable EnactIntent() {
         yield return new WaitForSeconds(currentIntent.attackTime);
+        intentDisplay.clearIntent();
         EffectDocument document = new EffectDocument();
         document.map.AddItem(EffectDocument.ORIGIN, this);
         document.originEntityType = EntityType.Enemy;
