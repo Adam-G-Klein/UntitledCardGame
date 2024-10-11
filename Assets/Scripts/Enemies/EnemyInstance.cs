@@ -86,7 +86,7 @@ public class EnemyInstance : MonoBehaviour {
         document.map.AddItems<CombatInstance>(currentIntent.targetsKey, combatInstanceTargets);
         document.map.AddItems<DeckInstance>(currentIntent.targetsKey, deckInstanceTargets);
         document.map.AddItems<GameObject>(currentIntent.targetsKey, gameObjectTargets);
-        EffectManager.Instance.invokeEffectWorkflow(document, currentIntent.effectSteps, null);
+        yield return StartCoroutine(EffectManager.Instance.invokeEffectWorkflowCoroutine(document, currentIntent.effectSteps, null));
         yield return null;
     }
 
