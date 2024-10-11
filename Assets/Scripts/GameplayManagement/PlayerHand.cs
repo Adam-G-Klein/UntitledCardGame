@@ -13,6 +13,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     public List<PlayableCard> cardsInHand;
 
     private GameObject cardPrefab;
+    private GameObject cardDrawVFXPrefab;
 
     public delegate IEnumerator OnCardExhaustHandler(DeckInstance deckFrom, Card card);
     public event OnCardExhaustHandler onCardExhaustHandler;
@@ -27,6 +28,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
 
     void Start() {
         cardPrefab = EnemyEncounterManager.Instance.encounterConstants.cardPrefab;
+        cardDrawVFXPrefab = EnemyEncounterManager.Instance.encounterConstants.cardDrawVFXPrefab;
     }
 
     public List<PlayableCard> DealCards(List<Card> cards, DeckInstance deckFrom) {
@@ -51,8 +53,20 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             }
             cardsInHand.Add(newCard);
             cardsDelt.Add(newCard);
+            CardDrawVFX(deckFrom.transform.position, newCardPlacement.worldPos, newCard.gameObject);
         }
         return cardsDelt;
+    }
+
+    private void CardDrawVFX(Vector3 fromLocation, Vector3 toLocation, GameObject gameObject) {
+        FXExperience experience = PrefabInstantiator.instantiateFXExperience(cardDrawVFXPrefab, Vector3.zero);
+
+        experience.AddLocationToKey("companion", fromLocation);
+        experience.AddLocationToKey("hand", toLocation);
+        experience.BindGameObjectsToTracks(new Dictionary<string, GameObject>() {
+            { "card", gameObject },
+        });
+        experience.StartExperience();
     }
 
     public void TurnPhaseChangedEventHandler(TurnPhaseEventInfo info) {

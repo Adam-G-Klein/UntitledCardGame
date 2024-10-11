@@ -18,4 +18,5 @@ public class EncounterConstantsSO : ScriptableObject {
     public GameObject randomBackgroundPrefab;
     [Header("Misc")]
     public CardType cardGeneratedByOrb;
+    public GameObject cardDrawVFXPrefab;
 }

@@ -39,8 +39,8 @@ public class UIDocumentCard : MonoBehaviour {
         }
         Debug.LogError("UIDocumentCard: No card in playableCard component");
     }
+
     void LateStart() {
-        
         boxCollider = GetComponent<BoxCollider2D>();
         doc = GetComponent<UIDocument>();
         doc.panelSettings = CardPanelSettingsPooler.Instance.GetPanelSettings();
@@ -57,7 +57,7 @@ public class UIDocumentCard : MonoBehaviour {
         }
     }
 
-    private void runCoroutine(){
+    private void runCoroutine() {
         Action<Texture2D> completionAction = (tex) => {
             print("UIDocumentCard: completion action invoked!");
             // Do something with the texture here.
@@ -111,6 +111,9 @@ public class UIDocumentCard : MonoBehaviour {
         rt.Release();
         completionAction?.Invoke(texture);
         renderTextureCoroutineIsRunning = false;
+        if (!spriteRenderer.enabled) {
+            spriteRenderer.enabled = true;
+        }
     }
 
     void OnExitPlaymode(){
