@@ -5,7 +5,6 @@ using System.Collections;
 using UnityEditor;
 using UnityEngine.UI;
 
-[InitializeOnLoad]
 [RequireComponent(typeof(RawImage))]
 [RequireComponent(typeof(UIDocument))]
 public class UIDocumentScreenspace : MonoBehaviour {
