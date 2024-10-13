@@ -1,9 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Events;
+using UnityEngine.UIElements;
 
 public class CombatInstance : MonoBehaviour
 {
@@ -44,6 +43,8 @@ public class CombatInstance : MonoBehaviour
 
     private StatusEffectsDisplay statusEffectsDisplay;
 
+    private WorldPositionVisualElement wpve;
+
     public void ApplyStatusEffects(StatusEffectType statusEffect, int scale) {
         Debug.Log(String.Format("Applying status with scale {0}", scale));
         statusEffects[statusEffect] += scale;
@@ -62,6 +63,7 @@ public class CombatInstance : MonoBehaviour
         }
         this.statusEffectsDisplay = GetComponent<StatusEffectsDisplay>();
         statusEffectsDisplay.Setup(this, wpve);
+        this.wpve = wpve;
     }
 
     public int GetCurrentDamage() {
@@ -286,6 +288,11 @@ public class CombatInstance : MonoBehaviour
 
     private void UpdateView() {
         Debug.Log("CombatInstance: update view");
+        VisualElement root = UIDocumentUtils.GetRootElement(wpve.ve);
+        Debug.Log("Update view: " + wpve.ve.name);
+        Label healthLabel = root.Q<Label>(
+            className: wpve.ve.name + CombatEncounterView.HEALTH_TAB_SUFFIX);
+        healthLabel.text = combatStats.currentHealth.ToString();
         EnemyEncounterViewModel.Instance.SetStateDirty();
         statusEffectsDisplay.UpdateStatusDisplays(new StatusEffectsDisplayViewModel(statusEffects));
     }

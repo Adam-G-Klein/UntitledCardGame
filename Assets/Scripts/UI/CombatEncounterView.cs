@@ -25,6 +25,7 @@ public class CombatEncounterView : MonoBehaviour
     public static string STATUS_EFFECTS_TAB_CLASSNAME = "status-effect";
     public static string STATUS_EFFECTS_IMAGE_CLASSNAME = "status-effect-image";
     public static string STATUS_EFFECTS_TEXT_CLASSNAME = "pillar-tab-text";
+    public static string HEALTH_TAB_SUFFIX = "-health-tab";
 
     private void OnEnable()
     {
@@ -77,14 +78,15 @@ public class CombatEncounterView : MonoBehaviour
         container.name = entity.id;
         container.AddToClassList("pillar-container");
 
-        setupTabs(container, entity);
-
         var portraitContainer = new VisualElement();
         var baseString = isEnemy ? UIDocumentGameObjectPlacer.ENEMY_UIDOC_ELEMENT_PREFIX : UIDocumentGameObjectPlacer.COMPANION_UIDOC_ELEMENT_PREFIX;
-        portraitContainer.name = baseString + index.ToString();
+        string portraitContainerName = baseString + index.ToString();
+        portraitContainer.name = portraitContainerName;
         portraitContainer.AddToClassList("portrait-container");
         container.Add(portraitContainer);
         container.AddToClassList(portraitContainer.name + STATUS_EFFECTS_CONTAINER_SUFFIX);
+
+        setupTabs(container, entity, portraitContainerName);
 
         var detailsContainer = new VisualElement();
         // TODO: figure out how to avoid querying from root. All the elements we want to query need to have 
@@ -123,47 +125,48 @@ public class CombatEncounterView : MonoBehaviour
         return container;
     }
 
-    private void setupTabs(VisualElement container, Entity entity) {
-        /*
-        var armor = new VisualElement();
-        armor.AddToClassList("armorTab");
-        var armorLabel = new Label();
-        armorLabel.AddToClassList("pillar-tab-text");
-        armorLabel.name = "armorText";
 
-        armor.Add(armorLabel);
-        container.Add(armor);
-        */
+    private void setupTabs(VisualElement container, Entity entity, String prefix) {
+        // var armor = new VisualElement();
+        // armor.AddToClassList("armorTab");
+        // var armorLabel = new Label();
+        // armorLabel.AddToClassList("pillar-tab-text");
+        // armorLabel.name = "armorText";
+
+        // armor.Add(armorLabel);
+        // container.Add(armor);
 
         var health = new VisualElement();
         health.AddToClassList("healthTab");
         var healthLabel = new Label();
+        healthLabel.AddToClassList(prefix + HEALTH_TAB_SUFFIX);
+        healthLabel.AddToClassList("pillar-tab-text");
         healthLabel.name = "healthText";
         health.Add(healthLabel);
         container.Add(health);
 
-        var shield = new VisualElement();
-        shield.AddToClassList("shield");
-        var shieldLabel = new Label();
-        shieldLabel.AddToClassList("pillar-tab-text");
-        shieldLabel.name = "shieldText";
-        shield.Add(shieldLabel);
-        container.Add(shield);
+        // var shield = new VisualElement();
+        // shield.AddToClassList("shield");
+        // var shieldLabel = new Label();
+        // shieldLabel.AddToClassList("pillar-tab-text");
+        // shieldLabel.name = "shieldText";
+        // shield.Add(shieldLabel);
+        // container.Add(shield);
         //TODO fill out relevant text;
         if (entity.entityType == EntityType.CompanionInstance || entity.entityType == EntityType.Companion)
         {
             var companion = (Companion)entity;
-            //armorLabel.text = "99";
+            // armorLabel.text = "99";
             healthLabel.text = companion.combatStats.getCurrentHealth().ToString();
-            shieldLabel.text = "99";
+            // shieldLabel.text = "99";
 
         }
         else
         {
             var enemy = (Enemy)entity;
-            //armorLabel.text = "91";
+            // armorLabel.text = "91";
             healthLabel.text = enemy.combatStats.getCurrentHealth().ToString();
-            shieldLabel.text = "92";
+            // shieldLabel.text = "92";
         }
 
     }
