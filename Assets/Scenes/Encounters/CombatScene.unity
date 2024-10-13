@@ -766,7 +766,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2204947685068786899, guid: f2311ded71c6ecd4f85e341984d3e7d8, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -126.99999
+      value: -126.999985
       objectReference: {fileID: 0}
     - target: {fileID: 2204947685290376176, guid: f2311ded71c6ecd4f85e341984d3e7d8, type: 3}
       propertyPath: m_Pivot.x
@@ -830,7 +830,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2204947685290376176, guid: f2311ded71c6ecd4f85e341984d3e7d8, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -37.05
+      value: -37.049988
       objectReference: {fileID: 0}
     - target: {fileID: 2204947685290376176, guid: f2311ded71c6ecd4f85e341984d3e7d8, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1193,7 +1193,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 907.5, y: -508.3}
+  m_AnchoredPosition: {x: 907.5, y: -508.30005}
   m_SizeDelta: {x: -1911.75, y: -1069.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &889305574
@@ -3004,10 +3004,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3390190610665745094, guid: a01603c96ed613e4dadddb16c94272d3, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3390190610665745095, guid: a01603c96ed613e4dadddb16c94272d3, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -229093509
+      objectReference: {fileID: 0}
+    - target: {fileID: 3390190610665745095, guid: a01603c96ed613e4dadddb16c94272d3, type: 3}
+      propertyPath: m_OverrideSorting
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3845287906309771372, guid: a01603c96ed613e4dadddb16c94272d3, type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 430066739}
+    - target: {fileID: 3845287906309771372, guid: a01603c96ed613e4dadddb16c94272d3, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -229093509
+      objectReference: {fileID: 0}
     - target: {fileID: 4147916199906028967, guid: a01603c96ed613e4dadddb16c94272d3, type: 3}
       propertyPath: m_SortingOrder
       value: 1
