@@ -23,6 +23,8 @@ public class CombatEncounterView : MonoBehaviour
     public GameplayConstantsSO gameplayConstants;
     public static string STATUS_EFFECTS_CONTAINER_SUFFIX = "-status-effects";
     public static string STATUS_EFFECTS_TAB_CLASSNAME = "status-effect";
+    public static string STATUS_EFFECTS_IMAGE_CLASSNAME = "status-effect-image";
+    public static string STATUS_EFFECTS_TEXT_CLASSNAME = "pillar-tab-text";
 
     private void OnEnable()
     {
@@ -122,6 +124,7 @@ public class CombatEncounterView : MonoBehaviour
     }
 
     private void setupTabs(VisualElement container, Entity entity) {
+        /*
         var armor = new VisualElement();
         armor.AddToClassList("armorTab");
         var armorLabel = new Label();
@@ -130,11 +133,11 @@ public class CombatEncounterView : MonoBehaviour
 
         armor.Add(armorLabel);
         container.Add(armor);
+        */
 
         var health = new VisualElement();
         health.AddToClassList("healthTab");
         var healthLabel = new Label();
-        healthLabel.AddToClassList("pillar-tab-text");
         healthLabel.name = "healthText";
         health.Add(healthLabel);
         container.Add(health);
@@ -150,7 +153,7 @@ public class CombatEncounterView : MonoBehaviour
         if (entity.entityType == EntityType.CompanionInstance || entity.entityType == EntityType.Companion)
         {
             var companion = (Companion)entity;
-            armorLabel.text = "99";
+            //armorLabel.text = "99";
             healthLabel.text = companion.combatStats.getCurrentHealth().ToString();
             shieldLabel.text = "99";
 
@@ -158,7 +161,7 @@ public class CombatEncounterView : MonoBehaviour
         else
         {
             var enemy = (Enemy)entity;
-            armorLabel.text = "91";
+            //armorLabel.text = "91";
             healthLabel.text = enemy.combatStats.getCurrentHealth().ToString();
             shieldLabel.text = "92";
         }

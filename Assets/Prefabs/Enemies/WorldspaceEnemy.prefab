@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 9136375820836015438}
   - component: {fileID: 7412025818965109248}
   - component: {fileID: 4656613037726695331}
+  - component: {fileID: 5226732806696292264}
   m_Layer: 0
   m_Name: WorldspaceEnemy
   m_TagString: Untagged
@@ -195,11 +196,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 523599a674e01024488a332231f61c75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 0}
   healthBar: {fileID: 0}
   statusEffectsController: {fileID: 0}
   enemyIntentDisplay: {fileID: 0}
   enemyInstance: {fileID: 0}
+--- !u!114 &5226732806696292264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1818299386461833425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0c5067f45263eb488ce31824f440aef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statusEffectsSO: {fileID: 11400000, guid: b5e8681fc02be284eb308731b490c4c5, type: 2}
 --- !u!1 &8802389412929484848
 GameObject:
   m_ObjectHideFlags: 0
@@ -356,6 +369,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ca4d5c1a7bb0104b80d90d8af7255b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  arbitraryInteriorPaddingPixels: 15
+  arbitraryBottomPlacementPixels: 5
+  debugMousePosition: 0
 --- !u!61 &5328752214781731378
 BoxCollider2D:
   m_ObjectHideFlags: 0

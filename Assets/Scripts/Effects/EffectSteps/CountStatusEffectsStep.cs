@@ -24,13 +24,13 @@ public class CountStatusEffectsStep : EffectStep
             EffectError("No input targets present for key " + inputKey);
             yield return null;
         }
-        
+       
         int total = 0;
         foreach (CombatInstance instance in combatInstances) {
-            if (onlyCountStatusOnce && instance.statusEffects[statusEffect] > 0) {
+            if (onlyCountStatusOnce && instance.GetStatus(statusEffect) > 0) {
                 total = total + 1;
             } else if (!onlyCountStatusOnce) {
-                total = total + instance.statusEffects[statusEffect];
+                total = total + instance.GetStatus(statusEffect);
             }
         }
 

@@ -6,19 +6,22 @@
             <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); min-width: 80%; min-height: 100%; flex-direction: row; width: 80%; height: 100%; max-width: 80%; max-height: 100%; justify-content: space-around; align-items: flex-start;">
                 <ui:VisualElement name="EntityPillar" class="entity-pillar">
                     <ui:VisualElement name="triangle" class="top-triangle" />
-                    <ui:VisualElement name="container" class="container">
+                    <ui:VisualElement name="container" class="container te">
                         <ui:VisualElement name="CardContainer" class="pillar-container">
-                            <ui:VisualElement name="Armor" class="armorTab" style="position: relative; left: 192px; top: 17px;">
-                                <ui:Label tabindex="-1" display-tooltip-when-elided="true" name="armorLabel" text="99" class="pillar-tab-text" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
-                            </ui:VisualElement>
                             <ui:VisualElement name="Health" class="healthTab">
                                 <ui:Label tabindex="-1" display-tooltip-when-elided="true" text="10" name="healthLabel" class="pillar-tab-text" />
                             </ui:VisualElement>
-                            <ui:VisualElement name="Nuthin" class="status-effect">
-                                <ui:Label tabindex="-1" display-tooltip-when-elided="true" name="nuthinLabel" class="pillar-tab-text" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+                            <ui:VisualElement name="Nuthin" class="status-effect" style="flex-grow: initial; flex-shrink: initial;">
+                                <ui:Label tabindex="-1" display-tooltip-when-elided="true" name="nuthinLabel" text="9" class="pillar-tab-text" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; -unity-text-align: middle-center;" />
+                                <ui:VisualElement class="status-effect-image" style="flex-grow: 1;" />
                             </ui:VisualElement>
-                            <ui:VisualElement name="Nuthin" class="statusTab">
-                                <ui:Label tabindex="-1" display-tooltip-when-elided="true" name="nuthinLabel" class="pillar-tab-text" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+                            <ui:VisualElement name="Nuthin" class="status-effect" style="flex-grow: initial; flex-shrink: initial;">
+                                <ui:Label tabindex="-1" display-tooltip-when-elided="true" name="nuthinLabel" text="9" class="pillar-tab-text" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+                                <ui:VisualElement class="status-effect-image" />
+                            </ui:VisualElement>
+                            <ui:VisualElement class="status-effect" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
+                                <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" class="pillar-tab-text" />
+                                <ui:VisualElement class="status-effect-image" style="background-color: rgba(0, 0, 0, 0);" />
                             </ui:VisualElement>
                             <ui:VisualElement name="Nuthin" class="statusTab">
                                 <ui:Label tabindex="-1" display-tooltip-when-elided="true" name="nuthinLabel" class="pillar-tab-text" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
@@ -94,6 +97,10 @@
                             </ui:VisualElement>
                             <ui:VisualElement name="Shield" class="shield">
                                 <ui:Label tabindex="-1" display-tooltip-when-elided="true" name="shieldLabel" class="pillar-tab-text" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+                            </ui:VisualElement>
+                            <ui:VisualElement class="status-effect" style="flex-grow: 1;">
+                                <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" class="status-effect-text" style="flex-shrink: initial; flex-grow: initial;" />
+                                <ui:VisualElement name="VisualElement" class="status-effect-image" style="flex-shrink: initial; flex-grow: initial;" />
                             </ui:VisualElement>
                         </ui:VisualElement>
                     </ui:VisualElement>

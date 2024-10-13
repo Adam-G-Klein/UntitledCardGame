@@ -42,7 +42,7 @@ public class EnemyEncounterViewModel : GenericSingleton<EnemyEncounterViewModel>
     }
 
     private Dictionary<StatusEffectType, int> GetStatusEffects(CombatInstance combatInstance){
-        return combatInstance.statusEffects;
+        return combatInstance.GetStatusEffects();
     }
 
 }

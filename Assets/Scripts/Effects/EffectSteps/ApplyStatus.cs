@@ -54,7 +54,7 @@ public class ApplyStatus : EffectStep, ITooltipProvider
             // Certain companion abilities have effects like "give each
             // companion on the team 4 block for each aura stack they have".
             if (multiplyByNumAuraStacks) {
-                personalizedScale *= combatInstance.statusEffects[StatusEffectType.Orb];
+                personalizedScale *= combatInstance.GetStatus(StatusEffectType.Orb);
             }
 
             combatInstance.ApplyStatusEffects(statusEffect, personalizedScale);

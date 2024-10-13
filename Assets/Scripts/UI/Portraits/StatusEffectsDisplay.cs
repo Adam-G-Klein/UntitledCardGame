@@ -34,6 +34,11 @@ public class StatusEffectsDisplay: MonoBehaviour
     private CombatInstance combatInstance;
     private VisualElement statusEffectsParent;
 
+    [SerializeField]
+    private StatusEffectsSO statusEffectsSO;
+
+    private List<VisualElement> drawnTabs = new List<VisualElement>();
+
 
     public void Setup(CombatInstance combatInstance, WorldPositionVisualElement wpve)  {
         Debug.Log("Setting up status effect displays for " + combatInstance.name);
@@ -42,18 +47,40 @@ public class StatusEffectsDisplay: MonoBehaviour
         statusEffectsParent = wpve.rootElement.Q<VisualElement>(
             className: wpve.portraitContainerName + CombatEncounterView.STATUS_EFFECTS_CONTAINER_SUFFIX
         );
-        for(int i = 0; i < 3 ; i++) {
-            VisualElement statusEffectDisplay = new VisualElement();
-            statusEffectDisplay.AddToClassList(CombatEncounterView.STATUS_EFFECTS_TAB_CLASSNAME);
-            statusEffectDisplay.BringToFront();
-            statusEffectsParent.Add(statusEffectDisplay);
-        }
-        UIStateManager.Instance.SetUIDocDirty();
 
     }
 
+    // WILL NOT set the uistate to dirty
+    private void AddStatusEffectToDisplay(UnityEngine.Sprite image, int statusValue) {
+        VisualElement statusEffectContainer = new VisualElement();
+        statusEffectContainer.AddToClassList(CombatEncounterView.STATUS_EFFECTS_TAB_CLASSNAME);
+        
+        Label statusText = new Label();
+        statusText.AddToClassList(CombatEncounterView.STATUS_EFFECTS_TEXT_CLASSNAME);
+        statusText.text = statusValue.ToString();
+        statusEffectContainer.Add(statusText);
+
+        VisualElement statusImage = new VisualElement();
+        statusImage.AddToClassList(CombatEncounterView.STATUS_EFFECTS_IMAGE_CLASSNAME);
+        statusImage.style.backgroundImage = new StyleBackground(image);
+        statusEffectContainer.Add(statusImage);
+
+        statusEffectsParent.Add(statusEffectContainer);
+        drawnTabs.Add(statusEffectContainer);
+    }
+
     public void UpdateStatusDisplays(StatusEffectsDisplayViewModel viewModel) {
+        Debug.Log("Updating status displays for " + combatInstance.name);
         Dictionary<StatusEffectType, int> statusEffectsToDisplay = GetStatusesToDisplay(viewModel);
+        foreach(VisualElement element in drawnTabs) {
+            statusEffectsParent.Remove(element);
+        }
+        drawnTabs.Clear();
+        foreach(KeyValuePair<StatusEffectType, int> kv in statusEffectsToDisplay) {
+            Sprite img = statusEffectsSO.GetStatusEffectImage(kv.Key);
+            AddStatusEffectToDisplay(img, kv.Value);
+        }
+        UIStateManager.Instance.SetUIDocDirty();
     }
 
     private Dictionary<StatusEffectType, int> GetStatusesToDisplay(StatusEffectsDisplayViewModel viewModel) {

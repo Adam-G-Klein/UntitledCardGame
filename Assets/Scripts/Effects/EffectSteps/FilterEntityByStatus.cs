@@ -24,8 +24,8 @@ public class FilterEntityByStatus : EffectStep
         List<CombatInstance> filteredList = new List<CombatInstance>();
         foreach (CombatInstance instance in combatInstances) {
             Debug.Log(status);
-            Debug.Log(instance.statusEffects[status]);
-            if (instance.statusEffects[status] > 0) {
+            Debug.Log(instance.GetStatus(status));
+            if (instance.GetStatus(status) > 0) {
                 filteredList.Add(instance);
             }
         }

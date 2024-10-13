@@ -35,7 +35,7 @@ public class RemoveStatus : EffectStep
 
         int totalRemovedAmount = 0;
         foreach (CombatInstance instance in combatInstances) {
-            int currentStatusCount = instance.statusEffects[statusEffect];
+            int currentStatusCount = instance.GetStatus(statusEffect);
             int removedAmount = finalScale;
             if (currentStatusCount < finalScale) {
                 removedAmount = currentStatusCount;

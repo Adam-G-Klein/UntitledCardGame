@@ -9,33 +9,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 48d53198b6351224ab499606efd9071f, type: 3}
   m_Name: StatusEffectsSO
   m_EditorClassIdentifier: Assembly-CSharp::StatusEffectsSO
   statusEffects:
   - type: 0
     image: {fileID: 21300000, guid: ed55b8c3c8cddf84e9879c69c720553a, type: 3}
-  - type: 1
-    image: {fileID: 21300000, guid: 9eec12afe5623f54abf4eb6c5d9261ee, type: 3}
   - type: 2
     image: {fileID: 21300000, guid: dc2691b0a220a3a45b5946651905449b, type: 3}
-  - type: 3
-    image: {fileID: 21300000, guid: 9c7b553a4a5050646818dbc514a54e9a, type: 3}
-  - type: 4
-    image: {fileID: 21300000, guid: fbe9f68bddb51af429e4fbf72a4725a9, type: 3}
-  - type: 5
-    image: {fileID: 21300000, guid: 0a945af76f65ffb48ae4078484f55d30, type: 3}
-  - type: 6
-    image: {fileID: 21300000, guid: adc0ab9fa74646a4697d6af203f036a7, type: 3}
-  - type: 8
-    image: {fileID: 21300000, guid: 1a6f5d50e3f740c4cb6a12b46b6cb37f, type: 3}
   - type: 9
-    image: {fileID: 21300000, guid: d231fe42ccd81da429241347231e5778, type: 3}
-  - type: 10
-    image: {fileID: 21300000, guid: f4084e31f28c82d4e9beb16d2b508003, type: 3}
+    image: {fileID: 21300000, guid: 9eec12afe5623f54abf4eb6c5d9261ee, type: 3}
+  - type: 9
+    image: {fileID: 21300000, guid: 11ab1a8caee32d042ac3a1366784f67e, type: 3}
   - type: 11
     image: {fileID: 21300000, guid: de23c3e9343118d4aabf90e19c84243a, type: 3}
-  - type: 4
-    image: {fileID: 0}
-  - type: 4
-    image: {fileID: 0}
+  - type: 10
+    image: {fileID: 21300000, guid: f4084e31f28c82d4e9beb16d2b508003, type: 3}

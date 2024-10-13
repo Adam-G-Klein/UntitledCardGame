@@ -2912,6 +2912,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1482792757737945907, guid: a01603c96ed613e4dadddb16c94272d3, type: 3}
+      propertyPath: constantStateUpdate
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2627483554680799874, guid: a01603c96ed613e4dadddb16c94272d3, type: 3}
       propertyPath: m_Name
       value: CombatCanvasUIDocument

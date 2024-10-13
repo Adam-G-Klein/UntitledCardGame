@@ -39,7 +39,7 @@ public class CombatInstance : MonoBehaviour
             { StatusEffectType.MoneyOnDeath, 0 }
         };
 
-    public Dictionary<StatusEffectType, int> statusEffects =
+    private Dictionary<StatusEffectType, int> statusEffects =
         new Dictionary<StatusEffectType, int> (initialStatusEffects);
 
     private StatusEffectsDisplay statusEffectsDisplay;
@@ -287,6 +287,20 @@ public class CombatInstance : MonoBehaviour
     private void UpdateView() {
         Debug.Log("CombatInstance: update view");
         EnemyEncounterViewModel.Instance.SetStateDirty();
+        statusEffectsDisplay.UpdateStatusDisplays(new StatusEffectsDisplayViewModel(statusEffects));
+    }
+
+    public void SetStatusEffect(StatusEffectType statusEffectType, int value) {
+        statusEffects[statusEffectType] = value;
+        UpdateView();
+    }
+
+    public int GetStatus(StatusEffectType statusEffectType) {
+        return statusEffects[statusEffectType];
+    }
+
+    public Dictionary<StatusEffectType, int> GetStatusEffects() {
+        return statusEffects;
     }
 
     public enum CombatInstanceParent {

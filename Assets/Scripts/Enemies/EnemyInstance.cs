@@ -43,7 +43,7 @@ public class EnemyInstance : MonoBehaviour {
         combatInstance.SetId(enemy.id);
         combatInstance.onDeathHandler += OnDeath;
         foreach (InitialStatus status in enemy.enemyType.initialStatuses) {
-            combatInstance.statusEffects[status.status] = status.scale;
+            combatInstance.SetStatusEffect(status.status, status.scale);
         }
         GetComponentInChildren<CombatInstanceDisplayWorldspace>().Setup(combatInstance, placement);
         RegisterTurnPhaseTriggers();
@@ -91,7 +91,7 @@ public class EnemyInstance : MonoBehaviour {
     }
 
     private IEnumerable ClearBlock() {
-        combatInstance.statusEffects[StatusEffectType.Defended] = 0;
+        combatInstance.SetStatusEffect(StatusEffectType.Defended, 0);
         yield return null;
     }
 
