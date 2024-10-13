@@ -17,6 +17,11 @@ public class UIStateEventInfo {
     public UIStateEventInfo (UIState newState) {
         this.newState = newState;
     }
+
+    public override string ToString()
+    {
+        return "UIStateEventInfo: " + newState;
+    }
 }
 
 [CreateAssetMenu(

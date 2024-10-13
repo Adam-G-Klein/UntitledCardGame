@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
+using System;
 
 [RequireComponent(typeof(UIDocumentCard))]
 [RequireComponent(typeof(UIStateEventListener))]
@@ -46,6 +47,7 @@ public class PlayableCard : MonoBehaviour,
     public void OnPointerClick(PointerEventData eventData)
     {
         Debug.Log("Card clicked");
+        Debug.Log(currentState);
         if (currentState != UIState.DEFAULT) return;
 
         if (card.GetManaCost() > ManaManager.Instance.currentMana

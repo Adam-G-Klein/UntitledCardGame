@@ -135,7 +135,7 @@ public class GetTargets : EffectStep
     }
 
     private void TargetSuppliedHandler(Targetable target) {
-        Debug.Log("Target supplied: " + target.gameObject.name);
+        Debug.Log("GetTargets Effet Step Target supplied: " + target.gameObject.name);
         // Check if the provided target is disallowed
         if (disallowedTargets != null && disallowedTargets.Contains(target.gameObject))
             return;
