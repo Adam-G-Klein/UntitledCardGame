@@ -38,7 +38,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -254,12 +253,12 @@ MonoBehaviour:
   m_RequiresColorTexture: 0
   m_Version: 2
   m_TaaSettings:
-    quality: 3
-    frameInfluence: 0.1
-    jitterScale: 1
-    mipBias: 0
-    varianceClampScale: 0.9
-    contrastAdaptiveSharpening: 0
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
 --- !u!1 &138510450
 GameObject:
   m_ObjectHideFlags: 0
@@ -352,7 +351,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &182979270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -696,7 +695,7 @@ MonoBehaviour:
     AIDEN
     DYER HAS DIED OF SUDDEN AND NATURAL
 
-    CAUSES.'
+    CAUSES. (click to proceed hehe)'
   seconds: 0.1
 --- !u!114 &314417723
 MonoBehaviour:
@@ -993,6 +992,8 @@ GameObject:
   - component: {fileID: 914385227}
   - component: {fileID: 914385226}
   - component: {fileID: 914385231}
+  - component: {fileID: 914385233}
+  - component: {fileID: 914385232}
   m_Layer: 5
   m_Name: IntroCutscene
   m_TagString: Untagged
@@ -1039,6 +1040,8 @@ PlayableDirector:
     value: {fileID: 288355279}
   - key: {fileID: 5068364816189698559, guid: df6d16896fb59854f82cc191db451207, type: 2}
     value: {fileID: 1972167124}
+  - key: {fileID: -4499618034748836308, guid: df6d16896fb59854f82cc191db451207, type: 2}
+    value: {fileID: 914385232}
   m_ExposedReferences:
     m_References: []
 --- !u!114 &914385227
@@ -1150,6 +1153,49 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &914385232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 914385225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Events:
+    m_Signals:
+    - {fileID: 11400000, guid: d417dc31c7711734ead4fbd35289c5b6, type: 2}
+    m_Events:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 914385233}
+          m_TargetAssemblyTypeName: CutsceneStartStopper, Assembly-CSharp
+          m_MethodName: StopTimeline
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &914385233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 914385225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13eb31e2fae6e5447a4738f79fb1182f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playableDirector: {fileID: 0}
 --- !u!1 &938277805
 GameObject:
   m_ObjectHideFlags: 0
