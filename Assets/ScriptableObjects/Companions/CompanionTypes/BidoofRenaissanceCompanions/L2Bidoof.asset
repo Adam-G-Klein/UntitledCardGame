@@ -36,9 +36,9 @@ MonoBehaviour:
     lines:
     - title: L2 Bidoof
       description: Starts combat with 4 base strength.
-      image: {fileID: 0}
-  keepsakeTitle: 
-  keepsakeDescription: 
+      relatedBehaviorIndex: 0
+  keepsakeTitle: Level 2 Bidoof
+  keepsakeDescription: Starts combat with 4 base strength.
   references:
     version: 2
     RefIds:
@@ -69,3 +69,4 @@ MonoBehaviour:
         scale: 4
         getScaleFromKey: 0
         inputScaleKey: 
+        multiplyByNumAuraStacks: 0

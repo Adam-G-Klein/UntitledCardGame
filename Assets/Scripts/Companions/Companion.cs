@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class Companion : Entity, ICombatStats, IDeckEntity
+public class Companion : Entity, ICombatStats, IDeckEntity, IUIEntity
 {
     public CompanionTypeSO companionType;
 
@@ -85,5 +85,30 @@ public class Companion : Entity, ICombatStats, IDeckEntity
         // edit game state.
         document.map.AddItem("gameState", gameState);
         EffectManager.Instance.invokeEffectWorkflow(document, onCombineAbilities[0], null);
+    }
+
+    public string GetName()
+    {
+        return this.companionType.name;
+    }
+
+    public int GetCurrentHealth()
+    {
+        return this.combatStats.currentHealth;
+    }
+
+    public string GetDescription()
+    {
+        return this.companionType.keepsakeDescription;
+    }
+
+    public CombatInstance GetCombatInstance()
+    {
+        return null;
+    }
+
+    public EnemyInstance GetEnemyInstance()
+    {
+        return null;
     }
 }

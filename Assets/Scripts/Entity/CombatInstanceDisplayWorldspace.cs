@@ -11,7 +11,7 @@ public class CombatInstanceDisplayWorldspace : MonoBehaviour
     private BoxCollider2D boxCollider2D;
     [SerializeField]
     [Header("Added because I threw in the towel on getting the size perfect")]
-    private int arbitraryInteriorPaddingPixels = 15;
+    private Vector2 arbitraryInteriorPaddingPixels = Vector2.zero;
 
     [SerializeField]
     [Header("Added because I threw in the towel on getting the positioning perfect")]
@@ -69,16 +69,16 @@ public class CombatInstanceDisplayWorldspace : MonoBehaviour
         float spritePixelsPerUnit = spriteRenderer.sprite.pixelsPerUnit;
         //print(transform.parent.name + " spritePixelsPerUnit: " + spritePixelsPerUnit);
         // 2
-        float boxWidthInPixels = box.worldBound.width - arbitraryInteriorPaddingPixels;
+        Vector2 boxInPixels = new Vector2(box.worldBound.width - arbitraryInteriorPaddingPixels.x, box.worldBound.height - arbitraryInteriorPaddingPixels.y);
         //print(transform.parent.name + " boxWidthInPixels: " + boxWidthInPixels);
         // 3
-        float spriteWidthInPixels = spriteRenderer.sprite.rect.width;
+        Vector2 spriteSizeInPixels = new Vector2(spriteRenderer.sprite.rect.width, spriteRenderer.sprite.rect.height);
         //print(transform.parent.name + " spriteWidthInPixels: " + spriteWidthInPixels);
         // 4
-        float scaleRatio = boxWidthInPixels / spriteWidthInPixels;
+        Vector2 scaleRatio = new Vector2(boxInPixels.x / spriteSizeInPixels.x, boxInPixels.y / spriteSizeInPixels.y);
         //print(transform.parent.name + " scale ratio: " + scaleRatio);
         // 5
         boxCollider2D.size = new Vector2(spriteRenderer.sprite.rect.width / spritePixelsPerUnit, spriteRenderer.sprite.rect.height / spritePixelsPerUnit);
-        transform.localScale = new Vector3(scaleRatio, scaleRatio, 1);
+        transform.localScale = new Vector3(scaleRatio.x, scaleRatio.y, 1);
     }
 }

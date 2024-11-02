@@ -14,5 +14,6 @@ public enum EntityType {
     Minion,
     Card,
     Unknown,
-    Companion
+    Companion,
+    EnemyInstance, 
 }

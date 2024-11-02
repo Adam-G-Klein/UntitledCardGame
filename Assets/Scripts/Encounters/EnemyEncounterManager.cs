@@ -46,6 +46,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     void Awake() {
         encounterBuilt = false;
         // This ends up calling BuildEnemyEncounter below
+        CombatEncounterView.Instance.SetupFromGamestate();
         StartCoroutine(StartWhenUIDocReady());
     }
 
@@ -73,6 +74,9 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
             );
         EnemyEncounterViewModel.Instance.companions = createdCompanions;
         EnemyEncounterViewModel.Instance.enemies = createdEnemies;
+        EnemyEncounterViewModel.Instance.SetListener(CombatEncounterView.Instance);
+        EnemyEncounterViewModel.Instance.SetStateDirty();
+        // set up the EnemyEncounterViewModel, which passes information to the UI
         encounterBuilt = true;
     }
 

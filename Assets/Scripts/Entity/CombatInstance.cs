@@ -22,6 +22,8 @@ public class CombatInstance : MonoBehaviour
 
     public bool killed = false;
 
+    public Entity parentEntity;
+
     public static Dictionary<StatusEffectType, int> initialStatusEffects =
         new Dictionary<StatusEffectType, int>() {
             { StatusEffectType.Strength, 0 },
@@ -55,9 +57,10 @@ public class CombatInstance : MonoBehaviour
         UpdateView();
     }
 
-    public void Setup(CombatStats combatStats, CombatInstanceParent parentType, WorldPositionVisualElement wpve) {
+    public void Setup(CombatStats combatStats, Entity parentEntity, CombatInstanceParent parentType, WorldPositionVisualElement wpve) {
         this.combatStats = combatStats;
         this.parentType = parentType;
+        this.parentEntity = parentEntity;
         if (combatStats.getCurrentHealth() == 0) {
             combatStats.setCurrentHealth(1);
         }
@@ -287,12 +290,6 @@ public class CombatInstance : MonoBehaviour
     }
 
     private void UpdateView() {
-        Debug.Log("CombatInstance: update view");
-        VisualElement root = UIDocumentUtils.GetRootElement(wpve.ve);
-        Debug.Log("Update view: " + wpve.ve.name);
-        Label healthLabel = root.Q<Label>(
-            className: wpve.ve.name + CombatEncounterView.HEALTH_TAB_SUFFIX);
-        healthLabel.text = combatStats.currentHealth.ToString();
         EnemyEncounterViewModel.Instance.SetStateDirty();
         statusEffectsDisplay.UpdateStatusDisplays(new StatusEffectsDisplayViewModel(statusEffects));
     }
@@ -308,6 +305,18 @@ public class CombatInstance : MonoBehaviour
 
     public Dictionary<StatusEffectType, int> GetStatusEffects() {
         return statusEffects;
+    }
+
+    public Dictionary<StatusEffectType, int> GetDisplayedStatusEffects() {
+        Dictionary<StatusEffectType, int> displayedStatusEffects = new Dictionary<StatusEffectType, int>();
+        foreach (KeyValuePair<StatusEffectType, int> statusEffect in statusEffects) {
+            // block is queried separately now
+            if (statusEffect.Value != initialStatusEffects[statusEffect.Key]
+                && statusEffect.Key != StatusEffectType.Defended) {
+                displayedStatusEffects.Add(statusEffect.Key, statusEffect.Value);
+            }
+        }
+        return displayedStatusEffects;
     }
 
     public enum CombatInstanceParent {

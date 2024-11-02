@@ -6,7 +6,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(CombatInstance))]
 [RequireComponent(typeof(DeckInstance))]
 [RequireComponent(typeof(Targetable))]
-public class CompanionInstance : MonoBehaviour
+public class CompanionInstance : MonoBehaviour, IUIEntity
 {
     public Companion companion;
     [Header("Image or SpriteRenderer required in children")]
@@ -26,7 +26,7 @@ public class CompanionInstance : MonoBehaviour
         this.combatInstance = GetComponent<CombatInstance>();
         this.deckInstance = GetComponent<DeckInstance>();
         // ---- set up the combatInstance, which has all the logic this shares with all companions/enemies ----
-        combatInstance.Setup(companion.combatStats, CombatInstance.CombatInstanceParent.COMPANION, wpve);
+        combatInstance.Setup(companion.combatStats, companion, CombatInstance.CombatInstanceParent.COMPANION, wpve);
         Debug.Log("CompanionInstance Start for companion " + companion.id + " initialized with combat stats (health): " + combatInstance.combatStats.getCurrentHealth());
         combatInstance.onDeathHandler += OnDeath;
         combatInstance.genericInteractionSFX = companion.companionType.genericCompanionSFX;
@@ -91,6 +91,30 @@ public class CompanionInstance : MonoBehaviour
 
     public void SetCompanionAbilityDeathCallback(IEnumerable callback) {
         this.companionAbilityDeathCallback = callback;
+    }
+
+    public string GetName() {
+        return companion.companionType.name;
+    }   
+
+    public int GetCurrentHealth() {
+        return combatInstance.combatStats.getCurrentHealth();
+    }
+
+    public string GetDescription() {
+        return companion.companionType.keepsakeDescription;
+    }
+
+    public CombatStats GetCombatStats() {
+        return combatInstance.combatStats;
+    }
+
+    public CombatInstance GetCombatInstance() {
+        return combatInstance;
+    }
+
+    public EnemyInstance GetEnemyInstance() {
+        return null;
     }
 }
 

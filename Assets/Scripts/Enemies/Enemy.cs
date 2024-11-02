@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class Enemy : Entity, ICombatStats {
+public class Enemy : Entity, ICombatStats, IUIEntity {
     public EnemyTypeSO enemyType;
 
     public CombatStats combatStats;
@@ -37,5 +37,31 @@ public class Enemy : Entity, ICombatStats {
     public CombatStats GetCombatStats()
     {
         return this.combatStats;
+    }
+
+    public string GetName()
+    {
+        return this.enemyType.name;
+    }
+
+    public int GetCurrentHealth()
+    {
+        return this.combatStats.currentHealth;
+    }
+
+    public string GetDescription()
+    {
+        // intents filled out at runtime or by enemyInstance
+        return "";
+    }
+
+    public CombatInstance GetCombatInstance()
+    {
+        return null;
+    }
+
+    public EnemyInstance GetEnemyInstance()
+    {
+        return null;
     }
 }

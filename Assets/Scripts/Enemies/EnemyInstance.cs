@@ -8,7 +8,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(EnemyPillarUIController))]
 [RequireComponent(typeof(CombatInstance))]
 [RequireComponent(typeof(Targetable))]
-public class EnemyInstance : MonoBehaviour {
+public class EnemyInstance : MonoBehaviour, IUIEntity {
     public Enemy enemy;
     public CombatInstance combatInstance;
 
@@ -35,7 +35,7 @@ public class EnemyInstance : MonoBehaviour {
         this.enemyPillarUIController = GetComponent<EnemyPillarUIController>();
         this.placement = placement;
         enemyPillarUIController.Setup(this, placement);
-        combatInstance.Setup(enemy.combatStats, CombatInstance.CombatInstanceParent.ENEMY, placement);
+        combatInstance.Setup(enemy.combatStats, enemy, CombatInstance.CombatInstanceParent.ENEMY, placement);
         // Reset the behavior indices on the EnemyBrain to zero.
         enemy.enemyType.enemyPattern.nextBehaviorIndex = 0;
         enemy.enemyType.belowHalfHPEnemyPattern.nextBehaviorIndex = 0;
@@ -104,5 +104,32 @@ public class EnemyInstance : MonoBehaviour {
         UnregisterTurnPhaseTriggers();
         CombatEntityManager.Instance.EnemyDied(this);
         yield return null;
+    }
+
+    public string GetName() {
+        return enemy.enemyType.name;
+    }
+
+    public int GetCurrentHealth() {
+        return combatInstance.combatStats.getCurrentHealth();
+    }
+
+    public string GetDescription() {
+        if(currentIntent == null) {
+            return "";
+        }
+        return currentIntent.intentType.ToString();
+    }
+
+    public CombatStats GetCombatStats() {
+        return combatInstance.combatStats;
+    }
+
+    public CombatInstance GetCombatInstance() {
+        return combatInstance;
+    }
+
+    public EnemyInstance GetEnemyInstance() {
+        return this;
     }
 }

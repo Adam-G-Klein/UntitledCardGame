@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+/** UIDoc refactor:
+- will need to create a bunch of location mappings
+   - easiest way to do this is just to create a new UI doc for this view, use a new string (uicard) for the locations
+- should literally just need to reimplement the createCard method? Everything else looks like it will translate fine 
+**/
+
 public class CardViewUI : MonoBehaviour
 {
     [SerializeField]
@@ -30,6 +36,7 @@ public class CardViewUI : MonoBehaviour
         this.maxSelections = maxSelections;
     }
 
+    // Can replace with just requesting a mapping and instantiating at that location
     private void createCard(Card card) {
         GameObject cardObj = GameObject.Instantiate(
             cardPrefab,

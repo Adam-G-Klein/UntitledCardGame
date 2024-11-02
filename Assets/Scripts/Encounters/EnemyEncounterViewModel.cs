@@ -25,11 +25,24 @@ public class EnemyEncounterViewModel : GenericSingleton<EnemyEncounterViewModel>
 {
 
     private CombatEncounterView listener;
-    public List<EnemyInstance> enemies;
+    // Initialized by the enemyEncounterManager after the encounter is built
+    public List<EnemyInstance> enemies; 
+    // Initialized by the enemyEncounterManager after the encounter is built
     public List<CompanionInstance> companions;
 
+    private bool updatingAtEndOfFrame = false;
+
     public void SetStateDirty() {
+        if(!updatingAtEndOfFrame) {
+            StartCoroutine(updateViewAtEndOfFrame());
+        } 
+    }
+
+    private IEnumerator updateViewAtEndOfFrame() {
+        updatingAtEndOfFrame = true;
+        yield return new WaitForEndOfFrame();
         listener.UpdateView();
+        updatingAtEndOfFrame = false;
     }
 
     public void SetListener(CombatEncounterView listener) {
