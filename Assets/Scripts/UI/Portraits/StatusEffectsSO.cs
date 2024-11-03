@@ -20,7 +20,7 @@ public class StatusEffect {
     }
 }
 
-[CreateAssetMenu(fileName = "StatusEffectsSO", menuName = "StatusEffectsSO", order = 0)]
+[CreateAssetMenu(fileName = "StatusEffectsSO", menuName = "ScriptableObjects/StatusEffectsSO", order = 0)]
 public class StatusEffectsSO : ScriptableObject {
 
     [SerializeField]

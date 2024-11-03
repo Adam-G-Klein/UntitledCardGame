@@ -5,6 +5,9 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+/***
+This class just handles the intent arrows right now. The rest of the intent is read from the EnemyInstance
+in combatEncounterView ***/
 [RequireComponent(typeof(EnemyIntentArrowsController))]
 public class EnemyIntentDisplay : MonoBehaviour
 {
@@ -25,15 +28,6 @@ public class EnemyIntentDisplay : MonoBehaviour
     public TextMeshProUGUI valueText;
 
     private CombatEntityTrigger onCompanionDeathTrigger;
-
-    void Start() {
-        // enemyInstance = GetComponentInParent<EnemyInstance>();
-        // arrowController = GetComponent<EnemyIntentArrowsController>();
-        // turnManager = TurnManager.Instance;
-        // displayIntentTrigger = new TurnPhaseTrigger(TurnPhase.START_PLAYER_TURN, displayIntent(enemyInstance));
-        // registerTurnPhaseTriggerEvent.Raise(new TurnPhaseTriggerEventInfo(displayIntentTrigger));
-        // transform.SetAsFirstSibling(); // Want the arrows to be on top of the enemies so that we can see them buffing each other
-    }
 
     public void Setup(EnemyInstance enemyInstance) {
         Debug.Log("Setting up enemy intent display for " + enemyInstance.name);
@@ -101,41 +95,14 @@ public class EnemyIntentDisplay : MonoBehaviour
             StartCoroutine(displayIntentAfterDelay(enemy));
             yield break;
         }
-        updateIntentImages(enemy.currentIntent);
-        updateIntentText(enemy.currentIntent);
         arrowController.updateArrows(enemy.currentIntent);
         yield return null;
     }
 
     public void clearIntent() {
-        //clearIntentImages();
         arrowController.clearArrows();
     }
 
-    private void updateIntentImages(EnemyIntent intent) {
-        /*
-        foreach (IntentImage image in intentImages) {
-            if (image.intent == intent.intentType) {
-                image.gameObject.SetActive(true);
-            } else {
-                image.gameObject.SetActive(false);
-            }
-        }
-        */
-    }
-
-    private void updateIntentText(EnemyIntent intent) {
-        intentText.text = intent.intentType.ToString() + "\n" + intent.displayValue.ToString();
-        UIStateManager.Instance.SetUIDocDirty();
-    }   
-
-    private void clearIntentImages() {
-    /*
-        for(int i = 0; i < intentImages.Count; i++) {
-            intentImages[i].gameObject.SetActive(false);
-        }
-        */
-    }
 }
 
 [System.Serializable]

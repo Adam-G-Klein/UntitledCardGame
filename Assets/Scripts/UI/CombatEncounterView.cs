@@ -30,6 +30,8 @@ public class CombatEncounterView : GenericSingleton<CombatEncounterView>
 
     [SerializeField]
     private StatusEffectsSO statusEffectsSO;
+    [SerializeField]
+    private EnemyIntentsSO enemyIntentsSO;
 
     public void SetupFromGamestate() 
     {
@@ -37,6 +39,10 @@ public class CombatEncounterView : GenericSingleton<CombatEncounterView>
         root = GetComponent<UIDocument>().rootVisualElement;
         if(!statusEffectsSO) {
             Debug.LogError("StatusEffectsSO is null, Go to ScriptableObjects/Configuration and set the SO there in the CombatCanvasUIDocument/CombatUI prefab");
+            return;
+        }
+        if(!enemyIntentsSO) {
+            Debug.LogError("enemyIntentsSO is null, Go to ScriptableObjects/Configuration and set the SO there in the CombatCanvasUIDocument/CombatUI prefab");
             return;
         }
         if(!gameState.activeEncounter.GetValue().GetType().Equals(typeof(EnemyEncounter))) {
@@ -191,18 +197,27 @@ public class CombatEncounterView : GenericSingleton<CombatEncounterView>
         var descContainer = new VisualElement();
         descContainer.AddToClassList("pillar-text");
         var descLabel = new Label();
-        descLabel.AddToClassList(portraitContainer.name + DETAILS_DESCRIPTION_SUFFIX);
-        descLabel.AddToClassList("pillar-desc-label");
-        descContainer.Add(descLabel);
         titleLabel.text = entity.GetName(); 
 
-        detailsContainer.Add(descContainer);
         EnemyInstance enemyInstance = entity.GetEnemyInstance();
-        if(enemyInstance && enemyInstance.currentIntent != null) {
-            descLabel.text = enemyInstance.currentIntent.intentType.ToString();
+        if(enemyInstance) {
+            if(enemyInstance.currentIntent == null) {
+                descLabel.text = "Preparing...";
+            } else {
+                descLabel.text = enemyInstance.currentIntent.displayValue.ToString();
+                descLabel.AddToClassList("pillar-enemy-intent-text");
+                var intentImage = new VisualElement();
+                intentImage.AddToClassList("enemy-intent-image");
+                intentImage.style.backgroundImage = new StyleBackground(enemyIntentsSO.GetIntentImage(enemyInstance.currentIntent.intentType));
+                descContainer.Add(intentImage);
+            }   
         } else {
+            descLabel.AddToClassList(portraitContainer.name + DETAILS_DESCRIPTION_SUFFIX);
+            descLabel.AddToClassList("pillar-desc-label");
             descLabel.text = entity.GetDescription();
         }
+        descContainer.Add(descLabel);
+        detailsContainer.Add(descContainer);
 
         column.Add(detailsContainer);
 
