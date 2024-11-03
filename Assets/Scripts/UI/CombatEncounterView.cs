@@ -33,6 +33,8 @@ public class CombatEncounterView : GenericSingleton<CombatEncounterView>
     [SerializeField]
     private EnemyIntentsSO enemyIntentsSO;
 
+    private List<VisualElement> pickingModePositionList = new List<VisualElement>();
+
     public void SetupFromGamestate() 
     {
         docRenderer = gameObject.GetComponent<UIDocumentScreenspace>();
@@ -66,13 +68,18 @@ public class CombatEncounterView : GenericSingleton<CombatEncounterView>
             VisualElement companionContainer = root.Q<VisualElement>("companionContainer");
             enemyContainer.Clear();
             companionContainer.Clear();
+            pickingModePositionList.Clear();
             List<CompanionInstance> companions = EnemyEncounterViewModel.Instance.companions;
             List<EnemyInstance> enemies = EnemyEncounterViewModel.Instance.enemies;
             setupEntities(root.Q<VisualElement>("enemyContainer"), enemies.Cast<IUIEntity>(), true);
             setupEntities(root.Q<VisualElement>("companionContainer"), companions.Cast<IUIEntity>(), false);
             UIDocumentUtils.SetAllPickingMode(enemyContainer, PickingMode.Ignore);
             UIDocumentUtils.SetAllPickingMode(companionContainer, PickingMode.Ignore);
+            foreach (VisualElement ve in pickingModePositionList) {
+                ve.pickingMode = PickingMode.Position;
+            }
         }
+        docRenderer.SetStateDirty();
     }
 
     private void setupEntities(VisualElement container, IEnumerable<IUIEntity> entities, bool isEnemy) {
@@ -196,6 +203,11 @@ public class CombatEncounterView : GenericSingleton<CombatEncounterView>
         detailsContainer.Add(titleContainer);
         var descContainer = new VisualElement();
         descContainer.AddToClassList("pillar-text");
+        registerOnHovers(descContainer);
+        pickingModePositionList.Add(descContainer);
+        if(EnemyEncounterViewModel.Instance.hoveredElement == descContainer) {
+            descContainer.style.backgroundColor = Color.red;
+        }
         var descLabel = new Label();
         titleLabel.text = entity.GetName(); 
 
@@ -246,5 +258,24 @@ public class CombatEncounterView : GenericSingleton<CombatEncounterView>
     public void updateMana(int mana) {
         root.Q<Label>("manaCounter").text = mana.ToString();
         docRenderer.SetStateDirty();
+    }
+
+    private void registerOnHovers(VisualElement ve) {
+        ve.RegisterCallback<MouseEnterEvent>(evt => {
+            Debug.Log("Hovered: " + ve.name);
+            if(EnemyEncounterViewModel.Instance.hoveredElement != ve) {
+                EnemyEncounterViewModel.Instance.hoveredElement = ve;
+                EnemyEncounterViewModel.Instance.SetStateDirty();
+                EnemyEncounterViewModel.Instance.hoveredElement.style.backgroundColor = Color.red;
+            }
+        });
+        ve.RegisterCallback<MouseLeaveEvent>(evt => {
+            Debug.Log("UnHovered: " + ve.name);
+            if(EnemyEncounterViewModel.Instance.hoveredElement == ve) {
+                EnemyEncounterViewModel.Instance.hoveredElement.style.backgroundColor = Color.clear;
+                EnemyEncounterViewModel.Instance.hoveredElement = null;
+                EnemyEncounterViewModel.Instance.SetStateDirty();
+            }
+        });
     }
 }

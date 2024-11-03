@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UIElements;
 /*
 What information do we need to draw the view:
 - all the CombatInstance's health
@@ -31,6 +32,8 @@ public class EnemyEncounterViewModel : GenericSingleton<EnemyEncounterViewModel>
     public List<CompanionInstance> companions;
 
     private bool updatingAtEndOfFrame = false;
+
+    public VisualElement hoveredElement;
 
     public void SetStateDirty() {
         if(!updatingAtEndOfFrame) {

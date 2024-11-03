@@ -291,7 +291,6 @@ public class CombatInstance : MonoBehaviour
 
     private void UpdateView() {
         EnemyEncounterViewModel.Instance.SetStateDirty();
-        statusEffectsDisplay.UpdateStatusDisplays(new StatusEffectsDisplayViewModel(statusEffects));
     }
 
     public void SetStatusEffect(StatusEffectType statusEffectType, int value) {

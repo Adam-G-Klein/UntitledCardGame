@@ -12,4 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72e4a6a515ec63348917bc40ec330e04, type: 3}
   m_Name: EnemyIntentsSO
   m_EditorClassIdentifier: 
-  intentTypes: []
+  intentTypes:
+  - type: 0
+    image: {fileID: 21300000, guid: 9c7b553a4a5050646818dbc514a54e9a, type: 3}
+  - type: 1
+    image: {fileID: 21300000, guid: 8f7d978fe57e96342a8335f56279ee7e, type: 3}
+  - type: 2
+    image: {fileID: 21300000, guid: d8604ce823c28fd499142f64b9427aa2, type: 3}
+  - type: 3
+    image: {fileID: 21300000, guid: 58d4761a913d6374cb1f94952fcdf06e, type: 3}
+  - type: 4
+    image: {fileID: 21300000, guid: 3708c5d775e17b749bf81d2b922f6024, type: 3}
+  - type: 5
+    image: {fileID: 21300000, guid: 5e40f858eddaed340a6366c33c4e216f, type: 3}
