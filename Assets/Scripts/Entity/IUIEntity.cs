@@ -15,4 +15,7 @@ public interface IUIEntity : ICombatStats
     // will return null if the entity is not an enemy instance
     public EnemyInstance GetEnemyInstance();
 
+    // will return null if not in combat or not a companion
+    public DeckInstance GetDeckInstance();
+
 }

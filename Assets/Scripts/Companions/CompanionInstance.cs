@@ -116,5 +116,9 @@ public class CompanionInstance : MonoBehaviour, IUIEntity
     public EnemyInstance GetEnemyInstance() {
         return null;
     }
+
+    public DeckInstance GetDeckInstance() {
+        return deckInstance;
+    }
 }
 

@@ -132,4 +132,8 @@ public class EnemyInstance : MonoBehaviour, IUIEntity {
     public EnemyInstance GetEnemyInstance() {
         return this;
     }
+
+    public DeckInstance GetDeckInstance() {
+        return null;
+    }
 }

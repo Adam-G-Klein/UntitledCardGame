@@ -35,6 +35,9 @@ public class CombatEncounterView : GenericSingleton<CombatEncounterView>
 
     private List<VisualElement> pickingModePositionList = new List<VisualElement>();
 
+    [SerializeField]
+    private GameObject cardViewUIPrefab;
+
     public void SetupFromGamestate() 
     {
         docRenderer = gameObject.GetComponent<UIDocumentScreenspace>();
@@ -113,10 +116,146 @@ public class CombatEncounterView : GenericSingleton<CombatEncounterView>
         rightColumn.Add(setupStatusEffectsTabs(entity));
         pillarContainer.Add(rightColumn);
 
+        // it's important to add the hover detector *before* the drawer,
+        // or it will pick away the click events from the buttons
+        VisualElement hoverDetector = new VisualElement();
+        hoverDetector.AddToClassList("pillar-hover-box"); 
+        pickingModePositionList.Add(hoverDetector);
+        pillar.Add(hoverDetector);
+        registerModelUpdateOnHovers(entity, hoverDetector);
 
         pillar.Add(pillarContainer);
+
+        if(!isEnemy)
+            pillar.Add(setupCardDrawer(entity));
+
+        
+
         
         return pillar;
+    }
+
+    private VisualElement setupCardColumn(IUIEntity entity, int index, bool isEnemy) {
+        var column = new VisualElement();
+        column.name = entity.GetName();
+        column.AddToClassList("pillar-card-column");
+
+        VisualElement detailsContainer = setupCardColumnPortraitAndTitle(column, entity, index, isEnemy);
+        VisualElement descriptionContainer = setupCardColumnDescription(entity, detailsContainer, index, isEnemy);
+        registerModelUpdateOnHovers(entity, descriptionContainer);
+        
+        detailsContainer.Add(descriptionContainer);
+
+        column.Add(detailsContainer);
+
+        return column;
+    }
+
+    // returns the details container, which holds everything below the portrait
+    private VisualElement setupCardColumnPortraitAndTitle(VisualElement column, IUIEntity entity, int index, bool isEnemy) {
+        var portraitContainer = new VisualElement();
+        var baseString = isEnemy ? UIDocumentGameObjectPlacer.ENEMY_UIDOC_ELEMENT_PREFIX : UIDocumentGameObjectPlacer.COMPANION_UIDOC_ELEMENT_PREFIX;
+        string portraitContainerName = baseString + index.ToString();
+        portraitContainer.name = portraitContainerName;
+        portraitContainer.AddToClassList("portrait-container");
+        column.Add(portraitContainer);
+        column.AddToClassList(portraitContainer.name + STATUS_EFFECTS_CONTAINER_SUFFIX);
+
+        var detailsContainer = new VisualElement();
+        detailsContainer.AddToClassList("pillar-details");
+
+        var titleContainer = new VisualElement();
+        titleContainer.AddToClassList("pillar-name");
+        var titleLabel = new Label();
+        titleLabel.AddToClassList("pillar-name");
+        titleContainer.Add(titleLabel);
+        titleLabel.text = entity.GetName(); 
+        detailsContainer.Add(titleContainer);
+        return detailsContainer;
+    }
+
+    // returns the description container, which holds the enemy intent, the companion description, and the 
+    // deck drawers on hover for companions
+    private VisualElement setupCardColumnDescription(IUIEntity entity, VisualElement detailsContainer, int index, bool isEnemy) {
+        var descContainer = new VisualElement();
+        descContainer.AddToClassList("pillar-text");
+        pickingModePositionList.Add(descContainer);
+
+        
+        var descLabel = new Label();
+
+        EnemyInstance enemyInstance = entity.GetEnemyInstance();
+        if(enemyInstance) {
+            setupEnemyIntent(descLabel, descContainer, enemyInstance);
+        } else { // then we know it's a companion
+            descLabel.AddToClassList("pillar-desc-label");
+            descLabel.text = entity.GetDescription();
+        }
+        descContainer.Add(descLabel);
+        return descContainer;
+    }
+
+    private void setupEnemyIntent(Label descLabel, VisualElement descContainer, EnemyInstance enemyInstance) {
+        if(enemyInstance.currentIntent == null) {
+            descLabel.text = "Preparing...";
+        } else {
+            descLabel.text = enemyInstance.currentIntent.displayValue.ToString();
+            descLabel.AddToClassList("pillar-enemy-intent-text");
+            var intentImage = new VisualElement();
+            intentImage.AddToClassList("enemy-intent-image");
+            intentImage.style.backgroundImage = new StyleBackground(enemyIntentsSO.GetIntentImage(enemyInstance.currentIntent.intentType));
+            descContainer.Add(intentImage);
+        }
+    }
+
+    private VisualElement setupCardDrawer(IUIEntity entity) {
+        VisualElement drawerContainer = new VisualElement();
+        drawerContainer.AddToClassList("pillar-drawer-container");
+        
+        UnityEngine.UIElements.Button drawButton = new UnityEngine.UIElements.Button();
+        drawButton.AddToClassList("drawer-button");
+        drawButton.text = "Draw";
+        
+
+        UnityEngine.UIElements.Button discardButton = new UnityEngine.UIElements.Button();
+        discardButton.AddToClassList("drawer-button");
+        discardButton.text = "Discard";
+
+        if(EnemyEncounterViewModel.Instance.hoveredEntity != entity) {
+            drawerContainer.style.display = DisplayStyle.None;
+        }
+
+        pickingModePositionList.Add(drawButton);
+        pickingModePositionList.Add(discardButton);
+        pickingModePositionList.Add(drawerContainer);
+
+        // this should SO be somewhere else but im ngl I kinda just feel like sending it rn
+        drawButton.RegisterCallback<ClickEvent>(evt => {
+            Debug.Log("Draw button clicked");
+            DeckInstance deckInstance = entity.GetDeckInstance();
+            if(deckInstance == null) {
+                Debug.LogError("Entity " + entity.GetName() + " does not have a deck instance, which is crazy, because it's clearly a companion");
+                return;
+            }
+            GameObject gameObject = GameObject.Instantiate(
+                cardViewUIPrefab,
+                Vector3.zero,
+                Quaternion.identity);
+            CardViewUI cardViewUI = gameObject.GetComponent<CardViewUI>();
+            cardViewUI.Setup(deckInstance.drawPile, 
+                0, 
+                deckInstance.combatInstance.name + " draw pile", 
+                0);
+        });
+
+        // this should SO be somewhere else but im ngl I kinda just feel like sending it rn
+        discardButton.RegisterCallback<ClickEvent>(evt => {
+            Debug.Log("Discard button clicked");
+        });
+        drawerContainer.Add(drawButton);
+        drawerContainer.Add(discardButton);
+
+        return drawerContainer;
     }
 
     private VisualElement setupHealthAndBlockTabs(IUIEntity entityInstance) {
@@ -175,66 +314,7 @@ public class CombatEncounterView : GenericSingleton<CombatEncounterView>
         
     }
 
-    private VisualElement setupCardColumn(IUIEntity entity, int index, bool isEnemy) {
-        var column = new VisualElement();
-        column.name = entity.GetName();
-        column.AddToClassList("pillar-card-column");
-
-        var portraitContainer = new VisualElement();
-        var baseString = isEnemy ? UIDocumentGameObjectPlacer.ENEMY_UIDOC_ELEMENT_PREFIX : UIDocumentGameObjectPlacer.COMPANION_UIDOC_ELEMENT_PREFIX;
-        string portraitContainerName = baseString + index.ToString();
-        portraitContainer.name = portraitContainerName;
-        portraitContainer.AddToClassList("portrait-container");
-        column.Add(portraitContainer);
-        column.AddToClassList(portraitContainer.name + STATUS_EFFECTS_CONTAINER_SUFFIX);
-
-        var detailsContainer = new VisualElement();
-        // TODO: figure out how to avoid querying from root. All the elements we want to query need to have 
-        // unique names from root for now. 
-        detailsContainer.AddToClassList(portraitContainer.name + DETAILS_CONTAINER_SUFFIX);
-        detailsContainer.AddToClassList("pillar-details");
-
-        var titleContainer = new VisualElement();
-        titleContainer.AddToClassList("pillar-name");
-        var titleLabel = new Label();
-        titleLabel.AddToClassList(portraitContainer.name + DETAILS_HEADER_SUFFIX);
-        titleLabel.AddToClassList("pillar-name");
-        titleContainer.Add(titleLabel);
-        detailsContainer.Add(titleContainer);
-        var descContainer = new VisualElement();
-        descContainer.AddToClassList("pillar-text");
-        registerOnHovers(descContainer);
-        pickingModePositionList.Add(descContainer);
-        if(EnemyEncounterViewModel.Instance.hoveredElement == descContainer) {
-            descContainer.style.backgroundColor = Color.red;
-        }
-        var descLabel = new Label();
-        titleLabel.text = entity.GetName(); 
-
-        EnemyInstance enemyInstance = entity.GetEnemyInstance();
-        if(enemyInstance) {
-            if(enemyInstance.currentIntent == null) {
-                descLabel.text = "Preparing...";
-            } else {
-                descLabel.text = enemyInstance.currentIntent.displayValue.ToString();
-                descLabel.AddToClassList("pillar-enemy-intent-text");
-                var intentImage = new VisualElement();
-                intentImage.AddToClassList("enemy-intent-image");
-                intentImage.style.backgroundImage = new StyleBackground(enemyIntentsSO.GetIntentImage(enemyInstance.currentIntent.intentType));
-                descContainer.Add(intentImage);
-            }   
-        } else {
-            descLabel.AddToClassList(portraitContainer.name + DETAILS_DESCRIPTION_SUFFIX);
-            descLabel.AddToClassList("pillar-desc-label");
-            descLabel.text = entity.GetDescription();
-        }
-        descContainer.Add(descLabel);
-        detailsContainer.Add(descContainer);
-
-        column.Add(detailsContainer);
-
-        return column;
-    }
+    
 
     
 
@@ -260,22 +340,27 @@ public class CombatEncounterView : GenericSingleton<CombatEncounterView>
         docRenderer.SetStateDirty();
     }
 
-    private void registerOnHovers(VisualElement ve) {
+    // Need to check the entity because the visual element is re-created on every frame
+    // if you try to compare the ve then they will never be equal, different object hash codes
+    private void registerModelUpdateOnHovers(IUIEntity entity, VisualElement ve) {
         ve.RegisterCallback<MouseEnterEvent>(evt => {
-            Debug.Log("Hovered: " + ve.name);
-            if(EnemyEncounterViewModel.Instance.hoveredElement != ve) {
+            if(EnemyEncounterViewModel.Instance.hoveredEntity != entity) {
+                Debug.Log("Hovering over " + entity.GetName());
                 EnemyEncounterViewModel.Instance.hoveredElement = ve;
+                EnemyEncounterViewModel.Instance.hoveredEntity = entity;
                 EnemyEncounterViewModel.Instance.SetStateDirty();
-                EnemyEncounterViewModel.Instance.hoveredElement.style.backgroundColor = Color.red;
             }
         });
         ve.RegisterCallback<MouseLeaveEvent>(evt => {
-            Debug.Log("UnHovered: " + ve.name);
-            if(EnemyEncounterViewModel.Instance.hoveredElement == ve) {
-                EnemyEncounterViewModel.Instance.hoveredElement.style.backgroundColor = Color.clear;
+            if(EnemyEncounterViewModel.Instance.hoveredEntity == entity) {
                 EnemyEncounterViewModel.Instance.hoveredElement = null;
+                EnemyEncounterViewModel.Instance.hoveredEntity = null;
                 EnemyEncounterViewModel.Instance.SetStateDirty();
             }
         });
+    }
+
+    private bool isHovered(IUIEntity entity) {
+        return EnemyEncounterViewModel.Instance.hoveredEntity == entity;
     }
 }

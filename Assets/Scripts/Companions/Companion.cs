@@ -111,4 +111,9 @@ public class Companion : Entity, ICombatStats, IDeckEntity, IUIEntity
     {
         return null;
     }
+
+    public DeckInstance GetDeckInstance()
+    {
+        return null;
+    }
 }

@@ -64,4 +64,9 @@ public class Enemy : Entity, ICombatStats, IUIEntity {
     {
         return null;
     }
+
+    public DeckInstance GetDeckInstance()
+    {
+        return null;
+    }
 }

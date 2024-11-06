@@ -34,6 +34,7 @@ public class EnemyEncounterViewModel : GenericSingleton<EnemyEncounterViewModel>
     private bool updatingAtEndOfFrame = false;
 
     public VisualElement hoveredElement;
+    public IUIEntity hoveredEntity;
 
     public void SetStateDirty() {
         if(!updatingAtEndOfFrame) {
