@@ -251,6 +251,20 @@ public class CombatEncounterView : GenericSingleton<CombatEncounterView>
         // this should SO be somewhere else but im ngl I kinda just feel like sending it rn
         discardButton.RegisterCallback<ClickEvent>(evt => {
             Debug.Log("Discard button clicked");
+            DeckInstance deckInstance = entity.GetDeckInstance();
+            if(deckInstance == null) {
+                Debug.LogError("Entity " + entity.GetName() + " does not have a deck instance, which is crazy, because it's clearly a companion");
+                return;
+            }
+            GameObject gameObject = GameObject.Instantiate(
+                cardViewUIPrefab,
+                Vector3.zero,
+                Quaternion.identity);
+            CardViewUI cardViewUI = gameObject.GetComponent<CardViewUI>();
+            cardViewUI.Setup(deckInstance.discardPile, 
+                0, 
+                deckInstance.combatInstance.name + " discard pile", 
+                0);
         });
         drawerContainer.Add(drawButton);
         drawerContainer.Add(discardButton);
