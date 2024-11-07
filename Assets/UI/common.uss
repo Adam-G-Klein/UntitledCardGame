@@ -289,15 +289,18 @@
 
 .card-container {
     flex-grow: 0;
-    background-color: rgba(0, 0, 0, 0);
+    background-color: rgba(32, 32, 32, 0);
     width: 43%;
     height: 80%;
-    background-image: url("project://database/Assets/Prefabs/Cards/CardArt/CardFrameWIP.PNG?fileID=2800000&guid=a555ab66854985e40bfda3ce226ed303&type=3#CardFrameWIP");
+    background-image: url("project://database/Assets/Sprites/CardArt/CardFrameWIPTransparentOutside.png?fileID=2800000&guid=3e1fc5a0e17b3be45a466562a912f5b9&type=3#CardFrameWIPTransparentOutside");
     align-self: auto;
     justify-content: flex-start;
     align-items: center;
     max-width: 503px;
     max-height: 93%;
+    -unity-background-scale-mode: stretch-to-fill;
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    top: 28px;
 }
 
 .worldspace-card-container {
@@ -314,30 +317,48 @@
 
 .mana-card-label {
     align-self: flex-start;
-    margin-left: 10px;
-    color: rgb(255, 255, 255);
-    background-color: rgb(255, 0, 9);
+    margin-left: 0;
+    color: rgb(43, 33, 55);
+    background-color: rgb(162, 208, 255);
     font-size: 30px;
+    top: -5px;
+    width: 40px;
+    height: 40px;
+    left: -1px;
+    -unity-text-align: upper-center;
 }
 
 .card-desc-label {
-    -unity-font-style: italic;
-    font-size: 27px;
+    -unity-font-style: bold;
+    font-size: 14px;
     white-space: normal;
     align-self: center;
     margin-left: 0;
     padding-left: 20px;
-    align-items: stretch;
+    align-items: center;
     margin-top: 0;
     margin-right: 0;
-    margin-bottom: 0;
+    margin-bottom: 25px;
     padding-right: 20px;
+    color: rgb(228, 215, 197);
+    justify-content: space-between;
+    -unity-text-align: upper-center;
+    padding-bottom: 17px;
+    -unity-background-image-tint-color: rgb(56, 56, 56);
+    -unity-text-outline-color: rgba(227, 209, 191, 0);
 }
 
 .card-title-label {
-    font-size: 44px;
+    font-size: 21px;
     -unity-font-style: bold;
     white-space: nowrap;
+    top: -26px;
+    color: rgb(53, 39, 68);
+    background-color: rgba(53, 39, 68, 0);
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
 }
 
 .card-image {
@@ -345,7 +366,8 @@
     background-color: rgba(0, 0, 0, 0);
     height: 40%;
     width: 90%;
-    background-image: url("project://database/Assets/Prefabs/Cards/CardArt/CardImageWIP%201.png?fileID=2800000&guid=3dd0d533e03397448a54f341499e747d&type=3#CardImageWIP 1");
+    background-image: url("project://database/Assets/Sprites/Z_OldPlaceholderSprites/footsteps.png?fileID=2800000&guid=4a8dbd04e8874b145a7b5215af0a2b31&type=3#footsteps");
+    top: -21px;
 }
 
 .keepsake-image {
