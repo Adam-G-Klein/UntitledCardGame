@@ -290,17 +290,14 @@
 .card-container {
     flex-grow: 0;
     background-color: rgba(32, 32, 32, 0);
-    width: 43%;
-    height: 80%;
+    width: 100%;
+    height: 100%;
     background-image: url("project://database/Assets/Sprites/CardArt/CardFrameWIPTransparentOutside.png?fileID=2800000&guid=3e1fc5a0e17b3be45a466562a912f5b9&type=3#CardFrameWIPTransparentOutside");
     align-self: auto;
     justify-content: flex-start;
     align-items: center;
-    max-width: 503px;
-    max-height: 93%;
     -unity-background-scale-mode: stretch-to-fill;
     -unity-background-image-tint-color: rgb(255, 255, 255);
-    top: 28px;
 }
 
 .worldspace-card-container {

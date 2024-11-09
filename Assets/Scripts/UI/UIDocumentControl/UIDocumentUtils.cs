@@ -12,7 +12,7 @@ public class UIDocumentUtils : MonoBehaviour
     // Hey Patrick, please help me figure out where commonly used view construction methods should go :P
     public static VisualElement makeWorldspaceCardView(CardType card) {
         var container = new VisualElement();
-        container.AddToClassList("worldspace-card-container");
+        container.AddToClassList("card-container");
 
         var manaCost = new Label();
         manaCost.AddToClassList("mana-card-label");
