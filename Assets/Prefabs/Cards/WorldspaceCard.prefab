@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 4902976140308491489}
   - component: {fileID: 6901440839600862463}
   - component: {fileID: -8509860225040359179}
+  - component: {fileID: 6627301573617809454}
   m_Layer: 0
   m_Name: WorldspaceCard
   m_TagString: Untagged
@@ -199,6 +200,7 @@ MonoBehaviour:
   hoverSFXVolume: 0.1
   hoverYOffset: 1.5
   hoverZOffset: -0.5
+  cardCastVFXPrefab: {fileID: 6841246063235012224, guid: bf344b2c905c8764ba1ea4f4230150c2, type: 3}
 --- !u!61 &-8509860225040359179
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -244,3 +246,24 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 8, y: 14}
   m_EdgeRadius: 0
+--- !u!95 &6627301573617809454
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6517496529593941963}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
