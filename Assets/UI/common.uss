@@ -345,6 +345,7 @@
     -unity-font-style: bold;
     white-space: nowrap;
     top: 5%;
+    flex-wrap: wrap;
 }
 
 .card-image {
@@ -398,17 +399,32 @@
 }
 
 .tooltip-title {
-    font-size: 19px;
+    font-size: 32px;
+    flex-wrap: wrap;
+    -unity-font-style: bold;
 }
 
 .tooltip-text {
     font-size: 25px;
+    flex-wrap: wrap;
+    white-space: normal;
 }
 
 .tooltip-background {
     flex-grow: 1;
-    background-color: rgba(0, 0, 0, 0);
-    background-image: url("project://database/Assets/Sprites/AidensRoom/DialogueBox.png?fileID=2800000&guid=e1a81dd917fe696459cd192b12e9b3fc&type=3#DialogueBox");
+    background-color: rgba(255, 255, 255, 0.88);
+    border-top-width: 10px;
+    border-right-width: 10px;
+    border-bottom-width: 10px;
+    border-left-width: 10px;
+    border-left-color: rgb(26, 25, 27);
+    border-right-color: rgb(26, 25, 27);
+    border-top-color: rgb(26, 25, 27);
+    border-bottom-color: rgb(26, 25, 27);
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
 }
 
 .mana-container {
