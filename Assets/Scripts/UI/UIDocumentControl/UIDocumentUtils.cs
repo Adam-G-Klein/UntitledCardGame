@@ -14,10 +14,7 @@ public class UIDocumentUtils : MonoBehaviour
         var container = new VisualElement();
         container.AddToClassList("card-container");
 
-        var manaCost = new Label();
-        manaCost.AddToClassList("mana-card-label");
-        manaCost.text = card.Cost.ToString();
-        container.Add(manaCost);
+   
 
         var image = new VisualElement();
         image.AddToClassList("card-image");
@@ -33,6 +30,15 @@ public class UIDocumentUtils : MonoBehaviour
         desc.AddToClassList("card-desc-label");
         desc.text = card.Description;
         container.Add(desc);
+
+        var manaContainer = new VisualElement();
+        manaContainer.AddToClassList("mana-container");
+    
+        var manaCost = new Label();
+        manaCost.AddToClassList("mana-card-label");
+        manaCost.text = card.Cost.ToString();
+        manaContainer.Add(manaCost);
+        container.Add(manaContainer);
 
         return container;
     }

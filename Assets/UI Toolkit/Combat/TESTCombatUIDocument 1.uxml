@@ -438,13 +438,13 @@
         <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); height: 33%; align-items: center;">
             <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); width: 80%; flex-direction: row; justify-content: space-around;">
                 <ui:VisualElement name="VisualElement" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); min-width: auto; min-height: auto; width: 30%; flex-direction: row; height: 100%; justify-content: center; align-items: center;">
-                    <ui:VisualElement name="card-1" class="card-container" style="width: 50%; background-image: url(&quot;project://database/Assets/Prefabs/Cards/CardArt/CardFrameWIP.PNG?fileID=2800000&amp;guid=a555ab66854985e40bfda3ce226ed303&amp;type=3#CardFrameWIP&quot;);">
+                    <ui:VisualElement name="card-1" class="card-container">
                         <ui:Label tabindex="-1" text="1" display-tooltip-when-elided="true" class="mana-card-label" style="height: 44px; width: 17px;" />
                         <ui:VisualElement class="card-image" />
                         <ui:Label tabindex="-1" text="CardName" display-tooltip-when-elided="true" class="card-title-label" style="font-size: 21px; top: -113px;" />
                         <ui:Label tabindex="-1" text="Card Desc" display-tooltip-when-elided="true" class="card-desc-label" style="background-color: rgba(226, 210, 194, 0); color: rgb(225, 212, 193); -unity-font-style: bold-and-italic; font-size: 16px;" />
                     </ui:VisualElement>
-                    <ui:VisualElement name="card-1" class="card-container" style="width: 50%; background-image: url(&quot;project://database/Assets/Prefabs/Cards/CardArt/CardFrameWIP.PNG?fileID=2800000&amp;guid=a555ab66854985e40bfda3ce226ed303&amp;type=3#CardFrameWIP&quot;);">
+                    <ui:VisualElement name="card-1" class="card-container">
                         <ui:Label tabindex="-1" text="1" display-tooltip-when-elided="true" class="mana-card-label" />
                         <ui:VisualElement class="card-image" style="height: 115px;" />
                         <ui:Label tabindex="-1" text="CardName" display-tooltip-when-elided="true" class="card-title-label" style="font-size: 21px; top: -113px;" />
@@ -454,7 +454,7 @@
                 <ui:VisualElement name="VisualElement" class="companion-cards-placer">
                     <ui:VisualElement name="card-1" class="card-container" style="width: 50%; background-image: url(&quot;project://database/Assets/Sprites/CardArt/CardFrameWIPTransparentOutside.png?fileID=21300000&amp;guid=3e1fc5a0e17b3be45a466562a912f5b9&amp;type=3#CardFrameWIPTransparentOutside&quot;);">
                         <ui:Label tabindex="-1" text="1" display-tooltip-when-elided="true" class="mana-card-label" />
-                        <ui:VisualElement class="card-image" />
+                        <ui:VisualElement name="VisualElement" class="card-image" />
                         <ui:Label tabindex="-1" text="CardName" display-tooltip-when-elided="true" class="card-title-label" style="top: -25px;" />
                         <ui:Label tabindex="-1" text="Card Desc" display-tooltip-when-elided="true" class="card-desc-label" />
                     </ui:VisualElement>

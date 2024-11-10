@@ -289,15 +289,14 @@
 
 .card-container {
     flex-grow: 0;
-    background-color: rgba(32, 32, 32, 0);
+    background-color: rgba(0, 0, 0, 0);
     width: 100%;
     height: 100%;
     background-image: url("project://database/Assets/Sprites/CardArt/CardFrameWIPTransparentOutside.png?fileID=2800000&guid=3e1fc5a0e17b3be45a466562a912f5b9&type=3#CardFrameWIPTransparentOutside");
     align-self: auto;
     justify-content: flex-start;
     align-items: center;
-    -unity-background-scale-mode: stretch-to-fill;
-    -unity-background-image-tint-color: rgb(255, 255, 255);
+    max-height: 100%;
 }
 
 .worldspace-card-container {
@@ -313,49 +312,39 @@
 }
 
 .mana-card-label {
-    align-self: flex-start;
-    margin-left: 0;
-    color: rgb(43, 33, 55);
-    background-color: rgb(162, 208, 255);
-    font-size: 30px;
-    top: -5px;
-    width: 40px;
-    height: 40px;
-    left: -1px;
-    -unity-text-align: upper-center;
+    align-self: center;
+    color: rgb(255, 255, 255);
+    font-size: 63px;
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
 }
 
 .card-desc-label {
-    -unity-font-style: bold;
-    font-size: 14px;
+    -unity-font-style: bold-and-italic;
+    font-size: 29px;
     white-space: normal;
     align-self: center;
     margin-left: 0;
     padding-left: 20px;
-    align-items: center;
+    align-items: stretch;
     margin-top: 0;
     margin-right: 0;
-    margin-bottom: 25px;
+    margin-bottom: 0;
     padding-right: 20px;
-    color: rgb(228, 215, 197);
-    justify-content: space-between;
+    color: rgb(255, 255, 255);
+    width: 86%;
     -unity-text-align: upper-center;
-    padding-bottom: 17px;
-    -unity-background-image-tint-color: rgb(56, 56, 56);
-    -unity-text-outline-color: rgba(227, 209, 191, 0);
+    text-overflow: clip;
+    top: 12%;
 }
 
 .card-title-label {
-    font-size: 21px;
+    font-size: 44px;
     -unity-font-style: bold;
     white-space: nowrap;
-    top: -26px;
-    color: rgb(53, 39, 68);
-    background-color: rgba(53, 39, 68, 0);
-    padding-top: 0;
-    padding-right: 0;
-    padding-bottom: 0;
-    padding-left: 0;
+    top: 5%;
 }
 
 .card-image {
@@ -363,8 +352,12 @@
     background-color: rgba(0, 0, 0, 0);
     height: 40%;
     width: 90%;
-    background-image: url("project://database/Assets/Sprites/Z_OldPlaceholderSprites/footsteps.png?fileID=2800000&guid=4a8dbd04e8874b145a7b5215af0a2b31&type=3#footsteps");
-    top: -21px;
+    background-image: url("project://database/Assets/Prefabs/Cards/CardArt/CardImageWIP%201.png?fileID=2800000&guid=3dd0d533e03397448a54f341499e747d&type=3#CardImageWIP 1");
+    max-width: 90%;
+    min-width: 90%;
+    max-height: 40%;
+    min-height: 40%;
+    top: 5%;
 }
 
 .keepsake-image {
@@ -416,4 +409,16 @@
     flex-grow: 1;
     background-color: rgba(0, 0, 0, 0);
     background-image: url("project://database/Assets/Sprites/AidensRoom/DialogueBox.png?fileID=2800000&guid=e1a81dd917fe696459cd192b12e9b3fc&type=3#DialogueBox");
+}
+
+.mana-container {
+    align-self: flex-start;
+    color: rgb(255, 255, 255);
+    background-color: rgb(108, 213, 217);
+    font-size: 30px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    justify-content: center;
+    align-items: center;
 }
