@@ -337,15 +337,18 @@
     width: 86%;
     -unity-text-align: upper-center;
     text-overflow: clip;
-    top: 12%;
+    top: 63%;
+    flex-shrink: 0;
+    position: absolute;
 }
 
 .card-title-label {
     font-size: 44px;
     -unity-font-style: bold;
     white-space: nowrap;
-    top: 5%;
+    top: 47%;
     flex-wrap: wrap;
+    position: absolute;
 }
 
 .card-image {
