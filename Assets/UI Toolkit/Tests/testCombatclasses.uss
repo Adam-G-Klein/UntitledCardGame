@@ -402,3 +402,13 @@
 
 .unity-text-element {
 }
+
+.pillar-hover-box {
+    flex-grow: 0;
+    position: absolute;
+    flex-shrink: 0;
+    top: 42%;
+    width: 128%;
+    align-self: center;
+    height: 65%;
+}

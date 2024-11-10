@@ -188,10 +188,11 @@
                             </ui:VisualElement>
                         </ui:VisualElement>
                     </ui:VisualElement>
-                    <ui:VisualElement name="VisualElement" class="pillar-drawer-menu" style="display: flex; background-color: rgb(255, 245, 235);">
+                    <ui:VisualElement name="VisualElement" class="pillar-drawer-menu">
                         <ui:Button text="Button" parse-escape-sequences="true" display-tooltip-when-elided="true" class="drawer-button" />
                         <ui:Button text="Button" parse-escape-sequences="true" display-tooltip-when-elided="true" class="drawer-button" />
                     </ui:VisualElement>
+                    <ui:VisualElement class="pillar-hover-box" />
                 </ui:VisualElement>
                 <ui:VisualElement class="entity-pillar">
                     <ui:VisualElement name="triangle" class="top-triangle" />

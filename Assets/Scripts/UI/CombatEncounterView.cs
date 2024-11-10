@@ -128,9 +128,6 @@ public class CombatEncounterView : GenericSingleton<CombatEncounterView>
 
         if(!isEnemy)
             pillar.Add(setupCardDrawer(entity));
-
-        
-
         
         return pillar;
     }
@@ -210,7 +207,7 @@ public class CombatEncounterView : GenericSingleton<CombatEncounterView>
 
     private VisualElement setupCardDrawer(IUIEntity entity) {
         VisualElement drawerContainer = new VisualElement();
-        drawerContainer.AddToClassList("pillar-drawer-container");
+        drawerContainer.AddToClassList("pillar-drawer-menu");
         
         UnityEngine.UIElements.Button drawButton = new UnityEngine.UIElements.Button();
         drawButton.AddToClassList("drawer-button");
