@@ -1,9 +1,0 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/UI/common.uss?fileID=7433441132597879392&amp;guid=8d0bc28a2ed710a44b762e4c857ac6f9&amp;type=3#common" />
-    <ui:VisualElement name="card-1" class="card-container" style="width: 359px; height: 521px;">
-        <ui:Label tabindex="-1" text="1" display-tooltip-when-elided="true" class="mana-card-label" />
-        <ui:VisualElement name="VisualElement" class="card-image" />
-        <ui:Label tabindex="-1" text="CardName" display-tooltip-when-elided="true" class="card-title-label" />
-        <ui:Label tabindex="-1" text="Card Desc" display-tooltip-when-elided="true" class="card-desc-label" />
-    </ui:VisualElement>
-</ui:UXML>

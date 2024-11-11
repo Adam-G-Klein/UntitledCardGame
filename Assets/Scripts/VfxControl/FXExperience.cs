@@ -37,7 +37,16 @@ public class FXExperience : MonoBehaviour
         TimelineAsset timeline = (TimelineAsset) playableDirector.playableAsset;
         foreach (var track in timeline.GetOutputTracks()) {
             if (bindingsMap.ContainsKey(track.name)) {
-                playableDirector.SetGenericBinding(track, bindingsMap[track.name].transform);
+                switch (true) {
+                    case true when typeof(TweenTrack).IsAssignableFrom(track.GetType()):
+                    case true when typeof(PartialTweenTrack).IsAssignableFrom(track.GetType()):
+                        playableDirector.SetGenericBinding(track, bindingsMap[track.name].transform);
+                    break;
+
+                    case true when typeof(AnimationTrack).IsAssignableFrom(track.GetType()):
+                        playableDirector.SetGenericBinding(track, bindingsMap[track.name].GetComponent<Animator>());
+                    break;
+                }
             }
         }
     }

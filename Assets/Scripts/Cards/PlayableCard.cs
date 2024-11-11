@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 using System;
+using Unity.VisualScripting;
 
 [RequireComponent(typeof(UIDocumentCard))]
 [RequireComponent(typeof(UIStateEventListener))]
@@ -36,7 +37,10 @@ public class PlayableCard : MonoBehaviour,
     public float hoverYOffset = 1.5f;
     public float hoverZOffset = 0.5f;
 
+    public GameObject cardCastVFXPrefab;
+
     private UIDocumentCard docCard;
+    private bool isCardCastPlaying = false;
 
     public void Start()
     {
@@ -69,11 +73,37 @@ public class PlayableCard : MonoBehaviour,
         IncrementCastCount();
         EnemyEncounterManager.Instance.combatEncounterState.cardsCastThisTurn.Add(card);
         yield return StartCoroutine(PlayerHand.Instance.OnCardCast(this));
+        yield return StartCoroutine(CardCastVFX(this.gameObject));
         if (card.cardType.exhaustsWhenPlayed) {
             ExhaustCard();
         } else {
             DiscardCardFromHand();
         }
+    }
+
+    private IEnumerator CardCastVFX(GameObject cardGameObject) {
+        this.isCardCastPlaying = true;
+        FXExperience experience = PrefabInstantiator.instantiateFXExperience(cardCastVFXPrefab, cardGameObject.transform.position);
+
+        experience.BindGameObjectsToTracks(new Dictionary<string, GameObject>() {
+            { "CardAnimationTrack", cardGameObject },
+            { "CardTweenTrack", cardGameObject },
+        });
+        experience.AddLocationToKey("Card", this.transform.position);
+        experience.AddLocationToKey("Companion", this.deckFrom.transform.position);
+        // This makes it so that we can use 0,0 as the "current position of the card"
+        cardGameObject.transform.SetParent(experience.transform);
+        experience.onExperienceOver += CardCastVFXFinished;
+        Debug.Log("Started card cast VFX");
+        experience.StartExperience();
+        yield return new WaitUntil(() => this.isCardCastPlaying == false);
+        Debug.Log("Finished card cast VFX");
+    }
+
+    private void CardCastVFXFinished() {
+        // If we don't do this, then the crew (the card) goes down with the ship (the FXExperience)
+        this.gameObject.transform.SetParent(null);
+        this.isCardCastPlaying = false;
     }
 
     private void IncrementCastCount(){

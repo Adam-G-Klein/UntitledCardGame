@@ -29,7 +29,7 @@ MonoBehaviour:
       cardsDealtPerTurn: 1
     combatStats:
       maxHealth: 40
-      currentHealth: 7
+      currentHealth: 1
       baseAttackDamage: 0
     companionLevel: 1
     onCombineAbilities: []
@@ -87,27 +87,6 @@ MonoBehaviour:
     deck:
       startingDeck: {fileID: 11400000, guid: b9d3e1231b15642b9802057f5950b8c7, type: 2}
       cards:
-      - id: e898f8e1-e1da-478b-8251-9e79ba144db2
-        entityType: 0
-        shopRarity: 0
-        castCount: 0
-        tempManaCost: -1
-        generated: 0
-        cardType: {fileID: 11400000, guid: 1b888846ca6cb45b69eea014dd6d885b, type: 2}
-      - id: 6567b93c-4b79-4233-b83b-bbd0e8d7f70f
-        entityType: 0
-        shopRarity: 0
-        castCount: 0
-        tempManaCost: -1
-        generated: 0
-        cardType: {fileID: 11400000, guid: 1b888846ca6cb45b69eea014dd6d885b, type: 2}
-      - id: a8e3ae46-cbfd-49bb-81a8-590f8722f0d2
-        entityType: 0
-        shopRarity: 0
-        castCount: 0
-        tempManaCost: -1
-        generated: 0
-        cardType: {fileID: 11400000, guid: 32f18eb65d9b6474ba3fa01f608e54fc, type: 2}
       - id: 300ff02d-adb2-4636-b61a-67c91267bdc8
         entityType: 0
         shopRarity: 0
@@ -115,13 +94,6 @@ MonoBehaviour:
         tempManaCost: -1
         generated: 0
         cardType: {fileID: 11400000, guid: d4790b9b1256f4d80a2b997327d5f1e1, type: 2}
-      - id: b237d40c-ab56-4d24-8c56-5713df506f1d
-        entityType: 0
-        shopRarity: 0
-        castCount: 0
-        tempManaCost: -1
-        generated: 0
-        cardType: {fileID: 11400000, guid: d29998a7021cb49e18bebee3d50b1e70, type: 2}
       cardsDealtPerTurn: 1
     combatStats:
       maxHealth: 25
