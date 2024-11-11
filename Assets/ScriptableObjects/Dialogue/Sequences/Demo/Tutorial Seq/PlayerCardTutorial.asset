@@ -18,9 +18,23 @@ MonoBehaviour:
   - rid: 8205569917033382007
   - rid: 6591284527365881857
   - rid: 6591284527365881858
+  - rid: 2214734427161624577
+  - rid: 2214734427161624578
   references:
     version: 2
     RefIds:
+    - rid: 2214734427161624577
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: e5efa8d383bdf2046953f747a6dba9c0, type: 2}
+        line: "If you play an attack card from this companion\u2019s deck, it will
+          increase the damage by 1.  "
+    - rid: 2214734427161624578
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: e5efa8d383bdf2046953f747a6dba9c0, type: 2}
+        line: "If you forget what a companion does, hover over their card\u2019s
+          portait to remind yourself of their special passive abilities! "
     - rid: 6591284527365881856
       type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
       data:
@@ -30,16 +44,16 @@ MonoBehaviour:
       type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
       data:
         speaker: {fileID: 11400000, guid: e5efa8d383bdf2046953f747a6dba9c0, type: 2}
-        line: Blue arrow means targetting your own units and red arrow means targetting
-          enemy units
+        line: 'A blue arrow lets you target one of your own companions and a red
+          arrow lets you target an enemy.  '
     - rid: 6591284527365881858
       type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
       data:
         speaker: {fileID: 11400000, guid: e5efa8d383bdf2046953f747a6dba9c0, type: 2}
-        line: Click on an attack card to target an enemy unit
+        line: 'This companion has 1 strength buff on it. '
     - rid: 8205569917033382007
       type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
       data:
         speaker: {fileID: 11400000, guid: e5efa8d383bdf2046953f747a6dba9c0, type: 2}
-        line: Click on cards to play them. If the card requires you to target something
-          an arrow will appear.
+        line: 'You click on cards to play them. If the card requires you to target
+          something, an arrow will appear.  '

@@ -16,9 +16,21 @@ MonoBehaviour:
   dialogueLines:
   - rid: 6591284527365881856
   - rid: 8205569917033382007
+  - rid: 2214734427161624653
+  - rid: 2214734427161624652
   references:
     version: 2
     RefIds:
+    - rid: 2214734427161624652
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: e5efa8d383bdf2046953f747a6dba9c0, type: 2}
+        line: "Go beat em\u2019 up, honey!"
+    - rid: 2214734427161624653
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: e5efa8d383bdf2046953f747a6dba9c0, type: 2}
+        line: 'Then, each enemy will perform their action. '
     - rid: 6591284527365881856
       type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
       data:
@@ -28,5 +40,4 @@ MonoBehaviour:
       type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
       data:
         speaker: {fileID: 11400000, guid: e5efa8d383bdf2046953f747a6dba9c0, type: 2}
-        line: All of the cards in your hand without retain will be discarded and
-          each enemy will perform their action
+        line: 'At the end of your turn, any remaining cards will be discarded.  '

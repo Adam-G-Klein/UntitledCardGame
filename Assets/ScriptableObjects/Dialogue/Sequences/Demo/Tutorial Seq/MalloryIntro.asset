@@ -36,7 +36,7 @@ MonoBehaviour:
       type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
       data:
         speaker: {fileID: 11400000, guid: e5efa8d383bdf2046953f747a6dba9c0, type: 2}
-        line: Are you interested in playing?
+        line: 'Would you be interested in playing a round with me? '
     - rid: 6591284527365881859
       type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
       data:
@@ -46,5 +46,5 @@ MonoBehaviour:
       type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
       data:
         speaker: {fileID: 11400000, guid: e5efa8d383bdf2046953f747a6dba9c0, type: 2}
-        line: "You\u2019ll play with three decks simulatenously. Each one is centered
-          around a companion with a special ability."
+        line: 'You play with up to three companions. Each one has its own deck and
+          special ability. '

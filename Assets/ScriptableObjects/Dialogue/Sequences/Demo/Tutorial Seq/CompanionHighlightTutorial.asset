@@ -16,8 +16,6 @@ MonoBehaviour:
   dialogueLines:
   - rid: 6591284527365881856
   - rid: 8205569917033382007
-  - rid: 8205569917033382835
-  - rid: 8205569917033382836
   references:
     version: 2
     RefIds:
@@ -30,17 +28,4 @@ MonoBehaviour:
       type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
       data:
         speaker: {fileID: 11400000, guid: e5efa8d383bdf2046953f747a6dba9c0, type: 2}
-        line: Each one has a unique deck of cards and they perform the actions on
-          the card in their deck
-    - rid: 8205569917033382835
-      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
-      data:
-        speaker: {fileID: 11400000, guid: e5efa8d383bdf2046953f747a6dba9c0, type: 2}
-        line: For example, if you play an attack card that belongs to a unit with
-          strength it will do additional damage
-    - rid: 8205569917033382836
-      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
-      data:
-        speaker: {fileID: 11400000, guid: e5efa8d383bdf2046953f747a6dba9c0, type: 2}
-        line: Hover over any of your companions to remind yourself of their special
-          passive abilities!
+        line: 'They''ll help you defeat the enemy. '
