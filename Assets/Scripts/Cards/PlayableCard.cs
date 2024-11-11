@@ -81,15 +81,18 @@ public class PlayableCard : MonoBehaviour,
         }
     }
 
-    private IEnumerator CardCastVFX(GameObject gameObject) {
+    private IEnumerator CardCastVFX(GameObject cardGameObject) {
         this.isCardCastPlaying = true;
-        FXExperience experience = PrefabInstantiator.instantiateFXExperience(cardCastVFXPrefab, gameObject.transform.position);
+        FXExperience experience = PrefabInstantiator.instantiateFXExperience(cardCastVFXPrefab, cardGameObject.transform.position);
 
         experience.BindGameObjectsToTracks(new Dictionary<string, GameObject>() {
-            { "CardAnimationTrack", gameObject },
+            { "CardAnimationTrack", cardGameObject },
+            { "CardTweenTrack", cardGameObject },
         });
+        experience.AddLocationToKey("Card", this.transform.position);
+        experience.AddLocationToKey("Companion", this.deckFrom.transform.position);
         // This makes it so that we can use 0,0 as the "current position of the card"
-        gameObject.transform.SetParent(experience.transform);
+        cardGameObject.transform.SetParent(experience.transform);
         experience.onExperienceOver += CardCastVFXFinished;
         Debug.Log("Started card cast VFX");
         experience.StartExperience();
