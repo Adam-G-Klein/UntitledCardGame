@@ -15,7 +15,7 @@ MonoBehaviour:
   companionName: Bidoof
   maxHealth: 25
   initialCardsDealtPerTurn: 1
-  sprite: {fileID: 21300000, guid: ecf91a3bbc5ca489fb729a99ecc4974c, type: 3}
+  sprite: {fileID: 21300000, guid: 3882490ccffd8cb479682b845b1d1334, type: 3}
   startingDeck: {fileID: 11400000, guid: bf6401d447a5b491382ab14a197ef5ed, type: 2}
   keepsake: {fileID: 21300000, guid: ecf91a3bbc5ca489fb729a99ecc4974c, type: 3}
   cardBack: {fileID: 21300000, guid: 20b46ccd593516f4badbdcdb021f67c1, type: 3}
@@ -37,7 +37,6 @@ MonoBehaviour:
     lines:
     - title: Bidoof
       description: Starts combat with 1 base strength.
-      image: {fileID: 0}
       relatedBehaviorIndex: 0
   keepsakeTitle: Bidoof's Toothbrush
   keepsakeDescription: Keepsake for the small but mighty Bidoof, who grows in strength
