@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
+using System;
+using Unity.VisualScripting;
 
 public enum CompanionActionType {
     SELECT,
@@ -32,6 +34,7 @@ public class CompanionViewUI : MonoBehaviour, IPointerClickHandler
     public GameObject sellConfirmationPrefab;
     public Color companionSlotUnselectedColor;
     public Color companionSlotSelectedColor;
+    public Color companionSlotUnavailableColor;
     public GameObject actionButtonsParent;
     public GameObject deckViewUIPrefab;
     public List<CompanionAction> companionActions;
@@ -58,6 +61,13 @@ public class CompanionViewUI : MonoBehaviour, IPointerClickHandler
 
     private List<CompanionActionType> tempActionTypes;
     private int currentNeededToCombine;
+
+    // New fields
+    private List<GameObject> activeCompanionGameObjectList;
+    private List<GameObject> benchedCompanionGameObjectList;
+    public GameObject activeCompanionSlotsParent;
+    public GameObject benchedCompanionSlotsParent;
+
     private void Start() {
         //This does not need to update often right now, so this will work for now
         currentNeededToCombine = CompanionUpgrader.companionsNeededToCombine;
@@ -94,8 +104,9 @@ public class CompanionViewUI : MonoBehaviour, IPointerClickHandler
     }
 
     private void setupCompanionDisplayHelper() {
+        this.activeCompanionGameObjectList = new List<GameObject>();
+        this.benchedCompanionGameObjectList = new List<GameObject>();
         setupActiveCompanions();
-        setupCompanionSlots();
         setupBenchCompanions();
         setupButtons();
     }
@@ -111,87 +122,76 @@ public class CompanionViewUI : MonoBehaviour, IPointerClickHandler
         }
 
         if (disableButtons) {
-            actionButtonsParent.SetActive(false);
-        }
-    }
-
-    private void clearChildren(Transform parent) {
-        //clear if necessary
-        foreach (Transform child in parent) {
-            Destroy(child.gameObject);
+            // actionButtonsParent.SetActive(false);
+            SetButtonsNotInteractable();
         }
     }
 
     private void setupActiveCompanions() {
-        clearChildren(activeCompanionsParent.transform);
-
         for (int i = 0; i < companionList.Count; i++) {
-            setupActiveCompanion(companionList[i]);
+            Transform parentTransform = this.activeCompanionSlotsParent.transform.GetChild(i);
+            setupActiveCompanion(companionList[i], parentTransform);
+        }
+        for (int i = 0; i < this.activeCompanionSlotsParent.transform.childCount; i++) {
+            if (i >= this.activeCompanionGameObjectList.Count) {
+                this.activeCompanionSlotsParent.transform.GetChild(i).Find("Square").gameObject.GetComponent<Image>().color = companionSlotUnavailableColor;
+            }
         }
     }
 
-    private void setupActiveCompanion(Companion companion) {
+    private void setupActiveCompanion(Companion companion, Transform parentTransform) {
         GameObject companionImage = GameObject.Instantiate(
             uICompanionPrefab,
             Vector3.zero,
             Quaternion.identity,
-            activeCompanionsParent.transform);
-        // companionImage.transform.localScale = new Vector3(0.8f, 0.8f, 1);
+            parentTransform);
         UICompanion uICompanion =
             companionImage.GetComponent<UICompanion>();
         uICompanion.companion = companion;
         uICompanion.setup();
         uICompanion.companionViewUI = this;
-    }
+        this.activeCompanionGameObjectList.Add(uICompanion.gameObject);
+        uICompanion.transform.position = parentTransform.position;
+    } // TODO: Still need to fix all the buttons, and I think I'm creating too many active companion slots?
 
-    private void setupCompanionSlots() {
-        for (int i = 0; i < currentCompanionSlots; i++) {
-            GameObject companionSlot = GameObject.Instantiate(
-                uICompanionSlotPrefab,
-                Vector3.zero,
-                Quaternion.identity,
-                companionSlotsParent.transform);
-            setCompanionSlotUnselected(companionSlot);
-            companionSlots.Add(companionSlot);
-        }
+    private void setupBenchCompanions() {
         for (int i = 0; i < NUMBER_OF_BENCH_COMPANION_SLOTS; i++) {
             GameObject companionSlot = GameObject.Instantiate(
                 uICompanionSlotPrefab,
                 Vector3.zero,
                 Quaternion.identity,
-                benchCompanionSlotsParent.transform);
+                benchedCompanionSlotsParent.transform);
             setCompanionSlotUnselected(companionSlot);
-            benchCompanionSlots.Add(companionSlot);
         }
-    }
-
-    private void setupBenchCompanions() {
-        clearChildren(benchCompanionsParent.transform);
 
         for (int i = 0; i < companionBench.Count; i++) {
-            setupBenchCompanion(companionBench[i]);
+            Transform parentTransform = this.benchedCompanionSlotsParent.transform.GetChild(i);
+            setupBenchCompanion(companionBench[i], parentTransform);
         }
     }
 
-    private void setupBenchCompanion(Companion companion) {
+    private void setupBenchCompanion(Companion companion, Transform parentTransform) {
         GameObject companionImage = GameObject.Instantiate(
             uICompanionPrefab,
             Vector3.zero,
             Quaternion.identity,
-            benchCompanionsParent.transform);
+            parentTransform);
         UICompanion uICompanion =
             companionImage.GetComponent<UICompanion>();
         uICompanion.companion = companion;
         uICompanion.setup();
         uICompanion.companionViewUI = this;
+        this.benchedCompanionGameObjectList.Add(uICompanion.gameObject);
+        uICompanion.transform.position = parentTransform.position;
     }
 
     private void setCompanionSlotSelected(GameObject companionSlot) {
-        companionSlot.GetComponent<Image>().color = companionSlotSelectedColor;
+        companionSlot.transform.Find("Square").gameObject.GetComponent<Image>().color = companionSlotSelectedColor;
+
     }
 
     private void setCompanionSlotUnselected(GameObject companionSlot) {
-        companionSlot.GetComponent<Image>().color = companionSlotUnselectedColor;
+        companionSlot.transform.Find("Square").gameObject.GetComponent<Image>().color = companionSlotUnselectedColor;
     }
 
     public void OnPointerClick(PointerEventData eventData) {
@@ -208,7 +208,8 @@ public class CompanionViewUI : MonoBehaviour, IPointerClickHandler
         combiningCompanions.Clear();
 
         if (!isCombining) {
-            actionButtonsParent.SetActive(false);
+            // actionButtonsParent.SetActive(false);
+            SetButtonsNotInteractable();
         }
     }
 
@@ -225,14 +226,16 @@ public class CompanionViewUI : MonoBehaviour, IPointerClickHandler
         if (clickedCompanion == null) {
             clickedCompanion = uiCompanion;
             updateBackground(clickedCompanion);
-            actionButtonsParent.SetActive(true);
+            // actionButtonsParent.SetActive(true);
+            SetButtonsInteractable();
         }
         // Companion clicked was the last clicked companion
         else if (clickedCompanion == uiCompanion) {
             updateBackground(clickedCompanion);
             clickedCompanion = null;
 
-            actionButtonsParent.SetActive(false);
+            // actionButtonsParent.SetActive(false);
+            SetButtonsNotInteractable();
         }
         // Companion clicked was not the last companion clicked
         else {
@@ -240,7 +243,8 @@ public class CompanionViewUI : MonoBehaviour, IPointerClickHandler
             clickedCompanion = uiCompanion;
 
             updateBackground(clickedCompanion);
-            actionButtonsParent.SetActive(true);
+            // actionButtonsParent.SetActive(true);
+            SetButtonsInteractable();
         }
     }
 
@@ -265,35 +269,18 @@ public class CompanionViewUI : MonoBehaviour, IPointerClickHandler
     private void updateBackground(UICompanion uiCompanion) {
         uiCompanion.isSelected = !uiCompanion.isSelected;
 
-        GameObject uiCompanionSlot = getCompanionUISlot(uiCompanion);
+        GameObject uiCompanionSlot = uiCompanion.transform.parent.gameObject;
 
         if (uiCompanionSlot) {
             setBackgroundSlot(uiCompanionSlot, uiCompanion.isSelected);
         }
     }
 
-    private GameObject getCompanionUISlot(UICompanion uiCompanion) {
-        int slot = companionList.IndexOf(uiCompanion.companion);
-
-        if (slot != -1) {
-            return companionSlots[slot];
-        }
-
-        slot = companionBench.IndexOf(uiCompanion.companion);
-
-        if (slot != -1) {
-            return benchCompanionSlots[slot];
-        }
-
-        Debug.LogError("Can't find companion in list, something is wrong");
-        return default;
-    }
-
 
     private void forceSetCompanionSelected(UICompanion uiCompanion, bool state) {
         uiCompanion.isSelected = state;
 
-        GameObject uiCompanionSlot = getCompanionUISlot(uiCompanion);
+        GameObject uiCompanionSlot = uiCompanion.transform.parent.gameObject;
 
         if (uiCompanionSlot != default) {
             if (state)
@@ -325,21 +312,41 @@ public class CompanionViewUI : MonoBehaviour, IPointerClickHandler
 
     public void toBenchButtonOnClick() {
         Companion companion = this.clickedCompanion.companion;
+        UICompanion uICompanion = this.clickedCompanion;
         if (companionBench.Contains(companion)) {
             Debug.LogError("Can't move companion to bench that is already there!");
             return;
         }
+        if (companionList.Count == 1) {
+            return;
+        }
+        Transform benchSlot = FindNextBenchCompanionSlot();
+        if (benchSlot == null) {
+
+        }
+        // this Add call has to go after the previous line
+        this.benchedCompanionGameObjectList.Add(uICompanion.gameObject);
+        this.activeCompanionGameObjectList.Remove(uICompanion.gameObject);
         updateBackground(this.clickedCompanion);
-        Destroy(this.clickedCompanion.gameObject);
         companionList.Remove(companion);
-        setupBenchCompanion(companion);
         companionBench.Add(companion);
         this.clickedCompanion = null;
-        actionButtonsParent.SetActive(false);
+
+        uICompanion.transform.parent = this.transform;
+
+        IEnumerator coroutine = MoveCompanion(
+            uICompanion.transform.position,
+            benchSlot.position,
+            uICompanion,
+            benchSlot);
+        StartCoroutine(coroutine);
+        UpdateCompanionSlots(this.activeCompanionGameObjectList, this.activeCompanionSlotsParent);
+        SetButtonsNotInteractable();
     }
 
     public void toActiveButtonOnClick() {
         Companion companion = this.clickedCompanion.companion;
+        UICompanion uICompanion = this.clickedCompanion;
         if (companionList.Contains(companion)) {
             Debug.LogError("Can't move companion to active that is already there!");
             return;
@@ -347,13 +354,80 @@ public class CompanionViewUI : MonoBehaviour, IPointerClickHandler
         if (companionList.Count == currentCompanionSlots) {
             return;
         }
+        Transform activeSlot = FindNextActiveCompanionSlot();
+        if (activeSlot == null) {
+            return;
+        }
+        // this Add call has to go after the previous line
+        this.activeCompanionGameObjectList.Add(uICompanion.gameObject);
+        this.benchedCompanionGameObjectList.Remove(uICompanion.gameObject);
         updateBackground(this.clickedCompanion);
-        Destroy(this.clickedCompanion.gameObject);
         companionBench.Remove(companion);
-        setupActiveCompanion(companion);
         companionList.Add(companion);
         this.clickedCompanion = null;
-        actionButtonsParent.SetActive(false);
+
+        uICompanion.transform.parent = this.transform;
+
+        IEnumerator coroutine = MoveCompanion(
+            uICompanion.transform.position,
+            activeSlot.position,
+            uICompanion,
+            activeSlot);
+        StartCoroutine(coroutine);
+        UpdateCompanionSlots(this.benchedCompanionGameObjectList, this.benchedCompanionSlotsParent);
+        SetButtonsNotInteractable();
+    }
+
+    private void UpdateCompanionSlots(List<GameObject> companionGOList, GameObject slotsParent) {
+        for (int i = 0; i < slotsParent.transform.childCount; i++) {
+            if (i > companionGOList.Count) {
+                return;
+            }
+            GameObject companionGO = companionGOList[i];
+            Transform slotGO = slotsParent.transform.GetChild(i);
+            if (slotGO.childCount == 2) {
+                Debug.Log("Updating companion slots");
+                UICompanion uICompanion = companionGO.GetComponent<UICompanion>();
+                uICompanion.transform.parent = this.transform;
+                IEnumerator coroutine = MoveCompanion(
+                    uICompanion.transform.position,
+                    slotGO.transform.position,
+                    uICompanion,
+                    slotGO.transform);
+                StartCoroutine(coroutine);
+            }
+        }
+    }
+
+    public IEnumerator MoveCompanion(
+            Vector3 startPosition,
+            Vector3 endPosition,
+            UICompanion companion,
+            Transform finalParent) {
+        float elapsedTime = 0f;
+        float duration = 0.3f;
+
+        while (elapsedTime < duration) {
+            float evaluation = elapsedTime / duration;
+            companion.transform.position = Vector3.Lerp(startPosition, endPosition, evaluation);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        companion.transform.SetParent(finalParent);
+    }
+
+    private Transform FindNextActiveCompanionSlot() {
+        if (this.activeCompanionSlotsParent.transform.childCount == this.activeCompanionGameObjectList.Count) {
+            return null;
+        }
+        return this.activeCompanionSlotsParent.transform.GetChild(this.activeCompanionGameObjectList.Count);
+    }
+
+    private Transform FindNextBenchCompanionSlot() {
+        if (this.benchedCompanionSlotsParent.transform.childCount == this.benchedCompanionGameObjectList.Count) {
+            return null;
+        }
+        return this.benchedCompanionSlotsParent.transform.GetChild(this.benchedCompanionGameObjectList.Count);
     }
 
     public void sellButtonOnClick() {
@@ -382,7 +456,22 @@ public class CompanionViewUI : MonoBehaviour, IPointerClickHandler
         Debug.Log("Sold the companion " + companion.companionType.name);
 
         this.clickedCompanion = null;
-        actionButtonsParent.SetActive(false);
+        // actionButtonsParent.SetActive(false);
+        SetButtonsNotInteractable();
+    }
+
+    private void SetButtonsNotInteractable() {
+        foreach (CompanionAction companionAction in this.companionActions) {
+            Button button = companionAction.button.GetComponent<Button>();
+            button.interactable = false;
+        }
+    }
+
+    private void SetButtonsInteractable() {
+        foreach (CompanionAction companionAction in this.companionActions) {
+            Button button = companionAction.button.GetComponent<Button>();
+            button.interactable = true;
+        }
     }
 
     private IEnumerator removeSellConfirmationSign(GameObject sellSign) {

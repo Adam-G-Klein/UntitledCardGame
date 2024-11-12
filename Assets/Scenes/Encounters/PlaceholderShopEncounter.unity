@@ -38,7 +38,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1050,12 +1049,12 @@ MonoBehaviour:
   m_RequiresColorTexture: 0
   m_Version: 2
   m_TaaSettings:
-    quality: 3
-    frameInfluence: 0.1
-    jitterScale: 1
-    mipBias: 0
-    varianceClampScale: 0.9
-    contrastAdaptiveSharpening: 0
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
 --- !u!1 &1273514300
 GameObject:
   m_ObjectHideFlags: 0
@@ -2105,6 +2104,10 @@ PrefabInstance:
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 7870950135494150976, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: companionViewUIPrefab
+      value: 
+      objectReference: {fileID: 3579507360167916873, guid: 92f6b69ef1d79dc4fb334adb138997aa, type: 3}
     - target: {fileID: 8320837427671211784, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
       propertyPath: m_fontAsset
       value: 
