@@ -29,6 +29,8 @@ public class TooltipOnHover : MonoBehaviour,
     private TooltipView currentView = null;
     private IEnumerator currentCoroutine = null;
     private bool coroutineIsRunning = false;
+    [SerializeField]
+    private bool instantiateInWorldspace = false;
 
 
     private bool Active() {
@@ -72,11 +74,19 @@ public class TooltipOnHover : MonoBehaviour,
         Debug.Log("Tooltip: Displaying tooltip in " + displayWaitTime + " seconds.");
         yield return new WaitForSeconds(displayWaitTime);
         Debug.Log("Tooltip: Displaying tooltip now.");
-        currentView = PrefabInstantiator.instantiateTooltipView(
-            tooltipPrefab,
-            tooltip,
-            transform.position + positionOffset, //this is in world space for some reason
-            transform);
+        if(instantiateInWorldspace) {
+            currentView = PrefabInstantiator.instantiateTooltipView(
+                tooltipPrefab,
+                tooltip,
+                transform.position + positionOffset, //this is in world space for some reason
+                null);
+        } else {
+            currentView = PrefabInstantiator.instantiateTooltipView(
+                tooltipPrefab,
+                tooltip,
+                transform.position + positionOffset, //this is in world space for some reason
+                transform);
+        }
         coroutineIsRunning = false;
     }
 }
