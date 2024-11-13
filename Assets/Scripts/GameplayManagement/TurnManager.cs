@@ -91,6 +91,13 @@ public class TurnManager : GenericSingleton<TurnManager>
         // Note: this is a lil racy, it depends on the EffectManager being marked as running
         // by another coroutine before this coroutine resumes and checks; not foolproof.
         yield return new WaitUntil(() => EffectManager.Instance.IsEffectRunning() == false);
+        
+        // Check to see if any turn phase triggers caused the end of the encounter
+        // The comabt entity manager will emit the END_ENCOUNTER turn phase trigger
+        if (CombatEntityManager.Instance.IsEncounterEnded()) {
+            yield break;
+        }
+
         StartCoroutine(turnPhaseEvent.RaiseAtEndOfFrameCoroutine(new TurnPhaseEventInfo(nextPhase[currentPhase])));
         Debug.Log("EnemyInstance: UpdateView");
         EnemyEncounterViewModel.Instance.SetStateDirty();

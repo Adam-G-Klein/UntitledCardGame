@@ -23,6 +23,8 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
     public delegate IEnumerator OnCompanionDamage(CombatInstance companion);
     public event OnCompanionDamage onCompanionDamageHandler;
 
+    private bool encounterEnded = false;
+
     public void registerCompanion(CompanionInstance companion) {
         companions.Add(companion);
     }
@@ -140,6 +142,7 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
         Debug.Log("Waiting for all effects running to resolve");
         yield return new WaitUntil(() => EffectManager.Instance.IsEffectRunning() == false);
         Debug.Log("All effects resolved");
+        this.encounterEnded = true;
         StartCoroutine(
             turnPhaseEvent.RaiseAtEndOfFrameCoroutine(
                 new TurnPhaseEventInfo(TurnPhase.END_ENCOUNTER)));
@@ -151,6 +154,10 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
                 yield return StartCoroutine(handler.Invoke(combatInstance));
             }
         }
+    }
+
+    public bool IsEncounterEnded() {
+        return this.encounterEnded;
     }
 }
 

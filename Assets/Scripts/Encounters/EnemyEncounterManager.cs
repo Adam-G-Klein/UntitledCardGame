@@ -85,8 +85,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     }
 
     void Update() {
-
-        if(Input.GetKeyDown(KeyCode.S)) {
+        if(Input.GetKeyDown(KeyCode.K)) {
             endEncounterEvent.Raise(new EndEncounterEventInfo(EncounterOutcome.Victory));
         }
         if(Input.GetKeyDown(KeyCode.Escape)) {

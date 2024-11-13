@@ -43,6 +43,7 @@ public class EffectManager : GenericSingleton<EffectManager>
         Debug.Log("EffectManager: Stopping effect coroutines");
         StopCoroutine(currentEffectStep);
         StopCoroutine(currentEffectWorkflow);
+        effectRunning = false;
     }
 
     public void QueueEffectWorkflow(EffectWorkflow workflow) {
