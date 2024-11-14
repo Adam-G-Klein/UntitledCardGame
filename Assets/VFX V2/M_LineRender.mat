@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_LineRender
-  m_Shader: {fileID: -6465566751694194690, guid: e246ebafd25da4e4f8fe71260a5bdf56, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 5eb0c490984606344bdd3d17b3563b23, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
@@ -37,6 +37,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _FadeTexture:
         m_Texture: {fileID: 2800000, guid: d50569c4e8032c3408b54117313f5ff2, type: 3}
+        m_Scale: {x: 0.89, y: 1.5}
+        m_Offset: {x: 0, y: 0}
+    - _Fade_Tex_Mask:
+        m_Texture: {fileID: 2800000, guid: 2f8fd90cdb6ef73479e7830f61e914a8, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Fresnel_Texture:
@@ -44,7 +48,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 1e140f40387bbb7429117e8511f0faa4, type: 3}
+        m_Texture: {fileID: 2800000, guid: 65712fd1b29b84441a279fac76adc256, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Mask_Tex:
@@ -74,13 +78,15 @@ Material:
     - _Blend: 0
     - _CastShadows: 0
     - _Cull: 0
-    - _Cutoff_Softness: 1
-    - _Cutoff_Value: 0
+    - _Cutoff_Softness: 0.4
+    - _Cutoff_Value: 1
     - _Dissolve_Amount: 0
     - _Distort_the_Mask: 1
     - _Distortion_Strength: 0.8
     - _DstBlend: 10
     - _Fade_Tex_Dissolve_Amount: 0.66
+    - _Fade_Tex_Mask_Power: 1.5
+    - _Fade_Tex_Pow: 1
     - _Fresnel: 0
     - _Fresnel_Thickness: 2.11
     - _Mask_Power: 0.1
@@ -93,6 +99,7 @@ Material:
     - _SrcBlend: 5
     - _Surface: 1
     - _Text_Power: 1
+    - _UV_Distortion_Mask_Dissolve: 0
     - _Use_Cutoff: 1
     - _Use_Fade_Tex_Instead: 1
     - _Use_Radial: 0

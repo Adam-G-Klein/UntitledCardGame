@@ -1,0 +1,90 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: M_CardFlicker
+  m_Shader: {fileID: -6465566751694194690, guid: e0e409028c2cbaf4083e39853d4c294f, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _Dissolve_Texture:
+        m_Texture: {fileID: 2800000, guid: 4c4d53664d87cae4394f226d95049162, type: 3}
+        m_Scale: {x: 0.5, y: 0.5}
+        m_Offset: {x: 0, y: 0}
+    - _Distorion_Mask:
+        m_Texture: {fileID: 2800000, guid: ac50365e655aa974e8bbb929dfeb65cb, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Distortion_Tex:
+        m_Texture: {fileID: 2800000, guid: aa9a04e1bf6d92e479e701c4673e1731, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: aa9a04e1bf6d92e479e701c4673e1731, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _Cutoff: 0.11
+    - _Dissolve_Texture_Power: 1
+    - _Distorion_Strength_MainTex: 0.03
+    - _Distortion_Str_Dissolve: 0.05
+    - _Distortion_Strength: 0.05
+    - _Gradiant_Power: 1
+    - _Gradiant_Strength: 1
+    - _Left_Right: 1
+    - _MainTex_Str: 1
+    - _Mask_Power: 1
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _Side_to_Side_Gradiant_Power: 1
+    - _Side_to_Side_Gradiant_Strength: 1
+    - _Softness: 0.1
+    - _Use_a_Side_to_Side_Gradient: 0
+    m_Colors:
+    - _Color: {r: 0, g: 0, b: 0, a: 1}
+    - _Dissolve_Colour: {r: 0, g: 0, b: 0, a: 0}
+    - _Distortion_Speed: {r: 0.1, g: 0, b: 0, a: 0}
+    - _Maintexspeed: {r: 0.1, g: 0, b: 0, a: 0}
+  m_BuildTextureStacks: []
+--- !u!114 &3851415903753170249
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 7
