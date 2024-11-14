@@ -1,0 +1,188 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4df9178e061cce447b55bdea396ec265, type: 3}
+  m_Name: TeamSigningTestCompanionList
+  m_EditorClassIdentifier: 
+  activeCompanions:
+  - id: 07027480-57a8-4702-b5f6-e078dd3651ae
+    entityType: 0
+    companionType: {fileID: 11400000, guid: e8d9c5907b91b4814908e2a624dbb074, type: 2}
+    deck:
+      startingDeck: {fileID: 11400000, guid: 5ca10396d316c4bec9b5d4552234498d, type: 2}
+      cards:
+      - id: e70f409e-503a-442f-91e3-2bc5dabcd478
+        entityType: 0
+        shopRarity: 0
+        castCount: 0
+        tempManaCost: -1
+        generated: 0
+        cardType: {fileID: 11400000, guid: 8abf2d176ceef4dbfaae69ed259495cc, type: 2}
+      - id: 4b94fa00-1119-49dc-b66d-d958bb35f629
+        entityType: 0
+        shopRarity: 0
+        castCount: 0
+        tempManaCost: -1
+        generated: 0
+        cardType: {fileID: 11400000, guid: f308041f561b54adaaef9c8368369e1c, type: 2}
+      - id: 9c63bbd8-5bee-4fda-96f6-550017ceecb2
+        entityType: 0
+        shopRarity: 0
+        castCount: 0
+        tempManaCost: -1
+        generated: 0
+        cardType: {fileID: 11400000, guid: 23760ea4e9e344a338592618668bdc15, type: 2}
+      - id: b07c56fc-ce55-4ce4-953f-44376ecf9317
+        entityType: 0
+        shopRarity: 0
+        castCount: 0
+        tempManaCost: -1
+        generated: 0
+        cardType: {fileID: 11400000, guid: 23760ea4e9e344a338592618668bdc15, type: 2}
+      - id: 6216f0c6-71e0-4a80-8f40-c4260176f171
+        entityType: 0
+        shopRarity: 0
+        castCount: 0
+        tempManaCost: -1
+        generated: 0
+        cardType: {fileID: 11400000, guid: cde144a962c1f463abc827a9e471885b, type: 2}
+      cardsDealtPerTurn: 1
+    combatStats:
+      maxHealth: 25
+      currentHealth: 25
+      baseAttackDamage: 0
+    companionLevel: 1
+    onCombineAbilities:
+    - effectSteps:
+      - rid: 2240256360645394451
+  - id: f783ff26-9131-4e5a-aa0a-71841f29fc47
+    entityType: 0
+    companionType: {fileID: 11400000, guid: 148c5bf93a1584c74aaa6206a27459ea, type: 2}
+    deck:
+      startingDeck: {fileID: 11400000, guid: b9d3e1231b15642b9802057f5950b8c7, type: 2}
+      cards:
+      - id: a10f795c-1056-4df7-9cea-6ef5c8af6f32
+        entityType: 0
+        shopRarity: 0
+        castCount: 0
+        tempManaCost: -1
+        generated: 0
+        cardType: {fileID: 11400000, guid: 1b888846ca6cb45b69eea014dd6d885b, type: 2}
+      - id: cec3ec42-5a8c-49ce-8098-be83e0f52aa2
+        entityType: 0
+        shopRarity: 0
+        castCount: 0
+        tempManaCost: -1
+        generated: 0
+        cardType: {fileID: 11400000, guid: 1b888846ca6cb45b69eea014dd6d885b, type: 2}
+      - id: df0eb67b-b7c8-4fe6-b2af-b40793478e0e
+        entityType: 0
+        shopRarity: 0
+        castCount: 0
+        tempManaCost: -1
+        generated: 0
+        cardType: {fileID: 11400000, guid: 32f18eb65d9b6474ba3fa01f608e54fc, type: 2}
+      - id: 4a154bed-b3cd-4829-809c-aaae31773c18
+        entityType: 0
+        shopRarity: 0
+        castCount: 0
+        tempManaCost: -1
+        generated: 0
+        cardType: {fileID: 11400000, guid: d4790b9b1256f4d80a2b997327d5f1e1, type: 2}
+      - id: 0987f475-c803-4494-8240-9f7ee288d67b
+        entityType: 0
+        shopRarity: 0
+        castCount: 0
+        tempManaCost: -1
+        generated: 0
+        cardType: {fileID: 11400000, guid: d29998a7021cb49e18bebee3d50b1e70, type: 2}
+      cardsDealtPerTurn: 1
+    combatStats:
+      maxHealth: 25
+      currentHealth: 25
+      baseAttackDamage: 0
+    companionLevel: 1
+    onCombineAbilities:
+    - effectSteps:
+      - rid: 2240256360645394452
+  - id: ca17d9a9-73ef-4f8e-9cf2-a277ea28815d
+    entityType: 0
+    companionType: {fileID: 11400000, guid: a9ea8895422c348529d07f84c4b2c9c7, type: 2}
+    deck:
+      startingDeck: {fileID: 11400000, guid: 08d0c5baf8b5946b8a166d80ed55182e, type: 2}
+      cards:
+      - id: 91f553e2-9111-4443-9e68-b69b44d2f4be
+        entityType: 0
+        shopRarity: 0
+        castCount: 0
+        tempManaCost: -1
+        generated: 0
+        cardType: {fileID: 11400000, guid: 68f2ab82754e24f53a3b9779d0b2cccb, type: 2}
+      - id: 9e4ad6e5-967c-4762-a0a6-49ce856c8506
+        entityType: 0
+        shopRarity: 0
+        castCount: 0
+        tempManaCost: -1
+        generated: 0
+        cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
+      - id: 9b450029-c140-456b-9cb8-25d0f7321cca
+        entityType: 0
+        shopRarity: 0
+        castCount: 0
+        tempManaCost: -1
+        generated: 0
+        cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
+      - id: 9edabfa9-e853-4370-95ec-6570e8394f9c
+        entityType: 0
+        shopRarity: 0
+        castCount: 0
+        tempManaCost: -1
+        generated: 0
+        cardType: {fileID: 11400000, guid: 1b888846ca6cb45b69eea014dd6d885b, type: 2}
+      - id: 46a86133-ddc1-47f4-9258-69412268544b
+        entityType: 0
+        shopRarity: 0
+        castCount: 0
+        tempManaCost: -1
+        generated: 0
+        cardType: {fileID: 11400000, guid: 7fc3b6bbe16044d6fb3c9d0599689d54, type: 2}
+      cardsDealtPerTurn: 1
+    combatStats:
+      maxHealth: 20
+      currentHealth: 20
+      baseAttackDamage: 0
+    companionLevel: 1
+    onCombineAbilities:
+    - effectSteps:
+      - rid: 2240256360645394453
+  benchedCompanions: []
+  currentCompanionSlots: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 2240256360645394451
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: I now allow you to pay money to give your team lasting stats boosts!
+        lineTime: 3
+    - rid: 2240256360645394452
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: I can now protect our entire team!
+        lineTime: 3
+    - rid: 2240256360645394453
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: More aura more power!
+        lineTime: 3

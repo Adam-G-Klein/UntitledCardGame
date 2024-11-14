@@ -15,14 +15,14 @@ MonoBehaviour:
   companionName: Argos
   maxHealth: 15
   initialCardsDealtPerTurn: 1
-  sprite: {fileID: 21300000, guid: 42b7bbec2591e4197827dd3f15208d81, type: 3}
+  sprite: {fileID: 21300000, guid: 1a9a70bfa38177248ae11e5367177638, type: 3}
   startingDeck: {fileID: 11400000, guid: 7fa17c4fa43804b51918678571ad5cdc, type: 2}
-  keepsake: {fileID: 21300000, guid: 42b7bbec2591e4197827dd3f15208d81, type: 3}
+  keepsake: {fileID: 21300000, guid: 1a9a70bfa38177248ae11e5367177638, type: 3}
   cardBack: {fileID: 21300000, guid: a5222a8d127763c49b397cce916345ec, type: 3}
   cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
-  typeIcon: {fileID: 21300000, guid: 42b7bbec2591e4197827dd3f15208d81, type: 3}
-  portrait: {fileID: 21300000, guid: 42b7bbec2591e4197827dd3f15208d81, type: 3}
-  teamSelectSprite: {fileID: 21300000, guid: 42b7bbec2591e4197827dd3f15208d81, type: 3}
+  typeIcon: {fileID: 21300000, guid: 1a9a70bfa38177248ae11e5367177638, type: 3}
+  portrait: {fileID: 21300000, guid: 1a9a70bfa38177248ae11e5367177638, type: 3}
+  teamSelectSprite: {fileID: 21300000, guid: 1a9a70bfa38177248ae11e5367177638, type: 3}
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 0}
   genericCompanionVFX: {fileID: 0}
@@ -38,12 +38,10 @@ MonoBehaviour:
     - title: Argos
       description: At the end of combat, permanently add a deck accelerating Eye
         of Argos to each adjacent companion's deck.
-      image: {fileID: 0}
       relatedBehaviorIndex: 0
     - title: Eye of Argos
       description: Exhaust. Draw 1 card from this companion, and draw 1 card from
         a random companion
-      image: {fileID: 0}
       relatedBehaviorIndex: 0
   keepsakeTitle: 
   keepsakeDescription: 

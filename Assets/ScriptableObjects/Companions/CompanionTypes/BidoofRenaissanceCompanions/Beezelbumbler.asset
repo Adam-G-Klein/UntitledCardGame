@@ -15,14 +15,14 @@ MonoBehaviour:
   companionName: Beezelbumbler
   maxHealth: 15
   initialCardsDealtPerTurn: 1
-  sprite: {fileID: 21300000, guid: e0ab2143b8408423ab692d481858408a, type: 3}
+  sprite: {fileID: 21300000, guid: cb7e2801e82aa754a9ffd89d9e857a1e, type: 3}
   startingDeck: {fileID: 11400000, guid: 03db7753a8eb34b8fa1ccf858b7c2c0e, type: 2}
-  keepsake: {fileID: 21300000, guid: e0ab2143b8408423ab692d481858408a, type: 3}
+  keepsake: {fileID: 21300000, guid: cb7e2801e82aa754a9ffd89d9e857a1e, type: 3}
   cardBack: {fileID: 21300000, guid: 3296a63e824de414bb4b578c4822fbdb, type: 3}
   cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
-  typeIcon: {fileID: 21300000, guid: e0ab2143b8408423ab692d481858408a, type: 3}
-  portrait: {fileID: 21300000, guid: e0ab2143b8408423ab692d481858408a, type: 3}
-  teamSelectSprite: {fileID: 21300000, guid: e0ab2143b8408423ab692d481858408a, type: 3}
+  typeIcon: {fileID: 21300000, guid: cb7e2801e82aa754a9ffd89d9e857a1e, type: 3}
+  portrait: {fileID: 21300000, guid: cb7e2801e82aa754a9ffd89d9e857a1e, type: 3}
+  teamSelectSprite: {fileID: 21300000, guid: cb7e2801e82aa754a9ffd89d9e857a1e, type: 3}
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 0}
   genericCompanionVFX: {fileID: 0}
@@ -37,7 +37,6 @@ MonoBehaviour:
     lines:
     - title: Beezelbumbler
       description: Whenever a companion dies, Beezelbumbler gains 1 strength permanently.
-      image: {fileID: 0}
       relatedBehaviorIndex: 0
   keepsakeTitle: Bumbler's Deviltooth
   keepsakeDescription: Keepsake for the powerful Beezelbumbler, a glass cannon damage

@@ -12,7 +12,7 @@ public class TeamSelectionUI : MonoBehaviour
     public GameStateVariableSO gameState;
     // TODO: package these into companionListVariables
     public CompanionListVariableSO team1ActiveCompanions;
-    public CompanionListVariableSO team1BenchCompanions;
+    public CompanionListVariableSO testTeamActiveCompanions;
     public GameObject deckViewUIPrefab;
     private VisualElement root;
     [SerializeField]
@@ -41,6 +41,8 @@ public class TeamSelectionUI : MonoBehaviour
                 chosen.activeCompanions.Add(new Companion(chosenCompanion));
             }
             team1ActiveCompanions = chosen;
+        } else {
+            team1ActiveCompanions = testTeamActiveCompanions;
         }
         docRenderer = GetComponent<UIDocumentScreenspace>();
 

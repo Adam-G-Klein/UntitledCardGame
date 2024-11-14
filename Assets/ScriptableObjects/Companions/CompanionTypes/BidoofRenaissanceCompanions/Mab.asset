@@ -15,14 +15,14 @@ MonoBehaviour:
   companionName: Mab
   maxHealth: 30
   initialCardsDealtPerTurn: 1
-  sprite: {fileID: 21300000, guid: d61104aa9ea6046f093d9ee380050aa9, type: 3}
+  sprite: {fileID: 21300000, guid: 06c409edcf5e308438ea9c89ccd99c68, type: 3}
   startingDeck: {fileID: 11400000, guid: 75d02cdf7041b4d31bff1b7857a1d055, type: 2}
-  keepsake: {fileID: 21300000, guid: d61104aa9ea6046f093d9ee380050aa9, type: 3}
+  keepsake: {fileID: 21300000, guid: 06c409edcf5e308438ea9c89ccd99c68, type: 3}
   cardBack: {fileID: 21300000, guid: a5222a8d127763c49b397cce916345ec, type: 3}
   cardFrame: {fileID: 21300000, guid: 106aacbbfd302814982ff4ed944fbaed, type: 3}
-  typeIcon: {fileID: 21300000, guid: d61104aa9ea6046f093d9ee380050aa9, type: 3}
-  portrait: {fileID: 21300000, guid: d61104aa9ea6046f093d9ee380050aa9, type: 3}
-  teamSelectSprite: {fileID: 21300000, guid: d61104aa9ea6046f093d9ee380050aa9, type: 3}
+  typeIcon: {fileID: 21300000, guid: 06c409edcf5e308438ea9c89ccd99c68, type: 3}
+  portrait: {fileID: 21300000, guid: 06c409edcf5e308438ea9c89ccd99c68, type: 3}
+  teamSelectSprite: {fileID: 21300000, guid: 06c409edcf5e308438ea9c89ccd99c68, type: 3}
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 0}
   genericCompanionVFX: {fileID: 0}
@@ -38,11 +38,9 @@ MonoBehaviour:
     - title: Mab
       description: At the end of combat, heal a companion 20% of their max HP and
         permanently add a Mab's Boon to their deck
-      image: {fileID: 0}
       relatedBehaviorIndex: 0
     - title: Mab's Boon
       description: Card that exhausts on play and heals
-      image: {fileID: 0}
       relatedBehaviorIndex: 0
   keepsakeTitle: 
   keepsakeDescription: 

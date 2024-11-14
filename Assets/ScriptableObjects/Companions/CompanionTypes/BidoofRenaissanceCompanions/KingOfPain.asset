@@ -15,14 +15,14 @@ MonoBehaviour:
   companionName: King of Pain
   maxHealth: 30
   initialCardsDealtPerTurn: 1
-  sprite: {fileID: 21300000, guid: e7fac6430b61f4e379c435119ab1ec86, type: 3}
+  sprite: {fileID: 21300000, guid: a85b5d0a92a464548a546904133d5147, type: 3}
   startingDeck: {fileID: 11400000, guid: 1c73175d985fa4a2bb8ef49e809c32a7, type: 2}
-  keepsake: {fileID: 21300000, guid: e7fac6430b61f4e379c435119ab1ec86, type: 3}
+  keepsake: {fileID: 21300000, guid: a85b5d0a92a464548a546904133d5147, type: 3}
   cardBack: {fileID: 21300000, guid: 3296a63e824de414bb4b578c4822fbdb, type: 3}
-  cardFrame: {fileID: 21300000, guid: 75fee76dd9726374f94da1fe30e8a250, type: 3}
-  typeIcon: {fileID: 21300000, guid: e7fac6430b61f4e379c435119ab1ec86, type: 3}
-  portrait: {fileID: 21300000, guid: e7fac6430b61f4e379c435119ab1ec86, type: 3}
-  teamSelectSprite: {fileID: 21300000, guid: e7fac6430b61f4e379c435119ab1ec86, type: 3}
+  cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
+  typeIcon: {fileID: 21300000, guid: a85b5d0a92a464548a546904133d5147, type: 3}
+  portrait: {fileID: 21300000, guid: a85b5d0a92a464548a546904133d5147, type: 3}
+  teamSelectSprite: {fileID: 21300000, guid: a85b5d0a92a464548a546904133d5147, type: 3}
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 0}
   genericCompanionVFX: {fileID: 0}
@@ -38,7 +38,6 @@ MonoBehaviour:
     - title: King of Pain
       description: Whenever a companion takes damage, King of Pain deals 2 damage
         to a random enemy
-      image: {fileID: 0}
       relatedBehaviorIndex: 0
   keepsakeTitle: 
   keepsakeDescription: 
