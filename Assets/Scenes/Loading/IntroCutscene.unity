@@ -1068,7 +1068,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &332536795
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1103,7 +1103,7 @@ MonoBehaviour:
   textMeshPro: {fileID: 332536797}
   text: I happen to have on hand a little gift to get you started... Don't be shy,
     they've only just begun.
-  seconds: 0
+  seconds: 0.05
 --- !u!114 &332536797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1275,7 +1275,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &441350715
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1309,7 +1309,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textMeshPro: {fileID: 441350717}
   text: 'I insist. Forget your troubles for a while... '
-  seconds: 0
+  seconds: 0.05
 --- !u!114 &441350717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1438,7 +1438,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &507071497
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1473,7 +1473,7 @@ MonoBehaviour:
   textMeshPro: {fileID: 507071499}
   text: In fact, why not join our long term residents in a little game before you
     settle in?
-  seconds: 0
+  seconds: 0.05
 --- !u!114 &507071499
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1594,6 +1594,7 @@ GameObject:
   m_Component:
   - component: {fileID: 576040035}
   - component: {fileID: 576040039}
+  - component: {fileID: 576040036}
   - component: {fileID: 576040038}
   - component: {fileID: 576040037}
   m_Layer: 0
@@ -1602,7 +1603,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &576040035
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1622,6 +1623,18 @@ RectTransform:
   m_AnchoredPosition: {x: -273.78998, y: -447.20993}
   m_SizeDelta: {x: 1007.02, y: 415.21}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!210 &576040036
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 576040034}
+  m_Enabled: 1
+  m_SortingLayerID: -229093509
+  m_SortingLayer: 2
+  m_SortingOrder: 2
+  m_SortAtRoot: 0
 --- !u!114 &576040037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1636,7 +1649,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textMeshPro: {fileID: 576040038}
   text: Welcome, Esteemed Guest, to the Estate.
-  seconds: 0.1
+  seconds: 0.05
 --- !u!114 &576040038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1753,7 +1766,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &653836593
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1788,7 +1801,7 @@ MonoBehaviour:
   textMeshPro: {fileID: 653836595}
   text: We provide quality entertainment of the highest caliber here-- I guarantee
     an enrapturing experience.
-  seconds: 0
+  seconds: 0.05
 --- !u!114 &653836595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2602,7 +2615,7 @@ PlayableDirector:
   - key: {fileID: 734014505263797273, guid: 4af869aa214552242bb9389bffb8eb71, type: 2}
     value: {fileID: 1972167124}
   - key: {fileID: 5690748896326853420, guid: 4af869aa214552242bb9389bffb8eb71, type: 2}
-    value: {fileID: 914385232}
+    value: {fileID: 1586386872}
   - key: {fileID: -7588845818492209229, guid: 4af869aa214552242bb9389bffb8eb71, type: 2}
     value: {fileID: 239516669}
   - key: {fileID: -8129267752029346580, guid: 4af869aa214552242bb9389bffb8eb71, type: 2}
@@ -2789,13 +2802,13 @@ MonoBehaviour:
     m_Events:
     - m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1586386864}
-          m_TargetAssemblyTypeName: 
-          m_MethodName: 
+        - m_Target: {fileID: 1586386867}
+          m_TargetAssemblyTypeName: CutsceneStartStopper, Assembly-CSharp
+          m_MethodName: StopTimeline
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: 
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
@@ -3113,7 +3126,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1916356632
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3147,7 +3160,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textMeshPro: {fileID: 1916356634}
   text: Just through those doors and down the hall...
-  seconds: 0
+  seconds: 0.1
 --- !u!114 &1916356634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3474,6 +3487,7 @@ MonoBehaviour:
   gameState: {fileID: 11400000, guid: 9e326417f60894341a96cc8d02868bbe, type: 2}
   allowProgressingGameState: 1
   skipTooltip: {fileID: 781436666}
+  skipClicks: 3
 --- !u!4 &1972167123
 Transform:
   m_ObjectHideFlags: 0
@@ -3613,7 +3627,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2001693280
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3648,7 +3662,7 @@ MonoBehaviour:
   textMeshPro: {fileID: 2001693282}
   text: Please, leave your bags and burdens at the door. They will be in good hands
     here.
-  seconds: 0
+  seconds: 0.05
 --- !u!114 &2001693282
 MonoBehaviour:
   m_ObjectHideFlags: 0
