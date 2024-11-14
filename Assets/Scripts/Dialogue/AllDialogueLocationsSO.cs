@@ -65,6 +65,10 @@ public class AllDialogueLocationsSO: ScriptableObject
         List<DialogueLocationSO> locList = GetDialogueLocationList(loc);
         if(index >= locList.Count || index < 0) {
             Debug.LogWarning("Location index " + index + " is out of range for location " + loc + ", just using the last one");
+            if(locList.Count == 0) {
+                Debug.LogWarning("Location " + loc + " has no dialogue locations");
+                return null;
+            }
             return locList.Last();
         } else {
             return locList[index];

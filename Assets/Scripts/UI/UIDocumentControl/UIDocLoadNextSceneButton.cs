@@ -32,10 +32,12 @@ public class UIDocLoadNextSceneButton: MonoBehaviour
         // so we get the nice default hover animation
         nextSceneButton.RegisterCallback<PointerEnterEvent>((evt) => {
             screenspaceDoc.SetStateDirty();
+            nextSceneButton.AddToClassList("button-hover");
         });
 
         nextSceneButton.RegisterCallback<PointerLeaveEvent>((evt) => {
             screenspaceDoc.SetStateDirty();
+            nextSceneButton.RemoveFromClassList("button-hover");
         });
 
         nextSceneButton.RegisterCallback<ClickEvent>((evt) => {

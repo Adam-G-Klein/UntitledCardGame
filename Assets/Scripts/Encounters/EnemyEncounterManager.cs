@@ -121,21 +121,11 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         postCombatUI.SetActive(true);
         uIStateEvent.Raise(new UIStateEventInfo(UIState.END_ENCOUNTER));
         postCombatUI.transform.SetSiblingIndex(postCombatUI.transform.parent.childCount - 1);
+        postCombatUI.GetComponent<EndEncounterView>().Setup(baseGoldEarnedPerBattle, extraGold, gameState.baseShopData.interestCap, gameState.baseShopData.interestRate);
         // TODO: add control for the post combat UI, set reward text like this used to:
-        /*TMP_Text[] texts = postCombatUI.GetComponentsInChildren<TMP_Text>();
-        TMP_Text rewardText = texts[1];
-        rewardText.text = "Base gold earned\n$" +
-            baseGoldEarnedPerBattle.ToString() +
-            "\ninterest (" +
-            gameState.baseShopData.interestRate.ToString("P0") +
-            ", capped at $" +
-            gameState.baseShopData.interestCap.ToString() +
-            ")\n$" +
-            extraGold.ToString();
-            */
+        
         // but do it on the UIDocumentGameObjectPlacer.Instance.uiDoc instead
         // query for the element in the UIDoc and set the text
-
         
         DialogueManager.Instance.SetDialogueLocation(gameState);
         DialogueManager.Instance.StartAnyDialogueSequence();

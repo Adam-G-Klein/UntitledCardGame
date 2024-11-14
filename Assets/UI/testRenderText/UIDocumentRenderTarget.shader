@@ -3,6 +3,7 @@ Shader "Signified/UIDocumentRenderTarget"
         Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
+        _alpha ("Alpha", Range(0,1)) = 1
     }
     SubShader
     {
@@ -31,6 +32,7 @@ Shader "Signified/UIDocumentRenderTarget"
 
             sampler2D _MainTex;
             float4 _MainTex_ST;
+            float _alpha;
 
             v2f vert (appdata v)
             {
@@ -43,8 +45,9 @@ Shader "Signified/UIDocumentRenderTarget"
             fixed4 frag (v2f i) : SV_Target
             {
                 fixed4 col = tex2D(_MainTex, i.uv);
+                fixed4 col2 = fixed4(col.r, col.g, col.b, col.a * _alpha);
                 if(col.a == 0) discard;
-                return col;
+                return col2;
             }
             ENDCG
         }

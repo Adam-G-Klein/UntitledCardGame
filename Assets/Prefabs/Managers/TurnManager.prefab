@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2447188342118085732}
   - component: {fileID: 7558348372947760811}
   - component: {fileID: 2411836449735341269}
+  - component: {fileID: 4533070487399361492}
   m_Layer: 0
   m_Name: TurnManager
   m_TagString: Untagged
@@ -146,6 +147,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9f2a80e5da5c5943a5e23d34862ea08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  effectParent: {fileID: 0}
   playerTurnPrefab: {fileID: 8675841362600845815, guid: 7e00e9b814fbb084faab27d3c333b7cc, type: 3}
   enemyTurnPrefab: {fileID: 8675841362600845815, guid: fe336c6280951d6468028e134872a9db, type: 3}
+  victoryPrefab: {fileID: 8675841362600845815, guid: 0d6dccb09c4b79c48b5f51cb9e3d07e8, type: 3}
+  defeatPrefab: {fileID: 8675841362600845815, guid: eecaccd0cc6f3f243980d00b9e241a15, type: 3}
   turnDisplayDuration: 2.75
+  victoryDuration: 5
+--- !u!114 &4533070487399361492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7874900494231256866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 119c16e2552d62c418ffa9112f75f174, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 55e16020de6958b4ca9bd9c38bb0ca17, type: 2}
+  unityEventResponse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2411836449735341269}
+        m_TargetAssemblyTypeName: TurnPhaseDisplay, Assembly-CSharp
+        m_MethodName: EndEncounterHandler
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
