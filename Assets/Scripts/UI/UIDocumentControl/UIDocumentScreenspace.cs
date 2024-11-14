@@ -52,6 +52,7 @@ public class UIDocumentScreenspace : MonoBehaviour {
     }
 
     private void UpdateRenderTexture(){
+        Debug.Log("Updating Render Texture");
         StartCoroutine(GetVETextureCoroutine(
             doc.panelSettings, Screen.width, Screen.height,
             (tex) => {

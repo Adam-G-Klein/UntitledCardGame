@@ -45,30 +45,17 @@ public class TeamSelectionUI : MonoBehaviour
         docRenderer = GetComponent<UIDocumentScreenspace>();
 
         root = GetComponent<UIDocument>().rootVisualElement;
-        UIDocumentUtils.SetAllPickingMode(root, PickingMode.Position);
-        //root.Q<UnityEngine.UIElements.Button>("backButton").clicked += backButtonHandler;
-        docRenderer.constantStateUpdate = true;
-        /*
-        EventCallback<MouseEnterEvent> mouseEnter = new EventCallback<MouseEnterEvent>(
-            evt => {
-                docRenderer.SetStateDirty();
-            });
-
-        EventCallback<MouseLeaveEvent> mouseLeave = new EventCallback<MouseLeaveEvent>(
-            evt => {
-                docRenderer.SetStateDirty();
-            });
-        UIDocumentUtils.SetAllMouseMotionCallbacks(root, mouseEnter, mouseLeave);
-        */
         updateState();
 
         var next = root.Q<UnityEngine.UIElements.Button>("Next");
+        UIDocumentUtils.SetAllPickingMode(root, PickingMode.Position);
         next.clicked += () => initializeRun();
     }
 
     private void updateState() {
         makeTeamView(root.Q<VisualElement>("CompanionPortaitsContainer"), team1ActiveCompanions.GetCompanionTypes());
         makeInfoView(root.Q<VisualElement>("InfoContainer"), team1ActiveCompanions.GetCompanionTypes()[currentlySelectedCompanion]);
+        docRenderer.SetStateDirty();
     }
     public void initializeRun()
     {
@@ -100,6 +87,14 @@ public class TeamSelectionUI : MonoBehaviour
         {
             container.AddToClassList("companion-info-container-selected");
         }
+
+        container.RegisterCallback<MouseEnterEvent>(evt => {
+            docRenderer.SetStateDirty();
+        });
+
+        container.RegisterCallback<MouseLeaveEvent>(evt => {
+            docRenderer.SetStateDirty();
+        });
 
 
         var portrait = new VisualElement();
