@@ -126,7 +126,9 @@ public class TeamSelectionUI : MonoBehaviour
         VisualElement cards = container.Q<VisualElement>("cardsContainer");
 
         foreach (CardType card in companionType.startingDeck.cards) {
-          cards.Add(makeCardView(card));
+            VisualElement cardView = new CardView(card).cardContainer;
+          cards.Add(cardView);
+          contentToRedraw.Add(cardView);
         }
     }
 
