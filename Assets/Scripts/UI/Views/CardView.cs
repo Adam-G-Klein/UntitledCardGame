@@ -8,7 +8,6 @@ using UnityEngine.Playables;
 using Unity.VisualScripting;
 using System.Runtime.InteropServices;
 using JetBrains.Annotations;
-using UnityEditor.Build.Content;
 
 public class CardView {
     public VisualElement cardContainer;
