@@ -43,7 +43,9 @@ public class EnemyIntentDisplay : MonoBehaviour
         enemyInstance.combatInstance.onDeathHandler += OnDeath;
     }
 
+    // everything is global in the combat view ui rn
     private IEnumerator SetupUIDocumentElementsWhenReady() {
+        /*
         yield return new WaitUntil(() => UIDocumentGameObjectPlacer.Instance.IsReady());
         VisualElement root = UIDocumentUtils.GetRootElement(enemyInstance.placement.ve);
         pillarBox = root.Q<VisualElement>(className: enemyInstance.placement.ve.name + CombatEncounterView.DETAILS_CONTAINER_SUFFIX);
@@ -55,6 +57,8 @@ public class EnemyIntentDisplay : MonoBehaviour
         if(intentText == null) {
             Debug.LogError("No intent text found on " + enemyInstance.placement.ve.name);
         }
+        */
+        yield return null;
     }
 
     void OnDestroy() {

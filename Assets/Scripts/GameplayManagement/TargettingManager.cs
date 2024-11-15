@@ -51,7 +51,7 @@ public class TargettingManager : GenericSingleton<TargettingManager>
 
     public void cardsSelectedEventHandler(CardListEventInfo eventInfo) {
         if (!lookingForCardSelections) {
-            Debug.LogError("TargettingManager: Cards selected event raised but" +
+            Debug.Log("TargettingManager: Cards selected event raised but" +
             " not looking for card selections!");
             return;
         }

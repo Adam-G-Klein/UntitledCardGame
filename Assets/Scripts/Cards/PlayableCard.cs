@@ -56,8 +56,11 @@ public class PlayableCard : MonoBehaviour,
 
         if (card.GetManaCost() > ManaManager.Instance.currentMana
                 || !card.cardType.playable) {
-            // Theoretically we'd have some kind of indicator
-            // to the player that they can't cast this
+                StartCoroutine(GenericEntityDialogueParticipant
+                    .Instance
+                    .SpeakCompanionLine(
+                        "You don't have enough mana for me to cast that for you :(", 
+                        deckFrom.GetComponent<CompanionInstance>().companion.companionType));
             return;
         }
 

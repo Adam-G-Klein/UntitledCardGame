@@ -75,6 +75,7 @@ public class DialogueSpeaker : MonoBehaviour
     }
 
     public IEnumerator SpeakLine(string line, CompanionTypeSO speaker, float timeAfterLine = 1.0f) {
+        Debug.Log("Speaking line: " + line);
         if(currentLineCoroutine != null) {
             dialogueBoxView.Clear();
             StopCoroutine(currentLineCoroutine);

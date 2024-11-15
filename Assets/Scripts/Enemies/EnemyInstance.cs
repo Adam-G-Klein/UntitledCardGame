@@ -26,6 +26,7 @@ public class EnemyInstance : MonoBehaviour, IUIEntity {
     public List<TurnPhaseTrigger> turnPhaseTriggers = new List<TurnPhaseTrigger>();
 
     public WorldPositionVisualElement placement;
+    public bool dead = false;
 
     public void Setup(WorldPositionVisualElement placement, Enemy enemy) {
         this.enemy = enemy;
@@ -34,6 +35,7 @@ public class EnemyInstance : MonoBehaviour, IUIEntity {
         this.intentDisplay = GetComponentInChildren<EnemyIntentDisplay>();
         this.enemyPillarUIController = GetComponent<EnemyPillarUIController>();
         this.placement = placement;
+        dead = false;
         enemyPillarUIController.Setup(this, placement);
         combatInstance.Setup(enemy.combatStats, enemy, CombatInstance.CombatInstanceParent.ENEMY, placement);
         // Reset the behavior indices on the EnemyBrain to zero.
@@ -76,6 +78,7 @@ public class EnemyInstance : MonoBehaviour, IUIEntity {
 
     private IEnumerable EnactIntent() {
         yield return new WaitForSeconds(currentIntent.attackTime);
+        if(dead) yield break;
         intentDisplay.clearIntent();
         EffectDocument document = new EffectDocument();
         document.map.AddItem(EffectDocument.ORIGIN, this);
@@ -102,6 +105,7 @@ public class EnemyInstance : MonoBehaviour, IUIEntity {
     private IEnumerator OnDeath(CombatInstance killer) {
         Debug.Log("EnemyInstance OnDeath handler");
         UnregisterTurnPhaseTriggers();
+        dead = true;
         CombatEntityManager.Instance.EnemyDied(this);
         yield return null;
     }
