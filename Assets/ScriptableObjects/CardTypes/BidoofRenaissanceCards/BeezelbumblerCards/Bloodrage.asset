@@ -38,8 +38,20 @@ MonoBehaviour:
       data:
         effectStepName: InstantiatePrefab
         inputKey: companions
+        prefabToInstantiate: {fileID: 6137048663962808129, guid: 92c26f41ef33c23419e05ceb12660efa, type: 3}
+        scale: 0.8
+    - rid: 5280922807842373638
+      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: WaitForSecondsEffect
+        seconds: 1
+    - rid: 5280922807842373639
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: companions
         prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
-        scale: 1.5
+        scale: 1.2
     - rid: 5602892675124822081
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -48,6 +60,8 @@ MonoBehaviour:
         - rid: 5602892675124822084
         - rid: 5602892675124822085
         - rid: 1274772082283774025
+        - rid: 5280922807842373638
+        - rid: 5280922807842373639
     - rid: 5602892675124822082
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

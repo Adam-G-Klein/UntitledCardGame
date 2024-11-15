@@ -19,34 +19,44 @@ MonoBehaviour:
   cardCategory: 1
   vfxPrefab: {fileID: 0}
   playable: 1
+  exhaustsWhenPlayed: 0
+  retain: 0
   effectWorkflows:
   - rid: 1935436885617803282
+  onExhaustEffectWorkflow:
+    rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  tooltips: 
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 1935436885617803282
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
         - rid: 1935436885617803284
-        - rid: 8359854247558774784
+        - rid: 5280922807842373635
     - rid: 1935436885617803284
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: self
-        validTargets: 
+        outputKey: target
+        validTargets: 00000000
         number: 1
-        specialTargetRule: 4
+        specialTargetRule: 0
         cantCancelTargetting: 0
-    - rid: 8359854247558774784
-      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+    - rid: 5280922807842373635
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: CombatEffectStep
-        inputKey: self
-        combatEffect: 14
-        scale: 5
-        getScaleFromKey: 1
+        effectStepName: ApplyStatus
+        inputKey: target
+        statusEffect: 9
+        scale: 3
+        getScaleFromKey: 0
         inputScaleKey: 
+        multiplyByNumAuraStacks: 0
