@@ -24,11 +24,12 @@ public class UIDocumentCard : MonoBehaviour {
     [Header("Only for dev, one of the worst possible things you could do for GPU performance")]
     public bool renderTextureConstantly = false;
     private bool renderTextureCoroutineIsRunning = false;
+    private PlayableCard pCard = null;
 
     [SerializeField]
     public int maxFullSizeTextCharacters = 26;
     void Start() {
-        PlayableCard pCard = GetComponent<PlayableCard>();
+        pCard = GetComponent<PlayableCard>();
         if(pCard != null) {
             card = pCard.card;
             Invoke("LateStart", 0.1f);
@@ -48,7 +49,7 @@ public class UIDocumentCard : MonoBehaviour {
         doc = GetComponent<UIDocument>();
         doc.panelSettings = CardPanelSettingsPooler.Instance.GetPanelSettings();
         // TODO: take in card rather than cardtype
-        doc.rootVisualElement.Add(new CardView(card.cardType).cardContainer);
+        doc.rootVisualElement.Add(new CardView(card.cardType, pCard.deckFrom.GetCompanionTypeSO()).cardContainer);
         UIDocumentUtils.SetAllPickingMode(doc.rootVisualElement, PickingMode.Ignore);
         spriteRenderer = GetComponent<SpriteRenderer>();
         runCoroutine();

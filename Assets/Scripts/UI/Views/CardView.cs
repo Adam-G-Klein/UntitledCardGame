@@ -16,11 +16,11 @@ public class CardView {
     public static int CARD_TITLE_SIZE = 44; //px
     public static int CARD_DESC_MAX_FULL_SIZE_CHARS = 18; // guess
     public static int CARD_TITLE_MAX_FULL_SIZE_CHARS = 8; // guess
-    public CardView(CardType cardType) {
-        cardContainer = makeWorldspaceCardView(cardType);
+    public CardView(CardType cardType, CompanionTypeSO companionType) {
+        cardContainer = makeWorldspaceCardView(cardType, companionType);
     }
 
-    private VisualElement makeWorldspaceCardView(CardType card) {
+    private VisualElement makeWorldspaceCardView(CardType card, CompanionTypeSO companionType) {
         var container = new VisualElement();
         container.AddToClassList("card-container");
 
@@ -28,6 +28,11 @@ public class CardView {
         image.AddToClassList("card-image");
         image.style.backgroundImage = new StyleBackground(card.Artwork);
         container.Add(image);
+
+        var companionImage = new VisualElement();
+        companionImage.AddToClassList("companion-image");
+        companionImage.style.backgroundImage = new StyleBackground(companionType.sprite);
+        container.Add(companionImage);
 
         var name = new Label();
         name.AddToClassList("card-title-label");

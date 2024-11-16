@@ -314,11 +314,11 @@
 .mana-card-label {
     align-self: center;
     color: rgb(255, 255, 255);
-    font-size: 63px;
-    margin-top: 10px;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    margin-left: 10px;
+    font-size: 42px;
+    margin-top: -4px;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
 }
 
 .card-desc-label {
@@ -362,6 +362,7 @@
     max-height: 40%;
     min-height: 40%;
     top: 5%;
+    margin-top: 0;
 }
 
 .keepsake-image {
@@ -440,4 +441,44 @@
     top: 0;
     justify-content: center;
     align-items: center;
+    width: 80px;
+    height: 80px;
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
+    border-bottom-right-radius: 40px;
+    border-bottom-left-radius: 40px;
+    border-left-color: rgb(53, 41, 67);
+    border-right-color: rgb(53, 41, 67);
+    border-top-color: rgb(53, 41, 67);
+    border-bottom-color: rgb(53, 41, 67);
+    border-top-width: 4px;
+    border-right-width: 4px;
+    border-bottom-width: 4px;
+    border-left-width: 4px;
+}
+
+.companion-image {
+    align-self: flex-start;
+    color: rgb(255, 255, 255);
+    background-color: rgb(223, 203, 184);
+    font-size: 30px;
+    position: absolute;
+    left: -2px;
+    top: 79px;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 80px;
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
+    border-bottom-right-radius: 40px;
+    border-bottom-left-radius: 40px;
+    border-left-color: rgb(53, 41, 68);
+    border-right-color: rgb(53, 41, 68);
+    border-top-color: rgb(53, 41, 68);
+    border-bottom-color: rgb(53, 41, 68);
+    border-top-width: 5px;
+    border-right-width: 5px;
+    border-bottom-width: 5px;
+    border-left-width: 5px;
 }

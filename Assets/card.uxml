@@ -1,6 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
     <ui:VisualElement name="card-1" class="card-container">
         <ui:Label tabindex="-1" text="1" display-tooltip-when-elided="true" class="mana-card-label" />
+        <ui:VisualElement class="companion-image" />
         <ui:VisualElement class="card-image" />
         <ui:Label tabindex="-1" text="CardName" display-tooltip-when-elided="true" class="card-title-label" />
         <ui:Label tabindex="-1" text="Card Desc" display-tooltip-when-elided="true" class="card-desc-label" />
