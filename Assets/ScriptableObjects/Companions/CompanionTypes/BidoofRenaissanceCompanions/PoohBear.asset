@@ -37,15 +37,15 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: PoohBear
-      description: Starts combat with 1 aura. At the start of each turn, create an
-        AuraKnife in your hand for each companion with at least 1 aura stack
+      description: Starts combat with 1 aura. Each turn, create an AuraKnife in your
+        hand for each companion with at least 1 aura stack
       relatedBehaviorIndex: 0
     - title: AuraKnife
       description: Exhaust. Deal 4 damage.
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: Starts combat with 1 aura. At the start of each turn, create
-    an AuraKnife in your hand for each companion with at least 1 aura stack
+  keepsakeDescription: Starts combat with 1 aura. Each turn, create an AuraKnife
+    in your hand for each companion with at least 1 aura stack
   references:
     version: 2
     RefIds:

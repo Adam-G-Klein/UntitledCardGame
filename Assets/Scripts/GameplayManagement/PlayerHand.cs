@@ -47,6 +47,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                 deckFrom,
                 newCardPlacement.worldPos);
             newCard.gameObject.name = cardInfo.name;
+            newCard.interactable = false;
             UIDocumentGameObjectPlacer.Instance.addMapping(newCardPlacement, newCard.gameObject);
             if (newCard.card.cardType.retain) {
                 newCard.retained = true;
@@ -66,7 +67,10 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         experience.BindGameObjectsToTracks(new Dictionary<string, GameObject>() {
             { "card", gameObject },
         });
-        experience.StartExperience();
+        experience.StartExperience( () => {
+            Debug.Log("Card draw VFX finished");
+            gameObject.GetComponent<PlayableCard>().interactable = true;
+        });
     }
 
     public void TurnPhaseChangedEventHandler(TurnPhaseEventInfo info) {

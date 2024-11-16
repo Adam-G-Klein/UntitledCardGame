@@ -17,10 +17,11 @@ public class FXExperience : MonoBehaviour
     public VoidDelegate onExperienceOver;
 
     [ContextMenu("Start Experience")]
-    public void StartExperience() {
+    public void StartExperience(VoidDelegate onExperienceOver = null) {
         if (playableDirector == null) {
             playableDirector = GetComponent<PlayableDirector>();
         }
+        this.onExperienceOver += onExperienceOver;
         playableDirector.stopped += OnPlayableDirectorStopped;
         playableDirector.Play();
     }

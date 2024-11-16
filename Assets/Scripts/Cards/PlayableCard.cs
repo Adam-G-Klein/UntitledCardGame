@@ -42,6 +42,7 @@ public class PlayableCard : MonoBehaviour,
 
     private UIDocumentCard docCard;
     private bool isCardCastPlaying = false;
+    public bool interactable = false;
 
     public void Start()
     {
@@ -53,7 +54,7 @@ public class PlayableCard : MonoBehaviour,
     {
         Debug.Log("Card clicked");
         Debug.Log(currentState);
-        if (currentState != UIState.DEFAULT) return;
+        if (currentState != UIState.DEFAULT || !interactable) return;
 
         if (card.GetManaCost() > ManaManager.Instance.currentMana) {
                 StartCoroutine(GenericEntityDialogueParticipant
@@ -160,6 +161,7 @@ public class PlayableCard : MonoBehaviour,
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if(!interactable) return;
         hovered = true;
         MusicController.Instance.PlaySFX(cardHover, hoverSFXVolume);
         transform.localScale = new Vector3(hoverScale, hoverScale, 1);
@@ -169,7 +171,7 @@ public class PlayableCard : MonoBehaviour,
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (!hovered) return;
+        if(!interactable || !hovered) return;
         hovered = false;
         transform.localScale = new Vector3(nonHoverScale, nonHoverScale, 1);
         transform.position = new Vector3(transform.position.x, transform.position.y - hoverYOffset, transform.position.z - hoverZOffset);
