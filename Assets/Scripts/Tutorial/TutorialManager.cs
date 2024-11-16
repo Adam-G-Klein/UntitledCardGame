@@ -41,15 +41,20 @@ public class TutorialManager : MonoBehaviour
 
     private IEnumerator tutorialCoroutine;
     private bool tutorialSkipped = false;
+    private TutorialAction currentAction;
 
-    void Start() {
+    void Start()
+    {
         //Not using Generic singleton because it requires use of "Instance" before it self destroys
         //manually here, also this is not supposed to be accessed global, but there should only be one
-        if (Instance != default && Instance != this) {
+        if (Instance != default && Instance != this)
+        {
 
             Destroy(this.gameObject);
 
-        } else {
+        }
+        else
+        {
             Instance = this;
 
             DontDestroyOnLoad(this.gameObject);
@@ -61,7 +66,8 @@ public class TutorialManager : MonoBehaviour
 
             //do not call set up as this will start in the main menu
             //can add logic here to remove the tutorial manager once it has been completed
-            if (shouldStartTutorialImmediate) {
+            if (shouldStartTutorialImmediate)
+            {
                 //Also replace the FirstTutorialID
                 upcomingTutorialID = editorStartTutorial;
                 FindTutorialInfo();
@@ -70,46 +76,57 @@ public class TutorialManager : MonoBehaviour
 
     }
 
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
         IsTutorialPlaying = false;
         FindTutorialInfo();
     }
 
-    private void FindTutorialInfo() {
+    private void FindTutorialInfo()
+    {
         //check to see if tutorial is being run in sequence.
         tutorialLevelData = FindObjectOfType<TutorialLevelData>();
 
         Debug.Log("finding tutorial level data");
 
-        if (!tutorialSkipped && tutorialLevelData != default) {
+        if (!tutorialSkipped && tutorialLevelData != default)
+        {
             SetupNextTutorial();
         }
     }
 
-    private void SetupNextTutorial() {
+    private void SetupNextTutorial()
+    {
         currTutorial = tutorialLevelData.Get(upcomingTutorialID);
 
-        if (currTutorial && !playedTutorials.Contains(currTutorial.ID)) {
+        if (currTutorial && !playedTutorials.Contains(currTutorial.ID))
+        {
             tutorialCoroutine = RunTutorial();
             StartCoroutine(tutorialCoroutine);
-        } else {
+        }
+        else
+        {
             Debug.Log("TUTORIAL ERROR: Unable to find specified tutorial.");
         }
     }
 
-    private IEnumerator RunTutorial() {
+    private IEnumerator RunTutorial()
+    {
         //set up the next tutorial incase this one is stopped mid
         upcomingTutorialID = currTutorial.nextTutorialName;
         currentStepIndex = 0;
 
         playedTutorials.Add(currTutorial.ID);
         IsTutorialPlaying = true;
-        foreach (TutorialStep step in currTutorial.Steps) {
+        foreach (TutorialStep step in currTutorial.Steps)
+        {
             // TODO: implement stopping the tutorial early
             currentStep = step;
             // need to invoke the steps actions here because we 
             // can't have non-monobehavior classes own coroutines
-            foreach (TutorialAction action in currentStep.actions) {
+            foreach (TutorialAction action in currentStep.actions)
+            {
+                currentAction = action;
                 yield return StartCoroutine(action.Invoke());
             }
             yield return new WaitUntil(step.GetStepComplete);
@@ -120,43 +137,63 @@ public class TutorialManager : MonoBehaviour
         DetermineNextTutorial();
     }
 
-    public void DetermineNextTutorial() {
+    public void DetermineNextTutorial()
+    {
         IsTutorialPlaying = false;
-        if (currTutorial.isNextTutorialSameScene) {
+        if (currTutorial.isNextTutorialSameScene)
+        {
             //find the next tutorial and begin
             SetupNextTutorial();
         }
     }
 
-    public void UnityEventStepComplete(string stepName) {
-        if (currentStep.stepName == stepName) {
+    public void UnityEventStepComplete(string stepName)
+    {
+        if (currentStep.stepName == stepName)
+        {
             //currentStep.StepComplete();
             currentStepIndex += 1;
         }
     }
 
+    // for special casing the tutorial not starting until the player's turn in combat
+    public void TurnPhaseHandler(TurnPhaseEventInfo info)
+    {
+        if (currentAction is WaitForTurnPhaseAction)
+        {
+            WaitForTurnPhaseAction action = (WaitForTurnPhaseAction)currentAction;
+            action.OnTurnPhaseChange(info.newPhase);
+        }
+
+    }
+
     // for making s to skip work
-    public void EndEncounterHandler(){
+    public void EndEncounterHandler()
+    {
         StopCoroutine(tutorialCoroutine);
         tutorialSkipped = true;
-        foreach (TutorialStep step in currTutorial.Steps) {
+        foreach (TutorialStep step in currTutorial.Steps)
+        {
             step.SetStepComplete();
         }
     }
 
     //event handlers
     //need to know essentially that something has been completed, as of right now we will not need an argument, at the most potentially take in a int to reduce possible permutations
-    public void EventHandle(object obj) {
+    public void EventHandle(object obj)
+    {
         //cast the 
 
         Debug.Log("We have recieved an event from: ");
     }
 
-    private void RemoveTutorialManager() {
+    private void RemoveTutorialManager()
+    {
         Debug.Log("Removing tutorial manager.");
 
         //Goodbye
-        if (this != default) {
+        if (this != default)
+        {
             Destroy(gameObject);
         }
     }

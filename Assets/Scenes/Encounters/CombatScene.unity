@@ -1120,7 +1120,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5029004334312043304, guid: 6328b1b96ba993a4f8cc479cf3423807, type: 3}
       propertyPath: shouldStartTutorialImmediate
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8497676806491920195, guid: 6328b1b96ba993a4f8cc479cf3423807, type: 3}
       propertyPath: m_Name
@@ -1133,6 +1133,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8497676806491920195, guid: 6328b1b96ba993a4f8cc479cf3423807, type: 3}
       insertIndex: -1
       addedObject: {fileID: 857202353}
+    - targetCorrespondingSourceObject: {fileID: 8497676806491920195, guid: 6328b1b96ba993a4f8cc479cf3423807, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 857202354}
   m_SourcePrefab: {fileID: 100100000, guid: 6328b1b96ba993a4f8cc479cf3423807, type: 3}
 --- !u!1 &857202352 stripped
 GameObject:
@@ -1152,6 +1155,45 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorialEvent: {fileID: 11400000, guid: eb63d989955b99f47878c793fe5f0aec, type: 2}
+--- !u!114 &857202354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 857202352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f54f1b2283029124ea05bdd4df6ffb1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 8731090c52e897e459ac12df3da5fc3a, type: 2}
+  unityEventResponse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 857202355}
+        m_TargetAssemblyTypeName: TutorialManager, Assembly-CSharp
+        m_MethodName: TurnPhaseHandler
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &857202355 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5029004334312043304, guid: 6328b1b96ba993a4f8cc479cf3423807, type: 3}
+  m_PrefabInstance: {fileID: 857202351}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 857202352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dce3f58cfdded54b9787d2f011e9c23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &889305572
 GameObject:
   m_ObjectHideFlags: 0
@@ -2026,6 +2068,16 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: 2240256403092013059
+      type: {class: WaitForTurnPhaseAction, ns: , asm: Assembly-CSharp}
+      data:
+        tutorialActionType: Wait For Turn Phase Action
+        turnPhase: 2
+    - rid: 2240256403092013060
+      type: {class: WaitAction, ns: , asm: Assembly-CSharp}
+      data:
+        tutorialActionType: Wait Action
+        timeToWait: 2
     - rid: 6591284524624904358
       type: {class: UnityEventTutorialStep, ns: , asm: Assembly-CSharp}
       data:
@@ -2309,6 +2361,8 @@ MonoBehaviour:
         tutorialStepType: UnityEventTutorialStep
         stepName: 'Companion Highlight '
         actions:
+        - rid: 2240256403092013059
+        - rid: 2240256403092013060
         - rid: 8205569917033382832
         - rid: 8205569917033382834
         - rid: 8205569917033382833

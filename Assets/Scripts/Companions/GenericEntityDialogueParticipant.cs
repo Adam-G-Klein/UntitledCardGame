@@ -15,6 +15,10 @@ public class GenericEntityDialogueParticipant : GenericSingleton<GenericEntityDi
     }
 
     public IEnumerator SpeakCompanionLine(string line, CompanionTypeSO speaker, float timeAfterLine = 1.0f) {
+        if(TutorialManager.Instance.IsTutorialPlaying) {
+            // no dialogue during tutorial
+            yield break;
+        }
         yield return StartCoroutine(dialogueSpeaker.SpeakLine(line, speaker, timeAfterLine));
         // yield return new WaitForSeconds(timeAfterLine);
     }

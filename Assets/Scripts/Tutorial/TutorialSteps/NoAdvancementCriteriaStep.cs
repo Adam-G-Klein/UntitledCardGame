@@ -10,9 +10,7 @@ Simplest step type. Just goes right through its actions
 
 [System.Serializable]
 public class NoAdvancementCriteriaStep : TutorialStep {
-
     public NoAdvancementCriteriaStep() {
         tutorialStepType = "NoAdvancementCriteriaStep";
     }
-
 }

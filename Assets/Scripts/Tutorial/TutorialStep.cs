@@ -6,7 +6,8 @@ using UnityEngine;
 public enum TutorialStepName 
 {
     UnityEventTutorialStep,
-    NoAdvancementCriteriaStep
+    NoAdvancementCriteriaStep,
+    DoNotAdvanceStep
 }
 
 /* The base class for the different types of steps we can have.
