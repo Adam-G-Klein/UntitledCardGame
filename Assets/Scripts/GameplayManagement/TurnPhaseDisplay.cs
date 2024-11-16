@@ -11,6 +11,7 @@ public class TurnPhaseDisplay : MonoBehaviour {
     public GameObject enemyTurnPrefab;
     public GameObject victoryPrefab;
     public GameObject defeatPrefab;
+    public float effectZOffset = -100f;
     // TODO: make this configurable in game settings, game speed type vibe/beat
     public float turnDisplayDuration = 2.75f;
     public float victoryDuration = 5f;
@@ -49,6 +50,7 @@ public class TurnPhaseDisplay : MonoBehaviour {
 
     public IEnumerator DisplayVictory() {
         GameObject victory = Instantiate(victoryPrefab, effectParent.transform); 
+        victory.transform.localPosition = new Vector3(0, 0, effectZOffset);
         yield return new WaitForSeconds(victoryDuration);
         Destroy(victory);
     }

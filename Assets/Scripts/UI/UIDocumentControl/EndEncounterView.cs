@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.UIElements;
 
 public class EndEncounterView : MonoBehaviour
@@ -9,11 +10,18 @@ public class EndEncounterView : MonoBehaviour
     private UIDocument doc;
     private UIDocumentScreenspace docRenderer;
 
+    private Material mat;
+
+    [SerializeField]
+    private float fadeTime = 0.5f;
+
 
     void OnEnable()
     {
         doc = GetComponent<UIDocument>();
         docRenderer = GetComponent<UIDocumentScreenspace>();
+        mat = GetComponent<RawImage>().material;
+        mat.SetFloat("Alpha", 0);
     }
 
     public void Setup(int baseGoldEarnedPerBattle, int interestEarned, int interestCap, float interestPercentage)
@@ -26,15 +34,12 @@ public class EndEncounterView : MonoBehaviour
             interestCap.ToString() + " gold per combat)";
     }
 
-    /*
-    "Base gold earned\n$" +
-                baseGoldEarnedPerBattle.ToString() +
-                "\ninterest (" +
-                gameState.baseShopData.interestRate.ToString("P0") +
-                ", capped at $" +
-                gameState.baseShopData.interestCap.ToString() +
-                ")\n$" +
-                extraGold.ToString();
-                */
+    public void Show() {
+        LeanTween.value(gameObject, 0, 1, fadeTime)
+            .setOnUpdate((float val) => {
+                mat.SetFloat("Alpha", val);
+            });
+    }
+
 
 }

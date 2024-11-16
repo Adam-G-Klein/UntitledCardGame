@@ -31,6 +31,11 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     public GameObject placerGO; 
     private bool encounterBuilt = false;
 
+    [SerializeField]
+    [Header("Super hacky way to delay the end combat screen, this or\n" + 
+        "TurnPhaseDisplay should own the animation and screen display front to back")]
+    private float endCombatScreenDelay = 5.0f;
+
     public UIDocumentGameObjectPlacer placer { get 
     {
         if(placerGO == null) {
@@ -122,13 +127,15 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         uIStateEvent.Raise(new UIStateEventInfo(UIState.END_ENCOUNTER));
         postCombatUI.transform.SetSiblingIndex(postCombatUI.transform.parent.childCount - 1);
         postCombatUI.GetComponent<EndEncounterView>().Setup(baseGoldEarnedPerBattle, extraGold, gameState.baseShopData.interestCap, gameState.baseShopData.interestRate);
-        // TODO: add control for the post combat UI, set reward text like this used to:
-        
-        // but do it on the UIDocumentGameObjectPlacer.Instance.uiDoc instead
-        // query for the element in the UIDoc and set the text
-        
+        StartCoroutine(displayPostCombatUIAfterDelay());
+
         DialogueManager.Instance.SetDialogueLocation(gameState);
         DialogueManager.Instance.StartAnyDialogueSequence();
+    }
+
+    private IEnumerator displayPostCombatUIAfterDelay() {
+        yield return new WaitForSeconds(endCombatScreenDelay);
+        //postCombatUI.GetComponent<EndEncounterView>().Show();   
     }
 
     // This exists to satisfy the IEncounterBuilder interface.
