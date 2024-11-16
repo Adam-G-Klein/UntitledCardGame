@@ -152,8 +152,9 @@ MonoBehaviour:
   enemyTurnPrefab: {fileID: 8675841362600845815, guid: fe336c6280951d6468028e134872a9db, type: 3}
   victoryPrefab: {fileID: 8675841362600845815, guid: 0d6dccb09c4b79c48b5f51cb9e3d07e8, type: 3}
   defeatPrefab: {fileID: 8675841362600845815, guid: eecaccd0cc6f3f243980d00b9e241a15, type: 3}
+  effectZOffset: -100
   turnDisplayDuration: 2.75
-  victoryDuration: 5
+  victoryDuration: 2.75
 --- !u!114 &4533070487399361492
 MonoBehaviour:
   m_ObjectHideFlags: 0

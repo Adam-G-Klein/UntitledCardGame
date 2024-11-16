@@ -81,11 +81,10 @@ MonoBehaviour:
     cardsExhaustThisTurn: []
     cardsExhaustThisCombat: []
     decksShuffledThisCombat: []
-  characterPortraitController: {fileID: 0}
   enemyPortraitController: {fileID: 0}
   postCombatUI: {fileID: 0}
-  companionLocationStoreGO: {fileID: 0}
-  enemyLocationStoreGO: {fileID: 0}
+  endEncounterEvent: {fileID: 0}
   uIStateEvent: {fileID: 11400000, guid: 7fa89282fdc5197409a5e9b310da94f8, type: 2}
   postGamePopup: {fileID: 0}
-  turnPhaseEvent: {fileID: 11400000, guid: 8731090c52e897e459ac12df3da5fc3a, type: 2}
+  placerGO: {fileID: 0}
+  endCombatScreenDelay: 2.75

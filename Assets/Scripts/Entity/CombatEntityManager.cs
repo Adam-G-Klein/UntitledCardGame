@@ -115,6 +115,7 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
         Debug.Log("EnemyDied: " + enemies.Count);
         if (enemies.Count == 0) {
             StartCoroutine(EndCombatAfterEffectsResolve());
+            encounterEnded = true;
         }
     }
 
@@ -125,6 +126,7 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
             StartCoroutine(
                 turnPhaseEvent.RaiseAtEndOfFrameCoroutine(
                     new TurnPhaseEventInfo(TurnPhase.END_ENCOUNTER)));
+            encounterEnded = true;
         }
     }
 

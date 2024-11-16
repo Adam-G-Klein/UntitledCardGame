@@ -135,7 +135,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
 
     private IEnumerator displayPostCombatUIAfterDelay() {
         yield return new WaitForSeconds(endCombatScreenDelay);
-        //postCombatUI.GetComponent<EndEncounterView>().Show();   
+        postCombatUI.GetComponent<EndEncounterView>().Show();   
     }
 
     // This exists to satisfy the IEncounterBuilder interface.

@@ -1,0 +1,15 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/Tests/testCombatclasses.uss?fileID=7433441132597879392&amp;guid=7374c19a601730c40b5268ed26901695&amp;type=3#testCombatclasses" />
+    <Style src="project://database/Assets/UI/common.uss?fileID=7433441132597879392&amp;guid=8d0bc28a2ed710a44b762e4c857ac6f9&amp;type=3#common" />
+    <ui:VisualElement style="flex-grow: 1; justify-content: center;">
+        <ui:VisualElement class="post-combat-background" style="width: 78%; align-self: center; height: 69%; background-image: url(&quot;project://database/Assets/Sprites/CardArt/EntropysCards/EntrophyCardFront2.PNG?fileID=2800000&amp;guid=c97940a1e9a2e1a4092225af645c54fb&amp;type=3#EntrophyCardFront2&quot;);">
+            <ui:VisualElement name="VisualElement" style="flex-grow: 0; top: 20%;">
+                <ui:Label tabindex="-1" text="Ah what a shame" display-tooltip-when-elided="true" name="base-gold" class="post-combat-text" style="-unity-text-align: upper-center; -unity-font-style: bold; font-size: 60px;" />
+                <ui:Label tabindex="-1" text="Your room is right this way" display-tooltip-when-elided="true" name="interest" class="post-combat-text" style="-unity-text-align: upper-center; font-size: 50px; -unity-font-style: bold;" />
+                <ui:Label tabindex="-1" text="Try again tomorrow?" display-tooltip-when-elided="true" name="interest-help" style="flex-wrap: wrap; height: 44%; white-space: normal; font-size: 30px; -unity-font-style: italic; padding-left: 10px; padding-right: 10px; width: 80%; align-self: center; -unity-text-align: upper-center;" />
+            </ui:VisualElement>
+            <ui:Button text="&#10;" display-tooltip-when-elided="true" name="main-menu" class="main-menu-button" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement style="flex-grow: 1; position: absolute; width: 234px; align-self: flex-end; height: 382px; background-image: resource(&apos;EndPortraits/Concierge&apos;); right: 0; bottom: 0;" />
+</ui:UXML>

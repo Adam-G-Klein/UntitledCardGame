@@ -21,7 +21,7 @@ public class EndEncounterView : MonoBehaviour
         doc = GetComponent<UIDocument>();
         docRenderer = GetComponent<UIDocumentScreenspace>();
         mat = GetComponent<RawImage>().material;
-        mat.SetFloat("Alpha", 0);
+        mat.SetFloat("_alpha", 0);
     }
 
     public void Setup(int baseGoldEarnedPerBattle, int interestEarned, int interestCap, float interestPercentage)
@@ -37,7 +37,7 @@ public class EndEncounterView : MonoBehaviour
     public void Show() {
         LeanTween.value(gameObject, 0, 1, fadeTime)
             .setOnUpdate((float val) => {
-                mat.SetFloat("Alpha", val);
+                mat.SetFloat("_alpha", val);
             });
     }
 

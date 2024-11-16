@@ -12,6 +12,7 @@ Shader "Signified/UIDocumentRenderTargetSprite"
 
         Pass
         {
+            Blend SrcAlpha OneMinusSrcAlpha 
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag

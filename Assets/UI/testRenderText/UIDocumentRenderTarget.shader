@@ -12,6 +12,7 @@ Shader "Signified/UIDocumentRenderTarget"
 
         Pass
         {
+            Blend SrcAlpha OneMinusSrcAlpha 
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
@@ -45,7 +46,7 @@ Shader "Signified/UIDocumentRenderTarget"
             fixed4 frag (v2f i) : SV_Target
             {
                 fixed4 col = tex2D(_MainTex, i.uv);
-                fixed4 col2 = fixed4(col.r, col.g, col.b, col.a * _alpha);
+                fixed4 col2 = fixed4(col.r, col.g, col.b, _alpha);
                 if(col.a == 0) discard;
                 return col2;
             }

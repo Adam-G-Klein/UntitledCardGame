@@ -56,7 +56,8 @@ public class TurnPhaseDisplay : MonoBehaviour {
     }
 
     public IEnumerator DisplayDefeat() {
-        GameObject defeat = Instantiate(enemyTurnPrefab, effectParent.transform); 
+        GameObject defeat = Instantiate(defeatPrefab, effectParent.transform); 
+        defeat.transform.localPosition = new Vector3(0, 0, effectZOffset);
         yield return new WaitForSeconds(victoryDuration);
         Destroy(defeat);
     }

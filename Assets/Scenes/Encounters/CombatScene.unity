@@ -1480,7 +1480,7 @@ PrefabInstance:
     - target: {fileID: 8734870270850589833, guid: 28a067a8b113e3a4aadb83e0e82a16bd, type: 3}
       propertyPath: postGamePopup
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1609566326}
     - target: {fileID: 8734870270850589833, guid: 28a067a8b113e3a4aadb83e0e82a16bd, type: 3}
       propertyPath: endEncounterEvent
       value: 
@@ -1807,6 +1807,11 @@ CanvasRenderer:
 --- !u!1 &1517016778 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2627483554680799874, guid: a01603c96ed613e4dadddb16c94272d3, type: 3}
+  m_PrefabInstance: {fileID: 7403373190793623571}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1609566326 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8518056025411480096, guid: a01603c96ed613e4dadddb16c94272d3, type: 3}
   m_PrefabInstance: {fileID: 7403373190793623571}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1642680356
