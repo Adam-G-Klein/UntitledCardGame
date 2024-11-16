@@ -1399,8 +1399,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2145664757}
   - {fileID: 1328162633}
+  - {fileID: 2145664757}
   - {fileID: 1472457923}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1580,7 +1580,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c76610ffabb80a6458c2ea1322b9d72b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8ad89a01b2b8aaf4cb252c73f9fb5a15, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1744,6 +1744,7 @@ MonoBehaviour:
   encounterConstants: {fileID: 11400000, guid: 4000d3b01acf1f1459ac789f20856055, type: 2}
   turnPhaseEvent: {fileID: 11400000, guid: 8731090c52e897e459ac12df3da5fc3a, type: 2}
   enemies: []
+  IS_DEVELOPMENT_MODE: 0
 --- !u!4 &1385568340
 Transform:
   m_ObjectHideFlags: 0
@@ -2889,7 +2890,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2145664756}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 304}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2936,7 +2937,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5a4b45d3656b32e4794098ea81c28803, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ac201e65a2bbcae4fa3138b66356afad, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
