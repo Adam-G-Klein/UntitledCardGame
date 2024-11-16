@@ -44,6 +44,13 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: 2240256423295713294
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
+        scale: 1
     - rid: 5602892559406858240
       type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
       data:
@@ -52,6 +59,7 @@ MonoBehaviour:
         - rid: 5602892559406858262
         - rid: 5602892559406858261
         - rid: 9063059246832943106
+        - rid: 2240256423295713294
     - rid: 5602892559406858261
       type: {class: PermanentStatIncrease, ns: , asm: Assembly-CSharp}
       data:
