@@ -1544,7 +1544,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2204947685068786899, guid: f2311ded71c6ecd4f85e341984d3e7d8, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -127
+      value: -126.99999
       objectReference: {fileID: 0}
     - target: {fileID: 2204947685290376176, guid: f2311ded71c6ecd4f85e341984d3e7d8, type: 3}
       propertyPath: m_Pivot.x
@@ -2076,6 +2076,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 5309632205080498564, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: IS_DEVELOPMENT_MODE
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5847071362836227339, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 142
@@ -2149,10 +2153,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7735697274378827107, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1530497095}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 624278721722885037, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
 --- !u!224 &4573181857404763393 stripped
 RectTransform:
