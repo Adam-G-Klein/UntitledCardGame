@@ -14,37 +14,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   requiredSpeakers: []
   dialogueLines:
-  - rid: 6591284527365881856
-  - rid: 8205569917033382007
   - rid: 8205569917033382165
   - rid: 8205569917033382167
   - rid: 8205569917033382168
   references:
     version: 2
     RefIds:
-    - rid: 6591284527365881856
-      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
-      data:
-        speaker: {fileID: 11400000, guid: e5efa8d383bdf2046953f747a6dba9c0, type: 2}
-        line: Did you find what you were looking for in there?
-    - rid: 8205569917033382007
-      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
-      data:
-        speaker: {fileID: 11400000, guid: e5efa8d383bdf2046953f747a6dba9c0, type: 2}
-        line: No...?
     - rid: 8205569917033382165
       type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
       data:
         speaker: {fileID: 11400000, guid: e5efa8d383bdf2046953f747a6dba9c0, type: 2}
-        line: Well, I have plenty of items here for purchase.
+        line: Hello again - allow me to demostrate the most important part of the
+          estate's entertainment.
     - rid: 8205569917033382167
       type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
       data:
         speaker: {fileID: 11400000, guid: e5efa8d383bdf2046953f747a6dba9c0, type: 2}
-        line: Perhaps one will offer you the closure you seek.
+        line: Your purchasing choices will determine your success or failure here.
     - rid: 8205569917033382168
       type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
       data:
         speaker: {fileID: 11400000, guid: e5efa8d383bdf2046953f747a6dba9c0, type: 2}
-        line: You will be back here after each combat, so don't spend all your money
-          in one place.
+        line: You will be back after each combat, so don't spend all your money in
+          one place.

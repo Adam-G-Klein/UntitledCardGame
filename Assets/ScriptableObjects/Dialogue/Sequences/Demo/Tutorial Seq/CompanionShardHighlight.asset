@@ -17,9 +17,16 @@ MonoBehaviour:
   - rid: 6591284527365881856
   - rid: 8205569917033382007
   - rid: 8205569917033382165
+  - rid: 2240256423295713303
   references:
     version: 2
     RefIds:
+    - rid: 2240256423295713303
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: e5efa8d383bdf2046953f747a6dba9c0, type: 2}
+        line: Managing to upgrade your companions will greatly increase your chances
+          of success.
     - rid: 6591284527365881856
       type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
       data:
@@ -31,10 +38,10 @@ MonoBehaviour:
       data:
         speaker: {fileID: 11400000, guid: e5efa8d383bdf2046953f747a6dba9c0, type: 2}
         line: Each companion has an ability and a starting deck of cards. Hover of
-          the keepsake to see the starting ability.
+          the keepsake to see its starting ability.
     - rid: 8205569917033382165
       type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
       data:
         speaker: {fileID: 11400000, guid: e5efa8d383bdf2046953f747a6dba9c0, type: 2}
         line: When you purchase three of the same keepsake they will automatically
-          combine into a more powerful version of that companion!
+          combine into a more powerful version of that companion.
