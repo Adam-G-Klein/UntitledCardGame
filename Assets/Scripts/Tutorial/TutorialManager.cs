@@ -159,8 +159,10 @@ public class TutorialManager : MonoBehaviour
     // for special casing the tutorial not starting until the player's turn in combat
     public void TurnPhaseHandler(TurnPhaseEventInfo info)
     {
+        Debug.Log("Tutorial manager received turn phase event: " + info.newPhase);
         if (currentAction is WaitForTurnPhaseAction)
         {
+            Debug.Log("Tutorial manager is handling a WaitForTurnPhaseAction");
             WaitForTurnPhaseAction action = (WaitForTurnPhaseAction)currentAction;
             action.OnTurnPhaseChange(info.newPhase);
         }

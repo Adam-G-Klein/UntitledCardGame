@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2132283449186480322}
   - component: {fileID: 5029004334312043304}
+  - component: {fileID: 8526466067058680265}
   m_Layer: 0
   m_Name: TutorialManager
   m_TagString: Untagged
@@ -47,3 +48,34 @@ MonoBehaviour:
   gameState: {fileID: 11400000, guid: 9e326417f60894341a96cc8d02868bbe, type: 2}
   currentStepIndex: 0
   initStep: 0
+  shouldStartTutorialImmediate: 0
+  editorStartTutorial: Intro
+  IsTutorialPlaying: 0
+--- !u!114 &8526466067058680265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8497676806491920195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f54f1b2283029124ea05bdd4df6ffb1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 8731090c52e897e459ac12df3da5fc3a, type: 2}
+  unityEventResponse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5029004334312043304}
+        m_TargetAssemblyTypeName: TutorialManager, Assembly-CSharp
+        m_MethodName: TurnPhaseHandler
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
