@@ -22,7 +22,9 @@ MonoBehaviour:
       targetsKey: target
       displayValue: 0
       effectSteps:
+      - rid: 5280922829633618003
       - rid: 4463205916933358110
+      - rid: 5280922829633618002
     behaviorType: 0
     nextBehaviorIndex: 0
   belowHalfHPEnemyPattern:
@@ -35,10 +37,10 @@ MonoBehaviour:
     lines:
     - title: Infectious Spore
       description: Adds a USELESSCARD to target companions deck
-      image: {fileID: 0}
+      relatedBehaviorIndex: 0
     - title: UESLESS CARD
       description: This card is USELESS!
-      image: {fileID: 0}
+      relatedBehaviorIndex: 0
   references:
     version: 2
     RefIds:
@@ -55,3 +57,27 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+    - rid: 5280922829633618002
+      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FXEffectStep
+        waitForEffect: 1
+        fXExperiencePrefab: {fileID: 4075960956037802917, guid: ec7b1a1529f9141458320888bf8e3d96, type: 3}
+        rootLocationGameObjectKey: 
+        positionMappingList:
+        - fromWorkflow: self
+          toFxExperience: start
+        - fromWorkflow: target
+          toFxExperience: end
+        gameobjectMappingList: []
+    - rid: 5280922829633618003
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0

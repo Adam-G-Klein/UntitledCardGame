@@ -21,17 +21,23 @@ MonoBehaviour:
       enemyTargetMethod: 6
       targetsKey: 
       displayValue: 0
-      effectSteps: []
+      effectSteps:
+      - rid: 5280922829633618008
+      - rid: 5280922829633618004
     - intent: 4
       enemyTargetMethod: 6
       targetsKey: 
       displayValue: 0
-      effectSteps: []
+      effectSteps:
+      - rid: 5280922829633618009
+      - rid: 5280922829633618005
     - intent: 4
       enemyTargetMethod: 6
       targetsKey: 
       displayValue: 0
-      effectSteps: []
+      effectSteps:
+      - rid: 5280922829633618010
+      - rid: 5280922829633618006
     - intent: 5
       enemyTargetMethod: 6
       targetsKey: 
@@ -40,8 +46,9 @@ MonoBehaviour:
       - rid: 4463205916933358319
       - rid: 4463205916933358412
       - rid: 4463205916933358347
+      - rid: 5280922829633618007
     behaviorType: 0
-    nextBehaviorIndex: 3
+    nextBehaviorIndex: 2
   belowHalfHPEnemyPattern:
     behaviors: []
     behaviorType: 0
@@ -54,11 +61,9 @@ MonoBehaviour:
     lines:
     - title: Bounty
       description: Killing this unit gives you 4 gold!
-      image: {fileID: 0}
       relatedBehaviorIndex: -1
     - title: Irish Goodbye
       description: Leaves the combat if not killed quickly enough.
-      image: {fileID: 0}
       relatedBehaviorIndex: -1
   references:
     version: 2
@@ -96,3 +101,64 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+    - rid: 5280922829633618004
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 6137048663962808129, guid: a445166dc59978446b85c64007cc8ac8, type: 3}
+        scale: 1
+    - rid: 5280922829633618005
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 6137048663962808129, guid: a445166dc59978446b85c64007cc8ac8, type: 3}
+        scale: 1
+    - rid: 5280922829633618006
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 6137048663962808129, guid: a445166dc59978446b85c64007cc8ac8, type: 3}
+        scale: 1
+    - rid: 5280922829633618007
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 7939549763701254822, guid: f4ba6cc7e7a795f49be6c445733f13d4, type: 3}
+        scale: 1
+    - rid: 5280922829633618008
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 5280922829633618009
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 5280922829633618010
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0

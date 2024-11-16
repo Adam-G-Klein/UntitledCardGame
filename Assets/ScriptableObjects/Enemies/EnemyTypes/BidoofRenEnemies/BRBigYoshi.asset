@@ -24,6 +24,7 @@ MonoBehaviour:
       effectSteps:
       - rid: 5602893111447519363
       - rid: 4053950218419044387
+      - rid: 5280922829633617986
       - rid: 5602893111447519364
       - rid: 5602893111447519365
     behaviorType: 0
@@ -57,6 +58,13 @@ MonoBehaviour:
         gameobjectMappingList:
         - fromWorkflow: self
           toFxExperience: enemy
+    - rid: 5280922829633617986
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 4bed509d0589dae4d922d8eeb61a6292, type: 3}
+        scale: 1
     - rid: 5602893111447519363
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

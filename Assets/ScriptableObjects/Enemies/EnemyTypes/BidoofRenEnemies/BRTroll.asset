@@ -26,6 +26,8 @@ MonoBehaviour:
       - rid: 4053950218419044439
       - rid: 3931529445166809422
       - rid: 3931529445166809423
+      - rid: 5280922829633618024
+      - rid: 5280922829633618025
     behaviorType: 0
     nextBehaviorIndex: 0
   belowHalfHPEnemyPattern:
@@ -89,3 +91,15 @@ MonoBehaviour:
         gameobjectMappingList:
         - fromWorkflow: self
           toFxExperience: enemy
+    - rid: 5280922829633618024
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 4bed509d0589dae4d922d8eeb61a6292, type: 3}
+        scale: 1
+    - rid: 5280922829633618025
+      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: WaitForSecondsEffect
+        seconds: 1

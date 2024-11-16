@@ -26,15 +26,18 @@ MonoBehaviour:
       - rid: 4053950218419044428
       - rid: 4463205916933358108
       - rid: 4463205916933358107
+      - rid: 5280922829633617998
+      - rid: 5280922829633618000
       - rid: 4463206262261416267
+      - rid: 5280922829633617999
     - intent: 0
       enemyTargetMethod: 0
       targetsKey: target
       displayValue: 27
       effectSteps:
       - rid: 4053950218419044430
-      - rid: 4463205916933358109
       - rid: 4053950218419044429
+      - rid: 4463205916933358109
     behaviorType: 0
     nextBehaviorIndex: 1
   belowHalfHPEnemyPattern:
@@ -153,3 +156,22 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+    - rid: 5280922829633617998
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 98836261379580132, guid: 2966b1c84e69765449eba50d57d74158, type: 3}
+        scale: 2
+    - rid: 5280922829633617999
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 4bed509d0589dae4d922d8eeb61a6292, type: 3}
+        scale: 1
+    - rid: 5280922829633618000
+      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: WaitForSecondsEffect
+        seconds: 0.5

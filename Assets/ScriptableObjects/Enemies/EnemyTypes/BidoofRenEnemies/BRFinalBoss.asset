@@ -22,7 +22,9 @@ MonoBehaviour:
       targetsKey: target
       displayValue: 0
       effectSteps:
+      - rid: 5280922829633617992
       - rid: 4463206030013890833
+      - rid: 5280922829633617991
     - intent: 1
       enemyTargetMethod: 0
       targetsKey: first
@@ -32,9 +34,11 @@ MonoBehaviour:
       - rid: 4053950218419044424
       - rid: 4463206030013890864
       - rid: 4463206030013890865
+      - rid: 5280922829633617996
       - rid: 4463206030013890983
+      - rid: 5280922829633617997
     behaviorType: 0
-    nextBehaviorIndex: 1
+    nextBehaviorIndex: 0
   belowHalfHPEnemyPattern:
     behaviors:
     - intent: 4
@@ -186,3 +190,47 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
+    - rid: 5280922829633617991
+      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FXEffectStep
+        waitForEffect: 1
+        fXExperiencePrefab: {fileID: 4075960956037802917, guid: ec7b1a1529f9141458320888bf8e3d96, type: 3}
+        rootLocationGameObjectKey: 
+        positionMappingList:
+        - fromWorkflow: target
+          toFxExperience: end
+        - fromWorkflow: self
+          toFxExperience: start
+        gameobjectMappingList: []
+    - rid: 5280922829633617992
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 5280922829633617996
+      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FXEffectStep
+        waitForEffect: 1
+        fXExperiencePrefab: {fileID: 4075960956037802917, guid: ec7b1a1529f9141458320888bf8e3d96, type: 3}
+        rootLocationGameObjectKey: 
+        positionMappingList:
+        - fromWorkflow: self
+          toFxExperience: start
+        - fromWorkflow: first
+          toFxExperience: end
+        gameobjectMappingList: []
+    - rid: 5280922829633617997
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 4bed509d0589dae4d922d8eeb61a6292, type: 3}
+        scale: 1

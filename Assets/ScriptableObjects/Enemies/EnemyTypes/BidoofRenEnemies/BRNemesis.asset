@@ -24,6 +24,7 @@ MonoBehaviour:
       effectSteps:
       - rid: 4463205916933357946
       - rid: 4463205916933357947
+      - rid: 5280922829633618012
     behaviorType: 0
     nextBehaviorIndex: 0
   belowHalfHPEnemyPattern:
@@ -36,7 +37,6 @@ MonoBehaviour:
     lines:
     - title: Protective Gaze
       description: Shields the entire enemy team.
-      image: {fileID: 0}
       relatedBehaviorIndex: -1
   references:
     version: 2
@@ -62,3 +62,10 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+    - rid: 5280922829633618012
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: enemies
+        prefabToInstantiate: {fileID: 98836261379580132, guid: 2966b1c84e69765449eba50d57d74158, type: 3}
+        scale: 1.5

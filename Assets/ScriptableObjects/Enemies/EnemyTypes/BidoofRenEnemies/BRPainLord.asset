@@ -24,6 +24,7 @@ MonoBehaviour:
       effectSteps:
       - rid: 4463205916933358052
       - rid: 4463205916933358053
+      - rid: 5280922829633618017
     - intent: 1
       enemyTargetMethod: 0
       targetsKey: target
@@ -94,6 +95,13 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+    - rid: 5280922829633618017
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: targets
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 07700d1630e3ac5428e8548fe3830136, type: 3}
+        scale: 1
     - rid: 5602893111447519700
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:

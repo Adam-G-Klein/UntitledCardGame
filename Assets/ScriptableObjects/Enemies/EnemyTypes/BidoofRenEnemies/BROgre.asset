@@ -29,6 +29,7 @@ MonoBehaviour:
       - rid: 5602893111447519693
       - rid: 5602893111447519694
       - rid: 5602893111447519695
+      - rid: 5280922829633618015
     behaviorType: 0
     nextBehaviorIndex: 0
   belowHalfHPEnemyPattern:
@@ -83,6 +84,13 @@ MonoBehaviour:
         gameobjectMappingList:
         - fromWorkflow: self
           toFxExperience: enemy
+    - rid: 5280922829633618015
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 4bed509d0589dae4d922d8eeb61a6292, type: 3}
+        scale: 1
     - rid: 5602893111447519692
       type: {class: CountStatusEffectsStep, ns: , asm: Assembly-CSharp}
       data:

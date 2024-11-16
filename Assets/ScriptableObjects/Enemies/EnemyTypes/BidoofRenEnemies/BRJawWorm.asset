@@ -26,6 +26,7 @@ MonoBehaviour:
       - rid: 4053950218419044431
       - rid: 4463205916933358108
       - rid: 4463205916933358107
+      - rid: 5280922829633618001
     - intent: 0
       enemyTargetMethod: 0
       targetsKey: target
@@ -124,3 +125,10 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+    - rid: 5280922829633618001
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 98836261379580132, guid: 2966b1c84e69765449eba50d57d74158, type: 3}
+        scale: 1
