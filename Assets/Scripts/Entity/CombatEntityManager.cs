@@ -13,6 +13,9 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
     [SerializeField]
     private List<EnemyInstance> enemies = new List<EnemyInstance>();
 
+    [SerializeField]
+    private bool IS_DEVELOPMENT_MODE = false;
+
     private Dictionary<CombatEntityTriggerType, List<CombatEntityTrigger>> combatEntityTriggers =
             new Dictionary<CombatEntityTriggerType, List<CombatEntityTrigger>>() {
                 {CombatEntityTriggerType.COMPANION_DIED, new List<CombatEntityTrigger>()},
@@ -24,6 +27,12 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
     public event OnCompanionDamage onCompanionDamageHandler;
 
     private bool encounterEnded = false;
+
+    void Update() {
+        if(IS_DEVELOPMENT_MODE && Input.GetKeyDown(KeyCode.S)) {
+            StartCoroutine(EndCombatAfterEffectsResolve());
+        }
+    }
 
     public void registerCompanion(CompanionInstance companion) {
         companions.Add(companion);
