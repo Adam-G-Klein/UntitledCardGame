@@ -20,6 +20,7 @@ MonoBehaviour:
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
+  retain: 0
   effectWorkflows:
   - rid: 5602892723852673313
   onExhaustEffectWorkflow:
@@ -32,6 +33,13 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 5280922841426165968
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: enemy
+        prefabToInstantiate: {fileID: 1320532642761013391, guid: 99a456f94890391478f393fcc8ad0b95, type: 3}
+        scale: 1.5
     - rid: 5602892723852673313
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -39,6 +47,7 @@ MonoBehaviour:
         - rid: 5602892723852673314
         - rid: 5602892723852673315
         - rid: 5602892723852673316
+        - rid: 5280922841426165968
     - rid: 5602892723852673314
       type: {class: QuantityOfCardTypePlayedThisTurn, ns: , asm: Assembly-CSharp}
       data:

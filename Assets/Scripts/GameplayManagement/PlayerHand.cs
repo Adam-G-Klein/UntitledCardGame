@@ -110,7 +110,11 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     private IEnumerator DiscardFromHandCallback(PlayableCard card) {
         Debug.Log("PlayerHand: DiscardFromHandCallback for card: " + card.card);
         StartCoroutine(SafeRemoveCardFromHand(card));
+        // Discarding from hand
         DiscardCard(card);
+        if (card.gameObject.activeSelf) {
+            card.DiscardToDeck();
+        }
         yield return null;
     }
 
@@ -139,9 +143,9 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         if (cardsInHand.Contains(card)) {
             StartCoroutine(SafeRemoveCardFromHand(card));
         }
-        if(card.gameObject.activeSelf) {
-            card.DiscardToDeck();
-        }
+        // if(card.gameObject.activeSelf) {
+        //     card.DiscardToDeck();
+        // }
     }
 
     public PlayableCard GetCardById(string id) {

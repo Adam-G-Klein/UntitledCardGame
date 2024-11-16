@@ -34,6 +34,7 @@ public class ConvertPlayableCardToDeckInstance : EffectStep
         List<DeckInstance> decks = new();
         decks.Add(playableCards[0].deckFrom);
         document.map.AddItems<DeckInstance>(outputKey, decks);
+        document.map.AddItems<GameObject>(outputKey, new List<GameObject>() {playableCards[0].deckFrom.gameObject});
         yield return null;
     }
 }

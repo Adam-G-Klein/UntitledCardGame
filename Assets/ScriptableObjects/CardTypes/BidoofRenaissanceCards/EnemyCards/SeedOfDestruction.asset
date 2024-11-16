@@ -33,13 +33,6 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 1274772082283774359
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: seflCard
-        prefabToInstantiate: {fileID: 7939549763701254822, guid: e84fb44c2a5a75e49a192002a9096046, type: 3}
-        scale: 1
     - rid: 1274772082283774360
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -56,4 +49,3 @@ MonoBehaviour:
       data:
         effectSteps:
         - rid: 1274772082283774360
-        - rid: 1274772082283774359

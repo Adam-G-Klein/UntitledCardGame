@@ -20,6 +20,7 @@ MonoBehaviour:
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
+  retain: 0
   effectWorkflows:
   - rid: 2116895648763871331
   onExhaustEffectWorkflow:
@@ -58,3 +59,11 @@ MonoBehaviour:
         effectSteps:
         - rid: 1886371092460208259
         - rid: 1886371092460208258
+        - rid: 5280922841426165993
+    - rid: 5280922841426165993
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: companion
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        scale: 1.5

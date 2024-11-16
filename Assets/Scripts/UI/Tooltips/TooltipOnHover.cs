@@ -47,6 +47,16 @@ public class TooltipOnHover : MonoBehaviour,
         }
     }
 
+    public void OnDestroy() {
+        if(Active()) {
+            Debug.Log("Tooltip: Exit");
+            ResetCoroutine();
+            if(currentView == null) return;
+            Debug.Log("Tooltip: hiding current view");
+            currentView.Hide();
+        }
+    }
+
     public void OnPointerExit(PointerEventData eventData)
     {
         if(Active()) {

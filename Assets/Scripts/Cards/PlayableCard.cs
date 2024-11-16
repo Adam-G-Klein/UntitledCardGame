@@ -38,6 +38,7 @@ public class PlayableCard : MonoBehaviour,
     public float hoverZOffset = 0.5f;
 
     public GameObject cardCastVFXPrefab;
+    public GameObject cardExhaustVFXPrefab;
 
     private UIDocumentCard docCard;
     private bool isCardCastPlaying = false;
@@ -76,12 +77,21 @@ public class PlayableCard : MonoBehaviour,
         IncrementCastCount();
         EnemyEncounterManager.Instance.combatEncounterState.cardsCastThisTurn.Add(card);
         yield return StartCoroutine(PlayerHand.Instance.OnCardCast(this));
-        yield return StartCoroutine(CardCastVFX(this.gameObject));
+        PlayerHand.Instance.DiscardCard(this);
         if (card.cardType.exhaustsWhenPlayed) {
+            CardExhaustVFX();
             ExhaustCard();
         } else {
+            yield return StartCoroutine(CardCastVFX(this.gameObject));
             DiscardCardFromHand();
         }
+    }
+
+    private void CardExhaustVFX() {
+        GameObject.Instantiate(
+            cardExhaustVFXPrefab,
+            this.transform.position,
+            Quaternion.identity);
     }
 
     private IEnumerator CardCastVFX(GameObject cardGameObject) {
@@ -114,8 +124,9 @@ public class PlayableCard : MonoBehaviour,
     }
 
     public void DiscardCardFromHand() {
-        // PlayerHand calls discard from deck when done discarding from hand
-        PlayerHand.Instance.DiscardCard(this);
+        if (this.gameObject.activeSelf) {
+            DiscardToDeck();
+        }
     }
 
     public void ExhaustCard() {

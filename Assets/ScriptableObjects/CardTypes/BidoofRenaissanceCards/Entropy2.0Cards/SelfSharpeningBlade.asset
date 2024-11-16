@@ -40,7 +40,7 @@ MonoBehaviour:
         effectStepName: InstantiatePrefab
         inputKey: enemy
         prefabToInstantiate: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}
-        scale: 3
+        scale: 1.5
     - rid: 1488501614819147776
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -68,10 +68,42 @@ MonoBehaviour:
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
+        - rid: 5280922841426165939
         - rid: 1488501614819147776
         - rid: 1488501614819147777
         - rid: 5592738912264781840
         - rid: 1274772082283774576
+        - rid: 5280922841426165937
+        - rid: 5280922841426165938
+        - rid: 5280922841426165940
+    - rid: 5280922841426165937
+      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: WaitForSecondsEffect
+        seconds: 0.5
+    - rid: 5280922841426165938
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: card
+        prefabToInstantiate: {fileID: 6137048663962808129, guid: 032e33b914ed32b418cdc1ed2f15fc6e, type: 3}
+        scale: 1
+    - rid: 5280922841426165939
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: card
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 5280922841426165940
+      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: WaitForSecondsEffect
+        seconds: 0.5
     - rid: 5592738912264781840
       type: {class: CardModificationEffect, ns: , asm: Assembly-CSharp}
       data:

@@ -34,15 +34,31 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 5280922841426165962
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: allCardsInHand
+        prefabToInstantiate: {fileID: 7939549763701254822, guid: e84fb44c2a5a75e49a192002a9096046, type: 3}
+        scale: 1
+    - rid: 5280922841426165963
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: allCompanionsBelowHalfHP
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        scale: 1.5
     - rid: 5602892949302280915
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
         - rid: 5602892949302280916
+        - rid: 5280922841426165962
         - rid: 5602892949302280917
         - rid: 5602892949302280918
         - rid: 5602892949302280919
         - rid: 5602892949302280920
+        - rid: 5280922841426165963
     - rid: 5602892949302280916
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
