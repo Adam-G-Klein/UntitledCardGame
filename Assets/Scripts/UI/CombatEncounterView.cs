@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 using System;
+using Unity.VisualScripting;
 
 public class CombatEncounterView : GenericSingleton<CombatEncounterView> 
 {
@@ -59,6 +60,7 @@ public class CombatEncounterView : GenericSingleton<CombatEncounterView>
         List<Companion> companions = gameState.companions.activeCompanions;
         setupEntities(root.Q<VisualElement>("enemyContainer"), enemies.Cast<IUIEntity>(), true);
         setupEntities(root.Q<VisualElement>("companionContainer"), companions.Cast<IUIEntity>(), false);
+        root.Q<Label>("money").text = gameState.playerData.GetValue().gold.ToString();
         UIDocumentUtils.SetAllPickingMode(root, PickingMode.Ignore);
         setupComplete = true;
     }
@@ -76,6 +78,7 @@ public class CombatEncounterView : GenericSingleton<CombatEncounterView>
             List<EnemyInstance> enemies = EnemyEncounterViewModel.Instance.enemies;
             setupEntities(root.Q<VisualElement>("enemyContainer"), enemies.Cast<IUIEntity>(), true);
             setupEntities(root.Q<VisualElement>("companionContainer"), companions.Cast<IUIEntity>(), false);
+            root.Q<Label>("money").text = gameState.playerData.GetValue().gold.ToString();
             UIDocumentUtils.SetAllPickingMode(enemyContainer, PickingMode.Ignore);
             UIDocumentUtils.SetAllPickingMode(companionContainer, PickingMode.Ignore);
             foreach (VisualElement ve in pickingModePositionList) {
@@ -348,6 +351,10 @@ public class CombatEncounterView : GenericSingleton<CombatEncounterView>
 
     public void updateMana(int mana) {
         root.Q<Label>("manaCounter").text = mana.ToString();
+        docRenderer.SetStateDirty();
+    }
+
+    public void updateMoney(int money) {
         docRenderer.SetStateDirty();
     }
 

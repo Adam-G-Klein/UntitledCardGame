@@ -437,3 +437,22 @@
     border-top-color: rgb(211, 155, 51);
     border-bottom-color: rgb(211, 155, 51);
 }
+
+.money-indactor-background {
+    flex-grow: 1;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100px;
+    height: 100px;
+    background-image: url("project://database/Assets/Sprites/ShopSprites/Untitled_Artwork.png?fileID=2800000&guid=caf5d25d34d66b44788555ffc3fb5326&type=3#Untitled_Artwork");
+    align-items: center;
+    justify-content: center;
+}
+
+.money-indicator-text {
+    -unity-font-style: bold;
+    font-size: 31px;
+    color: rgb(255, 255, 255);
+    -unity-text-align: middle-center;
+}

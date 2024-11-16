@@ -55,6 +55,7 @@ MonoBehaviour:
       description: text text text text text texttext text texttext text text
       relatedBehaviorIndex: 0
   debugDisplayTooltip: 0
+  canvasTooltip: 0
 --- !u!114 &3914163383104745022
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84,8 +85,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doc: {fileID: 3914163383104745022}
-  width: 300
-  height: 400
+  width: 400
+  height: 500
 --- !u!23 &7062404357827569112
 MeshRenderer:
   m_ObjectHideFlags: 0

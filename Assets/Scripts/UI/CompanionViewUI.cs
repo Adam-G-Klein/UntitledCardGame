@@ -11,8 +11,6 @@ public enum CompanionActionType {
     SELECT,
     VIEW_DECK,
     MOVE_COMPANION,
-    COMBINE_COMPANION,
-    END_COMBINE,
     SELL,
 }
 
@@ -483,37 +481,6 @@ public class CompanionViewUI : MonoBehaviour, IPointerClickHandler
     public void exitView() {
         companionViewExitedEvent.Raise(null);
         Destroy(this.gameObject);
-    }
-
-    public void combineOnClick() {
-        if (isCombining) {
-            handleCombineAttempt();
-        }
-        else {
-            handleCombineStart();
-        }
-
-    }
-
-    private void handleCombineStart() {
-        isCombining = true;
-
-        //transfer the currently selected companion over to the combiningCompanions list
-        combiningCompanions.Add(clickedCompanion);
-
-        //deselect for state managment
-        clickedCompanion = null;
-
-        //Hide the other buttons and show the ones that are necessary for the combining
-        //must be able to restore the old actions
-        tempActionTypes = actionTypes;
-        actionTypes = new List<CompanionActionType> { CompanionActionType.COMBINE_COMPANION, CompanionActionType.END_COMBINE };
-
-        setupButtons(false);
-    }
-
-    private void handleCombineAttempt() {
-        handleCombine();
     }
 
     public void exitCombine() {

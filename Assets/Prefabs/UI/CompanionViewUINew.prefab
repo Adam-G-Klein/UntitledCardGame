@@ -1233,13 +1233,13 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
     companionActionType: 2
-  - button: {fileID: 0}
+  - button: {fileID: 9085190657450210693}
     buttonClickedEvent:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 3579507360167916884}
           m_TargetAssemblyTypeName: CompanionViewUI, Assembly-CSharp
-          m_MethodName: combineOnClick
+          m_MethodName: sellButtonOnClick
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}

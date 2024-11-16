@@ -55,14 +55,22 @@ public class PlayableCard : MonoBehaviour,
         Debug.Log(currentState);
         if (currentState != UIState.DEFAULT) return;
 
-        if (card.GetManaCost() > ManaManager.Instance.currentMana
-                || !card.cardType.playable) {
+        if (card.GetManaCost() > ManaManager.Instance.currentMana) {
                 StartCoroutine(GenericEntityDialogueParticipant
                     .Instance
                     .SpeakCompanionLine(
                         "You don't have enough mana for me to cast that for you :(", 
                         deckFrom.GetComponent<CompanionInstance>().companion.companionType, 3f));
             return;
+        }
+
+        if (!card.cardType.playable) {
+                StartCoroutine(GenericEntityDialogueParticipant
+                    .Instance
+                    .SpeakCompanionLine(
+                        "Not sure what I can do with that one :(", 
+                        deckFrom.GetComponent<CompanionInstance>().companion.companionType, 3f));
+                return;
         }
 
         EffectDocument document = new EffectDocument();
