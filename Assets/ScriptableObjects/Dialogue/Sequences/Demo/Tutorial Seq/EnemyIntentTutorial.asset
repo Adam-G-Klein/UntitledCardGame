@@ -31,12 +31,13 @@ MonoBehaviour:
       type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
       data:
         speaker: {fileID: 11400000, guid: e5efa8d383bdf2046953f747a6dba9c0, type: 2}
-        line: This time they are planning to attack your front companion for 4 damage!
+        line: This time they are planning to attack your leftmost companion for 4
+          damage!
     - rid: 6591284527365881858
       type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
       data:
         speaker: {fileID: 11400000, guid: e5efa8d383bdf2046953f747a6dba9c0, type: 2}
-        line: Hover over enemies to learn more about their current intent.
+        line: You can hover over enemies to learn more about their current intent.
     - rid: 8205569917033382007
       type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
       data:
@@ -46,4 +47,4 @@ MonoBehaviour:
       type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
       data:
         speaker: {fileID: 11400000, guid: e5efa8d383bdf2046953f747a6dba9c0, type: 2}
-        line: Generally, enemies attack your companions from right to left.
+        line: Generally, enemies attack your companions from left to right.

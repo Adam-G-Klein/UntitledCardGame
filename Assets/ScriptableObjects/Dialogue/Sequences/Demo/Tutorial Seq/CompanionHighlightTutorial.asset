@@ -17,6 +17,8 @@ MonoBehaviour:
   - rid: 2240256403092013061
   - rid: 6591284527365881856
   - rid: 8205569917033382007
+  - rid: 6627021926922190909
+  - rid: 6627021926922190910
   references:
     version: 2
     RefIds:
@@ -30,6 +32,17 @@ MonoBehaviour:
       data:
         speaker: {fileID: 11400000, guid: e5efa8d383bdf2046953f747a6dba9c0, type: 2}
         line: These are the companions on your team.
+    - rid: 6627021926922190909
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: e5efa8d383bdf2046953f747a6dba9c0, type: 2}
+        line: Each turn you draw one card from each companion on your team!
+    - rid: 6627021926922190910
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: e5efa8d383bdf2046953f747a6dba9c0, type: 2}
+        line: If a companion dies, you won't get any cards from that companion the
+          rest of that combat!
     - rid: 8205569917033382007
       type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
       data:

@@ -16,6 +16,7 @@ MonoBehaviour:
   dialogueLines:
   - rid: 6591284527365881856
   - rid: 8205569917033382007
+  - rid: 6627021926922190908
   references:
     version: 2
     RefIds:
@@ -24,6 +25,12 @@ MonoBehaviour:
       data:
         speaker: {fileID: 11400000, guid: e5efa8d383bdf2046953f747a6dba9c0, type: 2}
         line: This is how much mana you have to use each turn!
+    - rid: 6627021926922190908
+      type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
+      data:
+        speaker: {fileID: 11400000, guid: e5efa8d383bdf2046953f747a6dba9c0, type: 2}
+        line: If you don't have enough mana to play a card you won't be able to use
+          it.
     - rid: 8205569917033382007
       type: {class: DialogueLine, ns: , asm: Assembly-CSharp}
       data:
