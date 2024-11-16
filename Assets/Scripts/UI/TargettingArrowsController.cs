@@ -35,7 +35,7 @@ public class TargettingArrowsController : GenericSingleton<TargettingArrowsContr
                 //test
         Debug.Log("TargettingArrows: Creating arrow with origin: " + origin.name);
         Vector3 rootPosition = origin.transform.position;
-        TargettingArrow newArrow = Instantiate(arrowPrefab, transform).GetComponent<TargettingArrow>();
+        TargettingArrow newArrow = Instantiate(arrowPrefab, new Vector3(100,100,100), Quaternion.identity, transform).GetComponent<TargettingArrow>();
         setArrowColor(newArrow, validTypes);
         newArrow.transform.position = rootPosition;
         newArrow.setAllChildrenPosition(rootPosition);
