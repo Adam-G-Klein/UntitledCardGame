@@ -37,13 +37,14 @@ MonoBehaviour:
     lines:
     - title: Mab
       description: At the end of combat, heal a companion 20% of their max HP and
-        permanently add a Mab's Boon to their deck
+        permanently add a Mab's Boon to their deck.
       relatedBehaviorIndex: 0
     - title: Mab's Boon
       description: Card that exhausts on play and heals
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: 
+  keepsakeDescription: At the end of combat, heal a companion 20% of their max HP
+    and permanently add a Mab's Boon to their deck.
   references:
     version: 2
     RefIds:

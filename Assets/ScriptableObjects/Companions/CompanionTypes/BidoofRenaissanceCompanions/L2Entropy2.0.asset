@@ -38,14 +38,13 @@ MonoBehaviour:
     - title: L2 Entropy
       description: Whenever a card is exhausted, Entropy deals 3 damage to a random
         enemy
-      image: {fileID: 0}
       relatedBehaviorIndex: 0
     - title: Purge
       description: Entropy permanently removes a card at the end of combat.
-      image: {fileID: 0}
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: 
+  keepsakeDescription: Whenever a card is exhausted, Entropy deals 3 damage to a
+    random enemy.
   references:
     version: 2
     RefIds:

@@ -35,11 +35,10 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: L2 Beezelbumbler
-      description: Whenever a companion loses HP, draw 1 card from them.
-      image: {fileID: 0}
+      description: Whenever a companion loses HP, draw 1 card from their deck.
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: 
+  keepsakeDescription: Whenever a companion loses HP, draw 1 card from their deck.
   references:
     version: 2
     RefIds:

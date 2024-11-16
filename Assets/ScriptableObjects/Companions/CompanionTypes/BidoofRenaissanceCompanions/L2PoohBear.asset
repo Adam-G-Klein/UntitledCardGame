@@ -36,17 +36,17 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: L2 Pooh Bear
-      description: Pooh bear starts combat with an aura stack. At the start of each
-        turn, create a powerful Embued Knife in your hand for each companion with
-        at least 1 aura stack
-      image: {fileID: 0}
+      description: Starts combat with an aura stack. At the start of each turn, create
+        a powerful Embued Knife in your hand for each companion with at least 1 aura
+        stack
       relatedBehaviorIndex: 0
     - title: Embued Knife
       description: Exhaust. Deal 3 damage for each aura stack on this companion
-      image: {fileID: 0}
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: 
+  keepsakeDescription: Starts combat with an aura stack. At the start of each turn,
+    create a powerful Embued Knife in your hand for each companion with at least
+    1 aura stack
   references:
     version: 2
     RefIds:

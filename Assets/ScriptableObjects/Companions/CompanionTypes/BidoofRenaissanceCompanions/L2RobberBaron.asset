@@ -36,10 +36,11 @@ MonoBehaviour:
     lines:
     - title: L2 Robber Baron
       description: At the end of combat, lose $5 and give your whole team 1 permanent
-        strength and 10 max HP
-      image: {fileID: 0}
+        strength and 10 max HP.
+      relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: 
+  keepsakeDescription: At the end of combat, lose $5 and give your whole team 1 permanent
+    strength and 10 max HP.
   references:
     version: 2
     RefIds:

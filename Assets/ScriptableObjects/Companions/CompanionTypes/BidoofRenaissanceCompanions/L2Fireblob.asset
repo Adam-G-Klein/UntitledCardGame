@@ -36,16 +36,15 @@ MonoBehaviour:
     lines:
     - title: L2 Fireblob
       description: At the end of the turn, gain 1 block for each Generated card in
-        the deck
-      image: {fileID: 0}
+        this Fireblob's deck.
       relatedBehaviorIndex: 0
     - title: Generated Card
       description: A card added to your deck in any way other than by purchasing
         it at the shop.
-      image: {fileID: 0}
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: 
+  keepsakeDescription: At the end of the turn, gain 1 block for each Generated card
+    in this Fireblob's deck.
   references:
     version: 2
     RefIds:
