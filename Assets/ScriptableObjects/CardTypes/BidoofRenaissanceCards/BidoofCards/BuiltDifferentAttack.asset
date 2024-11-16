@@ -22,9 +22,9 @@ MonoBehaviour:
   exhaustsWhenPlayed: 0
   retain: 0
   effectWorkflows:
-  - rid: 5602892675124822192
+  - rid: 5280922829633617933
   onExhaustEffectWorkflow:
-    rid: -2
+    rid: 5280922829633617928
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
   tooltips: 
@@ -33,21 +33,20 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 1274772082283774275
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+    - rid: 5280922829633617928
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: InstantiatePrefab
-        inputKey: enemies
-        prefabToInstantiate: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}
-        scale: 2
-    - rid: 5602892675124822192
+        effectSteps: []
+    - rid: 5280922829633617933
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
-        - rid: 5602892675124822193
-        - rid: 5602892675124822194
-        - rid: 1274772082283774275
-    - rid: 5602892675124822193
+        - rid: 5280922829633617935
+        - rid: 5280922829633617940
+        - rid: 5280922829633617951
+        - rid: 5280922829633617952
+        - rid: 5280922829633617936
+    - rid: 5280922829633617935
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
@@ -58,7 +57,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 1
         cantCancelTargetting: 0
-    - rid: 5602892675124822194
+    - rid: 5280922829633617936
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
@@ -70,3 +69,22 @@ MonoBehaviour:
         multiplicity: 2
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+    - rid: 5280922829633617940
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: enemies
+        prefabToInstantiate: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}
+        scale: 1
+    - rid: 5280922829633617951
+      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: WaitForSecondsEffect
+        seconds: 0.5
+    - rid: 5280922829633617952
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: enemies
+        prefabToInstantiate: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}
+        scale: 1

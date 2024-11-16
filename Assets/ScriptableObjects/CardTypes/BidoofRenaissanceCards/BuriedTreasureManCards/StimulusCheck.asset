@@ -39,7 +39,7 @@ MonoBehaviour:
       data:
         effectStepName: InstantiatePrefab
         inputKey: all
-        prefabToInstantiate: {fileID: 1694406742967473385, guid: a6181747c84ef6b41a01c8ae8084f953, type: 3}
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
         scale: 1.5
     - rid: 4463206079571951821
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -61,15 +61,29 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+    - rid: 5280922829633617974
+      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: WaitForSecondsEffect
+        seconds: 0.5
+    - rid: 5280922829633617975
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 377a399fb9991684eb788275070abb5e, type: 3}
+        scale: 1
     - rid: 5602892874868589218
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
         - rid: 5602892874868589219
-        - rid: 5602892874868589220
         - rid: 4463206079571951821
         - rid: 4463206079571951822
+        - rid: 5602892874868589220
         - rid: 1274772082283774356
+        - rid: 5280922829633617974
+        - rid: 5280922829633617975
     - rid: 5602892874868589219
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -79,7 +93,7 @@ MonoBehaviour:
         outputKey: self
         validTargets: 
         number: 1
-        specialTargetRule: 3
+        specialTargetRule: 4
         cantCancelTargetting: 0
     - rid: 5602892874868589220
       type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
