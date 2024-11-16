@@ -18,6 +18,8 @@ GameObject:
   - component: {fileID: 7412025818965109248}
   - component: {fileID: 4656613037726695331}
   - component: {fileID: 5226732806696292264}
+  - component: {fileID: 3938793759006504333}
+  - component: {fileID: 616890501312769047}
   m_Layer: 0
   m_Name: WorldspaceEnemy
   m_TagString: Untagged
@@ -65,6 +67,7 @@ MonoBehaviour:
   registerTurnPhaseTriggerEvent: {fileID: 11400000, guid: f82cd01826dfef44391e6a853f3d2e89, type: 2}
   removeTurnPhaseTriggerEvent: {fileID: 11400000, guid: 88acfcb7f9a9846468020e4e3854b467, type: 2}
   combatEffectEvent: {fileID: 11400000, guid: 7b4f8952c0f9b4d4a80b72189e46bd3c, type: 2}
+  dead: 0
 --- !u!114 &6706516355190666426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -213,6 +216,41 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statusEffectsSO: {fileID: 11400000, guid: b5e8681fc02be284eb308731b490c4c5, type: 2}
+--- !u!114 &3938793759006504333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1818299386461833425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 047152731ba5f1943a7c416983ad68e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tooltipPrefab: {fileID: 2816874809441598624, guid: ae38d023550871540b736760d4242071, type: 3}
+  tooltip:
+    rid: -2
+  positionOffset: {x: 2.26, y: -0.6, z: 0}
+  displayWaitTime: 1
+  instantiateInWorldspace: 1
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+--- !u!114 &616890501312769047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1818299386461833425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1570a5276bf874eb3ac8891c439e2049, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8802389412929484848
 GameObject:
   m_ObjectHideFlags: 0
@@ -369,7 +407,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ca4d5c1a7bb0104b80d90d8af7255b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arbitraryInteriorPaddingPixels: 15
+  arbitraryInteriorPaddingPixels: {x: 0, y: 0}
   arbitraryBottomPlacementPixels: 5
   debugMousePosition: 0
 --- !u!61 &5328752214781731378
