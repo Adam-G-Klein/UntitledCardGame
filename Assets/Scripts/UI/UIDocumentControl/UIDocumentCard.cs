@@ -17,7 +17,7 @@ public class UIDocumentCard : MonoBehaviour {
     private BoxCollider2D boxCollider;
     [SerializeField]
     private Texture2D texture {get;set;}
-    public static Vector2Int CARD_REFERENCE_RESOLUTION = new (400, 700);
+    public static Vector2Int CARD_REFERENCE_RESOLUTION = new (700, 1000);
     public static float CARD_REFERENCE_SCALE = 0.5f;
     public static Vector2 CARD_SIZE = new Vector2(1f, 1.5f);
 

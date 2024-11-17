@@ -12,8 +12,8 @@ using JetBrains.Annotations;
 public class CardView {
     public VisualElement cardContainer;
     // TODO, could require the stylesheet in the constructor and fetch these from there
-    public static int CARD_DESC_SIZE = 26; //px
-    public static int CARD_TITLE_SIZE = 44; //px
+    public static int CARD_DESC_SIZE = 20; //px
+    public static int CARD_TITLE_SIZE = 40; //px
     public static int CARD_DESC_MAX_FULL_SIZE_CHARS = 18; // guess
     public static int CARD_TITLE_MAX_FULL_SIZE_CHARS = 8; // guess
     public CardView(CardType cardType, CompanionTypeSO companionType) {
