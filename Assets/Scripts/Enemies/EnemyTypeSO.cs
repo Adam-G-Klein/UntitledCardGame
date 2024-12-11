@@ -22,6 +22,7 @@ public class EnemyTypeSO : ScriptableObject
     public EnemyBrain belowHalfHPEnemyPattern;
     public List<InitialStatus> initialStatuses = new List<InitialStatus>();
     public TooltipViewModel tooltip;
+    public List<int> tutorialBehaviorOrder;
 }
 
 [System.Serializable]

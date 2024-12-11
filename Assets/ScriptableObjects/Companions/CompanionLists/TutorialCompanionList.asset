@@ -12,53 +12,169 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4df9178e061cce447b55bdea396ec265, type: 3}
   m_Name: TutorialCompanionList
   m_EditorClassIdentifier: 
-  companionList:
-  - companionType: {fileID: 11400000, guid: 4d253e77b533ea64ba6355a37741c0cf, type: 2}
-    maxHealth: 20
-    currentHealth: 20
+  activeCompanions:
+  - id: d9cd67df-c006-49e2-872e-984e1a43f16c
+    entityType: 0
+    companionType: {fileID: 11400000, guid: fb779bf01568f45f9bdea9e30bb824f3, type: 2}
     deck:
-      startingDeck: {fileID: 11400000, guid: f88499d65b2d43848a8f72b8bcfa65df, type: 2}
+      startingDeck: {fileID: 11400000, guid: 583b1de8b4e66492eb4afaaa9e408467, type: 2}
       cards:
-      - cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
-        id: 31c0e475-a0a1-4a4f-9e38-69d0a2783996
-      - cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
-        id: 89f31827-e0bc-4de6-94f5-f9b67d1d8609
-      - cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
-        id: 718b00c7-6d37-404a-acb2-8a680e0a7890
-      - cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
-        id: 08f14b8c-d05a-40e4-9d4c-057a04b2b320
-      - cardType: {fileID: 11400000, guid: 3ea4fc4054021ce4788b5012ed153111, type: 2}
-        id: 8873595a-684c-4f66-b6ad-2cf84076a442
-    baseAttackDamage: 0
-    abilities: []
-    id: 683081d9-5719-4e16-ba13-ae6d7b06043e
-  - companionType: {fileID: 11400000, guid: bb8900a5e0f2ab34a8c486d19dcef389, type: 2}
-    maxHealth: 30
-    currentHealth: 30
+      - id: 98aa19c5-ecce-4507-ad4a-b47a41274833
+        entityType: 0
+        shopRarity: 0
+        castCount: 0
+        tempManaCost: -1
+        generated: 0
+        cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
+      - id: 3879a1d3-cc4d-4f3a-ae6a-67e1d684e022
+        entityType: 0
+        shopRarity: 0
+        castCount: 0
+        tempManaCost: -1
+        generated: 0
+        cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
+      - id: 1a2c89c2-f228-4e0f-ac6d-fe2f61efec5c
+        entityType: 0
+        shopRarity: 0
+        castCount: 0
+        tempManaCost: -1
+        generated: 0
+        cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
+      - id: a6bdd50c-ba41-4241-ba61-3282b942ff96
+        entityType: 0
+        shopRarity: 0
+        castCount: 0
+        tempManaCost: -1
+        generated: 0
+        cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
+      - id: e39b6f50-30c5-41c0-a2bc-fa35d86ec356
+        entityType: 0
+        shopRarity: 0
+        castCount: 0
+        tempManaCost: -1
+        generated: 0
+        cardType: {fileID: 11400000, guid: 62fdc51643d8849a4b4b4c1498a15598, type: 2}
+      cardsDealtPerTurn: 1
+    combatStats:
+      maxHealth: 15
+      currentHealth: 15
+      baseAttackDamage: 0
+    companionLevel: 1
+    onCombineAbilities:
+    - effectSteps:
+      - rid: 3757585474085716252
+  - id: d11262c0-d0bc-4edf-817a-c3bc614ff9e3
+    entityType: 0
+    companionType: {fileID: 11400000, guid: e80bed6b977594eb1b8a6fcf030f5300, type: 2}
     deck:
-      startingDeck: {fileID: 11400000, guid: 2591b9bcf7a348d418df529b4242c104, type: 2}
+      startingDeck: {fileID: 11400000, guid: 03db7753a8eb34b8fa1ccf858b7c2c0e, type: 2}
       cards:
-      - cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
-        id: 44699687-7b69-496f-95b9-85dc18718655
-      - cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
-        id: 277cef59-83e8-4cd2-a867-9a057fd32417
-      - cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
-        id: 72774ab6-6a44-4d65-8e18-39f36f14608e
-      - cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
-        id: 080cc3ca-6f7e-48ab-b426-228170eceedd
-      - cardType: {fileID: 11400000, guid: 29447d4ce5e609b46814ceac547e725f, type: 2}
-        id: 2de037a8-5db3-46d2-a5bd-7b71fe5e0009
-    baseAttackDamage: 0
-    abilities:
-    - rid: 5847359311090548738
-    id: 788ad3b2-c1a0-4c47-962c-b085f495ef03
-  companionBench: []
+      - id: 0b3b0a33-96b5-4a00-9776-124e1b7b96cc
+        entityType: 0
+        shopRarity: 0
+        castCount: 0
+        tempManaCost: -1
+        generated: 0
+        cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
+      - id: 3352e627-e1d2-448f-a045-15a9fcc72fd6
+        entityType: 0
+        shopRarity: 0
+        castCount: 0
+        tempManaCost: -1
+        generated: 0
+        cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
+      - id: 883eb395-bb89-43bd-9f1b-29058e1a55dc
+        entityType: 0
+        shopRarity: 0
+        castCount: 0
+        tempManaCost: -1
+        generated: 0
+        cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
+      - id: 970b1975-5ef2-4774-910a-d274d2818c20
+        entityType: 0
+        shopRarity: 0
+        castCount: 0
+        tempManaCost: -1
+        generated: 0
+        cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
+      - id: 666adb3b-78b8-481b-8285-a416feab60c4
+        entityType: 0
+        shopRarity: 0
+        castCount: 0
+        tempManaCost: -1
+        generated: 0
+        cardType: {fileID: 11400000, guid: 37e079e46203847309bfa4815576ff1c, type: 2}
+      cardsDealtPerTurn: 1
+    combatStats:
+      maxHealth: 15
+      currentHealth: 15
+      baseAttackDamage: 0
+    companionLevel: 1
+    onCombineAbilities:
+    - effectSteps:
+      - rid: 3757585474085716253
+  - id: c49ea649-69bc-432f-9cb6-cc93cba30c9d
+    entityType: 0
+    companionType: {fileID: 11400000, guid: 3b42d32224eeb40459eb4d23d3843769, type: 2}
+    deck:
+      startingDeck: {fileID: 11400000, guid: 7fa17c4fa43804b51918678571ad5cdc, type: 2}
+      cards:
+      - id: 6ea6535d-a038-4670-bc61-f837890e9068
+        entityType: 0
+        shopRarity: 0
+        castCount: 0
+        tempManaCost: -1
+        generated: 0
+        cardType: {fileID: 11400000, guid: eb4f34d280b08403096290fdbc9c9ad7, type: 2}
+      - id: 53baa0e2-021c-4586-bf9b-5b011e6cde5b
+        entityType: 0
+        shopRarity: 0
+        castCount: 0
+        tempManaCost: -1
+        generated: 0
+        cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
+      - id: 26a14f1f-06ea-4872-bbf5-70d258d66b02
+        entityType: 0
+        shopRarity: 0
+        castCount: 0
+        tempManaCost: -1
+        generated: 0
+        cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
+      - id: 9376af5c-f766-4b34-9721-8c1e993f286d
+        entityType: 0
+        shopRarity: 0
+        castCount: 0
+        tempManaCost: -1
+        generated: 0
+        cardType: {fileID: 11400000, guid: 4d0b555f247ca4846a067cd0f087ab62, type: 2}
+      - id: 36444656-865f-46b2-9d53-e307d7fb7607
+        entityType: 0
+        shopRarity: 0
+        castCount: 0
+        tempManaCost: -1
+        generated: 0
+        cardType: {fileID: 11400000, guid: 557579448e8c848ada1b057f3ace891c, type: 2}
+      cardsDealtPerTurn: 1
+    combatStats:
+      maxHealth: 20
+      currentHealth: 20
+      baseAttackDamage: 0
+    companionLevel: 1
+    onCombineAbilities: []
+  benchedCompanions: []
+  currentCompanionSlots: 0
   references:
     version: 2
     RefIds:
-    - rid: 5847359311090548738
-      type: {class: MinionSpawnETB, ns: , asm: Assembly-CSharp}
+    - rid: 3757585474085716252
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
       data:
-        abilityName: GrotesqueETB
-        numMinions: 1
-        minionType: {fileID: 11400000, guid: acf491015f67b06468095238a670ef7b, type: 2}
+        effectStepName: DialogueStep
+        line: I now remove cards permanently!
+        lineTime: 3
+    - rid: 3757585474085716253
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: Now we draw cards every time we lose hp!
+        lineTime: 3

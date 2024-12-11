@@ -28,8 +28,11 @@ public class EnemyInstance : MonoBehaviour, IUIEntity {
     public WorldPositionVisualElement placement;
     public bool dead = false;
 
-    public void Setup(WorldPositionVisualElement placement, Enemy enemy) {
+    private bool isTutorial = false;
+
+    public void Setup(WorldPositionVisualElement placement, Enemy enemy, bool isTutorial) {
         this.enemy = enemy;
+        this.isTutorial = isTutorial;
         gameObject.name = enemy.enemyType.name;
         CombatEntityManager.Instance.registerEnemy(this);
         this.intentDisplay = GetComponentInChildren<EnemyIntentDisplay>();
@@ -69,7 +72,14 @@ public class EnemyInstance : MonoBehaviour, IUIEntity {
     }
 
     private IEnumerable DeclareIntent() {
-        currentIntent = enemy.ChooseIntent(this);
+        if (isTutorial)
+        {
+            currentIntent = enemy.ChooseIntentTutorial(this);
+        }
+        else
+        {
+            currentIntent = enemy.ChooseIntent(this);
+        }
         Debug.Log("EnemyInstance: UpdateView");
         EnemyEncounterViewModel.Instance.SetStateDirty();
         yield return null;

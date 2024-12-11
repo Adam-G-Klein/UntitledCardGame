@@ -14,8 +14,10 @@ public class GenerateMap : MonoBehaviour
     public GameStateVariableSO gameState;
     public MapGeneratorSO mapGenerator;
 
+    public MapGeneratorSO tutorialMapGenerator;
+
     public void generateMapAndChangeScenes() {
-        gameState.StartNewRun(mapGenerator);
+        gameState.StartNewRun(mapGenerator, tutorialMapGenerator);
     }
 
 }

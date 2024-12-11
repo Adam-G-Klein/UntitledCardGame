@@ -30,6 +30,11 @@ public class Enemy : Entity, ICombatStats, IUIEntity {
         return enemyType.enemyPattern.ChooseIntent(enemyInstance);
     }
 
+    public EnemyIntent ChooseIntentTutorial(EnemyInstance enemyInstance)
+    {
+        return enemyType.enemyPattern.ChooseIntentTutorial(enemyInstance);
+    }
+
     public Sprite getSprite() {
         return this.enemyType.sprite;
     }

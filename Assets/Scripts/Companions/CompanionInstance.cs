@@ -18,7 +18,7 @@ public class CompanionInstance : MonoBehaviour, IUIEntity
 
     private BoxCollider2D boxCollider2D;
 
-    public void Setup(WorldPositionVisualElement wpve, Companion companion) {
+    public void Setup(WorldPositionVisualElement wpve, Companion companion, bool isTutorial) {
         
         // ---- set some local member variables ----
         this.companion = companion;
@@ -32,6 +32,7 @@ public class CompanionInstance : MonoBehaviour, IUIEntity
         combatInstance.genericInteractionSFX = companion.companionType.genericCompanionSFX;
         combatInstance.genericInteractionVFX = companion.companionType.genericCompanionVFX;
         // ---- set up the deck for this entity ----
+        deckInstance.isTutorial = isTutorial;
         deckInstance.sourceDeck = companion.deck;
         // ---- set up the sprite for this entity in the world ----
         GetComponentInChildren<CombatInstanceDisplayWorldspace>().Setup(combatInstance, wpve);

@@ -1,0 +1,93 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab8ea54faf5a15e429a5a40d1f6f4818, type: 3}
+  m_Name: TutorialMap
+  m_EditorClassIdentifier: 
+  map:
+    encounters:
+    - rid: 3757585469520216064
+    - rid: 3757585469520216065
+    - rid: 3757585469520216066
+    - rid: 3757585469520216067
+  references:
+    version: 2
+    RefIds:
+    - rid: 3757585469520216064
+      type: {class: EnemyEncounter, ns: , asm: Assembly-CSharp}
+      data:
+        id: 3693e0c2-ebdc-4c65-bd1e-b83ee6d98379
+        isCompleted: 1
+        enemyList:
+        - id: 
+          entityType: 1
+          enemyType: {fileID: 11400000, guid: 1e4eb41aad5eb4347a7967c96a40f8c4, type: 2}
+          combatStats:
+            maxHealth: 0
+            currentHealth: 1
+            baseAttackDamage: 0
+    - rid: 3757585469520216065
+      type: {class: ShopEncounter, ns: , asm: Assembly-CSharp}
+      data:
+        id: 494bd635-6447-4eed-a661-b2be0ec16d0a
+        isCompleted: 1
+        shopData: {fileID: 11400000, guid: 64b1d5221aac20348909c6cab7cc24d6, type: 2}
+        cardsInShop:
+        - cardType: {fileID: 11400000, guid: fa92415ff3efc4e5ba67654ebefc0646, type: 2}
+          price: 1
+          sourceCompanion: {fileID: 11400000, guid: ddba054ceef954be5a2f4619af3e78c2, type: 2}
+          rarity: 1
+        - cardType: {fileID: 11400000, guid: a6ed3ee1b23ac4ec791b9100209af76b, type: 2}
+          price: 1
+          sourceCompanion: {fileID: 0}
+          rarity: 1
+        - cardType: {fileID: 11400000, guid: 54e5064307078498097c2c038fe537f9, type: 2}
+          price: 1
+          sourceCompanion: {fileID: 11400000, guid: ddba054ceef954be5a2f4619af3e78c2, type: 2}
+          rarity: 1
+        keepsakesInShop:
+        - companionType: {fileID: 11400000, guid: fb779bf01568f45f9bdea9e30bb824f3, type: 2}
+          price: 0
+    - rid: 3757585469520216066
+      type: {class: EnemyEncounter, ns: , asm: Assembly-CSharp}
+      data:
+        id: 94a088f5-5952-45bd-9e55-65bcc08dfdfe
+        isCompleted: 1
+        enemyList:
+        - id: 
+          entityType: 1
+          enemyType: {fileID: 11400000, guid: 1e4eb41aad5eb4347a7967c96a40f8c4, type: 2}
+          combatStats:
+            maxHealth: 0
+            currentHealth: 0
+            baseAttackDamage: 0
+    - rid: 3757585469520216067
+      type: {class: ShopEncounter, ns: , asm: Assembly-CSharp}
+      data:
+        id: 173e1967-a852-4865-83c6-3043ca001a34
+        isCompleted: 0
+        shopData: {fileID: 11400000, guid: 64b1d5221aac20348909c6cab7cc24d6, type: 2}
+        cardsInShop:
+        - cardType: {fileID: 11400000, guid: fa92415ff3efc4e5ba67654ebefc0646, type: 2}
+          price: 1
+          sourceCompanion: {fileID: 11400000, guid: ddba054ceef954be5a2f4619af3e78c2, type: 2}
+          rarity: 1
+        - cardType: {fileID: 11400000, guid: a6ed3ee1b23ac4ec791b9100209af76b, type: 2}
+          price: 1
+          sourceCompanion: {fileID: 0}
+          rarity: 1
+        - cardType: {fileID: 11400000, guid: 54e5064307078498097c2c038fe537f9, type: 2}
+          price: 1
+          sourceCompanion: {fileID: 11400000, guid: ddba054ceef954be5a2f4619af3e78c2, type: 2}
+          rarity: 1
+        keepsakesInShop:
+        - companionType: {fileID: 11400000, guid: e80bed6b977594eb1b8a6fcf030f5300, type: 2}
+          price: 0

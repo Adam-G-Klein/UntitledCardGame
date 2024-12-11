@@ -34,13 +34,29 @@ public class EnemyBrain
                 nextBehaviorIndex = Math.Min(nextBehaviorIndex + 1, behaviors.Count - 1);
                 break;
         }
+
+        return GetIntent(self, behaviorIndex);
+
+    }
+
+    public EnemyIntent ChooseIntentTutorial(EnemyInstance self)
+    {
+        Debug.Assert(self.enemy.enemyType.tutorialBehaviorOrder.Count > 0, "Must assign tutorial enemy behavior selection");
+
+        return GetIntent(self, self.enemy.enemyType.tutorialBehaviorOrder[nextBehaviorIndex++ % 
+                                self.enemy.enemyType.tutorialBehaviorOrder.Count]);
+    }
+
+    private EnemyIntent GetIntent(EnemyInstance self, int behaviorIndex)
+    {
         EnemyBehavior action = behaviors[behaviorIndex];
         // Note: this only allows the enemies to target companions for now.
         // There is nothing that allows targeting other enemies, but this is not
         // an important behavior to support for now.
         CompanionInstance target = ChooseTargets(action.enemyTargetMethod, self);
         List<CompanionInstance> targetList = new();
-        if (target != null) {
+        if (target != null)
+        {
             targetList.Add(target);
         }
         return new EnemyIntent(
@@ -52,6 +68,8 @@ public class EnemyBrain
             UpdateDisplayValue(self, action.displayValue, action),
             action.effectSteps);
     }
+
+
 
     private CompanionInstance ChooseTargets(EnemyTargetMethod targetMethod, EnemyInstance self) {
         CompanionInstance target = null;
@@ -117,5 +135,7 @@ public class EnemyBrain
         Random,
         // Terminate on the last behavior and repeat until combat is over.
         SequentialWithSinkAtLastElement,
+        // Go in specified order for tutorial
+        TutorialScripted
     }
 }

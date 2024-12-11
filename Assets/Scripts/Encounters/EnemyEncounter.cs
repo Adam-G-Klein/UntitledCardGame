@@ -14,6 +14,7 @@ public class EnemyEncounter : Encounter
     private UIDocumentGameObjectPlacer placer;
     private IEncounterBuilder encounterBuilder;
 
+    private GameStateVariableSO gameState;
     public EnemyEncounter() {
         this.encounterType = EncounterType.Enemy;
     }
@@ -37,11 +38,13 @@ public class EnemyEncounter : Encounter
             EncounterConstantsSO constants,
             List<CompanionInstance> createdCompanions,
             List<EnemyInstance> createdEnemies,
-            UIDocumentGameObjectPlacer placer)
+            UIDocumentGameObjectPlacer placer,
+            GameStateVariableSO gameState)
     {
         this.encounterType = EncounterType.Enemy;
         this.encounterConstants = constants;
         this.placer = placer;
+        this.gameState = gameState;
         setupEnemies(createdEnemies);
         setupCompanions(companionList, createdCompanions);
     }
@@ -63,7 +66,7 @@ public class EnemyEncounter : Encounter
                 encounterConstants.enemyPrefab,
                 newEnemyPlacement.worldPos,
                 encounterBuilder.transform);
-            newEnemy.Setup(newEnemyPlacement, enemyList[i]);
+            newEnemy.Setup(newEnemyPlacement, enemyList[i], gameState.isTutorialActive);
             createdEnemies.Add(newEnemy);
             placer.addMapping(newEnemyPlacement, newEnemy.gameObject);
         }
@@ -85,7 +88,7 @@ public class EnemyEncounter : Encounter
                 encounterConstants.companionPrefab,
                 newCompanionPlacement.worldPos,
                 encounterBuilder.transform);
-            newCompanion.Setup(newCompanionPlacement, companionList[i]);
+            newCompanion.Setup(newCompanionPlacement, companionList[i], gameState.isTutorialActive);
             createdCompanions.Add(newCompanion);
             placer.addMapping(newCompanionPlacement, newCompanion.gameObject);
         }

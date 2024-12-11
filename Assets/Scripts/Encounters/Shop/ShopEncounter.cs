@@ -42,6 +42,7 @@ public class ShopEncounter : Encounter
     private EncounterConstantsSO encounterConstants;
 
     private ShopManager shopManager;
+    private GameStateVariableSO gameState;
 
     public ShopEncounter() {
         this.encounterType = EncounterType.Shop;
@@ -56,12 +57,19 @@ public class ShopEncounter : Encounter
             ShopManager shopManager,
             List<Companion> companionList,
             EncounterConstantsSO constants,
-            ShopLevel shopLevel) {
+            ShopLevel shopLevel,
+            GameStateVariableSO gameState) {
         this.shopManager = shopManager;
         this.encounterConstants = constants;
         this.encounterType = EncounterType.Shop;
-        validateShopData();
-        generateShopEncounter(shopLevel, companionList);
+        this.gameState = gameState;
+
+        if (!gameState.isTutorialActive)
+        {
+            validateShopData();
+            generateShopEncounter(shopLevel, companionList);
+        }
+
         setupCards();
         setupKeepsakes();
     }

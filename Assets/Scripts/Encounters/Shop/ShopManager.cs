@@ -39,7 +39,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         List<Companion> allCompanions = new();
         allCompanions.AddRange(gameState.companions.activeCompanions);
         allCompanions.AddRange(gameState.companions.benchedCompanions);
-        shopEncounter.Build(this, allCompanions, encounterConstants, this.shopLevel);
+        shopEncounter.Build(this, allCompanions, encounterConstants, this.shopLevel, gameState);
 
         CheckDisableUpgradeButton();
         /* uncomment to re-enable shop dialogue
@@ -226,7 +226,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         List<Companion> allCompanions = new();
         allCompanions.AddRange(gameState.companions.activeCompanions);
         allCompanions.AddRange(gameState.companions.benchedCompanions);
-        shopEncounter.Build(this, allCompanions, encounterConstants, shopLevel);
+        shopEncounter.Build(this, allCompanions, encounterConstants, shopLevel, gameState);
     }
 
     public void saveShopEncounter(ShopEncounter shopEncounter) {

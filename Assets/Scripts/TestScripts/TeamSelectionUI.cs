@@ -13,6 +13,7 @@ public class TeamSelectionUI : MonoBehaviour
     // TODO: package these into companionListVariables
     public CompanionListVariableSO team1ActiveCompanions;
     public CompanionListVariableSO testTeamActiveCompanions;
+    public CompanionListVariableSO tutorialTeamCompanions;
     public GameObject deckViewUIPrefab;
     private VisualElement root;
     [SerializeField]
@@ -28,7 +29,7 @@ public class TeamSelectionUI : MonoBehaviour
     {
         // Randomly choose 3 of the common companions for the starting team.
         // Random selection without replacement.
-        if (randomStarterCompanionGen) {
+        if (randomStarterCompanionGen && !gameState.isTutorialActive) {
             System.Random rnd = new();
             List<CompanionTypeSO> commoners = new List<CompanionTypeSO>(gameState.baseShopData.companionPool.commonCompanions);
             CompanionListVariableSO chosen = new();
@@ -42,7 +43,14 @@ public class TeamSelectionUI : MonoBehaviour
             }
             team1ActiveCompanions = chosen;
         } else {
-            team1ActiveCompanions = testTeamActiveCompanions;
+            if (gameState.isTutorialActive)
+            {
+                team1ActiveCompanions = tutorialTeamCompanions;
+            }
+            else
+            {
+                team1ActiveCompanions = testTeamActiveCompanions;
+            }
         }
         docRenderer = GetComponent<UIDocumentScreenspace>();
 

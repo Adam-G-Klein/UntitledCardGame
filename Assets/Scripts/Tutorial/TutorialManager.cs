@@ -37,24 +37,34 @@ public class TutorialManager : MonoBehaviour
 
     private HashSet<string> playedTutorials = new();
 
-    public bool IsTutorialPlaying = false;
+    public bool IsTutorialPlaying { get { return gameState.isTutorialActive; } }
 
     private IEnumerator tutorialCoroutine;
     private bool tutorialSkipped = false;
     private TutorialAction currentAction;
 
-    void Start()
+    public void CancelTutorial()
+    {
+        gameState.isTutorialActive = false;
+        //Destroy(this.gameObject);
+    }
+
+    public void EnableTutorial()
+    {
+        gameState.isTutorialActive = true;
+    }
+
+    public void Start()
     {
         //Not using Generic singleton because it requires use of "Instance" before it self destroys
         //manually here, also this is not supposed to be accessed global, but there should only be one
-        if (Instance != default && Instance != this)
+        if ((Instance != default) && (Instance != this))
         {
-
             Destroy(this.gameObject);
-
         }
         else
         {
+            
             Instance = this;
 
             DontDestroyOnLoad(this.gameObject);
@@ -78,7 +88,6 @@ public class TutorialManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        IsTutorialPlaying = false;
         FindTutorialInfo();
     }
 
@@ -97,6 +106,12 @@ public class TutorialManager : MonoBehaviour
 
     private void SetupNextTutorial()
     {
+        //skip the tutorial for now
+        if (!gameState.isTutorialActive && currentStepIndex >= 1)
+        {
+            return;
+        }
+
         currTutorial = tutorialLevelData.Get(upcomingTutorialID);
 
         if (currTutorial && !playedTutorials.Contains(currTutorial.ID))
@@ -117,7 +132,6 @@ public class TutorialManager : MonoBehaviour
         currentStepIndex = 0;
 
         playedTutorials.Add(currTutorial.ID);
-        IsTutorialPlaying = true;
         foreach (TutorialStep step in currTutorial.Steps)
         {
             // TODO: implement stopping the tutorial early
@@ -133,13 +147,11 @@ public class TutorialManager : MonoBehaviour
             currentStepIndex += 1;
             yield return null;
         }
-        IsTutorialPlaying = false;
         DetermineNextTutorial();
     }
 
     public void DetermineNextTutorial()
     {
-        IsTutorialPlaying = false;
         if (currTutorial.isNextTutorialSameScene)
         {
             //find the next tutorial and begin

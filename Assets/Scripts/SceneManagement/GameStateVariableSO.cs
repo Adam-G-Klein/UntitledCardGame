@@ -79,6 +79,7 @@ public class GameStateVariableSO : ScriptableObject
     public int lastTutorialLoopIndex = 2;
     public int bossFightLoopIndex = 6;
     public int tutorialLoops = 2;
+    public bool isTutorialActive = false;
     
     // TODO: make this more versatile if we want the map to actually do things.
     // also want to field criticism about whether this should live here.
@@ -231,13 +232,30 @@ public class GameStateVariableSO : ScriptableObject
         mapGenerator = mapGeneratorSO;
     }
 
-    public void StartNewRun(MapGeneratorSO mapGeneratorSO) {
+    public void StartNewRun(MapGeneratorSO mapGeneratorSO, MapGeneratorSO tutorialMapGenerator) {
         setMapGenerator(mapGeneratorSO);
         map.SetValue(mapGenerator.generateMap());
+        if (isTutorialActive)
+        {
+            InjectTutorialEncounters(tutorialMapGenerator);
+        }
         playerData.initialize(baseShopData);
         viewedSequences = new List<DialogueSequenceSO>();
         SetLocation(Location.MAIN_MENU);
         LoadNextLocation();
+    }
+
+    private void InjectTutorialEncounters(MapGeneratorSO tutorialMapGenerator)
+    {
+        //get the active map
+        var generatedMapEncounters = map.GetValue().encounters;
+
+        var tutorialMapEncounters = tutorialMapGenerator.generateMap().encounters;
+
+        for (int i = 0; i < tutorialMapEncounters.Count; i++)
+        {
+            generatedMapEncounters.Insert(i, tutorialMapEncounters[i]);
+        }
     }
 
 }

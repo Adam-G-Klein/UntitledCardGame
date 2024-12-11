@@ -75,7 +75,8 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
             encounterConstants,
             createdCompanions,
             createdEnemies,
-            placer
+            placer,
+            gameState
             );
         EnemyEncounterViewModel.Instance.companions = createdCompanions;
         EnemyEncounterViewModel.Instance.enemies = createdEnemies;

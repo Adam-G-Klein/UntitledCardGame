@@ -13,6 +13,7 @@ public class DeckInstance : MonoBehaviour
     public List<Card> inHand;
     public List<Card> exhaustPile;
     public CombatInstance combatInstance;
+    public bool isTutorial;
 
     private TurnPhaseTrigger drawCardsTurnPhaseTrigger;
     private TurnPhaseTrigger resetTempCardModificationsTrigger;
@@ -123,6 +124,11 @@ public class DeckInstance : MonoBehaviour
     }
 
     private void ShuffleDeck() {
+        if (isTutorial) {
+            //Skip shuffling
+            return;
+        };
+
          System.Random _random = new System.Random();
          Card temp;
 

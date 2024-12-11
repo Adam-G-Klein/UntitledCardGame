@@ -26,7 +26,7 @@ MonoBehaviour:
       - rid: 4053950218419044425
       - rid: 3931529445166809315
     behaviorType: 0
-    nextBehaviorIndex: 0
+    nextBehaviorIndex: 1
   belowHalfHPEnemyPattern:
     behaviors: []
     behaviorType: 0
@@ -38,6 +38,7 @@ MonoBehaviour:
     - title: Strike
       description: Simple Attack
       relatedBehaviorIndex: 0
+  tutorialBehaviorOrder: 0000000000000000
   references:
     version: 2
     RefIds:
