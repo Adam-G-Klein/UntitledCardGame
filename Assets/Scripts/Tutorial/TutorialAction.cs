@@ -11,7 +11,9 @@ public enum TutorialActionName {
     DialogueAction,
     CanvasDisableButtonsAction,
     CanvasEnableButtonsAction,
-    WaitForTurnPhaseAction
+    WaitForTurnPhaseAction,
+    WaitForNextButtonClickAction,
+    UpdateTutorialUIDocAction,
 }
 
 /* The base class for the individual actions a tutorialStep

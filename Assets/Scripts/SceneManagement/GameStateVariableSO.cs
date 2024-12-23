@@ -18,7 +18,8 @@ public enum Location {
     FAKE_SHOP,
     PRE_BOSSFIGHT_COMBAT_SPLASH,
     BOSSFIGHT,
-    INTRO_CUTSCENE
+    INTRO_CUTSCENE,
+    TUTORIAL,
 }
 
 [CreateAssetMenu(
@@ -48,6 +49,7 @@ public class GameStateVariableSO : ScriptableObject
         {Location.MAIN_MENU, "MainMenu"},
         {Location.WAKE_UP_ROOM, "AidensRoom"},
         {Location.TEAM_SIGNING, "TeamSigning"},
+        {Location.TUTORIAL, "TutorialScene"},
         {Location.MAP, "Map"},
         {Location.TEAM_SELECT, "TeamSelect"},
         {Location.PRE_COMBAT_SPLASH, "PreCombatSplash"},
@@ -63,7 +65,10 @@ public class GameStateVariableSO : ScriptableObject
 
     private Dictionary<Location, Location> locationToNextLocation = new Dictionary<Location, Location>() {
         {Location.MAIN_MENU, Location.INTRO_CUTSCENE},
-        {Location.INTRO_CUTSCENE, Location.TEAM_SIGNING},
+        /*{Location.INTRO_CUTSCENE, Location.TEAM_SIGNING},
+        {Location.TEAM_SIGNING, Location.COMBAT},*/
+        {Location.INTRO_CUTSCENE, Location.TUTORIAL},
+        {Location.TUTORIAL, Location.TEAM_SIGNING},
         {Location.TEAM_SIGNING, Location.COMBAT},
         {Location.TEAM_SELECT, Location.COMBAT},
         {Location.COMBAT, Location.POST_COMBAT},
@@ -109,6 +114,9 @@ public class GameStateVariableSO : ScriptableObject
                 currentLocation = locationToNextLocation[currentLocation];
                 break;
             case Location.TEAM_SIGNING:
+                currentLocation = locationToNextLocation[currentLocation];
+                break;
+            case Location.TUTORIAL:
                 currentLocation = locationToNextLocation[currentLocation];
                 break;
             // map probably shouldn't stay its own location

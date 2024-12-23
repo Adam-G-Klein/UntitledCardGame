@@ -15,7 +15,7 @@ public class CombatInstanceDisplayWorldspace : MonoBehaviour
 
     [SerializeField]
     [Header("Added because I threw in the towel on getting the positioning perfect")]
-    private int arbitraryBottomPlacementPixels = 5;
+    private int arbitraryBottomPlacementPixels = 20;
     public bool debugMousePosition = false;
 
     void Start(){

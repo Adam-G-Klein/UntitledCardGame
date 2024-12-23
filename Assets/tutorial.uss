@@ -1,0 +1,65 @@
+.tutorial-container {
+    flex-grow: 1;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(13, 8, 29);
+}
+
+.tutorial-image {
+    flex-grow: 0;
+    background-image: url("project://database/Assets/Sprites/tutorialPlaceholderSprites/tutorialTemp1.png?fileID=2800000&guid=4ab3d81fa4fac4331abed042e043d296&type=3#tutorialTemp1");
+    -unity-background-scale-mode: scale-to-fit;
+    border-top-width: 5px;
+    border-right-width: 5px;
+    border-bottom-width: 5px;
+    border-left-width: 5px;
+    border-left-color: rgb(118, 118, 118);
+    border-right-color: rgb(118, 118, 118);
+    border-top-color: rgb(118, 118, 118);
+    border-bottom-color: rgb(118, 118, 118);
+    margin-top: 0;
+    margin-bottom: 0;
+    flex-basis: auto;
+    height: 55%;
+}
+
+.tutorial-image-container {
+    flex-grow: 1;
+}
+
+.tutorial-content-container {
+    flex-grow: 1;
+    flex-direction: row;
+    margin-right: 10%;
+    margin-left: 10%;
+}
+
+.tutorial-progress-container {
+    flex-grow: 1;
+    margin-right: auto;
+    margin-left: auto;
+    position: absolute;
+    align-self: center;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 0;
+    top: 85%;
+}
+
+.tutorial-text-container {
+    flex-grow: 1;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 0;
+    width: 50%;
+    margin-right: 0;
+    padding-left: 60px;
+}
+
+.tutorial-text {
+    color: rgb(255, 255, 255);
+    font-size: 43px;
+    margin-bottom: 30px;
+    white-space: normal;
+}

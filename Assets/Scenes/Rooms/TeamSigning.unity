@@ -151,8 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43b170993154d56489f14a45022b2d00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data:
-  - {fileID: 1817309111}
+  data: []
 --- !u!4 &201088274
 Transform:
   m_ObjectHideFlags: 0
@@ -709,6 +708,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 5533410869656153930, guid: 607fb3500676b2f4b9224240dd2d6e46, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6776026775712146023, guid: 607fb3500676b2f4b9224240dd2d6e46, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -788,6 +791,14 @@ PrefabInstance:
     - target: {fileID: 6776026775712146023, guid: 607fb3500676b2f4b9224240dd2d6e46, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8090718809728768989, guid: 607fb3500676b2f4b9224240dd2d6e46, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8090718809728768989, guid: 607fb3500676b2f4b9224240dd2d6e46, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

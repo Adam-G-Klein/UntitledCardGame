@@ -270,7 +270,7 @@
 
 .companion-name-label {
     color: rgb(255, 247, 247);
-    font-size: 18px;
+    font-size: 32px;
     -unity-font-style: bold;
     margin-bottom: -10px;
 }
@@ -284,7 +284,9 @@
 .relic-info-text {
     color: rgb(255, 255, 255);
     -unity-text-align: upper-center;
-    font-size: 18px;
+    font-size: 45px;
+    align-self: center;
+    align-items: center;
 }
 
 .card-container {
@@ -297,6 +299,11 @@
     justify-content: flex-start;
     align-items: center;
     max-height: 100%;
+}
+
+.team-signing-card-container {
+    width: 18%;
+    max-width: 300px;
 }
 
 .worldspace-card-container {
@@ -482,4 +489,15 @@
     border-right-width: 5px;
     border-bottom-width: 5px;
     border-left-width: 5px;
+}
+
+.cards-container {
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0);
+    height: 70%;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    margin-top: 30px;
+    width: 120%;
 }

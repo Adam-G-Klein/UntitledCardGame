@@ -24,7 +24,7 @@ public class TeamSelectionUI : MonoBehaviour
 
     public UIDocumentScreenspace docRenderer;
 
-    private void OnEnable()
+    private void Start()
     {
         // Randomly choose 3 of the common companions for the starting team.
         // Random selection without replacement.
@@ -84,6 +84,7 @@ public class TeamSelectionUI : MonoBehaviour
         var container = new VisualElement();
         container.AddToClassList("companion-info-container");
 
+        Debug.Log("Making companion view on team signing page");
         container.AddManipulator(new Clickable(evt => companionClicked(companionType)));
         if (currentlySelectedCompanion == team1ActiveCompanions.GetCompanionTypes().IndexOf(companionType))
         {
@@ -98,21 +99,20 @@ public class TeamSelectionUI : MonoBehaviour
             docRenderer.SetStateDirty();
         });
 
+        var name = new Label();
+        name.text = companionType.companionName;
+        name.AddToClassList("companion-name-label");
+        container.Add(name);
 
         var portrait = new VisualElement();
         portrait.AddToClassList("companion-portrait");
         portrait.style.backgroundImage = new StyleBackground(companionType.sprite);
         container.Add(portrait);
 
-        var name = new Label();
-        name.text = companionType.companionName;
-        name.AddToClassList("companion-name-label");
-        container.Add(name);
-
-        var archetype = new Label();
+        /*var archetype = new Label();
         archetype.AddToClassList("companion-title-label");
         archetype.text = companionType.keepsakeTitle;
-        container.Add(archetype);
+        container.Add(archetype);*/
 
         contentToRedraw.Add(container);
         return container;
@@ -120,8 +120,8 @@ public class TeamSelectionUI : MonoBehaviour
 
     private void makeInfoView(VisualElement container, CompanionTypeSO companionType)
     {
-        VisualElement keepImg = container.Q<VisualElement>("KeepsakeImage");
-        keepImg.style.backgroundImage = new StyleBackground(companionType.keepsake);
+        //VisualElement keepImg = container.Q<VisualElement>("KeepsakeImage");
+        //keepImg.style.backgroundImage = new StyleBackground(companionType.keepsake);
         container.Q<Label>("keepsakeName").text = companionType.keepsakeTitle;
         container.Q<Label>("keepsakeDesc").text = companionType.keepsakeDescription;
 
@@ -129,13 +129,15 @@ public class TeamSelectionUI : MonoBehaviour
 
         foreach (CardType card in companionType.startingDeck.cards) {
             VisualElement cardView = new CardView(card, companionType).cardContainer;
-          cards.Add(cardView);
-          contentToRedraw.Add(cardView);
+            cardView.AddToClassList("team-signing-card-container");
+            cards.Add(cardView);
+            contentToRedraw.Add(cardView);
         }
     }
 
     private VisualElement makeCardView(CardType card) {
         var container = new VisualElement();
+        container.AddToClassList("team-signing-card-container");
         container.AddToClassList("card-container");
 
         var manaCost = new Label();
@@ -163,6 +165,7 @@ public class TeamSelectionUI : MonoBehaviour
     }
 
     public void companionClicked(CompanionTypeSO companionType) {
+        Debug.Log("companion clicked on team selection screen");
         foreach (VisualElement content in contentToRedraw) {
             content.RemoveFromHierarchy();
         }
