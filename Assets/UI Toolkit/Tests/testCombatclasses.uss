@@ -64,30 +64,7 @@
 
 .pillar-card-column {
     flex-grow: 1;
-    background-color: rgb(255, 245, 235);
-    padding-left: 0;
-    padding-right: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    margin-left: 5px;
-    margin-right: 5px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    border-left-color: rgb(0, 0, 0);
-    border-right-color: rgb(0, 0, 0);
-    border-top-color: rgb(0, 0, 0);
-    border-bottom-color: rgb(0, 0, 0);
-    border-left-width: 1px;
-    border-right-width: 1px;
-    border-top-width: 1px;
-    border-bottom-width: 1px;
-    min-width: auto;
-    min-height: auto;
-}
-
-.pillar-container {
-    flex-grow: 0;
-    background-color: rgb(174, 151, 126);
+    background-color: rgb(195, 171, 144);
     padding-left: 0;
     padding-right: 0;
     padding-top: 0;
@@ -100,21 +77,47 @@
     border-right-color: rgb(0, 0, 0);
     border-top-color: rgb(0, 0, 0);
     border-bottom-color: rgb(0, 0, 0);
-    border-left-width: 1px;
-    border-right-width: 1px;
-    border-top-width: 1px;
-    border-bottom-width: 1px;
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    min-width: auto;
+    min-height: auto;
+}
+
+.pillar-container {
+    flex-grow: 0;
+    background-color: rgb(174, 151, 125);
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
     min-width: auto;
     min-height: auto;
     height: 80%;
-    background-image: url("project://database/Assets/Sprites/AidensRoom/Aiden.jpg?fileID=2800000&guid=9e13b4147c56b674086846fceb44b302&type=3#Aiden");
+    background-image: none;
+    -unity-slice-scale: 0;
 }
 
 .portrait-container {
     flex-grow: 1;
     background-color: rgba(0, 0, 0, 0);
-    height: 50%;
+    height: 92%;
     background-image: none;
+    width: 90%;
+    max-height: 92%;
 }
 
 .pillar-details {
@@ -126,20 +129,21 @@
 
 .pillar-name {
     flex-grow: 1;
-    background-color: rgb(255, 245, 235);
+    background-color: rgb(195, 171, 144);
     height: 20%;
     width: 100%;
     border-left-color: rgb(0, 0, 0);
     border-right-color: rgb(0, 0, 0);
     border-top-color: rgb(0, 0, 0);
     border-bottom-color: rgb(0, 0, 0);
-    border-left-width: 1px;
-    border-right-width: 1px;
+    border-left-width: 0;
+    border-right-width: 0;
     border-top-width: 1px;
     border-bottom-width: 1px;
     align-items: center;
     -unity-font-style: bold;
     background-image: none;
+    -unity-text-align: middle-left;
 }
 
 .pillar-name {
@@ -152,7 +156,7 @@
     margin-top: 0;
     margin-bottom: 0;
     font-size: 16px;
-    -unity-text-align: upper-center;
+    -unity-text-align: middle-center;
 }
 
 .pillar-text {
@@ -208,12 +212,21 @@
     height: 100%;
     width: 90%;
     white-space: normal;
-    align-self: flex-start;
-    -unity-text-align: upper-center;
-    padding-top: -85px;
+    align-self: center;
+    -unity-text-align: middle-center;
     align-items: stretch;
     text-overflow: clip;
-    left: 6px;
+    left: auto;
+    -unity-font-style: bold;
+    padding-bottom: 5%;
+    max-height: 100%;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-left: 0;
 }
 
 .cardPlace {
@@ -455,4 +468,52 @@
     font-size: 31px;
     color: rgb(255, 255, 255);
     -unity-text-align: middle-center;
+}
+
+.pillar-internal-border {
+    flex-grow: 1;
+    position: absolute;
+    left: 2.5%;
+    top: 1.5%;
+    width: 95.5%;
+    height: 97%;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    border-top-width: 2px;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+}
+
+.portrait-container-container {
+    flex-grow: 1;
+    height: 50%;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.enemy-pillar-name {
+    border-left-color: rgb(255, 0, 0);
+    border-right-color: rgb(255, 0, 0);
+    border-top-color: rgb(255, 0, 0);
+    border-bottom-color: rgb(255, 0, 0);
+    border-top-width: 1px;
+    border-right-width: 0;
+    border-bottom-width: 1px;
+    border-left-width: 0;
+    background-color: rgb(221, 221, 221);
+}
+
+.enemy-pillar-card-column {
+    border-left-color: rgb(255, 0, 0);
+    border-right-color: rgb(255, 0, 0);
+    border-top-color: rgb(255, 0, 0);
+    border-bottom-color: rgb(255, 0, 0);
+    border-top-width: 2px;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+    background-color: rgb(221, 221, 221);
 }

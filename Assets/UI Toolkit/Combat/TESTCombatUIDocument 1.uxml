@@ -316,15 +316,18 @@
                 </ui:VisualElement>
                 <ui:VisualElement class="entity-pillar">
                     <ui:VisualElement name="triangle" class="top-triangle" />
-                    <ui:VisualElement name="container" class="te pillar-container">
-                        <ui:VisualElement name="CardContainer" class="pillar-card-column">
-                            <ui:VisualElement name="PortraitContainer" class="portrait-container" style="background-image: none; background-color: rgba(0, 0, 0, 0);" />
+                    <ui:VisualElement name="container" class="te pillar-container enemy-pillar-container">
+                        <ui:VisualElement name="CardContainer" class="pillar-card-column enemy-pillar-card-column">
+                            <ui:VisualElement name="VisualElement" class="portrait-container-container" style="justify-content: flex-end;">
+                                <ui:VisualElement name="PortraitContainer" class="portrait-container" style="background-image: url(&quot;project://database/Assets/Sprites/NovPlaytestArt/bidoof.png?fileID=2800000&amp;guid=3882490ccffd8cb479682b845b1d1334&amp;type=3#bidoof&quot;); background-color: rgba(0, 0, 0, 0); max-width: 65%; height: 84%; max-height: 84%; margin-bottom: 3%; width: 65%;" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="InternalBorder" class="pillar-internal-border" />
                             <ui:VisualElement class="pillar-details">
-                                <ui:VisualElement name="VisualElement" class="pillar-name">
-                                    <ui:Label tabindex="-1" text="Aborah - Beta" display-tooltip-when-elided="true" name="CharacterNameLabel" class="pillar-name" />
+                                <ui:VisualElement name="VisualElement" class="pillar-name enemy-pillar-name">
+                                    <ui:Label tabindex="-1" text="Aborah - Beta" display-tooltip-when-elided="true" name="CharacterNameLabel" class="pillar-name enemy-pillar-name" style="border-right-width: 0; border-left-width: 0; border-top-width: 2px; border-bottom-width: 2px;" />
                                 </ui:VisualElement>
                                 <ui:VisualElement class="pillar-text">
-                                    <ui:Label tabindex="-1" text="There was was a man who was sleepy so he poured himself a pot of coffee soon oh the anxiety comes, so he drinks more and more!" display-tooltip-when-elided="true" name="CharacterText" class="pillar-desc-label" />
+                                    <ui:Label tabindex="-1" text="There was was a man who was sleepy so he poured himself a pot of coffee soon oh the anxiety comes, so he drinks more and more!" display-tooltip-when-elided="true" name="CharacterText" class="pillar-desc-label" style="-unity-text-align: middle-center; left: auto;" />
                                 </ui:VisualElement>
                             </ui:VisualElement>
                         </ui:VisualElement>
@@ -505,7 +508,7 @@
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:Button text="End Turn" display-tooltip-when-elided="true" name="end-turn" style="font-size: 20px; position: absolute; top: 1019px; left: 1816px; width: 5%; height: 5%;" />
+        <ui:Button text="End Turn" display-tooltip-when-elided="true" name="end-turn" style="font-size: 20px; position: absolute; top: auto; left: auto; width: 5%; height: 5%; right: 49%; bottom: 54%;" />
         <ui:VisualElement name="mamna" style="flex-grow: 1; background-color: rgba(37, 51, 40, 0); background-image: url(&quot;project://database/Assets/Sprites/CardArt/mana.png?fileID=2800000&amp;guid=ebd3d0dd729f80e40a80297099aa71d5&amp;type=3#mana&quot;); position: absolute; top: 881px; left: -2px; height: 200px; width: 200px; align-items: center; align-self: auto; justify-content: center;">
             <ui:Label tabindex="-1" text="-1" display-tooltip-when-elided="true" name="CounterUh" style="margin-top: -10px; font-size: 50px;" />
         </ui:VisualElement>

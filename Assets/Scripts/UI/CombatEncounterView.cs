@@ -107,6 +107,9 @@ public class CombatEncounterView : GenericSingleton<CombatEncounterView>
 
         var pillarContainer = new VisualElement();
         pillarContainer.AddToClassList("pillar-container");
+        if (isEnemy) {
+            pillarContainer.AddToClassList("enemy-pillar-container");
+        }
         pillarContainer.Add(setupCardColumn(entity, index, isEnemy));
 
         var leftColumn = new VisualElement();
@@ -139,6 +142,13 @@ public class CombatEncounterView : GenericSingleton<CombatEncounterView>
         var column = new VisualElement();
         column.name = entity.GetName();
         column.AddToClassList("pillar-card-column");
+        if (isEnemy) {
+            column.AddToClassList("enemy-pillar-card-column");
+        }
+
+        var internalBorder = new VisualElement();
+        internalBorder.AddToClassList("pillar-internal-border");
+        column.Add(internalBorder);
 
         VisualElement detailsContainer = setupCardColumnPortraitAndTitle(column, entity, index, isEnemy);
         VisualElement descriptionContainer = setupCardColumnDescription(entity, detailsContainer, index, isEnemy);
@@ -153,21 +163,32 @@ public class CombatEncounterView : GenericSingleton<CombatEncounterView>
 
     // returns the details container, which holds everything below the portrait
     private VisualElement setupCardColumnPortraitAndTitle(VisualElement column, IUIEntity entity, int index, bool isEnemy) {
+        var portraitContainerContainer = new VisualElement(); //The name makes sense I promise
+        portraitContainerContainer.AddToClassList("portrait-container-container");
+
         var portraitContainer = new VisualElement();
         var baseString = isEnemy ? UIDocumentGameObjectPlacer.ENEMY_UIDOC_ELEMENT_PREFIX : UIDocumentGameObjectPlacer.COMPANION_UIDOC_ELEMENT_PREFIX;
         string portraitContainerName = baseString + index.ToString();
         portraitContainer.name = portraitContainerName;
         portraitContainer.AddToClassList("portrait-container");
-        column.Add(portraitContainer);
+        portraitContainerContainer.Add(portraitContainer);
+        column.Add(portraitContainerContainer);
         column.AddToClassList(portraitContainer.name + STATUS_EFFECTS_CONTAINER_SUFFIX);
+        
 
         var detailsContainer = new VisualElement();
         detailsContainer.AddToClassList("pillar-details");
 
         var titleContainer = new VisualElement();
         titleContainer.AddToClassList("pillar-name");
+        if (isEnemy) {
+            titleContainer.AddToClassList("enemy-pillar-name");
+        }
         var titleLabel = new Label();
         titleLabel.AddToClassList("pillar-name");
+        if (isEnemy) {
+            titleLabel.AddToClassList("enemy-pillar-name");
+        }
         titleContainer.Add(titleLabel);
         titleLabel.text = entity.GetName(); 
         detailsContainer.Add(titleContainer);

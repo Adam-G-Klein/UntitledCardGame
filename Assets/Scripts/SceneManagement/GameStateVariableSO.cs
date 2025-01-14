@@ -20,6 +20,7 @@ public enum Location {
     BOSSFIGHT,
     INTRO_CUTSCENE,
     TUTORIAL,
+    SHOP_TUTORIAL,
 }
 
 [CreateAssetMenu(
@@ -50,6 +51,7 @@ public class GameStateVariableSO : ScriptableObject
         {Location.WAKE_UP_ROOM, "AidensRoom"},
         {Location.TEAM_SIGNING, "TeamSigning"},
         {Location.TUTORIAL, "TutorialScene"},
+        {Location.SHOP_TUTORIAL, "ShopTutorialScene"},
         {Location.MAP, "Map"},
         {Location.TEAM_SELECT, "TeamSelect"},
         {Location.PRE_COMBAT_SPLASH, "PreCombatSplash"},
@@ -69,6 +71,7 @@ public class GameStateVariableSO : ScriptableObject
         {Location.TEAM_SIGNING, Location.COMBAT},*/
         {Location.INTRO_CUTSCENE, Location.TUTORIAL},
         {Location.TUTORIAL, Location.TEAM_SIGNING},
+        {Location.SHOP_TUTORIAL, Location.SHOP},
         {Location.TEAM_SIGNING, Location.COMBAT},
         {Location.TEAM_SELECT, Location.COMBAT},
         {Location.COMBAT, Location.POST_COMBAT},
@@ -84,7 +87,8 @@ public class GameStateVariableSO : ScriptableObject
     public int lastTutorialLoopIndex = 2;
     public int bossFightLoopIndex = 6;
     public int tutorialLoops = 2;
-    
+    private bool hasSeenShopTutorial = false;
+
     // TODO: make this more versatile if we want the map to actually do things.
     // also want to field criticism about whether this should live here.
     // My only argument for placing it here is that this is one of the main
@@ -146,6 +150,16 @@ public class GameStateVariableSO : ScriptableObject
                 break;
             case Location.POST_COMBAT:
                 Debug.Log("Leaving post combat, current location is: " + currentLocation);
+                Debug.Log("Has seen shop tutorial" + hasSeenShopTutorial);
+                if (!hasSeenShopTutorial) {
+                    hasSeenShopTutorial = true;
+                    currentLocation = Location.SHOP_TUTORIAL;
+                } else {
+                    currentLocation = locationToNextLocation[currentLocation];
+                    AdvanceEncounter();
+                }
+                break;
+            case Location.SHOP_TUTORIAL:
                 currentLocation = locationToNextLocation[currentLocation];
                 AdvanceEncounter();
                 break;
@@ -240,6 +254,7 @@ public class GameStateVariableSO : ScriptableObject
     }
 
     public void StartNewRun(MapGeneratorSO mapGeneratorSO) {
+        hasSeenShopTutorial = false;
         setMapGenerator(mapGeneratorSO);
         map.SetValue(mapGenerator.generateMap());
         playerData.initialize(baseShopData);

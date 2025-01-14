@@ -18,6 +18,8 @@ public class UpdateTutorialUIDocAction : TutorialAction
 
     [SerializeField]
     private string tutorialIndex;
+    [SerializeField]
+    private string tutorialStepsCount = "3";
 
     [SerializeField]
     private string buttonText;
@@ -47,7 +49,7 @@ public class UpdateTutorialUIDocAction : TutorialAction
         //text3.MarkDirtyRepaint();
         //TODO: force the document to rerender or something like that I think
         Label tutorialIndexText = root.Q<Label>("tutorialIndexText");
-        tutorialIndexText.text = $"(Page {tutorialIndex} of 3)"; 
+        tutorialIndexText.text = $"(Page {tutorialIndex} of {tutorialStepsCount})"; 
 
         VisualElement visualElement = root.Q<VisualElement>("tutorialImage");
         visualElement.style.backgroundImage = new StyleBackground(tutorialImage); 

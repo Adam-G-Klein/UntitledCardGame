@@ -127,6 +127,7 @@ public class TutorialManager : MonoBehaviour
             // can't have non-monobehavior classes own coroutines
             foreach (TutorialAction action in currentStep.actions)
             {
+                Debug.Log("ActionType" + action.GetType());
                 currentAction = action;
                 currentStepIndex += 1;
                 yield return StartCoroutine(action.Invoke());
