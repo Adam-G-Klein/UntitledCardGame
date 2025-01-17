@@ -9,6 +9,9 @@ using Unity.VisualScripting;
 using System.Runtime.InteropServices;
 using JetBrains.Annotations;
 
+
+// This class isn't expected to have a delegate view or delegate controller because it'll be wrapped
+// by one that does
 public class CardView {
     public VisualElement cardContainer;
     // TODO, could require the stylesheet in the constructor and fetch these from there
@@ -16,6 +19,7 @@ public class CardView {
     public static int CARD_TITLE_SIZE = 44; //px
     public static int CARD_DESC_MAX_FULL_SIZE_CHARS = 18; // guess
     public static int CARD_TITLE_MAX_FULL_SIZE_CHARS = 8; // guess
+    
     public CardView(CardType cardType, CompanionTypeSO companionType) {
         cardContainer = makeWorldspaceCardView(cardType, companionType);
     }

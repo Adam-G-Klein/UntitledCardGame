@@ -1,0 +1,34 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/Shop/ShopUIStylesheet.uss?fileID=7433441132597879392&amp;guid=b4d5060bf962ba64c83be6329cd47b49&amp;type=3#ShopUIStylesheet" />
+    <Style src="project://database/Assets/UI/common.uss?fileID=7433441132597879392&amp;guid=8d0bc28a2ed710a44b762e4c857ac6f9&amp;type=3#common" />
+    <Style src="project://database/Assets/UI%20Toolkit/Stylesheets/entity.uss?fileID=7433441132597879392&amp;guid=f28fa9619ee10d041b7306d0537405c5&amp;type=3#entity" />
+    <ui:VisualElement style="flex-grow: 1; flex-direction: column;">
+        <ui:VisualElement name="topSection" style="flex-grow: 1; height: auto; min-height: 20%; max-height: 20%; flex-direction: row;">
+            <ui:VisualElement style="flex-grow: 1; flex-direction: row; justify-content: flex-start; align-items: center; width: 50%;">
+                <ui:VisualElement name="moneyIndicator" style="flex-grow: 0; background-image: url(&quot;project://database/Assets/Sprites/Z_OldPlaceholderSprites/gold.png?fileID=2800000&amp;guid=89fa58e3b56419c4381ed18792e533f3&amp;type=3#gold&quot;); width: 103px; height: 79px; flex-shrink: 0; padding-right: 0; margin-right: 30px; margin-left: 30px;" />
+                <ui:Button text="View Companions" parse-escape-sequences="true" display-tooltip-when-elided="true" name="view-companions-button" class="shopButton" style="margin-top: 2px; width: 40%; flex-grow: 0;" />
+            </ui:VisualElement>
+            <ui:VisualElement style="flex-grow: 1; width: 50%; justify-content: space-around; flex-direction: row; align-items: center;">
+                <ui:VisualElement name="map" style="flex-grow: 0; height: 40%; flex-shrink: 0; justify-content: flex-start; width: 80%; background-color: rgb(0, 0, 0);">
+                    <ui:Label tabindex="-1" text="Placeholder for the map" parse-escape-sequences="true" display-tooltip-when-elided="true" style="color: rgb(255, 255, 255); font-size: 28px;" />
+                </ui:VisualElement>
+                <ui:Button text="Placeholder Options Button" parse-escape-sequences="true" display-tooltip-when-elided="true" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="bottomSection" style="flex-grow: 1; flex-direction: row;">
+            <ui:VisualElement style="flex-grow: 1; flex-basis: auto; width: 25%; height: 100%; justify-content: center; align-self: flex-start; align-items: center;">
+                <ui:VisualElement class="shopButtonContainer">
+                    <ui:Button text="Upgrade" parse-escape-sequences="true" display-tooltip-when-elided="true" name="UpgradeButton" class="shopButton" style="margin-right: 0;" />
+                    <ui:Label tabindex="-1" text="$1" parse-escape-sequences="true" display-tooltip-when-elided="true" class="shopButtonPriceTag" />
+                </ui:VisualElement>
+                <ui:VisualElement class="shopButtonContainer">
+                    <ui:Button text="Reroll" parse-escape-sequences="true" display-tooltip-when-elided="true" name="RerollButton" class="shopButton" style="margin-right: 0;" />
+                    <ui:Label tabindex="-1" text="$1" parse-escape-sequences="true" display-tooltip-when-elided="true" style="background-image: url(&quot;project://database/Assets/Sprites/AidensRoom/DialogueBox.png?fileID=2800000&amp;guid=e1a81dd917fe696459cd192b12e9b3fc&amp;type=3#DialogueBox&quot;); align-self: center; margin-left: 0; width: 20%; height: 33%; align-items: center; justify-content: flex-start; -unity-text-align: middle-center; -unity-font-style: bold; font-size: 18px;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement style="flex-grow: 1; width: 75%; justify-content: center;">
+                <ui:VisualElement name="shop-goods-area" style="flex-grow: 0; width: 100%; justify-content: center; flex-direction: row; align-self: auto; align-items: center; height: 35%; flex-shrink: 0;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
