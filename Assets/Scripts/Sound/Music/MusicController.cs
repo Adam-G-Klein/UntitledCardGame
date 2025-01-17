@@ -36,14 +36,14 @@ public class MusicController : GenericSingleton<MusicController>
     private float introVolume = 0.15f;
 
 
-    [SerializeField]
+    /*[SerializeField]
     private float otherVolume = 0.3f;
     [SerializeField]
     private float defaultSFXVolume = 0.5f;  
     [SerializeField]
     private float defaultSFXPitch = 1.0f;
 
-    private AudioSource sfxSource;
+    private AudioSource sfxSource;*/
 
 
 
