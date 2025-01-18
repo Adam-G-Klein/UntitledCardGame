@@ -31,6 +31,10 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         cardDrawVFXPrefab = EnemyEncounterManager.Instance.encounterConstants.cardDrawVFXPrefab;
     }
 
+    public void UpdatePlayableCards(DeckInstance deckFrom) {
+        
+    }
+
     public List<PlayableCard> DealCards(List<Card> cards, DeckInstance deckFrom) {
         List<PlayableCard> cardsDelt = new List<PlayableCard>();
         PlayableCard newCard;

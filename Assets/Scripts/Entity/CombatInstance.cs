@@ -10,6 +10,8 @@ public class CombatInstance : MonoBehaviour
 
     public delegate IEnumerator OnDeathHandler(CombatInstance killer);
     public event OnDeathHandler onDeathHandler;
+    public delegate void OnStatusChangeHandler();
+    public event OnStatusChangeHandler onStatusChangeHandler;
 
     public AudioClip genericInteractionSFX;
     public GameObject genericInteractionVFX;
@@ -55,6 +57,11 @@ public class CombatInstance : MonoBehaviour
             AddVFX();
         }
         UpdateView();
+        if (onStatusChangeHandler != null) {
+            foreach (OnStatusChangeHandler handler in onStatusChangeHandler.GetInvocationList()) {
+                handler.Invoke();
+            }
+        }
     }
 
     public void Setup(CombatStats combatStats, Entity parentEntity, CombatInstanceParent parentType, WorldPositionVisualElement wpve) {

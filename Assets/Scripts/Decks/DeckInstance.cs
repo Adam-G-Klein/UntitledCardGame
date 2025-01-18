@@ -26,6 +26,11 @@ public class DeckInstance : MonoBehaviour
         RegisterEndTurnTrigger();
         RegisterEndOfEncounterHandler();
         combatInstance.onDeathHandler += OnDeath;
+        combatInstance.onStatusChangeHandler += OnStatusChange;
+    }
+
+    private void OnStatusChange() {
+        PlayerHand.Instance.UpdatePlayableCards(this);
     }
 
     private void RegisterEndOfEncounterHandler() {

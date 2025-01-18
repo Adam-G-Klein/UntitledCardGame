@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 public class ShopItemView {
@@ -6,7 +7,11 @@ public class ShopItemView {
     public CompanionInShopWithPrice companionInShop = null;
     public CardInShopWithPrice cardInShop = null;
 
+    private float SCREEN_WIDTH_PERCENT = 0.125f;
+    private float RATIO = 1.6f;
+
     private IShopItemViewDelegate viewDelegate;
+
 
     public ShopItemView(IShopItemViewDelegate viewDelegate, CompanionInShopWithPrice companion) {
         this.viewDelegate = viewDelegate;
@@ -23,6 +28,13 @@ public class ShopItemView {
     private VisualElement makeCompanionShopItem(CompanionInShopWithPrice companion) {
         VisualElement shopItemElement = new VisualElement();
         shopItemElement.AddToClassList("shop-item-container");
+        Debug.Log(Camera.main);
+        Debug.Log(Camera.main.pixelWidth);
+        int width = (int)(Camera.main.pixelWidth * SCREEN_WIDTH_PERCENT);
+        int height = (int)(width * RATIO);
+        shopItemElement.style.width = width;
+        shopItemElement.style.height = height;
+
 
         // Bit of a hack, but I don't feel like completely refactoring entity view right now
         Companion tempCompanion = new Companion(companion.companionType);
