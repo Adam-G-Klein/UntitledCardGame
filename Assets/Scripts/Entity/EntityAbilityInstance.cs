@@ -176,6 +176,11 @@ public class CompanionInstanceAbilityInstance : EntityAbilityInstance
 {
     private CompanionInstance companionInstance;
 
+    public CompanionInstanceAbilityInstance(EntityAbility ability, CompanionInstance companionInstance) {
+        this.ability = ability;
+        this.companionInstance = companionInstance;
+    }
+
     protected override CombatInstance getCombatInstance() { return companionInstance.combatInstance; }
 
     protected override EffectDocument createEffectDocument()
@@ -187,9 +192,14 @@ public class CompanionInstanceAbilityInstance : EntityAbilityInstance
     }
 }
 
-public class EnemyInstanceAbilitInstance : EntityAbilityInstance
+public class EnemyInstanceAbilityInstance : EntityAbilityInstance
 {
     private EnemyInstance enemyInstance;
+
+    public EnemyInstanceAbilityInstance(EntityAbility ability, EnemyInstance enemyInstance) {
+        this.ability = ability;
+        this.enemyInstance = enemyInstance;
+    }
 
     protected override CombatInstance getCombatInstance() { return enemyInstance.combatInstance; }
 
