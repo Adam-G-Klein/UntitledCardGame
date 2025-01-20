@@ -14,13 +14,117 @@ public abstract class EntityAbilityInstance
     // Provide access to the underlying combat instance for different subclasses.
     protected abstract CombatInstance getCombatInstance();
 
+    // Abstract because different implementations of the subclass will create different versions of the base effect document.
+    protected abstract EffectDocument createEffectDocument();
+
+    private IEnumerable setupAndInvokeAbility() {
+        EffectDocument document = createEffectDocument();
+        yield return EffectManager.Instance.invokeEffectWorkflowCoroutine(document, ability.effectSteps, null);
+    }
+
     public void Setup() {
         getCombatInstance().onDeathHandler += OnDeath;
         registerTrigger();
     }
 
     private void registerTrigger() {
+        switch (ability.abilityTrigger) {
+            case EntityAbility.EntityAbilityTrigger.EnterTheBattlefield:
+                setupForTurnPhaseTrigger(TurnPhase.START_ENCOUNTER);
+            break;
 
+            case EntityAbility.EntityAbilityTrigger.EndOfCombat:
+                setupForTurnPhaseTrigger(TurnPhase.END_ENCOUNTER);
+            break;
+
+            case EntityAbility.EntityAbilityTrigger.EndOfPlayerTurn:
+                setupForTurnPhaseTrigger(TurnPhase.BEFORE_END_PLAYER_TURN);
+            break;
+
+            case EntityAbility.EntityAbilityTrigger.EndOfEnemyTurn:
+                setupForTurnPhaseTrigger(TurnPhase.END_ENEMY_TURN);
+            break;
+
+            case EntityAbility.EntityAbilityTrigger.StartOfPlayerTurn:
+                setupForTurnPhaseTrigger(TurnPhase.START_PLAYER_TURN);
+            break;
+
+            case EntityAbility.EntityAbilityTrigger.OnFriendOrFoeDeath:
+                CombatEntityTrigger companionDeathTrigger = new CombatEntityTrigger(
+                    CombatEntityTriggerType.COMPANION_DIED,
+                    setupAndInvokeAbility());
+                CombatEntityTrigger enemyDeathTrigger = new CombatEntityTrigger(
+                    CombatEntityTriggerType.ENEMY_DIED,
+                    setupAndInvokeAbility());
+                CombatEntityTrigger minionDeathTrigger = new CombatEntityTrigger(
+                    CombatEntityTriggerType.MINION_DIED,
+                    setupAndInvokeAbility());
+                CombatEntityManager.Instance.registerTrigger(companionDeathTrigger);
+                CombatEntityManager.Instance.registerTrigger(enemyDeathTrigger);
+                CombatEntityManager.Instance.registerTrigger(minionDeathTrigger);
+            break;
+
+            case EntityAbility.EntityAbilityTrigger.OnFriendDeath:
+                CombatEntityManager.Instance.registerTrigger(new CombatEntityTrigger(
+                    CombatEntityTriggerType.COMPANION_DIED,
+                    setupAndInvokeAbility()));
+            break;
+
+            // Experiment: let's try handling the OnDeath trigger by directly doing it here in the callback.
+            case EntityAbility.EntityAbilityTrigger.OnDeath:
+            //     this.companionInstance.SetCompanionAbilityDeathCallback(setupAndInvokeAbility());
+                break;
+
+            case EntityAbility.EntityAbilityTrigger.OnCardCast:
+                PlayerHand.Instance.onCardCastHandler += OnCardCast;
+            break;
+            case EntityAbility.EntityAbilityTrigger.OnCombine:
+                // This is handled in the Companion class's constructor.
+                // It's messy, but CompanionInstance and therefore this class just never exist
+                // in the shop as of this writing
+                break;
+            case EntityAbility.EntityAbilityTrigger.OnCardExhausted:
+                PlayerHand.Instance.onCardExhaustHandler += OnCardExhaust;
+                break;
+            case EntityAbility.EntityAbilityTrigger.OnDeckShuffled:
+                PlayerHand.Instance.onDeckShuffledHandler += OnDeckShuffled;
+                break;
+            case EntityAbility.EntityAbilityTrigger.OnFriendDamageTaken:
+                CombatEntityManager.Instance.onCompanionDamageHandler += OnDamageTaken;
+                break;
+        }
+    }
+
+    private IEnumerator OnDeath(CombatInstance killer) {
+        // TODO: UNCLEAR IF THIS WORKS.
+        if (ability.abilityTrigger == EntityAbility.EntityAbilityTrigger.OnDeath) {
+            yield return setupAndInvokeAbility().GetEnumerator();
+        }
+
+        foreach (TurnPhaseTrigger trigger in turnPhaseTriggers) {
+            TurnManager.Instance.removeTurnPhaseTrigger(trigger);
+        }
+
+        foreach (CombatEntityTrigger trigger in combatEntityTriggers) {
+            CombatEntityManager.Instance.unregisterTrigger(trigger);
+        }
+
+        if (ability.abilityTrigger == EntityAbility.EntityAbilityTrigger.OnCardCast) {
+            PlayerHand.Instance.onCardCastHandler -= OnCardCast;
+        }
+
+        // This way of unsubscribing is giga sketchy, because PlayerHand is a generic singleton
+        // and persists longer than the "Instance" game objects.
+        // When should we unsubscribe so that we do not get memory leaks?
+        if (ability.abilityTrigger == EntityAbility.EntityAbilityTrigger.OnCardExhausted) {
+            PlayerHand.Instance.onCardExhaustHandler -= OnCardExhaust;
+        }
+        if (ability.abilityTrigger == EntityAbility.EntityAbilityTrigger.OnDeckShuffled) {
+            PlayerHand.Instance.onDeckShuffledHandler -= OnDeckShuffled;
+        }
+        if (ability.abilityTrigger == EntityAbility.EntityAbilityTrigger.OnFriendDamageTaken) {
+            CombatEntityManager.Instance.onCompanionDamageHandler -= OnDamageTaken;
+        }
     }
 
     private void setupForTurnPhaseTrigger(TurnPhase turnPhase) {
@@ -29,11 +133,42 @@ public abstract class EntityAbilityInstance
         TurnManager.Instance.addTurnPhaseTrigger(newTrigger);
     }
 
-    protected abstract IEnumerable setupAndInvokeAbility();
+    // This is a bit of a hack, but I'm ok with it being here for now
+    private IEnumerator OnCardCast(PlayableCard card) {
+        EffectDocument document = createEffectDocument();
+        document.map.AddItem<PlayableCard>("cardPlayed", card);
+        yield return EffectManager.Instance.invokeEffectWorkflowCoroutine(document, ability.effectSteps, null);
+    }
 
+    private IEnumerator OnCardExhaust(DeckInstance deckFrom, Card card) {
+        EffectDocument document = createEffectDocument();
+        if (deckFrom.TryGetComponent(out CompanionInstance companion)) {
+            document.map.AddItem<CompanionInstance>("companionExhaustedFrom", companion);
+            document.map.AddItem<CombatInstance>("companionExhaustedFrom", companion.combatInstance);
+            document.map.AddItem<DeckInstance>("companionExhaustedFrom", companion.deckInstance);
+        }
+        yield return EffectManager.Instance.invokeEffectWorkflowCoroutine(document, ability.effectSteps, null);
+    }
 
-    private IEnumerator OnDeath(CombatInstance killer) {
-        yield return null;
+    private IEnumerator OnDeckShuffled(DeckInstance deckFrom) {
+        // EffectDocument document = createEffectDocument();
+        // TODO: add the deck shuffled as a key in the map here.
+        yield return setupAndInvokeAbility().GetEnumerator();
+    }
+
+    private IEnumerator OnDamageTaken(CombatInstance damagedInstance) {
+        // Do not run this trigger on enemies taking damage.
+        if (damagedInstance.parentType != CombatInstance.CombatInstanceParent.COMPANION) {
+            yield break;
+        }
+        EffectDocument document = createEffectDocument();
+        CompanionInstance companion = CombatEntityManager.Instance.getCompanionInstanceForCombatInstance(damagedInstance);
+        if (companion != null) {
+            document.map.AddItem<CompanionInstance>("damagedCompanion", companion);
+            document.map.AddItem<CombatInstance>("damagedCompanion", companion.combatInstance);
+            document.map.AddItem<DeckInstance>("damagedCompanion", companion.deckInstance);
+        }
+        yield return EffectManager.Instance.invokeEffectWorkflowCoroutine(document, ability.effectSteps, null);
     }
 }
 
@@ -43,12 +178,12 @@ public class CompanionInstanceAbilityInstance : EntityAbilityInstance
 
     protected override CombatInstance getCombatInstance() { return companionInstance.combatInstance; }
 
-    protected override IEnumerable setupAndInvokeAbility()
+    protected override EffectDocument createEffectDocument()
     {
         EffectDocument document = new EffectDocument();
         document.map.AddItem(EffectDocument.ORIGIN, this.companionInstance);
         document.originEntityType = EntityType.CompanionInstance;
-        yield return EffectManager.Instance.invokeEffectWorkflowCoroutine(document, ability.effectSteps, null);
+        return document;
     }
 }
 
@@ -58,11 +193,11 @@ public class EnemyInstanceAbilitInstance : EntityAbilityInstance
 
     protected override CombatInstance getCombatInstance() { return enemyInstance.combatInstance; }
 
-    protected override IEnumerable setupAndInvokeAbility()
+    protected override EffectDocument createEffectDocument()
     {
         EffectDocument document = new EffectDocument();
         document.map.AddItem(EffectDocument.ORIGIN, this.enemyInstance);
         document.originEntityType = EntityType.Enemy;
-        yield return EffectManager.Instance.invokeEffectWorkflowCoroutine(document, ability.effectSteps, null);
+        return document;
     }
 }
