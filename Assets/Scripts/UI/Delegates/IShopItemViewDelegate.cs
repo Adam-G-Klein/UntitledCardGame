@@ -1,5 +1,7 @@
 using System;
 
 public interface IShopItemViewDelegate {
-    void ShopItemClickedOn(ShopItemView shopItemView);
+    void ShopItemOnClick(ShopItemView shopItemView);
+    void RerollButtonOnClick();
+    void UpgradeButtonOnClick();
 }

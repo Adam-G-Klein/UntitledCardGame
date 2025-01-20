@@ -25,10 +25,30 @@ public class TestSetupCompanions : MonoBehaviour, IShopItemViewDelegate
         }
     }
 
+    public void RerollButtonOnClick()
+    {
+        throw new System.NotImplementedException();
+    }
+
     public void ShopItemClickedOn(ShopItemView shopItemView)
     {
         Debug.Log("Thing was clicked on yippee!");
         Debug.Log(shopItemView.companionInShop);
         Debug.Log(shopItemView.cardInShop);
+    }
+
+    public void ShopItemOnClick(ShopItemView shopItemView)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void UpgradeButtonOnClick()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void ViewCompanionsOnClick()
+    {
+        throw new System.NotImplementedException();
     }
 }

@@ -8,6 +8,9 @@ public class EntityView {
 
     public static string STATUS_EFFECTS_CONTAINER_SUFFIX = "-status-effects";
 
+    private float SCREEN_WIDTH_PERCENT = 0.11f;
+    private float RATIO = 1.4f;
+
     public EntityView(IUIEntity entity, int index, bool isEnemy) {
         entityContainer = setupEntity(entity, index, isEnemy);
     }
@@ -34,6 +37,10 @@ public class EntityView {
         pillarContainer.Add(rightColumn);
 
         pillar.Add(pillarContainer);
+
+        Tuple<int, int> entityWidthHeight = GetWidthAndHeight();
+        pillar.style.width = entityWidthHeight.Item1;
+        pillar.style.height = entityWidthHeight.Item2;
         
         return pillar;
     }
@@ -117,5 +124,19 @@ public class EntityView {
         }
 
         return tabContainer;
+    }
+
+    private Tuple<int, int> GetWidthAndHeight() {
+        int width = (int)(Screen.width * SCREEN_WIDTH_PERCENT);
+        int height = (int)(width * RATIO);
+
+        // This drove me insane btw
+        #if UNITY_EDITOR
+        UnityEditor.PlayModeWindow.GetRenderingResolution(out uint windowWidth, out uint windowHeight);
+        width = (int)(windowWidth * SCREEN_WIDTH_PERCENT);
+        height = (int)(width * RATIO);
+        #endif
+
+        return new Tuple<int, int>(width, height);
     }
 }

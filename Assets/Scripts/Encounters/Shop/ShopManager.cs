@@ -20,7 +20,10 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     private ShopLevel shopLevel;
     private GameObject companionViewUI = null;
     private bool buyingCard = false;
+    // Old one
     private CardBuyRequest currentBuyRequest;
+    // New one, delete old one once migration is finished
+    private CardInShopWithPrice currentCardBuyRequest;
     private CompanionCombinationManager companionCombinationManager;
     [SerializeField]
     public UIDocumentGameObjectPlacer placer { get; set; }
@@ -57,6 +60,36 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
         if (IS_DEVELOPMENT_MODE && Input.GetKeyDown(KeyCode.G)) {
             gameState.playerData.GetValue().gold += 1;
+        }
+    }
+
+    public void ProcessCardBuyRequestV2(ShopItemView shopItemView, CardInShopWithPrice cardInShop) {
+        if(DialogueManager.Instance.dialogueInProgress) {
+            return;
+        }
+        if (gameState.playerData.GetValue().gold >= cardInShop.price) {
+            this.buyingCard = true;
+            this.currentCardBuyRequest = cardInShop;
+            // TODO: All of this once the new companion view UI is done
+
+            // this.companionViewUI = GameObject.Instantiate(
+            //             companionViewUIPrefab,
+            //             new Vector3(Screen.width / 2, Screen.height / 2, 0),
+            //             Quaternion.identity);
+
+
+
+            // this.companionViewUI
+            //     .GetComponent<CompanionViewUI>()
+            //     .setupCompanionDisplay(determineApplicableActiveCompanions(cardBuyRequest.cardInfo),
+            //     determineApplicableBenchCompanions(cardBuyRequest.cardInfo),
+            //     gameState.companions.currentCompanionSlots,
+            //     new List<CompanionActionType>() {
+            //         CompanionActionType.SELECT,
+            //         CompanionActionType.VIEW_DECK
+            //     });
+        } else {
+            // TODO: Loop into new shop ui and display notification for needing more money
         }
     }
 
@@ -125,14 +158,31 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         return companionList;
     }
 
+    public void ProcessCompanionBuyRequestV2(ShopItemView shopItemView, CompanionInShopWithPrice companionInShop) {
+        Debug.Log("Processing companion buy request");
+        if(DialogueManager.Instance.dialogueInProgress) {
+            return;
+        }
+
+        if (gameState.playerData.GetValue().gold >= companionInShop.price) {
+            gameState.playerData.GetValue().gold -= companionInShop.price;
+            Companion newCompanion = new Companion(companionInShop.companionType);
+            if(!companionCombinationManager.AttemptUpgradeCompanion(newCompanion)){
+                Debug.Log("Upgrade not appicable, adding to benched companions");
+                this.gameState.companions.benchedCompanions.Add(newCompanion);
+            }
+        } else {
+            // TODO: Loop into new shop ui and display notification for needing more money
+        }
+    }
+
     public void processCompanionBuyRequest(CompanionBuyRequest request) {
         Debug.Log("Processing companion buy request");
         if(DialogueManager.Instance.dialogueInProgress) {
             return;
         }
+
         if (gameState.playerData.GetValue().gold >= request.price) {
-
-
             gameState.playerData.GetValue().gold -= request.price;
             // check that this wasn't purchased with debug tooling
             if(request.keepsakeInShop != null) {

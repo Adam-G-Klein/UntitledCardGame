@@ -15,15 +15,20 @@ public class ShopViewController : MonoBehaviour, IShopItemViewDelegate
     // Specific shop VisualElement references
     private VisualElement shopGoodsArea;
 
-    public void Init() {
+    public void Init(ShopManager shopManager) {
         if (uiDoc == null) {
             uiDoc = GetComponent<UIDocument>();
         }
+
+        this.shopManager = shopManager;
 
         cardItemToViewMap = new Dictionary<CardInShopWithPrice, ShopItemView>();
         companionItemToViewMap = new Dictionary<CompanionInShopWithPrice, ShopItemView>();
 
         shopGoodsArea = uiDoc.rootVisualElement.Q("shop-goods-area");
+
+        uiDoc.rootVisualElement.Q<Button>("reroll-button").clicked += RerollButtonOnClick;
+        uiDoc.rootVisualElement.Q<Button>("upgrade-button").clicked += UpgradeButtonOnClick;
     }
 
     public void AddCardToShopView(CardInShopWithPrice card) {
@@ -60,8 +65,19 @@ public class ShopViewController : MonoBehaviour, IShopItemViewDelegate
         companionItemToViewMap.Remove(companion);
     }
 
-    public void ShopItemClickedOn(ShopItemView shopItemView)
-    {
-        throw new System.NotImplementedException();
+    public void ShopItemOnClick(ShopItemView shopItemView) {
+        if (shopItemView.companionInShop != null) {
+            shopManager.ProcessCompanionBuyRequestV2(shopItemView, shopItemView.companionInShop);
+        } else if (shopItemView.cardInShop != null) {
+            shopManager.ProcessCardBuyRequestV2(shopItemView, shopItemView.cardInShop);
+        }
+    }
+
+    public void RerollButtonOnClick() {
+        shopManager.processRerollShopClick();
+    }
+
+    public void UpgradeButtonOnClick() {
+        shopManager.processUpgradeShopClick();
     }
 }

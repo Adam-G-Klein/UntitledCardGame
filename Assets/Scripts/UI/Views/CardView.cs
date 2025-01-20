@@ -1,13 +1,6 @@
 using UnityEngine;
 using System;
 using UnityEngine.UIElements;
-using System.Collections;
-using UnityEditor;
-using UnityEngine.UI;
-using UnityEngine.Playables;
-using Unity.VisualScripting;
-using System.Runtime.InteropServices;
-using JetBrains.Annotations;
 
 
 // This class isn't expected to have a delegate view or delegate controller because it'll be wrapped
@@ -19,6 +12,9 @@ public class CardView {
     public static int CARD_TITLE_SIZE = 44; //px
     public static int CARD_DESC_MAX_FULL_SIZE_CHARS = 18; // guess
     public static int CARD_TITLE_MAX_FULL_SIZE_CHARS = 8; // guess
+
+    private float SCREEN_WIDTH_PERCENT = 0.11f;
+    private float RATIO = 1.4f;
     
     public CardView(CardType cardType, CompanionTypeSO companionType) {
         cardContainer = makeWorldspaceCardView(cardType, companionType);
@@ -59,6 +55,10 @@ public class CardView {
         manaContainer.Add(manaCost);
         container.Add(manaContainer);
 
+        Tuple<int, int> cardWidthHeight = GetWidthAndHeight();
+        container.style.width = cardWidthHeight.Item1;
+        container.style.height = cardWidthHeight.Item2;
+
         return container;
     }
 
@@ -78,5 +78,19 @@ public class CardView {
             return (int)Math.Floor(CARD_TITLE_SIZE * textSizeRatio);
         }
         return CARD_TITLE_SIZE;
+    }
+
+    private Tuple<int, int> GetWidthAndHeight() {
+        int width = (int)(Screen.width * SCREEN_WIDTH_PERCENT);
+        int height = (int)(width * RATIO);
+
+        // This drove me insane btw
+        #if UNITY_EDITOR
+        UnityEditor.PlayModeWindow.GetRenderingResolution(out uint windowWidth, out uint windowHeight);
+        width = (int)(windowWidth * SCREEN_WIDTH_PERCENT);
+        height = (int)(width * RATIO);
+        #endif
+
+        return new Tuple<int, int>(width, height);
     }
 }

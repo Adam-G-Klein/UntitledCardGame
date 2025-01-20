@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 public class ShopItemView {
@@ -40,7 +41,6 @@ public class ShopItemView {
     }
 
     private VisualElement makeCardShopItem(CardInShopWithPrice card) {
-        // TODO
         VisualElement shopItemElement = new VisualElement();
         shopItemElement.AddToClassList("shop-item-container");
 
@@ -54,6 +54,6 @@ public class ShopItemView {
     }
 
     private void ShopItemViewOnClicked() {
-        viewDelegate.ShopItemClickedOn(this);
+        viewDelegate.ShopItemOnClick(this);
     }
 }
