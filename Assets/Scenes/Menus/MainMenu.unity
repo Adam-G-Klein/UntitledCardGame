@@ -38,7 +38,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -254,12 +253,12 @@ MonoBehaviour:
   m_RequiresColorTexture: 0
   m_Version: 2
   m_TaaSettings:
-    quality: 3
-    frameInfluence: 0.1
-    jitterScale: 1
-    mipBias: 0
-    varianceClampScale: 0.9
-    contrastAdaptiveSharpening: 0
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
 --- !u!1 &379649858
 GameObject:
   m_ObjectHideFlags: 0
@@ -496,9 +495,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2893979411728819029, guid: 409f8940f4da5f44a9a7b0c89889885c, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4851411726985941767, guid: 409f8940f4da5f44a9a7b0c89889885c, type: 3}
       propertyPath: introVolume
       value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4851411726985941767, guid: 409f8940f4da5f44a9a7b0c89889885c, type: 3}
+      propertyPath: precombatClips.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4851411726985941767, guid: 409f8940f4da5f44a9a7b0c89889885c, type: 3}
+      propertyPath: precombatClips.Array.data[0]
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4851411726985941767, guid: 409f8940f4da5f44a9a7b0c89889885c, type: 3}
       propertyPath: musicClipsOrderedByLocation.Array.size
@@ -507,11 +518,15 @@ PrefabInstance:
     - target: {fileID: 4851411726985941767, guid: 409f8940f4da5f44a9a7b0c89889885c, type: 3}
       propertyPath: musicClipsOrderedByLocation.Array.data[3]
       value: 
-      objectReference: {fileID: 8300000, guid: c35ae8aacd61ff54ea1594136a866127, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 4851411726985941767, guid: 409f8940f4da5f44a9a7b0c89889885c, type: 3}
       propertyPath: musicClipsOrderedByLocation.Array.data[4]
       value: 
-      objectReference: {fileID: 8300000, guid: a0f16f84ef4d1b640b7e882388ab2527, type: 3}
+      objectReference: {fileID: 0}
+    - target: {fileID: 5470193061424622864, guid: 409f8940f4da5f44a9a7b0c89889885c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5960683655966732213, guid: 409f8940f4da5f44a9a7b0c89889885c, type: 3}
       propertyPath: m_Name
       value: MusicManager

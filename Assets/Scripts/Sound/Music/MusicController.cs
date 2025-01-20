@@ -16,19 +16,19 @@ the plan:
 */
 public class MusicController : GenericSingleton<MusicController>
 {
-    private AudioSource audioSource;
+    //private AudioSource audioSource;
     [SerializeField]
-    private List<AudioClip> precombatClips = new List<AudioClip>();
+    private List<string> precombatClips = new List<string>();
     [SerializeField]
-    private List<AudioClip> postcombatClips = new List<AudioClip>();
+    private List<string> postcombatClips = new List<string>();
     [SerializeField]
-    private AudioClip tutorialClip;
+    //private AudioClip tutorialClip;
 
     [Header("Only clips in use below are main menu, tutorial, and bossfight")]
-    [SerializeField]
+    //[SerializeField]
     private List<Location> locationKeys = new List<Location>();
     [SerializeField]
-    private List<AudioClip> musicClipsOrderedByLocation = new List<AudioClip>();
+    private List<string> musicClipsOrderedByLocation = new List<string>();
 
     [SerializeField]
     private List<int> clipStartTimes = new List<int>();
@@ -43,7 +43,8 @@ public class MusicController : GenericSingleton<MusicController>
     [SerializeField]
     private float defaultSFXPitch = 1.0f;
 
-    private AudioSource sfxSource;*/
+    */private FMOD.Studio.EventInstance instance;
+    //private FMODUnity.EventReference reference;
 
 
 
@@ -55,39 +56,49 @@ public class MusicController : GenericSingleton<MusicController>
     }
 
     void Start() {
-        audioSource = GetComponent<AudioSource>();
-        if(sfxSource != null)
-            sfxSource = transform.GetChild(0).GetComponent<AudioSource>();  
+        //audioSource = GetComponent<AudioSource>();
+        //reference = 
+        //if(instance != null)
+            //sfxSource = transform.GetChild(0).GetComponent<AudioSource>();  
         PlayMusicForLocation(Location.MAIN_MENU);
     }
 
     public void PlayMusicForLocation(Location location, bool inTutorial = false)
     {
-        if(audioSource == null) {
-            Debug.LogWarning("No audio source found");
-            return;
-        }
+        //if(instance == null) {
+        //    Debug.LogWarning("No music in instance!");
+        //    return;
+        //}
         if(inTutorial && (location == Location.PRE_COMBAT_SPLASH || location == Location.COMBAT)) {
-            if(audioSource.clip != tutorialClip) {
-                audioSource.clip = tutorialClip;
-                audioSource.Play();
-            }
+            //if(audioSource.clip != tutorialClip) {
+            //    audioSource.clip = tutorialClip;
+            //    audioSource.Play();
+            //}
+            instance = FMODUnity.RuntimeManager.CreateInstance("event:/MX/MX_Tutorial");
+            instance.start();
             return;
         }
         switch(location) {
             case Location.PRE_COMBAT_SPLASH:
-                if(precombatClips.Count == 0) {
-                    return;
-                }
-                audioSource.clip = precombatClips[Random.Range(0, precombatClips.Count)];
-                audioSource.Play();
+                instance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+                //if(precombatClips.Count == 0) {
+                //    return;
+                //}
+                //audioSource.clip = precombatClips[Random.Range(0, precombatClips.Count)];
+                //audioSource.Play();
+                instance = FMODUnity.RuntimeManager.CreateInstance("event:/MX/MX_Combat");
+                instance.start();
                 break;
             case Location.POST_COMBAT:
-                if(postcombatClips.Count == 0) {
-                    return;
-                }
-                audioSource.clip = postcombatClips[Random.Range(0, postcombatClips.Count)];
-                audioSource.Play();
+                instance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+                //if(postcombatClips.Count == 0) {
+                //    return;
+                //}
+                //audioSource.clip = postcombatClips[Random.Range(0, postcombatClips.Count)];
+                //audioSource.Play();
+                
+                //below will eventually be a victory?
+                //instance = FMODUnity.RuntimeManager.CreateInstance("event:/MX/MX_Combat");
                 break;
             default:
                 PlayMusicForLocationFromList(location);
@@ -97,27 +108,27 @@ public class MusicController : GenericSingleton<MusicController>
 
     public void PlayMusicForLocationFromList(Location location)
     {
-        if(Instance == null || audioSource == null) {
+        if(Instance == null) {
             Debug.LogWarning("No music controller found");
             return;
         }
         int indexOfLocation = locationKeys.IndexOf(location);
-        if(indexOfLocation == -1 || audioSource.clip == musicClipsOrderedByLocation[indexOfLocation]) {
+        /*if(indexOfLocation == -1 || audioSource.clip == musicClipsOrderedByLocation[indexOfLocation]) {
             return;
         }
         if(location == Location.WAKE_UP_ROOM || location == Location.TEAM_SIGNING) {
             audioSource.volume = introVolume;
         } else {
             audioSource.volume = otherVolume;
-        }
+        }*/
         Debug.Log("playing clip");
-        audioSource.clip = musicClipsOrderedByLocation[indexOfLocation];
-        audioSource.time = clipStartTimes[indexOfLocation];
-        audioSource.Play();
+        //audioSource.clip = musicClipsOrderedByLocation[indexOfLocation];
+        //audioSource.time = clipStartTimes[indexOfLocation];
+        //audioSource.Play();
     }
 
     // spaghetti!
-    public void PlaySFX(AudioClip clip, float volume = -1, float pitch = 1.0f) {
+    /*public void PlaySFX(AudioClip clip, float volume = -1, float pitch = 1.0f) {
         if(sfxSource == null) {
             if(transform.childCount == 0) {
                 // TODO: completely refactor the sound system. No point in improving this marginally
@@ -131,14 +142,12 @@ public class MusicController : GenericSingleton<MusicController>
             }
         }
         if(volume == -1) {
-            volume = defaultSFXVolume;
+            //volume = defaultSFXVolume;
         }
-        if(!Mathf.Equals(pitch, 1.0f)) {
+        /*if(!Mathf.Equals(pitch, 1.0f)) {
             sfxSource.pitch = pitch;
         } else {
             sfxSource.pitch = defaultSFXPitch;
         }
-        sfxSource.PlayOneShot(clip, volume);
-    }
-
+        sfxSource.PlayOneShot(clip, volume);*/
 }

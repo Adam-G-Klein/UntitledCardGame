@@ -275,9 +275,11 @@ public class CombatInstance : MonoBehaviour
 
     private void PlaySFX(CombatInstance effector = null) {
         if(genericInteractionSFX != null) {
-            MusicController.Instance.PlaySFX(genericInteractionSFX);
+            //MusicController.Instance.PlaySFX(genericInteractionSFX);
+            //REPLACE
         } else if (effector != null && effector.genericInteractionSFX != null) {
-            MusicController.Instance.PlaySFX(effector.genericInteractionSFX);
+            //MusicController.Instance.PlaySFX(effector.genericInteractionSFX);
+            //REPLACE
         }
     }
 

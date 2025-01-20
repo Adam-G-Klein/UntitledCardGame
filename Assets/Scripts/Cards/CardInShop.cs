@@ -21,8 +21,8 @@ public class CardInShop : MonoBehaviour
 
     private bool isSold = false;
     [SerializeField]
-    private AudioClip cardHover;
-    public float hoverSFXVolume = 0.1f;
+    //private AudioClip cardHover;
+    //public float hoverSFXVolume = 0.1f;
 
     void Start() {
         Debug.Log("CardInShop Start() method");
@@ -48,7 +48,8 @@ public class CardInShop : MonoBehaviour
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (isSold) return;
-        MusicController.Instance.PlaySFX(cardHover);
+        //MusicController.Instance.PlaySFX(cardHover);
+        //REPLACE W FMOD EVENT
         hoverBackground.enabled = true;
     }
 

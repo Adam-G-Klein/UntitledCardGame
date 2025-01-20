@@ -114,7 +114,7 @@ public class DialogueBoxView : MonoBehaviour
                     Debug.Log("Playing speech sound");
                     numCharsSinceLastSound = 0;
                     speechPitch = centerPitch + UnityEngine.Random.Range(-pitchRange, pitchRange);
-                    MusicController.Instance.PlaySFX(speechSound, -1, speechPitch);
+                    //MusicController.Instance.PlaySFX(speechSound, -1, speechPitch);
                 }
             }
             yield return new WaitForSeconds(charDelay);

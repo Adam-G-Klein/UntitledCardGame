@@ -163,7 +163,8 @@ public class PlayableCard : MonoBehaviour,
     {
         if(!interactable) return;
         hovered = true;
-        MusicController.Instance.PlaySFX(cardHover, hoverSFXVolume);
+        //MusicController.Instance.PlaySFX(cardHover, hoverSFXVolume);
+        //Replace with FMOD Event
         transform.localScale = new Vector3(hoverScale, hoverScale, 1);
         transform.position = new Vector3(transform.position.x, transform.position.y + hoverYOffset, transform.position.z + hoverZOffset);
         transform.SetAsLastSibling();
