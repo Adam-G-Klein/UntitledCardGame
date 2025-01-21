@@ -11,7 +11,7 @@ public class CombatInstance : MonoBehaviour
     public delegate IEnumerator OnDeathHandler(CombatInstance killer);
     public event OnDeathHandler onDeathHandler;
 
-    public AudioClip genericInteractionSFX;
+    //public AudioClip genericInteractionSFX;
     public GameObject genericInteractionVFX;
 
     // Only used for debugging purposes, will be set by some other script
@@ -51,8 +51,13 @@ public class CombatInstance : MonoBehaviour
         Debug.Log(String.Format("Applying status with scale {0}", scale));
         statusEffects[statusEffect] += scale;
         if(statusEffect != StatusEffectType.Orb && statusEffect != StatusEffectType.Strength && statusEffect != StatusEffectType.TemporaryStrength) {
-            PlaySFX();
+            //PlaySFX();
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/SFX_NegativeEffect");
             AddVFX();
+        }
+        else
+        {
+            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/SFX_PositiveEffect");
         }
         UpdateView();
     }
@@ -87,7 +92,11 @@ public class CombatInstance : MonoBehaviour
             case CombatEffect.FixedDamageWithCardModifications:
             case CombatEffect.FixedDamageThatIgnoresBlock:
                 TakeDamage(effect, scale, effector);
-                PlaySFX(effector);
+                if (effector.GetComponent<CompanionInstance>() != null) {
+                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/SFX_BasicAttack");
+                } else if (effector.GetComponent<EnemyInstance>() != null) {
+                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/SFX_EnemyAttack");
+                }
                 AddVFX(effector);
                 break;
             case CombatEffect.Heal:
@@ -273,7 +282,7 @@ public class CombatInstance : MonoBehaviour
         return this.id;
     }
 
-    private void PlaySFX(CombatInstance effector = null) {
+    /*private void PlaySFX(CombatInstance effector = null) {
         if(genericInteractionSFX != null) {
             //MusicController.Instance.PlaySFX(genericInteractionSFX);
             //REPLACE
@@ -281,10 +290,10 @@ public class CombatInstance : MonoBehaviour
             //MusicController.Instance.PlaySFX(effector.genericInteractionSFX);
             //REPLACE
         }
-    }
+    }*/
 
     private void AddVFX(CombatInstance effector = null) {
-        if(effector != null && effector.genericInteractionSFX != null) {
+        if(effector != null) {
             Instantiate(effector.genericInteractionVFX, transform.position, Quaternion.identity);
         } else if (genericInteractionVFX != null) {
             Instantiate(genericInteractionVFX, transform.position, Quaternion.identity);

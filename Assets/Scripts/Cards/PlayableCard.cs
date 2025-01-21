@@ -165,6 +165,7 @@ public class PlayableCard : MonoBehaviour,
         hovered = true;
         //MusicController.Instance.PlaySFX(cardHover, hoverSFXVolume);
         //Replace with FMOD Event
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/SFX_UIHover");
         transform.localScale = new Vector3(hoverScale, hoverScale, 1);
         transform.position = new Vector3(transform.position.x, transform.position.y + hoverYOffset, transform.position.z + hoverZOffset);
         transform.SetAsLastSibling();
