@@ -25,8 +25,8 @@ public class Companion : Entity, ICombatStats, IDeckEntity, IUIEntity
     }
 
     private void setupOnCombineAbilities(CompanionTypeSO companionType) {
-        foreach(CompanionAbility ability in companionType.abilities) {
-            if (ability.companionAbilityTrigger == CompanionAbility.CompanionAbilityTrigger.OnCombine) {
+        foreach(EntityAbility ability in companionType.abilitiesV2) {
+            if (ability.abilityTrigger == EntityAbility.EntityAbilityTrigger.OnCombine) {
                 onCombineAbilities.Add(ability.effectWorkflow);
             }
         }
