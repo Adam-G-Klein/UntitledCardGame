@@ -28,6 +28,8 @@ MonoBehaviour:
   genericCompanionVFX: {fileID: 0}
   cardPool: {fileID: 11400000, guid: b4b6c00dda5c84cec970f98c37079d4d, type: 2}
   speakerType: {fileID: 0}
+  abilitiesV2:
+  - rid: 205827988172308714
   abilities:
   - rid: 5602892491280613443
   - rid: 8205570031766208664
@@ -48,6 +50,45 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: 205827988172308714
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 0
+        effectSteps:
+        - rid: 205827988172308715
+        - rid: 205827988172308717
+        - rid: 205827988172308716
+    - rid: 205827988172308715
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: randomTarget
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 6
+        cantCancelTargetting: 0
+    - rid: 205827988172308716
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: "(\u1D54\u1D25\u1D54) *sniff* *sniff* ... must be treasure around here
+          somewhere"
+        lineTime: 2
+    - rid: 205827988172308717
+      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: AddCardsToDeck
+        inputKey: randomTarget
+        cardTypes:
+        - {fileID: 11400000, guid: 32eae75392814445b8a952edf781d892, type: 2}
+        addToDeckMethod: 2
+        getCardsFromKey: 0
+        inputCardsKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
     - rid: 4463206214708757051
       type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
       data:
