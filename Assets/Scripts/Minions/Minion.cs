@@ -10,10 +10,7 @@ public class Minion : Entity, ICombatStats, IDeckEntity
     public CombatStats combatStats;
     public Deck deck;
 
-    [SerializeReference]
-    public CompanionAbility ability;
-
-    public Minion(MinionTypeSO minionType) 
+    public Minion(MinionTypeSO minionType)
     {
         Debug.LogError("Minions deprecated when binding companionTypes to cards for different card frames per companion. undeprecate by abstracting the reference cards have to something that can be represented by a shared datatype with minions");
         /*
