@@ -28,6 +28,8 @@ MonoBehaviour:
   genericCompanionVFX: {fileID: 0}
   cardPool: {fileID: 11400000, guid: 84991beb0ccb94fed9ed7113a742c8bb, type: 2}
   speakerType: {fileID: 0}
+  abilitiesV2:
+  - rid: 205827988172308718
   abilities:
   - rid: 3931529445166809113
   - rid: 8205570031766208666
@@ -47,6 +49,66 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: 205827988172308718
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 0
+        effectSteps:
+        - rid: 205827988172308720
+        - rid: 205827988172308721
+        - rid: 205827988172308722
+        - rid: 205827988172308723
+        - rid: 205827988172308724
+    - rid: 205827988172308720
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: Beep boop. Whose deck should I thin?
+        lineTime: 2
+    - rid: 205827988172308721
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: target
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 0
+        cantCancelTargetting: 1
+    - rid: 205827988172308722
+      type: {class: GetCardsFromDeck, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetCardsFromDeck
+        inputKey: target
+        getLimitedNumber: 0
+        numberOfCardsToGet: 1
+        shuffleIfEmpty: 1
+        outputKey: allCardsInDeck
+        getAllCardsFromEntities: 0
+        getCardsFromSourceDeck: 1
+        getAllFromOnlyDrawPile: 0
+    - rid: 205827988172308723
+      type: {class: SelectCardsFromList, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: SelectCardsFromList
+        inputKey: allCardsInDeck
+        outputKey: cardToTransform
+        promptText: Select a card to transform into Entropy's Burn
+        minTargets: 1
+        maxTargets: 1
+        getNumberOfTargetsFromKey: 0
+        inputNumberOfTargetsKey: 
+        randomizeOrder: 0
+    - rid: 205827988172308724
+      type: {class: CardInDeckEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardInDeckEffect
+        inputCardsKey: cardToTransform
+        inputDeckKey: target
+        effect: 4
+        cardToTransformInto: {fileID: 11400000, guid: c00025e95f9a449b59c853e77403c30b, type: 2}
+        outputKey: 
     - rid: 594700862979571865
       type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
       data:
