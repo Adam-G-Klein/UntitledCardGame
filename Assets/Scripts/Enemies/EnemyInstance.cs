@@ -43,6 +43,17 @@ public class EnemyInstance : MonoBehaviour, IUIEntity {
         enemy.enemyType.belowHalfHPEnemyPattern.nextBehaviorIndex = 0;
         Debug.Log("EnemyInstance Start for enemy " + enemy.id + " initialized with combat stats (health): " + combatInstance.combatStats.getCurrentHealth());
         combatInstance.SetId(enemy.id);
+
+        // ---- set up abilities ----
+        // We cannot perform "Setup" on the ability itself, because that is global on the
+        // EnemyTypeSO.
+        // If you have multiple copies of the same entity type on the team, they would
+        // all try to write state to the same Ability class.
+        foreach (EntityAbility ability in enemy.enemyType.abilities) {
+            EnemyInstanceAbilityInstance abilityInstance = new(ability, this);
+            abilityInstance.Setup();
+        }
+
         combatInstance.onDeathHandler += OnDeath;
         foreach (InitialStatus status in enemy.enemyType.initialStatuses) {
             combatInstance.SetStatusEffect(status.status, status.scale);
