@@ -22,9 +22,9 @@ public class CompanionTypeEditor : Editor {
             stepName);
         abilityIndex = EditorGUILayout.IntField("Ability Index", abilityIndex);
 
-        if (GUILayout.Button("Add Effect")) {
+        if (GUILayout.Button("Add Ability Effect")) {
             EffectStep newEffect = InstantiateFromClassname.Instantiate<EffectStep>(
-                stepName.ToString(), 
+                stepName.ToString(),
                 new object[] {});
 
             if(newEffect == null) {
@@ -34,28 +34,28 @@ public class CompanionTypeEditor : Editor {
                 " the arguments in the constructor");
             }
             else {
-                if (companionTypeSO.abilities == null) {
-                    companionTypeSO.abilities = new List<CompanionAbility>();
+                if (companionTypeSO.abilitiesV2 == null) {
+                    companionTypeSO.abilitiesV2 = new List<EntityAbility>();
                 }
-                
-                if (abilityIndex > companionTypeSO.abilities.Count) {
+
+                if (abilityIndex > companionTypeSO.abilitiesV2.Count) {
                     Debug.LogError("Ability index given is outside range");
                 }
 
-                if (companionTypeSO.abilities[abilityIndex].effectSteps == null) {
-                    companionTypeSO.abilities[abilityIndex].effectSteps = new List<EffectStep>();
+                if (companionTypeSO.abilitiesV2[abilityIndex].effectSteps == null) {
+                    companionTypeSO.abilitiesV2[abilityIndex].effectSteps = new List<EffectStep>();
                 }
 
-                 companionTypeSO.abilities[abilityIndex].effectSteps.Add(newEffect);
+                companionTypeSO.abilitiesV2[abilityIndex].effectSteps.Add(newEffect);
             }
             save(companionTypeSO);
         }
 
         if (GUILayout.Button("Add New Ability")) {
-            if (companionTypeSO.abilities == null) {
-                companionTypeSO.abilities = new List<CompanionAbility>();
+            if (companionTypeSO.abilitiesV2 == null) {
+                companionTypeSO.abilitiesV2 = new List<EntityAbility>();
             }
-            companionTypeSO.abilities.Add(new CompanionAbility());
+            companionTypeSO.abilitiesV2.Add(new EntityAbility());
             save(companionTypeSO);
         }
 

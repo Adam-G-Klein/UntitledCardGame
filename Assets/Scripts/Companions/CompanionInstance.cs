@@ -19,7 +19,7 @@ public class CompanionInstance : MonoBehaviour, IUIEntity
     private BoxCollider2D boxCollider2D;
 
     public void Setup(WorldPositionVisualElement wpve, Companion companion) {
-        
+
         // ---- set some local member variables ----
         this.companion = companion;
         gameObject.name = companion.companionType.name;
@@ -46,11 +46,11 @@ public class CompanionInstance : MonoBehaviour, IUIEntity
         // all try to write state to the same Ability class.
         // Thus, we do this hack around for now where we create a "CompanionAbilityInstance"
         // that has a read-only reference to the Ability but keeps its own state.
-        foreach (CompanionAbility ability in companion.companionType.abilities) {
-            CompanionAbilityInstance abilityInstance = new(ability, this);
+        foreach (EntityAbility ability in companion.companionType.abilitiesV2) {
+            CompanionInstanceAbilityInstance abilityInstance = new(ability, this);
             abilityInstance.Setup();
         }
-        // ---- register with the manager, which will track things like whether there's no companions or enemies left when 
+        // ---- register with the manager, which will track things like whether there's no companions or enemies left when
         // one dies and end the encounter ----
         CombatEntityManager.Instance.registerCompanion(this);
     }
@@ -95,7 +95,7 @@ public class CompanionInstance : MonoBehaviour, IUIEntity
 
     public string GetName() {
         return companion.companionType.name;
-    }   
+    }
 
     public int GetCurrentHealth() {
         return combatInstance.combatStats.getCurrentHealth();
