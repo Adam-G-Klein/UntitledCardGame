@@ -28,6 +28,9 @@ MonoBehaviour:
   genericCompanionVFX: {fileID: 0}
   cardPool: {fileID: 11400000, guid: 4d23c731d10ea45218cc9e44a4ca61f3, type: 2}
   speakerType: {fileID: 0}
+  abilitiesV2:
+  - rid: 205827988172308481
+  - rid: 205827988172308702
   abilities:
   - rid: 5602892559406858240
   - rid: 9063059299879878660
@@ -44,6 +47,60 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: 205827988172308481
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 5
+        effectSteps:
+        - rid: 205827988172308699
+        - rid: 205827988172308700
+        - rid: 205827988172308482
+        - rid: 205827988172308701
+    - rid: 205827988172308482
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: EVERY DEATH, I GROW STRONGER >:)
+        lineTime: 2
+    - rid: 205827988172308699
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 205827988172308700
+      type: {class: PermanentStatIncrease, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: PermanentStatIncrease
+        inputKey: self
+        statIncreaseType: 0
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 205827988172308701
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
+        scale: 1
+    - rid: 205827988172308702
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 8
+        effectSteps:
+        - rid: 205827988172308703
+    - rid: 205827988172308703
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: Now we draw cards every time we lose hp!
+        lineTime: 3
     - rid: 2240256423295713294
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
