@@ -11,7 +11,6 @@ public abstract class EntityAbilityInstance
     private List<TurnPhaseTrigger> turnPhaseTriggers = new List<TurnPhaseTrigger>();
     private List<CombatEntityTrigger> combatEntityTriggers = new List<CombatEntityTrigger>();
 
-    // Provide access to the underlying combat instance for different subclasses.
     protected abstract CombatInstance getCombatInstance();
 
     // Abstract because different implementations of the subclass will create different versions of the base effect document.
@@ -95,8 +94,8 @@ public abstract class EntityAbilityInstance
         }
     }
 
-    private IEnumerator OnDeath(CombatInstance killer) {
-        // TODO: UNCLEAR IF THIS WORKS.
+    public IEnumerator OnDeath(CombatInstance killer) {
+        // Run the on death trigger directly.
         if (ability.abilityTrigger == EntityAbility.EntityAbilityTrigger.OnDeath) {
             yield return setupAndInvokeAbility().GetEnumerator();
         }

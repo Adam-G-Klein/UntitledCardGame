@@ -13,7 +13,6 @@ public class CompanionInstance : MonoBehaviour, IUIEntity
     public CombatInstance combatInstance;
     public DeckInstance deckInstance;
 
-    private IEnumerable companionAbilityDeathCallback;
     private List<TurnPhaseTrigger> statusEffectTriggers = new List<TurnPhaseTrigger>();
 
     private BoxCollider2D boxCollider2D;
@@ -28,7 +27,6 @@ public class CompanionInstance : MonoBehaviour, IUIEntity
         // ---- set up the combatInstance, which has all the logic this shares with all companions/enemies ----
         combatInstance.Setup(companion.combatStats, companion, CombatInstance.CombatInstanceParent.COMPANION, wpve);
         Debug.Log("CompanionInstance Start for companion " + companion.id + " initialized with combat stats (health): " + combatInstance.combatStats.getCurrentHealth());
-        combatInstance.onDeathHandler += OnDeath;
         //combatInstance.genericInteractionSFX = companion.companionType.genericCompanionSFX;
         combatInstance.genericInteractionVFX = companion.companionType.genericCompanionVFX;
         // ---- set up the deck for this entity ----
@@ -50,6 +48,9 @@ public class CompanionInstance : MonoBehaviour, IUIEntity
             CompanionInstanceAbilityInstance abilityInstance = new(ability, this);
             abilityInstance.Setup();
         }
+        // Register the OnDeath handler after we initialize the abilities, so that the ability triggers go off before the
+        // companion dies altogether.
+        combatInstance.onDeathHandler += OnDeath;
         // ---- register with the manager, which will track things like whether there's no companions or enemies left when
         // one dies and end the encounter ----
         CombatEntityManager.Instance.registerCompanion(this);
@@ -82,15 +83,12 @@ public class CompanionInstance : MonoBehaviour, IUIEntity
 
     public IEnumerator OnDeath(CombatInstance killer)
     {
-        if (companionAbilityDeathCallback != null) {
-            yield return StartCoroutine(companionAbilityDeathCallback.GetEnumerator());
-        }
         UnregisterUpdateStatusEffects();
         CombatEntityManager.Instance.CompanionDied(this);
+        yield break;
     }
 
     public void SetCompanionAbilityDeathCallback(IEnumerable callback) {
-        this.companionAbilityDeathCallback = callback;
     }
 
     public string GetName() {
