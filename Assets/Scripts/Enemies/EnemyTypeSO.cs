@@ -17,6 +17,9 @@ public class EnemyTypeSO : ScriptableObject
     [Space]
     public Sprite sprite;
 
+    [SerializeReference]
+    public List<EntityAbility> abilities;
+
     public EnemyBrain enemyPattern;
 
     public EnemyBrain belowHalfHPEnemyPattern;
