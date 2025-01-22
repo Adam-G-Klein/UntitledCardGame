@@ -26,6 +26,11 @@ public class CompanionTypeSO : ScriptableObject
     public CardPoolSO cardPool;
     [Header("Dialogue hook-in")]
     public SpeakerTypeSO speakerType;
+    [Header("V2 ABILITIES")]
+
+    [SerializeReference]
+    public List<EntityAbility> abilitiesV2;
+
     [Header("Abilities and upgrades")]
 
     [SerializeReference]
