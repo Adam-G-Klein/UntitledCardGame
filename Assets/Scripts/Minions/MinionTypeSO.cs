@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(
-    fileName = "MinionType", 
+    fileName = "MinionType",
     menuName = "Minions/Minion Type")]
 public class MinionTypeSO : ScriptableObject
 {
@@ -12,7 +12,4 @@ public class MinionTypeSO : ScriptableObject
     public int baseAttackDamage;
     public Sprite sprite;
     public StartingDeck startingDeck;
-
-    [SerializeReference]
-    public CompanionAbility ability;
 }
