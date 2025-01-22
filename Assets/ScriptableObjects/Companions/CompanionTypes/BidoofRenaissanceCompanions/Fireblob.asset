@@ -28,6 +28,8 @@ MonoBehaviour:
   genericCompanionVFX: {fileID: 0}
   cardPool: {fileID: 11400000, guid: cd019489ca53a4fd59999691451fb24f, type: 2}
   speakerType: {fileID: 0}
+  abilitiesV2:
+  - rid: 205827988172308710
   abilities:
   - rid: 5602892491280613392
   - rid: 8205570031766208668
@@ -43,6 +45,40 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: 205827988172308710
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 1
+        effectSteps:
+        - rid: 205827988172308711
+        - rid: 205827988172308712
+        - rid: 205827988172308713
+    - rid: 205827988172308711
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 205827988172308712
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: "I GAINED 5 MAX HP \u0295\u2022\u1D25\u2022\u0294"
+        lineTime: 2
+    - rid: 205827988172308713
+      type: {class: PermanentStatIncrease, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: PermanentStatIncrease
+        inputKey: self
+        statIncreaseType: 1
+        scale: 5
+        getScaleFromKey: 0
+        inputScaleKey: 
     - rid: 5602892491280613392
       type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
       data:
