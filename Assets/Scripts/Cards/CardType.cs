@@ -6,11 +6,19 @@ using System;
 [CreateAssetMenu(
     fileName ="Card",
     menuName = "Cards/New Card Type")]
+
+[System.Serializable]
+public class CardValue
+{
+    public string key;
+    public int value;
+}
 [Serializable]
 public class CardType: ScriptableObject, ITooltipProvider
 {
     public string Name;
     public string Description;
+    public List<CardValue> defaultValues = new();
     public int Cost;
     public Sprite Artwork;
     public CardCategory cardCategory;
@@ -26,7 +34,7 @@ public class CardType: ScriptableObject, ITooltipProvider
     public bool retain = false;
 
     [SerializeReference]
-    public List<EffectWorkflow> effectWorkflows;
+    public List<EffectWorkflow> effectWorkflows = null;
 
     [SerializeReference]
     public EffectWorkflow onExhaustEffectWorkflow;

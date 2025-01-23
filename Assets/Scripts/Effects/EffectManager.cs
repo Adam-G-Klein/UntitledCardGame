@@ -39,6 +39,15 @@ public class EffectManager : GenericSingleton<EffectManager>
         StartCoroutine(currentEffectWorkflow);
     }
 
+    public void invokeEffectWorkflowForCalculation(
+            EffectDocument document,
+            List<EffectStep> effectSteps,
+            IEnumerator callback) {
+        Debug.Log("Invoking effect workflow via sync call");
+        currentEffectWorkflow = effectWorkflowCoroutineForCalculation(document, effectSteps, callback);
+        StartCoroutine(currentEffectWorkflow);
+    }
+
     public void CancelEffectWorkflow() {
         Debug.Log("EffectManager: Stopping effect coroutines");
         StopCoroutine(currentEffectStep);
@@ -79,7 +88,49 @@ public class EffectManager : GenericSingleton<EffectManager>
 
         // If the previous effect worklfow queue'd up a new one, then execute the new one
         if (effectWorkflowQueue.Count > 0) {
-            Debug.Log("Kicking off queued effect workflow");
+            Debug.LogError("Kicking off queued effect workflow");
+            EffectWorkflow workflow = effectWorkflowQueue[0];
+            effectWorkflowQueue.RemoveAt(0);
+            document.originEntityType = EntityType.Unknown;
+            currentEffectWorkflow = effectWorkflowCoroutine(document, workflow.effectSteps, null);
+            StartCoroutine(currentEffectWorkflow);
+        } else {
+            effectRunning = false;
+        }
+
+        yield return null;
+    }
+        private IEnumerator effectWorkflowCoroutineForCalculation(
+            EffectDocument document,
+            List<EffectStep> effectSteps,
+            IEnumerator callback) {
+        effectRunning = true;
+        bool hasEndWorkflowCheck = false;
+        bool didBreak = false;
+        foreach (EffectStep step in effectSteps) {
+            if (interruptEffectWorkflow) {
+                Debug.Log("Breaking from workflow");
+                interruptEffectWorkflow = false;
+                didBreak = true;
+                break;
+            }
+            if (step is IEffectStepCalculation) {
+                if (step is EndWorkflowIfConditionMet) {
+                    hasEndWorkflowCheck = true;
+                }
+                Debug.Log("Invoking Step [" + step.effectStepName + "]");
+                currentEffectStep = ((IEffectStepCalculation)step).invokeForCalculation(document);
+                yield return StartCoroutine(currentEffectStep);
+            }
+        }
+
+        document.boolMap.Add("highlightCard", hasEndWorkflowCheck && !didBreak);
+
+        if (callback != null) yield return StartCoroutine(callback);
+
+        // If the previous effect worklfow queue'd up a new one, then execute the new one
+        if (effectWorkflowQueue.Count > 0) {
+            Debug.LogError("Kicking off queued effect workflow");
             EffectWorkflow workflow = effectWorkflowQueue[0];
             effectWorkflowQueue.RemoveAt(0);
             document.originEntityType = EntityType.Unknown;

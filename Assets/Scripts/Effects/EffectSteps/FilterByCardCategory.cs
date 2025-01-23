@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 using Unity.VisualScripting;
 
-public class FilterByCardCategory : EffectStep {
+public class FilterByCardCategory : EffectStep, IEffectStepCalculation {
 
     [Header("Gets the PlayableCards and Cards at input key, returns all Cards that meet filter condition from both,\n" + 
         "also outputs PlayableCards meeting condition at the same key")]
@@ -44,5 +44,10 @@ public class FilterByCardCategory : EffectStep {
         document.map.AddItems<Card>(outputKey, outputCards);
         document.map.AddItems<PlayableCard>(outputKey, playableCards);
         yield return null;
+    }
+
+    public IEnumerator invokeForCalculation(EffectDocument document)
+    {
+        yield return invoke(document);
     }
 }

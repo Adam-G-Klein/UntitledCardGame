@@ -12,7 +12,7 @@ using UnityEngine;
     Parameters:
         - 
 */
-public class EndWorkflowIfNoMapElement : EffectStep {
+public class EndWorkflowIfNoMapElement : EffectStep, IEffectStepCalculation {
     [SerializeField]
     private string keyToCheck = "";
 
@@ -27,6 +27,11 @@ public class EndWorkflowIfNoMapElement : EffectStep {
             }
         }
         yield return null;
+    }
+
+    public IEnumerator invokeForCalculation(EffectDocument document)
+    {
+        yield return invoke(document);
     }
 
     public enum MapToCheck {

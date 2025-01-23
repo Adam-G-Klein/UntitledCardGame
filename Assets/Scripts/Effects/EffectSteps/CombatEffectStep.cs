@@ -15,7 +15,7 @@ using UnityEngine;
         - GetScaleFromKey: If checked, the scale will be pulled from a previous step
         - InputScaleKey: The key from which to pull the scale integer from
 */
-public class CombatEffectStep : EffectStep
+public class CombatEffectStep : EffectStep, IEffectStepCalculation
 {
     [SerializeField]
     private string inputKey = "";
@@ -33,7 +33,8 @@ public class CombatEffectStep : EffectStep
     private bool getMultiplicityFromKey = false;
     [SerializeField]
     private string inputMultiplicityKey = "";
-
+    private CombatInstance originCombatInstance;
+    private int baseMultiplicity;
     public CombatEffectStep() {
         effectStepName = "CombatEffectStep";
     }
@@ -44,8 +45,22 @@ public class CombatEffectStep : EffectStep
             EffectError("No input targets present for key " + inputKey);
             yield return null;
         }
+        int finalScale = getFinalScale(document);
 
-        CombatInstance originCombatInstance = null;
+        if (finalScale == -1) yield return null;
+
+        foreach (CombatInstance instance in instances) {
+            for (int i = 0; i < baseMultiplicity; i++) {
+                if (instance != null) { // This protects against the case in which the enemy is destroyed before all hits of the damage are completed
+                    instance.ApplyNonStatusCombatEffect(combatEffect, finalScale, originCombatInstance);
+                }
+            }
+        }
+
+        yield return null;
+    }
+
+    private int getFinalScale(EffectDocument document) {
         PlayableCard originCard = null;
         // Determine whether origin of damage is from a card, companion ability, or enemy attack
         // and get that origin
@@ -58,7 +73,7 @@ public class CombatEffectStep : EffectStep
             originCombatInstance = document.map.GetItem<EnemyInstance>(EffectDocument.ORIGIN, 0).combatInstance;
         } else {
             EffectError("No origin set in EffectDocument to pull stats from");
-            yield return null;
+            return -1;
         }
 
         int baseScale;
@@ -68,24 +83,13 @@ public class CombatEffectStep : EffectStep
             baseScale = scale;
         }
 
-        int baseMultiplicity;
         if (getMultiplicityFromKey && document.intMap.ContainsKey(inputMultiplicityKey)) {
             baseMultiplicity = document.intMap[inputMultiplicityKey];
         } else {
             baseMultiplicity = multiplicity;
         }
 
-        int finalScale = UpdateScaleForEffect(baseScale, originCombatInstance, originCard);
-
-        foreach (CombatInstance instance in instances) {
-            for (int i = 0; i < baseMultiplicity; i++) {
-                if (instance != null) { // This protects against the case in which the enemy is destroyed before all hits of the damage are completed
-                    instance.ApplyNonStatusCombatEffect(combatEffect, finalScale, originCombatInstance);
-                }
-            }
-        }
-
-        yield return null;
+        return UpdateScaleForEffect(baseScale, originCombatInstance, originCard);
     }
 
     private int UpdateScaleForEffect(
@@ -108,5 +112,16 @@ public class CombatEffectStep : EffectStep
         }
 
         return newScale;
+    }
+    public IEnumerator invokeForCalculation(EffectDocument document)
+    {
+        int finalScale = getFinalScale(document);
+        Debug.Log(finalScale);
+        if (document.intMap.ContainsKey("rpl_damage")) {
+            document.intMap["rpl_damage"] = finalScale;
+        } else {
+            document.intMap.Add("rpl_damage", finalScale);
+        }
+        yield return null;
     }
 }

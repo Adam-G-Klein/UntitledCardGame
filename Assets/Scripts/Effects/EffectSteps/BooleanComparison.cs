@@ -6,7 +6,7 @@ using UnityEngine;
     This effect step takes two ints, does the boolean comparison on them,
     and outputs true or false given the operation.
 */
-public class BooleanComparison : EffectStep
+public class BooleanComparison : EffectStep, IEffectStepCalculation
 {
     [SerializeField]
     private int hardCodedInputKey1 = 0;
@@ -62,6 +62,11 @@ public class BooleanComparison : EffectStep
         
         document.boolMap[outputKey] = result;
         yield return null;
+    }
+
+    public IEnumerator invokeForCalculation(EffectDocument document)
+    {
+        yield return invoke(document);
     }
 
     public enum Operation {

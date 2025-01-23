@@ -328,6 +328,40 @@
     margin-left: 0;
 }
 
+.mana-reduced {
+    color: rgb(0, 255, 0);
+}
+
+.card-container-glow {
+    border-width: 5px;
+    border-color: rgba(0, 255, 0, 0.7);
+}
+
+.green-card-border {
+    flex-grow: 1;
+    position: absolute;
+    min-width: 100%;
+    min-height: 100%;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    border-left-color: rgb(24, 140, 0);
+    border-right-color: rgb(24, 140, 0);
+    border-top-color: rgb(24, 140, 0);
+    border-bottom-color: rgb(24, 140, 0);
+    border-top-width: 10px;
+    border-right-width: 10px;
+    border-bottom-width: 10px;
+    border-left-width: 10px;
+    scale: 1 1;
+    opacity: 1;
+}
+
 .card-desc-label {
     -unity-font-style: bold-and-italic;
     font-size: 29px;

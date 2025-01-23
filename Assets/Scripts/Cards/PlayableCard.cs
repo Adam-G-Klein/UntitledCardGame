@@ -6,6 +6,9 @@ using TMPro;
 using UnityEngine.EventSystems;
 using System;
 using Unity.VisualScripting;
+using UnityEngine.UIElements;
+using System.Linq;
+using UnityEditor.PackageManager;
 
 [RequireComponent(typeof(UIDocumentCard))]
 [RequireComponent(typeof(UIStateEventListener))]
@@ -44,9 +47,11 @@ public class PlayableCard : MonoBehaviour,
     private bool isCardCastPlaying = false;
     public bool interactable = false;
 
+    public void  Awake() {
+        docCard = GetComponent<UIDocumentCard>();
+    }
     public void Start()
     {
-        docCard = GetComponent<UIDocumentCard>();
         transform.localScale = new Vector3(nonHoverScale, nonHoverScale, 1);
     }
 
@@ -73,6 +78,7 @@ public class PlayableCard : MonoBehaviour,
                         deckFrom.GetComponent<CompanionInstance>().companion.companionType, 3f));
                 return;
         }
+        interactable = false;
 
         EffectDocument document = new EffectDocument();
         document.map.AddItem(EffectDocument.ORIGIN, this);
@@ -84,9 +90,10 @@ public class PlayableCard : MonoBehaviour,
         ManaManager.Instance.updateMana(-card.GetManaCost());
         StartCoroutine(cardCastEvent.RaiseAtEndOfFrameCoroutine(new CardCastEventInfo(card)));
         IncrementCastCount();
-        EnemyEncounterManager.Instance.combatEncounterState.cardsCastThisTurn.Add(card);
+        EnemyEncounterManager.Instance.combatEncounterState.CastCard(card);
         yield return StartCoroutine(PlayerHand.Instance.OnCardCast(this));
         PlayerHand.Instance.DiscardCard(this);
+        PlayerHand.Instance.UpdatePlayableCards();
         if (card.cardType.exhaustsWhenPlayed) {
             CardExhaustVFX();
             ExhaustCard();
@@ -126,6 +133,33 @@ public class PlayableCard : MonoBehaviour,
         // If we don't do this, then the crew (the card) goes down with the ship (the FXExperience)
         this.gameObject.transform.SetParent(null);
         this.isCardCastPlaying = false;
+    }
+
+    public void UpdateCardText() {
+        //if (card.cardType.values.Count == 0) return;
+        //String newVal = "";
+        EffectDocument document = new EffectDocument();
+        document.map.AddItem(EffectDocument.ORIGIN, this);
+        document.originEntityType = EntityType.Card;
+        Debug.LogError("trying to update card text");
+        if (card.effectSteps != null && card.effectSteps.Count != 0) {
+            EffectManager.Instance.invokeEffectWorkflowForCalculation(
+                document,
+                card.effectSteps,
+                CardFinishedCalculatingCallback(document));
+        }
+        if (card.cardType.inPlayerHandEndOfTurnWorkflow != null && card.cardType.inPlayerHandEndOfTurnWorkflow.effectSteps.Count != 0) {
+            EffectManager.Instance.invokeEffectWorkflowForCalculation(
+                document,
+                card.cardType.inPlayerHandEndOfTurnWorkflow.effectSteps,
+                CardFinishedCalculatingCallback(document));
+        }
+    }
+
+    private IEnumerator CardFinishedCalculatingCallback(EffectDocument document) {
+        //document should now have a value for the output and the multiplicity of that output;
+        docCard.UpdateCardText(document);
+        yield return null;
     }
 
     private void IncrementCastCount(){

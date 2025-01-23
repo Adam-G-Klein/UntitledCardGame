@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FilterEntityByHP : EffectStep
+public class FilterEntityByHP : EffectStep, IEffectStepCalculation
 {
     [SerializeField]
     private string inputKey = "";
@@ -74,5 +74,10 @@ public class FilterEntityByHP : EffectStep
             }
         }
         document.map.AddItems<DeckInstance>(outputKey, filteredDeckInstances, "hpLink");
+    }
+
+    public IEnumerator invokeForCalculation(EffectDocument document)
+    {
+        yield return invoke(document);
     }
 }

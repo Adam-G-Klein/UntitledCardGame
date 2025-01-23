@@ -13,7 +13,11 @@ MonoBehaviour:
   m_Name: PayToWin
   m_EditorClassIdentifier: 
   Name: Pay to Win
-  Description: Lose $1. Deal 13 damage.
+  Description: Lose $1. Deal {rpl_damage} damage.
+  values: 0d000000
+  defaultValues:
+  - key: rpl_damage
+    value: 13
   Cost: 1
   Artwork: {fileID: 21300000, guid: 89fa58e3b56419c4381ed18792e533f3, type: 3}
   cardCategory: 1

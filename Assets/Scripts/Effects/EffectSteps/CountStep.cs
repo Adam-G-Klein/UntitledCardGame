@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlTypes;
 using UnityEngine;
 
-public class CountStep : EffectStep {
+public class CountStep : EffectStep, IEffectStepCalculation {
     [SerializeField]
     private string inputKey = "";
     [SerializeField]
@@ -16,5 +16,10 @@ public class CountStep : EffectStep {
     public override IEnumerator invoke(EffectDocument document) {
         document.intMap[outputKey] = document.map.CountItemsWithKeyString(inputKey);
         yield return null;
+    }
+
+    public IEnumerator invokeForCalculation(EffectDocument document)
+    {
+        yield return invoke(document);
     }
 }

@@ -11,7 +11,7 @@ using UnityEngine.Playables;
     Paramters:
         - countFromThisCard: if checked, will get the cast count of this card
 */
-public class GetCastCountFromCard : EffectStep {
+public class GetCastCountFromCard : EffectStep, IEffectStepCalculation {
     [SerializeField]
     private string inputKey = "";
     [SerializeField]
@@ -42,6 +42,11 @@ public class GetCastCountFromCard : EffectStep {
         yield return null;
 
 
+    }
+
+    public IEnumerator invokeForCalculation(EffectDocument document)
+    {
+        yield return invoke(document);
     }
 
     private void getCardsFromInCombatDeck(

@@ -13,7 +13,11 @@ MonoBehaviour:
   m_Name: Strike
   m_EditorClassIdentifier: 
   Name: Strike
-  Description: Deal 5 damage to target enemy
+  Description: Deal {rpl_damage} damage to target enemy
+  values: 05000000
+  defaultValues:
+  - key: rpl_damage
+    value: 5
   Cost: 1
   Artwork: {fileID: 21300000, guid: 7a51d6d5cbbba644cbef012d1be241ab, type: 3}
   cardCategory: 1

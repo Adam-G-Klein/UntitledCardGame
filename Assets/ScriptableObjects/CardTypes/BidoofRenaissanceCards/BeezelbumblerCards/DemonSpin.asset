@@ -13,7 +13,11 @@ MonoBehaviour:
   m_Name: DemonSpin
   m_EditorClassIdentifier: 
   Name: Demon Spin
-  Description: Lose 2 HP. Deal 2 damage to all enemies 3 times.
+  Description: Lose 2 HP. Deal {rpl_damage} damage to all enemies 3 times.
+  values: 02000000
+  defaultValues:
+  - key: rpl_damage
+    value: 2
   Cost: 2
   Artwork: {fileID: 21300000, guid: 5f4a5816818fe0841957c1e340e8a570, type: 3}
   cardCategory: 1

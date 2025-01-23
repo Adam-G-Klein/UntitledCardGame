@@ -8,7 +8,7 @@ using UnityEngine;
     it will randomly select X of them and then output them to output key. If multiple
     types of items share the input key, this will happen for each kind of item.
 */
-public class GetRandomItems : EffectStep
+public class GetRandomItems : EffectStep, IEffectStepCalculation
 {
     [SerializeField]
     private string inputKey = "";
@@ -30,6 +30,11 @@ public class GetRandomItems : EffectStep
             document.map.AddItemsOfType(outputKey, items, pair.Key.Item2);
         }
         yield return null;
+    }
+
+    public IEnumerator invokeForCalculation(EffectDocument document)
+    {
+        yield return invoke(document);
     }
 
     private List<object> RandomlyGetItems(List<object> objs, int items) {

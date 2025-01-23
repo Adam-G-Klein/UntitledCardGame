@@ -13,7 +13,7 @@ using UnityEngine;
         - (optional) Operand2: another input to use instead of using a fixed scale
         - Operation: The math operation to do
 */
-public class MathStep: EffectStep
+public class MathStep: EffectStep, IEffectStepCalculation
 {
     [SerializeField]
     private string inputKey = "";
@@ -63,6 +63,11 @@ public class MathStep: EffectStep
         document.intMap[outputKey] = returnValue;
 
         yield return null;
+    }
+
+    public IEnumerator invokeForCalculation(EffectDocument document)
+    {
+        yield return invoke(document);
     }
 
     public enum Operation {

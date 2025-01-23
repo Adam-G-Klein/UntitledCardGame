@@ -13,7 +13,11 @@ MonoBehaviour:
   m_Name: ShortSword
   m_EditorClassIdentifier: 
   Name: Short Sword
-  Description: Deal 8 damage
+  Description: Deal {rpl_damage} damage
+  values: 08000000
+  defaultValues:
+  - key: rpl_damage
+    value: 8
   Cost: 1
   Artwork: {fileID: 21300000, guid: 7a51d6d5cbbba644cbef012d1be241ab, type: 3}
   cardCategory: 1

@@ -13,7 +13,14 @@ MonoBehaviour:
   m_Name: EndlessPain
   m_EditorClassIdentifier: 
   Name: Endless Pain
-  Description: Retain. Deal 2 damage for each card you played this turn
+  Description: Retain. Deal {rpl_damage} damage for each card you played this turn
+    ({numPlayedCards})
+  values: 0200000000000000
+  defaultValues:
+  - key: rpl_damage
+    value: 2
+  - key: numPlayedCards
+    value: 0
   Cost: 1
   Artwork: {fileID: 21300000, guid: 5500487feb715b54490f91e1c9796e9c, type: 3}
   cardCategory: 1

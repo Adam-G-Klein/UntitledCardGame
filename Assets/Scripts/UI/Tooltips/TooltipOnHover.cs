@@ -31,6 +31,7 @@ public class TooltipOnHover : MonoBehaviour,
     private bool coroutineIsRunning = false;
     [SerializeField]
     private bool instantiateInWorldspace = false;
+    public CompanionInstance companionInstance = null;
 
 
     private bool Active() {

@@ -13,7 +13,11 @@ MonoBehaviour:
   m_Name: UltimateBlast
   m_EditorClassIdentifier: 
   Name: Ultimate Blast
-  Description: Deal 1 damage 7 times.
+  Description: Deal {0} damage 7 times.
+  values: 01000000
+  defaultValues:
+  - key: rpl_damage
+    value: 1
   Cost: 3
   Artwork: {fileID: -1102274441, guid: 33ba4bd24a9cc384c880d4c9d5443278, type: 3}
   cardCategory: 1

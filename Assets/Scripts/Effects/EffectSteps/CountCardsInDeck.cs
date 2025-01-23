@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class CountCardsInDeck : EffectStep
+public class CountCardsInDeck : EffectStep, IEffectStepCalculation
 {
     [SerializeField]
      private string inputDeckKey = "";
@@ -26,9 +27,9 @@ public class CountCardsInDeck : EffectStep
 
     public override IEnumerator invoke(EffectDocument document) {
         List<DeckInstance> deckInstances = document.map.GetList<DeckInstance>(inputDeckKey);
-        if (deckInstances.Count == 0 || deckInstances.Count > 1) {
+        if (deckInstances == null || deckInstances.Count == 0 || deckInstances.Count > 1) {
             EffectError("No valid entity with deck input for key " + inputDeckKey);
-            yield return null;
+            yield break;
         }
 
         DeckInstance deckInstance = deckInstances[0];
@@ -45,6 +46,11 @@ public class CountCardsInDeck : EffectStep
 
         document.intMap[outputKey] = total;
         yield return null;
+    }
+
+    public IEnumerator invokeForCalculation(EffectDocument document)
+    {
+        yield return invoke(document);
     }
 
     private int countCards(List<Card> cards) {

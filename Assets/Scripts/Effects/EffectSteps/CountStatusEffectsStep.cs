@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CountStatusEffectsStep : EffectStep
+public class CountStatusEffectsStep : EffectStep, IEffectStepCalculation
 {
     [SerializeField]
      private string inputKey = "";
@@ -36,5 +36,10 @@ public class CountStatusEffectsStep : EffectStep
 
         document.intMap.Add(outputKey, total);
         yield return null;
+    }
+
+    public IEnumerator invokeForCalculation(EffectDocument document)
+    {
+        yield return invoke(document);
     }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DebugEffectStep : EffectStep {
+public class DebugEffectStep : EffectStep, IEffectStepCalculation {
     [SerializeField]
     private bool genericMap;
     [SerializeField]
@@ -23,5 +23,10 @@ public class DebugEffectStep : EffectStep {
             document.printStringMap();
 
         yield return null;
+    }
+
+    public IEnumerator invokeForCalculation(EffectDocument document)
+    {
+        yield return invoke(document);
     }
 }

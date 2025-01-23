@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GetAdjacentCompanions : EffectStep {
+public class GetAdjacentCompanions : EffectStep, IEffectStepCalculation {
 
     [SerializeField]
     private string inputKey = "";
@@ -29,6 +29,11 @@ public class GetAdjacentCompanions : EffectStep {
 
         EffectUtils.AddCompanionsToDocument(document, outputKey, adjacentCompanions);
         yield return null;
+    }
+
+    public IEnumerator invokeForCalculation(EffectDocument document)
+    {
+        yield return invoke(document);
     }
 
     private List<CompanionInstance> GetAdjacentCompanionns(CompanionInstance instance, List<CompanionInstance> allCompanions) {

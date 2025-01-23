@@ -32,9 +32,10 @@ public class Card : Entity, IEquatable<Card>
     [HideInInspector]
     public List<EffectStep> effectSteps {
         get {
-            if(cardType.effectWorkflows.Count < workflowIndex) {
+            if(cardType.effectWorkflows == null || cardType.effectWorkflows.Count == 0 || cardType.effectWorkflows.Count < workflowIndex) {
                 Debug.LogError("Attempted to get workflow " + workflowIndex + " of card " +
-                name + ", but it only has " + (cardType.effectWorkflows.Count + 1) + " workflows");
+                name + ", but it only has " + cardType.effectWorkflows.Count + " workflows");
+                return null;
             }
             return cardType.effectWorkflows[workflowIndex].effectSteps;
         }

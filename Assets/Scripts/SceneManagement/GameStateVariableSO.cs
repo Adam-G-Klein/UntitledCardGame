@@ -46,6 +46,7 @@ public class GameStateVariableSO : ScriptableObject
     [Header("Prevents dialogue seqs from being added to the viewed list")]
     public bool debugSingleEncounterMode = false;
     public List<DialogueSequenceSO> viewedSequences;
+    public CompanionInstance hoveredCompanion = null;
     private Dictionary<Location, string> locationToScene = new Dictionary<Location, string>() {
         {Location.MAIN_MENU, "MainMenu"},
         {Location.WAKE_UP_ROOM, "AidensRoom"},
@@ -230,6 +231,13 @@ public class GameStateVariableSO : ScriptableObject
 
     public void SetLocation(Location newLocation) {
         currentLocation = newLocation;
+    }
+
+    public void UpdateHoveredCompanion(CompanionInstance companionInstance) { 
+        Debug.LogError("hovering or ending hovering");
+        Debug.LogError(companionInstance);
+        hoveredCompanion = companionInstance;
+        PlayerHand.Instance.UpdatePlayableCards();
     }
 
     public void KillPlayer() {

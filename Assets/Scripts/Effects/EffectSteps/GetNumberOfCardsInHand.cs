@@ -9,7 +9,7 @@ using UnityEngine;
     Output: Integer number of cards in the player's hand
     Parameters: NA
 */
-public class GetNumberOfCardsInHand : EffectStep {
+public class GetNumberOfCardsInHand : EffectStep, IEffectStepCalculation {
     [SerializeField]
     private string outputKey = "";
 
@@ -20,5 +20,10 @@ public class GetNumberOfCardsInHand : EffectStep {
     public override IEnumerator invoke(EffectDocument document) {
         document.intMap[outputKey] = PlayerHand.Instance.cardsInHand.Count;
         yield return null;
+    }
+
+    public IEnumerator invokeForCalculation(EffectDocument document)
+    {
+        yield return invoke(document);
     }
 }

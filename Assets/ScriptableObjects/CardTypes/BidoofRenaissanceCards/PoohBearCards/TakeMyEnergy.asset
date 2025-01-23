@@ -14,7 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Take My Energy
   Description: Give target companion 1 strength + 1 strength for each aura stack
-    they have.
+    they have ({numOrbs})
+  values: 
+  defaultValues:
+  - key: numOrbs
+    value: 0
   Cost: 1
   Artwork: {fileID: 21300000, guid: 5e40f858eddaed340a6366c33c4e216f, type: 3}
   cardCategory: 2

@@ -11,7 +11,7 @@ using UnityEngine;
     Parameters:
         - Percent: Percentage of max hp to get
 */
-public class GetPercentOfMaxHP : EffectStep {
+public class GetPercentOfMaxHP : EffectStep, IEffectStepCalculation {
     [SerializeField]
     private string inputKey = "";
     [SerializeField]
@@ -35,5 +35,10 @@ public class GetPercentOfMaxHP : EffectStep {
         int output = Convert.ToInt32(instances[0].combatStats.maxHealth * percent);
         document.intMap[outputKey] = output;
         yield return null;
+    }
+
+    public IEnumerator invokeForCalculation(EffectDocument document)
+    {
+        yield return invoke(document);
     }
 }

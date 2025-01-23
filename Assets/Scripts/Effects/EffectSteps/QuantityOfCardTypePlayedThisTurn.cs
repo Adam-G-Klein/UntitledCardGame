@@ -6,7 +6,7 @@ using UnityEngine;
     This effect step takes two ints, does the boolean comparison on them,
     and outputs true or false given the operation.
 */
-public class QuantityOfCardTypePlayedThisTurn : EffectStep
+public class QuantityOfCardTypePlayedThisTurn : EffectStep, IEffectStepCalculation
 {
     [SerializeField]
     private CardCategory cardCategory; 
@@ -31,5 +31,10 @@ public class QuantityOfCardTypePlayedThisTurn : EffectStep
         }
         document.intMap[outputKey] = count;
         yield return null;
+    }
+
+    public IEnumerator invokeForCalculation(EffectDocument document)
+    {
+        yield return invoke(document);
     }
 }

@@ -8,6 +8,9 @@ using UnityEngine.Playables;
 using Unity.VisualScripting;
 using System.Runtime.InteropServices;
 using JetBrains.Annotations;
+using System.Linq;
+using System.Collections.Generic;
+using System.ComponentModel;
 
 public class CardView {
     public VisualElement cardContainer;
@@ -16,13 +19,26 @@ public class CardView {
     public static int CARD_TITLE_SIZE = 44; //px
     public static int CARD_DESC_MAX_FULL_SIZE_CHARS = 18; // guess
     public static int CARD_TITLE_MAX_FULL_SIZE_CHARS = 8; // guess
+    private Card cardInstance = null;
+    public Color modifiedManaCostColor = Color.green;
+    
     public CardView(CardType cardType, CompanionTypeSO companionType) {
         cardContainer = makeWorldspaceCardView(cardType, companionType);
+    }
+
+    public CardView(Card card, CompanionTypeSO companionType) {
+        cardContainer = makeWorldspaceCardView(card.cardType, companionType);
+        this.cardInstance = card;
     }
 
     private VisualElement makeWorldspaceCardView(CardType card, CompanionTypeSO companionType) {
         var container = new VisualElement();
         container.AddToClassList("card-container");
+
+        var greenBorder = new VisualElement();
+        greenBorder.AddToClassList("green-card-border");
+        greenBorder.visible = false;
+        container.Add(greenBorder);
 
         var image = new VisualElement();
         image.AddToClassList("card-image");
@@ -42,7 +58,13 @@ public class CardView {
 
         var desc = new Label();
         desc.AddToClassList("card-desc-label");
-        desc.text = card.Description;
+
+        string description = card.Description;
+        foreach (var defaultValue in card.defaultValues){
+            string styledValue = $"<b>{defaultValue.value}</b>";
+            description = description.Replace($"{{{defaultValue.key}}}", styledValue);
+        }
+        desc.text = description;
         desc.style.fontSize = getDescFontSize(card.Description);
         container.Add(desc);
 
@@ -50,12 +72,26 @@ public class CardView {
         manaContainer.AddToClassList("mana-container");
     
         var manaCost = new Label();
-        manaCost.AddToClassList("mana-card-label");
-        manaCost.text = card.Cost.ToString();
+        setManaCost(manaCost, card);
         manaContainer.Add(manaCost);
         container.Add(manaContainer);
 
         return container;
+    }
+
+    private void setManaCost(Label manaCost, CardType card) {
+        manaCost.AddToClassList("mana-card-label");
+        if (cardInstance == null) {
+             manaCost.text = card.Cost.ToString();
+        } else {
+
+            int manaCostValue = cardInstance.GetManaCost();
+            manaCost.text = manaCostValue.ToString();
+            if (manaCostValue < card.Cost) {
+                manaCost.AddToClassList("mana-reduced");
+            } 
+        }
+        
     }
 
     private int getDescFontSize(string desc) {
@@ -74,5 +110,30 @@ public class CardView {
             return (int)Math.Floor(CARD_TITLE_SIZE * textSizeRatio);
         }
         return CARD_TITLE_SIZE;
+    }
+
+    public void UpdateCardText(string newText) {
+        Label label = cardContainer.Q<Label>(null, "card-desc-label");
+        label.text = newText;
+        label.MarkDirtyRepaint();
+    }
+
+    public void UpdateManaCost() {
+        Label manaLabel = cardContainer.Q<Label>(null, "mana-card-label");
+        setManaCost(manaLabel, cardInstance.cardType);
+        manaLabel.MarkDirtyRepaint();
+    }
+
+    public void SetHighlight(bool isHighlightVisible) {
+        if (cardContainer == null) return;
+        VisualElement ve = cardContainer.Q<VisualElement>(null, "green-card-border");
+        if (isHighlightVisible) {
+            //UpdateCardText("active");
+            ve.visible = true;
+        } else {
+            //UpdateCardText("inactive");
+            ve.visible = false;
+        }
+        ve.MarkDirtyRepaint();
     }
 }

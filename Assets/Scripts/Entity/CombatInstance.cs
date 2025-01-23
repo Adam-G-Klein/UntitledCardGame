@@ -239,6 +239,15 @@ public class CombatInstance : MonoBehaviour
         }
     }
 
+    public CompanionInstance GetCompanionInstance() {
+        switch(parentType) {
+            case CombatInstanceParent.COMPANION:
+                return GetComponent<CompanionInstance>();
+            default:
+                return null;
+        }
+    }
+
     private void UpdateStatusEffect(StatusEffectType status) {
         switch (status) {
             case StatusEffectType.Defended:

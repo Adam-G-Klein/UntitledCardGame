@@ -13,7 +13,11 @@ MonoBehaviour:
   m_Name: BloodiedBlade
   m_EditorClassIdentifier: 
   Name: Bloodied Blade
-  Description: Lose 1 HP. Deal 10 damage to target.
+  Description: Lose 1 HP. Deal {rpl_damage} damage to target.
+  values: 0a000000
+  defaultValues:
+  - key: rpl_damage
+    value: 10
   Cost: 1
   Artwork: {fileID: 21300000, guid: 0f5ecf3627abce84490e1f8ec8e4f24f, type: 3}
   cardCategory: 1

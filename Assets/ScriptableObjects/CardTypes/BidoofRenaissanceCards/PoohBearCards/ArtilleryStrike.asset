@@ -13,7 +13,13 @@ MonoBehaviour:
   m_Name: ArtilleryStrike
   m_EditorClassIdentifier: 
   Name: Artillery Strike
-  Description: Deal 6 damage for each aura stack on your team.
+  Description: Deal {rpl_damage} damage for each aura stack on your team ({numOrbs})
+  values: 0600000000000000
+  defaultValues:
+  - key: rpl_damage
+    value: 6
+  - key: numOrbs
+    value: 0
   Cost: 1
   Artwork: {fileID: 21300000, guid: 70dd24a7c98646b44870b00b67a720f4, type: 3}
   cardCategory: 1

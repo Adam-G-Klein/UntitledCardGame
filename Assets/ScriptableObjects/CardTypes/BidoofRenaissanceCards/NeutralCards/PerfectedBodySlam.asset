@@ -13,7 +13,14 @@ MonoBehaviour:
   m_Name: PerfectedBodySlam
   m_EditorClassIdentifier: 
   Name: Perfected Body Slam
-  Description: Deal 4 damage for each Generated card in this companion's deck.
+  Description: Deal {rpl_damage} damage for each Generated card in this companion's
+    deck ({numGeneratedCards})
+  values: 04000000
+  defaultValues:
+  - key: rpl_damage
+    value: 4
+  - key: numGeneratedCards
+    value: 0
   Cost: 2
   Artwork: {fileID: 21300000, guid: 8f7d978fe57e96342a8335f56279ee7e, type: 3}
   cardCategory: 1

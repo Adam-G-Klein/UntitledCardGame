@@ -31,6 +31,15 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         cardDrawVFXPrefab = EnemyEncounterManager.Instance.encounterConstants.cardDrawVFXPrefab;
     }
 
+    public void UpdatePlayableCards(DeckInstance deckFrom = null) {
+        // TODO loop through all cards and update all cards from the related deck
+        foreach(PlayableCard playableCard in cardsInHand) {
+            if (null == deckFrom || playableCard.deckFrom == deckFrom) {
+                playableCard.UpdateCardText();
+            }
+        };
+    }
+
     public List<PlayableCard> DealCards(List<Card> cards, DeckInstance deckFrom) {
         List<PlayableCard> cardsDelt = new List<PlayableCard>();
         PlayableCard newCard;
@@ -56,6 +65,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             cardsDelt.Add(newCard);
             CardDrawVFX(deckFrom.transform.position, newCardPlacement.worldPos, newCard.gameObject);
         }
+        //PlayerHand.Instance.UpdatePlayableCards();
         return cardsDelt;
     }
 

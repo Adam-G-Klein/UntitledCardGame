@@ -12,7 +12,7 @@ public class CombatEncounterState
     public List<DeckInstance> decksShuffledThisCombat = new List<DeckInstance>();
 
     public void CastCard(Card card) {
-        cardsCastThisTurn.Add(card);
+        cardsCastThisTurn.Add(card); 
     }
 
     public void ExhaustCard(Card card) {

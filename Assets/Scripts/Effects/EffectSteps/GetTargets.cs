@@ -31,7 +31,7 @@ using UnityEngine;
 */
 
 [System.Serializable]
-public class GetTargets : EffectStep
+public class GetTargets : EffectStep, IEffectStepCalculation
 {
     [SerializeField]
     private bool useInputToLimitOptions = false;
@@ -290,6 +290,23 @@ public class GetTargets : EffectStep
             EnemyInstance enemy = document.map.GetItem<EnemyInstance>(
                 EffectDocument.ORIGIN, 0);
             EffectUtils.AddEnemyToDocument(document, outputKey, enemy);
+        }
+    }
+
+    public IEnumerator invokeForCalculation(EffectDocument document)
+    {
+        if (specialTargetRule == SpecialTargetRule.CantTargetSelf) {
+            yield return null;
+        } if (specialTargetRule == SpecialTargetRule.None) {
+            if (!validTargets.Contains(Targetable.TargetType.Companion)) yield return null;
+            CompanionInstance companionInstance = EnemyEncounterManager.Instance.gameState.hoveredCompanion;
+            if (companionInstance != null) {
+                EffectUtils.AddCompanionToDocument(document, outputKey, companionInstance);
+            } else {
+                yield return null;
+            }
+        } else {
+            yield return invoke(document);
         }
     }
 

@@ -12,7 +12,7 @@ using UnityEngine;
     Parameters:
         - 
 */
-public class EndWorkflowIfConditionMet : EffectStep {
+public class EndWorkflowIfConditionMet : EffectStep, IEffectStepCalculation {
     [SerializeField]
     private string inputKey1 = "";
 
@@ -28,6 +28,11 @@ public class EndWorkflowIfConditionMet : EffectStep {
             EffectManager.Instance.interruptEffectWorkflow = true;
         }
         yield return null;
+    }
+
+    public IEnumerator invokeForCalculation(EffectDocument document)
+    {
+        yield return invoke(document);
     }
 
     public enum MapToCheck {

@@ -13,7 +13,11 @@ MonoBehaviour:
   m_Name: GreedyBlade
   m_EditorClassIdentifier: 
   Name: Greedy Blade
-  Description: Deal 7 damage. If it kills an enemy, gain $2
+  Description: Deal {rpl_damage} damage. If it kills an enemy, gain $2
+  values: 07000000
+  defaultValues:
+  - key: rpl_damage
+    value: 7
   Cost: 1
   Artwork: {fileID: 21300000, guid: d2a517d36b5671d41afe764624992dc3, type: 3}
   cardCategory: 1

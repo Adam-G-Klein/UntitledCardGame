@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Targetable : MonoBehaviour, IPointerClickHandler
+public class Targetable : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public TargetType targetType;
     
@@ -20,6 +20,20 @@ public class Targetable : MonoBehaviour, IPointerClickHandler
             Debug.Log("Targetable: Clicked on card");
         }
         TargettingManager.Instance.InvokeTargetSuppliedHandler(this);
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (targetType == TargetType.Companion) {
+            EnemyEncounterManager.Instance.gameState.UpdateHoveredCompanion(GetComponent<CompanionInstance>());
+        }
+    }
+
+        public void OnPointerExit(PointerEventData eventData)
+    {
+        if (targetType == TargetType.Companion) {
+            EnemyEncounterManager.Instance.gameState.UpdateHoveredCompanion(null);
+        }
     }
 
     public enum TargetType {

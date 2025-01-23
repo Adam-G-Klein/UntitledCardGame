@@ -442,7 +442,8 @@
         <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); height: 33%; align-items: center;">
             <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); width: 80%; flex-direction: row; justify-content: space-around;">
                 <ui:VisualElement name="VisualElement" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); min-width: auto; min-height: auto; width: 30%; flex-direction: row; height: 100%; justify-content: center; align-items: center;">
-                    <ui:VisualElement name="card-1" class="card-container">
+                    <ui:VisualElement name="card-1" class="card-container" style="translate: 0 0; visibility: visible;">
+                        <ui:VisualElement class="green-card-border" />
                         <ui:Label tabindex="-1" text="1" display-tooltip-when-elided="true" class="mana-card-label" style="height: 44px; width: 17px;" />
                         <ui:VisualElement class="card-image" />
                         <ui:Label tabindex="-1" text="CardName" display-tooltip-when-elided="true" class="card-title-label" style="font-size: 21px; top: -113px;" />

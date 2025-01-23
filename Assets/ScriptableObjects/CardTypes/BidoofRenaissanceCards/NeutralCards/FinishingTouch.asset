@@ -13,7 +13,13 @@ MonoBehaviour:
   m_Name: FinishingTouch
   m_EditorClassIdentifier: 
   Name: Finishing Touch
-  Description: Deal 3 damage for each attack card played this turn
+  Description: Deal {rpl_damage} damage for each attack card played this turn ({numAttacksPlayed})
+  values: 0300000000000000
+  defaultValues:
+  - key: rpl_damage
+    value: 3
+  - key: numAttacksPlayed
+    value: 0
   Cost: 1
   Artwork: {fileID: 21300000, guid: 3dd0d533e03397448a54f341499e747d, type: 3}
   cardCategory: 1

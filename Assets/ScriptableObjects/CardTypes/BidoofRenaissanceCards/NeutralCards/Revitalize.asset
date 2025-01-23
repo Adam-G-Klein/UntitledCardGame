@@ -14,7 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Revitalize
   Description: Exhaust. Heal target companion 1 HP for each Generated card they have
-    in their deck.
+    in their deck ({numGeneratedCards}).
+  values: 
+  defaultValues:
+  - key: numGeneratedCards
+    value: 0
   Cost: 0
   Artwork: {fileID: 21300000, guid: 8c16952da6b2cfa4181be941e4a49469, type: 3}
   cardCategory: 2

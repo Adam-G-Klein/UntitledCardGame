@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FilterEntityByStatus : EffectStep
+public class FilterEntityByStatus : EffectStep, IEffectStepCalculation
 {
     [SerializeField]
     private string inputKey = "";
@@ -73,5 +73,10 @@ public class FilterEntityByStatus : EffectStep
             }
         }
         document.map.AddItems<DeckInstance>(outputKey, filteredDeckInstances);
+    }
+
+    public IEnumerator invokeForCalculation(EffectDocument document)
+    {
+        yield return invoke(document);
     }
 }

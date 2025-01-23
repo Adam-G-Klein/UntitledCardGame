@@ -13,8 +13,12 @@ MonoBehaviour:
   m_Name: SelfSharpeningBlade
   m_EditorClassIdentifier: 
   Name: Self-Sharpening Blade
-  Description: Deal 5 damage. Increase the damage of ALL self-sharpening blade cards
-    by 5 this combat
+  Description: Deal {rpl_damage} damage. Increase the damage of ALL self-sharpening
+    blade cards by 5 this combat
+  values: 05000000
+  defaultValues:
+  - key: rpl_damage
+    value: 5
   Cost: 1
   Artwork: {fileID: 21300000, guid: bc01e6303f5aef54696b1695ae9d1ce0, type: 3}
   cardCategory: 1

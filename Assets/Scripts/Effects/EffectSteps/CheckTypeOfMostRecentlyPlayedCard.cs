@@ -6,7 +6,7 @@ using UnityEngine;
     This effect step takes two ints, does the boolean comparison on them,
     and outputs true or false given the operation.
 */
-public class CheckTypeOfMostRecentlyPlayedCard : EffectStep
+public class CheckTypeOfMostRecentlyPlayedCard : EffectStep, IEffectStepCalculation
 {
     [SerializeField]
     private CardCategory cardCategory; 
@@ -37,5 +37,10 @@ public class CheckTypeOfMostRecentlyPlayedCard : EffectStep
         Debug.Log("result" + result);
         document.boolMap[outputKey] = result;
         yield return null;
+    }
+
+    public IEnumerator invokeForCalculation(EffectDocument document)
+    {
+        yield return invoke(document);
     }
 }
