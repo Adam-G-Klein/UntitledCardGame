@@ -234,8 +234,8 @@ public class GameStateVariableSO : ScriptableObject
     }
 
     public void UpdateHoveredCompanion(CompanionInstance companionInstance) { 
-        Debug.LogError("hovering or ending hovering");
-        Debug.LogError(companionInstance);
+        Debug.Log("hovering or ending hovering");
+        Debug.Log(companionInstance);
         hoveredCompanion = companionInstance;
         PlayerHand.Instance.UpdatePlayableCards();
     }

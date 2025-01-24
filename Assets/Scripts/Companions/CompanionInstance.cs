@@ -30,7 +30,7 @@ public class CompanionInstance : MonoBehaviour, IUIEntity
         Debug.Log("CompanionInstance Start for companion " + companion.id + " initialized with combat stats (health): " + combatInstance.combatStats.getCurrentHealth());
         combatInstance.onDeathHandler += OnDeath;
         //combatInstance.genericInteractionSFX = companion.companionType.genericCompanionSFX;
-        //combatInstance.genericInteractionVFX = companion.companionType.genericCompanionVFX;
+        combatInstance.genericInteractionVFX = companion.companionType.genericCompanionVFX;
         // ---- set up the deck for this entity ----
         deckInstance.sourceDeck = companion.deck;
         // ---- set up the sprite for this entity in the world ----

@@ -141,7 +141,7 @@ public class PlayableCard : MonoBehaviour,
         EffectDocument document = new EffectDocument();
         document.map.AddItem(EffectDocument.ORIGIN, this);
         document.originEntityType = EntityType.Card;
-        Debug.LogError("trying to update card text");
+        Debug.Log("trying to update card text");
         if (card.effectSteps != null && card.effectSteps.Count != 0) {
             EffectManager.Instance.invokeEffectWorkflowForCalculation(
                 document,

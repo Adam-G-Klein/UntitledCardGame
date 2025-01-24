@@ -302,7 +302,7 @@ public class CombatInstance : MonoBehaviour
     }*/
 
     private void AddVFX(CombatInstance effector = null) {
-        if(effector != null) {
+        if(effector != null && effector.genericInteractionVFX != null) {
             Instantiate(effector.genericInteractionVFX, transform.position, Quaternion.identity);
         } else if (genericInteractionVFX != null) {
             Instantiate(genericInteractionVFX, transform.position, Quaternion.identity);
