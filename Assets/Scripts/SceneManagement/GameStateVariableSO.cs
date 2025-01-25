@@ -47,6 +47,7 @@ public class GameStateVariableSO : ScriptableObject
     public bool debugSingleEncounterMode = false;
     public List<DialogueSequenceSO> viewedSequences;
     public CompanionInstance hoveredCompanion = null;
+    public int currentEncounterIndex = 0;
     private Dictionary<Location, string> locationToScene = new Dictionary<Location, string>() {
         {Location.MAIN_MENU, "MainMenu"},
         {Location.WAKE_UP_ROOM, "AidensRoom"},
@@ -147,6 +148,7 @@ public class GameStateVariableSO : ScriptableObject
                 break;
             case Location.COMBAT:
                 Debug.Log("Leaving combat, current location is: " + currentLocation);
+                currentEncounterIndex++;
                 currentLocation = locationToNextLocation[currentLocation];
                 break;
             case Location.POST_COMBAT:
@@ -165,6 +167,7 @@ public class GameStateVariableSO : ScriptableObject
                 AdvanceEncounter();
                 break;
             case Location.SHOP:
+                currentEncounterIndex++;
                 currentLocation = locationToNextLocation[currentLocation];
                 EndTutorialLoop();
                 AdvanceEncounter();
@@ -262,6 +265,7 @@ public class GameStateVariableSO : ScriptableObject
     }
 
     public void StartNewRun(MapGeneratorSO mapGeneratorSO) {
+        currentEncounterIndex = 0;
         hasSeenShopTutorial = false;
         setMapGenerator(mapGeneratorSO);
         map.SetValue(mapGenerator.generateMap());
