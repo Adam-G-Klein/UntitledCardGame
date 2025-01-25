@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Fireblob
   m_EditorClassIdentifier: 
   companionName: Fireblob
-  maxHealth: 30
+  maxHealth: 25
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: fc8f2bf76fa3a4e449035d6c80c12fb6, type: 3}
   startingDeck: {fileID: 11400000, guid: e99468c9ae12a4996a527ac53fb7625a, type: 2}
@@ -30,18 +30,16 @@ MonoBehaviour:
   speakerType: {fileID: 0}
   abilitiesV2:
   - rid: 205827988172308710
-  abilities:
-  - rid: 5602892491280613392
-  - rid: 8205570031766208668
   upgradeTo: {fileID: 11400000, guid: bc8d1ef2bb3554ea9969a4c871f3a1e4, type: 2}
   tooltip:
     empty: 0
     lines:
     - title: Fireblob
-      description: Gain 5 max HP at the end of combat
+      description: 'At end of combat, permanently gain a card that bestows max HP '
       relatedBehaviorIndex: 0
   keepsakeTitle: Fireblob's Gel
-  keepsakeDescription: Gains 5 max HP at the end of combat.
+  keepsakeDescription: 'At end of combat, permanently gain a card that bestows max
+    HP '
   references:
     version: 2
     RefIds:
@@ -52,7 +50,7 @@ MonoBehaviour:
         effectSteps:
         - rid: 205827988172308711
         - rid: 205827988172308712
-        - rid: 205827988172308713
+        - rid: 205828032053379183
     - rid: 205827988172308711
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -68,60 +66,18 @@ MonoBehaviour:
       type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: DialogueStep
-        line: "I GAINED 5 MAX HP \u0295\u2022\u1D25\u2022\u0294"
+        line: yummy, let me save this for later
         lineTime: 2
-    - rid: 205827988172308713
-      type: {class: PermanentStatIncrease, ns: , asm: Assembly-CSharp}
+    - rid: 205828032053379183
+      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: PermanentStatIncrease
+        effectStepName: AddCardsToDeck
         inputKey: self
-        statIncreaseType: 1
-        scale: 5
+        cardTypes:
+        - {fileID: 11400000, guid: 7afc5079ca6c54fe4bca222c3e54a9be, type: 2}
+        addToDeckMethod: 3
+        getCardsFromKey: 0
+        inputCardsKey: 
+        scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
-    - rid: 5602892491280613392
-      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
-      data:
-        companionAbilityTrigger: 1
-        effectSteps:
-        - rid: 9063059298205827088
-        - rid: 5602892491280613394
-        - rid: 5602892491280613393
-    - rid: 5602892491280613393
-      type: {class: PermanentStatIncrease, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: PermanentStatIncrease
-        inputKey: self
-        statIncreaseType: 1
-        scale: 5
-        getScaleFromKey: 0
-        inputScaleKey: 
-    - rid: 5602892491280613394
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: self
-        validTargets: 
-        number: 1
-        specialTargetRule: 3
-        cantCancelTargetting: 0
-    - rid: 8205570031766208668
-      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
-      data:
-        companionAbilityTrigger: 8
-        effectSteps:
-        - rid: 8205570031766208669
-    - rid: 8205570031766208669
-      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: DialogueStep
-        line: I now gain block at the end of each turn!
-        lineTime: 3
-    - rid: 9063059298205827088
-      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: DialogueStep
-        line: I GAINED 5 MAX HP!
-        lineTime: 2
