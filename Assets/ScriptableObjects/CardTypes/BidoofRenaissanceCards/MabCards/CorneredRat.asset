@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: Reinforce
+  m_Name: CorneredRat
   m_EditorClassIdentifier: 
-  Name: Reinforce
-  Description: Give target companion 7 block. If they are below half HP, draw 2 cards
-    from them
+  Name: Cornered Rat
+  Description: Give a companion 1 strength. If they are below half HP, give them
+    2 strength instead
   Cost: 1
-  Artwork: {fileID: 21300000, guid: b0388336af3869341bb50af8ec281a8a, type: 3}
+  Artwork: {fileID: 21300000, guid: b26e83dbae52f5a40bf3378f7fed66ac, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
@@ -34,39 +34,33 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 205828032053379081
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: target
+        statusEffect: 0
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
     - rid: 1274772082283774960
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
         inputKey: target
-        prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
-        scale: 1.5
-    - rid: 1274772082283774961
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: drawnCards
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
         scale: 1.5
     - rid: 4463205916933357573
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ApplyStatus
         inputKey: target
-        statusEffect: 2
-        scale: 7
+        statusEffect: 0
+        scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
-    - rid: 4463205916933357574
-      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: DrawCards
-        inputKey: targetBelowHalf
-        outputKey: drawnCards
-        scale: 2
-        getScaleFromKey: 0
-        inputScaleKey: 
     - rid: 4463206079571952049
       type: {class: FilterEntityByHP, ns: , asm: Assembly-CSharp}
       data:
@@ -107,8 +101,7 @@ MonoBehaviour:
         - rid: 4463206079571952051
         - rid: 1274772082283774960
         - rid: 4463206079571952052
-        - rid: 4463205916933357574
-        - rid: 1274772082283774961
+        - rid: 205828032053379081
     - rid: 5602892949302280978
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
