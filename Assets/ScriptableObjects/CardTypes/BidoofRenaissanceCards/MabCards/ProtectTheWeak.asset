@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ProtectTheWeak
   m_EditorClassIdentifier: 
   Name: Protect the Weak
-  Description: Give target companion 6 block. Give them 10 instead if they are under
+  Description: Give target companion 5 block. Give them 8 instead if they are under
     half HP.
   Cost: 1
   Artwork: {fileID: 21300000, guid: c338159c274399e42bff6fbabd825764, type: 3}
@@ -51,9 +51,9 @@ MonoBehaviour:
         - rid: 5602892723852673325
         - rid: 5602892723852673326
         - rid: 5602892723852673329
+        - rid: 1274772082283774959
         - rid: 5602892723852673327
         - rid: 5602892723852673328
-        - rid: 1274772082283774959
     - rid: 5602892723852673319
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -78,7 +78,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: target
         statusEffect: 2
-        scale: 6
+        scale: 5
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
@@ -110,7 +110,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: target
         statusEffect: 2
-        scale: 4
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
