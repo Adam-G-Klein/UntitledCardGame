@@ -10,48 +10,48 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
-  m_Name: Mab
+  m_Name: L3Mab
   m_EditorClassIdentifier: 
-  companionName: Mab
+  companionName: L3 Mab
   maxHealth: 20
   initialCardsDealtPerTurn: 1
-  sprite: {fileID: 21300000, guid: 06c409edcf5e308438ea9c89ccd99c68, type: 3}
+  sprite: {fileID: 21300000, guid: d61104aa9ea6046f093d9ee380050aa9, type: 3}
   startingDeck: {fileID: 11400000, guid: 75d02cdf7041b4d31bff1b7857a1d055, type: 2}
-  keepsake: {fileID: 21300000, guid: 06c409edcf5e308438ea9c89ccd99c68, type: 3}
+  keepsake: {fileID: 21300000, guid: d61104aa9ea6046f093d9ee380050aa9, type: 3}
   cardBack: {fileID: 21300000, guid: a5222a8d127763c49b397cce916345ec, type: 3}
   cardFrame: {fileID: 21300000, guid: 106aacbbfd302814982ff4ed944fbaed, type: 3}
-  typeIcon: {fileID: 21300000, guid: 06c409edcf5e308438ea9c89ccd99c68, type: 3}
-  portrait: {fileID: 21300000, guid: 06c409edcf5e308438ea9c89ccd99c68, type: 3}
-  teamSelectSprite: {fileID: 21300000, guid: 06c409edcf5e308438ea9c89ccd99c68, type: 3}
+  typeIcon: {fileID: 21300000, guid: d61104aa9ea6046f093d9ee380050aa9, type: 3}
+  portrait: {fileID: 21300000, guid: d61104aa9ea6046f093d9ee380050aa9, type: 3}
+  teamSelectSprite: {fileID: 21300000, guid: d61104aa9ea6046f093d9ee380050aa9, type: 3}
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 0}
   genericCompanionVFX: {fileID: 0}
   cardPool: {fileID: 11400000, guid: c117b14afa44247b59e7f794939cdc89, type: 2}
-  speakerType: {fileID: 11400000, guid: 9e835f3c4c49e9f4da934369a0a7132b, type: 2}
+  speakerType: {fileID: 0}
   abilitiesV2:
-  - rid: 205828032053379072
-  level: 0
-  upgradeTo: {fileID: 11400000, guid: e8c26b8d205c446d7a74a4c055d7d437, type: 2}
+  - rid: 205828032053379252
+  level: 2
+  upgradeTo: {fileID: 0}
   tooltip:
-    empty: 0
+    empty: 1
     lines:
-    - title: Mab
-      description: At the end of combat, heal target companion 5 HP
+    - title: L3 Mab
+      description: At the end of combat, give target companion 10 max HP
       relatedBehaviorIndex: 0
-  keepsakeTitle: Mab's Malice
-  keepsakeDescription: At the end of combat, heal target companion 5 HP
+  keepsakeTitle: 
+  keepsakeDescription: 
   references:
     version: 2
     RefIds:
-    - rid: 205828032053379072
+    - rid: 205828032053379252
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
         abilityTrigger: 1
         effectSteps:
-        - rid: 205828032053379075
-        - rid: 205828032053379073
-        - rid: 205828032053379074
-    - rid: 205828032053379073
+        - rid: 205828032053379254
+        - rid: 205828032053379253
+        - rid: 205828032053379255
+    - rid: 205828032053379253
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
@@ -62,21 +62,18 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
-    - rid: 205828032053379074
-      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CombatEffectStep
-        inputKey: target
-        combatEffect: 9
-        scale: 5
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
-    - rid: 205828032053379075
+    - rid: 205828032053379254
       type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: DialogueStep
-        line: who should i heal for 5 HP?
+        line: which poor creature should i bestow max HP upon?
         lineTime: 2
+    - rid: 205828032053379255
+      type: {class: PermanentStatIncrease, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: PermanentStatIncrease
+        inputKey: target
+        statIncreaseType: 1
+        scale: 10
+        getScaleFromKey: 0
+        inputScaleKey: 
