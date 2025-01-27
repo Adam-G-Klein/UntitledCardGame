@@ -28,81 +28,71 @@ MonoBehaviour:
   genericCompanionVFX: {fileID: 0}
   cardPool: {fileID: 11400000, guid: 61336306d4d8d494d90e203697769475, type: 2}
   speakerType: {fileID: 0}
-  abilities:
-  - rid: 5602892563578094077
-  - rid: 8205570031766208658
+  abilitiesV2:
+  - rid: 205828032053379705
+  level: 0
   upgradeTo: {fileID: 11400000, guid: 3b42d32224eeb40459eb4d23d3843769, type: 2}
   tooltip:
     empty: 0
     lines:
     - title: Argos
-      description: At the end of combat, permanently add Eye of Argos to each adjacent
-        companion's deck.
-      relatedBehaviorIndex: 0
-    - title: Eye of Argos
-      description: Exhaust. Draw 1 card from this companion, and draw 1 card from
-        a random companion
+      description: Whenever your hand is empty, draw a card from a random companion
       relatedBehaviorIndex: 0
   keepsakeTitle: The Eye
-  keepsakeDescription: At the end of combat, permanently add an Eye of Argos to each
-    adjacent companion's deck.
+  keepsakeDescription: Whenever your hand is empty, draw a card from a random companion
   references:
     version: 2
     RefIds:
-    - rid: 4463206214708757049
-      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+    - rid: 205828032053379705
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: DialogueStep
-        line: i sit. i wait. i watch. the eye of argos sees all.
-        lineTime: 2
-    - rid: 5602892563578094077
-      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
-      data:
-        companionAbilityTrigger: 1
+        abilityTrigger: 7
         effectSteps:
-        - rid: 4463206214708757049
-        - rid: 5602892563578094080
-        - rid: 5602892563578094081
-        - rid: 5602892563578094100
-    - rid: 5602892563578094080
+        - rid: 205828032053379708
+        - rid: 205828032053379707
+        - rid: 205828032053379741
+        - rid: 205828032053379742
+        - rid: 205828032053379743
+    - rid: 205828032053379707
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: notEmpty
+        conditionToEndOn: 1
+    - rid: 205828032053379708
+      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: BooleanComparison
+        hardCodedInputKey1: 1
+        useHardCodedInputKey1: 1
+        inputKey1: 
+        operation: 1
+        inputKey2: numCardsInHand
+        outputKey: notEmpty
+    - rid: 205828032053379741
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: self
+        outputKey: randomGuy
         validTargets: 00000000
         number: 1
-        specialTargetRule: 3
+        specialTargetRule: 6
         cantCancelTargetting: 0
-    - rid: 5602892563578094081
-      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
+    - rid: 205828032053379742
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: GetAdjacentCompanions
-        inputKey: self
-        outputKey: adjacentCompanions
-    - rid: 5602892563578094100
-      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: AddCardsToDeck
-        inputKey: adjacentCompanions
-        cardTypes:
-        - {fileID: 11400000, guid: b9e0adbcf6fe84184866b60213d4a8f1, type: 2}
-        addToDeckMethod: 3
-        getCardsFromKey: 0
-        inputCardsKey: 
+        effectStepName: DrawCards
+        inputKey: randomGuy
+        outputKey: 
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
-    - rid: 8205570031766208658
-      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
+    - rid: 205828032053379743
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
-        companionAbilityTrigger: 8
-        effectSteps:
-        - rid: 8205570031766208659
-    - rid: 8205570031766208659
-      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: DialogueStep
-        line: We will destroy our enemies with a thousand cuts!
-        lineTime: 3
+        effectStepName: InstantiatePrefab
+        inputKey: randomGuy
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        scale: 1
