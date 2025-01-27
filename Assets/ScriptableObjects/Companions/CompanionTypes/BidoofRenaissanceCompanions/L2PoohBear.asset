@@ -37,15 +37,15 @@ MonoBehaviour:
     empty: 1
     lines:
     - title: L2 Pooh Bear
-      description: Starts combat with an aura stack. At the start of your turn, create
-        an Aura Knife for each aura Pooh Bear has.
+      description: Starts combat with an aura stack. At the start of your turn, each
+        companion with at least 1 aura creates an Aura Knife
       relatedBehaviorIndex: 0
     - title: Aura Knife
-      description: 0 mana. Exhaust. Deal 4 damage.
+      description: 0 mana. Exhaust. Deal damage.
       relatedBehaviorIndex: 0
   keepsakeTitle: 
   keepsakeDescription: Starts combat with an aura stack. At the start of your turn,
-    create an Aura Knife for each aura Pooh Bear has.
+    each companion with at least 1 aura creates an Aura Knife
   references:
     version: 2
     RefIds:
@@ -55,7 +55,7 @@ MonoBehaviour:
         abilityTrigger: 12
         effectSteps:
         - rid: 205828032053379563
-        - rid: 205828032053379564
+        - rid: 205828032053379670
         - rid: 205828032053379565
     - rid: 205828032053379560
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
@@ -91,29 +91,28 @@ MonoBehaviour:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: self
-        validTargets: 
+        outputKey: all
+        validTargets: 00000000
         number: 1
-        specialTargetRule: 3
+        specialTargetRule: 1
         cantCancelTargetting: 0
-    - rid: 205828032053379564
-      type: {class: CountStatusEffectsStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CountStatusEffectStep
-        inputKey: self
-        statusEffect: 9
-        onlyCountStatusOnce: 0
-        outputKey: numOrbs
     - rid: 205828032053379565
       type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: AddCardsToHand
-        entityFromKey: self
+        entityFromKey: allWithOrb
         cardTypes:
         - {fileID: 11400000, guid: f9ddc379418214caf942666c006ffdfd, type: 2}
         getCardsFromKey: 0
         inputCardsKey: 
         scale: 1
-        getScaleFromKey: 1
-        inputScaleKey: numOrbs
+        getScaleFromKey: 0
+        inputScaleKey: 
         outputKey: 
+    - rid: 205828032053379670
+      type: {class: FilterEntityByStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FilterEntityByStatus
+        inputKey: all
+        status: 9
+        outputKey: allWithOrb

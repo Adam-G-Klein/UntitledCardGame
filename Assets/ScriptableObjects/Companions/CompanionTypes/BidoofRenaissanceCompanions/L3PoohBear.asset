@@ -37,16 +37,15 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: L3 Pooh Bear
-      description: Starts combat with an aura stack. At the start of each turn, create
-        an Aura Knife in your hand for each companion with at least 1 aura stack
+      description: Starts combat with an aura stack. At the start of your turn, each
+        companion with at least 1 aura creates a powerful Embued Knife
       relatedBehaviorIndex: 0
-    - title: Aura Knife
-      description: 0 mana. Exhaust. Deal 4 damage.
+    - title: Embued Knife
+      description: 0 mana. Exhaust. Deal damage for each orb
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: Starts combat with an aura stack. At the start of each turn,
-    create a powerful Embued Knife in your hand for each companion with at least
-    1 aura stack
+  keepsakeDescription: Starts combat with an aura stack. At the start of your turn,
+    each companion with at least 1 aura creates a powerful Embued Knife
   references:
     version: 2
     RefIds:
@@ -110,7 +109,7 @@ MonoBehaviour:
         effectStepName: AddCardsToHand
         entityFromKey: allWithOrb
         cardTypes:
-        - {fileID: 11400000, guid: f9ddc379418214caf942666c006ffdfd, type: 2}
+        - {fileID: 11400000, guid: 59874a9b5e5a94390a53aaec50c329d6, type: 2}
         getCardsFromKey: 0
         inputCardsKey: 
         scale: 1
