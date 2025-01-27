@@ -28,29 +28,17 @@ MonoBehaviour:
   genericCompanionVFX: {fileID: 0}
   cardPool: {fileID: 11400000, guid: 8f34b8b074f024b64a128d5f7d0d2294, type: 2}
   speakerType: {fileID: 0}
-  abilities:
-  - rid: 8205570031766208672
+  abilitiesV2: []
+  level: 0
   upgradeTo: {fileID: 11400000, guid: 63d215cc93af64400a7924504312f5fd, type: 2}
   tooltip:
     empty: 0
     lines:
     - title: Pythia
-      description: At the start of the turn, draw an extra card from this companion.
+      description: At the start of each turn, draw an extra card from this companion.
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: At the start of the turn, draw an extra card from this companion.
+  keepsakeDescription: At the start of each turn, draw an extra card from this companion.
   references:
     version: 2
-    RefIds:
-    - rid: 8205570031766208672
-      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
-      data:
-        companionAbilityTrigger: 8
-        effectSteps:
-        - rid: 8205570031766208673
-    - rid: 8205570031766208673
-      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: DialogueStep
-        line: I now help protect the team when a deck gets shuffled!
-        lineTime: 3
+    RefIds: []
