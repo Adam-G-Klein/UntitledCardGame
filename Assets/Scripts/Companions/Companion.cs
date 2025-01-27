@@ -9,7 +9,6 @@ public class Companion : Entity, ICombatStats, IDeckEntity, IUIEntity
 
     public Deck deck;
     public CombatStats combatStats;
-    public int companionLevel = 1;
     [Header("This is here because CompanionInstance doesn't currently exist in the shop")]
     public List<EffectWorkflow> onCombineAbilities = new List<EffectWorkflow>();
 
@@ -63,7 +62,6 @@ public class Companion : Entity, ICombatStats, IDeckEntity, IUIEntity
         // temp
         this.combatStats.maxHealth += 40;
         this.deck.cardsDealtPerTurn += 1;
-        this.companionLevel += 1;
     }
 
     public CombatStats GetCombatStats()
