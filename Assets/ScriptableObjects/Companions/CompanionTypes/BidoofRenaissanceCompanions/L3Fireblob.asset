@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
-  m_Name: L2Fireblob
+  m_Name: L3Fireblob
   m_EditorClassIdentifier: 
   companionName: Fireblob
   maxHealth: 25
   initialCardsDealtPerTurn: 1
-  sprite: {fileID: 21300000, guid: e9bdfaf4fb3e34bdab6efd8c9d262e48, type: 3}
+  sprite: {fileID: 21300000, guid: 2b5d849700e054f9b816967db94093b1, type: 3}
   startingDeck: {fileID: 11400000, guid: e99468c9ae12a4996a527ac53fb7625a, type: 2}
-  keepsake: {fileID: 21300000, guid: e9bdfaf4fb3e34bdab6efd8c9d262e48, type: 3}
+  keepsake: {fileID: 21300000, guid: 2b5d849700e054f9b816967db94093b1, type: 3}
   cardBack: {fileID: 21300000, guid: 3296a63e824de414bb4b578c4822fbdb, type: 3}
   cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
-  typeIcon: {fileID: 21300000, guid: e9bdfaf4fb3e34bdab6efd8c9d262e48, type: 3}
-  portrait: {fileID: 21300000, guid: e9bdfaf4fb3e34bdab6efd8c9d262e48, type: 3}
+  typeIcon: {fileID: 21300000, guid: 2b5d849700e054f9b816967db94093b1, type: 3}
+  portrait: {fileID: 21300000, guid: 2b5d849700e054f9b816967db94093b1, type: 3}
   teamSelectSprite: {fileID: 0}
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 0}
@@ -30,13 +30,13 @@ MonoBehaviour:
   speakerType: {fileID: 0}
   abilitiesV2:
   - rid: 205828032053379333
-  level: 1
-  upgradeTo: {fileID: 11400000, guid: f80e5db898b51428cb27c956bad961de, type: 2}
+  level: 2
+  upgradeTo: {fileID: 0}
   tooltip:
     empty: 0
     lines:
-    - title: L2 Fireblob
-      description: At the end of the turn, gain 1 block for each Generated card in
+    - title: L3 Fireblob
+      description: At the end of the turn, gain 2 block for each Generated card in
         this Fireblob's deck.
       relatedBehaviorIndex: 0
     - title: Generated Card
@@ -44,7 +44,7 @@ MonoBehaviour:
         it at the shop.
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: At the end of the turn, gain 1 block for each Generated card
+  keepsakeDescription: At the end of the turn, gain 2 block for each Generated card
     in this Fireblob's deck.
   references:
     version: 2
@@ -56,6 +56,7 @@ MonoBehaviour:
         effectSteps:
         - rid: 205828032053379334
         - rid: 205828032053379335
+        - rid: 205828032053379337
         - rid: 205828032053379336
     - rid: 205828032053379334
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -75,8 +76,8 @@ MonoBehaviour:
         inputDeckKey: self
         categoryToCount: 0
         onlyGeneratedCards: 1
-        includeDrawPile: 1
-        includeDiscardPile: 1
+        includeDrawPile: 0
+        includeDiscardPile: 0
         includeCardsInHand: 1
         outputKey: count
     - rid: 205828032053379336
@@ -87,5 +88,14 @@ MonoBehaviour:
         statusEffect: 2
         scale: 0
         getScaleFromKey: 1
-        inputScaleKey: count
+        inputScaleKey: doubled
         multiplyByNumAuraStacks: 0
+    - rid: 205828032053379337
+      type: {class: MathStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: MathStep
+        inputKey: count
+        operand2InputKey: UNUSED
+        operation: 2
+        scale: 2
+        outputKey: doubled
