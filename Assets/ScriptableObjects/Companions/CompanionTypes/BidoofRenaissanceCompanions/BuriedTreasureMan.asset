@@ -30,9 +30,7 @@ MonoBehaviour:
   speakerType: {fileID: 0}
   abilitiesV2:
   - rid: 205827988172308714
-  abilities:
-  - rid: 5602892491280613443
-  - rid: 8205570031766208664
+  level: 0
   upgradeTo: {fileID: 11400000, guid: 07493795f887747499efadbf94ce0028, type: 2}
   tooltip:
     empty: 0
@@ -42,7 +40,7 @@ MonoBehaviour:
         a random companion's deck.
       relatedBehaviorIndex: 0
     - title: Buried Treasure
-      description: 1 Mana. Exhaust. Gain 2 Gold.
+      description: 1 Mana. Exhaust. Gain 1 Gold.
       relatedBehaviorIndex: 0
   keepsakeTitle: Spare Change
   keepsakeDescription: At the start of combat, put a Buried Treasure on the bottom
@@ -89,53 +87,3 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
-    - rid: 4463206214708757051
-      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: DialogueStep
-        line: '*sniff* *sniff* ... must be treasure around here somewhere'
-        lineTime: 2
-    - rid: 5602892491280613443
-      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
-      data:
-        companionAbilityTrigger: 0
-        effectSteps:
-        - rid: 5602892491280613460
-        - rid: 5602892491280613461
-        - rid: 4463206214708757051
-    - rid: 5602892491280613460
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: randomTarget
-        validTargets: 00000000
-        number: 1
-        specialTargetRule: 6
-        cantCancelTargetting: 0
-    - rid: 5602892491280613461
-      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: AddCardsToDeck
-        inputKey: randomTarget
-        cardTypes:
-        - {fileID: 11400000, guid: 32eae75392814445b8a952edf781d892, type: 2}
-        addToDeckMethod: 2
-        getCardsFromKey: 0
-        inputCardsKey: 
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
-    - rid: 8205570031766208664
-      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
-      data:
-        companionAbilityTrigger: 8
-        effectSteps:
-        - rid: 8205570031766208665
-    - rid: 8205570031766208665
-      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: DialogueStep
-        line: Now I have treasure for everyone!
-        lineTime: 3
