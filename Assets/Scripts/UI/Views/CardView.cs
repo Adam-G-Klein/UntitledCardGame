@@ -15,8 +15,8 @@ using System.ComponentModel;
 public class CardView {
     public VisualElement cardContainer;
     // TODO, could require the stylesheet in the constructor and fetch these from there
-    public static int CARD_DESC_SIZE = 26; //px
-    public static int CARD_TITLE_SIZE = 44; //px
+    public static int CARD_DESC_SIZE = 12; //px
+    public static int CARD_TITLE_SIZE = 22; //px
     public static int CARD_DESC_MAX_FULL_SIZE_CHARS = 18; // guess
     public static int CARD_TITLE_MAX_FULL_SIZE_CHARS = 8; // guess
     private Card cardInstance = null;
@@ -70,7 +70,7 @@ public class CardView {
 
         var manaContainer = new VisualElement();
         manaContainer.AddToClassList("mana-container");
-    
+
         var manaCost = new Label();
         setManaCost(manaCost, card);
         manaContainer.Add(manaCost);
