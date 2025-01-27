@@ -136,6 +136,10 @@ public abstract class EntityAbilityInstance
     private IEnumerator OnCardCast(PlayableCard card) {
         EffectDocument document = createEffectDocument();
         document.map.AddItem<PlayableCard>("cardPlayed", card);
+        // Question for big James: does this occur after the card resolves?
+        // Happens after the card resolves, but before it is discarded or exhausted.
+        // Could get funky if we have an effect that draws after cards are exhausted.
+        document.intMap.Add("numCardsInHand", PlayerHand.Instance.cardsInHand.Count);
         yield return EffectManager.Instance.invokeEffectWorkflowCoroutine(document, ability.effectSteps, null);
     }
 
