@@ -91,6 +91,9 @@ public abstract class EntityAbilityInstance
             case EntityAbility.EntityAbilityTrigger.OnFriendDamageTaken:
                 CombatEntityManager.Instance.onCompanionDamageHandler += OnDamageTaken;
                 break;
+            case EntityAbility.EntityAbilityTrigger.OnHandEmpty:
+                PlayerHand.Instance.onHandEmptyHandler += OnHandEmpty;
+                break;
         }
     }
 
@@ -111,6 +114,10 @@ public abstract class EntityAbilityInstance
         if (ability.abilityTrigger == EntityAbility.EntityAbilityTrigger.OnCardCast) {
             PlayerHand.Instance.onCardCastHandler -= OnCardCast;
         }
+        if (ability.abilityTrigger == EntityAbility.EntityAbilityTrigger.OnHandEmpty) {
+            PlayerHand.Instance.onHandEmptyHandler -= OnHandEmpty;
+        }
+
 
         // This way of unsubscribing is giga sketchy, because PlayerHand is a generic singleton
         // and persists longer than the "Instance" game objects.
@@ -136,11 +143,12 @@ public abstract class EntityAbilityInstance
     private IEnumerator OnCardCast(PlayableCard card) {
         EffectDocument document = createEffectDocument();
         document.map.AddItem<PlayableCard>("cardPlayed", card);
-        // Question for big James: does this occur after the card resolves?
-        // Happens after the card resolves, but before it is discarded or exhausted.
-        // Could get funky if we have an effect that draws after cards are exhausted.
-        document.intMap.Add("numCardsInHand", PlayerHand.Instance.cardsInHand.Count);
         yield return EffectManager.Instance.invokeEffectWorkflowCoroutine(document, ability.effectSteps, null);
+    }
+
+    private IEnumerator OnHandEmpty() {
+        Debug.Log("OnHandEmpty ability invoked!!!");
+        yield return setupAndInvokeAbility().GetEnumerator();
     }
 
     private IEnumerator OnCardExhaust(DeckInstance deckFrom, Card card) {

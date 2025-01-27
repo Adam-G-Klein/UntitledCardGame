@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Unity.Collections;
+using System.Linq;
 
 
 [ExecuteInEditMode]
@@ -20,6 +21,9 @@ public class PlayerHand : GenericSingleton<PlayerHand>
 
     public delegate IEnumerator OnCardCastHandler(PlayableCard card);
     public event OnCardCastHandler onCardCastHandler;
+
+    public delegate IEnumerator OnHandEmptyHandler();
+    public event OnHandEmptyHandler onHandEmptyHandler;
 
     public delegate IEnumerator OnDeckShuffleHandler(DeckInstance deckFrom);
     public event OnDeckShuffleHandler onDeckShuffledHandler;
@@ -145,6 +149,15 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         if (onCardExhaustHandler != null) {
             foreach (OnCardExhaustHandler handler in onCardExhaustHandler.GetInvocationList()) {
                 yield return StartCoroutine(handler.Invoke(deckFrom, card));
+            }
+        }
+    }
+
+    public void OnHandEmpty() {
+        if (onHandEmptyHandler != null) {
+            Debug.Log("OnHandEmpty number of invocations: " + onHandEmptyHandler.GetInvocationList().Count());
+            foreach (OnHandEmptyHandler handler in onHandEmptyHandler.GetInvocationList()) {
+                StartCoroutine(handler.Invoke());
             }
         }
     }

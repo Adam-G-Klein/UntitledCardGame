@@ -28,5 +28,6 @@ public class EntityAbility
         OnDeckShuffled,
         OnFriendDamageTaken,
         StartOfPlayerTurn,
+        OnHandEmpty,
     }
 }
