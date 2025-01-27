@@ -2,7 +2,8 @@
     <Style src="project://database/Assets/UI%20Toolkit/Shop/ShopUIStylesheet.uss?fileID=7433441132597879392&amp;guid=b4d5060bf962ba64c83be6329cd47b49&amp;type=3#ShopUIStylesheet" />
     <Style src="project://database/Assets/UI/common.uss?fileID=7433441132597879392&amp;guid=8d0bc28a2ed710a44b762e4c857ac6f9&amp;type=3#common" />
     <Style src="project://database/Assets/UI%20Toolkit/Stylesheets/entity.uss?fileID=7433441132597879392&amp;guid=f28fa9619ee10d041b7306d0537405c5&amp;type=3#entity" />
-    <ui:VisualElement style="flex-grow: 1; flex-direction: column;">
+    <ui:VisualElement style="flex-grow: 1; flex-direction: column; background-image: none;">
+        <ui:VisualElement style="position: absolute; height: 100%; width: 1934px; background-image: url(&quot;project://database/Assets/Sprites/ShopSprites/ShopBackground.png?fileID=2800000&amp;guid=2caa3b811ed888648a93657bf9c73edc&amp;type=3#ShopBackground&quot;); top: -190px; left: -8px;" />
         <ui:VisualElement name="top-section" style="flex-grow: 1; height: auto; min-height: 20%; max-height: 20%; flex-direction: row;">
             <ui:VisualElement style="flex-grow: 1; flex-direction: row; justify-content: flex-start; align-items: center; width: 50%;">
                 <ui:VisualElement name="moneyIndicator" style="flex-grow: 0; background-image: url(&quot;project://database/Assets/Sprites/Z_OldPlaceholderSprites/gold.png?fileID=2800000&amp;guid=89fa58e3b56419c4381ed18792e533f3&amp;type=3#gold&quot;); width: 103px; height: 79px; flex-shrink: 0; padding-right: 0; margin-right: 30px; margin-left: 30px;" />
@@ -14,7 +15,7 @@
                 <ui:Button text="Placeholder Options Button" parse-escape-sequences="true" display-tooltip-when-elided="true" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="middle-section" style="flex-grow: 1; flex-direction: row; max-height: 35%; min-height: 35%;">
+        <ui:VisualElement name="middle-section" style="flex-grow: 1; flex-direction: row; max-height: 40%; min-height: 40%;">
             <ui:VisualElement style="flex-grow: 1; flex-basis: auto; width: 25%; height: 100%; justify-content: center; align-self: flex-start; align-items: center;">
                 <ui:VisualElement class="shopButtonContainer">
                     <ui:Button text="Upgrade" parse-escape-sequences="true" display-tooltip-when-elided="true" name="upgrade-button" class="shopButton" style="margin-right: 0;" />
@@ -29,6 +30,39 @@
                 <ui:VisualElement name="shop-goods-area" style="flex-grow: 0; width: 100%; justify-content: center; flex-direction: row; align-self: auto; align-items: center; height: auto; flex-shrink: 0;" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="unit-management" style="flex-grow: 1; max-height: 40%; min-height: 40%;" />
+        <ui:VisualElement name="unit-management" style="flex-grow: 1; max-height: 40%; min-height: 40%;">
+            <ui:VisualElement style="flex-grow: 1; background-image: none; -unity-background-scale-mode: scale-and-crop; background-color: rgb(217, 217, 217); border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-top-width: 9px; border-right-width: 9px; border-bottom-width: 9px; border-left-width: 9px; border-top-left-radius: 22px; border-top-right-radius: 22px; border-bottom-right-radius: 22px; border-bottom-left-radius: 22px;">
+                <ui:Label tabindex="-1" text="Unit Management" parse-escape-sequences="true" display-tooltip-when-elided="true" name="unit-management-label" style="-unity-text-align: upper-center; -unity-font-style: bold; font-size: 25px; height: 7.5%;" />
+                <ui:VisualElement name="unit-active-row" style="height: 40%; flex-direction: row; justify-content: flex-start; align-self: auto; align-items: center;">
+                    <ui:VisualElement name="unit-active-label-container" style="width: 15%; height: 100%; align-items: flex-end; justify-content: center;">
+                        <ui:Label tabindex="-1" text="5/5 Active" parse-escape-sequences="true" display-tooltip-when-elided="true" name="unit-active-label" style="border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-top-width: 4px; border-right-width: 0; border-bottom-width: 4px; border-left-width: 4px; width: 50%; height: 40%; -unity-text-align: middle-center; font-size: 22px; -unity-font-style: bold; margin-right: 0;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="unit-active-container" style="flex-direction: row; width: 70%; height: 90%; align-self: auto; align-items: center; justify-content: center;">
+                        <ui:VisualElement name="unit-container-0" class="single-unit-container" />
+                        <ui:VisualElement name="unit-container-1" class="single-unit-container" />
+                        <ui:VisualElement name="unit-container-2" class="single-unit-container" />
+                        <ui:VisualElement name="unit-container-3" class="single-unit-container" />
+                        <ui:VisualElement name="unit-container-4" class="single-unit-container" />
+                    </ui:VisualElement>
+                    <ui:VisualElement style="flex-grow: 1; height: 40%;">
+                        <ui:Button text="Start Next&#10;Combat" parse-escape-sequences="true" display-tooltip-when-elided="true" name="start-next-combat-button" class="shopButton" style="font-size: 23px;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="unit-bench-container" style="height: 40%; flex-direction: row; justify-content: flex-start; align-self: auto; align-items: center;">
+                    <ui:VisualElement name="VisualElement" style="width: 15%; height: 100%; align-items: flex-end; justify-content: center;">
+                        <ui:Label tabindex="-1" text="Bench" parse-escape-sequences="true" display-tooltip-when-elided="true" style="border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-top-width: 4px; border-right-width: 0; border-bottom-width: 4px; border-left-width: 4px; width: 50%; height: 40%; -unity-text-align: middle-center; font-size: 22px; -unity-font-style: bold; margin-right: 0;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement style="flex-direction: row; width: 70%; height: 90%; align-self: auto; align-items: center; justify-content: center;">
+                        <ui:ScrollView mode="Horizontal" focusable="false" usage-hints="None" touch-scroll-type="Clamped" horizontal-scroller-visibility="Hidden" name="bench-scroll-view" mouse-wheel-scroll-size="300" style="width: initial; height: 100%; flex-direction: row; flex-shrink: 0; align-items: stretch; min-width: 100%; overflow: visible; max-width: 100px;">
+                            <ui:VisualElement name="VisualElement" class="single-unit-container" style="border-top-width: 4px; border-right-width: 4px; border-bottom-width: 4px; border-left-width: 4px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); background-image: none;" />
+                            <ui:VisualElement name="VisualElement" class="single-unit-container" style="border-top-width: 4px; border-right-width: 4px; border-bottom-width: 4px; border-left-width: 4px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); width: 20%; height: 100%; background-image: none;" />
+                            <ui:VisualElement name="VisualElement" class="single-unit-container" style="border-top-width: 4px; border-right-width: 4px; border-bottom-width: 4px; border-left-width: 4px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); width: 20%; height: 100%; background-image: none;" />
+                            <ui:VisualElement name="VisualElement" class="single-unit-container" style="border-top-width: 4px; border-right-width: 4px; border-bottom-width: 4px; border-left-width: 4px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); width: 20%; height: 100%; background-image: none;" />
+                            <ui:VisualElement name="VisualElement" class="single-unit-container" style="border-top-width: 4px; border-right-width: 4px; border-bottom-width: 4px; border-left-width: 4px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); width: 20%; height: 100%; background-image: none;" />
+                        </ui:ScrollView>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

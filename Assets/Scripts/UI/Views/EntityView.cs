@@ -15,6 +15,21 @@ public class EntityView {
         entityContainer = setupEntity(entity, index, isEnemy);
     }
 
+    public void SetupEntityImage(Sprite sprite) {
+        VisualElement portraitContainer = entityContainer.Q(className: "portrait-container");
+        portraitContainer.style.backgroundImage = new StyleBackground(sprite);
+    }
+
+    public void HideDescription() {
+        entityContainer.Q("description-container").RemoveFromHierarchy();
+        VisualElement detailsContainer = entityContainer.Q("details-container");
+        detailsContainer.AddToClassList("pillar-details-no-description");
+        detailsContainer.RemoveFromClassList("pillar-details");
+        VisualElement titleContainer = entityContainer.Q("title-container");
+        titleContainer.RemoveFromClassList("pillar-name");
+        titleContainer.AddToClassList("pillar-name-no-description");
+    }
+
     private VisualElement setupEntity(IUIEntity entity, int index, bool isEnemy) {
         var pillar = new VisualElement();
         pillar.AddToClassList("entity-pillar");
@@ -71,10 +86,12 @@ public class EntityView {
         column.AddToClassList(portraitContainer.name + STATUS_EFFECTS_CONTAINER_SUFFIX);
 
         var detailsContainer = new VisualElement();
+        detailsContainer.name = "details-container";
         detailsContainer.AddToClassList("pillar-details");
 
         var titleContainer = new VisualElement();
         titleContainer.AddToClassList("pillar-name");
+        titleContainer.name = "title-container";
         var titleLabel = new Label();
         titleLabel.AddToClassList("pillar-name");
         titleContainer.Add(titleLabel);
@@ -87,6 +104,7 @@ public class EntityView {
     // deck drawers on hover for companions
     private VisualElement setupCardColumnDescription(IUIEntity entity) {
         var descContainer = new VisualElement();
+        descContainer.name = "description-container";
         descContainer.AddToClassList("pillar-text");
 
         var descLabel = new Label();

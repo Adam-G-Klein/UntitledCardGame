@@ -7,6 +7,7 @@ public class ShopItemView {
     public CompanionInShopWithPrice companionInShop = null;
     public CardInShopWithPrice cardInShop = null;
 
+    private EntityView entityView = null;
     private IShopItemViewDelegate viewDelegate;
 
     public ShopItemView(IShopItemViewDelegate viewDelegate, CompanionInShopWithPrice companion) {
@@ -21,6 +22,15 @@ public class ShopItemView {
         cardInShop = card;
     }
 
+    public void HideCompanionDescription() {
+        if (entityView == null) {
+            Debug.LogError("ShopItemView not setup to display a companion");
+            return;
+        }
+
+        entityView.HideDescription();
+    }
+
     private VisualElement makeCompanionShopItem(CompanionInShopWithPrice companion) {
         VisualElement shopItemElement = new VisualElement();
         shopItemElement.AddToClassList("shop-item-container");
@@ -28,7 +38,7 @@ public class ShopItemView {
         // Bit of a hack, but I don't feel like completely refactoring entity view right now
         Companion tempCompanion = new Companion(companion.companionType);
 
-        EntityView entityView = new EntityView(tempCompanion, 0, false);
+        entityView = new EntityView(tempCompanion, 0, false);
 
         VisualElement portraitContainer = entityView.entityContainer.Q(className: "portrait-container");
         portraitContainer.style.backgroundImage = new StyleBackground(companion.companionType.sprite);

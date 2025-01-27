@@ -201,6 +201,7 @@ GameObject:
   - component: {fileID: 555102114}
   - component: {fileID: 555102113}
   - component: {fileID: 555102115}
+  - component: {fileID: 555102116}
   m_Layer: 0
   m_Name: UI
   m_TagString: Untagged
@@ -252,7 +253,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameStateVariableSO: {fileID: 11400000, guid: 9e326417f60894341a96cc8d02868bbe, type: 2}
+  shopViewController: {fileID: 555102116}
+--- !u!114 &555102116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 555102112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d67c76ab273a5444a9316c74e882d8f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   uiDoc: {fileID: 555102113}
+  canDragCompanions: 0
 --- !u!1 &978428271
 GameObject:
   m_ObjectHideFlags: 0
