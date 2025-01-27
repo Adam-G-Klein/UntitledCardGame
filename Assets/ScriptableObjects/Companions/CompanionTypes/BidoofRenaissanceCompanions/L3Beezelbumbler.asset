@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
-  m_Name: L2Beezelbumbler
+  m_Name: L3Beezelbumbler
   m_EditorClassIdentifier: 
   companionName: Beezelbumbler
   maxHealth: 20
   initialCardsDealtPerTurn: 1
-  sprite: {fileID: 21300000, guid: e0ab2143b8408423ab692d481858408a, type: 3}
+  sprite: {fileID: 21300000, guid: db358496fbbc0478cbc8b0b1a85e4374, type: 3}
   startingDeck: {fileID: 11400000, guid: 03db7753a8eb34b8fa1ccf858b7c2c0e, type: 2}
-  keepsake: {fileID: 21300000, guid: e0ab2143b8408423ab692d481858408a, type: 3}
+  keepsake: {fileID: 21300000, guid: db358496fbbc0478cbc8b0b1a85e4374, type: 3}
   cardBack: {fileID: 21300000, guid: 3296a63e824de414bb4b578c4822fbdb, type: 3}
   cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
-  typeIcon: {fileID: 21300000, guid: e0ab2143b8408423ab692d481858408a, type: 3}
-  portrait: {fileID: 21300000, guid: e0ab2143b8408423ab692d481858408a, type: 3}
-  teamSelectSprite: {fileID: 21300000, guid: e0ab2143b8408423ab692d481858408a, type: 3}
+  typeIcon: {fileID: 21300000, guid: db358496fbbc0478cbc8b0b1a85e4374, type: 3}
+  portrait: {fileID: 21300000, guid: db358496fbbc0478cbc8b0b1a85e4374, type: 3}
+  teamSelectSprite: {fileID: 21300000, guid: db358496fbbc0478cbc8b0b1a85e4374, type: 3}
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 0}
   genericCompanionVFX: {fileID: 0}
@@ -30,44 +30,53 @@ MonoBehaviour:
   speakerType: {fileID: 0}
   abilitiesV2:
   - rid: 205828032053379370
-  level: 1
-  upgradeTo: {fileID: 11400000, guid: 0c2e68a89373f4be8804041c95445161, type: 2}
+  level: 2
+  upgradeTo: {fileID: 0}
   tooltip:
     empty: 0
     lines:
-    - title: L2 Beezelbumbler
-      description: Whenever a companion dies, give all companions 1 strength permanently
+    - title: L3 Beezelbumbler
+      description: Whenever this Beezelbumbler dies, double its base strength >:)
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: Whenever a companion dies, give all companions 1 strength
-    permanently
+  keepsakeDescription: Whenever this Beezelbumbler dies, double its base strength
+    >:)
   references:
     version: 2
     RefIds:
     - rid: 205828032053379370
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
-        abilityTrigger: 5
+        abilityTrigger: 6
         effectSteps:
         - rid: 205828032053379371
-        - rid: 205828032053379376
+        - rid: 205828032053379373
+        - rid: 205828032053379375
     - rid: 205828032053379371
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: all
+        outputKey: self
         validTargets: 00000000
         number: 1
-        specialTargetRule: 1
+        specialTargetRule: 3
         cantCancelTargetting: 0
-    - rid: 205828032053379376
+    - rid: 205828032053379373
+      type: {class: CountStatusEffectsStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CountStatusEffectStep
+        inputKey: self
+        statusEffect: 0
+        onlyCountStatusOnce: 0
+        outputKey: numStrength
+    - rid: 205828032053379375
       type: {class: PermanentStatIncrease, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: PermanentStatIncrease
-        inputKey: all
+        inputKey: self
         statIncreaseType: 0
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
+        scale: 0
+        getScaleFromKey: 1
+        inputScaleKey: numStrength
