@@ -49,6 +49,7 @@ MonoBehaviour:
         abilityTrigger: 1
         effectSteps:
         - rid: 205828032053379478
+        - rid: 205828032053379512
     - rid: 205828032053379478
       type: {class: GoldManipulation, ns: , asm: Assembly-CSharp}
       data:
@@ -56,3 +57,9 @@ MonoBehaviour:
         goldToAdd: 5
         getScaleFromKey: 0
         inputScaleKey: 
+    - rid: 205828032053379512
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: we living large baby
+        lineTime: 2
