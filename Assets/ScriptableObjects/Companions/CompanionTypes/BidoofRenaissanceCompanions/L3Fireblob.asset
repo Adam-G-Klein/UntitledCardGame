@@ -76,8 +76,8 @@ MonoBehaviour:
         inputDeckKey: self
         categoryToCount: 0
         onlyGeneratedCards: 1
-        includeDrawPile: 0
-        includeDiscardPile: 0
+        includeDrawPile: 1
+        includeDiscardPile: 1
         includeCardsInHand: 1
         outputKey: count
     - rid: 205828032053379336
