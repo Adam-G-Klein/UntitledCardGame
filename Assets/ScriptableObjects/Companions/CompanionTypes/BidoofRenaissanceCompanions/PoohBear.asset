@@ -28,36 +28,42 @@ MonoBehaviour:
   genericCompanionVFX: {fileID: 0}
   cardPool: {fileID: 11400000, guid: 88046cf7857cb4072a63a470af6868d4, type: 2}
   speakerType: {fileID: 0}
-  abilities:
-  - rid: 5602892679876706320
-  - rid: 5602892679876706391
-  - rid: 8205570031766208656
+  abilitiesV2:
+  - rid: 205828032053379553
+  - rid: 205828032053379554
+  level: 0
   upgradeTo: {fileID: 11400000, guid: cb259ef64165b4b279632ad66941e132, type: 2}
   tooltip:
     empty: 0
     lines:
     - title: PoohBear
-      description: Starts combat with 1 aura. Each turn, create an AuraKnife in your
-        hand for each companion with at least 1 aura stack
+      description: Starts combat with 1 aura. Each turn, PoohBear creates a 0 mana
+        exhaust Aura Knife in hand
       relatedBehaviorIndex: 0
-    - title: AuraKnife
-      description: Exhaust. Deal 4 damage.
+    - title: Aura Knife
+      description: 0 mana. Exhaust. Deal 4 damage.
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: Starts combat with 1 aura. Each turn, create an AuraKnife
-    in your hand for each companion with at least 1 aura stack
+  keepsakeDescription: Starts combat with 1 aura. Each turn, PoohBear creates a 0
+    mana exhaust Aura Knife in hand
   references:
     version: 2
     RefIds:
-    - rid: 5602892679876706320
-      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
+    - rid: 205828032053379553
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
-        companionAbilityTrigger: 0
+        abilityTrigger: 12
         effectSteps:
-        - rid: 5602892679876706321
-        - rid: 5602892679876706322
-        - rid: 8205570031766208652
-    - rid: 5602892679876706321
+        - rid: 205828032053379555
+        - rid: 205828032053379558
+    - rid: 205828032053379554
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 0
+        effectSteps:
+        - rid: 205828032053379556
+        - rid: 205828032053379557
+    - rid: 205828032053379555
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
@@ -68,7 +74,18 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
-    - rid: 5602892679876706322
+    - rid: 205828032053379556
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 205828032053379557
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ApplyStatus
@@ -78,38 +95,11 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
-    - rid: 5602892679876706391
-      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
-      data:
-        companionAbilityTrigger: 12
-        effectSteps:
-        - rid: 5602892679876706393
-        - rid: 5602892679876706394
-        - rid: 5602892949302281204
-        - rid: 8205570031766208653
-    - rid: 5602892679876706393
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: allCompanions
-        validTargets: 00000000
-        number: 1
-        specialTargetRule: 1
-        cantCancelTargetting: 0
-    - rid: 5602892679876706394
-      type: {class: FilterEntityByStatus, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: FilterEntityByStatus
-        inputKey: allCompanions
-        status: 9
-        outputKey: companionsWithOrbs
-    - rid: 5602892949302281204
+    - rid: 205828032053379558
       type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: AddCardsToHand
-        entityFromKey: companionsWithOrbs
+        entityFromKey: self
         cardTypes:
         - {fileID: 11400000, guid: f9ddc379418214caf942666c006ffdfd, type: 2}
         getCardsFromKey: 0
@@ -118,29 +108,3 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         outputKey: 
-    - rid: 8205570031766208652
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: self
-        prefabToInstantiate: {fileID: 1694406742967473385, guid: a6181747c84ef6b41a01c8ae8084f953, type: 3}
-        scale: 5
-    - rid: 8205570031766208653
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: companionsWithOrbs
-        prefabToInstantiate: {fileID: 1694406742967473385, guid: a6181747c84ef6b41a01c8ae8084f953, type: 3}
-        scale: 1
-    - rid: 8205570031766208656
-      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
-      data:
-        companionAbilityTrigger: 8
-        effectSteps:
-        - rid: 8205570031766208657
-    - rid: 8205570031766208657
-      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: DialogueStep
-        line: More aura more power!
-        lineTime: 3
