@@ -10,48 +10,48 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
-  m_Name: L2Bidoof
+  m_Name: L3Bidoof
   m_EditorClassIdentifier: 
   companionName: Bidoof
   maxHealth: 40
   initialCardsDealtPerTurn: 1
-  sprite: {fileID: 21300000, guid: ecf91a3bbc5ca489fb729a99ecc4974c, type: 3}
+  sprite: {fileID: 21300000, guid: 87a18d4fe7e884faa87c4fa25ba8420b, type: 3}
   startingDeck: {fileID: 11400000, guid: bf6401d447a5b491382ab14a197ef5ed, type: 2}
-  keepsake: {fileID: 21300000, guid: ecf91a3bbc5ca489fb729a99ecc4974c, type: 3}
+  keepsake: {fileID: 21300000, guid: 87a18d4fe7e884faa87c4fa25ba8420b, type: 3}
   cardBack: {fileID: 21300000, guid: 20b46ccd593516f4badbdcdb021f67c1, type: 3}
   cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
-  typeIcon: {fileID: 21300000, guid: ecf91a3bbc5ca489fb729a99ecc4974c, type: 3}
-  portrait: {fileID: 21300000, guid: ecf91a3bbc5ca489fb729a99ecc4974c, type: 3}
-  teamSelectSprite: {fileID: 21300000, guid: ecf91a3bbc5ca489fb729a99ecc4974c, type: 3}
+  typeIcon: {fileID: 21300000, guid: 87a18d4fe7e884faa87c4fa25ba8420b, type: 3}
+  portrait: {fileID: 21300000, guid: 87a18d4fe7e884faa87c4fa25ba8420b, type: 3}
+  teamSelectSprite: {fileID: 21300000, guid: 87a18d4fe7e884faa87c4fa25ba8420b, type: 3}
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 0}
   genericCompanionVFX: {fileID: 0}
   cardPool: {fileID: 11400000, guid: f196524d31ef54898813ddd113b536e2, type: 2}
   speakerType: {fileID: 0}
   abilitiesV2:
-  - rid: 205828032053379328
-  level: 1
-  upgradeTo: {fileID: 11400000, guid: ed131cce2b46a4e0b9673cd511bf9a9a, type: 2}
+  - rid: 205828032053379325
+  level: 2
+  upgradeTo: {fileID: 0}
   tooltip:
     empty: 0
     lines:
-    - title: L2 Bidoof
-      description: Starts combat with 4 base strength.
+    - title: L3 Bidoof
+      description: Starts combat with 8 base strength.
       relatedBehaviorIndex: 0
-  keepsakeTitle: Level 2 Bidoof
-  keepsakeDescription: Starts combat with 4 base strength.
+  keepsakeTitle: L3 Bidoof
+  keepsakeDescription: Starts combat with 8 base strength.
   references:
     version: 2
     RefIds:
-    - rid: 205828032053379328
+    - rid: 205828032053379325
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
         abilityTrigger: 0
         effectSteps:
-        - rid: 205828032053379329
-        - rid: 205828032053379330
-        - rid: 205828032053379331
-    - rid: 205828032053379329
+        - rid: 205828032053379326
+        - rid: 205828032053379327
+        - rid: 205828032053379332
+    - rid: 205828032053379326
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
@@ -62,17 +62,17 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
-    - rid: 205828032053379330
+    - rid: 205828032053379327
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ApplyStatus
         inputKey: self
         statusEffect: 0
-        scale: 4
+        scale: 8
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
-    - rid: 205828032053379331
+    - rid: 205828032053379332
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
