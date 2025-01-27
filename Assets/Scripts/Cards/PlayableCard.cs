@@ -65,7 +65,7 @@ public class PlayableCard : MonoBehaviour,
                 StartCoroutine(GenericEntityDialogueParticipant
                     .Instance
                     .SpeakCompanionLine(
-                        "You don't have enough mana for me to cast that for you :(", 
+                        "You don't have enough mana for me to cast that for you :(",
                         deckFrom.GetComponent<CompanionInstance>().companion.companionType, 3f));
             return;
         }
@@ -74,7 +74,7 @@ public class PlayableCard : MonoBehaviour,
                 StartCoroutine(GenericEntityDialogueParticipant
                     .Instance
                     .SpeakCompanionLine(
-                        "Not sure what I can do with that one :(", 
+                        "Not sure what I can do with that one :(",
                         deckFrom.GetComponent<CompanionInstance>().companion.companionType, 3f));
                 return;
         }
@@ -100,6 +100,11 @@ public class PlayableCard : MonoBehaviour,
         } else {
             yield return StartCoroutine(CardCastVFX(this.gameObject));
             DiscardCardFromHand();
+        }
+        // If the hand is empty as a result of playing this card, invoke any subscribers.
+        if (PlayerHand.Instance.cardsInHand.Count == 0) {
+            Debug.Log("Hand is empty, triggering downstream OnHandEmpty subscribers");
+            PlayerHand.Instance.OnHandEmpty();
         }
     }
 

@@ -46,29 +46,11 @@ MonoBehaviour:
     - rid: 205828032053379705
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
-        abilityTrigger: 7
+        abilityTrigger: 13
         effectSteps:
-        - rid: 205828032053379708
-        - rid: 205828032053379707
         - rid: 205828032053379741
         - rid: 205828032053379742
         - rid: 205828032053379743
-    - rid: 205828032053379707
-      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: EndWorkflowIfConditionMet
-        inputKey1: notEmpty
-        conditionToEndOn: 1
-    - rid: 205828032053379708
-      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: BooleanComparison
-        hardCodedInputKey1: 1
-        useHardCodedInputKey1: 1
-        inputKey1: 
-        operation: 1
-        inputKey2: numCardsInHand
-        outputKey: notEmpty
     - rid: 205828032053379741
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

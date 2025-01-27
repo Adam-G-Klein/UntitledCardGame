@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
-  m_Name: L2Argos
+  m_Name: L3Argos
   m_EditorClassIdentifier: 
-  companionName: L2 Argos
+  companionName: L3 Argos
   maxHealth: 20
   initialCardsDealtPerTurn: 1
-  sprite: {fileID: 21300000, guid: 42b7bbec2591e4197827dd3f15208d81, type: 3}
+  sprite: {fileID: 21300000, guid: 1f413c89928c242938954066fca0a7af, type: 3}
   startingDeck: {fileID: 11400000, guid: 7fa17c4fa43804b51918678571ad5cdc, type: 2}
-  keepsake: {fileID: 21300000, guid: 42b7bbec2591e4197827dd3f15208d81, type: 3}
+  keepsake: {fileID: 21300000, guid: 1f413c89928c242938954066fca0a7af, type: 3}
   cardBack: {fileID: 21300000, guid: a5222a8d127763c49b397cce916345ec, type: 3}
   cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
-  typeIcon: {fileID: 21300000, guid: 42b7bbec2591e4197827dd3f15208d81, type: 3}
-  portrait: {fileID: 21300000, guid: 42b7bbec2591e4197827dd3f15208d81, type: 3}
-  teamSelectSprite: {fileID: 21300000, guid: 42b7bbec2591e4197827dd3f15208d81, type: 3}
+  typeIcon: {fileID: 21300000, guid: 1f413c89928c242938954066fca0a7af, type: 3}
+  portrait: {fileID: 21300000, guid: 1f413c89928c242938954066fca0a7af, type: 3}
+  teamSelectSprite: {fileID: 21300000, guid: 1f413c89928c242938954066fca0a7af, type: 3}
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 0}
   genericCompanionVFX: {fileID: 0}
@@ -31,20 +31,20 @@ MonoBehaviour:
   abilitiesV2:
   - rid: 205828032053379777
   - rid: 205828032053379783
-  level: 1
-  upgradeTo: {fileID: 11400000, guid: c896fa2ca19d94ddbb5f0761d78b6d30, type: 2}
+  level: 2
+  upgradeTo: {fileID: 0}
   tooltip:
     empty: 0
     lines:
-    - title: L2 Argos
-      description: Whenever your hand is empty, draw a card from a random companion.
+    - title: L3 Argos
+      description: Whenever your hand is empty, draw a card from 2 random companions.
         End of combat, add an Eye of Argos to a companion's deck.
       relatedBehaviorIndex: 0
     - title: Eye of Argos
       description: 0 mana, gain 1 energy and block
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: Whenever your hand is empty, draw a card from a random companion.
+  keepsakeDescription: Whenever your hand is empty, draw a card from 2 random companions.
     End of combat, add an Eye of Argos to a companion's deck.
   references:
     version: 2
@@ -63,16 +63,16 @@ MonoBehaviour:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: randomGuy
+        outputKey: randoms
         validTargets: 00000000
-        number: 1
+        number: 2
         specialTargetRule: 6
         cantCancelTargetting: 0
     - rid: 205828032053379781
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: DrawCards
-        inputKey: randomGuy
+        inputKey: randoms
         outputKey: 
         scale: 1
         getScaleFromKey: 0
@@ -81,7 +81,7 @@ MonoBehaviour:
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
-        inputKey: randomGuy
+        inputKey: randoms
         prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
         scale: 1
     - rid: 205828032053379783
