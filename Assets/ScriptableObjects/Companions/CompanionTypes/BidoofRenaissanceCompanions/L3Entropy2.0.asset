@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
-  m_Name: L2Entropy2.0
+  m_Name: L3Entropy2.0
   m_EditorClassIdentifier: 
-  companionName: Entropy
+  companionName: L3 Entropy
   maxHealth: 20
   initialCardsDealtPerTurn: 1
-  sprite: {fileID: 21300000, guid: af4b16f5768a8499d8f1f53424420905, type: 3}
+  sprite: {fileID: 21300000, guid: a848363ac68964bd5bb84f6370e93ece, type: 3}
   startingDeck: {fileID: 11400000, guid: 583b1de8b4e66492eb4afaaa9e408467, type: 2}
-  keepsake: {fileID: 21300000, guid: af4b16f5768a8499d8f1f53424420905, type: 3}
+  keepsake: {fileID: 21300000, guid: a848363ac68964bd5bb84f6370e93ece, type: 3}
   cardBack: {fileID: 21300000, guid: 20b46ccd593516f4badbdcdb021f67c1, type: 3}
   cardFrame: {fileID: 21300000, guid: e44243240dcfea04b91f6a9793d745e8, type: 3}
-  typeIcon: {fileID: 21300000, guid: af4b16f5768a8499d8f1f53424420905, type: 3}
-  portrait: {fileID: 21300000, guid: af4b16f5768a8499d8f1f53424420905, type: 3}
-  teamSelectSprite: {fileID: 21300000, guid: af4b16f5768a8499d8f1f53424420905, type: 3}
+  typeIcon: {fileID: 21300000, guid: a848363ac68964bd5bb84f6370e93ece, type: 3}
+  portrait: {fileID: 21300000, guid: a848363ac68964bd5bb84f6370e93ece, type: 3}
+  teamSelectSprite: {fileID: 21300000, guid: a848363ac68964bd5bb84f6370e93ece, type: 3}
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 0}
   genericCompanionVFX: {fileID: 0}
@@ -30,16 +30,19 @@ MonoBehaviour:
   speakerType: {fileID: 0}
   abilitiesV2:
   - rid: 205828032053380025
-  level: 1
-  upgradeTo: {fileID: 11400000, guid: e2c308fbb33384fcf809badb61ac5475, type: 2}
+  - rid: 205828032053380031
+  level: 2
+  upgradeTo: {fileID: 0}
   tooltip:
     empty: 0
     lines:
-    - title: L2 Entropy
-      description: End of combat, permanently remove a card from target companion
+    - title: L3 Entropy
+      description: End of combat, permanently remove a card from target companion.
+        Whenever a card is exhausted, draw 1 card from parent companion.
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: End of combat, permanently remove a card from target companion
+  keepsakeDescription: End of combat, permanently remove a card from target companion.
+    Whenever a card is exhausted, draw 1 card from parent companion.
   references:
     version: 2
     RefIds:
@@ -103,3 +106,26 @@ MonoBehaviour:
         effect: 1
         cardToTransformInto: {fileID: 0}
         outputKey: 
+    - rid: 205828032053380031
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 9
+        effectSteps:
+        - rid: 205828032053380032
+        - rid: 205828032053380033
+    - rid: 205828032053380032
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: companionExhaustedFrom
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        scale: 1
+    - rid: 205828032053380033
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DrawCards
+        inputKey: companionExhaustedFrom
+        outputKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
