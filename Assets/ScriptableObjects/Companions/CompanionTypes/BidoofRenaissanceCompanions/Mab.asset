@@ -51,6 +51,7 @@ MonoBehaviour:
         - rid: 205828032053379075
         - rid: 205828032053379073
         - rid: 205828032053379074
+        - rid: 205828107393564676
     - rid: 205828032053379073
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -80,3 +81,10 @@ MonoBehaviour:
         effectStepName: DialogueStep
         line: who should i heal for 5 HP?
         lineTime: 2
+    - rid: 205828107393564676
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: target
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 604f6efaa1e828d4bacfc84a25dfbd7a, type: 3}
+        scale: 1

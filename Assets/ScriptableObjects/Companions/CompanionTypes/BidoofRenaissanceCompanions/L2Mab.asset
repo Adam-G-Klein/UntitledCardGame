@@ -54,6 +54,7 @@ MonoBehaviour:
         - rid: 205828032053379078
         - rid: 205828032053379080
         - rid: 205828032053379079
+        - rid: 205828107393564677
     - rid: 205828032053379077
       type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
       data:
@@ -90,3 +91,10 @@ MonoBehaviour:
         inputKey: target
         percent: 0.5
         outputKey: hpToHeal
+    - rid: 205828107393564677
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: target
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 604f6efaa1e828d4bacfc84a25dfbd7a, type: 3}
+        scale: 1

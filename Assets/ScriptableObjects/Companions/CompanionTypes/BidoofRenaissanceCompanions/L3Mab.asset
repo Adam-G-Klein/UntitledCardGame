@@ -36,10 +36,10 @@ MonoBehaviour:
     empty: 1
     lines:
     - title: L3 Mab
-      description: At the end of combat, give target companion 15 max HP
+      description: At the end of combat, give target companion 10 max HP
       relatedBehaviorIndex: 0
   keepsakeTitle: Mab's Mercy
-  keepsakeDescription: At the end of combat, give target companion 15 max HP
+  keepsakeDescription: At the end of combat, give target companion 10 max HP
   references:
     version: 2
     RefIds:
@@ -51,6 +51,7 @@ MonoBehaviour:
         - rid: 205828032053379254
         - rid: 205828032053379253
         - rid: 205828032053379255
+        - rid: 205828107393564678
     - rid: 205828032053379253
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -74,6 +75,13 @@ MonoBehaviour:
         effectStepName: PermanentStatIncrease
         inputKey: target
         statIncreaseType: 1
-        scale: 15
+        scale: 10
         getScaleFromKey: 0
         inputScaleKey: 
+    - rid: 205828107393564678
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: target
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 604f6efaa1e828d4bacfc84a25dfbd7a, type: 3}
+        scale: 1
