@@ -150,9 +150,13 @@ public abstract class EntityAbilityInstance
     }
 
     private IEnumerator OnDeckShuffled(DeckInstance deckFrom) {
-        // EffectDocument document = createEffectDocument();
-        // TODO: add the deck shuffled as a key in the map here.
-        yield return setupAndInvokeAbility().GetEnumerator();
+        EffectDocument document = createEffectDocument();
+        if (deckFrom.TryGetComponent(out CompanionInstance companion)) {
+            document.map.AddItem<CompanionInstance>("companionDeckFrom", companion);
+            document.map.AddItem<CombatInstance>("companionDeckFrom", companion.combatInstance);
+            document.map.AddItem<DeckInstance>("companionDeckFrom", companion.deckInstance);
+        }
+        yield return EffectManager.Instance.invokeEffectWorkflowCoroutine(document, ability.effectSteps, null);
     }
 
     private IEnumerator OnDamageTaken(CombatInstance damagedInstance) {
