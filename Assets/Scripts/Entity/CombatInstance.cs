@@ -329,10 +329,14 @@ public class CombatInstance : MonoBehaviour
     public Dictionary<StatusEffectType, int> GetDisplayedStatusEffects() {
         Dictionary<StatusEffectType, int> displayedStatusEffects = new Dictionary<StatusEffectType, int>();
         foreach (KeyValuePair<StatusEffectType, int> statusEffect in statusEffects) {
+            int value = statusEffect.Value;
+            if (statusEffect.Key == StatusEffectType.Strength) {
+                value += combatStats.baseAttackDamage;
+            }
             // block is queried separately now
-            if (statusEffect.Value != initialStatusEffects[statusEffect.Key]
+            if (value != initialStatusEffects[statusEffect.Key]
                 && statusEffect.Key != StatusEffectType.Defended) {
-                displayedStatusEffects.Add(statusEffect.Key, statusEffect.Value);
+                displayedStatusEffects.Add(statusEffect.Key, value);
             }
         }
         return displayedStatusEffects;
