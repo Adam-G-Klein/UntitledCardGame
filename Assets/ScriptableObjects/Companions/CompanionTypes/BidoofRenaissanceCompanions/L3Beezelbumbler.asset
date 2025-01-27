@@ -36,21 +36,19 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: L3 Beezelbumbler
-      description: Whenever this Beezelbumbler dies, double its base strength >:)
+      description: Whenever a companion dies, this Beezelbumbler gains 3 strength
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: Whenever this Beezelbumbler dies, double its base strength
-    >:)
+  keepsakeDescription: Whenever a companion dies, this Beezelbumbler gains 3 strength
   references:
     version: 2
     RefIds:
     - rid: 205828032053379370
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
-        abilityTrigger: 6
+        abilityTrigger: 5
         effectSteps:
         - rid: 205828032053379371
-        - rid: 205828032053379373
         - rid: 205828032053379375
     - rid: 205828032053379371
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -59,24 +57,16 @@ MonoBehaviour:
         useInputToLimitOptions: 0
         inputKey: 
         outputKey: self
-        validTargets: 00000000
+        validTargets: 
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
-    - rid: 205828032053379373
-      type: {class: CountStatusEffectsStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CountStatusEffectStep
-        inputKey: self
-        statusEffect: 0
-        onlyCountStatusOnce: 0
-        outputKey: numStrength
     - rid: 205828032053379375
       type: {class: PermanentStatIncrease, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: PermanentStatIncrease
         inputKey: self
         statIncreaseType: 0
-        scale: 0
-        getScaleFromKey: 1
-        inputScaleKey: numStrength
+        scale: 3
+        getScaleFromKey: 0
+        inputScaleKey: 
