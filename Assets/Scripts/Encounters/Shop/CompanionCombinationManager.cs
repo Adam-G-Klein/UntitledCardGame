@@ -23,57 +23,52 @@ public class CompanionCombinationManager : MonoBehaviour
     [SerializeField]
     private GameObject celebrationParticles;
 
-    public bool AttemptUpgradeCompanion(Companion purchasedCompanion) {
-
-        List<Companion> companions = CompanionsOfType(purchasedCompanion.companionType);
-        // Add the one that was just purchased
-        companions.Add(purchasedCompanion);
-
-        if(companions.Count >= gameplayConstants.COMPANIONS_FOR_COMBINATION) {
-            if(purchasedCompanion.companionType.upgradeTo == null) {
-                Debug.LogWarning("Attempting to upgrade companion, but no upgradeTo companionType set");
-                return false;
-            }
-            // trigger the ability before combination, all the information about combined
-            // companions will still be readily available that way
-            purchasedCompanion.InvokeOnCombineAbilities(gameState);
-            CombineCompanions(companions);
-            Instantiate(celebrationParticles, gameObject.transform.position, Quaternion.identity);
-            return true;
+    // AttemptCompanionUpgrade searches for enough other companions of the same type and level.
+    // If there are enough at the threshold, it removes the existing companions and creates a
+    // combined version to be returned by this method.
+    // WARNING: side-effect-ey - this modifies the list of companions on the game state.
+    public Companion AttemptCompanionUpgrade(Companion newGuy) {
+        if (newGuy.companionType.upgradeTo == null) {
+            Debug.LogError("purchased a companion and there is no level 2 for it");
+            return null;
         }
-        Debug.Log("Not enough companions to combine, count: " + companions.Count + " needed: " + gameplayConstants.COMPANIONS_FOR_COMBINATION);
-        return false;
+        List<Companion> existingCompanions = CompanionsOfType(newGuy.companionType);
+        existingCompanions.Add(newGuy);
+
+        int numNeededToCombine = newGuy.companionType.level == CompanionLevel.LevelOne ?
+            gameplayConstants.COMPANIONS_FOR_LEVELTWO_COMBINATION :
+            gameplayConstants.COMPANIONS_FOR_LEVELTHREE_COMBINATION;
+
+        // This is an expected result when you buy a companion and do not have enough.
+        if (existingCompanions.Count < numNeededToCombine) {
+            Debug.Log("Not enough companions to trigger combination!");
+            return null;
+        }
+
+        Debug.Log("Combining companions of type " + newGuy.companionType.name + " at level " + newGuy.companionType.level.ToString());
+
+        newGuy.InvokeOnCombineAbilities(gameState);
+        Companion combined = CombineCompanions(existingCompanions);
+
+        // Mutate the game state to remove the old ones.
+        gameState.RemoveCompanionsFromTeam(existingCompanions);
+
+        Instantiate(celebrationParticles, gameObject.transform.position, Quaternion.identity);
+        return combined;
     }
 
-    private void CombineCompanions(List<Companion> companions) {
-        if(companions.Count != gameplayConstants.COMPANIONS_FOR_COMBINATION) {
-            Debug.LogError("Trying to combine companions, but not COMPANIONS_FOR_COMBINATION companions");
-            return;
-        }
-        foreach(Companion c in companions) {
-            if(gameState.companions.activeCompanions.Contains(c)) {
-                gameState.companions.activeCompanions.Remove(c);
-            }
-            if(gameState.companions.benchedCompanions.Contains(c)) {
-                gameState.companions.benchedCompanions.Remove(c);
-            }
-        }
-
+    // CombineCompanions returns the new combined companion with its deck and stats.
+    private Companion CombineCompanions(List<Companion> companions) {
         Deck combinedDeck = selectDeckForCombinedCompanions(companions);
 
         // TODO: change this combined companion with whatever mechanics ends up wanting
         Companion combinedCompanion = new Companion(companions[0].companionType.upgradeTo);
         combinedCompanion.deck = combinedDeck;
-
         combinedCompanion.combatStats.maxHealth = maxHealthForCombinedCompanion(companions);
         combinedCompanion.combatStats.currentHealth = (int) (combinedCompanion.combatStats.maxHealth * currentHealthPctForCombinedCompanion(companions));
         combinedCompanion.combatStats.baseAttackDamage = baseAttackDamageForCombinedCompanion(companions);
 
-        if(gameState.companions.spaceInActiveCompanions) {
-            gameState.companions.activeCompanions.Add(combinedCompanion);
-        } else {
-            gameState.companions.benchedCompanions.Add(combinedCompanion);
-        }
+        return combinedCompanion;
     }
 
     private List<Companion> CompanionsOfType(CompanionTypeSO companionType) {

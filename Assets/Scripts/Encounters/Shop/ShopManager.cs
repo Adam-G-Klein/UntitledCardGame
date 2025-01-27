@@ -142,10 +142,20 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
                 Quaternion.identity);
                 request.keepsakeInShop.sold();
             }
-            if(!companionCombinationManager.AttemptUpgradeCompanion(request.companion)){
-                Debug.Log("Upgrade not appicable, adding to benched companions");
-                this.gameState.companions.benchedCompanions.Add(request.companion);
+
+            // guyToAdd is the final companion to add to your team :)
+            Companion companionToAdd = request.companion;
+            Companion level2Dude = companionCombinationManager.AttemptCompanionUpgrade(request.companion);
+            if (level2Dude != null) {
+                companionToAdd = level2Dude;
+                // Then attempt the level 3 upgrade :)
+                Companion level3Dude = companionCombinationManager.AttemptCompanionUpgrade(level2Dude);
+
+                if (level3Dude != null) {
+                    companionToAdd = level3Dude;
+                }
             }
+            gameState.AddCompanionToTeam(companionToAdd);
         } else {
             shopUIManager.displayNeedMoreMoneyNotification();
         }
