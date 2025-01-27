@@ -36,10 +36,10 @@ MonoBehaviour:
     empty: 1
     lines:
     - title: L3 Mab
-      description: At the end of combat, give target companion 10 max HP
+      description: At the end of combat, give target companion 15 max HP
       relatedBehaviorIndex: 0
-  keepsakeTitle: 
-  keepsakeDescription: 
+  keepsakeTitle: Mab's Mercy
+  keepsakeDescription: At the end of combat, give target companion 15 max HP
   references:
     version: 2
     RefIds:
@@ -74,6 +74,6 @@ MonoBehaviour:
         effectStepName: PermanentStatIncrease
         inputKey: target
         statIncreaseType: 1
-        scale: 10
+        scale: 15
         getScaleFromKey: 0
         inputScaleKey: 
