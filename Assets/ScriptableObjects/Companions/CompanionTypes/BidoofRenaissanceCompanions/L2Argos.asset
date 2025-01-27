@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
   m_Name: L2Argos
   m_EditorClassIdentifier: 
-  companionName: Argos
+  companionName: L2 Argos
   maxHealth: 20
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: 1f413c89928c242938954066fca0a7af, type: 3}
@@ -28,47 +28,115 @@ MonoBehaviour:
   genericCompanionVFX: {fileID: 0}
   cardPool: {fileID: 11400000, guid: 61336306d4d8d494d90e203697769475, type: 2}
   speakerType: {fileID: 0}
-  abilities:
-  - rid: 5602892949302280340
+  abilitiesV2:
+  - rid: 205828032053379777
+  - rid: 205828032053379783
+  level: 1
   upgradeTo: {fileID: 0}
   tooltip:
     empty: 0
     lines:
     - title: L2 Argos
-      description: Whenever you play a card, deal 1 damage to a random enemy
+      description: Whenever your hand is empty, draw a card from a random companion.
+        End of combat, add an Eye of Argos to a companion's deck.
+      relatedBehaviorIndex: 0
+    - title: Eye of Argos
+      description: 0 mana, gain 1 energy and block
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: Whenever you play a card, deal 1 damage to a random enemy
+  keepsakeDescription: Whenever your hand is empty, draw a card from a random companion.
+    End of combat, add an Eye of Argos to a companion's deck.
   references:
     version: 2
     RefIds:
-    - rid: 5602892949302280340
-      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
+    - rid: 205828032053379777
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
-        companionAbilityTrigger: 7
+        abilityTrigger: 7
         effectSteps:
-        - rid: 5602892949302280341
-        - rid: 5602892949302280342
-    - rid: 5602892949302280341
+        - rid: 205828032053379778
+        - rid: 205828032053379779
+        - rid: 205828032053379780
+        - rid: 205828032053379781
+        - rid: 205828032053379782
+    - rid: 205828032053379778
+      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: BooleanComparison
+        hardCodedInputKey1: 1
+        useHardCodedInputKey1: 1
+        inputKey1: 
+        operation: 1
+        inputKey2: numCardsInHand
+        outputKey: notEmpty
+    - rid: 205828032053379779
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: notEmpty
+        conditionToEndOn: 1
+    - rid: 205828032053379780
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: enemy
-        validTargets: 02000000
+        outputKey: randomGuy
+        validTargets: 00000000
         number: 1
         specialTargetRule: 6
         cantCancelTargetting: 0
-    - rid: 5602892949302280342
-      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+    - rid: 205828032053379781
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: CombatEffectStep
-        inputKey: enemy
-        combatEffect: 14
+        effectStepName: DrawCards
+        inputKey: randomGuy
+        outputKey: 
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
-        multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
+    - rid: 205828032053379782
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: randomGuy
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        scale: 1
+    - rid: 205828032053379783
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 0
+        effectSteps:
+        - rid: 205828032053379784
+        - rid: 205828032053379785
+        - rid: 205828032053379786
+    - rid: 205828032053379784
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: to whom shall I add an Eye of Argos?
+        lineTime: 1
+    - rid: 205828032053379785
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: target
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 0
+        cantCancelTargetting: 0
+    - rid: 205828032053379786
+      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: AddCardsToDeck
+        inputKey: target
+        cardTypes:
+        - {fileID: 11400000, guid: b9e0adbcf6fe84184866b60213d4a8f1, type: 2}
+        addToDeckMethod: 3
+        getCardsFromKey: 0
+        inputCardsKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
