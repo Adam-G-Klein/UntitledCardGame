@@ -17,7 +17,7 @@ MonoBehaviour:
   values: 04000000
   defaultValues:
   - key: rpl_damage
-    value: 4
+    value: 3 
   Cost: 0
   Artwork: {fileID: 21300000, guid: dcfdc6d5b4c40644b90c3330582adb6a, type: 3}
   cardCategory: 1
@@ -68,7 +68,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: target
         combatEffect: 0
-        scale: 4
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1

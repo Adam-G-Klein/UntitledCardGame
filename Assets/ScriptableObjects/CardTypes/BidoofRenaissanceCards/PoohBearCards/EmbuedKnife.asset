@@ -18,7 +18,7 @@ MonoBehaviour:
   values: 0300000000000000
   defaultValues:
   - key: rpl_damage
-    value: 3
+    value: 2 
   - key: numOrbs
     value: 0
   Cost: 0
@@ -92,7 +92,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: enemy
         combatEffect: 0
-        scale: 3
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
