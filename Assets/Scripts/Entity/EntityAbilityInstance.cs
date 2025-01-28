@@ -183,6 +183,10 @@ public abstract class EntityAbilityInstance
             document.map.AddItem<CombatInstance>("damagedCompanion", companion.combatInstance);
             document.map.AddItem<DeckInstance>("damagedCompanion", companion.deckInstance);
         }
+        if (document.originEntityType == EntityType.CompanionInstance) {
+            CompanionInstance source = document.map.GetItem<CompanionInstance>(EffectDocument.ORIGIN, 0);
+            document.boolMap.Add("selfDamaged", source == companion);
+        }
         yield return EffectManager.Instance.invokeEffectWorkflowCoroutine(document, ability.effectSteps, null);
     }
 }

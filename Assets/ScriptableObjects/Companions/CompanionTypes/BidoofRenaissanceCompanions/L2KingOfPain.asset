@@ -12,43 +12,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
   m_Name: L2KingOfPain
   m_EditorClassIdentifier: 
-  companionName: King of Pain
+  companionName: L2 King of Pain
   maxHealth: 30
   initialCardsDealtPerTurn: 1
-  sprite: {fileID: 21300000, guid: 38c8aa9e04946486b8069de5512d0441, type: 3}
+  sprite: {fileID: 21300000, guid: e7fac6430b61f4e379c435119ab1ec86, type: 3}
   startingDeck: {fileID: 11400000, guid: 1c73175d985fa4a2bb8ef49e809c32a7, type: 2}
-  keepsake: {fileID: 21300000, guid: 38c8aa9e04946486b8069de5512d0441, type: 3}
+  keepsake: {fileID: 21300000, guid: e7fac6430b61f4e379c435119ab1ec86, type: 3}
   cardBack: {fileID: 21300000, guid: 3296a63e824de414bb4b578c4822fbdb, type: 3}
-  cardFrame: {fileID: 21300000, guid: 75fee76dd9726374f94da1fe30e8a250, type: 3}
-  typeIcon: {fileID: 21300000, guid: 38c8aa9e04946486b8069de5512d0441, type: 3}
-  portrait: {fileID: 21300000, guid: 38c8aa9e04946486b8069de5512d0441, type: 3}
-  teamSelectSprite: {fileID: 21300000, guid: 38c8aa9e04946486b8069de5512d0441, type: 3}
+  cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
+  typeIcon: {fileID: 21300000, guid: e7fac6430b61f4e379c435119ab1ec86, type: 3}
+  portrait: {fileID: 21300000, guid: e7fac6430b61f4e379c435119ab1ec86, type: 3}
+  teamSelectSprite: {fileID: 21300000, guid: e7fac6430b61f4e379c435119ab1ec86, type: 3}
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 0}
   genericCompanionVFX: {fileID: 0}
   cardPool: {fileID: 11400000, guid: 54aef68170b384d81be04efc17cbf69c, type: 2}
   speakerType: {fileID: 0}
-  abilities:
-  - rid: 5602892949302280752
-  upgradeTo: {fileID: 0}
+  abilitiesV2:
+  - rid: 205828107393564721
+  level: 1
+  upgradeTo: {fileID: 11400000, guid: 3b093b2dc558647a0b4945f44a0d931a, type: 2}
   tooltip:
     empty: 0
     lines:
     - title: L2 King of Pain
-      description: Whenever a companion takes damage, it gains 1 strength.
+      description: Whenever any companion takes damage, it gains 1 strength for the
+        rest of combat
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: Whenever a companion takes damage, it gains 1 strength.
+  keepsakeDescription: Whenever any companion takes damage, it gains 1 strength for
+    the rest of combat
   references:
     version: 2
     RefIds:
-    - rid: 5602892949302280752
-      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
+    - rid: 205828107393564721
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
-        companionAbilityTrigger: 11
+        abilityTrigger: 11
         effectSteps:
-        - rid: 5602893017534169428
-    - rid: 5602893017534169428
+        - rid: 205828107393564792
+        - rid: 205828107393564793
+    - rid: 205828107393564792
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ApplyStatus
@@ -58,3 +62,10 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+    - rid: 205828107393564793
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: damagedCompanion
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
+        scale: 1

@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
-  m_Name: KingOfPain
+  m_Name: L3KingOfPain
   m_EditorClassIdentifier: 
-  companionName: King of Pain
+  companionName: L3 King of Pain
   maxHealth: 30
   initialCardsDealtPerTurn: 1
-  sprite: {fileID: 21300000, guid: a85b5d0a92a464548a546904133d5147, type: 3}
+  sprite: {fileID: 21300000, guid: 38c8aa9e04946486b8069de5512d0441, type: 3}
   startingDeck: {fileID: 11400000, guid: 1c73175d985fa4a2bb8ef49e809c32a7, type: 2}
-  keepsake: {fileID: 21300000, guid: a85b5d0a92a464548a546904133d5147, type: 3}
+  keepsake: {fileID: 21300000, guid: 38c8aa9e04946486b8069de5512d0441, type: 3}
   cardBack: {fileID: 21300000, guid: 3296a63e824de414bb4b578c4822fbdb, type: 3}
   cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
-  typeIcon: {fileID: 21300000, guid: a85b5d0a92a464548a546904133d5147, type: 3}
-  portrait: {fileID: 21300000, guid: a85b5d0a92a464548a546904133d5147, type: 3}
-  teamSelectSprite: {fileID: 21300000, guid: a85b5d0a92a464548a546904133d5147, type: 3}
+  typeIcon: {fileID: 21300000, guid: 38c8aa9e04946486b8069de5512d0441, type: 3}
+  portrait: {fileID: 21300000, guid: 38c8aa9e04946486b8069de5512d0441, type: 3}
+  teamSelectSprite: {fileID: 21300000, guid: 38c8aa9e04946486b8069de5512d0441, type: 3}
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 0}
   genericCompanionVFX: {fileID: 0}
@@ -30,18 +30,17 @@ MonoBehaviour:
   speakerType: {fileID: 0}
   abilitiesV2:
   - rid: 205828107393564721
-  level: 0
-  upgradeTo: {fileID: 11400000, guid: 31b52f152fe0e40e980ac00ec33bba3d, type: 2}
+  level: 2
+  upgradeTo: {fileID: 0}
   tooltip:
     empty: 0
     lines:
-    - title: King of Pain
-      description: Whenever King of Pain takes damage, it gains 1 strength for the
-        rest of combat
+    - title: L3 King of Pain
+      description: Whenever any companion takes damage, it gains 1 permanent strength
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: Whenever King of Pain takes damage, it gains 1 strength for
-    the rest of combat
+  keepsakeDescription: Whenever any companion takes damage, it gains 1 permanent
+    strength
   references:
     version: 2
     RefIds:
@@ -50,25 +49,8 @@ MonoBehaviour:
       data:
         abilityTrigger: 11
         effectSteps:
-        - rid: 205828107393564791
-        - rid: 205828107393564792
+        - rid: 205828107393564826
         - rid: 205828107393564793
-    - rid: 205828107393564791
-      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: EndWorkflowIfConditionMet
-        inputKey1: selfDamaged
-        conditionToEndOn: 0
-    - rid: 205828107393564792
-      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: ApplyStatus
-        inputKey: damagedCompanion
-        statusEffect: 0
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplyByNumAuraStacks: 0
     - rid: 205828107393564793
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -76,3 +58,12 @@ MonoBehaviour:
         inputKey: damagedCompanion
         prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
         scale: 1
+    - rid: 205828107393564826
+      type: {class: PermanentStatIncrease, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: PermanentStatIncrease
+        inputKey: damagedCompanion
+        statIncreaseType: 0
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
