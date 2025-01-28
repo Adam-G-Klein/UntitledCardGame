@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
-  m_Name: L2Aurasaurus
+  m_Name: L3Aurasaurus
   m_EditorClassIdentifier: 
-  companionName: L2 Aurasaurus
+  companionName: L3 Aurasaurus
   maxHealth: 25
   initialCardsDealtPerTurn: 1
-  sprite: {fileID: 21300000, guid: dd5dc1421c6084835872fd966a0bf8df, type: 3}
+  sprite: {fileID: 21300000, guid: b83b435acb4b74464a4b6be77184da43, type: 3}
   startingDeck: {fileID: 11400000, guid: b9d3e1231b15642b9802057f5950b8c7, type: 2}
-  keepsake: {fileID: 21300000, guid: dd5dc1421c6084835872fd966a0bf8df, type: 3}
+  keepsake: {fileID: 21300000, guid: b83b435acb4b74464a4b6be77184da43, type: 3}
   cardBack: {fileID: 21300000, guid: a5222a8d127763c49b397cce916345ec, type: 3}
   cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
-  typeIcon: {fileID: 21300000, guid: dd5dc1421c6084835872fd966a0bf8df, type: 3}
-  portrait: {fileID: 21300000, guid: dd5dc1421c6084835872fd966a0bf8df, type: 3}
-  teamSelectSprite: {fileID: 21300000, guid: dd5dc1421c6084835872fd966a0bf8df, type: 3}
+  typeIcon: {fileID: 21300000, guid: b83b435acb4b74464a4b6be77184da43, type: 3}
+  portrait: {fileID: 21300000, guid: b83b435acb4b74464a4b6be77184da43, type: 3}
+  teamSelectSprite: {fileID: 21300000, guid: b83b435acb4b74464a4b6be77184da43, type: 3}
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 0}
   genericCompanionVFX: {fileID: 0}
@@ -31,18 +31,18 @@ MonoBehaviour:
   abilitiesV2:
   - rid: 205828107393564712
   - rid: 205828107393564713
-  level: 1
-  upgradeTo: {fileID: 11400000, guid: c3d34f25bbca344daae5e9f05cb75a65, type: 2}
+  level: 2
+  upgradeTo: {fileID: 0}
   tooltip:
     empty: 0
     lines:
-    - title: L2 Aurasaurus
-      description: Start combat with an aura stack. End of turn, each companion gets
-        2 block for each aura stack they have
+    - title: L3 Aurasaurus
+      description: All companions start combat with an aura stack. End of turn, each
+        companion gets 3 block for each aura stack they have.
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: Start combat with an aura stack. End of turn, each companion
-    gets 2 block for each aura stack they have
+  keepsakeDescription: All companions start combat with an aura stack. End of turn,
+    each companion gets 3 block for each aura stack they have.
   references:
     version: 2
     RefIds:
@@ -86,7 +86,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: allWithOrb
         statusEffect: 2
-        scale: 2
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 1
@@ -103,16 +103,16 @@ MonoBehaviour:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: self
-        validTargets: 
+        outputKey: all
+        validTargets: 00000000
         number: 1
-        specialTargetRule: 3
+        specialTargetRule: 1
         cantCancelTargetting: 0
     - rid: 205828107393564720
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ApplyStatus
-        inputKey: self
+        inputKey: all
         statusEffect: 9
         scale: 1
         getScaleFromKey: 0
