@@ -38,11 +38,11 @@ MonoBehaviour:
     lines:
     - title: L2 Aurasaurus
       description: Start combat with an aura stack. End of turn, each companion gets
-        2 block for each aura stack they have
+        3 block for each aura stack they have
       relatedBehaviorIndex: 0
   keepsakeTitle: 
   keepsakeDescription: Start combat with an aura stack. End of turn, each companion
-    gets 2 block for each aura stack they have
+    gets 3 block for each aura stack they have
   references:
     version: 2
     RefIds:
@@ -86,7 +86,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: allWithOrb
         statusEffect: 2
-        scale: 2
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 1
