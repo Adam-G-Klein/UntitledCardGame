@@ -23,11 +23,11 @@ public class CardInShopWithPrice {
 }
 
 [System.Serializable]
-public class KeepsakeInShopWithPrice {
+public class CompanionInShopWithPrice {
     public CompanionTypeSO companionType;
     public int price;
 
-    public KeepsakeInShopWithPrice(CompanionTypeSO companionType, int price) {
+    public CompanionInShopWithPrice(CompanionTypeSO companionType, int price) {
         this.companionType = companionType;
         this.price = price;
     }
@@ -38,7 +38,7 @@ public class ShopEncounter : Encounter
 {
     public ShopDataSO shopData;
     public List<CardInShopWithPrice> cardsInShop = new List<CardInShopWithPrice>();
-    public List<KeepsakeInShopWithPrice> keepsakesInShop = new List<KeepsakeInShopWithPrice>();
+    public List<CompanionInShopWithPrice> companionsInShop = new List<CompanionInShopWithPrice>();
     private EncounterConstantsSO encounterConstants;
 
     private ShopManager shopManager;
@@ -95,13 +95,13 @@ public class ShopEncounter : Encounter
     }
 
     private void setupKeepsakes() {
-        for (int i = 0; i < keepsakesInShop.Count; i++) {
+        for (int i = 0; i < companionsInShop.Count; i++) {
             GameObject instantiatedKeepsake = GameObject.Instantiate(
                 encounterConstants.keepsakeInShopPrefab,
                 this.shopManager.shopUIManager.keepSakeSection);
 
-            CompanionTypeSO companionType = keepsakesInShop[i].companionType;
-            int price = keepsakesInShop[i].price;
+            CompanionTypeSO companionType = companionsInShop[i].companionType;
+            int price = companionsInShop[i].price;
 
             KeepsakeInShop keepsakeInShop = instantiatedKeepsake.GetComponent<KeepsakeInShop>();
             keepsakeInShop.price = price;
@@ -112,7 +112,7 @@ public class ShopEncounter : Encounter
 
     private void generateShopEncounter(ShopLevel shopLevel, List<Companion> companionList) {
         cardsInShop = new List<CardInShopWithPrice>();
-        keepsakesInShop = new List<KeepsakeInShopWithPrice>();
+        companionsInShop = new List<CompanionInShopWithPrice>();
 
         generateCards(shopLevel, companionList);
         generateKeepsakes(shopLevel, companionList);
@@ -240,7 +240,7 @@ public class ShopEncounter : Encounter
             // Pick a keepsake from the sample distribution and add it to the shop's cards
             int number = UnityEngine.Random.Range(0, companionSampleDist.Count);
             CompanionTypeSO selected = companionSampleDist[number];
-            keepsakesInShop.Add(new KeepsakeInShopWithPrice(selected, shopData.companionKeepsakePrice));
+            companionsInShop.Add(new CompanionInShopWithPrice(selected, shopData.companionKeepsakePrice));
             keepsakesOutOfPool.Add(selected);
         }
     }
