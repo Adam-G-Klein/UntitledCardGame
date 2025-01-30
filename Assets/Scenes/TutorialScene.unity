@@ -210,10 +210,9 @@ MonoBehaviour:
       type: {class: UpdateTutorialUIDocAction, ns: , asm: Assembly-CSharp}
       data:
         tutorialActionType: Update Tutorial UI Doc Action
-        firstLineOfText: Click on a card to play it. The color of the resulting arrow
-          indicates what to target!
-        secondLineOfText: Red means enemy, blue means companion, and gray means another
-          card.
+        firstLineOfText: Click on a card to play it. If the card requires a target
+          a targetting arrow will appear.
+        secondLineOfText: You can unselect a card by right-clicking.
         thirdLineOfText: Hover over cards, companions, or enemies to learn more about
           them!
         tutorialIndex: 4
