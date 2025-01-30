@@ -78,6 +78,7 @@ public class PlayableCard : MonoBehaviour,
                         deckFrom.GetComponent<CompanionInstance>().companion.companionType, 3f));
                 return;
         }
+        if (eventData.button != PointerEventData.InputButton.Left) return;
         interactable = false;
 
         EffectDocument document = new EffectDocument();
@@ -195,6 +196,7 @@ public class PlayableCard : MonoBehaviour,
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        Debug.LogError(eventData.button);
         if(!interactable) return;
         hovered = true;
         //MusicController.Instance.PlaySFX(cardHover, hoverSFXVolume);
@@ -211,6 +213,15 @@ public class PlayableCard : MonoBehaviour,
         hovered = false;
         transform.localScale = new Vector3(nonHoverScale, nonHoverScale, 1);
         transform.position = new Vector3(transform.position.x, transform.position.y - hoverYOffset, transform.position.z - hoverZOffset);
+    }
+
+    public void ResetCardScale() {
+        if (hovered) {
+            hovered = false;
+            interactable = true;
+            transform.localScale = new Vector3(nonHoverScale, nonHoverScale, 1);
+            transform.position = new Vector3(transform.position.x, transform.position.y - hoverYOffset, transform.position.z - hoverZOffset);
+        }
     }
 
     // Used when instantiating the card after Start has run

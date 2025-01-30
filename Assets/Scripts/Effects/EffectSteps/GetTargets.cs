@@ -58,6 +58,7 @@ public class GetTargets : EffectStep, IEffectStepCalculation
     private List<GameObject> limitOptions;
     private List<GameObject> disallowedTargets;
     private GameObject self;
+    private PlayableCard originCard;
 
     public GetTargets() {
         effectStepName = "GetTargets";
@@ -65,6 +66,9 @@ public class GetTargets : EffectStep, IEffectStepCalculation
 
     public override IEnumerator invoke(EffectDocument document) {
         // Two specific special target rule handling
+        if (document.map.ContainsValueWithKey<PlayableCard>(EffectDocument.ORIGIN)) {
+            originCard = document.map.TryGetItem<PlayableCard>(EffectDocument.ORIGIN, 0);
+        }
         if (specialTargetRule == SpecialTargetRule.TargetSelf) {
             addSelfToDocument(document);
             yield break;
@@ -168,6 +172,7 @@ public class GetTargets : EffectStep, IEffectStepCalculation
             EffectManager.Instance.CancelEffectWorkflow();
             TargettingManager.Instance.targetSuppliedHandler -= TargetSuppliedHandler;
             TargettingManager.Instance.cancelTargettingHandler -= CancelHandler;
+            originCard.ResetCardScale();
         }
     }
 
