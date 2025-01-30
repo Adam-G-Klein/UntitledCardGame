@@ -201,7 +201,8 @@ public class GameStateVariableSO : ScriptableObject
         }
         if(locationToScene[currentLocation] != SceneManager.GetActiveScene().name) {
             // TODO: call a scene transition handler
-            SceneManager.LoadScene(locationToScene[currentLocation]);
+            SceneTransitionManager.LoadScene(locationToScene[currentLocation]);
+            //SceneManager.LoadScene(locationToScene[currentLocation]);
         }
     }
 
