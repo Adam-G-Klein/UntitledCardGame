@@ -206,6 +206,25 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: 1744193361003151360
+      type: {class: UpdateTutorialUIDocAction, ns: , asm: Assembly-CSharp}
+      data:
+        tutorialActionType: Update Tutorial UI Doc Action
+        firstLineOfText: Click on a card to play it. The color of the resulting arrow
+          indicates what to target!
+        secondLineOfText: Red means enemy, blue means companion, and gray means another
+          card.
+        thirdLineOfText: Hover over cards, companions, or enemies to learn more about
+          them!
+        tutorialIndex: 4
+        tutorialStepsCount: 4
+        buttonText: Start
+        uiDocument: {fileID: 1484470107}
+        tutorialImage: {fileID: 21300000, guid: 53534440f3cab4b5cbfcc5b42cff085e, type: 3}
+    - rid: 1744193361003151697
+      type: {class: WaitForNextButtonClickAction, ns: , asm: Assembly-CSharp}
+      data:
+        tutorialActionType: Wait For Next Button Click Action
     - rid: 4305150327966138368
       type: {class: WaitForNextButtonClickAction, ns: , asm: Assembly-CSharp}
       data:
@@ -223,8 +242,8 @@ MonoBehaviour:
           to use, end your turn.
         thirdLineOfText: Each turn your mana will replenish and you will draw one
           card from each of your active companions
-        tutorialIndex: 5
-        tutorialStepsCount: 3
+        tutorialIndex: 2
+        tutorialStepsCount: 4
         buttonText: Next
         uiDocument: {fileID: 1484470107}
         tutorialImage: {fileID: 21300000, guid: cd2531481443346a5bf0393d85c1d81c, type: 3}
@@ -232,13 +251,13 @@ MonoBehaviour:
       type: {class: UpdateTutorialUIDocAction, ns: , asm: Assembly-CSharp}
       data:
         tutorialActionType: Update Tutorial UI Doc Action
-        firstLineOfText: During your team you can see the enemy's intent.
+        firstLineOfText: During your turn you can see the enemy's intent.
         secondLineOfText: If the enemy is attacking, you can plan accordingly by
           playing a block card!
         thirdLineOfText: Block wears off at the start of each turn so be careful.
         tutorialIndex: 3
-        tutorialStepsCount: 3
-        buttonText: Start
+        tutorialStepsCount: 4
+        buttonText: Next
         uiDocument: {fileID: 1484470107}
         tutorialImage: {fileID: 21300000, guid: 53534440f3cab4b5cbfcc5b42cff085e, type: 3}
     - rid: 4305150327966138391
@@ -254,7 +273,7 @@ MonoBehaviour:
           and abilities!
         thirdLineOfText: Each companion also has their own statuses like hp and strength!
         tutorialIndex: 1
-        tutorialStepsCount: 3
+        tutorialStepsCount: 4
         buttonText: Next
         uiDocument: {fileID: 1484470107}
         tutorialImage: {fileID: 21300000, guid: 4ab3d81fa4fac4331abed042e043d296, type: 3}
@@ -270,6 +289,8 @@ MonoBehaviour:
         - rid: 4305150327966138369
         - rid: 4305150327966138371
         - rid: 4305150327966138391
+        - rid: 1744193361003151360
+        - rid: 1744193361003151697
         initAction: 0
 --- !u!4 &230703130
 Transform:
