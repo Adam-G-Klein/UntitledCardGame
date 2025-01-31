@@ -118,7 +118,7 @@ RectTransform:
   m_GameObject: {fileID: 5377055109475459938}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: -1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5377055111114097646}
@@ -420,6 +420,7 @@ MonoBehaviour:
   cardPrefabParent: {fileID: 3102123920301462836}
   prompt: {fileID: 6504315796260789619}
   cardsSelectedEvent: {fileID: 11400000, guid: 152f92604c333844cbe39664029bb681, type: 2}
+  button: {fileID: 5377055109475459938}
 --- !u!222 &2884147106948275923
 CanvasRenderer:
   m_ObjectHideFlags: 0

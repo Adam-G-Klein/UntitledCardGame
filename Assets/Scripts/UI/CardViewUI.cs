@@ -25,6 +25,8 @@ public class CardViewUI : MonoBehaviour
     private int minSelections;
     private int maxSelections;
     private List<UICard> selectedCards = new List<UICard>();
+    [SerializeField]
+    private GameObject button;
 
     public void Setup(List<Card> cards, int minSelections, string promptText, int maxSelections = -1, CompanionInstance companionFrom = null) {
         foreach (Card card in cards) {
@@ -34,6 +36,7 @@ public class CardViewUI : MonoBehaviour
         this.prompt.text = promptText;
         this.minSelections = minSelections;
         this.maxSelections = maxSelections;
+        button.GetComponent<RectTransform>().localScale = new Vector3((minSelections > 0 || maxSelections > 0) ? -1 : 1, 1, 1);
     }
 
     // Can replace with just requesting a mapping and instantiating at that location

@@ -77,7 +77,12 @@ public class CardDisplay : MonoBehaviour
         // these are also done on Update(), keeping em here in case we wanna remove that
         // easy perf boost if we can
         CardNameGO.text = cardInfo.name;
-        CardDescGO.text = cardInfo.description;
+        string description = card.cardType.Description;
+        foreach (var defaultValue in card.cardType.defaultValues)
+        {
+            description = description.Replace($"{{{defaultValue.key}}}", $"<b>{defaultValue.value}</b>"); 
+        }
+        CardDescGO.text = description;
         CostTextGO.text = cardInfo.GetManaCost().ToString();
         string cardCategoryText = "";
         if (cardInfo.generated) {
