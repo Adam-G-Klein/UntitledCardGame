@@ -43,7 +43,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         // This ends up calling BuildShopEncounter below
         gameState.activeEncounter.GetValue().BuildWithEncounterBuilder(this);
     }
-    
+
     void Start() {
         companionCombinationManager = GetComponent<CompanionCombinationManager>();
     }
@@ -177,11 +177,22 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         if (gameState.playerData.GetValue().gold >= companionInShop.price) {
             gameState.playerData.GetValue().gold -= companionInShop.price;
             shopViewController.SetMoney(gameState.playerData.GetValue().gold);
+            // Create a new instance of the companion and then attempt companion upgrades before adding
+            // them to your team;
             Companion newCompanion = new Companion(companionInShop.companionType);
-            if (!companionCombinationManager.AttemptUpgradeCompanion(newCompanion)){
-                Debug.Log("Upgrade not appicable, adding to benched companions");
-                this.gameState.companions.benchedCompanions.Add(newCompanion);
+            // companionToAdd is the final companion to add to your team :)
+            Companion companionToAdd = newCompanion;
+            Companion level2Dude = companionCombinationManager.AttemptCompanionUpgrade(newCompanion);
+            if (level2Dude != null) {
+                companionToAdd = level2Dude;
+                // Then attempt the level 3 upgrade :)
+                Companion level3Dude = companionCombinationManager.AttemptCompanionUpgrade(level2Dude);
+
+                if (level3Dude != null) {
+                    companionToAdd = level3Dude;
+                }
             }
+            gameState.AddCompanionToTeam(companionToAdd);
             shopViewController.RemoveCompanionFromShopView(companionInShop);
             shopViewController.RebuildUnitManagement(gameState.companions);
         } else {
