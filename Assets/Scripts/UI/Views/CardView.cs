@@ -22,12 +22,18 @@ public class CardView {
         cardContainer = makeWorldspaceCardView(cardType, companionType);
     }
 
+    public CardView(CardType cardType, Sprite genericSprite) {
+        cardContainer = makeWorldspaceCardView(cardType, null, genericSprite);
+    }
+
     public CardView(Card card, CompanionTypeSO companionType) {
         cardContainer = makeWorldspaceCardView(card.cardType, companionType);
         this.cardInstance = card;
     }
 
-    private VisualElement makeWorldspaceCardView(CardType card, CompanionTypeSO companionType) {
+    private VisualElement makeWorldspaceCardView(CardType card, CompanionTypeSO companionType, Sprite genericSprite = null) {
+        Debug.Log("goobie woobie");
+        Debug.Log(companionType);
         var container = new VisualElement();
         container.AddToClassList("card-container");
 
@@ -43,7 +49,11 @@ public class CardView {
 
         var companionImage = new VisualElement();
         companionImage.AddToClassList("companion-image");
-        companionImage.style.backgroundImage = new StyleBackground(companionType.sprite);
+        if (companionType != null) {
+            companionImage.style.backgroundImage = new StyleBackground(companionType.sprite);
+        } else {
+            companionImage.style.backgroundImage = new StyleBackground(genericSprite);
+        }
         container.Add(companionImage);
 
         var name = new Label();

@@ -14,11 +14,14 @@ public class CardInShopWithPrice {
 
     public Card.CardRarity rarity;
 
-    public CardInShopWithPrice(CardType cardType, int price, CompanionTypeSO companionType, Card.CardRarity rarity) {
+    public Sprite genericArtwork;
+
+    public CardInShopWithPrice(CardType cardType, int price, CompanionTypeSO companionType, Card.CardRarity rarity, Sprite genericArtwork = null) {
         this.cardType = cardType;
         this.price = price;
         this.sourceCompanion = companionType;
         this.rarity = rarity;
+        this.genericArtwork = genericArtwork;
     }
 }
 
@@ -56,14 +59,21 @@ public class ShopEncounter : Encounter
             ShopManager shopManager,
             List<Companion> companionList,
             EncounterConstantsSO constants,
-            ShopLevel shopLevel) {
+            ShopLevel shopLevel,
+            bool USE_NEW_SHOP) {
         this.shopManager = shopManager;
         this.encounterConstants = constants;
         this.encounterType = EncounterType.Shop;
         validateShopData();
         generateShopEncounter(shopLevel, companionList);
-        setupCards();
-        setupKeepsakes();
+        if (USE_NEW_SHOP) {
+            cardsInShop.ForEach(card => shopManager.shopViewController.AddCardToShopView(card));
+            companionsInShop.ForEach(companion => shopManager.shopViewController.AddCompanionToShopView(companion));
+        } else {
+            setupCards();
+            setupKeepsakes();
+        }
+        shopManager.SetupUnitManagement();
     }
 
     public override void BuildWithEncounterBuilder(IEncounterBuilder encounterBuilder) {
@@ -321,10 +331,7 @@ public class ShopEncounter : Encounter
                 companion.cardPool.rareCards.Count == 0) {
                     Debug.LogError("Companion " + companion.name + " has no cards in its pool. " +
                         "This will cause an error when generating a shop encounter.");
-
             }
-
         }
     }
-
 }

@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -54,7 +55,12 @@ public class ShopItemView {
         VisualElement shopItemElement = new VisualElement();
         shopItemElement.AddToClassList("shop-item-container");
 
-        CardView cardView = new CardView(card.cardType, card.sourceCompanion);
+        CardView cardView;
+        if (card.sourceCompanion != null) {
+            cardView = new CardView(card.cardType, card.sourceCompanion);
+        } else {
+            cardView = new CardView(card.cardType, card.genericArtwork);
+        }
 
         shopItemElement.Add(cardView.cardContainer);
 

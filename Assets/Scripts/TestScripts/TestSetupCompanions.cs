@@ -11,6 +11,25 @@ public class TestSetupCompanions : MonoBehaviour
     [ContextMenu("Go")]
     public void Go() {
         shopViewController.SetupUnitManagement(gameStateVariableSO.companions);
+        VisualElement mainArea = GetComponent<UIDocument>().rootVisualElement.Q("shop-goods-area");
+        int i = 0;
+        foreach (Companion companion in gameStateVariableSO.companions.activeCompanions) {
+            ShopItemView newShopItemView = new ShopItemView(null, new CompanionInShopWithPrice(companion.companionType, 1));
+            mainArea.Add(newShopItemView.shopItemElement);
+            i++;
+            if (i == 3) break;
+        }
+        i = 0;
+        foreach (Companion companion in gameStateVariableSO.companions.activeCompanions) {
+            ShopItemView newShopItemView = new ShopItemView(
+                null, 
+                new CardInShopWithPrice(
+                    companion.deck.cards[0].cardType, 1, companion.companionType, Card.CardRarity.RARE)
+            );
+            mainArea.Add(newShopItemView.shopItemElement);
+            i++;
+            if (i == 3) break;
+        }
     }
 
     // This function is called under the assumption that the companion in question

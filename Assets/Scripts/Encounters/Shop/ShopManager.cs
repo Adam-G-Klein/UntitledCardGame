@@ -1,11 +1,12 @@
+using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 {
     public bool IS_DEVELOPMENT_MODE = false;
+    public bool USE_NEW_SHOP = false;
 
     [Header("Variables")]
     public GameStateVariableSO gameState;
@@ -25,14 +26,24 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     private CardBuyRequest currentBuyRequest;
     // New one, delete old one once migration is finished
     private CardInShopWithPrice currentCardBuyRequest;
+    private ShopItemView currentCardBuyRequestItemView;
     private CompanionCombinationManager companionCombinationManager;
     [SerializeField]
     public UIDocumentGameObjectPlacer placer { get; set; }
 
     void Awake() {
+        if (USE_NEW_SHOP) {
+            gameObject.GetComponent<UIDocument>().enabled = true;
+            shopUIManager.gameObject.SetActive(false);
+            shopViewController.Init(this);
+        } else {
+            gameObject.GetComponent<UIDocument>().enabled = false;
+            shopUIManager.gameObject.SetActive(true);
+        }
         // This ends up calling BuildShopEncounter below
         gameState.activeEncounter.GetValue().BuildWithEncounterBuilder(this);
     }
+    
     void Start() {
         companionCombinationManager = GetComponent<CompanionCombinationManager>();
     }
@@ -43,7 +54,10 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         List<Companion> allCompanions = new();
         allCompanions.AddRange(gameState.companions.activeCompanions);
         allCompanions.AddRange(gameState.companions.benchedCompanions);
-        shopEncounter.Build(this, allCompanions, encounterConstants, this.shopLevel);
+        shopEncounter.Build(this, allCompanions, encounterConstants, this.shopLevel, USE_NEW_SHOP);
+        shopViewController.SetMoney(gameState.playerData.GetValue().gold);
+        shopViewController.SetShopUpgradePrice(shopLevel.upgradeCost);
+        shopViewController.SetShopRerollPrice(shopEncounter.shopData.rerollShopPrice);
 
         CheckDisableUpgradeButton();
         /* uncomment to re-enable shop dialogue
@@ -51,6 +65,15 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             gameState.dialogueLocations.GetDialogueLocation(gameState));
         DialogueManager.Instance.StartAnyDialogueSequence();
         */
+    }
+
+    public void SetupUnitManagement() {
+        StartCoroutine(DelayedSetupUnitManagement());
+    }
+
+    private IEnumerator DelayedSetupUnitManagement() {
+        yield return new WaitForEndOfFrame();
+        shopViewController.SetupUnitManagement(gameState.companions);
     }
 
     void Update() {
@@ -71,26 +94,10 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         if (gameState.playerData.GetValue().gold >= cardInShop.price) {
             this.buyingCard = true;
             this.currentCardBuyRequest = cardInShop;
-            // TODO: All of this once the new companion view UI is done
-
-            // this.companionViewUI = GameObject.Instantiate(
-            //             companionViewUIPrefab,
-            //             new Vector3(Screen.width / 2, Screen.height / 2, 0),
-            //             Quaternion.identity);
-
-
-
-            // this.companionViewUI
-            //     .GetComponent<CompanionViewUI>()
-            //     .setupCompanionDisplay(determineApplicableActiveCompanions(cardBuyRequest.cardInfo),
-            //     determineApplicableBenchCompanions(cardBuyRequest.cardInfo),
-            //     gameState.companions.currentCompanionSlots,
-            //     new List<CompanionActionType>() {
-            //         CompanionActionType.SELECT,
-            //         CompanionActionType.VIEW_DECK
-            //     });
+            this.currentCardBuyRequestItemView = shopItemView;
+            shopViewController.CardBuyingSetup(shopItemView, cardInShop);
         } else {
-            // TODO: Loop into new shop ui and display notification for needing more money
+            shopViewController.NotEnoughMoney();
         }
     }
 
@@ -157,21 +164,27 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         return companionList;
     }
 
+    public bool IsApplicableCompanion(CompanionTypeSO cardSourceCompanion, Companion companion) {
+        return cardSourceCompanion == null || cardSourceCompanion.cardPool == companion.companionType.cardPool;
+    }
+
     public void ProcessCompanionBuyRequestV2(ShopItemView shopItemView, CompanionInShopWithPrice companionInShop) {
         Debug.Log("Processing companion buy request");
-        if(DialogueManager.Instance.dialogueInProgress) {
+        if (DialogueManager.Instance.dialogueInProgress) {
             return;
         }
 
         if (gameState.playerData.GetValue().gold >= companionInShop.price) {
             gameState.playerData.GetValue().gold -= companionInShop.price;
+            shopViewController.SetMoney(gameState.playerData.GetValue().gold);
             Companion newCompanion = new Companion(companionInShop.companionType);
-            if(!companionCombinationManager.AttemptUpgradeCompanion(newCompanion)){
+            if (!companionCombinationManager.AttemptUpgradeCompanion(newCompanion)){
                 Debug.Log("Upgrade not appicable, adding to benched companions");
                 this.gameState.companions.benchedCompanions.Add(newCompanion);
             }
         } else {
-            // TODO: Loop into new shop ui and display notification for needing more money
+            Debug.Log("Not enuff munny");
+            shopViewController.NotEnoughMoney();
         }
     }
 
@@ -206,12 +219,18 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         // to the companion's deck and lets forcefully close the companion
         // view UI
         if (this.buyingCard) {
-            currentBuyRequest.cardInfo.setCompanionFrom(companion.companionType);
-            companion.deck.cards.Add(currentBuyRequest.cardInfo);
-            gameState.playerData.GetValue().gold -= currentBuyRequest.price;
+            Card newCard = new Card(currentCardBuyRequest.cardType, companion.companionType, currentCardBuyRequest.rarity);
+            companion.deck.cards.Add(newCard);
+            gameState.playerData.GetValue().gold -= currentCardBuyRequest.price;
+            shopViewController.SetMoney(gameState.playerData.GetValue().gold);
+            shopViewController.RemoveCardFromShopView(currentCardBuyRequestItemView.cardInShop);
             this.buyingCard = false;
-            // Callback to shop view controller
+            shopViewController.StopBuyingCard();
         }
+    }
+
+    public void ProcessCardBuyCanceled() {
+        this.buyingCard = false;
     }
 
     public void processCompanionSelectedEvent(Companion companion) {
@@ -263,6 +282,25 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         }
     }
 
+    public void ProcessUpgradeShopClick() {
+        if(DialogueManager.Instance.dialogueInProgress) {
+            return;
+        }
+        PlayerData playerData = gameState.playerData.GetValue();
+        if (playerData.gold >= shopLevel.upgradeCost) {
+            playerData.gold -= shopLevel.upgradeCost;
+            playerData.shopLevel += 1;
+            shopLevel = shopEncounter.shopData.GetShopLevel(playerData.shopLevel);
+            gameState.companions.SetCompanionSlots(shopLevel.teamSize);
+            playerData.manaPerTurn = shopLevel.mana;
+
+            shopViewController.SetShopUpgradePrice(shopLevel.upgradeCost);
+            CheckDisableUpgradeButton();
+        } else {
+            shopViewController.NotEnoughMoney();
+        }
+    }
+
     private void CheckDisableUpgradeButton() {
         if (shopEncounter.shopData.shopLevels.Count - 1 <= shopLevel.level) {
             shopUIManager.DisableUpgradeButton();
@@ -282,12 +320,25 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         }
     }
 
+    public void ProcessRerollShopClick() {
+        if(DialogueManager.Instance.dialogueInProgress) {
+            return;
+        }
+        if (gameState.playerData.GetValue().gold >= shopEncounter.shopData.rerollShopPrice) {
+            gameState.playerData.GetValue().gold -= shopEncounter.shopData.rerollShopPrice;
+            shopViewController.Clear();
+            rerollShop();
+        } else {
+            shopViewController.NotEnoughMoney();
+        }
+    }
+
     private void rerollShop() {
         shopRefreshEvent.Raise(null);
         List<Companion> allCompanions = new();
         allCompanions.AddRange(gameState.companions.activeCompanions);
         allCompanions.AddRange(gameState.companions.benchedCompanions);
-        shopEncounter.Build(this, allCompanions, encounterConstants, shopLevel);
+        shopEncounter.Build(this, allCompanions, encounterConstants, shopLevel, USE_NEW_SHOP);
     }
 
     public void saveShopEncounter(ShopEncounter shopEncounter) {
