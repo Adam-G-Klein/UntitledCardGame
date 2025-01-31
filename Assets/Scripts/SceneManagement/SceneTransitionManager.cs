@@ -71,6 +71,8 @@ public class SceneTransitionManager : MonoBehaviour
         // Load the new scene
         SceneManager.LoadScene(sceneName);
 
+        yield return new WaitForSeconds(0.25f); // waits for 0.1 seconds
+
         // Fade back in
         yield return StartCoroutine(Fade(0f));
 
