@@ -423,7 +423,6 @@ public class ShopViewController : MonoBehaviour,
 
         background.style.top = upgradeButton.worldBound.yMin;
         background.style.left = upgradeButton.worldBound.xMax + upgradeButton.worldBound.width / 3;
-        Debug.Log(upgradeButton.worldBound);
 
         this.tooltip = background;
     }

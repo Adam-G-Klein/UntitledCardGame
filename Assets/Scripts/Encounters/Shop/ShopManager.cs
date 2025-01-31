@@ -295,6 +295,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             playerData.manaPerTurn = shopLevel.mana;
 
             shopViewController.SetShopUpgradePrice(shopLevel.upgradeCost);
+            shopViewController.SetMoney(gameState.playerData.GetValue().gold);
             CheckDisableUpgradeButton();
         } else {
             shopViewController.NotEnoughMoney();
@@ -326,6 +327,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         }
         if (gameState.playerData.GetValue().gold >= shopEncounter.shopData.rerollShopPrice) {
             gameState.playerData.GetValue().gold -= shopEncounter.shopData.rerollShopPrice;
+            shopViewController.SetMoney(gameState.playerData.GetValue().gold);
             shopViewController.Clear();
             rerollShop();
         } else {
