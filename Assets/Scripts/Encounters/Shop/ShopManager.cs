@@ -182,6 +182,8 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
                 Debug.Log("Upgrade not appicable, adding to benched companions");
                 this.gameState.companions.benchedCompanions.Add(newCompanion);
             }
+            shopViewController.RemoveCompanionFromShopView(companionInShop);
+            shopViewController.RebuildUnitManagement(gameState.companions);
         } else {
             Debug.Log("Not enuff munny");
             shopViewController.NotEnoughMoney();

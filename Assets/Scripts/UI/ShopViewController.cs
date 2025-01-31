@@ -122,6 +122,24 @@ public class ShopViewController : MonoBehaviour,
         companionItemToViewMap.Remove(companion);
     }
 
+    public void RebuildUnitManagement(CompanionListVariableSO companionList) {
+        ClearUnitManagement();
+        SetupUnitManagement(companionList);
+    }
+
+    private void ClearUnitManagement() {
+        foreach (VisualElement child in activeContainer.hierarchy.Children()) {
+            if (child.childCount > 0) {
+                child.Clear();
+            }
+        }
+        foreach (VisualElement child in benchScrollView.contentContainer.hierarchy.Children()) {
+            if (child.childCount > 0) {
+                child.Clear();
+            }
+        }
+    }
+
     public void SetupUnitManagement(CompanionListVariableSO companionList) {
         SetupActiveCompanions(companionList.activeCompanions);
         SetupBenchCompanions(companionList.benchedCompanions);
