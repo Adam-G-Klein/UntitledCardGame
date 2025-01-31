@@ -201,7 +201,6 @@ public class PlayableCard : MonoBehaviour,
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Debug.LogError(eventData.button);
         if(!interactable) return;
         hovered = true;
         //MusicController.Instance.PlaySFX(cardHover, hoverSFXVolume);
