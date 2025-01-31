@@ -122,7 +122,7 @@ public class TeamSelectionUI : MonoBehaviour
     {
         //VisualElement keepImg = container.Q<VisualElement>("KeepsakeImage");
         //keepImg.style.backgroundImage = new StyleBackground(companionType.keepsake);
-        container.Q<Label>("keepsakeName").text = companionType.keepsakeTitle;
+        container.Q<Label>("keepsakeName").text = "Companion Ability";
         container.Q<Label>("keepsakeDesc").text = companionType.keepsakeDescription;
 
         VisualElement cards = container.Q<VisualElement>("cardsContainer");
