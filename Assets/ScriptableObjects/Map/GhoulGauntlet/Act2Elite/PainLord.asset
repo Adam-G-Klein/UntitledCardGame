@@ -1,0 +1,137 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
+  m_Name: PainLord
+  m_EditorClassIdentifier: 
+  maxHealth: 250
+  baseAttackDamage: 0
+  sprite: {fileID: 21300000, guid: bf7004643a1b7cb47813068f0ada5d78, type: 3}
+  enemyPattern:
+    behaviors:
+    - intent: 3
+      enemyTargetMethod: 6
+      targetsKey: target
+      displayValue: 0
+      effectSteps:
+      - rid: 4463205916933358052
+      - rid: 4463205916933358053
+      - rid: 5280922829633618017
+    - intent: 1
+      enemyTargetMethod: 0
+      targetsKey: target
+      displayValue: 8
+      effectSteps:
+      - rid: 5602893111447519701
+      - rid: 4053950218419044437
+      - rid: 5602893111447519700
+      - rid: 5602893111447519702
+    behaviorType: 0
+    nextBehaviorIndex: 0
+  belowHalfHPEnemyPattern:
+    behaviors: []
+    behaviorType: 0
+    nextBehaviorIndex: 0
+  initialStatuses: []
+  tooltip:
+    empty: 0
+    lines:
+    - title: Painful Memory
+      description: Shuffles in a painful reminder to all companions deck
+      relatedBehaviorIndex: 1
+    - title: Painful Reminder
+      description: Unplayable. Take 3 damage if in hand at the end of the turn
+      relatedBehaviorIndex: 1
+    - title: Empowered Strike
+      description: Attacks and becomes more powerful
+      relatedBehaviorIndex: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 4053950218419044437
+      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FXEffectStep
+        waitForEffect: 1
+        fXExperiencePrefab: {fileID: 7374988516867921400, guid: 080ebf6cafefa59438cf877ee502d109, type: 3}
+        rootLocationGameObjectKey: 
+        positionMappingList:
+        - fromWorkflow: self
+          toFxExperience: enemyLocation
+        - fromWorkflow: target
+          toFxExperience: companionLocation
+        gameobjectMappingList:
+        - fromWorkflow: self
+          toFxExperience: enemy
+    - rid: 4463205916933358052
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: targets
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 1
+        cantCancelTargetting: 0
+    - rid: 4463205916933358053
+      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: AddCardsToDeck
+        inputKey: targets
+        cardTypes:
+        - {fileID: 11400000, guid: 1fd3c5fc899b645adb2bf0b798774a67, type: 2}
+        addToDeckMethod: 1
+        getCardsFromKey: 0
+        inputCardsKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 5280922829633618017
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: targets
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 07700d1630e3ac5428e8548fe3830136, type: 3}
+        scale: 1
+    - rid: 5602893111447519700
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: target
+        combatEffect: 0
+        scale: 8
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+    - rid: 5602893111447519701
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 5602893111447519702
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: self
+        statusEffect: 0
+        scale: 2
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
