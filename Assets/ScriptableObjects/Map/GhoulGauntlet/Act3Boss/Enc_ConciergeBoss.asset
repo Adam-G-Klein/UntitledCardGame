@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24f95da87f612e047aaeac10756d2ec7, type: 3}
-  m_Name: BeginnerEnemyPool
+  m_Script: {fileID: 11500000, guid: 17a7027b6d1213c4fa7f5d4be961eaab, type: 3}
+  m_Name: Enc_ConciergeBoss
   m_EditorClassIdentifier: 
-  enemyEncounterTypes:
-  - {fileID: 11400000, guid: f7ffa4a2d61d041fdad696be4d17edf9, type: 2}
-  - {fileID: 11400000, guid: 096c4fe35259b4d149633df309994297, type: 2}
+  enemies:
+  - {fileID: 11400000, guid: 82de5c62b4fb547da9689f053bdd60f8, type: 2}
+  devNotes: 
