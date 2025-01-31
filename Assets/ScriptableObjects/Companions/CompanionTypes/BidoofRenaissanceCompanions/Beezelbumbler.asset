@@ -28,9 +28,10 @@ MonoBehaviour:
   genericCompanionVFX: {fileID: 0}
   cardPool: {fileID: 11400000, guid: 4d23c731d10ea45218cc9e44a4ca61f3, type: 2}
   speakerType: {fileID: 0}
-  abilities:
-  - rid: 5602892559406858240
-  - rid: 9063059299879878660
+  abilitiesV2:
+  - rid: 205827988172308481
+  - rid: 205827988172308702
+  level: 0
   upgradeTo: {fileID: 11400000, guid: ba6b9a342dc39444a93852daa417a706, type: 2}
   tooltip:
     empty: 0
@@ -44,23 +45,33 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 2240256423295713294
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+    - rid: 205827988172308481
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: InstantiatePrefab
-        inputKey: self
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
-        scale: 1
-    - rid: 5602892559406858240
-      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
-      data:
-        companionAbilityTrigger: 5
+        abilityTrigger: 5
         effectSteps:
-        - rid: 5602892559406858262
-        - rid: 5602892559406858261
-        - rid: 9063059246832943106
-        - rid: 2240256423295713294
-    - rid: 5602892559406858261
+        - rid: 205827988172308699
+        - rid: 205827988172308700
+        - rid: 205827988172308482
+        - rid: 205827988172308701
+    - rid: 205827988172308482
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: EVERY DEATH, I GROW STRONGER >:)
+        lineTime: 2
+    - rid: 205827988172308699
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 205827988172308700
       type: {class: PermanentStatIncrease, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: PermanentStatIncrease
@@ -69,32 +80,22 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
-    - rid: 5602892559406858262
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+    - rid: 205827988172308701
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: self
-        validTargets: 00000000
-        number: 1
-        specialTargetRule: 3
-        cantCancelTargetting: 0
-    - rid: 9063059246832943106
-      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
+        scale: 1
+    - rid: 205827988172308702
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: DialogueStep
-        line: EVERY DEATH, I GROW STRONGER >:)
-        lineTime: 2
-    - rid: 9063059299879878660
-      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
-      data:
-        companionAbilityTrigger: 8
+        abilityTrigger: 8
         effectSteps:
-        - rid: 9063059299879878661
-    - rid: 9063059299879878661
+        - rid: 205827988172308703
+    - rid: 205827988172308703
       type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: DialogueStep
-        line: Now we draw cards every time we lose hp!
+        line: NOW EVERYONE GETS STRONGER UPON THE EMBRACE OF DEATH
         lineTime: 3

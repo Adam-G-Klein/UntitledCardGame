@@ -28,89 +28,31 @@ MonoBehaviour:
   genericCompanionVFX: {fileID: 0}
   cardPool: {fileID: 11400000, guid: 9b7e5bf09446140ad8676018d597b7a8, type: 2}
   speakerType: {fileID: 0}
-  abilities:
-  - rid: 5602893017534169429
-  - rid: 8205570031766208675
-  upgradeTo: {fileID: 11400000, guid: 669e87fa114624b88ae4455ef0762f7e, type: 2}
+  abilitiesV2:
+  - rid: 205828107393564827
+  level: 0
+  upgradeTo: {fileID: 11400000, guid: cf4a97ac141624dda8bc42d04aa78127, type: 2}
   tooltip:
     empty: 0
     lines:
     - title: Robber Baron
-      description: At the end of combat, gain $2 for each companion below half HP.
+      description: At the end of combat, gain 5 Gold
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: At the end of combat, gain $2 for each companion below half
-    HP.
+  keepsakeDescription: At the end of combat, gain 5 Gold
   references:
     version: 2
     RefIds:
-    - rid: 4463206214708757050
-      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+    - rid: 205828107393564827
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: DialogueStep
-        line: the more companions below half health, the more i can extort. keep
-          it up
-        lineTime: 2
-    - rid: 5602893017534169429
-      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
-      data:
-        companionAbilityTrigger: 1
+        abilityTrigger: 1
         effectSteps:
-        - rid: 5602893017534169430
-        - rid: 5602893017534169431
-        - rid: 5602893017534169432
-        - rid: 5602893017534169433
-        - rid: 5602893017534169434
-        - rid: 4463206214708757050
-    - rid: 5602893017534169430
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: companions
-        validTargets: 00000000
-        number: 1
-        specialTargetRule: 1
-        cantCancelTargetting: 0
-    - rid: 5602893017534169431
-      type: {class: FilterEntityByHP, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: FilterEntityByHP
-        inputKey: companions
-        percentThreshold: 0.5
-        outputKey: companionsBelowHalf
-    - rid: 5602893017534169432
-      type: {class: CountStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CountStep
-        inputKey: companionsBelowHalf
-        outputKey: numBelowHalf
-    - rid: 5602893017534169433
-      type: {class: MathStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: MathStep
-        inputKey: numBelowHalf
-        operand2InputKey: UNUSED
-        operation: 2
-        scale: 2
-        outputKey: totalGold
-    - rid: 5602893017534169434
+        - rid: 205828107393564828
+    - rid: 205828107393564828
       type: {class: GoldManipulation, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: 
-        goldToAdd: 0
-        getScaleFromKey: 1
-        inputScaleKey: totalGold
-    - rid: 8205570031766208675
-      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
-      data:
-        companionAbilityTrigger: 8
-        effectSteps:
-        - rid: 8205570031766208676
-    - rid: 8205570031766208676
-      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: DialogueStep
-        line: I now allow you to pay money to give your team lasting stats boosts!
-        lineTime: 3
+        goldToAdd: 5
+        getScaleFromKey: 0
+        inputScaleKey: 

@@ -12,48 +12,57 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
   m_Name: L2Aurasaurus
   m_EditorClassIdentifier: 
-  companionName: Aurasaurus
+  companionName: L2 Aurasaurus
   maxHealth: 25
   initialCardsDealtPerTurn: 1
-  sprite: {fileID: 21300000, guid: b83b435acb4b74464a4b6be77184da43, type: 3}
+  sprite: {fileID: 21300000, guid: dd5dc1421c6084835872fd966a0bf8df, type: 3}
   startingDeck: {fileID: 11400000, guid: b9d3e1231b15642b9802057f5950b8c7, type: 2}
-  keepsake: {fileID: 21300000, guid: b83b435acb4b74464a4b6be77184da43, type: 3}
+  keepsake: {fileID: 21300000, guid: dd5dc1421c6084835872fd966a0bf8df, type: 3}
   cardBack: {fileID: 21300000, guid: a5222a8d127763c49b397cce916345ec, type: 3}
-  cardFrame: {fileID: 21300000, guid: 106aacbbfd302814982ff4ed944fbaed, type: 3}
-  typeIcon: {fileID: 21300000, guid: b83b435acb4b74464a4b6be77184da43, type: 3}
-  portrait: {fileID: 21300000, guid: b83b435acb4b74464a4b6be77184da43, type: 3}
-  teamSelectSprite: {fileID: 21300000, guid: b83b435acb4b74464a4b6be77184da43, type: 3}
+  cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
+  typeIcon: {fileID: 21300000, guid: dd5dc1421c6084835872fd966a0bf8df, type: 3}
+  portrait: {fileID: 21300000, guid: dd5dc1421c6084835872fd966a0bf8df, type: 3}
+  teamSelectSprite: {fileID: 21300000, guid: dd5dc1421c6084835872fd966a0bf8df, type: 3}
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 0}
   genericCompanionVFX: {fileID: 0}
   cardPool: {fileID: 11400000, guid: 2edb6f5c86b0f4cf99a457f5501dce3a, type: 2}
   speakerType: {fileID: 0}
-  abilities:
-  - rid: 5602892874868589179
-  - rid: 5602892874868589183
-  upgradeTo: {fileID: 0}
+  abilitiesV2:
+  - rid: 205828107393564712
+  - rid: 205828107393564713
+  level: 1
+  upgradeTo: {fileID: 11400000, guid: c3d34f25bbca344daae5e9f05cb75a65, type: 2}
   tooltip:
     empty: 0
     lines:
-    - title: Aurasaurus
-      description: At the start of combat, give your entire team 1 aura stack. End
-        of turn, give each companion 3 block for each aura stack they have.
+    - title: L2 Aurasaurus
+      description: Start combat with an aura stack. End of turn, each companion gets
+        3 block for each aura stack they have
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: At the start of combat, give your entire team 1 aura stack.
-    End of turn, give each companion 3 block for each aura stack they have.
+  keepsakeDescription: Start combat with an aura stack. End of turn, each companion
+    gets 3 block for each aura stack they have
   references:
     version: 2
     RefIds:
-    - rid: 5602892874868589179
-      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
+    - rid: 205828107393564712
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
-        companionAbilityTrigger: 0
+        abilityTrigger: 2
         effectSteps:
-        - rid: 5602892874868589180
-        - rid: 5602892874868589182
-        - rid: 8205570031766208650
-    - rid: 5602892874868589180
+        - rid: 205828107393564714
+        - rid: 205828107393564715
+        - rid: 205828107393564716
+        - rid: 205828107393564717
+    - rid: 205828107393564713
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 0
+        effectSteps:
+        - rid: 205828107393564719
+        - rid: 205828107393564720
+    - rid: 205828107393564714
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
@@ -64,44 +73,14 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 1
         cantCancelTargetting: 0
-    - rid: 5602892874868589182
-      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: ApplyStatus
-        inputKey: all
-        statusEffect: 9
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplyByNumAuraStacks: 0
-    - rid: 5602892874868589183
-      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
-      data:
-        companionAbilityTrigger: 2
-        effectSteps:
-        - rid: 5602892874868589184
-        - rid: 5602892874868589185
-        - rid: 5602892874868589186
-        - rid: 8205570031766208651
-    - rid: 5602892874868589184
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: all
-        validTargets: 00000000
-        number: 1
-        specialTargetRule: 1
-        cantCancelTargetting: 0
-    - rid: 5602892874868589185
+    - rid: 205828107393564715
       type: {class: FilterEntityByStatus, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: FilterEntityByStatus
         inputKey: all
         status: 9
         outputKey: allWithOrb
-    - rid: 5602892874868589186
+    - rid: 205828107393564716
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ApplyStatus
@@ -111,17 +90,31 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 1
-    - rid: 8205570031766208650
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: all
-        prefabToInstantiate: {fileID: 1694406742967473385, guid: a6181747c84ef6b41a01c8ae8084f953, type: 3}
-        scale: 5
-    - rid: 8205570031766208651
+    - rid: 205828107393564717
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
         inputKey: allWithOrb
-        prefabToInstantiate: {fileID: 98836261379580132, guid: 09d8d7322d3a06e46a9bee225d04a5bd, type: 3}
-        scale: 5
+        prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
+        scale: 1
+    - rid: 205828107393564719
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 205828107393564720
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: self
+        statusEffect: 9
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0

@@ -28,34 +28,76 @@ MonoBehaviour:
   genericCompanionVFX: {fileID: 0}
   cardPool: {fileID: 11400000, guid: 2edb6f5c86b0f4cf99a457f5501dce3a, type: 2}
   speakerType: {fileID: 0}
-  abilities:
-  - rid: 5602892874868589145
-  - rid: 5602892874868589149
-  - rid: 8205570031766208660
-  upgradeTo: {fileID: 11400000, guid: c9af295a537294ffe815c1c613b5d6df, type: 2}
+  abilitiesV2:
+  - rid: 205828107393564712
+  - rid: 205828107393564713
+  level: 0
+  upgradeTo: {fileID: 11400000, guid: 3256e872d70db4821ab7853fdc9e9bae, type: 2}
   tooltip:
     empty: 0
     lines:
     - title: Aurasaurus
-      description: 'At the start of combat, give adjacent companions 1 aura stack.
-        End of turn, each companion with at least 1 aura stack gets 4 block. '
+      description: 'Start combat with an aura stack. End of turn, each companion
+        with at least 1 aura stack gets 3 block '
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: 'At the start of combat, give adjacent companions 1 aura stack.
-    End of turn, each companion with at least 1 aura stack gets 4 block. '
+  keepsakeDescription: 'Start combat with an aura stack. End of turn, each companion
+    with at least 1 aura stack gets 3 block. '
   references:
     version: 2
     RefIds:
-    - rid: 5602892874868589145
-      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
+    - rid: 205828107393564712
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
-        companionAbilityTrigger: 0
+        abilityTrigger: 2
         effectSteps:
-        - rid: 5602892874868589146
-        - rid: 5602892874868589147
-        - rid: 5602892874868589148
-        - rid: 8205570031766208648
-    - rid: 5602892874868589146
+        - rid: 205828107393564714
+        - rid: 205828107393564715
+        - rid: 205828107393564716
+        - rid: 205828107393564717
+    - rid: 205828107393564713
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 0
+        effectSteps:
+        - rid: 205828107393564719
+        - rid: 205828107393564720
+    - rid: 205828107393564714
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: all
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 1
+        cantCancelTargetting: 0
+    - rid: 205828107393564715
+      type: {class: FilterEntityByStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FilterEntityByStatus
+        inputKey: all
+        status: 9
+        outputKey: allWithOrb
+    - rid: 205828107393564716
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: allWithOrb
+        statusEffect: 2
+        scale: 3
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+    - rid: 205828107393564717
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: allWithOrb
+        prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
+        scale: 1
+    - rid: 205828107393564719
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
@@ -66,82 +108,13 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
-    - rid: 5602892874868589147
-      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetAdjacentCompanions
-        inputKey: self
-        outputKey: adjacent
-    - rid: 5602892874868589148
+    - rid: 205828107393564720
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ApplyStatus
-        inputKey: adjacent
+        inputKey: self
         statusEffect: 9
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
-    - rid: 5602892874868589149
-      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
-      data:
-        companionAbilityTrigger: 2
-        effectSteps:
-        - rid: 5602892874868589150
-        - rid: 5602892874868589151
-        - rid: 5602892874868589152
-        - rid: 8205570031766208649
-    - rid: 5602892874868589150
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: allCompanions
-        validTargets: 00000000
-        number: 1
-        specialTargetRule: 1
-        cantCancelTargetting: 0
-    - rid: 5602892874868589151
-      type: {class: FilterEntityByStatus, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: FilterEntityByStatus
-        inputKey: allCompanions
-        status: 9
-        outputKey: allCompanionsWithOrbs
-    - rid: 5602892874868589152
-      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: ApplyStatus
-        inputKey: allCompanionsWithOrbs
-        statusEffect: 2
-        scale: 4
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplyByNumAuraStacks: 0
-    - rid: 8205570031766208648
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: adjacent
-        prefabToInstantiate: {fileID: 1694406742967473385, guid: a6181747c84ef6b41a01c8ae8084f953, type: 3}
-        scale: 5
-    - rid: 8205570031766208649
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: allCompanionsWithOrbs
-        prefabToInstantiate: {fileID: 98836261379580132, guid: 09d8d7322d3a06e46a9bee225d04a5bd, type: 3}
-        scale: 5
-    - rid: 8205570031766208660
-      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
-      data:
-        companionAbilityTrigger: 8
-        effectSteps:
-        - rid: 8205570031766208661
-    - rid: 8205570031766208661
-      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: DialogueStep
-        line: I can now protect our entire team!
-        lineTime: 3

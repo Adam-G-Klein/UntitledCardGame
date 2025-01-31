@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Mab
   m_EditorClassIdentifier: 
   companionName: Mab
-  maxHealth: 30
+  maxHealth: 20
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: 06c409edcf5e308438ea9c89ccd99c68, type: 3}
   startingDeck: {fileID: 11400000, guid: 75d02cdf7041b4d31bff1b7857a1d055, type: 2}
@@ -28,51 +28,31 @@ MonoBehaviour:
   genericCompanionVFX: {fileID: 0}
   cardPool: {fileID: 11400000, guid: c117b14afa44247b59e7f794939cdc89, type: 2}
   speakerType: {fileID: 11400000, guid: 9e835f3c4c49e9f4da934369a0a7132b, type: 2}
-  abilities:
-  - rid: 5602892650873356440
-  - rid: 5602892675124822030
+  abilitiesV2:
+  - rid: 205828032053379072
+  level: 0
   upgradeTo: {fileID: 11400000, guid: e8c26b8d205c446d7a74a4c055d7d437, type: 2}
   tooltip:
     empty: 0
     lines:
     - title: Mab
-      description: At the end of combat, heal a companion 20% of their max HP and
-        permanently add a Mab's Boon to their deck.
+      description: At the end of combat, heal target companion 5 HP
       relatedBehaviorIndex: 0
-    - title: Mab's Boon
-      description: Card that exhausts on play and heals
-      relatedBehaviorIndex: 0
-  keepsakeTitle: 
-  keepsakeDescription: At the end of combat, heal a companion 20% of their max HP
-    and permanently add a Mab's Boon to their deck.
+  keepsakeTitle: Mab's Mercy
+  keepsakeDescription: At the end of combat, heal target companion 5 HP
   references:
     version: 2
     RefIds:
-    - rid: 2240256423295713291
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+    - rid: 205828032053379072
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: InstantiatePrefab
-        inputKey: target
-        prefabToInstantiate: {fileID: 3850217184923880746, guid: 604f6efaa1e828d4bacfc84a25dfbd7a, type: 3}
-        scale: 1
-    - rid: 4463206214708757052
-      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: DialogueStep
-        line: who should i heal? there may be... side effects
-        lineTime: 2
-    - rid: 5602892650873356440
-      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
-      data:
-        companionAbilityTrigger: 1
+        abilityTrigger: 1
         effectSteps:
-        - rid: 4463206214708757052
-        - rid: 5602892650873356441
-        - rid: 5602893111447519473
-        - rid: 5602892650873356442
-        - rid: 5602892650873356454
-        - rid: 2240256423295713291
-    - rid: 5602892650873356441
+        - rid: 205828032053379075
+        - rid: 205828032053379073
+        - rid: 205828032053379074
+        - rid: 205828107393564676
+    - rid: 205828032053379073
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
@@ -83,55 +63,28 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 1
-    - rid: 5602892650873356442
+    - rid: 205828032053379074
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
         inputKey: target
         combatEffect: 9
-        scale: 0
-        getScaleFromKey: 1
-        inputScaleKey: numToHeal
+        scale: 5
+        getScaleFromKey: 0
+        inputScaleKey: 
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-    - rid: 5602892650873356454
-      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: AddCardsToDeck
-        inputKey: target
-        cardTypes:
-        - {fileID: 11400000, guid: b189fb1d6d01a4fc69154f1e3f45b734, type: 2}
-        addToDeckMethod: 3
-        getCardsFromKey: 0
-        inputCardsKey: 
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
-    - rid: 5602892675124822030
-      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
-      data:
-        companionAbilityTrigger: 8
-        effectSteps:
-        - rid: 5602892675124822031
-        - rid: 8205570031766208515
-    - rid: 5602892675124822031
-      type: {class: ManualOnCombineInShop, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: ManualOnCombineInShop
-        selectedOnCombineWorkflow: 0
-        mabTargetCardType: {fileID: 11400000, guid: b189fb1d6d01a4fc69154f1e3f45b734, type: 2}
-        mabDestCardType: {fileID: 11400000, guid: 988bb1f9451434efa90a62c6d2695416, type: 2}
-    - rid: 5602893111447519473
-      type: {class: GetPercentOfMaxHP, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetPercentOfMaxHP
-        inputKey: target
-        percent: 0.2
-        outputKey: numToHeal
-    - rid: 8205570031766208515
+    - rid: 205828032053379075
       type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: DialogueStep
-        line: All Mabs boons have been transformed into the all powerful Mabs Might!
-        lineTime: 3
+        line: who should i heal for 5 HP?
+        lineTime: 2
+    - rid: 205828107393564676
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: target
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 604f6efaa1e828d4bacfc84a25dfbd7a, type: 3}
+        scale: 1

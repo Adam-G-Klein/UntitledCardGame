@@ -15,53 +15,59 @@ MonoBehaviour:
   companionName: Beezelbumbler
   maxHealth: 20
   initialCardsDealtPerTurn: 1
-  sprite: {fileID: 21300000, guid: db358496fbbc0478cbc8b0b1a85e4374, type: 3}
+  sprite: {fileID: 21300000, guid: e0ab2143b8408423ab692d481858408a, type: 3}
   startingDeck: {fileID: 11400000, guid: 03db7753a8eb34b8fa1ccf858b7c2c0e, type: 2}
-  keepsake: {fileID: 21300000, guid: db358496fbbc0478cbc8b0b1a85e4374, type: 3}
+  keepsake: {fileID: 21300000, guid: e0ab2143b8408423ab692d481858408a, type: 3}
   cardBack: {fileID: 21300000, guid: 3296a63e824de414bb4b578c4822fbdb, type: 3}
   cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
-  typeIcon: {fileID: 21300000, guid: db358496fbbc0478cbc8b0b1a85e4374, type: 3}
-  portrait: {fileID: 21300000, guid: db358496fbbc0478cbc8b0b1a85e4374, type: 3}
-  teamSelectSprite: {fileID: 21300000, guid: db358496fbbc0478cbc8b0b1a85e4374, type: 3}
+  typeIcon: {fileID: 21300000, guid: e0ab2143b8408423ab692d481858408a, type: 3}
+  portrait: {fileID: 21300000, guid: e0ab2143b8408423ab692d481858408a, type: 3}
+  teamSelectSprite: {fileID: 21300000, guid: e0ab2143b8408423ab692d481858408a, type: 3}
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 0}
   genericCompanionVFX: {fileID: 0}
   cardPool: {fileID: 11400000, guid: 4d23c731d10ea45218cc9e44a4ca61f3, type: 2}
   speakerType: {fileID: 0}
-  abilities:
-  - rid: 5602892559406858240
-  upgradeTo: {fileID: 0}
+  abilitiesV2:
+  - rid: 205828032053379370
+  level: 1
+  upgradeTo: {fileID: 11400000, guid: 0c2e68a89373f4be8804041c95445161, type: 2}
   tooltip:
     empty: 0
     lines:
     - title: L2 Beezelbumbler
-      description: Whenever a companion loses HP, draw 1 card from their deck.
+      description: Whenever a companion dies, give all companions 1 strength permanently
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: Whenever a companion loses HP, draw 1 card from their deck.
+  keepsakeDescription: Whenever a companion dies, give all companions 1 strength
+    permanently
   references:
     version: 2
     RefIds:
-    - rid: 4463206079571952085
-      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+    - rid: 205828032053379370
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: DrawCards
-        inputKey: damagedCompanion
-        outputKey: 
+        abilityTrigger: 5
+        effectSteps:
+        - rid: 205828032053379371
+        - rid: 205828032053379376
+    - rid: 205828032053379371
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: all
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 1
+        cantCancelTargetting: 0
+    - rid: 205828032053379376
+      type: {class: PermanentStatIncrease, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: PermanentStatIncrease
+        inputKey: all
+        statIncreaseType: 0
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
-    - rid: 5602892559406858240
-      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
-      data:
-        companionAbilityTrigger: 11
-        effectSteps:
-        - rid: 4463206079571952085
-        - rid: 8205570031766208512
-    - rid: 8205570031766208512
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: damagedCompanion
-        prefabToInstantiate: {fileID: 1694406742967473385, guid: a6181747c84ef6b41a01c8ae8084f953, type: 3}
-        scale: 5

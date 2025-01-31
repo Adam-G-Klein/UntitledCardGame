@@ -28,6 +28,9 @@ MonoBehaviour:
   genericCompanionVFX: {fileID: 0}
   cardPool: {fileID: 11400000, guid: f196524d31ef54898813ddd113b536e2, type: 2}
   speakerType: {fileID: 0}
+  abilitiesV2:
+  - rid: 205827988172308704
+  - rid: 205827988172308708
   abilities:
   - rid: 9154689434420772964
   - rid: 8205570031766208662
@@ -43,6 +46,54 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: 205827988172308704
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 0
+        effectSteps:
+        - rid: 205827988172308705
+        - rid: 205827988172308706
+        - rid: 205827988172308707
+    - rid: 205827988172308705
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 205827988172308706
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: self
+        statusEffect: 0
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+    - rid: 205827988172308707
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
+        scale: 1
+    - rid: 205827988172308708
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 8
+        effectSteps:
+        - rid: 205827988172308709
+    - rid: 205827988172308709
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: Bidoof now has the strength of 4 Bidoofs!
+        lineTime: 3
     - rid: 2240256423295713295
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:

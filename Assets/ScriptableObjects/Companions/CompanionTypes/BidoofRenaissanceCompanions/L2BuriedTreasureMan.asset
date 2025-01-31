@@ -15,22 +15,23 @@ MonoBehaviour:
   companionName: Buried Treasure Man
   maxHealth: 20
   initialCardsDealtPerTurn: 1
-  sprite: {fileID: 21300000, guid: 80b71e9d7565047ddb3ac1b2091c9693, type: 3}
+  sprite: {fileID: 21300000, guid: b38254b318ff44869ae33fb0fe33c4a2, type: 3}
   startingDeck: {fileID: 11400000, guid: e8874d8a511b54b13b6fa125f643d72b, type: 2}
-  keepsake: {fileID: 21300000, guid: 80b71e9d7565047ddb3ac1b2091c9693, type: 3}
+  keepsake: {fileID: 21300000, guid: b38254b318ff44869ae33fb0fe33c4a2, type: 3}
   cardBack: {fileID: 21300000, guid: 3296a63e824de414bb4b578c4822fbdb, type: 3}
   cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
-  typeIcon: {fileID: 21300000, guid: 80b71e9d7565047ddb3ac1b2091c9693, type: 3}
-  portrait: {fileID: 21300000, guid: 80b71e9d7565047ddb3ac1b2091c9693, type: 3}
-  teamSelectSprite: {fileID: 21300000, guid: 80b71e9d7565047ddb3ac1b2091c9693, type: 3}
+  typeIcon: {fileID: 21300000, guid: b38254b318ff44869ae33fb0fe33c4a2, type: 3}
+  portrait: {fileID: 21300000, guid: b38254b318ff44869ae33fb0fe33c4a2, type: 3}
+  teamSelectSprite: {fileID: 21300000, guid: b38254b318ff44869ae33fb0fe33c4a2, type: 3}
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 0}
   genericCompanionVFX: {fileID: 0}
   cardPool: {fileID: 11400000, guid: b4b6c00dda5c84cec970f98c37079d4d, type: 2}
   speakerType: {fileID: 0}
-  abilities:
-  - rid: 5602892491280613443
-  upgradeTo: {fileID: 0}
+  abilitiesV2:
+  - rid: 205828032053379474
+  level: 1
+  upgradeTo: {fileID: 11400000, guid: db7cf55b75dd64de8823119918278ebd, type: 2}
   tooltip:
     empty: 0
     lines:
@@ -39,7 +40,7 @@ MonoBehaviour:
         each companion's deck.
       relatedBehaviorIndex: 0
     - title: Buried Treasure
-      description: 1 Mana. Exhaust. Gain 2 Gold.
+      description: 1 Mana. Exhaust. Gain 1 Gold.
       relatedBehaviorIndex: 0
   keepsakeTitle: 
   keepsakeDescription: At the start of combat, put a buried treasure on the bottom
@@ -47,36 +48,30 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 4463206214708757119
-      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+    - rid: 205828032053379474
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: DialogueStep
-        line: mhm - there's treasure buried everywhere!
-        lineTime: 2
-    - rid: 5602892491280613443
-      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
-      data:
-        companionAbilityTrigger: 0
+        abilityTrigger: 0
         effectSteps:
-        - rid: 5602892491280613460
-        - rid: 5602892491280613461
-        - rid: 4463206214708757119
-    - rid: 5602892491280613460
+        - rid: 205828032053379475
+        - rid: 205828032053379476
+        - rid: 205828032053379477
+    - rid: 205828032053379475
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: allCompanions
+        outputKey: all
         validTargets: 00000000
-        number: 0
+        number: 1
         specialTargetRule: 1
         cantCancelTargetting: 0
-    - rid: 5602892491280613461
+    - rid: 205828032053379476
       type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: AddCardsToDeck
-        inputKey: allCompanions
+        inputKey: all
         cardTypes:
         - {fileID: 11400000, guid: 32eae75392814445b8a952edf781d892, type: 2}
         addToDeckMethod: 2
@@ -85,3 +80,9 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+    - rid: 205828032053379477
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: there's treasure everywhere if you know where to look
+        lineTime: 2

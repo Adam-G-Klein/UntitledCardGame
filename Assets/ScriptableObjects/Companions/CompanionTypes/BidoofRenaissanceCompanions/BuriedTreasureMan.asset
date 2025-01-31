@@ -28,9 +28,9 @@ MonoBehaviour:
   genericCompanionVFX: {fileID: 0}
   cardPool: {fileID: 11400000, guid: b4b6c00dda5c84cec970f98c37079d4d, type: 2}
   speakerType: {fileID: 0}
-  abilities:
-  - rid: 5602892491280613443
-  - rid: 8205570031766208664
+  abilitiesV2:
+  - rid: 205827988172308714
+  level: 0
   upgradeTo: {fileID: 11400000, guid: 07493795f887747499efadbf94ce0028, type: 2}
   tooltip:
     empty: 0
@@ -40,7 +40,7 @@ MonoBehaviour:
         a random companion's deck.
       relatedBehaviorIndex: 0
     - title: Buried Treasure
-      description: 1 Mana. Exhaust. Gain 2 Gold.
+      description: 1 Mana. Exhaust. Gain 1 Gold.
       relatedBehaviorIndex: 0
   keepsakeTitle: Spare Change
   keepsakeDescription: At the start of combat, put a Buried Treasure on the bottom
@@ -48,21 +48,15 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 4463206214708757051
-      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+    - rid: 205827988172308714
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: DialogueStep
-        line: '*sniff* *sniff* ... must be treasure around here somewhere'
-        lineTime: 2
-    - rid: 5602892491280613443
-      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
-      data:
-        companionAbilityTrigger: 0
+        abilityTrigger: 0
         effectSteps:
-        - rid: 5602892491280613460
-        - rid: 5602892491280613461
-        - rid: 4463206214708757051
-    - rid: 5602892491280613460
+        - rid: 205827988172308715
+        - rid: 205827988172308717
+        - rid: 205827988172308716
+    - rid: 205827988172308715
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
@@ -73,7 +67,14 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 6
         cantCancelTargetting: 0
-    - rid: 5602892491280613461
+    - rid: 205827988172308716
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: "(\u1D54\u1D25\u1D54) *sniff* *sniff* ... must be treasure around here
+          somewhere"
+        lineTime: 2
+    - rid: 205827988172308717
       type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: AddCardsToDeck
@@ -86,15 +87,3 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
-    - rid: 8205570031766208664
-      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
-      data:
-        companionAbilityTrigger: 8
-        effectSteps:
-        - rid: 8205570031766208665
-    - rid: 8205570031766208665
-      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: DialogueStep
-        line: Now I have treasure for everyone!
-        lineTime: 3

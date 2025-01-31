@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum CompanionLevel {
+    LevelOne,
+    LevelTwo,
+    LevelThree
+}
+
 [CreateAssetMenu(
     fileName = "CompanionType",
     menuName = "Companions/Companion Type")]
@@ -26,11 +32,15 @@ public class CompanionTypeSO : ScriptableObject
     public CardPoolSO cardPool;
     [Header("Dialogue hook-in")]
     public SpeakerTypeSO speakerType;
-    [Header("Abilities and upgrades")]
+    [Header("Companion passive abilities")]
+
 
     [SerializeReference]
-    public List<CompanionAbility> abilities;
+    public List<EntityAbility> abilitiesV2;
+    [Header("Companion upgrade / combination spec")]
 
+    [Tooltip("Level 1 companions are the lowest rarity; they upgrade to level 2 companions, which then upgrade to level 3")]
+    public CompanionLevel level;
     [SerializeField]
     public CompanionTypeSO upgradeTo;
     public TooltipViewModel tooltip;

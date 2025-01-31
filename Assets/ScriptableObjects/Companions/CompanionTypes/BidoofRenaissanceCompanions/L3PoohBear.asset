@@ -1,0 +1,118 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
+  m_Name: L3PoohBear
+  m_EditorClassIdentifier: 
+  companionName: L3 Pooh Bear
+  maxHealth: 20
+  initialCardsDealtPerTurn: 1
+  sprite: {fileID: 21300000, guid: b8234437e62f749a9b907d6e36c2e1e1, type: 3}
+  startingDeck: {fileID: 11400000, guid: 08d0c5baf8b5946b8a166d80ed55182e, type: 2}
+  keepsake: {fileID: 21300000, guid: b8234437e62f749a9b907d6e36c2e1e1, type: 3}
+  cardBack: {fileID: 21300000, guid: f48743304e0580f4fbfc67f629b1dabe, type: 3}
+  cardFrame: {fileID: 21300000, guid: 1d7c5bff8d35e56428259e9e973815a7, type: 3}
+  typeIcon: {fileID: 21300000, guid: b8234437e62f749a9b907d6e36c2e1e1, type: 3}
+  portrait: {fileID: 21300000, guid: b8234437e62f749a9b907d6e36c2e1e1, type: 3}
+  teamSelectSprite: {fileID: 21300000, guid: b8234437e62f749a9b907d6e36c2e1e1, type: 3}
+  cardIdleVfxPrefab: {fileID: 0}
+  genericCompanionSFX: {fileID: 0}
+  genericCompanionVFX: {fileID: 0}
+  cardPool: {fileID: 11400000, guid: 88046cf7857cb4072a63a470af6868d4, type: 2}
+  speakerType: {fileID: 0}
+  abilitiesV2:
+  - rid: 205828032053379566
+  - rid: 205828032053379567
+  level: 2
+  upgradeTo: {fileID: 0}
+  tooltip:
+    empty: 0
+    lines:
+    - title: L3 Pooh Bear
+      description: Starts combat with an aura stack. At the start of your turn, each
+        companion with at least 1 aura creates a powerful Embued Knife
+      relatedBehaviorIndex: 0
+    - title: Embued Knife
+      description: 0 mana. Exhaust. Deal damage for each orb
+      relatedBehaviorIndex: 0
+  keepsakeTitle: 
+  keepsakeDescription: Starts combat with an aura stack. At the start of your turn,
+    each companion with at least 1 aura creates a powerful Embued Knife
+  references:
+    version: 2
+    RefIds:
+    - rid: 205828032053379566
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 12
+        effectSteps:
+        - rid: 205828032053379568
+        - rid: 205828032053379571
+        - rid: 205828032053379572
+    - rid: 205828032053379567
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 0
+        effectSteps:
+        - rid: 205828032053379569
+        - rid: 205828032053379570
+    - rid: 205828032053379568
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: all
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 1
+        cantCancelTargetting: 0
+    - rid: 205828032053379569
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 205828032053379570
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: self
+        statusEffect: 9
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+    - rid: 205828032053379571
+      type: {class: FilterEntityByStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FilterEntityByStatus
+        inputKey: all
+        status: 9
+        outputKey: allWithOrb
+    - rid: 205828032053379572
+      type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: AddCardsToHand
+        entityFromKey: allWithOrb
+        cardTypes:
+        - {fileID: 11400000, guid: 59874a9b5e5a94390a53aaec50c329d6, type: 2}
+        getCardsFromKey: 0
+        inputCardsKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        outputKey: 

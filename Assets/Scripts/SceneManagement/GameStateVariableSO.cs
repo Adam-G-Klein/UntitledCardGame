@@ -188,6 +188,25 @@ public class GameStateVariableSO : ScriptableObject
         currentLoopIndex = GetLoopIndex();
     }
 
+    public void RemoveCompanionsFromTeam(List<Companion> companions) {
+        foreach(Companion c in companions) {
+            if(this.companions.activeCompanions.Contains(c)) {
+                this.companions.activeCompanions.Remove(c);
+            }
+            if(this.companions.benchedCompanions.Contains(c)) {
+                this.companions.benchedCompanions.Remove(c);
+            }
+        }
+    }
+    public void AddCompanionToTeam(Companion c) {
+        if(this.companions.spaceInActiveCompanions) {
+            this.companions.activeCompanions.Add(c);
+        } else {
+            this.companions.benchedCompanions.Add(c);
+        }
+    }
+
+
     public void cancelCurrentDialogue() {
         if(DialogueManager.Instance != null) {
             DialogueManager.Instance.skipCurrentDialogue();
@@ -237,7 +256,7 @@ public class GameStateVariableSO : ScriptableObject
         currentLocation = newLocation;
     }
 
-    public void UpdateHoveredCompanion(CompanionInstance companionInstance) { 
+    public void UpdateHoveredCompanion(CompanionInstance companionInstance) {
         Debug.Log("hovering or ending hovering");
         Debug.Log(companionInstance);
         hoveredCompanion = companionInstance;

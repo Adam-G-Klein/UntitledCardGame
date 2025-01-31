@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class CompanionAbility
+public class EntityAbility
 {
     [SerializeField]
-    public CompanionAbilityTrigger companionAbilityTrigger;
+    public EntityAbilityTrigger abilityTrigger;
     [SerializeReference]
     public List<EffectStep> effectSteps;
     public EffectWorkflow effectWorkflow { get {
@@ -14,7 +14,7 @@ public class CompanionAbility
         }
     }
 
-    public enum CompanionAbilityTrigger {
+    public enum EntityAbilityTrigger {
         EnterTheBattlefield,
         EndOfCombat,
         EndOfPlayerTurn,
@@ -28,5 +28,6 @@ public class CompanionAbility
         OnDeckShuffled,
         OnFriendDamageTaken,
         StartOfPlayerTurn,
+        OnHandEmpty,
     }
 }

@@ -28,62 +28,51 @@ MonoBehaviour:
   genericCompanionVFX: {fileID: 0}
   cardPool: {fileID: 11400000, guid: 54aef68170b384d81be04efc17cbf69c, type: 2}
   speakerType: {fileID: 0}
-  abilities:
-  - rid: 5602892949302280752
-  - rid: 8205570031766208670
-  upgradeTo: {fileID: 11400000, guid: 5b7a03f16dfe04bebb92e414c5ba944e, type: 2}
+  abilitiesV2:
+  - rid: 205828107393564721
+  level: 0
+  upgradeTo: {fileID: 11400000, guid: 31b52f152fe0e40e980ac00ec33bba3d, type: 2}
   tooltip:
     empty: 0
     lines:
     - title: King of Pain
-      description: Whenever a companion takes damage, King of Pain deals 2 damage
-        to a random enemy
+      description: Whenever King of Pain takes damage, it gains 1 strength for the
+        rest of combat
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: Whenever a companion takes damage, King of Pain deals 2 damage
-    to a random enemy
+  keepsakeDescription: Whenever King of Pain takes damage, it gains 1 strength for
+    the rest of combat
   references:
     version: 2
     RefIds:
-    - rid: 5602892949302280752
-      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
+    - rid: 205828107393564721
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
-        companionAbilityTrigger: 11
+        abilityTrigger: 11
         effectSteps:
-        - rid: 5602893017534169426
-        - rid: 5602893017534169427
-    - rid: 5602893017534169426
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+        - rid: 205828107393564791
+        - rid: 205828107393564792
+        - rid: 205828107393564793
+    - rid: 205828107393564791
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: randomTarget
-        validTargets: 02000000
-        number: 1
-        specialTargetRule: 6
-        cantCancelTargetting: 0
-    - rid: 5602893017534169427
-      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: selfDamaged
+        conditionToEndOn: 0
+    - rid: 205828107393564792
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: CombatEffectStep
-        inputKey: randomTarget
-        combatEffect: 14
-        scale: 2
+        effectStepName: ApplyStatus
+        inputKey: damagedCompanion
+        statusEffect: 0
+        scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
-        multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
-    - rid: 8205570031766208670
-      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
+        multiplyByNumAuraStacks: 0
+    - rid: 205828107393564793
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
-        companionAbilityTrigger: 8
-        effectSteps:
-        - rid: 8205570031766208671
-    - rid: 8205570031766208671
-      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: DialogueStep
-        line: I now strengthen companions each time they take damage.
-        lineTime: 3
+        effectStepName: InstantiatePrefab
+        inputKey: damagedCompanion
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
+        scale: 1

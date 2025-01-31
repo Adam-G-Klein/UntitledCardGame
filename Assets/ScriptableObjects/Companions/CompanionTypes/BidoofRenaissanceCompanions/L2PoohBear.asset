@@ -12,64 +12,70 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
   m_Name: L2PoohBear
   m_EditorClassIdentifier: 
-  companionName: Pooh Bear
+  companionName: L2 Pooh Bear
   maxHealth: 20
   initialCardsDealtPerTurn: 1
-  sprite: {fileID: 21300000, guid: b8234437e62f749a9b907d6e36c2e1e1, type: 3}
+  sprite: {fileID: 21300000, guid: 63fd223d9517a474fa6a87985ac69790, type: 3}
   startingDeck: {fileID: 11400000, guid: 08d0c5baf8b5946b8a166d80ed55182e, type: 2}
-  keepsake: {fileID: 21300000, guid: b8234437e62f749a9b907d6e36c2e1e1, type: 3}
+  keepsake: {fileID: 21300000, guid: 63fd223d9517a474fa6a87985ac69790, type: 3}
   cardBack: {fileID: 21300000, guid: f48743304e0580f4fbfc67f629b1dabe, type: 3}
   cardFrame: {fileID: 21300000, guid: 1d7c5bff8d35e56428259e9e973815a7, type: 3}
-  typeIcon: {fileID: 21300000, guid: b8234437e62f749a9b907d6e36c2e1e1, type: 3}
-  portrait: {fileID: 21300000, guid: b8234437e62f749a9b907d6e36c2e1e1, type: 3}
-  teamSelectSprite: {fileID: 21300000, guid: b8234437e62f749a9b907d6e36c2e1e1, type: 3}
+  typeIcon: {fileID: 21300000, guid: 63fd223d9517a474fa6a87985ac69790, type: 3}
+  portrait: {fileID: 21300000, guid: 63fd223d9517a474fa6a87985ac69790, type: 3}
+  teamSelectSprite: {fileID: 21300000, guid: 63fd223d9517a474fa6a87985ac69790, type: 3}
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 0}
   genericCompanionVFX: {fileID: 0}
   cardPool: {fileID: 11400000, guid: 88046cf7857cb4072a63a470af6868d4, type: 2}
   speakerType: {fileID: 0}
-  abilities:
-  - rid: 5602892679876706440
-  - rid: 5602892679876706447
-  upgradeTo: {fileID: 0}
+  abilitiesV2:
+  - rid: 205828032053379559
+  - rid: 205828032053379560
+  level: 1
+  upgradeTo: {fileID: 11400000, guid: c2216684ad6c946fdbd032ef13f14c8f, type: 2}
   tooltip:
-    empty: 0
+    empty: 1
     lines:
     - title: L2 Pooh Bear
-      description: Starts combat with an aura stack. At the start of each turn, create
-        a powerful Embued Knife in your hand for each companion with at least 1 aura
-        stack
+      description: Starts combat with an aura stack. At the start of your turn, each
+        companion with at least 1 aura creates an Aura Knife
       relatedBehaviorIndex: 0
-    - title: Embued Knife
-      description: Exhaust. Deal 3 damage for each aura stack on this companion
+    - title: Aura Knife
+      description: 0 mana. Exhaust. Deal damage.
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: Starts combat with an aura stack. At the start of each turn,
-    create a powerful Embued Knife in your hand for each companion with at least
-    1 aura stack
+  keepsakeDescription: Starts combat with an aura stack. At the start of your turn,
+    each companion with at least 1 aura creates an Aura Knife
   references:
     version: 2
     RefIds:
-    - rid: 5602892679876706440
-      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
+    - rid: 205828032053379559
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
-        companionAbilityTrigger: 0
+        abilityTrigger: 12
         effectSteps:
-        - rid: 5602892679876706443
-        - rid: 5602892679876706444
-        - rid: 8205570031766208654
-    - rid: 5602892679876706443
+        - rid: 205828032053379563
+        - rid: 205828032053379670
+        - rid: 205828032053379565
+    - rid: 205828032053379560
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 0
+        effectSteps:
+        - rid: 205828032053379561
+        - rid: 205828032053379562
+    - rid: 205828032053379561
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
         outputKey: self
-        validTargets: 00000000
+        validTargets: 
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
-    - rid: 5602892679876706444
+    - rid: 205828032053379562
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ApplyStatus
@@ -79,57 +85,34 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
-    - rid: 5602892679876706447
-      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
-      data:
-        companionAbilityTrigger: 12
-        effectSteps:
-        - rid: 5602892679876706449
-        - rid: 5602892679876706448
-        - rid: 5602893111447520024
-        - rid: 8205570031766208655
-    - rid: 5602892679876706448
-      type: {class: FilterEntityByStatus, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: FilterEntityByStatus
-        inputKey: allCompanions
-        status: 9
-        outputKey: companionsWithOrbs
-    - rid: 5602892679876706449
+    - rid: 205828032053379563
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: allCompanions
+        outputKey: all
         validTargets: 00000000
         number: 1
         specialTargetRule: 1
         cantCancelTargetting: 0
-    - rid: 5602893111447520024
+    - rid: 205828032053379565
       type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: AddCardsToHand
-        entityFromKey: companionsWithOrbs
+        entityFromKey: allWithOrb
         cardTypes:
-        - {fileID: 11400000, guid: 59874a9b5e5a94390a53aaec50c329d6, type: 2}
+        - {fileID: 11400000, guid: f9ddc379418214caf942666c006ffdfd, type: 2}
         getCardsFromKey: 0
         inputCardsKey: 
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
         outputKey: 
-    - rid: 8205570031766208654
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+    - rid: 205828032053379670
+      type: {class: FilterEntityByStatus, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: InstantiatePrefab
-        inputKey: self
-        prefabToInstantiate: {fileID: 1694406742967473385, guid: a6181747c84ef6b41a01c8ae8084f953, type: 3}
-        scale: 1
-    - rid: 8205570031766208655
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: companionsWithOrbs
-        prefabToInstantiate: {fileID: 1694406742967473385, guid: a6181747c84ef6b41a01c8ae8084f953, type: 3}
-        scale: 1
+        effectStepName: FilterEntityByStatus
+        inputKey: all
+        status: 9
+        outputKey: allWithOrb
