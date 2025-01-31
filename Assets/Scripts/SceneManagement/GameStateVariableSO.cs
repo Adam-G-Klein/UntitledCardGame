@@ -75,10 +75,9 @@ public class GameStateVariableSO : ScriptableObject
         {Location.TUTORIAL, Location.TEAM_SIGNING},
         {Location.SHOP_TUTORIAL, Location.SHOP},
         {Location.TEAM_SIGNING, Location.COMBAT},
-        {Location.TEAM_SELECT, Location.COMBAT},
         {Location.COMBAT, Location.POST_COMBAT},
         {Location.POST_COMBAT, Location.SHOP},
-        {Location.SHOP, Location.TEAM_SELECT},
+        {Location.SHOP, Location.COMBAT},
         {Location.FAKE_SHOP, Location.PRE_BOSSFIGHT_COMBAT_SPLASH},
         {Location.PRE_BOSSFIGHT_COMBAT_SPLASH, Location.BOSSFIGHT},
         {Location.BOSSFIGHT, Location.MAP}
