@@ -42,6 +42,8 @@ public class UIDocLoadNextSceneButton: MonoBehaviour
 
         nextSceneButton.RegisterCallback<ClickEvent>((evt) => {
             loadNextScene();
+            // Prevent double clicks because that will advance to the next scene!!!!
+            nextSceneButton.SetEnabled(false);
         });
     }
 
