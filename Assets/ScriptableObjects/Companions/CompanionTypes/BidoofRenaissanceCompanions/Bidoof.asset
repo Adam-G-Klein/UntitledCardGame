@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Bidoof
   m_EditorClassIdentifier: 
   companionName: Bidoof
-  maxHealth: 25
+  maxHealth: 20
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: 3882490ccffd8cb479682b845b1d1334, type: 3}
   startingDeck: {fileID: 11400000, guid: bf6401d447a5b491382ab14a197ef5ed, type: 2}
@@ -31,9 +31,7 @@ MonoBehaviour:
   abilitiesV2:
   - rid: 205827988172308704
   - rid: 205827988172308708
-  abilities:
-  - rid: 9154689434420772964
-  - rid: 8205570031766208662
+  level: 0
   upgradeTo: {fileID: 11400000, guid: 9e58397c3f778471eb854ffa3c62f2d2, type: 2}
   tooltip:
     empty: 0
@@ -94,51 +92,3 @@ MonoBehaviour:
         effectStepName: DialogueStep
         line: Bidoof now has the strength of 4 Bidoofs!
         lineTime: 3
-    - rid: 2240256423295713295
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: self
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
-        scale: 1
-    - rid: 8205570031766208662
-      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
-      data:
-        companionAbilityTrigger: 8
-        effectSteps:
-        - rid: 8205570031766208663
-    - rid: 8205570031766208663
-      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: DialogueStep
-        line: Bidoof now has the strength of 4 Bidoofs!
-        lineTime: 3
-    - rid: 9154689434420772964
-      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
-      data:
-        companionAbilityTrigger: 0
-        effectSteps:
-        - rid: 9154689434420772965
-        - rid: 9154689434420772966
-        - rid: 2240256423295713295
-    - rid: 9154689434420772965
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: self
-        validTargets: 
-        number: 1
-        specialTargetRule: 3
-        cantCancelTargetting: 0
-    - rid: 9154689434420772966
-      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: ApplyStatus
-        inputKey: self
-        statusEffect: 0
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplyByNumAuraStacks: 0

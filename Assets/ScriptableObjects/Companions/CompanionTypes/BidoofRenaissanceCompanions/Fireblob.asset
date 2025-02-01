@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Fireblob
   m_EditorClassIdentifier: 
   companionName: Fireblob
-  maxHealth: 25
+  maxHealth: 20
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: fc8f2bf76fa3a4e449035d6c80c12fb6, type: 3}
   startingDeck: {fileID: 11400000, guid: e99468c9ae12a4996a527ac53fb7625a, type: 2}
@@ -30,6 +30,7 @@ MonoBehaviour:
   speakerType: {fileID: 0}
   abilitiesV2:
   - rid: 205827988172308710
+  level: 0
   upgradeTo: {fileID: 11400000, guid: bc8d1ef2bb3554ea9969a4c871f3a1e4, type: 2}
   tooltip:
     empty: 0
@@ -51,6 +52,7 @@ MonoBehaviour:
         - rid: 205827988172308711
         - rid: 205827988172308712
         - rid: 205828032053379183
+        - rid: 205828126246961707
     - rid: 205827988172308711
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -81,3 +83,10 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+    - rid: 205828126246961707
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        scale: 1
