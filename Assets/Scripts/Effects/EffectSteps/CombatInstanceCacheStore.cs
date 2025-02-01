@@ -30,13 +30,6 @@ public class CombatInstanceCacheStore : EffectStep
     private bool useHardCodedInt = false;
 
     [SerializeField]
-    private string hardCodedString = "";
-
-    [SerializeField]
-    private bool useHardCodedString = false;
-
-
-    [SerializeField]
     private string currentWorkflowKey = "";
 
     [SerializeField]
@@ -59,16 +52,15 @@ public class CombatInstanceCacheStore : EffectStep
         CombatInstance target = instances[0];
 
         // Start with the hard-coded values, and if those are not specified, fallback to the current workflow key.
-        int hardCodeSum = Convert.ToInt32(useHardCodedBool) + Convert.ToInt32(useHardCodedInt) + Convert.ToInt32(useHardCodedString);
+        int hardCodeSum = Convert.ToInt32(useHardCodedBool) + Convert.ToInt32(useHardCodedInt);
         if (hardCodeSum == 0) {
             // Now we attempt to use the current workflow key.
             bool isBool = document.boolMap.ContainsKey(currentWorkflowKey);
             bool isInt = document.intMap.ContainsKey(currentWorkflowKey);
-            bool isString = document.stringMap.ContainsKey(currentWorkflowKey);
 
-            int sum = Convert.ToInt32(isBool) + Convert.ToInt32(isInt) + Convert.ToInt32(isString);
+            int sum = Convert.ToInt32(isBool) + Convert.ToInt32(isInt);
             if (sum == 0) {
-                EffectError("Current workflow key [" + currentWorkflowKey + "] not found in the bool, string, or int map");
+                EffectError("Current workflow key [" + currentWorkflowKey + "] not found in the bool or int map");
                 yield break;
             }
             if (sum > 1) {
@@ -81,9 +73,6 @@ public class CombatInstanceCacheStore : EffectStep
             if (isInt) {
                 target.cachedEffectValues.intMap[cacheKey] = document.intMap[currentWorkflowKey];
             }
-            if (isString) {
-                target.cachedEffectValues.stringMap[cacheKey] = document.stringMap[currentWorkflowKey];
-            }
             yield break;
         }
 
@@ -92,9 +81,6 @@ public class CombatInstanceCacheStore : EffectStep
         }
         if (useHardCodedInt) {
             target.cachedEffectValues.intMap[cacheKey] = hardCodedInt;
-        }
-        if (useHardCodedString) {
-            target.cachedEffectValues.stringMap[cacheKey] = hardCodedString;
         }
     }
 }

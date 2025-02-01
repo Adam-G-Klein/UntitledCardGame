@@ -39,10 +39,9 @@ public class CombatInstanceCacheLoad : EffectStep
 
         bool isBool = target.cachedEffectValues.boolMap.ContainsKey(cacheKey);
         bool isInt = target.cachedEffectValues.intMap.ContainsKey(cacheKey);
-        bool isString = target.cachedEffectValues.stringMap.ContainsKey(cacheKey);
-        int sum = Convert.ToInt32(isBool) + Convert.ToInt32(isInt) + Convert.ToInt32(isString);
+        int sum = Convert.ToInt32(isBool) + Convert.ToInt32(isInt);
         if (sum == 0) {
-            EffectError("Cache key [" + currentWorkflowKey + "] not found in the bool, string, or int map");
+            EffectError("Cache key [" + currentWorkflowKey + "] not found in the bool or int map");
             yield break;
         }
         if (sum > 1) {
@@ -54,9 +53,6 @@ public class CombatInstanceCacheLoad : EffectStep
         }
         if (isInt) {
             document.intMap[currentWorkflowKey] = target.cachedEffectValues.intMap[cacheKey];
-        }
-        if (isString) {
-            document.stringMap[currentWorkflowKey] = target.cachedEffectValues.stringMap[cacheKey];
         }
     }
 }
