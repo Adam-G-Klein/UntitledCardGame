@@ -14,7 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Bulwark
   Description: Draw 1 from this companion. If in hand at the end of the turn, parent
-    companion gains 7 block
+    companion gains 1 block for each card you have played this turn ({numPlayedCards})
+  defaultValues:
+  - key: numPlayedCards
+    value: 0
   Cost: 0
   Artwork: {fileID: 21300000, guid: 9dcd5e58ee426e840a202b9accb8036b, type: 3}
   cardCategory: 4
@@ -34,6 +37,20 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 205828126246961957
+      type: {class: QuantityOfCardTypePlayedThisTurn, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: QuantityOfCardTypePlayedThisTurn
+        cardCategory: 0
+        getAll: 1
+        outputKey: numCardsPlayed
+    - rid: 205828126246961958
+      type: {class: QuantityOfCardTypePlayedThisTurn, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: QuantityOfCardTypePlayedThisTurn
+        cardCategory: 0
+        getAll: 1
+        outputKey: numCardsPlayed
     - rid: 1274772038231786314
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -45,6 +62,7 @@ MonoBehaviour:
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
+        - rid: 205828126246961958
         - rid: 5602893017534169721
         - rid: 5602893017534169753
     - rid: 5602893017534169721
@@ -64,14 +82,15 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: self
         statusEffect: 2
-        scale: 7
-        getScaleFromKey: 0
-        inputScaleKey: 
+        scale: 0
+        getScaleFromKey: 1
+        inputScaleKey: numCardsPlayed
         multiplyByNumAuraStacks: 0
     - rid: 5602893111447520107
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
+        - rid: 205828126246961957
         - rid: 5602893111447520108
         - rid: 5602893111447520109
         - rid: 1274772038231786314

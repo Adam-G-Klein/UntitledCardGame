@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: AllSeer
   m_EditorClassIdentifier: 
   Name: All-Seer
-  Description: Create an Eye of Argos card from each adjacent companion
+  Description: Shuffle an Eye of Argos into each companion's deck
+  defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 18251cc3bb6c59d4794bd522032e2ee3, type: 3}
   cardCategory: 2
@@ -33,11 +34,24 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 205828126246961956
+      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: AddCardsToDeck
+        inputKey: all
+        cardTypes:
+        - {fileID: 11400000, guid: b9e0adbcf6fe84184866b60213d4a8f1, type: 2}
+        addToDeckMethod: 1
+        getCardsFromKey: 0
+        inputCardsKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
     - rid: 1274772038231786148
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
-        inputKey: adj
+        inputKey: all
         prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
         scale: 1.5
     - rid: 4463205916933357570
@@ -46,35 +60,15 @@ MonoBehaviour:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: self
+        outputKey: all
         validTargets: 00000000
         number: 1
-        specialTargetRule: 4
+        specialTargetRule: 1
         cantCancelTargetting: 0
-    - rid: 4463205916933357571
-      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetAdjacentCompanions
-        inputKey: self
-        outputKey: adj
-    - rid: 4463205916933357572
-      type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: AddCardsToHand
-        entityFromKey: adj
-        cardTypes:
-        - {fileID: 11400000, guid: b9e0adbcf6fe84184866b60213d4a8f1, type: 2}
-        getCardsFromKey: 0
-        inputCardsKey: 
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
-        outputKey: cardsDelt
     - rid: 5602892563578094203
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
         - rid: 4463205916933357570
-        - rid: 4463205916933357571
-        - rid: 4463205916933357572
+        - rid: 205828126246961956
         - rid: 1274772038231786148
