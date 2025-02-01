@@ -19,7 +19,15 @@ MonoBehaviour:
   - rid: 205828126246961421
   - rid: 205828126246961568
   enemyPattern:
-    behaviors: []
+    behaviors:
+    - intent: 0
+      enemyTargetMethod: 0
+      targetsKey: target
+      displayValue: 1
+      effectSteps:
+      - rid: 205828126246961605
+      - rid: 205828126246961606
+      - rid: 205828126246961607
     behaviorType: 0
     nextBehaviorIndex: 0
   belowHalfHPEnemyPattern:
@@ -177,3 +185,41 @@ MonoBehaviour:
         useHardCodedString: 0
         currentWorkflowKey: 
         cacheKey: numCardsPlayed
+    - rid: 205828126246961605
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 205828126246961606
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: target
+        combatEffect: 0
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+    - rid: 205828126246961607
+      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FXEffectStep
+        waitForEffect: 1
+        fXExperiencePrefab: {fileID: 7374988516867921400, guid: 080ebf6cafefa59438cf877ee502d109, type: 3}
+        rootLocationGameObjectKey: 
+        positionMappingList:
+        - fromWorkflow: self
+          toFxExperience: enemyLocation
+        - fromWorkflow: target
+          toFxExperience: companionLocation
+        gameobjectMappingList:
+        - fromWorkflow: self
+          toFxExperience: enemy
