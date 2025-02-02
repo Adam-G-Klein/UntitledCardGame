@@ -100,11 +100,11 @@ public class CardFilter
 
     // If empty, will not be applied.
     // Otherwise, will return true if and only if the card belongs to one of the categories.
-    private List<CardCategory> cardCategoriesToInclude;
+    public List<CardCategory> cardCategoriesToInclude;
 
     // If none, will not be applied.
     // Otherwise, will return true if the generated condition on the card matches the specification.
-    private GeneratedFilter generatedCardsFilter;
+    public GeneratedFilter generatedCardsFilter;
 
     // Returns true if the card is included by the filter.
     //

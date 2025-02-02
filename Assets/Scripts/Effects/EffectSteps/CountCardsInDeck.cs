@@ -6,11 +6,9 @@ using UnityEngine;
 public class CountCardsInDeck : EffectStep, IEffectStepCalculation
 {
     [SerializeField]
-     private string inputDeckKey = "";
+    private string inputDeckKey = "";
     [SerializeField]
-    private CardCategory categoryToCount = CardCategory.None;
-    [SerializeField]
-    private bool onlyGeneratedCards = false;
+    private CardFilter filter;
     [SerializeField]
     private bool includeDrawPile = true;
     [SerializeField]
@@ -56,11 +54,7 @@ public class CountCardsInDeck : EffectStep, IEffectStepCalculation
     private int countCards(List<Card> cards) {
         int count = 0;
         foreach (Card c in cards) {
-            if (categoryToCount == CardCategory.None || c.cardType.cardCategory == categoryToCount) {
-                // Skip non-generated cards if we have selected only generated cards.
-                if (onlyGeneratedCards && !c.generated) {
-                    continue;
-                }
+            if (filter.ApplyFilter(c)) {
                 count++;
             }
         }

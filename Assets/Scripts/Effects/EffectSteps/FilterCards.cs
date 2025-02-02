@@ -31,12 +31,12 @@ public class FilterCards : EffectStep, IEffectStepCalculation {
         List<Card> outputCards = new List<Card>();
         List<PlayableCard> playableCards = new List<PlayableCard>();
         foreach (Card card in inputCards) {
-            if (cardCategoriesToInclude.Contains(card.cardType.cardCategory)) {
+            if (filter.ApplyFilter(card)) {
                 outputCards.Add(card);
             }
         }
         foreach (PlayableCard card in inputPlayableCards) {
-            if (cardCategoriesToInclude.Contains(card.card.cardType.cardCategory)) {
+            if (filter.ApplyFilter(card.card)) {
                 playableCards.Add(card);
                 outputCards.Add(card.card);
             }
