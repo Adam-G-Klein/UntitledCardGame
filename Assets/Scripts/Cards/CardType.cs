@@ -86,3 +86,37 @@ public enum CardCategory {
     Saga,
     Status
 }
+
+// CardFilter specifies a filter to apply to cards.
+// We take the intersection of the conditions; all must apply to be true.
+[System.Serializable]
+public class CardFilter
+{
+    public enum GeneratedFilter {
+        None,
+        OnlyGeneratedCards,
+        OnlyNonGeneratedCards
+    }
+
+    // If empty, will not be applied.
+    // Otherwise, will return true if and only if the card belongs to one of the categories.
+    private List<CardCategory> cardCategoriesToInclude;
+
+    // If none, will not be applied.
+    // Otherwise, will return true if the generated condition on the card matches the specification.
+    private GeneratedFilter generatedCardsFilter;
+
+    // Returns true if the card is included by the filter.
+    //
+    public bool ApplyFilter(Card card) {
+        bool includeCard = true;
+        if (cardCategoriesToInclude.Count > 0) {
+            includeCard &= cardCategoriesToInclude.Contains(card.cardType.cardCategory);
+        }
+        if (generatedCardsFilter != GeneratedFilter.None) {
+            includeCard &= (generatedCardsFilter == GeneratedFilter.OnlyGeneratedCards && card.generated) ||
+                (generatedCardsFilter == GeneratedFilter.OnlyNonGeneratedCards && !card.generated);
+        }
+        return includeCard;
+    }
+}
