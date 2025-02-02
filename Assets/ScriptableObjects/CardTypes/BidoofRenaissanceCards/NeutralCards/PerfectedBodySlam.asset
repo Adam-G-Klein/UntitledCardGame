@@ -15,7 +15,6 @@ MonoBehaviour:
   Name: Perfected Body Slam
   Description: Deal {rpl_damage} damage for each Generated card in this companion's
     deck ({numGeneratedCards})
-  values: 04000000
   defaultValues:
   - key: rpl_damage
     value: 4
@@ -83,8 +82,9 @@ MonoBehaviour:
       data:
         effectStepName: CountCardsInDeck
         inputDeckKey: self
-        categoryToCount: 0
-        onlyGeneratedCards: 1
+        filter:
+          cardCategoriesToInclude: 
+          generatedCardsFilter: 1
         includeDrawPile: 1
         includeDiscardPile: 1
         includeCardsInHand: 1
