@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
   m_Name: Pollutor
   m_EditorClassIdentifier: 
+  displayName: Mind Goblin
   maxHealth: 35
   baseAttackDamage: 0
   sprite: {fileID: -1328141604, guid: 52ef76537258f7d43a3a9dc144329c2f, type: 3}
+  abilities: []
   enemyPattern:
     behaviors:
     - intent: 3

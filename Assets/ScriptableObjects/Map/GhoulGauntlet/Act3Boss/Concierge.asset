@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
   m_Name: Concierge
   m_EditorClassIdentifier: 
+  displayName: The Concierge
   maxHealth: 800
   baseAttackDamage: 0
   sprite: {fileID: 21300000, guid: 915426337a0819d4eb4f34ff56032c9e, type: 3}
+  abilities: []
   enemyPattern:
     behaviors:
     - intent: 3

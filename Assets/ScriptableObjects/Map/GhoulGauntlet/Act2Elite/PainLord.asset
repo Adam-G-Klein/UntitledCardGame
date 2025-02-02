@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
   m_Name: PainLord
   m_EditorClassIdentifier: 
+  displayName: Pain Lord
   maxHealth: 250
   baseAttackDamage: 0
   sprite: {fileID: 21300000, guid: bf7004643a1b7cb47813068f0ada5d78, type: 3}
+  abilities: []
   enemyPattern:
     behaviors:
     - intent: 3

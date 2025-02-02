@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
   m_Name: Ogre
   m_EditorClassIdentifier: 
+  displayName: Ogre
   maxHealth: 70
   baseAttackDamage: 0
   sprite: {fileID: 21300000, guid: e8f284b8ccdbaf24888660bc74fa02b4, type: 3}
+  abilities: []
   enemyPattern:
     behaviors:
     - intent: 1

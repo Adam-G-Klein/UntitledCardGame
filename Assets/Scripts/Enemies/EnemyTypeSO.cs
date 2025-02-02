@@ -12,6 +12,7 @@ using UnityEngine;
     menuName = "Enemies/Enemy Type")]
 public class EnemyTypeSO : ScriptableObject
 {
+    public string displayName;
     public int maxHealth;
     public int baseAttackDamage;
     [Space]
