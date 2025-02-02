@@ -43,6 +43,12 @@ public class EffectDocument
         }
     }
 
+    public void printBoolMap() {
+        foreach (KeyValuePair<string, bool> pair in boolMap) {
+            Debug.Log("Key: " + pair.Key + "\nvalue: " + pair.Value.ToString());
+        }
+    }
+
     public class GenericListDictionary {
         private Dictionary<Tuple<string, Type>, List<object>> _dict = new Dictionary<Tuple<string, Type>, List<object>>();
         private Dictionary<Tuple<string, Type>, string> _linkDict = new Dictionary<Tuple<string, Type>, string>();

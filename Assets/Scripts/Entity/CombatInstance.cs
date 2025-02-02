@@ -45,6 +45,11 @@ public class CombatInstance : MonoBehaviour
 
     private StatusEffectsDisplay statusEffectsDisplay;
 
+    // cachedEffectValues is used to persist state across the entire combat.
+    // For example, if an enemy needs to count the number of cards played in
+    // a given turn, they can load and store a value here.
+    public EffectDocument cachedEffectValues;
+
     private WorldPositionVisualElement wpve;
 
     public void ApplyStatusEffects(StatusEffectType statusEffect, int scale) {
@@ -69,6 +74,8 @@ public class CombatInstance : MonoBehaviour
         if (combatStats.getCurrentHealth() == 0) {
             combatStats.setCurrentHealth(1);
         }
+        // Clear out the cached effect values.
+        this.cachedEffectValues = new EffectDocument();
         this.statusEffectsDisplay = GetComponent<StatusEffectsDisplay>();
         statusEffectsDisplay.Setup(this, wpve);
         this.wpve = wpve;

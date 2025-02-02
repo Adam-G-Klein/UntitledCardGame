@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24f95da87f612e047aaeac10756d2ec7, type: 3}
-  m_Name: Act2EliteEnemyPool
+  m_Script: {fileID: 11500000, guid: 17a7027b6d1213c4fa7f5d4be961eaab, type: 3}
+  m_Name: Enc_EssenceFeeder
   m_EditorClassIdentifier: 
-  enemyEncounterTypes:
-  - {fileID: 11400000, guid: 1f911ca649faa4f67958191768633400, type: 2}
-  - {fileID: 11400000, guid: dff959dc3cbfc45edbd05832718be96b, type: 2}
+  enemies:
+  - {fileID: 11400000, guid: 25c20719d14744352ba0915c063f17e4, type: 2}
+  devNotes: 

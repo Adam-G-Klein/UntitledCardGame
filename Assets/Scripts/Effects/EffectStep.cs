@@ -12,6 +12,8 @@ public enum EffectStepName {
     CardModificationEffect,
     CheckTypeOfMostRecentlyPlayedCard,
     CombatEffectStep,
+    CombatInstanceCacheLoad,
+    CombatInstanceCacheStore,
     ConvertPlayableCardToCard,
     ConvertPlayableCardToDeckInstance,
     CountCardsInDeck,
