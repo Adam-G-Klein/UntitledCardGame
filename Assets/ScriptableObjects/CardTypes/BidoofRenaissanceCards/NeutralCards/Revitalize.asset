@@ -15,7 +15,6 @@ MonoBehaviour:
   Name: Revitalize
   Description: Exhaust. Heal target companion 1 HP for each Generated card they have
     in their deck ({numGeneratedCards}).
-  values: 
   defaultValues:
   - key: numGeneratedCards
     value: 0
@@ -69,8 +68,9 @@ MonoBehaviour:
       data:
         effectStepName: CountCardsInDeck
         inputDeckKey: target
-        categoryToCount: 0
-        onlyGeneratedCards: 1
+        filter:
+          cardCategoriesToInclude: 
+          generatedCardsFilter: 1
         includeDrawPile: 1
         includeDiscardPile: 1
         includeCardsInHand: 1

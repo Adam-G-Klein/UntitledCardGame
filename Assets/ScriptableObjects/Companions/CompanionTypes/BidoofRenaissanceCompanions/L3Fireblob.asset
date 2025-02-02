@@ -74,8 +74,9 @@ MonoBehaviour:
       data:
         effectStepName: CountCardsInDeck
         inputDeckKey: self
-        categoryToCount: 0
-        onlyGeneratedCards: 1
+        filter:
+          cardCategoriesToInclude: 
+          generatedCardsFilter: 1
         includeDrawPile: 1
         includeDiscardPile: 1
         includeCardsInHand: 1
