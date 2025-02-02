@@ -24,7 +24,7 @@ public enum EffectStepName {
     DrawCards,
     EndWorkflowIfConditionMet,
     EndWorkflowIfNoMapElement,
-    FilterByCardCategory,
+    FilterCards,
     FilterEntityByHP,
     FilterEntityByStatus,
     GetAdjacentCompanions,

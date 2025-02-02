@@ -4,19 +4,19 @@ using UnityEngine;
 using System;
 using Unity.VisualScripting;
 
-public class FilterByCardCategory : EffectStep, IEffectStepCalculation {
+public class FilterCards : EffectStep, IEffectStepCalculation {
 
-    [Header("Gets the PlayableCards and Cards at input key, returns all Cards that meet filter condition from both,\n" + 
+    [Header("Gets the PlayableCards and Cards at input key, returns all Cards that meet filter condition from both,\n" +
         "also outputs PlayableCards meeting condition at the same key")]
     [SerializeField]
     private string inputKey = "";
     [SerializeField]
-    private List<CardCategory> cardCategoriesToInclude;
+    private CardFilter filter;
     [SerializeField]
     private string outputKey = "";
 
-    public FilterByCardCategory() {
-        effectStepName = "FilterByCardCategory";
+    public FilterCards() {
+        effectStepName = "FilterCards";
     }
 
     public override IEnumerator invoke(EffectDocument document) {
