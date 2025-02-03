@@ -80,6 +80,15 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
         return null;
     }
 
+    public EnemyInstance getEnemyInstanceForCombatInstance(CombatInstance combatInstance) {
+        foreach (EnemyInstance instance in enemies) {
+            if (instance.combatInstance == combatInstance) {
+                return instance;
+            }
+        }
+        return null;
+    }
+
     public List<MinionInstance> getMinions() {
         return minions;
     }

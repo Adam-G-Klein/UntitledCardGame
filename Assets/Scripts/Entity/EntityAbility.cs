@@ -26,7 +26,7 @@ public class EntityAbility
         OnCombine,
         OnCardExhausted,
         OnDeckShuffled,
-        OnFriendDamageTaken,
+        OnEntityDamageTaken,
         StartOfPlayerTurn,
         OnHandEmpty,
     }

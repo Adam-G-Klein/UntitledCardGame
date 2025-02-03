@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24f95da87f612e047aaeac10756d2ec7, type: 3}
-  m_Name: Act1EliteEnemyPool
+  m_Script: {fileID: 11500000, guid: 17a7027b6d1213c4fa7f5d4be961eaab, type: 3}
+  m_Name: Enc_Wutzorn
   m_EditorClassIdentifier: 
-  enemyEncounterTypes:
-  - {fileID: 11400000, guid: 3933944700af641869f825507212c704, type: 2}
-  - {fileID: 11400000, guid: 1b52e2612dafa439e9efba4f77fcf5f2, type: 2}
+  enemies:
+  - {fileID: 11400000, guid: 291baff2eaf024bc89a8c4fd45dc06f4, type: 2}
+  devNotes: First elite encounter

@@ -50,6 +50,7 @@ MonoBehaviour:
       data:
         abilityTrigger: 11
         effectSteps:
+        - rid: 8790164513324270201
         - rid: 205828107393564791
         - rid: 205828107393564792
         - rid: 205828107393564793
@@ -76,3 +77,8 @@ MonoBehaviour:
         inputKey: damagedCompanion
         prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
         scale: 1
+    - rid: 8790164513324270201
+      type: {class: EndWorkflowIfNoMapElement, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfNoMapElement
+        keyToCheck: damagedCompanion

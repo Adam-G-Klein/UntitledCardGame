@@ -88,7 +88,7 @@ public abstract class EntityAbilityInstance
             case EntityAbility.EntityAbilityTrigger.OnDeckShuffled:
                 PlayerHand.Instance.onDeckShuffledHandler += OnDeckShuffled;
                 break;
-            case EntityAbility.EntityAbilityTrigger.OnFriendDamageTaken:
+            case EntityAbility.EntityAbilityTrigger.OnEntityDamageTaken:
                 CombatEntityManager.Instance.onCompanionDamageHandler += OnDamageTaken;
                 break;
             case EntityAbility.EntityAbilityTrigger.OnHandEmpty:
@@ -128,7 +128,7 @@ public abstract class EntityAbilityInstance
         if (ability.abilityTrigger == EntityAbility.EntityAbilityTrigger.OnDeckShuffled) {
             PlayerHand.Instance.onDeckShuffledHandler -= OnDeckShuffled;
         }
-        if (ability.abilityTrigger == EntityAbility.EntityAbilityTrigger.OnFriendDamageTaken) {
+        if (ability.abilityTrigger == EntityAbility.EntityAbilityTrigger.OnEntityDamageTaken) {
             CombatEntityManager.Instance.onCompanionDamageHandler -= OnDamageTaken;
         }
     }
@@ -172,20 +172,21 @@ public abstract class EntityAbilityInstance
     }
 
     private IEnumerator OnDamageTaken(CombatInstance damagedInstance) {
-        // Do not run this trigger on enemies taking damage.
-        if (damagedInstance.parentType != CombatInstance.CombatInstanceParent.COMPANION) {
-            yield break;
-        }
         EffectDocument document = createEffectDocument();
-        CompanionInstance companion = CombatEntityManager.Instance.getCompanionInstanceForCombatInstance(damagedInstance);
-        if (companion != null) {
-            document.map.AddItem<CompanionInstance>("damagedCompanion", companion);
-            document.map.AddItem<CombatInstance>("damagedCompanion", companion.combatInstance);
-            document.map.AddItem<DeckInstance>("damagedCompanion", companion.deckInstance);
-        }
-        if (document.originEntityType == EntityType.CompanionInstance) {
-            CompanionInstance source = document.map.GetItem<CompanionInstance>(EffectDocument.ORIGIN, 0);
-            document.boolMap.Add("selfDamaged", source == companion);
+        if (damagedInstance.parentType == CombatInstance.CombatInstanceParent.COMPANION) {
+            CompanionInstance companion = CombatEntityManager.Instance.getCompanionInstanceForCombatInstance(damagedInstance);
+            if (companion != null) {
+                EffectUtils.AddCompanionToDocument(document, "damagedCompanion", companion);
+            }
+            if (document.originEntityType == EntityType.CompanionInstance) {
+                CompanionInstance source = document.map.GetItem<CompanionInstance>(EffectDocument.ORIGIN, 0);
+                document.boolMap.Add("selfDamaged", source == companion);
+            }
+        } else if (damagedInstance.parentType == CombatInstance.CombatInstanceParent.ENEMY) {
+            EnemyInstance enemy = CombatEntityManager.Instance.getEnemyInstanceForCombatInstance(damagedInstance);
+            if (enemy != null) {
+                EffectUtils.AddEnemyToDocument(document, "damagedEnemy", enemy);
+            }
         }
         yield return EffectManager.Instance.invokeEffectWorkflowCoroutine(document, ability.effectSteps, null);
     }
