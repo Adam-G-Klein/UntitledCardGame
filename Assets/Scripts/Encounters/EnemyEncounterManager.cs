@@ -28,15 +28,15 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     [SerializeField]
     private GameObject postGamePopup;
     [SerializeField]
-    public GameObject placerGO; 
+    public GameObject placerGO;
     private bool encounterBuilt = false;
 
     [SerializeField]
-    [Header("Super hacky way to delay the end combat screen, this or\n" + 
+    [Header("Super hacky way to delay the end combat screen, this or\n" +
         "TurnPhaseDisplay should own the animation and screen display front to back")]
     private float endCombatScreenDelay = 5.0f;
 
-    public UIDocumentGameObjectPlacer placer { get 
+    public UIDocumentGameObjectPlacer placer { get
     {
         if(placerGO == null) {
             Debug.LogError("companionLocationStoreGO is null");
@@ -122,6 +122,13 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
             }
         }
 
+        // Revive all companions that died during combat to death's door.
+        foreach (Companion companion in gameState.companions.allCompanions) {
+            if (companion.combatStats.currentHealth <= 0) {
+                companion.combatStats.setCurrentHealth(1);
+            }
+        }
+
         gameState.LoadNextLocation();
         postCombatUI.SetActive(true);
         uIStateEvent.Raise(new UIStateEventInfo(UIState.END_ENCOUNTER));
@@ -135,7 +142,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
 
     private IEnumerator displayPostCombatUIAfterDelay() {
         yield return new WaitForSeconds(endCombatScreenDelay);
-        postCombatUI.GetComponent<EndEncounterView>().Show();   
+        postCombatUI.GetComponent<EndEncounterView>().Show();
     }
 
     // This exists to satisfy the IEncounterBuilder interface.
