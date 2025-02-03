@@ -12,21 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a5a600db90543d4b8333b5a2e0297fc, type: 3}
   m_Name: GameState
   m_EditorClassIdentifier: 
-  companions: {fileID: 11400000, guid: a3ca1b79c2cb46b44b803f391e148eb5, type: 2}
+  companions: {fileID: 11400000, guid: 4ee8c99cec80469428c8a8476b7d0a15, type: 2}
   playerData: {fileID: 11400000, guid: 04fd9f244e2a13e4d9e28d6e1a2f7a9a, type: 2}
   map: {fileID: 11400000, guid: 981cfb3346592264a80aab03d0b9594d, type: 2}
   baseShopData: {fileID: 11400000, guid: 64b1d5221aac20348909c6cab7cc24d6, type: 2}
   activeEncounter: {fileID: 11400000, guid: deac3f5e60dfbd647ad11d47b5314123, type: 2}
-  nextMapIndex: 1
+  nextMapIndex: 2
   currentLoopIndex: 0
   nextEncounter: {fileID: 11400000, guid: be6d9bd186c0c05468222dc18bd747fa, type: 2}
-  currentLocation: 7
+  currentLocation: 9
   dialogueLocations: {fileID: 11400000, guid: dcfe75135791c4649a555d2303b78336, type: 2}
   debugSingleEncounterMode: 0
-  viewedSequences:
-  - {fileID: 11400000, guid: 279293789af81b946aa0d000da2f2198, type: 2}
-  - {fileID: 11400000, guid: d4009cabfe9612346b4465013361936e, type: 2}
-  - {fileID: 11400000, guid: d4009cabfe9612346b4465013361936e, type: 2}
+  viewedSequences: []
+  hoveredCompanion: {fileID: 0}
+  currentEncounterIndex: 1
   lastTutorialLoopIndex: 1
   bossFightLoopIndex: 6
   tutorialLoops: 2
