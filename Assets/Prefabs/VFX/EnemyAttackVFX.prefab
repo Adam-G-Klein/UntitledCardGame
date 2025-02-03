@@ -183,6 +183,14 @@ PrefabInstance:
       propertyPath: m_SortingLayerID
       value: 212860681
       objectReference: {fileID: 0}
+    - target: {fileID: 1252765041769665578, guid: 2592189ca620cf44ea05ceae1bd752c7, type: 3}
+      propertyPath: simulationSpeed
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 1252765041769665578, guid: 2592189ca620cf44ea05ceae1bd752c7, type: 3}
+      propertyPath: InitialModule.gravityModifier.scalar
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2390399869328572844, guid: 2592189ca620cf44ea05ceae1bd752c7, type: 3}
       propertyPath: m_Name
       value: AOE Circle Impact Enemy
