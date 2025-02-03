@@ -302,7 +302,7 @@ public class GetTargets : EffectStep, IEffectStepCalculation
     {
         if (specialTargetRule == SpecialTargetRule.CantTargetSelf) {
             yield return null;
-        } if (specialTargetRule == SpecialTargetRule.None) {
+        } else if (specialTargetRule == SpecialTargetRule.None) {
             if (!validTargets.Contains(Targetable.TargetType.Companion)) yield return null;
             CompanionInstance companionInstance = EnemyEncounterManager.Instance.gameState.hoveredCompanion;
             if (companionInstance != null) {
