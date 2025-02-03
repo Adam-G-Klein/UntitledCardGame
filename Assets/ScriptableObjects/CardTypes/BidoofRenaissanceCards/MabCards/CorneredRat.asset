@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Cornered Rat
   Description: Give a companion 1 strength. If they are below half HP, give them
-    2 strength instead
+    3 strength instead
+  defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: b26e83dbae52f5a40bf3378f7fed66ac, type: 3}
   cardCategory: 2
@@ -40,7 +41,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: target
         statusEffect: 0
-        scale: 1
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
