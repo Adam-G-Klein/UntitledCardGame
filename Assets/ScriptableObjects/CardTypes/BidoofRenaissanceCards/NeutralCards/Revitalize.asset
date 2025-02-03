@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Revitalize
   m_EditorClassIdentifier: 
   Name: Revitalize
-  Description: Exhaust. Heal target companion 1 HP for each Generated card they have
-    in their deck ({numGeneratedCards}).
+  Description: Exhaust. Heal target companion 5 HP plus 1 HP for each Generated card
+    they have in their deck ({numGeneratedCards}).
   defaultValues:
   - key: numGeneratedCards
     value: 0
@@ -50,6 +50,7 @@ MonoBehaviour:
         effectSteps:
         - rid: 5602892949302280918
         - rid: 6501745997973028890
+        - rid: 8790164513324270130
         - rid: 6501745997973028891
         - rid: 5280922841426165975
     - rid: 5602892949302280918
@@ -83,7 +84,16 @@ MonoBehaviour:
         combatEffect: 9
         scale: 0
         getScaleFromKey: 1
-        inputScaleKey: numGeneratedCards
+        inputScaleKey: healAmt
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+    - rid: 8790164513324270130
+      type: {class: MathStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: MathStep
+        inputKey: numGeneratedCards
+        operand2InputKey: UNUSED
+        operation: 0
+        scale: 5
+        outputKey: healAmt
