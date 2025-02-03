@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: FireblobGel
   m_EditorClassIdentifier: 
   Name: Fireblob Gel
-  Description: Gain 1 max HP. Exhaust
+  Description: Gain 2 max HP. Exhaust
+  defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: e9bdfaf4fb3e34bdab6efd8c9d262e48, type: 3}
   cardCategory: 2
@@ -56,6 +57,6 @@ MonoBehaviour:
         effectStepName: PermanentStatIncrease
         inputKey: self
         statIncreaseType: 1
-        scale: 1
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 

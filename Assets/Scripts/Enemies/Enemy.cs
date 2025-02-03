@@ -41,7 +41,7 @@ public class Enemy : Entity, ICombatStats, IUIEntity {
 
     public string GetName()
     {
-        return this.enemyType.name;
+        return this.enemyType.displayName;
     }
 
     public int GetCurrentHealth()

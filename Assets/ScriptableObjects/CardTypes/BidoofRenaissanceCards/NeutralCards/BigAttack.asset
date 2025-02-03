@@ -10,15 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: StupidlyBigAttack
+  m_Name: BigAttack
   m_EditorClassIdentifier: 
-  Name: Stupidly Big Attack
+  Name: Big Attack
   Description: Deal {rpl_damage} damage
-  values: 19000000
   defaultValues:
   - key: rpl_damage
-    value: 25
-  Cost: 3
+    value: 18
+  Cost: 2
   Artwork: {fileID: 21300000, guid: 9c7b553a4a5050646818dbc514a54e9a, type: 3}
   cardCategory: 1
   vfxPrefab: {fileID: 0}
@@ -68,7 +67,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: target
         combatEffect: 0
-        scale: 25
+        scale: 18
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1

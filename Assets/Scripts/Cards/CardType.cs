@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-[CreateAssetMenu(
-    fileName ="Card",
-    menuName = "Cards/New Card Type")]
-
 [System.Serializable]
 public class CardValue
 {
     public string key;
     public int value;
 }
+
+[CreateAssetMenu(
+    fileName ="New Card",
+    menuName = "Cards/New Card Type")]
 [Serializable]
 public class CardType: ScriptableObject, ITooltipProvider
 {

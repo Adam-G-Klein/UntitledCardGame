@@ -10,23 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
-  m_Name: Goon
+  m_Name: GoblinC
   m_EditorClassIdentifier: 
-  displayName: Goon
-  maxHealth: 20
+  displayName: Zynische Goblin
+  maxHealth: 15
   baseAttackDamage: 0
-  sprite: {fileID: 21300000, guid: e70cef25a18fa1343b5727e850a8eb7b, type: 3}
+  sprite: {fileID: -1328141604, guid: 52ef76537258f7d43a3a9dc144329c2f, type: 3}
   abilities: []
   enemyPattern:
     behaviors:
     - intent: 1
-      enemyTargetMethod: 0
+      enemyTargetMethod: 2
       targetsKey: target
-      displayValue: 6
+      displayValue: 8
       effectSteps:
-      - rid: 3931529445166809420
-      - rid: 4053950154463772708
-      - rid: 3931529445166809313
+      - rid: 3931529445166809421
+      - rid: 4053950218419044435
+      - rid: 3931529445166809422
     behaviorType: 0
     nextBehaviorIndex: 0
   belowHalfHPEnemyPattern:
@@ -37,25 +37,13 @@ MonoBehaviour:
   tooltip:
     empty: 0
     lines:
-    - title: Strike
-      description: Simple Attack
-      relatedBehaviorIndex: 0
+    - title: Goblin Might
+      description: Small but mighty attack
+      relatedBehaviorIndex: -1
   references:
     version: 2
     RefIds:
-    - rid: 3931529445166809313
-      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CombatEffectStep
-        inputKey: target
-        combatEffect: 0
-        scale: 6
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
-    - rid: 3931529445166809420
+    - rid: 3931529445166809421
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
@@ -66,18 +54,30 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
-    - rid: 4053950154463772708
+    - rid: 3931529445166809422
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: target
+        combatEffect: 0
+        scale: 8
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+    - rid: 4053950218419044435
       type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: FXEffectStep
         waitForEffect: 1
         fXExperiencePrefab: {fileID: 7374988516867921400, guid: 080ebf6cafefa59438cf877ee502d109, type: 3}
-        rootLocationGameObjectKey: self
+        rootLocationGameObjectKey: 
         positionMappingList:
-        - fromWorkflow: target
-          toFxExperience: companionLocation
         - fromWorkflow: self
           toFxExperience: enemyLocation
+        - fromWorkflow: target
+          toFxExperience: companionLocation
         gameobjectMappingList:
         - fromWorkflow: self
           toFxExperience: enemy

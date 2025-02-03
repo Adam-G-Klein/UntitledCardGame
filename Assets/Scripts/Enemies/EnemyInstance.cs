@@ -122,7 +122,7 @@ public class EnemyInstance : MonoBehaviour, IUIEntity {
     }
 
     public string GetName() {
-        return enemy.enemyType.name;
+        return enemy.GetName();
     }
 
     public int GetCurrentHealth() {

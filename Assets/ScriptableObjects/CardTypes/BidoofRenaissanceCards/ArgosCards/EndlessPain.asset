@@ -13,9 +13,7 @@ MonoBehaviour:
   m_Name: EndlessPain
   m_EditorClassIdentifier: 
   Name: Endless Pain
-  Description: Retain. Deal {rpl_damage} damage for each card you played this turn
-    ({numPlayedCards})
-  values: 0200000000000000
+  Description: Deal {rpl_damage} damage for each card you played this turn ({numPlayedCards})
   defaultValues:
   - key: rpl_damage
     value: 2
@@ -27,7 +25,7 @@ MonoBehaviour:
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
-  retain: 1
+  retain: 0
   effectWorkflows:
   - rid: 5602893017534169716
   onExhaustEffectWorkflow:
