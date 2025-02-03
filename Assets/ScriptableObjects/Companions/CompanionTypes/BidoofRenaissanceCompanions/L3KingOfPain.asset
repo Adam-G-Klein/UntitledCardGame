@@ -49,6 +49,7 @@ MonoBehaviour:
       data:
         abilityTrigger: 11
         effectSteps:
+        - rid: 8790164513324270203
         - rid: 205828107393564826
         - rid: 205828107393564793
     - rid: 205828107393564793
@@ -67,3 +68,8 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+    - rid: 8790164513324270203
+      type: {class: EndWorkflowIfNoMapElement, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfNoMapElement
+        keyToCheck: damagedCompanion
