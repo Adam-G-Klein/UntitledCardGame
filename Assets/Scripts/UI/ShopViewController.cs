@@ -24,6 +24,7 @@ public class ShopViewController : MonoBehaviour,
     private VisualElement shopGoodsArea;
     private ScrollView benchScrollView;
     private VisualElement activeContainer;
+    private VisualElement mapContainer;
     private Button upgradeButton;
     private Label moneyLabel;
     private Label notEnoughMoneyLabel;
@@ -55,6 +56,8 @@ public class ShopViewController : MonoBehaviour,
         cardItemToViewMap = new Dictionary<CardInShopWithPrice, ShopItemView>();
         companionItemToViewMap = new Dictionary<CompanionInShopWithPrice, ShopItemView>();
 
+        mapContainer = uiDoc.rootVisualElement.Q("map");
+        SetupMap(shopManager);
         shopGoodsArea = uiDoc.rootVisualElement.Q("shop-goods-area");
         activeContainer = uiDoc.rootVisualElement.Q("unit-active-container");
         benchScrollView = uiDoc.rootVisualElement.Q<ScrollView>("bench-scroll-view");
@@ -72,6 +75,15 @@ public class ShopViewController : MonoBehaviour,
         upgradeButton.RegisterCallback<PointerEnterEvent>(UpgradeButtonOnPointerEnter);
         upgradeButton.RegisterCallback<PointerLeaveEvent>(UpgradeButtonOnPointerLeave);
         uiDoc.rootVisualElement.Q<Button>("start-next-combat-button").clicked += StartNextCombatOnClick;
+    }
+
+    private void SetupMap(IEncounterBuilder encounterBuilder) {
+        mapContainer.Clear();
+        Label mapTitle = new Label();
+        mapTitle.AddToClassList("map-title");
+        mapTitle.text = "Map";
+        mapContainer.Add(mapTitle);
+        mapContainer.Add(new MapView(encounterBuilder).mapContainer);
     }
 
     public void Clear() {

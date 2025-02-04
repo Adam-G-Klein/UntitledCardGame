@@ -16,9 +16,9 @@ using UnityEditor.MPE;
 public class MapView {
     public VisualElement mapContainer;
     // TODO, could require the stylesheet in the constructor and fetch these from there
-    public Color modifiedManaCostColor = Color.green;
+    public Color activeColor = Color.green;
     private List<string> encounterList = new() {
-        "Combat", "Shop", "Elite", "Shop", "Combat", "Shop", "Combat", "Shop", "Elite", "Shop",
+        "Combat", "Shop", "Combat", "Shop", "Combat", "Shop", "Combat", "Shop", "Elite", "Shop",
         "Combat", "Shop", "Combat", "Shop", "Combat", "Shop", "Combat", "Shop", "Elite", "Shop",
         "Combat", "Shop", "Combat", "Shop", "Combat", "Shop", "Combat", "Shop", "Boss"};
 
@@ -51,6 +51,10 @@ public class MapView {
             } else if (encounterType == "Boss") {
                 texture = Resources.Load<Sprite>("defendSymbol");
             }
+            if (i == 0) {
+                mapIcon.style.unityBackgroundImageTintColor = new StyleColor(new Color(0, 1, 0, 1));
+            }
+
             mapIcon.style.backgroundImage = new StyleBackground(texture);
 
             mapSection.Add(mapIcon);
