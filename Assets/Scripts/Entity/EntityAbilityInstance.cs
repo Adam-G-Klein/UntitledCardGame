@@ -143,6 +143,9 @@ public abstract class EntityAbilityInstance
     private IEnumerator OnCardCast(PlayableCard card) {
         EffectDocument document = createEffectDocument();
         document.map.AddItem<PlayableCard>("cardPlayed", card);
+        if (card.deckFrom.TryGetComponent(out CompanionInstance companion)) {
+            EffectUtils.AddCompanionToDocument(document, "companionCardPlayedFrom", companion);
+        }
         yield return EffectManager.Instance.invokeEffectWorkflowCoroutine(document, ability.effectSteps, null);
     }
 
@@ -154,9 +157,7 @@ public abstract class EntityAbilityInstance
     private IEnumerator OnCardExhaust(DeckInstance deckFrom, Card card) {
         EffectDocument document = createEffectDocument();
         if (deckFrom.TryGetComponent(out CompanionInstance companion)) {
-            document.map.AddItem<CompanionInstance>("companionExhaustedFrom", companion);
-            document.map.AddItem<CombatInstance>("companionExhaustedFrom", companion.combatInstance);
-            document.map.AddItem<DeckInstance>("companionExhaustedFrom", companion.deckInstance);
+            EffectUtils.AddCompanionToDocument(document, "companionExhaustedFrom", companion);
         }
         yield return EffectManager.Instance.invokeEffectWorkflowCoroutine(document, ability.effectSteps, null);
     }

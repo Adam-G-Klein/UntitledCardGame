@@ -1,0 +1,194 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
+  m_Name: PoohThePowerful
+  m_EditorClassIdentifier: 
+  displayName: Pooh the Powerful
+  maxHealth: 120
+  baseAttackDamage: 0
+  sprite: {fileID: 21300000, guid: 9a02158f2c6e8479bb9c21bbe525e9e8, type: 3}
+  abilities:
+  - rid: 8790164555430887889
+  enemyPattern:
+    behaviors:
+    - intent: 0
+      enemyTargetMethod: 0
+      targetsKey: target
+      displayValue: 7
+      effectSteps:
+      - rid: 8790164555430887934
+      - rid: 8790164555430887936
+      - rid: 8790164555430887939
+      - rid: 8790164555430887935
+      - rid: 8790164555430887940
+    behaviorType: 0
+    nextBehaviorIndex: 0
+  belowHalfHPEnemyPattern:
+    behaviors: []
+    behaviorType: 0
+    nextBehaviorIndex: 0
+  initialStatuses: []
+  tooltip:
+    empty: 0
+    lines:
+    - title: Overpowering Intellect
+      description: Whenever you play a Non-attack card from a companion, Pooh gives
+        it an Incantation. Meow. Don't mess.
+      relatedBehaviorIndex: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 8790164555430887889
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 7
+        effectSteps:
+        - rid: 8790164555430887929
+        - rid: 8790164555430887930
+        - rid: 8790164555430887931
+        - rid: 8790164555430888040
+        - rid: 8790164555430887932
+        - rid: 8790164555430887928
+        - rid: 8790164555430887925
+        - rid: 8790164555430887927
+    - rid: 8790164555430887925
+      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: AddCardsToDeck
+        inputKey: companionCardPlayedFrom
+        cardTypes:
+        - {fileID: 11400000, guid: f992bdca6dbe7416e9a300608fce37a9, type: 2}
+        addToDeckMethod: 1
+        getCardsFromKey: 0
+        inputCardsKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 8790164555430887927
+      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FXEffectStep
+        waitForEffect: 1
+        fXExperiencePrefab: {fileID: 4075960956037802917, guid: ec7b1a1529f9141458320888bf8e3d96, type: 3}
+        rootLocationGameObjectKey: 
+        positionMappingList:
+        - fromWorkflow: companionCardPlayedFrom
+          toFxExperience: end
+        - fromWorkflow: self
+          toFxExperience: start
+        gameobjectMappingList: []
+    - rid: 8790164555430887928
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 8790164555430887929
+      type: {class: FilterCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FilterCards
+        inputKey: cardPlayed
+        filter:
+          cardCategoriesToInclude: 02000000
+          generatedCardsFilter: 0
+        outputKey: nonAttackCardsPlayed
+    - rid: 8790164555430887930
+      type: {class: CountStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CountStep
+        inputKey: nonAttackCardsPlayed
+        outputKey: numNonAttackCards
+    - rid: 8790164555430887931
+      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: BooleanComparison
+        hardCodedInputKey1: 0
+        useHardCodedInputKey1: 1
+        inputKey1: 
+        operation: 1
+        inputKey2: numNonAttackCards
+        outputKey: playedNonAttack
+    - rid: 8790164555430887932
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: playedNonAttack
+        conditionToEndOn: 0
+    - rid: 8790164555430887934
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 8790164555430887935
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 4bed509d0589dae4d922d8eeb61a6292, type: 3}
+        scale: 1
+    - rid: 8790164555430887936
+      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FXEffectStep
+        waitForEffect: 1
+        fXExperiencePrefab: {fileID: 7374988516867921400, guid: 080ebf6cafefa59438cf877ee502d109, type: 3}
+        rootLocationGameObjectKey: 
+        positionMappingList:
+        - fromWorkflow: self
+          toFxExperience: enemyLocation
+        - fromWorkflow: target
+          toFxExperience: companionLocation
+        gameobjectMappingList:
+        - fromWorkflow: self
+          toFxExperience: enemy
+    - rid: 8790164555430887939
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: target
+        combatEffect: 0
+        scale: 7
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+    - rid: 8790164555430887940
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: self
+        statusEffect: 0
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+    - rid: 8790164555430888040
+      type: {class: DebugEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DebugEffectStep
+        inputCombatInstanceCacheKey: 
+        genericMap: 1
+        ints: 1
+        strings: 1
+        bools: 1
