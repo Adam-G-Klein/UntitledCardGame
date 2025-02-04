@@ -40,7 +40,6 @@ public class EnemyIntentDisplay : MonoBehaviour
         turnManager.registerTurnPhaseTriggerEventHandler(new TurnPhaseTriggerEventInfo(displayIntentTrigger));
         onCompanionDeathTrigger = new CombatEntityTrigger(CombatEntityTriggerType.COMPANION_DIED, UpdateDisplayAfterCompanionDies());
         combatEntityManager.registerTrigger(onCompanionDeathTrigger);
-        combatEntityManager.onCompanionDamageHandler += UpdateDisplayAfterEntityDamage;
         enemyInstance.combatInstance.onDeathHandler += OnDeath;
     }
 
@@ -70,7 +69,6 @@ public class EnemyIntentDisplay : MonoBehaviour
         clearIntent();
         removeTurnPhaseTriggerEvent.Raise(new TurnPhaseTriggerEventInfo(displayIntentTrigger));
         combatEntityManager.unregisterTrigger(onCompanionDeathTrigger);
-        combatEntityManager.onCompanionDamageHandler -= UpdateDisplayAfterEntityDamage;
         yield return null;
     }
 
@@ -89,11 +87,6 @@ public class EnemyIntentDisplay : MonoBehaviour
             }
         }
         enemyInstance.currentIntent.targets = newTargets;
-        StartCoroutine(displayIntentAfterDelay(enemyInstance));
-        yield return null;
-    }
-
-    public IEnumerator UpdateDisplayAfterEntityDamage(CombatInstance _) {
         StartCoroutine(displayIntentAfterDelay(enemyInstance));
         yield return null;
     }
