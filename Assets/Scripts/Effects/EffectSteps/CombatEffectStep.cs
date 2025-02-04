@@ -117,7 +117,7 @@ public class CombatEffectStep : EffectStep, IEffectStepCalculation
     {
         if (combatEffect == CombatEffect.Damage) {
             int finalScale = getFinalScale(document);
-            Debug.LogError(finalScale);
+            Debug.Log(finalScale);
             if (document.intMap.ContainsKey("rpl_damage")) {
                 document.intMap["rpl_damage"] = finalScale;
             } else {
