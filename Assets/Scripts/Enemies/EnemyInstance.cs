@@ -68,6 +68,7 @@ public class EnemyInstance : MonoBehaviour, IUIEntity {
         turnPhaseTriggers.Add(new TurnPhaseTrigger(TurnPhase.START_PLAYER_TURN, DeclareIntent()));
         turnPhaseTriggers.Add(new TurnPhaseTrigger(TurnPhase.ENEMIES_TURN, EnactIntent()));
         turnPhaseTriggers.Add(new TurnPhaseTrigger(TurnPhase.END_PLAYER_TURN, ClearBlock()));
+        turnPhaseTriggers.Add(new TurnPhaseTrigger(TurnPhase.END_ENEMY_TURN, ClearTemporaryStrength()));
         foreach(TurnPhaseTrigger trigger in turnPhaseTriggers) {
             registerTurnPhaseTriggerEvent.Raise(new TurnPhaseTriggerEventInfo(trigger));
         }
@@ -106,6 +107,11 @@ public class EnemyInstance : MonoBehaviour, IUIEntity {
 
     private IEnumerable ClearBlock() {
         combatInstance.SetStatusEffect(StatusEffectType.Defended, 0);
+        yield return null;
+    }
+
+    private IEnumerable ClearTemporaryStrength() {
+        combatInstance.SetStatusEffect(StatusEffectType.TemporaryStrength, 0);
         yield return null;
     }
 
