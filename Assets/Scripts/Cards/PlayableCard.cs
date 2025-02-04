@@ -8,7 +8,6 @@ using System;
 using Unity.VisualScripting;
 using UnityEngine.UIElements;
 using System.Linq;
-using UnityEditor.PackageManager;
 
 [RequireComponent(typeof(UIDocumentCard))]
 [RequireComponent(typeof(UIStateEventListener))]

@@ -11,7 +11,6 @@ using JetBrains.Annotations;
 using System.Linq;
 using System.Collections.Generic;
 using System.ComponentModel;
-using UnityEditor.MPE;
 
 public class MapView {
     public VisualElement mapContainer;
