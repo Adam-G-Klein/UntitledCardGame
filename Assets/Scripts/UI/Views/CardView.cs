@@ -18,20 +18,23 @@ public class CardView {
     private float SCREEN_WIDTH_PERCENT = 0.11f;
     private float RATIO = 1.4f;
     
-    public CardView(CardType cardType, CompanionTypeSO companionType) {
-        cardContainer = makeWorldspaceCardView(cardType, companionType);
+    // fillUIDocument - in some cases (like the current shop and the intro screen) we don't want this card to 
+    // take up its whole ui doc. In others, like combat (where the card is in worldspace splatted to a texture)
+    // we do.
+    public CardView(CardType cardType, CompanionTypeSO companionType, bool fillUIDocument = false) {
+        cardContainer = makeCardView(cardType, companionType, fillUIDocument);
     }
 
-    public CardView(CardType cardType, Sprite genericSprite) {
-        cardContainer = makeWorldspaceCardView(cardType, null, genericSprite);
+    public CardView(CardType cardType, Sprite genericSprite, bool fillUIDocument = false) {
+        cardContainer = makeCardView(cardType, null, fillUIDocument, genericSprite);
     }
 
-    public CardView(Card card, CompanionTypeSO companionType) {
-        cardContainer = makeWorldspaceCardView(card.cardType, companionType);
+    public CardView(Card card, CompanionTypeSO companionType, bool fillUIDocument = false) {
+        cardContainer = makeCardView(card.cardType, companionType, fillUIDocument);
         this.cardInstance = card;
     }
 
-    private VisualElement makeWorldspaceCardView(CardType card, CompanionTypeSO companionType, Sprite genericSprite = null) {
+    private VisualElement makeCardView(CardType card, CompanionTypeSO companionType, bool fillUIDocument = false, Sprite genericSprite = null) {
         Debug.Log("goobie woobie");
         Debug.Log(companionType);
         var container = new VisualElement();
@@ -82,9 +85,11 @@ public class CardView {
         manaContainer.Add(manaCost);
         container.Add(manaContainer);
 
-        Tuple<int, int> cardWidthHeight = GetWidthAndHeight();
-        container.style.width = cardWidthHeight.Item1;
-        container.style.height = cardWidthHeight.Item2;
+        if(!fillUIDocument) {
+            Tuple<int, int> cardWidthHeight = GetWidthAndHeight();
+            container.style.width = cardWidthHeight.Item1;
+            container.style.height = cardWidthHeight.Item2;
+        }
 
         return container;
     }

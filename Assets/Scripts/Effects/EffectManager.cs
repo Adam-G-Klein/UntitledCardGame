@@ -124,7 +124,9 @@ public class EffectManager : GenericSingleton<EffectManager>
             }
         }
 
-        document.boolMap.Add("highlightCard", hasEndWorkflowCheck && !didBreak);
+        if(!document.boolMap.ContainsKey("highlightCard")){
+            document.boolMap.Add("highlightCard", hasEndWorkflowCheck && !didBreak);
+        }
 
         if (callback != null) yield return StartCoroutine(callback);
 

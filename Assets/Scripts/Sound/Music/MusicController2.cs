@@ -26,6 +26,8 @@ public class MusicController2 : GenericSingleton<MusicController2>
     
     public void PlayMusicLocation(Location location)
     {
+        
+        /* // commented for now to enable dev flow from combat to shop
         foreach (LocationTrack locationTrack in locationTracks)
         {
             
@@ -40,6 +42,7 @@ public class MusicController2 : GenericSingleton<MusicController2>
                 Debug.Log(locationTrack.location);
             }
         }
+        */
     }
 
     public void PlayStartSFX()
