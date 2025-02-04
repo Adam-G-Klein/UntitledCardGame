@@ -48,10 +48,12 @@ public class PermanentStatIncrease : EffectStep {
         switch(statIncreaseType) {
             case StatIncreaseType.AttackDamage:
                 increaseAttackDamage(instances, finalScale);
+                UpdateView();
             break;
 
             case StatIncreaseType.Health:
                 increaseHealth(instances, finalScale);
+                UpdateView();
             break;
 
             default:
@@ -60,6 +62,10 @@ public class PermanentStatIncrease : EffectStep {
             break;
         }
         yield return null;
+    }
+
+    private void UpdateView() {
+        EnemyEncounterViewModel.Instance.SetStateDirty();
     }
 
     private void increaseAttackDamage(List<CombatInstance> instances, int scale) {
