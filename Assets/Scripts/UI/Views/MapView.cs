@@ -20,7 +20,7 @@ public class MapView {
     private List<string> encounterList = new() {
         "Combat", "Shop", "Combat", "Shop", "Combat", "Shop", "Combat", "Shop", "Elite", "Shop",
         "Combat", "Shop", "Combat", "Shop", "Combat", "Shop", "Combat", "Shop", "Elite", "Shop",
-        "Combat", "Shop", "Combat", "Shop", "Combat", "Shop", "Combat", "Shop", "Boss"};
+        "Combat", "Shop", "Combat", "Shop", "Combat", "Shop", "Combat", "Shop", "Boss", "", "", "", ""};
 
     public MapView(IEncounterBuilder encounterBuilder) {
         mapContainer = makeMapView(encounterBuilder);
@@ -43,19 +43,24 @@ public class MapView {
             string encounterType = encounterList[curEncounterIndex + i];
             Sprite texture = null;
             if (encounterType == "Combat") {
-                texture = Resources.Load<Sprite>("attackSymbolAsset");
+                texture = Resources.Load<Sprite>("enemySymbol");
             } else if (encounterType == "Shop") {
                 texture = Resources.Load<Sprite>("shopSymbol");
             } else if (encounterType == "Elite") {
-                texture = Resources.Load<Sprite>("shopKeepClosed");
+                texture = Resources.Load<Sprite>("eliteSymbol");
             } else if (encounterType == "Boss") {
-                texture = Resources.Load<Sprite>("defendSymbol");
+                texture = Resources.Load<Sprite>("bossSymbol");
             }
+
             if (i == 0) {
                 mapIcon.style.unityBackgroundImageTintColor = new StyleColor(new Color(0, 1, 0, 1));
             }
-
-            mapIcon.style.backgroundImage = new StyleBackground(texture);
+            
+            if (texture != null) {
+                mapIcon.style.backgroundImage = new StyleBackground(texture);
+            } else {
+                mapIcon.visible = false;
+            }
 
             mapSection.Add(mapIcon);
             container.Add(mapSection);
