@@ -52,7 +52,7 @@ public class EnemyIntentDisplay : MonoBehaviour
         if(pillarBox == null) {
             Debug.LogError("No pillar box found on " + enemyInstance.placement.ve.name);
         }
-        
+
         intentText = root.Q<Label>(className: enemyInstance.placement.ve.name + CombatEncounterView.DETAILS_DESCRIPTION_SUFFIX);
         if(intentText == null) {
             Debug.LogError("No intent text found on " + enemyInstance.placement.ve.name);

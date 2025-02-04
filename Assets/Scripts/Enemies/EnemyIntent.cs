@@ -18,6 +18,7 @@ public enum EnemyIntentType {
 }
 
 public class EnemyIntent {
+    private EnemyInstance self;
     public List<CompanionInstance> targets;
     public float attackTime;
     public EnemyIntentType intentType;
@@ -26,17 +27,30 @@ public class EnemyIntent {
     public List<EffectStep> effectSteps;
 
     public EnemyIntent(
+            EnemyInstance self,
             List<CompanionInstance> targets,
             float attackTime,
             EnemyIntentType intentType,
             string targetsKey,
             int displayValue,
             List<EffectStep> effectSteps) {
+        this.self = self;
         this.targets = targets;
         this.attackTime = attackTime;
         this.intentType = intentType;
         this.targetsKey = targetsKey;
         this.displayValue = displayValue;
         this.effectSteps = effectSteps;
+    }
+
+    public int GetDisplayValue() {
+        if (this.intentType != EnemyIntentType.BigAttack && this.intentType != EnemyIntentType.SmallAttack) {
+            return this.displayValue;
+        }
+
+        return this.displayValue
+            + self.combatInstance.combatStats.baseAttackDamage
+            + self.combatInstance.GetStatus(StatusEffectType.Strength)
+            + self.combatInstance.GetStatus(StatusEffectType.TemporaryStrength);
     }
 }
