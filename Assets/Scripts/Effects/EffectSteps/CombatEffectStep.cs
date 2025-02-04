@@ -115,12 +115,14 @@ public class CombatEffectStep : EffectStep, IEffectStepCalculation
     }
     public IEnumerator invokeForCalculation(EffectDocument document)
     {
-        int finalScale = getFinalScale(document);
-        Debug.Log(finalScale);
-        if (document.intMap.ContainsKey("rpl_damage")) {
-            document.intMap["rpl_damage"] = finalScale;
-        } else {
-            document.intMap.Add("rpl_damage", finalScale);
+        if (combatEffect == CombatEffect.Damage) {
+            int finalScale = getFinalScale(document);
+            Debug.LogError(finalScale);
+            if (document.intMap.ContainsKey("rpl_damage")) {
+                document.intMap["rpl_damage"] = finalScale;
+            } else {
+                document.intMap.Add("rpl_damage", finalScale);
+            }
         }
         yield return null;
     }
