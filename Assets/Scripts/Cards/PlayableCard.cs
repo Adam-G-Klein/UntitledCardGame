@@ -57,8 +57,8 @@ public class PlayableCard : MonoBehaviour,
     public void OnPointerClick(PointerEventData eventData)
     {
         Debug.Log("Card clicked");
-        Debug.Log(currentState);
-        if (currentState != UIState.DEFAULT || !interactable) return;
+        Debug.LogError(currentState);
+        if (currentState != UIState.DEFAULT || !interactable || EnemyEncounterManager.Instance.GetCastingCard()) return;
 
         if (card.GetManaCost() > ManaManager.Instance.currentMana) {
                 StartCoroutine(GenericEntityDialogueParticipant
@@ -78,6 +78,7 @@ public class PlayableCard : MonoBehaviour,
                 return;
         }
         if (eventData.button != PointerEventData.InputButton.Left) return;
+        EnemyEncounterManager.Instance.SetCastingCard(true);
         interactable = false;
 
         EffectDocument document = new EffectDocument();

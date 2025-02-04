@@ -31,6 +31,8 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     public GameObject placerGO;
     private bool encounterBuilt = false;
     private bool inToolTip = false;
+    private bool castingCard = false;
+
 
     [SerializeField]
     [Header("Super hacky way to delay the end combat screen, this or\n" +
@@ -176,4 +178,12 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     public void SetInToolTip(bool b) {
         inToolTip = b;
     }
+
+
+    public void SetCastingCard(bool isCasting)
+    {
+        castingCard = isCasting;
+    }
+
+    public bool GetCastingCard() {return castingCard;}
 }
