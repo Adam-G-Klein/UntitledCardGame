@@ -30,6 +30,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     [SerializeField]
     public GameObject placerGO;
     private bool encounterBuilt = false;
+    private bool inToolTip = false;
 
     [SerializeField]
     [Header("Super hacky way to delay the end combat screen, this or\n" +
@@ -166,5 +167,13 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
 
     public void DeckShuffled(DeckInstance instance) {
         combatEncounterState.DeckShuffled(instance);
+    }
+
+    public bool GetInToolTip() {
+        return inToolTip;
+    }
+    
+    public void SetInToolTip(bool b) {
+        inToolTip = b;
     }
 }

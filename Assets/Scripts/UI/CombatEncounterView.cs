@@ -38,6 +38,7 @@ public class CombatEncounterView : GenericSingleton<CombatEncounterView>
 
     [SerializeField]
     private GameObject cardViewUIPrefab;
+    private bool inTooltip = false;
 
     public void SetupFromGamestate() 
     {
@@ -252,6 +253,7 @@ public class CombatEncounterView : GenericSingleton<CombatEncounterView>
 
         // this should SO be somewhere else but im ngl I kinda just feel like sending it rn
         drawButton.RegisterCallback<ClickEvent>(evt => {
+            HideDrawer(entity);
             Debug.Log("Draw button clicked");
             DeckInstance deckInstance = entity.GetDeckInstance();
             if(deckInstance == null) {
@@ -271,6 +273,7 @@ public class CombatEncounterView : GenericSingleton<CombatEncounterView>
 
         // this should SO be somewhere else but im ngl I kinda just feel like sending it rn
         discardButton.RegisterCallback<ClickEvent>(evt => {
+            HideDrawer(entity);
             Debug.Log("Discard button clicked");
             DeckInstance deckInstance = entity.GetDeckInstance();
             if(deckInstance == null) {
@@ -349,10 +352,6 @@ public class CombatEncounterView : GenericSingleton<CombatEncounterView>
         
     }
 
-    
-
-    
-
     private void setupCardSlots()
     {
         var container = root.Q<VisualElement>("cardContainer");
@@ -383,7 +382,7 @@ public class CombatEncounterView : GenericSingleton<CombatEncounterView>
     // if you try to compare the ve then they will never be equal, different object hash codes
     private void registerModelUpdateOnHovers(IUIEntity entity, VisualElement ve) {
         ve.RegisterCallback<MouseEnterEvent>(evt => {
-            if(EnemyEncounterViewModel.Instance.hoveredEntity != entity) {
+            if(EnemyEncounterViewModel.Instance.hoveredEntity != entity && !InTooltip()) {
                 Debug.Log("Hovering over " + entity.GetName());
                 EnemyEncounterViewModel.Instance.hoveredElement = ve;
                 EnemyEncounterViewModel.Instance.hoveredEntity = entity;
@@ -391,12 +390,19 @@ public class CombatEncounterView : GenericSingleton<CombatEncounterView>
             }
         });
         ve.RegisterCallback<MouseLeaveEvent>(evt => {
-            if(EnemyEncounterViewModel.Instance.hoveredEntity == entity) {
-                EnemyEncounterViewModel.Instance.hoveredElement = null;
-                EnemyEncounterViewModel.Instance.hoveredEntity = null;
-                EnemyEncounterViewModel.Instance.SetStateDirty();
-            }
+            HideDrawer(entity);
         });
+    }
+
+    private void HideDrawer(IUIEntity entity) {
+        if(EnemyEncounterViewModel.Instance.hoveredEntity == entity) {
+            EnemyEncounterViewModel.Instance.hoveredElement = null;
+            EnemyEncounterViewModel.Instance.hoveredEntity = null;
+            EnemyEncounterViewModel.Instance.SetStateDirty();
+        }
+    }
+    private bool InTooltip() {
+        return EnemyEncounterManager.Instance.GetInToolTip();
     }
 
     private bool isHovered(IUIEntity entity) {

@@ -29,6 +29,7 @@ public class CardViewUI : MonoBehaviour
     private GameObject button;
 
     public void Setup(List<Card> cards, int minSelections, string promptText, int maxSelections = -1, CompanionInstance companionFrom = null) {
+        EnemyEncounterManager.Instance.SetInToolTip(true);
         foreach (Card card in cards) {
             createCard(card);
         }
@@ -85,6 +86,7 @@ public class CardViewUI : MonoBehaviour
         }
         cardsSelectedEvent.Raise(new CardListEventInfo(outputCards));
         Destroy(this.gameObject);
+        EnemyEncounterManager.Instance.SetInToolTip(false);
     }
 
     private IEnumerator changePromptText(string newText) {
