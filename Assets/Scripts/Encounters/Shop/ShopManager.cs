@@ -319,6 +319,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
             shopViewController.SetShopUpgradePrice(shopLevel.upgradeCost);
             shopViewController.SetMoney(gameState.playerData.GetValue().gold);
+            shopViewController.RebuildUnitManagement(gameState.companions);
             CheckDisableUpgradeButton();
         } else {
             shopViewController.NotEnoughMoney();

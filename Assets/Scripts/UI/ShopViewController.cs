@@ -15,6 +15,7 @@ public class ShopViewController : MonoBehaviour,
     public bool canDragCompanions = false;
     public Color slotHighlightColor;
     public Color slotNotHighlightColor;
+    public Color slotUnavailableColor;
 
     private ShopManager shopManager;
     private Dictionary<CardInShopWithPrice, ShopItemView> cardItemToViewMap;
@@ -37,6 +38,7 @@ public class ShopViewController : MonoBehaviour,
     private VisualElement companionBeingDragged = null;
     private VisualElement originalParent = null;
     private Dictionary<VisualElement, CompanionManagementView> visualElementToCompanionViewMap = new Dictionary<VisualElement, CompanionManagementView>();
+    private List<VisualElement> blockedSlots = new List<VisualElement>();
 
     private IEnumerator notEnoughMoneyCoroutine;
     private IEnumerator upgradeButtonTooltipCoroutine = null;
@@ -67,6 +69,8 @@ public class ShopViewController : MonoBehaviour,
         upgradePriceLabel = uiDoc.rootVisualElement.Q<Label>("upgrade-price-label");
         rerollPriceLabel = uiDoc.rootVisualElement.Q<Label>("reroll-price-label");
 
+        SetupActiveSlots(shopManager.gameState.companions.currentCompanionSlots);
+
         selectingCompanionVeil.RegisterCallback<ClickEvent>(ShopVeilOnClick);
 
         uiDoc.rootVisualElement.Q<Button>("reroll-button").clicked += RerollButtonOnClick;
@@ -75,6 +79,20 @@ public class ShopViewController : MonoBehaviour,
         upgradeButton.RegisterCallback<PointerEnterEvent>(UpgradeButtonOnPointerEnter);
         upgradeButton.RegisterCallback<PointerLeaveEvent>(UpgradeButtonOnPointerLeave);
         uiDoc.rootVisualElement.Q<Button>("start-next-combat-button").clicked += StartNextCombatOnClick;
+    }
+
+    private void SetupActiveSlots(int numCompanions) {
+        if (numCompanions >= 5) return;
+
+        blockedSlots = new List<VisualElement>();
+        int i = 0;
+        foreach (VisualElement child in activeContainer.hierarchy.Children()) {
+            i++;
+            if (i > numCompanions) {
+                child.style.backgroundColor = slotUnavailableColor;
+                blockedSlots.Add(child);
+            }
+        }
     }
 
     private void SetupMap(IEncounterBuilder encounterBuilder) {
@@ -87,16 +105,7 @@ public class ShopViewController : MonoBehaviour,
     }
 
     public void Clear() {
-        foreach (VisualElement child in activeContainer.hierarchy.Children()) {
-            if (child.childCount > 0) {
-                child.Clear();
-            }
-        }
-        foreach (VisualElement child in benchScrollView.contentContainer.hierarchy.Children()) {
-            if (child.childCount > 0) {
-                child.Clear();
-            }
-        }
+        ClearUnitManagement();
         shopGoodsArea.Clear();
     }
 
@@ -136,6 +145,7 @@ public class ShopViewController : MonoBehaviour,
 
     public void RebuildUnitManagement(CompanionListVariableSO companionList) {
         ClearUnitManagement();
+        SetupActiveSlots(shopManager.gameState.companions.currentCompanionSlots);
         SetupUnitManagement(companionList);
     }
 
@@ -144,12 +154,15 @@ public class ShopViewController : MonoBehaviour,
             if (child.childCount > 0) {
                 child.Clear();
             }
+            child.style.backgroundColor = slotNotHighlightColor;
         }
         foreach (VisualElement child in benchScrollView.contentContainer.hierarchy.Children()) {
             if (child.childCount > 0) {
                 child.Clear();
             }
+            child.style.backgroundColor = slotNotHighlightColor;
         }
+        blockedSlots = new List<VisualElement>();
     }
 
     public void SetupUnitManagement(CompanionListVariableSO companionList) {
@@ -262,6 +275,7 @@ public class ShopViewController : MonoBehaviour,
         companionManagementView.container.parent.style.left = evt.position.x - companionManagementView.container.parent.layout.width / 2;
 
         foreach (VisualElement child in activeContainer.hierarchy.Children()) {
+            if (blockedSlots != null && blockedSlots.Contains(child)) continue;
             if (child.worldBound.Contains(evt.position)) {
                 child.style.backgroundColor = slotHighlightColor;
             } else {
@@ -293,7 +307,7 @@ public class ShopViewController : MonoBehaviour,
             }
         }
 
-        if (elementOver != null) {
+        if (elementOver != null && !blockedSlots.Contains(elementOver)) {
             DoMoveComapnion(companionManagementView.container, elementOver);
             elementOver.style.backgroundColor = slotNotHighlightColor;
         } else {
