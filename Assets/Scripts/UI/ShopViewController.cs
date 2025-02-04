@@ -30,6 +30,8 @@ public class ShopViewController : MonoBehaviour,
     private Label moneyLabel;
     private Label notEnoughMoneyLabel;
     public VisualElement selectingCompanionVeil;
+    public VisualElement selectingIndicator;
+    public Button selectingCancelButton;
     public Label upgradePriceLabel;
     public Label rerollPriceLabel;
 
@@ -66,14 +68,15 @@ public class ShopViewController : MonoBehaviour,
         moneyLabel = uiDoc.rootVisualElement.Q<Label>("money-indicator-label");
         notEnoughMoneyLabel = uiDoc.rootVisualElement.Q<Label>("not-enough-money-indicator");
         selectingCompanionVeil = uiDoc.rootVisualElement.Q("selecting-companion-veil");
+        selectingIndicator = uiDoc.rootVisualElement.Q("companion-selection-indicator");
+        selectingCancelButton = uiDoc.rootVisualElement.Q<Button>("companion-selection-cancel-button");
         upgradePriceLabel = uiDoc.rootVisualElement.Q<Label>("upgrade-price-label");
         rerollPriceLabel = uiDoc.rootVisualElement.Q<Label>("reroll-price-label");
 
         SetupActiveSlots(shopManager.gameState.companions.currentCompanionSlots);
 
-        selectingCompanionVeil.RegisterCallback<ClickEvent>(ShopVeilOnClick);
-
         uiDoc.rootVisualElement.Q<Button>("reroll-button").clicked += RerollButtonOnClick;
+        selectingCancelButton.clicked += CancelCardBuy;
         upgradeButton = uiDoc.rootVisualElement.Q<Button>("upgrade-button");
         upgradeButton.clicked += UpgradeButtonOnClick;
         upgradeButton.RegisterCallback<PointerEnterEvent>(UpgradeButtonOnPointerEnter);
@@ -392,6 +395,7 @@ public class ShopViewController : MonoBehaviour,
     public void CardBuyingSetup(ShopItemView shopItemView, CardInShopWithPrice cardInShop) {
         canDragCompanions = false;
         selectingCompanionVeil.style.visibility = Visibility.Visible;
+        selectingIndicator.style.visibility = Visibility.Visible;
         List<CompanionManagementView> notApplicable = new List<CompanionManagementView>();
         foreach (VisualElement child in activeContainer.hierarchy.Children()) {
             if (child.childCount != 1) continue;
@@ -417,6 +421,7 @@ public class ShopViewController : MonoBehaviour,
     public void StopBuyingCard() {
         canDragCompanions = true;
         selectingCompanionVeil.style.visibility = Visibility.Hidden;
+        selectingIndicator.style.visibility = Visibility.Hidden;
         foreach (VisualElement child in activeContainer.hierarchy.Children()) {
             if (child.childCount != 1) continue;
             visualElementToCompanionViewMap[child[0]].ResetApplicable();
@@ -428,7 +433,7 @@ public class ShopViewController : MonoBehaviour,
         }
     }
 
-    private void ShopVeilOnClick(ClickEvent evt) {
+    private void CancelCardBuy() {
         shopManager.ProcessCardBuyCanceled();
         StopBuyingCard();
     }

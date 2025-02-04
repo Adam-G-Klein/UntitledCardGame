@@ -68,5 +68,9 @@
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="selecting-companion-veil" style="flex-grow: 1; position: absolute; height: 654px; width: 1925px; top: 0; left: 0; right: 100%; bottom: 100%; background-color: rgba(0, 0, 0, 0.61); visibility: hidden; display: flex;" />
+        <ui:VisualElement name="companion-selection-indicator" style="flex-grow: 1; position: absolute; height: 70px; width: 650px; top: 584px; left: 663px; flex-direction: row; justify-content: center; visibility: hidden;">
+            <ui:Label tabindex="-1" text="Select a companion to get the card." parse-escape-sequences="true" display-tooltip-when-elided="true" style="border-top-width: 2.5px; border-right-width: 2.5px; border-bottom-width: 2.5px; border-left-width: 2.5px; background-color: rgb(217, 217, 217); font-size: 32px; -unity-font-style: normal; padding-right: 4px; padding-left: 4px;" />
+            <ui:Button text="Cancel" parse-escape-sequences="true" display-tooltip-when-elided="true" name="companion-selection-cancel-button" class="shopButton" style="background-color: rgb(255, 130, 127);" />
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
