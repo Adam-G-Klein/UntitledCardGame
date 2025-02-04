@@ -28,6 +28,7 @@ public class EndWorkflowIfNoMapElement : EffectStep, IEffectStepCalculation {
                 break;
             }
         }
+        Debug.Log("EndWorkflowIfNoMapElement, key [" + keyToCheck + "] found: " + found.ToString());
         if (!found) {
             EffectManager.Instance.interruptEffectWorkflow = true;
         }
