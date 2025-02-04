@@ -40,6 +40,7 @@ public class EnemyIntentDisplay : MonoBehaviour
         turnManager.registerTurnPhaseTriggerEventHandler(new TurnPhaseTriggerEventInfo(displayIntentTrigger));
         onCompanionDeathTrigger = new CombatEntityTrigger(CombatEntityTriggerType.COMPANION_DIED, UpdateDisplayAfterCompanionDies());
         combatEntityManager.registerTrigger(onCompanionDeathTrigger);
+        combatEntityManager.onCompanionDamageHandler += UpdateDisplayAfterEntityDamage;
         enemyInstance.combatInstance.onDeathHandler += OnDeath;
     }
 
@@ -52,7 +53,7 @@ public class EnemyIntentDisplay : MonoBehaviour
         if(pillarBox == null) {
             Debug.LogError("No pillar box found on " + enemyInstance.placement.ve.name);
         }
-        
+
         intentText = root.Q<Label>(className: enemyInstance.placement.ve.name + CombatEncounterView.DETAILS_DESCRIPTION_SUFFIX);
         if(intentText == null) {
             Debug.LogError("No intent text found on " + enemyInstance.placement.ve.name);
@@ -69,6 +70,7 @@ public class EnemyIntentDisplay : MonoBehaviour
         clearIntent();
         removeTurnPhaseTriggerEvent.Raise(new TurnPhaseTriggerEventInfo(displayIntentTrigger));
         combatEntityManager.unregisterTrigger(onCompanionDeathTrigger);
+        combatEntityManager.onCompanionDamageHandler -= UpdateDisplayAfterEntityDamage;
         yield return null;
     }
 
@@ -87,6 +89,11 @@ public class EnemyIntentDisplay : MonoBehaviour
             }
         }
         enemyInstance.currentIntent.targets = newTargets;
+        StartCoroutine(displayIntentAfterDelay(enemyInstance));
+        yield return null;
+    }
+
+    public IEnumerator UpdateDisplayAfterEntityDamage(CombatInstance _) {
         StartCoroutine(displayIntentAfterDelay(enemyInstance));
         yield return null;
     }
