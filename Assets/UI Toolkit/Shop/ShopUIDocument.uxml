@@ -13,7 +13,27 @@
             </ui:VisualElement>
             <ui:VisualElement style="flex-grow: 1; width: 50%; justify-content: space-around; flex-direction: row; align-items: center;">
                 <ui:VisualElement name="map" style="flex-grow: 0; height: 40%; flex-shrink: 0; justify-content: flex-start; width: 80%; background-color: rgb(255, 255, 255);">
-                    <ui:Label tabindex="-1" text="Placeholder for the map" parse-escape-sequences="true" display-tooltip-when-elided="true" style="color: rgb(255, 255, 255); font-size: 28px;" />
+                    <ui:Label tabindex="-1" text="Map" parse-escape-sequences="true" display-tooltip-when-elided="true" class="map-title" style="color: rgb(0, 0, 0); font-size: 28px; -unity-text-align: upper-left; margin-top: -7px; margin-bottom: -1px;" />
+                    <ui:VisualElement class="map-container">
+                        <ui:VisualElement name="VisualElement" class="map-section">
+                            <ui:VisualElement class="map-symbol" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="VisualElement" class="map-section">
+                            <ui:VisualElement class="map-symbol" style="background-image: url(&quot;project://database/Assets/Resources/shopSymbol.png?fileID=2800000&amp;guid=2e266a78f244e7743b234e093f2175bb&amp;type=3#shopSymbol&quot;);" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="VisualElement" class="map-section">
+                            <ui:VisualElement class="map-symbol" style="background-image: url(&quot;project://database/Assets/Sprites/emmett.png?fileID=2800000&amp;guid=4eff3f79553794d909415243e5c40924&amp;type=3#emmett&quot;);" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="VisualElement" class="map-section">
+                            <ui:VisualElement class="map-symbol" style="background-image: url(&quot;project://database/Assets/Sprites/SculptorArt/Character_TheSculptor_Portrait.png?fileID=2800000&amp;guid=bf7004643a1b7cb47813068f0ada5d78&amp;type=3#Character_TheSculptor_Portrait&quot;);" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="VisualElement" class="map-section">
+                            <ui:VisualElement class="map-symbol" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="VisualElement" class="map-section">
+                            <ui:VisualElement class="map-symbol" style="background-image: url(&quot;project://database/Assets/Resources/shopSymbol.png?fileID=2800000&amp;guid=2e266a78f244e7743b234e093f2175bb&amp;type=3#shopSymbol&quot;);" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:Button text="Placeholder Options Button" parse-escape-sequences="true" display-tooltip-when-elided="true" />
             </ui:VisualElement>

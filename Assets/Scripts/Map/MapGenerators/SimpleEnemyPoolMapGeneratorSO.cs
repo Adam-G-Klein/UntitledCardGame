@@ -34,7 +34,9 @@ public class SimpleEnemyPoolMapGeneratorSO: MapGeneratorSO {
             givenPool.Remove(chosen);
 
             // TODO: James, do not mutate the state of the enemy pool with the choose without replacement.
-            encounters.Add(new EnemyEncounter(chosen));
+            EnemyEncounter EE = new EnemyEncounter(chosen);
+            EE.SetIsElite(pool.isElite);
+            encounters.Add(EE);
             encounters.Add(new ShopEncounter(shopData));
         }
 

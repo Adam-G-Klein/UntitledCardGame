@@ -8,4 +8,5 @@ using UnityEngine;
     menuName = "Encounters/Enemy Encounter/Encounter Pool")]
 public class EnemyEncounterPoolSO: ScriptableObject {
     public List<EnemyEncounterTypeSO> enemyEncounterTypes;
+    public bool isElite;
 }
