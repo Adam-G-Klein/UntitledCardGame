@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,6 +35,8 @@ public class ShopViewController : MonoBehaviour,
     public Button selectingCancelButton;
     public Label upgradePriceLabel;
     public Label rerollPriceLabel;
+    public Button sellCompanionButton;
+    public VisualElement sellingCompanionConfirmation;
 
     // For dragging and dropping companions in the unit management
     private bool isDraggingCompanion = false;
@@ -45,6 +48,9 @@ public class ShopViewController : MonoBehaviour,
     private IEnumerator notEnoughMoneyCoroutine;
     private IEnumerator upgradeButtonTooltipCoroutine = null;
     private VisualElement tooltip;
+    private bool sellingCompanions = false;
+    private CompanionManagementView companionToSell;
+    private string originalSellingCompanionConfirmationText;
 
     public void Start() {
         // Init(null);
@@ -72,6 +78,8 @@ public class ShopViewController : MonoBehaviour,
         selectingCancelButton = uiDoc.rootVisualElement.Q<Button>("companion-selection-cancel-button");
         upgradePriceLabel = uiDoc.rootVisualElement.Q<Label>("upgrade-price-label");
         rerollPriceLabel = uiDoc.rootVisualElement.Q<Label>("reroll-price-label");
+        sellCompanionButton = uiDoc.rootVisualElement.Q<Button>("sell-companion-button");
+        sellingCompanionConfirmation = uiDoc.rootVisualElement.Q("selling-companion-confirmation");
 
         SetupActiveSlots(shopManager.gameState.companions.currentCompanionSlots);
 
@@ -82,6 +90,10 @@ public class ShopViewController : MonoBehaviour,
         upgradeButton.RegisterCallback<PointerEnterEvent>(UpgradeButtonOnPointerEnter);
         upgradeButton.RegisterCallback<PointerLeaveEvent>(UpgradeButtonOnPointerLeave);
         uiDoc.rootVisualElement.Q<Button>("start-next-combat-button").clicked += StartNextCombatOnClick;
+        sellCompanionButton.clicked += SellCompanionOnClick;
+        sellingCompanionConfirmation.Q<Button>("selling-companion-confirmation-yes").clicked += ConfirmSellCompanion;
+        sellingCompanionConfirmation.Q<Button>("selling-companion-confirmation-no").clicked += DontSellCompanion;
+        originalSellingCompanionConfirmationText = sellingCompanionConfirmation.Q<Label>("selling-companion-confirmation-label").text;
     }
 
     private void SetupActiveSlots(int numCompanions) {
@@ -239,9 +251,53 @@ public class ShopViewController : MonoBehaviour,
         shopManager.exitShop();
     }
 
+    public void SellCompanionOnClick() {
+        if (sellingCompanions) {
+            sellCompanionButton.text = "Sell Companion";
+            StopSellingCompanion();
+        } else {
+            sellCompanionButton.text = "Cancel";
+            SetupSellCompanion();
+        }
+    }
+
+    public void SetupSellCompanion() {
+        sellingCompanions = true;
+        selectingCompanionVeil.style.visibility = Visibility.Visible;
+        canDragCompanions = false;
+    }
+
+    public void StopSellingCompanion() {
+        sellingCompanions = false;
+        selectingCompanionVeil.style.visibility = Visibility.Hidden;
+        canDragCompanions = true;
+    }
+
     public void CompanionManagementOnClick(CompanionManagementView companionView, ClickEvent evt)
     {
-        shopManager.ProcessCompanionClicked(companionView.companion);
+        if (sellingCompanions) {
+            sellingCompanionConfirmation.style.visibility = Visibility.Visible;
+            this.companionToSell = companionView;
+            Label confirmSellCompanionLabel = sellingCompanionConfirmation.Q<Label>("selling-companion-confirmation-label");
+            string replacedText = String.Format(
+                originalSellingCompanionConfirmationText, 
+                companionView.companion.GetName(), 
+                shopManager.CalculateCompanionSellPrice(companionView.companion));
+            confirmSellCompanionLabel.text = replacedText;
+        } else {
+            shopManager.ProcessCompanionClicked(companionView.companion);
+        }
+    }
+
+    private void ConfirmSellCompanion() {
+        shopManager.SellCompanion(companionToSell.companion);
+        companionToSell = null;
+        sellingCompanionConfirmation.style.visibility = Visibility.Hidden;
+    }
+
+    private void DontSellCompanion() {
+        companionToSell = null;
+        sellingCompanionConfirmation.style.visibility = Visibility.Hidden;
     }
 
     public void CompanionManagementOnPointerDown(CompanionManagementView companionView, PointerDownEvent evt)

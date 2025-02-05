@@ -84,6 +84,9 @@
                             <ui:VisualElement name="VisualElement" class="single-unit-container" style="border-top-width: 4px; border-right-width: 4px; border-bottom-width: 4px; border-left-width: 4px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); width: 20%; height: 100%; background-image: none;" />
                         </ui:ScrollView>
                     </ui:VisualElement>
+                    <ui:VisualElement style="flex-grow: 1; height: 40%;">
+                        <ui:Button text="Sell Companion" parse-escape-sequences="true" display-tooltip-when-elided="true" name="sell-companion-button" class="shopButton" style="font-size: 23px; background-color: rgb(255, 130, 127);" />
+                    </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
@@ -91,6 +94,15 @@
         <ui:VisualElement name="companion-selection-indicator" style="flex-grow: 1; position: absolute; height: 70px; width: 650px; top: 584px; left: 663px; flex-direction: row; justify-content: center; visibility: hidden;">
             <ui:Label tabindex="-1" text="Select a companion to get the card." parse-escape-sequences="true" display-tooltip-when-elided="true" style="border-top-width: 2.5px; border-right-width: 2.5px; border-bottom-width: 2.5px; border-left-width: 2.5px; background-color: rgb(217, 217, 217); font-size: 32px; -unity-font-style: normal; padding-right: 4px; padding-left: 4px;" />
             <ui:Button text="Cancel" parse-escape-sequences="true" display-tooltip-when-elided="true" name="companion-selection-cancel-button" class="shopButton" style="background-color: rgb(255, 130, 127);" />
+        </ui:VisualElement>
+        <ui:VisualElement name="selling-companion-confirmation" style="flex-grow: 1; position: absolute; left: 25%; top: 25%; right: 25%; bottom: 25%; background-color: rgb(217, 217, 217); border-top-width: 8px; border-right-width: 8px; border-bottom-width: 8px; border-left-width: 8px; border-top-left-radius: 22px; border-top-right-radius: 22px; border-bottom-right-radius: 22px; border-bottom-left-radius: 22px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); visibility: hidden;">
+            <ui:VisualElement style="flex-grow: 1; justify-content: center; align-items: center;">
+                <ui:Label tabindex="-1" text="Would you like to sell {0} for {1} gold?" parse-escape-sequences="true" display-tooltip-when-elided="true" name="selling-companion-confirmation-label" style="font-size: 34px;" />
+            </ui:VisualElement>
+            <ui:VisualElement style="flex-grow: 1; flex-direction: row; justify-content: center; align-items: center;">
+                <ui:Button text="Yes" parse-escape-sequences="true" display-tooltip-when-elided="true" name="selling-companion-confirmation-yes" class="shopButton" style="margin-left: 15px; margin-right: 15px; flex-grow: 0; width: 20%;" />
+                <ui:Button text="No" parse-escape-sequences="true" display-tooltip-when-elided="true" name="selling-companion-confirmation-no" class="shopButton" style="margin-right: 15px; margin-left: 15px; flex-grow: 0; width: 20%;" />
+            </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

@@ -257,6 +257,19 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         this.buyingCard = false;
     }
 
+    public void SellCompanion(Companion companion) {
+        int sellValue = CalculateCompanionSellPrice(companion);
+        gameState.playerData.GetValue().gold += sellValue;
+        shopViewController.SetMoney(gameState.playerData.GetValue().gold);
+        gameState.companions.activeCompanions.Remove(companion);
+        gameState.companions.benchedCompanions.Remove(companion);
+        shopViewController.RebuildUnitManagement(gameState.companions);
+    }
+
+    public int CalculateCompanionSellPrice(Companion companion) {
+        return shopEncounter.shopData.companionKeepsakePrice / 2 + companion.deck.cards.Count / 5 * shopEncounter.shopData.cardPrice;
+    }
+
     public void processCompanionSelectedEvent(Companion companion) {
         // The player selected a companion, so the transaction is complete
         // (assuming there is a transaction) and we're gonna add the card
