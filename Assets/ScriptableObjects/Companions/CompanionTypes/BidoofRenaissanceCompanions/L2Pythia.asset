@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
   m_Name: L2Pythia
   m_EditorClassIdentifier: 
-  companionName: Pythia
+  companionName: Pythia+
   maxHealth: 20
   initialCardsDealtPerTurn: 2
   sprite: {fileID: 21300000, guid: 416a15d747b4048a4a90ea688389b343, type: 3}
@@ -52,6 +52,7 @@ MonoBehaviour:
         effectSteps:
         - rid: 205828032053379551
         - rid: 205828032053379552
+        - rid: 8441470952357494981
     - rid: 205828032053379551
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
@@ -69,3 +70,9 @@ MonoBehaviour:
         inputKey: companionDeckFrom
         prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
         scale: 1
+    - rid: 8441470952357494981
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: Shields Engage!
+        lineTime: 2

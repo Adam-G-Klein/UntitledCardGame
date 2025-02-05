@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
   m_Name: L3PoohBear
   m_EditorClassIdentifier: 
-  companionName: L3 Pooh Bear
+  companionName: Pooh Bear++
   maxHealth: 20
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: b8234437e62f749a9b907d6e36c2e1e1, type: 3}
@@ -57,6 +57,7 @@ MonoBehaviour:
         - rid: 205828032053379568
         - rid: 205828032053379571
         - rid: 205828032053379572
+        - rid: 8441470952357494990
     - rid: 205828032053379567
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
@@ -64,6 +65,7 @@ MonoBehaviour:
         effectSteps:
         - rid: 205828032053379569
         - rid: 205828032053379570
+        - rid: 8441470952357494991
     - rid: 205828032053379568
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -116,3 +118,17 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         outputKey: 
+    - rid: 8441470952357494990
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: allWithOrb
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        scale: 1
+    - rid: 8441470952357494991
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 3640386790518299311, guid: f062defc68098944f9fce2b8b805fb8d, type: 3}
+        scale: 1

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
   m_Name: L3RobberBaron
   m_EditorClassIdentifier: 
-  companionName: L3 Robber Baron
+  companionName: Robber Baron++
   maxHealth: 25
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: cd1b9e34ba90a49d8a59edc6e8eddf05, type: 3}
@@ -49,6 +49,7 @@ MonoBehaviour:
         abilityTrigger: 1
         effectSteps:
         - rid: 205828107393564833
+        - rid: 8441470952357494992
     - rid: 205828107393564833
       type: {class: GoldManipulation, ns: , asm: Assembly-CSharp}
       data:
@@ -56,3 +57,9 @@ MonoBehaviour:
         goldToAdd: 20
         getScaleFromKey: 0
         inputScaleKey: 
+    - rid: 8441470952357494992
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: We're even more extra super dummy rich!!
+        lineTime: 2

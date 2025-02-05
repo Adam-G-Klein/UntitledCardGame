@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
   m_Name: L2Beezelbumbler
   m_EditorClassIdentifier: 
-  companionName: Beezelbumbler
+  companionName: Beezelbumbler+
   maxHealth: 20
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: e0ab2143b8408423ab692d481858408a, type: 3}
@@ -35,7 +35,7 @@ MonoBehaviour:
   tooltip:
     empty: 0
     lines:
-    - title: L2 Beezelbumbler
+    - title: Level 2 Beezelbumbler
       description: Whenever a companion dies, give all companions 1 strength permanently
       relatedBehaviorIndex: 0
   keepsakeTitle: 
@@ -51,23 +51,38 @@ MonoBehaviour:
         effectSteps:
         - rid: 205828032053379371
         - rid: 205828032053379376
+        - rid: 8441470952357494957
+        - rid: 8441470952357494956
     - rid: 205828032053379371
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: all
-        validTargets: 00000000
+        outputKey: self
+        validTargets: 
         number: 1
-        specialTargetRule: 1
+        specialTargetRule: 3
         cantCancelTargetting: 0
     - rid: 205828032053379376
       type: {class: PermanentStatIncrease, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: PermanentStatIncrease
-        inputKey: all
+        inputKey: self
         statIncreaseType: 0
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+    - rid: 8441470952357494956
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
+        scale: 1
+    - rid: 8441470952357494957
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: EVERY DEATH, I GROW EVEN STRONGER >:)
+        lineTime: 2

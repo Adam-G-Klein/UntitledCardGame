@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
   m_Name: L3Argos
   m_EditorClassIdentifier: 
-  companionName: L3 Argos
+  companionName: Argos++
   maxHealth: 20
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: 1f413c89928c242938954066fca0a7af, type: 3}
@@ -56,6 +56,7 @@ MonoBehaviour:
         effectSteps:
         - rid: 205828032053379780
         - rid: 205828032053379781
+        - rid: 8441470952357494985
         - rid: 205828032053379782
     - rid: 205828032053379780
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -92,6 +93,8 @@ MonoBehaviour:
         - rid: 205828032053379784
         - rid: 205828032053379785
         - rid: 205828032053379786
+        - rid: 8441470952357494986
+        - rid: 8441470952357494984
     - rid: 205828032053379784
       type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
       data:
@@ -122,3 +125,22 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+    - rid: 8441470952357494984
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: target
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        scale: 1
+    - rid: 8441470952357494985
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: May your hand never be empty
+        lineTime: 2
+    - rid: 8441470952357494986
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: The Eye Sees All!
+        lineTime: 2

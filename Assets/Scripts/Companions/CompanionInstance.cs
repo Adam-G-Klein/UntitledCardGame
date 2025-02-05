@@ -92,7 +92,7 @@ public class CompanionInstance : MonoBehaviour, IUIEntity
     }
 
     public string GetName() {
-        return companion.companionType.name;
+        return companion.GetName();
     }
 
     public int GetCurrentHealth() {

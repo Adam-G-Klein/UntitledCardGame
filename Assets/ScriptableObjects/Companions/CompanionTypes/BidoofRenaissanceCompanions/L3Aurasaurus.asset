@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
   m_Name: L3Aurasaurus
   m_EditorClassIdentifier: 
-  companionName: L3 Aurasaurus
+  companionName: Aurasaurus++
   maxHealth: 25
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: b83b435acb4b74464a4b6be77184da43, type: 3}
@@ -62,6 +62,7 @@ MonoBehaviour:
         effectSteps:
         - rid: 205828107393564719
         - rid: 205828107393564720
+        - rid: 8441470952357494988
     - rid: 205828107393564714
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -118,3 +119,10 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+    - rid: 8441470952357494988
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: all
+        prefabToInstantiate: {fileID: 7519583831310086739, guid: 04aa85cf5f9099b409b2ce75d8a77dec, type: 3}
+        scale: 1
