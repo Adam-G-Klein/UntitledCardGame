@@ -37,10 +37,12 @@ MonoBehaviour:
       - rid: 5602893111447519700
       - rid: 5602893111447519702
     behaviorType: 0
+    behaviorIndex: 0
     nextBehaviorIndex: 0
   belowHalfHPEnemyPattern:
     behaviors: []
     behaviorType: 0
+    behaviorIndex: 0
     nextBehaviorIndex: 0
   initialStatuses: []
   tooltip:
@@ -48,13 +50,13 @@ MonoBehaviour:
     lines:
     - title: Painful Memory
       description: Shuffles in a painful reminder to all companions deck
-      relatedBehaviorIndex: 1
+      relatedBehaviorIndex: 0
     - title: Painful Reminder
       description: Unplayable. Take 3 damage if in hand at the end of the turn
-      relatedBehaviorIndex: 1
+      relatedBehaviorIndex: 0
     - title: Empowered Strike
       description: Attacks and becomes more powerful
-      relatedBehaviorIndex: 0
+      relatedBehaviorIndex: 1
   references:
     version: 2
     RefIds:

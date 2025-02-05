@@ -18,31 +18,31 @@ Just grab the tooltiop from the enemyType on the attached EnemyInstance
 public class CombatEnemyTooltipProvder : MonoBehaviour
 {
     private TooltipOnHover tooltipOnHover;
-    private int nextBehaviorIndex;
+    private int behaviorIndex;
     private EnemyInstance enemy;
     void Start() {
         tooltipOnHover = GetComponent<TooltipOnHover>();
         tooltipOnHover.tooltip = new TooltipViewModel();
         enemy = GetComponent<EnemyInstance>();
-        nextBehaviorIndex = enemy.enemy.enemyType.enemyPattern.nextBehaviorIndex;
+        behaviorIndex = enemy.enemy.enemyType.enemyPattern.behaviorIndex;
         UpdateToolTip();
     }
 
     void Update() {
-        int newIndex = enemy.enemy.enemyType.enemyPattern.nextBehaviorIndex;
-        if (nextBehaviorIndex != newIndex) {
-            nextBehaviorIndex = newIndex;
+        int newIndex = enemy.enemy.enemyType.enemyPattern.behaviorIndex;
+        if (behaviorIndex != newIndex) {
+            behaviorIndex = newIndex;
             UpdateToolTip();
         }
     }
 
     void UpdateToolTip() {
-        Debug.Log("nextBehaviorIndex");
-        Debug.Log(nextBehaviorIndex);
+        Debug.Log("behaviorIndex");
+        Debug.LogError(behaviorIndex);
         List<TooltipLine> lines = new List<TooltipLine>();
         List<TooltipLine> allLines = enemy.enemy.enemyType.tooltip.lines;
         foreach(TooltipLine line in allLines) {
-            if ((nextBehaviorIndex == line.relatedBehaviorIndex) || (line.relatedBehaviorIndex == -1)) {
+            if ((behaviorIndex == line.relatedBehaviorIndex) || (line.relatedBehaviorIndex == -1)) {
                 lines.Add(line);
             }
         }

@@ -38,10 +38,12 @@ MonoBehaviour:
       - rid: 4463205916933358109
       - rid: 4053950218419044432
     behaviorType: 0
+    behaviorIndex: 0
     nextBehaviorIndex: 1
   belowHalfHPEnemyPattern:
     behaviors: []
     behaviorType: 0
+    behaviorIndex: 0
     nextBehaviorIndex: 0
   initialStatuses: []
   tooltip:
@@ -49,13 +51,13 @@ MonoBehaviour:
     lines:
     - title: Strike
       description: Simple Attack
-      relatedBehaviorIndex: 0
+      relatedBehaviorIndex: 1
     - title: Guarded Strike
       description: Attack & Block
-      relatedBehaviorIndex: 1
+      relatedBehaviorIndex: 0
     - title: Block
       description: Block prevents damage
-      relatedBehaviorIndex: 1
+      relatedBehaviorIndex: 0
   references:
     version: 2
     RefIds:

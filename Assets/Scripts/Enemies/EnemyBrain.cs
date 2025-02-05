@@ -9,17 +9,19 @@ public class EnemyBrain
     public List<EnemyBehavior> behaviors;
     [SerializeField]
     public EnemyBehaviorPattern behaviorType;
+    public int behaviorIndex = 0;
     public int nextBehaviorIndex = 0;
 
     // To be revisited
     private float attackTime = 0.5f;
 
     public EnemyIntent ChooseIntent(EnemyInstance self) {
+        Debug.LogError("ChooseIntent");
         if(behaviors.Count == 0) {
             Debug.LogError("No behaviors defined for enemy");
             return null;
         }
-        int behaviorIndex = 0;
+        behaviorIndex = 0;
         switch (behaviorType) {
             case EnemyBehaviorPattern.SequentialCycling:
                 behaviorIndex = nextBehaviorIndex;
