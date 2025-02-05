@@ -14,8 +14,10 @@
                                     <ui:Label tabindex="-1" text="Aborah - Beta" display-tooltip-when-elided="true" name="CharacterNameLabel" class="pillar-name" />
                                 </ui:VisualElement>
                                 <ui:VisualElement class="pillar-text">
-                                    <ui:Label tabindex="-1" text="BigAttack" display-tooltip-when-elided="true" name="CharacterText" class="pillar-enemy-intent-text" />
-                                    <ui:VisualElement class="enemy-intent-image" />
+                                    <ui:VisualElement name="VisualElement" class="enemy-intent-inner-container" style="justify-content: flex-end; margin-bottom: 0;">
+                                        <ui:VisualElement class="enemy-intent-image" />
+                                        <ui:Label tabindex="-1" text="BigAttack" display-tooltip-when-elided="true" name="CharacterText" class="pillar-enemy-intent-text" />
+                                    </ui:VisualElement>
                                 </ui:VisualElement>
                             </ui:VisualElement>
                         </ui:VisualElement>

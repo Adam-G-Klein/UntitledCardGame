@@ -207,12 +207,16 @@ public class CombatEncounterView : GenericSingleton<CombatEncounterView>
 
         EnemyInstance enemyInstance = entity.GetEnemyInstance();
         if(enemyInstance) {
-            setupEnemyIntent(descLabel, descContainer, enemyInstance);
+            VisualElement innerContainer = new VisualElement();
+            innerContainer.AddToClassList("enemy-intent-inner-container");
+            setupEnemyIntent(descLabel, innerContainer, enemyInstance);
+            innerContainer.Add(descLabel);
+            descContainer.Add(innerContainer);
         } else { // then we know it's a companion
             descLabel.AddToClassList("pillar-desc-label");
             descLabel.text = entity.GetDescription();
+            descContainer.Add(descLabel);
         }
-        descContainer.Add(descLabel);
         return descContainer;
     }
 

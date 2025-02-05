@@ -34,7 +34,7 @@
     color: rgb(0, 0, 0);
     font-size: 20px;
     -unity-text-align: middle-center;
-    background-color: rgba(255, 255, 255, 0.33);
+    background-color: rgba(255, 255, 255, 0.6);
     left: 0;
     top: 0;
 }
@@ -164,6 +164,7 @@
     background-color: rgba(0, 0, 0, 0);
     height: 80%;
     width: 100%;
+    justify-content: center;
 }
 
 .health-tab {
@@ -516,4 +517,13 @@
     border-bottom-width: 2px;
     border-left-width: 2px;
     background-color: rgb(221, 221, 221);
+}
+
+.enemy-intent-inner-container {
+    flex-grow: 1;
+    height: 80%;
+    min-height: 80%;
+    max-height: 80%;
+    margin-bottom: 0;
+    justify-content: center;
 }
