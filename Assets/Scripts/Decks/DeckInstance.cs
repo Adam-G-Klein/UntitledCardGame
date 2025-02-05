@@ -201,7 +201,11 @@ public class DeckInstance : MonoBehaviour
         }
         exhaustPile.Add(card);
         if (card.cardType.onExhaustEffectWorkflow != null) {
-            EffectManager.Instance.QueueEffectWorkflow(card.cardType.onExhaustEffectWorkflow);
+            EffectDocument document = new EffectDocument();
+            document.originEntityType = EntityType.Unknown;
+            EffectManager.Instance.QueueEffectWorkflow(
+                new EffectWorkflowClosure(document, card.cardType.onExhaustEffectWorkflow, null)
+            );
         }
         StartCoroutine(PlayerHand.Instance.OnCardExhaust(this, card));
     }
