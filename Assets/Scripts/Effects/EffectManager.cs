@@ -8,6 +8,9 @@ using UnityEngine;
 public class EffectManager : GenericSingleton<EffectManager>
 {
     public bool interruptEffectWorkflow = false;
+    // Invoke for calculation effect workflows SHOULD NOT interfere with
+    // normal ongoing effects.
+    public bool interruptEffectWorkflowForCalculation = false;
     private IEnumerator currentEffectWorkflow;
     private IEnumerator currentEffectStep;
     private List<EffectWorkflowClosure> effectWorkflowQueue;
@@ -106,13 +109,12 @@ public class EffectManager : GenericSingleton<EffectManager>
             EffectDocument document,
             List<EffectStep> effectSteps,
             IEnumerator callback) {
-        effectRunning = true;
         bool hasEndWorkflowCheck = false;
         bool didBreak = false;
         foreach (EffectStep step in effectSteps) {
-            if (interruptEffectWorkflow) {
+            if (interruptEffectWorkflowForCalculation) {
                 Debug.Log("Breaking from workflow");
-                interruptEffectWorkflow = false;
+                interruptEffectWorkflowForCalculation = false;
                 didBreak = true;
                 break;
             }
@@ -131,17 +133,6 @@ public class EffectManager : GenericSingleton<EffectManager>
         }
 
         if (callback != null) yield return StartCoroutine(callback);
-
-        // // If the previous effect worklfow queue'd up a new one, then execute the new one
-        // if (effectWorkflowQueue.Count > 0) {
-        //     Debug.Log("Kicking off queued effect workflow");
-        //     EffectWorkflowClosure workflow = effectWorkflowQueue[0];
-        //     effectWorkflowQueue.RemoveAt(0);
-        //     currentEffectWorkflow = effectWorkflowCoroutine(workflow.document, workflow.flow.effectSteps, workflow.callback);
-        //     StartCoroutine(currentEffectWorkflow);
-        // } else {
-        effectRunning = false;
-        // }
 
         yield return null;
     }

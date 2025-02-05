@@ -10,7 +10,7 @@ using UnityEngine;
     checked against
     Output: NA, workflow is interupted if the condition is met
     Parameters:
-        - 
+        -
 */
 public class EndWorkflowIfConditionMet : EffectStep, IEffectStepCalculation {
     [SerializeField]
@@ -24,7 +24,7 @@ public class EndWorkflowIfConditionMet : EffectStep, IEffectStepCalculation {
     }
 
     public override IEnumerator invoke(EffectDocument document) {
-        if (!document.boolMap.ContainsKey(inputKey1) || (document.boolMap[inputKey1] == conditionToEndOn)) {
+        if (shouldInterrupt(document)) {
             EffectManager.Instance.interruptEffectWorkflow = true;
         }
         yield return null;
@@ -32,7 +32,14 @@ public class EndWorkflowIfConditionMet : EffectStep, IEffectStepCalculation {
 
     public IEnumerator invokeForCalculation(EffectDocument document)
     {
-        yield return invoke(document);
+        if (shouldInterrupt(document)) {
+            EffectManager.Instance.interruptEffectWorkflowForCalculation = true;
+        }
+        yield return null;
+    }
+
+    private bool shouldInterrupt(EffectDocument document) {
+        return !document.boolMap.ContainsKey(inputKey1) || document.boolMap[inputKey1] == conditionToEndOn;
     }
 
     public enum MapToCheck {
