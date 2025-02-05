@@ -6,7 +6,7 @@
         <ui:VisualElement style="position: absolute; height: 100%; width: 1934px; background-image: url(&quot;project://database/Assets/Sprites/ShopSprites/ShopBackground.png?fileID=2800000&amp;guid=2caa3b811ed888648a93657bf9c73edc&amp;type=3#ShopBackground&quot;); top: -190px; left: -8px;" />
         <ui:VisualElement name="top-section" style="flex-grow: 1; height: auto; min-height: 20%; max-height: 20%; flex-direction: row;">
             <ui:VisualElement style="flex-grow: 1; flex-direction: row; justify-content: flex-start; align-items: center; width: 50%;">
-                <ui:VisualElement name="moneyIndicator" style="flex-grow: 0; background-image: url(&quot;project://database/Assets/Sprites/Z_OldPlaceholderSprites/gold.png?fileID=2800000&amp;guid=89fa58e3b56419c4381ed18792e533f3&amp;type=3#gold&quot;); width: 103px; height: 79px; flex-shrink: 0; padding-right: 0; margin-right: 30px; margin-left: 30px; align-items: center; justify-content: center;">
+                <ui:VisualElement name="moneyIndicator" style="flex-grow: 0; background-image: url(&quot;project://database/Assets/Sprites/Z_OldPlaceholderSprites/money_background.png?fileID=2800000&amp;guid=9a032b794c2e74915a1a0e224767fcad&amp;type=3#money_background&quot;); width: 103px; height: 79px; flex-shrink: 0; padding-right: 0; margin-right: 30px; margin-left: 30px; align-items: center; justify-content: center;">
                     <ui:Label tabindex="-1" text="0" parse-escape-sequences="true" display-tooltip-when-elided="true" name="money-indicator-label" style="-unity-font-style: bold; font-size: 45px; color: rgb(255, 255, 255); -unity-font: initial; -unity-text-outline-width: 2px; -unity-text-outline-color: rgb(0, 0, 0);" />
                 </ui:VisualElement>
                 <ui:Label tabindex="-1" text="&lt;--- Not Enough Money!" parse-escape-sequences="true" display-tooltip-when-elided="true" name="not-enough-money-indicator" style="font-size: 42px; -unity-text-outline-color: rgb(0, 0, 0); -unity-text-outline-width: 1px; color: rgb(255, 255, 255); display: flex; visibility: hidden;" />
@@ -35,7 +35,7 @@
                         </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:Button text="Placeholder Options Button" parse-escape-sequences="true" display-tooltip-when-elided="true" />
+                <ui:Button text="Placeholder Options Button" parse-escape-sequences="true" display-tooltip-when-elided="true" style="visibility: hidden;" />
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="middle-section" style="flex-grow: 1; flex-direction: row; max-height: 40%; min-height: 40%;">
