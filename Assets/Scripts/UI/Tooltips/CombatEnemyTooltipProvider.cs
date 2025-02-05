@@ -38,7 +38,7 @@ public class CombatEnemyTooltipProvder : MonoBehaviour
 
     void UpdateToolTip() {
         Debug.Log("behaviorIndex");
-        Debug.LogError(behaviorIndex);
+        Debug.Log(behaviorIndex);
         List<TooltipLine> lines = new List<TooltipLine>();
         List<TooltipLine> allLines = enemy.enemy.enemyType.tooltip.lines;
         foreach(TooltipLine line in allLines) {

@@ -16,7 +16,7 @@ public class EnemyBrain
     private float attackTime = 0.5f;
 
     public EnemyIntent ChooseIntent(EnemyInstance self) {
-        Debug.LogError("ChooseIntent");
+        Debug.Log("ChooseIntent");
         if(behaviors.Count == 0) {
             Debug.LogError("No behaviors defined for enemy");
             return null;
