@@ -60,6 +60,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         shopViewController.SetShopRerollPrice(shopEncounter.shopData.rerollShopPrice);
 
         CheckDisableUpgradeButton();
+        CheckDisableUpgradeButtonV2();
         /* uncomment to re-enable shop dialogue
         DialogueManager.Instance.SetDialogueLocation(
             gameState.dialogueLocations.GetDialogueLocation(gameState));
@@ -320,7 +321,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             shopViewController.SetShopUpgradePrice(shopLevel.upgradeCost);
             shopViewController.SetMoney(gameState.playerData.GetValue().gold);
             shopViewController.RebuildUnitManagement(gameState.companions);
-            CheckDisableUpgradeButton();
+            CheckDisableUpgradeButtonV2();
         } else {
             shopViewController.NotEnoughMoney();
         }
@@ -329,6 +330,12 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     private void CheckDisableUpgradeButton() {
         if (shopEncounter.shopData.shopLevels.Count - 1 <= shopLevel.level) {
             shopUIManager.DisableUpgradeButton();
+        }
+    }
+
+    private void CheckDisableUpgradeButtonV2() {
+        if (shopEncounter.shopData.shopLevels.Count - 1 <= shopLevel.level) {
+            shopViewController.DisableUpgradeButton();
         }
     }
 

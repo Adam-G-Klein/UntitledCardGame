@@ -110,6 +110,7 @@ public class ShopViewController : MonoBehaviour,
     public void Clear() {
         ClearUnitManagement();
         shopGoodsArea.Clear();
+        SetupActiveSlots(shopManager.gameState.companions.currentCompanionSlots);
     }
 
     public void AddCardToShopView(CardInShopWithPrice card) {
@@ -482,5 +483,10 @@ public class ShopViewController : MonoBehaviour,
 
     public void SetShopUpgradePrice(int amount) {
         upgradePriceLabel.text = "$" + amount.ToString();
+    }
+
+    public void DisableUpgradeButton() {
+        upgradeButton.SetEnabled(false);
+        upgradeButton.UnregisterCallback<PointerEnterEvent>(UpgradeButtonOnPointerEnter);
     }
 }
