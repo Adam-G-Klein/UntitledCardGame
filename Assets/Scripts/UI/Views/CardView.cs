@@ -8,30 +8,39 @@ using UnityEngine.UIElements;
 public class CardView {
     public VisualElement cardContainer;
     // TODO, could require the stylesheet in the constructor and fetch these from there
-    public static int CARD_DESC_SIZE = 26; //px
-    public static int CARD_TITLE_SIZE = 44; //px
-    public static int CARD_DESC_MAX_FULL_SIZE_CHARS = 18; // guess
-    public static int CARD_TITLE_MAX_FULL_SIZE_CHARS = 8; // guess
+    public static int CARD_DESC_SIZE_FULL_TEXTURE = 26; //px
+    public static int CARD_TITLE_SIZE_FULL_TEXTURE = 44; //px
+    public static int CARD_DESC_SIZE_SHOP_SCREEN = 20; //px
+    public static int CARD_TITLE_SIZE_SHOP_SCREEN = 30; //px
+    public static int CARD_DESC_MAX_FULL_SIZE_CHARS_FULL_TEXTURE = 18; // guess
+    public static int CARD_TITLE_MAX_FULL_SIZE_CHARS_FULL_TEXTURE = 8; // guess
+    public static int CARD_DESC_MAX_FULL_SIZE_CHARS_SHOP_SCREEN = 14; // guess
+    public static int CARD_TITLE_MAX_FULL_SIZE_CHARS_SHOP_SCREEN = 6; // guess
+    public static int COMPANION_AND_MANA_INDICATOR_WIDTH_HEIGHT_COMBAT = 80;
+    public static int COMPANION_AND_MANA_INDICATOR_WIDTH_HEIGHT_SHOP = 60;
     private Card cardInstance = null;
     public Color modifiedManaCostColor = Color.green;
 
     private float SCREEN_WIDTH_PERCENT = 0.11f;
     private float RATIO = 1.4f;
     
-    public CardView(CardType cardType, CompanionTypeSO companionType) {
-        cardContainer = makeWorldspaceCardView(cardType, companionType);
+    // fillUIDocument - in some cases (like the current shop and the intro screen) we don't want this card to 
+    // take up its whole ui doc. In others, like combat (where the card is in worldspace splatted to a texture)
+    // we do.
+    public CardView(CardType cardType, CompanionTypeSO companionType, bool cardInShop = false) {
+        cardContainer = makeCardView(cardType, companionType, cardInShop);
     }
 
-    public CardView(CardType cardType, Sprite genericSprite) {
-        cardContainer = makeWorldspaceCardView(cardType, null, genericSprite);
+    public CardView(CardType cardType, Sprite genericSprite, bool cardInShop = false) {
+        cardContainer = makeCardView(cardType, null, cardInShop, genericSprite);
     }
 
-    public CardView(Card card, CompanionTypeSO companionType) {
-        cardContainer = makeWorldspaceCardView(card.cardType, companionType);
+    public CardView(Card card, CompanionTypeSO companionType, bool cardInShop = false) {
+        cardContainer = makeCardView(card.cardType, companionType, cardInShop);
         this.cardInstance = card;
     }
 
-    private VisualElement makeWorldspaceCardView(CardType card, CompanionTypeSO companionType, Sprite genericSprite = null) {
+    private VisualElement makeCardView(CardType card, CompanionTypeSO companionType, bool cardInShop = false, Sprite genericSprite = null) {
         Debug.Log("goobie woobie");
         Debug.Log(companionType);
         var container = new VisualElement();
@@ -54,12 +63,14 @@ public class CardView {
         } else {
             companionImage.style.backgroundImage = new StyleBackground(genericSprite);
         }
+        companionImage.style.width = cardInShop ? COMPANION_AND_MANA_INDICATOR_WIDTH_HEIGHT_SHOP : COMPANION_AND_MANA_INDICATOR_WIDTH_HEIGHT_COMBAT;
+        companionImage.style.height = cardInShop ? COMPANION_AND_MANA_INDICATOR_WIDTH_HEIGHT_SHOP : COMPANION_AND_MANA_INDICATOR_WIDTH_HEIGHT_COMBAT;
         container.Add(companionImage);
 
         var name = new Label();
         name.AddToClassList("card-title-label");
         name.text = card.Name;
-        name.style.fontSize = getTitleFontSize(card.Name);
+        name.style.fontSize = getTitleFontSize(card.Name, cardInShop);
         container.Add(name);
 
         var desc = new Label();
@@ -71,7 +82,7 @@ public class CardView {
             description = description.Replace($"{{{defaultValue.key}}}", styledValue);
         }
         desc.text = description;
-        desc.style.fontSize = getDescFontSize(card.Description);
+        desc.style.fontSize = getDescFontSize(card.Description, cardInShop);
         container.Add(desc);
 
         var manaContainer = new VisualElement();
@@ -80,11 +91,15 @@ public class CardView {
         var manaCost = new Label();
         setManaCost(manaCost, card);
         manaContainer.Add(manaCost);
+        manaContainer.style.width = cardInShop ? COMPANION_AND_MANA_INDICATOR_WIDTH_HEIGHT_SHOP : COMPANION_AND_MANA_INDICATOR_WIDTH_HEIGHT_COMBAT; 
+        manaContainer.style.height = cardInShop ? COMPANION_AND_MANA_INDICATOR_WIDTH_HEIGHT_SHOP : COMPANION_AND_MANA_INDICATOR_WIDTH_HEIGHT_COMBAT;
         container.Add(manaContainer);
 
-        Tuple<int, int> cardWidthHeight = GetWidthAndHeight();
-        container.style.width = cardWidthHeight.Item1;
-        container.style.height = cardWidthHeight.Item2;
+        if(cardInShop) {
+            Tuple<int, int> cardWidthHeight = GetWidthAndHeight();
+            container.style.width = cardWidthHeight.Item1;
+            container.style.height = cardWidthHeight.Item2;
+        }
 
         return container;
     }
@@ -104,22 +119,26 @@ public class CardView {
         
     }
 
-    private int getDescFontSize(string desc) {
-        if (desc.Length > CARD_DESC_MAX_FULL_SIZE_CHARS) {
+    private int getDescFontSize(string desc, bool cardInShop) {
+        int maxChars = cardInShop ? CARD_DESC_MAX_FULL_SIZE_CHARS_SHOP_SCREEN : CARD_DESC_MAX_FULL_SIZE_CHARS_FULL_TEXTURE;
+        int fontSize = cardInShop ? CARD_DESC_SIZE_SHOP_SCREEN : CARD_DESC_SIZE_FULL_TEXTURE;
+        if (desc.Length > maxChars) {
             // Debug.Log("desc.Length: " + desc.Length + " CARD_DESC_MAX_FULL_SIZE_CHARS: " + CARD_DESC_MAX_FULL_SIZE_CHARS + " CARD_DESC_MAX_FULL_SIZE_CHARS / desc.Length: " + (CARD_DESC_MAX_FULL_SIZE_CHARS / desc.Length) + " CARD_DESC_SIZE: " + CARD_DESC_SIZE + " CARD_DESC_SIZE * (CARD_DESC_MAX_FULL_SIZE_CHARS / desc.Length): " + (CARD_DESC_SIZE * (CARD_DESC_MAX_FULL_SIZE_CHARS / desc.Length)) + " (int)(CARD_DESC_SIZE * (CARD_DESC_MAX_FULL_SIZE_CHARS / desc.Length)): " + (int)(CARD_DESC_SIZE * (CARD_DESC_MAX_FULL_SIZE_CHARS / desc.Length)));
-            float textSizeRatio = (float) CARD_DESC_MAX_FULL_SIZE_CHARS / (float) desc.Length;
+            float textSizeRatio = (float) maxChars / (float) desc.Length;
             double scalingRatio = Math.Pow(textSizeRatio, (float)1/ (float)4);
-            return (int)Math.Floor(CARD_DESC_SIZE * scalingRatio);
+            return (int)Math.Floor(fontSize * scalingRatio);
         }
-        return CARD_DESC_SIZE;
+        return fontSize;
     }
 
-    private int getTitleFontSize(string title) {
-        if (title.Length > CARD_TITLE_MAX_FULL_SIZE_CHARS) {
-            float textSizeRatio = (float) CARD_TITLE_MAX_FULL_SIZE_CHARS / (float) title.Length;
-            return (int)Math.Floor(CARD_TITLE_SIZE * textSizeRatio);
+    private int getTitleFontSize(string title, bool cardInShop) {
+        int maxChars = cardInShop ? CARD_TITLE_MAX_FULL_SIZE_CHARS_SHOP_SCREEN : CARD_TITLE_MAX_FULL_SIZE_CHARS_FULL_TEXTURE;
+        int fontSize = cardInShop ? CARD_TITLE_SIZE_SHOP_SCREEN : CARD_TITLE_SIZE_FULL_TEXTURE;
+        if (title.Length > maxChars) {
+            float textSizeRatio = (float) maxChars / (float) title.Length;
+            return (int)Math.Floor(fontSize * textSizeRatio);
         }
-        return CARD_TITLE_SIZE;
+        return fontSize;
     }
 
     public void UpdateCardText(string newText) {

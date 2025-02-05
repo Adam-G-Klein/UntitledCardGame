@@ -57,9 +57,9 @@ public class ShopItemView {
 
         CardView cardView;
         if (card.sourceCompanion != null) {
-            cardView = new CardView(card.cardType, card.sourceCompanion);
+            cardView = new CardView(card.cardType, card.sourceCompanion, true);
         } else {
-            cardView = new CardView(card.cardType, card.genericArtwork);
+            cardView = new CardView(card.cardType, card.genericArtwork, true);
         }
 
         shopItemElement.Add(cardView.cardContainer);
