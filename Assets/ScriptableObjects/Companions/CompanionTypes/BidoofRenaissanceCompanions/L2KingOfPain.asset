@@ -36,11 +36,11 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: L2 King of Pain
-      description: Whenever any companion takes damage, it gains 1 strength for the
+      description: Whenever King of Pain takes damage, it gains 1 strength for the
         rest of combat
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: Whenever any companion takes damage, it gains 1 strength for
+  keepsakeDescription: Whenever King of Pain takes damage, it gains 1 strength for
     the rest of combat
   references:
     version: 2
@@ -51,6 +51,7 @@ MonoBehaviour:
         abilityTrigger: 11
         effectSteps:
         - rid: 8790164513324270202
+        - rid: 8790164583925416397
         - rid: 205828107393564792
         - rid: 205828107393564793
     - rid: 205828107393564792
@@ -75,3 +76,9 @@ MonoBehaviour:
       data:
         effectStepName: EndWorkflowIfNoMapElement
         keyToCheck: damagedCompanion
+    - rid: 8790164583925416397
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: selfDamaged
+        conditionToEndOn: 0

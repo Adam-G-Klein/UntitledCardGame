@@ -36,11 +36,12 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: L3 King of Pain
-      description: Whenever any companion takes damage, it gains 1 permanent strength
+      description: Whenever any companion takes damage, it gains 1 strength for the
+        rest of combat
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: Whenever any companion takes damage, it gains 1 permanent
-    strength
+  keepsakeDescription: Whenever any companion takes damage, it gains 1 strength for
+    the rest of combat
   references:
     version: 2
     RefIds:
@@ -50,7 +51,7 @@ MonoBehaviour:
         abilityTrigger: 11
         effectSteps:
         - rid: 8790164513324270203
-        - rid: 205828107393564826
+        - rid: 8790164583925416398
         - rid: 205828107393564793
     - rid: 205828107393564793
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
@@ -59,17 +60,18 @@ MonoBehaviour:
         inputKey: damagedCompanion
         prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
         scale: 1
-    - rid: 205828107393564826
-      type: {class: PermanentStatIncrease, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: PermanentStatIncrease
-        inputKey: damagedCompanion
-        statIncreaseType: 0
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
     - rid: 8790164513324270203
       type: {class: EndWorkflowIfNoMapElement, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EndWorkflowIfNoMapElement
         keyToCheck: damagedCompanion
+    - rid: 8790164583925416398
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: damagedCompanion
+        statusEffect: 0
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0

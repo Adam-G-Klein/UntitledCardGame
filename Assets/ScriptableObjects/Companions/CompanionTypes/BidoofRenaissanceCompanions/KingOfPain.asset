@@ -36,12 +36,10 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: King of Pain
-      description: Whenever King of Pain takes damage, it gains 1 strength for the
-        rest of combat
+      description: Whenever King of Pain takes damage, it gains 2 temporary strength
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: Whenever King of Pain takes damage, it gains 1 strength for
-    the rest of combat
+  keepsakeDescription: Whenever King of Pain takes damage, it gains 2 temporary strength
   references:
     version: 2
     RefIds:
@@ -65,8 +63,8 @@ MonoBehaviour:
       data:
         effectStepName: ApplyStatus
         inputKey: damagedCompanion
-        statusEffect: 0
-        scale: 1
+        statusEffect: 6
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
