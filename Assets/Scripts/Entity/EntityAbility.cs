@@ -29,5 +29,6 @@ public class EntityAbility
         OnEntityDamageTaken,
         StartOfPlayerTurn,
         OnHandEmpty,
+        OnFoeDeath
     }
 }
