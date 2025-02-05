@@ -100,3 +100,20 @@
     position: relative;
     margin-bottom: -8px;
 }
+
+.shop-item-price-tag-background {
+    flex-grow: 1;
+    position: absolute;
+    background-image: url("project://database/Assets/Sprites/AidensRoom/DialogueBoxRotated.png?fileID=2800000&guid=d7a8d837df054914fa96d4e6f5f6598f&type=3#DialogueBoxRotated");
+    top: -22%;
+    bottom: 100%;
+    left: 80px;
+    right: 80px;
+    justify-content: center;
+    align-items: center;
+}
+
+.shop-item-price-tag-label {
+    -unity-font-style: bold;
+    font-size: 28px;
+}

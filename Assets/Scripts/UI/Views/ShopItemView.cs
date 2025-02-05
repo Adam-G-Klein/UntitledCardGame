@@ -48,6 +48,8 @@ public class ShopItemView {
 
         shopItemElement.RegisterCallback<ClickEvent>(evt => ShopItemViewOnClicked());
 
+        shopItemElement.Add(CreatePriceTagForShopItem(companion.price));
+
         return shopItemElement;
     }
 
@@ -66,7 +68,19 @@ public class ShopItemView {
 
         shopItemElement.RegisterCallback<ClickEvent>(evt => ShopItemViewOnClicked());
 
+        shopItemElement.Add(CreatePriceTagForShopItem(card.price));
+
         return shopItemElement;
+    }
+
+    private VisualElement CreatePriceTagForShopItem(int price) {
+        VisualElement priceTag = new VisualElement();
+        Label label = new Label();
+        priceTag.AddToClassList("shop-item-price-tag-background");
+        label.AddToClassList("shop-item-price-tag-label");
+        label.text = "$" + price.ToString();
+        priceTag.Add(label);
+        return priceTag;
     }
 
     private void ShopItemViewOnClicked() {
