@@ -105,10 +105,17 @@ public class EffectManager : GenericSingleton<EffectManager>
 
         yield return null;
     }
-        private IEnumerator effectWorkflowCoroutineForCalculation(
-            EffectDocument document,
-            List<EffectStep> effectSteps,
-            IEnumerator callback) {
+
+    // effectWorkflowCoroutineForCalculation runs a coroutine for calculation purposes.
+    // These SHOULD NOT be side-effect-ey, so they should not trigger other effects in the
+    // game such as enemy abilities or companion abilities.
+    // Therefore, we do not execute queued up effect workflows or mess with the "effectRunning"
+    // global variable.
+    // The state for this should be kept separate from the mainstream way for running effect workflows.
+    private IEnumerator effectWorkflowCoroutineForCalculation(
+        EffectDocument document,
+        List<EffectStep> effectSteps,
+        IEnumerator callback) {
         bool hasEndWorkflowCheck = false;
         bool didBreak = false;
         foreach (EffectStep step in effectSteps) {
