@@ -51,7 +51,12 @@ public class CardInDeckEffect : EffectStep, ITooltipProvider
             numberOfCardsTakenActionOn++;
             switch (effect) {
                 case CardInDeckEffectName.Exhaust:
-                    deckInstances[0].ExhaustCard(card);
+                    PlayableCard cardToExhaust = PlayerHand.Instance.GetCardById(card.id);
+                    if (cardToExhaust != null) {
+                        yield return PlayerHand.Instance.ExhaustCard(cardToExhaust);
+                    } else {
+                        deckInstances[0].ExhaustCard(card);
+                    }
                 break;
 
                 case CardInDeckEffectName.PermaTransform:
@@ -66,7 +71,12 @@ public class CardInDeckEffect : EffectStep, ITooltipProvider
                 break;
 
                 case CardInDeckEffectName.Discard:
-                    deckInstances[0].DiscardCard(card);
+                    PlayableCard cardToDiscard = PlayerHand.Instance.GetCardById(card.id);
+                    if (cardToDiscard != null) {
+                        yield return PlayerHand.Instance.DiscardCard(cardToDiscard);
+                    } else {
+                        deckInstances[0].DiscardCard(card);
+                    }
                 break;
 
                 case CardInDeckEffectName.AddToHand:

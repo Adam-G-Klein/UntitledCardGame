@@ -188,16 +188,15 @@ public class DeckInstance : MonoBehaviour
 
     public void ExhaustCard(Card card){
         if(drawPile.Contains(card)){
-            Debug.Log("Exhausting card " + card.id + " from draw pile");
+            Debug.Log("Exhausting card " + card.id + " with name " + card.name + " from draw pile");
             drawPile.Remove(card);
         }
         else if(discardPile.Contains(card)){
-            Debug.Log("Exhausting card " + card.id + " from discard pile");
+            Debug.Log("Exhausting card " + card.id + " with name " + card.name + " from discard pile");
             discardPile.Remove(card);
         } else if (inHand.Contains(card)) {
-            Debug.Log("Exhausting card " + card.id + " from hand");
+            Debug.Log("Exhausting card " + card.id + " with name " + card.name + " from hand");
             inHand.Remove(card);
-            PlayerHand.Instance.SafeRemoveCardFromHand(card);
         }
         exhaustPile.Add(card);
         if (card.cardType.onExhaustEffectWorkflow != null) {

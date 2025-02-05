@@ -164,7 +164,10 @@ public abstract class EntityAbilityInstance
 
     private IEnumerator OnHandEmpty() {
         Debug.Log("OnHandEmpty ability invoked!!!");
-        yield return setupAndInvokeAbility().GetEnumerator();
+        EffectManager.Instance.QueueEffectWorkflow(
+            new EffectWorkflowClosure(createEffectDocument(), ability.effectWorkflow, null)
+        );
+        yield return null;
     }
 
     private IEnumerator OnCardExhaust(DeckInstance deckFrom, Card card) {
