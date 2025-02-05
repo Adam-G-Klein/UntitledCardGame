@@ -93,23 +93,21 @@ public class PlayableCard : MonoBehaviour,
         IncrementCastCount();
         EnemyEncounterManager.Instance.combatEncounterState.CastCard(card);
         yield return StartCoroutine(PlayerHand.Instance.OnCardCast(this));
-        PlayerHand.Instance.DiscardCard(this);
-        PlayerHand.Instance.UpdatePlayableCards();
         if (card.cardType.exhaustsWhenPlayed) {
-            CardExhaustVFX();
-            ExhaustCard();
+            yield return StartCoroutine(PlayerHand.Instance.ExhaustCard(this));
         } else {
             yield return StartCoroutine(CardCastVFX(this.gameObject));
-            DiscardCardFromHand();
+            yield return StartCoroutine(PlayerHand.Instance.DiscardCard(this));
         }
+
         // If the hand is empty as a result of playing this card, invoke any subscribers.
         if (PlayerHand.Instance.cardsInHand.Count == 0) {
             Debug.Log("Hand is empty, triggering downstream OnHandEmpty subscribers");
-            PlayerHand.Instance.OnHandEmpty();
+            yield return PlayerHand.Instance.OnHandEmpty();
         }
     }
 
-    private void CardExhaustVFX() {
+    public void CardExhaustVFX() {
         GameObject.Instantiate(
             cardExhaustVFXPrefab,
             this.transform.position,
@@ -170,12 +168,6 @@ public class PlayableCard : MonoBehaviour,
 
     private void IncrementCastCount(){
         card.castCount += 1;
-    }
-
-    public void DiscardCardFromHand() {
-        if (this.gameObject.activeSelf) {
-            DiscardToDeck();
-        }
     }
 
     public void ExhaustCard() {

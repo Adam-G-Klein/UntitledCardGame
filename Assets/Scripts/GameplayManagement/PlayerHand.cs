@@ -106,7 +106,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                         card.retained = false;
                     }
                 } else {
-                    callback = DiscardFromHandCallback(card);
+                    callback = DiscardCard(card);
                 }
                 CardType ct = card.card.cardType;
                 List<EffectStep> workflowSteps = new();
@@ -123,17 +123,6 @@ public class PlayerHand : GenericSingleton<PlayerHand>
 
             cardsInHand = retainedCards;
         }
-    }
-
-    private IEnumerator DiscardFromHandCallback(PlayableCard card) {
-        Debug.Log("PlayerHand: DiscardFromHandCallback for card: " + card.card);
-        StartCoroutine(SafeRemoveCardFromHand(card));
-        // Discarding from hand
-        DiscardCard(card);
-        if (card.gameObject.activeSelf) {
-            card.DiscardToDeck();
-        }
-        yield return null;
     }
 
     IEnumerator SafeRemoveCardFromHand(PlayableCard card) {
@@ -153,26 +142,40 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         }
     }
 
-    public void OnHandEmpty() {
+    public IEnumerator OnHandEmpty() {
         if (onHandEmptyHandler != null) {
             Debug.Log("OnHandEmpty number of invocations: " + onHandEmptyHandler.GetInvocationList().Count());
             foreach (OnHandEmptyHandler handler in onHandEmptyHandler.GetInvocationList()) {
-                StartCoroutine(handler.Invoke());
+                yield return StartCoroutine(handler.Invoke());
             }
         }
     }
 
     // Do not call on whole hand, only call on individual cards
     // modifies the list of cards in hand
-    public void DiscardCard(PlayableCard card) {
+    public IEnumerator DiscardCard(PlayableCard card) {
         // If statements are here to take into account if a card exhausts itself
         // as part of its effect workflow
         if (cardsInHand.Contains(card)) {
-            StartCoroutine(SafeRemoveCardFromHand(card));
+            yield return StartCoroutine(SafeRemoveCardFromHand(card));
         }
-        // if(card.gameObject.activeSelf) {
-        //     card.DiscardToDeck();
-        // }
+        if(card.gameObject.activeSelf) {
+            card.DiscardToDeck();
+        }
+    }
+
+    // Do not call on whole hand, only call on individual cards
+    // modifies the list of cards in hand
+    public IEnumerator ExhaustCard(PlayableCard card) {
+        card.CardExhaustVFX();
+        // If statements are here to take into account if a card exhausts itself
+        // as part of its effect workflow
+        if (cardsInHand.Contains(card)) {
+            yield return StartCoroutine(SafeRemoveCardFromHand(card));
+        }
+        if(card.gameObject.activeSelf) {
+            card.ExhaustCard();
+        }
     }
 
     public PlayableCard GetCardById(string id) {
@@ -181,7 +184,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                 return card;
             }
         }
-        Debug.LogError("PlayerHand: Unable to find card in hand with id " + id);
+        Debug.LogWarning("PlayerHand: Unable to find card in hand with id " + id);
         return null;
     }
 

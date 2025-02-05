@@ -36,11 +36,11 @@ public class CardInHandEffect : EffectStep, ITooltipProvider
         foreach (PlayableCard card in playableCards) {
             switch (effect) {
                 case CardInHandEffectName.Discard:
-                    card.DiscardCardFromHand();
+                    yield return PlayerHand.Instance.DiscardCard(card);
                 break;
 
                 case CardInHandEffectName.Exhaust:
-                    card.ExhaustCard();
+                    yield return PlayerHand.Instance.ExhaustCard(card);
                 break;
 
                 case CardInHandEffectName.Retain:
