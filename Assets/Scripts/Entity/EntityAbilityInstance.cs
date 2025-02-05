@@ -58,15 +58,28 @@ public abstract class EntityAbilityInstance
                 CombatEntityTrigger minionDeathTrigger = new CombatEntityTrigger(
                     CombatEntityTriggerType.MINION_DIED,
                     setupAndInvokeAbility());
+                combatEntityTriggers.Add(companionDeathTrigger);
+                combatEntityTriggers.Add(enemyDeathTrigger);
+                combatEntityTriggers.Add(minionDeathTrigger);
                 CombatEntityManager.Instance.registerTrigger(companionDeathTrigger);
                 CombatEntityManager.Instance.registerTrigger(enemyDeathTrigger);
                 CombatEntityManager.Instance.registerTrigger(minionDeathTrigger);
             break;
 
             case EntityAbility.EntityAbilityTrigger.OnFriendDeath:
-                CombatEntityManager.Instance.registerTrigger(new CombatEntityTrigger(
+                CombatEntityTrigger onFriendDeathTrigger = new CombatEntityTrigger(
                     CombatEntityTriggerType.COMPANION_DIED,
-                    setupAndInvokeAbility()));
+                    setupAndInvokeAbility());
+                combatEntityTriggers.Add(onFriendDeathTrigger);
+                CombatEntityManager.Instance.registerTrigger(onFriendDeathTrigger);
+            break;
+
+            case EntityAbility.EntityAbilityTrigger.OnFoeDeath:
+                CombatEntityTrigger onFoeDeathTrigger = new CombatEntityTrigger(
+                    CombatEntityTriggerType.ENEMY_DIED,
+                    setupAndInvokeAbility());
+                combatEntityTriggers.Add(onFoeDeathTrigger);
+                CombatEntityManager.Instance.registerTrigger(onFoeDeathTrigger);
             break;
 
             // Experiment: let's try handling the OnDeath trigger by directly doing it here in the callback.
