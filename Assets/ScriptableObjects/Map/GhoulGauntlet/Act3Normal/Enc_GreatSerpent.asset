@@ -9,10 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24f95da87f612e047aaeac10756d2ec7, type: 3}
-  m_Name: Act3NormalEnemyPool
+  m_Script: {fileID: 11500000, guid: 17a7027b6d1213c4fa7f5d4be961eaab, type: 3}
+  m_Name: Enc_GreatSerpent
   m_EditorClassIdentifier: 
-  enemyEncounterTypes:
-  - {fileID: 11400000, guid: e58fd6c584ec94af58a2b8d59144c1ae, type: 2}
-  - {fileID: 11400000, guid: 213677961ca6e48c7a74d01222604967, type: 2}
-  isElite: 0
+  enemies:
+  - {fileID: 11400000, guid: 9d93d5f92f4df4c46b135b7b6922ad7c, type: 2}
+  devNotes: 
