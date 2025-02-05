@@ -24,7 +24,7 @@ MonoBehaviour:
     - intent: 0
       enemyTargetMethod: 0
       targetsKey: target
-      displayValue: 1
+      displayValue: 4
       effectSteps:
       - rid: 205828126246961605
       - rid: 205828126246961606
@@ -40,7 +40,7 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Feeding Frenzy
-      description: Every time you play 4 cards, this gains 1 strength!
+      description: Every time you play 5 cards, this gains 2 strength!
       relatedBehaviorIndex: 0
   references:
     version: 2
@@ -111,7 +111,7 @@ MonoBehaviour:
       type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: BooleanComparison
-        hardCodedInputKey1: 4
+        hardCodedInputKey1: 5
         useHardCodedInputKey1: 1
         inputKey1: 
         operation: 2
@@ -129,7 +129,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: self
         statusEffect: 0
-        scale: 1
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
@@ -197,7 +197,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: target
         combatEffect: 0
-        scale: 1
+        scale: 4
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
