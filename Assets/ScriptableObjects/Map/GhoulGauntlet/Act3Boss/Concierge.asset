@@ -40,7 +40,7 @@ MonoBehaviour:
       - rid: 4463206030013890983
       - rid: 5280922829633617997
     behaviorType: 0
-    nextBehaviorIndex: 0
+    nextBehaviorIndex: 1
   belowHalfHPEnemyPattern:
     behaviors:
     - intent: 4
@@ -62,17 +62,22 @@ MonoBehaviour:
       - rid: 8790164580739055720
       - rid: 8790164580739055721
     behaviorType: 2
-    nextBehaviorIndex: 1
+    nextBehaviorIndex: 0
   initialStatuses: []
   tooltip:
     empty: 0
     lines:
     - title: Impending Doom
-      description: Adds the SeedOfDestruction to you deck
+      description: I'll shuffle a Seed of Destruction into that poor companion's
+        deck. You want more cards, don't you?
       relatedBehaviorIndex: 1
-    - title: Malicious Attack
-      description: 'Attacks and adds the SeedOfDestruction '
+    - title: Chew Up
+      description: Take this! I'm going to slash that companion and add another Seed
+        of Destruction to the top of its draw pile.
       relatedBehaviorIndex: 0
+    - title: Seed of Destruction
+      description: Sinister looking card. Something feels off about it...
+      relatedBehaviorIndex: -1
   references:
     version: 2
     RefIds:
