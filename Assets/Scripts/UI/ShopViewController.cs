@@ -145,7 +145,8 @@ public class ShopViewController : MonoBehaviour,
         ShopItemView shopItemView = cardItemToViewMap[card];
 
         // TODO: Replace with sold out? Grey it out? Talk to Jasmine
-        shopGoodsArea.Remove(shopItemView.shopItemElement);
+        shopItemView.Disable();
+        //shopGoodsArea.Remove(shopItemView.shopItemElement);
         
         cardItemToViewMap.Remove(card);
     }
@@ -162,8 +163,8 @@ public class ShopViewController : MonoBehaviour,
         ShopItemView shopItemView = companionItemToViewMap[companion];
 
         // TODO: Replace with sold out? Grey it out? Talk to Jasmine
-        shopGoodsArea.Remove(shopItemView.shopItemElement);
-
+        //shopGoodsArea.Remove(shopItemView.shopItemElement);
+        shopItemView.Disable();
         companionItemToViewMap.Remove(companion);
     }
 

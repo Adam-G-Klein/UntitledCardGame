@@ -11,6 +11,8 @@ public class ShopItemView {
     private EntityView entityView = null;
     private IShopItemViewDelegate viewDelegate;
 
+    private EventCallback<ClickEvent> clickEventHandler;
+
     public ShopItemView(IShopItemViewDelegate viewDelegate, CompanionInShopWithPrice companion) {
         this.viewDelegate = viewDelegate;
         shopItemElement = makeCompanionShopItem(companion);
@@ -66,7 +68,10 @@ public class ShopItemView {
 
         shopItemElement.Add(cardView.cardContainer);
 
-        shopItemElement.RegisterCallback<ClickEvent>(evt => ShopItemViewOnClicked());
+        clickEventHandler = evt => ShopItemViewOnClicked();
+
+
+        shopItemElement.RegisterCallback<ClickEvent>(clickEventHandler);
 
         shopItemElement.Add(CreatePriceTagForShopItem(card.price));
 
@@ -85,5 +90,10 @@ public class ShopItemView {
 
     private void ShopItemViewOnClicked() {
         viewDelegate.ShopItemOnClick(this);
+    }
+
+    public void Disable() {
+        shopItemElement.visible = false;
+        shopItemElement.UnregisterCallback<ClickEvent>(clickEventHandler);
     }
 }
