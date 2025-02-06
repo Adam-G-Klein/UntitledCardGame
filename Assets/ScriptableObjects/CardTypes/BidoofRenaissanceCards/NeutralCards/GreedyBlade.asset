@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: GreedyBlade
   m_EditorClassIdentifier: 
   Name: Greedy Blade
-  Description: Deal {rpl_damage} damage. If it kills an enemy, gain $2
-  values: 07000000
+  Description: Deal {rpl_damage} damage. If it kills an enemy, gain $1
   defaultValues:
   - key: rpl_damage
     value: 7
@@ -132,6 +131,6 @@ MonoBehaviour:
       type: {class: GoldManipulation, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: 
-        goldToAdd: 2
+        goldToAdd: 1
         getScaleFromKey: 0
         inputScaleKey: 
