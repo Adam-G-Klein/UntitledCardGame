@@ -220,28 +220,29 @@ MonoBehaviour:
         tutorialActionType: Update Tutorial UI Doc Action
         firstLineOfText: 'In the shop you can buy new companions for your team. '
         secondLineOfText: New companions will have their own starting decks and full
-          health bar
-        thirdLineOfText: If you buy 3 of the same companion they will combine into
-          a more powerful companion!
+          health bar.
+        thirdLineOfText: If you buy three of the same level 1 companions they will
+          automatically combine into a level 2 version of that companion! Two level
+          2s combine into a level 3!
         tutorialIndex: 2
         tutorialStepsCount: 4
         buttonText: Next
         uiDocument: {fileID: 1484470107}
-        tutorialImage: {fileID: 21300000, guid: cd2531481443346a5bf0393d85c1d81c, type: 3}
+        tutorialImage: {fileID: 21300000, guid: 43ad84f13aa31466eab878d3654e272f, type: 3}
     - rid: 4305150327966138371
       type: {class: UpdateTutorialUIDocAction, ns: , asm: Assembly-CSharp}
       data:
         tutorialActionType: Update Tutorial UI Doc Action
         firstLineOfText: You can also buy cards for your companions.
-        secondLineOfText: 'When buying cards at the shop, take note of the icon next
-          to the card. '
-        thirdLineOfText: Cards all have either a companion or companions that they
-          can be given to.
+        secondLineOfText: When buying cards at the shop, take note of the companion
+          icon on the card.
+        thirdLineOfText: If there is an icon, that card can only be given to that
+          companion. Otherwise, the card can be given to any companion!
         tutorialIndex: 3
         tutorialStepsCount: 4
         buttonText: Next
         uiDocument: {fileID: 1484470107}
-        tutorialImage: {fileID: 21300000, guid: 53534440f3cab4b5cbfcc5b42cff085e, type: 3}
+        tutorialImage: {fileID: 21300000, guid: f163a9ae362044c5db62708ae54bf191, type: 3}
     - rid: 4305150327966138391
       type: {class: WaitForNextButtonClickAction, ns: , asm: Assembly-CSharp}
       data:
@@ -253,12 +254,13 @@ MonoBehaviour:
         firstLineOfText: This is the shop! You come here after each combat.
         secondLineOfText: Here you can buy upgrades to your team including cards,
           companions, and shop upgrades.
-        thirdLineOfText: You can (and should) also arrange them for the next fight.
+        thirdLineOfText: You can (and should) also arrange you companions for the
+          next fight!
         tutorialIndex: 1
         tutorialStepsCount: 4
         buttonText: Next
         uiDocument: {fileID: 1484470107}
-        tutorialImage: {fileID: 21300000, guid: 4ab3d81fa4fac4331abed042e043d296, type: 3}
+        tutorialImage: {fileID: 21300000, guid: f6f85b2ac871c4aceab3cf146026ea91, type: 3}
     - rid: 4305150395655913889
       type: {class: UpdateTutorialUIDocAction, ns: , asm: Assembly-CSharp}
       data:
@@ -273,7 +275,7 @@ MonoBehaviour:
         tutorialStepsCount: 4
         buttonText: Shop!
         uiDocument: {fileID: 1484470107}
-        tutorialImage: {fileID: 21300000, guid: 53534440f3cab4b5cbfcc5b42cff085e, type: 3}
+        tutorialImage: {fileID: 21300000, guid: bff3fec7c522d46ff9e417e45b5f833c, type: 3}
     - rid: 4305150395655913890
       type: {class: WaitForNextButtonClickAction, ns: , asm: Assembly-CSharp}
       data:
@@ -355,6 +357,10 @@ PrefabInstance:
     - target: {fileID: 2132283449186480322, guid: 6328b1b96ba993a4f8cc479cf3423807, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5029004334312043304, guid: 6328b1b96ba993a4f8cc479cf3423807, type: 3}
+      propertyPath: editorStartTutorial
+      value: Second
       objectReference: {fileID: 0}
     - target: {fileID: 5029004334312043304, guid: 6328b1b96ba993a4f8cc479cf3423807, type: 3}
       propertyPath: shouldStartTutorialImmediate
