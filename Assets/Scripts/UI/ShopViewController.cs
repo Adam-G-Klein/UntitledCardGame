@@ -40,6 +40,7 @@ public class ShopViewController : MonoBehaviour,
     public VisualElement sellingCompanionConfirmation;
     private VisualElement deckView;
     private VisualElement deckViewContentContainer;
+    private VisualElement genericMessageBox;
 
     // For dragging and dropping companions in the unit management
     private bool isDraggingCompanion = false;
@@ -85,6 +86,7 @@ public class ShopViewController : MonoBehaviour,
         sellingCompanionConfirmation = uiDoc.rootVisualElement.Q("selling-companion-confirmation");
         deckView = uiDoc.rootVisualElement.Q("deck-view");
         deckViewContentContainer = uiDoc.rootVisualElement.Q("deck-view-card-area");
+        genericMessageBox = uiDoc.rootVisualElement.Q("generic-message-box");
 
         SetupActiveSlots(shopManager.gameState.companions.currentCompanionSlots);
 
@@ -596,5 +598,17 @@ public class ShopViewController : MonoBehaviour,
     private void CloseCompanionDeckView() {
         deckViewContentContainer.Clear();
         deckView.style.visibility = Visibility.Hidden;
+    }
+
+    public void ShowCantSellLastCompanion()
+    {
+        StartCoroutine(ShowGenericNotification("Unable to sell companion, this is your last one active!")); 
+    }
+
+    private IEnumerator ShowGenericNotification(string text) {
+        genericMessageBox.style.visibility = Visibility.Visible;
+        genericMessageBox.Q<Label>().text = text;
+        yield return new WaitForSeconds(2.5f);
+        genericMessageBox.style.visibility = Visibility.Hidden;
     }
 }

@@ -260,6 +260,10 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     }
 
     public void SellCompanion(Companion companion) {
+        if (gameState.companions.activeCompanions.Count == 1 && gameState.companions.activeCompanions.Contains(companion)) {
+            shopViewController.ShowCantSellLastCompanion();
+            return;
+        }
         int sellValue = CalculateCompanionSellPrice(companion);
         gameState.playerData.GetValue().gold += sellValue;
         shopViewController.SetMoney(gameState.playerData.GetValue().gold);
