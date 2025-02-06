@@ -193,6 +193,9 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
                 if (level3Dude != null) {
                     companionToAdd = level3Dude;
+                    shopViewController.ShowCompanionUpgradedMessage(newCompanion.GetName(), 3);
+                } else {
+                    shopViewController.ShowCompanionUpgradedMessage(newCompanion.GetName(), 2);
                 }
             }
             gameState.AddCompanionToTeam(companionToAdd);

@@ -605,7 +605,12 @@ public class ShopViewController : MonoBehaviour,
         StartCoroutine(ShowGenericNotification("Unable to sell companion, this is your last one active!")); 
     }
 
-    private IEnumerator ShowGenericNotification(string text) {
+    public void ShowCompanionUpgradedMessage(String companionName, int newLevel)
+    {
+        StartCoroutine(ShowGenericNotification(companionName + " has been upgraded to level " + newLevel + "!", 1.5f)); 
+    }
+
+    private IEnumerator ShowGenericNotification(string text, float time = 2.5f) {
         genericMessageBox.style.visibility = Visibility.Visible;
         genericMessageBox.Q<Label>().text = text;
         yield return new WaitForSeconds(2.5f);
