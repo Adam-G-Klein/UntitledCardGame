@@ -36,11 +36,11 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Level 2 Beezelbumbler
-      description: Whenever a companion dies, give all companions 1 strength permanently
+      description: Whenever a companion dies, Beezelbumbler gains 2 strength permanently.
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: Whenever a companion dies, give all companions 1 strength
-    permanently
+  keepsakeDescription: Whenever a companion dies, Beezelbumbler gains 2 strength
+    permanently.
   references:
     version: 2
     RefIds:
@@ -70,7 +70,7 @@ MonoBehaviour:
         effectStepName: PermanentStatIncrease
         inputKey: self
         statIncreaseType: 0
-        scale: 1
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
     - rid: 8441470952357494956
