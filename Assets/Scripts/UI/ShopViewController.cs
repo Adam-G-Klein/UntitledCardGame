@@ -575,7 +575,7 @@ public class ShopViewController : MonoBehaviour,
         deckView.style.visibility = Visibility.Visible;
 
         foreach (Card card in companion.deck.cards) {
-            CardView cardView = new CardView(card.cardType, companion.companionType);
+            CardView cardView = new CardView(card.cardType, companion.companionType, true);
             cardView.cardContainer.style.marginBottom = 10;
             cardView.cardContainer.style.marginLeft = 10;
             cardView.cardContainer.style.marginRight = 10;
