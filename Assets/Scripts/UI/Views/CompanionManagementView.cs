@@ -12,6 +12,7 @@ public class CompanionManagementView {
 
     private VisualElement darkBox;
     private Button viewDeckButton = null;
+    private Button sellCompanionButton = null;
     private VisualElement companionBoundingBox = null;
 
     public CompanionManagementView(Companion companion, ICompanionManagementViewDelegate viewDelegate) {
@@ -35,7 +36,10 @@ public class CompanionManagementView {
 
     private void CompanionManagementOnPointerEnter(PointerEnterEvent evt)
     {
+        if (viewDelegate.IsSellingCompanions() || viewDelegate.IsDraggingCompanion()) return;
         CreateViewDeckButton();
+        CreateSellCompanionButton();
+        CreateCompanionBoundingBox();
     }
 
     public void CompanionManagementOnClick(ClickEvent evt) {
@@ -43,7 +47,7 @@ public class CompanionManagementView {
     }
 
     private void CompanionManagementOnPointerDown(PointerDownEvent evt) {
-        RemoveViewDeckButton();
+        RemoveCompanionHoverButtons();
         viewDelegate.CompanionManagementOnPointerDown(this, evt);
     }
 
@@ -67,19 +71,41 @@ public class CompanionManagementView {
         viewDeckButton.text = "View Deck";
 
         viewDeckButton.style.width = container.worldBound.width;
-        viewDeckButton.style.top = container.worldBound.yMax;
-        viewDeckButton.style.left = container.worldBound.xMin;
+        viewDeckButton.style.top = container.worldBound.yMin - container.worldBound.height * 0.3f;
+        viewDeckButton.style.left = container.worldBound.xMin - 4;
         viewDeckButton.style.height = container.worldBound.height * 0.3f;
 
         viewDeckButton.clicked += ViewDeckButtonOnClick;
 
         viewDelegate.AddToRoot(viewDeckButton);
-        CreateCompanionBoundingBox();
+    }
+
+    private void CreateSellCompanionButton() {
+        Debug.LogError("CreateSellCompanionButton");
+        if (sellCompanionButton != null) sellCompanionButton.RemoveFromHierarchy();
+        sellCompanionButton = new Button();
+        sellCompanionButton.AddToClassList("shopButton");
+        sellCompanionButton.AddToClassList("companion-sell-button");
+        sellCompanionButton.text = "Sell";
+
+        sellCompanionButton.style.width = container.worldBound.width;
+        sellCompanionButton.style.top = container.worldBound.yMax - 4;
+        sellCompanionButton.style.left = container.worldBound.xMin - 4;
+        sellCompanionButton.style.height = container.worldBound.height * 0.3f;
+
+        sellCompanionButton.clicked += SellCompanionButtonOnClick;
+
+        viewDelegate.AddToRoot(sellCompanionButton);
     }
 
     private void ViewDeckButtonOnClick() {
-        RemoveViewDeckButton();
+        RemoveCompanionHoverButtons();
         viewDelegate.ShowCompanionDeckView(companion);
+    }
+
+    private void SellCompanionButtonOnClick() {
+        RemoveCompanionHoverButtons();
+        viewDelegate.SellCompanion(companion);
     }
 
     private void CreateCompanionBoundingBox() {
@@ -104,20 +130,31 @@ public class CompanionManagementView {
         parent.RegisterCallback<PointerMoveEvent>(BoundingBoxParentOnPointerMove);
     }
 
+
     private void BoundingBoxParentOnPointerMove(PointerMoveEvent evt) {
         if (!companionBoundingBox.worldBound.Contains(evt.position)) {
-            RemoveViewDeckButton();
+            RemoveCompanionHoverButtons();
         }
     }
 
-    private void RemoveViewDeckButton() {
-        if (viewDeckButton != null) viewDeckButton.style.visibility = Visibility.Hidden;
-        viewDeckButton.RemoveFromHierarchy();
-        viewDeckButton = null;
-        companionBoundingBox.parent.UnregisterCallback<PointerMoveEvent>(BoundingBoxParentOnPointerMove);
-        companionBoundingBox.RemoveFromHierarchy();
-        companionBoundingBox = null;
+    private void RemoveCompanionHoverButtons() {
+        if (sellCompanionButton != null) {
+            sellCompanionButton.style.visibility = Visibility.Hidden;
+            sellCompanionButton.RemoveFromHierarchy();
+            sellCompanionButton = null;
+        }
+        if (viewDeckButton != null) {
+            viewDeckButton.style.visibility = Visibility.Hidden; 
+            viewDeckButton.RemoveFromHierarchy();
+            viewDeckButton = null;
+        }
+        if (companionBoundingBox != null) {
+            companionBoundingBox.parent.UnregisterCallback<PointerMoveEvent>(BoundingBoxParentOnPointerMove);
+            companionBoundingBox.RemoveFromHierarchy();
+            companionBoundingBox = null;
+        }
     }
+
 
     public void ShowNotApplicable() {
         darkBox = new VisualElement();

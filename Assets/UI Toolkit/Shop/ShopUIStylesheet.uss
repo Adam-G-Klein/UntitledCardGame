@@ -125,3 +125,17 @@
     right: 0;
     bottom: -38%;
 }
+
+.companion-sell-button {
+    background-color: rgb(255, 109, 109);
+    position: absolute;
+    left: 0;
+    top: -38%;
+    right: 0;
+}
+.companion-sell-button:hover {
+    background-color: rgb(252, 139, 139);
+}
+.companion-sell-button:active {
+    background-color: rgb(255, 0, 0);
+}

@@ -84,7 +84,7 @@
                             <ui:VisualElement name="VisualElement" class="single-unit-container" style="border-top-width: 4px; border-right-width: 4px; border-bottom-width: 4px; border-left-width: 4px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); width: 20%; height: 100%; background-image: none;" />
                         </ui:ScrollView>
                     </ui:VisualElement>
-                    <ui:VisualElement style="flex-grow: 1; height: 40%;">
+                    <ui:VisualElement style="flex-grow: 1; height: 40%; visibility: hidden;">
                         <ui:Button text="Sell Companion" parse-escape-sequences="true" display-tooltip-when-elided="true" name="sell-companion-button" class="shopButton" style="font-size: 23px; background-color: rgb(255, 130, 127);" />
                     </ui:VisualElement>
                 </ui:VisualElement>
