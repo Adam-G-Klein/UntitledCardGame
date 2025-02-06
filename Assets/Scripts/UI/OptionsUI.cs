@@ -27,6 +27,10 @@ public class OptionsUI : MonoBehaviour
         }
     }
 
+    public void onVolumeSliderChangedHandler(float value) {
+        MusicController2.Instance.SetVolume(value);
+    }
+
     public void onFullscreenChangedHandler(int index) {
         string option = fullscreenDropdown.options[index].text;
         
