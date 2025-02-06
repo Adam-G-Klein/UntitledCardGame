@@ -22,7 +22,7 @@
                             <ui:VisualElement class="map-symbol" style="background-image: url(&quot;project://database/Assets/Resources/shopSymbol.png?fileID=2800000&amp;guid=2e266a78f244e7743b234e093f2175bb&amp;type=3#shopSymbol&quot;);" />
                         </ui:VisualElement>
                         <ui:VisualElement name="VisualElement" class="map-section">
-                            <ui:VisualElement class="map-symbol" style="background-image: url(&quot;project://database/Assets/Sprites/emmett.png?fileID=2800000&amp;guid=4eff3f79553794d909415243e5c40924&amp;type=3#emmett&quot;);" />
+                            <ui:VisualElement class="map-symbol" style="background-image: url(&quot;project://database/Assets/Sprites/GhoulGauntletPlaceholders/emmett.png?fileID=2800000&amp;guid=4eff3f79553794d909415243e5c40924&amp;type=3#emmett&quot;);" />
                         </ui:VisualElement>
                         <ui:VisualElement name="VisualElement" class="map-section">
                             <ui:VisualElement class="map-symbol" style="background-image: url(&quot;project://database/Assets/Sprites/SculptorArt/Character_TheSculptor_Portrait.png?fileID=2800000&amp;guid=bf7004643a1b7cb47813068f0ada5d78&amp;type=3#Character_TheSculptor_Portrait&quot;);" />
@@ -58,7 +58,7 @@
                 <ui:Label tabindex="-1" text="Unit Management" parse-escape-sequences="true" display-tooltip-when-elided="true" name="unit-management-label" style="-unity-text-align: upper-center; -unity-font-style: bold; font-size: 25px; height: 7.5%;" />
                 <ui:VisualElement name="unit-active-row" style="height: 40%; flex-direction: row; justify-content: flex-start; align-self: auto; align-items: center;">
                     <ui:VisualElement name="unit-active-label-container" style="width: 15%; height: 100%; align-items: flex-end; justify-content: center;">
-                        <ui:Label tabindex="-1" text="5/5 Active" parse-escape-sequences="true" display-tooltip-when-elided="true" name="unit-active-label" style="border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-top-width: 4px; border-right-width: 0; border-bottom-width: 4px; border-left-width: 4px; width: 50%; height: 40%; -unity-text-align: middle-center; font-size: 22px; -unity-font-style: bold; margin-right: 0;" />
+                        <ui:Label tabindex="-1" text="Active" parse-escape-sequences="true" display-tooltip-when-elided="true" name="unit-active-label" style="border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-top-width: 4px; border-right-width: 0; border-bottom-width: 4px; border-left-width: 4px; width: 50%; height: 40%; -unity-text-align: middle-center; font-size: 22px; -unity-font-style: bold; margin-right: 0;" />
                     </ui:VisualElement>
                     <ui:VisualElement name="unit-active-container" style="flex-direction: row; width: 70%; height: 90%; align-self: auto; align-items: center; justify-content: center;">
                         <ui:VisualElement name="unit-container-0" class="single-unit-container" style="background-color: rgba(0, 0, 0, 0);" />
@@ -104,8 +104,8 @@
                 <ui:Button text="No" parse-escape-sequences="true" display-tooltip-when-elided="true" name="selling-companion-confirmation-no" class="shopButton" style="margin-right: 15px; margin-left: 15px; flex-grow: 0; width: 20%;" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="deck-view" style="flex-grow: 1; position: absolute; left: 0; top: 0; right: 0; bottom: 0; background-color: rgb(0, 0, 0); visibility: hidden;">
-            <ui:ScrollView mode="Vertical" vertical-scroller-visibility="AlwaysVisible" style="width: 100%; height: 92%; flex-direction: row; flex-wrap: wrap;">
+        <ui:VisualElement name="deck-view" style="flex-grow: 1; position: absolute; left: 2px; top: 2px; right: -1px; bottom: -1px; background-color: rgba(0, 0, 0, 0.89); visibility: hidden; display: flex; border-top-left-radius: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; border-bottom-left-radius: 0;">
+            <ui:ScrollView mode="Vertical" vertical-scroller-visibility="AlwaysVisible" horizontal-scroller-visibility="Hidden" style="width: 100%; height: 92%; flex-direction: row; flex-wrap: wrap;">
                 <ui:VisualElement name="deck-view-card-area" style="flex-grow: 1; flex-wrap: wrap; flex-direction: row;" />
             </ui:ScrollView>
             <ui:Button text="Close" parse-escape-sequences="true" display-tooltip-when-elided="true" class="shopButton" />

@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 public interface ICompanionManagementViewDelegate {
@@ -7,4 +8,7 @@ public interface ICompanionManagementViewDelegate {
     void CompanionManagementOnPointerDown(CompanionManagementView companionView, PointerDownEvent evt);
     void CompanionManagementOnPointerMove(CompanionManagementView companionManagementView, PointerMoveEvent evt);
     void CompanionManagementOnPointerLeave(CompanionManagementView companionManagementView, PointerLeaveEvent evt);
+    void ShowCompanionDeckView(Companion companion);
+    void AddToRoot(VisualElement element);
+    MonoBehaviour GetMonoBehaviour();
 }

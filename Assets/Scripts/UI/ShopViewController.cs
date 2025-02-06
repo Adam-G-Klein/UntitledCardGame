@@ -11,6 +11,7 @@ using UnityEngine.UIElements;
 public class ShopViewController : MonoBehaviour, 
     IShopItemViewDelegate,
     ICompanionManagementViewDelegate
+    
 {
     public UIDocument uiDoc;
     public bool canDragCompanions = false;
@@ -37,6 +38,8 @@ public class ShopViewController : MonoBehaviour,
     public Label rerollPriceLabel;
     public Button sellCompanionButton;
     public VisualElement sellingCompanionConfirmation;
+    private VisualElement deckView;
+    private VisualElement deckViewContentContainer;
 
     // For dragging and dropping companions in the unit management
     private bool isDraggingCompanion = false;
@@ -80,6 +83,8 @@ public class ShopViewController : MonoBehaviour,
         rerollPriceLabel = uiDoc.rootVisualElement.Q<Label>("reroll-price-label");
         sellCompanionButton = uiDoc.rootVisualElement.Q<Button>("sell-companion-button");
         sellingCompanionConfirmation = uiDoc.rootVisualElement.Q("selling-companion-confirmation");
+        deckView = uiDoc.rootVisualElement.Q("deck-view");
+        deckViewContentContainer = uiDoc.rootVisualElement.Q("deck-view-card-area");
 
         SetupActiveSlots(shopManager.gameState.companions.currentCompanionSlots);
 
@@ -94,6 +99,7 @@ public class ShopViewController : MonoBehaviour,
         sellingCompanionConfirmation.Q<Button>("selling-companion-confirmation-yes").clicked += ConfirmSellCompanion;
         sellingCompanionConfirmation.Q<Button>("selling-companion-confirmation-no").clicked += DontSellCompanion;
         originalSellingCompanionConfirmationText = sellingCompanionConfirmation.Q<Label>("selling-companion-confirmation-label").text;
+        deckView.Q<Button>().clicked += CloseCompanionDeckView;
     }
 
     private void SetupActiveSlots(int numCompanions) {
@@ -551,5 +557,35 @@ public class ShopViewController : MonoBehaviour,
     public void DisableUpgradeButton() {
         upgradeButton.SetEnabled(false);
         upgradeButton.UnregisterCallback<PointerEnterEvent>(UpgradeButtonOnPointerEnter);
+    }
+
+    public MonoBehaviour GetMonoBehaviour()
+    {
+        return this;
+    }
+
+    public void AddToRoot(VisualElement element)
+    {
+        uiDoc.rootVisualElement.Add(element);
+    }
+
+    public void ShowCompanionDeckView(Companion companion)
+    {
+        deckViewContentContainer.Clear();
+        deckView.style.visibility = Visibility.Visible;
+
+        foreach (Card card in companion.deck.cards) {
+            CardView cardView = new CardView(card.cardType, companion.companionType);
+            cardView.cardContainer.style.marginBottom = 10;
+            cardView.cardContainer.style.marginLeft = 10;
+            cardView.cardContainer.style.marginRight = 10;
+            cardView.cardContainer.style.marginTop = 10;
+            deckViewContentContainer.Add(cardView.cardContainer);
+        }
+    }
+
+    private void CloseCompanionDeckView() {
+        deckViewContentContainer.Clear();
+        deckView.style.visibility = Visibility.Hidden;
     }
 }
