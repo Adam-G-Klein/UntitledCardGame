@@ -20,6 +20,12 @@ public class CombatEnemyTooltipProvder : MonoBehaviour
     private TooltipOnHover tooltipOnHover;
     private int behaviorIndex;
     private EnemyInstance enemy;
+
+    internal void DisableTooltip()
+    {
+        tooltipOnHover.Destroy();
+    }
+
     void Start() {
         tooltipOnHover = GetComponent<TooltipOnHover>();
         tooltipOnHover.tooltip = new TooltipViewModel();

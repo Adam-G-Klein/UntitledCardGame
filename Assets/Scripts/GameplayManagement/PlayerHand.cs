@@ -203,4 +203,10 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             }
         }
     }
+
+    public void DisableHand() {
+        foreach (PlayableCard card in cardsInHand) {
+            card.interactable = false;
+        }
+    }
 }

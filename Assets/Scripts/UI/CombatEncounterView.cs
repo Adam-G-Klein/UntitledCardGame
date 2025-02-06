@@ -385,7 +385,7 @@ public class CombatEncounterView : GenericSingleton<CombatEncounterView>
     // if you try to compare the ve then they will never be equal, different object hash codes
     private void registerModelUpdateOnHovers(IUIEntity entity, VisualElement ve) {
         ve.RegisterCallback<MouseEnterEvent>(evt => {
-            if(EnemyEncounterViewModel.Instance.hoveredEntity != entity && !InTooltip()) {
+            if(EnemyEncounterViewModel.Instance.hoveredEntity != entity && !InTooltip() && !CombatOver()) {
                 Debug.Log("Hovering over " + entity.GetName());
                 EnemyEncounterViewModel.Instance.hoveredElement = ve;
                 EnemyEncounterViewModel.Instance.hoveredEntity = entity;
@@ -410,5 +410,9 @@ public class CombatEncounterView : GenericSingleton<CombatEncounterView>
 
     private bool isHovered(IUIEntity entity) {
         return EnemyEncounterViewModel.Instance.hoveredEntity == entity;
+    }
+    
+    private bool CombatOver() {
+        return EnemyEncounterManager.Instance.GetCombatOver();
     }
 }
