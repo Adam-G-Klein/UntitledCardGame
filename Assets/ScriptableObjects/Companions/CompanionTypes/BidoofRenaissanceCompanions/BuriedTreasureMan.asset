@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
   m_Name: BuriedTreasureMan
   m_EditorClassIdentifier: 
-  companionName: Money Grubber
+  companionName: Tiefseeker
   maxHealth: 15
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: 2e47eb262b7762144a49d10bfa5ee1c8, type: 3}
@@ -35,14 +35,14 @@ MonoBehaviour:
   tooltip:
     empty: 0
     lines:
-    - title: Buried Treasure Man
+    - title: Tiefseeker
       description: At the start of combat, put a Buried Treasure on the bottom of
         a random companion's deck.
       relatedBehaviorIndex: 0
     - title: Buried Treasure
       description: 1 Mana. Exhaust. Gain 1 Gold.
       relatedBehaviorIndex: 0
-  keepsakeTitle: Spare Change
+  keepsakeTitle: Hidden Cache
   keepsakeDescription: At the start of combat, put a Buried Treasure on the bottom
     of a random companion's deck.
   references:
