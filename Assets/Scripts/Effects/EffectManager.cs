@@ -8,14 +8,17 @@ using UnityEngine;
 public class EffectManager : GenericSingleton<EffectManager>
 {
     public bool interruptEffectWorkflow = false;
+    // Invoke for calculation effect workflows SHOULD NOT interfere with
+    // normal ongoing effects.
+    public bool interruptEffectWorkflowForCalculation = false;
     private IEnumerator currentEffectWorkflow;
     private IEnumerator currentEffectStep;
-    private List<EffectWorkflow> effectWorkflowQueue;
+    private List<EffectWorkflowClosure> effectWorkflowQueue;
 
     private bool effectRunning = false;
 
     void Awake() {
-        effectWorkflowQueue = new List<EffectWorkflow>();
+        effectWorkflowQueue = new List<EffectWorkflowClosure>();
     }
 
     public bool IsEffectRunning() {
@@ -55,7 +58,9 @@ public class EffectManager : GenericSingleton<EffectManager>
         effectRunning = false;
     }
 
-    public void QueueEffectWorkflow(EffectWorkflow workflow) {
+    public void QueueEffectWorkflow(EffectWorkflowClosure workflow) {
+        Debug.Log("Queueing up an effect workflow with " + workflow.flow.effectSteps.Count + " effect steps");
+        workflow.document.map.Print();
         effectWorkflowQueue.Add(workflow);
     }
 
@@ -88,11 +93,11 @@ public class EffectManager : GenericSingleton<EffectManager>
 
         // If the previous effect worklfow queue'd up a new one, then execute the new one
         if (effectWorkflowQueue.Count > 0) {
-            Debug.LogError("Kicking off queued effect workflow");
-            EffectWorkflow workflow = effectWorkflowQueue[0];
+            Debug.Log("Kicking off queued effect workflow");
+            EffectWorkflowClosure workflow = effectWorkflowQueue[0];
             effectWorkflowQueue.RemoveAt(0);
-            document.originEntityType = EntityType.Unknown;
-            currentEffectWorkflow = effectWorkflowCoroutine(document, workflow.effectSteps, null);
+            // workflow.document.map.Print();
+            currentEffectWorkflow = effectWorkflowCoroutine(workflow.document, workflow.flow.effectSteps, workflow.callback);
             StartCoroutine(currentEffectWorkflow);
         } else {
             effectRunning = false;
@@ -100,17 +105,23 @@ public class EffectManager : GenericSingleton<EffectManager>
 
         yield return null;
     }
-        private IEnumerator effectWorkflowCoroutineForCalculation(
-            EffectDocument document,
-            List<EffectStep> effectSteps,
-            IEnumerator callback) {
-        effectRunning = true;
+
+    // effectWorkflowCoroutineForCalculation runs a coroutine for calculation purposes.
+    // These SHOULD NOT be side-effect-ey, so they should not trigger other effects in the
+    // game such as enemy abilities or companion abilities.
+    // Therefore, we do not execute queued up effect workflows or mess with the "effectRunning"
+    // global variable.
+    // The state for this should be kept separate from the mainstream way for running effect workflows.
+    private IEnumerator effectWorkflowCoroutineForCalculation(
+        EffectDocument document,
+        List<EffectStep> effectSteps,
+        IEnumerator callback) {
         bool hasEndWorkflowCheck = false;
         bool didBreak = false;
         foreach (EffectStep step in effectSteps) {
-            if (interruptEffectWorkflow) {
+            if (interruptEffectWorkflowForCalculation) {
                 Debug.Log("Breaking from workflow");
-                interruptEffectWorkflow = false;
+                interruptEffectWorkflowForCalculation = false;
                 didBreak = true;
                 break;
             }
@@ -129,18 +140,6 @@ public class EffectManager : GenericSingleton<EffectManager>
         }
 
         if (callback != null) yield return StartCoroutine(callback);
-
-        // If the previous effect worklfow queue'd up a new one, then execute the new one
-        if (effectWorkflowQueue.Count > 0) {
-            Debug.LogError("Kicking off queued effect workflow");
-            EffectWorkflow workflow = effectWorkflowQueue[0];
-            effectWorkflowQueue.RemoveAt(0);
-            document.originEntityType = EntityType.Unknown;
-            currentEffectWorkflow = effectWorkflowCoroutine(document, workflow.effectSteps, null);
-            StartCoroutine(currentEffectWorkflow);
-        } else {
-            effectRunning = false;
-        }
 
         yield return null;
     }

@@ -159,7 +159,8 @@ public abstract class EntityAbilityInstance
         if (card.deckFrom.TryGetComponent(out CompanionInstance companion)) {
             EffectUtils.AddCompanionToDocument(document, "companionCardPlayedFrom", companion);
         }
-        yield return EffectManager.Instance.invokeEffectWorkflowCoroutine(document, ability.effectSteps, null);
+        EffectManager.Instance.QueueEffectWorkflow(new EffectWorkflowClosure(document, ability.effectWorkflow, null));
+        yield return null;
     }
 
     private IEnumerator OnHandEmpty() {
@@ -175,7 +176,8 @@ public abstract class EntityAbilityInstance
         if (deckFrom.TryGetComponent(out CompanionInstance companion)) {
             EffectUtils.AddCompanionToDocument(document, "companionExhaustedFrom", companion);
         }
-        yield return EffectManager.Instance.invokeEffectWorkflowCoroutine(document, ability.effectSteps, null);
+        EffectManager.Instance.QueueEffectWorkflow(new EffectWorkflowClosure(document, ability.effectWorkflow, null));
+        yield return null;
     }
 
     private IEnumerator OnDeckShuffled(DeckInstance deckFrom) {
@@ -185,7 +187,8 @@ public abstract class EntityAbilityInstance
             document.map.AddItem<CombatInstance>("companionDeckFrom", companion.combatInstance);
             document.map.AddItem<DeckInstance>("companionDeckFrom", companion.deckInstance);
         }
-        yield return EffectManager.Instance.invokeEffectWorkflowCoroutine(document, ability.effectSteps, null);
+        EffectManager.Instance.QueueEffectWorkflow(new EffectWorkflowClosure(document, ability.effectWorkflow, null));
+        yield return null;
     }
 
     private IEnumerator OnDamageTaken(CombatInstance damagedInstance) {
@@ -205,7 +208,8 @@ public abstract class EntityAbilityInstance
                 EffectUtils.AddEnemyToDocument(document, "damagedEnemy", enemy);
             }
         }
-        yield return EffectManager.Instance.invokeEffectWorkflowCoroutine(document, ability.effectSteps, null);
+        EffectManager.Instance.QueueEffectWorkflow(new EffectWorkflowClosure(document, ability.effectWorkflow, null));
+        yield return null;
     }
 }
 
