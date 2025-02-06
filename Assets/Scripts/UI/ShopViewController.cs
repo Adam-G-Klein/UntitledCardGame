@@ -351,6 +351,13 @@ public class ShopViewController : MonoBehaviour,
         }
     }
 
+    public void CompanionManagementOnPointerLeave(CompanionManagementView companionManagementView, PointerLeaveEvent evt) {
+        if (!isDraggingCompanion || companionBeingDragged != companionManagementView.container)  return;
+
+        companionManagementView.container.parent.style.top = evt.position.y - companionManagementView.container.parent.layout.height / 2;
+        companionManagementView.container.parent.style.left = evt.position.x - companionManagementView.container.parent.layout.width / 2;
+    }
+
     public void ComapnionManagementOnPointerUp(CompanionManagementView companionManagementView, PointerUpEvent evt)
     {
         if (!isDraggingCompanion || companionManagementView.container != companionBeingDragged) return;

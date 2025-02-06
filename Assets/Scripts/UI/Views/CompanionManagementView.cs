@@ -25,6 +25,7 @@ public class CompanionManagementView {
         entityView.entityContainer.RegisterCallback<PointerDownEvent>(CompanionManagementOnPointerDown);
         entityView.entityContainer.RegisterCallback<PointerMoveEvent>(CompanionManagementOnPointerMove);
         entityView.entityContainer.RegisterCallback<PointerUpEvent>(ComapnionManagementOnPointerUp);
+        entityView.entityContainer.RegisterCallback<PointerLeaveEvent>(ComapnionManagementOnPointerLeave);
         return entityView.entityContainer;
     }
 
@@ -42,6 +43,10 @@ public class CompanionManagementView {
 
     private void ComapnionManagementOnPointerUp(PointerUpEvent evt) {
         viewDelegate.ComapnionManagementOnPointerUp(this, evt);
+    }
+
+    private void ComapnionManagementOnPointerLeave(PointerLeaveEvent evt) {
+        viewDelegate.CompanionManagementOnPointerLeave(this, evt);
     }
 
     public void ShowNotApplicable() {

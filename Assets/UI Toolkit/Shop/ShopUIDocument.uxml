@@ -104,5 +104,11 @@
                 <ui:Button text="No" parse-escape-sequences="true" display-tooltip-when-elided="true" name="selling-companion-confirmation-no" class="shopButton" style="margin-right: 15px; margin-left: 15px; flex-grow: 0; width: 20%;" />
             </ui:VisualElement>
         </ui:VisualElement>
+        <ui:VisualElement name="deck-view" style="flex-grow: 1; position: absolute; left: 0; top: 0; right: 0; bottom: 0; background-color: rgb(0, 0, 0); visibility: hidden;">
+            <ui:ScrollView mode="Vertical" vertical-scroller-visibility="AlwaysVisible" style="width: 100%; height: 92%; flex-direction: row; flex-wrap: wrap;">
+                <ui:VisualElement name="deck-view-card-area" style="flex-grow: 1; flex-wrap: wrap; flex-direction: row;" />
+            </ui:ScrollView>
+            <ui:Button text="Close" parse-escape-sequences="true" display-tooltip-when-elided="true" class="shopButton" />
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
