@@ -57,7 +57,11 @@ public class PlayableCard : MonoBehaviour,
     public void OnPointerClick(PointerEventData eventData)
     {
         Debug.Log("Card clicked");
-        Debug.LogError(currentState);
+        Debug.Log(
+            "CURRENT STATE: " + currentState +
+            "Interactable: " + interactable +
+            " EnemyEncounterManager.GetCastingCard(): " + EnemyEncounterManager.Instance.GetCastingCard().ToString()
+        );
         if (currentState != UIState.DEFAULT || !interactable || EnemyEncounterManager.Instance.GetCastingCard()) return;
 
         if (card.GetManaCost() > ManaManager.Instance.currentMana) {

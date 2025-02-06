@@ -46,9 +46,8 @@ public class EffectManager : GenericSingleton<EffectManager>
             EffectDocument document,
             List<EffectStep> effectSteps,
             IEnumerator callback) {
-        Debug.Log("Invoking effect workflow via sync call");
-        currentEffectWorkflow = effectWorkflowCoroutineForCalculation(document, effectSteps, callback);
-        StartCoroutine(currentEffectWorkflow);
+        Debug.Log("Invoking effect workflow for calculation via sync call");
+        StartCoroutine(effectWorkflowCoroutineForCalculation(document, effectSteps, callback));
     }
 
     public void CancelEffectWorkflow() {
@@ -129,7 +128,7 @@ public class EffectManager : GenericSingleton<EffectManager>
                 if (step is EndWorkflowIfConditionMet) {
                     hasEndWorkflowCheck = true;
                 }
-                Debug.Log("Invoking Step [" + step.effectStepName + "]");
+                Debug.Log("CALCULATION: Invoking Step [" + step.effectStepName + "]");
                 currentEffectStep = ((IEffectStepCalculation)step).invokeForCalculation(document);
                 yield return StartCoroutine(currentEffectStep);
             }
