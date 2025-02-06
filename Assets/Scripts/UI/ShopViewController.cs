@@ -381,7 +381,7 @@ public class ShopViewController : MonoBehaviour,
         }
 
         if (elementOver != null && !blockedSlots.Contains(elementOver)) {
-            DoMoveComapnion(companionManagementView.container, elementOver);
+            DoMoveComapnion(companionManagementView, elementOver);
             elementOver.style.backgroundColor = slotNotHighlightColor;
         } else {
             VisualElement tempContainer = companionManagementView.container.parent;
@@ -393,19 +393,28 @@ public class ShopViewController : MonoBehaviour,
         originalParent = null;
     }
 
-    private void DoMoveComapnion(VisualElement companionElement, VisualElement movingToContainer) {
+    private void DoMoveComapnion(CompanionManagementView companionManagementView, VisualElement movingToContainer) {
         // Scenario 1, dragging companion to open container
         if (movingToContainer.childCount == 0) {
-            VisualElement tempContainer = companionElement.parent;
-            movingToContainer.Add(companionElement);
-            tempContainer.RemoveFromHierarchy();
+            VisualElement tempContainer = companionManagementView.container.parent;
+
+            // SPECIAL CASE ALERT: SPECIAL CASE A L E R T
+            // Trying to move last active companion to *possibly* the bench
+            if (!shopManager.CanMoveCompanionToNewOpenSlot(companionManagementView.companion)) {
+                originalParent.Add(companionManagementView.container);
+                uiDoc.rootVisualElement.Remove(tempContainer);
+            } else {
+                movingToContainer.Add(companionManagementView.container);
+                tempContainer.RemoveFromHierarchy();
+            }
+
             RefreshContainers(activeContainer.Children().ToList(), false);
             RefreshContainers(benchScrollView.contentContainer.Children().ToList(), true);
         // Scenario 2, dragging companion to slot with another companion in it already
         } else if (movingToContainer.childCount == 1) {
             originalParent.Add(movingToContainer[0]);
-            VisualElement tempContainer = companionElement.parent;
-            movingToContainer.Add(companionElement);
+            VisualElement tempContainer = companionManagementView.container.parent;
+            movingToContainer.Add(companionManagementView.container);
             tempContainer.RemoveFromHierarchy();
         } else {
             Debug.LogError("Companion container contains more than 1 element in heirarchy");

@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -434,6 +436,14 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     public void SetCompanionOrdering(List<Companion> activeCompanions, List<Companion> benchCompanions) {
         gameState.companions.activeCompanions = activeCompanions;
         gameState.companions.benchedCompanions = benchCompanions;
+    }
+
+    public bool CanMoveCompanionToNewOpenSlot(Companion companion)
+    {
+        if (gameState.companions.activeCompanions.Count == 1 && gameState.companions.activeCompanions.Contains(companion)) {
+            return false;
+        }
+        return true;
     }
 
     // To satisfy interface. Unused
