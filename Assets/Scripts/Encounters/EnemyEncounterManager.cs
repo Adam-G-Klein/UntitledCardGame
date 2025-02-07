@@ -151,7 +151,9 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
 
     private void TurnOffInteractions() {
         PlayerHand.Instance.DisableHand();
-        EnemyEncounterViewModel.Instance.companions.ForEach(companion => companion.GetComponent<CombatCompanionTooltipProvder>().DisableTooltip());
+        EnemyEncounterViewModel.Instance.companions.ForEach(companion => {
+            if (companion) companion.GetComponent<CombatCompanionTooltipProvder>().DisableTooltip();
+        });
         EnemyEncounterViewModel.Instance.enemies.ForEach(enemy => {
             if (enemy) enemy.GetComponent<CombatEnemyTooltipProvder>().DisableTooltip();
         });
