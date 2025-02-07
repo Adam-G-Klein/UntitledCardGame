@@ -109,6 +109,7 @@ public class PlayableCard : MonoBehaviour,
             Debug.Log("Hand is empty, triggering downstream OnHandEmpty subscribers");
             yield return PlayerHand.Instance.OnHandEmpty();
         }
+        PlayerHand.Instance.UpdatePlayableCards();
     }
 
     public void CardExhaustVFX() {
