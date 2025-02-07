@@ -278,6 +278,20 @@ public class DeckInstance : MonoBehaviour
         }
     }
 
+    public List<Card> GetShuffledDrawPile(){
+        List<Card> shuffledDrawPile = new List<Card>();
+        shuffledDrawPile.AddRange(drawPile);
+        shuffledDrawPile.Shuffle();
+        return shuffledDrawPile;
+    }
+
+    public List<Card> GetShuffledDiscardPile(){
+        List<Card> shuffledDiscardPile = new List<Card>();
+        shuffledDiscardPile.AddRange(discardPile);
+        shuffledDiscardPile.Shuffle();
+        return shuffledDiscardPile;
+    }
+
     public List<Card> GetAllCards(){
         List<Card> cards = new List<Card>();
         cards.AddRange(drawPile);

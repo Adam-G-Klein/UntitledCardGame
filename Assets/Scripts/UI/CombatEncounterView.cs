@@ -268,7 +268,7 @@ public class CombatEncounterView : GenericSingleton<CombatEncounterView>
                 Vector3.zero,
                 Quaternion.identity);
             CardViewUI cardViewUI = gameObject.GetComponent<CardViewUI>();
-            cardViewUI.Setup(deckInstance.drawPile,
+            cardViewUI.Setup(deckInstance.GetShuffledDrawPile(),
                 0,
                 deckInstance.combatInstance.name + " draw pile",
                 0);
@@ -288,7 +288,7 @@ public class CombatEncounterView : GenericSingleton<CombatEncounterView>
                 Vector3.zero,
                 Quaternion.identity);
             CardViewUI cardViewUI = gameObject.GetComponent<CardViewUI>();
-            cardViewUI.Setup(deckInstance.discardPile,
+            cardViewUI.Setup(deckInstance.GetShuffledDiscardPile(),
                 0,
                 deckInstance.combatInstance.name + " discard pile",
                 0);
