@@ -43,6 +43,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6365450137882161004}
   - component: {fileID: 8749553115092051882}
+  - component: {fileID: 8680875321681135680}
   m_Layer: 0
   m_Name: HotkeyManager
   m_TagString: Untagged
@@ -78,6 +79,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turnPhaseEvent: {fileID: 11400000, guid: 8731090c52e897e459ac12df3da5fc3a, type: 2}
+--- !u!114 &8680875321681135680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2065433092755108743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f54f1b2283029124ea05bdd4df6ffb1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 8731090c52e897e459ac12df3da5fc3a, type: 2}
+  unityEventResponse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8749553115092051882}
+        m_TargetAssemblyTypeName: HotkeyManager, Assembly-CSharp
+        m_MethodName: turnPhaseChangedEventHandler
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5549825631411449466
 GameObject:
   m_ObjectHideFlags: 0
