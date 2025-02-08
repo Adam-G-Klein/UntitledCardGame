@@ -176,8 +176,12 @@ public class PlayableCard : MonoBehaviour,
     }
 
     public void ExhaustCard() {
-        deckFrom.ExhaustCard(card);
+        deckFrom.ExhaustCard(card, this, OnCardExhaustHandler());
+    }
+
+    private IEnumerator OnCardExhaustHandler() {
         cleanupAndDestroy();
+        yield return null;
     }
 
     // Called by playerHand.discardCard
