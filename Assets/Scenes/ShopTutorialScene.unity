@@ -218,12 +218,13 @@ MonoBehaviour:
       type: {class: UpdateTutorialUIDocAction, ns: , asm: Assembly-CSharp}
       data:
         tutorialActionType: Update Tutorial UI Doc Action
-        firstLineOfText: 'In the shop you can buy new companions for your team. '
-        secondLineOfText: New companions will have their own starting decks and full
-          health bar.
-        thirdLineOfText: If you buy three of the same level 1 companions they will
-          automatically combine into a level 2 version of that companion! Two level
-          2s combine into a level 3!
+        firstLineOfText: In the shop you can buy new companions for your team. New
+          companions will have their own starting decks and full health bar.
+        secondLineOfText: If you buy three of the same level 1 companions they will
+          combine into a level 2 version of that companion! Two level 2s combine
+          into a level 3!
+        thirdLineOfText: Upgrading a companion gives them bonus HP and an upgraded
+          ability!
         tutorialIndex: 2
         tutorialStepsCount: 4
         buttonText: Next
@@ -236,8 +237,8 @@ MonoBehaviour:
         firstLineOfText: You can also buy cards for your companions.
         secondLineOfText: When buying cards at the shop, take note of the companion
           icon on the card.
-        thirdLineOfText: If there is an icon, that card can only be given to that
-          companion. Otherwise, the card can be given to any companion!
+        thirdLineOfText: If it says any. Otherwise, the card can be given to any
+          companion! Otherwise the card can only be given to its associated companion.
         tutorialIndex: 3
         tutorialStepsCount: 4
         buttonText: Next
