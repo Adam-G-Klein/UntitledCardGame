@@ -37,13 +37,6 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 205828126246961957
-      type: {class: QuantityOfCardTypePlayedThisTurn, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: QuantityOfCardTypePlayedThisTurn
-        cardCategory: 0
-        getAll: 1
-        outputKey: numCardsPlayed
     - rid: 205828126246961958
       type: {class: QuantityOfCardTypePlayedThisTurn, ns: , asm: Assembly-CSharp}
       data:
@@ -90,7 +83,6 @@ MonoBehaviour:
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
-        - rid: 205828126246961957
         - rid: 5602893111447520108
         - rid: 5602893111447520109
         - rid: 1274772038231786314
