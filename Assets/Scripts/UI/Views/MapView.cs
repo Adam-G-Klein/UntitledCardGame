@@ -16,12 +16,11 @@ public class MapView {
     public VisualElement mapContainer;
     // TODO, could require the stylesheet in the constructor and fetch these from there
     public Color activeColor = Color.green;
-    private List<string> encounterList = new() {
-        "Combat", "Shop", "Combat", "Shop", "Combat", "Shop", "Combat", "Shop", "Elite", "Shop",
-        "Combat", "Shop", "Combat", "Shop", "Combat", "Shop", "Combat", "Shop", "Elite", "Shop",
-        "Combat", "Shop", "Combat", "Shop", "Combat", "Shop", "Combat", "Shop", "Boss", "", "", "", ""};
+    private List<Encounter> encounterList = new ();
 
     public MapView(IEncounterBuilder encounterBuilder) {
+        if (encounterBuilder is EnemyEncounterManager) encounterList = EnemyEncounterManager.Instance.gameState.map.GetValue().encounters;
+        if (encounterBuilder is ShopManager) encounterList = ShopManager.Instance.gameState.map.GetValue().encounters;
         mapContainer = makeMapView(encounterBuilder);
     }
 
@@ -39,26 +38,31 @@ public class MapView {
             mapSection.AddToClassList("map-section");
             VisualElement mapIcon = new VisualElement();
             mapIcon.AddToClassList("map-symbol");
-            string encounterType = encounterList[curEncounterIndex + i];
+            
             Sprite texture = null;
-            if (encounterType == "Combat") {
-                texture = Resources.Load<Sprite>("enemySymbol");
-            } else if (encounterType == "Shop") {
-                texture = Resources.Load<Sprite>("shopSymbol");
-            } else if (encounterType == "Elite") {
-                texture = Resources.Load<Sprite>("eliteSymbol");
-            } else if (encounterType == "Boss") {
-                texture = Resources.Load<Sprite>("bossSymbol");
+            if (curEncounterIndex + i < encounterList.Count()) {
+                Encounter encounter = encounterList[curEncounterIndex + i];
+                if (encounter.getEncounterType() == EncounterType.Enemy) {
+                    EnemyEncounter EE = (EnemyEncounter) encounter;
+                    if (EE.isEliteEncounter) {
+                        Sprite sprite = EE.enemyList[0].enemyType.sprite;
+                        texture = sprite;
+                    } else {
+                        texture = Resources.Load<Sprite>("enemySymbol");
+                    }
+                } else {
+                    texture = Resources.Load<Sprite>("shopSymbol");
+                }
             }
 
             if (i == 0) {
                 mapIcon.style.unityBackgroundImageTintColor = new StyleColor(new Color(0, 1, 0, 1));
             }
             
-            if (texture != null) {
-                mapIcon.style.backgroundImage = new StyleBackground(texture);
-            } else {
+            if (texture == null) {
                 mapIcon.visible = false;
+            } else {
+                mapIcon.style.backgroundImage = new StyleBackground(texture);
             }
 
             mapSection.Add(mapIcon);

@@ -23,5 +23,10 @@ public class CombatCompanionTooltipProvder : MonoBehaviour
         CompanionInstance companion = GetComponent<CompanionInstance>();
         tooltipOnHover.tooltip += companion.companion.companionType.tooltip;
     }
+
+    public void DisableTooltip() {
+        Debug.LogError("destroying companion tooltip");
+        tooltipOnHover.Destroy();
+    }
     
 }

@@ -9,17 +9,19 @@ public class EnemyBrain
     public List<EnemyBehavior> behaviors;
     [SerializeField]
     public EnemyBehaviorPattern behaviorType;
+    public int behaviorIndex = 0;
     public int nextBehaviorIndex = 0;
 
     // To be revisited
     private float attackTime = 0.5f;
 
     public EnemyIntent ChooseIntent(EnemyInstance self) {
+        Debug.Log("ChooseIntent");
         if(behaviors.Count == 0) {
             Debug.LogError("No behaviors defined for enemy");
             return null;
         }
-        int behaviorIndex = 0;
+        behaviorIndex = 0;
         switch (behaviorType) {
             case EnemyBehaviorPattern.SequentialCycling:
                 behaviorIndex = nextBehaviorIndex;
@@ -44,12 +46,13 @@ public class EnemyBrain
             targetList.Add(target);
         }
         return new EnemyIntent(
+            self,
             // I'm aware this is bad, stick with me for a sec
             targetList,
             attackTime,
             action.intent,
             action.targetsKey,
-            UpdateDisplayValue(self, action.displayValue, action),
+            action.displayValue,
             action.effectSteps);
     }
 
@@ -100,14 +103,6 @@ public class EnemyBrain
             break;
         }
         return target;
-    }
-
-    private int UpdateDisplayValue(EnemyInstance instance, int value, EnemyBehavior behavior) {
-        if (behavior.intent != EnemyIntentType.BigAttack && behavior.intent != EnemyIntentType.SmallAttack) {
-            return value;
-        }
-
-        return value + instance.combatInstance.combatStats.baseAttackDamage + instance.combatInstance.GetStatus(StatusEffectType.Strength);
     }
 
     public enum EnemyBehaviorPattern {

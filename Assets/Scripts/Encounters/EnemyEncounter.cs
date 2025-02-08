@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 [System.Serializable]
 public class EnemyEncounter : Encounter
 {
+    public bool isEliteEncounter;
     public List<Enemy> enemyList = new List<Enemy>();
 
     private EncounterConstantsSO encounterConstants;
@@ -24,6 +25,10 @@ public class EnemyEncounter : Encounter
         foreach (EnemyTypeSO enemyType in enemyEncounterType.enemies) {
             enemyList.Add(new Enemy(enemyType));
         }
+    }
+
+    public void SetIsElite(bool isElite) {
+        isEliteEncounter = isElite;
     }
 
     // sorry to mess up the beautiful pattern but we gotta go fast here

@@ -87,7 +87,7 @@ public class Companion : Entity, ICombatStats, IDeckEntity, IUIEntity
 
     public string GetName()
     {
-        return this.companionType.name;
+        return this.companionType.companionName;
     }
 
     public int GetCurrentHealth()

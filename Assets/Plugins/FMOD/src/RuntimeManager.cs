@@ -1157,11 +1157,11 @@ retry:
             return newInstance;
         }
 
-        public static void PlayOneShot(EventReference eventReference, Vector3 position = new Vector3())
+        public static void PlayOneShot(EventReference eventReference, float volume = 100f, Vector3 position = new Vector3())
         {
             try
             {
-                PlayOneShot(eventReference.Guid, position);
+                PlayOneShot(eventReference.Guid, volume, position);
             }
             catch (EventNotFoundException)
             {
@@ -1169,11 +1169,11 @@ retry:
             }
         }
 
-        public static void PlayOneShot(string path, Vector3 position = new Vector3())
+        public static void PlayOneShot(string path, float volume = 100f, Vector3 position = new Vector3())
         {
             try
             {
-                PlayOneShot(PathToGUID(path), position);
+                PlayOneShot(PathToGUID(path), volume, position);
             }
             catch (EventNotFoundException)
             {
@@ -1181,9 +1181,10 @@ retry:
             }
         }
 
-        public static void PlayOneShot(FMOD.GUID guid, Vector3 position = new Vector3())
+        public static void PlayOneShot(FMOD.GUID guid, float volume = 100f, Vector3 position = new Vector3())
         {
             var instance = CreateInstance(guid);
+            instance.setVolume(volume);
             instance.set3DAttributes(RuntimeUtils.To3DAttributes(position));
             instance.start();
             instance.release();

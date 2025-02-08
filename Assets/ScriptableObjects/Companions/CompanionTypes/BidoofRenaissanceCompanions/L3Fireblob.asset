@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
   m_Name: L3Fireblob
   m_EditorClassIdentifier: 
-  companionName: Fireblob
+  companionName: Fireblob++
   maxHealth: 25
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: 2b5d849700e054f9b816967db94093b1, type: 3}
@@ -58,6 +58,7 @@ MonoBehaviour:
         - rid: 205828032053379335
         - rid: 205828032053379337
         - rid: 205828032053379336
+        - rid: 8790164555430888172
     - rid: 205828032053379334
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -100,3 +101,10 @@ MonoBehaviour:
         operation: 2
         scale: 2
         outputKey: doubled
+    - rid: 8790164555430888172
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
+        scale: 1

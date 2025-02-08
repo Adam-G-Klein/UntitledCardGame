@@ -168,11 +168,15 @@ public class GetTargets : EffectStep, IEffectStepCalculation
         if (cantCancelTargetting) {
             context.canCancel = false;
         } else {
+            Debug.Log("Cancelling the GetTargets effect step");
             context.canCancel = true;
             EffectManager.Instance.CancelEffectWorkflow();
             TargettingManager.Instance.targetSuppliedHandler -= TargetSuppliedHandler;
             TargettingManager.Instance.cancelTargettingHandler -= CancelHandler;
-            originCard.ResetCardScale();
+            if (originCard != null) {
+                originCard.ResetCardScale();
+                EnemyEncounterManager.Instance.SetCastingCard(false);
+            }
         }
     }
 

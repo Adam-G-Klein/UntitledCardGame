@@ -8,6 +8,7 @@ public class MusicController2 : GenericSingleton<MusicController2>
     private FMOD.Studio.EventInstance instance;
     public List<LocationTrack> locationTracks;
     private FMODUnity.EventReference currentReference;
+    public float currentVolume = 0.5f;
 
     [System.Serializable]
     public class LocationTrack
@@ -26,6 +27,11 @@ public class MusicController2 : GenericSingleton<MusicController2>
     
     public void PlayMusicLocation(Location location)
     {
+        if(locationTracks == null)
+        {
+            Debug.LogWarning("No location tracks set in MusicController2");
+            return;
+        }
         foreach (LocationTrack locationTrack in locationTracks)
         {
             
@@ -34,6 +40,7 @@ public class MusicController2 : GenericSingleton<MusicController2>
                 instance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
                 instance.release();
                 instance = FMODUnity.RuntimeManager.CreateInstance(locationTrack.eventReference);
+                instance.setVolume(currentVolume);
                 instance.start();
                 currentReference = locationTrack.eventReference;
                 Debug.Log(locationTrack.eventReference);
@@ -42,9 +49,20 @@ public class MusicController2 : GenericSingleton<MusicController2>
         }
     }
 
+    public void SetVolume(float volume)
+    {
+        currentVolume = volume;
+        instance.setVolume(volume);
+    }
+
+    public void PlaySFX(string sfx)
+    {
+        FMODUnity.RuntimeManager.PlayOneShot(sfx, currentVolume);
+    }
+
     public void PlayStartSFX()
     {
-        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/SFX_StartRun");
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/SFX_StartRun", currentVolume);
     }
     
     // Start is called before the first frame update

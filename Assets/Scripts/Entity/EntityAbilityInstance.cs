@@ -58,15 +58,28 @@ public abstract class EntityAbilityInstance
                 CombatEntityTrigger minionDeathTrigger = new CombatEntityTrigger(
                     CombatEntityTriggerType.MINION_DIED,
                     setupAndInvokeAbility());
+                combatEntityTriggers.Add(companionDeathTrigger);
+                combatEntityTriggers.Add(enemyDeathTrigger);
+                combatEntityTriggers.Add(minionDeathTrigger);
                 CombatEntityManager.Instance.registerTrigger(companionDeathTrigger);
                 CombatEntityManager.Instance.registerTrigger(enemyDeathTrigger);
                 CombatEntityManager.Instance.registerTrigger(minionDeathTrigger);
             break;
 
             case EntityAbility.EntityAbilityTrigger.OnFriendDeath:
-                CombatEntityManager.Instance.registerTrigger(new CombatEntityTrigger(
+                CombatEntityTrigger onFriendDeathTrigger = new CombatEntityTrigger(
                     CombatEntityTriggerType.COMPANION_DIED,
-                    setupAndInvokeAbility()));
+                    setupAndInvokeAbility());
+                combatEntityTriggers.Add(onFriendDeathTrigger);
+                CombatEntityManager.Instance.registerTrigger(onFriendDeathTrigger);
+            break;
+
+            case EntityAbility.EntityAbilityTrigger.OnFoeDeath:
+                CombatEntityTrigger onFoeDeathTrigger = new CombatEntityTrigger(
+                    CombatEntityTriggerType.ENEMY_DIED,
+                    setupAndInvokeAbility());
+                combatEntityTriggers.Add(onFoeDeathTrigger);
+                CombatEntityManager.Instance.registerTrigger(onFoeDeathTrigger);
             break;
 
             // Experiment: let's try handling the OnDeath trigger by directly doing it here in the callback.
@@ -143,22 +156,28 @@ public abstract class EntityAbilityInstance
     private IEnumerator OnCardCast(PlayableCard card) {
         EffectDocument document = createEffectDocument();
         document.map.AddItem<PlayableCard>("cardPlayed", card);
-        yield return EffectManager.Instance.invokeEffectWorkflowCoroutine(document, ability.effectSteps, null);
+        if (card.deckFrom.TryGetComponent(out CompanionInstance companion)) {
+            EffectUtils.AddCompanionToDocument(document, "companionCardPlayedFrom", companion);
+        }
+        EffectManager.Instance.QueueEffectWorkflow(new EffectWorkflowClosure(document, ability.effectWorkflow, null));
+        yield return null;
     }
 
     private IEnumerator OnHandEmpty() {
         Debug.Log("OnHandEmpty ability invoked!!!");
-        yield return setupAndInvokeAbility().GetEnumerator();
+        EffectManager.Instance.QueueEffectWorkflow(
+            new EffectWorkflowClosure(createEffectDocument(), ability.effectWorkflow, null)
+        );
+        yield return null;
     }
 
     private IEnumerator OnCardExhaust(DeckInstance deckFrom, Card card) {
         EffectDocument document = createEffectDocument();
         if (deckFrom.TryGetComponent(out CompanionInstance companion)) {
-            document.map.AddItem<CompanionInstance>("companionExhaustedFrom", companion);
-            document.map.AddItem<CombatInstance>("companionExhaustedFrom", companion.combatInstance);
-            document.map.AddItem<DeckInstance>("companionExhaustedFrom", companion.deckInstance);
+            EffectUtils.AddCompanionToDocument(document, "companionExhaustedFrom", companion);
         }
-        yield return EffectManager.Instance.invokeEffectWorkflowCoroutine(document, ability.effectSteps, null);
+        EffectManager.Instance.QueueEffectWorkflow(new EffectWorkflowClosure(document, ability.effectWorkflow, null));
+        yield return null;
     }
 
     private IEnumerator OnDeckShuffled(DeckInstance deckFrom) {
@@ -168,7 +187,8 @@ public abstract class EntityAbilityInstance
             document.map.AddItem<CombatInstance>("companionDeckFrom", companion.combatInstance);
             document.map.AddItem<DeckInstance>("companionDeckFrom", companion.deckInstance);
         }
-        yield return EffectManager.Instance.invokeEffectWorkflowCoroutine(document, ability.effectSteps, null);
+        EffectManager.Instance.QueueEffectWorkflow(new EffectWorkflowClosure(document, ability.effectWorkflow, null));
+        yield return null;
     }
 
     private IEnumerator OnDamageTaken(CombatInstance damagedInstance) {
@@ -188,7 +208,8 @@ public abstract class EntityAbilityInstance
                 EffectUtils.AddEnemyToDocument(document, "damagedEnemy", enemy);
             }
         }
-        yield return EffectManager.Instance.invokeEffectWorkflowCoroutine(document, ability.effectSteps, null);
+        EffectManager.Instance.QueueEffectWorkflow(new EffectWorkflowClosure(document, ability.effectWorkflow, null));
+        yield return null;
     }
 }
 

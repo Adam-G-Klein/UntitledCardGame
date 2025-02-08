@@ -34,7 +34,7 @@
     color: rgb(0, 0, 0);
     font-size: 20px;
     -unity-text-align: middle-center;
-    background-color: rgba(255, 255, 255, 0.63);
+    background-color: rgba(255, 255, 255, 0.6);
     left: 0;
     top: 0;
 }
@@ -164,6 +164,7 @@
     background-color: rgba(0, 0, 0, 0);
     height: 80%;
     width: 100%;
+    justify-content: center;
 }
 
 .health-tab {
@@ -174,7 +175,7 @@
     justify-content: center;
     flex-shrink: 1;
     margin-bottom: 12px;
-    background-image: url("project://database/Assets/UI/heart.png?fileID=2800000&guid=82616f53fbf77bc4bbb3545e097e5104&type=3#heart");
+    background-image: url("project://database/Assets/Sprites/Z_OldPlaceholderSprites/newheart.png?fileID=2800000&guid=43b02e3f73b9646ee9e89fec4d82da5b&type=3#newheart");
 }
 
 .block-tab {
@@ -185,7 +186,7 @@
     justify-content: center;
     flex-shrink: 1;
     margin-bottom: 12px;
-    background-image: url("project://database/Assets/Sprites/Z_OldPlaceholderSprites/block.png?fileID=2800000&guid=dc2691b0a220a3a45b5946651905449b&type=3#block");
+    background-image: url("project://database/Assets/Sprites/Z_OldPlaceholderSprites/block_vector.png?fileID=2800000&guid=4b398c458377645acb90057ab391c591&type=3#block_vector");
 }
 
 .status-tab {
@@ -203,7 +204,7 @@
     border-bottom-width: 1px;
     justify-content: center;
     flex-shrink: 1;
-    background-image: url("project://database/Assets/Sprites/Z_OldPlaceholderSprites/bicep.png?fileID=2800000&guid=ed55b8c3c8cddf84e9879c69c720553a&type=3#bicep");
+    background-image: url("project://database/Assets/Sprites/Z_OldPlaceholderSprites/strength_temporary_vector.png?fileID=2800000&guid=cee0fc506aade46428f017e32b618a14&type=3#strength_temporary_vector");
     margin-bottom: 12px;
     margin-right: 12px;
 }
@@ -454,11 +455,11 @@
 .money-indactor-background {
     flex-grow: 1;
     position: absolute;
-    left: 0;
-    top: 0;
+    left: 40px;
+    top: 40px;
     width: 100px;
     height: 100px;
-    background-image: url("project://database/Assets/Sprites/ShopSprites/Untitled_Artwork.png?fileID=2800000&guid=caf5d25d34d66b44788555ffc3fb5326&type=3#Untitled_Artwork");
+    background-image: url("project://database/Assets/Sprites/Z_OldPlaceholderSprites/money_background.png?fileID=2800000&guid=9a032b794c2e74915a1a0e224767fcad&type=3#money_background");
     align-items: center;
     justify-content: center;
 }
@@ -516,4 +517,13 @@
     border-bottom-width: 2px;
     border-left-width: 2px;
     background-color: rgb(221, 221, 221);
+}
+
+.enemy-intent-inner-container {
+    flex-grow: 1;
+    height: 80%;
+    min-height: 80%;
+    max-height: 80%;
+    margin-bottom: 0;
+    justify-content: center;
 }

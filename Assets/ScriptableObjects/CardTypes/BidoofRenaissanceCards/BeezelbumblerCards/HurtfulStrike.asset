@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: HurtfulStrike
   m_EditorClassIdentifier: 
-  Name: HurtfulStrike
+  Name: Hurtful Strike
   Description: Lose 1 HP. Deal {rpl_damage} damage twice.
-  values: 04000000
   defaultValues:
   - key: rpl_damage
     value: 4
@@ -64,7 +63,6 @@ MonoBehaviour:
         - rid: 5602892561590779950
         - rid: 5602892561590779949
         - rid: 1274772082283774270
-        - rid: 5280922807842373643
         - rid: 1274772082283774271
         - rid: 5280922807842373643
         - rid: 1274772082283774271

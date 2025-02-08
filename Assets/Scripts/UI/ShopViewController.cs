@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,11 +11,13 @@ using UnityEngine.UIElements;
 public class ShopViewController : MonoBehaviour, 
     IShopItemViewDelegate,
     ICompanionManagementViewDelegate
+    
 {
     public UIDocument uiDoc;
     public bool canDragCompanions = false;
     public Color slotHighlightColor;
     public Color slotNotHighlightColor;
+    public Color slotUnavailableColor;
 
     private ShopManager shopManager;
     private Dictionary<CardInShopWithPrice, ShopItemView> cardItemToViewMap;
@@ -29,18 +32,29 @@ public class ShopViewController : MonoBehaviour,
     private Label moneyLabel;
     private Label notEnoughMoneyLabel;
     public VisualElement selectingCompanionVeil;
+    public VisualElement selectingIndicator;
+    public Button selectingCancelButton;
     public Label upgradePriceLabel;
     public Label rerollPriceLabel;
+    //public Button sellCompanionButton;
+    public VisualElement sellingCompanionConfirmation;
+    private VisualElement deckView;
+    private VisualElement deckViewContentContainer;
+    private VisualElement genericMessageBox;
 
     // For dragging and dropping companions in the unit management
     private bool isDraggingCompanion = false;
     private VisualElement companionBeingDragged = null;
     private VisualElement originalParent = null;
     private Dictionary<VisualElement, CompanionManagementView> visualElementToCompanionViewMap = new Dictionary<VisualElement, CompanionManagementView>();
+    private List<VisualElement> blockedSlots = new List<VisualElement>();
 
     private IEnumerator notEnoughMoneyCoroutine;
     private IEnumerator upgradeButtonTooltipCoroutine = null;
     private VisualElement tooltip;
+    private bool sellingCompanions = false;
+    private Companion companionToSell;
+    private string originalSellingCompanionConfirmationText;
 
     public void Start() {
         // Init(null);
@@ -64,17 +78,44 @@ public class ShopViewController : MonoBehaviour,
         moneyLabel = uiDoc.rootVisualElement.Q<Label>("money-indicator-label");
         notEnoughMoneyLabel = uiDoc.rootVisualElement.Q<Label>("not-enough-money-indicator");
         selectingCompanionVeil = uiDoc.rootVisualElement.Q("selecting-companion-veil");
+        selectingIndicator = uiDoc.rootVisualElement.Q("companion-selection-indicator");
+        selectingCancelButton = uiDoc.rootVisualElement.Q<Button>("companion-selection-cancel-button");
         upgradePriceLabel = uiDoc.rootVisualElement.Q<Label>("upgrade-price-label");
         rerollPriceLabel = uiDoc.rootVisualElement.Q<Label>("reroll-price-label");
+        //sellCompanionButton = uiDoc.rootVisualElement.Q<Button>("sell-companion-button");
+        sellingCompanionConfirmation = uiDoc.rootVisualElement.Q("selling-companion-confirmation");
+        deckView = uiDoc.rootVisualElement.Q("deck-view");
+        deckViewContentContainer = uiDoc.rootVisualElement.Q("deck-view-card-area");
+        genericMessageBox = uiDoc.rootVisualElement.Q("generic-message-box");
 
-        selectingCompanionVeil.RegisterCallback<ClickEvent>(ShopVeilOnClick);
+        SetupActiveSlots(shopManager.gameState.companions.currentCompanionSlots);
 
         uiDoc.rootVisualElement.Q<Button>("reroll-button").clicked += RerollButtonOnClick;
+        selectingCancelButton.clicked += CancelCardBuy;
         upgradeButton = uiDoc.rootVisualElement.Q<Button>("upgrade-button");
         upgradeButton.clicked += UpgradeButtonOnClick;
         upgradeButton.RegisterCallback<PointerEnterEvent>(UpgradeButtonOnPointerEnter);
         upgradeButton.RegisterCallback<PointerLeaveEvent>(UpgradeButtonOnPointerLeave);
         uiDoc.rootVisualElement.Q<Button>("start-next-combat-button").clicked += StartNextCombatOnClick;
+        //sellCompanionButton.clicked += SellCompanionOnClick;
+        sellingCompanionConfirmation.Q<Button>("selling-companion-confirmation-yes").clicked += ConfirmSellCompanion;
+        sellingCompanionConfirmation.Q<Button>("selling-companion-confirmation-no").clicked += StopSellingCompanion;
+        originalSellingCompanionConfirmationText = sellingCompanionConfirmation.Q<Label>("selling-companion-confirmation-label").text;
+        deckView.Q<Button>().clicked += CloseCompanionDeckView;
+    }
+
+    private void SetupActiveSlots(int numCompanions) {
+        if (numCompanions >= 5) return;
+
+        blockedSlots = new List<VisualElement>();
+        int i = 0;
+        foreach (VisualElement child in activeContainer.hierarchy.Children()) {
+            i++;
+            if (i > numCompanions) {
+                child.style.backgroundColor = slotUnavailableColor;
+                blockedSlots.Add(child);
+            }
+        }
     }
 
     private void SetupMap(IEncounterBuilder encounterBuilder) {
@@ -87,17 +128,9 @@ public class ShopViewController : MonoBehaviour,
     }
 
     public void Clear() {
-        foreach (VisualElement child in activeContainer.hierarchy.Children()) {
-            if (child.childCount > 0) {
-                child.Clear();
-            }
-        }
-        foreach (VisualElement child in benchScrollView.contentContainer.hierarchy.Children()) {
-            if (child.childCount > 0) {
-                child.Clear();
-            }
-        }
+        ClearUnitManagement();
         shopGoodsArea.Clear();
+        SetupActiveSlots(shopManager.gameState.companions.currentCompanionSlots);
     }
 
     public void AddCardToShopView(CardInShopWithPrice card) {
@@ -112,7 +145,8 @@ public class ShopViewController : MonoBehaviour,
         ShopItemView shopItemView = cardItemToViewMap[card];
 
         // TODO: Replace with sold out? Grey it out? Talk to Jasmine
-        shopGoodsArea.Remove(shopItemView.shopItemElement);
+        shopItemView.Disable();
+        //shopGoodsArea.Remove(shopItemView.shopItemElement);
         
         cardItemToViewMap.Remove(card);
     }
@@ -129,13 +163,14 @@ public class ShopViewController : MonoBehaviour,
         ShopItemView shopItemView = companionItemToViewMap[companion];
 
         // TODO: Replace with sold out? Grey it out? Talk to Jasmine
-        shopGoodsArea.Remove(shopItemView.shopItemElement);
-
+        //shopGoodsArea.Remove(shopItemView.shopItemElement);
+        shopItemView.Disable();
         companionItemToViewMap.Remove(companion);
     }
 
     public void RebuildUnitManagement(CompanionListVariableSO companionList) {
         ClearUnitManagement();
+        SetupActiveSlots(shopManager.gameState.companions.currentCompanionSlots);
         SetupUnitManagement(companionList);
     }
 
@@ -144,12 +179,15 @@ public class ShopViewController : MonoBehaviour,
             if (child.childCount > 0) {
                 child.Clear();
             }
+            child.style.backgroundColor = slotNotHighlightColor;
         }
         foreach (VisualElement child in benchScrollView.contentContainer.hierarchy.Children()) {
             if (child.childCount > 0) {
                 child.Clear();
             }
+            child.style.backgroundColor = slotNotHighlightColor;
         }
+        blockedSlots = new List<VisualElement>();
     }
 
     public void SetupUnitManagement(CompanionListVariableSO companionList) {
@@ -222,9 +260,58 @@ public class ShopViewController : MonoBehaviour,
         shopManager.exitShop();
     }
 
+    public void SellCompanionOnClick() {
+        if (sellingCompanions) {
+            //sellCompanionButton.text = "Sell Companion";
+            StopSellingCompanion();
+        } else {
+            //sellCompanionButton.text = "Cancel";
+            SetupSellCompanion();
+        }
+    }
+
+    public void SetupSellCompanion() {
+        sellingCompanions = true;
+        selectingCompanionVeil.style.visibility = Visibility.Visible;
+        canDragCompanions = false;
+    }
+
+    public void StopSellingCompanion() {
+        sellingCompanions = false;
+        selectingCompanionVeil.style.visibility = Visibility.Hidden;
+        canDragCompanions = true;
+        companionToSell = null;
+        sellingCompanionConfirmation.style.visibility = Visibility.Hidden;
+    }
+
     public void CompanionManagementOnClick(CompanionManagementView companionView, ClickEvent evt)
     {
-        shopManager.ProcessCompanionClicked(companionView.companion);
+        if (sellingCompanions) {
+            sellingCompanionConfirmation.style.visibility = Visibility.Visible;
+            //this.companionToSell = companionView;
+            Label confirmSellCompanionLabel = sellingCompanionConfirmation.Q<Label>("selling-companion-confirmation-label");
+            string replacedText = String.Format(
+                originalSellingCompanionConfirmationText, 
+                companionView.companion.GetName(), 
+                shopManager.CalculateCompanionSellPrice(companionView.companion));
+            confirmSellCompanionLabel.text = replacedText;
+        } else {
+            shopManager.ProcessCompanionClicked(companionView.companion);
+        }
+    }
+
+    private void ConfirmSellCompanion() {
+        shopManager.SellCompanion(companionToSell);
+        companionToSell = null;
+        sellingCompanions = false;
+        canDragCompanions = true;
+        selectingCompanionVeil.style.visibility = Visibility.Hidden;
+        sellingCompanionConfirmation.style.visibility = Visibility.Hidden;
+    }
+
+    private void DontSellCompanion() {
+        companionToSell = null;
+        sellingCompanionConfirmation.style.visibility = Visibility.Hidden;
     }
 
     public void CompanionManagementOnPointerDown(CompanionManagementView companionView, PointerDownEvent evt)
@@ -262,6 +349,7 @@ public class ShopViewController : MonoBehaviour,
         companionManagementView.container.parent.style.left = evt.position.x - companionManagementView.container.parent.layout.width / 2;
 
         foreach (VisualElement child in activeContainer.hierarchy.Children()) {
+            if (blockedSlots != null && blockedSlots.Contains(child)) continue;
             if (child.worldBound.Contains(evt.position)) {
                 child.style.backgroundColor = slotHighlightColor;
             } else {
@@ -275,6 +363,13 @@ public class ShopViewController : MonoBehaviour,
                 child.style.backgroundColor = slotNotHighlightColor;
             }
         }
+    }
+
+    public void CompanionManagementOnPointerLeave(CompanionManagementView companionManagementView, PointerLeaveEvent evt) {
+        if (!isDraggingCompanion || companionBeingDragged != companionManagementView.container)  return;
+
+        companionManagementView.container.parent.style.top = evt.position.y - companionManagementView.container.parent.layout.height / 2;
+        companionManagementView.container.parent.style.left = evt.position.x - companionManagementView.container.parent.layout.width / 2;
     }
 
     public void ComapnionManagementOnPointerUp(CompanionManagementView companionManagementView, PointerUpEvent evt)
@@ -293,8 +388,8 @@ public class ShopViewController : MonoBehaviour,
             }
         }
 
-        if (elementOver != null) {
-            DoMoveComapnion(companionManagementView.container, elementOver);
+        if (elementOver != null && !blockedSlots.Contains(elementOver)) {
+            DoMoveComapnion(companionManagementView, elementOver);
             elementOver.style.backgroundColor = slotNotHighlightColor;
         } else {
             VisualElement tempContainer = companionManagementView.container.parent;
@@ -306,19 +401,28 @@ public class ShopViewController : MonoBehaviour,
         originalParent = null;
     }
 
-    private void DoMoveComapnion(VisualElement companionElement, VisualElement movingToContainer) {
+    private void DoMoveComapnion(CompanionManagementView companionManagementView, VisualElement movingToContainer) {
         // Scenario 1, dragging companion to open container
         if (movingToContainer.childCount == 0) {
-            VisualElement tempContainer = companionElement.parent;
-            movingToContainer.Add(companionElement);
-            tempContainer.RemoveFromHierarchy();
+            VisualElement tempContainer = companionManagementView.container.parent;
+
+            // SPECIAL CASE ALERT: SPECIAL CASE A L E R T
+            // Trying to move last active companion to *possibly* the bench
+            if (!shopManager.CanMoveCompanionToNewOpenSlot(companionManagementView.companion)) {
+                originalParent.Add(companionManagementView.container);
+                uiDoc.rootVisualElement.Remove(tempContainer);
+            } else {
+                movingToContainer.Add(companionManagementView.container);
+                tempContainer.RemoveFromHierarchy();
+            }
+
             RefreshContainers(activeContainer.Children().ToList(), false);
             RefreshContainers(benchScrollView.contentContainer.Children().ToList(), true);
         // Scenario 2, dragging companion to slot with another companion in it already
         } else if (movingToContainer.childCount == 1) {
             originalParent.Add(movingToContainer[0]);
-            VisualElement tempContainer = companionElement.parent;
-            movingToContainer.Add(companionElement);
+            VisualElement tempContainer = companionManagementView.container.parent;
+            movingToContainer.Add(companionManagementView.container);
             tempContainer.RemoveFromHierarchy();
         } else {
             Debug.LogError("Companion container contains more than 1 element in heirarchy");
@@ -378,6 +482,7 @@ public class ShopViewController : MonoBehaviour,
     public void CardBuyingSetup(ShopItemView shopItemView, CardInShopWithPrice cardInShop) {
         canDragCompanions = false;
         selectingCompanionVeil.style.visibility = Visibility.Visible;
+        selectingIndicator.style.visibility = Visibility.Visible;
         List<CompanionManagementView> notApplicable = new List<CompanionManagementView>();
         foreach (VisualElement child in activeContainer.hierarchy.Children()) {
             if (child.childCount != 1) continue;
@@ -403,6 +508,7 @@ public class ShopViewController : MonoBehaviour,
     public void StopBuyingCard() {
         canDragCompanions = true;
         selectingCompanionVeil.style.visibility = Visibility.Hidden;
+        selectingIndicator.style.visibility = Visibility.Hidden;
         foreach (VisualElement child in activeContainer.hierarchy.Children()) {
             if (child.childCount != 1) continue;
             visualElementToCompanionViewMap[child[0]].ResetApplicable();
@@ -414,7 +520,7 @@ public class ShopViewController : MonoBehaviour,
         }
     }
 
-    private void ShopVeilOnClick(ClickEvent evt) {
+    private void CancelCardBuy() {
         shopManager.ProcessCardBuyCanceled();
         StopBuyingCard();
     }
@@ -464,4 +570,76 @@ public class ShopViewController : MonoBehaviour,
     public void SetShopUpgradePrice(int amount) {
         upgradePriceLabel.text = "$" + amount.ToString();
     }
+
+    public void DisableUpgradeButton() {
+        upgradeButton.SetEnabled(false);
+        upgradeButton.UnregisterCallback<PointerEnterEvent>(UpgradeButtonOnPointerEnter);
+    }
+
+    public MonoBehaviour GetMonoBehaviour()
+    {
+        return this;
+    }
+
+    public void AddToRoot(VisualElement element)
+    {
+        uiDoc.rootVisualElement.Add(element);
+    }
+
+    public void ShowCompanionDeckView(Companion companion)
+    {
+        deckViewContentContainer.Clear();
+        deckView.style.visibility = Visibility.Visible;
+
+        foreach (Card card in companion.deck.cards) {
+            CardView cardView = new CardView(card.cardType, companion.companionType, true);
+            cardView.cardContainer.style.marginBottom = 10;
+            cardView.cardContainer.style.marginLeft = 10;
+            cardView.cardContainer.style.marginRight = 10;
+            cardView.cardContainer.style.marginTop = 10;
+            deckViewContentContainer.Add(cardView.cardContainer);
+        }
+    }
+
+    public void SellCompanion(Companion companion)
+    {
+        SellCompanionOnClick();
+        sellingCompanionConfirmation.style.visibility = Visibility.Visible;
+            this.companionToSell = companion;
+            Label confirmSellCompanionLabel = sellingCompanionConfirmation.Q<Label>("selling-companion-confirmation-label");
+            string replacedText = String.Format(
+                originalSellingCompanionConfirmationText, 
+                companion.GetName(), 
+                shopManager.CalculateCompanionSellPrice(companion));
+            confirmSellCompanionLabel.text = replacedText;
+    }
+
+    private void CloseCompanionDeckView() {
+        deckViewContentContainer.Clear();
+        deckView.style.visibility = Visibility.Hidden;
+    }
+
+    public void ShowCantSellLastCompanion()
+    {
+        StartCoroutine(ShowGenericNotification("Unable to sell companion, this is your last one active!")); 
+    }
+
+    public void ShowCompanionUpgradedMessage(String companionName, int newLevel)
+    {
+        StartCoroutine(ShowGenericNotification(companionName + " has been upgraded to level " + newLevel + "!", 1.5f)); 
+    }
+
+    private IEnumerator ShowGenericNotification(string text, float time = 2.5f) {
+        genericMessageBox.style.visibility = Visibility.Visible;
+        genericMessageBox.Q<Label>().text = text;
+        yield return new WaitForSeconds(2.5f);
+        genericMessageBox.style.visibility = Visibility.Hidden;
+    }
+    public bool IsSellingCompanions() {
+        return sellingCompanions;
+    }
+
+    public bool IsDraggingCompanion() {
+        return isDraggingCompanion;
+    }  
 }

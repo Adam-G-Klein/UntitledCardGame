@@ -40,7 +40,8 @@ MonoBehaviour:
       - rid: 4463206030013890983
       - rid: 5280922829633617997
     behaviorType: 0
-    nextBehaviorIndex: 0
+    behaviorIndex: 0
+    nextBehaviorIndex: 1
   belowHalfHPEnemyPattern:
     behaviors:
     - intent: 4
@@ -50,25 +51,35 @@ MonoBehaviour:
       effectSteps:
       - rid: 4463206030013890898
       - rid: 4463206030013890899
-    - intent: 0
-      enemyTargetMethod: 0
+    - intent: 1
+      enemyTargetMethod: 4
       targetsKey: target
       displayValue: 5
       effectSteps:
-      - rid: 4463206030013890897
+      - rid: 8790164580739055722
+      - rid: 8790164580739055723
+      - rid: 8790164580739055724
       - rid: 4463206030013890928
+      - rid: 8790164580739055720
+      - rid: 8790164580739055721
     behaviorType: 2
+    behaviorIndex: 0
     nextBehaviorIndex: 0
   initialStatuses: []
   tooltip:
     empty: 0
     lines:
     - title: Impending Doom
-      description: Adds the SeedOfDestruction to you deck
-      relatedBehaviorIndex: 1
-    - title: Malicious Attack
-      description: 'Attacks and adds the SeedOfDestruction '
+      description: I'll shuffle a Seed of Destruction into that poor companion's
+        deck. You want more cards, don't you?
       relatedBehaviorIndex: 0
+    - title: Chew Up
+      description: Take this! I'm going to slash that companion and add another Seed
+        of Destruction to the top of its draw pile.
+      relatedBehaviorIndex: 1
+    - title: Seed of Destruction
+      description: Sinister looking card. Something feels off about it...
+      relatedBehaviorIndex: -1
   references:
     version: 2
     RefIds:
@@ -125,18 +136,6 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
-    - rid: 4463206030013890897
-      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CombatEffectStep
-        inputKey: target
-        combatEffect: 0
-        scale: 5
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
     - rid: 4463206030013890898
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -165,7 +164,7 @@ MonoBehaviour:
       data:
         effectStepName: CardModificationEffect
         inputKey: 
-        scale: 1
+        scale: 2
         affectsAllCardsOfType: 1
         cardTypeToModify: {fileID: 11400000, guid: 8d5886ed6558f4976b9ef97e1361d022, type: 2}
         getScaleFromKey: 0
@@ -236,3 +235,65 @@ MonoBehaviour:
         inputKey: self
         prefabToInstantiate: {fileID: 3850217184923880746, guid: 4bed509d0589dae4d922d8eeb61a6292, type: 3}
         scale: 1
+    - rid: 8790164580739055720
+      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: AddCardsToDeck
+        inputKey: target
+        cardTypes:
+        - {fileID: 11400000, guid: 8d5886ed6558f4976b9ef97e1361d022, type: 2}
+        addToDeckMethod: 1
+        getCardsFromKey: 0
+        inputCardsKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 8790164580739055721
+      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FXEffectStep
+        waitForEffect: 1
+        fXExperiencePrefab: {fileID: 4075960956037802917, guid: ec7b1a1529f9141458320888bf8e3d96, type: 3}
+        rootLocationGameObjectKey: 
+        positionMappingList:
+        - fromWorkflow: target
+          toFxExperience: end
+        - fromWorkflow: self
+          toFxExperience: start
+        gameobjectMappingList: []
+    - rid: 8790164580739055722
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 8790164580739055723
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: target
+        combatEffect: 0
+        scale: 5
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+    - rid: 8790164580739055724
+      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FXEffectStep
+        waitForEffect: 1
+        fXExperiencePrefab: {fileID: 7374988516867921400, guid: 080ebf6cafefa59438cf877ee502d109, type: 3}
+        rootLocationGameObjectKey: 
+        positionMappingList:
+        - fromWorkflow: self
+          toFxExperience: enemyLocation
+        - fromWorkflow: target
+          toFxExperience: companionLocation
+        gameobjectMappingList: []

@@ -11,6 +11,8 @@ public class ShopItemView {
     private EntityView entityView = null;
     private IShopItemViewDelegate viewDelegate;
 
+    private EventCallback<ClickEvent> clickEventHandler;
+
     public ShopItemView(IShopItemViewDelegate viewDelegate, CompanionInShopWithPrice companion) {
         this.viewDelegate = viewDelegate;
         shopItemElement = makeCompanionShopItem(companion);
@@ -48,6 +50,8 @@ public class ShopItemView {
 
         shopItemElement.RegisterCallback<ClickEvent>(evt => ShopItemViewOnClicked());
 
+        shopItemElement.Add(CreatePriceTagForShopItem(companion.price));
+
         return shopItemElement;
     }
 
@@ -57,19 +61,39 @@ public class ShopItemView {
 
         CardView cardView;
         if (card.sourceCompanion != null) {
-            cardView = new CardView(card.cardType, card.sourceCompanion);
+            cardView = new CardView(card.cardType, card.sourceCompanion, true);
         } else {
-            cardView = new CardView(card.cardType, card.genericArtwork);
+            cardView = new CardView(card.cardType, card.genericArtwork, true);
         }
 
         shopItemElement.Add(cardView.cardContainer);
 
-        shopItemElement.RegisterCallback<ClickEvent>(evt => ShopItemViewOnClicked());
+        clickEventHandler = evt => ShopItemViewOnClicked();
+
+
+        shopItemElement.RegisterCallback<ClickEvent>(clickEventHandler);
+
+        shopItemElement.Add(CreatePriceTagForShopItem(card.price));
 
         return shopItemElement;
     }
 
+    private VisualElement CreatePriceTagForShopItem(int price) {
+        VisualElement priceTag = new VisualElement();
+        Label label = new Label();
+        priceTag.AddToClassList("shop-item-price-tag-background");
+        label.AddToClassList("shop-item-price-tag-label");
+        label.text = "$" + price.ToString();
+        priceTag.Add(label);
+        return priceTag;
+    }
+
     private void ShopItemViewOnClicked() {
         viewDelegate.ShopItemOnClick(this);
+    }
+
+    public void Disable() {
+        shopItemElement.visible = false;
+        shopItemElement.UnregisterCallback<ClickEvent>(clickEventHandler);
     }
 }

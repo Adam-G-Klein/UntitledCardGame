@@ -22,7 +22,6 @@ public class UIDocumentCard : MonoBehaviour
     [SerializeField]
     private Texture2D texture { get; set; }
     public static Vector2Int CARD_REFERENCE_RESOLUTION = new(400, 700);
-    public static float CARD_REFERENCE_SCALE = 0.5f;
     public static Vector2 CARD_SIZE = new Vector2(1f, 1.5f);
 
     [Header("Only for dev, one of the worst possible things you could do for GPU performance")]
@@ -31,8 +30,6 @@ public class UIDocumentCard : MonoBehaviour
     private PlayableCard pCard = null;
     private CardView cardView = null;
 
-    [SerializeField]
-    public int maxFullSizeTextCharacters = 26;
     void Start()
     {
         pCard = GetComponent<PlayableCard>();
@@ -58,7 +55,7 @@ public class UIDocumentCard : MonoBehaviour
         doc = GetComponent<UIDocument>();
         doc.panelSettings = CardPanelSettingsPooler.Instance.GetPanelSettings();
         // TODO: take in card rather than cardtype
-        cardView = new CardView(card, pCard.deckFrom.GetCompanionTypeSO());
+        cardView = new CardView(card, pCard.deckFrom.GetCompanionTypeSO(), false);
         doc.rootVisualElement.Add(cardView.cardContainer);
         UIDocumentUtils.SetAllPickingMode(doc.rootVisualElement, PickingMode.Ignore);
         spriteRenderer = GetComponent<SpriteRenderer>();

@@ -49,13 +49,13 @@ MonoBehaviour:
     lines:
     - title: Strike
       description: Simple Attack
-      relatedBehaviorIndex: 0
+      relatedBehaviorIndex: 1
     - title: Guarded Strike
       description: Attack & Block
-      relatedBehaviorIndex: 1
+      relatedBehaviorIndex: 0
     - title: Block
       description: Block prevents damage
-      relatedBehaviorIndex: 1
+      relatedBehaviorIndex: 0
   references:
     version: 2
     RefIds:

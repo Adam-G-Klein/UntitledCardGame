@@ -305,7 +305,9 @@ public class CompanionViewUI : MonoBehaviour, IPointerClickHandler
                         new Vector3(Screen.width / 2, Screen.height / 2, 0),
                         Quaternion.identity);
         CardViewUI cardView = deckViewUI.GetComponent<CardViewUI>();
-        cardView.Setup(this.clickedCompanion.companion.deck.cards, 0, "", 0);
+        List<Card> cards = new List<Card>(this.clickedCompanion.companion.deck.cards);
+        cards.Shuffle();
+        cardView.Setup(cards, 0, "", 0);
     }
 
     public void toBenchButtonOnClick() {

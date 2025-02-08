@@ -13,15 +13,17 @@ MonoBehaviour:
   m_Name: DebtStatusCard
   m_EditorClassIdentifier: 
   Name: Debt
-  Description: Lose $1 at the end of the turn
+  Description: Exhaust. Lose $1
+  defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: ff1c19216e9ac0145abe8b4b882485a5, type: 3}
   cardCategory: 4
   vfxPrefab: {fileID: 0}
-  playable: 0
-  exhaustsWhenPlayed: 0
+  playable: 1
+  exhaustsWhenPlayed: 1
   retain: 0
-  effectWorkflows: []
+  effectWorkflows:
+  - rid: 8790164583925416395
   onExhaustEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
@@ -35,9 +37,13 @@ MonoBehaviour:
     - rid: 5602892563578093590
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
+        effectSteps: []
+    - rid: 8790164583925416395
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
         effectSteps:
-        - rid: 5602892563578093591
-    - rid: 5602892563578093591
+        - rid: 8790164583925416396
+    - rid: 8790164583925416396
       type: {class: GoldManipulation, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: 

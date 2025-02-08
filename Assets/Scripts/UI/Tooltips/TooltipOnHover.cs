@@ -32,6 +32,7 @@ public class TooltipOnHover : MonoBehaviour,
     [SerializeField]
     private bool instantiateInWorldspace = false;
     public CompanionInstance companionInstance = null;
+    private bool destroyed = false;
 
 
     private bool Active() {
@@ -40,7 +41,7 @@ public class TooltipOnHover : MonoBehaviour,
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if(Active()) {
+        if(Active() && !destroyed) {
             Debug.Log("Tooltip: Enter");
             ResetCoroutine();
             currentCoroutine = DisplayTooltip();
@@ -67,6 +68,12 @@ public class TooltipOnHover : MonoBehaviour,
             Debug.Log("Tooltip: hiding current view");
             currentView.Hide();
         }
+    }
+
+    public void Destroy() {
+        ResetCoroutine();
+        if(currentView != null) currentView.Hide();
+        destroyed = true;
     }
 
     public void OnPointerClick(PointerEventData eventData) {}

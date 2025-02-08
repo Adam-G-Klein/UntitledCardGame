@@ -8,7 +8,7 @@ using UnityEngine.UIElements;
 using System;
 using Unity.VisualScripting;
 
-public class CombatEncounterView : GenericSingleton<CombatEncounterView> 
+public class CombatEncounterView : GenericSingleton<CombatEncounterView>
 {
     public GameStateVariableSO gameState;
     private VisualElement root;
@@ -40,7 +40,7 @@ public class CombatEncounterView : GenericSingleton<CombatEncounterView>
     private GameObject cardViewUIPrefab;
     private bool inTooltip = false;
 
-    public void SetupFromGamestate() 
+    public void SetupFromGamestate()
     {
         docRenderer = gameObject.GetComponent<UIDocumentScreenspace>();
         root = GetComponent<UIDocument>().rootVisualElement;
@@ -126,7 +126,7 @@ public class CombatEncounterView : GenericSingleton<CombatEncounterView>
         // it's important to add the hover detector *before* the drawer,
         // or it will pick away the click events from the buttons
         VisualElement hoverDetector = new VisualElement();
-        hoverDetector.AddToClassList("pillar-hover-box"); 
+        hoverDetector.AddToClassList("pillar-hover-box");
         pickingModePositionList.Add(hoverDetector);
         pillar.Add(hoverDetector);
         registerModelUpdateOnHovers(entity, hoverDetector);
@@ -135,7 +135,7 @@ public class CombatEncounterView : GenericSingleton<CombatEncounterView>
 
         if(!isEnemy)
             pillar.Add(setupCardDrawer(entity));
-        
+
         return pillar;
     }
 
@@ -154,7 +154,7 @@ public class CombatEncounterView : GenericSingleton<CombatEncounterView>
         VisualElement detailsContainer = setupCardColumnPortraitAndTitle(column, entity, index, isEnemy);
         VisualElement descriptionContainer = setupCardColumnDescription(entity, detailsContainer, index, isEnemy);
         registerModelUpdateOnHovers(entity, descriptionContainer);
-        
+
         detailsContainer.Add(descriptionContainer);
 
         column.Add(detailsContainer);
@@ -175,7 +175,6 @@ public class CombatEncounterView : GenericSingleton<CombatEncounterView>
         portraitContainerContainer.Add(portraitContainer);
         column.Add(portraitContainerContainer);
         column.AddToClassList(portraitContainer.name + STATUS_EFFECTS_CONTAINER_SUFFIX);
-        
 
         var detailsContainer = new VisualElement();
         detailsContainer.AddToClassList("pillar-details");
@@ -191,29 +190,33 @@ public class CombatEncounterView : GenericSingleton<CombatEncounterView>
             titleLabel.AddToClassList("enemy-pillar-name");
         }
         titleContainer.Add(titleLabel);
-        titleLabel.text = entity.GetName(); 
+        titleLabel.text = entity.GetName();
         detailsContainer.Add(titleContainer);
         return detailsContainer;
     }
 
-    // returns the description container, which holds the enemy intent, the companion description, and the 
+    // returns the description container, which holds the enemy intent, the companion description, and the
     // deck drawers on hover for companions
     private VisualElement setupCardColumnDescription(IUIEntity entity, VisualElement detailsContainer, int index, bool isEnemy) {
         var descContainer = new VisualElement();
         descContainer.AddToClassList("pillar-text");
         pickingModePositionList.Add(descContainer);
 
-        
+
         var descLabel = new Label();
 
         EnemyInstance enemyInstance = entity.GetEnemyInstance();
         if(enemyInstance) {
-            setupEnemyIntent(descLabel, descContainer, enemyInstance);
+            VisualElement innerContainer = new VisualElement();
+            innerContainer.AddToClassList("enemy-intent-inner-container");
+            setupEnemyIntent(descLabel, innerContainer, enemyInstance);
+            innerContainer.Add(descLabel);
+            descContainer.Add(innerContainer);
         } else { // then we know it's a companion
             descLabel.AddToClassList("pillar-desc-label");
             descLabel.text = entity.GetDescription();
+            descContainer.Add(descLabel);
         }
-        descContainer.Add(descLabel);
         return descContainer;
     }
 
@@ -221,7 +224,7 @@ public class CombatEncounterView : GenericSingleton<CombatEncounterView>
         if(enemyInstance.currentIntent == null) {
             descLabel.text = "Preparing...";
         } else {
-            descLabel.text = enemyInstance.currentIntent.displayValue.ToString();
+            descLabel.text = enemyInstance.currentIntent.GetDisplayValue().ToString();
             descLabel.AddToClassList("pillar-enemy-intent-text");
             var intentImage = new VisualElement();
             intentImage.AddToClassList("enemy-intent-image");
@@ -233,11 +236,11 @@ public class CombatEncounterView : GenericSingleton<CombatEncounterView>
     private VisualElement setupCardDrawer(IUIEntity entity) {
         VisualElement drawerContainer = new VisualElement();
         drawerContainer.AddToClassList("pillar-drawer-menu");
-        
+
         UnityEngine.UIElements.Button drawButton = new UnityEngine.UIElements.Button();
         drawButton.AddToClassList("drawer-button");
         drawButton.text = "Draw";
-        
+
 
         UnityEngine.UIElements.Button discardButton = new UnityEngine.UIElements.Button();
         discardButton.AddToClassList("drawer-button");
@@ -265,9 +268,9 @@ public class CombatEncounterView : GenericSingleton<CombatEncounterView>
                 Vector3.zero,
                 Quaternion.identity);
             CardViewUI cardViewUI = gameObject.GetComponent<CardViewUI>();
-            cardViewUI.Setup(deckInstance.drawPile, 
-                0, 
-                deckInstance.combatInstance.name + " draw pile", 
+            cardViewUI.Setup(deckInstance.GetShuffledDrawPile(),
+                0,
+                deckInstance.combatInstance.name + " draw pile",
                 0);
         });
 
@@ -285,9 +288,9 @@ public class CombatEncounterView : GenericSingleton<CombatEncounterView>
                 Vector3.zero,
                 Quaternion.identity);
             CardViewUI cardViewUI = gameObject.GetComponent<CardViewUI>();
-            cardViewUI.Setup(deckInstance.discardPile, 
-                0, 
-                deckInstance.combatInstance.name + " discard pile", 
+            cardViewUI.Setup(deckInstance.GetShuffledDiscardPile(),
+                0,
+                deckInstance.combatInstance.name + " discard pile",
                 0);
         });
         drawerContainer.Add(drawButton);
@@ -349,7 +352,7 @@ public class CombatEncounterView : GenericSingleton<CombatEncounterView>
         }
 
         return tabContainer;
-        
+
     }
 
     private void setupCardSlots()
@@ -382,7 +385,7 @@ public class CombatEncounterView : GenericSingleton<CombatEncounterView>
     // if you try to compare the ve then they will never be equal, different object hash codes
     private void registerModelUpdateOnHovers(IUIEntity entity, VisualElement ve) {
         ve.RegisterCallback<MouseEnterEvent>(evt => {
-            if(EnemyEncounterViewModel.Instance.hoveredEntity != entity && !InTooltip()) {
+            if(EnemyEncounterViewModel.Instance.hoveredEntity != entity && !InTooltip() && !CombatOver()) {
                 Debug.Log("Hovering over " + entity.GetName());
                 EnemyEncounterViewModel.Instance.hoveredElement = ve;
                 EnemyEncounterViewModel.Instance.hoveredEntity = entity;
@@ -407,5 +410,9 @@ public class CombatEncounterView : GenericSingleton<CombatEncounterView>
 
     private bool isHovered(IUIEntity entity) {
         return EnemyEncounterViewModel.Instance.hoveredEntity == entity;
+    }
+    
+    private bool CombatOver() {
+        return EnemyEncounterManager.Instance.GetCombatOver();
     }
 }

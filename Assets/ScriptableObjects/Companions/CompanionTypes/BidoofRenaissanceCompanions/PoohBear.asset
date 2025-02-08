@@ -36,16 +36,16 @@ MonoBehaviour:
   tooltip:
     empty: 0
     lines:
-    - title: PoohBear
-      description: Starts combat with 1 aura. Each turn, PoohBear creates a 0 mana
-        exhaust Aura Knife in hand
+    - title: Pooh Bear
+      description: Starts combat with 1 aura. Each turn, If Pooh Bear has an aura
+        stack, create  a 0 mana exhaust Aura Knife in hand
       relatedBehaviorIndex: 0
     - title: Aura Knife
       description: 0 mana. Exhaust. Deal damage.
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: Starts combat with 1 aura. Each turn, PoohBear creates a 0
-    mana exhaust Aura Knife in hand
+  keepsakeDescription: Starts combat with 1 aura. Each turn, If Pooh Bear has an
+    aura stack, create  a 0 mana exhaust Aura Knife in hand
   references:
     version: 2
     RefIds:
@@ -55,7 +55,12 @@ MonoBehaviour:
         abilityTrigger: 12
         effectSteps:
         - rid: 205828032053379555
+        - rid: 8790164555430888173
+        - rid: 8790164555430888174
+        - rid: 8790164555430888175
+        - rid: 8790164555430888176
         - rid: 205828032053379558
+        - rid: 8441470952357494994
     - rid: 205828032053379554
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
@@ -63,6 +68,7 @@ MonoBehaviour:
         effectSteps:
         - rid: 205828032053379556
         - rid: 205828032053379557
+        - rid: 8441470952357494993
     - rid: 205828032053379555
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -108,3 +114,46 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         outputKey: 
+    - rid: 8441470952357494993
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 3640386790518299311, guid: f062defc68098944f9fce2b8b805fb8d, type: 3}
+        scale: 1
+    - rid: 8441470952357494994
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        scale: 1
+    - rid: 8790164555430888173
+      type: {class: FilterEntityByStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FilterEntityByStatus
+        inputKey: self
+        status: 9
+        outputKey: selfWithOrb
+    - rid: 8790164555430888174
+      type: {class: CountStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CountStep
+        inputKey: selfWithOrb
+        outputKey: numOrb
+    - rid: 8790164555430888175
+      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: BooleanComparison
+        hardCodedInputKey1: 0
+        useHardCodedInputKey1: 1
+        inputKey1: 
+        operation: 1
+        inputKey2: numOrb
+        outputKey: hasOrb
+    - rid: 8790164555430888176
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: hasOrb
+        conditionToEndOn: 0

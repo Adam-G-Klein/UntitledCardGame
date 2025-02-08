@@ -21,14 +21,7 @@ public class EndWorkflowIfNoMapElement : EffectStep, IEffectStepCalculation {
     }
 
     public override IEnumerator invoke(EffectDocument document) {
-        bool found = false;
-        foreach(KeyValuePair<Tuple<string, Type>, List<object>> pair in document.map.GetDict()) {
-            if (pair.Key.Item1 == keyToCheck && pair.Value.Count > 0) {
-                found = true;
-                break;
-            }
-        }
-        if (!found) {
+        if (shouldInterrupt(document)) {
             EffectManager.Instance.interruptEffectWorkflow = true;
         }
         yield return null;
@@ -36,8 +29,24 @@ public class EndWorkflowIfNoMapElement : EffectStep, IEffectStepCalculation {
 
     public IEnumerator invokeForCalculation(EffectDocument document)
     {
-        yield return invoke(document);
+        if (shouldInterrupt(document)) {
+            EffectManager.Instance.interruptEffectWorkflowForCalculation = true;
+        }
+        yield return null;
     }
+
+    private bool shouldInterrupt(EffectDocument document) {
+        bool found = false;
+        foreach(KeyValuePair<Tuple<string, Type>, List<object>> pair in document.map.GetDict()) {
+            if (pair.Key.Item1 == keyToCheck && pair.Value.Count > 0) {
+                found = true;
+                break;
+            }
+        }
+        Debug.Log("EndWorkflowIfNoMapElement, key [" + keyToCheck + "] found: " + found.ToString());
+        return !found;
+    }
+
 
     public enum MapToCheck {
         Companion,

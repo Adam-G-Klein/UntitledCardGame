@@ -188,20 +188,23 @@ public class DeckInstance : MonoBehaviour
 
     public void ExhaustCard(Card card){
         if(drawPile.Contains(card)){
-            Debug.Log("Exhausting card " + card.id + " from draw pile");
+            Debug.Log("Exhausting card " + card.id + " with name " + card.name + " from draw pile");
             drawPile.Remove(card);
         }
         else if(discardPile.Contains(card)){
-            Debug.Log("Exhausting card " + card.id + " from discard pile");
+            Debug.Log("Exhausting card " + card.id + " with name " + card.name + " from discard pile");
             discardPile.Remove(card);
         } else if (inHand.Contains(card)) {
-            Debug.Log("Exhausting card " + card.id + " from hand");
+            Debug.Log("Exhausting card " + card.id + " with name " + card.name + " from hand");
             inHand.Remove(card);
-            PlayerHand.Instance.SafeRemoveCardFromHand(card);
         }
         exhaustPile.Add(card);
         if (card.cardType.onExhaustEffectWorkflow != null) {
-            EffectManager.Instance.QueueEffectWorkflow(card.cardType.onExhaustEffectWorkflow);
+            EffectDocument document = new EffectDocument();
+            document.originEntityType = EntityType.Unknown;
+            EffectManager.Instance.QueueEffectWorkflow(
+                new EffectWorkflowClosure(document, card.cardType.onExhaustEffectWorkflow, null)
+            );
         }
         StartCoroutine(PlayerHand.Instance.OnCardExhaust(this, card));
     }
@@ -273,6 +276,20 @@ public class DeckInstance : MonoBehaviour
         if(inHand.Contains(card)) {
             inHand.Remove(card);
         }
+    }
+
+    public List<Card> GetShuffledDrawPile(){
+        List<Card> shuffledDrawPile = new List<Card>();
+        shuffledDrawPile.AddRange(drawPile);
+        shuffledDrawPile.Shuffle();
+        return shuffledDrawPile;
+    }
+
+    public List<Card> GetShuffledDiscardPile(){
+        List<Card> shuffledDiscardPile = new List<Card>();
+        shuffledDiscardPile.AddRange(discardPile);
+        shuffledDiscardPile.Shuffle();
+        return shuffledDiscardPile;
     }
 
     public List<Card> GetAllCards(){

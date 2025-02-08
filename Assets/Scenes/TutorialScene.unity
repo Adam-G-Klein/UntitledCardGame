@@ -219,7 +219,7 @@ MonoBehaviour:
         tutorialStepsCount: 4
         buttonText: Start
         uiDocument: {fileID: 1484470107}
-        tutorialImage: {fileID: 21300000, guid: 53534440f3cab4b5cbfcc5b42cff085e, type: 3}
+        tutorialImage: {fileID: 21300000, guid: f81e32e5d4e5c42aabba1eb47ae7ce1d, type: 3}
     - rid: 1744193361003151697
       type: {class: WaitForNextButtonClickAction, ns: , asm: Assembly-CSharp}
       data:
@@ -240,25 +240,26 @@ MonoBehaviour:
         secondLineOfText: Cards cost mana to play. Once you are out of cards or mana
           to use, end your turn.
         thirdLineOfText: Each turn your mana will replenish and you will draw one
-          card from each of your active companions
+          card from each of your active companions.
         tutorialIndex: 2
         tutorialStepsCount: 4
         buttonText: Next
         uiDocument: {fileID: 1484470107}
-        tutorialImage: {fileID: 21300000, guid: cd2531481443346a5bf0393d85c1d81c, type: 3}
+        tutorialImage: {fileID: 21300000, guid: c2b65e610e4664e18adbf33c4287e7fc, type: 3}
     - rid: 4305150327966138371
       type: {class: UpdateTutorialUIDocAction, ns: , asm: Assembly-CSharp}
       data:
         tutorialActionType: Update Tutorial UI Doc Action
-        firstLineOfText: During your turn you can see the enemy's intent.
-        secondLineOfText: If the enemy is attacking, you can plan accordingly by
-          playing a block card!
-        thirdLineOfText: Block wears off at the start of each turn so be careful.
+        firstLineOfText: During your turn you can see the enemy's intent. This Includes
+          the amount of damage they are going to do and the companion they are targetting.
+        secondLineOfText: Enemies generally target companions from left to right!
+        thirdLineOfText: If the enemy is attacking, you can plan accordingly by playing
+          a block card! Block wears off at the start of each turn so be careful.
         tutorialIndex: 3
         tutorialStepsCount: 4
         buttonText: Next
         uiDocument: {fileID: 1484470107}
-        tutorialImage: {fileID: 21300000, guid: 53534440f3cab4b5cbfcc5b42cff085e, type: 3}
+        tutorialImage: {fileID: 21300000, guid: 7083bcda4db944d89aa5a7546f7043ff, type: 3}
     - rid: 4305150327966138391
       type: {class: WaitForNextButtonClickAction, ns: , asm: Assembly-CSharp}
       data:
@@ -275,7 +276,7 @@ MonoBehaviour:
         tutorialStepsCount: 4
         buttonText: Next
         uiDocument: {fileID: 1484470107}
-        tutorialImage: {fileID: 21300000, guid: 4ab3d81fa4fac4331abed042e043d296, type: 3}
+        tutorialImage: {fileID: 21300000, guid: 3b76e6e967ebe4cbd9469a39acb60a65, type: 3}
     - rid: 8205569917033382831
       type: {class: UnityEventTutorialStep, ns: , asm: Assembly-CSharp}
       data:

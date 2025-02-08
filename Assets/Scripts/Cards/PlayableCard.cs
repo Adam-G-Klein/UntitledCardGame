@@ -57,8 +57,12 @@ public class PlayableCard : MonoBehaviour,
     public void OnPointerClick(PointerEventData eventData)
     {
         Debug.Log("Card clicked");
-        Debug.Log(currentState);
-        if (currentState != UIState.DEFAULT || !interactable) return;
+        Debug.Log(
+            "CURRENT STATE: " + currentState +
+            "Interactable: " + interactable +
+            " EnemyEncounterManager.GetCastingCard(): " + EnemyEncounterManager.Instance.GetCastingCard().ToString()
+        );
+        if (currentState != UIState.DEFAULT || !interactable || EnemyEncounterManager.Instance.GetCastingCard()) return;
 
         if (card.GetManaCost() > ManaManager.Instance.currentMana) {
                 StartCoroutine(GenericEntityDialogueParticipant
@@ -78,6 +82,7 @@ public class PlayableCard : MonoBehaviour,
                 return;
         }
         if (eventData.button != PointerEventData.InputButton.Left) return;
+        EnemyEncounterManager.Instance.SetCastingCard(true);
         interactable = false;
 
         EffectDocument document = new EffectDocument();
@@ -92,23 +97,22 @@ public class PlayableCard : MonoBehaviour,
         IncrementCastCount();
         EnemyEncounterManager.Instance.combatEncounterState.CastCard(card);
         yield return StartCoroutine(PlayerHand.Instance.OnCardCast(this));
-        PlayerHand.Instance.DiscardCard(this);
-        PlayerHand.Instance.UpdatePlayableCards();
         if (card.cardType.exhaustsWhenPlayed) {
-            CardExhaustVFX();
-            ExhaustCard();
+            yield return StartCoroutine(PlayerHand.Instance.ExhaustCard(this));
         } else {
             yield return StartCoroutine(CardCastVFX(this.gameObject));
-            DiscardCardFromHand();
+            yield return StartCoroutine(PlayerHand.Instance.DiscardCard(this));
         }
+
         // If the hand is empty as a result of playing this card, invoke any subscribers.
         if (PlayerHand.Instance.cardsInHand.Count == 0) {
             Debug.Log("Hand is empty, triggering downstream OnHandEmpty subscribers");
-            PlayerHand.Instance.OnHandEmpty();
+            yield return PlayerHand.Instance.OnHandEmpty();
         }
+        PlayerHand.Instance.UpdatePlayableCards();
     }
 
-    private void CardExhaustVFX() {
+    public void CardExhaustVFX() {
         GameObject.Instantiate(
             cardExhaustVFXPrefab,
             this.transform.position,
@@ -171,12 +175,6 @@ public class PlayableCard : MonoBehaviour,
         card.castCount += 1;
     }
 
-    public void DiscardCardFromHand() {
-        if (this.gameObject.activeSelf) {
-            DiscardToDeck();
-        }
-    }
-
     public void ExhaustCard() {
         deckFrom.ExhaustCard(card);
         cleanupAndDestroy();
@@ -204,7 +202,8 @@ public class PlayableCard : MonoBehaviour,
         hovered = true;
         //MusicController.Instance.PlaySFX(cardHover, hoverSFXVolume);
         //Replace with FMOD Event
-        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/SFX_UIHover");
+        // Set the volume first
+        MusicController2.Instance.PlaySFX("event:/SFX/SFX_UIHover");
         transform.localScale = new Vector3(hoverScale, hoverScale, 1);
         transform.position = new Vector3(transform.position.x, transform.position.y + hoverYOffset, transform.position.z + hoverZOffset);
         transform.SetAsLastSibling();

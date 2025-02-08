@@ -31,6 +31,9 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     public GameObject placerGO;
     private bool encounterBuilt = false;
     private bool inToolTip = false;
+    private bool castingCard = false;
+    private bool combatOver = false;
+
 
     [SerializeField]
     [Header("Super hacky way to delay the end combat screen, this or\n" +
@@ -84,6 +87,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         EnemyEncounterViewModel.Instance.SetStateDirty();
         // set up the EnemyEncounterViewModel, which passes information to the UI
         encounterBuilt = true;
+        combatOver = false;
     }
 
     public bool IsEncounterBuilt(){
@@ -100,6 +104,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     }
 
     public void EndEncounterHandler(EndEncounterEventInfo info) {
+        combatOver = true;
         Debug.Log("EndEncounterHandler called, info.outcome is " + info.outcome + " gameState.GetLoopIndex() is " + gameState.GetLoopIndex() + " gameState.lastTutorialLoopIndex is " + gameState.lastTutorialLoopIndex);
         if(info.outcome == EncounterOutcome.Defeat) {
             postGamePopup.SetActive(true);
@@ -128,6 +133,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
             if (companion.combatStats.currentHealth <= 0) {
                 companion.combatStats.setCurrentHealth(1);
             }
+            
         }
 
         gameState.LoadNextLocation();
@@ -135,10 +141,22 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         uIStateEvent.Raise(new UIStateEventInfo(UIState.END_ENCOUNTER));
         postCombatUI.transform.SetSiblingIndex(postCombatUI.transform.parent.childCount - 1);
         postCombatUI.GetComponent<EndEncounterView>().Setup(baseGoldEarnedPerBattle, extraGold, gameState.baseShopData.interestCap, gameState.baseShopData.interestRate);
+        TurnOffInteractions();
         StartCoroutine(displayPostCombatUIAfterDelay());
 
         DialogueManager.Instance.SetDialogueLocation(gameState);
         DialogueManager.Instance.StartAnyDialogueSequence();
+        SetInToolTip(false);
+    }
+
+    private void TurnOffInteractions() {
+        PlayerHand.Instance.DisableHand();
+        EnemyEncounterViewModel.Instance.companions.ForEach(companion => {
+            if (companion) companion.GetComponent<CombatCompanionTooltipProvder>().DisableTooltip();
+        });
+        EnemyEncounterViewModel.Instance.enemies.ForEach(enemy => {
+            if (enemy) enemy.GetComponent<CombatEnemyTooltipProvder>().DisableTooltip();
+        });
     }
 
     private IEnumerator displayPostCombatUIAfterDelay() {
@@ -175,5 +193,18 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     
     public void SetInToolTip(bool b) {
         inToolTip = b;
+    }
+
+
+    public void SetCastingCard(bool isCasting)
+    {
+        castingCard = isCasting;
+    }
+
+    public bool GetCastingCard() {return castingCard;}
+
+    internal bool GetCombatOver()
+    {
+        return combatOver;
     }
 }
