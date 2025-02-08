@@ -303,6 +303,7 @@ MonoBehaviour:
   positionOffset: {x: 0, y: 0, z: 0}
   displayWaitTime: 0.5
   instantiateInWorldspace: 0
+  companionInstance: {fileID: 0}
   references:
     version: 2
     RefIds:
@@ -678,6 +679,7 @@ GameObject:
   - component: {fileID: 730168205578750882}
   - component: {fileID: 2518479398236477512}
   - component: {fileID: 508284841902976836}
+  - component: {fileID: 3050196476200659850}
   m_Layer: 0
   m_Name: ShopManager
   m_TagString: Untagged
@@ -714,8 +716,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IS_DEVELOPMENT_MODE: 1
+  USE_NEW_SHOP: 0
   gameState: {fileID: 11400000, guid: 9e326417f60894341a96cc8d02868bbe, type: 2}
   shopUIManager: {fileID: 8371367776667827175}
+  shopViewController: {fileID: 0}
   encounterConstants: {fileID: 11400000, guid: 4000d3b01acf1f1459ac789f20856055, type: 2}
   shopRefreshEvent: {fileID: 11400000, guid: c35c2bcbec7c0934d9f4369bd321bc9c, type: 2}
   companionViewUIPrefab: {fileID: 3579507360167916873, guid: 92f6b69ef1d79dc4fb334adb138997aa, type: 3}
@@ -790,6 +794,19 @@ MonoBehaviour:
   gameState: {fileID: 11400000, guid: 9e326417f60894341a96cc8d02868bbe, type: 2}
   gameplayConstants: {fileID: 11400000, guid: a6db1936fe0d3a647b09f3d8297fef23, type: 2}
   celebrationParticles: {fileID: 8675841362600845815, guid: 93dbf0f8ca260ba41880301f41e75d0f, type: 3}
+--- !u!114 &3050196476200659850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3701935023595913666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ee6926e783117b419bece4b152291f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  optionsUI: {fileID: 6572328075681546075, guid: b01b8abf386108949a43d6c76b000f5e, type: 3}
 --- !u!1 &4037506046362703525
 GameObject:
   m_ObjectHideFlags: 0

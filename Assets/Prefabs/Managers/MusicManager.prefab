@@ -139,7 +139,6 @@ GameObject:
   - component: {fileID: 6588445882106067826}
   - component: {fileID: 4851411726985941767}
   - component: {fileID: 2893979411728819029}
-  - component: {fileID: 6599440597774311068}
   m_Layer: 0
   m_Name: MusicManager
   m_TagString: Untagged
@@ -176,21 +175,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   precombatClips:
-  - {fileID: 8300000, guid: 1851e63085fe14f438015a3c83f4187f, type: 3}
+  - 
   postcombatClips:
-  - {fileID: 8300000, guid: aa901017926e15740a9f6e137fb8b6e0, type: 3}
-  - {fileID: 8300000, guid: 19e777034c8b9664db00a1ff447b1695, type: 3}
-  - {fileID: 8300000, guid: 42bc3099b0158424189ad4436d5eee28, type: 3}
-  tutorialClip: {fileID: 8300000, guid: 7b75981be11e441449615edcac6da503, type: 3}
+  - 
+  - 
+  - 
   locationKeys: 0100000002000000030000000b0000000c000000
   musicClipsOrderedByLocation:
-  - {fileID: 8300000, guid: a7b418b2a7251d346a3150f9889c4237, type: 3}
-  - {fileID: 8300000, guid: bef25fc00ffa0694db73cc4460bc8066, type: 3}
-  - {fileID: 8300000, guid: bef25fc00ffa0694db73cc4460bc8066, type: 3}
+  - 
+  - 
+  - 
   clipStartTimes: 120000000000000000000000
   introVolume: 0.15
-  otherVolume: 0.3
-  defaultSFXVolume: 0.1
 --- !u!82 &2893979411728819029
 AudioSource:
   m_ObjectHideFlags: 0
@@ -287,19 +283,3 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &6599440597774311068
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5960683655966732213}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f644c7e17a0a8e4b89f84b7098767fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainMenu: {fileID: 0}
-  delayTime: 0
-  gameState: {fileID: 0}
-  generateMap: {fileID: 0}

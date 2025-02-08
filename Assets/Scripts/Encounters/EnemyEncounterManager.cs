@@ -17,6 +17,8 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     public event OnEncounterEndHandler onEncounterEndHandler;
     public EnemyPortraitController enemyPortraitController;
     [SerializeField]
+    private GameObject optionsUI;
+    [SerializeField]
     // There's so many ways we could do this
     // choosing the simplest one for now
     private GameObject postCombatUI;
@@ -97,9 +99,6 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     void Update() {
         if(Input.GetKeyDown(KeyCode.K)) {
             endEncounterEvent.Raise(new EndEncounterEventInfo(EncounterOutcome.Victory));
-        }
-        if(Input.GetKeyDown(KeyCode.Escape)) {
-            Application.Quit();
         }
     }
 

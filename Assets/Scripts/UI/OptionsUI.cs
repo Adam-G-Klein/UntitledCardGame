@@ -12,6 +12,9 @@ public class OptionsUI : MonoBehaviour
     [SerializeField]
     private TMP_Dropdown resolutionDropdown;
 
+    [SerializeField]
+    private Slider volumeSlider;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +28,18 @@ public class OptionsUI : MonoBehaviour
             fullscreenDropdown.value = 1;
             resolutionDropdown.interactable = true;
         }
+        volumeSlider.value = MusicController2.Instance.currentVolume;
+
+    }
+
+    public void onMainMenuButtonHandler() {
+        // Load the main menu scene
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
+    }
+
+    public void onExitGameHandler() {
+        // Quit the game
+        Application.Quit();
     }
 
     public void onVolumeSliderChangedHandler(float value) {
