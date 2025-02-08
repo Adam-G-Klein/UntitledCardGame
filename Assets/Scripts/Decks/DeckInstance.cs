@@ -186,7 +186,7 @@ public class DeckInstance : MonoBehaviour
         return card;
     }
 
-    public void ExhaustCard(Card card){
+    public void ExhaustCard(Card card, PlayableCard playableCard = null, IEnumerator callback = null){
         if(drawPile.Contains(card)){
             Debug.Log("Exhausting card " + card.id + " with name " + card.name + " from draw pile");
             drawPile.Remove(card);
@@ -201,10 +201,13 @@ public class DeckInstance : MonoBehaviour
         exhaustPile.Add(card);
         if (card.cardType.onExhaustEffectWorkflow != null) {
             EffectDocument document = new EffectDocument();
-            document.originEntityType = EntityType.Unknown;
+            document.originEntityType = EntityType.Card;
+            if (playableCard != null) document.map.AddItem<PlayableCard>(EffectDocument.ORIGIN, playableCard);
             EffectManager.Instance.QueueEffectWorkflow(
-                new EffectWorkflowClosure(document, card.cardType.onExhaustEffectWorkflow, null)
+                new EffectWorkflowClosure(document, card.cardType.onExhaustEffectWorkflow, callback)
             );
+        } else {
+            StartCoroutine(callback);
         }
         StartCoroutine(PlayerHand.Instance.OnCardExhaust(this, card));
     }
