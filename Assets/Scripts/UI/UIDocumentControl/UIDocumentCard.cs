@@ -58,7 +58,7 @@ public class UIDocumentCard : MonoBehaviour
         doc = GetComponent<UIDocument>();
         doc.panelSettings = CardPanelSettingsPooler.Instance.GetPanelSettings();
         // TODO: take in card rather than cardtype
-        cardView = new CardView(card, pCard.deckFrom.GetCompanionTypeSO(), false);
+        cardView = new CardView(card, pCard.deckFrom.GetCompanionTypeSO());
         doc.rootVisualElement.Add(cardView.cardContainer);
         UIDocumentUtils.SetAllPickingMode(doc.rootVisualElement, PickingMode.Ignore);
         spriteRenderer = GetComponent<SpriteRenderer>();
