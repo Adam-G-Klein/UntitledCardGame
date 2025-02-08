@@ -115,7 +115,7 @@ public class CombatEffectStep : EffectStep, IEffectStepCalculation
     }
     public IEnumerator invokeForCalculation(EffectDocument document)
     {
-        if (combatEffect == CombatEffect.Damage) {
+        if (combatEffect == CombatEffect.Damage || combatEffect == CombatEffect.FixedDamageWithCardModifications) {
             int finalScale = getFinalScale(document);
             Debug.Log(finalScale);
             if (document.intMap.ContainsKey("rpl_damage")) {
