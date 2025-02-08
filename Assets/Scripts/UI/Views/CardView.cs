@@ -62,6 +62,14 @@ public class CardView {
             companionImage.style.backgroundImage = new StyleBackground(companionType.sprite);
         } else {
             companionImage.style.backgroundImage = new StyleBackground(genericSprite);
+            if(cardInShop) {
+                var anyText = new Label();
+                anyText.text = "ANY";
+                anyText.style.fontSize = 20;
+                anyText.style.color = Color.black;
+                anyText.style.alignSelf = Align.Center;
+                companionImage.Add(anyText);
+            }
         }
         companionImage.style.width = cardInShop ? COMPANION_AND_MANA_INDICATOR_WIDTH_HEIGHT_SHOP : COMPANION_AND_MANA_INDICATOR_WIDTH_HEIGHT_COMBAT;
         companionImage.style.height = cardInShop ? COMPANION_AND_MANA_INDICATOR_WIDTH_HEIGHT_SHOP : COMPANION_AND_MANA_INDICATOR_WIDTH_HEIGHT_COMBAT;
