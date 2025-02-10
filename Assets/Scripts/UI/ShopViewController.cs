@@ -5,6 +5,8 @@ using System.Linq;
 using System.Reflection;
 using JetBrains.Annotations;
 using Unity.VisualScripting;
+using Unity.VisualScripting.Dependencies.NCalc;
+using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -209,12 +211,12 @@ public class ShopViewController : MonoBehaviour,
         // If we have more than 5, we'll need to programatically add more
         // The +1 makes it so we always have one open slot, in case the player wants
         // to JUST move a companion from active to bench, and not swap one for another
-        int slotsToAdd = companions.Count - 5 + 1;
+        /*int slotsToAdd = companions.Count - 5 + 1;
         if (slotsToAdd > 0) {
             for (int i = 0; i < slotsToAdd; i++) {
                 CreateNewBenchSlot();
             }
-        }
+        }*/
         for (int i = 0; i < companions.Count; i++) {
             CompanionManagementView companionView = new CompanionManagementView(companions[i], this);
             benchScrollView.contentContainer[i].Add(companionView.container);
@@ -352,15 +354,58 @@ public class ShopViewController : MonoBehaviour,
             if (blockedSlots != null && blockedSlots.Contains(child)) continue;
             if (child.worldBound.Contains(evt.position)) {
                 child.style.backgroundColor = slotHighlightColor;
+                if (NumOpenSlots(activeContainer.Children().ToList(), true) < 5) {
+                    MoveWhileDragging(activeContainer, child);
+                    originalParent = child;
+                }
             } else {
                 child.style.backgroundColor = slotNotHighlightColor;
             }
         }
         foreach (VisualElement child in benchScrollView.contentContainer.hierarchy.Children()) {
             if (child.worldBound.Contains(evt.position)) {
+                if (NumOpenSlots(benchScrollView.contentContainer.Children().ToList(), true) < 5) {
+                    MoveWhileDragging(benchScrollView.contentContainer, child);
+                    originalParent = child;
+                }
                 child.style.backgroundColor = slotHighlightColor;
             } else {
                 child.style.backgroundColor = slotNotHighlightColor;
+            }
+        }
+    }
+
+    private void MoveWhileDragging(VisualElement parentContainer,VisualElement elementOver) {
+        List<VisualElement> elements = parentContainer.Children().ToList();
+        // pull all of the existing companions into a list and then iterate over the available slots in activecontainer. skip over the element over
+        List<VisualElement> companions = new List<VisualElement>();
+        foreach (VisualElement unitContainer in elements) {
+            if (unitContainer.childCount == 1) {
+                companions.Add(unitContainer[0]);
+            }
+        }
+
+        if (companions.Count() == 0) {
+            if (parentContainer == activeContainer) {
+                RefreshContainers(benchScrollView.contentContainer.Children().ToList(), true);
+            } else {
+                RefreshContainers(activeContainer.Children().ToList(), false);
+            }
+            return;
+        }
+        int companionIndex = 0;
+        for (int i = 0; i < parentContainer.Children().Count(); i++) {
+            VisualElement child = parentContainer.Children().ElementAt(i);
+            if (child == elementOver) continue;
+            child.Clear();
+            child.Add(companions[companionIndex++]);
+            if (i == parentContainer.Children().Count() || companionIndex == companions.Count) {
+                if (parentContainer == activeContainer) {
+                    RefreshContainers(benchScrollView.contentContainer.Children().ToList(), true);
+                } else {
+                    RefreshContainers(activeContainer.Children().ToList(), false);
+                }
+                break;
             }
         }
     }
@@ -389,7 +434,7 @@ public class ShopViewController : MonoBehaviour,
         }
 
         if (elementOver != null && !blockedSlots.Contains(elementOver)) {
-            DoMoveComapnion(companionManagementView, elementOver);
+            DoMoveCompanion(companionManagementView, elementOver);
             elementOver.style.backgroundColor = slotNotHighlightColor;
         } else {
             VisualElement tempContainer = companionManagementView.container.parent;
@@ -401,7 +446,7 @@ public class ShopViewController : MonoBehaviour,
         originalParent = null;
     }
 
-    private void DoMoveComapnion(CompanionManagementView companionManagementView, VisualElement movingToContainer) {
+    private void DoMoveCompanion(CompanionManagementView companionManagementView, VisualElement movingToContainer) {
         // Scenario 1, dragging companion to open container
         if (movingToContainer.childCount == 0) {
             VisualElement tempContainer = companionManagementView.container.parent;
@@ -428,6 +473,17 @@ public class ShopViewController : MonoBehaviour,
             Debug.LogError("Companion container contains more than 1 element in heirarchy");
         }
         SetCompanionOrdering();
+    }
+
+    private int NumOpenSlots(List<VisualElement> unitContainers, bool isBench) {
+        int takenSlots = 0;
+        if (!isBench) takenSlots += blockedSlots.Count();
+        foreach (VisualElement unitContainer in unitContainers) {
+            if (unitContainer.childCount == 1) {
+                takenSlots += 1;
+            }
+        }
+        return takenSlots;
     }
 
     private void SetCompanionOrdering() {
@@ -629,7 +685,7 @@ public class ShopViewController : MonoBehaviour,
         StartCoroutine(ShowGenericNotification(companionName + " has been upgraded to level " + newLevel + "!", 1.5f)); 
     }
 
-    private IEnumerator ShowGenericNotification(string text, float time = 2.5f) {
+    public IEnumerator ShowGenericNotification(string text, float time = 2.5f) {
         genericMessageBox.style.visibility = Visibility.Visible;
         genericMessageBox.Q<Label>().text = text;
         yield return new WaitForSeconds(2.5f);
