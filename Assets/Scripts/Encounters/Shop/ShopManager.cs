@@ -172,6 +172,10 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     }
 
     public void ProcessCompanionBuyRequestV2(ShopItemView shopItemView, CompanionInShopWithPrice companionInShop) {
+        if (gameState.companions.activeCompanions.Count == 5 && gameState.companions.benchedCompanions.Count == 5) {
+            StartCoroutine(shopViewController.ShowGenericNotification("You have reached the maximum number of companions.", 2));
+            return;
+        }
         Debug.Log("Processing companion buy request");
         if (DialogueManager.Instance.dialogueInProgress) {
             return;
@@ -263,7 +267,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     }
 
     public void SellCompanion(Companion companion) {
-        if (gameState.companions.activeCompanions.Count == 1 && gameState.companions.activeCompanions.Contains(companion)) {
+        if (gameState.companions.activeCompanions.Count + gameState.companions.benchedCompanions.Count == 1) {
             shopViewController.ShowCantSellLastCompanion();
             return;
         }
@@ -401,6 +405,10 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     }
 
     public void exitShop() {
+        if (gameState.companions.activeCompanions.Count == 0) {
+            StartCoroutine(shopViewController.ShowGenericNotification("You need at least one active companion!"));
+            return;
+        }
         gameState.activeEncounter.GetValue().isCompleted = true;
         Debug.Log("gameState active encounter id: " + gameState.activeEncounter.GetValue().id);
         Debug.Log("gameState active encounter complete: " + gameState.activeEncounter.GetValue().isCompleted);
