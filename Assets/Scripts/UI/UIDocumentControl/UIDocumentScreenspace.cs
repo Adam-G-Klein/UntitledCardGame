@@ -27,8 +27,9 @@ public class UIDocumentScreenspace : MonoBehaviour {
         UIDocumentUtils.SetAllPickingMode(doc.rootVisualElement, PickingMode.Ignore);
 
         // Do this in Awake so we can query for element positions sooner
-        UpdateRenderTexture();
+        //UpdateRenderTexture();
         initialized = true;
+
     }
 
     void OnEnable() {
@@ -42,9 +43,11 @@ public class UIDocumentScreenspace : MonoBehaviour {
     }
 
     void Update() {
+        /*
         if (stateDirty || constantStateUpdate){
             UpdateRenderTexture();
         }
+        */
     }
 
     public void SetStateDirty(){

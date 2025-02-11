@@ -44,6 +44,7 @@ public class TargettingManager : GenericSingleton<TargettingManager>
             Vector3.zero,
             Quaternion.identity);
         CardViewUI cardViewUI = gameObject.GetComponent<CardViewUI>();
+        // don't shuffle here, it's used for scrying
         cardViewUI.Setup(options, minCardsToSelect, promptText, maxCardsToSelect);
         cardSelectionsList = output;
         lookingForCardSelections = true;
