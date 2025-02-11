@@ -179,6 +179,15 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
     public bool IsEncounterEnded() {
         return this.encounterEnded;
     }
+
+    public void SpawnEntityOnDeathVfx(CombatInstance combatInstance) {
+        if (combatInstance.parentEntity.entityType == EntityType.CompanionInstance) {
+            Instantiate(encounterConstants.companionDeathPrefab, combatInstance.transform.position, Quaternion.identity);
+        // Don't ask me why one is CompanionInstance and the other is just Enemy
+        } else if (combatInstance.parentEntity.entityType == EntityType.Enemy) {
+            Instantiate(encounterConstants.enemyDeathPrefab, combatInstance.transform.position, Quaternion.identity);
+        }
+    }
 }
 
 public class CombatEntityTrigger {

@@ -14,6 +14,8 @@ public class OptionsUI : MonoBehaviour
 
     [SerializeField]
     private Slider volumeSlider;
+    [SerializeField]
+    private Slider timescaleSlider;
 
     // Start is called before the first frame update
     void Start()
@@ -29,7 +31,6 @@ public class OptionsUI : MonoBehaviour
             resolutionDropdown.interactable = true;
         }
         volumeSlider.value = MusicController2.Instance.currentVolume;
-
     }
 
     public void onMainMenuButtonHandler() {
@@ -68,6 +69,10 @@ public class OptionsUI : MonoBehaviour
         int width = Int32.Parse(option.Split("x")[0]);
         int height = Int32.Parse(option.Split("x")[1]);
         Screen.SetResolution(width, height, Screen.fullScreen);
+    }
+    
+    public void OnTimescaleSliderChange(float value) {
+        Time.timeScale = 1 + (value * 4);
     }
 
     public void exitButtonHandler() {
