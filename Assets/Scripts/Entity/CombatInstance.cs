@@ -204,6 +204,7 @@ public class CombatInstance : MonoBehaviour
         // CombatEntityManager.Instance.combatEntityDied(this);
         TurnManager.Instance.removeTurnPhaseBlocker(blockerId);
         UpdateView();
+        CombatEntityManager.Instance.SpawnEntityOnDeathVfx(this);
         Destroy(this.gameObject);
         yield return null;
     }
@@ -297,16 +298,6 @@ public class CombatInstance : MonoBehaviour
     public string GetId() {
         return this.id;
     }
-
-    /*private void PlaySFX(CombatInstance effector = null) {
-        if(genericInteractionSFX != null) {
-            //MusicController.Instance.PlaySFX(genericInteractionSFX);
-            //REPLACE
-        } else if (effector != null && effector.genericInteractionSFX != null) {
-            //MusicController.Instance.PlaySFX(effector.genericInteractionSFX);
-            //REPLACE
-        }
-    }*/
 
     private void AddVFX(CombatInstance effector = null) {
         if(effector != null && effector.genericInteractionVFX != null) {
