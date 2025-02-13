@@ -10,7 +10,7 @@ public class HotkeyManager : GenericSingleton<HotkeyManager> {
     void Update() {
 
         if(endTurnHotkeyEnabled && (Input.GetKeyDown(KeyCode.LeftShift) 
-            || Input.GetKeyDown(KeyCode.Space))) {
+            )) {
             StartCoroutine(turnPhaseEvent.RaiseAtEndOfFrameCoroutine(new TurnPhaseEventInfo(TurnPhase.BEFORE_END_PLAYER_TURN)));
         }
     }
