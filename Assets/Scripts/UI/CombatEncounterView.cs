@@ -35,6 +35,11 @@ public class CombatEncounterView : GenericSingleton<CombatEncounterView>
     private EnemyIntentsSO enemyIntentsSO;
 
     private List<VisualElement> pickingModePositionList = new List<VisualElement>();
+    [SerializeField]
+    private float pulseAnimationSpeed = 0.1f;
+    public bool animateHearts = false;
+
+    private List<IEnumerator> pulseAnimations = new List<IEnumerator>();
 
     [SerializeField]
     private GameObject cardViewUIPrefab;
@@ -70,6 +75,12 @@ public class CombatEncounterView : GenericSingleton<CombatEncounterView>
         if(!setupComplete) {
             SetupFromGamestate();
         } else {
+            if(animateHearts) {
+                foreach(IEnumerator anim in pulseAnimations) {
+                    StopCoroutine(anim);
+                }
+                pulseAnimations.Clear();
+            }
             VisualElement enemyContainer = root.Q<VisualElement>("enemyContainer");
             VisualElement companionContainer = root.Q<VisualElement>("companionContainer");
             enemyContainer.Clear();
@@ -89,8 +100,16 @@ public class CombatEncounterView : GenericSingleton<CombatEncounterView>
         docRenderer.SetStateDirty();
     }
 
+    void Update()
+    {
+        /*
+        foreach(KeyValuePair<IUIEntity, VisualElement> kvp in animatedHealthTabs) {
+            pulseAnimateStep(kvp.Value);
+        }
+        */
+    }
+
     private void setupEntities(VisualElement container, IEnumerable<IUIEntity> entities, bool isEnemy) {
-        // DAE use enh for loops and keep track of index like this cause they hate array syntax
         var index = UIDocumentGameObjectPlacer.INITIAL_INDEX;
         foreach (var entity in entities) {
             container.Add(setupEntity(entity, index, isEnemy));
@@ -304,8 +323,15 @@ public class CombatEncounterView : GenericSingleton<CombatEncounterView>
         tabContainer.AddToClassList("pillar-tab-container");
         CombatStats stats = entityInstance.GetCombatStats();
 
+        // Do an animate
         var healthTab = new VisualElement();
         healthTab.AddToClassList("health-tab");
+        healthTab.AddToClassList("animate-grow");
+        if(animateHearts) {
+            IEnumerator anim = pulseAnimation(healthTab);
+            pulseAnimations.Add(anim);
+            StartCoroutine(anim);
+        }
         var healthLabel = new Label();
         healthLabel.AddToClassList("pillar-tab-text");
         healthLabel.text = stats.getCurrentHealth().ToString();
@@ -372,6 +398,35 @@ public class CombatEncounterView : GenericSingleton<CombatEncounterView>
         }
     }
 
+    private IEnumerator pulseAnimation(VisualElement pulseElement) {
+        while (true) {
+            pulseAnimateStep(pulseElement);
+            yield return new WaitForEndOfFrame();
+        }
+    }
+
+    public void pulseAnimateStep(VisualElement pulseElement) {
+        // Make the heart bounce between scale of 1 and 2
+        bool growing = pulseElement.ClassListContains("animate-grow");
+        Vector2 currentScale = pulseElement.transform.scale;
+        if (growing) {
+            currentScale.x += pulseAnimationSpeed * Time.deltaTime;
+            currentScale.y += pulseAnimationSpeed * Time.deltaTime;
+            if(currentScale.x >= 2) {
+                pulseElement.RemoveFromClassList("animate-grow");
+                pulseElement.AddToClassList("animate-shrink");
+            }
+        } else {
+            currentScale.x -= pulseAnimationSpeed * Time.deltaTime;
+            currentScale.y -= pulseAnimationSpeed * Time.deltaTime;
+            if(currentScale.x <= 1) {
+                pulseElement.RemoveFromClassList("animate-shrink");
+                pulseElement.AddToClassList("animate-grow");
+            }
+        }
+        pulseElement.transform.scale = currentScale;
+    }
+
     public void updateMana(int mana) {
         root.Q<Label>("manaCounter").text = mana.ToString();
         docRenderer.SetStateDirty();
@@ -380,7 +435,7 @@ public class CombatEncounterView : GenericSingleton<CombatEncounterView>
     public void updateMoney(int money) {
         docRenderer.SetStateDirty();
     }
-
+    
     // Need to check the entity because the visual element is re-created on every frame
     // if you try to compare the ve then they will never be equal, different object hash codes
     private void registerModelUpdateOnHovers(IUIEntity entity, VisualElement ve) {

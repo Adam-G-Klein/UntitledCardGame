@@ -722,6 +722,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interruptEffectWorkflow: 0
+  interruptEffectWorkflowForCalculation: 0
 --- !u!4 &475172660
 Transform:
   m_ObjectHideFlags: 0
@@ -3308,6 +3309,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4147916199906028967, guid: a01603c96ed613e4dadddb16c94272d3, type: 3}
       propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5946589008991207965, guid: a01603c96ed613e4dadddb16c94272d3, type: 3}
+      propertyPath: pulseAnimationSpeed
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8153826115907633482, guid: a01603c96ed613e4dadddb16c94272d3, type: 3}

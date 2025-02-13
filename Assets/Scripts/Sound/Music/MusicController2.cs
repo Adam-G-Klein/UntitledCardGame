@@ -17,7 +17,7 @@ public class MusicController2 : GenericSingleton<MusicController2>
         public Location location;
     } 
     //public FMODUnity.EventReference exampleReference;
-    
+
     void Awake()
     {
         // A rare use case for this, we want our music to give nary a FLINCH at a scene change

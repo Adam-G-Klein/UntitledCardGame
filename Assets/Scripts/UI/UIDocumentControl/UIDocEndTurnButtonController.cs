@@ -5,7 +5,6 @@ using System.Collections;
 using UnityEditor;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(UIDocumentScreenspace))]
 public class UIDocEndTurnButtonController : MonoBehaviour {
 
     private UIDocumentScreenspace screenspaceDoc;
@@ -25,6 +24,10 @@ public class UIDocEndTurnButtonController : MonoBehaviour {
     private IEnumerator LateStart() {
         yield return new WaitUntil(() => UIDocumentGameObjectPlacer.Instance.IsReady());
         screenspaceDoc = GetComponent<UIDocumentScreenspace>();
+        if(screenspaceDoc == null) {
+            Debug.LogError("UIDocEndTurnButtonController: No UIDocumentScreenspace found on this object");
+            yield break;
+        }
 
         endTurnElement = screenspaceDoc.GetVisualElement("end-turn");
         

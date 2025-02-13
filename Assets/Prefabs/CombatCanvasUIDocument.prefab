@@ -146,13 +146,13 @@ GameObject:
   - component: {fileID: 6024432066873853159}
   - component: {fileID: 5558227210676135366}
   - component: {fileID: 3491427938049875242}
-  - component: {fileID: 1482792757737945907}
   - component: {fileID: 8104869312425162302}
   - component: {fileID: 559762870808071398}
   - component: {fileID: 1704252872585834326}
   - component: {fileID: 7450656872853957637}
   - component: {fileID: 7148703676392390901}
   - component: {fileID: 5946589008991207965}
+  - component: {fileID: 9176702735516032690}
   m_Layer: 5
   m_Name: CombatUI
   m_TagString: Untagged
@@ -223,29 +223,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 8400000, guid: a77dc0882edd72548b9a05c79baf506d, type: 2}
+  m_Texture: {fileID: 8400000, guid: 7bc42c3734d39424689e26eb6ef632f4, type: 2}
   m_UVRect:
     serializedVersion: 2
     x: 0
     y: 0
     width: 1
     height: 1
---- !u!114 &1482792757737945907
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 782343934611933542}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a6751b13d0c15d41bb67c49a14c708e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  doc: {fileID: 5558227210676135366}
-  stateDirty: 1
-  initialized: 0
-  constantStateUpdate: 0
 --- !u!114 &8104869312425162302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -376,6 +360,22 @@ MonoBehaviour:
   statusEffectsSO: {fileID: 11400000, guid: b5e8681fc02be284eb308731b490c4c5, type: 2}
   enemyIntentsSO: {fileID: 11400000, guid: 7026f245c48ccae44a9d1a474d167c57, type: 2}
   cardViewUIPrefab: {fileID: 5377055111114097650, guid: 1fd8415aef0620b4eaee61fe5e3ed571, type: 3}
+--- !u!114 &9176702735516032690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 782343934611933542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a6751b13d0c15d41bb67c49a14c708e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doc: {fileID: 5558227210676135366}
+  stateDirty: 0
+  initialized: 0
+  constantStateUpdate: 0
 --- !u!1 &2627483554680799874
 GameObject:
   m_ObjectHideFlags: 0
