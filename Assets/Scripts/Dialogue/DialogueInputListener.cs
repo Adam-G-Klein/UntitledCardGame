@@ -30,7 +30,7 @@ public class DialogueInputListener : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.R)) {
             dialogueManager.StartAnyDialogueSequence();
         }
-        if(Input.GetKeyDown(KeyCode.S)) {
+        if(Input.GetKeyDown(KeyCode.J)) {
             dialogueManager.skipCurrentDialogue();
         }
         if(Input.GetKeyDown(KeyCode.K)) {

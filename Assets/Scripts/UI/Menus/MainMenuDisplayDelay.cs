@@ -18,7 +18,7 @@ public class MainMenuDisplayDelay : MonoBehaviour
     }
 
     void Update() {
-        if(Input.GetKeyDown(KeyCode.S) && gameState.currentLocation == Location.MAIN_MENU){
+        if(Input.GetKeyDown(KeyCode.J) && gameState.currentLocation == Location.MAIN_MENU){
             generateMap.generateMapAndChangeScenes();
             skipped = true;
         }

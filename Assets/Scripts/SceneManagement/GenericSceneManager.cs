@@ -27,7 +27,7 @@ public class GenericSceneManager : MonoBehaviour
             }
         }
 
-        if (allowProgressingGameState && Input.GetKeyDown(KeyCode.S)) {
+        if (allowProgressingGameState && Input.GetKeyDown(KeyCode.J)) {
             ContinueGameState();
         }
     }

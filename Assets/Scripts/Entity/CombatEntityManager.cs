@@ -29,7 +29,7 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
     private bool encounterEnded = false;
 
     void Update() {
-        if(IS_DEVELOPMENT_MODE && Input.GetKeyDown(KeyCode.S)) {
+        if(IS_DEVELOPMENT_MODE && Input.GetKeyDown(KeyCode.J)) {
             StartCoroutine(EndCombatAfterEffectsResolve());
         }
     }
