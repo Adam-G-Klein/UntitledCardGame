@@ -1,0 +1,40 @@
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.EventSystems;
+
+public class Hoverable : MonoBehaviour {
+
+    private List<IPointerEnterHandler> enterHandlers;
+    private List<IPointerExitHandler> exitHandlers;
+    private List<IPointerClickHandler> clickHandlers;
+
+    void Start() {
+        NonMouseInputManager.Instance.RegisterHoverable(this);
+        enterHandlers = new List<IPointerEnterHandler>(GetComponents<IPointerEnterHandler>());
+        exitHandlers = new List<IPointerExitHandler>(GetComponents<IPointerExitHandler>());
+        clickHandlers = new List<IPointerClickHandler>(GetComponents<IPointerClickHandler>());
+    }
+
+    void OnDestroy() {
+        NonMouseInputManager.Instance.UnregisterHoverable(this);
+    }
+
+    public void onHover() {
+        foreach(IPointerEnterHandler handler in enterHandlers) {
+            handler.OnPointerEnter(null);
+        }
+    }
+
+    public void onUnhover() {
+        foreach(IPointerExitHandler handler in exitHandlers) {
+            handler.OnPointerExit(null);
+        }
+    }
+
+    public void onSelect() {
+        foreach(IPointerClickHandler handler in clickHandlers) {
+            handler.OnPointerClick(null);
+        }
+    }
+
+}

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 
@@ -25,6 +26,7 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
     [SerializeField]
     private int hoveredCardIndex = -1;
     public PlayableCard hoveredCard;
+    private List<Hoverable> hoverables = new List<Hoverable>();
 
     void Update() {
     }
@@ -34,6 +36,14 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
             card.OnPointerExit(null);
         }
         hoveredCardIndex = -1;
+    }
+
+    public void RegisterHoverable(Hoverable hoverable) {
+        hoverables.Add(hoverable);
+    }   
+
+    public void UnregisterHoverable(Hoverable hoverable) {
+        hoverables.Remove(hoverable);
     }
 
     public void ProcessInput(InputAction action) {
