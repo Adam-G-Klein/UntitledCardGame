@@ -24,7 +24,7 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
 
     [SerializeField]
     private int hoveredCardIndex = -1;
-    private PlayableCard hoveredCard;
+    public PlayableCard hoveredCard;
 
     void Update() {
     }

@@ -5,7 +5,9 @@ public class MouseControlsManager : GenericSingleton<MouseControlsManager> {
     void Update() {
         if(Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0) {
             Cursor.visible = true;
-            NonMouseInputManager.Instance.ClearHoverState();
+            if(NonMouseInputManager.Instance.hoveredCard) {
+                NonMouseInputManager.Instance.ClearHoverState();
+            }
         }
     }
 }
