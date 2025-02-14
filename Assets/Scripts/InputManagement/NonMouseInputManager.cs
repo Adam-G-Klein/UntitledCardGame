@@ -25,8 +25,8 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
 
     [SerializeField]
     private int hoveredCardIndex = -1;
-    public PlayableCard hoveredCard;
     private List<Hoverable> hoverables = new List<Hoverable>();
+    private Hoverable currentlyHovered;
 
     void Update() {
     }
@@ -46,6 +46,32 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
         hoverables.Remove(hoverable);
     }
 
+    /*
+    Find the closest hoverable in the direction provided
+    Directions:
+           0,1 
+    -1, 0 ----- 1, 0
+          -1, 0
+
+    */
+
+    private void hover(Vector2 direction) {
+        if(hoverables.Count <= 0) return;
+        // handle the base case, where nothing is currently hovered
+        if(currentlyHovered == null) {
+
+        }
+        
+        
+
+
+
+        List<Hoverable> candidates = new List<Hoverable>();
+        foreach(Hoverable hoverable in hoverables) {
+
+        }
+    }
+
     public void ProcessInput(InputAction action) {
         Cursor.visible = false;
         switch(UIStateManager.Instance.currentState) {
@@ -59,60 +85,23 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
                 Debug.Log("[NonMouseInputManager] Can't yet process input for state: " + UIStateManager.Instance.currentState);
                 break;
         }
-
-    }
-
-    // card_hovered should probably be it's own UI state at some point soon
-    // too lazy to do it rn
-    private void hoverCard(int cardToHover = 0) {
-        if(PlayerHand.Instance.cardsInHand.Count <= 0) return;
-        if(hoveredCard && cardToHover == hoveredCardIndex) return; // already hovering the card
-        if(hoveredCard) hoveredCard.OnPointerExit(null);
-        hoveredCardIndex = cardToHover;
-        hoveredCard = PlayerHand.Instance.cardsInHand[hoveredCardIndex];
-        if(hoveredCard.hovered) return; // oneeee more check because I found an edge case I couldn't reproduce
-        hoveredCard.OnPointerEnter(null);
-    }
-
-    private void unHoverCardWhileMaintainingState() {
-        if(hoveredCard) {
-            hoveredCard.OnPointerExit(null);
-            hoveredCard = null;
-        } 
     }
 
     private void processInputForDefaultState(InputAction action) {
         switch(action) {
             case InputAction.UP:
                 Debug.Log("[NonMouseInputManager] State: DEFAULT, Action: UP, hoveredCardIndex: " + hoveredCardIndex);
-                hoverCard(hoveredCardIndex == -1 ? 0 : hoveredCardIndex);
                 break;
             case InputAction.DOWN:
                 Debug.Log("[NonMouseInputManager] State: DEFAULT, Action: DOWN, hoveredCardIndex: " + hoveredCardIndex);
-                unHoverCardWhileMaintainingState();
                 break;
             case InputAction.LEFT:
                 Debug.Log("[NonMouseInputManager] State: DEFAULT, Action: LEFT, hoveredCardIndex: " + hoveredCardIndex);
-                if(hoveredCardIndex == -1) {
-                    hoverCard(0);
-                } else if (hoveredCardIndex > 0) {
-                    hoverCard(hoveredCardIndex - 1);
-                } else {
-                    hoverCard(PlayerHand.Instance.cardsInHand.Count - 1);
-                }
                 break;
             case InputAction.RIGHT:
                 Debug.Log("[NonMouseInputManager] State: DEFAULT, Action: RIGHT, hoveredCardIndex: " + hoveredCardIndex);
-                if(hoveredCardIndex == -1) {
-                    hoverCard(PlayerHand.Instance.cardsInHand.Count - 1);
-                } else if (hoveredCardIndex < PlayerHand.Instance.cardsInHand.Count - 1) {
-                    hoverCard(hoveredCardIndex + 1);
-                } else {
-                    hoverCard(0);
-                }
                 break;
             case InputAction.SELECT:
-                hoverCard();
                 Debug.Log("[NonMouseInputManager] State: DEFAULT, Action: SELECT");
                 break;
             case InputAction.BACK:
