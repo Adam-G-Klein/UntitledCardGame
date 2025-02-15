@@ -32,10 +32,8 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
     }
 
     public void ClearHoverState() {
-        foreach(PlayableCard card in PlayerHand.Instance.cardsInHand) {
-            card.OnPointerExit(null);
-        }
-        hoveredCardIndex = -1;
+        currentlyHovered.onUnhover();
+        currentlyHovered = null;
     }
 
     public void RegisterHoverable(Hoverable hoverable) {
@@ -58,18 +56,35 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
     private void hover(Vector2 direction) {
         if(hoverables.Count <= 0) return;
         // handle the base case, where nothing is currently hovered
+        // for now, just hover the first element that registered
+        // TODO: Make this a card, or the middle of the hand
+        // Or have an element register as the default hover? Like in the shop, 
+        // should probably be a the left-most shop card
         if(currentlyHovered == null) {
-
+            currentlyHovered = hoverables[0];
+            currentlyHovered.onHover();
+            return;
         }
         
-        
-
-
-
         List<Hoverable> candidates = new List<Hoverable>();
         foreach(Hoverable hoverable in hoverables) {
 
         }
+    }
+
+    private List<Hoverable> filterHoverablesByDirectionFromCurrent(Vector2 direction) {
+        List<Hoverable> candidates = new List<Hoverable>();
+        foreach(Hoverable hoverable in hoverables) {
+            Vector3 screenPos = Camera.main.WorldToScreenPoint(hoverable.transform.position);
+            Vector2 hoverablePos = new Vector2(screenPos.x, screenPos.y);
+            Vector2 currentPos = new Vector2(Screen.width / 2, Screen.height / 2);
+            Vector2 hoverableDirection = hoverablePos - currentPos;
+            // Ty copilot for remembering the linear algebra that I could not :')
+            if(Vector2.Dot(hoverableDirection, direction) > 0) {
+                candidates.Add(hoverable);
+            }
+        }
+        return candidates;
     }
 
     public void ProcessInput(InputAction action) {

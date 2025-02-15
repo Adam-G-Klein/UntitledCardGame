@@ -10,21 +10,16 @@ public class Hoverable : MonoBehaviour {
 
     void Start() {
         NonMouseInputManager.Instance.RegisterHoverable(this);
-        /*
         enterHandlers = new List<IPointerEnterHandler>(GetComponents<IPointerEnterHandler>());
         exitHandlers = new List<IPointerExitHandler>(GetComponents<IPointerExitHandler>());
         clickHandlers = new List<IPointerClickHandler>(GetComponents<IPointerClickHandler>());
-        */
     }
 
     void Update()
     {
         // get position in screenspace and print
-        /*
         Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position);
         Debug.Log("[Hoverables] Screen position of " + gameObject.name  + ": " + screenPos);
-        */
-        
     }
 
     void OnDestroy() {
