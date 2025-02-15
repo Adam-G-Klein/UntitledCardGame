@@ -85,7 +85,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 8400000, guid: a77dc0882edd72548b9a05c79baf506d, type: 2}
+  m_Texture: {fileID: 8400000, guid: e86a2412139cb4a43b1412b0bbf610e4, type: 2}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -359,6 +359,8 @@ MonoBehaviour:
   gameplayConstants: {fileID: 11400000, guid: a6db1936fe0d3a647b09f3d8297fef23, type: 2}
   statusEffectsSO: {fileID: 11400000, guid: b5e8681fc02be284eb308731b490c4c5, type: 2}
   enemyIntentsSO: {fileID: 11400000, guid: 7026f245c48ccae44a9d1a474d167c57, type: 2}
+  pulseAnimationSpeed: 0.1
+  animateHearts: 0
   cardViewUIPrefab: {fileID: 5377055111114097650, guid: 1fd8415aef0620b4eaee61fe5e3ed571, type: 3}
 --- !u!114 &9176702735516032690
 MonoBehaviour:
