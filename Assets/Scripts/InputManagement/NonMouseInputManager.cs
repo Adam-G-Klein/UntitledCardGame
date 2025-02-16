@@ -27,6 +27,7 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
     private int hoveredCardIndex = -1;
     private List<Hoverable> hoverables = new List<Hoverable>();
     public Hoverable currentlyHovered;
+    public GameObject hoverIndicator;
 
     void Update() {
     }
@@ -34,6 +35,7 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
     public void ClearHoverState() {
         currentlyHovered.onUnhover();
         currentlyHovered = null;
+        hoverIndicator.SetActive(false);
     }
 
     public void RegisterHoverable(Hoverable hoverable) {
@@ -67,12 +69,12 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
 
         List<Hoverable> directionalCandidates = filterHoverablesByDirectionFromCurrent(direction);
         if(directionalCandidates.Count <= 0) {
-            Debug.LogError("[NonMouseInputManager] No candidates found in direction: " + direction);
+            // TODO: add wrapping around for cycling back to hoverable  furthest in other dir
+            Debug.Log("[NonMouseInputManager] No candidates found in direction: " + direction);
             return;
         } 
         Hoverable closest = findClosestHoverableToCurrent(directionalCandidates);
-        currentlyHovered = closest;
-        currentlyHovered.onHover();
+        hover(closest);
     }
 
     public void hover(Hoverable hover) {
@@ -81,18 +83,25 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
         }
         currentlyHovered = hover;
         currentlyHovered.onHover();
+        hoverIndicator.transform.position= new Vector3(currentlyHovered.transform.position.x, currentlyHovered.transform.position.y, currentlyHovered.transform.position.z - 10);
+        hoverIndicator.SetActive(true);
     }
 
     private List<Hoverable> filterHoverablesByDirectionFromCurrent(Vector2 direction) {
         List<Hoverable> candidates = new List<Hoverable>();
-        foreach(Hoverable hoverable in hoverables) {
-            Vector3 screenPos = Camera.main.WorldToScreenPoint(hoverable.transform.position);
-            Vector2 hoverablePos = new Vector2(screenPos.x, screenPos.y);
-            Vector2 currentPos = new Vector2(Screen.width / 2, Screen.height / 2);
-            Vector2 hoverableDirection = hoverablePos - currentPos;
+        Vector2 currentPos = currentlyHovered.getScreenPosition();
+        Debug.Log("[NonMouseInputManager] Filtering hoverables by direction: " + direction + " from currentPos: " + currentPos);
+        foreach(Hoverable candidate in hoverables) {
+            // all positions in screen space
+            Vector2 candidatePos = candidate.getScreenPosition();
+            Vector2 candidateDirection = candidatePos - currentPos;
+            Debug.Log("\t[NonMouseInputManager] candidate: " + candidate.name + " candidatePos: " + candidatePos + " candidateDirection: " + candidateDirection);
             // Ty copilot for remembering the linear algebra that I could not :')
-            if(Vector2.Dot(hoverableDirection, direction) > 0) {
-                candidates.Add(hoverable);
+            if(Vector2.Dot(candidateDirection, direction) > 0) {
+                candidates.Add(candidate);
+                Debug.Log("\t[NonMouseInputManager] Added hoverable to candidates: " + candidate);
+            } else {
+                Debug.Log("\t[NonMouseInputManager] NOT adding hoverable to candidates: " + candidate);
             }
         }
         return candidates;

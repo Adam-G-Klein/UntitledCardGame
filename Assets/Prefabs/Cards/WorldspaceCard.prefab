@@ -20,6 +20,7 @@ GameObject:
   - component: {fileID: 6627301573617809454}
   - component: {fileID: 7940304150393147120}
   - component: {fileID: 7195285628578429125}
+  - component: {fileID: 6878301995355592893}
   m_Layer: 0
   m_Name: WorldspaceCard
   m_TagString: Untagged
@@ -79,7 +80,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   renderTextureConstantly: 0
-  maxFullSizeTextCharacters: 26
 --- !u!212 &6443691569999266555
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -119,7 +119,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1374400395
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 6cee2343f3114be45be30618b977bcb0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -306,5 +306,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 28ab8638594f3ad4e8fbce374926ceac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6878301995355592893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6517496529593941963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ecfb36b454b06e46b71bf82572d1581, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
