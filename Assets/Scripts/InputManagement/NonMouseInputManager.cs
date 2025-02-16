@@ -26,7 +26,7 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
     [SerializeField]
     private int hoveredCardIndex = -1;
     private List<Hoverable> hoverables = new List<Hoverable>();
-    private Hoverable currentlyHovered;
+    public Hoverable currentlyHovered;
 
     void Update() {
     }
@@ -53,7 +53,7 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
 
     */
 
-    private void hover(Vector2 direction) {
+    private void hoverInDirection(Vector2 direction) {
         if(hoverables.Count <= 0) return;
         // handle the base case, where nothing is currently hovered
         // for now, just hover the first element that registered
@@ -61,15 +61,26 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
         // Or have an element register as the default hover? Like in the shop, 
         // should probably be a the left-most shop card
         if(currentlyHovered == null) {
-            currentlyHovered = hoverables[0];
-            currentlyHovered.onHover();
+            hover(hoverables[0]);
             return;
         }
-        
-        List<Hoverable> candidates = new List<Hoverable>();
-        foreach(Hoverable hoverable in hoverables) {
 
+        List<Hoverable> directionalCandidates = filterHoverablesByDirectionFromCurrent(direction);
+        if(directionalCandidates.Count <= 0) {
+            Debug.LogError("[NonMouseInputManager] No candidates found in direction: " + direction);
+            return;
+        } 
+        Hoverable closest = findClosestHoverableToCurrent(directionalCandidates);
+        currentlyHovered = closest;
+        currentlyHovered.onHover();
+    }
+
+    public void hover(Hoverable hover) {
+        if(currentlyHovered != null) {
+            currentlyHovered.onUnhover();
         }
+        currentlyHovered = hover;
+        currentlyHovered.onHover();
     }
 
     private List<Hoverable> filterHoverablesByDirectionFromCurrent(Vector2 direction) {
@@ -85,6 +96,20 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
             }
         }
         return candidates;
+    }
+
+    private Hoverable findClosestHoverableToCurrent(List<Hoverable> candidates) {
+        if(candidates.Count <= 0) return null;
+        Hoverable closest = candidates[0];
+        float closestDistance = Vector2.Distance(closest.transform.position, currentlyHovered.transform.position);
+        foreach(Hoverable hoverable in candidates) {
+            float distance = Vector2.Distance(hoverable.transform.position, currentlyHovered.transform.position);
+            if(distance < closestDistance) {
+                closest = hoverable;
+                closestDistance = distance;
+            }
+        }
+        return closest;
     }
 
     public void ProcessInput(InputAction action) {
@@ -105,15 +130,19 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
     private void processInputForDefaultState(InputAction action) {
         switch(action) {
             case InputAction.UP:
+                hoverInDirection(Vector2.up);
                 Debug.Log("[NonMouseInputManager] State: DEFAULT, Action: UP, hoveredCardIndex: " + hoveredCardIndex);
                 break;
             case InputAction.DOWN:
+                hoverInDirection(Vector2.down);
                 Debug.Log("[NonMouseInputManager] State: DEFAULT, Action: DOWN, hoveredCardIndex: " + hoveredCardIndex);
                 break;
             case InputAction.LEFT:
+                hoverInDirection(Vector2.left); //CHECK
                 Debug.Log("[NonMouseInputManager] State: DEFAULT, Action: LEFT, hoveredCardIndex: " + hoveredCardIndex);
                 break;
             case InputAction.RIGHT:
+                hoverInDirection(Vector2.right);
                 Debug.Log("[NonMouseInputManager] State: DEFAULT, Action: RIGHT, hoveredCardIndex: " + hoveredCardIndex);
                 break;
             case InputAction.SELECT:
