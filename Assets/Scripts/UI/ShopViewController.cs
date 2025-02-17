@@ -455,9 +455,6 @@ public class ShopViewController : MonoBehaviour,
                 movingToContainer.Add(companionManagementView.container);
                 tempContainer.RemoveFromHierarchy();
             }
-
-            RefreshContainers(activeContainer.Children().ToList(), false);
-            RefreshContainers(benchScrollView.contentContainer.Children().ToList(), true);
         // Scenario 2, dragging companion to slot with another companion in it already
         } else if (movingToContainer.childCount == 1) {
             originalParent.Add(movingToContainer[0]);
@@ -467,6 +464,8 @@ public class ShopViewController : MonoBehaviour,
         } else {
             Debug.LogError("Companion container contains more than 1 element in heirarchy");
         }
+        RefreshContainers(activeContainer.Children().ToList(), false);
+        RefreshContainers(benchScrollView.contentContainer.Children().ToList(), true);
         SetCompanionOrdering();
     }
 
