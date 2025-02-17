@@ -349,7 +349,7 @@ public class ShopViewController : MonoBehaviour,
             if (blockedSlots != null && blockedSlots.Contains(child)) continue;
             if (child.worldBound.Contains(evt.position)) {
                 child.style.backgroundColor = slotHighlightColor;
-                if (NumOpenSlots(activeContainer.Children().ToList(), true) < 5) {
+                if (NumOpenSlots(activeContainer.Children().ToList(), true) < 5 - blockedSlots.Count) {
                     MoveWhileDragging(activeContainer, child);
                     originalParent = child;
                 }
@@ -505,11 +505,11 @@ public class ShopViewController : MonoBehaviour,
             unitContainers[i].Add(companions[i]);
         }
 
-        if (companions.Count == unitContainers.Count && isBench) {
+        /*if (companions.Count == unitContainers.Count && isBench) {
             // This makes it so that the player can always move a companion to the bench without
             // needing to swap one companion for another
             CreateNewBenchSlot();
-        }
+        }*/
     }
 
     public void SetMoney(int money) {
