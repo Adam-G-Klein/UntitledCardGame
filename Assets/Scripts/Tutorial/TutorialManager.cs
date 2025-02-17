@@ -205,13 +205,14 @@ public class TutorialManager : MonoBehaviour
 
     public void TutorialButtonClicked() {
         Debug.Log(currentAction);
-        if (currentAction is WaitForNextButtonClickAction action) {
+        if (currentAction != null && currentAction is WaitForNextButtonClickAction action) {
             action.ButtonClicked();
             Debug.Log("_________here__________");
             Debug.Log(currentStepIndex);
             Debug.Log(currentStep.actions.Count);
             Debug.Log(currentStepIndex == currentStep.actions.Count);
             if (currentStepIndex == currentStep.actions.Count) {
+                currentAction = null;
                 Debug.Log("LOADING NEXT LOCATION WE ARE SO BACK");
                 gameState.LoadNextLocation();
             }
