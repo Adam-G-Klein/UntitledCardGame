@@ -22,6 +22,8 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     // There's so many ways we could do this
     // choosing the simplest one for now
     private GameObject postCombatUI;
+    [SerializeField]
+    private GameObject victoryUI;
 
     [SerializeField]
     private EndEncounterEvent endEncounterEvent;
@@ -109,6 +111,10 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
             postGamePopup.SetActive(true);
             return;
         }
+        if (gameState.activeEncounter.GetValue().id == gameState.map.GetValue().encounters[gameState.map.GetValue().encounters.Count - 1].id) {
+            WinGameHandler();
+            return;
+        }
         gameState.activeEncounter.GetValue().isCompleted = true;
         Debug.Log("EndEncounterHandler called, activeEncounter is " + gameState.activeEncounter.GetValue().id + " isCompleted is " + gameState.activeEncounter.GetValue().isCompleted);
 
@@ -148,6 +154,17 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         SetInToolTip(false);
     }
 
+    private void WinGameHandler() {
+        gameState.LoadNextLocation();
+        victoryUI.SetActive(true);
+        uIStateEvent.Raise(new UIStateEventInfo(UIState.END_ENCOUNTER));
+        victoryUI.transform.SetSiblingIndex(postCombatUI.transform.parent.childCount - 1);
+        victoryUI.GetComponent<VictoryView>().Setup(gameState.companions.activeCompanions);
+        TurnOffInteractions();
+        StartCoroutine(displayVictoryUIAfterDelay());
+        SetInToolTip(false);
+    }
+
     private void TurnOffInteractions() {
         PlayerHand.Instance.DisableHand();
         EnemyEncounterViewModel.Instance.companions.ForEach(companion => {
@@ -161,6 +178,10 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     private IEnumerator displayPostCombatUIAfterDelay() {
         yield return new WaitForSeconds(endCombatScreenDelay);
         postCombatUI.GetComponent<EndEncounterView>().Show();
+    }
+    private IEnumerator displayVictoryUIAfterDelay() {
+        yield return new WaitForSeconds(endCombatScreenDelay);
+        victoryUI.GetComponent<VictoryView>().Show();
     }
 
     // This exists to satisfy the IEncounterBuilder interface.

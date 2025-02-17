@@ -17,7 +17,8 @@ public class SimpleEnemyPoolMapGeneratorSO: MapGeneratorSO {
         // Deduplicate the pools so we can choose without replacement over the whole list.
         // We do not want to select multiple of the same enemy from the same pool.
         Dictionary<EnemyEncounterPoolSO, List<EnemyEncounterTypeSO>> enemyPools = new Dictionary<EnemyEncounterPoolSO, List<EnemyEncounterTypeSO>>();
-        foreach (EnemyEncounterPoolSO pool in enemyEncounterPools) {
+        for (int i = 0; i < enemyEncounterPools.Count; i++) {
+            EnemyEncounterPoolSO pool = enemyEncounterPools[i];
             if (!enemyPools.ContainsKey(pool)) {
                 enemyPools.Add(pool, new List<EnemyEncounterTypeSO>(pool.enemyEncounterTypes));
             }
@@ -37,7 +38,9 @@ public class SimpleEnemyPoolMapGeneratorSO: MapGeneratorSO {
             EnemyEncounter EE = new EnemyEncounter(chosen);
             EE.SetIsElite(pool.isElite);
             encounters.Add(EE);
-            encounters.Add(new ShopEncounter(shopData));
+            if (i != enemyEncounterPools.Count - 1) {
+                encounters.Add(new ShopEncounter(shopData));
+            }
         }
 
         return new Map(encounters);
