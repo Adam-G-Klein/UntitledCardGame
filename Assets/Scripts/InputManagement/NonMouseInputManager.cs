@@ -28,6 +28,7 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
     private List<Hoverable> hoverables = new List<Hoverable>();
     public Hoverable currentlyHovered;
     public GameObject hoverIndicator;
+    private float hoverIndicatorZDelta = -1;
 
     void Update() {
     }
@@ -83,7 +84,7 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
         }
         currentlyHovered = hover;
         currentlyHovered.onHover();
-        hoverIndicator.transform.position= new Vector3(currentlyHovered.transform.position.x, currentlyHovered.transform.position.y, currentlyHovered.transform.position.z - 10);
+        hoverIndicator.transform.position= new Vector3(currentlyHovered.transform.position.x, currentlyHovered.transform.position.y, currentlyHovered.transform.position.z + hoverIndicatorZDelta);
         hoverIndicator.SetActive(true);
     }
 

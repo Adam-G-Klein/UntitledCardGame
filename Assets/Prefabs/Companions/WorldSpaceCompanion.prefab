@@ -186,6 +186,7 @@ GameObject:
   - component: {fileID: -4785001928966702165}
   - component: {fileID: 8494857512198128503}
   - component: {fileID: 160789473182807700}
+  - component: {fileID: 852289957336941258}
   m_Layer: 0
   m_Name: WorldSpaceCompanion
   m_TagString: Companion
@@ -233,7 +234,6 @@ MonoBehaviour:
       maxHealth: 0
       currentHealth: 0
       baseAttackDamage: 0
-    companionLevel: 0
     onCombineAbilities: []
   combatInstance: {fileID: 6559890015023456123}
   deckInstance: {fileID: 8670881613562720748}
@@ -277,7 +277,6 @@ MonoBehaviour:
     maxHealth: 0
     currentHealth: 0
     baseAttackDamage: 0
-  genericInteractionSFX: {fileID: 0}
   genericInteractionVFX: {fileID: 0}
   parentType: 0
   killed: 0
@@ -383,6 +382,8 @@ MonoBehaviour:
     rid: -2
   positionOffset: {x: 1.5, y: 1, z: -2}
   displayWaitTime: 0.3
+  instantiateInWorldspace: 0
+  companionInstance: {fileID: 0}
   references:
     version: 2
     RefIds:
@@ -427,3 +428,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statusEffectsDisplay: {fileID: 0}
   companionInstance: {fileID: 0}
+--- !u!114 &852289957336941258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5285687428135354733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ecfb36b454b06e46b71bf82572d1581, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
