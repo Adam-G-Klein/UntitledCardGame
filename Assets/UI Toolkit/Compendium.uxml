@@ -1,0 +1,75 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/common.uss?fileID=7433441132597879392&amp;guid=8d0bc28a2ed710a44b762e4c857ac6f9&amp;type=3#common" />
+    <Style src="project://database/Assets/UI%20Toolkit/Shop/ShopUIStylesheet.uss?fileID=7433441132597879392&amp;guid=b4d5060bf962ba64c83be6329cd47b49&amp;type=3#ShopUIStylesheet" />
+    <Style src="project://database/Assets/UI%20Toolkit/Stylesheets/entity.uss?fileID=7433441132597879392&amp;guid=f28fa9619ee10d041b7306d0537405c5&amp;type=3#entity" />
+    <ui:VisualElement style="flex-grow: 1; background-color: rgb(91, 91, 91);">
+        <ui:VisualElement name="buttonsContainer" style="flex-grow: 1; width: 100%; height: 10%; flex-direction: row; align-self: center; align-items: flex-end;">
+            <ui:Button text="Cards" parse-escape-sequences="true" display-tooltip-when-elided="true" name="cardButton" class="compendium-button" />
+            <ui:Button text="Companions" parse-escape-sequences="true" display-tooltip-when-elided="true" name="companionButton" class="compendium-button" />
+            <ui:Button text="Enemies" parse-escape-sequences="true" display-tooltip-when-elided="true" name="enemyButton" class="compendium-button" />
+            <ui:Button text="Exit" parse-escape-sequences="true" display-tooltip-when-elided="true" name="exitButton" class="compendium-button compendium-exit-button" />
+        </ui:VisualElement>
+        <ui:VisualElement name="mainContentContainer" style="flex-grow: 1; height: 90%; width: 100%; background-color: rgb(65, 65, 65);">
+            <ui:ScrollView horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="AlwaysVisible" name="compendium-cards-scrollView" style="width: 100%; height: 100%;">
+                <ui:VisualElement class="compendium-container">
+                    <ui:Label tabindex="-1" text="Entropy&apos;s Cards" parse-escape-sequences="true" display-tooltip-when-elided="true" name="companionName" class="compendium-header-text" />
+                    <ui:VisualElement name="VisualElement" class="compendium-section-container">
+                        <ui:VisualElement name="compendiumRowElement" class="compendium-card-row-element" style="width: 25%;">
+                            <ui:Label tabindex="-1" text="Card Name" parse-escape-sequences="true" display-tooltip-when-elided="true" name="companionName" />
+                            <ui:Label tabindex="-1" text="cardName" parse-escape-sequences="true" display-tooltip-when-elided="true" name="cardName" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="compendiumRowElement" class="compendium-card-row-element" style="width: 25%;">
+                            <ui:Label tabindex="-1" text="Card Name" parse-escape-sequences="true" display-tooltip-when-elided="true" name="companionName" />
+                            <ui:Label tabindex="-1" text="cardName" parse-escape-sequences="true" display-tooltip-when-elided="true" name="cardName" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="compendiumRowElement" class="compendium-card-row-element" style="width: 25%;">
+                            <ui:Label tabindex="-1" text="Card Name" parse-escape-sequences="true" display-tooltip-when-elided="true" name="companionName" />
+                            <ui:Label tabindex="-1" text="cardName" parse-escape-sequences="true" display-tooltip-when-elided="true" name="cardName" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="compendiumRowElement" class="compendium-card-row-element" style="width: 25%;">
+                            <ui:Label tabindex="-1" text="Card Name" parse-escape-sequences="true" display-tooltip-when-elided="true" name="companionName" />
+                            <ui:Label tabindex="-1" text="cardName" parse-escape-sequences="true" display-tooltip-when-elided="true" name="cardName" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="compendiumRowElement" class="compendium-card-row-element" style="width: 25%;">
+                            <ui:Label tabindex="-1" text="Card Name" parse-escape-sequences="true" display-tooltip-when-elided="true" name="companionName" />
+                            <ui:Label tabindex="-1" text="cardName" parse-escape-sequences="true" display-tooltip-when-elided="true" name="cardName" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement class="compendium-container">
+                    <ui:Label tabindex="-1" text="Entropy&apos;s Cards" parse-escape-sequences="true" display-tooltip-when-elided="true" name="companionName" class="compendium-header-text" />
+                </ui:VisualElement>
+            </ui:ScrollView>
+            <ui:ScrollView horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="AlwaysVisible" name="compendium-companions-scrollView" style="width: 100%; height: 100%;">
+                <ui:VisualElement class="compendium-container">
+                    <ui:Label tabindex="-1" text="Entropy&apos;s Cards" parse-escape-sequences="true" display-tooltip-when-elided="true" name="companionName" class="compendium-header-text" />
+                    <ui:VisualElement name="VisualElement" class="compendium-section-container">
+                        <ui:VisualElement name="compendiumRowElement" class="compendium-card-row-element" style="width: 25%;">
+                            <ui:Label tabindex="-1" text="Card Name" parse-escape-sequences="true" display-tooltip-when-elided="true" name="companionName" />
+                            <ui:Label tabindex="-1" text="cardName" parse-escape-sequences="true" display-tooltip-when-elided="true" name="cardName" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="compendiumRowElement" class="compendium-card-row-element" style="width: 25%;">
+                            <ui:Label tabindex="-1" text="Card Name" parse-escape-sequences="true" display-tooltip-when-elided="true" name="companionName" />
+                            <ui:Label tabindex="-1" text="cardName" parse-escape-sequences="true" display-tooltip-when-elided="true" name="cardName" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="compendiumRowElement" class="compendium-card-row-element" style="width: 25%;">
+                            <ui:Label tabindex="-1" text="Card Name" parse-escape-sequences="true" display-tooltip-when-elided="true" name="companionName" />
+                            <ui:Label tabindex="-1" text="cardName" parse-escape-sequences="true" display-tooltip-when-elided="true" name="cardName" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="compendiumRowElement" class="compendium-card-row-element" style="width: 25%;">
+                            <ui:Label tabindex="-1" text="Card Name" parse-escape-sequences="true" display-tooltip-when-elided="true" name="companionName" />
+                            <ui:Label tabindex="-1" text="cardName" parse-escape-sequences="true" display-tooltip-when-elided="true" name="cardName" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="compendiumRowElement" class="compendium-card-row-element" style="width: 25%;">
+                            <ui:Label tabindex="-1" text="Card Name" parse-escape-sequences="true" display-tooltip-when-elided="true" name="companionName" />
+                            <ui:Label tabindex="-1" text="cardName" parse-escape-sequences="true" display-tooltip-when-elided="true" name="cardName" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement class="compendium-container">
+                    <ui:Label tabindex="-1" text="Entropy&apos;s Cards" parse-escape-sequences="true" display-tooltip-when-elided="true" name="companionName" class="compendium-header-text" />
+                </ui:VisualElement>
+            </ui:ScrollView>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

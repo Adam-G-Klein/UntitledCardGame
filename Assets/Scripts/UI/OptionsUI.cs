@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.UIElements;
 
 public class OptionsUI : MonoBehaviour
 {
@@ -13,13 +14,20 @@ public class OptionsUI : MonoBehaviour
     private TMP_Dropdown resolutionDropdown;
 
     [SerializeField]
-    private Slider volumeSlider;
+    private UnityEngine.UI.Slider volumeSlider;
     [SerializeField]
-    private Slider timescaleSlider;
-
+    private UnityEngine.UI.Slider timescaleSlider;
+    [SerializeField]
+    private UIDocument compendiumUIDocument;
+    [SerializeField]
+    private CompanionPoolSO companionPool;
+    [SerializeField]
+    private CardPoolSO neutralCardPool;
+    private CompendiumView compendiumView;
     // Start is called before the first frame update
     void Start()
     {
+        compendiumUIDocument.rootVisualElement.style.visibility = Visibility.Hidden;
         GetComponent<Canvas>().worldCamera = Camera.main;
         if (Screen.fullScreen) {
             // Fix just setting the index with a magic number
@@ -41,6 +49,13 @@ public class OptionsUI : MonoBehaviour
     public void onExitGameHandler() {
         // Quit the game
         Application.Quit();
+    }
+
+    public void onCompendiumButtonHandler() {
+        Debug.LogError("Compendium button clicked");
+        compendiumUIDocument.rootVisualElement.style.visibility = Visibility.Visible;
+        compendiumView = null; // in the future we would ideally have some way of tracking if it had to be recreated based on change in gamestate
+        compendiumView = new CompendiumView(compendiumUIDocument, companionPool, neutralCardPool);
     }
 
     public void onVolumeSliderChangedHandler(float value) {
