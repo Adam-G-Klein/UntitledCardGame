@@ -48,6 +48,10 @@ public class GameStateVariableSO : ScriptableObject
     public List<DialogueSequenceSO> viewedSequences;
     public CompanionInstance hoveredCompanion = null;
     public int currentEncounterIndex = 0;
+    [SerializeField]
+    private bool hasSeenShopTutorial = false;
+    [SerializeField]
+    private bool hasSeenTutorial = false;
     private Dictionary<Location, string> locationToScene = new Dictionary<Location, string>() {
         {Location.MAIN_MENU, "MainMenu"},
         {Location.WAKE_UP_ROOM, "AidensRoom"},
@@ -88,7 +92,6 @@ public class GameStateVariableSO : ScriptableObject
     public int lastTutorialLoopIndex = 2;
     public int bossFightLoopIndex = 6;
     public int tutorialLoops = 2;
-    private bool hasSeenShopTutorial = false;
 
     // TODO: make this more versatile if we want the map to actually do things.
     // also want to field criticism about whether this should live here.
@@ -109,7 +112,11 @@ public class GameStateVariableSO : ScriptableObject
                 nextMapIndex = 0;
                 nextEncounter.SetValue(map.GetValue().encounters[nextMapIndex]);
                 AdvanceEncounter();
-                currentLocation = locationToNextLocation[currentLocation];
+                if (hasSeenTutorial) {
+                    currentLocation = Location.TEAM_SIGNING;
+                } else {
+                    currentLocation = locationToNextLocation[currentLocation];
+                }
                 break;
             case Location.INTRO_CUTSCENE:
                 currentLocation = locationToNextLocation[currentLocation];
@@ -122,6 +129,7 @@ public class GameStateVariableSO : ScriptableObject
                 currentLocation = locationToNextLocation[currentLocation];
                 break;
             case Location.TUTORIAL:
+                hasSeenTutorial = true;
                 currentLocation = locationToNextLocation[currentLocation];
                 break;
             // map probably shouldn't stay its own location
@@ -285,7 +293,6 @@ public class GameStateVariableSO : ScriptableObject
 
     public void StartNewRun(MapGeneratorSO mapGeneratorSO) {
         currentEncounterIndex = 0;
-        hasSeenShopTutorial = false;
         setMapGenerator(mapGeneratorSO);
         map.SetValue(mapGenerator.generateMap());
         playerData.initialize(baseShopData);
