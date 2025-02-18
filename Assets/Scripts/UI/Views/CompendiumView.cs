@@ -115,8 +115,6 @@ public class CompendiumView {
             List<Companion> companionsToDisplay = new List<Companion>
             { new Companion(companion), new Companion(companion.upgradeTo), new Companion(companion.upgradeTo.upgradeTo) };
             companionsToDisplay.ForEach(companionToDisplay => {
-                VisualElement companionSection = new VisualElement();
-
                 Companion tempCompanion = new Companion(companionToDisplay.companionType);
                 EntityView entityView = new EntityView(tempCompanion, 0, false);
                 entityView.entityContainer.AddToClassList("compendium-item-container");

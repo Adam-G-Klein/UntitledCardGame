@@ -34,9 +34,44 @@ public class VictoryView : MonoBehaviour
         canvasGroup.alpha = 0;
     }
 
-    public void Setup(List<Companion> companions)
-    {
-        
+    public void Setup(List<Companion> companions) {
+        VisualElement container = doc.rootVisualElement.Q(name: "victory-companions");
+        for (int i = 0; i < companions.Count; i++) {
+            Companion companion = companions[i];
+            VisualElement companionContainer = new VisualElement();
+            companionContainer.AddToClassList("victory-companion-container");
+            CompanionTypeSO companionType = companions[i].companionType;
+            Companion tempCompanion = new Companion(companionType);
+            EntityView entityView = new EntityView(tempCompanion, 0, false);
+            //entityView.entityContainer.AddToClassList("compendium-item-container");
+            VisualElement portraitContainer = entityView.entityContainer.Q(className: "portrait-container");
+            portraitContainer.style.backgroundImage = new StyleBackground(companionType.sprite);
+            companionContainer.Add(entityView.entityContainer);
+            
+            List<Card> cards = new List<Card>();
+            companion.deck.cards.Sort((x, y) => {
+                if (x.shopRarity == y.shopRarity) return 0;
+                if (x.shopRarity == Card.CardRarity.RARE) return -1;
+                if (y.shopRarity == Card.CardRarity.RARE) return 1;
+                if (x.shopRarity == Card.CardRarity.UNCOMMON) return -1;
+                if (y.shopRarity == Card.CardRarity.UNCOMMON) return 1;
+                return 0;
+            });
+            companion.deck.cards.Reverse();
+
+            VisualElement cardsContainer = new VisualElement();
+            cardsContainer.AddToClassList("victory-companion-cards-container");
+            
+            List<Card> deckToDisplay = companion.deck.cards;
+            for (int j = 0; j < deckToDisplay.Count; j++) {
+                VisualElement cardContainer = new CardView(deckToDisplay[j], companionType, true).cardContainer;
+                cardContainer.style.position = Position.Absolute;
+                cardContainer.style.top = cardContainer.style.height.value.value / 30 * j;
+                cardsContainer.Add(cardContainer);
+            }
+            companionContainer.Add(cardsContainer);
+            container.Add(companionContainer);
+        }
     }
 
     public void Show() {

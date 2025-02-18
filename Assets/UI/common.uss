@@ -627,3 +627,19 @@
     position: absolute;
     right: 30px;
 }
+
+.victory-companion-container {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+}
+
+.victory-companion-cards-container {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    max-height: none;
+    margin-top: 20px;
+}
