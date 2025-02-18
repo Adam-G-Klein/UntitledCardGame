@@ -25,7 +25,6 @@ public class TargettingArrow : MonoBehaviour
     {
         linerenderer = GetComponent<LineRenderer>();
         followMouse = GetComponentInChildren<FollowMouse>();
-        frozen = false;
     }
     // Start is called before the first frame update
     void Start()

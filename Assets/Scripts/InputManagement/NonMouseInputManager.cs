@@ -67,7 +67,6 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
             hover(hoverables[0]);
             return;
         }
-
         List<Hoverable> directionalCandidates = filterHoverablesByDirectionFromCurrent(direction);
         if(directionalCandidates.Count <= 0) {
             // TODO: add wrapping around for cycling back to hoverable  furthest in other dir
@@ -84,7 +83,9 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
         }
         currentlyHovered = hover;
         currentlyHovered.onHover();
-        hoverIndicator.transform.position= new Vector3(currentlyHovered.transform.position.x, currentlyHovered.transform.position.y, currentlyHovered.transform.position.z + hoverIndicatorZDelta);
+        hoverIndicator.transform.position = new Vector3(currentlyHovered.transform.position.x, currentlyHovered.transform.position.y, currentlyHovered.transform.position.z + hoverIndicatorZDelta);
+        // if we have an arrow active, point it at what's hovered
+        TargettingArrowsController.Instance.freezeArrow(currentlyHovered.gameObject);
         hoverIndicator.SetActive(true);
     }
 
@@ -156,6 +157,7 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
                 Debug.Log("[NonMouseInputManager] State: DEFAULT, Action: RIGHT, hoveredCardIndex: " + hoveredCardIndex);
                 break;
             case InputAction.SELECT:
+                currentlyHovered.onSelect();
                 Debug.Log("[NonMouseInputManager] State: DEFAULT, Action: SELECT");
                 break;
             case InputAction.BACK:
@@ -188,30 +190,31 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
     private void processInputForEffectTargettingState(InputAction action) {
         switch(action) {
             case InputAction.UP:
+                hoverInDirection(Vector2.up);
                 Debug.Log("[NonMouseInputManager] State: EFFECT_TARGETTING, Action: UP");
                 break;
             case InputAction.DOWN:
+                hoverInDirection(Vector2.down);
 
                 Debug.Log("[NonMouseInputManager] State: EFFECT_TARGETTING, Action: DOWN");
                 break;
             case InputAction.LEFT:
+                hoverInDirection(Vector2.left);
 
                 Debug.Log("[NonMouseInputManager] State: EFFECT_TARGETTING, Action: LEFT");
                 break;
             case InputAction.RIGHT:
-            
+                hoverInDirection(Vector2.right);
                 Debug.Log("[NonMouseInputManager] State: EFFECT_TARGETTING, Action: RIGHT");
                 break;
             case InputAction.SELECT:
-
+                currentlyHovered.onSelect();
                 Debug.Log("[NonMouseInputManager] State: EFFECT_TARGETTING, Action: SELECT");
                 break;
             case InputAction.BACK:
-            
                 Debug.Log("[NonMouseInputManager] State: EFFECT_TARGETTING, Action: BACK");
                 break;
             case InputAction.END_TURN:
-            
                 Debug.Log("[NonMouseInputManager] State: EFFECT_TARGETTING, Action: END_TURN");
                 break;
             case InputAction.OPEN_COMPANION_1_DRAW:

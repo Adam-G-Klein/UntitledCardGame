@@ -81,7 +81,7 @@ public class PlayableCard : MonoBehaviour,
                         deckFrom.GetComponent<CompanionInstance>().companion.companionType, 3f));
                 return;
         }
-        if (eventData.button != PointerEventData.InputButton.Left) return;
+        if (eventData != null && eventData.button != PointerEventData.InputButton.Left) return;
         EnemyEncounterManager.Instance.SetCastingCard(true);
         interactable = false;
 

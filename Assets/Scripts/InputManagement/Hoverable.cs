@@ -13,6 +13,9 @@ public class Hoverable : MonoBehaviour {
         enterHandlers = new List<IPointerEnterHandler>(GetComponents<IPointerEnterHandler>());
         exitHandlers = new List<IPointerExitHandler>(GetComponents<IPointerExitHandler>());
         clickHandlers = new List<IPointerClickHandler>(GetComponents<IPointerClickHandler>());
+        foreach(IPointerEnterHandler handler in clickHandlers) {
+            Debug.Log("[NonMouseInputControls] registered click handler " + handler.GetType().Name + " on " + gameObject.name);
+        }
     }
 
     void OnDestroy() {
