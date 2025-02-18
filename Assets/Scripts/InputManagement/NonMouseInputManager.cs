@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
@@ -17,6 +18,34 @@ public enum InputAction {
     OPEN_COMPANION_5_DRAW,
 }
 
+public class HoverCandidate: IEquatable<HoverCandidate>, IComparable<HoverCandidate> {
+    public float distanceFromCurrent;
+    // how close it is to being in the direction we're moving
+    public float dotProductFromCurrent;
+    public Hoverable hoverable;
+
+    public HoverCandidate(Hoverable hoverable, float distanceFromCurrent, float dotProductFromCurrent) {
+        this.hoverable = hoverable;
+        this.distanceFromCurrent = distanceFromCurrent;
+        this.dotProductFromCurrent = dotProductFromCurrent;
+    }
+
+    // add an ordering function so that we dort based on dot product first, and distance second
+    public bool Equals(HoverCandidate other)
+    {
+        return other != null && this.distanceFromCurrent == other.distanceFromCurrent && this.dotProductFromCurrent == other.dotProductFromCurrent;
+    }
+
+    public int CompareTo(HoverCandidate other) {
+        if(other == null) return 1;
+        if(dotProductFromCurrent == other.dotProductFromCurrent) {
+            return distanceFromCurrent.CompareTo(other.distanceFromCurrent);
+        }
+        // negate, higher dot product is better
+        return -dotProductFromCurrent.CompareTo(other.dotProductFromCurrent); 
+    }
+}
+
 // Temp name, just being extra explicit what functionality this class is for
 // Using it to be able to play the game with just a keyboard, as a precursor 
 // to using a controller
@@ -28,7 +57,11 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
     private List<Hoverable> hoverables = new List<Hoverable>();
     public Hoverable currentlyHovered;
     public GameObject hoverIndicator;
+    [SerializeField]
     private float hoverIndicatorZDelta = -1;
+    [SerializeField]
+    [Header("The max distance a hoverable can be from the currently hovered object to be considered for hover")]
+    private float maxOneHopHoverDistance = 10f;
 
     void Update() {
     }
@@ -45,6 +78,18 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
 
     public void UnregisterHoverable(Hoverable hoverable) {
         hoverables.Remove(hoverable);
+    }
+
+    public void hover(Hoverable hover) {
+        if(currentlyHovered != null) {
+            currentlyHovered.onUnhover();
+        }
+        currentlyHovered = hover;
+        currentlyHovered.onHover();
+        hoverIndicator.transform.position = new Vector3(currentlyHovered.transform.position.x, currentlyHovered.transform.position.y, currentlyHovered.transform.position.z + hoverIndicatorZDelta);
+        // if we have an arrow active, point it at what's hovered
+        TargettingArrowsController.Instance.freezeArrow(currentlyHovered.gameObject);
+        hoverIndicator.SetActive(true);
     }
 
     /*
@@ -67,60 +112,45 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
             hover(hoverables[0]);
             return;
         }
-        List<Hoverable> directionalCandidates = filterHoverablesByDirectionFromCurrent(direction);
-        if(directionalCandidates.Count <= 0) {
-            // TODO: add wrapping around for cycling back to hoverable  furthest in other dir
-            Debug.Log("[NonMouseInputManager] No candidates found in direction: " + direction);
-            return;
-        } 
-        Hoverable closest = findClosestHoverableToCurrent(directionalCandidates);
-        hover(closest);
-    }
-
-    public void hover(Hoverable hover) {
-        if(currentlyHovered != null) {
-            currentlyHovered.onUnhover();
+        List<HoverCandidate> candidates = createHoverCandidates(direction);
+        // Because we implemented compareTo on the HoverCandidate class, we can just sort the list
+        candidates.Sort();
+        Debug.Log("[NonMouseInputManager] Sorted candidates: ");
+        foreach (HoverCandidate candidate in candidates) {
+            Debug.Log("\t[NonMouseInputManager] candidate: " + candidate.hoverable.name + " distance: " + candidate.distanceFromCurrent + " dotProduct: " + candidate.dotProductFromCurrent);
         }
-        currentlyHovered = hover;
-        currentlyHovered.onHover();
-        hoverIndicator.transform.position = new Vector3(currentlyHovered.transform.position.x, currentlyHovered.transform.position.y, currentlyHovered.transform.position.z + hoverIndicatorZDelta);
-        // if we have an arrow active, point it at what's hovered
-        TargettingArrowsController.Instance.freezeArrow(currentlyHovered.gameObject);
-        hoverIndicator.SetActive(true);
+        hover(candidates[0].hoverable);
     }
 
-    private List<Hoverable> filterHoverablesByDirectionFromCurrent(Vector2 direction) {
+    private List<Hoverable> filterHoverablesByDirection(Vector2 direction) {
         List<Hoverable> candidates = new List<Hoverable>();
         Vector2 currentPos = currentlyHovered.getScreenPosition();
-        Debug.Log("[NonMouseInputManager] Filtering hoverables by direction: " + direction + " from currentPos: " + currentPos);
         foreach(Hoverable candidate in hoverables) {
             // all positions in screen space
             Vector2 candidatePos = candidate.getScreenPosition();
             Vector2 candidateDirection = candidatePos - currentPos;
-            Debug.Log("\t[NonMouseInputManager] candidate: " + candidate.name + " candidatePos: " + candidatePos + " candidateDirection: " + candidateDirection);
-            // Ty copilot for remembering the linear algebra that I could not :')
             if(Vector2.Dot(candidateDirection, direction) > 0) {
                 candidates.Add(candidate);
-                Debug.Log("\t[NonMouseInputManager] Added hoverable to candidates: " + candidate);
-            } else {
-                Debug.Log("\t[NonMouseInputManager] NOT adding hoverable to candidates: " + candidate);
             }
         }
         return candidates;
     }
 
-    private Hoverable findClosestHoverableToCurrent(List<Hoverable> candidates) {
-        if(candidates.Count <= 0) return null;
-        Hoverable closest = candidates[0];
-        float closestDistance = Vector2.Distance(closest.transform.position, currentlyHovered.transform.position);
-        foreach(Hoverable hoverable in candidates) {
-            float distance = Vector2.Distance(hoverable.transform.position, currentlyHovered.transform.position);
-            if(distance < closestDistance) {
-                closest = hoverable;
-                closestDistance = distance;
-            }
+    private List<HoverCandidate> createHoverCandidates(Vector2 direction) {
+        List<HoverCandidate> candidates = new List<HoverCandidate>();
+        Vector2 currentPos = currentlyHovered.getScreenPosition();
+        Debug.Log("[NonMouseInputManager] Filtering hoverables by direction: " + direction + " from currentPos: " + currentPos);
+        foreach(Hoverable candidate in hoverables) {
+            // all positions in screen space
+            Vector2 candidatePos = candidate.getScreenPosition();
+            Vector2 candidateDirection = (candidatePos - currentPos).normalized;
+            float dotProduct = Vector2.Dot(candidateDirection, Vector2.Perpendicular(direction));
+            if(dotProduct <= 0) continue; // not in the direction we're moving
+            float distance = Vector2.Distance(candidatePos, currentPos);
+            candidates.Add(new HoverCandidate(candidate, distance, dotProduct));
+            Debug.Log("\t[NonMouseInputManager] candidate: " + candidate.name + " candidatePos: " + candidatePos + " candidateDirection: " + candidateDirection + " dotProduct: " + dotProduct);
         }
-        return closest;
+        return candidates;
     }
 
     public void ProcessInput(InputAction action) {
