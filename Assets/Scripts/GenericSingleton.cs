@@ -7,6 +7,12 @@ public class GenericSingleton<T> : MonoBehaviour where T : Component
     // create a private reference to T instance
     private static T instance;
 
+    public static bool isDestroyed {
+        get {
+            return instance == null;
+        }
+    }
+
     public static T Instance
     {
         get
