@@ -33,7 +33,7 @@ public class MapView {
         VisualElement container = new VisualElement();
         container.AddToClassList("map-container");
 
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 10; i++) {
             VisualElement mapSection = new VisualElement();
             mapSection.AddToClassList("map-section");
             VisualElement mapIcon = new VisualElement();
