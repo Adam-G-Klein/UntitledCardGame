@@ -192,6 +192,10 @@
     -unity-text-align: middle-center;
 }
 
+.base-attack-tab-text {
+    background-color: rgba(255, 255, 255, 0.6);
+}
+
 .block-tab {
     flex-grow: 0;
     position: relative;
@@ -201,4 +205,15 @@
     flex-shrink: 1;
     margin-bottom: 12px;
     background-image: url("project://database/Assets/Sprites/Z_OldPlaceholderSprites/block.png?fileID=2800000&guid=dc2691b0a220a3a45b5946651905449b&type=3#block");
+}
+
+.base-attack-tab {
+    flex-grow: 0;
+    position: relative;
+    width: 37px;
+    height: 37px;
+    justify-content: center;
+    flex-shrink: 1;
+    margin-bottom: 12px;
+    background-image: url("project://database/Assets/Sprites/Z_OldPlaceholderSprites/bicep.png?fileID=2800000&guid=ed55b8c3c8cddf84e9879c69c720553a&type=3#bicep");
 }

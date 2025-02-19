@@ -49,6 +49,10 @@ public class EntityView {
 
         var rightColumn = new VisualElement();
         rightColumn.AddToClassList("pillar-right-column");
+        var strengthTab = setupStrengthTab(entity);
+        if (strengthTab != null) {
+            rightColumn.Add(strengthTab);
+        }
         pillarContainer.Add(rightColumn);
 
         pillar.Add(pillarContainer);
@@ -140,6 +144,28 @@ public class EntityView {
             blockContainer.Add(blockLabel);
             tabContainer.Add(blockContainer);
         }
+
+        return tabContainer;
+    }
+
+    private VisualElement setupStrengthTab(IUIEntity entityInstance) {
+        CombatStats stats = entityInstance.GetCombatStats();
+        Debug.LogError(stats.baseAttackDamage);
+        if (stats.baseAttackDamage == 0) {
+            return null;
+        }
+        var tabContainer = new VisualElement();
+        tabContainer.AddToClassList("pillar-tab-container");
+
+        var baseAttackContainer = new VisualElement();
+        baseAttackContainer.AddToClassList("base-attack-tab");
+        var baseAttackLabel = new Label();
+        baseAttackLabel.AddToClassList("pillar-tab-text");
+        baseAttackLabel.AddToClassList("base-attack-tab-text");
+        baseAttackLabel.style.color = new Color(0, 0, 0, 1);
+        baseAttackLabel.text = stats.baseAttackDamage.ToString();
+        baseAttackContainer.Add(baseAttackLabel);
+        tabContainer.Add(baseAttackContainer);
 
         return tabContainer;
     }
