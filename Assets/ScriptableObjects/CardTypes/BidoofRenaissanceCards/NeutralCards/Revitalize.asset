@@ -13,13 +13,12 @@ MonoBehaviour:
   m_Name: Revitalize
   m_EditorClassIdentifier: 
   Name: Revitalize
-  Description: Exhaust. Heal target companion 5 HP plus 1 HP for each Generated card
-    they have in their deck ({numGeneratedCards}).
+  Description: Exhaust. Heal target companion 5 HP.
   defaultValues:
   - key: numGeneratedCards
     value: 0
   Cost: 0
-  Artwork: {fileID: 21300000, guid: 8c16952da6b2cfa4181be941e4a49469, type: 3}
+  Artwork: {fileID: 21300000, guid: 338cb3a5841b4284fbf3bf201b4d0cf2, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
@@ -49,8 +48,6 @@ MonoBehaviour:
       data:
         effectSteps:
         - rid: 5602892949302280918
-        - rid: 6501745997973028890
-        - rid: 8790164513324270130
         - rid: 6501745997973028891
         - rid: 5280922841426165975
     - rid: 5602892949302280918
@@ -64,36 +61,15 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
-    - rid: 6501745997973028890
-      type: {class: CountCardsInDeck, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CountCardsInDeck
-        inputDeckKey: target
-        filter:
-          cardCategoriesToInclude: 
-          generatedCardsFilter: 1
-        includeDrawPile: 1
-        includeDiscardPile: 1
-        includeCardsInHand: 1
-        outputKey: numGeneratedCards
     - rid: 6501745997973028891
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
         inputKey: target
         combatEffect: 9
-        scale: 0
-        getScaleFromKey: 1
-        inputScaleKey: healAmt
+        scale: 5
+        getScaleFromKey: 0
+        inputScaleKey: 
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-    - rid: 8790164513324270130
-      type: {class: MathStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: MathStep
-        inputKey: numGeneratedCards
-        operand2InputKey: UNUSED
-        operation: 0
-        scale: 5
-        outputKey: healAmt
