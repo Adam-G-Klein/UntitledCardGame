@@ -42,6 +42,7 @@ public class ShopItemView {
         Companion tempCompanion = new Companion(companion.companionType);
 
         entityView = new EntityView(tempCompanion, 0, false);
+        entityView.UpdateWidthAndHeight();
 
         VisualElement portraitContainer = entityView.entityContainer.Q(className: "portrait-container");
         portraitContainer.style.backgroundImage = new StyleBackground(companion.companionType.sprite);

@@ -1,17 +1,33 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class EntityView {
+public class EntityView : IUIEventReceiver {
     public VisualElement entityContainer;
+    public IEntityViewDelegate viewDelegate;
 
     public static string STATUS_EFFECTS_CONTAINER_SUFFIX = "-status-effects";
 
     private float SCREEN_WIDTH_PERCENT = 0.11f;
     private float RATIO = 1.4f;
 
-    public EntityView(IUIEntity entity, int index, bool isEnemy) {
+    private IUIEntity entity;
+    private int index;
+    private bool isEnemy;
+
+    private List<VisualElement> pickingModePositionList = new List<VisualElement>();
+    private List<VisualElement> elementsKeepingDrawDiscardVisible = new List<VisualElement>();
+
+    private VisualElement pillar;
+    private VisualElement drawDiscardContainer;
+
+    public EntityView(IUIEntity entity, int index, bool isEnemy, IEntityViewDelegate viewDelegate = null) {
+        this.entity = entity;
+        this.index = index;
+        this.isEnemy = isEnemy;
+        this.viewDelegate = viewDelegate;
         entityContainer = setupEntity(entity, index, isEnemy);
     }
 
@@ -30,8 +46,34 @@ public class EntityView {
         titleContainer.AddToClassList("pillar-name-no-description");
     }
 
+    public void AddDrawDiscardOnHover() {
+        // it's important to add the hover detector *before* the drawer,
+        // or it will pick away the click events from the buttons
+        VisualElement hoverDetector = new VisualElement();
+        hoverDetector.AddToClassList("pillar-hover-box");
+        pickingModePositionList.Add(hoverDetector);
+        pillar.Add(hoverDetector);
+        hoverDetector.RegisterCallback<PointerEnterEvent>(HoverDetectorOnPointerEnter);
+        hoverDetector.RegisterCallback<PointerLeaveEvent>(HoverDetectorOnPointerLeave);
+
+
+        if(!isEnemy) {
+            drawDiscardContainer = setupCardDrawer(entity);
+            drawDiscardContainer.RegisterCallback<PointerEnterEvent>(DrawDiscardContainerOnPointerEnter);
+            drawDiscardContainer.RegisterCallback<PointerLeaveEvent>(DrawDiscardContainerOnPointerLeave);
+            pillar.Add(drawDiscardContainer);
+        }
+    }
+
+    public void UpdateWidthAndHeight() {
+        Tuple<int, int> entityWidthHeight = GetWidthAndHeight();
+        pillar.style.width = entityWidthHeight.Item1;
+        pillar.style.height = entityWidthHeight.Item2;
+    }
+
     private VisualElement setupEntity(IUIEntity entity, int index, bool isEnemy) {
         var pillar = new VisualElement();
+        this.pillar = pillar;
         pillar.AddToClassList("entity-pillar");
 
         var topTriangle = new VisualElement();
@@ -40,6 +82,9 @@ public class EntityView {
 
         var pillarContainer = new VisualElement();
         pillarContainer.AddToClassList("pillar-container");
+        if (isEnemy) {
+            pillarContainer.AddToClassList("enemy-pillar-container");
+        }
         pillarContainer.Add(setupCardColumn(entity, index, isEnemy));
 
         var leftColumn = new VisualElement();
@@ -49,17 +94,10 @@ public class EntityView {
 
         var rightColumn = new VisualElement();
         rightColumn.AddToClassList("pillar-right-column");
-        var strengthTab = setupStrengthTab(entity);
-        if (strengthTab != null) {
-            rightColumn.Add(strengthTab);
-        }
+        rightColumn.Add(setupStatusEffectsTabs(entity));
         pillarContainer.Add(rightColumn);
 
         pillar.Add(pillarContainer);
-
-        Tuple<int, int> entityWidthHeight = GetWidthAndHeight();
-        pillar.style.width = entityWidthHeight.Item1;
-        pillar.style.height = entityWidthHeight.Item2;
         
         return pillar;
     }
@@ -68,9 +106,16 @@ public class EntityView {
         var column = new VisualElement();
         column.name = entity.GetName();
         column.AddToClassList("pillar-card-column");
+        if (isEnemy) {
+            column.AddToClassList("enemy-pillar-card-column");
+        }
+
+        var internalBorder = new VisualElement();
+        internalBorder.AddToClassList("pillar-internal-border");
+        column.Add(internalBorder);
 
         VisualElement detailsContainer = setupCardColumnPortraitAndTitle(column, entity, index, isEnemy);
-        VisualElement descriptionContainer = setupCardColumnDescription(entity);
+        VisualElement descriptionContainer = setupCardColumnDescription(entity, detailsContainer, index, isEnemy);
         
         detailsContainer.Add(descriptionContainer);
 
@@ -81,43 +126,74 @@ public class EntityView {
 
     // returns the details container, which holds everything below the portrait
     private VisualElement setupCardColumnPortraitAndTitle(VisualElement column, IUIEntity entity, int index, bool isEnemy) {
+        var portraitContainerContainer = new VisualElement(); //The name makes sense I promise
+        portraitContainerContainer.AddToClassList("portrait-container-container");
+
         var portraitContainer = new VisualElement();
         var baseString = isEnemy ? UIDocumentGameObjectPlacer.ENEMY_UIDOC_ELEMENT_PREFIX : UIDocumentGameObjectPlacer.COMPANION_UIDOC_ELEMENT_PREFIX;
         string portraitContainerName = baseString + index.ToString();
         portraitContainer.name = portraitContainerName;
         portraitContainer.AddToClassList("portrait-container");
-        column.Add(portraitContainer);
+        portraitContainerContainer.Add(portraitContainer);
+        column.Add(portraitContainerContainer);
         column.AddToClassList(portraitContainer.name + STATUS_EFFECTS_CONTAINER_SUFFIX);
 
         var detailsContainer = new VisualElement();
-        detailsContainer.name = "details-container";
         detailsContainer.AddToClassList("pillar-details");
 
         var titleContainer = new VisualElement();
         titleContainer.AddToClassList("pillar-name");
-        titleContainer.name = "title-container";
+        if (isEnemy) {
+            titleContainer.AddToClassList("enemy-pillar-name");
+        }
         var titleLabel = new Label();
         titleLabel.AddToClassList("pillar-name");
+        if (isEnemy) {
+            titleLabel.AddToClassList("enemy-pillar-name");
+        }
         titleContainer.Add(titleLabel);
-        titleLabel.text = entity.GetName(); 
+        titleLabel.text = entity.GetName();
         detailsContainer.Add(titleContainer);
         return detailsContainer;
     }
 
-    // returns the description container, which holds the enemy intent, the companion description, and the 
+    // returns the description container, which holds the enemy intent, the companion description, and the
     // deck drawers on hover for companions
-    private VisualElement setupCardColumnDescription(IUIEntity entity) {
+    private VisualElement setupCardColumnDescription(IUIEntity entity, VisualElement detailsContainer, int index, bool isEnemy) {
         var descContainer = new VisualElement();
         descContainer.name = "description-container";
         descContainer.AddToClassList("pillar-text");
+        pickingModePositionList.Add(descContainer);
+
 
         var descLabel = new Label();
 
-        descLabel.AddToClassList("pillar-desc-label");
-        descLabel.text = entity.GetDescription();
-        descContainer.Add(descLabel);
-
+        EnemyInstance enemyInstance = entity.GetEnemyInstance();
+        if (enemyInstance) {
+            VisualElement innerContainer = new VisualElement();
+            innerContainer.AddToClassList("enemy-intent-inner-container");
+            setupEnemyIntent(descLabel, innerContainer, enemyInstance);
+            innerContainer.Add(descLabel);
+            descContainer.Add(innerContainer);
+        } else { // then we know it's a companion
+            descLabel.AddToClassList("pillar-desc-label");
+            descLabel.text = entity.GetDescription();
+            descContainer.Add(descLabel);
+        }
         return descContainer;
+    }
+
+    private void setupEnemyIntent(Label descLabel, VisualElement descContainer, EnemyInstance enemyInstance) {
+        if(enemyInstance.currentIntent == null) {
+            descLabel.text = "Preparing...";
+        } else {
+            descLabel.text = enemyInstance.currentIntent.GetDisplayValue().ToString();
+            descLabel.AddToClassList("pillar-enemy-intent-text");
+            var intentImage = new VisualElement();
+            intentImage.AddToClassList("enemy-intent-image");
+            intentImage.style.backgroundImage = new StyleBackground(viewDelegate.GetEnemyIntentImage(enemyInstance.currentIntent.intentType));
+            descContainer.Add(intentImage);
+        }
     }
 
     private VisualElement setupHealthAndBlockTabs(IUIEntity entityInstance) {
@@ -125,6 +201,7 @@ public class EntityView {
         tabContainer.AddToClassList("pillar-tab-container");
         CombatStats stats = entityInstance.GetCombatStats();
 
+        // Do an animate
         var healthTab = new VisualElement();
         healthTab.AddToClassList("health-tab");
         var healthLabel = new Label();
@@ -148,26 +225,105 @@ public class EntityView {
         return tabContainer;
     }
 
-    private VisualElement setupStrengthTab(IUIEntity entityInstance) {
-        CombatStats stats = entityInstance.GetCombatStats();
-        Debug.LogError(stats.baseAttackDamage);
-        if (stats.baseAttackDamage == 0) {
-            return null;
-        }
+    private VisualElement setupStatusEffectsTabs(IUIEntity entityInstance) {
         var tabContainer = new VisualElement();
         tabContainer.AddToClassList("pillar-tab-container");
 
-        var baseAttackContainer = new VisualElement();
-        baseAttackContainer.AddToClassList("base-attack-tab");
-        var baseAttackLabel = new Label();
-        baseAttackLabel.AddToClassList("pillar-tab-text");
-        baseAttackLabel.AddToClassList("base-attack-tab-text");
-        baseAttackLabel.style.color = new Color(0, 0, 0, 1);
-        baseAttackLabel.text = stats.baseAttackDamage.ToString();
-        baseAttackContainer.Add(baseAttackLabel);
-        tabContainer.Add(baseAttackContainer);
+        CombatInstance combatInstance = entityInstance.GetCombatInstance();
+        if(combatInstance) {
+            foreach (KeyValuePair<StatusEffectType, int> kvp in combatInstance.GetDisplayedStatusEffects()) {
+                var statusEffectTab = new VisualElement();
+                statusEffectTab.AddToClassList("status-tab");
+                Sprite sprite = viewDelegate.GetStatusEffectSprite(kvp.Key);
+                if(sprite == null) {
+                    Debug.LogError("Can't display status, StatusEffectSO does not have an image for " + kvp.Key.ToString());
+                    continue;
+                }
+                statusEffectTab.style.backgroundImage = new StyleBackground(sprite.texture);
+                var statusEffectText = new Label();
+                statusEffectText.text = kvp.Value.ToString();
+                statusEffectText.AddToClassList("status-tab-text");
+                statusEffectTab.Add(statusEffectText);
+                tabContainer.Add(statusEffectTab);
+            }
+        }
 
         return tabContainer;
+    }
+
+    private VisualElement setupCardDrawer(IUIEntity entity) {
+        VisualElement drawerContainer = new VisualElement();
+        drawerContainer.AddToClassList("pillar-drawer-menu");
+
+        Button drawButton = new Button();
+        drawButton.AddToClassList("drawer-button");
+        drawButton.text = "Draw";
+
+
+        Button discardButton = new Button();
+        discardButton.AddToClassList("drawer-button");
+        discardButton.text = "Discard";
+
+        pickingModePositionList.Add(drawButton);
+        pickingModePositionList.Add(discardButton);
+        pickingModePositionList.Add(drawerContainer);
+
+        drawButton.clicked += DrawButtonOnClick;
+        discardButton.clicked += DiscardButtonOnClick;
+
+        drawerContainer.Add(drawButton);
+        drawerContainer.Add(discardButton);
+
+        drawerContainer.style.visibility = Visibility.Hidden;
+
+        return drawerContainer;
+    }
+
+    private void DrawButtonOnClick() {
+        Debug.Log("Draw button clicked");
+        DeckInstance deckInstance = entity.GetDeckInstance();
+        if (deckInstance == null) {
+            Debug.LogError("Entity " + entity.GetName() + " does not have a deck instance, which is crazy, because it's clearly a companion");
+            return;
+        }
+        viewDelegate.InstantiateCardView(deckInstance.GetShuffledDrawPile(), deckInstance.combatInstance.name + " draw pile");
+}
+
+    private void DiscardButtonOnClick() {
+        Debug.Log("Discard button clicked");
+        DeckInstance deckInstance = entity.GetDeckInstance();
+        if (deckInstance == null) {
+            Debug.LogError("Entity " + entity.GetName() + " does not have a deck instance, which is crazy, because it's clearly a companion");
+            return;
+        }
+        viewDelegate.InstantiateCardView(deckInstance.GetShuffledDiscardPile(), deckInstance.combatInstance.name + " discard pile");
+    }
+
+    private void HoverDetectorOnPointerEnter(PointerEnterEvent evt) {
+        elementsKeepingDrawDiscardVisible.Add(evt.currentTarget as VisualElement);
+        drawDiscardContainer.style.visibility = Visibility.Visible;
+    }
+
+    private void HoverDetectorOnPointerLeave(PointerLeaveEvent evt) {
+        elementsKeepingDrawDiscardVisible.Remove(evt.currentTarget as VisualElement);
+        viewDelegate.GetMonoBehaviour().StartCoroutine(HideDrawDiscardAtEndOfFrame());
+    }
+
+    private void DrawDiscardContainerOnPointerEnter(PointerEnterEvent evt) {
+        // If we're entering the element, it's already visible due to the hover detector
+        elementsKeepingDrawDiscardVisible.Add(evt.currentTarget as VisualElement);
+    }
+
+    private void DrawDiscardContainerOnPointerLeave(PointerLeaveEvent evt) {
+        elementsKeepingDrawDiscardVisible.Remove(evt.currentTarget as VisualElement);
+        viewDelegate.GetMonoBehaviour().StartCoroutine(HideDrawDiscardAtEndOfFrame());
+    }
+
+    private IEnumerator HideDrawDiscardAtEndOfFrame() {
+        yield return new WaitForEndOfFrame();
+        if (elementsKeepingDrawDiscardVisible.Count == 0) {
+            drawDiscardContainer.style.visibility = Visibility.Hidden;
+        }
     }
 
     private Tuple<int, int> GetWidthAndHeight() {
@@ -182,5 +338,11 @@ public class EntityView {
         #endif
 
         return new Tuple<int, int>(width, height);
+    }
+
+    public void SetPickingModes() {
+        foreach (VisualElement ve in pickingModePositionList) {
+            ve.pickingMode = PickingMode.Position;
+        }
     }
 }
