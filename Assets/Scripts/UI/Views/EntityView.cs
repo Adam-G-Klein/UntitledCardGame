@@ -68,8 +68,6 @@ public class EntityView : IUIEventReceiver {
     }
 
     public void UpdateWidthAndHeight() {
-        pillar.RemoveFromClassList("entity-pillar-sizing");
-        pillar.AddToClassList("entity-pillar-sizing-shop");
         Tuple<int, int> entityWidthHeight = GetWidthAndHeight();
         pillar.style.width = entityWidthHeight.Item1;
         pillar.style.height = entityWidthHeight.Item2;
@@ -109,6 +107,7 @@ public class EntityView : IUIEventReceiver {
         pillarContainer.Add(rightColumn);
 
         pillar.Add(pillarContainer);
+        UpdateWidthAndHeight();
         
         return pillar;
     }
