@@ -13,7 +13,7 @@ public class EntityView : IUIEventReceiver {
     private float SCREEN_WIDTH_PERCENT = 0.11f;
     private float RATIO = 1.4f;
 
-    private IUIEntity entity;
+    private IUIEntity uiEntity;
     private int index;
     private bool isEnemy;
 
@@ -22,9 +22,12 @@ public class EntityView : IUIEventReceiver {
 
     private VisualElement pillar;
     private VisualElement drawDiscardContainer;
+    private VisualElement healthAndBlockTab = null;
+    private VisualElement statusEffectsTab = null;
+    private VisualElement descriptionContainer = null;
 
     public EntityView(IUIEntity entity, int index, bool isEnemy, IEntityViewDelegate viewDelegate = null) {
-        this.entity = entity;
+        this.uiEntity = entity;
         this.index = index;
         this.isEnemy = isEnemy;
         this.viewDelegate = viewDelegate;
@@ -47,6 +50,8 @@ public class EntityView : IUIEventReceiver {
     }
 
     public void AddDrawDiscardOnHover() {
+        if (isEnemy) return;
+
         // it's important to add the hover detector *before* the drawer,
         // or it will pick away the click events from the buttons
         VisualElement hoverDetector = new VisualElement();
@@ -56,19 +61,22 @@ public class EntityView : IUIEventReceiver {
         hoverDetector.RegisterCallback<PointerEnterEvent>(HoverDetectorOnPointerEnter);
         hoverDetector.RegisterCallback<PointerLeaveEvent>(HoverDetectorOnPointerLeave);
 
-
-        if(!isEnemy) {
-            drawDiscardContainer = setupCardDrawer(entity);
-            drawDiscardContainer.RegisterCallback<PointerEnterEvent>(DrawDiscardContainerOnPointerEnter);
-            drawDiscardContainer.RegisterCallback<PointerLeaveEvent>(DrawDiscardContainerOnPointerLeave);
-            pillar.Add(drawDiscardContainer);
-        }
+        drawDiscardContainer = setupCardDrawer(uiEntity);
+        drawDiscardContainer.RegisterCallback<PointerEnterEvent>(DrawDiscardContainerOnPointerEnter);
+        drawDiscardContainer.RegisterCallback<PointerLeaveEvent>(DrawDiscardContainerOnPointerLeave);
+        pillar.Add(drawDiscardContainer);
     }
 
     public void UpdateWidthAndHeight() {
         Tuple<int, int> entityWidthHeight = GetWidthAndHeight();
         pillar.style.width = entityWidthHeight.Item1;
         pillar.style.height = entityWidthHeight.Item2;
+    }
+
+    public void UpdateView() {
+        setupHealthAndBlockTabs(uiEntity);
+        setupStatusEffectsTabs(uiEntity);
+        setupCardColumnDescription(uiEntity);
     }
 
     private VisualElement setupEntity(IUIEntity entity, int index, bool isEnemy) {
@@ -115,7 +123,7 @@ public class EntityView : IUIEventReceiver {
         column.Add(internalBorder);
 
         VisualElement detailsContainer = setupCardColumnPortraitAndTitle(column, entity, index, isEnemy);
-        VisualElement descriptionContainer = setupCardColumnDescription(entity, detailsContainer, index, isEnemy);
+        VisualElement descriptionContainer = setupCardColumnDescription(entity);
         
         detailsContainer.Add(descriptionContainer);
 
@@ -159,12 +167,15 @@ public class EntityView : IUIEventReceiver {
 
     // returns the description container, which holds the enemy intent, the companion description, and the
     // deck drawers on hover for companions
-    private VisualElement setupCardColumnDescription(IUIEntity entity, VisualElement detailsContainer, int index, bool isEnemy) {
-        var descContainer = new VisualElement();
-        descContainer.name = "description-container";
-        descContainer.AddToClassList("pillar-text");
-        pickingModePositionList.Add(descContainer);
-
+    private VisualElement setupCardColumnDescription(IUIEntity entity) {
+        if (descriptionContainer == null) {
+            descriptionContainer = new VisualElement();
+            descriptionContainer.name = "description-container";
+            descriptionContainer.AddToClassList("pillar-text");
+            pickingModePositionList.Add(descriptionContainer);
+        } else {
+            descriptionContainer.Clear();
+        }
 
         var descLabel = new Label();
 
@@ -174,13 +185,13 @@ public class EntityView : IUIEventReceiver {
             innerContainer.AddToClassList("enemy-intent-inner-container");
             setupEnemyIntent(descLabel, innerContainer, enemyInstance);
             innerContainer.Add(descLabel);
-            descContainer.Add(innerContainer);
+            descriptionContainer.Add(innerContainer);
         } else { // then we know it's a companion
             descLabel.AddToClassList("pillar-desc-label");
             descLabel.text = entity.GetDescription();
-            descContainer.Add(descLabel);
+            descriptionContainer.Add(descLabel);
         }
-        return descContainer;
+        return descriptionContainer;
     }
 
     private void setupEnemyIntent(Label descLabel, VisualElement descContainer, EnemyInstance enemyInstance) {
@@ -197,8 +208,12 @@ public class EntityView : IUIEventReceiver {
     }
 
     private VisualElement setupHealthAndBlockTabs(IUIEntity entityInstance) {
-        var tabContainer = new VisualElement();
-        tabContainer.AddToClassList("pillar-tab-container");
+        if (healthAndBlockTab == null) {
+            healthAndBlockTab = new VisualElement();
+            healthAndBlockTab.AddToClassList("pillar-tab-container");
+        } else {
+            healthAndBlockTab.Clear();
+        }
         CombatStats stats = entityInstance.GetCombatStats();
 
         // Do an animate
@@ -208,29 +223,34 @@ public class EntityView : IUIEventReceiver {
         healthLabel.AddToClassList("pillar-tab-text");
         healthLabel.text = stats.getCurrentHealth().ToString();
         healthTab.Add(healthLabel);
-        tabContainer.Add(healthTab);
+        healthAndBlockTab.Add(healthTab);
 
         CombatInstance combatInstance = entityInstance.GetCombatInstance();
 
-        if(combatInstance && combatInstance.GetStatus(StatusEffectType.Defended) > 0) {
+        if (combatInstance && combatInstance.GetStatus(StatusEffectType.Defended) > 0) {
             var blockContainer = new VisualElement();
             blockContainer.AddToClassList("block-tab");
             var blockLabel = new Label();
             blockLabel.AddToClassList("pillar-tab-text");
             blockLabel.text = combatInstance.GetStatus(StatusEffectType.Defended).ToString();
             blockContainer.Add(blockLabel);
-            tabContainer.Add(blockContainer);
+            healthAndBlockTab.Add(blockContainer);
         }
 
-        return tabContainer;
+        return healthAndBlockTab;
     }
 
     private VisualElement setupStatusEffectsTabs(IUIEntity entityInstance) {
-        var tabContainer = new VisualElement();
-        tabContainer.AddToClassList("pillar-tab-container");
+        if (statusEffectsTab == null) {
+            statusEffectsTab = new VisualElement();
+            statusEffectsTab.AddToClassList("pillar-tab-container");
+        } else {
+            statusEffectsTab.Clear();
+        }
 
         CombatInstance combatInstance = entityInstance.GetCombatInstance();
-        if(combatInstance) {
+        if (combatInstance) {
+            Debug.Log("EntityInstance " + entityInstance.GetName() + " status effects: " + combatInstance.GetDisplayedStatusEffects());
             foreach (KeyValuePair<StatusEffectType, int> kvp in combatInstance.GetDisplayedStatusEffects()) {
                 var statusEffectTab = new VisualElement();
                 statusEffectTab.AddToClassList("status-tab");
@@ -244,11 +264,11 @@ public class EntityView : IUIEventReceiver {
                 statusEffectText.text = kvp.Value.ToString();
                 statusEffectText.AddToClassList("status-tab-text");
                 statusEffectTab.Add(statusEffectText);
-                tabContainer.Add(statusEffectTab);
+                statusEffectsTab.Add(statusEffectTab);
             }
         }
 
-        return tabContainer;
+        return statusEffectsTab;
     }
 
     private VisualElement setupCardDrawer(IUIEntity entity) {
@@ -281,9 +301,9 @@ public class EntityView : IUIEventReceiver {
 
     private void DrawButtonOnClick() {
         Debug.Log("Draw button clicked");
-        DeckInstance deckInstance = entity.GetDeckInstance();
+        DeckInstance deckInstance = uiEntity.GetDeckInstance();
         if (deckInstance == null) {
-            Debug.LogError("Entity " + entity.GetName() + " does not have a deck instance, which is crazy, because it's clearly a companion");
+            Debug.LogError("Entity " + uiEntity.GetName() + " does not have a deck instance, which is crazy, because it's clearly a companion");
             return;
         }
         viewDelegate.InstantiateCardView(deckInstance.GetShuffledDrawPile(), deckInstance.combatInstance.name + " draw pile");
@@ -291,9 +311,9 @@ public class EntityView : IUIEventReceiver {
 
     private void DiscardButtonOnClick() {
         Debug.Log("Discard button clicked");
-        DeckInstance deckInstance = entity.GetDeckInstance();
+        DeckInstance deckInstance = uiEntity.GetDeckInstance();
         if (deckInstance == null) {
-            Debug.LogError("Entity " + entity.GetName() + " does not have a deck instance, which is crazy, because it's clearly a companion");
+            Debug.LogError("Entity " + uiEntity.GetName() + " does not have a deck instance, which is crazy, because it's clearly a companion");
             return;
         }
         viewDelegate.InstantiateCardView(deckInstance.GetShuffledDiscardPile(), deckInstance.combatInstance.name + " discard pile");

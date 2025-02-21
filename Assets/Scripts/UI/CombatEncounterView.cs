@@ -8,7 +8,7 @@ using UnityEngine.UIElements;
 using System;
 using Unity.VisualScripting;
 
-public class CombatEncounterView : GenericSingleton<CombatEncounterView>,
+public class CombatEncounterView : MonoBehaviour,
     IEntityViewDelegate
 {
     public GameStateVariableSO gameState;
@@ -16,17 +16,9 @@ public class CombatEncounterView : GenericSingleton<CombatEncounterView>,
 
     UIDocumentScreenspace docRenderer;
 
-    public static string DETAILS_CONTAINER_SUFFIX = "-details";
-    public static string DETAILS_HEADER_SUFFIX = "-details-title";
-    public static string DETAILS_DESCRIPTION_SUFFIX = "-details-desc";
-
     [Header("Needs its own reference because the singleton isn't alive in time")]
     public GameplayConstantsSO gameplayConstants;
     public static string STATUS_EFFECTS_CONTAINER_SUFFIX = "-status-effects";
-    public static string STATUS_EFFECTS_TAB_CLASSNAME = "status-effect";
-    public static string STATUS_EFFECTS_IMAGE_CLASSNAME = "status-effect-image";
-    public static string STATUS_EFFECTS_TEXT_CLASSNAME = "pillar-tab-text";
-    public static string HEALTH_TAB_SUFFIX = "-health-tab";
 
     private bool setupComplete = false;
 
@@ -36,11 +28,8 @@ public class CombatEncounterView : GenericSingleton<CombatEncounterView>,
     private EnemyIntentsSO enemyIntentsSO;
 
     private List<IUIEventReceiver> pickingModePositionList = new List<IUIEventReceiver>();
-    [SerializeField]
-    private float pulseAnimationSpeed = 0.1f;
-    public bool animateHearts = false;
+    private List<EntityView> entityViews = new List<EntityView>();
 
-    private List<IEnumerator> pulseAnimations = new List<IEnumerator>();
 
     [SerializeField]
     private GameObject cardViewUIPrefab;
@@ -71,29 +60,31 @@ public class CombatEncounterView : GenericSingleton<CombatEncounterView>,
         setupComplete = true;
     }
 
+    /*
+        This needs to happen because we have a bit of a circular dependency. The _Intstance monobehaviors
+        can't be created until the UI is setup, but the EntityViews need a reference to the _Instances,
+        so we first setup the UI with just Companion and Enemy from gamestate, then we reset them to hold
+        references to the _Instances cast to IUIEntity afterwards.
+    */
+    public void ResetEntities(List<CompanionInstance> companions, List<EnemyInstance> enemies) {
+        VisualElement enemyContainer = root.Q<VisualElement>("enemyContainer");
+        VisualElement companionContainer = root.Q<VisualElement>("companionContainer");
+        enemyContainer.Clear();
+        companionContainer.Clear();
+        setupEntities(enemyContainer, enemies.Cast<IUIEntity>(), true);
+        setupEntities(companionContainer, companions.Cast<IUIEntity>(), false);
+        UIDocumentUtils.SetAllPickingMode(enemyContainer, PickingMode.Ignore);
+        UIDocumentUtils.SetAllPickingMode(companionContainer, PickingMode.Ignore);
+    }
+
     public void UpdateView() {
         if(!setupComplete) {
             SetupFromGamestate();
         } else {
-            Debug.Log("Nuking view and recreating");
-            if(animateHearts) {
-                foreach(IEnumerator anim in pulseAnimations) {
-                    StopCoroutine(anim);
-                }
-                pulseAnimations.Clear();
-            }
-            VisualElement enemyContainer = root.Q<VisualElement>("enemyContainer");
-            VisualElement companionContainer = root.Q<VisualElement>("companionContainer");
-            enemyContainer.Clear();
-            companionContainer.Clear();
-            pickingModePositionList.Clear();
-            List<CompanionInstance> companions = EnemyEncounterViewModel.Instance.companions;
-            List<EnemyInstance> enemies = EnemyEncounterViewModel.Instance.enemies;
-            setupEntities(root.Q<VisualElement>("enemyContainer"), enemies.Cast<IUIEntity>(), true);
-            setupEntities(root.Q<VisualElement>("companionContainer"), companions.Cast<IUIEntity>(), false);
             root.Q<Label>("money").text = gameState.playerData.GetValue().gold.ToString();
-            UIDocumentUtils.SetAllPickingMode(enemyContainer, PickingMode.Ignore);
-            UIDocumentUtils.SetAllPickingMode(companionContainer, PickingMode.Ignore);
+            foreach (EntityView entityView in entityViews) {
+                entityView.UpdateView();
+            }
             foreach (IUIEventReceiver view in pickingModePositionList) {
                 view.SetPickingModes();
             }
@@ -115,6 +106,7 @@ public class CombatEncounterView : GenericSingleton<CombatEncounterView>,
         EntityView newEntityView = new EntityView(entity, index, isEnemy, this);
         newEntityView.AddDrawDiscardOnHover();
         pickingModePositionList.Add(newEntityView);
+        entityViews.Add(newEntityView);
         return newEntityView.entityContainer;
     }
 

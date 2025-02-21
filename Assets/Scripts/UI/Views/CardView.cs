@@ -41,7 +41,6 @@ public class CardView {
     }
 
     private VisualElement makeCardView(CardType card, CompanionTypeSO companionType, bool cardInShop = false, Sprite genericSprite = null) {
-        Debug.Log("goobie woobie");
         Debug.Log(companionType);
         var container = new VisualElement();
         container.AddToClassList("card-container");

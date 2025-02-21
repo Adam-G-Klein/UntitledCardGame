@@ -11,6 +11,7 @@ using UnityEngine.UIElements;
 public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IEncounterBuilder
 {
     public GameStateVariableSO gameState;
+    public CombatEncounterView combatEncounterView;
     public EncounterConstantsSO encounterConstants;
     public CombatEncounterState combatEncounterState;
     public delegate void OnEncounterEndHandler();
@@ -59,7 +60,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     void Awake() {
         encounterBuilt = false;
         // This ends up calling BuildEnemyEncounter below
-        CombatEncounterView.Instance.SetupFromGamestate();
+        combatEncounterView.SetupFromGamestate();
         StartCoroutine(StartWhenUIDocReady());
     }
 
@@ -76,7 +77,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     }
 
     public void BuildEnemyEncounter(EnemyEncounter encounter,
-        UIDocumentGameObjectPlacer placer) {
+            UIDocumentGameObjectPlacer placer) {
         List<CompanionInstance> createdCompanions = new List<CompanionInstance>();
         List<EnemyInstance> createdEnemies = new List<EnemyInstance>();
         encounter.Build(gameState.companions.activeCompanions,
@@ -87,8 +88,9 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
             );
         EnemyEncounterViewModel.Instance.companions = createdCompanions;
         EnemyEncounterViewModel.Instance.enemies = createdEnemies;
-        EnemyEncounterViewModel.Instance.SetListener(CombatEncounterView.Instance);
+        EnemyEncounterViewModel.Instance.SetListener(combatEncounterView);
         EnemyEncounterViewModel.Instance.SetStateDirty();
+        combatEncounterView.ResetEntities(createdCompanions, createdEnemies);
         // set up the EnemyEncounterViewModel, which passes information to the UI
         encounterBuilt = true;
         combatOver = false;
