@@ -1,6 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI%20Toolkit/Tests/testCombatclasses.uss?fileID=7433441132597879392&amp;guid=7374c19a601730c40b5268ed26901695&amp;type=3#testCombatclasses" />
     <Style src="project://database/Assets/UI/common.uss?fileID=7433441132597879392&amp;guid=8d0bc28a2ed710a44b762e4c857ac6f9&amp;type=3#common" />
+    <Style src="project://database/Assets/UI%20Toolkit/Stylesheets/entity.uss?fileID=7433441132597879392&amp;guid=f28fa9619ee10d041b7306d0537405c5&amp;type=3#entity" />
     <ui:VisualElement style="flex-grow: 1; position: absolute; left: 0; top: 77.5%; background-image: url(&quot;project://database/Assets/Sprites/Z_OldPlaceholderSprites/combat_bottom_third.png?fileID=2800000&amp;guid=bafdfc9d511584066b054e499498b756&amp;type=3#combat_bottom_third&quot;); width: 100%; height: 22.5%;" />
     <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: column;">
         <ui:VisualElement name="VisualElement" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); height: 33%; justify-content: center; flex-direction: row; align-self: auto; align-items: flex-end;">

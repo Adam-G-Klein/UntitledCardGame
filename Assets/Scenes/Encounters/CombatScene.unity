@@ -405,6 +405,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 782343934611933542, guid: a01603c96ed613e4dadddb16c94272d3, type: 3}
   m_PrefabInstance: {fileID: 7403373190793623571}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &343170801 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5946589008991207965, guid: a01603c96ed613e4dadddb16c94272d3, type: 3}
+  m_PrefabInstance: {fileID: 7403373190793623571}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 343170799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d2e2b10f5daf0949b14094245d2b4dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &344506501
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1081,7 +1092,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df70951de83204fe19e234627519387c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameState: {fileID: 11400000, guid: 9e326417f60894341a96cc8d02868bbe, type: 2}
 --- !u!1 &803714400
 GameObject:
   m_ObjectHideFlags: 0
@@ -1708,6 +1718,10 @@ PrefabInstance:
       propertyPath: endEncounterEvent
       value: 
       objectReference: {fileID: 11400000, guid: 55e16020de6958b4ca9bd9c38bb0ca17, type: 2}
+    - target: {fileID: 8734870270850589833, guid: 28a067a8b113e3a4aadb83e0e82a16bd, type: 3}
+      propertyPath: combatEncounterView
+      value: 
+      objectReference: {fileID: 343170801}
     - target: {fileID: 8734870270850589833, guid: 28a067a8b113e3a4aadb83e0e82a16bd, type: 3}
       propertyPath: enemyLocationStoreGO
       value: 
@@ -3317,6 +3331,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4147916199906028967, guid: a01603c96ed613e4dadddb16c94272d3, type: 3}
       propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5946589008991207965, guid: a01603c96ed613e4dadddb16c94272d3, type: 3}
+      propertyPath: animateHearts
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5946589008991207965, guid: a01603c96ed613e4dadddb16c94272d3, type: 3}

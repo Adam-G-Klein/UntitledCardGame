@@ -147,9 +147,11 @@ public class EntityView : IUIEventReceiver {
         column.AddToClassList(portraitContainer.name + STATUS_EFFECTS_CONTAINER_SUFFIX);
 
         var detailsContainer = new VisualElement();
+        detailsContainer.name = "details-container";
         detailsContainer.AddToClassList("pillar-details");
 
         var titleContainer = new VisualElement();
+        titleContainer.name = "title-container";
         titleContainer.AddToClassList("pillar-name");
         if (isEnemy) {
             titleContainer.AddToClassList("enemy-pillar-name");
