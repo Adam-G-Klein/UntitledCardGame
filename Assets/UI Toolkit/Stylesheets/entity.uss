@@ -1,8 +1,18 @@
-.entity-pillar {
+.entity-pillar-sizing {
     flex-grow: 0;
-    width: 100%;
+    width: 12.5%;
+    height: 98%;
+    max-width: 12.5%;
+}
+
+.entity-pillar-sizing-shop {
+    flex-grow: 0;
+    width: auto;
     height: 100%;
-    max-width: 100%;
+    max-width: auto;
+}
+
+.entity-pillar {
     border-left-color: rgb(174, 151, 126);
     border-right-color: rgb(174, 151, 126);
     border-top-color: rgb(174, 151, 126);

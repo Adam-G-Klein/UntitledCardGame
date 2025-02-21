@@ -23,6 +23,7 @@ public class CompanionManagementView {
 
     public VisualElement MakeCompanionManagementView(Companion companion) {
         EntityView entityView = new EntityView(companion, 0, false);
+        entityView.UpdateWidthAndHeight();
         entityView.SetupEntityImage(companion.companionType.sprite);
         entityView.HideDescription();
         entityView.entityContainer.RegisterCallback<ClickEvent>(CompanionManagementOnClick);
