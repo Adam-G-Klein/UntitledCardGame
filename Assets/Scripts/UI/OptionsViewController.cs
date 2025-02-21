@@ -8,6 +8,7 @@ using UnityEngine.UIElements;
 public class OptionsViewController : MonoBehaviour
 {
 
+    private static OptionsViewController instance;
     private Slider volumeSlider;
     private Slider timescaleSlider;
     [SerializeField]
@@ -24,9 +25,17 @@ public class OptionsViewController : MonoBehaviour
     private Button mainMenuButton;
     private Button compendiumButton;
     // Start is called before the first frame update
+
+    void Awake() {
+        if (instance != null && instance != this) {
+            Destroy(this.gameObject);
+            return;
+        }
+        instance = this;
+        DontDestroyOnLoad(this.gameObject);
+    }
     void Start()
     {
-        DontDestroyOnLoad(this.gameObject);
         optionsUIDocument.rootVisualElement.style.visibility = Visibility.Hidden;
         compendiumUIDocument.rootVisualElement.style.visibility = Visibility.Hidden;
         Debug.LogError("here");
@@ -110,8 +119,10 @@ public class OptionsViewController : MonoBehaviour
 
     public void ToggleVisibility() {
         if (optionsUIDocument.rootVisualElement.style.visibility == Visibility.Hidden) {
+            Debug.LogError("toggling options visible");
             optionsUIDocument.rootVisualElement.style.visibility = Visibility.Visible;
         } else {
+            Debug.LogError("toggling options hidden");
             exitButtonHandler();
         }
     }
