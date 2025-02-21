@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class MainMenuManager : MonoBehaviour
 {
@@ -9,13 +10,15 @@ public class MainMenuManager : MonoBehaviour
     private GameObject optionsUIPrefab;
     [SerializeField]
     private GameStateVariableSO gameState;
+    [SerializeField]
+    private UIDocument optionsUI;
 
     public void startButtonHandler() {
         SceneManager.LoadScene("GenerateMap");
     }
 
     public void optionsButtonHandler() {
-        Instantiate(optionsUIPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        optionsUI.rootVisualElement.style.visibility = Visibility.Visible;
     }
 
     public void exitButtonHandler() {

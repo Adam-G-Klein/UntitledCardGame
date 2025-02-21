@@ -30,6 +30,7 @@ public class CompendiumView {
         companionScrollView.Clear();
         SetupCardView(companionPool, neutralCardPool);
         SetupCompanionView(companionPool);
+        CardButtonHandler();
         //SetupCardView(uiDocument, companionPool, neutralCardPool);
 
         // setup buttons
