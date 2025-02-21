@@ -13,8 +13,10 @@ public class UIDocNextTutorialButtonController : MonoBehaviour {
     private bool nextTutorialButtonEnabled = true;
 
     private VisualElement nextTutorialElement;
+    private VisualElement backTutorialElement;
     
     private VisualElement backgroundElement; 
+    private int currentTutorialElementIndex = 0;
 
     void Start() {
         StartCoroutine(LateStart());
@@ -25,10 +27,7 @@ public class UIDocNextTutorialButtonController : MonoBehaviour {
         //yield return new WaitUntil(() => UIDocumentGameObjectPlacer.Instance.IsReady());
         screenspaceDoc = GetComponent<UIDocumentScreenspace>();
 
-        nextTutorialElement = screenspaceDoc.GetVisualElement("next");
-        Debug.Log("HEREE");
-        Debug.Log(nextTutorialElement);
-        
+        nextTutorialElement = screenspaceDoc.GetVisualElement("next");      
         // make sure we get pointer events on this region of the screen
         nextTutorialElement.pickingMode = PickingMode.Position;
 
@@ -36,19 +35,29 @@ public class UIDocNextTutorialButtonController : MonoBehaviour {
             NextTutorialElementButtonHandler();
         });
 
-        backgroundElement = screenspaceDoc.GetVisualElement("tutorial-container");
-        
-        backgroundElement.RegisterCallback<ClickEvent>((evt) => {
-            // preventDefault (avoid clicking through to UI documents behind this one)
-            // does not work lol
+        backTutorialElement = screenspaceDoc.GetVisualElement("back");
+        backTutorialElement.AddToClassList("tutorial-button-disabled");
+        backTutorialElement.pickingMode = PickingMode.Position;
+        backTutorialElement.RegisterCallback<ClickEvent>((evt) => {
+            BackTutorialElementButtonHandler();
         });
         yield return null;
     }
 
     private void NextTutorialElementButtonHandler() {
+        currentTutorialElementIndex++;
+        backTutorialElement.RemoveFromClassList("tutorial-button-disabled");
         Debug.Log("omg we are so back");
         //if(nextTutorialButtonEnabled) {
             TutorialManager.Instance.TutorialButtonClicked();
         //}
+    }
+    private void BackTutorialElementButtonHandler() {
+        if (currentTutorialElementIndex == 0) return;
+        TutorialManager.Instance.TutorialBackButtonClicked();
+        currentTutorialElementIndex--;
+        if (currentTutorialElementIndex == 0) {
+            backTutorialElement.AddToClassList("tutorial-button-disabled");
+        }
     }
 }

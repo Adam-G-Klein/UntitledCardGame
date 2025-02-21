@@ -125,12 +125,12 @@ public class TutorialManager : MonoBehaviour
             currentStep = step;
             // need to invoke the steps actions here because we 
             // can't have non-monobehavior classes own coroutines
-            foreach (TutorialAction action in currentStep.actions)
+            for (currentStepIndex = 0; currentStepIndex < currentStep.actions.Count; currentStepIndex++)
             {
-                Debug.Log("ActionType" + action.GetType());
-                currentAction = action;
-                currentStepIndex += 1;
-                yield return StartCoroutine(action.Invoke());
+                Debug.LogError(currentStepIndex);
+                currentAction = currentStep.actions[currentStepIndex];
+                currentAction.Reset();
+                yield return StartCoroutine(currentAction.Invoke());
             }
             yield return new WaitUntil(step.GetStepComplete);
             //currentStepIndex += 1;
@@ -207,15 +207,19 @@ public class TutorialManager : MonoBehaviour
         Debug.Log(currentAction);
         if (currentAction != null && currentAction is WaitForNextButtonClickAction action) {
             action.ButtonClicked();
-            Debug.Log("_________here__________");
-            Debug.Log(currentStepIndex);
-            Debug.Log(currentStep.actions.Count);
-            Debug.Log(currentStepIndex == currentStep.actions.Count);
-            if (currentStepIndex == currentStep.actions.Count) {
+            Debug.LogError(currentStepIndex);
+            if (currentStepIndex == currentStep.actions.Count - 1) {
                 currentAction = null;
                 Debug.Log("LOADING NEXT LOCATION WE ARE SO BACK");
                 gameState.LoadNextLocation();
             }
+        }
+    }
+    
+    public void TutorialBackButtonClicked() {
+        if (currentAction != null && currentAction is WaitForNextButtonClickAction action) {
+            currentStepIndex -= 4;
+            action.ButtonClicked();
         }
     }
 }

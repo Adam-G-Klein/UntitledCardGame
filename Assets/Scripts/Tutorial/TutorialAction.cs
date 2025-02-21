@@ -33,4 +33,8 @@ public abstract class TutorialAction
         Debug.LogError(tutorialActionType + " TutorialAction: " + errorString);
     }
 
+    public virtual void Reset() {
+        Debug.Log("Reset not implemented for " + tutorialActionType);
+    }
+
 }

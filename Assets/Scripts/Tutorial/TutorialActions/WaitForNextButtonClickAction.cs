@@ -17,4 +17,8 @@ public class WaitForNextButtonClickAction : TutorialAction
     public void ButtonClicked() {
         buttonClicked = true;
     }
+
+    public override void Reset() {
+        buttonClicked = false;
+    }
 }
