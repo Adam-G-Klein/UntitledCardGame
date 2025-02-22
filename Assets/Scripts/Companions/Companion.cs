@@ -114,4 +114,9 @@ public class Companion : Entity, ICombatStats, IDeckEntity, IUIEntity
     {
         return null;
     }
+
+    public Targetable GetTargetable()
+    {
+        return null;
+    }
 }

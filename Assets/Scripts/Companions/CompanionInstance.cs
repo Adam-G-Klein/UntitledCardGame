@@ -118,5 +118,9 @@ public class CompanionInstance : MonoBehaviour, IUIEntity
     public DeckInstance GetDeckInstance() {
         return deckInstance;
     }
+
+    public Targetable GetTargetable() {
+        return GetComponent<Targetable>();
+    }
 }
 

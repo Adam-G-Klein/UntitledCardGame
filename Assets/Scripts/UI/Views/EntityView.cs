@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
 
 public class EntityView : IUIEventReceiver {
@@ -84,6 +86,11 @@ public class EntityView : IUIEventReceiver {
         this.pillar = pillar;
         pillar.AddToClassList("entity-pillar");
         pillar.AddToClassList("entity-pillar-sizing");
+        pillar.RegisterCallback<ClickEvent>(EntityOnPointerClick);
+        pillar.RegisterCallback<PointerEnterEvent>(EntityOnPointerEnter);
+        pillar.RegisterCallback<PointerLeaveEvent>(EntityOnPointerLeave);
+        pickingModePositionList.Add(pillar);
+
 
         var topTriangle = new VisualElement();
         topTriangle.AddToClassList("top-triangle");
@@ -301,6 +308,24 @@ public class EntityView : IUIEventReceiver {
         drawerContainer.style.visibility = Visibility.Hidden;
 
         return drawerContainer;
+    }
+
+    private void EntityOnPointerClick(ClickEvent evt) {
+        Targetable targetable = uiEntity.GetTargetable();
+        if (targetable == null) return;
+        targetable.OnPointerClickUI(evt);
+    }
+
+    private void EntityOnPointerEnter(PointerEnterEvent evt) {
+        Targetable targetable = uiEntity.GetTargetable();
+        if (targetable == null) return;
+        targetable.OnPointerEnterUI(evt);
+    }
+
+    private void EntityOnPointerLeave(PointerLeaveEvent evt) {
+        Targetable targetable = uiEntity.GetTargetable();
+        if (targetable == null) return;
+        targetable.OnPointerLeaveUI(evt);
     }
 
     private void DrawButtonOnClick() {

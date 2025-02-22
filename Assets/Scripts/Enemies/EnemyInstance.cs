@@ -157,4 +157,8 @@ public class EnemyInstance : MonoBehaviour, IUIEntity {
     public DeckInstance GetDeckInstance() {
         return null;
     }
+
+    public Targetable GetTargetable() {
+        return GetComponent<Targetable>();
+    }
 }

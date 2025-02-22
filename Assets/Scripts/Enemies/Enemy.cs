@@ -69,4 +69,8 @@ public class Enemy : Entity, ICombatStats, IUIEntity {
     {
         return null;
     }
+
+    public Targetable GetTargetable() {
+        return null;
+    }
 }
