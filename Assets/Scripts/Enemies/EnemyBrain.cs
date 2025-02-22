@@ -13,7 +13,7 @@ public class EnemyBrain
     public int nextBehaviorIndex = 0;
 
     // To be revisited
-    private float attackTime = 0.5f;
+    private float attackTime = 0.05f;
 
     public EnemyIntent ChooseIntent(EnemyInstance self) {
         Debug.Log("ChooseIntent");
