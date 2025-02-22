@@ -51,42 +51,27 @@ public class UIDocumentCard : MonoBehaviour
 
     void LateStart()
     {
+
         boxCollider = GetComponent<BoxCollider2D>();
         doc = GetComponent<UIDocument>();
         doc.panelSettings = CardPanelSettingsPooler.Instance.GetPanelSettings();
+        if(doc.panelSettings == null) {
+            Debug.LogError("UIDocumentCard: No panel settings available");
+            return;
+        }
         // TODO: take in card rather than cardtype
         cardView = new CardView(card, pCard.deckFrom.GetCompanionTypeSO(), false);
         doc.rootVisualElement.Add(cardView.cardContainer);
         UIDocumentUtils.SetAllPickingMode(doc.rootVisualElement, PickingMode.Ignore);
         spriteRenderer = GetComponent<SpriteRenderer>();
-        runCoroutine();
         pCard.UpdateCardText(); //we gonna run this shit like a millino times
+        spriteRenderer.material.SetTexture("_SecondTex", doc.panelSettings.targetTexture);
     }
 
     void Update()
     {
-        if (renderTextureConstantly && !renderTextureCoroutineIsRunning)
-        {
-            runCoroutine();
-        }
     }
 
-    private void runCoroutine()
-    {
-        Action<Texture2D> completionAction = (tex) =>
-        {
-            print("UIDocumentCard: completion action invoked!");
-            // Do something with the texture here.
-            spriteRenderer.material.SetTexture("_SecondTex", tex);
-            spriteRenderer.size = CARD_SIZE;
-            boxCollider.size = CARD_SIZE;
-        };
-
-        IEnumerable coroutine = GetVETextureCoroutine(
-            doc.panelSettings, CARD_REFERENCE_RESOLUTION.x, CARD_REFERENCE_RESOLUTION.y, completionAction);
-
-        StartCoroutine(coroutine.GetEnumerator());
-    }
 
     public void Cleanup(Action postCleanupCallback)
     {
@@ -94,44 +79,6 @@ public class UIDocumentCard : MonoBehaviour
         UIDocumentGameObjectPlacer.Instance.removeMapping(gameObject);
         Debug.Log("UIDocumentCard: OnExitScreen");
         postCleanupCallback.Invoke();
-    }
-    /*
-    stolen from: https://forum.unity.com/threads/render-visualelement-to-texture.1169015/
-    */
-    public IEnumerable GetVETextureCoroutine(
-            PanelSettings panelSettings,
-            int width, int height,
-            Action<Texture2D> completionAction)
-    {
-        renderTextureCoroutineIsRunning = true;
-
-        // Store the existing parent (if any).
-
-        // Create a new UIDocumment, RenderTexture, and Panel to draw to.
-        doc.panelSettings = panelSettings;
-        RenderTexture rt = new RenderTexture(width, height, 32);
-        doc.panelSettings.targetTexture = rt;
-        doc.panelSettings.referenceResolution = new Vector2Int(width, height);
-        rt.Create();
-        yield return null;
-
-        // A frame later, we should have the RenderTexture fully rendered.
-        // Create a texture and fill it in from the RenderTexture now that it's drawn.
-        RenderTexture.active = rt;
-        texture = new Texture2D(width, height, TextureFormat.RGBA32, false);
-        texture.ReadPixels(new Rect(0, 0, width, height), 0, 0);
-        texture.Apply();
-        yield return null;
-
-        // Clean up the object we created and release the RenderTexture
-        // (RenderTextures are not garbage collected objects).
-        rt.Release();
-        completionAction?.Invoke(texture);
-        renderTextureCoroutineIsRunning = false;
-        if (!spriteRenderer.enabled)
-        {
-            spriteRenderer.enabled = true;
-        }
     }
 
     public void UpdateCardText(EffectDocument document)
@@ -209,7 +156,6 @@ public class UIDocumentCard : MonoBehaviour
 
         cardView.SetHighlight(document.boolMap["highlightCard"]);
 
-        runCoroutine();
     }
 
     void OnExitPlaymode()
