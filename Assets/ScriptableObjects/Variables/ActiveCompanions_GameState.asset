@@ -57,9 +57,8 @@ MonoBehaviour:
       cardsDealtPerTurn: 1
     combatStats:
       maxHealth: 25
-      currentHealth: 25
+      currentHealth: 23
       baseAttackDamage: 0
-    companionLevel: 1
     onCombineAbilities:
     - effectSteps:
       - rid: 2240256423295713289
@@ -86,9 +85,8 @@ MonoBehaviour:
       cardsDealtPerTurn: 1
     combatStats:
       maxHealth: 25
-      currentHealth: 16
+      currentHealth: 14
       baseAttackDamage: 0
-    companionLevel: 1
     onCombineAbilities:
     - effectSteps:
       - rid: 2240256423295713289
@@ -136,60 +134,9 @@ MonoBehaviour:
       cardsDealtPerTurn: 1
     combatStats:
       maxHealth: 90
-      currentHealth: 90
+      currentHealth: 88
       baseAttackDamage: 0
-    companionLevel: 1
     onCombineAbilities: []
-  - id: 402872e2-a3df-4167-9362-d01c50c53bc4
-    entityType: 0
-    companionType: {fileID: 11400000, guid: ddba054ceef954be5a2f4619af3e78c2, type: 2}
-    deck:
-      startingDeck: {fileID: 11400000, guid: e8874d8a511b54b13b6fa125f643d72b, type: 2}
-      cards:
-      - id: f647ba11-7640-4827-9df2-a71ee600514f
-        entityType: 0
-        shopRarity: 0
-        castCount: 0
-        tempManaCost: -1
-        generated: 0
-        cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
-      - id: 1e216615-8db3-41e3-b5b2-8dec80e8af60
-        entityType: 0
-        shopRarity: 0
-        castCount: 0
-        tempManaCost: -1
-        generated: 0
-        cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
-      - id: 62ad0113-f8e9-4552-adf6-344f7b36d915
-        entityType: 0
-        shopRarity: 0
-        castCount: 0
-        tempManaCost: -1
-        generated: 0
-        cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
-      - id: 9ab4c70b-7caa-44c2-9164-227ed50d1d2e
-        entityType: 0
-        shopRarity: 0
-        castCount: 0
-        tempManaCost: -1
-        generated: 0
-        cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
-      - id: 07f00bc6-2c29-4574-98f8-99c512f309d8
-        entityType: 0
-        shopRarity: 0
-        castCount: 0
-        tempManaCost: -1
-        generated: 0
-        cardType: {fileID: 11400000, guid: c4bffa899c46a4878a3034b3681670cb, type: 2}
-      cardsDealtPerTurn: 1
-    combatStats:
-      maxHealth: 20
-      currentHealth: 20
-      baseAttackDamage: 0
-    companionLevel: 1
-    onCombineAbilities:
-    - effectSteps:
-      - rid: 1258192752061448193
   benchedCompanions:
   - id: 3ecd1019-562e-4939-bc89-de141bce3382
     entityType: 0
@@ -237,7 +184,6 @@ MonoBehaviour:
       maxHealth: 25
       currentHealth: 25
       baseAttackDamage: 0
-    companionLevel: 1
     onCombineAbilities:
     - effectSteps:
       - rid: 2240256423295713289
@@ -287,7 +233,6 @@ MonoBehaviour:
       maxHealth: 30
       currentHealth: 30
       baseAttackDamage: 0
-    companionLevel: 1
     onCombineAbilities:
     - effectSteps:
       - rid: 2240256423295713292
@@ -338,7 +283,6 @@ MonoBehaviour:
       maxHealth: 25
       currentHealth: 25
       baseAttackDamage: 0
-    companionLevel: 1
     onCombineAbilities:
     - effectSteps:
       - rid: 2240256423295713290
@@ -388,7 +332,6 @@ MonoBehaviour:
       maxHealth: 30
       currentHealth: 30
       baseAttackDamage: 0
-    companionLevel: 1
     onCombineAbilities:
     - effectSteps:
       - rid: 1258192752061448192
@@ -401,12 +344,6 @@ MonoBehaviour:
       data:
         effectStepName: DialogueStep
         line: I now gain block at the end of each turn!
-        lineTime: 3
-    - rid: 1258192752061448193
-      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: DialogueStep
-        line: Now I have treasure for everyone!
         lineTime: 3
     - rid: 2240256423295713289
       type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
