@@ -2,12 +2,21 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
 
 public class Targetable : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public TargetType targetType;
+    /*
+    * This might not be the best place for these, but with recent UI doc changes
+    * the UI doc eats pointer events on game objects. This works around it
+    * by registering all relevant pointer events with this script since this
+    * script was updated to work with UI document. 
+    */
+    public UnityEvent<PointerEventData> pointerEnterEvent;
+    public UnityEvent<PointerEventData> pointerExitEvent;
     
     public void OnPointerClick(PointerEventData eventData) {
         TargetableClicked();
@@ -44,6 +53,7 @@ public class Targetable : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
         if (targetType == TargetType.Companion) {
             EnemyEncounterManager.Instance.gameState.UpdateHoveredCompanion(GetComponent<CompanionInstance>());
         }
+        pointerEnterEvent.Invoke(null);
     }
 
     public void OnPointerExit(PointerEventData eventData) {
@@ -58,6 +68,7 @@ public class Targetable : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
         if (targetType == TargetType.Companion) {
             EnemyEncounterManager.Instance.gameState.UpdateHoveredCompanion(null);
         }
+        pointerExitEvent.Invoke(null);
     }
 
     public enum TargetType {
