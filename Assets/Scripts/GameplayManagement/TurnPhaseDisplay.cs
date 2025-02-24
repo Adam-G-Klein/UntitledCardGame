@@ -13,8 +13,8 @@ public class TurnPhaseDisplay : MonoBehaviour {
     public GameObject defeatPrefab;
     public float effectZOffset = -100f;
     // TODO: make this configurable in game settings, game speed type vibe/beat
-    public float turnDisplayDuration = 2.75f;
-    public float victoryDuration = 5f;
+    public float turnDisplayDuration = 0.1f;
+    public float victoryDuration = 3f;
 
     // TODO: move to a setup method that's actually tied to our scene building flow
     // these effects might happen in the wrong order from other effects
@@ -34,7 +34,8 @@ public class TurnPhaseDisplay : MonoBehaviour {
     }
 
     public IEnumerable DisplayEnemyTurn() {
-        GameObject playerTurn = Instantiate(enemyTurnPrefab, effectParent.transform); 
+        GameObject playerTurn = Instantiate(enemyTurnPrefab, effectParent.transform);
+        Debug.LogError("displaying enemy turn");
         yield return new WaitForSeconds(turnDisplayDuration);
         Destroy(playerTurn);
     }

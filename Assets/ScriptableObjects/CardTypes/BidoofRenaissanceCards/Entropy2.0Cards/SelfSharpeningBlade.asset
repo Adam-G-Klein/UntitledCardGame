@@ -15,7 +15,6 @@ MonoBehaviour:
   Name: Self-Sharpening Blade
   Description: Deal {rpl_damage} damage. Increase the damage of ALL self-sharpening
     blade cards by 5 this combat
-  values: 05000000
   defaultValues:
   - key: rpl_damage
     value: 5
@@ -77,14 +76,8 @@ MonoBehaviour:
         - rid: 1488501614819147777
         - rid: 5592738912264781840
         - rid: 1274772082283774576
-        - rid: 5280922841426165937
         - rid: 5280922841426165938
         - rid: 5280922841426165940
-    - rid: 5280922841426165937
-      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: WaitForSecondsEffect
-        seconds: 0.5
     - rid: 5280922841426165938
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -107,7 +100,7 @@ MonoBehaviour:
       type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: WaitForSecondsEffect
-        seconds: 0.5
+        seconds: 0.75
     - rid: 5592738912264781840
       type: {class: CardModificationEffect, ns: , asm: Assembly-CSharp}
       data:
