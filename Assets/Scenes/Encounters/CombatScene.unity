@@ -428,6 +428,14 @@ PrefabInstance:
       propertyPath: effectParent
       value: 
       objectReference: {fileID: 1517016778}
+    - target: {fileID: 2411836449735341269, guid: 819cb9061d26fcd40830451cab260ed3, type: 3}
+      propertyPath: victoryDuration
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2411836449735341269, guid: 819cb9061d26fcd40830451cab260ed3, type: 3}
+      propertyPath: turnDisplayDuration
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7874900494231256864, guid: 819cb9061d26fcd40830451cab260ed3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3217,6 +3225,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 782343934611933542, guid: a01603c96ed613e4dadddb16c94272d3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1482792757737945907, guid: a01603c96ed613e4dadddb16c94272d3, type: 3}
       propertyPath: constantStateUpdate
       value: 0
@@ -3333,6 +3345,10 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5558227210676135366, guid: a01603c96ed613e4dadddb16c94272d3, type: 3}
+      propertyPath: m_PanelSettings
+      value: 
+      objectReference: {fileID: 11400000, guid: 5facde04fd66f490f9da44c2ae4ce28c, type: 2}
     - target: {fileID: 5946589008991207965, guid: a01603c96ed613e4dadddb16c94272d3, type: 3}
       propertyPath: animateHearts
       value: 1

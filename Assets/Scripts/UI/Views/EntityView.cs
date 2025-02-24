@@ -285,6 +285,7 @@ public class EntityView : IUIEventReceiver {
     private VisualElement setupCardDrawer(IUIEntity entity) {
         VisualElement drawerContainer = new VisualElement();
         drawerContainer.AddToClassList("pillar-drawer-menu");
+        pickingModePositionList.Add(drawerContainer);
 
         Button drawButton = new Button();
         drawButton.AddToClassList("drawer-button");
@@ -389,9 +390,9 @@ public class EntityView : IUIEventReceiver {
         return new Tuple<int, int>(width, height);
     }
 
-    public void SetPickingModes() {
+    public void SetPickingModes(bool enable) {
         foreach (VisualElement ve in pickingModePositionList) {
-            ve.pickingMode = PickingMode.Position;
+            UIDocumentUtils.SetAllPickingMode(ve, enable ? PickingMode.Position : PickingMode.Ignore);
         }
     }
 }

@@ -42,6 +42,20 @@ public class EnemyEncounterViewModel : GenericSingleton<EnemyEncounterViewModel>
         } 
     }
 
+    public void SetInMenu(bool isInMenu) {
+        if (listener) {
+            listener.SetInMenu(isInMenu);
+            SetStateDirty();
+        }
+    }
+
+    public void SetInDeckView(bool isInDeckView) {
+        if (listener) {
+            listener.SetInDeckView(isInDeckView);
+            SetStateDirty();
+        }
+    }
+
     private IEnumerator updateViewAtEndOfFrame() {
         updatingAtEndOfFrame = true;
         yield return new WaitForEndOfFrame();

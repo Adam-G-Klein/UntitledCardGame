@@ -692,4 +692,8 @@ public class ShopViewController : MonoBehaviour,
     public bool IsDraggingCompanion() {
         return isDraggingCompanion;
     }  
+
+    public void SetDisplayStyle(bool enable) {
+        uiDoc.rootVisualElement.style.display = enable ? DisplayStyle.Flex : DisplayStyle.None;
+    }
 }

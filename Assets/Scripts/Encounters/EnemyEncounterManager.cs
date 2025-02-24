@@ -6,6 +6,7 @@ using UnityEditor;
 using Unity.VisualScripting;
 using TMPro;
 using UnityEngine.UIElements;
+using UnityEditor.Tilemaps;
 
 [RequireComponent(typeof(EndEncounterEventListener))]
 public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IEncounterBuilder
@@ -169,6 +170,8 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
 
     private void TurnOffInteractions() {
         PlayerHand.Instance.DisableHand();
+        combatEncounterView.SetEndCombat();
+        combatEncounterView.UpdateView();
         EnemyEncounterViewModel.Instance.companions.ForEach(companion => {
             if (companion) companion.GetComponent<CombatCompanionTooltipProvder>().DisableTooltip();
         });
@@ -228,5 +231,9 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     internal bool GetCombatOver()
     {
         return combatOver;
+    }
+
+    public void ToggleUIDocuments(bool inMenu) {
+        EnemyEncounterViewModel.Instance.SetInMenu(inMenu);
     }
 }

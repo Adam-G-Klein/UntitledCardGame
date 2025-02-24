@@ -4,5 +4,5 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 public interface IUIEventReceiver {
-    void SetPickingModes();
+    void SetPickingModes(bool inMenu);
 }

@@ -12,6 +12,8 @@ public class MainMenuManager : MonoBehaviour
     private GameStateVariableSO gameState;
     [SerializeField]
     private UIDocument optionsUI;
+    [SerializeField]
+    private CanvasGroup canvasGroup;
 
     public void startButtonHandler() {
         SceneManager.LoadScene("GenerateMap");
@@ -19,6 +21,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void optionsButtonHandler() {
         optionsUI.rootVisualElement.style.visibility = Visibility.Visible;
+        canvasGroup.blocksRaycasts = true;
     }
 
     public void exitButtonHandler() {

@@ -33,6 +33,9 @@ public class CombatEncounterView : MonoBehaviour,
 
     [SerializeField]
     private GameObject cardViewUIPrefab;
+    private bool inMenu = false;
+    private bool inDeckView = false;
+    private bool combatOver = false;
 
     public void SetupFromGamestate()
     {
@@ -86,7 +89,7 @@ public class CombatEncounterView : MonoBehaviour,
                 entityView.UpdateView();
             }
             foreach (IUIEventReceiver view in pickingModePositionList) {
-                view.SetPickingModes();
+                view.SetPickingModes(!inMenu && !inDeckView && !combatOver);
             }
         }
         docRenderer.SetStateDirty();
@@ -161,5 +164,18 @@ public class CombatEncounterView : MonoBehaviour,
 
     public MonoBehaviour GetMonoBehaviour() {
         return this;
+    }
+
+    public void SetInMenu(bool inMenu) {
+        this.inMenu = inMenu;
+        UpdateView();
+    }
+    public void SetInDeckView(bool inDeckView) {
+        this.inDeckView = inDeckView;
+        UpdateView();
+    }
+
+    public void SetEndCombat() {
+        combatOver = true;
     }
 }

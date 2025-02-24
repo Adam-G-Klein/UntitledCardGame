@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class OptionsViewController : MonoBehaviour
 {
@@ -19,12 +21,15 @@ public class OptionsViewController : MonoBehaviour
     private CompanionPoolSO companionPool;
     [SerializeField]
     private CardPoolSO neutralCardPool;
+    private CanvasGroup canvasGroup;
+    private Canvas canvas;
     private CompendiumView compendiumView;
     private Button backButton;
     private Button quitButton;
     private Button mainMenuButton;
     private Button compendiumButton;
     // Start is called before the first frame update
+    private Camera mainCamera;
 
     void Awake() {
         if (instance != null && instance != this) {
@@ -33,13 +38,14 @@ public class OptionsViewController : MonoBehaviour
         }
         instance = this;
         DontDestroyOnLoad(this.gameObject);
+        canvasGroup = GetComponent<CanvasGroup>();
+        canvas = GetComponent<Canvas>();
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
     void Start()
     {
         optionsUIDocument.rootVisualElement.style.visibility = Visibility.Hidden;
         compendiumUIDocument.rootVisualElement.style.visibility = Visibility.Hidden;
-        Debug.LogError("here");
-
         volumeSlider = optionsUIDocument.rootVisualElement.Q<Slider>("volumeSlider");
         volumeSlider.RegisterValueChangedCallback((evt) => onVolumeSliderChangedHandler(evt.newValue));
         timescaleSlider = optionsUIDocument.rootVisualElement.Q<Slider>("gameSpeedSlider");
@@ -48,24 +54,26 @@ public class OptionsViewController : MonoBehaviour
         compendiumButton = optionsUIDocument.rootVisualElement.Q<Button>("compendiumButton");
         compendiumButton.clicked += onCompendiumButtonHandler;
         backButton = optionsUIDocument.rootVisualElement.Q<Button>("backButton");
-        backButton.clicked += exitButtonHandler;
+        backButton.clicked += BackButtonHandler;
         mainMenuButton = optionsUIDocument.rootVisualElement.Q<Button>("exitButton");
         mainMenuButton.clicked += onMainMenuButtonHandler;
         quitButton = optionsUIDocument.rootVisualElement.Q<Button>("quitButton");
         quitButton.clicked += onExitGameHandler;
+
+        canvasGroup.blocksRaycasts = false;
     }
 
     void Update() {
         // haha gross but lazy bool evaluation is a thing so bite me I guess
         if(Input.GetKeyDown(KeyCode.Escape)) {
-            ToggleVisibility();
+            ToggleVisibility(optionsUIDocument.rootVisualElement.style.visibility == Visibility.Hidden);
         }
     }
 
     public void onMainMenuButtonHandler() {
         // Load the main menu scene
         UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
-        exitButtonHandler();
+        ToggleVisibility();
     }
 
     public void onExitGameHandler() {
@@ -112,18 +120,59 @@ public class OptionsViewController : MonoBehaviour
         Time.timeScale = 1 + (value * 4);
     }
 
-    public void exitButtonHandler() {
-        optionsUIDocument.rootVisualElement.style.visibility = Visibility.Hidden;
-        compendiumUIDocument.rootVisualElement.style.visibility = Visibility.Hidden;
+    private void BackButtonHandler() {
+        ToggleVisibility();
     }
 
-    public void ToggleVisibility() {
-        if (optionsUIDocument.rootVisualElement.style.visibility == Visibility.Hidden) {
-            Debug.LogError("toggling options visible");
+    public void ToggleVisibility(bool enable = false) {
+        if (enable) {
+            Debug.Log("toggling options visible");
+            canvasGroup.blocksRaycasts = true;
+            UIDocumentUtils.SetAllPickingMode(optionsUIDocument.rootVisualElement, PickingMode.Position);
             optionsUIDocument.rootVisualElement.style.visibility = Visibility.Visible;
+            // get all UIDocuments in the scene
+            List<UIDocument> documents = FindObjectsOfType<UIDocument>().Where(doc => doc != optionsUIDocument && doc != compendiumUIDocument).ToList();
+            ToggleUIDocs(documents, true);
         } else {
-            Debug.LogError("toggling options hidden");
-            exitButtonHandler();
+            Debug.Log("toggling options hidden");
+            canvasGroup.blocksRaycasts = false;
+            UIDocumentUtils.SetAllPickingMode(optionsUIDocument.rootVisualElement, PickingMode.Ignore);
+            optionsUIDocument.rootVisualElement.style.visibility = Visibility.Hidden;
+            compendiumUIDocument.rootVisualElement.style.visibility = Visibility.Hidden;
+            List<UIDocument> documents = FindObjectsOfType<UIDocument>().Where(doc => doc != optionsUIDocument && doc != compendiumUIDocument).ToList();
+            ToggleUIDocs(documents, false);
         }
+    }
+
+    private void ToggleUIDocs(List<UIDocument> documents, bool inMenu) {
+        String currentSceneName = SceneManager.GetActiveScene().name;
+        if (currentSceneName == "CombatScene") {
+            EnemyEncounterViewModel.Instance.SetInMenu(inMenu);
+            return;
+        } 
+        if (currentSceneName == "PlaceholderShopEncounter") {
+            ShopManager.Instance.shopViewController.SetDisplayStyle(!inMenu); // super jank rn
+            return;
+        }
+        foreach (UIDocument doc in documents) {
+            if (doc != null && doc.rootVisualElement != null) {
+                UIDocumentUtils.SetAllPickingMode(doc.rootVisualElement, inMenu ? PickingMode.Ignore : PickingMode.Position);
+            }
+        }
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
+        UpdateCameraReference();
+        ToggleVisibility();
+    }
+
+    private void UpdateCameraReference() {
+        mainCamera = Camera.main;
+        if (mainCamera != null) {
+            Debug.Log("Main camera updated: " + mainCamera.name);
+        } else {
+            Debug.LogWarning("Main camera not found");
+        }
+        canvas.worldCamera = mainCamera;
     }
 }

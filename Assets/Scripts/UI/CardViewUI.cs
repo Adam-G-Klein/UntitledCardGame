@@ -28,6 +28,14 @@ public class CardViewUI : MonoBehaviour
     [SerializeField]
     private GameObject button;
 
+    private void Start()
+    {
+        Canvas canvas = GetComponent<Canvas>();
+        canvas.worldCamera = Camera.main;
+        canvas.planeDistance = 10;   
+        canvas.sortingLayerName = "Tutorial";
+    }
+
     public void Setup(List<Card> cards, int minSelections, string promptText, int maxSelections = -1, CompanionInstance companionFrom = null) {
         EnemyEncounterManager.Instance.SetInToolTip(true);
         foreach (Card card in cards) {
@@ -38,6 +46,7 @@ public class CardViewUI : MonoBehaviour
         this.minSelections = minSelections;
         this.maxSelections = maxSelections;
         button.GetComponent<RectTransform>().localScale = new Vector3((minSelections > 0 || maxSelections > 0) ? -1 : 1, 1, 1);
+        EnemyEncounterViewModel.Instance.SetInDeckView(true);
     }
 
     // Can replace with just requesting a mapping and instantiating at that location
@@ -86,6 +95,7 @@ public class CardViewUI : MonoBehaviour
         }
         cardsSelectedEvent.Raise(new CardListEventInfo(outputCards));
         Destroy(this.gameObject);
+        EnemyEncounterViewModel.Instance.SetInDeckView(false);
         EnemyEncounterManager.Instance.SetInToolTip(false);
     }
 
