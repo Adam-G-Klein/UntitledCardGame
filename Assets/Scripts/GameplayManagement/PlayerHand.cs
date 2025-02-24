@@ -107,6 +107,10 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                     }
                 } else {
                     callback = DiscardCard(card);
+                    if(NonMouseInputManager.Instance.inputMethod != InputMethod.Mouse) {
+                        // Doesn't work, iteration to be done
+                        //callback += NonMouseInputManager.Instance.hoverACard();
+                    }
                 }
                 CardType ct = card.card.cardType;
                 List<EffectStep> workflowSteps = new();

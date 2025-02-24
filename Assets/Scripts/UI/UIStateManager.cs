@@ -40,16 +40,21 @@ public class UIStateManager : GenericSingleton<UIStateManager>
     // Start is called before the first frame update
     void Update()
     {
-        if(Input.GetMouseButtonDown(1) 
-            && currentState == UIState.EFFECT_TARGETTING){
+        if(Input.GetMouseButtonDown(1)) {
+            TryCancelTargetting();
+        }
+        if(constantStateUpdate){
+            SetUIDocDirty();
+        }
+    }
+
+    public void TryCancelTargetting() {
+        if(currentState == UIState.EFFECT_TARGETTING){
             CancelContext context = new CancelContext();
             TargettingManager.Instance.cancelTargettingHandler.Invoke(context);
             if (context.canCancel) {
                 setState(UIState.DEFAULT);                   
             }
-        }
-        if(constantStateUpdate){
-            SetUIDocDirty();
         }
     }
 

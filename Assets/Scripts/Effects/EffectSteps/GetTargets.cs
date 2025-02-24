@@ -101,10 +101,12 @@ public class GetTargets : EffectStep, IEffectStepCalculation
         } else if (specialTargetRule == SpecialTargetRule.TargetRandom) {
             GetTargetsRandomly(document);
         } else {
+            // if we're here then we need to user to click something on the screen
             Debug.Log("TargettingManager.Instance.targetSuppliedHandler += TargetSuppliedHandler;");
             TargettingManager.Instance.targetSuppliedHandler += TargetSuppliedHandler;
             TargettingManager.Instance.cancelTargettingHandler += CancelHandler;
             TargettingArrowsController.Instance.createTargettingArrow(validTargets, self);
+            NonMouseInputManager.Instance.SetValidTargets(validTargets);
             UIStateManager.Instance.setState(UIState.EFFECT_TARGETTING);
             yield return new WaitUntil(() => targetsList.Count == number);
             TargettingManager.Instance.targetSuppliedHandler -= TargetSuppliedHandler;

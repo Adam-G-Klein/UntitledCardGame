@@ -1,12 +1,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Playables;
 
 public class Hoverable : MonoBehaviour {
 
     private List<IPointerEnterHandler> enterHandlers;
     private List<IPointerExitHandler> exitHandlers;
     private List<IPointerClickHandler> clickHandlers;
+
+    private Targetable.TargetType targetType;
+    // Only being used for smart default of hovering next card in hand after cast
+    private EntityType entityType;
 
     void Start() {
         NonMouseInputManager.Instance.RegisterHoverable(this);
@@ -16,6 +21,14 @@ public class Hoverable : MonoBehaviour {
         foreach(IPointerEnterHandler handler in clickHandlers) {
             Debug.Log("[NonMouseInputControls] registered click handler " + handler.GetType().Name + " on " + gameObject.name);
         }
+
+        Targetable targetable = GetComponent<Targetable>();
+        if(targetable != null) {
+            targetType = targetable.targetType;
+        } else {
+            targetType = Targetable.TargetType.None;
+        }
+        entityType = TryGetEntityType();
     }
 
     void OnDestroy() {
@@ -24,6 +37,25 @@ public class Hoverable : MonoBehaviour {
         // which causes an error in editor, and potentially a memory leak in the build
         if(!NonMouseInputManager.isDestroyed)
             NonMouseInputManager.Instance.UnregisterHoverable(this);
+    }
+
+    // TODO, abstract for the shop
+    // this is currently only intended for combat
+    private EntityType TryGetEntityType() {
+        IUIEntity entityType = GetComponent<IUIEntity>();
+        if(entityType != null) {
+            CombatInstance combatInstance = entityType.GetCombatInstance();
+            if(combatInstance != null) {
+                return combatInstance.parentEntity.entityType;
+            } 
+        }
+
+        PlayableCard playableCard = GetComponent<PlayableCard>();
+        if(playableCard != null) {
+            return EntityType.Card;
+        }
+        Debug.LogWarning("[Hoverable] No entity type found for " + gameObject.name);
+        return EntityType.Unknown;
     }
 
     public void onHover() {
@@ -48,6 +80,14 @@ public class Hoverable : MonoBehaviour {
 
     public Vector2 getScreenPosition() {
         return Camera.main.WorldToScreenPoint(transform.position);
+    }
+
+    public Targetable.TargetType GetTargetType() {
+        return targetType;
+    }
+
+    public EntityType GetEntityType() {
+        return entityType;
     }
 
 }

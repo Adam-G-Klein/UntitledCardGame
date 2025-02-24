@@ -75,6 +75,7 @@ public class Targetable : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
         Companion,
         Minion,
         Enemy,
-        Card
+        Card,
+        None
     }
 }
