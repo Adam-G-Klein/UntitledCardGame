@@ -29,37 +29,111 @@ MonoBehaviour:
   cardPool: {fileID: 11400000, guid: 9b7e5bf09446140ad8676018d597b7a8, type: 2}
   speakerType: {fileID: 0}
   abilitiesV2:
-  - rid: 205828107393564832
+  - rid: 205828107393564827
+  - rid: 8790165036689784833
   level: 2
   upgradeTo: {fileID: 0}
   tooltip:
     empty: 0
     lines:
     - title: L3 Robber Baron
-      description: End of combat, gain 20 Gold
+      description: Each turn, gain 2 energy and draw an extra card from a random
+        companion. At the start of combat, add 2 Debt cards to a random companion's
+        discard pile.
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: End of combat, gain 20 Gold
+  keepsakeDescription: Each turn, gain 2 energy and draw an extra card from a random
+    companion. At the start of combat, add 2 Debt cards to a random companion's discard
+    pile.
   references:
     version: 2
     RefIds:
-    - rid: 205828107393564832
+    - rid: 205828107393564827
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
-        abilityTrigger: 1
+        abilityTrigger: 12
         effectSteps:
-        - rid: 205828107393564833
-        - rid: 8441470952357494992
-    - rid: 205828107393564833
-      type: {class: GoldManipulation, ns: , asm: Assembly-CSharp}
+        - rid: 8790165036689784832
+        - rid: 8790165036689785003
+        - rid: 8790165036689785004
+        - rid: 8790165036689785005
+    - rid: 8790165036689784832
+      type: {class: ManaChange, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: 
-        goldToAdd: 20
+        effectStepName: ManaChange
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
-    - rid: 8441470952357494992
+    - rid: 8790165036689784833
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 0
+        effectSteps:
+        - rid: 8790165036689784837
+        - rid: 8790165036689784834
+        - rid: 8790165036689784835
+        - rid: 8790165036689784836
+    - rid: 8790165036689784834
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: target
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 6
+        cantCancelTargetting: 0
+    - rid: 8790165036689784835
+      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: AddCardsToDeck
+        inputKey: target
+        cardTypes:
+        - {fileID: 11400000, guid: 367e46b6621aa4d0186413c566fc3329, type: 2}
+        addToDeckMethod: 4
+        getCardsFromKey: 0
+        inputCardsKey: 
+        scale: 2
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 8790165036689784836
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: target
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        scale: 1
+    - rid: 8790165036689784837
       type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: DialogueStep
-        line: We're even more extra super dummy rich!!
+        line: A small price to pay for great power
         lineTime: 2
+    - rid: 8790165036689785003
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: target
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 6
+        cantCancelTargetting: 0
+    - rid: 8790165036689785004
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DrawCards
+        inputKey: target
+        outputKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 8790165036689785005
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: target
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        scale: 1
