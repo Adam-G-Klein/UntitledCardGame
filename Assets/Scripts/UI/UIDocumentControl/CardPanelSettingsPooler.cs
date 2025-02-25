@@ -19,9 +19,13 @@ public class CardPanelSettingsPooler : GenericSingleton<CardPanelSettingsPooler>
 
     void Start() {
         foreach(PanelSettings panelSettings in panelSettingsPool) {
-            panelSettings.targetTexture = new RenderTexture(UIDocumentCard.CARD_REFERENCE_RESOLUTION.x, UIDocumentCard.CARD_REFERENCE_RESOLUTION.y, 32);
+            if(panelSettings.targetTexture == null) {
+                Debug.LogError("Panel settings target texture is null! Fix your panel settings!");
+                continue;
+            }
             panelSettings.referenceResolution = UIDocumentCard.CARD_REFERENCE_RESOLUTION;
-            panelSettings.targetTexture.Create();
+            panelSettings.scaleMode = PanelScaleMode.ScaleWithScreenSize;
+            panelSettings.screenMatchMode = PanelScreenMatchMode.MatchWidthOrHeight;
             reusablePanels.Add(new ReusablePanel(panelSettings, false));
         }
     }
