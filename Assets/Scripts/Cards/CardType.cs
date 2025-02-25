@@ -117,6 +117,7 @@ public class CardFilter
             includeCard &= (generatedCardsFilter == GeneratedFilter.OnlyGeneratedCards && card.generated) ||
                 (generatedCardsFilter == GeneratedFilter.OnlyNonGeneratedCards && !card.generated);
         }
+        Debug.Log("Filter [" + includeCard + "]" + "Card " + card.cardType.name + " has generated=" + card.generated + " and cardCategory=" + card.cardType.cardCategory.ToString());
         return includeCard;
     }
 }
