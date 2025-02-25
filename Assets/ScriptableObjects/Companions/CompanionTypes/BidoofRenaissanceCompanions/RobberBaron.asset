@@ -30,36 +30,78 @@ MonoBehaviour:
   speakerType: {fileID: 0}
   abilitiesV2:
   - rid: 205828107393564827
+  - rid: 8790165036689784833
   level: 0
   upgradeTo: {fileID: 11400000, guid: cf4a97ac141624dda8bc42d04aa78127, type: 2}
   tooltip:
     empty: 0
     lines:
     - title: Robber Baron
-      description: At the end of combat, gain 5 Gold
+      description: At the start of each turn, gain 1 energy. At the start of combat,
+        add 2 Debt cards to a random companion's discard pile.
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: At the end of combat, gain 5 Gold
+  keepsakeDescription: At the start of each turn, gain 1 energy. At the start of
+    combat, add 2 Debt cards to a random companion's discard pile.
   references:
     version: 2
     RefIds:
     - rid: 205828107393564827
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
-        abilityTrigger: 1
+        abilityTrigger: 12
         effectSteps:
-        - rid: 205828107393564828
-        - rid: 8441470952357494995
-    - rid: 205828107393564828
-      type: {class: GoldManipulation, ns: , asm: Assembly-CSharp}
+        - rid: 8790165036689784832
+    - rid: 8790165036689784832
+      type: {class: ManaChange, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: 
-        goldToAdd: 5
+        effectStepName: ManaChange
+        scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
-    - rid: 8441470952357494995
+    - rid: 8790165036689784833
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 0
+        effectSteps:
+        - rid: 8790165036689784834
+        - rid: 8790165036689784837
+        - rid: 8790165036689784835
+        - rid: 8790165036689784836
+    - rid: 8790165036689784834
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: target
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 6
+        cantCancelTargetting: 0
+    - rid: 8790165036689784835
+      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: AddCardsToDeck
+        inputKey: target
+        cardTypes:
+        - {fileID: 11400000, guid: 367e46b6621aa4d0186413c566fc3329, type: 2}
+        addToDeckMethod: 4
+        getCardsFromKey: 0
+        inputCardsKey: 
+        scale: 2
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 8790165036689784836
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: target
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        scale: 1
+    - rid: 8790165036689784837
       type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: DialogueStep
-        line: We are rich!
+        line: Ah, you see, someone must pay for it.
         lineTime: 2
