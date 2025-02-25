@@ -68,8 +68,6 @@ public class MapView {
             mapSection.Add(mapIcon);
             container.Add(mapSection);
         }
-        Debug.LogError(container.Children().Count());
-        Debug.LogError("here be the map view sire");
         return container;
     }
 }

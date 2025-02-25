@@ -121,6 +121,12 @@ public class ShopViewController : MonoBehaviour,
         mapTitle.AddToClassList("map-title");
         mapTitle.text = "Map";
         mapContainer.Add(mapTitle);
+        Label combatCounter = new Label();
+        combatCounter.AddToClassList("map-combat-counter");
+        int totalCombats = (ShopManager.Instance.gameState.map.GetValue().encounters.Count + 1) / 2;
+        int wonCombats = (ShopManager.Instance.gameState.currentEncounterIndex / 2) + 1;
+        combatCounter.text = "Combats Won: " + wonCombats + "/" + totalCombats;
+        mapContainer.Add(combatCounter);
         mapContainer.Add(new MapView(encounterBuilder).mapContainer);
     }
 

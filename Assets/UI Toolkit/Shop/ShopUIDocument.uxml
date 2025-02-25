@@ -13,7 +13,8 @@
             </ui:VisualElement>
             <ui:VisualElement style="flex-grow: 1; width: 50%; justify-content: space-around; flex-direction: row; align-items: center;">
                 <ui:VisualElement name="map" style="flex-grow: 0; height: 40%; flex-shrink: 0; justify-content: flex-start; width: 80%; background-color: rgb(255, 255, 255);">
-                    <ui:Label tabindex="-1" text="Map" parse-escape-sequences="true" display-tooltip-when-elided="true" class="map-title" style="color: rgb(0, 0, 0); font-size: 28px; -unity-text-align: upper-left; margin-top: -7px; margin-bottom: -1px;" />
+                    <ui:Label tabindex="-1" text="Map" parse-escape-sequences="true" display-tooltip-when-elided="true" class="map-title" style="color: rgb(0, 0, 0); font-size: 28px; -unity-text-align: upper-left;" />
+                    <ui:Label tabindex="-1" text="Combats Won: 1/15" parse-escape-sequences="true" display-tooltip-when-elided="true" picking-mode="Ignore" class="map-title map-combat-counter" style="font-size: 22px; top: 5%;" />
                     <ui:VisualElement class="map-container">
                         <ui:VisualElement name="VisualElement" class="map-section">
                             <ui:VisualElement class="map-symbol" />
