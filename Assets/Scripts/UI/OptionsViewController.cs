@@ -148,6 +148,11 @@ public class OptionsViewController : MonoBehaviour
         String currentSceneName = SceneManager.GetActiveScene().name;
         if (currentSceneName == "CombatScene") {
             EnemyEncounterViewModel.Instance.SetInMenu(inMenu);
+            foreach (UIDocument doc in documents) {
+                if (doc != null && doc.rootVisualElement != null && (doc.name == "EndCombatScreen" || doc.name == "VictoryPopUp" || doc.name == "DefeatPopup")) {
+                    UIDocumentUtils.SetAllPickingMode(doc.rootVisualElement, inMenu ? PickingMode.Ignore : PickingMode.Position);
+            }
+        }
             return;
         } 
         if (currentSceneName == "PlaceholderShopEncounter") {

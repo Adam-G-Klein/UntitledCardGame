@@ -145,9 +145,10 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         }
 
         gameState.LoadNextLocation();
+        EnemyEncounterViewModel.Instance.SetInMenu(true);
         postCombatUI.SetActive(true);
         uIStateEvent.Raise(new UIStateEventInfo(UIState.END_ENCOUNTER));
-        postCombatUI.transform.SetSiblingIndex(postCombatUI.transform.parent.childCount - 1);
+        //postCombatUI.transform.SetSiblingIndex(postCombatUI.transform.parent.childCount - 1);
         postCombatUI.GetComponent<EndEncounterView>().Setup(baseGoldEarnedPerBattle, extraGold, gameState.baseShopData.interestCap, gameState.baseShopData.interestRate);
         TurnOffInteractions();
         StartCoroutine(displayPostCombatUIAfterDelay());
