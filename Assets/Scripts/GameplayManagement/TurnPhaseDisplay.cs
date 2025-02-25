@@ -35,7 +35,6 @@ public class TurnPhaseDisplay : MonoBehaviour {
 
     public IEnumerable DisplayEnemyTurn() {
         GameObject playerTurn = Instantiate(enemyTurnPrefab, effectParent.transform);
-        Debug.LogError("displaying enemy turn");
         yield return new WaitForSeconds(turnDisplayDuration);
         Destroy(playerTurn);
     }

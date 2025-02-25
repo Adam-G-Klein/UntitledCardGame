@@ -22,7 +22,7 @@ public class UIDocumentCard : MonoBehaviour
     [SerializeField]
     private Texture2D texture { get; set; }
     public static Vector2Int CARD_REFERENCE_RESOLUTION = new(400, 700);
-    public static Vector2 CARD_SIZE = new Vector2(1f, 1.5f);
+    public Vector2 CARD_SIZE = new Vector2(1f, 1.75f);
 
     [Header("Only for dev, one of the worst possible things you could do for GPU performance")]
     public bool renderTextureConstantly = false;
@@ -36,14 +36,15 @@ public class UIDocumentCard : MonoBehaviour
         if (pCard != null)
         {
             card = pCard.card;
-            Invoke("LateStart", 0.1f);
+            // without this we won't have a UIDocument in the render texture i guess? weird
+            Invoke("LateStart", 0.01f);
             return;
         }
         CardInShop cCard = GetComponent<CardInShop>();
         if (cCard != null)
         {
             card = cCard.cardDisplay.card;
-            Invoke("LateStart", 0.1f);
+            Invoke("LateStart", 0.01f);
             return;
         }
         Debug.LogError("UIDocumentCard: No card in playableCard component");
@@ -64,6 +65,8 @@ public class UIDocumentCard : MonoBehaviour
         doc.rootVisualElement.Add(cardView.cardContainer);
         UIDocumentUtils.SetAllPickingMode(doc.rootVisualElement, PickingMode.Ignore);
         spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.size = CARD_SIZE;
+        boxCollider.size = CARD_SIZE;
         pCard.UpdateCardText(); //we gonna run this shit like a millino times
         spriteRenderer.material.SetTexture("_SecondTex", doc.panelSettings.targetTexture);
     }
