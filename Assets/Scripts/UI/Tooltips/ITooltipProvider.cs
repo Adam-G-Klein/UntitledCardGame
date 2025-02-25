@@ -19,7 +19,7 @@ public enum TooltipKeyword {
 
     AttackIntent,
     DebuffIntent,
-    ChargingIntent, 
+    ChargingIntent,
     EyeOfArgos,
     Retain,
     Bulwark,
@@ -35,9 +35,11 @@ public enum TooltipKeyword {
     EmbuedKnife,
     GeneratedCard,
     PermanentlyRemove,
+    HiddenStrength,
+    TheGoodStuff,
 }
 public interface ITooltipProvider
 {
     TooltipViewModel GetTooltip();
-    
+
 }
