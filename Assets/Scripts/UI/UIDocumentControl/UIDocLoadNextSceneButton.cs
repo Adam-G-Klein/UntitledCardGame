@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using UnityEngine.UIElements;
 using UnityEngine;
 
-[RequireComponent(typeof(UIDocumentScreenspace))]
 public class UIDocLoadNextSceneButton: MonoBehaviour
 {
     public GameStateVariableSO gameState;
-    private UIDocumentScreenspace screenspaceDoc;
+    private UIDocument uiDocument;
     private VisualElement nextSceneButton;
 
     public void loadNextScene() {
@@ -18,10 +17,10 @@ public class UIDocLoadNextSceneButton: MonoBehaviour
     }
 
     private IEnumerator LateStart() {
-        screenspaceDoc = GetComponent<UIDocumentScreenspace>();
+        uiDocument = GetComponent<UIDocument>();
 
         yield return new WaitUntil(() => {
-            nextSceneButton = screenspaceDoc.GetVisualElement("next-scene");
+            nextSceneButton = uiDocument.rootVisualElement.Q<VisualElement>(name:"next-scene");
             return nextSceneButton != null;
             }
         );
@@ -31,12 +30,10 @@ public class UIDocLoadNextSceneButton: MonoBehaviour
 
         // so we get the nice default hover animation
         nextSceneButton.RegisterCallback<PointerEnterEvent>((evt) => {
-            screenspaceDoc.SetStateDirty();
             nextSceneButton.AddToClassList("button-hover");
         });
 
         nextSceneButton.RegisterCallback<PointerLeaveEvent>((evt) => {
-            screenspaceDoc.SetStateDirty();
             nextSceneButton.RemoveFromClassList("button-hover");
         });
 

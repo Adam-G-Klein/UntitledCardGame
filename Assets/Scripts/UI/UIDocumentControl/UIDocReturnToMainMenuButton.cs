@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using UnityEngine.UIElements;
 using UnityEngine;
 
-[RequireComponent(typeof(UIDocumentScreenspace))]
 public class UIDocReturnToMainMenuButton: MonoBehaviour
 {
-    private UIDocumentScreenspace screenspaceDoc;
+    private UIDocument uiDocument;
     private VisualElement nextSceneButton;
 
     public void ReturnToMainMenu() {
@@ -17,10 +16,10 @@ public class UIDocReturnToMainMenuButton: MonoBehaviour
     }
 
     private IEnumerator LateStart() {
-        screenspaceDoc = GetComponent<UIDocumentScreenspace>();
+        uiDocument = GetComponent<UIDocument>();
 
         yield return new WaitUntil(() => {
-            nextSceneButton = screenspaceDoc.GetVisualElement("main-menu");
+            nextSceneButton = uiDocument.rootVisualElement.Q<VisualElement>(name:"main-menu");
             return nextSceneButton != null;
             }
         );
@@ -30,12 +29,10 @@ public class UIDocReturnToMainMenuButton: MonoBehaviour
 
         // so we get the nice default hover animation
         nextSceneButton.RegisterCallback<PointerEnterEvent>((evt) => {
-            screenspaceDoc.SetStateDirty();
             nextSceneButton.AddToClassList("button-hover");
         });
 
         nextSceneButton.RegisterCallback<PointerLeaveEvent>((evt) => {
-            screenspaceDoc.SetStateDirty();
             nextSceneButton.RemoveFromClassList("button-hover");
         });
 
