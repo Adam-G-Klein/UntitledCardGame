@@ -28,9 +28,10 @@ public class KeyboardControlsManager : GenericSingleton<KeyboardControlsManager>
             inputManager.ProcessInput(InputAction.LEFT);
         } else if(Input.GetKeyDown(KeyCode.D)) {
             inputManager.ProcessInput(InputAction.RIGHT);
-        } else if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return)) {
+        } 
+        if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return)) {
             inputManager.ProcessInput(InputAction.SELECT);
-        } else if(Input.GetKeyDown(KeyCode.Backspace) || Input.GetKeyDown(KeyCode.Escape)) {
+        } else if(Input.GetKeyDown(KeyCode.Backspace) || Input.GetKeyDown(KeyCode.S)) {
             inputManager.ProcessInput(InputAction.BACK);
         } else if(Input.GetKeyDown(KeyCode.Space)) {
             inputManager.ProcessInput(InputAction.END_TURN);

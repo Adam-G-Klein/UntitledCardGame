@@ -6,7 +6,6 @@ using UnityEditor;
 using Unity.VisualScripting;
 using TMPro;
 using UnityEngine.UIElements;
-using UnityEditor.Tilemaps;
 
 [RequireComponent(typeof(EndEncounterEventListener))]
 public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IEncounterBuilder

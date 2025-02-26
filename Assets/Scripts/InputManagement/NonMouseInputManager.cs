@@ -44,6 +44,7 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
 
     // holder of this all-important state for now
     public InputMethod inputMethod = InputMethod.Mouse;
+    private Hoverable lastHoveredCard;
 
     void Update() {
     }
@@ -103,6 +104,9 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
         // if we have an arrow active, point it at what's hovered
         TargettingArrowsController.Instance.freezeArrow(currentlyHovered.gameObject);
         hoverIndicator.SetActive(true);
+        if(currentlyHovered.GetEntityType() == EntityType.Card) {
+            lastHoveredCard = currentlyHovered;
+        }
     }
 
     private List<Hoverable> filterHoverablesByEntityType(EntityType entityType, List<Hoverable> candidates) {
@@ -256,6 +260,7 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
                 break;
             case InputAction.BACK:
                 UIStateManager.Instance.TryCancelTargetting();
+                hover(lastHoveredCard);
                 Debug.Log("[NonMouseInputManager] State: EFFECT_TARGETTING, Action: BACK");
                 break;
             case InputAction.END_TURN:

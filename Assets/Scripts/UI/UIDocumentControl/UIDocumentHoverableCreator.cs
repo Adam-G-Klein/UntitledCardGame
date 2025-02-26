@@ -5,12 +5,11 @@ using System.Collections;
 using UnityEditor;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(RawImage))]
 [RequireComponent(typeof(UIDocument))]
-public class UIDocumentScreenspace : MonoBehaviour {
+public class UIDocumentHoverableCreator : MonoBehaviour {
 
     [SerializeField]
-    [Header("This script just holds a reference to the ui doc and sets up picking mode")]
+    [Header("This Script registers the listed visual elements as hoverables in screenspace")]
     public UIDocument doc;
 
     void Awake() {

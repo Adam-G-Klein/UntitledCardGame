@@ -31,21 +31,13 @@ public class UIDocEndTurnButtonController : MonoBehaviour {
 
         endTurnElement = screenspaceDoc.GetVisualElement("end-turn");
         
-        // make sure we get pointer events on this region of the screen
         endTurnElement.pickingMode = PickingMode.Position;
-
-        // so we get the nice default hover animation
-        endTurnElement.RegisterCallback<PointerEnterEvent>((evt) => {
-            screenspaceDoc.SetStateDirty();
-        });
-
-        endTurnElement.RegisterCallback<PointerLeaveEvent>((evt) => {
-            screenspaceDoc.SetStateDirty();
-        });
 
         endTurnElement.RegisterCallback<ClickEvent>((evt) => {
             endTurnButtonHandler();
         });
+
+        UIDocumentHoverableCallbackRegistry.Instance.RegisterCallback(endTurnElement.name, endTurnButtonHandler);
 
     }
 

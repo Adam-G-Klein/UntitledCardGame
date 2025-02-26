@@ -12,6 +12,7 @@ public class Hoverable : MonoBehaviour {
     private Targetable.TargetType targetType;
     // Only being used for smart default of hovering next card in hand after cast
     private EntityType entityType;
+    public bool hovered;
 
     void Start() {
         NonMouseInputManager.Instance.RegisterHoverable(this);
@@ -60,14 +61,21 @@ public class Hoverable : MonoBehaviour {
     }
 
     public void onHover() {
+        if(hovered) {
+            // Allows things like PlayableCard to tell us the mouse
+            // hovered us before nonmouse controls were on
+            return;
+        }
         Debug.Log("[NonMouseInputControls - Hoverable] hovering over " + gameObject.name);
+        hovered = true;
         foreach(IPointerEnterHandler handler in enterHandlers) {
             handler.OnPointerEnter(null);
         }
     }
 
     public void onUnhover() {
-        Debug.Log("[NonMouseInputControls] unhovering " + gameObject.name);
+        Debug.Log("[NonMouseInputControls - Hoverable] unhovering " + gameObject.name);
+        hovered = false;
         foreach(IPointerExitHandler handler in exitHandlers) {
             handler.OnPointerExit(null);
         }

@@ -30,6 +30,7 @@ public class PlayableCard : MonoBehaviour,
     public bool hovered = false;
 
     private UIState currentState;
+    private Hoverable hoverable;
 
     // Checked by PlayerHand when discarding the whole hand
     // set back to false there when it's checked
@@ -52,6 +53,7 @@ public class PlayableCard : MonoBehaviour,
     public void Start()
     {
         transform.localScale = new Vector3(nonHoverScale, nonHoverScale, 1);
+        hoverable = GetComponent<Hoverable>();
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -206,6 +208,11 @@ public class PlayableCard : MonoBehaviour,
     {
         if(!interactable) return;
         hovered = true;
+        if(hoverable != null) {
+            // Make sure hoverable knows that we've already processed
+            // this hover in case keyboard controls turn on
+            hoverable.hovered = true;
+        }
         //MusicController.Instance.PlaySFX(cardHover, hoverSFXVolume);
         //Replace with FMOD Event
         // Set the volume first
