@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Refinance
   m_EditorClassIdentifier: 
   Name: Refinance
-  Description: Retain. Exhaust. Transform all Debt cards in hand into copies of target
-    card.
+  Description: Retain. Exhaust. Transform all Debt cards everywhere into copies of
+    target card.
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 6ea2475484f389f4bb3e309b575cdf7e, type: 3}
@@ -71,8 +71,8 @@ MonoBehaviour:
         cardToTransformInto: {fileID: 0}
         getCardToTransformIntoFromKey: 1
         inputCardKey: underlyingCard
-        includeDrawPile: 0
-        includeDiscardPile: 0
+        includeDrawPile: 1
+        includeDiscardPile: 1
         includeCardsInHand: 1
     - rid: 4463206030013890712
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
