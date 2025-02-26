@@ -68,4 +68,8 @@ public abstract class EffectStep
     protected void EffectError(string errorString) {
         Debug.LogError(effectStepName + " Effect: " + errorString);
     }
+
+    protected void EffectLog(string logString) {
+        Debug.Log("[" + effectStepName + "]" + logString);
+    }
 }

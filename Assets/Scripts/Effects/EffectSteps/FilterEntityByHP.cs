@@ -18,9 +18,10 @@ public class FilterEntityByHP : EffectStep, IEffectStepCalculation
     }
 
     public override IEnumerator invoke(EffectDocument document) {
-        List<CombatInstance> combatInstances = document.map.GetList<CombatInstance>(inputKey);
+        // This is used in our text replacement workflows, so being a little more careful before querying
+        List<CombatInstance> combatInstances = document.map.TryGetList<CombatInstance>(inputKey);
         if (combatInstances.Count == 0) {
-            EffectError("No input targets present for key " + inputKey);
+            EffectLog("No input targets present for key " + inputKey);
             yield return null;
         }
         List<CombatInstance> filteredList = new List<CombatInstance>();
@@ -53,7 +54,7 @@ public class FilterEntityByHP : EffectStep, IEffectStepCalculation
     private void FilterEnemyInstances(
             EffectDocument document,
             List<CombatInstance> filteredCombatInstances) {
-        List<EnemyInstance> enemyInstances = document.map.GetList<EnemyInstance>(inputKey);
+        List<EnemyInstance> enemyInstances = document.map.TryGetList<EnemyInstance>(inputKey);
         List<EnemyInstance> filteredEnemyInstances = new List<EnemyInstance>();
         foreach (EnemyInstance instance in enemyInstances) {
             if (filteredCombatInstances.Contains(instance.combatInstance)) {
@@ -66,7 +67,7 @@ public class FilterEntityByHP : EffectStep, IEffectStepCalculation
     private void FilterDeckInstances(
             EffectDocument document,
             List<CombatInstance> filteredCombatInstances) {
-        List<DeckInstance> deckInstances = document.map.GetList<DeckInstance>(inputKey);
+        List<DeckInstance> deckInstances = document.map.TryGetList<DeckInstance>(inputKey);
         List<DeckInstance> filteredDeckInstances = new List<DeckInstance>();
         foreach (DeckInstance instance in deckInstances) {
             if (filteredCombatInstances.Contains(instance.combatInstance)) {

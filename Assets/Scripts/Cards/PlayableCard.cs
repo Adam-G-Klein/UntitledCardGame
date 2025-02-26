@@ -104,12 +104,14 @@ public class PlayableCard : MonoBehaviour,
             yield return StartCoroutine(PlayerHand.Instance.DiscardCard(this));
         }
 
+        PlayerHand.Instance.UpdatePlayableCards();
         // If the hand is empty as a result of playing this card, invoke any subscribers.
         if (PlayerHand.Instance.cardsInHand.Count == 0) {
             Debug.Log("Hand is empty, triggering downstream OnHandEmpty subscribers");
             yield return PlayerHand.Instance.OnHandEmpty();
+        } else if(NonMouseInputManager.Instance.inputMethod != InputMethod.Mouse) {
+            NonMouseInputManager.Instance.hoverACard(new List<PlayableCard> { this });
         }
-        PlayerHand.Instance.UpdatePlayableCards();
     }
 
     public void CardExhaustVFX() {

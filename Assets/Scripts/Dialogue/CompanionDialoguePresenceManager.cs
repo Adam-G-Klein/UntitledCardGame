@@ -30,8 +30,8 @@ public class CompanionDialoguePresenceManager : MonoBehaviour
 
     void Start() 
     {
-        //initStartTime = Time.time;
-        //StartCoroutine(Initialize());
+        initStartTime = Time.time;
+        StartCoroutine(Initialize());
     }
 
     private IEnumerator initializeDialogueManagerLocation() {

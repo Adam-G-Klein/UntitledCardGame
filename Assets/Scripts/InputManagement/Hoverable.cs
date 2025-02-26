@@ -35,8 +35,9 @@ public class Hoverable : MonoBehaviour {
         // if the instance is destroyed, the game is shutting down.
         // if we don't check this, generic singleton will spawn the instance again
         // which causes an error in editor, and potentially a memory leak in the build
-        if(!NonMouseInputManager.isDestroyed)
+        if(!NonMouseInputManager.isDestroyed) {
             NonMouseInputManager.Instance.UnregisterHoverable(this);
+        }
     }
 
     // TODO, abstract for the shop
@@ -59,7 +60,7 @@ public class Hoverable : MonoBehaviour {
     }
 
     public void onHover() {
-        Debug.Log("[NonMouseInputControls] hovering over " + gameObject.name);
+        Debug.Log("[NonMouseInputControls - Hoverable] hovering over " + gameObject.name);
         foreach(IPointerEnterHandler handler in enterHandlers) {
             handler.OnPointerEnter(null);
         }

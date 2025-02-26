@@ -99,6 +99,7 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
         currentlyHovered = hover;
         currentlyHovered.onHover();
         hoverIndicator.transform.position = new Vector3(currentlyHovered.transform.position.x, currentlyHovered.transform.position.y, currentlyHovered.transform.position.z + hoverIndicatorZDelta);
+        Debug.Log("[NonMouseInputManager] Hovering over: " + currentlyHovered.name + " position: " + currentlyHovered.transform.position);
         // if we have an arrow active, point it at what's hovered
         TargettingArrowsController.Instance.freezeArrow(currentlyHovered.gameObject);
         hoverIndicator.SetActive(true);
@@ -295,11 +296,31 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
         }
     }
 
-    public IEnumerator hoverACard(){
+    // If currently finishing casting card is eligible, it could get hovered
+    // not what we want, cuz it's about to get destroyed. So explicitly exclude it
+    public void hoverACard(List<PlayableCard> exclude = null){
         List<Hoverable> cards = filterHoverablesByEntityType(EntityType.Card, allHoverables);
-        if(cards.Count > 0) {
-            hover(cards[0]);
+        // filter cards by whether they're playable
+        List<PlayableCard> playableCards = new List<PlayableCard>();
+        foreach(Hoverable card in cards) {
+            PlayableCard playableCard = card.GetComponent<PlayableCard>();
+            if(playableCard != null 
+                && (exclude == null || !exclude.Contains(playableCard))
+                && playableCard.card.cardType.playable) {
+                playableCards.Add(playableCard);
+            }
         }
-        yield return null;
+
+        // filter cards by whether we have enough mana to play them
+        List<PlayableCard> affordableCards = new List<PlayableCard>();
+        foreach(PlayableCard card in playableCards) {
+            if(card.card.GetManaCost() <= ManaManager.Instance.currentMana) {
+                affordableCards.Add(card);
+            }
+        }
+        if(affordableCards.Count > 0) {
+           Debug.Log("[NonMouseInputManager] Found a playable and affordable card, hovering card: " + affordableCards[0].name);
+            hover(affordableCards[0].GetComponent<Hoverable>());
+        }
     }
 }
