@@ -105,9 +105,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doc: {fileID: 4147916199906028967}
-  stateDirty: 1
-  initialized: 0
-  constantStateUpdate: 0
 --- !u!114 &6406590083850505850
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,6 +150,7 @@ GameObject:
   - component: {fileID: 7148703676392390901}
   - component: {fileID: 5946589008991207965}
   - component: {fileID: 9176702735516032690}
+  - component: {fileID: 8257885855648288631}
   m_Layer: 5
   m_Name: CombatUI
   m_TagString: Untagged
@@ -359,8 +357,6 @@ MonoBehaviour:
   gameplayConstants: {fileID: 11400000, guid: a6db1936fe0d3a647b09f3d8297fef23, type: 2}
   statusEffectsSO: {fileID: 11400000, guid: b5e8681fc02be284eb308731b490c4c5, type: 2}
   enemyIntentsSO: {fileID: 11400000, guid: 7026f245c48ccae44a9d1a474d167c57, type: 2}
-  pulseAnimationSpeed: 0.1
-  animateHearts: 0
   cardViewUIPrefab: {fileID: 5377055111114097650, guid: 1fd8415aef0620b4eaee61fe5e3ed571, type: 3}
 --- !u!114 &9176702735516032690
 MonoBehaviour:
@@ -375,9 +371,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doc: {fileID: 5558227210676135366}
-  stateDirty: 0
-  initialized: 0
-  constantStateUpdate: 0
+--- !u!114 &8257885855648288631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 782343934611933542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d41e2a12914ccc42a848ed6dea4d829, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverablePrefab: {fileID: 6572452657296451063, guid: f2e6d3e41930a5b489fe64c1833143c8, type: 3}
 --- !u!1 &2627483554680799874
 GameObject:
   m_ObjectHideFlags: 0
@@ -705,9 +711,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doc: {fileID: 4023553469430147025}
-  stateDirty: 1
-  initialized: 0
-  constantStateUpdate: 0
 --- !u!114 &9209202184908782351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -729,6 +732,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2709482351621439903}
     m_Modifications:
+    - target: {fileID: 1410996028190682901, guid: 5d34dcab1cf2a7a448f126a48c2a09f0, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3031822620030129180, guid: 5d34dcab1cf2a7a448f126a48c2a09f0, type: 3}
       propertyPath: m_Name
       value: GenericCompanionSpeaker

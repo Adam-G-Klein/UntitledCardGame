@@ -37,7 +37,7 @@ public class UIDocEndTurnButtonController : MonoBehaviour {
             endTurnButtonHandler();
         });
 
-        UIDocumentHoverableCallbackRegistry.Instance.RegisterCallback(endTurnElement.name, endTurnButtonHandler);
+        UIDocumentHoverableInstantiator.Instance.InstantiateHoverable(endTurnElement, endTurnButtonHandler);
 
     }
 

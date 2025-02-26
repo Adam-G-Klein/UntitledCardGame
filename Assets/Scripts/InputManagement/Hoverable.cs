@@ -14,6 +14,7 @@ public class Hoverable : MonoBehaviour {
     private EntityType entityType;
     public bool hovered;
 
+    public bool forUIDocElement = false;
     void Start() {
         NonMouseInputManager.Instance.RegisterHoverable(this);
         enterHandlers = new List<IPointerEnterHandler>(GetComponents<IPointerEnterHandler>());

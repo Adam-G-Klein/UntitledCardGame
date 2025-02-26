@@ -41,7 +41,7 @@ public class FilterEntityByHP : EffectStep, IEffectStepCalculation
     private void FilterCompanionInstances(
             EffectDocument document,
             List<CombatInstance> filteredCombatInstances) {
-        List<CompanionInstance> companionInstances = document.map.GetList<CompanionInstance>(inputKey);
+        List<CompanionInstance> companionInstances = document.map.TryGetList<CompanionInstance>(inputKey);
         List<CompanionInstance> filteredCompanionInstances = new List<CompanionInstance>();
         foreach (CompanionInstance instance in companionInstances) {
             if (filteredCombatInstances.Contains(instance.combatInstance)) {
