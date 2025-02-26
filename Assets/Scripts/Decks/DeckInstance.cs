@@ -173,6 +173,10 @@ public class DeckInstance : MonoBehaviour
         newDrawPile.AddRange(cards);
         drawPile = newDrawPile;
     }
+    public void AddCardsToDiscard(List<Card> cards){
+        Debug.Log("Adding " + cards.Count + " cards to the discard pile");
+        discardPile.AddRange(cards);
+    }
 
     public bool ContainsCardById(string id){
         return drawPile.Exists(c => c.id == id) || discardPile.Exists(c => c.id == id);

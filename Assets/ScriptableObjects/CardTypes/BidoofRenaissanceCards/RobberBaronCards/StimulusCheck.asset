@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: StimulusCheck
   m_EditorClassIdentifier: 
   Name: Stimulus Check
-  Description: Draw 1 card from each companion and put a Debt card on the bottom
-    of this companion's deck
+  Description: Draw 1 card from each companion, then add a Debt card to this companion's
+    discard pile.
+  defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: e8c1b164e48b3ed4ea21cc0ef5d14b1a, type: 3}
   cardCategory: 2
@@ -102,7 +103,7 @@ MonoBehaviour:
         inputKey: self
         cardTypes:
         - {fileID: 11400000, guid: 367e46b6621aa4d0186413c566fc3329, type: 2}
-        addToDeckMethod: 2
+        addToDeckMethod: 4
         getCardsFromKey: 0
         inputCardsKey: 
         scale: 1

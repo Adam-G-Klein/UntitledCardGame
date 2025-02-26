@@ -38,11 +38,10 @@ public class FilterCards : EffectStep, IEffectStepCalculation {
         foreach (PlayableCard card in inputPlayableCards) {
             if (filter.ApplyFilter(card.card)) {
                 playableCards.Add(card);
-                outputCards.Add(card.card);
             }
         }
-        document.map.AddItems<Card>(outputKey, outputCards);
-        document.map.AddItems<PlayableCard>(outputKey, playableCards);
+        document.map.AddItems<Card>(outputKey, outputCards, outputKey);
+        document.map.AddItems<PlayableCard>(outputKey, playableCards, outputKey);
         yield return null;
     }
 

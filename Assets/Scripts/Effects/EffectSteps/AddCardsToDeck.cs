@@ -109,6 +109,9 @@ public class AddCardsToDeck : EffectStep {
                 case AddMethod.PermanentlyAdd:
                     deckInstance.sourceDeck.cards.AddRange(cards);
                     break;
+                case AddMethod.AddToDiscard:
+                    deckInstance.AddCardsToDiscard(cards);
+                    break;
             }
         }
     }
@@ -118,5 +121,6 @@ public class AddCardsToDeck : EffectStep {
         ShuffleIn,
         AddToBottom,
         PermanentlyAdd,
+        AddToDiscard,
     }
 }
