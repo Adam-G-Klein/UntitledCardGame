@@ -82,7 +82,6 @@ public class OptionsViewController : MonoBehaviour
     }
 
     public void onCompendiumButtonHandler() {
-        Debug.LogError("Compendium button clicked");
         compendiumUIDocument.rootVisualElement.style.visibility = Visibility.Visible;
         compendiumView = null; // in the future we would ideally have some way of tracking if it had to be recreated based on change in gamestate
         compendiumView = new CompendiumView(compendiumUIDocument, companionPool, neutralCardPool);
@@ -91,30 +90,6 @@ public class OptionsViewController : MonoBehaviour
     public void onVolumeSliderChangedHandler(float value) {
         MusicController2.Instance.SetVolume(value);
     }
-
-    /*public void onFullscreenChangedHandler(int index) {
-        string option = fullscreenDropdown.options[index].text;
-        
-        switch(option) {
-            case "Enabled":
-                Screen.fullScreen = true;
-                resolutionDropdown.interactable = false;
-            break;
-
-            case "Disabled":
-                Screen.fullScreen = false;
-                resolutionDropdown.interactable = true;
-            break;
-        }
-    }
-
-    public void onResolutionChangedHandler(int index) {
-        string option = resolutionDropdown.options[index].text;
-
-        int width = Int32.Parse(option.Split("x")[0]);
-        int height = Int32.Parse(option.Split("x")[1]);
-        Screen.SetResolution(width, height, Screen.fullScreen);
-    }*/
     
     public void OnTimescaleSliderChange(float value) {
         Time.timeScale = 1 + (value * 4);
@@ -126,43 +101,14 @@ public class OptionsViewController : MonoBehaviour
 
     public void ToggleVisibility(bool enable = false) {
         if (enable) {
-            Debug.Log("toggling options visible");
             canvasGroup.blocksRaycasts = true;
             UIDocumentUtils.SetAllPickingMode(optionsUIDocument.rootVisualElement, PickingMode.Position);
             optionsUIDocument.rootVisualElement.style.visibility = Visibility.Visible;
-            // get all UIDocuments in the scene
-            List<UIDocument> documents = FindObjectsOfType<UIDocument>().Where(doc => doc != optionsUIDocument && doc != compendiumUIDocument).ToList();
-            ToggleUIDocs(documents, true);
         } else {
-            Debug.Log("toggling options hidden");
             canvasGroup.blocksRaycasts = false;
             UIDocumentUtils.SetAllPickingMode(optionsUIDocument.rootVisualElement, PickingMode.Ignore);
             optionsUIDocument.rootVisualElement.style.visibility = Visibility.Hidden;
             compendiumUIDocument.rootVisualElement.style.visibility = Visibility.Hidden;
-            List<UIDocument> documents = FindObjectsOfType<UIDocument>().Where(doc => doc != optionsUIDocument && doc != compendiumUIDocument).ToList();
-            ToggleUIDocs(documents, false);
-        }
-    }
-
-    private void ToggleUIDocs(List<UIDocument> documents, bool inMenu) {
-        String currentSceneName = SceneManager.GetActiveScene().name;
-        if (currentSceneName == "CombatScene") {
-            EnemyEncounterViewModel.Instance.SetInMenu(inMenu);
-            foreach (UIDocument doc in documents) {
-                if (doc != null && doc.rootVisualElement != null && (doc.name == "EndCombatScreen" || doc.name == "VictoryPopUp" || doc.name == "DefeatPopup")) {
-                    UIDocumentUtils.SetAllPickingMode(doc.rootVisualElement, inMenu ? PickingMode.Ignore : PickingMode.Position);
-            }
-        }
-            return;
-        } 
-        if (currentSceneName == "PlaceholderShopEncounter") {
-            ShopManager.Instance.shopViewController.SetDisplayStyle(!inMenu); // super jank rn
-            return;
-        }
-        foreach (UIDocument doc in documents) {
-            if (doc != null && doc.rootVisualElement != null) {
-                UIDocumentUtils.SetAllPickingMode(doc.rootVisualElement, inMenu ? PickingMode.Ignore : PickingMode.Position);
-            }
         }
     }
 
