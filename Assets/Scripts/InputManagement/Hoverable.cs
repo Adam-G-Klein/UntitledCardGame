@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Playables;
+using UnityEngine.UIElements;
 
 public class Hoverable : MonoBehaviour {
 
@@ -14,7 +15,7 @@ public class Hoverable : MonoBehaviour {
     private EntityType entityType;
     public bool hovered;
 
-    public bool forUIDocElement = false;
+    public VisualElement associatedUIDocElement = null;
     void Start() {
         NonMouseInputManager.Instance.RegisterHoverable(this);
         enterHandlers = new List<IPointerEnterHandler>(GetComponents<IPointerEnterHandler>());
@@ -72,6 +73,7 @@ public class Hoverable : MonoBehaviour {
         foreach(IPointerEnterHandler handler in enterHandlers) {
             handler.OnPointerEnter(null);
         }
+
     }
 
     public void onUnhover() {
@@ -85,6 +87,9 @@ public class Hoverable : MonoBehaviour {
     public void onSelect() {
         foreach(IPointerClickHandler handler in clickHandlers) {
             handler.OnPointerClick(null);
+        }
+        if(associatedUIDocElement != null) {
+            UIDocumentHoverableCallbackRegistry.Instance.InvokeCallback(associatedUIDocElement.name);
         }
     }
 

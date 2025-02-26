@@ -17,8 +17,10 @@ public class UIDocumentHoverableInstantiator : GenericSingleton<UIDocumentHovera
         // get the position from 
         Vector3 position = UIDocumentGameObjectPlacer.GetWorldPositionFromElement(element);
         // shouldn't need to care about z position because the hover indicator should render on top regardless
-        GameObject hoverable = Instantiate(hoverablePrefab, position, Quaternion.identity);
-        hoverable.name = element.name + "-Hoverable";
+        GameObject hoverableGO = Instantiate(hoverablePrefab, position, Quaternion.identity);
+        hoverableGO.name = element.name + "-Hoverable";
+        Hoverable hoverable = hoverableGO.GetComponent<Hoverable>();
+        hoverable.associatedUIDocElement = element;
         UIDocumentHoverableCallbackRegistry.Instance.RegisterCallback(element.name, callback);
     }
 }
