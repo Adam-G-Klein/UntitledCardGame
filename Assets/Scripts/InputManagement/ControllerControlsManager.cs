@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class KeyboardControlsManager : GenericSingleton<KeyboardControlsManager> {
+public class ControllerControlsManager : GenericSingleton<KeyboardControlsManager> {
 
     private NonMouseInputManager inputManager;
 
@@ -48,6 +48,17 @@ public class KeyboardControlsManager : GenericSingleton<KeyboardControlsManager>
             inputManager.ProcessInput(InputAction.OPEN_COMPANION_5_DRAW);
         }
         */
+
+        if(Input.GetAxis("Horizontal") > 0) {
+            inputManager.ProcessInput(InputAction.RIGHT);
+        } else if(Input.GetAxis("Horizontal") < 0) {
+            inputManager.ProcessInput(InputAction.LEFT);
+        } else if(Input.GetAxis("Vertical") > 0) {
+            inputManager.ProcessInput(InputAction.UP);
+        } else if(Input.GetAxis("Vertical") < 0) {
+            inputManager.ProcessInput(InputAction.DOWN);
+        }
+
     }
 
 

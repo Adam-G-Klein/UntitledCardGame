@@ -386,6 +386,7 @@ GameObject:
   - component: {fileID: 7700365502150171869}
   - component: {fileID: 4558820936676000176}
   - component: {fileID: 5273491878671294976}
+  - component: {fileID: 5733018872847233645}
   m_Layer: 0
   m_Name: NonMouseInputManager
   m_TagString: Untagged
@@ -436,5 +437,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 41f7f412bdd718a408577707f8342628, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5733018872847233645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7220715729207639348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 936a33ec8b1c6f24ebcff484e244a879, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
