@@ -53,7 +53,6 @@ public class CombatEncounterView : MonoBehaviour,
             Debug.LogError("Active encounter is not an EnemyEncounter, Go to ScriptableObjects/Variables/GameState.so and hit Set Active Encounter to set the encounter to an enemy encounter");
             return;
         }
-        setupCardSlots();
         List<Enemy> enemies = ((EnemyEncounter)gameState.activeEncounter.GetValue()).enemyList;
         List<Companion> companions = gameState.companions.activeCompanions;
         setupEntities(root.Q<VisualElement>("enemyContainer"), enemies.Cast<IUIEntity>(), true);
@@ -111,23 +110,6 @@ public class CombatEncounterView : MonoBehaviour,
         pickingModePositionList.Add(newEntityView);
         entityViews.Add(newEntityView);
         return newEntityView.entityContainer;
-    }
-
-    private void setupCardSlots()
-    {
-        var container = root.Q<VisualElement>("cardContainer");
-        int index = UIDocumentGameObjectPlacer.INITIAL_INDEX;
-        int maxHandSize = gameplayConstants.MAX_HAND_SIZE;
-        for (int i = 0; i < maxHandSize; i++) {
-            VisualElement cardContainer = new VisualElement();
-            cardContainer.AddToClassList("companion-card-placer");
-            container.Add(cardContainer);
-            var card = new VisualElement();
-            card.name = UIDocumentGameObjectPlacer.CARD_UIDOC_ELEMENT_PREFIX + index;
-            card.AddToClassList("cardPlace");
-            cardContainer.Add(card);
-            index++;
-        }
     }
 
     public void updateMana(int mana) {

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using Unity.Collections;
 using System.Linq;
+using UnityEngine.Playables;
 
 
 [ExecuteInEditMode]
@@ -29,6 +30,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     public event OnDeckShuffleHandler onDeckShuffledHandler;
 
     private bool cardsInHandLocked = false;
+    private Dictionary<GameObject, FXExperience> GOToFXExperience = new();
 
     void Start() {
         cardPrefab = EnemyEncounterManager.Instance.encounterConstants.cardPrefab;
@@ -52,13 +54,18 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                 Debug.Log("PlayerHand: Hand is full, not dealing card");
                 break;
             }
-            WorldPositionVisualElement newCardPlacement = UIDocumentGameObjectPlacer.Instance.checkoutCardMapping();
+
+            // okay so the real problem here is that createCardSlot updates the core UIDocument and we need to give it a few frames for all of the
+            // newly created elements to understand where they are.
+            // After the elements have been successfully updated AnimateCardsAfterLayout will be called and they'll start moving now that they know where 
+            // they need to go. 
+            WorldPositionVisualElement newCardPlacement = UIDocumentGameObjectPlacer.Instance.CreateCardSlot(() => {AnimateCardsAfterLayout(cardsDelt, deckFrom);});
             newCard = PrefabInstantiator.InstantiateCard(
                 cardPrefab,
                 EnemyEncounterManager.Instance.transform,
                 cardInfo,
                 deckFrom,
-                newCardPlacement.worldPos);
+                deckFrom.transform.position);
             newCard.gameObject.name = cardInfo.name;
             newCard.interactable = false;
             UIDocumentGameObjectPlacer.Instance.addMapping(newCardPlacement, newCard.gameObject);
@@ -67,14 +74,37 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             }
             cardsInHand.Add(newCard);
             cardsDelt.Add(newCard);
-            CardDrawVFX(deckFrom.transform.position, newCardPlacement.worldPos, newCard.gameObject);
         }
-        //PlayerHand.Instance.UpdatePlayableCards();
+
         return cardsDelt;
     }
 
+    private void AnimateCardsAfterLayout(List<PlayableCard> cardsDelt, DeckInstance deckFrom) {
+        for (int i = 0; i < cardsInHand.Count; i++) {
+            PlayableCard cardToMove = cardsInHand[i];
+            cardToMove.interactable = false; // hovering a card changes its position so we really need that to not happen while they are moving to their new spot
+            WorldPositionVisualElement WPVE = UIDocumentGameObjectPlacer.Instance.GetCardWPVEFromGO(cardToMove.gameObject);
+            WPVE.UpdatePosition();
+            
+            if (cardsDelt.Contains(cardToMove)) {
+                CardDrawVFX(deckFrom.transform.position, WPVE.worldPos, cardToMove.gameObject);
+            } else {
+                CardDrawVFX(cardToMove.transform.position, WPVE.worldPos, cardToMove.gameObject);
+            }
+        }
+    }
+
+        
     private void CardDrawVFX(Vector3 fromLocation, Vector3 toLocation, GameObject gameObject) {
+        if (GOToFXExperience.ContainsKey(gameObject) && GOToFXExperience[gameObject] != null) {
+            GOToFXExperience[gameObject].EarlyStop();
+        }
+        // TODO: update the FXExprience to do rotation as well, this was as much as I could muster rn. 
+        LeanTween.cancel(gameObject);
+        LeanTween.rotate(gameObject, new Vector3(0, 0, UIDocumentGameObjectPlacer.Instance.GetCardWPVEFromGO(gameObject).ve.style.rotate.value.angle.value), .75f).setEase(LeanTweenType.easeInOutQuad);
+
         FXExperience experience = PrefabInstantiator.instantiateFXExperience(cardDrawVFXPrefab, Vector3.zero);
+        GOToFXExperience[gameObject] = experience;
 
         experience.AddLocationToKey("companion", fromLocation);
         experience.AddLocationToKey("hand", toLocation);
@@ -84,6 +114,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         experience.StartExperience( () => {
             Debug.Log("Card draw VFX finished");
             gameObject.GetComponent<PlayableCard>().interactable = true;
+            gameObject.GetComponent<PlayableCard>().SetBasePosition();
         });
     }
 
@@ -106,6 +137,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                         card.retained = false;
                     }
                 } else {
+                    UIDocumentGameObjectPlacer.Instance.RemoveCardSlot(card.gameObject);
                     callback = DiscardCard(card);
                     if(NonMouseInputManager.Instance.inputMethod != InputMethod.Mouse) {
                         // Doesn't work, iteration to be done
@@ -166,6 +198,11 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         if(card.gameObject.activeSelf) {
             card.DiscardToDeck();
         }
+    }
+
+    public IEnumerator ResizeHand(PlayableCard card) {
+        UIDocumentGameObjectPlacer.Instance.RemoveCardSlot(card.gameObject, () => {AnimateCardsAfterLayout(new List<PlayableCard>(), null);});
+        yield return null;
     }
 
     // Do not call on whole hand, only call on individual cards

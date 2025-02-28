@@ -27,7 +27,9 @@ public class WorldPositionVisualElement {
     public WorldPositionVisualElement() {
         this.worldPos = Vector3.zero;
     }
-    
+    public void UpdatePosition() {
+        worldPos = UIDocumentGameObjectPlacer.GetWorldPositionFromElement(this.ve);
+    }
 }
 
 public class PlacementPool {
@@ -37,10 +39,12 @@ public class PlacementPool {
     // Used by encounterBuilder to get the position before instantiation
     // so the gameobject isn't available yet
     private WorldPositionVisualElement placementOnDeck;
+    private Dictionary<GameObject, WorldPositionVisualElement> gameObjectToPosition;
     public PlacementPool(string prefix, VisualElement root) {
         this.prefix = prefix;
         this.root = root;
         placements = new Dictionary<WorldPositionVisualElement, GameObject>();
+        gameObjectToPosition = new Dictionary<GameObject, WorldPositionVisualElement>();
     }
 
     // Called by the gameobject placer once it detects the UIDocument is ready for us
@@ -76,7 +80,11 @@ public class PlacementPool {
             Debug.LogError("UIDocGameObjectPlacer: visual element " + ve.ve.name + " mapped without being requested first");
         }
         placements[ve] = go;
+        gameObjectToPosition[go] = ve;
+    }
 
+    public WorldPositionVisualElement GetCardWPVEFromGO(GameObject GO) {
+        return gameObjectToPosition[GO];
     }
 
     public void removeMapping(GameObject go) {
@@ -125,6 +133,7 @@ public class UIDocumentGameObjectPlacer : GenericSingleton<UIDocumentGameObjectP
 
     private PlacementPool companionPlacements;
     private PlacementPool enemyPlacements;
+    private VisualElement cardsContainer;
     private PlacementPool cardPlacements;
     private List<PlacementPool> placementPools; 
     private bool mapsInitialized = false;
@@ -133,6 +142,7 @@ public class UIDocumentGameObjectPlacer : GenericSingleton<UIDocumentGameObjectP
     void Awake() {
         mapsInitialized = false;
         VisualElement root = uiDoc.rootVisualElement;
+        cardsContainer = root.Q<VisualElement>(name:"cardContainer");
         companionPlacements = new PlacementPool(COMPANION_UIDOC_ELEMENT_PREFIX, root);
         enemyPlacements = new PlacementPool(ENEMY_UIDOC_ELEMENT_PREFIX, root);        
         cardPlacements = new PlacementPool(CARD_UIDOC_ELEMENT_PREFIX, root);         
@@ -199,8 +209,74 @@ public class UIDocumentGameObjectPlacer : GenericSingleton<UIDocumentGameObjectP
         return enemyPlacements.checkoutPlacement();
     }
 
-    public WorldPositionVisualElement checkoutCardMapping(){
-        return cardPlacements.checkoutPlacement();
+    public WorldPositionVisualElement CreateCardSlot(Action callback)
+    {
+        VisualElement newCardContainer = new VisualElement();
+        newCardContainer.AddToClassList("companion-card-placer");
+        var card = new VisualElement();
+        //card.name = UIDocumentGameObjectPlacer.CARD_UIDOC_ELEMENT_PREFIX + index;
+        card.AddToClassList("cardPlace");
+        newCardContainer.Add(card);
+
+        // when the visual element is done understanding it's new position call the provided callback function
+        EventCallback<GeometryChangedEvent> handler = null;
+        handler = evt => {
+            (evt.target as VisualElement).UnregisterCallback(handler);
+            callback();
+        };
+        newCardContainer.RegisterCallback(handler);
+
+        cardsContainer.Add(newCardContainer);
+        UpdateSlotStylings();
+        return new WorldPositionVisualElement(newCardContainer, UIDocumentGameObjectPlacer.GetWorldPositionFromElement(newCardContainer));
+    }
+
+    public void UpdateSlotStylings() {
+        float center = (cardsContainer.childCount - 1) / 2.0f;
+        Debug.Log(center);
+        for (var i = 0; i < cardsContainer.childCount; i++) {
+            VisualElement child = cardsContainer[i];
+            child.style.rotate = new Rotate(new Angle((center - i) * 2.0f));
+            child.style.translate = new StyleTranslate(new Translate(0, 10f * Math.Abs(i - center)));
+        }
+    }
+
+    public WorldPositionVisualElement GetCardWPVEFromGO(GameObject GO)
+    {
+        return cardPlacements.GetCardWPVEFromGO(GO);
+    }
+
+    public void RemoveCardSlot(GameObject GO, Action onLayoutComplete = null) {
+        if (GO == null) return;
+        WorldPositionVisualElement WPVE = GetCardWPVEFromGO(GO);
+        if (WPVE == null) return;
+        VisualElement ve = WPVE.ve;
+        if (ve == null || cardsContainer == null) return;
+        
+        if (cardsContainer.childCount > 1) {
+            VisualElement siblingToWatch = null;
+            foreach (var child in cardsContainer.Children()) {
+                if (child != ve) {
+                    siblingToWatch = child;
+                    break;
+                }
+            }
+            
+            if (siblingToWatch != null && onLayoutComplete != null) {
+                EventCallback<GeometryChangedEvent> handler = null;
+                handler = evt => {
+                    siblingToWatch.UnregisterCallback(handler);
+                    onLayoutComplete();
+                };
+                
+                siblingToWatch.RegisterCallback(handler);
+            }
+        } else if (onLayoutComplete != null) {
+            onLayoutComplete();
+        }
+        
+        ve.RemoveFromHierarchy();
+        UpdateSlotStylings();
     }
 
     public void addMapping(WorldPositionVisualElement wpve, GameObject go) {
@@ -266,12 +342,4 @@ public class UIDocumentGameObjectPlacer : GenericSingleton<UIDocumentGameObjectP
         Debug.Log("Companion places count: " + count);
         return count;
     }
-
-    
-
-
-
-
-
-
 }

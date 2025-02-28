@@ -10,6 +10,7 @@ public class FXExperience : MonoBehaviour
 {
     public PlayableDirector playableDirector;
     public List<Location> locations = new List<Location>();
+    private bool earlyStopped = false;
 
     public delegate void VoidDelegate();
 
@@ -71,10 +72,26 @@ public class FXExperience : MonoBehaviour
     }
 
     private void OnPlayableDirectorStopped(PlayableDirector director) {
-        if (onExperienceOver != null) {
+        if (onExperienceOver != null && !earlyStopped) {
             onExperienceOver();
         }
-        Destroy(this.gameObject);
+        playableDirector.stopped -= OnPlayableDirectorStopped;
+        onExperienceOver = null;
+        StartCoroutine(DestroyAfterFrame());
+    }
+
+    private IEnumerator DestroyAfterFrame() {
+        yield return null;
+        Destroy(gameObject);
+    }
+
+    public void EarlyStop() {
+        earlyStopped = true;
+        if (playableDirector != null) {
+            playableDirector.stopped -= OnPlayableDirectorStopped;
+        }
+        onExperienceOver = null;
+        StartCoroutine(DestroyAfterFrame());
     }
 
     [Serializable]

@@ -22,7 +22,7 @@ public class PlayableCard : MonoBehaviour,
     public DeckInstance deckFrom;
 
     [SerializeField]
-    private float hoverScale = 1.5f;
+    private float hoverScale = 2f;
     [SerializeField]
     private float nonHoverScale = 1f;
     [SerializeField]
@@ -39,6 +39,8 @@ public class PlayableCard : MonoBehaviour,
     public float hoverSFXVolume = 0.1f;
     public float hoverYOffset = 1.5f;
     public float hoverZOffset = 0.5f;
+    private float hoverAnimationTime = .2f;
+    private Vector3 startPos;
 
     public GameObject cardCastVFXPrefab;
     public GameObject cardExhaustVFXPrefab;
@@ -101,7 +103,9 @@ public class PlayableCard : MonoBehaviour,
         yield return StartCoroutine(PlayerHand.Instance.OnCardCast(this));
         if (card.cardType.exhaustsWhenPlayed) {
             yield return StartCoroutine(PlayerHand.Instance.ExhaustCard(this));
+            yield return StartCoroutine(PlayerHand.Instance.ResizeHand(this));
         } else {
+            yield return StartCoroutine(PlayerHand.Instance.ResizeHand(this));
             yield return StartCoroutine(CardCastVFX(this.gameObject));
             yield return StartCoroutine(PlayerHand.Instance.DiscardCard(this));
         }
@@ -181,6 +185,7 @@ public class PlayableCard : MonoBehaviour,
 
     public void ExhaustCard() {
         deckFrom.ExhaustCard(card, this, OnCardExhaustHandler());
+        StartCoroutine(PlayerHand.Instance.ResizeHand(this));
     }
 
     private IEnumerator OnCardExhaustHandler() {
@@ -207,6 +212,7 @@ public class PlayableCard : MonoBehaviour,
     public void OnPointerEnter(PointerEventData eventData)
     {
         if(!interactable) return;
+        Debug.LogError("whhhaaaaa ?");
         hovered = true;
         if(hoverable != null) {
             // Make sure hoverable knows that we've already processed
@@ -217,17 +223,29 @@ public class PlayableCard : MonoBehaviour,
         //Replace with FMOD Event
         // Set the volume first
         MusicController2.Instance.PlaySFX("event:/SFX/SFX_UIHover");
-        transform.localScale = new Vector3(hoverScale, hoverScale, 1);
-        transform.position = new Vector3(transform.position.x, transform.position.y + hoverYOffset, transform.position.z + hoverZOffset);
+        //transform.localScale = new Vector3(hoverScale, hoverScale, 1);
+        //transform.position = new Vector3(startPos.x, startPos.y + hoverYOffset, startPos.z + hoverZOffset);
         transform.SetAsLastSibling();
+
+        LeanTween.cancel(gameObject);
+        LeanTween.scale(gameObject, new Vector3(2f, 2f, 1), hoverAnimationTime)
+            .setEase(LeanTweenType.easeOutQuint);
+        LeanTween.move(gameObject, new Vector3(startPos.x, startPos.y + hoverYOffset, startPos.z + hoverZOffset), hoverAnimationTime)
+            .setEase(LeanTweenType.easeOutQuint);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         if(!interactable || !hovered) return;
         hovered = false;
-        transform.localScale = new Vector3(nonHoverScale, nonHoverScale, 1);
-        transform.position = new Vector3(transform.position.x, transform.position.y - hoverYOffset, transform.position.z - hoverZOffset);
+        //transform.localScale = new Vector3(nonHoverScale, nonHoverScale, 1);
+        //transform.position = new Vector3(transform.position.x, transform.position.y - hoverYOffset, transform.position.z - hoverZOffset);
+
+        LeanTween.cancel(gameObject);
+        LeanTween.scale(gameObject, new Vector3(1.5f, 1.5f, 1), hoverAnimationTime)
+            .setEase(LeanTweenType.easeOutQuint);
+        LeanTween.move(gameObject, new Vector3(startPos.x, startPos.y, startPos.z), hoverAnimationTime)
+            .setEase(LeanTweenType.easeOutQuint);
     }
 
     public void ResetCardScale() {
@@ -252,5 +270,9 @@ public class PlayableCard : MonoBehaviour,
 
     public void uiStateEventHandler(UIStateEventInfo eventInfo) {
         currentState = eventInfo.newState;
+    }
+
+    public void SetBasePosition() {
+        startPos = transform.position;
     }
 }
