@@ -102,7 +102,7 @@ public abstract class EntityAbilityInstance
                 PlayerHand.Instance.onDeckShuffledHandler += OnDeckShuffled;
                 break;
             case EntityAbility.EntityAbilityTrigger.OnEntityDamageTaken:
-                CombatEntityManager.Instance.onCompanionDamageHandler += OnDamageTaken;
+                CombatEntityManager.Instance.onEntityDamageHandler += OnDamageTaken;
                 break;
             case EntityAbility.EntityAbilityTrigger.OnHandEmpty:
                 PlayerHand.Instance.onHandEmptyHandler += OnHandEmpty;
@@ -142,7 +142,7 @@ public abstract class EntityAbilityInstance
             PlayerHand.Instance.onDeckShuffledHandler -= OnDeckShuffled;
         }
         if (ability.abilityTrigger == EntityAbility.EntityAbilityTrigger.OnEntityDamageTaken) {
-            CombatEntityManager.Instance.onCompanionDamageHandler -= OnDamageTaken;
+            CombatEntityManager.Instance.onEntityDamageHandler -= OnDamageTaken;
         }
     }
 
