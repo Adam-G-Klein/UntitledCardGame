@@ -96,6 +96,7 @@ public class PlayableCard : MonoBehaviour,
     }
 
     private IEnumerator CardFinishCastingCallback() {
+        Debug.Log("STARTING CardFinishCastingCallback");
         ManaManager.Instance.updateMana(-card.GetManaCost());
         StartCoroutine(cardCastEvent.RaiseAtEndOfFrameCoroutine(new CardCastEventInfo(card)));
         IncrementCastCount();
@@ -103,7 +104,7 @@ public class PlayableCard : MonoBehaviour,
         yield return StartCoroutine(PlayerHand.Instance.OnCardCast(this));
         if (card.cardType.exhaustsWhenPlayed) {
             yield return StartCoroutine(PlayerHand.Instance.ExhaustCard(this));
-            yield return StartCoroutine(PlayerHand.Instance.ResizeHand(this));
+            // Don't need to call ResizeHand, because ExhaustCard already does it!
         } else {
             yield return StartCoroutine(PlayerHand.Instance.ResizeHand(this));
             yield return StartCoroutine(CardCastVFX(this.gameObject));
@@ -118,6 +119,7 @@ public class PlayableCard : MonoBehaviour,
         } else if(NonMouseInputManager.Instance.inputMethod != InputMethod.Mouse) {
             NonMouseInputManager.Instance.hoverACard(new List<PlayableCard> { this });
         }
+        Debug.Log("FINISHED CardFinishCastingCallback");
     }
 
     public void CardExhaustVFX() {
