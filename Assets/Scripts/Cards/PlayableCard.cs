@@ -212,7 +212,6 @@ public class PlayableCard : MonoBehaviour,
     public void OnPointerEnter(PointerEventData eventData)
     {
         if(!interactable) return;
-        Debug.LogError("whhhaaaaa ?");
         hovered = true;
         if(hoverable != null) {
             // Make sure hoverable knows that we've already processed

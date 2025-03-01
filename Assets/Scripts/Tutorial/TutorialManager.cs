@@ -207,7 +207,6 @@ public class TutorialManager : MonoBehaviour
         Debug.Log(currentAction);
         if (currentAction != null && currentAction is WaitForNextButtonClickAction action) {
             action.ButtonClicked();
-            Debug.LogError(currentStepIndex);
             if (currentStepIndex == currentStep.actions.Count - 1) {
                 currentAction = null;
                 Debug.Log("LOADING NEXT LOCATION WE ARE SO BACK");
