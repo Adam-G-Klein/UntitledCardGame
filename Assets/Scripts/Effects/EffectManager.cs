@@ -86,9 +86,14 @@ public class EffectManager : GenericSingleton<EffectManager>
             Debug.Log("Invoking Step [" + step.effectStepName + "]");
             currentEffectStep = step.invoke(document);
             yield return StartCoroutine(currentEffectStep);
+            Debug.Log("Done with Step [" + step.effectStepName + "]");
         }
 
+        Debug.Log("Running callback for effect workflow");
+
         if (callback != null) yield return StartCoroutine(callback);
+
+        Debug.Log("Done with the callback for effect workflow");
 
         // If the previous effect worklfow queue'd up a new one, then execute the new one
         if (effectWorkflowQueue.Count > 0) {
@@ -101,6 +106,8 @@ public class EffectManager : GenericSingleton<EffectManager>
         } else {
             effectRunning = false;
         }
+
+        Debug.Log("Done with the effect workflow coroutine");
 
         yield return null;
     }

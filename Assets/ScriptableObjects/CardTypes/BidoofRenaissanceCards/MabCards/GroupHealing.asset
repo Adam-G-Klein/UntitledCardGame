@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: Equilibrium
+  m_Name: GroupHealing
   m_EditorClassIdentifier: 
-  Name: Equilibrium
-  Description: Exhaust. Set all companions on your team to half health
-  Cost: 2
-  Artwork: {fileID: 21300000, guid: db26ea4bdc4531f4a9d89b36175475e6, type: 3}
+  Name: Group Healing
+  Description: Exhaust. Heal all companions on your team 3 HP.
+  defaultValues: []
+  Cost: 1
+  Artwork: {fileID: 21300000, guid: 389b74dd33329004e913b282b594ddf3, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
@@ -38,8 +39,8 @@ MonoBehaviour:
       data:
         effectStepName: InstantiatePrefab
         inputKey: allCompanions
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
-        scale: 1.5
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 604f6efaa1e828d4bacfc84a25dfbd7a, type: 3}
+        scale: 1
     - rid: 5602892949302280921
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -63,8 +64,8 @@ MonoBehaviour:
       data:
         effectStepName: CombatEffectStep
         inputKey: allCompanions
-        combatEffect: 15
-        scale: 0
+        combatEffect: 9
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1

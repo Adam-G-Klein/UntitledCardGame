@@ -36,12 +36,15 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: L2 Mab
-      description: At the end of combat, heal target companion for half their max
-        health
+      description: At the end of combat, permanently add a Mab's Boon to adjacent
+        companion's decks.
       relatedBehaviorIndex: 0
-  keepsakeTitle: Mab's Mercy
-  keepsakeDescription: At the end of combat, heal target companion for half their
-    max health
+    - title: Mab's Boon
+      description: Exhaust. Draw 1 card from and heal this companion 3 HP
+      relatedBehaviorIndex: 0
+  keepsakeTitle: 
+  keepsakeDescription: At the end of combat, permanently add a Mab's Boon to adjacent
+    companion's decks.
   references:
     version: 2
     RefIds:
@@ -52,14 +55,14 @@ MonoBehaviour:
         effectSteps:
         - rid: 205828032053379077
         - rid: 205828032053379078
-        - rid: 205828032053379080
-        - rid: 205828032053379079
+        - rid: 2034229587402555395
+        - rid: 2034229587402555396
         - rid: 205828107393564677
     - rid: 205828032053379077
       type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: DialogueStep
-        line: who i should heal for half their health bar?
+        line: bestowing a boon on those i'm closest to
         lineTime: 2
     - rid: 205828032053379078
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -67,34 +70,34 @@ MonoBehaviour:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: target
-        validTargets: 00000000
+        outputKey: self
+        validTargets: 
         number: 1
-        specialTargetRule: 0
-        cantCancelTargetting: 1
-    - rid: 205828032053379079
-      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CombatEffectStep
-        inputKey: target
-        combatEffect: 9
-        scale: 0
-        getScaleFromKey: 1
-        inputScaleKey: hpToHeal
-        multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
-    - rid: 205828032053379080
-      type: {class: GetPercentOfMaxHP, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetPercentOfMaxHP
-        inputKey: target
-        percent: 0.5
-        outputKey: hpToHeal
+        specialTargetRule: 3
+        cantCancelTargetting: 0
     - rid: 205828107393564677
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
-        inputKey: target
-        prefabToInstantiate: {fileID: 3850217184923880746, guid: 604f6efaa1e828d4bacfc84a25dfbd7a, type: 3}
+        inputKey: adj
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
         scale: 1
+    - rid: 2034229587402555395
+      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetAdjacentCompanions
+        inputKey: self
+        outputKey: adj
+    - rid: 2034229587402555396
+      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: AddCardsToDeck
+        inputKey: adj
+        cardTypes:
+        - {fileID: 11400000, guid: b189fb1d6d01a4fc69154f1e3f45b734, type: 2}
+        addToDeckMethod: 3
+        getCardsFromKey: 0
+        inputCardsKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 

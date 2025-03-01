@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: MabsBoon
   m_EditorClassIdentifier: 
   Name: Mab's Boon
-  Description: Exhaust. Heal target companion 3HP.
+  Description: Exhaust. Draw 1 card from and heal this companion 3 HP
+  defaultValues: []
   Cost: 0
-  Artwork: {fileID: 21300000, guid: 338cb3a5841b4284fbf3bf201b4d0cf2, type: 3}
+  Artwork: {fileID: 21300000, guid: 82616f53fbf77bc4bbb3545e097e5104, type: 3}
   cardCategory: 4
   vfxPrefab: {fileID: 0}
   playable: 1
@@ -40,24 +41,22 @@ MonoBehaviour:
         inputKey: target
         prefabToInstantiate: {fileID: 3850217184923880746, guid: 604f6efaa1e828d4bacfc84a25dfbd7a, type: 3}
         scale: 1
-    - rid: 5280922841426165953
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+    - rid: 2034229587402555392
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: self
-        validTargets: 
-        number: 1
-        specialTargetRule: 3
-        cantCancelTargetting: 0
+        effectStepName: DrawCards
+        inputKey: target
+        outputKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
     - rid: 5602892650873356455
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
         - rid: 5602892650873356456
-        - rid: 5280922841426165953
         - rid: 5602892650873356457
+        - rid: 2034229587402555392
         - rid: 1274772082283774957
     - rid: 5602892650873356456
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -66,9 +65,9 @@ MonoBehaviour:
         useInputToLimitOptions: 0
         inputKey: 
         outputKey: target
-        validTargets: 00000000
+        validTargets: 
         number: 1
-        specialTargetRule: 0
+        specialTargetRule: 4
         cantCancelTargetting: 0
     - rid: 5602892650873356457
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}

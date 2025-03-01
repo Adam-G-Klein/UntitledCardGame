@@ -23,8 +23,11 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
                 {CombatEntityTriggerType.MINION_DIED, new List<CombatEntityTrigger>()}
             };
 
-    public delegate IEnumerator OnCompanionDamage(CombatInstance companion);
-    public event OnCompanionDamage onCompanionDamageHandler;
+    public delegate IEnumerator OnEntityDamage(CombatInstance combatInstance);
+    public event OnEntityDamage onEntityDamageHandler;
+
+    public delegate IEnumerator OnEntityHealed(CombatInstance combatInstance);
+    public event OnEntityHealed onEntityHealedHandler;
 
     private bool encounterEnded = false;
 
@@ -169,8 +172,16 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
     }
 
     public IEnumerator OnDamageTaken(CombatInstance combatInstance) {
-        if (onCompanionDamageHandler != null) {
-            foreach (OnCompanionDamage handler in onCompanionDamageHandler.GetInvocationList()) {
+        if (onEntityDamageHandler != null) {
+            foreach (OnEntityDamage handler in onEntityDamageHandler.GetInvocationList()) {
+                yield return StartCoroutine(handler.Invoke(combatInstance));
+            }
+        }
+    }
+
+    public IEnumerator OnHeal(CombatInstance combatInstance) {
+        if (onEntityHealedHandler != null) {
+            foreach (OnEntityHealed handler in onEntityHealedHandler.GetInvocationList()) {
                 yield return StartCoroutine(handler.Invoke(combatInstance));
             }
         }
