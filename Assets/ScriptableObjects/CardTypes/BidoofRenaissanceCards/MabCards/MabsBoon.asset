@@ -50,23 +50,11 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
-    - rid: 5280922841426165953
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: self
-        validTargets: 
-        number: 1
-        specialTargetRule: 3
-        cantCancelTargetting: 0
     - rid: 5602892650873356455
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
         - rid: 5602892650873356456
-        - rid: 5280922841426165953
         - rid: 5602892650873356457
         - rid: 2034229587402555392
         - rid: 1274772082283774957
@@ -77,9 +65,9 @@ MonoBehaviour:
         useInputToLimitOptions: 0
         inputKey: 
         outputKey: target
-        validTargets: 00000000
+        validTargets: 
         number: 1
-        specialTargetRule: 0
+        specialTargetRule: 4
         cantCancelTargetting: 0
     - rid: 5602892650873356457
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
