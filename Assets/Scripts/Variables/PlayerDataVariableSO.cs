@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(
     fileName = "PlayerDataVariable",
     menuName = "Player/Player Data Variable")]
+[System.Serializable]
 public class PlayerDataVariableSO : VariableSO<PlayerData> {
     public void initialize(ShopDataSO shopData) {
         SetValue(new PlayerData());

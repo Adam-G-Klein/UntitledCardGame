@@ -6,6 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(
     fileName = "Shop",
     menuName = "Encounters/Shop/New Shop")]
+[System.Serializable]
 public class ShopDataSO : ScriptableObject
 {
     public List<ShopLevel> shopLevels;

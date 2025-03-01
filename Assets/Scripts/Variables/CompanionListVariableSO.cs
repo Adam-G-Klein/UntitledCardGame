@@ -6,6 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(
     fileName = "CompanionListVariable",
     menuName = "Companions/Companion List Variable")]
+[System.Serializable]
 // TODO: make this actually a variableSO
 public class CompanionListVariableSO : ScriptableObject
 {

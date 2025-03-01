@@ -7,6 +7,7 @@ using UnityEngine;
 [CreateAssetMenu(
     fileName = "NewDialogueLocationList", 
     menuName = "Dialogue/Dialogue Location List")]
+[System.Serializable]
 public class AllDialogueLocationsSO: ScriptableObject
 {
     public List<DialogueLocationSO> aidenRooms;

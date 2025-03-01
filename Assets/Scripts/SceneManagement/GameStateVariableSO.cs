@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -26,6 +28,7 @@ public enum Location {
 [CreateAssetMenu(
     fileName = "NewGameStateVariable",
     menuName = "Variables/Game State Variable")]
+[System.Serializable]
 public class GameStateVariableSO : ScriptableObject
 {
     public CompanionListVariableSO companions;
@@ -87,6 +90,15 @@ public class GameStateVariableSO : ScriptableObject
         {Location.BOSSFIGHT, Location.MAP}
     };
 
+    private HashSet<Location> resumeableLocations = new HashSet<Location>() {
+        {Location.COMBAT},
+        {Location.POST_COMBAT},
+        {Location.SHOP},
+        {Location.FAKE_SHOP},
+        {Location.BOSSFIGHT},
+        {Location.MAP}
+    };
+
 
     [Header("Settings for the demo")]
     public int lastTutorialLoopIndex = 2;
@@ -117,6 +129,11 @@ public class GameStateVariableSO : ScriptableObject
                 } else {
                     currentLocation = locationToNextLocation[currentLocation];
                 }
+/*                GameStateVariableSO candidateGameState = SaveLoadManager.LoadData();
+                if (candidateGameState && resumeableLocations.Contains(candidateGameState.currentLocation)) {
+                    replaceThisWith(candidateGameState);
+                    LoadCurrentLocationScene();
+                }*/
                 break;
             case Location.INTRO_CUTSCENE:
                 currentLocation = locationToNextLocation[currentLocation];
@@ -192,6 +209,7 @@ public class GameStateVariableSO : ScriptableObject
         updateMusic(currentLocation);
         cancelCurrentDialogue();
         LoadCurrentLocationScene();
+        SaveLoadManager.SaveData(this);
         currentLoopIndex = GetLoopIndex();
     }
 
@@ -301,4 +319,32 @@ public class GameStateVariableSO : ScriptableObject
         LoadNextLocation();
     }
 
+    private void replaceThisWith(GameStateVariableSO sourceObject)
+    {
+        if (sourceObject == null)
+        {
+            Debug.LogError("Source object is null!");
+            return;
+        }
+
+        // Manually copy each field
+
+        this.companions = sourceObject.companions;
+        this.playerData = sourceObject.playerData;
+        this.map = sourceObject.map;
+        this.baseShopData = sourceObject.baseShopData;
+        this.mapGenerator = sourceObject.mapGenerator;
+        this.activeEncounter = sourceObject.activeEncounter;
+        this.nextMapIndex = sourceObject.nextMapIndex;
+        this.currentLoopIndex = sourceObject.currentLoopIndex;
+        this.nextEncounter = sourceObject.nextEncounter;
+        this.currentLocation = sourceObject.currentLocation;
+        this.dialogueLocations = sourceObject.dialogueLocations;
+        this.debugSingleEncounterMode = sourceObject.debugSingleEncounterMode;
+        this.viewedSequences = sourceObject.viewedSequences;
+        this.hoveredCompanion = sourceObject.hoveredCompanion;
+        this.currentEncounterIndex = sourceObject.currentEncounterIndex;
+        this.hasSeenShopTutorial = sourceObject.hasSeenShopTutorial;
+        this.hasSeenTutorial = sourceObject.hasSeenTutorial;
+    }
 }

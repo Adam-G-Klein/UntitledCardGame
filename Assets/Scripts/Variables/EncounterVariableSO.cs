@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(
     fileName = "EncounterVariable",
     menuName = "Encounters/Encounter Variable")]
+[System.Serializable]
 public class EncounterVariableSO : ScriptableObject {
     public bool locked = false;
     [SerializeReference]
