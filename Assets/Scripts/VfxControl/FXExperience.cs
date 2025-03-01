@@ -16,6 +16,7 @@ public class FXExperience : MonoBehaviour
 
     // GO HOME THE SHOWS OVER
     public VoidDelegate onExperienceOver;
+    private bool playedOnExperienceOverEarly = false;
 
     [ContextMenu("Start Experience")]
     public void StartExperience(VoidDelegate onExperienceOver = null) {
@@ -71,8 +72,16 @@ public class FXExperience : MonoBehaviour
         return false;
     }
 
-    private void OnPlayableDirectorStopped(PlayableDirector director) {
+    public void PlayOnExperienceOverEarly() {
+        Debug.LogError("playing on experience over early!");
         if (onExperienceOver != null && !earlyStopped) {
+            onExperienceOver();
+        }
+        playedOnExperienceOverEarly = true;
+    }
+
+    private void OnPlayableDirectorStopped(PlayableDirector director) {
+        if (onExperienceOver != null && !earlyStopped && !playedOnExperienceOverEarly) {
             onExperienceOver();
         }
         playableDirector.stopped -= OnPlayableDirectorStopped;

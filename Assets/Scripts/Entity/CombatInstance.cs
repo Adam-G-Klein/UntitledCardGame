@@ -11,6 +11,10 @@ public class CombatInstance : MonoBehaviour
     public delegate IEnumerator OnDeathHandler(CombatInstance killer);
     public event OnDeathHandler onDeathHandler;
 
+
+    public delegate void OnDamageHandler(int scale);
+    public event OnDamageHandler onDamageHandler;
+
     //public AudioClip genericInteractionSFX;
     public GameObject genericInteractionVFX;
 
@@ -98,13 +102,14 @@ public class CombatInstance : MonoBehaviour
             case CombatEffect.Damage:
             case CombatEffect.FixedDamageWithCardModifications:
             case CombatEffect.FixedDamageThatIgnoresBlock:
-                TakeDamage(effect, scale, effector);
+                int damageTaken = TakeDamage(effect, scale, effector);
                 if (effector.GetComponent<CompanionInstance>() != null) {
                     MusicController2.Instance.PlaySFX("event:/SFX/SFX_BasicAttack");
                 } else if (effector.GetComponent<EnemyInstance>() != null) {
                     MusicController2.Instance.PlaySFX("event:/SFX/SFX_EnemyAttack");
                 }
                 AddVFX(effector);
+                AddShake(damageTaken);
                 break;
             case CombatEffect.Heal:
                 combatStats.setCurrentHealth(Mathf.Min(combatStats.getCurrentHealth() + scale, combatStats.maxHealth));
@@ -127,10 +132,10 @@ public class CombatInstance : MonoBehaviour
         UpdateView();
     }
 
-    private void TakeDamage(CombatEffect combatEffect, int damage, CombatInstance attacker) {
+    private int TakeDamage(CombatEffect combatEffect, int damage, CombatInstance attacker) {
 
         if (killed) {
-            return;
+            return 0;
         }
         int damageAfterDefense = DamageAfterDefense(combatEffect, damage);
 
@@ -153,6 +158,7 @@ public class CombatInstance : MonoBehaviour
         }
         // could easily double-update with method above
         UpdateView();
+        return combatStats.getCurrentHealth() == 0 ? 0 : damageAfterDefense;
     }
 
     private int DamageAfterDefense(CombatEffect combatEffect, int damage) {
@@ -305,6 +311,10 @@ public class CombatInstance : MonoBehaviour
         } else if (genericInteractionVFX != null) {
             Instantiate(genericInteractionVFX, transform.position, Quaternion.identity);
         }
+    }
+
+    private void AddShake(int damageTaken) {
+        onDamageHandler.Invoke(damageTaken);
     }
 
     private void UpdateView() {
