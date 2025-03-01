@@ -46,7 +46,11 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
     public InputMethod inputMethod = InputMethod.Mouse;
     private Hoverable lastHoveredCard;
 
-    void Update() {
+    void Start()
+    {
+        // Doesn't work right now, the card is still animating/not placed so the hover doesn't go through.
+        TurnManager.Instance.addTurnPhaseTrigger(new TurnPhaseTrigger(TurnPhase.PLAYER_TURN,startTurnTrigger()));
+        
     }
 
     public void ClearHoverState() {
@@ -299,6 +303,11 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
         if(currentTargetFilteredHoverables.Count > 0) {
             hover(currentTargetFilteredHoverables[0]);
         }
+    }
+
+    private IEnumerable startTurnTrigger(){
+        hoverACard();
+        yield return null;
     }
 
     // If currently finishing casting card is eligible, it could get hovered

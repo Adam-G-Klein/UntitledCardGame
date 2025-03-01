@@ -13,7 +13,7 @@ public class UIDocumentHoverableInstantiator : GenericSingleton<UIDocumentHovera
     [SerializeField]
     private GameObject hoverablePrefab;
 
-    public void InstantiateHoverable(VisualElement element, Action callback){
+    public void InstantiateHoverable(VisualElement element, Action selectCallback = null, Action hoverCallback = null, Action unhoverCallback = null){
         // get the position from 
         Vector3 position = UIDocumentGameObjectPlacer.GetWorldPositionFromElement(element);
         // shouldn't need to care about z position because the hover indicator should render on top regardless
@@ -21,6 +21,8 @@ public class UIDocumentHoverableInstantiator : GenericSingleton<UIDocumentHovera
         hoverableGO.name = element.name + "-Hoverable";
         Hoverable hoverable = hoverableGO.GetComponent<Hoverable>();
         hoverable.associatedUIDocElement = element;
-        UIDocumentHoverableCallbackRegistry.Instance.RegisterCallback(element.name, callback);
+        UIDocumentHoverableCallbackRegistry.Instance.RegisterCallback(element.name, InputActionType.Select, selectCallback);
+        UIDocumentHoverableCallbackRegistry.Instance.RegisterCallback(element.name, InputActionType.Hover, hoverCallback);
+        UIDocumentHoverableCallbackRegistry.Instance.RegisterCallback(element.name, InputActionType.Unhover, unhoverCallback);
     }
 }

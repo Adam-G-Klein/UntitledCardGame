@@ -95,6 +95,7 @@ public class ShopViewController : MonoBehaviour,
         upgradeButton = uiDoc.rootVisualElement.Q<Button>("upgrade-button");
         upgradeButton.clicked += UpgradeButtonOnClick;
         upgradeButton.RegisterCallback<PointerEnterEvent>(UpgradeButtonOnPointerEnter);
+        UIDocumentHoverableInstantiator.Instance.InstantiateHoverable(upgradeButton, UpgradeButtonOnClick, () => {UpgradeButtonOnPointerEnter(null);}, () => {UpgradeButtonOnPointerLeave(null);});
         upgradeButton.RegisterCallback<PointerLeaveEvent>(UpgradeButtonOnPointerLeave);
         uiDoc.rootVisualElement.Q<Button>("start-next-combat-button").clicked += StartNextCombatOnClick;
         //sellCompanionButton.clicked += SellCompanionOnClick;
@@ -587,11 +588,13 @@ public class ShopViewController : MonoBehaviour,
         StopBuyingCard();
     }
 
+    // evt is unused, but required for the callback
     private void UpgradeButtonOnPointerEnter(PointerEnterEvent evt) {
         upgradeButtonTooltipCoroutine = UpgradeButtonTooltipCoroutine();
         StartCoroutine(upgradeButtonTooltipCoroutine);
     }
 
+    // evt is unused, but required for the callback
     private void UpgradeButtonOnPointerLeave(PointerLeaveEvent evt) {
         if (upgradeButtonTooltipCoroutine != null) {
             StopCoroutine(upgradeButtonTooltipCoroutine);
