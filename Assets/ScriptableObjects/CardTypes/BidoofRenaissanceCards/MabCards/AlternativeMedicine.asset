@@ -10,20 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: Revitalize
+  m_Name: AlternativeMedicine
   m_EditorClassIdentifier: 
-  Name: Revitalize
-  Description: Exhaust. Heal target companion 5 HP.
-  defaultValues: []
-  Cost: 0
-  Artwork: {fileID: 21300000, guid: 338cb3a5841b4284fbf3bf201b4d0cf2, type: 3}
+  Name: Alternative Medicine
+  Description: Exhaust. Heal a companion HP equal to the number of generated cards
+    in their deck ({numGenCards} cards)
+  defaultValues:
+  - key: numGenCards
+    value: 0
+  Cost: 1
+  Artwork: {fileID: 21300000, guid: b26e83dbae52f5a40bf3378f7fed66ac, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 1
   retain: 0
   effectWorkflows:
-  - rid: 5602892949302280915
+  - rid: 5602892949302280977
   onExhaustEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
@@ -34,21 +37,46 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 5280922841426165975
+    - rid: 2034229587402555676
+      type: {class: CountCardsInDeck, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CountCardsInDeck
+        inputDeckKey: target
+        filter:
+          cardCategoriesToInclude: 
+          generatedCardsFilter: 1
+        includeDrawPile: 1
+        includeDiscardPile: 1
+        includeCardsInHand: 1
+        outputKey: numGenCards
+    - rid: 2034229587402555678
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: target
+        combatEffect: 9
+        scale: 0
+        getScaleFromKey: 1
+        inputScaleKey: numGenCards
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+    - rid: 2034229587402555679
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
         inputKey: target
         prefabToInstantiate: {fileID: 3850217184923880746, guid: 604f6efaa1e828d4bacfc84a25dfbd7a, type: 3}
         scale: 1
-    - rid: 5602892949302280915
+    - rid: 5602892949302280977
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
-        - rid: 5602892949302280918
-        - rid: 6501745997973028891
-        - rid: 5280922841426165975
-    - rid: 5602892949302280918
+        - rid: 5602892949302280978
+        - rid: 2034229587402555676
+        - rid: 2034229587402555678
+        - rid: 2034229587402555679
+    - rid: 5602892949302280978
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
@@ -59,15 +87,3 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
-    - rid: 6501745997973028891
-      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CombatEffectStep
-        inputKey: target
-        combatEffect: 9
-        scale: 5
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 

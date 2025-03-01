@@ -10,19 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: Equilibrium
+  m_Name: HealingTouch
   m_EditorClassIdentifier: 
-  Name: Equilibrium
-  Description: Exhaust. Set all companions on your team to half health
-  Cost: 2
-  Artwork: {fileID: 21300000, guid: db26ea4bdc4531f4a9d89b36175475e6, type: 3}
+  Name: Healing Touch
+  Description: Exhaust. Heal target companion 3 HP and give them 4 block.
+  defaultValues: []
+  Cost: 0
+  Artwork: {fileID: 21300000, guid: 9bbb0580b47c1a0458a81a39014da27c, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 1
   retain: 0
   effectWorkflows:
-  - rid: 5602892949302280921
+  - rid: 5602892949302280915
   onExhaustEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
@@ -33,38 +34,49 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 1274772082283774888
+    - rid: 2034229587402555673
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: target
+        statusEffect: 2
+        scale: 4
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+    - rid: 5280922841426165975
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
-        inputKey: allCompanions
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
-        scale: 1.5
-    - rid: 5602892949302280921
+        inputKey: target
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 604f6efaa1e828d4bacfc84a25dfbd7a, type: 3}
+        scale: 1
+    - rid: 5602892949302280915
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
-        - rid: 5602892949302280922
-        - rid: 5602892949302280923
-        - rid: 1274772082283774888
-    - rid: 5602892949302280922
+        - rid: 5602892949302280918
+        - rid: 6501745997973028891
+        - rid: 2034229587402555673
+        - rid: 5280922841426165975
+    - rid: 5602892949302280918
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: allCompanions
+        outputKey: target
         validTargets: 00000000
         number: 1
-        specialTargetRule: 1
+        specialTargetRule: 0
         cantCancelTargetting: 0
-    - rid: 5602892949302280923
+    - rid: 6501745997973028891
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
-        inputKey: allCompanions
-        combatEffect: 15
-        scale: 0
+        inputKey: target
+        combatEffect: 9
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
