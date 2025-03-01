@@ -104,6 +104,9 @@ public abstract class EntityAbilityInstance
             case EntityAbility.EntityAbilityTrigger.OnEntityDamageTaken:
                 CombatEntityManager.Instance.onEntityDamageHandler += OnDamageTaken;
                 break;
+            case EntityAbility.EntityAbilityTrigger.OnEntityHealed:
+                CombatEntityManager.Instance.onEntityHealedHandler += OnHeal;
+                break;
             case EntityAbility.EntityAbilityTrigger.OnHandEmpty:
                 PlayerHand.Instance.onHandEmptyHandler += OnHandEmpty;
                 break;
@@ -143,6 +146,9 @@ public abstract class EntityAbilityInstance
         }
         if (ability.abilityTrigger == EntityAbility.EntityAbilityTrigger.OnEntityDamageTaken) {
             CombatEntityManager.Instance.onEntityDamageHandler -= OnDamageTaken;
+        }
+        if (ability.abilityTrigger == EntityAbility.EntityAbilityTrigger.OnEntityHealed) {
+            CombatEntityManager.Instance.onEntityHealedHandler -= OnHeal;
         }
     }
 
@@ -206,6 +212,27 @@ public abstract class EntityAbilityInstance
             EnemyInstance enemy = CombatEntityManager.Instance.getEnemyInstanceForCombatInstance(damagedInstance);
             if (enemy != null) {
                 EffectUtils.AddEnemyToDocument(document, "damagedEnemy", enemy);
+            }
+        }
+        EffectManager.Instance.QueueEffectWorkflow(new EffectWorkflowClosure(document, ability.effectWorkflow, null));
+        yield return null;
+    }
+
+    private IEnumerator OnHeal(CombatInstance healedInstance) {
+        EffectDocument document = createEffectDocument();
+        if (healedInstance.parentType == CombatInstance.CombatInstanceParent.COMPANION) {
+            CompanionInstance companion = CombatEntityManager.Instance.getCompanionInstanceForCombatInstance(healedInstance);
+            if (companion != null) {
+                EffectUtils.AddCompanionToDocument(document, "healedCompanion", companion);
+            }
+            if (document.originEntityType == EntityType.CompanionInstance) {
+                CompanionInstance source = document.map.GetItem<CompanionInstance>(EffectDocument.ORIGIN, 0);
+                document.boolMap.Add("selfHealed", source == companion);
+            }
+        } else if (healedInstance.parentType == CombatInstance.CombatInstanceParent.ENEMY) {
+            EnemyInstance enemy = CombatEntityManager.Instance.getEnemyInstanceForCombatInstance(healedInstance);
+            if (enemy != null) {
+                EffectUtils.AddEnemyToDocument(document, "healedEnemy", enemy);
             }
         }
         EffectManager.Instance.QueueEffectWorkflow(new EffectWorkflowClosure(document, ability.effectWorkflow, null));

@@ -112,7 +112,11 @@ public class CombatInstance : MonoBehaviour
                 AddShake(damageTaken);
                 break;
             case CombatEffect.Heal:
-                combatStats.setCurrentHealth(Mathf.Min(combatStats.getCurrentHealth() + scale, combatStats.maxHealth));
+                int updatedHealth = Mathf.Min(combatStats.getCurrentHealth() + scale, combatStats.maxHealth);
+                if (updatedHealth - combatStats.getCurrentHealth() > 0) {
+                    StartCoroutine(CombatEntityManager.Instance.OnHeal(this));
+                }
+                combatStats.setCurrentHealth(updatedHealth);
                 break;
             case CombatEffect.DrawFrom:
                 // This no longer needs to be here, completely handled by DeckInstance
