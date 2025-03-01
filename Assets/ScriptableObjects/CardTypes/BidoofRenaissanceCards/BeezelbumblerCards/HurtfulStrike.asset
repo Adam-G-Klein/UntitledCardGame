@@ -43,18 +43,6 @@ MonoBehaviour:
         inputKey: self
         prefabToInstantiate: {fileID: 6137048663962808129, guid: 92c26f41ef33c23419e05ceb12660efa, type: 3}
         scale: 0.75
-    - rid: 1274772082283774271
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: enemy
-        prefabToInstantiate: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}
-        scale: 1
-    - rid: 5280922807842373643
-      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: WaitForSecondsEffect
-        seconds: 0.5
     - rid: 5602892561590779947
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -63,9 +51,6 @@ MonoBehaviour:
         - rid: 5602892561590779950
         - rid: 5602892561590779949
         - rid: 1274772082283774270
-        - rid: 1274772082283774271
-        - rid: 5280922807842373643
-        - rid: 1274772082283774271
         - rid: 5602892561590779951
     - rid: 5602892561590779948
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -90,6 +75,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        vfxPrefab: {fileID: 6137048663962808129, guid: 92c26f41ef33c23419e05ceb12660efa, type: 3}
     - rid: 5602892561590779950
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -113,3 +99,4 @@ MonoBehaviour:
         multiplicity: 2
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        vfxPrefab: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}

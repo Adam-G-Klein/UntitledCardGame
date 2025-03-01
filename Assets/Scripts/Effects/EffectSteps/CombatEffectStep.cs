@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /*
@@ -33,6 +34,8 @@ public class CombatEffectStep : EffectStep, IEffectStepCalculation
     private bool getMultiplicityFromKey = false;
     [SerializeField]
     private string inputMultiplicityKey = "";
+    [SerializeField]
+    private GameObject vfxPrefab = null;
     private CombatInstance originCombatInstance;
     private int baseMultiplicity;
     public CombatEffectStep() {
@@ -49,14 +52,22 @@ public class CombatEffectStep : EffectStep, IEffectStepCalculation
 
         if (finalScale == -1) yield return null;
 
-        foreach (CombatInstance instance in instances) {
-            for (int i = 0; i < baseMultiplicity; i++) {
-                if (instance != null) { // This protects against the case in which the enemy is destroyed before all hits of the damage are completed
-                    instance.ApplyNonStatusCombatEffect(combatEffect, finalScale, originCombatInstance);
+        const float delayIncrement = 0.25f;
+        
+        // Update loop to do each instance of damage as the outer loop so that they can be timed across companions
+        // taking damage from the same effect
+        for (int i = 0; i < baseMultiplicity; i++) {
+            foreach (CombatInstance instance in instances) {
+                if (instance != null) {
+                    instance.ApplyNonStatusCombatEffect(combatEffect, finalScale, originCombatInstance, vfxPrefab);
                 }
             }
+            
+            if (i < baseMultiplicity - 1) {
+                yield return new WaitForSeconds(delayIncrement);
+            }
         }
-
+        
         yield return null;
     }
 

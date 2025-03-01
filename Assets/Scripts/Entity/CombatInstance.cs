@@ -94,7 +94,7 @@ public class CombatInstance : MonoBehaviour
     }
 
 
-    public void ApplyNonStatusCombatEffect(CombatEffect effect, int scale, CombatInstance effector) {
+    public void ApplyNonStatusCombatEffect(CombatEffect effect, int scale, CombatInstance effector, GameObject vfxPrefab) {
 
         // All the non-status-effect combat effects are handled here
         // status effects are handled in applyCombatEffects
@@ -108,7 +108,8 @@ public class CombatInstance : MonoBehaviour
                 } else if (effector.GetComponent<EnemyInstance>() != null) {
                     MusicController2.Instance.PlaySFX("event:/SFX/SFX_EnemyAttack");
                 }
-                AddVFX(effector);
+                PlayVFX(vfxPrefab);
+                //AddVFX(effector);  didn't seem to actually be doing anything
                 AddShake(damageTaken);
                 break;
             case CombatEffect.Heal:
@@ -158,7 +159,7 @@ public class CombatInstance : MonoBehaviour
         }
 
         if (statusEffects[StatusEffectType.Thorns] > 0) {
-            attacker.ApplyNonStatusCombatEffect(CombatEffect.FixedDamageWithCardModifications, statusEffects[StatusEffectType.Thorns], this);
+            attacker.ApplyNonStatusCombatEffect(CombatEffect.FixedDamageWithCardModifications, statusEffects[StatusEffectType.Thorns], this, null);
         }
         // could easily double-update with method above
         UpdateView();
@@ -315,6 +316,10 @@ public class CombatInstance : MonoBehaviour
         } else if (genericInteractionVFX != null) {
             Instantiate(genericInteractionVFX, transform.position, Quaternion.identity);
         }
+    }
+
+    private void PlayVFX(GameObject vfxPrefab) {
+        if (vfxPrefab != null) Instantiate(vfxPrefab, transform.position, Quaternion.identity);
     }
 
     private void AddShake(int damageTaken) {

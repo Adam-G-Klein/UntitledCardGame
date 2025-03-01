@@ -29,6 +29,8 @@ public class EntityView : IUIEventReceiver {
     private VisualElement statusEffectsTab = null;
     private VisualElement descriptionContainer = null;
     private CombatInstance combatInstance = null;
+    private Vector3 originalScale;
+    private Vector2 originalElementScale;
 
     public EntityView(IUIEntity entity, int index, bool isEnemy, IEntityViewDelegate viewDelegate = null) {
         this.uiEntity = entity;
@@ -404,113 +406,60 @@ public class EntityView : IUIEventReceiver {
 
     private void DamageScaleBump(int scale) {
         if (scale == 0) return; // this could mean the damage didn't go through the block or that the companion died while taking damage
-        Debug.LogError("damage scale bump happening");
         GameObject tweenTarget = new GameObject("ScaleBumpTarget");
-        
-        Transform combatInstanceTransform = combatInstance.GetComponent<Transform>();
-        Vector3 originalScale = combatInstanceTransform.localScale;
-        VisualElement companionContainer = entityContainer.Q<VisualElement>(className: "portrait-container");
 
-        Vector2 originalElementScale = new Vector2(
+        if (LeanTween.isTweening(tweenTarget)) {
+            // return here if we want new tweens to just not start until old ones are done
+            // return;
+
+            // call the following code if we instead want to rest the entity to its base state and start the new tween
+            if (combatInstance == null || combatInstance.GetComponent<Transform>() == null) {
+                combatInstance.GetComponent<Transform>().localScale = originalScale;
+            }
+            LeanTween.cancel(tweenTarget);
+            GameObject.Destroy(tweenTarget);
+            combatInstance.GetComponent<Transform>().localScale = originalScale;
+            entityContainer.style.scale = new StyleScale(new Scale(originalElementScale));
+        }
+ 
+        Transform combatInstanceTransform = combatInstance.GetComponent<Transform>();
+
+        originalScale = combatInstanceTransform.localScale;
+
+        originalElementScale = new Vector2(
             entityContainer.style.scale.value.value.x,
             entityContainer.style.scale.value.value.y
         );
-        
+
+        VisualElement companionContainer = entityContainer.Q<VisualElement>(className: "portrait-container");
+
         float duration = 0.125f;  // Total duration for the scale animation
-        float minScale = 0.9f - scale / 200.0f;  // Minimum scale to reach
+        float minScale = 0.9f - scale / 200.0f;  // scale bump increases in intensity if entity takes more damage (haven't extensively tested this)
         
         LeanTween.value(tweenTarget, 1f, minScale, duration)
             .setEase(LeanTweenType.easeInOutQuad)
-            .setLoopPingPong(1)
+            .setLoopPingPong(1) // inverse tween is called when this tween completes. On complete below is called after both tweens complete
             .setOnUpdate((float currentScale) => {
-                combatInstanceTransform.localScale = new Vector3(
-                    originalScale.x * currentScale,
-                    originalScale.y * currentScale,
-                    originalScale.z
-                );
-
                 entityContainer.style.scale = new StyleScale(new Scale(originalElementScale * currentScale));
-                
                 Vector3 entityWorldPosition = UIDocumentGameObjectPlacer.GetWorldPositionFromElement(companionContainer);
-                combatInstanceTransform.position = entityWorldPosition;
+
+                if (combatInstanceTransform != null) {
+                    combatInstanceTransform.localScale = new Vector3(
+                        originalScale.x * currentScale,
+                        originalScale.y * currentScale,
+                        originalScale.z
+                    );
+                    combatInstanceTransform.position = entityWorldPosition;
+                }
             })
             .setOnComplete(() => {
-                combatInstanceTransform.localScale = originalScale;
                 entityContainer.style.scale = new StyleScale(new Scale(originalElementScale));
-
                 Vector3 entityWorldPosition = UIDocumentGameObjectPlacer.GetWorldPositionFromElement(companionContainer);
-                combatInstanceTransform.position = entityWorldPosition;
-                
+                if (combatInstanceTransform != null) {
+                    combatInstanceTransform.localScale = originalScale;
+                    combatInstanceTransform.position = entityWorldPosition;
+                }
                 GameObject.Destroy(tweenTarget);
             });
-    }
-
-    // I didn't like this effect as much as the scaleBump but it's worth having as an option
-    private void DamageShake(int scale) {
-        if (scale == 0) return;
-        GameObject tweenTarget = new GameObject("ShakeTweenTarget");
-        tweenTarget.transform.position = Vector3.zero;
-        
-        Vector2 originalPosition = new Vector2(
-            entityContainer.style.left.value.value,
-            entityContainer.style.top.value.value
-        );
-
-        Transform combatInstanceTransform = combatInstance.GetComponent<Transform>();
-        Vector3 originalCombatInstanceTransform = new Vector3(
-            combatInstanceTransform.position.x,
-            combatInstanceTransform.position.y,
-            combatInstanceTransform.position.z
-        );
-        VisualElement companionContainer = entityContainer.Q<VisualElement>(className: "portrait-container");
-        
-        List<Vector2> shakeOffsets = new List<Vector2>() {
-            new Vector2(8f, 0f),     // Right
-            new Vector2(-10f, 0f),    // Left
-            new Vector2(0f, 8f),     // Up
-            new Vector2(0f, -8f),    // Down
-            new Vector2(6f, 6f),     // Up-Right
-            new Vector2(-6f, -6f),   // Down-Left
-            new Vector2(4f, 0f),     // Small Right
-            new Vector2(0f, 0f)      // Back to center
-        };
-        
-        float moveDuration = 0.035f;
-        
-        LTSeq sequence = LeanTween.sequence();
-        
-        for (int i = 0; i < shakeOffsets.Count; i++) {
-            Vector2 offset = shakeOffsets[i];
-            
-            if (i < shakeOffsets.Count - 1) {
-                sequence.append(LeanTween.moveLocal(tweenTarget, new Vector3(offset.x, offset.y, 0), moveDuration)
-                    .setOnUpdate((Vector3 val) => {
-                        entityContainer.style.left = originalPosition.x + val.x;
-                        entityContainer.style.top = originalPosition.y + val.y;
-                        Vector3 entityWorldPosition = UIDocumentGameObjectPlacer.GetWorldPositionFromElement(companionContainer);
-                        Vector3 newPosition = new Vector3(
-                            entityWorldPosition.x,
-                            entityWorldPosition.y, 
-                            entityWorldPosition.z
-                        );
-
-                        combatInstanceTransform.position = newPosition;
-                    }));
-            }
-        }
-        
-        sequence.append(() => {
-            entityContainer.style.left = originalPosition.x;
-            entityContainer.style.top = originalPosition.y;
-            Vector3 entityWorldPosition = UIDocumentGameObjectPlacer.GetWorldPositionFromElement(companionContainer);
-            Vector3 newPosition = new Vector3(
-                entityWorldPosition.x,
-                entityWorldPosition.y, 
-                entityWorldPosition.z
-            );
-
-            combatInstanceTransform.position = newPosition;
-            GameObject.Destroy(tweenTarget);
-        });
     }
 }
