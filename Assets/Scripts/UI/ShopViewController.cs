@@ -91,10 +91,23 @@ public class ShopViewController : MonoBehaviour,
 
         rerollButton = uiDoc.rootVisualElement.Q<Button>("reroll-button");
         rerollButton.clicked += RerollButtonOnClick;
+
+        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(rerollButton,
+                RerollButtonOnClick, 
+                () => {
+                    // hi Ethan this is where a reroll onEnterCallBack would go to hook it up to the hoverable system :)
+                }, 
+                () => {
+                    // hi Ethan this is where a reroll onLeaveCallBack would go to hook it up to the hoverable system :)
+                });
         selectingCancelButton.clicked += CancelCardBuy;
         upgradeButton = uiDoc.rootVisualElement.Q<Button>("upgrade-button");
         upgradeButton.clicked += UpgradeButtonOnClick;
         upgradeButton.RegisterCallback<PointerEnterEvent>(UpgradeButtonOnPointerEnter);
+        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(upgradeButton,
+                UpgradeButtonOnClick, 
+                () => {UpgradeButtonOnPointerEnter(null);}, 
+                () => {UpgradeButtonOnPointerLeave(null);});
         upgradeButton.RegisterCallback<PointerLeaveEvent>(UpgradeButtonOnPointerLeave);
         uiDoc.rootVisualElement.Q<Button>("start-next-combat-button").clicked += StartNextCombatOnClick;
         //sellCompanionButton.clicked += SellCompanionOnClick;
@@ -187,12 +200,18 @@ public class ShopViewController : MonoBehaviour,
     private void ClearUnitManagement() {
         foreach (VisualElement child in activeContainer.hierarchy.Children()) {
             if (child.childCount > 0) {
+                foreach(VisualElement grandchild in child.Children()) {
+                    UIDocumentHoverableInstantiator.Instance.CleanupHoverable(grandchild);
+                }
                 child.Clear();
             }
             child.style.backgroundColor = slotNotHighlightColor;
         }
         foreach (VisualElement child in benchScrollView.contentContainer.hierarchy.Children()) {
             if (child.childCount > 0) {
+                foreach(VisualElement grandchild in child.Children()) {
+                    UIDocumentHoverableInstantiator.Instance.CleanupHoverable(grandchild);
+                }
                 child.Clear();
             }
             child.style.backgroundColor = slotNotHighlightColor;
@@ -587,11 +606,13 @@ public class ShopViewController : MonoBehaviour,
         StopBuyingCard();
     }
 
+    // evt is unused, but required for the callback
     private void UpgradeButtonOnPointerEnter(PointerEnterEvent evt) {
         upgradeButtonTooltipCoroutine = UpgradeButtonTooltipCoroutine();
         StartCoroutine(upgradeButtonTooltipCoroutine);
     }
 
+    // evt is unused, but required for the callback
     private void UpgradeButtonOnPointerLeave(PointerLeaveEvent evt) {
         if (upgradeButtonTooltipCoroutine != null) {
             StopCoroutine(upgradeButtonTooltipCoroutine);

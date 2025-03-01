@@ -34,8 +34,54 @@ Transform:
   - {fileID: 2020267477827805495}
   - {fileID: 7700365502150171869}
   - {fileID: 1794997657991784791}
+  - {fileID: 1626976133589732973}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &548918042691773628
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1626976133589732973}
+  - component: {fileID: 5556828181774724124}
+  m_Layer: 0
+  m_Name: UIDocumentHoverableInstantiator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1626976133589732973
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 548918042691773628}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.0725608, y: -5.150733, z: -924.99585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4658088288143552190}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5556828181774724124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 548918042691773628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d41e2a12914ccc42a848ed6dea4d829, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverablePrefab: {fileID: 6572452657296451063, guid: f2e6d3e41930a5b489fe64c1833143c8, type: 3}
 --- !u!1 &1829194027565725655
 GameObject:
   m_ObjectHideFlags: 0
@@ -283,6 +329,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   testInvokeCallback: 
+  testInvokeActionType: 0
 --- !u!1 &5549825631411449466
 GameObject:
   m_ObjectHideFlags: 0
@@ -378,6 +425,7 @@ MonoBehaviour:
   currentlyHovered: {fileID: 0}
   hoverIndicator: {fileID: 3700341503412037884}
   inputMethod: 0
+  gameState: {fileID: 11400000, guid: 9e326417f60894341a96cc8d02868bbe, type: 2}
 --- !u!114 &5273491878671294976
 MonoBehaviour:
   m_ObjectHideFlags: 0

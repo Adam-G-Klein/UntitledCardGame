@@ -89,7 +89,7 @@ public class Hoverable : MonoBehaviour {
             handler.OnPointerClick(null);
         }
         if(associatedUIDocElement != null) {
-            UIDocumentHoverableCallbackRegistry.Instance.InvokeCallback(associatedUIDocElement.name);
+            UIDocumentHoverableCallbackRegistry.Instance.InvokeCallback(associatedUIDocElement, InputActionType.Select);
         }
     }
 

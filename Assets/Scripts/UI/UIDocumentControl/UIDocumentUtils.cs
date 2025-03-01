@@ -31,4 +31,15 @@ public class UIDocumentUtils : MonoBehaviour
         }
         return GetRootElement(ve.parent);
     }
+
+    public static bool ElementIsReady(VisualElement ve){
+        if (ve == null){
+            return false;
+        }
+        Debug.Log("[HoverableInstantiation] ve.worldBound.width: " + ve.worldBound.width);
+        if (float.IsNaN(ve.worldBound.width) || ve.worldBound.width == 0){
+            return false;
+        }
+        return true;
+    }
 }

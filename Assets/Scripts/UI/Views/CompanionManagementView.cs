@@ -32,6 +32,10 @@ public class CompanionManagementView {
         entityView.entityContainer.RegisterCallback<PointerUpEvent>(ComapnionManagementOnPointerUp);
         entityView.entityContainer.RegisterCallback<PointerLeaveEvent>(ComapnionManagementOnPointerLeave);
         entityView.entityContainer.RegisterCallback<PointerEnterEvent>(CompanionManagementOnPointerEnter);
+        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(entityView.entityContainer, 
+            () => {CompanionManagementOnClick(null);}, 
+            ()=> {CompanionManagementOnPointerEnter(null);},
+            () => {});
         return entityView.entityContainer;
     }
 
@@ -82,7 +86,6 @@ public class CompanionManagementView {
     }
 
     private void CreateSellCompanionButton() {
-        Debug.LogError("CreateSellCompanionButton");
         if (sellCompanionButton != null) sellCompanionButton.RemoveFromHierarchy();
         sellCompanionButton = new Button();
         sellCompanionButton.AddToClassList("shopButton");
