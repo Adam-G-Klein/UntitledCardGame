@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: AlternativeMedicine
   m_EditorClassIdentifier: 
   Name: Alternative Medicine
-  Description: Exhaust. Heal a companion HP equal to the number of generated cards
-    in their deck ({numGenCards} cards)
+  Description: Exhaust. Heal a companion 2 HP for each generated card in their deck
+    ({numGenCards} cards)
   defaultValues:
   - key: numGenCards
     value: 0
@@ -55,12 +55,12 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: target
         combatEffect: 9
-        scale: 0
-        getScaleFromKey: 1
-        inputScaleKey: numGenCards
-        multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
+        scale: 2
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 0
+        getMultiplicityFromKey: 1
+        inputMultiplicityKey: numGenCards
     - rid: 2034229587402555679
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
