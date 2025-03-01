@@ -219,6 +219,7 @@ public abstract class EntityAbilityInstance
     }
 
     private IEnumerator OnHeal(CombatInstance healedInstance) {
+        Debug.Log("OnHeal ability invoked!!!");
         EffectDocument document = createEffectDocument();
         if (healedInstance.parentType == CombatInstance.CombatInstanceParent.COMPANION) {
             CompanionInstance companion = CombatEntityManager.Instance.getCompanionInstanceForCombatInstance(healedInstance);
