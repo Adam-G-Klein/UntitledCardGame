@@ -36,10 +36,15 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Mab
-      description: At the end of combat, heal target companion 5 HP
+      description: At the end of combat, permanently add a Mab's Boon to target companion's
+        deck.
+      relatedBehaviorIndex: 0
+    - title: Mab's Boon
+      description: 0 mana. Exhaust. Draw 1 card from and heal this companion 3 HP
       relatedBehaviorIndex: 0
   keepsakeTitle: Mab's Mercy
-  keepsakeDescription: At the end of combat, heal target companion 5 HP
+  keepsakeDescription: At the end of combat, permanently add a Mab's Boon to target
+    companion's deck.
   references:
     version: 2
     RefIds:
@@ -50,7 +55,7 @@ MonoBehaviour:
         effectSteps:
         - rid: 205828032053379075
         - rid: 205828032053379073
-        - rid: 205828032053379074
+        - rid: 2034229587402555393
         - rid: 205828107393564676
     - rid: 205828032053379073
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -63,28 +68,29 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 1
-    - rid: 205828032053379074
-      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CombatEffectStep
-        inputKey: target
-        combatEffect: 9
-        scale: 5
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
     - rid: 205828032053379075
       type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: DialogueStep
-        line: who should i heal for 5 HP?
+        line: who should I bestow a healing boon card upon?
         lineTime: 2
     - rid: 205828107393564676
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
         inputKey: target
-        prefabToInstantiate: {fileID: 3850217184923880746, guid: 604f6efaa1e828d4bacfc84a25dfbd7a, type: 3}
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
         scale: 1
+    - rid: 2034229587402555393
+      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: AddCardsToDeck
+        inputKey: target
+        cardTypes:
+        - {fileID: 11400000, guid: b189fb1d6d01a4fc69154f1e3f45b734, type: 2}
+        addToDeckMethod: 3
+        getCardsFromKey: 0
+        inputCardsKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
