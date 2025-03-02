@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: CatalyzeChange
   m_EditorClassIdentifier: 
   Name: Catalyze Change
-  Description: Consume 1 aura stack from target companion to draw 2 cards from it.
-    The cards cost 1 less energy until end of turn.
-  Cost: 0
+  Description: Draw 2 cards from target companion. If they have an aura stack, discount
+    drawn cards by 1 energy this turn.
+  defaultValues: []
+  Cost: 1
   Artwork: {fileID: 21300000, guid: 69e0a325ef7679a469eebc7cea836acb, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
@@ -28,12 +29,23 @@ MonoBehaviour:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
-  tooltips: 11000000
+  tooltips: 
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 2034229587402555754
+      type: {class: CardModificationEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardModificationEffect
+        inputKey: cards
+        scale: 1
+        affectsAllCardsOfType: 0
+        cardTypeToModify: {fileID: 0}
+        getScaleFromKey: 0
+        scaleKey: 
+        modification: 2
     - rid: 5280922841426165964
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -46,13 +58,12 @@ MonoBehaviour:
       data:
         effectSteps:
         - rid: 5602892679876706351
+        - rid: 5602892679876706358
+        - rid: 5280922841426165964
         - rid: 5602892679876706352
         - rid: 5602892679876706353
         - rid: 5602892679876706355
-        - rid: 5602892679876706356
-        - rid: 5602892679876706358
-        - rid: 5602893111447519690
-        - rid: 5280922841426165964
+        - rid: 2034229587402555754
     - rid: 5602892679876706351
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -88,16 +99,6 @@ MonoBehaviour:
         effectStepName: EndWorkflowIfConditionMet
         inputKey1: hasAnOrb
         conditionToEndOn: 0
-    - rid: 5602892679876706356
-      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: ApplyStatus
-        inputKey: target
-        statusEffect: 9
-        scale: -1
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplyByNumAuraStacks: 0
     - rid: 5602892679876706358
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:
@@ -107,14 +108,3 @@ MonoBehaviour:
         scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
-    - rid: 5602893111447519690
-      type: {class: CardModificationEffect, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CardModificationEffect
-        inputKey: cards
-        scale: 1
-        affectsAllCardsOfType: 0
-        cardTypeToModify: {fileID: 0}
-        getScaleFromKey: 0
-        scaleKey: 
-        modification: 2
