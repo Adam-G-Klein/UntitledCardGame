@@ -182,12 +182,12 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             // Then attempt the level 3 upgrade :)
             Companion level3Dude = companionCombinationManager.AttemptCompanionUpgrade(level2Dude);
 
-            if (level3Dude != null) {
+            /*if (level3Dude != null) {
                 companionToAdd = level3Dude;
                 shopViewController.ShowCompanionUpgradedMessage(newCompanion.GetName(), 3);
             } else {
                 shopViewController.ShowCompanionUpgradedMessage(newCompanion.GetName(), 2);
-            }
+            }*/
         }
         gameState.AddCompanionToTeam(companionToAdd);
         shopViewController.RemoveCompanionFromShopView(companionInShop);
