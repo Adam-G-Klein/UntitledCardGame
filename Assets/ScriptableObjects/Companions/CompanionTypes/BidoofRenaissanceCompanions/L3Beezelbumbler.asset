@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: L3Beezelbumbler
   m_EditorClassIdentifier: 
   companionName: Beezelbumbler++
-  maxHealth: 20
+  maxHealth: 15
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: db358496fbbc0478cbc8b0b1a85e4374, type: 3}
   startingDeck: {fileID: 11400000, guid: 03db7753a8eb34b8fa1ccf858b7c2c0e, type: 2}
@@ -29,60 +29,94 @@ MonoBehaviour:
   cardPool: {fileID: 11400000, guid: 4d23c731d10ea45218cc9e44a4ca61f3, type: 2}
   speakerType: {fileID: 0}
   abilitiesV2:
-  - rid: 205828032053379370
+  - rid: 2034229587402555789
   level: 2
   upgradeTo: {fileID: 0}
   tooltip:
     empty: 0
     lines:
     - title: Level 3 Beezelbumbler
-      description: Whenever a companion dies, give all companions 1 permanent strength
+      description: At the start of combat, Beezelbumbler gains 2 permanent strength
+        if below half HP
       relatedBehaviorIndex: 0
-  keepsakeTitle: 
-  keepsakeDescription: Whenever a companion dies, give all companions 1 permanent
-    strength
+  keepsakeTitle: Bumbler's Deviltooth
+  keepsakeDescription: At the start of combat, Beezelbumbler gains 2 permanent strength
+    if below half HP
   references:
     version: 2
     RefIds:
-    - rid: 205828032053379370
+    - rid: 2034229587402555789
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
-        abilityTrigger: 5
+        abilityTrigger: 0
         effectSteps:
-        - rid: 205828032053379371
-        - rid: 205828032053379375
-        - rid: 8441470952357494958
-        - rid: 8441470952357494959
-    - rid: 205828032053379371
+        - rid: 2034229587402555794
+        - rid: 2034229587402555795
+        - rid: 2034229587402555796
+        - rid: 2034229587402555797
+        - rid: 2034229587402555798
+        - rid: 2034229587402555801
+        - rid: 2034229587402555836
+        - rid: 2034229587402555800
+    - rid: 2034229587402555794
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: all
-        validTargets: 00000000
+        outputKey: self
+        validTargets: 
         number: 1
-        specialTargetRule: 1
+        specialTargetRule: 3
         cantCancelTargetting: 0
-    - rid: 205828032053379375
+    - rid: 2034229587402555795
+      type: {class: FilterEntityByHP, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FilterEntityByHP
+        inputKey: self
+        percentThreshold: 0.5
+        outputKey: selfBelowHalf
+    - rid: 2034229587402555796
+      type: {class: CountStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CountStep
+        inputKey: selfBelowHalf
+        outputKey: numBelowHalf
+    - rid: 2034229587402555797
+      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: BooleanComparison
+        hardCodedInputKey1: 1
+        useHardCodedInputKey1: 1
+        inputKey1: 
+        operation: 2
+        inputKey2: numBelowHalf
+        outputKey: isBelowHalf
+    - rid: 2034229587402555798
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: isBelowHalf
+        conditionToEndOn: 0
+    - rid: 2034229587402555800
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
+        scale: 1.5
+    - rid: 2034229587402555801
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: RAWR >:)
+        lineTime: 2
+    - rid: 2034229587402555836
       type: {class: PermanentStatIncrease, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: PermanentStatIncrease
-        inputKey: all
+        inputKey: self
         statIncreaseType: 0
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
-    - rid: 8441470952357494958
-      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: DialogueStep
-        line: EVERY DEATH, WE GROW STRONGER >:)
-        lineTime: 2
-    - rid: 8441470952357494959
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: all
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
-        scale: 1
