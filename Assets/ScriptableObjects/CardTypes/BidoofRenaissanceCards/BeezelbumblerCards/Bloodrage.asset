@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Bloodrage
   m_EditorClassIdentifier: 
   Name: Bloodrage
-  Description: All companions lose 1 HP and gain 1 strength
-  Cost: 1
+  Description: All companions lose 2 HP and gain 1 strength
+  defaultValues: []
+  Cost: 0
   Artwork: {fileID: 21300000, guid: 0f5ecf3627abce84490e1f8ec8e4f24f, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
@@ -79,12 +80,13 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: companions
         combatEffect: 16
-        scale: 1
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        vfxPrefab: {fileID: 0}
     - rid: 5602892675124822085
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:

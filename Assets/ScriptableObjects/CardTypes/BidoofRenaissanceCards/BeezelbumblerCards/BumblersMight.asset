@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: BumblersMight
   m_EditorClassIdentifier: 
   Name: Bumbler's Might
-  Description: Lose 3 HP. Give target companion 4 strength
+  Description: 'Give target companion 4 strength. Lose 3 HP. '
+  defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 27ec1549f8e73da4c93e706a368e736b, type: 3}
   cardCategory: 2
@@ -33,13 +34,6 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 1274772082283774163
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: self
-        prefabToInstantiate: {fileID: 6137048663962808129, guid: 92c26f41ef33c23419e05ceb12660efa, type: 3}
-        scale: 0.8
     - rid: 1274772082283774164
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -54,9 +48,8 @@ MonoBehaviour:
         - rid: 5602892675124822098
         - rid: 5602892675124822102
         - rid: 5602892675124822101
-        - rid: 5602892675124822099
-        - rid: 1274772082283774163
         - rid: 1274772082283774164
+        - rid: 5602892675124822099
     - rid: 5602892675124822098
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -80,6 +73,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        vfxPrefab: {fileID: 6137048663962808129, guid: 92c26f41ef33c23419e05ceb12660efa, type: 3}
     - rid: 5602892675124822101
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:

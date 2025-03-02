@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: HurtfulStrike
   m_EditorClassIdentifier: 
   Name: Hurtful Strike
-  Description: Lose 1 HP. Deal {rpl_damage} damage twice.
+  Description: 'Deal {rpl_damage} damage twice. Lose 2 HP. '
   defaultValues:
   - key: rpl_damage
     value: 4
@@ -36,22 +36,14 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 1274772082283774270
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: self
-        prefabToInstantiate: {fileID: 6137048663962808129, guid: 92c26f41ef33c23419e05ceb12660efa, type: 3}
-        scale: 0.75
     - rid: 5602892561590779947
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
         - rid: 5602892561590779948
         - rid: 5602892561590779950
-        - rid: 5602892561590779949
-        - rid: 1274772082283774270
         - rid: 5602892561590779951
+        - rid: 5602892561590779949
     - rid: 5602892561590779948
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -69,7 +61,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: self
         combatEffect: 16
-        scale: 1
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
