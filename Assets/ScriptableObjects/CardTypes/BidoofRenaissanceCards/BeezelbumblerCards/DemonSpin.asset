@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DemonSpin
   m_EditorClassIdentifier: 
   Name: Demon Spin
-  Description: Lose 3 HP. Deal {rpl_damage} damage to all enemies 3 times.
+  Description: 'Deal {rpl_damage} damage to all enemies 3 times. Lose 3 HP. '
   defaultValues:
   - key: rpl_damage
     value: 2
@@ -36,13 +36,6 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 1274772082283774199
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: self
-        prefabToInstantiate: {fileID: 6137048663962808129, guid: 92c26f41ef33c23419e05ceb12660efa, type: 3}
-        scale: 0.8
     - rid: 5602892675124822090
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -51,7 +44,6 @@ MonoBehaviour:
         - rid: 5602892675124822095
         - rid: 5602892675124822096
         - rid: 5602892675124822094
-        - rid: 1274772082283774199
     - rid: 5602892675124822091
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -75,7 +67,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}
+        vfxPrefab: {fileID: 6137048663962808129, guid: 92c26f41ef33c23419e05ceb12660efa, type: 3}
     - rid: 5602892675124822095
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -99,4 +91,4 @@ MonoBehaviour:
         multiplicity: 3
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 0}
+        vfxPrefab: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}
