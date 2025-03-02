@@ -42,7 +42,7 @@ public class KeepsakeInShop : MonoBehaviour
             companion, 
             price, 
             this);
-        ShopManager.Instance.processCompanionBuyRequest(companionBuyRequest);
+        // ShopManager.Instance.processCompanionBuyRequest(companionBuyRequest);
     }
 
     public void OnPointerEnter(PointerEventData eventData)

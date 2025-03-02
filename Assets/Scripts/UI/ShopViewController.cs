@@ -26,6 +26,7 @@ public class ShopViewController : MonoBehaviour,
     private VisualElement activeContainer;
     private VisualElement mapContainer;
     private Button upgradeButton;
+    private Button rerollButton;
     private Label moneyLabel;
     private Label notEnoughMoneyLabel;
     public VisualElement selectingCompanionVeil;
@@ -50,7 +51,7 @@ public class ShopViewController : MonoBehaviour,
     private IEnumerator upgradeButtonTooltipCoroutine = null;
     private VisualElement tooltip;
     private bool sellingCompanions = false;
-    private Companion companionToSell;
+    private CompanionManagementView companionToSell;
     private string originalSellingCompanionConfirmationText;
 
     public void Start() {
@@ -87,7 +88,8 @@ public class ShopViewController : MonoBehaviour,
 
         SetupActiveSlots(shopManager.gameState.companions.currentCompanionSlots);
 
-        uiDoc.rootVisualElement.Q<Button>("reroll-button").clicked += RerollButtonOnClick;
+        rerollButton = uiDoc.rootVisualElement.Q<Button>("reroll-button");
+        rerollButton.clicked += RerollButtonOnClick;
         selectingCancelButton.clicked += CancelCardBuy;
         upgradeButton = uiDoc.rootVisualElement.Q<Button>("upgrade-button");
         upgradeButton.clicked += UpgradeButtonOnClick;
@@ -245,7 +247,7 @@ public class ShopViewController : MonoBehaviour,
 
     public void ShopItemOnClick(ShopItemView shopItemView) {
         if (shopItemView.companionInShop != null) {
-            shopManager.ProcessCompanionBuyRequestV2(shopItemView, shopItemView.companionInShop);
+            shopManager.ProcessCompanionBuyRequest(shopItemView, shopItemView.companionInShop);
         } else if (shopItemView.cardInShop != null) {
             shopManager.ProcessCardBuyRequestV2(shopItemView, shopItemView.cardInShop);
         }
@@ -291,7 +293,6 @@ public class ShopViewController : MonoBehaviour,
     {
         if (sellingCompanions) {
             sellingCompanionConfirmation.style.visibility = Visibility.Visible;
-            //this.companionToSell = companionView;
             Label confirmSellCompanionLabel = sellingCompanionConfirmation.Q<Label>("selling-companion-confirmation-label");
             string replacedText = String.Format(
                 originalSellingCompanionConfirmationText, 
@@ -304,7 +305,7 @@ public class ShopViewController : MonoBehaviour,
     }
 
     private void ConfirmSellCompanion() {
-        shopManager.SellCompanion(companionToSell);
+        shopManager.SellCompanion(companionToSell.companion, companionToSell.container);
         companionToSell = null;
         sellingCompanions = false;
         canDragCompanions = true;
@@ -657,16 +658,16 @@ public class ShopViewController : MonoBehaviour,
         }
     }
 
-    public void SellCompanion(Companion companion)
+    public void SellCompanion(CompanionManagementView companionView)
     {
         SellCompanionOnClick();
         sellingCompanionConfirmation.style.visibility = Visibility.Visible;
-            this.companionToSell = companion;
+            this.companionToSell = companionView;
             Label confirmSellCompanionLabel = sellingCompanionConfirmation.Q<Label>("selling-companion-confirmation-label");
             string replacedText = String.Format(
                 originalSellingCompanionConfirmationText, 
-                companion.GetName(), 
-                shopManager.CalculateCompanionSellPrice(companion));
+                companionView.companion.GetName(), 
+                shopManager.CalculateCompanionSellPrice(companionView.companion));
             confirmSellCompanionLabel.text = replacedText;
     }
 
@@ -697,5 +698,22 @@ public class ShopViewController : MonoBehaviour,
 
     public bool IsDraggingCompanion() {
         return isDraggingCompanion;
-    }  
+    }
+
+    public void ShopItemViewHovered(ShopItemView shopItemView)
+    {
+        shopManager.ShopItemHovered();
+    }
+
+    public VisualElement GetUpgradeShopButton() {
+        return upgradeButton;
+    }
+
+    public VisualElement GetRerollShopButton() {
+        return rerollButton;
+    }
+
+    public VisualElement GetMoneyIndicator() {
+        return moneyLabel;
+    }
 }

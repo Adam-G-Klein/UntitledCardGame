@@ -50,6 +50,7 @@ public class ShopItemView {
         shopItemElement.Add(entityView.entityContainer);
 
         shopItemElement.RegisterCallback<ClickEvent>(evt => ShopItemViewOnClicked());
+        shopItemElement.RegisterCallback<PointerEnterEvent>(OnPointerEnter);
 
         shopItemElement.Add(CreatePriceTagForShopItem(companion.price));
 
@@ -73,6 +74,7 @@ public class ShopItemView {
 
 
         shopItemElement.RegisterCallback<ClickEvent>(clickEventHandler);
+        shopItemElement.RegisterCallback<PointerEnterEvent>(OnPointerEnter);
 
         shopItemElement.Add(CreatePriceTagForShopItem(card.price));
 
@@ -96,5 +98,9 @@ public class ShopItemView {
     public void Disable() {
         shopItemElement.visible = false;
         shopItemElement.UnregisterCallback<ClickEvent>(clickEventHandler);
+    }
+
+    private void OnPointerEnter(PointerEnterEvent evt) {
+        viewDelegate.ShopItemViewHovered(this);
     }
 }

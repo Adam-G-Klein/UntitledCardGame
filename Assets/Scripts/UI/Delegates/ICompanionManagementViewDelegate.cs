@@ -9,7 +9,7 @@ public interface ICompanionManagementViewDelegate {
     void CompanionManagementOnPointerMove(CompanionManagementView companionManagementView, PointerMoveEvent evt);
     void CompanionManagementOnPointerLeave(CompanionManagementView companionManagementView, PointerLeaveEvent evt);
     void ShowCompanionDeckView(Companion companion);
-    void SellCompanion(Companion companion);
+    void SellCompanion(CompanionManagementView companionView);
     void AddToRoot(VisualElement element);
     bool IsSellingCompanions();
     bool IsDraggingCompanion();

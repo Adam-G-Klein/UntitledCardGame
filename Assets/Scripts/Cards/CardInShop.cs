@@ -42,7 +42,7 @@ public class CardInShop : MonoBehaviour
             cardDisplay.getCardInfo(),
             price,
             this);
-        ShopManager.Instance.processCardBuyRequest(cardBuyRequest);
+        // ShopManager.Instance.processCardBuyRequest(cardBuyRequest);
     }
 
     public void OnPointerEnter(PointerEventData eventData)

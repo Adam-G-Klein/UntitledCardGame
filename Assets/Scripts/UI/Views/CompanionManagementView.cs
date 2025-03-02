@@ -106,7 +106,7 @@ public class CompanionManagementView {
 
     private void SellCompanionButtonOnClick() {
         RemoveCompanionHoverButtons();
-        viewDelegate.SellCompanion(companion);
+        viewDelegate.SellCompanion(this);
     }
 
     private void CreateCompanionBoundingBox() {

@@ -22,17 +22,17 @@ public class ShopManagerEditor : Editor {
             typeof(CompanionTypeSO),
             false) as CompanionTypeSO;
 
-        if(GUILayout.Button("Buy Companion")) {
-            if(companionToBuy != null) {
-                ShopManager.Instance.processCompanionBuyRequest(
-                    new CompanionBuyRequest(
-                        new Companion(companionToBuy),
-                        0,
-                        null));
-            } else {
-                Debug.LogWarning("Must set companion to buy first!");
-            }
-        }
+        // if(GUILayout.Button("Buy Companion")) {
+        //     if(companionToBuy != null) {
+        //         ShopManager.Instance.ProcessCompanionBuyRequest(
+        //             new CompanionBuyRequest(
+        //                 new Companion(companionToBuy),
+        //                 0,
+        //                 null));
+        //     } else {
+        //         Debug.LogWarning("Must set companion to buy first!");
+        //     }
+        // }
         
         encounterToSet = EditorGUILayout.ObjectField(
             encounterToSet,
