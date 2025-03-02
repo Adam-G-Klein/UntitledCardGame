@@ -23,6 +23,38 @@ public class CompanionCombinationManager : MonoBehaviour
     [SerializeField]
     private GameObject celebrationParticles;
 
+    public List<Companion> PurchaseWouldCauseUpgrade(Companion newGuy) {
+        if (newGuy.companionType.upgradeTo == null) {
+            Debug.LogError("purchased a companion and there is no level 2 for it");
+            return null;
+        }
+        List<Companion> existingCompanions = CompanionsOfType(newGuy.companionType);
+        existingCompanions.Add(newGuy);
+
+        int numNeededToCombine = newGuy.companionType.level == CompanionLevel.LevelOne ?
+            gameplayConstants.COMPANIONS_FOR_LEVELTWO_COMBINATION :
+            gameplayConstants.COMPANIONS_FOR_LEVELTHREE_COMBINATION;
+
+        // This is an expected result when you buy a companion and do not have enough.
+        if (existingCompanions.Count < numNeededToCombine) {
+            Debug.Log("Not enough companions to trigger combination!");
+            return null;
+        }
+
+        // Getting here means that we would get at least one upgrade triggered. We need to see if multiple would trigger
+        if (newGuy.companionType.level == CompanionLevel.LevelOne) {
+            Companion combined = ShowUpgradedCompanion(existingCompanions); // this creates a temp upgrade companion to see if another combination would trigger
+            List<Companion> secondUpgradeCompanions = PurchaseWouldCauseUpgrade(combined);
+            if (secondUpgradeCompanions != null) existingCompanions.Add(secondUpgradeCompanions[0]); // this is a little hacky/implementation dependent 
+        }
+
+        return existingCompanions;
+    }
+
+    public Companion ShowUpgradedCompanion(List<Companion> companions) {
+        return CombineCompanions(companions);
+    }
+
     // AttemptCompanionUpgrade searches for enough other companions of the same type and level.
     // If there are enough at the threshold, it removes the existing companions and creates a
     // combined version to be returned by this method.

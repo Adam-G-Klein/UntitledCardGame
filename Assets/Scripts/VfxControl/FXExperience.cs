@@ -73,7 +73,7 @@ public class FXExperience : MonoBehaviour
     }
 
     public void PlayOnExperienceOverEarly() {
-        Debug.LogError("playing on experience over early!");
+        Debug.Log("playing on experience over early!");
         if (onExperienceOver != null && !earlyStopped) {
             onExperienceOver();
         }

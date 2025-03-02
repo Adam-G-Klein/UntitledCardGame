@@ -53,6 +53,7 @@ public class ShopViewController : MonoBehaviour,
     private bool sellingCompanions = false;
     private CompanionManagementView companionToSell;
     private string originalSellingCompanionConfirmationText;
+    private bool inUpgradeMenu = false;
 
     public void Start() {
         // Init(null);
@@ -101,6 +102,10 @@ public class ShopViewController : MonoBehaviour,
         sellingCompanionConfirmation.Q<Button>("selling-companion-confirmation-no").clicked += StopSellingCompanion;
         originalSellingCompanionConfirmationText = sellingCompanionConfirmation.Q<Label>("selling-companion-confirmation-label").text;
         deckView.Q<Button>().clicked += CloseCompanionDeckView;
+
+        //setup upgradeMenu
+        uiDoc.rootVisualElement.Q<Button>(name:"cancelUpgrade").clicked += CancelUpgrade;
+        uiDoc.rootVisualElement.Q<Button>(name:"confirmUpgrade").clicked += ConfirmUpgrade;
     }
 
     private void SetupActiveSlots(int numCompanions) {
@@ -715,5 +720,64 @@ public class ShopViewController : MonoBehaviour,
 
     public VisualElement GetMoneyIndicator() {
         return moneyLabel;
+    }  
+
+    public void ShowCompanionUpgradeMenu(List<Companion> companions, Companion upgradeCompanion) {
+        inUpgradeMenu = true;
+        VisualElement upgradeMenuOuterContainer = uiDoc.rootVisualElement.Q<VisualElement>(name:"upgradeMenuOuterContainer");
+        VisualElement companionUpgradeMenu = uiDoc.rootVisualElement.Q<VisualElement>(name:"upgradeMenuContainer");
+        VisualElement initialCompanionContainer = uiDoc.rootVisualElement.Q<VisualElement>(name: "currentCompanions");
+        VisualElement upgradeCompanionContainer = uiDoc.rootVisualElement.Q<VisualElement>(name: "upgradedCompanion");
+        initialCompanionContainer.Clear();
+        upgradeCompanionContainer.Clear();
+
+        companions.ForEach((companion) => {
+            VisualElement companionContainer = new VisualElement();
+            companionContainer.AddToClassList("victory-companion-container");
+            CompanionTypeSO companionType = companion.companionType;
+            EntityView entityView = new EntityView(companion, 0, false);
+            //entityView.entityContainer.AddToClassList("compendium-item-container");
+            VisualElement portraitContainer = entityView.entityContainer.Q(className: "portrait-container");
+            portraitContainer.style.backgroundImage = new StyleBackground(companionType.sprite);
+            companionContainer.Add(entityView.entityContainer);
+            initialCompanionContainer.Add(companionContainer);
+        });
+
+        VisualElement companionContainer = new VisualElement();
+        companionContainer.AddToClassList("victory-companion-container");
+        CompanionTypeSO companionType = upgradeCompanion.companionType;
+        EntityView entityView = new EntityView(upgradeCompanion, 0, false);
+        //entityView.entityContainer.AddToClassList("compendium-item-container");
+        VisualElement portraitContainer = entityView.entityContainer.Q(className: "portrait-container");
+        portraitContainer.style.backgroundImage = new StyleBackground(companionType.sprite);
+        companionContainer.Add(entityView.entityContainer);
+        upgradeCompanionContainer.Add(companionContainer);
+
+        companionUpgradeMenu.AddToClassList("upgrade-menu-container-visible");
+        upgradeMenuOuterContainer.AddToClassList("upgrade-menu-outer-container-visible");
+        upgradeMenuOuterContainer.pickingMode = PickingMode.Position;
+    }
+
+    private void CancelUpgrade() {
+        if (!inUpgradeMenu) return;
+        inUpgradeMenu = false;
+        VisualElement upgradeMenuOuterContainer = uiDoc.rootVisualElement.Q<VisualElement>(name:"upgradeMenuOuterContainer");
+        VisualElement companionUpgradeMenu = uiDoc.rootVisualElement.Q<VisualElement>(name:"upgradeMenuContainer");
+        companionUpgradeMenu.RemoveFromClassList("upgrade-menu-container-visible");
+        upgradeMenuOuterContainer.RemoveFromClassList("upgrade-menu-outer-container-visible");
+        upgradeMenuOuterContainer.pickingMode = PickingMode.Ignore;
+        shopManager.CancelUpgradePurchase();
+    }
+
+    private void ConfirmUpgrade() {
+        if (!inUpgradeMenu) return;
+        inUpgradeMenu = false;
+
+        VisualElement upgradeMenuOuterContainer = uiDoc.rootVisualElement.Q<VisualElement>(name:"upgradeMenuOuterContainer");
+        VisualElement companionUpgradeMenu = uiDoc.rootVisualElement.Q<VisualElement>(name:"upgradeMenuContainer");
+        companionUpgradeMenu.RemoveFromClassList("upgrade-menu-container-visible");
+        upgradeMenuOuterContainer.RemoveFromClassList("upgrade-menu-outer-container-visible");
+        upgradeMenuOuterContainer.pickingMode = PickingMode.Ignore;
+        shopManager.ConfirmUpgradePurchase();
     }
 }

@@ -151,3 +151,32 @@
     position: absolute;
     right: 0;
 }
+
+.upgrade-menu-outer-container {
+    align-items: center;
+    align-self: center;
+}
+
+.upgrade-menu-outer-container-visible {
+    background-color: rgba(0, 0, 0, 0.59);
+}
+
+.upgrade-menu-container {
+    flex-grow: 1;
+    width: 90%;
+    height: 90%;
+    max-height: 90%;
+    max-width: 90%;
+    align-items: center;
+    background-color: rgb(217, 217, 217);
+    scale: 0 0;
+    transition-property: scale;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-back;
+}
+
+.upgrade-menu-container-visible {
+    transition-property: scale;
+    transition-timing-function: ease-out-back;
+    scale: 1 1;
+}

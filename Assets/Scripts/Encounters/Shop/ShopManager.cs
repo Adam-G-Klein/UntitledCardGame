@@ -34,6 +34,8 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     private CompanionCombinationManager companionCombinationManager;
     [SerializeField]
     public UIDocumentGameObjectPlacer placer { get; set; }
+    private CompanionInShopWithPrice companionInShop;
+    private Companion newCompanion;
 
     void Awake() {
         if (USE_NEW_SHOP) {
@@ -110,7 +112,9 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         return cardSourceCompanion == null || cardSourceCompanion.cardPool == companion.companionType.cardPool;
     }
 
+
     public void ProcessCompanionBuyRequest(ShopItemView shopItemView, CompanionInShopWithPrice companionInShop) {
+        Debug.LogError("purchasing a companion");
         if (gameState.companions.activeCompanions.Count == 5 && gameState.companions.benchedCompanions.Count == 5) {
             StartCoroutine(shopViewController.ShowGenericNotification("You have reached the maximum number of companions.", 2));
             return;
@@ -125,21 +129,24 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             shopViewController.SetMoney(gameState.playerData.GetValue().gold);
             // Create a new instance of the companion and then attempt companion upgrades before adding
             // them to your team;
-            Companion newCompanion = new Companion(companionInShop.companionType);
+            this.companionInShop = companionInShop;
+            newCompanion = new Companion(companionInShop.companionType);
             // companionToAdd is the final companion to add to your team :)
             Companion companionToAdd = newCompanion;
-            Companion level2Dude = companionCombinationManager.AttemptCompanionUpgrade(newCompanion);
-            if (level2Dude != null) {
-                companionToAdd = level2Dude;
-                // Then attempt the level 3 upgrade :)
-                Companion level3Dude = companionCombinationManager.AttemptCompanionUpgrade(level2Dude);
 
-                if (level3Dude != null) {
-                    companionToAdd = level3Dude;
-                    shopViewController.ShowCompanionUpgradedMessage(newCompanion.GetName(), 3);
-                } else {
-                    shopViewController.ShowCompanionUpgradedMessage(newCompanion.GetName(), 2);
+            List<Companion> companions = companionCombinationManager.PurchaseWouldCauseUpgrade(newCompanion);
+            if (companions != null) {
+                Companion upgradeCompanion = companionCombinationManager.ShowUpgradedCompanion(companions.GetRange(0,2));
+                if (companions.Count == 4) {
+                    List<Companion> level2s = new()
+                    {
+                        companions[3],
+                        upgradeCompanion
+                    };
+                    upgradeCompanion = companionCombinationManager.ShowUpgradedCompanion(level2s);
                 }
+                shopViewController.ShowCompanionUpgradeMenu(companions, upgradeCompanion);
+                return;
             }
             gameState.AddCompanionToTeam(companionToAdd);
             shopViewController.RemoveCompanionFromShopView(companionInShop);
@@ -160,6 +167,31 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         foreach (Transform child in obj.transform) {
             child.localScale *= scale;
         }
+    }
+
+    public void CancelUpgradePurchase() {
+        companionInShop = null;
+        newCompanion = null;
+    }
+
+    public void ConfirmUpgradePurchase() {
+        Companion companionToAdd = null;
+        Companion level2Dude = companionCombinationManager.AttemptCompanionUpgrade(newCompanion);
+        if (level2Dude != null) {
+            companionToAdd = level2Dude;
+            // Then attempt the level 3 upgrade :)
+            Companion level3Dude = companionCombinationManager.AttemptCompanionUpgrade(level2Dude);
+
+            if (level3Dude != null) {
+                companionToAdd = level3Dude;
+                shopViewController.ShowCompanionUpgradedMessage(newCompanion.GetName(), 3);
+            } else {
+                shopViewController.ShowCompanionUpgradedMessage(newCompanion.GetName(), 2);
+            }
+        }
+        gameState.AddCompanionToTeam(companionToAdd);
+        shopViewController.RemoveCompanionFromShopView(companionInShop);
+        shopViewController.RebuildUnitManagement(gameState.companions);
     }
 
     public void ProcessCompanionClicked(Companion companion) {
