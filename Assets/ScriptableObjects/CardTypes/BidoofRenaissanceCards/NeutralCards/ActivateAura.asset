@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: ActivateAura
   m_EditorClassIdentifier: 
   Name: Activate Aura
-  Description: Give target companion 1 aura stack
+  Description: Give target companion 1 aura stack and 5 block.
+  defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 11ab1a8caee32d042ac3a1366784f67e, type: 3}
   cardCategory: 2
@@ -33,6 +34,16 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 2034229587402555752
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: target
+        statusEffect: 2
+        scale: 5
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
     - rid: 5280922841426165956
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -46,6 +57,7 @@ MonoBehaviour:
         effectSteps:
         - rid: 5602892723852673193
         - rid: 5602892723852673194
+        - rid: 2034229587402555752
         - rid: 5280922841426165956
     - rid: 5602892723852673193
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
