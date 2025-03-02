@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: HurtfulStrike
   m_EditorClassIdentifier: 
   Name: Hurtful Strike
-  Description: Lose 1 HP. Deal {rpl_damage} damage twice.
+  Description: Lose 2 HP. Deal {rpl_damage} damage twice.
   defaultValues:
   - key: rpl_damage
     value: 4
@@ -69,7 +69,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: self
         combatEffect: 16
-        scale: 1
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1

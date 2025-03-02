@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DemonSpin
   m_EditorClassIdentifier: 
   Name: Demon Spin
-  Description: Lose 2 HP. Deal {rpl_damage} damage to all enemies 3 times.
+  Description: Lose 3 HP. Deal {rpl_damage} damage to all enemies 3 times.
   defaultValues:
   - key: rpl_damage
     value: 2
@@ -69,7 +69,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: self
         combatEffect: 16
-        scale: 2
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
