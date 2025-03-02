@@ -18,14 +18,23 @@ public class EnemyTypeSO : ScriptableObject
     [Space]
     public Sprite sprite;
 
+    // Control what happens when the enemy's friends die :(
+    public EnemyMorale morale;
+
     [SerializeReference]
     public List<EntityAbility> abilities;
 
     public EnemyBrain enemyPattern;
 
     public EnemyBrain belowHalfHPEnemyPattern;
+    public EnemyBrain adaptWhenAloneEnemyPattern;
     public List<InitialStatus> initialStatuses = new List<InitialStatus>();
     public TooltipViewModel tooltip;
+}
+
+public enum EnemyMorale {
+    Unrelenting,  // By default, enemies stay until they die.
+    AdaptWhenAlone,  // Fall back on the alone pattern if there are no Unrelenting enemies left ;(
 }
 
 [System.Serializable]

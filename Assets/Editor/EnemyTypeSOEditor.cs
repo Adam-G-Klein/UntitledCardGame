@@ -8,7 +8,7 @@ public class EnemyTypeSOEditor : Editor {
 
     EffectStepName stepName = EffectStepName.Default;
     int index = 0;
-    bool editBelowHalfHPPattern = false;
+    PatternToEdit patternToEdit;
 
     public override void OnInspectorGUI() {
         EnemyTypeSO enemyType = (EnemyTypeSO) target;
@@ -22,7 +22,7 @@ public class EnemyTypeSOEditor : Editor {
             "New effect",
             stepName);
         index = EditorGUILayout.IntField("Action Index", index);
-        editBelowHalfHPPattern = EditorGUILayout.Toggle("Edit the below half HP pattern", editBelowHalfHPPattern);
+        patternToEdit = (PatternToEdit) EditorGUILayout.EnumPopup("Which Pattern to Edit?", patternToEdit);
         if (GUILayout.Button("Add Enemy Pattern Effect")) {
             EffectStep newEffect = InstantiateFromClassname.Instantiate<EffectStep>(
                 stepName.ToString(),
@@ -35,10 +35,16 @@ public class EnemyTypeSOEditor : Editor {
                 " the arguments in the constructor");
                 return;
             }
-            if (editBelowHalfHPPattern) {
-                enemyType.belowHalfHPEnemyPattern.behaviors[index].effectSteps.Add(newEffect);
-            } else {
+            switch (patternToEdit) {
+            case PatternToEdit.DefaultPattern:
                 enemyType.enemyPattern.behaviors[index].effectSteps.Add(newEffect);
+                break;
+            case PatternToEdit.BelowHalfHPPattern:
+                enemyType.belowHalfHPEnemyPattern.behaviors[index].effectSteps.Add(newEffect);
+                break;
+            case PatternToEdit.AdaptWhenAlonePattern:
+                enemyType.adaptWhenAloneEnemyPattern.behaviors[index].effectSteps.Add(newEffect);
+                break;
             }
         }
         if(GUILayout.Button("Add Tooltip")) {
@@ -78,5 +84,11 @@ public class EnemyTypeSOEditor : Editor {
             }
             enemyType.abilities.Add(new EntityAbility());
         }
+    }
+
+    public enum PatternToEdit {
+        DefaultPattern,
+        BelowHalfHPPattern,
+        AdaptWhenAlonePattern,
     }
 }

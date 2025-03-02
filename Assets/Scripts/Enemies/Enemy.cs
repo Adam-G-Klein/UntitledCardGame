@@ -19,6 +19,21 @@ public class Enemy : Entity, ICombatStats, IUIEntity {
     }
 
     public EnemyIntent ChooseIntent(EnemyInstance enemyInstance) {
+        if (enemyInstance.enemy.enemyType.morale == EnemyMorale.AdaptWhenAlone) {
+            List<EnemyInstance> allEnemies = CombatEntityManager.Instance.getEnemies();
+
+            int unrelentingCount = 0;
+            for (int i = 0; i < allEnemies.Count; i++) {
+                if (allEnemies[i].enemy.enemyType.morale == EnemyMorale.Unrelenting) {
+                    unrelentingCount += 1;
+                }
+            }
+            if (unrelentingCount == 0) {
+                Debug.Log("No more unrelenting friends left. Time for the fallback plan.");
+                return enemyType.adaptWhenAloneEnemyPattern.ChooseIntent(enemyInstance);
+            }
+        }
+
         bool belowHalf = enemyInstance.combatInstance.combatStats.currentHealth <= enemyInstance.combatInstance.combatStats.maxHealth / 2;
         if (enemyType.belowHalfHPEnemyPattern != null &&
             enemyType.belowHalfHPEnemyPattern.behaviors != null &&
