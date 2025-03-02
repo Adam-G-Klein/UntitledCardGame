@@ -16,6 +16,7 @@ MonoBehaviour:
   maxHealth: 35
   baseAttackDamage: 0
   sprite: {fileID: -1328141604, guid: 52ef76537258f7d43a3a9dc144329c2f, type: 3}
+  morale: 1
   abilities: []
   enemyPattern:
     behaviors:
@@ -28,10 +29,25 @@ MonoBehaviour:
       - rid: 5602892723852673492
       - rid: 5280922829633618018
     behaviorType: 0
+    behaviorIndex: 0
     nextBehaviorIndex: 0
   belowHalfHPEnemyPattern:
     behaviors: []
     behaviorType: 0
+    behaviorIndex: 0
+    nextBehaviorIndex: 0
+  adaptWhenAloneEnemyPattern:
+    behaviors:
+    - intent: 5
+      enemyTargetMethod: 6
+      targetsKey: 
+      displayValue: 0
+      effectSteps:
+      - rid: 2034229587402555900
+      - rid: 2034229587402555901
+      - rid: 2034229587402555902
+    behaviorType: 0
+    behaviorIndex: 0
     nextBehaviorIndex: 0
   initialStatuses: []
   tooltip:
@@ -46,6 +62,37 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: 2034229587402555900
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 2034229587402555901
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: self
+        combatEffect: 6
+        scale: 0
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 0}
+    - rid: 2034229587402555902
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 7939549763701254822, guid: f4ba6cc7e7a795f49be6c445733f13d4, type: 3}
+        scale: 1
     - rid: 5280922829633618018
       type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
       data:
