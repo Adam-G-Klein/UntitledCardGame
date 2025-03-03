@@ -25,9 +25,6 @@ public class CombatCompanionTooltipProvder : MonoBehaviour
     }
 
     public void DisableTooltip() {
-        Debug.LogError("destroying companion tooltip");
-        GameObject.Destroy(tooltipOnHover.gameObject);
         tooltipOnHover.Destroy();
     }
-    
 }
