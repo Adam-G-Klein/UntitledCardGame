@@ -32,6 +32,10 @@ public class CompanionManagementView {
         entityView.entityContainer.RegisterCallback<PointerUpEvent>(ComapnionManagementOnPointerUp);
         entityView.entityContainer.RegisterCallback<PointerLeaveEvent>(ComapnionManagementOnPointerLeave);
         entityView.entityContainer.RegisterCallback<PointerEnterEvent>(CompanionManagementOnPointerEnter);
+        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(entityView.entityContainer, 
+            () => {CompanionManagementOnClick(null);}, 
+            ()=> {CompanionManagementOnPointerEnter(null);},
+            () => {});
         return entityView.entityContainer;
     }
 

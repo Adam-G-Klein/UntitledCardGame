@@ -36,7 +36,8 @@ public class UIDocumentUtils : MonoBehaviour
         if (ve == null){
             return false;
         }
-        if (float.IsNaN(ve.worldBound.width)){
+        Debug.Log("[HoverableInstantiation] ve.worldBound.width: " + ve.worldBound.width);
+        if (float.IsNaN(ve.worldBound.width) || ve.worldBound.width == 0){
             return false;
         }
         return true;

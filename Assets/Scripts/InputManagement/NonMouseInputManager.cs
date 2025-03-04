@@ -45,6 +45,10 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
     // holder of this all-important state for now
     public InputMethod inputMethod = InputMethod.Mouse;
     private Hoverable lastHoveredCard;
+    [SerializeField]
+    [Header("Uses game state to determine the active encounter type.\n" +
+        "Shouldn't try to access turn manager or UIState manager if we're in the shop")]
+    private GameStateVariableSO gameState;
 
     void Start()
     {
@@ -157,9 +161,15 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
         return closest;
     }
 
+
     public void ProcessInput(InputAction action) {
         Cursor.visible = false;
         inputMethod = InputMethod.Keyboard;
+        if(gameState.activeEncounter.GetValue().getEncounterType() == EncounterType.Shop) {
+            processInputForShop(action);
+            return;
+        }
+        // else, we're in combat
         switch(UIStateManager.Instance.currentState) {
             case UIState.DEFAULT:
                 processInputForDefaultState(action);
@@ -181,6 +191,55 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
             }
         }
         return filtered;
+    }
+
+    private void processInputForShop(InputAction action) {
+        switch(action) {
+            case InputAction.UP:
+                hoverInDirection(Vector2.up, allHoverables);
+                Debug.Log("[NonMouseInputManager] State: SHOP, Action: UP, hoveredCardIndex: " + hoveredCardIndex);
+                break;
+            case InputAction.DOWN:
+                hoverInDirection(Vector2.down, allHoverables);
+                Debug.Log("[NonMouseInputManager] State: SHOP, Action: DOWN, hoveredCardIndex: " + hoveredCardIndex);
+                break;
+            case InputAction.LEFT:
+                hoverInDirection(Vector2.left, allHoverables); 
+                Debug.Log("[NonMouseInputManager] State: SHOP, Action: LEFT, hoveredCardIndex: " + hoveredCardIndex);
+                break;
+            case InputAction.RIGHT:
+                hoverInDirection(Vector2.right, allHoverables); 
+                Debug.Log("[NonMouseInputManager] State: SHOP, Action: RIGHT, hoveredCardIndex: " + hoveredCardIndex);
+                break;
+            case InputAction.SELECT:
+                currentlyHovered.onSelect();
+                Debug.Log("[NonMouseInputManager] State: SHOP, Action: SELECT");
+                break;
+            case InputAction.BACK:
+                Debug.Log("[NonMouseInputManager] State: SHOP, Action: BACK");
+                break;
+            case InputAction.END_TURN:
+                Debug.Log("[NonMouseInputManager] State: SHOP, Action: END_TURN");
+                break;
+            case InputAction.OPEN_COMPANION_1_DRAW:
+                Debug.Log("[NonMouseInputManager] State: SHOP, Action: OPEN_COMPANION_1_DRAW");
+                break;
+            case InputAction.OPEN_COMPANION_2_DRAW:
+                Debug.Log("[NonMouseInputManager] State: SHOP, Action: OPEN_COMPANION_2_DRAW");
+                break;
+            case InputAction.OPEN_COMPANION_3_DRAW: 
+                Debug.Log("[NonMouseInputManager] State: SHOP, Action: OPEN_COMPANION_3_DRAW");
+                break;
+            case InputAction.OPEN_COMPANION_4_DRAW: 
+                Debug.Log("[NonMouseInputManager] State: SHOP, Action: OPEN_COMPANION_4_DRAW");
+                break;
+            case InputAction.OPEN_COMPANION_5_DRAW: 
+                Debug.Log("[NonMouseInputManager] State: SHOP, Action: OPEN_COMPANION_5_DRAW");
+                break;
+            default:
+                Debug.Log("[NonMouseInputManager] State: SHOP, UNIMPLEMENTED Action");
+                break;
+        }
     }
 
     private void processInputForDefaultState(InputAction action) {

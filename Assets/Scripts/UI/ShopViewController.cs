@@ -91,11 +91,23 @@ public class ShopViewController : MonoBehaviour,
 
         rerollButton = uiDoc.rootVisualElement.Q<Button>("reroll-button");
         rerollButton.clicked += RerollButtonOnClick;
+
+        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(rerollButton,
+                RerollButtonOnClick, 
+                () => {
+                    // hi Ethan this is where a reroll onEnterCallBack would go to hook it up to the hoverable system :)
+                }, 
+                () => {
+                    // hi Ethan this is where a reroll onLeaveCallBack would go to hook it up to the hoverable system :)
+                });
         selectingCancelButton.clicked += CancelCardBuy;
         upgradeButton = uiDoc.rootVisualElement.Q<Button>("upgrade-button");
         upgradeButton.clicked += UpgradeButtonOnClick;
         upgradeButton.RegisterCallback<PointerEnterEvent>(UpgradeButtonOnPointerEnter);
-        UIDocumentHoverableInstantiator.Instance.InstantiateHoverable(upgradeButton, UpgradeButtonOnClick, () => {UpgradeButtonOnPointerEnter(null);}, () => {UpgradeButtonOnPointerLeave(null);});
+        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(upgradeButton,
+                UpgradeButtonOnClick, 
+                () => {UpgradeButtonOnPointerEnter(null);}, 
+                () => {UpgradeButtonOnPointerLeave(null);});
         upgradeButton.RegisterCallback<PointerLeaveEvent>(UpgradeButtonOnPointerLeave);
         uiDoc.rootVisualElement.Q<Button>("start-next-combat-button").clicked += StartNextCombatOnClick;
         //sellCompanionButton.clicked += SellCompanionOnClick;
