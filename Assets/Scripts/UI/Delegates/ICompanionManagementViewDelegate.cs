@@ -13,5 +13,7 @@ public interface ICompanionManagementViewDelegate {
     void AddToRoot(VisualElement element);
     bool IsSellingCompanions();
     bool IsDraggingCompanion();
+    void DisplayTooltip(VisualElement element, TooltipViewModel tooltipViewModel, bool forCompanionManagementView);
+    void DestroyTooltip(VisualElement element);
     MonoBehaviour GetMonoBehaviour();
 }

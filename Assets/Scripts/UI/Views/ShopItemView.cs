@@ -51,6 +51,7 @@ public class ShopItemView {
 
         shopItemElement.RegisterCallback<ClickEvent>(evt => ShopItemViewOnClicked());
         shopItemElement.RegisterCallback<PointerEnterEvent>(OnPointerEnter);
+        shopItemElement.RegisterCallback<PointerLeaveEvent>(OnPointerLeave);
 
         UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(shopItemElement, 
             ShopItemViewOnClicked, 
@@ -84,6 +85,7 @@ public class ShopItemView {
             ShopItemViewOnClicked, 
             ()=> {OnPointerEnter(null);},
             () => {});
+        shopItemElement.RegisterCallback<PointerLeaveEvent>(OnPointerLeave);
 
         shopItemElement.Add(CreatePriceTagForShopItem(card.price));
 
@@ -111,5 +113,15 @@ public class ShopItemView {
 
     private void OnPointerEnter(PointerEnterEvent evt) {
         viewDelegate.ShopItemViewHovered(this);
+        Debug.LogError(shopItemElement.resolvedStyle.width);
+        if (companionInShop != null) {
+            viewDelegate.DisplayTooltip(shopItemElement, companionInShop.companionType.tooltip, false);
+        } else {
+            if (cardInShop.cardType.tooltips.Count == 0) return;
+            viewDelegate.DisplayTooltip(shopItemElement, cardInShop.cardType.GetTooltip(), false);
+        }
+    }
+    private void OnPointerLeave(PointerLeaveEvent evt) {
+        viewDelegate.DestroyTooltip(shopItemElement);
     }
 }

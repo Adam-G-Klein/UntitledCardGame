@@ -14,6 +14,7 @@ public class CompanionManagementView {
     private Button viewDeckButton = null;
     private Button sellCompanionButton = null;
     private VisualElement companionBoundingBox = null;
+    private EntityView entityView;
 
     public CompanionManagementView(Companion companion, ICompanionManagementViewDelegate viewDelegate) {
         this.viewDelegate = viewDelegate;
@@ -22,7 +23,7 @@ public class CompanionManagementView {
     }
 
     public VisualElement MakeCompanionManagementView(Companion companion) {
-        EntityView entityView = new EntityView(companion, 0, false);
+        entityView = new EntityView(companion, 0, false);
         entityView.UpdateWidthAndHeight();
         entityView.SetupEntityImage(companion.companionType.sprite);
         entityView.HideDescription();
@@ -45,6 +46,7 @@ public class CompanionManagementView {
         CreateViewDeckButton();
         CreateSellCompanionButton();
         CreateCompanionBoundingBox();
+        viewDelegate.DisplayTooltip(entityView.entityContainer, companion.companionType.tooltip, true);
     }
 
     public void CompanionManagementOnClick(ClickEvent evt) {
@@ -66,6 +68,7 @@ public class CompanionManagementView {
 
     private void ComapnionManagementOnPointerLeave(PointerLeaveEvent evt) {
         viewDelegate.CompanionManagementOnPointerLeave(this, evt);
+        viewDelegate.DestroyTooltip(entityView.entityContainer);
     }
 
     private void CreateViewDeckButton() {

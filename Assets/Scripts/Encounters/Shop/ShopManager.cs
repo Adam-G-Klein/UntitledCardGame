@@ -36,6 +36,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     public UIDocumentGameObjectPlacer placer { get; set; }
     private CompanionInShopWithPrice companionInShop;
     private Companion newCompanion;
+    public GameObject tooltipPrefab;
 
     void Awake() {
         if (USE_NEW_SHOP) {

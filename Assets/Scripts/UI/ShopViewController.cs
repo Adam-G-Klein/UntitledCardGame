@@ -54,6 +54,7 @@ public class ShopViewController : MonoBehaviour,
     private CompanionManagementView companionToSell;
     private string originalSellingCompanionConfirmationText;
     private bool inUpgradeMenu = false;
+    private Dictionary<VisualElement, GameObject> tooltipMap = new();
 
     public void Start() {
         // Init(null);
@@ -812,5 +813,27 @@ public class ShopViewController : MonoBehaviour,
         upgradeMenuOuterContainer.RemoveFromClassList("upgrade-menu-outer-container-visible");
         upgradeMenuOuterContainer.pickingMode = PickingMode.Ignore;
         shopManager.ConfirmUpgradePurchase();
+    }
+
+    public void DisplayTooltip(VisualElement element, TooltipViewModel tooltipViewModel, bool forCompanionManagementView) {
+        Vector3 tooltipPosition = UIDocumentGameObjectPlacer.GetWorldPositionFromElement(element);
+        if (forCompanionManagementView) {
+            tooltipPosition.x -= element.resolvedStyle.height / 100; // this feels super brittle
+            tooltipPosition.y += element.resolvedStyle.height / 100;
+        } else {
+            tooltipPosition.x -= element.resolvedStyle.width / 120; // this feels super brittle 
+            tooltipPosition.y += element.resolvedStyle.width / 150;
+        }
+        GameObject uiDocToolTipPrefab = Instantiate(shopManager.tooltipPrefab, tooltipPosition, new Quaternion());
+        TooltipView tooltipView = uiDocToolTipPrefab.GetComponent<TooltipView>();
+        tooltipView.tooltip = tooltipViewModel;
+
+        tooltipMap[element] = uiDocToolTipPrefab;
+    }
+
+    public void DestroyTooltip(VisualElement element) {
+        if(tooltipMap.ContainsKey(element)) {
+            Destroy(tooltipMap[element]);
+        }
     }
 }
