@@ -23,19 +23,23 @@ public class CardView {
 
     private float SCREEN_WIDTH_PERCENT = 0.11f;
     private float RATIO = 1.4f;
+    private CardType cardType;
     
     // fillUIDocument - in some cases (like the current shop and the intro screen) we don't want this card to 
     // take up its whole ui doc. In others, like combat (where the card is in worldspace splatted to a texture)
     // we do.
     public CardView(CardType cardType, CompanionTypeSO companionType, bool cardInShop = false) {
+        this.cardType = cardType;
         cardContainer = makeCardView(cardType, companionType, cardInShop);
     }
 
     public CardView(CardType cardType, Sprite genericSprite, bool cardInShop = false) {
+        this.cardType = cardType;
         cardContainer = makeCardView(cardType, null, cardInShop, genericSprite);
     }
 
     public CardView(Card card, CompanionTypeSO companionType, bool cardInShop = false) {
+        this.cardType = card.cardType;
         cardContainer = makeCardView(card.cardType, companionType, cardInShop);
         this.cardInstance = card;
     }
@@ -185,5 +189,9 @@ public class CardView {
         #endif
 
         return new Tuple<int, int>(width, height);
+    }
+
+    public CardType GetCardType() {
+        return cardType;
     }
 }

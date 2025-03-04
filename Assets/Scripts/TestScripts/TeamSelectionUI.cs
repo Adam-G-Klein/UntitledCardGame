@@ -17,12 +17,17 @@ public class TeamSelectionUI : MonoBehaviour
     private VisualElement root;
     [SerializeField]
     private bool displayOnStart = true;
+    [SerializeField] 
+    private GameObject tooltipPrefab;
     private int currentlySelectedCompanion = 0;
     private List<VisualElement> contentToRedraw = new List<VisualElement>();
 
     public bool randomStarterCompanionGen = true;
 
     public UIDocumentScreenspace docRenderer;
+    private Dictionary<String, GameObject> tooltipMap = new();
+    private Dictionary<String, CardType> cardTypeMap = new();
+    private Dictionary<String, CompanionTypeSO> companionMap = new();
 
     private void Start()
     {
@@ -91,13 +96,8 @@ public class TeamSelectionUI : MonoBehaviour
             container.AddToClassList("companion-info-container-selected");
         }
 
-        container.RegisterCallback<MouseEnterEvent>(evt => {
-            docRenderer.SetStateDirty();
-        });
-
-        container.RegisterCallback<MouseLeaveEvent>(evt => {
-            docRenderer.SetStateDirty();
-        });
+        container.RegisterCallback<PointerEnterEvent>(PointerEnter);
+        container.RegisterCallback<PointerLeaveEvent>(PointerLeave);
 
         var name = new Label();
         name.text = companionType.companionName;
@@ -108,6 +108,9 @@ public class TeamSelectionUI : MonoBehaviour
         portrait.AddToClassList("companion-portrait");
         portrait.style.backgroundImage = new StyleBackground(companionType.sprite);
         container.Add(portrait);
+        container.name = companionType.name;
+
+        companionMap[container.name] = companionType;
 
         /*var archetype = new Label();
         archetype.AddToClassList("companion-title-label");
@@ -127,11 +130,49 @@ public class TeamSelectionUI : MonoBehaviour
 
         VisualElement cards = container.Q<VisualElement>("cardsContainer");
 
-        foreach (CardType card in companionType.startingDeck.cards) {
+        for (var i = 0; i < companionType.startingDeck.cards.Count; i++) {
+            CardType card = companionType.startingDeck.cards[i];
             VisualElement cardView = new CardView(card, companionType).cardContainer;
             cardView.AddToClassList("team-signing-card-container");
+            cardView.RegisterCallback<PointerEnterEvent>(PointerEnter);
+            cardView.RegisterCallback<PointerLeaveEvent>(PointerLeave);
+            cardView.name = card.name + i;
             cards.Add(cardView);
             contentToRedraw.Add(cardView);
+            cardTypeMap[cardView.name] = card;
+        }
+    }
+
+    private void PointerEnter(PointerEnterEvent evt) {
+        VisualElement VE = evt.target as VisualElement;
+        bool isCompanion = companionMap.ContainsKey(VE.name);
+        if (!isCompanion && cardTypeMap[VE.name].tooltips.Count == 0) return;
+        if (tooltipMap.ContainsKey(VE.name)) return;
+        
+        Vector3 tooltipPosition = UIDocumentGameObjectPlacer.GetWorldPositionFromElement(VE);
+
+        if (isCompanion) {
+            tooltipPosition.x -= VE.resolvedStyle.width / 300; // this feels super brittle 
+            tooltipPosition.y += VE.resolvedStyle.width / 400;
+        } else {
+            tooltipPosition.x -= VE.resolvedStyle.width / 150; // this feels super brittle 
+            tooltipPosition.y += VE.resolvedStyle.width / 150;
+        }
+        tooltipPosition.z = -2; // THIS SHOULD NOT BE NECESSARY BUT NO OTHER LAYERING WAS WORKING
+        
+        GameObject uiDocToolTipPrefab = Instantiate(tooltipPrefab, tooltipPosition, new Quaternion());
+        TooltipView tooltipView = uiDocToolTipPrefab.GetComponent<TooltipView>();
+
+        tooltipView.tooltip = isCompanion ? companionMap[VE.name].tooltip : cardTypeMap[VE.name].GetTooltip();
+
+        tooltipMap.Add(VE.name, uiDocToolTipPrefab);
+    }
+
+    private void PointerLeave(PointerLeaveEvent evt) {
+        VisualElement VE = evt.target as VisualElement;
+        if (tooltipMap.ContainsKey(VE.name)) {
+            Destroy(tooltipMap[VE.name]);
+            tooltipMap.Remove(VE.name);
         }
     }
 
