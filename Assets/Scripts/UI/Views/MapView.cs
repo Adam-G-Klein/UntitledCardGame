@@ -29,7 +29,6 @@ public class MapView {
         int curEncounterIndex = 0;
         if (encounterBuilder is EnemyEncounterManager) curEncounterIndex = EnemyEncounterManager.Instance.gameState.currentEncounterIndex;
         if (encounterBuilder is ShopManager) curEncounterIndex = ShopManager.Instance.gameState.currentEncounterIndex;
-        Debug.LogError(curEncounterIndex);
         VisualElement container = new VisualElement();
         container.AddToClassList("map-container");
 

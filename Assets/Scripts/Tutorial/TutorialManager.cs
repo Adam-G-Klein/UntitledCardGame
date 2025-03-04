@@ -137,6 +137,7 @@ public class TutorialManager : MonoBehaviour
         }
         IsTutorialPlaying = false;
         DetermineNextTutorial();
+        yield return null;
     }
 
     public void DetermineNextTutorial()

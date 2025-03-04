@@ -49,7 +49,7 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
     void Start()
     {
         // Doesn't work right now, the card is still animating/not placed so the hover doesn't go through.
-        TurnManager.Instance.addTurnPhaseTrigger(new TurnPhaseTrigger(TurnPhase.PLAYER_TURN,startTurnTrigger()));
+        // TurnManager.Instance.addTurnPhaseTrigger(new TurnPhaseTrigger(TurnPhase.PLAYER_TURN,startTurnTrigger()));
         
     }
 

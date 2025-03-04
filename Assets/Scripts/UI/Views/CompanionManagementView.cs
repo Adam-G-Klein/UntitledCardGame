@@ -82,7 +82,6 @@ public class CompanionManagementView {
     }
 
     private void CreateSellCompanionButton() {
-        Debug.LogError("CreateSellCompanionButton");
         if (sellCompanionButton != null) sellCompanionButton.RemoveFromHierarchy();
         sellCompanionButton = new Button();
         sellCompanionButton.AddToClassList("shopButton");
