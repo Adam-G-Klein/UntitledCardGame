@@ -748,32 +748,44 @@ public class ShopViewController : MonoBehaviour,
         VisualElement upgradeMenuOuterContainer = uiDoc.rootVisualElement.Q<VisualElement>(name:"upgradeMenuOuterContainer");
         VisualElement companionUpgradeMenu = uiDoc.rootVisualElement.Q<VisualElement>(name:"upgradeMenuContainer");
         VisualElement initialCompanionContainer = uiDoc.rootVisualElement.Q<VisualElement>(name: "currentCompanions");
-        VisualElement upgradeCompanionContainer = uiDoc.rootVisualElement.Q<VisualElement>(name: "upgradedCompanion");
+        VisualElement upgradeCompanionsContainer = uiDoc.rootVisualElement.Q<VisualElement>(name: "upgradedCompanion");
         initialCompanionContainer.Clear();
-        upgradeCompanionContainer.Clear();
+        upgradeCompanionsContainer.Clear();
 
-        companions.ForEach((companion) => {
+        int delay = 500;
+        for (int index = 0; index < companions.Count; index++) {
+            var companion = companions[index];
             VisualElement companionContainer = new VisualElement();
             companionContainer.AddToClassList("victory-companion-container");
+            companionContainer.AddToClassList("upgrade-menu-companion-invisible");
+            
             CompanionTypeSO companionType = companion.companionType;
             EntityView entityView = new EntityView(companion, 0, false);
-            //entityView.entityContainer.AddToClassList("compendium-item-container");
             VisualElement portraitContainer = entityView.entityContainer.Q(className: "portrait-container");
             portraitContainer.style.backgroundImage = new StyleBackground(companionType.sprite);
             companionContainer.Add(entityView.entityContainer);
             initialCompanionContainer.Add(companionContainer);
-        });
+            
+            int displayIndex = index + 1;
+            companionContainer.schedule.Execute(() => {
+                companionContainer.AddToClassList("upgrade-menu-compainion-1");
+            }).StartingIn(delay);
+            delay += 250;
+        }
 
-        VisualElement companionContainer = new VisualElement();
-        companionContainer.AddToClassList("victory-companion-container");
-        CompanionTypeSO companionType = upgradeCompanion.companionType;
-        EntityView entityView = new EntityView(upgradeCompanion, 0, false);
+        VisualElement upgradeCompanionContainer = new VisualElement();
+        upgradeCompanionContainer.AddToClassList("victory-companion-container");
+        upgradeCompanionContainer.AddToClassList("upgrade-menu-companion-invisible");
+        CompanionTypeSO upgradeCompanionType = upgradeCompanion.companionType;
+        EntityView upgradeEntityView = new EntityView(upgradeCompanion, 0, false);
         //entityView.entityContainer.AddToClassList("compendium-item-container");
-        VisualElement portraitContainer = entityView.entityContainer.Q(className: "portrait-container");
-        portraitContainer.style.backgroundImage = new StyleBackground(companionType.sprite);
-        companionContainer.Add(entityView.entityContainer);
-        upgradeCompanionContainer.Add(companionContainer);
-
+        VisualElement upgradePortraitContainer = upgradeEntityView.entityContainer.Q(className: "portrait-container");
+        upgradePortraitContainer.style.backgroundImage = new StyleBackground(upgradeCompanionType.sprite);
+        upgradeCompanionContainer.Add(upgradeEntityView.entityContainer);
+        upgradeCompanionContainer.schedule.Execute(() => {
+            upgradeCompanionContainer.AddToClassList("upgrade-menu-compainion-1");
+        }).StartingIn(delay);
+        upgradeCompanionsContainer.Add(upgradeCompanionContainer);
         companionUpgradeMenu.AddToClassList("upgrade-menu-container-visible");
         upgradeMenuOuterContainer.AddToClassList("upgrade-menu-outer-container-visible");
         upgradeMenuOuterContainer.pickingMode = PickingMode.Position;

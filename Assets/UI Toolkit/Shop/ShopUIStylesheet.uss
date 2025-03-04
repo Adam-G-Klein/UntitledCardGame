@@ -173,10 +173,24 @@
     transition-property: scale;
     transition-duration: 0.5s;
     transition-timing-function: ease-in-back;
+    transition-delay: 0s;
 }
+
 
 .upgrade-menu-container-visible {
     transition-property: scale;
     transition-timing-function: ease-out-back;
     scale: 1 1;
+}
+
+.upgrade-menu-companion-invisible {
+    scale: 0 0 ;
+}
+
+.upgrade-menu-compainion-1 {
+    scale: 1 1;
+    transition-property: scale;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-out-back;
+    transition-delay: 0s;
 }
