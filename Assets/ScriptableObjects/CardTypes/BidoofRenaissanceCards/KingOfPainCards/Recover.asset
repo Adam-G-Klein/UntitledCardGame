@@ -15,6 +15,7 @@ MonoBehaviour:
   Name: Recover
   Description: Exhaust. Heal target companion 3 HP. Heal 6 HP instead if they are
     below half HP
+  defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 9bbb0580b47c1a0458a81a39014da27c, type: 3}
   cardCategory: 2
@@ -49,10 +50,10 @@ MonoBehaviour:
         - rid: 5602893017534169576
         - rid: 5602893017534169581
         - rid: 5602893017534169577
+        - rid: 1274772082283774852
         - rid: 5602893017534169578
         - rid: 5602893017534169579
         - rid: 5602893017534169580
-        - rid: 1274772082283774852
     - rid: 5602893017534169575
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

@@ -50,7 +50,7 @@ PlayableDirector:
   m_InitialTime: 0
   m_SceneBindings:
   - key: {fileID: -3924062376200373757, guid: 7b990d9fb00954044990aff1ef473836, type: 2}
-    value: {fileID: 1806303831448647928}
+    value: {fileID: 8114946471589972283}
   - key: {fileID: 3473201345132639750, guid: 7b990d9fb00954044990aff1ef473836, type: 2}
     value: {fileID: 282977433353908299}
   m_ExposedReferences:
@@ -118,10 +118,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6443691569999266555, guid: 2866ceb48b21fe043a26315da4ba74e0, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6517496529593941963, guid: 2866ceb48b21fe043a26315da4ba74e0, type: 3}
       propertyPath: m_Name
       value: WorldspaceCard
@@ -139,13 +135,13 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2866ceb48b21fe043a26315da4ba74e0, type: 3}
---- !u!95 &1806303831448647928 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 6627301573617809454, guid: 2866ceb48b21fe043a26315da4ba74e0, type: 3}
-  m_PrefabInstance: {fileID: 4821561247416451286}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4769855999391484583 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 60885090752973425, guid: 2866ceb48b21fe043a26315da4ba74e0, type: 3}
+  m_PrefabInstance: {fileID: 4821561247416451286}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &8114946471589972283 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 3636573937588111853, guid: 2866ceb48b21fe043a26315da4ba74e0, type: 3}
   m_PrefabInstance: {fileID: 4821561247416451286}
   m_PrefabAsset: {fileID: 0}

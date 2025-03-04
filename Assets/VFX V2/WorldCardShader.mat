@@ -12,27 +12,35 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
+  - _GRADIENTSELECT_NONE
   - _SURFACE_TYPE_TRANSPARENT
-  m_InvalidKeywords: []
+  m_InvalidKeywords:
+  - _ENUM_INDEX_B_TO_T
+  - _GRADIENT_DEFAULT
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 3000
   stringTagMap:
     RenderType: Transparent
   disabledShaderPasses:
   - DepthOnly
+  - SHADOWCASTER
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
     - _Distortion_Tex:
-        m_Texture: {fileID: 2800000, guid: d50569c4e8032c3408b54117313f5ff2, type: 3}
+        m_Texture: {fileID: 2800000, guid: f304a9c3cc66bab4d83d6f731a988526, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _FadeTexture:
         m_Texture: {fileID: 2800000, guid: d50569c4e8032c3408b54117313f5ff2, type: 3}
         m_Scale: {x: 0.66, y: 0.26}
+        m_Offset: {x: 0, y: 0}
+    - _Fade_Tex:
+        m_Texture: {fileID: 2800000, guid: 8e4ab3c3dfd12ff4795f9cd7afd1bb1a, type: 3}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: 7591ab07c17e9d3488e733dae166d7af, type: 3}
@@ -67,14 +75,24 @@ Material:
     - _AlphaClip: 0
     - _AlphaToMask: 0
     - _Blend: 0
-    - _CastShadows: 1
+    - _CastShadows: 0
     - _Cull: 0
     - _Cutoff_Softness: 0.1
-    - _Cutoff_Value: -0.1
+    - _Cutoff_Value: -0.25
+    - _Cuttoff_Gradient_Power: 0.75
+    - _Cuttoff_Rotation: 0
     - _Distort_the_Mask: 0
     - _Distortion_Strength: 0
     - _DstBlend: 10
+    - _ENUM_INDEX: 2
     - _Fade_Tex_Pow: 1
+    - _Fade_Tex_Power: 1
+    - _GRADIENT: 0
+    - _GRADIENTSELECT: 0
+    - _GradientIndex: 0
+    - _Gradient_Power: 1
+    - _Gradient_Selector: 5.05
+    - _Inverse_Gradient: 0
     - _Mask_Power: 0
     - _Mask_Strength: 0
     - _QueueControl: 0
@@ -89,7 +107,7 @@ Material:
     - _ZWrite: 0
     - _ZWriteControl: 0
     m_Colors:
-    - _Color: {r: 2, g: 2, b: 2, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Distortion_Speed: {r: 0, g: -0.2, b: 0, a: 0}
     - _Fade_Tex_Speed: {r: 0, g: -3, b: 0, a: 0}
     - _Main_Text_Scroll_Speed: {r: 0, g: 0, b: 0, a: 0}
