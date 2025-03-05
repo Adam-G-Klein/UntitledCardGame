@@ -73,7 +73,7 @@ MonoBehaviour:
     relateBehaviorIndex: 0
     tooltipKeyword: 18
   - title: Debt
-    description: Unplayable. Lose $1 at the end of the turn
+    description: 0 mana. Exhaust. Lose $1.
     relateBehaviorIndex: 0
     tooltipKeyword: 19
   - title: Transform
@@ -93,13 +93,8 @@ MonoBehaviour:
     description: Lose 1 HP. Deal 1 damage twice. Draw 1 card from this companion
     relateBehaviorIndex: 0
     tooltipKeyword: 25
-  - title: Mabs Might
-    description: Exhaust. Target companion loses 1 HP, then heals 7 HP. Draw 1 card
-      from them
-    relateBehaviorIndex: 0
-    tooltipKeyword: 24
   - title: Mabs Boon
-    description: Exhaust. Heal target companion 3HP.
+    description: Exhaust. Draw 1 card from and heal this companion 3 HP
     relateBehaviorIndex: 0
     tooltipKeyword: 23
   - title: Embued Knife
@@ -118,7 +113,7 @@ MonoBehaviour:
     tooltipKeyword: 28
   - title: Bulwark
     description: Draw 1 from this companion. If in hand at the end of the turn, parent
-      companion gains 7 block
+      companion gains 1 block for each card you have played this turn.
     relateBehaviorIndex: 0
     tooltipKeyword: 16
   - title: Hidden Strength
