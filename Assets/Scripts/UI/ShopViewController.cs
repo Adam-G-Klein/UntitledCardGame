@@ -2,7 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
 
 public class ShopViewController : MonoBehaviour, 
@@ -91,26 +93,30 @@ public class ShopViewController : MonoBehaviour,
         SetupActiveSlots(shopManager.gameState.companions.currentCompanionSlots);
 
         rerollButton = uiDoc.rootVisualElement.Q<Button>("reroll-button");
-        rerollButton.clicked += RerollButtonOnClick;
+        rerollButton.RegisterCallback<ClickEvent>(RerollButtonOnClick);
 
         UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(rerollButton,
-                RerollButtonOnClick, 
+                () => {RerollButtonOnClick(null);}, 
                 () => {
                     // hi Ethan this is where a reroll onEnterCallBack would go to hook it up to the hoverable system :)
                 }, 
                 () => {
                     // hi Ethan this is where a reroll onLeaveCallBack would go to hook it up to the hoverable system :)
                 });
-        selectingCancelButton.clicked += CancelCardBuy;
+        selectingCancelButton.RegisterCallback<ClickEvent>(CancelCardBuy);
         upgradeButton = uiDoc.rootVisualElement.Q<Button>("upgrade-button");
-        upgradeButton.clicked += UpgradeButtonOnClick;
+        upgradeButton.RegisterCallback<ClickEvent>(UpgradeButtonOnClick);
         upgradeButton.RegisterCallback<PointerEnterEvent>(UpgradeButtonOnPointerEnter);
         UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(upgradeButton,
-                UpgradeButtonOnClick, 
+                () => {UpgradeButtonOnClick(null);}, 
                 () => {UpgradeButtonOnPointerEnter(null);}, 
                 () => {UpgradeButtonOnPointerLeave(null);});
         upgradeButton.RegisterCallback<PointerLeaveEvent>(UpgradeButtonOnPointerLeave);
-        uiDoc.rootVisualElement.Q<Button>("start-next-combat-button").clicked += StartNextCombatOnClick;
+        uiDoc.rootVisualElement.Q<Button>("start-next-combat-button").RegisterCallback<ClickEvent>(StartNextCombatOnClick);
+        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(uiDoc.rootVisualElement.Q<Button>("start-next-combat-button"),
+                () => {StartNextCombatOnClick(null);}, 
+                () => {},
+                () => {});
         //sellCompanionButton.clicked += SellCompanionOnClick;
         sellingCompanionConfirmation.Q<Button>("selling-companion-confirmation-yes").clicked += ConfirmSellCompanion;
         sellingCompanionConfirmation.Q<Button>("selling-companion-confirmation-no").clicked += StopSellingCompanion;
@@ -278,15 +284,15 @@ public class ShopViewController : MonoBehaviour,
         }
     }
 
-    public void RerollButtonOnClick() {
+    public void RerollButtonOnClick(ClickEvent evt) {
         shopManager.ProcessRerollShopClick();
     }
 
-    public void UpgradeButtonOnClick() {
+    public void UpgradeButtonOnClick(ClickEvent evt) {
         shopManager.ProcessUpgradeShopClick();
     }
 
-    public void StartNextCombatOnClick() {
+    public void StartNextCombatOnClick(ClickEvent evt) {
         shopManager.exitShop();
     }
 
@@ -602,7 +608,7 @@ public class ShopViewController : MonoBehaviour,
         }
     }
 
-    private void CancelCardBuy() {
+    private void CancelCardBuy(ClickEvent evt) {
         shopManager.ProcessCardBuyCanceled();
         StopBuyingCard();
     }
