@@ -4,7 +4,7 @@
         <ui:VisualElement name="VisualElement" class="card-image" style="max-width: 90%; max-height: 40%; min-width: 90%; min-height: 40%;" />
         <ui:Label tabindex="-1" text="CardName" display-tooltip-when-elided="true" class="card-title-label" />
         <ui:Label tabindex="-1" text="test test test wow this is a super long card why would we write such a long card description this is crazzzzyyyyyy wild man wild" display-tooltip-when-elided="true" class="card-desc-label" />
-        <ui:VisualElement name="VisualElement" class="companion-image" style="background-image: url(&quot;project://database/Assets/Sprites/NovPlaytestArt/argos.png?fileID=2800000&amp;guid=1a9a70bfa38177248ae11e5367177638&amp;type=3#argos&quot;); padding-top: 2px; padding-right: 2px; padding-bottom: 2px; padding-left: 2px; margin-top: 2px; margin-right: 2px; margin-bottom: 2px; margin-left: 2px; top: 25%;" />
+        <ui:VisualElement name="VisualElement" class="companion-image companion-rarity-bg-common" style="background-image: url(&quot;project://database/Assets/Sprites/NovPlaytestArt/argos.png?fileID=2800000&amp;guid=1a9a70bfa38177248ae11e5367177638&amp;type=3#argos&quot;); padding-top: 2px; padding-right: 2px; padding-bottom: 2px; padding-left: 2px; margin-top: 2px; margin-right: 2px; margin-bottom: 2px; margin-left: 2px; top: 25%;" />
         <ui:VisualElement class="mana-container">
             <ui:Label tabindex="-1" text="1" display-tooltip-when-elided="true" name="Label" class="mana-card-label" />
         </ui:VisualElement>

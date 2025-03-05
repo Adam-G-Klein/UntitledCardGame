@@ -25,21 +25,23 @@ public class CardView {
     private float RATIO = 1.4f;
     private CardType cardType;
     
+    private Card.CardRarity rarity = Card.CardRarity.NONE;
     // fillUIDocument - in some cases (like the current shop and the intro screen) we don't want this card to 
     // take up its whole ui doc. In others, like combat (where the card is in worldspace splatted to a texture)
     // we do.
-    public CardView(CardType cardType, CompanionTypeSO companionType, bool cardInShop = false) {
-        this.cardType = cardType;
+    public CardView(CardType cardType, CompanionTypeSO companionType, Card.CardRarity rarity, bool cardInShop = false) {
+        this.rarity = rarity;
         cardContainer = makeCardView(cardType, companionType, cardInShop);
     }
 
-    public CardView(CardType cardType, Sprite genericSprite, bool cardInShop = false) {
-        this.cardType = cardType;
+    public CardView(CardType cardType, Sprite genericSprite, Card.CardRarity rarity, bool cardInShop = false) {
+        this.rarity = rarity;
         cardContainer = makeCardView(cardType, null, cardInShop, genericSprite);
     }
 
     public CardView(Card card, CompanionTypeSO companionType, bool cardInShop = false) {
         this.cardType = card.cardType;
+        rarity = card.shopRarity;
         cardContainer = makeCardView(card.cardType, companionType, cardInShop);
         this.cardInstance = card;
     }
@@ -61,6 +63,18 @@ public class CardView {
 
         var companionImage = new VisualElement();
         companionImage.AddToClassList("companion-image");
+        switch(rarity) {
+            case Card.CardRarity.COMMON:
+            case Card.CardRarity.NONE:
+                companionImage.AddToClassList("card-rarity-bg-common");
+                break;
+            case Card.CardRarity.UNCOMMON:
+                companionImage.AddToClassList("card-rarity-bg-uncommon");
+                break;
+            case Card.CardRarity.RARE:
+                companionImage.AddToClassList("card-rarity-bg-rare");
+                break;
+        }
         if (companionType != null) {
             companionImage.style.backgroundImage = new StyleBackground(companionType.sprite);
         } else {

@@ -65,7 +65,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     }
 
     IEnumerator StartWhenUIDocReady() {
-        yield return new WaitUntil(() => placer.IsReady());
+        yield return new WaitUntil(() => placer != null && placer.IsReady());
         Debug.Log("EnemyEncounterManager: UIDocumentGameObjectPlacer is ready, building encounter");
         LateStart();
     }

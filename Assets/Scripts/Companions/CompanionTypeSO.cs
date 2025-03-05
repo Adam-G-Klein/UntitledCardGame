@@ -8,6 +8,12 @@ public enum CompanionLevel {
     LevelThree
 }
 
+public enum CompanionRarity {
+    COMMON,
+    UNCOMMON,
+    RARE
+}
+
 [CreateAssetMenu(
     fileName = "CompanionType",
     menuName = "Companions/Companion Type")]
@@ -25,6 +31,7 @@ public class CompanionTypeSO : ScriptableObject
     public Sprite typeIcon;
     public Sprite portrait;
     public Sprite teamSelectSprite;
+    public CompanionRarity rarity;
     public GameObject cardIdleVfxPrefab;
     public AudioClip genericCompanionSFX;
     public GameObject genericCompanionVFX;

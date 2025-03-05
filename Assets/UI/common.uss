@@ -527,6 +527,18 @@
     border-left-width: 5px;
 }
 
+.card-rarity-bg-common {
+    background-color: rgb(223, 233, 233);
+}
+
+.card-rarity-bg-uncommon {
+    background-color: rgb(46, 221, 233);
+}
+
+.card-rarity-bg-rare {
+    background-color: rgb(243, 235, 17);
+}
+
 .cards-container {
     flex-grow: 1;
     background-color: rgba(0, 0, 0, 0);

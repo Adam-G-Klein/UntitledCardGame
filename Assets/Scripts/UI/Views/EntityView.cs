@@ -178,6 +178,26 @@ public class EntityView : IUIEventReceiver {
         if (isEnemy) {
             titleLabel.AddToClassList("enemy-pillar-name");
         }
+        Debug.LogError("setting up entity");
+        if (!isEnemy && (entity is Companion || entity is CompanionInstance)) {
+            CompanionRarity rarity;
+            if (entity is Companion) {
+                rarity = ((Companion)entity).companionType.rarity;
+            } else {
+                rarity = ((CompanionInstance)entity).companion.companionType.rarity;
+            }
+            switch(rarity) {
+                case CompanionRarity.COMMON:
+                    titleLabel.AddToClassList("companion-rarity-bg-common");
+                    break;
+                case CompanionRarity.UNCOMMON:
+                    titleLabel.AddToClassList("companion-rarity-bg-uncommon");
+                    break;
+                case CompanionRarity.RARE:
+                    titleLabel.AddToClassList("companion-rarity-bg-rare");
+                    break;
+                }
+        }
         titleContainer.Add(titleLabel);
         titleLabel.text = entity.GetName();
         detailsContainer.Add(titleContainer);

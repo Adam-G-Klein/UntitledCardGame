@@ -67,8 +67,7 @@ public class CompendiumView {
         List<CompanionTypeSO> companions = companionPool.commonCompanions.Concat(companionPool.uncommonCompanions).Concat(companionPool.rareCompanions).ToList();
         companions.Sort((a, b) => a.companionName.CompareTo(b.companionName)); // we should allow for filtering by rarity or something as well...eventually  
         AddAllCompanionContainers(companions, cardsSection);
-        List<CardType> neutralCards = neutralCardPool.commonCards.Concat(neutralCardPool.uncommonCards).Concat(neutralCardPool.rareCards).ToList();
-        AddCards(neutralCards, null, cardsSection);
+        AddCards(neutralCardPool.commonCards, neutralCardPool.uncommonCards, neutralCardPool.rareCards, null, cardsSection);
         cardsScrollView.Add(cardsSection);
     }
 
@@ -76,11 +75,11 @@ public class CompendiumView {
         companions.ForEach(companion => {
             List<CardType> cards = new List<CardType>();
             cards = companion.cardPool.commonCards.Concat(companion.cardPool.uncommonCards).Concat(companion.cardPool.rareCards).ToList();
-            AddCards(cards, companion, ve);
+            AddCards(companion.cardPool.commonCards, companion.cardPool.uncommonCards, companion.cardPool.rareCards, companion, ve);
         });
     }
 
-    private void AddCards(List<CardType> cardType, CompanionTypeSO companion, VisualElement ve) {
+    private void AddCards(List<CardType> commonCards, List<CardType> uncommonCards, List<CardType> rareCards, CompanionTypeSO companion, VisualElement ve) {
         Label companionContainerTitle = new Label();
         companionContainerTitle.text = companion != null ? (companion.companionName + "'s Cards") : "Neutral Cards";
         companionContainerTitle.AddToClassList("compendium-header-text");
@@ -88,13 +87,18 @@ public class CompendiumView {
         
         VisualElement companionCardsContainer = new VisualElement();
         companionCardsContainer.AddToClassList("compendium-section-container");
-        cardType.ForEach(card => {
-            VisualElement cardContainer = new CardView(card, companion, true).cardContainer;
+        AddCardsForRarity(companionCardsContainer, commonCards, companion, Card.CardRarity.COMMON);
+        AddCardsForRarity(companionCardsContainer, uncommonCards, companion, Card.CardRarity.UNCOMMON);
+        AddCardsForRarity(companionCardsContainer, rareCards, companion, Card.CardRarity.RARE);
+        ve.Add(companionCardsContainer);
+    }
+
+    private void AddCardsForRarity(VisualElement companionCardsContainer, List<CardType> cards, CompanionTypeSO companion, Card.CardRarity cardRarity) {
+        cards.ForEach(card => {
+            VisualElement cardContainer = new CardView(card, companion, cardRarity, true).cardContainer;
             cardContainer.AddToClassList("compendium-item-container");
-            // add extra styling here to give some padding or shit (should likely be in a common styling)
             companionCardsContainer.Add(cardContainer);
         });
-        ve.Add(companionCardsContainer);
     }
 
     private void SetupCompanionView(CompanionPoolSO companionPool) {

@@ -153,10 +153,7 @@
     align-items: center;
     -unity-font-style: bold;
     background-image: none;
-    -unity-text-align: middle-left;
-}
-
-.pillar-name {
+    -unity-text-align: middle-center;
     padding-left: 0;
     padding-right: 0;
     padding-top: 0;
@@ -166,7 +163,6 @@
     margin-top: 0;
     margin-bottom: 0;
     font-size: 16px;
-    -unity-text-align: middle-center;
 }
 
 .pillar-name-no-description {
@@ -406,4 +402,19 @@
     border-bottom-width: 2px;
     border-left-width: 2px;
     background-color: rgb(221, 221, 221);
+}
+
+.companion-rarity-bg-common {
+    border-color: rgb(223, 233, 233);
+    border-width: 4px;
+}
+
+.companion-rarity-bg-uncommon {
+    border-color: rgb(46, 221, 233);
+    border-width: 4px;
+}
+
+.companion-rarity-bg-rare {
+    border-color: rgb(243, 235, 17);
+    border-width: 4px;
 }

@@ -132,7 +132,7 @@ public class TeamSelectionUI : MonoBehaviour
 
         for (var i = 0; i < companionType.startingDeck.cards.Count; i++) {
             CardType card = companionType.startingDeck.cards[i];
-            VisualElement cardView = new CardView(card, companionType).cardContainer;
+            VisualElement cardView = new CardView(card, companionType, Card.CardRarity.COMMON).cardContainer;
             cardView.AddToClassList("team-signing-card-container");
             cardView.RegisterCallback<PointerEnterEvent>(PointerEnter);
             cardView.RegisterCallback<PointerLeaveEvent>(PointerLeave);

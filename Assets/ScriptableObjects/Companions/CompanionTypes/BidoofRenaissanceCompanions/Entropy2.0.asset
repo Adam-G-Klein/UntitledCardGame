@@ -23,6 +23,7 @@ MonoBehaviour:
   typeIcon: {fileID: 21300000, guid: f3ea244daa1aa9f49a9b8c40dbb3d8f8, type: 3}
   portrait: {fileID: 21300000, guid: f3ea244daa1aa9f49a9b8c40dbb3d8f8, type: 3}
   teamSelectSprite: {fileID: 21300000, guid: f3ea244daa1aa9f49a9b8c40dbb3d8f8, type: 3}
+  rarity: 1
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 0}
   genericCompanionVFX: {fileID: 0}
@@ -30,9 +31,7 @@ MonoBehaviour:
   speakerType: {fileID: 0}
   abilitiesV2:
   - rid: 205827988172308718
-  abilities:
-  - rid: 3931529445166809113
-  - rid: 8205570031766208666
+  level: 0
   upgradeTo: {fileID: 11400000, guid: 9ba17cfe1baaf456fb2d9e950442b2fc, type: 2}
   tooltip:
     empty: 0
@@ -109,75 +108,3 @@ MonoBehaviour:
         effect: 4
         cardToTransformInto: {fileID: 11400000, guid: c00025e95f9a449b59c853e77403c30b, type: 2}
         outputKey: 
-    - rid: 594700862979571865
-      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: DialogueStep
-        line: Beep boop. Whose deck should I thin?
-        lineTime: 2
-    - rid: 3931529445166809113
-      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
-      data:
-        companionAbilityTrigger: 1
-        effectSteps:
-        - rid: 594700862979571865
-        - rid: 3931529445166809114
-        - rid: 3931529445166809115
-        - rid: 3931529445166809116
-        - rid: 3931529445166809117
-    - rid: 3931529445166809114
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: target
-        validTargets: 00000000
-        number: 1
-        specialTargetRule: 0
-        cantCancelTargetting: 1
-    - rid: 3931529445166809115
-      type: {class: GetCardsFromDeck, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetCardsFromDeck
-        inputKey: target
-        getLimitedNumber: 0
-        numberOfCardsToGet: 1
-        shuffleIfEmpty: 1
-        outputKey: allCardsInDeck
-        getAllCardsFromEntities: 0
-        getCardsFromSourceDeck: 1
-        getAllFromOnlyDrawPile: 0
-    - rid: 3931529445166809116
-      type: {class: SelectCardsFromList, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: SelectCardsFromList
-        inputKey: allCardsInDeck
-        outputKey: cardToTransform
-        promptText: Select a card to transform into Entropy's Burn
-        minTargets: 1
-        maxTargets: 1
-        getNumberOfTargetsFromKey: 0
-        inputNumberOfTargetsKey: 
-        randomizeOrder: 0
-    - rid: 3931529445166809117
-      type: {class: CardInDeckEffect, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CardInDeckEffect
-        inputCardsKey: cardToTransform
-        inputDeckKey: target
-        effect: 4
-        cardToTransformInto: {fileID: 11400000, guid: c00025e95f9a449b59c853e77403c30b, type: 2}
-        outputKey: 
-    - rid: 8205570031766208666
-      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
-      data:
-        companionAbilityTrigger: 8
-        effectSteps:
-        - rid: 8205570031766208667
-    - rid: 8205570031766208667
-      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: DialogueStep
-        line: I now remove cards permanently!
-        lineTime: 3
