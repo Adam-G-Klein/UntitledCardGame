@@ -126,6 +126,8 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
         executeTriggers(CombatEntityTriggerType.ENEMY_DIED);
         Debug.Log("EnemyDied: " + enemies.Count);
         if (enemies.Count == 0) {
+            EnemyEncounterManager.Instance.SetCombatOver(true);
+            EnemyEncounterManager.Instance.TurnOffInteractions();
             StartCoroutine(EndCombatAfterEffectsResolve());
             encounterEnded = true;
         }

@@ -66,8 +66,7 @@ public class PlayableCard : MonoBehaviour,
             "Interactable: " + interactable +
             " EnemyEncounterManager.GetCastingCard(): " + EnemyEncounterManager.Instance.GetCastingCard().ToString()
         );
-        if (currentState != UIState.DEFAULT || !interactable || EnemyEncounterManager.Instance.GetCastingCard()) return;
-
+        if (currentState != UIState.DEFAULT || !interactable || EnemyEncounterManager.Instance.GetCastingCard() || EnemyEncounterManager.Instance.GetCombatOver()) return;
         if (card.GetManaCost() > ManaManager.Instance.currentMana) {
                 StartCoroutine(GenericEntityDialogueParticipant
                     .Instance
@@ -213,7 +212,7 @@ public class PlayableCard : MonoBehaviour,
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if(!interactable) return;
+        if(!interactable || EnemyEncounterManager.Instance.GetCastingCard() || EnemyEncounterManager.Instance.GetCombatOver()) return;
         hovered = true;
         if(hoverable != null) {
             // Make sure hoverable knows that we've already processed
@@ -252,10 +251,10 @@ public class PlayableCard : MonoBehaviour,
     public void ResetCardScale() {
         if (hovered) {
             hovered = false;
-            interactable = true;
             transform.localScale = new Vector3(nonHoverScale, nonHoverScale, 1);
             transform.position = new Vector3(transform.position.x, transform.position.y - hoverYOffset, transform.position.z - hoverZOffset);
         }
+        interactable = true;
     }
 
     // Used when instantiating the card after Start has run

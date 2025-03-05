@@ -178,7 +178,6 @@ public class EntityView : IUIEventReceiver {
         if (isEnemy) {
             titleLabel.AddToClassList("enemy-pillar-name");
         }
-        Debug.LogError("setting up entity");
         if (!isEnemy && (entity is Companion || entity is CompanionInstance)) {
             CompanionRarity rarity;
             if (entity is Companion) {

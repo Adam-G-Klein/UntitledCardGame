@@ -168,7 +168,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         SetInToolTip(false);
     }
 
-    private void TurnOffInteractions() {
+    public void TurnOffInteractions() {
         PlayerHand.Instance.DisableHand();
         combatEncounterView.SetEndCombat();
         combatEncounterView.UpdateView();
@@ -231,6 +231,9 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     internal bool GetCombatOver()
     {
         return combatOver;
+    }
+    public void SetCombatOver(bool combatOver) {
+        this.combatOver = combatOver;
     }
 
     public void ToggleUIDocuments(bool inMenu) {
