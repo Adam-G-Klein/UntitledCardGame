@@ -37,7 +37,7 @@ public class PlayableCard : MonoBehaviour,
     public bool retained = false;
     public AudioClip cardHover;
     public float hoverSFXVolume = 0.1f;
-    public float hoverYOffset = 1.5f;
+    public float hoverYOffset = .75f;
     public float hoverZOffset = 0.5f;
     private float hoverAnimationTime = .2f;
     private Vector3 startPos;
