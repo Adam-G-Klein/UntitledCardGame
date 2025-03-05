@@ -31,6 +31,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
 
     private bool cardsInHandLocked = false;
     private Dictionary<GameObject, FXExperience> GOToFXExperience = new();
+    private readonly float cardDealDelay = .1f;
 
     void Start() {
         cardPrefab = EnemyEncounterManager.Instance.encounterConstants.cardPrefab;
@@ -59,13 +60,14 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             // newly created elements to understand where they are.
             // After the elements have been successfully updated AnimateCardsAfterLayout will be called and they'll start moving now that they know where 
             // they need to go. 
-            WorldPositionVisualElement newCardPlacement = UIDocumentGameObjectPlacer.Instance.CreateCardSlot(() => {AnimateCardsAfterLayout(cardsDelt, deckFrom);});
+            Vector3 startPos = deckFrom.transform.position + new Vector3(0, -.75f, 0);
+            WorldPositionVisualElement newCardPlacement = UIDocumentGameObjectPlacer.Instance.CreateCardSlot(() => {StartCoroutine(AnimateCardsAfterLayout(cardsDelt, startPos, .1f));});
             newCard = PrefabInstantiator.InstantiateCard(
                 cardPrefab,
                 EnemyEncounterManager.Instance.transform,
                 cardInfo,
                 deckFrom,
-                deckFrom.transform.position);
+                startPos);
             newCard.gameObject.name = cardInfo.name;
             newCard.interactable = false;
             UIDocumentGameObjectPlacer.Instance.addMapping(newCardPlacement, newCard.gameObject);
@@ -79,18 +81,14 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         return cardsDelt;
     }
 
-    private void AnimateCardsAfterLayout(List<PlayableCard> cardsDelt, DeckInstance deckFrom) {
+    private IEnumerator AnimateCardsAfterLayout(List<PlayableCard> cardsDelt, Vector3 startPos, float delay = 0) {
         for (int i = 0; i < cardsInHand.Count; i++) {
             PlayableCard cardToMove = cardsInHand[i];
             cardToMove.interactable = false; // hovering a card changes its position so we really need that to not happen while they are moving to their new spot
             WorldPositionVisualElement WPVE = UIDocumentGameObjectPlacer.Instance.GetCardWPVEFromGO(cardToMove.gameObject);
             WPVE.UpdatePosition();
-            
-            if (cardsDelt.Contains(cardToMove)) {
-                CardDrawVFX(deckFrom.transform.position, WPVE.worldPos, cardToMove.gameObject);
-            } else {
-                CardDrawVFX(cardToMove.transform.position, WPVE.worldPos, cardToMove.gameObject);
-            }
+            CardDrawVFX(cardToMove.transform.position, WPVE.worldPos, cardToMove.gameObject);
+            yield return new WaitForSeconds(delay);
         }
     }
 
@@ -113,6 +111,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         });
         experience.StartExperience( () => {
             Debug.Log("Card draw VFX finished");
+            if (gameObject.TryGetComponent<SpriteRenderer>(out var SR)) SR.sortingLayerName = "Cards"; // what is this magic
             gameObject.GetComponent<PlayableCard>().interactable = true;
             gameObject.GetComponent<PlayableCard>().SetBasePosition();
         });
@@ -201,7 +200,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     }
 
     public IEnumerator ResizeHand(PlayableCard card) {
-        UIDocumentGameObjectPlacer.Instance.RemoveCardSlot(card.gameObject, () => {AnimateCardsAfterLayout(new List<PlayableCard>(), null);});
+        UIDocumentGameObjectPlacer.Instance.RemoveCardSlot(card.gameObject, () => { StartCoroutine(AnimateCardsAfterLayout(new List<PlayableCard>(), new Vector3(), 0)); });
         yield return null;
     }
 

@@ -37,10 +37,12 @@ public class CardInHandEffect : EffectStep, ITooltipProvider
             switch (effect) {
                 case CardInHandEffectName.Discard:
                     yield return PlayerHand.Instance.DiscardCard(card);
+                    yield return PlayerHand.Instance.ResizeHand(card);
                 break;
 
                 case CardInHandEffectName.Exhaust:
                     yield return PlayerHand.Instance.ExhaustCard(card);
+                    yield return PlayerHand.Instance.ResizeHand(card);
                 break;
 
                 case CardInHandEffectName.Retain:

@@ -14,10 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Cartomancy
   Description: Deal {rpl_damage} damage for each of the cards in your hand ({cardsInHand})
-  values: 0200000000000000
   defaultValues:
   - key: rpl_damage
-    value: 0
+    value: 3
   - key: cardsInHand
     value: 0
   Cost: 1
@@ -73,6 +72,7 @@ MonoBehaviour:
         multiplicity: 0
         getMultiplicityFromKey: 1
         inputMultiplicityKey: numberOfCardsInHand
+        vfxPrefab: {fileID: 0}
     - rid: 2116895648763871330
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
