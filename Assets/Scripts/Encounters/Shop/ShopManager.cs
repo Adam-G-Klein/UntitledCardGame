@@ -115,7 +115,6 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
 
     public void ProcessCompanionBuyRequest(ShopItemView shopItemView, CompanionInShopWithPrice companionInShop) {
-        Debug.LogError("purchasing a companion");
         if (gameState.companions.activeCompanions.Count == 5 && gameState.companions.benchedCompanions.Count == 5) {
             StartCoroutine(shopViewController.ShowGenericNotification("You have reached the maximum number of companions.", 2));
             return;

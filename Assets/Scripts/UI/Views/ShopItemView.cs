@@ -113,7 +113,6 @@ public class ShopItemView {
 
     private void OnPointerEnter(PointerEnterEvent evt) {
         viewDelegate.ShopItemViewHovered(this);
-        Debug.LogError(shopItemElement.resolvedStyle.width);
         if (companionInShop != null) {
             viewDelegate.DisplayTooltip(shopItemElement, companionInShop.companionType.tooltip, false);
         } else {
