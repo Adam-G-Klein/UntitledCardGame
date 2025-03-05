@@ -13,10 +13,9 @@ MonoBehaviour:
   m_Name: ReplicatingStrike
   m_EditorClassIdentifier: 
   Name: Replicating Strike
-  Description: Exhaust. Deal {rpl_damage} damage. Add a Replicating Strike to the
-    bottom of each adjacent companion's deck.  Increase the damage of ALL Replicating
-    Strikes by 1 this combat
-  values: 02000000
+  Description: Exhaust. Deal {rpl_damage} damage. Add a "Replicating Strike" card
+    to the bottom of each adjacent companion's deck.  Increase the damage of ALL
+    "Replicating Strike" cards by 1 this combat
   defaultValues:
   - key: rpl_damage
     value: 2
@@ -88,6 +87,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        vfxPrefab: {fileID: 0}
     - rid: 5602893017534169663
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

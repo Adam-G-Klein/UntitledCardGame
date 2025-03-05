@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Bastion
   m_EditorClassIdentifier: 
   Name: Bastion
-  Description: Give target companion 13 block
+  Description: Give target companion 11 block
+  defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 89e7bae064a19e04b9e8ed69aca2f11a, type: 3}
   cardCategory: 0
@@ -64,7 +65,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: target
         statusEffect: 2
-        scale: 13
+        scale: 11
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
