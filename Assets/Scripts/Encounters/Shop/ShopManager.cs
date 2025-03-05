@@ -132,7 +132,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
             List<Companion> companions = companionCombinationManager.PurchaseWouldCauseUpgrade(newCompanion);
             if (companions != null) {
-                Companion upgradeCompanion = companionCombinationManager.ShowUpgradedCompanion(companions.GetRange(0,2));
+                Companion upgradeCompanion = companionCombinationManager.ShowUpgradedCompanion(companions);
                 if (companions.Count == 4) {
                     List<Companion> level2s = new()
                     {
