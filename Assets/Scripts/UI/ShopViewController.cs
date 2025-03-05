@@ -177,6 +177,7 @@ public class ShopViewController : MonoBehaviour,
         // TODO: Replace with sold out? Grey it out? Talk to Jasmine
         shopItemView.Disable();
         //shopGoodsArea.Remove(shopItemView.shopItemElement);
+        UIDocumentHoverableInstantiator.Instance.CleanupHoverable(shopItemView.shopItemElement);
         
         cardItemToViewMap.Remove(card);
     }
@@ -195,6 +196,7 @@ public class ShopViewController : MonoBehaviour,
         // TODO: Replace with sold out? Grey it out? Talk to Jasmine
         //shopGoodsArea.Remove(shopItemView.shopItemElement);
         shopItemView.Disable();
+        UIDocumentHoverableInstantiator.Instance.CleanupHoverable(shopItemView.shopItemElement);
         companionItemToViewMap.Remove(companion);
     }
 
