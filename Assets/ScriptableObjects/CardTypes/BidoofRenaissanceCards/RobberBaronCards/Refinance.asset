@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Refinance
   m_EditorClassIdentifier: 
   Name: Refinance
-  Description: Retain. Exhaust. Transform all Debt cards everywhere into copies of
-    target card.
+  Description: Retain. Exhaust. Transform all "Debt" cards everywhere into copies
+    of target card.
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 6ea2475484f389f4bb3e309b575cdf7e, type: 3}
@@ -29,7 +29,7 @@ MonoBehaviour:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
-  tooltips: 0f0000001400000013000000
+  tooltips: 1400000013000000
   references:
     version: 2
     RefIds:
