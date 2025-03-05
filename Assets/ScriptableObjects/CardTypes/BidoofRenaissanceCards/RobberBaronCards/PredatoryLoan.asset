@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: PredatoryLoan
   m_EditorClassIdentifier: 
   Name: Predatory Loan
-  Description: Give a companion 2 strength and 1 aura stack. Add a Debt status card
-    to their discard pile
+  Description: Give a companion 2 strength and 1 aura stack. Add a "Debt" card to
+    their discard pile
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: d7a75da2f6037ad47b2638069e02b403, type: 3}
@@ -29,7 +29,7 @@ MonoBehaviour:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
-  tooltips: 0400000013000000
+  tooltips: 13000000
   references:
     version: 2
     RefIds:

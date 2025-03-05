@@ -33,7 +33,7 @@ MonoBehaviour:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
-  tooltips: 0f000000
+  tooltips: 
   references:
     version: 2
     RefIds:
@@ -84,3 +84,4 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 1
         inputMultiplicityKey: numPlayedCards
+        vfxPrefab: {fileID: 0}

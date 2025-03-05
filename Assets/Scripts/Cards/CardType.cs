@@ -72,8 +72,41 @@ public class CardType: ScriptableObject, ITooltipProvider
 
     public TooltipViewModel GetTooltip() {
         TooltipViewModel tooltip = new TooltipViewModel(empty: true);
-        foreach(TooltipKeyword keyword in tooltips) {
+        List<TooltipKeyword> tooltipKeywords = new();
+        tooltipKeywords.AddRange(tooltips);
+        if (!tooltipKeywords.Contains(TooltipKeyword.Exhaust) && exhaustsWhenPlayed) {
+            tooltipKeywords.Add(TooltipKeyword.Exhaust);
+        }
+        if (!tooltipKeywords.Contains(TooltipKeyword.Retain) && retain) {
+            tooltipKeywords.Add(TooltipKeyword.Retain);
+        }
+        foreach(TooltipKeyword keyword in tooltipKeywords) {
+            Debug.Log("CardType.GetTooltip(): Adding tooltip keyword " + keyword);
             tooltip += KeywordTooltipProvider.Instance.GetTooltip(keyword);
+        }
+        List<EffectWorkflow> tooltipWorkflows = new();
+        tooltipWorkflows.AddRange(effectWorkflows);
+        if (inPlayerHandEndOfTurnWorkflow != null) {
+            tooltipWorkflows.Add(inPlayerHandEndOfTurnWorkflow);
+        }
+        if (onExhaustEffectWorkflow != null) {
+            tooltipWorkflows.Add(onExhaustEffectWorkflow);
+        }
+        foreach(EffectWorkflow workflow in tooltipWorkflows) {
+            if (workflow == null) {
+                continue;
+            }
+            foreach(EffectStep step in workflow.effectSteps) {
+                Debug.Log("CardType.GetTooltip(): Found effect step " + step.effectStepName);
+                if(step is ITooltipProvider) {
+                    ITooltipProvider tooltipProvider = (ITooltipProvider) step;
+                    // + is overridden in Tooltip class to concatenate plaintext strings
+                    // this code should stay operable when images are added if we update the
+                    // operation override
+                    tooltip += tooltipProvider.GetTooltip();
+                    Debug.Log("CardType.GetTooltip(): Added tooltip " + tooltip.plainText);
+                }
+            }
         }
         return tooltip;
     }

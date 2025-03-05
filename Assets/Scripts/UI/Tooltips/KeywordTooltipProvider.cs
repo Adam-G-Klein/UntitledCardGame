@@ -10,6 +10,7 @@ public class KeywordTooltipProvider: GenericSingleton<KeywordTooltipProvider>
         {StatusEffectType.Strength, TooltipKeyword.Strength},
         {StatusEffectType.Defended, TooltipKeyword.Block},
         {StatusEffectType.TemporaryStrength, TooltipKeyword.TemporaryStrength},
+        {StatusEffectType.Orb, TooltipKeyword.Aura},
     };
 
     public TooltipMapSO tooltipMap = null;

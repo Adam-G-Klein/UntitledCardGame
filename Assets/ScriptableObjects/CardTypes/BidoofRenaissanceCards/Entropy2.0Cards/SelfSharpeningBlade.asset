@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Self-Sharpening Blade
   Description: Deal {rpl_damage} damage. Increase the damage of ALL self-sharpening
-    blade cards by 5 this combat
+    blade cards by 4 this combat
   defaultValues:
   - key: rpl_damage
-    value: 5
+    value: 4
   Cost: 1
   Artwork: {fileID: 21300000, guid: bc01e6303f5aef54696b1695ae9d1ce0, type: 3}
   cardCategory: 1
@@ -61,12 +61,13 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: enemy
         combatEffect: 0
-        scale: 5
+        scale: 4
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
         getMultiplicityFromKey: 1
         inputMultiplicityKey: 
+        vfxPrefab: {fileID: 0}
     - rid: 2116895648763871339
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -106,7 +107,7 @@ MonoBehaviour:
       data:
         effectStepName: CardModificationEffect
         inputKey: 
-        scale: 5
+        scale: 4
         affectsAllCardsOfType: 1
         cardTypeToModify: {fileID: 11400000}
         getScaleFromKey: 0

@@ -23,6 +23,7 @@ MonoBehaviour:
   typeIcon: {fileID: 21300000, guid: 06c409edcf5e308438ea9c89ccd99c68, type: 3}
   portrait: {fileID: 21300000, guid: 06c409edcf5e308438ea9c89ccd99c68, type: 3}
   teamSelectSprite: {fileID: 21300000, guid: 06c409edcf5e308438ea9c89ccd99c68, type: 3}
+  rarity: 0
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 0}
   genericCompanionVFX: {fileID: 0}
@@ -36,15 +37,15 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Mab
-      description: At the end of combat, permanently add a Mab's Boon to target companion's
-        deck.
+      description: At the end of combat, permanently add a "Mab's Boon" card n to
+        target companion's deck.
       relatedBehaviorIndex: 0
     - title: Mab's Boon
       description: 0 mana. Exhaust. Draw 1 card from and heal this companion 3 HP
       relatedBehaviorIndex: 0
   keepsakeTitle: Mab's Mercy
-  keepsakeDescription: At the end of combat, permanently add a Mab's Boon to target
-    companion's deck.
+  keepsakeDescription: At the end of combat, permanently add a "Mab's Boon" card
+    to target companion's deck.
   references:
     version: 2
     RefIds:

@@ -23,6 +23,7 @@ MonoBehaviour:
   typeIcon: {fileID: 21300000, guid: 64807315a61fb4798b790a8caa283ea2, type: 3}
   portrait: {fileID: 21300000, guid: 64807315a61fb4798b790a8caa283ea2, type: 3}
   teamSelectSprite: {fileID: 21300000, guid: 64807315a61fb4798b790a8caa283ea2, type: 3}
+  rarity: 0
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 0}
   genericCompanionVFX: {fileID: 0}
@@ -38,11 +39,13 @@ MonoBehaviour:
     lines:
     - title: L3 Mab
       description: 'Whenever a companion gains HP, give them 3 block. At the end
-        of combat, permanently add a Mab''s Boon to adjacent companion''s decks. '
+        of combat, permanently add a "Mab''s Boon" card to adjacent companion''s
+        decks. '
       relatedBehaviorIndex: 0
   keepsakeTitle: 
   keepsakeDescription: 'Whenever a companion gains HP, give them 3 block. At the
-    end of combat, permanently add a Mab''s Boon to adjacent companion''s decks. '
+    end of combat, permanently add a "Mab''s Boon" card to adjacent companion''s
+    decks. '
   references:
     version: 2
     RefIds:

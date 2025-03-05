@@ -19,7 +19,8 @@ public class CardInHandEffect : EffectStep, ITooltipProvider
 
     private static Dictionary<CardInHandEffectName, TooltipKeyword> tooltipMapping = new Dictionary<CardInHandEffectName, TooltipKeyword>() {
         {CardInHandEffectName.Discard, TooltipKeyword.Discard},
-        {CardInHandEffectName.Exhaust, TooltipKeyword.Exhaust}
+        {CardInHandEffectName.Exhaust, TooltipKeyword.Exhaust},
+        {CardInHandEffectName.Retain, TooltipKeyword.Retain},
     };
 
     public CardInHandEffect() {

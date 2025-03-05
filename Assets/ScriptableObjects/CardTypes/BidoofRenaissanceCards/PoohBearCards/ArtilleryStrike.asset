@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: ArtilleryStrike
   m_EditorClassIdentifier: 
   Name: Artillery Strike
-  Description: Deal {rpl_damage} damage for each aura stack on your team ({numOrbs})
-  values: 0600000000000000
+  Description: Deal {rpl_damage} damage for each aura stack on your team ({numOrbs}
+    aura stacks)
   defaultValues:
   - key: rpl_damage
     value: 6
@@ -78,6 +78,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 1
         inputMultiplicityKey: numOrbs
+        vfxPrefab: {fileID: 0}
     - rid: 5602892679876706349
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

@@ -23,6 +23,7 @@ MonoBehaviour:
   typeIcon: {fileID: 21300000, guid: 80b71e9d7565047ddb3ac1b2091c9693, type: 3}
   portrait: {fileID: 21300000, guid: 80b71e9d7565047ddb3ac1b2091c9693, type: 3}
   teamSelectSprite: {fileID: 21300000, guid: 80b71e9d7565047ddb3ac1b2091c9693, type: 3}
+  rarity: 0
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 0}
   genericCompanionVFX: {fileID: 0}
@@ -36,15 +37,15 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: L3 Tiefseeker
-      description: At the start of combat, put a better buried treasure on the bottom
-        of each companion's deck.
+      description: At the start of combat, put a "Better Buried Treasure" card on
+        the bottom of each companion's deck.
       relatedBehaviorIndex: 0
     - title: Better Buried Treasure
       description: 1 Mana. Exhaust. Gain 1 Gold. Draw 1 card from this companion.
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: At the start of combat, put a better buried treasure on the
-    bottom of each companion's deck.
+  keepsakeDescription: At the start of combat, put a "Better Buried Treasure" card
+    on the bottom of each companion's deck.
   references:
     version: 2
     RefIds:
