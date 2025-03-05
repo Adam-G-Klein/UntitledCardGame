@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: AnticipateCalamity
   m_EditorClassIdentifier: 
   Name: Anticipate Calamity
-  Description: Consume 1 aura stack from target companion. Draw 2 cards from it and
-    give them both Retain.
+  Description: Consume 1 aura stack and draw 2 cards from target companion. Give
+    the drawn cards Retain.
+  defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 7607e6c7d31b76649be88556bf71c132, type: 3}
   cardCategory: 2
@@ -28,7 +29,7 @@ MonoBehaviour:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
-  tooltips: 11000000040000000f000000
+  tooltips: 1100000004000000
   references:
     version: 2
     RefIds:
