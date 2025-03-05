@@ -47,7 +47,7 @@ public class ShopViewController : MonoBehaviour,
     private VisualElement companionBeingDragged = null;
     private VisualElement originalParent = null;
     private Dictionary<VisualElement, CompanionManagementView> visualElementToCompanionViewMap = new Dictionary<VisualElement, CompanionManagementView>();
-    private List<VisualElement> blockedSlots = new List<VisualElement>();
+    public List<VisualElement> blockedSlots = new List<VisualElement>();
 
     private IEnumerator notEnoughMoneyCoroutine;
     private IEnumerator upgradeButtonTooltipCoroutine = null;

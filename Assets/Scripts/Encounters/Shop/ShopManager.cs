@@ -115,10 +115,6 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
 
     public void ProcessCompanionBuyRequest(ShopItemView shopItemView, CompanionInShopWithPrice companionInShop) {
-        if (gameState.companions.activeCompanions.Count == 5 && gameState.companions.benchedCompanions.Count == 5) {
-            StartCoroutine(shopViewController.ShowGenericNotification("You have reached the maximum number of companions.", 2));
-            return;
-        }
         Debug.Log("Processing companion buy request");
         if (DialogueManager.Instance.dialogueInProgress) {
             return;
@@ -146,6 +142,10 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
                     upgradeCompanion = companionCombinationManager.ShowUpgradedCompanion(level2s);
                 }
                 shopViewController.ShowCompanionUpgradeMenu(companions, upgradeCompanion);
+                return;
+            }
+            if (gameState.companions.activeCompanions.Count + shopViewController.blockedSlots.Count == 5 && gameState.companions.benchedCompanions.Count == 5) {
+                StartCoroutine(shopViewController.ShowGenericNotification("You have reached the maximum number of companions.", 2));
                 return;
             }
             gameState.AddCompanionToTeam(companionToAdd);
