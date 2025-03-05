@@ -53,8 +53,8 @@ public class ShopItemView {
         shopItemElement.RegisterCallback<PointerEnterEvent>(OnPointerEnter);
         shopItemElement.RegisterCallback<PointerLeaveEvent>(OnPointerLeave);
 
-        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(shopItemElement, 
-            ShopItemViewOnClicked, 
+        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(shopItemElement,
+            ShopItemViewOnClicked,
             ()=> {OnPointerEnter(null);},
             () => {});
 
@@ -81,8 +81,8 @@ public class ShopItemView {
 
         shopItemElement.RegisterCallback<ClickEvent>(clickEventHandler);
         shopItemElement.RegisterCallback<PointerEnterEvent>(OnPointerEnter);
-        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(shopItemElement, 
-            ShopItemViewOnClicked, 
+        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(shopItemElement,
+            ShopItemViewOnClicked,
             ()=> {OnPointerEnter(null);},
             () => {});
         shopItemElement.RegisterCallback<PointerLeaveEvent>(OnPointerLeave);
@@ -116,8 +116,9 @@ public class ShopItemView {
         if (companionInShop != null) {
             viewDelegate.DisplayTooltip(shopItemElement, companionInShop.companionType.tooltip, false);
         } else {
-            if (cardInShop.cardType.tooltips.Count == 0) return;
-            viewDelegate.DisplayTooltip(shopItemElement, cardInShop.cardType.GetTooltip(), false);
+            TooltipViewModel tvm = cardInShop.cardType.GetTooltip();
+            if (tvm.empty) return;
+            viewDelegate.DisplayTooltip(shopItemElement, tvm, false);
         }
     }
     private void OnPointerLeave(PointerLeaveEvent evt) {
