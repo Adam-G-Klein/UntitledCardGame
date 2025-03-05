@@ -327,8 +327,8 @@ public class EntityView : IUIEventReceiver {
         pickingModePositionList.Add(discardButton);
         pickingModePositionList.Add(drawerContainer);
 
-        drawButton.clicked += DrawButtonOnClick;
-        discardButton.clicked += DiscardButtonOnClick;
+        drawButton.RegisterCallback<ClickEvent>(DrawButtonOnClick);
+        discardButton.RegisterCallback<ClickEvent>(DiscardButtonOnClick);
 
         drawerContainer.Add(drawButton);
         drawerContainer.Add(discardButton);
@@ -356,7 +356,8 @@ public class EntityView : IUIEventReceiver {
         targetable.OnPointerLeaveUI(evt);
     }
 
-    private void DrawButtonOnClick() {
+    private void DrawButtonOnClick(ClickEvent evt) {
+        evt.StopPropagation();
         Debug.Log("Draw button clicked");
         DeckInstance deckInstance = uiEntity.GetDeckInstance();
         if (deckInstance == null) {
@@ -366,7 +367,8 @@ public class EntityView : IUIEventReceiver {
         viewDelegate.InstantiateCardView(deckInstance.GetShuffledDrawPile(), deckInstance.combatInstance.name + " draw pile");
 }
 
-    private void DiscardButtonOnClick() {
+    private void DiscardButtonOnClick(ClickEvent evt) {
+        evt.StopPropagation();
         Debug.Log("Discard button clicked");
         DeckInstance deckInstance = uiEntity.GetDeckInstance();
         if (deckInstance == null) {
