@@ -81,6 +81,7 @@ public class CardType: ScriptableObject, ITooltipProvider
             tooltipKeywords.Add(TooltipKeyword.Retain);
         }
         foreach(TooltipKeyword keyword in tooltipKeywords) {
+            Debug.Log("CardType.GetTooltip(): Adding tooltip keyword " + keyword);
             tooltip += KeywordTooltipProvider.Instance.GetTooltip(keyword);
         }
         List<EffectWorkflow> tooltipWorkflows = new();
@@ -92,6 +93,9 @@ public class CardType: ScriptableObject, ITooltipProvider
             tooltipWorkflows.Add(onExhaustEffectWorkflow);
         }
         foreach(EffectWorkflow workflow in tooltipWorkflows) {
+            if (workflow == null) {
+                continue;
+            }
             foreach(EffectStep step in workflow.effectSteps) {
                 Debug.Log("CardType.GetTooltip(): Found effect step " + step.effectStepName);
                 if(step is ITooltipProvider) {
