@@ -150,7 +150,6 @@ GameObject:
   - component: {fileID: 7148703676392390901}
   - component: {fileID: 5946589008991207965}
   - component: {fileID: 9176702735516032690}
-  - component: {fileID: 8257885855648288631}
   m_Layer: 5
   m_Name: CombatUI
   m_TagString: Untagged
@@ -371,19 +370,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doc: {fileID: 5558227210676135366}
---- !u!114 &8257885855648288631
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 782343934611933542}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d41e2a12914ccc42a848ed6dea4d829, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hoverablePrefab: {fileID: 6572452657296451063, guid: f2e6d3e41930a5b489fe64c1833143c8, type: 3}
 --- !u!1 &2627483554680799874
 GameObject:
   m_ObjectHideFlags: 0
