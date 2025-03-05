@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Bellows
   Description: Draw 3 cards, then choose 1 card in hand to exhaust.
+  defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 0f91baf441838d747bea7dbae09bfb7f, type: 3}
   cardCategory: 2
@@ -93,4 +94,4 @@ MonoBehaviour:
         validTargets: 03000000
         number: 1
         specialTargetRule: 5
-        cantCancelTargetting: 0
+        cantCancelTargetting: 1
