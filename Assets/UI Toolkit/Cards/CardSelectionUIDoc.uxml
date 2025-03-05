@@ -1,9 +1,20 @@
-<?xml version="1.0" encoding="utf-8"?>
-<engine:UXML
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:engine="UnityEngine.UIElements"
-    xmlns:editor="UnityEditor.UIElements"
-    xsi:noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd"
->
-    
-</engine:UXML>
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/common.uss?fileID=7433441132597879392&amp;guid=8d0bc28a2ed710a44b762e4c857ac6f9&amp;type=3#common" />
+    <Style src="project://database/Assets/UI%20Toolkit/Stylesheets/entity.uss?fileID=7433441132597879392&amp;guid=f28fa9619ee10d041b7306d0537405c5&amp;type=3#entity" />
+    <Style src="project://database/Assets/UI%20Toolkit/Stylesheets/cardSelectionView.uss?fileID=7433441132597879392&amp;guid=5a0eb55a9774f554fbf70e78f3f7dadf&amp;type=3#cardSelectionView" />
+    <ui:VisualElement style="flex-grow: 1; background-color: rgb(107, 107, 107);">
+        <ui:VisualElement name="companion-area" style="flex-grow: 0; height: 30%; display: flex;" />
+        <ui:VisualElement style="flex-grow: 1;">
+            <ui:ScrollView vertical-scroller-visibility="AlwaysVisible" name="card-scroll-view" horizontal-scroller-visibility="Hidden" style="flex-grow: 1; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0);">
+                <ui:VisualElement name="card-scroll-view-container" style="flex-grow: 1; flex-wrap: wrap; height: 100%; flex-direction: row;">
+                    <ui:VisualElement class="card-wrapper">
+                        <ui:VisualElement style="flex-grow: 1; background-color: rgb(0, 0, 0);" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:ScrollView>
+        </ui:VisualElement>
+        <ui:VisualElement style="flex-grow: 0; height: 10%; align-items: center; flex-direction: row; justify-content: center;">
+            <ui:Button text="Confirm" parse-escape-sequences="true" display-tooltip-when-elided="true" name="confirm-exit-button" style="font-size: 30px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

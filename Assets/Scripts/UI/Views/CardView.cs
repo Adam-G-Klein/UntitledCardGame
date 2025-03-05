@@ -18,7 +18,7 @@ public class CardView {
     public static int CARD_TITLE_MAX_FULL_SIZE_CHARS_SHOP_SCREEN = 6; // guess
     public static int COMPANION_AND_MANA_INDICATOR_WIDTH_HEIGHT_COMBAT = 80;
     public static int COMPANION_AND_MANA_INDICATOR_WIDTH_HEIGHT_SHOP = 60;
-    private Card cardInstance = null;
+    public Card cardInstance = null;
     public Color modifiedManaCostColor = Color.green;
 
     private float SCREEN_WIDTH_PERCENT = 0.11f;
