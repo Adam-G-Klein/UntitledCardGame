@@ -16,6 +16,7 @@ MonoBehaviour:
   maxHealth: 10
   baseAttackDamage: 0
   sprite: {fileID: 21300000, guid: af0fdebf2a0f45f4a99b9b32143d4b4a, type: 3}
+  morale: 0
   abilities: []
   enemyPattern:
     behaviors:
@@ -26,12 +27,20 @@ MonoBehaviour:
       effectSteps:
       - rid: 3931529445166809421
       - rid: 5602893111447519695
+      - rid: 3443535291885027974
       - rid: 5280922829633618015
     behaviorType: 0
+    behaviorIndex: 0
     nextBehaviorIndex: 0
   belowHalfHPEnemyPattern:
     behaviors: []
     behaviorType: 0
+    behaviorIndex: 0
+    nextBehaviorIndex: 0
+  adaptWhenAloneEnemyPattern:
+    behaviors: []
+    behaviorType: 0
+    behaviorIndex: 0
     nextBehaviorIndex: 0
   initialStatuses: []
   tooltip:
@@ -43,6 +52,11 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: 3443535291885027974
+      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: WaitForSecondsEffect
+        seconds: 0.3
     - rid: 3931529445166809421
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

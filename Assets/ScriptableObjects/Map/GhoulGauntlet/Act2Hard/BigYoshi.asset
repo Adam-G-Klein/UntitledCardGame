@@ -16,6 +16,7 @@ MonoBehaviour:
   maxHealth: 150
   baseAttackDamage: 0
   sprite: {fileID: 21300000, guid: bdd59c505b86bf44cabf5f9f82a41064, type: 3}
+  morale: 0
   abilities: []
   enemyPattern:
     behaviors:
@@ -26,14 +27,22 @@ MonoBehaviour:
       effectSteps:
       - rid: 5602893111447519363
       - rid: 4053950218419044387
-      - rid: 5280922829633617986
       - rid: 5602893111447519364
+      - rid: 3443535291885027981
+      - rid: 5280922829633617986
       - rid: 5602893111447519365
     behaviorType: 0
+    behaviorIndex: 0
     nextBehaviorIndex: 0
   belowHalfHPEnemyPattern:
     behaviors: []
     behaviorType: 0
+    behaviorIndex: 0
+    nextBehaviorIndex: 0
+  adaptWhenAloneEnemyPattern:
+    behaviors: []
+    behaviorType: 0
+    behaviorIndex: 0
     nextBehaviorIndex: 0
   initialStatuses: []
   tooltip:
@@ -45,6 +54,11 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: 3443535291885027981
+      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: WaitForSecondsEffect
+        seconds: 0.3
     - rid: 4053950218419044387
       type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
       data:
@@ -90,6 +104,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        vfxPrefab: {fileID: 0}
     - rid: 5602893111447519365
       type: {class: PermanentStatIncrease, ns: , asm: Assembly-CSharp}
       data:

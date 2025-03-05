@@ -16,6 +16,7 @@ MonoBehaviour:
   maxHealth: 150
   baseAttackDamage: 0
   sprite: {fileID: 21300000, guid: d7a75da2f6037ad47b2638069e02b403, type: 3}
+  morale: 0
   abilities: []
   enemyPattern:
     behaviors:
@@ -27,6 +28,7 @@ MonoBehaviour:
       - rid: 4463205916933358106
       - rid: 4053950218419044431
       - rid: 4463205916933358108
+      - rid: 3443535291885027989
       - rid: 4463205916933358107
       - rid: 5280922829633618001
     - intent: 0
@@ -41,6 +43,11 @@ MonoBehaviour:
     behaviorIndex: 0
     nextBehaviorIndex: 1
   belowHalfHPEnemyPattern:
+    behaviors: []
+    behaviorType: 0
+    behaviorIndex: 0
+    nextBehaviorIndex: 0
+  adaptWhenAloneEnemyPattern:
     behaviors: []
     behaviorType: 0
     behaviorIndex: 0
@@ -72,6 +79,11 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
+    - rid: 3443535291885027989
+      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: WaitForSecondsEffect
+        seconds: 0.3
     - rid: 4053950218419044431
       type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
       data:
@@ -135,6 +147,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        vfxPrefab: {fileID: 0}
     - rid: 4463205916933358109
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
@@ -147,6 +160,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        vfxPrefab: {fileID: 0}
     - rid: 5280922829633618001
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:

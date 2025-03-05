@@ -27,8 +27,8 @@ MonoBehaviour:
       effectSteps:
       - rid: 4463205916933357946
       - rid: 4463205916933357947
-      - rid: 5280922829633618020
       - rid: 5280922829633618022
+      - rid: 5280922829633618020
     behaviorType: 0
     behaviorIndex: 0
     nextBehaviorIndex: 0
@@ -123,4 +123,4 @@ MonoBehaviour:
       type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: WaitForSecondsEffect
-        seconds: 1
+        seconds: 0.3

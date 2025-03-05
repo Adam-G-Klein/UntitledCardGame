@@ -16,6 +16,7 @@ MonoBehaviour:
   maxHealth: 200
   baseAttackDamage: 0
   sprite: {fileID: 21300000, guid: 389ae5e98571d08419b91177b86e2642, type: 3}
+  morale: 0
   abilities:
   - rid: 205828126246961421
   - rid: 205828126246961568
@@ -30,10 +31,17 @@ MonoBehaviour:
       - rid: 205828126246961606
       - rid: 205828126246961607
     behaviorType: 0
+    behaviorIndex: 0
     nextBehaviorIndex: 0
   belowHalfHPEnemyPattern:
     behaviors: []
     behaviorType: 0
+    behaviorIndex: 0
+    nextBehaviorIndex: 0
+  adaptWhenAloneEnemyPattern:
+    behaviors: []
+    behaviorType: 0
+    behaviorIndex: 0
     nextBehaviorIndex: 0
   initialStatuses: []
   tooltip:
@@ -203,6 +211,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        vfxPrefab: {fileID: 0}
     - rid: 205828126246961607
       type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
       data:
