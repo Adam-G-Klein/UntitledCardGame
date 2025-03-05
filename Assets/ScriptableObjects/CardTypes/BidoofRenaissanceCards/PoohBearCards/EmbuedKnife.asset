@@ -15,10 +15,9 @@ MonoBehaviour:
   Name: Embued Knife
   Description: Exhaust. Deal {rpl_damage} damage for each aura stack on this companion
     ({numOrbs})
-  values: 0300000000000000
   defaultValues:
   - key: rpl_damage
-    value: 2 
+    value: 2
   - key: numOrbs
     value: 0
   Cost: 0
@@ -34,7 +33,7 @@ MonoBehaviour:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
-  tooltips: 0000000004000000
+  tooltips: 04000000
   references:
     version: 2
     RefIds:
@@ -98,3 +97,4 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 1
         inputMultiplicityKey: numOrbs
+        vfxPrefab: {fileID: 0}
