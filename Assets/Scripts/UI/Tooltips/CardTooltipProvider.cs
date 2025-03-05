@@ -23,38 +23,9 @@ public class CardTooltipProvder : MonoBehaviour
         PlayableCard card = GetComponent<PlayableCard>();
         CardInShop cardInShop = GetComponent<CardInShop>();
         if(card) {
-            AddTooltipForPlayableCard(card);
+            tooltipOnHover.tooltip += card.card.cardType.GetTooltip();
         } else if (cardInShop) {
-            AddTooltipForCardType(cardInShop.cardDisplay.card.cardType);
-        }
-
-        
-    }
-
-    private void AddTooltipForPlayableCard(PlayableCard card){
-        // TODO: add tooltips for in combat card modifications
-        CardType cardType = card.card.cardType;
-        AddTooltipForCardType(cardType);
-    }
-
-    private void AddTooltipForCardType(CardType cardType){
-        List<EffectWorkflow> effectWorkflows = cardType.effectWorkflows;
-        TooltipViewModel tooltip = null;
-        Debug.Log("CardTooltipProvider: Found " + effectWorkflows.Count + " effect workflows");
-        tooltipOnHover.tooltip += cardType.GetTooltip();
-        foreach(EffectWorkflow workflow in effectWorkflows) {
-            foreach(EffectStep step in workflow.effectSteps) {
-                Debug.Log("CardTooltipProvider: Found effect step " + step.effectStepName);
-                if(step is ITooltipProvider) {
-                    ITooltipProvider tooltipProvider = (ITooltipProvider) step;
-                    tooltip = tooltipProvider.GetTooltip();
-                    // + is overridden in Tooltip class to concatenate plaintext strings
-                    // this code should stay operable when images are added if we update the
-                    // operation override 
-                    tooltipOnHover.tooltip += tooltip;
-                    Debug.Log("CardTooltipProvider: Added tooltip " + tooltip.plainText);
-                }
-            }
+            tooltipOnHover.tooltip += cardInShop.cardDisplay.card.cardType.GetTooltip();
         }
     }
 }
