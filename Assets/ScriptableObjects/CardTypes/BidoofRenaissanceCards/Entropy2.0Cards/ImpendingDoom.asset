@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: ImpendingDoom
   m_EditorClassIdentifier: 
   Name: Impending Doom
-  Description: Retain. Exhaust. Transform all copies of Entropy's Burn into copies
-    of target card for the rest of combat.
+  Description: Retain. Exhaust. Transform all copies of the "Entropy's Burn" card
+    into copies of target card for the rest of combat.
+  defaultValues: []
   Cost: 2
   Artwork: {fileID: 21300000, guid: 90fa2971dfe769a49a60ad648e956340, type: 3}
   cardCategory: 2
@@ -28,7 +29,7 @@ MonoBehaviour:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
-  tooltips: 0f00000014000000
+  tooltips: 14000000
   references:
     version: 2
     RefIds:
