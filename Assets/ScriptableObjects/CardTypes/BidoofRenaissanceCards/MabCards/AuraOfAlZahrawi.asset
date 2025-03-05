@@ -31,7 +31,7 @@ MonoBehaviour:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
-  tooltips: 
+  tooltips: 04000000
   references:
     version: 2
     RefIds:
@@ -75,6 +75,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 1
         inputMultiplicityKey: mult
+        vfxPrefab: {fileID: 0}
     - rid: 2034229587402555684
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
