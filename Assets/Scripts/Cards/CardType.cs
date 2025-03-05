@@ -72,7 +72,15 @@ public class CardType: ScriptableObject, ITooltipProvider
 
     public TooltipViewModel GetTooltip() {
         TooltipViewModel tooltip = new TooltipViewModel(empty: true);
-        foreach(TooltipKeyword keyword in tooltips) {
+        List<TooltipKeyword> tooltipKeywords = new();
+        tooltipKeywords.AddRange(tooltips);
+        if (!tooltipKeywords.Contains(TooltipKeyword.Exhaust) && exhaustsWhenPlayed) {
+            tooltipKeywords.Add(TooltipKeyword.Exhaust);
+        }
+        if (!tooltipKeywords.Contains(TooltipKeyword.Retain) && retain) {
+            tooltipKeywords.Add(TooltipKeyword.Retain);
+        }
+        foreach(TooltipKeyword keyword in tooltipKeywords) {
             tooltip += KeywordTooltipProvider.Instance.GetTooltip(keyword);
         }
         return tooltip;
