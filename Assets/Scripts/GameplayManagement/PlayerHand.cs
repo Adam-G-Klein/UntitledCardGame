@@ -32,6 +32,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     private bool cardsInHandLocked = false;
     private Dictionary<GameObject, FXExperience> GOToFXExperience = new();
     private readonly float cardDealDelay = .1f;
+    private bool canPlayCards = true;
 
     void Start() {
         cardPrefab = EnemyEncounterManager.Instance.encounterConstants.cardPrefab;
@@ -245,8 +246,13 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     }
 
     public void DisableHand() {
+        canPlayCards = false;
         foreach (PlayableCard card in cardsInHand) {
             card.interactable = false; // not sure why this wasn't enough honestly :/
         }
+    }
+
+    public bool GetCanPlayCards() {
+        return canPlayCards;
     }
 }

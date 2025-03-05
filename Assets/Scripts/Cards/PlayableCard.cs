@@ -66,7 +66,7 @@ public class PlayableCard : MonoBehaviour,
             "Interactable: " + interactable +
             " EnemyEncounterManager.GetCastingCard(): " + EnemyEncounterManager.Instance.GetCastingCard().ToString()
         );
-        if (currentState != UIState.DEFAULT || !interactable || EnemyEncounterManager.Instance.GetCastingCard() || EnemyEncounterManager.Instance.GetCombatOver()) return;
+        if (currentState != UIState.DEFAULT || !interactable || EnemyEncounterManager.Instance.GetCastingCard() || !PlayerHand.Instance.GetCanPlayCards()) return;
         if (card.GetManaCost() > ManaManager.Instance.currentMana) {
                 StartCoroutine(GenericEntityDialogueParticipant
                     .Instance
@@ -212,7 +212,7 @@ public class PlayableCard : MonoBehaviour,
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if(!interactable || EnemyEncounterManager.Instance.GetCastingCard() || EnemyEncounterManager.Instance.GetCombatOver()) return;
+        if(!interactable || EnemyEncounterManager.Instance.GetCastingCard() || !PlayerHand.Instance.GetCanPlayCards()) return;
         hovered = true;
         if(hoverable != null) {
             // Make sure hoverable knows that we've already processed

@@ -170,14 +170,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
 
     public void TurnOffInteractions() {
         PlayerHand.Instance.DisableHand();
-        combatEncounterView.SetEndCombat();
         combatEncounterView.UpdateView();
-        EnemyEncounterViewModel.Instance.companions.ForEach(companion => {
-            if (companion) companion.GetComponent<CombatCompanionTooltipProvder>().DisableTooltip();
-        });
-        EnemyEncounterViewModel.Instance.enemies.ForEach(enemy => {
-            if (enemy) enemy.GetComponent<CombatEnemyTooltipProvder>().DisableTooltip();
-        });
     }
 
     private IEnumerator displayPostCombatUIAfterDelay() {
@@ -231,9 +224,6 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     internal bool GetCombatOver()
     {
         return combatOver;
-    }
-    public void SetCombatOver(bool combatOver) {
-        this.combatOver = combatOver;
     }
 
     public void ToggleUIDocuments(bool inMenu) {
