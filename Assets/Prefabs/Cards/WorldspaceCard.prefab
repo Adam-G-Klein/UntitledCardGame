@@ -119,8 +119,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1374400395
-  m_SortingLayer: 5
+  m_SortingLayerID: 1270704411
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 6cee2343f3114be45be30618b977bcb0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -294,7 +294,7 @@ MonoBehaviour:
   tooltipPrefab: {fileID: 2816874809441598624, guid: ae38d023550871540b736760d4242071, type: 3}
   tooltip:
     rid: -2
-  positionOffset: {x: 3, y: 0, z: -2}
+  positionOffset: {x: 2, y: 0.5, z: -2}
   displayWaitTime: 1
   instantiateInWorldspace: 1
   companionInstance: {fileID: 0}
@@ -327,3 +327,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ecfb36b454b06e46b71bf82572d1581, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hovered: 0
