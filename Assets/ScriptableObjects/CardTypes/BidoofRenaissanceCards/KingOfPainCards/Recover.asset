@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Recover
   m_EditorClassIdentifier: 
   Name: Recover
-  Description: Exhaust. Heal target companion 3 HP. Heal 6 HP instead if they are
+  Description: Exhaust. Heal target companion 5 HP. Heal 10 HP instead if they are
     below half HP
+  defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 9bbb0580b47c1a0458a81a39014da27c, type: 3}
   cardCategory: 2
@@ -99,21 +100,23 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: targetBelowHalf
         combatEffect: 9
-        scale: 3
+        scale: 5
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        vfxPrefab: {fileID: 0}
     - rid: 5602893017534169581
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
         inputKey: target
         combatEffect: 9
-        scale: 3
+        scale: 5
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        vfxPrefab: {fileID: 0}
