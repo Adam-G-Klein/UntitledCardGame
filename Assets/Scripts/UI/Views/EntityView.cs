@@ -434,7 +434,7 @@ public class EntityView : IUIEventReceiver {
         VisualElement companionContainer = entityContainer.Q<VisualElement>(className: "portrait-container");
 
         float duration = 0.125f;  // Total duration for the scale animation
-        float minScale = 0.9f - scale / 200.0f;  // scale bump increases in intensity if entity takes more damage (haven't extensively tested this)
+        float minScale = (float)Math.Min(.75, .9 - scale / 500);  // scale bump increases in intensity if entity takes more damage (haven't extensively tested this)
         
         LeanTween.value(tweenTarget, 1f, minScale, duration)
             .setEase(LeanTweenType.easeInOutQuad)
