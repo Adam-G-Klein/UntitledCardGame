@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Search;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UIElements;
@@ -7,6 +8,9 @@ using UnityEngine.UIElements;
 public class CardSelectionView : MonoBehaviour
 {
     [SerializeField] private UIDocument uiDoc;
+
+    public delegate void CardsSelected(List<Card> cards);
+    public event CardsSelected cardsSelectedHandler;
 
     private VisualElement companionArea;
     private VisualElement cardContainer;
@@ -25,11 +29,16 @@ public class CardSelectionView : MonoBehaviour
         }
     }
 
+    public void Setup(List<Card> cards, Companion companion) {
+        this.Setup(cards, "", -1, -1, companion);
+    }
+
     public void Setup(
             List<Card> cards,
             string promptText = "",
             int minSelections = -1,
-            int maxSelections = -1) {
+            int maxSelections = -1,
+            Companion companion = null) {
         InitFields();
         this.minSelections = minSelections;
         this.maxSelections = maxSelections;
@@ -41,6 +50,21 @@ public class CardSelectionView : MonoBehaviour
             this.confirmExitButton.text = "Confirm";
         }
 
+        if (promptText == "") {
+            this.promptTextLabel.style.display = DisplayStyle.None;
+            this.confirmExitButton.style.marginLeft = 0;
+        }
+
+        if (companion == null) {
+            this.companionArea.style.display = DisplayStyle.None;
+        } else {
+            EntityView entityView = new EntityView(companion, 0, false);
+            entityView.UpdateWidthAndHeight();
+            VisualElement portraitContainer = entityView.entityContainer.Q(className: "portrait-container");
+            portraitContainer.style.backgroundImage = new StyleBackground(companion.companionType.sprite);
+            this.companionArea.Add(entityView.entityContainer);
+        }
+
         foreach (Card card in cards) {
             CardView newCardView = new CardView(card, card.getCompanionFrom(), true);
             VisualElement cardWrapper = new VisualElement();
@@ -49,6 +73,8 @@ public class CardSelectionView : MonoBehaviour
             cardWrapper.Add(newCardView.cardContainer);
             this.cardContainer.Add(cardWrapper);
         }
+        
+        this.promptTextLabel.text = promptText;
     }
 
     private void InitFields() {
@@ -56,6 +82,7 @@ public class CardSelectionView : MonoBehaviour
         this.companionArea = uiDoc.rootVisualElement.Q("companion-area");
         this.cardContainer = uiDoc.rootVisualElement.Q("card-scroll-view-container");
         this.confirmExitButton = uiDoc.rootVisualElement.Q<Button>("confirm-exit-button");
+        this.promptTextLabel = uiDoc.rootVisualElement.Q<Label>("prompt-text-label");
         this.confirmExitButton.clicked += ExitView;
     }
 
@@ -63,6 +90,7 @@ public class CardSelectionView : MonoBehaviour
         if (cardsSelected.Contains(cardView)) {
             cardsSelected.Remove(cardView);
             // Undo styling for having card selected
+            cardView.cardContainer.parent.RemoveFromClassList("card-selected");
             return;
         }
 
@@ -72,6 +100,7 @@ public class CardSelectionView : MonoBehaviour
 
         cardsSelected.Add(cardView);
         // Setup styling for having card selected
+        cardView.cardContainer.parent.AddToClassList("card-selected");
     }
 
     private void ExitView() {
@@ -92,7 +121,7 @@ public class CardSelectionView : MonoBehaviour
         foreach (CardView cardView in cardsSelected) {
             outputCards.Add(cardView.cardInstance);
         }
-        // Call the callback
+        cardsSelectedHandler.Invoke(outputCards);
         Destroy(this.gameObject);
     }
 

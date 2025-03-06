@@ -17,6 +17,7 @@ public class ShopViewController : MonoBehaviour,
     public Color slotHighlightColor;
     public Color slotNotHighlightColor;
     public Color slotUnavailableColor;
+    public GameObject cardSelectionViewPrefab;
 
     private ShopManager shopManager;
     private Dictionary<CardInShopWithPrice, ShopItemView> cardItemToViewMap;
@@ -680,16 +681,22 @@ public class ShopViewController : MonoBehaviour,
 
     public void ShowCompanionDeckView(Companion companion)
     {
-        deckViewContentContainer.Clear();
-        deckView.style.visibility = Visibility.Visible;
+        if (cardSelectionViewPrefab != null) {
+            GameObject cardSelectionViewGo = Instantiate(cardSelectionViewPrefab);
+            CardSelectionView cardSelectionView = cardSelectionViewGo.GetComponent<CardSelectionView>();
+            cardSelectionView.Setup(companion.getDeck().cards, companion);
+        } else {
+            deckViewContentContainer.Clear();
+            deckView.style.visibility = Visibility.Visible;
 
-        foreach (Card card in companion.deck.cards) {
-            CardView cardView = new CardView(card.cardType, companion.companionType, card.shopRarity, true);
-            cardView.cardContainer.style.marginBottom = 10;
-            cardView.cardContainer.style.marginLeft = 10;
-            cardView.cardContainer.style.marginRight = 10;
-            cardView.cardContainer.style.marginTop = 10;
-            deckViewContentContainer.Add(cardView.cardContainer);
+            foreach (Card card in companion.deck.cards) {
+                CardView cardView = new CardView(card.cardType, companion.companionType, true);
+                cardView.cardContainer.style.marginBottom = 10;
+                cardView.cardContainer.style.marginLeft = 10;
+                cardView.cardContainer.style.marginRight = 10;
+                cardView.cardContainer.style.marginTop = 10;
+                deckViewContentContainer.Add(cardView.cardContainer);
+            }
         }
     }
 
