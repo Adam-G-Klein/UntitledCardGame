@@ -33,10 +33,21 @@ public class CompanionManagementView {
         entityView.entityContainer.RegisterCallback<PointerUpEvent>(ComapnionManagementOnPointerUp);
         entityView.entityContainer.RegisterCallback<PointerLeaveEvent>(ComapnionManagementOnPointerLeave);
         entityView.entityContainer.RegisterCallback<PointerEnterEvent>(CompanionManagementOnPointerEnter);
+
+        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(entityView.entityContainer, 
+            () => {CompanionManagementOnPointerDown(null);}, 
+            //()=> {CompanionManagementOnPointerEnter(null);},
+            () => {},
+            () => {},
+            HoverableType.CompanionManagement);
+        
+        /*
+        // temp breaking clicking for drag testing
         UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(entityView.entityContainer, 
             () => {CompanionManagementOnClick(null);}, 
             ()=> {CompanionManagementOnPointerEnter(null);},
             () => {});
+            */
         return entityView.entityContainer;
     }
 
@@ -55,11 +66,16 @@ public class CompanionManagementView {
 
     private void CompanionManagementOnPointerDown(PointerDownEvent evt) {
         RemoveCompanionHoverButtons();
-        viewDelegate.CompanionManagementOnPointerDown(this, evt);
+        // stand-in for whatever logic we'll use to determine no mouse
+        if(NonMouseInputManager.Instance.inputMethod != InputMethod.Mouse || evt == null) {
+            NonMouseInputManager.Instance.CompanionDragACTIVATE(this, viewDelegate);
+        } else {
+            viewDelegate.CompanionManagementOnPointerDown(this, evt, NonMouseInputManager.Instance.currentlyHoveredScreenPosUiDoc());
+        }
     }
 
     private void CompanionManagementOnPointerMove(PointerMoveEvent evt) {
-        viewDelegate.CompanionManagementOnPointerMove(this, evt);
+        viewDelegate.CompanionManagementOnPointerMove(this, evt, NonMouseInputManager.Instance.currentlyHoveredScreenPosUiDoc());
     }
 
     private void ComapnionManagementOnPointerUp(PointerUpEvent evt) {

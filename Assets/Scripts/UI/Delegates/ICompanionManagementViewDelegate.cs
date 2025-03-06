@@ -5,8 +5,8 @@ using UnityEngine.UIElements;
 public interface ICompanionManagementViewDelegate {
     void ComapnionManagementOnPointerUp(CompanionManagementView companionManagementView, PointerUpEvent evt);
     void CompanionManagementOnClick(CompanionManagementView companionView, ClickEvent evt);
-    void CompanionManagementOnPointerDown(CompanionManagementView companionView, PointerDownEvent evt);
-    void CompanionManagementOnPointerMove(CompanionManagementView companionManagementView, PointerMoveEvent evt);
+    void CompanionManagementOnPointerDown(CompanionManagementView companionView, PointerDownEvent evt, Vector2 mousePosition);
+    void CompanionManagementOnPointerMove(CompanionManagementView companionManagementView, PointerMoveEvent evt, Vector2 mousePosition);
     void CompanionManagementOnPointerLeave(CompanionManagementView companionManagementView, PointerLeaveEvent evt);
     void ShowCompanionDeckView(Companion companion);
     void SellCompanion(CompanionManagementView companionView);

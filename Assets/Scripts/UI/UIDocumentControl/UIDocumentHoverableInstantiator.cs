@@ -16,20 +16,24 @@ public class UIDocumentHoverableInstantiator : GenericSingleton<UIDocumentHovera
     private Dictionary<VisualElement, GameObject> hoverablesByElement = new Dictionary<VisualElement, GameObject>();
 
 
-    public void InstantiateHoverableWhenUIElementReady(VisualElement element, Action selectCallback = null, Action hoverCallback = null, Action unhoverCallback = null){
-        StartCoroutine(InstantiateHoverableWhenUIElementReadyCorout(element, selectCallback, hoverCallback, unhoverCallback));
+    public void InstantiateHoverableWhenUIElementReady(VisualElement element, 
+        Action selectCallback = null, 
+        Action hoverCallback = null, 
+        Action unhoverCallback = null, 
+        HoverableType hoverableType = HoverableType.DefaultShop){
+        StartCoroutine(InstantiateHoverableWhenUIElementReadyCorout(element, selectCallback, hoverCallback, unhoverCallback, hoverableType));
     }
 
-    private IEnumerator InstantiateHoverableWhenUIElementReadyCorout(VisualElement element, Action selectCallback = null, Action hoverCallback = null, Action unhoverCallback = null){
+    private IEnumerator InstantiateHoverableWhenUIElementReadyCorout(VisualElement element, Action selectCallback = null, Action hoverCallback = null, Action unhoverCallback = null, HoverableType hoverableType = HoverableType.DefaultShop){
         // wait for the element to be ready
         while(!UIDocumentUtils.ElementIsReady(element)){
             Debug.Log("[HoverableInstantiation] Element: " + element.name + " is not ready yet, waiting...");
             yield return null;
         }
-        InstantiateHoverable(element, selectCallback, hoverCallback, unhoverCallback);
+        InstantiateHoverable(element, selectCallback, hoverCallback, unhoverCallback, hoverableType);
     }
 
-    public void InstantiateHoverable(VisualElement element, Action selectCallback = null, Action hoverCallback = null, Action unhoverCallback = null){
+    public void InstantiateHoverable(VisualElement element, Action selectCallback = null, Action hoverCallback = null, Action unhoverCallback = null, HoverableType hoverableType = HoverableType.DefaultShop){
         Debug.Log("[HoverableInstantiation] Instantiating hoverable for element: " + element.name);
         // get the position from ui doc
         Vector3 position = UIDocumentGameObjectPlacer.GetWorldPositionFromElement(element);
@@ -38,6 +42,7 @@ public class UIDocumentHoverableInstantiator : GenericSingleton<UIDocumentHovera
         hoverableGO.name = element.name + "-Hoverable";
         Hoverable hoverable = hoverableGO.GetComponent<Hoverable>();
         hoverable.associatedUIDocElement = element;
+        hoverable.hoverableType = hoverableType;
         UIDocumentHoverableCallbackRegistry.Instance.RegisterCallback(element, InputActionType.Select, selectCallback);
         UIDocumentHoverableCallbackRegistry.Instance.RegisterCallback(element, InputActionType.Hover, hoverCallback);
         UIDocumentHoverableCallbackRegistry.Instance.RegisterCallback(element, InputActionType.Unhover, unhoverCallback);

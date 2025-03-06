@@ -352,9 +352,13 @@ public class ShopViewController : MonoBehaviour,
         sellingCompanionConfirmation.style.visibility = Visibility.Hidden;
     }
 
-    public void CompanionManagementOnPointerDown(CompanionManagementView companionView, PointerDownEvent evt)
+    public void CompanionManagementOnPointerDown(CompanionManagementView companionView, PointerDownEvent evt, Vector2 pointerScreenPos)
     {
         if (!canDragCompanions && !isDraggingCompanion) return;
+
+        Debug.Log("[ControllerDrag] evt position: " + (evt == null ? "evt is null" : evt.position) + " pointer screen pos: " + pointerScreenPos);
+
+        Vector2 pos = evt == null ? pointerScreenPos : evt.position;
 
         VisualElement parent = companionView.container.parent;
 
@@ -364,7 +368,7 @@ public class ShopViewController : MonoBehaviour,
         tempContainer.style.position = Position.Absolute;
 
         uiDoc.rootVisualElement.Add(tempContainer);
-        StartCoroutine(FinishDragSetup(tempContainer, companionView.container, evt.position, parent));
+        StartCoroutine(FinishDragSetup(tempContainer, companionView.container, pos, parent));
     }
 
     private IEnumerator FinishDragSetup(VisualElement tempContainer, VisualElement companion, Vector2 position, VisualElement originalSpot) {
@@ -379,16 +383,24 @@ public class ShopViewController : MonoBehaviour,
         companionBeingDragged = companion;
     }
 
-    public void CompanionManagementOnPointerMove(CompanionManagementView companionManagementView, PointerMoveEvent evt)
+    // TODO: replace evt with passed-in equivalent position
+    public void CompanionManagementOnPointerMove(CompanionManagementView companionManagementView, PointerMoveEvent evt, Vector2 pointerScreenPos)
     {        
-        if (!isDraggingCompanion || companionBeingDragged != companionManagementView.container)  return;
+        if (!isDraggingCompanion || companionBeingDragged != companionManagementView.container) {
+            if(evt == null) {
+                Debug.LogError("OnPointerMove Called from not mouse But Not dragging companion or not the companion being dragged");
+            }
+            return;
+        }  
 
-        companionManagementView.container.parent.style.top = evt.position.y - companionManagementView.container.parent.layout.height / 2;
-        companionManagementView.container.parent.style.left = evt.position.x - companionManagementView.container.parent.layout.width / 2;
+        Debug.Log("[ControllerDrag] evt position: " + (evt == null ? "evt is null" : evt.position) + " pointer screen pos: " + pointerScreenPos);
+        Vector2 pos = evt == null ? pointerScreenPos : evt.position;
+        companionManagementView.container.parent.style.top = pos.y - companionManagementView.container.parent.layout.height / 2;
+        companionManagementView.container.parent.style.left = pos.x - companionManagementView.container.parent.layout.width / 2;
 
         foreach (VisualElement child in activeContainer.hierarchy.Children()) {
             if (blockedSlots != null && blockedSlots.Contains(child)) continue;
-            if (child.worldBound.Contains(evt.position)) {
+            if (child.worldBound.Contains(pos)) {
                 child.style.backgroundColor = slotHighlightColor;
                 if (NumOpenSlots(activeContainer.Children().ToList(), true) < 5 - blockedSlots.Count) {
                     MoveWhileDragging(activeContainer, child);
@@ -399,7 +411,7 @@ public class ShopViewController : MonoBehaviour,
             }
         }
         foreach (VisualElement child in benchScrollView.contentContainer.hierarchy.Children()) {
-            if (child.worldBound.Contains(evt.position)) {
+            if (child.worldBound.Contains(pos)) {
                 if (NumOpenSlots(benchScrollView.contentContainer.Children().ToList(), true) < 5) {
                     MoveWhileDragging(benchScrollView.contentContainer, child);
                     originalParent = child;

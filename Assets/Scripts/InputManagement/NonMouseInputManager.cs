@@ -48,13 +48,30 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
     [SerializeField]
     [Header("Uses game state to determine the active encounter type.\n" +
         "Shouldn't try to access turn manager or UIState manager if we're in the shop")]
-    private GameStateVariableSO gameState;
+    public GameStateVariableSO gameState;
+
+    // -- Shop -- //
+    [SerializeField]
+    [Header("ONLY ACCURATE IN SHOP. UIStateManager has the source of truth for state in combat")]
+    private UIState uiState;
+
+    // -- Companion Dragging -- //
+    private ICompanionManagementViewDelegate companionManagementViewDelegate;
+    private CompanionManagementView companionManagementView;
+
+    void Awake()
+    {
+        // inititalization only needed when we're the source of truth
+        if(gameState.activeEncounter.GetValue().getEncounterType() == EncounterType.Shop) {
+            uiState = UIState.DEFAULT;
+        }        
+    }
+        
 
     void Start()
     {
         // Doesn't work right now, the card is still animating/not placed so the hover doesn't go through.
         // TurnManager.Instance.addTurnPhaseTrigger(new TurnPhaseTrigger(TurnPhase.PLAYER_TURN,startTurnTrigger()));
-        
     }
 
     public void ClearHoverState() {
@@ -162,14 +179,22 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
     }
 
 
+
     public void ProcessInput(InputAction action) {
         Cursor.visible = false;
         inputMethod = InputMethod.Keyboard;
         if(gameState.activeEncounter.GetValue().getEncounterType() == EncounterType.Shop) {
             processInputForShop(action);
             return;
+        } else {
+            // oh, random person in the future, you're trying to implement an encounter type that's
+            // not combat or shop? Dang, kinda sucks to be you huh :')
+            processInputForCombat(action);
         }
-        // else, we're in combat
+        
+    }
+
+    private void processInputForCombat(InputAction action) {
         switch(UIStateManager.Instance.currentState) {
             case UIState.DEFAULT:
                 processInputForDefaultState(action);
@@ -183,6 +208,16 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
         }
     }
 
+    private List<Hoverable> filterHoverablesByHoverableType(HoverableType hoverableType, List<Hoverable> candidates) {
+        List<Hoverable> filtered = new List<Hoverable>();
+        foreach(Hoverable candidate in candidates) {
+            if(candidate.hoverableType == hoverableType) {
+                filtered.Add(candidate);
+            }
+        }
+        return filtered;
+    }
+
     private List<Hoverable> filterHoverablesByTargetType(List<Targetable.TargetType> targetTypes, List<Hoverable> candidates) {
         List<Hoverable> filtered = new List<Hoverable>();
         foreach(Hoverable candidate in candidates) {
@@ -194,6 +229,21 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
     }
 
     private void processInputForShop(InputAction action) {
+        switch(uiState) {
+            case UIState.DEFAULT:
+                processInputForShopDefaultState(action);
+                break;
+            case UIState.DRAGGING_COMPANION:
+                processInputForShopDraggingCompanionState(action);
+                break;
+            default:
+                Debug.LogError("[NonMouseInputManager] I'm in the shop so I can't process input for state: " + uiState);
+                break;
+        }
+        
+    }
+
+    private void processInputForShopDefaultState(InputAction action){
         switch(action) {
             case InputAction.UP:
                 hoverInDirection(Vector2.up, allHoverables);
@@ -218,30 +268,67 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
             case InputAction.BACK:
                 Debug.Log("[NonMouseInputManager] State: SHOP, Action: BACK");
                 break;
-            case InputAction.END_TURN:
-                Debug.Log("[NonMouseInputManager] State: SHOP, Action: END_TURN");
-                break;
-            case InputAction.OPEN_COMPANION_1_DRAW:
-                Debug.Log("[NonMouseInputManager] State: SHOP, Action: OPEN_COMPANION_1_DRAW");
-                break;
-            case InputAction.OPEN_COMPANION_2_DRAW:
-                Debug.Log("[NonMouseInputManager] State: SHOP, Action: OPEN_COMPANION_2_DRAW");
-                break;
-            case InputAction.OPEN_COMPANION_3_DRAW: 
-                Debug.Log("[NonMouseInputManager] State: SHOP, Action: OPEN_COMPANION_3_DRAW");
-                break;
-            case InputAction.OPEN_COMPANION_4_DRAW: 
-                Debug.Log("[NonMouseInputManager] State: SHOP, Action: OPEN_COMPANION_4_DRAW");
-                break;
-            case InputAction.OPEN_COMPANION_5_DRAW: 
-                Debug.Log("[NonMouseInputManager] State: SHOP, Action: OPEN_COMPANION_5_DRAW");
-                break;
             default:
-                Debug.Log("[NonMouseInputManager] State: SHOP, UNIMPLEMENTED Action");
+                Debug.Log("[NonMouseInputManager] State: SHOP, UNIMPLEMENTED Action: " + action);
                 break;
+        }
+
+    }
+
+    public void CompanionDragACTIVATE(CompanionManagementView companionView, 
+        ICompanionManagementViewDelegate viewDelegate){
+
+            companionManagementView = companionView;
+            companionManagementViewDelegate = viewDelegate;
+            viewDelegate.CompanionManagementOnPointerDown(companionView, null, currentlyHoveredScreenPosUiDoc());
+            uiState = UIState.DRAGGING_COMPANION;
+    }
+
+    private void moveDraggedCompanionToCurrentHoverable() {
+        if(companionManagementViewDelegate == null) {
+            Debug.LogError("[NonMouseInputManager] State: SHOP, DRAGGING_COMPANION, but no delegate found");
+            return;
+        } else {
+            companionManagementViewDelegate.CompanionManagementOnPointerMove(companionManagementView, 
+                null, 
+                currentlyHoveredScreenPosUiDoc());
         }
     }
 
+    private void processInputForShopDraggingCompanionState(InputAction action) {
+        List<Hoverable> companionManagementSlots = filterHoverablesByHoverableType(HoverableType.CompanionManagement, allHoverables);
+        switch(action) {
+            case InputAction.UP:
+                hoverInDirection(Vector2.up, companionManagementSlots);
+                moveDraggedCompanionToCurrentHoverable();
+                Debug.Log("[NonMouseInputManager] State: SHOP, DRAGGING_COMPANION, Action: UP");
+                break;
+            case InputAction.DOWN:
+                hoverInDirection(Vector2.down, companionManagementSlots);
+                moveDraggedCompanionToCurrentHoverable();
+                Debug.Log("[NonMouseInputManager] State: SHOP, DRAGGING_COMPANION, Action: DOWN");
+                break;
+            case InputAction.LEFT:
+                hoverInDirection(Vector2.left, companionManagementSlots);
+                moveDraggedCompanionToCurrentHoverable();
+                Debug.Log("[NonMouseInputManager] State: SHOP, DRAGGING_COMPANION, Action: LEFT");
+                break;
+            case InputAction.RIGHT:
+                hoverInDirection(Vector2.right, companionManagementSlots);
+                moveDraggedCompanionToCurrentHoverable();
+                Debug.Log("[NonMouseInputManager] State: SHOP, DRAGGING_COMPANION, Action: RIGHT");
+                break;
+            case InputAction.SELECT:
+                Debug.Log("[NonMouseInputManager] State: SHOP, DRAGGING_COMPANION, Action: SELECT");
+                break;
+            case InputAction.BACK:
+                Debug.Log("[NonMouseInputManager] State: SHOP, DRAGGING_COMPANION, Action: BACK");
+                break;
+            default:
+                Debug.Log("[NonMouseInputManager] State: SHOP, DRAGGING_COMPANION, UNIMPLEMENTED Action: " + action);
+                break;
+        }
+    }
     private void processInputForDefaultState(InputAction action) {
         switch(action) {
             case InputAction.UP:
@@ -266,24 +353,6 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
                 break;
             case InputAction.BACK:
                 Debug.Log("[NonMouseInputManager] State: DEFAULT, Action: BACK");
-                break;
-            case InputAction.END_TURN:
-                Debug.Log("[NonMouseInputManager] State: DEFAULT, Action: END_TURN");
-                break;
-            case InputAction.OPEN_COMPANION_1_DRAW:
-                Debug.Log("[NonMouseInputManager] State: DEFAULT, Action: OPEN_COMPANION_1_DRAW");
-                break;
-            case InputAction.OPEN_COMPANION_2_DRAW:
-                Debug.Log("[NonMouseInputManager] State: DEFAULT, Action: OPEN_COMPANION_2_DRAW");
-                break;
-            case InputAction.OPEN_COMPANION_3_DRAW: 
-                Debug.Log("[NonMouseInputManager] State: DEFAULT, Action: OPEN_COMPANION_3_DRAW");
-                break;
-            case InputAction.OPEN_COMPANION_4_DRAW: 
-                Debug.Log("[NonMouseInputManager] State: DEFAULT, Action: OPEN_COMPANION_4_DRAW");
-                break;
-            case InputAction.OPEN_COMPANION_5_DRAW: 
-                Debug.Log("[NonMouseInputManager] State: DEFAULT, Action: OPEN_COMPANION_5_DRAW");
                 break;
             default:
                 Debug.Log("[NonMouseInputManager] State: DEFAULT, UNIMPLEMENTED Action: " + action);
@@ -395,5 +464,21 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
            Debug.Log("[NonMouseInputManager] Found a playable and affordable card, hovering card: " + affordableCards[0].name);
             hover(affordableCards[0].GetComponent<Hoverable>());
         }
+    }
+
+    public Vector2 currentlyHoveredScreenPosition() {
+        if(currentlyHovered != null) {
+            return currentlyHovered.getScreenPosition();
+        } else {
+            return Vector2.zero;
+        }
+    }
+
+    public Vector2 currentlyHoveredScreenPosUiDoc() {
+        if(currentlyHovered == null) {
+            return Vector2.zero;
+        }
+        Vector2 screenPos = currentlyHovered.getScreenPosition();
+        return new Vector2(screenPos.x, Screen.height - screenPos.y);
     }
 }
