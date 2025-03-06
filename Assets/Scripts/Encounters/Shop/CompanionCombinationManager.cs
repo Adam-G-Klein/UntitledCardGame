@@ -109,16 +109,37 @@ public class CompanionCombinationManager : MonoBehaviour
 
     private Deck selectDeckForCombinedCompanions(List<Companion> companions) {
         // TODO(): Allow the player to choose which deck they want to use.
-        // For now, select the largest deck, because presumably that will contain
-        // the most cards the player bought.
-        // It should be a good heuristic for now.
-        Deck selectedDeck = companions[0].deck;
-        for (int i = 1; i < companions.Count; i++) {
-            if (companions[i].deck.cards.Count > selectedDeck.cards.Count) {
-                selectedDeck = companions[i].deck;
+        // For now, select the deck with the least starting cards and add all added cards from other decks
+
+        // find deck with least starting cards 
+
+        Companion companionWithLeastStartingCards = null;
+        int leastStartingCards = 10000;
+
+        for (int i = 0; i < companions.Count; i++) {
+            int startingCards = 0;
+            for (int j = 0; j < companions[i].deck.cards.Count; j++) {
+                if (companions[i].companionType.startingDeck.cards.Contains(companions[i].deck.cards[j].cardType)) {
+                    startingCards += 1;
+                }
+            }
+            if (startingCards < leastStartingCards) {
+                leastStartingCards = startingCards;
+                companionWithLeastStartingCards = companions[i];
             }
         }
-        return selectedDeck;
+
+        // Add all non starting cards from other decks and all cards from the chosen deck to a new deck!
+        List<Card> cards = new();
+
+        for (int i = 0; i < companions.Count; i++) {
+            for (int j = 0; j < companions[i].deck.cards.Count; j++) {
+                if (companions[i].id == companionWithLeastStartingCards.id || !companions[i].companionType.startingDeck.cards.Contains(companions[i].deck.cards[j].cardType)) {
+                    cards.Add(companions[i].deck.cards[j]);
+                }
+            }
+        }
+        return new Deck(cards);
     }
 
     private int maxHealthForCombinedCompanion(List<Companion> companions) {

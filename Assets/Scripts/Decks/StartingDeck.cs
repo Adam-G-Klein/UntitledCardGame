@@ -7,7 +7,7 @@ using UnityEngine;
     menuName = "Decks/Starting Deck")]
 public class StartingDeck : ScriptableObject
 {
-    public List<CardType> cards;
+    public List<CardType> cards = new();
 
     // Used by Deck(List<CardInfo>) constructor 
     // so that we can instantiate new decks
