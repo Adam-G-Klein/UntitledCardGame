@@ -122,27 +122,17 @@ public class EffectManager : GenericSingleton<EffectManager>
         EffectDocument document,
         List<EffectStep> effectSteps,
         IEnumerator callback) {
-        bool hasEndWorkflowCheck = false;
-        bool didBreak = false;
         foreach (EffectStep step in effectSteps) {
             if (interruptEffectWorkflowForCalculation) {
                 Debug.Log("Breaking from workflow");
                 interruptEffectWorkflowForCalculation = false;
-                didBreak = true;
                 break;
             }
             if (step is IEffectStepCalculation) {
-                if (step is EndWorkflowIfConditionMet) {
-                    hasEndWorkflowCheck = true;
-                }
                 Debug.Log("CALCULATION: Invoking Step [" + step.effectStepName + "]");
                 currentEffectStep = ((IEffectStepCalculation)step).invokeForCalculation(document);
                 yield return StartCoroutine(currentEffectStep);
             }
-        }
-
-        if(!document.boolMap.ContainsKey("highlightCard")){
-            document.boolMap.Add("highlightCard", hasEndWorkflowCheck && !didBreak);
         }
 
         if (callback != null) yield return StartCoroutine(callback);

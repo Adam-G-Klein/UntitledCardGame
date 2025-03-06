@@ -158,7 +158,7 @@ public class UIDocumentCard : MonoBehaviour
 
         cardView.UpdateCardText(description);
 
-        cardView.SetHighlight(document.boolMap["highlightCard"]);
+        cardView.SetHighlight(document.boolMap.ContainsKey("highlightCard") && document.boolMap["highlightCard"]);
 
     }
 

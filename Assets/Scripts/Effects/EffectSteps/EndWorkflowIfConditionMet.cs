@@ -24,17 +24,21 @@ public class EndWorkflowIfConditionMet : EffectStep, IEffectStepCalculation {
     }
 
     public override IEnumerator invoke(EffectDocument document) {
-        if (shouldInterrupt(document)) {
+        bool interupt = shouldInterrupt(document);
+        if (interupt) {
             EffectManager.Instance.interruptEffectWorkflow = true;
         }
+        document.boolMap["highlightCard"] = !interupt; 
         yield return null;
     }
 
     public IEnumerator invokeForCalculation(EffectDocument document)
     {
-        if (shouldInterrupt(document)) {
+        bool interupt = shouldInterrupt(document);
+        if (interupt) {
             EffectManager.Instance.interruptEffectWorkflowForCalculation = true;
         }
+        document.boolMap["highlightCard"] = !interupt; 
         yield return null;
     }
 
