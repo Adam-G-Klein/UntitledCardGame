@@ -120,7 +120,7 @@
             <ui:VisualElement name="upgradeMenuContainer" class="upgrade-menu-container">
                 <ui:Button text="Cancel Upgrade" parse-escape-sequences="true" display-tooltip-when-elided="true" name="cancelUpgrade" style="position: absolute; left: 20px; top: 20px; font-size: 24px;" />
                 <ui:Button text="Confirm Upgrade" parse-escape-sequences="true" display-tooltip-when-elided="true" name="confirmUpgrade" style="position: absolute; bottom: 20px; -unity-font-style: normal; font-size: 24px;" />
-                <ui:VisualElement style="flex-grow: 1; position: absolute; background-image: resource(&apos;icons8-question-mark-30&apos;); width: 60px; height: 60px; top: 20px; right: 20px;" />
+                <ui:VisualElement name="questionMark" style="flex-grow: 1; position: absolute; background-image: resource(&apos;icons8-question-mark-30&apos;); width: 60px; height: 60px; top: 20px; right: 20px;" />
                 <ui:Label tabindex="-1" text="Upgrade Your Companions!" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 48px; margin-top: 6%;" />
                 <ui:Label tabindex="-1" text="You have selected a companion that would prompt an upgrade. Below you can see which companion you would receive upon upgrading. Would you like to continue?" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Label" style="font-size: 32px; width: 80%; flex-wrap: wrap; white-space: normal; -unity-text-align: upper-center;" />
                 <ui:VisualElement style="flex-grow: 1; width: 90%; height: 60%; max-height: 60%; padding-top: 5%; padding-right: 0; padding-bottom: 5%; flex-direction: row;">
@@ -132,7 +132,19 @@
                     <ui:VisualElement style="flex-grow: 1; width: 30%; align-items: center; justify-content: center;">
                         <ui:Label tabindex="-1" text="Upgraded Companion" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 24px;" />
                         <ui:VisualElement name="upgradedCompanion" style="flex-grow: 1; width: auto;" />
+                        <ui:Button text="Upgraded Deck Preview" parse-escape-sequences="true" display-tooltip-when-elided="true" name="upgradedDeckPreview" style="position: absolute; right: auto; bottom: auto; top: 105%; font-size: 20px;" />
                     </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="explainerText" class="explainer-text-container" style="top: 60px; right: 60px;">
+                    <ui:Label tabindex="-1" text="When you obtain three of the same level 1 companions they upgrade to a level 2 companion." parse-escape-sequences="true" display-tooltip-when-elided="true" class="explainer-text" />
+                    <ui:VisualElement class="spacer-line" />
+                    <ui:Label tabindex="-1" text="When you obtain two level 2 companions they upgrade to a level 3 companion." parse-escape-sequences="true" display-tooltip-when-elided="true" class="explainer-text" />
+                    <ui:VisualElement class="spacer-line" />
+                    <ui:Label tabindex="-1" text="Upgraded companions have stronger abilities and more max HP." parse-escape-sequences="true" display-tooltip-when-elided="true" class="explainer-text" />
+                    <ui:VisualElement class="spacer-line" />
+                    <ui:Label tabindex="-1" text="The stats of the upgraded companion will be the sum of the stats of the input companions. This includes: current HP, max HP, and strength." parse-escape-sequences="true" display-tooltip-when-elided="true" name="Label" class="explainer-text" />
+                    <ui:VisualElement class="spacer-line" />
+                    <ui:Label tabindex="-1" text="The deck of the upgraded companion will take the deck from the companion with the least remaining starting cards and pull in all cards purchased in the shop or permanently added during combat from the other companions." parse-escape-sequences="true" display-tooltip-when-elided="true" name="Label" class="explainer-text" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>

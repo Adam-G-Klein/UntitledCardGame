@@ -58,6 +58,7 @@ public class ShopViewController : MonoBehaviour,
     private string originalSellingCompanionConfirmationText;
     private bool inUpgradeMenu = false;
     private Dictionary<VisualElement, GameObject> tooltipMap = new();
+    private Companion currentUpgradeCompanion;
 
     public void Start() {
         // Init(null);
@@ -127,6 +128,23 @@ public class ShopViewController : MonoBehaviour,
         //setup upgradeMenu
         uiDoc.rootVisualElement.Q<Button>(name:"cancelUpgrade").clicked += CancelUpgrade;
         uiDoc.rootVisualElement.Q<Button>(name:"confirmUpgrade").clicked += ConfirmUpgrade;
+        uiDoc.rootVisualElement.Q<Button>(name:"upgradedDeckPreview").clicked += PreviewUpgradedDeck;
+
+        VisualElement questionMark = uiDoc.rootVisualElement.Q<VisualElement>(name:"questionMark");
+        questionMark.RegisterCallback<PointerEnterEvent>(ShowHelperText);
+        questionMark.RegisterCallback<PointerLeaveEvent>(HideHelperText);
+    }
+
+    private void PreviewUpgradedDeck() {
+        ShowCompanionDeckView(currentUpgradeCompanion);
+    }
+
+    private void ShowHelperText(PointerEnterEvent evt) {
+        uiDoc.rootVisualElement.Q<VisualElement>(name:"explainerText").AddToClassList("explainer-text-container-visible");
+    }
+
+    private void HideHelperText(PointerLeaveEvent evt) {
+        uiDoc.rootVisualElement.Q<VisualElement>(name:"explainerText").RemoveFromClassList("explainer-text-container-visible");
     }
 
     private void SetupActiveSlots(int numCompanions) {
@@ -760,6 +778,7 @@ public class ShopViewController : MonoBehaviour,
     }  
 
     public void ShowCompanionUpgradeMenu(List<Companion> companions, Companion upgradeCompanion) {
+        currentUpgradeCompanion = upgradeCompanion;
         inUpgradeMenu = true;
         VisualElement upgradeMenuOuterContainer = uiDoc.rootVisualElement.Q<VisualElement>(name:"upgradeMenuOuterContainer");
         VisualElement companionUpgradeMenu = uiDoc.rootVisualElement.Q<VisualElement>(name:"upgradeMenuContainer");
