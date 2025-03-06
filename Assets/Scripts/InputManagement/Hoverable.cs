@@ -4,6 +4,13 @@ using UnityEngine.EventSystems;
 using UnityEngine.Playables;
 using UnityEngine.UIElements;
 
+public enum HoverableType {
+    DefaultCombat, // Unused, future proofing
+    DefaultShop, // Unused, future proofing
+    OptionsMenu, // Unused, future proofing
+    CompanionManagement
+}
+
 public class Hoverable : MonoBehaviour {
 
     private List<IPointerEnterHandler> enterHandlers;
@@ -14,6 +21,8 @@ public class Hoverable : MonoBehaviour {
     // Only being used for smart default of hovering next card in hand after cast
     private EntityType entityType;
     public bool hovered;
+
+    public HoverableType hoverableType = HoverableType.DefaultCombat;
 
     public VisualElement associatedUIDocElement = null;
     void Start() {

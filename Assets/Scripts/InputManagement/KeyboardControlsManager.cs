@@ -32,7 +32,15 @@ public class KeyboardControlsManager : GenericSingleton<KeyboardControlsManager>
         } 
         if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return)) {
             inputManager.ProcessInput(InputAction.SELECT);
-        } else if(Input.GetKeyDown(KeyCode.Backspace) || Input.GetKeyDown(KeyCode.S)) {
+        } else if(Input.GetKeyDown(KeyCode.Backspace) 
+        // okay but like hear me out
+        /*
+        || (
+            inputManager.gameState.activeEncounter.GetValue().getEncounterType() == EncounterType.Enemy
+            && UIStateManager.Instance.currentState == UIState.EFFECT_TARGETTING
+            && Input.GetKeyDown(KeyCode.S))
+            */
+            ) {
             inputManager.ProcessInput(InputAction.BACK);
         } else if(Input.GetKeyDown(KeyCode.Space)) {
             inputManager.ProcessInput(InputAction.END_TURN);

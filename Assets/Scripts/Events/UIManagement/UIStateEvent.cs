@@ -3,11 +3,10 @@ using UnityEngine;
 public enum UIState {
     DEFAULT, // Currently everything that's not targetting
     EFFECT_TARGETTING,
-    // Rest of these are currently unused
-    CARD_SELECTION_DISPLAY, // Something like when Slay the spire puts up cards you can choose from a potion
-    COMPANION_SUBMENU, // When you click on a companion, you get a submenu displayed 
-    END_ENCOUNTER
-
+    CARD_SELECTION_DISPLAY, // UNUSED, here so that our enum numbering doesn't mess up in the UI
+    COMPANION_SUBMENU, // UNUSED, here so that our enum numbering doesn't mess up in the UI
+    END_ENCOUNTER,
+    DRAGGING_COMPANION // Used in the shop when dragging companions to rearrange them
 }
 
 [System.Serializable]
