@@ -29,6 +29,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     private ShopEncounter shopEncounter;
     private ShopLevel shopLevel;
     private bool buyingCard = false;
+    private bool removingCard = false;
     private CardInShopWithPrice currentCardBuyRequest;
     private ShopItemView currentCardBuyRequestItemView;
     private CompanionCombinationManager companionCombinationManager;
@@ -203,9 +204,22 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             shopViewController.StopBuyingCard();
             InstantiateShopVFX(moneySpentPrefab, currentCardBuyRequestItemView.shopItemElement, 1.5f);
         }
+
+        if (removingCard) {
+            shopViewController.ShopDeckViewForCardRemoval(companion);
+        }
+    }
+
+    public void ProcessCardRemoval() {
+        gameState.playerData.GetValue().gold -= shopEncounter.shopData.cardRemovalPrice;
+        shopViewController.SetMoney(gameState.playerData.GetValue().gold);
     }
 
     public void ProcessCardBuyCanceled() {
+        this.buyingCard = false;
+    }
+
+    public void ProcessCardRemovalCancelled() {
         this.buyingCard = false;
     }
 
@@ -282,6 +296,15 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         allCompanions.AddRange(gameState.companions.activeCompanions);
         allCompanions.AddRange(gameState.companions.benchedCompanions);
         shopEncounter.Build(this, allCompanions, encounterConstants, shopLevel, USE_NEW_SHOP);
+    }
+
+    public void ProcessCardRemovalClick() {
+        removingCard = true;
+        if (gameState.playerData.GetValue().gold >= shopEncounter.shopData.cardRemovalPrice) {
+            shopViewController.StartCardRemoval();
+        } else {
+            shopViewController.NotEnoughMoney();
+        }
     }
 
     public void saveShopEncounter(ShopEncounter shopEncounter) {

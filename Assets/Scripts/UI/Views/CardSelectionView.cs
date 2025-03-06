@@ -8,7 +8,7 @@ public class CardSelectionView : MonoBehaviour
 {
     [SerializeField] private UIDocument uiDoc;
 
-    public delegate void CardsSelected(List<Card> cards);
+    public delegate void CardsSelected(List<Card> cards, Companion companion);
     public event CardsSelected cardsSelectedHandler;
 
     private VisualElement companionArea;
@@ -21,6 +21,7 @@ public class CardSelectionView : MonoBehaviour
     private int maxSelections;
     private string promptText;
     private IEnumerator currentCoroutine = null;
+    private Companion companion;
 
     public void Start() {
         if (uiDoc == null) {
@@ -29,6 +30,7 @@ public class CardSelectionView : MonoBehaviour
     }
 
     public void Setup(List<Card> cards, Companion companion) {
+        this.companion = companion;
         this.Setup(cards, "", -1, -1, companion);
     }
 
@@ -38,6 +40,7 @@ public class CardSelectionView : MonoBehaviour
             int minSelections = -1,
             int maxSelections = -1,
             Companion companion = null) {
+        this.companion = companion;
         InitFields();
         this.minSelections = minSelections;
         this.maxSelections = maxSelections;
@@ -120,7 +123,7 @@ public class CardSelectionView : MonoBehaviour
         foreach (CardView cardView in cardsSelected) {
             outputCards.Add(cardView.cardInstance);
         }
-        cardsSelectedHandler.Invoke(outputCards);
+        cardsSelectedHandler.Invoke(outputCards, companion);
         Destroy(this.gameObject);
     }
 

@@ -49,6 +49,10 @@
                     <ui:Button text="Reroll" parse-escape-sequences="true" display-tooltip-when-elided="true" name="reroll-button" class="shopButton" style="margin-right: 0;" />
                     <ui:Label tabindex="-1" text="$1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="reroll-price-label" style="background-image: url(&quot;project://database/Assets/Sprites/AidensRoom/DialogueBox.png?fileID=2800000&amp;guid=e1a81dd917fe696459cd192b12e9b3fc&amp;type=3#DialogueBox&quot;); align-self: center; margin-left: 0; width: 20%; height: 33%; align-items: center; justify-content: flex-start; -unity-text-align: middle-center; -unity-font-style: bold; font-size: 18px;" />
                 </ui:VisualElement>
+                <ui:VisualElement class="shopButtonContainer">
+                    <ui:Button text="Card Removal" parse-escape-sequences="true" display-tooltip-when-elided="true" name="card-remove-button" class="shopButton" style="margin-right: 0;" />
+                    <ui:Label tabindex="-1" text="$8" parse-escape-sequences="true" display-tooltip-when-elided="true" name="card-remove-price-label" style="background-image: url(&quot;project://database/Assets/Sprites/AidensRoom/DialogueBox.png?fileID=2800000&amp;guid=e1a81dd917fe696459cd192b12e9b3fc&amp;type=3#DialogueBox&quot;); align-self: center; margin-left: 0; width: 20%; height: 33%; align-items: center; justify-content: flex-start; -unity-text-align: middle-center; -unity-font-style: bold; font-size: 18px;" />
+                </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement style="flex-grow: 1; width: 75%; justify-content: center;">
                 <ui:VisualElement name="shop-goods-area" style="flex-grow: 0; width: 100%; justify-content: center; flex-direction: row; align-self: auto; align-items: center; height: auto; flex-shrink: 0;" />
@@ -92,6 +96,10 @@
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="selecting-companion-veil" style="flex-grow: 1; position: absolute; height: 654px; width: 1925px; top: 0; left: 0; right: 100%; bottom: 100%; background-color: rgba(0, 0, 0, 0.61); visibility: hidden; display: flex;" />
+        <ui:VisualElement name="companion-selection-for-card-removal-indicator" style="flex-grow: 1; position: absolute; height: 70px; width: auto; top: 584px; left: auto; flex-direction: row; justify-content: center; visibility: hidden; align-self: center;">
+            <ui:Label tabindex="-1" text="Select a companion to remove a card from!" parse-escape-sequences="true" display-tooltip-when-elided="true" style="border-top-width: 2.5px; border-right-width: 2.5px; border-bottom-width: 2.5px; border-left-width: 2.5px; background-color: rgb(217, 217, 217); font-size: 32px; -unity-font-style: normal; padding-right: 4px; padding-left: 4px;" />
+            <ui:Button text="Cancel" parse-escape-sequences="true" display-tooltip-when-elided="true" name="companion-selection-for-card-removal-cancel-button" class="shopButton" style="background-color: rgb(255, 130, 127);" />
+        </ui:VisualElement>
         <ui:VisualElement name="companion-selection-indicator" style="flex-grow: 1; position: absolute; height: 70px; width: 650px; top: 584px; left: 663px; flex-direction: row; justify-content: center; visibility: hidden;">
             <ui:Label tabindex="-1" text="Select a companion to get the card." parse-escape-sequences="true" display-tooltip-when-elided="true" style="border-top-width: 2.5px; border-right-width: 2.5px; border-bottom-width: 2.5px; border-left-width: 2.5px; background-color: rgb(217, 217, 217); font-size: 32px; -unity-font-style: normal; padding-right: 4px; padding-left: 4px;" />
             <ui:Button text="Cancel" parse-escape-sequences="true" display-tooltip-when-elided="true" name="companion-selection-cancel-button" class="shopButton" style="background-color: rgb(255, 130, 127);" />

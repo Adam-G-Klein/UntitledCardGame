@@ -29,12 +29,17 @@ public class ShopViewController : MonoBehaviour,
     private VisualElement activeContainer;
     private VisualElement mapContainer;
     private Button upgradeButton;
-    private Button rerollButton;
+    private Button rerollButton; 
+    private Button cardRemovalButton;
+    private bool hasRemovedCardThisShop;
     private Label moneyLabel;
     private Label notEnoughMoneyLabel;
     public VisualElement selectingCompanionVeil;
     public VisualElement selectingIndicator;
     public Button selectingCancelButton;
+    private VisualElement selectingIndicatorForCardRemovalIndicator;
+    private Button selectingForCardRemovalButton;
+
     public Label upgradePriceLabel;
     public Label rerollPriceLabel;
     //public Button sellCompanionButton;
@@ -124,6 +129,12 @@ public class ShopViewController : MonoBehaviour,
         sellingCompanionConfirmation.Q<Button>("selling-companion-confirmation-no").clicked += StopSellingCompanion;
         originalSellingCompanionConfirmationText = sellingCompanionConfirmation.Q<Label>("selling-companion-confirmation-label").text;
         deckView.Q<Button>().clicked += CloseCompanionDeckView;
+
+        cardRemovalButton = uiDoc.rootVisualElement.Q<Button>("card-remove-button");
+        cardRemovalButton.clicked += CardRemovalButtonOnClick;
+        selectingIndicatorForCardRemovalIndicator = uiDoc.rootVisualElement.Q<VisualElement>("companion-selection-for-card-removal-indicator");
+        selectingForCardRemovalButton = uiDoc.rootVisualElement.Q<Button>("companion-selection-for-card-removal-cancel-button");
+        selectingForCardRemovalButton.clicked += CancelCardRemoval;
 
         //setup upgradeMenu
         uiDoc.rootVisualElement.Q<Button>(name:"cancelUpgrade").clicked += CancelUpgrade;
@@ -634,7 +645,34 @@ public class ShopViewController : MonoBehaviour,
         StopBuyingCard();
     }
 
-    // evt is unused, but required for the callback
+    public void CardRemovalButtonOnClick() {
+        shopManager.ProcessCardRemovalClick();
+    }
+
+    public void StartCardRemoval() {
+        canDragCompanions = false;
+        selectingCompanionVeil.style.visibility = Visibility.Visible;
+        selectingIndicatorForCardRemovalIndicator.style.visibility = Visibility.Visible;
+    }
+
+    
+    public void CardRemoved() {
+        cardRemovalButton.SetEnabled(false);
+        StartCoroutine(ShowGenericNotification("Card Removed!")); 
+        StopRemovingCard();
+    }
+    private void StopRemovingCard() {
+        canDragCompanions = true;
+        selectingCompanionVeil.style.visibility = Visibility.Hidden;
+        selectingIndicatorForCardRemovalIndicator.style.visibility = Visibility.Hidden;
+    }
+
+    
+    private void CancelCardRemoval() {
+        shopManager.ProcessCardRemovalCancelled();
+        StopRemovingCard();
+    }
+
     private void UpgradeButtonOnPointerEnter(PointerEnterEvent evt) {
         upgradeButtonTooltipCoroutine = UpgradeButtonTooltipCoroutine();
         StartCoroutine(upgradeButtonTooltipCoroutine);
@@ -716,6 +754,24 @@ public class ShopViewController : MonoBehaviour,
                 deckViewContentContainer.Add(cardView.cardContainer);
             }
         }
+    }
+
+    public void ShopDeckViewForCardRemoval(Companion companion) {
+        if (cardSelectionViewPrefab != null) {
+            GameObject cardSelectionViewGo = Instantiate(cardSelectionViewPrefab);
+            CardSelectionView cardSelectionView = cardSelectionViewGo.GetComponent<CardSelectionView>();
+            cardSelectionView.Setup(companion.getDeck().cards, "Select a Card For Removal!", 1, 1, companion);
+            cardSelectionView.cardsSelectedHandler += ProcessCardRemoval;
+        }
+    }
+
+    private void ProcessCardRemoval(List<Card> cards, Companion companion) {
+        cards.ForEach((card) => {
+            companion.deck.PurgeCard(card.id);
+        });
+
+        shopManager.ProcessCardRemoval();
+        CardRemoved();
     }
 
     public void SellCompanion(CompanionManagementView companionView)
