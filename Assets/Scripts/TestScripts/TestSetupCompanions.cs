@@ -14,7 +14,7 @@ public class TestSetupCompanions : MonoBehaviour
         foreach (Companion companion in gameStateVariableSO.companions.activeCompanions) {
             cards.AddRange(companion.getDeck().cards);
         }
-        cardSelectionView.Setup(cards, "Goobie Woobie", 1, 2, gameStateVariableSO.companions.activeCompanions[0]);
+        cardSelectionView.Setup(cards, "Hi software discord chat", 1, 2, gameStateVariableSO.companions.activeCompanions[0]);
         // cardSelectionView.Setup(cards, "Goobie Woobie", 1, 2, null);
         cardSelectionView.cardsSelectedHandler += ((List<Card> cards) => {Debug.Log("CARDS SELECTED");});
     }
