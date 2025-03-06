@@ -12,6 +12,7 @@ public class ShopDataSO : ScriptableObject
     public List<ShopLevel> shopLevels;
     public CompanionPoolSO companionPool;
     public int rerollShopPrice;
+    public int cardRemovalPrice;
     public ShopEncounterEvent shopEncounterEvent;
 
     public int cardPrice;
