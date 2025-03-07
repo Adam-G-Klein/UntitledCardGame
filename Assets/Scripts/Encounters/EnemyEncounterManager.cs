@@ -110,7 +110,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         combatOver = true;
         Debug.Log("EndEncounterHandler called, info.outcome is " + info.outcome + " gameState.GetLoopIndex() is " + gameState.GetLoopIndex() + " gameState.lastTutorialLoopIndex is " + gameState.lastTutorialLoopIndex);
         if(info.outcome == EncounterOutcome.Defeat) {
-            postGamePopup.SetActive(true);
+            LoseGameHandler();
             return;
         }
         if (gameState.activeEncounter.GetValue().id == gameState.map.GetValue().encounters[gameState.map.GetValue().encounters.Count - 1].id) {
@@ -168,6 +168,14 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         SetInToolTip(false);
     }
 
+    private void LoseGameHandler() {
+        postGamePopup.SetActive(true);
+        postGamePopup.GetComponent<DefeatView>().Setup(((EnemyEncounter)gameState.activeEncounter.GetValue()).enemyList);
+        TurnOffInteractions();
+        StartCoroutine(displayDefeatUIAfterDelay());
+        SetInToolTip(false);
+    }
+
     public void TurnOffInteractions() {
         PlayerHand.Instance.DisableHand();
         combatEncounterView.UpdateView();
@@ -180,6 +188,10 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     private IEnumerator displayVictoryUIAfterDelay() {
         yield return new WaitForSeconds(endCombatScreenDelay);
         victoryUI.GetComponent<VictoryView>().Show();
+    }
+    private IEnumerator displayDefeatUIAfterDelay() {
+        yield return new WaitForSeconds(endCombatScreenDelay);
+        postGamePopup.GetComponent<DefeatView>().Show();
     }
 
     // This exists to satisfy the IEncounterBuilder interface.
