@@ -20,10 +20,10 @@ public class EnemyIntentArrowsController : MonoBehaviour
     }
 
     public void updateArrows(EnemyIntent intent) {
-        Debug.Log("Updating arrows, intent was: " + intent + " and targets count was: " + intent.targets.Count + " target pos: " + intent.targets[0].transform.position);
         if (intent.targets.Count == 0 || intent.targets[0] == null) {
             return;
         }
+        Debug.Log("Updating arrows, intent was: " + intent + " and targets count was: " + intent.targets.Count + " target pos: " + intent.targets[0].transform.position);
         TargettingArrow newArrow = createArrow(intent.targets[0].transform, intent.intentType);
         arrows.Add(newArrow);
 
