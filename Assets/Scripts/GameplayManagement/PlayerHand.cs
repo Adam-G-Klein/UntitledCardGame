@@ -59,8 +59,8 @@ public class PlayerHand : GenericSingleton<PlayerHand>
 
             // okay so the real problem here is that createCardSlot updates the core UIDocument and we need to give it a few frames for all of the
             // newly created elements to understand where they are.
-            // After the elements have been successfully updated AnimateCardsAfterLayout will be called and they'll start moving now that they know where 
-            // they need to go. 
+            // After the elements have been successfully updated AnimateCardsAfterLayout will be called and they'll start moving now that they know where
+            // they need to go.
             Vector3 startPos = deckFrom.transform.position + new Vector3(0, -.75f, 0);
             WorldPositionVisualElement newCardPlacement = UIDocumentGameObjectPlacer.Instance.CreateCardSlot(() => {StartCoroutine(AnimateCardsAfterLayout(cardsDelt, startPos, .1f));});
             newCard = PrefabInstantiator.InstantiateCard(
@@ -93,12 +93,12 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         }
     }
 
-        
+
     private void CardDrawVFX(Vector3 fromLocation, Vector3 toLocation, GameObject gameObject) {
         if (GOToFXExperience.ContainsKey(gameObject) && GOToFXExperience[gameObject] != null) {
             GOToFXExperience[gameObject].EarlyStop();
         }
-        // TODO: update the FXExprience to do rotation as well, this was as much as I could muster rn. 
+        // TODO: update the FXExprience to do rotation as well, this was as much as I could muster rn.
         LeanTween.cancel(gameObject);
         LeanTween.rotate(gameObject, new Vector3(0, 0, UIDocumentGameObjectPlacer.Instance.GetCardWPVEFromGO(gameObject).ve.style.rotate.value.angle.value), .75f).setEase(LeanTweenType.easeInOutQuad);
 
@@ -173,7 +173,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     public IEnumerator OnCardExhaust(DeckInstance deckFrom, Card card) {
         if (onCardExhaustHandler != null) {
             foreach (OnCardExhaustHandler handler in onCardExhaustHandler.GetInvocationList()) {
-                yield return StartCoroutine(handler.Invoke(deckFrom, card));
+                yield return handler.Invoke(deckFrom, card);
             }
         }
     }
@@ -212,10 +212,10 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         // If statements are here to take into account if a card exhausts itself
         // as part of its effect workflow
         if (cardsInHand.Contains(card)) {
-            yield return StartCoroutine(SafeRemoveCardFromHand(card));
+            yield return SafeRemoveCardFromHand(card);
         }
         if(card.gameObject.activeSelf) {
-            card.ExhaustCard();
+            yield return card.ExhaustCard();
         }
     }
 

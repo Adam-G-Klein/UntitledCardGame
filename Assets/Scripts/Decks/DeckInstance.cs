@@ -190,7 +190,7 @@ public class DeckInstance : MonoBehaviour
         return card;
     }
 
-    public void ExhaustCard(Card card, PlayableCard playableCard = null, IEnumerator callback = null){
+    public IEnumerator ExhaustCard(Card card, PlayableCard playableCard = null, IEnumerator callback = null){
         if(drawPile.Contains(card)){
             Debug.Log("Exhausting card " + card.id + " with name " + card.name + " from draw pile");
             drawPile.Remove(card);
@@ -210,10 +210,9 @@ public class DeckInstance : MonoBehaviour
             EffectManager.Instance.QueueEffectWorkflow(
                 new EffectWorkflowClosure(document, card.cardType.onExhaustEffectWorkflow, callback)
             );
-        } else {
-            StartCoroutine(callback);
         }
-        StartCoroutine(PlayerHand.Instance.OnCardExhaust(this, card));
+        yield return callback;
+        yield return PlayerHand.Instance.OnCardExhaust(this, card);
     }
 
     public void DiscardCard(Card card){

@@ -102,7 +102,12 @@ public class PlayableCard : MonoBehaviour,
         EnemyEncounterManager.Instance.combatEncounterState.CastCard(card);
         yield return StartCoroutine(PlayerHand.Instance.OnCardCast(this));
         if (card.cardType.exhaustsWhenPlayed) {
-            yield return StartCoroutine(PlayerHand.Instance.ExhaustCard(this));
+            Debug.Log("STARTING exhaust when played coroutine");
+            yield return PlayerHand.Instance.ExhaustCard(this);
+            Debug.Log("DONE WITH exhaust when played coroutine");
+
+            // Add a WaitForSeconds so that the target hovering does not break when using keyboard.
+            yield return new WaitForSeconds(0.5f);
             // Don't need to call ResizeHand, because ExhaustCard already does it!
         } else {
             yield return StartCoroutine(PlayerHand.Instance.ResizeHand(this));
@@ -116,6 +121,7 @@ public class PlayableCard : MonoBehaviour,
             Debug.Log("Hand is empty, triggering downstream OnHandEmpty subscribers");
             yield return PlayerHand.Instance.OnHandEmpty();
         } else if(NonMouseInputManager.Instance.inputMethod != InputMethod.Mouse) {
+            Debug.Log("Trying to a hover a new card now that the card has been played");
             NonMouseInputManager.Instance.hoverACard(new List<PlayableCard> { this });
         }
         Debug.Log("FINISHED CardFinishCastingCallback");
@@ -184,9 +190,9 @@ public class PlayableCard : MonoBehaviour,
         card.castCount += 1;
     }
 
-    public void ExhaustCard() {
-        deckFrom.ExhaustCard(card, this, OnCardExhaustHandler());
-        StartCoroutine(PlayerHand.Instance.ResizeHand(this));
+    public IEnumerator ExhaustCard() {
+        yield return PlayerHand.Instance.ResizeHand(this);
+        yield return deckFrom.ExhaustCard(card, this, OnCardExhaustHandler());
     }
 
     private IEnumerator OnCardExhaustHandler() {
