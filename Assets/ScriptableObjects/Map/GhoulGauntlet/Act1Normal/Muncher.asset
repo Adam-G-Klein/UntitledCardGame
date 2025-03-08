@@ -1,0 +1,116 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
+  m_Name: Muncher
+  m_EditorClassIdentifier: 
+  displayName: Muncher
+  maxHealth: 15
+  baseAttackDamage: 0
+  sprite: {fileID: 21300000, guid: 216088f02988a504a8608644c18d03db, type: 3}
+  morale: 0
+  abilities: []
+  enemyPattern:
+    behaviors:
+    - intent: 1
+      enemyTargetMethod: 0
+      targetsKey: target
+      displayValue: 3
+      effectSteps:
+      - rid: 3931529445166809421
+      - rid: 4053950218419044439
+      - rid: 3931529445166809422
+      - rid: 5280922829633618025
+      - rid: 3931529445166809423
+      - rid: 5280922829633618024
+    behaviorType: 0
+    behaviorIndex: 0
+    nextBehaviorIndex: 0
+  belowHalfHPEnemyPattern:
+    behaviors: []
+    behaviorType: 0
+    behaviorIndex: 0
+    nextBehaviorIndex: 0
+  adaptWhenAloneEnemyPattern:
+    behaviors: []
+    behaviorType: 0
+    behaviorIndex: 0
+    nextBehaviorIndex: 0
+  initialStatuses: []
+  tooltip:
+    empty: 0
+    lines:
+    - title: Empowered Strike
+      description: Attacks and grows in strength
+      relatedBehaviorIndex: -1
+  references:
+    version: 2
+    RefIds:
+    - rid: 3931529445166809421
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 3931529445166809422
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: target
+        combatEffect: 0
+        scale: 3
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 0}
+    - rid: 3931529445166809423
+      type: {class: PermanentStatIncrease, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: PermanentStatIncrease
+        inputKey: self
+        statIncreaseType: 0
+        scale: 2
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 4053950218419044439
+      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FXEffectStep
+        waitForEffect: 1
+        fXExperiencePrefab: {fileID: 7374988516867921400, guid: 080ebf6cafefa59438cf877ee502d109, type: 3}
+        rootLocationGameObjectKey: 
+        positionMappingList:
+        - fromWorkflow: self
+          toFxExperience: enemyLocation
+        - fromWorkflow: target
+          toFxExperience: companionLocation
+        gameobjectMappingList:
+        - fromWorkflow: self
+          toFxExperience: enemy
+    - rid: 5280922829633618024
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 4bed509d0589dae4d922d8eeb61a6292, type: 3}
+        scale: 1
+    - rid: 5280922829633618025
+      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: WaitForSecondsEffect
+        seconds: 0.3
