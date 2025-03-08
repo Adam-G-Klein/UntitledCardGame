@@ -10,24 +10,27 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
-  m_Name: GoblinB
+  m_Name: WaxingSlug
   m_EditorClassIdentifier: 
-  displayName: "B\xF6se Goblin"
-  maxHealth: 15
+  displayName: Waxing Slug
+  maxHealth: 45
   baseAttackDamage: 0
-  sprite: {fileID: -2013906114, guid: 52ef76537258f7d43a3a9dc144329c2f, type: 3}
+  sprite: {fileID: 21300000, guid: 4dd16061175a93546911c5e1d64ef624, type: 3}
   morale: 0
   abilities: []
   enemyPattern:
     behaviors:
     - intent: 1
-      enemyTargetMethod: 1
+      enemyTargetMethod: 0
       targetsKey: target
-      displayValue: 7
+      displayValue: 4
       effectSteps:
       - rid: 3931529445166809421
-      - rid: 4053950218419044435
+      - rid: 4053950218419044439
       - rid: 3931529445166809422
+      - rid: 5280922829633618025
+      - rid: 3931529445166809423
+      - rid: 5280922829633618024
     behaviorType: 0
     behaviorIndex: 0
     nextBehaviorIndex: 0
@@ -45,8 +48,8 @@ MonoBehaviour:
   tooltip:
     empty: 0
     lines:
-    - title: Goblin Might
-      description: Small but mighty attack
+    - title: Empowered Strike
+      description: Attacks and grows in strength
       relatedBehaviorIndex: -1
   references:
     version: 2
@@ -68,14 +71,23 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: target
         combatEffect: 0
-        scale: 7
+        scale: 4
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 0}
-    - rid: 4053950218419044435
+    - rid: 3931529445166809423
+      type: {class: PermanentStatIncrease, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: PermanentStatIncrease
+        inputKey: self
+        statIncreaseType: 0
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 4053950218419044439
       type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: FXEffectStep
@@ -90,3 +102,15 @@ MonoBehaviour:
         gameobjectMappingList:
         - fromWorkflow: self
           toFxExperience: enemy
+    - rid: 5280922829633618024
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 4bed509d0589dae4d922d8eeb61a6292, type: 3}
+        scale: 1
+    - rid: 5280922829633618025
+      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: WaitForSecondsEffect
+        seconds: 0.3

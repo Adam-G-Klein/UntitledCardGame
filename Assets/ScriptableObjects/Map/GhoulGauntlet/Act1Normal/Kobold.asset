@@ -16,22 +16,30 @@ MonoBehaviour:
   maxHealth: 25
   baseAttackDamage: 0
   sprite: {fileID: 21300000, guid: b2fa9488d9c432548acaaa32c198825c, type: 3}
+  morale: 0
   abilities: []
   enemyPattern:
     behaviors:
     - intent: 1
       enemyTargetMethod: 0
       targetsKey: target
-      displayValue: 5
+      displayValue: 6
       effectSteps:
       - rid: 4053950218419044426
       - rid: 4053950218419044425
       - rid: 3931529445166809315
     behaviorType: 0
+    behaviorIndex: 0
     nextBehaviorIndex: 0
   belowHalfHPEnemyPattern:
     behaviors: []
     behaviorType: 0
+    behaviorIndex: 0
+    nextBehaviorIndex: 0
+  adaptWhenAloneEnemyPattern:
+    behaviors: []
+    behaviorType: 0
+    behaviorIndex: 0
     nextBehaviorIndex: 0
   initialStatuses: []
   tooltip:
@@ -49,12 +57,13 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: target
         combatEffect: 0
-        scale: 5
+        scale: 6
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        vfxPrefab: {fileID: 0}
     - rid: 4053950218419044425
       type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
       data:

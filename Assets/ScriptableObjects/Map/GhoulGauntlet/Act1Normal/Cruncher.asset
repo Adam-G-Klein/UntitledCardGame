@@ -10,23 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
-  m_Name: GoblinB
+  m_Name: Cruncher
   m_EditorClassIdentifier: 
-  displayName: "B\xF6se Goblin"
-  maxHealth: 15
+  displayName: Cruncher
+  maxHealth: 20
   baseAttackDamage: 0
-  sprite: {fileID: -2013906114, guid: 52ef76537258f7d43a3a9dc144329c2f, type: 3}
+  sprite: {fileID: 21300000, guid: 719f41df1da1fe24bae87d0880de9473, type: 3}
   morale: 0
   abilities: []
   enemyPattern:
     behaviors:
     - intent: 1
-      enemyTargetMethod: 1
+      enemyTargetMethod: 0
       targetsKey: target
-      displayValue: 7
+      displayValue: 6
       effectSteps:
       - rid: 3931529445166809421
-      - rid: 4053950218419044435
+      - rid: 4053950218419044439
       - rid: 3931529445166809422
     behaviorType: 0
     behaviorIndex: 0
@@ -45,8 +45,8 @@ MonoBehaviour:
   tooltip:
     empty: 0
     lines:
-    - title: Goblin Might
-      description: Small but mighty attack
+    - title: Bite
+      description: Simple Attack
       relatedBehaviorIndex: -1
   references:
     version: 2
@@ -68,14 +68,14 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: target
         combatEffect: 0
-        scale: 7
+        scale: 6
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 0}
-    - rid: 4053950218419044435
+    - rid: 4053950218419044439
       type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: FXEffectStep

@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24f95da87f612e047aaeac10756d2ec7, type: 3}
-  m_Name: Act1HardEnemyPool
+  m_Script: {fileID: 11500000, guid: 17a7027b6d1213c4fa7f5d4be961eaab, type: 3}
+  m_Name: Enc_MuncherAndCruncher
   m_EditorClassIdentifier: 
-  enemyEncounterTypes:
-  - {fileID: 11400000, guid: 6ee053d9368e246079c85d9e6ad53956, type: 2}
-  - {fileID: 11400000, guid: 72cf8e740536d48dba3c1d2069f70be3, type: 2}
-  isElite: 0
+  enemies:
+  - {fileID: 11400000, guid: c96dfe1b9565346d7879bdf578be9cd0, type: 2}
+  - {fileID: 11400000, guid: d819fd9b5fae14361947295f4a49866e, type: 2}
+  devNotes: 

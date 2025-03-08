@@ -13,11 +13,10 @@ MonoBehaviour:
   m_Name: MentalShield
   m_EditorClassIdentifier: 
   Name: Mental Shield
-  Description: Give a companion 5 block + 4 additional block for each aura stack
-    they have ({numOrb}}).
-  values: 
+  Description: Give target companion 6 block, then 3 block more for each aura stack
+    they have ({totalBlock} block)
   defaultValues:
-  - key: numOrb
+  - key: totalBlock
     value: 0
   Cost: 1
   Artwork: {fileID: 21300000, guid: ac2f6571b8a37954abd0657d090050d5, type: 3}
@@ -81,7 +80,7 @@ MonoBehaviour:
         inputKey: numOrb
         operand2InputKey: UNUSED
         operation: 2
-        scale: 4
+        scale: 3
         outputKey: blockFromOrb
     - rid: 5602893017534169521
       type: {class: MathStep, ns: , asm: Assembly-CSharp}
@@ -90,7 +89,7 @@ MonoBehaviour:
         inputKey: blockFromOrb
         operand2InputKey: UNUSED
         operation: 0
-        scale: 5
+        scale: 6
         outputKey: totalBlock
     - rid: 5602893017534169522
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
