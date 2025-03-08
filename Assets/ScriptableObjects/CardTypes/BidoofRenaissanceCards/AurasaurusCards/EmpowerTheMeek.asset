@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: EmpowerTheMeek
   m_EditorClassIdentifier: 
   Name: Empower the Meek
-  Description: Give each companion on your team below half HP 1 aura stack
+  Description: Give target companion 1 aura stack and 9 block.
   defaultValues: []
-  Cost: 2
+  Cost: 1
   Artwork: {fileID: 21300000, guid: d57a573c1de7fb84a83ac3316d0ea3b2, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
@@ -38,16 +38,26 @@ MonoBehaviour:
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
-        inputKey: allBelowHalf
+        inputKey: target
         prefabToInstantiate: {fileID: 3850217184923880746, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
         scale: 1
+    - rid: 2034229723198390554
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: target
+        statusEffect: 2
+        scale: 9
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
     - rid: 5602893017534169523
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
         - rid: 5602893017534169524
-        - rid: 5602893017534169526
         - rid: 5602893017534169527
+        - rid: 2034229723198390554
         - rid: 1274772082283774023
     - rid: 5602893017534169524
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -55,23 +65,16 @@ MonoBehaviour:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: all
+        outputKey: target
         validTargets: 00000000
         number: 1
-        specialTargetRule: 1
+        specialTargetRule: 0
         cantCancelTargetting: 0
-    - rid: 5602893017534169526
-      type: {class: FilterEntityByHP, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: FilterEntityByHP
-        inputKey: all
-        percentThreshold: 0.5
-        outputKey: allBelowHalf
     - rid: 5602893017534169527
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ApplyStatus
-        inputKey: allBelowHalf
+        inputKey: target
         statusEffect: 9
         scale: 1
         getScaleFromKey: 0
