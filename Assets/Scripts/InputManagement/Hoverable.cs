@@ -25,6 +25,9 @@ public class Hoverable : MonoBehaviour {
     public HoverableType hoverableType = HoverableType.DefaultCombat;
 
     public VisualElement associatedUIDocElement = null;
+
+    // only used for shop purchasing of cards
+    public CompanionTypeSO companionTypeSO;
     void Start() {
         NonMouseInputManager.Instance.RegisterHoverable(this);
         enterHandlers = new List<IPointerEnterHandler>(GetComponents<IPointerEnterHandler>());

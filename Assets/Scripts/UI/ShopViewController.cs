@@ -131,7 +131,7 @@ public class ShopViewController : MonoBehaviour,
         deckView.Q<Button>().clicked += CloseCompanionDeckView;
 
         cardRemovalButton = uiDoc.rootVisualElement.Q<Button>("card-remove-button");
-        cardRemovalButton.clicked += CardRemovalButtonOnClick;
+        cardRemovalButton.RegisterCallback<ClickEvent>(CardRemovalButtonOnClick);
         selectingIndicatorForCardRemovalIndicator = uiDoc.rootVisualElement.Q<VisualElement>("companion-selection-for-card-removal-indicator");
         selectingForCardRemovalButton = uiDoc.rootVisualElement.Q<Button>("companion-selection-for-card-removal-cancel-button");
         selectingForCardRemovalButton.clicked += CancelCardRemoval;
@@ -412,7 +412,6 @@ public class ShopViewController : MonoBehaviour,
         companionBeingDragged = companion;
     }
 
-    // TODO: replace evt with passed-in equivalent position
     public void CompanionManagementOnPointerMove(CompanionManagementView companionManagementView, PointerMoveEvent evt, Vector2 pointerScreenPos)
     {        
         if (!isDraggingCompanion || companionBeingDragged != companionManagementView.container) {
@@ -452,6 +451,7 @@ public class ShopViewController : MonoBehaviour,
         }
     }
 
+    // only used for mouse controls
     private void MoveWhileDragging(VisualElement parentContainer,VisualElement elementOver) {
         List<VisualElement> elements = parentContainer.Children().ToList();
         // pull all of the existing companions into a list and then iterate over the available slots in activecontainer. skip over the element over
@@ -494,18 +494,20 @@ public class ShopViewController : MonoBehaviour,
         companionManagementView.container.parent.style.left = evt.position.x - companionManagementView.container.parent.layout.width / 2;
     }
 
-    public void ComapnionManagementOnPointerUp(CompanionManagementView companionManagementView, PointerUpEvent evt)
+    public void ComapnionManagementOnPointerUp(CompanionManagementView companionManagementView, PointerUpEvent evt, Vector2 pointerScreenPos)
     {
         if (!isDraggingCompanion || companionManagementView.container != companionBeingDragged) return;
+
+        Vector2 pos = evt == null ? pointerScreenPos : evt.position;
         
         VisualElement elementOver = null;
         foreach (VisualElement child in activeContainer.hierarchy.Children()) {
-            if (child.worldBound.Contains(evt.position)) {
+            if (child.worldBound.Contains(pos)) {
                 elementOver = child;
             }
         }
         foreach (VisualElement child in benchScrollView.contentContainer.hierarchy.Children()) {
-            if (child.worldBound.Contains(evt.position)) {
+            if (child.worldBound.Contains(pos)) {
                 elementOver = child;
             }
         }
@@ -521,6 +523,7 @@ public class ShopViewController : MonoBehaviour,
         isDraggingCompanion = false;
         companionBeingDragged = null;
         originalParent = null;
+        NonMouseInputManager.Instance.SetUIState(UIState.DEFAULT);
     }
 
     private void DoMoveCompanion(CompanionManagementView companionManagementView, VisualElement movingToContainer) {
@@ -635,6 +638,8 @@ public class ShopViewController : MonoBehaviour,
         foreach(CompanionManagementView view in notApplicable) {
             view.ShowNotApplicable();
         }
+
+        NonMouseInputManager.Instance.SetPurchasingCard(cardInShop.sourceCompanion);
     }
 
     public void StopBuyingCard() {
@@ -650,6 +655,7 @@ public class ShopViewController : MonoBehaviour,
             if (child.childCount != 1) continue;
             visualElementToCompanionViewMap[child[0]].ResetApplicable();
         }
+        NonMouseInputManager.Instance.UnSetPurchasingCard();
     }
 
     private void CancelCardBuy(ClickEvent evt) {
@@ -657,7 +663,7 @@ public class ShopViewController : MonoBehaviour,
         StopBuyingCard();
     }
 
-    public void CardRemovalButtonOnClick() {
+    public void CardRemovalButtonOnClick(ClickEvent evt) {
         shopManager.ProcessCardRemovalClick();
     }
 

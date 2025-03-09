@@ -114,6 +114,10 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         return cardSourceCompanion == null || cardSourceCompanion.cardPool == companion.companionType.cardPool;
     }
 
+    public bool IsApplicableCompanionType(CompanionTypeSO cardSourceCompanion, CompanionTypeSO companionType) {
+        return cardSourceCompanion == null || cardSourceCompanion.cardPool == companionType.cardPool;
+    }
+
 
     public void ProcessCompanionBuyRequest(ShopItemView shopItemView, CompanionInShopWithPrice companionInShop) {
         Debug.Log("Processing companion buy request");

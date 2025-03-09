@@ -32,13 +32,15 @@ public class CompanionManagementView {
         entityView.entityContainer.RegisterCallback<PointerUpEvent>(ComapnionManagementOnPointerUp);
         entityView.entityContainer.RegisterCallback<PointerLeaveEvent>(ComapnionManagementOnPointerLeave);
         entityView.entityContainer.RegisterCallback<PointerEnterEvent>(CompanionManagementOnPointerEnter);
+        entityView.entityContainer.name = companion.companionType.name;
 
         UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(entityView.entityContainer, 
-            () => {CompanionManagementOnPointerDown(null);}, 
+            () => {CompanionManagementNonMouseSelect();}, 
             //()=> {CompanionManagementOnPointerEnter(null);},
             () => {},
             () => {},
-            HoverableType.CompanionManagement);
+            HoverableType.CompanionManagement,
+            companion.companionType);
         
         /*
         // temp breaking clicking for drag testing
@@ -57,6 +59,19 @@ public class CompanionManagementView {
         CreateSellCompanionButton();
         CreateCompanionBoundingBox();
         viewDelegate.DisplayTooltip(entityView.entityContainer, companion.companionType.tooltip, true);
+    }
+
+    public void CompanionManagementNonMouseSelect() {
+        if(NonMouseInputManager.Instance.inputMethod == InputMethod.Mouse) {
+            Debug.LogError("Got a callback for a non-mouse input method, but we're in mouse mode.");
+            return;
+        } 
+        if(NonMouseInputManager.Instance.GetUIState() == UIState.DEFAULT) {
+            CompanionManagementOnPointerDown(null);
+        } else if(NonMouseInputManager.Instance.GetUIState() != UIState.DRAGGING_COMPANION) {
+            CompanionManagementOnClick(null);
+        } // if dragging, nonmouseinputmanager will callback with the pointer up event
+
     }
 
     public void CompanionManagementOnClick(ClickEvent evt) {
@@ -78,7 +93,10 @@ public class CompanionManagementView {
     }
 
     private void ComapnionManagementOnPointerUp(PointerUpEvent evt) {
-        viewDelegate.ComapnionManagementOnPointerUp(this, evt);
+        viewDelegate.ComapnionManagementOnPointerUp(this, evt, NonMouseInputManager.Instance.currentlyHoveredScreenPosUiDoc());
+        if(NonMouseInputManager.Instance.GetUIState() == UIState.DRAGGING_COMPANION) {
+            NonMouseInputManager.Instance.SetUIState(UIState.DEFAULT);
+        }
     }
 
     private void ComapnionManagementOnPointerLeave(PointerLeaveEvent evt) {

@@ -60,6 +60,8 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
     private ICompanionManagementViewDelegate companionManagementViewDelegate;
     private CompanionManagementView companionManagementView;
 
+    private CompanionTypeSO cardPurchasingFor; 
+
     void Awake()
     {
         // inititalization only needed when we're the source of truth
@@ -195,7 +197,10 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
             // not combat or shop? Dang, kinda sucks to be you huh :')
             processInputForCombat(action);
         }
-        
+    }
+
+    private void processInputForOptionsMenu(InputAction action) {
+        // todo
     }
 
     private void processInputForCombat(InputAction action) {
@@ -260,29 +265,42 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
             case UIState.DRAGGING_COMPANION:
                 processInputForShopDraggingCompanionState(action);
                 break;
+            case UIState.CARD_SELECTION_DISPLAY:
+                break;
+            case UIState.PURCHASING_CARD:
+                Debug.Log("[NonMouseInputManager] processing input for state: PURCHASING_CARD, cardPurchasingFor: " + cardPurchasingFor);
+                processInputForShopDefaultState(action, 
+                    filterHoverablesByApplicableCompanionType(cardPurchasingFor, allHoverables));
+                break;
+            case UIState.SELLING_COMPANION:
+                break;
+            case UIState.UPGRADING_COMPANION:
+                break;
+            case UIState.REMOVING_CARD:
+                break;
             default:
                 Debug.LogError("[NonMouseInputManager] I'm in the shop so I can't process input for state: " + uiState);
                 break;
         }
-        
     }
 
-    private void processInputForShopDefaultState(InputAction action){
+    private void processInputForShopDefaultState(InputAction action, List<Hoverable> hoverableSubset = null) {
+        List<Hoverable> subset = hoverableSubset == null ? allHoverables : hoverableSubset;
         switch(action) {
             case InputAction.UP:
-                hoverInDirection(Vector2.up, allHoverables);
+                hoverInDirection(Vector2.up, subset);
                 Debug.Log("[NonMouseInputManager] State: SHOP, Action: UP, hoveredCardIndex: " + hoveredCardIndex);
                 break;
             case InputAction.DOWN:
-                hoverInDirection(Vector2.down, allHoverables);
+                hoverInDirection(Vector2.down, subset);
                 Debug.Log("[NonMouseInputManager] State: SHOP, Action: DOWN, hoveredCardIndex: " + hoveredCardIndex);
                 break;
             case InputAction.LEFT:
-                hoverInDirection(Vector2.left, allHoverables); 
+                hoverInDirection(Vector2.left, subset); 
                 Debug.Log("[NonMouseInputManager] State: SHOP, Action: LEFT, hoveredCardIndex: " + hoveredCardIndex);
                 break;
             case InputAction.RIGHT:
-                hoverInDirection(Vector2.right, allHoverables); 
+                hoverInDirection(Vector2.right, subset); 
                 Debug.Log("[NonMouseInputManager] State: SHOP, Action: RIGHT, hoveredCardIndex: " + hoveredCardIndex);
                 break;
             case GFGInputAction.SELECT:
@@ -303,11 +321,10 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
 
     public void CompanionDragACTIVATE(CompanionManagementView companionView, 
         ICompanionManagementViewDelegate viewDelegate){
-
-            companionManagementView = companionView;
-            companionManagementViewDelegate = viewDelegate;
-            viewDelegate.CompanionManagementOnPointerDown(companionView, null, currentlyHoveredScreenPosUiDoc());
-            uiState = UIState.DRAGGING_COMPANION;
+        companionManagementView = companionView;
+        companionManagementViewDelegate = viewDelegate;
+        viewDelegate.CompanionManagementOnPointerDown(companionView, null, currentlyHoveredScreenPosUiDoc());
+        uiState = UIState.DRAGGING_COMPANION;
     }
 
     private void moveDraggedCompanionToCurrentHoverable() {
@@ -353,6 +370,7 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
             case GFGInputAction.OPEN_COMPANION_4_DRAW: 
                 Debug.Log("[NonMouseInputManager] State: SHOP, Action: OPEN_COMPANION_4_DRAW");
             case InputAction.SELECT:
+                companionManagementViewDelegate.ComapnionManagementOnPointerUp(companionManagementView, null, currentlyHoveredScreenPosUiDoc());
                 Debug.Log("[NonMouseInputManager] State: SHOP, DRAGGING_COMPANION, Action: SELECT");
                 break;
             case GFGInputAction.OPEN_COMPANION_5_DRAW: 
@@ -535,5 +553,31 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
         }
         Vector2 screenPos = currentlyHovered.getScreenPosition();
         return new Vector2(screenPos.x, Screen.height - screenPos.y);
+    }
+
+    public UIState GetUIState() {
+        if(gameState.activeEncounter.GetValue().getEncounterType() != EncounterType.Shop) {
+            return UIStateManager.Instance.currentState;
+        } else {
+            return uiState;
+        }
+    }
+
+    public void SetUIState(UIState newState) {
+        if(gameState.activeEncounter.GetValue().getEncounterType() != EncounterType.Shop) {
+            UIStateManager.Instance.setState(newState);
+        } else {
+            uiState = newState;
+        }
+    }
+
+    public void SetPurchasingCard(CompanionTypeSO companionType) {
+        cardPurchasingFor = companionType;
+        uiState = UIState.PURCHASING_CARD;
+    }
+
+    public void UnSetPurchasingCard() {
+        cardPurchasingFor = null;
+        uiState = UIState.DEFAULT;
     }
 }
