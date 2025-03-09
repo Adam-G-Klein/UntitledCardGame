@@ -322,7 +322,13 @@ public class UIDocumentGameObjectPlacer : GenericSingleton<UIDocumentGameObjectP
             0
         );
         Debug.Log("screenPosition: " + screenPosition);
-        Vector3 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
+        Vector3 worldPosition;
+        try {
+            worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
+        } catch {
+            Debug.LogError("Tried to place a view element off the screen");
+            return Vector3.zero;
+        }
         Debug.Log("worldPosition: " + worldPosition);
         Vector3 worldPositionZCorrected = new Vector3(worldPosition.x, worldPosition.y, zPlane);  
         Debug.Log("worldPositionZCorrected: " + worldPositionZCorrected);

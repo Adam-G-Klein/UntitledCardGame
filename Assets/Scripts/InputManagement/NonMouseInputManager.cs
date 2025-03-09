@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 
-public enum InputAction {
+public enum GFGInputAction {
     UP,
     DOWN,
     LEFT,
@@ -16,6 +16,7 @@ public enum InputAction {
     OPEN_COMPANION_3_DRAW,
     OPEN_COMPANION_4_DRAW,
     OPEN_COMPANION_5_DRAW,
+    NONE, // used for the controller mapping of the stick being in the center of its range
 }
 
 public enum InputMethod {
@@ -162,7 +163,7 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
     }
 
 
-    public void ProcessInput(InputAction action) {
+    public void ProcessInput(GFGInputAction action) {
         Cursor.visible = false;
         inputMethod = InputMethod.Keyboard;
         if(gameState.activeEncounter.GetValue().getEncounterType() == EncounterType.Shop) {
@@ -193,47 +194,47 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
         return filtered;
     }
 
-    private void processInputForShop(InputAction action) {
+    private void processInputForShop(GFGInputAction action) {
         switch(action) {
-            case InputAction.UP:
+            case GFGInputAction.UP:
                 hoverInDirection(Vector2.up, allHoverables);
                 Debug.Log("[NonMouseInputManager] State: SHOP, Action: UP, hoveredCardIndex: " + hoveredCardIndex);
                 break;
-            case InputAction.DOWN:
+            case GFGInputAction.DOWN:
                 hoverInDirection(Vector2.down, allHoverables);
                 Debug.Log("[NonMouseInputManager] State: SHOP, Action: DOWN, hoveredCardIndex: " + hoveredCardIndex);
                 break;
-            case InputAction.LEFT:
+            case GFGInputAction.LEFT:
                 hoverInDirection(Vector2.left, allHoverables); 
                 Debug.Log("[NonMouseInputManager] State: SHOP, Action: LEFT, hoveredCardIndex: " + hoveredCardIndex);
                 break;
-            case InputAction.RIGHT:
+            case GFGInputAction.RIGHT:
                 hoverInDirection(Vector2.right, allHoverables); 
                 Debug.Log("[NonMouseInputManager] State: SHOP, Action: RIGHT, hoveredCardIndex: " + hoveredCardIndex);
                 break;
-            case InputAction.SELECT:
+            case GFGInputAction.SELECT:
                 currentlyHovered.onSelect();
                 Debug.Log("[NonMouseInputManager] State: SHOP, Action: SELECT");
                 break;
-            case InputAction.BACK:
+            case GFGInputAction.BACK:
                 Debug.Log("[NonMouseInputManager] State: SHOP, Action: BACK");
                 break;
-            case InputAction.END_TURN:
+            case GFGInputAction.END_TURN:
                 Debug.Log("[NonMouseInputManager] State: SHOP, Action: END_TURN");
                 break;
-            case InputAction.OPEN_COMPANION_1_DRAW:
+            case GFGInputAction.OPEN_COMPANION_1_DRAW:
                 Debug.Log("[NonMouseInputManager] State: SHOP, Action: OPEN_COMPANION_1_DRAW");
                 break;
-            case InputAction.OPEN_COMPANION_2_DRAW:
+            case GFGInputAction.OPEN_COMPANION_2_DRAW:
                 Debug.Log("[NonMouseInputManager] State: SHOP, Action: OPEN_COMPANION_2_DRAW");
                 break;
-            case InputAction.OPEN_COMPANION_3_DRAW: 
+            case GFGInputAction.OPEN_COMPANION_3_DRAW: 
                 Debug.Log("[NonMouseInputManager] State: SHOP, Action: OPEN_COMPANION_3_DRAW");
                 break;
-            case InputAction.OPEN_COMPANION_4_DRAW: 
+            case GFGInputAction.OPEN_COMPANION_4_DRAW: 
                 Debug.Log("[NonMouseInputManager] State: SHOP, Action: OPEN_COMPANION_4_DRAW");
                 break;
-            case InputAction.OPEN_COMPANION_5_DRAW: 
+            case GFGInputAction.OPEN_COMPANION_5_DRAW: 
                 Debug.Log("[NonMouseInputManager] State: SHOP, Action: OPEN_COMPANION_5_DRAW");
                 break;
             default:
@@ -242,47 +243,48 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
         }
     }
 
-    private void processInputForDefaultState(InputAction action) {
+    private void processInputForDefaultState(GFGInputAction action) {
         switch(action) {
-            case InputAction.UP:
+            case GFGInputAction.UP:
                 hoverInDirection(Vector2.up, allHoverables);
                 Debug.Log("[NonMouseInputManager] State: DEFAULT, Action: UP, hoveredCardIndex: " + hoveredCardIndex);
                 break;
-            case InputAction.DOWN:
+            case GFGInputAction.DOWN:
                 hoverInDirection(Vector2.down, allHoverables);
                 Debug.Log("[NonMouseInputManager] State: DEFAULT, Action: DOWN, hoveredCardIndex: " + hoveredCardIndex);
                 break;
-            case InputAction.LEFT:
+            case GFGInputAction.LEFT:
                 hoverInDirection(Vector2.left, allHoverables); 
                 Debug.Log("[NonMouseInputManager] State: DEFAULT, Action: LEFT, hoveredCardIndex: " + hoveredCardIndex);
                 break;
-            case InputAction.RIGHT:
+            case GFGInputAction.RIGHT:
                 hoverInDirection(Vector2.right, allHoverables); 
                 Debug.Log("[NonMouseInputManager] State: DEFAULT, Action: RIGHT, hoveredCardIndex: " + hoveredCardIndex);
                 break;
-            case InputAction.SELECT:
-                currentlyHovered.onSelect();
+            case GFGInputAction.SELECT:
+                if(currentlyHovered != null)
+                    currentlyHovered.onSelect();
                 Debug.Log("[NonMouseInputManager] State: DEFAULT, Action: SELECT");
                 break;
-            case InputAction.BACK:
+            case GFGInputAction.BACK:
                 Debug.Log("[NonMouseInputManager] State: DEFAULT, Action: BACK");
                 break;
-            case InputAction.END_TURN:
+            case GFGInputAction.END_TURN:
                 Debug.Log("[NonMouseInputManager] State: DEFAULT, Action: END_TURN");
                 break;
-            case InputAction.OPEN_COMPANION_1_DRAW:
+            case GFGInputAction.OPEN_COMPANION_1_DRAW:
                 Debug.Log("[NonMouseInputManager] State: DEFAULT, Action: OPEN_COMPANION_1_DRAW");
                 break;
-            case InputAction.OPEN_COMPANION_2_DRAW:
+            case GFGInputAction.OPEN_COMPANION_2_DRAW:
                 Debug.Log("[NonMouseInputManager] State: DEFAULT, Action: OPEN_COMPANION_2_DRAW");
                 break;
-            case InputAction.OPEN_COMPANION_3_DRAW: 
+            case GFGInputAction.OPEN_COMPANION_3_DRAW: 
                 Debug.Log("[NonMouseInputManager] State: DEFAULT, Action: OPEN_COMPANION_3_DRAW");
                 break;
-            case InputAction.OPEN_COMPANION_4_DRAW: 
+            case GFGInputAction.OPEN_COMPANION_4_DRAW: 
                 Debug.Log("[NonMouseInputManager] State: DEFAULT, Action: OPEN_COMPANION_4_DRAW");
                 break;
-            case InputAction.OPEN_COMPANION_5_DRAW: 
+            case GFGInputAction.OPEN_COMPANION_5_DRAW: 
                 Debug.Log("[NonMouseInputManager] State: DEFAULT, Action: OPEN_COMPANION_5_DRAW");
                 break;
             default:
@@ -291,7 +293,7 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
         }
     }
 
-    private void processInputForEffectTargettingState(InputAction action) {
+    private void processInputForEffectTargettingState(GFGInputAction action) {
         if(UIStateManager.Instance.currentState != UIState.EFFECT_TARGETTING) {
             Debug.LogError("[NonMouseInputManager] State: EFFECT_TARGETTING, but UIStateManager is not in that state");
             // Do this anyways to keep the game mfrom softlocking
@@ -299,53 +301,53 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
             return;
         }
         switch(action) {
-            case InputAction.UP:
+            case GFGInputAction.UP:
                 hoverInDirection(Vector2.up, currentTargetFilteredHoverables);
                 Debug.Log("[NonMouseInputManager] State: EFFECT_TARGETTING, Action: UP");
                 break;
-            case InputAction.DOWN:
+            case GFGInputAction.DOWN:
                 hoverInDirection(Vector2.down, currentTargetFilteredHoverables);
 
                 Debug.Log("[NonMouseInputManager] State: EFFECT_TARGETTING, Action: DOWN");
                 break;
-            case InputAction.LEFT:
+            case GFGInputAction.LEFT:
                 hoverInDirection(Vector2.left, currentTargetFilteredHoverables);
 
                 Debug.Log("[NonMouseInputManager] State: EFFECT_TARGETTING, Action: LEFT");
                 break;
-            case InputAction.RIGHT:
+            case GFGInputAction.RIGHT:
                 hoverInDirection(Vector2.right, currentTargetFilteredHoverables);
                 Debug.Log("[NonMouseInputManager] State: EFFECT_TARGETTING, Action: RIGHT");
                 break;
-            case InputAction.SELECT:
+            case GFGInputAction.SELECT:
                 currentlyHovered.onSelect();
                 Debug.Log("[NonMouseInputManager] State: EFFECT_TARGETTING, Action: SELECT");
                 break;
-            case InputAction.BACK:
+            case GFGInputAction.BACK:
                 UIStateManager.Instance.TryCancelTargetting();
                 hover(lastHoveredCard);
                 Debug.Log("[NonMouseInputManager] State: EFFECT_TARGETTING, Action: BACK");
                 break;
-            case InputAction.END_TURN:
+            case GFGInputAction.END_TURN:
                 Debug.Log("[NonMouseInputManager] State: EFFECT_TARGETTING, Action: END_TURN");
                 break;
-            case InputAction.OPEN_COMPANION_1_DRAW:
+            case GFGInputAction.OPEN_COMPANION_1_DRAW:
             
                 Debug.Log("[NonMouseInputManager] State: EFFECT_TARGETTING, Action: OPEN_COMPANION_1_DRAW");
                 break;
-            case InputAction.OPEN_COMPANION_2_DRAW:
+            case GFGInputAction.OPEN_COMPANION_2_DRAW:
             
                 Debug.Log("[NonMouseInputManager] State: EFFECT_TARGETTING, Action: OPEN_COMPANION_2_DRAW");
                 break;
-            case InputAction.OPEN_COMPANION_3_DRAW:
+            case GFGInputAction.OPEN_COMPANION_3_DRAW:
             
                 Debug.Log("[NonMouseInputManager] State: EFFECT_TARGETTING, Action: OPEN_COMPANION_3_DRAW");
                 break;
-            case InputAction.OPEN_COMPANION_4_DRAW:
+            case GFGInputAction.OPEN_COMPANION_4_DRAW:
             
                 Debug.Log("[NonMouseInputManager] State: EFFECT_TARGETTING, Action: OPEN_COMPANION_4_DRAW");
                 break;
-            case InputAction.OPEN_COMPANION_5_DRAW:
+            case GFGInputAction.OPEN_COMPANION_5_DRAW:
             
                 Debug.Log("[NonMouseInputManager] State: EFFECT_TARGETTING, Action: OPEN_COMPANION_5_DRAW");
                 break;

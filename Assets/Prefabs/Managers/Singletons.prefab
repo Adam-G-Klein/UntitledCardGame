@@ -271,7 +271,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -420869155
-  m_SortingLayer: 8
+  m_SortingLayer: 9
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: c4c548a339b4d41a590928c0c98934a7, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 0.33333334}
@@ -328,8 +328,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dec1516aca5a3c140a48bfd9e32093ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testInvokeCallback: 
-  testInvokeActionType: 0
 --- !u!1 &5549825631411449466
 GameObject:
   m_ObjectHideFlags: 0
@@ -387,6 +385,8 @@ GameObject:
   - component: {fileID: 4558820936676000176}
   - component: {fileID: 5273491878671294976}
   - component: {fileID: 5733018872847233645}
+  - component: {fileID: 5195169655683742310}
+  - component: {fileID: 4071188385473236790}
   m_Layer: 0
   m_Name: NonMouseInputManager
   m_TagString: Untagged
@@ -451,3 +451,168 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 936a33ec8b1c6f24ebcff484e244a879, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentAxisState: 0
+  lastAxisStateProcessed: 0
+  stickDeadZone: 0.8
+--- !u!114 &5195169655683742310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7220715729207639348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: dd267262146f0c64ea9f2e78a0e01251, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 82c1a740-2cd8-4f14-b03d-2ff74fbc3f71
+    m_ActionName: Player/Move[/SwitchProControllerHID/leftStick]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b8a91200-2218-4e1a-a708-15faf643b6b8
+    m_ActionName: Player/Look[/SwitchProControllerHID/rightStick]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6f42082e-2cdb-459f-b142-aeedc320660c
+    m_ActionName: Player/Fire[/SwitchProControllerHID/rightTrigger]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ff082f90-3a62-442d-aff0-e17696ee95e1
+    m_ActionName: UI/Navigate[/SwitchProControllerHID/leftStick/up,/SwitchProControllerHID/rightStick/up,/SwitchProControllerHID/leftStick/down,/SwitchProControllerHID/rightStick/down,/SwitchProControllerHID/leftStick/left,/SwitchProControllerHID/rightStick/left,/SwitchProControllerHID/leftStick/right,/SwitchProControllerHID/rightStick/right,/SwitchProControllerHID/dpad]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ca3234f0-274d-4223-b1e8-eb515fad05de
+    m_ActionName: UI/Submit[/SwitchProControllerHID/buttonEast]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: bd3f0cb5-aec9-4dd8-bf10-c3abfb286e4c
+    m_ActionName: UI/Cancel[/SwitchProControllerHID/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9254b3bb-a41f-4746-a360-9efbdaa3b349
+    m_ActionName: UI/Point
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 39d3902c-ad44-4423-a094-6a4229e611c5
+    m_ActionName: UI/Click
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 19b8a3b0-e6bf-4e61-8a49-45abca66cb34
+    m_ActionName: UI/ScrollWheel
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0d26b4ba-d587-45c3-a12b-c47af56e5509
+    m_ActionName: UI/MiddleClick
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a2daab75-43c3-48dc-8469-acf218cc1208
+    m_ActionName: UI/RightClick
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0d4d5329-8b56-4a67-aaf8-96eb5b0c25e8
+    m_ActionName: UI/TrackedDevicePosition
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3baf25fe-4009-4d5e-b9c5-af930c663907
+    m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 53a38d3f-4847-41f3-81b0-d9cd2aac64e7
+    m_ActionName: Signified/New action
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5733018872847233645}
+        m_TargetAssemblyTypeName: ControllerControlsManager, Assembly-CSharp
+        m_MethodName: handleSelect
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 0a19c164-0efc-426b-86e8-0e0d2408aec2
+    m_ActionName: Signified/Select[/SwitchProControllerHID/buttonEast]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5733018872847233645}
+        m_TargetAssemblyTypeName: ControllerControlsManager, Assembly-CSharp
+        m_MethodName: handleBack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 41c34384-7790-4377-8ee2-6d8e6d9fe0f5
+    m_ActionName: Signified/Back[/SwitchProControllerHID/buttonSouth]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Signified
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
+--- !u!114 &4071188385473236790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7220715729207639348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 621567455fd1c4ceb811cc8a00b6a1a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_NotificationBehavior: 3
+  m_MaxPlayerCount: -1
+  m_AllowJoining: 1
+  m_JoinBehavior: 0
+  m_PlayerJoinedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_PlayerLeftEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_JoinAction:
+    m_UseReference: 0
+    m_Action:
+      m_Name: 
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 9c78048e-0c60-4d00-9c88-adc4af8a51f2
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 0}
+  m_PlayerPrefab: {fileID: 0}
+  m_SplitScreen: 0
+  m_MaintainAspectRatioInSplitScreen: 0
+  m_FixedNumberOfSplitScreens: -1
+  m_SplitScreenRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1

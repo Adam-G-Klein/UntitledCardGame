@@ -15,7 +15,7 @@ public class MouseParalaxEffect : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Confined;
+        //Cursor.lockState = CursorLockMode.Confined;
 
         OriginalPositions = new Vector3[ParalaxObjects.Length];
         for (int i = 0; i < ParalaxObjects.Length; i++)
