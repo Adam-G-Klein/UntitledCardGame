@@ -36,34 +36,20 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 3788616989487137532
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+    - rid: 4463206262261416072
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: card
-        validTargets: 
-        number: 1
-        specialTargetRule: 3
-        cantCancelTargetting: 0
-    - rid: 3788616989487137533
-      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: FXEffectStep
-        waitForEffect: 1
-        fXExperiencePrefab: {fileID: 0}
-        rootLocationGameObjectKey: 
-        positionMappingList: []
-        gameobjectMappingList: []
+        effectStepName: InstantiatePrefab
+        inputKey: enemy
+        prefabToInstantiate: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}
+        scale: 1.5
     - rid: 5602892561590779904
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
         - rid: 5602892561590779905
         - rid: 5602892561590779906
-        - rid: 3788616989487137532
-        - rid: 3788616989487137533
+        - rid: 4463206262261416072
     - rid: 5602892561590779905
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
