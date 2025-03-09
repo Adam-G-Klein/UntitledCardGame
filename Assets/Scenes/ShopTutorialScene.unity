@@ -237,8 +237,8 @@ MonoBehaviour:
         firstLineOfText: You can also buy cards for your companions.
         secondLineOfText: When buying cards at the shop, take note of the companion
           icon on the card.
-        thirdLineOfText: If it says any. Otherwise, the card can be given to any
-          companion! Otherwise the card can only be given to its associated companion.
+        thirdLineOfText: If it says any the card can be given to any companion! Otherwise
+          the card can only be given to its associated companion.
         tutorialIndex: 3
         tutorialStepsCount: 4
         buttonText: Next
@@ -668,9 +668,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doc: {fileID: 1484470107}
-  stateDirty: 1
-  initialized: 0
-  constantStateUpdate: 0
 --- !u!114 &1484470106
 MonoBehaviour:
   m_ObjectHideFlags: 0
