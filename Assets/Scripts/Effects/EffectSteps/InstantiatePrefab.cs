@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class InstantiatePrefab : EffectStep
@@ -17,8 +18,9 @@ public class InstantiatePrefab : EffectStep
 
     public override IEnumerator invoke(EffectDocument document) {
         List<GameObject> objects = document.GetGameObjects(inputKey);
+        List<GameObject> distinctObjects = objects.Distinct().ToList();
         
-        foreach (GameObject obj in objects) {
+        foreach (GameObject obj in distinctObjects) {
             Vector3 location = obj.transform.position;
             GameObject gameObject = GameObject.Instantiate(
                 prefabToInstantiate,
