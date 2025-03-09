@@ -110,6 +110,8 @@ public class PlayableCard : MonoBehaviour,
             yield return new WaitForSeconds(0.5f);
             // Don't need to call ResizeHand, because ExhaustCard already does it!
         } else {
+            // remove the card from the hand first so that resizing doesn't affect the card being cast
+            yield return StartCoroutine(PlayerHand.Instance.SafeRemoveCardFromHand(this));
             yield return StartCoroutine(PlayerHand.Instance.ResizeHand(this));
             yield return StartCoroutine(CardCastVFX(this.gameObject));
             yield return StartCoroutine(PlayerHand.Instance.DiscardCard(this));

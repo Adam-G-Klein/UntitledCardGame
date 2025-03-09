@@ -161,7 +161,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         }
     }
 
-    IEnumerator SafeRemoveCardFromHand(PlayableCard card) {
+    public IEnumerator SafeRemoveCardFromHand(PlayableCard card) {
         yield return new WaitUntil(() => !cardsInHandLocked);
         cardsInHand.Remove(card);
     }
