@@ -24,6 +24,12 @@ public class MusicController2 : GenericSingleton<MusicController2>
         // GenericSingleton handles deduping across scenes
         DontDestroyOnLoad(this.gameObject);
     }
+
+    public void PrepareForGoingBackToMainMenu() {
+        instance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        instance.release();
+        Destroy(this.gameObject);
+    }
     
     public void PlayMusicLocation(Location location)
     {
@@ -35,8 +41,7 @@ public class MusicController2 : GenericSingleton<MusicController2>
         foreach (LocationTrack locationTrack in locationTracks)
         {
             
-            if(location == locationTrack.location)
-            {
+            if (location == locationTrack.location) {
                 instance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
                 instance.release();
                 instance = FMODUnity.RuntimeManager.CreateInstance(locationTrack.eventReference);

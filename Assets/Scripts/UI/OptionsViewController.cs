@@ -72,6 +72,7 @@ public class OptionsViewController : MonoBehaviour
 
     public void onMainMenuButtonHandler() {
         // Load the main menu scene
+        MusicController2.Instance.PrepareForGoingBackToMainMenu();
         UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
         ToggleVisibility();
     }
