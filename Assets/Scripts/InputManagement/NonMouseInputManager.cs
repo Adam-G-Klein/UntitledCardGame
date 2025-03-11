@@ -199,11 +199,11 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
         }
     }
 
-    private void processInputForOptionsMenu(InputAction action) {
+    private void processInputForOptionsMenu(GFGInputAction action) {
         // todo
     }
 
-    private void processInputForCombat(InputAction action) {
+    private void processInputForCombat(GFGInputAction action) {
         switch(UIStateManager.Instance.currentState) {
             case UIState.DEFAULT:
                 processInputForDefaultState(action);
@@ -215,16 +215,6 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
                 Debug.Log("[NonMouseInputManager] Can't yet process input for state: " + UIStateManager.Instance.currentState);
                 break;
         }
-    }
-
-    private List<Hoverable> filterHoverablesByHoverableType(HoverableType hoverableType, List<Hoverable> candidates) {
-        List<Hoverable> filtered = new List<Hoverable>();
-        foreach(Hoverable candidate in candidates) {
-            if(candidate.hoverableType == hoverableType) {
-                filtered.Add(candidate);
-            }
-        }
-        return filtered;
     }
 
     private List<Hoverable> filterHoverablesByHoverableType(HoverableType hoverableType, List<Hoverable> candidates) {
@@ -257,7 +247,7 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
         return filtered;
     }
 
-    private void processInputForShop(InputAction action) {
+    private void processInputForShop(GFGInputAction action) {
         switch(uiState) {
             case UIState.DEFAULT:
                 processInputForShopDefaultState(action);
@@ -284,22 +274,22 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
         }
     }
 
-    private void processInputForShopDefaultState(InputAction action, List<Hoverable> hoverableSubset = null) {
+    private void processInputForShopDefaultState(GFGInputAction action, List<Hoverable> hoverableSubset = null) {
         List<Hoverable> subset = hoverableSubset == null ? allHoverables : hoverableSubset;
         switch(action) {
-            case InputAction.UP:
+            case GFGInputAction.UP:
                 hoverInDirection(Vector2.up, subset);
                 Debug.Log("[NonMouseInputManager] State: SHOP, Action: UP, hoveredCardIndex: " + hoveredCardIndex);
                 break;
-            case InputAction.DOWN:
+            case GFGInputAction.DOWN:
                 hoverInDirection(Vector2.down, subset);
                 Debug.Log("[NonMouseInputManager] State: SHOP, Action: DOWN, hoveredCardIndex: " + hoveredCardIndex);
                 break;
-            case InputAction.LEFT:
+            case GFGInputAction.LEFT:
                 hoverInDirection(Vector2.left, subset); 
                 Debug.Log("[NonMouseInputManager] State: SHOP, Action: LEFT, hoveredCardIndex: " + hoveredCardIndex);
                 break;
-            case InputAction.RIGHT:
+            case GFGInputAction.RIGHT:
                 hoverInDirection(Vector2.right, subset); 
                 Debug.Log("[NonMouseInputManager] State: SHOP, Action: RIGHT, hoveredCardIndex: " + hoveredCardIndex);
                 break;
@@ -312,6 +302,7 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
                 break;
             case GFGInputAction.END_TURN:
                 Debug.Log("[NonMouseInputManager] State: SHOP, Action: END_TURN");
+                break;
             default:
                 Debug.Log("[NonMouseInputManager] State: SHOP, UNIMPLEMENTED Action: " + action);
                 break;
@@ -338,44 +329,34 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
         }
     }
 
-    private void processInputForShopDraggingCompanionState(InputAction action) {
+    private void processInputForShopDraggingCompanionState(GFGInputAction action) {
         List<Hoverable> companionManagementSlots = filterHoverablesByHoverableType(HoverableType.CompanionManagement, allHoverables);
         switch(action) {
-            case InputAction.UP:
+            case GFGInputAction.UP:
                 hoverInDirection(Vector2.up, companionManagementSlots);
                 moveDraggedCompanionToCurrentHoverable();
                 Debug.Log("[NonMouseInputManager] State: SHOP, DRAGGING_COMPANION, Action: UP");
                 break;
-            case GFGInputAction.OPEN_COMPANION_1_DRAW:
-                Debug.Log("[NonMouseInputManager] State: SHOP, Action: OPEN_COMPANION_1_DRAW");
-            case InputAction.DOWN:
+            case GFGInputAction.DOWN:
                 hoverInDirection(Vector2.down, companionManagementSlots);
                 moveDraggedCompanionToCurrentHoverable();
                 Debug.Log("[NonMouseInputManager] State: SHOP, DRAGGING_COMPANION, Action: DOWN");
                 break;
-            case GFGInputAction.OPEN_COMPANION_2_DRAW:
-                Debug.Log("[NonMouseInputManager] State: SHOP, Action: OPEN_COMPANION_2_DRAW");
-            case InputAction.LEFT:
+            case GFGInputAction.LEFT:
                 hoverInDirection(Vector2.left, companionManagementSlots);
                 moveDraggedCompanionToCurrentHoverable();
                 Debug.Log("[NonMouseInputManager] State: SHOP, DRAGGING_COMPANION, Action: LEFT");
                 break;
-            case GFGInputAction.OPEN_COMPANION_3_DRAW: 
-                Debug.Log("[NonMouseInputManager] State: SHOP, Action: OPEN_COMPANION_3_DRAW");
-            case InputAction.RIGHT:
+            case GFGInputAction.RIGHT:
                 hoverInDirection(Vector2.right, companionManagementSlots);
                 moveDraggedCompanionToCurrentHoverable();
                 Debug.Log("[NonMouseInputManager] State: SHOP, DRAGGING_COMPANION, Action: RIGHT");
                 break;
-            case GFGInputAction.OPEN_COMPANION_4_DRAW: 
-                Debug.Log("[NonMouseInputManager] State: SHOP, Action: OPEN_COMPANION_4_DRAW");
-            case InputAction.SELECT:
+            case GFGInputAction.SELECT:
                 companionManagementViewDelegate.ComapnionManagementOnPointerUp(companionManagementView, null, currentlyHoveredScreenPosUiDoc());
                 Debug.Log("[NonMouseInputManager] State: SHOP, DRAGGING_COMPANION, Action: SELECT");
                 break;
-            case GFGInputAction.OPEN_COMPANION_5_DRAW: 
-                Debug.Log("[NonMouseInputManager] State: SHOP, Action: OPEN_COMPANION_5_DRAW");
-            case InputAction.BACK:
+            case GFGInputAction.BACK:
                 Debug.Log("[NonMouseInputManager] State: SHOP, DRAGGING_COMPANION, Action: BACK");
                 break;
             default:
@@ -383,9 +364,9 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
                 break;
         }
     }
-    private void processInputForDefaultState(InputAction action) {
+    private void processInputForDefaultState(GFGInputAction action) {
         switch(action) {
-            case InputAction.UP:
+            case GFGInputAction.UP:
                 hoverInDirection(Vector2.up, allHoverables);
                 Debug.Log("[NonMouseInputManager] State: DEFAULT, Action: UP, hoveredCardIndex: " + hoveredCardIndex);
                 break;

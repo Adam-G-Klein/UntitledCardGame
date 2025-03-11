@@ -20,42 +20,38 @@ public class KeyboardControlsManager : GenericSingleton<KeyboardControlsManager>
         * Maybe if we get CPU-bound it'll matter.
         * Doubt that's what's gonna kill our perf long term though.
         ***/
-        /*
         if(Input.GetKeyDown(KeyCode.W)) {
-            inputManager.ProcessInput(InputAction.UP);
+            inputManager.ProcessInput(GFGInputAction.UP);
         } else if(Input.GetKeyDown(KeyCode.S)) {
-            inputManager.ProcessInput(InputAction.DOWN);
+            inputManager.ProcessInput(GFGInputAction.DOWN);
         } else if(Input.GetKeyDown(KeyCode.A)) {
-            inputManager.ProcessInput(InputAction.LEFT);
+            inputManager.ProcessInput(GFGInputAction.LEFT);
         } else if(Input.GetKeyDown(KeyCode.D)) {
-            inputManager.ProcessInput(InputAction.RIGHT);
+            inputManager.ProcessInput(GFGInputAction.RIGHT);
         } 
         if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return)) {
-            inputManager.ProcessInput(InputAction.SELECT);
+            inputManager.ProcessInput(GFGInputAction.SELECT);
         } else if(Input.GetKeyDown(KeyCode.Backspace) 
         // okay but like hear me out
-        /*
         || (
             inputManager.gameState.activeEncounter.GetValue().getEncounterType() == EncounterType.Enemy
             && UIStateManager.Instance.currentState == UIState.EFFECT_TARGETTING
             && Input.GetKeyDown(KeyCode.S))
-            */
             ) {
-            inputManager.ProcessInput(InputAction.BACK);
+            inputManager.ProcessInput(GFGInputAction.BACK);
         } else if(Input.GetKeyDown(KeyCode.Space)) {
-            inputManager.ProcessInput(InputAction.END_TURN);
+            inputManager.ProcessInput(GFGInputAction.END_TURN);
         } else if(Input.GetKeyDown(KeyCode.Alpha1)) {
-            inputManager.ProcessInput(InputAction.OPEN_COMPANION_1_DRAW);
+            inputManager.ProcessInput(GFGInputAction.OPEN_COMPANION_1_DRAW);
         } else if(Input.GetKeyDown(KeyCode.Alpha2)) {
-            inputManager.ProcessInput(InputAction.OPEN_COMPANION_2_DRAW);
+            inputManager.ProcessInput(GFGInputAction.OPEN_COMPANION_2_DRAW);
         } else if(Input.GetKeyDown(KeyCode.Alpha3)) {
-            inputManager.ProcessInput(InputAction.OPEN_COMPANION_3_DRAW);
+            inputManager.ProcessInput(GFGInputAction.OPEN_COMPANION_3_DRAW);
         } else if(Input.GetKeyDown(KeyCode.Alpha4)) {
-            inputManager.ProcessInput(InputAction.OPEN_COMPANION_4_DRAW);
+            inputManager.ProcessInput(GFGInputAction.OPEN_COMPANION_4_DRAW);
         } else if(Input.GetKeyDown(KeyCode.Alpha5)) {
-            inputManager.ProcessInput(InputAction.OPEN_COMPANION_5_DRAW);
+            inputManager.ProcessInput(GFGInputAction.OPEN_COMPANION_5_DRAW);
         }
-        */
     }
 
 
