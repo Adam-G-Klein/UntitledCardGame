@@ -23,6 +23,8 @@ public class CardSelectionView : MonoBehaviour
     private IEnumerator currentCoroutine = null;
     private Companion companion;
 
+    private List<CardView> cardViews;
+
     public void Start() {
         if (uiDoc == null) {
             uiDoc = GetComponent<UIDocument>();
@@ -72,7 +74,13 @@ public class CardSelectionView : MonoBehaviour
             VisualElement cardWrapper = new VisualElement();
             cardWrapper.AddToClassList("card-wrapper");
             newCardView.cardContainer.RegisterCallback<ClickEvent>(evt => CardViewClicked(evt, newCardView));
+            UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(
+                newCardView.cardContainer,
+                () => CardViewClicked(null, newCardView),
+                () => {},
+                () => {});
             cardWrapper.Add(newCardView.cardContainer);
+            cardViews.Add(newCardView);
             this.cardContainer.Add(cardWrapper);
         }
         
@@ -106,6 +114,9 @@ public class CardSelectionView : MonoBehaviour
     }
 
     private void ExitView() {
+        foreach(CardView cardView in cardViews) {
+            UIDocumentHoverableInstantiator.Instance.CleanupHoverable(cardView.cardContainer);
+        }
         if (this.minSelections <= 0) {
             Destroy(this.gameObject);
             return;
