@@ -24,6 +24,10 @@ public class OptionsUI : MonoBehaviour
     [SerializeField]
     private CardPoolSO neutralCardPool;
     private CompendiumView compendiumView;
+
+    [SerializeField] FMODUnity.EventReference fmodMixer;
+    private FMOD.Studio.EventInstance mixerInstance;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,7 +42,10 @@ public class OptionsUI : MonoBehaviour
             fullscreenDropdown.value = 1;
             resolutionDropdown.interactable = true;
         }
-        volumeSlider.value = MusicController2.Instance.currentVolume;
+        
+        mixerInstance = FMODUnity.RuntimeManager.CreateInstance(fmodMixer);
+        mixerInstance.start();
+        //volumeSlider.value = MusicController2.Instance.currentVolume;
     }
 
     public void onMainMenuButtonHandler() {
@@ -59,7 +66,8 @@ public class OptionsUI : MonoBehaviour
     }
 
     public void onVolumeSliderChangedHandler(float value) {
-        MusicController2.Instance.SetVolume(value);
+        //MusicController2.Instance.SetVolume(value);
+        mixerInstance.setParameterByName("Master_Volume", value);
     }
 
     public void onFullscreenChangedHandler(int index) {

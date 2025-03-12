@@ -30,6 +30,8 @@ public class OptionsViewController : MonoBehaviour
     private Button compendiumButton;
     // Start is called before the first frame update
     private Camera mainCamera;
+    [SerializeField] FMODUnity.EventReference fmodMixer;
+    private FMOD.Studio.EventInstance mixerInstance;
 
     void Awake() {
         if (instance != null && instance != this) {
@@ -50,7 +52,9 @@ public class OptionsViewController : MonoBehaviour
         volumeSlider.RegisterValueChangedCallback((evt) => onVolumeSliderChangedHandler(evt.newValue));
         timescaleSlider = optionsUIDocument.rootVisualElement.Q<Slider>("gameSpeedSlider");
         timescaleSlider.RegisterValueChangedCallback((evt) => OnTimescaleSliderChange(evt.newValue));
-        volumeSlider.value = MusicController2.Instance.currentVolume;
+        //volumeSlider.value = MusicController2.Instance.currentVolume;
+        mixerInstance = FMODUnity.RuntimeManager.CreateInstance(fmodMixer);
+        mixerInstance.start();
         compendiumButton = optionsUIDocument.rootVisualElement.Q<Button>("compendiumButton");
         compendiumButton.clicked += onCompendiumButtonHandler;
         backButton = optionsUIDocument.rootVisualElement.Q<Button>("backButton");
@@ -89,7 +93,8 @@ public class OptionsViewController : MonoBehaviour
     }
 
     public void onVolumeSliderChangedHandler(float value) {
-        MusicController2.Instance.SetVolume(value);
+       //MusicController2.Instance.SetVolume(value);
+       mixerInstance.setParameterByName("Master_Volume", value);
     }
     
     public void OnTimescaleSliderChange(float value) {

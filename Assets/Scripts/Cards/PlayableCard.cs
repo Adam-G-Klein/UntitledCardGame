@@ -230,7 +230,7 @@ public class PlayableCard : MonoBehaviour,
         //MusicController.Instance.PlaySFX(cardHover, hoverSFXVolume);
         //Replace with FMOD Event
         // Set the volume first
-        MusicController2.Instance.PlaySFX("event:/SFX/SFX_UIHover");
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/SFX_UIHover");
         //transform.localScale = new Vector3(hoverScale, hoverScale, 1);
         //transform.position = new Vector3(startPos.x, startPos.y + hoverYOffset, startPos.z + hoverZOffset);
         transform.SetAsLastSibling();
