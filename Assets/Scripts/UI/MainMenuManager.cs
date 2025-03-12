@@ -10,18 +10,16 @@ public class MainMenuManager : MonoBehaviour
     private GameObject optionsUIPrefab;
     [SerializeField]
     private GameStateVariableSO gameState;
-    [SerializeField]
-    private UIDocument optionsUI;
-    [SerializeField]
-    private CanvasGroup canvasGroup;
 
     public void startButtonHandler() {
         SceneManager.LoadScene("GenerateMap");
     }
 
     public void optionsButtonHandler() {
-        optionsUI.rootVisualElement.style.visibility = Visibility.Visible;
-        canvasGroup.blocksRaycasts = true;
+        if (optionsUIPrefab == null) {
+            optionsUIPrefab = GameObject.FindGameObjectWithTag("OptionsViewCanvas");
+        }
+        optionsUIPrefab.GetComponent<OptionsViewController>().ToggleVisibility(true);
     }
 
     public void exitButtonHandler() {
