@@ -1,0 +1,19 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/common.uss?fileID=7433441132597879392&amp;guid=8d0bc28a2ed710a44b762e4c857ac6f9&amp;type=3#common" />
+    <Style src="project://database/Assets/UI%20Toolkit/Stylesheets/entity.uss?fileID=7433441132597879392&amp;guid=f28fa9619ee10d041b7306d0537405c5&amp;type=3#entity" />
+    <ui:VisualElement name="CompanionContainer" class="entity-pillar entity-pillar-sizing" style="width: 200px; height: 325px;">
+        <ui:VisualElement class="entity-pillar-container">
+            <ui:VisualElement name="backgroundColor" class="entity-background-color" style="background-image: resource(&apos;enemyContainerBack&apos;);" />
+            <ui:VisualElement class="entity-portrait-container">
+                <ui:VisualElement name="companion-portrait" class="entity-portrait" />
+            </ui:VisualElement>
+            <ui:VisualElement name="frame" class="entity-frame" style="top: 0; left: 0; rotate: 0; background-image: resource(&apos;enemyContainerFront&apos;);" />
+            <ui:Label text="Beezelbumbler" parse-escape-sequences="true" display-tooltip-when-elided="true" name="entityName" class="entity-enemy-name" />
+            <ui:VisualElement style="flex-grow: 1; position: absolute; width: 100%; height: 80%;" />
+            <ui:VisualElement name="VisualElement" class="enemy-intent-container">
+                <ui:Label tabindex="-1" text="3" parse-escape-sequences="true" display-tooltip-when-elided="true" class="enemy-intent-text" />
+                <ui:VisualElement class="enemy-intent-icon" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

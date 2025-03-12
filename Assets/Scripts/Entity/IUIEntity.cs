@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public interface IUIEntity : ICombatStats
 {
@@ -18,4 +19,6 @@ public interface IUIEntity : ICombatStats
     // will return null if not in combat or not a companion
     public DeckInstance GetDeckInstance();
     public Targetable GetTargetable();
+    Sprite GetBackgroundImage();
+    Sprite GetEntityFrame();
 }

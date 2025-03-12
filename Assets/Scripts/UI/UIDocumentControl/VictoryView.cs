@@ -43,7 +43,7 @@ public class VictoryView : MonoBehaviour
             CompanionTypeSO companionType = companions[i].companionType;
             EntityView entityView = new EntityView(companions[i], 0, false);
             //entityView.entityContainer.AddToClassList("compendium-item-container");
-            VisualElement portraitContainer = entityView.entityContainer.Q(className: "portrait-container");
+            VisualElement portraitContainer = entityView.entityContainer.Q(className: "entity-portrait");
             portraitContainer.style.backgroundImage = new StyleBackground(companionType.sprite);
             companionContainer.Add(entityView.entityContainer);
             

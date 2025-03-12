@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 [System.Serializable]
 public class Companion : Entity, ICombatStats, IDeckEntity, IUIEntity
@@ -34,6 +35,19 @@ public class Companion : Entity, ICombatStats, IDeckEntity, IUIEntity
     public Sprite getSprite() {
         return this.companionType.sprite;
     }
+
+    public Sprite GetBackgroundImage() {
+        return this.companionType.backgroundImage;
+    }
+
+    public Sprite GetEntityFrame() {
+        return this.companionType.entityFrame;
+    }
+
+    public Sprite GetCompanionManagementViewFrame() {
+        return this.companionType.companionManagementFrame;
+    }
+
 
     public Deck getDeck() {
         return this.deck;

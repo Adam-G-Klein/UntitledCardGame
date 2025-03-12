@@ -62,7 +62,7 @@ public class CardSelectionView : MonoBehaviour
         } else {
             EntityView entityView = new EntityView(companion, 0, false);
             entityView.UpdateWidthAndHeight();
-            VisualElement portraitContainer = entityView.entityContainer.Q(className: "portrait-container");
+            VisualElement portraitContainer = entityView.entityContainer.Q(className: "entity-portrait");
             portraitContainer.style.backgroundImage = new StyleBackground(companion.companionType.sprite);
             this.companionArea.Add(entityView.entityContainer);
         }

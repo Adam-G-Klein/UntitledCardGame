@@ -123,7 +123,7 @@ public class CompendiumView {
                 Companion tempCompanion = new Companion(companionToDisplay.companionType);
                 EntityView entityView = new EntityView(tempCompanion, 0, false);
                 entityView.entityContainer.AddToClassList("compendium-item-container");
-                VisualElement portraitContainer = entityView.entityContainer.Q(className: "portrait-container");
+                VisualElement portraitContainer = entityView.entityContainer.Q(className: "entity-portrait");
                 portraitContainer.style.backgroundImage = new StyleBackground(companion.sprite);
                 companionRow.Add(entityView.entityContainer);           
             });

@@ -15,6 +15,7 @@ public class EntityView : IUIEventReceiver {
 
     private float SCREEN_WIDTH_PERCENT = 0.11f;
     private float RATIO = 1.4f;
+    private float ENEMY_RATIO = 1.65f;
 
     private IUIEntity uiEntity;
     private int index;
@@ -32,12 +33,12 @@ public class EntityView : IUIEventReceiver {
     private Vector3 originalScale;
     private Vector2 originalElementScale;
 
-    public EntityView(IUIEntity entity, int index, bool isEnemy, IEntityViewDelegate viewDelegate = null) {
+    public EntityView(IUIEntity entity, int index, bool isEnemy, IEntityViewDelegate viewDelegate = null, bool isCompanionManagementView = false) {
         this.uiEntity = entity;
         this.index = index;
         this.isEnemy = isEnemy;
         this.viewDelegate = viewDelegate;
-        entityContainer = setupEntity(entity, index, isEnemy);
+        entityContainer = setupEntity(entity, index, isEnemy, isCompanionManagementView);
         combatInstance = entity.GetCombatInstance();
         if (combatInstance) {
             combatInstance.onDamageHandler += DamageScaleBump;
@@ -45,7 +46,7 @@ public class EntityView : IUIEventReceiver {
     }
 
     public void SetupEntityImage(Sprite sprite) {
-        VisualElement portraitContainer = entityContainer.Q(className: "portrait-container");
+        VisualElement portraitContainer = entityContainer.Q(className: "entity-portrait");
         portraitContainer.style.backgroundImage = new StyleBackground(sprite);
     }
 
@@ -77,8 +78,8 @@ public class EntityView : IUIEventReceiver {
         pillar.Add(drawDiscardContainer);
     }
 
-    public void UpdateWidthAndHeight() {
-        Tuple<int, int> entityWidthHeight = GetWidthAndHeight();
+    public void UpdateWidthAndHeight(bool isEnemy = false) {
+        Tuple<int, int> entityWidthHeight = GetWidthAndHeight(isEnemy);
         pillar.style.width = entityWidthHeight.Item1;
         pillar.style.height = entityWidthHeight.Item2;
     }
@@ -86,30 +87,62 @@ public class EntityView : IUIEventReceiver {
     public void UpdateView() {
         setupHealthAndBlockTabs(uiEntity);
         setupStatusEffectsTabs(uiEntity);
-        setupCardColumnDescription(uiEntity);
+        if (uiEntity.GetEnemyInstance()) {
+            setupEnemyIntentV2(uiEntity.GetEnemyInstance());
+        };
     }
 
-    private VisualElement setupEntity(IUIEntity entity, int index, bool isEnemy) {
+    private VisualElement setupEntity(IUIEntity entity, int index, bool isEnemy, bool isCompanionManagementView) {
         var pillar = new VisualElement();
         this.pillar = pillar;
         pillar.AddToClassList("entity-pillar");
         pillar.AddToClassList("entity-pillar-sizing");
+
         pillar.RegisterCallback<ClickEvent>(EntityOnPointerClick);
         pillar.RegisterCallback<PointerEnterEvent>(EntityOnPointerEnter);
         pillar.RegisterCallback<PointerLeaveEvent>(EntityOnPointerLeave);
         pickingModePositionList.Add(pillar);
 
-
-        var topTriangle = new VisualElement();
-        topTriangle.AddToClassList("top-triangle");
-        pillar.Add(topTriangle);
-
         var pillarContainer = new VisualElement();
-        pillarContainer.AddToClassList("pillar-container");
-        if (isEnemy) {
-            pillarContainer.AddToClassList("enemy-pillar-container");
+        pillarContainer.AddToClassList("entity-pillar-container");
+
+        VisualElement backgroundColor = new();
+        backgroundColor.AddToClassList("entity-background-color");
+        backgroundColor.style.backgroundImage = new StyleBackground(entity.GetBackgroundImage());
+        pillarContainer.Add(backgroundColor);
+
+        VisualElement portraitContainer = new();
+        portraitContainer.AddToClassList("entity-portrait-container");
+        
+        VisualElement portrait = new();
+        portrait.AddToClassList("entity-portrait");
+        
+        Sprite sprite; 
+        if (entity is Companion companion) {
+            sprite = companion.companionType.sprite;
+        } else if (entity is CompanionInstance companionInstance) {
+            sprite = companionInstance.companion.companionType.sprite;
+            portrait.style.backgroundImage = new StyleBackground(sprite);
+        } else {
+            sprite = null;
+            portrait.style.backgroundImage = new StyleBackground(sprite);
         }
-        pillarContainer.Add(setupCardColumn(entity, index, isEnemy));
+
+        var baseString = isEnemy ? UIDocumentGameObjectPlacer.ENEMY_UIDOC_ELEMENT_PREFIX : UIDocumentGameObjectPlacer.COMPANION_UIDOC_ELEMENT_PREFIX;
+        string portraitContainerName = baseString + index.ToString();
+        portraitContainer.name = portraitContainerName;
+
+        portraitContainer.Add(portrait);
+        pillarContainer.Add(portraitContainer);
+
+        VisualElement frame = new();
+        frame.AddToClassList("entity-frame");
+        if (isCompanionManagementView) {
+            frame.style.backgroundImage = new StyleBackground(((Companion)entity).GetCompanionManagementViewFrame());
+        } else {
+            frame.style.backgroundImage = new StyleBackground(entity.GetEntityFrame());
+        }
+        pillarContainer.Add(frame);
 
         var leftColumn = new VisualElement();
         leftColumn.AddToClassList("pillar-left-column");
@@ -121,128 +154,50 @@ public class EntityView : IUIEventReceiver {
         rightColumn.Add(setupStatusEffectsTabs(entity));
         pillarContainer.Add(rightColumn);
 
+        if (!isCompanionManagementView) {
+            Label entityName = new();
+            entityName.AddToClassList(isEnemy ? "entity-enemy-name" : "entity-name");
+            entityName.text = entity.GetName();
+            pillarContainer.Add(entityName);
+        }
+
+        if (isEnemy && entity.GetEnemyInstance()) {
+            VisualElement descriptionContainer = setupEnemyIntentV2(entity.GetEnemyInstance());
+            pillarContainer.Add(descriptionContainer);
+        }
+
         pillar.Add(pillarContainer);
-        UpdateWidthAndHeight();
+        UpdateWidthAndHeight(isEnemy);
+        
         
         return pillar;
     }
 
-    private VisualElement setupCardColumn(IUIEntity entity, int index, bool isEnemy) {
-        var column = new VisualElement();
-        column.name = entity.GetName();
-        column.AddToClassList("pillar-card-column");
-        if (isEnemy) {
-            column.AddToClassList("enemy-pillar-card-column");
-        }
-
-        var internalBorder = new VisualElement();
-        internalBorder.AddToClassList("pillar-internal-border");
-        column.Add(internalBorder);
-
-        VisualElement detailsContainer = setupCardColumnPortraitAndTitle(column, entity, index, isEnemy);
-        VisualElement descriptionContainer = setupCardColumnDescription(entity);
-        
-        detailsContainer.Add(descriptionContainer);
-
-        column.Add(detailsContainer);
-
-        return column;
-    }
-
-    // returns the details container, which holds everything below the portrait
-    private VisualElement setupCardColumnPortraitAndTitle(VisualElement column, IUIEntity entity, int index, bool isEnemy) {
-        var portraitContainerContainer = new VisualElement(); //The name makes sense I promise
-        portraitContainerContainer.AddToClassList("portrait-container-container");
-
-        var portraitContainer = new VisualElement();
-        var baseString = isEnemy ? UIDocumentGameObjectPlacer.ENEMY_UIDOC_ELEMENT_PREFIX : UIDocumentGameObjectPlacer.COMPANION_UIDOC_ELEMENT_PREFIX;
-        string portraitContainerName = baseString + index.ToString();
-        portraitContainer.name = portraitContainerName;
-        portraitContainer.AddToClassList("portrait-container");
-        portraitContainerContainer.Add(portraitContainer);
-        column.Add(portraitContainerContainer);
-        column.AddToClassList(portraitContainer.name + STATUS_EFFECTS_CONTAINER_SUFFIX);
-
-        var detailsContainer = new VisualElement();
-        detailsContainer.name = "details-container";
-        detailsContainer.AddToClassList("pillar-details");
-
-        var titleContainer = new VisualElement();
-        titleContainer.name = "title-container";
-        titleContainer.AddToClassList("pillar-name");
-        if (isEnemy) {
-            titleContainer.AddToClassList("enemy-pillar-name");
-        }
-        var titleLabel = new Label();
-        titleLabel.AddToClassList("pillar-name");
-        if (isEnemy) {
-            titleLabel.AddToClassList("enemy-pillar-name");
-        }
-        if (!isEnemy && (entity is Companion || entity is CompanionInstance)) {
-            CompanionRarity rarity;
-            if (entity is Companion) {
-                rarity = ((Companion)entity).companionType.rarity;
-            } else {
-                rarity = ((CompanionInstance)entity).companion.companionType.rarity;
-            }
-            switch(rarity) {
-                case CompanionRarity.COMMON:
-                    titleLabel.AddToClassList("companion-rarity-bg-common");
-                    break;
-                case CompanionRarity.UNCOMMON:
-                    titleLabel.AddToClassList("companion-rarity-bg-uncommon");
-                    break;
-                case CompanionRarity.RARE:
-                    titleLabel.AddToClassList("companion-rarity-bg-rare");
-                    break;
-                }
-        }
-        titleContainer.Add(titleLabel);
-        titleLabel.text = entity.GetName();
-        detailsContainer.Add(titleContainer);
-        return detailsContainer;
-    }
-
-    // returns the description container, which holds the enemy intent, the companion description, and the
-    // deck drawers on hover for companions
-    private VisualElement setupCardColumnDescription(IUIEntity entity) {
+    private VisualElement setupEnemyIntentV2(EnemyInstance enemyInstance) {
         if (descriptionContainer == null) {
             descriptionContainer = new VisualElement();
             descriptionContainer.name = "description-container";
-            descriptionContainer.AddToClassList("pillar-text");
-            pickingModePositionList.Add(descriptionContainer);
+            descriptionContainer.AddToClassList("enemy-intent-container");
         } else {
             descriptionContainer.Clear();
         }
 
-        var descLabel = new Label();
+        Label enemyIntentText = new();
+        if(enemyInstance.currentIntent != null) {
+            if (enemyInstance.currentIntent.GetDisplayValue() != 0) {
+                String descriptionText = enemyInstance.currentIntent.GetDisplayValue().ToString();
+                enemyIntentText.AddToClassList("enemy-intent-text");
+                enemyIntentText.text = descriptionText;
+                descriptionContainer.Add(enemyIntentText);
+            }
 
-        EnemyInstance enemyInstance = entity.GetEnemyInstance();
-        if (enemyInstance) {
-            VisualElement innerContainer = new VisualElement();
-            innerContainer.AddToClassList("enemy-intent-inner-container");
-            setupEnemyIntent(descLabel, innerContainer, enemyInstance);
-            innerContainer.Add(descLabel);
-            descriptionContainer.Add(innerContainer);
-        } else { // then we know it's a companion
-            descLabel.AddToClassList("pillar-desc-label");
-            descLabel.text = entity.GetDescription();
-            descriptionContainer.Add(descLabel);
-        }
-        return descriptionContainer;
-    }
-
-    private void setupEnemyIntent(Label descLabel, VisualElement descContainer, EnemyInstance enemyInstance) {
-        if(enemyInstance.currentIntent == null) {
-            descLabel.text = "Preparing...";
-        } else {
-            descLabel.text = enemyInstance.currentIntent.GetDisplayValue().ToString();
-            descLabel.AddToClassList("pillar-enemy-intent-text");
-            var intentImage = new VisualElement();
-            intentImage.AddToClassList("enemy-intent-image");
+            VisualElement intentImage = new();
+            intentImage.AddToClassList("enemy-intent-icon");
             intentImage.style.backgroundImage = new StyleBackground(viewDelegate.GetEnemyIntentImage(enemyInstance.currentIntent.intentType));
-            descContainer.Add(intentImage);
+            descriptionContainer.Add(intentImage);
         }
+        
+        return descriptionContainer;
     }
 
     private VisualElement setupHealthAndBlockTabs(IUIEntity entityInstance) {
@@ -351,6 +306,7 @@ public class EntityView : IUIEventReceiver {
     }
 
     private void EntityOnPointerLeave(PointerLeaveEvent evt) {
+        if (uiEntity == null) return;
         Targetable targetable = uiEntity.GetTargetable();
         if (targetable == null) return;
         targetable.OnPointerLeaveUI(evt);
@@ -405,15 +361,15 @@ public class EntityView : IUIEventReceiver {
         }
     }
 
-    private Tuple<int, int> GetWidthAndHeight() {
+    private Tuple<int, int> GetWidthAndHeight(bool isEnemy) {
         int width = (int)(Screen.width * SCREEN_WIDTH_PERCENT);
-        int height = (int)(width * RATIO);
+        int height = (int)(isEnemy ? (width * ENEMY_RATIO) : (width * RATIO));
 
         // This drove me insane btw
         #if UNITY_EDITOR
         UnityEditor.PlayModeWindow.GetRenderingResolution(out uint windowWidth, out uint windowHeight);
         width = (int)(windowWidth * SCREEN_WIDTH_PERCENT);
-        height = (int)(width * RATIO);
+        height = (int)(isEnemy ? (width * ENEMY_RATIO) : (width * RATIO));
         #endif
 
         return new Tuple<int, int>(width, height);
@@ -435,7 +391,7 @@ public class EntityView : IUIEventReceiver {
 
             // call the following code if we instead want to rest the entity to its base state and start the new tween
             if (combatInstance == null || combatInstance.GetComponent<Transform>() == null) {
-                combatInstance.GetComponent<Transform>().localScale = originalScale;
+                return;
             }
             LeanTween.cancel(tweenTarget);
             GameObject.Destroy(tweenTarget);
@@ -452,7 +408,7 @@ public class EntityView : IUIEventReceiver {
             entityContainer.style.scale.value.value.y
         );
 
-        VisualElement companionContainer = entityContainer.Q<VisualElement>(className: "portrait-container");
+        VisualElement companionContainer = entityContainer.Q<VisualElement>(className: "entity-portrait-container");
 
         float duration = 0.125f;  // Total duration for the scale animation
         float minScale = (float)Math.Min(.75, .9 - scale / 500);  // scale bump increases in intensity if entity takes more damage (haven't extensively tested this)

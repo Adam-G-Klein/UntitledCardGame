@@ -43,7 +43,7 @@ public class DefeatView : MonoBehaviour
             EnemyTypeSO enemyTypeSO = enemies[i].enemyType;
             EntityView entityView = new EntityView(enemies[i], 0, true);
             //entityView.entityContainer.AddToClassList("compendium-item-container");
-            VisualElement portraitContainer = entityView.entityContainer.Q(className: "portrait-container");
+            VisualElement portraitContainer = entityView.entityContainer.Q(className: "entity-portrait");
             portraitContainer.style.backgroundImage = new StyleBackground(enemyTypeSO.sprite);
             enemyContainer.Add(entityView.entityContainer);
             

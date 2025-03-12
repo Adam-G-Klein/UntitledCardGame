@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 [RequireComponent(typeof(CombatInstance))]
 [RequireComponent(typeof(DeckInstance))]
@@ -121,6 +122,14 @@ public class CompanionInstance : MonoBehaviour, IUIEntity
 
     public Targetable GetTargetable() {
         return GetComponent<Targetable>();
+    }
+
+    public Sprite GetBackgroundImage() {
+        return companion.companionType.backgroundImage;
+    }
+
+    public Sprite GetEntityFrame() {
+        return companion.companionType.entityFrame;
     }
 }
 

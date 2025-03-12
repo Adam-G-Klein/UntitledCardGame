@@ -16,6 +16,9 @@ MonoBehaviour:
   maxHealth: 35
   baseAttackDamage: 0
   sprite: {fileID: 21300000, guid: 16cb6fc58ac5bce41a520368b5f166f2, type: 3}
+  backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
+  entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
+  morale: 0
   abilities: []
   enemyPattern:
     behaviors:
@@ -28,10 +31,17 @@ MonoBehaviour:
       - rid: 4053950218419044433
       - rid: 4463205916933358569
     behaviorType: 0
+    behaviorIndex: 0
     nextBehaviorIndex: 0
   belowHalfHPEnemyPattern:
     behaviors: []
     behaviorType: 0
+    behaviorIndex: 0
+    nextBehaviorIndex: 0
+  adaptWhenAloneEnemyPattern:
+    behaviors: []
+    behaviorType: 0
+    behaviorIndex: 0
     nextBehaviorIndex: 0
   initialStatuses: []
   tooltip:
@@ -81,3 +91,4 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        vfxPrefab: {fileID: 0}

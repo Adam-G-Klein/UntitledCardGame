@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 [RequireComponent(typeof(EnemyPillarUIController))]
 [RequireComponent(typeof(CombatInstance))]
@@ -160,5 +161,13 @@ public class EnemyInstance : MonoBehaviour, IUIEntity {
 
     public Targetable GetTargetable() {
         return GetComponent<Targetable>();
+    }
+
+    public Sprite GetBackgroundImage() {
+        return enemy.enemyType.backgroundImage;
+    }
+
+    public Sprite GetEntityFrame() {
+        return enemy.enemyType.entityFrame;
     }
 }

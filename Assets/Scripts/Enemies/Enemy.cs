@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 [System.Serializable]
 public class Enemy : Entity, ICombatStats, IUIEntity {
@@ -87,5 +88,13 @@ public class Enemy : Entity, ICombatStats, IUIEntity {
 
     public Targetable GetTargetable() {
         return null;
+    }
+
+    public Sprite GetBackgroundImage() {
+        return this.enemyType.backgroundImage;
+    }
+    
+    public Sprite GetEntityFrame() {
+        return this.enemyType.entityFrame;
     }
 }

@@ -852,7 +852,7 @@ public class ShopViewController : MonoBehaviour,
             
             CompanionTypeSO companionType = companion.companionType;
             EntityView entityView = new EntityView(companion, 0, false);
-            VisualElement portraitContainer = entityView.entityContainer.Q(className: "portrait-container");
+            VisualElement portraitContainer = entityView.entityContainer.Q(className: "entity-portrait");
             portraitContainer.style.backgroundImage = new StyleBackground(companionType.sprite);
             companionContainer.Add(entityView.entityContainer);
             initialCompanionContainer.Add(companionContainer);
@@ -870,7 +870,7 @@ public class ShopViewController : MonoBehaviour,
         CompanionTypeSO upgradeCompanionType = upgradeCompanion.companionType;
         EntityView upgradeEntityView = new EntityView(upgradeCompanion, 0, false);
         //entityView.entityContainer.AddToClassList("compendium-item-container");
-        VisualElement upgradePortraitContainer = upgradeEntityView.entityContainer.Q(className: "portrait-container");
+        VisualElement upgradePortraitContainer = upgradeEntityView.entityContainer.Q(className: "entity-portrait");
         upgradePortraitContainer.style.backgroundImage = new StyleBackground(upgradeCompanionType.sprite);
         upgradeCompanionContainer.Add(upgradeEntityView.entityContainer);
         upgradeCompanionContainer.schedule.Execute(() => {

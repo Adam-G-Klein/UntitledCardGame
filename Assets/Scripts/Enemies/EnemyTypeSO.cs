@@ -17,6 +17,8 @@ public class EnemyTypeSO : ScriptableObject
     public int baseAttackDamage;
     [Space]
     public Sprite sprite;
+    public Sprite backgroundImage;
+    public Sprite entityFrame;
 
     // Control what happens when the enemy's friends die :(
     public EnemyMorale morale;
