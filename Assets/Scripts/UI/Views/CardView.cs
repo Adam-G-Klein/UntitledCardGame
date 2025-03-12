@@ -8,13 +8,13 @@ using UnityEngine.UIElements;
 public class CardView {
     public VisualElement cardContainer;
     // TODO, could require the stylesheet in the constructor and fetch these from there
-    public static int CARD_DESC_SIZE_FULL_TEXTURE = 26; //px
+    public static int CARD_DESC_SIZE_FULL_TEXTURE = 30; //px
     public static int CARD_TITLE_SIZE_FULL_TEXTURE = 44; //px
-    public static int CARD_DESC_SIZE_SHOP_SCREEN = 20; //px
+    public static int CARD_DESC_SIZE_SHOP_SCREEN = 16; //px
     public static int CARD_TITLE_SIZE_SHOP_SCREEN = 30; //px
-    public static int CARD_DESC_MAX_FULL_SIZE_CHARS_FULL_TEXTURE = 18; // guess
+    public static int CARD_DESC_MAX_FULL_SIZE_CHARS_FULL_TEXTURE = 60; // guess
     public static int CARD_TITLE_MAX_FULL_SIZE_CHARS_FULL_TEXTURE = 8; // guess
-    public static int CARD_DESC_MAX_FULL_SIZE_CHARS_SHOP_SCREEN = 14; // guess
+    public static int CARD_DESC_MAX_FULL_SIZE_CHARS_SHOP_SCREEN = 30; // guess
     public static int CARD_TITLE_MAX_FULL_SIZE_CHARS_SHOP_SCREEN = 6; // guess
     public static int COMPANION_AND_MANA_INDICATOR_WIDTH_HEIGHT_COMBAT = 80;
     public static int COMPANION_AND_MANA_INDICATOR_WIDTH_HEIGHT_SHOP = 60;
