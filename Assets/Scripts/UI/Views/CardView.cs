@@ -11,11 +11,11 @@ public class CardView {
     public static int CARD_DESC_SIZE_FULL_TEXTURE = 30; //px
     public static int CARD_TITLE_SIZE_FULL_TEXTURE = 44; //px
     public static int CARD_DESC_SIZE_SHOP_SCREEN = 16; //px
-    public static int CARD_TITLE_SIZE_SHOP_SCREEN = 30; //px
+    public static int CARD_TITLE_SIZE_SHOP_SCREEN = 18; //px
     public static int CARD_DESC_MAX_FULL_SIZE_CHARS_FULL_TEXTURE = 60; // guess
     public static int CARD_TITLE_MAX_FULL_SIZE_CHARS_FULL_TEXTURE = 8; // guess
     public static int CARD_DESC_MAX_FULL_SIZE_CHARS_SHOP_SCREEN = 30; // guess
-    public static int CARD_TITLE_MAX_FULL_SIZE_CHARS_SHOP_SCREEN = 6; // guess
+    public static int CARD_TITLE_MAX_FULL_SIZE_CHARS_SHOP_SCREEN = 8; // guess
     public static int COMPANION_AND_MANA_INDICATOR_WIDTH_HEIGHT_COMBAT = 80;
     public static int COMPANION_AND_MANA_INDICATOR_WIDTH_HEIGHT_SHOP = 60;
     public Card cardInstance = null;
@@ -147,23 +147,15 @@ public class CardView {
     private int getDescFontSize(string desc, bool cardInShop) {
         int maxChars = cardInShop ? CARD_DESC_MAX_FULL_SIZE_CHARS_SHOP_SCREEN : CARD_DESC_MAX_FULL_SIZE_CHARS_FULL_TEXTURE;
         int fontSize = cardInShop ? CARD_DESC_SIZE_SHOP_SCREEN : CARD_DESC_SIZE_FULL_TEXTURE;
-        if (desc.Length > maxChars) {
-            // Debug.Log("desc.Length: " + desc.Length + " CARD_DESC_MAX_FULL_SIZE_CHARS: " + CARD_DESC_MAX_FULL_SIZE_CHARS + " CARD_DESC_MAX_FULL_SIZE_CHARS / desc.Length: " + (CARD_DESC_MAX_FULL_SIZE_CHARS / desc.Length) + " CARD_DESC_SIZE: " + CARD_DESC_SIZE + " CARD_DESC_SIZE * (CARD_DESC_MAX_FULL_SIZE_CHARS / desc.Length): " + (CARD_DESC_SIZE * (CARD_DESC_MAX_FULL_SIZE_CHARS / desc.Length)) + " (int)(CARD_DESC_SIZE * (CARD_DESC_MAX_FULL_SIZE_CHARS / desc.Length)): " + (int)(CARD_DESC_SIZE * (CARD_DESC_MAX_FULL_SIZE_CHARS / desc.Length)));
-            float textSizeRatio = (float) maxChars / (float) desc.Length;
-            double scalingRatio = Math.Pow(textSizeRatio, (float)1/ (float)4);
-            return (int)Math.Floor(fontSize * scalingRatio);
-        }
-        return fontSize;
+
+        return UIDocumentUtils.UpdateTextSize(desc, maxChars, fontSize);
     }
 
     private int getTitleFontSize(string title, bool cardInShop) {
         int maxChars = cardInShop ? CARD_TITLE_MAX_FULL_SIZE_CHARS_SHOP_SCREEN : CARD_TITLE_MAX_FULL_SIZE_CHARS_FULL_TEXTURE;
         int fontSize = cardInShop ? CARD_TITLE_SIZE_SHOP_SCREEN : CARD_TITLE_SIZE_FULL_TEXTURE;
-        if (title.Length > maxChars) {
-            float textSizeRatio = (float) maxChars / (float) title.Length;
-            return (int)Math.Floor(fontSize * textSizeRatio);
-        }
-        return fontSize;
+
+        return UIDocumentUtils.UpdateTextSize(title, maxChars, fontSize);
     }
 
     public void UpdateCardText(string newText) {

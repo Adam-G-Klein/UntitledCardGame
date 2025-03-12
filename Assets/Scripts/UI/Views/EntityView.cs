@@ -32,6 +32,8 @@ public class EntityView : IUIEventReceiver {
     private CombatInstance combatInstance = null;
     private Vector3 originalScale;
     private Vector2 originalElementScale;
+    private int ENTITY_NAME_MAX_CHARS = 6;
+    private int ENTITY_NAME_FONT_SIZE = 20;
 
     public EntityView(IUIEntity entity, int index, bool isEnemy, IEntityViewDelegate viewDelegate = null, bool isCompanionManagementView = false) {
         this.uiEntity = entity;
@@ -155,10 +157,15 @@ public class EntityView : IUIEventReceiver {
         pillarContainer.Add(rightColumn);
 
         if (!isCompanionManagementView) {
+            VisualElement nameContainer = new();
+            nameContainer.AddToClassList(isEnemy ? "entity-enemy-name-container": "entity-name-container");
+
             Label entityName = new();
-            entityName.AddToClassList(isEnemy ? "entity-enemy-name" : "entity-name");
+            entityName.AddToClassList("entity-name");
             entityName.text = entity.GetName();
-            pillarContainer.Add(entityName);
+            entityName.style.fontSize = getNameFontSize(entity.GetName());
+            nameContainer.Add(entityName);
+            pillarContainer.Add(nameContainer);
         }
 
         if (isEnemy && entity.GetEnemyInstance()) {
@@ -438,5 +445,9 @@ public class EntityView : IUIEventReceiver {
                 }
                 GameObject.Destroy(tweenTarget);
             });
+    }
+
+    private int getNameFontSize(string entityName) {
+        return UIDocumentUtils.UpdateTextSize(entityName, ENTITY_NAME_MAX_CHARS, ENTITY_NAME_FONT_SIZE);
     }
 }

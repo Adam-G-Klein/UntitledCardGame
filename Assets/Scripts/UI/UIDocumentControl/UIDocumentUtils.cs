@@ -42,4 +42,13 @@ public class UIDocumentUtils : MonoBehaviour
         }
         return true;
     }
+
+    public static int UpdateTextSize(string desc, int maxChar, int fontSize){
+        if (desc.Length > maxChar){
+            float textSizeRatio = (float) maxChar / (float) desc.Length;
+            double scalingRatio = Math.Pow(textSizeRatio, (float)1/ (float)4);
+            return (int)Math.Floor(fontSize * scalingRatio);
+        }
+        return fontSize;
+    }
 }

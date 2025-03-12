@@ -41,20 +41,18 @@
 }
 
 .entity-name {
-    position: absolute;
-    bottom: 13%;
-    font-size: 14px;
+    font-size: 24px;
     -unity-font: initial;
     -unity-font-style: bold;
+    -unity-text-align: upper-center;
 }
 
 .entity-enemy-name {
-    position: absolute;
-    bottom: auto;
     font-size: 16px;
     -unity-font: initial;
     -unity-font-style: bold;
-    top: 10%;
+    transform-origin: bottom;
+    -unity-text-align: middle-left;
 }
 
 .enemy-intent-container {
@@ -502,4 +500,26 @@
 .companion-rarity-bg-rare {
     border-color: rgb(243, 235, 17);
     border-width: 4px;
+}
+
+.entity-enemy-name-container {
+    flex-grow: 1;
+    position: absolute;
+    height: 15%;
+    top: 7%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+}
+
+.entity-name-container {
+    flex-grow: 1;
+    position: absolute;
+    height: 15%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    bottom: 33px;
 }
