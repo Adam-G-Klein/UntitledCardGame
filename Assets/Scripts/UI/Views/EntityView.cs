@@ -220,9 +220,20 @@ public class EntityView : IUIEventReceiver {
         var healthTab = new VisualElement();
         healthTab.AddToClassList("health-tab");
         var healthLabel = new Label();
-        healthLabel.AddToClassList("pillar-tab-text");
+        healthLabel.AddToClassList("health-tab-text");
         healthLabel.text = stats.getCurrentHealth().ToString();
+
+        var healthLabel2 = new Label();
+        healthLabel2.AddToClassList("health-tab-text");
+        healthLabel2.text = "---";
+
+        var healthLabel3 = new Label();
+        healthLabel3.AddToClassList("health-tab-text");
+        healthLabel3.text = stats.getMaxHealth().ToString();
+
         healthTab.Add(healthLabel);
+        healthTab.Add(healthLabel2);
+        healthTab.Add(healthLabel3);
         healthAndBlockTab.Add(healthTab);
 
         CombatInstance combatInstance = entityInstance.GetCombatInstance();
