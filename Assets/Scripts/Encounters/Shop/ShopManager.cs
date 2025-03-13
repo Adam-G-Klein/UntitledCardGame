@@ -126,8 +126,6 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         }
 
         if (gameState.playerData.GetValue().gold >= companionInShop.price) {
-            gameState.playerData.GetValue().gold -= companionInShop.price;
-            shopViewController.SetMoney(gameState.playerData.GetValue().gold);
             // Create a new instance of the companion and then attempt companion upgrades before adding
             // them to your team;
             this.companionInShop = companionInShop;
@@ -149,6 +147,8 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
                 shopViewController.ShowCompanionUpgradeMenu(companions, upgradeCompanion);
                 return;
             }
+            gameState.playerData.GetValue().gold -= companionInShop.price;
+            shopViewController.SetMoney(gameState.playerData.GetValue().gold);
             if (gameState.companions.activeCompanions.Count + shopViewController.blockedSlots.Count == 5 && gameState.companions.benchedCompanions.Count == 5) {
                 StartCoroutine(shopViewController.ShowGenericNotification("You have reached the maximum number of companions.", 2));
                 return;
@@ -180,6 +180,8 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     }
 
     public void ConfirmUpgradePurchase() {
+        gameState.playerData.GetValue().gold -= companionInShop.price;
+        shopViewController.SetMoney(gameState.playerData.GetValue().gold);
         Companion companionToAdd = null;
         Companion level2Dude = companionCombinationManager.AttemptCompanionUpgrade(newCompanion);
         if (level2Dude != null) {
