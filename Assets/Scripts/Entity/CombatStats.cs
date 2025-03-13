@@ -42,6 +42,10 @@ public class CombatStats
         return currentHealth;
     }
 
+    public int getMaxHealth() {
+        return maxHealth;
+    }
+
     public void setCurrentHealth(int newHealth) {
         Debug.Log("Setting current health to " + newHealth + " from " + currentHealth);
         this.currentHealth = newHealth;
