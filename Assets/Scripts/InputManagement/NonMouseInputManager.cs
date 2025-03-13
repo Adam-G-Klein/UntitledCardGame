@@ -261,7 +261,7 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
             case UIState.CARD_SELECTION_DISPLAY:
                 break;
             case UIState.PURCHASING_CARD:
-                Debug.Log("[NonMouseInputManager] processing input for state: PURCHASING_CARD, cardPurchasingFor: " + cardPurchasingFor);
+                Debug.Log("[NonMouseInputManager] processing input for state: PURCHASING_CARD, cardPurchasingFor: " + cardPurchasingFor.name);
                 processInputForShopDefaultState(action, 
                     filterHoverablesByApplicableCompanionType(cardPurchasingFor, allHoverables));
                 break;
@@ -564,5 +564,12 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
     public void UnSetPurchasingCard() {
         cardPurchasingFor = null;
         uiState = UIState.DEFAULT;
+    }
+
+    public void hoverACardSelection() {
+        List<Hoverable> cards = filterHoverablesByHoverableType(HoverableType.CardSelection, allHoverables);
+        if(cards.Count > 0) {
+            hover(cards[0]);
+        }
     }
 }

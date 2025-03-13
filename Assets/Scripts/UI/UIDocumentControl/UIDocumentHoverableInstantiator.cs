@@ -31,7 +31,7 @@ public class UIDocumentHoverableInstantiator : GenericSingleton<UIDocumentHovera
             Debug.Log("[HoverableInstantiation] Element: " + element.name + " is not ready yet, waiting...");
             yield return null;
         }
-        InstantiateHoverable(element, selectCallback, hoverCallback, unhoverCallback, hoverableType);
+        InstantiateHoverable(element, selectCallback, hoverCallback, unhoverCallback, hoverableType, companionTypeSO);
     }
 
     public void InstantiateHoverable(VisualElement element, Action selectCallback = null, Action hoverCallback = null, Action unhoverCallback = null, HoverableType hoverableType = HoverableType.DefaultShop, CompanionTypeSO companionTypeSO = null){

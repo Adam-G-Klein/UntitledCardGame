@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UIElements;
 
+[RequireComponent(typeof(Canvas))]
 public class CardSelectionView : MonoBehaviour
 {
     [SerializeField] private UIDocument uiDoc;
@@ -29,6 +30,9 @@ public class CardSelectionView : MonoBehaviour
         if (uiDoc == null) {
             uiDoc = GetComponent<UIDocument>();
         }
+        Canvas canvas = GetComponent<Canvas>();
+        canvas.worldCamera = Camera.main;
+        canvas.sortingLayerName = "OverlayUI";
     }
 
     public void Setup(List<Card> cards, Companion companion) {
@@ -87,6 +91,7 @@ public class CardSelectionView : MonoBehaviour
         }
         
         this.promptTextLabel.text = promptText;
+        NonMouseInputManager.Instance.SetUIState(UIState.CARD_SELECTION_DISPLAY);
     }
 
     private void InitFields() {
@@ -96,6 +101,12 @@ public class CardSelectionView : MonoBehaviour
         this.confirmExitButton = uiDoc.rootVisualElement.Q<Button>("confirm-exit-button");
         this.promptTextLabel = uiDoc.rootVisualElement.Q<Label>("prompt-text-label");
         this.confirmExitButton.RegisterCallback<ClickEvent>(evt => ExitView());
+        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(
+            this.confirmExitButton,
+            () => ExitView(),
+            () => {},
+            () => {},
+            HoverableType.CardSelection);
     }
 
     private void CardViewClicked(ClickEvent evt, CardView cardView) {
@@ -119,6 +130,7 @@ public class CardSelectionView : MonoBehaviour
         foreach(CardView cardView in cardViews) {
             UIDocumentHoverableInstantiator.Instance.CleanupHoverable(cardView.cardContainer);
         }
+        UIDocumentHoverableInstantiator.Instance.CleanupHoverable(this.confirmExitButton);
         cardViews.Clear();
 
         if (cardsSelected.Count < minSelections) {
@@ -139,6 +151,7 @@ public class CardSelectionView : MonoBehaviour
             // that it can proceed
             cardsSelectedHandler.Invoke(outputCards, companion);
         }
+        NonMouseInputManager.Instance.SetUIState(UIState.DEFAULT);
         Destroy(this.gameObject);
     }
 
