@@ -43,7 +43,6 @@ public class CardInHandEffect : EffectStep, ITooltipProvider
 
                 case CardInHandEffectName.Exhaust:
                     yield return PlayerHand.Instance.ExhaustCard(card);
-                    yield return PlayerHand.Instance.ResizeHand(card);
                 break;
 
                 case CardInHandEffectName.Retain:
