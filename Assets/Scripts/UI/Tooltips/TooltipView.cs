@@ -174,6 +174,7 @@ public class TooltipView : MonoBehaviour
     public void Fill()
     {
         background.Add(tooltip.GetVisualElement());
+        UIDocumentUtils.SetAllPickingMode(background, PickingMode.Ignore);
     }
 
     public void Hide()

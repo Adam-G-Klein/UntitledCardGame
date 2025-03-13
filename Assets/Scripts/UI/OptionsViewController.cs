@@ -32,6 +32,8 @@ public class OptionsViewController : MonoBehaviour
     private Camera mainCamera;
     [SerializeField] FMODUnity.EventReference fmodMixer;
     private FMOD.Studio.EventInstance mixerInstance;
+    [SerializeField]
+    private GameObject tooltipPrefab;
 
     void Awake() {
         if (instance != null && instance != this) {
@@ -53,8 +55,8 @@ public class OptionsViewController : MonoBehaviour
         timescaleSlider = optionsUIDocument.rootVisualElement.Q<Slider>("gameSpeedSlider");
         timescaleSlider.RegisterValueChangedCallback((evt) => OnTimescaleSliderChange(evt.newValue));
         //volumeSlider.value = MusicController2.Instance.currentVolume;
-        mixerInstance = FMODUnity.RuntimeManager.CreateInstance(fmodMixer);
-        mixerInstance.start();
+        //mixerInstance = FMODUnity.RuntimeManager.CreateInstance(fmodMixer);
+        //mixerInstance.start();
         compendiumButton = optionsUIDocument.rootVisualElement.Q<Button>("compendiumButton");
         compendiumButton.clicked += onCompendiumButtonHandler;
         backButton = optionsUIDocument.rootVisualElement.Q<Button>("backButton");
@@ -89,12 +91,12 @@ public class OptionsViewController : MonoBehaviour
     public void onCompendiumButtonHandler() {
         compendiumUIDocument.rootVisualElement.style.visibility = Visibility.Visible;
         compendiumView = null; // in the future we would ideally have some way of tracking if it had to be recreated based on change in gamestate
-        compendiumView = new CompendiumView(compendiumUIDocument, companionPool, neutralCardPool);
+        compendiumView = new CompendiumView(compendiumUIDocument, companionPool, neutralCardPool, tooltipPrefab);
     }
 
     public void onVolumeSliderChangedHandler(float value) {
        //MusicController2.Instance.SetVolume(value);
-       mixerInstance.setParameterByName("Master_Volume", value);
+       //mixerInstance.setParameterByName("Master_Volume", value);
     }
     
     public void OnTimescaleSliderChange(float value) {

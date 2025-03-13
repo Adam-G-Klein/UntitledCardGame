@@ -879,6 +879,12 @@ public class ShopViewController : MonoBehaviour,
             companionContainer.schedule.Execute(() => {
                 companionContainer.AddToClassList("upgrade-menu-compainion-1");
             }).StartingIn(delay);
+            entityView.entityContainer.RegisterCallback<PointerEnterEvent>((evt) => {
+                DisplayTooltip(entityView.entityContainer, companion.companionType.tooltip, false);
+            });
+            entityView.entityContainer.RegisterCallback<PointerLeaveEvent>((evt) => {
+                DestroyTooltip(entityView.entityContainer);
+            });
             delay += 250;
         }
 
@@ -894,6 +900,12 @@ public class ShopViewController : MonoBehaviour,
         upgradeCompanionContainer.schedule.Execute(() => {
             upgradeCompanionContainer.AddToClassList("upgrade-menu-compainion-1");
         }).StartingIn(delay);
+        upgradeEntityView.entityContainer.RegisterCallback<PointerEnterEvent>((evt) => {
+            DisplayTooltip(upgradeEntityView.entityContainer, upgradeCompanionType.tooltip, false);
+        });
+        upgradeEntityView.entityContainer.RegisterCallback<PointerLeaveEvent>((evt) => {
+            DestroyTooltip(upgradeEntityView.entityContainer);
+        });
         upgradeCompanionsContainer.Add(upgradeCompanionContainer);
         companionUpgradeMenu.AddToClassList("upgrade-menu-container-visible");
         upgradeMenuOuterContainer.AddToClassList("upgrade-menu-outer-container-visible");

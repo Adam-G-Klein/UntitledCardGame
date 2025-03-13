@@ -536,6 +536,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1303040594324519979, guid: f56ace11eca35482fa0b76e4ccaa2728, type: 3}
+      propertyPath: tooltipPrefab
+      value: 
+      objectReference: {fileID: 2816874809441598624, guid: ae38d023550871540b736760d4242071, type: 3}
     - target: {fileID: 6414891375994710130, guid: f56ace11eca35482fa0b76e4ccaa2728, type: 3}
       propertyPath: m_Name
       value: OptionsViewCanvas

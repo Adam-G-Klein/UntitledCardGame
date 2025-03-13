@@ -9,7 +9,7 @@ using System.Linq;
 
 // This class isn't expected to have a delegate view or delegate controller because it'll be wrapped
 // by one that does
-public class CompendiumView {
+public class CompendiumView : MonoBehaviour {
     public VisualElement compendiumContainer;
     private UIDocument uiDocument;
     private CompendiumType currentCompendiumView = CompendiumType.CARD;
@@ -22,8 +22,12 @@ public class CompendiumView {
     }
     private VisualElement companionsSection;
     private VisualElement cardsSection;
-    public CompendiumView(UIDocument uiDocument, CompanionPoolSO companionPool, CardPoolSO neutralCardPool) {
+    private Dictionary<String, GameObject> tooltipMap = new();
+    private GameObject tooltipPrefab;
+
+    public CompendiumView(UIDocument uiDocument, CompanionPoolSO companionPool, CardPoolSO neutralCardPool, GameObject tooltipPrefab) {
         this.uiDocument = uiDocument;
+        this.tooltipPrefab = tooltipPrefab;
         cardsScrollView = uiDocument.rootVisualElement.Q<ScrollView>("compendium-cards-scrollView");
         companionScrollView = uiDocument.rootVisualElement.Q<ScrollView>("compendium-companions-scrollView");
         cardsScrollView.Clear();
@@ -31,7 +35,6 @@ public class CompendiumView {
         SetupCardView(companionPool, neutralCardPool);
         SetupCompanionView(companionPool);
         CardButtonHandler();
-        //SetupCardView(uiDocument, companionPool, neutralCardPool);
 
         // setup buttons
         uiDocument.rootVisualElement.Q<Button>("exitButton").clicked += ExitButtonHandler;
@@ -98,6 +101,16 @@ public class CompendiumView {
             VisualElement cardContainer = new CardView(card, companion, cardRarity, true).cardContainer;
             cardContainer.AddToClassList("compendium-item-container");
             companionCardsContainer.Add(cardContainer);
+            cardContainer.name = card.name;
+            cardContainer.RegisterCallback<PointerEnterEvent>((evt) => {
+                if (card.GetTooltip().empty) return;
+                Debug.LogError("hovering:" + card.name);
+                DisplayTooltip(cardContainer, card.GetTooltip());
+            });
+            cardContainer.RegisterCallback<PointerLeaveEvent>((evt) => {
+                Debug.LogError("unhovering:" + card.name);
+                DestroyTooltip(cardContainer);
+            });
         });
     }
 
@@ -119,17 +132,49 @@ public class CompendiumView {
 
             List<Companion> companionsToDisplay = new List<Companion>
             { new Companion(companion), new Companion(companion.upgradeTo), new Companion(companion.upgradeTo.upgradeTo) };
-            companionsToDisplay.ForEach(companionToDisplay => {
+            for (int index = 0; index < companionsToDisplay.Count; index++) {
+                Companion companionToDisplay = companionsToDisplay[index];
                 Companion tempCompanion = new Companion(companionToDisplay.companionType);
                 EntityView entityView = new EntityView(tempCompanion, 0, false);
                 entityView.entityContainer.AddToClassList("compendium-item-container");
                 VisualElement portraitContainer = entityView.entityContainer.Q(className: "entity-portrait");
                 portraitContainer.style.backgroundImage = new StyleBackground(companion.sprite);
-                companionRow.Add(entityView.entityContainer);           
-            });
+                companionRow.Add(entityView.entityContainer);
+                entityView.entityContainer.name = companionToDisplay.companionType.companionName + index;
+                entityView.entityContainer.RegisterCallback<PointerEnterEvent>((evt) => {
+                    Debug.LogError("hovering");
+                    DisplayTooltip(entityView.entityContainer, companionToDisplay.companionType.tooltip);
+                });
+                entityView.entityContainer.RegisterCallback<PointerLeaveEvent>((evt) => {
+                    DestroyTooltip(entityView.entityContainer);
+                });        
+            };
             companionsSection.Add(companionRow);
         }
         companionScrollView.Add(companionsSection);
         companionScrollView.style.display = DisplayStyle.None; 
+    }
+
+    public void DisplayTooltip(VisualElement element, TooltipViewModel tooltipViewModel) {
+        if (tooltipMap.ContainsKey(element.name)) {
+            return;
+        }
+        Vector3 tooltipPosition = UIDocumentGameObjectPlacer.GetWorldPositionFromElement(element);
+
+        tooltipPosition.x += element.resolvedStyle.width / 120; // this feels super brittle 
+        tooltipPosition.y += element.resolvedStyle.width / 150;
+        
+        GameObject uiDocToolTipPrefab = Instantiate(tooltipPrefab, new Vector3(tooltipPosition.x, tooltipPosition.y, -1), new Quaternion());
+        TooltipView tooltipView = uiDocToolTipPrefab.GetComponent<TooltipView>();
+        tooltipView.tooltip = tooltipViewModel;
+
+        tooltipMap[element.name] = uiDocToolTipPrefab;
+    }
+
+    public void DestroyTooltip(VisualElement element) {
+        if(tooltipMap.ContainsKey(element.name)) {
+            Destroy(tooltipMap[element.name]);
+            tooltipMap.Remove(element.name);
+        }
     }
 }
