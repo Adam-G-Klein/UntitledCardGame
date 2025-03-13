@@ -8,7 +8,8 @@ public enum HoverableType {
     DefaultCombat, // Unused, future proofing
     DefaultShop, // Unused, future proofing
     OptionsMenu, // Unused, future proofing
-    CompanionManagement
+    CompanionManagement,
+    CardSelection
 }
 
 public class Hoverable : MonoBehaviour {

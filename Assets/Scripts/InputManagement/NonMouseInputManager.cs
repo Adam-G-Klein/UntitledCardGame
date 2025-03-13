@@ -206,10 +206,13 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
     private void processInputForCombat(GFGInputAction action) {
         switch(UIStateManager.Instance.currentState) {
             case UIState.DEFAULT:
-                processInputForDefaultState(action);
+                processInputForDefaultStateCombat(action);
                 break;
             case UIState.EFFECT_TARGETTING:
                 processInputForEffectTargettingState(action);
+                break;
+            case UIState.CARD_SELECTION_DISPLAY:
+                processInputForDefaultStateCombat(action, filterHoverablesByHoverableType(HoverableType.CardSelection, allHoverables));
                 break;
             default:
                 Debug.Log("[NonMouseInputManager] Can't yet process input for state: " + UIStateManager.Instance.currentState);
@@ -315,7 +318,7 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
         companionManagementView = companionView;
         companionManagementViewDelegate = viewDelegate;
         viewDelegate.CompanionManagementOnPointerDown(companionView, null, currentlyHoveredScreenPosUiDoc());
-        uiState = UIState.DRAGGING_COMPANION;
+        SetUIState(UIState.DRAGGING_COMPANION);
     }
 
     private void moveDraggedCompanionToCurrentHoverable() {
@@ -364,22 +367,23 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
                 break;
         }
     }
-    private void processInputForDefaultState(GFGInputAction action) {
+    private void processInputForDefaultStateCombat(GFGInputAction action, List<Hoverable> hoverableSubset = null) {
+        List<Hoverable> subset = hoverableSubset == null ? allHoverables : hoverableSubset;
         switch(action) {
             case GFGInputAction.UP:
-                hoverInDirection(Vector2.up, allHoverables);
+                hoverInDirection(Vector2.up, subset);
                 Debug.Log("[NonMouseInputManager] State: DEFAULT, Action: UP, hoveredCardIndex: " + hoveredCardIndex);
                 break;
             case GFGInputAction.DOWN:
-                hoverInDirection(Vector2.down, allHoverables);
+                hoverInDirection(Vector2.down, subset);
                 Debug.Log("[NonMouseInputManager] State: DEFAULT, Action: DOWN, hoveredCardIndex: " + hoveredCardIndex);
                 break;
             case GFGInputAction.LEFT:
-                hoverInDirection(Vector2.left, allHoverables); 
+                hoverInDirection(Vector2.left, subset); 
                 Debug.Log("[NonMouseInputManager] State: DEFAULT, Action: LEFT, hoveredCardIndex: " + hoveredCardIndex);
                 break;
             case GFGInputAction.RIGHT:
-                hoverInDirection(Vector2.right, allHoverables); 
+                hoverInDirection(Vector2.right, subset); 
                 Debug.Log("[NonMouseInputManager] State: DEFAULT, Action: RIGHT, hoveredCardIndex: " + hoveredCardIndex);
                 break;
             case GFGInputAction.SELECT:
@@ -418,7 +422,7 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
         if(UIStateManager.Instance.currentState != UIState.EFFECT_TARGETTING) {
             Debug.LogError("[NonMouseInputManager] State: EFFECT_TARGETTING, but UIStateManager is not in that state");
             // Do this anyways to keep the game mfrom softlocking
-            processInputForDefaultState(action);
+            processInputForDefaultStateCombat(action);
             return;
         }
         switch(action) {

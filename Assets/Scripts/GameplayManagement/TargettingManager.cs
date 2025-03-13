@@ -32,6 +32,7 @@ public class TargettingManager : GenericSingleton<TargettingManager>
         }
     }
 
+    // add code here
     public void selectCards(
             List<Card> options,
             string promptText,
@@ -43,22 +44,24 @@ public class TargettingManager : GenericSingleton<TargettingManager>
             cardSelectionUIPrefab,
             Vector3.zero,
             Quaternion.identity);
-        CardViewUI cardViewUI = gameObject.GetComponent<CardViewUI>();
+        CardSelectionView cardSelectionView = gameObject.GetComponent<CardSelectionView>();
         // don't shuffle here, it's used for scrying
-        cardViewUI.Setup(options, minCardsToSelect, promptText, maxCardsToSelect);
+        //cardViewUI.Setup(options, minCardsToSelect, promptText, maxCardsToSelect);
+        cardSelectionView.Setup(options, promptText, minCardsToSelect, maxCardsToSelect);
+        cardSelectionView.cardsSelectedHandler += ProcessCardSelection;
         cardSelectionsList = output;
         lookingForCardSelections = true;
     }
 
-    public void cardsSelectedEventHandler(CardListEventInfo eventInfo) {
+    public void ProcessCardSelection(List<Card> cards, Companion companion) {
         if (!lookingForCardSelections) {
-            Debug.Log("TargettingManager: Cards selected event raised but" +
+            Debug.Log("TargettingManager: Cards selected but" +
             " not looking for card selections!");
             return;
         }
-        cardSelectionsList.AddRange(eventInfo.cards);
+        cardSelectionsList.AddRange(cards);
         lookingForCardSelections = false;
-        cardSelectionsList = null;
+        //cardSelectionsList = null;
     }
 }
 

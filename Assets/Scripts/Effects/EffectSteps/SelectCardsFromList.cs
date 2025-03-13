@@ -40,11 +40,10 @@ public class SelectCardsFromList : EffectStep {
     public override IEnumerator invoke(EffectDocument document)
     {
         if (!document.map.ContainsValueWithKey<Card>(inputKey)) {
-            EffectError("InputKey " + inputKey + " doesn't exist in the EffectDocument");
-            yield return null;
+            EffectLog("No cards to select from, this could be intentional (scrying from an empty deck)");
         }
 
-        List<Card> cardOptions = document.map.GetList<Card>(inputKey);
+        List<Card> cardOptions = document.map.TryGetList<Card>(inputKey);
         if (randomizeOrder) {
             cardOptions = ShuffleCards(new List<Card>(cardOptions));
         }

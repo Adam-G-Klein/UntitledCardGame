@@ -47,6 +47,7 @@ public class CardSelectionView : MonoBehaviour
         this.minSelections = minSelections;
         this.maxSelections = maxSelections;
         this.promptText = promptText;
+        cardViews = new List<CardView>();
 
         if (minSelections <= 0) {
             this.confirmExitButton.text = "Exit";
@@ -78,7 +79,8 @@ public class CardSelectionView : MonoBehaviour
                 newCardView.cardContainer,
                 () => CardViewClicked(null, newCardView),
                 () => {},
-                () => {});
+                () => {},
+                HoverableType.CardSelection);
             cardWrapper.Add(newCardView.cardContainer);
             cardViews.Add(newCardView);
             this.cardContainer.Add(cardWrapper);
@@ -93,7 +95,7 @@ public class CardSelectionView : MonoBehaviour
         this.cardContainer = uiDoc.rootVisualElement.Q("card-scroll-view-container");
         this.confirmExitButton = uiDoc.rootVisualElement.Q<Button>("confirm-exit-button");
         this.promptTextLabel = uiDoc.rootVisualElement.Q<Label>("prompt-text-label");
-        this.confirmExitButton.clicked += ExitView;
+        this.confirmExitButton.RegisterCallback<ClickEvent>(evt => ExitView());
     }
 
     private void CardViewClicked(ClickEvent evt, CardView cardView) {
@@ -117,10 +119,7 @@ public class CardSelectionView : MonoBehaviour
         foreach(CardView cardView in cardViews) {
             UIDocumentHoverableInstantiator.Instance.CleanupHoverable(cardView.cardContainer);
         }
-        if (this.minSelections <= 0) {
-            Destroy(this.gameObject);
-            return;
-        }
+        cardViews.Clear();
 
         if (cardsSelected.Count < minSelections) {
             if (currentCoroutine == null) {
@@ -134,7 +133,12 @@ public class CardSelectionView : MonoBehaviour
         foreach (CardView cardView in cardsSelected) {
             outputCards.Add(cardView.cardInstance);
         }
-        cardsSelectedHandler.Invoke(outputCards, companion);
+        if(cardsSelectedHandler != null) {
+            // need to invoke the handler even if we have no cards,
+            // in cases like scrying on an empty deck, so the targetting manager knows
+            // that it can proceed
+            cardsSelectedHandler.Invoke(outputCards, companion);
+        }
         Destroy(this.gameObject);
     }
 
