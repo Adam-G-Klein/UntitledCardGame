@@ -13,6 +13,9 @@ public class FilterEntityByHP : EffectStep, IEffectStepCalculation
     [SerializeField]
     private string outputKey = "";
 
+    [SerializeField]
+    private bool below = true;
+
     public FilterEntityByHP() {
         effectStepName = "FilterEntityByHP";
     }
@@ -27,7 +30,8 @@ public class FilterEntityByHP : EffectStep, IEffectStepCalculation
         List<CombatInstance> filteredList = new List<CombatInstance>();
         foreach (CombatInstance instance in combatInstances) {
             int threshold = Convert.ToInt32(instance.combatStats.maxHealth * percentThreshold);
-            if (instance.combatStats.currentHealth <= threshold) {
+            bool belowThreshold = instance.combatStats.currentHealth <= threshold;
+            if (belowThreshold == below) {
                 filteredList.Add(instance);
             }
         }
