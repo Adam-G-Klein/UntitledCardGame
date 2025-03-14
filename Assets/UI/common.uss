@@ -700,3 +700,25 @@
     justify-content: center;
     flex-grow: 1;
 }
+
+.main-menu-button {
+    width: 37%;
+    font-size: 36px;
+    color: rgb(0, 0, 0);
+    background-image: url("project://database/Assets/Sprites/AidensRoom/PlainButton.png?fileID=2800000&guid=7658c1c9cdcd39645bfab6bea3fa37fd&type=3#PlainButton");
+    background-color: rgba(0, 0, 0, 0);
+    -unity-font-style: normal;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    height: auto;
+}
+
+.main-menu-button:hover {
+    -unity-background-image-tint-color: rgb(202, 202, 202);
+}
+
+.main-menu-button:active {
+    -unity-background-image-tint-color: rgb(135, 135, 135);
+}
