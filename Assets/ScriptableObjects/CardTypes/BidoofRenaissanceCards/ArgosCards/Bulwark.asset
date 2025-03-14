@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Bulwark
   Description: Draw 1 from this companion. If in hand at the end of the turn, parent
-    companion gains 1 block for each card you have played this turn ({numPlayedCards})
+    companion gains 1 block for each card you have played this turn ({numCardsPlayed})
   defaultValues:
-  - key: numPlayedCards
+  - key: numCardsPlayed
     value: 0
   Cost: 0
   Artwork: {fileID: 21300000, guid: 9dcd5e58ee426e840a202b9accb8036b, type: 3}
