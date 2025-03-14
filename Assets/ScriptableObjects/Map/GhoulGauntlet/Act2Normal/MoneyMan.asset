@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MoneyMan
   m_EditorClassIdentifier: 
   displayName: The Money Man
-  maxHealth: 50
+  maxHealth: 40
   baseAttackDamage: 0
   sprite: {fileID: 21300000, guid: 50803aca96bda2c46957a0c2dc4bb17e, type: 3}
   backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
@@ -50,8 +50,8 @@ MonoBehaviour:
       effectSteps:
       - rid: 4463205916933358319
       - rid: 4463205916933358412
-      - rid: 4463205916933358347
       - rid: 5280922829633618007
+      - rid: 4463205916933358347
     behaviorType: 0
     behaviorIndex: 0
     nextBehaviorIndex: 2
