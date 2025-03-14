@@ -75,7 +75,7 @@ public class ShopEncounter : Encounter
             setupKeepsakes();
         }
         shopManager.SetupUnitManagement();
-        shopManager.shopViewController.SetupHoverablesForStartAndReroll();
+        shopManager.shopViewController.SetupStaticHoverables();
     }
 
     public override void BuildWithEncounterBuilder(IEncounterBuilder encounterBuilder) {

@@ -108,10 +108,11 @@ public class ShopViewController : MonoBehaviour,
         upgradeButton.RegisterCallback<PointerEnterEvent>(UpgradeButtonOnPointerEnter);
         upgradeButton.RegisterCallback<PointerLeaveEvent>(UpgradeButtonOnPointerLeave);
         uiDoc.rootVisualElement.Q<Button>("start-next-combat-button").RegisterCallback<ClickEvent>(StartNextCombatOnClick);
-        //sellCompanionButton.clicked += SellCompanionOnClick;
-        sellingCompanionConfirmation.Q<Button>("selling-companion-confirmation-yes").clicked += ConfirmSellCompanion;
-        sellingCompanionConfirmation.Q<Button>("selling-companion-confirmation-no").clicked += StopSellingCompanion;
-        originalSellingCompanionConfirmationText = sellingCompanionConfirmation.Q<Label>("selling-companion-confirmation-label").text;
+
+        sellingCompanionConfirmation.Q<Button>("selling-companion-confirmation-yes").RegisterCallback<ClickEvent>((evt) => ConfirmSellCompanion());
+        sellingCompanionConfirmation.Q<Button>("selling-companion-confirmation-no").RegisterCallback<ClickEvent>((evt) => StopSellingCompanion());
+            originalSellingCompanionConfirmationText = sellingCompanionConfirmation.Q<Label>("selling-companion-confirmation-label").text;
+        
         deckView.Q<Button>().clicked += CloseCompanionDeckView;
 
         cardRemovalButton = uiDoc.rootVisualElement.Q<Button>("card-remove-button");
@@ -326,6 +327,9 @@ public class ShopViewController : MonoBehaviour,
         sellingCompanions = true;
         selectingCompanionVeil.style.visibility = Visibility.Visible;
         canDragCompanions = false;
+        NonMouseInputManager.Instance.SetUIState(UIState.SELLING_COMPANION);
+
+        
     }
 
     public void StopSellingCompanion() {
@@ -334,6 +338,9 @@ public class ShopViewController : MonoBehaviour,
         canDragCompanions = true;
         companionToSell = null;
         sellingCompanionConfirmation.style.visibility = Visibility.Hidden;
+        NonMouseInputManager.Instance.SetUIState(UIState.DEFAULT);
+
+
     }
 
     public void CompanionManagementOnClick(CompanionManagementView companionView, ClickEvent evt)
@@ -358,6 +365,7 @@ public class ShopViewController : MonoBehaviour,
         canDragCompanions = true;
         selectingCompanionVeil.style.visibility = Visibility.Hidden;
         sellingCompanionConfirmation.style.visibility = Visibility.Hidden;
+        NonMouseInputManager.Instance.SetUIState(UIState.DEFAULT);
     }
 
     private void DontSellCompanion() {
@@ -950,7 +958,7 @@ public class ShopViewController : MonoBehaviour,
         }
     }
 
-    public void SetupHoverablesForStartAndReroll() {
+    public void SetupStaticHoverables() {
         UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(rerollButton,
                 () => {RerollButtonOnClick(null);}, 
                 () => {},
@@ -967,5 +975,20 @@ public class ShopViewController : MonoBehaviour,
                 () => {CardRemovalButtonOnClick(null);}, 
                 () => {},
                 () => {});
+        // Create hoverables for selling companion confirmation buttons
+        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(
+            sellingCompanionConfirmation.Q<Button>("selling-companion-confirmation-yes"),
+            () => { ConfirmSellCompanion(); },
+            () => { /* onHover action */ },
+            () => { /* onUnhover action */ },
+            HoverableType.SellingCompanion
+        );
+        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(
+            sellingCompanionConfirmation.Q<Button>("selling-companion-confirmation-no"),
+            () => { StopSellingCompanion(); },
+            () => { /* onHover action */ },
+            () => { /* onUnhover action */ },
+            HoverableType.SellingCompanion
+        );
     }
 }

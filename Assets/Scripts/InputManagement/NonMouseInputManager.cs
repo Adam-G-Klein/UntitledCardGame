@@ -252,30 +252,47 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
         return filtered;
     }
 
+    private List<Hoverable> filterOutHoverablesByTypes(List<HoverableType> typesToFilterOut, List<Hoverable> candidates) {
+        List<Hoverable> filtered = new List<Hoverable>();
+        foreach (Hoverable candidate in candidates) {
+            if (!typesToFilterOut.Contains(candidate.hoverableType)) {
+                filtered.Add(candidate);
+            }
+        }
+        return filtered;
+    }
+
     private void processInputForShop(GFGInputAction action) {
+        List<HoverableType> typesToFilterOut = new List<HoverableType> { HoverableType.SellingCompanion, HoverableType.UpgradingCompanion };
+        List<Hoverable> filteredHoverables = filterOutHoverablesByTypes(typesToFilterOut, allHoverables);
+
         switch(uiState) {
             case UIState.DEFAULT:
-                processInputForShopDefaultState(action);
+                processInputForShopDefaultState(action, filteredHoverables);
                 break;
             case UIState.DRAGGING_COMPANION:
                 processInputForShopDraggingCompanionState(action);
                 break;
             case UIState.CARD_SELECTION_DISPLAY:
                 processInputForShopDefaultState(action,
-                    filterHoverablesByHoverableType(HoverableType.CardSelection, allHoverables));
+                    filterHoverablesByHoverableType(HoverableType.CardSelection, filteredHoverables));
                 break;
             case UIState.PURCHASING_CARD:
                 Debug.Log("[NonMouseInputManager] processing input for state: PURCHASING_CARD, cardPurchasingFor: " + cardPurchasingFor.name);
                 processInputForShopDefaultState(action, 
-                    filterHoverablesByApplicableCompanionType(cardPurchasingFor, allHoverables));
+                    filterHoverablesByApplicableCompanionType(cardPurchasingFor, filteredHoverables));
                 break;
             case UIState.SELLING_COMPANION:
+                processInputForShopDefaultState(action,
+                    filterHoverablesByHoverableType(HoverableType.SellingCompanion, allHoverables));
                 break;
             case UIState.UPGRADING_COMPANION:
+                processInputForShopDefaultState(action,
+                    filterHoverablesByHoverableType(HoverableType.UpgradingCompanion, allHoverables));
                 break;
             case UIState.REMOVING_CARD:
                 processInputForShopDefaultState(action,
-                    filterHoverablesByHoverableType(HoverableType.CompanionManagement, allHoverables));
+                    filterHoverablesByHoverableType(HoverableType.CompanionManagement, filteredHoverables));
                 break;
             default:
                 Debug.LogError("[NonMouseInputManager] I'm in the shop so I can't process input for state: " + uiState);

@@ -104,6 +104,7 @@ public class ShopItemView {
 
     private void ShopItemViewOnClicked() {
         viewDelegate.ShopItemOnClick(this);
+        viewDelegate.DestroyTooltip(shopItemElement);
     }
 
     public void Disable() {

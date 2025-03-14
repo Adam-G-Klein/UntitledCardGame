@@ -9,7 +9,9 @@ public enum HoverableType {
     DefaultShop, // Unused, future proofing
     OptionsMenu, // Unused, future proofing
     CompanionManagement,
-    CardSelection
+    CardSelection,
+    SellingCompanion,
+    UpgradingCompanion
 }
 
 public class Hoverable : MonoBehaviour {
