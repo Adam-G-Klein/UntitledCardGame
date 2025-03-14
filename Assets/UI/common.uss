@@ -247,7 +247,7 @@
 
 .companion-info-container {
     flex-grow: 1;
-    background-color: rgba(0, 0, 0, 0);
+    background-color: rgba(255, 255, 255, 0.52);
     width: 33%;
     height: 100%;
     align-items: center;
@@ -433,10 +433,10 @@
 }
 
 .companion-info-container:hover {
-    border-left-color: rgba(152, 152, 152, 0.53);
-    border-right-color: rgba(152, 152, 152, 0.53);
-    border-top-color: rgba(152, 152, 152, 0.53);
-    border-bottom-color: rgba(152, 152, 152, 0.53);
+    border-left-color: rgb(255, 255, 255);
+    border-right-color: rgb(255, 255, 255);
+    border-top-color: rgb(255, 255, 255);
+    border-bottom-color: rgb(255, 255, 255);
     border-left-width: 2px;
     border-right-width: 2px;
     border-top-width: 2px;

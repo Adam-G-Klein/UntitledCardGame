@@ -84,6 +84,7 @@ public class TeamSelectionUI : MonoBehaviour
         {
             container.Add(makeCharacterView(companionType));
         }
+        container.AddToClassList("companion-portraits-container");
     }
     private VisualElement makeCharacterView(CompanionTypeSO companionType) {
         var container = new VisualElement();
@@ -106,7 +107,7 @@ public class TeamSelectionUI : MonoBehaviour
 
         var portrait = new VisualElement();
         portrait.AddToClassList("companion-portrait");
-        portrait.style.backgroundImage = new StyleBackground(companionType.sprite);
+        portrait.style.backgroundImage = new StyleBackground(companionType.fullSprite);
         container.Add(portrait);
         container.name = companionType.name;
 
