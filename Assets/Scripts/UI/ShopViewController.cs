@@ -901,6 +901,10 @@ public class ShopViewController : MonoBehaviour,
         upgradeCompanionContainer.schedule.Execute(() => {
             upgradeCompanionContainer.AddToClassList("upgrade-menu-compainion-1");
         }).StartingIn(delay);
+        upgradeCompanionContainer.schedule.Execute(() => {
+            // update hoverable pos after animation
+            UIDocumentHoverableInstantiator.Instance.UpdateHoverablesPosition();
+        }).StartingIn(delay + 1000); // GET RACE CONDITIONED LOSER
         upgradeEntityView.entityContainer.RegisterCallback<PointerEnterEvent>((evt) => {
             DisplayTooltip(upgradeEntityView.entityContainer, upgradeCompanionType.tooltip, false);
         });
@@ -911,6 +915,7 @@ public class ShopViewController : MonoBehaviour,
         companionUpgradeMenu.AddToClassList("upgrade-menu-container-visible");
         upgradeMenuOuterContainer.AddToClassList("upgrade-menu-outer-container-visible");
         upgradeMenuOuterContainer.pickingMode = PickingMode.Position;
+        NonMouseInputManager.Instance.SetUIState(UIState.UPGRADING_COMPANION);
     }
 
     private void CancelUpgrade() {
@@ -922,6 +927,7 @@ public class ShopViewController : MonoBehaviour,
         upgradeMenuOuterContainer.RemoveFromClassList("upgrade-menu-outer-container-visible");
         upgradeMenuOuterContainer.pickingMode = PickingMode.Ignore;
         shopManager.CancelUpgradePurchase();
+        NonMouseInputManager.Instance.SetUIState(UIState.DEFAULT);
     }
 
     private void ConfirmUpgrade() {
@@ -934,6 +940,7 @@ public class ShopViewController : MonoBehaviour,
         upgradeMenuOuterContainer.RemoveFromClassList("upgrade-menu-outer-container-visible");
         upgradeMenuOuterContainer.pickingMode = PickingMode.Ignore;
         shopManager.ConfirmUpgradePurchase();
+        NonMouseInputManager.Instance.SetUIState(UIState.DEFAULT);
     }
 
     public void DisplayTooltip(VisualElement element, TooltipViewModel tooltipViewModel, bool forCompanionManagementView) {
@@ -994,5 +1001,42 @@ public class ShopViewController : MonoBehaviour,
             () => { /* onUnhover action */ },
             HoverableType.SellingCompanion
         );
+
+        // Create hoverables for the companion upgrade question mark and confirmation
+        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(
+            uiDoc.rootVisualElement.Q<Button>("confirmUpgrade"),
+            () => { ConfirmUpgrade(); },
+            () => { /* onHover action */ },
+            () => { /* onUnhover action */ },
+            HoverableType.UpgradingCompanion
+        );
+
+        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(
+            uiDoc.rootVisualElement.Q<Button>("cancelUpgrade"),
+            () => { CancelUpgrade(); },
+            () => { /* onHover action */ },
+            () => { /* onUnhover action */ },
+            HoverableType.UpgradingCompanion
+        );
+
+        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(
+            uiDoc.rootVisualElement.Q<VisualElement>(name: "questionMark"),
+            () => {},
+            () => {ShowHelperText(null);},
+            () => {HideHelperText(null);},
+            HoverableType.UpgradingCompanion
+        );
+
+        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(
+            uiDoc.rootVisualElement.Q<Button>("upgradedDeckPreview"),
+            () => { PreviewUpgradedDeck();},
+            () => { /* onHover action */ },
+            () => { /* onUnhover action */ },
+            HoverableType.UpgradingCompanion
+        );
+
+
+
+
     }
 }

@@ -14,7 +14,7 @@ public class UIDocumentHoverableInstantiator : GenericSingleton<UIDocumentHovera
     private GameObject hoverablePrefab;
 
     private Dictionary<VisualElement, GameObject> hoverablesByElement = new Dictionary<VisualElement, GameObject>();
-
+    List<VisualElement> visualElementsWaitingOn = new List<VisualElement>();
 
     public void InstantiateHoverableWhenUIElementReady(VisualElement element, 
         Action selectCallback = null, 
@@ -22,7 +22,11 @@ public class UIDocumentHoverableInstantiator : GenericSingleton<UIDocumentHovera
         Action unhoverCallback = null, 
         HoverableType hoverableType = HoverableType.DefaultShop,
         CompanionTypeSO companionTypeSO = null){
+        if(visualElementsWaitingOn.Contains(element)){
+            return;
+        }
         StartCoroutine(InstantiateHoverableWhenUIElementReadyCorout(element, selectCallback, hoverCallback, unhoverCallback, hoverableType, companionTypeSO));
+        visualElementsWaitingOn.Add(element);
     }
 
     private IEnumerator InstantiateHoverableWhenUIElementReadyCorout(VisualElement element, Action selectCallback = null, Action hoverCallback = null, Action unhoverCallback = null, HoverableType hoverableType = HoverableType.DefaultShop, CompanionTypeSO companionTypeSO = null){
@@ -49,10 +53,15 @@ public class UIDocumentHoverableInstantiator : GenericSingleton<UIDocumentHovera
         UIDocumentHoverableCallbackRegistry.Instance.RegisterCallback(element, InputActionType.Hover, hoverCallback);
         UIDocumentHoverableCallbackRegistry.Instance.RegisterCallback(element, InputActionType.Unhover, unhoverCallback);
         hoverablesByElement.Add(element, hoverableGO);
+        visualElementsWaitingOn.Remove(element);
     }
 
     public void CleanupHoverable(VisualElement element, bool removeFromDict = true){
+        if(visualElementsWaitingOn.Contains(element)){
+            visualElementsWaitingOn.Remove(element);
+        }
         if(hoverablesByElement.ContainsKey(element)){
+            Debug.Log("[HoverableInstantiation] Cleaning up hoverable for element: " + element.name);
             GameObject hoverableGO = hoverablesByElement[element];
             UIDocumentHoverableCallbackRegistry.Instance.UnregisterAllCallbacks(element);
             Destroy(hoverableGO);
@@ -74,6 +83,7 @@ public class UIDocumentHoverableInstantiator : GenericSingleton<UIDocumentHovera
             CleanupHoverable(kvp.Key, false);
         }
         hoverablesByElement.Clear();
+        NonMouseInputManager.Instance.ClearHoverState();
     }
     public void CallIfNextHoverableNotInElemListWhenReady(Action action, List<VisualElement> elements) {
         StartCoroutine(CallIfNextHoverableNotInElemListWhenReadyCorout(action, elements));

@@ -52,6 +52,7 @@ public class ShopItemView {
         shopItemElement.RegisterCallback<ClickEvent>(evt => ShopItemViewOnClicked());
         shopItemElement.RegisterCallback<PointerEnterEvent>(OnPointerEnter);
         shopItemElement.RegisterCallback<PointerLeaveEvent>(OnPointerLeave);
+        shopItemElement.name = companion.companionType.name;
 
         UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(shopItemElement,
             ShopItemViewOnClicked,
@@ -81,6 +82,7 @@ public class ShopItemView {
 
         shopItemElement.RegisterCallback<ClickEvent>(clickEventHandler);
         shopItemElement.RegisterCallback<PointerEnterEvent>(OnPointerEnter);
+        shopItemElement.name = card.cardType.name;
         UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(shopItemElement,
             ShopItemViewOnClicked,
             ()=> {OnPointerEnter(null);},

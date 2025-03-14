@@ -128,4 +128,18 @@ public class UIDocumentHoverableCallbackRegistry : GenericSingleton<UIDocumentHo
         }
     }
 
+    public bool HasCallback(VisualElement element, InputActionType actionType){
+        switch(actionType){
+            case InputActionType.Select:
+                return selectCallbacksByElement.ContainsKey(element);
+            case InputActionType.Hover:
+                return hoverCallbacksByElement.ContainsKey(element);
+            case InputActionType.Unhover:
+                return unhoverCallbacksByElement.ContainsKey(element);
+            default:
+                Debug.LogError("UIDocumentHoverableCallbackRegistry: Invalid action type " + actionType);
+                return false;
+        }
+    }
+
 }

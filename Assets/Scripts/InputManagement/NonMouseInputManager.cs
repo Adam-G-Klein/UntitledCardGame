@@ -63,6 +63,7 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
     private CompanionManagementView companionManagementView;
 
     private CardInShopWithPrice cardPurchasingFor; 
+    private bool inDeckPreview = false;
 
     void Awake()
     {
@@ -80,9 +81,13 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
     }
 
     public void ClearHoverState() {
-        currentlyHovered.onUnhover();
-        currentlyHovered = null;
-        hoverIndicator.SetActive(false);
+        if(currentlyHovered != null) {
+            currentlyHovered.onUnhover();
+            currentlyHovered = null;
+        }
+        if(hoverIndicator != null)
+            hoverIndicator.SetActive(false);
+
     }
 
     public void RegisterHoverable(Hoverable hoverable) {
@@ -581,6 +586,14 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
         if(gameState.activeEncounter.GetValue().getEncounterType() != EncounterType.Shop) {
             UIStateManager.Instance.setState(newState);
         } else {
+            // lol get special cased nerd
+            if(newState == UIState.CARD_SELECTION_DISPLAY && uiState == UIState.UPGRADING_COMPANION) {
+                inDeckPreview = true;
+            }
+            if(newState == UIState.DEFAULT && inDeckPreview) {
+                inDeckPreview = false;
+                newState = UIState.UPGRADING_COMPANION;
+            }
             uiState = newState;
         }
     }

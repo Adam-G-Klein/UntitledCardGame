@@ -100,7 +100,8 @@ public class Hoverable : MonoBehaviour {
         foreach(IPointerExitHandler handler in exitHandlers) {
             handler.OnPointerExit(null);
         }
-        if(associatedUIDocElement != null) {
+        if(associatedUIDocElement != null 
+            && UIDocumentHoverableCallbackRegistry.Instance.HasCallback(associatedUIDocElement, InputActionType.Unhover)) {
             UIDocumentHoverableCallbackRegistry.Instance.InvokeCallback(associatedUIDocElement, InputActionType.Unhover);
         }
     }
