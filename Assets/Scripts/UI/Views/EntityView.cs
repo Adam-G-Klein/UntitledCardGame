@@ -121,14 +121,13 @@ public class EntityView : IUIEventReceiver {
         
         Sprite sprite; 
         if (entity is Companion companion) {
-            sprite = companion.companionType.sprite;
+            sprite = isCompanionManagementView ? companion.companionType.fullSprite : companion.companionType.sprite;
         } else if (entity is CompanionInstance companionInstance) {
-            sprite = companionInstance.companion.companionType.sprite;
-            portrait.style.backgroundImage = new StyleBackground(sprite);
+            sprite = isCompanionManagementView ? companionInstance.companion.companionType.fullSprite : companionInstance.companion.companionType.sprite;
         } else {
             sprite = null;
-            portrait.style.backgroundImage = new StyleBackground(sprite);
         }
+        portrait.style.backgroundImage = new StyleBackground(sprite);
 
         var baseString = isEnemy ? UIDocumentGameObjectPlacer.ENEMY_UIDOC_ELEMENT_PREFIX : UIDocumentGameObjectPlacer.COMPANION_UIDOC_ELEMENT_PREFIX;
         string portraitContainerName = baseString + index.ToString();

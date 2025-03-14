@@ -24,6 +24,7 @@ public class CompanionTypeSO : ScriptableObject
     public int initialCardsDealtPerTurn = 1;
     [Header("Art Assets")]
     public Sprite sprite;
+    public Sprite fullSprite;
     public Sprite backgroundImage;
     public Sprite entityFrame;
     public Sprite companionManagementFrame;
