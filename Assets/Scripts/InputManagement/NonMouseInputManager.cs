@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -260,6 +261,8 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
                 processInputForShopDraggingCompanionState(action);
                 break;
             case UIState.CARD_SELECTION_DISPLAY:
+                processInputForShopDefaultState(action,
+                    filterHoverablesByHoverableType(HoverableType.CardSelection, allHoverables));
                 break;
             case UIState.PURCHASING_CARD:
                 Debug.Log("[NonMouseInputManager] processing input for state: PURCHASING_CARD, cardPurchasingFor: " + cardPurchasingFor.name);
@@ -271,6 +274,8 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
             case UIState.UPGRADING_COMPANION:
                 break;
             case UIState.REMOVING_CARD:
+                processInputForShopDefaultState(action,
+                    filterHoverablesByHoverableType(HoverableType.CompanionManagement, allHoverables));
                 break;
             default:
                 Debug.LogError("[NonMouseInputManager] I'm in the shop so I can't process input for state: " + uiState);
@@ -589,6 +594,21 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
             if (newHoverable != null) {
                 hover(newHoverable);
             }
+        }
+    }
+
+    public void CallIfHoverableNotNextHovered(Action action, List<Hoverable> hoverables) {
+        StartCoroutine(CallIfHoverableNotNextHoveredCorout(action,hoverables));
+    }
+
+    private IEnumerator CallIfHoverableNotNextHoveredCorout(Action action, List<Hoverable> hoverables) {
+        Debug.Log("[NonMouseInputManager] Starting CallIfHoverableNotNextHoveredCorout");
+        Hoverable startHoverable = currentlyHovered;
+        yield return new WaitUntil(() => (currentlyHovered != startHoverable) && (currentlyHovered != null));
+        
+        Debug.Log("[NonMouseInputManager] Hoverables we wont' call for: " + string.Join(", ", hoverables) + ", Currently Hovered: " + currentlyHovered + ", Start Hoverable: " + startHoverable + " contains? " + hoverables.Contains(currentlyHovered));
+        if(!hoverables.Contains(currentlyHovered)) {
+            action.Invoke();
         }
     }
 }

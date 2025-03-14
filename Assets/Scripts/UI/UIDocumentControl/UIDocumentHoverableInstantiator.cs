@@ -75,4 +75,26 @@ public class UIDocumentHoverableInstantiator : GenericSingleton<UIDocumentHovera
         }
         hoverablesByElement.Clear();
     }
+    public void CallIfNextHoverableNotInElemListWhenReady(Action action, List<VisualElement> elements) {
+        StartCoroutine(CallIfNextHoverableNotInElemListWhenReadyCorout(action, elements));
+    }
+
+    private IEnumerator CallIfNextHoverableNotInElemListWhenReadyCorout(Action action, List<VisualElement> elements) {
+        List<Hoverable> hoverables = new List<Hoverable>(); 
+        foreach (var elem in elements) {
+            if(elem == null) continue; // shop sell and view deck buttons can be null
+            while (!hoverablesByElement.ContainsKey(elem)) {
+                Debug.Log("[HoverableInstantiation] Element is not ready yet for calling method when it's hovered, waiting...");
+                yield return null;
+            }
+            foreach (var kvp in hoverablesByElement) {
+                Debug.Log($"Checking if element {elem.name} is equal to key {kvp.Key.name} and value is not null: {elem != null && kvp.Key == elem && kvp.Value != null}");
+                if (elem != null && kvp.Key == elem && kvp.Value != null) {
+                    hoverables.Add(kvp.Value.GetComponent<Hoverable>());
+                }
+            }
+        }
+        NonMouseInputManager.Instance.CallIfHoverableNotNextHovered(action, hoverables);
+    }
+
 }

@@ -86,6 +86,9 @@ public class Hoverable : MonoBehaviour {
         foreach(IPointerEnterHandler handler in enterHandlers) {
             handler.OnPointerEnter(null);
         }
+        if(associatedUIDocElement != null) {
+            UIDocumentHoverableCallbackRegistry.Instance.InvokeCallback(associatedUIDocElement, InputActionType.Hover);
+        }
 
     }
 
@@ -94,6 +97,9 @@ public class Hoverable : MonoBehaviour {
         hovered = false;
         foreach(IPointerExitHandler handler in exitHandlers) {
             handler.OnPointerExit(null);
+        }
+        if(associatedUIDocElement != null) {
+            UIDocumentHoverableCallbackRegistry.Instance.InvokeCallback(associatedUIDocElement, InputActionType.Unhover);
         }
     }
 

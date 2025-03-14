@@ -56,7 +56,7 @@ public class ShopItemView {
         UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(shopItemElement,
             ShopItemViewOnClicked,
             ()=> {OnPointerEnter(null);},
-            () => {});
+            () => {OnPointerLeave(null);});
 
         shopItemElement.Add(CreatePriceTagForShopItem(companion.price));
 
@@ -84,7 +84,7 @@ public class ShopItemView {
         UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(shopItemElement,
             ShopItemViewOnClicked,
             ()=> {OnPointerEnter(null);},
-            () => {});
+            () => {OnPointerLeave(null);});
         shopItemElement.RegisterCallback<PointerLeaveEvent>(OnPointerLeave);
 
         shopItemElement.Add(CreatePriceTagForShopItem(card.price));

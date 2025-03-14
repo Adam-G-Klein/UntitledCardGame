@@ -474,8 +474,10 @@ public class ShopViewController : MonoBehaviour,
     public void CompanionManagementOnPointerLeave(CompanionManagementView companionManagementView, PointerLeaveEvent evt) {
         if (!isDraggingCompanion || companionBeingDragged != companionManagementView.container)  return;
 
-        companionManagementView.container.parent.style.top = evt.position.y - companionManagementView.container.parent.layout.height / 2;
-        companionManagementView.container.parent.style.left = evt.position.x - companionManagementView.container.parent.layout.width / 2;
+        if(evt != null || NonMouseInputManager.Instance.inputMethod == InputMethod.Mouse) {
+            companionManagementView.container.parent.style.top = evt.position.y - companionManagementView.container.parent.layout.height / 2;
+            companionManagementView.container.parent.style.left = evt.position.x - companionManagementView.container.parent.layout.width / 2;
+        }
     }
 
     public void ComapnionManagementOnPointerUp(CompanionManagementView companionManagementView, PointerUpEvent evt, Vector2 pointerScreenPos)
@@ -673,6 +675,7 @@ public class ShopViewController : MonoBehaviour,
         canDragCompanions = true;
         selectingCompanionVeil.style.visibility = Visibility.Hidden;
         selectingIndicatorForCardRemovalIndicator.style.visibility = Visibility.Hidden;
+        NonMouseInputManager.Instance.SetUIState(UIState.DEFAULT);
     }
 
     
@@ -958,6 +961,10 @@ public class ShopViewController : MonoBehaviour,
                 () => {UpgradeButtonOnPointerLeave(null);});
         UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(uiDoc.rootVisualElement.Q<Button>("start-next-combat-button"),
                 () => {StartNextCombatOnClick(null);}, 
+                () => {},
+                () => {});
+        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(uiDoc.rootVisualElement.Q<Button>("card-remove-button"),
+                () => {CardRemovalButtonOnClick(null);}, 
                 () => {},
                 () => {});
     }

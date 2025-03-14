@@ -1,7 +1,9 @@
 using UnityEngine;
 using System;
+using System.Linq;
 using UnityEngine.UIElements;
 using System.Collections;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 
 public class CompanionManagementView {
@@ -36,19 +38,11 @@ public class CompanionManagementView {
 
         UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(entityView.entityContainer, 
             () => {CompanionManagementNonMouseSelect();}, 
-            //()=> {CompanionManagementOnPointerEnter(null);},
-            () => {},
-            () => {},
+            ()=> {CompanionManagementOnPointerEnter(null);},
+            () => {ComapnionManagementOnPointerLeave(null);},
             HoverableType.CompanionManagement,
             companion.companionType);
         
-        /*
-        // temp breaking clicking for drag testing
-        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(entityView.entityContainer, 
-            () => {CompanionManagementOnClick(null);}, 
-            ()=> {CompanionManagementOnPointerEnter(null);},
-            () => {});
-            */
         return entityView.entityContainer;
     }
 
@@ -102,10 +96,29 @@ public class CompanionManagementView {
     private void ComapnionManagementOnPointerLeave(PointerLeaveEvent evt) {
         viewDelegate.CompanionManagementOnPointerLeave(this, evt);
         viewDelegate.DestroyTooltip(entityView.entityContainer);
+        // mouse removal / unhover is done w a bounding box.
+        // we need to be more manual abt it w controllers
+        /*if(NonMouseInputManager.Instance.currentlyHovered.associatedUIDocElement != viewDeckButton) {
+            RemoveCompanionHoverButtons();
+        }*/
+        // massive fkn race condition sry folks
+        if(NonMouseInputManager.Instance.inputMethod != InputMethod.Mouse) {
+            List<VisualElement> elems = new List<VisualElement>
+            {
+                viewDeckButton,
+                sellCompanionButton
+            };
+            UIDocumentHoverableInstantiator.Instance.CallIfNextHoverableNotInElemListWhenReady(
+                RemoveCompanionHoverButtons, 
+                elems);
+        }
     }
 
     private void CreateViewDeckButton() {
-        if (viewDeckButton != null) viewDeckButton.RemoveFromHierarchy();
+        if (viewDeckButton != null) {
+            UIDocumentHoverableInstantiator.Instance.CleanupHoverable(viewDeckButton);
+            viewDeckButton.RemoveFromHierarchy();
+        } 
         viewDeckButton = new Button();
         viewDeckButton.AddToClassList("shopButton");
         viewDeckButton.AddToClassList("companion-view-deck-button");
@@ -115,14 +128,37 @@ public class CompanionManagementView {
         viewDeckButton.style.top = container.worldBound.yMin - container.worldBound.height * 0.3f;
         viewDeckButton.style.left = container.worldBound.xMin - 4;
         viewDeckButton.style.height = container.worldBound.height * 0.3f;
+        viewDeckButton.name = "viewdeck";
 
-        viewDeckButton.clicked += ViewDeckButtonOnClick;
+        viewDeckButton.RegisterCallback<ClickEvent>((evt) => {ViewDeckButtonOnClick();});
 
         viewDelegate.AddToRoot(viewDeckButton);
+        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(viewDeckButton,
+            () => {ViewDeckButtonOnClick();},
+            ()=> {},
+            ()=> {
+                RemoveCompanionHoverButtonsIfNextHoverableNotInElemList();
+            },
+            HoverableType.DefaultShop);
+    }
+
+    private void RemoveCompanionHoverButtonsIfNextHoverableNotInElemList() {
+        List<VisualElement> elems = new List<VisualElement>
+        {
+            viewDeckButton,
+            sellCompanionButton,
+            entityView.entityContainer
+        };
+        UIDocumentHoverableInstantiator.Instance.CallIfNextHoverableNotInElemListWhenReady(
+            RemoveCompanionHoverButtons, 
+            elems);
     }
 
     private void CreateSellCompanionButton() {
-        if (sellCompanionButton != null) sellCompanionButton.RemoveFromHierarchy();
+        if (sellCompanionButton != null) {
+            sellCompanionButton.RemoveFromHierarchy();
+            UIDocumentHoverableInstantiator.Instance.CleanupHoverable(sellCompanionButton);
+        }
         sellCompanionButton = new Button();
         sellCompanionButton.AddToClassList("shopButton");
         sellCompanionButton.AddToClassList("companion-sell-button");
@@ -132,10 +168,20 @@ public class CompanionManagementView {
         sellCompanionButton.style.top = container.worldBound.yMax - 4;
         sellCompanionButton.style.left = container.worldBound.xMin - 4;
         sellCompanionButton.style.height = container.worldBound.height * 0.3f;
+        sellCompanionButton.name = "sellcompanion";
 
-        sellCompanionButton.clicked += SellCompanionButtonOnClick;
+
+
+        sellCompanionButton.RegisterCallback<ClickEvent>((evt) => {SellCompanionButtonOnClick();});
 
         viewDelegate.AddToRoot(sellCompanionButton);
+        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(sellCompanionButton,
+            () => {SellCompanionButtonOnClick();},
+            ()=> {},
+            ()=> {
+                RemoveCompanionHoverButtonsIfNextHoverableNotInElemList();
+            },
+            HoverableType.DefaultShop);
     }
 
     private void ViewDeckButtonOnClick() {
@@ -172,7 +218,7 @@ public class CompanionManagementView {
 
 
     private void BoundingBoxParentOnPointerMove(PointerMoveEvent evt) {
-        if (!companionBoundingBox.worldBound.Contains(evt.position)) {
+        if (!companionBoundingBox.worldBound.Contains(evt.position) && NonMouseInputManager.Instance.inputMethod == InputMethod.Mouse) {
             RemoveCompanionHoverButtons();
         }
     }
@@ -181,11 +227,13 @@ public class CompanionManagementView {
         if (sellCompanionButton != null) {
             sellCompanionButton.style.visibility = Visibility.Hidden;
             sellCompanionButton.RemoveFromHierarchy();
+            UIDocumentHoverableInstantiator.Instance.CleanupHoverable(sellCompanionButton);
             sellCompanionButton = null;
         }
         if (viewDeckButton != null) {
             viewDeckButton.style.visibility = Visibility.Hidden; 
             viewDeckButton.RemoveFromHierarchy();
+            UIDocumentHoverableInstantiator.Instance.CleanupHoverable(viewDeckButton);
             viewDeckButton = null;
         }
         if (companionBoundingBox != null) {
