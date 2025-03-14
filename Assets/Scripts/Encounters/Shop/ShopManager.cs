@@ -253,6 +253,8 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         }
         PlayerData playerData = gameState.playerData.GetValue();
         if (playerData.gold >= shopLevel.upgradeCost) {
+            // Clean up hoverables for old shop items
+
             playerData.gold -= shopLevel.upgradeCost;
             playerData.shopLevel += 1;
             shopLevel = shopEncounter.shopData.GetShopLevel(playerData.shopLevel);

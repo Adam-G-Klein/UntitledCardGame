@@ -51,11 +51,13 @@ public class UIDocumentHoverableInstantiator : GenericSingleton<UIDocumentHovera
         hoverablesByElement.Add(element, hoverableGO);
     }
 
-    public void CleanupHoverable(VisualElement element){
+    public void CleanupHoverable(VisualElement element, bool removeFromDict = true){
         if(hoverablesByElement.ContainsKey(element)){
             GameObject hoverableGO = hoverablesByElement[element];
+            UIDocumentHoverableCallbackRegistry.Instance.UnregisterAllCallbacks(element);
             Destroy(hoverableGO);
-            hoverablesByElement.Remove(element);
+            if(removeFromDict)
+                hoverablesByElement.Remove(element);
         }
     }
 
@@ -65,5 +67,12 @@ public class UIDocumentHoverableInstantiator : GenericSingleton<UIDocumentHovera
             GameObject hoverableGO = kvp.Value;
             hoverableGO.transform.position = UIDocumentGameObjectPlacer.GetWorldPositionFromElement(element);
         }
+    }
+
+    public void CleanupAllHoverables(){
+        foreach (var kvp in hoverablesByElement) {
+            CleanupHoverable(kvp.Key, false);
+        }
+        hoverablesByElement.Clear();
     }
 }

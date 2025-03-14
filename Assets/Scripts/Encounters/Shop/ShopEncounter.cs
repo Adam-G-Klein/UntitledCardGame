@@ -64,6 +64,7 @@ public class ShopEncounter : Encounter
         this.shopManager = shopManager;
         this.encounterConstants = constants;
         this.encounterType = EncounterType.Shop;
+        UIDocumentHoverableInstantiator.Instance.CleanupAllHoverables();
         validateShopData();
         generateShopEncounter(shopLevel, companionList);
         if (USE_NEW_SHOP) {
@@ -74,6 +75,7 @@ public class ShopEncounter : Encounter
             setupKeepsakes();
         }
         shopManager.SetupUnitManagement();
+        shopManager.shopViewController.SetupHoverablesForStartAndReroll();
     }
 
     public override void BuildWithEncounterBuilder(IEncounterBuilder encounterBuilder) {

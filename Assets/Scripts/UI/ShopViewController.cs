@@ -102,28 +102,12 @@ public class ShopViewController : MonoBehaviour,
         rerollButton = uiDoc.rootVisualElement.Q<Button>("reroll-button");
         rerollButton.RegisterCallback<ClickEvent>(RerollButtonOnClick);
 
-        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(rerollButton,
-                () => {RerollButtonOnClick(null);}, 
-                () => {
-                    // hi Ethan this is where a reroll onEnterCallBack would go to hook it up to the hoverable system :)
-                }, 
-                () => {
-                    // hi Ethan this is where a reroll onLeaveCallBack would go to hook it up to the hoverable system :)
-                });
         selectingCancelButton.RegisterCallback<ClickEvent>(CancelCardBuy);
         upgradeButton = uiDoc.rootVisualElement.Q<Button>("upgrade-button");
         upgradeButton.RegisterCallback<ClickEvent>(UpgradeButtonOnClick);
         upgradeButton.RegisterCallback<PointerEnterEvent>(UpgradeButtonOnPointerEnter);
-        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(upgradeButton,
-                () => {UpgradeButtonOnClick(null);}, 
-                () => {UpgradeButtonOnPointerEnter(null);}, 
-                () => {UpgradeButtonOnPointerLeave(null);});
         upgradeButton.RegisterCallback<PointerLeaveEvent>(UpgradeButtonOnPointerLeave);
         uiDoc.rootVisualElement.Q<Button>("start-next-combat-button").RegisterCallback<ClickEvent>(StartNextCombatOnClick);
-        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(uiDoc.rootVisualElement.Q<Button>("start-next-combat-button"),
-                () => {StartNextCombatOnClick(null);}, 
-                () => {},
-                () => {});
         //sellCompanionButton.clicked += SellCompanionOnClick;
         sellingCompanionConfirmation.Q<Button>("selling-companion-confirmation-yes").clicked += ConfirmSellCompanion;
         sellingCompanionConfirmation.Q<Button>("selling-companion-confirmation-no").clicked += StopSellingCompanion;
@@ -961,5 +945,20 @@ public class ShopViewController : MonoBehaviour,
         if(tooltipMap.ContainsKey(element)) {
             Destroy(tooltipMap[element]);
         }
+    }
+
+    public void SetupHoverablesForStartAndReroll() {
+        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(rerollButton,
+                () => {RerollButtonOnClick(null);}, 
+                () => {},
+                () => {});
+        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(upgradeButton,
+                () => {UpgradeButtonOnClick(null);}, 
+                () => {UpgradeButtonOnPointerEnter(null);}, 
+                () => {UpgradeButtonOnPointerLeave(null);});
+        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(uiDoc.rootVisualElement.Q<Button>("start-next-combat-button"),
+                () => {StartNextCombatOnClick(null);}, 
+                () => {},
+                () => {});
     }
 }
