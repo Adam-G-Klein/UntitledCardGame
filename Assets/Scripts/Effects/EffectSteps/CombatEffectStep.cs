@@ -52,19 +52,19 @@ public class CombatEffectStep : EffectStep, IEffectStepCalculation
 
         if (finalScale == -1) yield return null;
 
-        const float delayIncrement = 0.25f;
+        const float delayIncrement = 1f;
         
         // Update loop to do each instance of damage as the outer loop so that they can be timed across companions
         // taking damage from the same effect
         for (int i = 0; i < baseMultiplicity; i++) {
             foreach (CombatInstance instance in instances) {
                 if (instance != null) {
-                    instance.ApplyNonStatusCombatEffect(combatEffect, finalScale, originCombatInstance, vfxPrefab);
+                    instance.ApplyNonStatusCombatEffect(combatEffect, finalScale, originCombatInstance, vfxPrefab, i==0);
                 }
             }
             
-            if (i < baseMultiplicity - 1) {
-                yield return new WaitForSeconds(delayIncrement);
+            if (vfxPrefab && i < baseMultiplicity - 1) {
+                yield return new WaitForSeconds(delayIncrement / baseMultiplicity);
             }
         }
         

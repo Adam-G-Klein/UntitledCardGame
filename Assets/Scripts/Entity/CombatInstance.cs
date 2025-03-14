@@ -94,7 +94,7 @@ public class CombatInstance : MonoBehaviour
     }
 
 
-    public void ApplyNonStatusCombatEffect(CombatEffect effect, int scale, CombatInstance effector, GameObject vfxPrefab) {
+    public void ApplyNonStatusCombatEffect(CombatEffect effect, int scale, CombatInstance effector, GameObject vfxPrefab, bool shouldShake = false) {
 
         // All the non-status-effect combat effects are handled here
         // status effects are handled in applyCombatEffects
@@ -109,8 +109,7 @@ public class CombatInstance : MonoBehaviour
                     FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/SFX_EnemyAttack");
                 }
                 PlayVFX(vfxPrefab);
-                //AddVFX(effector);  didn't seem to actually be doing anything
-                AddShake(damageTaken);
+                if (shouldShake) AddShake(damageTaken);
                 break;
             case CombatEffect.Heal:
                 int updatedHealth = Mathf.Min(combatStats.getCurrentHealth() + scale, combatStats.maxHealth);
