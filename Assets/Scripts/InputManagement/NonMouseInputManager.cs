@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
+using UnityEngine.UIElements;
 
 public enum GFGInputAction {
     UP,
@@ -184,7 +185,7 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
 
 
     public void ProcessInput(GFGInputAction action) {
-        Cursor.visible = false;
+        UnityEngine.Cursor.visible = false;
         inputMethod = InputMethod.Keyboard;
         if(uiState == UIState.OPTIONS_MENU) {
             processInputForOptionsMenu(action);
@@ -570,6 +571,24 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
         List<Hoverable> cards = filterHoverablesByHoverableType(HoverableType.CardSelection, allHoverables);
         if(cards.Count > 0) {
             hover(cards[0]);
+        }
+    }
+
+    public Hoverable GetHoverableForElement(VisualElement element) {
+        foreach (Hoverable hoverable in allHoverables) {
+            if (hoverable.associatedUIDocElement == element) {
+                return hoverable;
+            }
+        }
+        return null;
+    }
+
+    public void UpdateCurrentlyHovered() {
+        if (currentlyHovered != null) {
+            Hoverable newHoverable = GetHoverableForElement(currentlyHovered.associatedUIDocElement);
+            if (newHoverable != null) {
+                hover(newHoverable);
+            }
         }
     }
 }

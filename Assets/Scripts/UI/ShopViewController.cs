@@ -552,6 +552,12 @@ public class ShopViewController : MonoBehaviour,
         RefreshContainers(activeContainer.Children().ToList(), false);
         RefreshContainers(benchScrollView.contentContainer.Children().ToList(), true);
         SetCompanionOrdering();
+
+        // Update the positions of all hoverables
+        UIDocumentHoverableInstantiator.Instance.UpdateHoverablesPosition();
+
+        // Update the currently hovered hoverable
+        NonMouseInputManager.Instance.UpdateCurrentlyHovered();
     }
 
     private int NumOpenSlots(List<VisualElement> unitContainers, bool isBench) {

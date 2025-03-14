@@ -29,15 +29,11 @@ public class KeyboardControlsManager : GenericSingleton<KeyboardControlsManager>
         } else if(Input.GetKeyDown(KeyCode.D)) {
             inputManager.ProcessInput(GFGInputAction.RIGHT);
         } 
-        if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return)) {
+        else if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return)) {
             inputManager.ProcessInput(GFGInputAction.SELECT);
-        } else if(Input.GetKeyDown(KeyCode.Backspace) 
+        } else if(Input.GetKeyDown(KeyCode.Backspace) )
         // okay but like hear me out
-        || (
-            inputManager.gameState.activeEncounter.GetValue().getEncounterType() == EncounterType.Enemy
-            && UIStateManager.Instance.currentState == UIState.EFFECT_TARGETTING
-            && Input.GetKeyDown(KeyCode.S))
-            ) {
+         {
             inputManager.ProcessInput(GFGInputAction.BACK);
         } else if(Input.GetKeyDown(KeyCode.Space)) {
             inputManager.ProcessInput(GFGInputAction.END_TURN);

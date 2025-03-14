@@ -58,4 +58,12 @@ public class UIDocumentHoverableInstantiator : GenericSingleton<UIDocumentHovera
             hoverablesByElement.Remove(element);
         }
     }
+
+    public void UpdateHoverablesPosition() {
+        foreach (var kvp in hoverablesByElement) {
+            VisualElement element = kvp.Key;
+            GameObject hoverableGO = kvp.Value;
+            hoverableGO.transform.position = UIDocumentGameObjectPlacer.GetWorldPositionFromElement(element);
+        }
+    }
 }
