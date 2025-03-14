@@ -62,7 +62,7 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
     private ICompanionManagementViewDelegate companionManagementViewDelegate;
     private CompanionManagementView companionManagementView;
 
-    private CompanionTypeSO cardPurchasingFor; 
+    private CardInShopWithPrice cardPurchasingFor; 
 
     void Awake()
     {
@@ -232,15 +232,21 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
         return filtered;
     }
 
-    private List<Hoverable> filterHoverablesByApplicableCompanionType(CompanionTypeSO companionType, List<Hoverable> candidates) {
+    // cardInShopWith.sourcecompanion price may be null, in which case it's and "ANY" card
+    private List<Hoverable> filterHoverablesByApplicableCompanionType(CardInShopWithPrice cardInShopWithPrice, List<Hoverable> candidates) {
         List<Hoverable> filtered = new List<Hoverable>();
         foreach(Hoverable candidate in candidates) {
-            if(candidate.companionTypeSO != null
-                && ShopManager.Instance.IsApplicableCompanionType(companionType, candidate.companionTypeSO)) {
-                filtered.Add(candidate);
+            if(candidate.hoverableType == HoverableType.CompanionManagement) {
+                if(cardInShopWithPrice.sourceCompanion == null) {
+                    filtered.Add(candidate);
+                } else if(candidate.companionTypeSO == cardInShopWithPrice.sourceCompanion) {
+                    filtered.Add(candidate);
+                }
+
             }
         }
         return filtered;
+
     }
     private List<Hoverable> filterHoverablesByTargetType(List<Targetable.TargetType> targetTypes, List<Hoverable> candidates) {
         List<Hoverable> filtered = new List<Hoverable>();
@@ -278,7 +284,7 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
                     filterHoverablesByHoverableType(HoverableType.CardSelection, filteredHoverables));
                 break;
             case UIState.PURCHASING_CARD:
-                Debug.Log("[NonMouseInputManager] processing input for state: PURCHASING_CARD, cardPurchasingFor: " + cardPurchasingFor.name);
+                Debug.Log("[NonMouseInputManager] processing input for state: PURCHASING_CARD");
                 processInputForShopDefaultState(action, 
                     filterHoverablesByApplicableCompanionType(cardPurchasingFor, filteredHoverables));
                 break;
@@ -579,8 +585,8 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
         }
     }
 
-    public void SetPurchasingCard(CompanionTypeSO companionType) {
-        cardPurchasingFor = companionType;
+    public void SetPurchasingCard(CardInShopWithPrice cardInShopWithPrice) {
+        cardPurchasingFor = cardInShopWithPrice;
         uiState = UIState.PURCHASING_CARD;
     }
 
