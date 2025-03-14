@@ -61,7 +61,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             // newly created elements to understand where they are.
             // After the elements have been successfully updated AnimateCardsAfterLayout will be called and they'll start moving now that they know where
             // they need to go.
-            Vector3 startPos = deckFrom.transform.position + new Vector3(0, -.75f, 0);
+            Vector3 startPos = deckFrom.transform.position;
             WorldPositionVisualElement newCardPlacement = UIDocumentGameObjectPlacer.Instance.CreateCardSlot(() => {StartCoroutine(AnimateCardsAfterLayout(cardsDelt, startPos, .1f));});
             newCard = PrefabInstantiator.InstantiateCard(
                 cardPrefab,
