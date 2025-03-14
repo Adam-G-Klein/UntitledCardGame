@@ -390,12 +390,13 @@
 .card-title-label {
     font-size: 53px;
     -unity-font-style: bold;
-    white-space: nowrap;
+    white-space: normal;
     top: 47%;
     flex-wrap: wrap;
     position: absolute;
     flex-direction: column;
-    -unity-text-align: middle-left;
+    -unity-text-align: middle-center;
+    width: 85%;
 }
 
 .card-image {
