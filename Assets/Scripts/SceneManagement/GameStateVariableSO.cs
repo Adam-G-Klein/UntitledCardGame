@@ -52,8 +52,6 @@ public class GameStateVariableSO : ScriptableObject
     public CompanionInstance hoveredCompanion = null;
     public int currentEncounterIndex = 0;
     [SerializeField]
-    private bool hasSeenShopTutorial = false;
-    [SerializeField]
     private bool hasSeenTutorial = false;
     private Dictionary<Location, string> locationToScene = new Dictionary<Location, string>() {
         {Location.MAIN_MENU, "MainMenu"},
@@ -146,7 +144,6 @@ public class GameStateVariableSO : ScriptableObject
                 currentLocation = locationToNextLocation[currentLocation];
                 break;
             case Location.TUTORIAL:
-                hasSeenTutorial = true;
                 currentLocation = locationToNextLocation[currentLocation];
                 break;
             // map probably shouldn't stay its own location
@@ -177,9 +174,7 @@ public class GameStateVariableSO : ScriptableObject
                 break;
             case Location.POST_COMBAT:
                 Debug.Log("Leaving post combat, current location is: " + currentLocation);
-                Debug.Log("Has seen shop tutorial" + hasSeenShopTutorial);
-                if (!hasSeenShopTutorial) {
-                    hasSeenShopTutorial = true;
+                if (!hasSeenTutorial) {
                     currentLocation = Location.SHOP_TUTORIAL;
                 } else {
                     currentLocation = locationToNextLocation[currentLocation];
@@ -187,6 +182,7 @@ public class GameStateVariableSO : ScriptableObject
                 }
                 break;
             case Location.SHOP_TUTORIAL:
+                hasSeenTutorial = true;
                 currentLocation = locationToNextLocation[currentLocation];
                 AdvanceEncounter();
                 break;
@@ -344,7 +340,6 @@ public class GameStateVariableSO : ScriptableObject
         this.viewedSequences = sourceObject.viewedSequences;
         this.hoveredCompanion = sourceObject.hoveredCompanion;
         this.currentEncounterIndex = sourceObject.currentEncounterIndex;
-        this.hasSeenShopTutorial = sourceObject.hasSeenShopTutorial;
         this.hasSeenTutorial = sourceObject.hasSeenTutorial;
     }
 }
