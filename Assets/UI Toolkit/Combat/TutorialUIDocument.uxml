@@ -3,7 +3,7 @@
     <ui:VisualElement name="tutorial-container" class="tutorial-container" style="color: rgb(0, 0, 0); background-color: rgb(0, 0, 0);">
         <ui:VisualElement class="tutorial-content-container" style="margin-right: 10%; padding-left: 0; padding-right: 0;">
             <ui:VisualElement name="VisualElement" class="tutorial-image-container" style="width: 50%;">
-                <ui:VisualElement name="tutorialImage" class="tutorial-image" style="margin-top: auto; margin-right: 0; margin-bottom: auto; margin-left: 0; background-image: url(&quot;project://database/Assets/Sprites/tutorialPlaceholderSprites/tutorialTemp1.png?fileID=21300000&amp;guid=4ab3d81fa4fac4331abed042e043d296&amp;type=3#tutorialTemp1&quot;);" />
+                <ui:VisualElement name="tutorialImage" class="tutorial-image" style="background-image: url(&quot;project://database/Assets/Sprites/tutorialPlaceholderSprites/tutorialTemp1.png?fileID=2800000&amp;guid=4ab3d81fa4fac4331abed042e043d296&amp;type=3#tutorialTemp1&quot;); -unity-background-scale-mode: scale-and-crop;" />
             </ui:VisualElement>
             <ui:VisualElement name="tutorialTextContainer" class="tutorial-text-container">
                 <ui:Label tabindex="-1" text="This is your team of companions!" parse-escape-sequences="true" display-tooltip-when-elided="true" name="tutorialText1" class="tutorial-text" style="flex-wrap: wrap;" />
