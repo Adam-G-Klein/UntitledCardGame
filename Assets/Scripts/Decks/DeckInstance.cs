@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 
 // gross, but now cards won't be able to display break if we don't have this component. Still have error checks everywhere for it not being present
@@ -190,7 +191,7 @@ public class DeckInstance : MonoBehaviour
         return card;
     }
 
-    public IEnumerator ExhaustCard(Card card, PlayableCard playableCard = null, IEnumerator callback = null){
+    public IEnumerator ExhaustCard(Card card, PlayableCard playableCard = null){
         if(drawPile.Contains(card)){
             Debug.Log("Exhausting card " + card.id + " with name " + card.name + " from draw pile");
             drawPile.Remove(card);
@@ -208,10 +209,9 @@ public class DeckInstance : MonoBehaviour
             document.originEntityType = EntityType.Card;
             if (playableCard != null) document.map.AddItem<PlayableCard>(EffectDocument.ORIGIN, playableCard);
             EffectManager.Instance.QueueEffectWorkflow(
-                new EffectWorkflowClosure(document, card.cardType.onExhaustEffectWorkflow, callback)
+                new EffectWorkflowClosure(document, card.cardType.onExhaustEffectWorkflow, null)
             );
         }
-        yield return callback;
         yield return PlayerHand.Instance.OnCardExhaust(this, card);
     }
 
