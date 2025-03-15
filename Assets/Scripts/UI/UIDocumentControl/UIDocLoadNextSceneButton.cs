@@ -29,19 +29,32 @@ public class UIDocLoadNextSceneButton: MonoBehaviour
         nextSceneButton.pickingMode = PickingMode.Position;
 
         // so we get the nice default hover animation
-        nextSceneButton.RegisterCallback<PointerEnterEvent>((evt) => {
-            nextSceneButton.AddToClassList("button-hover");
-        });
+        nextSceneButton.RegisterCallback<PointerEnterEvent>(nextEnter);
 
-        nextSceneButton.RegisterCallback<PointerLeaveEvent>((evt) => {
-            nextSceneButton.RemoveFromClassList("button-hover");
-        });
+        nextSceneButton.RegisterCallback<PointerLeaveEvent>(nextLeave);
 
-        nextSceneButton.RegisterCallback<ClickEvent>((evt) => {
-            loadNextScene();
-            // Prevent double clicks because that will advance to the next scene!!!!
-            nextSceneButton.SetEnabled(false);
-        });
+        nextSceneButton.RegisterCallback<ClickEvent>(nextClick);
+
+        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(nextSceneButton, 
+            () => nextClick(null),
+            () => {nextEnter(null);},
+            () => {nextLeave(null);},
+            HoverableType.PostCombat
+        );
+    }
+
+    private void nextEnter(PointerEnterEvent evt) {
+        nextSceneButton.AddToClassList("button-hover");
+    }
+
+    private void nextLeave(PointerLeaveEvent evt) {
+        nextSceneButton.RemoveFromClassList("button-hover");
+    }
+
+    private void nextClick(ClickEvent evt) {
+        loadNextScene();
+        // Prevent double clicks because that will advance to the next scene!!!!
+        nextSceneButton.SetEnabled(false);
     }
 
 }

@@ -206,7 +206,11 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
             processInputForCutscene(action);
             return;
         }
-        if(gameState.currentLocation == Location.MAIN_MENU || gameState.currentLocation == Location.TEAM_SIGNING || gameState.currentLocation == Location.TUTORIAL) { 
+        if(gameState.currentLocation == Location.POST_COMBAT) {
+            processInputSimple(action, filterHoverablesByHoverableType(HoverableType.PostCombat, allHoverables));
+            return;
+        }
+        if(gameState.currentLocation == Location.MAIN_MENU || gameState.currentLocation == Location.TEAM_SIGNING || gameState.currentLocation == Location.TUTORIAL || gameState.currentLocation == Location.SHOP_TUTORIAL) { 
             processInputSimple(action);
             return;
         }
@@ -239,22 +243,23 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
         }
     }
 
-    private void processInputSimple(GFGInputAction action) {
+    private void processInputSimple(GFGInputAction action, List<Hoverable> hoverableSubset = null) {
+        List<Hoverable> subset = hoverableSubset == null ? allHoverables : hoverableSubset;
         switch(action) {
             case GFGInputAction.UP:
-                hoverInDirection(Vector2.up, allHoverables);
+                hoverInDirection(Vector2.up, subset);
                 Debug.Log("[NonMouseInputManager] Action: UP, hoveredCardIndex: " + hoveredCardIndex);
                 break;
             case GFGInputAction.DOWN:
-                hoverInDirection(Vector2.down, allHoverables);
+                hoverInDirection(Vector2.down, subset);
                 Debug.Log("[NonMouseInputManager] Action: DOWN, hoveredCardIndex: " + hoveredCardIndex);
                 break;
             case GFGInputAction.LEFT:
-                hoverInDirection(Vector2.left, allHoverables); 
+                hoverInDirection(Vector2.left, subset); 
                 Debug.Log("[NonMouseInputManager] Action: LEFT, hoveredCardIndex: " + hoveredCardIndex);
                 break;
             case GFGInputAction.RIGHT:
-                hoverInDirection(Vector2.right, allHoverables); 
+                hoverInDirection(Vector2.right, subset); 
                 Debug.Log("[NonMouseInputManager] Action: RIGHT, hoveredCardIndex: " + hoveredCardIndex);
                 break;
             case GFGInputAction.SELECT:
