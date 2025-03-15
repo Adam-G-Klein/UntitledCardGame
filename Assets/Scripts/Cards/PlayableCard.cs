@@ -233,12 +233,8 @@ public class PlayableCard : MonoBehaviour,
             // this hover in case keyboard controls turn on
             hoverable.hovered = true;
         }
-        //MusicController.Instance.PlaySFX(cardHover, hoverSFXVolume);
-        //Replace with FMOD Event
         // Set the volume first
-        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/SFX_UIHover");
-        //transform.localScale = new Vector3(hoverScale, hoverScale, 1);
-        //transform.position = new Vector3(startPos.x, startPos.y + hoverYOffset, startPos.z + hoverZOffset);
+        MusicController2.Instance.PlaySFX("event:/SFX/SFX_UIHover");
         transform.SetAsLastSibling();
 
         LeanTween.cancel(gameObject);

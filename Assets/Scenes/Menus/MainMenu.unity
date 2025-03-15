@@ -551,6 +551,26 @@ PrefabInstance:
       propertyPath: tooltipPrefab
       value: 
       objectReference: {fileID: 2816874809441598624, guid: ae38d023550871540b736760d4242071, type: 3}
+    - target: {fileID: 1303040594324519979, guid: f56ace11eca35482fa0b76e4ccaa2728, type: 3}
+      propertyPath: fmodMixer.Path
+      value: event:/SetVolume
+      objectReference: {fileID: 0}
+    - target: {fileID: 1303040594324519979, guid: f56ace11eca35482fa0b76e4ccaa2728, type: 3}
+      propertyPath: fmodMixer.Guid.Data1
+      value: -1189902077
+      objectReference: {fileID: 0}
+    - target: {fileID: 1303040594324519979, guid: f56ace11eca35482fa0b76e4ccaa2728, type: 3}
+      propertyPath: fmodMixer.Guid.Data2
+      value: 1196816521
+      objectReference: {fileID: 0}
+    - target: {fileID: 1303040594324519979, guid: f56ace11eca35482fa0b76e4ccaa2728, type: 3}
+      propertyPath: fmodMixer.Guid.Data3
+      value: -1588889455
+      objectReference: {fileID: 0}
+    - target: {fileID: 1303040594324519979, guid: f56ace11eca35482fa0b76e4ccaa2728, type: 3}
+      propertyPath: fmodMixer.Guid.Data4
+      value: -1976051164
+      objectReference: {fileID: 0}
     - target: {fileID: 6414891375994710130, guid: f56ace11eca35482fa0b76e4ccaa2728, type: 3}
       propertyPath: m_Name
       value: OptionsViewCanvas
@@ -819,6 +839,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36320c556ff07400da29fe7348bcd794, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fmodMixer:
+    Guid:
+      Data1: -1189902077
+      Data2: 1196816521
+      Data3: -1588889455
+      Data4: -1976051164
+    Path: event:/SetVolume
   locationTracks:
   - eventReference:
       Guid:
@@ -852,6 +879,7 @@ MonoBehaviour:
         Data4: -112526437
       Path: event:/MX/MX_Intro
     location: 1
+  currentVolume: 0.5
 --- !u!1001 &2085430708498034827
 PrefabInstance:
   m_ObjectHideFlags: 0

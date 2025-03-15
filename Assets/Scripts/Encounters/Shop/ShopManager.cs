@@ -379,7 +379,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     }
 
     public void ShopItemHovered() {
-        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/SFX_UIHover");
+        MusicController2.Instance.PlaySFX("event:/SFX/SFX_UIHover");
     }
 
     // To satisfy interface. Unused

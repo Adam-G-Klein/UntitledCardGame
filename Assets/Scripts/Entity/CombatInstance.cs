@@ -61,12 +61,12 @@ public class CombatInstance : MonoBehaviour
         statusEffects[statusEffect] += scale;
         if(statusEffect != StatusEffectType.Orb && statusEffect != StatusEffectType.Strength && statusEffect != StatusEffectType.TemporaryStrength) {
             //PlaySFX();
-            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/SFX_NegativeEffect");
+            MusicController2.Instance.PlaySFX("event:/SFX/SFX_NegativeEffect");
             AddVFX();
         }
         else
         {
-            FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/SFX_PositiveEffect");
+            MusicController2.Instance.PlaySFX("event:/SFX/SFX_PositiveEffect");
         }
         UpdateView();
     }
@@ -104,9 +104,9 @@ public class CombatInstance : MonoBehaviour
             case CombatEffect.FixedDamageThatIgnoresBlock:
                 int damageTaken = TakeDamage(effect, scale, effector);
                 if (effector.GetComponent<CompanionInstance>() != null) {
-                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/SFX_BasicAttack");
+                    MusicController2.Instance.PlaySFX("event:/SFX/SFX_BasicAttack");
                 } else if (effector.GetComponent<EnemyInstance>() != null) {
-                    FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/SFX_EnemyAttack");
+                    MusicController2.Instance.PlaySFX("event:/SFX/SFX_EnemyAttack");
                 }
                 PlayVFX(vfxPrefab);
                 if (shouldShake) AddShake(damageTaken);
