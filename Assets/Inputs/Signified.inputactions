@@ -777,15 +777,6 @@
             "id": "455b8d57-7465-4ffd-a628-1f6cab44ec75",
             "actions": [
                 {
-                    "name": "New action",
-                    "type": "Button",
-                    "id": "53a38d3f-4847-41f3-81b0-d9cd2aac64e7",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Select",
                     "type": "Button",
                     "id": "0a19c164-0efc-426b-86e8-0e0d2408aec2",
@@ -802,20 +793,18 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "CutSceneSkip",
+                    "type": "Button",
+                    "id": "4686a62d-c4fb-45d7-965d-2e17befb0b49",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
-                {
-                    "name": "",
-                    "id": "840a3976-00c3-48a0-ac94-a56e01f1a8c3",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "New action",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
                 {
                     "name": "",
                     "id": "8059cd72-d108-462f-a6a0-27946664be1c",
@@ -835,6 +824,17 @@
                     "processors": "",
                     "groups": ";Gamepad",
                     "action": "Back",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3f62a357-fabb-476d-b497-25691fb58e41",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "CutSceneSkip",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

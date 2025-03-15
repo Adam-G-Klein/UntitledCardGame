@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 
-public class CutsceneStartStopper : MonoBehaviour
+public class CutsceneStartStopper : GenericSingleton<CutsceneStartStopper> 
 {
 
     public PlayableDirector playableDirector;
+
+    // HACK
+    [SerializeField]
+    private GameStateVariableSO gameState;
 
     private bool isStopped = false;
 
@@ -16,10 +20,17 @@ public class CutsceneStartStopper : MonoBehaviour
         if (playableDirector == null) {
             playableDirector = GetComponent<PlayableDirector>();
         }
+        // hack for when player spams skip right after leaving main menu
+        if (gameState.currentLocation != Location.INTRO_CUTSCENE) {
+            gameState.LoadCurrentLocationScene();
+        }
     }
 
-    void Update() {
-        if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return)) {
+    void FixedUpdate() {
+        if (Input.GetMouseButtonDown(0) 
+            || Input.GetKeyDown(KeyCode.Space) 
+            || Input.GetKeyDown(KeyCode.Return)
+            ) {
             if (isStopped) {
                 playableDirector.Play();
             }

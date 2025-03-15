@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public enum ControllerAxisState {
     CENTER,
@@ -16,6 +17,7 @@ public class ControllerControlsManager : GenericSingleton<KeyboardControlsManage
 
     public ControllerAxisState currentAxisState = ControllerAxisState.CENTER;
     public ControllerAxisState lastAxisStateProcessed = ControllerAxisState.CENTER;
+    public GameStateVariableSO gameState;
 
     public Dictionary<ControllerAxisState, GFGInputAction> axisStateToInputAction = new Dictionary<ControllerAxisState, GFGInputAction> {
         {ControllerAxisState.LEFT, GFGInputAction.LEFT},
@@ -123,5 +125,15 @@ public class ControllerControlsManager : GenericSingleton<KeyboardControlsManage
             inputManager.ProcessInput(GFGInputAction.BACK);
         }
     }   
+
+    public void handleCutsceneSkip(InputAction.CallbackContext context) {
+        if(context.phase == InputActionPhase.Performed) {
+            if(SceneManager.GetActiveScene().name == gameState.locationToScene[Location.INTRO_CUTSCENE]) {
+                Debug.Log("[ControlsManager] handleCutsceneSkip called");
+                inputManager.ProcessInput(GFGInputAction.CUTSCENE_SKIP);
+            }
+        }
+    }
+
 
 }

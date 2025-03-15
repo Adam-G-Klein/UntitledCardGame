@@ -41,6 +41,8 @@ public class UIDocNextTutorialButtonController : MonoBehaviour {
         backTutorialElement.RegisterCallback<ClickEvent>((evt) => {
             BackTutorialElementButtonHandler();
         });
+        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(backTutorialElement, BackTutorialElementButtonHandler);
+        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(nextTutorialElement, NextTutorialElementButtonHandler);
         yield return null;
     }
 

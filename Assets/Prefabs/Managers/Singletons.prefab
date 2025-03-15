@@ -454,6 +454,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentAxisState: 0
   lastAxisStateProcessed: 0
+  gameState: {fileID: 11400000, guid: 9e326417f60894341a96cc8d02868bbe, type: 2}
   stickDeadZone: 0.8
 --- !u!114 &5195169655683742310
 MonoBehaviour:
@@ -533,10 +534,6 @@ MonoBehaviour:
     m_ActionId: 3baf25fe-4009-4d5e-b9c5-af930c663907
     m_ActionName: UI/TrackedDeviceOrientation
   - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 53a38d3f-4847-41f3-81b0-d9cd2aac64e7
-    m_ActionName: Signified/New action
-  - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5733018872847233645}
         m_TargetAssemblyTypeName: ControllerControlsManager, Assembly-CSharp
@@ -568,6 +565,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 41c34384-7790-4377-8ee2-6d8e6d9fe0f5
     m_ActionName: Signified/Back[/SwitchProControllerHID/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5733018872847233645}
+        m_TargetAssemblyTypeName: ControllerControlsManager, Assembly-CSharp
+        m_MethodName: handleCutsceneSkip
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 4686a62d-c4fb-45d7-965d-2e17befb0b49
+    m_ActionName: Signified/CutSceneSkip[/SwitchProControllerHID/buttonNorth]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Signified

@@ -19,6 +19,7 @@ public enum GFGInputAction {
     OPEN_COMPANION_4_DRAW,
     OPEN_COMPANION_5_DRAW,
     NONE, // used for the controller mapping of the stick being in the center of its range
+    CUTSCENE_SKIP
 }
 
 public enum InputMethod {
@@ -195,23 +196,100 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
         inputMethod = InputMethod.Keyboard;
         if(uiState == UIState.OPTIONS_MENU) {
             processInputForOptionsMenu(action);
+            return;
+        }
+        // NOTE we can't actually get a CUTSCENE_SKIP action unless we're in a cutscene
+        // we stuff it at the input manager level because if you spam the button our gamestate tries 
+        // and fails to skip multiple scenes. 
+        // Location changes instantly, but the scene load can't keep up 
+        if(gameState.currentLocation == Location.INTRO_CUTSCENE) {
+            processInputForCutscene(action);
+            return;
+        }
+        if(gameState.currentLocation == Location.MAIN_MENU || gameState.currentLocation == Location.TEAM_SIGNING || gameState.currentLocation == Location.TUTORIAL) { 
+            processInputSimple(action);
+            return;
         }
         if(gameState.activeEncounter.GetValue().getEncounterType() == EncounterType.Shop) {
             processInputForShop(action);
             return;
-        } else {
-            // oh, random person in the future, you're trying to implement an encounter type that's
-            // not combat or shop? Dang, kinda sucks to be you huh :')
+        } else if (gameState.activeEncounter.GetValue().getEncounterType() == EncounterType.Enemy) {
             processInputForCombat(action);
-        }
+        } 
+        Debug.LogError("Couldn't find which state to route input to");
     }
 
     private void processInputForOptionsMenu(GFGInputAction action) {
         // todo
     }
 
+    private void processInputForCutscene(GFGInputAction action) {
+        switch(action) {
+            case GFGInputAction.SELECT:
+                CutsceneStartStopper.Instance.playableDirector.Play();
+                Debug.Log("[NonMouseInputManager] Action: SELECT");
+                break;
+            case GFGInputAction.CUTSCENE_SKIP:
+                Debug.Log("[NonMouseInputManager] Action: CUTSCENE_SKIP");
+                gameState.LoadNextLocation();
+                break;
+            default:
+                Debug.Log("[NonMouseInputManager] UNIMPLEMENTED ACTION: " + action);
+                break;
+        }
+    }
+
+    private void processInputSimple(GFGInputAction action) {
+        switch(action) {
+            case GFGInputAction.UP:
+                hoverInDirection(Vector2.up, allHoverables);
+                Debug.Log("[NonMouseInputManager] Action: UP, hoveredCardIndex: " + hoveredCardIndex);
+                break;
+            case GFGInputAction.DOWN:
+                hoverInDirection(Vector2.down, allHoverables);
+                Debug.Log("[NonMouseInputManager] Action: DOWN, hoveredCardIndex: " + hoveredCardIndex);
+                break;
+            case GFGInputAction.LEFT:
+                hoverInDirection(Vector2.left, allHoverables); 
+                Debug.Log("[NonMouseInputManager] Action: LEFT, hoveredCardIndex: " + hoveredCardIndex);
+                break;
+            case GFGInputAction.RIGHT:
+                hoverInDirection(Vector2.right, allHoverables); 
+                Debug.Log("[NonMouseInputManager] Action: RIGHT, hoveredCardIndex: " + hoveredCardIndex);
+                break;
+            case GFGInputAction.SELECT:
+                currentlyHovered.onSelect();
+                Debug.Log("[NonMouseInputManager] Action: SELECT");
+                break;
+            case GFGInputAction.BACK:
+                Debug.Log("[NonMouseInputManager] Action: BACK");
+                break;
+            case GFGInputAction.END_TURN:
+                Debug.Log("[NonMouseInputManager] Action: END_TURN");
+                break;
+            case GFGInputAction.OPEN_COMPANION_1_DRAW:
+                Debug.Log("[NonMouseInputManager] Action: OPEN_COMPANION_1_DRAW");
+                break;
+            case GFGInputAction.OPEN_COMPANION_2_DRAW:
+                Debug.Log("[NonMouseInputManager] Action: OPEN_COMPANION_2_DRAW");
+                break;
+            case GFGInputAction.OPEN_COMPANION_3_DRAW:
+                Debug.Log("[NonMouseInputManager] Action: OPEN_COMPANION_3_DRAW");
+                break;
+            case GFGInputAction.OPEN_COMPANION_4_DRAW:
+                Debug.Log("[NonMouseInputManager] Action: OPEN_COMPANION_4_DRAW");
+                break;
+            case GFGInputAction.OPEN_COMPANION_5_DRAW:
+                Debug.Log("[NonMouseInputManager] Action: OPEN_COMPANION_5_DRAW");
+                break;
+            default:
+                Debug.Log("[NonMouseInputManager] UNIMPLEMENTED ACTION: " + action);
+                break;
+        }
+    }
+
     private void processInputForCombat(GFGInputAction action) {
-        switch(UIStateManager.Instance.currentState) {
+        switch(GetUIState()) {
             case UIState.DEFAULT:
                 processInputForDefaultStateCombat(action);
                 break;
@@ -575,7 +653,11 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
     }
 
     public UIState GetUIState() {
-        if(gameState.activeEncounter.GetValue().getEncounterType() != EncounterType.Shop) {
+        // gotta go fast zoom zoom 
+        if(gameState.currentLocation == Location.INTRO_CUTSCENE || gameState.currentLocation == Location.MAIN_MENU || gameState.currentLocation == Location.TEAM_SIGNING) {
+            return uiState;
+        }
+        if (gameState.activeEncounter.GetValue().getEncounterType() == EncounterType.Enemy) {
             return UIStateManager.Instance.currentState;
         } else {
             return uiState;
