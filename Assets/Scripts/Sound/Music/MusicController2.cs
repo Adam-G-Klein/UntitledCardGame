@@ -44,6 +44,7 @@ public class MusicController2 : GenericSingleton<MusicController2>
                 instance.release();
                 instance = FMODUnity.RuntimeManager.CreateInstance(locationTrack.eventReference);
                 instance.start();
+                instance.setVolume(currentVolume);
                 currentReference = locationTrack.eventReference;
                 Debug.Log(locationTrack.eventReference);
                 Debug.Log(locationTrack.location);
@@ -53,7 +54,8 @@ public class MusicController2 : GenericSingleton<MusicController2>
 
     public void SetVolume(float volume) {
         currentVolume = volume;
-        mixerInstance.setParameterByName("Master_Volume", volume * 100);
+        instance.setVolume(volume);
+        // mixerInstance.setParameterByName("Master_Volume", volume * 100);
     }
 
     public void PlaySFX(string sfx) {
@@ -68,9 +70,9 @@ public class MusicController2 : GenericSingleton<MusicController2>
     // Start is called before the first frame update
     void Start()
     {
-        mixerInstance = FMODUnity.RuntimeManager.CreateInstance(fmodMixer);
-        mixerInstance.start();
-        mixerInstance.setParameterByName("Master_Volume", currentVolume * 100);
+        // mixerInstance = FMODUnity.RuntimeManager.CreateInstance(fmodMixer);
+        // mixerInstance.start();
+        // mixerInstance.setParameterByName("Master_Volume", 0.1f);
         PlayMusicLocation(Location.MAIN_MENU);
     }
 
