@@ -56,13 +56,25 @@ public class TeamSelectionUI : MonoBehaviour
 
         var next = root.Q<UnityEngine.UIElements.Button>("Next");
         UIDocumentUtils.SetAllPickingMode(root, PickingMode.Position);
-        next.clicked += () => initializeRun();
+        next.RegisterCallback<ClickEvent>((evt) => initializeRun());
     }
 
     private void updateState() {
+        UIDocumentHoverableInstantiator.Instance.CleanupAllHoverables();
+        // destroy all tooltips
+        foreach (var tooltip in tooltipMap.Values) {
+            Destroy(tooltip);
+        }
         makeTeamView(root.Q<VisualElement>("CompanionPortaitsContainer"), team1ActiveCompanions.GetCompanionTypes());
         makeInfoView(root.Q<VisualElement>("InfoContainer"), team1ActiveCompanions.GetCompanionTypes()[currentlySelectedCompanion]);
         docRenderer.SetStateDirty();
+        root = GetComponent<UIDocument>().rootVisualElement;
+
+        var next = root.Q<UnityEngine.UIElements.Button>("Next");
+        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(next, 
+            () => {initializeRun();}
+        );
+        
     }
     public void initializeRun()
     {
@@ -99,6 +111,13 @@ public class TeamSelectionUI : MonoBehaviour
 
         container.RegisterCallback<PointerEnterEvent>(PointerEnter);
         container.RegisterCallback<PointerLeaveEvent>(PointerLeave);
+        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(container, 
+            () => {companionClicked(companionType);}, 
+            () => {PointerEnter(null);}, 
+            () => {PointerLeave(null);},
+            HoverableType.DefaultCombat,
+            companionType
+        );
 
         var name = new Label();
         name.text = companionType.companionName;
@@ -145,20 +164,26 @@ public class TeamSelectionUI : MonoBehaviour
     }
 
     private void PointerEnter(PointerEnterEvent evt) {
-        VisualElement VE = evt.target as VisualElement;
+        VisualElement VE;
+        if(NonMouseInputManager.Instance.inputMethod == InputMethod.Mouse) {
+            VE = evt.target as VisualElement;
+        } else {
+            VE = NonMouseInputManager.Instance.currentlyHovered.associatedUIDocElement;
+        }
+
         bool isCompanion = companionMap.ContainsKey(VE.name);
         if (!isCompanion && cardTypeMap[VE.name].tooltips.Count == 0) return;
         if (tooltipMap.ContainsKey(VE.name)) return;
         
         Vector3 tooltipPosition = UIDocumentGameObjectPlacer.GetWorldPositionFromElement(VE);
 
-        if (isCompanion) {
-            tooltipPosition.x -= VE.resolvedStyle.width / 300; // this feels super brittle 
-            tooltipPosition.y += VE.resolvedStyle.width / 400;
-        } else {
-            tooltipPosition.x -= VE.resolvedStyle.width / 150; // this feels super brittle 
-            tooltipPosition.y += VE.resolvedStyle.width / 150;
-        }
+            if (isCompanion) {
+                tooltipPosition.x -= VE.resolvedStyle.width / 300; // this feels super brittle 
+                tooltipPosition.y += VE.resolvedStyle.width / 400;
+            } else {
+                tooltipPosition.x -= VE.resolvedStyle.width / 150; // this feels super brittle 
+                tooltipPosition.y += VE.resolvedStyle.width / 150;
+            }
         tooltipPosition.z = -2; // THIS SHOULD NOT BE NECESSARY BUT NO OTHER LAYERING WAS WORKING
         
         GameObject uiDocToolTipPrefab = Instantiate(tooltipPrefab, tooltipPosition, new Quaternion());
@@ -170,7 +195,12 @@ public class TeamSelectionUI : MonoBehaviour
     }
 
     private void PointerLeave(PointerLeaveEvent evt) {
-        VisualElement VE = evt.target as VisualElement;
+        VisualElement VE;
+        if(NonMouseInputManager.Instance.inputMethod == InputMethod.Mouse) {
+            VE = evt.target as VisualElement;
+        } else {
+            VE = NonMouseInputManager.Instance.currentlyHovered.associatedUIDocElement;
+        }
         if (tooltipMap.ContainsKey(VE.name)) {
             Destroy(tooltipMap[VE.name]);
             tooltipMap.Remove(VE.name);

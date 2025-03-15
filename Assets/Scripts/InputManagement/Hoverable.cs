@@ -11,7 +11,8 @@ public enum HoverableType {
     CompanionManagement,
     CardSelection,
     SellingCompanion,
-    UpgradingCompanion
+    UpgradingCompanion,
+    PostCombat,
 }
 
 public class Hoverable : MonoBehaviour {
