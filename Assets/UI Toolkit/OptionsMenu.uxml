@@ -20,6 +20,9 @@
                         <ui:Label tabindex="-1" text="5   " parse-escape-sequences="true" display-tooltip-when-elided="true" style="-unity-font-style: normal;" />
                     </ui:VisualElement>
                 </ui:VisualElement>
+                <ui:VisualElement class="menu-option" style="flex-grow: 0;">
+                    <ui:Toggle label="Full Screen" name="fullscreenToggle" style="font-size: 18px;" />
+                </ui:VisualElement>
                 <ui:VisualElement name="VisualElement" class="menu-option">
                     <ui:Button text="View Compendium" parse-escape-sequences="true" display-tooltip-when-elided="true" name="compendiumButton" class="options-button" />
                 </ui:VisualElement>

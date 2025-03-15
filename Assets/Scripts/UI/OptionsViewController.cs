@@ -28,6 +28,7 @@ public class OptionsViewController : MonoBehaviour
     private Button quitButton;
     private Button mainMenuButton;
     private Button compendiumButton;
+    private Toggle fullscreenToggle;
     // Start is called before the first frame update
     private Camera mainCamera;
     [SerializeField] FMODUnity.EventReference fmodMixer;
@@ -65,6 +66,9 @@ public class OptionsViewController : MonoBehaviour
         mainMenuButton.clicked += onMainMenuButtonHandler;
         quitButton = optionsUIDocument.rootVisualElement.Q<Button>("quitButton");
         quitButton.clicked += onExitGameHandler;
+        fullscreenToggle = optionsUIDocument.rootVisualElement.Q<Toggle>("fullscreenToggle");
+        fullscreenToggle.value = false;
+        fullscreenToggle.RegisterValueChangedCallback(FullScreenToggleEvent);
 
         canvasGroup.blocksRaycasts = false;
     }
@@ -133,5 +137,9 @@ public class OptionsViewController : MonoBehaviour
             Debug.LogWarning("Main camera not found");
         }
         canvas.worldCamera = mainCamera;
+    }
+
+    private void FullScreenToggleEvent(ChangeEvent<bool> evt) {
+        Screen.fullScreen = evt.newValue;
     }
 }
