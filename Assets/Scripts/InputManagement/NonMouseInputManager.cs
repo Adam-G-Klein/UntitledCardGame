@@ -219,6 +219,7 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
             return;
         } else if (gameState.activeEncounter.GetValue().getEncounterType() == EncounterType.Enemy) {
             processInputForCombat(action);
+            return;
         } 
         Debug.LogError("Couldn't find which state to route input to");
     }
