@@ -17,6 +17,10 @@ public class MainMenuManager : MonoBehaviour
     private Button exitButton;
     [SerializeField]
     private GenerateMap generateMap;
+    public void Awake()
+    {
+        Screen.SetResolution(1920, 1080, false);
+    }
 
     public void Start()
     {
