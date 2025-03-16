@@ -57,9 +57,9 @@ echo "git commit date: $COMMIT_DATE"
 FULL_VERSION="$COMMIT_DATE-$GIT_COMMIT_HASH_SHORT"
 echo "full version str: $FULL_VERSION"
 
-butler push -i "$BUTLERAPIKEYPATH" "$MAC_ZIP_PATH" gofacegames/signified:osx-universal --userversion "$FULLVERSION"
+butler push -i "$BUTLERAPIKEYPATH" --userversion="$FULL_VERSION" "$MAC_ZIP_PATH" gofacegames/rite-of-the-dealer:osx-universal
 
-butler push -i "$BUTLERAPIKEYPATH" "$WINDOWS_ZIP_PATH" gofacegames/signified:windows --userversion "$FULLVERSION"
+butler push -i "$BUTLERAPIKEYPATH" --userversion="$FULL_VERSION" "$WINDOWS_ZIP_PATH" gofacegames/rite-of-the-dealer:windows
 
 # Exit successfully
 exit 0
