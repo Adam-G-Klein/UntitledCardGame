@@ -163,6 +163,10 @@ public abstract class EntityAbilityInstance
         EffectDocument document = createEffectDocument();
         document.map.AddItem<PlayableCard>("cardPlayed", card);
         if (card.deckFrom.TryGetComponent(out CompanionInstance companion)) {
+            if (document.originEntityType == EntityType.CompanionInstance) {
+                CompanionInstance source = document.map.GetItem<CompanionInstance>(EffectDocument.ORIGIN, 0);
+                document.boolMap.Add("cardFromThisOrigin", source == companion);
+            }
             EffectUtils.AddCompanionToDocument(document, "companionCardPlayedFrom", companion);
         }
         EffectManager.Instance.QueueEffectWorkflow(new EffectWorkflowClosure(document, ability.effectWorkflow, null));
