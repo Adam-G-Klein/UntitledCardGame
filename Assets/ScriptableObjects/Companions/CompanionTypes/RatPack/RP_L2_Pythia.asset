@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
+  m_Name: RP_L2_Pythia
+  m_EditorClassIdentifier: 
+  companionName: Pythia+
+  maxHealth: 20
+  initialCardsDealtPerTurn: 2
+  sprite: {fileID: 21300000, guid: 416a15d747b4048a4a90ea688389b343, type: 3}
+  fullSprite: {fileID: 21300000, guid: 416a15d747b4048a4a90ea688389b343, type: 3}
+  backgroundImage: {fileID: 21300000, guid: 8def2ec2f48614f2db206b539f065b04, type: 3}
+  entityFrame: {fileID: 21300000, guid: afd87e9d98de04d57bf1e171342575e4, type: 3}
+  companionManagementFrame: {fileID: 21300000, guid: cb92d66ed93cb415791ff837bd1604d5, type: 3}
+  startingDeck: {fileID: 11400000, guid: 6be74b063901f4e1d8d6c6b3fd1769b1, type: 2}
+  keepsake: {fileID: 21300000, guid: 416a15d747b4048a4a90ea688389b343, type: 3}
+  cardBack: {fileID: 21300000, guid: c08a02b0b1e86fb4b96393e9d8fb4714, type: 3}
+  cardFrame: {fileID: 21300000, guid: 6cee2343f3114be45be30618b977bcb0, type: 3}
+  typeIcon: {fileID: 21300000, guid: 416a15d747b4048a4a90ea688389b343, type: 3}
+  portrait: {fileID: 21300000, guid: 416a15d747b4048a4a90ea688389b343, type: 3}
+  teamSelectSprite: {fileID: 21300000, guid: 416a15d747b4048a4a90ea688389b343, type: 3}
+  rarity: 1
+  cardIdleVfxPrefab: {fileID: 0}
+  genericCompanionSFX: {fileID: 0}
+  genericCompanionVFX: {fileID: 0}
+  cardPool: {fileID: 11400000, guid: 8f34b8b074f024b64a128d5f7d0d2294, type: 2}
+  speakerType: {fileID: 0}
+  abilitiesV2:
+  - rid: 205828032053379517
+  level: 1
+  upgradeTo: {fileID: 11400000, guid: 9dac841f399d943fd8f2440a40f4df57, type: 2}
+  tooltip:
+    empty: 0
+    lines:
+    - title: L2 Pythia
+      description: Draw an extra card each turn. Whenever you shuffle a companion's
+        draw pile, give them 4 block.
+      relatedBehaviorIndex: 0
+  keepsakeTitle: 
+  keepsakeDescription: Draw an extra card each turn. Whenever you shuffle a companion's
+    draw pile, give them 4 block.
+  references:
+    version: 2
+    RefIds:
+    - rid: 205828032053379517
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 10
+        effectSteps:
+        - rid: 205828032053379551
+        - rid: 205828032053379552
+        - rid: 8441470952357494981
+    - rid: 205828032053379551
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: companionDeckFrom
+        statusEffect: 2
+        scale: 4
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+    - rid: 205828032053379552
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: companionDeckFrom
+        prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
+        scale: 1
+    - rid: 8441470952357494981
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: Shields Engage!
+        lineTime: 2

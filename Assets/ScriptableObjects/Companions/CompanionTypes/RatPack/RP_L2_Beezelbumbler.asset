@@ -1,0 +1,128 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
+  m_Name: RP_L2_Beezelbumbler
+  m_EditorClassIdentifier: 
+  companionName: Beezelbumbler+
+  maxHealth: 15
+  initialCardsDealtPerTurn: 1
+  sprite: {fileID: 21300000, guid: e0ab2143b8408423ab692d481858408a, type: 3}
+  fullSprite: {fileID: 21300000, guid: e0ab2143b8408423ab692d481858408a, type: 3}
+  backgroundImage: {fileID: 21300000, guid: 3d949f712517a4846a59e1b81e5d2626, type: 3}
+  entityFrame: {fileID: 21300000, guid: 917225be64994484da5c72a7b08a3d6c, type: 3}
+  companionManagementFrame: {fileID: 21300000, guid: ff816818ae73449c997132f7ec8ab23c, type: 3}
+  startingDeck: {fileID: 11400000, guid: 03db7753a8eb34b8fa1ccf858b7c2c0e, type: 2}
+  keepsake: {fileID: 21300000, guid: e0ab2143b8408423ab692d481858408a, type: 3}
+  cardBack: {fileID: 21300000, guid: 3296a63e824de414bb4b578c4822fbdb, type: 3}
+  cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
+  typeIcon: {fileID: 21300000, guid: e0ab2143b8408423ab692d481858408a, type: 3}
+  portrait: {fileID: 21300000, guid: e0ab2143b8408423ab692d481858408a, type: 3}
+  teamSelectSprite: {fileID: 21300000, guid: e0ab2143b8408423ab692d481858408a, type: 3}
+  rarity: 0
+  cardIdleVfxPrefab: {fileID: 0}
+  genericCompanionSFX: {fileID: 0}
+  genericCompanionVFX: {fileID: 0}
+  cardPool: {fileID: 11400000, guid: 4d23c731d10ea45218cc9e44a4ca61f3, type: 2}
+  speakerType: {fileID: 0}
+  abilitiesV2:
+  - rid: 2034229587402555789
+  level: 1
+  upgradeTo: {fileID: 11400000, guid: 5e3d60e653c2d476f976b1380a1a19ea, type: 2}
+  tooltip:
+    empty: 0
+    lines:
+    - title: Level 2 Beezelbumbler
+      description: At the start of combat, Beezelbumbler gains 1 permanent strength
+        if below half HP
+      relatedBehaviorIndex: 0
+  keepsakeTitle: Bumbler's Deviltooth
+  keepsakeDescription: At the start of combat, Beezelbumbler gains 1 permanent strength
+    if below half HP
+  references:
+    version: 2
+    RefIds:
+    - rid: 2034229587402555789
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 0
+        effectSteps:
+        - rid: 2034229587402555794
+        - rid: 2034229587402555795
+        - rid: 2034229587402555796
+        - rid: 2034229587402555797
+        - rid: 2034229587402555798
+        - rid: 2034229587402555801
+        - rid: 2034229587402555835
+        - rid: 2034229587402555800
+    - rid: 2034229587402555794
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 2034229587402555795
+      type: {class: FilterEntityByHP, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FilterEntityByHP
+        inputKey: self
+        percentThreshold: 0.5
+        outputKey: selfBelowHalf
+        below: 1
+    - rid: 2034229587402555796
+      type: {class: CountStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CountStep
+        inputKey: selfBelowHalf
+        outputKey: numBelowHalf
+    - rid: 2034229587402555797
+      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: BooleanComparison
+        hardCodedInputKey1: 1
+        useHardCodedInputKey1: 1
+        inputKey1: 
+        operation: 2
+        inputKey2: numBelowHalf
+        outputKey: isBelowHalf
+    - rid: 2034229587402555798
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: isBelowHalf
+        conditionToEndOn: 0
+    - rid: 2034229587402555800
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
+        scale: 1
+    - rid: 2034229587402555801
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: ME ANGRY >:)
+        lineTime: 2
+    - rid: 2034229587402555835
+      type: {class: PermanentStatIncrease, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: PermanentStatIncrease
+        inputKey: self
+        statIncreaseType: 0
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
