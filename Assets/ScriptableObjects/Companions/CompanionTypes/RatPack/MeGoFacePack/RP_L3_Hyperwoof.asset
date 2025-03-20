@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
-  m_Name: RP_Hyperwoof
+  m_Name: RP_L3_Hyperwoof
   m_EditorClassIdentifier: 
-  companionName: Hyperwoof
+  companionName: Hyperwoof++
   maxHealth: 20
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: cb7e2801e82aa754a9ffd89d9e857a1e, type: 3}
@@ -36,16 +36,18 @@ MonoBehaviour:
   abilitiesV2:
   - rid: 205827988172308704
   - rid: 2034230017118175765
-  level: 0
-  upgradeTo: {fileID: 11400000, guid: 9e6d6d2071ae7478eba4dc17e70f4057, type: 2}
+  level: 2
+  upgradeTo: {fileID: 0}
   tooltip:
     empty: 0
     lines:
-    - title: Hyperwoof
-      description: Whenever you play 4 cards from Hyperwoof, it gains 1 strength
+    - title: Level Three Hyperwoof
+      description: Whenever you play 3 cards from Hyperwoof, it gains 1 PERMANENT
+        strength
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: Whenever you play 4 cards from Hyperwoof, it gains 1 strength
+  keepsakeDescription: Whenever you play 3 cards from Hyperwoof, it gains 1 PERMANENT
+    strength
   references:
     version: 2
     RefIds:
@@ -62,7 +64,7 @@ MonoBehaviour:
         - rid: 2034230017118175763
         - rid: 2034230017118175761
         - rid: 2034230017118175764
-        - rid: 205827988172308706
+        - rid: 2034230017118175772
         - rid: 205827988172308707
         - rid: 2034230017118175762
     - rid: 205827988172308705
@@ -76,16 +78,6 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
-    - rid: 205827988172308706
-      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: ApplyStatus
-        inputKey: self
-        statusEffect: 0
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplyByNumAuraStacks: 0
     - rid: 205827988172308707
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -113,7 +105,7 @@ MonoBehaviour:
       type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: BooleanComparison
-        hardCodedInputKey1: 4
+        hardCodedInputKey1: 3
         useHardCodedInputKey1: 1
         inputKey1: 
         operation: 2
@@ -191,3 +183,12 @@ MonoBehaviour:
         ints: 1
         strings: 0
         bools: 0
+    - rid: 2034230017118175772
+      type: {class: PermanentStatIncrease, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: PermanentStatIncrease
+        inputKey: self
+        statIncreaseType: 0
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
