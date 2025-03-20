@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
-  m_Name: RP_Hyperwoof
+  m_Name: RP_L2_Hyperwoof
   m_EditorClassIdentifier: 
-  companionName: Hyperwoof
+  companionName: Hyperwoof+
   maxHealth: 20
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: cb7e2801e82aa754a9ffd89d9e857a1e, type: 3}
@@ -36,16 +36,16 @@ MonoBehaviour:
   abilitiesV2:
   - rid: 205827988172308704
   - rid: 2034230017118175765
-  level: 0
-  upgradeTo: {fileID: 11400000, guid: 9e6d6d2071ae7478eba4dc17e70f4057, type: 2}
+  level: 1
+  upgradeTo: {fileID: 11400000, guid: 28a3b680cf6ac47ebb85b70c970afb5a, type: 2}
   tooltip:
     empty: 0
     lines:
-    - title: Hyperwoof
-      description: Whenever you play 4 cards from Hyperwoof, it gains 1 strength
+    - title: Level Two Hyperwoof
+      description: Whenever you play 3 cards from Hyperwoof, it gains 1 strength
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: Whenever you play 4 cards from Hyperwoof, it gains 1 strength
+  keepsakeDescription: Whenever you play 3 cards from Hyperwoof, it gains 1 strength
   references:
     version: 2
     RefIds:
@@ -113,7 +113,7 @@ MonoBehaviour:
       type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: BooleanComparison
-        hardCodedInputKey1: 4
+        hardCodedInputKey1: 3
         useHardCodedInputKey1: 1
         inputKey1: 
         operation: 2
