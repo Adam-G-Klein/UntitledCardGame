@@ -51,7 +51,7 @@ MonoBehaviour:
     - rid: 2034230017118175399
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
-        abilityTrigger: 0
+        abilityTrigger: 9
         effectSteps:
         - rid: 2034230017118175400
         - rid: 2034230017118175401
@@ -65,7 +65,7 @@ MonoBehaviour:
         outputKey: self
         validTargets: 
         number: 1
-        specialTargetRule: 0
+        specialTargetRule: 3
         cantCancelTargetting: 0
     - rid: 2034230017118175401
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
