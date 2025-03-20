@@ -1,0 +1,101 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
+  m_Name: RP_Mab
+  m_EditorClassIdentifier: 
+  companionName: Mab
+  maxHealth: 20
+  initialCardsDealtPerTurn: 1
+  sprite: {fileID: 21300000, guid: 66ae583b05bd645ce9e87ad1847a3bc9, type: 3}
+  fullSprite: {fileID: 21300000, guid: 060fb076899144b49b4f09b4573faf77, type: 3}
+  backgroundImage: {fileID: 21300000, guid: c29a3b4b43cd04c229d752ead9876c9d, type: 3}
+  entityFrame: {fileID: 21300000, guid: 58cdba4c572e146a9a2d7cacfc21e2bf, type: 3}
+  companionManagementFrame: {fileID: 21300000, guid: f8a863ee5de5343cfbb8293c595f4a4a, type: 3}
+  startingDeck: {fileID: 11400000, guid: 75d02cdf7041b4d31bff1b7857a1d055, type: 2}
+  keepsake: {fileID: 21300000, guid: 06c409edcf5e308438ea9c89ccd99c68, type: 3}
+  cardBack: {fileID: 21300000, guid: a5222a8d127763c49b397cce916345ec, type: 3}
+  cardFrame: {fileID: 21300000, guid: 106aacbbfd302814982ff4ed944fbaed, type: 3}
+  typeIcon: {fileID: 21300000, guid: 06c409edcf5e308438ea9c89ccd99c68, type: 3}
+  portrait: {fileID: 21300000, guid: 060fb076899144b49b4f09b4573faf77, type: 3}
+  teamSelectSprite: {fileID: 21300000, guid: 06c409edcf5e308438ea9c89ccd99c68, type: 3}
+  rarity: 0
+  cardIdleVfxPrefab: {fileID: 0}
+  genericCompanionSFX: {fileID: 0}
+  genericCompanionVFX: {fileID: 0}
+  cardPool: {fileID: 11400000, guid: c117b14afa44247b59e7f794939cdc89, type: 2}
+  speakerType: {fileID: 11400000, guid: 9e835f3c4c49e9f4da934369a0a7132b, type: 2}
+  abilitiesV2:
+  - rid: 205828032053379072
+  level: 0
+  upgradeTo: {fileID: 11400000, guid: c711b6e1ec0884037a06963be667f7fc, type: 2}
+  tooltip:
+    empty: 0
+    lines:
+    - title: Mab
+      description: At the end of combat, permanently add a "Mab's Boon" card n to
+        target companion's deck.
+      relatedBehaviorIndex: 0
+    - title: Mab's Boon
+      description: 0 mana. Exhaust. Draw 1 card from and heal this companion 3 HP
+      relatedBehaviorIndex: 0
+  keepsakeTitle: Mab's Mercy
+  keepsakeDescription: At the end of combat, permanently add a "Mab's Boon" card
+    to target companion's deck.
+  references:
+    version: 2
+    RefIds:
+    - rid: 205828032053379072
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 1
+        effectSteps:
+        - rid: 205828032053379075
+        - rid: 205828032053379073
+        - rid: 2034229587402555393
+        - rid: 205828107393564676
+    - rid: 205828032053379073
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: target
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 0
+        cantCancelTargetting: 1
+    - rid: 205828032053379075
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: who should I bestow a healing boon card upon?
+        lineTime: 2
+    - rid: 205828107393564676
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: target
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        scale: 1
+    - rid: 2034229587402555393
+      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: AddCardsToDeck
+        inputKey: target
+        cardTypes:
+        - {fileID: 11400000, guid: b189fb1d6d01a4fc69154f1e3f45b734, type: 2}
+        addToDeckMethod: 3
+        getCardsFromKey: 0
+        inputCardsKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 

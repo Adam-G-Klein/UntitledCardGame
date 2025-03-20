@@ -1,0 +1,115 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
+  m_Name: RP_L3_Fireblob
+  m_EditorClassIdentifier: 
+  companionName: Fireblob++
+  maxHealth: 25
+  initialCardsDealtPerTurn: 1
+  sprite: {fileID: 21300000, guid: 2b5d849700e054f9b816967db94093b1, type: 3}
+  fullSprite: {fileID: 21300000, guid: 2b5d849700e054f9b816967db94093b1, type: 3}
+  backgroundImage: {fileID: 21300000, guid: 52a67ea68be25489f9f1ee0ec5c113d2, type: 3}
+  entityFrame: {fileID: 21300000, guid: 8a02f70d429dd4851ac675faf974f636, type: 3}
+  companionManagementFrame: {fileID: 21300000, guid: e1aface5a3d124495925a8293aa091d2, type: 3}
+  startingDeck: {fileID: 11400000, guid: e99468c9ae12a4996a527ac53fb7625a, type: 2}
+  keepsake: {fileID: 21300000, guid: 2b5d849700e054f9b816967db94093b1, type: 3}
+  cardBack: {fileID: 21300000, guid: 3296a63e824de414bb4b578c4822fbdb, type: 3}
+  cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
+  typeIcon: {fileID: 21300000, guid: 2b5d849700e054f9b816967db94093b1, type: 3}
+  portrait: {fileID: 21300000, guid: 2b5d849700e054f9b816967db94093b1, type: 3}
+  teamSelectSprite: {fileID: 0}
+  rarity: 0
+  cardIdleVfxPrefab: {fileID: 0}
+  genericCompanionSFX: {fileID: 0}
+  genericCompanionVFX: {fileID: 0}
+  cardPool: {fileID: 11400000, guid: cd019489ca53a4fd59999691451fb24f, type: 2}
+  speakerType: {fileID: 0}
+  abilitiesV2:
+  - rid: 205828032053379333
+  level: 2
+  upgradeTo: {fileID: 0}
+  tooltip:
+    empty: 0
+    lines:
+    - title: L3 Fireblob
+      description: At the end of the turn, gain 2 block for each Generated card in
+        this Fireblob's deck.
+      relatedBehaviorIndex: 0
+    - title: Generated Card
+      description: A card added to your deck in any way other than by purchasing
+        it at the shop.
+      relatedBehaviorIndex: 0
+  keepsakeTitle: 
+  keepsakeDescription: At the end of the turn, gain 2 block for each Generated card
+    in this Fireblob's deck.
+  references:
+    version: 2
+    RefIds:
+    - rid: 205828032053379333
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 2
+        effectSteps:
+        - rid: 205828032053379334
+        - rid: 205828032053379335
+        - rid: 205828032053379337
+        - rid: 205828032053379336
+        - rid: 8790164555430888172
+    - rid: 205828032053379334
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 205828032053379335
+      type: {class: CountCardsInDeck, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CountCardsInDeck
+        inputDeckKey: self
+        filter:
+          cardCategoriesToInclude: 
+          generatedCardsFilter: 1
+        includeDrawPile: 1
+        includeDiscardPile: 1
+        includeCardsInHand: 1
+        outputKey: count
+    - rid: 205828032053379336
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: self
+        statusEffect: 2
+        scale: 0
+        getScaleFromKey: 1
+        inputScaleKey: doubled
+        multiplyByNumAuraStacks: 0
+    - rid: 205828032053379337
+      type: {class: MathStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: MathStep
+        inputKey: count
+        operand2InputKey: UNUSED
+        operation: 2
+        scale: 2
+        outputKey: doubled
+    - rid: 8790164555430888172
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
+        scale: 1
