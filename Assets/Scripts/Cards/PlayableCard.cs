@@ -209,7 +209,8 @@ public class PlayableCard : MonoBehaviour,
     }
 
     // Called by playerHand.discardCard
-    public void DiscardToDeck() {
+    public IEnumerator DiscardToDeck() {
+        yield return CardCastVFX(this.gameObject);
         deckFrom.DiscardCards(new List<Card> { card });
         cleanupAndDestroy();
     }

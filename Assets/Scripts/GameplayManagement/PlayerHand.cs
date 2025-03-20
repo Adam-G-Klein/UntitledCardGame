@@ -196,7 +196,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             yield return StartCoroutine(SafeRemoveCardFromHand(card));
         }
         if(card.gameObject.activeSelf) {
-            card.DiscardToDeck();
+            yield return card.DiscardToDeck();
         }
     }
 
