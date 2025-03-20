@@ -115,7 +115,7 @@ public class PlayableCard : MonoBehaviour,
             yield return StartCoroutine(PlayerHand.Instance.SafeRemoveCardFromHand(this));
             yield return StartCoroutine(PlayerHand.Instance.ResizeHand(this));
             yield return StartCoroutine(CardCastVFX(this.gameObject));
-            yield return StartCoroutine(PlayerHand.Instance.DiscardCard(this));
+            yield return StartCoroutine(PlayerHand.Instance.DiscardCard(this, true));
         }
 
         PlayerHand.Instance.UpdatePlayableCards();

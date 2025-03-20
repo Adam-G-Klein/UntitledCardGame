@@ -31,5 +31,6 @@ public class EntityAbility
         OnHandEmpty,
         OnFoeDeath,
         OnEntityHealed,
+        OnCardDiscard,
     }
 }
