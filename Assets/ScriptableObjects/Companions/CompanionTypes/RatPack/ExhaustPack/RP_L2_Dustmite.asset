@@ -1,0 +1,86 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
+  m_Name: RP_L2_Dustmite
+  m_EditorClassIdentifier: 
+  companionName: Dustmite+
+  maxHealth: 20
+  initialCardsDealtPerTurn: 1
+  sprite: {fileID: 21300000, guid: d7a75da2f6037ad47b2638069e02b403, type: 3}
+  fullSprite: {fileID: 21300000, guid: d7a75da2f6037ad47b2638069e02b403, type: 3}
+  backgroundImage: {fileID: 21300000, guid: 51acef32dcac74705a26476ebe2fcef6, type: 3}
+  entityFrame: {fileID: 21300000, guid: a8fa2ecee207041998d05babf6bcc914, type: 3}
+  companionManagementFrame: {fileID: 21300000, guid: 6816075e96cf94121bbef6520deb584f, type: 3}
+  startingDeck: {fileID: 11400000, guid: 583b1de8b4e66492eb4afaaa9e408467, type: 2}
+  keepsake: {fileID: 21300000, guid: d7a75da2f6037ad47b2638069e02b403, type: 3}
+  cardBack: {fileID: 21300000, guid: 20b46ccd593516f4badbdcdb021f67c1, type: 3}
+  cardFrame: {fileID: 21300000, guid: e44243240dcfea04b91f6a9793d745e8, type: 3}
+  typeIcon: {fileID: 21300000, guid: d7a75da2f6037ad47b2638069e02b403, type: 3}
+  portrait: {fileID: 21300000, guid: d7a75da2f6037ad47b2638069e02b403, type: 3}
+  teamSelectSprite: {fileID: 21300000, guid: d7a75da2f6037ad47b2638069e02b403, type: 3}
+  rarity: 0
+  cardIdleVfxPrefab: {fileID: 0}
+  genericCompanionSFX: {fileID: 0}
+  genericCompanionVFX: {fileID: 0}
+  cardPool: {fileID: 11400000, guid: 84991beb0ccb94fed9ed7113a742c8bb, type: 2}
+  speakerType: {fileID: 0}
+  abilitiesV2:
+  - rid: 2034230017118175399
+  level: 1
+  upgradeTo: {fileID: 11400000, guid: 22c2abe23a35148f8bff60dd19242fed, type: 2}
+  tooltip:
+    empty: 0
+    lines:
+    - title: Level Two Dustmite
+      description: Whenever you exhaust a card, Dustmite+ gains 4 block
+      relatedBehaviorIndex: 0
+  keepsakeTitle: 
+  keepsakeDescription: Whenever you exhaust a card, Dustmite+ gains 4 block
+  references:
+    version: 2
+    RefIds:
+    - rid: 2034230017118175399
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 0
+        effectSteps:
+        - rid: 2034230017118175400
+        - rid: 2034230017118175401
+        - rid: 2034230017118175402
+    - rid: 2034230017118175400
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 0
+        cantCancelTargetting: 0
+    - rid: 2034230017118175401
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: self
+        statusEffect: 2
+        scale: 4
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+    - rid: 2034230017118175402
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
+        scale: 1
