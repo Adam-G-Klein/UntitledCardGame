@@ -47,6 +47,7 @@ public class PlayableCard : MonoBehaviour,
 
     private UIDocumentCard docCard;
     private bool isCardCastPlaying = false;
+    private bool isCardDiscardPlaying = false;
     public bool interactable = false;
 
     public void  Awake() {
@@ -161,6 +162,31 @@ public class PlayableCard : MonoBehaviour,
         this.isCardCastPlaying = false;
     }
 
+    private IEnumerator CardDiscardVFX(GameObject cardGameObject) {
+        this.isCardDiscardPlaying = true;
+        FXExperience experience = PrefabInstantiator.instantiateFXExperience(cardCastVFXPrefab, cardGameObject.transform.position);
+
+        experience.BindGameObjectsToTracks(new Dictionary<string, GameObject>() {
+            { "CardAnimationTrack", cardGameObject },
+            { "CardTweenTrack", cardGameObject },
+        });
+        experience.AddLocationToKey("Card", this.transform.position);
+        experience.AddLocationToKey("Companion", this.deckFrom.transform.position);
+        // This makes it so that we can use 0,0 as the "current position of the card"
+        cardGameObject.transform.SetParent(experience.transform);
+        experience.onExperienceOver += CardDiscardVFXFinished;
+        Debug.Log("Started card discard VFX");
+        experience.StartExperience();
+        yield return new WaitUntil(() => this.isCardDiscardPlaying == false);
+        Debug.Log("Finished card discard VFX");
+    }
+
+    private void CardDiscardVFXFinished() {
+        // If we don't do this, then the crew (the card) goes down with the ship (the FXExperience)
+        this.gameObject.transform.SetParent(null);
+        this.isCardDiscardPlaying = false;
+    }
+
     public void UpdateCardText() {
         //if (card.cardType.values.Count == 0) return;
         //String newVal = "";
@@ -210,7 +236,7 @@ public class PlayableCard : MonoBehaviour,
 
     // Called by playerHand.discardCard
     public IEnumerator DiscardToDeck() {
-        yield return CardCastVFX(this.gameObject);
+        yield return CardDiscardVFX(this.gameObject);
         deckFrom.DiscardCards(new List<Card> { card });
         cleanupAndDestroy();
     }
