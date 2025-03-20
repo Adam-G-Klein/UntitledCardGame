@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
-  m_Name: RP_Werespinner
+  m_Name: RP_L3_Werespinner
   m_EditorClassIdentifier: 
-  companionName: Werespinner
+  companionName: Werespinner++
   maxHealth: 15
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: 2e47eb262b7762144a49d10bfa5ee1c8, type: 3}
@@ -35,18 +35,18 @@ MonoBehaviour:
   speakerType: {fileID: 0}
   abilitiesV2:
   - rid: 205828032053379705
-  level: 0
-  upgradeTo: {fileID: 11400000, guid: 78d018f716ea641b9be00d37cb5ec396, type: 2}
+  level: 2
+  upgradeTo: {fileID: 0}
   tooltip:
     empty: 0
     lines:
-    - title: Werespinner
-      description: Whenever you discard a Status card, draw a card from a random
-        companion
+    - title: Level Three Werespinner
+      description: Whenever you discard a Status card, give 2 strength to and draw
+        a card from a random companion
       relatedBehaviorIndex: 0
-  keepsakeTitle: The Eye
-  keepsakeDescription: Whenever you discard a Status card, draw a card from a random
-    companion
+  keepsakeTitle: 
+  keepsakeDescription: Whenever you discard a Status card, give 1 strength to and
+    draw a card from a random companion
   references:
     version: 2
     RefIds:
@@ -62,6 +62,7 @@ MonoBehaviour:
         - rid: 205828032053379741
         - rid: 2034230020176347205
         - rid: 205828032053379742
+        - rid: 2034230020176347206
         - rid: 205828032053379743
     - rid: 205828032053379741
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -127,3 +128,13 @@ MonoBehaviour:
         effectStepName: DialogueStep
         line: the cycle continues
         lineTime: 1
+    - rid: 2034230020176347206
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: randomGuy
+        statusEffect: 0
+        scale: 2
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
