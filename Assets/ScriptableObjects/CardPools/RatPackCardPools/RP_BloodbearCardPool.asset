@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98c54fe17bbfaba4697c85c1618843f4, type: 3}
+  m_Name: RP_BloodbearCardPool
+  m_EditorClassIdentifier: 
+  commonCards:
+  - {fileID: 11400000, guid: 97ffd513202484e2cae422fe4d24d3b2, type: 2}
+  - {fileID: 11400000, guid: 7fc3b6bbe16044d6fb3c9d0599689d54, type: 2}
+  - {fileID: 11400000, guid: 68f2ab82754e24f53a3b9779d0b2cccb, type: 2}
+  uncommonCards:
+  - {fileID: 11400000, guid: 15624d20479a248b49305e5f426159fe, type: 2}
+  - {fileID: 11400000, guid: 637383906b811499f963dc70f240c71c, type: 2}
+  rareCards:
+  - {fileID: 11400000, guid: 017f0fdf783b34d39a56c2e02cec029a, type: 2}
