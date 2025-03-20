@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98c54fe17bbfaba4697c85c1618843f4, type: 3}
+  m_Name: RP_FirebreatherCardPool
+  m_EditorClassIdentifier: 
+  commonCards:
+  - {fileID: 11400000, guid: 52627ce2e2d9e42d9befc44e79ac9856, type: 2}
+  - {fileID: 11400000, guid: 0b97d0a99835b442c84d499af88d21da, type: 2}
+  - {fileID: 11400000, guid: 84d100890f88c4b02971461b0eaf142a, type: 2}
+  uncommonCards:
+  - {fileID: 11400000, guid: a712dc20e16344084a21713e4c0b713f, type: 2}
+  rareCards:
+  - {fileID: 11400000, guid: 29e56421d8630460196e5868957cc68e, type: 2}

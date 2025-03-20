@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98c54fe17bbfaba4697c85c1618843f4, type: 3}
+  m_Name: RP_TiefseekerCardPool
+  m_EditorClassIdentifier: 
+  commonCards:
+  - {fileID: 11400000, guid: 3d201f892524448df9db7f4d46ef8659, type: 2}
+  - {fileID: 11400000, guid: c4bffa899c46a4878a3034b3681670cb, type: 2}
+  uncommonCards:
+  - {fileID: 11400000, guid: 123311d752379454795cce96b714886b, type: 2}
+  - {fileID: 11400000, guid: 422b97fe562064a988bb051c55cd00d1, type: 2}
+  rareCards:
+  - {fileID: 11400000, guid: 0d653966b879d4089b25d85e97c50531, type: 2}
