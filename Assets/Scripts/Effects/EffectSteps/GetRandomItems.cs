@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using System.Linq;
 
 /*
     This will go through the map and for each kind of item under the input key,
@@ -21,7 +22,8 @@ public class GetRandomItems : EffectStep, IEffectStepCalculation
     }
 
     public override IEnumerator invoke(EffectDocument document) {
-        foreach(KeyValuePair<Tuple<string, Type>, List<object>> pair in document.map.GetDict()) {
+        List<KeyValuePair<Tuple<string, Type>, List<object>>> mapCopy = document.map.GetDict().ToList();
+        foreach(KeyValuePair<Tuple<string, Type>, List<object>> pair in mapCopy) {
             if (pair.Key.Item1 != inputKey) {
                 continue;
             }

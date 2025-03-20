@@ -34,6 +34,7 @@ public enum EffectStepName {
     GetDecksShuffledThisCombat,
     GetNumberOfCardsInHand,
     GetPercentOfMaxHP,
+    GetRandomItems,
     GetTargets,
     GoldManipulation,
     HasCardActionBeenTakenThisTurn,
