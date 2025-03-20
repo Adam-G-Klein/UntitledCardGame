@@ -1,0 +1,102 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
+  m_Name: RP_Tiefseeker
+  m_EditorClassIdentifier: 
+  companionName: Tiefseeker
+  maxHealth: 15
+  initialCardsDealtPerTurn: 1
+  sprite: {fileID: 21300000, guid: b64d813aa0d6446ffb4776d0c4564233, type: 3}
+  fullSprite: {fileID: 21300000, guid: e39b8af7a7f3940e69196960874c9565, type: 3}
+  backgroundImage: {fileID: 21300000, guid: 97a0558eb1e0445fa80a5a37338a081c, type: 3}
+  entityFrame: {fileID: 21300000, guid: cac494b9d5af94fe9b3c4e2729ecc320, type: 3}
+  companionManagementFrame: {fileID: 21300000, guid: 69da7692b04464b769e286602f9e1a12, type: 3}
+  startingDeck: {fileID: 11400000, guid: e8874d8a511b54b13b6fa125f643d72b, type: 2}
+  keepsake: {fileID: 21300000, guid: 2e47eb262b7762144a49d10bfa5ee1c8, type: 3}
+  cardBack: {fileID: 21300000, guid: 3296a63e824de414bb4b578c4822fbdb, type: 3}
+  cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
+  typeIcon: {fileID: 21300000, guid: 2e47eb262b7762144a49d10bfa5ee1c8, type: 3}
+  portrait: {fileID: 21300000, guid: e39b8af7a7f3940e69196960874c9565, type: 3}
+  teamSelectSprite: {fileID: 21300000, guid: 2e47eb262b7762144a49d10bfa5ee1c8, type: 3}
+  rarity: 0
+  cardIdleVfxPrefab: {fileID: 0}
+  genericCompanionSFX: {fileID: 0}
+  genericCompanionVFX: {fileID: 0}
+  cardPool: {fileID: 11400000, guid: b4b6c00dda5c84cec970f98c37079d4d, type: 2}
+  speakerType: {fileID: 0}
+  abilitiesV2:
+  - rid: 205827988172308714
+  level: 0
+  upgradeTo: {fileID: 11400000, guid: 8d7bd6928b0f64bb58516b33ac741c11, type: 2}
+  tooltip:
+    empty: 0
+    lines:
+    - title: Tiefseeker
+      description: At the start of combat, put a "Buried Treasure" card on the bottom
+        of a random companion's deck.
+      relatedBehaviorIndex: 0
+    - title: Buried Treasure
+      description: 1 Mana. Exhaust. Gain 1 Gold.
+      relatedBehaviorIndex: 0
+  keepsakeTitle: Hidden Cache
+  keepsakeDescription: At the start of combat, put a  "Buried Treasure" card on the
+    bottom of a random companion's deck.
+  references:
+    version: 2
+    RefIds:
+    - rid: 205827988172308714
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 0
+        effectSteps:
+        - rid: 205827988172308715
+        - rid: 205827988172308717
+        - rid: 205827988172308716
+        - rid: 8790164566031728640
+    - rid: 205827988172308715
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: randomTarget
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 6
+        cantCancelTargetting: 0
+    - rid: 205827988172308716
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: "(\u1D54\u1D25\u1D54) *sniff* *sniff* ... must be treasure around here
+          somewhere"
+        lineTime: 2
+    - rid: 205827988172308717
+      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: AddCardsToDeck
+        inputKey: randomTarget
+        cardTypes:
+        - {fileID: 11400000, guid: 32eae75392814445b8a952edf781d892, type: 2}
+        addToDeckMethod: 2
+        getCardsFromKey: 0
+        inputCardsKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 8790164566031728640
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: randomTarget
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        scale: 1.5

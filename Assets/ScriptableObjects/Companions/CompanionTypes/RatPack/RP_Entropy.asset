@@ -1,0 +1,114 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
+  m_Name: RP_Entropy
+  m_EditorClassIdentifier: 
+  companionName: Entropy
+  maxHealth: 15
+  initialCardsDealtPerTurn: 1
+  sprite: {fileID: 21300000, guid: f3ea244daa1aa9f49a9b8c40dbb3d8f8, type: 3}
+  fullSprite: {fileID: 21300000, guid: f3ea244daa1aa9f49a9b8c40dbb3d8f8, type: 3}
+  backgroundImage: {fileID: 21300000, guid: 51acef32dcac74705a26476ebe2fcef6, type: 3}
+  entityFrame: {fileID: 21300000, guid: a8fa2ecee207041998d05babf6bcc914, type: 3}
+  companionManagementFrame: {fileID: 21300000, guid: 6816075e96cf94121bbef6520deb584f, type: 3}
+  startingDeck: {fileID: 11400000, guid: 583b1de8b4e66492eb4afaaa9e408467, type: 2}
+  keepsake: {fileID: 21300000, guid: f3ea244daa1aa9f49a9b8c40dbb3d8f8, type: 3}
+  cardBack: {fileID: 21300000, guid: 20b46ccd593516f4badbdcdb021f67c1, type: 3}
+  cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
+  typeIcon: {fileID: 21300000, guid: f3ea244daa1aa9f49a9b8c40dbb3d8f8, type: 3}
+  portrait: {fileID: 21300000, guid: f3ea244daa1aa9f49a9b8c40dbb3d8f8, type: 3}
+  teamSelectSprite: {fileID: 21300000, guid: f3ea244daa1aa9f49a9b8c40dbb3d8f8, type: 3}
+  rarity: 1
+  cardIdleVfxPrefab: {fileID: 0}
+  genericCompanionSFX: {fileID: 0}
+  genericCompanionVFX: {fileID: 0}
+  cardPool: {fileID: 11400000, guid: 84991beb0ccb94fed9ed7113a742c8bb, type: 2}
+  speakerType: {fileID: 0}
+  abilitiesV2:
+  - rid: 205827988172308718
+  level: 0
+  upgradeTo: {fileID: 11400000, guid: 8eb0a1d776cbb4743bbc5204835d25a3, type: 2}
+  tooltip:
+    empty: 0
+    lines:
+    - title: Entropy
+      description: Transform 1 card into an exhaustable Burn at the end of combat.
+      relatedBehaviorIndex: 0
+    - title: Entropys Burn
+      description: Exhaust. When exhausted, deal 5 damage to a random enemy.
+      relatedBehaviorIndex: 0
+  keepsakeTitle: Entropy's Gadget
+  keepsakeDescription: Transform 1 card into an exhaustable "Entropy's Burn" at the
+    end of combat.
+  references:
+    version: 2
+    RefIds:
+    - rid: 205827988172308718
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 1
+        effectSteps:
+        - rid: 205827988172308720
+        - rid: 205827988172308721
+        - rid: 205827988172308722
+        - rid: 205827988172308723
+        - rid: 205827988172308724
+    - rid: 205827988172308720
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: Beep boop. Whose deck should I thin?
+        lineTime: 2
+    - rid: 205827988172308721
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: target
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 0
+        cantCancelTargetting: 1
+    - rid: 205827988172308722
+      type: {class: GetCardsFromDeck, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetCardsFromDeck
+        inputKey: target
+        getLimitedNumber: 0
+        numberOfCardsToGet: 1
+        shuffleIfEmpty: 1
+        outputKey: allCardsInDeck
+        getAllCardsFromEntities: 0
+        getCardsFromSourceDeck: 1
+        getAllFromOnlyDrawPile: 0
+    - rid: 205827988172308723
+      type: {class: SelectCardsFromList, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: SelectCardsFromList
+        inputKey: allCardsInDeck
+        outputKey: cardToTransform
+        promptText: Select a card to transform into Entropy's Burn
+        minTargets: 1
+        maxTargets: 1
+        getNumberOfTargetsFromKey: 0
+        inputNumberOfTargetsKey: 
+        randomizeOrder: 0
+    - rid: 205827988172308724
+      type: {class: CardInDeckEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardInDeckEffect
+        inputCardsKey: cardToTransform
+        inputDeckKey: target
+        effect: 4
+        cardToTransformInto: {fileID: 11400000, guid: c00025e95f9a449b59c853e77403c30b, type: 2}
+        outputKey: 
