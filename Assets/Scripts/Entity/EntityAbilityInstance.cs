@@ -196,12 +196,13 @@ public abstract class EntityAbilityInstance
         yield return null;
     }
 
-    private IEnumerator OnCardDiscard(DeckInstance deckFrom, Card card, bool casted) {
+    private IEnumerator OnCardDiscard(DeckInstance deckFrom, PlayableCard card, bool casted) {
         if (!casted) {
             EffectDocument document = createEffectDocument();
             if (deckFrom.TryGetComponent(out CompanionInstance companion)) {
                 EffectUtils.AddCompanionToDocument(document, "companionDiscardedFrom", companion);
             }
+            document.map.AddItem<PlayableCard>("cardDiscarded", card);
             EffectManager.Instance.QueueEffectWorkflow(new EffectWorkflowClosure(document, ability.effectWorkflow, null));
         }
         yield return null;

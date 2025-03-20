@@ -20,7 +20,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     public delegate IEnumerator OnCardExhaustHandler(DeckInstance deckFrom, Card card);
     public event OnCardExhaustHandler onCardExhaustHandler;
 
-    public delegate IEnumerator OnCardDiscardHandler(DeckInstance deckFrom, Card card, bool casted);
+    public delegate IEnumerator OnCardDiscardHandler(DeckInstance deckFrom, PlayableCard card, bool casted);
     public event OnCardDiscardHandler onCardDiscardHandler;
 
     public delegate IEnumerator OnCardCastHandler(PlayableCard card);
@@ -141,7 +141,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                     }
                 } else {
                     UIDocumentGameObjectPlacer.Instance.RemoveCardSlot(card.gameObject);
-                    callback = DiscardCard(card);
+                    callback = DiscardCard(card, true);
                     if(NonMouseInputManager.Instance.inputMethod != InputMethod.Mouse) {
                         // Doesn't work, iteration to be done
                         //callback += NonMouseInputManager.Instance.hoverACard();
@@ -181,7 +181,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         }
     }
 
-    public IEnumerator OnCardDiscard(DeckInstance deckFrom, Card card, bool casted) {
+    public IEnumerator OnCardDiscard(DeckInstance deckFrom, PlayableCard card, bool casted) {
         if (onCardDiscardHandler != null) {
             foreach (OnCardDiscardHandler handler in onCardDiscardHandler.GetInvocationList()) {
                 yield return handler.Invoke(deckFrom, card, casted);
@@ -220,7 +220,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                 );
             }
         }
-        yield return OnCardDiscard(card.deckFrom, card.card, cardCasted);
+        yield return OnCardDiscard(card.deckFrom, card, cardCasted);
         if(card.gameObject.activeSelf) {
             EffectManager.Instance.QueueEffectWorkflow(
                 new EffectWorkflowClosure(new EffectDocument(), new EffectWorkflow(), card.DiscardToDeck())
