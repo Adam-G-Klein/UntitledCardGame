@@ -98,6 +98,9 @@ public abstract class EntityAbilityInstance
             case EntityAbility.EntityAbilityTrigger.OnCardExhausted:
                 PlayerHand.Instance.onCardExhaustHandler += OnCardExhaust;
                 break;
+            case EntityAbility.EntityAbilityTrigger.OnCardDiscard:
+                PlayerHand.Instance.onCardDiscardHandler += OnCardDiscard;
+                break;
             case EntityAbility.EntityAbilityTrigger.OnDeckShuffled:
                 PlayerHand.Instance.onDeckShuffledHandler += OnDeckShuffled;
                 break;
@@ -129,6 +132,9 @@ public abstract class EntityAbilityInstance
 
         if (ability.abilityTrigger == EntityAbility.EntityAbilityTrigger.OnCardCast) {
             PlayerHand.Instance.onCardCastHandler -= OnCardCast;
+        }
+        if (ability.abilityTrigger == EntityAbility.EntityAbilityTrigger.OnCardDiscard) {
+            PlayerHand.Instance.onCardDiscardHandler -= OnCardDiscard;
         }
         if (ability.abilityTrigger == EntityAbility.EntityAbilityTrigger.OnHandEmpty) {
             PlayerHand.Instance.onHandEmptyHandler -= OnHandEmpty;
@@ -187,6 +193,17 @@ public abstract class EntityAbilityInstance
             EffectUtils.AddCompanionToDocument(document, "companionExhaustedFrom", companion);
         }
         EffectManager.Instance.QueueEffectWorkflow(new EffectWorkflowClosure(document, ability.effectWorkflow, null));
+        yield return null;
+    }
+
+    private IEnumerator OnCardDiscard(DeckInstance deckFrom, Card card, bool casted) {
+        if (!casted) {
+            EffectDocument document = createEffectDocument();
+            if (deckFrom.TryGetComponent(out CompanionInstance companion)) {
+                EffectUtils.AddCompanionToDocument(document, "companionDiscardedFrom", companion);
+            }
+            EffectManager.Instance.QueueEffectWorkflow(new EffectWorkflowClosure(document, ability.effectWorkflow, null));
+        }
         yield return null;
     }
 
