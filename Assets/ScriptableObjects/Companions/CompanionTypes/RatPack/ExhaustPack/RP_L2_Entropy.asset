@@ -35,16 +35,22 @@ MonoBehaviour:
   speakerType: {fileID: 0}
   abilitiesV2:
   - rid: 205828032053380025
+  - rid: 2034230108114649089
   level: 1
   upgradeTo: {fileID: 11400000, guid: 2410f6e261b324576b2bca64f8c34f91, type: 2}
   tooltip:
     empty: 0
     lines:
-    - title: L2 Entropy
-      description: End of combat, permanently remove a card from target companion
+    - title: Level Two Entropy
+      description: 'Transform 1 card into an "Entropy''s Burn" card at the end of
+        combat. Whenever you exhaust a card, draw 1 card from a random companion. '
+      relatedBehaviorIndex: 0
+    - title: Entropy's Burn
+      description: Exhaust. When exhausted, deal 5 damage to a random enemy.
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: End of combat, permanently remove a card from target companion
+  keepsakeDescription: 'Transform 1 card into an "Entropy''s Burn" card at the end
+    of combat. Whenever you exhaust a card, draw 1 card from a random companion. '
   references:
     version: 2
     RefIds:
@@ -57,7 +63,7 @@ MonoBehaviour:
         - rid: 205828032053380027
         - rid: 205828032053380028
         - rid: 205828032053380029
-        - rid: 205828032053380030
+        - rid: 2034230108114649088
     - rid: 205828032053380026
       type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
       data:
@@ -93,18 +99,61 @@ MonoBehaviour:
         effectStepName: SelectCardsFromList
         inputKey: allCardsInDeck
         outputKey: targetCard
-        promptText: Select card to permanently remove.
+        promptText: Select a card to transform into Entropy's Burn, 0 mana "Exhaust.
+          When exhausted, deal 5 damage to a random enemy."
         minTargets: 1
         maxTargets: 1
         getNumberOfTargetsFromKey: 0
         inputNumberOfTargetsKey: 
         randomizeOrder: 0
-    - rid: 205828032053380030
+    - rid: 2034230108114649088
       type: {class: CardInDeckEffect, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CardInDeckEffect
         inputCardsKey: targetCard
         inputDeckKey: target
-        effect: 1
-        cardToTransformInto: {fileID: 0}
+        effect: 4
+        cardToTransformInto: {fileID: 11400000, guid: c00025e95f9a449b59c853e77403c30b, type: 2}
         outputKey: 
+    - rid: 2034230108114649089
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 9
+        effectSteps:
+        - rid: 2034230108114649091
+        - rid: 2034230108114649095
+        - rid: 2034230108114649093
+        - rid: 2034230108114649092
+    - rid: 2034230108114649091
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: target
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 6
+        cantCancelTargetting: 0
+    - rid: 2034230108114649092
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DrawCards
+        inputKey: target
+        outputKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 2034230108114649093
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: target
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        scale: 1
+    - rid: 2034230108114649095
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: '>:)'
+        lineTime: 0.8
