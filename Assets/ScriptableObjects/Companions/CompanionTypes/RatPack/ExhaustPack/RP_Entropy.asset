@@ -98,8 +98,7 @@ MonoBehaviour:
         effectStepName: SelectCardsFromList
         inputKey: allCardsInDeck
         outputKey: cardToTransform
-        promptText: Select a card to transform into Entropy's Burn, 0 mana "Exhaust.
-          When exhausted, deal 5 damage to a random enemy."
+        promptText: Select a card to transform into Entropy's Burn
         minTargets: 1
         maxTargets: 1
         getNumberOfTargetsFromKey: 0
