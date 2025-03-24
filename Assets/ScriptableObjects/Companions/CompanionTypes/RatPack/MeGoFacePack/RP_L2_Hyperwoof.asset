@@ -42,10 +42,12 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Level Two Hyperwoof
-      description: Whenever you play 3 cards from Hyperwoof, it gains 1 strength
+      description: Whenever you play 2 cards from Hyperwoof in a turn, it gains 1
+        strength
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: Whenever you play 3 cards from Hyperwoof, it gains 1 strength
+  keepsakeDescription: Whenever you play 2 cards from Hyperwoof in a turn, it gains
+    1 strength
   references:
     version: 2
     RefIds:
@@ -113,7 +115,7 @@ MonoBehaviour:
       type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: BooleanComparison
-        hardCodedInputKey1: 3
+        hardCodedInputKey1: 2
         useHardCodedInputKey1: 1
         inputKey1: 
         operation: 2
@@ -150,7 +152,7 @@ MonoBehaviour:
     - rid: 2034230017118175765
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
-        abilityTrigger: 0
+        abilityTrigger: 12
         effectSteps:
         - rid: 2034230017118175768
         - rid: 2034230017118175769
