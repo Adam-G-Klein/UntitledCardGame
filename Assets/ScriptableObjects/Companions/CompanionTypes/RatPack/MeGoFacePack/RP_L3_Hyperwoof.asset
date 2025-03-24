@@ -42,12 +42,12 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Level Three Hyperwoof
-      description: Whenever you play 3 cards from Hyperwoof, it gains 1 PERMANENT
-        strength
+      description: Whenever you play 3 cards from Hyperwoof in a turn, it gains 1
+        PERMANENT strength
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: Whenever you play 3 cards from Hyperwoof, it gains 1 PERMANENT
-    strength
+  keepsakeDescription: Whenever you play 3 cards from Hyperwoof in a turn, it gains
+    1 PERMANENT strength
   references:
     version: 2
     RefIds:
@@ -142,7 +142,7 @@ MonoBehaviour:
     - rid: 2034230017118175765
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
-        abilityTrigger: 0
+        abilityTrigger: 12
         effectSteps:
         - rid: 2034230017118175768
         - rid: 2034230017118175769
