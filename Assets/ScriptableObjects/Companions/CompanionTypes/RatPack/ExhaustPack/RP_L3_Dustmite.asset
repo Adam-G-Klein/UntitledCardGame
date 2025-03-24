@@ -42,11 +42,11 @@ MonoBehaviour:
     lines:
     - title: Level Three Dustmite
       description: Whenever you exhaust a card, Dustmite++ gains 4 block and the
-        owner of that card gains 2 block
+        card's parent companion gains 2 block
       relatedBehaviorIndex: 0
   keepsakeTitle: 
   keepsakeDescription: Whenever you exhaust a card, Dustmite++ gains 4 block and
-    the owner of that card gains 2 block
+    the card's parent companion gains 2 block
   references:
     version: 2
     RefIds:
