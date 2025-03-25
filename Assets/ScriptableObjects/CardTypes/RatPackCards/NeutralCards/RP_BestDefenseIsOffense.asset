@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: RP_BestDefenseIsOffense
   m_EditorClassIdentifier: 
   Name: Best Defense is Offense
-  Description: Deal damage equal to the total block on your team ({total} damage)
+  Description: Deal damage equal to the total block on your team ({rpl_damage} damage)
   defaultValues:
-  - key: total
+  - key: rpl_damage
     value: 0
   Cost: 1
   Artwork: {fileID: 21300000, guid: 8a6101d38c903424cbd7264288132aac, type: 3}
