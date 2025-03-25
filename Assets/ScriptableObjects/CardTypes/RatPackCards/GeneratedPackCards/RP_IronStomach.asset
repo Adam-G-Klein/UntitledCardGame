@@ -42,21 +42,9 @@ MonoBehaviour:
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
-        - rid: 2034230108114649366
         - rid: 2034230108114649367
         - rid: 2034230108114649368
         - rid: 2034230108114649369
-    - rid: 2034230108114649366
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: 
-        validTargets: 
-        number: 1
-        specialTargetRule: 0
-        cantCancelTargetting: 0
     - rid: 2034230108114649367
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
