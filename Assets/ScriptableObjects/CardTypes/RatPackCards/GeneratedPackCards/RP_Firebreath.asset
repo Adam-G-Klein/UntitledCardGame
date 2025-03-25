@@ -25,7 +25,8 @@ MonoBehaviour:
   playable: 0
   exhaustsWhenPlayed: 0
   retain: 0
-  effectWorkflows: []
+  effectWorkflows:
+  - rid: 2034230108114649328
   onExhaustEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
@@ -36,6 +37,10 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 2034230108114649328
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps: []
     - rid: 4463206262261416072
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -73,3 +78,4 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        vfxPrefab: {fileID: 0}
