@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RP_YummySnack
   m_EditorClassIdentifier: 
   Name: Yummy Snack
-  Description: Gain 2 max HP. Exhaust
+  Description: Exhaust. When exhausted, gain 2 max HP.
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: cf5aa02f77468564190f8694f7007ee1, type: 3}
@@ -25,7 +25,7 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 205828032053379180
   onExhaustEffectWorkflow:
-    rid: -2
+    rid: 2034230108114649282
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
   tooltips: 
@@ -37,11 +37,15 @@ MonoBehaviour:
     - rid: 205828032053379180
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
+        effectSteps: []
+    - rid: 2034230108114649282
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
         effectSteps:
-        - rid: 205828032053379181
-        - rid: 205828032053379182
-        - rid: 8441470952357494998
-    - rid: 205828032053379181
+        - rid: 2034230108114649330
+        - rid: 2034230108114649331
+        - rid: 2034230108114649333
+    - rid: 2034230108114649330
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
@@ -52,7 +56,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 4
         cantCancelTargetting: 0
-    - rid: 205828032053379182
+    - rid: 2034230108114649331
       type: {class: PermanentStatIncrease, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: PermanentStatIncrease
@@ -61,10 +65,10 @@ MonoBehaviour:
         scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
-    - rid: 8441470952357494998
+    - rid: 2034230108114649333
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
-        inputKey: self
+        inputKey: 
         prefabToInstantiate: {fileID: 3850217184923880746, guid: 604f6efaa1e828d4bacfc84a25dfbd7a, type: 3}
-        scale: 1
+        scale: 1.5

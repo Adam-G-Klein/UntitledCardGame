@@ -23,7 +23,7 @@ MonoBehaviour:
   exhaustsWhenPlayed: 0
   retain: 0
   effectWorkflows:
-  - rid: -2
+  - rid: 2034230108114649327
   onExhaustEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
@@ -34,3 +34,7 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 2034230108114649327
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps: []
