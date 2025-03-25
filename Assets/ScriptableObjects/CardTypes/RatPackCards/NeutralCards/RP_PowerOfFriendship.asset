@@ -1,0 +1,134 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
+  m_Name: RP_PowerOfFriendship
+  m_EditorClassIdentifier: 
+  Name: Power of Friendship
+  Description: Lose all block. Give all block lost plus 3 block to target companion
+    ({totalBlock} block).
+  defaultValues:
+  - key: totalBlock
+    value: 3
+  Cost: 1
+  Artwork: {fileID: 21300000, guid: deea7b3a1097502488875a6717d4fb34, type: 3}
+  cardCategory: 2
+  vfxPrefab: {fileID: 0}
+  playable: 1
+  exhaustsWhenPlayed: 0
+  retain: 0
+  effectWorkflows:
+  - rid: 2034230108114649437
+  onExhaustEffectWorkflow:
+    rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  tooltips: 
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 2034230108114649437
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 2034230108114649438
+        - rid: 2034230108114649439
+        - rid: 2034230108114649440
+        - rid: 2034230108114649441
+        - rid: 2034230108114649442
+        - rid: 2034230108114649445
+        - rid: 2034230108114649447
+        - rid: 2034230108114649443
+        - rid: 2034230108114649444
+    - rid: 2034230108114649438
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 4
+        cantCancelTargetting: 0
+    - rid: 2034230108114649439
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: target
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 0
+        cantCancelTargetting: 0
+    - rid: 2034230108114649440
+      type: {class: CountStatusEffectsStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CountStatusEffectStep
+        inputKey: self
+        statusEffect: 2
+        onlyCountStatusOnce: 0
+        outputKey: numBlock
+    - rid: 2034230108114649441
+      type: {class: MathStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: MathStep
+        inputKey: numBlock
+        operand2InputKey: UNUSED
+        operation: 2
+        scale: -1
+        outputKey: negativeBlock
+    - rid: 2034230108114649442
+      type: {class: MathStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: MathStep
+        inputKey: numBlock
+        operand2InputKey: UNUSED
+        operation: 0
+        scale: 3
+        outputKey: totalBlock
+    - rid: 2034230108114649443
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 377a399fb9991684eb788275070abb5e, type: 3}
+        scale: 1
+    - rid: 2034230108114649444
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: target
+        prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
+        scale: 1
+    - rid: 2034230108114649445
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: self
+        statusEffect: 2
+        scale: 0
+        getScaleFromKey: 1
+        inputScaleKey: negativeBlock
+        multiplyByNumAuraStacks: 0
+    - rid: 2034230108114649447
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: target
+        statusEffect: 2
+        scale: 0
+        getScaleFromKey: 1
+        inputScaleKey: totalBlock
+        multiplyByNumAuraStacks: 0
