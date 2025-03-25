@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: RP_ThickSkin
+  m_Name: RP_BiggerTheBetter
   m_EditorClassIdentifier: 
-  Name: Thick Skin
+  Name: Bigger the Better
   Description: Give target companion block equal to the number of cards in this deck
     ({numCards} cards)
   defaultValues:
   - key: numCards
     value: 0
   Cost: 1
-  Artwork: {fileID: 21300000, guid: c338159c274399e42bff6fbabd825764, type: 3}
+  Artwork: {fileID: 21300000, guid: 5f66e07752da0d34ca5ca0b6a327d011, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1

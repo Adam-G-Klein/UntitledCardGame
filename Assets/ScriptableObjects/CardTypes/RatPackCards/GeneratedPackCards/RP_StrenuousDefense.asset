@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RP_StrenuousDefense
   m_EditorClassIdentifier: 
   Name: Strenuous Defense
-  Description: Give target companion 9 block and shuffle a "Sleepy Time" unplayable
+  Description: Give target companion 7 block and shuffle a "Iron Stomach" unplayable
     card into their deck
   defaultValues: []
   Cost: 1
@@ -93,7 +93,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: target
         statusEffect: 2
-        scale: 9
+        scale: 7
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
