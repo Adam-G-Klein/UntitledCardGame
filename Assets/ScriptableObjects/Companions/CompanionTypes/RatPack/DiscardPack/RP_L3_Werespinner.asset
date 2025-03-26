@@ -41,12 +41,12 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Level Three Werespinner
-      description: Whenever you discard a Status card, give 2 strength to and draw
-        a card from a random companion
+      description: Whenever you discard a Generated card, give 2 strength to and
+        draw a card from a random companion
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: Whenever you discard a Status card, give 1 strength to and
-    draw a card from a random companion
+  keepsakeDescription: Whenever you discard a Generated card, give 2 strength to
+    and draw a card from a random companion
   references:
     version: 2
     RefIds:
@@ -97,8 +97,8 @@ MonoBehaviour:
         effectStepName: FilterCards
         inputKey: cardDiscarded
         filter:
-          cardCategoriesToInclude: 04000000
-          generatedCardsFilter: 0
+          cardCategoriesToInclude: 
+          generatedCardsFilter: 1
         outputKey: statusCards
     - rid: 2034230020176347171
       type: {class: CountStep, ns: , asm: Assembly-CSharp}
