@@ -219,17 +219,7 @@ public class PlayableCard : MonoBehaviour,
     }
 
     public IEnumerator ExhaustCard() {
-        yield return PlayerHand.Instance.ResizeHand(this);
-        yield return deckFrom.ExhaustCard(card, this);
-        // Queue up the callback last before returning execution so the callback will destroy the card
-        // ONLY after the on exhaust workflows.
-        // Any workflows queued by `deckFrom.ExhaustCard` will run BEFORE this.
-        EffectManager.Instance.QueueEffectWorkflow(
-            new EffectWorkflowClosure(new EffectDocument(), new EffectWorkflow(), OnCardExhaustHandler())
-        );
-    }
-
-    private IEnumerator OnCardExhaustHandler() {
+        deckFrom.ExhaustCard(card, this);
         cleanupAndDestroy();
         yield return null;
     }

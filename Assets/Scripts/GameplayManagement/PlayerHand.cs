@@ -201,14 +201,30 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     // Do not call on whole hand, only call on individual cards
     // modifies the list of cards in hand
     public IEnumerator DiscardCard(PlayableCard card, bool cardCasted = false) {
+        // The code that handles casting cards resizes the hand.
+        if (!cardCasted) {
+            yield return ResizeHand(card);
+        }
         // If statements are here to take into account if a card exhausts itself
         // as part of its effect workflow
         if (cardsInHand.Contains(card)) {
             yield return StartCoroutine(SafeRemoveCardFromHand(card));
         }
+        if (!cardCasted) {
+            if (card.card.cardType.onDiscardEffectWorkflow != null) {
+                EffectDocument document = new EffectDocument();
+                document.originEntityType = EntityType.Card;
+                if (card != null) document.map.AddItem<PlayableCard>(EffectDocument.ORIGIN, card);
+                EffectManager.Instance.QueueEffectWorkflow(
+                    new EffectWorkflowClosure(document, card.card.cardType.onDiscardEffectWorkflow, null)
+                );
+            }
+        }
         yield return OnCardDiscard(card.deckFrom, card.card, cardCasted);
         if(card.gameObject.activeSelf) {
-            yield return card.DiscardToDeck();
+            EffectManager.Instance.QueueEffectWorkflow(
+                new EffectWorkflowClosure(new EffectDocument(), new EffectWorkflow(), card.DiscardToDeck())
+            );
         }
     }
 
@@ -226,8 +242,24 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         if (cardsInHand.Contains(card)) {
             yield return SafeRemoveCardFromHand(card);
         }
+        yield return ResizeHand(card);
+
+        if (card.card.cardType.onExhaustEffectWorkflow != null) {
+            EffectDocument document = new EffectDocument();
+            document.originEntityType = EntityType.Card;
+            if (card != null) document.map.AddItem<PlayableCard>(EffectDocument.ORIGIN, card);
+            EffectManager.Instance.QueueEffectWorkflow(
+                new EffectWorkflowClosure(document, card.card.cardType.onExhaustEffectWorkflow, null)
+            );
+        }
+        yield return OnCardExhaust(card.deckFrom, card.card);
+        // Queue up the callback last before returning execution so the callback will destroy the card
+        // ONLY after the on exhaust workflows.
+        // Any workflows queued by `deckFrom.ExhaustCard` will run BEFORE this.
         if(card.gameObject.activeSelf) {
-            yield return card.ExhaustCard();
+            EffectManager.Instance.QueueEffectWorkflow(
+                new EffectWorkflowClosure(new EffectDocument(), new EffectWorkflow(), card.ExhaustCard())
+            );
         }
     }
 
