@@ -11,16 +11,17 @@ using UnityEngine;
     Parameters:
         - Percent: Percentage of max hp to get
 */
-public class GetPercentOfMaxHP : EffectStep, IEffectStepCalculation {
+public class GetHPStatistics : EffectStep, IEffectStepCalculation {
     [SerializeField]
     private string inputKey = "";
     [SerializeField]
-    private double percent = 0.5;
-    [SerializeField]
-    private string outputKey = "";
+    private string outputMaxHPKey = "";
 
-    public GetPercentOfMaxHP() {
-        effectStepName = "GetPercentOfMaxHP";
+    [SerializeField]
+    private string outputCurrentHPKey = "";
+
+    public GetHPStatistics() {
+        effectStepName = "GetHPStatistics";
     }
 
     public override IEnumerator invoke(EffectDocument document) {
@@ -32,8 +33,8 @@ public class GetPercentOfMaxHP : EffectStep, IEffectStepCalculation {
             yield return null;
         }
 
-        int output = Convert.ToInt32(instances[0].combatStats.maxHealth * percent);
-        document.intMap[outputKey] = output;
+        document.intMap[outputMaxHPKey] = Convert.ToInt32(instances[0].combatStats.maxHealth);
+        document.intMap[outputCurrentHPKey] = Convert.ToInt32(instances[0].combatStats.currentHealth);
         yield return null;
     }
 
