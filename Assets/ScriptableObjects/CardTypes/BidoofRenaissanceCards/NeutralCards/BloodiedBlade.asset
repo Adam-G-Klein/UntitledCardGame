@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: BloodiedBlade
   m_EditorClassIdentifier: 
   Name: Bloodied Blade
-  Description: Lose 1 HP. Deal {rpl_damage} damage to target.
-  values: 0a000000
+  Description: Lose 2 HP. Deal {rpl_damage} damage to target.
   defaultValues:
   - key: rpl_damage
     value: 10
@@ -95,15 +94,17 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        vfxPrefab: {fileID: 0}
     - rid: 5602892949302281050
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
         inputKey: self
         combatEffect: 16
-        scale: 1
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        vfxPrefab: {fileID: 0}
