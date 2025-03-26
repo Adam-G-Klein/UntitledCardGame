@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems; 
+using UnityEngine.EventSystems;
 using TMPro;
 
 public class KeepsakeInShop : MonoBehaviour
@@ -27,7 +27,7 @@ public class KeepsakeInShop : MonoBehaviour
         this.priceText.text = price.ToString();
         this.id = Id.newGuid();
         this.hoverBackground.enabled = false;
-        this.keepsakeImage.sprite = companion.companionType.keepsake;
+        this.keepsakeImage.sprite = companion.companionType.sprite;
         this.soldOutSign.SetActive(false);
     }
 
@@ -39,8 +39,8 @@ public class KeepsakeInShop : MonoBehaviour
     public void OnPointerClick(PointerEventData eventData) {
         if (isSold) return;
         CompanionBuyRequest companionBuyRequest = new CompanionBuyRequest(
-            companion, 
-            price, 
+            companion,
+            price,
             this);
         // ShopManager.Instance.processCompanionBuyRequest(companionBuyRequest);
     }
