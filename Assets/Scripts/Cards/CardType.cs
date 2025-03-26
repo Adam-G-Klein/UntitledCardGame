@@ -39,6 +39,11 @@ public class CardType: ScriptableObject, ITooltipProvider
     [SerializeReference]
     public EffectWorkflow onExhaustEffectWorkflow;
 
+    // When discarded by a card or another effect, activate an effect workflow.
+    // This should not trigger at the end of turn.
+    [SerializeReference]
+    public EffectWorkflow onDiscardEffectWorkflow;
+
     [SerializeReference]
     // When the card is kept in hand for the end of the turn, we can do
     // an optional effect workflow, like "lose 2 HP".
@@ -91,6 +96,9 @@ public class CardType: ScriptableObject, ITooltipProvider
         }
         if (onExhaustEffectWorkflow != null) {
             tooltipWorkflows.Add(onExhaustEffectWorkflow);
+        }
+        if (onDiscardEffectWorkflow != null) {
+            tooltipWorkflows.Add(onDiscardEffectWorkflow);
         }
         foreach(EffectWorkflow workflow in tooltipWorkflows) {
             if (workflow == null) {
