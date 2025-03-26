@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: RP_BestDefenseIsOffense
   m_EditorClassIdentifier: 
   Name: Best Defense is Offense
-  Description: Deal damage equal to the total block on your team ({rpl_damage} damage)
+  Description: Deal damage equal to half the total block on your team ({rpl_damage}
+    damage)
   defaultValues:
   - key: rpl_damage
     value: 0
@@ -43,6 +44,7 @@ MonoBehaviour:
         - rid: 2034230108114649449
         - rid: 2034230108114649452
         - rid: 2034230108114649450
+        - rid: 2034230108114649669
         - rid: 2034230108114649451
     - rid: 2034230108114649449
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -71,7 +73,7 @@ MonoBehaviour:
         combatEffect: 0
         scale: 0
         getScaleFromKey: 1
-        inputScaleKey: total
+        inputScaleKey: dmg
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
@@ -87,3 +89,12 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
+    - rid: 2034230108114649669
+      type: {class: MathStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: MathStep
+        inputKey: total
+        operand2InputKey: UNUSED
+        operation: 3
+        scale: 2
+        outputKey: dmg
