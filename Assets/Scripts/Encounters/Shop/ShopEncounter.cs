@@ -98,7 +98,7 @@ public class ShopEncounter : Encounter
 
             CardDisplay cardDisplay = cardInShop.cardDisplay;
             if (companionType != null) {
-                cardInShop.keepSake.sprite = companionType.keepsake;
+                cardInShop.keepSake.sprite = companionType.sprite;
             }
             //cardDisplay.Initialize(new Card(cardType, companionType, cardsInShop[i].rarity));
 

@@ -29,12 +29,9 @@ public class CompanionTypeSO : ScriptableObject
     public Sprite entityFrame;
     public Sprite companionManagementFrame;
     public StartingDeck startingDeck;
-    public Sprite keepsake;
     public Sprite cardBack;
     public Sprite cardFrame;
-    public Sprite typeIcon;
-    public Sprite portrait;
-    public Sprite teamSelectSprite;
+    public Sprite cardTypeIconOverride;
     public CompanionRarity rarity;
     public GameObject cardIdleVfxPrefab;
     public AudioClip genericCompanionSFX;
