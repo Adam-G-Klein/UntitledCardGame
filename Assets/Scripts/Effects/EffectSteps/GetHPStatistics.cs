@@ -19,6 +19,8 @@ public class GetHPStatistics : EffectStep, IEffectStepCalculation {
 
     [SerializeField]
     private string outputCurrentHPKey = "";
+    [SerializeField]
+    private string outputMissingHPKey = "";
 
     public GetHPStatistics() {
         effectStepName = "GetHPStatistics";
@@ -35,6 +37,7 @@ public class GetHPStatistics : EffectStep, IEffectStepCalculation {
 
         document.intMap[outputMaxHPKey] = Convert.ToInt32(instances[0].combatStats.maxHealth);
         document.intMap[outputCurrentHPKey] = Convert.ToInt32(instances[0].combatStats.currentHealth);
+        document.intMap[outputMissingHPKey] = Convert.ToInt32(instances[0].combatStats.maxHealth - instances[0].combatStats.currentHealth);
         yield return null;
     }
 
