@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: RP_Recover
+  m_Name: RP_RecoverStronger
   m_EditorClassIdentifier: 
-  Name: Recover
-  Description: Exhaust. Heal target companion 5 HP. Heal 10 HP instead if they are
-    below half HP
+  Name: Recover Stronger
+  Description: Exhaust. Heal target companion 5 HP. Give them 1 strength if they
+    were below half HP
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 9bbb0580b47c1a0458a81a39014da27c, type: 3}
@@ -26,6 +26,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 5602893017534169574
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
@@ -42,6 +44,16 @@ MonoBehaviour:
         inputKey: target
         prefabToInstantiate: {fileID: 3850217184923880746, guid: 604f6efaa1e828d4bacfc84a25dfbd7a, type: 3}
         scale: 1
+    - rid: 2034230176448512082
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: target
+        statusEffect: 0
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
     - rid: 5602893017534169574
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -53,7 +65,7 @@ MonoBehaviour:
         - rid: 1274772082283774852
         - rid: 5602893017534169578
         - rid: 5602893017534169579
-        - rid: 5602893017534169580
+        - rid: 2034230176448512082
     - rid: 5602893017534169575
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -72,6 +84,7 @@ MonoBehaviour:
         inputKey: target
         percentThreshold: 0.5
         outputKey: targetBelowHalf
+        below: 1
     - rid: 5602893017534169577
       type: {class: CountStep, ns: , asm: Assembly-CSharp}
       data:
@@ -94,19 +107,6 @@ MonoBehaviour:
         effectStepName: EndWorkflowIfConditionMet
         inputKey1: notBelowHalf
         conditionToEndOn: 1
-    - rid: 5602893017534169580
-      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CombatEffectStep
-        inputKey: targetBelowHalf
-        combatEffect: 9
-        scale: 5
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
-        vfxPrefab: {fileID: 0}
     - rid: 5602893017534169581
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:

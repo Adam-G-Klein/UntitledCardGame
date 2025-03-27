@@ -42,7 +42,7 @@ MonoBehaviour:
         companion's decks.
       relatedBehaviorIndex: 0
     - title: Mab's Boon
-      description: Exhaust. Draw 1 card from and heal this companion 3 HP
+      description: Exhaust. Draw 1 card from and heal this companion 2 HP
       relatedBehaviorIndex: 0
   keepsakeTitle: 
   keepsakeDescription: At the end of combat, permanently add a "Mab's Boon" card
@@ -96,7 +96,7 @@ MonoBehaviour:
         effectStepName: AddCardsToDeck
         inputKey: adj
         cardTypes:
-        - {fileID: 11400000, guid: b189fb1d6d01a4fc69154f1e3f45b734, type: 2}
+        - {fileID: 11400000, guid: 5c1edea48dc2d4e37aaf6b50ad984adf, type: 2}
         addToDeckMethod: 3
         getCardsFromKey: 0
         inputCardsKey: 
