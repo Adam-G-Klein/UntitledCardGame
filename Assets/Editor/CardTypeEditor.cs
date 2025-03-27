@@ -10,6 +10,7 @@ public class CardTypeEditor : Editor {
 
     EffectStepName stepName = EffectStepName.Default;
     EffectStepName onExhaustStepName = EffectStepName.Default;
+    EffectStepName onDiscardStepName = EffectStepName.Default;
 
     EffectStepName inPlayerHandEndOfTurnStepName = EffectStepName.Default;
 
@@ -83,6 +84,25 @@ public class CardTypeEditor : Editor {
             }
 
             cardType.onExhaustEffectWorkflow.effectSteps.Add(newEffect);
+        }
+
+        EditorGUILayout.Space(20);
+        EditorGUILayout.LabelField("On discard effect Step Controls");
+        EditorGUILayout.Space(5);
+
+        onDiscardStepName = (EffectStepName) EditorGUILayout.EnumPopup(
+            "New effect",
+            onDiscardStepName);
+
+        if (GUILayout.Button("Add Effect")) {
+            EffectStep newEffect = InstantiateFromClassname.Instantiate<EffectStep>(
+                onDiscardStepName.ToString(),
+                new object[] {});
+            if (cardType.onDiscardEffectWorkflow == null) {
+                cardType.onDiscardEffectWorkflow = new EffectWorkflow();
+            }
+
+            cardType.onDiscardEffectWorkflow.effectSteps.Add(newEffect);
         }
 
         EditorGUILayout.Space(20);
