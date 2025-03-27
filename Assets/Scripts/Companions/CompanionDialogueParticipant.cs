@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CompanionDialogueParticipant : MonoBehaviour 
+public class CompanionDialogueParticipant : MonoBehaviour
 {
     // initialize and instantiate here, have this initialize the dialogueSpeaker
     [Tooltip("This companion's type, used to set the image in the scene. Searched for by the TeamSelectionManager")]
@@ -28,16 +28,16 @@ public class CompanionDialogueParticipant : MonoBehaviour
         }
         this.companion = companion;
         if(currentLocation == Location.TEAM_SELECT) {
-            spriteInScene.sprite = companion.companionType.teamSelectSprite;
+            spriteInScene.sprite = companion.companionType.sprite;
             spriteInScene.enabled = enabled;
-        } 
-        dialogueSpeaker.InitializeSpeaker(enabled, 
-            companion.companionType.speakerType, 
+        }
+        dialogueSpeaker.InitializeSpeaker(enabled,
+            companion.companionType.speakerType,
             interactionPromptView);
     }
 
     // have to do this as a second step, the dialogue manager doesn't know
-    // if we'll have a dialogue to initiate before it gets all of the 
+    // if we'll have a dialogue to initiate before it gets all of the
     // speakers initialized and registered
     public void InitializePromptView(bool enabled, DialogueSequenceSO dialogueSequence) {
         Debug.Log("Initializing prompt view. Enabled: " + enabled + " dialogueSequence: " + dialogueSequence);

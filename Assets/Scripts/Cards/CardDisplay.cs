@@ -80,7 +80,7 @@ public class CardDisplay : MonoBehaviour
         string description = card.cardType.Description;
         foreach (var defaultValue in card.cardType.defaultValues)
         {
-            description = description.Replace($"{{{defaultValue.key}}}", $"<b>{defaultValue.value}</b>"); 
+            description = description.Replace($"{{{defaultValue.key}}}", $"<b>{defaultValue.value}</b>");
         }
         CardDescGO.text = description;
         CostTextGO.text = cardInfo.GetManaCost().ToString();
@@ -104,10 +104,10 @@ public class CardDisplay : MonoBehaviour
             }
             FrameGO.sprite = companionType.cardFrame;
             Frame = FrameGO.sprite;
-            if(companionType.typeIcon == null) {
-                Debug.LogError("CompanionTypeSO " + companionType.name + " has no typeIcon set");
+            TypeIconGO.sprite = companionType.sprite;
+            if(companionType.cardTypeIconOverride != null) {
+                TypeIconGO.sprite = companionType.cardTypeIconOverride;
             }
-            TypeIconGO.sprite = companionType.typeIcon;
             TypeIcon = TypeIconGO.sprite;
         }
         if (rarityDisplayGO != null) {
