@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RP_UntoDust
   m_EditorClassIdentifier: 
   Name: Unto Dust
-  Description: Give target companion 8 block and exhaust a random card in hand
+  Description: Give target companion 7 block and exhaust a random card in hand
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: b0388336af3869341bb50af8ec281a8a, type: 3}
@@ -25,6 +25,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 5602892563578093692
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
@@ -47,7 +49,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: target
         statusEffect: 2
-        scale: 8
+        scale: 7
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
