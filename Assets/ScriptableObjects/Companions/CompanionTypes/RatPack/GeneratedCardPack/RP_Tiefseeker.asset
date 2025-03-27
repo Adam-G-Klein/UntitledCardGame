@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RP_Tiefseeker
   m_EditorClassIdentifier: 
   companionName: Tiefseeker
-  maxHealth: 15
+  maxHealth: 20
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: b64d813aa0d6446ffb4776d0c4564233, type: 3}
   fullSprite: {fileID: 21300000, guid: e39b8af7a7f3940e69196960874c9565, type: 3}
@@ -21,12 +21,9 @@ MonoBehaviour:
   entityFrame: {fileID: 21300000, guid: cac494b9d5af94fe9b3c4e2729ecc320, type: 3}
   companionManagementFrame: {fileID: 21300000, guid: 69da7692b04464b769e286602f9e1a12, type: 3}
   startingDeck: {fileID: 11400000, guid: de154260733284eeda9f983a22e41908, type: 2}
-  keepsake: {fileID: 21300000, guid: 2e47eb262b7762144a49d10bfa5ee1c8, type: 3}
   cardBack: {fileID: 21300000, guid: 3296a63e824de414bb4b578c4822fbdb, type: 3}
   cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
-  typeIcon: {fileID: 21300000, guid: 2e47eb262b7762144a49d10bfa5ee1c8, type: 3}
-  portrait: {fileID: 21300000, guid: e39b8af7a7f3940e69196960874c9565, type: 3}
-  teamSelectSprite: {fileID: 21300000, guid: 2e47eb262b7762144a49d10bfa5ee1c8, type: 3}
+  cardTypeIconOverride: {fileID: 0}
   rarity: 1
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 0}
