@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RP_HaemoShield
   m_EditorClassIdentifier: 
   Name: Haemo Shield
-  Description: Target companion gains 6 block and loses 1 HP.
+  Description: Target companion gains 7 block and loses 1 HP.
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 0f5ecf3627abce84490e1f8ec8e4f24f, type: 3}
@@ -25,6 +25,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 2034230108114649517
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
@@ -62,7 +64,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: target
         statusEffect: 2
-        scale: 6
+        scale: 7
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
