@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Heavy Eater
   Description: Shuffle 3 "Iron Stomach" cards into this companion's deck, then draw
-    1
+    2
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 6cb44060d9d637b44a6b0567dd3ff92f, type: 3}
@@ -26,6 +26,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 2034230108114649370
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
@@ -73,7 +75,7 @@ MonoBehaviour:
         effectStepName: DrawCards
         inputKey: self
         outputKey: 
-        scale: 1
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
     - rid: 2034230108114649374

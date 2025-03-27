@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RP_IronStomach
   m_EditorClassIdentifier: 
   Name: Iron Stomach
-  Description: Unplayable. At the end of turn, gain 3 block.
+  Description: Unplayable. At the end of turn, gain 4 block.
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 4b398c458377645acb90057ab391c591, type: 3}
@@ -25,6 +25,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 2034230108114649327
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: 2034230108114649365
@@ -62,7 +64,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: self
         statusEffect: 2
-        scale: 3
+        scale: 4
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
