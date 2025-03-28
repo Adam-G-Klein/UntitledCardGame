@@ -188,24 +188,29 @@ public class PlayableCard : MonoBehaviour,
     }
 
     public void UpdateCardText() {
-        //if (card.cardType.values.Count == 0) return;
-        //String newVal = "";
+        Debug.Log("trying to update card text");
+        if (card.effectSteps != null && card.effectSteps.Count != 0) {
+            invokeCalculationOnCardEffectWorkflow(card.effectSteps);
+        }
+        if (card.cardType.inPlayerHandEndOfTurnWorkflow != null && card.cardType.inPlayerHandEndOfTurnWorkflow.effectSteps.Count != 0) {
+            invokeCalculationOnCardEffectWorkflow(card.cardType.inPlayerHandEndOfTurnWorkflow.effectSteps);
+        }
+        if (card.cardType.onExhaustEffectWorkflow != null && card.cardType.onExhaustEffectWorkflow.effectSteps.Count != 0) {
+            invokeCalculationOnCardEffectWorkflow(card.cardType.onExhaustEffectWorkflow.effectSteps);
+        }
+        if (card.cardType.onDiscardEffectWorkflow != null && card.cardType.onDiscardEffectWorkflow.effectSteps.Count != 0) {
+            invokeCalculationOnCardEffectWorkflow(card.cardType.onDiscardEffectWorkflow.effectSteps);
+        }
+    }
+
+    private void invokeCalculationOnCardEffectWorkflow(List<EffectStep> steps) {
         EffectDocument document = new EffectDocument();
         document.map.AddItem(EffectDocument.ORIGIN, this);
         document.originEntityType = EntityType.Card;
-        Debug.Log("trying to update card text");
-        if (card.effectSteps != null && card.effectSteps.Count != 0) {
-            EffectManager.Instance.invokeEffectWorkflowForCalculation(
-                document,
-                card.effectSteps,
-                CardFinishedCalculatingCallback(document));
-        }
-        if (card.cardType.inPlayerHandEndOfTurnWorkflow != null && card.cardType.inPlayerHandEndOfTurnWorkflow.effectSteps.Count != 0) {
-            EffectManager.Instance.invokeEffectWorkflowForCalculation(
-                document,
-                card.cardType.inPlayerHandEndOfTurnWorkflow.effectSteps,
-                CardFinishedCalculatingCallback(document));
-        }
+        EffectManager.Instance.invokeEffectWorkflowForCalculation(
+            document,
+            steps,
+            CardFinishedCalculatingCallback(document));
     }
 
     private IEnumerator CardFinishedCalculatingCallback(EffectDocument document) {
