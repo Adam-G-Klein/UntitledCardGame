@@ -159,21 +159,26 @@ public class ShopEncounter : Encounter
         List<CardInShopWithPrice> uncommonShopCards = new();
         List<CardInShopWithPrice> rareShopCards = new();
         foreach (KeyValuePair<CardPoolSO, Sprite> cardPoolPair in cardPools) {
-            // TODO (Wombat): Prevent duplicate cards from showing up in the shop.
             foreach (CardType card in cardPoolPair.Key.commonCards) {
-                commonShopCards.Add(
-                    new CardInShopWithPrice(card, shopData.cardPrice, null, Card.CardRarity.COMMON, cardPoolPair.Value)
-                );
+                if (!commonShopCards.Any(c => c.cardType == card)) {
+                    commonShopCards.Add(
+                        new CardInShopWithPrice(card, shopData.cardPrice, null, Card.CardRarity.COMMON, cardPoolPair.Value)
+                    );
+                }
             }
             foreach (CardType card in cardPoolPair.Key.uncommonCards) {
-                uncommonShopCards.Add(
-                    new CardInShopWithPrice(card, shopData.cardPrice, null, Card.CardRarity.UNCOMMON, cardPoolPair.Value)
-                );
+                if (!uncommonShopCards.Any(c => c.cardType == card)) {
+                    uncommonShopCards.Add(
+                        new CardInShopWithPrice(card, shopData.cardPrice, null, Card.CardRarity.UNCOMMON, cardPoolPair.Value)
+                    );
+                }
             }
             foreach (CardType card in cardPoolPair.Key.rareCards) {
-                rareShopCards.Add(
-                    new CardInShopWithPrice(card, shopData.cardPrice, null, Card.CardRarity.RARE, cardPoolPair.Value)
-                );
+                if (!rareShopCards.Any(c => c.cardType == card)) {
+                    rareShopCards.Add(
+                        new CardInShopWithPrice(card, shopData.cardPrice, null, Card.CardRarity.RARE, cardPoolPair.Value)
+                    );
+                }
             }
         }
         for (int i = 0; i < shopLevel.numCardsToShow; i++) {
