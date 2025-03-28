@@ -154,7 +154,7 @@ public class ShopEncounter : Encounter
         // Add the neutral card pool to the list.
         // Note, if we want to weigh the proportion of neutral cards differently in the future,
         // it is worth revisiting how we do this.
-        cardPools.Add(shopData.neutralCardPool, null);
+        cardPools.Add(shopData.neutralCardPool, shopData.neutralCardPool.genericCardIconSprite);
         List<CardInShopWithPrice> commonShopCards = new();
         List<CardInShopWithPrice> uncommonShopCards = new();
         List<CardInShopWithPrice> rareShopCards = new();
