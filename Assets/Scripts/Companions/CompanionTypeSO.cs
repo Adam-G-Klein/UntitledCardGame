@@ -38,6 +38,8 @@ public class CompanionTypeSO : ScriptableObject
     public GameObject genericCompanionVFX;
     [Header("Card pool")]
     public CardPoolSO cardPool;
+    [Header("Pack card pool - e.g. the discard or health manipulation pack")]
+    public CardPoolSO packCardPool;
     [Header("Dialogue hook-in")]
     public SpeakerTypeSO speakerType;
     [Header("Companion passive abilities")]

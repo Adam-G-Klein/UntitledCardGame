@@ -147,6 +147,9 @@ public class ShopEncounter : Encounter
             if (!cardPools.ContainsKey(companion.companionType.cardPool)) {
                 cardPools.Add(companion.companionType.cardPool, null);
             }
+            if (!cardPools.ContainsKey(companion.companionType.packCardPool)) {
+                cardPools.Add(companion.companionType.packCardPool, null);
+            }
         }
         // Add the neutral card pool to the list.
         // Note, if we want to weigh the proportion of neutral cards differently in the future,
@@ -156,6 +159,9 @@ public class ShopEncounter : Encounter
         List<CardInShopWithPrice> uncommonShopCards = new();
         List<CardInShopWithPrice> rareShopCards = new();
         foreach (KeyValuePair<CardPoolSO, CompanionTypeSO> cardPoolPair in cardPools) {
+            if (cardPoolPair.Key == null) {
+                continue;
+            }
             foreach (CardType card in cardPoolPair.Key.commonCards) {
                 commonShopCards.Add(
                     new CardInShopWithPrice(card, shopData.cardPrice, cardPoolPair.Value, Card.CardRarity.COMMON, cardPoolPair.Key.genericCardIconSprite)
