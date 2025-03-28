@@ -23,6 +23,7 @@ public enum EffectStepName {
     Default,
     DrawCards,
     EndWorkflowIfConditionMet,
+    EndWorkflowIfListEmpty,
     EndWorkflowIfNoMapElement,
     FilterCards,
     FilterEntityByHP,
