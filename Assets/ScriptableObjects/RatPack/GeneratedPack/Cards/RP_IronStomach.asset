@@ -46,8 +46,6 @@ MonoBehaviour:
         - rid: 2034230176448512496
         - rid: 2034230176448512497
         - rid: 2034230176448512498
-        - rid: 2034230176448512499
-        - rid: 2034230176448512500
     - rid: 2034230108114649365
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -112,27 +110,6 @@ MonoBehaviour:
         inputKey: self
         prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
         scale: 1
-    - rid: 2034230176448512499
-      type: {class: CountCardsInDeck, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CountCardsInDeck
-        inputDeckKey: self
-        filter:
-          cardCategoriesToInclude: 
-          generatedCardsFilter: 0
-        includeDrawPile: 1
-        includeDiscardPile: 1
-        includeCardsInHand: 1
-        outputKey: numCards
-    - rid: 2034230176448512500
-      type: {class: MathStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: MathStep
-        inputKey: numCards
-        operand2InputKey: UNUSED
-        operation: 3
-        scale: 2
-        outputKey: block
     - rid: 2034230176448512501
       type: {class: MathStep, ns: , asm: Assembly-CSharp}
       data:
