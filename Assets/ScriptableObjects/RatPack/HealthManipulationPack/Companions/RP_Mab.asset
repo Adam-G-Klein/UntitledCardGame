@@ -33,21 +33,19 @@ MonoBehaviour:
   speakerType: {fileID: 11400000, guid: 9e835f3c4c49e9f4da934369a0a7132b, type: 2}
   abilitiesV2:
   - rid: 205828032053379072
+  - rid: 2034230176448512342
   level: 0
   upgradeTo: {fileID: 11400000, guid: c711b6e1ec0884037a06963be667f7fc, type: 2}
   tooltip:
     empty: 0
     lines:
     - title: Mab
-      description: At the end of combat, permanently add a "Mab's Boon" card n to
-        target companion's deck.
-      relatedBehaviorIndex: 0
-    - title: Mab's Boon
-      description: 0 mana. Exhaust. Draw 1 card from and heal this companion 2 HP
+      description: At the end of combat, heal adjacent companions 8 HP. Each turn,
+        adjacent companions lose 1 HP
       relatedBehaviorIndex: 0
   keepsakeTitle: Mab's Mercy
-  keepsakeDescription: At the end of combat, permanently add a "Mab's Boon" card
-    to target companion's deck.
+  keepsakeDescription: At the end of combat, heal adjacent companions 8 HP. Each
+    turn, adjacent companions lose 1 HP
   references:
     version: 2
     RefIds:
@@ -58,42 +56,87 @@ MonoBehaviour:
         effectSteps:
         - rid: 205828032053379075
         - rid: 205828032053379073
-        - rid: 2034229587402555393
+        - rid: 2034230176448512341
         - rid: 205828107393564676
+        - rid: 2034230176448512343
     - rid: 205828032053379073
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: target
-        validTargets: 00000000
+        outputKey: self
+        validTargets: 
         number: 1
-        specialTargetRule: 0
-        cantCancelTargetting: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
     - rid: 205828032053379075
       type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: DialogueStep
-        line: who should I bestow a healing boon card upon?
+        line: we are so back
         lineTime: 2
     - rid: 205828107393564676
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
-        inputKey: target
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        inputKey: adj
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 604f6efaa1e828d4bacfc84a25dfbd7a, type: 3}
         scale: 1
-    - rid: 2034229587402555393
-      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
+    - rid: 2034230176448512341
+      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: AddCardsToDeck
-        inputKey: target
-        cardTypes:
-        - {fileID: 11400000, guid: 5c1edea48dc2d4e37aaf6b50ad984adf, type: 2}
-        addToDeckMethod: 3
-        getCardsFromKey: 0
-        inputCardsKey: 
+        effectStepName: GetAdjacentCompanions
+        inputKey: self
+        outputKey: adj
+    - rid: 2034230176448512342
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 12
+        effectSteps:
+        - rid: 2034230176448512345
+        - rid: 2034230176448512346
+        - rid: 2034230176448512348
+    - rid: 2034230176448512343
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: adj
+        combatEffect: 9
+        scale: 8
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 0}
+    - rid: 2034230176448512345
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 2034230176448512346
+      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetAdjacentCompanions
+        inputKey: self
+        outputKey: adj
+    - rid: 2034230176448512348
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: adj
+        combatEffect: 16
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 6137048663962808129, guid: 92c26f41ef33c23419e05ceb12660efa, type: 3}
