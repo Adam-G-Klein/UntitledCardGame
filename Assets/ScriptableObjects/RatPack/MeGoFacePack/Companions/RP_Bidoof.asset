@@ -33,17 +33,16 @@ MonoBehaviour:
   speakerType: {fileID: 0}
   abilitiesV2:
   - rid: 205827988172308704
-  - rid: 205827988172308708
   level: 0
   upgradeTo: {fileID: 11400000, guid: ed4b7c6cb84d44138ade824b959334c0, type: 2}
   tooltip:
     empty: 0
     lines:
     - title: Bidoof
-      description: Starts combat with 1 base strength.
+      description: Starts combat with 1 strength
       relatedBehaviorIndex: 0
   keepsakeTitle: Bidoof's Toothbrush
-  keepsakeDescription: Starts combat with 1 base strength!
+  keepsakeDescription: Starts combat with 1 strength
   references:
     version: 2
     RefIds:
@@ -83,15 +82,3 @@ MonoBehaviour:
         inputKey: self
         prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
         scale: 1
-    - rid: 205827988172308708
-      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
-      data:
-        abilityTrigger: 8
-        effectSteps:
-        - rid: 205827988172308709
-    - rid: 205827988172308709
-      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: DialogueStep
-        line: Bidoof now has the strength of 4 Bidoofs!
-        lineTime: 3
