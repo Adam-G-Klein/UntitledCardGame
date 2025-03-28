@@ -144,10 +144,10 @@ public class ShopEncounter : Encounter
         // if you have both on your team.
         Dictionary<CardPoolSO, Sprite> cardPools = new();
         foreach (Companion companion in companionList) {
-            if (!cardPools.ContainsKey(companion.companionType.cardPool)) {
+            if (companion.companionType.cardPool && !cardPools.ContainsKey(companion.companionType.cardPool)) {
                 cardPools.Add(companion.companionType.cardPool, companion.companionType.sprite);
             }
-            if (!cardPools.ContainsKey(companion.companionType.packCardPool)) {
+            if (companion.companionType.packCardPool && !cardPools.ContainsKey(companion.companionType.packCardPool)) {
                 cardPools.Add(companion.companionType.packCardPool, companion.companionType.packCardPool.genericCardIconSprite);
             }
         }
@@ -159,9 +159,7 @@ public class ShopEncounter : Encounter
         List<CardInShopWithPrice> uncommonShopCards = new();
         List<CardInShopWithPrice> rareShopCards = new();
         foreach (KeyValuePair<CardPoolSO, Sprite> cardPoolPair in cardPools) {
-            if (cardPoolPair.Key == null) {
-                continue;
-            }
+            // TODO (Wombat): Prevent duplicate cards from showing up in the shop.
             foreach (CardType card in cardPoolPair.Key.commonCards) {
                 commonShopCards.Add(
                     new CardInShopWithPrice(card, shopData.cardPrice, null, Card.CardRarity.COMMON, cardPoolPair.Value)
