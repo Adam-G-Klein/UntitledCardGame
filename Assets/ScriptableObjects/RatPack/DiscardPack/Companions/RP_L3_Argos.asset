@@ -21,17 +21,15 @@ MonoBehaviour:
   entityFrame: {fileID: 21300000, guid: 93992d0d35ca9405b831e052145f48f8, type: 3}
   companionManagementFrame: {fileID: 21300000, guid: 3438500f50c834ffd8cab1850f7e94bf, type: 3}
   startingDeck: {fileID: 11400000, guid: 7fa17c4fa43804b51918678571ad5cdc, type: 2}
-  keepsake: {fileID: 21300000, guid: 1f413c89928c242938954066fca0a7af, type: 3}
   cardBack: {fileID: 21300000, guid: a5222a8d127763c49b397cce916345ec, type: 3}
   cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
-  typeIcon: {fileID: 21300000, guid: 1f413c89928c242938954066fca0a7af, type: 3}
-  portrait: {fileID: 21300000, guid: 1f413c89928c242938954066fca0a7af, type: 3}
-  teamSelectSprite: {fileID: 21300000, guid: 1f413c89928c242938954066fca0a7af, type: 3}
+  cardTypeIconOverride: {fileID: 0}
   rarity: 1
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 0}
   genericCompanionVFX: {fileID: 0}
   cardPool: {fileID: 11400000, guid: 24d8b4fda42584dff8289cc5f9e0202e, type: 2}
+  packCardPool: {fileID: 11400000, guid: aca6eb7e5bae64ee4aabb8816fe258a4, type: 2}
   speakerType: {fileID: 0}
   abilitiesV2:
   - rid: 205828032053379777
