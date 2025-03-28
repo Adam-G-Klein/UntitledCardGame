@@ -25,8 +25,8 @@ public class CountCardsInDeck : EffectStep, IEffectStepCalculation
 
     public override IEnumerator invoke(EffectDocument document) {
         List<DeckInstance> deckInstances = document.map.GetList<DeckInstance>(inputDeckKey);
-        if (deckInstances == null || deckInstances.Count == 0 || deckInstances.Count > 1) {
-            EffectError("No valid entity with deck input for key " + inputDeckKey);
+        if (deckInstances.Count == 0 || deckInstances.Count > 1) {
+            EffectError("We only expect there to be 1 deck for CountCardsInDeck for input deck key " + inputDeckKey + ", instead there are " + deckInstances.Count);
             yield break;
         }
 
