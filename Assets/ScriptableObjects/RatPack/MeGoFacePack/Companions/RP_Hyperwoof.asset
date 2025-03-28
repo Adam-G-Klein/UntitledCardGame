@@ -33,19 +33,18 @@ MonoBehaviour:
   speakerType: {fileID: 0}
   abilitiesV2:
   - rid: 205827988172308704
-  - rid: 2034230017118175765
   level: 0
   upgradeTo: {fileID: 11400000, guid: 9e6d6d2071ae7478eba4dc17e70f4057, type: 2}
   tooltip:
     empty: 0
     lines:
     - title: Hyperwoof
-      description: Whenever you play 3 cards from Hyperwoof in a turn, it gains 1
+      description: Each time you play an Attack card, Hyperwoof gains 2 temporary
         strength
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: Whenever you play 3 cards from Hyperwoof in a turn, it gains
-    1 strength
+  keepsakeDescription: Each time you play an Attack card, Hyperwoof gains 2 temporary
+    strength
   references:
     version: 2
     RefIds:
@@ -54,17 +53,11 @@ MonoBehaviour:
       data:
         abilityTrigger: 7
         effectSteps:
-        - rid: 2034230017118175770
+        - rid: 2034230176448512422
+        - rid: 2034230176448512490
         - rid: 205827988172308705
-        - rid: 2034230017118175771
-        - rid: 2034230017118175759
-        - rid: 2034230017118175760
-        - rid: 2034230017118175763
-        - rid: 2034230017118175761
-        - rid: 2034230017118175764
         - rid: 205827988172308706
         - rid: 205827988172308707
-        - rid: 2034230017118175762
     - rid: 205827988172308705
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -81,8 +74,8 @@ MonoBehaviour:
       data:
         effectStepName: ApplyStatus
         inputKey: self
-        statusEffect: 0
-        scale: 1
+        statusEffect: 6
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
@@ -93,101 +86,17 @@ MonoBehaviour:
         inputKey: self
         prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
         scale: 1
-    - rid: 2034230017118175759
-      type: {class: CombatInstanceCacheLoad, ns: , asm: Assembly-CSharp}
+    - rid: 2034230176448512422
+      type: {class: FilterCards, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: CombatInstanceCacheLoad
-        inputCombatInstanceKey: self
-        cacheKey: numCardsPlayed
-        currentWorkflowKey: numCardsPlayed
-    - rid: 2034230017118175760
-      type: {class: MathStep, ns: , asm: Assembly-CSharp}
+        effectStepName: FilterCards
+        inputKey: cardPlayed
+        filter:
+          cardCategoriesToInclude: 01000000
+          generatedCardsFilter: 0
+        outputKey: attackCardPlayed
+    - rid: 2034230176448512490
+      type: {class: EndWorkflowIfListEmpty, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: MathStep
-        inputKey: numCardsPlayed
-        operand2InputKey: UNUSED
-        operation: 0
-        scale: 1
-        outputKey: postUpdateCardsPlayed
-    - rid: 2034230017118175761
-      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: BooleanComparison
-        hardCodedInputKey1: 3
-        useHardCodedInputKey1: 1
-        inputKey1: 
-        operation: 2
-        inputKey2: postUpdateCardsPlayed
-        outputKey: thresholdHit
-    - rid: 2034230017118175762
-      type: {class: CombatInstanceCacheStore, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CombatInstanceCacheStore
-        inputCombatInstanceKey: self
-        hardCodedBool: 0
-        useHardCodedBool: 0
-        hardCodedInt: 0
-        useHardCodedInt: 1
-        currentWorkflowKey: 
-        cacheKey: numCardsPlayed
-    - rid: 2034230017118175763
-      type: {class: CombatInstanceCacheStore, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CombatInstanceCacheStore
-        inputCombatInstanceKey: self
-        hardCodedBool: 0
-        useHardCodedBool: 0
-        hardCodedInt: 0
-        useHardCodedInt: 0
-        currentWorkflowKey: postUpdateCardsPlayed
-        cacheKey: numCardsPlayed
-    - rid: 2034230017118175764
-      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: EndWorkflowIfConditionMet
-        inputKey1: thresholdHit
-        conditionToEndOn: 0
-    - rid: 2034230017118175765
-      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
-      data:
-        abilityTrigger: 12
-        effectSteps:
-        - rid: 2034230017118175768
-        - rid: 2034230017118175769
-    - rid: 2034230017118175768
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: self
-        validTargets: 
-        number: 1
-        specialTargetRule: 3
-        cantCancelTargetting: 0
-    - rid: 2034230017118175769
-      type: {class: CombatInstanceCacheStore, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CombatInstanceCacheStore
-        inputCombatInstanceKey: self
-        hardCodedBool: 0
-        useHardCodedBool: 0
-        hardCodedInt: 0
-        useHardCodedInt: 1
-        currentWorkflowKey: 
-        cacheKey: numCardsPlayed
-    - rid: 2034230017118175770
-      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: EndWorkflowIfConditionMet
-        inputKey1: cardFromThisOrigin
-        conditionToEndOn: 0
-    - rid: 2034230017118175771
-      type: {class: DebugEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: DebugEffectStep
-        inputCombatInstanceCacheKey: self
-        genericMap: 0
-        ints: 1
-        strings: 0
-        bools: 0
+        effectStepName: EndWorkflowIfListEmpty
+        inputKey1: attackCardPlayed
