@@ -39,10 +39,10 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Level 2 Bidoof
-      description: Starts combat with 4 base strength.
+      description: Starts combat with 3 strength
       relatedBehaviorIndex: 0
   keepsakeTitle: Level 2 Bidoof
-  keepsakeDescription: Starts combat with 4 base strength.
+  keepsakeDescription: Starts combat with 3 strength
   references:
     version: 2
     RefIds:
@@ -71,7 +71,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: self
         statusEffect: 0
-        scale: 4
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
