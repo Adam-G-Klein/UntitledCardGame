@@ -145,7 +145,7 @@ public class ShopEncounter : Encounter
         Dictionary<CardPoolSO, CompanionTypeSO> cardPools = new();
         foreach (Companion companion in companionList) {
             if (!cardPools.ContainsKey(companion.companionType.cardPool)) {
-                cardPools.Add(companion.companionType.cardPool, companion.companionType);
+                cardPools.Add(companion.companionType.cardPool, null);
             }
         }
         // Add the neutral card pool to the list.
@@ -157,13 +157,19 @@ public class ShopEncounter : Encounter
         List<CardInShopWithPrice> rareShopCards = new();
         foreach (KeyValuePair<CardPoolSO, CompanionTypeSO> cardPoolPair in cardPools) {
             foreach (CardType card in cardPoolPair.Key.commonCards) {
-                commonShopCards.Add(new CardInShopWithPrice(card, shopData.cardPrice, cardPoolPair.Value, Card.CardRarity.COMMON));
+                commonShopCards.Add(
+                    new CardInShopWithPrice(card, shopData.cardPrice, cardPoolPair.Value, Card.CardRarity.COMMON, cardPoolPair.Key.genericCardIconSprite)
+                );
             }
             foreach (CardType card in cardPoolPair.Key.uncommonCards) {
-                uncommonShopCards.Add(new CardInShopWithPrice(card, shopData.cardPrice, cardPoolPair.Value, Card.CardRarity.UNCOMMON));
+                uncommonShopCards.Add(
+                    new CardInShopWithPrice(card, shopData.cardPrice, cardPoolPair.Value, Card.CardRarity.UNCOMMON, cardPoolPair.Key.genericCardIconSprite)
+                );
             }
             foreach (CardType card in cardPoolPair.Key.rareCards) {
-                rareShopCards.Add(new CardInShopWithPrice(card, shopData.cardPrice, cardPoolPair.Value, Card.CardRarity.RARE));
+                rareShopCards.Add(
+                    new CardInShopWithPrice(card, shopData.cardPrice, cardPoolPair.Value, Card.CardRarity.RARE, cardPoolPair.Key.genericCardIconSprite)
+                );
             }
         }
         for (int i = 0; i < shopLevel.numCardsToShow; i++) {

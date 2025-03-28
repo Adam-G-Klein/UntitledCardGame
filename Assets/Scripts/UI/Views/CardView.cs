@@ -24,9 +24,9 @@ public class CardView {
     private float SCREEN_WIDTH_PERCENT = 0.11f;
     private float RATIO = 1.4f;
     private CardType cardType;
-    
+
     private Card.CardRarity rarity = Card.CardRarity.NONE;
-    // fillUIDocument - in some cases (like the current shop and the intro screen) we don't want this card to 
+    // fillUIDocument - in some cases (like the current shop and the intro screen) we don't want this card to
     // take up its whole ui doc. In others, like combat (where the card is in worldspace splatted to a texture)
     // we do.
     public CardView(CardType cardType, CompanionTypeSO companionType, Card.CardRarity rarity, bool cardInShop = false) {
@@ -79,7 +79,7 @@ public class CardView {
             companionImage.style.backgroundImage = new StyleBackground(companionType.sprite);
         } else {
             companionImage.style.backgroundImage = new StyleBackground(genericSprite);
-            if(cardInShop) {
+            if(cardInShop && genericSprite == null) {
                 var anyText = new Label();
                 anyText.text = "ANY";
                 anyText.style.fontSize = 20;
@@ -112,11 +112,11 @@ public class CardView {
 
         var manaContainer = new VisualElement();
         manaContainer.AddToClassList("mana-container");
-    
+
         var manaCost = new Label();
         setManaCost(manaCost, card);
         manaContainer.Add(manaCost);
-        manaContainer.style.width = cardInShop ? COMPANION_AND_MANA_INDICATOR_WIDTH_HEIGHT_SHOP : COMPANION_AND_MANA_INDICATOR_WIDTH_HEIGHT_COMBAT; 
+        manaContainer.style.width = cardInShop ? COMPANION_AND_MANA_INDICATOR_WIDTH_HEIGHT_SHOP : COMPANION_AND_MANA_INDICATOR_WIDTH_HEIGHT_COMBAT;
         manaContainer.style.height = cardInShop ? COMPANION_AND_MANA_INDICATOR_WIDTH_HEIGHT_SHOP : COMPANION_AND_MANA_INDICATOR_WIDTH_HEIGHT_COMBAT;
         container.Add(manaContainer);
 
@@ -139,9 +139,9 @@ public class CardView {
             manaCost.text = manaCostValue.ToString();
             if (manaCostValue < card.Cost) {
                 manaCost.AddToClassList("mana-reduced");
-            } 
+            }
         }
-        
+
     }
 
     private int getDescFontSize(string desc, bool cardInShop) {
@@ -182,7 +182,7 @@ public class CardView {
         }
         ve.MarkDirtyRepaint();
     }
-    
+
     private Tuple<int, int> GetWidthAndHeight() {
         int width = (int)(Screen.width * SCREEN_WIDTH_PERCENT);
         int height = (int)(width * RATIO);
