@@ -10,13 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 98c54fe17bbfaba4697c85c1618843f4, type: 3}
-  m_Name: RP_EntropyCardPool
+  m_Name: RP_ExhaustPackCardPool
   m_EditorClassIdentifier: 
   commonCards:
   - {fileID: 11400000, guid: 6f5abc27f5ab645959a66f098020fbd3, type: 2}
-  - {fileID: 11400000, guid: c3d95756c49af4bbdb81bd970fba1036, type: 2}
+  - {fileID: 11400000, guid: 187532ef54ad840e28892a86850cfe35, type: 2}
+  - {fileID: 11400000, guid: 1372eb5bb550b49ddbfaea2d4595899a, type: 2}
   uncommonCards:
-  - {fileID: 11400000, guid: 7dcf6a4ac69794fd0abc6580cebdc702, type: 2}
   - {fileID: 11400000, guid: 82286561307b14e8e9fbd707d25c46ba, type: 2}
+  - {fileID: 11400000, guid: 3f49008af98be4df7ada84b231fe3f2b, type: 2}
   rareCards:
-  - {fileID: 11400000, guid: b579e4e087ec8434ba6c5c740a225480, type: 2}
+  - {fileID: 11400000, guid: f0edc3d0378c141cc8b424d3e813deae, type: 2}
+  genericCardIconSprite: {fileID: 21300000, guid: c4c548a339b4d41a590928c0c98934a7, type: 3}
