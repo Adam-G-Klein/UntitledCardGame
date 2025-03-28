@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 98c54fe17bbfaba4697c85c1618843f4, type: 3}
-  m_Name: RP_ChunkratCardPool
+  m_Name: RP_DiscardPackCardPool
   m_EditorClassIdentifier: 
   commonCards:
-  - {fileID: 11400000, guid: 3343700eedc8a482e8ede703b1dfb4b2, type: 2}
-  - {fileID: 11400000, guid: f6bc068cab9f44e4fa5735a57d492dc2, type: 2}
+  - {fileID: 11400000, guid: 945be9073c43f4fefb394d8e173fe673, type: 2}
+  - {fileID: 11400000, guid: 0dec7d3aa9e014dc3ad6e36809180aa4, type: 2}
+  - {fileID: 11400000, guid: d63dd8e464d9d4c4cb3440832cab538d, type: 2}
   uncommonCards:
-  - {fileID: 11400000, guid: bbfa91e081be34a758707840748eb8f7, type: 2}
+  - {fileID: 11400000, guid: 0a60b9a90e0bb4a7f9f474c223405b76, type: 2}
   rareCards: []
-  genericCardIconSprite: {fileID: 0}
+  genericCardIconSprite: {fileID: 21300000, guid: ddd7a30cf3775e7408a7d3063b157c6d, type: 3}
