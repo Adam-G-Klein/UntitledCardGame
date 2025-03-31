@@ -27,6 +27,8 @@ MonoBehaviour:
   - rid: 5602892563578093692
   onExhaustEffectWorkflow:
     rid: -2
+  onDiscardEffectWorkflow:
+    rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
   tooltips: 
@@ -46,7 +48,7 @@ MonoBehaviour:
       type: {class: FilterCards, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: FilterCards
-        inputKey: drawnCards
+        inputKey: cards
         filter:
           cardCategoriesToInclude: 01000000
           generatedCardsFilter: 0
@@ -57,6 +59,17 @@ MonoBehaviour:
         effectStepName: CardInHandEffect
         inputKey: attacks
         effect: 2
+    - rid: 2034230176448512697
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: cards
+        validTargets: 03000000
+        number: 1
+        specialTargetRule: 2
+        cantCancelTargetting: 0
     - rid: 5602892563578093692
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -64,6 +77,7 @@ MonoBehaviour:
         - rid: 5602892563578093693
         - rid: 5602892563578093694
         - rid: 1274772082283774506
+        - rid: 2034230176448512697
         - rid: 2034230108114649248
         - rid: 2034230108114649249
     - rid: 5602892563578093693
