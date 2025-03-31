@@ -39,10 +39,12 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Level Two Hyperwoof
-      description: Each time you play an Attack card, Hyperwoof gains 1 strength
+      description: Each time you play an Attack card, give companions adjacent to
+        Hyperwoof 2 temporary strength
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: Each time you play an Attack card, Hyperwoof gains 1 strength
+  keepsakeDescription: Each time you play an Attack card, give companions adjacent
+    to Hyperwoof 2 temporary strength
   references:
     version: 2
     RefIds:
@@ -54,6 +56,7 @@ MonoBehaviour:
         - rid: 2034230176448512491
         - rid: 2034230176448512492
         - rid: 2034230176448512493
+        - rid: 2034230176448512663
         - rid: 2034230176448512494
         - rid: 2034230176448512495
     - rid: 2034230176448512491
@@ -85,9 +88,9 @@ MonoBehaviour:
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ApplyStatus
-        inputKey: self
-        statusEffect: 0
-        scale: 1
+        inputKey: adj
+        statusEffect: 6
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
@@ -95,6 +98,12 @@ MonoBehaviour:
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
-        inputKey: self
+        inputKey: adj
         prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
         scale: 1
+    - rid: 2034230176448512663
+      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetAdjacentCompanions
+        inputKey: self
+        outputKey: adj
