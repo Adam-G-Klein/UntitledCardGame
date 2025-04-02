@@ -244,7 +244,16 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     }
 
     public int CalculateCompanionSellPrice(Companion companion) {
-        return shopEncounter.shopData.companionKeepsakePrice / 2 + companion.deck.cards.Count / 5 * shopEncounter.shopData.cardPrice;
+        int baseSellPrice = 0;
+        if (companion.companionType.level == CompanionLevel.LevelOne) {
+            baseSellPrice = shopEncounter.shopData.levelOneSellPrice;
+        } else if (companion.companionType.level == CompanionLevel.LevelTwo) {
+            baseSellPrice = shopEncounter.shopData.levelTwoSellPrice;
+        } else if (companion.companionType.level == CompanionLevel.LevelThree) {
+            baseSellPrice = shopEncounter.shopData.levelThreeSellPrice;
+        }
+        baseSellPrice += Convert.ToInt32(companion.deck.cards.Count * shopEncounter.shopData.deckSizeSellFactor);
+        return baseSellPrice;
     }
 
     public void ProcessUpgradeShopClick() {

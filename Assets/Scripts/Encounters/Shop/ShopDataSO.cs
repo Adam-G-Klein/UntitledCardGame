@@ -32,6 +32,12 @@ public class ShopDataSO : ScriptableObject
 
     public CardPoolSO neutralCardPool;
 
+    [Header("Selling the companions in the shop")]
+    public int levelOneSellPrice;
+    public int levelTwoSellPrice;
+    public int levelThreeSellPrice;
+    public float deckSizeSellFactor;
+
     public ShopLevel GetShopLevel(int level) {
         foreach (ShopLevel shopLevel in shopLevels) {
             if (shopLevel.level == level) {
