@@ -9,6 +9,8 @@ public class CardInShopWithPrice {
     public CardType cardType;
     public int price;
 
+    public CardPoolSO cardPool;
+
     // Nullable for neutral cards.
     public CompanionTypeSO sourceCompanion;
 
@@ -16,10 +18,18 @@ public class CardInShopWithPrice {
 
     public Sprite genericArtwork;
 
-    public CardInShopWithPrice(CardType cardType, int price, CompanionTypeSO companionType, Card.CardRarity rarity, Sprite genericArtwork = null) {
+    public CardInShopWithPrice(
+        CardType cardType,
+        int price,
+        CompanionTypeSO companionType,
+        CardPoolSO cardPool,
+        Card.CardRarity rarity,
+        Sprite genericArtwork = null
+    ) {
         this.cardType = cardType;
         this.price = price;
         this.sourceCompanion = companionType;
+        this.cardPool = cardPool;
         this.rarity = rarity;
         this.genericArtwork = genericArtwork;
     }
@@ -162,21 +172,21 @@ public class ShopEncounter : Encounter
             foreach (CardType card in cardPoolPair.Key.commonCards) {
                 if (!commonShopCards.Any(c => c.cardType == card)) {
                     commonShopCards.Add(
-                        new CardInShopWithPrice(card, shopData.cardPrice, null, Card.CardRarity.COMMON, cardPoolPair.Value)
+                        new CardInShopWithPrice(card, shopData.cardPrice, null, cardPoolPair.Key, Card.CardRarity.COMMON, cardPoolPair.Value)
                     );
                 }
             }
             foreach (CardType card in cardPoolPair.Key.uncommonCards) {
                 if (!uncommonShopCards.Any(c => c.cardType == card)) {
                     uncommonShopCards.Add(
-                        new CardInShopWithPrice(card, shopData.cardPrice, null, Card.CardRarity.UNCOMMON, cardPoolPair.Value)
+                        new CardInShopWithPrice(card, shopData.cardPrice, null, cardPoolPair.Key, Card.CardRarity.UNCOMMON, cardPoolPair.Value)
                     );
                 }
             }
             foreach (CardType card in cardPoolPair.Key.rareCards) {
                 if (!rareShopCards.Any(c => c.cardType == card)) {
                     rareShopCards.Add(
-                        new CardInShopWithPrice(card, shopData.cardPrice, null, Card.CardRarity.RARE, cardPoolPair.Value)
+                        new CardInShopWithPrice(card, shopData.cardPrice, null, cardPoolPair.Key, Card.CardRarity.RARE, cardPoolPair.Value)
                     );
                 }
             }
