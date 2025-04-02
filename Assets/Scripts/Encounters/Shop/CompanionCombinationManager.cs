@@ -45,7 +45,7 @@ public class CompanionCombinationManager : MonoBehaviour
         if (newGuy.companionType.level == CompanionLevel.LevelOne) {
             Companion combined = ShowUpgradedCompanion(existingCompanions); // this creates a temp upgrade companion to see if another combination would trigger
             List<Companion> secondUpgradeCompanions = PurchaseWouldCauseUpgrade(combined);
-            if (secondUpgradeCompanions != null) existingCompanions.Add(secondUpgradeCompanions[0]); // this is a little hacky/implementation dependent 
+            if (secondUpgradeCompanions != null) existingCompanions.Add(secondUpgradeCompanions[0]); // this is a little hacky/implementation dependent
         }
 
         return existingCompanions;
@@ -111,7 +111,8 @@ public class CompanionCombinationManager : MonoBehaviour
         // TODO(): Allow the player to choose which deck they want to use.
         // For now, select the deck with the least starting cards and add all added cards from other decks
 
-        // find deck with least starting cards 
+
+        // find deck with the least starting cards.
 
         Companion companionWithLeastStartingCards = null;
         int leastStartingCards = 10000;
@@ -129,6 +130,7 @@ public class CompanionCombinationManager : MonoBehaviour
             }
         }
 
+
         // Add all non starting cards from other decks and all cards from the chosen deck to a new deck!
         List<Card> cards = new();
 
@@ -139,6 +141,17 @@ public class CompanionCombinationManager : MonoBehaviour
                 }
             }
         }
+
+        // Remove one card from the base deck each time you upgrade.
+        // This is a great experimental idea from Ethan that we should try.
+        cards.Shuffle();
+        for (int i = 0; i < cards.Count; i++) {
+            if (gameState.baseShopData.baseCardsToRemoveOnUpgrade.Contains(cards[i].cardType)) {
+                cards.RemoveAt(i);
+                break;
+            }
+        }
+
         return new Deck(cards);
     }
 

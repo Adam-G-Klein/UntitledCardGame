@@ -37,6 +37,8 @@ public class ShopDataSO : ScriptableObject
     public int levelTwoSellPrice;
     public int levelThreeSellPrice;
     public float deckSizeSellFactor;
+    [Header("Upgrade parameters")]
+    public List<CardType> baseCardsToRemoveOnUpgrade;
 
     public ShopLevel GetShopLevel(int level) {
         foreach (ShopLevel shopLevel in shopLevels) {
