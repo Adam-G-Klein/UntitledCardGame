@@ -110,8 +110,10 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         }
     }
 
-    public bool IsApplicableCompanion(CompanionTypeSO cardSourceCompanion, Companion companion) {
-        return cardSourceCompanion == null || cardSourceCompanion.cardPool == companion.companionType.cardPool;
+    public bool IsApplicableCompanion(CardInShopWithPrice cardInShop, Companion companion) {
+        return cardInShop.cardPool == companion.companionType.cardPool ||
+            cardInShop.cardPool == shopEncounter.shopData.neutralCardPool ||
+            cardInShop.cardPool == companion.companionType.packCardPool;
     }
 
     public bool IsApplicableCompanionType(CompanionTypeSO cardSourceCompanion, CompanionTypeSO companionType) {
