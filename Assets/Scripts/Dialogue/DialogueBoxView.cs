@@ -15,7 +15,7 @@ public class DialogueBoxView : MonoBehaviour
     public float charDelay = 0.1f;
     private IEnumerator displayingCoroutine;
     // For re-displaying the prompt after the dialogue has been completed
-    // We only know the user's proceeded when the dialogue box is cleared again 
+    // We only know the user's proceeded when the dialogue box is cleared again
     private Action redisplayPromptCallback = null;
     [Header("For team selection screen where we don't want portraits")]
     public bool displayPortraitDuringDialogue = true;
@@ -43,7 +43,7 @@ public class DialogueBoxView : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void InitializeView() {
@@ -76,7 +76,7 @@ public class DialogueBoxView : MonoBehaviour
     {
         Debug.Log("Displaying dialogue: " + dialogueLine);
         this.redisplayPromptCallback = redisplayPromptCallback;
-        this.portrait.GetComponent<Image>().sprite = companion.portrait;
+        this.portrait.GetComponent<Image>().sprite = companion.sprite;
         SetGameObjectsEnabled(true);
         doneDisplaying = false;
         displayingCoroutine = DisplayText(dialogueLine);
@@ -109,7 +109,7 @@ public class DialogueBoxView : MonoBehaviour
             currentChar++;
             if(speechSound != null) {
                 numCharsSinceLastSound++;
-                Debug.Log("counting char, numCharsSinceLastSound: " + numCharsSinceLastSound + " numCharsPerSound: " + numCharsPerSound + " currentChar: " + currentChar); 
+                Debug.Log("counting char, numCharsSinceLastSound: " + numCharsSinceLastSound + " numCharsPerSound: " + numCharsPerSound + " currentChar: " + currentChar);
                 if(numCharsSinceLastSound >= numCharsPerSound) {
                     Debug.Log("Playing speech sound");
                     numCharsSinceLastSound = 0;
