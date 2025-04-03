@@ -55,7 +55,7 @@ public class CardInDeckEffect : EffectStep, ITooltipProvider
                     if (cardToExhaust != null) {
                         yield return PlayerHand.Instance.ExhaustCard(cardToExhaust);
                     } else {
-                        yield return deckInstances[0].ExhaustCard(card);
+                        deckInstances[0].ExhaustCard(card);
                     }
                 break;
 
