@@ -39,15 +39,11 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Level Two Chunkrat
-      description: At the end of the turn, gain 1 block for each Generated card in
-        this Chunkrat's deck.
-      relatedBehaviorIndex: 0
-    - title: Generated Card
-      description: A card added to your deck in any way other than by purchasing
-        it at the shop.
+      description: At the end of the turn, gain 1 block for each Status card in this
+        Chunkrat's deck.
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: At the end of the turn, gain 1 block for each Generated card
+  keepsakeDescription: At the end of the turn, gain 1 block for each Status card
     in this Chunkrat's deck.
   references:
     version: 2
@@ -78,8 +74,8 @@ MonoBehaviour:
         effectStepName: CountCardsInDeck
         inputDeckKey: self
         filter:
-          cardCategoriesToInclude: 
-          generatedCardsFilter: 1
+          cardCategoriesToInclude: 04000000
+          generatedCardsFilter: 0
         includeDrawPile: 1
         includeDiscardPile: 1
         includeCardsInHand: 1

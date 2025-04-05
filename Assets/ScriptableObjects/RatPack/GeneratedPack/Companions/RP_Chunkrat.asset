@@ -39,15 +39,15 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Chunkrat
-      description: 'At end of combat, permanently gain a "Yummy Snack" card that
-        bestows max HP '
+      description: 'At end of combat, permanently gain a "Yummy Snack" Status card
+        that bestows max HP '
       relatedBehaviorIndex: 0
     - title: Yummy Snack
       description: 0 mana. Exhaust. When exhausted, gain 2 max HP
       relatedBehaviorIndex: 0
   keepsakeTitle: Chunkrat's Bulk
-  keepsakeDescription: 'At end of combat, permanently gain a "Yummy Snack" card that
-    bestows max HP '
+  keepsakeDescription: 'At end of combat, permanently gain a "Yummy Snack" Status
+    card that bestows max HP '
   references:
     version: 2
     RefIds:

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RP_IronStomach
   m_EditorClassIdentifier: 
   Name: Iron Stomach
-  Description: Draw 1 card. If in hand at the end of turn, gain block equal to half
+  Description: Unplayable. If in hand at the end of turn, gain block equal to half
     the number of cards in this deck ({block} block)
   defaultValues:
   - key: block
@@ -22,7 +22,7 @@ MonoBehaviour:
   Artwork: {fileID: 21300000, guid: 4b398c458377645acb90057ab391c591, type: 3}
   cardCategory: 4
   vfxPrefab: {fileID: 0}
-  playable: 1
+  playable: 0
   exhaustsWhenPlayed: 0
   retain: 0
   effectWorkflows:

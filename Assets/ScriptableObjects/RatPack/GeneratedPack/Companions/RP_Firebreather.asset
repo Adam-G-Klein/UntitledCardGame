@@ -39,69 +39,68 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Firebreather
-      description: At the end of turn, retain a random Generated card in hand.
+      description: Draw an extra card each turn. Discard it if it is not a Status
+        card.
       relatedBehaviorIndex: 0
     - title: Generated Card
       description: A card added to your deck in any way other than by purchasing
         it at the shop.
       relatedBehaviorIndex: 0
   keepsakeTitle: Firebreather
-  keepsakeDescription: At the end of turn, retain a random Generated card in hand.
+  keepsakeDescription: Draw an extra card each turn. Discard it if it is not a Status
+    card.
   references:
     version: 2
     RefIds:
     - rid: 2034230017118175443
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
-        abilityTrigger: 2
+        abilityTrigger: 12
         effectSteps:
         - rid: 2034230017118175444
+        - rid: 2034230176448512827
         - rid: 2034230017118175446
-        - rid: 2034230017118175613
-        - rid: 2034230017118175614
-        - rid: 2034230017118175615
-        - rid: 2034230017118175612
-        - rid: 2034230017118175547
+        - rid: 2034230176448512829
+        - rid: 2034230176448512830
+        - rid: 2034230176448512831
+        - rid: 2034230176448512832
+        - rid: 2034230176448512833
     - rid: 2034230017118175444
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: cards
-        validTargets: 03000000
+        outputKey: self
+        validTargets: 
         number: 1
-        specialTargetRule: 1
+        specialTargetRule: 3
         cantCancelTargetting: 0
     - rid: 2034230017118175446
       type: {class: FilterCards, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: FilterCards
-        inputKey: cards
+        inputKey: drawn
         filter:
-          cardCategoriesToInclude: 
-          generatedCardsFilter: 1
+          cardCategoriesToInclude: 04000000
+          generatedCardsFilter: 0
         outputKey: gen
-    - rid: 2034230017118175547
-      type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
+    - rid: 2034230176448512827
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: CardInHandEffect
-        inputKey: randomGenCard
-        effect: 2
-    - rid: 2034230017118175612
-      type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetRandomItems
-        inputKey: gen
+        effectStepName: DrawCards
+        inputKey: self
+        outputKey: drawn
         scale: 1
-        outputKey: randomGenCard
-    - rid: 2034230017118175613
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 2034230176448512829
       type: {class: CountStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CountStep
         inputKey: gen
         outputKey: numGen
-    - rid: 2034230017118175614
+    - rid: 2034230176448512830
       type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: BooleanComparison
@@ -110,10 +109,22 @@ MonoBehaviour:
         inputKey1: 
         operation: 0
         inputKey2: numGen
-        outputKey: noGenCardsInHand
-    - rid: 2034230017118175615
+        outputKey: notStatus
+    - rid: 2034230176448512831
       type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EndWorkflowIfConditionMet
-        inputKey1: noGenCardsInHand
-        conditionToEndOn: 1
+        inputKey1: notStatus
+        conditionToEndOn: 0
+    - rid: 2034230176448512832
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: Not a status card, it must go
+        lineTime: 2
+    - rid: 2034230176448512833
+      type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardInHandEffect
+        inputKey: drawn
+        effect: 0
