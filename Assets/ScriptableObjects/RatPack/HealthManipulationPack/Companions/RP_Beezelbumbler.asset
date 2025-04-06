@@ -86,6 +86,7 @@ MonoBehaviour:
         - rid: 2034230176448512007
         - rid: 2034230176448512008
         - rid: 2034230176448512009
+        - rid: 5363307913066577934
         - rid: 2034230176448512010
         - rid: 2034230176448512011
         - rid: 2034230176448512014
@@ -155,3 +156,12 @@ MonoBehaviour:
         effectStepName: DialogueStep
         line: rawr >:)
         lineTime: 2
+    - rid: 5363307913066577934
+      type: {class: DebugEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DebugEffectStep
+        inputCombatInstanceCacheKey: self
+        genericMap: 0
+        ints: 0
+        strings: 0
+        bools: 1
