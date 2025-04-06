@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: You Are What You Eat
   Description: Draw 3 cards from target companion and give them 2 block for each
-    Generated card in hand
+    Status card in hand
   defaultValues: []
   Cost: 2
   Artwork: {fileID: 21300000, guid: 8c16952da6b2cfa4181be941e4a49469, type: 3}
@@ -27,9 +27,11 @@ MonoBehaviour:
   - rid: 5602892563578093568
   onExhaustEffectWorkflow:
     rid: -2
+  onDiscardEffectWorkflow:
+    rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
-  tooltips: 1b000000
+  tooltips: 
   references:
     version: 2
     RefIds:
@@ -72,8 +74,8 @@ MonoBehaviour:
         effectStepName: FilterCards
         inputKey: cards
         filter:
-          cardCategoriesToInclude: 
-          generatedCardsFilter: 1
+          cardCategoriesToInclude: 04000000
+          generatedCardsFilter: 0
         outputKey: onlyGen
     - rid: 2034230108114649290
       type: {class: CountStep, ns: , asm: Assembly-CSharp}
