@@ -192,6 +192,7 @@ public abstract class EntityAbilityInstance
         if (deckFrom.TryGetComponent(out CompanionInstance companion)) {
             EffectUtils.AddCompanionToDocument(document, "companionExhaustedFrom", companion);
         }
+        document.map.AddItem<Card>("cardExhausted", card);
         EffectManager.Instance.QueueEffectWorkflow(new EffectWorkflowClosure(document, ability.effectWorkflow, null));
         yield return null;
     }
