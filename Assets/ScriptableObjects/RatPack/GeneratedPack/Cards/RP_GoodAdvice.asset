@@ -31,7 +31,7 @@ MonoBehaviour:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
-  tooltips: 0e000000
+  tooltips: 
   references:
     version: 2
     RefIds:
@@ -64,9 +64,9 @@ MonoBehaviour:
         useInputToLimitOptions: 0
         inputKey: 
         outputKey: adj
-        validTargets: 
+        validTargets: 00000000
         number: 1
-        specialTargetRule: 4
+        specialTargetRule: 0
         cantCancelTargetting: 0
     - rid: 5602892563578094203
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
