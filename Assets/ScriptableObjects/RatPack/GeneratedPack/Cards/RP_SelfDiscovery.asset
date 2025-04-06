@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: RP_SelfDiscovery
   m_EditorClassIdentifier: 
   Name: Self Discovery
-  Description: Draw 4 cards from this companion. Discard any non-Generated cards
-    drawn.
+  Description: Draw 4 cards from this companion. Discard any non-Status cards drawn.
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 04a1d976953825d4db586e6147348356, type: 3}
@@ -26,6 +25,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 5602892723852673195
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
@@ -46,8 +47,8 @@ MonoBehaviour:
         effectStepName: FilterCards
         inputKey: cards
         filter:
-          cardCategoriesToInclude: 
-          generatedCardsFilter: 2
+          cardCategoriesToInclude: 010000000200000003000000
+          generatedCardsFilter: 0
         outputKey: nonGen
     - rid: 2034229587402555942
       type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}

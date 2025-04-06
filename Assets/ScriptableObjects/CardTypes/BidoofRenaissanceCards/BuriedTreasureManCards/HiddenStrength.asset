@@ -17,7 +17,7 @@ MonoBehaviour:
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 69e0a325ef7679a469eebc7cea836acb, type: 3}
-  cardCategory: 2
+  cardCategory: 4
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 1
@@ -25,6 +25,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 5602892533381726232
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
