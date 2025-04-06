@@ -23,6 +23,22 @@ public class CountCardsInDeck : EffectStep, IEffectStepCalculation
         effectStepName = "CountCardsInDeck";
     }
 
+    public CountCardsInDeck(
+        string inputDeckKey,
+        CardFilter cardFilter,
+        string outputKey,
+        bool includeCardsInHand = true,
+        bool includeDiscardPile = true,
+        bool includeDrawPile = true
+    ) {
+        this.inputDeckKey = inputDeckKey;
+        this.filter = cardFilter;
+        this.outputKey = outputKey;
+        this.includeCardsInHand = includeCardsInHand;
+        this.includeDiscardPile = includeDiscardPile;
+        this.includeDrawPile = includeDrawPile;
+    }
+
     public override IEnumerator invoke(EffectDocument document) {
         List<DeckInstance> deckInstances = document.map.GetList<DeckInstance>(inputDeckKey);
         if (deckInstances.Count == 0 || deckInstances.Count > 1) {
