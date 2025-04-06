@@ -39,92 +39,91 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Firebreather
-      description: Draw an extra card each turn. Discard it if it is not a Status
-        card.
-      relatedBehaviorIndex: 0
-    - title: Generated Card
-      description: A card added to your deck in any way other than by purchasing
-        it at the shop.
+      description: At the end of turn, deal 1 damage to all enemies for each Status
+        card in your hand
       relatedBehaviorIndex: 0
   keepsakeTitle: Firebreather
-  keepsakeDescription: Draw an extra card each turn. Discard it if it is not a Status
-    card.
+  keepsakeDescription: At the end of turn, deal 1 damage to all enemies for each
+    Status card in your hand
   references:
     version: 2
     RefIds:
     - rid: 2034230017118175443
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
-        abilityTrigger: 12
+        abilityTrigger: 2
         effectSteps:
         - rid: 2034230017118175444
-        - rid: 2034230176448512827
         - rid: 2034230017118175446
+        - rid: 2034230176448512932
         - rid: 2034230176448512829
-        - rid: 2034230176448512830
-        - rid: 2034230176448512831
-        - rid: 2034230176448512832
-        - rid: 2034230176448512833
+        - rid: 2034230176448512927
+        - rid: 2034230176448512931
+        - rid: 2034230176448512928
+        - rid: 2034230176448512930
     - rid: 2034230017118175444
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: self
-        validTargets: 
+        outputKey: cards
+        validTargets: 03000000
         number: 1
-        specialTargetRule: 3
+        specialTargetRule: 1
         cantCancelTargetting: 0
     - rid: 2034230017118175446
       type: {class: FilterCards, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: FilterCards
-        inputKey: drawn
+        inputKey: cards
         filter:
           cardCategoriesToInclude: 04000000
           generatedCardsFilter: 0
-        outputKey: gen
-    - rid: 2034230176448512827
-      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: DrawCards
-        inputKey: self
-        outputKey: drawn
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
+        outputKey: statusCards
     - rid: 2034230176448512829
       type: {class: CountStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CountStep
-        inputKey: gen
-        outputKey: numGen
-    - rid: 2034230176448512830
-      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
+        inputKey: statusCards
+        outputKey: numStatusCards
+    - rid: 2034230176448512927
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: BooleanComparison
-        hardCodedInputKey1: 0
-        useHardCodedInputKey1: 1
-        inputKey1: 
-        operation: 0
-        inputKey2: numGen
-        outputKey: notStatus
-    - rid: 2034230176448512831
-      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: enemies
+        validTargets: 02000000
+        number: 1
+        specialTargetRule: 1
+        cantCancelTargetting: 0
+    - rid: 2034230176448512928
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: EndWorkflowIfConditionMet
-        inputKey1: notStatus
-        conditionToEndOn: 0
-    - rid: 2034230176448512832
+        effectStepName: CombatEffectStep
+        inputKey: enemies
+        combatEffect: 0
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 1
+        inputMultiplicityKey: numStatusCards
+        vfxPrefab: {fileID: 1320532642761013391, guid: 4847f21b038e1aa42bceefe5c97ab1ab, type: 3}
+    - rid: 2034230176448512930
+      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: WaitForSecondsEffect
+        seconds: 0.2
+    - rid: 2034230176448512931
       type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: DialogueStep
-        line: Not a status card, it must go
-        lineTime: 2
-    - rid: 2034230176448512833
-      type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
+        line: Fuel to the fire :)
+        lineTime: 1.5
+    - rid: 2034230176448512932
+      type: {class: EndWorkflowIfListEmpty, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: CardInHandEffect
-        inputKey: drawn
-        effect: 0
+        effectStepName: EndWorkflowIfListEmpty
+        inputKey1: statusCards
