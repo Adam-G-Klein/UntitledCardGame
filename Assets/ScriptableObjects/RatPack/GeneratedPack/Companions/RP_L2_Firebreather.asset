@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: RP_L2_Firebreather
   m_EditorClassIdentifier: 
   companionName: Firebreather+
-  maxHealth: 20
+  maxHealth: 15
   initialCardsDealtPerTurn: 2
   sprite: {fileID: 21300000, guid: fc8f2bf76fa3a4e449035d6c80c12fb6, type: 3}
   fullSprite: {fileID: 21300000, guid: fc8f2bf76fa3a4e449035d6c80c12fb6, type: 3}
   backgroundImage: {fileID: 21300000, guid: 52a67ea68be25489f9f1ee0ec5c113d2, type: 3}
   entityFrame: {fileID: 21300000, guid: 8a02f70d429dd4851ac675faf974f636, type: 3}
   companionManagementFrame: {fileID: 21300000, guid: e1aface5a3d124495925a8293aa091d2, type: 3}
-  startingDeck: {fileID: 11400000, guid: e99468c9ae12a4996a527ac53fb7625a, type: 2}
+  startingDeck: {fileID: 11400000, guid: 9bd279683242744af81f7d07ca8471fc, type: 2}
   cardBack: {fileID: 21300000, guid: 3296a63e824de414bb4b578c4822fbdb, type: 3}
   cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
   cardTypeIconOverride: {fileID: 0}
@@ -34,21 +34,17 @@ MonoBehaviour:
   abilitiesV2:
   - rid: 2034230017118175443
   level: 1
-  upgradeTo: {fileID: 11400000, guid: f6090c035d9f24ebb85d4a97454435f4, type: 2}
+  upgradeTo: {fileID: 11400000, guid: a3b8e0f9405d44dfdbfdbf027f710a8e, type: 2}
   tooltip:
     empty: 0
     lines:
     - title: Level Two Firebreather
-      description: Draw an extra card each turn. At the end of turn, retain a random
-        Generated card in hand.
+      description: Draw an extra card each turn. At the end of turn, deal 1 damage
+        to all enemies for each Status card in your hand
       relatedBehaviorIndex: 0
-    - title: Generated Card
-      description: A card added to your deck in any way other than by purchasing
-        it at the shop.
-      relatedBehaviorIndex: 0
-  keepsakeTitle: Level Two Firebreather
-  keepsakeDescription: Draw an extra card each turn. At the end of turn, retain a
-    random Generated card in hand.
+  keepsakeTitle: Firebreather
+  keepsakeDescription: Draw an extra card each turn. At the end of turn, deal 1 damage
+    to all enemies for each Status card in your hand
   references:
     version: 2
     RefIds:
@@ -59,11 +55,12 @@ MonoBehaviour:
         effectSteps:
         - rid: 2034230017118175444
         - rid: 2034230017118175446
-        - rid: 2034230017118175613
-        - rid: 2034230017118175614
-        - rid: 2034230017118175615
-        - rid: 2034230017118175612
-        - rid: 2034230017118175547
+        - rid: 2034230176448512932
+        - rid: 2034230176448512829
+        - rid: 2034230176448512927
+        - rid: 2034230176448512975
+        - rid: 2034230176448512928
+        - rid: 2034230176448512930
     - rid: 2034230017118175444
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -81,41 +78,52 @@ MonoBehaviour:
         effectStepName: FilterCards
         inputKey: cards
         filter:
-          cardCategoriesToInclude: 
-          generatedCardsFilter: 1
-        outputKey: gen
-    - rid: 2034230017118175547
-      type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CardInHandEffect
-        inputKey: randomGenCard
-        effect: 2
-    - rid: 2034230017118175612
-      type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetRandomItems
-        inputKey: gen
-        scale: 1
-        outputKey: randomGenCard
-    - rid: 2034230017118175613
+          cardCategoriesToInclude: 04000000
+          generatedCardsFilter: 0
+        outputKey: statusCards
+    - rid: 2034230176448512829
       type: {class: CountStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CountStep
-        inputKey: gen
-        outputKey: numGen
-    - rid: 2034230017118175614
-      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
+        inputKey: statusCards
+        outputKey: numStatusCards
+    - rid: 2034230176448512927
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: BooleanComparison
-        hardCodedInputKey1: 0
-        useHardCodedInputKey1: 1
-        inputKey1: 
-        operation: 0
-        inputKey2: numGen
-        outputKey: noGenCardsInHand
-    - rid: 2034230017118175615
-      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: enemies
+        validTargets: 02000000
+        number: 1
+        specialTargetRule: 1
+        cantCancelTargetting: 0
+    - rid: 2034230176448512928
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: EndWorkflowIfConditionMet
-        inputKey1: noGenCardsInHand
-        conditionToEndOn: 1
+        effectStepName: CombatEffectStep
+        inputKey: enemies
+        combatEffect: 0
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 1
+        inputMultiplicityKey: numStatusCards
+        vfxPrefab: {fileID: 1320532642761013391, guid: 4847f21b038e1aa42bceefe5c97ab1ab, type: 3}
+    - rid: 2034230176448512930
+      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: WaitForSecondsEffect
+        seconds: 0.2
+    - rid: 2034230176448512932
+      type: {class: EndWorkflowIfListEmpty, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfListEmpty
+        inputKey1: statusCards
+    - rid: 2034230176448512975
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: ;)
+        lineTime: 0.3
