@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Inhibition
   Description: Draw 1 card from this companion. When discarded, this companion gains
-    2 strength
+    1 strength
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 20b46ccd593516f4badbdcdb021f67c1, type: 3}
@@ -61,7 +61,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: self
         statusEffect: 0
-        scale: 2
+        scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0

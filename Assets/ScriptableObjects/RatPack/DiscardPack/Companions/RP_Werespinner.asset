@@ -39,10 +39,10 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Werespinner
-      description: Whenever you discard a card, deal 3 damage to a random enemy
+      description: Whenever you discard a card, deal 1 damage to a random enemy
       relatedBehaviorIndex: 0
   keepsakeTitle: The Eye
-  keepsakeDescription: Whenever you discard a card, deal 3 damage to a random enemy
+  keepsakeDescription: Whenever you discard a card, deal 1 damage to a random enemy
   references:
     version: 2
     RefIds:
@@ -52,7 +52,6 @@ MonoBehaviour:
         abilityTrigger: 16
         effectSteps:
         - rid: 205828032053379741
-        - rid: 7401433059192471553
         - rid: 7401433059192471552
     - rid: 205828032053379741
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -71,16 +70,10 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: randomGuy
         combatEffect: 0
-        scale: 3
+        scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 1320532642761013391, guid: 99a456f94890391478f393fcc8ad0b95, type: 3}
-    - rid: 7401433059192471553
-      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: DialogueStep
-        line: moo
-        lineTime: 0.4
