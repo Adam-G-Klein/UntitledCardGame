@@ -10,16 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: RP_ScarabEye
+  m_Name: RP_Inhibition
   m_EditorClassIdentifier: 
-  Name: Scarab Eye
-  Description: Unplayable. When discarded, this companion gains 2 strength
+  Name: Inhibition
+  Description: Draw 1 card from this companion. When discarded, this companion gains
+    2 strength
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 20b46ccd593516f4badbdcdb021f67c1, type: 3}
   cardCategory: 4
   vfxPrefab: {fileID: 0}
-  playable: 0
+  playable: 1
   exhaustsWhenPlayed: 0
   retain: 0
   effectWorkflows:
@@ -74,4 +75,26 @@ MonoBehaviour:
     - rid: 5602892563578094203
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
-        effectSteps: []
+        effectSteps:
+        - rid: 7401433059192471558
+        - rid: 7401433059192471559
+    - rid: 7401433059192471558
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 4
+        cantCancelTargetting: 0
+    - rid: 7401433059192471559
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DrawCards
+        inputKey: self
+        outputKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 

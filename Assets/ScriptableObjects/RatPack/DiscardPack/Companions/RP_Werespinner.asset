@@ -24,7 +24,7 @@ MonoBehaviour:
   cardBack: {fileID: 21300000, guid: a5222a8d127763c49b397cce916345ec, type: 3}
   cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
   cardTypeIconOverride: {fileID: 0}
-  rarity: 2
+  rarity: 1
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 0}
   genericCompanionVFX: {fileID: 0}
@@ -39,12 +39,10 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Werespinner
-      description: Whenever you discard a Generated card, draw a card from a random
-        companion
+      description: Whenever you discard a card, deal 3 damage to a random enemy
       relatedBehaviorIndex: 0
   keepsakeTitle: The Eye
-  keepsakeDescription: Whenever you discard a Generated card, draw a card from a
-    random companion
+  keepsakeDescription: Whenever you discard a card, deal 3 damage to a random enemy
   references:
     version: 2
     RefIds:
@@ -53,14 +51,9 @@ MonoBehaviour:
       data:
         abilityTrigger: 16
         effectSteps:
-        - rid: 2034230020176347170
-        - rid: 2034230020176347171
-        - rid: 2034230020176347172
-        - rid: 2034230020176347173
         - rid: 205828032053379741
-        - rid: 2034230020176347205
-        - rid: 205828032053379742
-        - rid: 205828032053379743
+        - rid: 7401433059192471553
+        - rid: 7401433059192471552
     - rid: 205828032053379741
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -68,60 +61,26 @@ MonoBehaviour:
         useInputToLimitOptions: 0
         inputKey: 
         outputKey: randomGuy
-        validTargets: 00000000
+        validTargets: 02000000
         number: 1
         specialTargetRule: 6
         cantCancelTargetting: 0
-    - rid: 205828032053379742
-      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+    - rid: 7401433059192471552
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: DrawCards
+        effectStepName: CombatEffectStep
         inputKey: randomGuy
-        outputKey: 
-        scale: 1
+        combatEffect: 0
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
-    - rid: 205828032053379743
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: randomGuy
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
-        scale: 1
-    - rid: 2034230020176347170
-      type: {class: FilterCards, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: FilterCards
-        inputKey: cardDiscarded
-        filter:
-          cardCategoriesToInclude: 
-          generatedCardsFilter: 1
-        outputKey: statusCards
-    - rid: 2034230020176347171
-      type: {class: CountStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CountStep
-        inputKey: statusCards
-        outputKey: numStatusCards
-    - rid: 2034230020176347172
-      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: BooleanComparison
-        hardCodedInputKey1: 0
-        useHardCodedInputKey1: 1
-        inputKey1: 
-        operation: 0
-        inputKey2: numStatusCards
-        outputKey: equalsZero
-    - rid: 2034230020176347173
-      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: EndWorkflowIfConditionMet
-        inputKey1: equalsZero
-        conditionToEndOn: 1
-    - rid: 2034230020176347205
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 1320532642761013391, guid: 99a456f94890391478f393fcc8ad0b95, type: 3}
+    - rid: 7401433059192471553
       type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: DialogueStep
-        line: the cycle continues
-        lineTime: 1
+        line: moo
+        lineTime: 0.4
