@@ -31,7 +31,9 @@ public class ShopCardProbabilityDistBuilder {
         if (existing < 0) {
             rarityGrouping[card.rarity].Add(new CardWithWeight(card, 1f));
         } else {
-            // rarityGrouping[card.rarity][existing].weight += 1f;
+            // Leave this in to weight the cards differently based on the number of pools that have it.
+            // E.g., the more companions of a pack there are, the more we weight it.
+            rarityGrouping[card.rarity][existing].weight += 1f;
         }
     }
 
