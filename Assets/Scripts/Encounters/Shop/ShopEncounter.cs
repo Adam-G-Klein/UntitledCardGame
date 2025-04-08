@@ -165,64 +165,23 @@ public class ShopEncounter : Encounter
         // Note, if we want to weigh the proportion of neutral cards differently in the future,
         // it is worth revisiting how we do this.
         cardPools.Add(shopData.neutralCardPool, (null, shopData.neutralCardPool.genericCardIconSprite));
-        List<CardInShopWithPrice> commonShopCards = new();
-        List<CardInShopWithPrice> uncommonShopCards = new();
-        List<CardInShopWithPrice> rareShopCards = new();
+        ShopProbabilityDistribution x = new();
         foreach (KeyValuePair<CardPoolSO, ValueTuple<CompanionTypeSO, Sprite>> cardPoolPair in cardPools) {
             foreach (CardType card in cardPoolPair.Key.commonCards) {
-                if (!commonShopCards.Any(c => c.cardType == card)) {
-                    commonShopCards.Add(
-                        new CardInShopWithPrice(card, shopData.cardPrice, cardPoolPair.Value.Item1, cardPoolPair.Key, Card.CardRarity.COMMON, cardPoolPair.Value.Item2)
-                    );
-                }
+                x.AddCard(new CardInShopWithPrice(card, shopData.cardPrice, cardPoolPair.Value.Item1, cardPoolPair.Key, Card.CardRarity.COMMON, cardPoolPair.Value.Item2));
             }
             foreach (CardType card in cardPoolPair.Key.uncommonCards) {
-                if (!uncommonShopCards.Any(c => c.cardType == card)) {
-                    uncommonShopCards.Add(
-                        new CardInShopWithPrice(card, shopData.cardPrice, cardPoolPair.Value.Item1, cardPoolPair.Key, Card.CardRarity.UNCOMMON, cardPoolPair.Value.Item2)
-                    );
-                }
+                x.AddCard(new CardInShopWithPrice(card, shopData.cardPrice, cardPoolPair.Value.Item1, cardPoolPair.Key, Card.CardRarity.UNCOMMON, cardPoolPair.Value.Item2));
             }
             foreach (CardType card in cardPoolPair.Key.rareCards) {
-                if (!rareShopCards.Any(c => c.cardType == card)) {
-                    rareShopCards.Add(
-                        new CardInShopWithPrice(card, shopData.cardPrice, cardPoolPair.Value.Item1, cardPoolPair.Key, Card.CardRarity.RARE, cardPoolPair.Value.Item2)
-                    );
-                }
+                x.AddCard(new CardInShopWithPrice(card, shopData.cardPrice, cardPoolPair.Value.Item1, cardPoolPair.Key, Card.CardRarity.RARE, cardPoolPair.Value.Item2));
             }
         }
-        for (int i = 0; i < shopLevel.numCardsToShow; i++) {
-            Rarity rarity = PickRarity(
-                shopLevel.commonCardPercentage,
-                shopLevel.uncommonCardPercentage,
-                shopLevel.rareCardPercentage,
-                commonShopCards.Count > 0,
-                uncommonShopCards.Count > 0,
-                rareShopCards.Count > 0
-            );
-
-            // Determine what the card pool is for this single card being generated
-            List<CardInShopWithPrice> finalShopCardsPool = new();
-            switch (rarity) {
-                case Rarity.Common:
-                    finalShopCardsPool = commonShopCards;
-                break;
-
-                case Rarity.Uncommon:
-                    finalShopCardsPool = uncommonShopCards;
-                break;
-
-                case Rarity.Rare:
-                    finalShopCardsPool = rareShopCards;
-                break;
-            }
-
-            int selectedCardIndex = UnityEngine.Random.Range(0, finalShopCardsPool.Count);
-            CardInShopWithPrice selectedCard = finalShopCardsPool[selectedCardIndex];
-            // Remove the card from the pool, so it doesn't show up more than once.
-            finalShopCardsPool.Remove(selectedCard);
-
-            cardsInShop.Add(selectedCard);
+        x.Build(shopLevel);
+        List<CardInShopWithPrice> y = x.ChooseWithReplacement(shopLevel.numCardsToShow);
+        foreach (CardInShopWithPrice z in y) {
+            Debug.Log("Chose from probability dist: " + z);
+            cardsInShop.Add(z);
         }
     }
 
