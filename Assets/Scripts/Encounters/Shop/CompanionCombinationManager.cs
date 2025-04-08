@@ -96,7 +96,7 @@ public class CompanionCombinationManager : MonoBehaviour
         // TODO: change this combined companion with whatever mechanics ends up wanting
         Companion combinedCompanion = new Companion(companions[0].companionType.upgradeTo);
         combinedCompanion.deck = combinedDeck;
-        combinedCompanion.combatStats.maxHealth = maxHealthForCombinedCompanion(companions);
+        combinedCompanion.combatStats.maxHealth = maxHealthForCombinedCompanion(combinedCompanion, companions);
         combinedCompanion.combatStats.currentHealth = (int) (combinedCompanion.combatStats.maxHealth * currentHealthPctForCombinedCompanion(companions));
         combinedCompanion.combatStats.baseAttackDamage = baseAttackDamageForCombinedCompanion(companions);
 
@@ -155,9 +155,11 @@ public class CompanionCombinationManager : MonoBehaviour
         return new Deck(cards);
     }
 
-    private int maxHealthForCombinedCompanion(List<Companion> companions) {
-        // Sum together the max health of each companion.
-        return (int) companions.Select(c => c.combatStats.maxHealth).ToList().Sum();
+    private int maxHealthForCombinedCompanion(Companion upgradedCompanion, List<Companion> companions) {
+        // Take the base health of the upgraded companion, then
+        // add any accumulated max HP buffs.
+        int maxHealthBuffs = (int) companions.Select(c => c.combatStats.getMaxHealthBuffs()).ToList().Sum();
+        return upgradedCompanion.companionType.maxHealth + maxHealthBuffs;
     }
 
     private double currentHealthPctForCombinedCompanion(List<Companion> companions) {

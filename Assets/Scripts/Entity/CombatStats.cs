@@ -6,6 +6,8 @@ using UnityEngine;
 public class CombatStats
 {
     public int maxHealth;
+    // Keep track of the accumulated max health buffs.
+    public int maxHealthBuffs = 0;
     public int currentHealth;
     public int baseAttackDamage;
 
@@ -29,6 +31,7 @@ public class CombatStats
 
     public void IncreaseMaxHealth(int scale) {
         this.maxHealth += scale;
+        this.maxHealthBuffs += scale;
         // Strategically choosing not to set the current health to
         // the new max, if we want to do this whoever called this method
         // should do it.
@@ -44,6 +47,10 @@ public class CombatStats
 
     public int getMaxHealth() {
         return maxHealth;
+    }
+
+    public int getMaxHealthBuffs() {
+        return maxHealthBuffs;
     }
 
     public void setCurrentHealth(int newHealth) {
