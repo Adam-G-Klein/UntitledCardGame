@@ -31,7 +31,8 @@ MonoBehaviour:
   cardPool: {fileID: 11400000, guid: c8423877ca4f44df98085eb2a6142943, type: 2}
   packCardPool: {fileID: 11400000, guid: 0f37e5a720cc243b2ab7df193483391d, type: 2}
   speakerType: {fileID: 0}
-  abilitiesV2: []
+  abilitiesV2:
+  - rid: 7401433059192471626
   level: 0
   upgradeTo: {fileID: 11400000, guid: bd3715877c45a47929f86119649b63a1, type: 2}
   tooltip:
@@ -39,11 +40,49 @@ MonoBehaviour:
     lines:
     - title: Pythia
       description: Draw an extra card each turn. Whenever you shuffle a companion's
-        draw pile, give them 4 block.
+        draw pile, deal 2 damage to a random enemy
       relatedBehaviorIndex: 0
   keepsakeTitle: 
   keepsakeDescription: Draw an extra card each turn. Whenever you shuffle a companion's
-    draw pile, give them 4 block.
+    draw pile, deal 2 damage to a random enemy
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 7401433059192471626
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 10
+        effectSteps:
+        - rid: 7401433059192471627
+        - rid: 7401433059192471662
+        - rid: 7401433059192471663
+    - rid: 7401433059192471627
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: deck shuffled >:)
+        lineTime: 1
+    - rid: 7401433059192471662
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: enemy
+        validTargets: 02000000
+        number: 1
+        specialTargetRule: 6
+        cantCancelTargetting: 0
+    - rid: 7401433059192471663
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: enemy
+        combatEffect: 0
+        scale: 2
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 1320532642761013391, guid: 4847f21b038e1aa42bceefe5c97ab1ab, type: 3}
