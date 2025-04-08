@@ -16,10 +16,10 @@ public class UIDocumentHoverableInstantiator : GenericSingleton<UIDocumentHovera
     private Dictionary<VisualElement, GameObject> hoverablesByElement = new Dictionary<VisualElement, GameObject>();
     List<VisualElement> visualElementsWaitingOn = new List<VisualElement>();
 
-    public void InstantiateHoverableWhenUIElementReady(VisualElement element, 
-        Action selectCallback = null, 
-        Action hoverCallback = null, 
-        Action unhoverCallback = null, 
+    public void InstantiateHoverableWhenUIElementReady(VisualElement element,
+        Action selectCallback = null,
+        Action hoverCallback = null,
+        Action unhoverCallback = null,
         HoverableType hoverableType = HoverableType.DefaultShop,
         CompanionTypeSO companionTypeSO = null){
         if(visualElementsWaitingOn.Contains(element)){
@@ -32,7 +32,7 @@ public class UIDocumentHoverableInstantiator : GenericSingleton<UIDocumentHovera
     private IEnumerator InstantiateHoverableWhenUIElementReadyCorout(VisualElement element, Action selectCallback = null, Action hoverCallback = null, Action unhoverCallback = null, HoverableType hoverableType = HoverableType.DefaultShop, CompanionTypeSO companionTypeSO = null){
         // wait for the element to be ready
         while(!UIDocumentUtils.ElementIsReady(element)){
-            Debug.Log("[HoverableInstantiation] Element: " + element.name + " is not ready yet, waiting...");
+            // Debug.Log("[HoverableInstantiation] Element: " + element.name + " is not ready yet, waiting...");
             yield return null;
         }
         InstantiateHoverable(element, selectCallback, hoverCallback, unhoverCallback, hoverableType, companionTypeSO);
@@ -90,11 +90,11 @@ public class UIDocumentHoverableInstantiator : GenericSingleton<UIDocumentHovera
     }
 
     private IEnumerator CallIfNextHoverableNotInElemListWhenReadyCorout(Action action, List<VisualElement> elements) {
-        List<Hoverable> hoverables = new List<Hoverable>(); 
+        List<Hoverable> hoverables = new List<Hoverable>();
         foreach (var elem in elements) {
             if(elem == null) continue; // shop sell and view deck buttons can be null
             while (!hoverablesByElement.ContainsKey(elem)) {
-                Debug.Log("[HoverableInstantiation] Element is not ready yet for calling method when it's hovered, waiting...");
+                // Debug.Log("[HoverableInstantiation] Element is not ready yet for calling method when it's hovered, waiting...");
                 yield return null;
             }
             foreach (var kvp in hoverablesByElement) {
