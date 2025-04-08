@@ -21,11 +21,49 @@ public enum CardSource {
     PackPool,
 }
 
+public class ShopCardProbabilityDistBuilder {
+    Dictionary<Card.CardRarity, List<CardWithWeight>> rarityGrouping = new();
+    public void AddCard(CardInShopWithPrice card) {
+        if (!rarityGrouping.ContainsKey(card.rarity)) {
+            rarityGrouping.Add(card.rarity, new List<CardWithWeight>());
+        }
+        int existing = rarityGrouping[card.rarity].FindIndex(c => c.card.cardType == card.cardType);
+        if (existing < 0) {
+            rarityGrouping[card.rarity].Add(new CardWithWeight(card, 1f));
+        } else {
+            // rarityGrouping[card.rarity][existing].weight += 1f;
+        }
+    }
+
+    public ShopProbabilityDistribution Build(ShopLevel shopLevel) {
+        List<CardWithWeight> cardCategoricalDistribution = new();
+        cardCategoricalDistribution.AddRange(getRarityConditionalDist(Card.CardRarity.COMMON, (float) shopLevel.commonCardPercentage / 100f));
+        cardCategoricalDistribution.AddRange(getRarityConditionalDist(Card.CardRarity.UNCOMMON, (float) shopLevel.uncommonCardPercentage / 100f));
+        cardCategoricalDistribution.AddRange(getRarityConditionalDist(Card.CardRarity.RARE, (float) shopLevel.rareCardPercentage / 100f));
+        return new ShopProbabilityDistribution(cardCategoricalDistribution);
+    }
+
+    private List<CardWithWeight> getRarityConditionalDist(Card.CardRarity rarity, float rarityPct) {
+        List<CardWithWeight> dist = new();
+        foreach (CardWithWeight c in rarityGrouping[rarity]) {
+            // Divide each card's weight by the sum of all the weights in the group.
+            // This has the effect of weighting cards from packs more heavily.
+            // This will sum up to 1.
+            float occurenceWeight = c.weight / rarityGrouping[Card.CardRarity.COMMON].Select(c => c.weight).Sum();
+
+            // The total probability of the card will be the product of the rarity % and the occurence % conditioned on the rarity.
+            dist.Add(new CardWithWeight(c.card, rarityPct * occurenceWeight));
+        }
+        return dist;
+    }
+}
+
 public class ShopProbabilityDistribution {
     List<CardWithWeight> cardCategoricalDistribution = new();
 
-    Dictionary<Card.CardRarity, List<CardInShopWithPrice>> rarityGrouping = new();
-
+    public ShopProbabilityDistribution(List<CardWithWeight> cardCat) {
+        this.cardCategoricalDistribution = cardCat;
+    }
 
     public List<CardInShopWithPrice> ChooseWithReplacement(int count) {
         List<CardWithWeight> dist = new List<CardWithWeight>(cardCategoricalDistribution);
@@ -36,6 +74,20 @@ public class ShopProbabilityDistribution {
         }
         return x;
     }
+
+    public List<CardInShopWithPrice> ChooseWithoutReplacement(int count) {
+        List<CardWithWeight> dist = new List<CardWithWeight>(cardCategoricalDistribution);
+
+        List<CardInShopWithPrice> x = new();
+        // Simple draw then remove from the copied list.
+        for (int i = 0; i < count; i++) {
+            CardWithWeight drawn = randomDraw(dist);
+            x.Add(drawn.card);
+            dist.Remove(drawn);
+        }
+        return x;
+    }
+
 
     private CardWithWeight randomDraw(List<CardWithWeight> cards) {
         float totalWeight = (float) cards.Select(c => c.weight).ToList().Sum();
@@ -51,29 +103,12 @@ public class ShopProbabilityDistribution {
         return null;
     }
 
-    public void AddCard(CardInShopWithPrice card) {
-        if (!rarityGrouping.ContainsKey(card.rarity)) {
-            rarityGrouping.Add(card.rarity, new List<CardInShopWithPrice>());
-        }
-        if (!rarityGrouping[card.rarity].Any(c => c.cardType == card.cardType)) {
-            Debug.LogError("Serious error: duplicate card type added to the shop probability distribution");
-        }
-        rarityGrouping[card.rarity].Add(card);
-    }
-
-    public void Build(ShopLevel shopLevel) {
-        foreach (CardInShopWithPrice c in rarityGrouping[Card.CardRarity.COMMON]) {
-            float cardPercentage = (float) shopLevel.commonCardPercentage / 100f;
-            cardCategoricalDistribution.Add(new CardWithWeight(c, cardPercentage / rarityGrouping[Card.CardRarity.COMMON].Count));
-        }
-        foreach (CardInShopWithPrice c in rarityGrouping[Card.CardRarity.UNCOMMON]) {
-            float cardPercentage = (float) shopLevel.uncommonCardPercentage / 100f;
-            cardCategoricalDistribution.Add(new CardWithWeight(c, cardPercentage / rarityGrouping[Card.CardRarity.UNCOMMON].Count));
-        }
-        foreach (CardInShopWithPrice c in rarityGrouping[Card.CardRarity.RARE]) {
-            float cardPercentage = (float) shopLevel.rareCardPercentage / 100f;
-            cardCategoricalDistribution.Add(new CardWithWeight(c, cardPercentage / rarityGrouping[Card.CardRarity.RARE].Count));
+    public void PrintCardDistribution()
+    {
+        Debug.Log("🃏 Card Distribution:");
+        foreach (CardWithWeight card in cardCategoricalDistribution)
+        {
+            Debug.Log($"- {card.card.cardType.name}: {card.weight}");
         }
     }
-
 }

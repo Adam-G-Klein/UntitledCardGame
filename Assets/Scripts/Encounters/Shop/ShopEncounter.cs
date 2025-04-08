@@ -152,35 +152,32 @@ public class ShopEncounter : Encounter
         // Note: L1 and L2 companions share the same card pool, so we don't want
         // to overindex and show double the amount of cards from that card pool
         // if you have both on your team.
-        Dictionary<CardPoolSO, ValueTuple<CompanionTypeSO, Sprite>> cardPools = new();
+        List<ValueTuple<CardPoolSO, CompanionTypeSO, Sprite>> cardPools = new();
         foreach (Companion companion in companionList) {
-            if (companion.companionType.cardPool && !cardPools.ContainsKey(companion.companionType.cardPool)) {
-                cardPools.Add(companion.companionType.cardPool, (companion.companionType, companion.companionType.sprite));
-            }
-            if (companion.companionType.packCardPool && !cardPools.ContainsKey(companion.companionType.packCardPool)) {
-                cardPools.Add(companion.companionType.packCardPool, (null, companion.companionType.packCardPool.genericCardIconSprite));
-            }
+            cardPools.Add((companion.companionType.cardPool, companion.companionType, companion.companionType.sprite));
+            cardPools.Add((companion.companionType.packCardPool, null, companion.companionType.packCardPool.genericCardIconSprite));
         }
         // Add the neutral card pool to the list.
         // Note, if we want to weigh the proportion of neutral cards differently in the future,
         // it is worth revisiting how we do this.
-        cardPools.Add(shopData.neutralCardPool, (null, shopData.neutralCardPool.genericCardIconSprite));
-        ShopProbabilityDistribution x = new();
-        foreach (KeyValuePair<CardPoolSO, ValueTuple<CompanionTypeSO, Sprite>> cardPoolPair in cardPools) {
-            foreach (CardType card in cardPoolPair.Key.commonCards) {
-                x.AddCard(new CardInShopWithPrice(card, shopData.cardPrice, cardPoolPair.Value.Item1, cardPoolPair.Key, Card.CardRarity.COMMON, cardPoolPair.Value.Item2));
+        cardPools.Add((shopData.neutralCardPool, null, shopData.neutralCardPool.genericCardIconSprite));
+        ShopCardProbabilityDistBuilder b = new();
+        foreach (ValueTuple<CardPoolSO, CompanionTypeSO, Sprite> tup in cardPools) {
+            CardPoolSO pool = tup.Item1;
+            foreach (CardType card in pool.commonCards) {
+                b.AddCard(new CardInShopWithPrice(card, shopData.cardPrice, tup.Item2, pool, Card.CardRarity.COMMON, tup.Item3));
             }
-            foreach (CardType card in cardPoolPair.Key.uncommonCards) {
-                x.AddCard(new CardInShopWithPrice(card, shopData.cardPrice, cardPoolPair.Value.Item1, cardPoolPair.Key, Card.CardRarity.UNCOMMON, cardPoolPair.Value.Item2));
+            foreach (CardType card in pool.uncommonCards) {
+                b.AddCard(new CardInShopWithPrice(card, shopData.cardPrice, tup.Item2, pool, Card.CardRarity.UNCOMMON, tup.Item3));
             }
-            foreach (CardType card in cardPoolPair.Key.rareCards) {
-                x.AddCard(new CardInShopWithPrice(card, shopData.cardPrice, cardPoolPair.Value.Item1, cardPoolPair.Key, Card.CardRarity.RARE, cardPoolPair.Value.Item2));
+            foreach (CardType card in pool.rareCards) {
+                b.AddCard(new CardInShopWithPrice(card, shopData.cardPrice, tup.Item2, pool, Card.CardRarity.RARE, tup.Item3));
             }
         }
-        x.Build(shopLevel);
-        List<CardInShopWithPrice> y = x.ChooseWithReplacement(shopLevel.numCardsToShow);
-        foreach (CardInShopWithPrice z in y) {
-            Debug.Log("Chose from probability dist: " + z);
+        ShopProbabilityDistribution dist = b.Build(shopLevel);
+        dist.PrintCardDistribution();
+        List<CardInShopWithPrice> chosen = dist.ChooseWithoutReplacement(shopLevel.numCardsToShow);
+        foreach (CardInShopWithPrice z in chosen) {
             cardsInShop.Add(z);
         }
     }
