@@ -42,8 +42,8 @@ MonoBehaviour:
     lines:
     - title: Level Two Mab
       description: At the end of combat, heal adjacent companions 10 HP. Each turn,
-        adjacent companions lose 1 HP. Whenever a companion heals, give it 1 max
-        HP
+        adjacent companions lose 1 HP unless they would die. Whenever a companion
+        heals, give it 1 max HP
       relatedBehaviorIndex: 0
   keepsakeTitle: 
   keepsakeDescription: At the end of combat, heal adjacent companions 10 HP. Each
