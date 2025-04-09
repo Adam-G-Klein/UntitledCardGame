@@ -47,8 +47,8 @@ MonoBehaviour:
       relatedBehaviorIndex: 0
   keepsakeTitle: 
   keepsakeDescription: At the end of combat, heal adjacent companions 10 HP. Each
-    turn, adjacent companions lose 1 HP. Whenever a companion heals, give it 1 max
-    HP
+    turn, adjacent companions lose 1 HP unless they would die. Whenever a companion
+    heals, give it 1 max HP
   references:
     version: 2
     RefIds:
@@ -104,12 +104,13 @@ MonoBehaviour:
         effectSteps:
         - rid: 2034230176448512385
         - rid: 2034230176448512386
+        - rid: 7401433059192472040
         - rid: 2034230176448512384
     - rid: 2034230176448512384
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
-        inputKey: adj
+        inputKey: above1HP
         combatEffect: 16
         scale: 1
         getScaleFromKey: 0
@@ -164,3 +165,13 @@ MonoBehaviour:
         inputKey: healedCompanion
         prefabToInstantiate: {fileID: 3850217184923880746, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
         scale: 1
+    - rid: 7401433059192472040
+      type: {class: FilterEntityByHP, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FilterEntityByHP
+        inputKey: adj
+        percentThreshold: 0
+        absoluteThreshold: 1
+        useAbsoluteThreshold: 1
+        outputKey: above1HP
+        below: 0

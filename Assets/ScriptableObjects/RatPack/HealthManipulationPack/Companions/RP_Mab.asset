@@ -41,11 +41,11 @@ MonoBehaviour:
     lines:
     - title: Mab
       description: At the end of combat, heal adjacent companions 8 HP. Each turn,
-        adjacent companions lose 1 HP
+        adjacent companions lose 1 HP unless they would die
       relatedBehaviorIndex: 0
   keepsakeTitle: Mab's Mercy
   keepsakeDescription: At the end of combat, heal adjacent companions 8 HP. Each
-    turn, adjacent companions lose 1 HP
+    turn, adjacent companions lose 1 HP unless they would die
   references:
     version: 2
     RefIds:
@@ -96,6 +96,7 @@ MonoBehaviour:
         effectSteps:
         - rid: 2034230176448512345
         - rid: 2034230176448512346
+        - rid: 7401433059192472008
         - rid: 2034230176448512348
     - rid: 2034230176448512343
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
@@ -131,7 +132,7 @@ MonoBehaviour:
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
-        inputKey: adj
+        inputKey: aboveOneHP
         combatEffect: 16
         scale: 1
         getScaleFromKey: 0
@@ -140,3 +141,13 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 6137048663962808129, guid: 92c26f41ef33c23419e05ceb12660efa, type: 3}
+    - rid: 7401433059192472008
+      type: {class: FilterEntityByHP, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FilterEntityByHP
+        inputKey: adj
+        percentThreshold: 0
+        absoluteThreshold: 1
+        useAbsoluteThreshold: 1
+        outputKey: aboveOneHP
+        below: 0
