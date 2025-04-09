@@ -17,7 +17,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     private GameObject cardPrefab;
     private GameObject cardDrawVFXPrefab;
 
-    public delegate IEnumerator OnCardExhaustHandler(DeckInstance deckFrom, Card card);
+    public delegate IEnumerator OnCardExhaustHandler(DeckInstance deckFrom, PlayableCard card);
     public event OnCardExhaustHandler onCardExhaustHandler;
 
     public delegate IEnumerator OnCardDiscardHandler(DeckInstance deckFrom, PlayableCard card, bool casted);
@@ -173,7 +173,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         StartCoroutine(SafeRemoveCardFromHand(GetCardById(card.id)));
     }
 
-    public IEnumerator OnCardExhaust(DeckInstance deckFrom, Card card) {
+    public IEnumerator OnCardExhaust(DeckInstance deckFrom, PlayableCard card) {
         if (onCardExhaustHandler != null) {
             foreach (OnCardExhaustHandler handler in onCardExhaustHandler.GetInvocationList()) {
                 yield return handler.Invoke(deckFrom, card);
@@ -252,7 +252,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                 new EffectWorkflowClosure(document, card.card.cardType.onExhaustEffectWorkflow, null)
             );
         }
-        yield return OnCardExhaust(card.deckFrom, card.card);
+        yield return OnCardExhaust(card.deckFrom, card);
         // Queue up the callback last before returning execution so the callback will destroy the card
         // ONLY after the on exhaust workflows.
         // Any workflows queued by `deckFrom.ExhaustCard` will run BEFORE this.

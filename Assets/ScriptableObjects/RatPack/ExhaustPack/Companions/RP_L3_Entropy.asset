@@ -41,11 +41,11 @@ MonoBehaviour:
     lines:
     - title: Level 3 Entropy
       description: Transform 1 card into an "Entropy's Burn" card at the end of combat.
-        Whenever you exhaust a card, draw 1 card from the card's parent companion.
+        Whenever you exhaust a card, deal 2 damage to a random enemy twice
       relatedBehaviorIndex: 0
   keepsakeTitle: 
   keepsakeDescription: Transform 1 card into an "Entropy's Burn" card at the end
-    of combat. Whenever you exhaust a card, draw 1 card from the card's parent companion.
+    of combat. Whenever you exhaust a card, deal 1 damage to a random enemy twice
   references:
     version: 2
     RefIds:
@@ -114,28 +114,29 @@ MonoBehaviour:
       data:
         abilityTrigger: 9
         effectSteps:
-        - rid: 2034230108114649096
-        - rid: 205828032053380032
-        - rid: 205828032053380033
-    - rid: 205828032053380032
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+        - rid: 7401433059192472089
+        - rid: 7401433059192472088
+    - rid: 7401433059192472088
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: InstantiatePrefab
-        inputKey: companionExhaustedFrom
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
-        scale: 1
-    - rid: 205828032053380033
-      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: DrawCards
-        inputKey: companionExhaustedFrom
-        outputKey: 
-        scale: 1
+        effectStepName: CombatEffectStep
+        inputKey: target
+        combatEffect: 0
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
-    - rid: 2034230108114649096
-      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+        multiplicity: 2
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 1320532642761013391, guid: 4847f21b038e1aa42bceefe5c97ab1ab, type: 3}
+    - rid: 7401433059192472089
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: DialogueStep
-        line: ._.
-        lineTime: 0.8
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: enemy
+        validTargets: 02000000
+        number: 1
+        specialTargetRule: 6
+        cantCancelTargetting: 0

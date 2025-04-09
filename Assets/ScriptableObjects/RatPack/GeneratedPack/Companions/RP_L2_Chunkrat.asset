@@ -55,6 +55,7 @@ MonoBehaviour:
         abilityTrigger: 9
         effectSteps:
         - rid: 7401433059192472043
+        - rid: 7401433059192472228
         - rid: 7401433059192472082
         - rid: 7401433059192472081
         - rid: 7401433059192472080
@@ -64,6 +65,7 @@ MonoBehaviour:
         abilityTrigger: 16
         effectSteps:
         - rid: 7401433059192472044
+        - rid: 7401433059192472229
         - rid: 7401433059192472045
         - rid: 7401433059192472078
         - rid: 7401433059192472079
@@ -131,3 +133,13 @@ MonoBehaviour:
         effectStepName: ConvertPlayableCardToDeckInstance
         inputKey: statusCardExhausted
         outputKey: parent
+    - rid: 7401433059192472228
+      type: {class: EndWorkflowIfListEmpty, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfListEmpty
+        inputKey1: statusCardExhausted
+    - rid: 7401433059192472229
+      type: {class: EndWorkflowIfListEmpty, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfListEmpty
+        inputKey1: statusCardDiscarded

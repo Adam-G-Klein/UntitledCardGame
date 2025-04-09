@@ -13,49 +13,40 @@ MonoBehaviour:
   m_Name: RP_IronStomach
   m_EditorClassIdentifier: 
   Name: Iron Stomach
-  Description: Unplayable. If in hand at the end of turn, gain block equal to half
-    the number of cards in this deck ({block} block)
-  defaultValues:
-  - key: block
-    value: 0
+  Description: Exhaust. Give 3 block to and draw 1 card from this companion
+  defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 4b398c458377645acb90057ab391c591, type: 3}
   cardCategory: 4
   vfxPrefab: {fileID: 0}
-  playable: 0
-  exhaustsWhenPlayed: 0
+  playable: 1
+  exhaustsWhenPlayed: 1
   retain: 0
   effectWorkflows:
-  - rid: 2034230108114649327
+  - rid: 7401433059192472121
   onExhaustEffectWorkflow:
-    rid: -2
+    rid: 7401433059192472125
   onDiscardEffectWorkflow:
-    rid: -2
+    rid: 7401433059192472127
   inPlayerHandEndOfTurnWorkflow:
     rid: 2034230108114649365
   tooltips: 
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 2034230108114649327
-      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
-      data:
-        effectSteps:
-        - rid: 2034230176448512496
-        - rid: 2034230176448512497
-        - rid: 2034230176448512498
     - rid: 2034230108114649365
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
+        effectSteps: []
+    - rid: 7401433059192472121
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
         effectSteps:
-        - rid: 2034230108114649367
-        - rid: 2034230176448512502
-        - rid: 2034230176448512501
-        - rid: 2034230108114649368
-        - rid: 2034230108114649369
-    - rid: 2034230108114649367
+        - rid: 7401433059192472122
+        - rid: 7401433059192472123
+        - rid: 7401433059192472164
+        - rid: 7401433059192472124
+    - rid: 7401433059192472122
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
@@ -66,35 +57,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 4
         cantCancelTargetting: 0
-    - rid: 2034230108114649368
-      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: ApplyStatus
-        inputKey: self
-        statusEffect: 2
-        scale: 0
-        getScaleFromKey: 1
-        inputScaleKey: block
-        multiplyByNumAuraStacks: 0
-    - rid: 2034230108114649369
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: self
-        prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
-        scale: 1.5
-    - rid: 2034230176448512496
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: self
-        validTargets: 
-        number: 1
-        specialTargetRule: 4
-        cantCancelTargetting: 0
-    - rid: 2034230176448512497
+    - rid: 7401433059192472123
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: DrawCards
@@ -103,31 +66,28 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
-    - rid: 2034230176448512498
+    - rid: 7401433059192472124
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
         inputKey: self
         prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
         scale: 1
-    - rid: 2034230176448512501
-      type: {class: MathStep, ns: , asm: Assembly-CSharp}
+    - rid: 7401433059192472125
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: MathStep
-        inputKey: numCards
-        operand2InputKey: UNUSED
-        operation: 3
-        scale: 2
-        outputKey: block
-    - rid: 2034230176448512502
-      type: {class: CountCardsInDeck, ns: , asm: Assembly-CSharp}
+        effectSteps: []
+    - rid: 7401433059192472127
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: CountCardsInDeck
-        inputDeckKey: self
-        filter:
-          cardCategoriesToInclude: 
-          generatedCardsFilter: 0
-        includeDrawPile: 1
-        includeDiscardPile: 1
-        includeCardsInHand: 1
-        outputKey: numCards
+        effectSteps: []
+    - rid: 7401433059192472164
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: self
+        statusEffect: 2
+        scale: 3
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0

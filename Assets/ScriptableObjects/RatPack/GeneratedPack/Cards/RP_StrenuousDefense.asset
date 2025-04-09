@@ -57,22 +57,11 @@ MonoBehaviour:
         - fromWorkflow: self
           toFxExperience: start
         gameobjectMappingList: []
-    - rid: 5280922841426165942
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: self
-        validTargets: 
-        number: 1
-        specialTargetRule: 4
-        cantCancelTargetting: 0
     - rid: 5602892561590779943
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
-        - rid: 5280922841426165942
+        - rid: 7401433059192472196
         - rid: 5602892561590779944
         - rid: 5602892561590779945
         - rid: 5602892561590779946
@@ -112,3 +101,14 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+    - rid: 7401433059192472196
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 4
+        cantCancelTargetting: 0

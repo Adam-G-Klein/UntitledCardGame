@@ -187,12 +187,12 @@ public abstract class EntityAbilityInstance
         yield return null;
     }
 
-    private IEnumerator OnCardExhaust(DeckInstance deckFrom, Card card) {
+    private IEnumerator OnCardExhaust(DeckInstance deckFrom, PlayableCard card) {
         EffectDocument document = createEffectDocument();
         if (deckFrom.TryGetComponent(out CompanionInstance companion)) {
             EffectUtils.AddCompanionToDocument(document, "companionExhaustedFrom", companion);
         }
-        document.map.AddItem<Card>("cardExhausted", card);
+        document.map.AddItem<PlayableCard>("cardExhausted", card);
         EffectManager.Instance.QueueEffectWorkflow(new EffectWorkflowClosure(document, ability.effectWorkflow, null));
         yield return null;
     }
