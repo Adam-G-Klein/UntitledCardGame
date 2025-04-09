@@ -31,10 +31,8 @@ public class ConvertPlayableCardToDeckInstance : EffectStep
             EffectError("ConvertPlayableCardToDeckInstance only takes one PlayableCard");
             yield break;
         }
-        List<DeckInstance> decks = new();
-        decks.Add(playableCards[0].deckFrom);
-        document.map.AddItems<DeckInstance>(outputKey, decks);
-        document.map.AddItems<GameObject>(outputKey, new List<GameObject>() {playableCards[0].deckFrom.gameObject});
+        CompanionInstance x = CombatEntityManager.Instance.getCompanionInstanceForCombatInstance(playableCards[0].deckFrom.combatInstance);
+        EffectUtils.AddCompanionToDocument(document, outputKey, x);
         yield return null;
     }
 }
