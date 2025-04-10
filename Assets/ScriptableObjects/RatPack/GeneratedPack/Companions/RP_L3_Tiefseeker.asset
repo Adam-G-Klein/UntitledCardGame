@@ -31,8 +31,7 @@ MonoBehaviour:
   cardPool: {fileID: 11400000, guid: 497400d5fb9d14b6c9472ab3f1786e46, type: 2}
   packCardPool: {fileID: 11400000, guid: fb4659890370a4ceda58d0967639becf, type: 2}
   speakerType: {fileID: 0}
-  abilitiesV2:
-  - rid: 205828032053379474
+  abilitiesV2: []
   level: 2
   upgradeTo: {fileID: 0}
   tooltip:
@@ -50,50 +49,4 @@ MonoBehaviour:
     on the bottom of each companion's deck.
   references:
     version: 2
-    RefIds:
-    - rid: 205828032053379474
-      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
-      data:
-        abilityTrigger: 0
-        effectSteps:
-        - rid: 205828032053379475
-        - rid: 205828032053379476
-        - rid: 205828032053379477
-        - rid: 8441470952357494974
-    - rid: 205828032053379475
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: all
-        validTargets: 00000000
-        number: 1
-        specialTargetRule: 1
-        cantCancelTargetting: 0
-    - rid: 205828032053379476
-      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: AddCardsToDeck
-        inputKey: all
-        cardTypes:
-        - {fileID: 11400000, guid: 45034ac88b3ae42a0863c3cb244f2dc5, type: 2}
-        addToDeckMethod: 2
-        getCardsFromKey: 0
-        inputCardsKey: 
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
-    - rid: 205828032053379477
-      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: DialogueStep
-        line: BETTER BURIED TREASURE FOR EVERYONE
-        lineTime: 2
-    - rid: 8441470952357494974
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: all
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
-        scale: 1
+    RefIds: []

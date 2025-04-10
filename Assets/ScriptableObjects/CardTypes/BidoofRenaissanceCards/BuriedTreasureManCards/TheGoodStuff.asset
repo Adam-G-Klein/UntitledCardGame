@@ -13,68 +13,67 @@ MonoBehaviour:
   m_Name: TheGoodStuff
   m_EditorClassIdentifier: 
   Name: The Good Stuff
-  Description: Exhaust. Gain 2 energy and draw 2 cards from this companion
+  Description: Unplayable. When in hand at the end of turn, gain 1 strength and gain
+    1 energy next turn
   defaultValues: []
   Cost: 0
-  Artwork: {fileID: 21300000, guid: 389b74dd33329004e913b282b594ddf3, type: 3}
+  Artwork: {fileID: 21300000, guid: 7607e6c7d31b76649be88556bf71c132, type: 3}
   cardCategory: 4
   vfxPrefab: {fileID: 0}
-  playable: 1
-  exhaustsWhenPlayed: 1
+  playable: 0
+  exhaustsWhenPlayed: 0
   retain: 0
-  effectWorkflows:
-  - rid: 8790164924473540681
+  effectWorkflows: []
   onExhaustEffectWorkflow:
     rid: -2
   onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
-    rid: -2
+    rid: 7401433059192472303
   tooltips: 
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 8790164924473540681
+    - rid: 7401433059192472303
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
-        - rid: 8790164924473540682
-        - rid: 8790164924473540683
-        - rid: 8790164924473540684
-        - rid: 8790164924473540685
-    - rid: 8790164924473540682
+        - rid: 7401433059192472304
+        - rid: 7401433059192472305
+        - rid: 7401433059192472306
+        - rid: 7401433059192472307
+    - rid: 7401433059192472304
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: target
+        outputKey: self
         validTargets: 
         number: 1
         specialTargetRule: 4
         cantCancelTargetting: 0
-    - rid: 8790164924473540683
-      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+    - rid: 7401433059192472305
+      type: {class: AddManaNextTurn, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: DrawCards
-        inputKey: target
-        outputKey: 
-        scale: 2
+        effectStepName: 
+        manaToAdd: 1
+    - rid: 7401433059192472306
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: self
+        statusEffect: 0
+        scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
-    - rid: 8790164924473540684
-      type: {class: ManaChange, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: ManaChange
-        scale: 2
-        getScaleFromKey: 0
-        inputScaleKey: 
-    - rid: 8790164924473540685
+        multiplyByNumAuraStacks: 0
+    - rid: 7401433059192472307
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
-        inputKey: target
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        inputKey: self
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
         scale: 1

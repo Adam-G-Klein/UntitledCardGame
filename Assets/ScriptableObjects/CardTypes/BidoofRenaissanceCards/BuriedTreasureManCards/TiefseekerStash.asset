@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: TiefseekerStash
   m_EditorClassIdentifier: 
   Name: Tiefseeker's Stash
-  Description: Add a 'The Good Stuff' card to the bottom of a random companion's
-    deck.
+  Description: Add a 'The Good Stuff' card to the bottom of target companion's deck.
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 066d04e59f9ced049ad4349c219e424c, type: 3}
@@ -53,7 +52,7 @@ MonoBehaviour:
         outputKey: target
         validTargets: 00000000
         number: 1
-        specialTargetRule: 6
+        specialTargetRule: 0
         cantCancelTargetting: 0
     - rid: 8790164924473540679
       type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}

@@ -32,35 +32,34 @@ MonoBehaviour:
   packCardPool: {fileID: 11400000, guid: fb4659890370a4ceda58d0967639becf, type: 2}
   speakerType: {fileID: 0}
   abilitiesV2:
-  - rid: 205828032053379474
+  - rid: 7401433059192472292
   level: 1
   upgradeTo: {fileID: 11400000, guid: 64e39d9d7a1ff4df09a0fd6af067658b, type: 2}
   tooltip:
     empty: 0
     lines:
-    - title: L2 Tiefseeker
-      description: At the start of combat, put a "Buried Treasure" card on the bottom
-        of each companion's deck.
-      relatedBehaviorIndex: 0
-    - title: Buried Treasure
-      description: 1 Mana. Exhaust. Gain 1 Gold.
+    - title: Level Two Tiefseeker
+      description: At the start of turn, draw an extra card from each companion with
+        more than 2 Status cards in their deck
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: At the start of combat, put a b"Buried Treasure" card on the
-    bottom of each companion's deck.
+  keepsakeDescription: At the start of turn, draw an extra card from each companion
+    with more than 2 Status cards in their deck
   references:
     version: 2
     RefIds:
-    - rid: 205828032053379474
+    - rid: 7401433059192472292
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
-        abilityTrigger: 0
+        abilityTrigger: 12
         effectSteps:
-        - rid: 205828032053379475
-        - rid: 205828032053379476
-        - rid: 205828032053379477
-        - rid: 8441470952357494974
-    - rid: 205828032053379475
+        - rid: 7401433059192472293
+        - rid: 7401433059192472294
+        - rid: 7401433059192472295
+        - rid: 7401433059192472296
+        - rid: 7401433059192472297
+        - rid: 7401433059192472298
+    - rid: 7401433059192472293
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
@@ -71,29 +70,40 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 1
         cantCancelTargetting: 0
-    - rid: 205828032053379476
-      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
+    - rid: 7401433059192472294
+      type: {class: FilterEntityByCardsInDeck, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: AddCardsToDeck
+        effectStepName: FilterEntityByCardsInDeck
         inputKey: all
-        cardTypes:
-        - {fileID: 11400000, guid: 32eae75392814445b8a952edf781d892, type: 2}
-        addToDeckMethod: 2
-        getCardsFromKey: 0
-        inputCardsKey: 
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
-    - rid: 205828032053379477
+        filter:
+          cardCategoriesToInclude: 04000000
+          generatedCardsFilter: 0
+        threshold: 2
+        outputKey: filtered
+    - rid: 7401433059192472295
+      type: {class: EndWorkflowIfListEmpty, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfListEmpty
+        inputKey1: filtered
+    - rid: 7401433059192472296
       type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: DialogueStep
-        line: there's treasure everywhere if you know where to look
-        lineTime: 2
-    - rid: 8441470952357494974
+        line: you have enough status cards
+        lineTime: 1
+    - rid: 7401433059192472297
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DrawCards
+        inputKey: filtered
+        outputKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 7401433059192472298
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
-        inputKey: all
+        inputKey: filtered
         prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
         scale: 1
