@@ -85,13 +85,13 @@ public class EffectManager : GenericSingleton<EffectManager>
             }
             Debug.Log("Invoking Step [" + step.effectStepName + "]");
             currentEffectStep = step.invoke(document);
-            yield return StartCoroutine(currentEffectStep);
+            yield return currentEffectStep;
             Debug.Log("Done with Step [" + step.effectStepName + "]");
         }
 
         Debug.Log("Running callback for effect workflow");
 
-        if (callback != null) yield return StartCoroutine(callback);
+        if (callback != null) yield return callback;
 
         Debug.Log("Done with the callback for effect workflow");
 
@@ -100,9 +100,8 @@ public class EffectManager : GenericSingleton<EffectManager>
             Debug.Log("Kicking off queued effect workflow");
             EffectWorkflowClosure workflow = effectWorkflowQueue[0];
             effectWorkflowQueue.RemoveAt(0);
-            // workflow.document.map.Print();
             currentEffectWorkflow = effectWorkflowCoroutine(workflow.document, workflow.flow.effectSteps, workflow.callback);
-            StartCoroutine(currentEffectWorkflow);
+            yield return currentEffectWorkflow;
         } else {
             effectRunning = false;
         }
@@ -131,11 +130,11 @@ public class EffectManager : GenericSingleton<EffectManager>
             if (step is IEffectStepCalculation) {
                 Debug.Log("CALCULATION: Invoking Step [" + step.effectStepName + "]");
                 currentEffectStep = ((IEffectStepCalculation)step).invokeForCalculation(document);
-                yield return StartCoroutine(currentEffectStep);
+                yield return currentEffectStep;
             }
         }
 
-        if (callback != null) yield return StartCoroutine(callback);
+        if (callback != null) yield return callback;
 
         yield return null;
     }
