@@ -39,10 +39,10 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Level Three Grizzlypooh
-      description: Whenever a companion takes damage, it gains 6 block
+      description: Whenever a companion takes damage, it gains 4 block
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: Whenever a companion takes damage, it gains 6 block
+  keepsakeDescription: Whenever a companion takes damage, it gains 4 block
   references:
     version: 2
     RefIds:
@@ -72,7 +72,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: damagedCompanion
         statusEffect: 2
-        scale: 6
+        scale: 4
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0

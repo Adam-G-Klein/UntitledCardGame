@@ -40,11 +40,11 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Grizzlypooh
-      description: Whenever Grizzlypooh takes damage, it gains 4 block. At the end
+      description: Whenever Grizzlypooh takes damage, it gains 2 block. At the end
         of combat, if Bloodbear is below half HP, gain 6 max HP
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: Whenever Grizzlypooh takes damage, it gains 4 block. At the
+  keepsakeDescription: Whenever Grizzlypooh takes damage, it gains 2 block. At the
     end of combat, if Bloodbear is below half HP, gain 6 max HP
   references:
     version: 2
@@ -70,7 +70,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: damagedCompanion
         statusEffect: 2
-        scale: 4
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0

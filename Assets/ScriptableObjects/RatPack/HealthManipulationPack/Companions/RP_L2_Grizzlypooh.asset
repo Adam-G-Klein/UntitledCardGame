@@ -40,11 +40,11 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Level Two Grizzlypooh
-      description: Whenever a companion takes damage, it gains 4 block. At the end
+      description: Whenever a companion takes damage, it gains 3 block. At the end
         of combat, if Grizzlypooh is below half HP, gain 10 max HP
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: Whenever a companion takes damage, it gains 4 block. At the
+  keepsakeDescription: Whenever a companion takes damage, it gains 3 block. At the
     end of combat, if Grizzlypooh is below half HP, gain 10 max HP
   references:
     version: 2
@@ -63,7 +63,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: damagedCompanion
         statusEffect: 2
-        scale: 4
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
