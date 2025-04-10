@@ -24,6 +24,10 @@ public class ShopDataSO : ScriptableObject
     public int numKeepsakeCopies;
 
     public int startingGold;
+    [Header("Shop probabilities for card source (should add up to 100)")]
+    public int companionTypeCardPoolPct;
+    public int packCardPoolPct;
+    public int neutralCardPoolPct;
 
     [Header("Earning post combat")]
     public int goldEarnedPerBattle;

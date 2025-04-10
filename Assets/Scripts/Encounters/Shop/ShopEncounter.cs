@@ -141,40 +141,10 @@ public class ShopEncounter : Encounter
     }
 
     private void generateCards(ShopLevel shopLevel, List<Companion> companionList) {
-        //determine which companion to spawn a card from, remove them from the set
-        //move companion types to a hashSet
-        HashSet<CompanionTypeSO> companionTypes = new();
-        foreach (Companion companion in companionList) {
-            companionTypes.Add(companion.companionType);
-        }
-        // Add the card pools for each companion that is on your team.
-        // We do not want to show cards for companions that you do not have.
-        // Note: L1 and L2 companions share the same card pool, so we don't want
-        // to overindex and show double the amount of cards from that card pool
-        // if you have both on your team.
-        List<ValueTuple<CardPoolSO, CompanionTypeSO, Sprite>> cardPools = new();
-        foreach (Companion companion in companionList) {
-            cardPools.Add((companion.companionType.cardPool, companion.companionType, companion.companionType.sprite));
-            cardPools.Add((companion.companionType.packCardPool, null, companion.companionType.packCardPool.genericCardIconSprite));
-        }
-        // Add the neutral card pool to the list.
-        // Note, if we want to weigh the proportion of neutral cards differently in the future,
-        // it is worth revisiting how we do this.
-        cardPools.Add((shopData.neutralCardPool, null, shopData.neutralCardPool.genericCardIconSprite));
-        ShopCardProbabilityDistBuilder b = new();
-        foreach (ValueTuple<CardPoolSO, CompanionTypeSO, Sprite> tup in cardPools) {
-            CardPoolSO pool = tup.Item1;
-            foreach (CardType card in pool.commonCards) {
-                b.AddCard(new CardInShopWithPrice(card, shopData.cardPrice, tup.Item2, pool, Card.CardRarity.COMMON, tup.Item3));
-            }
-            foreach (CardType card in pool.uncommonCards) {
-                b.AddCard(new CardInShopWithPrice(card, shopData.cardPrice, tup.Item2, pool, Card.CardRarity.UNCOMMON, tup.Item3));
-            }
-            foreach (CardType card in pool.rareCards) {
-                b.AddCard(new CardInShopWithPrice(card, shopData.cardPrice, tup.Item2, pool, Card.CardRarity.RARE, tup.Item3));
-            }
-        }
-        ShopProbabilityDistribution dist = b.Build(shopLevel);
+        ShopCardProbabilityDistBuilder b = new(
+            shopData, shopLevel, companionList
+        );
+        ShopProbabilityDistribution dist = b.Build();
         dist.PrintCardDistribution();
         List<CardInShopWithPrice> chosen = dist.ChooseWithoutReplacement(shopLevel.numCardsToShow);
         foreach (CardInShopWithPrice z in chosen) {
