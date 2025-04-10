@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RP_IronStomach
   m_EditorClassIdentifier: 
   Name: Iron Stomach
-  Description: Exhaust. Give 3 block to and draw 1 card from this companion
+  Description: Exhaust. Gain 4 block
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 4b398c458377645acb90057ab391c591, type: 3}
@@ -43,7 +43,6 @@ MonoBehaviour:
       data:
         effectSteps:
         - rid: 7401433059192472122
-        - rid: 7401433059192472123
         - rid: 7401433059192472164
         - rid: 7401433059192472124
     - rid: 7401433059192472122
@@ -57,21 +56,12 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 4
         cantCancelTargetting: 0
-    - rid: 7401433059192472123
-      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: DrawCards
-        inputKey: self
-        outputKey: 
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
     - rid: 7401433059192472124
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
         inputKey: self
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
         scale: 1
     - rid: 7401433059192472125
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
@@ -87,7 +77,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: self
         statusEffect: 2
-        scale: 3
+        scale: 4
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
