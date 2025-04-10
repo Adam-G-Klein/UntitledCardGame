@@ -33,7 +33,7 @@ public class ShopCardProbabilityDistBuilder {
         } else {
             // Leave this in to weight the cards differently based on the number of pools that have it.
             // E.g., the more companions of a pack there are, the more we weight it.
-            rarityGrouping[card.rarity][existing].weight += 1f;
+            // rarityGrouping[card.rarity][existing].weight += 1f;
         }
     }
 
