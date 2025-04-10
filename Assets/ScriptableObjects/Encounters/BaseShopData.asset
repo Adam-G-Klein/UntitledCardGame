@@ -47,11 +47,11 @@ MonoBehaviour:
       empty: 0
       lines:
       - title: Upgrade to Level 3
-        description: +1 mana, increase shop rarity
+        description: +1 team size, increase shop rarity
         relatedBehaviorIndex: 0
   - level: 2
-    mana: 4
-    teamSize: 4
+    mana: 3
+    teamSize: 5
     upgradeCost: 35
     numCardsToShow: 4
     numKeepsakesToShow: 3
@@ -65,7 +65,7 @@ MonoBehaviour:
       empty: 0
       lines:
       - title: Upgrade to Level 4
-        description: +1 team size, increase shop rarity
+        description: +1 mana, increase shop rarity
         relatedBehaviorIndex: 0
   - level: 3
     mana: 4
