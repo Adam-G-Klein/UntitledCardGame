@@ -9,12 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ede2fa0d5b4eaa44bb6701159a838d3f, type: 3}
-  m_Name: RP_LoanSharkStartingDeck
+  m_Script: {fileID: 11500000, guid: 98c54fe17bbfaba4697c85c1618843f4, type: 3}
+  m_Name: RP_UrHyenaCardPool
   m_EditorClassIdentifier: 
-  cards:
-  - {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
-  - {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
+  commonCards:
   - {fileID: 11400000, guid: 241666436ae3c4c188badef02923220b, type: 2}
-  - {fileID: 11400000, guid: 0950e24b287c24495a95302be2adacd9, type: 2}
   - {fileID: 11400000, guid: 572d90a5fe8e24ade8b9610e28e7876e, type: 2}
+  uncommonCards:
+  - {fileID: 11400000, guid: 0950e24b287c24495a95302be2adacd9, type: 2}
+  rareCards: []
+  genericCardIconSprite: {fileID: 0}

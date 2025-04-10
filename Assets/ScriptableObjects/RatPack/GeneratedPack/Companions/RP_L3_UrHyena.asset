@@ -1,0 +1,151 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
+  m_Name: RP_L3_UrHyena
+  m_EditorClassIdentifier: 
+  companionName: Ur-Hyena++
+  maxHealth: 60
+  initialCardsDealtPerTurn: 1
+  sprite: {fileID: 21300000, guid: d1b49200fdffed1468b44b3573e7ae0c, type: 3}
+  fullSprite: {fileID: 21300000, guid: d1b49200fdffed1468b44b3573e7ae0c, type: 3}
+  backgroundImage: {fileID: 21300000, guid: cf0b03f8254f64d7ca33d64244db66e4, type: 3}
+  entityFrame: {fileID: 21300000, guid: d4ddadb9b0de34fe68babd80a4878635, type: 3}
+  companionManagementFrame: {fileID: 21300000, guid: 17b9618f5107840a8b89e8b21a1a69c8, type: 3}
+  startingDeck: {fileID: 11400000, guid: 5ca10396d316c4bec9b5d4552234498d, type: 2}
+  cardBack: {fileID: 21300000, guid: c08a02b0b1e86fb4b96393e9d8fb4714, type: 3}
+  cardFrame: {fileID: 21300000, guid: 6cee2343f3114be45be30618b977bcb0, type: 3}
+  cardTypeIconOverride: {fileID: 0}
+  rarity: 2
+  cardIdleVfxPrefab: {fileID: 0}
+  genericCompanionSFX: {fileID: 0}
+  genericCompanionVFX: {fileID: 0}
+  cardPool: {fileID: 11400000, guid: 345480ef663c54cdfbd4be4285e0a8d6, type: 2}
+  packCardPool: {fileID: 11400000, guid: fb4659890370a4ceda58d0967639becf, type: 2}
+  speakerType: {fileID: 0}
+  abilitiesV2:
+  - rid: 205828107393564827
+  - rid: 8790165036689784833
+  level: 2
+  upgradeTo: {fileID: 0}
+  tooltip:
+    empty: 0
+    lines:
+    - title: Level Three Ur-Hyena
+      description: Whenever you discard or exhaust a Status card, give 1 strenght
+        to and draw a card from its parent companion
+      relatedBehaviorIndex: 0
+  keepsakeTitle: 
+  keepsakeDescription: Whenever you discard or exhaust a Status card, give 1 strenght
+    to and draw a card from its parent companion
+  references:
+    version: 2
+    RefIds:
+    - rid: 205828107393564827
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 9
+        effectSteps:
+        - rid: 7401433037623787530
+        - rid: 7401433037623787531
+        - rid: 8790165036689784870
+        - rid: 7401433037623787535
+        - rid: 8790165036689784871
+    - rid: 7401433037623787530
+      type: {class: FilterCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FilterCards
+        inputKey: cardExhausted
+        filter:
+          cardCategoriesToInclude: 04000000
+          generatedCardsFilter: 0
+        outputKey: statusCardExhausted
+    - rid: 7401433037623787531
+      type: {class: EndWorkflowIfListEmpty, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfListEmpty
+        inputKey1: statusCardExhausted
+    - rid: 7401433037623787532
+      type: {class: EndWorkflowIfListEmpty, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfListEmpty
+        inputKey1: statusCardDiscarded
+    - rid: 7401433037623787533
+      type: {class: FilterCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FilterCards
+        inputKey: cardDiscarded
+        filter:
+          cardCategoriesToInclude: 04000000
+          generatedCardsFilter: 0
+        outputKey: statusCardDiscarded
+    - rid: 7401433037623787534
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: companionDiscardedFrom
+        statusEffect: 0
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+    - rid: 7401433037623787535
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: companionExhaustedFrom
+        statusEffect: 0
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+    - rid: 7401433037623787537
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DrawCards
+        inputKey: companionDiscardedFrom
+        outputKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 8790165036689784833
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 16
+        effectSteps:
+        - rid: 7401433037623787533
+        - rid: 7401433037623787532
+        - rid: 7401433037623787534
+        - rid: 7401433037623787537
+        - rid: 8790165036689784836
+    - rid: 8790165036689784836
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: companionDiscardedFrom
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        scale: 1
+    - rid: 8790165036689784870
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DrawCards
+        inputKey: companionExhaustedFrom
+        outputKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 8790165036689784871
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: companionExhaustedFrom
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        scale: 1
