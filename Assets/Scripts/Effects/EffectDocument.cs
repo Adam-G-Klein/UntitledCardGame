@@ -17,6 +17,9 @@ public class EffectDocument
     public Dictionary<string, string> stringMap = new Dictionary<string, string>();
 
     public Dictionary<string, bool> boolMap = new Dictionary<string, bool>();
+    // Instead of doing workflow interrupts on the global EffectManager class,
+    // let's do it on the effect workflow itself by storing something in the document
+    public bool workflowInterrupted = false;
 
     public List<GameObject> GetGameObjects(string key) {
         List<GameObject> returnList = new List<GameObject>();

@@ -7,10 +7,6 @@ using UnityEngine;
 
 public class EffectManager : GenericSingleton<EffectManager>
 {
-    public bool interruptEffectWorkflow = false;
-    // Invoke for calculation effect workflows SHOULD NOT interfere with
-    // normal ongoing effects.
-    public bool interruptEffectWorkflowForCalculation = false;
     private IEnumerator currentEffectWorkflow;
     private IEnumerator currentEffectStep;
     private List<EffectWorkflowClosure> effectWorkflowQueue;
@@ -78,9 +74,8 @@ public class EffectManager : GenericSingleton<EffectManager>
             IEnumerator callback) {
         effectRunning = true;
         foreach (EffectStep step in effectSteps) {
-            if (interruptEffectWorkflow) {
-                Debug.Log("Breaking from workflow");
-                interruptEffectWorkflow = false;
+            if (document.workflowInterrupted) {
+                Debug.Log("Document workflow interrupted, Breaking from workflow");
                 break;
             }
             Debug.Log("Invoking Step [" + step.effectStepName + "]");
@@ -122,9 +117,8 @@ public class EffectManager : GenericSingleton<EffectManager>
         List<EffectStep> effectSteps,
         IEnumerator callback) {
         foreach (EffectStep step in effectSteps) {
-            if (interruptEffectWorkflowForCalculation) {
-                Debug.Log("Breaking from workflow");
-                interruptEffectWorkflowForCalculation = false;
+            if (document.workflowInterrupted) {
+                Debug.Log("CALCULATED: Document workflow interrupted, breaking from workflow");
                 break;
             }
             if (step is IEffectStepCalculation) {

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /*
@@ -23,9 +24,9 @@ public class EndWorkflowIfNoMapElement : EffectStep, IEffectStepCalculation {
     public override IEnumerator invoke(EffectDocument document) {
         bool interupt = shouldInterrupt(document);
         if (interupt) {
-            EffectManager.Instance.interruptEffectWorkflow = true;
+            document.workflowInterrupted = true;
         }
-        document.boolMap["highlightCard"] = !interupt; 
+        document.boolMap["highlightCard"] = !interupt;
         yield return null;
     }
 
@@ -33,9 +34,9 @@ public class EndWorkflowIfNoMapElement : EffectStep, IEffectStepCalculation {
     {
         bool interupt = shouldInterrupt(document);
         if (interupt) {
-            EffectManager.Instance.interruptEffectWorkflowForCalculation = true;
+            document.workflowInterrupted = true;
         }
-        document.boolMap["highlightCard"] = !interupt; 
+        document.boolMap["highlightCard"] = !interupt;
         yield return null;
     }
 
