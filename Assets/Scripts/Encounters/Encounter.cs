@@ -16,6 +16,7 @@ public abstract class Encounter
     public abstract void BuildWithEncounterBuilder(IEncounterBuilder encounterBuilder);
 
     protected EncounterType encounterType;
+    protected EncounterStage encounterStage;
 
     public Location ToLocation(){
         switch (this.encounterType) {
@@ -35,5 +36,13 @@ public abstract class Encounter
 
     public EncounterType getEncounterType() {
         return this.encounterType;
+    }
+
+    public EncounterStage GetEncounterStage() {
+        return this.encounterStage;
+    }
+
+    public void SetEncounterStage(EncounterStage val) {
+        encounterStage = val;
     }
 }
