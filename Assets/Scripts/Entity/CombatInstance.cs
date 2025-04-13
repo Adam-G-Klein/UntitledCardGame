@@ -249,11 +249,19 @@ public class CombatInstance : MonoBehaviour
     }
 
     private IEnumerator OnDeath(CombatInstance killer) {
+<<<<<<< HEAD
         killed = true;
         Debug.Log("OnDeath called for " + this.id + " with killer " + killer.GetId());
         Debug.Log("OnDeath: waiting for all effects running to resolve");
         yield return new WaitUntil(() => EffectManager.Instance.IsEffectRunning() == false);
         string blockerId = Id.newGuid();
+=======
+        Debug.Log("OnDeath called for " + this.id + " with killer " + killer.GetId());
+        Debug.Log("OnDeath: waiting for all effects running to resolve");
+        yield return new WaitUntil(() => EffectManager.Instance.IsEffectRunning() == false);
+        string blockerId = Id.newGuid();
+        killed = true;
+>>>>>>> 093fabbf (Wait for effects running to resolve before OnDeath goes through)
         TurnManager.Instance.addTurnPhaseBlocker(blockerId);
         ProcessOnDeathStatusEffects(killer);
 
