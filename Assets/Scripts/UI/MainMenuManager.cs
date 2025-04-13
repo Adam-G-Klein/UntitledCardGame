@@ -15,7 +15,6 @@ public class MainMenuManager : MonoBehaviour
     private Button startButton;
     private Button optionsButton;
     private Button exitButton;
-    [SerializeField]
     private GenerateMap generateMap;
     public void Awake()
     {
@@ -25,6 +24,7 @@ public class MainMenuManager : MonoBehaviour
     public void Start()
     {
         gameState.currentLocation = Location.MAIN_MENU;
+        generateMap = GetComponent<GenerateMap>();
         StartCoroutine(SetupWhenReady());
 
     }

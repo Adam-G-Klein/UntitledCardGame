@@ -133,6 +133,7 @@ GameObject:
   - component: {fileID: 2828598982262062441}
   - component: {fileID: 3994175513636301743}
   - component: {fileID: 1921728100752213519}
+  - component: {fileID: 3019959651490402112}
   m_Layer: 5
   m_Name: MainMenuUIDocCanvas
   m_TagString: Untagged
@@ -240,3 +241,17 @@ MonoBehaviour:
   gameState: {fileID: 11400000, guid: 9e326417f60894341a96cc8d02868bbe, type: 2}
   mainMenuUIDocument: {fileID: 260194845669220400}
   generateMap: {fileID: 0}
+--- !u!114 &3019959651490402112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7985504557537399516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97e5ac283274978498a8163622b70e22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameState: {fileID: 11400000, guid: 9e326417f60894341a96cc8d02868bbe, type: 2}
+  mapGenerator: {fileID: 11400000, guid: faee1c91bf856479fb50d0cdd1b42b7b, type: 2}
