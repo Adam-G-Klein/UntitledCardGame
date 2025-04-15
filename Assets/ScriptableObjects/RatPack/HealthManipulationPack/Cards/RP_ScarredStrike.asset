@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: RP_ScarredStrike
   m_EditorClassIdentifier: 
   Name: Scarred Strike
-  Description: Deal damage equal to half of this companion's missing HP ({rpl_damage}
-    damage)
+  Description: Deal damage equal to this companion's missing HP ({rpl_damage} damage)
   defaultValues:
   - key: rpl_damage
     value: 0
@@ -28,6 +27,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 2034230108114649437
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
@@ -44,7 +45,6 @@ MonoBehaviour:
         - rid: 2034230108114649438
         - rid: 2034230108114649623
         - rid: 2034230108114649620
-        - rid: 2034230108114649621
         - rid: 2034230108114649622
     - rid: 2034230108114649438
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -64,16 +64,7 @@ MonoBehaviour:
         inputKey: self
         outputMaxHPKey: 
         outputCurrentHPKey: 
-        outputMissingHPKey: missingHP
-    - rid: 2034230108114649621
-      type: {class: MathStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: MathStep
-        inputKey: missingHP
-        operand2InputKey: UNUSED
-        operation: 3
-        scale: 2
-        outputKey: dmg
+        outputMissingHPKey: dmg
     - rid: 2034230108114649622
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
