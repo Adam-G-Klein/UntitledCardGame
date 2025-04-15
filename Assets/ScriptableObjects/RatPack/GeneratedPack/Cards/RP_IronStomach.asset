@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RP_IronStomach
   m_EditorClassIdentifier: 
   Name: Iron Stomach
-  Description: Exhaust. Gain 5 block
+  Description: Exhaust. Gain 4 block
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 4b398c458377645acb90057ab391c591, type: 3}
@@ -77,7 +77,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: self
         statusEffect: 2
-        scale: 5
+        scale: 4
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
