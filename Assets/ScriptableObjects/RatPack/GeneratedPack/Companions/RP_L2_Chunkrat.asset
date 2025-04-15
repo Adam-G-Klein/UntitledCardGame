@@ -33,113 +33,56 @@ MonoBehaviour:
   speakerType: {fileID: 0}
   abilitiesV2:
   - rid: 7401433059192472041
-  - rid: 7401433059192472042
   level: 1
   upgradeTo: {fileID: 11400000, guid: 5b3a8afa2f99d4310add35b9bb6518cb, type: 2}
   tooltip:
     empty: 0
     lines:
     - title: Level Two Chunkrat
-      description: Whenever you exhaust or discard a Status card, give the parent
-        companion 3 block
+      description: At end of combat, permanently gain a "Scrumptious Snack" Status
+        card that gives max HP and heals
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: Whenever you exhaust or discard a Status card, give the parent
-    companion 3 block
+  keepsakeDescription: At end of combat, permanently gain a "Scrumptious Snack" Status
+    card that gives max HP and heals
   references:
     version: 2
     RefIds:
     - rid: 7401433059192472041
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
-        abilityTrigger: 9
+        abilityTrigger: 1
         effectSteps:
-        - rid: 7401433059192472043
-        - rid: 7401433059192472228
-        - rid: 7401433059192472082
-        - rid: 7401433059192472081
-        - rid: 7401433059192472080
-    - rid: 7401433059192472042
-      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+        - rid: 7401433128868512212
+        - rid: 7401433128868512213
+        - rid: 7401433128868512214
+    - rid: 7401433128868512212
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
-        abilityTrigger: 16
-        effectSteps:
-        - rid: 7401433059192472044
-        - rid: 7401433059192472229
-        - rid: 7401433059192472045
-        - rid: 7401433059192472078
-        - rid: 7401433059192472079
-    - rid: 7401433059192472043
-      type: {class: FilterCards, ns: , asm: Assembly-CSharp}
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 7401433128868512213
+      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: FilterCards
-        inputKey: cardExhausted
-        filter:
-          cardCategoriesToInclude: 04000000
-          generatedCardsFilter: 0
-        outputKey: statusCardExhausted
-    - rid: 7401433059192472044
-      type: {class: FilterCards, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: FilterCards
-        inputKey: cardDiscarded
-        filter:
-          cardCategoriesToInclude: 04000000
-          generatedCardsFilter: 0
-        outputKey: statusCardDiscarded
-    - rid: 7401433059192472045
-      type: {class: ConvertPlayableCardToDeckInstance, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: ConvertPlayableCardToDeckInstance
-        inputKey: statusCardDiscarded
-        outputKey: parent
-    - rid: 7401433059192472078
-      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: ApplyStatus
-        inputKey: parent
-        statusEffect: 2
-        scale: 3
+        effectStepName: AddCardsToDeck
+        inputKey: self
+        cardTypes:
+        - {fileID: 11400000, guid: aa5b427c647b744098bd3fcf86857b41, type: 2}
+        addToDeckMethod: 3
+        getCardsFromKey: 0
+        inputCardsKey: 
+        scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
-        multiplyByNumAuraStacks: 0
-    - rid: 7401433059192472079
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+    - rid: 7401433128868512214
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: InstantiatePrefab
-        inputKey: parent
-        prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
-        scale: 1
-    - rid: 7401433059192472080
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: parent
-        prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
-        scale: 1
-    - rid: 7401433059192472081
-      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: ApplyStatus
-        inputKey: parent
-        statusEffect: 2
-        scale: 3
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplyByNumAuraStacks: 0
-    - rid: 7401433059192472082
-      type: {class: ConvertPlayableCardToDeckInstance, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: ConvertPlayableCardToDeckInstance
-        inputKey: statusCardExhausted
-        outputKey: parent
-    - rid: 7401433059192472228
-      type: {class: EndWorkflowIfListEmpty, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: EndWorkflowIfListEmpty
-        inputKey1: statusCardExhausted
-    - rid: 7401433059192472229
-      type: {class: EndWorkflowIfListEmpty, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: EndWorkflowIfListEmpty
-        inputKey1: statusCardDiscarded
+        effectStepName: DialogueStep
+        line: this looks scrumptious
+        lineTime: 1.5

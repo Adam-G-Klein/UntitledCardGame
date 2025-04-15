@@ -39,12 +39,12 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Level Three Chunkrat
-      description: At the end of the turn, gain 2 block for each Status card in this
-        Chunkrat's deck.
+      description: At end of combat, permanently gain a "Ambrosia" Status card that
+        gives block
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: At the end of the turn, gain 2 block for each Status card
-    in this Chunkrat's deck.
+  keepsakeDescription: At end of combat, permanently gain a "Ambrosia" Status card
+    that gives block
   references:
     version: 2
     RefIds:
@@ -54,9 +54,8 @@ MonoBehaviour:
         abilityTrigger: 2
         effectSteps:
         - rid: 205828032053379334
-        - rid: 205828032053379335
-        - rid: 205828032053379337
-        - rid: 205828032053379336
+        - rid: 7401433128868512225
+        - rid: 7401433128868512226
         - rid: 8790164555430888172
     - rid: 205828032053379334
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -69,41 +68,29 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
-    - rid: 205828032053379335
-      type: {class: CountCardsInDeck, ns: , asm: Assembly-CSharp}
+    - rid: 7401433128868512225
+      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: CountCardsInDeck
-        inputDeckKey: self
-        filter:
-          cardCategoriesToInclude: 04000000
-          generatedCardsFilter: 0
-        includeDrawPile: 1
-        includeDiscardPile: 1
-        includeCardsInHand: 1
-        outputKey: count
-    - rid: 205828032053379336
-      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: ApplyStatus
+        effectStepName: AddCardsToDeck
         inputKey: self
-        statusEffect: 2
-        scale: 0
-        getScaleFromKey: 1
-        inputScaleKey: doubled
-        multiplyByNumAuraStacks: 0
-    - rid: 205828032053379337
-      type: {class: MathStep, ns: , asm: Assembly-CSharp}
+        cardTypes:
+        - {fileID: 11400000, guid: a68cbf39848174920a7b3af1af69815f, type: 2}
+        addToDeckMethod: 3
+        getCardsFromKey: 0
+        inputCardsKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 7401433128868512226
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: MathStep
-        inputKey: count
-        operand2InputKey: UNUSED
-        operation: 2
-        scale: 2
-        outputKey: doubled
+        effectStepName: DialogueStep
+        line: finally, the perfect recipe
+        lineTime: 1.5
     - rid: 8790164555430888172
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
         inputKey: self
-        prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
         scale: 1
