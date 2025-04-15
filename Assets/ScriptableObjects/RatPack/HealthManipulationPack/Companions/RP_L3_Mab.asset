@@ -30,68 +30,44 @@ MonoBehaviour:
   genericCompanionVFX: {fileID: 0}
   cardPool: {fileID: 11400000, guid: 5f4dfcdc555374920a665ed173393d99, type: 2}
   packCardPool: {fileID: 11400000, guid: 0bf35a642105d4780a727b994049d862, type: 2}
-  speakerType: {fileID: 0}
+  speakerType: {fileID: 11400000, guid: 9e835f3c4c49e9f4da934369a0a7132b, type: 2}
   abilitiesV2:
-  - rid: 205828032053379252
-  - rid: 2034229587402555667
+  - rid: 205828032053379076
+  - rid: 2034230176448512383
+  - rid: 2034230176448512387
   level: 2
   upgradeTo: {fileID: 0}
   tooltip:
-    empty: 1
+    empty: 0
     lines:
-    - title: L3 Mab
-      description: 'Whenever a companion gains HP, give them 3 block. At the end
-        of combat, permanently add a "Mab''s Boon" card to adjacent companion''s
-        decks. '
+    - title: Level Three Mab
+      description: At the end of combat, heal adjacent companions 20 HP. Each turn,
+        adjacent companions lose 1 HP unless they would die. Whenever a companion
+        heals, give it 2 max HP
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: 'Whenever a companion gains HP, give them 3 block. At the
-    end of combat, permanently add a "Mab''s Boon" card to adjacent companion''s
-    decks. '
+  keepsakeDescription: At the end of combat, heal adjacent companions 20 HP. Each
+    turn, adjacent companions lose 1 HP unless they would die. Whenever a companion
+    heals, give it 2 max HP
   references:
     version: 2
     RefIds:
-    - rid: 205828032053379252
-      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
-      data:
-        abilityTrigger: 15
-        effectSteps:
-        - rid: 2034229587402555664
-        - rid: 2034229587402555665
-        - rid: 2034229587402555666
-    - rid: 2034229587402555664
-      type: {class: EndWorkflowIfNoMapElement, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: EndWorkflowIfNoMapElement
-        keyToCheck: healedCompanion
-    - rid: 2034229587402555665
-      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: ApplyStatus
-        inputKey: healedCompanion
-        statusEffect: 2
-        scale: 3
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplyByNumAuraStacks: 0
-    - rid: 2034229587402555666
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: healedCompanion
-        prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
-        scale: 0.7
-    - rid: 2034229587402555667
+    - rid: 205828032053379076
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
         abilityTrigger: 1
         effectSteps:
-        - rid: 2034229587402555672
-        - rid: 2034229587402555668
-        - rid: 2034229587402555669
-        - rid: 2034229587402555670
-        - rid: 2034229587402555671
-    - rid: 2034229587402555668
+        - rid: 205828032053379077
+        - rid: 205828032053379078
+        - rid: 2034229587402555395
+        - rid: 2034230176448512382
+    - rid: 205828032053379077
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: we are soooooooo back
+        lineTime: 2
+    - rid: 205828032053379078
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
@@ -102,35 +78,100 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
-    - rid: 2034229587402555669
+    - rid: 2034229587402555395
       type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetAdjacentCompanions
         inputKey: self
         outputKey: adj
-    - rid: 2034229587402555670
-      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
+    - rid: 2034230176448512382
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: AddCardsToDeck
+        effectStepName: CombatEffectStep
         inputKey: adj
-        cardTypes:
-        - {fileID: 11400000, guid: 5c1edea48dc2d4e37aaf6b50ad984adf, type: 2}
-        addToDeckMethod: 3
-        getCardsFromKey: 0
-        inputCardsKey: 
+        combatEffect: 9
+        scale: 20
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 3850217184923880746, guid: 604f6efaa1e828d4bacfc84a25dfbd7a, type: 3}
+    - rid: 2034230176448512383
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 12
+        effectSteps:
+        - rid: 2034230176448512385
+        - rid: 2034230176448512386
+        - rid: 7401433059192472040
+        - rid: 2034230176448512384
+    - rid: 2034230176448512384
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: above1HP
+        combatEffect: 16
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
-    - rid: 2034229587402555671
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 6137048663962808129, guid: 92c26f41ef33c23419e05ceb12660efa, type: 3}
+    - rid: 2034230176448512385
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 2034230176448512386
+      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetAdjacentCompanions
+        inputKey: self
+        outputKey: adj
+    - rid: 2034230176448512387
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 15
+        effectSteps:
+        - rid: 2034230176448512388
+        - rid: 2034230176448512389
+        - rid: 2034230176448512390
+    - rid: 2034230176448512388
+      type: {class: EndWorkflowIfNoMapElement, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfNoMapElement
+        keyToCheck: healedCompanion
+    - rid: 2034230176448512389
+      type: {class: PermanentStatIncrease, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: PermanentStatIncrease
+        inputKey: healedCompanion
+        statIncreaseType: 1
+        scale: 2
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 2034230176448512390
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
-        inputKey: adj
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        inputKey: healedCompanion
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
         scale: 1
-    - rid: 2034229587402555672
-      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+    - rid: 7401433059192472040
+      type: {class: FilterEntityByHP, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: DialogueStep
-        line: bestowing a boon on those i'm closest to
-        lineTime: 2
+        effectStepName: FilterEntityByHP
+        inputKey: adj
+        percentThreshold: 0
+        absoluteThreshold: 1
+        useAbsoluteThreshold: 1
+        outputKey: above1HP
+        below: 0

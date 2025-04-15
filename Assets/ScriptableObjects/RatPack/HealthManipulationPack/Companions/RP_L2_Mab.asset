@@ -36,7 +36,7 @@ MonoBehaviour:
   - rid: 2034230176448512383
   - rid: 2034230176448512387
   level: 1
-  upgradeTo: {fileID: 11400000, guid: c921b50a841ac4c03b797a36d9a25df3, type: 2}
+  upgradeTo: {fileID: 11400000, guid: baaedb0fb732f4ff081bdd141b84d6da, type: 2}
   tooltip:
     empty: 0
     lines:
@@ -171,7 +171,7 @@ MonoBehaviour:
         effectStepName: FilterEntityByHP
         inputKey: adj
         percentThreshold: 0
-        absoluteThreshold: 0
-        useAbsoluteThreshold: 0
+        absoluteThreshold: 1
+        useAbsoluteThreshold: 1
         outputKey: above1HP
         below: 0
