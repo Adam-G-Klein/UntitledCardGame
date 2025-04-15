@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: RP_GoodNightsSleep
+  m_Name: RP_LiftingAdvice
   m_EditorClassIdentifier: 
-  Name: Good Nights Sleep
-  Description: Unplayable. When exhausted or discarded, this companion gains 2 strength
+  Name: Lifting Advice
+  Description: Exhaust. When exhausted or discarded, this companion gains 2 strength
   defaultValues: []
-  Cost: 0
+  Cost: 2
   Artwork: {fileID: 21300000, guid: 690997149efc2d74888e3d1bfed1b225, type: 3}
   cardCategory: 4
   vfxPrefab: {fileID: 0}
-  playable: 0
-  exhaustsWhenPlayed: 0
+  playable: 1
+  exhaustsWhenPlayed: 1
   retain: 0
   effectWorkflows: []
   onExhaustEffectWorkflow:

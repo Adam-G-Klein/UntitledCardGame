@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: RP_ElectricDrink
   m_EditorClassIdentifier: 
   Name: Electric Drink
-  Description: Unplayable. When exhausted or discarded, gain 2 energy
+  Description: Exhaust. When exhausted or discarded, gain 2 energy
   defaultValues: []
-  Cost: 0
+  Cost: 1
   Artwork: {fileID: 21300000, guid: e3425c0bf387f4d47907af9ce0eff56b, type: 3}
   cardCategory: 4
   vfxPrefab: {fileID: 0}
-  playable: 0
-  exhaustsWhenPlayed: 0
+  playable: 1
+  exhaustsWhenPlayed: 1
   retain: 0
   effectWorkflows: []
   onExhaustEffectWorkflow:

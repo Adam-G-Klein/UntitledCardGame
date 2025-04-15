@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: RP_GoodAdvice
   m_EditorClassIdentifier: 
-  Name: Good Advice
-  Description: Shuffle an "Good Nights Sleep" Status card that discards / exhausts
-    for strength into target companion's deck
+  Name: Bodybuilding Forum
+  Description: Shuffle an "Lifting Advice" Status card that discards / exhausts for
+    strength into target companion's deck
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 6bc3aa49f839fc7438281051443be19c, type: 3}
@@ -43,7 +43,7 @@ MonoBehaviour:
         effectStepName: AddCardsToDeck
         inputKey: adj
         cardTypes:
-        - {fileID: 11400000, guid: 5d8a367221535457784a52ea92ebd912, type: 2}
+        - {fileID: 11400000, guid: 4ecaaf3d4d26a4b50a07974ca0fcd5be, type: 2}
         addToDeckMethod: 1
         getCardsFromKey: 0
         inputCardsKey: 
