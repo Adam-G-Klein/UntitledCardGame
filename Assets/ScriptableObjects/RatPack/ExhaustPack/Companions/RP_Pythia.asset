@@ -1,0 +1,88 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
+  m_Name: RP_Pythia
+  m_EditorClassIdentifier: 
+  companionName: Pythia
+  maxHealth: 20
+  initialCardsDealtPerTurn: 2
+  sprite: {fileID: 21300000, guid: 1f6d47a24a913fc49b13cf3afcc418e7, type: 3}
+  fullSprite: {fileID: 21300000, guid: 1f6d47a24a913fc49b13cf3afcc418e7, type: 3}
+  backgroundImage: {fileID: 21300000, guid: 8def2ec2f48614f2db206b539f065b04, type: 3}
+  entityFrame: {fileID: 21300000, guid: afd87e9d98de04d57bf1e171342575e4, type: 3}
+  companionManagementFrame: {fileID: 21300000, guid: cb92d66ed93cb415791ff837bd1604d5, type: 3}
+  startingDeck: {fileID: 11400000, guid: 3de9b0d72e07d48419bee9f573f2a333, type: 2}
+  cardBack: {fileID: 21300000, guid: c08a02b0b1e86fb4b96393e9d8fb4714, type: 3}
+  cardFrame: {fileID: 21300000, guid: 6cee2343f3114be45be30618b977bcb0, type: 3}
+  cardTypeIconOverride: {fileID: 0}
+  rarity: 2
+  cardIdleVfxPrefab: {fileID: 0}
+  genericCompanionSFX: {fileID: 0}
+  genericCompanionVFX: {fileID: 0}
+  cardPool: {fileID: 11400000, guid: c8423877ca4f44df98085eb2a6142943, type: 2}
+  packCardPool: {fileID: 11400000, guid: 0f37e5a720cc243b2ab7df193483391d, type: 2}
+  speakerType: {fileID: 0}
+  abilitiesV2:
+  - rid: 7401433059192471626
+  level: 0
+  upgradeTo: {fileID: 11400000, guid: bd3715877c45a47929f86119649b63a1, type: 2}
+  tooltip:
+    empty: 0
+    lines:
+    - title: Pythia
+      description: Draw an extra card each turn. Whenever you shuffle a companion's
+        draw pile, deal 2 damage to a random enemy
+      relatedBehaviorIndex: 0
+  keepsakeTitle: 
+  keepsakeDescription: Draw an extra card each turn. Whenever you shuffle a companion's
+    draw pile, deal 2 damage to a random enemy
+  references:
+    version: 2
+    RefIds:
+    - rid: 7401433059192471626
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 10
+        effectSteps:
+        - rid: 7401433059192471627
+        - rid: 7401433059192471662
+        - rid: 7401433059192471663
+    - rid: 7401433059192471627
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: deck shuffled >:)
+        lineTime: 1
+    - rid: 7401433059192471662
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: enemy
+        validTargets: 02000000
+        number: 1
+        specialTargetRule: 6
+        cantCancelTargetting: 0
+    - rid: 7401433059192471663
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: enemy
+        combatEffect: 0
+        scale: 2
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 1320532642761013391, guid: 4847f21b038e1aa42bceefe5c97ab1ab, type: 3}

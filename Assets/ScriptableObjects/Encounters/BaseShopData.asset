@@ -18,7 +18,7 @@ MonoBehaviour:
     teamSize: 3
     upgradeCost: 10
     numCardsToShow: 3
-    numKeepsakesToShow: 1
+    numKeepsakesToShow: 2
     commonCompanionPercentage: 100
     uncommonCompanionPercentage: 0
     rareCompanionPercentage: 0
@@ -36,7 +36,7 @@ MonoBehaviour:
     teamSize: 4
     upgradeCost: 20
     numCardsToShow: 3
-    numKeepsakesToShow: 2
+    numKeepsakesToShow: 3
     commonCompanionPercentage: 70
     uncommonCompanionPercentage: 28
     rareCompanionPercentage: 2
@@ -47,14 +47,14 @@ MonoBehaviour:
       empty: 0
       lines:
       - title: Upgrade to Level 3
-        description: +1 mana, increase shop rarity
+        description: +1 team size, increase shop rarity
         relatedBehaviorIndex: 0
   - level: 2
-    mana: 4
-    teamSize: 4
+    mana: 3
+    teamSize: 5
     upgradeCost: 35
     numCardsToShow: 4
-    numKeepsakesToShow: 2
+    numKeepsakesToShow: 3
     commonCompanionPercentage: 50
     uncommonCompanionPercentage: 40
     rareCompanionPercentage: 10
@@ -65,14 +65,14 @@ MonoBehaviour:
       empty: 0
       lines:
       - title: Upgrade to Level 4
-        description: +1 team size, increase shop rarity
+        description: +1 mana, increase shop rarity
         relatedBehaviorIndex: 0
   - level: 3
     mana: 4
     teamSize: 5
     upgradeCost: 60
     numCardsToShow: 4
-    numKeepsakesToShow: 2
+    numKeepsakesToShow: 3
     commonCompanionPercentage: 30
     uncommonCompanionPercentage: 40
     rareCompanionPercentage: 30
@@ -82,7 +82,7 @@ MonoBehaviour:
     upgradeTooltip:
       empty: 0
       lines: []
-  companionPool: {fileID: 11400000, guid: 4113f0ac393ad43499c4e9e9a4e6d97e, type: 2}
+  companionPool: {fileID: 11400000, guid: 1a5aa5f2c25ef434a822f87e97339f33, type: 2}
   rerollShopPrice: 2
   cardRemovalPrice: 8
   shopEncounterEvent: {fileID: 11400000, guid: d82ee33fc33d20544bce205c53a0832e, type: 2}
@@ -90,7 +90,10 @@ MonoBehaviour:
   companionKeepsakePrice: 3
   numKeepsakeCopies: 10
   startingGold: 3
-  goldEarnedPerBattle: 12
+  companionTypeCardPoolPct: 30
+  packCardPoolPct: 40
+  neutralCardPoolPct: 30
+  goldEarnedPerBattle: 10
   interestRate: 0.2
   interestCap: 5
   neutralCardPool: {fileID: 11400000, guid: f16e9cd7d69314290ae5bed1edae4ce0, type: 2}

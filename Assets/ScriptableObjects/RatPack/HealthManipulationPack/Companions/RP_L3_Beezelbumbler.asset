@@ -1,0 +1,156 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
+  m_Name: RP_L3_Beezelbumbler
+  m_EditorClassIdentifier: 
+  companionName: Beezelbumbler
+  maxHealth: 45
+  initialCardsDealtPerTurn: 1
+  sprite: {fileID: 21300000, guid: 5fd78a66293fa4473bc382b6ee49c87a, type: 3}
+  fullSprite: {fileID: 21300000, guid: b496905dc6d0c4000b20230ebb41e77b, type: 3}
+  backgroundImage: {fileID: 21300000, guid: 3d949f712517a4846a59e1b81e5d2626, type: 3}
+  entityFrame: {fileID: 21300000, guid: 917225be64994484da5c72a7b08a3d6c, type: 3}
+  companionManagementFrame: {fileID: 21300000, guid: ff816818ae73449c997132f7ec8ab23c, type: 3}
+  startingDeck: {fileID: 11400000, guid: 466520c011e0b499e9ec3a59502a6788, type: 2}
+  cardBack: {fileID: 21300000, guid: 3296a63e824de414bb4b578c4822fbdb, type: 3}
+  cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
+  cardTypeIconOverride: {fileID: 0}
+  rarity: 0
+  cardIdleVfxPrefab: {fileID: 0}
+  genericCompanionSFX: {fileID: 0}
+  genericCompanionVFX: {fileID: 0}
+  cardPool: {fileID: 11400000, guid: 3a6947a78ef594b05ba01c0f08056a55, type: 2}
+  packCardPool: {fileID: 11400000, guid: 0bf35a642105d4780a727b994049d862, type: 2}
+  speakerType: {fileID: 0}
+  abilitiesV2:
+  - rid: 2034230176448512006
+  - rid: 2034230176448512000
+  level: 2
+  upgradeTo: {fileID: 0}
+  tooltip:
+    empty: 0
+    lines:
+    - title: Beezelbumbler
+      description: The first time Beezelbumbler takes damage in combat, it gains
+        2 permanent strength
+      relatedBehaviorIndex: 0
+  keepsakeTitle: Bumbler's Deviltooth
+  keepsakeDescription: The first time Beezelbumbler takes damage in combat, it gains
+    2 permanent strength
+  references:
+    version: 2
+    RefIds:
+    - rid: 2034230176448512000
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 0
+        effectSteps:
+        - rid: 2034230176448512004
+        - rid: 2034230176448512005
+    - rid: 2034230176448512004
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 2034230176448512005
+      type: {class: CombatInstanceCacheStore, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatInstanceCacheStore
+        inputCombatInstanceKey: self
+        hardCodedBool: 0
+        useHardCodedBool: 1
+        hardCodedInt: 0
+        useHardCodedInt: 0
+        currentWorkflowKey: 
+        cacheKey: hasTakenDamageCache
+    - rid: 2034230176448512006
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 11
+        effectSteps:
+        - rid: 2034230176448512007
+        - rid: 2034230176448512008
+        - rid: 2034230176448512009
+        - rid: 2034230176448512010
+        - rid: 2034230176448512011
+        - rid: 2034230176448512014
+        - rid: 2034230176448512016
+        - rid: 2034230176448512013
+    - rid: 2034230176448512007
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: selfDamaged
+        conditionToEndOn: 0
+    - rid: 2034230176448512008
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 2034230176448512009
+      type: {class: CombatInstanceCacheLoad, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatInstanceCacheLoad
+        inputCombatInstanceKey: self
+        cacheKey: hasTakenDamageCache
+        currentWorkflowKey: hasTakenDamage
+    - rid: 2034230176448512010
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: hasTakenDamage
+        conditionToEndOn: 1
+    - rid: 2034230176448512011
+      type: {class: CombatInstanceCacheStore, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatInstanceCacheStore
+        inputCombatInstanceKey: self
+        hardCodedBool: 1
+        useHardCodedBool: 1
+        hardCodedInt: 0
+        useHardCodedInt: 0
+        currentWorkflowKey: 
+        cacheKey: hasTakenDamageCache
+    - rid: 2034230176448512013
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
+        scale: 1
+    - rid: 2034230176448512014
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: rawr >:)
+        lineTime: 2
+    - rid: 2034230176448512016
+      type: {class: PermanentStatIncrease, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: PermanentStatIncrease
+        inputKey: self
+        statIncreaseType: 0
+        scale: 2
+        getScaleFromKey: 0
+        inputScaleKey: 

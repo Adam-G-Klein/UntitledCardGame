@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98c54fe17bbfaba4697c85c1618843f4, type: 3}
+  m_Name: RP_GeneratedPackCardPool
+  m_EditorClassIdentifier: 
+  commonCards:
+  - {fileID: 11400000, guid: 123311d752379454795cce96b714886b, type: 2}
+  - {fileID: 11400000, guid: 9e68c812978e246c0abbb3789da771c1, type: 2}
+  - {fileID: 11400000, guid: 061362dbfe6bf424ab3b4e37d9e25771, type: 2}
+  uncommonCards:
+  - {fileID: 11400000, guid: 3f94c1b56998044c3ac478468f88e1b3, type: 2}
+  - {fileID: 11400000, guid: c4bffa899c46a4878a3034b3681670cb, type: 2}
+  - {fileID: 11400000, guid: bbfa91e081be34a758707840748eb8f7, type: 2}
+  rareCards:
+  - {fileID: 11400000, guid: e71d8b89cc67647919c183ca6b5cca42, type: 2}
+  genericCardIconSprite: {fileID: 21300000, guid: a100f38fb92da834786807cb66e2ebba, type: 3}

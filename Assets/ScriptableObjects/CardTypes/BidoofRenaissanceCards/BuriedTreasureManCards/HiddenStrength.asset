@@ -13,77 +13,65 @@ MonoBehaviour:
   m_Name: HiddenStrength
   m_EditorClassIdentifier: 
   Name: Hidden Strength
-  Description: Exhaust. Give target companion 3 strength and draw 1 card from it.
+  Description: Unplayable. When in hand at the end of turn, gain 1 strength
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 69e0a325ef7679a469eebc7cea836acb, type: 3}
-  cardCategory: 2
+  cardCategory: 4
   vfxPrefab: {fileID: 0}
-  playable: 1
-  exhaustsWhenPlayed: 1
+  playable: 0
+  exhaustsWhenPlayed: 0
   retain: 0
   effectWorkflows:
   - rid: 5602892533381726232
   onExhaustEffectWorkflow:
     rid: -2
-  inPlayerHandEndOfTurnWorkflow:
+  onDiscardEffectWorkflow:
     rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: 7401433059192472299
   tooltips: 
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 1274772082283774277
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: target
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
-        scale: 1.5
     - rid: 5602892533381726232
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
+        effectSteps: []
+    - rid: 7401433059192472299
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
         effectSteps:
-        - rid: 5602892533381726236
-        - rid: 5602892533381726237
-        - rid: 1274772082283774277
-        - rid: 8790164924473540688
-        - rid: 8790164924473540689
-    - rid: 5602892533381726236
+        - rid: 7401433059192472300
+        - rid: 7401433059192472301
+        - rid: 7401433059192472302
+    - rid: 7401433059192472300
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: target
-        validTargets: 00000000
+        outputKey: self
+        validTargets: 
         number: 1
-        specialTargetRule: 0
+        specialTargetRule: 4
         cantCancelTargetting: 0
-    - rid: 5602892533381726237
+    - rid: 7401433059192472301
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ApplyStatus
-        inputKey: target
+        inputKey: self
         statusEffect: 0
-        scale: 3
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplyByNumAuraStacks: 0
-    - rid: 8790164924473540688
-      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: DrawCards
-        inputKey: target
-        outputKey: 
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
-    - rid: 8790164924473540689
+        multiplyByNumAuraStacks: 0
+    - rid: 7401433059192472302
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
-        inputKey: target
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        inputKey: self
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
         scale: 1

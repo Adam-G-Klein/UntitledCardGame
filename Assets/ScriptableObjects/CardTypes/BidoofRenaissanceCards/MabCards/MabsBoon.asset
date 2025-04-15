@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MabsBoon
   m_EditorClassIdentifier: 
   Name: Mab's Boon
-  Description: Exhaust. Draw 1 card from and heal this companion 3 HP
+  Description: Exhaust. This companion draws 1 card and heals 3 HP
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 82616f53fbf77bc4bbb3545e097e5104, type: 3}
@@ -25,6 +25,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 5602892650873356455
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
@@ -81,3 +83,4 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        vfxPrefab: {fileID: 0}

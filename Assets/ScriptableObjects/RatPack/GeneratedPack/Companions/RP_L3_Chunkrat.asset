@@ -1,0 +1,96 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
+  m_Name: RP_L3_Chunkrat
+  m_EditorClassIdentifier: 
+  companionName: Chunkrat++
+  maxHealth: 60
+  initialCardsDealtPerTurn: 1
+  sprite: {fileID: 21300000, guid: be947df73e6e444e4ab4d767204cc4fe, type: 3}
+  fullSprite: {fileID: 21300000, guid: 47550010dfebf468fb37236117022fc5, type: 3}
+  backgroundImage: {fileID: 21300000, guid: a5f0a59cf2c644ecb8395ae9cd8b0dec, type: 3}
+  entityFrame: {fileID: 21300000, guid: a8f224240148f4c47897b12c2d384db9, type: 3}
+  companionManagementFrame: {fileID: 21300000, guid: 30185bf22ffd248919b87536c568196a, type: 3}
+  startingDeck: {fileID: 11400000, guid: e99468c9ae12a4996a527ac53fb7625a, type: 2}
+  cardBack: {fileID: 21300000, guid: 3296a63e824de414bb4b578c4822fbdb, type: 3}
+  cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
+  cardTypeIconOverride: {fileID: 0}
+  rarity: 0
+  cardIdleVfxPrefab: {fileID: 0}
+  genericCompanionSFX: {fileID: 0}
+  genericCompanionVFX: {fileID: 0}
+  cardPool: {fileID: 11400000, guid: 59b17a3fd7e314a7b8db8673d584fead, type: 2}
+  packCardPool: {fileID: 11400000, guid: fb4659890370a4ceda58d0967639becf, type: 2}
+  speakerType: {fileID: 0}
+  abilitiesV2:
+  - rid: 205828032053379333
+  level: 2
+  upgradeTo: {fileID: 0}
+  tooltip:
+    empty: 0
+    lines:
+    - title: Level Three Chunkrat
+      description: At end of combat, permanently gain a "Ambrosia" Status card that
+        gives block
+      relatedBehaviorIndex: 0
+  keepsakeTitle: 
+  keepsakeDescription: At end of combat, permanently gain a "Ambrosia" Status card
+    that gives block
+  references:
+    version: 2
+    RefIds:
+    - rid: 205828032053379333
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 2
+        effectSteps:
+        - rid: 205828032053379334
+        - rid: 7401433128868512225
+        - rid: 7401433128868512226
+        - rid: 8790164555430888172
+    - rid: 205828032053379334
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 7401433128868512225
+      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: AddCardsToDeck
+        inputKey: self
+        cardTypes:
+        - {fileID: 11400000, guid: a68cbf39848174920a7b3af1af69815f, type: 2}
+        addToDeckMethod: 3
+        getCardsFromKey: 0
+        inputCardsKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 7401433128868512226
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: finally, the perfect recipe
+        lineTime: 1.5
+    - rid: 8790164555430888172
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        scale: 1

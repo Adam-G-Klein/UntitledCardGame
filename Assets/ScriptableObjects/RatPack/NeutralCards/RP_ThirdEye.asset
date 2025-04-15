@@ -1,0 +1,88 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
+  m_Name: RP_ThirdEye
+  m_EditorClassIdentifier: 
+  Name: Third Eye
+  Description: Scry 3 from this companion
+  defaultValues: []
+  Cost: 0
+  Artwork: {fileID: 21300000, guid: 18251cc3bb6c59d4794bd522032e2ee3, type: 3}
+  cardCategory: 2
+  vfxPrefab: {fileID: 0}
+  playable: 1
+  exhaustsWhenPlayed: 0
+  retain: 0
+  effectWorkflows:
+  - rid: 3931529445166809455
+  onExhaustEffectWorkflow:
+    rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  tooltips: 05000000
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 3931529445166809455
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 3931529445166809456
+        - rid: 3931529445166809457
+        - rid: 3931529445166809458
+        - rid: 3931529445166809459
+    - rid: 3931529445166809456
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: target
+        validTargets: 
+        number: 1
+        specialTargetRule: 4
+        cantCancelTargetting: 0
+    - rid: 3931529445166809457
+      type: {class: GetCardsFromDeck, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetCardsFromDeck
+        inputKey: target
+        getLimitedNumber: 1
+        numberOfCardsToGet: 2
+        shuffleIfEmpty: 0
+        outputKey: topCard
+        getAllCardsFromEntities: 0
+        getCardsFromSourceDeck: 0
+        getAllFromOnlyDrawPile: 0
+    - rid: 3931529445166809458
+      type: {class: SelectCardsFromList, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: SelectCardsFromList
+        inputKey: topCard
+        outputKey: discarded
+        promptText: Choose card(s) to discard.
+        minTargets: 0
+        maxTargets: 2
+        getNumberOfTargetsFromKey: 0
+        inputNumberOfTargetsKey: 
+        randomizeOrder: 0
+    - rid: 3931529445166809459
+      type: {class: CardInDeckEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardInDeckEffect
+        inputCardsKey: discarded
+        inputDeckKey: target
+        effect: 2
+        cardToTransformInto: {fileID: 0}
+        outputKey: 

@@ -1,0 +1,90 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
+  m_Name: RP_SpiralingShield
+  m_EditorClassIdentifier: 
+  Name: Spiraling Shield
+  Description: Give target companion 5 block plus 1 block for each time you shuffled
+    a deck this combat  ({numDecksShuffled} times)
+  defaultValues:
+  - key: numDecksShuffled
+    value: 0
+  Cost: 1
+  Artwork: {fileID: 21300000, guid: 27219c2682ae3af4fa76a9968109666f, type: 3}
+  cardCategory: 2
+  vfxPrefab: {fileID: 0}
+  playable: 1
+  exhaustsWhenPlayed: 0
+  retain: 0
+  effectWorkflows:
+  - rid: 2116895648763871336
+  onExhaustEffectWorkflow:
+    rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  tooltips: 
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 2034230108114649172
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: target
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 0
+        cantCancelTargetting: 0
+    - rid: 2034230108114649173
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: target
+        statusEffect: 2
+        scale: 0
+        getScaleFromKey: 1
+        inputScaleKey: block
+        multiplyByNumAuraStacks: 0
+    - rid: 2034230108114649175
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: target
+        prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
+        scale: 1
+    - rid: 2034230108114649176
+      type: {class: GetDecksShuffledThisCombat, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetDecksShuffledThisCombat
+        outputKey: numDecksShuffled
+    - rid: 2034230108114649177
+      type: {class: MathStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: MathStep
+        inputKey: numDecksShuffled
+        operand2InputKey: UNUSED
+        operation: 0
+        scale: 5
+        outputKey: block
+    - rid: 2116895648763871336
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 2034230108114649176
+        - rid: 2034230108114649172
+        - rid: 2034230108114649177
+        - rid: 2034230108114649173
+        - rid: 2034230108114649175

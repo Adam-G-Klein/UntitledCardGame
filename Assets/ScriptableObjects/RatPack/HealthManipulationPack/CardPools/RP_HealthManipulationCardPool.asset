@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98c54fe17bbfaba4697c85c1618843f4, type: 3}
+  m_Name: RP_HealthManipulationCardPool
+  m_EditorClassIdentifier: 
+  commonCards:
+  - {fileID: 11400000, guid: 5cab568a1c60241c9a2ea21193b2168d, type: 2}
+  - {fileID: 11400000, guid: a71fb239a38844bf786e331a552b6b7a, type: 2}
+  - {fileID: 11400000, guid: e0ddafe23f1de4dc2beba6bac467f8e5, type: 2}
+  uncommonCards:
+  - {fileID: 11400000, guid: 7edc8ed5d50ff444d945b0f4eaa445f2, type: 2}
+  - {fileID: 11400000, guid: 02f89faa6dddf412e8c0aa1af0346b5a, type: 2}
+  - {fileID: 11400000, guid: f308041f561b54adaaef9c8368369e1c, type: 2}
+  rareCards:
+  - {fileID: 11400000, guid: 808815c2ac1064eb3bb4f564548f3a83, type: 2}
+  - {fileID: 11400000, guid: 454b15dfc71c54bee8986e0f8670547c, type: 2}
+  genericCardIconSprite: {fileID: 21300000, guid: d88429aecc6977642baae99d9f8466d6, type: 3}

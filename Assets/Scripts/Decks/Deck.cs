@@ -20,9 +20,10 @@ public class Deck
         }
     }
 
-    public Deck(List<Card> cards)
+    public Deck(List<Card> cards, int initialCardsDealtPerTurn = 1)
     {
         this.startingDeck = new StartingDeck(cards);
+        this.cardsDealtPerTurn = initialCardsDealtPerTurn;
         foreach(Card card in cards)
         {
             this.cards.Add(card);

@@ -152,7 +152,7 @@ public class CompanionCombinationManager : MonoBehaviour
             }
         }
 
-        return new Deck(cards);
+        return new Deck(cards, companions[0].companionType.upgradeTo.initialCardsDealtPerTurn);
     }
 
     private int maxHealthForCombinedCompanion(Companion upgradedCompanion, List<Companion> companions) {

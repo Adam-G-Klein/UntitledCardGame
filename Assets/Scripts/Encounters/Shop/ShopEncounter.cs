@@ -9,6 +9,8 @@ public class CardInShopWithPrice {
     public CardType cardType;
     public int price;
 
+    public CardPoolSO cardPool;
+
     // Nullable for neutral cards.
     public CompanionTypeSO sourceCompanion;
 
@@ -16,10 +18,18 @@ public class CardInShopWithPrice {
 
     public Sprite genericArtwork;
 
-    public CardInShopWithPrice(CardType cardType, int price, CompanionTypeSO companionType, Card.CardRarity rarity, Sprite genericArtwork = null) {
+    public CardInShopWithPrice(
+        CardType cardType,
+        int price,
+        CompanionTypeSO companionType,
+        CardPoolSO cardPool,
+        Card.CardRarity rarity,
+        Sprite genericArtwork = null
+    ) {
         this.cardType = cardType;
         this.price = price;
         this.sourceCompanion = companionType;
+        this.cardPool = cardPool;
         this.rarity = rarity;
         this.genericArtwork = genericArtwork;
     }
@@ -131,73 +141,14 @@ public class ShopEncounter : Encounter
     }
 
     private void generateCards(ShopLevel shopLevel, List<Companion> companionList) {
-        //determine which companion to spawn a card from, remove them from the set
-        //move companion types to a hashSet
-        HashSet<CompanionTypeSO> companionTypes = new();
-        foreach (Companion companion in companionList) {
-            companionTypes.Add(companion.companionType);
-        }
-        // Add the card pools for each companion that is on your team.
-        // We do not want to show cards for companions that you do not have.
-        // Note: L1 and L2 companions share the same card pool, so we don't want
-        // to overindex and show double the amount of cards from that card pool
-        // if you have both on your team.
-        Dictionary<CardPoolSO, CompanionTypeSO> cardPools = new();
-        foreach (Companion companion in companionList) {
-            if (!cardPools.ContainsKey(companion.companionType.cardPool)) {
-                cardPools.Add(companion.companionType.cardPool, companion.companionType);
-            }
-        }
-        // Add the neutral card pool to the list.
-        // Note, if we want to weigh the proportion of neutral cards differently in the future,
-        // it is worth revisiting how we do this.
-        cardPools.Add(shopData.neutralCardPool, null);
-        List<CardInShopWithPrice> commonShopCards = new();
-        List<CardInShopWithPrice> uncommonShopCards = new();
-        List<CardInShopWithPrice> rareShopCards = new();
-        foreach (KeyValuePair<CardPoolSO, CompanionTypeSO> cardPoolPair in cardPools) {
-            foreach (CardType card in cardPoolPair.Key.commonCards) {
-                commonShopCards.Add(new CardInShopWithPrice(card, shopData.cardPrice, cardPoolPair.Value, Card.CardRarity.COMMON));
-            }
-            foreach (CardType card in cardPoolPair.Key.uncommonCards) {
-                uncommonShopCards.Add(new CardInShopWithPrice(card, shopData.cardPrice, cardPoolPair.Value, Card.CardRarity.UNCOMMON));
-            }
-            foreach (CardType card in cardPoolPair.Key.rareCards) {
-                rareShopCards.Add(new CardInShopWithPrice(card, shopData.cardPrice, cardPoolPair.Value, Card.CardRarity.RARE));
-            }
-        }
-        for (int i = 0; i < shopLevel.numCardsToShow; i++) {
-            Rarity rarity = PickRarity(
-                shopLevel.commonCardPercentage,
-                shopLevel.uncommonCardPercentage,
-                shopLevel.rareCardPercentage,
-                commonShopCards.Count > 0,
-                uncommonShopCards.Count > 0,
-                rareShopCards.Count > 0
-            );
-
-            // Determine what the card pool is for this single card being generated
-            List<CardInShopWithPrice> finalShopCardsPool = new();
-            switch (rarity) {
-                case Rarity.Common:
-                    finalShopCardsPool = commonShopCards;
-                break;
-
-                case Rarity.Uncommon:
-                    finalShopCardsPool = uncommonShopCards;
-                break;
-
-                case Rarity.Rare:
-                    finalShopCardsPool = rareShopCards;
-                break;
-            }
-
-            int selectedCardIndex = UnityEngine.Random.Range(0, finalShopCardsPool.Count);
-            CardInShopWithPrice selectedCard = finalShopCardsPool[selectedCardIndex];
-            // Remove the card from the pool, so it doesn't show up more than once.
-            finalShopCardsPool.Remove(selectedCard);
-
-            cardsInShop.Add(selectedCard);
+        ShopCardProbabilityDistBuilder b = new(
+            shopData, shopLevel, companionList
+        );
+        ShopProbabilityDistribution dist = b.Build();
+        dist.PrintCardDistribution();
+        List<CardInShopWithPrice> chosen = dist.ChooseWithoutReplacement(shopLevel.numCardsToShow);
+        foreach (CardInShopWithPrice z in chosen) {
+            cardsInShop.Add(z);
         }
     }
 

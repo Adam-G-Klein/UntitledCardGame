@@ -1,0 +1,177 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
+  m_Name: RP_L2_Mab
+  m_EditorClassIdentifier: 
+  companionName: Mab+
+  maxHealth: 30
+  initialCardsDealtPerTurn: 1
+  sprite: {fileID: 21300000, guid: 66ae583b05bd645ce9e87ad1847a3bc9, type: 3}
+  fullSprite: {fileID: 21300000, guid: 060fb076899144b49b4f09b4573faf77, type: 3}
+  backgroundImage: {fileID: 21300000, guid: c29a3b4b43cd04c229d752ead9876c9d, type: 3}
+  entityFrame: {fileID: 21300000, guid: 58cdba4c572e146a9a2d7cacfc21e2bf, type: 3}
+  companionManagementFrame: {fileID: 21300000, guid: f8a863ee5de5343cfbb8293c595f4a4a, type: 3}
+  startingDeck: {fileID: 11400000, guid: 75d02cdf7041b4d31bff1b7857a1d055, type: 2}
+  cardBack: {fileID: 21300000, guid: a5222a8d127763c49b397cce916345ec, type: 3}
+  cardFrame: {fileID: 21300000, guid: 106aacbbfd302814982ff4ed944fbaed, type: 3}
+  cardTypeIconOverride: {fileID: 0}
+  rarity: 0
+  cardIdleVfxPrefab: {fileID: 0}
+  genericCompanionSFX: {fileID: 0}
+  genericCompanionVFX: {fileID: 0}
+  cardPool: {fileID: 11400000, guid: 5f4dfcdc555374920a665ed173393d99, type: 2}
+  packCardPool: {fileID: 11400000, guid: 0bf35a642105d4780a727b994049d862, type: 2}
+  speakerType: {fileID: 11400000, guid: 9e835f3c4c49e9f4da934369a0a7132b, type: 2}
+  abilitiesV2:
+  - rid: 205828032053379076
+  - rid: 2034230176448512383
+  - rid: 2034230176448512387
+  level: 1
+  upgradeTo: {fileID: 11400000, guid: baaedb0fb732f4ff081bdd141b84d6da, type: 2}
+  tooltip:
+    empty: 0
+    lines:
+    - title: Level Two Mab
+      description: At the end of combat, heal adjacent companions 10 HP. Each turn,
+        adjacent companions lose 1 HP unless they would die. Whenever a companion
+        heals, give it 1 max HP
+      relatedBehaviorIndex: 0
+  keepsakeTitle: 
+  keepsakeDescription: At the end of combat, heal adjacent companions 10 HP. Each
+    turn, adjacent companions lose 1 HP unless they would die. Whenever a companion
+    heals, give it 1 max HP
+  references:
+    version: 2
+    RefIds:
+    - rid: 205828032053379076
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 1
+        effectSteps:
+        - rid: 205828032053379077
+        - rid: 205828032053379078
+        - rid: 2034229587402555395
+        - rid: 2034230176448512382
+    - rid: 205828032053379077
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: we are sooo back
+        lineTime: 2
+    - rid: 205828032053379078
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 2034229587402555395
+      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetAdjacentCompanions
+        inputKey: self
+        outputKey: adj
+    - rid: 2034230176448512382
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: adj
+        combatEffect: 9
+        scale: 10
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 3850217184923880746, guid: 604f6efaa1e828d4bacfc84a25dfbd7a, type: 3}
+    - rid: 2034230176448512383
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 12
+        effectSteps:
+        - rid: 2034230176448512385
+        - rid: 2034230176448512386
+        - rid: 7401433059192472040
+        - rid: 2034230176448512384
+    - rid: 2034230176448512384
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: above1HP
+        combatEffect: 16
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 6137048663962808129, guid: 92c26f41ef33c23419e05ceb12660efa, type: 3}
+    - rid: 2034230176448512385
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 2034230176448512386
+      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetAdjacentCompanions
+        inputKey: self
+        outputKey: adj
+    - rid: 2034230176448512387
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 15
+        effectSteps:
+        - rid: 2034230176448512388
+        - rid: 2034230176448512389
+        - rid: 2034230176448512390
+    - rid: 2034230176448512388
+      type: {class: EndWorkflowIfNoMapElement, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfNoMapElement
+        keyToCheck: healedCompanion
+    - rid: 2034230176448512389
+      type: {class: PermanentStatIncrease, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: PermanentStatIncrease
+        inputKey: healedCompanion
+        statIncreaseType: 1
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 2034230176448512390
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: healedCompanion
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
+        scale: 1
+    - rid: 7401433059192472040
+      type: {class: FilterEntityByHP, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FilterEntityByHP
+        inputKey: adj
+        percentThreshold: 0
+        absoluteThreshold: 1
+        useAbsoluteThreshold: 1
+        outputKey: above1HP
+        below: 0

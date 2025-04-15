@@ -1,0 +1,102 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
+  m_Name: RP_L3_Daggermunk
+  m_EditorClassIdentifier: 
+  companionName: Daggermunk++
+  maxHealth: 45
+  initialCardsDealtPerTurn: 1
+  sprite: {fileID: 21300000, guid: 3882490ccffd8cb479682b845b1d1334, type: 3}
+  fullSprite: {fileID: 21300000, guid: 3882490ccffd8cb479682b845b1d1334, type: 3}
+  backgroundImage: {fileID: 21300000, guid: 22837063fa3474fd092bd296d2b73738, type: 3}
+  entityFrame: {fileID: 21300000, guid: 9a026bca7d3604d08abdabfa7cf9d88e, type: 3}
+  companionManagementFrame: {fileID: 21300000, guid: d2fe52314fcc84db0b56064f21090a6f, type: 3}
+  startingDeck: {fileID: 11400000, guid: bf6401d447a5b491382ab14a197ef5ed, type: 2}
+  cardBack: {fileID: 21300000, guid: 20b46ccd593516f4badbdcdb021f67c1, type: 3}
+  cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
+  cardTypeIconOverride: {fileID: 0}
+  rarity: 0
+  cardIdleVfxPrefab: {fileID: 0}
+  genericCompanionSFX: {fileID: 0}
+  genericCompanionVFX: {fileID: 0}
+  cardPool: {fileID: 11400000, guid: 27aedd85a919e49f8aa3505aee035eff, type: 2}
+  packCardPool: {fileID: 11400000, guid: 0eb3f8bf2fb8e45f389802ceb0d6abaf, type: 2}
+  speakerType: {fileID: 0}
+  abilitiesV2:
+  - rid: 205828032053379325
+  level: 2
+  upgradeTo: {fileID: 0}
+  tooltip:
+    empty: 0
+    lines:
+    - title: Level Three Daggermunk
+      description: At the start of each turn, create a 0 mana "Dagger" card in hand
+        for this companion and adjacent companions
+      relatedBehaviorIndex: 0
+  keepsakeTitle: Level Three Daggermunk
+  keepsakeDescription: At the start of each turn, create a 0 mana "Dagger" card in
+    hand for this companion and adjacent companions
+  references:
+    version: 2
+    RefIds:
+    - rid: 205828032053379325
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 12
+        effectSteps:
+        - rid: 205828032053379326
+        - rid: 2034230017118175329
+        - rid: 2034230017118175330
+        - rid: 2034230017118175331
+    - rid: 205828032053379326
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 2034230017118175329
+      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetAdjacentCompanions
+        inputKey: self
+        outputKey: adj
+    - rid: 2034230017118175330
+      type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: AddCardsToHand
+        entityFromKey: self
+        cardTypes:
+        - {fileID: 11400000, guid: 224034c097974444fa35170919327ce6, type: 2}
+        getCardsFromKey: 0
+        inputCardsKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        outputKey: 
+    - rid: 2034230017118175331
+      type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: AddCardsToHand
+        entityFromKey: adj
+        cardTypes:
+        - {fileID: 11400000, guid: 224034c097974444fa35170919327ce6, type: 2}
+        getCardsFromKey: 0
+        inputCardsKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        outputKey: 

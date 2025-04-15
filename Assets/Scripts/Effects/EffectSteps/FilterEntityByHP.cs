@@ -9,6 +9,11 @@ public class FilterEntityByHP : EffectStep, IEffectStepCalculation
     private string inputKey = "";
     [SerializeField]
     private double percentThreshold = 0.5;
+    [SerializeField]
+    private int absoluteThreshold = 0;
+    [SerializeField]
+    private bool useAbsoluteThreshold = false;
+
 
     [SerializeField]
     private string outputKey = "";
@@ -30,6 +35,9 @@ public class FilterEntityByHP : EffectStep, IEffectStepCalculation
         List<CombatInstance> filteredList = new List<CombatInstance>();
         foreach (CombatInstance instance in combatInstances) {
             int threshold = Convert.ToInt32(instance.combatStats.maxHealth * percentThreshold);
+            if (useAbsoluteThreshold) {
+                threshold = absoluteThreshold;
+            }
             bool belowThreshold = instance.combatStats.currentHealth <= threshold;
             if (belowThreshold == below) {
                 filteredList.Add(instance);

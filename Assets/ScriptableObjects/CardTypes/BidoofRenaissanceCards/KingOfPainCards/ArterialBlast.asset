@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: ArterialBlast
   m_EditorClassIdentifier: 
   Name: Arterial Blade
-  Description: Lose 1 HP. Deal {rpl_damage} damage twice. Draw 1 card from this companion
+  Description: Deal {rpl_damage} damage twice. Draw 1 card from this companion. Lose
+    1 HP
   defaultValues:
   - key: rpl_damage
     value: 1
@@ -49,10 +50,10 @@ MonoBehaviour:
         effectSteps:
         - rid: 5602893017534169588
         - rid: 5602893017534169590
-        - rid: 1274772082283774746
-        - rid: 5602893017534169592
         - rid: 5602893017534169591
         - rid: 5602893017534169589
+        - rid: 1274772082283774746
+        - rid: 5602893017534169592
     - rid: 5602893017534169588
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

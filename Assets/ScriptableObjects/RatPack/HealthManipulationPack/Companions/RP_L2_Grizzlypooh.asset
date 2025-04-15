@@ -1,0 +1,133 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
+  m_Name: RP_L2_Grizzlypooh
+  m_EditorClassIdentifier: 
+  companionName: Grizzlypooh+
+  maxHealth: 50
+  initialCardsDealtPerTurn: 1
+  sprite: {fileID: 21300000, guid: 63fd223d9517a474fa6a87985ac69790, type: 3}
+  fullSprite: {fileID: 21300000, guid: 63fd223d9517a474fa6a87985ac69790, type: 3}
+  backgroundImage: {fileID: 21300000, guid: 741949db90bb4412ba7493960e001481, type: 3}
+  entityFrame: {fileID: 21300000, guid: e8e1fad73c653473d90feb9b744f60c6, type: 3}
+  companionManagementFrame: {fileID: 21300000, guid: ad4f2340ea2464bc780af3b16bf27412, type: 3}
+  startingDeck: {fileID: 11400000, guid: 1c73175d985fa4a2bb8ef49e809c32a7, type: 2}
+  cardBack: {fileID: 21300000, guid: 3296a63e824de414bb4b578c4822fbdb, type: 3}
+  cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
+  cardTypeIconOverride: {fileID: 0}
+  rarity: 1
+  cardIdleVfxPrefab: {fileID: 0}
+  genericCompanionSFX: {fileID: 0}
+  genericCompanionVFX: {fileID: 0}
+  cardPool: {fileID: 11400000, guid: eecf4bcc7e4ac4faf9a6978b22d9c3d1, type: 2}
+  packCardPool: {fileID: 11400000, guid: 0bf35a642105d4780a727b994049d862, type: 2}
+  speakerType: {fileID: 0}
+  abilitiesV2:
+  - rid: 205828107393564721
+  - rid: 2034230017118175647
+  level: 1
+  upgradeTo: {fileID: 11400000, guid: 4a6b01665ca634dbbb92cb334d73c641, type: 2}
+  tooltip:
+    empty: 0
+    lines:
+    - title: Level Two Grizzlypooh
+      description: Whenever a companion takes damage, it gains 3 block. At the end
+        of combat, if Grizzlypooh is below half HP, gain 10 max HP
+      relatedBehaviorIndex: 0
+  keepsakeTitle: 
+  keepsakeDescription: Whenever a companion takes damage, it gains 3 block. At the
+    end of combat, if Grizzlypooh is below half HP, gain 10 max HP
+  references:
+    version: 2
+    RefIds:
+    - rid: 205828107393564721
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 11
+        effectSteps:
+        - rid: 8790164513324270202
+        - rid: 205828107393564792
+        - rid: 205828107393564793
+    - rid: 205828107393564792
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: damagedCompanion
+        statusEffect: 2
+        scale: 3
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+    - rid: 205828107393564793
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: damagedCompanion
+        prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
+        scale: 1
+    - rid: 2034230017118175647
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 1
+        effectSteps:
+        - rid: 2034230017118175649
+        - rid: 2034230017118175654
+        - rid: 7401433059192472309
+        - rid: 2034230017118175650
+        - rid: 2034230017118175655
+    - rid: 2034230017118175649
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 2034230017118175650
+      type: {class: PermanentStatIncrease, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: PermanentStatIncrease
+        inputKey: self
+        statIncreaseType: 1
+        scale: 10
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 2034230017118175654
+      type: {class: FilterEntityByHP, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FilterEntityByHP
+        inputKey: self
+        percentThreshold: 0.5
+        absoluteThreshold: 0
+        useAbsoluteThreshold: 0
+        outputKey: selfBelowHalf
+        below: 1
+    - rid: 2034230017118175655
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 604f6efaa1e828d4bacfc84a25dfbd7a, type: 3}
+        scale: 1
+    - rid: 7401433059192472309
+      type: {class: EndWorkflowIfListEmpty, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfListEmpty
+        inputKey1: selfBelowHalf
+    - rid: 8790164513324270202
+      type: {class: EndWorkflowIfNoMapElement, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfNoMapElement
+        keyToCheck: damagedCompanion

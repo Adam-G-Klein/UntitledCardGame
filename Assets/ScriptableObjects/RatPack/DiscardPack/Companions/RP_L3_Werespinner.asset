@@ -1,0 +1,138 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
+  m_Name: RP_L3_Werespinner
+  m_EditorClassIdentifier: 
+  companionName: Werespinner++
+  maxHealth: 45
+  initialCardsDealtPerTurn: 1
+  sprite: {fileID: 21300000, guid: 2e47eb262b7762144a49d10bfa5ee1c8, type: 3}
+  fullSprite: {fileID: 21300000, guid: 2e47eb262b7762144a49d10bfa5ee1c8, type: 3}
+  backgroundImage: {fileID: 21300000, guid: 094c4d0ce89284effb02b7e66c41c106, type: 3}
+  entityFrame: {fileID: 21300000, guid: 93992d0d35ca9405b831e052145f48f8, type: 3}
+  companionManagementFrame: {fileID: 21300000, guid: 3438500f50c834ffd8cab1850f7e94bf, type: 3}
+  startingDeck: {fileID: 11400000, guid: 7fa17c4fa43804b51918678571ad5cdc, type: 2}
+  cardBack: {fileID: 21300000, guid: a5222a8d127763c49b397cce916345ec, type: 3}
+  cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
+  cardTypeIconOverride: {fileID: 0}
+  rarity: 1
+  cardIdleVfxPrefab: {fileID: 0}
+  genericCompanionSFX: {fileID: 0}
+  genericCompanionVFX: {fileID: 0}
+  cardPool: {fileID: 11400000, guid: ea2e0be33aeb148b5b6fb019d0942226, type: 2}
+  packCardPool: {fileID: 11400000, guid: aca6eb7e5bae64ee4aabb8816fe258a4, type: 2}
+  speakerType: {fileID: 0}
+  abilitiesV2:
+  - rid: 205828032053379705
+  level: 2
+  upgradeTo: {fileID: 0}
+  tooltip:
+    empty: 0
+    lines:
+    - title: Level Three Werespinner
+      description: Whenever you discard a Generated card, give 2 strength to and
+        draw a card from a random companion
+      relatedBehaviorIndex: 0
+  keepsakeTitle: 
+  keepsakeDescription: Whenever you discard a Generated card, give 2 strength to
+    and draw a card from a random companion
+  references:
+    version: 2
+    RefIds:
+    - rid: 205828032053379705
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 16
+        effectSteps:
+        - rid: 2034230020176347170
+        - rid: 2034230020176347171
+        - rid: 2034230020176347172
+        - rid: 2034230020176347173
+        - rid: 205828032053379741
+        - rid: 2034230020176347205
+        - rid: 205828032053379742
+        - rid: 2034230020176347206
+        - rid: 205828032053379743
+    - rid: 205828032053379741
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: randomGuy
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 6
+        cantCancelTargetting: 0
+    - rid: 205828032053379742
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DrawCards
+        inputKey: randomGuy
+        outputKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 205828032053379743
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: randomGuy
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        scale: 1
+    - rid: 2034230020176347170
+      type: {class: FilterCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FilterCards
+        inputKey: cardDiscarded
+        filter:
+          cardCategoriesToInclude: 
+          generatedCardsFilter: 1
+        outputKey: statusCards
+    - rid: 2034230020176347171
+      type: {class: CountStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CountStep
+        inputKey: statusCards
+        outputKey: numStatusCards
+    - rid: 2034230020176347172
+      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: BooleanComparison
+        hardCodedInputKey1: 0
+        useHardCodedInputKey1: 1
+        inputKey1: 
+        operation: 0
+        inputKey2: numStatusCards
+        outputKey: equalsZero
+    - rid: 2034230020176347173
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: equalsZero
+        conditionToEndOn: 1
+    - rid: 2034230020176347205
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: the cycle continues
+        lineTime: 1
+    - rid: 2034230020176347206
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: randomGuy
+        statusEffect: 0
+        scale: 2
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0

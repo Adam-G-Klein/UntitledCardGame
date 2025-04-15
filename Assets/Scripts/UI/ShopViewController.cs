@@ -7,10 +7,10 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
 
-public class ShopViewController : MonoBehaviour, 
+public class ShopViewController : MonoBehaviour,
     IShopItemViewDelegate,
     ICompanionManagementViewDelegate
-    
+
 {
     public UIDocument uiDoc;
     public bool canDragCompanions = false;
@@ -29,7 +29,7 @@ public class ShopViewController : MonoBehaviour,
     private VisualElement activeContainer;
     private VisualElement mapContainer;
     private Button upgradeButton;
-    private Button rerollButton; 
+    private Button rerollButton;
     private Button cardRemovalButton;
     private bool hasRemovedCardThisShop;
     private Label moneyLabel;
@@ -112,7 +112,7 @@ public class ShopViewController : MonoBehaviour,
         sellingCompanionConfirmation.Q<Button>("selling-companion-confirmation-yes").RegisterCallback<ClickEvent>((evt) => ConfirmSellCompanion());
         sellingCompanionConfirmation.Q<Button>("selling-companion-confirmation-no").RegisterCallback<ClickEvent>((evt) => StopSellingCompanion());
             originalSellingCompanionConfirmationText = sellingCompanionConfirmation.Q<Label>("selling-companion-confirmation-label").text;
-        
+
         deckView.Q<Button>().RegisterCallback<ClickEvent>((evt) => CloseCompanionDeckView());
 
         cardRemovalButton = uiDoc.rootVisualElement.Q<Button>("card-remove-button");
@@ -193,7 +193,7 @@ public class ShopViewController : MonoBehaviour,
         shopItemView.Disable();
         //shopGoodsArea.Remove(shopItemView.shopItemElement);
         UIDocumentHoverableInstantiator.Instance.CleanupHoverable(shopItemView.shopItemElement);
-        
+
         cardItemToViewMap.Remove(card);
     }
 
@@ -275,7 +275,7 @@ public class ShopViewController : MonoBehaviour,
         }
 
         // I can't fully figure out why this is necessary. Since we're using a scroll view,
-        // as more items are added, if we use a fixed percent width for the items, then as the 
+        // as more items are added, if we use a fixed percent width for the items, then as the
         // content visual element gets bigger, the items inside update to be a certain percent
         // of the new larger size. This sets them to the size they originally have in the base
         // UI document on scene start.
@@ -329,7 +329,7 @@ public class ShopViewController : MonoBehaviour,
         canDragCompanions = false;
         NonMouseInputManager.Instance.SetUIState(UIState.SELLING_COMPANION);
 
-        
+
     }
 
     public void StopSellingCompanion() {
@@ -349,8 +349,8 @@ public class ShopViewController : MonoBehaviour,
             sellingCompanionConfirmation.style.visibility = Visibility.Visible;
             Label confirmSellCompanionLabel = sellingCompanionConfirmation.Q<Label>("selling-companion-confirmation-label");
             string replacedText = String.Format(
-                originalSellingCompanionConfirmationText, 
-                companionView.companion.GetName(), 
+                originalSellingCompanionConfirmationText,
+                companionView.companion.GetName(),
                 shopManager.CalculateCompanionSellPrice(companionView.companion));
             confirmSellCompanionLabel.text = replacedText;
         } else {
@@ -405,13 +405,13 @@ public class ShopViewController : MonoBehaviour,
     }
 
     public void CompanionManagementOnPointerMove(CompanionManagementView companionManagementView, PointerMoveEvent evt, Vector2 pointerScreenPos)
-    {        
+    {
         if (!isDraggingCompanion || companionBeingDragged != companionManagementView.container) {
             if(evt == null) {
                 Debug.LogError("OnPointerMove Called from not mouse But Not dragging companion or not the companion being dragged");
             }
             return;
-        }  
+        }
 
         Debug.Log("[ControllerDrag] evt position: " + (evt == null ? "evt is null" : evt.position) + " pointer screen pos: " + pointerScreenPos);
         Vector2 pos = evt == null ? pointerScreenPos : evt.position;
@@ -493,7 +493,7 @@ public class ShopViewController : MonoBehaviour,
         if (!isDraggingCompanion || companionManagementView.container != companionBeingDragged) return;
 
         Vector2 pos = evt == null ? pointerScreenPos : evt.position;
-        
+
         VisualElement elementOver = null;
         foreach (VisualElement child in activeContainer.hierarchy.Children()) {
             if (child.worldBound.Contains(pos)) {
@@ -622,7 +622,7 @@ public class ShopViewController : MonoBehaviour,
         foreach (VisualElement child in activeContainer.hierarchy.Children()) {
             if (child.childCount != 1) continue;
             CompanionManagementView companion = visualElementToCompanionViewMap[child[0]];
-            if (!shopManager.IsApplicableCompanion(cardInShop.sourceCompanion, companion.companion)) {
+            if (!shopManager.IsApplicableCompanion(cardInShop, companion.companion)) {
                 notApplicable.Add(companion);
             }
         }
@@ -630,11 +630,11 @@ public class ShopViewController : MonoBehaviour,
         foreach (VisualElement child in benchScrollView.contentContainer.hierarchy.Children()) {
             if (child.childCount != 1) continue;
             CompanionManagementView companion = visualElementToCompanionViewMap[child[0]];
-            if (!shopManager.IsApplicableCompanion(cardInShop.sourceCompanion, companion.companion)) {
+            if (!shopManager.IsApplicableCompanion(cardInShop, companion.companion)) {
                 notApplicable.Add(companion);
             }
         }
-        
+
         foreach(CompanionManagementView view in notApplicable) {
             view.ShowNotApplicable();
         }
@@ -673,10 +673,10 @@ public class ShopViewController : MonoBehaviour,
         selectingIndicatorForCardRemovalIndicator.style.visibility = Visibility.Visible;
     }
 
-    
+
     public void CardRemoved() {
         cardRemovalButton.SetEnabled(false);
-        StartCoroutine(ShowGenericNotification("Card Removed!")); 
+        StartCoroutine(ShowGenericNotification("Card Removed!"));
         StopRemovingCard();
     }
     private void StopRemovingCard() {
@@ -686,7 +686,7 @@ public class ShopViewController : MonoBehaviour,
         NonMouseInputManager.Instance.SetUIState(UIState.DEFAULT);
     }
 
-    
+
     private void CancelCardRemoval() {
         shopManager.ProcessCardRemovalCancelled();
         StopRemovingCard();
@@ -800,8 +800,8 @@ public class ShopViewController : MonoBehaviour,
             this.companionToSell = companionView;
             Label confirmSellCompanionLabel = sellingCompanionConfirmation.Q<Label>("selling-companion-confirmation-label");
             string replacedText = String.Format(
-                originalSellingCompanionConfirmationText, 
-                companionView.companion.GetName(), 
+                originalSellingCompanionConfirmationText,
+                companionView.companion.GetName(),
                 shopManager.CalculateCompanionSellPrice(companionView.companion));
             confirmSellCompanionLabel.text = replacedText;
     }
@@ -813,12 +813,12 @@ public class ShopViewController : MonoBehaviour,
 
     public void ShowCantSellLastCompanion()
     {
-        StartCoroutine(ShowGenericNotification("Unable to sell companion, this is your last one active!")); 
+        StartCoroutine(ShowGenericNotification("Unable to sell companion, this is your last one active!"));
     }
 
     public void ShowCompanionUpgradedMessage(String companionName, int newLevel)
     {
-        StartCoroutine(ShowGenericNotification(companionName + " has been upgraded to level " + newLevel + "!", 1.5f)); 
+        StartCoroutine(ShowGenericNotification(companionName + " has been upgraded to level " + newLevel + "!", 1.5f));
     }
 
     public IEnumerator ShowGenericNotification(string text, float time = 2.5f) {
@@ -850,7 +850,7 @@ public class ShopViewController : MonoBehaviour,
 
     public VisualElement GetMoneyIndicator() {
         return moneyLabel;
-    }  
+    }
 
     public void ShowCompanionUpgradeMenu(List<Companion> companions, Companion upgradeCompanion) {
         currentUpgradeCompanion = upgradeCompanion;
@@ -868,14 +868,14 @@ public class ShopViewController : MonoBehaviour,
             VisualElement companionContainer = new VisualElement();
             companionContainer.AddToClassList("victory-companion-container");
             companionContainer.AddToClassList("upgrade-menu-companion-invisible");
-            
+
             CompanionTypeSO companionType = companion.companionType;
             EntityView entityView = new EntityView(companion, 0, false);
             VisualElement portraitContainer = entityView.entityContainer.Q(className: "entity-portrait");
             portraitContainer.style.backgroundImage = new StyleBackground(companionType.sprite);
             companionContainer.Add(entityView.entityContainer);
             initialCompanionContainer.Add(companionContainer);
-            
+
             int displayIndex = index + 1;
             companionContainer.schedule.Execute(() => {
                 companionContainer.AddToClassList("upgrade-menu-compainion-1");
@@ -949,7 +949,7 @@ public class ShopViewController : MonoBehaviour,
             tooltipPosition.x -= element.resolvedStyle.height / 100; // this feels super brittle
             tooltipPosition.y += element.resolvedStyle.height / 100;
         } else {
-            tooltipPosition.x -= element.resolvedStyle.width / 120; // this feels super brittle 
+            tooltipPosition.x -= element.resolvedStyle.width / 120; // this feels super brittle
             tooltipPosition.y += element.resolvedStyle.width / 150;
         }
         GameObject uiDocToolTipPrefab = Instantiate(shopManager.tooltipPrefab, tooltipPosition, new Quaternion());
@@ -967,22 +967,22 @@ public class ShopViewController : MonoBehaviour,
 
     public void SetupStaticHoverables() {
         UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(rerollButton,
-                () => {RerollButtonOnClick(null);}, 
+                () => {RerollButtonOnClick(null);},
                 () => {},
                 () => {},
                 HoverableType.DefaultShop);
         UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(upgradeButton,
-                () => {UpgradeButtonOnClick(null);}, 
-                () => {UpgradeButtonOnPointerEnter(null);}, 
+                () => {UpgradeButtonOnClick(null);},
+                () => {UpgradeButtonOnPointerEnter(null);},
                 () => {UpgradeButtonOnPointerLeave(null);},
                 HoverableType.DefaultShop);
         UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(uiDoc.rootVisualElement.Q<Button>("start-next-combat-button"),
-                () => {StartNextCombatOnClick(null);}, 
+                () => {StartNextCombatOnClick(null);},
                 () => {},
                 () => {},
                 HoverableType.DefaultShop);
         UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(uiDoc.rootVisualElement.Q<Button>("card-remove-button"),
-                () => {CardRemovalButtonOnClick(null);}, 
+                () => {CardRemovalButtonOnClick(null);},
                 () => {},
                 () => {},
                 HoverableType.DefaultShop);

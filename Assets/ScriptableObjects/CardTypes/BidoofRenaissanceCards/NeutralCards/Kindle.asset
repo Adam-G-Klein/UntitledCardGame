@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Kindle
   m_EditorClassIdentifier: 
   Name: Kindle
-  Description: Exhaust a card and gain 1 energy
+  Description: Gain 1 energy and exhaust a random card
+  defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 90fa2971dfe769a49a60ad648e956340, type: 3}
   cardCategory: 2
@@ -25,6 +26,8 @@ MonoBehaviour:
   - rid: 5602892679876706519
   onExhaustEffectWorkflow:
     rid: -2
+  onDiscardEffectWorkflow:
+    rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
   tooltips: 
@@ -33,37 +36,31 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 5280922841426165970
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: card
-        prefabToInstantiate: {fileID: 7939549763701254822, guid: e84fb44c2a5a75e49a192002a9096046, type: 3}
-        scale: 1
     - rid: 5602892679876706519
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
-        - rid: 5602892679876706520
-        - rid: 5280922841426165970
-        - rid: 5602892679876706521
         - rid: 5602892679876706522
+        - rid: 5602892679876706520
+        - rid: 7401433059192471625
+        - rid: 7401433059192471624
+        - rid: 5602892679876706521
     - rid: 5602892679876706520
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: card
+        outputKey: cards
         validTargets: 03000000
         number: 1
-        specialTargetRule: 5
+        specialTargetRule: 2
         cantCancelTargetting: 0
     - rid: 5602892679876706521
       type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CardInHandEffect
-        inputKey: card
+        inputKey: selected
         effect: 1
     - rid: 5602892679876706522
       type: {class: ManaChange, ns: , asm: Assembly-CSharp}
@@ -72,3 +69,15 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+    - rid: 7401433059192471624
+      type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetRandomItems
+        inputKey: cards
+        scale: 1
+        outputKey: selected
+    - rid: 7401433059192471625
+      type: {class: EndWorkflowIfListEmpty, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfListEmpty
+        inputKey1: cards

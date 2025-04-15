@@ -169,6 +169,10 @@ public abstract class EntityAbilityInstance
         EffectDocument document = createEffectDocument();
         document.map.AddItem<PlayableCard>("cardPlayed", card);
         if (card.deckFrom.TryGetComponent(out CompanionInstance companion)) {
+            if (document.originEntityType == EntityType.CompanionInstance) {
+                CompanionInstance source = document.map.GetItem<CompanionInstance>(EffectDocument.ORIGIN, 0);
+                document.boolMap.Add("cardFromThisOrigin", source == companion);
+            }
             EffectUtils.AddCompanionToDocument(document, "companionCardPlayedFrom", companion);
         }
         EffectManager.Instance.QueueEffectWorkflow(new EffectWorkflowClosure(document, ability.effectWorkflow, null));
@@ -183,21 +187,23 @@ public abstract class EntityAbilityInstance
         yield return null;
     }
 
-    private IEnumerator OnCardExhaust(DeckInstance deckFrom, Card card) {
+    private IEnumerator OnCardExhaust(DeckInstance deckFrom, PlayableCard card) {
         EffectDocument document = createEffectDocument();
         if (deckFrom.TryGetComponent(out CompanionInstance companion)) {
             EffectUtils.AddCompanionToDocument(document, "companionExhaustedFrom", companion);
         }
+        document.map.AddItem<PlayableCard>("cardExhausted", card);
         EffectManager.Instance.QueueEffectWorkflow(new EffectWorkflowClosure(document, ability.effectWorkflow, null));
         yield return null;
     }
 
-    private IEnumerator OnCardDiscard(DeckInstance deckFrom, Card card, bool casted) {
+    private IEnumerator OnCardDiscard(DeckInstance deckFrom, PlayableCard card, bool casted) {
         if (!casted) {
             EffectDocument document = createEffectDocument();
             if (deckFrom.TryGetComponent(out CompanionInstance companion)) {
                 EffectUtils.AddCompanionToDocument(document, "companionDiscardedFrom", companion);
             }
+            document.map.AddItem<PlayableCard>("cardDiscarded", card);
             EffectManager.Instance.QueueEffectWorkflow(new EffectWorkflowClosure(document, ability.effectWorkflow, null));
         }
         yield return null;
