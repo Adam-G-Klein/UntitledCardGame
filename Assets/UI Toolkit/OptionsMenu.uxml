@@ -8,7 +8,7 @@
                     <ui:Label tabindex="-1" text="Volume" parse-escape-sequences="true" display-tooltip-when-elided="true" class="menu-option-title" />
                     <ui:VisualElement class="menu-scrollbar-container">
                         <ui:Label tabindex="-1" text="0" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Label" />
-                        <ui:Slider high-value="1" show-input-field="false" name="volumeSlider" usage-hints="None" style="width: 80%; justify-content: center;" />
+                        <ui:Slider high-value="1" show-input-field="false" name="volumeSlider" usage-hints="None" class="focusable" style="width: 80%; justify-content: center;" />
                         <ui:Label tabindex="-1" text="100" parse-escape-sequences="true" display-tooltip-when-elided="true" style="-unity-font-style: normal;" />
                     </ui:VisualElement>
                 </ui:VisualElement>
@@ -16,24 +16,24 @@
                     <ui:Label tabindex="-1" text="Game Speed" parse-escape-sequences="true" display-tooltip-when-elided="true" class="menu-option-title" />
                     <ui:VisualElement class="menu-scrollbar-container">
                         <ui:Label tabindex="-1" text="1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Label" />
-                        <ui:Slider show-input-field="false" name="gameSpeedSlider" style="width: 80%; justify-content: center; min-width: 80%;" />
+                        <ui:Slider show-input-field="false" name="gameSpeedSlider" class="focusable" style="width: 80%; justify-content: center; min-width: 80%;" />
                         <ui:Label tabindex="-1" text="5   " parse-escape-sequences="true" display-tooltip-when-elided="true" style="-unity-font-style: normal;" />
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement class="menu-option" style="flex-grow: 0;">
-                    <ui:Toggle label="Full Screen" name="fullscreenToggle" style="font-size: 18px;" />
+                    <ui:Toggle label="Full Screen" name="fullscreenToggle" class="focusable" style="font-size: 18px;" />
                 </ui:VisualElement>
                 <ui:VisualElement name="VisualElement" class="menu-option">
-                    <ui:Button text="View Compendium" parse-escape-sequences="true" display-tooltip-when-elided="true" name="compendiumButton" class="options-button" />
+                    <ui:Button text="View Compendium" parse-escape-sequences="true" display-tooltip-when-elided="true" name="compendiumButton" class="options-button focusable" />
                 </ui:VisualElement>
                 <ui:VisualElement name="VisualElement" class="menu-option">
-                    <ui:Button text="Back" parse-escape-sequences="true" display-tooltip-when-elided="true" name="backButton" class="options-button" />
+                    <ui:Button text="Back" parse-escape-sequences="true" display-tooltip-when-elided="true" name="backButton" class="options-button focusable" />
                 </ui:VisualElement>
                 <ui:VisualElement name="VisualElement" class="menu-option">
-                    <ui:Button text="Exit to Main Menu" parse-escape-sequences="true" display-tooltip-when-elided="true" name="exitButton" class="options-button" />
+                    <ui:Button text="Exit to Main Menu" parse-escape-sequences="true" display-tooltip-when-elided="true" name="exitButton" class="options-button focusable" />
                 </ui:VisualElement>
                 <ui:VisualElement name="VisualElement" class="menu-option">
-                    <ui:Button text="Quit Game" parse-escape-sequences="true" display-tooltip-when-elided="true" name="quitButton" class="options-button" />
+                    <ui:Button text="Quit Game" parse-escape-sequences="true" display-tooltip-when-elided="true" name="quitButton" class="options-button focusable" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>

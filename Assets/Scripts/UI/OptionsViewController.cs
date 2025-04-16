@@ -33,6 +33,8 @@ public class OptionsViewController : MonoBehaviour
     [SerializeField]
     private GameObject tooltipPrefab;
 
+    private Action onExitHandler = null;
+
     void Awake() {
         if (instance != null && instance != this) {
             Destroy(this.gameObject);
@@ -44,6 +46,7 @@ public class OptionsViewController : MonoBehaviour
         canvas = GetComponent<Canvas>();
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
+
     void Start()
     {
         optionsUIDocument.rootVisualElement.style.visibility = Visibility.Hidden;
@@ -75,10 +78,27 @@ public class OptionsViewController : MonoBehaviour
         }
     }
 
+    private void RegisterFocusables() {
+        VisualElementFocusable volumeSliderFocusable = new VisualElementFocusable(volumeSlider);
+        volumeSliderFocusable.SetInputAction(GFGInputAction.LEFT, () => VisualElementUtils.ProcessSliderInput(volumeSlider, GFGInputAction.LEFT));
+        volumeSliderFocusable.SetInputAction(GFGInputAction.RIGHT, () => VisualElementUtils.ProcessSliderInput(volumeSlider, GFGInputAction.RIGHT));
+        VisualElementFocusable timescaleSliderFocusable = new VisualElementFocusable(timescaleSlider);
+        timescaleSliderFocusable.SetInputAction(GFGInputAction.LEFT, () => VisualElementUtils.ProcessSliderInput(timescaleSlider, GFGInputAction.LEFT));
+        timescaleSliderFocusable.SetInputAction(GFGInputAction.RIGHT, () => VisualElementUtils.ProcessSliderInput(timescaleSlider, GFGInputAction.RIGHT));
+        FocusManager.Instance.RegisterFocusableTarget(volumeSliderFocusable);
+        FocusManager.Instance.RegisterFocusableTarget(timescaleSliderFocusable);
+        FocusManager.Instance.RegisterFocusables(optionsUIDocument);
+    }
+
+    public void RegisterOnExitHandler(Action action) {
+        onExitHandler += action;
+    }
+
     public void onMainMenuButtonHandler() {
         // Load the main menu scene
         MusicController2.Instance.PrepareForGoingBackToMainMenu();
         UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
+        onExitHandler = null;
         ToggleVisibility();
     }
 
@@ -102,6 +122,9 @@ public class OptionsViewController : MonoBehaviour
     }
 
     private void BackButtonHandler() {
+        Debug.Log("BACK BUTTON HANDLER");
+        onExitHandler.Invoke();
+        onExitHandler = null;
         ToggleVisibility();
     }
 
@@ -110,15 +133,20 @@ public class OptionsViewController : MonoBehaviour
             canvasGroup.blocksRaycasts = true;
             UIDocumentUtils.SetAllPickingMode(optionsUIDocument.rootVisualElement, PickingMode.Position);
             optionsUIDocument.rootVisualElement.style.visibility = Visibility.Visible;
+            // Have to do this each time due to how the options menu persists across scenes
+            RegisterFocusables();
+            FocusManager.Instance.SetFocusNextFrame(backButton.AsFocusable());
         } else {
             canvasGroup.blocksRaycasts = false;
             UIDocumentUtils.SetAllPickingMode(optionsUIDocument.rootVisualElement, PickingMode.Ignore);
             optionsUIDocument.rootVisualElement.style.visibility = Visibility.Hidden;
             compendiumUIDocument.rootVisualElement.style.visibility = Visibility.Hidden;
+            FocusManager.Instance.UnregisterFocusables(optionsUIDocument);
         }
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
+        // RegisterFocusables();
         UpdateCameraReference();
         ToggleVisibility();
     }

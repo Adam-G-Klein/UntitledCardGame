@@ -41,14 +41,16 @@ public class MainMenuManager : MonoBehaviour
 
     public void Setup() {
         startButton = mainMenuUIDocument.rootVisualElement.Q<Button>("startButton");
-        startButton.RegisterCallback<ClickEvent>(ev => startButtonHandler());
-        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(startButton, startButtonHandler);
         optionsButton = mainMenuUIDocument.rootVisualElement.Q<Button>("optionsButton");
-        optionsButton.RegisterCallback<ClickEvent>(ev => optionsButtonHandler());
         exitButton = mainMenuUIDocument.rootVisualElement.Q<Button>("exitButton");
-        exitButton.RegisterCallback<ClickEvent>(ev => exitButtonHandler());
-        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(exitButton, exitButtonHandler);
 
+        VisualElementUtils.RegisterSelected(startButton, startButtonHandler);
+        VisualElementUtils.RegisterSelected(optionsButton, optionsButtonHandler);
+        VisualElementUtils.RegisterSelected(exitButton, exitButtonHandler);
+        
+
+        FocusManager.Instance.RegisterFocusables(mainMenuUIDocument);
+        FocusManager.Instance.SetFocus(startButton.AsFocusable());
     }
 
     public void startButtonHandler() {
@@ -56,11 +58,24 @@ public class MainMenuManager : MonoBehaviour
         //SceneManager.LoadScene("GenerateMap");
     }
 
+    public void test(string s) {
+        Debug.Log(s);
+    }
+
     public void optionsButtonHandler() {
+        Debug.Log("OPTIONS MENU BUTTON HANDLER");
         if (optionsUIPrefab == null) {
             optionsUIPrefab = GameObject.FindGameObjectWithTag("OptionsViewCanvas");
         }
-        optionsUIPrefab.GetComponent<OptionsViewController>().ToggleVisibility(true);
+        FocusManager.Instance.DisableFocusables(mainMenuUIDocument);
+        OptionsViewController optionsViewController = optionsUIPrefab.GetComponent<OptionsViewController>();
+        optionsViewController.RegisterOnExitHandler(EnableFocusables);
+        optionsViewController.ToggleVisibility(true);
+    }
+
+    private void EnableFocusables() {
+        FocusManager.Instance.EnableFocusables(mainMenuUIDocument);
+        FocusManager.Instance.SetFocusNextFrame(startButton.AsFocusable());
     }
 
     public void exitButtonHandler() {

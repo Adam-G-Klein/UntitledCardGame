@@ -1,12 +1,23 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class KeyboardControlsManager : GenericSingleton<KeyboardControlsManager> {
 
     private NonMouseInputManager inputManager;
+    private List<IControlsReceiver> controlsReceivers;
+
+    void Awake() {
+        controlsReceivers = new List<IControlsReceiver>();
+    }
 
     void Start()
     {
-        inputManager = NonMouseInputManager.Instance;
+        inputManager = NonMouseInputManager.Instance;        
+        controlsReceivers.Add(inputManager);
+    }
+
+    public void RegisterControlsReceiver(IControlsReceiver controlsReceiver) {
+        controlsReceivers.Add(controlsReceiver);
     }
 
     void Update() {
@@ -21,35 +32,38 @@ public class KeyboardControlsManager : GenericSingleton<KeyboardControlsManager>
         * Doubt that's what's gonna kill our perf long term though.
         ***/
         if(Input.GetKeyDown(KeyCode.W)) {
-            inputManager.ProcessInput(GFGInputAction.UP);
+            ProcessInput(GFGInputAction.UP);
         } else if(Input.GetKeyDown(KeyCode.S)) {
-            inputManager.ProcessInput(GFGInputAction.DOWN);
+            ProcessInput(GFGInputAction.DOWN);
         } else if(Input.GetKeyDown(KeyCode.A)) {
-            inputManager.ProcessInput(GFGInputAction.LEFT);
+            ProcessInput(GFGInputAction.LEFT);
         } else if(Input.GetKeyDown(KeyCode.D)) {
-            inputManager.ProcessInput(GFGInputAction.RIGHT);
+            ProcessInput(GFGInputAction.RIGHT);
         } 
         else if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return)) {
-            inputManager.ProcessInput(GFGInputAction.SELECT);
+            ProcessInput(GFGInputAction.SELECT);
         } else if(Input.GetKeyDown(KeyCode.Backspace) )
         // okay but like hear me out
          {
-            inputManager.ProcessInput(GFGInputAction.BACK);
+            ProcessInput(GFGInputAction.BACK);
         } else if(Input.GetKeyDown(KeyCode.Space)) {
-            inputManager.ProcessInput(GFGInputAction.END_TURN);
+            ProcessInput(GFGInputAction.END_TURN);
         } else if(Input.GetKeyDown(KeyCode.Alpha1)) {
-            inputManager.ProcessInput(GFGInputAction.OPEN_COMPANION_1_DRAW);
+            ProcessInput(GFGInputAction.OPEN_COMPANION_1_DRAW);
         } else if(Input.GetKeyDown(KeyCode.Alpha2)) {
-            inputManager.ProcessInput(GFGInputAction.OPEN_COMPANION_2_DRAW);
+            ProcessInput(GFGInputAction.OPEN_COMPANION_2_DRAW);
         } else if(Input.GetKeyDown(KeyCode.Alpha3)) {
-            inputManager.ProcessInput(GFGInputAction.OPEN_COMPANION_3_DRAW);
+            ProcessInput(GFGInputAction.OPEN_COMPANION_3_DRAW);
         } else if(Input.GetKeyDown(KeyCode.Alpha4)) {
-            inputManager.ProcessInput(GFGInputAction.OPEN_COMPANION_4_DRAW);
+            ProcessInput(GFGInputAction.OPEN_COMPANION_4_DRAW);
         } else if(Input.GetKeyDown(KeyCode.Alpha5)) {
-            inputManager.ProcessInput(GFGInputAction.OPEN_COMPANION_5_DRAW);
+            ProcessInput(GFGInputAction.OPEN_COMPANION_5_DRAW);
         }
     }
 
-
-
+    private void ProcessInput(GFGInputAction action) {
+        foreach (IControlsReceiver receiver in controlsReceivers) {
+            receiver.ProcessGFGInputAction(action);
+        }
+    }
 }

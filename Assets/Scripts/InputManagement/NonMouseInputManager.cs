@@ -32,7 +32,7 @@ public enum InputMethod {
 // Using it to be able to play the game with just a keyboard, as a precursor 
 // to using a controller
 // brainstorming doc: https://docs.google.com/document/d/1-HkEMw6Go4Lw7kFVd3A6gOE2FjSb1qToeDbyvLiJyzc/edit?tab=t.0
-public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
+public class NonMouseInputManager : GenericSingleton<NonMouseInputManager>, IControlsReceiver {
 
     [SerializeField]
     private int hoveredCardIndex = -1;
@@ -734,5 +734,39 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
         if(!hoverables.Contains(currentlyHovered)) {
             action.Invoke();
         }
+    }
+
+    public void ProcessGFGInputAction(GFGInputAction action)
+    {
+        UnityEngine.Cursor.visible = false;
+        inputMethod = InputMethod.Keyboard;
+        if(uiState == UIState.OPTIONS_MENU) {
+            processInputForOptionsMenu(action);
+            return;
+        }
+        // NOTE we can't actually get a CUTSCENE_SKIP action unless we're in a cutscene
+        // we stuff it at the input manager level because if you spam the button our gamestate tries 
+        // and fails to skip multiple scenes. 
+        // Location changes instantly, but the scene load can't keep up 
+        if(gameState.currentLocation == Location.INTRO_CUTSCENE) {
+            processInputForCutscene(action);
+            return;
+        }
+        if(gameState.currentLocation == Location.POST_COMBAT) {
+            processInputSimple(action, filterHoverablesByHoverableType(HoverableType.PostCombat, allHoverables));
+            return;
+        }
+        if(gameState.currentLocation == Location.MAIN_MENU || gameState.currentLocation == Location.TEAM_SIGNING || gameState.currentLocation == Location.TUTORIAL || gameState.currentLocation == Location.SHOP_TUTORIAL) { 
+            processInputSimple(action);
+            return;
+        }
+        if(gameState.activeEncounter.GetValue().getEncounterType() == EncounterType.Shop) {
+            processInputForShop(action);
+            return;
+        } else if (gameState.activeEncounter.GetValue().getEncounterType() == EncounterType.Enemy) {
+            processInputForCombat(action);
+            return;
+        } 
+        Debug.LogError("Couldn't find which state to route input to");
     }
 }
