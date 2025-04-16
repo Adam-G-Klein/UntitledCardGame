@@ -723,3 +723,19 @@
 .main-menu-button:active {
     -unity-background-image-tint-color: rgb(135, 135, 135);
 }
+
+.main-menu-button:focus {
+    -unity-background-image-tint-color: rgb(202, 202, 202);
+}
+
+.unity-slider:focus .unity-base-slider__dragger {
+    background-color: rgb(0, 0, 0);
+}
+
+.options-button:focus {
+    width: 40%;
+    font-size: 18px;
+    color: rgb(0, 0, 0);
+    background-image: none;
+    background-color: rgba(0, 0, 0, 0.43);
+}
