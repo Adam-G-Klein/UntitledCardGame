@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RP_Declutter
   m_EditorClassIdentifier: 
   Name: Declutter
-  Description: Discard 1 card in hand. Gain 1 energy.
+  Description: 'Gain 1 energy. Discard 1 card in hand. '
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: c0e53d043957bac4c8fb2528ecd0a1b9, type: 3}
@@ -68,6 +68,24 @@ MonoBehaviour:
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
+        - rid: 2034230108114649756
+        - rid: 7401433241610878979
+        - rid: 7401433241610878980
         - rid: 4463205916933357570
         - rid: 2034230108114649717
-        - rid: 2034230108114649756
+    - rid: 7401433241610878979
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: allothers
+        validTargets: 03000000
+        number: 1
+        specialTargetRule: 2
+        cantCancelTargetting: 0
+    - rid: 7401433241610878980
+      type: {class: EndWorkflowIfListEmpty, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfListEmpty
+        inputKey1: allothers

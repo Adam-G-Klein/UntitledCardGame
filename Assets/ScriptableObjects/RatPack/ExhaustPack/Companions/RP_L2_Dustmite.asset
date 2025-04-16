@@ -40,10 +40,11 @@ MonoBehaviour:
     lines:
     - title: Level Two Dustmite
       description: Whenever you exhaust a card, the parent companion gains 2 block
+        and Dustmite gains 2 block
       relatedBehaviorIndex: 0
   keepsakeTitle: 
   keepsakeDescription: Whenever you exhaust a card, the parent companion gains 2
-    block
+    block and Dustmite gains 2 block
   references:
     version: 2
     RefIds:
@@ -54,6 +55,10 @@ MonoBehaviour:
         effectSteps:
         - rid: 2034230017118175401
         - rid: 2034230017118175402
+        - rid: 7401433241610878984
+        - rid: 7401433241610878981
+        - rid: 7401433241610878982
+        - rid: 7401433241610878983
     - rid: 2034230017118175401
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
@@ -71,3 +76,36 @@ MonoBehaviour:
         inputKey: companionExhaustedFrom
         prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
         scale: 1
+    - rid: 7401433241610878981
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 7401433241610878982
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: self
+        statusEffect: 2
+        scale: 2
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+    - rid: 7401433241610878983
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
+        scale: 1
+    - rid: 7401433241610878984
+      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: WaitForSecondsEffect
+        seconds: 0.2

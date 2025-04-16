@@ -39,11 +39,11 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Level Three Dustmite
-      description: Whenever you exhaust a card, Dustmite++ gains 2 block and the
+      description: Whenever you exhaust a card, Dustmite++ gains 3 block and the
         card's parent companion gains 2 block
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: Whenever you exhaust a card, Dustmite++ gains 2 block and
+  keepsakeDescription: Whenever you exhaust a card, Dustmite++ gains 3 block and
     the card's parent companion gains 2 block
   references:
     version: 2
@@ -76,7 +76,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: self
         statusEffect: 2
-        scale: 2
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
@@ -108,4 +108,4 @@ MonoBehaviour:
       type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: WaitForSecondsEffect
-        seconds: 0.3
+        seconds: 0.2
