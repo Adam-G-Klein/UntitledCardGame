@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 
 public static class VisualElementExtensions
 {
-    public static IFocusableTarget AsFocusable(this VisualElement element)
+    public static VisualElementFocusable AsFocusable(this VisualElement element)
     {
         return new VisualElementFocusable(element);
     }

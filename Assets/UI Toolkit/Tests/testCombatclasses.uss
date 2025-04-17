@@ -104,9 +104,6 @@
 .unity-label {
 }
 
-.unity-text-element {
-}
-
 .pillar-hover-box {
     flex-grow: 0;
     position: absolute;
@@ -184,4 +181,8 @@
     flex-direction: row;
     justify-content: center;
     flex-grow: 1;
+}
+
+.end-turn-button:focus {
+    background-color: rgb(126, 126, 126);
 }

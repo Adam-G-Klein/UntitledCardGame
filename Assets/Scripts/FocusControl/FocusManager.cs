@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
+using System;
 
 public class FocusManager : GenericSingleton<FocusManager>, IControlsReceiver
 {
     private List<IFocusableTarget> focusableTargets = new List<IFocusableTarget>();
+    private Dictionary<string, List<IFocusableTarget>> stashedFocusables = new Dictionary<string, List<IFocusableTarget>>();
     private HashSet<IFocusableTarget> disabledFocusableTargets = new HashSet<IFocusableTarget>();
     private IFocusableTarget currentFocus = null;
 
     // Own script's internal setup
     void Awake() {
-
     }
 
     void Start() {
@@ -37,6 +39,7 @@ public class FocusManager : GenericSingleton<FocusManager>, IControlsReceiver
 
     public void UnregisterFocusableTarget(IFocusableTarget target) {
         focusableTargets.Remove(target);
+        disabledFocusableTargets.Remove(target);
         if (target == currentFocus) {
             currentFocus.Unfocus();
         }
@@ -47,11 +50,45 @@ public class FocusManager : GenericSingleton<FocusManager>, IControlsReceiver
         if (target.Equals(currentFocus)) {
             Debug.Log("Disabling current focus target");
             currentFocus.Unfocus();
+            currentFocus = null;
         }
     }
 
     public void EnableFocusableTarget(IFocusableTarget target) {
         disabledFocusableTargets.Remove(target);
+    }
+
+    public void StashFocusables(string stashedBy) {
+        List<IFocusableTarget> newStashedFocusables = new List<IFocusableTarget>();
+        foreach (IFocusableTarget target in focusableTargets) {
+            if (!disabledFocusableTargets.Contains(target)) {
+                newStashedFocusables.Add(target);
+                disabledFocusableTargets.Add(target);
+                if (target.Equals(currentFocus)) {
+                    Debug.Log("Disabling current focus target");
+                    currentFocus.Unfocus();
+                    currentFocus = null;
+                }
+            }
+        }
+        stashedFocusables[stashedBy] = newStashedFocusables;
+    }
+
+    public void UnstashFocusables(string stashedBy) {
+        if (!stashedFocusables.ContainsKey(stashedBy)) {
+            Debug.LogError("No key found to unstash focusables: " + stashedBy);
+            return;
+        }
+
+        Debug.Log(disabledFocusableTargets.Count);
+        List<IFocusableTarget> focusablesToUnstash = stashedFocusables[stashedBy];
+        foreach (IFocusableTarget target in focusablesToUnstash) {
+            if (disabledFocusableTargets.Contains(target)) {
+                disabledFocusableTargets.Remove(target);
+            }
+        }
+        Debug.Log(disabledFocusableTargets.Count);
+        stashedFocusables.Remove(stashedBy);
     }
 
     public void SetFocus(IFocusableTarget target) {
@@ -127,6 +164,7 @@ public class FocusManager : GenericSingleton<FocusManager>, IControlsReceiver
         if (FocusableProcessedAction(action)) return;
 
         if (currentFocus == null) {
+            Debug.Log("Focusing first focusable");
             foreach (IFocusableTarget target in focusableTargets) {
                 if (!disabledFocusableTargets.Contains(target)) {
                     currentFocus = target;
@@ -165,6 +203,11 @@ public class FocusManager : GenericSingleton<FocusManager>, IControlsReceiver
         foreach (var el in root.Query<VisualElement>(className: "focusable").ToList())
         {
             RegisterFocusableTarget(el.AsFocusable());
+            // This prevents UI elements from being focused by clicking on them
+            // It's beahvior I don't think we want to have.
+            el.RegisterCallback<PointerDownEvent>(evt => {
+                evt.PreventDefault();
+            });
         }
     }
 
@@ -189,6 +232,14 @@ public class FocusManager : GenericSingleton<FocusManager>, IControlsReceiver
         foreach (var el in root.Query<VisualElement>(className: "focusable").ToList())
         {
             EnableFocusableTarget(el.AsFocusable());
+        }
+    }
+
+    public void SwappedControlMethod(ControlsManager.ControlMethod controlMethod)
+    {
+        if (controlMethod == ControlsManager.ControlMethod.Mouse) {
+            currentFocus.Unfocus();
+            currentFocus = null;
         }
     }
 }

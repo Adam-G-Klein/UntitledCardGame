@@ -31,18 +31,22 @@ public class UIDocNextTutorialButtonController : MonoBehaviour {
         // make sure we get pointer events on this region of the screen
         nextTutorialElement.pickingMode = PickingMode.Position;
 
-        nextTutorialElement.RegisterCallback<ClickEvent>((evt) => {
-            NextTutorialElementButtonHandler();
-        });
+        // nextTutorialElement.RegisterCallback<ClickEvent>((evt) => {
+        //     NextTutorialElementButtonHandler();
+        // });
+        VisualElementUtils.RegisterSelected(nextTutorialElement, NextTutorialElementButtonHandler);
 
         backTutorialElement = screenspaceDoc.GetVisualElement("back");
         backTutorialElement.AddToClassList("tutorial-button-disabled");
         backTutorialElement.pickingMode = PickingMode.Position;
-        backTutorialElement.RegisterCallback<ClickEvent>((evt) => {
-            BackTutorialElementButtonHandler();
-        });
-        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(backTutorialElement, BackTutorialElementButtonHandler);
-        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(nextTutorialElement, NextTutorialElementButtonHandler);
+        // backTutorialElement.RegisterCallback<ClickEvent>((evt) => {
+        //     BackTutorialElementButtonHandler();
+        // });
+        VisualElementUtils.RegisterSelected(backTutorialElement, BackTutorialElementButtonHandler);
+
+        FocusManager.Instance.RegisterFocusableTarget(nextTutorialElement.AsFocusable());
+        FocusManager.Instance.RegisterFocusableTarget(backTutorialElement.AsFocusable());
+        FocusManager.Instance.SetFocus(nextTutorialElement.AsFocusable());
         yield return null;
     }
 

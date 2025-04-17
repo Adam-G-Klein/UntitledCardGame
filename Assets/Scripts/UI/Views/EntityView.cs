@@ -9,6 +9,7 @@ using UnityEngine.UIElements;
 
 public class EntityView : IUIEventReceiver {
     public VisualElement entityContainer;
+    public VisualElement focusableElement;
     public IEntityViewDelegate viewDelegate;
 
     public static string STATUS_EFFECTS_CONTAINER_SUFFIX = "-status-effects";
@@ -99,8 +100,11 @@ public class EntityView : IUIEventReceiver {
     private VisualElement setupEntity(IUIEntity entity, int index, bool isEnemy, bool isCompanionManagementView) {
         var pillar = new VisualElement();
         this.pillar = pillar;
+        pillar.focusable = true;
         pillar.AddToClassList("entity-pillar");
         pillar.AddToClassList("entity-pillar-sizing");
+        pillar.AddToClassList("focusable");
+        focusableElement = pillar;
 
         pillar.RegisterCallback<ClickEvent>(EntityOnPointerClick);
         pillar.RegisterCallback<PointerEnterEvent>(EntityOnPointerEnter);

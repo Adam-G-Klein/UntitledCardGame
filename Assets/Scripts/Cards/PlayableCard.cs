@@ -60,6 +60,10 @@ public class PlayableCard : MonoBehaviour,
         hoverable = GetComponent<Hoverable>();
     }
 
+    public void OnPointerClickVoid() {
+        OnPointerClick(null);
+    }
+
     public void OnPointerClick(PointerEventData eventData)
     {
         Debug.Log("Card clicked");
@@ -255,6 +259,10 @@ public class PlayableCard : MonoBehaviour,
     // be needed for UI effects in the future
     public void OnDrag(PointerEventData eventData) { }
 
+    public void OnPointerEnterVoid() {
+        OnPointerEnter(null);
+    }
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         if(!interactable || EnemyEncounterManager.Instance.GetCastingCard() || !PlayerHand.Instance.GetCanPlayCards()) return;
@@ -275,6 +283,10 @@ public class PlayableCard : MonoBehaviour,
             .setEase(LeanTweenType.easeOutQuint);
         LeanTween.moveLocal(gameObject, new Vector3(0, hoverYOffset, hoverZOffset), hoverAnimationTime)
             .setEase(LeanTweenType.easeOutQuint);
+    }
+
+    public void OnPointerExitVoid() {
+        OnPointerExit(null);
     }
 
     public void OnPointerExit(PointerEventData eventData)

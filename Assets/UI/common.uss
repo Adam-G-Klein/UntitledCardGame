@@ -585,12 +585,7 @@
 }
 
 .compendium-button {
-    width: 8%;
-    height: 50%;
-    font-size: 25px;
-}
-
-.compendium-button {
+    font-size: 23px;
 }
 
 .compendium-card-row-element {
@@ -738,4 +733,8 @@
     color: rgb(0, 0, 0);
     background-image: none;
     background-color: rgba(0, 0, 0, 0.43);
+}
+
+.compendium-button:focus {
+    background-color: rgb(118, 118, 118);
 }

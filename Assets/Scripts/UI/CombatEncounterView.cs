@@ -77,6 +77,7 @@ public class CombatEncounterView : MonoBehaviour,
         setupEntities(companionContainer, companions.Cast<IUIEntity>(), false);
         UIDocumentUtils.SetAllPickingMode(enemyContainer, PickingMode.Ignore);
         UIDocumentUtils.SetAllPickingMode(companionContainer, PickingMode.Ignore);
+        FocusManager.Instance.RegisterFocusables(GetComponent<UIDocument>());
     }
 
     public void UpdateView() {

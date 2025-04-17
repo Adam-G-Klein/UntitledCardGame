@@ -35,6 +35,7 @@ public class GameObjectFocusable : MonoBehaviour, IFocusableTarget
         return false;
     }
 
+    [System.Serializable]
     public class GFGInputActionEvent {
         public GFGInputAction action;
         public UnityEvent unityEvent;

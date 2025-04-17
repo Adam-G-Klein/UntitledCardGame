@@ -19,7 +19,11 @@ public enum GFGInputAction {
     OPEN_COMPANION_4_DRAW,
     OPEN_COMPANION_5_DRAW,
     NONE, // used for the controller mapping of the stick being in the center of its range
-    CUTSCENE_SKIP
+    CUTSCENE_SKIP,
+    SECONDARY_UP,
+    SECONDARY_DOWN,
+    SECONDARY_RIGHT,
+    SECONDARY_LEFT
 }
 
 public enum InputMethod {
@@ -769,5 +773,10 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager>, ICon
             return;
         } 
         Debug.LogError("Couldn't find which state to route input to");
+    }
+
+    public void SwappedControlMethod(ControlsManager.ControlMethod controlMethod)
+    {
+        throw new NotImplementedException();
     }
 }

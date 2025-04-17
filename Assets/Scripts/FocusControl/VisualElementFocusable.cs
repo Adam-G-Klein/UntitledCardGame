@@ -4,6 +4,8 @@ using UnityEngine.UIElements;
 
 public class VisualElementFocusable : IFocusableTarget
 {
+    public Action additionalFocusAction = null;
+    public Action additionalUnfocusAction = null;
     private VisualElement element;
     private Dictionary<GFGInputAction, Action> actionMap;
 
@@ -30,11 +32,13 @@ public class VisualElementFocusable : IFocusableTarget
     public void Focus()
     {
         element.Focus();
+        additionalFocusAction?.Invoke();
     }
 
     public void Unfocus()
     {
         element.Blur();
+        additionalUnfocusAction?.Invoke();
     }
 
     // Returning true means the input was successfully processed

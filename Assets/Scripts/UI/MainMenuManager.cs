@@ -68,15 +68,8 @@ public class MainMenuManager : MonoBehaviour
         if (optionsUIPrefab == null) {
             optionsUIPrefab = GameObject.FindGameObjectWithTag("OptionsViewCanvas");
         }
-        FocusManager.Instance.DisableFocusables(mainMenuUIDocument);
         OptionsViewController optionsViewController = optionsUIPrefab.GetComponent<OptionsViewController>();
-        optionsViewController.RegisterOnExitHandler(EnableFocusables);
         optionsViewController.ToggleVisibility(true);
-    }
-
-    private void EnableFocusables() {
-        FocusManager.Instance.EnableFocusables(mainMenuUIDocument);
-        FocusManager.Instance.SetFocusNextFrame(startButton.AsFocusable());
     }
 
     public void exitButtonHandler() {

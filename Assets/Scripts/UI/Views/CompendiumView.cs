@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using System.Collections;
 using UnityEngine.UIElements;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -9,7 +10,7 @@ using System.Linq;
 
 // This class isn't expected to have a delegate view or delegate controller because it'll be wrapped
 // by one that does
-public class CompendiumView : MonoBehaviour {
+public class CompendiumView : MonoBehaviour, IControlsReceiver {
     public VisualElement compendiumContainer;
     private UIDocument uiDocument;
     private CompendiumType currentCompendiumView = CompendiumType.CARD;
@@ -26,6 +27,7 @@ public class CompendiumView : MonoBehaviour {
     private GameObject tooltipPrefab;
 
     public CompendiumView(UIDocument uiDocument, CompanionPoolSO companionPool, CardPoolSO neutralCardPool, GameObject tooltipPrefab) {
+        FocusManager.Instance.StashFocusables(this.GetType().Name);
         this.uiDocument = uiDocument;
         this.tooltipPrefab = tooltipPrefab;
         cardsScrollView = uiDocument.rootVisualElement.Q<ScrollView>("compendium-cards-scrollView");
@@ -41,6 +43,14 @@ public class CompendiumView : MonoBehaviour {
         uiDocument.rootVisualElement.Q<Button>("cardButton").clicked += CardButtonHandler;
         uiDocument.rootVisualElement.Q<Button>("companionButton").clicked += CompanionButtonHandler;
         uiDocument.rootVisualElement.Q<Button>("enemyButton").clicked += EnemyButtonHandler;
+
+        FocusManager.Instance.RegisterFocusables(uiDocument);
+        uiDocument.StartCoroutine(RegisterControlsReceiverAtEndOfFrame());
+    }
+
+    private IEnumerator RegisterControlsReceiverAtEndOfFrame() {
+        yield return new WaitForEndOfFrame();
+        ControlsManager.Instance.RegisterControlsReceiver(this);
     }
 
     private void EnemyButtonHandler()
@@ -52,16 +62,23 @@ public class CompendiumView : MonoBehaviour {
     {
         cardsScrollView.style.display = DisplayStyle.None;
         companionScrollView.style.display = DisplayStyle.Flex;
+        EnableCompanionFocusables();
+        ResetScrollers();
     }
 
     private void CardButtonHandler()
     {
+        DisableCompanionFocusables();
         cardsScrollView.style.display = DisplayStyle.Flex;
         companionScrollView.style.display = DisplayStyle.None;
+        ResetScrollers();
     }
 
-    private void ExitButtonHandler() {
+    public void ExitButtonHandler() {
         uiDocument.rootVisualElement.style.visibility = Visibility.Hidden;
+        FocusManager.Instance.UnregisterFocusables(uiDocument);
+        FocusManager.Instance.UnstashFocusables(this.GetType().Name);
+        ControlsManager.Instance.UnregisterControlsReceiver(this);
     }
 
     private void SetupCardView(CompanionPoolSO companionPool,CardPoolSO neutralCardPool) {
@@ -147,11 +164,16 @@ public class CompendiumView : MonoBehaviour {
                 });
                 entityView.entityContainer.RegisterCallback<PointerLeaveEvent>((evt) => {
                     DestroyTooltip(entityView.entityContainer);
-                });        
+                });
+                VisualElementFocusable entityViewFocusable = entityView.focusableElement.AsFocusable();
+                entityViewFocusable.additionalFocusAction = () => {DisplayTooltip(entityView.entityContainer, companionToDisplay.companionType.tooltip);};
+                entityViewFocusable.additionalUnfocusAction = () => {DestroyTooltip(entityView.entityContainer);};
+                FocusManager.Instance.RegisterFocusableTarget(entityViewFocusable);
             };
             companionsSection.Add(companionRow);
         }
         companionScrollView.Add(companionsSection);
+        DisableCompanionFocusables();
         companionScrollView.style.display = DisplayStyle.None; 
     }
 
@@ -176,5 +198,47 @@ public class CompendiumView : MonoBehaviour {
             Destroy(tooltipMap[element.name]);
             tooltipMap.Remove(element.name);
         }
+    }
+
+    private void DisableCompanionFocusables() {
+        foreach (VisualElement ve in companionScrollView.Query<VisualElement>(className:"focusable").ToList()) {
+            FocusManager.Instance.DisableFocusableTarget(ve.AsFocusable());
+        }
+    }
+
+    private void EnableCompanionFocusables() {
+        foreach (VisualElement ve in companionScrollView.Query<VisualElement>(className:"focusable").ToList()) {
+            FocusManager.Instance.EnableFocusableTarget(ve.AsFocusable());
+        }
+    }
+
+    public void ProcessGFGInputAction(GFGInputAction action)
+    {
+        switch (action) {
+            case GFGInputAction.SECONDARY_UP:
+                ScrollScroller(cardsScrollView, -0.1f);
+                ScrollScroller(companionScrollView, -0.1f);
+            break;
+
+            case GFGInputAction.SECONDARY_DOWN:
+                ScrollScroller(cardsScrollView, 0.1f);
+                ScrollScroller(companionScrollView, 0.1f);
+            break;
+        }
+    }
+
+    private void ScrollScroller(ScrollView scrollView, float amount) {
+        Scroller scroller = scrollView.verticalScroller;
+        scroller.value += amount * (scroller.highValue-scroller.lowValue);
+    }
+
+    private void ResetScrollers() {
+        cardsScrollView.verticalScroller.value = cardsScrollView.verticalScroller.lowValue;
+        companionScrollView.verticalScroller.value = companionScrollView.verticalScroller.lowValue;
+    }
+
+    public void SwappedControlMethod(ControlsManager.ControlMethod controlMethod)
+    {
+        return;
     }
 }
