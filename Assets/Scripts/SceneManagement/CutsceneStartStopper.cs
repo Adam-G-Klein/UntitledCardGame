@@ -29,14 +29,14 @@ public class CutsceneStartStopper : GenericSingleton<CutsceneStartStopper>, ICon
     }
 
     void Update() {
-        if (Input.GetMouseButtonDown(0) 
-            || Input.GetKeyDown(KeyCode.Space) 
-            || Input.GetKeyDown(KeyCode.Return)
-            ) {
-            if (isStopped) {
-                playableDirector.Play();
-            }
-        }
+        // if (Input.GetMouseButtonDown(0) 
+        //     || Input.GetKeyDown(KeyCode.Space) 
+        //     || Input.GetKeyDown(KeyCode.Return)
+        //     ) {
+        //     if (isStopped) {
+        //         playableDirector.Play();
+        //     }
+        // }
     }
 
     public void StopTimeline() {
@@ -50,8 +50,6 @@ public class CutsceneStartStopper : GenericSingleton<CutsceneStartStopper>, ICon
             if (isStopped) {
                 playableDirector.Play();
             }
-        } else if (action == GFGInputAction.CUTSCENE_SKIP) {
-            gameState.LoadNextLocation();
         }
     }
 

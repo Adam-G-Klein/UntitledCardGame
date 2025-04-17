@@ -56,11 +56,11 @@ public class TeamSelectionUI : MonoBehaviour
 
         var next = root.Q<UnityEngine.UIElements.Button>("Next");
         UIDocumentUtils.SetAllPickingMode(root, PickingMode.Position);
-        next.RegisterCallback<ClickEvent>((evt) => initializeRun());
+        next.RegisterOnSelected(() => initializeRun());
+        FocusManager.Instance.RegisterFocusableTarget(next.AsFocusable());
     }
 
     private void updateState() {
-        UIDocumentHoverableInstantiator.Instance.CleanupAllHoverables();
         // destroy all tooltips
         foreach (var tooltip in tooltipMap.Values) {
             Destroy(tooltip);
@@ -69,13 +69,8 @@ public class TeamSelectionUI : MonoBehaviour
         makeInfoView(root.Q<VisualElement>("InfoContainer"), team1ActiveCompanions.GetCompanionTypes()[currentlySelectedCompanion]);
         docRenderer.SetStateDirty();
         root = GetComponent<UIDocument>().rootVisualElement;
-
-        var next = root.Q<UnityEngine.UIElements.Button>("Next");
-        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(next, 
-            () => {initializeRun();}
-        );
-        
     }
+
     public void initializeRun()
     {
         gameState.companions.activeCompanions = new List<Companion>();
@@ -98,9 +93,11 @@ public class TeamSelectionUI : MonoBehaviour
         }
         container.AddToClassList("companion-portraits-container");
     }
+
     private VisualElement makeCharacterView(CompanionTypeSO companionType) {
         var container = new VisualElement();
         container.AddToClassList("companion-info-container");
+        container.MakeFocusable();
 
         Debug.Log("Making companion view on team signing page");
         container.AddManipulator(new Clickable(evt => companionClicked(companionType)));
@@ -111,13 +108,12 @@ public class TeamSelectionUI : MonoBehaviour
 
         container.RegisterCallback<PointerEnterEvent>(PointerEnter);
         container.RegisterCallback<PointerLeaveEvent>(PointerLeave);
-        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(container, 
-            () => {companionClicked(companionType);}, 
-            () => {PointerEnter(null);}, 
-            () => {PointerLeave(null);},
-            HoverableType.DefaultCombat,
-            companionType
-        );
+        container.RegisterOnSelected(() => companionClicked(companionType));
+
+        VisualElementFocusable containerFocusable = container.AsFocusable();
+        containerFocusable.additionalFocusAction += () => PointerEnter(container.CreateFakePointerEnterEvent());
+        containerFocusable.additionalUnfocusAction += () => PointerLeave(container.CreateFakePointerLeaveEvent());
+        FocusManager.Instance.RegisterFocusableTarget(containerFocusable);
 
         var name = new Label();
         name.text = companionType.companionName;
@@ -132,19 +128,12 @@ public class TeamSelectionUI : MonoBehaviour
 
         companionMap[container.name] = companionType;
 
-        /*var archetype = new Label();
-        archetype.AddToClassList("companion-title-label");
-        archetype.text = companionType.keepsakeTitle;
-        container.Add(archetype);*/
-
         contentToRedraw.Add(container);
         return container;
     }
 
     private void makeInfoView(VisualElement container, CompanionTypeSO companionType)
     {
-        //VisualElement keepImg = container.Q<VisualElement>("KeepsakeImage");
-        //keepImg.style.backgroundImage = new StyleBackground(companionType.keepsake);
         container.Q<Label>("keepsakeName").text = "Companion Ability";
         container.Q<Label>("keepsakeDesc").text = companionType.keepsakeDescription;
 
@@ -156,6 +145,13 @@ public class TeamSelectionUI : MonoBehaviour
             cardView.AddToClassList("team-signing-card-container");
             cardView.RegisterCallback<PointerEnterEvent>(PointerEnter);
             cardView.RegisterCallback<PointerLeaveEvent>(PointerLeave);
+
+            cardView.MakeFocusable();
+            VisualElementFocusable cardViewFocusable = cardView.AsFocusable();
+            cardViewFocusable.additionalFocusAction += () => PointerEnter(cardView.CreateFakePointerEnterEvent());
+            cardViewFocusable.additionalUnfocusAction += () => PointerLeave(cardView.CreateFakePointerLeaveEvent());
+            FocusManager.Instance.RegisterFocusableTarget(cardViewFocusable);
+
             cardView.name = card.name + i;
             cards.Add(cardView);
             contentToRedraw.Add(cardView);
@@ -164,13 +160,7 @@ public class TeamSelectionUI : MonoBehaviour
     }
 
     private void PointerEnter(PointerEnterEvent evt) {
-        VisualElement VE;
-        if(NonMouseInputManager.Instance.inputMethod == InputMethod.Mouse) {
-            VE = evt.target as VisualElement;
-        } else {
-            VE = NonMouseInputManager.Instance.currentlyHovered.associatedUIDocElement;
-        }
-
+        VisualElement VE = evt.target as VisualElement;
         bool isCompanion = companionMap.ContainsKey(VE.name);
         if (!isCompanion && cardTypeMap[VE.name].tooltips.Count == 0) return;
         if (tooltipMap.ContainsKey(VE.name)) return;
@@ -195,12 +185,7 @@ public class TeamSelectionUI : MonoBehaviour
     }
 
     private void PointerLeave(PointerLeaveEvent evt) {
-        VisualElement VE;
-        if(NonMouseInputManager.Instance.inputMethod == InputMethod.Mouse) {
-            VE = evt.target as VisualElement;
-        } else {
-            VE = NonMouseInputManager.Instance.currentlyHovered.associatedUIDocElement;
-        }
+        VisualElement VE = evt.target as VisualElement;
         if (tooltipMap.ContainsKey(VE.name)) {
             Destroy(tooltipMap[VE.name]);
             tooltipMap.Remove(VE.name);
@@ -240,6 +225,7 @@ public class TeamSelectionUI : MonoBehaviour
         Debug.Log("companion clicked on team selection screen");
         foreach (VisualElement content in contentToRedraw) {
             content.RemoveFromHierarchy();
+            FocusManager.Instance.UnregisterFocusableTarget(content.AsFocusable());
         }
         currentlySelectedCompanion = team1ActiveCompanions.GetCompanionTypes().IndexOf(companionType);
         updateState();

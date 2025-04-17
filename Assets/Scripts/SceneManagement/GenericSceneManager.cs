@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GenericSceneManager : MonoBehaviour
+public class GenericSceneManager : MonoBehaviour, IControlsReceiver
 {
     public GameStateVariableSO gameState;
 
@@ -15,6 +15,10 @@ public class GenericSceneManager : MonoBehaviour
 
     private int skipCounter = 0;
 
+    public void Start() {
+        ControlsManager.Instance.RegisterControlsReceiver(this);
+    }
+
     public void Update() {
         if (allowProgressingGameState && Input.GetMouseButtonDown(0)) {
             // StartCoroutine(ShowSkipTooltip());
@@ -25,10 +29,6 @@ public class GenericSceneManager : MonoBehaviour
             } else {
                 skipCounter += 1;
             }
-        }
-
-        if (allowProgressingGameState && Input.GetKeyDown(KeyCode.J)) {
-            ContinueGameState();
         }
     }
 
@@ -55,5 +55,17 @@ public class GenericSceneManager : MonoBehaviour
         skipTooltip.SetActive(false);
 
         showingSkipTooltipAlready = false;
+    }
+
+    public void ProcessGFGInputAction(GFGInputAction action)
+    {
+        if (allowProgressingGameState && action == GFGInputAction.CUTSCENE_SKIP) {
+            ContinueGameState();
+        }
+    }
+
+    public void SwappedControlMethod(ControlsManager.ControlMethod controlMethod)
+    {
+        return;
     }
 }
