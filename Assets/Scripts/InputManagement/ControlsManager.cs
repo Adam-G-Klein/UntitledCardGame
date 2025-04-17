@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class ControlsManager : GenericSingleton<ControlsManager>
 {
     private List<IControlsReceiver> controlsReceivers;
+    private ControlMethod controlMethod = ControlMethod.Mouse;
 
     void Awake() {
         controlsReceivers = new List<IControlsReceiver>();
@@ -13,9 +14,20 @@ public class ControlsManager : GenericSingleton<ControlsManager>
 
     void Start() {}
 
+    void Update() {
+        if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0) {
+            CheckSwapControlMethod(ControlMethod.Mouse);
+        }
+    }
+
     public void RegisterControlsReceiver(IControlsReceiver controlsReceiver) {
         controlsReceivers.Add(controlsReceiver);
     }
+
+    public void UnregisterControlsReceiver(IControlsReceiver controlsReceiver) {
+        controlsReceivers.Remove(controlsReceiver);
+    }
+
 
     public void handleSelect(InputAction.CallbackContext context) {
         if(context.phase == InputActionPhase.Performed) {
@@ -65,9 +77,64 @@ public class ControlsManager : GenericSingleton<ControlsManager>
         }
     }
 
+    public void handleSecondaryNavigateUp(InputAction.CallbackContext context) {
+        if(context.phase == InputActionPhase.Performed) {
+            Debug.Log("[ControlsManager] handleSecondaryNavigateUp called");
+            ProcessInput(GFGInputAction.SECONDARY_UP);
+        }
+    }
+
+    public void handleSecondaryNavigateDown(InputAction.CallbackContext context) {
+        if(context.phase == InputActionPhase.Performed) {
+            Debug.Log("[ControlsManager] handleSecondaryNavigateDown called");
+            ProcessInput(GFGInputAction.SECONDARY_DOWN);
+        }
+    }
+
+    public void handleSecondaryNavigateLeft(InputAction.CallbackContext context) {
+        if(context.phase == InputActionPhase.Performed) {
+            Debug.Log("[ControlsManager] handleSecondaryNavigateLeft called");
+            ProcessInput(GFGInputAction.SECONDARY_LEFT);
+        }
+    }
+
+    public void handleSecondaryNavigateRight(InputAction.CallbackContext context) {
+        if(context.phase == InputActionPhase.Performed) {
+            Debug.Log("[ControlsManager] handleSecondaryNavigateRight called");
+            ProcessInput(GFGInputAction.SECONDARY_RIGHT);
+        }
+    }
+
     private void ProcessInput(GFGInputAction action) {
+        CheckSwapControlMethod(ControlMethod.KeyboardController);
         foreach (IControlsReceiver receiver in controlsReceivers) {
             receiver.ProcessGFGInputAction(action);
         }
+    }
+
+    private void CheckSwapControlMethod(ControlMethod newControlMethod) {
+        if (controlMethod == newControlMethod) return;
+
+        // Do something about the control method being swapped
+
+        switch (newControlMethod) {
+            case ControlMethod.KeyboardController:
+                Cursor.visible = false;
+            break;
+
+            case ControlMethod.Mouse:
+                Cursor.visible = true;
+            break;
+        }
+
+        controlMethod = newControlMethod;
+        foreach (IControlsReceiver receiver in controlsReceivers) {
+            receiver.SwappedControlMethod(controlMethod);
+        }
+    }
+
+    public enum ControlMethod {
+        Mouse,
+        KeyboardController
     }
 }

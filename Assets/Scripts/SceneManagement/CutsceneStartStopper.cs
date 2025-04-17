@@ -54,4 +54,9 @@ public class CutsceneStartStopper : GenericSingleton<CutsceneStartStopper>, ICon
             gameState.LoadNextLocation();
         }
     }
+
+    public void SwappedControlMethod(ControlsManager.ControlMethod controlMethod)
+    {
+        return;
+    }
 }

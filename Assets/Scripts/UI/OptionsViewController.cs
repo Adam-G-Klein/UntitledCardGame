@@ -33,8 +33,6 @@ public class OptionsViewController : MonoBehaviour
     [SerializeField]
     private GameObject tooltipPrefab;
 
-    private Action onExitHandler = null;
-
     void Awake() {
         if (instance != null && instance != this) {
             Destroy(this.gameObject);
@@ -74,7 +72,9 @@ public class OptionsViewController : MonoBehaviour
     void Update() {
         // haha gross but lazy bool evaluation is a thing so bite me I guess
         if(Input.GetKeyDown(KeyCode.Escape)) {
+            compendiumView?.ExitButtonHandler();
             ToggleVisibility(optionsUIDocument.rootVisualElement.style.visibility == Visibility.Hidden);
+            // If the player just hits escape with it open, then it breaks focusing unless we do this
         }
     }
 
@@ -90,15 +90,10 @@ public class OptionsViewController : MonoBehaviour
         FocusManager.Instance.RegisterFocusables(optionsUIDocument);
     }
 
-    public void RegisterOnExitHandler(Action action) {
-        onExitHandler += action;
-    }
-
     public void onMainMenuButtonHandler() {
         // Load the main menu scene
         MusicController2.Instance.PrepareForGoingBackToMainMenu();
         UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
-        onExitHandler = null;
         ToggleVisibility();
     }
 
@@ -122,9 +117,6 @@ public class OptionsViewController : MonoBehaviour
     }
 
     private void BackButtonHandler() {
-        Debug.Log("BACK BUTTON HANDLER");
-        onExitHandler.Invoke();
-        onExitHandler = null;
         ToggleVisibility();
     }
 
@@ -134,6 +126,7 @@ public class OptionsViewController : MonoBehaviour
             UIDocumentUtils.SetAllPickingMode(optionsUIDocument.rootVisualElement, PickingMode.Position);
             optionsUIDocument.rootVisualElement.style.visibility = Visibility.Visible;
             // Have to do this each time due to how the options menu persists across scenes
+            FocusManager.Instance.StashFocusables(this.GetType().Name);
             RegisterFocusables();
             FocusManager.Instance.SetFocusNextFrame(backButton.AsFocusable());
         } else {
@@ -142,6 +135,7 @@ public class OptionsViewController : MonoBehaviour
             optionsUIDocument.rootVisualElement.style.visibility = Visibility.Hidden;
             compendiumUIDocument.rootVisualElement.style.visibility = Visibility.Hidden;
             FocusManager.Instance.UnregisterFocusables(optionsUIDocument);
+            FocusManager.Instance.UnstashFocusables(this.GetType().Name);
         }
     }
 
