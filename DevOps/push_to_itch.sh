@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# Check if two arguments are provided
-if [ "$#" -ne 4 ]; then
-    echo "Usage: $0 <mac_zip_build> <windows_zip_build> <path_to_butler_api_key_file> <commit_hash>"
+# Check if four arguments are provided, with an optional fifth
+if [ "$#" -ne 4 && "$#" -ne 5 ]; then
+    echo "Usage: $0 <mac_zip_build> <windows_zip_build> <path_to_butler_api_key_file> <commit_hash> <channel-prefix>"
     exit 1
 fi
 
@@ -10,6 +10,7 @@ MAC_ZIP_PATH="$1"
 WINDOWS_ZIP_PATH="$2"
 BUTLERAPIKEYPATH="$3"
 GIT_COMMIT_HASH="$4"
+CHANNEL_PREFIX="$5"
 
 # Check if the files exist
 if [ ! -f "$MAC_ZIP_PATH" ]; then
@@ -57,9 +58,21 @@ echo "git commit date: $COMMIT_DATE"
 FULL_VERSION="$COMMIT_DATE-$GIT_COMMIT_HASH_SHORT"
 echo "full version str: $FULL_VERSION"
 
-butler push -i "$BUTLERAPIKEYPATH" --userversion="$FULL_VERSION" "$MAC_ZIP_PATH" gofacegames/rite-of-the-dealer:osx-universal
 
-butler push -i "$BUTLERAPIKEYPATH" --userversion="$FULL_VERSION" "$WINDOWS_ZIP_PATH" gofacegames/rite-of-the-dealer:windows
+MAC_CHANNEL="osx-universal"
+WINDOWS_CHANNEL="windows"
+if [ ! -z "$CHANNEL_PREFIX" ]; then
+    echo "channel prefix specified: $CHANNEL_PREFIX"
+    MAC_CHANNEL="$CHANNEL_PREFIX-$MAC_CHANNEL"
+    WINDOWS_CHANNEL="$CHANNEL_PREFIX-$WINDOWS_CHANNEL"
+fi
+
+echo "mac channel: $MAC_CHANNEL"
+echo "windows channel: $WINDOWS_CHANNEL"
+
+butler push -i "$BUTLERAPIKEYPATH" --userversion="$FULL_VERSION" "$MAC_ZIP_PATH" "gofacegames/rite-of-the-dealer:$MAC_CHANNEL"
+
+butler push -i "$BUTLERAPIKEYPATH" --userversion="$FULL_VERSION" "$WINDOWS_ZIP_PATH" "gofacegames/rite-of-the-dealer:$WINDOWS_CHANNEL"
 
 # Exit successfully
 exit 0
