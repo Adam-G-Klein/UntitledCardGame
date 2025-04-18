@@ -133,6 +133,10 @@ public class ControlsManager : GenericSingleton<ControlsManager>
         }
     }
 
+    public ControlMethod GetControlMethod() {
+        return controlMethod;
+    }
+
     public enum ControlMethod {
         Mouse,
         KeyboardController

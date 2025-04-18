@@ -13,6 +13,10 @@ public class FocusManager : GenericSingleton<FocusManager>, IControlsReceiver
     private HashSet<IFocusableTarget> disabledFocusableTargets = new HashSet<IFocusableTarget>();
     private IFocusableTarget currentFocus = null;
 
+    public delegate void FocusableDelegate(IFocusableTarget focusable);
+    public FocusableDelegate onFocusDelegate;
+    public FocusableDelegate onUnfocusDelegate;
+
     // Own script's internal setup
     void Awake() {
     }
@@ -41,7 +45,8 @@ public class FocusManager : GenericSingleton<FocusManager>, IControlsReceiver
         focusableTargets.Remove(target);
         disabledFocusableTargets.Remove(target);
         if (target == currentFocus) {
-            currentFocus.Unfocus();
+            Unfocus();
+            currentFocus = null;
         }
     }
 
@@ -49,7 +54,7 @@ public class FocusManager : GenericSingleton<FocusManager>, IControlsReceiver
         disabledFocusableTargets.Add(target);
         if (target.Equals(currentFocus)) {
             Debug.Log("Disabling current focus target");
-            currentFocus.Unfocus();
+            Unfocus();
             currentFocus = null;
         }
     }
@@ -66,7 +71,7 @@ public class FocusManager : GenericSingleton<FocusManager>, IControlsReceiver
                 disabledFocusableTargets.Add(target);
                 if (target.Equals(currentFocus)) {
                     Debug.Log("Disabling current focus target");
-                    currentFocus.Unfocus();
+                    Unfocus();
                     currentFocus = null;
                 }
             }
@@ -98,7 +103,9 @@ public class FocusManager : GenericSingleton<FocusManager>, IControlsReceiver
     }
 
     public void Unfocus() {
-        if (this.currentFocus != null) this.currentFocus.Unfocus();
+        if (this.currentFocus == null) return;
+        this.currentFocus.Unfocus();
+        onUnfocusDelegate?.Invoke(currentFocus);
     }
 
     public void SetFocusNextFrame(IFocusableTarget target) {
@@ -114,7 +121,7 @@ public class FocusManager : GenericSingleton<FocusManager>, IControlsReceiver
 
     private void MoveFocus(Vector2 direction) {
         Debug.Log("FocusManager MoveFocus " + direction.ToString());
-        Vector2 currentCenter = GetCenterForFocusable(currentFocus);
+        Vector2 currentCenter = currentFocus.GetPosition();
 
         IFocusableTarget best = null;
         float bestScore = float.MaxValue;
@@ -122,7 +129,7 @@ public class FocusManager : GenericSingleton<FocusManager>, IControlsReceiver
         foreach (IFocusableTarget target in focusableTargets) {
             if (target == currentFocus || disabledFocusableTargets.Contains(target)) continue;
 
-            Vector2 candidateCenter = GetCenterForFocusable(target);
+            Vector2 candidateCenter = target.GetPosition();
             Vector2 toCandidate = (candidateCenter - currentCenter).normalized;
 
             float dot = Vector2.Dot(direction, toCandidate);
@@ -142,21 +149,11 @@ public class FocusManager : GenericSingleton<FocusManager>, IControlsReceiver
         }
 
         if (best != null) {
-            currentFocus.Unfocus();
+            Unfocus();
             currentFocus = best;
             currentFocus.Focus();
+            onFocusDelegate?.Invoke(currentFocus);
         }
-    }
-
-    private Vector2 GetCenterForFocusable(IFocusableTarget target) {
-        Vector2 center;
-        if (target is VisualElementFocusable veFocusable) {
-            center = UIDocumentGameObjectPlacer.GetWorldPositionFromElement(veFocusable.GetVisualElement());
-        } else {
-            GameObjectFocusable goFocusable = target as GameObjectFocusable;
-            center = goFocusable.transform.position;
-        }
-        return center;
     }
 
     public void ProcessGFGInputAction(GFGInputAction action)
@@ -164,14 +161,7 @@ public class FocusManager : GenericSingleton<FocusManager>, IControlsReceiver
         if (FocusableProcessedAction(action)) return;
 
         if (currentFocus == null) {
-            Debug.Log("Focusing first focusable");
-            foreach (IFocusableTarget target in focusableTargets) {
-                if (!disabledFocusableTargets.Contains(target)) {
-                    currentFocus = target;
-                    target.Focus();
-                    return;
-                }
-            }
+            FocusFirstEnabledFocusable();
             return;
         }
 
@@ -188,6 +178,18 @@ public class FocusManager : GenericSingleton<FocusManager>, IControlsReceiver
             case GFGInputAction.RIGHT:
                 MoveFocus(Vector2.right); 
                 break;
+        }
+    }
+
+    private void FocusFirstEnabledFocusable() {
+        Debug.Log("Focusing first focusable");
+        foreach (IFocusableTarget target in focusableTargets) {
+            if (!disabledFocusableTargets.Contains(target)) {
+                currentFocus = target;
+                target.Focus();
+                onFocusDelegate?.Invoke(currentFocus);
+                return;
+            }
         }
     }
 
@@ -219,6 +221,13 @@ public class FocusManager : GenericSingleton<FocusManager>, IControlsReceiver
         }
     }
 
+    public void UnregisterFocusables(VisualElement element) {
+        foreach (var el in element.Query<VisualElement>(className: "focusable").ToList())
+        {
+            UnregisterFocusableTarget(el.AsFocusable());
+        }
+    }
+
     public void DisableFocusables(UIDocument uiDoc) {
         VisualElement root = uiDoc.rootVisualElement;
         foreach (var el in root.Query<VisualElement>(className: "focusable").ToList())
@@ -238,8 +247,37 @@ public class FocusManager : GenericSingleton<FocusManager>, IControlsReceiver
     public void SwappedControlMethod(ControlsManager.ControlMethod controlMethod)
     {
         if (controlMethod == ControlsManager.ControlMethod.Mouse) {
-            currentFocus.Unfocus();
+            Unfocus();
             currentFocus = null;
         }
+    }
+
+    // I don't really like this logic living in this class, but I also don't really want
+    // to put it in GetTargets. Idk man :shrug:
+    public void StashFocusablesNotOfTargetType(List<Targetable.TargetType> types, string stashedBy) {
+        List<IFocusableTarget> newStashedFocusables = new List<IFocusableTarget>();
+        foreach (IFocusableTarget focusableTarget in focusableTargets) {
+            Targetable.TargetType focusableTargetType = Targetable.TargetType.None;
+            if (focusableTarget is VisualElementFocusable veFocusable) {
+                focusableTargetType = veFocusable.GetTargetType();
+            } else if (focusableTarget is GameObjectFocusable goFocusable) {
+                focusableTargetType = goFocusable.GetComponent<Targetable>().targetType;
+            }
+
+            if (!types.Contains(focusableTargetType)) {
+                if (!disabledFocusableTargets.Contains(focusableTarget)) {
+                    newStashedFocusables.Add(focusableTarget);
+                    disabledFocusableTargets.Add(focusableTarget);
+                    if (focusableTarget.Equals(currentFocus)) {
+                        Debug.Log("Disabling current focus target");
+                        Unfocus();
+                        currentFocus = null;
+                    }
+                }
+            }
+        }
+        if (ControlsManager.Instance.GetControlMethod() == ControlsManager.ControlMethod.KeyboardController)
+            FocusFirstEnabledFocusable();
+        stashedFocusables[stashedBy] = newStashedFocusables;
     }
 }

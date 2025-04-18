@@ -9,7 +9,7 @@ using UnityEngine.UIElements;
 
 public class EntityView : IUIEventReceiver {
     public VisualElement entityContainer;
-    public VisualElement focusableElement;
+    public VisualElementFocusable elementFocusable;
     public IEntityViewDelegate viewDelegate;
 
     public static string STATUS_EFFECTS_CONTAINER_SUFFIX = "-status-effects";
@@ -104,11 +104,14 @@ public class EntityView : IUIEventReceiver {
         pillar.AddToClassList("entity-pillar");
         pillar.AddToClassList("entity-pillar-sizing");
         pillar.AddToClassList("focusable");
-        focusableElement = pillar;
+        elementFocusable = pillar.AsFocusable();
 
-        pillar.RegisterCallback<ClickEvent>(EntityOnPointerClick);
+        // pillar.RegisterCallback<ClickEvent>(EntityOnPointerClick);
+        pillar.RegisterOnSelected(() => EntityOnPointerClick(null));
         pillar.RegisterCallback<PointerEnterEvent>(EntityOnPointerEnter);
         pillar.RegisterCallback<PointerLeaveEvent>(EntityOnPointerLeave);
+        elementFocusable.additionalFocusAction += () => EntityOnPointerEnter(pillar.CreateFakePointerEnterEvent());
+        elementFocusable.additionalUnfocusAction += () => EntityOnPointerLeave(pillar.CreateFakePointerLeaveEvent());
         pickingModePositionList.Add(pillar);
 
         var pillarContainer = new VisualElement();

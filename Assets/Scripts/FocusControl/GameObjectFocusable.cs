@@ -35,6 +35,10 @@ public class GameObjectFocusable : MonoBehaviour, IFocusableTarget
         return false;
     }
 
+    public Vector2 GetPosition() {
+        return transform.position;
+    }
+
     [System.Serializable]
     public class GFGInputActionEvent {
         public GFGInputAction action;

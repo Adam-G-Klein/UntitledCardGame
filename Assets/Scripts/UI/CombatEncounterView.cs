@@ -71,6 +71,8 @@ public class CombatEncounterView : MonoBehaviour,
     public void ResetEntities(List<CompanionInstance> companions, List<EnemyInstance> enemies) {
         VisualElement enemyContainer = root.Q<VisualElement>("enemyContainer");
         VisualElement companionContainer = root.Q<VisualElement>("companionContainer");
+        FocusManager.Instance.UnregisterFocusables(enemyContainer);
+        FocusManager.Instance.UnregisterFocusables(companionContainer);
         enemyContainer.Clear();
         companionContainer.Clear();
         setupEntities(enemyContainer, enemies.Cast<IUIEntity>(), true);
@@ -110,6 +112,11 @@ public class CombatEncounterView : MonoBehaviour,
         newEntityView.AddDrawDiscardOnHover();
         pickingModePositionList.Add(newEntityView);
         entityViews.Add(newEntityView);
+
+        VisualElementFocusable entityViewFocusable = newEntityView.elementFocusable;
+        entityViewFocusable.SetTargetType(isEnemy ? Targetable.TargetType.Enemy : Targetable.TargetType.Companion);
+        FocusManager.Instance.RegisterFocusableTarget(entityViewFocusable);
+
         return newEntityView.entityContainer;
     }
 

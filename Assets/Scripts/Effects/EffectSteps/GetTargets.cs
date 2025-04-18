@@ -106,14 +106,15 @@ public class GetTargets : EffectStep, IEffectStepCalculation
             TargettingManager.Instance.targetSuppliedHandler += TargetSuppliedHandler;
             TargettingManager.Instance.cancelTargettingHandler += CancelHandler;
             TargettingArrowsController.Instance.createTargettingArrow(validTargets, self);
-            if(NonMouseInputManager.Instance.inputMethod != InputMethod.Mouse) {
-                NonMouseInputManager.Instance.SetValidTargets(validTargets);
-            }
+            // if(NonMouseInputManager.Instance.inputMethod != InputMethod.Mouse) {
+                // NonMouseInputManager.Instance.SetValidTargets(validTargets);
+            // }
+            FocusManager.Instance.StashFocusablesNotOfTargetType(validTargets, this.GetType().Name);
             UIStateManager.Instance.setState(UIState.EFFECT_TARGETTING);
             yield return new WaitUntil(() => targetsList.Count == number);
             TargettingManager.Instance.targetSuppliedHandler -= TargetSuppliedHandler;
             TargettingManager.Instance.cancelTargettingHandler -= CancelHandler;
-
+            FocusManager.Instance.UnstashFocusables(this.GetType().Name);
             AddTargetsToDocument(document);
         }
 
