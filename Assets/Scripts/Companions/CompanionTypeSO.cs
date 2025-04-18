@@ -36,6 +36,9 @@ public class CompanionTypeSO : ScriptableObject
     public GameObject cardIdleVfxPrefab;
     public AudioClip genericCompanionSFX;
     public GameObject genericCompanionVFX;
+
+    public List<CacheConfiguration> cacheValueConfigs;
+
     [Header("Card pool")]
     public CardPoolSO cardPool;
     [Header("Pack card pool - e.g. the discard or health manipulation pack")]

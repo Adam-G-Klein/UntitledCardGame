@@ -26,7 +26,7 @@ public class CompanionInstance : MonoBehaviour, IUIEntity
         this.combatInstance = GetComponent<CombatInstance>();
         this.deckInstance = GetComponent<DeckInstance>();
         // ---- set up the combatInstance, which has all the logic this shares with all companions/enemies ----
-        combatInstance.Setup(companion.combatStats, companion, CombatInstance.CombatInstanceParent.COMPANION, wpve);
+        combatInstance.Setup(companion.combatStats, companion, CombatInstance.CombatInstanceParent.COMPANION, wpve, companion.companionType.cacheValueConfigs);
         Debug.Log("CompanionInstance Start for companion " + companion.id + " initialized with combat stats (health): " + combatInstance.combatStats.getCurrentHealth());
         //combatInstance.genericInteractionSFX = companion.companionType.genericCompanionSFX;
         combatInstance.genericInteractionVFX = companion.companionType.genericCompanionVFX;

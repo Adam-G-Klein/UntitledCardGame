@@ -115,11 +115,11 @@ public class EntityView : IUIEventReceiver {
 
         VisualElement portraitContainer = new();
         portraitContainer.AddToClassList("entity-portrait-container");
-        
+
         VisualElement portrait = new();
         portrait.AddToClassList("entity-portrait");
-        
-        Sprite sprite; 
+
+        Sprite sprite;
         if (entity is Companion companion) {
             sprite = isCompanionManagementView ? companion.companionType.fullSprite : companion.companionType.sprite;
         } else if (entity is CompanionInstance companionInstance) {
@@ -174,8 +174,8 @@ public class EntityView : IUIEventReceiver {
 
         pillar.Add(pillarContainer);
         UpdateWidthAndHeight(isEnemy);
-        
-        
+
+
         return pillar;
     }
 
@@ -202,7 +202,7 @@ public class EntityView : IUIEventReceiver {
             intentImage.style.backgroundImage = new StyleBackground(viewDelegate.GetEnemyIntentImage(enemyInstance.currentIntent.intentType));
             descriptionContainer.Add(intentImage);
         }
-        
+
         return descriptionContainer;
     }
 
@@ -259,23 +259,43 @@ public class EntityView : IUIEventReceiver {
         }
 
         CombatInstance combatInstance = entityInstance.GetCombatInstance();
-        if (combatInstance) {
-            Debug.Log("EntityInstance " + entityInstance.GetName() + " status effects: " + combatInstance.GetDisplayedStatusEffects());
-            foreach (KeyValuePair<StatusEffectType, int> kvp in combatInstance.GetDisplayedStatusEffects()) {
-                var statusEffectTab = new VisualElement();
-                statusEffectTab.AddToClassList("status-tab");
-                Sprite sprite = viewDelegate.GetStatusEffectSprite(kvp.Key);
-                if(sprite == null) {
-                    Debug.LogError("Can't display status, StatusEffectSO does not have an image for " + kvp.Key.ToString());
-                    continue;
-                }
-                statusEffectTab.style.backgroundImage = new StyleBackground(sprite.texture);
-                var statusEffectText = new Label();
-                statusEffectText.text = kvp.Value.ToString();
-                statusEffectText.AddToClassList("status-tab-text");
-                statusEffectTab.Add(statusEffectText);
-                statusEffectsTab.Add(statusEffectTab);
+        if (!combatInstance) {
+            return statusEffectsTab;
+        }
+
+        Debug.Log("EntityInstance " + entityInstance.GetName() + " status effects: " + combatInstance.GetDisplayedStatusEffects());
+        foreach (KeyValuePair<StatusEffectType, int> kvp in combatInstance.GetDisplayedStatusEffects()) {
+            var statusEffectTab = new VisualElement();
+            statusEffectTab.AddToClassList("status-tab");
+            Sprite sprite = viewDelegate.GetStatusEffectSprite(kvp.Key);
+            if(sprite == null) {
+                Debug.LogError("Can't display status, StatusEffectSO does not have an image for " + kvp.Key.ToString());
+                continue;
             }
+            statusEffectTab.style.backgroundImage = new StyleBackground(sprite.texture);
+            var statusEffectText = new Label();
+            statusEffectText.text = kvp.Value.ToString();
+            statusEffectText.AddToClassList("status-tab-text");
+            statusEffectTab.Add(statusEffectText);
+            statusEffectsTab.Add(statusEffectTab);
+        }
+
+        List<DisplayedCacheValue> cacheValues = combatInstance.GetDisplayedCacheValues();
+        Debug.Log("EntityInstance " + entityInstance.GetName() + " cached values: " + cacheValues);
+        foreach (DisplayedCacheValue cacheValue in cacheValues) {
+            var statusEffectTab = new VisualElement();
+            statusEffectTab.AddToClassList("status-tab");
+            Sprite sprite = cacheValue.sprite;
+            if(sprite == null) {
+                Debug.LogError("Can't display cache value does not have an image for key " + cacheValue.key);
+                continue;
+            }
+            statusEffectTab.style.backgroundImage = new StyleBackground(sprite.texture);
+            var statusEffectText = new Label();
+            statusEffectText.text = cacheValue.value.ToString();
+            statusEffectText.AddToClassList("status-tab-text");
+            statusEffectTab.Add(statusEffectText);
+            statusEffectsTab.Add(statusEffectTab);
         }
 
         return statusEffectsTab;
@@ -415,7 +435,7 @@ public class EntityView : IUIEventReceiver {
             combatInstance.GetComponent<Transform>().localScale = originalScale;
             entityContainer.style.scale = new StyleScale(new Scale(originalElementScale));
         }
- 
+
         Transform combatInstanceTransform = combatInstance.GetComponent<Transform>();
 
         originalScale = combatInstanceTransform.localScale;
@@ -429,7 +449,7 @@ public class EntityView : IUIEventReceiver {
 
         float duration = 0.125f;  // Total duration for the scale animation
         float minScale = (float)Math.Min(.75, .9 - scale / 500);  // scale bump increases in intensity if entity takes more damage (haven't extensively tested this)
-        
+
         LeanTween.value(tweenTarget, 1f, minScale, duration)
             .setEase(LeanTweenType.easeInOutQuad)
             .setLoopPingPong(1) // inverse tween is called when this tween completes. On complete below is called after both tweens complete

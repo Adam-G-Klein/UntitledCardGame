@@ -1,8 +1,37 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
 using UnityEngine;
 using UnityEngine.UIElements;
+
+[System.Serializable]
+public class CacheConfiguration {
+    public string key;
+    public bool display = true;
+
+    public Sprite sprite;
+
+    public int startOfTurnValue;
+    public bool setStartOfTurnValue = false;
+
+    public int startOfCombatValue;
+    public bool setStartOfCombatValue = false;
+
+    public DisplayedCacheValue CreateDisplay(int curValue) {
+        DisplayedCacheValue x = new();
+        x.key = key;
+        x.value = curValue;
+        x.sprite = sprite;
+        return x;
+    }
+}
+
+public class DisplayedCacheValue {
+    public string key;
+    public int value;
+    public Sprite sprite;
+}
 
 public class CombatInstance : MonoBehaviour
 {
@@ -53,6 +82,9 @@ public class CombatInstance : MonoBehaviour
     // For example, if an enemy needs to count the number of cards played in
     // a given turn, they can load and store a value here.
     public EffectDocument cachedEffectValues;
+    public List<CacheConfiguration> cacheConfigs = new();
+    TurnPhaseTrigger startOfTurnCacheInit;
+    TurnPhaseTrigger startOfCombatCacheInit;
 
     private WorldPositionVisualElement wpve;
 
@@ -71,7 +103,13 @@ public class CombatInstance : MonoBehaviour
         UpdateView();
     }
 
-    public void Setup(CombatStats combatStats, Entity parentEntity, CombatInstanceParent parentType, WorldPositionVisualElement wpve) {
+    public void Setup(
+        CombatStats combatStats,
+        Entity parentEntity,
+        CombatInstanceParent parentType,
+        WorldPositionVisualElement wpve,
+        List<CacheConfiguration> cacheConfigs = null
+    ) {
         this.combatStats = combatStats;
         this.parentType = parentType;
         this.parentEntity = parentEntity;
@@ -81,6 +119,16 @@ public class CombatInstance : MonoBehaviour
         // Clear out the cached effect values.
         this.cachedEffectValues = new EffectDocument();
         this.statusEffectsDisplay = GetComponent<StatusEffectsDisplay>();
+        if (cacheConfigs != null) {
+            this.cacheConfigs = cacheConfigs;
+        }
+        // Set up turn triggers to store values in the cache effect document at the start of combat
+        // or the start of the turn.
+        startOfCombatCacheInit = new TurnPhaseTrigger(TurnPhase.START_ENCOUNTER, startOfCombatCacheInitCoroutine());
+        TurnManager.Instance.addTurnPhaseTrigger(startOfCombatCacheInit);
+        startOfTurnCacheInit = new TurnPhaseTrigger(TurnPhase.START_PLAYER_TURN, startOfTurnCacheInitCoroutine());
+        TurnManager.Instance.addTurnPhaseTrigger(startOfTurnCacheInit);
+
         statusEffectsDisplay.Setup(this, wpve);
         this.wpve = wpve;
     }
@@ -208,6 +256,11 @@ public class CombatInstance : MonoBehaviour
         string blockerId = Id.newGuid();
         TurnManager.Instance.addTurnPhaseBlocker(blockerId);
         ProcessOnDeathStatusEffects(killer);
+
+        // Remove the turn phase triggers for start of combat and start of turn.
+        TurnManager.Instance.removeTurnPhaseTrigger(startOfCombatCacheInit);
+        TurnManager.Instance.removeTurnPhaseTrigger(startOfTurnCacheInit);
+
         if (onDeathHandler != null) {
             foreach (OnDeathHandler handler in onDeathHandler.GetInvocationList()) {
                 yield return StartCoroutine(handler.Invoke(killer));
@@ -358,6 +411,36 @@ public class CombatInstance : MonoBehaviour
             }
         }
         return displayedStatusEffects;
+    }
+
+    public List<DisplayedCacheValue> GetDisplayedCacheValues() {
+        List<DisplayedCacheValue> displayed = new();
+        foreach (CacheConfiguration cacheConfig in cacheConfigs) {
+            if (!cacheConfig.display) {
+                continue;
+            }
+            int curValue = this.cachedEffectValues.intMap.GetValueOrDefault(cacheConfig.key);
+            displayed.Add(cacheConfig.CreateDisplay(curValue));
+        }
+        return displayed;
+    }
+
+    private IEnumerable startOfCombatCacheInitCoroutine() {
+        foreach (CacheConfiguration config in this.cacheConfigs) {
+            if (config.setStartOfCombatValue) {
+                this.cachedEffectValues.intMap[config.key] = config.startOfCombatValue;
+            }
+        }
+        yield return null;
+    }
+
+    private IEnumerable startOfTurnCacheInitCoroutine() {
+        foreach (CacheConfiguration config in this.cacheConfigs) {
+            if (config.setStartOfTurnValue) {
+                this.cachedEffectValues.intMap[config.key] = config.startOfTurnValue;
+            }
+        }
+        yield return null;
     }
 
     public enum CombatInstanceParent {
