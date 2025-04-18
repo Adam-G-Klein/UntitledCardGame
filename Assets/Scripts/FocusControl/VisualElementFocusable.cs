@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 public class VisualElementFocusable : IFocusableTarget
@@ -8,12 +9,16 @@ public class VisualElementFocusable : IFocusableTarget
     public Action additionalUnfocusAction = null;
     private VisualElement element;
     private Dictionary<GFGInputAction, Action> actionMap;
+    private Targetable.TargetType optionalTargetType = Targetable.TargetType.None;
 
     public VisualElementFocusable(VisualElement element)
     {
         this.element = element;
         this.actionMap = new Dictionary<GFGInputAction, Action>();
         this.actionMap[GFGInputAction.SELECT] = () => element.SimulateSubmit();
+        this.element.RegisterCallback<DetachFromPanelEvent>(evt => {
+            FocusManager.Instance.UnregisterFocusableTarget(this);
+        });
     }
 
     public override bool Equals(object obj)
@@ -60,5 +65,17 @@ public class VisualElementFocusable : IFocusableTarget
 
     public VisualElement GetVisualElement() {
         return element;
+    }
+
+    public void SetTargetType(Targetable.TargetType targetType) {
+        optionalTargetType = targetType;
+    }
+
+    public Targetable.TargetType GetTargetType() {
+        return optionalTargetType;
+    }
+
+    public Vector2 GetPosition() {
+        return UIDocumentGameObjectPlacer.GetWorldPositionFromElement(element);
     }
 }

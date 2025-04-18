@@ -16,7 +16,8 @@ public class TargettingArrow : MonoBehaviour
     public float bendY = 2;
     public bool frozen = false;
 
-    private Transform target;
+    private Transform target = null;
+    private Vector2 targetVector2 = Vector2.zero;
     private Vector3 BendToPoint1;
     private Vector3 BendToPoint2;
     public float selfTargetBulge = 1;
@@ -36,10 +37,11 @@ public class TargettingArrow : MonoBehaviour
     {
         DrawCurve();
         // null checks for the Update frame where this arrow is being Destroyed
-        if(frozen && target != null && FollowMouse != null) {
+        if(frozen && FollowMouse != null) {
             // Not following the mouse anymore, but still want to
             // follow the target that's been set if it moves
-            FollowMouse.position = target.position;
+            if (target != null) FollowMouse.position = target.position;
+            else FollowMouse.position = targetVector2;
         }  
     }
     
@@ -94,4 +96,9 @@ public class TargettingArrow : MonoBehaviour
         this.target = target;
     }
 
+    public void freeze(Vector2 position){
+        frozen = true;
+        followMouse.followMouse = false;
+        this.targetVector2 = position;
+    }
 }

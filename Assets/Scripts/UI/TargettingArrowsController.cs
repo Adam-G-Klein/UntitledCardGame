@@ -14,11 +14,22 @@ public class TargettingArrowsController : GenericSingleton<TargettingArrowsContr
     private TargettingArrow currentArrow;
 
     void Start() {
+        FocusManager.Instance.onFocusDelegate += OnFocus;
+    }
+
+    private void OnFocus(IFocusableTarget target) {
+        freezeArrow(target.GetPosition());
     }
 
     public void freezeArrow(GameObject target) {
         if(currentArrow != null) {
             currentArrow.freeze(target.transform);
+        }
+    }
+
+    public void freezeArrow(Vector2 targetPos) {
+        if(currentArrow != null) {
+            currentArrow.freeze(targetPos);
         }
     }
 
