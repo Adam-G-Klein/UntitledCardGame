@@ -24,10 +24,11 @@ MonoBehaviour:
   cardBack: {fileID: 21300000, guid: a5222a8d127763c49b397cce916345ec, type: 3}
   cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
   cardTypeIconOverride: {fileID: 0}
-  rarity: 1
+  rarity: 0
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 0}
   genericCompanionVFX: {fileID: 0}
+  cacheValueConfigs: []
   cardPool: {fileID: 11400000, guid: ea2e0be33aeb148b5b6fb019d0942226, type: 2}
   packCardPool: {fileID: 11400000, guid: aca6eb7e5bae64ee4aabb8816fe258a4, type: 2}
   speakerType: {fileID: 0}
@@ -39,12 +40,12 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Level Three Werespinner
-      description: Whenever you discard a Generated card, give 2 strength to and
-        draw a card from a random companion
+      description: Whenever you discard a card, deal 1 damage to a random enemy three
+        times
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: Whenever you discard a Generated card, give 2 strength to
-    and draw a card from a random companion
+  keepsakeDescription: Whenever you discard a card, deal 1 damage to a random enemy
+    three times
   references:
     version: 2
     RefIds:
@@ -53,86 +54,29 @@ MonoBehaviour:
       data:
         abilityTrigger: 16
         effectSteps:
-        - rid: 2034230020176347170
-        - rid: 2034230020176347171
-        - rid: 2034230020176347172
-        - rid: 2034230020176347173
-        - rid: 205828032053379741
-        - rid: 2034230020176347205
-        - rid: 205828032053379742
-        - rid: 2034230020176347206
-        - rid: 205828032053379743
-    - rid: 205828032053379741
+        - rid: 7401433059192471555
+        - rid: 7401433059192471557
+    - rid: 7401433059192471555
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: randomGuy
-        validTargets: 00000000
+        outputKey: randomEnemy
+        validTargets: 02000000
         number: 1
         specialTargetRule: 6
         cantCancelTargetting: 0
-    - rid: 205828032053379742
-      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+    - rid: 7401433059192471557
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: DrawCards
-        inputKey: randomGuy
-        outputKey: 
+        effectStepName: CombatEffectStep
+        inputKey: randomEnemy
+        combatEffect: 0
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
-    - rid: 205828032053379743
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: randomGuy
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
-        scale: 1
-    - rid: 2034230020176347170
-      type: {class: FilterCards, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: FilterCards
-        inputKey: cardDiscarded
-        filter:
-          cardCategoriesToInclude: 
-          generatedCardsFilter: 1
-        outputKey: statusCards
-    - rid: 2034230020176347171
-      type: {class: CountStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CountStep
-        inputKey: statusCards
-        outputKey: numStatusCards
-    - rid: 2034230020176347172
-      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: BooleanComparison
-        hardCodedInputKey1: 0
-        useHardCodedInputKey1: 1
-        inputKey1: 
-        operation: 0
-        inputKey2: numStatusCards
-        outputKey: equalsZero
-    - rid: 2034230020176347173
-      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: EndWorkflowIfConditionMet
-        inputKey1: equalsZero
-        conditionToEndOn: 1
-    - rid: 2034230020176347205
-      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: DialogueStep
-        line: the cycle continues
-        lineTime: 1
-    - rid: 2034230020176347206
-      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: ApplyStatus
-        inputKey: randomGuy
-        statusEffect: 0
-        scale: 2
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplyByNumAuraStacks: 0
+        multiplicity: 3
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 1320532642761013391, guid: 4847f21b038e1aa42bceefe5c97ab1ab, type: 3}
