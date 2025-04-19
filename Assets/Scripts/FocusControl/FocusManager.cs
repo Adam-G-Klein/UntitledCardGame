@@ -50,6 +50,13 @@ public class FocusManager : GenericSingleton<FocusManager>, IControlsReceiver
         }
     }
 
+    public void UnregisterAll() {
+        List<IFocusableTarget> focusablesToRemove = new List<IFocusableTarget>(focusableTargets);
+        foreach (IFocusableTarget target in focusablesToRemove) {
+            UnregisterFocusableTarget(target);
+        }
+    }
+
     public void DisableFocusableTarget(IFocusableTarget target) {
         disabledFocusableTargets.Add(target);
         if (target.Equals(currentFocus)) {

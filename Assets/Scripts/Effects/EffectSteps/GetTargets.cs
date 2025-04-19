@@ -178,6 +178,12 @@ public class GetTargets : EffectStep, IEffectStepCalculation
             EffectManager.Instance.CancelEffectWorkflow();
             TargettingManager.Instance.targetSuppliedHandler -= TargetSuppliedHandler;
             TargettingManager.Instance.cancelTargettingHandler -= CancelHandler;
+            FocusManager.Instance.UnstashFocusables(this.GetType().Name);
+            if (ControlsManager.Instance.GetControlMethod() == ControlsManager.ControlMethod.KeyboardController) {
+                if (originCard.TryGetComponent<GameObjectFocusable>(out GameObjectFocusable goFocusable)) {
+                    FocusManager.Instance.SetFocus(goFocusable);
+                }
+            }
             if (originCard != null) {
                 originCard.ResetCardScale();
                 EnemyEncounterManager.Instance.SetCastingCard(false);
