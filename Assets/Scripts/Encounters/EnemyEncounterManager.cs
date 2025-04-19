@@ -148,8 +148,9 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         postCombatUI.SetActive(true);
         uIStateEvent.Raise(new UIStateEventInfo(UIState.END_ENCOUNTER));
         //postCombatUI.transform.SetSiblingIndex(postCombatUI.transform.parent.childCount - 1);
-        postCombatUI.GetComponent<EndEncounterView>().Setup(baseGoldEarnedPerBattle, extraGold, gameState.baseShopData.interestCap, gameState.baseShopData.interestRate);
         TurnOffInteractions();
+        TurnOffFocusing();// Needs to go before the next line bc this line disables existing focus, while the next line sets up more focus
+        postCombatUI.GetComponent<EndEncounterView>().Setup(baseGoldEarnedPerBattle, extraGold, gameState.baseShopData.interestCap, gameState.baseShopData.interestRate);
         StartCoroutine(displayPostCombatUIAfterDelay());
 
         DialogueManager.Instance.SetDialogueLocation(gameState);
@@ -177,8 +178,13 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     }
 
     public void TurnOffInteractions() {
+        FocusManager.Instance.Unfocus();
         PlayerHand.Instance.DisableHand();
         combatEncounterView.UpdateView();
+    }
+
+    public void TurnOffFocusing() {
+        FocusManager.Instance.UnregisterAll();
     }
 
     private IEnumerator displayPostCombatUIAfterDelay() {

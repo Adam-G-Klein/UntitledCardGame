@@ -137,8 +137,9 @@ public class PlayableCard : MonoBehaviour,
         if (PlayerHand.Instance.cardsInHand.Count == 0) {
             Debug.Log("Hand is empty, triggering downstream OnHandEmpty subscribers");
             yield return PlayerHand.Instance.OnHandEmpty();
-        } else if(NonMouseInputManager.Instance.inputMethod != InputMethod.Mouse) {
+        } else if(ControlsManager.Instance.GetControlMethod() == ControlsManager.ControlMethod.KeyboardController) {
             Debug.Log("Trying to a hover a new card now that the card has been played");
+            PlayerHand.Instance.FocusACard(this);
         }
         Debug.Log("FINISHED CardFinishCastingCallback");
     }

@@ -34,13 +34,12 @@ public class UIDocLoadNextSceneButton: MonoBehaviour
         nextSceneButton.RegisterCallback<PointerLeaveEvent>(nextLeave);
 
         nextSceneButton.RegisterCallback<ClickEvent>(nextClick);
-
-        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(nextSceneButton, 
-            () => nextClick(null),
-            () => {nextEnter(null);},
-            () => {nextLeave(null);},
-            HoverableType.PostCombat
-        );
+        nextSceneButton.RegisterOnSelected(() => nextClick(null));
+        VisualElementFocusable nextSceneButtonFocusable = nextSceneButton.AsFocusable();
+        nextSceneButtonFocusable.additionalFocusAction += () => nextEnter(null);
+        nextSceneButtonFocusable.additionalUnfocusAction += () => nextLeave(null);
+        FocusManager.Instance.RegisterFocusableTarget(nextSceneButtonFocusable);
+        FocusManager.Instance.SetFocus(nextSceneButtonFocusable);
     }
 
     private void nextEnter(PointerEnterEvent evt) {

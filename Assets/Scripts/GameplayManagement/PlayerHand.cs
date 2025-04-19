@@ -358,6 +358,30 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         }
     }
 
+    public void FocusACard(PlayableCard notThisOne) {
+        // filter cards by whether they're playable
+        List<PlayableCard> playableCards = new List<PlayableCard>();
+        foreach(PlayableCard card in cardsInHand) {
+            if((notThisOne == null || notThisOne != card) && card.card.cardType.playable) {
+                playableCards.Add(card);
+            }
+        }
+
+        // filter cards by whether we have enough mana to play them
+        List<PlayableCard> affordableCards = new List<PlayableCard>();
+        foreach(PlayableCard card in playableCards) {
+            if(card.card.GetManaCost() <= ManaManager.Instance.currentMana) {
+                affordableCards.Add(card);
+            }
+        }
+        if(affordableCards.Count > 0) {
+            Debug.Log("[NonMouseInputManager] Found a playable and affordable card, hovering card: " + affordableCards[0].name);
+            if (affordableCards[0].TryGetComponent<GameObjectFocusable>(out GameObjectFocusable goFocusable)) {
+                FocusManager.Instance.SetFocus(goFocusable);
+            }
+        }
+    }
+
     public void DisableHand() {
         canPlayCards = false;
         foreach (PlayableCard card in cardsInHand) {

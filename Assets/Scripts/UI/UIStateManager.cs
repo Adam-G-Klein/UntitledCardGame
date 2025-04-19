@@ -6,7 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(UIStateEventListener))]
 [RequireComponent(typeof(CardCastEventListener))]
 [RequireComponent(typeof(TurnPhaseEventListener))]
-public class UIStateManager : GenericSingleton<UIStateManager>
+public class UIStateManager : GenericSingleton<UIStateManager>, IControlsReceiver
 {
     // huge hack to fix the purge card issue, but I know targetting
     // changing soon anyways
@@ -35,6 +35,10 @@ public class UIStateManager : GenericSingleton<UIStateManager>
 
     public void SetUIDocDirty() {
         screenspaceDoc.SetStateDirty();
+    }
+
+    void Start() {
+        ControlsManager.Instance.RegisterControlsReceiver(this);
     }
 
     // Start is called before the first frame update
@@ -79,4 +83,15 @@ public class UIStateManager : GenericSingleton<UIStateManager>
         }
     }
 
+    public void ProcessGFGInputAction(GFGInputAction action)
+    {
+        if (action == GFGInputAction.BACK) {
+            TryCancelTargetting();
+        }
+    }
+
+    public void SwappedControlMethod(ControlsManager.ControlMethod controlMethod)
+    {
+        return;
+    }
 }

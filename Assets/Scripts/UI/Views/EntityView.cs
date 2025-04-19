@@ -340,22 +340,40 @@ public class EntityView : IUIEventReceiver {
     }
 
     private void EntityOnPointerClick(ClickEvent evt) {
-        Targetable targetable = uiEntity.GetTargetable();
-        if (targetable == null) return;
-        targetable.OnPointerClickUI(evt);
+        try {
+            Targetable targetable = uiEntity.GetTargetable();
+            if (targetable == null) return;
+            targetable.OnPointerClickUI(evt);
+        } catch (Exception e) {
+            Debug.Log("EntityView: Caught exception while trying to get entity targetable," + 
+                " might be due to the entity GO being destroyed");
+            Debug.LogException(e);
+        }
     }
 
     private void EntityOnPointerEnter(PointerEnterEvent evt) {
-        Targetable targetable = uiEntity.GetTargetable();
-        if (targetable == null) return;
-        targetable.OnPointerEnterUI(evt);
+        try {
+            Targetable targetable = uiEntity.GetTargetable();
+            if (targetable == null) return;
+            targetable.OnPointerEnterUI(evt);
+        } catch (Exception e) {
+            Debug.Log("EntityView: Caught exception while trying to get entity targetable," + 
+                " might be due to the entity GO being destroyed");
+            Debug.LogException(e);
+        }
     }
 
     private void EntityOnPointerLeave(PointerLeaveEvent evt) {
-        if (uiEntity == null) return;
-        Targetable targetable = uiEntity.GetTargetable();
-        if (targetable == null) return;
-        targetable.OnPointerLeaveUI(evt);
+        try {
+            if (uiEntity == null) return;
+            Targetable targetable = uiEntity.GetTargetable();
+            if (targetable == null) return;
+            targetable.OnPointerLeaveUI(evt);
+        } catch (Exception e) {
+            Debug.Log("EntityView: Caught exception while trying to get entity targetable," + 
+                " might be due to the entity GO being destroyed");
+            Debug.LogException(e);
+        }
     }
 
     private void DrawButtonOnClick(ClickEvent evt) {

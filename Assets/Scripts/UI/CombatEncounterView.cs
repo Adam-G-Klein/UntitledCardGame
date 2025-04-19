@@ -61,7 +61,6 @@ public class CombatEncounterView : MonoBehaviour,
         UIDocumentUtils.SetAllPickingMode(root, PickingMode.Ignore);
         setupComplete = true;
     }
-
     /*
         This needs to happen because we have a bit of a circular dependency. The _Intstance monobehaviors
         can't be created until the UI is setup, but the EntityViews need a reference to the _Instances,
@@ -95,6 +94,12 @@ public class CombatEncounterView : MonoBehaviour,
             }
         }
         docRenderer.SetStateDirty();
+    }
+
+    public void DisableFocusing() {
+        foreach (EntityView entityView in entityViews) {
+            FocusManager.Instance.UnregisterFocusableTarget(entityView.elementFocusable);
+        }
     }
 
     void Update() { }
