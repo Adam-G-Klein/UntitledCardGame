@@ -205,7 +205,6 @@ public class GameStateVariableSO : ScriptableObject
         updateMusic(currentLocation);
         cancelCurrentDialogue();
         LoadCurrentLocationScene();
-        SaveLoadManager.SaveData(this);
         currentLoopIndex = GetLoopIndex();
     }
 
