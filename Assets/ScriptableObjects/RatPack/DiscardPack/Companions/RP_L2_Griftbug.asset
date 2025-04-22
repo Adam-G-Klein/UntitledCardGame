@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
-  m_Name: RP_Griftbug
+  m_Name: RP_L2_Griftbug
   m_EditorClassIdentifier: 
-  companionName: Griftbug
-  maxHealth: 15
+  companionName: Griftbug+
+  maxHealth: 30
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: cb7e2801e82aa754a9ffd89d9e857a1e, type: 3}
   fullSprite: {fileID: 21300000, guid: cb7e2801e82aa754a9ffd89d9e857a1e, type: 3}
@@ -32,7 +32,7 @@ MonoBehaviour:
   - key: numCardsToDraw
     display: 1
     sprite: {fileID: 21300000, guid: 7d13e867f4dd988488e4c5a179fa0857, type: 3}
-    startOfTurnValue: 1
+    startOfTurnValue: 2
     setStartOfTurnValue: 1
     startOfCombatValue: 0
     setStartOfCombatValue: 0
@@ -41,18 +41,18 @@ MonoBehaviour:
   speakerType: {fileID: 0}
   abilitiesV2:
   - rid: 205828032053379705
-  level: 0
-  upgradeTo: {fileID: 11400000, guid: 361f63149efdb434ca520e94521a623f, type: 2}
+  level: 1
+  upgradeTo: {fileID: 11400000, guid: c9a42e2b8ef7844889cad1e1fe891e3c, type: 2}
   tooltip:
     empty: 0
     lines:
-    - title: Griftbug
-      description: The first time each turn you discard a card, draw a card from
+    - title: Level Two Griftbug
+      description: The first 2 times each turn you discard a card, draw a card from
         its parent companion
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: The first time each turn you discard a card, draw a card from
-    its parent companion
+  keepsakeDescription: The first 2 times each turn you discard a card, draw a card
+    from its parent companion
   references:
     version: 2
     RefIds:
