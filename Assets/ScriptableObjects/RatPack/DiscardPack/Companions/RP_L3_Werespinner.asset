@@ -40,12 +40,10 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Level Three Werespinner
-      description: Whenever you discard a card, deal 1 damage to a random enemy three
-        times
+      description: Whenever you discard a card, deal 3 damage to all enemies
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: Whenever you discard a card, deal 1 damage to a random enemy
-    three times
+  keepsakeDescription: Whenever you discard a card, deal 3 damage to all enemies
   references:
     version: 2
     RefIds:
@@ -65,7 +63,7 @@ MonoBehaviour:
         outputKey: randomEnemy
         validTargets: 02000000
         number: 1
-        specialTargetRule: 6
+        specialTargetRule: 1
         cantCancelTargetting: 0
     - rid: 7401433059192471557
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
@@ -73,10 +71,10 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: randomEnemy
         combatEffect: 0
-        scale: 1
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
-        multiplicity: 3
+        multiplicity: 0
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 1320532642761013391, guid: 4847f21b038e1aa42bceefe5c97ab1ab, type: 3}
+        vfxPrefab: {fileID: 1320532642761013391, guid: 99a456f94890391478f393fcc8ad0b95, type: 3}

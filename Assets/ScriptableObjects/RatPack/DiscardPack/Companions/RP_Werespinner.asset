@@ -40,10 +40,10 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Werespinner
-      description: Whenever you discard a card, deal 1 damage to a random enemy
+      description: Whenever you discard a card, deal 2 damage to a random enemy
       relatedBehaviorIndex: 0
   keepsakeTitle: The Eye
-  keepsakeDescription: Whenever you discard a card, deal 1 damage to a random enemy
+  keepsakeDescription: Whenever you discard a card, deal 2 damage to a random enemy
   references:
     version: 2
     RefIds:
@@ -70,8 +70,8 @@ MonoBehaviour:
       data:
         effectStepName: CombatEffectStep
         inputKey: randomGuy
-        combatEffect: 0
-        scale: 1
+        combatEffect: 14
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1

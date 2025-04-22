@@ -40,11 +40,10 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Level Two Werespinner
-      description: Whenever you discard a card, deal 1 damage to a random enemy twice
+      description: Whenever you discard a card, deal 3 damage to a random enemy
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: Whenever you discard a card, deal 1 damage to a random enemy
-    twice
+  keepsakeDescription: Whenever you discard a card, deal 3 damage to a random enemy
   references:
     version: 2
     RefIds:
@@ -71,11 +70,11 @@ MonoBehaviour:
       data:
         effectStepName: CombatEffectStep
         inputKey: randomEnemy
-        combatEffect: 0
-        scale: 1
+        combatEffect: 14
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
-        multiplicity: 2
+        multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 1320532642761013391, guid: 99a456f94890391478f393fcc8ad0b95, type: 3}
