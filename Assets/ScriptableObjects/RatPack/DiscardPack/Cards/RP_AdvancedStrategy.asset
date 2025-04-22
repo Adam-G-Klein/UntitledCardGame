@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: RP_StrategicMove
+  m_Name: RP_AdvancedStrategy
   m_EditorClassIdentifier: 
-  Name: Strategic Move
-  Description: Retain. Exhaust. Draw 1 from target companion, then discard 1 card
+  Name: Advanced Strategy
+  Description: Retain. Exhaust. Draw 2 from target companion, then discard 1 card
     in hand.
   defaultValues: []
   Cost: 0
@@ -87,6 +87,6 @@ MonoBehaviour:
         effectStepName: DrawCards
         inputKey: target
         outputKey: 
-        scale: 1
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 

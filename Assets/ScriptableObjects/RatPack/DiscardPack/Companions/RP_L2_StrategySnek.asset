@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
-  m_Name: RP_StrategySnek
+  m_Name: RP_L2_StrategySnek
   m_EditorClassIdentifier: 
-  companionName: Strategy Snek
-  maxHealth: 15
+  companionName: Strategy Snek+
+  maxHealth: 30
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: 28b3c9fcc50215a41a060c956d5d2f9e, type: 3}
   fullSprite: {fileID: 21300000, guid: 28b3c9fcc50215a41a060c956d5d2f9e, type: 3}
@@ -34,25 +34,25 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 075d631d82a8340fab8366ba447f5ec8, type: 3}
     startOfTurnValue: 0
     setStartOfTurnValue: 0
-    startOfCombatValue: 2
+    startOfCombatValue: 3
     setStartOfCombatValue: 1
   cardPool: {fileID: 11400000, guid: ea2e0be33aeb148b5b6fb019d0942226, type: 2}
   packCardPool: {fileID: 11400000, guid: aca6eb7e5bae64ee4aabb8816fe258a4, type: 2}
   speakerType: {fileID: 0}
   abilitiesV2:
   - rid: 7401433308100034736
-  level: 0
-  upgradeTo: {fileID: 11400000, guid: a6f898b62f1b64a1680c4d1566b860a0, type: 2}
+  level: 1
+  upgradeTo: {fileID: 11400000, guid: f299a11ef9f9c49ccb3bb7e3d104e235, type: 2}
   tooltip:
     empty: 0
     lines:
     - title: Strategy Snek
-      description: At the start of the first 2 turns of combat, create in hand a
-        0 mana card that draws and discards
+      description: At the start of the first 3 turns of combat, create in hand a
+        0 mana card with Retain that draws and discards
       relatedBehaviorIndex: 0
   keepsakeTitle: Strategy Snek
-  keepsakeDescription: At the start of the first 2 turns of combat, create in hand
-    a 0 mana card that draws and discards
+  keepsakeDescription: At the start of the first 3 turns of combat, create in hand
+    a 0 mana card with Retain that draws and discards
   references:
     version: 2
     RefIds:
@@ -85,7 +85,7 @@ MonoBehaviour:
         effectStepName: AddCardsToHand
         entityFromKey: self
         cardTypes:
-        - {fileID: 11400000, guid: 2caa7cfcf79c1431096a79a673437661, type: 2}
+        - {fileID: 11400000, guid: 501a22db4e2074206bb3316ae49dc17e, type: 2}
         getCardsFromKey: 0
         inputCardsKey: 
         scale: 1
