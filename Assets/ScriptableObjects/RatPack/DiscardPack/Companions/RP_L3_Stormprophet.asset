@@ -1,0 +1,129 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
+  m_Name: RP_L3_Stormprophet
+  m_EditorClassIdentifier: 
+  companionName: Stormprophet++
+  maxHealth: 45
+  initialCardsDealtPerTurn: 1
+  sprite: {fileID: 21300000, guid: bd6875209ea3a104989f411739564134, type: 3}
+  fullSprite: {fileID: 21300000, guid: bd6875209ea3a104989f411739564134, type: 3}
+  backgroundImage: {fileID: 21300000, guid: 094c4d0ce89284effb02b7e66c41c106, type: 3}
+  entityFrame: {fileID: 21300000, guid: 93992d0d35ca9405b831e052145f48f8, type: 3}
+  companionManagementFrame: {fileID: 21300000, guid: 3438500f50c834ffd8cab1850f7e94bf, type: 3}
+  startingDeck: {fileID: 11400000, guid: a5c0c1cbbd08d456f9cf547ec2ea143a, type: 2}
+  cardBack: {fileID: 21300000, guid: a5222a8d127763c49b397cce916345ec, type: 3}
+  cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
+  cardTypeIconOverride: {fileID: 0}
+  rarity: 2
+  cardIdleVfxPrefab: {fileID: 0}
+  genericCompanionSFX: {fileID: 0}
+  genericCompanionVFX: {fileID: 0}
+  cacheValueConfigs:
+  - key: numEnergy
+    display: 1
+    sprite: {fileID: 21300000, guid: d72b830c014fec04190fbb044d03f83a, type: 3}
+    startOfTurnValue: 3
+    setStartOfTurnValue: 1
+    startOfCombatValue: 0
+    setStartOfCombatValue: 0
+  cardPool: {fileID: 11400000, guid: 70c64ff2f96954c39a555cceb6687d10, type: 2}
+  packCardPool: {fileID: 11400000, guid: aca6eb7e5bae64ee4aabb8816fe258a4, type: 2}
+  speakerType: {fileID: 0}
+  abilitiesV2:
+  - rid: 205828032053379705
+  level: 2
+  upgradeTo: {fileID: 0}
+  tooltip:
+    empty: 0
+    lines:
+    - title: Stormprophet
+      description: The first 3 times each turn you discard a card, gain 1 energy
+      relatedBehaviorIndex: 0
+  keepsakeTitle: 
+  keepsakeDescription: The first 3 times each turn you discard a card, gain 1 energy
+  references:
+    version: 2
+    RefIds:
+    - rid: 205828032053379705
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 16
+        effectSteps:
+        - rid: 7401433308100034729
+        - rid: 7401433308100034728
+        - rid: 7401433308100034730
+        - rid: 7401433308100034731
+        - rid: 7401433308100034732
+        - rid: 7401433308100034733
+        - rid: 7401433308100034869
+    - rid: 7401433308100034728
+      type: {class: CombatInstanceCacheLoad, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatInstanceCacheLoad
+        inputCombatInstanceKey: self
+        cacheKey: numCardsToDraw
+        currentWorkflowKey: numCardsToDraw
+    - rid: 7401433308100034729
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 7401433308100034730
+      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: BooleanComparison
+        hardCodedInputKey1: 0
+        useHardCodedInputKey1: 1
+        inputKey1: 
+        operation: 0
+        inputKey2: numCardsToDraw
+        outputKey: done
+    - rid: 7401433308100034731
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: done
+        conditionToEndOn: 1
+    - rid: 7401433308100034732
+      type: {class: MathStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: MathStep
+        inputKey: numCardsToDraw
+        operand2InputKey: UNUSED
+        operation: 1
+        scale: 1
+        outputKey: numCardsToDrawSubtracted
+    - rid: 7401433308100034733
+      type: {class: CombatInstanceCacheStore, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatInstanceCacheStore
+        inputCombatInstanceKey: self
+        hardCodedBool: 0
+        useHardCodedBool: 0
+        hardCodedInt: 0
+        useHardCodedInt: 0
+        currentWorkflowKey: numCardsToDrawSubtracted
+        cacheKey: numCardsToDraw
+    - rid: 7401433308100034869
+      type: {class: ManaChange, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ManaChange
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
