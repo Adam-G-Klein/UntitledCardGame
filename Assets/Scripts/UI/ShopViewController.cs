@@ -9,8 +9,8 @@ using UnityEngine.UIElements;
 
 public class ShopViewController : MonoBehaviour,
     IShopItemViewDelegate,
-    ICompanionManagementViewDelegate
-
+    ICompanionManagementViewDelegate,
+    ISellingCompanionConfirmationViewDelegate
 {
     public UIDocument uiDoc;
     public bool canDragCompanions = false;
@@ -44,8 +44,7 @@ public class ShopViewController : MonoBehaviour,
 
     public Label upgradePriceLabel;
     public Label rerollPriceLabel;
-    //public Button sellCompanionButton;
-    public VisualElement sellingCompanionConfirmation;
+    public SellingCompanionConfirmationView sellingCompanionConfirmationView;
     private VisualElement deckView;
     private VisualElement deckViewContentContainer;
     private VisualElement genericMessageBox;
@@ -94,8 +93,9 @@ public class ShopViewController : MonoBehaviour,
         selectingCancelButton = uiDoc.rootVisualElement.Q<Button>("companion-selection-cancel-button");
         upgradePriceLabel = uiDoc.rootVisualElement.Q<Label>("upgrade-price-label");
         rerollPriceLabel = uiDoc.rootVisualElement.Q<Label>("reroll-price-label");
-        //sellCompanionButton = uiDoc.rootVisualElement.Q<Button>("sell-companion-button");
-        sellingCompanionConfirmation = uiDoc.rootVisualElement.Q("selling-companion-confirmation");
+
+        sellingCompanionConfirmationView = new SellingCompanionConfirmationView(uiDoc.rootVisualElement.Q("selling-companion-confirmation"), this);
+
         deckView = uiDoc.rootVisualElement.Q("deck-view");
         deckViewContentContainer = uiDoc.rootVisualElement.Q("deck-view-card-area");
         genericMessageBox = uiDoc.rootVisualElement.Q("generic-message-box");
@@ -103,39 +103,51 @@ public class ShopViewController : MonoBehaviour,
         SetupActiveSlots(shopManager.gameState.companions.currentCompanionSlots);
 
         rerollButton = uiDoc.rootVisualElement.Q<Button>("reroll-button");
-        rerollButton.RegisterCallback<ClickEvent>(RerollButtonOnClick);
+        // rerollButton.RegisterCallback<ClickEvent>(RerollButtonOnClick);
+        rerollButton.RegisterOnSelected(RerollButtonOnClick);
 
-        selectingCancelButton.RegisterCallback<ClickEvent>(CancelCardBuy);
+        // selectingCancelButton.RegisterCallback<ClickEvent>(CancelCardBuy);
+        selectingCancelButton.RegisterOnSelected(CancelCardBuy);
         upgradeButton = uiDoc.rootVisualElement.Q<Button>("upgrade-button");
-        upgradeButton.RegisterCallback<ClickEvent>(UpgradeButtonOnClick);
+        // upgradeButton.RegisterCallback<ClickEvent>(UpgradeButtonOnClick);
+        upgradeButton.RegisterOnSelected(UpgradeButtonOnClick);
         upgradeButton.RegisterCallback<PointerEnterEvent>(UpgradeButtonOnPointerEnter);
         upgradeButton.RegisterCallback<PointerLeaveEvent>(UpgradeButtonOnPointerLeave);
-        upgradeIncrementContainer = uiDoc.rootVisualElement.Q("upgrade-increment-container");
-        uiDoc.rootVisualElement.Q<Button>("start-next-combat-button").RegisterCallback<ClickEvent>(StartNextCombatOnClick);
+        VisualElementFocusable upgradeButtonFocusable = upgradeButton.AsFocusable();
+        upgradeButtonFocusable.additionalFocusAction += () => UpgradeButtonOnPointerEnter(null);
+        upgradeButtonFocusable.additionalUnfocusAction += () => UpgradeButtonOnPointerLeave(null);
+        FocusManager.Instance.RegisterFocusableTarget(upgradeButtonFocusable);
 
-        sellingCompanionConfirmation.Q<Button>("selling-companion-confirmation-yes").RegisterCallback<ClickEvent>((evt) => ConfirmSellCompanion());
-        sellingCompanionConfirmation.Q<Button>("selling-companion-confirmation-no").RegisterCallback<ClickEvent>((evt) => StopSellingCompanion());
-        originalSellingCompanionConfirmationText = sellingCompanionConfirmation.Q<Label>("selling-companion-confirmation-label").text;
-        originalSellingCompanionBreakdownText = sellingCompanionConfirmation.Q<Label>("selling-companion-confirmation-breakdown-label").text;
-
-        deckView.Q<Button>().RegisterCallback<ClickEvent>((evt) => CloseCompanionDeckView());
+        // uiDoc.rootVisualElement.Q<Button>("start-next-combat-button").RegisterCallback<ClickEvent>(StartNextCombatOnClick);
+        uiDoc.rootVisualElement.Q<Button>("start-next-combat-button").RegisterOnSelected(StartNextCombatOnClick);
+        
+        // deckView.Q<Button>().RegisterCallback<ClickEvent>((evt) => CloseCompanionDeckView());
+        deckView.Q<Button>().RegisterOnSelected((evt) => CloseCompanionDeckView());
 
         cardRemovalButton = uiDoc.rootVisualElement.Q<Button>("card-remove-button");
-        cardRemovalButton.RegisterCallback<ClickEvent>(CardRemovalButtonOnClick);
+        // cardRemovalButton.RegisterCallback<ClickEvent>(CardRemovalButtonOnClick);
+        cardRemovalButton.RegisterOnSelected(CardRemovalButtonOnClick);
+
         selectingIndicatorForCardRemovalIndicator = uiDoc.rootVisualElement.Q<VisualElement>("companion-selection-for-card-removal-indicator");
         selectingForCardRemovalButton = uiDoc.rootVisualElement.Q<Button>("companion-selection-for-card-removal-cancel-button");
-        selectingForCardRemovalButton.RegisterCallback<ClickEvent>((evt) => CancelCardRemoval());
+        // selectingForCardRemovalButton.RegisterCallback<ClickEvent>((evt) => CancelCardRemoval());
+        selectingForCardRemovalButton.RegisterOnSelected(CancelCardRemoval);
 
         //setup upgradeMenu
-        uiDoc.rootVisualElement.Q<Button>(name:"cancelUpgrade").RegisterCallback<ClickEvent>((evt) => CancelUpgrade());
-        uiDoc.rootVisualElement.Q<Button>(name:"confirmUpgrade").RegisterCallback<ClickEvent>((evt) => ConfirmUpgrade());
-        uiDoc.rootVisualElement.Q<Button>(name:"upgradedDeckPreview").RegisterCallback<ClickEvent>((evt) => PreviewUpgradedDeck());
+        // uiDoc.rootVisualElement.Q<Button>(name:"cancelUpgrade").RegisterCallback<ClickEvent>((evt) => CancelUpgrade());
+        // uiDoc.rootVisualElement.Q<Button>(name:"confirmUpgrade").RegisterCallback<ClickEvent>((evt) => ConfirmUpgrade());
+        // uiDoc.rootVisualElement.Q<Button>(name:"upgradedDeckPreview").RegisterCallback<ClickEvent>((evt) => PreviewUpgradedDeck());
+        uiDoc.rootVisualElement.Q<Button>(name:"cancelUpgrade").RegisterOnSelected((evt) => CancelUpgrade());
+        uiDoc.rootVisualElement.Q<Button>(name:"confirmUpgrade").RegisterOnSelected((evt) => ConfirmUpgrade());
+        uiDoc.rootVisualElement.Q<Button>(name:"upgradedDeckPreview").RegisterOnSelected((evt) => PreviewUpgradedDeck());
 
         VisualElement questionMark = uiDoc.rootVisualElement.Q<VisualElement>(name:"questionMark");
         questionMark.RegisterCallback<PointerEnterEvent>(ShowHelperText);
         questionMark.RegisterCallback<PointerLeaveEvent>(HideHelperText);
-        autoUpgradeToggle = uiDoc.rootVisualElement.Q("auto-upgrade-toggle");
-        autoUpgradeToggle.RegisterCallback<ClickEvent>(ToggleAutoUpgrade);
+        VisualElementFocusable questionMarkFocusable = questionMark.AsFocusable();
+        questionMarkFocusable.additionalFocusAction += () => ShowHelperText(null);
+        questionMarkFocusable.additionalUnfocusAction += () => HideHelperText(null);
+        FocusManager.Instance.RegisterFocusableTarget(questionMarkFocusable);
     }
 
     private void PreviewUpgradedDeck() {
@@ -212,6 +224,8 @@ public class ShopViewController : MonoBehaviour,
         shopGoodsArea.Add(newCardItemView.shopItemElement);
 
         cardItemToViewMap.Add(card, newCardItemView);
+
+        FocusManager.Instance.RegisterFocusableTarget(newCardItemView.visualElementFocusable);
     }
 
     public void RemoveCardFromShopView(CardInShopWithPrice card) {
@@ -220,9 +234,11 @@ public class ShopViewController : MonoBehaviour,
         // TODO: Replace with sold out? Grey it out? Talk to Jasmine
         shopItemView.Disable();
         //shopGoodsArea.Remove(shopItemView.shopItemElement);
-        UIDocumentHoverableInstantiator.Instance.CleanupHoverable(shopItemView.shopItemElement);
-
+        // UIDocumentHoverableInstantiator.Instance.CleanupHoverable(shopItemView.shopItemElement);
+        
         cardItemToViewMap.Remove(card);
+
+        FocusManager.Instance.DisableFocusableTarget(shopItemView.visualElementFocusable);
     }
 
     public void AddCompanionToShopView(CompanionInShopWithPrice companion) {
@@ -231,6 +247,8 @@ public class ShopViewController : MonoBehaviour,
         shopGoodsArea.Add(newCompanionItemView.shopItemElement);
 
         companionItemToViewMap.Add(companion, newCompanionItemView);
+
+        FocusManager.Instance.RegisterFocusableTarget(newCompanionItemView.visualElementFocusable);
     }
 
     public void RemoveCompanionFromShopView(CompanionInShopWithPrice companion) {
@@ -239,8 +257,9 @@ public class ShopViewController : MonoBehaviour,
         // TODO: Replace with sold out? Grey it out? Talk to Jasmine
         //shopGoodsArea.Remove(shopItemView.shopItemElement);
         shopItemView.Disable();
-        UIDocumentHoverableInstantiator.Instance.CleanupHoverable(shopItemView.shopItemElement);
+        // UIDocumentHoverableInstantiator.Instance.CleanupHoverable(shopItemView.shopItemElement);
         companionItemToViewMap.Remove(companion);
+        FocusManager.Instance.DisableFocusableTarget(shopItemView.visualElementFocusable);
     }
 
     public void RebuildUnitManagement(CompanionListVariableSO companionList) {
@@ -253,7 +272,7 @@ public class ShopViewController : MonoBehaviour,
         foreach (VisualElement child in activeContainer.hierarchy.Children()) {
             if (child.childCount > 0) {
                 foreach(VisualElement grandchild in child.Children()) {
-                    UIDocumentHoverableInstantiator.Instance.CleanupHoverable(grandchild);
+                    // UIDocumentHoverableInstantiator.Instance.CleanupHoverable(grandchild);
                 }
                 child.Clear();
             }
@@ -262,7 +281,7 @@ public class ShopViewController : MonoBehaviour,
         foreach (VisualElement child in benchContainer.hierarchy.Children()) {
             if (child.childCount > 0) {
                 foreach(VisualElement grandchild in child.Children()) {
-                    UIDocumentHoverableInstantiator.Instance.CleanupHoverable(grandchild);
+                    // UIDocumentHoverableInstantiator.Instance.CleanupHoverable(grandchild);
                 }
                 child.Clear();
             }
@@ -278,9 +297,10 @@ public class ShopViewController : MonoBehaviour,
 
     public void SetupActiveCompanions(List<Companion> companions) {
         for (int i = 0; i < companions.Count; i++) {
-            CompanionManagementView companionView = new CompanionManagementView(companions[i], this);
-            activeContainer.contentContainer[i].Add(companionView.container);
-            visualElementToCompanionViewMap.Add(companionView.container, companionView);
+            // UNDO
+            // CompanionManagementView companionView = new CompanionManagementView(companions[i], this);
+            // activeContainer.contentContainer[i].Add(companionView.container);
+            // visualElementToCompanionViewMap.Add(companionView.container, companionView);
         }
     }
 
@@ -327,8 +347,6 @@ public class ShopViewController : MonoBehaviour,
         selectingCompanionVeil.style.visibility = Visibility.Visible;
         canDragCompanions = false;
         NonMouseInputManager.Instance.SetUIState(UIState.SELLING_COMPANION);
-
-
     }
 
     public void StopSellingCompanion() {
@@ -336,10 +354,8 @@ public class ShopViewController : MonoBehaviour,
         selectingCompanionVeil.style.visibility = Visibility.Hidden;
         canDragCompanions = true;
         companionToSell = null;
-        sellingCompanionConfirmation.style.visibility = Visibility.Hidden;
+        sellingCompanionConfirmationView.Hide();
         NonMouseInputManager.Instance.SetUIState(UIState.DEFAULT);
-
-
     }
 
     public void CompanionManagementOnClick(CompanionManagementView companionView, ClickEvent evt)
@@ -366,19 +382,19 @@ public class ShopViewController : MonoBehaviour,
         }
     }
 
-    private void ConfirmSellCompanion() {
+    public void ConfirmSellCompanion() {
         shopManager.SellCompanion(companionToSell.companion, companionToSell.container);
         companionToSell = null;
         sellingCompanions = false;
         canDragCompanions = true;
         selectingCompanionVeil.style.visibility = Visibility.Hidden;
-        sellingCompanionConfirmation.style.visibility = Visibility.Hidden;
+        sellingCompanionConfirmationView.Hide();
         NonMouseInputManager.Instance.SetUIState(UIState.DEFAULT);
     }
 
     private void DontSellCompanion() {
         companionToSell = null;
-        sellingCompanionConfirmation.style.visibility = Visibility.Hidden;
+        sellingCompanionConfirmationView.Hide();
     }
 
     public void CompanionManagementOnPointerDown(CompanionManagementView companionView, PointerDownEvent evt, Vector2 pointerScreenPos)
@@ -556,7 +572,7 @@ public class ShopViewController : MonoBehaviour,
         SetCompanionOrdering();
 
         // Update the positions of all hoverables
-        UIDocumentHoverableInstantiator.Instance.UpdateHoverablesPosition();
+        // UIDocumentHoverableInstantiator.Instance.UpdateHoverablesPosition();
 
         // Update the currently hovered hoverable
         NonMouseInputManager.Instance.UpdateCurrentlyHovered();
@@ -822,6 +838,11 @@ public class ShopViewController : MonoBehaviour,
             sellValue.sellValueFromCardsRemoved
         );
         sellCompanionBreakdownLabel.text = breakdownReplacedText;
+        sellingCompanionConfirmationView.Show(companionView);
+    }
+
+    public int CalculateCompanionSellPrice(Companion companion) {
+        return shopManager.CalculateCompanionSellPrice(companion);
     }
 
     private void CloseCompanionDeckView() {
@@ -921,7 +942,7 @@ public class ShopViewController : MonoBehaviour,
         }).StartingIn(delay);
         upgradeCompanionContainer.schedule.Execute(() => {
             // update hoverable pos after animation
-            UIDocumentHoverableInstantiator.Instance.UpdateHoverablesPosition();
+            // UIDocumentHoverableInstantiator.Instance.UpdateHoverablesPosition();
         }).StartingIn(delay + 1000); // GET RACE CONDITIONED LOSER
         upgradeEntityView.entityContainer.RegisterCallback<PointerEnterEvent>((evt) => {
             DisplayTooltip(upgradeEntityView.entityContainer, upgradeCompanionType.tooltip, false);
@@ -984,77 +1005,73 @@ public class ShopViewController : MonoBehaviour,
     }
 
     public void SetupStaticHoverables() {
-        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(rerollButton,
-                () => {RerollButtonOnClick(null);},
-                () => {},
-                () => {},
-                HoverableType.DefaultShop);
-        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(upgradeButton,
-                () => {UpgradeButtonOnClick(null);},
-                () => {UpgradeButtonOnPointerEnter(null);},
-                () => {UpgradeButtonOnPointerLeave(null);},
-                HoverableType.DefaultShop);
-        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(uiDoc.rootVisualElement.Q<Button>("start-next-combat-button"),
-                () => {StartNextCombatOnClick(null);},
-                () => {},
-                () => {},
-                HoverableType.DefaultShop);
-        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(uiDoc.rootVisualElement.Q<Button>("card-remove-button"),
-                () => {CardRemovalButtonOnClick(null);},
-                () => {},
-                () => {},
-                HoverableType.DefaultShop);
-        // Create hoverables for selling companion confirmation buttons
-        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(
-            sellingCompanionConfirmation.Q<Button>("selling-companion-confirmation-yes"),
-            () => { ConfirmSellCompanion(); },
-            () => { /* onHover action */ },
-            () => { /* onUnhover action */ },
-            HoverableType.SellingCompanion
-        );
-        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(
-            sellingCompanionConfirmation.Q<Button>("selling-companion-confirmation-no"),
-            () => { StopSellingCompanion(); },
-            () => { /* onHover action */ },
-            () => { /* onUnhover action */ },
-            HoverableType.SellingCompanion
-        );
+        // UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(rerollButton,
+        //         () => {RerollButtonOnClick(null);}, 
+        //         () => {},
+        //         () => {},
+        //         HoverableType.DefaultShop);
+        // UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(upgradeButton,
+        //         () => {UpgradeButtonOnClick(null);}, 
+        //         () => {UpgradeButtonOnPointerEnter(null);}, 
+        //         () => {UpgradeButtonOnPointerLeave(null);},
+        //         HoverableType.DefaultShop);
+        // UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(uiDoc.rootVisualElement.Q<Button>("start-next-combat-button"),
+        //         () => {StartNextCombatOnClick(null);}, 
+        //         () => {},
+        //         () => {},
+        //         HoverableType.DefaultShop);
+        // UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(uiDoc.rootVisualElement.Q<Button>("card-remove-button"),
+        //         () => {CardRemovalButtonOnClick(null);}, 
+        //         () => {},
+        //         () => {},
+        //         HoverableType.DefaultShop);
+        // // Create hoverables for selling companion confirmation buttons
+        // UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(
+        //     sellingCompanionConfirmation.Q<Button>("selling-companion-confirmation-yes"),
+        //     () => { ConfirmSellCompanion(); },
+        //     () => { /* onHover action */ },
+        //     () => { /* onUnhover action */ },
+        //     HoverableType.SellingCompanion
+        // );
+        // UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(
+        //     sellingCompanionConfirmation.Q<Button>("selling-companion-confirmation-no"),
+        //     () => { StopSellingCompanion(); },
+        //     () => { /* onHover action */ },
+        //     () => { /* onUnhover action */ },
+        //     HoverableType.SellingCompanion
+        // );
 
-        // Create hoverables for the companion upgrade question mark and confirmation
-        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(
-            uiDoc.rootVisualElement.Q<Button>("confirmUpgrade"),
-            () => { ConfirmUpgrade(); },
-            () => { /* onHover action */ },
-            () => { /* onUnhover action */ },
-            HoverableType.UpgradingCompanion
-        );
+        // // Create hoverables for the companion upgrade question mark and confirmation
+        // UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(
+        //     uiDoc.rootVisualElement.Q<Button>("confirmUpgrade"),
+        //     () => { ConfirmUpgrade(); },
+        //     () => { /* onHover action */ },
+        //     () => { /* onUnhover action */ },
+        //     HoverableType.UpgradingCompanion
+        // );
 
-        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(
-            uiDoc.rootVisualElement.Q<Button>("cancelUpgrade"),
-            () => { CancelUpgrade(); },
-            () => { /* onHover action */ },
-            () => { /* onUnhover action */ },
-            HoverableType.UpgradingCompanion
-        );
+        // UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(
+        //     uiDoc.rootVisualElement.Q<Button>("cancelUpgrade"),
+        //     () => { CancelUpgrade(); },
+        //     () => { /* onHover action */ },
+        //     () => { /* onUnhover action */ },
+        //     HoverableType.UpgradingCompanion
+        // );
 
-        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(
-            uiDoc.rootVisualElement.Q<VisualElement>(name: "questionMark"),
-            () => {},
-            () => {ShowHelperText(null);},
-            () => {HideHelperText(null);},
-            HoverableType.UpgradingCompanion
-        );
+        // UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(
+        //     uiDoc.rootVisualElement.Q<VisualElement>(name: "questionMark"),
+        //     () => {},
+        //     () => {ShowHelperText(null);},
+        //     () => {HideHelperText(null);},
+        //     HoverableType.UpgradingCompanion
+        // );
 
-        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(
-            uiDoc.rootVisualElement.Q<Button>("upgradedDeckPreview"),
-            () => { PreviewUpgradedDeck();},
-            () => { /* onHover action */ },
-            () => { /* onUnhover action */ },
-            HoverableType.UpgradingCompanion
-        );
-
-
-
-
+        // UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(
+        //     uiDoc.rootVisualElement.Q<Button>("upgradedDeckPreview"),
+        //     () => { PreviewUpgradedDeck();},
+        //     () => { /* onHover action */ },
+        //     () => { /* onUnhover action */ },
+        //     HoverableType.UpgradingCompanion
+        // );
     }
 }

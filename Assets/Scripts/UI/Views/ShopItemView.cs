@@ -5,13 +5,12 @@ using UnityEngine.UIElements;
 
 public class ShopItemView {
     public VisualElement shopItemElement;
+    public VisualElementFocusable visualElementFocusable;
     public CompanionInShopWithPrice companionInShop = null;
     public CardInShopWithPrice cardInShop = null;
 
     private EntityView entityView = null;
     private IShopItemViewDelegate viewDelegate;
-
-    private EventCallback<ClickEvent> clickEventHandler;
 
     public ShopItemView(IShopItemViewDelegate viewDelegate, CompanionInShopWithPrice companion) {
         this.viewDelegate = viewDelegate;
@@ -37,6 +36,8 @@ public class ShopItemView {
     private VisualElement makeCompanionShopItem(CompanionInShopWithPrice companion) {
         VisualElement shopItemElement = new VisualElement();
         shopItemElement.AddToClassList("shop-item-container");
+        shopItemElement.focusable = true;
+        visualElementFocusable = shopItemElement.AsFocusable();
 
         // Bit of a hack, but I don't feel like completely refactoring entity view right now
         Companion tempCompanion = new Companion(companion.companionType);
@@ -49,15 +50,12 @@ public class ShopItemView {
 
         shopItemElement.Add(entityView.entityContainer);
 
-        shopItemElement.RegisterCallback<ClickEvent>(evt => ShopItemViewOnClicked());
+        shopItemElement.RegisterOnSelected(ShopItemViewOnClicked);
         shopItemElement.RegisterCallback<PointerEnterEvent>(OnPointerEnter);
         shopItemElement.RegisterCallback<PointerLeaveEvent>(OnPointerLeave);
+        visualElementFocusable.additionalFocusAction += () => OnPointerEnter(null);
+        visualElementFocusable.additionalUnfocusAction += () => OnPointerLeave(null);
         shopItemElement.name = companion.companionType.name;
-
-        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(shopItemElement,
-            ShopItemViewOnClicked,
-            ()=> {OnPointerEnter(null);},
-            () => {OnPointerLeave(null);});
 
         shopItemElement.Add(CreatePriceTagForShopItem(companion.price));
 
@@ -67,6 +65,8 @@ public class ShopItemView {
     private VisualElement makeCardShopItem(CardInShopWithPrice card) {
         VisualElement shopItemElement = new VisualElement();
         shopItemElement.AddToClassList("shop-item-container");
+        shopItemElement.focusable = true;
+        visualElementFocusable = shopItemElement.AsFocusable();
 
         CardView cardView;
         if (card.sourceCompanion != null) {
@@ -77,17 +77,16 @@ public class ShopItemView {
 
         shopItemElement.Add(cardView.cardContainer);
 
-        clickEventHandler = evt => ShopItemViewOnClicked();
-
-
-        shopItemElement.RegisterCallback<ClickEvent>(clickEventHandler);
+        shopItemElement.RegisterOnSelected(ShopItemViewOnClicked);
         shopItemElement.RegisterCallback<PointerEnterEvent>(OnPointerEnter);
-        shopItemElement.name = card.cardType.name;
-        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(shopItemElement,
-            ShopItemViewOnClicked,
-            ()=> {OnPointerEnter(null);},
-            () => {OnPointerLeave(null);});
         shopItemElement.RegisterCallback<PointerLeaveEvent>(OnPointerLeave);
+        shopItemElement.name = card.cardType.name;
+        visualElementFocusable.additionalFocusAction += () => OnPointerEnter(null);
+        visualElementFocusable.additionalUnfocusAction += () => OnPointerLeave(null);
+        // UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(shopItemElement,
+        //     ShopItemViewOnClicked,
+        //     ()=> {OnPointerEnter(null);},
+        //     () => {OnPointerLeave(null);});
 
         shopItemElement.Add(CreatePriceTagForShopItem(card.price));
 
@@ -111,7 +110,6 @@ public class ShopItemView {
 
     public void Disable() {
         shopItemElement.visible = false;
-        shopItemElement.UnregisterCallback<ClickEvent>(clickEventHandler);
     }
 
     private void OnPointerEnter(PointerEnterEvent evt) {
@@ -125,6 +123,6 @@ public class ShopItemView {
         }
     }
     private void OnPointerLeave(PointerLeaveEvent evt) {
-        viewDelegate.DestroyTooltip(shopItemElement);
+             viewDelegate.DestroyTooltip(shopItemElement);
     }
 }
