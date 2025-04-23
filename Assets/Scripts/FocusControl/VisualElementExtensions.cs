@@ -21,6 +21,11 @@ public static class VisualElementExtensions
         element.RegisterCallback<NavigationSubmitEvent>(evt => action());
     }
 
+    public static void RegisterOnSelected(this VisualElement element, Action<ClickEvent> action) {
+        element.RegisterCallback<ClickEvent>(evt => action(evt));
+        element.RegisterCallback<NavigationSubmitEvent>(evt => action(null));
+    }
+
     public static void SimulateSubmit(this VisualElement element)
     {
         var submitEvent = NavigationSubmitEvent.GetPooled();

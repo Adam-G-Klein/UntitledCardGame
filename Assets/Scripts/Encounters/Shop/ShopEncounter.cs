@@ -64,7 +64,7 @@ public class ShopEncounter : Encounter
         this.shopManager = shopManager;
         this.encounterConstants = constants;
         this.encounterType = EncounterType.Shop;
-        UIDocumentHoverableInstantiator.Instance.CleanupAllHoverables();
+        // UIDocumentHoverableInstantiator.Instance.CleanupAllHoverables();s
         validateShopData();
         generateShopEncounter(shopLevel, companionList);
         if (USE_NEW_SHOP) {

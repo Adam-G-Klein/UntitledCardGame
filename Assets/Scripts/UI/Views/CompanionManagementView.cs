@@ -36,12 +36,12 @@ public class CompanionManagementView {
         entityView.entityContainer.RegisterCallback<PointerEnterEvent>(CompanionManagementOnPointerEnter);
         entityView.entityContainer.name = companion.companionType.name;
 
-        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(entityView.entityContainer, 
-            () => {CompanionManagementNonMouseSelect();}, 
-            ()=> {CompanionManagementOnPointerEnter(null);},
-            () => {ComapnionManagementOnPointerLeave(null);},
-            HoverableType.CompanionManagement,
-            companion.companionType);
+        // UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(entityView.entityContainer, 
+        //     () => {CompanionManagementNonMouseSelect();}, 
+        //     ()=> {CompanionManagementOnPointerEnter(null);},
+        //     () => {ComapnionManagementOnPointerLeave(null);},
+        //     HoverableType.CompanionManagement,
+        //     companion.companionType);
         
         return entityView.entityContainer;
     }

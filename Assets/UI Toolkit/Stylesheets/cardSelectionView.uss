@@ -7,6 +7,10 @@
     margin-left: 10px;
 }
 
+.exit-button:focus {
+    background-color: rgb(141, 141, 141);
+}
+
 .card-selected {
     border-left-color: rgb(0, 0, 0);
     border-right-color: rgb(0, 0, 0);
