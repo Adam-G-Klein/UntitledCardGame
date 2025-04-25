@@ -5,10 +5,12 @@ using UnityEngine.UIElements;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using FMODUnity;
 
-public class CompanionManagementView {
+public class CompanionManagementView : IControlsReceiver {
     public VisualElement container;
     public Companion companion;
+    public VisualElementFocusable visualElementFocusable;
 
     private ICompanionManagementViewDelegate viewDelegate;
 
@@ -18,6 +20,8 @@ public class CompanionManagementView {
     private VisualElement companionBoundingBox = null;
     private EntityView entityView;
 
+    private bool draggingThisCompanion = false;
+
     public CompanionManagementView(Companion companion, ICompanionManagementViewDelegate viewDelegate) {
         this.viewDelegate = viewDelegate;
         container = MakeCompanionManagementView(companion);
@@ -26,22 +30,25 @@ public class CompanionManagementView {
 
     public VisualElement MakeCompanionManagementView(Companion companion) {
         entityView = new EntityView(companion, 0, false, null, true);
+        visualElementFocusable = entityView.elementFocusable;
         entityView.UpdateWidthAndHeight();
-        //entityView.SetupEntityImage(companion.companionType.sprite);
+
         entityView.entityContainer.RegisterCallback<ClickEvent>(CompanionManagementOnClick);
+        entityView.entityContainer.RegisterCallback<NavigationSubmitEvent>((evt) => CompanionManagementNonMouseSelect());
+
         entityView.entityContainer.RegisterCallback<PointerDownEvent>(CompanionManagementOnPointerDown);
+        visualElementFocusable.SetInputAction(GFGInputAction.SELECT_DOWN, () => CompanionManagementOnPointerDown(null));
         entityView.entityContainer.RegisterCallback<PointerMoveEvent>(CompanionManagementOnPointerMove);
         entityView.entityContainer.RegisterCallback<PointerUpEvent>(ComapnionManagementOnPointerUp);
+
         entityView.entityContainer.RegisterCallback<PointerLeaveEvent>(ComapnionManagementOnPointerLeave);
         entityView.entityContainer.RegisterCallback<PointerEnterEvent>(CompanionManagementOnPointerEnter);
+        visualElementFocusable.additionalFocusAction += () => CompanionManagementOnPointerEnter(null);
+        visualElementFocusable.additionalUnfocusAction += CompanionManagementOnUnfocus;
+
         entityView.entityContainer.name = companion.companionType.name;
 
-        // UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(entityView.entityContainer, 
-        //     () => {CompanionManagementNonMouseSelect();}, 
-        //     ()=> {CompanionManagementOnPointerEnter(null);},
-        //     () => {ComapnionManagementOnPointerLeave(null);},
-        //     HoverableType.CompanionManagement,
-        //     companion.companionType);
+        FocusManager.Instance.RegisterFocusableTarget(visualElementFocusable);
         
         return entityView.entityContainer;
     }
@@ -56,67 +63,57 @@ public class CompanionManagementView {
     }
 
     public void CompanionManagementNonMouseSelect() {
-        if(NonMouseInputManager.Instance.inputMethod == InputMethod.Mouse) {
-            Debug.LogError("Got a callback for a non-mouse input method, but we're in mouse mode.");
-            return;
-        } 
-        if(NonMouseInputManager.Instance.GetUIState() == UIState.DEFAULT) {
-            CompanionManagementOnPointerDown(null);
-        } else if(NonMouseInputManager.Instance.GetUIState() != UIState.DRAGGING_COMPANION) {
+        if (!viewDelegate.CanDragCompanions()) {
             CompanionManagementOnClick(null);
-        } // if dragging, nonmouseinputmanager will callback with the pointer up event
-
+        }
     }
 
     public void CompanionManagementOnClick(ClickEvent evt) {
-        viewDelegate.CompanionManagementOnClick(this, evt);
+        viewDelegate.CompanionManagementOnClick(this);
     }
 
     private void CompanionManagementOnPointerDown(PointerDownEvent evt) {
         RemoveCompanionHoverButtons();
-        // stand-in for whatever logic we'll use to determine no mouse
-        if(NonMouseInputManager.Instance.inputMethod != InputMethod.Mouse || evt == null) {
-            NonMouseInputManager.Instance.CompanionDragACTIVATE(this, viewDelegate);
+        draggingThisCompanion = true;
+        if (evt == null) {
+            // Handling dragging this companion using keyboard/controller
+            FocusManager.Instance.onFocusDelegate += FocusChangedWhileDragging;
+            Vector2 currentPos = visualElementFocusable.GetUIPosition();
+            FocusManager.Instance.DisableFocusableTarget(visualElementFocusable);
+            viewDelegate.CompanionManagementOnPointerDown(this, currentPos);
+            ControlsManager.Instance.RegisterControlsReceiver(this);
         } else {
-            viewDelegate.CompanionManagementOnPointerDown(this, evt, NonMouseInputManager.Instance.currentlyHoveredScreenPosUiDoc());
+            viewDelegate.CompanionManagementOnPointerDown(this, evt.position);
         }
+    }
+
+    private void FocusChangedWhileDragging(IFocusableTarget focusable) {
+        Debug.Log("poopopp " + focusable.GetUIPosition());
+        viewDelegate.CompanionManagementOnPointerMove(this, focusable.GetUIPosition());
     }
 
     private void CompanionManagementOnPointerMove(PointerMoveEvent evt) {
-        viewDelegate.CompanionManagementOnPointerMove(this, evt, NonMouseInputManager.Instance.currentlyHoveredScreenPosUiDoc());
+        viewDelegate.CompanionManagementOnPointerMove(this, evt.position);
     }
 
     private void ComapnionManagementOnPointerUp(PointerUpEvent evt) {
-        viewDelegate.ComapnionManagementOnPointerUp(this, evt, NonMouseInputManager.Instance.currentlyHoveredScreenPosUiDoc());
-        if(NonMouseInputManager.Instance.GetUIState() == UIState.DRAGGING_COMPANION) {
-            NonMouseInputManager.Instance.SetUIState(UIState.DEFAULT);
-        }
+        viewDelegate.ComapnionManagementOnPointerUp(this, evt.position);
+        draggingThisCompanion = false;
     }
 
     private void ComapnionManagementOnPointerLeave(PointerLeaveEvent evt) {
         viewDelegate.CompanionManagementOnPointerLeave(this, evt);
         viewDelegate.DestroyTooltip(entityView.entityContainer);
-        // mouse removal / unhover is done w a bounding box.
-        // we need to be more manual abt it w controllers
-        /*if(NonMouseInputManager.Instance.currentlyHovered.associatedUIDocElement != viewDeckButton) {
-            RemoveCompanionHoverButtons();
-        }*/
-        // massive fkn race condition sry folks
-        if(NonMouseInputManager.Instance.inputMethod != InputMethod.Mouse) {
-            List<VisualElement> elems = new List<VisualElement>
-            {
-                viewDeckButton,
-                sellCompanionButton
-            };
-            UIDocumentHoverableInstantiator.Instance.CallIfNextHoverableNotInElemListWhenReady(
-                RemoveCompanionHoverButtons, 
-                elems);
-        }
+    }
+
+    private void CompanionManagementOnUnfocus() {
+        viewDelegate.CompanionManagementOnPointerLeave(this, null);
+        viewDelegate.DestroyTooltip(entityView.entityContainer);
+        RemoveCompanionHoverButtons();
     }
 
     private void CreateViewDeckButton() {
         if (viewDeckButton != null) {
-            UIDocumentHoverableInstantiator.Instance.CleanupHoverable(viewDeckButton);
             viewDeckButton.RemoveFromHierarchy();
         } 
         viewDeckButton = new Button();
@@ -133,31 +130,11 @@ public class CompanionManagementView {
         viewDeckButton.RegisterCallback<ClickEvent>((evt) => {ViewDeckButtonOnClick();});
 
         viewDelegate.AddToRoot(viewDeckButton);
-        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(viewDeckButton,
-            () => {ViewDeckButtonOnClick();},
-            ()=> {},
-            ()=> {
-                RemoveCompanionHoverButtonsIfNextHoverableNotInElemList();
-            },
-            HoverableType.DefaultShop);
-    }
-
-    private void RemoveCompanionHoverButtonsIfNextHoverableNotInElemList() {
-        List<VisualElement> elems = new List<VisualElement>
-        {
-            viewDeckButton,
-            sellCompanionButton,
-            entityView.entityContainer
-        };
-        UIDocumentHoverableInstantiator.Instance.CallIfNextHoverableNotInElemListWhenReady(
-            RemoveCompanionHoverButtons, 
-            elems);
     }
 
     private void CreateSellCompanionButton() {
         if (sellCompanionButton != null) {
             sellCompanionButton.RemoveFromHierarchy();
-            UIDocumentHoverableInstantiator.Instance.CleanupHoverable(sellCompanionButton);
         }
         sellCompanionButton = new Button();
         sellCompanionButton.AddToClassList("shopButton");
@@ -172,16 +149,9 @@ public class CompanionManagementView {
 
 
 
-        sellCompanionButton.RegisterCallback<ClickEvent>((evt) => {SellCompanionButtonOnClick();});
+        sellCompanionButton.RegisterCallback<ClickEvent>((evt) => { SellCompanionButtonOnClick(); });
 
         viewDelegate.AddToRoot(sellCompanionButton);
-        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(sellCompanionButton,
-            () => {SellCompanionButtonOnClick();},
-            ()=> {},
-            ()=> {
-                RemoveCompanionHoverButtonsIfNextHoverableNotInElemList();
-            },
-            HoverableType.DefaultShop);
     }
 
     private void ViewDeckButtonOnClick() {
@@ -206,7 +176,6 @@ public class CompanionManagementView {
             container.worldBound.y + container.worldBound.height * 0.5f);
         companionBoundingBox.style.left = containerCenter.x - (width * 0.5f);
         companionBoundingBox.style.top = containerCenter.y - (height * 0.5f);
-        // companionBoundingBox.AddToClassList("shopButton");
         viewDelegate.AddToRoot(companionBoundingBox);
         viewDelegate.GetMonoBehaviour().StartCoroutine(RegisterMoveCallback(companionBoundingBox.parent));
     }
@@ -218,7 +187,7 @@ public class CompanionManagementView {
 
 
     private void BoundingBoxParentOnPointerMove(PointerMoveEvent evt) {
-        if (!companionBoundingBox.worldBound.Contains(evt.position) && NonMouseInputManager.Instance.inputMethod == InputMethod.Mouse) {
+        if (!companionBoundingBox.worldBound.Contains(evt.position)) {
             RemoveCompanionHoverButtons();
         }
     }
@@ -227,13 +196,11 @@ public class CompanionManagementView {
         if (sellCompanionButton != null) {
             sellCompanionButton.style.visibility = Visibility.Hidden;
             sellCompanionButton.RemoveFromHierarchy();
-            UIDocumentHoverableInstantiator.Instance.CleanupHoverable(sellCompanionButton);
             sellCompanionButton = null;
         }
         if (viewDeckButton != null) {
             viewDeckButton.style.visibility = Visibility.Hidden; 
             viewDeckButton.RemoveFromHierarchy();
-            UIDocumentHoverableInstantiator.Instance.CleanupHoverable(viewDeckButton);
             viewDeckButton = null;
         }
         if (companionBoundingBox != null) {
@@ -260,5 +227,23 @@ public class CompanionManagementView {
             darkBox.RemoveFromHierarchy();
             darkBox = null;
         }
+    }
+
+    public void ProcessGFGInputAction(GFGInputAction action)
+    {
+        if (!draggingThisCompanion) return;
+
+        if (action == GFGInputAction.SELECT_UP) {
+            viewDelegate.ComapnionManagementOnPointerUp(this, FocusManager.Instance.GetCurrentFocus().GetUIPosition());
+            FocusManager.Instance.onFocusDelegate -= FocusChangedWhileDragging;
+            ControlsManager.Instance.UnregisterControlsReceiver(this);
+            FocusManager.Instance.EnableFocusableTarget(visualElementFocusable);
+        }
+    }
+
+    public void SwappedControlMethod(ControlsManager.ControlMethod controlMethod)
+    {
+        // This is gonna be a whole ordeal
+        throw new NotImplementedException();
     }
 }

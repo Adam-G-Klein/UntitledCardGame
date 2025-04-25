@@ -36,6 +36,7 @@ public class ShopItemView {
     private VisualElement makeCompanionShopItem(CompanionInShopWithPrice companion) {
         VisualElement shopItemElement = new VisualElement();
         shopItemElement.AddToClassList("shop-item-container");
+        shopItemElement.AddToClassList("focusable");
         shopItemElement.focusable = true;
         visualElementFocusable = shopItemElement.AsFocusable();
 
@@ -65,6 +66,7 @@ public class ShopItemView {
     private VisualElement makeCardShopItem(CardInShopWithPrice card) {
         VisualElement shopItemElement = new VisualElement();
         shopItemElement.AddToClassList("shop-item-container");
+        shopItemElement.AddToClassList("focusable");
         shopItemElement.focusable = true;
         visualElementFocusable = shopItemElement.AsFocusable();
 

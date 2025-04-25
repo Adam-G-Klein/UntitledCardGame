@@ -75,7 +75,12 @@ public class VisualElementFocusable : IFocusableTarget
         return optionalTargetType;
     }
 
-    public Vector2 GetPosition() {
+    public Vector2 GetWorldspacePosition() {
         return UIDocumentGameObjectPlacer.GetWorldPositionFromElement(element);
+    }
+
+    public Vector2 GetUIPosition()
+    {
+        return element.worldBound.center;
     }
 }

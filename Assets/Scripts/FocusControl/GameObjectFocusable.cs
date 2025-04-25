@@ -35,8 +35,13 @@ public class GameObjectFocusable : MonoBehaviour, IFocusableTarget
         return false;
     }
 
-    public Vector2 GetPosition() {
+    public Vector2 GetWorldspacePosition() {
         return transform.position;
+    }
+
+    public Vector2 GetUIPosition()
+    {
+        throw new System.NotImplementedException();
     }
 
     [System.Serializable]

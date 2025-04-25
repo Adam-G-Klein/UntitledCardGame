@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
 using System;
+using System.Linq;
 
 public class FocusManager : GenericSingleton<FocusManager>, IControlsReceiver
 {
@@ -86,6 +87,21 @@ public class FocusManager : GenericSingleton<FocusManager>, IControlsReceiver
         stashedFocusables[stashedBy] = newStashedFocusables;
     }
 
+    public void StashFocusableTarget(string stashedBy, IFocusableTarget target) {
+        if (!stashedFocusables.ContainsKey(stashedBy)) {
+            stashedFocusables[stashedBy] = new List<IFocusableTarget>();
+        }
+        if (!disabledFocusableTargets.Contains(target)) {
+            stashedFocusables[stashedBy].Add(target);
+            disabledFocusableTargets.Add(target);
+            if (target.Equals(currentFocus)) {
+                Debug.Log("Disabling current focus target");
+                Unfocus();
+                currentFocus = null;
+            }
+        }
+    }
+
     public void UnstashFocusables(string stashedBy) {
         if (!stashedFocusables.ContainsKey(stashedBy)) {
             Debug.LogError("No key found to unstash focusables: " + stashedBy);
@@ -115,6 +131,10 @@ public class FocusManager : GenericSingleton<FocusManager>, IControlsReceiver
         onUnfocusDelegate?.Invoke(currentFocus);
     }
 
+    public IFocusableTarget GetCurrentFocus() {
+        return currentFocus;
+    }
+
     public void SetFocusNextFrame(IFocusableTarget target) {
         StartCoroutine(FocusNextFrame(target));
     }
@@ -128,7 +148,7 @@ public class FocusManager : GenericSingleton<FocusManager>, IControlsReceiver
 
     private void MoveFocus(Vector2 direction) {
         Debug.Log("FocusManager MoveFocus " + direction.ToString());
-        Vector2 currentCenter = currentFocus.GetPosition();
+        Vector2 currentCenter = currentFocus.GetWorldspacePosition();
 
         IFocusableTarget best = null;
         float bestScore = float.MaxValue;
@@ -136,7 +156,7 @@ public class FocusManager : GenericSingleton<FocusManager>, IControlsReceiver
         foreach (IFocusableTarget target in focusableTargets) {
             if (target == currentFocus || disabledFocusableTargets.Contains(target)) continue;
 
-            Vector2 candidateCenter = target.GetPosition();
+            Vector2 candidateCenter = target.GetWorldspacePosition();
             Vector2 toCandidate = (candidateCenter - currentCenter).normalized;
 
             float dot = Vector2.Dot(direction, toCandidate);
@@ -286,5 +306,14 @@ public class FocusManager : GenericSingleton<FocusManager>, IControlsReceiver
         if (ControlsManager.Instance.GetControlMethod() == ControlsManager.ControlMethod.KeyboardController)
             FocusFirstEnabledFocusable();
         stashedFocusables[stashedBy] = newStashedFocusables;
+    }
+
+    public void TestIsAFocusableTarget(IFocusableTarget target) {
+        foreach (IFocusableTarget focusableTarget in focusableTargets) {
+            if (focusableTarget == target) {
+                Debug.Log("FOCUSABLE TARGET FOUND");
+            }
+        }
+        Debug.Log("FOCUSABLE TARGET NOT FOUND");
     }
 }

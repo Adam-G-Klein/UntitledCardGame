@@ -23,7 +23,9 @@ public enum GFGInputAction {
     SECONDARY_UP,
     SECONDARY_DOWN,
     SECONDARY_RIGHT,
-    SECONDARY_LEFT
+    SECONDARY_LEFT,
+    SELECT_DOWN,
+    SELECT_UP
 }
 
 public enum InputMethod {
@@ -439,7 +441,7 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager>, ICon
         ICompanionManagementViewDelegate viewDelegate){
         companionManagementView = companionView;
         companionManagementViewDelegate = viewDelegate;
-        viewDelegate.CompanionManagementOnPointerDown(companionView, null, currentlyHoveredScreenPosUiDoc());
+        // viewDelegate.CompanionManagementOnPointerDown(companionView, null, currentlyHoveredScreenPosUiDoc());
         SetUIState(UIState.DRAGGING_COMPANION);
     }
 
@@ -448,9 +450,9 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager>, ICon
             Debug.LogError("[NonMouseInputManager] State: SHOP, DRAGGING_COMPANION, but no delegate found");
             return;
         } else {
-            companionManagementViewDelegate.CompanionManagementOnPointerMove(companionManagementView, 
-                null, 
-                currentlyHoveredScreenPosUiDoc());
+            // companionManagementViewDelegate.CompanionManagementOnPointerMove(companionManagementView, 
+            //     null, 
+            //     currentlyHoveredScreenPosUiDoc());
         }
     }
 
@@ -478,7 +480,7 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager>, ICon
                 Debug.Log("[NonMouseInputManager] State: SHOP, DRAGGING_COMPANION, Action: RIGHT");
                 break;
             case GFGInputAction.SELECT:
-                companionManagementViewDelegate.ComapnionManagementOnPointerUp(companionManagementView, null, currentlyHoveredScreenPosUiDoc());
+                // companionManagementViewDelegate.ComapnionManagementOnPointerUp(companionManagementView, null, currentlyHoveredScreenPosUiDoc());
                 Debug.Log("[NonMouseInputManager] State: SHOP, DRAGGING_COMPANION, Action: SELECT");
                 break;
             case GFGInputAction.BACK:
