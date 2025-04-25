@@ -18,7 +18,7 @@ public class TargettingArrowsController : GenericSingleton<TargettingArrowsContr
     }
 
     private void OnFocus(IFocusableTarget target) {
-        freezeArrow(target.GetPosition());
+        freezeArrow(target.GetWorldspacePosition());
     }
 
     public void freezeArrow(GameObject target) {

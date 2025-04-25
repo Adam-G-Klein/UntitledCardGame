@@ -85,7 +85,7 @@ public class ShopEncounter : Encounter
             setupKeepsakes();
         }
         shopManager.SetupUnitManagement();
-        shopManager.shopViewController.SetupStaticHoverables();
+        // shopManager.shopViewController.SetupStaticHoverables();
     }
 
     public override void BuildWithEncounterBuilder(IEncounterBuilder encounterBuilder) {

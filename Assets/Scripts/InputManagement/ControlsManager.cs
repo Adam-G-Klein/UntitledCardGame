@@ -30,9 +30,16 @@ public class ControlsManager : GenericSingleton<ControlsManager>
 
 
     public void handleSelect(InputAction.CallbackContext context) {
-        if(context.phase == InputActionPhase.Performed) {
+        if (context.phase == InputActionPhase.Started) {
+            Debug.Log("SelectDOWN");
+            ProcessInput(GFGInputAction.SELECT_DOWN);
+        }
+        else if (context.phase == InputActionPhase.Performed) {
             Debug.Log("[ControlsManager] handleSelect called");
             ProcessInput(GFGInputAction.SELECT);
+        } else if (context.phase == InputActionPhase.Canceled) {
+            Debug.Log("SelectUP");
+            ProcessInput(GFGInputAction.SELECT_UP);
         }
     }
 
@@ -107,7 +114,8 @@ public class ControlsManager : GenericSingleton<ControlsManager>
 
     private void ProcessInput(GFGInputAction action) {
         CheckSwapControlMethod(ControlMethod.KeyboardController);
-        foreach (IControlsReceiver receiver in controlsReceivers) {
+        List<IControlsReceiver> immutableControlsReceivers = new List<IControlsReceiver>(controlsReceivers);
+        foreach (IControlsReceiver receiver in immutableControlsReceivers) {
             receiver.ProcessGFGInputAction(action);
         }
     }

@@ -33,7 +33,6 @@ public class ShopViewController : MonoBehaviour,
     private VisualElement upgradeIncrementContainer;
     private Button rerollButton;
     private Button cardRemovalButton;
-    private bool hasRemovedCardThisShop;
     private Label moneyLabel;
     private Label notEnoughMoneyLabel;
     public VisualElement selectingCompanionVeil;
@@ -41,6 +40,7 @@ public class ShopViewController : MonoBehaviour,
     public Button selectingCancelButton;
     private VisualElement selectingIndicatorForCardRemovalIndicator;
     private Button selectingForCardRemovalButton;
+    private Button startNextCombatButton;
 
     public Label upgradePriceLabel;
     public Label rerollPriceLabel;
@@ -103,13 +103,14 @@ public class ShopViewController : MonoBehaviour,
         SetupActiveSlots(shopManager.gameState.companions.currentCompanionSlots);
 
         rerollButton = uiDoc.rootVisualElement.Q<Button>("reroll-button");
-        // rerollButton.RegisterCallback<ClickEvent>(RerollButtonOnClick);
         rerollButton.RegisterOnSelected(RerollButtonOnClick);
+        FocusManager.Instance.RegisterFocusableTarget(rerollButton.AsFocusable());
 
-        // selectingCancelButton.RegisterCallback<ClickEvent>(CancelCardBuy);
         selectingCancelButton.RegisterOnSelected(CancelCardBuy);
+        FocusManager.Instance.RegisterFocusableTarget(selectingCancelButton.AsFocusable());
+        FocusManager.Instance.DisableFocusableTarget(selectingCancelButton.AsFocusable());
+
         upgradeButton = uiDoc.rootVisualElement.Q<Button>("upgrade-button");
-        // upgradeButton.RegisterCallback<ClickEvent>(UpgradeButtonOnClick);
         upgradeButton.RegisterOnSelected(UpgradeButtonOnClick);
         upgradeButton.RegisterCallback<PointerEnterEvent>(UpgradeButtonOnPointerEnter);
         upgradeButton.RegisterCallback<PointerLeaveEvent>(UpgradeButtonOnPointerLeave);
@@ -118,28 +119,38 @@ public class ShopViewController : MonoBehaviour,
         upgradeButtonFocusable.additionalUnfocusAction += () => UpgradeButtonOnPointerLeave(null);
         FocusManager.Instance.RegisterFocusableTarget(upgradeButtonFocusable);
 
-        // uiDoc.rootVisualElement.Q<Button>("start-next-combat-button").RegisterCallback<ClickEvent>(StartNextCombatOnClick);
-        uiDoc.rootVisualElement.Q<Button>("start-next-combat-button").RegisterOnSelected(StartNextCombatOnClick);
+        startNextCombatButton = uiDoc.rootVisualElement.Q<Button>("start-next-combat-button");
+        startNextCombatButton.RegisterOnSelected(StartNextCombatOnClick);
+        FocusManager.Instance.RegisterFocusableTarget(startNextCombatButton.AsFocusable());
         
-        // deckView.Q<Button>().RegisterCallback<ClickEvent>((evt) => CloseCompanionDeckView());
-        deckView.Q<Button>().RegisterOnSelected((evt) => CloseCompanionDeckView());
+        Button closeCompanionDeckViewButton = deckView.Q<Button>();
+        closeCompanionDeckViewButton.RegisterOnSelected((evt) => CloseCompanionDeckView());
+        FocusManager.Instance.RegisterFocusableTarget(closeCompanionDeckViewButton.AsFocusable());
+        FocusManager.Instance.DisableFocusableTarget(closeCompanionDeckViewButton.AsFocusable());
 
         cardRemovalButton = uiDoc.rootVisualElement.Q<Button>("card-remove-button");
-        // cardRemovalButton.RegisterCallback<ClickEvent>(CardRemovalButtonOnClick);
         cardRemovalButton.RegisterOnSelected(CardRemovalButtonOnClick);
+        FocusManager.Instance.RegisterFocusableTarget(cardRemovalButton.AsFocusable());
 
         selectingIndicatorForCardRemovalIndicator = uiDoc.rootVisualElement.Q<VisualElement>("companion-selection-for-card-removal-indicator");
         selectingForCardRemovalButton = uiDoc.rootVisualElement.Q<Button>("companion-selection-for-card-removal-cancel-button");
-        // selectingForCardRemovalButton.RegisterCallback<ClickEvent>((evt) => CancelCardRemoval());
         selectingForCardRemovalButton.RegisterOnSelected(CancelCardRemoval);
+        FocusManager.Instance.RegisterFocusableTarget(selectingForCardRemovalButton.AsFocusable());
+        FocusManager.Instance.DisableFocusableTarget(selectingForCardRemovalButton.AsFocusable());
 
-        //setup upgradeMenu
-        // uiDoc.rootVisualElement.Q<Button>(name:"cancelUpgrade").RegisterCallback<ClickEvent>((evt) => CancelUpgrade());
-        // uiDoc.rootVisualElement.Q<Button>(name:"confirmUpgrade").RegisterCallback<ClickEvent>((evt) => ConfirmUpgrade());
-        // uiDoc.rootVisualElement.Q<Button>(name:"upgradedDeckPreview").RegisterCallback<ClickEvent>((evt) => PreviewUpgradedDeck());
-        uiDoc.rootVisualElement.Q<Button>(name:"cancelUpgrade").RegisterOnSelected((evt) => CancelUpgrade());
-        uiDoc.rootVisualElement.Q<Button>(name:"confirmUpgrade").RegisterOnSelected((evt) => ConfirmUpgrade());
-        uiDoc.rootVisualElement.Q<Button>(name:"upgradedDeckPreview").RegisterOnSelected((evt) => PreviewUpgradedDeck());
+        // setup upgradeMenu
+        Button cancelUpgradeButton = uiDoc.rootVisualElement.Q<Button>(name:"cancelUpgrade");
+        Button confirmUpgradeButton = uiDoc.rootVisualElement.Q<Button>(name:"confirmUpgrade");
+        Button upgradedDeckPreviewButton = uiDoc.rootVisualElement.Q<Button>(name:"upgradedDeckPreview");
+        cancelUpgradeButton.RegisterOnSelected((evt) => CancelUpgrade());
+        confirmUpgradeButton.RegisterOnSelected((evt) => ConfirmUpgrade());
+        upgradedDeckPreviewButton.RegisterOnSelected((evt) => PreviewUpgradedDeck());
+        FocusManager.Instance.RegisterFocusableTarget(cancelUpgradeButton.AsFocusable());
+        FocusManager.Instance.RegisterFocusableTarget(confirmUpgradeButton.AsFocusable());
+        FocusManager.Instance.RegisterFocusableTarget(upgradedDeckPreviewButton.AsFocusable());
+        FocusManager.Instance.DisableFocusableTarget(cancelUpgradeButton.AsFocusable());
+        FocusManager.Instance.DisableFocusableTarget(confirmUpgradeButton.AsFocusable());
+        FocusManager.Instance.DisableFocusableTarget(upgradedDeckPreviewButton.AsFocusable());
 
         VisualElement questionMark = uiDoc.rootVisualElement.Q<VisualElement>(name:"questionMark");
         questionMark.RegisterCallback<PointerEnterEvent>(ShowHelperText);
@@ -148,6 +159,7 @@ public class ShopViewController : MonoBehaviour,
         questionMarkFocusable.additionalFocusAction += () => ShowHelperText(null);
         questionMarkFocusable.additionalUnfocusAction += () => HideHelperText(null);
         FocusManager.Instance.RegisterFocusableTarget(questionMarkFocusable);
+        FocusManager.Instance.DisableFocusableTarget(questionMarkFocusable);
     }
 
     private void PreviewUpgradedDeck() {
@@ -233,8 +245,6 @@ public class ShopViewController : MonoBehaviour,
 
         // TODO: Replace with sold out? Grey it out? Talk to Jasmine
         shopItemView.Disable();
-        //shopGoodsArea.Remove(shopItemView.shopItemElement);
-        // UIDocumentHoverableInstantiator.Instance.CleanupHoverable(shopItemView.shopItemElement);
         
         cardItemToViewMap.Remove(card);
 
@@ -255,9 +265,7 @@ public class ShopViewController : MonoBehaviour,
         ShopItemView shopItemView = companionItemToViewMap[companion];
 
         // TODO: Replace with sold out? Grey it out? Talk to Jasmine
-        //shopGoodsArea.Remove(shopItemView.shopItemElement);
         shopItemView.Disable();
-        // UIDocumentHoverableInstantiator.Instance.CleanupHoverable(shopItemView.shopItemElement);
         companionItemToViewMap.Remove(companion);
         FocusManager.Instance.DisableFocusableTarget(shopItemView.visualElementFocusable);
     }
@@ -297,10 +305,9 @@ public class ShopViewController : MonoBehaviour,
 
     public void SetupActiveCompanions(List<Companion> companions) {
         for (int i = 0; i < companions.Count; i++) {
-            // UNDO
-            // CompanionManagementView companionView = new CompanionManagementView(companions[i], this);
-            // activeContainer.contentContainer[i].Add(companionView.container);
-            // visualElementToCompanionViewMap.Add(companionView.container, companionView);
+            CompanionManagementView companionView = new CompanionManagementView(companions[i], this);
+            activeContainer.contentContainer[i].Add(companionView.container);
+            visualElementToCompanionViewMap.Add(companionView.container, companionView);
         }
     }
 
@@ -346,7 +353,7 @@ public class ShopViewController : MonoBehaviour,
         sellingCompanions = true;
         selectingCompanionVeil.style.visibility = Visibility.Visible;
         canDragCompanions = false;
-        NonMouseInputManager.Instance.SetUIState(UIState.SELLING_COMPANION);
+        // NonMouseInputManager.Instance.SetUIState(UIState.SELLING_COMPANION);
     }
 
     public void StopSellingCompanion() {
@@ -355,10 +362,10 @@ public class ShopViewController : MonoBehaviour,
         canDragCompanions = true;
         companionToSell = null;
         sellingCompanionConfirmationView.Hide();
-        NonMouseInputManager.Instance.SetUIState(UIState.DEFAULT);
+        // NonMouseInputManager.Instance.SetUIState(UIState.DEFAULT);
     }
 
-    public void CompanionManagementOnClick(CompanionManagementView companionView, ClickEvent evt)
+    public void CompanionManagementOnClick(CompanionManagementView companionView)
     {
         if (sellingCompanions) {
             sellingCompanionConfirmation.style.visibility = Visibility.Visible;
@@ -389,7 +396,7 @@ public class ShopViewController : MonoBehaviour,
         canDragCompanions = true;
         selectingCompanionVeil.style.visibility = Visibility.Hidden;
         sellingCompanionConfirmationView.Hide();
-        NonMouseInputManager.Instance.SetUIState(UIState.DEFAULT);
+        // NonMouseInputManager.Instance.SetUIState(UIState.DEFAULT);
     }
 
     private void DontSellCompanion() {
@@ -397,13 +404,9 @@ public class ShopViewController : MonoBehaviour,
         sellingCompanionConfirmationView.Hide();
     }
 
-    public void CompanionManagementOnPointerDown(CompanionManagementView companionView, PointerDownEvent evt, Vector2 pointerScreenPos)
+    public void CompanionManagementOnPointerDown(CompanionManagementView companionView, Vector2 pointerPos)
     {
         if (!canDragCompanions && !isDraggingCompanion) return;
-
-        Debug.Log("[ControllerDrag] evt position: " + (evt == null ? "evt is null" : evt.position) + " pointer screen pos: " + pointerScreenPos);
-
-        Vector2 pos = evt == null ? pointerScreenPos : evt.position;
 
         VisualElement parent = companionView.container.parent;
 
@@ -413,7 +416,7 @@ public class ShopViewController : MonoBehaviour,
         tempContainer.style.position = Position.Absolute;
 
         uiDoc.rootVisualElement.Add(tempContainer);
-        StartCoroutine(FinishDragSetup(tempContainer, companionView.container, pos, parent));
+        StartCoroutine(FinishDragSetup(tempContainer, companionView.container, pointerPos, parent));
     }
 
     private IEnumerator FinishDragSetup(VisualElement tempContainer, VisualElement companion, Vector2 position, VisualElement originalSpot) {
@@ -428,23 +431,18 @@ public class ShopViewController : MonoBehaviour,
         companionBeingDragged = companion;
     }
 
-    public void CompanionManagementOnPointerMove(CompanionManagementView companionManagementView, PointerMoveEvent evt, Vector2 pointerScreenPos)
-    {
+    public void CompanionManagementOnPointerMove(CompanionManagementView companionManagementView, Vector2 pointerPos)
+    {        
         if (!isDraggingCompanion || companionBeingDragged != companionManagementView.container) {
-            if(evt == null) {
-                Debug.LogError("OnPointerMove Called from not mouse But Not dragging companion or not the companion being dragged");
-            }
             return;
         }
 
-        Debug.Log("[ControllerDrag] evt position: " + (evt == null ? "evt is null" : evt.position) + " pointer screen pos: " + pointerScreenPos);
-        Vector2 pos = evt == null ? pointerScreenPos : evt.position;
-        companionManagementView.container.parent.style.top = pos.y - companionManagementView.container.parent.layout.height / 2;
-        companionManagementView.container.parent.style.left = pos.x - companionManagementView.container.parent.layout.width / 2;
+        companionManagementView.container.parent.style.top = pointerPos.y - companionManagementView.container.parent.layout.height / 2;
+        companionManagementView.container.parent.style.left = pointerPos.x - companionManagementView.container.parent.layout.width / 2;
 
         foreach (VisualElement child in activeContainer.hierarchy.Children()) {
             if (blockedSlots != null && blockedSlots.Contains(child)) continue;
-            if (child.worldBound.Contains(pos)) {
+            if (child.worldBound.Contains(pointerPos)) {
                 child.style.backgroundColor = slotHighlightColor;
                 if (NumOpenSlots(activeContainer.Children().ToList(), true) < 5 - blockedSlots.Count) {
                     MoveWhileDragging(activeContainer, child);
@@ -455,7 +453,7 @@ public class ShopViewController : MonoBehaviour,
             }
         }
         foreach (VisualElement child in benchContainer.hierarchy.Children()) {
-            if (child.worldBound.Contains(pos)) {
+            if (child.worldBound.Contains(pointerPos)) {
                 if (NumOpenSlots(benchContainer.Children().ToList(), true) < 5) {
                     MoveWhileDragging(benchContainer, child);
                     originalParent = child;
@@ -492,6 +490,8 @@ public class ShopViewController : MonoBehaviour,
             if (child == elementOver) continue;
             child.Clear();
             child.Add(companions[companionIndex++]);
+            FocusManager.Instance.TestIsAFocusableTarget(visualElementToCompanionViewMap[companions[companionIndex-1]].visualElementFocusable);
+            Debug.Log("CONTAINS " + visualElementToCompanionViewMap[companions[companionIndex-1]]);
             if (i == parentContainer.Children().Count() || companionIndex == companions.Count) {
                 if (parentContainer == activeContainer) {
                     RefreshContainers(benchContainer.Children().ToList(), true);
@@ -506,26 +506,24 @@ public class ShopViewController : MonoBehaviour,
     public void CompanionManagementOnPointerLeave(CompanionManagementView companionManagementView, PointerLeaveEvent evt) {
         if (!isDraggingCompanion || companionBeingDragged != companionManagementView.container)  return;
 
-        if(evt != null || NonMouseInputManager.Instance.inputMethod == InputMethod.Mouse) {
-            companionManagementView.container.parent.style.top = evt.position.y - companionManagementView.container.parent.layout.height / 2;
-            companionManagementView.container.parent.style.left = evt.position.x - companionManagementView.container.parent.layout.width / 2;
-        }
+        // if(evt != null || NonMouseInputManager.Instance.inputMethod == InputMethod.Mouse) {
+        //     companionManagementView.container.parent.style.top = evt.position.y - companionManagementView.container.parent.layout.height / 2;
+        //     companionManagementView.container.parent.style.left = evt.position.x - companionManagementView.container.parent.layout.width / 2;
+        // }
     }
 
-    public void ComapnionManagementOnPointerUp(CompanionManagementView companionManagementView, PointerUpEvent evt, Vector2 pointerScreenPos)
+    public void ComapnionManagementOnPointerUp(CompanionManagementView companionManagementView, Vector2 pointerPos)
     {
         if (!isDraggingCompanion || companionManagementView.container != companionBeingDragged) return;
-
-        Vector2 pos = evt == null ? pointerScreenPos : evt.position;
-
+        
         VisualElement elementOver = null;
         foreach (VisualElement child in activeContainer.hierarchy.Children()) {
-            if (child.worldBound.Contains(pos)) {
+            if (child.worldBound.Contains(pointerPos)) {
                 elementOver = child;
             }
         }
         foreach (VisualElement child in benchContainer.hierarchy.Children()) {
-            if (child.worldBound.Contains(pos)) {
+            if (child.worldBound.Contains(pointerPos)) {
                 elementOver = child;
             }
         }
@@ -541,7 +539,7 @@ public class ShopViewController : MonoBehaviour,
         isDraggingCompanion = false;
         companionBeingDragged = null;
         originalParent = null;
-        NonMouseInputManager.Instance.SetUIState(UIState.DEFAULT);
+        // NonMouseInputManager.Instance.SetUIState(UIState.DEFAULT);
     }
 
     private void DoMoveCompanion(CompanionManagementView companionManagementView, VisualElement movingToContainer) {
@@ -575,7 +573,7 @@ public class ShopViewController : MonoBehaviour,
         // UIDocumentHoverableInstantiator.Instance.UpdateHoverablesPosition();
 
         // Update the currently hovered hoverable
-        NonMouseInputManager.Instance.UpdateCurrentlyHovered();
+        // NonMouseInputManager.Instance.UpdateCurrentlyHovered();
     }
 
     private int NumOpenSlots(List<VisualElement> unitContainers, bool isBench) {
@@ -642,12 +640,15 @@ public class ShopViewController : MonoBehaviour,
         canDragCompanions = false;
         selectingCompanionVeil.style.visibility = Visibility.Visible;
         selectingIndicator.style.visibility = Visibility.Visible;
+        StashNonCompanionViewFocusables(this.GetType().Name + "CardBuying");
+        FocusManager.Instance.EnableFocusableTarget(selectingCancelButton.AsFocusable());
         List<CompanionManagementView> notApplicable = new List<CompanionManagementView>();
         foreach (VisualElement child in activeContainer.hierarchy.Children()) {
             if (child.childCount != 1) continue;
             CompanionManagementView companion = visualElementToCompanionViewMap[child[0]];
             if (!shopManager.IsApplicableCompanion(cardInShop, companion.companion)) {
                 notApplicable.Add(companion);
+                FocusManager.Instance.StashFocusableTarget(this.GetType().Name + "CardBuying", companion.visualElementFocusable);
             }
         }
 
@@ -656,6 +657,7 @@ public class ShopViewController : MonoBehaviour,
             CompanionManagementView companion = visualElementToCompanionViewMap[child[0]];
             if (!shopManager.IsApplicableCompanion(cardInShop, companion.companion)) {
                 notApplicable.Add(companion);
+                FocusManager.Instance.StashFocusableTarget(this.GetType().Name + "CardBuying", companion.visualElementFocusable);
             }
         }
 
@@ -663,13 +665,24 @@ public class ShopViewController : MonoBehaviour,
             view.ShowNotApplicable();
         }
 
-        NonMouseInputManager.Instance.SetPurchasingCard(cardInShop);
+        //NonMouseInputManager.Instance.SetPurchasingCard(cardInShop);
+    }
+
+    private void StashNonCompanionViewFocusables(string stashedBy) {
+        FocusManager.Instance.StashFocusableTarget(stashedBy, upgradeButton.AsFocusable());
+        FocusManager.Instance.StashFocusableTarget(stashedBy, rerollButton.AsFocusable());
+        FocusManager.Instance.StashFocusableTarget(stashedBy, cardRemovalButton.AsFocusable());
+        FocusManager.Instance.StashFocusableTarget(stashedBy, startNextCombatButton.AsFocusable());
+        shopGoodsArea.Query<VisualElement>(className: "focusable").ToList().ForEach(ve => {
+            FocusManager.Instance.StashFocusableTarget(stashedBy, ve.AsFocusable());
+        });
     }
 
     public void StopBuyingCard() {
         canDragCompanions = true;
         selectingCompanionVeil.style.visibility = Visibility.Hidden;
         selectingIndicator.style.visibility = Visibility.Hidden;
+        FocusManager.Instance.UnstashFocusables(this.GetType().Name + "CardBuying");
         foreach (VisualElement child in activeContainer.hierarchy.Children()) {
             if (child.childCount != 1) continue;
             visualElementToCompanionViewMap[child[0]].ResetApplicable();
@@ -679,7 +692,7 @@ public class ShopViewController : MonoBehaviour,
             if (child.childCount != 1) continue;
             visualElementToCompanionViewMap[child[0]].ResetApplicable();
         }
-        NonMouseInputManager.Instance.UnSetPurchasingCard();
+        //NonMouseInputManager.Instance.UnSetPurchasingCard();
     }
 
     private void CancelCardBuy(ClickEvent evt) {
@@ -703,11 +716,12 @@ public class ShopViewController : MonoBehaviour,
         StartCoroutine(ShowGenericNotification("Card Removed!"));
         StopRemovingCard();
     }
+
     private void StopRemovingCard() {
         canDragCompanions = true;
         selectingCompanionVeil.style.visibility = Visibility.Hidden;
         selectingIndicatorForCardRemovalIndicator.style.visibility = Visibility.Hidden;
-        NonMouseInputManager.Instance.SetUIState(UIState.DEFAULT);
+        // NonMouseInputManager.Instance.SetUIState(UIState.DEFAULT);
     }
 
 
@@ -784,7 +798,8 @@ public class ShopViewController : MonoBehaviour,
             GameObject cardSelectionViewGo = Instantiate(cardSelectionViewPrefab);
             CardSelectionView cardSelectionView = cardSelectionViewGo.GetComponent<CardSelectionView>();
             cardSelectionView.Setup(companion.getDeck().cards, companion);
-        } else {
+            FocusManager.Instance.StashFocusables(this.GetType().Name + "DeckView");
+        } else { // Not sure why this else exists
             deckViewContentContainer.Clear();
             deckView.style.visibility = Visibility.Visible;
 
@@ -874,6 +889,10 @@ public class ShopViewController : MonoBehaviour,
         return isDraggingCompanion;
     }
 
+    public bool CanDragCompanions() {
+        return canDragCompanions;
+    }
+
     public void ShopItemViewHovered(ShopItemView shopItemView)
     {
         shopManager.ShopItemHovered();
@@ -954,7 +973,7 @@ public class ShopViewController : MonoBehaviour,
         companionUpgradeMenu.AddToClassList("upgrade-menu-container-visible");
         upgradeMenuOuterContainer.AddToClassList("upgrade-menu-outer-container-visible");
         upgradeMenuOuterContainer.pickingMode = PickingMode.Position;
-        NonMouseInputManager.Instance.SetUIState(UIState.UPGRADING_COMPANION);
+        // NonMouseInputManager.Instance.SetUIState(UIState.UPGRADING_COMPANION);
     }
 
     private void CancelUpgrade() {
@@ -966,7 +985,7 @@ public class ShopViewController : MonoBehaviour,
         upgradeMenuOuterContainer.RemoveFromClassList("upgrade-menu-outer-container-visible");
         upgradeMenuOuterContainer.pickingMode = PickingMode.Ignore;
         shopManager.CancelUpgradePurchase();
-        NonMouseInputManager.Instance.SetUIState(UIState.DEFAULT);
+        // NonMouseInputManager.Instance.SetUIState(UIState.DEFAULT);
     }
 
     private void ConfirmUpgrade() {
@@ -979,7 +998,7 @@ public class ShopViewController : MonoBehaviour,
         upgradeMenuOuterContainer.RemoveFromClassList("upgrade-menu-outer-container-visible");
         upgradeMenuOuterContainer.pickingMode = PickingMode.Ignore;
         shopManager.ConfirmUpgradePurchase();
-        NonMouseInputManager.Instance.SetUIState(UIState.DEFAULT);
+        // NonMouseInputManager.Instance.SetUIState(UIState.DEFAULT);
     }
 
     public void DisplayTooltip(VisualElement element, TooltipViewModel tooltipViewModel, bool forCompanionManagementView) {
@@ -1002,76 +1021,5 @@ public class ShopViewController : MonoBehaviour,
         if(tooltipMap.ContainsKey(element)) {
             Destroy(tooltipMap[element]);
         }
-    }
-
-    public void SetupStaticHoverables() {
-        // UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(rerollButton,
-        //         () => {RerollButtonOnClick(null);}, 
-        //         () => {},
-        //         () => {},
-        //         HoverableType.DefaultShop);
-        // UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(upgradeButton,
-        //         () => {UpgradeButtonOnClick(null);}, 
-        //         () => {UpgradeButtonOnPointerEnter(null);}, 
-        //         () => {UpgradeButtonOnPointerLeave(null);},
-        //         HoverableType.DefaultShop);
-        // UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(uiDoc.rootVisualElement.Q<Button>("start-next-combat-button"),
-        //         () => {StartNextCombatOnClick(null);}, 
-        //         () => {},
-        //         () => {},
-        //         HoverableType.DefaultShop);
-        // UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(uiDoc.rootVisualElement.Q<Button>("card-remove-button"),
-        //         () => {CardRemovalButtonOnClick(null);}, 
-        //         () => {},
-        //         () => {},
-        //         HoverableType.DefaultShop);
-        // // Create hoverables for selling companion confirmation buttons
-        // UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(
-        //     sellingCompanionConfirmation.Q<Button>("selling-companion-confirmation-yes"),
-        //     () => { ConfirmSellCompanion(); },
-        //     () => { /* onHover action */ },
-        //     () => { /* onUnhover action */ },
-        //     HoverableType.SellingCompanion
-        // );
-        // UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(
-        //     sellingCompanionConfirmation.Q<Button>("selling-companion-confirmation-no"),
-        //     () => { StopSellingCompanion(); },
-        //     () => { /* onHover action */ },
-        //     () => { /* onUnhover action */ },
-        //     HoverableType.SellingCompanion
-        // );
-
-        // // Create hoverables for the companion upgrade question mark and confirmation
-        // UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(
-        //     uiDoc.rootVisualElement.Q<Button>("confirmUpgrade"),
-        //     () => { ConfirmUpgrade(); },
-        //     () => { /* onHover action */ },
-        //     () => { /* onUnhover action */ },
-        //     HoverableType.UpgradingCompanion
-        // );
-
-        // UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(
-        //     uiDoc.rootVisualElement.Q<Button>("cancelUpgrade"),
-        //     () => { CancelUpgrade(); },
-        //     () => { /* onHover action */ },
-        //     () => { /* onUnhover action */ },
-        //     HoverableType.UpgradingCompanion
-        // );
-
-        // UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(
-        //     uiDoc.rootVisualElement.Q<VisualElement>(name: "questionMark"),
-        //     () => {},
-        //     () => {ShowHelperText(null);},
-        //     () => {HideHelperText(null);},
-        //     HoverableType.UpgradingCompanion
-        // );
-
-        // UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(
-        //     uiDoc.rootVisualElement.Q<Button>("upgradedDeckPreview"),
-        //     () => { PreviewUpgradedDeck();},
-        //     () => { /* onHover action */ },
-        //     () => { /* onUnhover action */ },
-        //     HoverableType.UpgradingCompanion
-        // );
     }
 }

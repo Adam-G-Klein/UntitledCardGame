@@ -45,11 +45,19 @@
     padding-left: 0.5%;
 }
 
+.shop-item-container:focus {
+    scale: 1.15 1.15;
+}
+
 .shop-item-container:hover {
     scale: 1.15 1.15;
 }
 
 .shopButton:hover {
+    background-color: rgb(249, 228, 205);
+}
+
+.shopButton:focus {
     background-color: rgb(249, 228, 205);
 }
 
@@ -283,4 +291,12 @@
     border-right-color: rgb(0, 0, 0);
     border-top-color: rgb(0, 0, 0);
     border-bottom-color: rgb(0, 0, 0);
+}
+
+#companion-selection-cancel-button {
+    background-color: rgb(255, 130, 127);
+}
+
+#companion-selection-cancel-button:focus {
+    background-color: rgb(207, 72, 68);
 }

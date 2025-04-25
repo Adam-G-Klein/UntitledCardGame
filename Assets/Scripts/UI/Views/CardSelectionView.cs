@@ -80,13 +80,6 @@ public class CardSelectionView : MonoBehaviour
             CardView newCardView = new CardView(card, card.getCompanionFrom(), true);
             VisualElement cardWrapper = new VisualElement();
             cardWrapper.AddToClassList("card-wrapper");
-            // newCardView.cardContainer.RegisterCallback<ClickEvent>(evt => CardViewClicked(evt, newCardView));
-            // UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(
-            //     newCardView.cardContainer,
-            //     () => CardViewClicked(null, newCardView),
-            //     () => {},
-            //     () => {},
-            //     HoverableType.CardSelection);
             newCardView.cardContainer.RegisterOnSelected(() => CardViewClicked(null, newCardView));
             cardWrapper.Add(newCardView.cardContainer);
             cardViews.Add(newCardView);
@@ -94,7 +87,6 @@ public class CardSelectionView : MonoBehaviour
         }
         
         this.promptTextLabel.text = promptText;
-        // NonMouseInputManager.Instance.SetUIState(UIState.CARD_SELECTION_DISPLAY);
         FocusManager.Instance.RegisterFocusables(uiDoc);
     }
 
@@ -104,14 +96,7 @@ public class CardSelectionView : MonoBehaviour
         this.cardContainer = uiDoc.rootVisualElement.Q("card-scroll-view-container");
         this.confirmExitButton = uiDoc.rootVisualElement.Q<Button>("confirm-exit-button");
         this.promptTextLabel = uiDoc.rootVisualElement.Q<Label>("prompt-text-label");
-        // this.confirmExitButton.RegisterCallback<ClickEvent>(evt => ExitView());
         this.confirmExitButton.RegisterOnSelected(() => ExitView());
-        // UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(
-        //     this.confirmExitButton,
-        //     () => ExitView(),
-        //     () => {},
-        //     () => {},
-        //     HoverableType.CardSelection);
     }
 
     private void CardViewClicked(ClickEvent evt, CardView cardView) {
@@ -132,10 +117,6 @@ public class CardSelectionView : MonoBehaviour
     }
 
     private void ExitView() {
-        // foreach(CardView cardView in cardViews) {
-        //     UIDocumentHoverableInstantiator.Instance.CleanupHoverable(cardView.cardContainer);
-        // }
-        // UIDocumentHoverableInstantiator.Instance.CleanupHoverable(this.confirmExitButton);
         cardViews.Clear();
 
         if (cardsSelected.Count < minSelections) {
@@ -156,7 +137,7 @@ public class CardSelectionView : MonoBehaviour
             // that it can proceed
             cardsSelectedHandler.Invoke(outputCards, companion);
         }
-        // NonMouseInputManager.Instance.SetUIState(UIState.DEFAULT);
+        FocusManager.Instance.UnregisterFocusables(uiDoc);
         FocusManager.Instance.UnstashFocusables(this.GetType().Name);
         Destroy(this.gameObject);
     }
