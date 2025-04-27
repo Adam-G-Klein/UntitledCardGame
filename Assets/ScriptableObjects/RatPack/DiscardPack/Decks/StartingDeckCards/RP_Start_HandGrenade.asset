@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: RP_Start_HandGrenade
   m_EditorClassIdentifier: 
   Name: Hand Grenade
-  Description: When played or discarded, deal 10 damage to a random enemy
-  defaultValues: []
+  Description: When played or discarded, deal {rpl_damage} damage to a random enemy
+  defaultValues:
+  - key: rpl_damage
+    value: 8
   Cost: 2
   Artwork: {fileID: 21300000, guid: b6a3a72ddfbd65c429c809259c81ca0b, type: 3}
   cardCategory: 1
@@ -89,7 +91,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: enemy
         combatEffect: 0
-        scale: 10
+        scale: 8
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
