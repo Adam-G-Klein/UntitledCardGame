@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: RP_Inoculate
+  m_Name: RP_Start_BloodiedBandage
   m_EditorClassIdentifier: 
-  Name: Inoculate
-  Description: Exhaust. Target companion heals 10 HP then loses 1 HP
+  Name: Bloodied Bandage
+  Description: Exhaust. Target companion heals 7 HP then loses 1 HP
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 06c409edcf5e308438ea9c89ccd99c68, type: 3}
@@ -55,7 +55,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: target
         combatEffect: 9
-        scale: 10
+        scale: 7
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
