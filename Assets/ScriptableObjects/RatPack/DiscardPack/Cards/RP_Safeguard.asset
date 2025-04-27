@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: RP_Inhibition
+  m_Name: RP_Safeguard
   m_EditorClassIdentifier: 
-  Name: Inhibition
-  Description: When played or when discarded, this companion gains 2 strength
+  Name: Safeguard
+  Description: Retain. When discarded, give adjacent companions 6 block
   defaultValues: []
-  Cost: 2
-  Artwork: {fileID: 21300000, guid: 20b46ccd593516f4badbdcdb021f67c1, type: 3}
+  Cost: 0
+  Artwork: {fileID: 21300000, guid: 292ee1eb3f315c9448b8c577d0e6a420, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
-  playable: 1
+  playable: 0
   exhaustsWhenPlayed: 0
-  retain: 0
+  retain: 1
   effectWorkflows:
   - rid: 5602892563578094203
   onExhaustEffectWorkflow:
@@ -41,7 +41,8 @@ MonoBehaviour:
       data:
         effectSteps:
         - rid: 2034230108114649752
-        - rid: 2034230108114649753
+        - rid: 7401433308100035071
+        - rid: 7401433308100035072
         - rid: 2034230108114649755
     - rid: 2034230108114649752
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -49,60 +50,35 @@ MonoBehaviour:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: self
-        validTargets: 
+        outputKey: target
+        validTargets: 00000000
         number: 1
         specialTargetRule: 4
         cantCancelTargetting: 0
-    - rid: 2034230108114649753
-      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: ApplyStatus
-        inputKey: self
-        statusEffect: 0
-        scale: 2
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplyByNumAuraStacks: 0
     - rid: 2034230108114649755
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
-        inputKey: self
-        prefabToInstantiate: {fileID: 3850217184923880746, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
+        inputKey: adj
+        prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
         scale: 1
     - rid: 5602892563578094203
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
-        effectSteps:
-        - rid: 7401433059192471558
-        - rid: 7401433241610878977
-        - rid: 7401433241610878978
-    - rid: 7401433059192471558
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+        effectSteps: []
+    - rid: 7401433308100035071
+      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: self
-        validTargets: 
-        number: 1
-        specialTargetRule: 4
-        cantCancelTargetting: 0
-    - rid: 7401433241610878977
+        effectStepName: GetAdjacentCompanions
+        inputKey: target
+        outputKey: adj
+    - rid: 7401433308100035072
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ApplyStatus
-        inputKey: self
-        statusEffect: 0
-        scale: 2
+        inputKey: adj
+        statusEffect: 2
+        scale: 6
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
-    - rid: 7401433241610878978
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: self
-        prefabToInstantiate: {fileID: 3850217184923880746, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
-        scale: 1

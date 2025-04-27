@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: RP_Inhibition
+  m_Name: RP_Groupthink
   m_EditorClassIdentifier: 
-  Name: Inhibition
-  Description: When played or when discarded, this companion gains 2 strength
+  Name: Groupthink
+  Description: When played or discarded, draw 1 card from 3 random companions
   defaultValues: []
-  Cost: 2
-  Artwork: {fileID: 21300000, guid: 20b46ccd593516f4badbdcdb021f67c1, type: 3}
+  Cost: 1
+  Artwork: {fileID: 21300000, guid: f48743304e0580f4fbfc67f629b1dabe, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
@@ -41,7 +41,7 @@ MonoBehaviour:
       data:
         effectSteps:
         - rid: 2034230108114649752
-        - rid: 2034230108114649753
+        - rid: 7401433059192471560
         - rid: 2034230108114649755
     - rid: 2034230108114649752
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -49,60 +49,58 @@ MonoBehaviour:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: self
-        validTargets: 
-        number: 1
-        specialTargetRule: 4
+        outputKey: targets
+        validTargets: 00000000
+        number: 3
+        specialTargetRule: 6
         cantCancelTargetting: 0
-    - rid: 2034230108114649753
-      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: ApplyStatus
-        inputKey: self
-        statusEffect: 0
-        scale: 2
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplyByNumAuraStacks: 0
     - rid: 2034230108114649755
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
-        inputKey: self
-        prefabToInstantiate: {fileID: 3850217184923880746, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
+        inputKey: targets
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
         scale: 1
     - rid: 5602892563578094203
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
         - rid: 7401433059192471558
-        - rid: 7401433241610878977
-        - rid: 7401433241610878978
+        - rid: 7401433059192471559
+        - rid: 7401433308100034881
     - rid: 7401433059192471558
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: self
-        validTargets: 
-        number: 1
-        specialTargetRule: 4
+        outputKey: targets
+        validTargets: 00000000
+        number: 3
+        specialTargetRule: 6
         cantCancelTargetting: 0
-    - rid: 7401433241610878977
-      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+    - rid: 7401433059192471559
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: ApplyStatus
-        inputKey: self
-        statusEffect: 0
-        scale: 2
+        effectStepName: DrawCards
+        inputKey: targets
+        outputKey: 
+        scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
-        multiplyByNumAuraStacks: 0
-    - rid: 7401433241610878978
+    - rid: 7401433059192471560
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DrawCards
+        inputKey: targets
+        outputKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 7401433308100034881
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
-        inputKey: self
-        prefabToInstantiate: {fileID: 3850217184923880746, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
+        inputKey: targets
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
         scale: 1
