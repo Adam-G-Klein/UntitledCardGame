@@ -10,21 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: RP_SmallButDeadly
+  m_Name: RP_Start_BigOof
   m_EditorClassIdentifier: 
-  Name: Small but Deadly
-  Description: Give target companion 1 strength
-  defaultValues: []
-  Cost: 1
-  Artwork: {fileID: 21300000, guid: 5f66e07752da0d34ca5ca0b6a327d011, type: 3}
-  cardCategory: 2
+  Name: Big Oof
+  Description: Deal {rpl_damage} damage to target enemy twice
+  defaultValues:
+  - key: rpl_damage
+    value: 4
+  Cost: 2
+  Artwork: {fileID: 21300000, guid: c22bda8e4471b44c898089214ba8c903, type: 3}
+  cardCategory: 1
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
   retain: 0
   effectWorkflows:
-  - rid: 5602892533381726226
+  - rid: 2116895648763871351
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
@@ -34,38 +38,33 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 1274772082283774276
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: targetCompanion
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
-        scale: 1.5
-    - rid: 5602892533381726226
+    - rid: 2116895648763871351
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
-        - rid: 5602892533381726227
-        - rid: 5602892533381726228
-        - rid: 1274772082283774276
-    - rid: 5602892533381726227
+        - rid: 9024302470308298775
+        - rid: 9024302470308298776
+    - rid: 9024302470308298775
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: targetCompanion
-        validTargets: 00000000
+        outputKey: target
+        validTargets: 02000000
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
-    - rid: 5602892533381726228
-      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+    - rid: 9024302470308298776
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: ApplyStatus
-        inputKey: targetCompanion
-        statusEffect: 0
-        scale: 1
+        effectStepName: CombatEffectStep
+        inputKey: target
+        combatEffect: 0
+        scale: 4
         getScaleFromKey: 0
         inputScaleKey: 
-        multiplyByNumAuraStacks: 0
+        multiplicity: 2
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 1320532642761013391, guid: 99a456f94890391478f393fcc8ad0b95, type: 3}
