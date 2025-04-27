@@ -35,6 +35,8 @@ public class EntityView : IUIEventReceiver {
     private int ENTITY_NAME_MAX_CHARS = 6;
     private int ENTITY_NAME_FONT_SIZE = 20;
 
+    public GameObject tweenTarget = new GameObject("ScaleBumpTarget");
+
     public EntityView(IUIEntity entity, int index, bool isEnemy, IEntityViewDelegate viewDelegate = null, bool isCompanionManagementView = false) {
         this.uiEntity = entity;
         this.index = index;
@@ -420,8 +422,8 @@ public class EntityView : IUIEventReceiver {
 
     private void DamageScaleBump(int scale) {
         if (scale == 0) return; // this could mean the damage didn't go through the block or that the companion died while taking damage
-        GameObject tweenTarget = new GameObject("ScaleBumpTarget");
 
+<<<<<<< Updated upstream
         if (LeanTween.isTweening(tweenTarget)) {
             // return here if we want new tweens to just not start until old ones are done
             // return;
@@ -436,10 +438,12 @@ public class EntityView : IUIEventReceiver {
             entityContainer.style.scale = new StyleScale(new Scale(originalElementScale));
         }
 
+=======
+        if (LeanTween.isTweening(tweenTarget)) return;
+ 
+>>>>>>> Stashed changes
         Transform combatInstanceTransform = combatInstance.GetComponent<Transform>();
-
         originalScale = combatInstanceTransform.localScale;
-
         originalElementScale = new Vector2(
             entityContainer.style.scale.value.value.x,
             entityContainer.style.scale.value.value.y
@@ -448,8 +452,13 @@ public class EntityView : IUIEventReceiver {
         VisualElement companionContainer = entityContainer.Q<VisualElement>(className: "entity-portrait-container");
 
         float duration = 0.125f;  // Total duration for the scale animation
+<<<<<<< Updated upstream
         float minScale = (float)Math.Min(.75, .9 - scale / 500);  // scale bump increases in intensity if entity takes more damage (haven't extensively tested this)
 
+=======
+        float minScale = .8f; //(float)Math.Min(.75, .9 - scale / 500);  // scale bump increases in intensity if entity takes more damage (haven't extensively tested this)
+        
+>>>>>>> Stashed changes
         LeanTween.value(tweenTarget, 1f, minScale, duration)
             .setEase(LeanTweenType.easeInOutQuad)
             .setLoopPingPong(1) // inverse tween is called when this tween completes. On complete below is called after both tweens complete
@@ -473,7 +482,6 @@ public class EntityView : IUIEventReceiver {
                     combatInstanceTransform.localScale = originalScale;
                     combatInstanceTransform.position = entityWorldPosition;
                 }
-                GameObject.Destroy(tweenTarget);
             });
     }
 
