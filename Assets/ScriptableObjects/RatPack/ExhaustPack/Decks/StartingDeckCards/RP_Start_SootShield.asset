@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: RP_Start_SootShield
   m_EditorClassIdentifier: 
   Name: Soot Shield
-  Description: Give target companion 6 block and exhaust a random card in hand
+  Description: Give target companion 8 block and exhaust a random card in hand
   defaultValues: []
-  Cost: 1
+  Cost: 2
   Artwork: {fileID: 21300000, guid: b0388336af3869341bb50af8ec281a8a, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
@@ -49,7 +49,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: target
         statusEffect: 2
-        scale: 6
+        scale: 8
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
