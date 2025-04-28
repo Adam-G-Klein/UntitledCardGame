@@ -17,9 +17,9 @@ MonoBehaviour:
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: 5fd78a66293fa4473bc382b6ee49c87a, type: 3}
   fullSprite: {fileID: 21300000, guid: b496905dc6d0c4000b20230ebb41e77b, type: 3}
-  backgroundImage: {fileID: 21300000, guid: 3d949f712517a4846a59e1b81e5d2626, type: 3}
-  entityFrame: {fileID: 21300000, guid: 917225be64994484da5c72a7b08a3d6c, type: 3}
-  companionManagementFrame: {fileID: 21300000, guid: ff816818ae73449c997132f7ec8ab23c, type: 3}
+  backgroundImage: {fileID: 21300000, guid: 741949db90bb4412ba7493960e001481, type: 3}
+  entityFrame: {fileID: 21300000, guid: e8e1fad73c653473d90feb9b744f60c6, type: 3}
+  companionManagementFrame: {fileID: 21300000, guid: ad4f2340ea2464bc780af3b16bf27412, type: 3}
   startingDeck: {fileID: 11400000, guid: 466520c011e0b499e9ec3a59502a6788, type: 2}
   cardBack: {fileID: 21300000, guid: 3296a63e824de414bb4b578c4822fbdb, type: 3}
   cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
@@ -28,56 +28,34 @@ MonoBehaviour:
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 0}
   genericCompanionVFX: {fileID: 0}
+  cacheValueConfigs:
+  - key: numBuffs
+    display: 1
+    sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+    startOfTurnValue: 0
+    setStartOfTurnValue: 0
+    startOfCombatValue: 2
+    setStartOfCombatValue: 1
   cardPool: {fileID: 11400000, guid: 3a6947a78ef594b05ba01c0f08056a55, type: 2}
   packCardPool: {fileID: 11400000, guid: 0bf35a642105d4780a727b994049d862, type: 2}
   speakerType: {fileID: 0}
   abilitiesV2:
   - rid: 2034230176448512006
-  - rid: 2034230176448512000
   level: 0
   upgradeTo: {fileID: 11400000, guid: a10a7597f04484f7eb5c6c9ba3d20054, type: 2}
   tooltip:
     empty: 0
     lines:
     - title: Beezelbumbler
-      description: The first time Beezelbumbler takes damage in combat, it gains
-        2 strength
+      description: The first 2 times Beezelbumbler takes damage in combat, it gains
+        1 strength
       relatedBehaviorIndex: 0
-  keepsakeTitle: Bumbler's Deviltooth
-  keepsakeDescription: The first time Beezelbumbler takes damage in combat, it gains
-    2 strength
+  keepsakeTitle: Beezelbumbler's Fangs
+  keepsakeDescription: The first 2 times Beezelbumbler takes damage in combat, it
+    gains 1 strength
   references:
     version: 2
     RefIds:
-    - rid: 2034230176448512000
-      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
-      data:
-        abilityTrigger: 0
-        effectSteps:
-        - rid: 2034230176448512004
-        - rid: 2034230176448512005
-    - rid: 2034230176448512004
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: self
-        validTargets: 
-        number: 1
-        specialTargetRule: 3
-        cantCancelTargetting: 0
-    - rid: 2034230176448512005
-      type: {class: CombatInstanceCacheStore, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CombatInstanceCacheStore
-        inputCombatInstanceKey: self
-        hardCodedBool: 0
-        useHardCodedBool: 1
-        hardCodedInt: 0
-        useHardCodedInt: 0
-        currentWorkflowKey: 
-        cacheKey: hasTakenDamageCache
     - rid: 2034230176448512006
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
@@ -86,8 +64,9 @@ MonoBehaviour:
         - rid: 2034230176448512007
         - rid: 2034230176448512008
         - rid: 2034230176448512009
-        - rid: 5363307913066577934
+        - rid: 7401433308100034592
         - rid: 2034230176448512010
+        - rid: 7401433308100034593
         - rid: 2034230176448512011
         - rid: 2034230176448512014
         - rid: 2034230176448512012
@@ -114,32 +93,32 @@ MonoBehaviour:
       data:
         effectStepName: CombatInstanceCacheLoad
         inputCombatInstanceKey: self
-        cacheKey: hasTakenDamageCache
-        currentWorkflowKey: hasTakenDamage
+        cacheKey: numBuffs
+        currentWorkflowKey: numBuffs
     - rid: 2034230176448512010
       type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EndWorkflowIfConditionMet
-        inputKey1: hasTakenDamage
+        inputKey1: done
         conditionToEndOn: 1
     - rid: 2034230176448512011
       type: {class: CombatInstanceCacheStore, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatInstanceCacheStore
         inputCombatInstanceKey: self
-        hardCodedBool: 1
-        useHardCodedBool: 1
+        hardCodedBool: 0
+        useHardCodedBool: 0
         hardCodedInt: 0
         useHardCodedInt: 0
-        currentWorkflowKey: 
-        cacheKey: hasTakenDamageCache
+        currentWorkflowKey: numBuffsSubtracted
+        cacheKey: numBuffs
     - rid: 2034230176448512012
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ApplyStatus
         inputKey: self
         statusEffect: 0
-        scale: 2
+        scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
@@ -156,12 +135,22 @@ MonoBehaviour:
         effectStepName: DialogueStep
         line: rawr >:)
         lineTime: 2
-    - rid: 5363307913066577934
-      type: {class: DebugEffectStep, ns: , asm: Assembly-CSharp}
+    - rid: 7401433308100034592
+      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: DebugEffectStep
-        inputCombatInstanceCacheKey: self
-        genericMap: 0
-        ints: 0
-        strings: 0
-        bools: 1
+        effectStepName: BooleanComparison
+        hardCodedInputKey1: 0
+        useHardCodedInputKey1: 1
+        inputKey1: 
+        operation: 0
+        inputKey2: numBuffs
+        outputKey: done
+    - rid: 7401433308100034593
+      type: {class: MathStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: MathStep
+        inputKey: numBuffs
+        operand2InputKey: UNUSED
+        operation: 1
+        scale: 1
+        outputKey: numBuffsSubtracted
