@@ -120,11 +120,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             gameObject.GetComponent<PlayableCard>().SetBasePosition();
 
             // Hack to try to get Pythia deck shuffling on start of turn working.
-            IEnumerator callback() {
-                EnemyEncounterViewModel.Instance.SetStateDirty();
-                yield return null;
-            }
-            EffectManager.Instance.invokeEffectWorkflow(new EffectDocument(), new List<EffectStep>(), callback());
+            EffectManager.Instance.invokeEffectWorkflow(new EffectDocument(), new List<EffectStep>(), null);
         });
     }
 

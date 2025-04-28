@@ -75,6 +75,7 @@ public class CombatInstanceCacheStore : EffectStep
                 target.cachedEffectValues.intMap[cacheKey] = document.intMap[currentWorkflowKey];
                 Debug.Log("[CombatInstanceCacheStore] Key '" + cacheKey + "' updated INT value " + target.cachedEffectValues.intMap[cacheKey]);
             }
+            EnemyEncounterViewModel.Instance.SetStateDirty();
             yield break;
         }
 
