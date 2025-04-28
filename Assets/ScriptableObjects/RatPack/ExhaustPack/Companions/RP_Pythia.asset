@@ -28,6 +28,14 @@ MonoBehaviour:
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 0}
   genericCompanionVFX: {fileID: 0}
+  cacheValueConfigs:
+  - key: deckShuffledCount
+    display: 1
+    sprite: {fileID: 21300000, guid: a4feb4f068d3e524e9ad52c223861e2c, type: 3}
+    startOfTurnValue: 0
+    setStartOfTurnValue: 0
+    startOfCombatValue: 0
+    setStartOfCombatValue: 1
   cardPool: {fileID: 11400000, guid: c8423877ca4f44df98085eb2a6142943, type: 2}
   packCardPool: {fileID: 11400000, guid: 0f37e5a720cc243b2ab7df193483391d, type: 2}
   speakerType: {fileID: 0}
@@ -39,12 +47,12 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Pythia
-      description: Draw an extra card each turn. Whenever you shuffle a companion's
-        draw pile, deal 2 damage to a random enemy
+      description: Draw an extra card each turn. Every 3 times you shuffle a companion's
+        draw pile, gain 1 energy
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: Draw an extra card each turn. Whenever you shuffle a companion's
-    draw pile, deal 2 damage to a random enemy
+  keepsakeDescription: Draw an extra card each turn. Every 3 times you shuffle a
+    companion's draw pile, gain 1 energy
   references:
     version: 2
     RefIds:
@@ -53,36 +61,98 @@ MonoBehaviour:
       data:
         abilityTrigger: 10
         effectSteps:
-        - rid: 7401433059192471627
-        - rid: 7401433059192471662
-        - rid: 7401433059192471663
-    - rid: 7401433059192471627
-      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+        - rid: 7401433308100035150
+        - rid: 7401433308100035149
+        - rid: 7401433308100035151
+        - rid: 7401433308100035153
+        - rid: 7401433308100035313
+        - rid: 7401433308100035314
+        - rid: 7401433308100035152
+        - rid: 7401433308100035154
+        - rid: 7401433308100035155
+        - rid: 7401433308100035157
+    - rid: 7401433308100035149
+      type: {class: CombatInstanceCacheLoad, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: DialogueStep
-        line: deck shuffled >:)
-        lineTime: 1
-    - rid: 7401433059192471662
+        effectStepName: CombatInstanceCacheLoad
+        inputCombatInstanceKey: self
+        cacheKey: deckShuffledCount
+        currentWorkflowKey: deckShuffledCount
+    - rid: 7401433308100035150
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: enemy
-        validTargets: 02000000
+        outputKey: self
+        validTargets: 
         number: 1
-        specialTargetRule: 6
+        specialTargetRule: 3
         cantCancelTargetting: 0
-    - rid: 7401433059192471663
-      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+    - rid: 7401433308100035151
+      type: {class: MathStep, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: CombatEffectStep
-        inputKey: enemy
-        combatEffect: 0
-        scale: 2
+        effectStepName: MathStep
+        inputKey: deckShuffledCount
+        operand2InputKey: UNUSED
+        operation: 0
+        scale: 1
+        outputKey: newCount
+    - rid: 7401433308100035152
+      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: BooleanComparison
+        hardCodedInputKey1: 0
+        useHardCodedInputKey1: 0
+        inputKey1: deckShuffledCountDiv3
+        operation: 1
+        inputKey2: newCountDiv3
+        outputKey: gainEnergy
+    - rid: 7401433308100035153
+      type: {class: CombatInstanceCacheStore, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatInstanceCacheStore
+        inputCombatInstanceKey: self
+        hardCodedBool: 0
+        useHardCodedBool: 0
+        hardCodedInt: 0
+        useHardCodedInt: 0
+        currentWorkflowKey: newCount
+        cacheKey: deckShuffledCount
+    - rid: 7401433308100035154
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: gainEnergy
+        conditionToEndOn: 0
+    - rid: 7401433308100035155
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: take my energy
+        lineTime: 1
+    - rid: 7401433308100035157
+      type: {class: ManaChange, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ManaChange
+        scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
-        multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
-        vfxPrefab: {fileID: 1320532642761013391, guid: 4847f21b038e1aa42bceefe5c97ab1ab, type: 3}
+    - rid: 7401433308100035313
+      type: {class: MathStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: MathStep
+        inputKey: newCount
+        operand2InputKey: UNUSED
+        operation: 3
+        scale: 3
+        outputKey: newCountDiv3
+    - rid: 7401433308100035314
+      type: {class: MathStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: MathStep
+        inputKey: deckShuffledCount
+        operand2InputKey: UNUSED
+        operation: 3
+        scale: 3
+        outputKey: deckShuffledCountDiv3

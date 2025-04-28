@@ -69,9 +69,11 @@ public class CombatInstanceCacheStore : EffectStep
             }
             if (isBool) {
                 target.cachedEffectValues.boolMap[cacheKey] = document.boolMap[currentWorkflowKey];
+                Debug.Log("[CombatInstanceCacheStore] Key '" + cacheKey + "' updated BOOL value " + target.cachedEffectValues.boolMap[cacheKey]);
             }
             if (isInt) {
                 target.cachedEffectValues.intMap[cacheKey] = document.intMap[currentWorkflowKey];
+                Debug.Log("[CombatInstanceCacheStore] Key '" + cacheKey + "' updated INT value " + target.cachedEffectValues.intMap[cacheKey]);
             }
             yield break;
         }
