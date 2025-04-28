@@ -118,6 +118,13 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             if (gameObject.TryGetComponent<SpriteRenderer>(out var SR)) SR.sortingLayerName = "Cards"; // what is this magic
             gameObject.GetComponent<PlayableCard>().interactable = true;
             gameObject.GetComponent<PlayableCard>().SetBasePosition();
+
+            // Hack to try to get Pythia deck shuffling on start of turn working.
+            IEnumerator callback() {
+                EnemyEncounterViewModel.Instance.SetStateDirty();
+                yield return null;
+            }
+            EffectManager.Instance.invokeEffectWorkflow(new EffectDocument(), new List<EffectStep>(), callback());
         });
     }
 
