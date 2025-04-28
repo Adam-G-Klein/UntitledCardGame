@@ -47,11 +47,24 @@ public class SaveManager : GenericSingleton<SaveManager>
     }
 
     public void SaveHandler() {
-        SaveState saveState = new SaveState(textField.text, gameStateVariableSO.activeEncounter.GetValue());
-        SaveSystem.Save<SaveState>(saveState);
+        SaveState saveState = new SaveState(textField.text, gameStateVariableSO);
+        SaveStateSerializable saveStateSerializable = new SaveStateSerializable(saveState);
+        SaveSystem.Save<SaveStateSerializable>(saveStateSerializable);
     }
     public void LoadHandler() {
-        SaveState load = SaveSystem.Load<SaveState>();
-        Debug.Log("[SaveManager] Loaded text: " + load.testText);
+        SaveStateSerializable load = SaveSystem.Load<SaveStateSerializable>();
+        // instantiate the save state from the serializable data
+        SaveState loadState = new SaveState(load);
+        Debug.Log("[SaveManager] Loaded text: " + loadState.testText);
+        textField.SetValueWithoutNotify(loadState.testText);
+        LoadActiveEncounter(loadState);
+    }
+
+    
+    // TODO: load the map itself. Changing encounters won't do anything til we do that
+    private void LoadActiveEncounter(SaveState load) {
+        // Load the correct encounter for the encounter type
+        Encounter activeEncounter = load.gameStateVariableSO.activeEncounter.GetValue();
+        gameStateVariableSO.LoadLocationForEncounter(activeEncounter);
     }
 }

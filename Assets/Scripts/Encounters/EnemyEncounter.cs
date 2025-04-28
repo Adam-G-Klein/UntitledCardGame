@@ -19,8 +19,19 @@ public class EnemyEncounter : Encounter
         this.encounterType = EncounterType.Enemy;
     }
 
+    public EnemyEncounter(EncounterSerializable encounterSerializable) {
+        this.encounterType = EncounterType.Enemy;
+        this.id = encounterSerializable.id;
+        this.isCompleted = encounterSerializable.isCompleted;
+        InitializeFromEnemyEncounterType(encounterSerializable.enemyEncounterType);
+    }
+
     public EnemyEncounter(EnemyEncounterTypeSO enemyEncounterType) {
         this.encounterType = EncounterType.Enemy;
+        InitializeFromEnemyEncounterType(enemyEncounterType);
+    }
+
+    public void InitializeFromEnemyEncounterType(EnemyEncounterTypeSO enemyEncounterType) {
         enemyList = new List<Enemy>();
         foreach (EnemyTypeSO enemyType in enemyEncounterType.enemies) {
             enemyList.Add(new Enemy(enemyType));

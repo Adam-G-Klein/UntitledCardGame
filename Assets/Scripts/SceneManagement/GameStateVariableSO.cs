@@ -88,6 +88,7 @@ public class GameStateVariableSO : ScriptableObject
         {Location.BOSSFIGHT, Location.MAP}
     };
 
+    // keep this around, check against it later. P2
     private HashSet<Location> resumeableLocations = new HashSet<Location>() {
         {Location.COMBAT},
         {Location.POST_COMBAT},
@@ -97,6 +98,11 @@ public class GameStateVariableSO : ScriptableObject
         {Location.MAP}
     };
 
+    // Add a dictionary that maps the encounter types to the locations
+    public Dictionary<EncounterType, Location> encounterTypeToLocation = new Dictionary<EncounterType, Location>() {
+        {EncounterType.Enemy , Location.COMBAT},
+        {EncounterType.Shop , Location.SHOP}
+    };
 
     [Header("Settings for the demo")]
     public int lastTutorialLoopIndex = 2;
@@ -314,31 +320,15 @@ public class GameStateVariableSO : ScriptableObject
         LoadNextLocation();
     }
 
-    private void replaceThisWith(GameStateVariableSO sourceObject)
-    {
-        if (sourceObject == null)
-        {
-            Debug.LogError("Source object is null!");
-            return;
+    public void LoadLocationForEncounter(Encounter encounter) {
+        // load the scene for the encounter's encounter type
+        if(encounterTypeToLocation.ContainsKey(encounter.getEncounterType())) {
+            SetLocation(encounter.ToLocation());
+            activeEncounter.SetValue(encounter);
+            LoadCurrentLocationScene();
+        } else {
+            Debug.LogError("ERROR: No location found for encounter type: " + encounter.getEncounterType());
         }
-
-        // Manually copy each field
-
-        this.companions = sourceObject.companions;
-        this.playerData = sourceObject.playerData;
-        this.map = sourceObject.map;
-        this.baseShopData = sourceObject.baseShopData;
-        this.mapGenerator = sourceObject.mapGenerator;
-        this.activeEncounter = sourceObject.activeEncounter;
-        this.nextMapIndex = sourceObject.nextMapIndex;
-        this.currentLoopIndex = sourceObject.currentLoopIndex;
-        this.nextEncounter = sourceObject.nextEncounter;
-        this.currentLocation = sourceObject.currentLocation;
-        this.dialogueLocations = sourceObject.dialogueLocations;
-        this.debugSingleEncounterMode = sourceObject.debugSingleEncounterMode;
-        this.viewedSequences = sourceObject.viewedSequences;
-        this.hoveredCompanion = sourceObject.hoveredCompanion;
-        this.currentEncounterIndex = sourceObject.currentEncounterIndex;
-        this.hasSeenTutorial = sourceObject.hasSeenTutorial;
     }
+
 }
