@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   companionName: Pythia
   maxHealth: 20
-  initialCardsDealtPerTurn: 2
+  initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: 1f6d47a24a913fc49b13cf3afcc418e7, type: 3}
   fullSprite: {fileID: 21300000, guid: 1f6d47a24a913fc49b13cf3afcc418e7, type: 3}
   backgroundImage: {fileID: 21300000, guid: 8def2ec2f48614f2db206b539f065b04, type: 3}
@@ -47,12 +47,11 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Pythia
-      description: Draw an extra card each turn. Every 3 times you shuffle a companion's
-        draw pile, gain 1 energy
+      description: Every 3 times you shuffle a companion's draw pile, gain 1 energy
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: Draw an extra card each turn. Every 3 times you shuffle a
-    companion's draw pile, gain 1 energy
+  keepsakeDescription: Every 3 times you shuffle a companion's draw pile, gain 1
+    energy
   references:
     version: 2
     RefIds:
@@ -61,6 +60,7 @@ MonoBehaviour:
       data:
         abilityTrigger: 10
         effectSteps:
+        - rid: 7401433308100035377
         - rid: 7401433308100035150
         - rid: 7401433308100035149
         - rid: 7401433308100035151
@@ -156,3 +156,10 @@ MonoBehaviour:
         operation: 3
         scale: 3
         outputKey: deckShuffledCountDiv3
+    - rid: 7401433308100035377
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: companionDeckFrom
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
+        scale: 1.5
