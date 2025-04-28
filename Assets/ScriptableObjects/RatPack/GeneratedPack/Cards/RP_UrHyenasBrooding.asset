@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: RP_UrHyenasBrooding
   m_EditorClassIdentifier: 
   Name: Ur-Hyena's Brooding
-  Description: Retain. Exhaust. Shuffle a "Ur-Hyena's Wrath" card into this companion's
-    deck and draw 1 card from this companion. When in hand at the end of turn, increase
-    the damage of all "Ur-Hyena's Wrath" cards by 2
+  Description: Retain. Exhaust. Shuffle a "Ur-Hyena's Wrath" card into and draw 1
+    from this deck. If in hand at end of turn, increase damage of all the "Wrath"
+    cards by 2
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 690997149efc2d74888e3d1bfed1b225, type: 3}
@@ -96,9 +96,9 @@ MonoBehaviour:
       data:
         effectStepName: CardModificationEffect
         inputKey: 
-        scale: 0
+        scale: 2
         affectsAllCardsOfType: 1
         cardTypeToModify: {fileID: 11400000, guid: 8a531afd8a2dd4869bf6fa9bc4ce3873, type: 2}
         getScaleFromKey: 0
-        scaleKey: 2
+        scaleKey: 
         modification: 0

@@ -43,6 +43,10 @@ MonoBehaviour:
       description: At the end of combat, permanently add a powerful Status card to
         target companion's deck
       relatedBehaviorIndex: 0
+    - title: Ur-Hyena's Blessing
+      description: Unplayable. When in hand at the end of turn, gain block and deal
+        damage to all enemies equal to the number of cards in this deck
+      relatedBehaviorIndex: 0
   keepsakeTitle: 
   keepsakeDescription: At the end of combat, permanently add a powerful Status card
     to target companion's deck
@@ -73,7 +77,7 @@ MonoBehaviour:
         effectStepName: AddCardsToDeck
         inputKey: target
         cardTypes:
-        - {fileID: 11400000, guid: 06d2a8d4a38554019834a3ff483c7870, type: 2}
+        - {fileID: 11400000, guid: 871fcfc25879f472aaab9bd86478a78d, type: 2}
         addToDeckMethod: 3
         getCardsFromKey: 0
         inputCardsKey: 
