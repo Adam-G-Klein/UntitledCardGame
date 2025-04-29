@@ -41,6 +41,11 @@ public class ShopDataSO : ScriptableObject
     public int levelTwoSellPrice;
     public int levelThreeSellPrice;
     public float deckSizeSellFactor;
+
+    public float numCompanionsSellFactor = 1.5f;
+    public float numCardsBoughtSellFactor = 0.5f;
+    public float numCardsRemovedSellFactor = 4f;
+
     [Header("Upgrade parameters")]
     public List<CardType> baseCardsToRemoveOnUpgrade;
 

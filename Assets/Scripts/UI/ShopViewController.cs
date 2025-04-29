@@ -61,6 +61,7 @@ public class ShopViewController : MonoBehaviour,
     private bool sellingCompanions = false;
     private CompanionManagementView companionToSell;
     private string originalSellingCompanionConfirmationText;
+    private string originalSellingCompanionBreakdownText;
     private bool inUpgradeMenu = false;
     private Dictionary<VisualElement, GameObject> tooltipMap = new();
     private Companion currentUpgradeCompanion;
@@ -111,7 +112,8 @@ public class ShopViewController : MonoBehaviour,
 
         sellingCompanionConfirmation.Q<Button>("selling-companion-confirmation-yes").RegisterCallback<ClickEvent>((evt) => ConfirmSellCompanion());
         sellingCompanionConfirmation.Q<Button>("selling-companion-confirmation-no").RegisterCallback<ClickEvent>((evt) => StopSellingCompanion());
-            originalSellingCompanionConfirmationText = sellingCompanionConfirmation.Q<Label>("selling-companion-confirmation-label").text;
+        originalSellingCompanionConfirmationText = sellingCompanionConfirmation.Q<Label>("selling-companion-confirmation-label").text;
+        originalSellingCompanionBreakdownText = sellingCompanionConfirmation.Q<Label>("selling-companion-confirmation-breakdown-label").text;
 
         deckView.Q<Button>().RegisterCallback<ClickEvent>((evt) => CloseCompanionDeckView());
 
@@ -348,11 +350,20 @@ public class ShopViewController : MonoBehaviour,
         if (sellingCompanions) {
             sellingCompanionConfirmation.style.visibility = Visibility.Visible;
             Label confirmSellCompanionLabel = sellingCompanionConfirmation.Q<Label>("selling-companion-confirmation-label");
+            CompanionSellValue sellValue = shopManager.CalculateCompanionSellPrice(companionView.companion);
             string replacedText = String.Format(
                 originalSellingCompanionConfirmationText,
                 companionView.companion.GetName(),
-                shopManager.CalculateCompanionSellPrice(companionView.companion));
+                sellValue.Total());
             confirmSellCompanionLabel.text = replacedText;
+            Label sellCompanionBreakdownLabel = sellingCompanionConfirmation.Q<Label>("selling-companion-confirmation-breakdown-label");
+            string breakdownReplacedText = String.Format(
+                originalSellingCompanionBreakdownText,
+                sellValue.sellValueFromCompanions,
+                sellValue.sellValueFromCardsBought,
+                sellValue.sellValueFromCardsRemoved
+            );
+            sellCompanionBreakdownLabel.text = breakdownReplacedText;
         } else {
             shopManager.ProcessCompanionClicked(companionView.companion);
         }
@@ -787,6 +798,7 @@ public class ShopViewController : MonoBehaviour,
     private void ProcessCardRemoval(List<Card> cards, Companion companion) {
         cards.ForEach((card) => {
             companion.deck.PurgeCard(card.id);
+            companion.trackingStats.RecordCardRemoval();
         });
 
         shopManager.ProcessCardRemoval();
@@ -797,13 +809,22 @@ public class ShopViewController : MonoBehaviour,
     {
         SellCompanionOnClick();
         sellingCompanionConfirmation.style.visibility = Visibility.Visible;
-            this.companionToSell = companionView;
-            Label confirmSellCompanionLabel = sellingCompanionConfirmation.Q<Label>("selling-companion-confirmation-label");
-            string replacedText = String.Format(
-                originalSellingCompanionConfirmationText,
-                companionView.companion.GetName(),
-                shopManager.CalculateCompanionSellPrice(companionView.companion));
-            confirmSellCompanionLabel.text = replacedText;
+        this.companionToSell = companionView;
+        Label confirmSellCompanionLabel = sellingCompanionConfirmation.Q<Label>("selling-companion-confirmation-label");
+        CompanionSellValue sellValue = shopManager.CalculateCompanionSellPrice(companionView.companion);
+        string replacedText = String.Format(
+            originalSellingCompanionConfirmationText,
+            companionView.companion.GetName(),
+            sellValue.Total());
+        confirmSellCompanionLabel.text = replacedText;
+        Label sellCompanionBreakdownLabel = sellingCompanionConfirmation.Q<Label>("selling-companion-confirmation-breakdown-label");
+        string breakdownReplacedText = String.Format(
+            originalSellingCompanionBreakdownText,
+            sellValue.sellValueFromCompanions,
+            sellValue.sellValueFromCardsBought,
+            sellValue.sellValueFromCardsRemoved
+        );
+        sellCompanionBreakdownLabel.text = breakdownReplacedText;
     }
 
     private void CloseCompanionDeckView() {

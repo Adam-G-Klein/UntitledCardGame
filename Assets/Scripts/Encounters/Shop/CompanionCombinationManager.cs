@@ -99,6 +99,7 @@ public class CompanionCombinationManager : MonoBehaviour
         combinedCompanion.combatStats.maxHealth = maxHealthForCombinedCompanion(combinedCompanion, companions);
         combinedCompanion.combatStats.currentHealth = (int) (combinedCompanion.combatStats.maxHealth * currentHealthPctForCombinedCompanion(companions));
         combinedCompanion.combatStats.baseAttackDamage = baseAttackDamageForCombinedCompanion(companions);
+        combinedCompanion.trackingStats = new CompanionStatTracker(companions);
 
         return combinedCompanion;
     }

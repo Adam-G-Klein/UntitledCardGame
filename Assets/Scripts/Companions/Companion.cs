@@ -13,6 +13,8 @@ public class Companion : Entity, ICombatStats, IDeckEntity, IUIEntity
     [Header("This is here because CompanionInstance doesn't currently exist in the shop")]
     public List<EffectWorkflow> onCombineAbilities = new List<EffectWorkflow>();
 
+    public CompanionStatTracker trackingStats = new();
+
     public Companion(CompanionTypeSO companionType)
     {
         this.companionType = companionType;

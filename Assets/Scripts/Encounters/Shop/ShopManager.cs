@@ -205,6 +205,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         if (this.buyingCard) {
             Card newCard = new Card(currentCardBuyRequest.cardType, companion.companionType, currentCardBuyRequest.rarity);
             companion.deck.cards.Add(newCard);
+            companion.trackingStats.RecordCardBuy(newCard);
             gameState.playerData.GetValue().gold -= currentCardBuyRequest.price;
             shopViewController.SetMoney(gameState.playerData.GetValue().gold);
             shopViewController.RemoveCardFromShopView(currentCardBuyRequestItemView.cardInShop);
@@ -237,7 +238,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             shopViewController.ShowCantSellLastCompanion();
             return;
         }
-        int sellValue = CalculateCompanionSellPrice(companion);
+        int sellValue = CalculateCompanionSellPrice(companion).Total();
         gameState.playerData.GetValue().gold += sellValue;
         shopViewController.SetMoney(gameState.playerData.GetValue().gold);
         gameState.companions.activeCompanions.Remove(companion);
@@ -246,18 +247,13 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         InstantiateShopVFX(moneyGainedPrefab, ve, 1.1f);
     }
 
-    public int CalculateCompanionSellPrice(Companion companion) {
-        int baseSellPrice = 0;
-        if (companion.companionType.level == CompanionLevel.LevelOne) {
-            baseSellPrice = shopEncounter.shopData.levelOneSellPrice;
-        } else if (companion.companionType.level == CompanionLevel.LevelTwo) {
-            baseSellPrice = shopEncounter.shopData.levelTwoSellPrice;
-        } else if (companion.companionType.level == CompanionLevel.LevelThree) {
-            baseSellPrice = shopEncounter.shopData.levelThreeSellPrice;
-        }
-        baseSellPrice += Convert.ToInt32(companion.deck.cards.Count * shopEncounter.shopData.deckSizeSellFactor);
-        return baseSellPrice;
+    public CompanionSellValue CalculateCompanionSellPrice(Companion companion) {
+        return new CompanionSellValue(shopEncounter.shopData, companion.trackingStats, companion.companionType.level);
     }
+
+    // public int CalculateCompanionSellPriceWithBreakdown(Companion companion) {
+
+    // }
 
     public void ProcessUpgradeShopClick() {
         if(DialogueManager.Instance.dialogueInProgress) {
