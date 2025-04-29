@@ -28,6 +28,7 @@ MonoBehaviour:
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 0}
   genericCompanionVFX: {fileID: 0}
+  cacheValueConfigs: []
   cardPool: {fileID: 11400000, guid: f3284cbe41e554987870c37830675992, type: 2}
   packCardPool: {fileID: 11400000, guid: 0f37e5a720cc243b2ab7df193483391d, type: 2}
   speakerType: {fileID: 0}
@@ -41,11 +42,11 @@ MonoBehaviour:
     lines:
     - title: Level 3 Entropy
       description: Transform 1 card into an "Entropy's Burn" card at the end of combat.
-        Whenever you exhaust a card, deal 2 damage to a random enemy twice
+        Whenever you exhaust a card, deal 4 damage to a random enemy
       relatedBehaviorIndex: 0
   keepsakeTitle: 
   keepsakeDescription: Transform 1 card into an "Entropy's Burn" card at the end
-    of combat. Whenever you exhaust a card, deal 1 damage to a random enemy twice
+    of combat. Whenever you exhaust a card, deal 4 damage to a random enemy
   references:
     version: 2
     RefIds:
@@ -121,11 +122,11 @@ MonoBehaviour:
       data:
         effectStepName: CombatEffectStep
         inputKey: target
-        combatEffect: 0
-        scale: 2
+        combatEffect: 14
+        scale: 4
         getScaleFromKey: 0
         inputScaleKey: 
-        multiplicity: 2
+        multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 1320532642761013391, guid: 4847f21b038e1aa42bceefe5c97ab1ab, type: 3}
