@@ -53,6 +53,8 @@ MonoBehaviour:
         abilityTrigger: 16
         effectSteps:
         - rid: 205828032053379741
+        - rid: 7401433558763438183
+        - rid: 7401433558763438184
         - rid: 7401433059192471552
     - rid: 205828032053379741
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -70,7 +72,7 @@ MonoBehaviour:
       data:
         effectStepName: CombatEffectStep
         inputKey: randomGuy
-        combatEffect: 0
+        combatEffect: 14
         scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
@@ -78,3 +80,21 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 1320532642761013391, guid: 99a456f94890391478f393fcc8ad0b95, type: 3}
+    - rid: 7401433558763438183
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 7401433558763438184
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
+        scale: 1

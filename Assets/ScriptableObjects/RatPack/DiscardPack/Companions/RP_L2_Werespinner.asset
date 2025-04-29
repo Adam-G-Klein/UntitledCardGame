@@ -40,12 +40,10 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Level Two Werespinner
-      description: Whenever you discard a card, deal 2 damage to a random enemy 2
-        times
+      description: Whenever you discard a card, deal 4 damage to a random enemy
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: Whenever you discard a card, deal 2 damage to a random enemy
-    2 times
+  keepsakeDescription: Whenever you discard a card, deal 4 damage to a random enemy
   references:
     version: 2
     RefIds:
@@ -55,6 +53,8 @@ MonoBehaviour:
         abilityTrigger: 16
         effectSteps:
         - rid: 7401433059192471555
+        - rid: 7401433558763438181
+        - rid: 7401433558763438182
         - rid: 7401433059192471557
     - rid: 7401433059192471555
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -72,11 +72,29 @@ MonoBehaviour:
       data:
         effectStepName: CombatEffectStep
         inputKey: randomEnemy
-        combatEffect: 0
-        scale: 2
+        combatEffect: 14
+        scale: 4
         getScaleFromKey: 0
         inputScaleKey: 
-        multiplicity: 2
+        multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 1320532642761013391, guid: 99a456f94890391478f393fcc8ad0b95, type: 3}
+    - rid: 7401433558763438181
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 7401433558763438182
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
+        scale: 1
