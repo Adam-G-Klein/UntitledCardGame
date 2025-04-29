@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   companionName: Firebreather+
   maxHealth: 30
-  initialCardsDealtPerTurn: 2
+  initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: fc8f2bf76fa3a4e449035d6c80c12fb6, type: 3}
   fullSprite: {fileID: 21300000, guid: fc8f2bf76fa3a4e449035d6c80c12fb6, type: 3}
   backgroundImage: {fileID: 21300000, guid: cf0b03f8254f64d7ca33d64244db66e4, type: 3}
@@ -40,12 +40,12 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Level Two Firebreather
-      description: Draw an extra card each turn. At the end of turn, deal 1 damage
-        to all enemies for each Status card in your hand
+      description: At the end of turn, deal 3 damage to all enemies for each Status
+        card in your hand
       relatedBehaviorIndex: 0
   keepsakeTitle: Firebreather
-  keepsakeDescription: Draw an extra card each turn. At the end of turn, deal 1 damage
-    to all enemies for each Status card in your hand
+  keepsakeDescription: At the end of turn, deal 3 damage to all enemies for each
+    Status card in your hand
   references:
     version: 2
     RefIds:
@@ -104,8 +104,8 @@ MonoBehaviour:
       data:
         effectStepName: CombatEffectStep
         inputKey: enemies
-        combatEffect: 0
-        scale: 1
+        combatEffect: 14
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
@@ -126,5 +126,5 @@ MonoBehaviour:
       type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: DialogueStep
-        line: ;)
-        lineTime: 0.3
+        line: '>:)'
+        lineTime: 0.5
