@@ -40,7 +40,7 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Level Three Werespinner
-      description: Whenever you discard a card, deal 5 damage to all enemies
+      description: Whenever you discard a card, deal 3 damage to all enemies
       relatedBehaviorIndex: 0
   keepsakeTitle: 
   keepsakeDescription: Whenever you discard a card, deal 5 damage to all enemies
@@ -73,7 +73,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: randomEnemy
         combatEffect: 14
-        scale: 5
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1

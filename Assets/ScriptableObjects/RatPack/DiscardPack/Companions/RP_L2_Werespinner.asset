@@ -40,10 +40,10 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Level Two Werespinner
-      description: Whenever you discard a card, deal 4 damage to a random enemy
+      description: Whenever you discard a card, deal 2 damage to all enemies
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: Whenever you discard a card, deal 4 damage to a random enemy
+  keepsakeDescription: Whenever you discard a card, deal 2 damage to all enemies
   references:
     version: 2
     RefIds:
@@ -65,7 +65,7 @@ MonoBehaviour:
         outputKey: randomEnemy
         validTargets: 02000000
         number: 1
-        specialTargetRule: 6
+        specialTargetRule: 1
         cantCancelTargetting: 0
     - rid: 7401433059192471557
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
@@ -73,7 +73,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: randomEnemy
         combatEffect: 14
-        scale: 4
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
