@@ -221,6 +221,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     public void ProcessCardRemoval() {
         gameState.playerData.GetValue().gold -= shopEncounter.shopData.cardRemovalPrice;
         shopViewController.SetMoney(gameState.playerData.GetValue().gold);
+        removingCard = false;
     }
 
     public void ProcessCardBuyCanceled() {
