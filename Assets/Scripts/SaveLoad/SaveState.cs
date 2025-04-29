@@ -16,9 +16,24 @@ public class SaveState
     }
 
     // The constructor used for LOADING from serialized data on disk
-    public SaveState(SaveStateSerializable saveStateSerializable) {
+    public SaveState(SaveStateSerializable saveStateSerializable, 
+        GameStateVariableSO emptyGameStateSO /*GAMESTATE IS EMPTY HERE*/
+        ) {
         this.testText = saveStateSerializable.testText;
-        this.gameStateVariableSO.
+        this.gameStateVariableSO = emptyGameStateSO;
+        switch (saveStateSerializable.activeEncounter.encounterType) {
+            case EncounterType.Enemy:
+                EnemyEncounterSerializable enemyEncounter = (EnemyEncounterSerializable)saveStateSerializable.activeEncounter;
+                this.gameStateVariableSO.activeEncounter.SetValue(enemyEncounter.Deserialize());
+                break;
+            case EncounterType.Shop:
+                ShopEncounterSerializable shopEncounter = (ShopEncounterSerializable)saveStateSerializable.activeEncounter;
+                this.gameStateVariableSO.activeEncounter.SetValue(shopEncounter.Deserialize());
+                break;
+            default:
+                Debug.LogError("Unknown encounter type when deserializing: " + saveStateSerializable.activeEncounter.encounterType);
+                break;
+        }
     }
 }
 
@@ -31,6 +46,17 @@ public class SaveStateSerializable
     // The constructor used for SAVING to serialized data on disk
     public SaveStateSerializable(SaveState saveState) {
         this.testText = saveState.testText;
-        this.activeEncounter = saveState.gameStateVariableSO.activeEncounter.GetValue().GetSerializableData();
+        Encounter encounter = saveState.gameStateVariableSO.activeEncounter.GetValue();
+        switch (encounter.encounterType) {
+            case EncounterType.Enemy:
+                this.activeEncounter = new EnemyEncounterSerializable((EnemyEncounter)encounter);
+                break;
+            case EncounterType.Shop:
+                this.activeEncounter = new ShopEncounterSerializable((ShopEncounter)encounter);
+                break;
+            default:
+                Debug.LogError("Unknown encounter type when serializing: " + encounter.encounterType);
+                break;
+        }
     }
 }

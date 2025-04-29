@@ -8,6 +8,8 @@ using UnityEngine.UIElements;
 public class EnemyEncounter : Encounter
 {
     public bool isEliteEncounter;
+    // Store for the purposes of save/load
+    public EnemyEncounterTypeSO encounterTypeSO;
     public List<Enemy> enemyList = new List<Enemy>();
 
     private EncounterConstantsSO encounterConstants;
@@ -19,15 +21,9 @@ public class EnemyEncounter : Encounter
         this.encounterType = EncounterType.Enemy;
     }
 
-    public EnemyEncounter(EncounterSerializable encounterSerializable) {
-        this.encounterType = EncounterType.Enemy;
-        this.id = encounterSerializable.id;
-        this.isCompleted = encounterSerializable.isCompleted;
-        InitializeFromEnemyEncounterType(encounterSerializable.enemyEncounterType);
-    }
-
     public EnemyEncounter(EnemyEncounterTypeSO enemyEncounterType) {
         this.encounterType = EncounterType.Enemy;
+        this.encounterTypeSO = enemyEncounterType;
         InitializeFromEnemyEncounterType(enemyEncounterType);
     }
 
@@ -107,3 +103,29 @@ public class EnemyEncounter : Encounter
         }
     }
 }
+
+
+
+[System.Serializable] 
+public class EnemyEncounterSerializable : EncounterSerializable
+{
+    public string encounterTypeSOName;
+
+    public static string ENEMY_ENCOUNTER_SO_PATH = "Map/";
+
+    public EnemyEncounterSerializable(EnemyEncounter encounter) : base(encounter)
+    {
+        this.encounterTypeSOName = encounter.encounterTypeSO.name;
+    }
+
+    public EnemyEncounter Deserialize()
+    {
+        EnemyEncounterTypeSO encounterType = ScriptableObjectLoader.Load<EnemyEncounterTypeSO>(ENEMY_ENCOUNTER_SO_PATH, encounterTypeSOName);
+        EnemyEncounter encounter = new EnemyEncounter(encounterType);
+        encounter.setId(this.id);
+        encounter.isCompleted = this.isCompleted;
+        return encounter;
+    }
+}
+
+

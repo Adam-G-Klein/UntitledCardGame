@@ -54,7 +54,7 @@ public class SaveManager : GenericSingleton<SaveManager>
     public void LoadHandler() {
         SaveStateSerializable load = SaveSystem.Load<SaveStateSerializable>();
         // instantiate the save state from the serializable data
-        SaveState loadState = new SaveState(load);
+        SaveState loadState = new SaveState(load, emptyGameStateSO: gameStateVariableSO);
         Debug.Log("[SaveManager] Loaded text: " + loadState.testText);
         textField.SetValueWithoutNotify(loadState.testText);
         LoadActiveEncounter(loadState);

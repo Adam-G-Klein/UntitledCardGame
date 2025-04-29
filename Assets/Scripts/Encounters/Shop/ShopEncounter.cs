@@ -288,3 +288,23 @@ public class ShopEncounter : Encounter
         }
     }
 }
+
+[System.Serializable] 
+public class ShopEncounterSerializable : EncounterSerializable
+{
+    public string shopDataSOName;
+
+    public ShopEncounterSerializable(ShopEncounter encounter) : base(encounter)
+    {
+        this.shopDataSOName = encounter.shopData.name;
+    }
+
+    public ShopEncounter Deserialize()
+    {
+        ShopDataSO shopData = ScriptableObjectLoader.Load<ShopDataSO>("Encounters/", shopDataSOName);
+        ShopEncounter encounter = new ShopEncounter(shopData);
+        encounter.setId(this.id);
+        encounter.isCompleted = this.isCompleted;
+        return encounter;
+    }
+}

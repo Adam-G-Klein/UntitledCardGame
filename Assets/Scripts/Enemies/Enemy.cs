@@ -19,6 +19,10 @@ public class Enemy : Entity, ICombatStats, IUIEntity {
             enemyType.baseAttackDamage);
     }
 
+    // // public EnemySerializable GetSerializableData() {
+    // //     return new EnemySerializable(this);
+    // }
+
     public EnemyIntent ChooseIntent(EnemyInstance enemyInstance) {
         if (enemyInstance.enemy.enemyType.morale == EnemyMorale.AdaptWhenAlone) {
             List<EnemyInstance> allEnemies = CombatEntityManager.Instance.getEnemies();
@@ -98,3 +102,20 @@ public class Enemy : Entity, ICombatStats, IUIEntity {
         return this.enemyType.entityFrame;
     }
 }
+
+// [System.Serializable]
+// public class EnemySerializable
+// {
+//     public string enemyTypeSOName;
+
+//     public EnemySerializable(Enemy enemy)
+//     {
+//         this.enemyTypeSOName = enemy.enemyType.name;
+//     }
+
+//     public Enemy Deserialize() {
+//         EnemyTypeSO enemyType = ScriptableObjectLoader.Load<EnemyTypeSO>(enemyTypeSOName);
+//         return new Enemy(enemyType);
+//     }
+// }
+

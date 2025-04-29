@@ -47,8 +47,6 @@ public abstract class Encounter : ISerializableGameState<EncounterSerializable>
         this.id = id;
     }
 
-    public abstract 
-
     public EncounterType getEncounterType() {
         return this.encounterType;
     }
@@ -63,6 +61,7 @@ public abstract class Encounter : ISerializableGameState<EncounterSerializable>
 // TODO: Serialize the enemy Encounter Type, 
 // requriing serialization of the enemy list, 
 //requiring serialization of the enemy type
+
 [System.Serializable]
 public class EncounterSerializable
 {
