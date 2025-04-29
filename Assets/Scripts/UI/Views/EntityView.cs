@@ -423,25 +423,8 @@ public class EntityView : IUIEventReceiver {
     private void DamageScaleBump(int scale) {
         if (scale == 0) return; // this could mean the damage didn't go through the block or that the companion died while taking damage
 
-<<<<<<< Updated upstream
-        if (LeanTween.isTweening(tweenTarget)) {
-            // return here if we want new tweens to just not start until old ones are done
-            // return;
-
-            // call the following code if we instead want to rest the entity to its base state and start the new tween
-            if (combatInstance == null || combatInstance.GetComponent<Transform>() == null) {
-                return;
-            }
-            LeanTween.cancel(tweenTarget);
-            GameObject.Destroy(tweenTarget);
-            combatInstance.GetComponent<Transform>().localScale = originalScale;
-            entityContainer.style.scale = new StyleScale(new Scale(originalElementScale));
-        }
-
-=======
         if (LeanTween.isTweening(tweenTarget)) return;
  
->>>>>>> Stashed changes
         Transform combatInstanceTransform = combatInstance.GetComponent<Transform>();
         originalScale = combatInstanceTransform.localScale;
         originalElementScale = new Vector2(
@@ -452,13 +435,8 @@ public class EntityView : IUIEventReceiver {
         VisualElement companionContainer = entityContainer.Q<VisualElement>(className: "entity-portrait-container");
 
         float duration = 0.125f;  // Total duration for the scale animation
-<<<<<<< Updated upstream
-        float minScale = (float)Math.Min(.75, .9 - scale / 500);  // scale bump increases in intensity if entity takes more damage (haven't extensively tested this)
-
-=======
         float minScale = .8f; //(float)Math.Min(.75, .9 - scale / 500);  // scale bump increases in intensity if entity takes more damage (haven't extensively tested this)
         
->>>>>>> Stashed changes
         LeanTween.value(tweenTarget, 1f, minScale, duration)
             .setEase(LeanTweenType.easeInOutQuad)
             .setLoopPingPong(1) // inverse tween is called when this tween completes. On complete below is called after both tweens complete
