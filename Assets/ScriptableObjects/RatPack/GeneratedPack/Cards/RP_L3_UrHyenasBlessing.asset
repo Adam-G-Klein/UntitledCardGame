@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: RP_UrHyenasBlessing
+  m_Name: RP_L3_UrHyenasBlessing
   m_EditorClassIdentifier: 
-  Name: Ur-Hyena's Blessing
+  Name: Ur-Hyena's Blessing++
   Description: Unplayable. When in hand at the end of turn, gain block and deal damage
-    to all enemies equal to the number of cards in this deck ({numCards})
+    to all enemies equal to the triple the number of cards in this deck ({mult})
   defaultValues:
-  - key: numCards
+  - key: mult
     value: 0
   Cost: 0
   Artwork: {fileID: 21300000, guid: 3296a63e824de414bb4b578c4822fbdb, type: 3}
@@ -50,6 +50,7 @@ MonoBehaviour:
         - rid: 7401433308100035445
         - rid: 7401433308100035446
         - rid: 7401433308100035457
+        - rid: 7401433558763438287
         - rid: 7401433308100035447
         - rid: 7401433308100035448
         - rid: 7401433308100035458
@@ -86,7 +87,7 @@ MonoBehaviour:
         combatEffect: 14
         scale: 0
         getScaleFromKey: 1
-        inputScaleKey: numCards
+        inputScaleKey: mult
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
@@ -99,7 +100,7 @@ MonoBehaviour:
         statusEffect: 2
         scale: 0
         getScaleFromKey: 1
-        inputScaleKey: numCards
+        inputScaleKey: mult
         multiplyByNumAuraStacks: 0
     - rid: 7401433308100035457
       type: {class: CountCardsInDeck, ns: , asm: Assembly-CSharp}
@@ -143,3 +144,12 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
+    - rid: 7401433558763438287
+      type: {class: MathStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: MathStep
+        inputKey: numCards
+        operand2InputKey: UNUSED
+        operation: 2
+        scale: 3
+        outputKey: mult
