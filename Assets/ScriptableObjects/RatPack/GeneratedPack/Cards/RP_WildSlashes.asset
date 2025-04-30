@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: RP_WildSlashes
   m_EditorClassIdentifier: 
   Name: Wild Slashes
-  Description: Deal {rpl_damage} damage to target enemy twice. Shuffle an unplayable
-    "Wound" Status card into this deck
+  Description: Deal {rpl_damage} damage to target enemy twice. Create an unplayable
+    "Wound" Status card in hand for this companion
   defaultValues:
   - key: rpl_damage
     value: 4
   Cost: 1
-  Artwork: {fileID: 21300000, guid: 109c4464923594f4bb2478d2624dcf1a, type: 3}
+  Artwork: {fileID: 21300000, guid: 8f7d978fe57e96342a8335f56279ee7e, type: 3}
   cardCategory: 1
   vfxPrefab: {fileID: 0}
   playable: 1
@@ -39,19 +39,6 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 5280922841426165941
-      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: FXEffectStep
-        waitForEffect: 1
-        fXExperiencePrefab: {fileID: 4075960956037802917, guid: ec7b1a1529f9141458320888bf8e3d96, type: 3}
-        rootLocationGameObjectKey: 
-        positionMappingList:
-        - fromWorkflow: self
-          toFxExperience: end
-        - fromWorkflow: self
-          toFxExperience: start
-        gameobjectMappingList: []
     - rid: 5280922841426165942
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -70,8 +57,7 @@ MonoBehaviour:
         - rid: 5280922841426165942
         - rid: 5602892561590779944
         - rid: 7401433037623787538
-        - rid: 5602892561590779946
-        - rid: 5280922841426165941
+        - rid: 7401433558763438286
     - rid: 5602892561590779944
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -83,19 +69,6 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
-    - rid: 5602892561590779946
-      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: AddCardsToDeck
-        inputKey: self
-        cardTypes:
-        - {fileID: 11400000, guid: a01e6780b2964496da60664e148acadb, type: 2}
-        addToDeckMethod: 1
-        getCardsFromKey: 0
-        inputCardsKey: 
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
     - rid: 7401433037623787538
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
@@ -109,3 +82,16 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}
+    - rid: 7401433558763438286
+      type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: AddCardsToHand
+        entityFromKey: self
+        cardTypes:
+        - {fileID: 11400000, guid: a01e6780b2964496da60664e148acadb, type: 2}
+        getCardsFromKey: 0
+        inputCardsKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        outputKey: 
