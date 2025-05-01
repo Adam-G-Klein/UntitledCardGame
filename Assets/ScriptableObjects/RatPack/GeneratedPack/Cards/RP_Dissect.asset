@@ -10,78 +10,86 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: RP_Exhale
+  m_Name: RP_Dissect
   m_EditorClassIdentifier: 
-  Name: Exhale
-  Description: Shuffle 3 "Firebreath" cards into then draw 1 from this companion's
-    deck
+  Name: Dissect
+  Description: Draw 4 cards from target companion. Discard any non-Status cards drawn.
   defaultValues: []
   Cost: 1
-  Artwork: {fileID: 21300000, guid: 27219c2682ae3af4fa76a9968109666f, type: 3}
+  Artwork: {fileID: 21300000, guid: 7d13e867f4dd988488e4c5a179fa0857, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
   retain: 0
   effectWorkflows:
-  - rid: 5602892561590779907
+  - rid: 5602892723852673195
   onExhaustEffectWorkflow:
     rid: -2
   onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
-  tooltips: 16000000
+  tooltips: 1b000000
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 1274772082283774707
+    - rid: 2034229587402555940
+      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: WaitForSecondsEffect
+        seconds: 1.5
+    - rid: 2034229587402555941
+      type: {class: FilterCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FilterCards
+        inputKey: cards
+        filter:
+          cardCategoriesToInclude: 010000000200000003000000
+          generatedCardsFilter: 0
+        outputKey: nonGen
+    - rid: 2034229587402555942
+      type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardInHandEffect
+        inputKey: nonGen
+        effect: 0
+    - rid: 5280922841426165977
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
-        inputKey: self
+        inputKey: target
         prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
         scale: 1.5
-    - rid: 5602892561590779907
+    - rid: 5602892723852673195
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
-        - rid: 5602892561590779908
-        - rid: 5602892561590779909
-        - rid: 7401433558763438466
-        - rid: 1274772082283774707
-    - rid: 5602892561590779908
+        - rid: 5602892723852673196
+        - rid: 5602892723852673197
+        - rid: 5280922841426165977
+        - rid: 2034229587402555940
+        - rid: 2034229587402555941
+        - rid: 2034229587402555942
+    - rid: 5602892723852673196
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: self
+        outputKey: target
         validTargets: 00000000
         number: 1
-        specialTargetRule: 4
+        specialTargetRule: 0
         cantCancelTargetting: 0
-    - rid: 5602892561590779909
-      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: AddCardsToDeck
-        inputKey: self
-        cardTypes:
-        - {fileID: 11400000, guid: f906bdd2620a44164814e18d96b00fb0, type: 2}
-        addToDeckMethod: 1
-        getCardsFromKey: 0
-        inputCardsKey: 
-        scale: 3
-        getScaleFromKey: 0
-        inputScaleKey: 
-    - rid: 7401433558763438466
+    - rid: 5602892723852673197
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: DrawCards
-        inputKey: self
-        outputKey: 
-        scale: 1
+        inputKey: target
+        outputKey: cards
+        scale: 4
         getScaleFromKey: 0
         inputScaleKey: 

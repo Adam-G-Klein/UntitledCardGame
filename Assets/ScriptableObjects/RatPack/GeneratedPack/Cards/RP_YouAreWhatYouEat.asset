@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RP_YouAreWhatYouEat
   m_EditorClassIdentifier: 
   Name: You Are What You Eat
-  Description: Draw 3 cards from target companion and give them 2 block for each
+  Description: Draw 3 cards from target companion and give them 3 block for each
     Status card in hand
   defaultValues: []
   Cost: 2
@@ -90,7 +90,7 @@ MonoBehaviour:
         inputKey: numGen
         operand2InputKey: UNUSED
         operation: 2
-        scale: 2
+        scale: 3
         outputKey: numBlock
     - rid: 2034230108114649292
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
