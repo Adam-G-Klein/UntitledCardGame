@@ -42,7 +42,7 @@ MonoBehaviour:
     lines:
     - title: Level Two Tiefseeker
       description: At the start of turn, draw an extra card from each companion with
-        more than 4 Status cards in their deck. At the end of turn, shuffle a exhaust,
+        5 or more Status cards in their deck. At the end of turn, shuffle a exhaust,
         block Status card into adjacent companions' decks.
       relatedBehaviorIndex: 0
     - title: Tiefseeker's Tenacity
@@ -50,7 +50,7 @@ MonoBehaviour:
       relatedBehaviorIndex: 0
   keepsakeTitle: 
   keepsakeDescription: At the start of turn, draw an extra card from each companion
-    with more than 4 Status cards in their deck. At the end of turn, shuffle a exhaust,
+    with 5 or more Status cards in their deck. At the end of turn, shuffle a exhaust,
     block Status card into adjacent companions' decks.
   references:
     version: 2
@@ -85,7 +85,7 @@ MonoBehaviour:
         filter:
           cardCategoriesToInclude: 04000000
           generatedCardsFilter: 0
-        threshold: 4
+        threshold: 5
         outputKey: filtered
     - rid: 7401433059192472295
       type: {class: EndWorkflowIfListEmpty, ns: , asm: Assembly-CSharp}

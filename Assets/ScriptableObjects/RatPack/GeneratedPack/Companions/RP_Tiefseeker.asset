@@ -41,11 +41,11 @@ MonoBehaviour:
     lines:
     - title: Tiefseeker
       description: At the start of turn, draw an extra card from each companion with
-        more than 4 Status cards in their deck
+        5 or more Status cards in their deck
       relatedBehaviorIndex: 0
   keepsakeTitle: Hidden Cache
   keepsakeDescription: At the start of turn, draw an extra card from each companion
-    with more than 4 Status cards in their deck
+    with 5 or more Status cards in their deck
   references:
     version: 2
     RefIds:
@@ -79,7 +79,7 @@ MonoBehaviour:
         filter:
           cardCategoriesToInclude: 04000000
           generatedCardsFilter: 0
-        threshold: 4
+        threshold: 5
         outputKey: dudesWithEnough
     - rid: 2034230176448512971
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}
