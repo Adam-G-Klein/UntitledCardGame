@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: RP_StimulusCheck
   m_EditorClassIdentifier: 
   Name: Stimulus Check
-  Description: Draw 1 card from each companion, then add a "Debt" card to this companion's
-    discard pile.
+  Description: Draw 1 card from each companion, then shuffle a "Wound" card into
+    this companion's deck
   defaultValues: []
-  Cost: 0
+  Cost: 1
   Artwork: {fileID: 21300000, guid: e8c1b164e48b3ed4ea21cc0ef5d14b1a, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
@@ -26,6 +26,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 5602892874868589218
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
@@ -62,18 +64,6 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
-    - rid: 5280922829633617974
-      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: WaitForSecondsEffect
-        seconds: 0.5
-    - rid: 5280922829633617975
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: self
-        prefabToInstantiate: {fileID: 3850217184923880746, guid: 377a399fb9991684eb788275070abb5e, type: 3}
-        scale: 1
     - rid: 5602892874868589218
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -83,8 +73,6 @@ MonoBehaviour:
         - rid: 4463206079571951822
         - rid: 5602892874868589220
         - rid: 1274772082283774356
-        - rid: 5280922829633617974
-        - rid: 5280922829633617975
     - rid: 5602892874868589219
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -103,7 +91,7 @@ MonoBehaviour:
         inputKey: self
         cardTypes:
         - {fileID: 11400000, guid: 367e46b6621aa4d0186413c566fc3329, type: 2}
-        addToDeckMethod: 4
+        addToDeckMethod: 1
         getCardsFromKey: 0
         inputCardsKey: 
         scale: 1
