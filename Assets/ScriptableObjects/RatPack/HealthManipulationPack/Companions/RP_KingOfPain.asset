@@ -28,6 +28,7 @@ MonoBehaviour:
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 0}
   genericCompanionVFX: {fileID: 0}
+  cacheValueConfigs: []
   cardPool: {fileID: 11400000, guid: a1865aba1d57e42319eced1382227f3d, type: 2}
   packCardPool: {fileID: 11400000, guid: 0bf35a642105d4780a727b994049d862, type: 2}
   speakerType: {fileID: 0}
@@ -39,10 +40,12 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: King of Pain
-      description: Whenever King of Pain takes damage, it gains 2 temporary strength
+      description: Whenever a companion takes damage, King of Pain gains 1 temporary
+        strength
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: Whenever King of Pain takes damage, it gains 2 temporary strength
+  keepsakeDescription: Whenever a companion takes damage, King of Pain gains 1 temporary
+    strength
   references:
     version: 2
     RefIds:
@@ -52,30 +55,35 @@ MonoBehaviour:
         abilityTrigger: 11
         effectSteps:
         - rid: 8790164513324270201
-        - rid: 205828107393564791
-        - rid: 205828107393564792
-        - rid: 205828107393564793
-    - rid: 205828107393564791
-      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+        - rid: 7401433558763438356
+        - rid: 7401433558763438357
+        - rid: 7401433558763438358
+    - rid: 7401433558763438356
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: EndWorkflowIfConditionMet
-        inputKey1: selfDamaged
-        conditionToEndOn: 0
-    - rid: 205828107393564792
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 7401433558763438357
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ApplyStatus
-        inputKey: damagedCompanion
+        inputKey: self
         statusEffect: 6
-        scale: 2
+        scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
-    - rid: 205828107393564793
+    - rid: 7401433558763438358
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
-        inputKey: damagedCompanion
+        inputKey: self
         prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
         scale: 1
     - rid: 8790164513324270201

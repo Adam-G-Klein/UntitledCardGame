@@ -35,17 +35,17 @@ MonoBehaviour:
   abilitiesV2:
   - rid: 205828107393564721
   level: 1
-  upgradeTo: {fileID: 11400000, guid: 37a723fa1d89b4fc7aa522d6987426ce, type: 2}
+  upgradeTo: {fileID: 11400000, guid: 003fa3f6874e24ca1916ead658b94f89, type: 2}
   tooltip:
     empty: 0
     lines:
-    - title: L2 King of Pain
-      description: Whenever King of Pain takes damage, it gains 1 strength for the
-        rest of combat
+    - title: Level Two King of Pain
+      description: Whenever a companion takes damage, it gains 1 temporary strength
+        and King of Pain gains 1 temporary strength
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: Whenever King of Pain takes damage, it gains 1 strength for
-    the rest of combat
+  keepsakeDescription: Whenever a companion takes damage, it gains 1 temporary strength
+    and King of Pain gains 1 temporary strength
   references:
     version: 2
     RefIds:
@@ -55,15 +55,17 @@ MonoBehaviour:
         abilityTrigger: 11
         effectSteps:
         - rid: 8790164513324270202
-        - rid: 8790164583925416397
         - rid: 205828107393564792
         - rid: 205828107393564793
+        - rid: 7401433558763438390
+        - rid: 7401433558763438391
+        - rid: 7401433558763438392
     - rid: 205828107393564792
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ApplyStatus
         inputKey: damagedCompanion
-        statusEffect: 0
+        statusEffect: 6
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
@@ -75,14 +77,36 @@ MonoBehaviour:
         inputKey: damagedCompanion
         prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
         scale: 1
+    - rid: 7401433558763438390
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 7401433558763438391
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: self
+        statusEffect: 6
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+    - rid: 7401433558763438392
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
+        scale: 1
     - rid: 8790164513324270202
       type: {class: EndWorkflowIfNoMapElement, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EndWorkflowIfNoMapElement
         keyToCheck: damagedCompanion
-    - rid: 8790164583925416397
-      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: EndWorkflowIfConditionMet
-        inputKey1: selfDamaged
-        conditionToEndOn: 0
