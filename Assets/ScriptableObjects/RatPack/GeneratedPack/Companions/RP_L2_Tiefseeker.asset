@@ -34,24 +34,18 @@ MonoBehaviour:
   speakerType: {fileID: 0}
   abilitiesV2:
   - rid: 7401433059192472292
-  - rid: 7401433558763438174
   level: 1
   upgradeTo: {fileID: 11400000, guid: 572f3577101a94bcfba042363014ecc0, type: 2}
   tooltip:
     empty: 0
     lines:
     - title: Level Two Tiefseeker
-      description: At the start of turn, draw an extra card from each companion with
-        5 or more Status cards in their deck. At the end of turn, shuffle a exhaust,
-        block Status card into adjacent companions' decks.
-      relatedBehaviorIndex: 0
-    - title: Tiefseeker's Tenacity
-      description: Status card. Exhaust. Gain 2 block and draw 1 from this companion
+      description: At the start of turn, draw an extra card from and give 4 block
+        to each companion with 4 or more Status cards in their deck
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: At the start of turn, draw an extra card from each companion
-    with 5 or more Status cards in their deck. At the end of turn, shuffle a exhaust,
-    block Status card into adjacent companions' decks.
+  keepsakeDescription: At the start of turn, draw an extra card from and give 4 block
+    to each companion with 4 or more Status cards in their deck
   references:
     version: 2
     RefIds:
@@ -65,6 +59,7 @@ MonoBehaviour:
         - rid: 7401433059192472295
         - rid: 7401433059192472296
         - rid: 7401433059192472297
+        - rid: 7401433558763438354
         - rid: 7401433059192472298
     - rid: 7401433059192472293
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -85,7 +80,7 @@ MonoBehaviour:
         filter:
           cardCategoriesToInclude: 04000000
           generatedCardsFilter: 0
-        threshold: 5
+        threshold: 4
         outputKey: filtered
     - rid: 7401433059192472295
       type: {class: EndWorkflowIfListEmpty, ns: , asm: Assembly-CSharp}
@@ -97,7 +92,7 @@ MonoBehaviour:
       data:
         effectStepName: DialogueStep
         line: you have enough status cards
-        lineTime: 1
+        lineTime: 1.5
     - rid: 7401433059192472297
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:
@@ -114,57 +109,13 @@ MonoBehaviour:
         inputKey: filtered
         prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
         scale: 1
-    - rid: 7401433558763438174
-      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+    - rid: 7401433558763438354
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
-        abilityTrigger: 2
-        effectSteps:
-        - rid: 7401433558763438176
-        - rid: 7401433558763438180
-        - rid: 7401433558763438177
-        - rid: 7401433558763438178
-        - rid: 7401433558763438179
-    - rid: 7401433558763438176
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: self
-        validTargets: 00000000
-        number: 1
-        specialTargetRule: 3
-        cantCancelTargetting: 0
-    - rid: 7401433558763438177
-      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: AddCardsToDeck
-        inputKey: adj
-        cardTypes:
-        - {fileID: 11400000, guid: 0098d5d4e60d44721ac0c0b6b66b5d86, type: 2}
-        addToDeckMethod: 1
-        getCardsFromKey: 0
-        inputCardsKey: 
-        scale: 1
+        effectStepName: ApplyStatus
+        inputKey: filtered
+        statusEffect: 2
+        scale: 4
         getScaleFromKey: 0
         inputScaleKey: 
-    - rid: 7401433558763438178
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: self
-        prefabToInstantiate: {fileID: 3850217184923880746, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
-        scale: 1
-    - rid: 7401433558763438179
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: adj
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
-        scale: 1
-    - rid: 7401433558763438180
-      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetAdjacentCompanions
-        inputKey: self
-        outputKey: adj
+        multiplyByNumAuraStacks: 0
