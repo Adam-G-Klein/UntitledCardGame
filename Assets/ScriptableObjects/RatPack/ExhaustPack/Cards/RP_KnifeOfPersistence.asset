@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: RP_Start_HonedBlade
+  m_Name: RP_KnifeOfPersistence
   m_EditorClassIdentifier: 
-  Name: Honed Blade
-  Description: Deal {rpl_damage} damage. Increase the damage of this "Honed Blade"
-    card by 1 this combat
+  Name: Knife of Persistence
+  Description: Deal {rpl_damage} damage. Increase the damage of this "Knife of Persistence"
+    card by 3 this combat
   defaultValues:
   - key: rpl_damage
     value: 5
@@ -110,7 +110,7 @@ MonoBehaviour:
       data:
         effectStepName: CardModificationEffect
         inputKey: card
-        scale: 1
+        scale: 3
         affectsAllCardsOfType: 0
         cardTypeToModify: {fileID: 0}
         getScaleFromKey: 0
