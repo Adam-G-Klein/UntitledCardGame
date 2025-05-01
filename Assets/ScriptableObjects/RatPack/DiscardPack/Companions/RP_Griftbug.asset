@@ -32,7 +32,7 @@ MonoBehaviour:
   - key: numCardsToDraw
     display: 1
     sprite: {fileID: 21300000, guid: 7d13e867f4dd988488e4c5a179fa0857, type: 3}
-    startOfTurnValue: 1
+    startOfTurnValue: 2
     setStartOfTurnValue: 1
     startOfCombatValue: 0
     setStartOfCombatValue: 0
@@ -47,12 +47,12 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Griftbug
-      description: The first time each turn you discard a card, draw a card from
+      description: The first 2 times each turn you discard a card, draw a card from
         its parent companion
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: The first time each turn you discard a card, draw a card from
-    its parent companion
+  keepsakeDescription: The first 2 times each turn you discard a card, draw a card
+    from its parent companion
   references:
     version: 2
     RefIds:
