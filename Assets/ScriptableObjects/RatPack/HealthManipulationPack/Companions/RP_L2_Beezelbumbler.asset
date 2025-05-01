@@ -17,9 +17,9 @@ MonoBehaviour:
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: 5fd78a66293fa4473bc382b6ee49c87a, type: 3}
   fullSprite: {fileID: 21300000, guid: b496905dc6d0c4000b20230ebb41e77b, type: 3}
-  backgroundImage: {fileID: 21300000, guid: 3d949f712517a4846a59e1b81e5d2626, type: 3}
-  entityFrame: {fileID: 21300000, guid: 917225be64994484da5c72a7b08a3d6c, type: 3}
-  companionManagementFrame: {fileID: 21300000, guid: ff816818ae73449c997132f7ec8ab23c, type: 3}
+  backgroundImage: {fileID: 21300000, guid: 741949db90bb4412ba7493960e001481, type: 3}
+  entityFrame: {fileID: 21300000, guid: e8e1fad73c653473d90feb9b744f60c6, type: 3}
+  companionManagementFrame: {fileID: 21300000, guid: ad4f2340ea2464bc780af3b16bf27412, type: 3}
   startingDeck: {fileID: 11400000, guid: 466520c011e0b499e9ec3a59502a6788, type: 2}
   cardBack: {fileID: 21300000, guid: 3296a63e824de414bb4b578c4822fbdb, type: 3}
   cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
@@ -34,7 +34,7 @@ MonoBehaviour:
     sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
     startOfTurnValue: 0
     setStartOfTurnValue: 0
-    startOfCombatValue: 2
+    startOfCombatValue: 3
     setStartOfCombatValue: 1
   cardPool: {fileID: 11400000, guid: 3a6947a78ef594b05ba01c0f08056a55, type: 2}
   packCardPool: {fileID: 11400000, guid: 0bf35a642105d4780a727b994049d862, type: 2}
@@ -47,12 +47,12 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Level Two Beezelbumbler
-      description: The first 2 times Beezelbumbler+ takes damage in combat, it gains
-        2 strength
+      description: The first 3 times Beezelbumbler+ takes damage in combat, it gains
+        1 strength
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: The first 2 times Beezelbumbler+ takes damage in combat, it
-    gains 2 strength
+  keepsakeDescription: The first 3 times Beezelbumbler+ takes damage in combat, it
+    gains 1 strength
   references:
     version: 2
     RefIds:
@@ -118,7 +118,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: self
         statusEffect: 0
-        scale: 2
+        scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0

@@ -1,0 +1,86 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
+  m_Name: RP_BloodCircle
+  m_EditorClassIdentifier: 
+  Name: Blood Circle
+  Description: Draw 1 card from each companion and then each companion loses 1 HP
+  defaultValues: []
+  Cost: 1
+  Artwork: {fileID: 21300000, guid: 38c8aa9e04946486b8069de5512d0441, type: 3}
+  cardCategory: 2
+  vfxPrefab: {fileID: 0}
+  playable: 1
+  exhaustsWhenPlayed: 0
+  retain: 0
+  effectWorkflows:
+  - rid: 5602892675124822081
+  onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
+    rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  tooltips: 
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 1274772082283774025
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: companions
+        prefabToInstantiate: {fileID: 6137048663962808129, guid: 92c26f41ef33c23419e05ceb12660efa, type: 3}
+        scale: 0.8
+    - rid: 5602892675124822081
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 5602892675124822082
+        - rid: 5602892675124822084
+        - rid: 7401433558763438507
+        - rid: 1274772082283774025
+    - rid: 5602892675124822082
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: companions
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 1
+        cantCancelTargetting: 0
+    - rid: 5602892675124822084
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: companions
+        combatEffect: 16
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 0}
+    - rid: 7401433558763438507
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DrawCards
+        inputKey: companions
+        outputKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 

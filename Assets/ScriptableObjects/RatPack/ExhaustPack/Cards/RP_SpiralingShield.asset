@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Spiraling Shield
   Description: Give target companion 5 block plus 1 block for each time you shuffled
-    a deck this combat  ({numDecksShuffled} times)
+    a deck this combat  ({block} block)
   defaultValues:
-  - key: numDecksShuffled
-    value: 0
+  - key: block
+    value: 5
   Cost: 1
   Artwork: {fileID: 21300000, guid: 27219c2682ae3af4fa76a9968109666f, type: 3}
   cardCategory: 2
@@ -28,6 +28,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 2116895648763871336
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2

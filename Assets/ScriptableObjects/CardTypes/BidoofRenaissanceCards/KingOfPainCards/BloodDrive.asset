@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: BloodDrive
   m_EditorClassIdentifier: 
   Name: Blood Drive
-  Description: Create an "Arterial Blade" card in hand for each companion
+  Description: Create an "Arterial Blade" card in hand for each adjacent companion
   defaultValues: []
-  Cost: 2
+  Cost: 1
   Artwork: {fileID: 21300000, guid: 27ec1549f8e73da4c93e706a368e736b, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
@@ -25,6 +25,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 5602893017534169593
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
@@ -46,6 +48,7 @@ MonoBehaviour:
       data:
         effectSteps:
         - rid: 5602893017534169594
+        - rid: 7401433558763438508
         - rid: 5602893017534169595
         - rid: 1274772082283774748
     - rid: 5602893017534169594
@@ -54,10 +57,10 @@ MonoBehaviour:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: all
+        outputKey: self
         validTargets: 00000000
         number: 1
-        specialTargetRule: 1
+        specialTargetRule: 4
         cantCancelTargetting: 0
     - rid: 5602893017534169595
       type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
@@ -72,3 +75,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         outputKey: cardsCreated
+    - rid: 7401433558763438508
+      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetAdjacentCompanions
+        inputKey: self
+        outputKey: all

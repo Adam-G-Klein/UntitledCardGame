@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RP_Inoculate
   m_EditorClassIdentifier: 
   Name: Inoculate
-  Description: Exhaust. Target companion heals 9 HP then loses 1 HP
+  Description: Exhaust. Target companion heals 10 HP then loses 1 HP
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 06c409edcf5e308438ea9c89ccd99c68, type: 3}
@@ -55,7 +55,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: target
         combatEffect: 9
-        scale: 9
+        scale: 10
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1

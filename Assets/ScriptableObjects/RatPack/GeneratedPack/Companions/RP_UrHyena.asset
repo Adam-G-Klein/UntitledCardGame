@@ -28,102 +28,59 @@ MonoBehaviour:
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 0}
   genericCompanionVFX: {fileID: 0}
+  cacheValueConfigs: []
   cardPool: {fileID: 11400000, guid: 345480ef663c54cdfbd4be4285e0a8d6, type: 2}
   packCardPool: {fileID: 11400000, guid: fb4659890370a4ceda58d0967639becf, type: 2}
   speakerType: {fileID: 0}
   abilitiesV2:
-  - rid: 205828107393564827
-  - rid: 8790165036689784833
+  - rid: 7401433308100035453
   level: 0
-  upgradeTo: {fileID: 11400000, guid: e0216fd195b4641c69cdafa7ae92141a, type: 2}
+  upgradeTo: {fileID: 11400000, guid: 0e793e0d210e34e21bb6ae97186afe49, type: 2}
   tooltip:
     empty: 0
     lines:
     - title: Ur-Hyena
-      description: Whenever you discard or exhaust a Status card, draw a card from
-        its parent companion
+      description: At the end of combat, permanently add a powerful Status card to
+        target companion's deck
+      relatedBehaviorIndex: 0
+    - title: Ur-Hyena's Blessing
+      description: Unplayable. When in hand at the end of turn, gain block and deal
+        damage to all enemies equal to the number of cards in this deck
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: Whenever you discard or exhaust a Status card, draw a card
-    from its parent companion
+  keepsakeDescription: At the end of combat, permanently add a powerful Status card
+    to target companion's deck
   references:
     version: 2
     RefIds:
-    - rid: 205828107393564827
+    - rid: 7401433308100035453
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
-        abilityTrigger: 9
+        abilityTrigger: 1
         effectSteps:
-        - rid: 7401433037623787520
-        - rid: 7401433037623787521
-        - rid: 7401433037623787526
-        - rid: 7401433037623787527
-    - rid: 7401433037623787520
-      type: {class: FilterCards, ns: , asm: Assembly-CSharp}
+        - rid: 7401433308100035454
+        - rid: 7401433308100035455
+    - rid: 7401433308100035454
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: FilterCards
-        inputKey: cardExhausted
-        filter:
-          cardCategoriesToInclude: 04000000
-          generatedCardsFilter: 0
-        outputKey: statusCardExhausted
-    - rid: 7401433037623787521
-      type: {class: EndWorkflowIfListEmpty, ns: , asm: Assembly-CSharp}
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: target
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 0
+        cantCancelTargetting: 1
+    - rid: 7401433308100035455
+      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: EndWorkflowIfListEmpty
-        inputKey1: statusCardExhausted
-    - rid: 7401433037623787523
-      type: {class: FilterCards, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: FilterCards
-        inputKey: cardDiscarded
-        filter:
-          cardCategoriesToInclude: 04000000
-          generatedCardsFilter: 0
-        outputKey: statusCardDiscarded
-    - rid: 7401433037623787524
-      type: {class: EndWorkflowIfListEmpty, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: EndWorkflowIfListEmpty
-        inputKey1: statusCardDiscarded
-    - rid: 7401433037623787526
-      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: DrawCards
-        inputKey: companionExhaustedFrom
-        outputKey: 
+        effectStepName: AddCardsToDeck
+        inputKey: target
+        cardTypes:
+        - {fileID: 11400000, guid: 871fcfc25879f472aaab9bd86478a78d, type: 2}
+        addToDeckMethod: 3
+        getCardsFromKey: 0
+        inputCardsKey: 
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
-    - rid: 7401433037623787527
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: companionExhaustedFrom
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
-        scale: 1
-    - rid: 7401433037623787528
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: companionDiscardedFrom
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
-        scale: 1
-    - rid: 7401433037623787529
-      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: DrawCards
-        inputKey: companionDiscardedFrom
-        outputKey: 
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
-    - rid: 8790165036689784833
-      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
-      data:
-        abilityTrigger: 16
-        effectSteps:
-        - rid: 7401433037623787523
-        - rid: 7401433037623787524
-        - rid: 7401433037623787529
-        - rid: 7401433037623787528

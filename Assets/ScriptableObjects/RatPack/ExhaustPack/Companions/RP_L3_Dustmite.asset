@@ -28,6 +28,7 @@ MonoBehaviour:
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 0}
   genericCompanionVFX: {fileID: 0}
+  cacheValueConfigs: []
   cardPool: {fileID: 11400000, guid: e4335b1c96b9b4e36a22f50ef4a5cd38, type: 2}
   packCardPool: {fileID: 11400000, guid: 0f37e5a720cc243b2ab7df193483391d, type: 2}
   speakerType: {fileID: 0}
@@ -39,11 +40,11 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Level Three Dustmite
-      description: Whenever you exhaust a card, Dustmite++ gains 3 block and the
+      description: Whenever you exhaust a card, Dustmite++ gains 2 block and the
         card's parent companion gains 2 block
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: Whenever you exhaust a card, Dustmite++ gains 3 block and
+  keepsakeDescription: Whenever you exhaust a card, Dustmite++ gains 2 block and
     the card's parent companion gains 2 block
   references:
     version: 2
@@ -76,7 +77,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: self
         statusEffect: 2
-        scale: 3
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0

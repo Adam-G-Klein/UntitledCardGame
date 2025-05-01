@@ -17,9 +17,9 @@ MonoBehaviour:
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: b64d813aa0d6446ffb4776d0c4564233, type: 3}
   fullSprite: {fileID: 21300000, guid: e39b8af7a7f3940e69196960874c9565, type: 3}
-  backgroundImage: {fileID: 21300000, guid: 97a0558eb1e0445fa80a5a37338a081c, type: 3}
-  entityFrame: {fileID: 21300000, guid: cac494b9d5af94fe9b3c4e2729ecc320, type: 3}
-  companionManagementFrame: {fileID: 21300000, guid: 69da7692b04464b769e286602f9e1a12, type: 3}
+  backgroundImage: {fileID: 21300000, guid: cf0b03f8254f64d7ca33d64244db66e4, type: 3}
+  entityFrame: {fileID: 21300000, guid: d4ddadb9b0de34fe68babd80a4878635, type: 3}
+  companionManagementFrame: {fileID: 21300000, guid: 17b9618f5107840a8b89e8b21a1a69c8, type: 3}
   startingDeck: {fileID: 11400000, guid: e8874d8a511b54b13b6fa125f643d72b, type: 2}
   cardBack: {fileID: 21300000, guid: 3296a63e824de414bb4b578c4822fbdb, type: 3}
   cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
@@ -28,25 +28,94 @@ MonoBehaviour:
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 0}
   genericCompanionVFX: {fileID: 0}
+  cacheValueConfigs: []
   cardPool: {fileID: 11400000, guid: 497400d5fb9d14b6c9472ab3f1786e46, type: 2}
   packCardPool: {fileID: 11400000, guid: fb4659890370a4ceda58d0967639becf, type: 2}
   speakerType: {fileID: 0}
-  abilitiesV2: []
+  abilitiesV2:
+  - rid: 7401433059192472292
   level: 2
   upgradeTo: {fileID: 0}
   tooltip:
     empty: 0
     lines:
-    - title: L3 Tiefseeker
-      description: At the start of combat, put a "Better Buried Treasure" card on
-        the bottom of each companion's deck.
-      relatedBehaviorIndex: 0
-    - title: Better Buried Treasure
-      description: 1 Mana. Exhaust. Gain 1 Gold. Draw 1 card from this companion.
+    - title: Level Three Tiefseeker
+      description: At the start of turn, draw an extra card from and give 5 block
+        to each companion with 3 or more Status cards in their deck
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: At the start of combat, put a "Better Buried Treasure" card
-    on the bottom of each companion's deck.
+  keepsakeDescription: At the start of turn, draw an extra card from and give 5 block
+    to each companion with 3 or more Status cards in their deck
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 7401433059192472292
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 12
+        effectSteps:
+        - rid: 7401433059192472293
+        - rid: 7401433059192472294
+        - rid: 7401433059192472295
+        - rid: 7401433059192472296
+        - rid: 7401433059192472297
+        - rid: 7401433558763438355
+        - rid: 7401433059192472298
+    - rid: 7401433059192472293
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: all
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 1
+        cantCancelTargetting: 0
+    - rid: 7401433059192472294
+      type: {class: FilterEntityByCardsInDeck, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FilterEntityByCardsInDeck
+        inputKey: all
+        filter:
+          cardCategoriesToInclude: 04000000
+          generatedCardsFilter: 0
+        threshold: 3
+        outputKey: filtered
+    - rid: 7401433059192472295
+      type: {class: EndWorkflowIfListEmpty, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfListEmpty
+        inputKey1: filtered
+    - rid: 7401433059192472296
+      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DialogueStep
+        line: you have enough status cards
+        lineTime: 1.5
+    - rid: 7401433059192472297
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DrawCards
+        inputKey: filtered
+        outputKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 7401433059192472298
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: filtered
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        scale: 1
+    - rid: 7401433558763438355
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: filtered
+        statusEffect: 2
+        scale: 5
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0

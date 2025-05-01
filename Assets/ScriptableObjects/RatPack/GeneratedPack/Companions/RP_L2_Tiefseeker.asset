@@ -17,9 +17,9 @@ MonoBehaviour:
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: b64d813aa0d6446ffb4776d0c4564233, type: 3}
   fullSprite: {fileID: 21300000, guid: e39b8af7a7f3940e69196960874c9565, type: 3}
-  backgroundImage: {fileID: 21300000, guid: 97a0558eb1e0445fa80a5a37338a081c, type: 3}
-  entityFrame: {fileID: 21300000, guid: cac494b9d5af94fe9b3c4e2729ecc320, type: 3}
-  companionManagementFrame: {fileID: 21300000, guid: 69da7692b04464b769e286602f9e1a12, type: 3}
+  backgroundImage: {fileID: 21300000, guid: cf0b03f8254f64d7ca33d64244db66e4, type: 3}
+  entityFrame: {fileID: 21300000, guid: d4ddadb9b0de34fe68babd80a4878635, type: 3}
+  companionManagementFrame: {fileID: 21300000, guid: 17b9618f5107840a8b89e8b21a1a69c8, type: 3}
   startingDeck: {fileID: 11400000, guid: e8874d8a511b54b13b6fa125f643d72b, type: 2}
   cardBack: {fileID: 21300000, guid: 3296a63e824de414bb4b578c4822fbdb, type: 3}
   cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
@@ -28,23 +28,24 @@ MonoBehaviour:
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 0}
   genericCompanionVFX: {fileID: 0}
+  cacheValueConfigs: []
   cardPool: {fileID: 11400000, guid: 497400d5fb9d14b6c9472ab3f1786e46, type: 2}
   packCardPool: {fileID: 11400000, guid: fb4659890370a4ceda58d0967639becf, type: 2}
   speakerType: {fileID: 0}
   abilitiesV2:
   - rid: 7401433059192472292
   level: 1
-  upgradeTo: {fileID: 11400000, guid: 64e39d9d7a1ff4df09a0fd6af067658b, type: 2}
+  upgradeTo: {fileID: 11400000, guid: 572f3577101a94bcfba042363014ecc0, type: 2}
   tooltip:
     empty: 0
     lines:
     - title: Level Two Tiefseeker
-      description: At the start of turn, draw an extra card from each companion with
-        more than 2 Status cards in their deck
+      description: At the start of turn, draw an extra card from and give 4 block
+        to each companion with 4 or more Status cards in their deck
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: At the start of turn, draw an extra card from each companion
-    with more than 2 Status cards in their deck
+  keepsakeDescription: At the start of turn, draw an extra card from and give 4 block
+    to each companion with 4 or more Status cards in their deck
   references:
     version: 2
     RefIds:
@@ -58,6 +59,7 @@ MonoBehaviour:
         - rid: 7401433059192472295
         - rid: 7401433059192472296
         - rid: 7401433059192472297
+        - rid: 7401433558763438354
         - rid: 7401433059192472298
     - rid: 7401433059192472293
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -78,7 +80,7 @@ MonoBehaviour:
         filter:
           cardCategoriesToInclude: 04000000
           generatedCardsFilter: 0
-        threshold: 2
+        threshold: 4
         outputKey: filtered
     - rid: 7401433059192472295
       type: {class: EndWorkflowIfListEmpty, ns: , asm: Assembly-CSharp}
@@ -90,7 +92,7 @@ MonoBehaviour:
       data:
         effectStepName: DialogueStep
         line: you have enough status cards
-        lineTime: 1
+        lineTime: 1.5
     - rid: 7401433059192472297
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:
@@ -107,3 +109,13 @@ MonoBehaviour:
         inputKey: filtered
         prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
         scale: 1
+    - rid: 7401433558763438354
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: filtered
+        statusEffect: 2
+        scale: 4
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0

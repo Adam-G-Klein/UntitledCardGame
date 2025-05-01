@@ -28,21 +28,22 @@ MonoBehaviour:
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 0}
   genericCompanionVFX: {fileID: 0}
+  cacheValueConfigs: []
   cardPool: {fileID: 11400000, guid: ea2e0be33aeb148b5b6fb019d0942226, type: 2}
   packCardPool: {fileID: 11400000, guid: aca6eb7e5bae64ee4aabb8816fe258a4, type: 2}
   speakerType: {fileID: 0}
   abilitiesV2:
   - rid: 205828032053379705
   level: 0
-  upgradeTo: {fileID: 11400000, guid: 78d018f716ea641b9be00d37cb5ec396, type: 2}
+  upgradeTo: {fileID: 11400000, guid: 6bff7e58cee4b40c59aa4d06815200b8, type: 2}
   tooltip:
     empty: 0
     lines:
     - title: Werespinner
-      description: Whenever you discard a card, deal 1 damage to a random enemy
+      description: Whenever you discard a card, deal 2 damage to a random enemy
       relatedBehaviorIndex: 0
   keepsakeTitle: The Eye
-  keepsakeDescription: Whenever you discard a card, deal 1 damage to a random enemy
+  keepsakeDescription: Whenever you discard a card, deal 2 damage to a random enemy
   references:
     version: 2
     RefIds:
@@ -52,6 +53,8 @@ MonoBehaviour:
         abilityTrigger: 16
         effectSteps:
         - rid: 205828032053379741
+        - rid: 7401433558763438183
+        - rid: 7401433558763438184
         - rid: 7401433059192471552
     - rid: 205828032053379741
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -69,11 +72,29 @@ MonoBehaviour:
       data:
         effectStepName: CombatEffectStep
         inputKey: randomGuy
-        combatEffect: 0
-        scale: 1
+        combatEffect: 14
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 1320532642761013391, guid: 99a456f94890391478f393fcc8ad0b95, type: 3}
+    - rid: 7401433558763438183
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 7401433558763438184
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
+        scale: 1

@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: RP_Exhale
   m_EditorClassIdentifier: 
   Name: Exhale
-  Description: Shuffle 3 "Firebreath" cards into this companion's deck.
+  Description: Shuffle 3 "Firebreath" cards into then draw 1 from this companion's
+    deck
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 27219c2682ae3af4fa76a9968109666f, type: 3}
@@ -25,6 +26,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 5602892561590779907
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
@@ -47,6 +50,7 @@ MonoBehaviour:
         effectSteps:
         - rid: 5602892561590779908
         - rid: 5602892561590779909
+        - rid: 7401433558763438466
         - rid: 1274772082283774707
     - rid: 5602892561590779908
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -70,5 +74,14 @@ MonoBehaviour:
         getCardsFromKey: 0
         inputCardsKey: 
         scale: 3
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 7401433558763438466
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DrawCards
+        inputKey: self
+        outputKey: 
+        scale: 1
         getScaleFromKey: 0
         inputScaleKey: 

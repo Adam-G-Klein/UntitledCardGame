@@ -15,12 +15,12 @@ MonoBehaviour:
   companionName: King of Pain+
   maxHealth: 50
   initialCardsDealtPerTurn: 1
-  sprite: {fileID: 21300000, guid: e7fac6430b61f4e379c435119ab1ec86, type: 3}
-  fullSprite: {fileID: 21300000, guid: e7fac6430b61f4e379c435119ab1ec86, type: 3}
+  sprite: {fileID: 21300000, guid: a85b5d0a92a464548a546904133d5147, type: 3}
+  fullSprite: {fileID: 21300000, guid: a85b5d0a92a464548a546904133d5147, type: 3}
   backgroundImage: {fileID: 21300000, guid: 741949db90bb4412ba7493960e001481, type: 3}
   entityFrame: {fileID: 21300000, guid: e8e1fad73c653473d90feb9b744f60c6, type: 3}
   companionManagementFrame: {fileID: 21300000, guid: ad4f2340ea2464bc780af3b16bf27412, type: 3}
-  startingDeck: {fileID: 11400000, guid: 1c73175d985fa4a2bb8ef49e809c32a7, type: 2}
+  startingDeck: {fileID: 11400000, guid: 01bed10f78baa4885922ab894d8dd770, type: 2}
   cardBack: {fileID: 21300000, guid: 3296a63e824de414bb4b578c4822fbdb, type: 3}
   cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
   cardTypeIconOverride: {fileID: 0}
@@ -28,23 +28,31 @@ MonoBehaviour:
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 0}
   genericCompanionVFX: {fileID: 0}
+  cacheValueConfigs:
+  - key: numDamage
+    display: 1
+    sprite: {fileID: 21300000, guid: 27ec1549f8e73da4c93e706a368e736b, type: 3}
+    startOfTurnValue: 0
+    setStartOfTurnValue: 0
+    startOfCombatValue: 0
+    setStartOfCombatValue: 1
   cardPool: {fileID: 11400000, guid: a1865aba1d57e42319eced1382227f3d, type: 2}
   packCardPool: {fileID: 11400000, guid: 0bf35a642105d4780a727b994049d862, type: 2}
   speakerType: {fileID: 0}
   abilitiesV2:
   - rid: 205828107393564721
   level: 1
-  upgradeTo: {fileID: 11400000, guid: 37a723fa1d89b4fc7aa522d6987426ce, type: 2}
+  upgradeTo: {fileID: 11400000, guid: 77ba020a4a2a243ddac024317805f0a2, type: 2}
   tooltip:
     empty: 0
     lines:
-    - title: L2 King of Pain
-      description: Whenever King of Pain takes damage, it gains 1 strength for the
-        rest of combat
+    - title: Level Two King of Pain
+      description: Every 4 times a companion takes damage, King of Pain and the last
+        companion damaged gain 1 strength
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: Whenever King of Pain takes damage, it gains 1 strength for
-    the rest of combat
+  keepsakeDescription: Every 4 times a companion takes damage, King of Pain and the
+    last companion damaged gain 1 strength
   references:
     version: 2
     RefIds:
@@ -53,11 +61,109 @@ MonoBehaviour:
       data:
         abilityTrigger: 11
         effectSteps:
-        - rid: 8790164513324270202
-        - rid: 8790164583925416397
-        - rid: 205828107393564792
-        - rid: 205828107393564793
-    - rid: 205828107393564792
+        - rid: 8790164513324270201
+        - rid: 7401433558763438356
+        - rid: 7401433558763438393
+        - rid: 7401433558763438394
+        - rid: 7401433558763438395
+        - rid: 7401433558763438396
+        - rid: 7401433558763438397
+        - rid: 7401433558763438430
+        - rid: 7401433558763438398
+        - rid: 7401433558763438357
+        - rid: 7401433558763438462
+        - rid: 7401433558763438358
+        - rid: 7401433558763438463
+    - rid: 7401433558763438356
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 7401433558763438357
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: self
+        statusEffect: 0
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+    - rid: 7401433558763438358
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
+        scale: 1
+    - rid: 7401433558763438393
+      type: {class: CombatInstanceCacheLoad, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatInstanceCacheLoad
+        inputCombatInstanceKey: self
+        cacheKey: numDamage
+        currentWorkflowKey: numDamage
+    - rid: 7401433558763438394
+      type: {class: MathStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: MathStep
+        inputKey: numDamage
+        operand2InputKey: UNUSED
+        operation: 0
+        scale: 1
+        outputKey: numDamagePlus
+    - rid: 7401433558763438395
+      type: {class: MathStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: MathStep
+        inputKey: numDamage
+        operand2InputKey: UNUSED
+        operation: 3
+        scale: 4
+        outputKey: numDamageDiv3
+    - rid: 7401433558763438396
+      type: {class: MathStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: MathStep
+        inputKey: numDamagePlus
+        operand2InputKey: UNUSED
+        operation: 3
+        scale: 4
+        outputKey: numDamagePlusDiv3
+    - rid: 7401433558763438397
+      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: BooleanComparison
+        hardCodedInputKey1: 0
+        useHardCodedInputKey1: 0
+        inputKey1: numDamageDiv3
+        operation: 1
+        inputKey2: numDamagePlusDiv3
+        outputKey: multOf3
+    - rid: 7401433558763438398
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: multOf3
+        conditionToEndOn: 0
+    - rid: 7401433558763438430
+      type: {class: CombatInstanceCacheStore, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatInstanceCacheStore
+        inputCombatInstanceKey: self
+        hardCodedBool: 0
+        useHardCodedBool: 0
+        hardCodedInt: 0
+        useHardCodedInt: 0
+        currentWorkflowKey: numDamagePlus
+        cacheKey: numDamage
+    - rid: 7401433558763438462
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ApplyStatus
@@ -67,21 +173,15 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
-    - rid: 205828107393564793
+    - rid: 7401433558763438463
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
         inputKey: damagedCompanion
         prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
         scale: 1
-    - rid: 8790164513324270202
+    - rid: 8790164513324270201
       type: {class: EndWorkflowIfNoMapElement, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EndWorkflowIfNoMapElement
         keyToCheck: damagedCompanion
-    - rid: 8790164583925416397
-      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: EndWorkflowIfConditionMet
-        inputKey1: selfDamaged
-        conditionToEndOn: 0

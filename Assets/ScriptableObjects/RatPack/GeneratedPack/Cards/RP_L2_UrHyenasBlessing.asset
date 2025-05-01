@@ -1,0 +1,155 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
+  m_Name: RP_L2_UrHyenasBlessing
+  m_EditorClassIdentifier: 
+  Name: Ur-Hyena's Blessing+
+  Description: Unplayable. When in hand at the end of turn, gain block and deal damage
+    to all enemies equal to the double the number of cards in this deck ({mult})
+  defaultValues:
+  - key: mult
+    value: 0
+  Cost: 0
+  Artwork: {fileID: 21300000, guid: 3296a63e824de414bb4b578c4822fbdb, type: 3}
+  cardCategory: 4
+  vfxPrefab: {fileID: 0}
+  playable: 0
+  exhaustsWhenPlayed: 0
+  retain: 0
+  effectWorkflows:
+  - rid: 7401433308100035440
+  onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
+    rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: 7401433308100035441
+  tooltips: 
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 7401433308100035440
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps: []
+    - rid: 7401433308100035441
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 7401433308100035445
+        - rid: 7401433308100035446
+        - rid: 7401433308100035457
+        - rid: 7401433558763438287
+        - rid: 7401433308100035447
+        - rid: 7401433308100035448
+        - rid: 7401433308100035458
+        - rid: 7401433308100035461
+        - rid: 7401433308100035459
+        - rid: 7401433308100035460
+    - rid: 7401433308100035445
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: targets
+        validTargets: 02000000
+        number: 1
+        specialTargetRule: 1
+        cantCancelTargetting: 0
+    - rid: 7401433308100035446
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 4
+        cantCancelTargetting: 0
+    - rid: 7401433308100035447
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: targets
+        combatEffect: 14
+        scale: 0
+        getScaleFromKey: 1
+        inputScaleKey: mult
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 1320532642761013391, guid: 99a456f94890391478f393fcc8ad0b95, type: 3}
+    - rid: 7401433308100035448
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: self
+        statusEffect: 2
+        scale: 0
+        getScaleFromKey: 1
+        inputScaleKey: mult
+        multiplyByNumAuraStacks: 0
+    - rid: 7401433308100035457
+      type: {class: CountCardsInDeck, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CountCardsInDeck
+        inputDeckKey: self
+        filter:
+          cardCategoriesToInclude: 
+          generatedCardsFilter: 0
+        includeDrawPile: 1
+        includeDiscardPile: 1
+        includeCardsInHand: 1
+        outputKey: numCards
+    - rid: 7401433308100035458
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
+        scale: 1
+    - rid: 7401433308100035459
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: thisCard
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
+        scale: 1
+    - rid: 7401433308100035460
+      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: WaitForSecondsEffect
+        seconds: 0.75
+    - rid: 7401433308100035461
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: thisCard
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 7401433558763438287
+      type: {class: MathStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: MathStep
+        inputKey: numCards
+        operand2InputKey: UNUSED
+        operation: 2
+        scale: 2
+        outputKey: mult

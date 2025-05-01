@@ -72,6 +72,11 @@ public class EffectManager : GenericSingleton<EffectManager>
             EffectDocument document,
             List<EffectStep> effectSteps,
             IEnumerator callback) {
+        if (effectWorkflowQueue.Count > 0) {
+            Debug.LogError("Effect workflow Queue non empty at beginning of effect; this indicates a past action queued up something and it wasn't run");
+        }
+
+
         effectRunning = true;
         foreach (EffectStep step in effectSteps) {
             if (document.workflowInterrupted) {

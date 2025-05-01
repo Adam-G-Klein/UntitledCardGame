@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Scry the Stomach
   Description: "Shuffle 1 \"Firebreath\" cards into this companion\u2019s deck, then
-    scry 2"
+    scry 1 and draw 1 from this companion"
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 6ef8de3dba8a5be4eb27bbf7c8eee155, type: 3}
@@ -26,6 +26,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 3931529445166809455
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
@@ -66,6 +68,7 @@ MonoBehaviour:
         - rid: 3931529445166809457
         - rid: 3931529445166809458
         - rid: 3931529445166809459
+        - rid: 7401433558763438465
     - rid: 3931529445166809456
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -83,7 +86,7 @@ MonoBehaviour:
         effectStepName: GetCardsFromDeck
         inputKey: target
         getLimitedNumber: 1
-        numberOfCardsToGet: 2
+        numberOfCardsToGet: 1
         shuffleIfEmpty: 0
         outputKey: topCard
         getAllCardsFromEntities: 0
@@ -97,7 +100,7 @@ MonoBehaviour:
         outputKey: discarded
         promptText: Choose a card to discard.
         minTargets: 0
-        maxTargets: 2
+        maxTargets: 1
         getNumberOfTargetsFromKey: 0
         inputNumberOfTargetsKey: 
         randomizeOrder: 0
@@ -115,3 +118,12 @@ MonoBehaviour:
       data:
         effectStepName: WaitForSecondsEffect
         seconds: 0.4
+    - rid: 7401433558763438465
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DrawCards
+        inputKey: target
+        outputKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 

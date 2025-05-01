@@ -28,6 +28,7 @@ MonoBehaviour:
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 0}
   genericCompanionVFX: {fileID: 0}
+  cacheValueConfigs: []
   cardPool: {fileID: 11400000, guid: e7e6fa297fff64b95af161293c2ccaab, type: 2}
   packCardPool: {fileID: 11400000, guid: 0eb3f8bf2fb8e45f389802ceb0d6abaf, type: 2}
   speakerType: {fileID: 0}
@@ -39,10 +40,10 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Level 2 Bidoof
-      description: Starts combat with 3 strength
+      description: Starts combat with 2 strength
       relatedBehaviorIndex: 0
   keepsakeTitle: Level 2 Bidoof
-  keepsakeDescription: Starts combat with 3 strength
+  keepsakeDescription: Starts combat with 2 strength
   references:
     version: 2
     RefIds:
@@ -71,7 +72,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: self
         statusEffect: 0
-        scale: 3
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0

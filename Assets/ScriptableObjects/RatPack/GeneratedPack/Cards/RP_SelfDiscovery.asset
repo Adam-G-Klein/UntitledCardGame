@@ -79,7 +79,7 @@ MonoBehaviour:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: self
+        outputKey: target
         validTargets: 
         number: 1
         specialTargetRule: 4
@@ -88,7 +88,7 @@ MonoBehaviour:
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: DrawCards
-        inputKey: self
+        inputKey: target
         outputKey: cards
         scale: 4
         getScaleFromKey: 0

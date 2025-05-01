@@ -1,0 +1,93 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
+  m_Name: RP_TiefseekerToughness
+  m_EditorClassIdentifier: 
+  Name: Tiefseeker's Toughness
+  Description: Gain 2 block and draw 1 from this companion.
+  defaultValues: []
+  Cost: 0
+  Artwork: {fileID: 21300000, guid: be409f988b43c465e8aff2ef52b8aabc, type: 3}
+  cardCategory: 4
+  vfxPrefab: {fileID: 0}
+  playable: 1
+  exhaustsWhenPlayed: 0
+  retain: 0
+  effectWorkflows:
+  - rid: 7401433059192472121
+  onExhaustEffectWorkflow:
+    rid: 7401433059192472125
+  onDiscardEffectWorkflow:
+    rid: 7401433059192472127
+  inPlayerHandEndOfTurnWorkflow:
+    rid: 2034230108114649365
+  tooltips: 
+  references:
+    version: 2
+    RefIds:
+    - rid: 2034230108114649365
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps: []
+    - rid: 7401433059192472121
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 7401433059192472122
+        - rid: 7401433059192472164
+        - rid: 7401433558763438173
+        - rid: 7401433059192472124
+    - rid: 7401433059192472122
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 4
+        cantCancelTargetting: 0
+    - rid: 7401433059192472124
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
+        scale: 1
+    - rid: 7401433059192472125
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps: []
+    - rid: 7401433059192472127
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps: []
+    - rid: 7401433059192472164
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: self
+        statusEffect: 2
+        scale: 2
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+    - rid: 7401433558763438173
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DrawCards
+        inputKey: self
+        outputKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 

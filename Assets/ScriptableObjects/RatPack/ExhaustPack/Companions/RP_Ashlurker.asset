@@ -1,0 +1,161 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
+  m_Name: RP_Ashlurker
+  m_EditorClassIdentifier: 
+  companionName: Ashlurker
+  maxHealth: 20
+  initialCardsDealtPerTurn: 1
+  sprite: {fileID: 21300000, guid: 1f6d47a24a913fc49b13cf3afcc418e7, type: 3}
+  fullSprite: {fileID: 21300000, guid: 1f6d47a24a913fc49b13cf3afcc418e7, type: 3}
+  backgroundImage: {fileID: 21300000, guid: 51acef32dcac74705a26476ebe2fcef6, type: 3}
+  entityFrame: {fileID: 21300000, guid: a8fa2ecee207041998d05babf6bcc914, type: 3}
+  companionManagementFrame: {fileID: 21300000, guid: 6816075e96cf94121bbef6520deb584f, type: 3}
+  startingDeck: {fileID: 11400000, guid: 669d7190127094f0395e06bc6cb98d0e, type: 2}
+  cardBack: {fileID: 21300000, guid: 20b46ccd593516f4badbdcdb021f67c1, type: 3}
+  cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
+  cardTypeIconOverride: {fileID: 0}
+  rarity: 2
+  cardIdleVfxPrefab: {fileID: 0}
+  genericCompanionSFX: {fileID: 0}
+  genericCompanionVFX: {fileID: 0}
+  cacheValueConfigs:
+  - key: numCardsToDraw
+    display: 1
+    sprite: {fileID: 21300000, guid: 7d13e867f4dd988488e4c5a179fa0857, type: 3}
+    startOfTurnValue: 3
+    setStartOfTurnValue: 1
+    startOfCombatValue: 0
+    setStartOfCombatValue: 0
+  cardPool: {fileID: 11400000, guid: 8bdac79f050ae468e9f4ab9afe43b5e9, type: 2}
+  packCardPool: {fileID: 11400000, guid: 0f37e5a720cc243b2ab7df193483391d, type: 2}
+  speakerType: {fileID: 0}
+  abilitiesV2:
+  - rid: 205828032053379705
+  level: 0
+  upgradeTo: {fileID: 11400000, guid: 791f5adb1107d4d8eacd7111fbfa4fa7, type: 2}
+  tooltip:
+    empty: 0
+    lines:
+    - title: Ashlurker
+      description: The first 3 times you exhaust a card each turn, draw 1 card from
+        a random companion
+      relatedBehaviorIndex: 0
+  keepsakeTitle: 
+  keepsakeDescription: The first 3 times you exhaust a card each turn, draw 1 card
+    from a random companion
+  references:
+    version: 2
+    RefIds:
+    - rid: 205828032053379705
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 9
+        effectSteps:
+        - rid: 7401433308100034729
+        - rid: 7401433308100034728
+        - rid: 7401433308100034730
+        - rid: 7401433308100034731
+        - rid: 7401433308100034732
+        - rid: 7401433308100034733
+        - rid: 7401433558763438289
+        - rid: 7401433308100034734
+        - rid: 7401433308100034735
+        - rid: 7401433558763438290
+    - rid: 7401433308100034728
+      type: {class: CombatInstanceCacheLoad, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatInstanceCacheLoad
+        inputCombatInstanceKey: self
+        cacheKey: numCardsToDraw
+        currentWorkflowKey: numCardsToDraw
+    - rid: 7401433308100034729
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 7401433308100034730
+      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: BooleanComparison
+        hardCodedInputKey1: 0
+        useHardCodedInputKey1: 1
+        inputKey1: 
+        operation: 0
+        inputKey2: numCardsToDraw
+        outputKey: done
+    - rid: 7401433308100034731
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: done
+        conditionToEndOn: 1
+    - rid: 7401433308100034732
+      type: {class: MathStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: MathStep
+        inputKey: numCardsToDraw
+        operand2InputKey: UNUSED
+        operation: 1
+        scale: 1
+        outputKey: numCardsToDrawSubtracted
+    - rid: 7401433308100034733
+      type: {class: CombatInstanceCacheStore, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatInstanceCacheStore
+        inputCombatInstanceKey: self
+        hardCodedBool: 0
+        useHardCodedBool: 0
+        hardCodedInt: 0
+        useHardCodedInt: 0
+        currentWorkflowKey: numCardsToDrawSubtracted
+        cacheKey: numCardsToDraw
+    - rid: 7401433308100034734
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DrawCards
+        inputKey: random
+        outputKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 7401433308100034735
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: random
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        scale: 1
+    - rid: 7401433558763438289
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: random
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 6
+        cantCancelTargetting: 0
+    - rid: 7401433558763438290
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
+        scale: 1

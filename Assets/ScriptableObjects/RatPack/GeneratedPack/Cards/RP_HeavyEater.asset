@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: RP_HeavyEater
   m_EditorClassIdentifier: 
   Name: Heavy Eater
-  Description: Shuffle 3 "Iron Stomach" cards into target companion's deck, then
-    draw 1 from them
+  Description: Shuffle 4 "Iron Stomach" cards into this deck then draw 1 from this
+    companion
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 6cb44060d9d637b44a6b0567dd3ff92f, type: 3}
@@ -54,7 +54,7 @@ MonoBehaviour:
         outputKey: target
         validTargets: 00000000
         number: 1
-        specialTargetRule: 0
+        specialTargetRule: 4
         cantCancelTargetting: 0
     - rid: 2034230108114649372
       type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
@@ -66,7 +66,7 @@ MonoBehaviour:
         addToDeckMethod: 1
         getCardsFromKey: 0
         inputCardsKey: 
-        scale: 3
+        scale: 4
         getScaleFromKey: 0
         inputScaleKey: 
     - rid: 2034230108114649373
