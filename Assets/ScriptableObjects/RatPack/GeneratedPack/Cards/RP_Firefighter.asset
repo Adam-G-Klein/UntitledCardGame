@@ -10,78 +10,67 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: RP_HeavyEater
+  m_Name: RP_Firefighter
   m_EditorClassIdentifier: 
-  Name: Heavy Eater
-  Description: Shuffle 4 "Iron Stomach" cards into this deck then draw 1 from this
-    companion
+  Name: Firefighter
+  Description: Shuffle 3 "Firebreath" cards into target companion's deck
   defaultValues: []
   Cost: 1
-  Artwork: {fileID: 21300000, guid: 6cb44060d9d637b44a6b0567dd3ff92f, type: 3}
+  Artwork: {fileID: 21300000, guid: d57a573c1de7fb84a83ac3316d0ea3b2, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
   retain: 0
   effectWorkflows:
-  - rid: 2034230108114649370
+  - rid: 5602892561590779907
   onExhaustEffectWorkflow:
     rid: -2
   onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
-  tooltips: 
+  tooltips: 16000000
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 2034230108114649370
+    - rid: 1274772082283774707
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        scale: 1.5
+    - rid: 5602892561590779907
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
-        - rid: 2034230108114649371
-        - rid: 2034230108114649372
-        - rid: 2034230108114649373
-        - rid: 2034230108114649374
-    - rid: 2034230108114649371
+        - rid: 5602892561590779908
+        - rid: 5602892561590779909
+        - rid: 1274772082283774707
+    - rid: 5602892561590779908
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: target
+        outputKey: self
         validTargets: 00000000
         number: 1
-        specialTargetRule: 4
+        specialTargetRule: 0
         cantCancelTargetting: 0
-    - rid: 2034230108114649372
+    - rid: 5602892561590779909
       type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: AddCardsToDeck
-        inputKey: target
+        inputKey: self
         cardTypes:
-        - {fileID: 11400000, guid: 1d0fa939e918d4d8b8e068543cc5d44d, type: 2}
+        - {fileID: 11400000, guid: f906bdd2620a44164814e18d96b00fb0, type: 2}
         addToDeckMethod: 1
         getCardsFromKey: 0
         inputCardsKey: 
-        scale: 4
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
-    - rid: 2034230108114649373
-      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: DrawCards
-        inputKey: target
-        outputKey: 
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
-    - rid: 2034230108114649374
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: target
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
-        scale: 1
