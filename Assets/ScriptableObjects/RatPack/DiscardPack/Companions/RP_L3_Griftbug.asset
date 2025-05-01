@@ -48,11 +48,11 @@ MonoBehaviour:
     lines:
     - title: Level Three Griftbug
       description: The first 5 times each turn you discard a card, draw a card from
-        its parent companion
+        a random companion
       relatedBehaviorIndex: 0
   keepsakeTitle: 
   keepsakeDescription: The first 5 times each turn you discard a card, draw a card
-    from its parent companion
+    from a random companion
   references:
     version: 2
     RefIds:
@@ -67,6 +67,7 @@ MonoBehaviour:
         - rid: 7401433308100034731
         - rid: 7401433308100034732
         - rid: 7401433308100034733
+        - rid: 7401433558763438505
         - rid: 7401433308100034734
         - rid: 7401433308100034735
     - rid: 7401433308100034728
@@ -127,7 +128,7 @@ MonoBehaviour:
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: DrawCards
-        inputKey: companionDiscardedFrom
+        inputKey: random
         outputKey: 
         scale: 1
         getScaleFromKey: 0
@@ -136,6 +137,17 @@ MonoBehaviour:
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
-        inputKey: companionDiscardedFrom
+        inputKey: random
         prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
         scale: 1
+    - rid: 7401433558763438505
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: random
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 6
+        cantCancelTargetting: 0
