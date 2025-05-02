@@ -20,10 +20,11 @@ MonoBehaviour:
   entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
   morale: 0
   abilities: []
+  cacheValueConfigs: []
   enemyPattern:
     behaviors:
     - intent: 0
-      enemyTargetMethod: 5
+      enemyTargetMethod: 4
       targetsKey: target
       displayValue: 5
       effectSteps:
