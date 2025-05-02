@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24f95da87f612e047aaeac10756d2ec7, type: 3}
+  m_Name: Act2_Pooh_NormalEnemyPool
+  m_EditorClassIdentifier: 
+  enemyEncounterTypes:
+  - {fileID: 11400000, guid: 241368f980d424a2cae40cb0114edb79, type: 2}
+  - {fileID: 11400000, guid: 5bf15b18866c74747aee0b0308ca565f, type: 2}
+  - {fileID: 11400000, guid: 788ce213708bd427ba03f0c6f42346a5, type: 2}
+  isElite: 0
