@@ -110,6 +110,10 @@ public class EnemyInstance : MonoBehaviour, IUIEntity {
             action.effectSteps);
     }
 
+    public int GetBehaviorIndexForBrain(EnemyBrain brain) {
+        return behaviorIndices.GetValueOrDefault(brain, new (0, 0)).Item1;
+    }
+
     private CompanionInstance ChooseTargets(EnemyTargetMethod targetMethod) {
         CompanionInstance target = null;
         List<CompanionInstance> possibleTargets = new List<CompanionInstance>();

@@ -30,12 +30,12 @@ public class CombatEnemyTooltipProvder : MonoBehaviour
         tooltipOnHover = GetComponent<TooltipOnHover>();
         tooltipOnHover.tooltip = new TooltipViewModel();
         enemy = GetComponent<EnemyInstance>();
-        behaviorIndex = enemy.enemy.enemyType.enemyPattern.behaviorIndex;
+        behaviorIndex = enemy.GetBehaviorIndexForBrain(enemy.enemy.enemyType.enemyPattern);
         UpdateToolTip();
     }
 
     void Update() {
-        int newIndex = enemy.enemy.enemyType.enemyPattern.behaviorIndex;
+        int newIndex = enemy.GetBehaviorIndexForBrain(enemy.enemy.enemyType.enemyPattern);
         if (behaviorIndex != newIndex) {
             behaviorIndex = newIndex;
             UpdateToolTip();
