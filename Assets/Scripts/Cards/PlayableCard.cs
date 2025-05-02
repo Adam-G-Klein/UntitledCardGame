@@ -96,6 +96,7 @@ public class PlayableCard : MonoBehaviour,
     }
 
     private IEnumerator CardFinishCastingCallback() {
+        int cardIndex = PlayerHand.Instance.cardsInHand.IndexOf(this);
         Debug.Log("STARTING CardFinishCastingCallback");
         ManaManager.Instance.updateMana(-card.GetManaCost());
         StartCoroutine(cardCastEvent.RaiseAtEndOfFrameCoroutine(new CardCastEventInfo(card)));
@@ -125,7 +126,7 @@ public class PlayableCard : MonoBehaviour,
             yield return PlayerHand.Instance.OnHandEmpty();
         } else if(NonMouseInputManager.Instance.inputMethod != InputMethod.Mouse) {
             Debug.Log("Trying to a hover a new card now that the card has been played");
-            NonMouseInputManager.Instance.hoverACard(new List<PlayableCard> { this });
+            NonMouseInputManager.Instance.hoverCardAtSameIndex(cardIndex);
         }
         Debug.Log("FINISHED CardFinishCastingCallback");
     }

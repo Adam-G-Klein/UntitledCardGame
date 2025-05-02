@@ -642,6 +642,17 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
         }
     }
 
+    public void hoverCardAtSameIndex(int previouslyPlayedCardIndex = 0) {
+        if (PlayerHand.Instance.cardsInHand.Count < 1) {
+            return;
+        }
+        if (PlayerHand.Instance.cardsInHand.Count <= previouslyPlayedCardIndex) {
+            hover(PlayerHand.Instance.cardsInHand[0].GetComponent<Hoverable>());
+            return;
+        }
+        hover(PlayerHand.Instance.cardsInHand[previouslyPlayedCardIndex].GetComponent<Hoverable>());
+    }
+
     public Vector2 currentlyHoveredScreenPosition() {
         if(currentlyHovered != null) {
             return currentlyHovered.getScreenPosition();
