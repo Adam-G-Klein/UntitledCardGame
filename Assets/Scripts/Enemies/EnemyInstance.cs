@@ -29,6 +29,8 @@ public class EnemyInstance : MonoBehaviour, IUIEntity {
     public WorldPositionVisualElement placement;
     public bool dead = false;
 
+    private Dictionary<EnemyBrain, ValueTuple<int, int>> behaviorIndices = new();
+
     public void Setup(WorldPositionVisualElement placement, Enemy enemy) {
         this.enemy = enemy;
         gameObject.name = enemy.enemyType.name;
@@ -39,9 +41,6 @@ public class EnemyInstance : MonoBehaviour, IUIEntity {
         dead = false;
         enemyPillarUIController.Setup(this, placement);
         combatInstance.Setup(enemy.combatStats, enemy, CombatInstance.CombatInstanceParent.ENEMY, placement, this.enemy.enemyType.cacheValueConfigs);
-        // Reset the behavior indices on the EnemyBrain to zero.
-        enemy.enemyType.enemyPattern.nextBehaviorIndex = 0;
-        enemy.enemyType.belowHalfHPEnemyPattern.nextBehaviorIndex = 0;
         Debug.Log("EnemyInstance Start for enemy " + enemy.id + " initialized with combat stats (health): " + combatInstance.combatStats.getCurrentHealth());
         combatInstance.SetId(enemy.id);
 
@@ -63,6 +62,102 @@ public class EnemyInstance : MonoBehaviour, IUIEntity {
         RegisterTurnPhaseTriggers();
     }
 
+    public EnemyIntent ChooseIntent(EnemyBrain brain) {
+        Debug.Log("ChooseIntent");
+        List<EnemyBehavior> behaviors = brain.behaviors;
+        if(behaviors.Count == 0) {
+            Debug.LogError("No behaviors defined for enemy");
+            return null;
+        }
+        ValueTuple<int, int> idxs = behaviorIndices.GetValueOrDefault(brain, new ValueTuple<int, int>(0, 0));
+
+        int behaviorIndex = idxs.Item1;
+        int nextBehaviorIndex = idxs.Item2;
+        switch (brain.behaviorType) {
+            case EnemyBrain.EnemyBehaviorPattern.SequentialCycling:
+                behaviorIndex = nextBehaviorIndex;
+                nextBehaviorIndex = (nextBehaviorIndex + 1) % behaviors.Count;
+                break;
+            case EnemyBrain.EnemyBehaviorPattern.Random:
+                behaviorIndex = UnityEngine.Random.Range(0, behaviors.Count);
+                break;
+            case EnemyBrain.EnemyBehaviorPattern.SequentialWithSinkAtLastElement:
+                behaviorIndex = nextBehaviorIndex;
+                // Advance until we reach the end of the defined behaviors.
+                nextBehaviorIndex = Math.Min(nextBehaviorIndex + 1, behaviors.Count - 1);
+                break;
+        }
+        EnemyBehavior action = behaviors[behaviorIndex];
+        // Note: this only allows the enemies to target companions for now.
+        // There is nothing that allows targeting other enemies, but this is not
+        // an important behavior to support for now.
+        CompanionInstance target = ChooseTargets(action.enemyTargetMethod);
+        List<CompanionInstance> targetList = new();
+        if (target != null) {
+            targetList.Add(target);
+        }
+
+        behaviorIndices[brain] = new ValueTuple<int, int>(behaviorIndex, nextBehaviorIndex);
+
+        return new EnemyIntent(
+            this,
+            // I'm aware this is bad, stick with me for a sec
+            targetList,
+            0.05f,
+            action.intent,
+            action.targetsKey,
+            action.displayValue,
+            action.effectSteps);
+    }
+
+    private CompanionInstance ChooseTargets(EnemyTargetMethod targetMethod) {
+        CompanionInstance target = null;
+        List<CompanionInstance> possibleTargets = new List<CompanionInstance>();
+        switch (targetMethod) {
+            case EnemyTargetMethod.FirstCompanion:
+                target = CombatEntityManager.Instance.GetCompanionInstanceAtPosition(0);
+            break;
+
+            case EnemyTargetMethod.LastCompanion:
+                target = CombatEntityManager.Instance.GetCompanionInstanceAtPosition(-1);
+            break;
+
+            case EnemyTargetMethod.SecondFromFront:
+                target = CombatEntityManager.Instance.GetCompanionInstanceAtPosition(1);
+            break;
+
+            case EnemyTargetMethod.ThirdFromFront:
+                target = CombatEntityManager.Instance.GetCompanionInstanceAtPosition(2);
+            break;
+
+            case EnemyTargetMethod.RandomCompanion:
+                CombatEntityManager.Instance.getCompanions()
+                    .ForEach(companion => possibleTargets.Add(companion));
+                target = possibleTargets[UnityEngine.Random.Range(0, possibleTargets.Count)];
+            break;
+
+            // case EnemyTargetMethod.RandomEnemyNotSelf:
+            //     CombatEntityManager.Instance.getEnemies()
+            //         .ForEach(enemy => {
+            //             if (enemy != self) {
+            //                 possibleTargets.Add(enemy.combatInstance);
+            //             }
+            //         });
+            //     target = possibleTargets[UnityEngine.Random.Range(0, possibleTargets.Count)];
+            // break;
+
+            case EnemyTargetMethod.LowestHealth:
+                List<CompanionInstance> companions = CombatEntityManager.Instance.getCompanions();
+                target = companions[0];
+                foreach (CompanionInstance instance in companions) {
+                    if (instance.combatInstance.combatStats.getCurrentHealth() < target.combatInstance.combatStats.getCurrentHealth()) {
+                        target = instance;
+                    }
+                }
+            break;
+        }
+        return target;
+    }
 
     private void RegisterTurnPhaseTriggers() {
         // Don't need this for now, portraits are covering

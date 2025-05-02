@@ -31,7 +31,7 @@ public class Enemy : Entity, ICombatStats, IUIEntity {
             }
             if (unrelentingCount == 0) {
                 Debug.Log("No more unrelenting friends left. Time for the fallback plan.");
-                return enemyType.adaptWhenAloneEnemyPattern.ChooseIntent(enemyInstance);
+                return enemyInstance.ChooseIntent(enemyType.adaptWhenAloneEnemyPattern);
             }
         }
 
@@ -41,9 +41,9 @@ public class Enemy : Entity, ICombatStats, IUIEntity {
             enemyType.belowHalfHPEnemyPattern.behaviors.Count > 0 &&
             belowHalf
         ) {
-            return enemyType.belowHalfHPEnemyPattern.ChooseIntent(enemyInstance);
+            return enemyInstance.ChooseIntent(enemyType.belowHalfHPEnemyPattern);
         }
-        return enemyType.enemyPattern.ChooseIntent(enemyInstance);
+        return enemyInstance.ChooseIntent(enemyType.enemyPattern);
     }
 
     public Sprite getSprite() {
@@ -93,7 +93,7 @@ public class Enemy : Entity, ICombatStats, IUIEntity {
     public Sprite GetBackgroundImage() {
         return this.enemyType.backgroundImage;
     }
-    
+
     public Sprite GetEntityFrame() {
         return this.enemyType.entityFrame;
     }
