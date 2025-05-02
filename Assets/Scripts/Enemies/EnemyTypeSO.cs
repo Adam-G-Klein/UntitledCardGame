@@ -26,6 +26,8 @@ public class EnemyTypeSO : ScriptableObject
     [SerializeReference]
     public List<EntityAbility> abilities;
 
+    public List<CacheConfiguration> cacheValueConfigs;
+
     public EnemyBrain enemyPattern;
 
     public EnemyBrain belowHalfHPEnemyPattern;

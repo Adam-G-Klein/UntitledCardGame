@@ -38,7 +38,7 @@ public class EnemyInstance : MonoBehaviour, IUIEntity {
         this.placement = placement;
         dead = false;
         enemyPillarUIController.Setup(this, placement);
-        combatInstance.Setup(enemy.combatStats, enemy, CombatInstance.CombatInstanceParent.ENEMY, placement);
+        combatInstance.Setup(enemy.combatStats, enemy, CombatInstance.CombatInstanceParent.ENEMY, placement, this.enemy.enemyType.cacheValueConfigs);
         // Reset the behavior indices on the EnemyBrain to zero.
         enemy.enemyType.enemyPattern.nextBehaviorIndex = 0;
         enemy.enemyType.belowHalfHPEnemyPattern.nextBehaviorIndex = 0;
