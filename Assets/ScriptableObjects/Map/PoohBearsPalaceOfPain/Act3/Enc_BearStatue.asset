@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24f95da87f612e047aaeac10756d2ec7, type: 3}
-  m_Name: Act1_Pooh_BabyEnemyPool
+  m_Script: {fileID: 11500000, guid: 17a7027b6d1213c4fa7f5d4be961eaab, type: 3}
+  m_Name: Enc_BearStatue
   m_EditorClassIdentifier: 
-  enemyEncounterTypes:
-  - {fileID: 11400000, guid: 02cdac6efe5ae43f6bdf7bc5fc13bfd5, type: 2}
-  isElite: 0
+  enemies:
+  - {fileID: 11400000, guid: 0e46a1d99c00443468ea67ffb78252eb, type: 2}
+  devNotes: 

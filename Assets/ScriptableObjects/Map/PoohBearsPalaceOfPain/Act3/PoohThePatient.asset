@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
-  m_Name: Enemy_Pooh_BearStatue
+  m_Name: PoohThePatient
   m_EditorClassIdentifier: 
-  displayName: Bear Statue
+  displayName: Pooh the Patient
   maxHealth: 120
   baseAttackDamage: 0
   sprite: {fileID: 21300000, guid: ee68b8ed994d6413fbc2f7d6df902689, type: 3}
@@ -32,8 +32,6 @@ MonoBehaviour:
       - rid: 2268260642759376990
       - rid: 2268260642759376991
     behaviorType: 0
-    behaviorIndex: 0
-    nextBehaviorIndex: 0
   belowHalfHPEnemyPattern:
     behaviors:
     - intent: 0
@@ -45,13 +43,9 @@ MonoBehaviour:
       - rid: 2268260642759376992
       - rid: 2268260642759376993
     behaviorType: 0
-    behaviorIndex: 0
-    nextBehaviorIndex: 0
   adaptWhenAloneEnemyPattern:
     behaviors: []
     behaviorType: 0
-    behaviorIndex: 0
-    nextBehaviorIndex: 0
   initialStatuses: []
   tooltip:
     empty: 0
