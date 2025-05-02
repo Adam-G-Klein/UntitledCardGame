@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
-  m_Name: Enemy_Pooh_Polyphemus
+  m_Name: Enemy_Ogre
   m_EditorClassIdentifier: 
-  displayName: Polyphemus
-  maxHealth: 110
+  displayName: Ogre
+  maxHealth: 50
   baseAttackDamage: 0
-  sprite: {fileID: 21300000, guid: 1a9a70bfa38177248ae11e5367177638, type: 3}
+  sprite: {fileID: 21300000, guid: e8f284b8ccdbaf24888660bc74fa02b4, type: 3}
   backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
   entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
   morale: 0
@@ -23,20 +23,20 @@ MonoBehaviour:
   cacheValueConfigs: []
   enemyPattern:
     behaviors:
-    - intent: 0
-      enemyTargetMethod: 4
+    - intent: 1
+      enemyTargetMethod: 0
       targetsKey: target
-      displayValue: 5
+      displayValue: 8
       effectSteps:
-      - rid: 3931529445166809429
-      - rid: 4053950218419044423
-      - rid: 3931529445166809326
-      - rid: 5602893111447519606
-      - rid: 5602893111447519608
-      - rid: 5602893111447519609
-      - rid: 3443535291885027971
-      - rid: 5602893111447519607
-      - rid: 5280922829633617990
+      - rid: 3931529445166809421
+      - rid: 4053950218419044435
+      - rid: 3931529445166809422
+      - rid: 5602893111447519692
+      - rid: 5602893111447519693
+      - rid: 5602893111447519694
+      - rid: 3443535291885027979
+      - rid: 5602893111447519695
+      - rid: 5280922829633618015
     behaviorType: 0
     behaviorIndex: 0
     nextBehaviorIndex: 0
@@ -54,31 +54,18 @@ MonoBehaviour:
   tooltip:
     empty: 0
     lines:
-    - title: Blind Rage
-      description: Chooses a companion to attack at random
-      relatedBehaviorIndex: 0
+    - title: Empowered Strike
+      description: Attacks and grows in strength
+      relatedBehaviorIndex: -1
   references:
     version: 2
     RefIds:
-    - rid: 3443535291885027971
+    - rid: 3443535291885027979
       type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: WaitForSecondsEffect
         seconds: 0.3
-    - rid: 3931529445166809326
-      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CombatEffectStep
-        inputKey: target
-        combatEffect: 0
-        scale: 5
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
-        vfxPrefab: {fileID: 0}
-    - rid: 3931529445166809429
+    - rid: 3931529445166809421
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
@@ -89,7 +76,20 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
-    - rid: 4053950218419044423
+    - rid: 3931529445166809422
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: target
+        combatEffect: 0
+        scale: 8
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 0}
+    - rid: 4053950218419044435
       type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: FXEffectStep
@@ -97,21 +97,21 @@ MonoBehaviour:
         fXExperiencePrefab: {fileID: 7374988516867921400, guid: 080ebf6cafefa59438cf877ee502d109, type: 3}
         rootLocationGameObjectKey: 
         positionMappingList:
-        - fromWorkflow: target
-          toFxExperience: companionLocation
         - fromWorkflow: self
           toFxExperience: enemyLocation
+        - fromWorkflow: target
+          toFxExperience: companionLocation
         gameobjectMappingList:
         - fromWorkflow: self
           toFxExperience: enemy
-    - rid: 5280922829633617990
+    - rid: 5280922829633618015
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
         inputKey: self
         prefabToInstantiate: {fileID: 3850217184923880746, guid: 4bed509d0589dae4d922d8eeb61a6292, type: 3}
         scale: 1
-    - rid: 5602893111447519606
+    - rid: 5602893111447519692
       type: {class: CountStatusEffectsStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CountStatusEffectStep
@@ -119,29 +119,29 @@ MonoBehaviour:
         statusEffect: 0
         onlyCountStatusOnce: 0
         outputKey: numStrength
-    - rid: 5602893111447519607
+    - rid: 5602893111447519693
+      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: BooleanComparison
+        hardCodedInputKey1: 12
+        useHardCodedInputKey1: 1
+        inputKey1: 
+        operation: 2
+        inputKey2: numStrength
+        outputKey: atThreshold
+    - rid: 5602893111447519694
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: atThreshold
+        conditionToEndOn: 1
+    - rid: 5602893111447519695
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ApplyStatus
         inputKey: self
         statusEffect: 0
-        scale: 2
+        scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
-    - rid: 5602893111447519608
-      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: BooleanComparison
-        hardCodedInputKey1: 15
-        useHardCodedInputKey1: 1
-        inputKey1: 
-        operation: 2
-        inputKey2: numStrength
-        outputKey: pastStrengthThreshold
-    - rid: 5602893111447519609
-      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: EndWorkflowIfConditionMet
-        inputKey1: pastStrengthThreshold
-        conditionToEndOn: 1

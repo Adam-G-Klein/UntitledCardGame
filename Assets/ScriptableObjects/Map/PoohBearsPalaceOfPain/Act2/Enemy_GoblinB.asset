@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
-  m_Name: Enemy_Pooh_GoblinA
+  m_Name: Enemy_GoblinB
   m_EditorClassIdentifier: 
-  displayName: Angriff Goblin
+  displayName: "B\xF6se Goblin"
   maxHealth: 25
   baseAttackDamage: 0
   sprite: {fileID: -2013906114, guid: 52ef76537258f7d43a3a9dc144329c2f, type: 3}
@@ -24,7 +24,7 @@ MonoBehaviour:
   enemyPattern:
     behaviors:
     - intent: 1
-      enemyTargetMethod: 0
+      enemyTargetMethod: 1
       targetsKey: target
       displayValue: 6
       effectSteps:

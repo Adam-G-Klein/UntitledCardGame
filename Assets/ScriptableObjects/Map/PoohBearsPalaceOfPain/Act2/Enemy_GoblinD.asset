@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
-  m_Name: Enemy_Pooh_GoblinB
+  m_Name: Enemy_GoblinD
   m_EditorClassIdentifier: 
-  displayName: "B\xF6se Goblin"
-  maxHealth: 25
+  displayName: Doofe Goblin
+  maxHealth: 15
   baseAttackDamage: 0
-  sprite: {fileID: -2013906114, guid: 52ef76537258f7d43a3a9dc144329c2f, type: 3}
+  sprite: {fileID: 21300000, guid: af0fdebf2a0f45f4a99b9b32143d4b4a, type: 3}
   backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
   entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
   morale: 0
@@ -23,14 +23,15 @@ MonoBehaviour:
   cacheValueConfigs: []
   enemyPattern:
     behaviors:
-    - intent: 1
-      enemyTargetMethod: 1
-      targetsKey: target
-      displayValue: 6
+    - intent: 2
+      enemyTargetMethod: 6
+      targetsKey: 
+      displayValue: 0
       effectSteps:
       - rid: 3931529445166809421
-      - rid: 4053950218419044435
-      - rid: 3931529445166809422
+      - rid: 5602893111447519695
+      - rid: 3443535291885027974
+      - rid: 5280922829633618015
     behaviorType: 0
     behaviorIndex: 0
     nextBehaviorIndex: 0
@@ -48,48 +49,42 @@ MonoBehaviour:
   tooltip:
     empty: 0
     lines:
-    - title: Goblin Might
-      description: Small but mighty attack
+    - title: Go goblin team!
+      description: Shields his friends :)
       relatedBehaviorIndex: -1
   references:
     version: 2
     RefIds:
+    - rid: 3443535291885027974
+      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: WaitForSecondsEffect
+        seconds: 0.3
     - rid: 3931529445166809421
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: self
-        validTargets: 
+        outputKey: all
+        validTargets: 02000000
         number: 1
-        specialTargetRule: 3
+        specialTargetRule: 2
         cantCancelTargetting: 0
-    - rid: 3931529445166809422
-      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+    - rid: 5280922829633618015
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: CombatEffectStep
-        inputKey: target
-        combatEffect: 0
-        scale: 6
+        effectStepName: InstantiatePrefab
+        inputKey: all
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 4bed509d0589dae4d922d8eeb61a6292, type: 3}
+        scale: 1
+    - rid: 5602893111447519695
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: all
+        statusEffect: 2
+        scale: 4
         getScaleFromKey: 0
         inputScaleKey: 
-        multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
-        vfxPrefab: {fileID: 0}
-    - rid: 4053950218419044435
-      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: FXEffectStep
-        waitForEffect: 1
-        fXExperiencePrefab: {fileID: 7374988516867921400, guid: 080ebf6cafefa59438cf877ee502d109, type: 3}
-        rootLocationGameObjectKey: 
-        positionMappingList:
-        - fromWorkflow: self
-          toFxExperience: enemyLocation
-        - fromWorkflow: target
-          toFxExperience: companionLocation
-        gameobjectMappingList:
-        - fromWorkflow: self
-          toFxExperience: enemy
+        multiplyByNumAuraStacks: 0
