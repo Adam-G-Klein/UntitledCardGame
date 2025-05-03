@@ -211,10 +211,9 @@ public abstract class EntityAbilityInstance
 
     private IEnumerator OnDeckShuffled(DeckInstance deckFrom) {
         EffectDocument document = createEffectDocument();
-        if (deckFrom.TryGetComponent(out CompanionInstance companion)) {
-            document.map.AddItem<CompanionInstance>("companionDeckFrom", companion);
-            document.map.AddItem<CombatInstance>("companionDeckFrom", companion.combatInstance);
-            document.map.AddItem<DeckInstance>("companionDeckFrom", companion.deckInstance);
+        if (deckFrom.TryGetComponent(out CombatInstance combatInstance)) {
+            CompanionInstance companion = CombatEntityManager.Instance.getCompanionInstanceForCombatInstance(combatInstance);
+            EffectUtils.AddCompanionToDocument(document, "companionDeckFrom", companion);
         }
         EffectManager.Instance.QueueEffectWorkflow(new EffectWorkflowClosure(document, ability.effectWorkflow, null));
         yield return null;

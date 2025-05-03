@@ -1,0 +1,125 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
+  m_Name: Enemy_MamaMoneyMite
+  m_EditorClassIdentifier: 
+  displayName: Mama Money Mite
+  maxHealth: 35
+  baseAttackDamage: 0
+  sprite: {fileID: 21300000, guid: 5e0ee4484bb8f7147a4d52f237dcc625, type: 3}
+  backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
+  entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
+  morale: 0
+  abilities: []
+  cacheValueConfigs: []
+  enemyPattern:
+    behaviors:
+    - intent: 2
+      enemyTargetMethod: 6
+      targetsKey: 0
+      displayValue: 0
+      effectSteps:
+      - rid: 3931529445166809421
+      - rid: 2268260642759377006
+      - rid: 2268260642759377007
+    - intent: 2
+      enemyTargetMethod: 6
+      targetsKey: 0
+      displayValue: 0
+      effectSteps:
+      - rid: 3931529445166809421
+      - rid: 2268260642759377006
+      - rid: 2268260642759377007
+    - intent: 0
+      enemyTargetMethod: 0
+      targetsKey: target
+      displayValue: 5
+      effectSteps:
+      - rid: 3931529445166809421
+      - rid: 4053950218419044435
+      - rid: 3931529445166809422
+    behaviorType: 2
+  belowHalfHPEnemyPattern:
+    behaviors: []
+    behaviorType: 0
+  adaptWhenAloneEnemyPattern:
+    behaviors: []
+    behaviorType: 0
+  initialStatuses: []
+  tooltip:
+    empty: 0
+    lines:
+    - title: Rawr
+      description: Gaining strength to avenge the money mites
+      relatedBehaviorIndex: -1
+    - title: '>:('
+      description: Big attack
+      relatedBehaviorIndex: 2
+  references:
+    version: 2
+    RefIds:
+    - rid: 2268260642759377006
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: self
+        statusEffect: 0
+        scale: 5
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+    - rid: 2268260642759377007
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
+        scale: 1
+    - rid: 3931529445166809421
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 3931529445166809422
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: target
+        combatEffect: 0
+        scale: 5
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 0}
+    - rid: 4053950218419044435
+      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FXEffectStep
+        waitForEffect: 1
+        fXExperiencePrefab: {fileID: 7374988516867921400, guid: 080ebf6cafefa59438cf877ee502d109, type: 3}
+        rootLocationGameObjectKey: 
+        positionMappingList:
+        - fromWorkflow: self
+          toFxExperience: enemyLocation
+        - fromWorkflow: target
+          toFxExperience: companionLocation
+        gameobjectMappingList:
+        - fromWorkflow: self
+          toFxExperience: enemy
