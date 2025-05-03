@@ -96,8 +96,8 @@ public class PlayableCard : MonoBehaviour,
     }
 
     private IEnumerator CardFinishCastingCallback() {
-        int cardIndex = PlayerHand.Instance.cardsInHand.IndexOf(this);
         Debug.Log("STARTING CardFinishCastingCallback");
+        PlayerHand.Instance.HoverNextCard(PlayerHand.Instance.cardsInHand.IndexOf(this));
         ManaManager.Instance.updateMana(-card.GetManaCost());
         StartCoroutine(cardCastEvent.RaiseAtEndOfFrameCoroutine(new CardCastEventInfo(card)));
         IncrementCastCount();
@@ -126,7 +126,8 @@ public class PlayableCard : MonoBehaviour,
             yield return PlayerHand.Instance.OnHandEmpty();
         } else if(NonMouseInputManager.Instance.inputMethod != InputMethod.Mouse) {
             Debug.Log("Trying to a hover a new card now that the card has been played");
-            NonMouseInputManager.Instance.hoverCardAtSameIndex(cardIndex);
+
+            // This correctly hovers the card, but does so before it's done moving so it doesn't animate.
         }
         Debug.Log("FINISHED CardFinishCastingCallback");
     }
@@ -265,6 +266,7 @@ public class PlayableCard : MonoBehaviour,
             .setEase(LeanTweenType.easeOutQuint);
         LeanTween.move(gameObject, new Vector3(startPos.x, startPos.y + hoverYOffset, startPos.z + hoverZOffset), hoverAnimationTime)
             .setEase(LeanTweenType.easeOutQuint);
+
     }
 
     public void OnPointerExit(PointerEventData eventData)

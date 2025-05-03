@@ -37,6 +37,12 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     private readonly float cardDealDelay = .1f;
     private bool canPlayCards = true;
 
+    private List<PlayableCard> cardsToDeal = new List<PlayableCard>();
+    private bool isBatchingCards = false;
+    private float cardBatchingDelay = .05f; // unfortunately this feels like an unacceptable amount of time to wait to batch card draw requests :/...not sure what we can do about this honestly.
+    private int indexToHover = -1;
+    private Coroutine dealingCardsCoroutine = null;
+
     void Start() {
         cardPrefab = EnemyEncounterManager.Instance.encounterConstants.cardPrefab;
         cardDrawVFXPrefab = EnemyEncounterManager.Instance.encounterConstants.cardDrawVFXPrefab;
@@ -52,21 +58,14 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     }
 
     public List<PlayableCard> DealCards(List<Card> cards, DeckInstance deckFrom) {
-        List<PlayableCard> cardsDelt = new List<PlayableCard>();
-        PlayableCard newCard;
-        foreach(Card cardInfo in cards) {
-            if(cardsInHand.Count >= GameplayConstantsSingleton.Instance.gameplayConstants.MAX_HAND_SIZE) {
+        List<PlayableCard> cardsDealt = new List<PlayableCard>();
+        foreach (Card cardInfo in cards) {
+            if(cardsInHand.Count + cardsToDeal.Count >= GameplayConstantsSingleton.Instance.gameplayConstants.MAX_HAND_SIZE) {
                 Debug.Log("PlayerHand: Hand is full, not dealing card");
                 break;
             }
-
-            // okay so the real problem here is that createCardSlot updates the core UIDocument and we need to give it a few frames for all of the
-            // newly created elements to understand where they are.
-            // After the elements have been successfully updated AnimateCardsAfterLayout will be called and they'll start moving now that they know where
-            // they need to go.
             Vector3 startPos = deckFrom.transform.position;
-            WorldPositionVisualElement newCardPlacement = UIDocumentGameObjectPlacer.Instance.CreateCardSlot(() => {StartCoroutine(AnimateCardsAfterLayout(cardsDelt, startPos, .1f));});
-            newCard = PrefabInstantiator.InstantiateCard(
+            PlayableCard newCard = PrefabInstantiator.InstantiateCard(
                 cardPrefab,
                 EnemyEncounterManager.Instance.transform,
                 cardInfo,
@@ -74,30 +73,59 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                 startPos);
             newCard.gameObject.name = cardInfo.name;
             newCard.interactable = false;
+            WorldPositionVisualElement newCardPlacement = UIDocumentGameObjectPlacer.Instance.CreateCardSlot();
             UIDocumentGameObjectPlacer.Instance.addMapping(newCardPlacement, newCard.gameObject);
             if (newCard.card.cardType.retain) {
                 newCard.retained = true;
             }
-            cardsInHand.Add(newCard);
-            cardsDelt.Add(newCard);
+            cardsDealt.Add(newCard);
+            cardsToDeal.Add(newCard);
+            if (isBatchingCards) {
+                isBatchingCards = false;
+                StopCoroutine(dealingCardsCoroutine);
+            }
+            if (!isBatchingCards) {
+                dealingCardsCoroutine = StartCoroutine(DealCardsAfterDelay());
+            }
         }
-
-        return cardsDelt;
+        return cardsDealt;
     }
+ 
+    public IEnumerator DealCardsAfterDelay() {
+        isBatchingCards = true;
+        yield return new WaitForSeconds(cardBatchingDelay); 
+        // should ideally make sure that all of the UI elements have been properly added as well rather than just a solid wait time, will revisit if we have problems (ask Ethan)
+        // I need to release this lock as soon as I get started. without this, things will get lost in the void I believe 
+        isBatchingCards = false;
+        List<PlayableCard> cardsBeingDealt = new List<PlayableCard>(this.cardsToDeal);
+        cardsToDeal.Clear();
 
-    private IEnumerator AnimateCardsAfterLayout(List<PlayableCard> cardsDelt, Vector3 startPos, float delay = 0) {
+
         for (int i = 0; i < cardsInHand.Count; i++) {
-            PlayableCard cardToMove = cardsInHand[i];
-            cardToMove.interactable = false; // hovering a card changes its position so we really need that to not happen while they are moving to their new spot
-            WorldPositionVisualElement WPVE = UIDocumentGameObjectPlacer.Instance.GetCardWPVEFromGO(cardToMove.gameObject);
-            WPVE.UpdatePosition();
-            CardDrawVFX(cardToMove.transform.position, WPVE.worldPos, cardToMove.gameObject);
-            yield return new WaitForSeconds(delay);
+            MoveCard(cardsInHand[i], i == 0);
+            //yield return new WaitForSeconds(cardDealDelay);
+        }
+
+        // this is to mitigate a case where this is mid animation and a new set of cards is dealt. 
+        cardsBeingDealt.ForEach(card => {
+            cardsInHand.Add(card);
+        });
+
+        for (int i = 0; i < cardsBeingDealt.Count; i++) {
+            MoveCard(cardsBeingDealt[i], cardsInHand.Count == cardsBeingDealt.Count && i == 0, true); //This does work if cards are being retained
+            yield return new WaitForSeconds(cardDealDelay);
         }
     }
 
+    private void MoveCard(PlayableCard cardToMove, bool shouldHoverCard, bool disableCardDuringMove = false) {
+        if (disableCardDuringMove) cardToMove.interactable = false; // hovering a card changes its position so we really need that to not happen while they are moving to their new spot
+        WorldPositionVisualElement WPVE = UIDocumentGameObjectPlacer.Instance.GetCardWPVEFromGO(cardToMove.gameObject);
+        WPVE.UpdatePosition();
+        CardDrawVFX(cardToMove.transform.position, WPVE.worldPos, cardToMove.gameObject, shouldHoverCard);        
+    }
 
-    private void CardDrawVFX(Vector3 fromLocation, Vector3 toLocation, GameObject gameObject) {
+
+    private void CardDrawVFX(Vector3 fromLocation, Vector3 toLocation, GameObject gameObject, bool hoverCard) {
         if (GOToFXExperience.ContainsKey(gameObject) && GOToFXExperience[gameObject] != null) {
             GOToFXExperience[gameObject].EarlyStop();
         }
@@ -118,10 +146,29 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             if (gameObject.TryGetComponent<SpriteRenderer>(out var SR)) SR.sortingLayerName = "Cards"; // what is this magic
             gameObject.GetComponent<PlayableCard>().interactable = true;
             gameObject.GetComponent<PlayableCard>().SetBasePosition();
-
             // Hack to try to get Pythia deck shuffling on start of turn working.
             EffectManager.Instance.invokeEffectWorkflow(new EffectDocument(), new List<EffectStep>(), null);
+
+            if (cardsInHand.IndexOf(gameObject.GetComponent<PlayableCard>()) == indexToHover) {
+                NonMouseInputManager.Instance.hover(gameObject.GetComponent<PlayableCard>().GetComponent<Hoverable>());
+                indexToHover = -1;
+                return;
+            }
+            if ((indexToHover == -1 || indexToHover >= cardsInHand.Count) && hoverCard && !EnemyEncounterManager.Instance.GetCastingCard()) {
+                NonMouseInputManager.Instance.hover(gameObject.GetComponent<PlayableCard>().GetComponent<Hoverable>());
+            }
         });
+    }
+
+    public void HoverNextCard(int previouslyPlayedCardIndex) {
+        if (cardsInHand.Count == 1) {
+            return;
+        }
+        if (cardsInHand.Count - 1 <= previouslyPlayedCardIndex) {
+            indexToHover = 0;
+        } else {
+            indexToHover = previouslyPlayedCardIndex;
+        }
     }
 
     public void TurnPhaseChangedEventHandler(TurnPhaseEventInfo info) {
@@ -232,7 +279,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     }
 
     public IEnumerator ResizeHand(PlayableCard card) {
-        UIDocumentGameObjectPlacer.Instance.RemoveCardSlot(card.gameObject, () => { StartCoroutine(AnimateCardsAfterLayout(new List<PlayableCard>(), new Vector3(), 0)); });
+        UIDocumentGameObjectPlacer.Instance.RemoveCardSlot(card.gameObject, () => { StartCoroutine(DealCardsAfterDelay()); });
         yield return null;
     }
 

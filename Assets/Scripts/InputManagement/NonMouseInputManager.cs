@@ -78,7 +78,7 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
     void Start()
     {
         // Doesn't work right now, the card is still animating/not placed so the hover doesn't go through.
-        // TurnManager.Instance.addTurnPhaseTrigger(new TurnPhaseTrigger(TurnPhase.PLAYER_TURN,startTurnTrigger()));
+        TurnManager.Instance.addTurnPhaseTrigger(new TurnPhaseTrigger(TurnPhase.PLAYER_TURN,startTurnTrigger()));
     }
 
     public void ClearHoverState() {
@@ -642,16 +642,6 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
         }
     }
 
-    public void hoverCardAtSameIndex(int previouslyPlayedCardIndex = 0) {
-        if (PlayerHand.Instance.cardsInHand.Count < 1) {
-            return;
-        }
-        if (PlayerHand.Instance.cardsInHand.Count <= previouslyPlayedCardIndex) {
-            hover(PlayerHand.Instance.cardsInHand[0].GetComponent<Hoverable>());
-            return;
-        }
-        hover(PlayerHand.Instance.cardsInHand[previouslyPlayedCardIndex].GetComponent<Hoverable>());
-    }
 
     public Vector2 currentlyHoveredScreenPosition() {
         if(currentlyHovered != null) {

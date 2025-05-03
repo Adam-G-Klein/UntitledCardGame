@@ -209,7 +209,7 @@ public class UIDocumentGameObjectPlacer : GenericSingleton<UIDocumentGameObjectP
         return enemyPlacements.checkoutPlacement();
     }
 
-    public WorldPositionVisualElement CreateCardSlot(Action callback)
+    public WorldPositionVisualElement CreateCardSlot(Action callback = null)
     {
         VisualElement newCardContainer = new VisualElement();
         newCardContainer.AddToClassList("companion-card-placer");
@@ -219,12 +219,14 @@ public class UIDocumentGameObjectPlacer : GenericSingleton<UIDocumentGameObjectP
         newCardContainer.Add(card);
 
         // when the visual element is done understanding it's new position call the provided callback function
-        EventCallback<GeometryChangedEvent> handler = null;
-        handler = evt => {
-            (evt.target as VisualElement).UnregisterCallback(handler);
-            callback();
-        };
-        newCardContainer.RegisterCallback(handler);
+        if (callback != null) {
+            EventCallback<GeometryChangedEvent> handler = null;
+            handler = evt => {
+                (evt.target as VisualElement).UnregisterCallback(handler);
+                callback();
+            };
+            newCardContainer.RegisterCallback(handler);
+        }
 
         cardsContainer.Add(newCardContainer);
         UpdateSlotStylings();
