@@ -72,6 +72,16 @@ public class FXExperience : MonoBehaviour
         return false;
     }
 
+    public void UpdateLocationKey(string key, Vector3 newLocation) {
+        foreach (Location location in locations) {
+            if (location.key == key) {
+                location.location = newLocation;
+                return;
+            }
+        }
+        Debug.LogWarning($"FXExperience: Key '{key}' not found to update location.");
+    }
+
     public void PlayOnExperienceOverEarly() {
         Debug.Log("playing on experience over early!");
         if (onExperienceOver != null && !earlyStopped) {

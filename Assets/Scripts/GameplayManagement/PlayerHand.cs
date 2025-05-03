@@ -127,8 +127,11 @@ public class PlayerHand : GenericSingleton<PlayerHand>
 
     private void CardDrawVFX(Vector3 fromLocation, Vector3 toLocation, GameObject gameObject) {
         if (GOToFXExperience.ContainsKey(gameObject) && GOToFXExperience[gameObject] != null) {
-            GOToFXExperience[gameObject].EarlyStop();
+            FXExperience ex = GOToFXExperience[gameObject];
+            ex.UpdateLocationKey("hand", toLocation);
+            return;
         }
+
         // TODO: update the FXExprience to do rotation as well, this was as much as I could muster rn.
         LeanTween.cancel(gameObject);
         LeanTween.rotate(gameObject, new Vector3(0, 0, UIDocumentGameObjectPlacer.Instance.GetCardWPVEFromGO(gameObject).ve.style.rotate.value.angle.value), .75f).setEase(LeanTweenType.easeInOutQuad);
