@@ -132,8 +132,13 @@ public class ControllerControlsManager : GenericSingleton<KeyboardControlsManage
                 Debug.Log("[ControlsManager] handleCutsceneSkip called");
                 inputManager.ProcessInput(GFGInputAction.CUTSCENE_SKIP);
             }
+            // I assume these hotkeys should be migrated over to the new input system but it is not clear to me
+            if (HotkeyManager.Instance.endTurnHotkeyEnabled) {
+                Debug.Log("[ControlsManager] end turn action called");
+                HotkeyManager.Instance.EndTurn();
+                inputManager.ProcessInput(GFGInputAction.END_TURN);
+            }
+
         }
     }
-
-
 }

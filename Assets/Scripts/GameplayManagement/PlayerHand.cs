@@ -39,7 +39,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
 
     private List<PlayableCard> cardsToDeal = new List<PlayableCard>();
     private bool isBatchingCards = false;
-    private float cardBatchingDelay = .05f; // unfortunately this feels like an unacceptable amount of time to wait to batch card draw requests :/...not sure what we can do about this honestly.
+    private float cardBatchingDelay = .1f;
     private int indexToHover = -1;
     private Coroutine dealingCardsCoroutine = null;
 
