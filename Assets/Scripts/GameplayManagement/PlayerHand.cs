@@ -102,7 +102,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
 
 
         for (int i = 0; i < cardsInHand.Count; i++) {
-            MoveCard(cardsInHand[i], i == 0);
+            MoveCard(cardsInHand[i]);
             //yield return new WaitForSeconds(cardDealDelay);
         }
 
@@ -112,20 +112,20 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         });
 
         for (int i = 0; i < cardsBeingDealt.Count; i++) {
-            MoveCard(cardsBeingDealt[i], cardsInHand.Count == cardsBeingDealt.Count && i == 0, true); //This does work if cards are being retained
+            MoveCard(cardsBeingDealt[i], true);
             yield return new WaitForSeconds(cardDealDelay);
         }
     }
 
-    private void MoveCard(PlayableCard cardToMove, bool shouldHoverCard, bool disableCardDuringMove = false) {
+    private void MoveCard(PlayableCard cardToMove, bool disableCardDuringMove = false) {
         if (disableCardDuringMove) cardToMove.interactable = false; // hovering a card changes its position so we really need that to not happen while they are moving to their new spot
         WorldPositionVisualElement WPVE = UIDocumentGameObjectPlacer.Instance.GetCardWPVEFromGO(cardToMove.gameObject);
         WPVE.UpdatePosition();
-        CardDrawVFX(cardToMove.transform.position, WPVE.worldPos, cardToMove.gameObject, shouldHoverCard);        
+        CardDrawVFX(cardToMove.transform.position, WPVE.worldPos, cardToMove.gameObject);        
     }
 
 
-    private void CardDrawVFX(Vector3 fromLocation, Vector3 toLocation, GameObject gameObject, bool hoverCard) {
+    private void CardDrawVFX(Vector3 fromLocation, Vector3 toLocation, GameObject gameObject) {
         if (GOToFXExperience.ContainsKey(gameObject) && GOToFXExperience[gameObject] != null) {
             GOToFXExperience[gameObject].EarlyStop();
         }
@@ -136,16 +136,20 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         FXExperience experience = PrefabInstantiator.instantiateFXExperience(cardDrawVFXPrefab, Vector3.zero);
         GOToFXExperience[gameObject] = experience;
 
+        gameObject.GetComponent<PlayableCard>().SetBasePosition(toLocation);
         experience.AddLocationToKey("companion", fromLocation);
+        if (gameObject.GetComponent<PlayableCard>().hovered) {
+            toLocation += new Vector3(0, gameObject.GetComponent<PlayableCard>().hoverYOffset, gameObject.GetComponent<PlayableCard>().hoverZOffset);
+        }
         experience.AddLocationToKey("hand", toLocation);
         experience.BindGameObjectsToTracks(new Dictionary<string, GameObject>() {
             { "card", gameObject },
         });
+        
         experience.StartExperience( () => {
             Debug.Log("Card draw VFX finished");
             if (gameObject.TryGetComponent<SpriteRenderer>(out var SR)) SR.sortingLayerName = "Cards"; // what is this magic
             gameObject.GetComponent<PlayableCard>().interactable = true;
-            gameObject.GetComponent<PlayableCard>().SetBasePosition();
             // Hack to try to get Pythia deck shuffling on start of turn working.
             EffectManager.Instance.invokeEffectWorkflow(new EffectDocument(), new List<EffectStep>(), null);
 
@@ -153,9 +157,6 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                 NonMouseInputManager.Instance.hover(gameObject.GetComponent<PlayableCard>().GetComponent<Hoverable>());
                 indexToHover = -1;
                 return;
-            }
-            if ((indexToHover == -1 || indexToHover >= cardsInHand.Count) && hoverCard && !EnemyEncounterManager.Instance.GetCastingCard()) {
-                NonMouseInputManager.Instance.hover(gameObject.GetComponent<PlayableCard>().GetComponent<Hoverable>());
             }
         });
     }
@@ -172,6 +173,9 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     }
 
     public void TurnPhaseChangedEventHandler(TurnPhaseEventInfo info) {
+        if (info.newPhase == TurnPhase.PLAYER_TURN) {
+            indexToHover = 0;
+        }
         if(info.newPhase == TurnPhase.END_PLAYER_TURN) {
             List<PlayableCard> retainedCards = new();
             // Run the effect workflows for all the cards left in the hand,
@@ -179,6 +183,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             // The reason we want to use the callback is that otherwise, the
             // game objects are destroyed before the effect workflow can complete.
             cardsInHandLocked = true;
+            indexToHover = 0;
             foreach (PlayableCard card in cardsInHand) {
                 IEnumerator callback = null;
                 // Do not destroy the card if it is retained.

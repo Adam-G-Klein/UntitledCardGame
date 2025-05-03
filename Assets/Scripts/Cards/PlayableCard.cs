@@ -261,6 +261,8 @@ public class PlayableCard : MonoBehaviour,
         MusicController2.Instance.PlaySFX("event:/SFX/SFX_UIHover");
         transform.SetAsLastSibling();
 
+        PlayerHand.Instance.HoverNextCard(-1); // this prevents card moving in hand from forcefully chaning hover target if playable has manually selected a new card
+
         LeanTween.cancel(gameObject);
         LeanTween.scale(gameObject, new Vector3(2f, 2f, 1), hoverAnimationTime)
             .setEase(LeanTweenType.easeOutQuint);
@@ -307,7 +309,7 @@ public class PlayableCard : MonoBehaviour,
         currentState = eventInfo.newState;
     }
 
-    public void SetBasePosition() {
-        startPos = transform.position;
+    public void SetBasePosition(Vector3 position) {
+        startPos = position;
     }
 }
