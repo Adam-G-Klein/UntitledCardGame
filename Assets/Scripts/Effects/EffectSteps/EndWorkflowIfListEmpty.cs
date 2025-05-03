@@ -25,7 +25,6 @@ public class EndWorkflowIfListEmpty : EffectStep, IEffectStepCalculation {
         if (interupt) {
             document.workflowInterrupted = true;
         }
-        document.boolMap["highlightCard"] = !interupt;
         yield return null;
     }
 
@@ -35,7 +34,6 @@ public class EndWorkflowIfListEmpty : EffectStep, IEffectStepCalculation {
         if (interupt) {
             document.workflowInterrupted = true;
         }
-        document.boolMap["highlightCard"] = !interupt;
         yield return null;
     }
 
