@@ -184,15 +184,22 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     public void ConfirmUpgradePurchase() {
         gameState.playerData.GetValue().gold -= companionInShop.price;
         shopViewController.SetMoney(gameState.playerData.GetValue().gold);
+
+        int preferredActiveSlotIdx = -1;
         Companion companionToAdd = null;
+        int existingCompanionActiveSlot = gameState.companions.activeCompanions.FindIndex(c => c.companionType == newCompanion.companionType);
         Companion level2Dude = companionCombinationManager.AttemptCompanionUpgrade(newCompanion);
         if (level2Dude != null) {
+            // Find an active slot to place the companion so it keeps the same spot in your team.
+            preferredActiveSlotIdx = existingCompanionActiveSlot;
+
             companionToAdd = level2Dude;
             // Then attempt the level 3 upgrade :)
             Companion level3Dude = companionCombinationManager.AttemptCompanionUpgrade(level2Dude);
             if (level3Dude != null) companionToAdd = level3Dude;
         }
-        gameState.AddCompanionToTeam(companionToAdd);
+        Debug.Log("Preferred active slot index for the companion: " + preferredActiveSlotIdx);
+        gameState.AddCompanionToTeam(companionToAdd, preferredActiveSlotIdx);
         shopViewController.RemoveCompanionFromShopView(companionInShop);
         shopViewController.RebuildUnitManagement(gameState.companions);
     }
