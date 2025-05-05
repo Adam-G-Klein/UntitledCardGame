@@ -92,12 +92,12 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         }
         return cardsDealt;
     }
- 
+
     public IEnumerator DealCardsAfterDelay() {
         isBatchingCards = true;
-        yield return new WaitForSeconds(cardBatchingDelay); 
+        yield return new WaitForSeconds(cardBatchingDelay);
         // should ideally make sure that all of the UI elements have been properly added as well rather than just a solid wait time, will revisit if we have problems (ask Ethan)
-        // I need to release this lock as soon as I get started. without this, things will get lost in the void I believe 
+        // I need to release this lock as soon as I get started. without this, things will get lost in the void I believe
         isBatchingCards = false;
         List<PlayableCard> cardsBeingDealt = new List<PlayableCard>(this.cardsToDeal);
         cardsToDeal.Clear();
@@ -108,7 +108,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             //yield return new WaitForSeconds(cardDealDelay);
         }
 
-        // this is to mitigate a case where this is mid animation and a new set of cards is dealt. 
+        // this is to mitigate a case where this is mid animation and a new set of cards is dealt.
         cardsBeingDealt.ForEach(card => {
             cardsInHand.Add(card);
         });
@@ -123,7 +123,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         if (disableCardDuringMove) cardToMove.interactable = false; // hovering a card changes its position so we really need that to not happen while they are moving to their new spot
         WorldPositionVisualElement WPVE = UIDocumentGameObjectPlacer.Instance.GetCardWPVEFromGO(cardToMove.gameObject);
         WPVE.UpdatePosition();
-        CardDrawVFX(cardToMove.transform.parent.transform.position, WPVE.worldPos, cardToMove.gameObject);        
+        CardDrawVFX(cardToMove.transform.parent.transform.position, WPVE.worldPos, cardToMove.gameObject);
     }
 
 
@@ -148,13 +148,13 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         experience.BindGameObjectsToTracks(new Dictionary<string, GameObject>() {
             { "card", gameObject.transform.parent.gameObject },
         });
-        
+
         experience.StartExperience( () => {
             Debug.Log("Card draw VFX finished");
             if (gameObject.TryGetComponent<SpriteRenderer>(out var SR)) SR.sortingLayerName = "Cards"; // what is this magic
             gameObject.GetComponent<PlayableCard>().interactable = true;
             // Hack to try to get Pythia deck shuffling on start of turn working.
-            EffectManager.Instance.invokeEffectWorkflow(new EffectDocument(), new List<EffectStep>(), null);
+            // EffectManager.Instance.invokeEffectWorkflow(new EffectDocument(), new List<EffectStep>(), null);
 
             if (cardsInHand.IndexOf(gameObject.GetComponent<PlayableCard>()) == indexToHover) {
                 if (cardsInHand[indexToHover].TryGetComponent<GameObjectFocusable>(out GameObjectFocusable goFocusable)) {
@@ -185,7 +185,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         if (cardsInHand[nextHoverIndex].TryGetComponent<GameObjectFocusable>(out GameObjectFocusable goFocusable)) {
             FocusManager.Instance.SetFocus(goFocusable);
         }
-        
+
     }
 
     public void TurnPhaseChangedEventHandler(TurnPhaseEventInfo info) {
@@ -202,6 +202,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             // game objects are destroyed before the effect workflow can complete.
             cardsInHandLocked = true;
             indexToHover = 0;
+            List<PlayableCard> cardsToImmediatelyDiscard = new();
             foreach (PlayableCard card in cardsInHand) {
                 IEnumerator callback = null;
                 // Do not destroy the card if it is retained.
@@ -217,20 +218,26 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                     StartCoroutine(ResizeHand(card));
                     callback = DiscardCard(card, true);
                     if(NonMouseInputManager.Instance.inputMethod != InputMethod.Mouse) {
+
                         // Doesn't work, iteration to be done
                         //callback += NonMouseInputManager.Instance.hoverACard();
                     }
                 }
                 CardType ct = card.card.cardType;
-                List<EffectStep> workflowSteps = new();
+
                 if (ct.inPlayerHandEndOfTurnWorkflow != null) {
-                    workflowSteps = ct.inPlayerHandEndOfTurnWorkflow.effectSteps;
+                    List<EffectStep> workflowSteps = ct.inPlayerHandEndOfTurnWorkflow.effectSteps;
+                    EffectDocument document = new EffectDocument();
+                    document.map.AddItem(EffectDocument.ORIGIN, card.GetComponent<PlayableCard>());
+                    document.originEntityType = EntityType.Card;
+                    Debug.Log("Invoking end of turn effect workflow with steps: " + workflowSteps.Count);
+                    EffectManager.Instance.invokeEffectWorkflow(document, workflowSteps, callback);
+                } else {
+                    cardsToImmediatelyDiscard.Add(card);
                 }
-                EffectDocument document = new EffectDocument();
-                document.map.AddItem(EffectDocument.ORIGIN, card.GetComponent<PlayableCard>());
-                document.originEntityType = EntityType.Card;
-                Debug.Log("Invoking effect workflow with steps: " + workflowSteps.Count);
-                EffectManager.Instance.invokeEffectWorkflow(document, workflowSteps, callback);
+            }
+            foreach (PlayableCard card in cardsToImmediatelyDiscard) {
+                StartCoroutine(DiscardCard(card, true));
             }
             cardsInHandLocked = false;
 
@@ -284,21 +291,23 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         if (cardsInHand.Contains(card)) {
             yield return StartCoroutine(SafeRemoveCardFromHand(card));
         }
-        if (!cardCasted) {
-            if (card.card.cardType.onDiscardEffectWorkflow != null) {
-                EffectDocument document = new EffectDocument();
-                document.originEntityType = EntityType.Card;
-                if (card != null) document.map.AddItem<PlayableCard>(EffectDocument.ORIGIN, card);
-                EffectManager.Instance.QueueEffectWorkflow(
-                    new EffectWorkflowClosure(document, card.card.cardType.onDiscardEffectWorkflow, null)
-                );
-            }
+        if (!cardCasted && card.card.cardType.onDiscardEffectWorkflow != null) {
+            EffectDocument document = new EffectDocument();
+            document.originEntityType = EntityType.Card;
+            if (card != null) document.map.AddItem<PlayableCard>(EffectDocument.ORIGIN, card);
+            EffectManager.Instance.QueueEffectWorkflow(
+                new EffectWorkflowClosure(document, card.card.cardType.onDiscardEffectWorkflow, null)
+            );
         }
         yield return OnCardDiscard(card.deckFrom, card, cardCasted);
         if(card.gameObject.activeSelf) {
-            EffectManager.Instance.QueueEffectWorkflow(
-                new EffectWorkflowClosure(new EffectDocument(), new EffectWorkflow(), card.DiscardToDeck())
-            );
+            if (!cardCasted && card.card.cardType.onDiscardEffectWorkflow != null) {
+                EffectManager.Instance.QueueEffectWorkflow(
+                    new EffectWorkflowClosure(new EffectDocument(), new EffectWorkflow(), card.DiscardToDeck())
+                );
+            } else {
+                yield return StartCoroutine(card.DiscardToDeck());
+            }
         }
     }
 

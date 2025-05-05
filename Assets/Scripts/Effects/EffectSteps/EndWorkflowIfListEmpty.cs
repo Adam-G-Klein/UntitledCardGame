@@ -23,7 +23,7 @@ public class EndWorkflowIfListEmpty : EffectStep, IEffectStepCalculation {
     public override IEnumerator invoke(EffectDocument document) {
         bool interupt = shouldInterrupt(document);
         if (interupt) {
-            document.workflowInterrupted = true;
+            document.Interrupt();
         }
         yield return null;
     }
@@ -32,7 +32,7 @@ public class EndWorkflowIfListEmpty : EffectStep, IEffectStepCalculation {
     {
         bool interupt = shouldInterrupt(document);
         if (interupt) {
-            document.workflowInterrupted = true;
+            document.Interrupt();
         }
         yield return null;
     }
