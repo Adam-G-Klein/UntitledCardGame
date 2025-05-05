@@ -53,6 +53,7 @@ public class GetTargets : EffectStep, IEffectStepCalculation
     private SpecialTargetRule specialTargetRule = SpecialTargetRule.None;
     [SerializeField]
     private bool cantCancelTargetting = false;
+    private bool cancelled = false;
 
     private List<Targetable> targetsList;
     private List<GameObject> limitOptions;
@@ -103,6 +104,7 @@ public class GetTargets : EffectStep, IEffectStepCalculation
         } else {
             // if we're here then we need to user to click something on the screen
             Debug.Log("TargettingManager.Instance.targetSuppliedHandler += TargetSuppliedHandler;");
+            cancelled = false;
             TargettingManager.Instance.targetSuppliedHandler += TargetSuppliedHandler;
             TargettingManager.Instance.cancelTargettingHandler += CancelHandler;
             TargettingArrowsController.Instance.createTargettingArrow(validTargets, self);
@@ -110,9 +112,14 @@ public class GetTargets : EffectStep, IEffectStepCalculation
                 NonMouseInputManager.Instance.SetValidTargets(validTargets);
             }
             UIStateManager.Instance.setState(UIState.EFFECT_TARGETTING);
-            yield return new WaitUntil(() => targetsList.Count == number);
+            yield return new WaitUntil(() => targetsList.Count == number || (!cantCancelTargetting && cancelled));
             TargettingManager.Instance.targetSuppliedHandler -= TargetSuppliedHandler;
             TargettingManager.Instance.cancelTargettingHandler -= CancelHandler;
+            // If the user cancelled the effect workflow, we should interrupt it.
+            // Also, disable the callback so the card doesn't finish casting :)
+            if (!cantCancelTargetting && cancelled) {
+                document.Interrupt(disableCallback: true);
+            }
 
             AddTargetsToDocument(document);
         }
@@ -174,9 +181,11 @@ public class GetTargets : EffectStep, IEffectStepCalculation
         } else {
             Debug.Log("Cancelling the GetTargets effect step");
             context.canCancel = true;
-            EffectManager.Instance.CancelEffectWorkflow();
-            TargettingManager.Instance.targetSuppliedHandler -= TargetSuppliedHandler;
-            TargettingManager.Instance.cancelTargettingHandler -= CancelHandler;
+            cancelled = true;
+            // EffectManager.Instance.CancelEffectWorkflow();
+
+            // TargettingManager.Instance.targetSuppliedHandler -= TargetSuppliedHandler;
+            // TargettingManager.Instance.cancelTargettingHandler -= CancelHandler;
             if (originCard != null) {
                 originCard.ResetCardScale();
                 EnemyEncounterManager.Instance.SetCastingCard(false);

@@ -7,14 +7,12 @@ using UnityEngine;
 
 public class EffectManager : GenericSingleton<EffectManager>
 {
-    private IEnumerator currentEffectWorkflow;
-    private IEnumerator currentEffectStep;
-    private List<EffectWorkflowClosure> effectWorkflowQueue;
+    private Queue<EffectWorkflowClosure> effectWorkflowQueue;
 
     private bool effectRunning = false;
 
     void Awake() {
-        effectWorkflowQueue = new List<EffectWorkflowClosure>();
+        effectWorkflowQueue = new Queue<EffectWorkflowClosure>();
     }
 
     public bool IsEffectRunning() {
@@ -25,17 +23,8 @@ public class EffectManager : GenericSingleton<EffectManager>
             EffectDocument document,
             List<EffectStep> effectSteps,
             IEnumerator callback) {
-        Debug.Log("Invoking effect workflow via sync call");
-        currentEffectWorkflow = effectWorkflowCoroutine(document, effectSteps, callback);
-        StartCoroutine(currentEffectWorkflow);
-    }
-    public void invokeEffectWorkflow(
-            EffectDocument document,
-            EffectWorkflow workflow,
-            IEnumerator callback) {
-        Debug.Log("Invoking effect workflow via sync call");
-        currentEffectWorkflow = effectWorkflowCoroutine(document, workflow.effectSteps, callback);
-        StartCoroutine(currentEffectWorkflow);
+        Debug.Log("Queueing effect workflow via sync call");
+        QueueEffectWorkflow(new EffectWorkflowClosure(document, new EffectWorkflow(effectSteps), callback));
     }
 
     public void invokeEffectWorkflowForCalculation(
@@ -46,69 +35,48 @@ public class EffectManager : GenericSingleton<EffectManager>
         StartCoroutine(effectWorkflowCoroutineForCalculation(document, effectSteps, callback));
     }
 
-    public void CancelEffectWorkflow() {
-        Debug.Log("EffectManager: Stopping effect coroutines");
-        StopCoroutine(currentEffectStep);
-        StopCoroutine(currentEffectWorkflow);
-        effectRunning = false;
-    }
-
     public void QueueEffectWorkflow(EffectWorkflowClosure workflow) {
         Debug.Log("Queueing up an effect workflow with " + workflow.flow.effectSteps.Count + " effect steps");
         workflow.document.map.Print();
-        effectWorkflowQueue.Add(workflow);
-    }
-
-    public IEnumerator invokeEffectWorkflowCoroutine(
-            EffectDocument document,
-            List<EffectStep> effectSteps,
-            IEnumerator callback) {
-        Debug.Log("Invoking effect workflow via coroutine");
-        currentEffectWorkflow = effectWorkflowCoroutine(document, effectSteps, callback);
-        yield return StartCoroutine(currentEffectWorkflow);
-    }
-
-    private IEnumerator effectWorkflowCoroutine(
-            EffectDocument document,
-            List<EffectStep> effectSteps,
-            IEnumerator callback) {
-        if (effectWorkflowQueue.Count > 0) {
-            Debug.LogError("Effect workflow Queue non empty at beginning of effect; this indicates a past action queued up something and it wasn't run");
+        effectWorkflowQueue.Enqueue(workflow);
+        if (!effectRunning) {
+            StartCoroutine(ProcessEffectWorkflowQueue());
         }
+    }
 
-
+    // This is the only thing that should run EffectWorkflows.
+    // It makes sure that child effect workflows run to completion and do not interleave.
+    // Any effect workflows that are queued will be run, for example abilities that
+    // are triggered by cards.
+    // Note: not a stack, but a queue (Sorry MtG nerds).
+    private IEnumerator ProcessEffectWorkflowQueue() {
         effectRunning = true;
-        foreach (EffectStep step in effectSteps) {
-            if (document.workflowInterrupted) {
-                Debug.Log("Document workflow interrupted, Breaking from workflow");
-                break;
+
+        while (effectWorkflowQueue.Count > 0) {
+            EffectWorkflowClosure workflow = effectWorkflowQueue.Dequeue();
+
+            foreach (EffectStep step in workflow.flow.effectSteps) {
+                if (workflow.document.workflowInterrupted) {
+                    Debug.Log("Document workflow interrupted, Breaking from workflow");
+                    break;
+                }
+                Debug.Log("Invoking Step [" + step.effectStepName + "]");
+                yield return StartCoroutine(step.invoke(workflow.document));
+                Debug.Log("Done with Step [" + step.effectStepName + "]");
             }
-            Debug.Log("Invoking Step [" + step.effectStepName + "]");
-            currentEffectStep = step.invoke(document);
-            yield return currentEffectStep;
-            Debug.Log("Done with Step [" + step.effectStepName + "]");
+
+            if (workflow.document.disableCallback) {
+                Debug.Log("Callback disabled for the current effect workflow");
+            }
+
+            if (workflow.callback != null && !workflow.document.disableCallback) {
+                Debug.Log("Running callback for effect workflow");
+                yield return StartCoroutine(workflow.callback);
+                Debug.Log("Done with the callback for effect workflow");
+            }
         }
 
-        Debug.Log("Running callback for effect workflow");
-
-        if (callback != null) yield return callback;
-
-        Debug.Log("Done with the callback for effect workflow");
-
-        // If the previous effect worklfow queue'd up a new one, then execute the new one
-        if (effectWorkflowQueue.Count > 0) {
-            Debug.Log("Kicking off queued effect workflow");
-            EffectWorkflowClosure workflow = effectWorkflowQueue[0];
-            effectWorkflowQueue.RemoveAt(0);
-            currentEffectWorkflow = effectWorkflowCoroutine(workflow.document, workflow.flow.effectSteps, workflow.callback);
-            yield return currentEffectWorkflow;
-        } else {
-            effectRunning = false;
-        }
-
-        Debug.Log("Done with the effect workflow coroutine");
-
-        yield return null;
+        effectRunning = false;
     }
 
     // effectWorkflowCoroutineForCalculation runs a coroutine for calculation purposes.
@@ -128,12 +96,11 @@ public class EffectManager : GenericSingleton<EffectManager>
             }
             if (step is IEffectStepCalculation) {
                 Debug.Log("CALCULATION: Invoking Step [" + step.effectStepName + "]");
-                currentEffectStep = ((IEffectStepCalculation)step).invokeForCalculation(document);
-                yield return currentEffectStep;
+                yield return  ((IEffectStepCalculation)step).invokeForCalculation(document);;
             }
         }
 
-        if (callback != null) yield return callback;
+        if (callback != null && !document.disableCallback) yield return callback;
 
         yield return null;
     }
