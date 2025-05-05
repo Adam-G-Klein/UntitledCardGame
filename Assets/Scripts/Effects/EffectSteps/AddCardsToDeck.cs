@@ -16,7 +16,7 @@ using UnityEngine;
         - GetScaleFromKey: If checked, the scale will be pulled from a previous step
         - InputScaleKey: The key from which to pull the scale integer from
 */
-public class AddCardsToDeck : EffectStep {
+public class AddCardsToDeck : EffectStep, ITooltipProvider {
     [SerializeField]
     private string inputKey = "";
     [SerializeField]
@@ -114,6 +114,19 @@ public class AddCardsToDeck : EffectStep {
                     break;
             }
         }
+    }
+
+
+    public TooltipViewModel GetTooltip() {
+        if (cardTypes.Count == 0) {
+            return new TooltipViewModel(empty: true);
+        }
+        List<TooltipLine> lines = new();
+        foreach (CardType cardType in cardTypes) {
+            TooltipLine l = new TooltipLine(cardType.Name, cardType.Description);
+            lines.Add(l);
+        }
+        return new TooltipViewModel(lines);
     }
 
     private enum AddMethod {
