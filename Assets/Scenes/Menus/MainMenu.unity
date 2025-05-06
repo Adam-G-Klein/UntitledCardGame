@@ -562,6 +562,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1303040594324519979, guid: f56ace11eca35482fa0b76e4ccaa2728, type: 3}
+      propertyPath: companionPool
+      value: 
+      objectReference: {fileID: 11400000, guid: 1a5aa5f2c25ef434a822f87e97339f33, type: 2}
+    - target: {fileID: 1303040594324519979, guid: f56ace11eca35482fa0b76e4ccaa2728, type: 3}
       propertyPath: tooltipPrefab
       value: 
       objectReference: {fileID: 2816874809441598624, guid: ae38d023550871540b736760d4242071, type: 3}
@@ -569,6 +573,10 @@ PrefabInstance:
       propertyPath: fmodMixer.Path
       value: event:/SetVolume
       objectReference: {fileID: 0}
+    - target: {fileID: 1303040594324519979, guid: f56ace11eca35482fa0b76e4ccaa2728, type: 3}
+      propertyPath: neutralCardPool
+      value: 
+      objectReference: {fileID: 11400000, guid: f16e9cd7d69314290ae5bed1edae4ce0, type: 2}
     - target: {fileID: 1303040594324519979, guid: f56ace11eca35482fa0b76e4ccaa2728, type: 3}
       propertyPath: fmodMixer.Guid.Data1
       value: -1189902077
