@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shopLevels:
   - level: 0
+    shopLevelIncrementsToUnlock: 5
+    upgradeIncrementCost: 2
     mana: 3
     teamSize: 3
     upgradeCost: 10
@@ -32,6 +34,8 @@ MonoBehaviour:
         description: +1 team size, increase shop rarity
         relatedBehaviorIndex: 0
   - level: 1
+    shopLevelIncrementsToUnlock: 10
+    upgradeIncrementCost: 2
     mana: 3
     teamSize: 4
     upgradeCost: 20
@@ -50,9 +54,11 @@ MonoBehaviour:
         description: +1 team size, increase shop rarity
         relatedBehaviorIndex: 0
   - level: 2
+    shopLevelIncrementsToUnlock: 10
+    upgradeIncrementCost: 3
     mana: 3
     teamSize: 5
-    upgradeCost: 35
+    upgradeCost: 30
     numCardsToShow: 4
     numKeepsakesToShow: 3
     commonCompanionPercentage: 50
@@ -68,6 +74,8 @@ MonoBehaviour:
         description: +1 mana, increase shop rarity
         relatedBehaviorIndex: 0
   - level: 3
+    shopLevelIncrementsToUnlock: 12
+    upgradeIncrementCost: 5
     mana: 4
     teamSize: 5
     upgradeCost: 60

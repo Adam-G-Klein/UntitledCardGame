@@ -29,6 +29,7 @@ public class ShopViewController : MonoBehaviour,
     private VisualElement activeContainer;
     private VisualElement mapContainer;
     private Button upgradeButton;
+    private VisualElement upgradeIncrementContainer;
     private Button rerollButton;
     private Button cardRemovalButton;
     private bool hasRemovedCardThisShop;
@@ -108,6 +109,7 @@ public class ShopViewController : MonoBehaviour,
         upgradeButton.RegisterCallback<ClickEvent>(UpgradeButtonOnClick);
         upgradeButton.RegisterCallback<PointerEnterEvent>(UpgradeButtonOnPointerEnter);
         upgradeButton.RegisterCallback<PointerLeaveEvent>(UpgradeButtonOnPointerLeave);
+        upgradeIncrementContainer = uiDoc.rootVisualElement.Q("upgrade-increment-container");
         uiDoc.rootVisualElement.Q<Button>("start-next-combat-button").RegisterCallback<ClickEvent>(StartNextCombatOnClick);
 
         sellingCompanionConfirmation.Q<Button>("selling-companion-confirmation-yes").RegisterCallback<ClickEvent>((evt) => ConfirmSellCompanion());
@@ -172,6 +174,24 @@ public class ShopViewController : MonoBehaviour,
         combatCounter.text = "Combats Won: " + wonCombats + "/" + totalCombats;
         mapContainer.Add(combatCounter);
         mapContainer.Add(new MapView(encounterBuilder).mapContainer);
+    }
+
+    public void SetupUpgradeIncrements() {
+        upgradeIncrementContainer.Clear();
+        Debug.LogError(shopManager.gameState.playerData.GetValue().shopLevelIncrementsEarned);
+        int incrementsToUnlock = shopManager.GetShopLevel().shopLevelIncrementsToUnlock;
+        for (int i = 0; i < incrementsToUnlock; i++) {
+            VisualElement newIncrement = new();
+            newIncrement.AddToClassList("upgradeIncrement");
+            if (shopManager.gameState.playerData.GetValue().shopLevelIncrementsEarned > i) {
+                newIncrement.AddToClassList("upgradeIncrementEarned");
+            }
+            upgradeIncrementContainer.Add(newIncrement);
+        }
+    }
+
+    public void ActivateUpgradeIncrement(int upgradeIncrementIndex) {
+        upgradeIncrementContainer.Children().ToList()[upgradeIncrementIndex].AddToClassList("upgradeIncrementEarned");
     }
 
     public void Clear() {

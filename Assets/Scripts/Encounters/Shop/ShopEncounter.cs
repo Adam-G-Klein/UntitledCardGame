@@ -86,6 +86,8 @@ public class ShopEncounter : Encounter
         }
         shopManager.SetupUnitManagement();
         shopManager.shopViewController.SetupStaticHoverables();
+        shopManager.shopViewController.SetupUpgradeIncrements();
+        shopManager.EarnUpgradeIncrement();
     }
 
     public override void BuildWithEncounterBuilder(IEncounterBuilder encounterBuilder) {

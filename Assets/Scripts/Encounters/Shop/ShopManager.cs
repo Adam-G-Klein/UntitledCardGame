@@ -64,7 +64,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         allCompanions.AddRange(gameState.companions.benchedCompanions);
         shopEncounter.Build(this, allCompanions, encounterConstants, this.shopLevel, USE_NEW_SHOP);
         shopViewController.SetMoney(gameState.playerData.GetValue().gold);
-        shopViewController.SetShopUpgradePrice(shopLevel.upgradeCost);
+        shopViewController.SetShopUpgradePrice(shopLevel.upgradeIncrementCost);
         shopViewController.SetShopRerollPrice(shopEncounter.shopData.rerollShopPrice);
 
         CheckDisableUpgradeButton();
@@ -267,23 +267,37 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             return;
         }
         PlayerData playerData = gameState.playerData.GetValue();
-        if (playerData.gold >= shopLevel.upgradeCost) {
+        if (playerData.gold >= shopLevel.upgradeIncrementCost) {
             // Clean up hoverables for old shop items
 
-            playerData.gold -= shopLevel.upgradeCost;
-            playerData.shopLevel += 1;
-            shopLevel = shopEncounter.shopData.GetShopLevel(playerData.shopLevel);
-            gameState.companions.SetCompanionSlots(shopLevel.teamSize);
-            playerData.manaPerTurn = shopLevel.mana;
+            playerData.gold -= shopLevel.upgradeIncrementCost;
+            if (playerData.shopLevelIncrementsEarned == GetShopLevel().shopLevelIncrementsToUnlock - 1) {
+                shopViewController.SetMoney(playerData.gold);
+                playerData.shopLevel += 1;
+                shopLevel = shopEncounter.shopData.GetShopLevel(playerData.shopLevel);
+                gameState.companions.SetCompanionSlots(shopLevel.teamSize);
+                playerData.manaPerTurn = shopLevel.mana;
 
-            shopViewController.SetShopUpgradePrice(shopLevel.upgradeCost);
+                shopViewController.SetShopUpgradePrice(shopLevel.upgradeIncrementCost);
+                shopViewController.RebuildUnitManagement(gameState.companions);
+                InstantiateShopVFX(shopUpgradePrefab, shopViewController.GetUpgradeShopButton(), 1f);
+                CheckDisableUpgradeButtonV2();
+                playerData.shopLevelIncrementsEarned = 0;
+                shopViewController.SetupUpgradeIncrements();
+            } else {
+                shopViewController.ActivateUpgradeIncrement(playerData.shopLevelIncrementsEarned);
+                playerData.shopLevelIncrementsEarned += 1;
+            }
+
             shopViewController.SetMoney(gameState.playerData.GetValue().gold);
-            shopViewController.RebuildUnitManagement(gameState.companions);
-            InstantiateShopVFX(shopUpgradePrefab, shopViewController.GetUpgradeShopButton(), 1f);
-            CheckDisableUpgradeButtonV2();
         } else {
             shopViewController.NotEnoughMoney();
         }
+    }
+
+    public void EarnUpgradeIncrement() {
+        shopViewController.ActivateUpgradeIncrement(gameState.playerData.GetValue().shopLevelIncrementsEarned);
+        gameState.playerData.GetValue().shopLevelIncrementsEarned += 1;
     }
 
     private void CheckDisableUpgradeButton() {

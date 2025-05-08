@@ -12,6 +12,7 @@ public class PlayerDataVariableSO : VariableSO<PlayerData> {
         GetValue().gold = shopData.startingGold;
         GetValue().seenTutorial = false;
         GetValue().inTutorialRun = true;
+        GetValue().shopLevelIncrementsEarned = 0;
     }
 
     public void respawn(ShopDataSO shopData) {
@@ -19,6 +20,7 @@ public class PlayerDataVariableSO : VariableSO<PlayerData> {
         GetValue().gold = shopData.startingGold;
         GetValue().seenTutorial = true;
         GetValue().inTutorialRun = false;
+        GetValue().shopLevelIncrementsEarned = 0;
     }
 }
 
