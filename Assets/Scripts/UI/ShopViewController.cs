@@ -178,7 +178,6 @@ public class ShopViewController : MonoBehaviour,
 
     public void SetupUpgradeIncrements() {
         upgradeIncrementContainer.Clear();
-        Debug.LogError(shopManager.gameState.playerData.GetValue().shopLevelIncrementsEarned);
         int incrementsToUnlock = shopManager.GetShopLevel().shopLevelIncrementsToUnlock;
         for (int i = 0; i < incrementsToUnlock; i++) {
             VisualElement newIncrement = new();
@@ -747,7 +746,7 @@ public class ShopViewController : MonoBehaviour,
     }
 
     private void ShowUpgradeButtonTooltip() {
-        VisualElement tooltip = shopManager.GetShopLevel().upgradeTooltip.GetVisualElement();
+        VisualElement tooltip = shopManager.GetShopUpgradeTooltip().GetVisualElement();
 
         VisualElement background = new VisualElement();
 

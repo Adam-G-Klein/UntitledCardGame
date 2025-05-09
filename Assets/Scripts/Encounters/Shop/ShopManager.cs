@@ -369,6 +369,30 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     public ShopLevel GetShopLevel() {
         return shopLevel;
     }
+    
+    public TooltipViewModel GetShopUpgradeTooltip() {
+        TooltipViewModel tooltipViewModel = new()
+        {
+            lines = new List<TooltipLine>()
+        };
+        List<ShopLevel> shopLevels = shopEncounter.shopData.shopLevels;
+        for (int i = 0; i < shopLevels.Count; i++) {
+            ShopLevel level = shopLevels[i];
+            if (level.upgradeTooltip == null || level.upgradeTooltip.lines == null || level.upgradeTooltip.lines.Count == 0) {
+                continue;
+            }
+            TooltipLine tooltipLine = new(level.upgradeTooltip.lines[0].title, level.upgradeTooltip.lines[0].description);
+            if (i < gameState.playerData.GetValue().shopLevel) {
+                tooltipLine.title = "Level " + (i + 2) + " Benefits Earned:";
+            } else if (i == gameState.playerData.GetValue().shopLevel) {
+                tooltipLine.title = "Upgrade To Level " + (i + 2);
+            } else {
+                tooltipLine.title = "Later Upgrade To Level " + (i + 2);
+            }
+            tooltipViewModel.lines.Add(tooltipLine);
+        }
+        return tooltipViewModel;
+    }
 
     // This exists to satisfy the IEncounterBuilder interface.
     // The IEncounterBuilder interface exists to avoid type casting at runtime
