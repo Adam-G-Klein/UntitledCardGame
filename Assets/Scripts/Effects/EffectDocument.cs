@@ -20,6 +20,15 @@ public class EffectDocument
     // Instead of doing workflow interrupts on the global EffectManager class,
     // let's do it on the effect workflow itself by storing something in the document
     public bool workflowInterrupted = false;
+    // Disable the callback when the current effect workflow finishes.
+    // This can be useful for when we want to interrupt targetting and don't want the card
+    // to finish casting.
+    public bool disableCallback = false;
+
+    public void Interrupt(bool disableCallback = false) {
+        workflowInterrupted = true;
+        this.disableCallback = disableCallback;
+    }
 
     public List<GameObject> GetGameObjects(string key) {
         List<GameObject> returnList = new List<GameObject>();

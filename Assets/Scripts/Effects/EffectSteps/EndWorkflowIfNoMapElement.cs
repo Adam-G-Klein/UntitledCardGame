@@ -24,7 +24,7 @@ public class EndWorkflowIfNoMapElement : EffectStep, IEffectStepCalculation {
     public override IEnumerator invoke(EffectDocument document) {
         bool interupt = shouldInterrupt(document);
         if (interupt) {
-            document.workflowInterrupted = true;
+            document.Interrupt();
         }
         document.boolMap["highlightCard"] = !interupt;
         yield return null;
@@ -34,7 +34,7 @@ public class EndWorkflowIfNoMapElement : EffectStep, IEffectStepCalculation {
     {
         bool interupt = shouldInterrupt(document);
         if (interupt) {
-            document.workflowInterrupted = true;
+            document.Interrupt();
         }
         document.boolMap["highlightCard"] = !interupt;
         yield return null;

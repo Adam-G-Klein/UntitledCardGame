@@ -91,7 +91,7 @@ public class TurnManager : GenericSingleton<TurnManager>
         // Note: this is a lil racy, it depends on the EffectManager being marked as running
         // by another coroutine before this coroutine resumes and checks; not foolproof.
         yield return new WaitUntil(() => EffectManager.Instance.IsEffectRunning() == false);
-        
+
         // Check to see if any turn phase triggers caused the end of the encounter
         // The comabt entity manager will emit the END_ENCOUNTER turn phase trigger
         if (CombatEntityManager.Instance.IsEncounterEnded()) {
@@ -120,6 +120,9 @@ public class TurnManager : GenericSingleton<TurnManager>
         foreach(TurnPhaseTrigger trigger in turnPhaseTriggers[TurnPhase.END_ENCOUNTER]) {
             yield return StartCoroutine(trigger.triggerResponse.GetEnumerator());
         }
+        // Wait for effects started by the end encounter triggers to resolve :)
+        yield return new WaitUntil(() => EffectManager.Instance.IsEffectRunning() == false);
+
         // has to be in a coroutine so we can wait for all the triggers before doing this
         // TODO: implement defeat. I think having the companion/enemy manager raise the end encounter turn phase
         // is correct so we can catch the triggers, but we definitely can't pass the outcome along with that

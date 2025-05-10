@@ -98,7 +98,7 @@ public class Companion : Entity, ICombatStats, IDeckEntity, IUIEntity
         // Add the game state to the map so that the manual on combine workflows can
         // edit game state.
         document.map.AddItem("gameState", gameState);
-        EffectManager.Instance.invokeEffectWorkflow(document, onCombineAbilities[0], null);
+        // EffectManager.Instance.invokeEffectWorkflow(document, onCombineAbilities[0], null);
     }
 
     public string GetName()
