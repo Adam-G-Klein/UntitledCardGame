@@ -25,7 +25,7 @@ public class ShopViewController : MonoBehaviour,
 
     // Specific shop VisualElement references
     private VisualElement shopGoodsArea;
-    private ScrollView benchScrollView;
+    private VisualElement benchContainer;
     private VisualElement activeContainer;
     private VisualElement mapContainer;
     private Button upgradeButton;
@@ -85,7 +85,7 @@ public class ShopViewController : MonoBehaviour,
         SetupMap(shopManager);
         shopGoodsArea = uiDoc.rootVisualElement.Q("shop-goods-area");
         activeContainer = uiDoc.rootVisualElement.Q("unit-active-container");
-        benchScrollView = uiDoc.rootVisualElement.Q<ScrollView>("bench-scroll-view");
+        benchContainer = uiDoc.rootVisualElement.Q("bench-container");
         moneyLabel = uiDoc.rootVisualElement.Q<Label>("money-indicator-label");
         notEnoughMoneyLabel = uiDoc.rootVisualElement.Q<Label>("not-enough-money-indicator");
         selectingCompanionVeil = uiDoc.rootVisualElement.Q("selecting-companion-veil");
@@ -252,7 +252,7 @@ public class ShopViewController : MonoBehaviour,
             }
             child.style.backgroundColor = slotNotHighlightColor;
         }
-        foreach (VisualElement child in benchScrollView.contentContainer.hierarchy.Children()) {
+        foreach (VisualElement child in benchContainer.hierarchy.Children()) {
             if (child.childCount > 0) {
                 foreach(VisualElement grandchild in child.Children()) {
                     UIDocumentHoverableInstantiator.Instance.CleanupHoverable(grandchild);
@@ -278,40 +278,11 @@ public class ShopViewController : MonoBehaviour,
     }
 
     public void SetupBenchCompanions(List<Companion> companions) {
-        float fixedWidth = activeContainer.contentContainer[0].resolvedStyle.width;
-        // By default, the UI contains slots for 5 bench companions
-        // If we have more than 5, we'll need to programatically add more
-        // The +1 makes it so we always have one open slot, in case the player wants
-        // to JUST move a companion from active to bench, and not swap one for another
-        /*int slotsToAdd = companions.Count - 5 + 1;
-        if (slotsToAdd > 0) {
-            for (int i = 0; i < slotsToAdd; i++) {
-                CreateNewBenchSlot();
-            }
-        }*/
         for (int i = 0; i < companions.Count; i++) {
             CompanionManagementView companionView = new CompanionManagementView(companions[i], this);
-            benchScrollView.contentContainer[i].Add(companionView.container);
+            benchContainer.contentContainer[i].Add(companionView.container);
             visualElementToCompanionViewMap.Add(companionView.container, companionView);
         }
-
-        // I can't fully figure out why this is necessary. Since we're using a scroll view,
-        // as more items are added, if we use a fixed percent width for the items, then as the
-        // content visual element gets bigger, the items inside update to be a certain percent
-        // of the new larger size. This sets them to the size they originally have in the base
-        // UI document on scene start.
-        for (int i = 0; i < benchScrollView.contentContainer.childCount; i++) {
-            benchScrollView.contentContainer[i].style.width = new StyleLength(fixedWidth);
-        }
-    }
-
-    private void CreateNewBenchSlot() {
-        VisualElement newSlot = new VisualElement();
-        newSlot.AddToClassList("single-unit-container");
-        benchScrollView.Add(newSlot);
-
-        float fixedWidth = benchScrollView.contentContainer[0].resolvedStyle.width;
-        newSlot.style.width = new StyleLength(fixedWidth);
     }
 
     public void ShopItemOnClick(ShopItemView shopItemView) {
@@ -460,10 +431,10 @@ public class ShopViewController : MonoBehaviour,
                 child.style.backgroundColor = slotNotHighlightColor;
             }
         }
-        foreach (VisualElement child in benchScrollView.contentContainer.hierarchy.Children()) {
+        foreach (VisualElement child in benchContainer.hierarchy.Children()) {
             if (child.worldBound.Contains(pos)) {
-                if (NumOpenSlots(benchScrollView.contentContainer.Children().ToList(), true) < 5) {
-                    MoveWhileDragging(benchScrollView.contentContainer, child);
+                if (NumOpenSlots(benchContainer.Children().ToList(), true) < 5) {
+                    MoveWhileDragging(benchContainer, child);
                     originalParent = child;
                 }
                 child.style.backgroundColor = slotHighlightColor;
@@ -486,7 +457,7 @@ public class ShopViewController : MonoBehaviour,
 
         if (companions.Count() == 0) {
             if (parentContainer == activeContainer) {
-                RefreshContainers(benchScrollView.contentContainer.Children().ToList(), true);
+                RefreshContainers(benchContainer.Children().ToList(), true);
             } else {
                 RefreshContainers(activeContainer.Children().ToList(), false);
             }
@@ -500,7 +471,7 @@ public class ShopViewController : MonoBehaviour,
             child.Add(companions[companionIndex++]);
             if (i == parentContainer.Children().Count() || companionIndex == companions.Count) {
                 if (parentContainer == activeContainer) {
-                    RefreshContainers(benchScrollView.contentContainer.Children().ToList(), true);
+                    RefreshContainers(benchContainer.Children().ToList(), true);
                 } else {
                     RefreshContainers(activeContainer.Children().ToList(), false);
                 }
@@ -530,7 +501,7 @@ public class ShopViewController : MonoBehaviour,
                 elementOver = child;
             }
         }
-        foreach (VisualElement child in benchScrollView.contentContainer.hierarchy.Children()) {
+        foreach (VisualElement child in benchContainer.hierarchy.Children()) {
             if (child.worldBound.Contains(pos)) {
                 elementOver = child;
             }
@@ -574,7 +545,7 @@ public class ShopViewController : MonoBehaviour,
             Debug.LogError("Companion container contains more than 1 element in heirarchy");
         }
         RefreshContainers(activeContainer.Children().ToList(), false);
-        RefreshContainers(benchScrollView.contentContainer.Children().ToList(), true);
+        RefreshContainers(benchContainer.Children().ToList(), true);
         SetCompanionOrdering();
 
         // Update the positions of all hoverables
@@ -601,7 +572,7 @@ public class ShopViewController : MonoBehaviour,
             if (ve.childCount == 1) activeCompanions.Add(visualElementToCompanionViewMap[ve[0]].companion);
         });
         List<Companion> benchCompanions = new List<Companion>();
-        benchScrollView.contentContainer.Children().ToList().ForEach((ve) => {
+        benchContainer.Children().ToList().ForEach((ve) => {
             if (ve.childCount == 1) benchCompanions.Add(visualElementToCompanionViewMap[ve[0]].companion);
         });
         shopManager.SetCompanionOrdering(activeCompanions, benchCompanions);
@@ -657,7 +628,7 @@ public class ShopViewController : MonoBehaviour,
             }
         }
 
-        foreach (VisualElement child in benchScrollView.contentContainer.hierarchy.Children()) {
+        foreach (VisualElement child in benchContainer.hierarchy.Children()) {
             if (child.childCount != 1) continue;
             CompanionManagementView companion = visualElementToCompanionViewMap[child[0]];
             if (!shopManager.IsApplicableCompanion(cardInShop, companion.companion)) {
@@ -681,7 +652,7 @@ public class ShopViewController : MonoBehaviour,
             visualElementToCompanionViewMap[child[0]].ResetApplicable();
         }
 
-        foreach (VisualElement child in benchScrollView.contentContainer.hierarchy.Children()) {
+        foreach (VisualElement child in benchContainer.hierarchy.Children()) {
             if (child.childCount != 1) continue;
             visualElementToCompanionViewMap[child[0]].ResetApplicable();
         }
