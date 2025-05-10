@@ -28,6 +28,9 @@ public class OptionsViewController : MonoBehaviour
     private Button mainMenuButton;
     private Button compendiumButton;
     private Toggle fullscreenToggle;
+    private Toggle autoUpgradeToggle;
+    [SerializeField]
+    private GameStateVariableSO gameState;
     // Start is called before the first frame update
     private Camera mainCamera;
     [SerializeField]
@@ -64,6 +67,9 @@ public class OptionsViewController : MonoBehaviour
         fullscreenToggle = optionsUIDocument.rootVisualElement.Q<Toggle>("fullscreenToggle");
         fullscreenToggle.value = false;
         fullscreenToggle.RegisterValueChangedCallback(FullScreenToggleEvent);
+        autoUpgradeToggle = optionsUIDocument.rootVisualElement.Q<Toggle>("auto-upgrade-toggle");
+        autoUpgradeToggle.RegisterValueChangedCallback(AutoUpgradeToggleEvent);
+        autoUpgradeToggle.value = gameState.autoUpgrade;
 
         canvasGroup.blocksRaycasts = false;
     }
@@ -107,6 +113,7 @@ public class OptionsViewController : MonoBehaviour
 
     public void ToggleVisibility(bool enable = false) {
         if (enable) {
+            autoUpgradeToggle.value = gameState.autoUpgrade; // this is updated elsewhere so we need to make sure it's consistent with the value in the game state
             canvasGroup.blocksRaycasts = true;
             UIDocumentUtils.SetAllPickingMode(optionsUIDocument.rootVisualElement, PickingMode.Position);
             optionsUIDocument.rootVisualElement.style.visibility = Visibility.Visible;
@@ -135,5 +142,9 @@ public class OptionsViewController : MonoBehaviour
 
     private void FullScreenToggleEvent(ChangeEvent<bool> evt) {
         Screen.fullScreen = evt.newValue;
+    }
+    
+    private void AutoUpgradeToggleEvent(ChangeEvent<bool> evt) {
+        gameState.autoUpgrade = evt.newValue;
     }
 }

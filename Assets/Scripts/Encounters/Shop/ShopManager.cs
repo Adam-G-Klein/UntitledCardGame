@@ -38,7 +38,6 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     private CompanionInShopWithPrice companionInShop;
     private Companion newCompanion;
     public GameObject tooltipPrefab;
-
     void Awake() {
         if (USE_NEW_SHOP) {
             gameObject.GetComponent<UIDocument>().enabled = true;
@@ -149,8 +148,13 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
                     };
                     upgradeCompanion = companionCombinationManager.ShowUpgradedCompanion(level2s);
                 }
-                shopViewController.ShowCompanionUpgradeMenu(companions, upgradeCompanion);
-                return;
+                if (gameState.autoUpgrade) {
+                    ConfirmUpgradePurchase();
+                    return;
+                } else {
+                    shopViewController.ShowCompanionUpgradeMenu(companions, upgradeCompanion);
+                    return;
+                }
             }
             if (gameState.companions.activeCompanions.Count + shopViewController.blockedSlots.Count == 5 && gameState.companions.benchedCompanions.Count == 5) {
                 StartCoroutine(shopViewController.ShowGenericNotification("You have reached the maximum number of companions.", 2));
@@ -446,4 +450,8 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         removingCard = val;
     }
 
+    public void SetAutoUpgrade(bool v)
+    {
+        gameState.autoUpgrade = v;
+    }
 }

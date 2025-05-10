@@ -27,6 +27,7 @@ public class ShopViewController : MonoBehaviour,
     private VisualElement shopGoodsArea;
     private VisualElement benchContainer;
     private VisualElement activeContainer;
+    private VisualElement autoUpgradeToggle;
     private VisualElement mapContainer;
     private Button upgradeButton;
     private VisualElement upgradeIncrementContainer;
@@ -133,6 +134,8 @@ public class ShopViewController : MonoBehaviour,
         VisualElement questionMark = uiDoc.rootVisualElement.Q<VisualElement>(name:"questionMark");
         questionMark.RegisterCallback<PointerEnterEvent>(ShowHelperText);
         questionMark.RegisterCallback<PointerLeaveEvent>(HideHelperText);
+        autoUpgradeToggle = uiDoc.rootVisualElement.Q("auto-upgrade-toggle");
+        autoUpgradeToggle.RegisterCallback<ClickEvent>(ToggleAutoUpgrade);
     }
 
     private void PreviewUpgradedDeck() {
@@ -145,6 +148,10 @@ public class ShopViewController : MonoBehaviour,
 
     private void HideHelperText(PointerLeaveEvent evt) {
         uiDoc.rootVisualElement.Q<VisualElement>(name:"explainerText").RemoveFromClassList("explainer-text-container-visible");
+    }
+
+    private void ToggleAutoUpgrade(ClickEvent evt) {
+        shopManager.SetAutoUpgrade((evt.target as Toggle).value);
     }
 
     private void SetupActiveSlots(int numCompanions) {

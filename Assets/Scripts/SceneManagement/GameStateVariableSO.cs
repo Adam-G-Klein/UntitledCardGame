@@ -53,6 +53,7 @@ public class GameStateVariableSO : ScriptableObject
     public int currentEncounterIndex = 0;
     [SerializeField]
     private bool hasSeenTutorial = false;
+    public bool autoUpgrade = false;
     public Dictionary<Location, string> locationToScene = new Dictionary<Location, string>() {
         {Location.MAIN_MENU, "MainMenu"},
         {Location.WAKE_UP_ROOM, "AidensRoom"},
