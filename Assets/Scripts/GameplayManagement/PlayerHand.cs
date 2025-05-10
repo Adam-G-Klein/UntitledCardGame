@@ -34,7 +34,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
 
     private bool cardsInHandLocked = false;
     private Dictionary<GameObject, FXExperience> GOToFXExperience = new();
-    private readonly float cardDealDelay = .1f;
+    private readonly float cardDealDelay = .05f;
     private bool canPlayCards = true;
 
     private List<PlayableCard> cardsToDeal = new List<PlayableCard>();
@@ -112,7 +112,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         });
 
         for (int i = 0; i < cardsBeingDealt.Count; i++) {
-            MoveCard(cardsBeingDealt[i], true);
+            MoveCard(cardsBeingDealt[i]);
             yield return new WaitForSeconds(cardDealDelay);
         }
     }
@@ -121,7 +121,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         if (disableCardDuringMove) cardToMove.interactable = false; // hovering a card changes its position so we really need that to not happen while they are moving to their new spot
         WorldPositionVisualElement WPVE = UIDocumentGameObjectPlacer.Instance.GetCardWPVEFromGO(cardToMove.gameObject);
         WPVE.UpdatePosition();
-        CardDrawVFX(cardToMove.transform.position, WPVE.worldPos, cardToMove.gameObject);        
+        CardDrawVFX(cardToMove.transform.parent.transform.position, WPVE.worldPos, cardToMove.gameObject);        
     }
 
 
@@ -141,12 +141,10 @@ public class PlayerHand : GenericSingleton<PlayerHand>
 
         gameObject.GetComponent<PlayableCard>().SetBasePosition(toLocation);
         experience.AddLocationToKey("companion", fromLocation);
-        if (gameObject.GetComponent<PlayableCard>().hovered) {
-            toLocation += new Vector3(0, gameObject.GetComponent<PlayableCard>().hoverYOffset, gameObject.GetComponent<PlayableCard>().hoverZOffset);
-        }
+
         experience.AddLocationToKey("hand", toLocation);
         experience.BindGameObjectsToTracks(new Dictionary<string, GameObject>() {
-            { "card", gameObject },
+            { "card", gameObject.transform.parent.gameObject },
         });
         
         experience.StartExperience( () => {
@@ -156,7 +154,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             // Hack to try to get Pythia deck shuffling on start of turn working.
             EffectManager.Instance.invokeEffectWorkflow(new EffectDocument(), new List<EffectStep>(), null);
 
-            if (cardsInHand.IndexOf(gameObject.GetComponent<PlayableCard>()) == indexToHover) {
+            if (NonMouseInputManager.Instance.inputMethod != InputMethod.Mouse && cardsInHand.IndexOf(gameObject.GetComponent<PlayableCard>()) == indexToHover) {
                 NonMouseInputManager.Instance.hover(gameObject.GetComponent<PlayableCard>().GetComponent<Hoverable>());
                 indexToHover = -1;
                 return;
@@ -164,22 +162,34 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         });
     }
 
+    public void StopCardDrawFX(GameObject gameObject) {
+        if (GOToFXExperience.ContainsKey(gameObject) && GOToFXExperience[gameObject] != null) {
+            FXExperience ex = GOToFXExperience[gameObject];
+            ex.EarlyStop();
+            GOToFXExperience.Remove(gameObject);
+        }
+    }
+
     public void HoverNextCard(int previouslyPlayedCardIndex) {
-        if (cardsInHand.Count == 1) {
+        if (cardsInHand.Count == 0) {
+            indexToHover = 0;
             return;
         }
-        if (cardsInHand.Count - 1 <= previouslyPlayedCardIndex) {
-            indexToHover = 0;
+        indexToHover = -1;
+        if (cardsInHand.Count <= previouslyPlayedCardIndex) {
+            if (NonMouseInputManager.Instance.currentlyHovered != null) NonMouseInputManager.Instance.hover(cardsInHand[0].GetComponent<Hoverable>());
         } else {
-            indexToHover = previouslyPlayedCardIndex;
+            if (NonMouseInputManager.Instance.currentlyHovered != null) NonMouseInputManager.Instance.hover(cardsInHand[previouslyPlayedCardIndex].GetComponent<Hoverable>());
         }
     }
 
     public void TurnPhaseChangedEventHandler(TurnPhaseEventInfo info) {
         if (info.newPhase == TurnPhase.PLAYER_TURN) {
+            canPlayCards = true;
             indexToHover = 0;
         }
         if(info.newPhase == TurnPhase.END_PLAYER_TURN) {
+            canPlayCards = false;
             List<PlayableCard> retainedCards = new();
             // Run the effect workflows for all the cards left in the hand,
             // then destroy them with the callback.
@@ -198,7 +208,8 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                         card.retained = false;
                     }
                 } else {
-                    UIDocumentGameObjectPlacer.Instance.RemoveCardSlot(card.gameObject);
+                    //UIDocumentGameObjectPlacer.Instance.RemoveCardSlot(card.gameObject);
+                    StartCoroutine(ResizeHand(card));
                     callback = DiscardCard(card, true);
                     if(NonMouseInputManager.Instance.inputMethod != InputMethod.Mouse) {
                         // Doesn't work, iteration to be done

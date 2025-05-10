@@ -70,7 +70,6 @@ public class UIStateManager : GenericSingleton<UIStateManager>
 
     public void cardCastEventListener(CardCastEventInfo info) {
         setState(UIState.DEFAULT);
-        EnemyEncounterManager.Instance.SetCastingCard(false);
     }
 
     public void turnPhaseChangedEventHandler(TurnPhaseEventInfo info) {
