@@ -19,7 +19,8 @@ public class MainMenuManager : MonoBehaviour
     private GenerateMap generateMap;
     public void Awake()
     {
-        Screen.SetResolution(1920, 1080, false);
+        // there has to be somewhere to call this where it actuallys only runs at start up not every time the player goes back to the main menu
+        Screen.SetResolution(1920, 1080, gameState.fullscreenEnabled);
     }
 
     public void Start()

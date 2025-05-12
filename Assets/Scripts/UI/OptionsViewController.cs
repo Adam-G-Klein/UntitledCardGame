@@ -65,7 +65,7 @@ public class OptionsViewController : MonoBehaviour
         quitButton = optionsUIDocument.rootVisualElement.Q<Button>("quitButton");
         quitButton.clicked += onExitGameHandler;
         fullscreenToggle = optionsUIDocument.rootVisualElement.Q<Toggle>("fullscreenToggle");
-        fullscreenToggle.value = false;
+        fullscreenToggle.value = gameState.fullscreenEnabled;
         fullscreenToggle.RegisterValueChangedCallback(FullScreenToggleEvent);
         autoUpgradeToggle = optionsUIDocument.rootVisualElement.Q<Toggle>("auto-upgrade-toggle");
         autoUpgradeToggle.RegisterValueChangedCallback(AutoUpgradeToggleEvent);
@@ -141,7 +141,8 @@ public class OptionsViewController : MonoBehaviour
     }
 
     private void FullScreenToggleEvent(ChangeEvent<bool> evt) {
-        Screen.fullScreen = evt.newValue;
+        gameState.fullscreenEnabled = evt.newValue;
+        Screen.SetResolution(1920, 1080, gameState.fullscreenEnabled);
     }
     
     private void AutoUpgradeToggleEvent(ChangeEvent<bool> evt) {
