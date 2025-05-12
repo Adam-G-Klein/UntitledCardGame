@@ -149,7 +149,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             }
             gameState.playerData.GetValue().gold -= companionInShop.price;
             shopViewController.SetMoney(gameState.playerData.GetValue().gold);
-            if (gameState.companions.activeCompanions.Count + shopViewController.blockedSlots.Count == 5 && gameState.companions.benchedCompanions.Count == 5) {
+            if (gameState.companions.activeCompanions.Count + shopViewController.GetBlockedCompanionSlots() == 5 && gameState.companions.benchedCompanions.Count == 5) {
                 StartCoroutine(shopViewController.ShowGenericNotification("You have reached the maximum number of companions.", 2));
                 return;
             }

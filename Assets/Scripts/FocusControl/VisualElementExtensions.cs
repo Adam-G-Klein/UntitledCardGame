@@ -44,4 +44,10 @@ public static class VisualElementExtensions
         pointerLeaveEvent.target = element;
         return pointerLeaveEvent;
     }
+
+    public static PointerDownEvent CreateFakePointerDownEvent(this VisualElement element) {
+        var pointerDownEvent = PointerDownEvent.GetPooled();
+        pointerDownEvent.target = element;
+        return pointerDownEvent;
+    }
 }

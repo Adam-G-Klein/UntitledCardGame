@@ -2,9 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
 
 public class ShopViewController : MonoBehaviour, 
@@ -49,10 +47,14 @@ public class ShopViewController : MonoBehaviour,
 
     // For dragging and dropping companions in the unit management
     private bool isDraggingCompanion = false;
-    private VisualElement companionBeingDragged = null;
+    private CompanionManagementView companionBeingDragged = null;
     private VisualElement originalParent = null;
+    private CompanionManagementSlotView originalSlot = null;
     private Dictionary<VisualElement, CompanionManagementView> visualElementToCompanionViewMap = new Dictionary<VisualElement, CompanionManagementView>();
-    public List<VisualElement> blockedSlots = new List<VisualElement>();
+    private List<CompanionManagementSlotView> activeSlots = new List<CompanionManagementSlotView>();
+    private List<CompanionManagementSlotView> benchSlots = new List<CompanionManagementSlotView>();
+    // This is the list of focusables to disable when you start dragging a companion around
+    private List<VisualElementFocusable> disableOnCompanionDrag = new List<VisualElementFocusable>();
 
     private IEnumerator notEnoughMoneyCoroutine;
     private IEnumerator upgradeButtonTooltipCoroutine = null;
@@ -62,6 +64,8 @@ public class ShopViewController : MonoBehaviour,
     private bool inUpgradeMenu = false;
     private Dictionary<VisualElement, GameObject> tooltipMap = new();
     private Companion currentUpgradeCompanion;
+
+    private static string COMPANION_MANAGEMENT = "CompanionManagement";
 
     public void Start() {
         // Init(null);
@@ -96,11 +100,14 @@ public class ShopViewController : MonoBehaviour,
         deckViewContentContainer = uiDoc.rootVisualElement.Q("deck-view-card-area");
         genericMessageBox = uiDoc.rootVisualElement.Q("generic-message-box");
 
-        SetupActiveSlots(shopManager.gameState.companions.currentCompanionSlots);
+        SetupActiveSlots();
+        SetBlockedActiveSlotsIfNecessary(shopManager.gameState.companions.currentCompanionSlots);
+        SetupBenchSlots();
 
         rerollButton = uiDoc.rootVisualElement.Q<Button>("reroll-button");
         rerollButton.RegisterOnSelected(RerollButtonOnClick);
         FocusManager.Instance.RegisterFocusableTarget(rerollButton.AsFocusable());
+        disableOnCompanionDrag.Add(rerollButton.AsFocusable());
 
         selectingCancelButton.RegisterOnSelected(CancelCardBuy);
         FocusManager.Instance.RegisterFocusableTarget(selectingCancelButton.AsFocusable());
@@ -114,10 +121,12 @@ public class ShopViewController : MonoBehaviour,
         upgradeButtonFocusable.additionalFocusAction += () => UpgradeButtonOnPointerEnter(null);
         upgradeButtonFocusable.additionalUnfocusAction += () => UpgradeButtonOnPointerLeave(null);
         FocusManager.Instance.RegisterFocusableTarget(upgradeButtonFocusable);
+        disableOnCompanionDrag.Add(upgradeButtonFocusable);
 
         startNextCombatButton = uiDoc.rootVisualElement.Q<Button>("start-next-combat-button");
         startNextCombatButton.RegisterOnSelected(StartNextCombatOnClick);
         FocusManager.Instance.RegisterFocusableTarget(startNextCombatButton.AsFocusable());
+        disableOnCompanionDrag.Add(startNextCombatButton.AsFocusable());
         
         Button closeCompanionDeckViewButton = deckView.Q<Button>();
         closeCompanionDeckViewButton.RegisterOnSelected((evt) => CloseCompanionDeckView());
@@ -127,6 +136,7 @@ public class ShopViewController : MonoBehaviour,
         cardRemovalButton = uiDoc.rootVisualElement.Q<Button>("card-remove-button");
         cardRemovalButton.RegisterOnSelected(CardRemovalButtonOnClick);
         FocusManager.Instance.RegisterFocusableTarget(cardRemovalButton.AsFocusable());
+        disableOnCompanionDrag.Add(cardRemovalButton.AsFocusable());
 
         selectingIndicatorForCardRemovalIndicator = uiDoc.rootVisualElement.Q<VisualElement>("companion-selection-for-card-removal-indicator");
         selectingForCardRemovalButton = uiDoc.rootVisualElement.Q<Button>("companion-selection-for-card-removal-cancel-button");
@@ -170,17 +180,34 @@ public class ShopViewController : MonoBehaviour,
         uiDoc.rootVisualElement.Q<VisualElement>(name:"explainerText").RemoveFromClassList("explainer-text-container-visible");
     }
 
-    private void SetupActiveSlots(int numCompanions) {
-        if (numCompanions >= 5) return;
-
-        blockedSlots = new List<VisualElement>();
-        int i = 0;
+    private void SetupActiveSlots() {
         foreach (VisualElement child in activeContainer.hierarchy.Children()) {
+            CompanionManagementSlotView slotView = new CompanionManagementSlotView(child,
+                slotNotHighlightColor,
+                slotHighlightColor,
+                slotUnavailableColor);
+            activeSlots.Add(slotView);
+        }
+    }
+
+    private void SetBlockedActiveSlotsIfNecessary(int numCompanions) {
+        if (numCompanions >= 5) return;
+        int i = 0;
+        foreach (CompanionManagementSlotView slotView in activeSlots) {
             i++;
             if (i > numCompanions) {
-                child.style.backgroundColor = slotUnavailableColor;
-                blockedSlots.Add(child);
+                slotView.SetBlocked();
             }
+        }
+    }
+
+    private void SetupBenchSlots() {
+        foreach (VisualElement child in benchScrollView.contentContainer.hierarchy.Children()) {
+            CompanionManagementSlotView slotView = new CompanionManagementSlotView(child, 
+                slotNotHighlightColor,
+                slotHighlightColor,
+                slotUnavailableColor);
+            benchSlots.Add(slotView);
         }
     }
 
@@ -202,7 +229,7 @@ public class ShopViewController : MonoBehaviour,
     public void Clear() {
         ClearUnitManagement();
         shopGoodsArea.Clear();
-        SetupActiveSlots(shopManager.gameState.companions.currentCompanionSlots);
+        SetBlockedActiveSlotsIfNecessary(shopManager.gameState.companions.currentCompanionSlots);
     }
 
     public void AddCardToShopView(CardInShopWithPrice card) {
@@ -213,6 +240,7 @@ public class ShopViewController : MonoBehaviour,
         cardItemToViewMap.Add(card, newCardItemView);
 
         FocusManager.Instance.RegisterFocusableTarget(newCardItemView.visualElementFocusable);
+        disableOnCompanionDrag.Add(newCardItemView.visualElementFocusable);
     }
 
     public void RemoveCardFromShopView(CardInShopWithPrice card) {
@@ -223,7 +251,8 @@ public class ShopViewController : MonoBehaviour,
         
         cardItemToViewMap.Remove(card);
 
-        FocusManager.Instance.DisableFocusableTarget(shopItemView.visualElementFocusable);
+        FocusManager.Instance.UnregisterFocusableTarget(shopItemView.visualElementFocusable);
+        disableOnCompanionDrag.Remove(shopItemView.visualElementFocusable);
     }
 
     public void AddCompanionToShopView(CompanionInShopWithPrice companion) {
@@ -234,6 +263,7 @@ public class ShopViewController : MonoBehaviour,
         companionItemToViewMap.Add(companion, newCompanionItemView);
 
         FocusManager.Instance.RegisterFocusableTarget(newCompanionItemView.visualElementFocusable);
+        disableOnCompanionDrag.Add(newCompanionItemView.visualElementFocusable);
     }
 
     public void RemoveCompanionFromShopView(CompanionInShopWithPrice companion) {
@@ -242,35 +272,24 @@ public class ShopViewController : MonoBehaviour,
         // TODO: Replace with sold out? Grey it out? Talk to Jasmine
         shopItemView.Disable();
         companionItemToViewMap.Remove(companion);
-        FocusManager.Instance.DisableFocusableTarget(shopItemView.visualElementFocusable);
+        FocusManager.Instance.UnregisterFocusableTarget(shopItemView.visualElementFocusable);
+        disableOnCompanionDrag.Remove(shopItemView.visualElementFocusable);
     }
 
     public void RebuildUnitManagement(CompanionListVariableSO companionList) {
         ClearUnitManagement();
-        SetupActiveSlots(shopManager.gameState.companions.currentCompanionSlots);
+        SetBlockedActiveSlotsIfNecessary(shopManager.gameState.companions.currentCompanionSlots);
         SetupUnitManagement(companionList);
     }
 
     private void ClearUnitManagement() {
-        foreach (VisualElement child in activeContainer.hierarchy.Children()) {
-            if (child.childCount > 0) {
-                foreach(VisualElement grandchild in child.Children()) {
-                    // UIDocumentHoverableInstantiator.Instance.CleanupHoverable(grandchild);
-                }
-                child.Clear();
-            }
-            child.style.backgroundColor = slotNotHighlightColor;
+        foreach (CompanionManagementSlotView slotView in activeSlots) {
+            slotView.Reset();
         }
-        foreach (VisualElement child in benchScrollView.contentContainer.hierarchy.Children()) {
-            if (child.childCount > 0) {
-                foreach(VisualElement grandchild in child.Children()) {
-                    // UIDocumentHoverableInstantiator.Instance.CleanupHoverable(grandchild);
-                }
-                child.Clear();
-            }
-            child.style.backgroundColor = slotNotHighlightColor;
+
+        foreach (CompanionManagementSlotView slotView in benchSlots) {
+            slotView.Reset();
         }
-        blockedSlots = new List<VisualElement>();
     }
 
     public void SetupUnitManagement(CompanionListVariableSO companionList) {
@@ -281,26 +300,16 @@ public class ShopViewController : MonoBehaviour,
     public void SetupActiveCompanions(List<Companion> companions) {
         for (int i = 0; i < companions.Count; i++) {
             CompanionManagementView companionView = new CompanionManagementView(companions[i], this);
-            activeContainer.contentContainer[i].Add(companionView.container);
+            activeSlots[i].InsertCompanion(companionView);
             visualElementToCompanionViewMap.Add(companionView.container, companionView);
         }
     }
 
     public void SetupBenchCompanions(List<Companion> companions) {
         float fixedWidth = activeContainer.contentContainer[0].resolvedStyle.width;
-        // By default, the UI contains slots for 5 bench companions
-        // If we have more than 5, we'll need to programatically add more
-        // The +1 makes it so we always have one open slot, in case the player wants
-        // to JUST move a companion from active to bench, and not swap one for another
-        /*int slotsToAdd = companions.Count - 5 + 1;
-        if (slotsToAdd > 0) {
-            for (int i = 0; i < slotsToAdd; i++) {
-                CreateNewBenchSlot();
-            }
-        }*/
         for (int i = 0; i < companions.Count; i++) {
             CompanionManagementView companionView = new CompanionManagementView(companions[i], this);
-            benchScrollView.contentContainer[i].Add(companionView.container);
+            benchSlots[i].InsertCompanion(companionView);
             visualElementToCompanionViewMap.Add(companionView.container, companionView);
         }
 
@@ -312,15 +321,6 @@ public class ShopViewController : MonoBehaviour,
         for (int i = 0; i < benchScrollView.contentContainer.childCount; i++) {
             benchScrollView.contentContainer[i].style.width = new StyleLength(fixedWidth);
         }
-    }
-
-    private void CreateNewBenchSlot() {
-        VisualElement newSlot = new VisualElement();
-        newSlot.AddToClassList("single-unit-container");
-        benchScrollView.Add(newSlot);
-
-        float fixedWidth = benchScrollView.contentContainer[0].resolvedStyle.width;
-        newSlot.style.width = new StyleLength(fixedWidth);
     }
 
     public void ShopItemOnClick(ShopItemView shopItemView) {
@@ -345,10 +345,8 @@ public class ShopViewController : MonoBehaviour,
 
     public void SellCompanionOnClick() {
         if (sellingCompanions) {
-            //sellCompanionButton.text = "Sell Companion";
             StopSellingCompanion();
         } else {
-            //sellCompanionButton.text = "Cancel";
             SetupSellCompanion();
         }
     }
@@ -357,7 +355,6 @@ public class ShopViewController : MonoBehaviour,
         sellingCompanions = true;
         selectingCompanionVeil.style.visibility = Visibility.Visible;
         canDragCompanions = false;
-        // NonMouseInputManager.Instance.SetUIState(UIState.SELLING_COMPANION);
     }
 
     public void StopSellingCompanion() {
@@ -366,7 +363,6 @@ public class ShopViewController : MonoBehaviour,
         canDragCompanions = true;
         companionToSell = null;
         sellingCompanionConfirmationView.Hide();
-        // NonMouseInputManager.Instance.SetUIState(UIState.DEFAULT);
     }
 
     public void CompanionManagementOnClick(CompanionManagementView companionView)
@@ -381,7 +377,6 @@ public class ShopViewController : MonoBehaviour,
         canDragCompanions = true;
         selectingCompanionVeil.style.visibility = Visibility.Hidden;
         sellingCompanionConfirmationView.Hide();
-        // NonMouseInputManager.Instance.SetUIState(UIState.DEFAULT);
     }
 
     private void DontSellCompanion() {
@@ -393,6 +388,15 @@ public class ShopViewController : MonoBehaviour,
     {
         if (!canDragCompanions && !isDraggingCompanion) return;
 
+        CompanionManagementSlotView parentSlot = GetParentSlotViewForCompanion(companionView);
+        if (parentSlot == null) {
+            Debug.LogWarning("RESETTING COMPANION MANAGEMENT VIEW");
+            // Somehow something broke in a spectacular way, so lets just reset the view
+            // s o f t l o c k     p r e v e n t i o n  (an attempt anyway)
+            RebuildUnitManagement(shopManager.gameState.companions);
+            return;
+        }
+
         VisualElement parent = companionView.container.parent;
 
         VisualElement tempContainer = new VisualElement();
@@ -401,87 +405,98 @@ public class ShopViewController : MonoBehaviour,
         tempContainer.style.position = Position.Absolute;
 
         uiDoc.rootVisualElement.Add(tempContainer);
-        StartCoroutine(FinishDragSetup(tempContainer, companionView.container, pointerPos, parent));
+        StartCoroutine(FinishDragSetup(tempContainer, companionView, pointerPos, parentSlot));
     }
 
-    private IEnumerator FinishDragSetup(VisualElement tempContainer, VisualElement companion, Vector2 position, VisualElement originalSpot) {
+    private CompanionManagementSlotView GetParentSlotViewForCompanion(CompanionManagementView companionView) {
+        foreach (CompanionManagementSlotView slotView in activeSlots) {
+            if (slotView.companionManagementView == companionView) return slotView;
+        }
+
+        foreach (CompanionManagementSlotView slotView in benchSlots) {
+            if (slotView.companionManagementView == companionView) return slotView;
+        }
+
+        Debug.LogError("Could not find parent slot for companion!");
+        return null;
+    }
+
+    private IEnumerator FinishDragSetup(VisualElement tempContainer, CompanionManagementView companion, Vector2 position, CompanionManagementSlotView originalSlot) {
         yield return new WaitForEndOfFrame();
         tempContainer.style.top = position.y - tempContainer.layout.height / 2;
         tempContainer.style.left = position.x - tempContainer.layout.width / 2;
-        originalParent = originalSpot;
-        originalSpot.Remove(companion);
-        originalSpot.style.backgroundColor = slotHighlightColor;
-        tempContainer.Add(companion);
+        this.originalSlot = originalSlot;
+        originalSlot.RemoveCompanion();
+        originalSlot.SetHighlighted();
+        tempContainer.Add(companion.container);
         isDraggingCompanion = true;
         companionBeingDragged = companion;
+        disableOnCompanionDrag.ForEach((item) => FocusManager.Instance.StashFocusableTarget(this.GetType().Name + COMPANION_MANAGEMENT, item));
+        CompanionManagementSlotView.MakeAllFocusable(activeSlots);
+        CompanionManagementSlotView.MakeAllFocusable(benchSlots);
     }
 
     public void CompanionManagementOnPointerMove(CompanionManagementView companionManagementView, Vector2 pointerPos)
-    {        
-        if (!isDraggingCompanion || companionBeingDragged != companionManagementView.container) {
+    {
+        if (!isDraggingCompanion || companionBeingDragged != companionManagementView) {
             return;
         }  
 
         companionManagementView.container.parent.style.top = pointerPos.y - companionManagementView.container.parent.layout.height / 2;
         companionManagementView.container.parent.style.left = pointerPos.x - companionManagementView.container.parent.layout.width / 2;
 
-        foreach (VisualElement child in activeContainer.hierarchy.Children()) {
-            if (blockedSlots != null && blockedSlots.Contains(child)) continue;
-            if (child.worldBound.Contains(pointerPos)) {
-                child.style.backgroundColor = slotHighlightColor;
-                if (NumOpenSlots(activeContainer.Children().ToList(), true) < 5 - blockedSlots.Count) {
-                    MoveWhileDragging(activeContainer, child);
-                    originalParent = child;
+        foreach (CompanionManagementSlotView slotView in activeSlots) {
+            if (slotView.IsBlocked()) continue;
+            if (slotView.ContainsPosition(pointerPos)) {
+                if (NumTakenSlots(activeSlots) < 5) {
+                    MoveWhileDragging(activeSlots, slotView);
+                    originalSlot = slotView;
                 }
+                slotView.SetHighlighted();
             } else {
-                child.style.backgroundColor = slotNotHighlightColor;
+                slotView.SetNotHighlighted();
             }
         }
-        foreach (VisualElement child in benchScrollView.contentContainer.hierarchy.Children()) {
-            if (child.worldBound.Contains(pointerPos)) {
-                if (NumOpenSlots(benchScrollView.contentContainer.Children().ToList(), true) < 5) {
-                    MoveWhileDragging(benchScrollView.contentContainer, child);
-                    originalParent = child;
+
+        foreach (CompanionManagementSlotView slotView in benchSlots) {
+            if (slotView.ContainsPosition(pointerPos)) {
+                if (NumTakenSlots(benchSlots) < 5) {
+                    MoveWhileDragging(benchSlots, slotView);
+                    originalSlot = slotView;
                 }
-                child.style.backgroundColor = slotHighlightColor;
+                slotView.SetHighlighted();
             } else {
-                child.style.backgroundColor = slotNotHighlightColor;
+                slotView.SetNotHighlighted();
             }
         }
     }
 
     // only used for mouse controls
-    private void MoveWhileDragging(VisualElement parentContainer,VisualElement elementOver) {
-        List<VisualElement> elements = parentContainer.Children().ToList();
+    private void MoveWhileDragging(List<CompanionManagementSlotView> slots, CompanionManagementSlotView slotOver) {
         // pull all of the existing companions into a list and then iterate over the available slots in activecontainer. skip over the element over
-        List<VisualElement> companions = new List<VisualElement>();
-        foreach (VisualElement unitContainer in elements) {
-            if (unitContainer.childCount == 1) {
-                companions.Add(unitContainer[0]);
+        List<CompanionManagementView> companions = new List<CompanionManagementView>();
+        foreach (CompanionManagementSlotView slotView in slots) {
+            if (!slotView.IsEmpty()) {
+                companions.Add(slotView.companionManagementView);
             }
         }
 
         if (companions.Count() == 0) {
-            if (parentContainer == activeContainer) {
-                RefreshContainers(benchScrollView.contentContainer.Children().ToList(), true);
-            } else {
-                RefreshContainers(activeContainer.Children().ToList(), false);
-            }
+            RefreshContainers(slots);
             return;
         }
         int companionIndex = 0;
-        for (int i = 0; i < parentContainer.Children().Count(); i++) {
-            VisualElement child = parentContainer.Children().ElementAt(i);
-            if (child == elementOver) continue;
-            child.Clear();
-            child.Add(companions[companionIndex++]);
-            FocusManager.Instance.TestIsAFocusableTarget(visualElementToCompanionViewMap[companions[companionIndex-1]].visualElementFocusable);
-            Debug.Log("CONTAINS " + visualElementToCompanionViewMap[companions[companionIndex-1]]);
-            if (i == parentContainer.Children().Count() || companionIndex == companions.Count) {
-                if (parentContainer == activeContainer) {
-                    RefreshContainers(benchScrollView.contentContainer.Children().ToList(), true);
-                } else {
-                    RefreshContainers(activeContainer.Children().ToList(), false);
+        for (int i = 0; i < slots.Count(); i++) {
+            CompanionManagementSlotView slotView = slots[i];
+            slotView.RemoveCompanion();
+            if (slotView == slotOver) continue;
+            slotView.InsertCompanion(companions[companionIndex++]);
+            // FocusManager.Instance.TestIsAFocusableTarget(visualElementToCompanionViewMap[companions[companionIndex-1]].visualElementFocusable);
+            // Debug.Log("CONTAINS " + visualElementToCompanionViewMap[companions[companionIndex-1]]);
+            if (companionIndex == companions.Count) {
+                if (!(i == slots.Count() - 1)) {
+                    i += 1;
+                    slots[i].RemoveCompanion();
                 }
                 break;
             }
@@ -489,83 +504,82 @@ public class ShopViewController : MonoBehaviour,
     }
 
     public void CompanionManagementOnPointerLeave(CompanionManagementView companionManagementView, PointerLeaveEvent evt) {
-        if (!isDraggingCompanion || companionBeingDragged != companionManagementView.container)  return;
+        if (!isDraggingCompanion || companionBeingDragged != companionManagementView)  return;
 
-        // if(evt != null || NonMouseInputManager.Instance.inputMethod == InputMethod.Mouse) {
-        //     companionManagementView.container.parent.style.top = evt.position.y - companionManagementView.container.parent.layout.height / 2;
-        //     companionManagementView.container.parent.style.left = evt.position.x - companionManagementView.container.parent.layout.width / 2;
-        // }
+        if(evt != null || NonMouseInputManager.Instance.inputMethod == InputMethod.Mouse) {
+            companionManagementView.container.parent.style.top = evt.position.y - companionManagementView.container.parent.layout.height / 2;
+            companionManagementView.container.parent.style.left = evt.position.x - companionManagementView.container.parent.layout.width / 2;
+        }
     }
 
     public void ComapnionManagementOnPointerUp(CompanionManagementView companionManagementView, Vector2 pointerPos)
     {
-        if (!isDraggingCompanion || companionManagementView.container != companionBeingDragged) return;
+        if (!isDraggingCompanion || companionManagementView != companionBeingDragged) return;
         
-        VisualElement elementOver = null;
-        foreach (VisualElement child in activeContainer.hierarchy.Children()) {
-            if (child.worldBound.Contains(pointerPos)) {
-                elementOver = child;
+        CompanionManagementSlotView slotOver = null;
+        foreach (CompanionManagementSlotView slotView in activeSlots) {
+            if (slotView.ContainsPosition(pointerPos)) {
+                slotOver = slotView;
             }
         }
-        foreach (VisualElement child in benchScrollView.contentContainer.hierarchy.Children()) {
-            if (child.worldBound.Contains(pointerPos)) {
-                elementOver = child;
+        foreach (CompanionManagementSlotView slotView in benchSlots) {
+            if (slotView.ContainsPosition(pointerPos)) {
+                slotOver = slotView;
             }
         }
 
-        if (elementOver != null && !blockedSlots.Contains(elementOver)) {
-            DoMoveCompanion(companionManagementView, elementOver);
-            elementOver.style.backgroundColor = slotNotHighlightColor;
+        if (slotOver != null && !slotOver.IsBlocked()) {
+            DoMoveCompanion(companionManagementView, slotOver);
+            slotOver.SetNotHighlighted();
         } else {
             VisualElement tempContainer = companionManagementView.container.parent;
-            originalParent.Add(companionManagementView.container);
+            originalSlot.InsertCompanion(companionManagementView);
             uiDoc.rootVisualElement.Remove(tempContainer);
         }
         isDraggingCompanion = false;
         companionBeingDragged = null;
-        originalParent = null;
+        originalSlot = null;
         // NonMouseInputManager.Instance.SetUIState(UIState.DEFAULT);
     }
 
-    private void DoMoveCompanion(CompanionManagementView companionManagementView, VisualElement movingToContainer) {
+    private void DoMoveCompanion(CompanionManagementView companionManagementView, CompanionManagementSlotView movingToSlot) {
         // Scenario 1, dragging companion to open container
-        if (movingToContainer.childCount == 0) {
+        if (movingToSlot.IsEmpty()) {
             VisualElement tempContainer = companionManagementView.container.parent;
 
             // SPECIAL CASE ALERT: SPECIAL CASE A L E R T
             // Trying to move last active companion to *possibly* the bench
             if (!shopManager.CanMoveCompanionToNewOpenSlot(companionManagementView.companion)) {
-                originalParent.Add(companionManagementView.container);
+                originalSlot.InsertCompanion(companionManagementView);
                 uiDoc.rootVisualElement.Remove(tempContainer);
             } else {
-                movingToContainer.Add(companionManagementView.container);
+                movingToSlot.InsertCompanion(companionManagementView);
                 tempContainer.RemoveFromHierarchy();
             }
         // Scenario 2, dragging companion to slot with another companion in it already
-        } else if (movingToContainer.childCount == 1) {
-            originalParent.Add(movingToContainer[0]);
+        } else if (!movingToSlot.IsEmpty()) {
+            originalSlot.InsertCompanion(movingToSlot.companionManagementView);
             VisualElement tempContainer = companionManagementView.container.parent;
-            movingToContainer.Add(companionManagementView.container);
+            movingToSlot.InsertCompanion(companionManagementView);
             tempContainer.RemoveFromHierarchy();
         } else {
             Debug.LogError("Companion container contains more than 1 element in heirarchy");
         }
-        RefreshContainers(activeContainer.Children().ToList(), false);
-        RefreshContainers(benchScrollView.contentContainer.Children().ToList(), true);
+        RefreshContainers(activeSlots);
+        RefreshContainers(benchSlots);
         SetCompanionOrdering();
-
-        // Update the positions of all hoverables
-        // UIDocumentHoverableInstantiator.Instance.UpdateHoverablesPosition();
-
-        // Update the currently hovered hoverable
-        // NonMouseInputManager.Instance.UpdateCurrentlyHovered();
+        FocusManager.Instance.UnstashFocusables(this.GetType().Name + COMPANION_MANAGEMENT);
+        CompanionManagementSlotView.ResetFocusable(activeSlots);
+        CompanionManagementSlotView.ResetFocusable(benchSlots);
     }
 
-    private int NumOpenSlots(List<VisualElement> unitContainers, bool isBench) {
+    private int NumTakenSlots(List<CompanionManagementSlotView> slots) {
         int takenSlots = 0;
-        if (!isBench) takenSlots += blockedSlots.Count();
-        foreach (VisualElement unitContainer in unitContainers) {
-            if (unitContainer.childCount == 1) {
+        foreach (CompanionManagementSlotView slotView in slots) {
+            if (slotView.IsBlocked()) {
+                takenSlots += 1;
+            }
+            else if (!slotView.IsEmpty()) {
                 takenSlots += 1;
             }
         }
@@ -574,14 +588,28 @@ public class ShopViewController : MonoBehaviour,
 
     private void SetCompanionOrdering() {
         List<Companion> activeCompanions = new List<Companion>();
-        activeContainer.Children().ToList().ForEach((ve) => {
-            if (ve.childCount == 1) activeCompanions.Add(visualElementToCompanionViewMap[ve[0]].companion);
+        activeSlots.ForEach((slot) => {
+            if (!slot.IsEmpty()) activeCompanions.Add(slot.companionManagementView.companion);
         });
         List<Companion> benchCompanions = new List<Companion>();
-        benchScrollView.contentContainer.Children().ToList().ForEach((ve) => {
-            if (ve.childCount == 1) benchCompanions.Add(visualElementToCompanionViewMap[ve[0]].companion);
+        benchSlots.ForEach((slot) => {
+            if (!slot.IsEmpty()) benchCompanions.Add(slot.companionManagementView.companion);
         });
         shopManager.SetCompanionOrdering(activeCompanions, benchCompanions);
+    }
+
+    private void RefreshContainers(List<CompanionManagementSlotView> slots) {
+        List<CompanionManagementView> companions = new List<CompanionManagementView>();
+        foreach (CompanionManagementSlotView slot in slots) {
+            if (!slot.IsEmpty()) {
+                companions.Add(slot.companionManagementView);
+                slot.RemoveCompanion();
+            }
+        }
+
+        for (int i = 0; i < companions.Count; i++) {
+            slots[i].InsertCompanion(companions[i]);
+        }
     }
 
     private void RefreshContainers(List<VisualElement> unitContainers, bool isBench) {
@@ -595,12 +623,14 @@ public class ShopViewController : MonoBehaviour,
         for (int i = 0; i < companions.Count; i++) {
             unitContainers[i].Add(companions[i]);
         }
+    }
 
-        /*if (companions.Count == unitContainers.Count && isBench) {
-            // This makes it so that the player can always move a companion to the bench without
-            // needing to swap one companion for another
-            CreateNewBenchSlot();
-        }*/
+    public int GetBlockedCompanionSlots() {
+        int num = 0;
+        foreach (CompanionManagementSlotView slotView in activeSlots) {
+            if (slotView.IsBlocked()) num += 1;
+        }
+        return num;
     }
 
     public void SetMoney(int money) {
@@ -633,7 +663,7 @@ public class ShopViewController : MonoBehaviour,
             CompanionManagementView companion = visualElementToCompanionViewMap[child[0]];
             if (!shopManager.IsApplicableCompanion(cardInShop.sourceCompanion, companion.companion)) {
                 notApplicable.Add(companion);
-                FocusManager.Instance.StashFocusableTarget(this.GetType().Name + "CardBuying", companion.visualElementFocusable);
+                FocusManager.Instance.StashFocusableTarget(this.GetType().Name + "CardBuying", GetParentSlotViewForCompanion(companion).veFocusable);
             }
         }
 
@@ -642,7 +672,7 @@ public class ShopViewController : MonoBehaviour,
             CompanionManagementView companion = visualElementToCompanionViewMap[child[0]];
             if (!shopManager.IsApplicableCompanion(cardInShop.sourceCompanion, companion.companion)) {
                 notApplicable.Add(companion);
-                FocusManager.Instance.StashFocusableTarget(this.GetType().Name + "CardBuying", companion.visualElementFocusable);
+                FocusManager.Instance.StashFocusableTarget(this.GetType().Name + "CardBuying", GetParentSlotViewForCompanion(companion).veFocusable);
             }
         }
         
