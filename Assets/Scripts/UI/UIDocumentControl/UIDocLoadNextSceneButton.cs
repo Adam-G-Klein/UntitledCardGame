@@ -34,7 +34,7 @@ public class UIDocLoadNextSceneButton: MonoBehaviour
         nextSceneButton.RegisterCallback<PointerLeaveEvent>(nextLeave);
 
         nextSceneButton.RegisterCallback<ClickEvent>(nextClick);
-        nextSceneButton.RegisterOnSelected(() => nextClick(null));
+        nextSceneButton.RegisterCallback<NavigationSubmitEvent>((evt) => nextClick(null));
         VisualElementFocusable nextSceneButtonFocusable = nextSceneButton.AsFocusable();
         nextSceneButtonFocusable.additionalFocusAction += () => nextEnter(null);
         nextSceneButtonFocusable.additionalUnfocusAction += () => nextLeave(null);

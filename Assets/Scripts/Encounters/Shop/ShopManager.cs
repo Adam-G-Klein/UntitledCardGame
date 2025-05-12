@@ -156,7 +156,13 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
                     return;
                 }
             }
+<<<<<<< HEAD
             if (gameState.companions.activeCompanions.Count + shopViewController.blockedSlots.Count == 5 && gameState.companions.benchedCompanions.Count == 5) {
+=======
+            gameState.playerData.GetValue().gold -= companionInShop.price;
+            shopViewController.SetMoney(gameState.playerData.GetValue().gold);
+            if (gameState.companions.activeCompanions.Count + shopViewController.GetBlockedCompanionSlots() == 5 && gameState.companions.benchedCompanions.Count == 5) {
+>>>>>>> 46d9dad3 (Get unit management working in shop (mostly) and fix some bugs)
                 StartCoroutine(shopViewController.ShowGenericNotification("You have reached the maximum number of companions.", 2));
                 return;
             }

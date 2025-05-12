@@ -10,7 +10,6 @@ using FMODUnity;
 public class CompanionManagementView : IControlsReceiver {
     public VisualElement container;
     public Companion companion;
-    public VisualElementFocusable visualElementFocusable;
 
     private ICompanionManagementViewDelegate viewDelegate;
 
@@ -30,30 +29,23 @@ public class CompanionManagementView : IControlsReceiver {
 
     public VisualElement MakeCompanionManagementView(Companion companion) {
         entityView = new EntityView(companion, 0, false, null, true);
-        visualElementFocusable = entityView.elementFocusable;
         entityView.UpdateWidthAndHeight();
 
         entityView.entityContainer.RegisterCallback<ClickEvent>(CompanionManagementOnClick);
-        entityView.entityContainer.RegisterCallback<NavigationSubmitEvent>((evt) => CompanionManagementNonMouseSelect());
 
-        entityView.entityContainer.RegisterCallback<PointerDownEvent>(CompanionManagementOnPointerDown);
-        visualElementFocusable.SetInputAction(GFGInputAction.SELECT_DOWN, () => CompanionManagementOnPointerDown(null));
+        entityView.entityContainer.RegisterCallback<PointerDownEvent>((evt) => CompanionManagementOnPointerDown(evt, true));
         entityView.entityContainer.RegisterCallback<PointerMoveEvent>(CompanionManagementOnPointerMove);
         entityView.entityContainer.RegisterCallback<PointerUpEvent>(ComapnionManagementOnPointerUp);
 
         entityView.entityContainer.RegisterCallback<PointerLeaveEvent>(ComapnionManagementOnPointerLeave);
         entityView.entityContainer.RegisterCallback<PointerEnterEvent>(CompanionManagementOnPointerEnter);
-        visualElementFocusable.additionalFocusAction += () => CompanionManagementOnPointerEnter(null);
-        visualElementFocusable.additionalUnfocusAction += CompanionManagementOnUnfocus;
 
         entityView.entityContainer.name = companion.companionType.name;
-
-        FocusManager.Instance.RegisterFocusableTarget(visualElementFocusable);
         
         return entityView.entityContainer;
     }
 
-    private void CompanionManagementOnPointerEnter(PointerEnterEvent evt)
+    public void CompanionManagementOnPointerEnter(PointerEnterEvent evt)
     {
         if (viewDelegate.IsSellingCompanions() || viewDelegate.IsDraggingCompanion()) return;
         CreateViewDeckButton();
@@ -64,6 +56,7 @@ public class CompanionManagementView : IControlsReceiver {
 
     public void CompanionManagementNonMouseSelect() {
         if (!viewDelegate.CanDragCompanions()) {
+            Debug.Log("Companion Management On Click not dragging");
             CompanionManagementOnClick(null);
         }
     }
@@ -72,23 +65,21 @@ public class CompanionManagementView : IControlsReceiver {
         viewDelegate.CompanionManagementOnClick(this);
     }
 
-    private void CompanionManagementOnPointerDown(PointerDownEvent evt) {
+    public void CompanionManagementOnPointerDown(PointerDownEvent evt, bool usingMouse) {
+        Debug.Log("Companion on pointer down");
         RemoveCompanionHoverButtons();
         draggingThisCompanion = true;
-        if (evt == null) {
+        if (usingMouse) {
+            viewDelegate.CompanionManagementOnPointerDown(this, evt.position);
+        } else {
             // Handling dragging this companion using keyboard/controller
             FocusManager.Instance.onFocusDelegate += FocusChangedWhileDragging;
-            Vector2 currentPos = visualElementFocusable.GetUIPosition();
-            FocusManager.Instance.DisableFocusableTarget(visualElementFocusable);
-            viewDelegate.CompanionManagementOnPointerDown(this, currentPos);
+            viewDelegate.CompanionManagementOnPointerDown(this, (evt.target as VisualElement).worldBound.center);
             ControlsManager.Instance.RegisterControlsReceiver(this);
-        } else {
-            viewDelegate.CompanionManagementOnPointerDown(this, evt.position);
         }
     }
 
-    private void FocusChangedWhileDragging(IFocusableTarget focusable) {
-        Debug.Log("poopopp " + focusable.GetUIPosition());
+    public void FocusChangedWhileDragging(IFocusableTarget focusable) {
         viewDelegate.CompanionManagementOnPointerMove(this, focusable.GetUIPosition());
     }
 
@@ -96,17 +87,17 @@ public class CompanionManagementView : IControlsReceiver {
         viewDelegate.CompanionManagementOnPointerMove(this, evt.position);
     }
 
-    private void ComapnionManagementOnPointerUp(PointerUpEvent evt) {
+    public void ComapnionManagementOnPointerUp(PointerUpEvent evt) {
         viewDelegate.ComapnionManagementOnPointerUp(this, evt.position);
         draggingThisCompanion = false;
     }
 
-    private void ComapnionManagementOnPointerLeave(PointerLeaveEvent evt) {
+    public void ComapnionManagementOnPointerLeave(PointerLeaveEvent evt) {
         viewDelegate.CompanionManagementOnPointerLeave(this, evt);
         viewDelegate.DestroyTooltip(entityView.entityContainer);
     }
 
-    private void CompanionManagementOnUnfocus() {
+    public void CompanionManagementOnUnfocus() {
         viewDelegate.CompanionManagementOnPointerLeave(this, null);
         viewDelegate.DestroyTooltip(entityView.entityContainer);
         RemoveCompanionHoverButtons();
@@ -237,7 +228,7 @@ public class CompanionManagementView : IControlsReceiver {
             viewDelegate.ComapnionManagementOnPointerUp(this, FocusManager.Instance.GetCurrentFocus().GetUIPosition());
             FocusManager.Instance.onFocusDelegate -= FocusChangedWhileDragging;
             ControlsManager.Instance.UnregisterControlsReceiver(this);
-            FocusManager.Instance.EnableFocusableTarget(visualElementFocusable);
+            viewDelegate.DestroyTooltip(entityView.entityContainer);
         }
     }
 
