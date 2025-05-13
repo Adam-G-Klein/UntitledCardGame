@@ -235,6 +235,6 @@ public class CompanionManagementView : IControlsReceiver {
     public void SwappedControlMethod(ControlsManager.ControlMethod controlMethod)
     {
         // This is gonna be a whole ordeal
-        throw new NotImplementedException();
+        return;
     }
 }

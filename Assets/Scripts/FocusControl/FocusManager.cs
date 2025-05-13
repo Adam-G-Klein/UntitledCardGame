@@ -71,6 +71,7 @@ public class FocusManager : GenericSingleton<FocusManager>, IControlsReceiver
         disabledFocusableTargets.Remove(target);
     }
 
+    // Doesn't stash disabled focusables
     public void StashFocusables(string stashedBy) {
         List<IFocusableTarget> newStashedFocusables = new List<IFocusableTarget>();
         foreach (IFocusableTarget target in focusableTargets) {
@@ -108,14 +109,12 @@ public class FocusManager : GenericSingleton<FocusManager>, IControlsReceiver
             return;
         }
 
-        Debug.Log(disabledFocusableTargets.Count);
         List<IFocusableTarget> focusablesToUnstash = stashedFocusables[stashedBy];
         foreach (IFocusableTarget target in focusablesToUnstash) {
             if (disabledFocusableTargets.Contains(target)) {
                 disabledFocusableTargets.Remove(target);
             }
         }
-        Debug.Log(disabledFocusableTargets.Count);
         stashedFocusables.Remove(stashedBy);
     }
 

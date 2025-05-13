@@ -8,7 +8,8 @@ using UnityEngine.UIElements;
 public class ShopViewController : MonoBehaviour, 
     IShopItemViewDelegate,
     ICompanionManagementViewDelegate,
-    ISellingCompanionConfirmationViewDelegate
+    ISellingCompanionConfirmationViewDelegate,
+    IControlsReceiver
 {
     public UIDocument uiDoc;
     public bool canDragCompanions = false;
@@ -48,13 +49,12 @@ public class ShopViewController : MonoBehaviour,
     // For dragging and dropping companions in the unit management
     private bool isDraggingCompanion = false;
     private CompanionManagementView companionBeingDragged = null;
-    private VisualElement originalParent = null;
     private CompanionManagementSlotView originalSlot = null;
-    private Dictionary<VisualElement, CompanionManagementView> visualElementToCompanionViewMap = new Dictionary<VisualElement, CompanionManagementView>();
     private List<CompanionManagementSlotView> activeSlots = new List<CompanionManagementSlotView>();
     private List<CompanionManagementSlotView> benchSlots = new List<CompanionManagementSlotView>();
     // This is the list of focusables to disable when you start dragging a companion around
     private List<VisualElementFocusable> disableOnCompanionDrag = new List<VisualElementFocusable>();
+    private List<VisualElementFocusable> companionUpgradeFocusables = new List<VisualElementFocusable>();
 
     private IEnumerator notEnoughMoneyCoroutine;
     private IEnumerator upgradeButtonTooltipCoroutine = null;
@@ -66,9 +66,11 @@ public class ShopViewController : MonoBehaviour,
     private Companion currentUpgradeCompanion;
 
     private static string COMPANION_MANAGEMENT = "CompanionManagement";
+    private static string UPGRADE_MENU = "UpgradeMenu";
 
     public void Start() {
         // Init(null);
+        ControlsManager.Instance.RegisterControlsReceiver(this);
     }
 
     public void Init(ShopManager shopManager) {
@@ -151,12 +153,9 @@ public class ShopViewController : MonoBehaviour,
         cancelUpgradeButton.RegisterOnSelected((evt) => CancelUpgrade());
         confirmUpgradeButton.RegisterOnSelected((evt) => ConfirmUpgrade());
         upgradedDeckPreviewButton.RegisterOnSelected((evt) => PreviewUpgradedDeck());
-        FocusManager.Instance.RegisterFocusableTarget(cancelUpgradeButton.AsFocusable());
-        FocusManager.Instance.RegisterFocusableTarget(confirmUpgradeButton.AsFocusable());
-        FocusManager.Instance.RegisterFocusableTarget(upgradedDeckPreviewButton.AsFocusable());
-        FocusManager.Instance.DisableFocusableTarget(cancelUpgradeButton.AsFocusable());
-        FocusManager.Instance.DisableFocusableTarget(confirmUpgradeButton.AsFocusable());
-        FocusManager.Instance.DisableFocusableTarget(upgradedDeckPreviewButton.AsFocusable());
+        companionUpgradeFocusables.Add(cancelUpgradeButton.AsFocusable());
+        companionUpgradeFocusables.Add(confirmUpgradeButton.AsFocusable());
+        companionUpgradeFocusables.Add(upgradedDeckPreviewButton.AsFocusable());
 
         VisualElement questionMark = uiDoc.rootVisualElement.Q<VisualElement>(name:"questionMark");
         questionMark.RegisterCallback<PointerEnterEvent>(ShowHelperText);
@@ -164,8 +163,12 @@ public class ShopViewController : MonoBehaviour,
         VisualElementFocusable questionMarkFocusable = questionMark.AsFocusable();
         questionMarkFocusable.additionalFocusAction += () => ShowHelperText(null);
         questionMarkFocusable.additionalUnfocusAction += () => HideHelperText(null);
-        FocusManager.Instance.RegisterFocusableTarget(questionMarkFocusable);
-        FocusManager.Instance.DisableFocusableTarget(questionMarkFocusable);
+        companionUpgradeFocusables.Add(questionMarkFocusable);
+
+        companionUpgradeFocusables.ForEach((focusable) => {
+            FocusManager.Instance.RegisterFocusableTarget(focusable);
+            FocusManager.Instance.DisableFocusableTarget(focusable);
+        });
     }
 
     private void PreviewUpgradedDeck() {
@@ -301,7 +304,6 @@ public class ShopViewController : MonoBehaviour,
         for (int i = 0; i < companions.Count; i++) {
             CompanionManagementView companionView = new CompanionManagementView(companions[i], this);
             activeSlots[i].InsertCompanion(companionView);
-            visualElementToCompanionViewMap.Add(companionView.container, companionView);
         }
     }
 
@@ -310,7 +312,6 @@ public class ShopViewController : MonoBehaviour,
         for (int i = 0; i < companions.Count; i++) {
             CompanionManagementView companionView = new CompanionManagementView(companions[i], this);
             benchSlots[i].InsertCompanion(companionView);
-            visualElementToCompanionViewMap.Add(companionView.container, companionView);
         }
 
         // I can't fully figure out why this is necessary. Since we're using a scroll view,
@@ -491,8 +492,6 @@ public class ShopViewController : MonoBehaviour,
             slotView.RemoveCompanion();
             if (slotView == slotOver) continue;
             slotView.InsertCompanion(companions[companionIndex++]);
-            // FocusManager.Instance.TestIsAFocusableTarget(visualElementToCompanionViewMap[companions[companionIndex-1]].visualElementFocusable);
-            // Debug.Log("CONTAINS " + visualElementToCompanionViewMap[companions[companionIndex-1]]);
             if (companionIndex == companions.Count) {
                 if (!(i == slots.Count() - 1)) {
                     i += 1;
@@ -500,6 +499,11 @@ public class ShopViewController : MonoBehaviour,
                 }
                 break;
             }
+        }
+        if (slots == activeSlots) {
+            RefreshContainers(benchSlots);
+        } else {
+            RefreshContainers(activeSlots);
         }
     }
 
@@ -539,7 +543,6 @@ public class ShopViewController : MonoBehaviour,
         isDraggingCompanion = false;
         companionBeingDragged = null;
         originalSlot = null;
-        // NonMouseInputManager.Instance.SetUIState(UIState.DEFAULT);
     }
 
     private void DoMoveCompanion(CompanionManagementView companionManagementView, CompanionManagementSlotView movingToSlot) {
@@ -658,18 +661,18 @@ public class ShopViewController : MonoBehaviour,
         StashNonCompanionViewFocusables(this.GetType().Name + "CardBuying");
         FocusManager.Instance.EnableFocusableTarget(selectingCancelButton.AsFocusable());
         List<CompanionManagementView> notApplicable = new List<CompanionManagementView>();
-        foreach (VisualElement child in activeContainer.hierarchy.Children()) {
-            if (child.childCount != 1) continue;
-            CompanionManagementView companion = visualElementToCompanionViewMap[child[0]];
+        foreach (CompanionManagementSlotView slotView in activeSlots) {
+            if (slotView.IsEmpty()) continue;
+            CompanionManagementView companion = slotView.companionManagementView;
             if (!shopManager.IsApplicableCompanion(cardInShop.sourceCompanion, companion.companion)) {
                 notApplicable.Add(companion);
                 FocusManager.Instance.StashFocusableTarget(this.GetType().Name + "CardBuying", GetParentSlotViewForCompanion(companion).veFocusable);
             }
         }
 
-        foreach (VisualElement child in benchScrollView.contentContainer.hierarchy.Children()) {
-            if (child.childCount != 1) continue;
-            CompanionManagementView companion = visualElementToCompanionViewMap[child[0]];
+        foreach (CompanionManagementSlotView slotView in benchSlots) {
+            if (slotView.IsEmpty()) continue;
+            CompanionManagementView companion = slotView.companionManagementView;
             if (!shopManager.IsApplicableCompanion(cardInShop.sourceCompanion, companion.companion)) {
                 notApplicable.Add(companion);
                 FocusManager.Instance.StashFocusableTarget(this.GetType().Name + "CardBuying", GetParentSlotViewForCompanion(companion).veFocusable);
@@ -679,8 +682,6 @@ public class ShopViewController : MonoBehaviour,
         foreach(CompanionManagementView view in notApplicable) {
             view.ShowNotApplicable();
         }
-
-        //NonMouseInputManager.Instance.SetPurchasingCard(cardInShop);
     }
 
     private void StashNonCompanionViewFocusables(string stashedBy) {
@@ -698,16 +699,15 @@ public class ShopViewController : MonoBehaviour,
         selectingCompanionVeil.style.visibility = Visibility.Hidden;
         selectingIndicator.style.visibility = Visibility.Hidden;
         FocusManager.Instance.UnstashFocusables(this.GetType().Name + "CardBuying");
-        foreach (VisualElement child in activeContainer.hierarchy.Children()) {
-            if (child.childCount != 1) continue;
-            visualElementToCompanionViewMap[child[0]].ResetApplicable();
+        foreach (CompanionManagementSlotView slotView in activeSlots) {
+            if (slotView.IsEmpty()) continue;
+            slotView.companionManagementView.ResetApplicable();
         }
 
-        foreach (VisualElement child in benchScrollView.contentContainer.hierarchy.Children()) {
-            if (child.childCount != 1) continue;
-            visualElementToCompanionViewMap[child[0]].ResetApplicable();
+        foreach (CompanionManagementSlotView slotView in benchSlots) {
+            if (slotView.IsEmpty()) continue;
+            slotView.companionManagementView.ResetApplicable();
         }
-        //NonMouseInputManager.Instance.UnSetPurchasingCard();
     }
 
     private void CancelCardBuy(ClickEvent evt) {
@@ -736,7 +736,6 @@ public class ShopViewController : MonoBehaviour,
         canDragCompanions = true;
         selectingCompanionVeil.style.visibility = Visibility.Hidden;
         selectingIndicatorForCardRemovalIndicator.style.visibility = Visibility.Hidden;
-        // NonMouseInputManager.Instance.SetUIState(UIState.DEFAULT);
     }
 
     
@@ -812,8 +811,8 @@ public class ShopViewController : MonoBehaviour,
         if (cardSelectionViewPrefab != null) {
             GameObject cardSelectionViewGo = Instantiate(cardSelectionViewPrefab);
             CardSelectionView cardSelectionView = cardSelectionViewGo.GetComponent<CardSelectionView>();
+            // Card Selection View stashes focusables on setup
             cardSelectionView.Setup(companion.getDeck().cards, companion);
-            FocusManager.Instance.StashFocusables(this.GetType().Name + "DeckView");
         } else { // Not sure why this else exists
             deckViewContentContainer.Clear();
             deckView.style.visibility = Visibility.Visible;
@@ -970,7 +969,8 @@ public class ShopViewController : MonoBehaviour,
         companionUpgradeMenu.AddToClassList("upgrade-menu-container-visible");
         upgradeMenuOuterContainer.AddToClassList("upgrade-menu-outer-container-visible");
         upgradeMenuOuterContainer.pickingMode = PickingMode.Position;
-        // NonMouseInputManager.Instance.SetUIState(UIState.UPGRADING_COMPANION);
+        FocusManager.Instance.StashFocusables(this.GetType().Name + UPGRADE_MENU);
+        companionUpgradeFocusables.ForEach((focusable) => FocusManager.Instance.EnableFocusableTarget(focusable));
     }
 
     private void CancelUpgrade() {
@@ -982,7 +982,8 @@ public class ShopViewController : MonoBehaviour,
         upgradeMenuOuterContainer.RemoveFromClassList("upgrade-menu-outer-container-visible");
         upgradeMenuOuterContainer.pickingMode = PickingMode.Ignore;
         shopManager.CancelUpgradePurchase();
-        // NonMouseInputManager.Instance.SetUIState(UIState.DEFAULT);
+        FocusManager.Instance.UnstashFocusables(this.GetType().Name + UPGRADE_MENU);
+        companionUpgradeFocusables.ForEach((focusable) => FocusManager.Instance.DisableFocusableTarget(focusable));
     }
 
     private void ConfirmUpgrade() {
@@ -995,7 +996,8 @@ public class ShopViewController : MonoBehaviour,
         upgradeMenuOuterContainer.RemoveFromClassList("upgrade-menu-outer-container-visible");
         upgradeMenuOuterContainer.pickingMode = PickingMode.Ignore;
         shopManager.ConfirmUpgradePurchase();
-        // NonMouseInputManager.Instance.SetUIState(UIState.DEFAULT);
+        FocusManager.Instance.UnstashFocusables(this.GetType().Name + UPGRADE_MENU);
+        companionUpgradeFocusables.ForEach((focusable) => FocusManager.Instance.DisableFocusableTarget(focusable));
     }
 
     public void DisplayTooltip(VisualElement element, TooltipViewModel tooltipViewModel, bool forCompanionManagementView) {
@@ -1017,6 +1019,26 @@ public class ShopViewController : MonoBehaviour,
     public void DestroyTooltip(VisualElement element) {
         if(tooltipMap.ContainsKey(element)) {
             Destroy(tooltipMap[element]);
+        }
+    }
+
+    public void ProcessGFGInputAction(GFGInputAction action)
+    {
+        // Just need the IControlsReceiver for the SwappedControlMethod
+        return;
+    }
+
+    public void SwappedControlMethod(ControlsManager.ControlMethod controlMethod)
+    {
+        if (controlMethod == ControlsManager.ControlMethod.Mouse && isDraggingCompanion) {
+            // abort dragging companion in a *nice* way
+            VisualElement tempContainer = companionBeingDragged.container.parent;
+            originalSlot.InsertCompanion(companionBeingDragged);
+            originalSlot.SetNotHighlighted();
+            uiDoc.rootVisualElement.Remove(tempContainer);
+            isDraggingCompanion = false;
+            companionBeingDragged = null;
+            originalSlot = null;
         }
     }
 }
