@@ -20,7 +20,7 @@ GameObject:
   - component: {fileID: 6627301573617809454}
   - component: {fileID: 7940304150393147120}
   - component: {fileID: 7195285628578429125}
-  - component: {fileID: 6878301995355592893}
+  - component: {fileID: 6705822849354828075}
   m_Layer: 0
   m_Name: WorldspaceCard
   m_TagString: Untagged
@@ -212,6 +212,7 @@ MonoBehaviour:
   hoverSFXVolume: 0.1
   hoverYOffset: 0.7
   hoverZOffset: -0.5
+  hoverObjectToMove: {fileID: 0}
   cardCastVFXPrefab: {fileID: 6841246063235012224, guid: bf344b2c905c8764ba1ea4f4230150c2, type: 3}
   cardExhaustVFXPrefab: {fileID: 7939549763701254822, guid: e84fb44c2a5a75e49a192002a9096046, type: 3}
   interactable: 0
@@ -317,7 +318,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28ab8638594f3ad4e8fbce374926ceac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6878301995355592893
+--- !u!114 &6705822849354828075
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -326,12 +327,56 @@ MonoBehaviour:
   m_GameObject: {fileID: 6517496529593941963}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ecfb36b454b06e46b71bf82572d1581, type: 3}
+  m_Script: {fileID: 11500000, guid: 695ffd7c5d5d49b43af7fe3970a8abed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hovered: 0
-  hoverableType: 0
-  companionTypeSO: {fileID: 0}
+  focusEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6901440839600862463}
+        m_TargetAssemblyTypeName: PlayableCard, Assembly-CSharp
+        m_MethodName: OnPointerEnterVoid
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  unfocusEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6901440839600862463}
+        m_TargetAssemblyTypeName: PlayableCard, Assembly-CSharp
+        m_MethodName: OnPointerExitVoid
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  eventList:
+  - action: 4
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6901440839600862463}
+          m_TargetAssemblyTypeName: PlayableCard, Assembly-CSharp
+          m_MethodName: OnPointerClickVoid
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &7307527227678954699
 GameObject:
   m_ObjectHideFlags: 0

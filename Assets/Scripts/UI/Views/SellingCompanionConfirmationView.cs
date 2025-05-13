@@ -49,10 +49,11 @@ public class SellingCompanionConfirmationView {
         visible = true;
         rootVisualElement.style.visibility = Visibility.Visible;
         Label confirmSellCompanionLabel = rootVisualElement.Q<Label>("selling-companion-confirmation-label");
+        CompanionSellValue sellValue = viewDelegate.CalculateCompanionSellPrice(companionView.companion);
         string replacedText = String.Format(
-                originalSellingCompanionConfirmationText, 
-                companionView.companion.GetName(), 
-                viewDelegate.CalculateCompanionSellPrice(companionView.companion));
+            originalSellingCompanionConfirmationText,
+            companionView.companion.GetName(),
+            sellValue.Total());
         confirmSellCompanionLabel.text = replacedText;
         // Enable focusables
         FocusManager.Instance.EnableFocusableTarget(sellingYes.AsFocusable());

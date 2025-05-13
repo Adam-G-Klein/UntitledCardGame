@@ -5,5 +5,5 @@ using UnityEngine.UIElements;
 public interface ISellingCompanionConfirmationViewDelegate {
     void ConfirmSellCompanion();
     void StopSellingCompanion();
-    int CalculateCompanionSellPrice(Companion companion);
+    CompanionSellValue CalculateCompanionSellPrice(Companion companion);
 }

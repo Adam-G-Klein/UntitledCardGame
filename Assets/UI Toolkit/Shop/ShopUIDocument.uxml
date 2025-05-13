@@ -151,7 +151,7 @@
                     <ui:VisualElement style="flex-grow: 1; width: 30%; align-items: center; justify-content: center;">
                         <ui:Label tabindex="-1" text="Upgraded Companion" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 24px;" />
                         <ui:VisualElement name="upgradedCompanion" style="flex-grow: 1; width: auto;" />
-                        <ui:Button text="Upgraded Deck Preview" parse-escape-sequences="true" display-tooltip-when-elided="true" name="upgradedDeckPreview" style="position: absolute; right: auto; bottom: auto; top: 105%; font-size: 20px;" />
+                        <ui:Button text="Upgraded Deck Preview" parse-escape-sequences="true" display-tooltip-when-elided="true" name="upgradedDeckPreview" class="focusable-button" style="position: absolute; right: auto; bottom: auto; top: 105%; font-size: 20px;" />
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="explainerText" class="explainer-text-container" style="top: 60px; right: 60px;">
