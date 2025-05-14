@@ -40,12 +40,14 @@ public class SellingCompanionConfirmationView {
     public void Hide() {
         visible = false;
         rootVisualElement.style.visibility = Visibility.Hidden;
+        FocusManager.Instance.UnstashFocusables(this.GetType().Name);
         // disable focusables
         FocusManager.Instance.DisableFocusableTarget(sellingYes.AsFocusable());
         FocusManager.Instance.DisableFocusableTarget(sellingNo.AsFocusable());
     }
 
     public void Show(CompanionManagementView companionView) {
+        FocusManager.Instance.StashFocusables(this.GetType().Name);
         visible = true;
         rootVisualElement.style.visibility = Visibility.Visible;
         Label confirmSellCompanionLabel = rootVisualElement.Q<Label>("selling-companion-confirmation-label");

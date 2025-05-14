@@ -33,6 +33,9 @@ public class CompanionManagementSlotView {
         veFocusable.SetInputAction(GFGInputAction.SELECT_DOWN, () => SelectDownHandler());
         veFocusable.additionalFocusAction += FocusHandler;
         veFocusable.additionalUnfocusAction += UnfocusHandler;
+
+        veFocusable.SetInputAction(GFGInputAction.VIEW_DECK, ViewDeckHandler);
+        veFocusable.SetInputAction(GFGInputAction.SELL_COMPANION, SellCompanionHandler);
     }
 
     public void SetBlocked() {
@@ -98,6 +101,18 @@ public class CompanionManagementSlotView {
     public void UnfocusHandler() {
         if (companionManagementView != null) {
             companionManagementView.CompanionManagementOnUnfocus();
+        }
+    }
+
+    private void ViewDeckHandler() {
+        if (companionManagementView != null) {
+            companionManagementView.ViewDeckButtonOnClick();
+        }
+    }
+
+    private void SellCompanionHandler() {
+        if (companionManagementView != null) {
+            companionManagementView.SellCompanionButtonOnClick();
         }
     }
 

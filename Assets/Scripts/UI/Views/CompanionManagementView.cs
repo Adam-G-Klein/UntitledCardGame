@@ -145,12 +145,12 @@ public class CompanionManagementView : IControlsReceiver {
         viewDelegate.AddToRoot(sellCompanionButton);
     }
 
-    private void ViewDeckButtonOnClick() {
+    public void ViewDeckButtonOnClick() {
         RemoveCompanionHoverButtons();
         viewDelegate.ShowCompanionDeckView(companion);
     }
 
-    private void SellCompanionButtonOnClick() {
+    public void SellCompanionButtonOnClick() {
         RemoveCompanionHoverButtons();
         viewDelegate.SellCompanion(this);
     }

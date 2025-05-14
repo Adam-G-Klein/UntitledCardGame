@@ -1106,6 +1106,118 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1343596577144208430, guid: b3624fa3d2367944f9f9ff9793633969, type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 1343596577144208430, guid: b3624fa3d2367944f9f9ff9793633969, type: 3}
+      propertyPath: m_ActionEvents.Array.data[21].m_ActionId
+      value: da1e2eb3-c33a-43fa-aa32-e5d7b4c1f812
+      objectReference: {fileID: 0}
+    - target: {fileID: 1343596577144208430, guid: b3624fa3d2367944f9f9ff9793633969, type: 3}
+      propertyPath: m_ActionEvents.Array.data[22].m_ActionId
+      value: 9331cc6c-1df6-47dc-8292-2ec3e8507f2a
+      objectReference: {fileID: 0}
+    - target: {fileID: 1343596577144208430, guid: b3624fa3d2367944f9f9ff9793633969, type: 3}
+      propertyPath: m_ActionEvents.Array.data[23].m_ActionId
+      value: 6b540f65-225c-44f4-acc6-f29d1aabeb49
+      objectReference: {fileID: 0}
+    - target: {fileID: 1343596577144208430, guid: b3624fa3d2367944f9f9ff9793633969, type: 3}
+      propertyPath: m_ActionEvents.Array.data[21].m_ActionName
+      value: Signified/ViewDeck[/XInputControllerWindows/buttonNorth,/Keyboard/q]
+      objectReference: {fileID: 0}
+    - target: {fileID: 1343596577144208430, guid: b3624fa3d2367944f9f9ff9793633969, type: 3}
+      propertyPath: m_ActionEvents.Array.data[22].m_ActionName
+      value: Signified/SellCompanion[/XInputControllerWindows/buttonWest,/Keyboard/e]
+      objectReference: {fileID: 0}
+    - target: {fileID: 1343596577144208430, guid: b3624fa3d2367944f9f9ff9793633969, type: 3}
+      propertyPath: m_ActionEvents.Array.data[23].m_ActionName
+      value: Signified/ViewDiscard[/XInputControllerWindows/buttonWest,/Keyboard/e]
+      objectReference: {fileID: 0}
+    - target: {fileID: 1343596577144208430, guid: b3624fa3d2367944f9f9ff9793633969, type: 3}
+      propertyPath: m_ActionEvents.Array.data[21].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1343596577144208430, guid: b3624fa3d2367944f9f9ff9793633969, type: 3}
+      propertyPath: m_ActionEvents.Array.data[22].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1343596577144208430, guid: b3624fa3d2367944f9f9ff9793633969, type: 3}
+      propertyPath: m_ActionEvents.Array.data[23].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1343596577144208430, guid: b3624fa3d2367944f9f9ff9793633969, type: 3}
+      propertyPath: m_ActionEvents.Array.data[21].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1343596577144208430, guid: b3624fa3d2367944f9f9ff9793633969, type: 3}
+      propertyPath: m_ActionEvents.Array.data[22].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1343596577144208430, guid: b3624fa3d2367944f9f9ff9793633969, type: 3}
+      propertyPath: m_ActionEvents.Array.data[23].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1343596577144208430, guid: b3624fa3d2367944f9f9ff9793633969, type: 3}
+      propertyPath: m_ActionEvents.Array.data[21].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1808021124}
+    - target: {fileID: 1343596577144208430, guid: b3624fa3d2367944f9f9ff9793633969, type: 3}
+      propertyPath: m_ActionEvents.Array.data[22].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1808021124}
+    - target: {fileID: 1343596577144208430, guid: b3624fa3d2367944f9f9ff9793633969, type: 3}
+      propertyPath: m_ActionEvents.Array.data[23].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1808021124}
+    - target: {fileID: 1343596577144208430, guid: b3624fa3d2367944f9f9ff9793633969, type: 3}
+      propertyPath: m_ActionEvents.Array.data[21].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1343596577144208430, guid: b3624fa3d2367944f9f9ff9793633969, type: 3}
+      propertyPath: m_ActionEvents.Array.data[22].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1343596577144208430, guid: b3624fa3d2367944f9f9ff9793633969, type: 3}
+      propertyPath: m_ActionEvents.Array.data[23].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1343596577144208430, guid: b3624fa3d2367944f9f9ff9793633969, type: 3}
+      propertyPath: m_ActionEvents.Array.data[21].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: handleViewDeck
+      objectReference: {fileID: 0}
+    - target: {fileID: 1343596577144208430, guid: b3624fa3d2367944f9f9ff9793633969, type: 3}
+      propertyPath: m_ActionEvents.Array.data[22].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: handleSellCompanion
+      objectReference: {fileID: 0}
+    - target: {fileID: 1343596577144208430, guid: b3624fa3d2367944f9f9ff9793633969, type: 3}
+      propertyPath: m_ActionEvents.Array.data[23].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: handleViewDiscard
+      objectReference: {fileID: 0}
+    - target: {fileID: 1343596577144208430, guid: b3624fa3d2367944f9f9ff9793633969, type: 3}
+      propertyPath: m_ActionEvents.Array.data[21].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ControlsManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1343596577144208430, guid: b3624fa3d2367944f9f9ff9793633969, type: 3}
+      propertyPath: m_ActionEvents.Array.data[22].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ControlsManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1343596577144208430, guid: b3624fa3d2367944f9f9ff9793633969, type: 3}
+      propertyPath: m_ActionEvents.Array.data[23].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ControlsManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1343596577144208430, guid: b3624fa3d2367944f9f9ff9793633969, type: 3}
+      propertyPath: m_ActionEvents.Array.data[21].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1343596577144208430, guid: b3624fa3d2367944f9f9ff9793633969, type: 3}
+      propertyPath: m_ActionEvents.Array.data[22].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1343596577144208430, guid: b3624fa3d2367944f9f9ff9793633969, type: 3}
+      propertyPath: m_ActionEvents.Array.data[23].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 4658088288143552190, guid: b3624fa3d2367944f9f9ff9793633969, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.020032
@@ -1151,6 +1263,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b3624fa3d2367944f9f9ff9793633969, type: 3}
+--- !u!114 &1808021124 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8518733848191120987, guid: b3624fa3d2367944f9f9ff9793633969, type: 3}
+  m_PrefabInstance: {fileID: 1808021123}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a6a522fb2049db4b9c39caced015a46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1875129424
 GameObject:
   m_ObjectHideFlags: 0

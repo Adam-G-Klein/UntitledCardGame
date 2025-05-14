@@ -111,6 +111,26 @@ public class ControlsManager : GenericSingleton<ControlsManager>
             ProcessInput(GFGInputAction.SECONDARY_RIGHT);
         }
     }
+    public void handleViewDeck(InputAction.CallbackContext context) {
+        if(context.phase == InputActionPhase.Performed) {
+            Debug.Log("[ControlsManager] handleSecondaryNavigateRight called");
+            ProcessInput(GFGInputAction.VIEW_DECK);
+        }
+    }
+
+    public void handleViewDiscard(InputAction.CallbackContext context) {
+        if(context.phase == InputActionPhase.Performed) {
+            Debug.Log("[ControlsManager] handleSecondaryNavigateRight called");
+            ProcessInput(GFGInputAction.VIEW_DISCARD);
+        }
+    }
+
+    public void handleSellCompanion(InputAction.CallbackContext context) {
+        if(context.phase == InputActionPhase.Performed) {
+            Debug.Log("[ControlsManager] handleSecondaryNavigateRight called");
+            ProcessInput(GFGInputAction.SELL_COMPANION);
+        }
+    }
 
     private void ProcessInput(GFGInputAction action) {
         CheckSwapControlMethod(ControlMethod.KeyboardController);

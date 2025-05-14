@@ -13,11 +13,11 @@ public enum GFGInputAction {
     SELECT,
     BACK,
     END_TURN,
-    OPEN_COMPANION_1_DRAW,
-    OPEN_COMPANION_2_DRAW,
-    OPEN_COMPANION_3_DRAW,
-    OPEN_COMPANION_4_DRAW,
-    OPEN_COMPANION_5_DRAW,
+    OPEN_COMPANION_1_DRAW, // Deprecated
+    OPEN_COMPANION_2_DRAW, // Deprecated
+    OPEN_COMPANION_3_DRAW, // Deprecated
+    OPEN_COMPANION_4_DRAW, // Deprecated
+    OPEN_COMPANION_5_DRAW, // Deprecated
     NONE, // used for the controller mapping of the stick being in the center of its range
     CUTSCENE_SKIP,
     SECONDARY_UP,
@@ -25,7 +25,10 @@ public enum GFGInputAction {
     SECONDARY_RIGHT,
     SECONDARY_LEFT,
     SELECT_DOWN,
-    SELECT_UP
+    SELECT_UP,
+    VIEW_DECK,
+    VIEW_DISCARD,
+    SELL_COMPANION
 }
 
 public enum InputMethod {
