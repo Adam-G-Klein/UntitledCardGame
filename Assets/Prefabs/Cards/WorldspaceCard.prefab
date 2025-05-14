@@ -377,13 +377,9 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - action: 4
-    unityEvent:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 6901440839600862463}
-          m_TargetAssemblyTypeName: PlayableCard, Assembly-CSharp
-          m_MethodName: OnPointerClickVoid
+        - m_Target: {fileID: 4902976140308491489}
+          m_TargetAssemblyTypeName: Targetable, Assembly-CSharp
+          m_MethodName: OnSubmit
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}

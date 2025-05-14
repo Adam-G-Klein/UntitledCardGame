@@ -27,6 +27,11 @@ public class Targetable : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
         TargetableClicked();
     }
 
+    // Needed for selecting when focused
+    public void OnSubmit() {
+        TargetableClicked();
+    }
+
     private void TargetableClicked() {
         Debug.LogError("Targetable: Clicked on targetable");
         if(targetType == TargetType.Companion) {
