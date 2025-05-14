@@ -1254,8 +1254,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 417dbc88ad319d240902e47ccc989b98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interruptEffectWorkflow: 0
-  interruptEffectWorkflowForCalculation: 0
 --- !u!4 &475172660
 Transform:
   m_ObjectHideFlags: 0
@@ -4341,6 +4339,10 @@ PrefabInstance:
       propertyPath: animateHearts
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5946589008991207965, guid: a01603c96ed613e4dadddb16c94272d3, type: 3}
+      propertyPath: newCardViewUIPrefab
+      value: 
+      objectReference: {fileID: 7796338826870056937, guid: dfe80e002ae2aa74faee37067abac6d2, type: 3}
     - target: {fileID: 5946589008991207965, guid: a01603c96ed613e4dadddb16c94272d3, type: 3}
       propertyPath: pulseAnimationSpeed
       value: 1

@@ -105,6 +105,8 @@ public class EntityView : IUIEventReceiver {
         pillar.AddToClassList("entity-pillar-sizing");
         pillar.AddToClassList("focusable");
         elementFocusable = pillar.AsFocusable();
+        elementFocusable.SetInputAction(GFGInputAction.VIEW_DECK, () => DrawButtonOnClick(null));
+        elementFocusable.SetInputAction(GFGInputAction.VIEW_DISCARD, () => DiscardButtonOnClick(null));
 
         // pillar.RegisterCallback<ClickEvent>(EntityOnPointerClick);
         pillar.RegisterOnSelected(() => EntityOnPointerClick(null));
@@ -377,7 +379,7 @@ public class EntityView : IUIEventReceiver {
     }
 
     private void DrawButtonOnClick(ClickEvent evt) {
-        evt.StopPropagation();
+        if (evt != null) evt.StopPropagation();
         Debug.Log("Draw button clicked");
         DeckInstance deckInstance = uiEntity.GetDeckInstance();
         if (deckInstance == null) {
@@ -388,7 +390,7 @@ public class EntityView : IUIEventReceiver {
 }
 
     private void DiscardButtonOnClick(ClickEvent evt) {
-        evt.StopPropagation();
+        if (evt != null) evt.StopPropagation();
         Debug.Log("Discard button clicked");
         DeckInstance deckInstance = uiEntity.GetDeckInstance();
         if (deckInstance == null) {

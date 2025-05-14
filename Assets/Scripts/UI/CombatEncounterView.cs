@@ -33,6 +33,8 @@ public class CombatEncounterView : MonoBehaviour,
 
     [SerializeField]
     private GameObject cardViewUIPrefab;
+    [SerializeField]
+    private GameObject newCardViewUIPrefab;
     private bool inMenu = false;
     private bool inDeckView = false;
     private bool combatOver = false;
@@ -141,15 +143,21 @@ public class CombatEncounterView : MonoBehaviour,
 
     public void InstantiateCardView(List<Card> cardList, string promptText)
     {
+        // GameObject gameObject = GameObject.Instantiate(
+        //         cardViewUIPrefab,
+        //         Vector3.zero,
+        //         Quaternion.identity);
+        // CardViewUI cardViewUI = gameObject.GetComponent<CardViewUI>();
+        // cardViewUI.Setup(cardList,
+        //     0,
+        //     promptText,
+        //     0);
         GameObject gameObject = GameObject.Instantiate(
-                cardViewUIPrefab,
+                newCardViewUIPrefab,
                 Vector3.zero,
                 Quaternion.identity);
-            CardViewUI cardViewUI = gameObject.GetComponent<CardViewUI>();
-            cardViewUI.Setup(cardList,
-                0,
-                promptText,
-                0);
+        CardSelectionView cardSelectionView = gameObject.GetComponent<CardSelectionView>();
+        cardSelectionView.Setup(cardList, promptText);
     }
 
     public Sprite GetEnemyIntentImage(EnemyIntentType enemyIntentType)
