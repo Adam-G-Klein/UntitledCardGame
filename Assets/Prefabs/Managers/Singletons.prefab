@@ -550,6 +550,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 6b540f65-225c-44f4-acc6-f29d1aabeb49
     m_ActionName: Signified/ViewDiscard[/XInputControllerWindows/buttonWest,/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8518733848191120987}
+        m_TargetAssemblyTypeName: ControlsManager, Assembly-CSharp
+        m_MethodName: handleEndTurn
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 62617545-fe5c-4a15-8dab-5a09983a8494
+    m_ActionName: Signified/EndTurn[/SwitchProControllerHID/rightTrigger]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Signified

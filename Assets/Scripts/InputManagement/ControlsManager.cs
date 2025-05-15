@@ -56,6 +56,13 @@ public class ControlsManager : GenericSingleton<ControlsManager>
         }
     }
 
+    public void handleEndTurn(InputAction.CallbackContext context) {
+        if(context.phase == InputActionPhase.Performed) {
+            Debug.Log("[ControlsManager] handleEndTurn called");
+            ProcessInput(GFGInputAction.END_TURN);
+        }
+    }
+
     public void handleNavigateUp(InputAction.CallbackContext context) {
         if(context.phase == InputActionPhase.Performed) {
             Debug.Log("[ControlsManager] handleNavigateUp called");

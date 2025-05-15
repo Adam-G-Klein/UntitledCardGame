@@ -8,7 +8,7 @@ using TMPro;
 using UnityEngine.UIElements;
 
 [RequireComponent(typeof(EndEncounterEventListener))]
-public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IEncounterBuilder
+public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IEncounterBuilder, IControlsReceiver
 {
     public GameStateVariableSO gameState;
     public CombatEncounterView combatEncounterView;
@@ -71,6 +71,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     }
 
     void LateStart() {
+        ControlsManager.Instance.RegisterControlsReceiver(this);
         gameState.activeEncounter.GetValue().BuildWithEncounterBuilder(this);
         ManaManager.Instance.SetManaPerTurn(gameState.playerData.GetValue().manaPerTurn);
         RegisterCombatEncounterStateActions();
@@ -246,5 +247,18 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
 
     public void ToggleUIDocuments(bool inMenu) {
         EnemyEncounterViewModel.Instance.SetInMenu(inMenu);
+    }
+
+    public void ProcessGFGInputAction(GFGInputAction action)
+    {
+        if (action == GFGInputAction.END_TURN && HotkeyManager.Instance.endTurnHotkeyEnabled) {
+            HotkeyManager.Instance.EndTurn();
+        }
+    }
+
+    public void SwappedControlMethod(ControlsManager.ControlMethod controlMethod)
+    {
+        // just needed to implement the interface
+        return;
     }
 }
