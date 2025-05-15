@@ -115,7 +115,7 @@ public class PlayableCard : MonoBehaviour,
             Debug.Log("DONE WITH exhaust when played coroutine");
 
             EnemyEncounterManager.Instance.SetCastingCard(false);
-            if (NonMouseInputManager.Instance.inputMethod != InputMethod.Mouse) PlayerHand.Instance.HoverNextCard(cardPlayedIndex);
+            PlayerHand.Instance.HoverNextCard(cardPlayedIndex);
 
             // Add a WaitForSeconds so that the target hovering does not break when using keyboard.
             yield return new WaitForSeconds(0.5f);
@@ -125,7 +125,7 @@ public class PlayableCard : MonoBehaviour,
             yield return StartCoroutine(PlayerHand.Instance.SafeRemoveCardFromHand(this));
 
             EnemyEncounterManager.Instance.SetCastingCard(false);
-            if (NonMouseInputManager.Instance.inputMethod != InputMethod.Mouse) PlayerHand.Instance.HoverNextCard(cardPlayedIndex);
+            PlayerHand.Instance.HoverNextCard(cardPlayedIndex);
 
             yield return StartCoroutine(PlayerHand.Instance.ResizeHand(this));
             yield return StartCoroutine(CardCastVFX(this.gameObject));
@@ -139,7 +139,7 @@ public class PlayableCard : MonoBehaviour,
             yield return PlayerHand.Instance.OnHandEmpty();
         } else if(ControlsManager.Instance.GetControlMethod() == ControlsManager.ControlMethod.KeyboardController) {
             Debug.Log("Trying to a hover a new card now that the card has been played");
-            PlayerHand.Instance.FocusACard(this);
+            //PlayerHand.Instance.FocusACard(this);
         }
         Debug.Log("FINISHED CardFinishCastingCallback");
     }

@@ -154,8 +154,10 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             // Hack to try to get Pythia deck shuffling on start of turn working.
             EffectManager.Instance.invokeEffectWorkflow(new EffectDocument(), new List<EffectStep>(), null);
 
-            if (NonMouseInputManager.Instance.inputMethod != InputMethod.Mouse && cardsInHand.IndexOf(gameObject.GetComponent<PlayableCard>()) == indexToHover) {
-                NonMouseInputManager.Instance.hover(gameObject.GetComponent<PlayableCard>().GetComponent<Hoverable>());
+            if (cardsInHand.IndexOf(gameObject.GetComponent<PlayableCard>()) == indexToHover) {
+                if (cardsInHand[indexToHover].TryGetComponent<GameObjectFocusable>(out GameObjectFocusable goFocusable)) {
+                    FocusManager.Instance.SetFocus(goFocusable);
+                }
                 indexToHover = -1;
                 return;
             }
@@ -176,11 +178,12 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             return;
         }
         indexToHover = -1;
-        if (cardsInHand.Count <= previouslyPlayedCardIndex) {
-            if (NonMouseInputManager.Instance.currentlyHovered != null) NonMouseInputManager.Instance.hover(cardsInHand[0].GetComponent<Hoverable>());
-        } else {
-            if (NonMouseInputManager.Instance.currentlyHovered != null) NonMouseInputManager.Instance.hover(cardsInHand[previouslyPlayedCardIndex].GetComponent<Hoverable>());
+        int nextHoverIndex = cardsInHand.Count <= previouslyPlayedCardIndex ? 0 : previouslyPlayedCardIndex;
+
+        if (cardsInHand[nextHoverIndex].TryGetComponent<GameObjectFocusable>(out GameObjectFocusable goFocusable)) {
+            FocusManager.Instance.SetFocus(goFocusable);
         }
+        
     }
 
     public void TurnPhaseChangedEventHandler(TurnPhaseEventInfo info) {
