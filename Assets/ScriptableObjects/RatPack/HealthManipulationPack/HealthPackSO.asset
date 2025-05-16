@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af4bd383aa4004734b8225ab9929436c, type: 3}
+  m_Name: HealthPackSO
+  m_EditorClassIdentifier: 
+  packName: Health
+  packDescription: Provides healing and value when companions are hurt!
+  companionPoolSO: {fileID: 11400000, guid: d0363094ea2bb4178822253517b1a87a, type: 2}
+  cardFrame: {fileID: 0}
+  cardBack: {fileID: 0}

@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/packSelectionView.uss?fileID=7433441132597879392&amp;guid=be2937b99825d4ce0bdb1153fbb28d44&amp;type=3#packSelectionView" />
+    <ui:VisualElement name="packBackground" class="packBackground">
+        <ui:VisualElement name="darkOverlay" class="darkOverlay" />
+        <ui:Label tabindex="-1" text="Pack Title" parse-escape-sequences="true" display-tooltip-when-elided="true" name="packTitle" style="font-size: 20px;" />
+        <ui:Label tabindex="-1" text="Pack Description Pack Description Pack Description" parse-escape-sequences="true" display-tooltip-when-elided="true" name="packDescription" style="white-space: normal; -unity-text-align: upper-center;" />
+        <ui:Button text="Submit" parse-escape-sequences="true" display-tooltip-when-elided="true" name="submitButton" focusable="false" picking-mode="Ignore" class="submitButton" />
+    </ui:VisualElement>
+</ui:UXML>
