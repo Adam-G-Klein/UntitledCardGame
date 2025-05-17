@@ -24,7 +24,6 @@ public class EntityAbility
         OnFriendDeath,
         OnDeath,
         OnCardCast,
-        OnAttackCardCast,
         OnCombine,
         OnCardExhausted,
         OnDeckShuffled,
@@ -35,5 +34,6 @@ public class EntityAbility
         OnEntityHealed,
         OnCardDiscard,
         OnBlockGained,
+        OnAttackCardCast,
     }
 }
