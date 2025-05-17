@@ -56,7 +56,6 @@ MonoBehaviour:
         effectSteps:
         - rid: 7401433128868512212
         - rid: 7401433128868512213
-        - rid: 7401433128868512214
     - rid: 7401433128868512212
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -81,9 +80,3 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
-    - rid: 7401433128868512214
-      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: DialogueStep
-        line: this looks scrumptious
-        lineTime: 1.5

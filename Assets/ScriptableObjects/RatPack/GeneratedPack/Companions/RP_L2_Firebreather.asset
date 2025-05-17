@@ -59,7 +59,6 @@ MonoBehaviour:
         - rid: 2034230176448512932
         - rid: 2034230176448512829
         - rid: 2034230176448512927
-        - rid: 2034230176448512975
         - rid: 2034230176448512928
         - rid: 2034230176448512930
     - rid: 2034230017118175444
@@ -122,9 +121,3 @@ MonoBehaviour:
       data:
         effectStepName: EndWorkflowIfListEmpty
         inputKey1: statusCards
-    - rid: 2034230176448512975
-      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: DialogueStep
-        line: '>:)'
-        lineTime: 0.5
