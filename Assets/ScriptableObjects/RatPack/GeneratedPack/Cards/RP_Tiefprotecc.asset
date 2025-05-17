@@ -10,70 +10,41 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: RP_StimulusCheck
+  m_Name: RP_Tiefprotecc
   m_EditorClassIdentifier: 
-  Name: Stimulus Check
-  Description: Draw 1 card from each companion, then shuffle a "Wound" card into
-    this companion's deck
+  Name: Tiefprotecc
+  Description: Give target companion 10 block and create an unplayable "Wound" Status
+    card in hand for them
   defaultValues: []
-  Cost: 1
-  Artwork: {fileID: 21300000, guid: e8c1b164e48b3ed4ea21cc0ef5d14b1a, type: 3}
+  Cost: 0
+  Artwork: {fileID: 21300000, guid: 35286054ab881eb4993a26c55a12dd5a, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
   retain: 0
   effectWorkflows:
-  - rid: 5602892874868589218
+  - rid: 5602892561590779943
   onExhaustEffectWorkflow:
     rid: -2
   onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
-  tooltips: 13000000
+  tooltips: 
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 1274772082283774356
+    - rid: 1274772082283774706
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
-        inputKey: all
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        inputKey: target
+        prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
         scale: 1.5
-    - rid: 4463206079571951821
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: all
-        validTargets: 00000000
-        number: 1
-        specialTargetRule: 1
-        cantCancelTargetting: 0
-    - rid: 4463206079571951822
-      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: DrawCards
-        inputKey: all
-        outputKey: 
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
-    - rid: 5602892874868589218
-      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
-      data:
-        effectSteps:
-        - rid: 5602892874868589219
-        - rid: 4463206079571951821
-        - rid: 4463206079571951822
-        - rid: 5602892874868589220
-        - rid: 1274772082283774356
-    - rid: 5602892874868589219
+    - rid: 5280922841426165942
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
@@ -84,16 +55,46 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 4
         cantCancelTargetting: 0
-    - rid: 5602892874868589220
-      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
+    - rid: 5602892561590779943
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: AddCardsToDeck
-        inputKey: self
+        effectSteps:
+        - rid: 5280922841426165942
+        - rid: 5602892561590779944
+        - rid: 7401433558763438285
+        - rid: 5602892561590779945
+        - rid: 1274772082283774706
+    - rid: 5602892561590779944
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: target
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 0
+        cantCancelTargetting: 0
+    - rid: 5602892561590779945
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: target
+        statusEffect: 2
+        scale: 10
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+    - rid: 7401433558763438285
+      type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: AddCardsToHand
+        entityFromKey: target
         cardTypes:
-        - {fileID: 11400000, guid: 367e46b6621aa4d0186413c566fc3329, type: 2}
-        addToDeckMethod: 1
+        - {fileID: 11400000, guid: a01e6780b2964496da60664e148acadb, type: 2}
         getCardsFromKey: 0
         inputCardsKey: 
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+        outputKey: 
