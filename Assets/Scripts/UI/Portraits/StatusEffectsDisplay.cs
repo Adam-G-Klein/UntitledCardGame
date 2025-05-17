@@ -5,7 +5,8 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UIElements;
 
-public enum StatusEffectType {
+public enum StatusEffectType
+{
     Strength,
     Weakness,
     // How we'll implement block for now
@@ -19,7 +20,10 @@ public enum StatusEffectType {
     PlatedArmor,
     Orb,
     Thorns,
-    MoneyOnDeath
+    MoneyOnDeath,
+    Charge,
+    BonusBlock,
+    MaxBlockToLoseAtEndOfTurn
 }
 
 public class StatusEffectsDisplayViewModel {

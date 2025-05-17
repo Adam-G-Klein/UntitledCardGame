@@ -63,7 +63,8 @@ public class CompanionInstance : MonoBehaviour, IUIEntity
             combatInstance.UpdateStatusEffects(new List<StatusEffectType> {
                 StatusEffectType.Defended,
                 StatusEffectType.TemporaryStrength,
-                StatusEffectType.Invulnerability})
+                StatusEffectType.Invulnerability,
+                StatusEffectType.MaxBlockToLoseAtEndOfTurn}) // needs to be after defended to ensure block is maintained
         ));
         statusEffectTriggers.Add(new TurnPhaseTrigger(
             TurnPhase.START_PLAYER_TURN,
@@ -73,7 +74,7 @@ public class CompanionInstance : MonoBehaviour, IUIEntity
         statusEffectTriggers.Add(new TurnPhaseTrigger(
             TurnPhase.END_PLAYER_TURN,
             combatInstance.UpdateStatusEffects(new List<StatusEffectType> {
-                StatusEffectType.Weakness})
+                StatusEffectType.Weakness, StatusEffectType.Charge})
         ));
         statusEffectTriggers.ForEach(trigger => TurnManager.Instance.addTurnPhaseTrigger(trigger));
     }

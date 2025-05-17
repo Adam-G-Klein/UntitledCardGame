@@ -11,6 +11,7 @@ public class PackSO : ScriptableObject
     public string packName;
     public string packDescription;
     public CompanionPoolSO companionPoolSO;
+    public Color packColor;
 
     [Header("Art Assets")]
     public Sprite cardFrame;

@@ -124,3 +124,17 @@ MonoBehaviour:
     description: 0 mana, exhaust. Gain 2 energy and draw 2 cards from this companion
     relateBehaviorIndex: 0
     tooltipKeyword: 30
+  - title: Charge
+    description: At the end of the turn, units with charge lose one charge and gain
+      3 block.
+    relateBehaviorIndex: 0
+    tooltipKeyword: 31
+  - title: Discharge
+    description: 'Spend charge as an additional cost to play a card. '
+    relateBehaviorIndex: 0
+    tooltipKeyword: 32
+  - title: Max Block Lost
+    description: 'Rather than losing all block, this is the max amount of block this
+      companion will lose at the end of the turn cycle. '
+    relateBehaviorIndex: 0
+    tooltipKeyword: 33

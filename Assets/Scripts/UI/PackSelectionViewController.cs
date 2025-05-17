@@ -52,7 +52,7 @@ public class PackSelectionViewController : MonoBehaviour, IPackSlotViewDelegate
         var packSO = i >= packSOs.Count() ? null : packSOs[i];
         var packSlot = packSelectionUIDocument.rootVisualElement.Q<VisualElement>($"{packName}{i + 1}");
 
-        PackSlotView packSlotView = new(this, packSlot, packTemplate, !selectedPackSOs.Contains(startingPackSOs[i]) || isSelected, isSelected, packSO);
+        PackSlotView packSlotView = new(this, packSlot, packTemplate, !(packSO != null && selectedPackSOs.Contains(packSOs[i])) || isSelected, isSelected, packSO);
         if (!isSelected && packSO != null) packToSlotMap.Add(packSO.packName, packSlotView);
         VEToSlotMap.Add(packSlot.name, packSlotView);
     }
@@ -76,13 +76,15 @@ public class PackSelectionViewController : MonoBehaviour, IPackSlotViewDelegate
         }
         else
         {
-            selectedPackSOs.Add(packSO);
-            packSlotView.HandleSelect(); // the pack should know how to update the style of contents
+             // the pack should know how to update the style of contents
             List<VisualElement> selectPackSlots = packSelectionUIDocument.rootVisualElement.Q<VisualElement>("selectedOptionContainer").Children().ToList();
             for (var i = 0; i < selectPackSlots.Count; i++)
             {
                 if (selectPackSlots[i].Children().Count() == 0)
                 {
+                    selectedPackSOs.Add(packSO);
+                    packSlotView.HandleSelect();
+
                     PackSlotView targetPackSlot = VEToSlotMap[selectPackSlots[i].name];
                     targetPackSlot.pack = packSlotView.pack;
                     targetPackSlot.packSO = packSlotView.packSO;

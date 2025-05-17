@@ -70,12 +70,13 @@ public class CombatInstance : MonoBehaviour
             { StatusEffectType.PlatedArmor, 0 },
             { StatusEffectType.Orb, 0 },
             { StatusEffectType.Thorns, 0 },
-            { StatusEffectType.MoneyOnDeath, 0 }
+            { StatusEffectType.MoneyOnDeath, 0 }, 
+            { StatusEffectType.Charge, 0},
+            { StatusEffectType.MaxBlockToLoseAtEndOfTurn, -1 } // 0 is a valid value so we need to use -1 to indicate a value hasn't been set
         };
 
     private Dictionary<StatusEffectType, int> statusEffects =
         new Dictionary<StatusEffectType, int> (initialStatusEffects);
-
     private StatusEffectsDisplay statusEffectsDisplay;
 
     // cachedEffectValues is used to persist state across the entire combat.
@@ -90,8 +91,26 @@ public class CombatInstance : MonoBehaviour
 
     public void ApplyStatusEffects(StatusEffectType statusEffect, int scale) {
         Debug.Log(String.Format("Applying status with scale {0}", scale));
-        statusEffects[statusEffect] += scale;
-        if(statusEffect != StatusEffectType.Orb && statusEffect != StatusEffectType.Strength && statusEffect != StatusEffectType.TemporaryStrength) {
+        if (parentType == CombatInstanceParent.COMPANION && statusEffect == StatusEffectType.Defended) {
+            StartCoroutine(CombatEntityManager.Instance.OnBlockGained(this));
+        }
+        if (statusEffect == StatusEffectType.BonusBlock)
+        {
+            statusEffects[StatusEffectType.Defended] += scale;
+        }
+        else if (statusEffect == StatusEffectType.MaxBlockToLoseAtEndOfTurn)
+        {
+            statusEffects[statusEffect] = statusEffects[statusEffect] == initialStatusEffects[statusEffect]
+                ? scale
+                : Mathf.Min(scale, statusEffects[statusEffect]);
+            Debug.LogError(statusEffect);
+            Debug.LogError(statusEffects[statusEffect]);
+        }
+        else
+        {
+            statusEffects[statusEffect] += scale;
+        }
+        if(statusEffect != StatusEffectType.Defended && statusEffect != StatusEffectType.Orb && statusEffect != StatusEffectType.Strength && statusEffect != StatusEffectType.TemporaryStrength) {
             //PlaySFX();
             MusicController2.Instance.PlaySFX("event:/SFX/SFX_NegativeEffect");
             AddVFX();
@@ -143,17 +162,20 @@ public class CombatInstance : MonoBehaviour
 
 
     public void ApplyNonStatusCombatEffect(CombatEffect effect, int scale, CombatInstance effector, GameObject vfxPrefab, bool shouldShake = false) {
-
         // All the non-status-effect combat effects are handled here
         // status effects are handled in applyCombatEffects
-        switch(effect) {
+        switch (effect)
+        {
             case CombatEffect.Damage:
             case CombatEffect.FixedDamageWithCardModifications:
             case CombatEffect.FixedDamageThatIgnoresBlock:
                 int damageTaken = TakeDamage(effect, scale, effector);
-                if (effector.GetComponent<CompanionInstance>() != null) {
+                if (effector.GetComponent<CompanionInstance>() != null)
+                {
                     MusicController2.Instance.PlaySFX("event:/SFX/SFX_BasicAttack");
-                } else if (effector.GetComponent<EnemyInstance>() != null) {
+                }
+                else if (effector.GetComponent<EnemyInstance>() != null)
+                {
                     MusicController2.Instance.PlaySFX("event:/SFX/SFX_EnemyAttack");
                 }
                 PlayVFX(vfxPrefab);
@@ -161,7 +183,8 @@ public class CombatInstance : MonoBehaviour
                 break;
             case CombatEffect.Heal:
                 int updatedHealth = Mathf.Min(combatStats.getCurrentHealth() + scale, combatStats.maxHealth);
-                if (updatedHealth - combatStats.getCurrentHealth() > 0) {
+                if (updatedHealth - combatStats.getCurrentHealth() > 0)
+                {
                     StartCoroutine(CombatEntityManager.Instance.OnHeal(this));
                 }
                 combatStats.setCurrentHealth(updatedHealth);
@@ -324,7 +347,12 @@ public class CombatInstance : MonoBehaviour
     private void UpdateStatusEffect(StatusEffectType status) {
         switch (status) {
             case StatusEffectType.Defended:
-                statusEffects[status] = 0;
+                if (statusEffects[StatusEffectType.MaxBlockToLoseAtEndOfTurn] != initialStatusEffects[StatusEffectType.MaxBlockToLoseAtEndOfTurn]) {
+                    statusEffects[status] = Mathf.Max(0, statusEffects[status] - statusEffects[StatusEffectType.MaxBlockToLoseAtEndOfTurn]);
+                } else statusEffects[status] = 0;
+                break;
+            case StatusEffectType.MaxBlockToLoseAtEndOfTurn:
+                statusEffects[status] = -1;
                 break;
             case StatusEffectType.Thorns:
                 statusEffects[status] = 0;
@@ -338,6 +366,13 @@ public class CombatInstance : MonoBehaviour
                 break;
             case StatusEffectType.Weakness:
                 statusEffects[status] = DecrementStatus(statusEffects[status]);
+                break;
+            case StatusEffectType.Charge:
+                if (statusEffects[status] > 0)
+                {
+                    statusEffects[status] = DecrementStatus(statusEffects[status]);
+                    ApplyStatusEffects(StatusEffectType.Defended, 3);
+                }
                 break;
             case StatusEffectType.Orb:
                 break;
@@ -406,7 +441,8 @@ public class CombatInstance : MonoBehaviour
             }
             // block is queried separately now
             if (value != initialStatusEffects[statusEffect.Key]
-                && statusEffect.Key != StatusEffectType.Defended) {
+                && statusEffect.Key != StatusEffectType.Defended)
+            {
                 displayedStatusEffects.Add(statusEffect.Key, value);
             }
         }

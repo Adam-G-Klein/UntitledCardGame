@@ -25,6 +25,8 @@ public class PlayerHand : GenericSingleton<PlayerHand>
 
     public delegate IEnumerator OnCardCastHandler(PlayableCard card);
     public event OnCardCastHandler onCardCastHandler;
+    public delegate IEnumerator OnAttackCardCastHandler(PlayableCard card);
+    public event OnAttackCardCastHandler onAttackCardCastHandler;
 
     public delegate IEnumerator OnHandEmptyHandler();
     public event OnHandEmptyHandler onHandEmptyHandler;
@@ -345,9 +347,19 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         return null;
     }
 
-    public IEnumerator OnCardCast(PlayableCard card) {
-        if (onCardCastHandler != null) {
-            foreach (OnCardCastHandler handler in onCardCastHandler.GetInvocationList()) {
+    public IEnumerator OnCardCast(PlayableCard card)
+    {
+        if (onCardCastHandler != null)
+        {
+            foreach (OnCardCastHandler handler in onCardCastHandler.GetInvocationList())
+            {
+                yield return StartCoroutine(handler.Invoke(card));
+            }
+        }
+        if (onAttackCardCastHandler != null && card.card.cardType.cardCategory == CardCategory.Attack)
+        {
+            foreach (OnAttackCardCastHandler handler in onAttackCardCastHandler.GetInvocationList())
+            {
                 yield return StartCoroutine(handler.Invoke(card));
             }
         }

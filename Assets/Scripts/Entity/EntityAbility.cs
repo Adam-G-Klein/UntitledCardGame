@@ -14,7 +14,8 @@ public class EntityAbility
         }
     }
 
-    public enum EntityAbilityTrigger {
+    public enum EntityAbilityTrigger
+    {
         EnterTheBattlefield,
         EndOfCombat,
         EndOfPlayerTurn,
@@ -23,6 +24,7 @@ public class EntityAbility
         OnFriendDeath,
         OnDeath,
         OnCardCast,
+        OnAttackCardCast,
         OnCombine,
         OnCardExhausted,
         OnDeckShuffled,
@@ -32,5 +34,6 @@ public class EntityAbility
         OnFoeDeath,
         OnEntityHealed,
         OnCardDiscard,
+        OnBlockGained,
     }
 }

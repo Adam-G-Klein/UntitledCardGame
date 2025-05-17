@@ -51,6 +51,9 @@ public class PackSlotView
         pack.name = packSO.packName;
 
         pack.AddToClassList("pack");
+        VisualElement background = pack.Q<VisualElement>("packBackground");
+        Debug.LogError(packSO.packColor);
+        background.style.backgroundColor = new StyleColor(packSO.packColor);
         var packNameLabel = pack.Q<Label>("packTitle");
         var packDescriptionLabel = pack.Q<Label>("packDescription");
         var darkOverlay = pack.Q<VisualElement>("darkOverlay");

@@ -27,26 +27,27 @@ public abstract class EntityAbilityInstance
     }
 
     private void registerTrigger() {
-        switch (ability.abilityTrigger) {
+        switch (ability.abilityTrigger)
+        {
             case EntityAbility.EntityAbilityTrigger.EnterTheBattlefield:
                 setupForTurnPhaseTrigger(TurnPhase.START_ENCOUNTER);
-            break;
+                break;
 
             case EntityAbility.EntityAbilityTrigger.EndOfCombat:
                 setupForTurnPhaseTrigger(TurnPhase.END_ENCOUNTER);
-            break;
+                break;
 
             case EntityAbility.EntityAbilityTrigger.EndOfPlayerTurn:
                 setupForTurnPhaseTrigger(TurnPhase.BEFORE_END_PLAYER_TURN);
-            break;
+                break;
 
             case EntityAbility.EntityAbilityTrigger.EndOfEnemyTurn:
                 setupForTurnPhaseTrigger(TurnPhase.END_ENEMY_TURN);
-            break;
+                break;
 
             case EntityAbility.EntityAbilityTrigger.StartOfPlayerTurn:
                 setupForTurnPhaseTrigger(TurnPhase.START_PLAYER_TURN);
-            break;
+                break;
 
             case EntityAbility.EntityAbilityTrigger.OnFriendOrFoeDeath:
                 CombatEntityTrigger companionDeathTrigger = new CombatEntityTrigger(
@@ -64,7 +65,7 @@ public abstract class EntityAbilityInstance
                 CombatEntityManager.Instance.registerTrigger(companionDeathTrigger);
                 CombatEntityManager.Instance.registerTrigger(enemyDeathTrigger);
                 CombatEntityManager.Instance.registerTrigger(minionDeathTrigger);
-            break;
+                break;
 
             case EntityAbility.EntityAbilityTrigger.OnFriendDeath:
                 CombatEntityTrigger onFriendDeathTrigger = new CombatEntityTrigger(
@@ -72,7 +73,7 @@ public abstract class EntityAbilityInstance
                     setupAndInvokeAbility());
                 combatEntityTriggers.Add(onFriendDeathTrigger);
                 CombatEntityManager.Instance.registerTrigger(onFriendDeathTrigger);
-            break;
+                break;
 
             case EntityAbility.EntityAbilityTrigger.OnFoeDeath:
                 CombatEntityTrigger onFoeDeathTrigger = new CombatEntityTrigger(
@@ -80,16 +81,19 @@ public abstract class EntityAbilityInstance
                     setupAndInvokeAbility());
                 combatEntityTriggers.Add(onFoeDeathTrigger);
                 CombatEntityManager.Instance.registerTrigger(onFoeDeathTrigger);
-            break;
+                break;
 
             // Experiment: let's try handling the OnDeath trigger by directly doing it here in the callback.
             case EntityAbility.EntityAbilityTrigger.OnDeath:
-            //     this.companionInstance.SetCompanionAbilityDeathCallback(setupAndInvokeAbility());
+                //     this.companionInstance.SetCompanionAbilityDeathCallback(setupAndInvokeAbility());
                 break;
 
             case EntityAbility.EntityAbilityTrigger.OnCardCast:
                 PlayerHand.Instance.onCardCastHandler += OnCardCast;
-            break;
+                break;
+            case EntityAbility.EntityAbilityTrigger.OnAttackCardCast:
+                PlayerHand.Instance.onAttackCardCastHandler += OnCardCast;
+                break;
             case EntityAbility.EntityAbilityTrigger.OnCombine:
                 // This is handled in the Companion class's constructor.
                 // It's messy, but CompanionInstance and therefore this class just never exist
@@ -113,6 +117,9 @@ public abstract class EntityAbilityInstance
             case EntityAbility.EntityAbilityTrigger.OnHandEmpty:
                 PlayerHand.Instance.onHandEmptyHandler += OnHandEmpty;
                 break;
+            case EntityAbility.EntityAbilityTrigger.OnBlockGained:
+                CombatEntityManager.Instance.onBlockGainedHandler += OnBlockGained;
+                break;
         }
     }
 
@@ -133,7 +140,11 @@ public abstract class EntityAbilityInstance
         if (ability.abilityTrigger == EntityAbility.EntityAbilityTrigger.OnCardCast) {
             PlayerHand.Instance.onCardCastHandler -= OnCardCast;
         }
-        if (ability.abilityTrigger == EntityAbility.EntityAbilityTrigger.OnCardDiscard) {
+        if (ability.abilityTrigger == EntityAbility.EntityAbilityTrigger.OnAttackCardCast) {
+            PlayerHand.Instance.onAttackCardCastHandler -= OnCardCast;
+        }
+        if (ability.abilityTrigger == EntityAbility.EntityAbilityTrigger.OnCardDiscard)
+        {
             PlayerHand.Instance.onCardDiscardHandler -= OnCardDiscard;
         }
         if (ability.abilityTrigger == EntityAbility.EntityAbilityTrigger.OnHandEmpty) {
@@ -178,8 +189,18 @@ public abstract class EntityAbilityInstance
         EffectManager.Instance.QueueEffectWorkflow(new EffectWorkflowClosure(document, ability.effectWorkflow, null));
         yield return null;
     }
-
-    private IEnumerator OnHandEmpty() {
+    
+    private IEnumerator OnBlockGained(CombatInstance combatInstance) {
+        EffectDocument document = createEffectDocument();
+         if (combatInstance.TryGetComponent(out CompanionInstance companion)) {
+            EffectUtils.AddCompanionToDocument(document, "companionThatGainedBlock", companion);
+        }
+        EffectManager.Instance.QueueEffectWorkflow(new EffectWorkflowClosure(document, ability.effectWorkflow, null));
+        yield return null;
+    }
+    
+    private IEnumerator OnHandEmpty()
+    {
         Debug.Log("OnHandEmpty ability invoked!!!");
         EffectManager.Instance.QueueEffectWorkflow(
             new EffectWorkflowClosure(createEffectDocument(), ability.effectWorkflow, null)
