@@ -389,9 +389,6 @@ public class ShopViewController : MonoBehaviour,
     }
 
     public void ConfirmSellCompanion() {
-        CompanionManagementSlotView slotView = GetParentSlotViewForCompanion(companionToSell);
-        slotView.RemoveCompanion();
-        FocusManager.Instance.DisableFocusableTarget(slotView.veFocusable);
         shopManager.SellCompanion(companionToSell.companion, companionToSell.container);
         companionToSell = null;
         sellingCompanions = false;
