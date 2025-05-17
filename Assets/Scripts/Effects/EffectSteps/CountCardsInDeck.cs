@@ -41,23 +41,22 @@ public class CountCardsInDeck : EffectStep, IEffectStepCalculation
 
     public override IEnumerator invoke(EffectDocument document) {
         List<DeckInstance> deckInstances = document.map.GetList<DeckInstance>(inputDeckKey);
-        if (deckInstances.Count == 0 || deckInstances.Count > 1) {
-            EffectError("We only expect there to be 1 deck for CountCardsInDeck for input deck key " + inputDeckKey + ", instead there are " + deckInstances.Count);
+        if (deckInstances.Count == 0) {
+            EffectError("We only expect there to be at least 1 deck for CountCardsInDeck for input deck key " + inputDeckKey + ", instead there are " + deckInstances.Count);
             yield break;
         }
-
-        DeckInstance deckInstance = deckInstances[0];
         int total = 0;
-        if (includeDrawPile) {
-            total += countCards(deckInstance.drawPile);
+        foreach (DeckInstance deckInstance in deckInstances) {
+            if (includeDrawPile) {
+                total += countCards(deckInstance.drawPile);
+            }
+            if (includeDiscardPile) {
+                total += countCards(deckInstance.discardPile);
+            }
+            if (includeCardsInHand) {
+                total += countCards(deckInstance.inHand);
+            }
         }
-        if (includeDiscardPile) {
-            total += countCards(deckInstance.discardPile);
-        }
-        if (includeCardsInHand) {
-            total += countCards(deckInstance.inHand);
-        }
-
         document.intMap[outputKey] = total;
         yield return null;
     }
