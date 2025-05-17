@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: RP_SwordOfTheMoment
   m_EditorClassIdentifier: 
   Name: Sword of the Right Moment
-  Description: Deal {rpl_damage} damage to target enemy. When discarded, double the
-    damage of this card
+  Description: Deal {rpl_damage} damage to target enemy. When discarded, increase
+    the damage of this card by 8
   defaultValues:
   - key: rpl_damage
     value: 5
@@ -100,12 +100,12 @@ MonoBehaviour:
       data:
         effectStepName: CardModificationEffect
         inputKey: card
-        scale: 1
+        scale: 8
         affectsAllCardsOfType: 0
         cardTypeToModify: {fileID: 0}
         getScaleFromKey: 0
         scaleKey: 
-        modification: 1
+        modification: 0
     - rid: 7401433308100035085
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -117,4 +117,4 @@ MonoBehaviour:
       type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: WaitForSecondsEffect
-        seconds: 0.75
+        seconds: 0.5

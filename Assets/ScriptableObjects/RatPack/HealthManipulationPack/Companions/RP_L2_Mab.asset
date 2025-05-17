@@ -58,16 +58,9 @@ MonoBehaviour:
       data:
         abilityTrigger: 1
         effectSteps:
-        - rid: 205828032053379077
         - rid: 205828032053379078
         - rid: 2034229587402555395
         - rid: 2034230176448512382
-    - rid: 205828032053379077
-      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: DialogueStep
-        line: we are sooo back
-        lineTime: 2
     - rid: 205828032053379078
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

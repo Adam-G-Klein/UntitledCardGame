@@ -42,21 +42,25 @@ public class MathStep: EffectStep, IEffectStepCalculation
         if(useOperand2) operand2 = document.intMap[operand2InputKey];
         int inputValue = document.intMap[inputKey];
         int returnValue = inputValue;
-        switch (operation) {
+        switch (operation)
+        {
             case Operation.Add:
                 returnValue = useOperand2 ? inputValue + operand2 : inputValue + scale;
-            break;
+                break;
 
             case Operation.Subtract:
                 returnValue = useOperand2 ? inputValue - operand2 : inputValue - scale;
-            break;
+                break;
 
             case Operation.Multiply:
                 returnValue = useOperand2 ? inputValue * operand2 : inputValue * scale;
-            break;
+                break;
 
             case Operation.Divide:
                 returnValue = useOperand2 ? inputValue / operand2 : inputValue / scale;
+                break;
+            case Operation.RELU:
+                returnValue = inputValue > 0 ? inputValue : 0;
             break;
         }
 
@@ -70,10 +74,12 @@ public class MathStep: EffectStep, IEffectStepCalculation
         yield return invoke(document);
     }
 
-    public enum Operation {
+    public enum Operation
+    {
         Add,
         Subtract,
         Multiply,
-        Divide
+        Divide,
+        RELU,  // rectified linear unit that zeroes out negative numbers and leaves positive numbers be.
     }
 }

@@ -68,7 +68,6 @@ MonoBehaviour:
         - rid: 2034230176448512010
         - rid: 7401433308100034593
         - rid: 2034230176448512011
-        - rid: 2034230176448512014
         - rid: 2034230176448512012
         - rid: 2034230176448512013
     - rid: 2034230176448512007
@@ -129,12 +128,6 @@ MonoBehaviour:
         inputKey: self
         prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
         scale: 1
-    - rid: 2034230176448512014
-      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: DialogueStep
-        line: rawr >:)
-        lineTime: 2
     - rid: 7401433308100034592
       type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
       data:

@@ -57,7 +57,6 @@ MonoBehaviour:
         - rid: 7401433059192472293
         - rid: 7401433059192472294
         - rid: 7401433059192472295
-        - rid: 7401433059192472296
         - rid: 7401433059192472297
         - rid: 7401433558763438355
         - rid: 7401433059192472298
@@ -87,12 +86,6 @@ MonoBehaviour:
       data:
         effectStepName: EndWorkflowIfListEmpty
         inputKey1: filtered
-    - rid: 7401433059192472296
-      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: DialogueStep
-        line: you have enough status cards
-        lineTime: 1.5
     - rid: 7401433059192472297
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:

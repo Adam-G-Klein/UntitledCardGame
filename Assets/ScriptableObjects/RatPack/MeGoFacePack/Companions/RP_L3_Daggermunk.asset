@@ -28,6 +28,7 @@ MonoBehaviour:
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 0}
   genericCompanionVFX: {fileID: 0}
+  cacheValueConfigs: []
   cardPool: {fileID: 11400000, guid: 27aedd85a919e49f8aa3505aee035eff, type: 2}
   packCardPool: {fileID: 11400000, guid: 0eb3f8bf2fb8e45f389802ceb0d6abaf, type: 2}
   speakerType: {fileID: 0}
@@ -40,11 +41,11 @@ MonoBehaviour:
     lines:
     - title: Level Three Daggermunk
       description: At the start of each turn, create a 0 mana "Dagger" card in hand
-        for this companion and adjacent companions
+        for 3 random companions
       relatedBehaviorIndex: 0
   keepsakeTitle: Level Three Daggermunk
   keepsakeDescription: At the start of each turn, create a 0 mana "Dagger" card in
-    hand for this companion and adjacent companions
+    hand for 3 random companions
   references:
     version: 2
     RefIds:
@@ -54,8 +55,7 @@ MonoBehaviour:
         abilityTrigger: 12
         effectSteps:
         - rid: 205828032053379326
-        - rid: 2034230017118175329
-        - rid: 2034230017118175330
+        - rid: 1289961820425028349
         - rid: 2034230017118175331
     - rid: 205828032053379326
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -63,35 +63,23 @@ MonoBehaviour:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: self
-        validTargets: 
+        outputKey: companions
+        validTargets: 00000000
         number: 1
-        specialTargetRule: 3
+        specialTargetRule: 1
         cantCancelTargetting: 0
-    - rid: 2034230017118175329
-      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
+    - rid: 1289961820425028349
+      type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: GetAdjacentCompanions
-        inputKey: self
-        outputKey: adj
-    - rid: 2034230017118175330
-      type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: AddCardsToHand
-        entityFromKey: self
-        cardTypes:
-        - {fileID: 11400000, guid: 224034c097974444fa35170919327ce6, type: 2}
-        getCardsFromKey: 0
-        inputCardsKey: 
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
-        outputKey: 
+        effectStepName: GetRandomItems
+        inputKey: companions
+        scale: 3
+        outputKey: target
     - rid: 2034230017118175331
       type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: AddCardsToHand
-        entityFromKey: adj
+        entityFromKey: target
         cardTypes:
         - {fileID: 11400000, guid: 224034c097974444fa35170919327ce6, type: 2}
         getCardsFromKey: 0

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RP_PassTheDagger
   m_EditorClassIdentifier: 
   Name: Pass the Dagger
-  Description: Create a "Dagger" card for each adjacent companion
+  Description: Create two "Dagger" cards in hand for target companion
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 292ee1eb3f315c9448b8c577d0e6a420, type: 3}
@@ -42,17 +42,11 @@ MonoBehaviour:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: self
-        validTargets: 
-        number: 1
-        specialTargetRule: 4
-        cantCancelTargetting: 0
-    - rid: 2034230020176347210
-      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetAdjacentCompanions
-        inputKey: self
         outputKey: adj
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 0
+        cantCancelTargetting: 0
     - rid: 2034230020176347211
       type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
       data:
@@ -62,7 +56,7 @@ MonoBehaviour:
         - {fileID: 11400000, guid: 224034c097974444fa35170919327ce6, type: 2}
         getCardsFromKey: 0
         inputCardsKey: 
-        scale: 1
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
         outputKey: 
@@ -78,6 +72,5 @@ MonoBehaviour:
       data:
         effectSteps:
         - rid: 2034230020176347209
-        - rid: 2034230020176347210
         - rid: 2034230020176347211
         - rid: 5280922841426165968

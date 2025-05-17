@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RP_BiggerTheBetter
   m_EditorClassIdentifier: 
   Name: Bigger the Better
-  Description: Give target companion block equal to the number of cards in their
+  Description: Give target companion block equal to the number of cards in THIS companion's
     deck ({numCards} cards)
   defaultValues:
   - key: numCards
@@ -33,12 +33,23 @@ MonoBehaviour:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
-  tooltips: 1b000000
+  tooltips: 
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 2268261004812222464
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 4
+        cantCancelTargetting: 0
     - rid: 5280922841426165959
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -51,6 +62,7 @@ MonoBehaviour:
       data:
         effectSteps:
         - rid: 5602892563578093569
+        - rid: 2268261004812222464
         - rid: 5602892563578093571
         - rid: 5602892563578093572
         - rid: 5280922841426165959
@@ -69,7 +81,7 @@ MonoBehaviour:
       type: {class: CountCardsInDeck, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CountCardsInDeck
-        inputDeckKey: target
+        inputDeckKey: self
         filter:
           cardCategoriesToInclude: 
           generatedCardsFilter: 0

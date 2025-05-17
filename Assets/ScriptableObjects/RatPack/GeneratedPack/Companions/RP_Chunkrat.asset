@@ -58,7 +58,6 @@ MonoBehaviour:
         abilityTrigger: 1
         effectSteps:
         - rid: 205827988172308711
-        - rid: 205827988172308712
         - rid: 205828032053379183
         - rid: 205828126246961707
     - rid: 205827988172308711
@@ -72,12 +71,6 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
-    - rid: 205827988172308712
-      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: DialogueStep
-        line: yummy, let me save this for later
-        lineTime: 2
     - rid: 205828032053379183
       type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
       data:

@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: RP_Molotov
   m_EditorClassIdentifier: 
   Name: Molotov
-  Description: When played or discarded, deal {rpl_damage} damage to all enemies
+  Description: Unplayable. When discarded, deal {rpl_damage} damage to all enemies.
+    If you have 3 or less cards in hand, deal the damage twice
   defaultValues:
   - key: rpl_damage
     value: 4
@@ -44,24 +45,45 @@ MonoBehaviour:
         effectSteps:
         - rid: 7401433308100034879
         - rid: 7401433308100034880
-    - rid: 4463205916933357570
+        - rid: 2268261022115299335
+        - rid: 2268261022115299336
+        - rid: 2268261022115299337
+        - rid: 2268261022115299338
+        - rid: 2268261022115299339
+    - rid: 2268261022115299335
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: enemy
-        validTargets: 02000000
+        outputKey: cards
+        validTargets: 03000000
         number: 1
         specialTargetRule: 1
         cantCancelTargetting: 0
-    - rid: 5602892563578094203
-      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+    - rid: 2268261022115299336
+      type: {class: CountStep, ns: , asm: Assembly-CSharp}
       data:
-        effectSteps:
-        - rid: 4463205916933357570
-        - rid: 7401433308100034878
-    - rid: 7401433308100034878
+        effectStepName: CountStep
+        inputKey: cards
+        outputKey: numCards
+    - rid: 2268261022115299337
+      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: BooleanComparison
+        hardCodedInputKey1: 3
+        useHardCodedInputKey1: 1
+        inputKey1: 
+        operation: 4
+        inputKey2: numCards
+        outputKey: threeOrLess
+    - rid: 2268261022115299338
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: threeOrLess
+        conditionToEndOn: 0
+    - rid: 2268261022115299339
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
@@ -74,6 +96,10 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 1320532642761013391, guid: 99a456f94890391478f393fcc8ad0b95, type: 3}
+    - rid: 5602892563578094203
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps: []
     - rid: 7401433308100034879
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
