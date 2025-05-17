@@ -59,7 +59,6 @@ MonoBehaviour:
         - rid: 2034230176448512972
         - rid: 2034230176448512971
         - rid: 7401433558763438353
-        - rid: 2034230176448512973
         - rid: 2034230176448512974
     - rid: 2034230176448512969
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -96,12 +95,6 @@ MonoBehaviour:
       data:
         effectStepName: EndWorkflowIfListEmpty
         inputKey1: dudesWithEnough
-    - rid: 2034230176448512973
-      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: DialogueStep
-        line: cool, u have enough status cards
-        lineTime: 1.5
     - rid: 2034230176448512974
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:

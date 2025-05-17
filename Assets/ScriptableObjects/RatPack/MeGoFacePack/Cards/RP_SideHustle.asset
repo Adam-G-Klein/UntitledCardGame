@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RP_SideHustle
   m_EditorClassIdentifier: 
   Name: Side Hustle
-  Description: Give adjacent companions 1 strength
+  Description: Give 3 random companions 1 strength
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 9fc5df2c57ed7dd4686ab9274820f38e, type: 3}
@@ -26,6 +26,8 @@ MonoBehaviour:
   - rid: 5602892533381726226
   onExhaustEffectWorkflow:
     rid: -2
+  onDiscardEffectWorkflow:
+    rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
   tooltips: 
@@ -34,45 +36,49 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 1274772082283774276
+    - rid: 1289961820425028204
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: targetCompanion
+        statusEffect: 0
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+    - rid: 1289961820425028205
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
-        inputKey: adj
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
-        scale: 1.5
-    - rid: 2034230108114649213
-      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetAdjacentCompanions
         inputKey: targetCompanion
-        outputKey: adj
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
+        scale: 1
+    - rid: 1289961820425028236
+      type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetRandomItems
+        inputKey: all
+        scale: 3
+        outputKey: targetCompanion
     - rid: 5602892533381726226
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
         - rid: 5602892533381726227
-        - rid: 2034230108114649213
-        - rid: 5602892533381726228
-        - rid: 1274772082283774276
+        - rid: 1289961820425028236
+        - rid: 1289961820425028204
+        - rid: 1289961820425028205
     - rid: 5602892533381726227
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: targetCompanion
+        outputKey: all
         validTargets: 00000000
         number: 1
-        specialTargetRule: 4
+        specialTargetRule: 1
         cantCancelTargetting: 0
-    - rid: 5602892533381726228
-      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: ApplyStatus
-        inputKey: adj
-        statusEffect: 0
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplyByNumAuraStacks: 0

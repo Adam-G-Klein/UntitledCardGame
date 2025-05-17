@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: RP_VitalReserves
   m_EditorClassIdentifier: 
   Name: Vital Reserves
-  Description: Exhaust. When exhausted, this companion gains 6 block and heals 5
-    HP
+  Description: Give target companion 6 block. When exhausted, this companion heals
+    7 HP
   defaultValues: []
-  Cost: 2
+  Cost: 1
   Artwork: {fileID: 21300000, guid: c409a9e17667b4e42b9d784f4024d3c6, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
-  exhaustsWhenPlayed: 1
+  exhaustsWhenPlayed: 0
   retain: 0
   effectWorkflows:
   - rid: 5602892563578093692
@@ -37,13 +37,43 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 1289961820425027958
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: target
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 0
+        cantCancelTargetting: 0
+    - rid: 1289961820425027959
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: target
+        statusEffect: 2
+        scale: 7
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+    - rid: 1289961820425027960
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: target
+        prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
+        scale: 1
     - rid: 2034230108114649133
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
         - rid: 2034230108114649134
         - rid: 2034230108114649135
-        - rid: 7401433558763438464
         - rid: 2034230108114649136
     - rid: 2034230108114649134
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -62,7 +92,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: self
         combatEffect: 9
-        scale: 5
+        scale: 7
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
@@ -79,14 +109,7 @@ MonoBehaviour:
     - rid: 5602892563578093692
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
-        effectSteps: []
-    - rid: 7401433558763438464
-      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: ApplyStatus
-        inputKey: self
-        statusEffect: 2
-        scale: 6
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplyByNumAuraStacks: 0
+        effectSteps:
+        - rid: 1289961820425027958
+        - rid: 1289961820425027959
+        - rid: 1289961820425027960

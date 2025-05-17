@@ -56,7 +56,6 @@ MonoBehaviour:
         effectSteps:
         - rid: 205828032053379334
         - rid: 7401433128868512225
-        - rid: 7401433128868512226
         - rid: 8790164555430888172
     - rid: 205828032053379334
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -82,12 +81,6 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
-    - rid: 7401433128868512226
-      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: DialogueStep
-        line: finally, the perfect recipe
-        lineTime: 1.5
     - rid: 8790164555430888172
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:

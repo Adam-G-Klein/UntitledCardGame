@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: RP_Equilibrium
   m_EditorClassIdentifier: 
   Name: Equilibrium
-  Description: Exhaust. Set target companion to half HP
+  Description: Exhaust. Set target companion to half HP and draw 1 card from this
+    companion
   defaultValues: []
-  Cost: 1
+  Cost: 0
   Artwork: {fileID: 21300000, guid: db26ea4bdc4531f4a9d89b36175475e6, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
@@ -43,6 +44,26 @@ MonoBehaviour:
         inputKey: target
         prefabToInstantiate: {fileID: 3850217184923880746, guid: 604f6efaa1e828d4bacfc84a25dfbd7a, type: 3}
         scale: 1
+    - rid: 1289961820425028156
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: target
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 0
+        cantCancelTargetting: 0
+    - rid: 1289961820425028157
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DrawCards
+        inputKey: self
+        outputKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
     - rid: 2034230108114649708
       type: {class: GetHPStatistics, ns: , asm: Assembly-CSharp}
       data:
@@ -78,18 +99,20 @@ MonoBehaviour:
       data:
         effectSteps:
         - rid: 5602893017534169575
+        - rid: 1289961820425028156
         - rid: 2034230108114649708
         - rid: 2034230108114649710
         - rid: 2034230108114649709
         - rid: 1274772082283774852
+        - rid: 1289961820425028157
     - rid: 5602893017534169575
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: target
+        outputKey: self
         validTargets: 00000000
         number: 1
-        specialTargetRule: 0
+        specialTargetRule: 4
         cantCancelTargetting: 0

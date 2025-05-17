@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: RP_BestDefenseIsOffense
   m_EditorClassIdentifier: 
   Name: Best Defense is Offense
-  Description: Deal damage equal to half the total block on your team ({rpl_damage}
-    damage)
+  Description: Deal damage equal to the total block on your team ({rpl_damage} damage)
   defaultValues:
   - key: rpl_damage
     value: 0
@@ -28,6 +27,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 2034230108114649448
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
@@ -96,5 +97,5 @@ MonoBehaviour:
         inputKey: total
         operand2InputKey: UNUSED
         operation: 3
-        scale: 2
+        scale: 1
         outputKey: dmg

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GroupHealing
   m_EditorClassIdentifier: 
   Name: Group Healing
-  Description: Exhaust. Heal all companions on your team 3 HP.
+  Description: Exhaust. Heal all companions on your team 4 HP.
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 0a945af76f65ffb48ae4078484f55d30, type: 3}
@@ -25,6 +25,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 5602892949302280921
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
@@ -65,7 +67,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: allCompanions
         combatEffect: 9
-        scale: 3
+        scale: 4
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
