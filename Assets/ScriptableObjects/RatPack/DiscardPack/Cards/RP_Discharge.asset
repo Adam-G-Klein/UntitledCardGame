@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: RP_SwordOfTheMoment
+  m_Name: RP_Discharge
   m_EditorClassIdentifier: 
-  Name: Sword of the Right Moment
-  Description: Deal {rpl_damage} damage to target enemy. When discarded, increase
-    the damage of this card by 8
+  Name: Discharge
+  Description: Discard each card in hand and deal {rpl_damage} for each card discarded
+    this way
   defaultValues:
   - key: rpl_damage
-    value: 5
-  Cost: 2
-  Artwork: {fileID: 21300000, guid: 9c7b553a4a5050646818dbc514a54e9a, type: 3}
+    value: 3
+  Cost: 1
+  Artwork: {fileID: 21300000, guid: 0f91baf441838d747bea7dbae09bfb7f, type: 3}
   cardCategory: 1
   vfxPrefab: {fileID: 0}
   playable: 1
@@ -42,12 +42,19 @@ MonoBehaviour:
     - rid: 2034230108114649711
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
-        effectSteps:
-        - rid: 7401433308100035081
-        - rid: 7401433308100035082
-        - rid: 7401433308100035083
-        - rid: 7401433308100035085
-        - rid: 7401433308100035086
+        effectSteps: []
+    - rid: 2268261022115299329
+      type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardInHandEffect
+        inputKey: cards
+        effect: 0
+    - rid: 2268261022115299348
+      type: {class: CountStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CountStep
+        inputKey: cards
+        outputKey: numCards
     - rid: 4463205916933357570
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -64,6 +71,9 @@ MonoBehaviour:
       data:
         effectSteps:
         - rid: 4463205916933357570
+        - rid: 7401433308100035075
+        - rid: 2268261022115299348
+        - rid: 2268261022115299329
         - rid: 7401433308100034878
     - rid: 7401433308100034878
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
@@ -71,50 +81,21 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: enemy
         combatEffect: 0
-        scale: 5
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
-        vfxPrefab: {fileID: 1320532642761013391, guid: 99a456f94890391478f393fcc8ad0b95, type: 3}
-    - rid: 7401433308100035081
+        getMultiplicityFromKey: 1
+        inputMultiplicityKey: numCards
+        vfxPrefab: {fileID: 1320532642761013391, guid: 4847f21b038e1aa42bceefe5c97ab1ab, type: 3}
+    - rid: 7401433308100035075
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: self
-        validTargets: 
+        outputKey: cards
+        validTargets: 03000000
         number: 1
-        specialTargetRule: 3
+        specialTargetRule: 2
         cantCancelTargetting: 0
-    - rid: 7401433308100035082
-      type: {class: ConvertPlayableCardToCard, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: ConvertPlayableCardToCard
-        inputKey: self
-        outputKey: card
-    - rid: 7401433308100035083
-      type: {class: CardModificationEffect, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CardModificationEffect
-        inputKey: card
-        scale: 8
-        affectsAllCardsOfType: 0
-        cardTypeToModify: {fileID: 0}
-        getScaleFromKey: 0
-        scaleKey: 
-        modification: 0
-    - rid: 7401433308100035085
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: self
-        prefabToInstantiate: {fileID: 6137048663962808129, guid: 032e33b914ed32b418cdc1ed2f15fc6e, type: 3}
-        scale: 1
-    - rid: 7401433308100035086
-      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: WaitForSecondsEffect
-        seconds: 0.5

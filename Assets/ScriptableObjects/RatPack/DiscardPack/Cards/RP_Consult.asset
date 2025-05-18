@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: RP_YouGotOptions
+  m_Name: RP_Consult
   m_EditorClassIdentifier: 
-  Name: You Got Options
-  Description: Draw 2 from target companion, then discard a card in hand.
+  Name: Consult
+  Description: Draw 1 from target companion, then discard a card in hand.
   defaultValues: []
   Cost: 0
-  Artwork: {fileID: 21300000, guid: 8b7f45e259d8a914ca69c92891ca4bf1, type: 3}
+  Artwork: {fileID: 21300000, guid: 7d13e867f4dd988488e4c5a179fa0857, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
@@ -86,6 +86,6 @@ MonoBehaviour:
         effectStepName: DrawCards
         inputKey: target
         outputKey: 
-        scale: 2
+        scale: 1
         getScaleFromKey: 0
         inputScaleKey: 

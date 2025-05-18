@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: RP_YouGotOptions
+  m_Name: RP_ExpandTheMind
   m_EditorClassIdentifier: 
-  Name: You Got Options
-  Description: Draw 2 from target companion, then discard a card in hand.
+  Name: Expand the Mind
+  Description: Draw 1 from target companion. If you have 3 or less cards in hand,
+    draw 2 cards and discard a card in hand instead
   defaultValues: []
   Cost: 0
-  Artwork: {fileID: 21300000, guid: 8b7f45e259d8a914ca69c92891ca4bf1, type: 3}
+  Artwork: {fileID: 21300000, guid: 90fa2971dfe769a49a60ad648e956340, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
@@ -53,6 +54,48 @@ MonoBehaviour:
         effectStepName: CardInHandEffect
         inputKey: targetCard
         effect: 0
+    - rid: 2268261022115299330
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: allCards
+        validTargets: 03000000
+        number: 1
+        specialTargetRule: 1
+        cantCancelTargetting: 0
+    - rid: 2268261022115299331
+      type: {class: CountStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CountStep
+        inputKey: allCards
+        outputKey: numCards
+    - rid: 2268261022115299332
+      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: BooleanComparison
+        hardCodedInputKey1: 3
+        useHardCodedInputKey1: 1
+        inputKey1: 
+        operation: 4
+        inputKey2: numCards
+        outputKey: threeOrLess
+    - rid: 2268261022115299333
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: threeOrLess
+        conditionToEndOn: 0
+    - rid: 2268261022115299334
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DrawCards
+        inputKey: target
+        outputKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
     - rid: 5280922841426165977
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -65,8 +108,13 @@ MonoBehaviour:
       data:
         effectSteps:
         - rid: 5602892723852673196
+        - rid: 2268261022115299330
+        - rid: 2268261022115299331
+        - rid: 2268261022115299332
         - rid: 5602892723852673197
         - rid: 5280922841426165977
+        - rid: 2268261022115299333
+        - rid: 2268261022115299334
         - rid: 2034230108114649667
         - rid: 2034230108114649668
     - rid: 5602892723852673196
@@ -86,6 +134,6 @@ MonoBehaviour:
         effectStepName: DrawCards
         inputKey: target
         outputKey: 
-        scale: 2
+        scale: 1
         getScaleFromKey: 0
         inputScaleKey: 

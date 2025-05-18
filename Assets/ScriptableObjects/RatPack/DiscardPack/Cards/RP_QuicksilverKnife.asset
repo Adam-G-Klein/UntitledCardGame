@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: RP_Molotov
+  m_Name: RP_QuicksilverKnife
   m_EditorClassIdentifier: 
-  Name: Molotov
-  Description: Unplayable. When discarded, deal {rpl_damage} damage to all enemies.
-    If you have 3 or less cards in hand, deal the damage twice
+  Name: Quicksilver Knife
+  Description: Deal {rpl_damage} to target enemy and draw a card. If you have 3 cards
+    or less in hand, deal the damage twice
   defaultValues:
   - key: rpl_damage
-    value: 4
-  Cost: 2
-  Artwork: {fileID: 21300000, guid: d57a573c1de7fb84a83ac3316d0ea3b2, type: 3}
+    value: 2
+  Cost: 0
+  Artwork: {fileID: 21300000, guid: 5b64a8077dbbd6f409858be2a69e6188, type: 3}
   cardCategory: 1
   vfxPrefab: {fileID: 0}
   playable: 1
@@ -42,15 +42,19 @@ MonoBehaviour:
     - rid: 2034230108114649711
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
-        effectSteps:
-        - rid: 7401433308100034879
-        - rid: 7401433308100034880
-        - rid: 2268261022115299335
-        - rid: 2268261022115299336
-        - rid: 2268261022115299337
-        - rid: 2268261022115299338
-        - rid: 2268261022115299339
-    - rid: 2268261022115299335
+        effectSteps: []
+    - rid: 2268261022115299350
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: enemy
+        validTargets: 02000000
+        number: 1
+        specialTargetRule: 0
+        cantCancelTargetting: 0
+    - rid: 2268261022115299351
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
@@ -61,13 +65,13 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 1
         cantCancelTargetting: 0
-    - rid: 2268261022115299336
+    - rid: 2268261022115299352
       type: {class: CountStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CountStep
         inputKey: cards
         outputKey: numCards
-    - rid: 2268261022115299337
+    - rid: 2268261022115299353
       type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: BooleanComparison
@@ -77,50 +81,68 @@ MonoBehaviour:
         operation: 4
         inputKey2: numCards
         outputKey: threeOrLess
-    - rid: 2268261022115299338
+    - rid: 2268261022115299354
       type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EndWorkflowIfConditionMet
         inputKey1: threeOrLess
         conditionToEndOn: 0
-    - rid: 2268261022115299339
+    - rid: 2268261022115299355
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DrawCards
+        inputKey: self
+        outputKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 2268261022115299356
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
         inputKey: enemy
         combatEffect: 0
-        scale: 4
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 1320532642761013391, guid: 99a456f94890391478f393fcc8ad0b95, type: 3}
-    - rid: 5602892563578094203
-      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+        vfxPrefab: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}
+    - rid: 2268261022115299357
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
-        effectSteps: []
-    - rid: 7401433308100034879
+        effectStepName: CombatEffectStep
+        inputKey: enemy
+        combatEffect: 0
+        scale: 2
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}
+    - rid: 2268261022115299358
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: enemy
-        validTargets: 02000000
+        outputKey: self
+        validTargets: 
         number: 1
-        specialTargetRule: 1
+        specialTargetRule: 4
         cantCancelTargetting: 0
-    - rid: 7401433308100034880
-      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+    - rid: 5602892563578094203
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: CombatEffectStep
-        inputKey: enemy
-        combatEffect: 0
-        scale: 4
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
-        vfxPrefab: {fileID: 1320532642761013391, guid: 99a456f94890391478f393fcc8ad0b95, type: 3}
+        effectSteps:
+        - rid: 2268261022115299350
+        - rid: 2268261022115299351
+        - rid: 2268261022115299352
+        - rid: 2268261022115299353
+        - rid: 2268261022115299358
+        - rid: 2268261022115299355
+        - rid: 2268261022115299356
+        - rid: 2268261022115299354
+        - rid: 2268261022115299357

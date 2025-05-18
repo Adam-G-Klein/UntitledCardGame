@@ -10,18 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: RP_Safeguard
+  m_Name: RP_SteadyUnderPressure
   m_EditorClassIdentifier: 
-  Name: Safeguard
-  Description: Retain. When discarded, give adjacent companions 3 block
+  Name: Steady under Pressure
+  Description: Unplayable. When discarded, give adjacent companions 4 block. If you
+    have 3 or less cards in hand, give them 6 instead
   defaultValues: []
   Cost: 0
-  Artwork: {fileID: 21300000, guid: 292ee1eb3f315c9448b8c577d0e6a420, type: 3}
+  Artwork: {fileID: 21300000, guid: 8b7f45e259d8a914ca69c92891ca4bf1, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 0
   exhaustsWhenPlayed: 0
-  retain: 1
+  retain: 0
   effectWorkflows:
   - rid: 5602892563578094203
   onExhaustEffectWorkflow:
@@ -44,6 +45,11 @@ MonoBehaviour:
         - rid: 7401433308100035071
         - rid: 7401433308100035072
         - rid: 2034230108114649755
+        - rid: 2268261022115299340
+        - rid: 2268261022115299341
+        - rid: 2268261022115299342
+        - rid: 2268261022115299343
+        - rid: 2268261022115299344
     - rid: 2034230108114649752
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -62,6 +68,49 @@ MonoBehaviour:
         inputKey: adj
         prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
         scale: 1
+    - rid: 2268261022115299340
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: cards
+        validTargets: 03000000
+        number: 1
+        specialTargetRule: 1
+        cantCancelTargetting: 0
+    - rid: 2268261022115299341
+      type: {class: CountStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CountStep
+        inputKey: cards
+        outputKey: numCards
+    - rid: 2268261022115299342
+      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: BooleanComparison
+        hardCodedInputKey1: 3
+        useHardCodedInputKey1: 1
+        inputKey1: 
+        operation: 4
+        inputKey2: numCards
+        outputKey: threeOrLess
+    - rid: 2268261022115299343
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: threeOrLess
+        conditionToEndOn: 0
+    - rid: 2268261022115299344
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: adj
+        statusEffect: 2
+        scale: 2
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
     - rid: 5602892563578094203
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -78,7 +127,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: adj
         statusEffect: 2
-        scale: 3
+        scale: 4
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0

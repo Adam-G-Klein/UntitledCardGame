@@ -10,11 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: RP_Safeguard
+  m_Name: RP_SafetyInNumbers
   m_EditorClassIdentifier: 
-  Name: Safeguard
-  Description: Retain. When discarded, give adjacent companions 3 block
-  defaultValues: []
+  Name: Safety in Numbers
+  Description: Retain. Unplayable. When discarded, give adjacent companions 1 block
+    for each card in hand ({numCards} block)
+  defaultValues:
+  - key: numCards
+    value: 0
   Cost: 0
   Artwork: {fileID: 21300000, guid: 292ee1eb3f315c9448b8c577d0e6a420, type: 3}
   cardCategory: 2
@@ -42,6 +45,8 @@ MonoBehaviour:
         effectSteps:
         - rid: 2034230108114649752
         - rid: 7401433308100035071
+        - rid: 2268261022115299345
+        - rid: 2268261022115299346
         - rid: 7401433308100035072
         - rid: 2034230108114649755
     - rid: 2034230108114649752
@@ -62,6 +67,23 @@ MonoBehaviour:
         inputKey: adj
         prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
         scale: 1
+    - rid: 2268261022115299345
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: cards
+        validTargets: 03000000
+        number: 1
+        specialTargetRule: 1
+        cantCancelTargetting: 0
+    - rid: 2268261022115299346
+      type: {class: CountStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CountStep
+        inputKey: cards
+        outputKey: numCards
     - rid: 5602892563578094203
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -78,7 +100,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: adj
         statusEffect: 2
-        scale: 3
-        getScaleFromKey: 0
-        inputScaleKey: 
+        scale: 0
+        getScaleFromKey: 1
+        inputScaleKey: numCards
         multiplyByNumAuraStacks: 0
