@@ -23,7 +23,7 @@ public static class VisualElementExtensions
 
     public static void RegisterOnSelected(this VisualElement element, Action<ClickEvent> action) {
         element.RegisterCallback<ClickEvent>(evt => action(evt));
-        element.RegisterCallback<NavigationSubmitEvent>(evt => action(null));
+        element.RegisterCallback<NavigationSubmitEvent>(evt => action(element.CreateFakeClickEvent()));
     }
 
     public static void SimulateSubmit(this VisualElement element)
@@ -49,5 +49,11 @@ public static class VisualElementExtensions
         var pointerDownEvent = PointerDownEvent.GetPooled();
         pointerDownEvent.target = element;
         return pointerDownEvent;
+    }
+
+    public static ClickEvent CreateFakeClickEvent(this VisualElement element) {
+        var clickEvent = ClickEvent.GetPooled();
+        clickEvent.target = element;
+        return clickEvent;
     }
 }

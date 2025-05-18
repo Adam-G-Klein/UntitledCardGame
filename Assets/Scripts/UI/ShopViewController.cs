@@ -169,6 +169,10 @@ public class ShopViewController : MonoBehaviour,
         questionMarkFocusable.additionalFocusAction += () => ShowHelperText(null);
         questionMarkFocusable.additionalUnfocusAction += () => HideHelperText(null);
         companionUpgradeFocusables.Add(questionMarkFocusable);
+        autoUpgradeToggle = uiDoc.rootVisualElement.Q("auto-upgrade-toggle");
+        autoUpgradeToggle.RegisterOnSelected(ToggleAutoUpgrade);
+        VisualElementFocusable autoUpgradeToggleFocusable = autoUpgradeToggle.AsFocusable();
+        companionUpgradeFocusables.Add(autoUpgradeToggleFocusable);
 
         companionUpgradeFocusables.ForEach((focusable) => {
             FocusManager.Instance.RegisterFocusableTarget(focusable);

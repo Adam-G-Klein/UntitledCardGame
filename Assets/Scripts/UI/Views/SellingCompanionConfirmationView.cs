@@ -9,6 +9,7 @@ public class SellingCompanionConfirmationView {
     private VisualElement rootVisualElement;
     private ISellingCompanionConfirmationViewDelegate viewDelegate;
     private string originalSellingCompanionConfirmationText;
+    private string originalSellingCompanionBreakdownText;
 
     private Button sellingYes;
     private Button sellingNo;
@@ -29,6 +30,7 @@ public class SellingCompanionConfirmationView {
         sellingNo.RegisterOnSelected((evt) => viewDelegate.StopSellingCompanion());
 
         originalSellingCompanionConfirmationText = rootVisualElement.Q<Label>("selling-companion-confirmation-label").text;
+        originalSellingCompanionBreakdownText = rootVisualElement.Q<Label>("selling-companion-confirmation-breakdown-label").text;
 
         // Setup focusables
         FocusManager.Instance.RegisterFocusableTarget(sellingYes.AsFocusable());
@@ -57,6 +59,14 @@ public class SellingCompanionConfirmationView {
             companionView.companion.GetName(),
             sellValue.Total());
         confirmSellCompanionLabel.text = replacedText;
+        Label sellCompanionBreakdownLabel = rootVisualElement.Q<Label>("selling-companion-confirmation-breakdown-label");
+        string breakdownReplacedText = String.Format(
+            originalSellingCompanionBreakdownText,
+            sellValue.sellValueFromCompanions,
+            sellValue.sellValueFromCardsBought,
+            sellValue.sellValueFromCardsRemoved
+        );
+        sellCompanionBreakdownLabel.text = breakdownReplacedText;
         // Enable focusables
         FocusManager.Instance.EnableFocusableTarget(sellingYes.AsFocusable());
         FocusManager.Instance.EnableFocusableTarget(sellingNo.AsFocusable());
