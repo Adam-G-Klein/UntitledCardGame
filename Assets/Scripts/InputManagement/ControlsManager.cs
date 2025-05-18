@@ -120,22 +120,29 @@ public class ControlsManager : GenericSingleton<ControlsManager>
     }
     public void handleViewDeck(InputAction.CallbackContext context) {
         if(context.phase == InputActionPhase.Performed) {
-            Debug.Log("[ControlsManager] handleSecondaryNavigateRight called");
+            Debug.Log("[ControlsManager] handleViewDeck called");
             ProcessInput(GFGInputAction.VIEW_DECK);
         }
     }
 
     public void handleViewDiscard(InputAction.CallbackContext context) {
         if(context.phase == InputActionPhase.Performed) {
-            Debug.Log("[ControlsManager] handleSecondaryNavigateRight called");
+            Debug.Log("[ControlsManager] handleViewDiscard called");
             ProcessInput(GFGInputAction.VIEW_DISCARD);
         }
     }
 
     public void handleSellCompanion(InputAction.CallbackContext context) {
         if(context.phase == InputActionPhase.Performed) {
-            Debug.Log("[ControlsManager] handleSecondaryNavigateRight called");
+            Debug.Log("[ControlsManager] handleSellCompanion called");
             ProcessInput(GFGInputAction.SELL_COMPANION);
+        }
+    }
+
+    public void handleOptions(InputAction.CallbackContext context) {
+        if(context.phase == InputActionPhase.Performed) {
+            Debug.Log("[ControlsManager] handleOptions called");
+            ProcessInput(GFGInputAction.OPTIONS);
         }
     }
 

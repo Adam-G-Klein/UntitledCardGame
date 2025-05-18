@@ -28,7 +28,8 @@ public enum GFGInputAction {
     SELECT_UP,
     VIEW_DECK,
     VIEW_DISCARD,
-    SELL_COMPANION
+    SELL_COMPANION,
+    OPTIONS
 }
 
 public enum InputMethod {

@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
 using System.Linq;
 
-public class OptionsViewController : MonoBehaviour
+public class OptionsViewController : MonoBehaviour, IControlsReceiver
 {
     private static OptionsViewController instance;
     private Slider volumeSlider;
@@ -73,15 +73,21 @@ public class OptionsViewController : MonoBehaviour
         autoUpgradeToggle.value = gameState.autoUpgrade;
 
         canvasGroup.blocksRaycasts = false;
+
+        ControlsManager.Instance.RegisterControlsReceiver(this);
     }
 
     void Update() {
-        // haha gross but lazy bool evaluation is a thing so bite me I guess
-        if(Input.GetKeyDown(KeyCode.Escape)) {
-            compendiumView?.ExitButtonHandler();
-            ToggleVisibility(optionsUIDocument.rootVisualElement.style.visibility == Visibility.Hidden);
-            // If the player just hits escape with it open, then it breaks focusing unless we do this
-        }
+        // // haha gross but lazy bool evaluation is a thing so bite me I guess
+        // if(Input.GetKeyDown(KeyCode.Escape)) {
+        //     compendiumView?.ExitButtonHandler();
+        //     ToggleVisibility(optionsUIDocument.rootVisualElement.style.visibility == Visibility.Hidden);
+        // }
+    }
+
+    private void OptionsMenuButton() {
+        compendiumView?.ExitButtonHandler();
+        ToggleVisibility(optionsUIDocument.rootVisualElement.style.visibility == Visibility.Hidden);
     }
 
     private void RegisterFocusables() {
@@ -169,5 +175,17 @@ public class OptionsViewController : MonoBehaviour
     
     private void AutoUpgradeToggleEvent(ChangeEvent<bool> evt) {
         gameState.autoUpgrade = evt.newValue;
+    }
+
+    public void ProcessGFGInputAction(GFGInputAction action)
+    {
+        if (action == GFGInputAction.OPTIONS) {
+            OptionsMenuButton();
+        }
+    }
+
+    public void SwappedControlMethod(ControlsManager.ControlMethod controlMethod)
+    {
+        return;
     }
 }

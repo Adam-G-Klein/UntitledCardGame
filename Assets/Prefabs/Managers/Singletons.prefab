@@ -566,6 +566,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 62617545-fe5c-4a15-8dab-5a09983a8494
     m_ActionName: Signified/EndTurn[/SwitchProControllerHID/rightTrigger]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8518733848191120987}
+        m_TargetAssemblyTypeName: ControlsManager, Assembly-CSharp
+        m_MethodName: handleOptions
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: d7d64508-eb38-4956-9abf-5e3fc4e73903
+    m_ActionName: Signified/Options[/Keyboard/escape,/XInputControllerWindows/start]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Signified
