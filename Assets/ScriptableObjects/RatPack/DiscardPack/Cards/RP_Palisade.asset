@@ -1,0 +1,108 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
+  m_Name: RP_Palisade
+  m_EditorClassIdentifier: 
+  Name: Palisade
+  Description: Give target companion 2 block for each card in hand ({block} block)
+  defaultValues:
+  - key: block
+    value: 0
+  Cost: 2
+  Artwork: {fileID: 21300000, guid: 45525ee67521e6646bc3c798eabca14a, type: 3}
+  cardCategory: 2
+  vfxPrefab: {fileID: 0}
+  playable: 1
+  exhaustsWhenPlayed: 0
+  retain: 0
+  effectWorkflows:
+  - rid: 5602892563578094203
+  onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
+    rid: 2034230108114649711
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  tooltips: 
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 2034230108114649711
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps: []
+    - rid: 2268261022115299364
+      type: {class: CountStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CountStep
+        inputKey: card
+        outputKey: numCards
+    - rid: 2268261022115299365
+      type: {class: MathStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: MathStep
+        inputKey: numCards
+        operand2InputKey: UNUSED
+        operation: 2
+        scale: 2
+        outputKey: block
+    - rid: 2268261022115299366
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: target
+        statusEffect: 2
+        scale: 0
+        getScaleFromKey: 1
+        inputScaleKey: block
+        multiplyByNumAuraStacks: 0
+    - rid: 2268261022115299367
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: target
+        prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
+        scale: 1
+    - rid: 4463205916933357570
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: target
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 0
+        cantCancelTargetting: 0
+    - rid: 5602892563578094203
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 4463205916933357570
+        - rid: 7401433308100035075
+        - rid: 2268261022115299364
+        - rid: 2268261022115299365
+        - rid: 2268261022115299366
+        - rid: 2268261022115299367
+    - rid: 7401433308100035075
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: card
+        validTargets: 03000000
+        number: 1
+        specialTargetRule: 1
+        cantCancelTargetting: 0
