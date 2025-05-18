@@ -59,6 +59,7 @@ public class CompanionManagementSlotView {
         this.companionManagementView = null;
         root.Clear();
         root.style.backgroundColor = defaultBackgroundColor;
+        this.blocked = false;
         FocusManager.Instance.DisableFocusableTarget(this.veFocusable);
     }
 
