@@ -9,6 +9,7 @@ using UnityEngine.UIElements;
 
 public class EntityView : IUIEventReceiver {
     public VisualElement entityContainer;
+    public VisualElementFocusable elementFocusable;
     public IEntityViewDelegate viewDelegate;
 
     public static string STATUS_EFFECTS_CONTAINER_SUFFIX = "-status-effects";
@@ -99,12 +100,20 @@ public class EntityView : IUIEventReceiver {
     private VisualElement setupEntity(IUIEntity entity, int index, bool isEnemy, bool isCompanionManagementView) {
         var pillar = new VisualElement();
         this.pillar = pillar;
+        pillar.focusable = true;
         pillar.AddToClassList("entity-pillar");
         pillar.AddToClassList("entity-pillar-sizing");
+        pillar.AddToClassList("focusable");
+        elementFocusable = pillar.AsFocusable();
+        elementFocusable.SetInputAction(GFGInputAction.VIEW_DECK, () => DrawButtonOnClick(null));
+        elementFocusable.SetInputAction(GFGInputAction.VIEW_DISCARD, () => DiscardButtonOnClick(null));
 
-        pillar.RegisterCallback<ClickEvent>(EntityOnPointerClick);
+        // pillar.RegisterCallback<ClickEvent>(EntityOnPointerClick);
+        pillar.RegisterOnSelected(() => EntityOnPointerClick(null));
         pillar.RegisterCallback<PointerEnterEvent>(EntityOnPointerEnter);
         pillar.RegisterCallback<PointerLeaveEvent>(EntityOnPointerLeave);
+        elementFocusable.additionalFocusAction += () => EntityOnPointerEnter(pillar.CreateFakePointerEnterEvent());
+        elementFocusable.additionalUnfocusAction += () => EntityOnPointerLeave(pillar.CreateFakePointerLeaveEvent());
         pickingModePositionList.Add(pillar);
 
         var pillarContainer = new VisualElement();
@@ -333,26 +342,44 @@ public class EntityView : IUIEventReceiver {
     }
 
     private void EntityOnPointerClick(ClickEvent evt) {
-        Targetable targetable = uiEntity.GetTargetable();
-        if (targetable == null) return;
-        targetable.OnPointerClickUI(evt);
+        try {
+            Targetable targetable = uiEntity.GetTargetable();
+            if (targetable == null) return;
+            targetable.OnPointerClickUI(evt);
+        } catch (Exception e) {
+            Debug.Log("EntityView: Caught exception while trying to get entity targetable," + 
+                " might be due to the entity GO being destroyed");
+            Debug.LogException(e);
+        }
     }
 
     private void EntityOnPointerEnter(PointerEnterEvent evt) {
-        Targetable targetable = uiEntity.GetTargetable();
-        if (targetable == null) return;
-        targetable.OnPointerEnterUI(evt);
+        try {
+            Targetable targetable = uiEntity.GetTargetable();
+            if (targetable == null) return;
+            targetable.OnPointerEnterUI(evt);
+        } catch (Exception e) {
+            Debug.Log("EntityView: Caught exception while trying to get entity targetable," + 
+                " might be due to the entity GO being destroyed");
+            Debug.LogException(e);
+        }
     }
 
     private void EntityOnPointerLeave(PointerLeaveEvent evt) {
-        if (uiEntity == null) return;
-        Targetable targetable = uiEntity.GetTargetable();
-        if (targetable == null) return;
-        targetable.OnPointerLeaveUI(evt);
+        try {
+            if (uiEntity == null) return;
+            Targetable targetable = uiEntity.GetTargetable();
+            if (targetable == null) return;
+            targetable.OnPointerLeaveUI(evt);
+        } catch (Exception e) {
+            Debug.Log("EntityView: Caught exception while trying to get entity targetable," + 
+                " might be due to the entity GO being destroyed");
+            Debug.LogException(e);
+        }
     }
 
     private void DrawButtonOnClick(ClickEvent evt) {
-        evt.StopPropagation();
+        if (evt != null) evt.StopPropagation();
         Debug.Log("Draw button clicked");
         DeckInstance deckInstance = uiEntity.GetDeckInstance();
         if (deckInstance == null) {
@@ -363,7 +390,7 @@ public class EntityView : IUIEventReceiver {
 }
 
     private void DiscardButtonOnClick(ClickEvent evt) {
-        evt.StopPropagation();
+        if (evt != null) evt.StopPropagation();
         Debug.Log("Discard button clicked");
         DeckInstance deckInstance = uiEntity.GetDeckInstance();
         if (deckInstance == null) {

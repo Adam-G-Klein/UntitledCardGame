@@ -1,7 +1,8 @@
 using System;
 
 // used as a key into the dictionary we'll maintain in EffectTooltipSO
-public enum TooltipKeyword {
+public enum TooltipKeyword
+{
     Exhaust,
     Purge,
     Discard,
@@ -37,6 +38,9 @@ public enum TooltipKeyword {
     PermanentlyRemove,
     HiddenStrength,
     TheGoodStuff,
+    Charge,
+    Discharge,
+    MaxBlockLost
 }
 public interface ITooltipProvider
 {

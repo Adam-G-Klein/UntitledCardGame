@@ -19,7 +19,8 @@ public class MainMenuManager : MonoBehaviour
     private GenerateMap generateMap;
     public void Awake()
     {
-        Screen.SetResolution(1920, 1080, false);
+        // there has to be somewhere to call this where it actuallys only runs at start up not every time the player goes back to the main menu
+        Screen.SetResolution(1920, 1080, gameState.fullscreenEnabled);
     }
 
     public void Start()
@@ -41,14 +42,16 @@ public class MainMenuManager : MonoBehaviour
 
     public void Setup() {
         startButton = mainMenuUIDocument.rootVisualElement.Q<Button>("startButton");
-        startButton.RegisterCallback<ClickEvent>(ev => startButtonHandler());
-        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(startButton, startButtonHandler);
         optionsButton = mainMenuUIDocument.rootVisualElement.Q<Button>("optionsButton");
-        optionsButton.RegisterCallback<ClickEvent>(ev => optionsButtonHandler());
         exitButton = mainMenuUIDocument.rootVisualElement.Q<Button>("exitButton");
-        exitButton.RegisterCallback<ClickEvent>(ev => exitButtonHandler());
-        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(exitButton, exitButtonHandler);
 
+        VisualElementUtils.RegisterSelected(startButton, startButtonHandler);
+        VisualElementUtils.RegisterSelected(optionsButton, optionsButtonHandler);
+        VisualElementUtils.RegisterSelected(exitButton, exitButtonHandler);
+        
+
+        FocusManager.Instance.RegisterFocusables(mainMenuUIDocument);
+        FocusManager.Instance.SetFocus(startButton.AsFocusable());
     }
 
     public void startButtonHandler() {
@@ -56,11 +59,17 @@ public class MainMenuManager : MonoBehaviour
         //SceneManager.LoadScene("GenerateMap");
     }
 
+    public void test(string s) {
+        Debug.Log(s);
+    }
+
     public void optionsButtonHandler() {
+        Debug.Log("OPTIONS MENU BUTTON HANDLER");
         if (optionsUIPrefab == null) {
             optionsUIPrefab = GameObject.FindGameObjectWithTag("OptionsViewCanvas");
         }
-        optionsUIPrefab.GetComponent<OptionsViewController>().ToggleVisibility(true);
+        OptionsViewController optionsViewController = optionsUIPrefab.GetComponent<OptionsViewController>();
+        optionsViewController.ToggleVisibility(true);
     }
 
     public void exitButtonHandler() {

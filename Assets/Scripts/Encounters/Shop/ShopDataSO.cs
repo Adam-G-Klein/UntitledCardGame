@@ -65,6 +65,8 @@ public class ShopDataSO : ScriptableObject
 public class ShopLevel {
     [Header("Basic Data")]
     public int level;
+    public int shopLevelIncrementsToUnlock;
+    public int upgradeIncrementCost;
     public int mana;
     public int teamSize;
     public int upgradeCost;

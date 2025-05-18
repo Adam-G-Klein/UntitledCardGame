@@ -108,9 +108,10 @@ public class GetTargets : EffectStep, IEffectStepCalculation
             TargettingManager.Instance.targetSuppliedHandler += TargetSuppliedHandler;
             TargettingManager.Instance.cancelTargettingHandler += CancelHandler;
             TargettingArrowsController.Instance.createTargettingArrow(validTargets, self);
-            if(NonMouseInputManager.Instance.inputMethod != InputMethod.Mouse) {
-                NonMouseInputManager.Instance.SetValidTargets(validTargets);
-            }
+            // if(NonMouseInputManager.Instance.inputMethod != InputMethod.Mouse) {
+                // NonMouseInputManager.Instance.SetValidTargets(validTargets);
+            // }
+            FocusManager.Instance.StashFocusablesNotOfTargetType(validTargets, this.GetType().Name);
             UIStateManager.Instance.setState(UIState.EFFECT_TARGETTING);
             yield return new WaitUntil(() => targetsList.Count == number || (!cantCancelTargetting && cancelled));
             TargettingManager.Instance.targetSuppliedHandler -= TargetSuppliedHandler;
@@ -121,6 +122,7 @@ public class GetTargets : EffectStep, IEffectStepCalculation
                 document.Interrupt(disableCallback: true);
             }
 
+            FocusManager.Instance.UnstashFocusables(this.GetType().Name);
             AddTargetsToDocument(document);
         }
 
@@ -182,10 +184,15 @@ public class GetTargets : EffectStep, IEffectStepCalculation
             Debug.Log("Cancelling the GetTargets effect step");
             context.canCancel = true;
             cancelled = true;
-            // EffectManager.Instance.CancelEffectWorkflow();
 
-            // TargettingManager.Instance.targetSuppliedHandler -= TargetSuppliedHandler;
-            // TargettingManager.Instance.cancelTargettingHandler -= CancelHandler;
+            TargettingManager.Instance.targetSuppliedHandler -= TargetSuppliedHandler;
+            TargettingManager.Instance.cancelTargettingHandler -= CancelHandler;
+            FocusManager.Instance.UnstashFocusables(this.GetType().Name);
+            if (ControlsManager.Instance.GetControlMethod() == ControlsManager.ControlMethod.KeyboardController) {
+                if (originCard.TryGetComponent<GameObjectFocusable>(out GameObjectFocusable goFocusable)) {
+                    FocusManager.Instance.SetFocus(goFocusable);
+                }
+            }
             if (originCard != null) {
                 originCard.ResetCardScale();
                 EnemyEncounterManager.Instance.SetCastingCard(false);

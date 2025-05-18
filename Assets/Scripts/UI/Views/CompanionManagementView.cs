@@ -5,8 +5,9 @@ using UnityEngine.UIElements;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using FMODUnity;
 
-public class CompanionManagementView {
+public class CompanionManagementView : IControlsReceiver {
     public VisualElement container;
     public Companion companion;
 
@@ -18,6 +19,8 @@ public class CompanionManagementView {
     private VisualElement companionBoundingBox = null;
     private EntityView entityView;
 
+    private bool draggingThisCompanion = false;
+
     public CompanionManagementView(Companion companion, ICompanionManagementViewDelegate viewDelegate) {
         this.viewDelegate = viewDelegate;
         container = MakeCompanionManagementView(companion);
@@ -27,26 +30,22 @@ public class CompanionManagementView {
     public VisualElement MakeCompanionManagementView(Companion companion) {
         entityView = new EntityView(companion, 0, false, null, true);
         entityView.UpdateWidthAndHeight();
-        //entityView.SetupEntityImage(companion.companionType.sprite);
+
         entityView.entityContainer.RegisterCallback<ClickEvent>(CompanionManagementOnClick);
-        entityView.entityContainer.RegisterCallback<PointerDownEvent>(CompanionManagementOnPointerDown);
+
+        entityView.entityContainer.RegisterCallback<PointerDownEvent>((evt) => CompanionManagementOnPointerDown(evt, true));
         entityView.entityContainer.RegisterCallback<PointerMoveEvent>(CompanionManagementOnPointerMove);
         entityView.entityContainer.RegisterCallback<PointerUpEvent>(ComapnionManagementOnPointerUp);
+
         entityView.entityContainer.RegisterCallback<PointerLeaveEvent>(ComapnionManagementOnPointerLeave);
         entityView.entityContainer.RegisterCallback<PointerEnterEvent>(CompanionManagementOnPointerEnter);
-        entityView.entityContainer.name = companion.companionType.name;
 
-        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(entityView.entityContainer, 
-            () => {CompanionManagementNonMouseSelect();}, 
-            ()=> {CompanionManagementOnPointerEnter(null);},
-            () => {ComapnionManagementOnPointerLeave(null);},
-            HoverableType.CompanionManagement,
-            companion.companionType);
+        entityView.entityContainer.name = companion.companionType.name;
         
         return entityView.entityContainer;
     }
 
-    private void CompanionManagementOnPointerEnter(PointerEnterEvent evt)
+    public void CompanionManagementOnPointerEnter(PointerEnterEvent evt)
     {
         if (viewDelegate.IsSellingCompanions() || viewDelegate.IsDraggingCompanion()) return;
         CreateViewDeckButton();
@@ -56,67 +55,56 @@ public class CompanionManagementView {
     }
 
     public void CompanionManagementNonMouseSelect() {
-        if(NonMouseInputManager.Instance.inputMethod == InputMethod.Mouse) {
-            Debug.LogError("Got a callback for a non-mouse input method, but we're in mouse mode.");
-            return;
-        } 
-        if(NonMouseInputManager.Instance.GetUIState() == UIState.DEFAULT) {
-            CompanionManagementOnPointerDown(null);
-        } else if(NonMouseInputManager.Instance.GetUIState() != UIState.DRAGGING_COMPANION) {
+        if (!viewDelegate.CanDragCompanions()) {
+            Debug.Log("Companion Management On Click not dragging");
             CompanionManagementOnClick(null);
-        } // if dragging, nonmouseinputmanager will callback with the pointer up event
-
+        }
     }
 
     public void CompanionManagementOnClick(ClickEvent evt) {
-        viewDelegate.CompanionManagementOnClick(this, evt);
+        viewDelegate.CompanionManagementOnClick(this);
     }
 
-    private void CompanionManagementOnPointerDown(PointerDownEvent evt) {
+    public void CompanionManagementOnPointerDown(PointerDownEvent evt, bool usingMouse) {
+        Debug.Log("Companion on pointer down");
         RemoveCompanionHoverButtons();
-        // stand-in for whatever logic we'll use to determine no mouse
-        if(NonMouseInputManager.Instance.inputMethod != InputMethod.Mouse || evt == null) {
-            NonMouseInputManager.Instance.CompanionDragACTIVATE(this, viewDelegate);
+        draggingThisCompanion = true;
+        if (usingMouse) {
+            viewDelegate.CompanionManagementOnPointerDown(this, evt.position);
         } else {
-            viewDelegate.CompanionManagementOnPointerDown(this, evt, NonMouseInputManager.Instance.currentlyHoveredScreenPosUiDoc());
+            // Handling dragging this companion using keyboard/controller
+            FocusManager.Instance.onFocusDelegate += FocusChangedWhileDragging;
+            viewDelegate.CompanionManagementOnPointerDown(this, (evt.target as VisualElement).worldBound.center);
+            ControlsManager.Instance.RegisterControlsReceiver(this);
         }
+    }
+
+    public void FocusChangedWhileDragging(IFocusableTarget focusable) {
+        viewDelegate.CompanionManagementOnPointerMove(this, focusable.GetUIPosition());
     }
 
     private void CompanionManagementOnPointerMove(PointerMoveEvent evt) {
-        viewDelegate.CompanionManagementOnPointerMove(this, evt, NonMouseInputManager.Instance.currentlyHoveredScreenPosUiDoc());
+        viewDelegate.CompanionManagementOnPointerMove(this, evt.position);
     }
 
-    private void ComapnionManagementOnPointerUp(PointerUpEvent evt) {
-        viewDelegate.ComapnionManagementOnPointerUp(this, evt, NonMouseInputManager.Instance.currentlyHoveredScreenPosUiDoc());
-        if(NonMouseInputManager.Instance.GetUIState() == UIState.DRAGGING_COMPANION) {
-            NonMouseInputManager.Instance.SetUIState(UIState.DEFAULT);
-        }
+    public void ComapnionManagementOnPointerUp(PointerUpEvent evt) {
+        viewDelegate.ComapnionManagementOnPointerUp(this, evt.position);
+        draggingThisCompanion = false;
     }
 
-    private void ComapnionManagementOnPointerLeave(PointerLeaveEvent evt) {
+    public void ComapnionManagementOnPointerLeave(PointerLeaveEvent evt) {
         viewDelegate.CompanionManagementOnPointerLeave(this, evt);
         viewDelegate.DestroyTooltip(entityView.entityContainer);
-        // mouse removal / unhover is done w a bounding box.
-        // we need to be more manual abt it w controllers
-        /*if(NonMouseInputManager.Instance.currentlyHovered.associatedUIDocElement != viewDeckButton) {
-            RemoveCompanionHoverButtons();
-        }*/
-        // massive fkn race condition sry folks
-        if(NonMouseInputManager.Instance.inputMethod != InputMethod.Mouse) {
-            List<VisualElement> elems = new List<VisualElement>
-            {
-                viewDeckButton,
-                sellCompanionButton
-            };
-            UIDocumentHoverableInstantiator.Instance.CallIfNextHoverableNotInElemListWhenReady(
-                RemoveCompanionHoverButtons, 
-                elems);
-        }
+    }
+
+    public void CompanionManagementOnUnfocus() {
+        viewDelegate.CompanionManagementOnPointerLeave(this, null);
+        viewDelegate.DestroyTooltip(entityView.entityContainer);
+        RemoveCompanionHoverButtons();
     }
 
     private void CreateViewDeckButton() {
         if (viewDeckButton != null) {
-            UIDocumentHoverableInstantiator.Instance.CleanupHoverable(viewDeckButton);
             viewDeckButton.RemoveFromHierarchy();
         } 
         viewDeckButton = new Button();
@@ -133,31 +121,11 @@ public class CompanionManagementView {
         viewDeckButton.RegisterCallback<ClickEvent>((evt) => {ViewDeckButtonOnClick();});
 
         viewDelegate.AddToRoot(viewDeckButton);
-        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(viewDeckButton,
-            () => {ViewDeckButtonOnClick();},
-            ()=> {},
-            ()=> {
-                RemoveCompanionHoverButtonsIfNextHoverableNotInElemList();
-            },
-            HoverableType.DefaultShop);
-    }
-
-    private void RemoveCompanionHoverButtonsIfNextHoverableNotInElemList() {
-        List<VisualElement> elems = new List<VisualElement>
-        {
-            viewDeckButton,
-            sellCompanionButton,
-            entityView.entityContainer
-        };
-        UIDocumentHoverableInstantiator.Instance.CallIfNextHoverableNotInElemListWhenReady(
-            RemoveCompanionHoverButtons, 
-            elems);
     }
 
     private void CreateSellCompanionButton() {
         if (sellCompanionButton != null) {
             sellCompanionButton.RemoveFromHierarchy();
-            UIDocumentHoverableInstantiator.Instance.CleanupHoverable(sellCompanionButton);
         }
         sellCompanionButton = new Button();
         sellCompanionButton.AddToClassList("shopButton");
@@ -172,24 +140,17 @@ public class CompanionManagementView {
 
 
 
-        sellCompanionButton.RegisterCallback<ClickEvent>((evt) => {SellCompanionButtonOnClick();});
+        sellCompanionButton.RegisterCallback<ClickEvent>((evt) => { SellCompanionButtonOnClick(); });
 
         viewDelegate.AddToRoot(sellCompanionButton);
-        UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(sellCompanionButton,
-            () => {SellCompanionButtonOnClick();},
-            ()=> {},
-            ()=> {
-                RemoveCompanionHoverButtonsIfNextHoverableNotInElemList();
-            },
-            HoverableType.DefaultShop);
     }
 
-    private void ViewDeckButtonOnClick() {
+    public void ViewDeckButtonOnClick() {
         RemoveCompanionHoverButtons();
         viewDelegate.ShowCompanionDeckView(companion);
     }
 
-    private void SellCompanionButtonOnClick() {
+    public void SellCompanionButtonOnClick() {
         RemoveCompanionHoverButtons();
         viewDelegate.SellCompanion(this);
     }
@@ -206,7 +167,6 @@ public class CompanionManagementView {
             container.worldBound.y + container.worldBound.height * 0.5f);
         companionBoundingBox.style.left = containerCenter.x - (width * 0.5f);
         companionBoundingBox.style.top = containerCenter.y - (height * 0.5f);
-        // companionBoundingBox.AddToClassList("shopButton");
         viewDelegate.AddToRoot(companionBoundingBox);
         viewDelegate.GetMonoBehaviour().StartCoroutine(RegisterMoveCallback(companionBoundingBox.parent));
     }
@@ -218,7 +178,7 @@ public class CompanionManagementView {
 
 
     private void BoundingBoxParentOnPointerMove(PointerMoveEvent evt) {
-        if (!companionBoundingBox.worldBound.Contains(evt.position) && NonMouseInputManager.Instance.inputMethod == InputMethod.Mouse) {
+        if (!companionBoundingBox.worldBound.Contains(evt.position)) {
             RemoveCompanionHoverButtons();
         }
     }
@@ -227,13 +187,11 @@ public class CompanionManagementView {
         if (sellCompanionButton != null) {
             sellCompanionButton.style.visibility = Visibility.Hidden;
             sellCompanionButton.RemoveFromHierarchy();
-            UIDocumentHoverableInstantiator.Instance.CleanupHoverable(sellCompanionButton);
             sellCompanionButton = null;
         }
         if (viewDeckButton != null) {
             viewDeckButton.style.visibility = Visibility.Hidden; 
             viewDeckButton.RemoveFromHierarchy();
-            UIDocumentHoverableInstantiator.Instance.CleanupHoverable(viewDeckButton);
             viewDeckButton = null;
         }
         if (companionBoundingBox != null) {
@@ -260,5 +218,23 @@ public class CompanionManagementView {
             darkBox.RemoveFromHierarchy();
             darkBox = null;
         }
+    }
+
+    public void ProcessGFGInputAction(GFGInputAction action)
+    {
+        if (!draggingThisCompanion) return;
+
+        if (action == GFGInputAction.SELECT_UP) {
+            viewDelegate.ComapnionManagementOnPointerUp(this, FocusManager.Instance.GetCurrentFocus().GetUIPosition());
+            FocusManager.Instance.onFocusDelegate -= FocusChangedWhileDragging;
+            ControlsManager.Instance.UnregisterControlsReceiver(this);
+            viewDelegate.DestroyTooltip(entityView.entityContainer);
+        }
+    }
+
+    public void SwappedControlMethod(ControlsManager.ControlMethod controlMethod)
+    {
+        // This is gonna be a whole ordeal
+        return;
     }
 }

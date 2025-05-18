@@ -13,13 +13,22 @@ public enum GFGInputAction {
     SELECT,
     BACK,
     END_TURN,
-    OPEN_COMPANION_1_DRAW,
-    OPEN_COMPANION_2_DRAW,
-    OPEN_COMPANION_3_DRAW,
-    OPEN_COMPANION_4_DRAW,
-    OPEN_COMPANION_5_DRAW,
+    OPEN_COMPANION_1_DRAW, // Deprecated
+    OPEN_COMPANION_2_DRAW, // Deprecated
+    OPEN_COMPANION_3_DRAW, // Deprecated
+    OPEN_COMPANION_4_DRAW, // Deprecated
+    OPEN_COMPANION_5_DRAW, // Deprecated
     NONE, // used for the controller mapping of the stick being in the center of its range
-    CUTSCENE_SKIP
+    CUTSCENE_SKIP,
+    SECONDARY_UP,
+    SECONDARY_DOWN,
+    SECONDARY_RIGHT,
+    SECONDARY_LEFT,
+    SELECT_DOWN,
+    SELECT_UP,
+    VIEW_DECK,
+    VIEW_DISCARD,
+    SELL_COMPANION
 }
 
 public enum InputMethod {
@@ -32,7 +41,7 @@ public enum InputMethod {
 // Using it to be able to play the game with just a keyboard, as a precursor 
 // to using a controller
 // brainstorming doc: https://docs.google.com/document/d/1-HkEMw6Go4Lw7kFVd3A6gOE2FjSb1qToeDbyvLiJyzc/edit?tab=t.0
-public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
+public class NonMouseInputManager : GenericSingleton<NonMouseInputManager>, IControlsReceiver {
 
     [SerializeField]
     private int hoveredCardIndex = -1;
@@ -435,7 +444,7 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
         ICompanionManagementViewDelegate viewDelegate){
         companionManagementView = companionView;
         companionManagementViewDelegate = viewDelegate;
-        viewDelegate.CompanionManagementOnPointerDown(companionView, null, currentlyHoveredScreenPosUiDoc());
+        // viewDelegate.CompanionManagementOnPointerDown(companionView, null, currentlyHoveredScreenPosUiDoc());
         SetUIState(UIState.DRAGGING_COMPANION);
     }
 
@@ -444,9 +453,9 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
             Debug.LogError("[NonMouseInputManager] State: SHOP, DRAGGING_COMPANION, but no delegate found");
             return;
         } else {
-            companionManagementViewDelegate.CompanionManagementOnPointerMove(companionManagementView, 
-                null, 
-                currentlyHoveredScreenPosUiDoc());
+            // companionManagementViewDelegate.CompanionManagementOnPointerMove(companionManagementView, 
+            //     null, 
+            //     currentlyHoveredScreenPosUiDoc());
         }
     }
 
@@ -474,7 +483,7 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
                 Debug.Log("[NonMouseInputManager] State: SHOP, DRAGGING_COMPANION, Action: RIGHT");
                 break;
             case GFGInputAction.SELECT:
-                companionManagementViewDelegate.ComapnionManagementOnPointerUp(companionManagementView, null, currentlyHoveredScreenPosUiDoc());
+                // companionManagementViewDelegate.ComapnionManagementOnPointerUp(companionManagementView, null, currentlyHoveredScreenPosUiDoc());
                 Debug.Log("[NonMouseInputManager] State: SHOP, DRAGGING_COMPANION, Action: SELECT");
                 break;
             case GFGInputAction.BACK:
@@ -735,5 +744,44 @@ public class NonMouseInputManager : GenericSingleton<NonMouseInputManager> {
         if(!hoverables.Contains(currentlyHovered)) {
             action.Invoke();
         }
+    }
+
+    public void ProcessGFGInputAction(GFGInputAction action)
+    {
+        UnityEngine.Cursor.visible = false;
+        inputMethod = InputMethod.Keyboard;
+        if(uiState == UIState.OPTIONS_MENU) {
+            processInputForOptionsMenu(action);
+            return;
+        }
+        // NOTE we can't actually get a CUTSCENE_SKIP action unless we're in a cutscene
+        // we stuff it at the input manager level because if you spam the button our gamestate tries 
+        // and fails to skip multiple scenes. 
+        // Location changes instantly, but the scene load can't keep up 
+        if(gameState.currentLocation == Location.INTRO_CUTSCENE) {
+            processInputForCutscene(action);
+            return;
+        }
+        if(gameState.currentLocation == Location.POST_COMBAT) {
+            processInputSimple(action, filterHoverablesByHoverableType(HoverableType.PostCombat, allHoverables));
+            return;
+        }
+        if(gameState.currentLocation == Location.MAIN_MENU || gameState.currentLocation == Location.TEAM_SIGNING || gameState.currentLocation == Location.TUTORIAL || gameState.currentLocation == Location.SHOP_TUTORIAL) { 
+            processInputSimple(action);
+            return;
+        }
+        if(gameState.activeEncounter.GetValue().getEncounterType() == EncounterType.Shop) {
+            processInputForShop(action);
+            return;
+        } else if (gameState.activeEncounter.GetValue().getEncounterType() == EncounterType.Enemy) {
+            processInputForCombat(action);
+            return;
+        } 
+        Debug.LogError("Couldn't find which state to route input to");
+    }
+
+    public void SwappedControlMethod(ControlsManager.ControlMethod controlMethod)
+    {
+        throw new NotImplementedException();
     }
 }

@@ -16,6 +16,6 @@
             <ui:Label tabindex="-1" text="(Page 1 of 3)" parse-escape-sequences="true" display-tooltip-when-elided="true" name="tutorialIndexText" style="align-self: center; align-items: center; margin-right: auto; margin-left: 2px; margin-top: 0; padding-top: 2px; color: rgb(255, 255, 255); font-size: 50px;" />
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:Button text="Next" parse-escape-sequences="true" display-tooltip-when-elided="true" name="next" class="tutorial-button" />
-    <ui:Button text="Back" parse-escape-sequences="true" display-tooltip-when-elided="true" name="back" class="tutorial-button" style="right: auto; top: auto; left: 10%;" />
+    <ui:Button text="Next" parse-escape-sequences="true" display-tooltip-when-elided="true" name="next" class="tutorial-button focusable" />
+    <ui:Button text="Back" parse-escape-sequences="true" display-tooltip-when-elided="true" name="back" class="tutorial-button focusable" style="right: auto; top: auto; left: 10%;" />
 </ui:UXML>

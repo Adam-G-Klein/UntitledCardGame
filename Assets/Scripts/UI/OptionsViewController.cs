@@ -28,6 +28,9 @@ public class OptionsViewController : MonoBehaviour
     private Button mainMenuButton;
     private Button compendiumButton;
     private Toggle fullscreenToggle;
+    private Toggle autoUpgradeToggle;
+    [SerializeField]
+    private GameStateVariableSO gameState;
     // Start is called before the first frame update
     private Camera mainCamera;
     [SerializeField]
@@ -44,6 +47,7 @@ public class OptionsViewController : MonoBehaviour
         canvas = GetComponent<Canvas>();
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
+
     void Start()
     {
         optionsUIDocument.rootVisualElement.style.visibility = Visibility.Hidden;
@@ -62,8 +66,11 @@ public class OptionsViewController : MonoBehaviour
         quitButton = optionsUIDocument.rootVisualElement.Q<Button>("quitButton");
         quitButton.clicked += onExitGameHandler;
         fullscreenToggle = optionsUIDocument.rootVisualElement.Q<Toggle>("fullscreenToggle");
-        fullscreenToggle.value = false;
+        fullscreenToggle.value = gameState.fullscreenEnabled;
         fullscreenToggle.RegisterValueChangedCallback(FullScreenToggleEvent);
+        autoUpgradeToggle = optionsUIDocument.rootVisualElement.Q<Toggle>("auto-upgrade-toggle");
+        autoUpgradeToggle.RegisterValueChangedCallback(AutoUpgradeToggleEvent);
+        autoUpgradeToggle.value = gameState.autoUpgrade;
 
         canvasGroup.blocksRaycasts = false;
     }
@@ -71,8 +78,22 @@ public class OptionsViewController : MonoBehaviour
     void Update() {
         // haha gross but lazy bool evaluation is a thing so bite me I guess
         if(Input.GetKeyDown(KeyCode.Escape)) {
+            compendiumView?.ExitButtonHandler();
             ToggleVisibility(optionsUIDocument.rootVisualElement.style.visibility == Visibility.Hidden);
+            // If the player just hits escape with it open, then it breaks focusing unless we do this
         }
+    }
+
+    private void RegisterFocusables() {
+        VisualElementFocusable volumeSliderFocusable = new VisualElementFocusable(volumeSlider);
+        volumeSliderFocusable.SetInputAction(GFGInputAction.LEFT, () => VisualElementUtils.ProcessSliderInput(volumeSlider, GFGInputAction.LEFT));
+        volumeSliderFocusable.SetInputAction(GFGInputAction.RIGHT, () => VisualElementUtils.ProcessSliderInput(volumeSlider, GFGInputAction.RIGHT));
+        VisualElementFocusable timescaleSliderFocusable = new VisualElementFocusable(timescaleSlider);
+        timescaleSliderFocusable.SetInputAction(GFGInputAction.LEFT, () => VisualElementUtils.ProcessSliderInput(timescaleSlider, GFGInputAction.LEFT));
+        timescaleSliderFocusable.SetInputAction(GFGInputAction.RIGHT, () => VisualElementUtils.ProcessSliderInput(timescaleSlider, GFGInputAction.RIGHT));
+        FocusManager.Instance.RegisterFocusableTarget(volumeSliderFocusable);
+        FocusManager.Instance.RegisterFocusableTarget(timescaleSliderFocusable);
+        FocusManager.Instance.RegisterFocusables(optionsUIDocument);
     }
 
     public void onMainMenuButtonHandler() {
@@ -107,18 +128,26 @@ public class OptionsViewController : MonoBehaviour
 
     public void ToggleVisibility(bool enable = false) {
         if (enable) {
+            autoUpgradeToggle.value = gameState.autoUpgrade; // this is updated elsewhere so we need to make sure it's consistent with the value in the game state
             canvasGroup.blocksRaycasts = true;
             UIDocumentUtils.SetAllPickingMode(optionsUIDocument.rootVisualElement, PickingMode.Position);
             optionsUIDocument.rootVisualElement.style.visibility = Visibility.Visible;
+            // Have to do this each time due to how the options menu persists across scenes
+            FocusManager.Instance.StashFocusables(this.GetType().Name);
+            RegisterFocusables();
+            FocusManager.Instance.SetFocusNextFrame(backButton.AsFocusable());
         } else {
             canvasGroup.blocksRaycasts = false;
             UIDocumentUtils.SetAllPickingMode(optionsUIDocument.rootVisualElement, PickingMode.Ignore);
             optionsUIDocument.rootVisualElement.style.visibility = Visibility.Hidden;
             compendiumUIDocument.rootVisualElement.style.visibility = Visibility.Hidden;
+            FocusManager.Instance.UnregisterFocusables(optionsUIDocument);
+            FocusManager.Instance.UnstashFocusables(this.GetType().Name);
         }
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
+        // RegisterFocusables();
         UpdateCameraReference();
         ToggleVisibility();
     }
@@ -134,6 +163,11 @@ public class OptionsViewController : MonoBehaviour
     }
 
     private void FullScreenToggleEvent(ChangeEvent<bool> evt) {
-        Screen.fullScreen = evt.newValue;
+        gameState.fullscreenEnabled = evt.newValue;
+        Screen.SetResolution(1920, 1080, gameState.fullscreenEnabled);
+    }
+    
+    private void AutoUpgradeToggleEvent(ChangeEvent<bool> evt) {
+        gameState.autoUpgrade = evt.newValue;
     }
 }

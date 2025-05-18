@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 // by one that does
 public class CardView {
     public VisualElement cardContainer;
+    public VisualElementFocusable cardFocusable;
     // TODO, could require the stylesheet in the constructor and fetch these from there
     public static int CARD_DESC_SIZE_FULL_TEXTURE = 30; //px
     public static int CARD_TITLE_SIZE_FULL_TEXTURE = 44; //px
@@ -50,6 +51,10 @@ public class CardView {
         Debug.Log(companionType);
         var container = new VisualElement();
         container.AddToClassList("card-container");
+        container.AddToClassList("focusable");
+        container.focusable = true;
+        
+        cardFocusable = container.AsFocusable();
 
         var greenBorder = new VisualElement();
         greenBorder.AddToClassList("green-card-border");

@@ -6,7 +6,8 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public enum Location {
+public enum Location
+{
     NONE,
     MAIN_MENU,
     WAKE_UP_ROOM,
@@ -23,6 +24,7 @@ public enum Location {
     INTRO_CUTSCENE,
     TUTORIAL,
     SHOP_TUTORIAL,
+    PACK_SELECT
 }
 
 [CreateAssetMenu(
@@ -53,6 +55,8 @@ public class GameStateVariableSO : ScriptableObject
     public int currentEncounterIndex = 0;
     [SerializeField]
     private bool hasSeenTutorial = false;
+    public bool autoUpgrade = false;
+    public List<PackSO> previouslySelectedPackSOs;
     public Dictionary<Location, string> locationToScene = new Dictionary<Location, string>() {
         {Location.MAIN_MENU, "MainMenu"},
         {Location.WAKE_UP_ROOM, "AidensRoom"},
@@ -60,7 +64,8 @@ public class GameStateVariableSO : ScriptableObject
         {Location.TUTORIAL, "TutorialScene"},
         {Location.SHOP_TUTORIAL, "ShopTutorialScene"},
         {Location.MAP, "Map"},
-        {Location.TEAM_SELECT, "TeamSelect"},
+        {Location.PACK_SELECT, "PackSelectionScene"},
+        { Location.TEAM_SELECT, "TeamSelect"},
         {Location.PRE_COMBAT_SPLASH, "PreCombatSplash"},
         {Location.COMBAT, "CombatScene"},
         {Location.POST_COMBAT, "CombatScene"},
@@ -85,7 +90,8 @@ public class GameStateVariableSO : ScriptableObject
         {Location.SHOP, Location.COMBAT},
         {Location.FAKE_SHOP, Location.PRE_BOSSFIGHT_COMBAT_SPLASH},
         {Location.PRE_BOSSFIGHT_COMBAT_SPLASH, Location.BOSSFIGHT},
-        {Location.BOSSFIGHT, Location.MAP}
+        {Location.BOSSFIGHT, Location.MAP},
+        {Location.PACK_SELECT, Location.TEAM_SIGNING}
     };
 
     private HashSet<Location> resumeableLocations = new HashSet<Location>() {
@@ -102,6 +108,7 @@ public class GameStateVariableSO : ScriptableObject
     public int lastTutorialLoopIndex = 2;
     public int bossFightLoopIndex = 6;
     public int tutorialLoops = 2;
+    public bool fullscreenEnabled = true;
 
     // TODO: make this more versatile if we want the map to actually do things.
     // also want to field criticism about whether this should live here.
@@ -123,7 +130,7 @@ public class GameStateVariableSO : ScriptableObject
                 nextEncounter.SetValue(map.GetValue().encounters[nextMapIndex]);
                 AdvanceEncounter();
                 if (hasSeenTutorial) {
-                    currentLocation = Location.TEAM_SIGNING;
+                    currentLocation = Location.PACK_SELECT;
                 } else {
                     currentLocation = locationToNextLocation[currentLocation];
                 }
@@ -196,6 +203,9 @@ public class GameStateVariableSO : ScriptableObject
                 currentLocation = locationToNextLocation[currentLocation];
                 break;
             case Location.PRE_BOSSFIGHT_COMBAT_SPLASH:
+                currentLocation = locationToNextLocation[currentLocation];
+                break;
+            case Location.PACK_SELECT:
                 currentLocation = locationToNextLocation[currentLocation];
                 break;
             default:

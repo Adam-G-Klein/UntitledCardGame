@@ -11,7 +11,7 @@
         </ui:VisualElement>
         <ui:VisualElement style="flex-grow: 0; height: 10%; align-items: center; flex-direction: row; justify-content: center;">
             <ui:Label tabindex="-1" text="Please select 1 card." parse-escape-sequences="true" display-tooltip-when-elided="true" name="prompt-text-label" style="font-size: 30px; margin-right: 5%;" />
-            <ui:Button text="Confirm" parse-escape-sequences="true" display-tooltip-when-elided="true" name="confirm-exit-button" style="font-size: 30px; margin-left: 5%; flex-shrink: 1;" />
+            <ui:Button text="Confirm" parse-escape-sequences="true" display-tooltip-when-elided="true" name="confirm-exit-button" class="focusable exit-button" style="font-size: 30px; margin-left: 5%; flex-shrink: 1;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

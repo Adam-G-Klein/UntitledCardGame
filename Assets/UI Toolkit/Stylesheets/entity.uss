@@ -99,6 +99,17 @@
     border-bottom-color: rgb(174, 151, 126);
 }
 
+.entity-pillar:focus {
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    border-top-width: 2px;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+}
+
 .top-triangle {
     flex-grow: 0;
     background-color: rgba(0, 0, 0, 0);
@@ -340,6 +351,7 @@
     font-size: 20px;
     -unity-text-align: middle-center;
 }
+
 .health-tab-text {
     margin-left: 0;
     margin-right: 0;

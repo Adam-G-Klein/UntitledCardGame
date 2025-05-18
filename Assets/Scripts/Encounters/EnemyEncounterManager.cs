@@ -8,7 +8,7 @@ using TMPro;
 using UnityEngine.UIElements;
 
 [RequireComponent(typeof(EndEncounterEventListener))]
-public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IEncounterBuilder
+public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IEncounterBuilder, IControlsReceiver
 {
     public GameStateVariableSO gameState;
     public CombatEncounterView combatEncounterView;
@@ -71,6 +71,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     }
 
     void LateStart() {
+        ControlsManager.Instance.RegisterControlsReceiver(this);
         gameState.activeEncounter.GetValue().BuildWithEncounterBuilder(this);
         ManaManager.Instance.SetManaPerTurn(gameState.playerData.GetValue().manaPerTurn);
         RegisterCombatEncounterStateActions();
@@ -148,8 +149,9 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         postCombatUI.SetActive(true);
         uIStateEvent.Raise(new UIStateEventInfo(UIState.END_ENCOUNTER));
         //postCombatUI.transform.SetSiblingIndex(postCombatUI.transform.parent.childCount - 1);
-        postCombatUI.GetComponent<EndEncounterView>().Setup(baseGoldEarnedPerBattle, extraGold, gameState.baseShopData.interestCap, gameState.baseShopData.interestRate);
         TurnOffInteractions();
+        TurnOffFocusing();// Needs to go before the next line bc this line disables existing focus, while the next line sets up more focus
+        postCombatUI.GetComponent<EndEncounterView>().Setup(baseGoldEarnedPerBattle, extraGold, gameState.baseShopData.interestCap, gameState.baseShopData.interestRate);
         StartCoroutine(displayPostCombatUIAfterDelay());
 
         DialogueManager.Instance.SetDialogueLocation(gameState);
@@ -177,8 +179,13 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     }
 
     public void TurnOffInteractions() {
+        FocusManager.Instance.Unfocus();
         PlayerHand.Instance.DisableHand();
         combatEncounterView.UpdateView();
+    }
+
+    public void TurnOffFocusing() {
+        FocusManager.Instance.UnregisterAll();
     }
 
     private IEnumerator displayPostCombatUIAfterDelay() {
@@ -240,5 +247,18 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
 
     public void ToggleUIDocuments(bool inMenu) {
         EnemyEncounterViewModel.Instance.SetInMenu(inMenu);
+    }
+
+    public void ProcessGFGInputAction(GFGInputAction action)
+    {
+        if (action == GFGInputAction.END_TURN && HotkeyManager.Instance.endTurnHotkeyEnabled) {
+            HotkeyManager.Instance.EndTurn();
+        }
+    }
+
+    public void SwappedControlMethod(ControlsManager.ControlMethod controlMethod)
+    {
+        // just needed to implement the interface
+        return;
     }
 }

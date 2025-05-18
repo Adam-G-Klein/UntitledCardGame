@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum CombatEffect {
+public enum CombatEffect
+{
     Damage,
     Strength,
     Weakness,
@@ -19,6 +20,7 @@ public enum CombatEffect {
     FixedDamageWithCardModifications,
     SetToHalfHealth,
     FixedDamageThatIgnoresBlock,
+    Charge,
 }
 
 [System.Serializable]

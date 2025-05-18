@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 
-public class CutsceneStartStopper : GenericSingleton<CutsceneStartStopper> 
+public class CutsceneStartStopper : GenericSingleton<CutsceneStartStopper>, IControlsReceiver
 {
 
     public PlayableDirector playableDirector;
@@ -24,21 +24,37 @@ public class CutsceneStartStopper : GenericSingleton<CutsceneStartStopper>
         if (gameState.currentLocation != Location.INTRO_CUTSCENE) {
             gameState.LoadCurrentLocationScene();
         }
+
+        ControlsManager.Instance.RegisterControlsReceiver(this);
     }
 
-    void FixedUpdate() {
-        if (Input.GetMouseButtonDown(0) 
-            || Input.GetKeyDown(KeyCode.Space) 
-            || Input.GetKeyDown(KeyCode.Return)
-            ) {
+    void Update() {
+        // if (Input.GetMouseButtonDown(0) 
+        //     || Input.GetKeyDown(KeyCode.Space) 
+        //     || Input.GetKeyDown(KeyCode.Return)
+        //     ) {
+        //     if (isStopped) {
+        //         playableDirector.Play();
+        //     }
+        // }
+    }
+
+    public void StopTimeline() {
+        playableDirector.Pause();
+        isStopped = true;
+    }
+
+    public void ProcessGFGInputAction(GFGInputAction action)
+    {
+        if (action == GFGInputAction.SELECT) {
             if (isStopped) {
                 playableDirector.Play();
             }
         }
     }
 
-    public void StopTimeline() {
-        playableDirector.Pause();
-        isStopped = true;
+    public void SwappedControlMethod(ControlsManager.ControlMethod controlMethod)
+    {
+        return;
     }
 }

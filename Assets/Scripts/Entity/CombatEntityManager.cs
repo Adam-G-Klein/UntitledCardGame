@@ -29,6 +29,9 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
     public delegate IEnumerator OnEntityHealed(CombatInstance combatInstance);
     public event OnEntityHealed onEntityHealedHandler;
 
+    public delegate IEnumerator OnCompanionGainedBlock(CombatInstance combatInstance);
+    public event OnCompanionGainedBlock onBlockGainedHandler;
+
     private bool encounterEnded = false;
 
     void Update() {
@@ -187,8 +190,17 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
             }
         }
     }
+    
+    public IEnumerator OnBlockGained(CombatInstance combatInstance) {
+        if (onBlockGainedHandler != null) {
+            foreach (OnCompanionGainedBlock handler in onBlockGainedHandler.GetInvocationList()) {
+                yield return StartCoroutine(handler.Invoke(combatInstance));
+            }
+        }
+    }
 
-    public bool IsEncounterEnded() {
+    public bool IsEncounterEnded()
+    {
         return this.encounterEnded;
     }
 

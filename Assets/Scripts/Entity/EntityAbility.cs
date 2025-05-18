@@ -14,7 +14,8 @@ public class EntityAbility
         }
     }
 
-    public enum EntityAbilityTrigger {
+    public enum EntityAbilityTrigger
+    {
         EnterTheBattlefield,
         EndOfCombat,
         EndOfPlayerTurn,
@@ -32,5 +33,7 @@ public class EntityAbility
         OnFoeDeath,
         OnEntityHealed,
         OnCardDiscard,
+        OnBlockGained,
+        OnAttackCardCast,
     }
 }

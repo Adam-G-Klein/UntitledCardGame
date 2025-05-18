@@ -10,7 +10,8 @@ public static class PrefabInstantiator {
         Vector3 position)
     {
         GameObject newCard = GameObject.Instantiate(cardPrefab, position, Quaternion.identity, parent);
-        PlayableCard cardPlayable = newCard.GetComponent<PlayableCard>();
+        newCard.transform.GetChild(0).localPosition = Vector3.zero;
+        PlayableCard cardPlayable = newCard.GetComponentInChildren<PlayableCard>();
         // information flowing the wrong direction, deck should have it set
         CompanionInstance companionInstance = deckFrom.gameObject.GetComponent<CompanionInstance>();
         card.setCompanionFrom(companionInstance.companion.companionType);

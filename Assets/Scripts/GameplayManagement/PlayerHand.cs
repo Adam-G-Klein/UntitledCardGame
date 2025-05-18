@@ -25,6 +25,8 @@ public class PlayerHand : GenericSingleton<PlayerHand>
 
     public delegate IEnumerator OnCardCastHandler(PlayableCard card);
     public event OnCardCastHandler onCardCastHandler;
+    public delegate IEnumerator OnAttackCardCastHandler(PlayableCard card);
+    public event OnAttackCardCastHandler onAttackCardCastHandler;
 
     public delegate IEnumerator OnHandEmptyHandler();
     public event OnHandEmptyHandler onHandEmptyHandler;
@@ -34,7 +36,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
 
     private bool cardsInHandLocked = false;
     private Dictionary<GameObject, FXExperience> GOToFXExperience = new();
-    private readonly float cardDealDelay = .1f;
+    private readonly float cardDealDelay = .05f;
     private bool canPlayCards = true;
 
     private List<PlayableCard> cardsToDeal = new List<PlayableCard>();
@@ -112,7 +114,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         });
 
         for (int i = 0; i < cardsBeingDealt.Count; i++) {
-            MoveCard(cardsBeingDealt[i], true);
+            MoveCard(cardsBeingDealt[i]);
             yield return new WaitForSeconds(cardDealDelay);
         }
     }
@@ -141,12 +143,10 @@ public class PlayerHand : GenericSingleton<PlayerHand>
 
         gameObject.GetComponent<PlayableCard>().SetBasePosition(toLocation);
         experience.AddLocationToKey("companion", fromLocation);
-        if (gameObject.GetComponent<PlayableCard>().hovered) {
-            toLocation += new Vector3(0, gameObject.GetComponent<PlayableCard>().hoverYOffset, gameObject.GetComponent<PlayableCard>().hoverZOffset);
-        }
+
         experience.AddLocationToKey("hand", toLocation);
         experience.BindGameObjectsToTracks(new Dictionary<string, GameObject>() {
-            { "card", gameObject },
+            { "card", gameObject.transform.parent.gameObject },
         });
 
         experience.StartExperience( () => {
@@ -157,29 +157,44 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             // EffectManager.Instance.invokeEffectWorkflow(new EffectDocument(), new List<EffectStep>(), null);
 
             if (cardsInHand.IndexOf(gameObject.GetComponent<PlayableCard>()) == indexToHover) {
-                NonMouseInputManager.Instance.hover(gameObject.GetComponent<PlayableCard>().GetComponent<Hoverable>());
+                if (cardsInHand[indexToHover].TryGetComponent<GameObjectFocusable>(out GameObjectFocusable goFocusable)) {
+                    FocusManager.Instance.SetFocus(goFocusable);
+                }
                 indexToHover = -1;
                 return;
             }
         });
     }
 
+    public void StopCardDrawFX(GameObject gameObject) {
+        if (GOToFXExperience.ContainsKey(gameObject) && GOToFXExperience[gameObject] != null) {
+            FXExperience ex = GOToFXExperience[gameObject];
+            ex.EarlyStop();
+            GOToFXExperience.Remove(gameObject);
+        }
+    }
+
     public void HoverNextCard(int previouslyPlayedCardIndex) {
-        if (cardsInHand.Count == 1) {
+        if (cardsInHand.Count == 0) {
+            indexToHover = 0;
             return;
         }
-        if (cardsInHand.Count - 1 <= previouslyPlayedCardIndex) {
-            indexToHover = 0;
-        } else {
-            indexToHover = previouslyPlayedCardIndex;
+        indexToHover = -1;
+        int nextHoverIndex = cardsInHand.Count <= previouslyPlayedCardIndex ? 0 : previouslyPlayedCardIndex;
+
+        if (cardsInHand[nextHoverIndex].TryGetComponent<GameObjectFocusable>(out GameObjectFocusable goFocusable)) {
+            FocusManager.Instance.SetFocus(goFocusable);
         }
+
     }
 
     public void TurnPhaseChangedEventHandler(TurnPhaseEventInfo info) {
         if (info.newPhase == TurnPhase.PLAYER_TURN) {
+            canPlayCards = true;
             indexToHover = 0;
         }
         if(info.newPhase == TurnPhase.END_PLAYER_TURN) {
+            canPlayCards = false;
             List<PlayableCard> retainedCards = new();
             // Run the effect workflows for all the cards left in the hand,
             // then destroy them with the callback.
@@ -199,7 +214,8 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                         card.retained = false;
                     }
                 } else {
-                    UIDocumentGameObjectPlacer.Instance.RemoveCardSlot(card.gameObject);
+                    //UIDocumentGameObjectPlacer.Instance.RemoveCardSlot(card.gameObject);
+                    StartCoroutine(ResizeHand(card));
                     callback = DiscardCard(card, true);
                     if(NonMouseInputManager.Instance.inputMethod != InputMethod.Mouse) {
 
@@ -340,9 +356,19 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         return null;
     }
 
-    public IEnumerator OnCardCast(PlayableCard card) {
-        if (onCardCastHandler != null) {
-            foreach (OnCardCastHandler handler in onCardCastHandler.GetInvocationList()) {
+    public IEnumerator OnCardCast(PlayableCard card)
+    {
+        if (onCardCastHandler != null)
+        {
+            foreach (OnCardCastHandler handler in onCardCastHandler.GetInvocationList())
+            {
+                yield return StartCoroutine(handler.Invoke(card));
+            }
+        }
+        if (onAttackCardCastHandler != null && card.card.cardType.cardCategory == CardCategory.Attack)
+        {
+            foreach (OnAttackCardCastHandler handler in onAttackCardCastHandler.GetInvocationList())
+            {
                 yield return StartCoroutine(handler.Invoke(card));
             }
         }
@@ -352,6 +378,30 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         if (onDeckShuffledHandler != null) {
             foreach (OnDeckShuffleHandler handler in onDeckShuffledHandler.GetInvocationList()) {
                 yield return StartCoroutine(handler.Invoke(deck));
+            }
+        }
+    }
+
+    public void FocusACard(PlayableCard notThisOne) {
+        // filter cards by whether they're playable
+        List<PlayableCard> playableCards = new List<PlayableCard>();
+        foreach(PlayableCard card in cardsInHand) {
+            if((notThisOne == null || notThisOne != card) && card.card.cardType.playable) {
+                playableCards.Add(card);
+            }
+        }
+
+        // filter cards by whether we have enough mana to play them
+        List<PlayableCard> affordableCards = new List<PlayableCard>();
+        foreach(PlayableCard card in playableCards) {
+            if(card.card.GetManaCost() <= ManaManager.Instance.currentMana) {
+                affordableCards.Add(card);
+            }
+        }
+        if(affordableCards.Count > 0) {
+            Debug.Log("[NonMouseInputManager] Found a playable and affordable card, hovering card: " + affordableCards[0].name);
+            if (affordableCards[0].TryGetComponent<GameObjectFocusable>(out GameObjectFocusable goFocusable)) {
+                FocusManager.Instance.SetFocus(goFocusable);
             }
         }
     }

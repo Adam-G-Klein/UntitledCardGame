@@ -33,11 +33,7 @@ public class UIDocEndTurnButtonController : MonoBehaviour {
         
         endTurnElement.pickingMode = PickingMode.Position;
 
-        endTurnElement.RegisterCallback<ClickEvent>((evt) => {
-            endTurnButtonHandler();
-        });
-
-        UIDocumentHoverableInstantiator.Instance.InstantiateHoverable(endTurnElement, endTurnButtonHandler);
+        VisualElementUtils.RegisterSelected(endTurnElement, endTurnButtonHandler);
 
     }
 
@@ -51,7 +47,7 @@ public class UIDocEndTurnButtonController : MonoBehaviour {
         endTurnButtonEnabled = info.newPhase == TurnPhase.PLAYER_TURN;
         if(!endTurnButtonEnabled)
         {
-            endTurnElement.style.backgroundColor = new StyleColor(new Color(0.5f, 0.5f, 0.5f));
+            // endTurnElement.style.backgroundColor = new StyleColor(new Color(0.5f, 0.5f, 0.5f));
         }
         screenspaceDoc.SetStateDirty();
     }

@@ -38,7 +38,6 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     private CompanionInShopWithPrice companionInShop;
     private Companion newCompanion;
     public GameObject tooltipPrefab;
-
     void Awake() {
         if (USE_NEW_SHOP) {
             gameObject.GetComponent<UIDocument>().enabled = true;
@@ -64,11 +63,14 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         allCompanions.AddRange(gameState.companions.benchedCompanions);
         shopEncounter.Build(this, allCompanions, encounterConstants, this.shopLevel, USE_NEW_SHOP);
         shopViewController.SetMoney(gameState.playerData.GetValue().gold);
-        shopViewController.SetShopUpgradePrice(shopLevel.upgradeCost);
+        shopViewController.SetShopUpgradePrice(shopLevel.upgradeIncrementCost);
         shopViewController.SetShopRerollPrice(shopEncounter.shopData.rerollShopPrice);
 
         CheckDisableUpgradeButton();
         CheckDisableUpgradeButtonV2();
+
+        shopViewController.SetupUpgradeIncrements();
+        EarnUpgradeIncrement();
         /* uncomment to re-enable shop dialogue
         DialogueManager.Instance.SetDialogueLocation(
             gameState.dialogueLocations.GetDialogueLocation(gameState));
@@ -146,15 +148,20 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
                     };
                     upgradeCompanion = companionCombinationManager.ShowUpgradedCompanion(level2s);
                 }
-                shopViewController.ShowCompanionUpgradeMenu(companions, upgradeCompanion);
+                if (gameState.autoUpgrade) {
+                    ConfirmUpgradePurchase();
+                    return;
+                } else {
+                    shopViewController.ShowCompanionUpgradeMenu(companions, upgradeCompanion);
+                    return;
+                }
+            }
+            if (gameState.companions.activeCompanions.Count + shopViewController.GetBlockedCompanionSlots() == 5 && gameState.companions.benchedCompanions.Count == 5) {
+                StartCoroutine(shopViewController.ShowGenericNotification("You have reached the maximum number of companions.", 2));
                 return;
             }
             gameState.playerData.GetValue().gold -= companionInShop.price;
             shopViewController.SetMoney(gameState.playerData.GetValue().gold);
-            if (gameState.companions.activeCompanions.Count + shopViewController.blockedSlots.Count == 5 && gameState.companions.benchedCompanions.Count == 5) {
-                StartCoroutine(shopViewController.ShowGenericNotification("You have reached the maximum number of companions.", 2));
-                return;
-            }
             gameState.AddCompanionToTeam(companionToAdd);
             shopViewController.RemoveCompanionFromShopView(companionInShop);
             shopViewController.RebuildUnitManagement(gameState.companions);
@@ -267,23 +274,37 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             return;
         }
         PlayerData playerData = gameState.playerData.GetValue();
-        if (playerData.gold >= shopLevel.upgradeCost) {
+        if (playerData.gold >= shopLevel.upgradeIncrementCost) {
             // Clean up hoverables for old shop items
 
-            playerData.gold -= shopLevel.upgradeCost;
-            playerData.shopLevel += 1;
-            shopLevel = shopEncounter.shopData.GetShopLevel(playerData.shopLevel);
-            gameState.companions.SetCompanionSlots(shopLevel.teamSize);
-            playerData.manaPerTurn = shopLevel.mana;
+            playerData.gold -= shopLevel.upgradeIncrementCost;
+            if (playerData.shopLevelIncrementsEarned == GetShopLevel().shopLevelIncrementsToUnlock - 1) {
+                shopViewController.SetMoney(playerData.gold);
+                playerData.shopLevel += 1;
+                shopLevel = shopEncounter.shopData.GetShopLevel(playerData.shopLevel);
+                gameState.companions.SetCompanionSlots(shopLevel.teamSize);
+                playerData.manaPerTurn = shopLevel.mana;
 
-            shopViewController.SetShopUpgradePrice(shopLevel.upgradeCost);
+                shopViewController.SetShopUpgradePrice(shopLevel.upgradeIncrementCost);
+                shopViewController.RebuildUnitManagement(gameState.companions);
+                InstantiateShopVFX(shopUpgradePrefab, shopViewController.GetUpgradeShopButton(), 1f);
+                CheckDisableUpgradeButtonV2();
+                playerData.shopLevelIncrementsEarned = 0;
+                shopViewController.SetupUpgradeIncrements();
+            } else {
+                shopViewController.ActivateUpgradeIncrement(playerData.shopLevelIncrementsEarned);
+                playerData.shopLevelIncrementsEarned += 1;
+            }
+
             shopViewController.SetMoney(gameState.playerData.GetValue().gold);
-            shopViewController.RebuildUnitManagement(gameState.companions);
-            InstantiateShopVFX(shopUpgradePrefab, shopViewController.GetUpgradeShopButton(), 1f);
-            CheckDisableUpgradeButtonV2();
         } else {
             shopViewController.NotEnoughMoney();
         }
+    }
+
+    public void EarnUpgradeIncrement() {
+        shopViewController.ActivateUpgradeIncrement(gameState.playerData.GetValue().shopLevelIncrementsEarned);
+        gameState.playerData.GetValue().shopLevelIncrementsEarned += 1;
     }
 
     private void CheckDisableUpgradeButton() {
@@ -325,7 +346,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         removingCard = true;
         // wanna keep this right next to the bools the manager tracks in case we wanna unite state someday
         // "Dalinar... you must UNITE THEM"
-        NonMouseInputManager.Instance.SetUIState(UIState.REMOVING_CARD);
+        // NonMouseInputManager.Instance.SetUIState(UIState.REMOVING_CARD);
         if (gameState.playerData.GetValue().gold >= shopEncounter.shopData.cardRemovalPrice) {
             shopViewController.StartCardRemoval();
         } else {
@@ -354,6 +375,30 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
     public ShopLevel GetShopLevel() {
         return shopLevel;
+    }
+    
+    public TooltipViewModel GetShopUpgradeTooltip() {
+        TooltipViewModel tooltipViewModel = new()
+        {
+            lines = new List<TooltipLine>()
+        };
+        List<ShopLevel> shopLevels = shopEncounter.shopData.shopLevels;
+        for (int i = 0; i < shopLevels.Count; i++) {
+            ShopLevel level = shopLevels[i];
+            if (level.upgradeTooltip == null || level.upgradeTooltip.lines == null || level.upgradeTooltip.lines.Count == 0) {
+                continue;
+            }
+            TooltipLine tooltipLine = new(level.upgradeTooltip.lines[0].title, level.upgradeTooltip.lines[0].description);
+            if (i < gameState.playerData.GetValue().shopLevel) {
+                tooltipLine.title = "Level " + (i + 2) + " Benefits Earned:";
+            } else if (i == gameState.playerData.GetValue().shopLevel) {
+                tooltipLine.title = "Upgrade To Level " + (i + 2);
+            } else {
+                tooltipLine.title = "Later Upgrade To Level " + (i + 2);
+            }
+            tooltipViewModel.lines.Add(tooltipLine);
+        }
+        return tooltipViewModel;
     }
 
     // This exists to satisfy the IEncounterBuilder interface.
@@ -405,4 +450,8 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         removingCard = val;
     }
 
+    public void SetAutoUpgrade(bool v)
+    {
+        gameState.autoUpgrade = v;
+    }
 }

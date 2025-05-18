@@ -11,6 +11,8 @@ public class KeywordTooltipProvider: GenericSingleton<KeywordTooltipProvider>
         {StatusEffectType.Defended, TooltipKeyword.Block},
         {StatusEffectType.TemporaryStrength, TooltipKeyword.TemporaryStrength},
         {StatusEffectType.Orb, TooltipKeyword.Aura},
+        {StatusEffectType.Charge, TooltipKeyword.Charge},
+        {StatusEffectType.MaxBlockToLoseAtEndOfTurn, TooltipKeyword.MaxBlockLost},
     };
 
     public TooltipMapSO tooltipMap = null;

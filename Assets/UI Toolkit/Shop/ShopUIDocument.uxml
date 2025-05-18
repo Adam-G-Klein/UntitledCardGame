@@ -41,8 +41,19 @@
         </ui:VisualElement>
         <ui:VisualElement name="middle-section" style="flex-grow: 1; flex-direction: row; max-height: 40%; min-height: 40%;">
             <ui:VisualElement style="flex-grow: 1; flex-basis: auto; width: 25%; height: 100%; justify-content: center; align-self: flex-start; align-items: center;">
-                <ui:VisualElement class="shopButtonContainer">
-                    <ui:Button text="Upgrade" parse-escape-sequences="true" display-tooltip-when-elided="true" name="upgrade-button" class="shopButton" style="margin-right: 0;" />
+                <ui:VisualElement name="VisualElement" class="shopButtonContainer" style="align-items: center;">
+                    <ui:VisualElement name="VisualElement" style="flex-grow: 1; flex-direction: row; justify-content: center;">
+                        <ui:VisualElement name="upgrade-increment-container" class="upgradeIncrementContainer">
+                            <ui:VisualElement class="upgradeIncrement upgradeIncrementEarned" />
+                            <ui:VisualElement class="upgradeIncrement upgradeIncrementEarned" />
+                            <ui:VisualElement class="upgradeIncrement upgradeIncrementEarned" />
+                            <ui:VisualElement class="upgradeIncrement upgradeIncrementEarned" />
+                            <ui:VisualElement class="upgradeIncrement upgradeIncrementEarned" />
+                            <ui:VisualElement class="upgradeIncrement" />
+                            <ui:VisualElement class="upgradeIncrement" />
+                        </ui:VisualElement>
+                        <ui:Button text="Upgrade" parse-escape-sequences="true" display-tooltip-when-elided="true" name="upgrade-button" class="shopButton" style="margin-right: 0;" />
+                    </ui:VisualElement>
                     <ui:Label tabindex="-1" text="$1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="upgrade-price-label" class="shopButtonPriceTag" />
                 </ui:VisualElement>
                 <ui:VisualElement class="shopButtonContainer">
@@ -80,14 +91,12 @@
                     <ui:VisualElement name="VisualElement" style="width: 15%; height: 100%; align-items: flex-end; justify-content: center;">
                         <ui:Label tabindex="-1" text="Bench" parse-escape-sequences="true" display-tooltip-when-elided="true" style="border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-top-width: 4px; border-right-width: 0; border-bottom-width: 4px; border-left-width: 4px; width: 50%; height: 40%; -unity-text-align: middle-center; font-size: 22px; -unity-font-style: bold; margin-right: 0;" />
                     </ui:VisualElement>
-                    <ui:VisualElement style="flex-direction: row; width: 70%; height: 100%; align-self: auto; align-items: center; justify-content: center; margin-top: 10px;">
-                        <ui:ScrollView mode="Horizontal" focusable="false" usage-hints="None" touch-scroll-type="Clamped" horizontal-scroller-visibility="AlwaysVisible" name="bench-scroll-view" mouse-wheel-scroll-size="300" style="width: initial; height: 100%; flex-direction: column; flex-shrink: 0; align-items: stretch; min-width: 100%; overflow: visible; max-width: 100px;">
-                            <ui:VisualElement name="VisualElement" class="single-unit-container" style="border-top-width: 4px; border-right-width: 4px; border-bottom-width: 4px; border-left-width: 4px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); background-image: none;" />
-                            <ui:VisualElement name="VisualElement" class="single-unit-container" style="border-top-width: 4px; border-right-width: 4px; border-bottom-width: 4px; border-left-width: 4px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); width: 20%; height: 100%; background-image: none;" />
-                            <ui:VisualElement name="VisualElement" class="single-unit-container" style="border-top-width: 4px; border-right-width: 4px; border-bottom-width: 4px; border-left-width: 4px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); width: 20%; height: 100%; background-image: none;" />
-                            <ui:VisualElement name="VisualElement" class="single-unit-container" style="border-top-width: 4px; border-right-width: 4px; border-bottom-width: 4px; border-left-width: 4px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); width: 20%; height: 100%; background-image: none;" />
-                            <ui:VisualElement name="VisualElement" class="single-unit-container" style="border-top-width: 4px; border-right-width: 4px; border-bottom-width: 4px; border-left-width: 4px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); width: 20%; height: 100%; background-image: none;" />
-                        </ui:ScrollView>
+                    <ui:VisualElement name="bench-container" style="flex-direction: row; width: 70%; height: 90%; align-self: auto; align-items: center; justify-content: center;">
+                        <ui:VisualElement name="unit-container-0" class="single-unit-container" style="background-color: rgba(0, 0, 0, 0);" />
+                        <ui:VisualElement name="unit-container-1" class="single-unit-container" />
+                        <ui:VisualElement name="unit-container-2" class="single-unit-container" />
+                        <ui:VisualElement name="unit-container-3" class="single-unit-container" />
+                        <ui:VisualElement name="unit-container-4" class="single-unit-container" />
                     </ui:VisualElement>
                     <ui:VisualElement style="flex-grow: 1; height: 40%; visibility: hidden;">
                         <ui:Button text="Sell Companion" parse-escape-sequences="true" display-tooltip-when-elided="true" name="sell-companion-button" class="shopButton" style="font-size: 23px; background-color: rgb(255, 130, 127);" />
@@ -100,9 +109,9 @@
             <ui:Label tabindex="-1" text="Select a companion to remove a card from!" parse-escape-sequences="true" display-tooltip-when-elided="true" style="border-top-width: 2.5px; border-right-width: 2.5px; border-bottom-width: 2.5px; border-left-width: 2.5px; background-color: rgb(217, 217, 217); font-size: 32px; -unity-font-style: normal; padding-right: 4px; padding-left: 4px;" />
             <ui:Button text="Cancel" parse-escape-sequences="true" display-tooltip-when-elided="true" name="companion-selection-for-card-removal-cancel-button" class="shopButton" style="background-color: rgb(255, 130, 127);" />
         </ui:VisualElement>
-        <ui:VisualElement name="companion-selection-indicator" style="flex-grow: 1; position: absolute; height: 70px; width: 650px; top: 584px; left: 663px; flex-direction: row; justify-content: center; visibility: hidden;">
+        <ui:VisualElement name="companion-selection-indicator" style="flex-grow: 1; position: absolute; height: 70px; width: 650px; top: 584px; left: 663px; flex-direction: row; justify-content: center; visibility: hidden; display: flex;">
             <ui:Label tabindex="-1" text="Select a companion to get the card." parse-escape-sequences="true" display-tooltip-when-elided="true" style="border-top-width: 2.5px; border-right-width: 2.5px; border-bottom-width: 2.5px; border-left-width: 2.5px; background-color: rgb(217, 217, 217); font-size: 32px; -unity-font-style: normal; padding-right: 4px; padding-left: 4px;" />
-            <ui:Button text="Cancel" parse-escape-sequences="true" display-tooltip-when-elided="true" name="companion-selection-cancel-button" class="shopButton" style="background-color: rgb(255, 130, 127);" />
+            <ui:Button text="Cancel" parse-escape-sequences="true" display-tooltip-when-elided="true" name="companion-selection-cancel-button" class="shopButton" />
         </ui:VisualElement>
         <ui:VisualElement name="selling-companion-confirmation" style="flex-grow: 1; position: absolute; left: 25%; top: 25%; right: 25%; bottom: 25%; background-color: rgb(217, 217, 217); border-top-width: 8px; border-right-width: 8px; border-bottom-width: 8px; border-left-width: 8px; border-top-left-radius: 22px; border-top-right-radius: 22px; border-bottom-right-radius: 22px; border-bottom-left-radius: 22px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); visibility: hidden;">
             <ui:VisualElement style="flex-grow: 1; justify-content: center; align-items: center;">
@@ -128,7 +137,8 @@
         <ui:VisualElement name="upgradeMenuOuterContainer" picking-mode="Ignore" class="upgrade-menu-outer-container" style="flex-grow: 1; position: absolute; width: 100%; height: 100%; transition-property: background-color; transition-duration: 0.5s; transition-timing-function: linear; justify-content: center;">
             <ui:VisualElement name="upgradeMenuContainer" class="upgrade-menu-container">
                 <ui:Button text="Cancel Upgrade" parse-escape-sequences="true" display-tooltip-when-elided="true" name="cancelUpgrade" style="position: absolute; left: 20px; top: 20px; font-size: 24px;" />
-                <ui:Button text="Confirm Upgrade" parse-escape-sequences="true" display-tooltip-when-elided="true" name="confirmUpgrade" style="position: absolute; bottom: 20px; -unity-font-style: normal; font-size: 24px;" />
+                <ui:Button text="Confirm Upgrade" parse-escape-sequences="true" display-tooltip-when-elided="true" name="confirmUpgrade" style="position: absolute; bottom: 8%; -unity-font-style: normal; font-size: 24px;" />
+                <ui:Toggle label="Auto Upgrade" name="auto-upgrade-toggle" style="position: absolute; right: auto; bottom: 2%; font-size: 20px;" />
                 <ui:VisualElement name="questionMark" style="flex-grow: 1; position: absolute; background-image: resource(&apos;icons8-question-mark-30&apos;); width: 60px; height: 60px; top: 20px; right: 20px;" />
                 <ui:Label tabindex="-1" text="Upgrade Your Companions!" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 48px; margin-top: 6%;" />
                 <ui:Label tabindex="-1" text="You have selected a companion that would prompt an upgrade. Below you can see which companion you would receive upon upgrading. Would you like to continue?" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Label" style="font-size: 32px; width: 80%; flex-wrap: wrap; white-space: normal; -unity-text-align: upper-center;" />
@@ -141,7 +151,7 @@
                     <ui:VisualElement style="flex-grow: 1; width: 30%; align-items: center; justify-content: center;">
                         <ui:Label tabindex="-1" text="Upgraded Companion" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 24px;" />
                         <ui:VisualElement name="upgradedCompanion" style="flex-grow: 1; width: auto;" />
-                        <ui:Button text="Upgraded Deck Preview" parse-escape-sequences="true" display-tooltip-when-elided="true" name="upgradedDeckPreview" style="position: absolute; right: auto; bottom: auto; top: 105%; font-size: 20px;" />
+                        <ui:Button text="Upgraded Deck Preview" parse-escape-sequences="true" display-tooltip-when-elided="true" name="upgradedDeckPreview" class="focusable-button" style="position: absolute; right: auto; bottom: auto; top: 105%; font-size: 20px;" />
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="explainerText" class="explainer-text-container" style="top: 60px; right: 60px;">

@@ -33,6 +33,8 @@ public class CombatEncounterView : MonoBehaviour,
 
     [SerializeField]
     private GameObject cardViewUIPrefab;
+    [SerializeField]
+    private GameObject newCardViewUIPrefab;
     private bool inMenu = false;
     private bool inDeckView = false;
     private bool combatOver = false;
@@ -61,7 +63,6 @@ public class CombatEncounterView : MonoBehaviour,
         UIDocumentUtils.SetAllPickingMode(root, PickingMode.Ignore);
         setupComplete = true;
     }
-
     /*
         This needs to happen because we have a bit of a circular dependency. The _Intstance monobehaviors
         can't be created until the UI is setup, but the EntityViews need a reference to the _Instances,
@@ -71,12 +72,15 @@ public class CombatEncounterView : MonoBehaviour,
     public void ResetEntities(List<CompanionInstance> companions, List<EnemyInstance> enemies) {
         VisualElement enemyContainer = root.Q<VisualElement>("enemyContainer");
         VisualElement companionContainer = root.Q<VisualElement>("companionContainer");
+        FocusManager.Instance.UnregisterFocusables(enemyContainer);
+        FocusManager.Instance.UnregisterFocusables(companionContainer);
         enemyContainer.Clear();
         companionContainer.Clear();
         setupEntities(enemyContainer, enemies.Cast<IUIEntity>(), true);
         setupEntities(companionContainer, companions.Cast<IUIEntity>(), false);
         UIDocumentUtils.SetAllPickingMode(enemyContainer, PickingMode.Ignore);
         UIDocumentUtils.SetAllPickingMode(companionContainer, PickingMode.Ignore);
+        FocusManager.Instance.RegisterFocusables(GetComponent<UIDocument>());
     }
 
     public void UpdateView() {
@@ -94,6 +98,12 @@ public class CombatEncounterView : MonoBehaviour,
         docRenderer.SetStateDirty();
     }
 
+    public void DisableFocusing() {
+        foreach (EntityView entityView in entityViews) {
+            FocusManager.Instance.UnregisterFocusableTarget(entityView.elementFocusable);
+        }
+    }
+
     void Update() { }
 
     private void setupEntities(VisualElement container, IEnumerable<IUIEntity> entities, bool isEnemy) {
@@ -109,6 +119,11 @@ public class CombatEncounterView : MonoBehaviour,
         newEntityView.AddDrawDiscardOnHover();
         pickingModePositionList.Add(newEntityView);
         entityViews.Add(newEntityView);
+
+        VisualElementFocusable entityViewFocusable = newEntityView.elementFocusable;
+        entityViewFocusable.SetTargetType(isEnemy ? Targetable.TargetType.Enemy : Targetable.TargetType.Companion);
+        FocusManager.Instance.RegisterFocusableTarget(entityViewFocusable);
+
         return newEntityView.entityContainer;
     }
 
@@ -128,15 +143,21 @@ public class CombatEncounterView : MonoBehaviour,
 
     public void InstantiateCardView(List<Card> cardList, string promptText)
     {
+        // GameObject gameObject = GameObject.Instantiate(
+        //         cardViewUIPrefab,
+        //         Vector3.zero,
+        //         Quaternion.identity);
+        // CardViewUI cardViewUI = gameObject.GetComponent<CardViewUI>();
+        // cardViewUI.Setup(cardList,
+        //     0,
+        //     promptText,
+        //     0);
         GameObject gameObject = GameObject.Instantiate(
-                cardViewUIPrefab,
+                newCardViewUIPrefab,
                 Vector3.zero,
                 Quaternion.identity);
-            CardViewUI cardViewUI = gameObject.GetComponent<CardViewUI>();
-            cardViewUI.Setup(cardList,
-                0,
-                promptText,
-                0);
+        CardSelectionView cardSelectionView = gameObject.GetComponent<CardSelectionView>();
+        cardSelectionView.Setup(cardList, promptText);
     }
 
     public Sprite GetEnemyIntentImage(EnemyIntentType enemyIntentType)

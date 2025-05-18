@@ -585,12 +585,7 @@
 }
 
 .compendium-button {
-    width: 8%;
-    height: 50%;
-    font-size: 25px;
-}
-
-.compendium-button {
+    font-size: 23px;
 }
 
 .compendium-card-row-element {
@@ -722,4 +717,50 @@
 
 .main-menu-button:active {
     -unity-background-image-tint-color: rgb(135, 135, 135);
+}
+
+.main-menu-button:focus {
+    -unity-background-image-tint-color: rgb(202, 202, 202);
+}
+
+.unity-slider:focus .unity-base-slider__dragger {
+    background-color: rgb(0, 0, 0);
+}
+
+.options-button:focus {
+    width: 40%;
+    font-size: 18px;
+    color: rgb(0, 0, 0);
+    background-image: none;
+    background-color: rgba(0, 0, 0, 0.43);
+}
+
+.compendium-button:focus {
+    background-color: rgb(118, 118, 118);
+}
+
+.next-button:focus {
+    -unity-background-image-tint-color: rgb(145, 145, 145);
+}
+
+.companion-info-container:focus {
+    border-top-width: 3px;
+    border-right-width: 3px;
+    border-bottom-width: 3px;
+    border-left-width: 3px;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+}
+
+.card-container:focus {
+    border-top-width: 3px;
+    border-right-width: 3px;
+    border-bottom-width: 3px;
+    border-left-width: 3px;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
 }

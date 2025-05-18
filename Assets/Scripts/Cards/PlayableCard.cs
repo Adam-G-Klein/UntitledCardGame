@@ -39,6 +39,7 @@ public class PlayableCard : MonoBehaviour,
     public float hoverSFXVolume = 0.1f;
     public float hoverYOffset = .75f;
     public float hoverZOffset = 0.5f;
+    public GameObject hoverObjectToMove;
     private float hoverAnimationTime = .2f;
     private Vector3 startPos;
 
@@ -57,6 +58,10 @@ public class PlayableCard : MonoBehaviour,
     {
         transform.localScale = new Vector3(nonHoverScale, nonHoverScale, 1);
         hoverable = GetComponent<Hoverable>();
+    }
+
+    public void OnPointerClickVoid() {
+        OnPointerClick(null);
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -96,17 +101,21 @@ public class PlayableCard : MonoBehaviour,
     }
 
     private IEnumerator CardFinishCastingCallback() {
-        Debug.Log("STARTING CardFinishCastingCallback");
-        PlayerHand.Instance.HoverNextCard(PlayerHand.Instance.cardsInHand.IndexOf(this));
+        int cardPlayedIndex = PlayerHand.Instance.cardsInHand.IndexOf(this);
         ManaManager.Instance.updateMana(-card.GetManaCost());
         StartCoroutine(cardCastEvent.RaiseAtEndOfFrameCoroutine(new CardCastEventInfo(card)));
         IncrementCastCount();
         EnemyEncounterManager.Instance.combatEncounterState.CastCard(card);
         yield return StartCoroutine(PlayerHand.Instance.OnCardCast(this));
+        PlayerHand.Instance.StopCardDrawFX(gameObject);
+
         if (card.cardType.exhaustsWhenPlayed) {
             Debug.Log("STARTING exhaust when played coroutine");
             yield return PlayerHand.Instance.ExhaustCard(this);
             Debug.Log("DONE WITH exhaust when played coroutine");
+
+            EnemyEncounterManager.Instance.SetCastingCard(false);
+            PlayerHand.Instance.HoverNextCard(cardPlayedIndex);
 
             // Add a WaitForSeconds so that the target hovering does not break when using keyboard.
             yield return new WaitForSeconds(0.5f);
@@ -114,6 +123,10 @@ public class PlayableCard : MonoBehaviour,
         } else {
             // remove the card from the hand first so that resizing doesn't affect the card being cast
             yield return StartCoroutine(PlayerHand.Instance.SafeRemoveCardFromHand(this));
+
+            EnemyEncounterManager.Instance.SetCastingCard(false);
+            PlayerHand.Instance.HoverNextCard(cardPlayedIndex);
+
             yield return StartCoroutine(PlayerHand.Instance.ResizeHand(this));
             yield return StartCoroutine(CardCastVFX(this.gameObject));
             yield return StartCoroutine(PlayerHand.Instance.DiscardCard(this, true));
@@ -124,10 +137,9 @@ public class PlayableCard : MonoBehaviour,
         if (PlayerHand.Instance.cardsInHand.Count == 0) {
             Debug.Log("Hand is empty, triggering downstream OnHandEmpty subscribers");
             yield return PlayerHand.Instance.OnHandEmpty();
-        } else if(NonMouseInputManager.Instance.inputMethod != InputMethod.Mouse) {
+        } else if(ControlsManager.Instance.GetControlMethod() == ControlsManager.ControlMethod.KeyboardController) {
             Debug.Log("Trying to a hover a new card now that the card has been played");
-
-            // This correctly hovers the card, but does so before it's done moving so it doesn't animate.
+            //PlayerHand.Instance.FocusACard(this);
         }
         Debug.Log("FINISHED CardFinishCastingCallback");
     }
@@ -138,7 +150,6 @@ public class PlayableCard : MonoBehaviour,
             this.transform.position,
             Quaternion.identity);
     }
-
     private IEnumerator CardCastVFX(GameObject cardGameObject) {
         this.isCardCastPlaying = true;
         FXExperience experience = PrefabInstantiator.instantiateFXExperience(cardCastVFXPrefab, cardGameObject.transform.position);
@@ -240,6 +251,7 @@ public class PlayableCard : MonoBehaviour,
 
     public void cleanupAndDestroy() {
         docCard.Cleanup(() => {
+            Destroy(hoverObjectToMove);
             Destroy(this.gameObject);
         });
     }
@@ -247,6 +259,10 @@ public class PlayableCard : MonoBehaviour,
     // Keeping these here for reference as they will almost certainly
     // be needed for UI effects in the future
     public void OnDrag(PointerEventData eventData) { }
+
+    public void OnPointerEnterVoid() {
+        OnPointerEnter(null);
+    }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
@@ -261,35 +277,34 @@ public class PlayableCard : MonoBehaviour,
         MusicController2.Instance.PlaySFX("event:/SFX/SFX_UIHover");
         transform.SetAsLastSibling();
 
-        PlayerHand.Instance.HoverNextCard(-1); // this prevents card moving in hand from forcefully chaning hover target if playable has manually selected a new card
+        //PlayerHand.Instance.HoverNextCard(-1); // this prevents card moving in hand from forcefully chaning hover target if playable has manually selected a new card
 
         LeanTween.cancel(gameObject);
         LeanTween.scale(gameObject, new Vector3(2f, 2f, 1), hoverAnimationTime)
             .setEase(LeanTweenType.easeOutQuint);
-        LeanTween.move(gameObject, new Vector3(startPos.x, startPos.y + hoverYOffset, startPos.z + hoverZOffset), hoverAnimationTime)
+        LeanTween.moveLocal(gameObject, new Vector3(0, hoverYOffset, hoverZOffset), hoverAnimationTime)
             .setEase(LeanTweenType.easeOutQuint);
+    }
 
+    public void OnPointerExitVoid() {
+        OnPointerExit(null);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         if(!interactable || !hovered) return;
-        hovered = false;
-        //transform.localScale = new Vector3(nonHoverScale, nonHoverScale, 1);
-        //transform.position = new Vector3(transform.position.x, transform.position.y - hoverYOffset, transform.position.z - hoverZOffset);
-
-        LeanTween.cancel(gameObject);
-        LeanTween.scale(gameObject, new Vector3(1.5f, 1.5f, 1), hoverAnimationTime)
-            .setEase(LeanTweenType.easeOutQuint);
-        LeanTween.move(gameObject, new Vector3(startPos.x, startPos.y, startPos.z), hoverAnimationTime)
-            .setEase(LeanTweenType.easeOutQuint);
+        ResetCardScale();
     }
 
     public void ResetCardScale() {
         if (hovered) {
             hovered = false;
-            transform.localScale = new Vector3(nonHoverScale, nonHoverScale, 1);
-            transform.position = new Vector3(transform.position.x, transform.position.y - hoverYOffset, transform.position.z - hoverZOffset);
+
+            LeanTween.cancel(gameObject);
+            LeanTween.scale(gameObject, new Vector3(1.5f, 1.5f, 1), hoverAnimationTime)
+                .setEase(LeanTweenType.easeOutQuint);
+            LeanTween.moveLocal(gameObject, new Vector3(0, 0, 0), hoverAnimationTime)
+                .setEase(LeanTweenType.easeOutQuint);
         }
         interactable = true;
     }
