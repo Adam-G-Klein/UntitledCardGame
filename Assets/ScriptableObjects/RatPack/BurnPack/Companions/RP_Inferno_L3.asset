@@ -1,0 +1,107 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
+  m_Name: RP_Inferno_L3
+  m_EditorClassIdentifier: 
+  companionName: Inferno++
+  maxHealth: 15
+  initialCardsDealtPerTurn: 1
+  sprite: {fileID: 21300000, guid: 34473788bb1226e4bb7e16f1ba1d67b3, type: 3}
+  fullSprite: {fileID: 21300000, guid: 34473788bb1226e4bb7e16f1ba1d67b3, type: 3}
+  backgroundImage: {fileID: 21300000, guid: 52a67ea68be25489f9f1ee0ec5c113d2, type: 3}
+  entityFrame: {fileID: 21300000, guid: 8a02f70d429dd4851ac675faf974f636, type: 3}
+  companionManagementFrame: {fileID: 21300000, guid: e1aface5a3d124495925a8293aa091d2, type: 3}
+  startingDeck: {fileID: 11400000, guid: 1e93fe914f78e4aa993b1493d8747c19, type: 2}
+  cardBack: {fileID: 21300000, guid: a5222a8d127763c49b397cce916345ec, type: 3}
+  cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
+  cardTypeIconOverride: {fileID: 0}
+  rarity: 2
+  cardIdleVfxPrefab: {fileID: 0}
+  genericCompanionSFX: {fileID: 0}
+  genericCompanionVFX: {fileID: 0}
+  cacheValueConfigs: []
+  cardPool: {fileID: 11400000, guid: 0d59ad02437cd4d09a857790642bbea0, type: 2}
+  packCardPool: {fileID: 11400000, guid: 16eadbe23f445435bbc89276ce69a52c, type: 2}
+  speakerType: {fileID: 0}
+  abilitiesV2:
+  - rid: 205828032053379705
+  - rid: 8829271312684286068
+  level: 2
+  upgradeTo: {fileID: 0}
+  tooltip:
+    empty: 0
+    lines:
+    - title: Inferno++
+      description: At the beginning of combat, apply 2 Burn to a random ally one
+        time. At the beginning of your turn, gain 1 energy.
+      relatedBehaviorIndex: 0
+    - title: Burn
+      description: At the beginning of a Burned unit's turn, the target loses X HP
+        and 1 stack of burn.
+      relatedBehaviorIndex: 0
+  keepsakeTitle: 
+  keepsakeDescription: 
+  references:
+    version: 2
+    RefIds:
+    - rid: 205828032053379705
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 0
+        effectSteps:
+        - rid: 8829271312684286064
+        - rid: 8829271167484559909
+        - rid: 8829271167484559910
+    - rid: 8829271167484559909
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: target
+        statusEffect: 15
+        scale: 2
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+    - rid: 8829271167484559910
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: target
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 377a399fb9991684eb788275070abb5e, type: 3}
+        scale: 1
+    - rid: 8829271312684286064
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: target
+        validTargets: 00000000
+        number: 3
+        specialTargetRule: 6
+        cantCancelTargetting: 0
+    - rid: 8829271312684286068
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 12
+        effectSteps:
+        - rid: 8829271312684286069
+    - rid: 8829271312684286069
+      type: {class: ManaChange, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ManaChange
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 

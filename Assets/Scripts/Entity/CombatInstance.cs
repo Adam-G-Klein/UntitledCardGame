@@ -70,9 +70,10 @@ public class CombatInstance : MonoBehaviour
             { StatusEffectType.PlatedArmor, 0 },
             { StatusEffectType.Orb, 0 },
             { StatusEffectType.Thorns, 0 },
-            { StatusEffectType.MoneyOnDeath, 0 }, 
+            { StatusEffectType.MoneyOnDeath, 0 },
             { StatusEffectType.Charge, 0},
-            { StatusEffectType.MaxBlockToLoseAtEndOfTurn, -1 } // 0 is a valid value so we need to use -1 to indicate a value hasn't been set
+            { StatusEffectType.MaxBlockToLoseAtEndOfTurn, -1 }, // 0 is a valid value so we need to use -1 to indicate a value hasn't been set
+            { StatusEffectType.Burn, 0}
         };
 
     private Dictionary<StatusEffectType, int> statusEffects =
@@ -345,11 +346,14 @@ public class CombatInstance : MonoBehaviour
     }
 
     private void UpdateStatusEffect(StatusEffectType status) {
-        switch (status) {
+        switch (status)
+        {
             case StatusEffectType.Defended:
-                if (statusEffects[StatusEffectType.MaxBlockToLoseAtEndOfTurn] != initialStatusEffects[StatusEffectType.MaxBlockToLoseAtEndOfTurn]) {
+                if (statusEffects[StatusEffectType.MaxBlockToLoseAtEndOfTurn] != initialStatusEffects[StatusEffectType.MaxBlockToLoseAtEndOfTurn])
+                {
                     statusEffects[status] = Mathf.Max(0, statusEffects[status] - statusEffects[StatusEffectType.MaxBlockToLoseAtEndOfTurn]);
-                } else statusEffects[status] = 0;
+                }
+                else statusEffects[status] = 0;
                 break;
             case StatusEffectType.MaxBlockToLoseAtEndOfTurn:
                 statusEffects[status] = -1;
@@ -375,6 +379,15 @@ public class CombatInstance : MonoBehaviour
                 }
                 break;
             case StatusEffectType.Orb:
+                break;
+            case StatusEffectType.Burn:
+                Debug.LogError(statusEffects[status]);
+                if (statusEffects[status] > 0)
+                {
+                    // ideally we would have a map of status effects to their vfx prefab (or some other way of instantiating them...this will be pretty opaque without vfx)
+                    ApplyNonStatusCombatEffect(CombatEffect.FixedDamageThatIgnoresBlock, statusEffects[status], this, null, true);
+                    statusEffects[status] = DecrementStatus(statusEffects[status]);
+                }
                 break;
 
             // This is separate from the above for now since this might

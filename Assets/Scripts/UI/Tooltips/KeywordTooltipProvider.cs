@@ -13,6 +13,7 @@ public class KeywordTooltipProvider: GenericSingleton<KeywordTooltipProvider>
         {StatusEffectType.Orb, TooltipKeyword.Aura},
         {StatusEffectType.Charge, TooltipKeyword.Charge},
         {StatusEffectType.MaxBlockToLoseAtEndOfTurn, TooltipKeyword.MaxBlockLost},
+        {StatusEffectType.Burn, TooltipKeyword.Burn}
     };
 
     public TooltipMapSO tooltipMap = null;

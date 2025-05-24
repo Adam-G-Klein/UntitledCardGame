@@ -166,6 +166,12 @@ public class EnemyInstance : MonoBehaviour, IUIEntity {
     private void RegisterTurnPhaseTriggers() {
         // Don't need this for now, portraits are covering
         turnPhaseTriggers.Add(new TurnPhaseTrigger(TurnPhase.START_PLAYER_TURN, DeclareIntent()));
+        turnPhaseTriggers.Add(new TurnPhaseTrigger(
+            TurnPhase.START_ENEMY_TURN,
+            combatInstance.UpdateStatusEffects(new List<StatusEffectType> {
+                StatusEffectType.Burn
+            })
+        ));
         turnPhaseTriggers.Add(new TurnPhaseTrigger(TurnPhase.ENEMIES_TURN, EnactIntent()));
         turnPhaseTriggers.Add(new TurnPhaseTrigger(TurnPhase.END_PLAYER_TURN, ClearBlock()));
         turnPhaseTriggers.Add(new TurnPhaseTrigger(TurnPhase.END_ENEMY_TURN, ClearTemporaryStrength()));

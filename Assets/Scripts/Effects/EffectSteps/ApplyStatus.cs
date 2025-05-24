@@ -31,8 +31,15 @@ public class ApplyStatus : EffectStep, ITooltipProvider
     private string inputScaleKey = "";
     [SerializeField]
     private bool multiplyByNumAuraStacks = false;
+    [SerializeField]
+    private int multiplicity = 1;
+    [SerializeField]
+    private bool getMultiplicityFromKey = false;
+    [SerializeField]
+    private string inputMultiplicityKey = "";
 
-    public ApplyStatus() {
+    public ApplyStatus()
+    {
         effectStepName = "ApplyStatus";
     }
 
@@ -57,7 +64,16 @@ public class ApplyStatus : EffectStep, ITooltipProvider
                 personalizedScale *= combatInstance.GetStatus(StatusEffectType.Orb);
             }
 
-            combatInstance.ApplyStatusEffects(statusEffect, personalizedScale);
+            // setup multiplicity (we now have effets that care about each time block is applied so we should apply it individually)
+            int finalMultiplicity = multiplicity;
+            if (getMultiplicityFromKey && document.intMap.ContainsKey(inputMultiplicityKey)) {
+                finalMultiplicity = document.intMap[inputMultiplicityKey];
+                Debug.LogError(finalMultiplicity);
+            }
+            for (int i = 0; i < finalMultiplicity; i++)
+            {
+                combatInstance.ApplyStatusEffects(statusEffect, personalizedScale);
+            }
         }
         yield return null;
     }

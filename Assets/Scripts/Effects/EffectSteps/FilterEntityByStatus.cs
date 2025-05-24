@@ -30,9 +30,10 @@ public class FilterEntityByStatus : EffectStep, IEffectStepCalculation
             }
         }
         document.map.AddItems<CombatInstance>(outputKey, filteredList);
-        FilterCompanionInstances(document, filteredList);
-        FilterEnemyInstances(document, filteredList);
-        FilterDeckInstances(document, filteredList);
+        // Not 100% sure why were are passing in a target and then adding all these filterings in by default.
+        //FilterCompanionInstances(document, filteredList); 
+        //FilterEnemyInstances(document, filteredList);
+        //FilterDeckInstances(document, filteredList);
         yield return null;
     }
 

@@ -138,3 +138,8 @@ MonoBehaviour:
       companion will lose at the end of the turn cycle. '
     relateBehaviorIndex: 0
     tooltipKeyword: 33
+  - title: Burn
+    description: At the beginning of a Burned unit's turn, the target loses X HP
+      and 1 stack of burn.
+    relateBehaviorIndex: 0
+    tooltipKeyword: 34

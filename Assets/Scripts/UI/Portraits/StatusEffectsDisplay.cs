@@ -23,7 +23,8 @@ public enum StatusEffectType
     MoneyOnDeath,
     Charge,
     BonusBlock,
-    MaxBlockToLoseAtEndOfTurn
+    MaxBlockToLoseAtEndOfTurn,
+    Burn
 }
 
 public class StatusEffectsDisplayViewModel {

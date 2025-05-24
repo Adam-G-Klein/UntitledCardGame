@@ -40,7 +40,8 @@ public enum TooltipKeyword
     TheGoodStuff,
     Charge,
     Discharge,
-    MaxBlockLost
+    MaxBlockLost,
+    Burn
 }
 public interface ITooltipProvider
 {
