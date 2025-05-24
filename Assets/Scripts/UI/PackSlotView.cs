@@ -17,8 +17,10 @@ public class PackSlotView
     private bool isSelectedView;
     private IPackSlotViewDelegate packSlotViewDelegate;
     public VisualElement pack = null;
+    private bool locked = false;
+    private AchievementSO achievementSO;
 
-    public PackSlotView(IPackSlotViewDelegate packSlotViewDelegate, VisualElement root, VisualTreeAsset packTemplate, bool display, bool isSelectedView, PackSO packSO = null)
+    public PackSlotView(IPackSlotViewDelegate packSlotViewDelegate, VisualElement root, VisualTreeAsset packTemplate, bool display, bool isSelectedView, PackSO packSO = null, bool locked = false, AchievementSO achievementSO = null)
     {
         this.root = root;
         this.packSO = packSO;
@@ -26,7 +28,8 @@ public class PackSlotView
         this.display = display;
         this.isSelectedView = isSelectedView;
         this.packSlotViewDelegate = packSlotViewDelegate;
-
+        this.locked = locked;
+        this.achievementSO = achievementSO;
         SetupPackSlotView();
     }
 
@@ -52,8 +55,7 @@ public class PackSlotView
 
         pack.AddToClassList("pack");
         VisualElement background = pack.Q<VisualElement>("packBackground");
-        Debug.LogError(packSO.packColor);
-        background.style.backgroundColor = new StyleColor(packSO.packColor);
+        background.style.backgroundColor = new StyleColor(locked ? Color.gray : packSO.packColor);
         var packNameLabel = pack.Q<Label>("packTitle");
         var packDescriptionLabel = pack.Q<Label>("packDescription");
         var darkOverlay = pack.Q<VisualElement>("darkOverlay");
@@ -62,11 +64,11 @@ public class PackSlotView
 
         if (packNameLabel != null)
         {
-            packNameLabel.text = packSO.packName;
+            packNameLabel.text = locked ? achievementSO.achievementName : packSO.packName;
         }
         if (packDescriptionLabel != null)
         {
-            packDescriptionLabel.text = packSO.packDescription;
+            packDescriptionLabel.text = locked ? $"Current Progress: {achievementSO.currentProgress}/{achievementSO.target} !" : packSO.packDescription;
         }
         root.Clear();
         root.Add(pack);
@@ -94,7 +96,7 @@ public class PackSlotView
 
     private void PackSlotClickEvent(VisualElement VE)
     {
-        if (pack == null) return;
+        if (pack == null || locked) return;
         packSlotViewDelegate.PackSlotOnClick(this);
     }
 

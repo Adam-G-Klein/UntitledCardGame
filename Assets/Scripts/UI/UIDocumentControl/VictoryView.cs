@@ -2,8 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
+using Button = UnityEngine.UIElements.Button;
 
 public class VictoryView : MonoBehaviour
 {
@@ -12,6 +14,7 @@ public class VictoryView : MonoBehaviour
 
     private Material mat;
     private CanvasGroup canvasGroup;
+    private Button button;
 
     [SerializeField]
     private float fadeTime = .1f;
@@ -32,6 +35,12 @@ public class VictoryView : MonoBehaviour
             canvasGroup = gameObject.AddComponent<CanvasGroup>();
         }
         canvasGroup.alpha = 0;
+        button = doc.rootVisualElement.Q<Button>();
+        button.RegisterOnSelected(() => {
+            button.SetEnabled(false);
+            SceneManager.LoadScene("EndOfRunProgressScene");
+        });
+        FocusManager.Instance.RegisterFocusableTarget(button.AsFocusable());
     }
 
     public void Setup(List<Companion> companions) {

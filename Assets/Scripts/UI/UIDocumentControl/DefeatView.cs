@@ -2,8 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
+using Button = UnityEngine.UIElements.Button;
 
 public class DefeatView : MonoBehaviour
 {
@@ -15,6 +17,7 @@ public class DefeatView : MonoBehaviour
 
     [SerializeField]
     private float fadeTime = .1f;
+    private Button button;
 
 
     void OnEnable()
@@ -32,6 +35,13 @@ public class DefeatView : MonoBehaviour
             canvasGroup = gameObject.AddComponent<CanvasGroup>();
         }
         canvasGroup.alpha = 0;
+
+        button = doc.rootVisualElement.Q<Button>();
+        button.RegisterOnSelected(() => {
+            button.SetEnabled(false);
+            SceneManager.LoadScene("EndOfRunProgressScene");
+        });
+        FocusManager.Instance.RegisterFocusableTarget(button.AsFocusable());
     }
 
     public void Setup(List<Enemy> enemies) {

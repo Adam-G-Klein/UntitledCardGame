@@ -1,0 +1,10 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/endOfGameProgressScreen.uss?fileID=7433441132597879392&amp;guid=395a717e2188445808d28306a8610d49&amp;type=3#endOfGameProgressScreen" />
+    <ui:VisualElement name="progressBarContainer" style="padding-top: 20px; padding-bottom: 20px;">
+        <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
+            <ui:Label tabindex="-1" text="Discard 100 Cards:" parse-escape-sequences="true" display-tooltip-when-elided="true" name="goalTitle" style="font-size: 30px;" />
+            <ui:Label tabindex="-1" text="0" parse-escape-sequences="true" display-tooltip-when-elided="true" name="goalCurrentValue" style="font-size: 30px;" />
+        </ui:VisualElement>
+        <ui:ProgressBar value="0" name="goalProgressBar" />
+    </ui:VisualElement>
+</ui:UXML>

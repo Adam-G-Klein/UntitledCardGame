@@ -101,6 +101,12 @@ public class PlayableCard : MonoBehaviour,
     }
 
     private IEnumerator CardFinishCastingCallback() {
+        // report card cast for achievements
+        if (card.cardType.cardCategory == CardCategory.Attack && card.GetManaCost() == 0) {
+            ProgressManager.Instance.ReportProgressEvent(GameActionType.ZERO_COST_ATTACKS_PLAYED, 1);
+        }
+
+
         int cardPlayedIndex = PlayerHand.Instance.cardsInHand.IndexOf(this);
         ManaManager.Instance.updateMana(-card.GetManaCost());
         StartCoroutine(cardCastEvent.RaiseAtEndOfFrameCoroutine(new CardCastEventInfo(card)));

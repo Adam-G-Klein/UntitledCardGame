@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 726261614}
   - component: {fileID: 726261618}
   m_Layer: 5
-  m_Name: PackSelectionUI
+  m_Name: EndOfRunProgressScreenUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -155,9 +155,9 @@ MonoBehaviour:
   m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PanelSettings: {fileID: 11400000, guid: 64455c3619c4b412cb7c9718d94bbfb3, type: 2}
+  m_PanelSettings: {fileID: 11400000, guid: e4847cad364604c89a28b17d3bc7134f, type: 2}
   m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 9197481963319205126, guid: 8f2fe3eb77879462fa3e8f8e0d5b2b89, type: 3}
+  sourceAsset: {fileID: 9197481963319205126, guid: f85c465a1b9ce4e36a057c0979d93479, type: 3}
   m_SortingOrder: -22.31
 --- !u!114 &726261614
 MonoBehaviour:
@@ -192,7 +192,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 8400000, guid: 4c7f56c145cbc4fb9aad27bf82da9c50, type: 2}
+  m_Texture: {fileID: 8400000, guid: 387aa764c36374cc39eb43f86d628afa, type: 2}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -235,23 +235,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 726261610}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f8a6f62ae45a4396893f0fbeab87c0c, type: 3}
+  m_Script: {fileID: 11500000, guid: 5b487b978e9ee4688a8af86eb345634a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  packSelectionUIDocument: {fileID: 726261611}
-  packTemplate: {fileID: 9197481963319205126, guid: b77084df5f18a4a998401cc4ce720037, type: 3}
-  gameState: {fileID: 11400000, guid: 9e326417f60894341a96cc8d02868bbe, type: 2}
-  startingPackSOs:
-  - {fileID: 11400000, guid: 5f4300e0913784f05aeff0dd086d4338, type: 2}
-  - {fileID: 11400000, guid: a87b5da767d4e4659b2965e31e340c58, type: 2}
-  - {fileID: 11400000, guid: 79e479ca9df7a4369ba7fa951e0af116, type: 2}
-  - {fileID: 11400000, guid: 908f28c6f48104c2d85d2fcbd973771e, type: 2}
-  - {fileID: 11400000, guid: 0d12b03c0c8754470a900cb4f78a9217, type: 2}
-  unlockablePackSOs:
-  - packSO: {fileID: 11400000, guid: 5fcec41dc4c664deda58b9e1b4074804, type: 2}
-    achievementSO: {fileID: 11400000, guid: 35e02b24489f84c229b81ff0c30e83ba, type: 2}
-  - packSO: {fileID: 11400000, guid: 5fcec41dc4c664deda58b9e1b4074804, type: 2}
-    achievementSO: {fileID: 11400000, guid: b113df07334d643e7af74b6d80af10b4, type: 2}
+  endOfRunProgressUIDocument: {fileID: 726261611}
+  progressBarTemplate: {fileID: 9197481963319205126, guid: 7ea0f33e61c8f46418e792a93d6453f3, type: 3}
 --- !u!1001 &917753632
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -264,6 +252,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Singletons
       objectReference: {fileID: 0}
+    - target: {fileID: 3377835579949561163, guid: b3624fa3d2367944f9f9ff9793633969, type: 3}
+      propertyPath: achievementSOList.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3377835579949561163, guid: b3624fa3d2367944f9f9ff9793633969, type: 3}
+      propertyPath: achievementSOList.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: b113df07334d643e7af74b6d80af10b4, type: 2}
     - target: {fileID: 4658088288143552190, guid: b3624fa3d2367944f9f9ff9793633969, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.020032
@@ -322,7 +318,7 @@ GameObject:
   - component: {fileID: 1049605003}
   - component: {fileID: 1049605002}
   m_Layer: 5
-  m_Name: PackSelectionUIDocument
+  m_Name: EndOfRunProgressScreenUIDocument
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

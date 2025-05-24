@@ -37,6 +37,7 @@ Transform:
   - {fileID: 1626976133589732973}
   - {fileID: 3278873525375114195}
   - {fileID: 8580241707699254580}
+  - {fileID: 7111047284169896872}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &548918042691773628
@@ -1096,3 +1097,51 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+--- !u!1 &8261194209909082932
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7111047284169896872}
+  - component: {fileID: 3377835579949561163}
+  m_Layer: 0
+  m_Name: ProgressManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7111047284169896872
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8261194209909082932}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -6.020032, y: -1.2340667, z: -924.99585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4658088288143552190}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3377835579949561163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8261194209909082932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c35c58fd054f8423e89ee83745b0bf44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  achievementSOList:
+  - {fileID: 11400000, guid: 35e02b24489f84c229b81ff0c30e83ba, type: 2}
+  - {fileID: 11400000, guid: b113df07334d643e7af74b6d80af10b4, type: 2}
+  achievementDataSO: {fileID: 11400000, guid: e1cdf9a860e3c4d0fa8a74ea5ffc517c, type: 2}

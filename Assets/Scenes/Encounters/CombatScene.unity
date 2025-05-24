@@ -133,7 +133,6 @@ GameObject:
   - component: {fileID: 2165415}
   - component: {fileID: 2165420}
   - component: {fileID: 2165419}
-  - component: {fileID: 2165416}
   - component: {fileID: 2165421}
   - component: {fileID: 2165422}
   m_Layer: 5
@@ -162,19 +161,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2165416
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2165414}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7bab62add64716498eb7b83f8d727f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameState: {fileID: 0}
 --- !u!114 &2165419
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -763,7 +749,6 @@ GameObject:
   - component: {fileID: 280927547}
   - component: {fileID: 280927546}
   - component: {fileID: 280927543}
-  - component: {fileID: 280927542}
   - component: {fileID: 280927548}
   m_Layer: 5
   m_Name: VictoryPopUp
@@ -791,18 +776,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &280927542
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 280927540}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df70951de83204fe19e234627519387c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &280927543
 MonoBehaviour:
   m_ObjectHideFlags: 0

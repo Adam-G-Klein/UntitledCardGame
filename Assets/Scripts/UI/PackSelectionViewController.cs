@@ -8,6 +8,13 @@ using UnityEngine.SceneManagement;
 using System.Linq;
 using Unity.VisualScripting;
 
+[System.Serializable]
+public class UnlockablePack
+{
+    public PackSO packSO;
+    public AchievementSO achievementSO;
+}
+
 public class PackSelectionViewController : MonoBehaviour, IPackSlotViewDelegate
 {
     [SerializeField]
@@ -17,7 +24,7 @@ public class PackSelectionViewController : MonoBehaviour, IPackSlotViewDelegate
     [SerializeField]
     private GameStateVariableSO gameState;
     public List<PackSO> startingPackSOs;
-    public List<PackSO> unlockablePackSOs;
+    public List<UnlockablePack> unlockablePackSOs;
     private List<PackSO> selectedPackSOs;
     private Dictionary<string, PackSlotView> packToSlotMap = new();
     private Dictionary<string, PackSlotView> VEToSlotMap = new();
@@ -43,7 +50,7 @@ public class PackSelectionViewController : MonoBehaviour, IPackSlotViewDelegate
         }
         for (var i = 0; i < 5; i++)
         {
-            SetupPackSlot(i, unlockablePackSOs, "unlockablePackOption", false);
+            SetupUnlockablePackSlot(i, unlockablePackSOs, "unlockablePackOption", false);
         }
     }
 
@@ -54,6 +61,19 @@ public class PackSelectionViewController : MonoBehaviour, IPackSlotViewDelegate
 
         PackSlotView packSlotView = new(this, packSlot, packTemplate, !(packSO != null && selectedPackSOs.Contains(packSOs[i])) || isSelected, isSelected, packSO);
         if (!isSelected && packSO != null) packToSlotMap.Add(packSO.packName, packSlotView);
+        VEToSlotMap.Add(packSlot.name, packSlotView);
+    }
+
+    private void SetupUnlockablePackSlot(int i, List<UnlockablePack> unlockablePacks, string packName, bool isSelected)
+    {
+        UnlockablePack unlockablePack = i >= unlockablePacks.Count() ? null : unlockablePacks[i];
+        if (unlockablePack == null) return;
+        var packSO = unlockablePack.packSO;
+        var packSlot = packSelectionUIDocument.rootVisualElement.Q<VisualElement>($"{packName}{i + 1}");
+
+        bool isPackLocked = !unlockablePack.achievementSO.isCompleted;
+        PackSlotView packSlotView = new(this, packSlot, packTemplate, !(packSO != null && selectedPackSOs.Contains(packSO)) || isSelected, isSelected, packSO, isPackLocked, unlockablePack.achievementSO);
+        if (packSO != null) packToSlotMap.Add(packSO.packName, packSlotView);
         VEToSlotMap.Add(packSlot.name, packSlotView);
     }
 
@@ -76,7 +96,7 @@ public class PackSelectionViewController : MonoBehaviour, IPackSlotViewDelegate
         }
         else
         {
-             // the pack should know how to update the style of contents
+            // the pack should know how to update the style of contents
             List<VisualElement> selectPackSlots = packSelectionUIDocument.rootVisualElement.Q<VisualElement>("selectedOptionContainer").Children().ToList();
             for (var i = 0; i < selectPackSlots.Count; i++)
             {
