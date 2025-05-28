@@ -8,7 +8,10 @@ public static class VisualElementExtensions
 {
     public static VisualElementFocusable AsFocusable(this VisualElement element)
     {
-        return new VisualElementFocusable(element);
+        if (!element.HasUserData<VisualElementFocusable>()) {
+            element.SetUserData<VisualElementFocusable>(new VisualElementFocusable(element));
+        }
+        return element.GetUserData<VisualElementFocusable>();
     }
 
     public static void MakeFocusable(this VisualElement element) {
@@ -55,5 +58,31 @@ public static class VisualElementExtensions
         var clickEvent = ClickEvent.GetPooled();
         clickEvent.target = element;
         return clickEvent;
+    }
+
+    private static UserDataWrapper GetOrCreateWrapper(this VisualElement element)
+    {
+        if (element.userData is not UserDataWrapper wrapper)
+        {
+            wrapper = new UserDataWrapper();
+            element.userData = wrapper;
+        }
+
+        return wrapper;
+    }
+
+    public static void SetUserData<T>(this VisualElement element, T value)
+    {
+        element.GetOrCreateWrapper().Set(value);
+    }
+
+    public static T GetUserData<T>(this VisualElement element) where T : class
+    {
+        return element.GetOrCreateWrapper().Get<T>();
+    }
+
+    public static bool HasUserData<T>(this VisualElement element) where T : class
+    {
+        return element.userData is UserDataWrapper wrapper && wrapper.Has<T>();
     }
 }

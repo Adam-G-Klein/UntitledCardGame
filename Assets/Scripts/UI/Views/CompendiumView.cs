@@ -165,7 +165,7 @@ public class CompendiumView : MonoBehaviour, IControlsReceiver {
                 entityView.entityContainer.RegisterCallback<PointerLeaveEvent>((evt) => {
                     DestroyTooltip(entityView.entityContainer);
                 });
-                VisualElementFocusable entityViewFocusable = entityView.elementFocusable;
+                VisualElementFocusable entityViewFocusable = entityView.entityContainer.GetUserData<VisualElementFocusable>();
                 entityViewFocusable.additionalFocusAction += () => {DisplayTooltip(entityView.entityContainer, companionToDisplay.companionType.tooltip);};
                 entityViewFocusable.additionalUnfocusAction += () => {DestroyTooltip(entityView.entityContainer);};
                 FocusManager.Instance.RegisterFocusableTarget(entityViewFocusable);

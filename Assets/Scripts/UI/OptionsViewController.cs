@@ -91,14 +91,12 @@ public class OptionsViewController : MonoBehaviour, IControlsReceiver
     }
 
     private void RegisterFocusables() {
-        VisualElementFocusable volumeSliderFocusable = new VisualElementFocusable(volumeSlider);
+        VisualElementFocusable volumeSliderFocusable = volumeSlider.AsFocusable();
         volumeSliderFocusable.SetInputAction(GFGInputAction.LEFT, () => VisualElementUtils.ProcessSliderInput(volumeSlider, GFGInputAction.LEFT));
         volumeSliderFocusable.SetInputAction(GFGInputAction.RIGHT, () => VisualElementUtils.ProcessSliderInput(volumeSlider, GFGInputAction.RIGHT));
-        VisualElementFocusable timescaleSliderFocusable = new VisualElementFocusable(timescaleSlider);
+        VisualElementFocusable timescaleSliderFocusable = timescaleSlider.AsFocusable();
         timescaleSliderFocusable.SetInputAction(GFGInputAction.LEFT, () => VisualElementUtils.ProcessSliderInput(timescaleSlider, GFGInputAction.LEFT));
         timescaleSliderFocusable.SetInputAction(GFGInputAction.RIGHT, () => VisualElementUtils.ProcessSliderInput(timescaleSlider, GFGInputAction.RIGHT));
-        FocusManager.Instance.RegisterFocusableTarget(volumeSliderFocusable);
-        FocusManager.Instance.RegisterFocusableTarget(timescaleSliderFocusable);
         FocusManager.Instance.RegisterFocusables(optionsUIDocument);
     }
 
@@ -156,6 +154,7 @@ public class OptionsViewController : MonoBehaviour, IControlsReceiver
         // RegisterFocusables();
         UpdateCameraReference();
         ToggleVisibility();
+        ControlsManager.Instance.RegisterControlsReceiver(this);
     }
 
     private void UpdateCameraReference() {

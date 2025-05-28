@@ -105,7 +105,7 @@ public class FocusManager : GenericSingleton<FocusManager>, IControlsReceiver
 
     public void UnstashFocusables(string stashedBy) {
         if (!stashedFocusables.ContainsKey(stashedBy)) {
-            Debug.LogError("No key found to unstash focusables: " + stashedBy);
+            Debug.LogWarning("No key found to unstash focusables: " + stashedBy);
             return;
         }
 
@@ -305,14 +305,5 @@ public class FocusManager : GenericSingleton<FocusManager>, IControlsReceiver
         if (ControlsManager.Instance.GetControlMethod() == ControlsManager.ControlMethod.KeyboardController)
             FocusFirstEnabledFocusable();
         stashedFocusables[stashedBy] = newStashedFocusables;
-    }
-
-    public void TestIsAFocusableTarget(IFocusableTarget target) {
-        foreach (IFocusableTarget focusableTarget in focusableTargets) {
-            if (focusableTarget == target) {
-                Debug.Log("FOCUSABLE TARGET FOUND");
-            }
-        }
-        Debug.Log("FOCUSABLE TARGET NOT FOUND");
     }
 }

@@ -100,7 +100,7 @@ public class CombatEncounterView : MonoBehaviour,
 
     public void DisableFocusing() {
         foreach (EntityView entityView in entityViews) {
-            FocusManager.Instance.UnregisterFocusableTarget(entityView.elementFocusable);
+            FocusManager.Instance.UnregisterFocusableTarget(entityView.entityContainer.GetUserData<VisualElementFocusable>());
         }
     }
 
@@ -120,7 +120,7 @@ public class CombatEncounterView : MonoBehaviour,
         pickingModePositionList.Add(newEntityView);
         entityViews.Add(newEntityView);
 
-        VisualElementFocusable entityViewFocusable = newEntityView.elementFocusable;
+        VisualElementFocusable entityViewFocusable = newEntityView.entityContainer.GetUserData<VisualElementFocusable>();
         entityViewFocusable.SetTargetType(isEnemy ? Targetable.TargetType.Enemy : Targetable.TargetType.Companion);
         FocusManager.Instance.RegisterFocusableTarget(entityViewFocusable);
 
