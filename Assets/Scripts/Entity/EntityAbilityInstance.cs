@@ -18,7 +18,8 @@ public abstract class EntityAbilityInstance
 
     private IEnumerable setupAndInvokeAbility() {
         EffectDocument document = createEffectDocument();
-        yield return EffectManager.Instance.invokeEffectWorkflowCoroutine(document, ability.effectSteps, null);
+        EffectManager.Instance.invokeEffectWorkflow(document, ability.effectSteps, null);
+        yield return null;
     }
 
     public void Setup() {
@@ -244,6 +245,7 @@ public abstract class EntityAbilityInstance
         EffectDocument document = createEffectDocument();
         if (damagedInstance.parentType == CombatInstance.CombatInstanceParent.COMPANION) {
             CompanionInstance companion = CombatEntityManager.Instance.getCompanionInstanceForCombatInstance(damagedInstance);
+            Debug.Log("OnDamageTaken invoked with damaged companion: " + companion.companion.companionType.name);
             if (companion != null) {
                 EffectUtils.AddCompanionToDocument(document, "damagedCompanion", companion);
             }
@@ -253,6 +255,7 @@ public abstract class EntityAbilityInstance
             }
         } else if (damagedInstance.parentType == CombatInstance.CombatInstanceParent.ENEMY) {
             EnemyInstance enemy = CombatEntityManager.Instance.getEnemyInstanceForCombatInstance(damagedInstance);
+            Debug.Log("OnDamageTaken invoked with damaged enemy: " + enemy.enemy.enemyType.displayName);
             if (enemy != null) {
                 EffectUtils.AddEnemyToDocument(document, "damagedEnemy", enemy);
             }
