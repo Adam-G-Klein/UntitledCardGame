@@ -810,44 +810,52 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fmodMixer:
     Guid:
-      Data1: -1189902077
-      Data2: 1196816521
-      Data3: -1588889455
-      Data4: -1976051164
-    Path: event:/SetVolume
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   locationTracks:
   - eventReference:
       Guid:
-        Data1: 303483913
-        Data2: 1091203804
-        Data3: 8614020
-        Data4: -709739455
+        Data1: -177291770
+        Data2: 1267498729
+        Data3: -1540488064
+        Data4: -296254712
       Path: event:/MX/MX_Tutorial
     location: 14
   - eventReference:
       Guid:
-        Data1: 794120879
-        Data2: 1241572437
-        Data3: -827104360
-        Data4: -847764034
+        Data1: -187429163
+        Data2: 1252839504
+        Data3: 2133419177
+        Data4: 691926519
       Path: event:/MX/MX_Combat
     location: 7
   - eventReference:
       Guid:
-        Data1: 2020544586
-        Data2: 1107152092
-        Data3: 1359856314
-        Data4: 1812504374
+        Data1: -1906312381
+        Data2: 1091765786
+        Data3: -1484596840
+        Data4: -1799343139
       Path: event:/MX/MX_Shop
     location: 9
   - eventReference:
       Guid:
-        Data1: 1934444264
-        Data2: 1256388940
-        Data3: -1476691317
-        Data4: -112526437
+        Data1: 1734502920
+        Data2: 1277244691
+        Data3: 1304730765
+        Data4: -2129700869
       Path: event:/MX/MX_Theme
     location: 1
+  - eventReference:
+      Guid:
+        Data1: -1832211701
+        Data2: 1204153576
+        Data3: -1614024303
+        Data4: 593253338
+      Path: event:/MX/MX_Intro_Cutscene
+    location: 13
   currentVolume: 0.5
 --- !u!1001 &2085430708498034827
 PrefabInstance:
