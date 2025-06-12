@@ -815,6 +815,7 @@ MonoBehaviour:
       Data3: 0
       Data4: 0
     Path: 
+  combatState: Combat State
   locationTracks:
   - eventReference:
       Guid:
@@ -856,7 +857,7 @@ MonoBehaviour:
         Data4: 593253338
       Path: event:/MX/MX_Intro_Cutscene
     location: 13
-  currentVolume: 0.5
+  currentVolume: 1
 --- !u!1001 &2085430708498034827
 PrefabInstance:
   m_ObjectHideFlags: 0

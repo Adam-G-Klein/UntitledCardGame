@@ -6,6 +6,8 @@ using UnityEditor;
 using Unity.VisualScripting;
 using TMPro;
 using UnityEngine.UIElements;
+using FMODUnity;
+using FMOD.Studio;
 
 [RequireComponent(typeof(EndEncounterEventListener))]
 public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IEncounterBuilder, IControlsReceiver
@@ -107,14 +109,17 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         }
     }
 
-    public void EndEncounterHandler(EndEncounterEventInfo info) {
+    public void EndEncounterHandler(EndEncounterEventInfo info)
+    {
         combatOver = true;
         Debug.Log("EndEncounterHandler called, info.outcome is " + info.outcome + " gameState.GetLoopIndex() is " + gameState.GetLoopIndex() + " gameState.lastTutorialLoopIndex is " + gameState.lastTutorialLoopIndex);
-        if(info.outcome == EncounterOutcome.Defeat) {
+        if (info.outcome == EncounterOutcome.Defeat)
+        {
             LoseGameHandler();
             return;
         }
-        if (gameState.activeEncounter.GetValue().id == gameState.map.GetValue().encounters[gameState.map.GetValue().encounters.Count - 1].id) {
+        if (gameState.activeEncounter.GetValue().id == gameState.map.GetValue().encounters[gameState.map.GetValue().encounters.Count - 1].id)
+        {
             WinGameHandler();
             return;
         }
@@ -124,24 +129,29 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         // Gold interest calculation
         int baseGoldEarnedPerBattle = gameState.baseShopData.goldEarnedPerBattle;
         int extraGold = Mathf.FloorToInt(gameState.baseShopData.interestRate * gameState.playerData.GetValue().gold);
-        if (extraGold > gameState.baseShopData.interestCap) {
+        if (extraGold > gameState.baseShopData.interestCap)
+        {
             Debug.Log("capping extra gold " + extraGold.ToString() + " at interest cap " + gameState.baseShopData.interestCap.ToString());
             extraGold = gameState.baseShopData.interestCap;
         }
         gameState.playerData.GetValue().gold += baseGoldEarnedPerBattle + extraGold;
 
-        if (onEncounterEndHandler != null) {
-            foreach (OnEncounterEndHandler handler in onEncounterEndHandler.GetInvocationList()) {
+        if (onEncounterEndHandler != null)
+        {
+            foreach (OnEncounterEndHandler handler in onEncounterEndHandler.GetInvocationList())
+            {
                 handler.Invoke();
             }
         }
 
         // Revive all companions that died during combat to death's door.
-        foreach (Companion companion in gameState.companions.allCompanions) {
-            if (companion.combatStats.currentHealth <= 0) {
+        foreach (Companion companion in gameState.companions.allCompanions)
+        {
+            if (companion.combatStats.currentHealth <= 0)
+            {
                 companion.combatStats.setCurrentHealth(1);
             }
-            
+
         }
 
         gameState.LoadNextLocation();
@@ -157,12 +167,16 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         DialogueManager.Instance.SetDialogueLocation(gameState);
         DialogueManager.Instance.StartAnyDialogueSequence();
         SetInToolTip(false);
+        // FMOD Combat State Parameter value "1" is "Victory"
+        RuntimeManager.StudioSystem.setParameterByName(MusicController2.Instance.combatState, 1);
     }
 
     private void WinGameHandler() {
         ProgressManager.Instance.ReportProgressEvent(GameActionType.WIN_A_RUN, 1);
         gameState.LoadNextLocation();
         victoryUI.SetActive(true);
+        // FMOD Combat State parameter value "1" is "Victory"  
+        RuntimeManager.StudioSystem.setParameterByName(MusicController2.Instance.combatState, 1);
         uIStateEvent.Raise(new UIStateEventInfo(UIState.END_ENCOUNTER));
         victoryUI.transform.SetSiblingIndex(postCombatUI.transform.parent.childCount - 1);
         victoryUI.GetComponent<VictoryView>().Setup(gameState.companions.activeCompanions);
@@ -173,6 +187,8 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
 
     private void LoseGameHandler() {
         postGamePopup.SetActive(true);
+        // FMOD Combat State parameter value "2" is "Defeat"  
+        RuntimeManager.StudioSystem.setParameterByName(MusicController2.Instance.combatState, 2);
         postGamePopup.GetComponent<DefeatView>().Setup(((EnemyEncounter)gameState.activeEncounter.GetValue()).enemyList);
         TurnOffInteractions();
         StartCoroutine(displayDefeatUIAfterDelay());
@@ -189,9 +205,11 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         FocusManager.Instance.UnregisterAll();
     }
 
-    private IEnumerator displayPostCombatUIAfterDelay() {
+    private IEnumerator displayPostCombatUIAfterDelay()
+    {
         yield return new WaitForSeconds(endCombatScreenDelay);
         postCombatUI.GetComponent<EndEncounterView>().Show();
+        MusicController2.Instance.PlaySFX("event:/SFX/SFX_EarnMoney");
     }
     private IEnumerator displayVictoryUIAfterDelay() {
         yield return new WaitForSeconds(endCombatScreenDelay);

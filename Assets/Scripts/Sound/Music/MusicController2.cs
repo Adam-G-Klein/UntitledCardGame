@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using FMODUnity;
 using UnityEngine;
 
 public class MusicController2 : GenericSingleton<MusicController2>
 {
     [SerializeField] FMODUnity.EventReference fmodMixer;
+    [SerializeField][ParamRef] public string combatState;
     private FMOD.Studio.EventInstance mixerInstance;
     private FMOD.Studio.EventInstance instance;
     public List<LocationTrack> locationTracks;
@@ -55,7 +57,7 @@ public class MusicController2 : GenericSingleton<MusicController2>
     public void SetVolume(float volume) {
         currentVolume = volume;
         instance.setVolume(volume);
-        // mixerInstance.setParameterByName("Master_Volume", volume * 100);
+        // fmodMixer.setParameterByName("Master_Volume", volume * 100);
     }
 
     public void PlaySFX(string sfx) {
@@ -66,7 +68,7 @@ public class MusicController2 : GenericSingleton<MusicController2>
     {
         FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/SFX_StartRun", currentVolume);
     }
-    
+
     // Start is called before the first frame update
     void Start()
     {
