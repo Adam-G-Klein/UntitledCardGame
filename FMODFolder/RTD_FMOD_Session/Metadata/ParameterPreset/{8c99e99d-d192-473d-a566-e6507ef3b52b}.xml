@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{8c99e99d-d192-473d-a566-e6507ef3b52b}">
+		<property name="name">
+			<value>CombatLoopVolume</value>
+		</property>
+		<relationship name="folder">
+			<destination>{7caed0a9-064d-4529-8a6d-a2379a0e2704}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{0ad23db8-938d-4bae-bad7-5f70b72a7cf1}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{0ad23db8-938d-4bae-bad7-5f70b72a7cf1}">
+		<property name="initialValue">
+			<value>1</value>
+		</property>
+		<property name="seekSpeed">
+			<value>0.45999997854232788</value>
+		</property>
+	</object>
+</objects>

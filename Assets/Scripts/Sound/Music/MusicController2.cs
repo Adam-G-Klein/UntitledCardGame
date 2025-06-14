@@ -39,6 +39,11 @@ public class MusicController2 : GenericSingleton<MusicController2>
             Debug.LogWarning("No location tracks set in MusicController2");
             return;
         }
+        
+        if (location == Location.COMBAT)
+        {
+            SetCombatState("Combat");
+        }
 
         foreach (LocationTrack locationTrack in locationTracks) {
             if (location == locationTrack.location) {
@@ -76,6 +81,29 @@ public class MusicController2 : GenericSingleton<MusicController2>
         // mixerInstance.start();
         // mixerInstance.setParameterByName("Master_Volume", 0.1f);
         PlayMusicLocation(Location.MAIN_MENU);
+    }
+
+    public void SetCombatState(string combatstate)
+    {
+        switch (combatstate)
+        {
+            case "Combat":
+                RuntimeManager.StudioSystem.setParameterByName(combatState, 0);
+                break;
+
+            case "Victory":
+                RuntimeManager.StudioSystem.setParameterByName(combatState, 1);
+                PlaySFX("event:/MX/MX_CombatStingers");
+                break;
+
+            case "Defeat":
+                RuntimeManager.StudioSystem.setParameterByName(combatState, 2);
+                PlaySFX("event:/MX/MX_CombatStingers");
+                break;
+
+            default:
+                break;
+        }
     }
 
     // Update is called once per frame
