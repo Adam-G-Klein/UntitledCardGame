@@ -167,16 +167,14 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         DialogueManager.Instance.SetDialogueLocation(gameState);
         DialogueManager.Instance.StartAnyDialogueSequence();
         SetInToolTip(false);
-        // FMOD Combat State Parameter value "1" is "Victory"
-        RuntimeManager.StudioSystem.setParameterByName(MusicController2.Instance.combatState, 1);
+        MusicController2.Instance.SetCombatState("Victory");
     }
 
     private void WinGameHandler() {
         ProgressManager.Instance.ReportProgressEvent(GameActionType.WIN_A_RUN, 1);
         gameState.LoadNextLocation();
         victoryUI.SetActive(true);
-        // FMOD Combat State parameter value "1" is "Victory"  
-        RuntimeManager.StudioSystem.setParameterByName(MusicController2.Instance.combatState, 1);
+        MusicController2.Instance.SetCombatState("Victory");
         uIStateEvent.Raise(new UIStateEventInfo(UIState.END_ENCOUNTER));
         victoryUI.transform.SetSiblingIndex(postCombatUI.transform.parent.childCount - 1);
         victoryUI.GetComponent<VictoryView>().Setup(gameState.companions.activeCompanions);
@@ -187,8 +185,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
 
     private void LoseGameHandler() {
         postGamePopup.SetActive(true);
-        // FMOD Combat State parameter value "2" is "Defeat"  
-        RuntimeManager.StudioSystem.setParameterByName(MusicController2.Instance.combatState, 2);
+        MusicController2.Instance.SetCombatState("Defeat");
         postGamePopup.GetComponent<DefeatView>().Setup(((EnemyEncounter)gameState.activeEncounter.GetValue()).enemyList);
         TurnOffInteractions();
         StartCoroutine(displayDefeatUIAfterDelay());
@@ -209,7 +206,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     {
         yield return new WaitForSeconds(endCombatScreenDelay);
         postCombatUI.GetComponent<EndEncounterView>().Show();
-        MusicController2.Instance.PlaySFX("event:/SFX/SFX_EarnMoney");
+        // MusicController2.Instance.PlaySFX("event:/SFX/SFX_EarnMoney");
     }
     private IEnumerator displayVictoryUIAfterDelay() {
         yield return new WaitForSeconds(endCombatScreenDelay);
