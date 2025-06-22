@@ -232,7 +232,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                     document.originEntityType = EntityType.Card;
                     Debug.Log("Invoking end of turn effect workflow with steps: " + workflowSteps.Count);
                     EffectManager.Instance.invokeEffectWorkflow(document, workflowSteps, callback);
-                } else {
+                } else if (!retainedCards.Contains(card)) {
                     cardsToImmediatelyDiscard.Add(card);
                 }
             }
