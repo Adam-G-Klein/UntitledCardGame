@@ -211,6 +211,7 @@ public class CombatInstance : MonoBehaviour
     private int TakeDamage(CombatEffect combatEffect, int damage, CombatInstance attacker) {
 
         if (killed) {
+            Debug.Log("TakeDamage called with 'killed=true'; this can habit on multihit moves, returning early.");
             return 0;
         }
         int damageAfterDefense = DamageAfterDefense(combatEffect, damage);
@@ -275,9 +276,9 @@ public class CombatInstance : MonoBehaviour
     private IEnumerator OnDeath(CombatInstance killer) {
         Debug.Log("OnDeath called for " + this.id + " with killer " + killer.GetId());
         Debug.Log("OnDeath: waiting for all effects running to resolve");
+        killed = true;
         yield return new WaitUntil(() => EffectManager.Instance.IsEffectRunning() == false);
         string blockerId = Id.newGuid();
-        killed = true;
         TurnManager.Instance.addTurnPhaseBlocker(blockerId);
         ProcessOnDeathStatusEffects(killer);
 
