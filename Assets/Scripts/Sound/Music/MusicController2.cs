@@ -11,7 +11,8 @@ public class MusicController2 : GenericSingleton<MusicController2>
     private FMOD.Studio.EventInstance instance;
     public List<LocationTrack> locationTracks;
     private FMODUnity.EventReference currentReference;
-    public float currentVolume = 0.5f;
+    public float currentMusicVolume = 0.5f;
+    public float currentSFXVolume = 0.5f;
 
     [System.Serializable]
     public class LocationTrack
@@ -51,7 +52,7 @@ public class MusicController2 : GenericSingleton<MusicController2>
                 instance.release();
                 instance = FMODUnity.RuntimeManager.CreateInstance(locationTrack.eventReference);
                 instance.start();
-                instance.setVolume(currentVolume);
+                instance.setVolume(currentMusicVolume);
                 currentReference = locationTrack.eventReference;
                 Debug.Log(locationTrack.eventReference);
                 Debug.Log(locationTrack.location);
@@ -59,19 +60,26 @@ public class MusicController2 : GenericSingleton<MusicController2>
         }
     }
 
-    public void SetVolume(float volume) {
-        currentVolume = volume;
-        instance.setVolume(volume);
-        // fmodMixer.setParameterByName("Master_Volume", volume * 100);
+    public void SetVolume(float volume, VolumeType volumeType) {
+        switch(volumeType) {
+            case VolumeType.SFX:
+                currentSFXVolume = volume;
+            break;
+
+            case VolumeType.MUSIC:
+                currentMusicVolume = volume;
+                instance.setVolume(volume);
+            break;
+        }
     }
 
     public void PlaySFX(string sfx) {
-        FMODUnity.RuntimeManager.PlayOneShot(sfx, currentVolume);
+        FMODUnity.RuntimeManager.PlayOneShot(sfx, currentSFXVolume);
     }
 
     public void PlayStartSFX()
     {
-        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/SFX_StartRun", currentVolume);
+        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/SFX_StartRun", currentSFXVolume);
     }
 
     // Start is called before the first frame update
@@ -114,4 +122,9 @@ public class MusicController2 : GenericSingleton<MusicController2>
 
 
     //TO DO: add GC functionality!
+}
+
+public enum VolumeType {
+    MUSIC,
+    SFX
 }

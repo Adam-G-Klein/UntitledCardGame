@@ -10,7 +10,8 @@ using System.Linq;
 public class OptionsViewController : MonoBehaviour, IControlsReceiver
 {
     private static OptionsViewController instance;
-    private Slider volumeSlider;
+    private Slider musicVolumeSlider;
+    private Slider sfxVolumeSlider;
     private Slider timescaleSlider;
     [SerializeField]
     private UIDocument optionsUIDocument;
@@ -52,11 +53,14 @@ public class OptionsViewController : MonoBehaviour, IControlsReceiver
     {
         optionsUIDocument.rootVisualElement.style.visibility = Visibility.Hidden;
         compendiumUIDocument.rootVisualElement.style.visibility = Visibility.Hidden;
-        volumeSlider = optionsUIDocument.rootVisualElement.Q<Slider>("volumeSlider");
-        volumeSlider.RegisterValueChangedCallback((evt) => onVolumeSliderChangedHandler(evt.newValue));
+        musicVolumeSlider = optionsUIDocument.rootVisualElement.Q<Slider>("musicVolumeSlider");
+        musicVolumeSlider.RegisterValueChangedCallback((evt) => onVolumeSliderChangedHandler(evt.newValue, VolumeType.MUSIC));
+        sfxVolumeSlider = optionsUIDocument.rootVisualElement.Q<Slider>("sfxVolumeSlider");
+        sfxVolumeSlider.RegisterValueChangedCallback((evt) => onVolumeSliderChangedHandler(evt.newValue, VolumeType.SFX));
         timescaleSlider = optionsUIDocument.rootVisualElement.Q<Slider>("gameSpeedSlider");
         timescaleSlider.RegisterValueChangedCallback((evt) => OnTimescaleSliderChange(evt.newValue));
-        volumeSlider.value = MusicController2.Instance.currentVolume;
+        musicVolumeSlider.value = MusicController2.Instance.currentMusicVolume;
+        sfxVolumeSlider.value = MusicController2.Instance.currentSFXVolume;
         compendiumButton = optionsUIDocument.rootVisualElement.Q<Button>("compendiumButton");
         compendiumButton.clicked += onCompendiumButtonHandler;
         backButton = optionsUIDocument.rootVisualElement.Q<Button>("backButton");
@@ -91,9 +95,12 @@ public class OptionsViewController : MonoBehaviour, IControlsReceiver
     }
 
     private void RegisterFocusables() {
-        VisualElementFocusable volumeSliderFocusable = volumeSlider.AsFocusable();
-        volumeSliderFocusable.SetInputAction(GFGInputAction.LEFT, () => VisualElementUtils.ProcessSliderInput(volumeSlider, GFGInputAction.LEFT));
-        volumeSliderFocusable.SetInputAction(GFGInputAction.RIGHT, () => VisualElementUtils.ProcessSliderInput(volumeSlider, GFGInputAction.RIGHT));
+        VisualElementFocusable musicVolumeSliderFocusable = musicVolumeSlider.AsFocusable();
+        musicVolumeSliderFocusable.SetInputAction(GFGInputAction.LEFT, () => VisualElementUtils.ProcessSliderInput(musicVolumeSlider, GFGInputAction.LEFT));
+        musicVolumeSliderFocusable.SetInputAction(GFGInputAction.RIGHT, () => VisualElementUtils.ProcessSliderInput(musicVolumeSlider, GFGInputAction.RIGHT));
+        VisualElementFocusable sfxVolumeSliderFocusable = sfxVolumeSlider.AsFocusable();
+        sfxVolumeSliderFocusable.SetInputAction(GFGInputAction.LEFT, () => VisualElementUtils.ProcessSliderInput(sfxVolumeSlider, GFGInputAction.LEFT));
+        sfxVolumeSliderFocusable.SetInputAction(GFGInputAction.RIGHT, () => VisualElementUtils.ProcessSliderInput(sfxVolumeSlider, GFGInputAction.RIGHT));
         VisualElementFocusable timescaleSliderFocusable = timescaleSlider.AsFocusable();
         timescaleSliderFocusable.SetInputAction(GFGInputAction.LEFT, () => VisualElementUtils.ProcessSliderInput(timescaleSlider, GFGInputAction.LEFT));
         timescaleSliderFocusable.SetInputAction(GFGInputAction.RIGHT, () => VisualElementUtils.ProcessSliderInput(timescaleSlider, GFGInputAction.RIGHT));
@@ -118,8 +125,8 @@ public class OptionsViewController : MonoBehaviour, IControlsReceiver
         compendiumView = new CompendiumView(compendiumUIDocument, companionPool, neutralCardPool, tooltipPrefab);
     }
 
-    public void onVolumeSliderChangedHandler(float value) {
-       MusicController2.Instance.SetVolume(value);
+    public void onVolumeSliderChangedHandler(float value, VolumeType volumeType) {
+       MusicController2.Instance.SetVolume(value, volumeType);
     }
     
     public void OnTimescaleSliderChange(float value) {

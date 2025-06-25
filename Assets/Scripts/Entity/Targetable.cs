@@ -33,7 +33,6 @@ public class Targetable : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     }
 
     private void TargetableClicked() {
-        Debug.LogError("Targetable: Clicked on targetable");
         if(targetType == TargetType.Companion) {
             Debug.Log("Targetable: Clicked on companion");
         } else if(targetType == TargetType.Minion) {
