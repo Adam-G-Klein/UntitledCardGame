@@ -35,80 +35,126 @@ MonoBehaviour:
   abilitiesV2:
   - rid: 2034230176448512968
   level: 0
-  upgradeTo: {fileID: 11400000, guid: 8d7bd6928b0f64bb58516b33ac741c11, type: 2}
+  upgradeTo: {fileID: 11400000, guid: c7e09ba27d2384df6a8a8704dffec72b, type: 2}
   tooltip:
     empty: 0
     lines:
     - title: Tiefseeker
-      description: At the start of turn, draw an extra card from and give 3 block
-        to each companion with 5 or more Status cards in their deck
+      description: At the end of turn, if you have 2 or more Status cards in hand,
+        draw an extra card next turn from one of the adjacent companions at random
       relatedBehaviorIndex: 0
   keepsakeTitle: Hidden Cache
-  keepsakeDescription: At the start of turn, draw an extra card from and give 3 block
-    to each companion with 5 or more Status cards in their deck
+  keepsakeDescription: At the end of turn, if you have 2 or more Status cards in
+    hand, draw an extra card next turn from one of the adjacent companions at random
   references:
     version: 2
     RefIds:
-    - rid: 2034230176448512968
-      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
-      data:
-        abilityTrigger: 12
-        effectSteps:
-        - rid: 2034230176448512969
-        - rid: 2034230176448512970
-        - rid: 2034230176448512972
-        - rid: 2034230176448512971
-        - rid: 7401433558763438353
-        - rid: 2034230176448512974
-    - rid: 2034230176448512969
+    - rid: 1289961959942521010
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: dudes
-        validTargets: 00000000
+        outputKey: cards
+        validTargets: 03000000
         number: 1
         specialTargetRule: 1
         cantCancelTargetting: 0
-    - rid: 2034230176448512970
-      type: {class: FilterEntityByCardsInDeck, ns: , asm: Assembly-CSharp}
+    - rid: 1289961959942521011
+      type: {class: FilterCards, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: FilterEntityByCardsInDeck
-        inputKey: dudes
+        effectStepName: FilterCards
+        inputKey: cards
         filter:
           cardCategoriesToInclude: 04000000
           generatedCardsFilter: 0
-        threshold: 5
-        outputKey: dudesWithEnough
-    - rid: 2034230176448512971
-      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+        outputKey: statusCards
+    - rid: 1289961959942521012
+      type: {class: CountStep, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: DrawCards
-        inputKey: dudesWithEnough
-        outputKey: 
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
-    - rid: 2034230176448512972
-      type: {class: EndWorkflowIfListEmpty, ns: , asm: Assembly-CSharp}
+        effectStepName: CountStep
+        inputKey: statusCards
+        outputKey: numStatus
+    - rid: 1289961959942521013
+      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: EndWorkflowIfListEmpty
-        inputKey1: dudesWithEnough
-    - rid: 2034230176448512974
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+        effectStepName: BooleanComparison
+        hardCodedInputKey1: 2
+        useHardCodedInputKey1: 1
+        inputKey1: 
+        operation: 2
+        inputKey2: numStatus
+        outputKey: hasEnough
+    - rid: 1289961959942521014
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: InstantiatePrefab
-        inputKey: dudesWithEnough
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
-        scale: 1
-    - rid: 7401433558763438353
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: hasEnough
+        conditionToEndOn: 0
+    - rid: 1289961959942521015
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ApplyStatus
-        inputKey: dudesWithEnough
-        statusEffect: 2
-        scale: 3
+        inputKey: random
+        statusEffect: 16
+        scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+    - rid: 1289961959942521017
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 6137048663962808129, guid: 032e33b914ed32b418cdc1ed2f15fc6e, type: 3}
+        scale: 1
+    - rid: 1289961959942521018
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 1289961959942521019
+      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetAdjacentCompanions
+        inputKey: self
+        outputKey: adj
+    - rid: 1289961959942521020
+      type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetRandomItems
+        inputKey: adj
+        scale: 1
+        outputKey: random
+    - rid: 1289961959942521023
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: random
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
+        scale: 1
+    - rid: 2034230176448512968
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 2
+        effectSteps:
+        - rid: 1289961959942521010
+        - rid: 1289961959942521011
+        - rid: 1289961959942521012
+        - rid: 1289961959942521013
+        - rid: 1289961959942521014
+        - rid: 1289961959942521018
+        - rid: 1289961959942521019
+        - rid: 1289961959942521020
+        - rid: 1289961959942521017
+        - rid: 1289961959942521015
+        - rid: 1289961959942521023

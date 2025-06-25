@@ -113,6 +113,18 @@ MonoBehaviour:
         getScaleFromKey: 0
         scaleKey: 
         modification: 1
+    - rid: 1289961959942520832
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: thisCard
+        prefabToInstantiate: {fileID: 6137048663962808129, guid: 032e33b914ed32b418cdc1ed2f15fc6e, type: 3}
+        scale: 1
+    - rid: 1289961959942520833
+      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: WaitForSecondsEffect
+        seconds: 0.75
     - rid: 2116895648763871336
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -125,6 +137,8 @@ MonoBehaviour:
         - rid: 1289961820425028127
         - rid: 1289961820425028128
         - rid: 1289961820425028129
+        - rid: 1289961959942520832
+        - rid: 1289961959942520833
     - rid: 9024302470308298798
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RP_PainfulRitual
   m_EditorClassIdentifier: 
   Name: Painful Ritual
-  Description: Target companion loses 2 HP and gains 2 strength
+  Description: Target companion loses 3 HP and gains 2 strength
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: d88429aecc6977642baae99d9f8466d6, type: 3}
@@ -25,6 +25,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 5602893017534169568
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
@@ -84,13 +86,16 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 5602893017534169573
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
         inputKey: target
         combatEffect: 16
-        scale: 2
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1

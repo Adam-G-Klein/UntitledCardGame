@@ -71,8 +71,8 @@ MonoBehaviour:
       data:
         effectStepName: CombatInstanceCacheLoad
         inputCombatInstanceKey: self
-        cacheKey: numCardsToDraw
-        currentWorkflowKey: numCardsToDraw
+        cacheKey: numEnergy
+        currentWorkflowKey: numEnergy
     - rid: 7401433308100034729
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -92,7 +92,7 @@ MonoBehaviour:
         useHardCodedInputKey1: 1
         inputKey1: 
         operation: 0
-        inputKey2: numCardsToDraw
+        inputKey2: numEnergy
         outputKey: done
     - rid: 7401433308100034731
       type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
@@ -104,11 +104,11 @@ MonoBehaviour:
       type: {class: MathStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: MathStep
-        inputKey: numCardsToDraw
+        inputKey: numEnergy
         operand2InputKey: UNUSED
         operation: 1
         scale: 1
-        outputKey: numCardsToDrawSubtracted
+        outputKey: numEnergySub
     - rid: 7401433308100034733
       type: {class: CombatInstanceCacheStore, ns: , asm: Assembly-CSharp}
       data:
@@ -118,8 +118,8 @@ MonoBehaviour:
         useHardCodedBool: 0
         hardCodedInt: 0
         useHardCodedInt: 0
-        currentWorkflowKey: numCardsToDrawSubtracted
-        cacheKey: numCardsToDraw
+        currentWorkflowKey: numEnergySub
+        cacheKey: numEnergy
     - rid: 7401433308100034869
       type: {class: ManaChange, ns: , asm: Assembly-CSharp}
       data:

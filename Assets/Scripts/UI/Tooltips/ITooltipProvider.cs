@@ -41,7 +41,8 @@ public enum TooltipKeyword
     Charge,
     Discharge,
     MaxBlockLost,
-    Burn
+    Burn,
+    ExtraCardsToDealNextTurn
 }
 public interface ITooltipProvider
 {

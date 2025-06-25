@@ -57,6 +57,7 @@ MonoBehaviour:
         - rid: 205828032053379329
         - rid: 1289961820425028203
         - rid: 2034230017118175327
+        - rid: 1289961959942521116
     - rid: 205828032053379329
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -74,12 +75,19 @@ MonoBehaviour:
         effectStepName: GetRandomItems
         inputKey: all
         scale: 2
-        outputKey: adj
+        outputKey: target
+    - rid: 1289961959942521116
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: target
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        scale: 1
     - rid: 2034230017118175327
       type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: AddCardsToHand
-        entityFromKey: adj
+        entityFromKey: target
         cardTypes:
         - {fileID: 11400000, guid: 224034c097974444fa35170919327ce6, type: 2}
         getCardsFromKey: 0

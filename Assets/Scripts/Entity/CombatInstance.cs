@@ -73,7 +73,8 @@ public class CombatInstance : MonoBehaviour
             { StatusEffectType.MoneyOnDeath, 0 },
             { StatusEffectType.Charge, 0},
             { StatusEffectType.MaxBlockToLoseAtEndOfTurn, -1 }, // 0 is a valid value so we need to use -1 to indicate a value hasn't been set
-            { StatusEffectType.Burn, 0}
+            { StatusEffectType.Burn, 0},
+            { StatusEffectType.ExtraCardsToDealNextTurn, 0}
         };
 
     private Dictionary<StatusEffectType, int> statusEffects =
@@ -362,7 +363,9 @@ public class CombatInstance : MonoBehaviour
             case StatusEffectType.Thorns:
                 statusEffects[status] = 0;
                 break;
-
+            case StatusEffectType.ExtraCardsToDealNextTurn:
+                statusEffects[status] = 0;
+                break;
             case StatusEffectType.TemporaryStrength:
                 statusEffects[status] = 0;
                 break;
@@ -382,7 +385,7 @@ public class CombatInstance : MonoBehaviour
             case StatusEffectType.Orb:
                 break;
             case StatusEffectType.Burn:
-                Debug.LogError(statusEffects[status]);
+                // Debug.LogError(statusEffects[status]);
                 if (statusEffects[status] > 0)
                 {
                     // ideally we would have a map of status effects to their vfx prefab (or some other way of instantiating them...this will be pretty opaque without vfx)

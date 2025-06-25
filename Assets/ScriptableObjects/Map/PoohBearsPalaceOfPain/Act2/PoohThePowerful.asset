@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PoohThePowerful
   m_EditorClassIdentifier: 
   displayName: Pooh the Powerful
-  maxHealth: 70
+  maxHealth: 100
   baseAttackDamage: 0
   sprite: {fileID: 21300000, guid: be409f988b43c465e8aff2ef52b8aabc, type: 3}
   backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
@@ -195,6 +195,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 8790164555430888040
       type: {class: DebugEffectStep, ns: , asm: Assembly-CSharp}
       data:

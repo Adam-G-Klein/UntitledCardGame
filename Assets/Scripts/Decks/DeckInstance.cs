@@ -17,53 +17,89 @@ public class DeckInstance : MonoBehaviour
 
     private TurnPhaseTrigger drawCardsTurnPhaseTrigger;
     private TurnPhaseTrigger resetTempCardModificationsTrigger;
+    private TurnPhaseTrigger dealExtraCardsTrigger;
 
-    private float nextMinionSpawnTheta = Mathf.PI/2f;
+    int extraCardsToDeal = 0;
+
+    private float nextMinionSpawnTheta = Mathf.PI / 2f;
     private float minionSpawnRadius = 3f;
 
-    public void Start() {
+    public void Start()
+    {
         SetupPiles(sourceDeck);
         RegisterDrawTrigger();
         RegisterEndTurnTrigger();
         RegisterEndOfEncounterHandler();
+        RegisterDealExtraCardsTrigger();
         combatInstance.onDeathHandler += OnDeath;
     }
 
-    private void RegisterEndOfEncounterHandler() {
+    private void RegisterEndOfEncounterHandler()
+    {
         EnemyEncounterManager.Instance.onEncounterEndHandler += OnEndEncounter;
     }
 
-    private void RegisterDrawTrigger() {
+    private void RegisterDrawTrigger()
+    {
         drawCardsTurnPhaseTrigger = new TurnPhaseTrigger(
             TurnPhase.START_PLAYER_TURN, DealStartPlayerTurnCards());
         TurnManager.Instance.addTurnPhaseTrigger(drawCardsTurnPhaseTrigger);
     }
 
-    private void RegisterEndTurnTrigger() {
+    private void RegisterEndTurnTrigger()
+    {
         resetTempCardModificationsTrigger = new TurnPhaseTrigger(
             TurnPhase.END_PLAYER_TURN, ResetTempCardModifications());
         TurnManager.Instance.addTurnPhaseTrigger(resetTempCardModificationsTrigger);
     }
 
+    private void RegisterDealExtraCardsTrigger()
+    {
+        dealExtraCardsTrigger = new TurnPhaseTrigger(
+            TurnPhase.END_ENEMY_TURN, DealExtraCards());
+        TurnManager.Instance.addTurnPhaseTrigger(dealExtraCardsTrigger);
+    }
 
-    private void UnregisterDrawTrigger() {
+
+    private void DeregisterDrawTrigger()
+    {
         TurnManager.Instance.removeTurnPhaseTrigger(drawCardsTurnPhaseTrigger);
     }
 
-    private IEnumerator OnDeath(CombatInstance killer) {
-        UnregisterDrawTrigger();
+    private void DeregisterEndTurnTrigger()
+    {
+        TurnManager.Instance.removeTurnPhaseTrigger(resetTempCardModificationsTrigger);
+    }
+
+    private void DeregisterDealExtraCardsTrigger()
+    {
+        TurnManager.Instance.removeTurnPhaseTrigger(dealExtraCardsTrigger);
+    }
+
+    private IEnumerator OnDeath(CombatInstance killer)
+    {
+        DeregisterDrawTrigger();
+        DeregisterEndTurnTrigger();
+        DeregisterDealExtraCardsTrigger();
         yield return null;
     }
 
-    public IEnumerable DealStartPlayerTurnCards() {
-        DealCardsToPlayerHand(sourceDeck.cardsDealtPerTurn);
+    public IEnumerable DealStartPlayerTurnCards()
+    {
+        if (extraCardsToDeal > 0)
+        {
+            Debug.Log("Dealing extra cards for this deck instance, count: " + extraCardsToDeal);
+        }
+        DealCardsToPlayerHand(sourceDeck.cardsDealtPerTurn + extraCardsToDeal);
         yield return null;
     }
 
-    private void SetupPiles(Deck sourceDeck) {
+    private void SetupPiles(Deck sourceDeck)
+    {
         this.sourceDeck = sourceDeck;
         this.drawPile = new List<Card>();
-        foreach(Card card in sourceDeck.cards) {
+        foreach (Card card in sourceDeck.cards)
+        {
             Card newCard = new Card(card);
             SetCompanionFromOnCard(newCard);
             this.drawPile.Add(newCard);
@@ -73,43 +109,55 @@ public class DeckInstance : MonoBehaviour
         ShuffleDeck();
     }
 
-    private void SetCompanionFromOnCard(Card card) {
+    private void SetCompanionFromOnCard(Card card)
+    {
         CompanionInstance companionInstance = GetComponent<CompanionInstance>();
-        if(companionInstance == null) {
+        if (companionInstance == null)
+        {
             Debug.LogError("DeckInstance " + this + " does not have a companion instance, cannot set companion from");
             return;
-        } else {
+        }
+        else
+        {
             card.setCompanionFrom(companionInstance.companion.companionType);
         }
     }
 
-    public List<PlayableCard> DealCardsToPlayerHand(int numCards) {
+    public List<PlayableCard> DealCardsToPlayerHand(int numCards)
+    {
         List<Card> cards = DealCardsFromDeck(numCards);
         return PlayerHand.Instance.DealCards(cards, this);
     }
 
-    public void AddCardFromDeckToHand(Card card) {
-        if (drawPile.Contains(card)) {
+    public void AddCardFromDeckToHand(Card card)
+    {
+        if (drawPile.Contains(card))
+        {
             drawPile.Remove(card);
-            PlayerHand.Instance.DealCards(new List<Card>() {card}, this);
+            PlayerHand.Instance.DealCards(new List<Card>() { card }, this);
         }
     }
 
-    public List<Card> DealCardsFromDeck(int numCards, bool withReplacement = false){
+    public List<Card> DealCardsFromDeck(int numCards, bool withReplacement = false)
+    {
         List<Card> returnList = new List<Card>();
-        for(int i = 0; i < numCards; i++){
+        for (int i = 0; i < numCards; i++)
+        {
             DealCardFromDeckToList(returnList, withReplacement);
         }
         inHand.AddRange(returnList);
         return returnList;
     }
 
-    private void DealCardFromDeckToList(List<Card> toList, bool withReplacement = false) {
+    private void DealCardFromDeckToList(List<Card> toList, bool withReplacement = false)
+    {
         // Check to see if the draw pile is empty
-        if (drawPile.Count == 0) {
+        if (drawPile.Count == 0)
+        {
             // If draw pile is empty, the options are shuffle in the discard pile then draw,
             // or we just get no draw since both are empty :(
-            if (discardPile.Count == 0) {
+            if (discardPile.Count == 0)
+            {
                 // big loser moment
                 return;
             }
@@ -118,27 +166,30 @@ public class DeckInstance : MonoBehaviour
         Card card = drawPile[0];
         if (!withReplacement)
             drawPile.Remove(card);
-        if (!toList.Contains(card)) {
+        if (!toList.Contains(card))
+        {
             toList.Add(card);
         }
     }
 
-    private void ShuffleDeck() {
-         System.Random _random = new System.Random();
-         Card temp;
+    private void ShuffleDeck()
+    {
+        System.Random _random = new System.Random();
+        Card temp;
 
-         int n = drawPile.Count;
-         for (int i = 0; i < n; i++)
-         {
-             // NextDouble returns a random number between 0 and 1
-             int r = i + (int)(_random.NextDouble() * (n - i));
-             temp = drawPile[r];
-             drawPile[r] = drawPile[i];
-             drawPile[i] = temp;
-         }
-     }
+        int n = drawPile.Count;
+        for (int i = 0; i < n; i++)
+        {
+            // NextDouble returns a random number between 0 and 1
+            int r = i + (int)(_random.NextDouble() * (n - i));
+            temp = drawPile[r];
+            drawPile[r] = drawPile[i];
+            drawPile[i] = temp;
+        }
+    }
 
-    public void ShuffleDiscardIntoDraw(){
+    public void ShuffleDiscardIntoDraw()
+    {
         Debug.Log("Shuffling discard pile into draw pile, triggering downstream effects");
         EnemyEncounterManager.Instance.DeckShuffled(this);
         PlayerHand.Instance.StartCoroutine(PlayerHand.Instance.OnDeckShuffled(this));
@@ -147,19 +198,22 @@ public class DeckInstance : MonoBehaviour
         discardPile.Clear();
     }
 
-    public void DiscardCards(List<Card> cards){
+    public void DiscardCards(List<Card> cards)
+    {
         inHand.RemoveAll(c => cards.Contains(c));
         discardPile.AddRange(cards);
     }
 
-    public void ShuffleIntoDraw(List<Card> cards){
+    public void ShuffleIntoDraw(List<Card> cards)
+    {
         Debug.Log("Shuffling " + cards.Count + " cards into draw pile");
         drawPile.AddRange(cards);
 
         drawPile.Shuffle();
     }
 
-    public void AddCardsToTopOfDeck(List<Card> cards){
+    public void AddCardsToTopOfDeck(List<Card> cards)
+    {
         Debug.Log("Adding " + cards.Count + " cards to top of draw pile");
         List<Card> newDrawPile = new List<Card>();
         newDrawPile.AddRange(cards);
@@ -167,65 +221,84 @@ public class DeckInstance : MonoBehaviour
         drawPile = newDrawPile;
     }
 
-    public void AddCardsToBottomOfDeck(List<Card> cards){
+    public void AddCardsToBottomOfDeck(List<Card> cards)
+    {
         Debug.Log("Adding " + cards.Count + " cards to the bottom of the draw pile");
         List<Card> newDrawPile = new List<Card>();
         newDrawPile.AddRange(drawPile);
         newDrawPile.AddRange(cards);
         drawPile = newDrawPile;
     }
-    public void AddCardsToDiscard(List<Card> cards){
+    public void AddCardsToDiscard(List<Card> cards)
+    {
         Debug.Log("Adding " + cards.Count + " cards to the discard pile");
         discardPile.AddRange(cards);
     }
 
-    public bool ContainsCardById(string id){
+    public bool ContainsCardById(string id)
+    {
         return drawPile.Exists(c => c.id == id) || discardPile.Exists(c => c.id == id);
     }
 
-    public Card GetCardById(string id){
+    public Card GetCardById(string id)
+    {
         Card card = drawPile.Find(c => c.id == id);
-        if(card == null){
+        if (card == null)
+        {
             card = discardPile.Find(c => c.id == id);
         }
         return card;
     }
 
-    public void ExhaustCard(Card card, PlayableCard playableCard = null){
-        if(drawPile.Contains(card)){
+    public void ExhaustCard(Card card, PlayableCard playableCard = null)
+    {
+        if (drawPile.Contains(card))
+        {
             Debug.Log("Exhausting card " + card.id + " with name " + card.name + " from draw pile");
             drawPile.Remove(card);
         }
-        else if(discardPile.Contains(card)){
+        else if (discardPile.Contains(card))
+        {
             Debug.Log("Exhausting card " + card.id + " with name " + card.name + " from discard pile");
             discardPile.Remove(card);
-        } else if (inHand.Contains(card)) {
+        }
+        else if (inHand.Contains(card))
+        {
             Debug.Log("Exhausting card " + card.id + " with name " + card.name + " from hand");
             inHand.Remove(card);
         }
         exhaustPile.Add(card);
     }
 
-    public void DiscardCard(Card card){
-        if(drawPile.Contains(card)){
+    public void DiscardCard(Card card)
+    {
+        if (drawPile.Contains(card))
+        {
             Debug.Log("Discarding card " + card.id + " from draw pile");
             drawPile.Remove(card);
             discardPile.Add(card);
-        } else if (inHand.Contains(card)) {
+        }
+        else if (inHand.Contains(card))
+        {
             Debug.Log("Discarding card " + card.id + " from hand");
             inHand.Remove(card);
             discardPile.Add(card);
         }
     }
 
-    public void PurgeCard(Card card){
+    public void PurgeCard(Card card)
+    {
         Debug.Log("Purging card " + card.id + " from deck");
-        if(drawPile.Contains(card)){
+        if (drawPile.Contains(card))
+        {
             drawPile.Remove(card);
         }
-        else if(discardPile.Contains(card)){
+        else if (discardPile.Contains(card))
+        {
             discardPile.Remove(card);
-        } else if (inHand.Contains(card)) {
+        }
+        else if (inHand.Contains(card))
+        {
             inHand.Remove(card);
         }
         sourceDeck.PurgeCard(card.id);
@@ -238,11 +311,15 @@ public class DeckInstance : MonoBehaviour
         bool includeDrawPile,
         bool includeDiscardPile
 
-    ) {
-        if (includeCardsInHand) {
+    )
+    {
+        if (includeCardsInHand)
+        {
             List<Card> newCardsToDeal = new();
-            for (int i = 0; i < inHand.Count; i++) {
-                if (inHand[i].cardType == target) {
+            for (int i = 0; i < inHand.Count; i++)
+            {
+                if (inHand[i].cardType == target)
+                {
                     PlayableCard card = PlayerHand.Instance.GetCardById(inHand[i].id);
                     Destroy(card.gameObject);
                     PlayerHand.Instance.SafeRemoveCardFromHand(inHand[i]);
@@ -252,44 +329,55 @@ public class DeckInstance : MonoBehaviour
             }
             PlayerHand.Instance.DealCards(newCardsToDeal, this);
         }
-        if (includeDrawPile) {
-            for (int i = 0; i < drawPile.Count; i++) {
-                if (drawPile[i].cardType == target) {
+        if (includeDrawPile)
+        {
+            for (int i = 0; i < drawPile.Count; i++)
+            {
+                if (drawPile[i].cardType == target)
+                {
                     drawPile[i] = new Card(destType, drawPile[i].getCompanionFrom());
                 }
             }
         }
-        if (includeDiscardPile) {
-            for (int i = 0; i < discardPile.Count; i++) {
-                if (discardPile[i].cardType == target) {
+        if (includeDiscardPile)
+        {
+            for (int i = 0; i < discardPile.Count; i++)
+            {
+                if (discardPile[i].cardType == target)
+                {
                     discardPile[i] = new Card(destType, discardPile[i].getCompanionFrom());
                 }
             }
         }
     }
 
-    public void AddToDiscard(Card card){
+    public void AddToDiscard(Card card)
+    {
         discardPile.Add(card);
-        if(inHand.Contains(card)) {
+        if (inHand.Contains(card))
+        {
             inHand.Remove(card);
         }
     }
 
-    public List<Card> GetShuffledDrawPile(){
+    public List<Card> GetShuffledDrawPile()
+    {
         List<Card> shuffledDrawPile = new List<Card>();
         shuffledDrawPile.AddRange(drawPile);
         shuffledDrawPile.Shuffle();
         return shuffledDrawPile;
     }
 
-    public List<Card> GetShuffledDiscardPile(){
+    public List<Card> GetShuffledDiscardPile()
+    {
         List<Card> shuffledDiscardPile = new List<Card>();
         shuffledDiscardPile.AddRange(discardPile);
         shuffledDiscardPile.Shuffle();
         return shuffledDiscardPile;
     }
 
-    public List<Card> GetAllCards(){
+    public List<Card> GetAllCards()
+    {
         List<Card> cards = new List<Card>();
         cards.AddRange(drawPile);
         cards.AddRange(discardPile);
@@ -297,11 +385,13 @@ public class DeckInstance : MonoBehaviour
         return cards;
     }
 
-    public bool Contains(Card card){
+    public bool Contains(Card card)
+    {
         return drawPile.Contains(card) || discardPile.Contains(card);
     }
 
-    public Vector2 getNextMinionSpawnPosition() {
+    public Vector2 getNextMinionSpawnPosition()
+    {
         Vector2 center = transform.position;
         // from copilot and https://answers.unity.com/questions/1545128/how-can-i-get-a-point-position-in-circle-line.html
         Vector2 spawnLoc = new Vector2(
@@ -312,17 +402,22 @@ public class DeckInstance : MonoBehaviour
         return spawnLoc;
     }
 
-    public CompanionTypeSO GetCompanionTypeSO() {
+    public CompanionTypeSO GetCompanionTypeSO()
+    {
         CompanionInstance companionInstance = GetComponent<CompanionInstance>();
-        if(companionInstance == null) {
+        if (companionInstance == null)
+        {
             Debug.LogError("DeckInstance " + this + " does not have a companion instance, cannot get companion type");
             return null;
-        } else {
+        }
+        else
+        {
             return companionInstance.companion.companionType;
         }
     }
 
-    private void OnEndEncounter() {
+    private void OnEndEncounter()
+    {
         // Ensure we reset the modifications for all cards that were present on this companion,
         // including temporary generated cards.
         List<Card> allCards = new();
@@ -330,28 +425,45 @@ public class DeckInstance : MonoBehaviour
         allCards.AddRange(drawPile);
         allCards.AddRange(discardPile);
         allCards.AddRange(exhaustPile);
-        foreach (Card card in allCards) {
+        foreach (Card card in allCards)
+        {
             card.ResetCardModifications();
             card.cardType.ResetCardModifications();
         }
     }
 
-    private IEnumerable ResetTempCardModifications() {
-        foreach (Card card in drawPile) {
+    private IEnumerable ResetTempCardModifications()
+    {
+        foreach (Card card in drawPile)
+        {
             card.ResetTempCardModifications();
         }
 
-        foreach (Card card in discardPile) {
+        foreach (Card card in discardPile)
+        {
             card.ResetTempCardModifications();
         }
 
-        foreach (Card card in inHand) {
+        foreach (Card card in inHand)
+        {
             card.ResetTempCardModifications();
         }
 
-        foreach (Card card in exhaustPile) {
+        foreach (Card card in exhaustPile)
+        {
             card.ResetTempCardModifications();
         }
+        yield break;
+    }
+
+    private IEnumerable DealExtraCards()
+    {
+        // This is reset at the start of the player's turn, and we do not have a reliable ordering
+        // to make sure we can check this before the combat instance resets it.
+        // Therefore, the easier way is to check this at the end of the enemies turn so we can make sure that
+        // we get the value before it is reset.
+        // Won't work for turn one but whatever.
+        extraCardsToDeal = combatInstance.GetStatusEffects()[StatusEffectType.ExtraCardsToDealNextTurn];
         yield break;
     }
 }

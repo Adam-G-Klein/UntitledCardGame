@@ -16,7 +16,7 @@ MonoBehaviour:
   Description: Deal {rpl_damage} damage and discard 2 random cards in hand
   defaultValues:
   - key: rpl_damage
-    value: 10
+    value: 6
   Cost: 0
   Artwork: {fileID: 21300000, guid: 3dd0d533e03397448a54f341499e747d, type: 3}
   cardCategory: 1
@@ -81,13 +81,13 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: enemy
         combatEffect: 0
-        scale: 10
+        scale: 6
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 1320532642761013391, guid: 99a456f94890391478f393fcc8ad0b95, type: 3}
+        vfxPrefab: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}
     - rid: 7401433308100035075
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

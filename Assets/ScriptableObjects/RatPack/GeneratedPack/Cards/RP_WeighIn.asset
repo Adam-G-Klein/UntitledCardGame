@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: RP_WeighIn
   m_EditorClassIdentifier: 
   Name: Weigh In
-  Description: Draw 1 card from target companion. Draw an extra card if they have
-    more than 12 cards in their deck
+  Description: Draw 2 cards from target companion. Draw an extra 2 cards if they
+    have more than 12 cards in their deck
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 04bf14070e798284f9f39ea08b676c4a, type: 3}
@@ -37,6 +37,13 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 1289961959942521164
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: target
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        scale: 1
     - rid: 5280922841426165959
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -55,6 +62,7 @@ MonoBehaviour:
         - rid: 7401433558763438468
         - rid: 7401433558763438469
         - rid: 7401433558763438470
+        - rid: 1289961959942521164
     - rid: 5602892563578093569
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -84,7 +92,7 @@ MonoBehaviour:
         effectStepName: DrawCards
         inputKey: target
         outputKey: 
-        scale: 1
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
     - rid: 7401433558763438468
@@ -109,6 +117,6 @@ MonoBehaviour:
         effectStepName: DrawCards
         inputKey: target
         outputKey: 
-        scale: 1
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 

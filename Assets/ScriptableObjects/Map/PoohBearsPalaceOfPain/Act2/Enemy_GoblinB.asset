@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Enemy_GoblinB
   m_EditorClassIdentifier: 
   displayName: "B\xF6se Goblin"
-  maxHealth: 25
+  maxHealth: 20
   baseAttackDamage: 0
   sprite: {fileID: -2013906114, guid: 52ef76537258f7d43a3a9dc144329c2f, type: 3}
   backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
@@ -32,18 +32,12 @@ MonoBehaviour:
       - rid: 4053950218419044435
       - rid: 3931529445166809422
     behaviorType: 0
-    behaviorIndex: 0
-    nextBehaviorIndex: 0
   belowHalfHPEnemyPattern:
     behaviors: []
     behaviorType: 0
-    behaviorIndex: 0
-    nextBehaviorIndex: 0
   adaptWhenAloneEnemyPattern:
     behaviors: []
     behaviorType: 0
-    behaviorIndex: 0
-    nextBehaviorIndex: 0
   initialStatuses: []
   tooltip:
     empty: 0

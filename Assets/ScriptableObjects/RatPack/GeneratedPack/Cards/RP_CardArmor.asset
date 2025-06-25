@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RP_CardArmor
   m_EditorClassIdentifier: 
   Name: Card Armor
-  Description: Give target companion 3 block for each card in THIS companion's deck
+  Description: Give target companion 2 block for each card in THIS companion's deck
     ({numCards} cards, {b} block)
   defaultValues:
   - key: numCards
@@ -59,7 +59,7 @@ MonoBehaviour:
         inputKey: numCards
         operand2InputKey: UNUSED
         operation: 2
-        scale: 3
+        scale: 2
         outputKey: b
     - rid: 5280922841426165959
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
@@ -111,3 +111,6 @@ MonoBehaviour:
         getScaleFromKey: 1
         inputScaleKey: b
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 

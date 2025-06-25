@@ -28,13 +28,14 @@ MonoBehaviour:
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 0}
   genericCompanionVFX: {fileID: 0}
+  cacheValueConfigs: []
   cardPool: {fileID: 11400000, guid: 43d7da1f16b024762bfa16d90f44fd77, type: 2}
   packCardPool: {fileID: 11400000, guid: 0eb3f8bf2fb8e45f389802ceb0d6abaf, type: 2}
   speakerType: {fileID: 0}
   abilitiesV2:
   - rid: 2034230176448512458
   level: 1
-  upgradeTo: {fileID: 11400000, guid: 28a3b680cf6ac47ebb85b70c970afb5a, type: 2}
+  upgradeTo: {fileID: 11400000, guid: d135a5853f9924bc5862575b52651bec, type: 2}
   tooltip:
     empty: 0
     lines:
@@ -94,6 +95,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 2034230176448512495
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:

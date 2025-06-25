@@ -70,7 +70,9 @@ public class CompanionInstance : MonoBehaviour, IUIEntity
             TurnPhase.START_PLAYER_TURN,
             combatInstance.UpdateStatusEffects(new List<StatusEffectType> {
                 StatusEffectType.Orb,
-                StatusEffectType.Burn})
+                StatusEffectType.Burn,
+                StatusEffectType.ExtraCardsToDealNextTurn,
+            })
         ));
         statusEffectTriggers.Add(new TurnPhaseTrigger(
             TurnPhase.END_PLAYER_TURN,

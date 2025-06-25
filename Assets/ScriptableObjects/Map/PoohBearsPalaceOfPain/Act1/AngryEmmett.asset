@@ -21,6 +21,7 @@ MonoBehaviour:
   morale: 0
   abilities:
   - rid: 8790164513324270165
+  cacheValueConfigs: []
   enemyPattern:
     behaviors:
     - intent: 1
@@ -38,24 +39,18 @@ MonoBehaviour:
       - rid: 5602893111447519607
       - rid: 5280922829633617990
     behaviorType: 0
-    behaviorIndex: 0
-    nextBehaviorIndex: 0
   belowHalfHPEnemyPattern:
     behaviors: []
     behaviorType: 0
-    behaviorIndex: 0
-    nextBehaviorIndex: 0
   adaptWhenAloneEnemyPattern:
     behaviors: []
     behaviorType: 0
-    behaviorIndex: 0
-    nextBehaviorIndex: 0
   initialStatuses: []
   tooltip:
     empty: 0
     lines:
-    - title: Wutzorn's Rage
-      description: Whenever Wutzorn takes damage, it gains 1 temporary strength for
+    - title: Emmett's Ire
+      description: Whenever Emmett takes damage, he gains 1 temporary strength for
         its next attack
       relatedBehaviorIndex: 0
   references:
@@ -130,6 +125,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 5602893111447519608
       type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
       data:
@@ -175,6 +173,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 8790164513324270204
       type: {class: EndWorkflowIfNoMapElement, ns: , asm: Assembly-CSharp}
       data:

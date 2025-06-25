@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: RP_FerociousDefense
   m_EditorClassIdentifier: 
   Name: Ferocious Defense
-  Description: Give target companion 6 block. Give them 9 instead if this companion
-    is below half HP
+  Description: Give target companion 6 block. Give them 9 block instead if 2 or more
+    companions are below half HP
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: e8c1b164e48b3ed4ea21cc0ef5d14b1a, type: 3}
@@ -72,11 +72,11 @@ MonoBehaviour:
       type: {class: FilterEntityByHP, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: FilterEntityByHP
-        inputKey: self
+        inputKey: all
         percentThreshold: 0.5
         absoluteThreshold: 0
         useAbsoluteThreshold: 0
-        outputKey: targetBelowHalfHP
+        outputKey: belowHalfHP
         below: 1
     - rid: 5602892723852673324
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
@@ -88,27 +88,30 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 5602892723852673325
       type: {class: CountStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CountStep
-        inputKey: targetBelowHalfHP
+        inputKey: belowHalfHP
         outputKey: numBelowHalfHP
     - rid: 5602892723852673326
       type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: BooleanComparison
-        hardCodedInputKey1: 1
+        hardCodedInputKey1: 2
         useHardCodedInputKey1: 1
         inputKey1: 
-        operation: 0
+        operation: 2
         inputKey2: numBelowHalfHP
-        outputKey: isBelowHalfHP
+        outputKey: enoughBelowHalf
     - rid: 5602892723852673327
       type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EndWorkflowIfConditionMet
-        inputKey1: isBelowHalfHP
+        inputKey1: enoughBelowHalf
         conditionToEndOn: 0
     - rid: 5602892723852673328
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
@@ -120,14 +123,17 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 7401433558763438506
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: self
-        validTargets: 
+        outputKey: all
+        validTargets: 00000000
         number: 1
-        specialTargetRule: 4
+        specialTargetRule: 1
         cantCancelTargetting: 0

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: RP_Fierceness
   m_EditorClassIdentifier: 
   Name: Fierceness
-  Description: Deal {rpl_damage} to target enemy. Gain 5 block if this companion
-    is below half HP
+  Description: Deal {rpl_damage} to target enemy. Gain 5 block if 2 or more companions
+    are below half HP
   defaultValues:
   - key: rpl_damage
     value: 7
@@ -46,11 +46,6 @@ MonoBehaviour:
         inputKey: self
         prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
         scale: 1.5
-    - rid: 1289961820425028167
-      type: {class: EndWorkflowIfListEmpty, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: EndWorkflowIfListEmpty
-        inputKey1: targetBelowHalfHP
     - rid: 1289961820425028169
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
@@ -88,6 +83,39 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
+    - rid: 1289961959942521197
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: all
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 1
+        cantCancelTargetting: 0
+    - rid: 1289961959942521198
+      type: {class: CountStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CountStep
+        inputKey: belowHalf
+        outputKey: numBelowHalf
+    - rid: 1289961959942521199
+      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: BooleanComparison
+        hardCodedInputKey1: 2
+        useHardCodedInputKey1: 1
+        inputKey1: 
+        operation: 2
+        inputKey2: numBelowHalf
+        outputKey: enoughBelowHalf
+    - rid: 1289961959942521200
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: enoughBelowHalf
+        conditionToEndOn: 0
     - rid: 5602892723852673317
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -95,19 +123,22 @@ MonoBehaviour:
         - rid: 7401433558763438506
         - rid: 1289961820425028171
         - rid: 1289961820425028169
+        - rid: 1289961959942521197
         - rid: 5602892723852673323
-        - rid: 1289961820425028167
-        - rid: 1274772082283774959
+        - rid: 1289961959942521198
+        - rid: 1289961959942521199
+        - rid: 1289961959942521200
         - rid: 1289961820425028170
+        - rid: 1274772082283774959
     - rid: 5602892723852673323
       type: {class: FilterEntityByHP, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: FilterEntityByHP
-        inputKey: self
+        inputKey: all
         percentThreshold: 0.5
         absoluteThreshold: 0
         useAbsoluteThreshold: 0
-        outputKey: targetBelowHalfHP
+        outputKey: belowHalf
         below: 1
     - rid: 7401433558763438506
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
