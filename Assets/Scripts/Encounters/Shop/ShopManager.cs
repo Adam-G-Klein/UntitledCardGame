@@ -71,7 +71,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
         shopViewController.SetupUpgradeIncrements();
         // As long as we are below the current max shop level, automatically earn an upgrade increment.
-        if (shopEncounter.shopData.shopLevels.Count - 1 <= shopLevel.level)
+        if (shopLevel.level < shopEncounter.shopData.shopLevels.Count - 1)
         {
             EarnUpgradeIncrement();
         }
