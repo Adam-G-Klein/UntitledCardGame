@@ -134,7 +134,7 @@ public class ShopViewController : MonoBehaviour,
         startNextCombatButton.RegisterOnSelected(StartNextCombatOnClick);
         FocusManager.Instance.RegisterFocusableTarget(startNextCombatButton.AsFocusable());
         disableOnCompanionDrag.Add(startNextCombatButton.AsFocusable());
-        
+
         Button closeCompanionDeckViewButton = deckView.Q<Button>();
         closeCompanionDeckViewButton.RegisterOnSelected((evt) => CloseCompanionDeckView());
         FocusManager.Instance.RegisterFocusableTarget(closeCompanionDeckViewButton.AsFocusable());
@@ -219,7 +219,7 @@ public class ShopViewController : MonoBehaviour,
 
     private void SetupBenchSlots() {
         foreach (VisualElement child in benchContainer.hierarchy.Children()) {
-            CompanionManagementSlotView slotView = new CompanionManagementSlotView(child, 
+            CompanionManagementSlotView slotView = new CompanionManagementSlotView(child,
                 slotNotHighlightColor,
                 slotHighlightColor,
                 slotUnavailableColor);
@@ -281,7 +281,7 @@ public class ShopViewController : MonoBehaviour,
 
         // TODO: Replace with sold out? Grey it out? Talk to Jasmine
         shopItemView.Disable();
-        
+
         cardItemToViewMap.Remove(card);
 
         FocusManager.Instance.UnregisterFocusableTarget(shopItemView.visualElementFocusable);
@@ -309,10 +309,12 @@ public class ShopViewController : MonoBehaviour,
         disableOnCompanionDrag.Remove(shopItemView.visualElementFocusable);
     }
 
-    public void RebuildUnitManagement(CompanionListVariableSO companionList) {
+    public void RebuildUnitManagement(CompanionListVariableSO companionList)
+    {
         ClearUnitManagement();
         SetBlockedActiveSlotsIfNecessary(shopManager.gameState.companions.currentCompanionSlots);
-        SetupUnitManagement(companionList);
+        SetupActiveCompanions(companionList.activeCompanions);
+        SetupBenchCompanions(companionList.benchedCompanions);
     }
 
     private void ClearUnitManagement() {
@@ -323,11 +325,6 @@ public class ShopViewController : MonoBehaviour,
         foreach (CompanionManagementSlotView slotView in benchSlots) {
             slotView.Reset();
         }
-    }
-
-    public void SetupUnitManagement(CompanionListVariableSO companionList) {
-        SetupActiveCompanions(companionList.activeCompanions);
-        SetupBenchCompanions(companionList.benchedCompanions);
     }
 
     public void SetupActiveCompanions(List<Companion> companions) {
@@ -540,7 +537,7 @@ public class ShopViewController : MonoBehaviour,
     public void ComapnionManagementOnPointerUp(CompanionManagementView companionManagementView, Vector2 pointerPos)
     {
         if (!isDraggingCompanion || companionManagementView != companionBeingDragged) return;
-        
+
         CompanionManagementSlotView slotOver = null;
         foreach (CompanionManagementSlotView slotView in activeSlots) {
             if (slotView.ContainsPosition(pointerPos)) {

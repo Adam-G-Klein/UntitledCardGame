@@ -70,7 +70,11 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         CheckDisableUpgradeButtonV2();
 
         shopViewController.SetupUpgradeIncrements();
-        EarnUpgradeIncrement();
+        // As long as we are below the current max shop level, automatically earn an upgrade increment.
+        if (shopEncounter.shopData.shopLevels.Count - 1 <= shopLevel.level)
+        {
+            EarnUpgradeIncrement();
+        }
         /* uncomment to re-enable shop dialogue
         DialogueManager.Instance.SetDialogueLocation(
             gameState.dialogueLocations.GetDialogueLocation(gameState));
@@ -84,7 +88,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
     private IEnumerator DelayedSetupUnitManagement() {
         yield return new WaitForEndOfFrame();
-        shopViewController.SetupUnitManagement(gameState.companions);
+        shopViewController.RebuildUnitManagement(gameState.companions);
     }
 
     void Update() {
@@ -278,23 +282,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             // Clean up hoverables for old shop items
 
             playerData.gold -= shopLevel.upgradeIncrementCost;
-            if (playerData.shopLevelIncrementsEarned == GetShopLevel().shopLevelIncrementsToUnlock - 1) {
-                shopViewController.SetMoney(playerData.gold);
-                playerData.shopLevel += 1;
-                shopLevel = shopEncounter.shopData.GetShopLevel(playerData.shopLevel);
-                gameState.companions.SetCompanionSlots(shopLevel.teamSize);
-                playerData.manaPerTurn = shopLevel.mana;
-
-                shopViewController.SetShopUpgradePrice(shopLevel.upgradeIncrementCost);
-                shopViewController.RebuildUnitManagement(gameState.companions);
-                InstantiateShopVFX(shopUpgradePrefab, shopViewController.GetUpgradeShopButton(), 1f);
-                CheckDisableUpgradeButtonV2();
-                playerData.shopLevelIncrementsEarned = 0;
-                shopViewController.SetupUpgradeIncrements();
-            } else {
-                shopViewController.ActivateUpgradeIncrement(playerData.shopLevelIncrementsEarned);
-                playerData.shopLevelIncrementsEarned += 1;
-            }
+            EarnUpgradeIncrement();
 
             shopViewController.SetMoney(gameState.playerData.GetValue().gold);
         } else {
@@ -302,9 +290,31 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         }
     }
 
-    public void EarnUpgradeIncrement() {
-        shopViewController.ActivateUpgradeIncrement(gameState.playerData.GetValue().shopLevelIncrementsEarned);
-        gameState.playerData.GetValue().shopLevelIncrementsEarned += 1;
+    // EarnUpgradeIncrement increments the shop upgrade.
+    // It returns true if the upgrade advanced a shop level, and false otherwise.
+    public void EarnUpgradeIncrement()
+    {
+        PlayerData playerData = gameState.playerData.GetValue();
+        if (playerData.shopLevelIncrementsEarned == GetShopLevel().shopLevelIncrementsToUnlock - 1)
+        {
+            shopViewController.SetMoney(playerData.gold);
+            playerData.shopLevel += 1;
+            shopLevel = shopEncounter.shopData.GetShopLevel(playerData.shopLevel);
+            gameState.companions.SetCompanionSlots(shopLevel.teamSize);
+            playerData.manaPerTurn = shopLevel.mana;
+
+            shopViewController.SetShopUpgradePrice(shopLevel.upgradeIncrementCost);
+            InstantiateShopVFX(shopUpgradePrefab, shopViewController.GetUpgradeShopButton(), 1f);
+            CheckDisableUpgradeButtonV2();
+            playerData.shopLevelIncrementsEarned = 0;
+            shopViewController.SetupUpgradeIncrements();
+            shopViewController.RebuildUnitManagement(gameState.companions);
+        }
+        else
+        {
+            shopViewController.ActivateUpgradeIncrement(playerData.shopLevelIncrementsEarned);
+            playerData.shopLevelIncrementsEarned += 1;
+        }
     }
 
     private void CheckDisableUpgradeButton() {
@@ -376,7 +386,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     public ShopLevel GetShopLevel() {
         return shopLevel;
     }
-    
+
     public TooltipViewModel GetShopUpgradeTooltip() {
         TooltipViewModel tooltipViewModel = new()
         {
