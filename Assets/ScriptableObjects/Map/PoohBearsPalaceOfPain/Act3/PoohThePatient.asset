@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PoohThePatient
   m_EditorClassIdentifier: 
   displayName: Pooh the Patient
-  maxHealth: 130
+  maxHealth: 90
   baseAttackDamage: 0
   sprite: {fileID: 21300000, guid: ee68b8ed994d6413fbc2f7d6df902689, type: 3}
   backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
@@ -51,7 +51,7 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Powering up
-      description: Grows stronger until you piss him off
+      description: Grows stronger until you piss him off (get him below half HP)
       relatedBehaviorIndex: -1
   references:
     version: 2
@@ -73,10 +73,13 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: self
         statusEffect: 0
-        scale: 4
+        scale: 7
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 2268260642759376991
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:

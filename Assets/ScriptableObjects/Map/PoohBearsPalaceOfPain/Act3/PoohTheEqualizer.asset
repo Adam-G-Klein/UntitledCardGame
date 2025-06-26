@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PoohTheEqualizer
   m_EditorClassIdentifier: 
   displayName: Pooh, Equalizer
-  maxHealth: 120
+  maxHealth: 90
   baseAttackDamage: 0
   sprite: {fileID: 21300000, guid: 2ceba0163ffdc488182689f564cc3be3, type: 3}
   backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
@@ -57,12 +57,16 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Pooh Goes Where He Pleases
-      description: Strong, empowering attack targeting a random companion on your
+      description: Strong, self-buffing attack targeting a random companion on your
         team
       relatedBehaviorIndex: 0
-    - title: Pooh the Equalizer
+    - title: Balance in the force
       description: Gain 1 strength for each companion above half HP
       relatedBehaviorIndex: 1
+    - title: Pooh the Equalizer
+      description: 'Ability: gains strength for each companion above half HP on your
+        team'
+      relatedBehaviorIndex: -1
   references:
     version: 2
     RefIds:
@@ -103,6 +107,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 3443535291885027985
       type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
       data:
@@ -164,3 +171,6 @@ MonoBehaviour:
         getScaleFromKey: 1
         inputScaleKey: numAboveHalf
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
