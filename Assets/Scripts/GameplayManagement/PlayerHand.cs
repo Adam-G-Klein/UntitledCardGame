@@ -225,7 +225,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                 }
                 CardType ct = card.card.cardType;
 
-                if (ct.inPlayerHandEndOfTurnWorkflow != null) {
+                if (ct.inPlayerHandEndOfTurnWorkflow != null && ct.inPlayerHandEndOfTurnWorkflow.effectSteps.Count > 0) {
                     List<EffectStep> workflowSteps = ct.inPlayerHandEndOfTurnWorkflow.effectSteps;
                     EffectDocument document = new EffectDocument();
                     document.map.AddItem(EffectDocument.ORIGIN, card.GetComponent<PlayableCard>());
