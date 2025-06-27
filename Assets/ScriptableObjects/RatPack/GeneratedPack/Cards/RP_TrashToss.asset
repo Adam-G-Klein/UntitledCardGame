@@ -13,9 +13,13 @@ MonoBehaviour:
   m_Name: RP_TrashToss
   m_EditorClassIdentifier: 
   Name: Trash Toss
-  Description: Deal 3 damage to target enemy for each status card in hand ({rpl_damage}
-    damage)
-  defaultValues: []
+  Description: Deal {rpl_damage} damage to target enemy for each status card in hand
+    ({numStatusCards} cards)
+  defaultValues:
+  - key: rpl_damage
+    value: 3
+  - key: numStatusCards
+    value: 0
   Cost: 1
   Artwork: {fileID: 21300000, guid: 5500487feb715b54490f91e1c9796e9c, type: 3}
   cardCategory: 1
