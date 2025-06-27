@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
-  m_Name: Enemy_GeminiA
+  m_Name: Enemy_Gemini
   m_EditorClassIdentifier: 
   displayName: Gemini
-  maxHealth: 40
+  maxHealth: 35
   baseAttackDamage: 0
   sprite: {fileID: 21300000, guid: 16cb6fc58ac5bce41a520368b5f166f2, type: 3}
   backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
@@ -46,7 +46,7 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Avenge
-      description: Whenever his partner dies, gain 4 strength
+      description: When an enemy dies, gain 7 temporary strength
       relatedBehaviorIndex: 0
   references:
     version: 2
@@ -119,16 +119,22 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 8790164580739055616
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ApplyStatus
         inputKey: self
-        statusEffect: 0
-        scale: 4
+        statusEffect: 6
+        scale: 7
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 8790164580739055617
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
