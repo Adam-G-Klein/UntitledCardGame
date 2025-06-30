@@ -716,6 +716,7 @@ public class ShopViewController : MonoBehaviour,
         canDragCompanions = true;
         selectingCompanionVeil.style.visibility = Visibility.Hidden;
         selectingIndicator.style.visibility = Visibility.Hidden;
+        FocusManager.Instance.DisableFocusableTarget(selectingCancelButton.AsFocusable());
         FocusManager.Instance.UnstashFocusables(this.GetType().Name + "CardBuying");
         foreach (CompanionManagementSlotView slotView in activeSlots) {
             if (slotView.IsEmpty()) continue;
