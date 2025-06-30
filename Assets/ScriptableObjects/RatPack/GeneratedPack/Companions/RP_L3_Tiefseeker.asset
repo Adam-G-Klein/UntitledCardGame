@@ -20,7 +20,7 @@ MonoBehaviour:
   backgroundImage: {fileID: 21300000, guid: cf0b03f8254f64d7ca33d64244db66e4, type: 3}
   entityFrame: {fileID: 21300000, guid: d4ddadb9b0de34fe68babd80a4878635, type: 3}
   companionManagementFrame: {fileID: 21300000, guid: 17b9618f5107840a8b89e8b21a1a69c8, type: 3}
-  startingDeck: {fileID: 11400000, guid: e8874d8a511b54b13b6fa125f643d72b, type: 2}
+  startingDeck: {fileID: 11400000, guid: de154260733284eeda9f983a22e41908, type: 2}
   cardBack: {fileID: 21300000, guid: 3296a63e824de414bb4b578c4822fbdb, type: 3}
   cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
   cardTypeIconOverride: {fileID: 0}
@@ -33,82 +33,127 @@ MonoBehaviour:
   packCardPool: {fileID: 11400000, guid: fb4659890370a4ceda58d0967639becf, type: 2}
   speakerType: {fileID: 0}
   abilitiesV2:
-  - rid: 7401433059192472292
+  - rid: 2034230176448512968
   level: 2
   upgradeTo: {fileID: 0}
   tooltip:
     empty: 0
     lines:
     - title: Level Three Tiefseeker
-      description: At the start of turn, draw an extra card from and give 5 block
-        to each companion with 3 or more Status cards in their deck
+      description: At the end of turn, if you have 2 or more Status cards in hand,
+        gain 1 energy and draw an extra card from both adjacent companions next turn
       relatedBehaviorIndex: 0
-  keepsakeTitle: 
-  keepsakeDescription: At the start of turn, draw an extra card from and give 5 block
-    to each companion with 3 or more Status cards in their deck
+  keepsakeTitle: Hidden Cache
+  keepsakeDescription: At the end of turn, if you have 2 or more Status cards in
+    hand, gain 1 energy and draw an extra card from both adjacent companions next
+    turn
   references:
     version: 2
     RefIds:
-    - rid: 7401433059192472292
-      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
-      data:
-        abilityTrigger: 12
-        effectSteps:
-        - rid: 7401433059192472293
-        - rid: 7401433059192472294
-        - rid: 7401433059192472295
-        - rid: 7401433059192472297
-        - rid: 7401433558763438355
-        - rid: 7401433059192472298
-    - rid: 7401433059192472293
+    - rid: 1289961959942521010
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: all
-        validTargets: 00000000
+        outputKey: cards
+        validTargets: 03000000
         number: 1
         specialTargetRule: 1
         cantCancelTargetting: 0
-    - rid: 7401433059192472294
-      type: {class: FilterEntityByCardsInDeck, ns: , asm: Assembly-CSharp}
+    - rid: 1289961959942521011
+      type: {class: FilterCards, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: FilterEntityByCardsInDeck
-        inputKey: all
+        effectStepName: FilterCards
+        inputKey: cards
         filter:
           cardCategoriesToInclude: 04000000
           generatedCardsFilter: 0
-        threshold: 3
-        outputKey: filtered
-    - rid: 7401433059192472295
-      type: {class: EndWorkflowIfListEmpty, ns: , asm: Assembly-CSharp}
+        outputKey: statusCards
+    - rid: 1289961959942521012
+      type: {class: CountStep, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: EndWorkflowIfListEmpty
-        inputKey1: filtered
-    - rid: 7401433059192472297
-      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+        effectStepName: CountStep
+        inputKey: statusCards
+        outputKey: numStatus
+    - rid: 1289961959942521013
+      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: DrawCards
-        inputKey: filtered
-        outputKey: 
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
-    - rid: 7401433059192472298
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+        effectStepName: BooleanComparison
+        hardCodedInputKey1: 2
+        useHardCodedInputKey1: 1
+        inputKey1: 
+        operation: 2
+        inputKey2: numStatus
+        outputKey: hasEnough
+    - rid: 1289961959942521014
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: InstantiatePrefab
-        inputKey: filtered
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
-        scale: 1
-    - rid: 7401433558763438355
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: hasEnough
+        conditionToEndOn: 0
+    - rid: 1289961959942521015
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ApplyStatus
-        inputKey: filtered
-        statusEffect: 2
-        scale: 5
+        inputKey: adj
+        statusEffect: 16
+        scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+    - rid: 1289961959942521017
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 6137048663962808129, guid: 032e33b914ed32b418cdc1ed2f15fc6e, type: 3}
+        scale: 1
+    - rid: 1289961959942521018
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 1289961959942521019
+      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetAdjacentCompanions
+        inputKey: self
+        outputKey: adj
+    - rid: 1289961959942521023
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: adj
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
+        scale: 1
+    - rid: 1289961959942521050
+      type: {class: AddManaNextTurn, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: 
+        manaToAdd: 1
+    - rid: 2034230176448512968
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 2
+        effectSteps:
+        - rid: 1289961959942521010
+        - rid: 1289961959942521011
+        - rid: 1289961959942521012
+        - rid: 1289961959942521013
+        - rid: 1289961959942521014
+        - rid: 1289961959942521018
+        - rid: 1289961959942521019
+        - rid: 1289961959942521017
+        - rid: 1289961959942521015
+        - rid: 1289961959942521050
+        - rid: 1289961959942521023
