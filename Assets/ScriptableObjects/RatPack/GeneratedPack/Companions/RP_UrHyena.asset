@@ -40,47 +40,60 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Ur-Hyena
-      description: At the end of combat, permanently add a powerful Status card to
-        target companion's deck
-      relatedBehaviorIndex: 0
-    - title: Ur-Hyena's Blessing
-      description: Unplayable. When in hand at the end of turn, gain block and deal
-        damage to all enemies equal to the number of cards in this deck
+      description: At the end of turn, retain 2 Status cards in hand chosen at random
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: At the end of combat, permanently add a powerful Status card
-    to target companion's deck
+  keepsakeDescription: 
   references:
     version: 2
     RefIds:
-    - rid: 7401433308100035453
-      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
-      data:
-        abilityTrigger: 1
-        effectSteps:
-        - rid: 7401433308100035454
-        - rid: 7401433308100035455
-    - rid: 7401433308100035454
+    - rid: 1289961959942521051
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: target
-        validTargets: 00000000
+        outputKey: cards
+        validTargets: 03000000
         number: 1
-        specialTargetRule: 0
-        cantCancelTargetting: 1
-    - rid: 7401433308100035455
-      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
+        specialTargetRule: 1
+        cantCancelTargetting: 0
+    - rid: 1289961959942521052
+      type: {class: FilterCards, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: AddCardsToDeck
-        inputKey: target
-        cardTypes:
-        - {fileID: 11400000, guid: 871fcfc25879f472aaab9bd86478a78d, type: 2}
-        addToDeckMethod: 3
-        getCardsFromKey: 0
-        inputCardsKey: 
+        effectStepName: FilterCards
+        inputKey: cards
+        filter:
+          cardCategoriesToInclude: 04000000
+          generatedCardsFilter: 0
+        outputKey: status
+    - rid: 1289961959942521053
+      type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetRandomItems
+        inputKey: status
+        scale: 2
+        outputKey: chosen
+    - rid: 1289961959942521054
+      type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardInHandEffect
+        inputKey: chosen
+        effect: 2
+    - rid: 1289961959942521055
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: chosen
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
         scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
+    - rid: 7401433308100035453
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 2
+        effectSteps:
+        - rid: 1289961959942521051
+        - rid: 1289961959942521052
+        - rid: 1289961959942521053
+        - rid: 1289961959942521054
+        - rid: 1289961959942521055
