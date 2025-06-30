@@ -24,7 +24,8 @@ public enum StatusEffectType
     Charge,
     BonusBlock,
     MaxBlockToLoseAtEndOfTurn,
-    Burn
+    Burn,
+    ExtraCardsToDealNextTurn
 }
 
 public class StatusEffectsDisplayViewModel {
