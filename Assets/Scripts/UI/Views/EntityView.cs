@@ -21,6 +21,7 @@ public class EntityView : IUIEventReceiver {
     private IUIEntity uiEntity;
     private int index;
     private bool isEnemy;
+    private bool isDead = false;
 
     private List<VisualElement> pickingModePositionList = new List<VisualElement>();
     private List<VisualElement> elementsKeepingDrawDiscardVisible = new List<VisualElement>();
@@ -47,6 +48,7 @@ public class EntityView : IUIEventReceiver {
         combatInstance = entity.GetCombatInstance();
         if (combatInstance) {
             combatInstance.onDamageHandler += DamageScaleBump;
+            combatInstance.onDeathHandler +=  OnDeathHandler;
         }
     }
 
@@ -354,6 +356,7 @@ public class EntityView : IUIEventReceiver {
     }
 
     private void EntityOnPointerEnter(PointerEnterEvent evt) {
+        if (isDead) return;
         try {
             Targetable targetable = uiEntity.GetTargetable();
             if (targetable == null) return;
@@ -366,6 +369,7 @@ public class EntityView : IUIEventReceiver {
     }
 
     private void EntityOnPointerLeave(PointerLeaveEvent evt) {
+        if (isDead) return;
         try {
             if (uiEntity == null) return;
             Targetable targetable = uiEntity.GetTargetable();
@@ -401,6 +405,7 @@ public class EntityView : IUIEventReceiver {
     }
 
     private void HoverDetectorOnPointerEnter(PointerEnterEvent evt) {
+        if (isDead) return;
         elementsKeepingDrawDiscardVisible.Add(evt.currentTarget as VisualElement);
         drawDiscardContainer.style.visibility = Visibility.Visible;
     }
@@ -411,6 +416,7 @@ public class EntityView : IUIEventReceiver {
     }
 
     private void DrawDiscardContainerOnPointerEnter(PointerEnterEvent evt) {
+        if (isDead) return;
         // If we're entering the element, it's already visible due to the hover detector
         elementsKeepingDrawDiscardVisible.Add(evt.currentTarget as VisualElement);
     }
@@ -488,6 +494,12 @@ public class EntityView : IUIEventReceiver {
                     combatInstanceTransform.position = entityWorldPosition;
                 }
             });
+    }
+
+    private IEnumerator OnDeathHandler(CombatInstance killer) {
+        FocusManager.Instance.UnregisterFocusableTarget(this.elementFocusable);
+        isDead = true;
+        yield return null;
     }
 
     private int getNameFontSize(string entityName) {
