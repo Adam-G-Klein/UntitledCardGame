@@ -50,9 +50,20 @@ MonoBehaviour:
         effectStepName: DrawCards
         inputKey: target
         outputKey: 
-        scale: 1
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
+    - rid: 1289961959942521257
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 4
+        cantCancelTargetting: 0
     - rid: 5280922841426165941
       type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
       data:
@@ -74,6 +85,7 @@ MonoBehaviour:
         - rid: 1289961959942521193
         - rid: 5602892561590779946
         - rid: 1274772082283774706
+        - rid: 1289961959942521257
         - rid: 5280922841426165941
     - rid: 5602892561590779944
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
