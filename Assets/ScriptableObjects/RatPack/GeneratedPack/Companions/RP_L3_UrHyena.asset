@@ -39,48 +39,137 @@ MonoBehaviour:
   tooltip:
     empty: 0
     lines:
-    - title: Ur-Hyena
-      description: At the end of combat, permanently add a powerful Status card to
-        target companion's deck
+    - title: Level Three Ur-Hyena
+      description: At the end of turn, retain 2 Status cards chosen at random. If
+        you have 3 or less Status cards in hand, give adjacent companions 7 block
       relatedBehaviorIndex: 0
-    - title: Ur-Hyena's Blessing++
-      description: Unplayable. When in hand at the end of turn, gain block and deal
-        damage to all enemies equal to triple the number of cards in this deck
-      relatedBehaviorIndex: 0
-  keepsakeTitle: 
-  keepsakeDescription: At the end of combat, permanently add a powerful Status card
-    to target companion's deck
+  keepsakeTitle: Level Three Ur-Hyena
+  keepsakeDescription: At the end of turn, retain 2 Status cards chosen at random.
+    If you have 3 or less Status cards in hand, give adjacent companions 7 block
   references:
     version: 2
     RefIds:
-    - rid: 7401433308100035453
-      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
-      data:
-        abilityTrigger: 1
-        effectSteps:
-        - rid: 7401433308100035454
-        - rid: 7401433308100035455
-    - rid: 7401433308100035454
+    - rid: 1289961959942521051
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: target
-        validTargets: 00000000
+        outputKey: cards
+        validTargets: 03000000
         number: 1
-        specialTargetRule: 0
-        cantCancelTargetting: 1
-    - rid: 7401433308100035455
-      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
+        specialTargetRule: 1
+        cantCancelTargetting: 0
+    - rid: 1289961959942521052
+      type: {class: FilterCards, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: AddCardsToDeck
-        inputKey: target
-        cardTypes:
-        - {fileID: 11400000, guid: 3b18f7564ea724d18b2484b68771517e, type: 2}
-        addToDeckMethod: 3
-        getCardsFromKey: 0
-        inputCardsKey: 
+        effectStepName: FilterCards
+        inputKey: cards
+        filter:
+          cardCategoriesToInclude: 04000000
+          generatedCardsFilter: 0
+        outputKey: status
+    - rid: 1289961959942521053
+      type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetRandomItems
+        inputKey: status
+        scale: 2
+        outputKey: chosen
+    - rid: 1289961959942521054
+      type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardInHandEffect
+        inputKey: chosen
+        effect: 2
+    - rid: 1289961959942521055
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: chosen
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
         scale: 1
+    - rid: 1289961959942521081
+      type: {class: CountStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CountStep
+        inputKey: status
+        outputKey: numStatus
+    - rid: 1289961959942521082
+      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: BooleanComparison
+        hardCodedInputKey1: 3
+        useHardCodedInputKey1: 1
+        inputKey1: 
+        operation: 4
+        inputKey2: numStatus
+        outputKey: lessThan3
+    - rid: 1289961959942521083
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: lessThan3
+        conditionToEndOn: 0
+    - rid: 1289961959942521084
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 1289961959942521085
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 6137048663962808129, guid: 032e33b914ed32b418cdc1ed2f15fc6e, type: 3}
+        scale: 1
+    - rid: 1289961959942521086
+      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetAdjacentCompanions
+        inputKey: self
+        outputKey: adj
+    - rid: 1289961959942521087
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: adj
+        statusEffect: 2
+        scale: 7
         getScaleFromKey: 0
         inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+    - rid: 1289961959942521088
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: adj
+        prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
+        scale: 1
+    - rid: 7401433308100035453
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 2
+        effectSteps:
+        - rid: 1289961959942521051
+        - rid: 1289961959942521052
+        - rid: 1289961959942521081
+        - rid: 1289961959942521053
+        - rid: 1289961959942521054
+        - rid: 1289961959942521055
+        - rid: 1289961959942521084
+        - rid: 1289961959942521082
+        - rid: 1289961959942521083
+        - rid: 1289961959942521085
+        - rid: 1289961959942521086
+        - rid: 1289961959942521087
+        - rid: 1289961959942521088
