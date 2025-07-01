@@ -28,6 +28,7 @@ MonoBehaviour:
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 0}
   genericCompanionVFX: {fileID: 0}
+  cacheValueConfigs: []
   cardPool: {fileID: 11400000, guid: 27aedd85a919e49f8aa3505aee035eff, type: 2}
   packCardPool: {fileID: 11400000, guid: 0eb3f8bf2fb8e45f389802ceb0d6abaf, type: 2}
   speakerType: {fileID: 0}
@@ -40,10 +41,11 @@ MonoBehaviour:
     lines:
     - title: Daggermunk
       description: At the start of each turn, create a 0 mana "Dagger" card in hand
+        for a random companion
       relatedBehaviorIndex: 0
   keepsakeTitle: Daggermunk
   keepsakeDescription: At the start of each turn, create a 0 mana "Dagger" card in
-    hand
+    hand for a random companion
   references:
     version: 2
     RefIds:
@@ -54,22 +56,30 @@ MonoBehaviour:
         effectSteps:
         - rid: 205827988172308705
         - rid: 2034230017118175263
+        - rid: 1289961959942521114
     - rid: 205827988172308705
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: self
-        validTargets: 
+        outputKey: target
+        validTargets: 00000000
         number: 1
-        specialTargetRule: 3
+        specialTargetRule: 6
         cantCancelTargetting: 0
+    - rid: 1289961959942521114
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: target
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        scale: 1
     - rid: 2034230017118175263
       type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: AddCardsToHand
-        entityFromKey: self
+        entityFromKey: target
         cardTypes:
         - {fileID: 11400000, guid: 224034c097974444fa35170919327ce6, type: 2}
         getCardsFromKey: 0
