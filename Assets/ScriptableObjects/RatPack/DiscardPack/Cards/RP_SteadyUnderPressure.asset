@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: RP_SteadyUnderPressure
   m_EditorClassIdentifier: 
   Name: Steady under Pressure
-  Description: Unplayable. When discarded, give adjacent companions 4 block. If you
-    have 3 or less cards in hand, give them 6 instead
+  Description: Unplayable. Retain. When discarded, give adjacent companions 2 block.
+    If you have 3 or less cards in hand, give them 5 instead
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 8b7f45e259d8a914ca69c92891ca4bf1, type: 3}
@@ -22,7 +22,7 @@ MonoBehaviour:
   vfxPrefab: {fileID: 0}
   playable: 0
   exhaustsWhenPlayed: 0
-  retain: 0
+  retain: 1
   effectWorkflows:
   - rid: 5602892563578094203
   onExhaustEffectWorkflow:
@@ -107,10 +107,13 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: adj
         statusEffect: 2
-        scale: 2
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 5602892563578094203
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -127,7 +130,10 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: adj
         statusEffect: 2
-        scale: 4
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
