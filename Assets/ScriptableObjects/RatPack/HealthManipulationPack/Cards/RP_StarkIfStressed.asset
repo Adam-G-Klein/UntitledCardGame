@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: RP_StarkIfStressed
   m_EditorClassIdentifier: 
   Name: Stark if Stressed
-  Description: Give all companions 1 strength. Give companions below half HP 1 additional
-    strength.
+  Description: Give all companions 1 strength. Give them 2 strength instead if 2
+    or more companions are below half HP
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: deea7b3a1097502488875a6717d4fb34, type: 3}
@@ -51,7 +51,7 @@ MonoBehaviour:
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ApplyStatus
-        inputKey: belowHalf
+        inputKey: all
         statusEffect: 0
         scale: 1
         getScaleFromKey: 0
@@ -64,7 +64,7 @@ MonoBehaviour:
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
-        inputKey: belowHalf
+        inputKey: all
         prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
         scale: 1
     - rid: 1289961820425028202
@@ -80,6 +80,28 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+    - rid: 1289961959942521194
+      type: {class: CountStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CountStep
+        inputKey: belowHalf
+        outputKey: numBelowHalf
+    - rid: 1289961959942521195
+      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: BooleanComparison
+        hardCodedInputKey1: 2
+        useHardCodedInputKey1: 1
+        inputKey1: 
+        operation: 2
+        inputKey2: numBelowHalf
+        outputKey: enoughBelowHalf
+    - rid: 1289961959942521196
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: enoughBelowHalf
+        conditionToEndOn: 0
     - rid: 5602892949302281046
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -87,8 +109,11 @@ MonoBehaviour:
         - rid: 5602892949302281047
         - rid: 1289961820425028160
         - rid: 1289961820425028202
-        - rid: 1289961820425028163
         - rid: 1289961820425028164
+        - rid: 1289961959942521194
+        - rid: 1289961959942521195
+        - rid: 1289961959942521196
+        - rid: 1289961820425028163
     - rid: 5602892949302281047
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

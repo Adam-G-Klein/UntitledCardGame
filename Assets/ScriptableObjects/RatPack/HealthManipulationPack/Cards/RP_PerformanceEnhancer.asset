@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RP_PerformanceEnhancer
   m_EditorClassIdentifier: 
   Name: Performance Enhancer
-  Description: Gain 1 energy. This companion draws 1 card and loses 1 HP
+  Description: Gain 1 energy. This companion draws 1 card and loses 2 HP
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: db358496fbbc0478cbc8b0b1a85e4374, type: 3}
@@ -70,7 +70,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: self
         combatEffect: 16
-        scale: 1
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
