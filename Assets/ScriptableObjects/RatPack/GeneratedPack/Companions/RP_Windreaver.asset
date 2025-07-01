@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
-  m_Name: RP_L2_UrHyena
+  m_Name: RP_Windreaver
   m_EditorClassIdentifier: 
-  companionName: Ur-Hyena+
-  maxHealth: 40
+  companionName: Windreaver
+  maxHealth: 20
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: b0c05b5e6a2900c48ae56e80b64cb04d, type: 3}
   fullSprite: {fileID: 21300000, guid: b0c05b5e6a2900c48ae56e80b64cb04d, type: 3}
@@ -34,18 +34,18 @@ MonoBehaviour:
   speakerType: {fileID: 0}
   abilitiesV2:
   - rid: 7401433308100035453
-  level: 1
-  upgradeTo: {fileID: 11400000, guid: 960bf0fa0b7df43c4976e712db1bd9db, type: 2}
+  level: 0
+  upgradeTo: {fileID: 11400000, guid: a0af6c2731bcc483397615310586f039, type: 2}
   tooltip:
     empty: 0
     lines:
-    - title: Level Two Ur-Hyena
+    - title: Windreaver
       description: At the end of turn, retain 1 Status card chosen at random. If
-        you have 3 or less Status cards in hand, give adjacent companions 6 block
+        you have 2 or less Status cards in hand, give adjacent companions 4 block
       relatedBehaviorIndex: 0
-  keepsakeTitle: Level Two Ur-Hyena
+  keepsakeTitle: 
   keepsakeDescription: At the end of turn, retain 1 Status card chosen at random.
-    If you have 3 or less Status cards in hand, give adjacent companions 6 block
+    If you have 2 or less Status cards in hand, give adjacent companions 4 block
   references:
     version: 2
     RefIds:
@@ -102,7 +102,7 @@ MonoBehaviour:
         hardCodedInputKey1: 3
         useHardCodedInputKey1: 1
         inputKey1: 
-        operation: 4
+        operation: 3
         inputKey2: numStatus
         outputKey: lessThan3
     - rid: 1289961959942521083
@@ -141,7 +141,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: adj
         statusEffect: 2
-        scale: 6
+        scale: 4
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0

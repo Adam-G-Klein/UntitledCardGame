@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: RP_BigMungus
   m_EditorClassIdentifier: 
   Name: Big Mungus
-  Description: Exhaust. When exhausted, deal damage to all enemies equal to the number
-    of cards in this deck ({rpl_damage} damage)
+  Description: Unplayable. When in hand at the end of turn, deal damage to a random
+    enemy equal to the number of cards in this deck ({rpl_damage} damage)
   defaultValues:
   - key: rpl_damage
     value: 0
@@ -22,8 +22,8 @@ MonoBehaviour:
   Artwork: {fileID: 21300000, guid: bdd59c505b86bf44cabf5f9f82a41064, type: 3}
   cardCategory: 4
   vfxPrefab: {fileID: 0}
-  playable: 1
-  exhaustsWhenPlayed: 1
+  playable: 0
+  exhaustsWhenPlayed: 0
   retain: 0
   effectWorkflows:
   - rid: 205828032053379180
@@ -32,7 +32,7 @@ MonoBehaviour:
   onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
-    rid: -2
+    rid: 1289961959942521117
   tooltips: 
   references:
     version: 2
@@ -43,39 +43,15 @@ MonoBehaviour:
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps: []
-    - rid: 2034230108114649282
+    - rid: 1289961959942521117
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
-        - rid: 7401433128868512215
-        - rid: 2268261004812222477
-        - rid: 7401433128868512222
-        - rid: 2268261004812222479
-    - rid: 2268261004812222477
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: target
-        validTargets: 02000000
-        number: 1
-        specialTargetRule: 0
-        cantCancelTargetting: 0
-    - rid: 2268261004812222479
-      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CombatEffectStep
-        inputKey: target
-        combatEffect: 0
-        scale: 0
-        getScaleFromKey: 1
-        inputScaleKey: numCards
-        multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
-        vfxPrefab: {fileID: 1320532642761013391, guid: 99a456f94890391478f393fcc8ad0b95, type: 3}
-    - rid: 7401433128868512215
+        - rid: 1289961959942521118
+        - rid: 1289961959942521119
+        - rid: 1289961959942521120
+        - rid: 1289961959942521121
+    - rid: 1289961959942521118
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
@@ -86,15 +62,43 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 4
         cantCancelTargetting: 0
-    - rid: 7401433128868512222
+    - rid: 1289961959942521119
       type: {class: CountCardsInDeck, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CountCardsInDeck
         inputDeckKey: self
         filter:
-          cardCategoriesToInclude: 
+          cardCategoriesToInclude: 04000000
           generatedCardsFilter: 0
         includeDrawPile: 1
         includeDiscardPile: 1
         includeCardsInHand: 1
-        outputKey: numCards
+        outputKey: numStatusCards
+    - rid: 1289961959942521120
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: enemy
+        validTargets: 02000000
+        number: 1
+        specialTargetRule: 6
+        cantCancelTargetting: 0
+    - rid: 1289961959942521121
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: enemy
+        combatEffect: 0
+        scale: 0
+        getScaleFromKey: 1
+        inputScaleKey: numStatusCards
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 1320532642761013391, guid: 99a456f94890391478f393fcc8ad0b95, type: 3}
+    - rid: 2034230108114649282
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps: []
