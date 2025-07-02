@@ -17,7 +17,7 @@ public enum CompanionRarity {
 [CreateAssetMenu(
     fileName = "CompanionType",
     menuName = "Companions/Companion Type")]
-public class CompanionTypeSO : ScriptableObject
+public class CompanionTypeSO : IdentifiableSO
 {
     public string companionName;
     public int maxHealth;

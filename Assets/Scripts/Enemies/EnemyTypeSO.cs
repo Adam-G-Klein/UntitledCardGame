@@ -10,7 +10,7 @@ using UnityEngine;
 [CreateAssetMenu(
     fileName = "EnemyType",
     menuName = "Enemies/Enemy Type")]
-public class EnemyTypeSO : ScriptableObject
+public class EnemyTypeSO : IdentifiableSO 
 {
     public string displayName;
     public int maxHealth;
