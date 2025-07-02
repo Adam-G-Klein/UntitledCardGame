@@ -30,7 +30,6 @@ MonoBehaviour:
   genericCompanionVFX: {fileID: 0}
   cacheValueConfigs: []
   cardPool: {fileID: 11400000, guid: 345480ef663c54cdfbd4be4285e0a8d6, type: 2}
-  packCardPool: {fileID: 11400000, guid: fb4659890370a4ceda58d0967639becf, type: 2}
   pack: {fileID: 11400000, guid: 0d12b03c0c8754470a900cb4f78a9217, type: 2}
   speakerType: {fileID: 0}
   abilitiesV2:
@@ -42,11 +41,11 @@ MonoBehaviour:
     lines:
     - title: Level Two Windreaver
       description: At the end of turn, retain 1 Status card chosen at random. If
-        you have 3 or less Status cards in hand, give adjacent companions 6 block
+        you have 2 or less Status cards in hand, give adjacent companions 6 block
       relatedBehaviorIndex: 0
   keepsakeTitle: Level Two Windreaver
   keepsakeDescription: At the end of turn, retain 1 Status card chosen at random.
-    If you have 3 or less Status cards in hand, give adjacent companions 6 block
+    If you have 2 or less Status cards in hand, give adjacent companions 6 block
   references:
     version: 2
     RefIds:
@@ -100,7 +99,7 @@ MonoBehaviour:
       type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: BooleanComparison
-        hardCodedInputKey1: 3
+        hardCodedInputKey1: 2
         useHardCodedInputKey1: 1
         inputKey1: 
         operation: 4
