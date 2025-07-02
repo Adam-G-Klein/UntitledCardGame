@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: EndlessPain
   m_EditorClassIdentifier: 
+  guid: 625ab0cf-a4ac-4dbd-b092-e262b60f1f0b
   Name: Endless Pain
   Description: Deal {rpl_damage} damage for each card you played this turn ({numPlayedCards}
     cards)
@@ -30,6 +31,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 5602893017534169716
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2

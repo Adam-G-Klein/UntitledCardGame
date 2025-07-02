@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: PainfulRitual
   m_EditorClassIdentifier: 
+  guid: bd2aad2d-fedb-4732-b48e-4ee1c4d2c1f9
   Name: Painful Ritual
   Description: Target companion loses 2 HP and gains 1 strength and 1 aura stack
+  defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: d88429aecc6977642baae99d9f8466d6, type: 3}
   cardCategory: 2
@@ -24,6 +26,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 5602893017534169568
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
@@ -84,6 +88,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 5602893017534169572
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
@@ -94,6 +101,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 5602893017534169573
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
@@ -106,3 +116,4 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        vfxPrefab: {fileID: 0}

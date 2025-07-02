@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: Revitalize
   m_EditorClassIdentifier: 
+  guid: 15d3c66a-c348-4e8c-88f6-eb353f8e805e
   Name: Revitalize
   Description: Exhaust. Heal target companion 5 HP.
   defaultValues: []
@@ -25,6 +26,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 5602892949302280915
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
@@ -71,3 +74,4 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        vfxPrefab: {fileID: 0}

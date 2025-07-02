@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: GreedyBlade
   m_EditorClassIdentifier: 
+  guid: 27f3c190-9be4-4652-bb20-927f61bff19e
   Name: Greedy Blade
   Description: Deal {rpl_damage} damage. If it kills an enemy, gain $1
   defaultValues:
@@ -27,6 +28,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 5602892874868589222
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
@@ -98,13 +101,17 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        vfxPrefab: {fileID: 0}
     - rid: 5602892874868589225
       type: {class: FilterEntityByHP, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: FilterEntityByHP
         inputKey: target
         percentThreshold: 0
+        absoluteThreshold: 0
+        useAbsoluteThreshold: 0
         outputKey: targetAtZeroHealth
+        below: 1
     - rid: 5602892874868589226
       type: {class: CountStep, ns: , asm: Assembly-CSharp}
       data:

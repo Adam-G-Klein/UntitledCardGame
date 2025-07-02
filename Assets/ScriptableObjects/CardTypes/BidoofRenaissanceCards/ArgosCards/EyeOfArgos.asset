@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: EyeOfArgos
   m_EditorClassIdentifier: 
+  guid: e7f5f3c4-5c57-4cc0-9d21-f2f209f5aec4
   Name: Eye of Argos
   Description: Exhaust. Gain 1 energy and gain 3 block
   defaultValues: []
@@ -25,6 +26,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 3931529445166809455
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
@@ -44,6 +47,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 205828032053379789
       type: {class: ManaChange, ns: , asm: Assembly-CSharp}
       data:

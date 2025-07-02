@@ -12,17 +12,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: SummonOrb
   m_EditorClassIdentifier: 
+  guid: f54be346-a79a-49cb-b4e4-2a79de38b967
   Name: Summon Orb
   Description: Stick an orb on someone!
+  defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: e23c6c9ca6adcce4890845210178dc7e, type: 3}
   cardCategory: 0
   vfxPrefab: {fileID: 0}
   playable: 1
+  exhaustsWhenPlayed: 0
+  retain: 0
   effectWorkflows:
   - rid: 1935436727922196480
   onExhaustEffectWorkflow:
     rid: -2
+  onDiscardEffectWorkflow:
+    rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  tooltips: 
   references:
     version: 2
     RefIds:
@@ -54,3 +63,7 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 

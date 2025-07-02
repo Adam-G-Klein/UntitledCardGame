@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: EntropyBurn
   m_EditorClassIdentifier: 
+  guid: 0f256ccc-ad92-4507-a4e8-b79601bdf510
   Name: Entropy's Burn
   Description: Exhaust. When exhausted, deal {rpl_damage} damage to a random enemy.
   defaultValues:
@@ -28,6 +29,8 @@ MonoBehaviour:
   - rid: 5602892561590780065
   onExhaustEffectWorkflow:
     rid: 5602892557111787552
+  onDiscardEffectWorkflow:
+    rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
   tooltips: 
@@ -73,6 +76,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        vfxPrefab: {fileID: 0}
     - rid: 5602892561590780065
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
   m_Name: Beezelbumbler
   m_EditorClassIdentifier: 
+  guid: ad188f5e-f5cf-4975-8d4d-82062ab90a83
   companionName: Beezelbumbler
   maxHealth: 15
   initialCardsDealtPerTurn: 1
@@ -21,17 +22,16 @@ MonoBehaviour:
   entityFrame: {fileID: 21300000, guid: 917225be64994484da5c72a7b08a3d6c, type: 3}
   companionManagementFrame: {fileID: 21300000, guid: ff816818ae73449c997132f7ec8ab23c, type: 3}
   startingDeck: {fileID: 11400000, guid: 03db7753a8eb34b8fa1ccf858b7c2c0e, type: 2}
-  keepsake: {fileID: 21300000, guid: cb7e2801e82aa754a9ffd89d9e857a1e, type: 3}
   cardBack: {fileID: 21300000, guid: 3296a63e824de414bb4b578c4822fbdb, type: 3}
   cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
-  typeIcon: {fileID: 21300000, guid: cb7e2801e82aa754a9ffd89d9e857a1e, type: 3}
-  portrait: {fileID: 21300000, guid: b496905dc6d0c4000b20230ebb41e77b, type: 3}
-  teamSelectSprite: {fileID: 21300000, guid: cb7e2801e82aa754a9ffd89d9e857a1e, type: 3}
+  cardTypeIconOverride: {fileID: 0}
   rarity: 0
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 0}
   genericCompanionVFX: {fileID: 0}
+  cacheValueConfigs: []
   cardPool: {fileID: 11400000, guid: 4d23c731d10ea45218cc9e44a4ca61f3, type: 2}
+  packCardPool: {fileID: 0}
   speakerType: {fileID: 0}
   abilitiesV2:
   - rid: 2034229587402555789
@@ -80,6 +80,8 @@ MonoBehaviour:
         effectStepName: FilterEntityByHP
         inputKey: self
         percentThreshold: 0.5
+        absoluteThreshold: 0
+        useAbsoluteThreshold: 0
         outputKey: selfBelowHalf
         below: 1
     - rid: 2034229587402555796
@@ -114,6 +116,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 2034229587402555800
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:

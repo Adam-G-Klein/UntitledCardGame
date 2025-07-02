@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: RP_ElectricShield
   m_EditorClassIdentifier: 
+  guid: b3ec04f3-c803-4d8d-babb-2604514f5dbc
   Name: Electric Shield
   Description: 'Retain. Discharge all. Target companion gains 4 block for each charge
     discharged this way ({totalBlock}). '
@@ -82,6 +83,9 @@ MonoBehaviour:
         getScaleFromKey: 1
         inputScaleKey: negativeCharge
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 8829271167484559794
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -112,6 +116,9 @@ MonoBehaviour:
         getScaleFromKey: 1
         inputScaleKey: totalBlock
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 8829271167484560085
       type: {class: MathStep, ns: , asm: Assembly-CSharp}
       data:

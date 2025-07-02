@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: BetterBuriedTreasure
   m_EditorClassIdentifier: 
+  guid: a726435a-d5bc-4f30-9131-f6635fd00ea9
   Name: Better Buried Treasure
   Description: Gain $1. Exhaust. Draw 1 card from this companion
   defaultValues: []
@@ -26,12 +27,16 @@ MonoBehaviour:
   - rid: 5602892491280613593
   onExhaustEffectWorkflow:
     rid: 5602892491280613515
+  onDiscardEffectWorkflow:
+    rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: 5602892533381726224
   tooltips: 
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 5602892491280613515
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:

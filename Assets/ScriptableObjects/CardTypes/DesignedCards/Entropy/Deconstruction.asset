@@ -12,17 +12,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: Deconstruction
   m_EditorClassIdentifier: 
+  guid: b3f246d5-8cfc-410e-aabe-ccf494907f01
   Name: Deconstruction
   Description: Draw 2 cards, choose 1 of them to exhaust
+  defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: fccdd43ca64c8644fa54c06ab327bdd3, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
+  exhaustsWhenPlayed: 0
+  retain: 0
   effectWorkflows:
   - rid: 2116895648763871336
   onExhaustEffectWorkflow:
     rid: -2
+  onDiscardEffectWorkflow:
+    rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  tooltips: 
   references:
     version: 2
     RefIds:

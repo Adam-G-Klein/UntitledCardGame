@@ -12,19 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: Measuring Up
   m_EditorClassIdentifier: 
+  guid: 24575f33-2e44-45be-8ffe-f02030f8a7f5
   Name: Measuring Up
   Description: Increase the damage of all shivs by 1
+  defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: e8c1b164e48b3ed4ea21cc0ef5d14b1a, type: 3}
   cardCategory: 3
   vfxPrefab: {fileID: 0}
   playable: 1
+  exhaustsWhenPlayed: 0
+  retain: 0
   effectWorkflows:
   - rid: 2116895648763871329
   - rid: 1488501494564519971
   - rid: 1488501494564519972
   onExhaustEffectWorkflow:
     rid: -2
+  onDiscardEffectWorkflow:
+    rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  tooltips: 
   references:
     version: 2
     RefIds:
@@ -48,6 +57,7 @@ MonoBehaviour:
         inputKey: 
         scale: 2
         affectsAllCardsOfType: 1
+        cardTypeToModify: {fileID: 0}
         getScaleFromKey: 0
         scaleKey: 
         modification: 0
@@ -58,6 +68,7 @@ MonoBehaviour:
         inputKey: 
         scale: 3
         affectsAllCardsOfType: 1
+        cardTypeToModify: {fileID: 0}
         getScaleFromKey: 0
         scaleKey: 
         modification: 0
@@ -90,6 +101,7 @@ MonoBehaviour:
         inputKey: 
         scale: 1
         affectsAllCardsOfType: 1
+        cardTypeToModify: {fileID: 0}
         getScaleFromKey: 0
         scaleKey: 1
         modification: 0

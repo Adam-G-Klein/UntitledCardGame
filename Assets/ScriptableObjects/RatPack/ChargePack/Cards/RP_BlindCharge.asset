@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: RP_BlindCharge
   m_EditorClassIdentifier: 
+  guid: 71e9c34c-8e6a-42ff-8ebb-3c1d67586b0b
   Name: Blind Charge
   Description: Discharge 3. Deal {rpl_damage} damage
   defaultValues:
@@ -94,6 +95,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 8829271167484559794
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

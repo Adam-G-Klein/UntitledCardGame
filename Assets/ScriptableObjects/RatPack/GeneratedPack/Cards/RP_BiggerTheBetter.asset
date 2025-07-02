@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: RP_BiggerTheBetter
   m_EditorClassIdentifier: 
+  guid: fb2e4b06-5b35-45c7-b5f3-6fa61b754ecf
   Name: Bigger the Better
   Description: Give target companion block equal to the number of cards in THIS companion's
     deck ({numCards} cards)
@@ -99,3 +100,6 @@ MonoBehaviour:
         getScaleFromKey: 1
         inputScaleKey: numCards
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 

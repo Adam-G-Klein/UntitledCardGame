@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: WritersBlock
   m_EditorClassIdentifier: 
+  guid: d86a6f13-a703-496b-b20a-77b780b43d9b
   Name: Writer's Block
   Description: Give target companion 2 block for each card in your hand ({numCards})
-  values: 
   defaultValues:
   - key: numCards
     value: 0
@@ -28,6 +28,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 5602892679876706652
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
@@ -92,6 +94,9 @@ MonoBehaviour:
         getScaleFromKey: 1
         inputScaleKey: numCardsScaled
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 5602892723852673247
       type: {class: MathStep, ns: , asm: Assembly-CSharp}
       data:

@@ -12,17 +12,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: Bolster
   m_EditorClassIdentifier: 
+  guid: 227c784a-1054-4556-89a7-bbd2a6fb7d16
   Name: Bolster
   Description: Each unit with at least one blueprint gets 4 block
+  defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 50bbe2ab14b04f54c96e28c3e3f8e313, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
+  exhaustsWhenPlayed: 0
+  retain: 0
   effectWorkflows:
   - rid: 2116895648763871329
   onExhaustEffectWorkflow:
     rid: -2
+  onDiscardEffectWorkflow:
+    rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  tooltips: 
   references:
     version: 2
     RefIds:
@@ -62,3 +71,7 @@ MonoBehaviour:
         scale: 4
         getScaleFromKey: 0
         inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 

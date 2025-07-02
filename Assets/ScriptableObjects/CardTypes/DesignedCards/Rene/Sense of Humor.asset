@@ -12,20 +12,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: Sense of Humor
   m_EditorClassIdentifier: 
+  guid: d8171572-2071-4daa-850b-3fd1b55583cf
   Name: Sense of Humor
   Description: Exhaust. On exhaust, this companion gains 3 block.
+  defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: fccdd43ca64c8644fa54c06ab327bdd3, type: 3}
   cardCategory: 1
   vfxPrefab: {fileID: 0}
   playable: 1
+  exhaustsWhenPlayed: 0
+  retain: 0
   effectWorkflows:
   - rid: 2116895648763871351
   onExhaustEffectWorkflow:
     rid: 5592738912264781881
+  onDiscardEffectWorkflow:
+    rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  tooltips: 
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 1488501614819147788
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
@@ -35,6 +46,10 @@ MonoBehaviour:
         scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 2116895648763871351
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:

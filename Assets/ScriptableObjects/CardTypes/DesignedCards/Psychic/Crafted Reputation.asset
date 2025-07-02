@@ -12,19 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: Crafted Reputation
   m_EditorClassIdentifier: 
+  guid: cc443821-6b26-41c5-beb4-2eca6aaa209c
   Name: Crafted Reputation
   Description: Changes on cast (Don't have text replacement yet)
+  defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 7607e6c7d31b76649be88556bf71c132, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
+  exhaustsWhenPlayed: 0
+  retain: 0
   effectWorkflows:
   - rid: 2116895648763871331
   - rid: 1488501494564519983
   - rid: 1488501494564519992
   onExhaustEffectWorkflow:
     rid: -2
+  onDiscardEffectWorkflow:
+    rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  tooltips: 
   references:
     version: 2
     RefIds:
@@ -160,6 +169,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 1
         inputMultiplicityKey: numberOfCardsInHand
+        vfxPrefab: {fileID: 0}
     - rid: 1488501494564520008
       type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
       data:

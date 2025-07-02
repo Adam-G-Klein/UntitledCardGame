@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: RP_Repell
   m_EditorClassIdentifier: 
+  guid: 98a576ee-d4da-4d2a-a472-0a2b4e7f6428
   Name: Repel
   Description: Give target companion 2 block 3 times.
   defaultValues: []
@@ -66,6 +67,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 8829271167484559771
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
@@ -76,6 +80,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 8829271167484559911
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
@@ -86,6 +93,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 8829271167484559912
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:

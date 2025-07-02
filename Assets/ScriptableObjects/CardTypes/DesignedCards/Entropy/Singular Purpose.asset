@@ -12,19 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: Singular Purpose
   m_EditorClassIdentifier: 
+  guid: cfa83085-4082-4964-a747-81de1dccae42
   Name: Singular Purpose
   Description: Exhaust two target cards in hand. Conjure a self-sharpening blade
     into hand.
+  defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: a5b8c5dccafa78942bf687e9f47d4ce4, type: 3}
   cardCategory: 3
   vfxPrefab: {fileID: 0}
   playable: 1
+  exhaustsWhenPlayed: 0
+  retain: 0
   effectWorkflows:
   - rid: 2116895648763871351
   - rid: 5592738912264781831
   onExhaustEffectWorkflow:
     rid: -2
+  onDiscardEffectWorkflow:
+    rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  tooltips: 
   references:
     version: 2
     RefIds:
@@ -124,6 +133,7 @@ MonoBehaviour:
         inputKey: self-sharpening-blade
         scale: 1
         affectsAllCardsOfType: 0
+        cardTypeToModify: {fileID: 0}
         getScaleFromKey: 0
         scaleKey: 
         modification: 2

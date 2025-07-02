@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: RP_PatientDestruction
   m_EditorClassIdentifier: 
+  guid: f41792e1-ada4-473f-b3ea-70daffd98137
   Name: Patient Destruction
   Description: Retain. Deal {rpl_damage} damage twice.
   defaultValues:
@@ -27,6 +28,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 5602892675124822189
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: AuraOfAlZahrawi
   m_EditorClassIdentifier: 
+  guid: 77945f9a-3351-4754-9b2a-3cfff6ac8804
   Name: Aura of Al-Zahrawi
   Description: Exhaust. Heal target companion 4 HP, then 4 HP more for each aura
     stack they have ({healAmt} HP)
@@ -28,6 +29,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 5602892723852673317
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2

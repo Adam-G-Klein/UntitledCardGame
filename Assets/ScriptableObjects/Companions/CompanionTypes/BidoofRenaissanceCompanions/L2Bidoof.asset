@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
   m_Name: L2Bidoof
   m_EditorClassIdentifier: 
+  guid: 9a533453-005a-4efe-a4df-2b6942991814
   companionName: Bidoof+
   maxHealth: 40
   initialCardsDealtPerTurn: 1
@@ -21,17 +22,16 @@ MonoBehaviour:
   entityFrame: {fileID: 21300000, guid: 9a026bca7d3604d08abdabfa7cf9d88e, type: 3}
   companionManagementFrame: {fileID: 21300000, guid: d2fe52314fcc84db0b56064f21090a6f, type: 3}
   startingDeck: {fileID: 11400000, guid: bf6401d447a5b491382ab14a197ef5ed, type: 2}
-  keepsake: {fileID: 21300000, guid: ecf91a3bbc5ca489fb729a99ecc4974c, type: 3}
   cardBack: {fileID: 21300000, guid: 20b46ccd593516f4badbdcdb021f67c1, type: 3}
   cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
-  typeIcon: {fileID: 21300000, guid: ecf91a3bbc5ca489fb729a99ecc4974c, type: 3}
-  portrait: {fileID: 21300000, guid: ecf91a3bbc5ca489fb729a99ecc4974c, type: 3}
-  teamSelectSprite: {fileID: 21300000, guid: ecf91a3bbc5ca489fb729a99ecc4974c, type: 3}
+  cardTypeIconOverride: {fileID: 0}
   rarity: 0
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 0}
   genericCompanionVFX: {fileID: 0}
+  cacheValueConfigs: []
   cardPool: {fileID: 11400000, guid: f196524d31ef54898813ddd113b536e2, type: 2}
+  packCardPool: {fileID: 0}
   speakerType: {fileID: 0}
   abilitiesV2:
   - rid: 205828032053379328
@@ -77,6 +77,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 205828032053379331
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:

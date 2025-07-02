@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: Strike
   m_EditorClassIdentifier: 
+  guid: 5c444741-8e6f-4770-a4c2-f15ca3074d2c
   Name: Strike
   Description: Deal {rpl_damage} damage to target enemy
   defaultValues:
@@ -27,6 +28,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 2116895648763871355
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
@@ -73,3 +76,4 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        vfxPrefab: {fileID: 0}

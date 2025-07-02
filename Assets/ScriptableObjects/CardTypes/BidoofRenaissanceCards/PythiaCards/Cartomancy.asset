@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: Cartomancy
   m_EditorClassIdentifier: 
+  guid: 11010e96-d840-48c3-9c70-ddcbc28308b4
   Name: Cartomancy
   Description: Deal {rpl_damage} damage for each of the cards in your hand ({numberOfCardsInHand})
   defaultValues:
@@ -29,6 +30,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 2116895648763871330
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2

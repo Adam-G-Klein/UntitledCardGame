@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
   m_Name: Enemy_Ogre
   m_EditorClassIdentifier: 
+  guid: 2df7ae49-9a8b-4e34-9539-176a925f681f
   displayName: Ogre
   maxHealth: 50
   baseAttackDamage: 0
@@ -38,18 +39,12 @@ MonoBehaviour:
       - rid: 5602893111447519695
       - rid: 5280922829633618015
     behaviorType: 0
-    behaviorIndex: 0
-    nextBehaviorIndex: 0
   belowHalfHPEnemyPattern:
     behaviors: []
     behaviorType: 0
-    behaviorIndex: 0
-    nextBehaviorIndex: 0
   adaptWhenAloneEnemyPattern:
     behaviors: []
     behaviorType: 0
-    behaviorIndex: 0
-    nextBehaviorIndex: 0
   initialStatuses: []
   tooltip:
     empty: 0
@@ -145,3 +140,6 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 

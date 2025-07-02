@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: RP_Firebreath
   m_EditorClassIdentifier: 
+  guid: 48cc69ae-4756-43aa-b215-af71e139458e
   Name: Firebreath
   Description: Unplayable. At the end of turn, deal {rpl_damage} damage to a random
     enemy.
@@ -28,6 +29,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 2034230108114649328
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: 5602892561590779904

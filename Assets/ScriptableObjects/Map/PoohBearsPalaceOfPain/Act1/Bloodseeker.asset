@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
   m_Name: Bloodseeker
   m_EditorClassIdentifier: 
+  guid: 045e27a7-74dd-4a06-9a83-a617707ee614
   displayName: Bloodseeker
   maxHealth: 65
   baseAttackDamage: 0
@@ -20,6 +21,7 @@ MonoBehaviour:
   entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
   morale: 0
   abilities: []
+  cacheValueConfigs: []
   enemyPattern:
     behaviors:
     - intent: 1
@@ -37,18 +39,12 @@ MonoBehaviour:
       - rid: 5602893111447519607
       - rid: 5280922829633617990
     behaviorType: 0
-    behaviorIndex: 0
-    nextBehaviorIndex: 0
   belowHalfHPEnemyPattern:
     behaviors: []
     behaviorType: 0
-    behaviorIndex: 0
-    nextBehaviorIndex: 0
   adaptWhenAloneEnemyPattern:
     behaviors: []
     behaviorType: 0
-    behaviorIndex: 0
-    nextBehaviorIndex: 0
   initialStatuses: []
   tooltip:
     empty: 0
@@ -128,6 +124,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 5602893111447519608
       type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
       data:

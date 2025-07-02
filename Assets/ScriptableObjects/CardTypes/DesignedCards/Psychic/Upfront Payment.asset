@@ -12,17 +12,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: Upfront Payment
   m_EditorClassIdentifier: 
+  guid: 3a35cd35-ad7e-4955-87ef-bf6176d936fa
   Name: Upfront Payment
   Description: Give target companion 7 block. Gain 1 additional energy next turn
+  defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 47f910eeeb6ac4644abf639f1e84eba6, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
+  exhaustsWhenPlayed: 0
+  retain: 0
   effectWorkflows:
   - rid: 2116895648763871333
   onExhaustEffectWorkflow:
     rid: -2
+  onDiscardEffectWorkflow:
+    rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  tooltips: 
   references:
     version: 2
     RefIds:
@@ -53,6 +62,10 @@ MonoBehaviour:
         scale: 7
         getScaleFromKey: 0
         inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 2116895648763871333
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:

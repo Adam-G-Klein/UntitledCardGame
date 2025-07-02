@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: SufferingFromSuccess
   m_EditorClassIdentifier: 
+  guid: bd11a49e-390b-41ae-9d9b-530bddeff00a
   Name: Suffering from Success
   Description: Adjacent companions lose 1 HP. Draw 2 cards from each.
+  defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: b42fcc3abb714ae4bbfa5f07956e0c17, type: 3}
   cardCategory: 2
@@ -24,6 +26,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 5602893017534169582
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
@@ -87,3 +91,4 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        vfxPrefab: {fileID: 0}

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: RP_SignalBoost
   m_EditorClassIdentifier: 
+  guid: ae7127ab-adce-4b95-be52-1dca03103ef2
   Name: Signal Boost
   Description: Double target companion's block.
   defaultValues: []
@@ -73,6 +74,9 @@ MonoBehaviour:
         getScaleFromKey: 1
         inputScaleKey: currentBlock
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 8829271167484559923
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:

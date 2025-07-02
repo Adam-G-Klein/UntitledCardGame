@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: Bulwark
   m_EditorClassIdentifier: 
+  guid: 455ecbc2-2386-46b0-bb8b-0ca2fcd8d872
   Name: Bulwark
   Description: Draw 1 from this companion. If in hand at the end of the turn, parent
     companion gains 1 block for each card you have played this turn ({numCardsPlayed})
@@ -28,6 +29,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 5602893111447520107
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: 5602893017534169720
@@ -87,6 +90,9 @@ MonoBehaviour:
         getScaleFromKey: 1
         inputScaleKey: numCardsPlayed
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 5602893111447520107
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:

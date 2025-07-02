@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: BreathingBlock
   m_EditorClassIdentifier: 
+  guid: 7f92b0b1-a535-4f31-9c62-9e7c7b88345d
   Name: Breathing Block
   Description: Give target companion 9 block and shuffle a "Firebreath" card into
     their deck
@@ -26,6 +27,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 5602892561590779943
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
@@ -97,6 +100,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 5602892561590779946
       type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
       data:

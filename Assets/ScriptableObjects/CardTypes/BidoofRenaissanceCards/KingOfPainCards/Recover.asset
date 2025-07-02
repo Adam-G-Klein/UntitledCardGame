@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: Recover
   m_EditorClassIdentifier: 
+  guid: f9ae5dfc-17b3-431d-a7c7-de8bbb750860
   Name: Recover
   Description: Exhaust. Heal target companion 5 HP. Heal 10 HP instead if they are
     below half HP
@@ -26,6 +27,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 5602893017534169574
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
@@ -71,7 +74,10 @@ MonoBehaviour:
         effectStepName: FilterEntityByHP
         inputKey: target
         percentThreshold: 0.5
+        absoluteThreshold: 0
+        useAbsoluteThreshold: 0
         outputKey: targetBelowHalf
+        below: 1
     - rid: 5602893017534169577
       type: {class: CountStep, ns: , asm: Assembly-CSharp}
       data:

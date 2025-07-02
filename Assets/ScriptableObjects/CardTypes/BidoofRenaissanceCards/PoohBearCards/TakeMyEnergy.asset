@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: TakeMyEnergy
   m_EditorClassIdentifier: 
+  guid: d5a8eaee-a370-46a8-b091-2beae6a6495e
   Name: Take My Energy
   Description: Give target companion 1 strength + 1 strength for each aura stack
     they have ({numOrbs})
-  values: 
   defaultValues:
   - key: numOrbs
     value: 0
@@ -29,6 +29,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 5602892679876706420
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
@@ -83,6 +85,9 @@ MonoBehaviour:
         getScaleFromKey: 1
         inputScaleKey: numStrength
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 5602893111447520106
       type: {class: MathStep, ns: , asm: Assembly-CSharp}
       data:

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: RP_Energize
   m_EditorClassIdentifier: 
+  guid: e1db1936-d473-491a-90ea-34e2ab068517
   Name: Energize
   Description: Give adjacent companions 2 charge.
   defaultValues: []
@@ -95,6 +96,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 8829271167484559907
       type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
       data:
