@@ -8,7 +8,7 @@ public class EditorHotkeys
     [ShortcutAttribute("Open Gamestate")]
     public static void FocusGameStateSO()
     {
-        Selection.activeObject = GameStateVariableSO.instance;
-        EditorGUIUtility.PingObject(GameStateVariableSO.instance);
+        Selection.activeObject = GameStateVariableSingletonSO.instance;
+        EditorGUIUtility.PingObject(GameStateVariableSingletonSO.instance);
     }
 }

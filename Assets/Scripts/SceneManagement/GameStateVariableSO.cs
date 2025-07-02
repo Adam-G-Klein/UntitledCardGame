@@ -28,8 +28,11 @@ public enum Location
     PACK_SELECT
 }
 
+[CreateAssetMenu(
+    fileName = "NewGameStateVariable",
+    menuName = "Variables/Game State Variable")]
 [System.Serializable]
-public class GameStateVariableSO : ScriptableSingleton<GameStateVariableSO> 
+public class GameStateVariableSO : ScriptableObject
 {
     public CompanionListVariableSO companions;
     public PlayerDataVariableSO playerData;
