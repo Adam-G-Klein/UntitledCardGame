@@ -26,9 +26,18 @@ public class Companion : Entity, ICombatStats, IDeckEntity, IUIEntity
         setupOnCombineAbilities(companionType);
     }
 
-    private void setupOnCombineAbilities(CompanionTypeSO companionType) {
-        foreach(EntityAbility ability in companionType.abilitiesV2) {
-            if (ability.abilityTrigger == EntityAbility.EntityAbilityTrigger.OnCombine) {
+    public Companion(CompanionSerializable companionSerializable, SORegistry registry)
+    {
+        this.companionType = registry.GetAsset<CompanionTypeSO>(companionSerializable.CompanionTypeGuid);
+
+    }
+
+    private void setupOnCombineAbilities(CompanionTypeSO companionType)
+    {
+        foreach (EntityAbility ability in companionType.abilitiesV2)
+        {
+            if (ability.abilityTrigger == EntityAbility.EntityAbilityTrigger.OnCombine)
+            {
                 onCombineAbilities.Add(ability.effectWorkflow);
             }
         }
@@ -134,5 +143,17 @@ public class Companion : Entity, ICombatStats, IDeckEntity, IUIEntity
     public Targetable GetTargetable()
     {
         return null;
+    }
+}
+
+[System.Serializable]
+public class CompanionSerializable
+{
+    public string CompanionTypeGuid;
+
+    public CompanionSerializable(Companion companion)
+    {
+        CompanionTypeGuid = companion.companionType.GUID;
+        // deck TODO
     }
 }

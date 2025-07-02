@@ -53,5 +53,14 @@ public class Deck
             cards.Add(card);
         }
     }
+}
 
+[System.Serializable]
+public class DeckSerializable
+{
+
+    public DeckSerializable(Deck deck)
+    {
+        // TODO
+    }
 }

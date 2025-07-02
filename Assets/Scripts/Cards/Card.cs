@@ -199,3 +199,14 @@ public class Card : Entity, IEquatable<Card>
         RARE,
     }
 }
+
+[System.Serializable]
+public class CardSerializable
+{
+    public CardSerializable(Card card)
+    { 
+        // TODO
+
+    }
+
+}

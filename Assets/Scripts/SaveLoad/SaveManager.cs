@@ -59,5 +59,8 @@ public class SaveManager : GenericSingleton<SaveManager>
         loadState.LoadToGameState(gameStateVariableSO, soRegistry);
         // print out a buncha companion information
         textField.value = loadState.SaveName;
+        foreach(Companion companion in gameStateVariableSO.companions.activeCompanions) {
+            Debug.Log("CompanionType: " + companion.companionType.name + " loaded");
+        }
     }
 }
