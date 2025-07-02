@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Dynamic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -94,5 +95,20 @@ public class EnemyEncounter : Encounter
             createdCompanions.Add(newCompanion);
             placer.addMapping(newCompanionPlacement, newCompanion.gameObject);
         }
+    }
+}
+
+[System.Serializable] 
+public class EnemyEncounterSerializable : EncounterSerializable
+{
+    public List<EnemySerializeable> enemies;
+    public bool isEliteEncounter;
+
+    public EnemyEncounterSerializable(EnemyEncounter encounter) : base(encounter)
+    {
+        this.enemies = encounter.enemyList
+            .Select(enemy => new EnemySerializeable(enemy))
+            .ToList();
+        this.isEliteEncounter = encounter.isEliteEncounter;
     }
 }

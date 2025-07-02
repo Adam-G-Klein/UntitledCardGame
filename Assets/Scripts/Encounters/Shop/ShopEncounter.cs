@@ -288,3 +288,8 @@ public class ShopEncounter : Encounter
         }
     }
 }
+
+public class ShopEncounterSerializable : EncounterSerializable {
+    public ShopEncounterSerializable(ShopEncounter encounter) : base(encounter) {
+    }
+}

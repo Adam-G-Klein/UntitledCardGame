@@ -37,3 +37,17 @@ public abstract class Encounter
         return this.encounterType;
     }
 }
+
+[System.Serializable]
+public abstract class EncounterSerializable {
+    public string id;
+    public bool isCompleted;
+    public EncounterType encounterType;
+
+    public EncounterSerializable(Encounter encounter)
+    {
+        this.id = encounter.id;
+        this.isCompleted = encounter.isCompleted;
+        this.encounterType = encounter.getEncounterType();
+    }
+}
