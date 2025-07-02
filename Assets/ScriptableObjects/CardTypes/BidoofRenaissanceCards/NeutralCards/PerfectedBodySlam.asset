@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: PerfectedBodySlam
   m_EditorClassIdentifier: 
+  guid: 902e73cb-2623-43da-9856-eb0721af6fd3
   Name: Perfected Body Slam
   Description: Deal {rpl_damage} damage for each Generated card in this companion's
     deck ({numGeneratedCards})
@@ -30,6 +31,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 5602892723852673192
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2

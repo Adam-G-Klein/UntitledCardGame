@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: ArterialBlast
   m_EditorClassIdentifier: 
+  guid: 26aad91a-7c98-4d2c-9629-66d4de457ab5
   Name: Arterial Blade
   Description: Deal {rpl_damage} damage twice. Draw 1 card from this companion. Lose
     1 HP
@@ -28,6 +29,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 5602893017534169587
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2

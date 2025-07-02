@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
   m_Name: ShufflerPollutor
   m_EditorClassIdentifier: 
+  guid: c157b70b-a32b-43ed-a383-ec62986db9c9
   displayName: Pollutor
   maxHealth: 15
   baseAttackDamage: 0
@@ -20,6 +21,7 @@ MonoBehaviour:
   entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
   morale: 1
   abilities: []
+  cacheValueConfigs: []
   enemyPattern:
     behaviors:
     - intent: 3
@@ -31,13 +33,9 @@ MonoBehaviour:
       - rid: 4463205916933358110
       - rid: 5280922829633618002
     behaviorType: 0
-    behaviorIndex: 0
-    nextBehaviorIndex: 0
   belowHalfHPEnemyPattern:
     behaviors: []
     behaviorType: 0
-    behaviorIndex: 0
-    nextBehaviorIndex: 0
   adaptWhenAloneEnemyPattern:
     behaviors:
     - intent: 5
@@ -49,8 +47,6 @@ MonoBehaviour:
       - rid: 2034229587402555905
       - rid: 2034229587402555904
     behaviorType: 0
-    behaviorIndex: 0
-    nextBehaviorIndex: 0
   initialStatuses: []
   tooltip:
     empty: 1

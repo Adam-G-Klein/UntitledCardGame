@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: RP_StaticPulse
   m_EditorClassIdentifier: 
+  guid: a915aac0-b357-495d-b10f-a9913eb77177
   Name: Static Pulse
   Description: Give target companion 30 block
   defaultValues: []
@@ -64,6 +65,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 8829271167484559923
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:

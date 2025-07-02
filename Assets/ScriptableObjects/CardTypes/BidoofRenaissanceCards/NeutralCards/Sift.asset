@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: Sift
   m_EditorClassIdentifier: 
+  guid: df3283be-6615-45ad-9c6e-5545db345ab2
   Name: Sift
   Description: Draw 3 cards from target companion
+  defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 04bf14070e798284f9f39ea08b676c4a, type: 3}
   cardCategory: 2
@@ -24,6 +26,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 5602892723852673195
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2

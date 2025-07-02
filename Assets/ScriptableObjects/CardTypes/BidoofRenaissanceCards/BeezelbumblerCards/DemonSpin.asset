@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: DemonSpin
   m_EditorClassIdentifier: 
+  guid: 551303a1-c488-4f8c-a49a-7834acb5a698
   Name: Demon Spin
   Description: 'Deal {rpl_damage} damage to all enemies 3 times. Lose 3 HP. '
   defaultValues:
@@ -27,6 +28,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 5602892675124822090
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2

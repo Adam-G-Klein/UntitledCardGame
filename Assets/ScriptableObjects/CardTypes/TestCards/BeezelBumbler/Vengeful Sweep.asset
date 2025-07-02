@@ -12,17 +12,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: Vengeful Sweep
   m_EditorClassIdentifier: 
+  guid: 84752d20-bd87-4265-b2e4-c2cba2442fdb
   Name: Vengeful Sweep
   Description: Deal 3 damage to all enemies
+  defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 7a51d6d5cbbba644cbef012d1be241ab, type: 3}
   cardCategory: 0
   vfxPrefab: {fileID: 0}
   playable: 1
+  exhaustsWhenPlayed: 0
+  retain: 0
   effectWorkflows:
   - rid: 2116895648763871353
   onExhaustEffectWorkflow:
     rid: -2
+  onDiscardEffectWorkflow:
+    rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  tooltips: 
   references:
     version: 2
     RefIds:
@@ -57,3 +66,4 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        vfxPrefab: {fileID: 0}

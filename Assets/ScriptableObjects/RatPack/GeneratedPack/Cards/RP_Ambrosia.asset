@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: RP_Ambrosia
   m_EditorClassIdentifier: 
+  guid: b54b8187-8091-4833-bc2d-4e60a33994c5
   Name: Ambrosia
   Description: Exhaust. When exhausted, draw 1 card and give this companion block
     equal to the number of Status cards in the deck ({numBlock} block)
@@ -92,6 +93,9 @@ MonoBehaviour:
         getScaleFromKey: 1
         inputScaleKey: numBlock
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 7401433128868512224
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:

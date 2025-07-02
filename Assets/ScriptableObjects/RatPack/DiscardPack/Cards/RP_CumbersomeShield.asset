@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: RP_CumbersomeShield
   m_EditorClassIdentifier: 
+  guid: 269939a5-ea74-4f99-b082-e62f284652a2
   Name: Cumbersome Shield
   Description: Unplayable. When discarded, gain 6 block
   defaultValues: []
@@ -75,3 +76,6 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 

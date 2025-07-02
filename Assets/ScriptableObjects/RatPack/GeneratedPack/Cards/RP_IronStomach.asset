@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: RP_IronStomach
   m_EditorClassIdentifier: 
+  guid: 3ceb211c-6858-44d1-9c28-bbbc6d668a4c
   Name: Iron Stomach
   Description: Exhaust. Gain 4 block
   defaultValues: []
@@ -81,3 +82,6 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 

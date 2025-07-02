@@ -12,21 +12,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: Informed Calculation
   m_EditorClassIdentifier: 
+  guid: 911f9f23-fc39-444f-8777-2786cc0b477a
   Name: Informed Calculation
   Description: Consume one blueprint from target companion. Gain 2 energy and draw
     1 card from their deck
+  defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: c338159c274399e42bff6fbabd825764, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
+  exhaustsWhenPlayed: 0
+  retain: 0
   effectWorkflows:
   - rid: 2116895648763871329
   onExhaustEffectWorkflow:
     rid: 5592738912264781864
+  onDiscardEffectWorkflow:
+    rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  tooltips: 
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 1886371092460208289
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -58,6 +69,10 @@ MonoBehaviour:
         scale: -1
         getScaleFromKey: 0
         inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 5592738912264781864
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:

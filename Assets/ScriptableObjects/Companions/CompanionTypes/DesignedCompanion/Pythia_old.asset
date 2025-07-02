@@ -12,31 +12,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
   m_Name: Pythia_old
   m_EditorClassIdentifier: 
+  guid: ae42b505-2306-4a86-b4ea-7abb3276fc4c
   companionName: Pythia
   maxHealth: 20
   initialCardsDealtPerTurn: 2
   sprite: {fileID: 21300000, guid: f83978b71d30db64ca962e2b56a8a2bb, type: 3}
+  fullSprite: {fileID: 0}
+  backgroundImage: {fileID: 0}
+  entityFrame: {fileID: 0}
+  companionManagementFrame: {fileID: 0}
   startingDeck: {fileID: 11400000, guid: 1e6712d15d797514aa606a6a0d84a059, type: 2}
-  keepsake: {fileID: 21300000, guid: ddd7a30cf3775e7408a7d3063b157c6d, type: 3}
   cardBack: {fileID: 21300000, guid: c08a02b0b1e86fb4b96393e9d8fb4714, type: 3}
   cardFrame: {fileID: 21300000, guid: 6cee2343f3114be45be30618b977bcb0, type: 3}
-  typeIcon: {fileID: 21300000, guid: e370307552346ed469561d12300d30d8, type: 3}
-  portrait: {fileID: 21300000, guid: b42fcc3abb714ae4bbfa5f07956e0c17, type: 3}
-  teamSelectSprite: {fileID: 21300000, guid: 4ac815c6f8de5c142a5f31778f4fbaab, type: 3}
+  cardTypeIconOverride: {fileID: 0}
+  rarity: 0
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 8300000, guid: 711a0c4ea884fa341805af4f63687847, type: 3}
   genericCompanionVFX: {fileID: 4439872921359724599, guid: a4b17b01a56f2a14f89ce77b567a2ba8, type: 3}
+  cacheValueConfigs: []
   cardPool: {fileID: 11400000, guid: d166911316f360542abd552b6c68b023, type: 2}
+  packCardPool: {fileID: 0}
   speakerType: {fileID: 11400000, guid: 9e835f3c4c49e9f4da934369a0a7132b, type: 2}
-  abilities: []
-  upgradeInfo: {fileID: 11400000, guid: 99076b48c6110564cb87cbbb29a513b6, type: 2}
+  abilitiesV2: []
+  level: 0
+  upgradeTo: {fileID: 0}
   tooltip:
     empty: 0
     lines:
     - title: Pythia, the Psychic
       description: Manipulates the decks of others, provides card advantage. Draw
         an extra card from her deck every turn.
-      image: {fileID: 0}
+      relatedBehaviorIndex: 0
+  keepsakeTitle: 
+  keepsakeDescription: 
   references:
     version: 2
     RefIds: []

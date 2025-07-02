@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: ProtectTheWeak
   m_EditorClassIdentifier: 
+  guid: 7d8fed2f-9b1e-48a3-9596-fe2b33c4ec50
   Name: Protect the Weak
   Description: Give target companion 6 block. Give them 9 instead if they are under
     half HP.
@@ -26,6 +27,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 5602892723852673317
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
@@ -71,7 +74,10 @@ MonoBehaviour:
         effectStepName: FilterEntityByHP
         inputKey: target
         percentThreshold: 0.5
+        absoluteThreshold: 0
+        useAbsoluteThreshold: 0
         outputKey: targetBelowHalfHP
+        below: 1
     - rid: 5602892723852673324
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
@@ -82,6 +88,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 5602892723852673325
       type: {class: CountStep, ns: , asm: Assembly-CSharp}
       data:
@@ -114,3 +123,6 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 

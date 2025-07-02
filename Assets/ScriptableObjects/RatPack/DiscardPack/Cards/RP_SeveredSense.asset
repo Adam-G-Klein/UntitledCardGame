@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: RP_SeveredSense
   m_EditorClassIdentifier: 
+  guid: dd32dbaf-3dd6-4411-a623-6224b4b815d7
   Name: Severed Sense
   Description: Give target companion 1 strength and discard a random card in hand
   defaultValues: []
@@ -68,6 +69,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 2268261022115299363
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:

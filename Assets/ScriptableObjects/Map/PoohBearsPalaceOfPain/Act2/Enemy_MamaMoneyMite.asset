@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
   m_Name: Enemy_MamaMoneyMite
   m_EditorClassIdentifier: 
+  guid: 2ca78184-c100-45aa-9475-6ea5687910fb
   displayName: Mama Money Mite
   maxHealth: 35
   baseAttackDamage: 0
@@ -77,6 +78,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 2268260642759377007
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:

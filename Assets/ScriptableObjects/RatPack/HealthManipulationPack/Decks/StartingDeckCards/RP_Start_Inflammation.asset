@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: RP_Start_Inflammation
   m_EditorClassIdentifier: 
+  guid: 34b14d01-5c11-4854-b854-a55c74ed28dc
   Name: Inflammation
   Description: Target companion gains 6 block and loses 1 HP.
   defaultValues: []
@@ -68,6 +69,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 2034230108114649521
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

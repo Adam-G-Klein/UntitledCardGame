@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: BurningWheel
   m_EditorClassIdentifier: 
+  guid: 78e29366-88bc-4b11-951a-b49932330bfa
   Name: Burning Wheel
   Description: Exhaust all cards in hand, then draw 1 card from each companion below
     half HP
+  defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: c4c548a339b4d41a590928c0c98934a7, type: 3}
   cardCategory: 2
@@ -25,6 +27,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 5602892949302280915
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
@@ -93,7 +97,10 @@ MonoBehaviour:
         effectStepName: FilterEntityByHP
         inputKey: allCompanions
         percentThreshold: 0.5
+        absoluteThreshold: 0
+        useAbsoluteThreshold: 0
         outputKey: allCompanionsBelowHalfHP
+        below: 1
     - rid: 5602892949302280920
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:

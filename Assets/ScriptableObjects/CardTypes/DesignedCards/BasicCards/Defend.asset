@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: Defend
   m_EditorClassIdentifier: 
+  guid: 82f3d4f3-55a4-4463-8bdf-4de484da7bd8
   Name: Defend
   Description: Give target companion 5 block
+  defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: da1a1978bec27b446a94d96c66f7fb55, type: 3}
   cardCategory: 2
@@ -24,6 +26,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 2116895648763871354
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
@@ -68,3 +72,6 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 

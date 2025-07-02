@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
   m_Name: Enemy_MoneyMite
   m_EditorClassIdentifier: 
+  guid: 115890b6-b3d4-4bcd-ae33-78c88b92389d
   displayName: Money Mite
   maxHealth: 15
   baseAttackDamage: 0
@@ -47,18 +48,12 @@ MonoBehaviour:
       - rid: 2268260642759377009
       - rid: 4463205916933358347
     behaviorType: 0
-    behaviorIndex: 0
-    nextBehaviorIndex: 0
   belowHalfHPEnemyPattern:
     behaviors: []
     behaviorType: 0
-    behaviorIndex: 0
-    nextBehaviorIndex: 0
   adaptWhenAloneEnemyPattern:
     behaviors: []
     behaviorType: 0
-    behaviorIndex: 0
-    nextBehaviorIndex: 0
   initialStatuses:
   - status: 11
     scale: 1
@@ -84,6 +79,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 2268260642759377010
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

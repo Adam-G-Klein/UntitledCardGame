@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: Eureka
   m_EditorClassIdentifier: 
+  guid: cbd84ea9-4926-4275-bac1-ff4c8283c6c4
   Name: Eureka
   Description: Exhaust. Gain 2 mana, draw two cards
   defaultValues: []
@@ -25,6 +26,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 2116895648763871331
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
   m_Name: PoohBear
   m_EditorClassIdentifier: 
+  guid: e15cc49a-708f-4af0-b2ff-96ee55af88a0
   companionName: Pooh Bear
   maxHealth: 20
   initialCardsDealtPerTurn: 1
@@ -21,17 +22,16 @@ MonoBehaviour:
   entityFrame: {fileID: 21300000, guid: a8f224240148f4c47897b12c2d384db9, type: 3}
   companionManagementFrame: {fileID: 21300000, guid: 30185bf22ffd248919b87536c568196a, type: 3}
   startingDeck: {fileID: 11400000, guid: 08d0c5baf8b5946b8a166d80ed55182e, type: 2}
-  keepsake: {fileID: 21300000, guid: d1b49200fdffed1468b44b3573e7ae0c, type: 3}
   cardBack: {fileID: 21300000, guid: f48743304e0580f4fbfc67f629b1dabe, type: 3}
   cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
-  typeIcon: {fileID: 21300000, guid: d1b49200fdffed1468b44b3573e7ae0c, type: 3}
-  portrait: {fileID: 21300000, guid: d1b49200fdffed1468b44b3573e7ae0c, type: 3}
-  teamSelectSprite: {fileID: 21300000, guid: d1b49200fdffed1468b44b3573e7ae0c, type: 3}
+  cardTypeIconOverride: {fileID: 0}
   rarity: 1
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 0}
   genericCompanionVFX: {fileID: 0}
+  cacheValueConfigs: []
   cardPool: {fileID: 11400000, guid: 88046cf7857cb4072a63a470af6868d4, type: 2}
+  packCardPool: {fileID: 0}
   speakerType: {fileID: 0}
   abilitiesV2:
   - rid: 205828032053379553
@@ -106,6 +106,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 205828032053379558
       type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
       data:

@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: ColdBlooded
   m_EditorClassIdentifier: 
+  guid: e1ae9fc5-7813-45b7-b8f0-ae3138434869
   Name: Cold Blooded
   Description: Consume 1 aura stack from target companion. Gain 3 energy next turn
+  defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: c0e53d043957bac4c8fb2528ecd0a1b9, type: 3}
   cardCategory: 2
@@ -24,6 +26,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 5602892949302281038
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
@@ -96,6 +100,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 5602892949302281177
       type: {class: CountStep, ns: , asm: Assembly-CSharp}
       data:

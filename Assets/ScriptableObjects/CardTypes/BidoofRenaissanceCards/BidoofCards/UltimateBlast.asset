@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: UltimateBlast
   m_EditorClassIdentifier: 
+  guid: a23f7065-f64d-44e7-917f-8c0e80071b42
   Name: Ultimate Blast
   Description: Deal {rpl_damage} damage 7 times.
   defaultValues:
@@ -27,6 +28,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 5602892675124822189
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2

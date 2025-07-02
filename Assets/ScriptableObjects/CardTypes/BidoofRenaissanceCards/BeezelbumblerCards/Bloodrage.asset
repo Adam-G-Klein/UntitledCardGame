@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: Bloodrage
   m_EditorClassIdentifier: 
+  guid: 68755f8e-c8df-4d56-b8e2-7c1edf03d174
   Name: Bloodrage
   Description: All companions lose 2 HP and gain 1 strength
   defaultValues: []
@@ -25,6 +26,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 5602892675124822081
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
@@ -97,3 +100,6 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 

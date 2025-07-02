@@ -12,18 +12,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: Structural Support
   m_EditorClassIdentifier: 
+  guid: 44079317-3e11-496d-959e-8b8ae312227d
   Name: Structural Support
   Description: Give a companion 4 block, then 2 extra block for each blueprint it
     has.
+  defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: da1a1978bec27b446a94d96c66f7fb55, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
+  exhaustsWhenPlayed: 0
+  retain: 0
   effectWorkflows:
   - rid: 2116895648763871329
   onExhaustEffectWorkflow:
     rid: -2
+  onDiscardEffectWorkflow:
+    rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  tooltips: 
   references:
     version: 2
     RefIds:
@@ -75,6 +84,10 @@ MonoBehaviour:
         scale: 0
         getScaleFromKey: 1
         inputScaleKey: totalBlock
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 5592738912264781855
       type: {class: MathStep, ns: , asm: Assembly-CSharp}
       data:

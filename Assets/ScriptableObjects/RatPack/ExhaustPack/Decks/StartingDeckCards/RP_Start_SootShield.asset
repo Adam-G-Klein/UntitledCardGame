@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: RP_Start_SootShield
   m_EditorClassIdentifier: 
+  guid: 64bc4d28-1dbc-47a5-821c-f6a12fbbfbbc
   Name: Soot Shield
   Description: Give target companion 8 block and exhaust a random card in hand
   defaultValues: []
@@ -53,6 +54,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 2034230108114649132
       type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}
       data:

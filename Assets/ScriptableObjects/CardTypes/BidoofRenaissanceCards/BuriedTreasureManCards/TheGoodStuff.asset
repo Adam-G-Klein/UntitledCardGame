@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: TheGoodStuff
   m_EditorClassIdentifier: 
+  guid: 51188b7c-775f-4473-afd3-47d105718426
   Name: The Good Stuff
   Description: Unplayable. When in hand at the end of turn, gain 1 strength and gain
     1 energy next turn
@@ -70,6 +71,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 7401433059192472307
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:

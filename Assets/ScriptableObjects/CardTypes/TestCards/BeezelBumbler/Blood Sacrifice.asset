@@ -12,17 +12,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: Blood Sacrifice
   m_EditorClassIdentifier: 
+  guid: 9e1d677d-88da-4c61-b070-464cccd6e8a4
   Name: Blood Sacrifice
   Description: This companion takes 3 damage then give a companion 5 strength
+  defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: d368c9ba74e98f7408c2a579fc6febcb, type: 3}
   cardCategory: 0
   vfxPrefab: {fileID: 0}
   playable: 1
+  exhaustsWhenPlayed: 0
+  retain: 0
   effectWorkflows:
   - rid: 2116895648763871350
   onExhaustEffectWorkflow:
     rid: -2
+  onDiscardEffectWorkflow:
+    rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  tooltips: 
   references:
     version: 2
     RefIds:
@@ -59,6 +68,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        vfxPrefab: {fileID: 0}
     - rid: 9024302470308298773
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
@@ -68,6 +78,10 @@ MonoBehaviour:
         scale: 5
         getScaleFromKey: 0
         inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 9024302470308298774
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: BumblersMight
   m_EditorClassIdentifier: 
+  guid: a5195293-d5d8-4c0f-9176-4dc92f77c52e
   Name: Bumbler's Might
   Description: 'Give target companion 4 strength. Lose 3 HP. '
   defaultValues: []
@@ -25,6 +26,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 5602892675124822097
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
@@ -84,6 +87,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 5602892675124822102
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

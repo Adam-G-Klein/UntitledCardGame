@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: RP_RollingThunder
   m_EditorClassIdentifier: 
+  guid: b4e07c2b-0228-421e-8533-705ff8aa6418
   Name: Rolling Thunder
   Description: Give each companion 1 charge for each alive enemy.
   defaultValues: []
@@ -66,6 +67,9 @@ MonoBehaviour:
         getScaleFromKey: 1
         inputScaleKey: numEnemies
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 8829271167484559772
       type: {class: CountStep, ns: , asm: Assembly-CSharp}
       data:

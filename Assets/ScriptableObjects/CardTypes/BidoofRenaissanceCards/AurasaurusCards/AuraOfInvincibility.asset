@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: AuraOfInvincibility
   m_EditorClassIdentifier: 
+  guid: b95f1d66-09db-4f00-aa06-0468e707f40a
   Name: Aura of Invicibility
   Description: Consume 1 aura stack from target companion to give it invulnerable.
   defaultValues: []
@@ -25,6 +26,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 5602892949302281038
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
@@ -99,6 +102,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 5602892949302281045
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
@@ -109,6 +115,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 5602892949302281177
       type: {class: CountStep, ns: , asm: Assembly-CSharp}
       data:

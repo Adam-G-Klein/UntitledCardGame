@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: RP_Copycat
   m_EditorClassIdentifier: 
+  guid: 4313bcba-1532-4cfb-8e23-16c03dc7e016
   Name: Copycat
   Description: Add 2 copies of target card to your hand
+  defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: a100f38fb92da834786807cb66e2ebba, type: 3}
   cardCategory: 2
@@ -24,6 +26,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 5602892949302281058
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2

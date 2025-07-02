@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: VampiricFangs
   m_EditorClassIdentifier: 
+  guid: f8219579-1f19-48d6-aba8-cac752f2cc73
   Name: Vampiric Fangs
   Description: Deal {rpl_damage} damage to target enemy. If it kills it, this companion
     heals 5 HP
-  values: 08000000
   defaultValues:
   - key: rpl_damage
     value: 8
@@ -29,6 +29,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 5602892874868589361
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
@@ -90,13 +92,17 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        vfxPrefab: {fileID: 0}
     - rid: 5602892874868589364
       type: {class: FilterEntityByHP, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: FilterEntityByHP
         inputKey: targetEnemy
         percentThreshold: 0
+        absoluteThreshold: 0
+        useAbsoluteThreshold: 0
         outputKey: deadEnemies
+        below: 1
     - rid: 5602892874868589365
       type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
       data:
@@ -136,13 +142,16 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        vfxPrefab: {fileID: 0}
     - rid: 5602892874868589422
       type: {class: DebugEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: DebugEffectStep
+        inputCombatInstanceCacheKey: 
         genericMap: 1
         ints: 1
         strings: 0
+        bools: 0
     - rid: 5602892874868589423
       type: {class: CountStep, ns: , asm: Assembly-CSharp}
       data:

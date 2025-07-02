@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: RP_CrackleWithPower
   m_EditorClassIdentifier: 
+  guid: d53ad1b2-edfb-4a97-b15d-b57dd5d042df
   Name: Crackle With Power
   Description: Double target companion's charge. Exhaust.
   defaultValues: []
@@ -95,6 +96,9 @@ MonoBehaviour:
         getScaleFromKey: 1
         inputScaleKey: numCharge
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 8829271167484559908
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:

@@ -12,17 +12,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: FireGun
   m_EditorClassIdentifier: 
+  guid: 9edd1492-04e2-4fa2-a67d-8d2102a282c5
   Name: Fire Gun
   Description: It's ditto! He has a gun! Where'd he get a gun?!
+  defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 16d538f92b835a14381c8566e07acb49, type: 3}
+  cardCategory: 0
   vfxPrefab: {fileID: 4798506008640871506, guid: 0556a32d0cf5e704db37d6e1528d886a, type: 3}
   playable: 1
+  exhaustsWhenPlayed: 0
+  retain: 0
   effectWorkflows:
   - rid: 55651160039358551
+  onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
+    rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  tooltips: 
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 55651160039358551
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -38,6 +52,10 @@ MonoBehaviour:
         scale: 1000
         getScaleFromKey: 0
         inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 0}
     - rid: 55651160039358553
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

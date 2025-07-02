@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: AllSeer
   m_EditorClassIdentifier: 
+  guid: 8f7c7b24-a2ea-4b30-91ce-b42fd4bd910f
   Name: All-Seer
   Description: Shuffle an "Eye of Argos" card into each companion's deck
   defaultValues: []
@@ -25,6 +26,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 5602892563578094203
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2

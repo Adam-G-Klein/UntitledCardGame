@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: ManyEmbuedKnife
   m_EditorClassIdentifier: 
+  guid: 4641cf65-2cd3-4618-89e5-a9edc4b9fef5
   Name: Many Embued Knife
   Description: Create an "Embued Knife" card in hand for each companion on your team
     with an aura stack
@@ -26,6 +27,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 5602892563578094207
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2

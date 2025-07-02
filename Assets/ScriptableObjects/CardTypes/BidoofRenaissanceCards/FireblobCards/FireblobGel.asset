@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: FireblobGel
   m_EditorClassIdentifier: 
+  guid: 0603443d-20a3-423b-b3b3-6b16c3040e1a
   Name: Fireblob Gel
   Description: Gain 2 max HP. Exhaust
   defaultValues: []
@@ -25,6 +26,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 205828032053379180
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2

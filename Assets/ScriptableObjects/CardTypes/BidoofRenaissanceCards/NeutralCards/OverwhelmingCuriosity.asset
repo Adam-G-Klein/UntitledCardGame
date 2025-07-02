@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: OverwhelmingCuriosity
   m_EditorClassIdentifier: 
+  guid: 7195b073-0ef9-4413-9f12-ba6e544c8768
   Name: Overwhelming Curiosity
   Description: Draw 5 cards from target companion. Discard any non-generated cards
     drawn.
@@ -26,6 +27,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 5602892723852673195
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2

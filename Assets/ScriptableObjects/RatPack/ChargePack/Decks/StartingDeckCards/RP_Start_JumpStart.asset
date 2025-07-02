@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: RP_Start_JumpStart
   m_EditorClassIdentifier: 
+  guid: 5f34de5c-9f75-4fda-b5e7-bf48635b1c78
   Name: Jump Start
   Description: Give target companion 3 block & 1 charge.
   defaultValues: []
@@ -95,6 +96,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 8829271167484559779
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
@@ -105,6 +109,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 8829271167484559780
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:

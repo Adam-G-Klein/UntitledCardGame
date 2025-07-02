@@ -12,20 +12,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: Pratfall
   m_EditorClassIdentifier: 
+  guid: 09618e1f-f5bb-4a7d-a8a8-293673f8cd45
   Name: Pratfall
   Description: Consume one orb from this companion. Give a companion 12 block.
+  defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 11ab1a8caee32d042ac3a1366784f67e, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
+  exhaustsWhenPlayed: 0
+  retain: 0
   effectWorkflows:
   - rid: 2116895648763871329
   onExhaustEffectWorkflow:
     rid: 5592738912264781864
+  onDiscardEffectWorkflow:
+    rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  tooltips: 
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 1488501614819147785
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
@@ -35,6 +46,10 @@ MonoBehaviour:
         scale: 12
         getScaleFromKey: 0
         inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 1886371092460208289
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -105,3 +120,7 @@ MonoBehaviour:
         scale: -1
         getScaleFromKey: 0
         inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 

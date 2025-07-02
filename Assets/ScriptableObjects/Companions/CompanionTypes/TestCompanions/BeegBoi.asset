@@ -12,21 +12,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
   m_Name: BeegBoi
   m_EditorClassIdentifier: 
+  guid: a81955cc-bc21-4144-8f3f-ccf64baf342e
   companionName: Beeg Boi
   maxHealth: 10
-  baseAttackDamage: 0
+  initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: bdd59c505b86bf44cabf5f9f82a41064, type: 3}
+  fullSprite: {fileID: 0}
+  backgroundImage: {fileID: 0}
+  entityFrame: {fileID: 0}
+  companionManagementFrame: {fileID: 0}
   startingDeck: {fileID: 11400000, guid: 83b10e15a862e1a48900e311e49378a4, type: 2}
-  keepsake: {fileID: 21300000, guid: a100f38fb92da834786807cb66e2ebba, type: 3}
+  cardBack: {fileID: 0}
+  cardFrame: {fileID: 0}
+  cardTypeIconOverride: {fileID: 0}
+  rarity: 0
+  cardIdleVfxPrefab: {fileID: 0}
+  genericCompanionSFX: {fileID: 0}
+  genericCompanionVFX: {fileID: 0}
+  cacheValueConfigs: []
   cardPool: {fileID: 0}
-  ability:
-    rid: 1886370794371285028
-  upgradeInfo: {fileID: 11400000, guid: 99076b48c6110564cb87cbbb29a513b6, type: 2}
+  packCardPool: {fileID: 0}
+  speakerType: {fileID: 0}
+  abilitiesV2: []
+  level: 0
+  upgradeTo: {fileID: 0}
+  tooltip:
+    empty: 0
+    lines: []
+  keepsakeTitle: 
+  keepsakeDescription: 
   references:
     version: 2
-    RefIds:
-    - rid: 1886370794371285028
-      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
-      data:
-        companionAbilityTrigger: 0
-        effectSteps: []
+    RefIds: []

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: RP_Palisade
   m_EditorClassIdentifier: 
+  guid: e1bd97af-4e2c-4f67-8d77-29b8086779a0
   Name: Palisade
   Description: Give target companion 2 block for each card in hand ({block} block)
   defaultValues:
@@ -67,6 +68,9 @@ MonoBehaviour:
         getScaleFromKey: 1
         inputScaleKey: block
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 2268261022115299367
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:

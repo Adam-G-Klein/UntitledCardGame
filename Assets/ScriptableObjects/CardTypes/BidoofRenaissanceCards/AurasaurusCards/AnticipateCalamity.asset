@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: AnticipateCalamity
   m_EditorClassIdentifier: 
+  guid: 77edb713-e6c9-4ca3-a780-1b51bc77e9ab
   Name: Anticipate Calamity
   Description: Draw 2 cards from target companion. If they have an aura stack, give
     the drawn cards Retain.
@@ -26,6 +27,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 5602892949302281038
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2

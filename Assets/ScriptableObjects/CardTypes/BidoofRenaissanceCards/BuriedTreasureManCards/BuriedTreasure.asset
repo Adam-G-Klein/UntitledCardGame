@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: BuriedTreasure
   m_EditorClassIdentifier: 
+  guid: 0e1652d8-c1d6-4d12-9587-c4d3c7a58d4c
   Name: Buried Treasure
   Description: Gain $1. Exhaust
+  defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: de23c3e9343118d4aabf90e19c84243a, type: 3}
   cardCategory: 2
@@ -25,12 +27,16 @@ MonoBehaviour:
   - rid: 5602892491280613593
   onExhaustEffectWorkflow:
     rid: 5602892491280613515
+  onDiscardEffectWorkflow:
+    rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: 5602892533381726224
   tooltips: 
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 5602892491280613515
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
