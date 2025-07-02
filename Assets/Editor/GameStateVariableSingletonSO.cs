@@ -1,4 +1,3 @@
-#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
 
@@ -18,4 +17,3 @@ public class GameStateVariableSingletonSO : ScriptableSingleton<GameStateVariabl
         EditorGUIUtility.PingObject(GameStateVariableSingletonSO.instance);
     }
 }
-#endif
