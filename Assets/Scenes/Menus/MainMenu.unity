@@ -464,53 +464,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1303040594324519979, guid: f56ace11eca35482fa0b76e4ccaa2728, type: 3}
-      propertyPath: gameState
-      value: 
-      objectReference: {fileID: 11400000, guid: 9e326417f60894341a96cc8d02868bbe, type: 2}
-    - target: {fileID: 1303040594324519979, guid: f56ace11eca35482fa0b76e4ccaa2728, type: 3}
-      propertyPath: companionPool
-      value: 
-      objectReference: {fileID: 11400000, guid: 1a5aa5f2c25ef434a822f87e97339f33, type: 2}
-    - target: {fileID: 1303040594324519979, guid: f56ace11eca35482fa0b76e4ccaa2728, type: 3}
-      propertyPath: tooltipPrefab
-      value: 
-      objectReference: {fileID: 2816874809441598624, guid: ae38d023550871540b736760d4242071, type: 3}
-    - target: {fileID: 1303040594324519979, guid: f56ace11eca35482fa0b76e4ccaa2728, type: 3}
-      propertyPath: fmodMixer.Path
-      value: event:/SetVolume
-      objectReference: {fileID: 0}
-    - target: {fileID: 1303040594324519979, guid: f56ace11eca35482fa0b76e4ccaa2728, type: 3}
-      propertyPath: neutralCardPool
-      value: 
-      objectReference: {fileID: 11400000, guid: f16e9cd7d69314290ae5bed1edae4ce0, type: 2}
-    - target: {fileID: 1303040594324519979, guid: f56ace11eca35482fa0b76e4ccaa2728, type: 3}
-      propertyPath: fmodMixer.Guid.Data1
-      value: -1189902077
-      objectReference: {fileID: 0}
-    - target: {fileID: 1303040594324519979, guid: f56ace11eca35482fa0b76e4ccaa2728, type: 3}
-      propertyPath: fmodMixer.Guid.Data2
-      value: 1196816521
-      objectReference: {fileID: 0}
-    - target: {fileID: 1303040594324519979, guid: f56ace11eca35482fa0b76e4ccaa2728, type: 3}
-      propertyPath: fmodMixer.Guid.Data3
-      value: -1588889455
-      objectReference: {fileID: 0}
-    - target: {fileID: 1303040594324519979, guid: f56ace11eca35482fa0b76e4ccaa2728, type: 3}
-      propertyPath: fmodMixer.Guid.Data4
-      value: -1976051164
-      objectReference: {fileID: 0}
-    - target: {fileID: 4276408167836295075, guid: f56ace11eca35482fa0b76e4ccaa2728, type: 3}
-      propertyPath: m_SortingOrder
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 6414891375994710130, guid: f56ace11eca35482fa0b76e4ccaa2728, type: 3}
       propertyPath: m_Name
       value: OptionsViewCanvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 6414891375994710130, guid: f56ace11eca35482fa0b76e4ccaa2728, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7191189791703132088, guid: f56ace11eca35482fa0b76e4ccaa2728, type: 3}
       propertyPath: m_Pivot.x
@@ -591,10 +547,6 @@ PrefabInstance:
     - target: {fileID: 7191189791703132088, guid: f56ace11eca35482fa0b76e4ccaa2728, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8130441167465002805, guid: f56ace11eca35482fa0b76e4ccaa2728, type: 3}
-      propertyPath: m_SortingOrder
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
