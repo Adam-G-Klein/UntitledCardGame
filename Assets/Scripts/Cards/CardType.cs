@@ -14,7 +14,7 @@ public class CardValue
     fileName ="New Card",
     menuName = "Cards/New Card Type")]
 [Serializable]
-public class CardType: ScriptableObject, ITooltipProvider
+public class CardType: IdentifiableSO, ITooltipProvider
 {
     public string Name;
     public string Description;
