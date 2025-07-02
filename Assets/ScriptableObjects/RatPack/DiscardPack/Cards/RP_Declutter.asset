@@ -68,11 +68,27 @@ MonoBehaviour:
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
-        - rid: 2034230108114649756
         - rid: 7401433241610878979
+        - rid: 2034230108114649756
         - rid: 7401433241610878980
+        - rid: 7112866130419515421
         - rid: 4463205916933357570
         - rid: 2034230108114649717
+        - rid: 7112866130419515422
+    - rid: 7112866130419515421
+      type: {class: ManaChange, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ManaChange
+        scale: -1
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 7112866130419515422
+      type: {class: ManaChange, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ManaChange
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
     - rid: 7401433241610878979
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
