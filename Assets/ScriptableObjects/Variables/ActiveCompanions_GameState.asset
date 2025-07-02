@@ -13,151 +13,47 @@ MonoBehaviour:
   m_Name: ActiveCompanions_GameState
   m_EditorClassIdentifier: 
   activeCompanions:
-  - id: 32b0dfad-0019-4f36-85c5-a2f1493f8bc1
+  - id: 7a4b3e55-adab-4efb-a930-99503aae7a6b
     entityType: 0
-    companionType: {fileID: 11400000, guid: 8643dfd40d3334e21b72d8439a31b53f, type: 2}
+    companionType: {fileID: 11400000, guid: 5fc6b641c7d9144eb992fb0543675260, type: 2}
     deck:
-      startingDeck: {fileID: 0}
+      startingDeck: {fileID: 11400000, guid: 497a7f8988de641c992c0b0eb0417877, type: 2}
       cards:
-      - id: 39eb7f42-cfbf-42fb-9125-4328ac504024
-        entityType: 0
-        shopRarity: 0
-        castCount: 0
-        tempManaCost: -1
-        generated: 1
-        cardType: {fileID: 11400000, guid: b189fb1d6d01a4fc69154f1e3f45b734, type: 2}
-      - id: 39eb7f42-cfbf-42fb-9125-4328ac504024
-        entityType: 0
-        shopRarity: 0
-        castCount: 0
-        tempManaCost: -1
-        generated: 1
-        cardType: {fileID: 11400000, guid: b189fb1d6d01a4fc69154f1e3f45b734, type: 2}
-      - id: 08d5e9f1-cba1-4ec3-9283-8ae003305e1d
+      - id: a6a9b6b6-ca4f-4209-ae8c-ea1af7485495
         entityType: 0
         shopRarity: 0
         castCount: 0
         tempManaCost: -1
         generated: 0
         cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
-      - id: 0a02afb9-0b84-4507-b10d-a9e21ad8e942
-        entityType: 0
-        shopRarity: 0
-        castCount: 0
-        tempManaCost: -1
-        generated: 0
-        cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
-      - id: f8a79b43-9651-450d-988c-97a35addf7dd
-        entityType: 0
-        shopRarity: 0
-        castCount: 0
-        tempManaCost: -1
-        generated: 0
-        cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
-      - id: 08d5e9f1-cba1-4ec3-9283-8ae003305e1d
+      - id: e5146f21-9264-497d-977b-25c0784ecf4c
         entityType: 0
         shopRarity: 0
         castCount: 0
         tempManaCost: -1
         generated: 0
         cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
-      - id: 4ec58bf2-b4ef-41f7-8da5-6291f32d52b0
+      - id: 75da963a-cc54-4665-930d-651d80c2469f
         entityType: 0
         shopRarity: 0
         castCount: 0
         tempManaCost: -1
         generated: 0
         cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
-      - id: 65bd034d-f882-4d24-8033-707ff7a5be7c
-        entityType: 0
-        shopRarity: 0
-        castCount: 0
-        tempManaCost: -1
-        generated: 0
-        cardType: {fileID: 11400000, guid: 37e079e46203847309bfa4815576ff1c, type: 2}
-      - id: f8a79b43-9651-450d-988c-97a35addf7dd
+      - id: 4ba1dc32-48f2-4109-ab37-2ece703d6c6d
         entityType: 0
         shopRarity: 0
         castCount: 0
         tempManaCost: -1
         generated: 0
         cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
-      - id: 65bd034d-f882-4d24-8033-707ff7a5be7c
+      - id: 3687233f-1f4f-45ba-8026-87446a5f717b
         entityType: 0
         shopRarity: 0
         castCount: 0
         tempManaCost: -1
         generated: 0
-        cardType: {fileID: 11400000, guid: 37e079e46203847309bfa4815576ff1c, type: 2}
-      - id: 4ec58bf2-b4ef-41f7-8da5-6291f32d52b0
-        entityType: 0
-        shopRarity: 0
-        castCount: 0
-        tempManaCost: -1
-        generated: 0
-        cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
-      - id: 13c4f484-056e-423d-ae30-0e7362e022e3
-        entityType: 0
-        shopRarity: 1
-        castCount: 0
-        tempManaCost: -1
-        generated: 0
-        cardType: {fileID: 11400000, guid: a71fb239a38844bf786e331a552b6b7a, type: 2}
-      - id: 0a7f97ba-05d4-4594-b952-84d474b9cbe0
-        entityType: 0
-        shopRarity: 1
-        castCount: 0
-        tempManaCost: -1
-        generated: 0
-        cardType: {fileID: 11400000, guid: 7cb3f6c01ebce4f348231b1c9f399899, type: 2}
-      cardsDealtPerTurn: 1
-    combatStats:
-      maxHealth: 15
-      maxHealthBuffs: 0
-      currentHealth: 11
-      baseAttackDamage: 0
-    onCombineAbilities: []
-  - id: fc91425d-51be-438b-885e-613782dbad1f
-    entityType: 0
-    companionType: {fileID: 11400000, guid: ddba054ceef954be5a2f4619af3e78c2, type: 2}
-    deck:
-      startingDeck: {fileID: 11400000, guid: e8874d8a511b54b13b6fa125f643d72b, type: 2}
-      cards:
-      - id: c0edab05-3935-4ea6-8481-310c1426627e
-        entityType: 0
-        shopRarity: 0
-        castCount: 0
-        tempManaCost: -1
-        generated: 0
-        cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
-      - id: 7f097506-8d98-4233-935e-f6eb53f15e77
-        entityType: 0
-        shopRarity: 0
-        castCount: 0
-        tempManaCost: -1
-        generated: 0
-        cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
-      - id: 61c80306-c8b3-4005-bc65-f8b871ab74af
-        entityType: 0
-        shopRarity: 0
-        castCount: 0
-        tempManaCost: -1
-        generated: 0
-        cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
-      - id: 17abd91f-d97b-4a71-97bc-81c6ed2a6e01
-        entityType: 0
-        shopRarity: 0
-        castCount: 0
-        tempManaCost: -1
-        generated: 0
-        cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
-      - id: 6e3c46ac-c04f-46ce-bfcc-99815d6da569
-        entityType: 0
-        shopRarity: 0
-        castCount: 0
-        tempManaCost: -1
-        generated: 0
-        cardType: {fileID: 11400000, guid: c4bffa899c46a4878a3034b3681670cb, type: 2}
+        cardType: {fileID: 11400000, guid: 9fcfa3daa6a0741449fa0c97d06004df, type: 2}
       cardsDealtPerTurn: 1
     combatStats:
       maxHealth: 15
@@ -165,6 +61,60 @@ MonoBehaviour:
       currentHealth: 15
       baseAttackDamage: 0
     onCombineAbilities: []
+    trackingStats:
+      numCardsRemoved: 0
+      cardsBought: []
+  - id: 2c108e65-bbeb-4699-b10d-2f727428e6d5
+    entityType: 0
+    companionType: {fileID: 11400000, guid: 1bea3347ecb6b4d09b8c1ba1649995fa, type: 2}
+    deck:
+      startingDeck: {fileID: 11400000, guid: 497a7f8988de641c992c0b0eb0417877, type: 2}
+      cards:
+      - id: 6da9a4db-2014-4953-950e-b81cafd67a0b
+        entityType: 0
+        shopRarity: 0
+        castCount: 0
+        tempManaCost: -1
+        generated: 0
+        cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
+      - id: 675f0f74-7fec-4bba-a1ce-59416a8a4fb3
+        entityType: 0
+        shopRarity: 0
+        castCount: 0
+        tempManaCost: -1
+        generated: 0
+        cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
+      - id: 3795aec1-8dfd-4610-9b2d-23ed5e7a498e
+        entityType: 0
+        shopRarity: 0
+        castCount: 0
+        tempManaCost: -1
+        generated: 0
+        cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
+      - id: 9e060f1b-adc3-4e58-ba6f-0e138612012c
+        entityType: 0
+        shopRarity: 0
+        castCount: 0
+        tempManaCost: -1
+        generated: 0
+        cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
+      - id: e663e804-579d-4d25-bd41-61dbf2a78126
+        entityType: 0
+        shopRarity: 0
+        castCount: 0
+        tempManaCost: -1
+        generated: 0
+        cardType: {fileID: 11400000, guid: 9fcfa3daa6a0741449fa0c97d06004df, type: 2}
+      cardsDealtPerTurn: 1
+    combatStats:
+      maxHealth: 15
+      maxHealthBuffs: 0
+      currentHealth: 15
+      baseAttackDamage: 0
+    onCombineAbilities: []
+    trackingStats:
+      numCardsRemoved: 0
+      cardsBought: []
   benchedCompanions:
   - id: b0c84e77-28b1-4cb3-9b76-c04d9d68e99c
     entityType: 0
@@ -214,6 +164,9 @@ MonoBehaviour:
       currentHealth: 15
       baseAttackDamage: 0
     onCombineAbilities: []
+    trackingStats:
+      numCardsRemoved: 0
+      cardsBought: []
   - id: dd3d8477-d1bd-45c1-b5ba-8c68cdfb524e
     entityType: 0
     companionType: {fileID: 11400000, guid: e80bed6b977594eb1b8a6fcf030f5300, type: 2}
@@ -269,6 +222,9 @@ MonoBehaviour:
       currentHealth: 9
       baseAttackDamage: 0
     onCombineAbilities: []
+    trackingStats:
+      numCardsRemoved: 0
+      cardsBought: []
   currentCompanionSlots: 3
   references:
     version: 2
