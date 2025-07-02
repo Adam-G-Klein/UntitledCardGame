@@ -15,7 +15,9 @@ MonoBehaviour:
   Name: Gross Power
   Description: Deal damage equal to the total number of cards across all your companion's
     decks ({rpl_damage} damage)
-  defaultValues: []
+  defaultValues:
+  - key: rpl_damage
+    value: 0
   Cost: 3
   Artwork: {fileID: 21300000, guid: 3dd0d533e03397448a54f341499e747d, type: 3}
   cardCategory: 1
