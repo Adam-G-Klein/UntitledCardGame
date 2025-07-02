@@ -99,6 +99,13 @@ public class Card : Entity, IEquatable<Card>
         ResetCardModifications();
     }
 
+    public Card(CardSerializable cardSerializable, SORegistry registry) {
+        this.cardType = registry.GetAsset<CardType>(cardSerializable.cardTypeGuid);
+        this.id = cardSerializable.entityId;
+        this.generated = cardSerializable.generated;
+        this.setCompanionFrom(registry.GetAsset<CompanionTypeSO>(cardSerializable.companionFromGuid));
+    }
+
     public static bool operator !=(Card a, Card b) {
         return !(a == b);
     }
@@ -203,10 +210,17 @@ public class Card : Entity, IEquatable<Card>
 [System.Serializable]
 public class CardSerializable
 {
+    public string cardTypeGuid;
+    public string entityId;
+    public string companionFromGuid;
+    public bool generated;
     public CardSerializable(Card card)
     { 
         // TODO
-
+        this.cardTypeGuid = card.cardType.GUID;
+        this.entityId = card.id;
+        this.companionFromGuid = card.getCompanionFrom().GUID;
+        this.generated = card.generated;
     }
 
 }

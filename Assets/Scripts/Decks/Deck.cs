@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 
 [System.Serializable]
@@ -18,6 +19,14 @@ public class Deck
         {
             cards.Add(new Card(cardType, companionType));
         }
+    }
+
+    public Deck(DeckSerializable deckSerializable, SORegistry registry)
+    {
+        this.startingDeck = registry.GetAsset<StartingDeck>(deckSerializable.startingDeckGuid);
+        this.cardsDealtPerTurn = deckSerializable.cardsDealtPerTurn;
+        this.cards = deckSerializable.cards.Select(c => new Card(c, registry)).ToList();
+
     }
 
     public Deck(List<Card> cards, int initialCardsDealtPerTurn = 1)
@@ -58,9 +67,14 @@ public class Deck
 [System.Serializable]
 public class DeckSerializable
 {
+    public string startingDeckGuid;
+    public int cardsDealtPerTurn;
+    public List<CardSerializable> cards;
 
     public DeckSerializable(Deck deck)
     {
-        // TODO
+        this.startingDeckGuid = deck.startingDeck.GUID;
+        this.cardsDealtPerTurn = deck.cardsDealtPerTurn;
+        this.cards = deck.cards.Select(c => new CardSerializable(c)).ToList();
     }
 }

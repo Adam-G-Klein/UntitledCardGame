@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(
     fileName = "StartinDeck", 
     menuName = "Decks/Starting Deck")]
-public class StartingDeck : ScriptableObject
+public class StartingDeck : IdentifiableSO
 {
     public List<CardType> cards = new();
 
