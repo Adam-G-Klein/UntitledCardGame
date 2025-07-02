@@ -2,13 +2,13 @@ using UnityEngine;
 using UnityEditor;
 using UnityEditor.ShortcutManagement;
 
-public class EditorHotkeys 
+public class EditorHotkeys
 {
 
     [ShortcutAttribute("Open Gamestate")]
     public static void FocusGameStateSO()
     {
-        Selection.activeObject = GameStateVariableSingletonSO.instance;
-        EditorGUIUtility.PingObject(GameStateVariableSingletonSO.instance);
+        Selection.activeObject = GameStateVariableSingletonSO.instance.gameState;
+        EditorGUIUtility.PingObject(GameStateVariableSingletonSO.instance.gameState);
     }
 }
