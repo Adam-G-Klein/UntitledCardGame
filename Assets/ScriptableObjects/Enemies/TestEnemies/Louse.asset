@@ -12,9 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
   m_Name: Louse
   m_EditorClassIdentifier: 
+  guid: abf241d1-d96e-4045-9668-67509f054053
+  displayName: 
   maxHealth: 20
   baseAttackDamage: 6
   sprite: {fileID: 21300000, guid: 216088f02988a504a8608644c18d03db, type: 3}
+  backgroundImage: {fileID: 0}
+  entityFrame: {fileID: 0}
+  morale: 0
+  abilities: []
+  cacheValueConfigs: []
   enemyPattern:
     behaviors:
     - intent: 0
@@ -30,9 +37,17 @@ MonoBehaviour:
       displayValue: 0
       effectSteps:
       - rid: 7005139344655122575
-    sequentialBehaviors: 0
-    nextBehaviorIndex: 0
+    behaviorType: 0
+  belowHalfHPEnemyPattern:
+    behaviors: []
+    behaviorType: 0
+  adaptWhenAloneEnemyPattern:
+    behaviors: []
+    behaviorType: 0
   initialStatuses: []
+  tooltip:
+    empty: 0
+    lines: []
   references:
     version: 2
     RefIds:
@@ -48,12 +63,14 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        vfxPrefab: {fileID: 0}
     - rid: 7005139344655122573
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
         inputKey: target
         prefabToInstantiate: {fileID: 4798506008640871506, guid: 0556a32d0cf5e704db37d6e1528d886a, type: 3}
+        scale: 5
     - rid: 7005139344655122575
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
@@ -63,3 +80,7 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
