@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -27,11 +28,8 @@ public enum Location
     PACK_SELECT
 }
 
-[CreateAssetMenu(
-    fileName = "NewGameStateVariable",
-    menuName = "Variables/Game State Variable")]
 [System.Serializable]
-public class GameStateVariableSO : ScriptableObject
+public class GameStateVariableSO : ScriptableSingleton<GameStateVariableSO> 
 {
     public CompanionListVariableSO companions;
     public PlayerDataVariableSO playerData;

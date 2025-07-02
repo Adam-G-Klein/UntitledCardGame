@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+DEPRECATED, NO LONGER IN USE
+*/
 public class MouseParalaxEffect : MonoBehaviour
 {
     [Tooltip("Start from thurthest to the nearest object.")]

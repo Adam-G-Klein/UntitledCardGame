@@ -390,7 +390,6 @@ GameObject:
   - component: {fileID: 4850434800564923260}
   - component: {fileID: 9031603025116691793}
   - component: {fileID: 5969712245899835908}
-  - component: {fileID: 7795198669470000578}
   m_Layer: 0
   m_Name: GoodVersion
   m_TagString: Untagged
@@ -474,23 +473,3 @@ MonoBehaviour:
     so we can have SpriteRenderers instead:  https://gamedev.stackexchange.com/questions/204167/resize-sprite-to-match-screen-size
 
 '
---- !u!114 &7795198669470000578
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6358630486049391682}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 031775f6b6ddc1d4391164a09323aa54, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ParalaxObjects:
-  - {fileID: 0}
-  - {fileID: 2041050869240592871}
-  - {fileID: 3208716302639430093}
-  - {fileID: 5505531960772612724}
-  MouseSpeedX: 0.01
-  MouseSpeedY: 0.01
-  cam: {fileID: 0}
