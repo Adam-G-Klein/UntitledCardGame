@@ -10,7 +10,11 @@ using UnityEngine;
 public class ShopDataSO : ScriptableObject
 {
     public List<ShopLevel> shopLevels;
+    // The companionPool is a consolidation of the companion pools across the activePacks.
+    // It lies here for convenience's sake because we do not stratify shop offerings by packs for now.
     public CompanionPoolSO companionPool;
+    public List<PackSO> activePacks;
+
     public int rerollShopPrice;
     public int cardRemovalPrice;
     public ShopEncounterEvent shopEncounterEvent;
@@ -35,6 +39,7 @@ public class ShopDataSO : ScriptableObject
     public int interestCap;
 
     public CardPoolSO neutralCardPool;
+    public Sprite neutralCardPoolShopIcon;
 
     [Header("Selling the companions in the shop")]
     public int levelOneSellPrice;

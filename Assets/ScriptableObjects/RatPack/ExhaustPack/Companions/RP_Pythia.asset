@@ -38,6 +38,7 @@ MonoBehaviour:
     setStartOfCombatValue: 1
   cardPool: {fileID: 11400000, guid: c8423877ca4f44df98085eb2a6142943, type: 2}
   packCardPool: {fileID: 11400000, guid: 0f37e5a720cc243b2ab7df193483391d, type: 2}
+  pack: {fileID: 11400000, guid: 79e479ca9df7a4369ba7fa951e0af116, type: 2}
   speakerType: {fileID: 0}
   abilitiesV2:
   - rid: 7401433059192471626
@@ -188,6 +189,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 7401433558763438189
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:

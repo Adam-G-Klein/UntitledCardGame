@@ -141,6 +141,7 @@ public class PackSelectionViewController : MonoBehaviour, IPackSlotViewDelegate
         gameState.baseShopData.companionPool.commonCompanions = commonCompanions;
         gameState.baseShopData.companionPool.uncommonCompanions = uncommonCompanions;
         gameState.baseShopData.companionPool.rareCompanions = rareCompanions;
+        gameState.baseShopData.activePacks = selectedPackSOs;
         gameState.LoadNextLocation();
         // progress to the next scene probably
     }

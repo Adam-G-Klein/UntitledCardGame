@@ -118,7 +118,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
     public bool IsApplicableCompanion(CardInShopWithPrice cardInShop, Companion companion) {
         return cardInShop.cardPool == companion.companionType.cardPool ||
-            cardInShop.cardPool == companion.companionType.packCardPool ||
+            cardInShop.cardPool == companion.companionType.pack.packCardPoolSO ||
             cardInShop.cardPool == shopEncounter.shopData.neutralCardPool;
     }
 

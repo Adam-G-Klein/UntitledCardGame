@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: HealthPackSO
   m_EditorClassIdentifier: 
   packName: Health
-  packDescription: Provides healing and value when companions are hurt!
+  packDescription: Healing and value when companions are hurt
   companionPoolSO: {fileID: 11400000, guid: d0363094ea2bb4178822253517b1a87a, type: 2}
+  packCardPoolSO: {fileID: 11400000, guid: 0bf35a642105d4780a727b994049d862, type: 2}
   packColor: {r: 0.9528302, g: 0.6800012, b: 0.4269758, a: 1}
   cardFrame: {fileID: 0}
   cardBack: {fileID: 0}
+  cardPoolIcon: {fileID: 21300000, guid: d88429aecc6977642baae99d9f8466d6, type: 3}

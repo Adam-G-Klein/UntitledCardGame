@@ -17,7 +17,7 @@ public class TeamSelectionUI : MonoBehaviour
     private VisualElement root;
     [SerializeField]
     private bool displayOnStart = true;
-    [SerializeField] 
+    [SerializeField]
     private GameObject tooltipPrefab;
     private int currentlySelectedCompanion = 0;
     private List<VisualElement> contentToRedraw = new List<VisualElement>();
@@ -31,22 +31,41 @@ public class TeamSelectionUI : MonoBehaviour
 
     private void Start()
     {
-        // Randomly choose 3 of the common companions for the starting team.
-        // Random selection without replacement.
-        if (randomStarterCompanionGen) {
+        // Let's do it this way: we will choose the packs at random sequentially without replacement,
+        // then choose a companion randomly from the common companions in the pack.
+        // Then, if there are no packs left, we will reset the list of packs.
+        // Ideally there are enough common companions spread across the packs that this doesn't happen.
+        if (randomStarterCompanionGen)
+        {
             System.Random rnd = new();
-            List<CompanionTypeSO> commoners = new List<CompanionTypeSO>(gameState.baseShopData.companionPool.commonCompanions);
+            List<PackSO> packSOWithCommonCompanions = gameState.baseShopData.activePacks.Where(pack => pack.companionPoolSO.commonCompanions.Count > 0).ToList();
+            List<PackSO> mutablePackSOs = new List<PackSO>(packSOWithCommonCompanions);
             CompanionListVariableSO chosen = new();
             chosen.activeCompanions = new List<Companion>();
-            for (int i = 0; i < 3; i++) {
-                int chosenIndex = rnd.Next(commoners.Count);
-                CompanionTypeSO chosenCompanion = commoners[chosenIndex];
-                commoners.Remove(chosenCompanion);
+            for (int i = 0; i < 3; i++)
+            {
+                int chosenIndex = rnd.Next(mutablePackSOs.Count);
+                PackSO chosenPack = mutablePackSOs[chosenIndex];
+                Debug.Log("StartingTeamPreview: Chose pack " + chosenPack.name + " for index " + i);
+                mutablePackSOs.Remove(chosenPack);
+
+                // Reset to the original list of packs if we run out of packs to pick from.
+                if (mutablePackSOs.Count == 0)
+                {
+                    Debug.LogWarning("We ran out of packs to pick from for the starting team so we are resetting");
+                    mutablePackSOs = new List<PackSO>(packSOWithCommonCompanions);
+                }
+
+                int chosenCompanionIdx = rnd.Next(chosenPack.companionPoolSO.commonCompanions.Count);
+                CompanionTypeSO chosenCompanion = chosenPack.companionPoolSO.commonCompanions[chosenCompanionIdx];
+                Debug.Log("StartingTeamPreview: Chose companion " + chosenCompanion.name + " for index " + i);
 
                 chosen.activeCompanions.Add(new Companion(chosenCompanion));
             }
             team1ActiveCompanions = chosen;
-        } else {
+        }
+        else
+        {
             team1ActiveCompanions = testTeamActiveCompanions;
         }
         docRenderer = GetComponent<UIDocumentScreenspace>();
@@ -164,18 +183,18 @@ public class TeamSelectionUI : MonoBehaviour
         bool isCompanion = companionMap.ContainsKey(VE.name);
         if (!isCompanion && cardTypeMap[VE.name].tooltips.Count == 0) return;
         if (tooltipMap.ContainsKey(VE.name)) return;
-        
+
         Vector3 tooltipPosition = UIDocumentGameObjectPlacer.GetWorldPositionFromElement(VE);
 
             if (isCompanion) {
-                tooltipPosition.x -= VE.resolvedStyle.width / 300; // this feels super brittle 
+                tooltipPosition.x -= VE.resolvedStyle.width / 300; // this feels super brittle
                 tooltipPosition.y += VE.resolvedStyle.width / 400;
             } else {
-                tooltipPosition.x -= VE.resolvedStyle.width / 150; // this feels super brittle 
+                tooltipPosition.x -= VE.resolvedStyle.width / 150; // this feels super brittle
                 tooltipPosition.y += VE.resolvedStyle.width / 150;
             }
         tooltipPosition.z = -2; // THIS SHOULD NOT BE NECESSARY BUT NO OTHER LAYERING WAS WORKING
-        
+
         GameObject uiDocToolTipPrefab = Instantiate(tooltipPrefab, tooltipPosition, new Quaternion());
         TooltipView tooltipView = uiDocToolTipPrefab.GetComponent<TooltipView>();
 

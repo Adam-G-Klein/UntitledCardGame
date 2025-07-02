@@ -54,7 +54,7 @@ public class ShopCardProbabilityDistBuilder {
         List<ValueTuple<CardPoolSO, CompanionTypeSO, Sprite>> packCardPools = new();
         foreach (Companion companion in companionList) {
             companionCardPools.Add((companion.companionType.cardPool, companion.companionType, companion.companionType.sprite));
-            packCardPools.Add((companion.companionType.packCardPool, null, companion.companionType.packCardPool.genericCardIconSprite));
+            packCardPools.Add((companion.companionType.pack.packCardPoolSO, null, companion.companionType.pack.cardPoolIcon));
         }
 
         List<CardWithWeight> allCards = new();
@@ -82,7 +82,7 @@ public class ShopCardProbabilityDistBuilder {
                 shopData,
                 shopData.neutralCardPool,
                 null,
-                shopData.neutralCardPool.genericCardIconSprite,
+                shopData.neutralCardPoolShopIcon,
                 CardSource.NeutralPool
             );
         allCards.AddRange(y);

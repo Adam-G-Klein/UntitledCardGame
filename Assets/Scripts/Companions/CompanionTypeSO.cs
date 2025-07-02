@@ -41,8 +41,8 @@ public class CompanionTypeSO : ScriptableObject
 
     [Header("Card pool")]
     public CardPoolSO cardPool;
-    [Header("Pack card pool - e.g. the discard or health manipulation pack")]
-    public CardPoolSO packCardPool;
+    [Header("Which pack the companion is a part of")]
+    public PackSO pack;
     [Header("Dialogue hook-in")]
     public SpeakerTypeSO speakerType;
     [Header("Companion passive abilities")]

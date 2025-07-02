@@ -89,7 +89,7 @@ public class ExportCompanionsToCSV
         string rarity = companion.rarity.ToString();
         string companionLevel = companion.level.ToString();
         string ability = companion.tooltip.lines[0].description.Replace(",", "");
-        string pack = companion.packCardPool != null ? companion.packCardPool.name.Substring(3, companion.packCardPool.name.Length - 11) : "None";
+        string pack = companion.pack.packCardPoolSO != null ? companion.pack.packCardPoolSO.name.Substring(3, companion.pack.packCardPoolSO.name.Length - 11) : "None";
         return $"{pack},{companionName},{rarity},{companionLevel},{ability}";
     }
 

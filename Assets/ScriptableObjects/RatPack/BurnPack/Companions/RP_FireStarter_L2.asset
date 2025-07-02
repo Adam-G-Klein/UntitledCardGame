@@ -31,6 +31,7 @@ MonoBehaviour:
   cacheValueConfigs: []
   cardPool: {fileID: 11400000, guid: 4fb13ec9e98b348cc8420cdf84c26ac0, type: 2}
   packCardPool: {fileID: 11400000, guid: 16eadbe23f445435bbc89276ce69a52c, type: 2}
+  pack: {fileID: 11400000, guid: 458d2de78617f49658d2a99deb96cd4f, type: 2}
   speakerType: {fileID: 0}
   abilitiesV2:
   - rid: 205828032053379705
@@ -69,6 +70,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 8829271167484559910
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:

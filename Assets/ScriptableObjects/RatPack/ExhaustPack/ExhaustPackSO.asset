@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: ExhaustPackSO
   m_EditorClassIdentifier: 
   packName: Exhaust
-  packDescription: Provides deck manipulation and value for exhausting cards!
+  packDescription: Deck manipulation and value for thin decks and exhausting cards
   companionPoolSO: {fileID: 11400000, guid: 3d8d7da13079c46388b9a2e587a8982d, type: 2}
+  packCardPoolSO: {fileID: 11400000, guid: 0f37e5a720cc243b2ab7df193483391d, type: 2}
   packColor: {r: 0.990566, g: 0.52799034, b: 0.72713315, a: 1}
   cardFrame: {fileID: 0}
   cardBack: {fileID: 0}
+  cardPoolIcon: {fileID: 21300000, guid: a5b8c5dccafa78942bf687e9f47d4ce4, type: 3}
