@@ -98,3 +98,14 @@ public class Enemy : Entity, ICombatStats, IUIEntity {
         return this.enemyType.entityFrame;
     }
 }
+
+[System.Serializable]
+public class EnemySerializeable {
+    public string enemyTypeGuid;
+    public CombatStats combatStats;
+
+    public EnemySerializeable(Enemy enemy) {
+        this.enemyTypeGuid = enemy.enemyType.GUID;
+        this.combatStats = enemy.combatStats;
+    }
+}
