@@ -57,5 +57,7 @@ public class SaveManager : GenericSingleton<SaveManager>
         SaveState loadState = SaveSystem.Load<SaveState>();
         // instantiate the save state from the serializable data
         loadState.LoadToGameState(gameStateVariableSO, soRegistry);
+        // print out a buncha companion information
+        textField.value = loadState.SaveName;
     }
 }
