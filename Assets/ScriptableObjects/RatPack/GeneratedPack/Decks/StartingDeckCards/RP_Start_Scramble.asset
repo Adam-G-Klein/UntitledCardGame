@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: RP_Start_Scramble
   m_EditorClassIdentifier: 
   Name: Scramble
-  Description: Draw 3 cards from target companion then shuffle a Wound Status card
-    into their deck
+  Description: Shuffle a Wound Status card into target companion's deck then draw
+    3 cards from them
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 5e40f858eddaed340a6366c33c4e216f, type: 3}
@@ -82,11 +82,11 @@ MonoBehaviour:
       data:
         effectSteps:
         - rid: 5602892561590779944
-        - rid: 1289961959942521193
         - rid: 5602892561590779946
-        - rid: 1274772082283774706
         - rid: 1289961959942521257
+        - rid: 1274772082283774706
         - rid: 5280922841426165941
+        - rid: 1289961959942521193
     - rid: 5602892561590779944
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
