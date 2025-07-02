@@ -7,9 +7,8 @@ using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
 using System.Linq;
 
-public class OptionsViewController : MonoBehaviour, IControlsReceiver
+public class OptionsViewController : GenericSingleton<OptionsViewController>, IControlsReceiver
 {
-    private static OptionsViewController instance;
     private Slider musicVolumeSlider;
     private Slider sfxVolumeSlider;
     private Slider timescaleSlider;
@@ -38,19 +37,15 @@ public class OptionsViewController : MonoBehaviour, IControlsReceiver
     private GameObject tooltipPrefab;
 
     void Awake() {
-        if (instance != null && instance != this) {
-            Destroy(this.gameObject);
-            return;
-        }
-        instance = this;
         DontDestroyOnLoad(this.gameObject);
         canvasGroup = GetComponent<CanvasGroup>();
         canvas = GetComponent<Canvas>();
-        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     void Start()
     {
+        optionsUIDocument.enabled = true;
+        compendiumUIDocument.enabled = true;
         optionsUIDocument.rootVisualElement.style.visibility = Visibility.Hidden;
         compendiumUIDocument.rootVisualElement.style.visibility = Visibility.Hidden;
         musicVolumeSlider = optionsUIDocument.rootVisualElement.Q<Slider>("musicVolumeSlider");
@@ -79,14 +74,6 @@ public class OptionsViewController : MonoBehaviour, IControlsReceiver
         canvasGroup.blocksRaycasts = false;
 
         ControlsManager.Instance.RegisterControlsReceiver(this);
-    }
-
-    void Update() {
-        // // haha gross but lazy bool evaluation is a thing so bite me I guess
-        // if(Input.GetKeyDown(KeyCode.Escape)) {
-        //     compendiumView?.ExitButtonHandler();
-        //     ToggleVisibility(optionsUIDocument.rootVisualElement.style.visibility == Visibility.Hidden);
-        // }
     }
 
     private void OptionsMenuButton() {
@@ -156,13 +143,6 @@ public class OptionsViewController : MonoBehaviour, IControlsReceiver
             FocusManager.Instance.UnregisterFocusables(optionsUIDocument);
             FocusManager.Instance.UnstashFocusables(this.GetType().Name);
         }
-    }
-
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
-        // RegisterFocusables();
-        UpdateCameraReference();
-        ToggleVisibility();
-        ControlsManager.Instance.RegisterControlsReceiver(this);
     }
 
     private void UpdateCameraReference() {

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -29,7 +30,10 @@ public class Companion : Entity, ICombatStats, IDeckEntity, IUIEntity
     public Companion(CompanionSerializable companionSerializable, SORegistry registry)
     {
         this.companionType = registry.GetAsset<CompanionTypeSO>(companionSerializable.CompanionTypeGuid);
-
+        this.combatStats = companionSerializable.combatStats;
+        this.deck = new Deck(companionSerializable.deckSerializable, registry);
+        this.trackingStats = new CompanionStatTracker(companionSerializable.trackingStats, registry);
+        this.id = companionSerializable.entityId;
     }
 
     private void setupOnCombineAbilities(CompanionTypeSO companionType)
@@ -150,10 +154,18 @@ public class Companion : Entity, ICombatStats, IDeckEntity, IUIEntity
 public class CompanionSerializable
 {
     public string CompanionTypeGuid;
+    public string entityId;
+    public CombatStats combatStats;
+    public DeckSerializable deckSerializable;
+    public CompanionStatTrackerSerializable trackingStats;
 
     public CompanionSerializable(Companion companion)
     {
         CompanionTypeGuid = companion.companionType.GUID;
-        // deck TODO
+        this.combatStats = companion.combatStats;
+        this.deckSerializable = new DeckSerializable(companion.deck);
+        this.trackingStats = new CompanionStatTrackerSerializable(companion.trackingStats);
+        this.entityId = companion.id;
+
     }
 }
