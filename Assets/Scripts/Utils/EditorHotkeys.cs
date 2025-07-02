@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEditor;
 using UnityEditor.ShortcutManagement;
 
-public class EditorHotkeys
+public static class EditorHotkeys
 {
 
     [ShortcutAttribute("Open Gamestate")]
