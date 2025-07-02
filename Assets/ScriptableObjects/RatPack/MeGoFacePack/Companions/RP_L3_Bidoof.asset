@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
   m_Name: RP_L3_Bidoof
   m_EditorClassIdentifier: 
+  guid: faff3132-2b71-4f32-8a84-765828da9f73
   companionName: Bidoof++
   maxHealth: 60
   initialCardsDealtPerTurn: 1
@@ -76,6 +77,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 205828032053379332
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:

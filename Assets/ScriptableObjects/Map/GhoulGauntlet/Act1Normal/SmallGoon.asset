@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
   m_Name: SmallGoon
   m_EditorClassIdentifier: 
+  guid: 6fd7e03e-914e-4cc4-97f1-2f070c86e9a5
   displayName: Goon
   maxHealth: 20
   baseAttackDamage: 0
@@ -20,6 +21,7 @@ MonoBehaviour:
   entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
   morale: 0
   abilities: []
+  cacheValueConfigs: []
   enemyPattern:
     behaviors:
     - intent: 1
@@ -31,18 +33,12 @@ MonoBehaviour:
       - rid: 4053950154463772708
       - rid: 3931529445166809313
     behaviorType: 0
-    behaviorIndex: 0
-    nextBehaviorIndex: 0
   belowHalfHPEnemyPattern:
     behaviors: []
     behaviorType: 0
-    behaviorIndex: 0
-    nextBehaviorIndex: 0
   adaptWhenAloneEnemyPattern:
     behaviors: []
     behaviorType: 0
-    behaviorIndex: 0
-    nextBehaviorIndex: 0
   initialStatuses: []
   tooltip:
     empty: 0

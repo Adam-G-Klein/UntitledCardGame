@@ -12,17 +12,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: Rescue Mission
   m_EditorClassIdentifier: 
+  guid: 4c870d5b-aa2e-4eab-8a0c-ca17c7a12b55
   Name: Rescue Mission
   Description: Give a companion 5 block and exhaust the top card of their deck.
+  defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 50bbe2ab14b04f54c96e28c3e3f8e313, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
+  exhaustsWhenPlayed: 0
+  retain: 0
   effectWorkflows:
   - rid: 2116895648763871336
   onExhaustEffectWorkflow:
     rid: -2
+  onDiscardEffectWorkflow:
+    rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  tooltips: 
   references:
     version: 2
     RefIds:
@@ -45,6 +54,10 @@ MonoBehaviour:
         scale: 5
         getScaleFromKey: 0
         inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 5592738912264781826
       type: {class: GetCardsFromDeck, ns: , asm: Assembly-CSharp}
       data:
@@ -54,6 +67,7 @@ MonoBehaviour:
         numberOfCardsToGet: 1
         shuffleIfEmpty: 0
         outputKey: cardToExhaust
+        getAllCardsFromEntities: 0
         getCardsFromSourceDeck: 0
         getAllFromOnlyDrawPile: 0
     - rid: 6693290932869791760
@@ -63,6 +77,7 @@ MonoBehaviour:
         inputCardsKey: cardToExhaust
         inputDeckKey: targetCompanion
         effect: 0
+        cardToTransformInto: {fileID: 0}
         outputKey: 
     - rid: 9024302470308298798
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}

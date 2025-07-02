@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: ScryTheStomach
   m_EditorClassIdentifier: 
+  guid: f0b0f6e7-97ac-4ab0-986c-4fe5f16fc4c7
   Name: Scry the Stomach
   Description: "Shuffle 1 \"Firebreath\" cards into this companion\u2019s deck, then
     scry 2"
@@ -26,6 +27,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 3931529445166809455
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2

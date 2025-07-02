@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: RP_Magnetic Fortress
   m_EditorClassIdentifier: 
+  guid: 3bb706e9-c0e2-441a-91ef-1bc538ba9117
   Name: Magnetic Fortress
   Description: Give all companions 1 block.
   defaultValues: []
@@ -64,6 +65,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 8829271167484559912
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:

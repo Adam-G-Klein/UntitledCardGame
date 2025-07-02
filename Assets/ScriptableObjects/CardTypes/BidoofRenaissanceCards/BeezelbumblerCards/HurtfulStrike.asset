@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: HurtfulStrike
   m_EditorClassIdentifier: 
+  guid: 371e4f57-940d-41cf-a64c-9bf5ecc9a937
   Name: Hurtful Strike
   Description: 'Deal {rpl_damage} damage twice. Lose 2 HP. '
   defaultValues:
@@ -27,6 +28,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 5602892561590779947
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2

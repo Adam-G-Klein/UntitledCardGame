@@ -12,20 +12,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: Studio Meddling
   m_EditorClassIdentifier: 
+  guid: 11a90c27-4a12-4fda-802e-4bc1c194c606
   Name: Nasty Cigarette
   Description: Exhaust. When exhausted this companion loses 3HP
+  defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: a5b8c5dccafa78942bf687e9f47d4ce4, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
+  exhaustsWhenPlayed: 0
+  retain: 0
   effectWorkflows:
   - rid: 2116895648763871351
   onExhaustEffectWorkflow:
     rid: 5592738912264781881
+  onDiscardEffectWorkflow:
+    rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  tooltips: 
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 2116895648763871351
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -48,6 +59,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        vfxPrefab: {fileID: 0}
     - rid: 5592738912264781883
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

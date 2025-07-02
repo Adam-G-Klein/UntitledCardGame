@@ -12,18 +12,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: Cutting Edge
   m_EditorClassIdentifier: 
+  guid: 7be2bab7-bd83-41ba-8520-3a2b476efc97
   Name: Cutting Edge
   Description: Deal 5 damage. Increase the damage of ALL self-sharpening blade cards
     by 5 this combat
+  defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: bc01e6303f5aef54696b1695ae9d1ce0, type: 3}
   cardCategory: 1
   vfxPrefab: {fileID: 0}
   playable: 1
+  exhaustsWhenPlayed: 0
+  retain: 0
   effectWorkflows:
   - rid: 2116895648763871339
   onExhaustEffectWorkflow:
     rid: -2
+  onDiscardEffectWorkflow:
+    rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  tooltips: 
   references:
     version: 2
     RefIds:
@@ -52,6 +61,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 1
         inputMultiplicityKey: 
+        vfxPrefab: {fileID: 0}
     - rid: 2116895648763871339
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -67,6 +77,7 @@ MonoBehaviour:
         inputKey: self
         scale: 3
         affectsAllCardsOfType: 1
+        cardTypeToModify: {fileID: 0}
         getScaleFromKey: 0
         scaleKey: 
         modification: 0

@@ -12,25 +12,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
   m_Name: EntropyL2
   m_EditorClassIdentifier: 
+  guid: b6b619ed-409a-4d53-bcd9-df92563a4ce4
   companionName: EntropyL2
   maxHealth: 40
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: 21631059f2c81c04c9664407e7242c63, type: 3}
+  fullSprite: {fileID: 0}
+  backgroundImage: {fileID: 0}
+  entityFrame: {fileID: 0}
+  companionManagementFrame: {fileID: 0}
   startingDeck: {fileID: 11400000, guid: f88499d65b2d43848a8f72b8bcfa65df, type: 2}
-  keepsake: {fileID: 21300000, guid: bd6d81cc33ab43a4d8f819e3f4621728, type: 3}
   cardBack: {fileID: 21300000, guid: 20b46ccd593516f4badbdcdb021f67c1, type: 3}
   cardFrame: {fileID: 21300000, guid: e44243240dcfea04b91f6a9793d745e8, type: 3}
-  typeIcon: {fileID: 21300000, guid: 9dcd5e58ee426e840a202b9accb8036b, type: 3}
-  portrait: {fileID: 21300000, guid: 21631059f2c81c04c9664407e7242c63, type: 3}
-  teamSelectSprite: {fileID: 21300000, guid: 5a1597236809fef4db103287236c1664, type: 3}
+  cardTypeIconOverride: {fileID: 0}
+  rarity: 0
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 8300000, guid: 00f4851429c4dbd44a4203ebbd575679, type: 3}
   genericCompanionVFX: {fileID: 4439872921359724599, guid: a4b17b01a56f2a14f89ce77b567a2ba8, type: 3}
+  cacheValueConfigs: []
   cardPool: {fileID: 11400000, guid: 60d7889b0e28b8a46a7b627807eccacf, type: 2}
+  packCardPool: {fileID: 0}
   speakerType: {fileID: 11400000, guid: 16a6a477166d98c4d9b79b1d5ae69638, type: 2}
-  abilities:
-  - rid: 3931529445166809113
-  - rid: 3931529445166809113
+  abilitiesV2: []
+  level: 0
   upgradeTo: {fileID: 0}
   tooltip:
     empty: 0
@@ -38,67 +42,12 @@ MonoBehaviour:
     - title: Entropy, The Automaton
       description: Thins decks, scales in power. Purge one card from a chosen deck
         at end of combat.
-      image: {fileID: 0}
+      relatedBehaviorIndex: 0
     - title: Purge
       description: Permanently removes a card from its deck.
-      image: {fileID: 0}
+      relatedBehaviorIndex: 0
+  keepsakeTitle: 
+  keepsakeDescription: 
   references:
     version: 2
-    RefIds:
-    - rid: 594700862979571865
-      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: DialogueStep
-        dialogueLocationSO: {fileID: 11400000, guid: 96a88075fb0082e418ba82f1bed11310, type: 2}
-    - rid: 3931529445166809113
-      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
-      data:
-        companionAbilityTrigger: 1
-        effectSteps:
-        - rid: 594700862979571865
-        - rid: 3931529445166809114
-        - rid: 3931529445166809115
-        - rid: 3931529445166809116
-        - rid: 3931529445166809117
-    - rid: 3931529445166809114
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: target
-        validTargets: 00000000
-        number: 1
-        specialTargetRule: 0
-        cantCancelTargetting: 0
-    - rid: 3931529445166809115
-      type: {class: GetCardsFromDeck, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetCardsFromDeck
-        inputKey: target
-        getLimitedNumber: 0
-        numberOfCardsToGet: 1
-        shuffleIfEmpty: 1
-        outputKey: allCardsInDeck
-        getCardsFromSourceDeck: 1
-        getAllFromOnlyDrawPile: 0
-    - rid: 3931529445166809116
-      type: {class: SelectCardsFromList, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: SelectCardsFromList
-        inputKey: allCardsInDeck
-        outputKey: cardToPurge
-        promptText: Select a card to purge from the deck
-        minTargets: 1
-        maxTargets: -1
-        getNumberOfTargetsFromKey: 0
-        inputNumberOfTargetsKey: 
-        randomizeOrder: 0
-    - rid: 3931529445166809117
-      type: {class: CardInDeckEffect, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CardInDeckEffect
-        inputCardsKey: cardToPurge
-        inputDeckKey: target
-        effect: 1
-        outputKey: 
+    RefIds: []

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: RP_Inhibition
   m_EditorClassIdentifier: 
+  guid: f9af787b-c70b-4732-873a-8af983f8577d
   Name: Inhibition
   Description: When played or when discarded, this companion gains 2 strength
   defaultValues: []
@@ -64,6 +65,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 2034230108114649755
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -99,6 +103,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 7401433241610878978
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:

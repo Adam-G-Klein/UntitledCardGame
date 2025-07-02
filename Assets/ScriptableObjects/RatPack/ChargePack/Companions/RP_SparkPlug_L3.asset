@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
   m_Name: RP_SparkPlug_L3
   m_EditorClassIdentifier: 
+  guid: 478aaaed-631a-4028-9856-02eb8ecdedc5
   companionName: Spark Plug++
   maxHealth: 15
   initialCardsDealtPerTurn: 1
@@ -115,6 +116,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 8829271167484559788
       type: {class: MathStep, ns: , asm: Assembly-CSharp}
       data:

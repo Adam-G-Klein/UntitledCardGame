@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
   m_Name: RP_Ampera_L3
   m_EditorClassIdentifier: 
+  guid: 15423d9c-217c-4c4d-b0f0-ac0b29547139
   companionName: Ampera++
   maxHealth: 15
   initialCardsDealtPerTurn: 1
@@ -64,6 +65,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 8829271167484559910
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:

@@ -12,22 +12,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: Show Stopper
   m_EditorClassIdentifier: 
+  guid: e580f10d-6319-4dac-9e04-75be3a79a9d3
   Name: Show Stopper
   Description: Put a Ironskin status card on top of the companions deck
+  defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 7d13e867f4dd988488e4c5a179fa0857, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
+  exhaustsWhenPlayed: 0
+  retain: 0
   effectWorkflows:
   - rid: 2116895648763871351
   - rid: 1488501494564519952
   - rid: 1488501494564519955
   onExhaustEffectWorkflow:
     rid: 5592738912264781881
+  onDiscardEffectWorkflow:
+    rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  tooltips: 
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 1488501494564519950
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -119,7 +130,9 @@ MonoBehaviour:
         inputKey: self
         getLimitedNumber: 0
         numberOfCardsToGet: 1
+        shuffleIfEmpty: 1
         outputKey: cardsInDeck
+        getAllCardsFromEntities: 0
         getCardsFromSourceDeck: 0
         getAllFromOnlyDrawPile: 1
     - rid: 1488501494564519958
@@ -170,6 +183,7 @@ MonoBehaviour:
         inputCardsKey: statusCardsInDeck
         inputDeckKey: self
         effect: 0
+        cardToTransformInto: {fileID: 0}
         outputKey: 
     - rid: 1488501494564519966
       type: {class: CardInDeckEffect, ns: , asm: Assembly-CSharp}
@@ -178,6 +192,7 @@ MonoBehaviour:
         inputCardsKey: statusCardsInDiscard
         inputDeckKey: self
         effect: 0
+        cardToTransformInto: {fileID: 0}
         outputKey: 
     - rid: 1488501494564519967
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
@@ -191,6 +206,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 1
         inputMultiplicityKey: numberOfStatusCardsTotal
+        vfxPrefab: {fileID: 0}
     - rid: 1488501494564519968
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

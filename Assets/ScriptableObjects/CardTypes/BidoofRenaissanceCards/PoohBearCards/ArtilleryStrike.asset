@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: ArtilleryStrike
   m_EditorClassIdentifier: 
+  guid: e3484dbf-864d-43ca-b86a-c5a8b8a19a66
   Name: Artillery Strike
   Description: Deal {rpl_damage} damage for each aura stack on your team ({numOrbs}
     aura stacks)
@@ -30,6 +31,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 5602892679876706344
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
   m_Name: Enemy_GoblinD
   m_EditorClassIdentifier: 
+  guid: 100af05d-0dd0-49bd-a016-cd60420a4b82
   displayName: Doofe Goblin
   maxHealth: 15
   baseAttackDamage: 0
@@ -33,18 +34,12 @@ MonoBehaviour:
       - rid: 3443535291885027974
       - rid: 5280922829633618015
     behaviorType: 0
-    behaviorIndex: 0
-    nextBehaviorIndex: 0
   belowHalfHPEnemyPattern:
     behaviors: []
     behaviorType: 0
-    behaviorIndex: 0
-    nextBehaviorIndex: 0
   adaptWhenAloneEnemyPattern:
     behaviors: []
     behaviorType: 0
-    behaviorIndex: 0
-    nextBehaviorIndex: 0
   initialStatuses: []
   tooltip:
     empty: 0
@@ -88,3 +83,6 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 

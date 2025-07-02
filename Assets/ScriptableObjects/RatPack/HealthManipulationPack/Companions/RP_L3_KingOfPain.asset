@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
   m_Name: RP_L3_KingOfPain
   m_EditorClassIdentifier: 
+  guid: 165f766c-ba5a-4947-9779-ee0781484688
   companionName: King of Pain++
   maxHealth: 75
   initialCardsDealtPerTurn: 1
@@ -95,6 +96,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 7401433558763438358
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -173,6 +177,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 7401433558763438463
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:

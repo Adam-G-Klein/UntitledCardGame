@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: FinishingTouch
   m_EditorClassIdentifier: 
+  guid: 638b85c4-4c5f-4561-99dc-2ad75cf9a084
   Name: Finishing Touch
   Description: Deal {rpl_damage} damage for each attack card played this turn ({numAttacksPlayed})
-  values: 0300000000000000
   defaultValues:
   - key: rpl_damage
     value: 3
@@ -30,6 +30,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 5602892723852673313
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
@@ -84,3 +86,4 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 1
         inputMultiplicityKey: numAttacksPlayed
+        vfxPrefab: {fileID: 0}

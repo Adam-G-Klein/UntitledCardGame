@@ -12,18 +12,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: Anarchist
   m_EditorClassIdentifier: 
+  guid: 6b04c0df-21ca-415f-a986-52f492bef2c0
   Name: Anarchist
   Description: Exhaust all non-attack cards from your hand. Deal 4 damage to all
     enemies for each card exhausted this way.
+  defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: bc01e6303f5aef54696b1695ae9d1ce0, type: 3}
   cardCategory: 1
   vfxPrefab: {fileID: 0}
   playable: 1
+  exhaustsWhenPlayed: 0
+  retain: 0
   effectWorkflows:
   - rid: 2116895648763871339
   onExhaustEffectWorkflow:
     rid: -2
+  onDiscardEffectWorkflow:
+    rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  tooltips: 
   references:
     version: 2
     RefIds:
@@ -60,6 +69,7 @@ MonoBehaviour:
         multiplicity: 0
         getMultiplicityFromKey: 1
         inputMultiplicityKey: numberOfCards
+        vfxPrefab: {fileID: 0}
     - rid: 1488501494564520022
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

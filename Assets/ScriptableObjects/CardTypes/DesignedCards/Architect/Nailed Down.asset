@@ -12,17 +12,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: Nailed Down
   m_EditorClassIdentifier: 
+  guid: 57326524-2c8b-4b99-8ee7-7413197f2825
   Name: Nailed Down
   Description: Conjure a Point Load from each companion with at least one orb
+  defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 70dd24a7c98646b44870b00b67a720f4, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
+  exhaustsWhenPlayed: 0
+  retain: 0
   effectWorkflows:
   - rid: 2116895648763871329
   onExhaustEffectWorkflow:
     rid: -2
+  onDiscardEffectWorkflow:
+    rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  tooltips: 
   references:
     version: 2
     RefIds:

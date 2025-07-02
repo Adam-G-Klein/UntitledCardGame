@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: RP_FranticDefense
   m_EditorClassIdentifier: 
+  guid: ebe1b2ee-c85d-4313-b9ed-261ecf553c77
   Name: Frantic Defense
   Description: Give target companion 1 block for each card you played this turn ({numPlayedCards}
     block)
@@ -74,3 +75,6 @@ MonoBehaviour:
         getScaleFromKey: 1
         inputScaleKey: numPlayedCards
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: RP_MaelstromPulse
   m_EditorClassIdentifier: 
+  guid: c711bea9-eb94-40c6-83e5-2e126cfcef01
   Name: Maelstrom Pulse
   Description: Retain. Discharge all. Deal {rpl_damage} damage to target enemy for
     each charge discharged this way ({charge}).
@@ -82,6 +83,9 @@ MonoBehaviour:
         getScaleFromKey: 1
         inputScaleKey: negativeCharge
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 8829271167484559794
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

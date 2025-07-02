@@ -31,4 +31,8 @@ public class SORegistry : ScriptableObject
     public void RegisterAssets(List<IdentifiableSO> assets) {
         registeredAssets = assets;
     }
+
+    public List<IdentifiableSO> GetAllAssets() {
+        return registeredAssets;
+    }
 }

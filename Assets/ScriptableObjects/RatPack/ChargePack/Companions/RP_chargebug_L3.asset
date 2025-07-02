@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
   m_Name: RP_chargebug_L3
   m_EditorClassIdentifier: 
+  guid: c8bdc64a-3c7b-4f7a-a19b-6fdf36ccc47b
   companionName: ChargeBug++
   maxHealth: 15
   initialCardsDealtPerTurn: 1
@@ -87,6 +88,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 8829271167484559740
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:

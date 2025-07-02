@@ -12,17 +12,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: Process of Elimination
   m_EditorClassIdentifier: 
+  guid: fc6eb89a-6c1e-4a80-baa4-b93412a76b6b
   Name: Process of Elimination
   Description: Draw 3 cards, choose 1 of them to exhaust
+  defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: a5b8c5dccafa78942bf687e9f47d4ce4, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
+  exhaustsWhenPlayed: 0
+  retain: 0
   effectWorkflows:
   - rid: 2116895648763871336
   onExhaustEffectWorkflow:
     rid: -2
+  onDiscardEffectWorkflow:
+    rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  tooltips: 
   references:
     version: 2
     RefIds:

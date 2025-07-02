@@ -12,21 +12,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: Second Opinion
   m_EditorClassIdentifier: 
+  guid: 7cb3d485-b6ac-40d3-84c5-310f8e4fd924
   Name: Second Opinion
   Description: Consume all blueprints from target companion. Gain 1 energy and draw
     1 card from their deck for each blueprint consumed this way.
+  defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 8b7f45e259d8a914ca69c92891ca4bf1, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
+  exhaustsWhenPlayed: 0
+  retain: 0
   effectWorkflows:
   - rid: 2116895648763871329
   onExhaustEffectWorkflow:
     rid: 5592738912264781864
+  onDiscardEffectWorkflow:
+    rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  tooltips: 
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 1886371092460208289
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -56,6 +67,10 @@ MonoBehaviour:
         scale: 0
         getScaleFromKey: 1
         inputScaleKey: numberOfOrbs
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 5592738912264781864
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:

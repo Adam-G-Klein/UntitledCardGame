@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: MentalShield
   m_EditorClassIdentifier: 
+  guid: 3976264f-8b3a-4be5-9972-226b7c8e548e
   Name: Mental Shield
   Description: Give target companion 6 block, then 3 block more for each aura stack
     they have ({totalBlock} block)
@@ -28,6 +29,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 5602893017534169517
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
@@ -101,3 +104,6 @@ MonoBehaviour:
         getScaleFromKey: 1
         inputScaleKey: totalBlock
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 

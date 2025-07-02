@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: RP_StaticShock
   m_EditorClassIdentifier: 
+  guid: 71e19388-e494-4803-a76b-fdf2d0c788db
   Name: Static Shock
   Description: Discharge 2. Generate a dagger in hand for each companion.
   defaultValues: []
@@ -92,6 +93,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 8829271167484559794
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

@@ -12,17 +12,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: Balanced Distribution
   m_EditorClassIdentifier: 
+  guid: 880b6c54-b1f0-4d63-97f5-80cb6cc6c8b5
   Name: Balanced Distribution
   Description: Each companion with a blueprint gets another blueprint
+  defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: db26ea4bdc4531f4a9d89b36175475e6, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
+  exhaustsWhenPlayed: 0
+  retain: 0
   effectWorkflows:
   - rid: 2116895648763871329
   onExhaustEffectWorkflow:
     rid: -2
+  onDiscardEffectWorkflow:
+    rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  tooltips: 
   references:
     version: 2
     RefIds:
@@ -62,3 +71,7 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 

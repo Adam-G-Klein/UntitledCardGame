@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
   m_Name: RP_Beezelbumbler
   m_EditorClassIdentifier: 
+  guid: 0cb85a22-217b-405f-865b-bba0b32161bf
   companionName: Beezelbumbler
   maxHealth: 15
   initialCardsDealtPerTurn: 1
@@ -121,6 +122,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 2034230176448512013
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:

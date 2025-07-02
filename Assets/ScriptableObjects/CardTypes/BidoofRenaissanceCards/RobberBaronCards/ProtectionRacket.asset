@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: ProtectionRacket
   m_EditorClassIdentifier: 
+  guid: cd29b275-6891-4c9a-b663-34c390c51544
   Name: Protection Racket
   Description: Give target companion 10 block and draw 1 card from them. Add a "Debt"
     card to their discard pile
@@ -26,6 +27,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 5602892563578093592
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
@@ -97,6 +100,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 8790165036689785077
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:

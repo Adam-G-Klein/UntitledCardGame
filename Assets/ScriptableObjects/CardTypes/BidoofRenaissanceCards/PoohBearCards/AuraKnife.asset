@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: AuraKnife
   m_EditorClassIdentifier: 
+  guid: 8ea911bc-dfcb-463b-9770-e8a1f718ef6f
   Name: Aura Knife
   Description: Exhaust. Deal {rpl_damage} damage.
-  values: 04000000
   defaultValues:
   - key: rpl_damage
-    value: 3 
+    value: 3
   Cost: 0
   Artwork: {fileID: 21300000, guid: dcfdc6d5b4c40644b90c3330582adb6a, type: 3}
   cardCategory: 1
@@ -28,6 +28,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 5602892563578094210
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
@@ -74,3 +76,4 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        vfxPrefab: {fileID: 0}

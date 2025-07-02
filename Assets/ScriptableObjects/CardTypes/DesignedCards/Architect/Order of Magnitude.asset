@@ -12,17 +12,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: Order of Magnitude
   m_EditorClassIdentifier: 
+  guid: dd6e4a90-f28c-4cf3-bdb8-de23d1088e9c
   Name: Order of Magnitude
   Description: Deal 1 damage to all enemies for each card you have played this turn
+  defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 5500487feb715b54490f91e1c9796e9c, type: 3}
   cardCategory: 1
   vfxPrefab: {fileID: 0}
   playable: 1
+  exhaustsWhenPlayed: 0
+  retain: 0
   effectWorkflows:
   - rid: 2116895648763871329
   onExhaustEffectWorkflow:
     rid: -2
+  onDiscardEffectWorkflow:
+    rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  tooltips: 
   references:
     version: 2
     RefIds:
@@ -40,6 +49,7 @@ MonoBehaviour:
         multiplicity: 0
         getMultiplicityFromKey: 1
         inputMultiplicityKey: cardsPlayed
+        vfxPrefab: {fileID: 0}
     - rid: 2116895648763871329
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:

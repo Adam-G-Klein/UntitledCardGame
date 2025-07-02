@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: BuiltDifferentAttack
   m_EditorClassIdentifier: 
+  guid: db6c2f1d-dc20-499c-a75a-fbc2c64ba81c
   Name: Built Different Attack
   Description: Deal {rpl_damage} damage to all enemies 2 times
   defaultValues:
@@ -28,6 +29,8 @@ MonoBehaviour:
   - rid: 5280922829633617933
   onExhaustEffectWorkflow:
     rid: 5280922829633617928
+  onDiscardEffectWorkflow:
+    rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
   tooltips: 

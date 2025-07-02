@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: ActivateAura
   m_EditorClassIdentifier: 
+  guid: 289c682e-f272-442a-93ae-9d78ea781663
   Name: Activate Aura
   Description: Give target companion 1 aura stack and 5 block.
   defaultValues: []
@@ -25,6 +26,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 5602892723852673192
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
@@ -44,6 +47,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 5280922841426165956
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -80,3 +86,6 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 

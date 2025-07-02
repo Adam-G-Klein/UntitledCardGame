@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
   m_Name: Argos
   m_EditorClassIdentifier: 
+  guid: af567587-ae77-4711-a879-dd2c58c82402
   companionName: Argos
   maxHealth: 15
   initialCardsDealtPerTurn: 1
@@ -21,17 +22,16 @@ MonoBehaviour:
   entityFrame: {fileID: 21300000, guid: 93992d0d35ca9405b831e052145f48f8, type: 3}
   companionManagementFrame: {fileID: 21300000, guid: 3438500f50c834ffd8cab1850f7e94bf, type: 3}
   startingDeck: {fileID: 11400000, guid: 7fa17c4fa43804b51918678571ad5cdc, type: 2}
-  keepsake: {fileID: 21300000, guid: 1a9a70bfa38177248ae11e5367177638, type: 3}
   cardBack: {fileID: 21300000, guid: a5222a8d127763c49b397cce916345ec, type: 3}
   cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
-  typeIcon: {fileID: 21300000, guid: 1a9a70bfa38177248ae11e5367177638, type: 3}
-  portrait: {fileID: 21300000, guid: 1a9a70bfa38177248ae11e5367177638, type: 3}
-  teamSelectSprite: {fileID: 21300000, guid: 1a9a70bfa38177248ae11e5367177638, type: 3}
+  cardTypeIconOverride: {fileID: 0}
   rarity: 1
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 0}
   genericCompanionVFX: {fileID: 0}
+  cacheValueConfigs: []
   cardPool: {fileID: 11400000, guid: 61336306d4d8d494d90e203697769475, type: 2}
+  packCardPool: {fileID: 0}
   speakerType: {fileID: 0}
   abilitiesV2:
   - rid: 205828032053379705

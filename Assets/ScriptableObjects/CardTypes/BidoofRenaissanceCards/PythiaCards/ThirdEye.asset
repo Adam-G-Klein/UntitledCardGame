@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: ThirdEye
   m_EditorClassIdentifier: 
+  guid: 5d302efd-bdca-4b10-9590-097a012838b2
   Name: Third Eye
   Description: Scry 2
+  defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 18251cc3bb6c59d4794bd522032e2ee3, type: 3}
   cardCategory: 2
@@ -24,6 +26,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 3931529445166809455
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
   m_Name: RP_L3_Grizzlypooh
   m_EditorClassIdentifier: 
+  guid: 38c1b3b4-eabc-4422-89f4-45da1b6237c9
   companionName: Grizzlypooh++
   maxHealth: 75
   initialCardsDealtPerTurn: 1
@@ -28,6 +29,7 @@ MonoBehaviour:
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 0}
   genericCompanionVFX: {fileID: 0}
+  cacheValueConfigs: []
   cardPool: {fileID: 11400000, guid: 3a6947a78ef594b05ba01c0f08056a55, type: 2}
   packCardPool: {fileID: 11400000, guid: 0bf35a642105d4780a727b994049d862, type: 2}
   speakerType: {fileID: 0}
@@ -76,3 +78,6 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 

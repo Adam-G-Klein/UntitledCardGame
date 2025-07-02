@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
   m_Name: RP_L3_Beezelbumbler
   m_EditorClassIdentifier: 
+  guid: e72c5fd3-180f-4aa3-8fe4-7b85677cfc1e
   companionName: Beezelbumbler++
   maxHealth: 45
   initialCardsDealtPerTurn: 1
@@ -147,3 +148,6 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 

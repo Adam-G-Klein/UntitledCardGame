@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: CheapTrick
   m_EditorClassIdentifier: 
+  guid: 5a8b34a0-1340-4204-9ec7-192a59e91719
   Name: Cheap Trick
   Description: Exhaust. Reduce the cost of a card in your hand by 1 for the rest
     of combat(can't go below 0)
+  defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 36d3475db3b47e240a86adcdeb7138a6, type: 3}
   cardCategory: 2
@@ -25,6 +27,8 @@ MonoBehaviour:
   effectWorkflows:
   - rid: 5602892949302280982
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2

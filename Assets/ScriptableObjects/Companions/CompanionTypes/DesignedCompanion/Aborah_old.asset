@@ -12,86 +12,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
   m_Name: Aborah_old
   m_EditorClassIdentifier: 
+  guid: c887c6aa-c9ae-40e7-96a6-faeee268604f
   companionName: Warrior
   maxHealth: 20
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: 2e87ba94a361f154aab860e0db613c2c, type: 3}
+  fullSprite: {fileID: 0}
+  backgroundImage: {fileID: 0}
+  entityFrame: {fileID: 0}
+  companionManagementFrame: {fileID: 0}
   startingDeck: {fileID: 11400000, guid: 43310908266524bf6a55b921e6299942, type: 2}
-  keepsake: {fileID: 21300000, guid: 7a51d6d5cbbba644cbef012d1be241ab, type: 3}
   cardBack: {fileID: 21300000, guid: 3296a63e824de414bb4b578c4822fbdb, type: 3}
   cardFrame: {fileID: 21300000, guid: 75fee76dd9726374f94da1fe30e8a250, type: 3}
-  typeIcon: {fileID: 21300000, guid: dcfdc6d5b4c40644b90c3330582adb6a, type: 3}
-  portrait: {fileID: 21300000, guid: b1d9a49726da6d1499b158804a6ffc8d, type: 3}
-  teamSelectSprite: {fileID: 21300000, guid: 262098d4fa988884b9c5220534731c26, type: 3}
+  cardTypeIconOverride: {fileID: 0}
+  rarity: 0
   cardIdleVfxPrefab: {fileID: 1197104556551464921, guid: 41c864d1fe5f8f7408115df2a3791577, type: 3}
   genericCompanionSFX: {fileID: 8300000, guid: 1cb094d628c32ec4285d81e264447216, type: 3}
   genericCompanionVFX: {fileID: 4439872921359724599, guid: a4b17b01a56f2a14f89ce77b567a2ba8, type: 3}
+  cacheValueConfigs: []
   cardPool: {fileID: 11400000, guid: 998068d5fdd3d4a4daece7c710652474, type: 2}
+  packCardPool: {fileID: 0}
   speakerType: {fileID: 11400000, guid: 76fc1ea2d414956428399f565e424d83, type: 2}
-  abilities:
-  - rid: 3931529445166809098
-  - rid: 3931529445166809103
+  abilitiesV2: []
+  level: 0
   upgradeTo: {fileID: 11400000, guid: c109dd4fad0582f4e8ee7e73ec6ba0a1, type: 2}
   tooltip:
     empty: 0
     lines:
     - title: Aborah, The Warrior
       description: Starts combat with 4 strength, loses 1 strength with each attack
-      image: {fileID: 0}
+      relatedBehaviorIndex: 0
+  keepsakeTitle: 
+  keepsakeDescription: 
   references:
     version: 2
-    RefIds:
-    - rid: 3931529445166809098
-      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
-      data:
-        companionAbilityTrigger: 0
-        effectSteps:
-        - rid: 3931529445166809101
-        - rid: 3931529445166809102
-    - rid: 3931529445166809101
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: self
-        validTargets: 
-        number: 1
-        specialTargetRule: 3
-        cantCancelTargetting: 0
-    - rid: 3931529445166809102
-      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: ApplyStatus
-        inputKey: self
-        statusEffect: 6
-        scale: 4
-        getScaleFromKey: 0
-        inputScaleKey: 
-    - rid: 3931529445166809103
-      type: {class: CompanionAbility, ns: , asm: Assembly-CSharp}
-      data:
-        companionAbilityTrigger: 6
-        effectSteps:
-        - rid: 3931529445166809104
-        - rid: 3931529445166809105
-    - rid: 3931529445166809104
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: self
-        validTargets: 
-        number: 1
-        specialTargetRule: 3
-        cantCancelTargetting: 0
-    - rid: 3931529445166809105
-      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: ApplyStatus
-        inputKey: self
-        statusEffect: 6
-        scale: -1
-        getScaleFromKey: 0
-        inputScaleKey: 
+    RefIds: []

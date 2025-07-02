@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
   m_Name: L2Pythia
   m_EditorClassIdentifier: 
+  guid: 12c93a1d-0a51-4489-af8c-ffed0f984caf
   companionName: Pythia+
   maxHealth: 20
   initialCardsDealtPerTurn: 2
@@ -21,17 +22,16 @@ MonoBehaviour:
   entityFrame: {fileID: 21300000, guid: afd87e9d98de04d57bf1e171342575e4, type: 3}
   companionManagementFrame: {fileID: 21300000, guid: cb92d66ed93cb415791ff837bd1604d5, type: 3}
   startingDeck: {fileID: 11400000, guid: 6be74b063901f4e1d8d6c6b3fd1769b1, type: 2}
-  keepsake: {fileID: 21300000, guid: 416a15d747b4048a4a90ea688389b343, type: 3}
   cardBack: {fileID: 21300000, guid: c08a02b0b1e86fb4b96393e9d8fb4714, type: 3}
   cardFrame: {fileID: 21300000, guid: 6cee2343f3114be45be30618b977bcb0, type: 3}
-  typeIcon: {fileID: 21300000, guid: 416a15d747b4048a4a90ea688389b343, type: 3}
-  portrait: {fileID: 21300000, guid: 416a15d747b4048a4a90ea688389b343, type: 3}
-  teamSelectSprite: {fileID: 21300000, guid: 416a15d747b4048a4a90ea688389b343, type: 3}
+  cardTypeIconOverride: {fileID: 0}
   rarity: 1
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 0}
   genericCompanionVFX: {fileID: 0}
+  cacheValueConfigs: []
   cardPool: {fileID: 11400000, guid: 8f34b8b074f024b64a128d5f7d0d2294, type: 2}
+  packCardPool: {fileID: 0}
   speakerType: {fileID: 0}
   abilitiesV2:
   - rid: 205828032053379517
@@ -68,6 +68,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 205828032053379552
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:

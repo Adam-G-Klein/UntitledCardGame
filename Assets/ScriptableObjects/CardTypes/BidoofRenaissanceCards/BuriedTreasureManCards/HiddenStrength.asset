@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: HiddenStrength
   m_EditorClassIdentifier: 
+  guid: 3c0efa98-52d5-461b-a703-4cd9faa10b94
   Name: Hidden Strength
   Description: Unplayable. When in hand at the end of turn, gain 1 strength
   defaultValues: []
@@ -68,6 +69,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 7401433059192472302
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:

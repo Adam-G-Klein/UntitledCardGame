@@ -12,17 +12,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: Conservation of Energy
   m_EditorClassIdentifier: 
+  guid: bb5dfb33-c9e5-45c0-a85f-ceb36c9908bf
   Name: Conservation of Energy
   Description: Exhaust a card, gain 1 energy.
+  defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 0f91baf441838d747bea7dbae09bfb7f, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
+  exhaustsWhenPlayed: 0
+  retain: 0
   effectWorkflows:
   - rid: 2116895648763871336
   onExhaustEffectWorkflow:
     rid: -2
+  onDiscardEffectWorkflow:
+    rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  tooltips: 
   references:
     version: 2
     RefIds:

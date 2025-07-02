@@ -12,17 +12,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: Third Eye
   m_EditorClassIdentifier: 
+  guid: fbe3be35-610b-4fbd-89f3-7d47648f7d9f
   Name: Third Eye
   Description: Scry 3
+  defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 18251cc3bb6c59d4794bd522032e2ee3, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
+  exhaustsWhenPlayed: 0
+  retain: 0
   effectWorkflows:
   - rid: 3931529445166809455
   onExhaustEffectWorkflow:
     rid: -2
+  onDiscardEffectWorkflow:
+    rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  tooltips: 
   references:
     version: 2
     RefIds:
@@ -54,7 +63,9 @@ MonoBehaviour:
         inputKey: target
         getLimitedNumber: 1
         numberOfCardsToGet: 3
+        shuffleIfEmpty: 1
         outputKey: topCard
+        getAllCardsFromEntities: 0
         getCardsFromSourceDeck: 0
         getAllFromOnlyDrawPile: 0
     - rid: 3931529445166809458
@@ -67,7 +78,7 @@ MonoBehaviour:
         minTargets: 0
         maxTargets: 3
         getNumberOfTargetsFromKey: 0
-        inputTargetsKey: 
+        inputNumberOfTargetsKey: 
         randomizeOrder: 0
     - rid: 3931529445166809459
       type: {class: CardInDeckEffect, ns: , asm: Assembly-CSharp}
@@ -76,4 +87,5 @@ MonoBehaviour:
         inputCardsKey: discarded
         inputDeckKey: target
         effect: 2
+        cardToTransformInto: {fileID: 0}
         outputKey: 

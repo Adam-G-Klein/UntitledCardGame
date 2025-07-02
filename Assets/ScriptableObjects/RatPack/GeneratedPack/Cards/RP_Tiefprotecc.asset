@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: RP_Tiefprotecc
   m_EditorClassIdentifier: 
+  guid: 7c86cd57-9e0f-471e-a2c9-250b67d0844b
   Name: Tiefprotecc
   Description: Give target companion 10 block and create an unplayable "Wound" Status
     card in hand for them
@@ -85,6 +86,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 7401433558763438285
       type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
       data:

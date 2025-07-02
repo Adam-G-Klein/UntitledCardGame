@@ -25,6 +25,15 @@ public class SORegistryEditor : Editor
             EditorUtility.SetDirty(registry);
             AssetDatabase.SaveAssets();
         }
+
+        if (GUILayout.Button("Print GUIDS"))
+        {
+            SORegistry registry = (SORegistry)target;
+            List<IdentifiableSO> assets = registry.GetAllAssets();
+            foreach (IdentifiableSO so in assets) {
+                Debug.Log(so.GUID);
+            }
+        }
     }
 }
 #endif
