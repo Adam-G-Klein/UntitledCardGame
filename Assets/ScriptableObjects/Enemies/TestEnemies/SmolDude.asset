@@ -12,9 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
   m_Name: SmolDude
   m_EditorClassIdentifier: 
+  guid: f290720a-ae87-45aa-812d-f67604e03540
+  displayName: 
   maxHealth: 11
   baseAttackDamage: 4
   sprite: {fileID: 21300000, guid: 16cb6fc58ac5bce41a520368b5f166f2, type: 3}
+  backgroundImage: {fileID: 0}
+  entityFrame: {fileID: 0}
+  morale: 0
+  abilities: []
+  cacheValueConfigs: []
   enemyPattern:
     behaviors:
     - intent: 0
@@ -24,9 +31,17 @@ MonoBehaviour:
       effectSteps:
       - rid: 7005139344655122581
       - rid: 7005139344655122580
-    sequentialBehaviors: 0
-    nextBehaviorIndex: 0
+    behaviorType: 0
+  belowHalfHPEnemyPattern:
+    behaviors: []
+    behaviorType: 0
+  adaptWhenAloneEnemyPattern:
+    behaviors: []
+    behaviorType: 0
   initialStatuses: []
+  tooltip:
+    empty: 0
+    lines: []
   references:
     version: 2
     RefIds:
@@ -42,9 +57,11 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        vfxPrefab: {fileID: 0}
     - rid: 7005139344655122581
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
         inputKey: target
         prefabToInstantiate: {fileID: 4798506008640871506, guid: 0556a32d0cf5e704db37d6e1528d886a, type: 3}
+        scale: 5

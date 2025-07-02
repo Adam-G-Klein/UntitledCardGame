@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: RP_Effigy
   m_EditorClassIdentifier: 
+  guid: 4e03659c-3081-4588-912c-578b73462b72
   Name: Effigy
   Description: Self-apply 2 Burn. Apply 6 burn to target enemy.
   defaultValues: []
@@ -97,6 +98,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 8829271167484559908
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -125,6 +129,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 8829271312684286005
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:

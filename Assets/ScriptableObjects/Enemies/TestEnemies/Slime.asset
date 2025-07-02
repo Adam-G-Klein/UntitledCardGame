@@ -12,9 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
   m_Name: Slime
   m_EditorClassIdentifier: 
+  guid: 48af8a06-4463-47aa-9489-b6b9af2a8b14
+  displayName: 
   maxHealth: 30
   baseAttackDamage: 5
   sprite: {fileID: 21300000, guid: b2fa9488d9c432548acaaa32c198825c, type: 3}
+  backgroundImage: {fileID: 0}
+  entityFrame: {fileID: 0}
+  morale: 0
+  abilities: []
+  cacheValueConfigs: []
   enemyPattern:
     behaviors:
     - intent: 1
@@ -31,9 +38,17 @@ MonoBehaviour:
       effectSteps:
       - rid: 7005139344655122579
       - rid: 7005139344655122577
-    sequentialBehaviors: 0
-    nextBehaviorIndex: 0
+    behaviorType: 0
+  belowHalfHPEnemyPattern:
+    behaviors: []
+    behaviorType: 0
+  adaptWhenAloneEnemyPattern:
+    behaviors: []
+    behaviorType: 0
   initialStatuses: []
+  tooltip:
+    empty: 0
+    lines: []
   references:
     version: 2
     RefIds:
@@ -49,6 +64,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        vfxPrefab: {fileID: 0}
     - rid: 7005139344655122577
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
@@ -61,15 +77,18 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        vfxPrefab: {fileID: 0}
     - rid: 7005139344655122578
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
         inputKey: target
         prefabToInstantiate: {fileID: 4798506008640871506, guid: 0556a32d0cf5e704db37d6e1528d886a, type: 3}
+        scale: 5
     - rid: 7005139344655122579
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
         inputKey: target
         prefabToInstantiate: {fileID: 4798506008640871506, guid: 0556a32d0cf5e704db37d6e1528d886a, type: 3}
+        scale: 5

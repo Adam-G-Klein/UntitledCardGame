@@ -12,9 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
   m_Name: JawWorm
   m_EditorClassIdentifier: 
+  guid: c4deb934-1da0-49d9-8f4f-bd7cb9cb3d6b
+  displayName: 
   maxHealth: 40
   baseAttackDamage: 4
   sprite: {fileID: 21300000, guid: e8f284b8ccdbaf24888660bc74fa02b4, type: 3}
+  backgroundImage: {fileID: 0}
+  entityFrame: {fileID: 0}
+  morale: 0
+  abilities: []
+  cacheValueConfigs: []
   enemyPattern:
     behaviors:
     - intent: 2
@@ -30,9 +37,17 @@ MonoBehaviour:
       effectSteps:
       - rid: 7005139344655122574
       - rid: 7005139344655122571
-    sequentialBehaviors: 1
-    nextBehaviorIndex: 0
+    behaviorType: 0
+  belowHalfHPEnemyPattern:
+    behaviors: []
+    behaviorType: 0
+  adaptWhenAloneEnemyPattern:
+    behaviors: []
+    behaviorType: 0
   initialStatuses: []
+  tooltip:
+    empty: 0
+    lines: []
   references:
     version: 2
     RefIds:
@@ -45,6 +60,10 @@ MonoBehaviour:
         scale: 5
         getScaleFromKey: 0
         inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 7005139344655122571
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
@@ -57,9 +76,11 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+        vfxPrefab: {fileID: 0}
     - rid: 7005139344655122574
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
         inputKey: target
         prefabToInstantiate: {fileID: 4798506008640871506, guid: 0556a32d0cf5e704db37d6e1528d886a, type: 3}
+        scale: 5

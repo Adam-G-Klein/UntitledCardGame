@@ -4,8 +4,11 @@ using System.Linq;
 using UnityEngine;
 
 
+[System.Serializable]
 public class SaveState {
 
+    private string saveName;
+    public string SaveName => saveName;
     // private List<CompanionSerializeable> activeCompanions;
     // private List<CompanionSerializeable> benchCompanions;
     // private List<EncounterSerializeable> map;
@@ -13,6 +16,7 @@ public class SaveState {
     // private PlayerDataSerializeable playerData;
 
     public SaveState(string saveName, GameStateVariableSO gameState) {
+        this.saveName = saveName;
         // this.activeCompanions = gameState.companions.activeCompanions
         //     .Select(companion => new CompanionSerializeable(companion))
         //     .ToList();

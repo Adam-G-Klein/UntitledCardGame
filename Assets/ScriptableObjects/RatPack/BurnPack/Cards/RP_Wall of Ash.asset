@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: RP_Wall of Ash
   m_EditorClassIdentifier: 
+  guid: 8cc5ee74-382c-4174-9e36-e9db53f71767
   Name: Wall of Ash
   Description: Give adjacent companions 4 block
   defaultValues: []
@@ -101,6 +102,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 8829271312684286067
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
