@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Finishing Touch
   Description: Deal {rpl_damage} damage for each attack card played this turn ({numAttacksPlayed})
-  values: 0300000000000000
   defaultValues:
   - key: rpl_damage
     value: 3
@@ -31,6 +30,8 @@ MonoBehaviour:
   - rid: 5602892723852673313
   onExhaustEffectWorkflow:
     rid: -2
+  onDiscardEffectWorkflow:
+    rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
   tooltips: 
@@ -39,13 +40,6 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 5280922841426165968
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: enemy
-        prefabToInstantiate: {fileID: 1320532642761013391, guid: 99a456f94890391478f393fcc8ad0b95, type: 3}
-        scale: 1.5
     - rid: 5602892723852673313
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -53,7 +47,6 @@ MonoBehaviour:
         - rid: 5602892723852673314
         - rid: 5602892723852673315
         - rid: 5602892723852673316
-        - rid: 5280922841426165968
     - rid: 5602892723852673314
       type: {class: QuantityOfCardTypePlayedThisTurn, ns: , asm: Assembly-CSharp}
       data:
@@ -84,3 +77,4 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 1
         inputMultiplicityKey: numAttacksPlayed
+        vfxPrefab: {fileID: 1320532642761013391, guid: 4847f21b038e1aa42bceefe5c97ab1ab, type: 3}
