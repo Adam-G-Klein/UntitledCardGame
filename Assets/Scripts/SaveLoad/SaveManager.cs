@@ -55,6 +55,7 @@ public class SaveManager : GenericSingleton<SaveManager>
 
     public void LoadHandler()
     {
+        Debug.Log("HELLO THE LOAD HANDLER BUTTON WAS PRESSED FOR SURE");
         SaveState loadState = SaveSystem.Load<SaveState>();
         // instantiate the save state from the serializable data
         loadState.LoadToGameState(gameStateVariableSO, soRegistry);

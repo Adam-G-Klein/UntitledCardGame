@@ -37,15 +37,15 @@ public class OptionsViewController : GenericSingleton<OptionsViewController>, IC
     private GameObject tooltipPrefab;
 
     void Awake() {
-        DontDestroyOnLoad(this.gameObject);
+        // DontDestroyOnLoad(this.gameObject);
         canvasGroup = GetComponent<CanvasGroup>();
         canvas = GetComponent<Canvas>();
+        optionsUIDocument.enabled = true;
+        compendiumUIDocument.enabled = true;
     }
 
     void Start()
     {
-        optionsUIDocument.enabled = true;
-        compendiumUIDocument.enabled = true;
         optionsUIDocument.rootVisualElement.style.visibility = Visibility.Hidden;
         compendiumUIDocument.rootVisualElement.style.visibility = Visibility.Hidden;
         musicVolumeSlider = optionsUIDocument.rootVisualElement.Q<Slider>("musicVolumeSlider");
