@@ -221,6 +221,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         // to the companion's deck and lets forcefully close the companion
         // view UI
         if (this.buyingCard) {
+            if (!IsApplicableCompanion(currentCardBuyRequest, companion)) return;
             Card newCard = new Card(currentCardBuyRequest.cardType, companion.companionType, currentCardBuyRequest.rarity);
             companion.deck.cards.Add(newCard);
             companion.trackingStats.RecordCardBuy(newCard);
