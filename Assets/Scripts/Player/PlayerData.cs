@@ -13,6 +13,8 @@ public class PlayerData
     public bool seenTutorial = false;
     public bool inTutorialRun = true;
 
+    public PlayerData() {}
+
     public PlayerData(PlayerDataSerializable playerDataSerializeable) {
         this.gold = playerDataSerializeable.gold;
         this.shopLevel = playerDataSerializeable.shopLevel;
