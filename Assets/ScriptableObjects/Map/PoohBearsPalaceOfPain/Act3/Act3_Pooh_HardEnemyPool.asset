@@ -10,10 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24f95da87f612e047aaeac10756d2ec7, type: 3}
-  m_Name: Act1_Pooh_EliteEnemyPool
+  m_Name: Act3_Pooh_HardEnemyPool
   m_EditorClassIdentifier: 
   enemyEncounterTypes:
-  - {fileID: 11400000, guid: 413ebe51cc18949748ec65e3db11f246, type: 2}
-  - {fileID: 11400000, guid: 2f01716deb1574f3a85234f2fa2994c1, type: 2}
-  - {fileID: 11400000, guid: a3c527c4699c84c9e812c17c65724308, type: 2}
-  isElite: 1
+  - {fileID: 11400000, guid: d1d074d5723c34825ac80e1d9cda1cdf, type: 2}
+  isElite: 0

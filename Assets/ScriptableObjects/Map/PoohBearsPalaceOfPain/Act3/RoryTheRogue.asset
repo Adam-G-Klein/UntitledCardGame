@@ -27,7 +27,7 @@ MonoBehaviour:
     - intent: 1
       enemyTargetMethod: 0
       targetsKey: target
-      displayValue: 6
+      displayValue: 10
       effectSteps:
       - rid: 4463205916933358106
       - rid: 4053950218419044431
@@ -108,7 +108,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: target
         combatEffect: 0
-        scale: 6
+        scale: 10
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
@@ -146,6 +146,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 8790164580739055963
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:

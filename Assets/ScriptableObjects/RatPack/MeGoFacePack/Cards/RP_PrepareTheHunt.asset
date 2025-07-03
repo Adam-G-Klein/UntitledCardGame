@@ -70,6 +70,13 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 2
         cantCancelTargetting: 0
+    - rid: 2295167909047304314
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: attacks
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
+        scale: 1
     - rid: 5602892563578093692
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -80,6 +87,7 @@ MonoBehaviour:
         - rid: 2034230176448512697
         - rid: 2034230108114649248
         - rid: 2034230108114649249
+        - rid: 2295167909047304314
     - rid: 5602892563578093693
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

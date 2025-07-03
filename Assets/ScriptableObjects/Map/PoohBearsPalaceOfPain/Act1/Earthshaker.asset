@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
-  m_Name: Enemy_Polyphemus
+  m_Name: Earthshaker
   m_EditorClassIdentifier: 
-  displayName: Polyphemus
-  maxHealth: 110
+  displayName: Earthshaker
+  maxHealth: 60
   baseAttackDamage: 0
-  sprite: {fileID: 21300000, guid: 1a9a70bfa38177248ae11e5367177638, type: 3}
+  sprite: {fileID: 21300000, guid: 27ec1549f8e73da4c93e706a368e736b, type: 3}
   backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
   entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
   morale: 0
@@ -24,17 +24,17 @@ MonoBehaviour:
   enemyPattern:
     behaviors:
     - intent: 0
-      enemyTargetMethod: 4
-      targetsKey: target
-      displayValue: 9
+      enemyTargetMethod: 6
+      targetsKey: 
+      displayValue: 1
       effectSteps:
+      - rid: 2295167909047304423
       - rid: 3931529445166809429
-      - rid: 4053950218419044423
       - rid: 3931529445166809326
       - rid: 5602893111447519606
       - rid: 5602893111447519608
       - rid: 5602893111447519609
-      - rid: 3443535291885027971
+      - rid: 3443535291885027969
       - rid: 5602893111447519607
       - rid: 5280922829633617990
     behaviorType: 0
@@ -48,31 +48,13 @@ MonoBehaviour:
   tooltip:
     empty: 0
     lines:
-    - title: Blind Rage
-      description: Chooses a companion to attack at random
+    - title: Earthquake
+      description: Deals AOE damage to your entire team and slowly grows stronger
       relatedBehaviorIndex: 0
   references:
     version: 2
     RefIds:
-    - rid: 3443535291885027971
-      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: WaitForSecondsEffect
-        seconds: 0.3
-    - rid: 3931529445166809326
-      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CombatEffectStep
-        inputKey: target
-        combatEffect: 0
-        scale: 9
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
-        vfxPrefab: {fileID: 0}
-    - rid: 3931529445166809429
+    - rid: 2295167909047304423
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
@@ -83,21 +65,35 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
-    - rid: 4053950218419044423
-      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
+    - rid: 3443535291885027969
+      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: FXEffectStep
-        waitForEffect: 1
-        fXExperiencePrefab: {fileID: 7374988516867921400, guid: 080ebf6cafefa59438cf877ee502d109, type: 3}
-        rootLocationGameObjectKey: 
-        positionMappingList:
-        - fromWorkflow: target
-          toFxExperience: companionLocation
-        - fromWorkflow: self
-          toFxExperience: enemyLocation
-        gameobjectMappingList:
-        - fromWorkflow: self
-          toFxExperience: enemy
+        effectStepName: WaitForSecondsEffect
+        seconds: 0.3
+    - rid: 3931529445166809326
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: target
+        combatEffect: 0
+        scale: 2
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 6137048663962808129, guid: 92c26f41ef33c23419e05ceb12660efa, type: 3}
+    - rid: 3931529445166809429
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: target
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 1
+        cantCancelTargetting: 0
     - rid: 5280922829633617990
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -130,7 +126,7 @@ MonoBehaviour:
       type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: BooleanComparison
-        hardCodedInputKey1: 15
+        hardCodedInputKey1: 5
         useHardCodedInputKey1: 1
         inputKey1: 
         operation: 2

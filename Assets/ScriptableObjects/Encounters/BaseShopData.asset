@@ -35,12 +35,12 @@ MonoBehaviour:
         relatedBehaviorIndex: 0
   - level: 1
     shopLevelIncrementsToUnlock: 10
-    upgradeIncrementCost: 2
+    upgradeIncrementCost: 3
     mana: 3
     teamSize: 4
     upgradeCost: 20
     numCardsToShow: 3
-    numKeepsakesToShow: 3
+    numKeepsakesToShow: 2
     commonCompanionPercentage: 70
     uncommonCompanionPercentage: 28
     rareCompanionPercentage: 2
@@ -55,12 +55,12 @@ MonoBehaviour:
         relatedBehaviorIndex: 0
   - level: 2
     shopLevelIncrementsToUnlock: 10
-    upgradeIncrementCost: 3
+    upgradeIncrementCost: 4
     mana: 3
     teamSize: 5
     upgradeCost: 30
     numCardsToShow: 4
-    numKeepsakesToShow: 3
+    numKeepsakesToShow: 2
     commonCompanionPercentage: 50
     uncommonCompanionPercentage: 40
     rareCompanionPercentage: 10
@@ -104,8 +104,8 @@ MonoBehaviour:
   companionKeepsakePrice: 3
   numKeepsakeCopies: 10
   startingGold: 3
-  companionTypeCardPoolPct: 30
-  packCardPoolPct: 40
+  companionTypeCardPoolPct: 25
+  packCardPoolPct: 45
   neutralCardPoolPct: 30
   goldEarnedPerBattle: 8
   interestRate: 0.2

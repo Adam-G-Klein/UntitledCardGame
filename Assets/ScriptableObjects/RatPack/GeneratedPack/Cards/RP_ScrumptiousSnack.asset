@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RP_ScrumptiousSnack
   m_EditorClassIdentifier: 
   Name: Scrumptious Snack
-  Description: Exhaust. When exhausted, gain 2 max HP and heal 4 HP
+  Description: Exhaust. When exhausted, gain 2 max HP and heal 3 HP
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: a100f38fb92da834786807cb66e2ebba, type: 3}
@@ -81,7 +81,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: self
         combatEffect: 9
-        scale: 4
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1

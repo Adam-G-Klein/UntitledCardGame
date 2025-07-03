@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: RP_VengefulSlash
   m_EditorClassIdentifier: 
   Name: Vengeful Slash
-  Description: Deal {rpl_damage} to target enemy. Deal it twice if this companion
-    is below half HP
+  Description: Deal {rpl_damage} to target enemy. Deal it twice if 2 or more companions
+    are below half HP
   defaultValues:
   - key: rpl_damage
     value: 6
@@ -43,17 +43,12 @@ MonoBehaviour:
       type: {class: FilterEntityByHP, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: FilterEntityByHP
-        inputKey: self
+        inputKey: allies
         percentThreshold: 0.5
         absoluteThreshold: 0
         useAbsoluteThreshold: 0
-        outputKey: selfBelowHalf
+        outputKey: belowHalf
         below: 1
-    - rid: 1289961820425028161
-      type: {class: EndWorkflowIfListEmpty, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: EndWorkflowIfListEmpty
-        inputKey1: selfBelowHalf
     - rid: 1289961820425028162
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
@@ -67,15 +62,51 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}
+    - rid: 2295167909047304310
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: allies
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 1
+        cantCancelTargetting: 0
+    - rid: 2295167909047304311
+      type: {class: CountStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CountStep
+        inputKey: belowHalf
+        outputKey: numBelowHalf
+    - rid: 2295167909047304312
+      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: BooleanComparison
+        hardCodedInputKey1: 2
+        useHardCodedInputKey1: 1
+        inputKey1: 
+        operation: 2
+        inputKey2: numBelowHalf
+        outputKey: enough
+    - rid: 2295167909047304313
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: enough
+        conditionToEndOn: 0
     - rid: 5602892949302281046
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
         - rid: 5602892949302281047
+        - rid: 2295167909047304310
         - rid: 5602892949302281048
         - rid: 5602892949302281049
         - rid: 1289961820425028160
-        - rid: 1289961820425028161
+        - rid: 2295167909047304311
+        - rid: 2295167909047304312
+        - rid: 2295167909047304313
         - rid: 1289961820425028162
     - rid: 5602892949302281047
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}

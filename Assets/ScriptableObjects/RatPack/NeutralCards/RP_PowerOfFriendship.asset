@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: RP_PowerOfFriendship
   m_EditorClassIdentifier: 
   Name: Power of Friendship
-  Description: Lose all block. Give all block lost plus 3 block to target companion
-    ({totalBlock} block).
+  Description: Retain. This companion loses all block. Give all block lost plus 3
+    block to target companion ({totalBlock} block).
   defaultValues:
   - key: totalBlock
     value: 3
@@ -24,10 +24,12 @@ MonoBehaviour:
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
-  retain: 0
+  retain: 1
   effectWorkflows:
   - rid: 2034230108114649437
   onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
@@ -122,6 +124,9 @@ MonoBehaviour:
         getScaleFromKey: 1
         inputScaleKey: negativeBlock
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 2034230108114649447
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
@@ -132,3 +137,6 @@ MonoBehaviour:
         getScaleFromKey: 1
         inputScaleKey: totalBlock
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 

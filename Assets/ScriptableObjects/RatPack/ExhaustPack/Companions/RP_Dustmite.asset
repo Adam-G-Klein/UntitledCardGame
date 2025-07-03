@@ -28,23 +28,31 @@ MonoBehaviour:
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 0}
   genericCompanionVFX: {fileID: 0}
-  cacheValueConfigs: []
+  cacheValueConfigs:
+  - key: numCardsExhausted
+    display: 1
+    sprite: {fileID: 21300000, guid: c4c548a339b4d41a590928c0c98934a7, type: 3}
+    startOfTurnValue: 2
+    setStartOfTurnValue: 1
+    startOfCombatValue: 0
+    setStartOfCombatValue: 0
   cardPool: {fileID: 11400000, guid: e4335b1c96b9b4e36a22f50ef4a5cd38, type: 2}
-  packCardPool: {fileID: 11400000, guid: 0f37e5a720cc243b2ab7df193483391d, type: 2}
   pack: {fileID: 11400000, guid: 79e479ca9df7a4369ba7fa951e0af116, type: 2}
   speakerType: {fileID: 0}
   abilitiesV2:
   - rid: 2034230017118175363
   level: 0
-  upgradeTo: {fileID: 11400000, guid: 5f56abc14c8824fb5ba0147dae9a4c57, type: 2}
+  upgradeTo: {fileID: 11400000, guid: 5d70bd5088cc143078dd0798cba56598, type: 2}
   tooltip:
     empty: 0
     lines:
     - title: Dustmite
-      description: Whenever you exhaust a card, Dustmite gains 1 block
+      description: The first 2 times each turn you exhaust a card, Dustmite gains
+        2 block
       relatedBehaviorIndex: 0
   keepsakeTitle: Dustmite's Armor
-  keepsakeDescription: Whenever you exhaust a card, Dustmite gains 1 block
+  keepsakeDescription: The first 2 times each turn you exhaust a card, Dustmite gains
+    2 block
   references:
     version: 2
     RefIds:
@@ -54,6 +62,11 @@ MonoBehaviour:
         abilityTrigger: 9
         effectSteps:
         - rid: 2034230017118175364
+        - rid: 2295167909047304317
+        - rid: 2295167909047304319
+        - rid: 2295167909047304320
+        - rid: 2295167909047304318
+        - rid: 2295167909047304321
         - rid: 2034230017118175365
         - rid: 2034230017118175366
     - rid: 2034230017118175364
@@ -73,7 +86,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: self
         statusEffect: 2
-        scale: 1
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
@@ -87,3 +100,46 @@ MonoBehaviour:
         inputKey: self
         prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
         scale: 1
+    - rid: 2295167909047304317
+      type: {class: CombatInstanceCacheLoad, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatInstanceCacheLoad
+        inputCombatInstanceKey: self
+        cacheKey: numCardsExhausted
+        currentWorkflowKey: numCardsExhausted
+    - rid: 2295167909047304318
+      type: {class: MathStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: MathStep
+        inputKey: numCardsExhausted
+        operand2InputKey: UNUSED
+        operation: 1
+        scale: 1
+        outputKey: numCardsExhaustedDec
+    - rid: 2295167909047304319
+      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: BooleanComparison
+        hardCodedInputKey1: 0
+        useHardCodedInputKey1: 1
+        inputKey1: 
+        operation: 0
+        inputKey2: numCardsExhausted
+        outputKey: isZero
+    - rid: 2295167909047304320
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: isZero
+        conditionToEndOn: 1
+    - rid: 2295167909047304321
+      type: {class: CombatInstanceCacheStore, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatInstanceCacheStore
+        inputCombatInstanceKey: self
+        hardCodedBool: 0
+        useHardCodedBool: 0
+        hardCodedInt: 0
+        useHardCodedInt: 0
+        currentWorkflowKey: numCardsExhaustedDec
+        cacheKey: numCardsExhausted

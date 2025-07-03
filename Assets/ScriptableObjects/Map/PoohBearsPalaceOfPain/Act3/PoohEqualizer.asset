@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
-  m_Name: PoohTheEqualizer
+  m_Name: PoohEqualizer
   m_EditorClassIdentifier: 
   displayName: Pooh, Equalizer
-  maxHealth: 90
+  maxHealth: 110
   baseAttackDamage: 0
   sprite: {fileID: 21300000, guid: 2ceba0163ffdc488182689f564cc3be3, type: 3}
   backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
@@ -24,12 +24,12 @@ MonoBehaviour:
   enemyPattern:
     behaviors:
     - intent: 0
-      enemyTargetMethod: 4
-      targetsKey: target
-      displayValue: 2
+      enemyTargetMethod: 6
+      targetsKey: 
+      displayValue: 3
       effectSteps:
+      - rid: 2295167909047304424
       - rid: 5602893111447519701
-      - rid: 4053950218419044437
       - rid: 5602893111447519700
       - rid: 2034229861011161164
       - rid: 3443535291885027985
@@ -56,9 +56,8 @@ MonoBehaviour:
   tooltip:
     empty: 0
     lines:
-    - title: Pooh Goes Where He Pleases
-      description: Strong, self-buffing attack targeting a random companion on your
-        team
+    - title: Judgement
+      description: Strong AOE attack targetting your entire team
       relatedBehaviorIndex: 0
     - title: Balance in the force
       description: Gain 1 strength for each companion above half HP
@@ -110,6 +109,17 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+    - rid: 2295167909047304424
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: targets
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 1
+        cantCancelTargetting: 0
     - rid: 3443535291885027985
       type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
       data:
@@ -122,34 +132,19 @@ MonoBehaviour:
         inputKey: self
         prefabToInstantiate: {fileID: 3850217184923880746, guid: 4bed509d0589dae4d922d8eeb61a6292, type: 3}
         scale: 1.5
-    - rid: 4053950218419044437
-      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: FXEffectStep
-        waitForEffect: 1
-        fXExperiencePrefab: {fileID: 7374988516867921400, guid: 080ebf6cafefa59438cf877ee502d109, type: 3}
-        rootLocationGameObjectKey: 
-        positionMappingList:
-        - fromWorkflow: self
-          toFxExperience: enemyLocation
-        - fromWorkflow: target
-          toFxExperience: companionLocation
-        gameobjectMappingList:
-        - fromWorkflow: self
-          toFxExperience: enemy
     - rid: 5602893111447519700
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
-        inputKey: target
+        inputKey: targets
         combatEffect: 0
-        scale: 2
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 0}
+        vfxPrefab: {fileID: 6137048663962808129, guid: 418a03ccd75ca98409952e0384c196fd, type: 3}
     - rid: 5602893111447519701
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

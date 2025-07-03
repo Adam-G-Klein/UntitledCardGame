@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RP_YummySnack
   m_EditorClassIdentifier: 
   Name: Yummy Snack
-  Description: Exhaust. When exhausted, gain 2 max HP.
+  Description: Exhaust. When exhausted, gain 1 max HP and heal 2 HP
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: cf5aa02f77468564190f8694f7007ee1, type: 3}
@@ -46,6 +46,7 @@ MonoBehaviour:
         effectSteps:
         - rid: 2034230108114649330
         - rid: 2034230108114649331
+        - rid: 2295167909047304316
         - rid: 2034230108114649333
     - rid: 2034230108114649330
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -64,13 +65,26 @@ MonoBehaviour:
         effectStepName: PermanentStatIncrease
         inputKey: self
         statIncreaseType: 1
-        scale: 2
+        scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
     - rid: 2034230108114649333
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
-        inputKey: 
+        inputKey: self
         prefabToInstantiate: {fileID: 3850217184923880746, guid: 604f6efaa1e828d4bacfc84a25dfbd7a, type: 3}
         scale: 1.5
+    - rid: 2295167909047304316
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: self
+        combatEffect: 9
+        scale: 2
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 0}

@@ -10,31 +10,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
-  m_Name: Enemy_Polyphemus
+  m_Name: EldritchSentinel
   m_EditorClassIdentifier: 
-  displayName: Polyphemus
-  maxHealth: 110
+  displayName: Eldritch Sentinel
+  maxHealth: 240
   baseAttackDamage: 0
-  sprite: {fileID: 21300000, guid: 1a9a70bfa38177248ae11e5367177638, type: 3}
+  sprite: {fileID: 21300000, guid: 690997149efc2d74888e3d1bfed1b225, type: 3}
   backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
   entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
   morale: 0
-  abilities: []
+  abilities:
+  - rid: 8790164513324270165
+  - rid: 2295167909047304351
   cacheValueConfigs: []
   enemyPattern:
     behaviors:
     - intent: 0
-      enemyTargetMethod: 4
+      enemyTargetMethod: 0
       targetsKey: target
-      displayValue: 9
+      displayValue: 10
       effectSteps:
       - rid: 3931529445166809429
       - rid: 4053950218419044423
       - rid: 3931529445166809326
-      - rid: 5602893111447519606
-      - rid: 5602893111447519608
-      - rid: 5602893111447519609
-      - rid: 3443535291885027971
       - rid: 5602893111447519607
       - rid: 5280922829633617990
     behaviorType: 0
@@ -48,24 +46,66 @@ MonoBehaviour:
   tooltip:
     empty: 0
     lines:
-    - title: Blind Rage
-      description: Chooses a companion to attack at random
+    - title: Sentinel's Watch
+      description: Whenever you exhaust or discard a card, the Sentinel gains 2 temporary
+        strength
       relatedBehaviorIndex: 0
   references:
     version: 2
     RefIds:
-    - rid: 3443535291885027971
-      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
+    - rid: 2295167909047304351
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: WaitForSecondsEffect
-        seconds: 0.3
+        abilityTrigger: 16
+        effectSteps:
+        - rid: 2295167909047304352
+        - rid: 2295167909047304353
+        - rid: 2295167909047304354
+    - rid: 2295167909047304352
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 2295167909047304353
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: self
+        statusEffect: 6
+        scale: 2
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+    - rid: 2295167909047304354
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 4bed509d0589dae4d922d8eeb61a6292, type: 3}
+        scale: 1
+    - rid: 2295167909047304355
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 4bed509d0589dae4d922d8eeb61a6292, type: 3}
+        scale: 1
     - rid: 3931529445166809326
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
         inputKey: target
         combatEffect: 0
-        scale: 9
+        scale: 10
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
@@ -105,40 +145,48 @@ MonoBehaviour:
         inputKey: self
         prefabToInstantiate: {fileID: 3850217184923880746, guid: 4bed509d0589dae4d922d8eeb61a6292, type: 3}
         scale: 1
-    - rid: 5602893111447519606
-      type: {class: CountStatusEffectsStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CountStatusEffectStep
-        inputKey: self
-        statusEffect: 0
-        onlyCountStatusOnce: 0
-        outputKey: numStrength
     - rid: 5602893111447519607
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ApplyStatus
         inputKey: self
         statusEffect: 0
-        scale: 1
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-    - rid: 5602893111447519608
-      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
+    - rid: 8790164513324270165
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: BooleanComparison
-        hardCodedInputKey1: 15
-        useHardCodedInputKey1: 1
-        inputKey1: 
-        operation: 2
-        inputKey2: numStrength
-        outputKey: pastStrengthThreshold
-    - rid: 5602893111447519609
-      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+        abilityTrigger: 9
+        effectSteps:
+        - rid: 8790164513324270166
+        - rid: 8790164513324270167
+        - rid: 2295167909047304355
+    - rid: 8790164513324270166
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: EndWorkflowIfConditionMet
-        inputKey1: pastStrengthThreshold
-        conditionToEndOn: 1
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 8790164513324270167
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: self
+        statusEffect: 6
+        scale: 2
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
