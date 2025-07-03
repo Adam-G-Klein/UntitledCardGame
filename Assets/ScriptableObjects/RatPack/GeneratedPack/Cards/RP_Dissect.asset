@@ -40,7 +40,7 @@ MonoBehaviour:
       type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: WaitForSecondsEffect
-        seconds: 1.5
+        seconds: 0.75
     - rid: 2034229587402555941
       type: {class: FilterCards, ns: , asm: Assembly-CSharp}
       data:
@@ -73,6 +73,7 @@ MonoBehaviour:
         - rid: 2034229587402555940
         - rid: 2034229587402555941
         - rid: 2034229587402555942
+        - rid: 7112866149338972220
     - rid: 5602892723852673196
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -93,3 +94,11 @@ MonoBehaviour:
         scale: 4
         getScaleFromKey: 0
         inputScaleKey: 
+    - rid: 7112866149338972220
+      type: {class: SetCardEffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: SetCardEffectWorkflow
+        cardInputKey: 
+        chapterInputKey: 
+        increment: 1
+        modifyThisCard: 1
