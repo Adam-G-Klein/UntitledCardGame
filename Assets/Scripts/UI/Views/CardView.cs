@@ -98,13 +98,9 @@ public class CardView {
         var desc = new Label();
         desc.AddToClassList("card-desc-label");
 
-        string description = card.Description;
-        foreach (var defaultValue in card.defaultValues){
-            string styledValue = $"<b>{defaultValue.value}</b>";
-            description = description.Replace($"{{{defaultValue.key}}}", styledValue);
-        }
+        string description = card.GetDescription();
         desc.text = description;
-        desc.style.fontSize = getDescFontSize(card.Description, cardInShop);
+        desc.style.fontSize = getDescFontSize(description, cardInShop);
         container.Add(desc);
 
         var manaContainer = new VisualElement();

@@ -87,79 +87,12 @@ public class UIDocumentCard : MonoBehaviour
 
     public void UpdateCardText(EffectDocument document)
     {
-        /*cardView.UpdateManaCost();
-        if (cardView == null) return;
-        if (!document.intMap.ContainsKey("rpl_damage")) return;
-        List<int> newValues = new();
-        newValues.Add(document.intMap["rpl_damage"]);
-        if (document.intMap.ContainsKey("rpl_mult") && card.cardType.values.Count() == 2) {
-            newValues.Add(document.intMap["rpl_mult"]);
-        }
-        object[] styledValues = newValues
-            .Select((currentValue, index) => {
-                string styledValue;
-                // Compare with default value at same index
-                if (currentValue > card.cardType.values[index])
-                {
-                    styledValue = $"<color=green><b>{currentValue}</b></color>";
-                }
-                else if (currentValue < card.cardType.values[index])
-                {
-                    styledValue = $"<color=red><b>{currentValue}</b></color>";
-                }
-                else
-                {
-                    styledValue = $"<b>{currentValue}</b>";  // or whatever your default color is
-                }
-                return styledValue;
-            })
-            .Cast<object>()
-            .ToArray();
-        //object[] valueArray = card.values.Cast<object>().ToArray(); 
-        cardView.UpdateCardText(string.Format(card.cardType.Description, styledValues));
-        runCoroutine();*/
         cardView.UpdateManaCost();
         if (cardView == null) return;
 
-        List<object> styledValues = new();
-        string description = card.cardType.Description;
-
-        // Loop through each default value and check if it exists in document.intMap
-        foreach (var defaultValue in card.cardType.defaultValues)
-        {
-            string key = defaultValue.key;
-            if (document.intMap.ContainsKey(key))
-            {
-                int currentValue = document.intMap[key];
-                string styledValue;
-
-                if (currentValue > defaultValue.value)
-                {
-                    styledValue = $"<color=green><b>{currentValue}</b></color>";
-                }
-                else if (currentValue < defaultValue.value)
-                {
-                    styledValue = $"<color=red><b>{currentValue}</b></color>";
-                }
-                else
-                {
-                    styledValue = $"<b>{currentValue}</b>";
-                }
-
-                description = description.Replace($"{{{defaultValue.key}}}", styledValue);
-
-            }
-            else
-            {
-                // If the value isn't in the map, use the default value unstylized
-                description = description.Replace($"{{{defaultValue.key}}}", $"<b>{defaultValue.value}</b>");
-            }
-        }
-
+        string description = card.cardType.GetDescriptionWithUpdatedValues(document.intMap);
         cardView.UpdateCardText(description);
-
         cardView.SetHighlight(document.boolMap.ContainsKey("highlightCard") && document.boolMap["highlightCard"]);
-
     }
 
     void OnExitPlaymode()

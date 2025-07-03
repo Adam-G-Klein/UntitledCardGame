@@ -75,39 +75,98 @@ public class CardType: ScriptableObject, ITooltipProvider
         cardModifications[modification] += scale;
     }
 
-    public TooltipViewModel GetTooltip() {
+    public string GetDescription()
+    {
+        string description = Description;
+        foreach (var defaultValue in defaultValues)
+        {
+            description = description.Replace($"{{{defaultValue.key}}}", $"<b>{defaultValue.value}</b>");
+        }
+        return description;
+    }
+
+    public string GetDescriptionWithUpdatedValues(Dictionary<string, int> intMap)
+    {
+        string description = Description;
+
+        // Loop through each default value and check if it exists in document.intMap
+        foreach (var defaultValue in defaultValues)
+        {
+            string key = defaultValue.key;
+            if (intMap.ContainsKey(key))
+            {
+                int currentValue = intMap[key];
+                string styledValue;
+
+                if (currentValue > defaultValue.value)
+                {
+                    styledValue = $"<color=green><b>{currentValue}</b></color>";
+                }
+                else if (currentValue < defaultValue.value)
+                {
+                    styledValue = $"<color=red><b>{currentValue}</b></color>";
+                }
+                else
+                {
+                    styledValue = $"<b>{currentValue}</b>";
+                }
+
+                description = description.Replace($"{{{defaultValue.key}}}", styledValue);
+
+            }
+            else
+            {
+                // If the value isn't in the map, use the default value unstylized
+                description = description.Replace($"{{{defaultValue.key}}}", $"<b>{defaultValue.value}</b>");
+            }
+        }
+        return description;
+    }
+
+    public TooltipViewModel GetTooltip()
+    {
         TooltipViewModel tooltip = new TooltipViewModel(empty: true);
         List<TooltipKeyword> tooltipKeywords = new();
         tooltipKeywords.AddRange(tooltips);
-        if (!tooltipKeywords.Contains(TooltipKeyword.Exhaust) && exhaustsWhenPlayed) {
+        if (!tooltipKeywords.Contains(TooltipKeyword.Exhaust) && exhaustsWhenPlayed)
+        {
             tooltipKeywords.Add(TooltipKeyword.Exhaust);
         }
-        if (!tooltipKeywords.Contains(TooltipKeyword.Retain) && retain) {
+        if (!tooltipKeywords.Contains(TooltipKeyword.Retain) && retain)
+        {
             tooltipKeywords.Add(TooltipKeyword.Retain);
         }
-        foreach(TooltipKeyword keyword in tooltipKeywords) {
+        foreach (TooltipKeyword keyword in tooltipKeywords)
+        {
             Debug.Log("CardType.GetTooltip(): Adding tooltip keyword " + keyword);
             tooltip += KeywordTooltipProvider.Instance.GetTooltip(keyword);
         }
         List<EffectWorkflow> tooltipWorkflows = new();
         tooltipWorkflows.AddRange(effectWorkflows);
-        if (inPlayerHandEndOfTurnWorkflow != null) {
+        if (inPlayerHandEndOfTurnWorkflow != null)
+        {
             tooltipWorkflows.Add(inPlayerHandEndOfTurnWorkflow);
         }
-        if (onExhaustEffectWorkflow != null) {
+        if (onExhaustEffectWorkflow != null)
+        {
             tooltipWorkflows.Add(onExhaustEffectWorkflow);
         }
-        if (onDiscardEffectWorkflow != null) {
+        if (onDiscardEffectWorkflow != null)
+        {
             tooltipWorkflows.Add(onDiscardEffectWorkflow);
         }
-        foreach(EffectWorkflow workflow in tooltipWorkflows) {
-            if (workflow == null) {
+        foreach (EffectWorkflow workflow in tooltipWorkflows)
+        {
+            if (workflow == null)
+            {
                 continue;
             }
-            foreach(EffectStep step in workflow.effectSteps) {
+            foreach (EffectStep step in workflow.effectSteps)
+            {
                 Debug.Log("CardType.GetTooltip(): Found effect step " + step.effectStepName);
-                if(step is ITooltipProvider) {
-                    ITooltipProvider tooltipProvider = (ITooltipProvider) step;
+                if (step is ITooltipProvider)
+                {
+                    ITooltipProvider tooltipProvider = (ITooltipProvider)step;
                     // + is overridden in Tooltip class to concatenate plaintext strings
                     // this code should stay operable when images are added if we update the
                     // operation override
