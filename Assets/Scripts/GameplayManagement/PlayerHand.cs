@@ -306,7 +306,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                     new EffectWorkflowClosure(new EffectDocument(), new EffectWorkflow(), card.DiscardToDeck())
                 );
             } else {
-                yield return StartCoroutine(card.DiscardToDeck());
+                StartCoroutine(card.DiscardToDeck());
             }
         }
     }

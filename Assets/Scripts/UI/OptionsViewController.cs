@@ -146,7 +146,8 @@ public class OptionsViewController : MonoBehaviour, IControlsReceiver
             // Have to do this each time due to how the options menu persists across scenes
             FocusManager.Instance.StashFocusables(this.GetType().Name);
             RegisterFocusables();
-            FocusManager.Instance.SetFocusNextFrame(backButton.AsFocusable());
+            if (ControlsManager.Instance.GetControlMethod() == ControlsManager.ControlMethod.KeyboardController)
+                FocusManager.Instance.SetFocusNextFrame(backButton.AsFocusable());
         } else {
             canvasGroup.blocksRaycasts = false;
             UIDocumentUtils.SetAllPickingMode(optionsUIDocument.rootVisualElement, PickingMode.Ignore);

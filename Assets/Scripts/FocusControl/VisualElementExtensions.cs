@@ -20,12 +20,22 @@ public static class VisualElementExtensions
     }
 
     public static void RegisterOnSelected(this VisualElement element, Action action) {
-        element.RegisterCallback<ClickEvent>(evt => action());
+        element.RegisterCallback<ClickEvent>(evt => {
+            action();
+            if (evt.pointerType == "mouse") {
+                element.schedule.Execute(() => element.Blur()).ExecuteLater(10);
+            }
+        });
         element.RegisterCallback<NavigationSubmitEvent>(evt => action());
     }
 
     public static void RegisterOnSelected(this VisualElement element, Action<ClickEvent> action) {
-        element.RegisterCallback<ClickEvent>(evt => action(evt));
+        element.RegisterCallback<ClickEvent>(evt => {
+            action(evt);
+            if (evt.pointerType == "mouse") {
+                element.schedule.Execute(() => element.Blur()).ExecuteLater(10);
+            }
+        });
         element.RegisterCallback<NavigationSubmitEvent>(evt => action(element.CreateFakeClickEvent()));
     }
 

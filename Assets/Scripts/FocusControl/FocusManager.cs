@@ -231,11 +231,6 @@ public class FocusManager : GenericSingleton<FocusManager>, IControlsReceiver
         foreach (var el in root.Query<VisualElement>(className: "focusable").ToList())
         {
             RegisterFocusableTarget(el.AsFocusable());
-            // This prevents UI elements from being focused by clicking on them
-            // It's beahvior I don't think we want to have.
-            el.RegisterCallback<PointerDownEvent>(evt => {
-                evt.PreventDefault();
-            });
         }
     }
 

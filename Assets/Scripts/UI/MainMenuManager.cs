@@ -45,13 +45,13 @@ public class MainMenuManager : MonoBehaviour
         optionsButton = mainMenuUIDocument.rootVisualElement.Q<Button>("optionsButton");
         exitButton = mainMenuUIDocument.rootVisualElement.Q<Button>("exitButton");
 
-        VisualElementUtils.RegisterSelected(startButton, startButtonHandler);
-        VisualElementUtils.RegisterSelected(optionsButton, optionsButtonHandler);
-        VisualElementUtils.RegisterSelected(exitButton, exitButtonHandler);
+        startButton.RegisterOnSelected(startButtonHandler);
+        optionsButton.RegisterOnSelected(optionsButtonHandler);
+        exitButton.RegisterOnSelected(exitButtonHandler);
         
 
         FocusManager.Instance.RegisterFocusables(mainMenuUIDocument);
-        FocusManager.Instance.SetFocus(startButton.AsFocusable());
+        // FocusManager.Instance.SetFocus(startButton.AsFocusable());
     }
 
     public void startButtonHandler() {

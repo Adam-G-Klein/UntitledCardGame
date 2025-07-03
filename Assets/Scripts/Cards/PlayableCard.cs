@@ -134,7 +134,6 @@ public class PlayableCard : MonoBehaviour,
             PlayerHand.Instance.HoverNextCard(cardPlayedIndex);
 
             yield return StartCoroutine(PlayerHand.Instance.ResizeHand(this));
-            yield return StartCoroutine(CardCastVFX(this.gameObject));
             yield return StartCoroutine(PlayerHand.Instance.DiscardCard(this, true));
         }
 
@@ -156,6 +155,7 @@ public class PlayableCard : MonoBehaviour,
             this.transform.position,
             Quaternion.identity);
     }
+    
     private IEnumerator CardCastVFX(GameObject cardGameObject) {
         this.isCardCastPlaying = true;
         FXExperience experience = PrefabInstantiator.instantiateFXExperience(cardCastVFXPrefab, cardGameObject.transform.position);
