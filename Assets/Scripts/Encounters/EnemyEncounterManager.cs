@@ -136,6 +136,10 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         }
         gameState.playerData.GetValue().gold += baseGoldEarnedPerBattle + extraGold;
 
+        // Give player shop upgrade increments for defeating the enemy 
+        ShopManager.Instance.EarnUpgradeIncrement();
+        
+
         if (onEncounterEndHandler != null)
         {
             foreach (OnEncounterEndHandler handler in onEncounterEndHandler.GetInvocationList())

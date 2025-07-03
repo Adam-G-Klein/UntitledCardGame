@@ -70,11 +70,6 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         CheckDisableUpgradeButtonV2();
 
         shopViewController.SetupUpgradeIncrements();
-        // As long as we are below the current max shop level, automatically earn an upgrade increment.
-        if (shopLevel.level < shopEncounter.shopData.shopLevels.Count - 1)
-        {
-            EarnUpgradeIncrement();
-        }
         /* uncomment to re-enable shop dialogue
         DialogueManager.Instance.SetDialogueLocation(
             gameState.dialogueLocations.GetDialogueLocation(gameState));
@@ -295,6 +290,8 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     // It returns true if the upgrade advanced a shop level, and false otherwise.
     public void EarnUpgradeIncrement()
     {
+        // As long as we are below the current max shop level, automatically earn an upgrade increment.
+        if (shopLevel.level >= shopEncounter.shopData.shopLevels.Count - 1) return;
         PlayerData playerData = gameState.playerData.GetValue();
         if (playerData.shopLevelIncrementsEarned == GetShopLevel().shopLevelIncrementsToUnlock - 1)
         {
