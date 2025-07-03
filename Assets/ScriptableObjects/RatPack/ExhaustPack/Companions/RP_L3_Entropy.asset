@@ -30,7 +30,6 @@ MonoBehaviour:
   genericCompanionVFX: {fileID: 0}
   cacheValueConfigs: []
   cardPool: {fileID: 11400000, guid: f3284cbe41e554987870c37830675992, type: 2}
-  packCardPool: {fileID: 11400000, guid: 0f37e5a720cc243b2ab7df193483391d, type: 2}
   pack: {fileID: 11400000, guid: 79e479ca9df7a4369ba7fa951e0af116, type: 2}
   speakerType: {fileID: 0}
   abilitiesV2:
@@ -44,6 +43,9 @@ MonoBehaviour:
     - title: Level 3 Entropy
       description: Transform 1 card into an "Entropy's Burn" card at the end of combat.
         Whenever you exhaust a card, deal 4 damage to a random enemy
+      relatedBehaviorIndex: 0
+    - title: Entropy's Burn
+      description: 1. Exhaust. When exhausted, deal 5 damage to a random enemy.
       relatedBehaviorIndex: 0
   keepsakeTitle: 
   keepsakeDescription: Transform 1 card into an "Entropy's Burn" card at the end
