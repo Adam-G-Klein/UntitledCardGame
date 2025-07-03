@@ -69,5 +69,7 @@ public class SaveManager : GenericSingleton<SaveManager>
         {
             Debug.Log("EncounterType: " + encounter.getEncounterType() + " loaded");
         }
+
+        gameStateVariableSO.LoadNextLocationFromLoadingSave();
     }
 }

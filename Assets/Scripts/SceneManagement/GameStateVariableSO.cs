@@ -151,6 +151,9 @@ public class GameStateVariableSO : ScriptableObject
                 EndTutorialLoop();
                 AdvanceEncounter();
                 break;
+            case Location.PACK_SELECT:
+                currentLocation = locationToNextLocation[currentLocation];
+                break;
             default:
                 Debug.Log("Invalid location in LoadNextLocation switch case");
                 break;
@@ -160,16 +163,18 @@ public class GameStateVariableSO : ScriptableObject
         LoadCurrentLocationScene();
     }
 
-    public void PrepareAfterSavefileLoad() {
+    public void LoadNextLocationFromLoadingSave() {
         // Current encounter index of 0 is the first combat in the game
         Encounter currentEncounter = map.GetValue().encounters[currentEncounterIndex];
         if (currentEncounter.getEncounterType() == EncounterType.Enemy) {
-            currentLocation = Location.SHOP;
-        } else if (currentEncounter.getEncounterType() == EncounterType.Shop) {
             currentLocation = Location.COMBAT;
+        } else if (currentEncounter.getEncounterType() == EncounterType.Shop) {
+            currentLocation = Location.SHOP;
         }
-        // When we call LoadNextLocation, this gets incremented again
-        currentEncounterIndex--;
+        activeEncounter.SetValue(currentEncounter);
+        updateMusic(currentLocation);
+        cancelCurrentDialogue();
+        LoadCurrentLocationScene();
     }
 
     public void RemoveCompanionsFromTeam(List<Companion> companions) {
