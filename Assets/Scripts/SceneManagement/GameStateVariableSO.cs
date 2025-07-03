@@ -43,8 +43,6 @@ public class GameStateVariableSO : ScriptableObject
     public EncounterVariableSO activeEncounter;
     [Header("Our map and loop index, used to determine things like which dialogue to display")]
     public int nextMapIndex = 0;
-    [SerializeField]
-    private int currentLoopIndex = 0;
     [Header("The Next Combat or Shop Encounter we'll enter")]
     public EncounterVariableSO nextEncounter;
     public Location currentLocation;
@@ -60,28 +58,20 @@ public class GameStateVariableSO : ScriptableObject
     public List<PackSO> previouslySelectedPackSOs;
     public Dictionary<Location, string> locationToScene = new Dictionary<Location, string>() {
         {Location.MAIN_MENU, "MainMenu"},
-        {Location.WAKE_UP_ROOM, "AidensRoom"},
         {Location.TEAM_SIGNING, "TeamSigning"},
         {Location.TUTORIAL, "TutorialScene"},
         {Location.SHOP_TUTORIAL, "ShopTutorialScene"},
-        {Location.MAP, "Map"},
         {Location.PACK_SELECT, "PackSelectionScene"},
-        { Location.TEAM_SELECT, "TeamSelect"},
+        {Location.TEAM_SELECT, "TeamSelect"},
         {Location.PRE_COMBAT_SPLASH, "PreCombatSplash"},
         {Location.COMBAT, "CombatScene"},
         {Location.POST_COMBAT, "CombatScene"},
         {Location.SHOP, "PlaceholderShopEncounter"},
-        {Location.INTRO_CUTSCENE, "IntroCutscene"},
-        // not implemented yet
-        {Location.FAKE_SHOP, "FakeShop"},
-        {Location.PRE_BOSSFIGHT_COMBAT_SPLASH, "PreBossfightCombatSplash"},
-        {Location.BOSSFIGHT, "PlaceholderBossfightEncounter"}
+        {Location.INTRO_CUTSCENE, "IntroCutscene"}
     };
 
     private Dictionary<Location, Location> locationToNextLocation = new Dictionary<Location, Location>() {
         {Location.MAIN_MENU, Location.INTRO_CUTSCENE},
-        /*{Location.INTRO_CUTSCENE, Location.TEAM_SIGNING},
-        {Location.TEAM_SIGNING, Location.COMBAT},*/
         {Location.INTRO_CUTSCENE, Location.TUTORIAL},
         {Location.TUTORIAL, Location.TEAM_SIGNING},
         {Location.SHOP_TUTORIAL, Location.SHOP},
@@ -89,19 +79,7 @@ public class GameStateVariableSO : ScriptableObject
         {Location.COMBAT, Location.POST_COMBAT},
         {Location.POST_COMBAT, Location.SHOP},
         {Location.SHOP, Location.COMBAT},
-        {Location.FAKE_SHOP, Location.PRE_BOSSFIGHT_COMBAT_SPLASH},
-        {Location.PRE_BOSSFIGHT_COMBAT_SPLASH, Location.BOSSFIGHT},
-        {Location.BOSSFIGHT, Location.MAP},
         {Location.PACK_SELECT, Location.TEAM_SIGNING}
-    };
-
-    private HashSet<Location> resumeableLocations = new HashSet<Location>() {
-        {Location.COMBAT},
-        {Location.POST_COMBAT},
-        {Location.SHOP},
-        {Location.FAKE_SHOP},
-        {Location.BOSSFIGHT},
-        {Location.MAP}
     };
 
 
@@ -135,17 +113,8 @@ public class GameStateVariableSO : ScriptableObject
                 } else {
                     currentLocation = locationToNextLocation[currentLocation];
                 }
-/*                GameStateVariableSO candidateGameState = SaveLoadManager.LoadData();
-                if (candidateGameState && resumeableLocations.Contains(candidateGameState.currentLocation)) {
-                    replaceThisWith(candidateGameState);
-                    LoadCurrentLocationScene();
-                }*/
                 break;
             case Location.INTRO_CUTSCENE:
-                currentLocation = locationToNextLocation[currentLocation];
-                break;
-            case Location.WAKE_UP_ROOM:
-                Debug.Log("LEAVING WAKE UP ROOM");
                 currentLocation = locationToNextLocation[currentLocation];
                 break;
             case Location.TEAM_SIGNING:
@@ -154,25 +123,7 @@ public class GameStateVariableSO : ScriptableObject
             case Location.TUTORIAL:
                 currentLocation = locationToNextLocation[currentLocation];
                 break;
-            // map probably shouldn't stay its own location
-            // but we'll need to force the player to choose the next destination at some point.
-            // unsure
-            case Location.MAP:
-                Debug.Log("Leaving map, current location is: " + currentLocation + " next location is " + nextLocation);
-                if(nextLocation == Location.NONE) {
-                    Debug.LogError("A next location must be specified when leaving map");
-                } else if (nextLocation == Location.COMBAT) {
-                    currentLocation = Location.TEAM_SELECT;
-                } else if (nextLocation == Location.SHOP) {
-                    currentLocation = Location.SHOP;
-                } else {
-                    Debug.LogError("Invalid next location specified when leaving map");
-                }
-                break;
             case Location.TEAM_SELECT:
-                currentLocation = locationToNextLocation[currentLocation];
-                break;
-            case Location.PRE_COMBAT_SPLASH:
                 currentLocation = locationToNextLocation[currentLocation];
                 break;
             case Location.COMBAT:
@@ -200,15 +151,6 @@ public class GameStateVariableSO : ScriptableObject
                 EndTutorialLoop();
                 AdvanceEncounter();
                 break;
-            case Location.FAKE_SHOP:
-                currentLocation = locationToNextLocation[currentLocation];
-                break;
-            case Location.PRE_BOSSFIGHT_COMBAT_SPLASH:
-                currentLocation = locationToNextLocation[currentLocation];
-                break;
-            case Location.PACK_SELECT:
-                currentLocation = locationToNextLocation[currentLocation];
-                break;
             default:
                 Debug.Log("Invalid location in LoadNextLocation switch case");
                 break;
@@ -216,7 +158,18 @@ public class GameStateVariableSO : ScriptableObject
         updateMusic(currentLocation);
         cancelCurrentDialogue();
         LoadCurrentLocationScene();
-        currentLoopIndex = GetLoopIndex();
+    }
+
+    public void PrepareAfterSavefileLoad() {
+        // Current encounter index of 0 is the first combat in the game
+        Encounter currentEncounter = map.GetValue().encounters[currentEncounterIndex];
+        if (currentEncounter.getEncounterType() == EncounterType.Enemy) {
+            currentLocation = Location.SHOP;
+        } else if (currentEncounter.getEncounterType() == EncounterType.Shop) {
+            currentLocation = Location.COMBAT;
+        }
+        // When we call LoadNextLocation, this gets incremented again
+        currentEncounterIndex--;
     }
 
     public void RemoveCompanionsFromTeam(List<Companion> companions) {
@@ -254,9 +207,7 @@ public class GameStateVariableSO : ScriptableObject
             return;
         }
         if(locationToScene[currentLocation] != SceneManager.GetActiveScene().name) {
-            // TODO: call a scene transition handler
             SceneTransitionManager.LoadScene(locationToScene[currentLocation]);
-            //SceneManager.LoadScene(locationToScene[currentLocation]);
         }
     }
 
@@ -327,33 +278,5 @@ public class GameStateVariableSO : ScriptableObject
         viewedSequences = new List<DialogueSequenceSO>();
         SetLocation(Location.MAIN_MENU);
         LoadNextLocation();
-    }
-
-    private void replaceThisWith(GameStateVariableSO sourceObject)
-    {
-        if (sourceObject == null)
-        {
-            Debug.LogError("Source object is null!");
-            return;
-        }
-
-        // Manually copy each field
-
-        this.companions = sourceObject.companions;
-        this.playerData = sourceObject.playerData;
-        this.map = sourceObject.map;
-        this.baseShopData = sourceObject.baseShopData;
-        this.mapGenerator = sourceObject.mapGenerator;
-        this.activeEncounter = sourceObject.activeEncounter;
-        this.nextMapIndex = sourceObject.nextMapIndex;
-        this.currentLoopIndex = sourceObject.currentLoopIndex;
-        this.nextEncounter = sourceObject.nextEncounter;
-        this.currentLocation = sourceObject.currentLocation;
-        this.dialogueLocations = sourceObject.dialogueLocations;
-        this.debugSingleEncounterMode = sourceObject.debugSingleEncounterMode;
-        this.viewedSequences = sourceObject.viewedSequences;
-        this.hoveredCompanion = sourceObject.hoveredCompanion;
-        this.currentEncounterIndex = sourceObject.currentEncounterIndex;
-        this.hasSeenTutorial = sourceObject.hasSeenTutorial;
     }
 }
