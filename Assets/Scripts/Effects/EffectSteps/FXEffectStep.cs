@@ -7,7 +7,7 @@ using Unity.VisualScripting;
 public class FXEffectStep: EffectStep {
 
     [SerializeField]
-    private bool waitForEffect = true;
+    private bool waitForEffect = false;
     [SerializeField]
     private GameObject fXExperiencePrefab;
     [Header("If not specified, will default to 0,0")]
