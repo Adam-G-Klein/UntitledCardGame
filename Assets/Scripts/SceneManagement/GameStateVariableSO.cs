@@ -158,6 +158,11 @@ public class GameStateVariableSO : ScriptableObject
                 Debug.Log("Invalid location in LoadNextLocation switch case");
                 break;
         }
+
+        if (currentLocation == Location.SHOP || currentLocation == Location.COMBAT) {
+            SaveManager.Instance.SaveHandler();
+        }
+
         updateMusic(currentLocation);
         cancelCurrentDialogue();
         LoadCurrentLocationScene();
