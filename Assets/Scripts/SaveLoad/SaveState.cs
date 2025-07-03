@@ -12,7 +12,7 @@ public class SaveState {
     private List<CompanionSerializable> activeCompanions;
     // private List<CompanionSerializable> benchCompanions;
     private List<EncounterSerializable> map;
-    // private int currentEncounterIndex;
+    private int currentEncounterIndex;
     // private PlayerDataSerializable playerData;
 
     public SaveState(string saveName, GameStateVariableSO gameState) {
@@ -31,7 +31,7 @@ public class SaveState {
                 : new ShopEncounterSerializable((ShopEncounter)encounter))
              .ToList();
         
-        // this.currentEncounterIndex = gameState.currentEncounterIndex;
+        this.currentEncounterIndex = gameState.currentEncounterIndex;
 
         // this.playerData = new PlayerDataSerializable(gameState.playerData);
     }
@@ -47,7 +47,7 @@ public class SaveState {
         
         gameState.map.SetValue(new Map(this.map, registry));
 
-        // gameState.currentEncounterIndex = this.currentEncounterIndex;
+        gameState.currentEncounterIndex = this.currentEncounterIndex;
 
         // gameState.playerData.SetValue(new PlayerData(this.playerData));
     }
