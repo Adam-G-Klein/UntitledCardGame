@@ -37,7 +37,7 @@ public class EntityView : IUIEventReceiver {
     private int ENTITY_NAME_MAX_CHARS = 6;
     private int ENTITY_NAME_FONT_SIZE = 20;
 
-    public GameObject tweenTarget = new GameObject("ScaleBumpTarget");
+    public GameObject tweenTarget;
 
     public EntityView(IUIEntity entity, int index, bool isEnemy, IEntityViewDelegate viewDelegate = null, bool isCompanionManagementView = false) {
         this.uiEntity = entity;
@@ -456,8 +456,9 @@ public class EntityView : IUIEventReceiver {
     private void DamageScaleBump(int scale) {
         if (scale == 0) return; // this could mean the damage didn't go through the block or that the companion died while taking damage
 
-        if (LeanTween.isTweening(tweenTarget)) return;
- 
+        if (tweenTarget && LeanTween.isTweening(tweenTarget)) return;
+        if (!tweenTarget) tweenTarget = new GameObject("ScaleBumpTarget");
+        
         Transform combatInstanceTransform = combatInstance.GetComponent<Transform>();
         originalScale = combatInstanceTransform.localScale;
         originalElementScale = new Vector2(
@@ -486,13 +487,16 @@ public class EntityView : IUIEventReceiver {
                     combatInstanceTransform.position = entityWorldPosition;
                 }
             })
-            .setOnComplete(() => {
+            .setOnComplete(() =>
+            {
                 entityContainer.style.scale = new StyleScale(new Scale(originalElementScale));
                 Vector3 entityWorldPosition = UIDocumentGameObjectPlacer.GetWorldPositionFromElement(companionContainer);
-                if (combatInstanceTransform != null) {
+                if (combatInstanceTransform != null)
+                {
                     combatInstanceTransform.localScale = originalScale;
                     combatInstanceTransform.position = entityWorldPosition;
                 }
+                GameObject.Destroy(tweenTarget);
             });
     }
 
