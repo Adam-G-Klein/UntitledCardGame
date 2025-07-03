@@ -65,6 +65,10 @@ public class ShopEncounter : Encounter
         this.shopData = shopData;
     }
 
+    public ShopEncounter(ShopEncounterSerializable shopEncounterSerializable, SORegistry registry) {
+        this.encounterType = EncounterType.Shop;
+    }
+
     public void Build(
             ShopManager shopManager,
             List<Companion> companionList,
@@ -289,6 +293,7 @@ public class ShopEncounter : Encounter
     }
 }
 
+[System.Serializable]
 public class ShopEncounterSerializable : EncounterSerializable {
     public ShopEncounterSerializable(ShopEncounter encounter) : base(encounter) {
     }

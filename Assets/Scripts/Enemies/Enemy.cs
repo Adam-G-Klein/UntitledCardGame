@@ -19,6 +19,13 @@ public class Enemy : Entity, ICombatStats, IUIEntity {
             enemyType.baseAttackDamage);
     }
 
+    public Enemy(EnemySerializeable enemySerializeable, SORegistry registry) {
+        this.enemyType = registry.GetAsset<EnemyTypeSO>(enemySerializeable.enemyTypeGuid);
+        this.combatStats = enemySerializeable.combatStats;
+        this.entityType = EntityType.Enemy;
+        this.id = enemySerializeable.entityId;
+    }
+
     public EnemyIntent ChooseIntent(EnemyInstance enemyInstance) {
         if (enemyInstance.enemy.enemyType.morale == EnemyMorale.AdaptWhenAlone) {
             List<EnemyInstance> allEnemies = CombatEntityManager.Instance.getEnemies();
@@ -103,9 +110,11 @@ public class Enemy : Entity, ICombatStats, IUIEntity {
 public class EnemySerializeable {
     public string enemyTypeGuid;
     public CombatStats combatStats;
+    public string entityId;
 
     public EnemySerializeable(Enemy enemy) {
         this.enemyTypeGuid = enemy.enemyType.GUID;
         this.combatStats = enemy.combatStats;
+        this.entityId = enemy.id;
     }
 }

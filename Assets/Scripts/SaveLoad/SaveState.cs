@@ -11,7 +11,7 @@ public class SaveState {
     public string SaveName => saveName;
     private List<CompanionSerializable> activeCompanions;
     // private List<CompanionSerializable> benchCompanions;
-    // private List<EncounterSerializable> map;
+    private List<EncounterSerializable> map;
     // private int currentEncounterIndex;
     // private PlayerDataSerializable playerData;
 
@@ -20,14 +20,16 @@ public class SaveState {
         this.activeCompanions = gameState.companions.activeCompanions
              .Select(companion => new CompanionSerializable(companion))
              .ToList();
-        
+
         // this.benchCompanions = gameState.companions.benchedCompanions
         //     .Select(companion => new CompanionSerializable(companion))
         //     .ToList();
-        
-        // this.map = gameState.map.GetValue().encounters
-        //     .Select(encounter => new EncounterSerializable(encounter))
-        //     .ToList();
+
+        this.map = gameState.map.GetValue().encounters
+             .Select<Encounter, EncounterSerializable>(encounter => encounter.getEncounterType() == EncounterType.Enemy ?
+                new EnemyEncounterSerializable((EnemyEncounter)encounter)
+                : new ShopEncounterSerializable((ShopEncounter)encounter))
+             .ToList();
         
         // this.currentEncounterIndex = gameState.currentEncounterIndex;
 
@@ -43,7 +45,7 @@ public class SaveState {
         //     .Select(companion => new Companion(companion, registry))
         //     .ToList();
         
-        // gameState.map.SetValue(new Map(this.map, registry));
+        gameState.map.SetValue(new Map(this.map, registry));
 
         // gameState.currentEncounterIndex = this.currentEncounterIndex;
 

@@ -52,15 +52,22 @@ public class SaveManager : GenericSingleton<SaveManager>
         SaveState saveState = new SaveState(textField.text, gameStateVariableSO);
         SaveSystem.Save<SaveState>(saveState);
     }
-    
-    public void LoadHandler() {
+
+    public void LoadHandler()
+    {
         SaveState loadState = SaveSystem.Load<SaveState>();
         // instantiate the save state from the serializable data
         loadState.LoadToGameState(gameStateVariableSO, soRegistry);
         // print out a buncha companion information
         textField.value = loadState.SaveName;
-        foreach(Companion companion in gameStateVariableSO.companions.activeCompanions) {
+        foreach (Companion companion in gameStateVariableSO.companions.activeCompanions)
+        {
             Debug.Log("CompanionType: " + companion.companionType.name + " loaded");
+        }
+
+        foreach (Encounter encounter in gameStateVariableSO.map.GetValue().encounters)
+        {
+            Debug.Log("EncounterType: " + encounter.getEncounterType() + " loaded");
         }
     }
 }

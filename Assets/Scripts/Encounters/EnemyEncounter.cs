@@ -28,6 +28,12 @@ public class EnemyEncounter : Encounter
         }
     }
 
+    public EnemyEncounter(EnemyEncounterSerializable enemyEncounterSerializable, SORegistry registry) {
+        this.encounterType = EncounterType.Enemy;
+        this.enemyList = enemyEncounterSerializable.enemies.Select(enemy => new Enemy(enemy, registry)).ToList();
+        this.isEliteEncounter = enemyEncounterSerializable.isEliteEncounter;
+    }
+
     public void SetIsElite(bool isElite) {
         isEliteEncounter = isElite;
     }
