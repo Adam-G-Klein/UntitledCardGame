@@ -78,6 +78,8 @@ MonoBehaviour:
         - rid: 2268261004812222482
         - rid: 2268261004812222481
         - rid: 1274772082283774706
+        - rid: 7112866130419515426
+        - rid: 7112866130419515425
     - rid: 5602892561590779944
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -88,4 +90,28 @@ MonoBehaviour:
         validTargets: 00000000
         number: 1
         specialTargetRule: 0
+        cantCancelTargetting: 0
+    - rid: 7112866130419515425
+      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FXEffectStep
+        waitForEffect: 1
+        fXExperiencePrefab: {fileID: 4075960956037802917, guid: ec7b1a1529f9141458320888bf8e3d96, type: 3}
+        rootLocationGameObjectKey: 
+        positionMappingList:
+        - fromWorkflow: self
+          toFxExperience: start
+        - fromWorkflow: target
+          toFxExperience: end
+        gameobjectMappingList: []
+    - rid: 7112866130419515426
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: self
+        outputKey: 
+        validTargets: 
+        number: 1
+        specialTargetRule: 4
         cantCancelTargetting: 0
