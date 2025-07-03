@@ -10,10 +10,10 @@ public class SaveState {
     private string saveName;
     public string SaveName => saveName;
     private List<CompanionSerializable> activeCompanions;
-    // private List<CompanionSerializable> benchCompanions;
+    private List<CompanionSerializable> benchCompanions;
     private List<EncounterSerializable> map;
     private int currentEncounterIndex;
-    // private PlayerDataSerializable playerData;
+    private PlayerDataSerializable playerData;
 
     public SaveState(string saveName, GameStateVariableSO gameState) {
         this.saveName = saveName;
@@ -21,9 +21,9 @@ public class SaveState {
              .Select(companion => new CompanionSerializable(companion))
              .ToList();
 
-        // this.benchCompanions = gameState.companions.benchedCompanions
-        //     .Select(companion => new CompanionSerializable(companion))
-        //     .ToList();
+        this.benchCompanions = gameState.companions.benchedCompanions
+             .Select(companion => new CompanionSerializable(companion))
+             .ToList();
 
         this.map = gameState.map.GetValue().encounters
              .Select<Encounter, EncounterSerializable>(encounter => encounter.getEncounterType() == EncounterType.Enemy ?
@@ -33,7 +33,7 @@ public class SaveState {
         
         this.currentEncounterIndex = gameState.currentEncounterIndex;
 
-        // this.playerData = new PlayerDataSerializable(gameState.playerData);
+        this.playerData = new PlayerDataSerializable(gameState.playerData.GetValue());
     }
 
     public void LoadToGameState(GameStateVariableSO gameState, SORegistry registry) {
@@ -41,14 +41,14 @@ public class SaveState {
              .Select(companion => new Companion(companion, registry))
              .ToList();
         
-        // gameState.companions.benchedCompanions = this.benchCompanions
-        //     .Select(companion => new Companion(companion, registry))
-        //     .ToList();
+        gameState.companions.benchedCompanions = this.benchCompanions
+             .Select(companion => new Companion(companion, registry))
+             .ToList();
         
         gameState.map.SetValue(new Map(this.map, registry));
 
         gameState.currentEncounterIndex = this.currentEncounterIndex;
 
-        // gameState.playerData.SetValue(new PlayerData(this.playerData));
+        gameState.playerData.SetValue(new PlayerData(this.playerData));
     }
 }
