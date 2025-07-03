@@ -14,9 +14,9 @@ public class Map
         this.encounters = encounters;
     }
 
-    public Map(List<EncounterSerializable> encounters, SORegistry registry) {
+    public Map(List<EncounterSerializable> encounters, SORegistry registry, ShopDataSO shopData) {
         this.encounters = encounters.Select<EncounterSerializable, Encounter>(encounter => encounter.encounterType == EncounterType.Enemy ?
-            new EnemyEncounter(encounter as EnemyEncounterSerializable, registry) : new ShopEncounter(encounter as ShopEncounterSerializable, registry)).ToList();
+            new EnemyEncounter(encounter as EnemyEncounterSerializable, registry) : new ShopEncounter(encounter as ShopEncounterSerializable, registry, shopData)).ToList();
     }
 
     public void loadEncounterById(string id, GameStateVariableSO gameState) {

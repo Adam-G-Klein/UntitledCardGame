@@ -65,8 +65,9 @@ public class ShopEncounter : Encounter
         this.shopData = shopData;
     }
 
-    public ShopEncounter(ShopEncounterSerializable shopEncounterSerializable, SORegistry registry) {
+    public ShopEncounter(ShopEncounterSerializable shopEncounterSerializable, SORegistry registry, ShopDataSO shopData) {
         this.encounterType = EncounterType.Shop;
+        this.shopData = shopData;
     }
 
     public void Build(

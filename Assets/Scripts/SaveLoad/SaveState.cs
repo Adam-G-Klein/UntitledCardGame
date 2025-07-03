@@ -45,7 +45,7 @@ public class SaveState {
              .Select(companion => new Companion(companion, registry))
              .ToList();
         
-        gameState.map.SetValue(new Map(this.map, registry));
+        gameState.map.SetValue(new Map(this.map, registry, gameState.baseShopData));
 
         gameState.currentEncounterIndex = this.currentEncounterIndex;
 
