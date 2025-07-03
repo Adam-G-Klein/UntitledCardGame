@@ -85,6 +85,24 @@ public class EntityView : IUIEventReceiver {
         pillar.Add(drawDiscardContainer);
     }
 
+    public void AddDeckButtonOnHover() {
+        if (isEnemy) return;
+
+        // it's important to add the hover detector *before* the drawer,
+        // or it will pick away the click events from the buttons
+        VisualElement hoverDetector = new VisualElement();
+        hoverDetector.AddToClassList("pillar-hover-box");
+        pickingModePositionList.Add(hoverDetector);
+        pillar.Add(hoverDetector);
+        hoverDetector.RegisterCallback<PointerEnterEvent>(HoverDetectorOnPointerEnter);
+        hoverDetector.RegisterCallback<PointerLeaveEvent>(HoverDetectorOnPointerLeave);
+
+        drawDiscardContainer = setupDeckDrawer(uiEntity);
+        drawDiscardContainer.RegisterCallback<PointerEnterEvent>(DrawDiscardContainerOnPointerEnter);
+        drawDiscardContainer.RegisterCallback<PointerLeaveEvent>(DrawDiscardContainerOnPointerLeave);
+        pillar.Add(drawDiscardContainer);
+    }
+
     public void UpdateWidthAndHeight(bool isEnemy = false) {
         Tuple<int, int> entityWidthHeight = GetWidthAndHeight(isEnemy);
         pillar.style.width = entityWidthHeight.Item1;
@@ -343,6 +361,27 @@ public class EntityView : IUIEventReceiver {
         return drawerContainer;
     }
 
+    private VisualElement setupDeckDrawer(IUIEntity entity) {
+        VisualElement drawerContainer = new VisualElement();
+        drawerContainer.AddToClassList("pillar-drawer-menu");
+        pickingModePositionList.Add(drawerContainer);
+
+        Button drawButton = new Button();
+        drawButton.AddToClassList("drawer-button");
+        drawButton.text = "Deck";
+
+        pickingModePositionList.Add(drawButton);
+        pickingModePositionList.Add(drawerContainer);
+
+        drawButton.RegisterCallback<ClickEvent>(DeckButtonOnClick);
+
+        drawerContainer.Add(drawButton);
+
+        drawerContainer.style.visibility = Visibility.Hidden;
+
+        return drawerContainer;
+    }
+
     private void EntityOnPointerClick(ClickEvent evt) {
         try {
             Targetable targetable = uiEntity.GetTargetable();
@@ -391,7 +430,13 @@ public class EntityView : IUIEventReceiver {
             return;
         }
         viewDelegate.InstantiateCardView(deckInstance.GetShuffledDrawPile(), deckInstance.combatInstance.name + " draw pile");
-}
+    }
+
+    private void DeckButtonOnClick(ClickEvent evt) {
+        if (evt != null) evt.StopPropagation();
+        // Luke needs to fix this because it's bad but I'm in a rush
+        viewDelegate.InstantiateCardView(new List<Card>(), "");
+    }
 
     private void DiscardButtonOnClick(ClickEvent evt) {
         if (evt != null) evt.StopPropagation();

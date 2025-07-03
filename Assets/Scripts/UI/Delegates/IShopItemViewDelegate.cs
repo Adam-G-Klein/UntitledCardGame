@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 public interface IShopItemViewDelegate {
@@ -9,4 +11,6 @@ public interface IShopItemViewDelegate {
 
     void DisplayTooltip(VisualElement element, TooltipViewModel tooltipViewModel, bool forCompanionManagementView);
     void DestroyTooltip(VisualElement element);
+    void DisplayCards(CompanionTypeSO companion);
+    MonoBehaviour GetMonoBehaviour();
 }

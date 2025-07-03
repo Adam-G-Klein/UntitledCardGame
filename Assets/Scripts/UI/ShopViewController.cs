@@ -1062,4 +1062,16 @@ public class ShopViewController : MonoBehaviour,
             originalSlot = null;
         }
     }
+
+    public void DisplayCards(CompanionTypeSO companion)
+    {
+        List<Card> instantiatedCards = companion.startingDeck.cards
+            .Select(card => new Card(card, companion))
+            .ToList();
+        
+        GameObject cardSelectionViewGo = Instantiate(cardSelectionViewPrefab);
+        CardSelectionView cardSelectionView = cardSelectionViewGo.GetComponent<CardSelectionView>();
+        // Card Selection View stashes focusables on setup
+        cardSelectionView.Setup(instantiatedCards, new Companion(companion));
+    }
 }

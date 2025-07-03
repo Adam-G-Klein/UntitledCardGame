@@ -485,6 +485,16 @@
     width: 100%;
 }
 
+.pillar-hover-box {
+    flex-grow: 0;
+    position: absolute;
+    flex-shrink: 0;
+    top: 42%;
+    width: 128%;
+    align-self: center;
+    height: 65%;
+}
+
 .drawer-button {
     background-color: rgb(53, 39, 68);
     border-left-color: rgb(0, 0, 0);

@@ -1,9 +1,10 @@
 using System;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class ShopItemView {
+public class ShopItemView : IEntityViewDelegate {
     public VisualElement shopItemElement;
     public VisualElementFocusable visualElementFocusable;
     public CompanionInShopWithPrice companionInShop = null;
@@ -39,12 +40,14 @@ public class ShopItemView {
         shopItemElement.AddToClassList("focusable");
         shopItemElement.focusable = true;
         visualElementFocusable = shopItemElement.AsFocusable();
+        visualElementFocusable.SetInputAction(GFGInputAction.VIEW_DECK, DisplayCards);
 
         // Bit of a hack, but I don't feel like completely refactoring entity view right now
         Companion tempCompanion = new Companion(companion.companionType);
 
-        entityView = new EntityView(tempCompanion, 0, false);
+        entityView = new EntityView(tempCompanion, 0, false, this);
         entityView.UpdateWidthAndHeight();
+        entityView.AddDeckButtonOnHover();
 
         VisualElement portraitContainer = entityView.entityContainer.Q(className: "entity-portrait");
         portraitContainer.style.backgroundImage = new StyleBackground(companion.companionType.sprite);
@@ -125,6 +128,30 @@ public class ShopItemView {
         }
     }
     private void OnPointerLeave(PointerLeaveEvent evt) {
-             viewDelegate.DestroyTooltip(shopItemElement);
+        viewDelegate.DestroyTooltip(shopItemElement);
+    }
+
+    private void DisplayCards() {
+        viewDelegate.DisplayCards(companionInShop.companionType);
+    }
+
+    public Sprite GetStatusEffectSprite(StatusEffectType statusEffectType)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Sprite GetEnemyIntentImage(EnemyIntentType enemyIntentType)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void InstantiateCardView(List<Card> cardList, string promptText)
+    {
+        viewDelegate.DisplayCards(companionInShop.companionType);
+    }
+
+    public MonoBehaviour GetMonoBehaviour()
+    {
+        return viewDelegate.GetMonoBehaviour();
     }
 }
