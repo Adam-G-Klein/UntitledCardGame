@@ -182,7 +182,6 @@ public class PlayableCard : MonoBehaviour,
     }
 
     private IEnumerator CardDiscardVFX(GameObject cardGameObject) {
-        this.isCardDiscardPlaying = true;
         FXExperience experience = PrefabInstantiator.instantiateFXExperience(cardCastVFXPrefab, cardGameObject.transform.position);
 
         experience.BindGameObjectsToTracks(new Dictionary<string, GameObject>() {
@@ -196,14 +195,14 @@ public class PlayableCard : MonoBehaviour,
         experience.onExperienceOver += CardDiscardVFXFinished;
         Debug.Log("Started card discard VFX");
         experience.StartExperience();
-        yield return new WaitUntil(() => this.isCardDiscardPlaying == false);
+        yield return null;
         Debug.Log("Finished card discard VFX");
     }
 
     private void CardDiscardVFXFinished() {
         // If we don't do this, then the crew (the card) goes down with the ship (the FXExperience)
         this.gameObject.transform.SetParent(null);
-        this.isCardDiscardPlaying = false;
+        cleanupAndDestroy();
     }
 
     public void UpdateCardText() {
@@ -249,10 +248,10 @@ public class PlayableCard : MonoBehaviour,
     }
 
     // Called by playerHand.discardCard
-    public IEnumerator DiscardToDeck() {
+    public IEnumerator DiscardToDeck()
+    {
         yield return CardDiscardVFX(this.gameObject);
         deckFrom.DiscardCards(new List<Card> { card });
-        cleanupAndDestroy();
     }
 
     public void cleanupAndDestroy() {
