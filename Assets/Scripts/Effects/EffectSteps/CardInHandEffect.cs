@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 
 /*
     Effect that deals with various actions to take on a card in the player hand
@@ -34,19 +35,35 @@ public class CardInHandEffect : EffectStep, ITooltipProvider
         }
 
         List<PlayableCard> playableCards = document.map.GetList<PlayableCard>(inputKey);
-        foreach (PlayableCard card in playableCards) {
-            switch (effect) {
+
+        // go through and disable all cards to be discarded or exhausted so player can't interact with them during the effects processing
+        foreach (PlayableCard card in playableCards)
+        {
+            switch (effect)
+            {
+                case CardInHandEffectName.Discard:
+                case CardInHandEffectName.Exhaust:
+                    card.interactable = false;
+                    break;
+                default:
+                    yield break;
+            }
+        }
+        foreach (PlayableCard card in playableCards)
+        {
+            switch (effect)
+            {
                 case CardInHandEffectName.Discard:
                     yield return PlayerHand.Instance.DiscardCard(card);
                 break;
 
                 case CardInHandEffectName.Exhaust:
                     yield return PlayerHand.Instance.ExhaustCard(card);
-                break;
+                    break;
 
                 case CardInHandEffectName.Retain:
                     card.retained = true;
-                break;
+                    break;
 
                 case CardInHandEffectName.Copy:
                     Card duplicatedCard = new Card(card.card.cardType, card.card.getCompanionFrom());
@@ -54,7 +71,7 @@ public class CardInHandEffect : EffectStep, ITooltipProvider
                     List<Card> cardsToBeDealt = new();
                     cardsToBeDealt.Add(duplicatedCard);
                     PlayerHand.Instance.DealCards(cardsToBeDealt, card.deckFrom);
-                break;
+                    break;
             }
         }
 
