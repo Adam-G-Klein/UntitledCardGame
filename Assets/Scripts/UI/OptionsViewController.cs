@@ -40,11 +40,12 @@ public class OptionsViewController : GenericSingleton<OptionsViewController>, IC
         DontDestroyOnLoad(this.gameObject);
         canvasGroup = GetComponent<CanvasGroup>();
         canvas = GetComponent<Canvas>();
-        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     void Start()
     {
+        optionsUIDocument.enabled = true;
+        compendiumUIDocument.enabled = true;
         optionsUIDocument.rootVisualElement.style.visibility = Visibility.Hidden;
         compendiumUIDocument.rootVisualElement.style.visibility = Visibility.Hidden;
         musicVolumeSlider = optionsUIDocument.rootVisualElement.Q<Slider>("musicVolumeSlider");
@@ -141,13 +142,6 @@ public class OptionsViewController : GenericSingleton<OptionsViewController>, IC
             FocusManager.Instance.UnregisterFocusables(optionsUIDocument);
             FocusManager.Instance.UnstashFocusables(this.GetType().Name);
         }
-    }
-
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
-        // RegisterFocusables();
-        UpdateCameraReference();
-        ToggleVisibility();
-        ControlsManager.Instance.RegisterControlsReceiver(this);
     }
 
     private void UpdateCameraReference() {

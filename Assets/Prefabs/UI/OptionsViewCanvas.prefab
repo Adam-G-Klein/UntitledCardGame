@@ -143,6 +143,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 7191189791703132088}
     m_Modifications:
     - target: {fileID: 1943010737010237889, guid: b67f31ebd16bf45fc8862ddaf477c8df, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1943010737010237889, guid: b67f31ebd16bf45fc8862ddaf477c8df, type: 3}
       propertyPath: m_SortingOrder
       value: 1
       objectReference: {fileID: 0}
@@ -166,6 +170,10 @@ PrefabInstance:
       propertyPath: canvasGroup
       value: 
       objectReference: {fileID: 7209182050764805582}
+    - target: {fileID: 5871302209626655063, guid: b67f31ebd16bf45fc8862ddaf477c8df, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5871302209626655063, guid: b67f31ebd16bf45fc8862ddaf477c8df, type: 3}
       propertyPath: m_SortingOrder
       value: 2
@@ -274,7 +282,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 7648190593628460788}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: 
@@ -285,7 +293,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 7648190593628460788}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: 
