@@ -124,7 +124,7 @@ public class PlayableCard : MonoBehaviour,
             PlayerHand.Instance.HoverNextCard(cardPlayedIndex);
 
             // Add a WaitForSeconds so that the target hovering does not break when using keyboard.
-            yield return new WaitForSeconds(0.5f);
+            // yield return new WaitForSeconds(0.5f);
             // Don't need to call ResizeHand, because ExhaustCard already does it!
         } else {
             // remove the card from the hand first so that resizing doesn't affect the card being cast
