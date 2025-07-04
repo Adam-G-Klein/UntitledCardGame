@@ -53,8 +53,6 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
     void Start() {
         companionCombinationManager = GetComponent<CompanionCombinationManager>();
-        // TODO, do at end of combat scene
-        EarnUpgradeIncrement();
     }
 
     public void BuildShopEncounter(ShopEncounter shopEncounter) {
@@ -292,29 +290,19 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     // It returns true if the upgrade advanced a shop level, and false otherwise.
     public void EarnUpgradeIncrement()
     {
-        // As long as we are below the current max shop level, automatically earn an upgrade increment.
-        if (shopLevel.level >= shopEncounter.shopData.shopLevels.Count - 1) return;
+        bool didUpgrade = gameState.EarnUpgradeIncrement();
         PlayerData playerData = gameState.playerData.GetValue();
-        if (playerData.shopLevelIncrementsEarned == GetShopLevel().shopLevelIncrementsToUnlock - 1)
-        {
-            shopViewController.SetMoney(playerData.gold);
-            playerData.shopLevel += 1;
+        if (didUpgrade) {
             shopLevel = shopEncounter.shopData.GetShopLevel(playerData.shopLevel);
-            gameState.companions.SetCompanionSlots(shopLevel.teamSize);
-            playerData.manaPerTurn = shopLevel.mana;
-
             shopViewController.SetShopUpgradePrice(shopLevel.upgradeIncrementCost);
             InstantiateShopVFX(shopUpgradePrefab, shopViewController.GetUpgradeShopButton(), 1f);
             CheckDisableUpgradeButtonV2();
-            playerData.shopLevelIncrementsEarned = 0;
             shopViewController.SetupUpgradeIncrements();
             shopViewController.RebuildUnitManagement(gameState.companions);
+        } else {
+            shopViewController.ActivateUpgradeIncrement(playerData.shopLevelIncrementsEarned - 1 /* -1 because we just earned an increment */);
         }
-        else
-        {
-            shopViewController.ActivateUpgradeIncrement(playerData.shopLevelIncrementsEarned);
-            playerData.shopLevelIncrementsEarned += 1;
-        }
+        shopViewController.SetMoney(playerData.gold);
     }
 
     private void CheckDisableUpgradeButton() {

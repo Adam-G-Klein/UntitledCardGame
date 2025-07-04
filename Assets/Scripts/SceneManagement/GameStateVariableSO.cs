@@ -228,14 +228,48 @@ public class GameStateVariableSO : ScriptableObject
         }
     }
 
+    public void UpgradeTheShop() {
+        PlayerData pd = playerData.GetValue();
+        ShopLevel shopLevel = baseShopData.shopLevels[pd.shopLevel];
+
+        pd.shopLevel += 1;
+        companions.SetCompanionSlots(shopLevel.teamSize);
+        pd.shopLevelIncrementsEarned = 0;
+        pd.manaPerTurn = shopLevel.mana;
+    }
+
+    public bool EarnUpgradeIncrement()
+    {
+        PlayerData pd = playerData.GetValue();
+        ShopLevel shopLevel = baseShopData.shopLevels[pd.shopLevel];
+        if (shopLevel.level < baseShopData.shopLevels.Count - 1)
+        {
+            if (pd.shopLevelIncrementsEarned == shopLevel.shopLevelIncrementsToUnlock - 1)
+            {
+                UpgradeTheShop();
+                return true;
+            }
+            else
+            {
+                pd.shopLevelIncrementsEarned += 1;
+                return false;
+            }
+        }
+        return false;
+    }
+
     // TODO: Change this logic if we want map choices to ever actually matter
-    private void AdvanceEncounter() {
+    private void AdvanceEncounter()
+    {
         activeEncounter.SetValue(nextEncounter.GetValue());
         Debug.Log("Advanced encounter, new encounter type is : " + activeEncounter.GetValue().getEncounterType());
         nextMapIndex += 1;
-        if(nextMapIndex < map.GetValue().encounters.Count) {
+        if (nextMapIndex < map.GetValue().encounters.Count)
+        {
             nextEncounter.SetValue(map.GetValue().encounters[nextMapIndex]);
-        } else {
+        }
+        else
+        {
             Debug.LogError("ERROR: LoadNextEncounter called, no more encounters in map");
         }
     }
