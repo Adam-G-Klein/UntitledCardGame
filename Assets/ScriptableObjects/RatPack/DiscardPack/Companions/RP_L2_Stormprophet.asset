@@ -38,7 +38,6 @@ MonoBehaviour:
     startOfCombatValue: 0
     setStartOfCombatValue: 0
   cardPool: {fileID: 11400000, guid: 70c64ff2f96954c39a555cceb6687d10, type: 2}
-  packCardPool: {fileID: 11400000, guid: aca6eb7e5bae64ee4aabb8816fe258a4, type: 2}
   pack: {fileID: 11400000, guid: 5f4300e0913784f05aeff0dd086d4338, type: 2}
   speakerType: {fileID: 0}
   abilitiesV2:
@@ -68,6 +67,14 @@ MonoBehaviour:
         - rid: 7401433308100034732
         - rid: 7401433308100034733
         - rid: 7401433308100034869
+        - rid: 7112866149338972469
+    - rid: 7112866149338972469
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 6137048663962808129, guid: 032e33b914ed32b418cdc1ed2f15fc6e, type: 3}
+        scale: 1
     - rid: 7401433308100034728
       type: {class: CombatInstanceCacheLoad, ns: , asm: Assembly-CSharp}
       data:
