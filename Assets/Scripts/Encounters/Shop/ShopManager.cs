@@ -53,6 +53,8 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
     void Start() {
         companionCombinationManager = GetComponent<CompanionCombinationManager>();
+        // TODO, do at end of combat scene
+        EarnUpgradeIncrement();
     }
 
     public void BuildShopEncounter(ShopEncounter shopEncounter) {

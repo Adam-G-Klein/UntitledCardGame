@@ -91,11 +91,9 @@ public class EffectManager : GenericSingleton<EffectManager>
         IEnumerator callback) {
         foreach (EffectStep step in effectSteps) {
             if (document.workflowInterrupted) {
-                Debug.Log("CALCULATED: Document workflow interrupted, breaking from workflow");
                 break;
             }
             if (step is IEffectStepCalculation) {
-                Debug.Log("CALCULATION: Invoking Step [" + step.effectStepName + "]");
                 yield return  ((IEffectStepCalculation)step).invokeForCalculation(document);;
             }
         }
