@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Check if four arguments are provided, with an optional fifth
-if [ "$#" -ne 4 && "$#" -ne 5 ]; then
+if [[ "$#" -ne 4 && "$#" -ne 5 ]]; then
     echo "Usage: $0 <mac_zip_build> <windows_zip_build> <path_to_butler_api_key_file> <commit_hash> <channel-prefix>"
     exit 1
 fi
