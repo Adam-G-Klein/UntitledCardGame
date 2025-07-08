@@ -13,6 +13,7 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField]
     private UIDocument mainMenuUIDocument;
     private Button startButton;
+    private Button continueButton;
     private Button optionsButton;
     private Button exitButton;
     [SerializeField]
@@ -42,21 +43,30 @@ public class MainMenuManager : MonoBehaviour
 
     public void Setup() {
         startButton = mainMenuUIDocument.rootVisualElement.Q<Button>("startButton");
+        continueButton = mainMenuUIDocument.rootVisualElement.Q<Button>("continueButton");
         optionsButton = mainMenuUIDocument.rootVisualElement.Q<Button>("optionsButton");
         exitButton = mainMenuUIDocument.rootVisualElement.Q<Button>("exitButton");
 
         startButton.RegisterOnSelected(startButtonHandler);
+        continueButton.RegisterOnSelected(ContinueButtonHandler);
         optionsButton.RegisterOnSelected(optionsButtonHandler);
         exitButton.RegisterOnSelected(exitButtonHandler);
-        
 
         FocusManager.Instance.RegisterFocusables(mainMenuUIDocument);
-        // FocusManager.Instance.SetFocus(startButton.AsFocusable());
+        
+        if (!SaveManager.Instance.DoesSaveGameExist()) {
+            continueButton.SetEnabled(false);
+            FocusManager.Instance.UnregisterFocusableTarget(continueButton.AsFocusable());
+        }
     }
 
     public void startButtonHandler() {
         generateMap.generateMapAndChangeScenes();
         //SceneManager.LoadScene("GenerateMap");
+    }
+
+    private void ContinueButtonHandler() {
+        SaveManager.Instance.LoadHandler();
     }
 
     public void test(string s) {

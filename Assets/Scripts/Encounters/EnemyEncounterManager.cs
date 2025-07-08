@@ -175,6 +175,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
 
     private void WinGameHandler() {
         ProgressManager.Instance.ReportProgressEvent(GameActionType.WIN_A_RUN, 1);
+        SaveManager.Instance.DeleteSaveData();
         gameState.LoadNextLocation();
         victoryUI.SetActive(true);
         MusicController2.Instance.SetCombatState("Victory");

@@ -12,44 +12,12 @@ public class SaveManager : GenericSingleton<SaveManager>
 
     public GameStateVariableSO gameStateVariableSO;
     public SORegistry soRegistry;
-    // Options ui doc just for testing
-    // Will obviously have other hooks in the future
-    public UIDocument uidoc;
-    private TextField textField;
-    private Button saveButton;
-    private Button loadButton;
 
     // Start is called before the first frame update
-    void Start()
-    {
-        GameObject optionsGO = GameObject.FindGameObjectWithTag("OptionsUIDoc");
-        if (optionsGO == null) {
-            Debug.LogError("[SaveManager] optionsGO is null!");
-        } else {
-            Debug.Log("[SaveManager] optionsGO found: " + optionsGO.name);
-        }
-        uidoc = optionsGO.GetComponent<UIDocument>();
-        if (uidoc == null) {
-            Debug.LogError("[SaveManager] uidoc is null!");
-        } else {
-            Debug.Log("[SaveManager] uidoc found: " + uidoc.name);
-        }
-        textField = uidoc.rootVisualElement.Q<TextField>("SaveSystemTextField");
-        if (textField == null) {
-            Debug.LogError("[SaveManager] textField is null!");
-        } else {
-            Debug.Log("[SaveManager] textField found: " + textField.name);
-        }
-        saveButton = uidoc.rootVisualElement.Q<Button>("Save");
-        loadButton = uidoc.rootVisualElement.Q<Button>("Load");
-
-        saveButton.RegisterCallback<ClickEvent>(ev => SaveHandler());
-        loadButton.RegisterCallback<ClickEvent>(ev => LoadHandler());
-        
-    }
+    void Start() { }
 
     public void SaveHandler() {
-        SaveState saveState = new SaveState(textField.text, gameStateVariableSO);
+        SaveState saveState = new SaveState("save game", gameStateVariableSO);
         SaveSystem.Save<SaveState>(saveState);
     }
 
@@ -60,7 +28,6 @@ public class SaveManager : GenericSingleton<SaveManager>
         // instantiate the save state from the serializable data
         loadState.LoadToGameState(gameStateVariableSO, soRegistry);
         // print out a buncha companion information
-        textField.value = loadState.SaveName;
         foreach (Companion companion in gameStateVariableSO.companions.activeCompanions)
         {
             Debug.Log("CompanionType: " + companion.companionType.name + " loaded");
@@ -72,5 +39,14 @@ public class SaveManager : GenericSingleton<SaveManager>
         }
 
         gameStateVariableSO.LoadNextLocationFromLoadingSave();
+    }
+
+    public bool DoesSaveGameExist() {
+        return SaveSystem.SaveExists();
+    }
+
+    [ContextMenu("Delete Save Data")]
+    public void DeleteSaveData() {
+        SaveSystem.DeleteSave();
     }
 }

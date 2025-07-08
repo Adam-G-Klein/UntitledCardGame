@@ -8,6 +8,9 @@
                     <ui:Button text="Start" parse-escape-sequences="true" display-tooltip-when-elided="true" name="startButton" class="main-menu-button focusable" />
                 </ui:VisualElement>
                 <ui:VisualElement name="VisualElement" class="menu-option">
+                    <ui:Button text="Continue" parse-escape-sequences="true" display-tooltip-when-elided="true" name="continueButton" enable-rich-text="true" class="main-menu-button focusable" />
+                </ui:VisualElement>
+                <ui:VisualElement name="VisualElement" class="menu-option">
                     <ui:Button text="Options" parse-escape-sequences="true" display-tooltip-when-elided="true" name="optionsButton" class="main-menu-button focusable" />
                 </ui:VisualElement>
                 <ui:VisualElement name="VisualElement" class="menu-option">

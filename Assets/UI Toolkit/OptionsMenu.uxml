@@ -47,13 +47,6 @@
                     <ui:Button text="Quit Game" parse-escape-sequences="true" display-tooltip-when-elided="true" name="quitButton" class="options-button focusable" />
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement name="SaveSystemTest" style="flex-grow: 1; height: 20%;">
-                <ui:TextField picking-mode="Ignore" label="Dummy Save Text&#10;" value="filler text" name="SaveSystemTextField" />
-                <ui:VisualElement name="SaveSystemButtons" style="flex-grow: 1; flex-direction: row;">
-                    <ui:Button text="Save" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Save" style="height: 50%;" />
-                    <ui:Button text="Load" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Load" style="height: 50%;" />
-                </ui:VisualElement>
-            </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

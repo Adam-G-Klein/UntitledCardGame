@@ -40,4 +40,8 @@ public static class SaveSystem
             File.Delete(SavePath);
         }
     }
+
+    public static bool SaveExists() {
+        return File.Exists(SavePath);
+    }
 }
