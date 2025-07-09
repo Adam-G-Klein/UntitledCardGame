@@ -39,6 +39,10 @@ public class TooltipOnHover : MonoBehaviour,
         return tooltip != null && !tooltip.empty;
     }
 
+    public void OnPointerEnterVoid() {
+        OnPointerEnter(null);
+    }
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         if(Active() && !destroyed) {
@@ -57,6 +61,10 @@ public class TooltipOnHover : MonoBehaviour,
             Debug.Log("Tooltip: hiding current view");
             currentView.Hide();
         }
+    }
+
+    public void OnPointerExitVoid() {
+        OnPointerExit(null);
     }
 
     public void OnPointerExit(PointerEventData eventData)
