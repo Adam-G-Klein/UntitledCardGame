@@ -18,30 +18,18 @@ public enum GameActionType
 public class ProgressManager : GenericSingleton<ProgressManager>
 {
     public List<AchievementSO> achievementSOList;
-    public AchievementDataSO achievementDataSO;
     public void ReportProgressEvent(GameActionType gameActionType, int amount)
     {
-        int currentProgress = achievementDataSO.ReportProgressEvent(gameActionType, amount);
-        foreach (var achievementSO in achievementSOList)
+        AchievementSO achievementSO = achievementSOList.Find(x => x.gameActionType == gameActionType);
+        achievementSO.currentProgress += amount;
+        if (achievementSO.currentProgress >= achievementSO.target)
         {
-            if (achievementSO.gameActionType == gameActionType)
-            {
-                if (currentProgress >= achievementSO.target)
-                {
-                    achievementSO.isCompleted = true;
-                }
-                achievementSO.currentProgress = currentProgress;
-            }
-        }
+            achievementSO.isCompleted = true;
+        } 
     }
 
     public bool IsAchievementCompleted(AchievementSO achievementSO)
     {
         return achievementSO.isCompleted;
-    }
-    
-    public int GetGameActionTypeOccurences(GameActionType gameActionType)
-    {
-        return achievementDataSO.GetGameActionTypeOccurences(gameActionType);
     }
 }

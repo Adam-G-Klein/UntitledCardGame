@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,7 +17,8 @@ public class SaveManager : GenericSingleton<SaveManager>
     // Start is called before the first frame update
     void Start() { }
 
-    public void SaveHandler() {
+    public void SaveHandler()
+    {
         SaveState saveState = new SaveState("save game", gameStateVariableSO);
         SaveSystem.Save<SaveState>(saveState);
     }
@@ -41,12 +43,41 @@ public class SaveManager : GenericSingleton<SaveManager>
         gameStateVariableSO.LoadNextLocationFromLoadingSave();
     }
 
-    public bool DoesSaveGameExist() {
+    public bool DoesSaveGameExist()
+    {
         return SaveSystem.SaveExists();
     }
 
     [ContextMenu("Delete Save Data")]
-    public void DeleteSaveData() {
+    public void DeleteSaveData()
+    {
         SaveSystem.DeleteSave();
+    }
+    [ContextMenu("Delete Player Progress Data")]
+    public void DeletePlayerProgressData()
+    {
+        SaveSystem.DeleteSave(SaveSystem.SaveType.Progress);
+    }
+
+    public void GameStartHandler()
+    {
+        PlayerProgressState playerProgressState = SaveSystem.Load<PlayerProgressState>(SaveSystem.SaveType.Progress);
+        playerProgressState?.LoadToLocalPlayerProgress();
+
+        PlayerSettingsState playerSettingsState = SaveSystem.Load<PlayerSettingsState>(SaveSystem.SaveType.Settings);
+        Debug.Log("PlayerSettingsState loaded: " + (playerSettingsState != null));
+        playerSettingsState?.LoadPlayerSettings();
+    }
+
+    public void SavePlayerProgress()
+    {
+        PlayerProgressState playerProgressState = new(ProgressManager.Instance.achievementSOList);
+        SaveSystem.Save<PlayerProgressState>(playerProgressState, SaveSystem.SaveType.Progress);
+    }
+
+    public void SavePlayerSettings()
+    {
+        PlayerSettingsState playerSettingsState = new PlayerSettingsState();
+        SaveSystem.Save<PlayerSettingsState>(playerSettingsState, SaveSystem.SaveType.Settings);
     }
 }

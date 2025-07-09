@@ -83,11 +83,12 @@ public class MusicController2 : GenericSingleton<MusicController2>
     }
 
     // Start is called before the first frame update
-    void Start()
+    public void PlayMainMenuMusic()
     {
         // mixerInstance = FMODUnity.RuntimeManager.CreateInstance(fmodMixer);
         // mixerInstance.start();
         // mixerInstance.setParameterByName("Master_Volume", 0.1f);
+        // wait for the settings to be loaded
         PlayMusicLocation(Location.MAIN_MENU);
     }
 

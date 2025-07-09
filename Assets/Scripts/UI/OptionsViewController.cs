@@ -36,6 +36,39 @@ public class OptionsViewController : GenericSingleton<OptionsViewController>, IC
     [SerializeField]
     private GameObject tooltipPrefab;
 
+    public float getMusicVolumeSliderValue() {
+        return musicVolumeSlider.value;
+    }
+    public void setMusicVolumeSliderValue(float value) {
+        musicVolumeSlider.value = value;
+    }
+
+    public float getSFXVolumeSliderValue() {
+        return sfxVolumeSlider.value;
+    }
+    public void setSFXVolumeSliderValue(float value)
+    {
+        sfxVolumeSlider.value = value;
+    }
+    public float getGameSpeedSliderValue() {
+        return timescaleSlider.value;
+    }
+    public void setGameSpeedSliderValue(float value) {
+        timescaleSlider.value = value;
+    }
+    public bool getIsFullScreened() {
+        return gameState.fullscreenEnabled;
+    }
+    public void setIsFullScreened(bool value) {
+        gameState.fullscreenEnabled = value;
+    }
+    public bool getIsAutoUpgradeEnabled() {
+        return gameState.autoUpgrade;
+    }
+    public void setIsAutoUpgradeEnabled(bool value) {
+        gameState.autoUpgrade = value;
+    }
+
     void Awake() {
         // DontDestroyOnLoad(this.gameObject);
         canvasGroup = GetComponent<CanvasGroup>();
@@ -101,8 +134,10 @@ public class OptionsViewController : GenericSingleton<OptionsViewController>, IC
         ToggleVisibility();
     }
 
-    public void onExitGameHandler() {
+    public void onExitGameHandler()
+    {
         // Quit the game
+        SaveManager.Instance.SavePlayerSettings();
         Application.Quit();
     }
 
@@ -137,6 +172,7 @@ public class OptionsViewController : GenericSingleton<OptionsViewController>, IC
             if (ControlsManager.Instance.GetControlMethod() == ControlsManager.ControlMethod.KeyboardController)
                 FocusManager.Instance.SetFocusNextFrame(backButton.AsFocusable());
         } else {
+            SaveManager.Instance.SavePlayerSettings();
             canvasGroup.blocksRaycasts = false;
             UIDocumentUtils.SetAllPickingMode(optionsUIDocument.rootVisualElement, PickingMode.Ignore);
             optionsUIDocument.rootVisualElement.style.visibility = Visibility.Hidden;

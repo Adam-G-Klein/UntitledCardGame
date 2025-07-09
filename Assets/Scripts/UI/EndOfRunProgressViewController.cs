@@ -20,16 +20,17 @@ public class EndOfRunProgressViewController : MonoBehaviour
         progressBarsContainer = endOfRunProgressUIDocument.rootVisualElement.Q<VisualElement>("progressBarsContainer");
         progressBarsContainer.Clear();
         SetupProgressBars();
-
-        Debug.LogError("setting up button");
         Button button = endOfRunProgressUIDocument.rootVisualElement.Q<Button>("exitButton");
         button.pickingMode = PickingMode.Position;
-        button.RegisterOnSelected(() => {
-            Debug.LogError("button clicked");
+        button.RegisterOnSelected(() =>
+        {
             button.SetEnabled(false);
             SceneManager.LoadScene("MainMenu");
         });
         FocusManager.Instance.RegisterFocusableTarget(button.AsFocusable());
+
+        // Save player progress after the new lockedInProgress values are set
+        SaveManager.Instance.SavePlayerProgress();
     }
 
     private void SetupProgressBars()
@@ -39,7 +40,7 @@ public class EndOfRunProgressViewController : MonoBehaviour
         {
             if (achievementSO.lockedInProgress >= achievementSO.target) continue;
 
-            ProgressBarView progressBar = new ProgressBarView(progressBarTemplate, achievementSO);
+            ProgressBarView progressBar = new(progressBarTemplate, achievementSO);
             progressBarsContainer.Add(progressBar.root);
 
             StartCoroutine(AnimateProgressBarWithDelay(progressBar, achievementSO.currentProgress, delay));
