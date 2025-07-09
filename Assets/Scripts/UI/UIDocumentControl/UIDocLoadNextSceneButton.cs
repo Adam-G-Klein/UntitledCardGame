@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine.UIElements;
 using UnityEngine;
 
+// This is deprecated, don't use this anymore it goes against our UI Views
+// paradigm
 public class UIDocLoadNextSceneButton: MonoBehaviour
 {
     public GameStateVariableSO gameState;

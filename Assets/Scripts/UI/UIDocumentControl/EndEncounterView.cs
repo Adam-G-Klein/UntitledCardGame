@@ -1,20 +1,20 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
 public class EndEncounterView : MonoBehaviour
 {
+    [SerializeField]
+    private float fadeTime = .1f;
+    [SerializeField]
+    private GameStateVariableSO gameState;
+
     private UIDocument doc;
     private UIDocumentScreenspace docRenderer;
+    private VisualElement nextSceneButton;
 
     private Material mat;
     private CanvasGroup canvasGroup;
-
-    [SerializeField]
-    private float fadeTime = .1f;
 
 
     void OnEnable()
@@ -32,6 +32,11 @@ public class EndEncounterView : MonoBehaviour
             canvasGroup = gameObject.AddComponent<CanvasGroup>();
         }
         canvasGroup.alpha = 0;
+
+        nextSceneButton = doc.rootVisualElement.Q<VisualElement>("next-scene");
+        nextSceneButton.RegisterOnSelected(NextClick);
+        VisualElementFocusable nextSceneButtonFocusable = nextSceneButton.AsFocusable();
+        FocusManager.Instance.RegisterFocusableTarget(nextSceneButtonFocusable);
     }
 
     public void Setup(int baseGoldEarnedPerBattle, int interestEarned, int interestCap, float interestPercentage)
@@ -45,6 +50,7 @@ public class EndEncounterView : MonoBehaviour
     }
 
     public void Show() {
+        nextSceneButton.SetEnabled(false);
         // Ensure the initial alpha is set to 0 before starting the fade-in
         canvasGroup.blocksRaycasts = true;
         mat.SetFloat("_alpha", 0);
@@ -53,8 +59,16 @@ public class EndEncounterView : MonoBehaviour
             .setOnUpdate((float val) => {
                 mat.SetFloat("_alpha", val);
                 canvasGroup.alpha = val;
+            })
+            .setOnComplete(() => {
+                nextSceneButton.SetEnabled(true);
+                FocusManager.Instance.SetFocus(nextSceneButton.AsFocusable());
             });
     }
 
-
+    private void NextClick(ClickEvent evt) {
+        // Prevent double clicks because that will advance to the next scene!!!!
+        nextSceneButton.SetEnabled(false);
+        gameState.LoadNextLocation();
+    }
 }
