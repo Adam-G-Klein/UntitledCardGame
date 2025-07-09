@@ -230,9 +230,8 @@ public class GameStateVariableSO : ScriptableObject
 
     public void UpgradeTheShop() {
         PlayerData pd = playerData.GetValue();
-        ShopLevel shopLevel = baseShopData.shopLevels[pd.shopLevel];
-
         pd.shopLevel += 1;
+        ShopLevel shopLevel = baseShopData.shopLevels[pd.shopLevel];
         companions.SetCompanionSlots(shopLevel.teamSize);
         pd.shopLevelIncrementsEarned = 0;
         pd.manaPerTurn = shopLevel.mana;
