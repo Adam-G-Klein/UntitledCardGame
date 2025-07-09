@@ -49,6 +49,7 @@ public class SellingCompanionConfirmationView {
     }
 
     public void Show(CompanionManagementView companionView) {
+        Debug.LogError("SellingCompanionConfirmationView Show");
         FocusManager.Instance.StashFocusables(this.GetType().Name);
         visible = true;
         rootVisualElement.style.visibility = Visibility.Visible;
@@ -70,5 +71,6 @@ public class SellingCompanionConfirmationView {
         // Enable focusables
         FocusManager.Instance.EnableFocusableTarget(sellingYes.AsFocusable());
         FocusManager.Instance.EnableFocusableTarget(sellingNo.AsFocusable());
+        FocusManager.Instance.SetFocusNextFrame(sellingNo.AsFocusable());
     }
 }

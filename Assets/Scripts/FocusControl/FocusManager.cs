@@ -119,6 +119,7 @@ public class FocusManager : GenericSingleton<FocusManager>, IControlsReceiver
     }
 
     public void SetFocus(IFocusableTarget target) {
+        Debug.Log("FocusManager: Focus set to " + target.ToString());
         Unfocus();
         this.currentFocus = target;
         this.currentFocus.Focus();

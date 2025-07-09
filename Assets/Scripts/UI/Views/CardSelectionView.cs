@@ -73,7 +73,11 @@ public class CardSelectionView : MonoBehaviour
             entityView.UpdateWidthAndHeight();
             VisualElement portraitContainer = entityView.entityContainer.Q(className: "entity-portrait");
             portraitContainer.style.backgroundImage = new StyleBackground(companion.companionType.sprite);
-            this.companionArea.Add(entityView.entityContainer);
+            this.companionArea.Insert(0, entityView.entityContainer);
+
+            Label companionText = uiDoc.rootVisualElement.Q<Label>("companion-description-text");
+            companionText.text = companion.GetDescription();
+            this.companionArea.Add(companionText);
         }
 
         foreach (Card card in cards) {
