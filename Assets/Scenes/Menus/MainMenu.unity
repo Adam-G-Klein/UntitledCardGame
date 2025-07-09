@@ -318,6 +318,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 246839474529508921, guid: b3624fa3d2367944f9f9ff9793633969, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 428804735140336026, guid: b3624fa3d2367944f9f9ff9793633969, type: 3}
       propertyPath: m_Name
       value: Singletons

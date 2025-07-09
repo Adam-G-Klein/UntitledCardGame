@@ -120,12 +120,12 @@ public class CompendiumView : MonoBehaviour, IControlsReceiver {
             companionCardsContainer.Add(cardContainer);
             cardContainer.name = card.name;
             cardContainer.RegisterCallback<PointerEnterEvent>((evt) => {
-                if (card.GetTooltip().empty) return;
-                Debug.LogError("hovering:" + card.name);
+                if (card.GetTooltip().empty) {
+                    return;
+                }
                 DisplayTooltip(cardContainer, card.GetTooltip());
             });
             cardContainer.RegisterCallback<PointerLeaveEvent>((evt) => {
-                Debug.LogError("unhovering:" + card.name);
                 DestroyTooltip(cardContainer);
             });
         });
@@ -159,7 +159,6 @@ public class CompendiumView : MonoBehaviour, IControlsReceiver {
                 companionRow.Add(entityView.entityContainer);
                 entityView.entityContainer.name = companionToDisplay.companionType.companionName + index;
                 entityView.entityContainer.RegisterCallback<PointerEnterEvent>((evt) => {
-                    Debug.LogError("hovering");
                     DisplayTooltip(entityView.entityContainer, companionToDisplay.companionType.tooltip);
                 });
                 entityView.entityContainer.RegisterCallback<PointerLeaveEvent>((evt) => {

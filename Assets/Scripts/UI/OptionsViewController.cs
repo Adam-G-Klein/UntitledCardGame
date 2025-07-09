@@ -126,6 +126,7 @@ public class OptionsViewController : GenericSingleton<OptionsViewController>, IC
 
     public void ToggleVisibility(bool enable = false) {
         if (enable) {
+            UpdateCameraReference();
             autoUpgradeToggle.value = gameState.autoUpgrade; // this is updated elsewhere so we need to make sure it's consistent with the value in the game state
             canvasGroup.blocksRaycasts = true;
             UIDocumentUtils.SetAllPickingMode(optionsUIDocument.rootVisualElement, PickingMode.Position);
