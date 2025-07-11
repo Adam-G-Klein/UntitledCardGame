@@ -10,7 +10,6 @@ At the end of this, we'll want to be saving and loading one "gameSave" object, w
 */
 public class SaveManager : GenericSingleton<SaveManager>
 {
-
     public GameStateVariableSO gameStateVariableSO;
     public SORegistry soRegistry;
 
@@ -67,6 +66,9 @@ public class SaveManager : GenericSingleton<SaveManager>
         PlayerSettingsState playerSettingsState = SaveSystem.Load<PlayerSettingsState>(SaveSystem.SaveType.Settings);
         Debug.Log("PlayerSettingsState loaded: " + (playerSettingsState != null));
         playerSettingsState?.LoadPlayerSettings();
+
+        EntityVictoryStatsState entityVictoryStatsState = SaveSystem.Load<EntityVictoryStatsState>(SaveSystem.SaveType.EntityVictoryStats);
+        entityVictoryStatsState?.LoadToLocalEntityVictoryState();
     }
 
     public void SavePlayerProgress()
@@ -79,5 +81,11 @@ public class SaveManager : GenericSingleton<SaveManager>
     {
         PlayerSettingsState playerSettingsState = new PlayerSettingsState();
         SaveSystem.Save<PlayerSettingsState>(playerSettingsState, SaveSystem.SaveType.Settings);
+    }
+
+    public void SaveEntityVictoryStats()
+    {
+        EntityVictoryStatsState entityVictoryStatsState = new(EntityVictoryStatsManager.Instance.entityVictoryStatsDictionary);
+        SaveSystem.Save<EntityVictoryStatsState>(entityVictoryStatsState, SaveSystem.SaveType.EntityVictoryStats);
     }
 }

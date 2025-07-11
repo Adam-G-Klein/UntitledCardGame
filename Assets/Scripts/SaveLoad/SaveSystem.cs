@@ -10,14 +10,16 @@ public static class SaveSystem
     {
         GameState,
         Settings,
-        Progress
+        Progress,
+        EntityVictoryStats
     }
 
     private static readonly Dictionary<SaveType, string> savePaths = new Dictionary<SaveType, string>
     {
         { SaveType.GameState, Application.persistentDataPath + "/savefile.dat" },
         { SaveType.Settings, Application.persistentDataPath + "/settings.dat" },
-        { SaveType.Progress, Application.persistentDataPath + "/progress.dat" }
+        { SaveType.Progress, Application.persistentDataPath + "/progress.dat" },
+        { SaveType.EntityVictoryStats, Application.persistentDataPath + "/entityVictoryStats.dat" }
     };
     
     

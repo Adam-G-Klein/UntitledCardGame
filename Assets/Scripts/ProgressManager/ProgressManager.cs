@@ -18,6 +18,7 @@ public enum GameActionType
 public class ProgressManager : GenericSingleton<ProgressManager>
 {
     public List<AchievementSO> achievementSOList;
+    public int playersMaxAscensionUnlocked = 0;
     public void ReportProgressEvent(GameActionType gameActionType, int amount)
     {
         AchievementSO achievementSO = achievementSOList.Find(x => x.gameActionType == gameActionType);
@@ -25,11 +26,19 @@ public class ProgressManager : GenericSingleton<ProgressManager>
         if (achievementSO.currentProgress >= achievementSO.target)
         {
             achievementSO.isCompleted = true;
-        } 
+        }
     }
 
     public bool IsAchievementCompleted(AchievementSO achievementSO)
     {
         return achievementSO.isCompleted;
+    }
+
+    public void SetMaxAscensionUnlocked(int ascensionLevel)
+    {
+        if (ascensionLevel > playersMaxAscensionUnlocked)
+        {
+            playersMaxAscensionUnlocked = ascensionLevel;
+        }
     }
 }

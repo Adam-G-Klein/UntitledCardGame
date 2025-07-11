@@ -12,11 +12,13 @@ public class PlayerProgressState
      private AchievementSerializable numCardsDiscarded;
      private AchievementSerializable healthGained;
      private AchievementSerializable statusCardsGained;
+     private int maxAscensionUnlocked;
 
      public PlayerProgressState(List<AchievementSO> achievementSOList)
      {
           this.numAttackCardsPlayed = new AchievementSerializable(achievementSOList.Find(x => x.gameActionType == GameActionType.ZERO_COST_ATTACKS_PLAYED));
           this.hasWonRun = new AchievementSerializable(achievementSOList.Find(x => x.gameActionType == GameActionType.WIN_A_RUN));
+          this.maxAscensionUnlocked = ProgressManager.Instance.playersMaxAscensionUnlocked;
 
           // Not yet implemented 
           //this.numCardsDiscarded = new AchievementSerializable(achievementSOList.Find(x => x.gameActionType == GameActionType.DISCARD_A_CARD));
@@ -33,6 +35,8 @@ public class PlayerProgressState
           // CopyAchievementProgress(this.numCardsDiscarded, ProgressManager.Instance.achievementSOList.Find(x => x.gameActionType == GameActionType.DISCARD_A_CARD));
           // CopyAchievementProgress(this.healthGained, ProgressManager.Instance.achievementSOList.Find(x => x.gameActionType == GameActionType.HEALTH_GAINED));
           // CopyAchievementProgress(this.statusCardsGained, ProgressManager.Instance.achievementSOList.Find(x => x.gameActionType == GameActionType.STATUS_CARDS_GAINED));
+
+          ProgressManager.Instance.playersMaxAscensionUnlocked = this.maxAscensionUnlocked;
 
           PrintPlayerProgress();
      }
