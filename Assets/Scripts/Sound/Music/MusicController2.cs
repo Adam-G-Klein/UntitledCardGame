@@ -54,8 +54,8 @@ public class MusicController2 : GenericSingleton<MusicController2>
                 instance.start();
                 instance.setVolume(currentMusicVolume);
                 currentReference = locationTrack.eventReference;
-                Debug.Log(locationTrack.eventReference);
-                Debug.Log(locationTrack.location);
+                // Debug.Log(locationTrack.eventReference);
+                // Debug.Log(locationTrack.location);
             }
         }
     }
@@ -73,13 +73,14 @@ public class MusicController2 : GenericSingleton<MusicController2>
         }
     }
 
-    public void PlaySFX(string sfx) {
-        FMODUnity.RuntimeManager.PlayOneShot(sfx, currentSFXVolume);
+    public void PlaySFX(string sfx)
+    {
+        RuntimeManager.PlayOneShot(sfx, currentSFXVolume);
     }
 
     public void PlayStartSFX()
     {
-        FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/SFX_StartRun", currentSFXVolume);
+        RuntimeManager.PlayOneShot("event:/SFX/SFX_StartRun", currentSFXVolume);
     }
 
     // Start is called before the first frame update

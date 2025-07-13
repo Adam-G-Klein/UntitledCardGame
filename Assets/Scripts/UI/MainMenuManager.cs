@@ -60,13 +60,17 @@ public class MainMenuManager : MonoBehaviour
         }
     }
 
-    public void startButtonHandler() {
+    public void startButtonHandler()
+    {
         generateMap.generateMapAndChangeScenes();
+        MusicController2.Instance.PlayStartSFX();
         //SceneManager.LoadScene("GenerateMap");
     }
 
-    private void ContinueButtonHandler() {
+    private void ContinueButtonHandler()
+    {
         SaveManager.Instance.LoadHandler();
+        MusicController2.Instance.PlaySFX("event:/SFX/SFX_ButtonClick");
     }
 
     public void test(string s) {
@@ -75,7 +79,9 @@ public class MainMenuManager : MonoBehaviour
 
     public void optionsButtonHandler() {
         Debug.Log("OPTIONS MENU BUTTON HANDLER");
-        if (optionsUIPrefab == null) {
+        MusicController2.Instance.PlaySFX("event:/SFX/SFX_ButtonClick");
+        if (optionsUIPrefab == null)
+        {
             optionsUIPrefab = GameObject.FindGameObjectWithTag("OptionsViewCanvas");
         }
         OptionsViewController optionsViewController = optionsUIPrefab.GetComponent<OptionsViewController>();
@@ -83,6 +89,7 @@ public class MainMenuManager : MonoBehaviour
     }
 
     public void exitButtonHandler() {
+        MusicController2.Instance.PlaySFX("event:/SFX/SFX_ButtonClick");
         Application.Quit();
     }
 }

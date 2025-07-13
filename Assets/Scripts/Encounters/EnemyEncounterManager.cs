@@ -213,7 +213,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     {
         yield return new WaitForSeconds(endCombatScreenDelay);
         postCombatUI.GetComponent<EndEncounterView>().Show();
-        // MusicController2.Instance.PlaySFX("event:/SFX/SFX_EarnMoney");
+        MusicController2.Instance.PlaySFX("event:/SFX/SFX_EarnMoney");
     }
     private IEnumerator displayVictoryUIAfterDelay() {
         yield return new WaitForSeconds(endCombatScreenDelay);
