@@ -18,7 +18,9 @@ public enum GameActionType
 public class ProgressManager : GenericSingleton<ProgressManager>
 {
     public List<AchievementSO> achievementSOList;
-    public int playersMaxAscensionUnlocked = 0;
+    public AscensionInfo ascensionInfo;
+    public GameStateVariableSO gameState;
+
     public void ReportProgressEvent(GameActionType gameActionType, int amount)
     {
         AchievementSO achievementSO = achievementSOList.Find(x => x.gameActionType == gameActionType);
@@ -36,9 +38,20 @@ public class ProgressManager : GenericSingleton<ProgressManager>
 
     public void SetMaxAscensionUnlocked(int ascensionLevel)
     {
-        if (ascensionLevel > playersMaxAscensionUnlocked)
+        if (ascensionLevel > ascensionInfo.playersMaxAscensionUnlocked)
         {
-            playersMaxAscensionUnlocked = ascensionLevel;
+            ascensionInfo.playersMaxAscensionUnlocked = ascensionLevel;
         }
+    }
+
+    public AscensionSO GetAscensionSO(AscensionType ascensionType)
+    {
+        return ascensionInfo.ascensionSOList.Find(x => x.ascensionType == ascensionType);
+    }
+
+    public bool IsFeatureEnabled(AscensionType ascensionType)
+    {
+        // check the index of the ascensionType in the ascensionSOList against the current ascension level from gamestate
+        return ascensionInfo.ascensionSOList.FindIndex(x => x.ascensionType == ascensionType) <= gameState.ascensionLevel;
     }
 }

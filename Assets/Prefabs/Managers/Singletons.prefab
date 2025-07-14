@@ -843,7 +843,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameStateVariableSO: {fileID: 11400000, guid: 9e326417f60894341a96cc8d02868bbe, type: 2}
   soRegistry: {fileID: 11400000, guid: eebed998289b93a4b85a17d0ae8cb568, type: 2}
-  uidoc: {fileID: 0}
 --- !u!1 &5549825631411449466
 GameObject:
   m_ObjectHideFlags: 0
@@ -1193,7 +1192,8 @@ MonoBehaviour:
   achievementSOList:
   - {fileID: 11400000, guid: 35e02b24489f84c229b81ff0c30e83ba, type: 2}
   - {fileID: 11400000, guid: b113df07334d643e7af74b6d80af10b4, type: 2}
-  achievementDataSO: {fileID: 11400000, guid: e1cdf9a860e3c4d0fa8a74ea5ffc517c, type: 2}
+  ascensionInfo: {fileID: 11400000, guid: 7ae4656405e8c41699a3ad356b7cfed9, type: 2}
+  gameState: {fileID: 11400000, guid: 9e326417f60894341a96cc8d02868bbe, type: 2}
 --- !u!1001 &4489280036777775246
 PrefabInstance:
   m_ObjectHideFlags: 0

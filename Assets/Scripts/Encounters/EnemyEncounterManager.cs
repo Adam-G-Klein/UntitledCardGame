@@ -231,14 +231,36 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         return;
     }
 
-    private void RegisterCombatEncounterStateActions() {
+    private void RegisterCombatEncounterStateActions()
+    {
         TurnPhaseTrigger trigger = new TurnPhaseTrigger(
             TurnPhase.END_PLAYER_TURN,
             UpdateCombatEncounterState());
         TurnManager.Instance.addTurnPhaseTrigger(trigger);
+
+        if (ProgressManager.Instance.IsFeatureEnabled(AscensionType.ENEMIES_DEADLIER))
+        {
+            TurnPhaseTrigger startcombatTrigger = new TurnPhaseTrigger(
+                TurnPhase.START_ENCOUNTER,
+                SetupDeadlyEnemies()
+            );
+            TurnManager.Instance.addTurnPhaseTrigger(startcombatTrigger);
+        }
     }
 
-    private IEnumerable UpdateCombatEncounterState() {
+    private IEnumerable SetupDeadlyEnemies() {
+        foreach (EnemyInstance enemy in EnemyEncounterViewModel.Instance.enemies)
+        {
+            enemy.GetCombatInstance().ApplyStatusEffects(
+                StatusEffectType.Strength,
+                ProgressManager.Instance.GetAscensionSO(AscensionType.ENEMIES_DEADLIER).modificationValue
+            );
+        }
+        yield return null;
+    }
+
+    private IEnumerable UpdateCombatEncounterState()
+    {
         combatEncounterState.UpdateStateOnEndTurn();
         yield return null;
     }

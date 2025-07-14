@@ -20,6 +20,7 @@ public class SaveManager : GenericSingleton<SaveManager>
     {
         SaveState saveState = new SaveState("save game", gameStateVariableSO);
         SaveSystem.Save<SaveState>(saveState);
+        SavePlayerProgress();
     }
 
     public void LoadHandler()
@@ -60,9 +61,7 @@ public class SaveManager : GenericSingleton<SaveManager>
 
     public void GameStartHandler()
     {
-        PlayerProgressState playerProgressState = SaveSystem.Load<PlayerProgressState>(SaveSystem.SaveType.Progress);
-        playerProgressState?.LoadToLocalPlayerProgress();
-
+        LoadPlayerProgress();
         PlayerSettingsState playerSettingsState = SaveSystem.Load<PlayerSettingsState>(SaveSystem.SaveType.Settings);
         Debug.Log("PlayerSettingsState loaded: " + (playerSettingsState != null));
         playerSettingsState?.LoadPlayerSettings();
@@ -71,10 +70,17 @@ public class SaveManager : GenericSingleton<SaveManager>
         entityVictoryStatsState?.LoadToLocalEntityVictoryState();
     }
 
+    public void LoadPlayerProgress()
+    {
+        PlayerProgressState playerProgressState = SaveSystem.Load<PlayerProgressState>(SaveSystem.SaveType.Progress);
+        playerProgressState?.LoadToLocalPlayerProgress();
+    }
+
     public void SavePlayerProgress()
     {
         PlayerProgressState playerProgressState = new(ProgressManager.Instance.achievementSOList);
         SaveSystem.Save<PlayerProgressState>(playerProgressState, SaveSystem.SaveType.Progress);
+        playerProgressState.PrintPlayerProgress();
     }
 
     public void SavePlayerSettings()

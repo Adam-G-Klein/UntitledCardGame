@@ -30,6 +30,14 @@ public class PackSelectionViewController : MonoBehaviour, IPackSlotViewDelegate
     private Dictionary<string, PackSlotView> VEToSlotMap = new();
     private Label packsSelectedLabel;
     private Button selectPacksButton;
+    private Toggle toggleEnableAscension;
+    private Button decreaseAscensionButton;
+    private Button increaseAscensionButton;
+    private Label ascensionNumberLabel;
+    private Label ascensionDescriptionLabel;
+    private int ascensionIndex = 0;
+    private VisualElement ascensionContainer;
+    private bool ascensionsEnabled = false;
 
     void Start()
     {
@@ -39,6 +47,15 @@ public class PackSelectionViewController : MonoBehaviour, IPackSlotViewDelegate
         selectPacksButton.pickingMode = PickingMode.Position;
         FocusManager.Instance.RegisterFocusableTarget(selectPacksButton.AsFocusable());
         selectedPackSOs = gameState.previouslySelectedPackSOs;
+        toggleEnableAscension = packSelectionUIDocument.rootVisualElement.Q<Toggle>("EnableAscensionToggle");
+        decreaseAscensionButton = packSelectionUIDocument.rootVisualElement.Q<Button>("DecreaseAscensionButton");
+        increaseAscensionButton = packSelectionUIDocument.rootVisualElement.Q<Button>("IncreaseAscensionButton");
+        ascensionNumberLabel = packSelectionUIDocument.rootVisualElement.Q<Label>("AscensionNumberLabel");
+        ascensionDescriptionLabel = packSelectionUIDocument.rootVisualElement.Q<Label>("AscensionDescriptionLabel");
+        ascensionContainer = packSelectionUIDocument.rootVisualElement.Q<VisualElement>("AscensionSelectionUIDocument");
+
+        StartCoroutine(InitializeAscensionUI());
+
         UpdateUIState();
         for (var i = 0; i < 5; i++)
         {
@@ -52,6 +69,49 @@ public class PackSelectionViewController : MonoBehaviour, IPackSlotViewDelegate
         {
             SetupUnlockablePackSlot(i, unlockablePackSOs, "unlockablePackOption", false);
         }
+    }
+
+    private IEnumerator InitializeAscensionUI()
+    {
+        yield return new WaitUntil(() => ProgressManager.Instance != null && ProgressManager.Instance.ascensionInfo != null);
+        if (ProgressManager.Instance.ascensionInfo.playersMaxAscensionUnlocked == -1)
+        {
+            ascensionContainer.style.display = DisplayStyle.None;
+            toggleEnableAscension.value = false;
+        }
+        else
+        {
+            // setup the ascension UI functionality
+            FocusManager.Instance.RegisterFocusableTarget(toggleEnableAscension.AsFocusable());
+            toggleEnableAscension.RegisterValueChangedCallback(toggledAscensionEnabled);
+            toggleEnableAscension.pickingMode = PickingMode.Position;
+            FocusManager.Instance.RegisterFocusableTarget(decreaseAscensionButton.AsFocusable());
+            decreaseAscensionButton.RegisterOnSelected(UpdateSelectedAscension(-1));
+            decreaseAscensionButton.pickingMode = PickingMode.Position;
+            FocusManager.Instance.RegisterFocusableTarget(increaseAscensionButton.AsFocusable());
+            increaseAscensionButton.RegisterOnSelected(UpdateSelectedAscension(1));
+            increaseAscensionButton.pickingMode = PickingMode.Position;
+        }
+    }
+
+    private Action UpdateSelectedAscension(int change)
+    {
+        return () =>
+        {
+            Debug.LogError("clicking on ascension button:" + change);
+            if (ascensionIndex == 0 && change < 0) return; // can't go below 0
+            if (ascensionIndex >= ProgressManager.Instance.ascensionInfo.playersMaxAscensionUnlocked && change > 0) return; // can't go above max ascension unlocked
+            ascensionIndex += change;
+
+            AscensionSO ascensionSO = ProgressManager.Instance.ascensionInfo.ascensionSOList[ascensionIndex];
+            ascensionNumberLabel.text = $"Ascension {ascensionIndex + 1}";
+            ascensionDescriptionLabel.text = ascensionSO.description;
+        };
+    }
+
+    private void toggledAscensionEnabled(ChangeEvent<bool> evt)
+    {
+        ascensionsEnabled = evt.newValue;
     }
 
     private void SetupPackSlot(int i, List<PackSO> packSOs, string packName, bool isSelected)
@@ -127,6 +187,9 @@ public class PackSelectionViewController : MonoBehaviour, IPackSlotViewDelegate
 
     private void HandlePacksSelected()
     {
+        if (ascensionsEnabled) {
+            gameState.ascensionLevel = ascensionIndex;
+        }
         selectPacksButton.SetEnabled(false);
         gameState.previouslySelectedPackSOs = selectedPackSOs;
         List<CompanionTypeSO> commonCompanions = new();

@@ -18,7 +18,7 @@ public class PlayerProgressState
      {
           this.numAttackCardsPlayed = new AchievementSerializable(achievementSOList.Find(x => x.gameActionType == GameActionType.ZERO_COST_ATTACKS_PLAYED));
           this.hasWonRun = new AchievementSerializable(achievementSOList.Find(x => x.gameActionType == GameActionType.WIN_A_RUN));
-          this.maxAscensionUnlocked = ProgressManager.Instance.playersMaxAscensionUnlocked;
+          this.maxAscensionUnlocked = ProgressManager.Instance.ascensionInfo.playersMaxAscensionUnlocked;
 
           // Not yet implemented 
           //this.numCardsDiscarded = new AchievementSerializable(achievementSOList.Find(x => x.gameActionType == GameActionType.DISCARD_A_CARD));
@@ -36,7 +36,7 @@ public class PlayerProgressState
           // CopyAchievementProgress(this.healthGained, ProgressManager.Instance.achievementSOList.Find(x => x.gameActionType == GameActionType.HEALTH_GAINED));
           // CopyAchievementProgress(this.statusCardsGained, ProgressManager.Instance.achievementSOList.Find(x => x.gameActionType == GameActionType.STATUS_CARDS_GAINED));
 
-          ProgressManager.Instance.playersMaxAscensionUnlocked = this.maxAscensionUnlocked;
+          ProgressManager.Instance.ascensionInfo.playersMaxAscensionUnlocked = this.maxAscensionUnlocked;
 
           PrintPlayerProgress();
      }
@@ -57,10 +57,11 @@ public class PlayerProgressState
           // PrintAchievementProgress(ProgressManager.Instance.achievementSOList.Find(x => x.gameActionType == GameActionType.DISCARD_A_CARD));
           // PrintAchievementProgress(ProgressManager.Instance.achievementSOList.Find(x => x.gameActionType == GameActionType.HEALTH_GAINED));
           // PrintAchievementProgress(ProgressManager.Instance.achievementSOList.Find(x => x.gameActionType == GameActionType.STATUS_CARDS_GAINED));
+          Debug.Log($"ProgressManager - Max Ascension Unlocked: {ProgressManager.Instance.ascensionInfo.playersMaxAscensionUnlocked}");
      }
      
      private void PrintAchievementProgress(AchievementSO achievementSO)
      {
-          Debug.Log($"Achievement: {achievementSO.achievementName}, Current Progress: {achievementSO.currentProgress}, Locked In Progress: {achievementSO.lockedInProgress}, Is Completed: {achievementSO.isCompleted}");
+          Debug.Log($"ProgressManager - Achievement: {achievementSO.achievementName}, Current Progress: {achievementSO.currentProgress}, Locked In Progress: {achievementSO.lockedInProgress}, Is Completed: {achievementSO.isCompleted}");
      }
 }

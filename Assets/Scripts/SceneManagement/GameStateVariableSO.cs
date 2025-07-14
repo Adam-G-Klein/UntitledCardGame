@@ -56,7 +56,7 @@ public class GameStateVariableSO : ScriptableObject
     private bool hasSeenTutorial = false;
     public bool autoUpgrade = false;
     public List<PackSO> previouslySelectedPackSOs;
-    public int ascensionLevel = 0;
+    public int ascensionLevel = -1;
     public Dictionary<Location, string> locationToScene = new Dictionary<Location, string>() {
         {Location.MAIN_MENU, "MainMenu"},
         {Location.TEAM_SIGNING, "TeamSigning"},

@@ -38,7 +38,13 @@ public class VictoryView : MonoBehaviour
         button = doc.rootVisualElement.Q<Button>();
         button.RegisterOnSelected(() => {
             button.SetEnabled(false);
-            SceneManager.LoadScene("EndOfRunProgressScene");
+            // go to end of run progress scene if there are any achievements to display
+            if (ProgressManager.Instance.achievementSOList.Exists(x => x.lockedInProgress < x.target)) {
+                SceneManager.LoadScene("EndOfRunProgressScene");
+                return;
+            }
+            // otherwise go to main menu
+            SceneManager.LoadScene("MainMenu");
         });
         FocusManager.Instance.RegisterFocusableTarget(button.AsFocusable());
     }
