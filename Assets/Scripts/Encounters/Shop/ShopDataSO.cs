@@ -42,10 +42,6 @@ public class ShopDataSO : ScriptableObject
     public Sprite neutralCardPoolShopIcon;
 
     [Header("Selling the companions in the shop")]
-    public int levelOneSellPrice;
-    public int levelTwoSellPrice;
-    public int levelThreeSellPrice;
-    public float deckSizeSellFactor;
 
     public float numCompanionsSellFactor = 1.5f;
     public float numCardsBoughtSellFactor = 0.5f;
