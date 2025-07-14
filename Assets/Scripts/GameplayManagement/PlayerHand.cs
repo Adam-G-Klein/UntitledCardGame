@@ -156,6 +156,8 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             // Hack to try to get Pythia deck shuffling on start of turn working.
             // EffectManager.Instance.invokeEffectWorkflow(new EffectDocument(), new List<EffectStep>(), null);
 
+            if (ControlsManager.Instance.GetControlMethod() == ControlsManager.ControlMethod.Mouse) return;
+
             if (cardsInHand.IndexOf(gameObject.GetComponent<PlayableCard>()) == indexToHover) {
                 if (cardsInHand[indexToHover].TryGetComponent<GameObjectFocusable>(out GameObjectFocusable goFocusable)) {
                     FocusManager.Instance.SetFocus(goFocusable);
@@ -175,6 +177,8 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     }
 
     public void HoverNextCard(int previouslyPlayedCardIndex) {
+        if (ControlsManager.Instance.GetControlMethod() == ControlsManager.ControlMethod.Mouse) return;
+
         if (cardsInHand.Count == 0) {
             indexToHover = 0;
             return;
