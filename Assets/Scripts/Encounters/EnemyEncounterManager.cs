@@ -251,9 +251,11 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     private IEnumerable SetupDeadlyEnemies() {
         foreach (EnemyInstance enemy in EnemyEncounterViewModel.Instance.enemies)
         {
+            int additionalStrength = enemy.enemy.enemyType.DeadlierEnemyBonusStr;
+            if (additionalStrength == -1) additionalStrength = ProgressManager.Instance.GetAscensionSO(AscensionType.ENEMIES_DEADLIER).modificationValue;
             enemy.GetCombatInstance().ApplyStatusEffects(
                 StatusEffectType.Strength,
-                ProgressManager.Instance.GetAscensionSO(AscensionType.ENEMIES_DEADLIER).modificationValue
+                additionalStrength
             );
         }
         yield return null;

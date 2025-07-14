@@ -10,7 +10,7 @@ using UnityEngine;
 [CreateAssetMenu(
     fileName = "EnemyType",
     menuName = "Enemies/Enemy Type")]
-public class EnemyTypeSO : IdentifiableSO 
+public class EnemyTypeSO : IdentifiableSO
 {
     public string displayName;
     public int maxHealth;
@@ -34,6 +34,26 @@ public class EnemyTypeSO : IdentifiableSO
     public EnemyBrain adaptWhenAloneEnemyPattern;
     public List<InitialStatus> initialStatuses = new List<InitialStatus>();
     public TooltipViewModel tooltip;
+
+    [Header("Ascension Modifiers For This Enemy Type")]
+    [SerializeField]
+    private int DEADLIER_ENEMY_BONUS_STR = -1;
+    public int DeadlierEnemyBonusStr
+    {
+        get
+        {
+            return DEADLIER_ENEMY_BONUS_STR;
+        }
+    }
+    [SerializeField]
+    private int HEALTHIER_ENEMY_BONUS_HEALTH = -1;
+    public int HealthierEnemyBonusHealth
+    {
+        get
+        {
+            return HEALTHIER_ENEMY_BONUS_HEALTH;
+        }
+    }
 }
 
 public enum EnemyMorale {
