@@ -1058,7 +1058,8 @@ public class ShopViewController : MonoBehaviour,
 
     public void SwappedControlMethod(ControlsManager.ControlMethod controlMethod)
     {
-        if (controlMethod == ControlsManager.ControlMethod.Mouse && isDraggingCompanion) {
+        if (isDraggingCompanion) {
+            FocusManager.Instance.UnstashFocusables(this.GetType().Name + COMPANION_MANAGEMENT);
             // abort dragging companion in a *nice* way
             VisualElement tempContainer = companionBeingDragged.container.parent;
             originalSlot.InsertCompanion(companionBeingDragged);
