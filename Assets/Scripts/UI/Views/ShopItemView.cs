@@ -44,6 +44,9 @@ public class ShopItemView : IEntityViewDelegate {
 
         // Bit of a hack, but I don't feel like completely refactoring entity view right now
         Companion tempCompanion = new Companion(companion.companionType);
+        if (ProgressManager.Instance.IsFeatureEnabled(AscensionType.DAMAGED_COMPANIONS)) {
+            tempCompanion.combatStats.currentHealth -= ProgressManager.Instance.GetAscensionSO(AscensionType.DAMAGED_COMPANIONS).modificationValue;
+        }
 
         entityView = new EntityView(tempCompanion, 0, false, this);
         entityView.UpdateWidthAndHeight();
