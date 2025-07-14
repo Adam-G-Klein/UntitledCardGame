@@ -1,10 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.UI;
 using UnityEngine.SceneManagement;
 
 public class ControlsManager : GenericSingleton<ControlsManager>
 {
+    [SerializeField]
+    private InputSystemUIInputModule inputSystemUIInputModule;
     private List<IControlsReceiver> controlsReceivers;
     private ControlMethod controlMethod = ControlMethod.Mouse;
 
@@ -12,7 +15,13 @@ public class ControlsManager : GenericSingleton<ControlsManager>
         controlsReceivers = new List<IControlsReceiver>();
     }
 
-    void Start() {}
+    void Start() {
+        // Not sure if this is the most surefire way of determining
+        // the control method the last scene was using
+        if (Cursor.visible == false) {
+            CheckSwapControlMethod(ControlMethod.KeyboardController);
+        }
+    }
 
     void Update() {
         if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0) {
@@ -162,10 +171,12 @@ public class ControlsManager : GenericSingleton<ControlsManager>
         switch (newControlMethod) {
             case ControlMethod.KeyboardController:
                 Cursor.visible = false;
+                inputSystemUIInputModule.enabled = false;
             break;
 
             case ControlMethod.Mouse:
                 Cursor.visible = true;
+                inputSystemUIInputModule.enabled = true;
             break;
         }
 
