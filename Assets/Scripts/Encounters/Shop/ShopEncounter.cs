@@ -17,6 +17,7 @@ public class CardInShopWithPrice {
     public Card.CardRarity rarity;
 
     public Sprite genericArtwork;
+    public bool increasedPrice;
 
     public CardInShopWithPrice(
         CardType cardType,
@@ -25,13 +26,15 @@ public class CardInShopWithPrice {
         CardPoolSO cardPool,
         Card.CardRarity rarity,
         Sprite genericArtwork = null
-    ) {
+    )
+    {
         this.cardType = cardType;
         this.price = price;
         this.sourceCompanion = companionType;
         this.cardPool = cardPool;
         this.rarity = rarity;
         this.genericArtwork = genericArtwork;
+        this.increasedPrice = false;
     }
 }
 
@@ -39,10 +42,13 @@ public class CardInShopWithPrice {
 public class CompanionInShopWithPrice {
     public CompanionTypeSO companionType;
     public int price;
+    public bool increasedPrice;
 
-    public CompanionInShopWithPrice(CompanionTypeSO companionType, int price) {
+    public CompanionInShopWithPrice(CompanionTypeSO companionType, int price)
+    {
         this.companionType = companionType;
         this.price = price;
+        this.increasedPrice = false;
     }
 }
 
@@ -153,18 +159,24 @@ public class ShopEncounter : Encounter
         dist.PrintCardDistribution();
         List<CardInShopWithPrice> chosen = dist.ChooseWithoutReplacement(shopLevel.numCardsToShow);
         foreach (CardInShopWithPrice z in chosen) {
+            // TODO add price increases to % of cards here
+            int bonusCost = AddBonusCost();
+            z.price += bonusCost;
+            z.increasedPrice = bonusCost > 0;
             cardsInShop.Add(z);
         }
     }
 
-    public void generateKeepsakes(ShopLevel shopLevel, List<Companion> team) {
+    public void generateKeepsakes(ShopLevel shopLevel, List<Companion> team)
+    {
         int numKeepsakesToGenerate = shopLevel.numKeepsakesToShow;
 
         // Maintain a list of the keepsakes that are out of the shop pool.
         // All companion types on your team are not considered in the pool.
         List<CompanionTypeSO> keepsakesOutOfPool = team.Select(x => x.companionType).ToList();
 
-        for (int i = 0; i < numKeepsakesToGenerate; i++) {
+        for (int i = 0; i < numKeepsakesToGenerate; i++)
+        {
             // Determine what the companion pool is for this single keepsake being generated
             Rarity rarity = PickRarity(
                 shopLevel.commonCompanionPercentage,
@@ -176,25 +188,27 @@ public class ShopEncounter : Encounter
             );
 
             List<CompanionTypeSO> companions = new List<CompanionTypeSO>();
-            switch(rarity) {
+            switch (rarity)
+            {
                 case Rarity.Common:
                     companions = shopData.companionPool.commonCompanions;
-                break;
+                    break;
 
                 case Rarity.Uncommon:
                     companions = shopData.companionPool.uncommonCompanions;
-                break;
+                    break;
 
                 case Rarity.Rare:
                     companions = shopData.companionPool.rareCompanions;
-                break;
+                    break;
             }
 
             // Simple weighted sampling algorithm: N copies of each companion type in the list,
             // where N corresponds to their weight.
             // Then we pick one uniformly at random.
             List<CompanionTypeSO> companionSampleDist = new();
-            foreach (CompanionTypeSO c in companions) {
+            foreach (CompanionTypeSO c in companions)
+            {
                 // "Scarcity" mechanic; we reduce the number of companions
                 // available by removing the keepsake count after pool.
                 int numAvailable = shopData.numKeepsakeCopies - numCompanionsOfType(keepsakesOutOfPool, c);
@@ -208,20 +222,35 @@ public class ShopEncounter : Encounter
             // Pick a keepsake from the sample distribution and add it to the shop's cards
             int number = UnityEngine.Random.Range(0, companionSampleDist.Count);
             CompanionTypeSO selected = companionSampleDist[number];
-            companionsInShop.Add(new CompanionInShopWithPrice(selected, shopData.companionKeepsakePrice));
+            CompanionInShopWithPrice keepsake = new CompanionInShopWithPrice(selected, shopData.companionKeepsakePrice);
+            int bonusCost = AddBonusCost();
+            keepsake.price += bonusCost;
+            if (bonusCost > 0) keepsake.increasedPrice = true;
+            companionsInShop.Add(keepsake);
             keepsakesOutOfPool.Add(selected);
         }
     }
 
-    private int numCompanionsOfType(List<CompanionTypeSO> companions, CompanionTypeSO companionType) {
+    private int AddBonusCost()
+    {
+        return ProgressManager.Instance.IsFeatureEnabled(AscensionType.STINGY_CONCIERGE) && UnityEngine.Random.Range(0f, 1f) < 0.25f
+            ? ProgressManager.Instance.GetAscensionSO(AscensionType.STINGY_CONCIERGE).modificationValue
+            : 0;
+    }
+
+    private int numCompanionsOfType(List<CompanionTypeSO> companions, CompanionTypeSO companionType)
+    {
         int count = 0;
-        foreach (CompanionTypeSO c in companions) {
-            if (c == companionType) {
+        foreach (CompanionTypeSO c in companions)
+        {
+            if (c == companionType)
+            {
                 count++;
             }
             // If we have a combined version on the team, that effectively
             // means we bought 3 of the same kind.
-            if (c == companionType.upgradeTo) {
+            if (c == companionType.upgradeTo)
+            {
                 count += 3;
             }
         }

@@ -64,7 +64,7 @@ public class ShopItemView : IEntityViewDelegate {
         visualElementFocusable.additionalUnfocusAction += () => OnPointerLeave(null);
         shopItemElement.name = companion.companionType.name;
 
-        shopItemElement.Add(CreatePriceTagForShopItem(companion.price));
+        shopItemElement.Add(CreatePriceTagForShopItem(companion.price, companion.increasedPrice));
 
         return shopItemElement;
     }
@@ -96,18 +96,22 @@ public class ShopItemView : IEntityViewDelegate {
         //     ()=> {OnPointerEnter(null);},
         //     () => {OnPointerLeave(null);});
 
-        shopItemElement.Add(CreatePriceTagForShopItem(card.price));
+        shopItemElement.Add(CreatePriceTagForShopItem(card.price, card.increasedPrice));
 
         return shopItemElement;
     }
 
-    private VisualElement CreatePriceTagForShopItem(int price) {
+    private VisualElement CreatePriceTagForShopItem(int price, bool increasedPrice = false) {
         VisualElement priceTag = new VisualElement();
         Label label = new Label();
         priceTag.AddToClassList("shop-item-price-tag-background");
         label.AddToClassList("shop-item-price-tag-label");
         label.text = "$" + price.ToString();
         priceTag.Add(label);
+
+        if (increasedPrice) {
+            label.AddToClassList("shop-item-price-tag-increased");
+        } 
         return priceTag;
     }
 
