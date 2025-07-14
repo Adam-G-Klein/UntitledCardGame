@@ -85,9 +85,12 @@ public class MusicController : GenericSingleton<MusicController>
     }
 
     public void RegisterButtonClickSFX(UIDocument uiDoc) {
-        uiDoc.rootVisualElement.Query<VisualElement>(className: "button-sfx").ToList()
+        uiDoc.rootVisualElement.Query<VisualElement>(className: "selected-sfx").ToList()
             .ForEach(x => {
-                x.RegisterOnSelected(() => PlaySFX("event:/SFX/SFX_ButtonClick"));
+                if (x is Toggle toggle)
+                    toggle.RegisterValueChangedCallback((evt) => PlaySFX("event:/SFX/SFX_ButtonClick"));
+                else
+                    x.RegisterOnSelected(() => PlaySFX("event:/SFX/SFX_ButtonClick"));
             });
     }
 

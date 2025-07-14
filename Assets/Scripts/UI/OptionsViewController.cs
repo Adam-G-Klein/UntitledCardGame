@@ -107,6 +107,7 @@ public class OptionsViewController : GenericSingleton<OptionsViewController>, IC
         canvasGroup.blocksRaycasts = false;
 
         ControlsManager.Instance.RegisterControlsReceiver(this);
+        MusicController.Instance.RegisterButtonClickSFX(optionsUIDocument);
     }
 
     private void OptionsMenuButton() {

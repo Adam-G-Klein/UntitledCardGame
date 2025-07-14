@@ -29,22 +29,22 @@
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement class="menu-option" style="flex-grow: 0;">
-                    <ui:Toggle label="Full Screen" name="fullscreenToggle" class="focusable" style="font-size: 18px;" />
+                    <ui:Toggle label="Full Screen" name="fullscreenToggle" class="focusable selected-sfx" style="font-size: 18px;" />
                 </ui:VisualElement>
                 <ui:VisualElement class="menu-option" style="flex-grow: 0;">
-                    <ui:Toggle label="Auto Upgrade" name="auto-upgrade-toggle" class="focusable" style="font-size: 18px;" />
+                    <ui:Toggle label="Auto Upgrade" name="auto-upgrade-toggle" class="focusable selected-sfx" style="font-size: 18px;" />
                 </ui:VisualElement>
                 <ui:VisualElement name="VisualElement" class="menu-option">
-                    <ui:Button text="View Compendium" parse-escape-sequences="true" display-tooltip-when-elided="true" name="compendiumButton" class="options-button focusable" />
+                    <ui:Button text="View Compendium" parse-escape-sequences="true" display-tooltip-when-elided="true" name="compendiumButton" class="options-button focusable selected-sfx" />
                 </ui:VisualElement>
                 <ui:VisualElement name="VisualElement" class="menu-option">
-                    <ui:Button text="Back" parse-escape-sequences="true" display-tooltip-when-elided="true" name="backButton" class="options-button focusable" />
+                    <ui:Button text="Back" parse-escape-sequences="true" display-tooltip-when-elided="true" name="backButton" class="options-button focusable selected-sfx" />
                 </ui:VisualElement>
                 <ui:VisualElement name="VisualElement" class="menu-option">
-                    <ui:Button text="Exit to Main Menu" parse-escape-sequences="true" display-tooltip-when-elided="true" name="exitButton" class="options-button focusable" />
+                    <ui:Button text="Exit to Main Menu" parse-escape-sequences="true" display-tooltip-when-elided="true" name="exitButton" class="options-button focusable selected-sfx" />
                 </ui:VisualElement>
                 <ui:VisualElement name="VisualElement" class="menu-option">
-                    <ui:Button text="Quit Game" parse-escape-sequences="true" display-tooltip-when-elided="true" name="quitButton" class="options-button focusable" />
+                    <ui:Button text="Quit Game" parse-escape-sequences="true" display-tooltip-when-elided="true" name="quitButton" class="options-button focusable selected-sfx" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>

@@ -45,6 +45,7 @@ public class CompendiumView : MonoBehaviour, IControlsReceiver {
         uiDocument.rootVisualElement.Q<Button>("enemyButton").clicked += EnemyButtonHandler;
 
         FocusManager.Instance.RegisterFocusables(uiDocument);
+        MusicController.Instance.RegisterButtonClickSFX(uiDocument);
         uiDocument.StartCoroutine(RegisterControlsReceiverAtEndOfFrame());
     }
 
