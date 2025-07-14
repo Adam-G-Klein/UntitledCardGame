@@ -46,7 +46,7 @@ public class CardInHandEffect : EffectStep, ITooltipProvider
                     card.interactable = false;
                     break;
                 default:
-                    yield break;
+                    continue;
             }
         }
         foreach (PlayableCard card in playableCards)
