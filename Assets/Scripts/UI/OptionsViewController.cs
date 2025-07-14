@@ -87,8 +87,8 @@ public class OptionsViewController : GenericSingleton<OptionsViewController>, IC
         sfxVolumeSlider.RegisterValueChangedCallback((evt) => onVolumeSliderChangedHandler(evt.newValue, VolumeType.SFX));
         timescaleSlider = optionsUIDocument.rootVisualElement.Q<Slider>("gameSpeedSlider");
         timescaleSlider.RegisterValueChangedCallback((evt) => OnTimescaleSliderChange(evt.newValue));
-        musicVolumeSlider.value = MusicController2.Instance.currentMusicVolume;
-        sfxVolumeSlider.value = MusicController2.Instance.currentSFXVolume;
+        musicVolumeSlider.value = MusicController.Instance.currentMusicVolume;
+        sfxVolumeSlider.value = MusicController.Instance.currentSFXVolume;
         compendiumButton = optionsUIDocument.rootVisualElement.Q<Button>("compendiumButton");
         compendiumButton.clicked += onCompendiumButtonHandler;
         backButton = optionsUIDocument.rootVisualElement.Q<Button>("backButton");
@@ -129,7 +129,7 @@ public class OptionsViewController : GenericSingleton<OptionsViewController>, IC
 
     public void onMainMenuButtonHandler() {
         // Load the main menu scene
-        MusicController2.Instance.PrepareForGoingBackToMainMenu();
+        MusicController.Instance.PrepareForGoingBackToMainMenu();
         UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
         ToggleVisibility();
     }
@@ -148,7 +148,7 @@ public class OptionsViewController : GenericSingleton<OptionsViewController>, IC
     }
 
     public void onVolumeSliderChangedHandler(float value, VolumeType volumeType) {
-       MusicController2.Instance.SetVolume(value, volumeType);
+       MusicController.Instance.SetVolume(value, volumeType);
     }
     
     public void OnTimescaleSliderChange(float value) {

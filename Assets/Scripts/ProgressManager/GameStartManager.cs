@@ -24,7 +24,7 @@ public class GameStartManager : GenericSingleton<GameStartManager>
 
     private IEnumerator StartMainMenuMusic()
     {
-        yield return new WaitUntil(() => MusicController2.Instance != null);
-        MusicController2.Instance.PlayMainMenuMusic();
+        yield return new WaitUntil(() => MusicController.Instance != null);
+        MusicController.Instance.PlayMainMenuMusic();
     }
 }

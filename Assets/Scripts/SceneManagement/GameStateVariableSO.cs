@@ -304,7 +304,7 @@ public class GameStateVariableSO : ScriptableObject
     private void updateMusic(Location newLocation) {
         // Just not changing the music on the map right now
         if(newLocation != Location.MAP && MusicController.Instance != null) {
-            MusicController2.Instance.PlayMusicLocation(newLocation);
+            MusicController.Instance.PlayMusicLocation(newLocation);
         }
     }
 

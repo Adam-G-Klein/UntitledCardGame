@@ -28,7 +28,7 @@ public class MainMenuManager : MonoBehaviour
     {
         gameState.currentLocation = Location.MAIN_MENU;
         StartCoroutine(SetupWhenReady());
-
+        MusicController.Instance.RegisterButtonClickSFX(mainMenuUIDocument);
     }
 
     private IEnumerator SetupWhenReady()
@@ -63,14 +63,12 @@ public class MainMenuManager : MonoBehaviour
     public void startButtonHandler()
     {
         generateMap.generateMapAndChangeScenes();
-        MusicController2.Instance.PlayStartSFX();
-        //SceneManager.LoadScene("GenerateMap");
+        MusicController.Instance.PlayStartSFX();
     }
 
     private void ContinueButtonHandler()
     {
         SaveManager.Instance.LoadHandler();
-        MusicController2.Instance.PlaySFX("event:/SFX/SFX_ButtonClick");
     }
 
     public void test(string s) {
@@ -78,8 +76,6 @@ public class MainMenuManager : MonoBehaviour
     }
 
     public void optionsButtonHandler() {
-        Debug.Log("OPTIONS MENU BUTTON HANDLER");
-        MusicController2.Instance.PlaySFX("event:/SFX/SFX_ButtonClick");
         if (optionsUIPrefab == null)
         {
             optionsUIPrefab = GameObject.FindGameObjectWithTag("OptionsViewCanvas");
@@ -89,7 +85,6 @@ public class MainMenuManager : MonoBehaviour
     }
 
     public void exitButtonHandler() {
-        MusicController2.Instance.PlaySFX("event:/SFX/SFX_ButtonClick");
         Application.Quit();
     }
 }

@@ -114,12 +114,12 @@ public class CombatInstance : MonoBehaviour
         }
         if(statusEffect != StatusEffectType.Defended && statusEffect != StatusEffectType.Orb && statusEffect != StatusEffectType.Strength && statusEffect != StatusEffectType.TemporaryStrength) {
             //PlaySFX();
-            MusicController2.Instance.PlaySFX("event:/SFX/SFX_NegativeEffect");
+            MusicController.Instance.PlaySFX("event:/SFX/SFX_NegativeEffect");
             AddVFX();
         }
         else
         {
-            MusicController2.Instance.PlaySFX("event:/SFX/SFX_PositiveEffect");
+            MusicController.Instance.PlaySFX("event:/SFX/SFX_PositiveEffect");
         }
         UpdateView();
     }
@@ -174,11 +174,11 @@ public class CombatInstance : MonoBehaviour
                 int damageTaken = TakeDamage(effect, scale, effector);
                 if (effector.GetComponent<CompanionInstance>() != null)
                 {
-                    MusicController2.Instance.PlaySFX("event:/SFX/SFX_BasicAttack");
+                    MusicController.Instance.PlaySFX("event:/SFX/SFX_BasicAttack");
                 }
                 else if (effector.GetComponent<EnemyInstance>() != null)
                 {
-                    MusicController2.Instance.PlaySFX("event:/SFX/SFX_EnemyAttack");
+                    MusicController.Instance.PlaySFX("event:/SFX/SFX_EnemyAttack");
                 }
                 PlayVFX(vfxPrefab);
                 if (shouldShake) AddShake(damageTaken);

@@ -279,7 +279,7 @@ public class PlayableCard : MonoBehaviour,
             hoverable.hovered = true;
         }
         // Set the volume first
-        MusicController2.Instance.PlaySFX("event:/SFX/SFX_UIHover");
+        MusicController.Instance.PlaySFX("event:/SFX/SFX_UIHover");
         transform.SetAsLastSibling();
 
         //PlayerHand.Instance.HoverNextCard(-1); // this prevents card moving in hand from forcefully chaning hover target if playable has manually selected a new card

@@ -1,52 +1,26 @@
-
 using System.Collections;
 using System.Collections.Generic;
+using FMODUnity;
 using UnityEngine;
+using UnityEngine.UIElements;
 
-/*
-
-the plan:
-- we want to play an alternating track from a set of tracks for each new location
-- pre combat splash and post combat are now the only two places that music switches during
-    the normal loop
-- 
-
-
-
-*/
 public class MusicController : GenericSingleton<MusicController>
 {
-    //private AudioSource audioSource;
-    [SerializeField]
-    private List<string> precombatClips = new List<string>();
-    [SerializeField]
-    private List<string> postcombatClips = new List<string>();
-    [SerializeField]
-    //private AudioClip tutorialClip;
+    [SerializeField] FMODUnity.EventReference fmodMixer;
+    [SerializeField][ParamRef] public string combatState;
+    private FMOD.Studio.EventInstance mixerInstance;
+    private FMOD.Studio.EventInstance instance;
+    public List<LocationTrack> locationTracks;
+    private FMODUnity.EventReference currentReference;
+    public float currentMusicVolume = 0.5f;
+    public float currentSFXVolume = 0.5f;
 
-    [Header("Only clips in use below are main menu, tutorial, and bossfight")]
-    //[SerializeField]
-    private List<Location> locationKeys = new List<Location>();
-    [SerializeField]
-    private List<string> musicClipsOrderedByLocation = new List<string>();
-
-    [SerializeField]
-    private List<int> clipStartTimes = new List<int>();
-    [SerializeField]
-    private float introVolume = 0.15f;
-
-
-    /*[SerializeField]
-    private float otherVolume = 0.3f;
-    [SerializeField]
-    private float defaultSFXVolume = 0.5f;  
-    [SerializeField]
-    private float defaultSFXPitch = 1.0f;
-
-    */private FMOD.Studio.EventInstance instance;
-    //private FMODUnity.EventReference reference;
-
-
+    [System.Serializable]
+    public class LocationTrack
+    {
+        public FMODUnity.EventReference eventReference;
+        public Location location;
+    }
 
     void Awake()
     {
@@ -55,99 +29,112 @@ public class MusicController : GenericSingleton<MusicController>
         DontDestroyOnLoad(this.gameObject);
     }
 
-    void Start() {
-        //audioSource = GetComponent<AudioSource>();
-        //reference = 
-        //if(instance != null)
-            //sfxSource = transform.GetChild(0).GetComponent<AudioSource>();  
-        PlayMusicForLocation(Location.MAIN_MENU);
+    public void PrepareForGoingBackToMainMenu() {
+        instance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        instance.release();
+        Destroy(this.gameObject);
     }
-
-    public void PlayMusicForLocation(Location location, bool inTutorial = false)
+    
+    public void PlayMusicLocation(Location location)
     {
-        //if(instance == null) {
-        //    Debug.LogWarning("No music in instance!");
-        //    return;
-        //}
-        if(inTutorial && (location == Location.PRE_COMBAT_SPLASH || location == Location.COMBAT)) {
-            //if(audioSource.clip != tutorialClip) {
-            //    audioSource.clip = tutorialClip;
-            //    audioSource.Play();
-            //}
-            instance = FMODUnity.RuntimeManager.CreateInstance("event:/MX/MX_Tutorial");
-            instance.start();
+        if (locationTracks == null) {
+            Debug.LogWarning("No location tracks set in MusicController2");
             return;
         }
-        switch(location) {
-            case Location.PRE_COMBAT_SPLASH:
+        
+        if (location == Location.COMBAT)
+        {
+            SetCombatState("Combat");
+        }
+
+        foreach (LocationTrack locationTrack in locationTracks) {
+            if (location == locationTrack.location) {
                 instance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-                //if(precombatClips.Count == 0) {
-                //    return;
-                //}
-                //audioSource.clip = precombatClips[Random.Range(0, precombatClips.Count)];
-                //audioSource.Play();
-                instance = FMODUnity.RuntimeManager.CreateInstance("event:/MX/MX_Combat");
+                instance.release();
+                instance = FMODUnity.RuntimeManager.CreateInstance(locationTrack.eventReference);
                 instance.start();
-                break;
-            case Location.POST_COMBAT:
-                instance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-                //if(postcombatClips.Count == 0) {
-                //    return;
-                //}
-                //audioSource.clip = postcombatClips[Random.Range(0, postcombatClips.Count)];
-                //audioSource.Play();
-                
-                //below will eventually be a victory?
-                //instance = FMODUnity.RuntimeManager.CreateInstance("event:/MX/MX_Combat");
-                break;
-            default:
-                PlayMusicForLocationFromList(location);
-                break;
+                instance.setVolume(currentMusicVolume);
+                currentReference = locationTrack.eventReference;
+                // Debug.Log(locationTrack.eventReference);
+                // Debug.Log(locationTrack.location);
+            }
         }
     }
 
-    public void PlayMusicForLocationFromList(Location location)
+    public void SetVolume(float volume, VolumeType volumeType) {
+        switch(volumeType) {
+            case VolumeType.SFX:
+                currentSFXVolume = volume;
+            break;
+
+            case VolumeType.MUSIC:
+                currentMusicVolume = volume;
+                instance.setVolume(volume);
+            break;
+        }
+    }
+
+    public void PlaySFX(string sfx)
     {
-        if(Instance == null) {
-            Debug.LogWarning("No music controller found");
-            return;
-        }
-        int indexOfLocation = locationKeys.IndexOf(location);
-        /*if(indexOfLocation == -1 || audioSource.clip == musicClipsOrderedByLocation[indexOfLocation]) {
-            return;
-        }
-        if(location == Location.WAKE_UP_ROOM || location == Location.TEAM_SIGNING) {
-            audioSource.volume = introVolume;
-        } else {
-            audioSource.volume = otherVolume;
-        }*/
-        Debug.Log("playing clip");
-        //audioSource.clip = musicClipsOrderedByLocation[indexOfLocation];
-        //audioSource.time = clipStartTimes[indexOfLocation];
-        //audioSource.Play();
+        RuntimeManager.PlayOneShot(sfx, currentSFXVolume);
     }
 
-    // spaghetti!
-    /*public void PlaySFX(AudioClip clip, float volume = -1, float pitch = 1.0f) {
-        if(sfxSource == null) {
-            if(transform.childCount == 0) {
-                // TODO: completely refactor the sound system. No point in improving this marginally
-                // Debug.LogWarning("No sfx source found");
-                return;
-            }
-            sfxSource = transform.GetChild(0).GetComponent<AudioSource>();
-            if(sfxSource == null) {
-                // Debug.LogWarning("No sfx source found");
-                return;
-            }
+    public void PlayStartSFX()
+    {
+        RuntimeManager.PlayOneShot("event:/SFX/SFX_StartRun", currentSFXVolume);
+    }
+
+    public void RegisterButtonClickSFX(UIDocument uiDoc) {
+        uiDoc.rootVisualElement.Query<VisualElement>(className: "button-sfx").ToList()
+            .ForEach(x => {
+                x.RegisterOnSelected(() => PlaySFX("event:/SFX/SFX_ButtonClick"));
+            });
+    }
+
+    // Start is called before the first frame update
+    public void PlayMainMenuMusic()
+    {
+        // mixerInstance = FMODUnity.RuntimeManager.CreateInstance(fmodMixer);
+        // mixerInstance.start();
+        // mixerInstance.setParameterByName("Master_Volume", 0.1f);
+        // wait for the settings to be loaded
+        PlayMusicLocation(Location.MAIN_MENU);
+    }
+
+    public void SetCombatState(string combatstate)
+    {
+        switch (combatstate)
+        {
+            case "Combat":
+                RuntimeManager.StudioSystem.setParameterByName(combatState, 0);
+                break;
+
+            case "Victory":
+                RuntimeManager.StudioSystem.setParameterByName(combatState, 1);
+                PlaySFX("event:/MX/MX_CombatStingers");
+                break;
+
+            case "Defeat":
+                RuntimeManager.StudioSystem.setParameterByName(combatState, 2);
+                PlaySFX("event:/MX/MX_CombatStingers");
+                break;
+
+            default:
+                break;
         }
-        if(volume == -1) {
-            //volume = defaultSFXVolume;
-        }
-        /*if(!Mathf.Equals(pitch, 1.0f)) {
-            sfxSource.pitch = pitch;
-        } else {
-            sfxSource.pitch = defaultSFXPitch;
-        }
-        sfxSource.PlayOneShot(clip, volume);*/
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+
+    //TO DO: add GC functionality!
+}
+
+public enum VolumeType {
+    MUSIC,
+    SFX
 }

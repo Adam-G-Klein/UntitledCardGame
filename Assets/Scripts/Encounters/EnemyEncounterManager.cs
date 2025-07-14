@@ -170,7 +170,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         DialogueManager.Instance.SetDialogueLocation(gameState);
         DialogueManager.Instance.StartAnyDialogueSequence();
         SetInToolTip(false);
-        MusicController2.Instance.SetCombatState("Victory");
+        MusicController.Instance.SetCombatState("Victory");
     }
 
     private void WinGameHandler() {
@@ -181,7 +181,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         SaveManager.Instance.DeleteSaveData();
         gameState.LoadNextLocation();
         victoryUI.SetActive(true);
-        MusicController2.Instance.SetCombatState("Victory");
+        MusicController.Instance.SetCombatState("Victory");
         uIStateEvent.Raise(new UIStateEventInfo(UIState.END_ENCOUNTER));
         victoryUI.transform.SetSiblingIndex(postCombatUI.transform.parent.childCount - 1);
         victoryUI.GetComponent<VictoryView>().Setup(gameState.companions.activeCompanions);
@@ -192,7 +192,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
 
     private void LoseGameHandler() {
         postGamePopup.SetActive(true);
-        MusicController2.Instance.SetCombatState("Defeat");
+        MusicController.Instance.SetCombatState("Defeat");
         postGamePopup.GetComponent<DefeatView>().Setup(((EnemyEncounter)gameState.activeEncounter.GetValue()).enemyList);
         TurnOffInteractions();
         StartCoroutine(displayDefeatUIAfterDelay());
@@ -213,7 +213,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     {
         yield return new WaitForSeconds(endCombatScreenDelay);
         postCombatUI.GetComponent<EndEncounterView>().Show();
-        MusicController2.Instance.PlaySFX("event:/SFX/SFX_EarnMoney");
+        MusicController.Instance.PlaySFX("event:/SFX/SFX_EarnMoney");
     }
     private IEnumerator displayVictoryUIAfterDelay() {
         yield return new WaitForSeconds(endCombatScreenDelay);

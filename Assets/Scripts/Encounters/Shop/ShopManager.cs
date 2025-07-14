@@ -441,7 +441,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     }
 
     public void ShopItemHovered() {
-        MusicController2.Instance.PlaySFX("event:/SFX/SFX_UIHover");
+        MusicController.Instance.PlaySFX("event:/SFX/SFX_UIHover");
     }
 
     // To satisfy interface. Unused
