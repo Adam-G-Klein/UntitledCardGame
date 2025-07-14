@@ -98,7 +98,6 @@ public class PackSelectionViewController : MonoBehaviour, IPackSlotViewDelegate
     {
         return () =>
         {
-            Debug.LogError("clicking on ascension button:" + change);
             if (ascensionIndex == 0 && change < 0) return; // can't go below 0
             if (ascensionIndex >= ProgressManager.Instance.ascensionInfo.playersMaxAscensionUnlocked && change > 0) return; // can't go above max ascension unlocked
             ascensionIndex += change;
