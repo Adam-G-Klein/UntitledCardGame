@@ -43,6 +43,7 @@ public class ShopViewController : MonoBehaviour,
 
     public Label upgradePriceLabel;
     public Label rerollPriceLabel;
+    public Label cardRemovalPriceLabel;
     public SellingCompanionConfirmationView sellingCompanionConfirmationView;
     private VisualElement deckView;
     private VisualElement deckViewContentContainer;
@@ -99,6 +100,7 @@ public class ShopViewController : MonoBehaviour,
         selectingCancelButton = uiDoc.rootVisualElement.Q<Button>("companion-selection-cancel-button");
         upgradePriceLabel = uiDoc.rootVisualElement.Q<Label>("upgrade-price-label");
         rerollPriceLabel = uiDoc.rootVisualElement.Q<Label>("reroll-price-label");
+        cardRemovalPriceLabel = uiDoc.rootVisualElement.Q<Label>("card-remove-price-label");
 
         sellingCompanionConfirmationView = new SellingCompanionConfirmationView(uiDoc.rootVisualElement.Q("selling-companion-confirmation"), this);
 
@@ -810,7 +812,12 @@ public class ShopViewController : MonoBehaviour,
         upgradePriceLabel.text = "$" + amount.ToString();
     }
 
-    public void DisableUpgradeButton() {
+    public void SetShopCardRemovalPrice(int amount) {
+        cardRemovalPriceLabel.text = "$" + amount.ToString();
+    }
+
+    public void DisableUpgradeButton()
+    {
         upgradeButton.SetEnabled(false);
         upgradeButton.UnregisterCallback<PointerEnterEvent>(UpgradeButtonOnPointerEnter);
     }
@@ -1068,7 +1075,7 @@ public class ShopViewController : MonoBehaviour,
         List<Card> instantiatedCards = companion.startingDeck.cards
             .Select(card => new Card(card, companion))
             .ToList();
-        
+
         GameObject cardSelectionViewGo = Instantiate(cardSelectionViewPrefab);
         CardSelectionView cardSelectionView = cardSelectionViewGo.GetComponent<CardSelectionView>();
         // Card Selection View stashes focusables on setup

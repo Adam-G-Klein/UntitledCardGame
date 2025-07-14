@@ -65,6 +65,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         shopViewController.SetMoney(gameState.playerData.GetValue().gold);
         shopViewController.SetShopUpgradePrice(shopLevel.upgradeIncrementCost);
         shopViewController.SetShopRerollPrice(shopEncounter.shopData.rerollShopPrice);
+        shopViewController.SetShopCardRemovalPrice(shopEncounter.shopData.cardRemovalPrice);
 
         CheckDisableUpgradeButton();
         CheckDisableUpgradeButtonV2();
