@@ -199,7 +199,8 @@ public class ShopViewController : MonoBehaviour,
     }
 
     private void SetupActiveSlots() {
-        foreach (VisualElement child in activeContainer.hierarchy.Children()) {
+        foreach (VisualElement child in activeContainer.hierarchy.Children())
+        {
             CompanionManagementSlotView slotView = new CompanionManagementSlotView(child,
                 slotNotHighlightColor,
                 slotHighlightColor,
@@ -218,14 +219,21 @@ public class ShopViewController : MonoBehaviour,
             }
         }
     }
-
-    private void SetupBenchSlots() {
-        foreach (VisualElement child in benchContainer.hierarchy.Children()) {
+    private void SetupBenchSlots()
+    {
+        var children = benchContainer.hierarchy.Children().ToList();
+        for (int i = 0; i < children.Count; i++) {
+            VisualElement child = children[i];
             CompanionManagementSlotView slotView = new CompanionManagementSlotView(child,
                 slotNotHighlightColor,
                 slotHighlightColor,
                 slotUnavailableColor);
-            benchSlots.Add(slotView);
+            if (ProgressManager.Instance.IsFeatureEnabled(AscensionType.REDUCED_BENCH_CAPACITY) && i >= ProgressManager.Instance.GetAscensionSO(AscensionType.REDUCED_BENCH_CAPACITY).modificationValue) {
+                slotView.SetBlocked();
+            }
+            else {
+                benchSlots.Add(slotView);
+            }
         }
     }
 
@@ -261,7 +269,8 @@ public class ShopViewController : MonoBehaviour,
         upgradeIncrementContainer.Children().ToList()[upgradeIncrementIndex].AddToClassList("upgradeIncrementEarned");
     }
 
-    public void Clear() {
+    public void Clear()
+    {
         ClearUnitManagement();
         shopGoodsArea.Clear();
         SetBlockedActiveSlotsIfNecessary(shopManager.gameState.companions.currentCompanionSlots);
@@ -481,7 +490,7 @@ public class ShopViewController : MonoBehaviour,
 
         foreach (CompanionManagementSlotView slotView in benchSlots) {
             if (slotView.ContainsPosition(pointerPos)) {
-                if (NumTakenSlots(benchSlots) < 5) {
+                if (NumTakenSlots(benchSlots) < shopManager.AvailableBenchSlots) {
                     MoveWhileDragging(benchSlots, slotView);
                     originalSlot = slotView;
                 }

@@ -39,6 +39,10 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     private Companion newCompanion;
     public GameObject tooltipPrefab;
     private int timesRerolledThisShop = 0;
+    private int availableBenchSlots;
+    public int AvailableBenchSlots {
+        get { return availableBenchSlots; }
+    }
     void Awake() {
         if (USE_NEW_SHOP) {
             gameObject.GetComponent<UIDocument>().enabled = true;
@@ -52,8 +56,10 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         gameState.activeEncounter.GetValue().BuildWithEncounterBuilder(this);
     }
 
-    void Start() {
+    void Start()
+    {
         companionCombinationManager = GetComponent<CompanionCombinationManager>();
+        availableBenchSlots = ProgressManager.Instance.IsFeatureEnabled(AscensionType.REDUCED_BENCH_CAPACITY) ? (int)ProgressManager.Instance.GetAscensionSO(AscensionType.REDUCED_BENCH_CAPACITY).modificationValue : 5;
     }
 
     public void BuildShopEncounter(ShopEncounter shopEncounter) {
@@ -160,7 +166,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
                     return;
                 }
             }
-            if (gameState.companions.activeCompanions.Count + shopViewController.GetBlockedCompanionSlots() == 5 && gameState.companions.benchedCompanions.Count == 5) {
+            if (gameState.companions.activeCompanions.Count + shopViewController.GetBlockedCompanionSlots() == 5 && gameState.companions.benchedCompanions.Count == availableBenchSlots) {
                 StartCoroutine(shopViewController.ShowGenericNotification("You have reached the maximum number of companions.", 2));
                 return;
             }
