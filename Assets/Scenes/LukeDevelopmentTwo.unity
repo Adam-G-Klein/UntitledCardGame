@@ -201,7 +201,6 @@ GameObject:
   - component: {fileID: 555102114}
   - component: {fileID: 555102113}
   - component: {fileID: 555102115}
-  - component: {fileID: 555102116}
   m_Layer: 0
   m_Name: UI
   m_TagString: Untagged
@@ -221,25 +220,29 @@ MonoBehaviour:
   m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PanelSettings: {fileID: 11400000, guid: 290c2c4faf5b30f41b3f90f153c0f76a, type: 2}
+  m_PanelSettings: {fileID: 11400000, guid: 54b8718af818cf440aec7fb1c4c97729, type: 2}
   m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 9197481963319205126, guid: 5cb98f3c453e53348a819cf26aed6962, type: 3}
+  sourceAsset: {fileID: 9197481963319205126, guid: 6f77eb17561b3e247bfc7a3a71acf287, type: 3}
   m_SortingOrder: 0
---- !u!4 &555102114
-Transform:
+--- !u!224 &555102114
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 555102112}
-  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.1641645, y: 0.858144, z: 0.05445832}
+  m_LocalPosition: {x: 0, y: 0, z: 0.05445832}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 1.1641645, y: 0.858144}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &555102115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249,24 +252,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 555102112}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c51cd98b8c7e564ea486793a1661dff, type: 3}
+  m_Script: {fileID: 11500000, guid: b9ae9546bb6bcc44596a583855adce10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameStateVariableSO: {fileID: 11400000, guid: 9e326417f60894341a96cc8d02868bbe, type: 2}
-  cardSelectionView: {fileID: 555102116}
---- !u!114 &555102116
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 555102112}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 409c7f2922acdf844a0101f3121ffc7a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uiDoc: {fileID: 555102113}
+  doc: {fileID: 555102113}
+  icon: {fileID: 21300000, guid: 7e9a6ca17b92cc34b9f20a8f97f4788e, type: 3}
 --- !u!1 &978428271
 GameObject:
   m_ObjectHideFlags: 0
@@ -408,6 +398,6 @@ MonoBehaviour:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 555102114}
   - {fileID: 978428274}
   - {fileID: 412595866}
-  - {fileID: 555102114}

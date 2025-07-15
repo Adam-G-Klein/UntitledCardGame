@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
@@ -8,11 +10,23 @@ public class ControlsManager : GenericSingleton<ControlsManager>
 {
     [SerializeField]
     private InputSystemUIInputModule inputSystemUIInputModule;
+    [SerializeField]
+    private PlayerInput playerInput;
+    [Space(10)]
+    [SerializeField]
+    private List<ControlsSpriteMapping> spriteMappings;
     private List<IControlsReceiver> controlsReceivers;
     private ControlMethod controlMethod = ControlMethod.Mouse;
+    private ControlScheme controlScheme = ControlScheme.Keyboard;
+    private Dictionary<ControlScheme, Dictionary<GFGInputAction, Sprite>> controlsSpriteDict;
 
     void Awake() {
         controlsReceivers = new List<IControlsReceiver>();
+        ConvertStupidListToCoolDictionary();
+        if (Enum.TryParse<ControlScheme>(playerInput.currentControlScheme, out ControlScheme scheme)) {
+            this.controlScheme = scheme;
+            Debug.Log("ControlsManager: Changed controls scheme to " + controlScheme.ToString());
+        }
     }
 
     void Start() {
@@ -26,6 +40,19 @@ public class ControlsManager : GenericSingleton<ControlsManager>
     void Update() {
         if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0) {
             CheckSwapControlMethod(ControlMethod.Mouse);
+        }
+    }
+
+    private void ConvertStupidListToCoolDictionary() {
+        controlsSpriteDict = new Dictionary<ControlScheme, Dictionary<GFGInputAction, Sprite>>();
+        foreach (ControlsSpriteMapping mapping in spriteMappings) {
+            if (!controlsSpriteDict.ContainsKey(mapping.controlScheme)) {
+                controlsSpriteDict[mapping.controlScheme] = new Dictionary<GFGInputAction, Sprite>();
+            }
+
+            foreach (ControlsSpriteMappingItem item in mapping.items) {
+                controlsSpriteDict[mapping.controlScheme][item.action] = item.sprite;
+            }
         }
     }
 
@@ -163,6 +190,20 @@ public class ControlsManager : GenericSingleton<ControlsManager>
         }
     }
 
+    public Sprite GetSpriteForGFGAction(GFGInputAction action) {
+        Sprite returnSprite = controlsSpriteDict[controlScheme][action];
+        Debug.Log("returnSprite");
+        Debug.Log(returnSprite);
+        return returnSprite;
+    }
+
+    public void OnControlsChanged(PlayerInput input) {
+        if (Enum.TryParse<ControlScheme>(input.currentControlScheme, out ControlScheme scheme)) {
+            this.controlScheme = scheme;
+            Debug.Log("ControlsManager: Changed controls scheme to " + controlScheme.ToString());
+        }
+    }
+
     private void CheckSwapControlMethod(ControlMethod newControlMethod) {
         if (controlMethod == newControlMethod) return;
 
@@ -193,5 +234,26 @@ public class ControlsManager : GenericSingleton<ControlsManager>
     public enum ControlMethod {
         Mouse,
         KeyboardController
+    }
+
+    // This needs to be directly mapped to the input actions asset
+    // controls schemes
+    public enum ControlScheme {
+        Gamepad,
+        Switch,
+        Xbox,
+        Keyboard
+    }
+
+    [System.Serializable]
+    public class ControlsSpriteMapping {
+        public ControlScheme controlScheme;
+        public List<ControlsSpriteMappingItem> items;
+    }
+
+    [System.Serializable]
+    public class ControlsSpriteMappingItem {
+        public GFGInputAction action;
+        public Sprite sprite;
     }
 }

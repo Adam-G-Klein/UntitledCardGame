@@ -265,6 +265,80 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputSystemUIInputModule: {fileID: 8480604171362434328}
+  playerInput: {fileID: 1343596577144208430}
+  spriteMappings:
+  - controlScheme: 0
+    items:
+    - action: 0
+      sprite: {fileID: 21300000, guid: c65dd5e2e6dd12a45bcfe64256ad12af, type: 3}
+    - action: 1
+      sprite: {fileID: 21300000, guid: c65dd5e2e6dd12a45bcfe64256ad12af, type: 3}
+    - action: 2
+      sprite: {fileID: 21300000, guid: c65dd5e2e6dd12a45bcfe64256ad12af, type: 3}
+    - action: 3
+      sprite: {fileID: 21300000, guid: c65dd5e2e6dd12a45bcfe64256ad12af, type: 3}
+    - action: 14
+      sprite: {fileID: 21300000, guid: 4b81ff3dccbca6842a6f1e17b7d2f65b, type: 3}
+    - action: 15
+      sprite: {fileID: 21300000, guid: 4b81ff3dccbca6842a6f1e17b7d2f65b, type: 3}
+    - action: 16
+      sprite: {fileID: 21300000, guid: 4b81ff3dccbca6842a6f1e17b7d2f65b, type: 3}
+    - action: 17
+      sprite: {fileID: 21300000, guid: 4b81ff3dccbca6842a6f1e17b7d2f65b, type: 3}
+  - controlScheme: 1
+    items:
+    - action: 4
+      sprite: {fileID: 21300000, guid: cea22a5781da08740986c58cffbae918, type: 3}
+    - action: 5
+      sprite: {fileID: 21300000, guid: ab32634ab7d27ce4baf72005f11f7d47, type: 3}
+    - action: 13
+      sprite: {fileID: 21300000, guid: 8976437d4df90ea4fa6fcfb0e774a03b, type: 3}
+    - action: 20
+      sprite: {fileID: 21300000, guid: 8976437d4df90ea4fa6fcfb0e774a03b, type: 3}
+    - action: 21
+      sprite: {fileID: 21300000, guid: e962e450b003b5146a0738e7495b4fc0, type: 3}
+    - action: 22
+      sprite: {fileID: 21300000, guid: e962e450b003b5146a0738e7495b4fc0, type: 3}
+    - action: 6
+      sprite: {fileID: 21300000, guid: 09035c6a7d27dac4bbad9700d2382c10, type: 3}
+    - action: 23
+      sprite: {fileID: 21300000, guid: 598612957fb72ab4a99b6e99e178eba8, type: 3}
+  - controlScheme: 2
+    items:
+    - action: 4
+      sprite: {fileID: 21300000, guid: 43cd13548a904ab4b90e211cebecb4de, type: 3}
+    - action: 5
+      sprite: {fileID: 21300000, guid: 0486c5df1d98a504d8f4483d4ebb29de, type: 3}
+    - action: 13
+      sprite: {fileID: 21300000, guid: f5683dba963005f4eb0ea33c4c63e963, type: 3}
+    - action: 20
+      sprite: {fileID: 21300000, guid: f5683dba963005f4eb0ea33c4c63e963, type: 3}
+    - action: 21
+      sprite: {fileID: 21300000, guid: 49fe4bf474f4c854ea4d7619a4c2684f, type: 3}
+    - action: 22
+      sprite: {fileID: 21300000, guid: 49fe4bf474f4c854ea4d7619a4c2684f, type: 3}
+    - action: 6
+      sprite: {fileID: 21300000, guid: f9058078c028a6a44bc0d80be0afc656, type: 3}
+    - action: 23
+      sprite: {fileID: 21300000, guid: b979b47b18c03b242a1000bdb2135dfb, type: 3}
+  - controlScheme: 3
+    items:
+    - action: 4
+      sprite: {fileID: 21300000, guid: a87d6efc6e339bb42aa6e312e551190e, type: 3}
+    - action: 5
+      sprite: {fileID: 21300000, guid: ad37386944f92d8479988b03e6848d79, type: 3}
+    - action: 13
+      sprite: {fileID: 21300000, guid: d637228b4635c8049a82228c50e40a7a, type: 3}
+    - action: 20
+      sprite: {fileID: 21300000, guid: 79afdc0deccc8e34aa35369724a946ca, type: 3}
+    - action: 21
+      sprite: {fileID: 21300000, guid: f1bb790d6136e0a4f9b00c0896397af6, type: 3}
+    - action: 22
+      sprite: {fileID: 21300000, guid: f1bb790d6136e0a4f9b00c0896397af6, type: 3}
+    - action: 6
+      sprite: {fileID: 21300000, guid: 077cde9ab06a3a94499a982dde3a7e18, type: 3}
+    - action: 23
+      sprite: {fileID: 21300000, guid: 92acc642aac0d3b49b30df53fdf49491, type: 3}
 --- !u!114 &1343596577144208430
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -288,7 +362,19 @@ MonoBehaviour:
       m_Calls: []
   m_ControlsChangedEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8518733848191120987}
+        m_TargetAssemblyTypeName: ControlsManager, Assembly-CSharp
+        m_MethodName: OnControlsChanged
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
