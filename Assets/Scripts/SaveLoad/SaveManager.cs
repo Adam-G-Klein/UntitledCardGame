@@ -57,6 +57,27 @@ public class SaveManager : GenericSingleton<SaveManager>
     public void DeletePlayerProgressData()
     {
         SaveSystem.DeleteSave(SaveSystem.SaveType.Progress);
+        ProgressManager.Instance.ascensionInfo.playersMaxAscensionUnlocked = - 1;
+        foreach (AchievementSO achievementSO in ProgressManager.Instance.achievementSOList)
+        {
+            achievementSO.isCompleted = false;
+            achievementSO.currentProgress = 0;
+            achievementSO.lockedInProgress = 0;
+        }
+
+    }
+
+    [ContextMenu("Unlock all Achievements and Ascensions")]
+    public void UnlockAllAchievementsAndAscensions()
+    {
+        ProgressManager.Instance.ascensionInfo.playersMaxAscensionUnlocked = ProgressManager.Instance.ascensionInfo.ascensionSOList.Count - 1;
+        foreach (AchievementSO achievementSO in ProgressManager.Instance.achievementSOList)
+        {
+            achievementSO.isCompleted = true;
+            achievementSO.currentProgress = achievementSO.target;
+            achievementSO.lockedInProgress = achievementSO.target;
+        }
+        SavePlayerProgress();
     }
 
     public void GameStartHandler()
