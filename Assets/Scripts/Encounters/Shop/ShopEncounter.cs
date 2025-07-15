@@ -234,7 +234,7 @@ public class ShopEncounter : Encounter
     private int AddBonusCost()
     {
         return ProgressManager.Instance.IsFeatureEnabled(AscensionType.STINGY_CONCIERGE) && UnityEngine.Random.Range(0f, 1f) < 0.25f
-            ? ProgressManager.Instance.GetAscensionSO(AscensionType.STINGY_CONCIERGE).modificationValue
+            ? (int)ProgressManager.Instance.GetAscensionSO(AscensionType.STINGY_CONCIERGE).modificationValue
             : 0;
     }
 

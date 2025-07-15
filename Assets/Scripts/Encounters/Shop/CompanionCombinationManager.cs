@@ -160,7 +160,11 @@ public class CompanionCombinationManager : MonoBehaviour
         // Take the base health of the upgraded companion, then
         // add any accumulated max HP buffs.
         int maxHealthBuffs = (int) companions.Select(c => c.combatStats.getMaxHealthBuffs()).ToList().Sum();
-        return upgradedCompanion.companionType.maxHealth + maxHealthBuffs;
+        int baseMaxHealth = upgradedCompanion.companionType.maxHealth;
+        if (ProgressManager.Instance.IsFeatureEnabled(AscensionType.LESS_HEALTHY_UPGRADES)) {
+            baseMaxHealth = Mathf.FloorToInt(baseMaxHealth * ProgressManager.Instance.GetAscensionSO(AscensionType.LESS_HEALTHY_UPGRADES).modificationValue);
+        }
+        return baseMaxHealth + maxHealthBuffs;
     }
 
     private double currentHealthPctForCombinedCompanion(List<Companion> companions) {

@@ -100,7 +100,7 @@ public class TeamSelectionUI : MonoBehaviour
         {
             Companion companion = new Companion(companionType);
             if (ProgressManager.Instance.IsFeatureEnabled(AscensionType.DAMAGED_COMPANIONS)) {
-                companion.combatStats.currentHealth -= ProgressManager.Instance.GetAscensionSO(AscensionType.DAMAGED_COMPANIONS).modificationValue;
+                companion.combatStats.currentHealth -= (int)ProgressManager.Instance.GetAscensionSO(AscensionType.DAMAGED_COMPANIONS).modificationValue;
             }
             gameState.companions.activeCompanions.Add(companion);
         }

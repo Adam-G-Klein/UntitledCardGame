@@ -16,7 +16,7 @@ public class AscensionSO : ScriptableObject
     public string description;
     public string devDescription;
     public AscensionType ascensionType;
-    public int modificationValue;
+    public float modificationValue;
 }
 
 public enum AscensionType
