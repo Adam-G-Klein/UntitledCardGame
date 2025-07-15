@@ -1,0 +1,22 @@
+.icon-button {
+    position: relative;
+    overflow: visible;
+    padding-left: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-button-no-icon {
+    padding-left: auto;
+    padding-right: auto;
+}
+
+.icon-button-icon {
+    position: absolute;
+    left: 0;
+    max-height: 200%;
+    width: auto;
+    aspect-ratio: auto;
+    object-fit: contain;
+    translate: -50% 0;
+}

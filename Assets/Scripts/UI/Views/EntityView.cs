@@ -83,9 +83,12 @@ public class EntityView : IUIEventReceiver {
         drawDiscardContainer.RegisterCallback<PointerEnterEvent>(DrawDiscardContainerOnPointerEnter);
         drawDiscardContainer.RegisterCallback<PointerLeaveEvent>(DrawDiscardContainerOnPointerLeave);
         pillar.Add(drawDiscardContainer);
+
+        elementFocusable.additionalFocusAction += () => HoverDetectorOnPointerEnter(entityContainer.CreateFakePointerEnterEvent());
+        elementFocusable.additionalUnfocusAction += () => HoverDetectorOnPointerLeave(entityContainer.CreateFakePointerLeaveEvent());
     }
 
-    public void AddDeckButtonOnHover() {
+    public void AddDeckButtonOnHover(VisualElementFocusable visualElementFocusable) {
         if (isEnemy) return;
 
         // it's important to add the hover detector *before* the drawer,
@@ -101,6 +104,9 @@ public class EntityView : IUIEventReceiver {
         drawDiscardContainer.RegisterCallback<PointerEnterEvent>(DrawDiscardContainerOnPointerEnter);
         drawDiscardContainer.RegisterCallback<PointerLeaveEvent>(DrawDiscardContainerOnPointerLeave);
         pillar.Add(drawDiscardContainer);
+
+        visualElementFocusable.additionalFocusAction += () => HoverDetectorOnPointerEnter(entityContainer.CreateFakePointerEnterEvent());
+        visualElementFocusable.additionalUnfocusAction += () => HoverDetectorOnPointerLeave(entityContainer.CreateFakePointerLeaveEvent());
     }
 
     public void UpdateWidthAndHeight(bool isEnemy = false) {
@@ -337,14 +343,17 @@ public class EntityView : IUIEventReceiver {
         drawerContainer.AddToClassList("pillar-drawer-menu");
         pickingModePositionList.Add(drawerContainer);
 
-        Button drawButton = new Button();
+        IconButton drawButton = new IconButton();
         drawButton.AddToClassList("drawer-button");
         drawButton.text = "Draw";
+        drawButton.SetIcon(GFGInputAction.VIEW_DECK, ControlsManager.Instance.GetSpriteForGFGAction(GFGInputAction.VIEW_DECK));
+        ControlsManager.Instance.RegisterIconChanger(drawButton);
 
-
-        Button discardButton = new Button();
+        IconButton discardButton = new IconButton();
         discardButton.AddToClassList("drawer-button");
         discardButton.text = "Discard";
+        discardButton.SetIcon(GFGInputAction.VIEW_DISCARD, ControlsManager.Instance.GetSpriteForGFGAction(GFGInputAction.VIEW_DISCARD));
+        ControlsManager.Instance.RegisterIconChanger(discardButton);
 
         pickingModePositionList.Add(drawButton);
         pickingModePositionList.Add(discardButton);
@@ -366,9 +375,11 @@ public class EntityView : IUIEventReceiver {
         drawerContainer.AddToClassList("pillar-drawer-menu");
         pickingModePositionList.Add(drawerContainer);
 
-        Button drawButton = new Button();
+        IconButton drawButton = new IconButton();
         drawButton.AddToClassList("drawer-button");
         drawButton.text = "Deck";
+        drawButton.SetIcon(GFGInputAction.VIEW_DECK, ControlsManager.Instance.GetSpriteForGFGAction(GFGInputAction.VIEW_DECK));
+        ControlsManager.Instance.RegisterIconChanger(drawButton);
 
         pickingModePositionList.Add(drawButton);
         pickingModePositionList.Add(drawerContainer);

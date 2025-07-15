@@ -59,7 +59,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     }
 
 
-    void Awake() {
+    void Start() {
         encounterBuilt = false;
         // This ends up calling BuildEnemyEncounter below
         combatEncounterView.SetupFromGamestate();

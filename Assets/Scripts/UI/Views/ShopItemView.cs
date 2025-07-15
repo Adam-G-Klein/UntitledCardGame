@@ -50,7 +50,7 @@ public class ShopItemView : IEntityViewDelegate {
 
         entityView = new EntityView(tempCompanion, 0, false, this);
         entityView.UpdateWidthAndHeight();
-        entityView.AddDeckButtonOnHover();
+        entityView.AddDeckButtonOnHover(visualElementFocusable);
 
         VisualElement portraitContainer = entityView.entityContainer.Q(className: "entity-portrait");
         portraitContainer.style.backgroundImage = new StyleBackground(companion.companionType.sprite);

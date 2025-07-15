@@ -16,12 +16,14 @@ public class ControlsManager : GenericSingleton<ControlsManager>
     [SerializeField]
     private List<ControlsSpriteMapping> spriteMappings;
     private List<IControlsReceiver> controlsReceivers;
+    private List<IIconChange> iconChangers = new List<IIconChange>();
     private ControlMethod controlMethod = ControlMethod.Mouse;
     private ControlScheme controlScheme = ControlScheme.Keyboard;
     private Dictionary<ControlScheme, Dictionary<GFGInputAction, Sprite>> controlsSpriteDict;
 
     void Awake() {
         controlsReceivers = new List<IControlsReceiver>();
+        iconChangers = new List<IIconChange>();
         ConvertStupidListToCoolDictionary();
         if (Enum.TryParse<ControlScheme>(playerInput.currentControlScheme, out ControlScheme scheme)) {
             this.controlScheme = scheme;
@@ -64,6 +66,13 @@ public class ControlsManager : GenericSingleton<ControlsManager>
         controlsReceivers.Remove(controlsReceiver);
     }
 
+    public void RegisterIconChanger(IIconChange iconChange) {
+        iconChangers.Add(iconChange);
+    }
+
+    public void UnregisterIconChanger(IIconChange iconChange) {
+        iconChangers.Remove(iconChange);
+    }
 
     public void handleSelect(InputAction.CallbackContext context) {
         if (context.phase == InputActionPhase.Started) {
@@ -191,16 +200,25 @@ public class ControlsManager : GenericSingleton<ControlsManager>
     }
 
     public Sprite GetSpriteForGFGAction(GFGInputAction action) {
-        Sprite returnSprite = controlsSpriteDict[controlScheme][action];
-        Debug.Log("returnSprite");
-        Debug.Log(returnSprite);
-        return returnSprite;
+        try {
+            return controlsSpriteDict[controlScheme][action];
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public void OnControlsChanged(PlayerInput input) {
         if (Enum.TryParse<ControlScheme>(input.currentControlScheme, out ControlScheme scheme)) {
             this.controlScheme = scheme;
             Debug.Log("ControlsManager: Changed controls scheme to " + controlScheme.ToString());
+        } else {
+            Debug.LogError("ControlsManager: Unable to parse control scheme " + input.currentControlScheme);
+            return;
+        }
+
+        foreach (IIconChange iconChange in iconChangers) {
+            GFGInputAction action = iconChange.GetAction();
+            iconChange.SetIcon(GetSpriteForGFGAction(action));
         }
     }
 
@@ -239,6 +257,7 @@ public class ControlsManager : GenericSingleton<ControlsManager>
     // This needs to be directly mapped to the input actions asset
     // controls schemes
     public enum ControlScheme {
+        Mouse,
         Gamepad,
         Switch,
         Xbox,

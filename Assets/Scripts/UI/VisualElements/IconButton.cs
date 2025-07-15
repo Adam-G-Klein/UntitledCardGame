@@ -1,44 +1,44 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class IconButton : Button
+public class IconButton : Button, IIconChange
 {
-    private Image _iconImage;
-    private Label _textLabel;
+    private readonly Image _icon;
+    private GFGInputAction action;
 
     public new class UxmlFactory : UxmlFactory<IconButton, UxmlTraits> { }
 
     public IconButton()
     {
-        style.flexDirection = FlexDirection.Row;
-        style.alignItems = Align.Center;
-        style.justifyContent = Justify.Center;
+        AddToClassList("icon-button");
 
-        _iconImage = new Image();
-        _iconImage.name = "icon"; // So it’s accessible in UI Builder
-        _iconImage.scaleMode = ScaleMode.ScaleAndCrop;
-        _iconImage.AddToClassList("icon");
-
-        _textLabel = new Label();
-        _textLabel.AddToClassList("text");
-
-        hierarchy.Add(_iconImage);
-        hierarchy.Add(_textLabel);
-    }
-
-    public void SetIcon(Sprite sprite)
-    {
-        _iconImage.sprite = sprite;
+        _icon = new Image();
+        _icon.AddToClassList("icon-button-icon");
+        hierarchy.Insert(0, _icon);
     }
 
     public void SetIcon(Texture2D texture)
     {
-        _iconImage.image = texture;
+        _icon.image = texture;
     }
 
-    public override string text
+    public void SetIcon(GFGInputAction action, Sprite sprite)
     {
-        get => _textLabel.text;
-        set => _textLabel.text = value;
+        this.action = action;
+        SetIcon(sprite);
+    }
+
+    public void SetIcon(Sprite sprite)
+    {
+        _icon.sprite = sprite;
+        if (sprite == null) {
+            AddToClassList("icon-button-no-icon");
+        } else {
+            RemoveFromClassList("icon-button-no-icon");
+        }
+    }
+
+    public GFGInputAction GetAction() {
+        return this.action;
     }
 }

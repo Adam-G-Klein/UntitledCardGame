@@ -1,3 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <IconButton text="Button" style="width: 20%; height: -1%;" />
+    <Style src="project://database/Assets/UI%20Toolkit/Stylesheets/IconButton.uss?fileID=7433441132597879392&amp;guid=45daf1b0dd28cfb42b3347777cd65e2d&amp;type=3#IconButton" />
+    <ui:VisualElement style="flex-grow: 1; width: 50%; align-self: center;">
+        <IconButton text="Button" name="IconButton" />
+    </ui:VisualElement>
 </ui:UXML>

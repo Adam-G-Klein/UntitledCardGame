@@ -34,7 +34,9 @@ public class UIDocEndTurnButtonController : MonoBehaviour {
         endTurnElement.pickingMode = PickingMode.Position;
 
         VisualElementUtils.RegisterSelected(endTurnElement, endTurnButtonHandler);
-
+        IconButton endTurnButton = endTurnElement as IconButton;
+        endTurnButton.SetIcon(GFGInputAction.END_TURN, ControlsManager.Instance.GetSpriteForGFGAction(GFGInputAction.END_TURN));
+        ControlsManager.Instance.RegisterIconChanger(endTurnButton);
     }
 
     public void endTurnButtonHandler() {
