@@ -38,6 +38,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     private CompanionInShopWithPrice companionInShop;
     private Companion newCompanion;
     public GameObject tooltipPrefab;
+    private int timesRerolledThisShop = 0;
     void Awake() {
         if (USE_NEW_SHOP) {
             gameObject.GetComponent<UIDocument>().enabled = true;
@@ -325,13 +326,20 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         if(DialogueManager.Instance.dialogueInProgress) {
             return;
         }
-        if (gameState.playerData.GetValue().gold >= shopEncounter.shopData.rerollShopPrice) {
-            gameState.playerData.GetValue().gold -= shopEncounter.shopData.rerollShopPrice;
+        int price = ProgressManager.Instance.IsFeatureEnabled(AscensionType.COSTLY_REROLLS)
+            ? shopEncounter.shopData.rerollShopPrice + timesRerolledThisShop
+            : shopEncounter.shopData.rerollShopPrice;
+        if (gameState.playerData.GetValue().gold >= price) {
+            gameState.playerData.GetValue().gold -= price;
             shopViewController.SetMoney(gameState.playerData.GetValue().gold);
             shopViewController.Clear();
             InstantiateShopVFX(shopRerollPrefab, shopViewController.GetRerollShopButton(), 1.25f);
+            timesRerolledThisShop++;
+            shopViewController.SetShopRerollPrice(shopEncounter.shopData.rerollShopPrice + timesRerolledThisShop);
             rerollShop();
-        } else {
+        }
+        else
+        {
             shopViewController.NotEnoughMoney();
         }
     }
