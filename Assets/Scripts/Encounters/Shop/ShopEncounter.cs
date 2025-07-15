@@ -211,7 +211,10 @@ public class ShopEncounter : Encounter
             {
                 // "Scarcity" mechanic; we reduce the number of companions
                 // available by removing the keepsake count after pool.
-                int numAvailable = shopData.numKeepsakeCopies - numCompanionsOfType(keepsakesOutOfPool, c);
+                int keepsakeCopies = ProgressManager.Instance.IsFeatureEnabled(AscensionType.SCARCE_SHOPS)
+                    ? shopData.numKeepsakeCopies - (int)ProgressManager.Instance.GetAscensionSO(AscensionType.SCARCE_SHOPS).modificationValue
+                    : shopData.numKeepsakeCopies;
+                int numAvailable = keepsakeCopies - numCompanionsOfType(keepsakesOutOfPool, c);
                 // in the case, where we exhaust all the companions of a given type, let there
                 // be 1 available always, just so it is possible but much less likely.
                 numAvailable = Math.Max(1, numAvailable);
@@ -252,6 +255,10 @@ public class ShopEncounter : Encounter
             if (c == companionType.upgradeTo)
             {
                 count += 3;
+            }
+            if (c == companionType.upgradeTo.upgradeTo)
+            {
+                count += 6;
             }
         }
         return count;
