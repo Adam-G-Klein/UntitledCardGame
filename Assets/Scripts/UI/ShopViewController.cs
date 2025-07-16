@@ -1040,7 +1040,7 @@ public class ShopViewController : MonoBehaviour,
     public void DisplayTooltip(VisualElement element, TooltipViewModel tooltipViewModel, bool forCompanionManagementView) {
         Vector3 tooltipPosition = UIDocumentGameObjectPlacer.GetWorldPositionFromElement(element);
         if (forCompanionManagementView) {
-            tooltipPosition.x -= element.resolvedStyle.height / 100; // this feels super brittle
+            tooltipPosition.x += element.resolvedStyle.height / 75; // this feels super brittle
             tooltipPosition.y += element.resolvedStyle.height / 100;
         } else {
             tooltipPosition.x -= element.resolvedStyle.width / 120; // this feels super brittle

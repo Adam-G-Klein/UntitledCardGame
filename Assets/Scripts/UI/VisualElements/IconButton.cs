@@ -38,6 +38,14 @@ public class IconButton : Button, IIconChange
         }
     }
 
+    // Sets the icon height to be a percent of the overall button height
+    public void SetIconHeight(float percent) {
+        RegisterCallback<GeometryChangedEvent>(evt => {
+            float buttonHeight = resolvedStyle.height;
+            _icon.style.maxHeight = buttonHeight * percent;
+        });
+    }
+
     public GFGInputAction GetAction() {
         return this.action;
     }
