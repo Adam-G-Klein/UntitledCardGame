@@ -21,7 +21,6 @@ public class GenericSceneManager : MonoBehaviour, IControlsReceiver
 
     public void Update() {
         if (allowProgressingGameState && Input.GetMouseButtonDown(0)) {
-            // StartCoroutine(ShowSkipTooltip());
             if (!checkingForSkipClicksAlready) {
                 skipCounter = 1;
                 StartCoroutine(PossiblyShowSkipTooltip());
@@ -59,6 +58,16 @@ public class GenericSceneManager : MonoBehaviour, IControlsReceiver
 
     public void ProcessGFGInputAction(GFGInputAction action)
     {
+        if (allowProgressingGameState && action == GFGInputAction.SELECT) {
+            if (!checkingForSkipClicksAlready) {
+                skipCounter = 1;
+                StartCoroutine(PossiblyShowSkipTooltip());
+                checkingForSkipClicksAlready = true;
+            } else {
+                skipCounter += 1;
+            }
+        }
+
         if (allowProgressingGameState && action == GFGInputAction.CUTSCENE_SKIP) {
             ContinueGameState();
         }

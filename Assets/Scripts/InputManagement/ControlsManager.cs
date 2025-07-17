@@ -20,6 +20,20 @@ public class ControlsManager : GenericSingleton<ControlsManager>
     private ControlMethod controlMethod = ControlMethod.Mouse;
     private ControlScheme controlScheme = ControlScheme.Keyboard;
     private Dictionary<ControlScheme, Dictionary<GFGInputAction, Sprite>> controlsSpriteDict;
+    private List<GFGInputAction> actionsThatSwapControlMethod = new List<GFGInputAction> {
+        GFGInputAction.UP,
+        GFGInputAction.DOWN,
+        GFGInputAction.LEFT,
+        GFGInputAction.RIGHT,
+        GFGInputAction.END_TURN,
+        GFGInputAction.SECONDARY_UP,
+        GFGInputAction.SECONDARY_DOWN,
+        GFGInputAction.SECONDARY_RIGHT,
+        GFGInputAction.SECONDARY_LEFT,
+        GFGInputAction.VIEW_DECK,
+        GFGInputAction.VIEW_DISCARD,
+        GFGInputAction.SELL_COMPANION
+    };
 
     void Awake() {
         controlsReceivers = new List<IControlsReceiver>();
@@ -192,7 +206,8 @@ public class ControlsManager : GenericSingleton<ControlsManager>
     }
 
     private void ProcessInput(GFGInputAction action) {
-        CheckSwapControlMethod(ControlMethod.KeyboardController);
+        if (actionsThatSwapControlMethod.Contains(action)) CheckSwapControlMethod(ControlMethod.KeyboardController);
+        
         List<IControlsReceiver> immutableControlsReceivers = new List<IControlsReceiver>(controlsReceivers);
         foreach (IControlsReceiver receiver in immutableControlsReceivers) {
             receiver.ProcessGFGInputAction(action);

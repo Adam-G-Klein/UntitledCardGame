@@ -29,14 +29,11 @@ public class CutsceneStartStopper : GenericSingleton<CutsceneStartStopper>, ICon
     }
 
     void Update() {
-        // if (Input.GetMouseButtonDown(0) 
-        //     || Input.GetKeyDown(KeyCode.Space) 
-        //     || Input.GetKeyDown(KeyCode.Return)
-        //     ) {
-        //     if (isStopped) {
-        //         playableDirector.Play();
-        //     }
-        // }
+        if (Input.GetMouseButtonDown(0)) {
+            if (isStopped) {
+                playableDirector.Play();
+            }
+        }
     }
 
     public void StopTimeline() {
