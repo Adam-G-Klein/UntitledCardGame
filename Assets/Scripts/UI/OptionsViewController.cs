@@ -145,6 +145,8 @@ public class OptionsViewController : GenericSingleton<OptionsViewController>, IC
     public void onCompendiumButtonHandler() {
         compendiumUIDocument.rootVisualElement.style.visibility = Visibility.Visible;
         compendiumView = null; // in the future we would ideally have some way of tracking if it had to be recreated based on change in gamestate
+        FocusManager.Instance.StashLockedFocusables(this.GetType().Name);
+        FocusManager.Instance.UnlockFocusables();
         compendiumView = new CompendiumView(compendiumUIDocument, companionPool, neutralCardPool, tooltipPrefab);
     }
 
@@ -170,6 +172,7 @@ public class OptionsViewController : GenericSingleton<OptionsViewController>, IC
             // Have to do this each time due to how the options menu persists across scenes
             FocusManager.Instance.StashFocusables(this.GetType().Name);
             RegisterFocusables();
+            FocusManager.Instance.LockFocusables(); // This has to go after we register the options view focusables
             if (ControlsManager.Instance.GetControlMethod() == ControlsManager.ControlMethod.KeyboardController)
                 FocusManager.Instance.SetFocusNextFrame(backButton.AsFocusable());
         } else {
@@ -180,6 +183,7 @@ public class OptionsViewController : GenericSingleton<OptionsViewController>, IC
             compendiumUIDocument.rootVisualElement.style.visibility = Visibility.Hidden;
             FocusManager.Instance.UnregisterFocusables(optionsUIDocument);
             FocusManager.Instance.UnstashFocusables(this.GetType().Name);
+            FocusManager.Instance.UnlockFocusables();
         }
     }
 

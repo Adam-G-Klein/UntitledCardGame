@@ -18,6 +18,9 @@ public class FocusManager : GenericSingleton<FocusManager>, IControlsReceiver
     public FocusableDelegate onFocusDelegate;
     public FocusableDelegate onUnfocusDelegate;
 
+    private bool areFocusablesLocked = false;
+    private List<IFocusableTarget> lockedFocusables = new List<IFocusableTarget>();
+
     // Own script's internal setup
     void Awake() {
     }
@@ -37,14 +40,55 @@ public class FocusManager : GenericSingleton<FocusManager>, IControlsReceiver
         currentFocus.Unfocus();
     }
 
+    /*
+     * This is used to prevent additional focusables that might generate in the scene
+     * while a different view (ex options view) is open. The best example of this
+     * is the player opens the options menu right before a bunch of cards are delt
+     * to the player hand.
+     */
+    public void LockFocusables() {
+        areFocusablesLocked = true;
+        lockedFocusables = new List<IFocusableTarget>();
+    }
+
+    public void UnlockFocusables() {
+        List<IFocusableTarget> focusablesToUnlock = new List<IFocusableTarget>(lockedFocusables);
+        foreach (IFocusableTarget target in focusablesToUnlock) {
+            lockedFocusables.Remove(target);
+            focusableTargets.Add(target);
+        }
+        areFocusablesLocked = false;
+    }
+
+    public void StashLockedFocusables(string stashedBy) {
+        if (!stashedFocusables.ContainsKey(stashedBy)) {
+            stashedFocusables[stashedBy] = new List<IFocusableTarget>();
+        }
+        List<IFocusableTarget> lockedFocusablesToStash = new List<IFocusableTarget>(lockedFocusables);
+        foreach (IFocusableTarget target in lockedFocusablesToStash) {
+            if (!disabledFocusableTargets.Contains(target)) {
+                stashedFocusables[stashedBy].Add(target);
+                disabledFocusableTargets.Add(target);
+                lockedFocusables.Remove(target);
+            }
+        }
+    }
+
     public void RegisterFocusableTarget(IFocusableTarget target) {
         if (focusableTargets.Contains(target)) return;
+
+        if (areFocusablesLocked) {
+            lockedFocusables.Add(target);
+            return;
+        }
+
         focusableTargets.Add(target);
     }
 
     public void UnregisterFocusableTarget(IFocusableTarget target) {
         focusableTargets.Remove(target);
         disabledFocusableTargets.Remove(target);
+        lockedFocusables.Remove(target);
         if (target == currentFocus) {
             Unfocus();
             currentFocus = null;
@@ -59,6 +103,7 @@ public class FocusManager : GenericSingleton<FocusManager>, IControlsReceiver
     }
 
     public void DisableFocusableTarget(IFocusableTarget target) {
+        lockedFocusables.Remove(target);
         disabledFocusableTargets.Add(target);
         if (target.Equals(currentFocus)) {
             Debug.Log("Disabling current focus target");
@@ -118,7 +163,10 @@ public class FocusManager : GenericSingleton<FocusManager>, IControlsReceiver
         stashedFocusables.Remove(stashedBy);
     }
 
-    public void SetFocus(IFocusableTarget target) {
+    public void SetFocus(IFocusableTarget target, bool overrideLockedOrDisabled = false) {
+        if (!overrideLockedOrDisabled && (disabledFocusableTargets.Contains(target) || lockedFocusables.Contains(target))) {
+            return;
+        }
         Debug.Log("FocusManager: Focus set to " + target.ToString());
         Unfocus();
         this.currentFocus = target;
