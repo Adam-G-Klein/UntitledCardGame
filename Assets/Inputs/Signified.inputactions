@@ -179,7 +179,7 @@
                     "path": "<Keyboard>/enter",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard",
+                    "groups": "Keyboard;Mouse",
                     "action": "Select",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -190,7 +190,7 @@
                     "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard",
+                    "groups": "Keyboard;Mouse",
                     "action": "Select",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -256,7 +256,7 @@
                     "path": "<Keyboard>/j",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard",
+                    "groups": "Keyboard;Mouse",
                     "action": "CutSceneSkip",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -630,7 +630,7 @@
                     "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard",
+                    "groups": "Keyboard;Mouse",
                     "action": "Options",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -1183,7 +1183,7 @@
             "devices": [
                 {
                     "devicePath": "<Mouse>",
-                    "isOptional": true,
+                    "isOptional": false,
                     "isOR": false
                 }
             ]

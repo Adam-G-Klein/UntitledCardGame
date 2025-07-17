@@ -219,7 +219,7 @@ GameObject:
   - component: {fileID: 8518733848191120987}
   - component: {fileID: 1343596577144208430}
   m_Layer: 0
-  m_Name: FocusManager
+  m_Name: ControlAndFocusManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -264,6 +264,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a6a522fb2049db4b9c39caced015a46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  persistentControls: {fileID: 11400000, guid: 60f745c0310341343843f9497793e9f3, type: 2}
   inputSystemUIInputModule: {fileID: 8480604171362434328}
   playerInput: {fileID: 1343596577144208430}
   spriteMappings:
@@ -324,7 +325,7 @@ MonoBehaviour:
   - controlScheme: 4
     items:
     - action: 4
-      sprite: {fileID: 21300000, guid: a87d6efc6e339bb42aa6e312e551190e, type: 3}
+      sprite: {fileID: 21300000, guid: 73566a2eb49790f4e9fbe6cc3b765817, type: 3}
     - action: 5
       sprite: {fileID: 21300000, guid: ad37386944f92d8479988b03e6848d79, type: 3}
     - action: 13
@@ -673,7 +674,7 @@ MonoBehaviour:
     m_ActionId: d7d64508-eb38-4956-9abf-5e3fc4e73903
     m_ActionName: Signified/Options[/Keyboard/escape,/XInputControllerWindows/start]
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
+  m_DefaultControlScheme: Mouse
   m_DefaultActionMap: Signified
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}

@@ -8,4 +8,5 @@ using UnityEngine;
 public class PersistentControlInfoSO : ScriptableObject {
     public ControlsManager.ControlMethod currentControlMethod;
     public ControlsManager.ControlScheme currentControlScheme;
+    public bool valuesFromLastScene = false;
 }

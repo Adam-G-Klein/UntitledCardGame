@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -8,6 +9,8 @@ using UnityEngine.SceneManagement;
 
 public class ControlsManager : GenericSingleton<ControlsManager>
 {
+    [SerializeField]
+    private PersistentControlInfoSO persistentControls;
     [SerializeField]
     private InputSystemUIInputModule inputSystemUIInputModule;
     [SerializeField]
@@ -34,29 +37,40 @@ public class ControlsManager : GenericSingleton<ControlsManager>
         GFGInputAction.VIEW_DISCARD,
         GFGInputAction.SELL_COMPANION
     };
+    private bool controlsInitialized = false;
 
     void Awake() {
         controlsReceivers = new List<IControlsReceiver>();
         iconChangers = new List<IIconChange>();
         ConvertStupidListToCoolDictionary();
-        if (Enum.TryParse<ControlScheme>(playerInput.currentControlScheme, out ControlScheme scheme)) {
-            this.controlScheme = scheme;
-            Debug.Log("ControlsManager: Changed controls scheme to " + controlScheme.ToString());
-        }
-    }
-
-    void Start() {
-        // Not sure if this is the most surefire way of determining
-        // the control method the last scene was using
-        if (Cursor.visible == false) {
-            CheckSwapControlMethod(ControlMethod.KeyboardController);
-        }
+        controlMethod = persistentControls.currentControlMethod;
+        controlScheme = persistentControls.currentControlScheme;
+        ManuallyUpdateControlScheme(controlScheme);
+        controlsInitialized = true;
     }
 
     void Update() {
         if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0) {
             CheckSwapControlMethod(ControlMethod.Mouse);
         }
+    }
+
+    private void ManuallyUpdateControlScheme(ControlScheme controlScheme) {
+        // Find the control scheme by name from the InputActionAsset
+            var scheme = playerInput.actions.controlSchemes.FirstOrDefault(cs => cs.name == controlScheme.ToString());
+            if (scheme != null)
+            {
+                // Get devices matching this control scheme
+                var devices = new List<InputDevice>();
+                foreach (var device in InputSystem.devices)
+                {
+                    if (scheme.SupportsDevice(device))
+                        devices.Add(device);
+                }
+
+                // Switch to the control scheme with the devices
+                playerInput.SwitchCurrentControlScheme(controlScheme.ToString(), devices.ToArray());
+            }
     }
 
     private void ConvertStupidListToCoolDictionary() {
@@ -223,6 +237,8 @@ public class ControlsManager : GenericSingleton<ControlsManager>
     }
 
     public void OnControlsChanged(PlayerInput input) {
+        if (!controlsInitialized) return;
+
         if (Enum.TryParse<ControlScheme>(input.currentControlScheme, out ControlScheme scheme)) {
             this.controlScheme = scheme;
             Debug.Log("ControlsManager: Changed controls scheme to " + controlScheme.ToString());
@@ -230,6 +246,8 @@ public class ControlsManager : GenericSingleton<ControlsManager>
             Debug.LogError("ControlsManager: Unable to parse control scheme " + input.currentControlScheme);
             return;
         }
+
+        persistentControls.currentControlScheme = controlScheme;
 
         foreach (IIconChange iconChange in iconChangers) {
             GFGInputAction action = iconChange.GetAction();
@@ -255,6 +273,7 @@ public class ControlsManager : GenericSingleton<ControlsManager>
         }
 
         controlMethod = newControlMethod;
+        persistentControls.currentControlMethod = controlMethod;
         foreach (IControlsReceiver receiver in controlsReceivers) {
             receiver.SwappedControlMethod(controlMethod);
         }
