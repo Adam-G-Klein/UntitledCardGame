@@ -79,6 +79,11 @@ public class TutorialManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        if (!gameState.hasSeenTutorial && scene.name == "MainMenu")
+        {
+            upcomingTutorialID = FirstTutorialID;
+            playedTutorials.Clear();
+        }
         IsTutorialPlaying = false;
         FindTutorialInfo();
     }

@@ -53,7 +53,7 @@ public class GameStateVariableSO : ScriptableObject
     public CompanionInstance hoveredCompanion = null;
     public int currentEncounterIndex = 0;
     [SerializeField]
-    private bool hasSeenTutorial = false;
+    public bool hasSeenTutorial = false;
     public bool autoUpgrade = false;
     public List<PackSO> previouslySelectedPackSOs;
     public int ascensionLevel = -1;
@@ -143,6 +143,7 @@ public class GameStateVariableSO : ScriptableObject
                 break;
             case Location.SHOP_TUTORIAL:
                 hasSeenTutorial = true;
+                SaveManager.Instance.SaveHandler();
                 currentLocation = locationToNextLocation[currentLocation];
                 AdvanceEncounter();
                 break;
