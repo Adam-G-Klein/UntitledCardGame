@@ -206,7 +206,9 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         Companion companionToAdd = null;
         int existingCompanionActiveSlot = gameState.companions.activeCompanions.FindIndex(c => c.companionType == newCompanion.companionType);
         Companion level2Dude = companionCombinationManager.AttemptCompanionUpgrade(newCompanion);
-        if (level2Dude != null) {
+        MusicController.Instance.PlaySFX("event:/MX/MX_Companion_Upgrade_Stinger");
+        if (level2Dude != null)
+        {
             // Find an active slot to place the companion so it keeps the same spot in your team.
             preferredActiveSlotIdx = existingCompanionActiveSlot;
 
@@ -307,6 +309,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             shopLevel = shopEncounter.shopData.GetShopLevel(playerData.shopLevel);
             shopViewController.SetShopUpgradePrice(shopLevel.upgradeIncrementCost);
             InstantiateShopVFX(shopUpgradePrefab, shopViewController.GetUpgradeShopButton(), 1f);
+            MusicController.Instance.PlaySFX("event:/MX/MX_Companion_Upgrade_Stinger");
             CheckDisableUpgradeButtonV2();
             shopViewController.SetupUpgradeIncrements();
             shopViewController.RebuildUnitManagement(gameState.companions);
@@ -336,6 +339,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             ? shopEncounter.shopData.rerollShopPrice + timesRerolledThisShop
             : shopEncounter.shopData.rerollShopPrice;
         if (gameState.playerData.GetValue().gold >= price) {
+            MusicController.Instance.PlaySFX("event:/SFX/SFX_Reroll");
             gameState.playerData.GetValue().gold -= price;
             shopViewController.SetMoney(gameState.playerData.GetValue().gold);
             shopViewController.Clear();
