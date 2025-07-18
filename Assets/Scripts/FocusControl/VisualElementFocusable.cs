@@ -63,6 +63,14 @@ public class VisualElementFocusable : IFocusableTarget
         this.actionMap[inputAction] += action;
     }
 
+    public void UnsetInputAction(GFGInputAction inputAction, Action action) {
+        try {
+            this.actionMap[inputAction] -= action;
+        } catch (Exception e) {
+            // idk man who cares
+        }
+    }
+
     public VisualElement GetVisualElement() {
         return element;
     }

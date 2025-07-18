@@ -44,6 +44,18 @@ public class CompanionManagementSlotView {
         FocusManager.Instance.DisableFocusableTarget(this.veFocusable);
     }
 
+    public void DisableSelling() {
+        if (companionManagementView == null) return;
+        companionManagementView.DisableSelling();
+        veFocusable.UnsetInputAction(GFGInputAction.SELL_COMPANION, SellCompanionHandler);
+    }
+
+    public void EnableSelling() {
+        if (companionManagementView == null) return;
+        companionManagementView.EnableSelling();
+        veFocusable.SetInputAction(GFGInputAction.SELL_COMPANION, SellCompanionHandler);
+    }
+
     public void InsertCompanion(CompanionManagementView companionManagementView) {
         this.companionManagementView = companionManagementView;
         root.Add(companionManagementView.container);

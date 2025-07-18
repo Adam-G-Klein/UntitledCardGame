@@ -693,7 +693,7 @@ public class ShopViewController : MonoBehaviour,
         foreach (CompanionManagementSlotView slotView in activeSlots) {
             if (slotView.IsEmpty()) continue;
             CompanionManagementView companion = slotView.companionManagementView;
-            companion.DisableSelling();
+            slotView.DisableSelling();
             if (!shopManager.IsApplicableCompanion(cardInShop, companion.companion)) {
                 notApplicable.Add(companion);
                 FocusManager.Instance.StashFocusableTarget(this.GetType().Name + "CardBuying", GetParentSlotViewForCompanion(companion).veFocusable);
@@ -703,7 +703,7 @@ public class ShopViewController : MonoBehaviour,
         foreach (CompanionManagementSlotView slotView in benchSlots) {
             if (slotView.IsEmpty()) continue;
             CompanionManagementView companion = slotView.companionManagementView;
-            companion.DisableSelling();
+            slotView.DisableSelling();
             if (!shopManager.IsApplicableCompanion(cardInShop, companion.companion)) {
                 notApplicable.Add(companion);
                 FocusManager.Instance.StashFocusableTarget(this.GetType().Name + "CardBuying", GetParentSlotViewForCompanion(companion).veFocusable);
@@ -734,13 +734,13 @@ public class ShopViewController : MonoBehaviour,
         foreach (CompanionManagementSlotView slotView in activeSlots) {
             if (slotView.IsEmpty()) continue;
             slotView.companionManagementView.ResetApplicable();
-            slotView.companionManagementView.EnableSelling();
+            slotView.EnableSelling();
         }
 
         foreach (CompanionManagementSlotView slotView in benchSlots) {
             if (slotView.IsEmpty()) continue;
             slotView.companionManagementView.ResetApplicable();
-            slotView.companionManagementView.EnableSelling();
+            slotView.EnableSelling();
         }
     }
 
