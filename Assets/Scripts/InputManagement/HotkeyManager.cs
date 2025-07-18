@@ -8,9 +8,9 @@ public class HotkeyManager : GenericSingleton<HotkeyManager> {
     public bool endTurnHotkeyEnabled = false;
 
     void Update() {
-        if(endTurnHotkeyEnabled && Input.GetKeyDown(KeyCode.LeftShift)) {
-            EndTurn();
-        }
+        // if(endTurnHotkeyEnabled && Input.GetKeyDown(KeyCode.LeftShift)) {
+        //     EndTurn();
+        // }
     }
 
     public void EndTurn() {

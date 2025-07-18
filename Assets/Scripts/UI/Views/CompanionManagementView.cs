@@ -20,6 +20,8 @@ public class CompanionManagementView : IControlsReceiver {
     private EntityView entityView;
 
     private bool draggingThisCompanion = false;
+    
+    private bool isSellingDisabled = false;
 
     public CompanionManagementView(Companion companion, ICompanionManagementViewDelegate viewDelegate) {
         this.viewDelegate = viewDelegate;
@@ -49,7 +51,7 @@ public class CompanionManagementView : IControlsReceiver {
     {
         if (viewDelegate.IsSellingCompanions() || viewDelegate.IsDraggingCompanion()) return;
         CreateViewDeckButton();
-        CreateSellCompanionButton();
+        if (!isSellingDisabled) CreateSellCompanionButton();
         CreateCompanionBoundingBox();
         viewDelegate.DisplayTooltip(entityView.entityContainer, companion.companionType.tooltip, true);
     }
@@ -224,6 +226,14 @@ public class CompanionManagementView : IControlsReceiver {
             darkBox.RemoveFromHierarchy();
             darkBox = null;
         }
+    }
+
+    public void DisableSelling() {
+        isSellingDisabled = true;
+    }
+
+    public void EnableSelling() {
+        isSellingDisabled = false;
     }
 
     public void ProcessGFGInputAction(GFGInputAction action)

@@ -57,20 +57,20 @@ public class ControlsManager : GenericSingleton<ControlsManager>
 
     private void ManuallyUpdateControlScheme(ControlScheme controlScheme) {
         // Find the control scheme by name from the InputActionAsset
-            var scheme = playerInput.actions.controlSchemes.FirstOrDefault(cs => cs.name == controlScheme.ToString());
-            if (scheme != null)
+        var scheme = playerInput.actions.controlSchemes.FirstOrDefault(cs => cs.name == controlScheme.ToString());
+        if (scheme != null)
+        {
+            // Get devices matching this control scheme
+            var devices = new List<InputDevice>();
+            foreach (var device in InputSystem.devices)
             {
-                // Get devices matching this control scheme
-                var devices = new List<InputDevice>();
-                foreach (var device in InputSystem.devices)
-                {
-                    if (scheme.SupportsDevice(device))
-                        devices.Add(device);
-                }
-
-                // Switch to the control scheme with the devices
-                playerInput.SwitchCurrentControlScheme(controlScheme.ToString(), devices.ToArray());
+                if (scheme.SupportsDevice(device))
+                    devices.Add(device);
             }
+
+            // Switch to the control scheme with the devices
+            playerInput.SwitchCurrentControlScheme(controlScheme.ToString(), devices.ToArray());
+        }
     }
 
     private void ConvertStupidListToCoolDictionary() {

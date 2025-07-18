@@ -36,7 +36,6 @@ public class EntityView : IUIEventReceiver {
     private Vector2 originalElementScale;
     private int ENTITY_NAME_MAX_CHARS = 6;
     private int ENTITY_NAME_FONT_SIZE = 20;
-
     public GameObject tweenTarget;
 
     public EntityView(IUIEntity entity, int index, bool isEnemy, IEntityViewDelegate viewDelegate = null, bool isCompanionManagementView = false) {

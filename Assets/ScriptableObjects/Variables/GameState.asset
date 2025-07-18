@@ -17,23 +17,23 @@ MonoBehaviour:
   map: {fileID: 11400000, guid: 981cfb3346592264a80aab03d0b9594d, type: 2}
   baseShopData: {fileID: 11400000, guid: 64b1d5221aac20348909c6cab7cc24d6, type: 2}
   activeEncounter: {fileID: 11400000, guid: deac3f5e60dfbd647ad11d47b5314123, type: 2}
-  nextMapIndex: 1
-  currentLoopIndex: 0
+  nextMapIndex: 2
   nextEncounter: {fileID: 11400000, guid: be6d9bd186c0c05468222dc18bd747fa, type: 2}
-  currentLocation: 7
+  currentLocation: 1
   dialogueLocations: {fileID: 11400000, guid: dcfe75135791c4649a555d2303b78336, type: 2}
   debugSingleEncounterMode: 0
   viewedSequences: []
   hoveredCompanion: {fileID: 0}
-  currentEncounterIndex: 0
+  currentEncounterIndex: 1
   hasSeenTutorial: 0
-  autoUpgrade: 0
+  autoUpgrade: 1
   previouslySelectedPackSOs:
   - {fileID: 11400000, guid: 5f4300e0913784f05aeff0dd086d4338, type: 2}
   - {fileID: 11400000, guid: a87b5da767d4e4659b2965e31e340c58, type: 2}
   - {fileID: 11400000, guid: 79e479ca9df7a4369ba7fa951e0af116, type: 2}
   - {fileID: 11400000, guid: 908f28c6f48104c2d85d2fcbd973771e, type: 2}
   - {fileID: 11400000, guid: 0d12b03c0c8754470a900cb4f78a9217, type: 2}
+  ascensionLevel: -1
   lastTutorialLoopIndex: 1
   bossFightLoopIndex: 6
   tutorialLoops: 2
