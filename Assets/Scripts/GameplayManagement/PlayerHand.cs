@@ -131,6 +131,10 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         if (GOToFXExperience.ContainsKey(gameObject) && GOToFXExperience[gameObject] != null) {
             FXExperience ex = GOToFXExperience[gameObject];
             ex.UpdateLocationKey("hand", toLocation);
+            LeanTween.cancel(gameObject);
+            PlayableDirector director = ex.playableDirector;
+            float timeRemaining = (float)(director.duration - director.time);
+            LeanTween.rotate(gameObject, new Vector3(0, 0, UIDocumentGameObjectPlacer.Instance.GetCardWPVEFromGO(gameObject).ve.style.rotate.value.angle.value), timeRemaining).setEase(LeanTweenType.easeInOutQuad);
             return;
         }
 
