@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -72,8 +73,10 @@ public class ShopViewController : MonoBehaviour,
 
     private static string COMPANION_MANAGEMENT = "CompanionManagement";
     private static string UPGRADE_MENU = "UpgradeMenu";
+    private IEnumerator waitAndHideMessageCoroutine;
 
-    public void Start() {
+    public void Start()
+    {
         // Init(null);
         ControlsManager.Instance.RegisterControlsReceiver(this);
     }
@@ -913,13 +916,28 @@ public class ShopViewController : MonoBehaviour,
         StartCoroutine(ShowGenericNotification(companionName + " has been upgraded to level " + newLevel + "!", 1.5f));
     }
 
-    public IEnumerator ShowGenericNotification(string text, float time = 2.5f) {
+    public IEnumerator ShowGenericNotification(string text, float time = 1.25f)
+    {
+        if (waitAndHideMessageCoroutine != null)
+        {
+            StopCoroutine(waitAndHideMessageCoroutine);
+        }
+            
         genericMessageBox.style.visibility = Visibility.Visible;
         genericMessageBox.Q<Label>().text = text;
-        yield return new WaitForSeconds(2.5f);
-        genericMessageBox.style.visibility = Visibility.Hidden;
+        waitAndHideMessageCoroutine = WaitAndHideMessageBox(time);
+        StartCoroutine(waitAndHideMessageCoroutine);
+        yield return null;
     }
-    public bool IsSellingCompanions() {
+
+    private IEnumerator WaitAndHideMessageBox(float time)
+    {
+        yield return new WaitForSeconds(time);
+        genericMessageBox.style.visibility = Visibility.Hidden;
+        waitAndHideMessageCoroutine = null;
+    }
+    public bool IsSellingCompanions()
+    {
         return sellingCompanions;
     }
 

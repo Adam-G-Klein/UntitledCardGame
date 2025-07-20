@@ -49,7 +49,7 @@ public class SellingCompanionConfirmationView {
     }
 
     public void Show(CompanionManagementView companionView) {
-        Debug.LogError("SellingCompanionConfirmationView Show");
+        Debug.Log("SellingCompanionConfirmationView Show");
         FocusManager.Instance.StashFocusables(this.GetType().Name);
         visible = true;
         rootVisualElement.style.visibility = Visibility.Visible;
