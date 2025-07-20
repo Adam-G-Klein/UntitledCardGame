@@ -38,7 +38,6 @@ MonoBehaviour:
     startOfCombatValue: 2
     setStartOfCombatValue: 1
   cardPool: {fileID: 11400000, guid: 5b268e007a928469b9689a9868334b23, type: 2}
-  packCardPool: {fileID: 11400000, guid: aca6eb7e5bae64ee4aabb8816fe258a4, type: 2}
   pack: {fileID: 11400000, guid: 5f4300e0913784f05aeff0dd086d4338, type: 2}
   speakerType: {fileID: 0}
   abilitiesV2:
@@ -50,7 +49,11 @@ MonoBehaviour:
     lines:
     - title: Strategy Snek
       description: At the start of the first 2 turns of combat, create in hand a
-        0 mana card that draws and discards
+        "Basic Strategy"
+      relatedBehaviorIndex: 0
+    - title: Basic Strategy
+      description: 0. Exhaust. Draw 1 from target companion, then discard 1 card
+        in hand.
       relatedBehaviorIndex: 0
   keepsakeTitle: Strategy Snek
   keepsakeDescription: At the start of the first 2 turns of combat, create in hand
