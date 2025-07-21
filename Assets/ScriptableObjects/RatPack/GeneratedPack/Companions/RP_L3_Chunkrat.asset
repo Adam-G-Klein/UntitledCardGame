@@ -41,16 +41,16 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Level Three Chunkrat
-      description: At end of combat, permanently gain a "Ambrosia" Status card that
-        gives block
+      description: At end of combat, permanently gain a "Spice Cake" Status card
+        that gives max HP and heals
       relatedBehaviorIndex: 0
     - title: Ambrosia
       description: Exhaust. When exhausted, draw 1 card and give this companion block
         equal to the number of Status cards in the deck.
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: At end of combat, permanently gain a "Ambrosia" Status card
-    that gives block
+  keepsakeDescription: At end of combat, permanently gain a "Spice Cake" Status card
+    that gives max HP and heals
   references:
     version: 2
     RefIds:
@@ -79,7 +79,7 @@ MonoBehaviour:
         effectStepName: AddCardsToDeck
         inputKey: self
         cardTypes:
-        - {fileID: 11400000, guid: a68cbf39848174920a7b3af1af69815f, type: 2}
+        - {fileID: 11400000, guid: 9f768b34b9ed540059f2007e7ced70b9, type: 2}
         addToDeckMethod: 3
         getCardsFromKey: 0
         inputCardsKey: 

@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 763d7d03-fffc-44d7-b855-555d79723369
   Name: Search for Big Mungus
-  Description: Add a "Big Mungus" status card to the bottom of target companion's
-    deck
+  Description: Shuffle a "Big Mungus" card into own deck
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: ff6e22bc9b4fa614792848018179ceda, type: 3}
@@ -45,7 +44,7 @@ MonoBehaviour:
         inputKey: target
         cardTypes:
         - {fileID: 11400000, guid: e47c54a3e0cdd4e5fa72f144665ac5b1, type: 2}
-        addToDeckMethod: 2
+        addToDeckMethod: 1
         getCardsFromKey: 0
         inputCardsKey: 
         scale: 1

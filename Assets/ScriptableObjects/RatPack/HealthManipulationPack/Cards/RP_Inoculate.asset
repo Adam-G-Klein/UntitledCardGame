@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: b69f57da-037e-41ea-9c3d-b248767338b9
   Name: Inoculate
-  Description: Exhaust. Target companion heals 10 HP then loses 1 HP
+  Description: Exhaust. Heal any 4 HP & draw 1 card
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 06c409edcf5e308438ea9c89ccd99c68, type: 3}
@@ -37,39 +37,35 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 2034230176448512017
-      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CombatEffectStep
-        inputKey: target
-        combatEffect: 16
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
-        vfxPrefab: {fileID: 6137048663962808129, guid: 92c26f41ef33c23419e05ceb12660efa, type: 3}
     - rid: 2034230176448512018
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
         inputKey: target
         combatEffect: 9
-        scale: 10
+        scale: 4
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 3850217184923880746, guid: 604f6efaa1e828d4bacfc84a25dfbd7a, type: 3}
+    - rid: 2295168569757139965
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DrawCards
+        inputKey: target
+        outputKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
     - rid: 5602892723852673317
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
         - rid: 5602892723852673319
         - rid: 2034230176448512018
-        - rid: 2034230176448512017
+        - rid: 2295168569757139965
     - rid: 5602892723852673319
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

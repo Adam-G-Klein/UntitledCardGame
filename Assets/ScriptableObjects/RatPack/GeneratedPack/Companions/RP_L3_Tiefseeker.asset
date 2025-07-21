@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
   m_Name: RP_L3_Tiefseeker
   m_EditorClassIdentifier: 
-  guid: f3fb18e6-a5f1-4720-98b3-e5baab73f82f
+  guid: 6c853572-a980-4455-afae-802ebbe4d073
   companionName: Tiefseeker++
   maxHealth: 60
   initialCardsDealtPerTurn: 1
@@ -31,7 +31,6 @@ MonoBehaviour:
   genericCompanionVFX: {fileID: 0}
   cacheValueConfigs: []
   cardPool: {fileID: 11400000, guid: 497400d5fb9d14b6c9472ab3f1786e46, type: 2}
-  packCardPool: {fileID: 11400000, guid: fb4659890370a4ceda58d0967639becf, type: 2}
   pack: {fileID: 11400000, guid: 0d12b03c0c8754470a900cb4f78a9217, type: 2}
   speakerType: {fileID: 0}
   abilitiesV2:
@@ -43,12 +42,17 @@ MonoBehaviour:
     lines:
     - title: Level Three Tiefseeker
       description: At the end of turn, if you have 2 or more Status cards in hand,
-        gain 1 energy and draw an extra card from both adjacent companions next turn
+        add a "Tiefvision++" card to bottom of own deck and draw an extra card next
+        turn from self
+      relatedBehaviorIndex: 0
+    - title: Tiefvision++
+      description: Status card. Exhaust. Exhaust. Give any 5 block & scry 1 & draw
+        1
       relatedBehaviorIndex: 0
   keepsakeTitle: Hidden Cache
   keepsakeDescription: At the end of turn, if you have 2 or more Status cards in
-    hand, gain 1 energy and draw an extra card from both adjacent companions next
-    turn
+    hand, add a "Tiefvision++" card to bottom of own deck and draw an extra card
+    next turn from self
   references:
     version: 2
     RefIds:
@@ -98,7 +102,7 @@ MonoBehaviour:
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ApplyStatus
-        inputKey: adj
+        inputKey: self
         statusEffect: 16
         scale: 1
         getScaleFromKey: 0
@@ -125,24 +129,6 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
-    - rid: 1289961959942521019
-      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetAdjacentCompanions
-        inputKey: self
-        outputKey: adj
-    - rid: 1289961959942521023
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: adj
-        prefabToInstantiate: {fileID: 3850217184923880746, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
-        scale: 1
-    - rid: 1289961959942521050
-      type: {class: AddManaNextTurn, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: 
-        manaToAdd: 1
     - rid: 2034230176448512968
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
@@ -154,8 +140,19 @@ MonoBehaviour:
         - rid: 1289961959942521013
         - rid: 1289961959942521014
         - rid: 1289961959942521018
-        - rid: 1289961959942521019
-        - rid: 1289961959942521017
         - rid: 1289961959942521015
-        - rid: 1289961959942521050
-        - rid: 1289961959942521023
+        - rid: 8034949815888773335
+        - rid: 1289961959942521017
+    - rid: 8034949815888773335
+      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: AddCardsToDeck
+        inputKey: self
+        cardTypes:
+        - {fileID: 11400000, guid: 04e3c64298a5d4948bf243fa368f5803, type: 2}
+        addToDeckMethod: 2
+        getCardsFromKey: 0
+        inputCardsKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 

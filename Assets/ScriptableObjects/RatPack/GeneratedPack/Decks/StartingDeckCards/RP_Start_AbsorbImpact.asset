@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 3cefa59b-a5da-42ed-81a2-cf37ccd55340
   Name: Absorb Impact
-  Description: Give target companion 8 block and shuffle an unplayable "Wound" Status
+  Description: Give target companion 6 block and shuffle an unplayable "Wound" Status
     card into their deck
   defaultValues: []
   Cost: 1
@@ -96,7 +96,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: target
         statusEffect: 2
-        scale: 8
+        scale: 6
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0

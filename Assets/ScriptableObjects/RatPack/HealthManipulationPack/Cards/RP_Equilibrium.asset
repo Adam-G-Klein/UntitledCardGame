@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 43e176dd-dad7-428a-a3e6-b9cdfcb071fd
   Name: Equilibrium
-  Description: Exhaust. Set target companion to half HP and draw 1 card from this
-    companion
+  Description: Exhaust. Set any to half HP & draw 1 card
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: db26ea4bdc4531f4a9d89b36175475e6, type: 3}
@@ -60,7 +59,7 @@ MonoBehaviour:
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: DrawCards
-        inputKey: self
+        inputKey: target
         outputKey: 
         scale: 1
         getScaleFromKey: 0
@@ -104,8 +103,8 @@ MonoBehaviour:
         - rid: 2034230108114649708
         - rid: 2034230108114649710
         - rid: 2034230108114649709
-        - rid: 1274772082283774852
         - rid: 1289961820425028157
+        - rid: 1274772082283774852
     - rid: 5602893017534169575
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

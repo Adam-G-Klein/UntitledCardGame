@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 48aceb9d-9975-47f4-b543-26c19058e86a
   Name: Groupthink
-  Description: When played or discarded, draw 1 card from 3 random companions
+  Description: Unplayable. When discarded, draw 1 card from 2 random companions
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: f48743304e0580f4fbfc67f629b1dabe, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
-  playable: 1
+  playable: 0
   exhaustsWhenPlayed: 0
   retain: 0
   effectWorkflows:
@@ -52,7 +52,7 @@ MonoBehaviour:
         inputKey: 
         outputKey: targets
         validTargets: 00000000
-        number: 3
+        number: 2
         specialTargetRule: 6
         cantCancelTargetting: 0
     - rid: 2034230108114649755
@@ -77,7 +77,7 @@ MonoBehaviour:
         inputKey: 
         outputKey: targets
         validTargets: 00000000
-        number: 3
+        number: 2
         specialTargetRule: 6
         cantCancelTargetting: 0
     - rid: 7401433059192471559

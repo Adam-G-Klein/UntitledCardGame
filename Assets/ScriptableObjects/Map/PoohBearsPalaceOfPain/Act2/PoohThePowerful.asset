@@ -28,7 +28,7 @@ MonoBehaviour:
     - intent: 0
       enemyTargetMethod: 0
       targetsKey: target
-      displayValue: 7
+      displayValue: 10
       effectSteps:
       - rid: 8790164555430887934
       - rid: 173314522967966409
@@ -177,7 +177,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: target
         combatEffect: 0
-        scale: 7
+        scale: 10
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1

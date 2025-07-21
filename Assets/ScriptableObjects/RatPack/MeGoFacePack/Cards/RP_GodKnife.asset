@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 5620c428-34ba-48be-98e4-87499c343216
   Name: God Knife
-  Description: Deal {rpl_damage} damage. Draw 1 card from this companion.
+  Description: Deal {rpl_damage} damage. Draw 1 card from self
   defaultValues:
   - key: rpl_damage
-    value: 5
+    value: 2
   Cost: 0
   Artwork: {fileID: 21300000, guid: 109c4464923594f4bb2478d2624dcf1a, type: 3}
   cardCategory: 1
@@ -92,7 +92,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: enemy
         combatEffect: 0
-        scale: 5
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1

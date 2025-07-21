@@ -120,15 +120,12 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     }
 
     public bool IsApplicableCompanion(CardInShopWithPrice cardInShop, Companion companion) {
-        return cardInShop.cardPool == companion.companionType.cardPool ||
-            cardInShop.cardPool == companion.companionType.pack.packCardPoolSO ||
-            cardInShop.cardPool == shopEncounter.shopData.neutralCardPool;
+        // return cardInShop.cardPool == companion.companionType.cardPool ||
+        //     cardInShop.cardPool == companion.companionType.pack.packCardPoolSO ||
+        //     cardInShop.cardPool == shopEncounter.shopData.neutralCardPool;
+        // (James): experimental change in which we do not restrict which companion gets which card.
+        return true;
     }
-
-    public bool IsApplicableCompanionType(CompanionTypeSO cardSourceCompanion, CompanionTypeSO companionType) {
-        return cardSourceCompanion == null || cardSourceCompanion.cardPool == companionType.cardPool;
-    }
-
 
     public void ProcessCompanionBuyRequest(ShopItemView shopItemView, CompanionInShopWithPrice companionInShop) {
         Debug.Log("Processing companion buy request");

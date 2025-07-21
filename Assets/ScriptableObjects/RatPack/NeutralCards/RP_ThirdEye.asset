@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: c29aae5a-c170-4c2c-b6ae-e5578c13b033
   Name: Third Eye
-  Description: Scry 2 then draw 1 from this companion
+  Description: Scry 3 from any & create an "Ironskin" card in hand
   defaultValues: []
-  Cost: 0
+  Cost: 1
   Artwork: {fileID: 21300000, guid: 18251cc3bb6c59d4794bd522032e2ee3, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
@@ -45,7 +45,7 @@ MonoBehaviour:
         - rid: 3931529445166809457
         - rid: 3931529445166809458
         - rid: 3931529445166809459
-        - rid: 7401433241610878985
+        - rid: 8034949815888773124
     - rid: 3931529445166809456
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -53,9 +53,9 @@ MonoBehaviour:
         useInputToLimitOptions: 0
         inputKey: 
         outputKey: target
-        validTargets: 
+        validTargets: 00000000
         number: 1
-        specialTargetRule: 4
+        specialTargetRule: 0
         cantCancelTargetting: 0
     - rid: 3931529445166809457
       type: {class: GetCardsFromDeck, ns: , asm: Assembly-CSharp}
@@ -63,7 +63,7 @@ MonoBehaviour:
         effectStepName: GetCardsFromDeck
         inputKey: target
         getLimitedNumber: 1
-        numberOfCardsToGet: 2
+        numberOfCardsToGet: 3
         shuffleIfEmpty: 0
         outputKey: topCard
         getAllCardsFromEntities: 0
@@ -77,7 +77,7 @@ MonoBehaviour:
         outputKey: discarded
         promptText: Choose card(s) to discard.
         minTargets: 0
-        maxTargets: 2
+        maxTargets: 3
         getNumberOfTargetsFromKey: 0
         inputNumberOfTargetsKey: 
         randomizeOrder: 0
@@ -90,12 +90,16 @@ MonoBehaviour:
         effect: 2
         cardToTransformInto: {fileID: 0}
         outputKey: 
-    - rid: 7401433241610878985
-      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+    - rid: 8034949815888773124
+      type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: DrawCards
-        inputKey: target
-        outputKey: 
+        effectStepName: AddCardsToHand
+        entityFromKey: target
+        cardTypes:
+        - {fileID: 11400000, guid: 069ef7cf9fd524022b76bb3c147c3a90, type: 2}
+        getCardsFromKey: 0
+        inputCardsKey: 
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+        outputKey: 

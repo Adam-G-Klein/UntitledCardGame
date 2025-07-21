@@ -33,13 +33,21 @@ public class FilterEntityByHP : EffectStep, IEffectStepCalculation
             yield return null;
         }
         List<CombatInstance> filteredList = new List<CombatInstance>();
-        foreach (CombatInstance instance in combatInstances) {
-            int threshold = Convert.ToInt32(instance.combatStats.maxHealth * percentThreshold);
-            if (useAbsoluteThreshold) {
+        foreach (CombatInstance instance in combatInstances)
+        {
+            double threshold = instance.combatStats.maxHealth * percentThreshold;
+            if (useAbsoluteThreshold)
+            {
                 threshold = absoluteThreshold;
             }
-            bool belowThreshold = instance.combatStats.currentHealth <= threshold;
-            if (belowThreshold == below) {
+            bool belowThreshold = Convert.ToDouble(instance.combatStats.currentHealth) <= threshold;
+            bool aboveThreshold = Convert.ToDouble(instance.combatStats.currentHealth) >= threshold;
+            if (below && belowThreshold)
+            {
+                filteredList.Add(instance);
+            }
+            if (!below && aboveThreshold)
+            {
                 filteredList.Add(instance);
             }
         }

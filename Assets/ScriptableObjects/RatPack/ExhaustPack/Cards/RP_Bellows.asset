@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 8426d23d-f306-4a93-be5f-10db486f7ad4
   Name: Bellows
-  Description: Draw 3 cards, then choose 1 card in hand to exhaust.
+  Description: Draw 1 card from 3 random companions, then choose 1 card in hand to
+    exhaust.
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 0f91baf441838d747bea7dbae09bfb7f, type: 3}
@@ -56,18 +57,26 @@ MonoBehaviour:
       data:
         effectSteps:
         - rid: 9024302470308298798
+        - rid: 2295168179404538024
         - rid: 9024302470308298797
         - rid: 1274772082283774361
         - rid: 9024302470308298800
         - rid: 1274772082283774362
         - rid: 9024302470308298799
+    - rid: 2295168179404538024
+      type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetRandomItems
+        inputKey: targets
+        scale: 3
+        outputKey: targetCompanion
     - rid: 9024302470308298797
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: DrawCards
         inputKey: targetCompanion
         outputKey: 
-        scale: 3
+        scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
     - rid: 9024302470308298798
@@ -76,10 +85,10 @@ MonoBehaviour:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: targetCompanion
+        outputKey: targets
         validTargets: 00000000
         number: 1
-        specialTargetRule: 0
+        specialTargetRule: 1
         cantCancelTargetting: 0
     - rid: 9024302470308298799
       type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}

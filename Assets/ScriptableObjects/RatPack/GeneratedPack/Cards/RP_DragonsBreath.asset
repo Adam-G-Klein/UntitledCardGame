@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: db3d433d-0701-4f3f-9394-5416799a0a9f
   Name: Dragon's Breath
-  Description: Exhaust 2 Status cards in hand at random and create a "Firebreath"
-    card in hand for each adjacent companion
+  Description: 'Exhaust 2 Status cards in hand at random and create a "Firebreath"
+    card in hand '
   defaultValues: []
-  Cost: 1
+  Cost: 0
   Artwork: {fileID: 21300000, guid: a5222a8d127763c49b397cce916345ec, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
@@ -71,17 +71,11 @@ MonoBehaviour:
         inputKey: statusCards
         scale: 2
         outputKey: chosen
-    - rid: 1289961959942521132
-      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetAdjacentCompanions
-        inputKey: self
-        outputKey: adj
     - rid: 1289961959942521133
       type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: AddCardsToHand
-        entityFromKey: adj
+        entityFromKey: self
         cardTypes:
         - {fileID: 11400000, guid: f906bdd2620a44164814e18d96b00fb0, type: 2}
         getCardsFromKey: 0
@@ -94,7 +88,7 @@ MonoBehaviour:
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
-        inputKey: adj
+        inputKey: self
         prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
         scale: 1
     - rid: 5602892561590779943
@@ -106,7 +100,6 @@ MonoBehaviour:
         - rid: 1289961959942521131
         - rid: 1289961959942521125
         - rid: 5602892561590779944
-        - rid: 1289961959942521132
         - rid: 1289961959942521133
         - rid: 1289961959942521134
     - rid: 5602892561590779944

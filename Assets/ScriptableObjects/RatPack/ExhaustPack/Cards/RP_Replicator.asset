@@ -15,8 +15,8 @@ MonoBehaviour:
   guid: 947e56ec-3812-4c1b-b458-f98b939583e0
   Name: Replicator
   Description: Exhaust. Deal {rpl_damage} damage. Shuffle a "Replicator" card into
-    a random companion's deck. Increase the damage of ALL "Replicator" cards by 2
-    this combat
+    a random companion's deck. If this companion has 7 or less cards in its deck,
+    increase the damage of ALL "Replicator" cards by 3 this combat
   defaultValues:
   - key: rpl_damage
     value: 3
@@ -41,6 +41,45 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 2295168179404538012
+      type: {class: CountCardsInDeck, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CountCardsInDeck
+        inputDeckKey: self
+        filter:
+          cardCategoriesToInclude: 
+          generatedCardsFilter: 0
+        includeDrawPile: 1
+        includeDiscardPile: 1
+        includeCardsInHand: 1
+        outputKey: numCards
+    - rid: 2295168179404538013
+      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: BooleanComparison
+        hardCodedInputKey1: 7
+        useHardCodedInputKey1: 1
+        inputKey1: 
+        operation: 4
+        inputKey2: numCards
+        outputKey: lessThan7
+    - rid: 2295168179404538014
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: lessThan7
+        conditionToEndOn: 0
+    - rid: 2295168179404538015
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 4
+        cantCancelTargetting: 0
     - rid: 5280922841426165973
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -65,6 +104,10 @@ MonoBehaviour:
         - rid: 5602893017534169663
         - rid: 5280922841426165973
         - rid: 5602893017534169665
+        - rid: 2295168179404538015
+        - rid: 2295168179404538012
+        - rid: 2295168179404538013
+        - rid: 2295168179404538014
         - rid: 5602893017534169666
     - rid: 5602893017534169661
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -119,7 +162,7 @@ MonoBehaviour:
       data:
         effectStepName: CardModificationEffect
         inputKey: 
-        scale: 2
+        scale: 3
         affectsAllCardsOfType: 1
         cardTypeToModify: {fileID: 11400000}
         getScaleFromKey: 0

@@ -52,10 +52,15 @@ public class ShopCardProbabilityDistBuilder {
         // Add the card pools for each companion that is on your team.
         List<ValueTuple<CardPoolSO, CompanionTypeSO, PackSO>> companionCardPools = new();
         List<ValueTuple<CardPoolSO, CompanionTypeSO, PackSO>> packCardPools = new();
-        foreach (Companion companion in companionList) {
+        foreach (Companion companion in companionList)
+        {
             companionCardPools.Add((companion.companionType.cardPool, companion.companionType, null));
             packCardPools.Add((companion.companionType.pack.packCardPoolSO, null, companion.companionType.pack));
         }
+        // foreach (PackSO activePack in shopData.activePacks)
+        // {
+        //     packCardPools.Add((activePack.packCardPoolSO, null, activePack));
+        // }
 
         List<CardWithWeight> allCards = new();
         foreach (ValueTuple<CardPoolSO, CompanionTypeSO, PackSO> tup in companionCardPools) {

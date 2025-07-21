@@ -18,7 +18,6 @@ MonoBehaviour:
     upgradeIncrementCost: 2
     mana: 3
     teamSize: 3
-    upgradeCost: 10
     numCardsToShow: 3
     numKeepsakesToShow: 2
     commonCompanionPercentage: 100
@@ -38,15 +37,14 @@ MonoBehaviour:
     upgradeIncrementCost: 3
     mana: 3
     teamSize: 4
-    upgradeCost: 20
     numCardsToShow: 3
     numKeepsakesToShow: 2
-    commonCompanionPercentage: 70
-    uncommonCompanionPercentage: 28
+    commonCompanionPercentage: 65
+    uncommonCompanionPercentage: 33
     rareCompanionPercentage: 2
-    commonCardPercentage: 70
-    uncommonCardPercentage: 25
-    rareCardPercentage: 5
+    commonCardPercentage: 65
+    uncommonCardPercentage: 33
+    rareCardPercentage: 2
     upgradeTooltip:
       empty: 0
       lines:
@@ -58,7 +56,6 @@ MonoBehaviour:
     upgradeIncrementCost: 4
     mana: 3
     teamSize: 5
-    upgradeCost: 30
     numCardsToShow: 4
     numKeepsakesToShow: 2
     commonCompanionPercentage: 50
@@ -74,11 +71,10 @@ MonoBehaviour:
         description: +1 mana, increase shop rarity
         relatedBehaviorIndex: 0
   - level: 3
-    shopLevelIncrementsToUnlock: 12
+    shopLevelIncrementsToUnlock: 1000
     upgradeIncrementCost: 5
     mana: 4
     teamSize: 5
-    upgradeCost: 60
     numCardsToShow: 4
     numKeepsakesToShow: 3
     commonCompanionPercentage: 30
@@ -92,33 +88,29 @@ MonoBehaviour:
       lines: []
   companionPool: {fileID: 11400000, guid: 1a5aa5f2c25ef434a822f87e97339f33, type: 2}
   activePacks:
-  - {fileID: 11400000, guid: 908f28c6f48104c2d85d2fcbd973771e, type: 2}
   - {fileID: 11400000, guid: 5f4300e0913784f05aeff0dd086d4338, type: 2}
-  - {fileID: 11400000, guid: 79e479ca9df7a4369ba7fa951e0af116, type: 2}
   - {fileID: 11400000, guid: a87b5da767d4e4659b2965e31e340c58, type: 2}
+  - {fileID: 11400000, guid: 79e479ca9df7a4369ba7fa951e0af116, type: 2}
+  - {fileID: 11400000, guid: 908f28c6f48104c2d85d2fcbd973771e, type: 2}
   - {fileID: 11400000, guid: 0d12b03c0c8754470a900cb4f78a9217, type: 2}
   rerollShopPrice: 2
-  cardRemovalPrice: 8
+  cardRemovalPrice: 4
   shopEncounterEvent: {fileID: 11400000, guid: d82ee33fc33d20544bce205c53a0832e, type: 2}
   cardPrice: 1
   companionKeepsakePrice: 3
-  numKeepsakeCopies: 10
+  numKeepsakeCopies: 8
   startingGold: 3
-  companionTypeCardPoolPct: 25
-  packCardPoolPct: 45
-  neutralCardPoolPct: 30
+  companionTypeCardPoolPct: 35
+  packCardPoolPct: 50
+  neutralCardPoolPct: 15
   goldEarnedPerBattle: 8
   interestRate: 0.2
   interestCap: 5
   neutralCardPool: {fileID: 11400000, guid: f16e9cd7d69314290ae5bed1edae4ce0, type: 2}
   neutralCardPoolShopIcon: {fileID: 21300000, guid: dcfdc6d5b4c40644b90c3330582adb6a, type: 3}
-  levelOneSellPrice: 1
-  levelTwoSellPrice: 3
-  levelThreeSellPrice: 5
-  deckSizeSellFactor: 0.2
   numCompanionsSellFactor: 1.5
   numCardsBoughtSellFactor: 0.5
-  numCardsRemovedSellFactor: 4
+  numCardsRemovedSellFactor: 2
   baseCardsToRemoveOnUpgrade:
   - {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
   - {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}

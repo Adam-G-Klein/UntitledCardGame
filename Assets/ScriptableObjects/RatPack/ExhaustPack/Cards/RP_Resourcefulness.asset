@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: d829c3df-f537-42bd-8a61-35da685fefb9
   Name: Scrap Shield
-  Description: Give target companion 5 block and exhaust a random card in hand
+  Description: Give target companion 4 block and exhaust a random card in hand
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 690997149efc2d74888e3d1bfed1b225, type: 3}
@@ -72,7 +72,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: target
         statusEffect: 2
-        scale: 5
+        scale: 4
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0

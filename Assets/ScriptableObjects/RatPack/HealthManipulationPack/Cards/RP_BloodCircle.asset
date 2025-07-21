@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 75e836b8-4515-44da-8f83-4e5100eede01
   Name: Blood Circle
-  Description: Draw 1 card from each companion and then each companion loses 1 HP
+  Description: Draw 1 card from all. All lose 2 HP
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 38c8aa9e04946486b8069de5512d0441, type: 3}
@@ -37,13 +37,6 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 1274772082283774025
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: companions
-        prefabToInstantiate: {fileID: 6137048663962808129, guid: 92c26f41ef33c23419e05ceb12660efa, type: 3}
-        scale: 0.8
     - rid: 5602892675124822081
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -51,7 +44,6 @@ MonoBehaviour:
         - rid: 5602892675124822082
         - rid: 5602892675124822084
         - rid: 7401433558763438507
-        - rid: 1274772082283774025
     - rid: 5602892675124822082
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -69,13 +61,13 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: companions
         combatEffect: 16
-        scale: 1
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 0}
+        vfxPrefab: {fileID: 6137048663962808129, guid: 92c26f41ef33c23419e05ceb12660efa, type: 3}
     - rid: 7401433558763438507
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:

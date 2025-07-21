@@ -1,0 +1,130 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
+  m_Name: RP_SearchMyPockets
+  m_EditorClassIdentifier: 
+  guid: 7b515ea9-ed58-46a7-9feb-8b6925b849d8
+  Name: Search My Pockets
+  Description: "Shuffle a \"Firebreath\" status card into this companion\u2019s deck,
+    then scry 1 and draw 1 from this companion"
+  defaultValues: []
+  Cost: 0
+  Artwork: {fileID: 21300000, guid: 6ef8de3dba8a5be4eb27bbf7c8eee155, type: 3}
+  cardCategory: 2
+  vfxPrefab: {fileID: 0}
+  playable: 1
+  exhaustsWhenPlayed: 0
+  retain: 0
+  effectWorkflows:
+  - rid: 3931529445166809455
+  onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
+    rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  tooltips: 1600000005000000
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 1274772082283774709
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: target
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        scale: 1.5
+    - rid: 1488501494564519949
+      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: AddCardsToDeck
+        inputKey: target
+        cardTypes:
+        - {fileID: 11400000, guid: eec5b177fb6f749e0a93744b0309167a, type: 2}
+        addToDeckMethod: 1
+        getCardsFromKey: 0
+        inputCardsKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 3931529445166809455
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 3931529445166809456
+        - rid: 1488501494564519949
+        - rid: 1274772082283774709
+        - rid: 5280922841426165945
+        - rid: 3931529445166809457
+        - rid: 3931529445166809458
+        - rid: 3931529445166809459
+        - rid: 7401433558763438465
+    - rid: 3931529445166809456
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: target
+        validTargets: 
+        number: 1
+        specialTargetRule: 4
+        cantCancelTargetting: 0
+    - rid: 3931529445166809457
+      type: {class: GetCardsFromDeck, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetCardsFromDeck
+        inputKey: target
+        getLimitedNumber: 1
+        numberOfCardsToGet: 1
+        shuffleIfEmpty: 0
+        outputKey: topCard
+        getAllCardsFromEntities: 0
+        getCardsFromSourceDeck: 0
+        getAllFromOnlyDrawPile: 0
+    - rid: 3931529445166809458
+      type: {class: SelectCardsFromList, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: SelectCardsFromList
+        inputKey: topCard
+        outputKey: discarded
+        promptText: Choose a card to discard.
+        minTargets: 0
+        maxTargets: 1
+        getNumberOfTargetsFromKey: 0
+        inputNumberOfTargetsKey: 
+        randomizeOrder: 0
+    - rid: 3931529445166809459
+      type: {class: CardInDeckEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardInDeckEffect
+        inputCardsKey: discarded
+        inputDeckKey: target
+        effect: 2
+        cardToTransformInto: {fileID: 0}
+        outputKey: 
+    - rid: 5280922841426165945
+      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: WaitForSecondsEffect
+        seconds: 0.4
+    - rid: 7401433558763438465
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DrawCards
+        inputKey: target
+        outputKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 

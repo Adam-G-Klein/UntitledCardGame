@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 15abf82c-6edf-4da8-81bc-0e84301e76ed
   Name: Best Defense is Offense
-  Description: Deal damage equal to the total block on your team ({rpl_damage} damage)
+  Description: Retain. Deal damage equal to the total block on your team ({rpl_damage}
+    damage)
   defaultValues:
   - key: rpl_damage
     value: 0
@@ -24,7 +25,7 @@ MonoBehaviour:
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
-  retain: 0
+  retain: 1
   effectWorkflows:
   - rid: 2034230108114649448
   onExhaustEffectWorkflow:

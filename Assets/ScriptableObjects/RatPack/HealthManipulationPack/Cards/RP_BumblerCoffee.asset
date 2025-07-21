@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: aabea6fd-ca03-4c79-a5db-8483c0790604
   Name: Bumbler Coffee
-  Description: Draw 2 cards from target companion. Lose 2 HP.
+  Description: Draw 2 cards from self. Lose 2 HP.
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: e0ab2143b8408423ab692d481858408a, type: 3}
@@ -41,27 +41,16 @@ MonoBehaviour:
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: DrawCards
-        inputKey: target
+        inputKey: self
         outputKey: 
         scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
-    - rid: 2295167909047304308
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: target
-        validTargets: 00000000
-        number: 1
-        specialTargetRule: 0
-        cantCancelTargetting: 0
     - rid: 2295167909047304309
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
-        inputKey: target
+        inputKey: self
         prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
         scale: 1
     - rid: 5602892949302281051
@@ -69,7 +58,6 @@ MonoBehaviour:
       data:
         effectSteps:
         - rid: 5602892949302281052
-        - rid: 2295167909047304308
         - rid: 2034230176448512019
         - rid: 2295167909047304309
         - rid: 5602892949302281053

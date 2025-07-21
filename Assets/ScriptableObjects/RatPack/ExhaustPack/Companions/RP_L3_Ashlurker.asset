@@ -31,7 +31,6 @@ MonoBehaviour:
   genericCompanionVFX: {fileID: 0}
   cacheValueConfigs: []
   cardPool: {fileID: 11400000, guid: 8bdac79f050ae468e9f4ab9afe43b5e9, type: 2}
-  packCardPool: {fileID: 11400000, guid: 0f37e5a720cc243b2ab7df193483391d, type: 2}
   pack: {fileID: 11400000, guid: 79e479ca9df7a4369ba7fa951e0af116, type: 2}
   speakerType: {fileID: 0}
   abilitiesV2:
@@ -42,10 +41,10 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Level Three Ashlurker
-      description: Whenever you exhaust a card, draw 2 cards from a random companion
+      description: Whenever you exhaust a card, draw 2 cards from this companion
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: Whenever you exhaust a card, draw 2 cards from a random companion
+  keepsakeDescription: Whenever you exhaust a card, draw 2 cards from this companion
   references:
     version: 2
     RefIds:
@@ -55,10 +54,8 @@ MonoBehaviour:
         abilityTrigger: 9
         effectSteps:
         - rid: 7401433308100034729
-        - rid: 7401433558763438289
         - rid: 7401433308100034734
         - rid: 7401433308100034735
-        - rid: 7401433558763438290
     - rid: 7401433308100034729
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -74,7 +71,7 @@ MonoBehaviour:
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: DrawCards
-        inputKey: random
+        inputKey: self
         outputKey: 
         scale: 2
         getScaleFromKey: 0
@@ -83,24 +80,6 @@ MonoBehaviour:
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
-        inputKey: random
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
-        scale: 1
-    - rid: 7401433558763438289
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: random
-        validTargets: 00000000
-        number: 1
-        specialTargetRule: 6
-        cantCancelTargetting: 0
-    - rid: 7401433558763438290
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
         inputKey: self
-        prefabToInstantiate: {fileID: 3850217184923880746, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
         scale: 1

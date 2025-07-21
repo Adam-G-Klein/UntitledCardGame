@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 3e24d683-98d6-4ce3-94a4-e75a72c1c9c6
   Name: Hand Grenade
-  Description: When played or discarded, deal {rpl_damage} damage to a random enemy
+  Description: Deal {rpl_damage} damage to all enemies. When discarded, deal {rpl_damage}
+    to all enemies
   defaultValues:
   - key: rpl_damage
     value: 5
@@ -54,7 +55,7 @@ MonoBehaviour:
         outputKey: enemy
         validTargets: 02000000
         number: 1
-        specialTargetRule: 6
+        specialTargetRule: 1
         cantCancelTargetting: 0
     - rid: 5602892563578094203
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
@@ -84,7 +85,7 @@ MonoBehaviour:
         outputKey: enemy
         validTargets: 02000000
         number: 1
-        specialTargetRule: 6
+        specialTargetRule: 1
         cantCancelTargetting: 0
     - rid: 7401433308100034880
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}

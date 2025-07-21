@@ -1,0 +1,113 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
+  m_Name: RP_Tiefvision
+  m_EditorClassIdentifier: 
+  guid: 09325321-fdbb-48cc-8910-2c4543112aa9
+  Name: Tiefvision
+  Description: Exhaust. Give any 3 block & scry 1
+  defaultValues: []
+  Cost: 0
+  Artwork: {fileID: 21300000, guid: 8c16952da6b2cfa4181be941e4a49469, type: 3}
+  cardCategory: 4
+  vfxPrefab: {fileID: 0}
+  playable: 1
+  exhaustsWhenPlayed: 1
+  retain: 0
+  effectWorkflows:
+  - rid: 5602892561590779943
+  onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
+    rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  tooltips: 
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 2295168179404538104
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: target
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 0
+        cantCancelTargetting: 0
+    - rid: 2295168179404538105
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: target
+        statusEffect: 2
+        scale: 3
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+    - rid: 2295168179404538106
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: target
+        prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
+        scale: 1
+    - rid: 5602892561590779943
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 2295168179404538104
+        - rid: 2295168179404538105
+        - rid: 2295168179404538106
+        - rid: 8034949815888773299
+        - rid: 8034949815888773300
+        - rid: 8034949815888773302
+    - rid: 8034949815888773299
+      type: {class: GetCardsFromDeck, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetCardsFromDeck
+        inputKey: target
+        getLimitedNumber: 1
+        numberOfCardsToGet: 1
+        shuffleIfEmpty: 1
+        outputKey: topCard
+        getAllCardsFromEntities: 0
+        getCardsFromSourceDeck: 0
+        getAllFromOnlyDrawPile: 0
+    - rid: 8034949815888773300
+      type: {class: SelectCardsFromList, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: SelectCardsFromList
+        inputKey: topCard
+        outputKey: selected
+        promptText: Choose card(s) to discard
+        minTargets: 0
+        maxTargets: 1
+        getNumberOfTargetsFromKey: 0
+        inputNumberOfTargetsKey: 
+        randomizeOrder: 0
+    - rid: 8034949815888773302
+      type: {class: CardInDeckEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardInDeckEffect
+        inputCardsKey: selected
+        inputDeckKey: target
+        effect: 2
+        cardToTransformInto: {fileID: 0}
+        outputKey: 

@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 4f8f41d0-a5a9-428f-8808-a3b7ea23890f
   Name: Brainstorm
-  Description: Deal {rpl_damage} damage for each of the cards in your hand ({numberOfCardsInHand}
-    cards)
+  Description: Deal {rpl_damage} damage for each card in hand ({numberOfCardsInHand}
+    cards), then discard 1 card at random
   defaultValues:
   - key: rpl_damage
-    value: 1
+    value: 2
   - key: numberOfCardsInHand
     value: 0
   Cost: 1
@@ -70,7 +70,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: enemyTarget
         combatEffect: 0
-        scale: 1
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 0
@@ -85,6 +85,33 @@ MonoBehaviour:
         - rid: 1886371092460208252
         - rid: 5602892679876706768
         - rid: 1886371092460208256
+        - rid: 2295168569757139625
+        - rid: 2295168569757139626
+        - rid: 2295168569757139627
+    - rid: 2295168569757139625
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: cards
+        validTargets: 03000000
+        number: 1
+        specialTargetRule: 2
+        cantCancelTargetting: 0
+    - rid: 2295168569757139626
+      type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetRandomItems
+        inputKey: cards
+        scale: 1
+        outputKey: card
+    - rid: 2295168569757139627
+      type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardInHandEffect
+        inputKey: card
+        effect: 0
     - rid: 5602892679876706768
       type: {class: CountStep, ns: , asm: Assembly-CSharp}
       data:

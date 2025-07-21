@@ -14,16 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: eb62cd01-5178-40b9-ade5-5ab5d5c038ec
   Name: Strafe
-  Description: When played or discarded, deal {rpl_damage} damage to a random enemy
+  Description: Unplayable. When discarded, deal {rpl_damage} damage to a random enemy
     and draw 1 card from this companion
   defaultValues:
   - key: rpl_damage
-    value: 2
-  Cost: 1
+    value: 4
+  Cost: 0
   Artwork: {fileID: 21300000, guid: 9fc5df2c57ed7dd4686ab9274820f38e, type: 3}
   cardCategory: 1
   vfxPrefab: {fileID: 0}
-  playable: 1
+  playable: 0
   exhaustsWhenPlayed: 0
   retain: 0
   effectWorkflows:
@@ -75,7 +75,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: enemy
         combatEffect: 0
-        scale: 2
+        scale: 4
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
@@ -99,13 +99,13 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: enemy
         combatEffect: 0
-        scale: 2
+        scale: 4
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 1320532642761013391, guid: 99a456f94890391478f393fcc8ad0b95, type: 3}
+        vfxPrefab: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}
     - rid: 7401433308100035075
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

@@ -1,0 +1,107 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
+  m_Name: RP_ExplosivePotential
+  m_EditorClassIdentifier: 
+  guid: 2976fe0b-5e94-4884-a0ce-369836d3ffa8
+  Name: Explosive Potential
+  Description: Exhaust card in hand. Shuffle 2 copies of "Greek Fire" into own deck.
+    Draw 2 cards from self
+  defaultValues: []
+  Cost: 0
+  Artwork: {fileID: 21300000, guid: ff6e22bc9b4fa614792848018179ceda, type: 3}
+  cardCategory: 2
+  vfxPrefab: {fileID: 0}
+  playable: 1
+  exhaustsWhenPlayed: 0
+  retain: 0
+  effectWorkflows:
+  - rid: 2116895648763871336
+  onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
+    rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  tooltips: 
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 1274772082283774361
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        scale: 1.5
+    - rid: 1289961820425027789
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DrawCards
+        inputKey: self
+        outputKey: 
+        scale: 2
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 2034230108114649098
+      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: AddCardsToDeck
+        inputKey: self
+        cardTypes:
+        - {fileID: 11400000, guid: 07ddcab78d7f64ac1849ccdb53efe2c0, type: 2}
+        addToDeckMethod: 1
+        getCardsFromKey: 0
+        inputCardsKey: 
+        scale: 2
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 2116895648763871336
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 8034949815888773264
+        - rid: 8034949815888773265
+        - rid: 9024302470308298798
+        - rid: 1274772082283774361
+        - rid: 2034230108114649098
+        - rid: 1289961820425027789
+    - rid: 8034949815888773264
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: target
+        validTargets: 03000000
+        number: 1
+        specialTargetRule: 5
+        cantCancelTargetting: 0
+    - rid: 8034949815888773265
+      type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardInHandEffect
+        inputKey: target
+        effect: 1
+    - rid: 9024302470308298798
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 4
+        cantCancelTargetting: 0

@@ -39,14 +39,13 @@ MonoBehaviour:
     behaviorType: 0
   adaptWhenAloneEnemyPattern:
     behaviors:
-    - intent: 5
-      enemyTargetMethod: 6
+    - intent: 0
+      enemyTargetMethod: 0
       targetsKey: 
-      displayValue: 0
+      displayValue: 10
       effectSteps:
-      - rid: 2034229587402555937
-      - rid: 2034229587402555938
       - rid: 2034229587402555939
+      - rid: 8034949815888773155
     behaviorType: 0
   initialStatuses: []
   tooltip:
@@ -55,40 +54,24 @@ MonoBehaviour:
     - title: Protective Gaze
       description: Gives 5 block to other enemies
       relatedBehaviorIndex: 0
+  DEADLIER_ENEMY_BONUS_STR: -1
+  HEALTHIER_ENEMY_BONUS_HEALTH: -1
   references:
     version: 2
     RefIds:
-    - rid: 2034229587402555937
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: self
-        validTargets: 
-        number: 1
-        specialTargetRule: 3
-        cantCancelTargetting: 0
-    - rid: 2034229587402555938
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: self
-        prefabToInstantiate: {fileID: 7939549763701254822, guid: f4ba6cc7e7a795f49be6c445733f13d4, type: 3}
-        scale: 1
     - rid: 2034229587402555939
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
-        inputKey: self
-        combatEffect: 6
-        scale: 0
+        inputKey: target
+        combatEffect: 0
+        scale: 10
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 0}
+        vfxPrefab: {fileID: 6137048663962808129, guid: 418a03ccd75ca98409952e0384c196fd, type: 3}
     - rid: 4463205916933357946
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -125,3 +108,8 @@ MonoBehaviour:
       data:
         effectStepName: WaitForSecondsEffect
         seconds: 0.3
+    - rid: 8034949815888773155
+      type: {class: ScriptableObjectEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ScriptableObjectEffectStep
+        effectStepSO: {fileID: 11400000, guid: 46ac36b880e2ff14aa699c90b6e9f19c, type: 2}

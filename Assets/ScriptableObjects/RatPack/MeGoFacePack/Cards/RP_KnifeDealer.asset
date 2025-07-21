@@ -18,7 +18,7 @@ MonoBehaviour:
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 292ee1eb3f315c9448b8c577d0e6a420, type: 3}
-  cardCategory: 1
+  cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
@@ -43,10 +43,10 @@ MonoBehaviour:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: targets
+        outputKey: all
         validTargets: 00000000
-        number: 3
-        specialTargetRule: 6
+        number: 0
+        specialTargetRule: 1
         cantCancelTargetting: 0
     - rid: 2034230020176347211
       type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
@@ -73,5 +73,13 @@ MonoBehaviour:
       data:
         effectSteps:
         - rid: 2034230020176347209
+        - rid: 8034949815888773189
         - rid: 2034230020176347211
         - rid: 5280922841426165968
+    - rid: 8034949815888773189
+      type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetRandomItems
+        inputKey: all
+        scale: 3
+        outputKey: targets

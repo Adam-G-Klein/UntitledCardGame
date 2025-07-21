@@ -41,14 +41,14 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Entropy
-      description: Transform 1 card into an exhaustable "Entropy's Burn" card at
-        the end of combat.
+      description: Transform 1 card into an exhaustable "Greek Fire" status card
+        at the end of combat.
       relatedBehaviorIndex: 0
-    - title: Entropys Burn
+    - title: Greek Fire
       description: 1. Exhaust. When exhausted, deal 5 damage to a random enemy.
       relatedBehaviorIndex: 0
-  keepsakeTitle: Entropy's Gadget
-  keepsakeDescription: Transform 1 card into an exhaustable "Entropy's Burn" card
+  keepsakeTitle: 
+  keepsakeDescription: Transform 1 card into an exhaustable "Greek Fire" status card
     at the end of combat.
   references:
     version: 2
@@ -98,7 +98,7 @@ MonoBehaviour:
         effectStepName: SelectCardsFromList
         inputKey: allCardsInDeck
         outputKey: cardToTransform
-        promptText: Select a card to transform into Entropy's Burn
+        promptText: Select a card to transform into "Greek Fire"
         minTargets: 1
         maxTargets: 1
         getNumberOfTargetsFromKey: 0

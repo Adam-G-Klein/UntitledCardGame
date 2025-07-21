@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 8950101d-2ae3-480c-b8ae-6cd4be520cb3
   Name: Accelerant
-  Description: Discount target card by 1 energy this turn. When exhausted, discount
-    all cards in hand by 1 energy this turn
+  Description: 'Discount target card by 1 energy this turn. If this companion has
+    7 or less cards in its deck, discount by 2 energy instead '
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 292ee1eb3f315c9448b8c577d0e6a420, type: 3}
@@ -44,39 +44,20 @@ MonoBehaviour:
         effectSteps:
         - rid: 1289961820425028088
         - rid: 1289961820425028086
+        - rid: 2295168179404538002
+        - rid: 2295168179404538001
+        - rid: 2295168179404538003
+        - rid: 2295168179404538004
+        - rid: 2295168179404538005
     - rid: 1289961820425028080
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
-        effectSteps:
-        - rid: 1289961820425028081
-        - rid: 1289961820425028087
-    - rid: 1289961820425028081
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: all
-        validTargets: 03000000
-        number: 1
-        specialTargetRule: 2
-        cantCancelTargetting: 0
+        effectSteps: []
     - rid: 1289961820425028086
       type: {class: CardModificationEffect, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CardModificationEffect
         inputKey: target
-        scale: 1
-        affectsAllCardsOfType: 0
-        cardTypeToModify: {fileID: 0}
-        getScaleFromKey: 0
-        scaleKey: 
-        modification: 2
-    - rid: 1289961820425028087
-      type: {class: CardModificationEffect, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CardModificationEffect
-        inputKey: all
         scale: 1
         affectsAllCardsOfType: 0
         cardTypeToModify: {fileID: 0}
@@ -94,3 +75,53 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 5
         cantCancelTargetting: 0
+    - rid: 2295168179404538001
+      type: {class: CountCardsInDeck, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CountCardsInDeck
+        inputDeckKey: self
+        filter:
+          cardCategoriesToInclude: 
+          generatedCardsFilter: 0
+        includeDrawPile: 1
+        includeDiscardPile: 1
+        includeCardsInHand: 1
+        outputKey: numCards
+    - rid: 2295168179404538002
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 4
+        cantCancelTargetting: 0
+    - rid: 2295168179404538003
+      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: BooleanComparison
+        hardCodedInputKey1: 7
+        useHardCodedInputKey1: 1
+        inputKey1: 
+        operation: 4
+        inputKey2: numCards
+        outputKey: lessThan7
+    - rid: 2295168179404538004
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: lessThan7
+        conditionToEndOn: 0
+    - rid: 2295168179404538005
+      type: {class: CardModificationEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardModificationEffect
+        inputKey: target
+        scale: 1
+        affectsAllCardsOfType: 0
+        cardTypeToModify: {fileID: 0}
+        getScaleFromKey: 0
+        scaleKey: 
+        modification: 2

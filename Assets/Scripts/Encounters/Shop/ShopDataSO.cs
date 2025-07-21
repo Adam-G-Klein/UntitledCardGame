@@ -70,7 +70,6 @@ public class ShopLevel {
     public int upgradeIncrementCost;
     public int mana;
     public int teamSize;
-    public int upgradeCost;
     public int numCardsToShow;
     public int numKeepsakesToShow;
 

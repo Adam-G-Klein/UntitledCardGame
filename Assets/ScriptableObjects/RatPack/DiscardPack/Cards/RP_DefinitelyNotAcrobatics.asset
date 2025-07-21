@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: b091d6b4-1bbe-4f44-bec2-44d1aa91050f
   Name: Definitely Not Acrobatics
-  Description: Draw 3 cards from target companion, then discard a card in hand.
+  Description: Draw 1 card from 3 random companions, then discard a card in hand.
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 04bf14070e798284f9f39ea08b676c4a, type: 3}
@@ -54,6 +54,13 @@ MonoBehaviour:
         effectStepName: CardInHandEffect
         inputKey: targetCard
         effect: 0
+    - rid: 2295168569757139010
+      type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetRandomItems
+        inputKey: all
+        scale: 3
+        outputKey: target
     - rid: 5280922841426165977
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -66,6 +73,7 @@ MonoBehaviour:
       data:
         effectSteps:
         - rid: 5602892723852673196
+        - rid: 2295168569757139010
         - rid: 5602892723852673197
         - rid: 5280922841426165977
         - rid: 2034230108114649667
@@ -76,10 +84,10 @@ MonoBehaviour:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: target
+        outputKey: all
         validTargets: 00000000
         number: 1
-        specialTargetRule: 0
+        specialTargetRule: 1
         cantCancelTargetting: 0
     - rid: 5602892723852673197
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}
@@ -87,6 +95,6 @@ MonoBehaviour:
         effectStepName: DrawCards
         inputKey: target
         outputKey: 
-        scale: 3
+        scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
