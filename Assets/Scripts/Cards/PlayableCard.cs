@@ -250,6 +250,9 @@ public class PlayableCard : MonoBehaviour,
     // Called by playerHand.discardCard
     public IEnumerator DiscardToDeck()
     {
+        if (PlayerHand.Instance.cardsInHand.Contains(this)) {
+            yield return StartCoroutine(PlayerHand.Instance.SafeRemoveCardFromHand(this));
+        }
         yield return CardDiscardVFX(this.gameObject);
         deckFrom.DiscardCards(new List<Card> { card });
     }
