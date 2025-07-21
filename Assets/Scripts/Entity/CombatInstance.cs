@@ -96,6 +96,9 @@ public class CombatInstance : MonoBehaviour
         if (parentType == CombatInstanceParent.COMPANION && statusEffect == StatusEffectType.Defended) {
             StartCoroutine(CombatEntityManager.Instance.OnBlockGained(this));
         }
+        if (parentType == CombatInstanceParent.COMPANION && (statusEffect == StatusEffectType.Strength || statusEffect == StatusEffectType.TemporaryStrength)) {
+            PlayerHand.Instance.UpdatePlayableCards(GetCompanionInstance().deckInstance);
+        } 
         if (statusEffect == StatusEffectType.BonusBlock)
         {
             statusEffects[StatusEffectType.Defended] += scale;
