@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
   m_Name: RP_Ember
   m_EditorClassIdentifier: 
+  guid: a226ba8a-5bff-4bc8-a259-9fec38d6cb18
   companionName: Ember
   maxHealth: 15
   initialCardsDealtPerTurn: 1
@@ -30,7 +31,6 @@ MonoBehaviour:
   genericCompanionVFX: {fileID: 0}
   cacheValueConfigs: []
   cardPool: {fileID: 11400000, guid: fa0b6820d8f0b4e4883d8d57bb027d18, type: 2}
-  packCardPool: {fileID: 11400000, guid: 16eadbe23f445435bbc89276ce69a52c, type: 2}
   pack: {fileID: 11400000, guid: 458d2de78617f49658d2a99deb96cd4f, type: 2}
   speakerType: {fileID: 0}
   abilitiesV2:
@@ -48,7 +48,7 @@ MonoBehaviour:
         and 1 stack of burn.
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: 
+  keepsakeDescription: At the beginning of your turn apply 2 Burn to all enemies.
   references:
     version: 2
     RefIds:
