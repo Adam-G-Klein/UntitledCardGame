@@ -68,7 +68,6 @@ public class ShopViewController : MonoBehaviour,
     private string originalSellingCompanionConfirmationText;
     private string originalSellingCompanionBreakdownText;
     private bool inUpgradeMenu = false;
-    private Dictionary<VisualElement, GameObject> tooltipMap = new();
     private Companion currentUpgradeCompanion;
 
     private static string COMPANION_MANAGEMENT = "CompanionManagement";
@@ -1073,12 +1072,21 @@ public class ShopViewController : MonoBehaviour,
         TooltipView tooltipView = uiDocToolTipPrefab.GetComponent<TooltipView>();
         tooltipView.tooltip = tooltipViewModel;
 
-        tooltipMap[element] = uiDocToolTipPrefab;
+        if (!element.HasUserData<List<TooltipView>>()) {
+            element.SetUserData(new List<TooltipView>());
+        }
+
+        element.GetUserData<List<TooltipView>>().Add(tooltipView);
     }
 
     public void DestroyTooltip(VisualElement element) {
-        if(tooltipMap.ContainsKey(element)) {
-            Destroy(tooltipMap[element]);
+        if (!element.HasUserData<List<TooltipView>>()) return;
+ 
+        List<TooltipView> tooltips = element.GetUserData<List<TooltipView>>();
+        List<TooltipView> tooltipsToDestroy = new List<TooltipView>(tooltips);
+        foreach (TooltipView tooltipView in tooltipsToDestroy) {
+            tooltips.Remove(tooltipView);
+            Destroy(tooltipView.gameObject);
         }
     }
 

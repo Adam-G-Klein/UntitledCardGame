@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.EventSystems; 
+using UnityEngine.EventSystems;
+using UnityEngine.U2D.IK;
 
 public class TooltipOnHover : MonoBehaviour,
     IPointerClickHandler,
@@ -26,7 +27,8 @@ public class TooltipOnHover : MonoBehaviour,
     [SerializeField]
     private float displayWaitTime = 1.0f;
 
-    private TooltipView currentView = null;
+    // private TooltipView currentView = null;
+    private List<TooltipView> instantaitedViews = new List<TooltipView>();
     private IEnumerator currentCoroutine = null;
     private bool coroutineIsRunning = false;
     [SerializeField]
@@ -57,9 +59,11 @@ public class TooltipOnHover : MonoBehaviour,
         if(Active()) {
             Debug.Log("Tooltip: Exit");
             ResetCoroutine();
-            if(currentView == null) return;
+            // if(currentView == null) return;
+            if(instantaitedViews.Count == 0) return;
             Debug.Log("Tooltip: hiding current view");
-            currentView.Hide();
+            // currentView.Hide();
+            DestroyAllInstantiatedViews();
         }
     }
 
@@ -72,16 +76,35 @@ public class TooltipOnHover : MonoBehaviour,
         if(Active()) {
             Debug.Log("Tooltip: Exit");
             ResetCoroutine();
-            if(currentView == null) return;
+            // if(currentView == null) return;
+            if(instantaitedViews.Count == 0) return;
             Debug.Log("Tooltip: hiding current view");
-            currentView.Hide();
+            // currentView.Hide();
+            DestroyAllInstantiatedViews();
         }
     }
 
     public void Destroy() {
         ResetCoroutine();
-        if(currentView != null) currentView.Hide();
+        if(instantaitedViews.Count >= 0) DestroyAllInstantiatedViews();
+        DestroyAllInstantiatedViews();
         destroyed = true;
+    }
+
+    /*
+    * There is only intended to ever be a single view in this list, but we've
+    * experienced bugs where we end up with phantom views due to quick movements
+    * or transition from mouse controls to keyboard/controller controls or vice versa.
+    * This list tracking attempts to prevent this from happening (essentially we should only
+    * ever have a single tooltip on the screen at once)
+    */
+    private void DestroyAllInstantiatedViews() {
+        // Copy to new list so no list modification during foreach
+        List<TooltipView> viewsToDestroy = new List<TooltipView>(instantaitedViews);
+        foreach (TooltipView view in viewsToDestroy) {
+            instantaitedViews.Remove(view);
+            view.Hide();
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData) {}
@@ -101,17 +124,17 @@ public class TooltipOnHover : MonoBehaviour,
         yield return new WaitForSeconds(displayWaitTime);
         Debug.Log("Tooltip: Displaying tooltip now.");
         if(instantiateInWorldspace) {
-            currentView = PrefabInstantiator.instantiateTooltipView(
+            instantaitedViews.Add(PrefabInstantiator.instantiateTooltipView(
                 tooltipPrefab,
                 tooltip,
                 transform.position + positionOffset, //this is in world space for some reason
-                null);
+                null));
         } else {
-            currentView = PrefabInstantiator.instantiateTooltipView(
+            instantaitedViews.Add(PrefabInstantiator.instantiateTooltipView(
                 tooltipPrefab,
                 tooltip,
                 transform.position + positionOffset, //this is in world space for some reason
-                transform);
+                transform));
         }
         coroutineIsRunning = false;
     }
