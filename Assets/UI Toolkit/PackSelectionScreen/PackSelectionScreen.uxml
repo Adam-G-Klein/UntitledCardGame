@@ -1,6 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:Template name="AscensionSelectionUIDocument" src="project://database/Assets/UI%20Toolkit/PackSelectionScreen/AscensionSelectionUIDocument.uxml?fileID=9197481963319205126&amp;guid=555ebea93f4464756ab3d771bb5201ba&amp;type=3#AscensionSelectionUIDocument" />
     <Style src="project://database/Assets/packSelectionView.uss?fileID=7433441132597879392&amp;guid=be2937b99825d4ce0bdb1153fbb28d44&amp;type=3#packSelectionView" />
+    <Style src="project://database/Assets/fontStyling.uss?fileID=7433441132597879392&amp;guid=d0c0881f1c32747ecb649373600de095&amp;type=3#fontStyling" />
     <ui:VisualElement name="packSelectionContainer" style="flex-grow: 1; background-color: rgb(173, 173, 173); width: 100%; height: 100%; align-items: center; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 20px; padding-right: 20px; padding-bottom: 20px; padding-left: 20px;">
         <ui:Label tabindex="-1" text="Choose Your Packs!" parse-escape-sequences="true" display-tooltip-when-elided="true" style="align-items: center; font-size: 24px;" />
         <ui:VisualElement name="selectedOptionContainer" class="packSlotContainer" style="justify-content: center;">

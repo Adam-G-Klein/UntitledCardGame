@@ -1,5 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/packSelectionView.uss?fileID=7433441132597879392&amp;guid=be2937b99825d4ce0bdb1153fbb28d44&amp;type=3#packSelectionView" />
+    <Style src="project://database/Assets/fontStyling.uss?fileID=7433441132597879392&amp;guid=d0c0881f1c32747ecb649373600de095&amp;type=3#fontStyling" />
     <ui:VisualElement name="packBackground" class="packBackground">
         <ui:VisualElement name="darkOverlay" class="darkOverlay" />
         <ui:Label tabindex="-1" text="Pack Title" parse-escape-sequences="true" display-tooltip-when-elided="true" name="packTitle" style="font-size: 20px;" />

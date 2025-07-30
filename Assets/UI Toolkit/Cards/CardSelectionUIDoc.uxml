@@ -2,6 +2,7 @@
     <Style src="project://database/Assets/UI/common.uss?fileID=7433441132597879392&amp;guid=8d0bc28a2ed710a44b762e4c857ac6f9&amp;type=3#common" />
     <Style src="project://database/Assets/UI%20Toolkit/Stylesheets/entity.uss?fileID=7433441132597879392&amp;guid=f28fa9619ee10d041b7306d0537405c5&amp;type=3#entity" />
     <Style src="project://database/Assets/UI%20Toolkit/Stylesheets/cardSelectionView.uss?fileID=7433441132597879392&amp;guid=5a0eb55a9774f554fbf70e78f3f7dadf&amp;type=3#cardSelectionView" />
+    <Style src="project://database/Assets/fontStyling.uss?fileID=7433441132597879392&amp;guid=d0c0881f1c32747ecb649373600de095&amp;type=3#fontStyling" />
     <ui:VisualElement style="flex-grow: 1; background-color: rgb(107, 107, 107);">
         <ui:VisualElement name="companion-area" style="flex-grow: 0; height: 30%; display: flex; align-items: center; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-bottom-width: 4px;">
             <ui:Label tabindex="-1" text="Companion Description Text" parse-escape-sequences="true" display-tooltip-when-elided="true" name="companion-description-text" style="font-size: 26px;" />
