@@ -57,6 +57,7 @@ public class GameStateVariableSO : ScriptableObject
     public bool autoUpgrade = false;
     public List<PackSO> previouslySelectedPackSOs;
     public int ascensionLevel = -1;
+    public CompanionSuffixTracker companionSuffixTracker = new CompanionSuffixTracker();
     public Dictionary<Location, string> locationToScene = new Dictionary<Location, string>() {
         {Location.MAIN_MENU, "MainMenu"},
         {Location.TEAM_SIGNING, "TeamSigning"},
@@ -194,6 +195,7 @@ public class GameStateVariableSO : ScriptableObject
             }
         }
     }
+    // Used by both upgrading and purchasing
     public void AddCompanionToTeam(Companion c, int preferredActiveSlotIndex = -1) {
         if(this.companions.spaceInActiveCompanions) {
             if (preferredActiveSlotIndex >= 0) {
