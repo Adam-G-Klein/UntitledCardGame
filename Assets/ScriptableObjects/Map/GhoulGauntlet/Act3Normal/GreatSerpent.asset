@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
   m_Name: GreatSerpent
   m_EditorClassIdentifier: 
+  guid: 6235299c-5301-4c78-8964-48010eb6ebe3
   displayName: Great Serpent
   maxHealth: 150
   baseAttackDamage: 0
@@ -20,6 +21,7 @@ MonoBehaviour:
   entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
   morale: 0
   abilities: []
+  cacheValueConfigs: []
   enemyPattern:
     behaviors:
     - intent: 1
@@ -42,18 +44,12 @@ MonoBehaviour:
       - rid: 4463205916933358109
       - rid: 4053950218419044432
     behaviorType: 0
-    behaviorIndex: 0
-    nextBehaviorIndex: 1
   belowHalfHPEnemyPattern:
     behaviors: []
     behaviorType: 0
-    behaviorIndex: 0
-    nextBehaviorIndex: 0
   adaptWhenAloneEnemyPattern:
     behaviors: []
     behaviorType: 0
-    behaviorIndex: 0
-    nextBehaviorIndex: 0
   initialStatuses: []
   tooltip:
     empty: 0
@@ -67,6 +63,8 @@ MonoBehaviour:
     - title: Block
       description: Block prevents damage
       relatedBehaviorIndex: 0
+  DEADLIER_ENEMY_BONUS_STR: -1
+  HEALTHIER_ENEMY_BONUS_HEALTH: -1
   references:
     version: 2
     RefIds:
@@ -137,6 +135,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 4463205916933358108
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:

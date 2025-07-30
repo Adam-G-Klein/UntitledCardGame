@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
   m_Name: PoohTheEqualizer
   m_EditorClassIdentifier: 
+  guid: 7ca915f7-16f9-4ad3-a8e9-41ff11870684
   displayName: Pooh, Equalizer
   maxHealth: 180
   baseAttackDamage: 0
@@ -20,6 +21,7 @@ MonoBehaviour:
   entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
   morale: 0
   abilities: []
+  cacheValueConfigs: []
   enemyPattern:
     behaviors:
     - intent: 0
@@ -45,18 +47,12 @@ MonoBehaviour:
       - rid: 5602893111447519702
       - rid: 3443535291885027986
     behaviorType: 0
-    behaviorIndex: 0
-    nextBehaviorIndex: 1
   belowHalfHPEnemyPattern:
     behaviors: []
     behaviorType: 0
-    behaviorIndex: 0
-    nextBehaviorIndex: 0
   adaptWhenAloneEnemyPattern:
     behaviors: []
     behaviorType: 0
-    behaviorIndex: 0
-    nextBehaviorIndex: 0
   initialStatuses: []
   tooltip:
     empty: 0
@@ -68,6 +64,8 @@ MonoBehaviour:
     - title: Pooh the Equalizer
       description: Gain 1 strength for each companion above half HP
       relatedBehaviorIndex: 1
+  DEADLIER_ENEMY_BONUS_STR: -1
+  HEALTHIER_ENEMY_BONUS_HEALTH: -1
   references:
     version: 2
     RefIds:
@@ -88,6 +86,8 @@ MonoBehaviour:
         effectStepName: FilterEntityByHP
         inputKey: targets
         percentThreshold: 0.5
+        absoluteThreshold: 0
+        useAbsoluteThreshold: 0
         outputKey: targetsAboveHalf
         below: 0
     - rid: 2034229861011161100
@@ -106,6 +106,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 3443535291885027985
       type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
       data:
@@ -167,3 +170,6 @@ MonoBehaviour:
         getScaleFromKey: 1
         inputScaleKey: numAboveHalf
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 

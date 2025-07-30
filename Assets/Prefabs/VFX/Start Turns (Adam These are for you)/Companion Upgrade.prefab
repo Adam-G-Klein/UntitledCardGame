@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8499973813071248922
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4858,7 +4858,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 212860681
-  m_SortingLayer: 5
+  m_SortingLayer: 7
   m_SortingOrder: 25
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -9750,7 +9750,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 212860681
-  m_SortingLayer: 5
+  m_SortingLayer: 7
   m_SortingOrder: 23
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -9801,7 +9801,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &380447769691335546
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14642,7 +14642,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 212860681
-  m_SortingLayer: 5
+  m_SortingLayer: 7
   m_SortingOrder: 24
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -14703,7 +14703,7 @@ RectTransform:
   m_GameObject: {fileID: 8675841362600845815}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 2.3712, y: 4.0014, z: 1.1856}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8499973813071248922}
@@ -16050,25 +16050,25 @@ ParticleSystem:
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
-        key1: {r: 1, g: 0.9098039, b: 0, a: 1}
-        key2: {r: 0, g: 0, b: 0, a: 0}
-        key3: {r: 0, g: 0, b: 0, a: 0}
-        key4: {r: 0, g: 0, b: 0, a: 0}
+        key1: {r: 1, g: 0.96470594, b: 0.5686275, a: 1}
+        key2: {r: 0, g: 0, b: 0, a: 1}
+        key3: {r: 1, g: 0.96470594, b: 0.5686275, a: 0}
+        key4: {r: 1, g: 0.96470594, b: 0.5686275, a: 0}
         key5: {r: 0, g: 0, b: 0, a: 0}
         key6: {r: 0, g: 0, b: 0, a: 0}
         key7: {r: 0, g: 0, b: 0, a: 0}
-        ctime0: 36044
-        ctime1: 39321
-        ctime2: 49151
-        ctime3: 0
-        ctime4: 0
-        ctime5: 0
-        ctime6: 0
-        ctime7: 0
+        ctime0: 16191
+        ctime1: 24094
+        ctime2: 65535
+        ctime3: 34310
+        ctime4: 34310
+        ctime5: 49151
+        ctime6: 61102
+        ctime7: 62451
         atime0: 0
         atime1: 65535
-        atime2: 0
-        atime3: 0
+        atime2: 55898
+        atime3: 65535
         atime4: 0
         atime5: 0
         atime6: 0
@@ -19537,7 +19537,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 212860681
-  m_SortingLayer: 5
+  m_SortingLayer: 7
   m_SortingOrder: 30
   m_RenderMode: 0
   m_MeshDistribution: 0

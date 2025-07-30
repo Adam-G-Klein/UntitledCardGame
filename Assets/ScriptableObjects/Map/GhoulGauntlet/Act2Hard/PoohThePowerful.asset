@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
   m_Name: PoohThePowerful
   m_EditorClassIdentifier: 
+  guid: 7cf70ed4-5833-41ca-bfa1-2f1fe0ff50cc
   displayName: Pooh the Powerful
   maxHealth: 120
   baseAttackDamage: 0
@@ -21,6 +22,7 @@ MonoBehaviour:
   morale: 0
   abilities:
   - rid: 8790164555430887889
+  cacheValueConfigs: []
   enemyPattern:
     behaviors:
     - intent: 0
@@ -35,18 +37,12 @@ MonoBehaviour:
       - rid: 8790164555430887935
       - rid: 8790164555430887940
     behaviorType: 0
-    behaviorIndex: 0
-    nextBehaviorIndex: 0
   belowHalfHPEnemyPattern:
     behaviors: []
     behaviorType: 0
-    behaviorIndex: 0
-    nextBehaviorIndex: 0
   adaptWhenAloneEnemyPattern:
     behaviors: []
     behaviorType: 0
-    behaviorIndex: 0
-    nextBehaviorIndex: 0
   initialStatuses: []
   tooltip:
     empty: 0
@@ -55,6 +51,8 @@ MonoBehaviour:
       description: Whenever you play a Non-attack card from a companion, Pooh gives
         it an Incantation. Meow. Don't mess.
       relatedBehaviorIndex: 0
+  DEADLIER_ENEMY_BONUS_STR: -1
+  HEALTHIER_ENEMY_BONUS_HEALTH: -1
   references:
     version: 2
     RefIds:
@@ -200,6 +198,9 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 8790164555430888040
       type: {class: DebugEffectStep, ns: , asm: Assembly-CSharp}
       data:

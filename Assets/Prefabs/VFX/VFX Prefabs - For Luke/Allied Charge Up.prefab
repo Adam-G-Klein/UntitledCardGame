@@ -223,7 +223,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 1}
+      maxColor: {r: 1, g: 0.96470594, b: 0.5686275, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -4850,7 +4850,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 212860681
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 2
   m_RenderMode: 1
   m_MeshDistribution: 0
@@ -9743,7 +9743,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 212860681
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 1
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -14636,7 +14636,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 212860681
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 2
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -19529,7 +19529,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 212860681
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 2
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -19786,7 +19786,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0, g: 0, b: 0, a: 1}
+      maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -19850,8 +19850,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.75
-      minScalar: 0.05
+      scalar: 2
+      minScalar: 0.75
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -20989,7 +20989,7 @@ ParticleSystem:
         m_NumAlphaKeys: 2
   UVModule:
     serializedVersion: 2
-    enabled: 1
+    enabled: 0
     mode: 0
     timeMode: 0
     fps: 30
@@ -24403,7 +24403,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 49b76281aae9c7241b673bf2b0e7f414, type: 2}
+  - {fileID: 2100000, guid: ef8c13dfd1aa5b04ba68e5f9823cce32, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -24422,7 +24422,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 212860681
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 3
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -24679,7 +24679,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0, g: 0, b: 0, a: 0.32941177}
+      maxColor: {r: 0, g: 0, b: 0, a: 0.65882355}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -24743,7 +24743,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 3
+      scalar: 5.78
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -29310,7 +29310,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 212860681
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -34202,7 +34202,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 212860681
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -34459,7 +34459,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 0.97938144, b: 0, a: 1}
+      maxColor: {r: 1, g: 0.96470594, b: 0.5686275, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -39077,7 +39077,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 212860681
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 4
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -39334,7 +39334,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 0.97938144, b: 0, a: 0.16862746}
+      maxColor: {r: 1, g: 0.96470594, b: 0.5686275, a: 0.5019608}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -43933,7 +43933,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 53dde80cff773024383518681b94708f, type: 2}
+  - {fileID: 2100000, guid: e7d706270e8ddee43a763576c0e07cd4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -43952,7 +43952,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 212860681
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 4
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -48827,7 +48827,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 212860681
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 2
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -49084,7 +49084,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 1}
+      maxColor: {r: 1, g: 0.96470594, b: 0.5686275, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -53702,7 +53702,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 212860681
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 4
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -53959,7 +53959,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 1}
+      maxColor: {r: 1, g: 0.74698794, b: 0, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -54023,8 +54023,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.75
-      minScalar: 0.05
+      scalar: 2
+      minScalar: 0.75
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -55162,7 +55162,7 @@ ParticleSystem:
         m_NumAlphaKeys: 2
   UVModule:
     serializedVersion: 2
-    enabled: 1
+    enabled: 0
     mode: 0
     timeMode: 0
     fps: 30
@@ -58576,7 +58576,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 49b76281aae9c7241b673bf2b0e7f414, type: 2}
+  - {fileID: 2100000, guid: ef8c13dfd1aa5b04ba68e5f9823cce32, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -58595,7 +58595,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 212860681
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 3
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -63488,7 +63488,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 212860681
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 2
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -68380,7 +68380,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 212860681
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 4
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -78124,7 +78124,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 212860681
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 1
   m_RenderMode: 1
   m_MeshDistribution: 0
@@ -79515,7 +79515,7 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 1, g: 0.97938144, b: 0, a: 0}
+        key0: {r: 1, g: 0.96470594, b: 0.5686275, a: 0}
         key1: {r: 0.06871289, g: 0.06767166, b: 0.016529992, a: 1}
         key2: {r: 0, g: 0, b: 0, a: 1}
         key3: {r: 0, g: 0, b: 0, a: 0}
@@ -83008,7 +83008,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 212860681
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 4
   m_RenderMode: 0
   m_MeshDistribution: 0

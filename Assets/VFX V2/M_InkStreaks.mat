@@ -44,14 +44,22 @@ Material:
         m_Scale: {x: 3, y: 3}
         m_Offset: {x: 0, y: 0}
     - _Distortion_Tex:
-        m_Texture: {fileID: 2800000, guid: d50569c4e8032c3408b54117313f5ff2, type: 3}
+        m_Texture: {fileID: 2800000, guid: 035fccc8d123ffe49bb042e478f93c43, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _FadeTexture:
-        m_Texture: {fileID: 2800000, guid: d50569c4e8032c3408b54117313f5ff2, type: 3}
-        m_Scale: {x: 1, y: 2}
+        m_Texture: {fileID: 2800000, guid: 035fccc8d123ffe49bb042e478f93c43, type: 3}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Fresnel_Texture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LERP_Mask_Texture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LERP_Texture:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -97,6 +105,8 @@ Material:
     - _Fade_Tex_Pow: 1
     - _Fresnel: 0
     - _Fresnel_Thickness: 2.11
+    - _Intensity: 0
+    - _Mask_Animation: 0
     - _Mask_Power: 0.33
     - _Mask_Strength: 0
     - _Not_using_Dist_in_Custom_Data: 1
@@ -109,6 +119,7 @@ Material:
     - _Text_Power: 1
     - _Use_Cutoff: 1
     - _Use_Fade_Tex_Instead: 1
+    - _Use_Lerp: 0
     - _Use_Radial: 0
     - _Use_Soft_Sides: 0
     - _Vertex_Displacement_Strength: 0
@@ -117,11 +128,14 @@ Material:
     - _ZWriteControl: 0
     m_Colors:
     - _Color: {r: 2, g: 2, b: 2, a: 1}
+    - _Colour_A: {r: 1, g: 1, b: 1, a: 0}
+    - _Colour_B: {r: 1, g: 0, b: 0, a: 0}
     - _Dissolve_Speed: {r: 0, g: 0, b: 0, a: 0}
     - _Distortion_Speed: {r: 0.05, g: 0, b: 0, a: 0}
     - _Fade_Tex_Speed: {r: 0.05, g: 0, b: 0, a: 0}
     - _Fresnel_Color: {r: 1, g: 1, b: 1, a: 0}
     - _Fresnel_Speed: {r: 0, g: 0, b: 0, a: 0}
+    - _LERP_Texture_Scroll: {r: 0, g: 0, b: 0, a: 0}
     - _Main_Tex_Colour: {r: 8, g: 8, b: 8, a: 1}
     - _Main_Text_Scroll_Speed: {r: 0, g: 0, b: 0, a: 0}
     - _Mask_Scroll_Speed: {r: 0, g: 0, b: 0, a: 0}
