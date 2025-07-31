@@ -38,7 +38,7 @@ MonoBehaviour:
       displayValue: 8
       effectSteps:
       - rid: 5602893111447519701
-      - rid: 4053950218419044437
+      - rid: 173314522967966601
       - rid: 5602893111447519700
       - rid: 3443535291885027985
       - rid: 5602893111447519702
@@ -63,9 +63,16 @@ MonoBehaviour:
     - title: Empowered Strike
       description: Attacks and becomes more powerful
       relatedBehaviorIndex: 1
+  DEADLIER_ENEMY_BONUS_STR: -1
+  HEALTHIER_ENEMY_BONUS_HEALTH: -1
   references:
     version: 2
     RefIds:
+    - rid: 173314522967966601
+      type: {class: ScriptableObjectEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ScriptableObjectEffectStep
+        effectStepSO: {fileID: 11400000, guid: 46ac36b880e2ff14aa699c90b6e9f19c, type: 2}
     - rid: 3443535291885027985
       type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
       data:
@@ -78,21 +85,6 @@ MonoBehaviour:
         inputKey: self
         prefabToInstantiate: {fileID: 3850217184923880746, guid: 4bed509d0589dae4d922d8eeb61a6292, type: 3}
         scale: 1
-    - rid: 4053950218419044437
-      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: FXEffectStep
-        waitForEffect: 1
-        fXExperiencePrefab: {fileID: 7374988516867921400, guid: 080ebf6cafefa59438cf877ee502d109, type: 3}
-        rootLocationGameObjectKey: 
-        positionMappingList:
-        - fromWorkflow: self
-          toFxExperience: enemyLocation
-        - fromWorkflow: target
-          toFxExperience: companionLocation
-        gameobjectMappingList:
-        - fromWorkflow: self
-          toFxExperience: enemy
     - rid: 4463205916933358052
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
