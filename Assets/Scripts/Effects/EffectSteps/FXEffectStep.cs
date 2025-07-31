@@ -4,7 +4,6 @@ using System;
 using UnityEngine;
 using Unity.VisualScripting;
 using UnityEngine.UIElements;
-using UnityEditor.Overlays;
 
 public class FXEffectStep: EffectStep {
 
