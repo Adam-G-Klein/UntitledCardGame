@@ -191,6 +191,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     }
 
     private void LoseGameHandler() {
+        SaveManager.Instance.DeleteSaveData();
         postGamePopup.SetActive(true);
         MusicController.Instance.SetCombatState("Defeat");
         postGamePopup.GetComponent<DefeatView>().Setup(((EnemyEncounter)gameState.activeEncounter.GetValue()).enemyList);
