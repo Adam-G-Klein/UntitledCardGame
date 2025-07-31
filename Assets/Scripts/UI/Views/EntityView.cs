@@ -48,6 +48,7 @@ public class EntityView : IUIEventReceiver {
         if (combatInstance) {
             combatInstance.onDamageHandler += DamageScaleBump;
             combatInstance.onDeathHandler +=  OnDeathHandler;
+            combatInstance.SetVisualElement(entityContainer);
         }
     }
 
@@ -155,13 +156,15 @@ public class EntityView : IUIEventReceiver {
         VisualElement portrait = new();
         portrait.AddToClassList("entity-portrait");
 
-        Sprite sprite;
+        Sprite sprite = null;
         if (entity is Companion companion) {
             sprite = isCompanionManagementView ? companion.companionType.fullSprite : companion.companionType.sprite;
         } else if (entity is CompanionInstance companionInstance) {
             sprite = isCompanionManagementView ? companionInstance.companion.companionType.fullSprite : companionInstance.companion.companionType.sprite;
-        } else {
-            sprite = null;
+        } else if (entity is Enemy enemy) {
+            sprite = enemy.enemyType.sprite;
+        } else if (entity is EnemyInstance enemyInstance) {
+            sprite = enemyInstance.enemy.enemyType.sprite;
         }
         portrait.style.backgroundImage = new StyleBackground(sprite);
 

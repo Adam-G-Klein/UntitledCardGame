@@ -31,7 +31,7 @@ MonoBehaviour:
       displayValue: 7
       effectSteps:
       - rid: 8790164555430887934
-      - rid: 8790164555430887936
+      - rid: 173314522967966409
       - rid: 8790164555430887939
       - rid: 3443535291885027980
       - rid: 8790164555430887935
@@ -55,9 +55,16 @@ MonoBehaviour:
       description: Strong attack targetting the first companion. Pooh buffs himself
         after because he's a weapon  >:)
       relatedBehaviorIndex: 0
+  DEADLIER_ENEMY_BONUS_STR: -1
+  HEALTHIER_ENEMY_BONUS_HEALTH: -1
   references:
     version: 2
     RefIds:
+    - rid: 173314522967966409
+      type: {class: ScriptableObjectEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ScriptableObjectEffectStep
+        effectStepSO: {fileID: 11400000, guid: 46ac36b880e2ff14aa699c90b6e9f19c, type: 2}
     - rid: 3443535291885027980
       type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
       data:
@@ -102,6 +109,8 @@ MonoBehaviour:
         - fromWorkflow: self
           toFxExperience: start
         gameobjectMappingList: []
+        vePositionMappingList: []
+        veMappingList: []
     - rid: 8790164555430887928
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -162,21 +171,6 @@ MonoBehaviour:
         inputKey: self
         prefabToInstantiate: {fileID: 3850217184923880746, guid: 4bed509d0589dae4d922d8eeb61a6292, type: 3}
         scale: 1
-    - rid: 8790164555430887936
-      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: FXEffectStep
-        waitForEffect: 1
-        fXExperiencePrefab: {fileID: 7374988516867921400, guid: 080ebf6cafefa59438cf877ee502d109, type: 3}
-        rootLocationGameObjectKey: 
-        positionMappingList:
-        - fromWorkflow: self
-          toFxExperience: enemyLocation
-        - fromWorkflow: target
-          toFxExperience: companionLocation
-        gameobjectMappingList:
-        - fromWorkflow: self
-          toFxExperience: enemy
     - rid: 8790164555430887939
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:

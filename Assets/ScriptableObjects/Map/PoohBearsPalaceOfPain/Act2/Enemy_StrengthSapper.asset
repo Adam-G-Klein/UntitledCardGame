@@ -48,7 +48,7 @@ MonoBehaviour:
       displayValue: 10
       effectSteps:
       - rid: 2295167909047304391
-      - rid: 2295167909047304393
+      - rid: 173314522967966408
       - rid: 2295167909047304392
     behaviorType: 0
   initialStatuses: []
@@ -59,9 +59,16 @@ MonoBehaviour:
       description: Remove 1 strength from each companion with strength and give 1
         strength to all other enemies
       relatedBehaviorIndex: 0
+  DEADLIER_ENEMY_BONUS_STR: -1
+  HEALTHIER_ENEMY_BONUS_HEALTH: -1
   references:
     version: 2
     RefIds:
+    - rid: 173314522967966408
+      type: {class: ScriptableObjectEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ScriptableObjectEffectStep
+        effectStepSO: {fileID: 11400000, guid: 46ac36b880e2ff14aa699c90b6e9f19c, type: 2}
     - rid: 2295167909047304385
       type: {class: FilterEntityByStatus, ns: , asm: Assembly-CSharp}
       data:
@@ -144,21 +151,6 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 0}
-    - rid: 2295167909047304393
-      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: FXEffectStep
-        waitForEffect: 1
-        fXExperiencePrefab: {fileID: 7374988516867921400, guid: 080ebf6cafefa59438cf877ee502d109, type: 3}
-        rootLocationGameObjectKey: 
-        positionMappingList:
-        - fromWorkflow: self
-          toFxExperience: enemyLocation
-        - fromWorkflow: target
-          toFxExperience: companionLocation
-        gameobjectMappingList:
-        - fromWorkflow: self
-          toFxExperience: enemy
     - rid: 3931529445166809421
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

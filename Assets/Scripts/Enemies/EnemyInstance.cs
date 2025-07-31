@@ -58,7 +58,7 @@ public class EnemyInstance : MonoBehaviour, IUIEntity {
         foreach (InitialStatus status in enemy.enemyType.initialStatuses) {
             combatInstance.SetStatusEffect(status.status, status.scale);
         }
-        GetComponentInChildren<CombatInstanceDisplayWorldspace>().Setup(combatInstance, placement);
+        // GetComponentInChildren<CombatInstanceDisplayWorldspace>().Setup(combatInstance, placement);
         RegisterTurnPhaseTriggers();
     }
 
@@ -204,9 +204,11 @@ public class EnemyInstance : MonoBehaviour, IUIEntity {
         List<CombatInstance> combatInstanceTargets = currentIntent.targets.Select(x => x.combatInstance).ToList();
         List<DeckInstance> deckInstanceTargets = currentIntent.targets.Select(x => x.deckInstance).ToList();
         List<GameObject> gameObjectTargets = currentIntent.targets.Select(x => x.gameObject).ToList();
+        List<VisualElement> visualElementTargets = currentIntent.targets.Select(x => x.combatInstance.GetVisualElement()).ToList();
         document.map.AddItems<CombatInstance>(currentIntent.targetsKey, combatInstanceTargets);
         document.map.AddItems<DeckInstance>(currentIntent.targetsKey, deckInstanceTargets);
         document.map.AddItems<GameObject>(currentIntent.targetsKey, gameObjectTargets);
+        document.map.AddItems<VisualElement>(currentIntent.targetsKey, visualElementTargets);
         EffectManager.Instance.invokeEffectWorkflow(document, currentIntent.effectSteps, null);
         yield return null;
     }

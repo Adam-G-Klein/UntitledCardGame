@@ -46,7 +46,7 @@ MonoBehaviour:
       displayValue: 6
       effectSteps:
       - rid: 3931529445166809421
-      - rid: 4053950218419044435
+      - rid: 173314522967966399
       - rid: 3931529445166809422
     behaviorType: 2
   belowHalfHPEnemyPattern:
@@ -68,9 +68,16 @@ MonoBehaviour:
     - title: '>:('
       description: Big attack
       relatedBehaviorIndex: 2
+  DEADLIER_ENEMY_BONUS_STR: -1
+  HEALTHIER_ENEMY_BONUS_HEALTH: -1
   references:
     version: 2
     RefIds:
+    - rid: 173314522967966399
+      type: {class: ScriptableObjectEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ScriptableObjectEffectStep
+        effectStepSO: {fileID: 11400000, guid: 46ac36b880e2ff14aa699c90b6e9f19c, type: 2}
     - rid: 2268260642759377006
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
@@ -115,18 +122,3 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 0}
-    - rid: 4053950218419044435
-      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: FXEffectStep
-        waitForEffect: 1
-        fXExperiencePrefab: {fileID: 7374988516867921400, guid: 080ebf6cafefa59438cf877ee502d109, type: 3}
-        rootLocationGameObjectKey: 
-        positionMappingList:
-        - fromWorkflow: self
-          toFxExperience: enemyLocation
-        - fromWorkflow: target
-          toFxExperience: companionLocation
-        gameobjectMappingList:
-        - fromWorkflow: self
-          toFxExperience: enemy

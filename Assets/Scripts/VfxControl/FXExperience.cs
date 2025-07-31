@@ -4,12 +4,14 @@ using System;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
+using UnityEngine.UIElements;
 
 [RequireComponent(typeof(PlayableDirector))]
 public class FXExperience : MonoBehaviour
 {
     public PlayableDirector playableDirector;
     public List<Location> locations = new List<Location>();
+    public List<VEMapping> veMappings = new List<VEMapping>();
     private bool earlyStopped = false;
 
     public delegate void VoidDelegate();
@@ -30,6 +32,10 @@ public class FXExperience : MonoBehaviour
 
     public void AddLocationToKey(string key, Vector3 location) {
         locations.Add(new Location(key, location));
+    }
+
+    public void AddVisualElementToKey(string key, VisualElement visualElement) {
+        veMappings.Add(new VEMapping(key, visualElement));
     }
 
     public void BindGameObjectsToTracks(Dictionary<String, GameObject> bindingsMap) {
@@ -63,9 +69,27 @@ public class FXExperience : MonoBehaviour
         return Vector3.zero;
     }
 
+    public VisualElement GetVisualElementFromKey(string key) {
+        foreach (VEMapping mapping in veMappings) {
+            if (mapping.key == key) {
+                return mapping.ve;
+            }
+        }
+        return null;
+    }
+
     public bool ContainsLocationForKey(string key) {
         foreach (Location location in locations) {
             if (location.key == key) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public bool ContainsVisualElementForKey(string key) {
+        foreach (VEMapping mapping in veMappings) {
+            if (mapping.key == key) {
                 return true;
             }
         }
@@ -121,6 +145,17 @@ public class FXExperience : MonoBehaviour
         public Location(string key, Vector3 location) {
             this.key = key;
             this.location = location;
+        }
+    }
+
+    [Serializable]
+    public class VEMapping {
+        public string key;
+        public VisualElement ve;
+
+        public VEMapping(string key, VisualElement ve) {
+            this.key = key;
+            this.ve = ve;
         }
     }
 }

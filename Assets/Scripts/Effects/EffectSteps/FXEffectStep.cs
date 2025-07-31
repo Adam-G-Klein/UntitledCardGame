@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using Unity.VisualScripting;
+using UnityEngine.UIElements;
+using UnityEditor.Overlays;
 
 public class FXEffectStep: EffectStep {
 
@@ -17,6 +19,10 @@ public class FXEffectStep: EffectStep {
     private List<Mapping> positionMappingList = new List<Mapping>();
     [SerializeField]
     private List<Mapping> gameobjectMappingList = new List<Mapping>();
+    [SerializeField]
+    private List<Mapping> vePositionMappingList = new List<Mapping>();
+    [SerializeField]
+    private List<Mapping> veMappingList = new List<Mapping>();
 
     private bool isEffectCompleted;
 
@@ -59,6 +65,26 @@ public class FXEffectStep: EffectStep {
             keyToGameObjectDict.Add(goMapping.toFxExperience, gameObjects[0]);
         }
         experience.BindGameObjectsToTracks(keyToGameObjectDict);
+
+        foreach (Mapping veMapping in veMappingList) {
+            List<VisualElement> visualElements = document.map.GetList<VisualElement>(veMapping.fromWorkflow);
+            if (visualElements.Count != 1) {
+                EffectError(String.Format("Can't bind map VE to FXExperience because there were {0} options", visualElements.Count));
+                yield break;
+            }
+            experience.AddVisualElementToKey(veMapping.toFxExperience, visualElements[0]);
+        }
+
+        foreach (Mapping vePosMapping in vePositionMappingList) {
+            List<VisualElement> visualElements = document.map.GetList<VisualElement>(vePosMapping.fromWorkflow);
+            if (visualElements.Count != 1) {
+                EffectError(String.Format("Can't bind map VE to FXExperience because there were {0} options", visualElements.Count));
+                yield break;
+            }
+            Rect veRect = visualElements[0].worldBound;
+            Vector2 centerPos = new Vector2(veRect.xMin + (veRect.width / 2f), veRect.yMin + (veRect.height / 2f));
+            experience.AddLocationToKey(vePosMapping.toFxExperience, centerPos);
+        }
 
         if (waitForEffect) {
             isEffectCompleted = false;

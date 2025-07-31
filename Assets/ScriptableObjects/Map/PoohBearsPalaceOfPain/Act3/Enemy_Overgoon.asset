@@ -40,7 +40,7 @@ MonoBehaviour:
       effectSteps:
       - rid: 205828126246961605
       - rid: 205828126246961606
-      - rid: 205828126246961607
+      - rid: 173314522967966410
     behaviorType: 0
   belowHalfHPEnemyPattern:
     behaviors: []
@@ -56,9 +56,16 @@ MonoBehaviour:
       description: At the end of each turn, if you played more than 5 cards, Overgoon
         gives all enemies 3 strength for the rest of combat
       relatedBehaviorIndex: 0
+  DEADLIER_ENEMY_BONUS_STR: -1
+  HEALTHIER_ENEMY_BONUS_HEALTH: -1
   references:
     version: 2
     RefIds:
+    - rid: 173314522967966410
+      type: {class: ScriptableObjectEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ScriptableObjectEffectStep
+        effectStepSO: {fileID: 11400000, guid: 46ac36b880e2ff14aa699c90b6e9f19c, type: 2}
     - rid: 205828126246961421
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
@@ -130,21 +137,6 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 0}
-    - rid: 205828126246961607
-      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: FXEffectStep
-        waitForEffect: 1
-        fXExperiencePrefab: {fileID: 7374988516867921400, guid: 080ebf6cafefa59438cf877ee502d109, type: 3}
-        rootLocationGameObjectKey: 
-        positionMappingList:
-        - fromWorkflow: self
-          toFxExperience: enemyLocation
-        - fromWorkflow: target
-          toFxExperience: companionLocation
-        gameobjectMappingList:
-        - fromWorkflow: self
-          toFxExperience: enemy
     - rid: 1289961934975926472
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:

@@ -42,7 +42,7 @@ MonoBehaviour:
       effectSteps:
       - rid: 2268260642759376994
       - rid: 2268260642759376992
-      - rid: 2268260642759376993
+      - rid: 173314522967966416
     behaviorType: 0
   adaptWhenAloneEnemyPattern:
     behaviors: []
@@ -54,9 +54,16 @@ MonoBehaviour:
     - title: Powering up
       description: Grows stronger until you piss him off (get him below half HP)
       relatedBehaviorIndex: -1
+  DEADLIER_ENEMY_BONUS_STR: -1
+  HEALTHIER_ENEMY_BONUS_HEALTH: -1
   references:
     version: 2
     RefIds:
+    - rid: 173314522967966416
+      type: {class: ScriptableObjectEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ScriptableObjectEffectStep
+        effectStepSO: {fileID: 11400000, guid: 46ac36b880e2ff14aa699c90b6e9f19c, type: 2}
     - rid: 2268260642759376989
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -101,21 +108,6 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 0}
-    - rid: 2268260642759376993
-      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: FXEffectStep
-        waitForEffect: 1
-        fXExperiencePrefab: {fileID: 7374988516867921400, guid: 080ebf6cafefa59438cf877ee502d109, type: 3}
-        rootLocationGameObjectKey: 
-        positionMappingList:
-        - fromWorkflow: self
-          toFxExperience: enemyLocation
-        - fromWorkflow: target
-          toFxExperience: companionLocation
-        gameobjectMappingList:
-        - fromWorkflow: self
-          toFxExperience: enemy
     - rid: 2268260642759376994
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

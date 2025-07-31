@@ -30,7 +30,7 @@ MonoBehaviour:
       displayValue: 5
       effectSteps:
       - rid: 3931529445166809420
-      - rid: 4053950154463772708
+      - rid: 173314522967966450
       - rid: 3931529445166809313
     behaviorType: 0
   belowHalfHPEnemyPattern:
@@ -46,9 +46,16 @@ MonoBehaviour:
     - title: Strike
       description: Simple Attack
       relatedBehaviorIndex: 0
+  DEADLIER_ENEMY_BONUS_STR: -1
+  HEALTHIER_ENEMY_BONUS_HEALTH: -1
   references:
     version: 2
     RefIds:
+    - rid: 173314522967966450
+      type: {class: ScriptableObjectEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ScriptableObjectEffectStep
+        effectStepSO: {fileID: 11400000, guid: 46ac36b880e2ff14aa699c90b6e9f19c, type: 2}
     - rid: 3931529445166809313
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
@@ -73,18 +80,3 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
-    - rid: 4053950154463772708
-      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: FXEffectStep
-        waitForEffect: 1
-        fXExperiencePrefab: {fileID: 7374988516867921400, guid: 080ebf6cafefa59438cf877ee502d109, type: 3}
-        rootLocationGameObjectKey: self
-        positionMappingList:
-        - fromWorkflow: target
-          toFxExperience: companionLocation
-        - fromWorkflow: self
-          toFxExperience: enemyLocation
-        gameobjectMappingList:
-        - fromWorkflow: self
-          toFxExperience: enemy

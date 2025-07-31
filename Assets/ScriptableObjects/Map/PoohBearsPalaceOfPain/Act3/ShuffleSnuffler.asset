@@ -40,7 +40,7 @@ MonoBehaviour:
       displayValue: 10
       effectSteps:
       - rid: 4463205916933358106
-      - rid: 4053950218419044431
+      - rid: 173314522967966420
       - rid: 4463205916933358108
     behaviorType: 2
   belowHalfHPEnemyPattern:
@@ -61,24 +61,16 @@ MonoBehaviour:
       description: "Give each companion a nice free card that draws 2 cards for 0
         mana \u0F3C \u3064 \u25D5_\u25D5 \u0F3D\u3064"
       relatedBehaviorIndex: 0
+  DEADLIER_ENEMY_BONUS_STR: -1
+  HEALTHIER_ENEMY_BONUS_HEALTH: -1
   references:
     version: 2
     RefIds:
-    - rid: 4053950218419044431
-      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
+    - rid: 173314522967966420
+      type: {class: ScriptableObjectEffectStep, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: FXEffectStep
-        waitForEffect: 1
-        fXExperiencePrefab: {fileID: 7374988516867921400, guid: 080ebf6cafefa59438cf877ee502d109, type: 3}
-        rootLocationGameObjectKey: 
-        positionMappingList:
-        - fromWorkflow: self
-          toFxExperience: enemyLocation
-        - fromWorkflow: target
-          toFxExperience: companionLocation
-        gameobjectMappingList:
-        - fromWorkflow: self
-          toFxExperience: enemy
+        effectStepName: ScriptableObjectEffectStep
+        effectStepSO: {fileID: 11400000, guid: 46ac36b880e2ff14aa699c90b6e9f19c, type: 2}
     - rid: 4463205916933358106
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

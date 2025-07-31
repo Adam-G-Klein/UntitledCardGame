@@ -31,7 +31,7 @@ MonoBehaviour:
       displayValue: 4
       effectSteps:
       - rid: 8790164555430887934
-      - rid: 8790164555430887936
+      - rid: 173314522967966402
       - rid: 8790164555430887939
       - rid: 8790164580739055825
       - rid: 8790164555430887940
@@ -49,9 +49,16 @@ MonoBehaviour:
     - title: Avenge
       description: When an enemy dies, gain 10 temporary strength
       relatedBehaviorIndex: 0
+  DEADLIER_ENEMY_BONUS_STR: -1
+  HEALTHIER_ENEMY_BONUS_HEALTH: -1
   references:
     version: 2
     RefIds:
+    - rid: 173314522967966402
+      type: {class: ScriptableObjectEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ScriptableObjectEffectStep
+        effectStepSO: {fileID: 11400000, guid: 46ac36b880e2ff14aa699c90b6e9f19c, type: 2}
     - rid: 8790164555430887889
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
@@ -82,21 +89,6 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
-    - rid: 8790164555430887936
-      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: FXEffectStep
-        waitForEffect: 1
-        fXExperiencePrefab: {fileID: 7374988516867921400, guid: 080ebf6cafefa59438cf877ee502d109, type: 3}
-        rootLocationGameObjectKey: 
-        positionMappingList:
-        - fromWorkflow: self
-          toFxExperience: enemyLocation
-        - fromWorkflow: target
-          toFxExperience: companionLocation
-        gameobjectMappingList:
-        - fromWorkflow: self
-          toFxExperience: enemy
     - rid: 8790164555430887939
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:

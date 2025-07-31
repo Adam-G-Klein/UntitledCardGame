@@ -90,6 +90,10 @@ public class CombatInstance : MonoBehaviour
     TurnPhaseTrigger startOfCombatCacheInit;
 
     private WorldPositionVisualElement wpve;
+    // Link the GameObject to the visual element. This is necessary now that
+    // basically the entire combat screen is UI Doc and we're gonna be hiding
+    // the sprites on the game objects that sit on the scene.
+    private VisualElement rootVisualElement;
 
     public void ApplyStatusEffects(StatusEffectType statusEffect, int scale) {
         Debug.Log(String.Format("Applying status with scale {0}", scale));
@@ -169,6 +173,9 @@ public class CombatInstance : MonoBehaviour
     public void ApplyNonStatusCombatEffect(CombatEffect effect, int scale, CombatInstance effector, GameObject vfxPrefab, bool shouldShake = false) {
         // All the non-status-effect combat effects are handled here
         // status effects are handled in applyCombatEffects
+        if (vfxPrefab != null) {
+            PlayVFX(vfxPrefab);
+        }
         switch (effect)
         {
             case CombatEffect.Damage:
@@ -183,7 +190,6 @@ public class CombatInstance : MonoBehaviour
                 {
                     MusicController.Instance.PlaySFX("event:/SFX/SFX_EnemyAttack");
                 }
-                PlayVFX(vfxPrefab);
                 if (shouldShake) AddShake(damageTaken);
                 break;
             case CombatEffect.Heal:
@@ -450,6 +456,15 @@ public class CombatInstance : MonoBehaviour
 
     public Dictionary<StatusEffectType, int> GetStatusEffects() {
         return statusEffects;
+    }
+
+    public void SetVisualElement(VisualElement element) {
+        Debug.Log(String.Format("Setting rootVisualElement {0} on CombatInstance {1} (type {2})", element, this.id, this.parentType));
+        this.rootVisualElement = element;
+    }
+
+    public VisualElement GetVisualElement() {
+        return this.rootVisualElement;
     }
 
     public Dictionary<StatusEffectType, int> GetDisplayedStatusEffects() {

@@ -33,7 +33,7 @@ public class CompanionInstance : MonoBehaviour, IUIEntity
         // ---- set up the deck for this entity ----
         deckInstance.sourceDeck = companion.deck;
         // ---- set up the sprite for this entity in the world ----
-        GetComponentInChildren<CombatInstanceDisplayWorldspace>().Setup(combatInstance, wpve);
+        // GetComponentInChildren<CombatInstanceDisplayWorldspace>().Setup(combatInstance, wpve);
         // ---- set up status effects turn triggers, so they update when turn phases change ----
         RegisterUpdateStatusEffects();
 

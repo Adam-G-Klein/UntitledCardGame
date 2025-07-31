@@ -54,7 +54,8 @@ public enum EffectStepName {
     TransmogrifyCard,
     DialogueStep,
     FXEffectStep,
-    WaitForSecondsEffect
+    WaitForSecondsEffect,
+    ScriptableObjectEffectStep
 }
 
 [System.Serializable]
