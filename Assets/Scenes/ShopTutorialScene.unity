@@ -211,40 +211,19 @@ MonoBehaviour:
       type: {class: WaitForNextButtonClickAction, ns: , asm: Assembly-CSharp}
       data:
         tutorialActionType: Wait For Next Button Click Action
-    - rid: 4305150327966138369
-      type: {class: WaitForNextButtonClickAction, ns: , asm: Assembly-CSharp}
-      data:
-        tutorialActionType: Wait For Next Button Click Action
     - rid: 4305150327966138370
       type: {class: UpdateTutorialUIDocAction, ns: , asm: Assembly-CSharp}
       data:
         tutorialActionType: Update Tutorial UI Doc Action
-        firstLineOfText: In the shop you can buy new companions for your team. New
-          companions will have their own starting decks and full health bar.
-        secondLineOfText: If you buy three of the same level 1 companions they will
-          combine into a level 2 version of that companion! Two level 2s combine
-          into a level 3!
-        thirdLineOfText: Upgrading a companion gives them bonus HP and an upgraded
-          ability!
+        firstLineOfText: 'You can also buy cards for your companions. '
+        secondLineOfText: Some cards can only be given to specific companions or
+          packs of companions.
+        thirdLineOfText: 
         tutorialIndex: 2
-        tutorialStepsCount: 4
+        tutorialStepsCount: 3
         buttonText: Next
         uiDocument: {fileID: 1484470107}
         tutorialImage: {fileID: 21300000, guid: 43ad84f13aa31466eab878d3654e272f, type: 3}
-    - rid: 4305150327966138371
-      type: {class: UpdateTutorialUIDocAction, ns: , asm: Assembly-CSharp}
-      data:
-        tutorialActionType: Update Tutorial UI Doc Action
-        firstLineOfText: You can also buy cards for your companions.
-        secondLineOfText: When buying cards at the shop, take note of the companion
-          icon on the card.
-        thirdLineOfText: If it says any the card can be given to any companion! Otherwise
-          the card can only be given to its associated companion.
-        tutorialIndex: 3
-        tutorialStepsCount: 4
-        buttonText: Next
-        uiDocument: {fileID: 1484470107}
-        tutorialImage: {fileID: 21300000, guid: f163a9ae362044c5db62708ae54bf191, type: 3}
     - rid: 4305150327966138391
       type: {class: WaitForNextButtonClickAction, ns: , asm: Assembly-CSharp}
       data:
@@ -254,12 +233,12 @@ MonoBehaviour:
       data:
         tutorialActionType: Update Tutorial UI Doc Action
         firstLineOfText: This is the shop! You come here after each combat.
-        secondLineOfText: Here you can buy upgrades to your team including cards,
-          companions, and shop upgrades.
-        thirdLineOfText: You can (and should) also arrange you companions for the
-          next fight!
+        secondLineOfText: In the shop you can buy new companions for your team. New
+          companions will have their own starting decks and full health bar.
+        thirdLineOfText: If you buy three of the same companion they will combine
+          to form an upgraded companion!
         tutorialIndex: 1
-        tutorialStepsCount: 4
+        tutorialStepsCount: 3
         buttonText: Next
         uiDocument: {fileID: 1484470107}
         tutorialImage: {fileID: 21300000, guid: f6f85b2ac871c4aceab3cf146026ea91, type: 3}
@@ -267,14 +246,12 @@ MonoBehaviour:
       type: {class: UpdateTutorialUIDocAction, ns: , asm: Assembly-CSharp}
       data:
         tutorialActionType: Update Tutorial UI Doc Action
-        firstLineOfText: Additionally, you can upgrade the shop. Each level provides
-          different upgrades.
-        secondLineOfText: They can increase the rarity of shop offerings, give you
-          more active team slots, or even more mana per turn.
-        thirdLineOfText: Finally, if you don't see anything you like, you can reroll
-          for new options.
-        tutorialIndex: 4
-        tutorialStepsCount: 4
+        firstLineOfText: Finally, you can upgrade the shop!
+        secondLineOfText: This can increase the rarity of shop offerings, give you
+          more active team slots, or more mana per turn.
+        thirdLineOfText: 
+        tutorialIndex: 3
+        tutorialStepsCount: 3
         buttonText: Shop!
         uiDocument: {fileID: 1484470107}
         tutorialImage: {fileID: 21300000, guid: bff3fec7c522d46ff9e417e45b5f833c, type: 3}
@@ -291,8 +268,6 @@ MonoBehaviour:
         - rid: 4305150395655913528
         - rid: 4305150327966138368
         - rid: 4305150327966138370
-        - rid: 4305150327966138369
-        - rid: 4305150327966138371
         - rid: 4305150327966138391
         - rid: 4305150395655913889
         - rid: 4305150395655913890
