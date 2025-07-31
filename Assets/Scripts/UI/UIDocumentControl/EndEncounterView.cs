@@ -42,7 +42,7 @@ public class EndEncounterView : MonoBehaviour
     public void Setup(int baseGoldEarnedPerBattle, int interestEarned, int interestCap, float interestPercentage)
     {
         doc.rootVisualElement.Q<Label>("base-gold").text = "Base Gold Earned: " + baseGoldEarnedPerBattle.ToString();
-        doc.rootVisualElement.Q<Label>("interest").text = "Interest: " + interestEarned.ToString();
+        doc.rootVisualElement.Q<Label>("interest").text = "Interest Earned: " + interestEarned.ToString();
         doc.rootVisualElement.Q<Label>("interest-help").text = "(You earn " +
             interestPercentage.ToString("P0") + 
             " of your current Gold as Interest, capped at " +

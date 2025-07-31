@@ -191,3 +191,10 @@
 #next-scene:focus {
     -unity-background-image-tint-color: rgb(180, 188, 113);
 }
+
+.post-combat-text {
+    -unity-text-align: upper-center;
+    -unity-font-style: bold;
+    font-size: 48px;
+    color: rgb(255, 255, 255);
+}
