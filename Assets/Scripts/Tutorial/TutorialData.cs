@@ -14,4 +14,5 @@ public class TutorialData : MonoBehaviour
 
     public string nextTutorialName;
     public bool isNextTutorialSameScene;
+    public TutorialType tutorialType;
 }

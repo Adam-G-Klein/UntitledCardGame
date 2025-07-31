@@ -201,8 +201,9 @@ MonoBehaviour:
   ID: Second
   Steps:
   - rid: 8205569917033382831
-  nextTutorialName: Second
+  nextTutorialName: Third
   isNextTutorialSameScene: 0
+  tutorialType: 0
   references:
     version: 2
     RefIds:
@@ -365,7 +366,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5029004334312043304, guid: 6328b1b96ba993a4f8cc479cf3423807, type: 3}
       propertyPath: shouldStartTutorialImmediate
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8497676806491920195, guid: 6328b1b96ba993a4f8cc479cf3423807, type: 3}
       propertyPath: m_Name

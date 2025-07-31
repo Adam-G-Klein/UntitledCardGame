@@ -15,7 +15,6 @@ public class SaveState {
     private int currentEncounterIndex;
     private PlayerDataSerializable playerData;
     private int ascensionLevel;
-     private bool hasSeenTutorial;
 
      public SaveState(string saveName, GameStateVariableSO gameState)
      {
@@ -38,7 +37,6 @@ public class SaveState {
 
           this.playerData = new PlayerDataSerializable(gameState.playerData.GetValue());
           this.ascensionLevel = gameState.ascensionLevel;
-          this.hasSeenTutorial = gameState.hasSeenTutorial;
      }
 
      public void LoadToGameState(GameStateVariableSO gameState, SORegistry registry)
@@ -57,6 +55,5 @@ public class SaveState {
 
           gameState.playerData.SetValue(new PlayerData(this.playerData));
           gameState.ascensionLevel = this.ascensionLevel;
-          gameState.hasSeenTutorial = this.hasSeenTutorial;
     }
 }

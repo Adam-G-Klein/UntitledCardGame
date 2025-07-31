@@ -25,7 +25,8 @@ public enum Location
     INTRO_CUTSCENE,
     TUTORIAL,
     SHOP_TUTORIAL,
-    PACK_SELECT
+    PACK_SELECT,
+    PACK_SELECT_TUTORIAL,
 }
 
 [CreateAssetMenu(
@@ -53,7 +54,40 @@ public class GameStateVariableSO : ScriptableObject
     public CompanionInstance hoveredCompanion = null;
     public int currentEncounterIndex = 0;
     [SerializeField]
-    public bool hasSeenTutorial = false;
+    public bool skipTutorials = false;
+    [SerializeField]
+    private bool hasSeenPackSelectTutorial = false;
+    public bool HasSeenPackSelectTutorial {
+        get => hasSeenPackSelectTutorial;
+        set {
+            hasSeenPackSelectTutorial = value;
+            if (value) {
+                SaveManager.Instance.SaveHandler();
+            }
+        }
+    }
+    [SerializeField]
+    private bool hasSeenShopTutorial = false;
+    public bool HasSeenShopTutorial {
+        get => hasSeenShopTutorial;
+        set {
+            hasSeenShopTutorial = value;
+            if (value) {
+                SaveManager.Instance.SaveHandler();
+            }
+        }
+    }
+    [SerializeField]
+    private bool hasSeenCombatTutorial = false;
+    public bool HasSeenCombatTutorial {
+        get => hasSeenCombatTutorial;
+        set {
+            hasSeenCombatTutorial = value;
+            if (value) {
+                SaveManager.Instance.SaveHandler();
+            }
+        }
+    }
     public bool autoUpgrade = false;
     public List<PackSO> previouslySelectedPackSOs;
     public int ascensionLevel = -1;
@@ -61,6 +95,7 @@ public class GameStateVariableSO : ScriptableObject
         {Location.MAIN_MENU, "MainMenu"},
         {Location.TEAM_SIGNING, "TeamSigning"},
         {Location.TUTORIAL, "TutorialScene"},
+        {Location.PACK_SELECT_TUTORIAL, "PackSelectionTutorialScene"},
         {Location.SHOP_TUTORIAL, "ShopTutorialScene"},
         {Location.PACK_SELECT, "PackSelectionScene"},
         {Location.TEAM_SELECT, "TeamSelect"},
@@ -80,7 +115,8 @@ public class GameStateVariableSO : ScriptableObject
         {Location.COMBAT, Location.POST_COMBAT},
         {Location.POST_COMBAT, Location.SHOP},
         {Location.SHOP, Location.COMBAT},
-        {Location.PACK_SELECT, Location.TEAM_SIGNING}
+        {Location.PACK_SELECT, Location.TEAM_SIGNING},
+        {Location.PACK_SELECT_TUTORIAL, Location.PACK_SELECT}
     };
 
 
@@ -109,11 +145,31 @@ public class GameStateVariableSO : ScriptableObject
                 nextMapIndex = 0;
                 nextEncounter.SetValue(map.GetValue().encounters[nextMapIndex]);
                 AdvanceEncounter();
-                if (hasSeenTutorial) {
+                // The following is only necessary while we don't want the pack selection tutorial early in the experience as it currently looks bad
+                if (skipTutorials) {
                     currentLocation = Location.PACK_SELECT;
-                } else {
-                    currentLocation = locationToNextLocation[currentLocation];
                 }
+                if (!hasSeenCombatTutorial) {
+                    currentLocation = locationToNextLocation[currentLocation];
+                    break;
+                }
+                if (hasSeenCombatTutorial && hasSeenShopTutorial)
+                {
+                    if (hasSeenPackSelectTutorial)
+                    {
+                        currentLocation = Location.PACK_SELECT;
+                    }
+                    else
+                    {
+                        currentLocation = Location.PACK_SELECT_TUTORIAL;
+                    }
+                }
+                else {
+                    currentLocation = Location.TEAM_SIGNING;
+                }
+                break;
+            case Location.PACK_SELECT_TUTORIAL:
+                currentLocation = locationToNextLocation[currentLocation];
                 break;
             case Location.INTRO_CUTSCENE:
                 currentLocation = locationToNextLocation[currentLocation];
@@ -134,15 +190,14 @@ public class GameStateVariableSO : ScriptableObject
                 break;
             case Location.POST_COMBAT:
                 Debug.Log("Leaving post combat, current location is: " + currentLocation);
-                if (!hasSeenTutorial) {
-                    currentLocation = Location.SHOP_TUTORIAL;
-                } else {
+                if (skipTutorials || hasSeenShopTutorial) {
                     currentLocation = locationToNextLocation[currentLocation];
                     AdvanceEncounter();
+                } else {
+                    currentLocation = Location.SHOP_TUTORIAL;
                 }
                 break;
             case Location.SHOP_TUTORIAL:
-                hasSeenTutorial = true;
                 SaveManager.Instance.SaveHandler();
                 currentLocation = locationToNextLocation[currentLocation];
                 AdvanceEncounter();

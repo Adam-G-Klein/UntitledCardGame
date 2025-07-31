@@ -9,6 +9,13 @@ we're having this manager span scenes with DoNotDestroyOnLoad...
 holy shit this list of steps and actions is gonna get massive. And super unwieldly.
 Saving that UX problem for V2*/
 
+public enum TutorialType
+{
+    Shop,
+    Combat,
+    PackSelection
+}
+
 public class TutorialManager : MonoBehaviour
 {
     public static string FirstTutorialID = "Intro";
@@ -22,7 +29,6 @@ public class TutorialManager : MonoBehaviour
     [SerializeField]
     private int initStep = 0;
 
-
     [Header("Editor Settings")]
     //used for debugging
     [SerializeField]
@@ -30,8 +36,13 @@ public class TutorialManager : MonoBehaviour
     [SerializeField]
     private string editorStartTutorial = "Intro";
 
-    private string upcomingTutorialID;
-
+    private string upcomingTutorialID = null;
+    public string UpcomingTutorialID => upcomingTutorialID;
+    public void SetUpcomingTutorialID(string id)
+    {
+        upcomingTutorialID = id;
+        Debug.Log("Upcoming tutorial ID set to: " + upcomingTutorialID);
+    }
     private TutorialLevelData tutorialLevelData;
 
     public static TutorialManager Instance = default;
@@ -63,7 +74,7 @@ public class TutorialManager : MonoBehaviour
             //When a scene is loaded run this function
             SceneManager.sceneLoaded += OnSceneLoaded;
 
-            upcomingTutorialID = FirstTutorialID;
+            upcomingTutorialID ??= FirstTutorialID;
 
             //do not call set up as this will start in the main menu
             //can add logic here to remove the tutorial manager once it has been completed
@@ -79,11 +90,6 @@ public class TutorialManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (!gameState.hasSeenTutorial && scene.name == "MainMenu")
-        {
-            upcomingTutorialID = FirstTutorialID;
-            playedTutorials.Clear();
-        }
         IsTutorialPlaying = false;
         FindTutorialInfo();
     }
@@ -104,7 +110,6 @@ public class TutorialManager : MonoBehaviour
     private void SetupNextTutorial()
     {
         currTutorial = tutorialLevelData.Get(upcomingTutorialID);
-
         if (currTutorial && !playedTutorials.Contains(currTutorial.ID))
         {
             tutorialCoroutine = RunTutorial();
@@ -119,10 +124,10 @@ public class TutorialManager : MonoBehaviour
     private IEnumerator RunTutorial()
     {
         //set up the next tutorial incase this one is stopped mid
-        upcomingTutorialID = currTutorial.nextTutorialName;
         currentStepIndex = 0;
 
-        playedTutorials.Add(currTutorial.ID);
+        // removing this as I don't quite understand what it's doing
+        // playedTutorials.Add(currTutorial.ID);
         IsTutorialPlaying = true;
         foreach (TutorialStep step in currTutorial.Steps)
         {
@@ -208,20 +213,43 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
-    public void TutorialButtonClicked() {
+    public void TutorialButtonClicked()
+    {
         Debug.Log(currentAction);
-        if (currentAction != null && currentAction is WaitForNextButtonClickAction action) {
+        if (currentAction != null && currentAction is WaitForNextButtonClickAction action)
+        {
             action.ButtonClicked();
-            if (currentStepIndex == currentStep.actions.Count - 1) {
+            if (currentStepIndex == currentStep.actions.Count - 1)
+            {
                 currentAction = null;
                 Debug.Log("LOADING NEXT LOCATION WE ARE SO BACK");
+                UpdateGameStateAfterTutorial();
                 gameState.LoadNextLocation();
             }
         }
     }
-    
-    public void TutorialBackButtonClicked() {
-        if (currentAction != null && currentAction is WaitForNextButtonClickAction action) {
+
+    public void UpdateGameStateAfterTutorial()
+    {
+        upcomingTutorialID = currTutorial.nextTutorialName;
+        switch (currTutorial.tutorialType)
+        {
+            case TutorialType.Combat:
+                gameState.HasSeenCombatTutorial = true;
+                break;
+            case TutorialType.PackSelection:
+                gameState.HasSeenPackSelectTutorial = true;
+                break;
+            case TutorialType.Shop:
+                gameState.HasSeenShopTutorial = true;
+                break;
+        }
+    }
+
+    public void TutorialBackButtonClicked()
+    {
+        if (currentAction != null && currentAction is WaitForNextButtonClickAction action)
+        {
             currentStepIndex -= 4;
             action.ButtonClicked();
         }
