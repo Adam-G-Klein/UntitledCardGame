@@ -335,9 +335,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         if(DialogueManager.Instance.dialogueInProgress) {
             return;
         }
-        int price = ProgressManager.Instance.IsFeatureEnabled(AscensionType.COSTLY_REROLLS)
-            ? shopEncounter.shopData.rerollShopPrice + timesRerolledThisShop
-            : shopEncounter.shopData.rerollShopPrice;
+        int price = GetRerollCost();
         if (gameState.playerData.GetValue().gold >= price) {
             MusicController.Instance.PlaySFX("event:/SFX/SFX_Reroll");
             gameState.playerData.GetValue().gold -= price;
@@ -345,7 +343,8 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             shopViewController.Clear();
             InstantiateShopVFX(shopRerollPrefab, shopViewController.GetRerollShopButton(), 1.25f);
             timesRerolledThisShop++;
-            shopViewController.SetShopRerollPrice(shopEncounter.shopData.rerollShopPrice + timesRerolledThisShop);
+            price = GetRerollCost();
+            shopViewController.SetShopRerollPrice(price);
             rerollShop();
         }
         else
@@ -354,7 +353,14 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         }
     }
 
-    private void rerollShop() {
+    private int GetRerollCost(){
+        return ProgressManager.Instance.IsFeatureEnabled(AscensionType.COSTLY_REROLLS)
+                ? shopEncounter.shopData.rerollShopPrice + timesRerolledThisShop
+                : shopEncounter.shopData.rerollShopPrice;
+    }
+
+    private void rerollShop()
+    {
         shopRefreshEvent.Raise(null);
         List<Companion> allCompanions = new();
         allCompanions.AddRange(gameState.companions.activeCompanions);
