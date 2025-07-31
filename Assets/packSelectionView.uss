@@ -40,7 +40,6 @@
 
 .submitButton {
     position: absolute;
-    bottom: 10px;
     width: 95%;
     height: 20%;
     min-height: 60px;
@@ -49,6 +48,8 @@
     transition-duration: 0.05s;
     transition-timing-function: linear;
     opacity: 0;
+    top: 100%;
+    translate: 0 -50%;
 }
 
 .buttonHover {
