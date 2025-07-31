@@ -31,7 +31,6 @@ MonoBehaviour:
   genericCompanionVFX: {fileID: 0}
   cacheValueConfigs: []
   cardPool: {fileID: 11400000, guid: 59b17a3fd7e314a7b8db8673d584fead, type: 2}
-  packCardPool: {fileID: 11400000, guid: fb4659890370a4ceda58d0967639becf, type: 2}
   pack: {fileID: 11400000, guid: 0d12b03c0c8754470a900cb4f78a9217, type: 2}
   speakerType: {fileID: 0}
   abilitiesV2:
@@ -44,6 +43,9 @@ MonoBehaviour:
     - title: Level Two Chunkrat
       description: At end of combat, permanently gain a "Scrumptious Snack" Status
         card that gives max HP and heals
+      relatedBehaviorIndex: 0
+    - title: Scrumptious Snack
+      description: Exhaust. When exhausted, gain 2 max HP and heal 3 HP
       relatedBehaviorIndex: 0
   keepsakeTitle: 
   keepsakeDescription: At end of combat, permanently gain a "Scrumptious Snack" Status
