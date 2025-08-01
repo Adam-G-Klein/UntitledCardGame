@@ -13,6 +13,7 @@ public class CombatEncounterView : MonoBehaviour,
 {
     public GameStateVariableSO gameState;
     private VisualElement root;
+    private EnemyEncounterManager enemyEncounterManager;
 
     UIDocumentScreenspace docRenderer;
 
@@ -39,8 +40,9 @@ public class CombatEncounterView : MonoBehaviour,
     private bool inDeckView = false;
     private bool combatOver = false;
 
-    public void SetupFromGamestate()
+    public void SetupFromGamestate(EnemyEncounterManager enemyEncounterManager)
     {
+        this.enemyEncounterManager = enemyEncounterManager;
         docRenderer = gameObject.GetComponent<UIDocumentScreenspace>();
         root = GetComponent<UIDocument>().rootVisualElement;
         if(!statusEffectsSO) {
@@ -59,6 +61,7 @@ public class CombatEncounterView : MonoBehaviour,
         List<Companion> companions = gameState.companions.activeCompanions;
         setupEntities(root.Q<VisualElement>("enemyContainer"), enemies.Cast<IUIEntity>(), true);
         setupEntities(root.Q<VisualElement>("companionContainer"), companions.Cast<IUIEntity>(), false);
+        // SetupCompanions(root.Q<VisualElement>("companionContainer"), companions.Cast<IUIEntity>());
         root.Q<Label>("money").text = gameState.playerData.GetValue().gold.ToString();
         UIDocumentUtils.SetAllPickingMode(root, PickingMode.Ignore);
         setupComplete = true;
@@ -85,7 +88,7 @@ public class CombatEncounterView : MonoBehaviour,
 
     public void UpdateView() {
         if(!setupComplete) {
-            SetupFromGamestate();
+            SetupFromGamestate(this.enemyEncounterManager);
         } else {
             root.Q<Label>("money").text = gameState.playerData.GetValue().gold.ToString();
             foreach (EntityView entityView in entityViews) {
@@ -112,6 +115,20 @@ public class CombatEncounterView : MonoBehaviour,
             container.Add(setupEntity(entity, index, isEnemy));
             index++;
         }
+    }
+
+    private void SetupCompanions(VisualElement container, IEnumerable<IUIEntity> entities) {
+        var index = UIDocumentGameObjectPlacer.INITIAL_INDEX;
+        foreach (var entity in entities) {
+            container.Add(SetupCompanion(entity, index));
+            index++;
+        }
+    }
+
+    private VisualElement SetupCompanion(IUIEntity entity, int index) {
+        CompanionView companionView = new CompanionView(entity, this.enemyEncounterManager.encounterConstants.companionViewTemplate, this);
+
+        return companionView.container;
     }
 
     private VisualElement setupEntity(IUIEntity entity, int index, bool isEnemy) {

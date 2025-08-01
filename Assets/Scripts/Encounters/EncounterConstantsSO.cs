@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 [CreateAssetMenu(
     fileName ="EncounterConstants",
@@ -19,6 +20,7 @@ public class EncounterConstantsSO : ScriptableObject {
     public GameObject keepsakeInShopPrefab;
     public GameObject randomBackgroundPrefab;
     [Header("Misc")]
+    public VisualTreeAsset companionViewTemplate;
     public CardType cardGeneratedByOrb;
     public GameObject cardDrawVFXPrefab;
     public Sprite genericCardCompanionTypeSprite;

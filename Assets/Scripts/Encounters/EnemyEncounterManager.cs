@@ -62,7 +62,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     void Start() {
         encounterBuilt = false;
         // This ends up calling BuildEnemyEncounter below
-        combatEncounterView.SetupFromGamestate();
+        combatEncounterView.SetupFromGamestate(this);
         StartCoroutine(StartWhenUIDocReady());
     }
 
