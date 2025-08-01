@@ -43,10 +43,10 @@ public class UIDocumentUtils : MonoBehaviour
         return true;
     }
 
-    public static int UpdateTextSize(string desc, int maxChar, int fontSize){
+    public static int UpdateTextSize(string desc, int maxChar, int fontSize, int scaleFactor = 4){
         if (desc.Length > maxChar){
             float textSizeRatio = (float) maxChar / (float) desc.Length;
-            double scalingRatio = Math.Pow(textSizeRatio, (float)1/ (float)4);
+            double scalingRatio = Math.Pow(textSizeRatio, (float)1/ (float)scaleFactor);
             return (int)Math.Floor(fontSize * scalingRatio);
         }
         return fontSize;

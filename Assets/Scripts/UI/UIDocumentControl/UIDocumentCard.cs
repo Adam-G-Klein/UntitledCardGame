@@ -21,7 +21,7 @@ public class UIDocumentCard : MonoBehaviour
     private BoxCollider2D boxCollider;
     [SerializeField]
     private Texture2D texture { get; set; }
-    public static Vector2Int CARD_REFERENCE_RESOLUTION = new(400, 700);
+    public static Vector2Int CARD_REFERENCE_RESOLUTION = new(543, 832);
     public Vector2 CARD_SIZE = new Vector2(1f, 1.75f);
     public Vector2 HITBOX_SIZE = new Vector2(1f, 2.4f); // this helps if the cards are along the bottom of the screen to prevent constant hovering/unhovering
 
@@ -62,7 +62,7 @@ public class UIDocumentCard : MonoBehaviour
             return;
         }
         // TODO: take in card rather than cardtype
-        cardView = new CardView(card, pCard.deckFrom.GetCompanionTypeSO(), false);
+        cardView = new CardView(card.cardType, pCard.deckFrom.GetCompanionTypeSO(), card.shopRarity, false);
         doc.rootVisualElement.Add(cardView.cardContainer);
         UIDocumentUtils.SetAllPickingMode(doc.rootVisualElement, PickingMode.Ignore);
         spriteRenderer = GetComponent<SpriteRenderer>();

@@ -1,0 +1,97 @@
+.card-container:focus {
+    border-top-width: 3px;
+    border-right-width: 3px;
+    border-bottom-width: 3px;
+    border-left-width: 3px;
+    border-color: rgb(0, 0, 0);
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+}
+
+.card-text-box {
+    height: 50%;
+    width: 75%;
+}
+
+.card-text-box-label {
+    width: 100%;
+    align-items: center;
+    -unity-text-align: middle-center;
+    font-size: 20px;
+    -unity-font-style: italic;
+    background-color: rgb(188, 58, 167);
+    color: rgb(255, 255, 255);
+    height: 100%;
+}
+
+.rarity-gem {
+    flex-grow: 1;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: rgb(255, 249, 95);
+    left: 50%;
+    translate: -47% -45%;
+    top: 21px;
+    rotate: 45deg;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    border-top-width: 2px;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+}
+
+.rarity-gem-common {
+    background-color: rgb(176, 176, 176);
+}
+
+.rarity-gem-uncommon {
+    background-color: rgb(156, 212, 219);
+}
+
+.rarity-gem-rare {
+    background-color: rgb(255, 252, 117);
+}
+
+.card-type-label-large {
+    font-size: 48px;
+}
+
+.card-type-label-any {
+    background-color: rgb(209, 209, 209);
+}
+
+.rarity-gem-small {
+    scale: 0.6 0.6;
+}
+
+.smaller-mana-label {
+    scale: 0.5 0.5;
+    top: -1%;
+    left: -4%;
+}
+
+.card-border {
+    flex-grow: 1;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: resource('cards/MoreInnerSpaceBlueFrame');
+}
+
+.status-card-label-color {
+    -unity-background-image-tint-color: rgb(183, 1, 201);
+}
+
+.non-attack-card-label-color {
+    background-color: rgb(171, 144, 4);
+}
+
+.attack-card-label-color {
+    -unity-background-image-tint-color: rgb(145, 37, 58);
+}

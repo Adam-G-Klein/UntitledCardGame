@@ -50,15 +50,15 @@ public class ShopCardProbabilityDistBuilder {
 
     public ShopCardProbabilityDistBuilder(ShopDataSO shopData, ShopLevel shopLevel, List<Companion> companionList) {
         // Add the card pools for each companion that is on your team.
-        List<ValueTuple<CardPoolSO, CompanionTypeSO, Sprite>> companionCardPools = new();
-        List<ValueTuple<CardPoolSO, CompanionTypeSO, Sprite>> packCardPools = new();
+        List<ValueTuple<CardPoolSO, CompanionTypeSO, PackSO>> companionCardPools = new();
+        List<ValueTuple<CardPoolSO, CompanionTypeSO, PackSO>> packCardPools = new();
         foreach (Companion companion in companionList) {
-            companionCardPools.Add((companion.companionType.cardPool, companion.companionType, companion.companionType.sprite));
-            packCardPools.Add((companion.companionType.pack.packCardPoolSO, null, companion.companionType.pack.cardPoolIcon));
+            companionCardPools.Add((companion.companionType.cardPool, companion.companionType, null));
+            packCardPools.Add((companion.companionType.pack.packCardPoolSO, null, companion.companionType.pack));
         }
 
         List<CardWithWeight> allCards = new();
-        foreach (ValueTuple<CardPoolSO, CompanionTypeSO, Sprite> tup in companionCardPools) {
+        foreach (ValueTuple<CardPoolSO, CompanionTypeSO, PackSO> tup in companionCardPools) {
             var x = ShopCardProbabilityDistBuilder.ExtractCardsFromPool(
                 shopData,
                 tup.Item1,
@@ -68,7 +68,7 @@ public class ShopCardProbabilityDistBuilder {
             );
             allCards.AddRange(x);
         }
-        foreach (ValueTuple<CardPoolSO, CompanionTypeSO, Sprite> tup in packCardPools) {
+        foreach (ValueTuple<CardPoolSO, CompanionTypeSO, PackSO> tup in packCardPools) {
             var x = ShopCardProbabilityDistBuilder.ExtractCardsFromPool(
                 shopData,
                 tup.Item1,
@@ -82,7 +82,7 @@ public class ShopCardProbabilityDistBuilder {
                 shopData,
                 shopData.neutralCardPool,
                 null,
-                shopData.neutralCardPoolShopIcon,
+                null,
                 CardSource.NeutralPool
             );
         allCards.AddRange(y);
@@ -109,20 +109,20 @@ public class ShopCardProbabilityDistBuilder {
         ShopDataSO shopData,
         CardPoolSO pool,
         CompanionTypeSO dude,
-        Sprite s,
+        PackSO packSO,
         CardSource cardSource
     ) {
         List<CardWithWeight> cards = new();
         foreach (CardType card in pool.commonCards) {
-            CardInShopWithPrice c = new CardInShopWithPrice(card, shopData.cardPrice, dude, pool, Card.CardRarity.COMMON, s);
+            CardInShopWithPrice c = new CardInShopWithPrice(card, shopData.cardPrice, dude, pool, Card.CardRarity.COMMON, packSO);
             cards.Add(new CardWithWeight(c, 1f, c.rarity, cardSource));
         }
         foreach (CardType card in pool.uncommonCards) {
-            CardInShopWithPrice c = new CardInShopWithPrice(card, shopData.cardPrice, dude, pool, Card.CardRarity.UNCOMMON, s);
+            CardInShopWithPrice c = new CardInShopWithPrice(card, shopData.cardPrice, dude, pool, Card.CardRarity.UNCOMMON, packSO);
             cards.Add(new CardWithWeight(c, 1f, c.rarity, cardSource));
         }
         foreach (CardType card in pool.rareCards) {
-            CardInShopWithPrice c = new CardInShopWithPrice(card, shopData.cardPrice, dude, pool, Card.CardRarity.RARE, s);
+            CardInShopWithPrice c = new CardInShopWithPrice(card, shopData.cardPrice, dude, pool, Card.CardRarity.RARE, packSO);
             cards.Add(new CardWithWeight(c, 1f, c.rarity, cardSource));
         }
         return cards;

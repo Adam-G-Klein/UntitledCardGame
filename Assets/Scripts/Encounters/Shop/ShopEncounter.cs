@@ -5,7 +5,8 @@ using System.Linq;
 using UnityEngine;
 
 [System.Serializable]
-public class CardInShopWithPrice {
+public class CardInShopWithPrice
+{
     public CardType cardType;
     public int price;
 
@@ -17,6 +18,7 @@ public class CardInShopWithPrice {
     public Card.CardRarity rarity;
 
     public Sprite genericArtwork;
+    public PackSO packSO;
     public bool increasedPrice;
 
     public CardInShopWithPrice(
@@ -25,7 +27,7 @@ public class CardInShopWithPrice {
         CompanionTypeSO companionType,
         CardPoolSO cardPool,
         Card.CardRarity rarity,
-        Sprite genericArtwork = null
+        PackSO packSO
     )
     {
         this.cardType = cardType;
@@ -33,7 +35,7 @@ public class CardInShopWithPrice {
         this.sourceCompanion = companionType;
         this.cardPool = cardPool;
         this.rarity = rarity;
-        this.genericArtwork = genericArtwork;
+        this.packSO = packSO;
         this.increasedPrice = false;
     }
 }

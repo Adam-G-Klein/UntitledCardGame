@@ -80,7 +80,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 927efa6efeb5b8946b1eb4261070c0c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CARD_SIZE: {x: 1, y: 1.4}
+  CARD_SIZE: {x: 1, y: 1.53}
   HITBOX_SIZE: {x: 1, y: 2.4}
   renderTextureConstantly: 0
 --- !u!212 &6443691569999266555
@@ -129,7 +129,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
-  m_Size: {x: 1, y: 1.4}
+  m_Size: {x: 1, y: 1.53}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -253,7 +253,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 8, y: 14}
-    newSize: {x: 1, y: 1.4}
+    newSize: {x: 1, y: 1.53}
     adaptiveTilingThreshold: 0.5
     drawMode: 1
     adaptiveTiling: 0

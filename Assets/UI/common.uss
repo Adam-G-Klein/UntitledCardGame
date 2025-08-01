@@ -294,11 +294,14 @@
     background-color: rgba(0, 0, 0, 0);
     width: 100%;
     height: 100%;
-    background-image: url("project://database/Assets/Sprites/CardArt/CardFrameWIPTransparentOutside.png?fileID=2800000&guid=3e1fc5a0e17b3be45a466562a912f5b9&type=3#CardFrameWIPTransparentOutside");
     align-self: auto;
     justify-content: flex-start;
     align-items: center;
     max-height: 100%;
+    border-top-width: 3px;
+    border-right-width: 3px;
+    border-bottom-width: 3px;
+    border-left-width: 3px;
 }
 
 .team-signing-card-container {
@@ -320,12 +323,13 @@
 
 .mana-card-label {
     align-self: center;
-    color: rgb(255, 255, 255);
-    font-size: 42px;
-    margin-top: -4px;
+    color: rgb(0, 0, 0);
+    font-size: 32px;
     margin-right: 0;
-    margin-bottom: 0;
     margin-left: 0;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    margin-top: 2px;
 }
 
 .mana-reduced {
@@ -374,29 +378,32 @@
     margin-right: 0;
     margin-bottom: 0;
     padding-right: 12px;
-    color: rgb(255, 255, 255);
-    width: 86%;
+    color: rgb(0, 0, 0);
+    width: 75%;
     -unity-text-align: middle-center;
     text-overflow: clip;
-    top: 63%;
+    top: 30%;
     flex-shrink: 0;
     position: absolute;
     padding-top: 0;
     padding-bottom: 0;
     flex-grow: 1;
-    height: 30%;
+    height: 35%;
 }
 
 .card-title-label {
-    font-size: 53px;
+    font-size: 27px;
     -unity-font-style: bold;
     white-space: normal;
-    top: 47%;
+    top: 14%;
     flex-wrap: wrap;
     position: absolute;
     flex-direction: column;
     -unity-text-align: middle-center;
     width: 85%;
+    color: rgb(173, 61, 61);
+    max-width: 47%;
+    height: 11%;
 }
 
 .card-image {
@@ -483,23 +490,23 @@
 .mana-container {
     align-self: flex-start;
     color: rgb(255, 255, 255);
-    background-color: rgb(37, 37, 128);
+    background-color: rgb(110, 147, 199);
     font-size: 30px;
     position: absolute;
-    left: 0;
-    top: 0;
+    left: 5%;
+    top: 8%;
     justify-content: center;
     align-items: center;
-    width: 80px;
-    height: 80px;
-    border-top-left-radius: 40px;
-    border-top-right-radius: 40px;
-    border-bottom-right-radius: 40px;
-    border-bottom-left-radius: 40px;
-    border-left-color: rgb(53, 41, 67);
-    border-right-color: rgb(53, 41, 67);
-    border-top-color: rgb(53, 41, 67);
-    border-bottom-color: rgb(53, 41, 67);
+    width: 90px;
+    height: 90px;
+    border-top-left-radius: 100px;
+    border-top-right-radius: 100px;
+    border-bottom-right-radius: 100px;
+    border-bottom-left-radius: 100px;
+    border-left-color: rgb(228, 196, 143);
+    border-right-color: rgb(228, 196, 143);
+    border-top-color: rgb(228, 196, 143);
+    border-bottom-color: rgb(228, 196, 143);
     border-top-width: 4px;
     border-right-width: 4px;
     border-bottom-width: 4px;
@@ -744,17 +751,6 @@
 }
 
 .companion-info-container:focus {
-    border-top-width: 3px;
-    border-right-width: 3px;
-    border-bottom-width: 3px;
-    border-left-width: 3px;
-    border-left-color: rgb(0, 0, 0);
-    border-right-color: rgb(0, 0, 0);
-    border-top-color: rgb(0, 0, 0);
-    border-bottom-color: rgb(0, 0, 0);
-}
-
-.card-container:focus {
     border-top-width: 3px;
     border-right-width: 3px;
     border-bottom-width: 3px;
