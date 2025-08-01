@@ -52,6 +52,8 @@ MonoBehaviour:
     - title: Earthquake
       description: Deals AOE damage to your entire team and slowly grows stronger
       relatedBehaviorIndex: 0
+  DEADLIER_ENEMY_BONUS_STR: -1
+  HEALTHIER_ENEMY_BONUS_HEALTH: -1
   references:
     version: 2
     RefIds:
@@ -77,7 +79,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: target
         combatEffect: 0
-        scale: 2
+        scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
