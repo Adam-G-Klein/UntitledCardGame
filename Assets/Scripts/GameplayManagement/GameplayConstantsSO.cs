@@ -16,4 +16,5 @@ public class GameplayConstantsSO : ScriptableObject
 
     public int MAX_HAND_SIZE = 10;
     public VisualTreeAsset cardTemplate;
+    public VisualTreeAsset mapTemplate;
 }

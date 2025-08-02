@@ -90,7 +90,7 @@ public class ShopViewController : MonoBehaviour,
         cardItemToViewMap = new Dictionary<CardInShopWithPrice, ShopItemView>();
         companionItemToViewMap = new Dictionary<CompanionInShopWithPrice, ShopItemView>();
 
-        mapContainer = uiDoc.rootVisualElement.Q("map");
+        mapContainer = uiDoc.rootVisualElement.Q("mapContainer");
         SetupMap(shopManager);
         shopGoodsArea = uiDoc.rootVisualElement.Q("shop-goods-area");
         activeContainer = uiDoc.rootVisualElement.Q("unit-active-container");
@@ -241,7 +241,7 @@ public class ShopViewController : MonoBehaviour,
 
     private void SetupMap(IEncounterBuilder encounterBuilder) {
         mapContainer.Clear();
-        Label mapTitle = new Label();
+        /*Label mapTitle = new Label();
         mapTitle.AddToClassList("map-title");
         mapTitle.text = "Map";
         mapContainer.Add(mapTitle);
@@ -250,7 +250,7 @@ public class ShopViewController : MonoBehaviour,
         int totalCombats = (ShopManager.Instance.gameState.map.GetValue().encounters.Count + 1) / 2;
         int wonCombats = (ShopManager.Instance.gameState.currentEncounterIndex / 2) + 1;
         combatCounter.text = "Combats Won: " + wonCombats + "/" + totalCombats;
-        mapContainer.Add(combatCounter);
+        mapContainer.Add(combatCounter);*/
         mapContainer.Add(new MapView(encounterBuilder).mapContainer);
     }
 
@@ -676,7 +676,7 @@ public class ShopViewController : MonoBehaviour,
     }
 
     public void SetMoney(int money) {
-        moneyLabel.text = money.ToString();
+        moneyLabel.text = money.ToString() + "G";
     }
 
     public void NotEnoughMoney() {

@@ -62,7 +62,7 @@ public class UIDocumentCard : MonoBehaviour
             return;
         }
         // TODO: take in card rather than cardtype
-        cardView = new CardView(card.cardType, pCard.deckFrom.GetCompanionTypeSO(), card.shopRarity, false);
+        cardView = new CardView(card, pCard.deckFrom.GetCompanionTypeSO(), false);
         doc.rootVisualElement.Add(cardView.cardContainer);
         UIDocumentUtils.SetAllPickingMode(doc.rootVisualElement, PickingMode.Ignore);
         spriteRenderer = GetComponent<SpriteRenderer>();

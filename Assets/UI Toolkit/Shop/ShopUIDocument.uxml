@@ -1,45 +1,17 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="MapTemplateUiDocument" src="project://database/Assets/UI%20Toolkit/MapUiDocument/MapTemplateUiDocument.uxml?fileID=9197481963319205126&amp;guid=df04dd80c17e645b4967cde56925e2f5&amp;type=3#MapTemplateUiDocument" />
     <Style src="project://database/Assets/UI%20Toolkit/Shop/ShopUIStylesheet.uss?fileID=7433441132597879392&amp;guid=b4d5060bf962ba64c83be6329cd47b49&amp;type=3#ShopUIStylesheet" />
     <Style src="project://database/Assets/UI/common.uss?fileID=7433441132597879392&amp;guid=8d0bc28a2ed710a44b762e4c857ac6f9&amp;type=3#common" />
     <Style src="project://database/Assets/UI%20Toolkit/Stylesheets/entity.uss?fileID=7433441132597879392&amp;guid=f28fa9619ee10d041b7306d0537405c5&amp;type=3#entity" />
     <Style src="project://database/Assets/UI%20Toolkit/Stylesheets/IconButton.uss?fileID=7433441132597879392&amp;guid=45daf1b0dd28cfb42b3347777cd65e2d&amp;type=3#IconButton" />
     <Style src="project://database/Assets/fontStyling.uss?fileID=7433441132597879392&amp;guid=d0c0881f1c32747ecb649373600de095&amp;type=3#fontStyling" />
     <Style src="project://database/Assets/UI%20Toolkit/Stylesheets/CompanionView.uss?fileID=7433441132597879392&amp;guid=e88b44cda41b13242a23fc01cc51bd01&amp;type=3#CompanionView" />
+    <Style src="project://database/Assets/mapStylesheet.uss?fileID=7433441132597879392&amp;guid=8bfd0d4a4dd91435a81ceda51a241a08&amp;type=3#mapStylesheet" />
     <ui:VisualElement name="VisualElement" style="flex-grow: 1; flex-direction: column; background-image: none;">
         <ui:VisualElement style="position: absolute; height: 100%; width: 1934px; background-image: url(&quot;project://database/Assets/Sprites/ShopSprites/ShopBackground.png?fileID=2800000&amp;guid=2caa3b811ed888648a93657bf9c73edc&amp;type=3#ShopBackground&quot;); top: -190px; left: -8px;" />
-        <ui:VisualElement name="top-section" style="flex-grow: 1; height: auto; min-height: 20%; max-height: 20%; flex-direction: row;">
-            <ui:VisualElement style="flex-grow: 1; flex-direction: row; justify-content: flex-start; align-items: center; width: 50%;">
-                <ui:VisualElement name="moneyIndicator" style="flex-grow: 0; background-image: url(&quot;project://database/Assets/Sprites/Z_OldPlaceholderSprites/money_background.png?fileID=2800000&amp;guid=9a032b794c2e74915a1a0e224767fcad&amp;type=3#money_background&quot;); width: 103px; height: 79px; flex-shrink: 0; padding-right: 0; margin-right: 30px; margin-left: 30px; align-items: center; justify-content: center;">
-                    <ui:Label tabindex="-1" text="34" parse-escape-sequences="true" display-tooltip-when-elided="true" name="money-indicator-label" style="-unity-font-style: bold; font-size: 45px; color: rgb(255, 255, 255); -unity-text-outline-width: 2px; -unity-text-outline-color: rgb(0, 0, 0);" />
-                </ui:VisualElement>
-                <ui:Label tabindex="-1" text="&lt;--- Not Enough Money!" parse-escape-sequences="true" display-tooltip-when-elided="true" name="not-enough-money-indicator" style="font-size: 42px; -unity-text-outline-color: rgb(0, 0, 0); -unity-text-outline-width: 1px; color: rgb(255, 255, 255); display: flex; visibility: hidden;" />
-            </ui:VisualElement>
-            <ui:VisualElement style="flex-grow: 1; width: 50%; justify-content: space-around; flex-direction: row; align-items: center;">
-                <ui:VisualElement name="map" style="flex-grow: 0; height: 40%; flex-shrink: 0; justify-content: flex-start; width: 80%; background-color: rgb(255, 255, 255);">
-                    <ui:Label tabindex="-1" text="Map" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Label" class="map-title" style="color: rgb(0, 0, 0); font-size: 28px; -unity-text-align: upper-left;" />
-                    <ui:Label tabindex="-1" text="Combats Won: 1/15" parse-escape-sequences="true" display-tooltip-when-elided="true" picking-mode="Ignore" class="map-title map-combat-counter" style="font-size: 22px; top: 5%;" />
-                    <ui:VisualElement class="map-container">
-                        <ui:VisualElement name="VisualElement" class="map-section">
-                            <ui:VisualElement class="map-symbol" />
-                        </ui:VisualElement>
-                        <ui:VisualElement name="VisualElement" class="map-section">
-                            <ui:VisualElement class="map-symbol" style="background-image: url(&quot;project://database/Assets/Resources/shopSymbol.png?fileID=2800000&amp;guid=2e266a78f244e7743b234e093f2175bb&amp;type=3#shopSymbol&quot;);" />
-                        </ui:VisualElement>
-                        <ui:VisualElement name="VisualElement" class="map-section">
-                            <ui:VisualElement class="map-symbol" style="background-image: url(&quot;project://database/Assets/Sprites/GhoulGauntletPlaceholders/emmett.png?fileID=2800000&amp;guid=4eff3f79553794d909415243e5c40924&amp;type=3#emmett&quot;);" />
-                        </ui:VisualElement>
-                        <ui:VisualElement name="VisualElement" class="map-section">
-                            <ui:VisualElement class="map-symbol" style="background-image: url(&quot;project://database/Assets/Sprites/SculptorArt/Character_TheSculptor_Portrait.png?fileID=2800000&amp;guid=bf7004643a1b7cb47813068f0ada5d78&amp;type=3#Character_TheSculptor_Portrait&quot;);" />
-                        </ui:VisualElement>
-                        <ui:VisualElement name="VisualElement" class="map-section">
-                            <ui:VisualElement class="map-symbol" />
-                        </ui:VisualElement>
-                        <ui:VisualElement name="VisualElement" class="map-section">
-                            <ui:VisualElement class="map-symbol" style="background-image: url(&quot;project://database/Assets/Resources/shopSymbol.png?fileID=2800000&amp;guid=2e266a78f244e7743b234e093f2175bb&amp;type=3#shopSymbol&quot;);" />
-                        </ui:VisualElement>
-                    </ui:VisualElement>
-                </ui:VisualElement>
-                <ui:Button text="Placeholder Options Button" parse-escape-sequences="true" display-tooltip-when-elided="true" style="visibility: hidden;" />
+        <ui:VisualElement name="top-section" class="map-header-container">
+            <ui:VisualElement name="mapContainer" class="map-outer-container">
+                <ui:Instance template="MapTemplateUiDocument" name="MapTemplateUiDocument" style="flex-grow: 1;" />
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="middle-section" style="flex-grow: 1; flex-direction: row; max-height: 40%; min-height: 40%;">

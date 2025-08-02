@@ -46,15 +46,18 @@ public class CombatEncounterView : MonoBehaviour,
         this.enemyEncounterManager = enemyEncounterManager;
         docRenderer = gameObject.GetComponent<UIDocumentScreenspace>();
         root = GetComponent<UIDocument>().rootVisualElement;
-        if(!statusEffectsSO) {
+        if (!statusEffectsSO)
+        {
             Debug.LogError("StatusEffectsSO is null, Go to ScriptableObjects/Configuration and set the SO there in the CombatCanvasUIDocument/CombatUI prefab");
             return;
         }
-        if(!enemyIntentsSO) {
+        if (!enemyIntentsSO)
+        {
             Debug.LogError("enemyIntentsSO is null, Go to ScriptableObjects/Configuration and set the SO there in the CombatCanvasUIDocument/CombatUI prefab");
             return;
         }
-        if(!gameState.activeEncounter.GetValue().GetType().Equals(typeof(EnemyEncounter))) {
+        if (!gameState.activeEncounter.GetValue().GetType().Equals(typeof(EnemyEncounter)))
+        {
             Debug.LogError("Active encounter is not an EnemyEncounter, Go to ScriptableObjects/Variables/GameState.so and hit Set Active Encounter to set the encounter to an enemy encounter");
             return;
         }
@@ -63,9 +66,14 @@ public class CombatEncounterView : MonoBehaviour,
         setupEntities(root.Q<VisualElement>("enemyContainer"), enemies.Cast<IUIEntity>(), true);
         // setupEntities(root.Q<VisualElement>("companionContainer"), companions.Cast<IUIEntity>(), false);
         SetupCompanions(root.Q<VisualElement>("companionContainer"), companions);
-        root.Q<Label>("money").text = gameState.playerData.GetValue().gold.ToString();
+        //root.Q<Label>("money").text = gameState.playerData.GetValue().gold.ToString();
         UIDocumentUtils.SetAllPickingMode(root, PickingMode.Ignore);
         setupComplete = true;
+        VisualElement mapRoot = root.Q("mapRoot");
+        mapRoot.Clear();
+        MapView mapView = new MapView(enemyEncounterManager);
+        mapView.mapContainer.Q<Label>("money-indicator-label").text = gameState.playerData.GetValue().gold.ToString() + "G";
+        mapRoot.Add(mapView.mapContainer);
     }
     /*
         This needs to happen because we have a bit of a circular dependency. The _Intstance monobehaviors
@@ -92,7 +100,7 @@ public class CombatEncounterView : MonoBehaviour,
         if(!setupComplete) {
             SetupFromGamestate(this.enemyEncounterManager);
         } else {
-            root.Q<Label>("money").text = gameState.playerData.GetValue().gold.ToString();
+            root.Q<Label>("money-indicator-label").text = gameState.playerData.GetValue().gold.ToString() + "G";
             foreach (EntityView entityView in entityViews) {
                 entityView.UpdateView();
             }

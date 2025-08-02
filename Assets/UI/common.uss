@@ -584,11 +584,10 @@
 .map-symbol {
     flex-grow: 1;
     width: 90%;
-    height: 90%;
     max-width: 90%;
-    max-height: 90%;
-    background-image: url("project://database/Assets/Sprites/Z_OldPlaceholderSprites/enemySymbol.png?fileID=2800000&guid=3ca0507e4f45df2468b7ef36bba8968f&type=3#enemySymbol");
     -unity-background-scale-mode: scale-to-fit;
+    background-image: resource('Maps/whiteCircle');
+    max-height: 60%;
 }
 
 .compendium-button {

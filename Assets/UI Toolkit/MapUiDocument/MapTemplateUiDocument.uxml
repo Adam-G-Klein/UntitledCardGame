@@ -1,0 +1,35 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/Shop/ShopUIStylesheet.uss?fileID=7433441132597879392&amp;guid=b4d5060bf962ba64c83be6329cd47b49&amp;type=3#ShopUIStylesheet" />
+    <Style src="project://database/Assets/UI/common.uss?fileID=7433441132597879392&amp;guid=8d0bc28a2ed710a44b762e4c857ac6f9&amp;type=3#common" />
+    <Style src="project://database/Assets/mapStylesheet.uss?fileID=7433441132597879392&amp;guid=8bfd0d4a4dd91435a81ceda51a241a08&amp;type=3#mapStylesheet" />
+    <Style src="project://database/Assets/fontStyling.uss?fileID=7433441132597879392&amp;guid=d0c0881f1c32747ecb649373600de095&amp;type=3#fontStyling" />
+    <ui:VisualElement style="flex-grow: 1; flex-direction: row; width: 100%; align-items: center;">
+        <ui:VisualElement name="map" style="flex-grow: 0; height: 100%; flex-shrink: 0; justify-content: center; width: 100%; align-items: center; background-image: resource(&apos;Maps/Temp Indicator&apos;); -unity-background-scale-mode: stretch-to-fill;">
+            <ui:VisualElement class="map-container" style="height: 65%; max-height: 65%; padding-top: 1%;">
+                <ui:VisualElement name="VisualElement" style="flex-grow: 1; width: 17%; margin-bottom: 2%;">
+                    <ui:Label tabindex="-1" text="20G" parse-escape-sequences="true" display-tooltip-when-elided="true" name="money-indicator-label" style="-unity-font-style: bold; -unity-text-align: upper-center; color: rgb(243, 235, 10); -unity-font: resource(&apos;fonts/static/Jost-Bold&apos;); font-size: 22px; -unity-text-outline-width: 2px; -unity-text-outline-color: rgb(0, 0, 0);" />
+                </ui:VisualElement>
+                <ui:VisualElement name="mapIcons" style="flex-grow: 1; flex-direction: row; width: 60%; height: 100%; justify-content: space-around; padding-right: 6%; padding-left: 6%;">
+                    <ui:VisualElement name="VisualElement" class="map-section">
+                        <ui:VisualElement class="map-symbol map-icon-active" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="VisualElement" class="map-section">
+                        <ui:VisualElement name="VisualElement" class="map-symbol map-icon-upcoming" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="VisualElement" class="map-section">
+                        <ui:VisualElement class="map-symbol map-icon-locked" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="VisualElement" class="map-section">
+                        <ui:VisualElement class="map-symbol map-icon-completed" style="background-image: resource(&apos;Maps/whiteCircle&apos;);" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="VisualElement" style="flex-grow: 1; width: 17%; align-items: center; margin-bottom: 2%;">
+                    <ui:Label tabindex="-1" text="1–2" parse-escape-sequences="true" display-tooltip-when-elided="true" name="encounterNumberLabel" style="font-size: 22px; -unity-font: resource(&apos;fonts/static/Jost-Medium&apos;);" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement>
+                <ui:Label tabindex="-1" text="Turn #" parse-escape-sequences="true" display-tooltip-when-elided="true" name="turnNumberLabel" style="color: rgb(255, 255, 255);" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -77,7 +77,7 @@ public class PlacementPool {
             Debug.LogError("UIDocGameObjectPlacer: WorldPosVE.ve null in addmapping");
         }
         if(ve != placementOnDeck) {
-            Debug.LogError("UIDocGameObjectPlacer: visual element " + ve.ve.name + " mapped without being requested first");
+            Debug.LogWarning("UIDocGameObjectPlacer: visual element " + ve.ve.name + " mapped without being requested first");
         }
         placements[ve] = go;
         gameObjectToPosition[go] = ve;
@@ -325,11 +325,15 @@ public class UIDocumentGameObjectPlacer : GenericSingleton<UIDocumentGameObjectP
             0
         );
         Debug.Log("screenPosition: " + screenPosition);
+        if(float.IsNaN(screenPosition.x) || float.IsNaN(screenPosition.y))
+        {
+            return Vector3.zero;
+        }
         Vector3 worldPosition;
         try {
             worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
         } catch {
-            Debug.LogError("Tried to place a view element off the screen");
+            Debug.LogWarning("Tried to place a view element off the screen");
             return Vector3.zero;
         }
         Debug.Log("worldPosition: " + worldPosition);

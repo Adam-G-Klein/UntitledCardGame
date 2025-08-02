@@ -1,0 +1,54 @@
+.active-elite-encounter {
+    border-left-color: rgb(255, 0, 0);
+    border-right-color: rgb(255, 0, 0);
+    border-top-color: rgb(255, 0, 0);
+    border-bottom-color: rgb(255, 0, 0);
+    border-top-width: 4px;
+    border-right-width: 4px;
+    border-bottom-width: 4px;
+    border-left-width: 4px;
+}
+
+.upcoming-elite-encounter {
+    border-left-color: rgb(255, 0, 0);
+    border-right-color: rgb(255, 0, 0);
+    border-top-color: rgb(255, 0, 0);
+    border-bottom-color: rgb(255, 0, 0);
+    border-top-width: 2px;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+}
+
+.map-icon-completed {
+    -unity-background-image-tint-color: rgb(212, 212, 212);
+}
+
+.map-icon-upcoming {
+    -unity-background-image-tint-color: rgb(160, 237, 255);
+}
+
+.map-icon-active {
+    -unity-background-image-tint-color: rgb(0, 42, 214);
+}
+
+.map-icon-locked {
+    -unity-background-image-tint-color: rgb(70, 70, 70);
+}
+
+.map-outer-container {
+    flex-grow: 1;
+    width: 35%;
+    flex-direction: row;
+    max-width: 40%;
+    max-height: 65%;
+}
+
+.map-header-container {
+    flex-grow: 1;
+    height: auto;
+    min-height: 20%;
+    max-height: 20%;
+    justify-content: flex-start;
+    align-items: center;
+}
