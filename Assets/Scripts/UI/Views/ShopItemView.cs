@@ -49,15 +49,6 @@ public class ShopItemView : IEntityViewDelegate {
             tempCompanion.combatStats.currentHealth -= (int)ProgressManager.Instance.GetAscensionSO(AscensionType.DAMAGED_COMPANIONS).modificationValue;
         }
 
-        // entityView = new EntityView(tempCompanion, 0, false, this);
-        // entityView.UpdateWidthAndHeight();
-        // entityView.AddDeckButtonOnHover(visualElementFocusable);
-
-        // VisualElement portraitContainer = entityView.entityContainer.Q(className: "entity-portrait");
-        // portraitContainer.style.backgroundImage = new StyleBackground(companion.companionType.sprite);
-
-        // shopItemElement.Add(entityView.entityContainer);
-
         companionView = new CompanionView(tempCompanion, template, 0, CompanionViewType.SHOP, this);
         companionView.ScaleView(0.75f);
         shopItemElement.Add(companionView.container);
@@ -66,7 +57,9 @@ public class ShopItemView : IEntityViewDelegate {
         shopItemElement.RegisterCallback<PointerEnterEvent>(OnPointerEnter);
         shopItemElement.RegisterCallback<PointerLeaveEvent>(OnPointerLeave);
         visualElementFocusable.additionalFocusAction += () => OnPointerEnter(null);
+        visualElementFocusable.additionalFocusAction += () => companionView.HoverDetectorPointerEnter(null);
         visualElementFocusable.additionalUnfocusAction += () => OnPointerLeave(null);
+        visualElementFocusable.additionalUnfocusAction += () => companionView.HoverDetectorPointerLeave(null);
         shopItemElement.name = companion.companionType.name;
 
         shopItemElement.Add(CreatePriceTagForShopItem(companion.price, companion.increasedPrice));
@@ -96,10 +89,6 @@ public class ShopItemView : IEntityViewDelegate {
         shopItemElement.name = card.cardType.name;
         visualElementFocusable.additionalFocusAction += () => OnPointerEnter(null);
         visualElementFocusable.additionalUnfocusAction += () => OnPointerLeave(null);
-        // UIDocumentHoverableInstantiator.Instance.InstantiateHoverableWhenUIElementReady(shopItemElement,
-        //     ShopItemViewOnClicked,
-        //     ()=> {OnPointerEnter(null);},
-        //     () => {OnPointerLeave(null);});
 
         shopItemElement.Add(CreatePriceTagForShopItem(card.price, card.increasedPrice));
 
@@ -139,6 +128,7 @@ public class ShopItemView : IEntityViewDelegate {
             viewDelegate.DisplayTooltip(shopItemElement, tvm, false);
         }
     }
+
     private void OnPointerLeave(PointerLeaveEvent evt) {
         viewDelegate.DestroyTooltip(shopItemElement);
     }

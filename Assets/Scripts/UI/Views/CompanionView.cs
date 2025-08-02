@@ -11,6 +11,7 @@ public class CompanionView : IUIEventReceiver
     // wdith / height
     private static float CONTAINER_ASPECT_RATIO_FULL = 1.25f;
     private static float CONTAINER_ASPECT_RATIO_NARROW = 0.8f;
+    private static float CONTAINER_ASPECT_RATIO_COMP_MGMT = 1.1f;
     private static float SCREEN_WIDTH_PERCENT_COMBAT = 0.20f;
     private static float SCREEN_WIDTH_PERCENT_SHOP = 0.15f;
 
@@ -127,7 +128,11 @@ public class CompanionView : IUIEventReceiver
     }
 
     private void SetupBlockAndHealth() {
-        if (this.combatInstance == null) return;
+        if (this.combatInstance == null) {
+            this.healthLabel.text = this.entity.GetCurrentHealth().ToString();
+            this.blockLabel.style.visibility = Visibility.Hidden;
+            return;
+        }
 
         this.healthLabel.text = this.combatInstance.combatStats.currentHealth.ToString();
         this.blockLabel.text = this.combatInstance.GetStatus(StatusEffectType.Defended).ToString();
@@ -142,8 +147,8 @@ public class CompanionView : IUIEventReceiver
         this.focusable.additionalFocusAction += () => ContainerPointerEnter(this.container.CreateFakePointerEnterEvent());
         this.focusable.additionalUnfocusAction += () => ContainerPointerLeave(this.container.CreateFakePointerLeaveEvent());
 
-        this.focusable.SetInputAction(GFGInputAction.VIEW_DECK, () => DrawButtonOnClick(null));
-        this.focusable.SetInputAction(GFGInputAction.VIEW_DISCARD, () => DiscardButtonOnClick(null));
+        this.focusable.SetInputAction(GFGInputAction.VIEW_DECK, () => DrawPileButtonOnClick(null));
+        this.focusable.SetInputAction(GFGInputAction.VIEW_DISCARD, () => DiscardPileButtonOnClick(null));
 
         if (this.viewType == CompanionViewType.SHOP || this.viewType == CompanionViewType.COMPANION_MANAGEMENT) {
             this.statusContainer.style.display = DisplayStyle.None;
@@ -171,7 +176,8 @@ public class CompanionView : IUIEventReceiver
     private void ContainerPointerEnter(PointerEnterEvent evt) {
         if (isDead) return;
 
-        this.selectedIndicator.style.visibility = Visibility.Visible;
+        // Shop does it's own thing for hovering over companions
+        if (this.viewType == CompanionViewType.COMBAT) this.selectedIndicator.style.visibility = Visibility.Visible;
 
         try {
             Targetable targetable = this.entity.GetTargetable();
@@ -214,9 +220,15 @@ public class CompanionView : IUIEventReceiver
                 ControlsManager.Instance.GetSpriteForGFGAction(GFGInputAction.VIEW_DECK));
         ControlsManager.Instance.RegisterIconChanger(this.viewDeckButton);
 
-        this.viewDeckButton.RegisterCallback<ClickEvent>(DrawButtonOnClick);
+        this.viewDeckButton.RegisterCallback<ClickEvent>(ViewDeckButtonOnClick);
 
         this.containerThatHoverIndicatorShows = this.viewDeckContainer;
+    }
+
+    private void ViewDeckButtonOnClick(ClickEvent evt) {
+        if (evt != null) evt.StopPropagation();
+        // Luke needs to fix this because it's bad but I'm in a rush
+        viewDelegate.InstantiateCardView(new List<Card>(), "");
     }
 
     private void SetupDrawDiscardContainer() {
@@ -233,13 +245,13 @@ public class CompanionView : IUIEventReceiver
         ControlsManager.Instance.RegisterIconChanger(this.drawPileButton);
         ControlsManager.Instance.RegisterIconChanger(this.discardPileButton);
 
-        this.drawPileButton.RegisterCallback<ClickEvent>(DrawButtonOnClick);
-        this.discardPileButton.RegisterCallback<ClickEvent>(DiscardButtonOnClick);
+        this.drawPileButton.RegisterCallback<ClickEvent>(DrawPileButtonOnClick);
+        this.discardPileButton.RegisterCallback<ClickEvent>(DiscardPileButtonOnClick);
 
         this.containerThatHoverIndicatorShows = this.drawDiscardContainer;
     }
 
-    private void DrawButtonOnClick(ClickEvent evt) {
+    private void DrawPileButtonOnClick(ClickEvent evt) {
         if (evt != null) evt.StopPropagation();
         Debug.Log("Draw button clicked");
         DeckInstance deckInstance = this.entity.GetDeckInstance();
@@ -250,7 +262,7 @@ public class CompanionView : IUIEventReceiver
         viewDelegate.InstantiateCardView(deckInstance.GetShuffledDrawPile(), deckInstance.combatInstance.name + " draw pile");
     }
 
-    private void DiscardButtonOnClick(ClickEvent evt) {
+    private void DiscardPileButtonOnClick(ClickEvent evt) {
         if (evt != null) evt.StopPropagation();
         Debug.Log("Discard button clicked");
         DeckInstance deckInstance = this.entity.GetDeckInstance();
@@ -281,14 +293,18 @@ public class CompanionView : IUIEventReceiver
         this.focusable.additionalUnfocusAction += () => HoverDetectorPointerLeave(this.container.CreateFakePointerLeaveEvent());
     }
 
-    private void HoverDetectorPointerEnter(PointerEnterEvent evt) {
+    public void HoverDetectorPointerEnter(PointerEnterEvent evt) {
         if (this.isDead) return;
-        elementsKeepingHiddenContainerVisible.Add(evt.currentTarget as VisualElement);
+        // This null check exists because ShopItemView will call this with a null event
+        // if a shop item is hovered with non mouse controls
+        if (evt != null) elementsKeepingHiddenContainerVisible.Add(evt.currentTarget as VisualElement);
         this.containerThatHoverIndicatorShows.style.visibility = Visibility.Visible;
     }
 
-    private void HoverDetectorPointerLeave(PointerLeaveEvent evt) {
-        elementsKeepingHiddenContainerVisible.Remove(evt.currentTarget as VisualElement);
+    public void HoverDetectorPointerLeave(PointerLeaveEvent evt) {
+        // This null check exists because ShopItemView will call this with a null event
+        // if a shop item is hovered with non mouse controls
+        if (evt != null) elementsKeepingHiddenContainerVisible.Remove(evt.currentTarget as VisualElement);
         viewDelegate.GetMonoBehaviour().StartCoroutine(HideContainerAtEndOfFrame());
     }
 
@@ -333,8 +349,14 @@ public class CompanionView : IUIEventReceiver
                 screenWidthPercent = SCREEN_WIDTH_PERCENT_COMBAT;
             break;
 
-            default:
+            case CompanionViewType.SHOP:
                 aspectRatio = CONTAINER_ASPECT_RATIO_NARROW;
+                screenWidthPercent = SCREEN_WIDTH_PERCENT_SHOP;
+            break;
+
+            case CompanionViewType.COMPANION_MANAGEMENT:
+            default:
+                aspectRatio = CONTAINER_ASPECT_RATIO_COMP_MGMT;
                 screenWidthPercent = SCREEN_WIDTH_PERCENT_SHOP;
             break;
         }

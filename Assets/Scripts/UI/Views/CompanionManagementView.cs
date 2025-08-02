@@ -18,33 +18,34 @@ public class CompanionManagementView : IControlsReceiver {
     private IconButton sellCompanionButton = null;
     private VisualElement companionBoundingBox = null;
     private EntityView entityView;
+    private CompanionView companionView;
 
     private bool draggingThisCompanion = false;
     
     private bool isSellingDisabled = false;
 
-    public CompanionManagementView(Companion companion, ICompanionManagementViewDelegate viewDelegate) {
+    public CompanionManagementView(Companion companion, VisualTreeAsset template, ICompanionManagementViewDelegate viewDelegate) {
         this.viewDelegate = viewDelegate;
-        container = MakeCompanionManagementView(companion);
+        container = MakeCompanionManagementView(companion, template);
         this.companion = companion;
     }
 
-    public VisualElement MakeCompanionManagementView(Companion companion) {
-        entityView = new EntityView(companion, 0, false, null, true);
-        entityView.UpdateWidthAndHeight();
+    public VisualElement MakeCompanionManagementView(Companion companion, VisualTreeAsset template) {
+        companionView = new CompanionView(companion, template, 0, CompanionViewType.COMPANION_MANAGEMENT, null);
+        companionView.ScaleView(0.6f);
 
-        entityView.entityContainer.RegisterCallback<ClickEvent>(CompanionManagementOnClick);
+        companionView.container.RegisterCallback<ClickEvent>(CompanionManagementOnClick);
 
-        entityView.entityContainer.RegisterCallback<PointerDownEvent>((evt) => CompanionManagementOnPointerDown(evt, true));
-        entityView.entityContainer.RegisterCallback<PointerMoveEvent>(CompanionManagementOnPointerMove);
-        entityView.entityContainer.RegisterCallback<PointerUpEvent>(ComapnionManagementOnPointerUp);
+        companionView.container.RegisterCallback<PointerDownEvent>((evt) => CompanionManagementOnPointerDown(evt, true));
+        companionView.container.RegisterCallback<PointerMoveEvent>(CompanionManagementOnPointerMove);
+        companionView.container.RegisterCallback<PointerUpEvent>(ComapnionManagementOnPointerUp);
 
-        entityView.entityContainer.RegisterCallback<PointerLeaveEvent>(ComapnionManagementOnPointerLeave);
-        entityView.entityContainer.RegisterCallback<PointerEnterEvent>(CompanionManagementOnPointerEnter);
+        companionView.container.RegisterCallback<PointerLeaveEvent>(ComapnionManagementOnPointerLeave);
+        companionView.container.RegisterCallback<PointerEnterEvent>(CompanionManagementOnPointerEnter);
 
-        entityView.entityContainer.name = companion.companionType.name;
-        
-        return entityView.entityContainer;
+        companionView.container.name = companion.companionType.name;
+
+        return companionView.container;
     }
 
     public void CompanionManagementOnPointerEnter(PointerEnterEvent evt)
@@ -53,7 +54,8 @@ public class CompanionManagementView : IControlsReceiver {
         CreateViewDeckButton();
         if (!isSellingDisabled) CreateSellCompanionButton();
         CreateCompanionBoundingBox();
-        viewDelegate.DisplayTooltip(entityView.entityContainer, companion.companionType.tooltip, true);
+        // viewDelegate.DisplayTooltip(entityView.entityContainer, companion.companionType.tooltip, true);
+        viewDelegate.DisplayTooltip(companionView.container, companion.companionType.tooltip, true);
     }
 
     public void CompanionManagementNonMouseSelect() {
@@ -96,12 +98,12 @@ public class CompanionManagementView : IControlsReceiver {
 
     public void ComapnionManagementOnPointerLeave(PointerLeaveEvent evt) {
         viewDelegate.CompanionManagementOnPointerLeave(this, evt);
-        viewDelegate.DestroyTooltip(entityView.entityContainer);
+        viewDelegate.DestroyTooltip(companionView.container);
     }
 
     public void CompanionManagementOnUnfocus() {
         viewDelegate.CompanionManagementOnPointerLeave(this, null);
-        viewDelegate.DestroyTooltip(entityView.entityContainer);
+        viewDelegate.DestroyTooltip(companionView.container);
         RemoveCompanionHoverButtons();
     }
 

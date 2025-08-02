@@ -342,7 +342,10 @@ public class ShopViewController : MonoBehaviour,
 
     public void SetupActiveCompanions(List<Companion> companions) {
         for (int i = 0; i < companions.Count; i++) {
-            CompanionManagementView companionView = new CompanionManagementView(companions[i], this);
+            CompanionManagementView companionView = new CompanionManagementView(
+                    companions[i],
+                    shopManager.encounterConstants.companionViewTemplate,
+                    this);
             activeSlots[i].InsertCompanion(companionView);
         }
     }
@@ -350,7 +353,10 @@ public class ShopViewController : MonoBehaviour,
     public void SetupBenchCompanions(List<Companion> companions) {
 
         for (int i = 0; i < companions.Count; i++) {
-            CompanionManagementView companionView = new CompanionManagementView(companions[i], this);
+            CompanionManagementView companionView = new CompanionManagementView(
+                    companions[i],
+                    shopManager.encounterConstants.companionViewTemplate,
+                    this);
             benchSlots[i].InsertCompanion(companionView);
         }
     }
@@ -435,6 +441,8 @@ public class ShopViewController : MonoBehaviour,
         tempContainer.style.width = parent.resolvedStyle.width;
         tempContainer.style.height = parent.resolvedStyle.height;
         tempContainer.style.position = Position.Absolute;
+        tempContainer.style.justifyContent = Justify.Center;
+        tempContainer.style.alignItems = Align.Center;
 
         uiDoc.rootVisualElement.Add(tempContainer);
         StartCoroutine(FinishDragSetup(tempContainer, companionView, pointerPos, parentSlot));
