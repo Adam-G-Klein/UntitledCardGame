@@ -30,7 +30,7 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 3000
   stringTagMap:
     RenderType: Transparent
   disabledShaderPasses:
@@ -64,7 +64,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 6c6e37fe585997045b2d60683154c62c, type: 3}
+        m_Texture: {fileID: 2800000, guid: 34f712950f204be40b8f148170dce99e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Mask_Tex:
@@ -128,7 +128,7 @@ Material:
     - _ZWrite: 0
     - _ZWriteControl: 0
     m_Colors:
-    - _Color: {r: 3.776172, g: 3.776172, b: 3.776172, a: 1}
+    - _Color: {r: 2.9960787, g: 2.9960787, b: 2.9960787, a: 1}
     - _Colour_A: {r: 1, g: 1, b: 1, a: 0}
     - _Colour_B: {r: 1, g: 0, b: 0, a: 0}
     - _Dissolve_Speed: {r: 0, g: 0, b: 0, a: 0}
