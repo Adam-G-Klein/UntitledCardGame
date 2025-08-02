@@ -48,8 +48,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _FadeTexture:
-        m_Texture: {fileID: 2800000, guid: 035fccc8d123ffe49bb042e478f93c43, type: 3}
-        m_Scale: {x: 2, y: 2}
+        m_Texture: {fileID: 2800000, guid: 24aafb5b9c6fdd94fba2143d92dc0ee3, type: 3}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Fresnel_Texture:
         m_Texture: {fileID: 0}
@@ -91,7 +91,7 @@ Material:
     m_Floats:
     - _AlphaClip: 0
     - _AlphaToMask: 0
-    - _Blend: 0
+    - _Blend: 2
     - _CastShadows: 1
     - _Cull: 2
     - _Cutoff_Softness: 0.3
@@ -100,7 +100,7 @@ Material:
     - _Distorion_in_Custom_Data: 0
     - _Distort_the_Mask: 0
     - _Distortion_Strength: 0
-    - _DstBlend: 10
+    - _DstBlend: 1
     - _Fade_Tex_Dissolve_Amount: 0
     - _Fade_Tex_Pow: 1
     - _Float: 0
@@ -117,7 +117,7 @@ Material:
     - _Soft_Sides_Opacity: 30
     - _SrcBlend: 5
     - _Surface: 1
-    - _Text_Power: 1
+    - _Text_Power: 2
     - _Use_Cutoff: 1
     - _Use_Fade_Tex_Instead: 1
     - _Use_Lerp: 0
