@@ -30,6 +30,7 @@ public class CombatEncounterView : MonoBehaviour,
 
     private List<IUIEventReceiver> pickingModePositionList = new List<IUIEventReceiver>();
     private List<EntityView> entityViews = new List<EntityView>();
+    private List<CompanionView> companionViews = new List<CompanionView>();
 
 
     [SerializeField]
@@ -60,8 +61,8 @@ public class CombatEncounterView : MonoBehaviour,
         List<Enemy> enemies = ((EnemyEncounter)gameState.activeEncounter.GetValue()).enemyList;
         List<Companion> companions = gameState.companions.activeCompanions;
         setupEntities(root.Q<VisualElement>("enemyContainer"), enemies.Cast<IUIEntity>(), true);
-        setupEntities(root.Q<VisualElement>("companionContainer"), companions.Cast<IUIEntity>(), false);
-        // SetupCompanions(root.Q<VisualElement>("companionContainer"), companions.Cast<IUIEntity>());
+        // setupEntities(root.Q<VisualElement>("companionContainer"), companions.Cast<IUIEntity>(), false);
+        SetupCompanions(root.Q<VisualElement>("companionContainer"), companions.Cast<IUIEntity>());
         root.Q<Label>("money").text = gameState.playerData.GetValue().gold.ToString();
         UIDocumentUtils.SetAllPickingMode(root, PickingMode.Ignore);
         setupComplete = true;
@@ -80,7 +81,8 @@ public class CombatEncounterView : MonoBehaviour,
         enemyContainer.Clear();
         companionContainer.Clear();
         setupEntities(enemyContainer, enemies.Cast<IUIEntity>(), true);
-        setupEntities(companionContainer, companions.Cast<IUIEntity>(), false);
+        // setupEntities(companionContainer, companions.Cast<IUIEntity>(), false);
+        SetupCompanions(companionContainer, companions.Cast<IUIEntity>());
         UIDocumentUtils.SetAllPickingMode(enemyContainer, PickingMode.Ignore);
         UIDocumentUtils.SetAllPickingMode(companionContainer, PickingMode.Ignore);
         FocusManager.Instance.RegisterFocusables(GetComponent<UIDocument>());
@@ -93,6 +95,9 @@ public class CombatEncounterView : MonoBehaviour,
             root.Q<Label>("money").text = gameState.playerData.GetValue().gold.ToString();
             foreach (EntityView entityView in entityViews) {
                 entityView.UpdateView();
+            }
+            foreach (CompanionView view in companionViews) {
+                view.UpdateView();
             }
             foreach (IUIEventReceiver view in pickingModePositionList) {
                 view.SetPickingModes(!inMenu && !inDeckView && !combatOver);
@@ -126,7 +131,20 @@ public class CombatEncounterView : MonoBehaviour,
     }
 
     private VisualElement SetupCompanion(IUIEntity entity, int index) {
-        CompanionView companionView = new CompanionView(entity, this.enemyEncounterManager.encounterConstants.companionViewTemplate, this);
+        CompanionView companionView = new CompanionView(
+                entity,
+                this.enemyEncounterManager.encounterConstants.companionViewTemplate,
+                index,
+                true,
+                false,
+                this);
+
+        pickingModePositionList.Add(companionView);
+        companionViews.Add(companionView);
+        
+        VisualElementFocusable focusable = companionView.container.GetUserData<VisualElementFocusable>();
+        focusable.SetTargetType(Targetable.TargetType.Companion);
+        FocusManager.Instance.RegisterFocusableTarget(focusable);
 
         return companionView.container;
     }
@@ -160,15 +178,6 @@ public class CombatEncounterView : MonoBehaviour,
 
     public void InstantiateCardView(List<Card> cardList, string promptText)
     {
-        // GameObject gameObject = GameObject.Instantiate(
-        //         cardViewUIPrefab,
-        //         Vector3.zero,
-        //         Quaternion.identity);
-        // CardViewUI cardViewUI = gameObject.GetComponent<CardViewUI>();
-        // cardViewUI.Setup(cardList,
-        //     0,
-        //     promptText,
-        //     0);
         GameObject gameObject = GameObject.Instantiate(
                 newCardViewUIPrefab,
                 Vector3.zero,

@@ -11,9 +11,10 @@ public class ShopItemView : IEntityViewDelegate {
     public CardInShopWithPrice cardInShop = null;
 
     private EntityView entityView = null;
+    private CompanionView companionView = null;
     private IShopItemViewDelegate viewDelegate;
 
-    public ShopItemView(IShopItemViewDelegate viewDelegate, CompanionInShopWithPrice companion) {
+    public ShopItemView(IShopItemViewDelegate viewDelegate, CompanionInShopWithPrice companion, VisualTreeAsset template = null) {
         this.viewDelegate = viewDelegate;
         shopItemElement = makeCompanionShopItem(companion);
         companionInShop = companion;
@@ -56,6 +57,8 @@ public class ShopItemView : IEntityViewDelegate {
         portraitContainer.style.backgroundImage = new StyleBackground(companion.companionType.sprite);
 
         shopItemElement.Add(entityView.entityContainer);
+
+        // companionView = new CompanionView(tempCompanion, TEMPLATE, 0, false, true, this);
 
         shopItemElement.RegisterOnSelected(ShopItemViewOnClicked);
         shopItemElement.RegisterCallback<PointerEnterEvent>(OnPointerEnter);
