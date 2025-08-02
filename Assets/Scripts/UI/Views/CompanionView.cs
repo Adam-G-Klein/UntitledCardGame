@@ -41,10 +41,11 @@ public class CompanionView : IUIEventReceiver
     private Label secondaryNameLabel;
     private Label blockLabel;
     private Label healthLabel;
+    private Label maxHealthLabel;
+    private VisualElement maxHealthContainer;
     private VisualElement selectedIndicator;
 
     private List<VisualElement> pickingModePositionList = new List<VisualElement>();
-
     private List<VisualElement> elementsKeepingHiddenContainerVisible = new List<VisualElement>();
     private bool isDead = false;
     private VisualElement containerThatHoverIndicatorShows;
@@ -102,6 +103,8 @@ public class CompanionView : IUIEventReceiver
         this.secondaryNameLabel = companionRoot.Q<Label>("companion-view-secondary-name-label");
         this.blockLabel = companionRoot.Q<Label>("companion-view-block-value-label");
         this.healthLabel = companionRoot.Q<Label>("companion-view-health-value-label");
+        this.maxHealthLabel = companionRoot.Q<Label>("companion-view-max-health-label");
+        this.maxHealthContainer = companionRoot.Q<VisualElement>("companion-view-max-health-indicator");
         this.lowerHoverDetector = companionRoot.Q<VisualElement>("companion-view-lower-hover-detector");
         this.drawDiscardContainer = companionRoot.Q<VisualElement>("companion-view-draw-discard-container");
         this.viewDeckContainer = companionRoot.Q<VisualElement>("companion-view-view-deck-container");
@@ -137,12 +140,25 @@ public class CompanionView : IUIEventReceiver
     private void SetupBlockAndHealth() {
         if (this.combatInstance == null) {
             this.healthLabel.text = this.entity.GetCurrentHealth().ToString();
+            this.maxHealthLabel.text = this.entity.GetCombatStats().getMaxHealth().ToString();
             this.blockLabel.style.visibility = Visibility.Hidden;
-            return;
+        } else {
+            this.healthLabel.text = this.combatInstance.combatStats.currentHealth.ToString();
+            this.maxHealthLabel.text = this.combatInstance.combatStats.maxHealth.ToString();
+            this.blockLabel.text = this.combatInstance.GetStatus(StatusEffectType.Defended).ToString();
         }
 
-        this.healthLabel.text = this.combatInstance.combatStats.currentHealth.ToString();
-        this.blockLabel.text = this.combatInstance.GetStatus(StatusEffectType.Defended).ToString();
+        if (this.viewType == CompanionViewType.COMBAT || this.viewType == CompanionViewType.INFO_VIEW) {
+            this.healthLabel.RegisterCallback<PointerEnterEvent>((evt) => {
+                this.maxHealthContainer.style.visibility = Visibility.Visible;
+            });
+
+            this.healthLabel.RegisterCallback<PointerLeaveEvent>((evt) => {
+                this.maxHealthContainer.style.visibility = Visibility.Hidden;
+            });
+        }
+
+        this.pickingModePositionList.Add(this.healthLabel);
     }
 
     private void SetupStatusIndicators() {
@@ -429,7 +445,7 @@ public class CompanionView : IUIEventReceiver
 
     public void SetPickingModes(bool enable) {
         foreach (VisualElement ve in pickingModePositionList) {
-            UIDocumentUtils.SetAllPickingMode(ve, enable ? PickingMode.Position : PickingMode.Ignore);
+            ve.pickingMode = PickingMode.Position;
         }
     }
 

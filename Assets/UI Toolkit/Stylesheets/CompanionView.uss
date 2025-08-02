@@ -32,6 +32,10 @@
     translate: 0 0;
 }
 
+.companion-view-health-labels-small {
+    font-size: 20px;
+}
+
 .companion-view-status-indicator-icon {
     flex-grow: 0;
     background-image: url("project://database/Assets/Sprites/Z_OldPlaceholderSprites/bicep.png?fileID=2800000&guid=ed55b8c3c8cddf84e9879c69c720553a&type=3#bicep");
@@ -51,6 +55,25 @@
     font-size: 24px;
 }
 
+.companion-view-health-label {
+    font-size: 26px;
+    color: rgb(255, 255, 255);
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    white-space: nowrap;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    height: 25px;
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+}
+
 .icon-button-icon {
     max-height: 100%;
 }
@@ -68,4 +91,17 @@
     padding-top: 0;
     margin-bottom: 0;
     padding-bottom: 0;
+}
+
+.companion-view-max-health-label-text-small {
+    flex-shrink: 1;
+    flex-grow: 1;
+    color: rgb(255, 255, 255);
+    font-size: 10px;
+}
+
+.companion-view-max-health-label-text {
+    flex-shrink: 1;
+    flex-grow: 1;
+    color: rgb(255, 255, 255);
 }
