@@ -302,7 +302,7 @@ public class ShopViewController : MonoBehaviour,
     }
 
     public void AddCompanionToShopView(CompanionInShopWithPrice companion) {
-        ShopItemView newCompanionItemView = new ShopItemView(this, companion);
+        ShopItemView newCompanionItemView = new ShopItemView(this, companion, shopManager.encounterConstants.companionViewTemplate);
 
         shopGoodsArea.Add(newCompanionItemView.shopItemElement);
 

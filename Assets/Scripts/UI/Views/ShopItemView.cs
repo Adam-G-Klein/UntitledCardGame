@@ -16,7 +16,7 @@ public class ShopItemView : IEntityViewDelegate {
 
     public ShopItemView(IShopItemViewDelegate viewDelegate, CompanionInShopWithPrice companion, VisualTreeAsset template = null) {
         this.viewDelegate = viewDelegate;
-        shopItemElement = makeCompanionShopItem(companion);
+        shopItemElement = makeCompanionShopItem(companion, template);
         companionInShop = companion;
     }
 
@@ -35,7 +35,7 @@ public class ShopItemView : IEntityViewDelegate {
         entityView.HideDescription();
     }
 
-    private VisualElement makeCompanionShopItem(CompanionInShopWithPrice companion) {
+    private VisualElement makeCompanionShopItem(CompanionInShopWithPrice companion, VisualTreeAsset template = null) {
         VisualElement shopItemElement = new VisualElement();
         shopItemElement.AddToClassList("shop-item-container");
         shopItemElement.AddToClassList("focusable");
@@ -49,16 +49,18 @@ public class ShopItemView : IEntityViewDelegate {
             tempCompanion.combatStats.currentHealth -= (int)ProgressManager.Instance.GetAscensionSO(AscensionType.DAMAGED_COMPANIONS).modificationValue;
         }
 
-        entityView = new EntityView(tempCompanion, 0, false, this);
-        entityView.UpdateWidthAndHeight();
-        entityView.AddDeckButtonOnHover(visualElementFocusable);
+        // entityView = new EntityView(tempCompanion, 0, false, this);
+        // entityView.UpdateWidthAndHeight();
+        // entityView.AddDeckButtonOnHover(visualElementFocusable);
 
-        VisualElement portraitContainer = entityView.entityContainer.Q(className: "entity-portrait");
-        portraitContainer.style.backgroundImage = new StyleBackground(companion.companionType.sprite);
+        // VisualElement portraitContainer = entityView.entityContainer.Q(className: "entity-portrait");
+        // portraitContainer.style.backgroundImage = new StyleBackground(companion.companionType.sprite);
 
-        shopItemElement.Add(entityView.entityContainer);
+        // shopItemElement.Add(entityView.entityContainer);
 
-        // companionView = new CompanionView(tempCompanion, TEMPLATE, 0, false, true, this);
+        companionView = new CompanionView(tempCompanion, template, 0, CompanionViewType.SHOP, this);
+        companionView.ScaleView(0.75f);
+        shopItemElement.Add(companionView.container);
 
         shopItemElement.RegisterOnSelected(ShopItemViewOnClicked);
         shopItemElement.RegisterCallback<PointerEnterEvent>(OnPointerEnter);

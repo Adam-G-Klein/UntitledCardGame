@@ -135,8 +135,7 @@ public class CombatEncounterView : MonoBehaviour,
                 entity,
                 this.enemyEncounterManager.encounterConstants.companionViewTemplate,
                 index,
-                true,
-                false,
+                CompanionViewType.COMBAT,
                 this);
 
         pickingModePositionList.Add(companionView);

@@ -2,13 +2,17 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class CompanionView : IUIEventReceiver
 {
-    private static float CONTAINER_ASPECT_RATIO = 1.25f;
-    private static float SCREEN_WIDTH_PERCENT = 0.20f;
+    // wdith / height
+    private static float CONTAINER_ASPECT_RATIO_FULL = 1.25f;
+    private static float CONTAINER_ASPECT_RATIO_NARROW = 0.8f;
+    private static float SCREEN_WIDTH_PERCENT_COMBAT = 0.20f;
+    private static float SCREEN_WIDTH_PERCENT_SHOP = 0.15f;
 
     public VisualElement container;
     public VisualElementFocusable focusable;
@@ -17,10 +21,12 @@ public class CompanionView : IUIEventReceiver
     private IEntityViewDelegate viewDelegate;
     private VisualTreeAsset template;
     private int index;
+    private CompanionViewType viewType;
     private CombatInstance combatInstance;
 
     private VisualElement parentContainer;
     private VisualElement statusContainer;
+    private VisualElement extraSpace;
     private VisualElement solidBackground;
     private VisualElement imageElement;
     private VisualElement lowerHoverDetector;
@@ -45,15 +51,30 @@ public class CompanionView : IUIEventReceiver
             IUIEntity entity,
             VisualTreeAsset template,
             int index,
-            bool setupDrawDiscardButtons,
-            bool setupViewDeckButton,
+            CompanionViewType viewType,
             IEntityViewDelegate viewDelegate) {
         this.entity = entity;
         this.viewDelegate = viewDelegate;
         this.template = template;
         this.index = index;
+        this.viewType = viewType;
 
         this.combatInstance = entity.GetCombatInstance();
+
+        bool setupDrawDiscardButtons = false;
+        bool setupViewDeckButton = false;
+        switch (this.viewType) {
+            case CompanionViewType.COMBAT:
+                setupDrawDiscardButtons = true;
+            break;
+
+            case CompanionViewType.SHOP:
+                setupViewDeckButton = true;
+            break;
+
+            case CompanionViewType.COMPANION_MANAGEMENT:
+            break;
+        }
         
         SetupCompanionView(setupDrawDiscardButtons, setupViewDeckButton);
 
@@ -68,7 +89,8 @@ public class CompanionView : IUIEventReceiver
         VisualElement companionRoot = this.template.CloneTree();
 
         this.parentContainer = companionRoot.Q<VisualElement>("companion-view-parent-container");
-        this.statusContainer = companionRoot.Q<VisualElement>("companion-view-status-container");
+        this.statusContainer = companionRoot.Q<VisualElement>("companion-view-status-vertical");
+        this.extraSpace = companionRoot.Q<VisualElement>("companion-view-extra-space");
         this.solidBackground = companionRoot.Q<VisualElement>("companion-view-solid-background");
         this.imageElement = companionRoot.Q<VisualElement>("companion-view-companion-image");
         this.primaryNameLabel = companionRoot.Q<Label>("companion-view-primary-name-label");
@@ -121,6 +143,11 @@ public class CompanionView : IUIEventReceiver
 
         this.focusable.SetInputAction(GFGInputAction.VIEW_DECK, () => DrawButtonOnClick(null));
         this.focusable.SetInputAction(GFGInputAction.VIEW_DISCARD, () => DiscardButtonOnClick(null));
+
+        if (this.viewType == CompanionViewType.SHOP || this.viewType == CompanionViewType.COMPANION_MANAGEMENT) {
+            this.statusContainer.style.display = DisplayStyle.None;
+            this.extraSpace.style.display = DisplayStyle.None;
+        }
     }
 
     private void ContainerPointerClick(ClickEvent evt) {
@@ -277,21 +304,39 @@ public class CompanionView : IUIEventReceiver
         this.secondaryNameLabel.text = ""; // TODO: Do this lmao
     }
 
-    public void UpdateWidthAndHeight(VisualElement root) {
-        Tuple<int, int> entityWidthHeight = GetWidthAndHeight();
+    public void ScaleView(float scale) {
+        UpdateWidthAndHeight(this.container, scale);
+    }
+
+    public void UpdateWidthAndHeight(VisualElement root, float scale = 1f) {
+        Tuple<int, int> entityWidthHeight = GetWidthAndHeight(scale);
         root.style.width = entityWidthHeight.Item1;
         root.style.height = entityWidthHeight.Item2;
     }
 
-    private Tuple<int, int> GetWidthAndHeight() {
-        int width = (int)(Screen.width * SCREEN_WIDTH_PERCENT);
-        int height = (int)(width / CONTAINER_ASPECT_RATIO);
+    private Tuple<int, int> GetWidthAndHeight(float scale) {
+        float aspectRatio;
+        float screenWidthPercent;
+        switch (this.viewType) {
+            case CompanionViewType.COMBAT:
+                aspectRatio = CONTAINER_ASPECT_RATIO_FULL;
+                screenWidthPercent = SCREEN_WIDTH_PERCENT_COMBAT;
+            break;
+
+            default:
+                aspectRatio = CONTAINER_ASPECT_RATIO_NARROW;
+                screenWidthPercent = SCREEN_WIDTH_PERCENT_SHOP;
+            break;
+        }
+
+        int width = (int)(Screen.width * screenWidthPercent * scale);
+        int height = (int)(width / aspectRatio);
 
         // This drove me insane btw
         #if UNITY_EDITOR
         UnityEditor.PlayModeWindow.GetRenderingResolution(out uint windowWidth, out uint windowHeight);
-        width = (int)(windowWidth * SCREEN_WIDTH_PERCENT);
-        height = (int)(width / CONTAINER_ASPECT_RATIO);
+        width = (int)(windowWidth * screenWidthPercent * scale);
+        height = (int)(width / aspectRatio);
         #endif
 
         return new Tuple<int, int>(width, height);
@@ -335,4 +380,10 @@ public class CompanionView : IUIEventReceiver
         isDead = true;
         yield return null;
     }
+}
+
+public enum CompanionViewType {
+    COMBAT,
+    SHOP,
+    COMPANION_MANAGEMENT
 }
