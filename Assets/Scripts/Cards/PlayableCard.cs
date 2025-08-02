@@ -51,7 +51,8 @@ public class PlayableCard : MonoBehaviour,
     private bool isCardDiscardPlaying = false;
     public bool interactable = false;
 
-    public void  Awake() {
+    public void Awake()
+    {
         docCard = GetComponent<UIDocumentCard>();
     }
     public void Start()
@@ -60,7 +61,8 @@ public class PlayableCard : MonoBehaviour,
         hoverable = GetComponent<Hoverable>();
     }
 
-    public void OnPointerClickVoid() {
+    public void OnPointerClickVoid()
+    {
         OnPointerClick(null);
     }
 
@@ -73,22 +75,24 @@ public class PlayableCard : MonoBehaviour,
             " EnemyEncounterManager.GetCastingCard(): " + EnemyEncounterManager.Instance.GetCastingCard().ToString()
         );
         if (currentState != UIState.DEFAULT || !interactable || EnemyEncounterManager.Instance.GetCastingCard() || !PlayerHand.Instance.GetCanPlayCards()) return;
-        if (card.GetManaCost() > ManaManager.Instance.currentMana) {
-                StartCoroutine(GenericEntityDialogueParticipant
-                    .Instance
-                    .SpeakCompanionLine(
-                        "You don't have enough mana for me to cast that for you :(",
-                        deckFrom.GetComponent<CompanionInstance>().companion.companionType, 3f));
+        if (card.GetManaCost() > ManaManager.Instance.currentMana)
+        {
+            StartCoroutine(GenericEntityDialogueParticipant
+                .Instance
+                .SpeakCompanionLine(
+                    "You don't have enough mana for me to cast that for you :(",
+                    deckFrom.GetComponent<CompanionInstance>().companion.companionType, 3f));
             return;
         }
 
-        if (!card.cardType.playable) {
-                StartCoroutine(GenericEntityDialogueParticipant
-                    .Instance
-                    .SpeakCompanionLine(
-                        "Not sure what I can do with that one :(",
-                        deckFrom.GetComponent<CompanionInstance>().companion.companionType, 3f));
-                return;
+        if (!card.cardType.playable)
+        {
+            StartCoroutine(GenericEntityDialogueParticipant
+                .Instance
+                .SpeakCompanionLine(
+                    "Not sure what I can do with that one :(",
+                    deckFrom.GetComponent<CompanionInstance>().companion.companionType, 3f));
+            return;
         }
         if (eventData != null && eventData.button != PointerEventData.InputButton.Left) return;
         EnemyEncounterManager.Instance.SetCastingCard(true);
@@ -100,9 +104,11 @@ public class PlayableCard : MonoBehaviour,
         EffectManager.Instance.invokeEffectWorkflow(document, card.effectSteps, CardFinishCastingCallback());
     }
 
-    private IEnumerator CardFinishCastingCallback() {
+    private IEnumerator CardFinishCastingCallback()
+    {
         // report card cast for achievements
-        if (card.cardType.cardCategory == CardCategory.Attack && card.GetManaCost() == 0) {
+        if (card.cardType.cardCategory == CardCategory.Attack && card.GetManaCost() == 0)
+        {
             ProgressManager.Instance.ReportProgressEvent(GameActionType.ZERO_COST_ATTACKS_PLAYED, 1);
         }
 
@@ -115,7 +121,8 @@ public class PlayableCard : MonoBehaviour,
         yield return StartCoroutine(PlayerHand.Instance.OnCardCast(this));
         PlayerHand.Instance.StopCardDrawFX(gameObject);
 
-        if (card.cardType.exhaustsWhenPlayed) {
+        if (card.cardType.exhaustsWhenPlayed)
+        {
             Debug.Log("STARTING exhaust when played coroutine");
             yield return PlayerHand.Instance.ExhaustCard(this);
             Debug.Log("DONE WITH exhaust when played coroutine");
@@ -126,7 +133,9 @@ public class PlayableCard : MonoBehaviour,
             // Add a WaitForSeconds so that the target hovering does not break when using keyboard.
             // yield return new WaitForSeconds(0.5f);
             // Don't need to call ResizeHand, because ExhaustCard already does it!
-        } else {
+        }
+        else
+        {
             // remove the card from the hand first so that resizing doesn't affect the card being cast
             yield return StartCoroutine(PlayerHand.Instance.SafeRemoveCardFromHand(this));
 
@@ -139,24 +148,29 @@ public class PlayableCard : MonoBehaviour,
 
         PlayerHand.Instance.UpdatePlayableCards();
         // If the hand is empty as a result of playing this card, invoke any subscribers.
-        if (PlayerHand.Instance.cardsInHand.Count == 0) {
+        if (PlayerHand.Instance.cardsInHand.Count == 0)
+        {
             Debug.Log("Hand is empty, triggering downstream OnHandEmpty subscribers");
             yield return PlayerHand.Instance.OnHandEmpty();
-        } else if(ControlsManager.Instance.GetControlMethod() == ControlsManager.ControlMethod.KeyboardController) {
+        }
+        else if (ControlsManager.Instance.GetControlMethod() == ControlsManager.ControlMethod.KeyboardController)
+        {
             Debug.Log("Trying to a hover a new card now that the card has been played");
             //PlayerHand.Instance.FocusACard(this);
         }
         Debug.Log("FINISHED CardFinishCastingCallback");
     }
 
-    public void CardExhaustVFX() {
+    public void CardExhaustVFX()
+    {
         GameObject.Instantiate(
             cardExhaustVFXPrefab,
             this.transform.position,
             Quaternion.identity);
     }
-    
-    private IEnumerator CardCastVFX(GameObject cardGameObject) {
+
+    private IEnumerator CardCastVFX(GameObject cardGameObject)
+    {
         this.isCardCastPlaying = true;
         FXExperience experience = PrefabInstantiator.instantiateFXExperience(cardCastVFXPrefab, cardGameObject.transform.position);
 
@@ -175,13 +189,15 @@ public class PlayableCard : MonoBehaviour,
         Debug.Log("Finished card cast VFX");
     }
 
-    private void CardCastVFXFinished() {
+    private void CardCastVFXFinished()
+    {
         // If we don't do this, then the crew (the card) goes down with the ship (the FXExperience)
         this.gameObject.transform.SetParent(null);
         this.isCardCastPlaying = false;
     }
 
-    private IEnumerator CardDiscardVFX(GameObject cardGameObject) {
+    private IEnumerator CardDiscardVFX(GameObject cardGameObject)
+    {
         FXExperience experience = PrefabInstantiator.instantiateFXExperience(cardCastVFXPrefab, cardGameObject.transform.position);
 
         experience.BindGameObjectsToTracks(new Dictionary<string, GameObject>() {
@@ -199,29 +215,36 @@ public class PlayableCard : MonoBehaviour,
         Debug.Log("Finished card discard VFX");
     }
 
-    private void CardDiscardVFXFinished() {
+    private void CardDiscardVFXFinished()
+    {
         // If we don't do this, then the crew (the card) goes down with the ship (the FXExperience)
         this.gameObject.transform.SetParent(null);
         cleanupAndDestroy();
     }
 
-    public void UpdateCardText() {
+    public void UpdateCardText()
+    {
         Debug.Log("trying to update card text");
-        if (card.effectSteps != null && card.effectSteps.Count != 0) {
+        if (card.effectSteps != null && card.effectSteps.Count != 0)
+        {
             invokeCalculationOnCardEffectWorkflow(card.effectSteps);
         }
-        if (card.cardType.inPlayerHandEndOfTurnWorkflow != null && card.cardType.inPlayerHandEndOfTurnWorkflow.effectSteps.Count != 0) {
+        if (card.cardType.inPlayerHandEndOfTurnWorkflow != null && card.cardType.inPlayerHandEndOfTurnWorkflow.effectSteps.Count != 0)
+        {
             invokeCalculationOnCardEffectWorkflow(card.cardType.inPlayerHandEndOfTurnWorkflow.effectSteps);
         }
-        if (card.cardType.onExhaustEffectWorkflow != null && card.cardType.onExhaustEffectWorkflow.effectSteps.Count != 0) {
+        if (card.cardType.onExhaustEffectWorkflow != null && card.cardType.onExhaustEffectWorkflow.effectSteps.Count != 0)
+        {
             invokeCalculationOnCardEffectWorkflow(card.cardType.onExhaustEffectWorkflow.effectSteps);
         }
-        if (card.cardType.onDiscardEffectWorkflow != null && card.cardType.onDiscardEffectWorkflow.effectSteps.Count != 0) {
+        if (card.cardType.onDiscardEffectWorkflow != null && card.cardType.onDiscardEffectWorkflow.effectSteps.Count != 0)
+        {
             invokeCalculationOnCardEffectWorkflow(card.cardType.onDiscardEffectWorkflow.effectSteps);
         }
     }
 
-    private void invokeCalculationOnCardEffectWorkflow(List<EffectStep> steps) {
+    private void invokeCalculationOnCardEffectWorkflow(List<EffectStep> steps)
+    {
         EffectDocument document = new EffectDocument();
         document.map.AddItem(EffectDocument.ORIGIN, this);
         document.originEntityType = EntityType.Card;
@@ -231,17 +254,20 @@ public class PlayableCard : MonoBehaviour,
             CardFinishedCalculatingCallback(document));
     }
 
-    private IEnumerator CardFinishedCalculatingCallback(EffectDocument document) {
+    private IEnumerator CardFinishedCalculatingCallback(EffectDocument document)
+    {
         //document should now have a value for the output and the multiplicity of that output;
         docCard.UpdateCardText(document);
         yield return null;
     }
 
-    private void IncrementCastCount(){
+    private void IncrementCastCount()
+    {
         card.castCount += 1;
     }
 
-    public IEnumerator ExhaustCard() {
+    public IEnumerator ExhaustCard()
+    {
         deckFrom.ExhaustCard(card, this);
         cleanupAndDestroy();
         yield return null;
@@ -250,15 +276,18 @@ public class PlayableCard : MonoBehaviour,
     // Called by playerHand.discardCard
     public IEnumerator DiscardToDeck()
     {
-        if (PlayerHand.Instance.cardsInHand.Contains(this)) {
+        if (PlayerHand.Instance.cardsInHand.Contains(this))
+        {
             yield return StartCoroutine(PlayerHand.Instance.SafeRemoveCardFromHand(this));
         }
         yield return CardDiscardVFX(this.gameObject);
         deckFrom.DiscardCards(new List<Card> { card });
     }
 
-    public void cleanupAndDestroy() {
-        docCard.Cleanup(() => {
+    public void cleanupAndDestroy()
+    {
+        docCard.Cleanup(() =>
+        {
             Destroy(hoverObjectToMove);
             Destroy(this.gameObject);
         });
@@ -268,15 +297,18 @@ public class PlayableCard : MonoBehaviour,
     // be needed for UI effects in the future
     public void OnDrag(PointerEventData eventData) { }
 
-    public void OnPointerEnterVoid() {
+    public void OnPointerEnterVoid()
+    {
         OnPointerEnter(null);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if(!interactable || EnemyEncounterManager.Instance.GetCastingCard() || !PlayerHand.Instance.GetCanPlayCards()) return;
+        if (!interactable || EnemyEncounterManager.Instance.GetCastingCard() || !PlayerHand.Instance.GetCanPlayCards()) return;
         hovered = true;
-        if(hoverable != null) {
+        HoverAssociatedCompanion();
+        if (hoverable != null)
+        {
             // Make sure hoverable knows that we've already processed
             // this hover in case keyboard controls turn on
             hoverable.hovered = true;
@@ -294,18 +326,22 @@ public class PlayableCard : MonoBehaviour,
             .setEase(LeanTweenType.easeOutQuint);
     }
 
-    public void OnPointerExitVoid() {
+    public void OnPointerExitVoid()
+    {
         OnPointerExit(null);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if(!interactable || !hovered) return;
+        if (!interactable || !hovered) return;
+        UnHoverAssociatedCompanion();
         ResetCardScale();
     }
 
-    public void ResetCardScale() {
-        if (hovered) {
+    public void ResetCardScale()
+    {
+        if (hovered)
+        {
             hovered = false;
 
             LeanTween.cancel(gameObject);
@@ -319,20 +355,57 @@ public class PlayableCard : MonoBehaviour,
 
     // Used when instantiating the card after Start has run
     // See PrefabInstantiator.cs
-    public void SetCardInfo(Card card){
+    public void SetCardInfo(Card card)
+    {
         this.card = card;
     }
 
     // Should pass by reference so that the values stay updated
-    public void SetDeckFrom(DeckInstance deckFrom) {
+    public void SetDeckFrom(DeckInstance deckFrom)
+    {
         this.deckFrom = deckFrom;
     }
 
-    public void uiStateEventHandler(UIStateEventInfo eventInfo) {
+    public void uiStateEventHandler(UIStateEventInfo eventInfo)
+    {
         currentState = eventInfo.newState;
     }
 
-    public void SetBasePosition(Vector3 position) {
+    public void SetBasePosition(Vector3 position)
+    {
         startPos = position;
     }
+
+    private void HoverAssociatedCompanion()
+    {
+        if (deckFrom == null)
+        {
+            Debug.LogError("[PlayableCard] deckfrom is null, can't highlight associated companion");
+            return;
+        }
+        CompanionInstance companionInstanceFrom = this.deckFrom.GetComponent<CompanionInstance>();
+        if (companionInstanceFrom == null)
+        {
+            Debug.LogError("[PlayableCard] deckfrom doesn't have a companion instance, can't highlight selected companion");
+            return;
+        }
+        companionInstanceFrom.companionView.SetSelectionIndicatorVisibility(true);
+    }
+
+    private void UnHoverAssociatedCompanion()
+    {
+        if (deckFrom == null)
+        {
+            Debug.LogError("[PlayableCard] deckfrom is null, can't highlight associated companion");
+            return;
+        }
+        CompanionInstance companionInstanceFrom = this.deckFrom.GetComponent<CompanionInstance>();
+        if (companionInstanceFrom == null)
+        {
+            Debug.LogError("[PlayableCard] deckfrom doesn't have a companion instance, can't highlight selected companion");
+            return;
+        }
+        companionInstanceFrom.companionView.SetSelectionIndicatorVisibility(false);
+    }
+
 }

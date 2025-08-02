@@ -89,7 +89,7 @@ public class CombatInstance : MonoBehaviour
     TurnPhaseTrigger startOfTurnCacheInit;
     TurnPhaseTrigger startOfCombatCacheInit;
 
-    private WorldPositionVisualElement wpve;
+    public WorldPositionVisualElement wpve;
     // Link the GameObject to the visual element. This is necessary now that
     // basically the entire combat screen is UI Doc and we're gonna be hiding
     // the sprites on the game objects that sit on the scene.

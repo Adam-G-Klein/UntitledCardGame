@@ -14,6 +14,12 @@ public class CompanionInstance : MonoBehaviour, IUIEntity
     public CombatInstance combatInstance;
     public DeckInstance deckInstance;
 
+    // MAY BE NULL if CombatEncounterView.ResetEntities hasn't been called yet
+    // That method is only called AFTER the encountermanager has queried the locations
+    // of all of the ui elements in the ui doc and placed the companionInstances in their
+    // proper location on the screen
+    public CompanionView companionView; 
+
     private List<TurnPhaseTrigger> statusEffectTriggers = new List<TurnPhaseTrigger>();
 
     private BoxCollider2D boxCollider2D;

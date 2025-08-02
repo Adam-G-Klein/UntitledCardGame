@@ -62,7 +62,7 @@ public class CombatEncounterView : MonoBehaviour,
         List<Companion> companions = gameState.companions.activeCompanions;
         setupEntities(root.Q<VisualElement>("enemyContainer"), enemies.Cast<IUIEntity>(), true);
         // setupEntities(root.Q<VisualElement>("companionContainer"), companions.Cast<IUIEntity>(), false);
-        SetupCompanions(root.Q<VisualElement>("companionContainer"), companions.Cast<IUIEntity>());
+        SetupCompanions(root.Q<VisualElement>("companionContainer"), companions);
         root.Q<Label>("money").text = gameState.playerData.GetValue().gold.ToString();
         UIDocumentUtils.SetAllPickingMode(root, PickingMode.Ignore);
         setupComplete = true;
@@ -82,7 +82,7 @@ public class CombatEncounterView : MonoBehaviour,
         companionContainer.Clear();
         setupEntities(enemyContainer, enemies.Cast<IUIEntity>(), true);
         // setupEntities(companionContainer, companions.Cast<IUIEntity>(), false);
-        SetupCompanions(companionContainer, companions.Cast<IUIEntity>());
+        SetupCompanions(companionContainer, companions);
         UIDocumentUtils.SetAllPickingMode(enemyContainer, PickingMode.Ignore);
         UIDocumentUtils.SetAllPickingMode(companionContainer, PickingMode.Ignore);
         FocusManager.Instance.RegisterFocusables(GetComponent<UIDocument>());
@@ -122,17 +122,31 @@ public class CombatEncounterView : MonoBehaviour,
         }
     }
 
-    private void SetupCompanions(VisualElement container, IEnumerable<IUIEntity> entities) {
+    private void SetupCompanions(VisualElement container, IEnumerable<IUIEntity> companions) {
         var index = UIDocumentGameObjectPlacer.INITIAL_INDEX;
-        foreach (var entity in entities) {
-            container.Add(SetupCompanion(entity, index));
+        foreach (var entity in companions) {
+            container.Add(SetupCompanion(entity, index).container);
             index++;
         }
     }
 
-    private VisualElement SetupCompanion(IUIEntity entity, int index) {
+    private void SetupCompanions(VisualElement container, IEnumerable<CompanionInstance> companionInstances)
+    {
+        var index = UIDocumentGameObjectPlacer.INITIAL_INDEX;
+        foreach (CompanionInstance entity in companionInstances)
+        {
+            CompanionView companionView = SetupCompanion(entity, index);
+            // This is why this is a separate function
+            // this bridge is a nice way to get from PlayableCard->DeckInstance->CompanionInstance->CompanionView
+            entity.companionView = companionView;
+            container.Add(companionView.container);
+            index++;
+        }
+    }
+
+    private CompanionView SetupCompanion(IUIEntity companionInstance, int index) {
         CompanionView companionView = new CompanionView(
-                entity,
+                companionInstance,
                 this.enemyEncounterManager.encounterConstants.companionViewTemplate,
                 index,
                 CompanionViewType.COMBAT,
@@ -145,7 +159,7 @@ public class CombatEncounterView : MonoBehaviour,
         focusable.SetTargetType(Targetable.TargetType.Companion);
         FocusManager.Instance.RegisterFocusableTarget(focusable);
 
-        return companionView.container;
+        return companionView;
     }
 
     private VisualElement setupEntity(IUIEntity entity, int index, bool isEnemy) {

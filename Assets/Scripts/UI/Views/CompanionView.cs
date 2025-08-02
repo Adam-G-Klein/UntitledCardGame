@@ -85,7 +85,8 @@ public class CompanionView : IUIEventReceiver
         }
     }
 
-    private void SetupCompanionView(bool setupDrawDiscardButtons, bool setupViewDeckButton) {
+    private void SetupCompanionView(bool setupDrawDiscardButtons, bool setupViewDeckButton)
+    {
         VisualElement companionRoot = this.template.CloneTree();
 
         this.parentContainer = companionRoot.Q<VisualElement>("companion-view-parent-container");
@@ -150,6 +151,11 @@ public class CompanionView : IUIEventReceiver
         }
     }
 
+    public void SetSelectionIndicatorVisibility(bool visible)
+    {
+        this.selectedIndicator.visible = visible;
+    }
+
     private void ContainerPointerClick(ClickEvent evt) {
         try {
             Targetable targetable = this.entity.GetTargetable();
@@ -178,17 +184,21 @@ public class CompanionView : IUIEventReceiver
         }
     }
 
-    private void ContainerPointerLeave(PointerLeaveEvent evt) {
+    private void ContainerPointerLeave(PointerLeaveEvent evt)
+    {
         if (isDead) return;
 
         this.selectedIndicator.style.visibility = Visibility.Hidden;
 
-        try {
+        try
+        {
             Targetable targetable = this.entity.GetTargetable();
             if (targetable == null) return;
             targetable.OnPointerLeaveUI(evt);
-        } catch (Exception e) {
-            Debug.Log("EntityView: Caught exception while trying to get entity targetable," + 
+        }
+        catch (Exception e)
+        {
+            Debug.Log("EntityView: Caught exception while trying to get entity targetable," +
                 " might be due to the entity GO being destroyed");
             Debug.LogException(e);
         }
