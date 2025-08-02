@@ -941,8 +941,9 @@ GameObject:
   m_Component:
   - component: {fileID: 807667685076170620}
   - component: {fileID: 2533275434118031218}
+  - component: {fileID: 1706148356530788746}
   m_Layer: 0
-  m_Name: GameplayConstants
+  m_Name: Constants
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -976,6 +977,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameplayConstants: {fileID: 11400000, guid: a6db1936fe0d3a647b09f3d8297fef23, type: 2}
+--- !u!114 &1706148356530788746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5549825631411449466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f554c4a24f76604438a37c217affd05d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  encounterConstantsSO: {fileID: 11400000, guid: 4000d3b01acf1f1459ac789f20856055, type: 2}
 --- !u!1 &7220715729207639348
 GameObject:
   m_ObjectHideFlags: 0

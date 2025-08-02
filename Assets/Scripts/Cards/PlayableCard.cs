@@ -102,6 +102,7 @@ public class PlayableCard : MonoBehaviour,
         document.map.AddItem(EffectDocument.ORIGIN, this);
         document.originEntityType = EntityType.Card;
         EffectManager.Instance.invokeEffectWorkflow(document, card.effectSteps, CardFinishCastingCallback());
+        UnHoverAssociatedCompanion();
     }
 
     private IEnumerator CardFinishCastingCallback()

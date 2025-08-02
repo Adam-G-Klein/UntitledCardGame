@@ -72,6 +72,7 @@ public class CompanionManagementView : IControlsReceiver {
     public void CompanionManagementOnPointerDown(PointerDownEvent evt, bool usingMouse) {
         Debug.Log("Companion on pointer down");
         RemoveCompanionHoverButtons();
+        viewDelegate.DestroyTooltip(companionView.container);
         draggingThisCompanion = true;
         if (usingMouse) {
             viewDelegate.CompanionManagementOnPointerDown(this, evt.position);

@@ -862,7 +862,7 @@ public class ShopViewController : MonoBehaviour,
             GameObject cardSelectionViewGo = Instantiate(cardSelectionViewPrefab);
             CardSelectionView cardSelectionView = cardSelectionViewGo.GetComponent<CardSelectionView>();
             // Card Selection View stashes focusables on setup
-            cardSelectionView.Setup(companion.getDeck().cards, companion);
+            cardSelectionView.Setup(companion.getDeck().cards, companion, shopManager.encounterConstants.companionViewTemplate);
         } else { // Not sure why this else exists
             deckViewContentContainer.Clear();
             deckView.style.visibility = Visibility.Visible;
@@ -882,7 +882,7 @@ public class ShopViewController : MonoBehaviour,
         if (cardSelectionViewPrefab != null) {
             GameObject cardSelectionViewGo = Instantiate(cardSelectionViewPrefab);
             CardSelectionView cardSelectionView = cardSelectionViewGo.GetComponent<CardSelectionView>();
-            cardSelectionView.Setup(companion.getDeck().cards, "Select a Card For Removal!", 1, 1, companion);
+            cardSelectionView.Setup(companion.getDeck().cards, "Select a Card For Removal!", 1, 1, companion, shopManager.encounterConstants.companionViewTemplate);
             cardSelectionView.cardsSelectedHandler += ProcessCardRemoval;
         }
     }
@@ -1128,6 +1128,6 @@ public class ShopViewController : MonoBehaviour,
         GameObject cardSelectionViewGo = Instantiate(cardSelectionViewPrefab);
         CardSelectionView cardSelectionView = cardSelectionViewGo.GetComponent<CardSelectionView>();
         // Card Selection View stashes focusables on setup
-        cardSelectionView.Setup(instantiatedCards, new Companion(companion));
+        cardSelectionView.Setup(instantiatedCards, new Companion(companion), shopManager.encounterConstants.companionViewTemplate);
     }
 }

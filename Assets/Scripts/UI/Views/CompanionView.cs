@@ -26,6 +26,7 @@ public class CompanionView : IUIEventReceiver
     private CombatInstance combatInstance;
 
     private VisualElement parentContainer;
+    private VisualElement statusVertical;
     private VisualElement statusContainer;
     private VisualElement extraSpace;
     private VisualElement solidBackground;
@@ -74,6 +75,7 @@ public class CompanionView : IUIEventReceiver
             break;
 
             case CompanionViewType.COMPANION_MANAGEMENT:
+            case CompanionViewType.INFO_VIEW:
             break;
         }
         
@@ -91,7 +93,8 @@ public class CompanionView : IUIEventReceiver
         VisualElement companionRoot = this.template.CloneTree();
 
         this.parentContainer = companionRoot.Q<VisualElement>("companion-view-parent-container");
-        this.statusContainer = companionRoot.Q<VisualElement>("companion-view-status-vertical");
+        this.statusContainer = companionRoot.Q<VisualElement>("companion-view-status-container");
+        this.statusVertical = companionRoot.Q<VisualElement>("companion-view-status-vertical");
         this.extraSpace = companionRoot.Q<VisualElement>("companion-view-extra-space");
         this.solidBackground = companionRoot.Q<VisualElement>("companion-view-solid-background");
         this.imageElement = companionRoot.Q<VisualElement>("companion-view-companion-image");
@@ -112,11 +115,11 @@ public class CompanionView : IUIEventReceiver
         this.container.name = container.name + this.index;
         this.pickingModePositionList.Add(container);
         SetupMainContainer();
-
+        SetupBackground();
         SetupCompanionSprite();
         SetupName();
         SetupBlockAndHealth();
-        // SetupStatusIndicators();
+        SetupStatusIndicators();
 
         if (setupDrawDiscardButtons || setupViewDeckButton) SetupHoverDetector();
         if (setupDrawDiscardButtons) SetupDrawDiscardContainer();
@@ -125,6 +128,10 @@ public class CompanionView : IUIEventReceiver
 
         UpdateWidthAndHeight(container);
 
+    }
+
+    private void SetupBackground() {
+        this.solidBackground.style.backgroundImage = new StyleBackground(this.entity.GetBackgroundImage());
     }
 
     private void SetupBlockAndHealth() {
@@ -136,6 +143,41 @@ public class CompanionView : IUIEventReceiver
 
         this.healthLabel.text = this.combatInstance.combatStats.currentHealth.ToString();
         this.blockLabel.text = this.combatInstance.GetStatus(StatusEffectType.Defended).ToString();
+    }
+
+    private void SetupStatusIndicators() {
+        this.statusContainer.Clear();
+
+        if (this.combatInstance == null) return;
+
+        foreach (KeyValuePair<StatusEffectType, int> kvp in combatInstance.GetDisplayedStatusEffects()) {
+            // Block is displayed on the companion frame now :)
+            if (kvp.Key == StatusEffectType.Defended) continue;
+            this.statusContainer.Add(CreateStatusIndicator(viewDelegate.GetStatusEffectSprite(kvp.Key), kvp.Value.ToString()));
+        }
+
+        List<DisplayedCacheValue> cacheValues = combatInstance.GetDisplayedCacheValues();
+        foreach (DisplayedCacheValue cacheValue in cacheValues) {
+            this.statusContainer.Add(CreateStatusIndicator(cacheValue.sprite, cacheValue.value.ToString()));
+        }
+    }
+
+    private VisualElement CreateStatusIndicator(Sprite icon, string textValue) {
+        VisualElement statusIndicator = new VisualElement();
+        statusIndicator.AddToClassList("companion-view-status-indicator");
+
+        Label statusLabel = new Label();
+        statusLabel.AddToClassList("companion-view-status-indicator-label");
+        statusLabel.text = textValue;
+
+        VisualElement statusIcon = new VisualElement();
+        statusIcon.AddToClassList("companion-view-status-indicator-icon");
+        statusIcon.style.backgroundImage = new StyleBackground(icon);
+
+        statusIndicator.Add(statusLabel);
+        statusIndicator.Add(statusIcon);
+
+        return statusIndicator;
     }
 
     private void SetupMainContainer() {
@@ -151,7 +193,7 @@ public class CompanionView : IUIEventReceiver
         this.focusable.SetInputAction(GFGInputAction.VIEW_DISCARD, () => DiscardPileButtonOnClick(null));
 
         if (this.viewType == CompanionViewType.SHOP || this.viewType == CompanionViewType.COMPANION_MANAGEMENT) {
-            this.statusContainer.style.display = DisplayStyle.None;
+            this.statusVertical.style.display = DisplayStyle.None;
             this.extraSpace.style.display = DisplayStyle.None;
         }
     }
@@ -323,9 +365,19 @@ public class CompanionView : IUIEventReceiver
             sprite = companionInstance.companion.companionType.sprite;
         }
         this.imageElement.style.backgroundImage = new StyleBackground(sprite);
+        if (this.viewType == CompanionViewType.COMPANION_MANAGEMENT) {
+            this.imageElement.AddToClassList("companion-view-companion-image-fill-space");
+        }
     }
 
     private void SetupName() {
+        if (this.viewType == CompanionViewType.COMPANION_MANAGEMENT) {
+            this.primaryNameLabel.style.display = DisplayStyle.None;
+            this.secondaryNameLabel.style.display = DisplayStyle.None;
+            return;
+        } else if (this.viewType == CompanionViewType.SHOP) {
+            this.primaryNameLabel.AddToClassList("companion-view-primary-name-label-small");
+        }
         this.primaryNameLabel.text = entity.GetName();
         this.secondaryNameLabel.text = ""; // TODO: Do this lmao
     }
@@ -345,6 +397,7 @@ public class CompanionView : IUIEventReceiver
         float screenWidthPercent;
         switch (this.viewType) {
             case CompanionViewType.COMBAT:
+            case CompanionViewType.INFO_VIEW:
                 aspectRatio = CONTAINER_ASPECT_RATIO_FULL;
                 screenWidthPercent = SCREEN_WIDTH_PERCENT_COMBAT;
             break;
@@ -405,6 +458,7 @@ public class CompanionView : IUIEventReceiver
 
     public void UpdateView() {
         SetupBlockAndHealth();
+        SetupStatusIndicators();
     }
 
     private IEnumerator OnDeathHandler(CombatInstance killer) {
@@ -417,5 +471,6 @@ public class CompanionView : IUIEventReceiver
 public enum CompanionViewType {
     COMBAT,
     SHOP,
-    COMPANION_MANAGEMENT
+    COMPANION_MANAGEMENT,
+    INFO_VIEW
 }

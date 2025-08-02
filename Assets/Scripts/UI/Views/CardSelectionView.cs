@@ -35,9 +35,9 @@ public class CardSelectionView : MonoBehaviour
         canvas.sortingLayerName = "OverlayUI";
     }
 
-    public void Setup(List<Card> cards, Companion companion) {
+    public void Setup(List<Card> cards, Companion companion, VisualTreeAsset companionViewTemplate) {
         this.companion = companion;
-        this.Setup(cards, "", -1, -1, companion);
+        this.Setup(cards, "", -1, -1, companion, companionViewTemplate);
     }
 
     public void Setup(
@@ -45,7 +45,8 @@ public class CardSelectionView : MonoBehaviour
             string promptText = "",
             int minSelections = -1,
             int maxSelections = -1,
-            Companion companion = null) {
+            Companion companion = null,
+            VisualTreeAsset companionViewTemplate = null) {
         this.companion = companion;
         InitFields();
         this.minSelections = minSelections;
@@ -66,14 +67,12 @@ public class CardSelectionView : MonoBehaviour
             this.confirmExitButton.style.marginLeft = 0;
         }
 
-        if (companion == null) {
+        if (companion == null || companionViewTemplate == null) {
             this.companionArea.style.display = DisplayStyle.None;
         } else {
-            EntityView entityView = new EntityView(companion, 0, false);
-            entityView.UpdateWidthAndHeight();
-            VisualElement portraitContainer = entityView.entityContainer.Q(className: "entity-portrait");
-            portraitContainer.style.backgroundImage = new StyleBackground(companion.companionType.sprite);
-            this.companionArea.Insert(0, entityView.entityContainer);
+            CompanionView companionView = new CompanionView(companion, companionViewTemplate, 0, CompanionViewType.INFO_VIEW, null);
+            companionView.ScaleView(0.85f);
+            this.companionArea.Insert(0, companionView.container);
 
             Label companionText = uiDoc.rootVisualElement.Q<Label>("companion-description-text");
             companionText.text = companion.GetDescription();
