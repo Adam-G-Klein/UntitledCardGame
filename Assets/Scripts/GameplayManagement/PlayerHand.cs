@@ -222,14 +222,8 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                         card.retained = false;
                     }
                 } else {
-                    //UIDocumentGameObjectPlacer.Instance.RemoveCardSlot(card.gameObject);
                     StartCoroutine(ResizeHand(card));
                     callback = DiscardCard(card, true);
-                    if(NonMouseInputManager.Instance.inputMethod != InputMethod.Mouse) {
-
-                        // Doesn't work, iteration to be done
-                        //callback += NonMouseInputManager.Instance.hoverACard();
-                    }
                 }
                 CardType ct = card.card.cardType;
 

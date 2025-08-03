@@ -213,10 +213,6 @@ public class CombatEncounterView : MonoBehaviour,
         return enemyIntentsSO.GetIntentImage(enemyIntentType);
     }
 
-    public MonoBehaviour GetMonoBehaviour() {
-        return this;
-    }
-
     public void SetInMenu(bool inMenu) {
         this.inMenu = inMenu;
         UpdateView();

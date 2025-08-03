@@ -151,9 +151,4 @@ public class ShopItemView : IEntityViewDelegate {
     {
         viewDelegate.DisplayCards(companionInShop.companionType);
     }
-
-    public MonoBehaviour GetMonoBehaviour()
-    {
-        return viewDelegate.GetMonoBehaviour();
-    }
 }

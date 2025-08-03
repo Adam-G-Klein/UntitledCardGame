@@ -470,7 +470,7 @@ public class EntityView : IUIEventReceiver {
 
     private void HoverDetectorOnPointerLeave(PointerLeaveEvent evt) {
         elementsKeepingDrawDiscardVisible.Remove(evt.currentTarget as VisualElement);
-        viewDelegate.GetMonoBehaviour().StartCoroutine(HideDrawDiscardAtEndOfFrame());
+        CoroutineRunner.Instance.Run(HideDrawDiscardAtEndOfFrame());
     }
 
     private void DrawDiscardContainerOnPointerEnter(PointerEnterEvent evt) {
@@ -481,7 +481,7 @@ public class EntityView : IUIEventReceiver {
 
     private void DrawDiscardContainerOnPointerLeave(PointerLeaveEvent evt) {
         elementsKeepingDrawDiscardVisible.Remove(evt.currentTarget as VisualElement);
-        viewDelegate.GetMonoBehaviour().StartCoroutine(HideDrawDiscardAtEndOfFrame());
+        CoroutineRunner.Instance.Run(HideDrawDiscardAtEndOfFrame());
     }
 
     private IEnumerator HideDrawDiscardAtEndOfFrame() {

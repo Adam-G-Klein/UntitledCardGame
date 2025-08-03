@@ -49,6 +49,7 @@ public class CompanionView : IUIEventReceiver
     private List<VisualElement> elementsKeepingHiddenContainerVisible = new List<VisualElement>();
     private bool isDead = false;
     private VisualElement containerThatHoverIndicatorShows;
+    private Coroutine maxHealthIndicatorCoroutine;
 
     public CompanionView(
             IUIEntity entity,
@@ -202,8 +203,8 @@ public class CompanionView : IUIEventReceiver
         this.container.RegisterCallback<PointerLeaveEvent>(ContainerPointerLeave);
 
         this.focusable = this.container.AsFocusable();
-        this.focusable.additionalFocusAction += () => ContainerPointerEnter(this.container.CreateFakePointerEnterEvent());
-        this.focusable.additionalUnfocusAction += () => ContainerPointerLeave(this.container.CreateFakePointerLeaveEvent());
+        this.focusable.additionalFocusAction += () => ContainerPointerEnter(null);
+        this.focusable.additionalUnfocusAction += () => ContainerPointerLeave(null);
 
         this.focusable.SetInputAction(GFGInputAction.VIEW_DECK, () => DrawPileButtonOnClick(null));
         this.focusable.SetInputAction(GFGInputAction.VIEW_DISCARD, () => DiscardPileButtonOnClick(null));
@@ -237,6 +238,13 @@ public class CompanionView : IUIEventReceiver
         // Shop does it's own thing for hovering over companions
         if (this.viewType == CompanionViewType.COMBAT) this.selectedIndicator.style.visibility = Visibility.Visible;
 
+        // Pointer enter came from focus
+        // Setting this up for supporting showing the max health indicator when
+        // the companion is focused for a couple seconds
+        if (evt == null) {
+            this.maxHealthIndicatorCoroutine = CoroutineRunner.Instance.Run(ShowMaxHealthIndicatorAfterDelay());
+        }
+
         try {
             Targetable targetable = this.entity.GetTargetable();
             if (targetable == null) return;
@@ -253,6 +261,13 @@ public class CompanionView : IUIEventReceiver
         if (isDead) return;
 
         this.selectedIndicator.style.visibility = Visibility.Hidden;
+
+        // Setting this up for supporting showing the max health indicator when
+        // the companion is focused for a couple seconds
+        if (this.maxHealthIndicatorCoroutine != null) {
+            CoroutineRunner.Instance.Stop(this.maxHealthIndicatorCoroutine);
+        }
+        this.maxHealthContainer.style.visibility = Visibility.Hidden;
 
         try
         {
@@ -339,7 +354,7 @@ public class CompanionView : IUIEventReceiver
 
     private void HiddenContainerPointerLeave(PointerLeaveEvent evt) {
         elementsKeepingHiddenContainerVisible.Remove(evt.currentTarget as VisualElement);
-        viewDelegate.GetMonoBehaviour().StartCoroutine(HideContainerAtEndOfFrame());
+        CoroutineRunner.Instance.Run(HideContainerAtEndOfFrame());
     }
 
     private void SetupHoverDetector() {
@@ -363,7 +378,7 @@ public class CompanionView : IUIEventReceiver
         // This null check exists because ShopItemView will call this with a null event
         // if a shop item is hovered with non mouse controls
         if (evt != null) elementsKeepingHiddenContainerVisible.Remove(evt.currentTarget as VisualElement);
-        viewDelegate.GetMonoBehaviour().StartCoroutine(HideContainerAtEndOfFrame());
+        CoroutineRunner.Instance.Run(HideContainerAtEndOfFrame());
     }
 
     private IEnumerator HideContainerAtEndOfFrame() {
@@ -481,6 +496,13 @@ public class CompanionView : IUIEventReceiver
         FocusManager.Instance.UnregisterFocusableTarget(this.focusable);
         isDead = true;
         yield return null;
+    }
+
+    private IEnumerator ShowMaxHealthIndicatorAfterDelay()
+    {
+        yield return new WaitForSeconds(0.8f);
+        this.maxHealthContainer.style.visibility = Visibility.Visible;
+        this.maxHealthIndicatorCoroutine = null;
     }
 }
 
