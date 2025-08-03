@@ -40,6 +40,7 @@ public class CombatEncounterView : MonoBehaviour,
     private bool inMenu = false;
     private bool inDeckView = false;
     private bool combatOver = false;
+    public MapView mapView;
 
     public void SetupFromGamestate(EnemyEncounterManager enemyEncounterManager)
     {
@@ -71,7 +72,7 @@ public class CombatEncounterView : MonoBehaviour,
         setupComplete = true;
         VisualElement mapRoot = root.Q("mapRoot");
         mapRoot.Clear();
-        MapView mapView = new MapView(enemyEncounterManager);
+        mapView = new MapView(enemyEncounterManager);
         mapView.mapContainer.Q<Label>("money-indicator-label").text = gameState.playerData.GetValue().gold.ToString() + "G";
         mapRoot.Add(mapView.mapContainer);
     }

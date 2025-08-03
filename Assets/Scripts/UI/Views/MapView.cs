@@ -138,4 +138,8 @@ public class MapView
         Label actAndEncounterLabel = container.Q<Label>("encounterNumberLabel");
         actAndEncounterLabel.text = elitesFought.ToString() + "–" + combatsFoughtThisFloor.ToString();
     }
+
+    public void UpdateTurnCounter(int number) {
+        mapContainer.Q<Label>("turnNumberLabel").text = "Turn " +number.ToString();
+    }
 }

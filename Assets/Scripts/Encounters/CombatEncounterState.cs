@@ -10,9 +10,11 @@ public class CombatEncounterState
     public List<Card> cardsExhaustThisTurn = new List<Card>();
     public List<Card> cardsExhaustThisCombat = new List<Card>();
     public List<DeckInstance> decksShuffledThisCombat = new List<DeckInstance>();
+    public int turn = 1;
 
-    public void CastCard(Card card) {
-        cardsCastThisTurn.Add(card); 
+    public void CastCard(Card card)
+    {
+        cardsCastThisTurn.Add(card);
     }
 
     public void ExhaustCard(Card card) {
@@ -20,6 +22,7 @@ public class CombatEncounterState
     }
     
     public void UpdateStateOnEndTurn() {
+        turn++;
         cardsCastThisCombat.AddRange(cardsCastThisTurn);
         cardsCastThisTurn = new List<Card>();
         cardsExhaustThisCombat.AddRange(cardsExhaustThisTurn);

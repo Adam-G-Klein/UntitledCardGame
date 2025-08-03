@@ -239,6 +239,16 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
             UpdateCombatEncounterState());
         TurnManager.Instance.addTurnPhaseTrigger(trigger);
 
+        TurnPhaseTrigger startTurnTrigger = new TurnPhaseTrigger(
+            TurnPhase.START_PLAYER_TURN,
+            UpdateTurnCounterDisplay());
+        TurnManager.Instance.addTurnPhaseTrigger(startTurnTrigger);
+
+        TurnPhaseTrigger setTurnCounterTrigger = new TurnPhaseTrigger(
+            TurnPhase.START_ENCOUNTER,
+            ResetTurnCounter());
+        TurnManager.Instance.addTurnPhaseTrigger(setTurnCounterTrigger);
+
         if (ProgressManager.Instance.IsFeatureEnabled(AscensionType.ENEMIES_DEADLIER))
         {
             TurnPhaseTrigger startcombatTrigger = new TurnPhaseTrigger(
@@ -259,6 +269,16 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
                 additionalStrength
             );
         }
+        yield return null;
+    }
+
+    private IEnumerable ResetTurnCounter() {
+        combatEncounterState.turn = 1;
+        yield return null;
+    }
+    private IEnumerable UpdateTurnCounterDisplay()
+    {
+        combatEncounterView.mapView.UpdateTurnCounter(combatEncounterState.turn);
         yield return null;
     }
 
