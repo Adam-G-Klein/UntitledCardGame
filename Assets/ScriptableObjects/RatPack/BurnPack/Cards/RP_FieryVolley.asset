@@ -41,39 +41,39 @@ MonoBehaviour:
     - rid: 2034230108114649711
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
-        effectSteps:
-        - rid: 7401433308100034879
-        - rid: 7401433308100034880
+        effectSteps: []
     - rid: 5602892563578094203
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
         - rid: 8829271312684286108
         - rid: 8829271312684286109
-    - rid: 7401433308100034879
+        - rid: 6462562181650055347
+        - rid: 6462562181650055348
+    - rid: 6462562181650055347
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: enemy
-        validTargets: 02000000
+        outputKey: self
+        validTargets: 00000000
         number: 1
-        specialTargetRule: 6
+        specialTargetRule: 4
         cantCancelTargetting: 0
-    - rid: 7401433308100034880
-      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+    - rid: 6462562181650055348
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: CombatEffectStep
-        inputKey: enemy
-        combatEffect: 0
-        scale: 5
+        effectStepName: ApplyStatus
+        inputKey: self
+        statusEffect: 15
+        scale: 4
         getScaleFromKey: 0
         inputScaleKey: 
+        multiplyByNumAuraStacks: 0
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 1320532642761013391, guid: 99a456f94890391478f393fcc8ad0b95, type: 3}
     - rid: 8829271312684286108
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

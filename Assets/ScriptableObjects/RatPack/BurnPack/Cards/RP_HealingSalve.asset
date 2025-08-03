@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: RP_HealingSalve
   m_EditorClassIdentifier: 
+  guid: e8d1e953-0ef3-44c0-887a-b6370a629b57
   Name: Healing Salve
   Description: Exhaust. Target companion loses all burn and gains 4 hp.
   defaultValues: []
@@ -39,9 +40,7 @@ MonoBehaviour:
     - rid: 2034230108114649711
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
-        effectSteps:
-        - rid: 7401433308100034879
-        - rid: 7401433308100034880
+        effectSteps: []
     - rid: 4463205916933357570
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -62,30 +61,6 @@ MonoBehaviour:
         - rid: 8829271312684286072
         - rid: 8829271312684286071
         - rid: 8829271312684286073
-    - rid: 7401433308100034879
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: enemy
-        validTargets: 02000000
-        number: 1
-        specialTargetRule: 6
-        cantCancelTargetting: 0
-    - rid: 7401433308100034880
-      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CombatEffectStep
-        inputKey: enemy
-        combatEffect: 0
-        scale: 5
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
-        vfxPrefab: {fileID: 1320532642761013391, guid: 99a456f94890391478f393fcc8ad0b95, type: 3}
     - rid: 8829271312684286070
       type: {class: CountStatusEffectsStep, ns: , asm: Assembly-CSharp}
       data:
@@ -104,6 +79,9 @@ MonoBehaviour:
         getScaleFromKey: 1
         inputScaleKey: inverseBurnStacks
         multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 8829271312684286072
       type: {class: MathStep, ns: , asm: Assembly-CSharp}
       data:
