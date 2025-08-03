@@ -47,8 +47,5 @@
         <ui:VisualElement name="mamna" style="flex-grow: 1; background-color: rgba(37, 51, 40, 0); background-image: url(&quot;project://database/Assets/Sprites/Z_OldPlaceholderSprites/solid_inside_mana_ring.png?fileID=2800000&amp;guid=75477ac82cc8449d4a5fb0f4a94873dd&amp;type=3#solid_inside_mana_ring&quot;); position: absolute; left: 18px; height: 200px; width: 200px; align-items: center; align-self: auto; justify-content: center; bottom: 0;">
             <ui:Label tabindex="-1" text="-1" display-tooltip-when-elided="true" name="manaCounter" style="margin-top: 0; font-size: 50px; color: rgb(255, 255, 255); -unity-text-align: middle-left;" />
         </ui:VisualElement>
-        <ui:VisualElement class="money-indactor-background">
-            <ui:Label tabindex="-1" text="99" parse-escape-sequences="true" display-tooltip-when-elided="true" name="money" class="money-indicator-text" />
-        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

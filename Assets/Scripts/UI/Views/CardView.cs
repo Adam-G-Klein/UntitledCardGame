@@ -19,11 +19,18 @@ public class CardView {
     public static int CARD_TITLE_MAX_FULL_SIZE_CHARS_SHOP_SCREEN = 5; // guess
     public static int COMPANION_AND_MANA_INDICATOR_WIDTH_HEIGHT_COMBAT = 80;
     public static int COMPANION_AND_MANA_INDICATOR_WIDTH_HEIGHT_SHOP = 30;
+
+    // Trying to define single pixel sizes for cards to bring some conformity to the look. Changing text sizes reads a little messy imo
+    private static int CARD_TITLE_COMBAT = 44;
+    private static int CARD_DESC_COMBAT = 40;
+    private static int CARD_TITLE_SHOP = 14;
+    private static int CARD_DESC_SHOP = 12; 
+
     public Card cardInstance = null;
     public Color modifiedManaCostColor = Color.green;
 
     private float SCREEN_WIDTH_PERCENT = 0.11f;
-    private float RATIO = 1.4f;
+    private float RATIO = 1.53f;
     private CardType cardType;
 
     private Card.CardRarity rarity = Card.CardRarity.NONE;
@@ -70,14 +77,16 @@ public class CardView {
         if (cardInShop) rarityGem.AddToClassList("rarity-gem-small");
 
         Label title = container.Q<Label>("cardName");
-        int fontSize = getTitleFontSize(card.Name, cardInShop);
+        //int fontSize = getTitleFontSize(card.Name, cardInShop);
+        int fontSize = cardInShop ? CARD_TITLE_SHOP : CARD_TITLE_COMBAT;
         if (!cardInShop) title.text = $"<line-height={75}%>{card.Name}</line-height>";
         else title.text = card.Name;
         title.style.fontSize = fontSize;
 
         Label description = container.Q<Label>("cardDesc");
         string desc = card.GetDescription();
-        fontSize = getDescFontSize(desc, cardInShop);
+        //fontSize = getDescFontSize(desc, cardInShop);
+        fontSize = cardInShop ? CARD_DESC_SHOP : CARD_DESC_COMBAT;
         //if (!cardInShop) description.text = $"<line-height={60}%>{desc}</line-height>";
         description.text = desc;
         description.style.fontSize = fontSize;
@@ -101,7 +110,6 @@ public class CardView {
         }
 
         Label cardTypeLabel = container.Q<Label>("cardTypeLabel");
-        //This adds a space before the capital letters in the enum types
         cardTypeLabel.text = cardTypeLabel.text = System.Text.RegularExpressions.Regex.Replace(
             card.cardCategory.ToString(), "(?<!^)([A-Z])", " $1"
         ).Trim();
@@ -125,78 +133,6 @@ public class CardView {
             container.style.width = cardWidthHeight.Item1;
             container.style.height = cardWidthHeight.Item2;
         }
-
-        /*Debug.Log(companionType);
-        var container = new VisualElement();
-        container.AddToClassList("card-container");
-        container.AddToClassList("focusable");
-        container.focusable = true;
-        
-        cardFocusable = container.AsFocusable();
-
-        var greenBorder = new VisualElement();
-        greenBorder.AddToClassList("green-card-border");
-        greenBorder.visible = false;
-        container.Add(greenBorder);
-
-        var image = new VisualElement();
-        image.AddToClassList("card-image");
-        image.style.backgroundImage = new StyleBackground(card.Artwork);
-        container.Add(image);
-
-        var companionImage = new VisualElement();
-        companionImage.AddToClassList("companion-image");
-        switch(rarity) {
-            case Card.CardRarity.COMMON:
-            case Card.CardRarity.NONE:
-                companionImage.AddToClassList("card-rarity-bg-common");
-                break;
-            case Card.CardRarity.UNCOMMON:
-                companionImage.AddToClassList("card-rarity-bg-uncommon");
-                break;
-            case Card.CardRarity.RARE:
-                companionImage.AddToClassList("card-rarity-bg-rare");
-                break;
-        }
-        if (companionType != null) {
-            companionImage.style.backgroundImage = new StyleBackground(companionType.sprite);
-        } else {
-            companionImage.style.backgroundImage = new StyleBackground(genericSprite);
-        }
-        companionImage.style.width = cardInShop ? COMPANION_AND_MANA_INDICATOR_WIDTH_HEIGHT_SHOP : COMPANION_AND_MANA_INDICATOR_WIDTH_HEIGHT_COMBAT;
-        companionImage.style.height = cardInShop ? COMPANION_AND_MANA_INDICATOR_WIDTH_HEIGHT_SHOP : COMPANION_AND_MANA_INDICATOR_WIDTH_HEIGHT_COMBAT;
-        container.Add(companionImage);
-
-        var name = new Label();
-        name.AddToClassList("card-title-label");
-        name.text = card.Name;
-        name.style.fontSize = getTitleFontSize(card.Name, cardInShop);
-        container.Add(name);
-
-        var desc = new Label();
-        desc.AddToClassList("card-desc-label");
-
-        string description = card.GetDescription();
-        desc.text = description;
-        desc.style.fontSize = getDescFontSize(description, cardInShop);
-        container.Add(desc);
-
-        var manaContainer = new VisualElement();
-        manaContainer.AddToClassList("mana-container");
-
-        var manaCost = new Label();
-        setManaCost(manaCost, card);
-        manaContainer.Add(manaCost);
-        manaContainer.style.width = cardInShop ? COMPANION_AND_MANA_INDICATOR_WIDTH_HEIGHT_SHOP : COMPANION_AND_MANA_INDICATOR_WIDTH_HEIGHT_COMBAT;
-        manaContainer.style.height = cardInShop ? COMPANION_AND_MANA_INDICATOR_WIDTH_HEIGHT_SHOP : COMPANION_AND_MANA_INDICATOR_WIDTH_HEIGHT_COMBAT;
-        container.Add(manaContainer);
-
-        if(cardInShop) {
-            Tuple<int, int> cardWidthHeight = GetWidthAndHeight();
-            container.style.width = cardWidthHeight.Item1;
-            container.style.height = cardWidthHeight.Item2;
-        }
-        */
         return container;
     }
 

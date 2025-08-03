@@ -6,8 +6,8 @@
         <ui:VisualElement name="greenBorder" class="green-card-border" style="flex-grow: 1; top: 50%; border-top-width: 30px; border-right-width: 30px; border-bottom-width: 30px; border-left-width: 30px; visibility: hidden; translate: 0 -50%;" />
         <ui:VisualElement name="cardBackground" style="width: 85%; height: 85%; position: absolute; top: 50%; translate: 0 -50%; background-color: rgb(255, 255, 255);" />
         <ui:VisualElement name="cardBorder" class="card-border" />
-        <ui:Label tabindex="-1" text="Swirling&#10;Strike" display-tooltip-when-elided="true" name="cardName" class="card-title-label" style="-unity-font: resource(&apos;fonts/static/Jost-Medium&apos;); -unity-font-style: bold;" />
-        <ui:Label tabindex="-1" text="Deal 2 damage for each card in your hand (x cards)." display-tooltip-when-elided="true" name="cardDesc" class="card-desc-label" style="-unity-font: resource(&apos;fonts/static/Jost-Medium&apos;);" />
+        <ui:Label tabindex="-1" text="Swirling&#10;Strike" display-tooltip-when-elided="true" name="cardName" class="card-title-label" style="-unity-font: resource(&apos;fonts/static/Jost-Medium&apos;); -unity-font-style: bold; top: 15%;" />
+        <ui:Label tabindex="-1" text="Deal 2 damage for each card in your hand (x cards)." display-tooltip-when-elided="true" name="cardDesc" class="card-desc-label" style="-unity-font: resource(&apos;fonts/static/Jost-Medium&apos;); top: 31%;" />
         <ui:VisualElement name="manaContainer" class="mana-container">
             <ui:Label tabindex="-1" text="1" display-tooltip-when-elided="true" name="manaLabel" class="mana-card-label" />
         </ui:VisualElement>
