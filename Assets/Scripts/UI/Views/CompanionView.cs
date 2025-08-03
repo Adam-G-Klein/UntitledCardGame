@@ -296,6 +296,8 @@ public class CompanionView : IUIEventReceiver
         this.viewDeckButton.RegisterCallback<ClickEvent>(ViewDeckButtonOnClick);
 
         this.containerThatHoverIndicatorShows = this.viewDeckContainer;
+
+        this.pickingModePositionList.Add(this.viewDeckButton);
     }
 
     private void ViewDeckButtonOnClick(ClickEvent evt) {
@@ -322,6 +324,9 @@ public class CompanionView : IUIEventReceiver
         this.discardPileButton.RegisterCallback<ClickEvent>(DiscardPileButtonOnClick);
 
         this.containerThatHoverIndicatorShows = this.drawDiscardContainer;
+
+        this.pickingModePositionList.Add(this.drawPileButton);
+        this.pickingModePositionList.Add(this.discardPileButton);
     }
 
     private void DrawPileButtonOnClick(ClickEvent evt) {
