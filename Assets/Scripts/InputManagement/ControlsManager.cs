@@ -130,7 +130,11 @@ public class ControlsManager : GenericSingleton<ControlsManager>
     }
 
     public void handleEndTurn(InputAction.CallbackContext context) {
-        if(context.phase == InputActionPhase.Performed) {
+        if(context.phase == InputActionPhase.Performed
+            && !Input.GetKey(KeyCode.LeftCommand) 
+            && !Input.GetKey(KeyCode.RightCommand)
+            // quick hack so screenshotting is easier using Cmd (or Win) + shift + S
+            ) {
             Debug.Log("[ControlsManager] handleEndTurn called");
             ProcessInput(GFGInputAction.END_TURN);
         }
