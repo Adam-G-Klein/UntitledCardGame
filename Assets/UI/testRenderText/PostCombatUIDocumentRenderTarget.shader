@@ -1,4 +1,4 @@
-Shader "Signified/UIDocumentRenderTarget"
+Shader "Signified/PostCombatUIDocumentRenderTarget"
 {
         Properties
     {
@@ -48,9 +48,8 @@ Shader "Signified/UIDocumentRenderTarget"
             {
                 fixed4 col;
                 col = tex2D(_MainTex, i.uv);
-                if(_alpha != 1) {
-                    col = fixed4(col.r, col.g, col.b, _alpha);
-                }
+                if(col.a == 0) discard;
+                col = fixed4(col.r, col.g, col.b, _alpha);
                 //if(col.a == 0) discard;
                 //return col2;
                 return col;
