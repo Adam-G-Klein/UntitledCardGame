@@ -49,7 +49,7 @@ public class ShopItemView : IEntityViewDelegate {
             tempCompanion.combatStats.currentHealth -= (int)ProgressManager.Instance.GetAscensionSO(AscensionType.DAMAGED_COMPANIONS).modificationValue;
         }
 
-        companionView = new CompanionView(tempCompanion, template, 0, CompanionViewType.SHOP, this);
+        companionView = new CompanionView(tempCompanion, template, 0, CompanionView.SHOP_CONTEXT, this);
         companionView.ScaleView(0.75f);
         shopItemElement.Add(companionView.container);
 

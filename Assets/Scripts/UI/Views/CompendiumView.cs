@@ -3,8 +3,6 @@ using System;
 using System.Collections;
 using UnityEngine.UIElements;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using System.ComponentModel;
 using System.Linq;
 
 
@@ -23,7 +21,8 @@ public class CompendiumView : MonoBehaviour, IControlsReceiver {
     }
     private VisualElement companionsSection;
     private VisualElement cardsSection;
-    private Dictionary<String, GameObject> tooltipMap = new();
+    private Dictionary<String, TooltipView> tooltipMap = new();
+    private List<VisualElement> elementsWithTooltips = new();
     private GameObject tooltipPrefab;
 
     public CompendiumView(UIDocument uiDocument, CompanionPoolSO companionPool, CardPoolSO neutralCardPool, List<PackSO> packSOs, GameObject tooltipPrefab) {
@@ -38,6 +37,8 @@ public class CompendiumView : MonoBehaviour, IControlsReceiver {
         SetupCompanionView(companionPool);
         CardButtonHandler();
 
+        // companionScrollView.contentContainer.RegisterCallback<GeometryChangedEvent>(UpdateTooltipsOnScroll);
+
         // setup buttons
         uiDocument.rootVisualElement.Q<Button>("exitButton").clicked += ExitButtonHandler;
         uiDocument.rootVisualElement.Q<Button>("cardButton").clicked += CardButtonHandler;
@@ -48,6 +49,15 @@ public class CompendiumView : MonoBehaviour, IControlsReceiver {
         MusicController.Instance.RegisterButtonClickSFX(uiDocument);
         uiDocument.StartCoroutine(RegisterControlsReceiverAtEndOfFrame());
     }
+
+    // private void UpdateTooltipsOnScroll(GeometryChangedEvent evt) {
+    //     List<VisualElement> listCopy = new(elementsWithTooltips);
+    //     foreach (VisualElement element in listCopy) {
+    //         TooltipViewModel viewModel = tooltipMap[element.name].tooltip;
+    //         DestroyTooltip(element);
+    //         DisplayTooltip(element, viewModel);
+    //     }
+    // }
 
     private IEnumerator RegisterControlsReceiverAtEndOfFrame() {
         yield return new WaitForEndOfFrame();
@@ -136,7 +146,7 @@ public class CompendiumView : MonoBehaviour, IControlsReceiver {
                 if (card.GetTooltip().empty) {
                     return;
                 }
-                DisplayTooltip(cardContainer, card.GetTooltip());
+                DisplayTooltip(cardContainer, card.GetTooltip(), 1.5f);
             });
             cardContainer.RegisterCallback<PointerLeaveEvent>((evt) => {
                 DestroyTooltip(cardContainer);
@@ -165,21 +175,19 @@ public class CompendiumView : MonoBehaviour, IControlsReceiver {
             for (int index = 0; index < companionsToDisplay.Count; index++) {
                 Companion companionToDisplay = companionsToDisplay[index];
                 Companion tempCompanion = new Companion(companionToDisplay.companionType);
-                EntityView entityView = new EntityView(tempCompanion, 0, false);
-                entityView.entityContainer.AddToClassList("compendium-item-container");
-                VisualElement portraitContainer = entityView.entityContainer.Q(className: "entity-portrait");
-                portraitContainer.style.backgroundImage = new StyleBackground(companion.sprite);
-                companionRow.Add(entityView.entityContainer);
-                entityView.entityContainer.name = companionToDisplay.companionType.companionName + index;
-                entityView.entityContainer.RegisterCallback<PointerEnterEvent>((evt) => {
-                    DisplayTooltip(entityView.entityContainer, companionToDisplay.companionType.tooltip);
+                VisualTreeAsset companionTemplate = EncounterConstantsSingleton.Instance.encounterConstantsSO.companionViewTemplate;
+                CompanionView companionView = new CompanionView(tempCompanion, companionTemplate, 0, CompanionView.COMPENDIUM_CONTEXT, null);
+                companionRow.Add(companionView.container);
+                companionView.container.name = companionToDisplay.companionType.companionName + index;
+                companionView.container.RegisterCallback<PointerEnterEvent>((evt) => {
+                    DisplayTooltip(companionView.container, companionToDisplay.companionType.tooltip);
                 });
-                entityView.entityContainer.RegisterCallback<PointerLeaveEvent>((evt) => {
-                    DestroyTooltip(entityView.entityContainer);
+                companionView.container.RegisterCallback<PointerLeaveEvent>((evt) => {
+                    DestroyTooltip(companionView.container);
                 });
-                VisualElementFocusable entityViewFocusable = entityView.entityContainer.GetUserData<VisualElementFocusable>();
-                entityViewFocusable.additionalFocusAction += () => {DisplayTooltip(entityView.entityContainer, companionToDisplay.companionType.tooltip);};
-                entityViewFocusable.additionalUnfocusAction += () => {DestroyTooltip(entityView.entityContainer);};
+                VisualElementFocusable entityViewFocusable = companionView.container.GetUserData<VisualElementFocusable>();
+                entityViewFocusable.additionalFocusAction += () => {DisplayTooltip(companionView.container, companionToDisplay.companionType.tooltip);};
+                entityViewFocusable.additionalUnfocusAction += () => {DestroyTooltip(companionView.container);};
                 FocusManager.Instance.RegisterFocusableTarget(entityViewFocusable);
             };
             companionsSection.Add(companionRow);
@@ -189,25 +197,31 @@ public class CompendiumView : MonoBehaviour, IControlsReceiver {
         companionScrollView.style.display = DisplayStyle.None; 
     }
 
-    public void DisplayTooltip(VisualElement element, TooltipViewModel tooltipViewModel) {
+    // xPosScale exists because the calculation for xTooltipPos for cards was acting strange and I couldn't figure out why
+    public void DisplayTooltip(VisualElement element, TooltipViewModel tooltipViewModel, float xPosScale = 1f) {
+        elementsWithTooltips.Add(element);
         if (tooltipMap.ContainsKey(element.name)) {
             return;
         }
-        Vector3 tooltipPosition = UIDocumentGameObjectPlacer.GetWorldPositionFromElement(element);
 
-        tooltipPosition.x += element.resolvedStyle.width / 120; // this feels super brittle 
-        tooltipPosition.y += element.resolvedStyle.width / 150;
+        float xTooltipPos = element.worldBound.center.x + (element.resolvedStyle.width * 0.7f * xPosScale);
+        float yTooltipPos = element.worldBound.center.y - (element.resolvedStyle.height * .2f);
+        Vector3 position = new Vector3(xTooltipPos, yTooltipPos, 0);
+        // Vector3 position = new Vector3(element.worldBound.center.x, element.worldBound.center.y, 0);
+        
+        Vector3 tooltipPosition = UIDocumentGameObjectPlacer.GetWorldPositionFromUIDocumentPosition(position);
         
         GameObject uiDocToolTipPrefab = Instantiate(tooltipPrefab, new Vector3(tooltipPosition.x, tooltipPosition.y, -1), new Quaternion());
         TooltipView tooltipView = uiDocToolTipPrefab.GetComponent<TooltipView>();
         tooltipView.tooltip = tooltipViewModel;
 
-        tooltipMap[element.name] = uiDocToolTipPrefab;
+        tooltipMap[element.name] = tooltipView;
     }
 
     public void DestroyTooltip(VisualElement element) {
         if(tooltipMap.ContainsKey(element.name)) {
-            Destroy(tooltipMap[element.name]);
+            elementsWithTooltips.Remove(element);
+            Destroy(tooltipMap[element.name].gameObject);
             tooltipMap.Remove(element.name);
         }
     }

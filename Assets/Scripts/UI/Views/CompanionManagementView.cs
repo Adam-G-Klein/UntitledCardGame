@@ -31,7 +31,7 @@ public class CompanionManagementView : IControlsReceiver {
     }
 
     public VisualElement MakeCompanionManagementView(Companion companion, VisualTreeAsset template) {
-        companionView = new CompanionView(companion, template, 0, CompanionViewType.COMPANION_MANAGEMENT, null);
+        companionView = new CompanionView(companion, template, 0, CompanionView.UNIT_MNGMT_CONTEXT, null);
         companionView.ScaleView(0.6f);
 
         companionView.container.RegisterCallback<ClickEvent>(CompanionManagementOnClick);

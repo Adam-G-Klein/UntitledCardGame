@@ -15,6 +15,21 @@ public class CompanionView : IUIEventReceiver
     private static float SCREEN_WIDTH_PERCENT_COMBAT = 0.20f;
     private static float SCREEN_WIDTH_PERCENT_SHOP = 0.15f;
 
+    public static CompanionViewContext COMBAT_CONTEXT = 
+        new CompanionViewContext(true, false, true, true, false, false, false, false, 1.25f, 0.2f);
+    
+    public static CompanionViewContext SHOP_CONTEXT = 
+        new CompanionViewContext(false, true, false, false, true, false, false, true, 0.8f, 0.15f);
+    
+    public static CompanionViewContext UNIT_MNGMT_CONTEXT = 
+        new CompanionViewContext(false, false, false, false, true, true, true, false, 1.1f, 0.15f);
+
+    public static CompanionViewContext CARD_SELECTION_CONTEXT = 
+        new CompanionViewContext(false, false, true, true, false, false, false, false, 1.25f, 0.2f);
+    
+    public static CompanionViewContext COMPENDIUM_CONTEXT = 
+        new CompanionViewContext(false, false, false, true, false, false, false, false, 1.25f, 0.2f);
+
     public VisualElement container;
     public VisualElementFocusable focusable;
 
@@ -22,7 +37,7 @@ public class CompanionView : IUIEventReceiver
     private IEntityViewDelegate viewDelegate;
     private VisualTreeAsset template;
     private int index;
-    private CompanionViewType viewType;
+    private CompanionViewContext context;
     private CombatInstance combatInstance;
 
     private VisualElement parentContainer;
@@ -55,33 +70,17 @@ public class CompanionView : IUIEventReceiver
             IUIEntity entity,
             VisualTreeAsset template,
             int index,
-            CompanionViewType viewType,
+            CompanionViewContext context,
             IEntityViewDelegate viewDelegate) {
         this.entity = entity;
         this.viewDelegate = viewDelegate;
         this.template = template;
         this.index = index;
-        this.viewType = viewType;
+        this.context = context;
 
         this.combatInstance = entity.GetCombatInstance();
-
-        bool setupDrawDiscardButtons = false;
-        bool setupViewDeckButton = false;
-        switch (this.viewType) {
-            case CompanionViewType.COMBAT:
-                setupDrawDiscardButtons = true;
-            break;
-
-            case CompanionViewType.SHOP:
-                setupViewDeckButton = true;
-            break;
-
-            case CompanionViewType.COMPANION_MANAGEMENT:
-            case CompanionViewType.INFO_VIEW:
-            break;
-        }
         
-        SetupCompanionView(setupDrawDiscardButtons, setupViewDeckButton);
+        SetupCompanionView();
 
         if (this.combatInstance) {
             combatInstance.onDamageHandler += DamageScaleBump;
@@ -90,7 +89,7 @@ public class CompanionView : IUIEventReceiver
         }
     }
 
-    private void SetupCompanionView(bool setupDrawDiscardButtons, bool setupViewDeckButton)
+    private void SetupCompanionView()
     {
         VisualElement companionRoot = this.template.CloneTree();
 
@@ -125,10 +124,9 @@ public class CompanionView : IUIEventReceiver
         SetupBlockAndHealth();
         SetupStatusIndicators();
 
-        if (setupDrawDiscardButtons || setupViewDeckButton) SetupHoverDetector();
-        if (setupDrawDiscardButtons) SetupDrawDiscardContainer();
-        if (setupViewDeckButton) SetupViewDeckContainer();
-
+        if (this.context.setupDrawDiscardButtons || this.context.setupViewDeckButton) SetupHoverDetector();
+        if (this.context.setupDrawDiscardButtons) SetupDrawDiscardContainer();
+        if (this.context.setupViewDeckButton) SetupViewDeckContainer();
 
         UpdateWidthAndHeight(container);
 
@@ -149,7 +147,7 @@ public class CompanionView : IUIEventReceiver
             this.blockLabel.text = this.combatInstance.GetStatus(StatusEffectType.Defended).ToString();
         }
 
-        if (this.viewType == CompanionViewType.COMBAT || this.viewType == CompanionViewType.INFO_VIEW) {
+        if (this.context.enableMaxHealthIndicator) {
             this.healthLabel.RegisterCallback<PointerEnterEvent>((evt) => {
                 this.maxHealthContainer.style.visibility = Visibility.Visible;
             });
@@ -209,7 +207,7 @@ public class CompanionView : IUIEventReceiver
         this.focusable.SetInputAction(GFGInputAction.VIEW_DECK, () => DrawPileButtonOnClick(null));
         this.focusable.SetInputAction(GFGInputAction.VIEW_DISCARD, () => DiscardPileButtonOnClick(null));
 
-        if (this.viewType == CompanionViewType.SHOP || this.viewType == CompanionViewType.COMPANION_MANAGEMENT) {
+        if (this.context.trimToJustMainBody) {
             this.statusVertical.style.display = DisplayStyle.None;
             this.extraSpace.style.display = DisplayStyle.None;
         }
@@ -236,13 +234,13 @@ public class CompanionView : IUIEventReceiver
         if (isDead) return;
 
         // Shop does it's own thing for hovering over companions
-        if (this.viewType == CompanionViewType.COMBAT || this.viewType == CompanionViewType.INFO_VIEW) 
+        if (this.context.enableSelectedIndicator) 
             this.selectedIndicator.style.visibility = Visibility.Visible;
 
         // Pointer enter came from focus
         // Setting this up for supporting showing the max health indicator when
         // the companion is focused for a couple seconds
-        if (evt == null) {
+        if (evt == null && this.context.enableMaxHealthIndicator) {
             this.maxHealthIndicatorCoroutine = CoroutineRunner.Instance.Run(ShowMaxHealthIndicatorAfterDelay());
         }
 
@@ -402,17 +400,17 @@ public class CompanionView : IUIEventReceiver
             sprite = companionInstance.companion.companionType.sprite;
         }
         this.imageElement.style.backgroundImage = new StyleBackground(sprite);
-        if (this.viewType == CompanionViewType.COMPANION_MANAGEMENT) {
+        if (this.context.makeSpriteFillSpace) {
             this.imageElement.AddToClassList("companion-view-companion-image-fill-space");
         }
     }
 
     private void SetupName() {
-        if (this.viewType == CompanionViewType.COMPANION_MANAGEMENT) {
+        if (this.context.disableNametags) {
             this.primaryNameLabel.style.display = DisplayStyle.None;
             this.secondaryNameLabel.style.display = DisplayStyle.None;
             return;
-        } else if (this.viewType == CompanionViewType.SHOP) {
+        } else if (this.context.smallNametag) {
             this.primaryNameLabel.AddToClassList("companion-view-primary-name-label-small");
         }
         this.primaryNameLabel.text = entity.GetName();
@@ -430,35 +428,14 @@ public class CompanionView : IUIEventReceiver
     }
 
     private Tuple<int, int> GetWidthAndHeight(float scale) {
-        float aspectRatio;
-        float screenWidthPercent;
-        switch (this.viewType) {
-            case CompanionViewType.COMBAT:
-            case CompanionViewType.INFO_VIEW:
-                aspectRatio = CONTAINER_ASPECT_RATIO_FULL;
-                screenWidthPercent = SCREEN_WIDTH_PERCENT_COMBAT;
-            break;
-
-            case CompanionViewType.SHOP:
-                aspectRatio = CONTAINER_ASPECT_RATIO_NARROW;
-                screenWidthPercent = SCREEN_WIDTH_PERCENT_SHOP;
-            break;
-
-            case CompanionViewType.COMPANION_MANAGEMENT:
-            default:
-                aspectRatio = CONTAINER_ASPECT_RATIO_COMP_MGMT;
-                screenWidthPercent = SCREEN_WIDTH_PERCENT_SHOP;
-            break;
-        }
-
-        int width = (int)(Screen.width * screenWidthPercent * scale);
-        int height = (int)(width / aspectRatio);
+        int width = (int)(Screen.width * this.context.screenWidthPercent * scale);
+        int height = (int)(width / this.context.aspectRatio);
 
         // This drove me insane btw
         #if UNITY_EDITOR
         UnityEditor.PlayModeWindow.GetRenderingResolution(out uint windowWidth, out uint windowHeight);
-        width = (int)(windowWidth * screenWidthPercent * scale);
-        height = (int)(width / aspectRatio);
+        width = (int)(windowWidth * this.context.screenWidthPercent * scale);
+        height = (int)(width / this.context.aspectRatio);
         #endif
 
         return new Tuple<int, int>(width, height);
@@ -512,9 +489,38 @@ public class CompanionView : IUIEventReceiver
     }
 }
 
-public enum CompanionViewType {
-    COMBAT,
-    SHOP,
-    COMPANION_MANAGEMENT,
-    INFO_VIEW
+public class CompanionViewContext {
+    public bool setupDrawDiscardButtons;
+    public bool setupViewDeckButton;
+    public bool enableMaxHealthIndicator;
+    public bool enableSelectedIndicator;
+    public bool trimToJustMainBody;
+    public bool makeSpriteFillSpace;
+    public bool disableNametags;
+    public bool smallNametag;
+    public float aspectRatio;
+    public float screenWidthPercent;
+
+    public CompanionViewContext(
+            bool setupDrawDiscardButtons,
+            bool setupViewDeckButton,
+            bool enableMaxHealthIndicator,
+            bool enableSelectedIndicator,
+            bool trimToJustMainBody,
+            bool makeSpriteFillSpace,
+            bool disableNametags,
+            bool smallNametag,
+            float aspectRatio,
+            float screenWidthPercent) {
+        this.setupDrawDiscardButtons = setupDrawDiscardButtons;
+        this.setupViewDeckButton = setupViewDeckButton;
+        this.enableMaxHealthIndicator = enableMaxHealthIndicator;
+        this.enableSelectedIndicator = enableSelectedIndicator;
+        this.trimToJustMainBody = trimToJustMainBody;
+        this.makeSpriteFillSpace = makeSpriteFillSpace;
+        this.disableNametags = disableNametags;
+        this.smallNametag = smallNametag;
+        this.aspectRatio = aspectRatio;
+        this.screenWidthPercent = screenWidthPercent;
+    }
 }

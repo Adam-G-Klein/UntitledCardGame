@@ -70,7 +70,7 @@ public class CardSelectionView : MonoBehaviour
         if (companion == null || companionViewTemplate == null) {
             this.companionArea.style.display = DisplayStyle.None;
         } else {
-            CompanionView companionView = new CompanionView(companion, companionViewTemplate, 0, CompanionViewType.INFO_VIEW, null);
+            CompanionView companionView = new CompanionView(companion, companionViewTemplate, 0, CompanionView.CARD_SELECTION_CONTEXT, null);
             companionView.ScaleView(0.85f);
             this.companionArea.Insert(0, companionView.container);
 

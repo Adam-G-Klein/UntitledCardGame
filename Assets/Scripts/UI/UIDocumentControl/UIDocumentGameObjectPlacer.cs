@@ -318,6 +318,10 @@ public class UIDocumentGameObjectPlacer : GenericSingleton<UIDocumentGameObjectP
             0
         );
         Debug.Log("uiDocPos: " + uiDocumentPosition);
+        return GetWorldPositionFromUIDocumentPosition(uiDocumentPosition);
+    }
+
+    public static Vector3 GetWorldPositionFromUIDocumentPosition(Vector3 uiDocumentPosition) {
         //get the height of the screen
         Vector3 screenPosition = new Vector3(
             uiDocumentPosition.x,
@@ -341,8 +345,6 @@ public class UIDocumentGameObjectPlacer : GenericSingleton<UIDocumentGameObjectP
         Debug.Log("worldPositionZCorrected: " + worldPositionZCorrected);
         return worldPositionZCorrected;
     }
-
-    
 
     public int getCompanionPlacesCount() {
         int count = companionPlacements.getCount();
