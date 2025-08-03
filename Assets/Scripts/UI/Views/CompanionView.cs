@@ -375,7 +375,8 @@ public class CompanionView : IUIEventReceiver
         // This null check exists because ShopItemView will call this with a null event
         // if a shop item is hovered with non mouse controls
         if (evt != null) elementsKeepingHiddenContainerVisible.Add(evt.currentTarget as VisualElement);
-        this.containerThatHoverIndicatorShows.style.visibility = Visibility.Visible;
+        // this.containerThatHoverIndicatorShows.style.visibility = Visibility.Visible;
+        this.containerThatHoverIndicatorShows.style.display = DisplayStyle.Flex;
     }
 
     public void HoverDetectorPointerLeave(PointerLeaveEvent evt) {
@@ -388,7 +389,7 @@ public class CompanionView : IUIEventReceiver
     private IEnumerator HideContainerAtEndOfFrame() {
         yield return new WaitForEndOfFrame();
         if (elementsKeepingHiddenContainerVisible.Count == 0) {
-            this.containerThatHoverIndicatorShows.style.visibility = Visibility.Hidden;
+            this.containerThatHoverIndicatorShows.style.display = DisplayStyle.None;
         }
     }
 

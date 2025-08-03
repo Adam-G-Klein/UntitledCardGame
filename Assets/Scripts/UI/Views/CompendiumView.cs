@@ -37,8 +37,6 @@ public class CompendiumView : MonoBehaviour, IControlsReceiver {
         SetupCompanionView(companionPool);
         CardButtonHandler();
 
-        // companionScrollView.contentContainer.RegisterCallback<GeometryChangedEvent>(UpdateTooltipsOnScroll);
-
         // setup buttons
         uiDocument.rootVisualElement.Q<Button>("exitButton").clicked += ExitButtonHandler;
         uiDocument.rootVisualElement.Q<Button>("cardButton").clicked += CardButtonHandler;
@@ -49,15 +47,6 @@ public class CompendiumView : MonoBehaviour, IControlsReceiver {
         MusicController.Instance.RegisterButtonClickSFX(uiDocument);
         uiDocument.StartCoroutine(RegisterControlsReceiverAtEndOfFrame());
     }
-
-    // private void UpdateTooltipsOnScroll(GeometryChangedEvent evt) {
-    //     List<VisualElement> listCopy = new(elementsWithTooltips);
-    //     foreach (VisualElement element in listCopy) {
-    //         TooltipViewModel viewModel = tooltipMap[element.name].tooltip;
-    //         DestroyTooltip(element);
-    //         DisplayTooltip(element, viewModel);
-    //     }
-    // }
 
     private IEnumerator RegisterControlsReceiverAtEndOfFrame() {
         yield return new WaitForEndOfFrame();
@@ -207,7 +196,6 @@ public class CompendiumView : MonoBehaviour, IControlsReceiver {
         float xTooltipPos = element.worldBound.center.x + (element.resolvedStyle.width * 0.7f * xPosScale);
         float yTooltipPos = element.worldBound.center.y - (element.resolvedStyle.height * .2f);
         Vector3 position = new Vector3(xTooltipPos, yTooltipPos, 0);
-        // Vector3 position = new Vector3(element.worldBound.center.x, element.worldBound.center.y, 0);
         
         Vector3 tooltipPosition = UIDocumentGameObjectPlacer.GetWorldPositionFromUIDocumentPosition(position);
         
@@ -256,6 +244,11 @@ public class CompendiumView : MonoBehaviour, IControlsReceiver {
     private void ScrollScroller(ScrollView scrollView, float amount) {
         Scroller scroller = scrollView.verticalScroller;
         scroller.value += amount * (scroller.highValue-scroller.lowValue);
+        Dictionary<string, TooltipView> dictCopy = new(tooltipMap);
+        foreach (KeyValuePair<string, TooltipView> kvp in dictCopy) {
+            Destroy(kvp.Value.gameObject);
+            tooltipMap.Remove(kvp.Key);
+        }
     }
 
     private void ResetScrollers() {
