@@ -58,7 +58,7 @@ MonoBehaviour:
     combatStats:
       maxHealth: 20
       maxHealthBuffs: 0
-      currentHealth: 17
+      currentHealth: 20
       baseAttackDamage: 0
     onCombineAbilities: []
     trackingStats:
@@ -160,14 +160,65 @@ MonoBehaviour:
     combatStats:
       maxHealth: 15
       maxHealthBuffs: 0
-      currentHealth: 12
+      currentHealth: 15
+      baseAttackDamage: 0
+    onCombineAbilities: []
+    trackingStats:
+      numCardsRemoved: 0
+      cardsBought: []
+  - id: 9d206088-5cf7-470a-ba5c-4ae9a80fad3a
+    entityType: 0
+    companionType: {fileID: 11400000, guid: 8f16f5410550d4b59aca1f1dc6e5f733, type: 2}
+    deck:
+      startingDeck: {fileID: 11400000, guid: 466520c011e0b499e9ec3a59502a6788, type: 2}
+      cards:
+      - id: b2a14a83-52cb-4cf6-894d-350e556584fb
+        entityType: 0
+        shopRarity: 0
+        castCount: 0
+        tempManaCost: -1
+        generated: 0
+        cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
+      - id: 258fdd83-6623-4195-9897-2672525282c8
+        entityType: 0
+        shopRarity: 0
+        castCount: 0
+        tempManaCost: -1
+        generated: 0
+        cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
+      - id: c76f2553-c5dd-4e04-bd55-fe77b8584149
+        entityType: 0
+        shopRarity: 0
+        castCount: 0
+        tempManaCost: -1
+        generated: 0
+        cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
+      - id: d0a9ab83-bf89-46b7-bee3-6ac2740dc3d6
+        entityType: 0
+        shopRarity: 0
+        castCount: 0
+        tempManaCost: -1
+        generated: 0
+        cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
+      - id: 301e7c9d-da16-4fe1-883d-71fd04ab38b9
+        entityType: 0
+        shopRarity: 0
+        castCount: 0
+        tempManaCost: -1
+        generated: 0
+        cardType: {fileID: 11400000, guid: 3c198f0e57fc34ed692cf96ecf4c0502, type: 2}
+      cardsDealtPerTurn: 1
+    combatStats:
+      maxHealth: 15
+      maxHealthBuffs: 0
+      currentHealth: 15
       baseAttackDamage: 0
     onCombineAbilities: []
     trackingStats:
       numCardsRemoved: 0
       cardsBought: []
   benchedCompanions: []
-  currentCompanionSlots: 3
+  currentCompanionSlots: 4
   references:
     version: 2
     RefIds: []
