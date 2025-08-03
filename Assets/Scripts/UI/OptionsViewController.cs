@@ -20,7 +20,10 @@ public class OptionsViewController : GenericSingleton<OptionsViewController>, IC
     private CompanionPoolSO companionPool;
     [SerializeField]
     private CardPoolSO neutralCardPool;
+    [SerializeField]
     private CanvasGroup canvasGroup;
+    [SerializeField]
+    private List<PackSO> packSOs;
     private Canvas canvas;
     private CompendiumView compendiumView;
     private Button backButton;
@@ -147,7 +150,7 @@ public class OptionsViewController : GenericSingleton<OptionsViewController>, IC
         compendiumView = null; // in the future we would ideally have some way of tracking if it had to be recreated based on change in gamestate
         FocusManager.Instance.StashLockedFocusables(this.GetType().Name);
         FocusManager.Instance.UnlockFocusables();
-        compendiumView = new CompendiumView(compendiumUIDocument, companionPool, neutralCardPool, tooltipPrefab);
+        compendiumView = new CompendiumView(compendiumUIDocument, companionPool, neutralCardPool, packSOs, tooltipPrefab);
     }
 
     public void onVolumeSliderChangedHandler(float value, VolumeType volumeType) {
