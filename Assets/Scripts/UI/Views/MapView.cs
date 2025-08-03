@@ -46,7 +46,7 @@ public class MapView
         mapSectionsRoot.Clear();
         // loop until we get to the next elite encounter ... that's how far we want to display
         int startIndex, endIndex = 0;
-        int temp = curEncounterIndex;
+        int temp = Math.Max(curEncounterIndex - 1, 0);
         while (temp > 0)
         {
             Encounter encounter = encounterList[temp];
