@@ -236,7 +236,8 @@ public class CompanionView : IUIEventReceiver
         if (isDead) return;
 
         // Shop does it's own thing for hovering over companions
-        if (this.viewType == CompanionViewType.COMBAT) this.selectedIndicator.style.visibility = Visibility.Visible;
+        if (this.viewType == CompanionViewType.COMBAT || this.viewType == CompanionViewType.INFO_VIEW) 
+            this.selectedIndicator.style.visibility = Visibility.Visible;
 
         // Pointer enter came from focus
         // Setting this up for supporting showing the max health indicator when
