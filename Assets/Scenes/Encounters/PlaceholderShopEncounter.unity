@@ -336,6 +336,7 @@ MonoBehaviour:
   - rid: 8205569917033382200
   nextTutorialName: Fourth
   isNextTutorialSameScene: 0
+  tutorialType: 0
   references:
     version: 2
     RefIds:
@@ -757,6 +758,55 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorialEvent: {fileID: 11400000, guid: eb63d989955b99f47878c793fe5f0aec, type: 2}
+--- !u!1 &1071111402
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1071111404}
+  - component: {fileID: 1071111403}
+  m_Layer: 0
+  m_Name: Global Volume
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1071111403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1071111402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: 5b0214ce80ceb984c90db30a6e5eb874, type: 2}
+--- !u!4 &1071111404
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1071111402}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.044718, y: 2.1535053, z: -0.014938745}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1083293099
 GameObject:
   m_ObjectHideFlags: 0
@@ -1448,6 +1498,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1083293101}
     - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: statusEffectsSO
+      value: 
+      objectReference: {fileID: 11400000, guid: b5e8681fc02be284eb308731b490c4c5, type: 2}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
       propertyPath: cardSelectionViewPrefab
       value: 
       objectReference: {fileID: 7796338826870056937, guid: dfe80e002ae2aa74faee37067abac6d2, type: 3}
@@ -1561,3 +1615,4 @@ SceneRoots:
   - {fileID: 1719855679}
   - {fileID: 786146662}
   - {fileID: 1808021123}
+  - {fileID: 1071111404}

@@ -9,8 +9,6 @@ public class ShopItemView : IEntityViewDelegate {
     public VisualElementFocusable visualElementFocusable;
     public CompanionInShopWithPrice companionInShop = null;
     public CardInShopWithPrice cardInShop = null;
-
-    private EntityView entityView = null;
     private CompanionView companionView = null;
     private IShopItemViewDelegate viewDelegate;
 
@@ -24,15 +22,6 @@ public class ShopItemView : IEntityViewDelegate {
         this.viewDelegate = viewDelegate;
         shopItemElement = makeCardShopItem(card);
         cardInShop = card;
-    }
-
-    public void HideCompanionDescription() {
-        if (entityView == null) {
-            Debug.LogError("ShopItemView not setup to display a companion");
-            return;
-        }
-
-        entityView.HideDescription();
     }
 
     private VisualElement makeCompanionShopItem(CompanionInShopWithPrice companion, VisualTreeAsset template = null) {

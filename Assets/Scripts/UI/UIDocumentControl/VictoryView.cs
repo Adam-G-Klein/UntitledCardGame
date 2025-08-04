@@ -18,6 +18,8 @@ public class VictoryView : MonoBehaviour
 
     [SerializeField]
     private float fadeTime = .1f;
+    [SerializeField]
+    private CombatEncounterView combatEncounterView;
 
 
     void OnEnable()
@@ -56,11 +58,11 @@ public class VictoryView : MonoBehaviour
             VisualElement companionContainer = new VisualElement();
             companionContainer.AddToClassList("victory-companion-container");
             CompanionTypeSO companionType = companions[i].companionType;
-            EntityView entityView = new EntityView(companions[i], 0, false);
+            CompanionView entityView = new CompanionView(companions[i], EnemyEncounterManager.Instance.encounterConstants.companionViewTemplate, i, CompanionView.COMBAT_CONTEXT, combatEncounterView);
             //entityView.entityContainer.AddToClassList("compendium-item-container");
-            VisualElement portraitContainer = entityView.entityContainer.Q(className: "entity-portrait");
+            VisualElement portraitContainer = entityView.container.Q(className: "companion-view-companion-image");
             portraitContainer.style.backgroundImage = new StyleBackground(companionType.sprite);
-            companionContainer.Add(entityView.entityContainer);
+            companionContainer.Add(entityView.container);
             
             List<Card> cards = new List<Card>();
             companion.deck.cards.Sort((x, y) => {
@@ -99,6 +101,4 @@ public class VictoryView : MonoBehaviour
                 canvasGroup.alpha = val;
             });
     }
-
-
 }

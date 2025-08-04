@@ -10,8 +10,11 @@ public class ShopViewController : MonoBehaviour,
     IShopItemViewDelegate,
     ICompanionManagementViewDelegate,
     ISellingCompanionConfirmationViewDelegate,
-    IControlsReceiver
+    IControlsReceiver,
+    IEntityViewDelegate
 {
+    [SerializeField]
+    private StatusEffectsSO statusEffectsSO;
     public UIDocument uiDoc;
     public bool canDragCompanions = false;
     public Color slotHighlightColor;
@@ -984,28 +987,33 @@ public class ShopViewController : MonoBehaviour,
         upgradeCompanionsContainer.Clear();
 
         int delay = 500;
-        for (int index = 0; index < companions.Count; index++) {
+        int index;
+        for (index = 0; index < companions.Count; index++)
+        {
             var companion = companions[index];
             VisualElement companionContainer = new VisualElement();
             companionContainer.AddToClassList("victory-companion-container");
             companionContainer.AddToClassList("upgrade-menu-companion-invisible");
 
             CompanionTypeSO companionType = companion.companionType;
-            EntityView entityView = new EntityView(companion, 0, false);
-            VisualElement portraitContainer = entityView.entityContainer.Q(className: "entity-portrait");
+            CompanionView entityView = new CompanionView(companion, shopManager.encounterConstants.companionViewTemplate, index, CompanionView.SHOP_CONTEXT, this);
+            VisualElement portraitContainer = entityView.container.Q(className: "companion-view-companion-image");
             portraitContainer.style.backgroundImage = new StyleBackground(companionType.sprite);
-            companionContainer.Add(entityView.entityContainer);
+            companionContainer.Add(entityView.container);
             initialCompanionContainer.Add(companionContainer);
 
             int displayIndex = index + 1;
-            companionContainer.schedule.Execute(() => {
+            companionContainer.schedule.Execute(() =>
+            {
                 companionContainer.AddToClassList("upgrade-menu-compainion-1");
             }).StartingIn(delay);
-            entityView.entityContainer.RegisterCallback<PointerEnterEvent>((evt) => {
-                DisplayTooltip(entityView.entityContainer, companion.companionType.tooltip, false);
+            entityView.container.RegisterCallback<PointerEnterEvent>((evt) =>
+            {
+                DisplayTooltip(entityView.container, companion.companionType.tooltip, false);
             });
-            entityView.entityContainer.RegisterCallback<PointerLeaveEvent>((evt) => {
-                DestroyTooltip(entityView.entityContainer);
+            entityView.container.RegisterCallback<PointerLeaveEvent>((evt) =>
+            {
+                DestroyTooltip(entityView.container);
             });
             delay += 250;
         }
@@ -1014,11 +1022,11 @@ public class ShopViewController : MonoBehaviour,
         upgradeCompanionContainer.AddToClassList("victory-companion-container");
         upgradeCompanionContainer.AddToClassList("upgrade-menu-companion-invisible");
         CompanionTypeSO upgradeCompanionType = upgradeCompanion.companionType;
-        EntityView upgradeEntityView = new EntityView(upgradeCompanion, 0, false);
+        CompanionView upgradeEntityView = new CompanionView(upgradeCompanion, shopManager.encounterConstants.companionViewTemplate, index + 1, CompanionView.SHOP_CONTEXT, this);
         //entityView.entityContainer.AddToClassList("compendium-item-container");
-        VisualElement upgradePortraitContainer = upgradeEntityView.entityContainer.Q(className: "entity-portrait");
+        VisualElement upgradePortraitContainer = upgradeEntityView.container.Q(className: "companion-view-companion-image");
         upgradePortraitContainer.style.backgroundImage = new StyleBackground(upgradeCompanionType.sprite);
-        upgradeCompanionContainer.Add(upgradeEntityView.entityContainer);
+        upgradeCompanionContainer.Add(upgradeEntityView.container);
         upgradeCompanionContainer.schedule.Execute(() => {
             upgradeCompanionContainer.AddToClassList("upgrade-menu-compainion-1");
         }).StartingIn(delay);
@@ -1026,11 +1034,11 @@ public class ShopViewController : MonoBehaviour,
             // update hoverable pos after animation
             // UIDocumentHoverableInstantiator.Instance.UpdateHoverablesPosition();
         }).StartingIn(delay + 1000); // GET RACE CONDITIONED LOSER
-        upgradeEntityView.entityContainer.RegisterCallback<PointerEnterEvent>((evt) => {
-            DisplayTooltip(upgradeEntityView.entityContainer, upgradeCompanionType.tooltip, false);
+        upgradeEntityView.container.RegisterCallback<PointerEnterEvent>((evt) => {
+            DisplayTooltip(upgradeEntityView.container, upgradeCompanionType.tooltip, false);
         });
-        upgradeEntityView.entityContainer.RegisterCallback<PointerLeaveEvent>((evt) => {
-            DestroyTooltip(upgradeEntityView.entityContainer);
+        upgradeEntityView.container.RegisterCallback<PointerLeaveEvent>((evt) => {
+            DestroyTooltip(upgradeEntityView.container);
         });
         upgradeCompanionsContainer.Add(upgradeCompanionContainer);
         companionUpgradeMenu.AddToClassList("upgrade-menu-container-visible");
@@ -1129,5 +1137,20 @@ public class ShopViewController : MonoBehaviour,
         CardSelectionView cardSelectionView = cardSelectionViewGo.GetComponent<CardSelectionView>();
         // Card Selection View stashes focusables on setup
         cardSelectionView.Setup(instantiatedCards, new Companion(companion), shopManager.encounterConstants.companionViewTemplate);
+    }
+
+    public Sprite GetStatusEffectSprite(StatusEffectType statusEffectType)
+    {
+        return statusEffectsSO.GetStatusEffectImage(statusEffectType);
+    }
+
+    public Sprite GetEnemyIntentImage(EnemyIntentType enemyIntentType)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void InstantiateCardView(List<Card> cardList, string promptText)
+    {
+        throw new NotImplementedException();
     }
 }

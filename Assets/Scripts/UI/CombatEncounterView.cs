@@ -29,7 +29,7 @@ public class CombatEncounterView : MonoBehaviour,
     private EnemyIntentsSO enemyIntentsSO;
 
     private List<IUIEventReceiver> pickingModePositionList = new List<IUIEventReceiver>();
-    private List<EntityView> entityViews = new List<EntityView>();
+    private List<EnemyView> entityViews = new List<EnemyView>();
     private List<CompanionView> companionViews = new List<CompanionView>();
 
 
@@ -64,7 +64,7 @@ public class CombatEncounterView : MonoBehaviour,
         }
         List<Enemy> enemies = ((EnemyEncounter)gameState.activeEncounter.GetValue()).enemyList;
         List<Companion> companions = gameState.companions.activeCompanions;
-        setupEntities(root.Q<VisualElement>("enemyContainer"), enemies.Cast<IUIEntity>(), true);
+        setupEnemies(root.Q<VisualElement>("enemyContainer"), enemies.Cast<IUIEntity>(), true);
         // setupEntities(root.Q<VisualElement>("companionContainer"), companions.Cast<IUIEntity>(), false);
         SetupCompanions(root.Q<VisualElement>("companionContainer"), companions);
         //root.Q<Label>("money").text = gameState.playerData.GetValue().gold.ToString();
@@ -89,7 +89,7 @@ public class CombatEncounterView : MonoBehaviour,
         FocusManager.Instance.UnregisterFocusables(companionContainer);
         enemyContainer.Clear();
         companionContainer.Clear();
-        setupEntities(enemyContainer, enemies.Cast<IUIEntity>(), true);
+        setupEnemies(enemyContainer, enemies.Cast<IUIEntity>(), true);
         // setupEntities(companionContainer, companions.Cast<IUIEntity>(), false);
         SetupCompanions(companionContainer, companions);
         UIDocumentUtils.SetAllPickingMode(enemyContainer, PickingMode.Ignore);
@@ -102,7 +102,7 @@ public class CombatEncounterView : MonoBehaviour,
             SetupFromGamestate(this.enemyEncounterManager);
         } else {
             root.Q<Label>("money-indicator-label").text = gameState.playerData.GetValue().gold.ToString() + "G";
-            foreach (EntityView entityView in entityViews) {
+            foreach (EnemyView entityView in entityViews) {
                 entityView.UpdateView();
             }
             foreach (CompanionView view in companionViews) {
@@ -116,17 +116,17 @@ public class CombatEncounterView : MonoBehaviour,
     }
 
     public void DisableFocusing() {
-        foreach (EntityView entityView in entityViews) {
-            FocusManager.Instance.UnregisterFocusableTarget(entityView.entityContainer.GetUserData<VisualElementFocusable>());
+        foreach (EnemyView entityView in entityViews) {
+            FocusManager.Instance.UnregisterFocusableTarget(entityView.container.GetUserData<VisualElementFocusable>());
         }
     }
 
     void Update() { }
 
-    private void setupEntities(VisualElement container, IEnumerable<IUIEntity> entities, bool isEnemy) {
+    private void setupEnemies(VisualElement container, IEnumerable<IUIEntity> entities, bool isEnemy) {
         var index = UIDocumentGameObjectPlacer.INITIAL_INDEX;
         foreach (var entity in entities) {
-            container.Add(setupEntity(entity, index, isEnemy));
+            container.Add(setupEnemy(entity, index));
             index++;
         }
     }
@@ -171,17 +171,16 @@ public class CombatEncounterView : MonoBehaviour,
         return companionView;
     }
 
-    private VisualElement setupEntity(IUIEntity entity, int index, bool isEnemy) {
-        EntityView newEntityView = new EntityView(entity, index, isEnemy, this);
-        newEntityView.AddDrawDiscardOnHover();
+    private VisualElement setupEnemy(IUIEntity entity, int index) {
+        EnemyView newEntityView = new EnemyView(entity, index, this);
         pickingModePositionList.Add(newEntityView);
         entityViews.Add(newEntityView);
 
-        VisualElementFocusable entityViewFocusable = newEntityView.entityContainer.GetUserData<VisualElementFocusable>();
-        entityViewFocusable.SetTargetType(isEnemy ? Targetable.TargetType.Enemy : Targetable.TargetType.Companion);
+        VisualElementFocusable entityViewFocusable = newEntityView.container.GetUserData<VisualElementFocusable>();
+        entityViewFocusable.SetTargetType(Targetable.TargetType.Enemy);
         FocusManager.Instance.RegisterFocusableTarget(entityViewFocusable);
 
-        return newEntityView.entityContainer;
+        return newEntityView.container;
     }
 
     public void updateMana(int mana) {

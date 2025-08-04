@@ -126,7 +126,7 @@ public class UIDocumentGameObjectPlacer : GenericSingleton<UIDocumentGameObjectP
 
     [SerializeField]
     private bool autoPlaceEnemies = true;
-    public static string ENEMY_UIDOC_ELEMENT_PREFIX = "enemy";
+    public static string ENEMY_UIDOC_ELEMENT_PREFIX = "enemy-view-parent-container";
     // public static string COMPANION_UIDOC_ELEMENT_PREFIX = "companion";
     public static string COMPANION_UIDOC_ELEMENT_PREFIX = "companion-view-parent-container";
     public static string CARD_UIDOC_ELEMENT_PREFIX = "card";

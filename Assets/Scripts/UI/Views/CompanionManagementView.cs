@@ -17,7 +17,6 @@ public class CompanionManagementView : IControlsReceiver {
     private IconButton viewDeckButton = null;
     private IconButton sellCompanionButton = null;
     private VisualElement companionBoundingBox = null;
-    private EntityView entityView;
     private CompanionView companionView;
 
     private bool draggingThisCompanion = false;
@@ -247,7 +246,7 @@ public class CompanionManagementView : IControlsReceiver {
             viewDelegate.ComapnionManagementOnPointerUp(this, FocusManager.Instance.GetCurrentFocus().GetUIPosition());
             FocusManager.Instance.onFocusDelegate -= FocusChangedWhileDragging;
             ControlsManager.Instance.UnregisterControlsReceiver(this);
-            viewDelegate.DestroyTooltip(entityView.entityContainer);
+            viewDelegate.DestroyTooltip(companionView.container);
         }
     }
 

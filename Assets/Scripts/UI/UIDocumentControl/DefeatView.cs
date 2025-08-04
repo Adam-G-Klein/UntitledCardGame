@@ -19,6 +19,8 @@ public class DefeatView : MonoBehaviour
     private float fadeTime = .1f;
     private Button button;
 
+    [SerializeField]
+    private CombatEncounterView combatEncounterView;
 
     void OnEnable()
     {
@@ -57,11 +59,12 @@ public class DefeatView : MonoBehaviour
             VisualElement enemyContainer = new VisualElement();
             enemyContainer.AddToClassList("victory-companion-container");
             EnemyTypeSO enemyTypeSO = enemies[i].enemyType;
-            EntityView entityView = new EntityView(enemies[i], 0, true);
+            EnemyView entityView = new EnemyView(enemies[i], 0, combatEncounterView);
             //entityView.entityContainer.AddToClassList("compendium-item-container");
-            VisualElement portraitContainer = entityView.entityContainer.Q(className: "entity-portrait");
+            VisualElement portraitContainer = entityView.container.Q(className: "companion-view-companion-image");
+            entityView.HideIntent();
             portraitContainer.style.backgroundImage = new StyleBackground(enemyTypeSO.sprite);
-            enemyContainer.Add(entityView.entityContainer);
+            enemyContainer.Add(entityView.container);
             
             container.Add(enemyContainer);
         }
