@@ -163,6 +163,7 @@ public class EnemyView : IUIEventReceiver
         }
         else
         {
+            this.blockLabel.style.visibility = Visibility.Visible;
             this.healthLabel.text = this.combatInstance.combatStats.currentHealth.ToString();
             this.blockLabel.text = this.combatInstance.GetStatus(StatusEffectType.Defended).ToString();
         }
