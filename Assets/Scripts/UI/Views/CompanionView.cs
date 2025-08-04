@@ -8,13 +8,6 @@ using UnityEngine.UIElements;
 
 public class CompanionView : IUIEventReceiver
 {
-    // wdith / height
-    private static float CONTAINER_ASPECT_RATIO_FULL = 1.25f;
-    private static float CONTAINER_ASPECT_RATIO_NARROW = 0.8f;
-    private static float CONTAINER_ASPECT_RATIO_COMP_MGMT = 1.1f;
-    private static float SCREEN_WIDTH_PERCENT_COMBAT = 0.20f;
-    private static float SCREEN_WIDTH_PERCENT_SHOP = 0.15f;
-
     public static CompanionViewContext COMBAT_CONTEXT = 
         new CompanionViewContext(true, false, true, true, false, false, false, false, 1.25f, 0.2f);
     
@@ -59,6 +52,11 @@ public class CompanionView : IUIEventReceiver
     private Label maxHealthLabel;
     private VisualElement maxHealthContainer;
     private VisualElement selectedIndicator;
+    private VisualElement rarityMediumIndicator;
+    private VisualElement rarityHighIndicator;
+    private VisualElement levelOneIndicator;
+    private VisualElement levelTwoIndicator;
+    private VisualElement levelThreeIndicator;
 
     private List<VisualElement> pickingModePositionList = new List<VisualElement>();
     private List<VisualElement> elementsKeepingHiddenContainerVisible = new List<VisualElement>();
@@ -112,6 +110,11 @@ public class CompanionView : IUIEventReceiver
         this.discardPileButton = companionRoot.Q<IconButton>("companion-view-discard-pile-button");
         this.viewDeckButton = companionRoot.Q<IconButton>("companion-view-view-deck-button");
         this.selectedIndicator = companionRoot.Q<VisualElement>("companion-view-selected-indicator");
+        this.rarityMediumIndicator = companionRoot.Q<VisualElement>("companion-view-rarity-medium-indicator");
+        this.rarityHighIndicator = companionRoot.Q<VisualElement>("companion-view-rarity-high-indicator");
+        this.levelOneIndicator = companionRoot.Q<VisualElement>("companion-view-level-1-indicator");
+        this.levelTwoIndicator = companionRoot.Q<VisualElement>("companion-view-level-2-indicator");
+        this.levelThreeIndicator = companionRoot.Q<VisualElement>("companion-view-level-3-indicator");
 
         // Moving past the random VisualElement parent CloneTree() creates
         this.container = companionRoot.Children().First();
@@ -123,6 +126,8 @@ public class CompanionView : IUIEventReceiver
         SetupName();
         SetupBlockAndHealth();
         SetupStatusIndicators();
+        SetupLevelIndicator();
+        SetupRarityIndicator();
 
         if (this.context.setupDrawDiscardButtons || this.context.setupViewDeckButton) SetupHoverDetector();
         if (this.context.setupDrawDiscardButtons) SetupDrawDiscardContainer();
@@ -130,6 +135,54 @@ public class CompanionView : IUIEventReceiver
 
         UpdateWidthAndHeight(container);
 
+    }
+
+    private void SetupLevelIndicator() {
+        Companion companion = null;
+        if (this.entity is Companion comp) {
+            companion = comp;
+        } else if (this.entity is CompanionInstance instance) {
+            companion = instance.companion;
+        }
+
+        switch (companion.companionType.level) {
+            case CompanionLevel.LevelThree:
+                this.levelThreeIndicator.style.display = DisplayStyle.Flex;
+            break;
+
+            case CompanionLevel.LevelTwo:
+                this.levelTwoIndicator.style.display = DisplayStyle.Flex;
+            break;
+
+            case CompanionLevel.LevelOne:
+            default:
+                this.levelOneIndicator.style.display = DisplayStyle.Flex;
+            break;
+        }
+    }
+
+    private void SetupRarityIndicator() {
+        Companion companion = null;
+        if (this.entity is Companion comp) {
+            companion = comp;
+        } else if (this.entity is CompanionInstance instance) {
+            companion = instance.companion;
+        }
+
+        switch (companion.companionType.rarity) {
+            case CompanionRarity.RARE:
+                this.rarityHighIndicator.style.display = DisplayStyle.Flex;
+            break;
+
+            case CompanionRarity.UNCOMMON:
+                this.rarityMediumIndicator.style.display = DisplayStyle.Flex;
+            break;
+
+            case CompanionRarity.COMMON:
+            default:
+                // The companion frame itself has the common gem built into the asset
+            break;
+        }
     }
 
     private void SetupBackground() {
