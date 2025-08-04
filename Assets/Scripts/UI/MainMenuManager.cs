@@ -60,8 +60,10 @@ public class MainMenuManager : MonoBehaviour
         }
     }
 
-    public void startButtonHandler()
-    {
+    public void startButtonHandler() {
+        if (gameState.conferenceMode) {
+            SaveManager.Instance.DeletePlayerProgressData();
+        }
         generateMap.generateMapAndChangeScenes();
         MusicController.Instance.PlayStartSFX();
     }

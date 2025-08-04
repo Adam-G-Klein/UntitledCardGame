@@ -89,6 +89,7 @@ public class GameStateVariableSO : ScriptableObject
         }
     }
     public bool autoUpgrade = false;
+    public bool conferenceMode = false;
     public List<PackSO> previouslySelectedPackSOs;
     public int ascensionLevel = -1;
     public Dictionary<Location, string> locationToScene = new Dictionary<Location, string>() {
