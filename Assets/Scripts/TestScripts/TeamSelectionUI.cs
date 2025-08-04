@@ -72,6 +72,7 @@ public class TeamSelectionUI : MonoBehaviour
 
         root = GetComponent<UIDocument>().rootVisualElement;
         updateState();
+        makeTeamView(root.Q<VisualElement>("CompanionPortaitsContainer"), team1ActiveCompanions.GetCompanionTypes());
 
         var next = root.Q<UnityEngine.UIElements.Button>("Next");
         UIDocumentUtils.SetAllPickingMode(root, PickingMode.Position);
@@ -84,7 +85,6 @@ public class TeamSelectionUI : MonoBehaviour
         foreach (var tooltip in tooltipMap.Values) {
             Destroy(tooltip);
         }
-        makeTeamView(root.Q<VisualElement>("CompanionPortaitsContainer"), team1ActiveCompanions.GetCompanionTypes());
         makeInfoView(root.Q<VisualElement>("InfoContainer"), team1ActiveCompanions.GetCompanionTypes()[currentlySelectedCompanion]);
         docRenderer.SetStateDirty();
         root = GetComponent<UIDocument>().rootVisualElement;
@@ -151,7 +151,7 @@ public class TeamSelectionUI : MonoBehaviour
 
         companionMap[container.name] = companionType;
 
-        contentToRedraw.Add(container);
+        //contentToRedraw.Add(container);
         return container;
     }
 
@@ -185,6 +185,15 @@ public class TeamSelectionUI : MonoBehaviour
     private void PointerEnter(PointerEnterEvent evt) {
         VisualElement VE = evt.target as VisualElement;
         bool isCompanion = companionMap.ContainsKey(VE.name);
+        if (isCompanion)
+        {
+            int hoveredIndex = team1ActiveCompanions.GetCompanionTypes().IndexOf(companionMap[VE.name]);
+            if (currentlySelectedCompanion != hoveredIndex)
+            {
+                companionClicked(companionMap[VE.name]);
+            }
+
+        }
         if (!isCompanion && cardTypeMap[VE.name].tooltips.Count == 0) return;
         if (tooltipMap.ContainsKey(VE.name)) return;
 
@@ -215,37 +224,7 @@ public class TeamSelectionUI : MonoBehaviour
         }
     }
 
-    private VisualElement makeCardView(CardType card) {
-        var container = new VisualElement();
-        container.AddToClassList("team-signing-card-container");
-        container.AddToClassList("card-container");
-
-        var manaCost = new Label();
-        manaCost.AddToClassList("mana-card-label");
-        manaCost.text = card.Cost.ToString();
-        container.Add(manaCost);
-
-        var image = new VisualElement();
-        image.AddToClassList("card-image");
-        image.style.backgroundImage = new StyleBackground(card.Artwork);
-        container.Add(image);
-
-        var name = new Label();
-        name.AddToClassList("card-title-label");
-        name.text = card.Name;
-        container.Add(name);
-
-        var desc = new Label();
-        desc.AddToClassList("card-desc-label");
-        desc.text = card.Description;
-        container.Add(desc);
-
-        contentToRedraw.Add(container);
-        return container;
-    }
-
     public void companionClicked(CompanionTypeSO companionType) {
-        Debug.Log("companion clicked on team selection screen");
         foreach (VisualElement content in contentToRedraw) {
             content.RemoveFromHierarchy();
             FocusManager.Instance.UnregisterFocusableTarget(content.AsFocusable());
