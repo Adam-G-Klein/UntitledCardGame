@@ -176,10 +176,6 @@
     flex-grow: 1;
 }
 
-.end-turn-button:focus {
-    background-color: rgb(126, 126, 126);
-}
-
 .button-hover {
     -unity-background-image-tint-color: rgb(180, 188, 113);
 }
@@ -197,4 +193,23 @@
     -unity-font-style: bold;
     font-size: 48px;
     color: rgb(255, 255, 255);
+}
+
+.end-turn-button:hover {
+    -unity-background-image-tint-color: rgb(205, 205, 205);
+}
+
+.end-turn-button:focus {
+    -unity-background-image-tint-color: rgb(205, 205, 205);
+}
+
+.end-turn-button .icon-button-icon {
+    position: absolute;
+    left: 0;
+    max-height: 200%;
+    width: 60%;
+    aspect-ratio: auto;
+    object-fit: contain;
+    translate: -50% 20%;
+    height: 60%;
 }
