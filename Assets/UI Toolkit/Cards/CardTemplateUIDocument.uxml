@@ -2,7 +2,7 @@
     <Style src="project://database/Assets/UI/common.uss?fileID=7433441132597879392&amp;guid=8d0bc28a2ed710a44b762e4c857ac6f9&amp;type=3#common" />
     <Style src="project://database/Assets/fontStyling.uss?fileID=7433441132597879392&amp;guid=d0c0881f1c32747ecb649373600de095&amp;type=3#fontStyling" />
     <Style src="project://database/Assets/cardTemplate.uss?fileID=7433441132597879392&amp;guid=5cb74a6597a464af3b467bb0d6eff3f8&amp;type=3#cardTemplate" />
-    <ui:VisualElement name="card-1" focusable="true" class="card-container" style="background-image: none;">
+    <ui:VisualElement name="card-1" focusable="true" class="card-container focusable" style="background-image: none;">
         <ui:VisualElement name="greenBorder" class="green-card-border" style="flex-grow: 1; top: 50%; border-top-width: 30px; border-right-width: 30px; border-bottom-width: 30px; border-left-width: 30px; visibility: hidden; translate: 0 -50%;" />
         <ui:VisualElement name="cardBackground" style="width: 85%; height: 85%; position: absolute; top: 50%; translate: 0 -50%; background-color: rgb(255, 255, 255);" />
         <ui:VisualElement name="cardBorder" class="card-border" />

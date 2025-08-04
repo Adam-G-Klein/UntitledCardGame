@@ -204,6 +204,8 @@ public class FocusManager : GenericSingleton<FocusManager>, IControlsReceiver
         foreach (IFocusableTarget target in focusableTargets) {
             if (target == currentFocus || disabledFocusableTargets.Contains(target)) continue;
 
+            if (!target.IsOnScreen()) continue;
+
             Vector2 candidateCenter = target.GetWorldspacePosition();
             Vector2 toCandidate = (candidateCenter - currentCenter).normalized;
 
@@ -259,7 +261,7 @@ public class FocusManager : GenericSingleton<FocusManager>, IControlsReceiver
     private void FocusFirstEnabledFocusable() {
         Debug.Log("Focusing first focusable");
         foreach (IFocusableTarget target in focusableTargets) {
-            if (!disabledFocusableTargets.Contains(target)) {
+            if (!disabledFocusableTargets.Contains(target) && target.IsOnScreen()) {
                 currentFocus = target;
                 target.Focus();
                 onFocusDelegate?.Invoke(currentFocus);

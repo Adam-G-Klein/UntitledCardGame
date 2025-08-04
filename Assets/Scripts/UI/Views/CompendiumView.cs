@@ -60,6 +60,7 @@ public class CompendiumView : MonoBehaviour, IControlsReceiver {
 
     private void CompanionButtonHandler()
     {
+        DisableCardFocusables();
         cardsScrollView.style.display = DisplayStyle.None;
         companionScrollView.style.display = DisplayStyle.Flex;
         EnableCompanionFocusables();
@@ -71,6 +72,7 @@ public class CompendiumView : MonoBehaviour, IControlsReceiver {
         DisableCompanionFocusables();
         cardsScrollView.style.display = DisplayStyle.Flex;
         companionScrollView.style.display = DisplayStyle.None;
+        EnableCardFocusables();
         ResetScrollers();
     }
 
@@ -226,17 +228,31 @@ public class CompendiumView : MonoBehaviour, IControlsReceiver {
         }
     }
 
+    private void DisableCardFocusables() {
+        foreach (VisualElement ve in cardsScrollView.Query<VisualElement>(className:"focusable").ToList()) {
+            FocusManager.Instance.DisableFocusableTarget(ve.AsFocusable());
+        }
+    }
+
+    private void EnableCardFocusables() {
+        foreach (VisualElement ve in cardsScrollView.Query<VisualElement>(className:"focusable").ToList()) {
+            FocusManager.Instance.EnableFocusableTarget(ve.AsFocusable());
+        }
+    }
+
     public void ProcessGFGInputAction(GFGInputAction action)
     {
         switch (action) {
             case GFGInputAction.SECONDARY_UP:
                 ScrollScroller(cardsScrollView, -0.1f);
                 ScrollScroller(companionScrollView, -0.1f);
+                FocusManager.Instance.Unfocus();
             break;
 
             case GFGInputAction.SECONDARY_DOWN:
                 ScrollScroller(cardsScrollView, 0.1f);
                 ScrollScroller(companionScrollView, 0.1f);
+                FocusManager.Instance.Unfocus();
             break;
         }
     }

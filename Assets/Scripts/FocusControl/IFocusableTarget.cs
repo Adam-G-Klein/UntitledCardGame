@@ -7,4 +7,5 @@ public interface IFocusableTarget
     bool ProcessInput(GFGInputAction action);
     Vector2 GetWorldspacePosition();
     Vector2 GetUIPosition();
+    bool IsOnScreen();
 }

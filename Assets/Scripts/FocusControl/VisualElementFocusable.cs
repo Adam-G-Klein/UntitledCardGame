@@ -87,6 +87,23 @@ public class VisualElementFocusable : IFocusableTarget
         return UIDocumentGameObjectPlacer.GetWorldPositionFromElement(element);
     }
 
+    public bool IsOnScreen() {
+        // Get the world position of the element’s center
+        var layout = element.worldBound;
+        var center = new Vector2(layout.center.x, layout.center.y);
+
+        // Get the root panel’s visible rect
+        var panel = element.panel;
+        if (panel == null)
+            return false;
+
+        var root = panel.visualTree;
+        var screenRect = root.worldBound;
+
+        // Check if the center is within the screen
+        return screenRect.Contains(center);
+    }
+
     public Vector2 GetUIPosition()
     {
         return element.worldBound.center;

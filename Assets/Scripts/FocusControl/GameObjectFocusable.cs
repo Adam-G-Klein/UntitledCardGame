@@ -35,6 +35,18 @@ public class GameObjectFocusable : MonoBehaviour, IFocusableTarget
         return false;
     }
 
+    public bool IsOnScreen() {
+        Vector3 viewportPoint = Camera.main.WorldToViewportPoint(gameObject.transform.position);
+
+        // Check if it's in front of the camera
+        if (viewportPoint.z < 0)
+            return false;
+
+        // Check if it's within the screen bounds
+        return viewportPoint.x >= 0 && viewportPoint.x <= 1 &&
+            viewportPoint.y >= 0 && viewportPoint.y <= 1;
+    }
+
     public Vector2 GetWorldspacePosition() {
         return transform.position;
     }
