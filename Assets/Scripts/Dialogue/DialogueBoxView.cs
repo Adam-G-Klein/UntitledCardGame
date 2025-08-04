@@ -76,7 +76,7 @@ public class DialogueBoxView : MonoBehaviour
     {
         Debug.Log("Displaying dialogue: " + dialogueLine);
         this.redisplayPromptCallback = redisplayPromptCallback;
-        this.portrait.GetComponent<Image>().sprite = companion.sprite;
+        this.portrait.GetComponent<Image>().sprite = companion.fullSprite;
         SetGameObjectsEnabled(true);
         doneDisplaying = false;
         displayingCoroutine = DisplayText(dialogueLine);
