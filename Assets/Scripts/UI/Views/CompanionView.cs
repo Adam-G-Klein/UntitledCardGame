@@ -8,8 +8,10 @@ using UnityEngine.UIElements;
 
 public class CompanionView : IUIEventReceiver
 {
+    // Currently the frame itself has a 4:5 aspect ratio, but with the extra
+    // space the entire companion view template has a 5:4 aspect ratio
     public static CompanionViewContext COMBAT_CONTEXT = 
-        new CompanionViewContext(true, false, true, true, false, false, false, false, 1.25f, 0.2f);
+        new CompanionViewContext(true, false, true, true, false, false, false, false, 1.25f, 0.175f);
     
     public static CompanionViewContext SHOP_CONTEXT = 
         new CompanionViewContext(false, true, false, false, true, false, false, true, 0.8f, 0.15f);

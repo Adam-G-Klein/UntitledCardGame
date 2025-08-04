@@ -14,7 +14,7 @@ public class EntityView : IUIEventReceiver {
 
     public static string STATUS_EFFECTS_CONTAINER_SUFFIX = "-status-effects";
 
-    private float SCREEN_WIDTH_PERCENT = 0.11f;
+    private float SCREEN_WIDTH_PERCENT = 0.085f;
     private float RATIO = 1.4f;
     private float ENEMY_RATIO = 1.65f;
 

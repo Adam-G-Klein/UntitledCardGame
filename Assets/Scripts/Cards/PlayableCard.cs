@@ -321,7 +321,7 @@ public class PlayableCard : MonoBehaviour,
         //PlayerHand.Instance.HoverNextCard(-1); // this prevents card moving in hand from forcefully chaning hover target if playable has manually selected a new card
 
         LeanTween.cancel(gameObject);
-        LeanTween.scale(gameObject, new Vector3(2f, 2f, 1), hoverAnimationTime)
+        LeanTween.scale(gameObject, new Vector3(hoverScale, hoverScale, 1), hoverAnimationTime)
             .setEase(LeanTweenType.easeOutQuint);
         LeanTween.moveLocal(gameObject, new Vector3(0, hoverYOffset, hoverZOffset), hoverAnimationTime)
             .setEase(LeanTweenType.easeOutQuint);
@@ -346,7 +346,7 @@ public class PlayableCard : MonoBehaviour,
             hovered = false;
 
             LeanTween.cancel(gameObject);
-            LeanTween.scale(gameObject, new Vector3(1.5f, 1.5f, 1), hoverAnimationTime)
+            LeanTween.scale(gameObject, new Vector3(nonHoverScale, nonHoverScale, 1), hoverAnimationTime)
                 .setEase(LeanTweenType.easeOutQuint);
             LeanTween.moveLocal(gameObject, new Vector3(0, 0, 0), hoverAnimationTime)
                 .setEase(LeanTweenType.easeOutQuint);
