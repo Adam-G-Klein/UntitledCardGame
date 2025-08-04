@@ -80,7 +80,7 @@ public class CardType: IdentifiableSO, ITooltipProvider
         string description = Description;
         foreach (var defaultValue in defaultValues)
         {
-            description = description.Replace($"{{{defaultValue.key}}}", $"<b>{defaultValue.value}</b>");
+            description = description.Replace($"{{{defaultValue.key}}}", $"{defaultValue.value}");
         }
         return description;
     }
@@ -100,7 +100,7 @@ public class CardType: IdentifiableSO, ITooltipProvider
 
                 if (currentValue > defaultValue.value)
                 {
-                    styledValue = $"<color=green><b>{currentValue}</b></color>";
+                    styledValue = $"<color=#045700><size=+5><b>{currentValue}</b></size></color>";
                 }
                 else if (currentValue < defaultValue.value)
                 {
