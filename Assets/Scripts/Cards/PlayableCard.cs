@@ -204,6 +204,7 @@ public class PlayableCard : MonoBehaviour,
         experience.BindGameObjectsToTracks(new Dictionary<string, GameObject>() {
             { "CardAnimationTrack", cardGameObject },
             { "CardTweenTrack", cardGameObject },
+            { "CardScaleTrack", cardGameObject },
         });
         experience.AddLocationToKey("Card", this.transform.position);
         experience.AddLocationToKey("Companion", this.deckFrom.transform.position);
