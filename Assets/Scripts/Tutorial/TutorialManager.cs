@@ -47,8 +47,6 @@ public class TutorialManager : MonoBehaviour
 
     public static TutorialManager Instance = default;
 
-    private HashSet<string> playedTutorials = new();
-
     public bool IsTutorialPlaying = false;
 
     private IEnumerator tutorialCoroutine;
@@ -61,9 +59,7 @@ public class TutorialManager : MonoBehaviour
         //manually here, also this is not supposed to be accessed global, but there should only be one
         if (Instance != default && Instance != this)
         {
-
             Destroy(this.gameObject);
-
         }
         else
         {
@@ -109,8 +105,8 @@ public class TutorialManager : MonoBehaviour
 
     private void SetupNextTutorial()
     {
-        currTutorial = tutorialLevelData.Get(upcomingTutorialID);
-        if (currTutorial && !playedTutorials.Contains(currTutorial.ID))
+        currTutorial = tutorialLevelData.GetFirst();
+        if (currTutorial)
         {
             tutorialCoroutine = RunTutorial();
             StartCoroutine(tutorialCoroutine);
@@ -166,50 +162,6 @@ public class TutorialManager : MonoBehaviour
         {
             //currentStep.StepComplete();
             currentStepIndex += 1;
-        }
-    }
-
-    // for special casing the tutorial not starting until the player's turn in combat
-    public void TurnPhaseHandler(TurnPhaseEventInfo info)
-    {
-        Debug.Log("Tutorial manager received turn phase event: " + info.newPhase);
-        if (currentAction is WaitForTurnPhaseAction)
-        {
-            Debug.Log("Tutorial manager is handling a WaitForTurnPhaseAction");
-            WaitForTurnPhaseAction action = (WaitForTurnPhaseAction)currentAction;
-            action.OnTurnPhaseChange(info.newPhase);
-        }
-
-    }
-
-    // for making s to skip work
-    public void EndEncounterHandler()
-    {
-        StopCoroutine(tutorialCoroutine);
-        tutorialSkipped = true;
-        foreach (TutorialStep step in currTutorial.Steps)
-        {
-            step.SetStepComplete();
-        }
-    }
-
-    //event handlers
-    //need to know essentially that something has been completed, as of right now we will not need an argument, at the most potentially take in a int to reduce possible permutations
-    public void EventHandle(object obj)
-    {
-        //cast the 
-
-        Debug.Log("We have recieved an event from: ");
-    }
-
-    private void RemoveTutorialManager()
-    {
-        Debug.Log("Removing tutorial manager.");
-
-        //Goodbye
-        if (this != default)
-        {
-            Destroy(gameObject);
         }
     }
 

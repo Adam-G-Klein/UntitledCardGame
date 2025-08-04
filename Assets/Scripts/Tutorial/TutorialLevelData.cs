@@ -12,19 +12,31 @@ public class TutorialLevelData : MonoBehaviour
     [SerializeField]
     private List<TutorialData> data;
 
-    public TutorialData Get(string tutorialID) {
-        foreach (TutorialData tutorialData in data) {
+    public TutorialData Get(string tutorialID)
+    {
+        foreach (TutorialData tutorialData in data)
+        {
             //Null check because this can very easily be unset in the inspector
-            if (tutorialData != default) {
-                if (tutorialData.ID == tutorialID) {
+            if (tutorialData != default)
+            {
+                if (tutorialData.ID == tutorialID)
+                {
                     return tutorialData;
                 }
-            } else {
+            }
+            else
+            {
                 Debug.Log("TUTORIAL ERROR: null tutorial data in level data");
             }
         }
 
         Debug.Log("TUTORIAL ERROR: Unable to find specified tutorial: " + tutorialID.ToString());
+        return default;
+    }
+
+    public TutorialData GetFirst()
+    {
+        if (data != default && data.Count != 0) return data[0];
         return default;
     }
 }

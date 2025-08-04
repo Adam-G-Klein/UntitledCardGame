@@ -62,7 +62,7 @@ public class GameStateVariableSO : ScriptableObject
         set {
             hasSeenPackSelectTutorial = value;
             if (value) {
-                SaveManager.Instance.SaveHandler();
+                SaveManager.Instance.SavePlayerProgress();
             }
         }
     }
@@ -73,7 +73,7 @@ public class GameStateVariableSO : ScriptableObject
         set {
             hasSeenShopTutorial = value;
             if (value) {
-                SaveManager.Instance.SaveHandler();
+                SaveManager.Instance.SavePlayerProgress();
             }
         }
     }
@@ -84,7 +84,7 @@ public class GameStateVariableSO : ScriptableObject
         set {
             hasSeenCombatTutorial = value;
             if (value) {
-                SaveManager.Instance.SaveHandler();
+                SaveManager.Instance.SavePlayerProgress();
             }
         }
     }
