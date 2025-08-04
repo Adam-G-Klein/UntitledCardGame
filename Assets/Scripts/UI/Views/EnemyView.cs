@@ -11,7 +11,6 @@ using UnityEngine.UIElements;
 public class EnemyView : IUIEventReceiver
 {
     public VisualElement container;
-    public VisualElementFocusable elementFocusable;
     public IEntityViewDelegate viewDelegate;
 
     public static string STATUS_EFFECTS_CONTAINER_SUFFIX = "-status-effects";
@@ -95,11 +94,9 @@ public class EnemyView : IUIEventReceiver
     {
         SetupBlockAndHealth();
         SetupStatusIndicators();
-        if (uiEntity.GetEnemyInstance())
-        {
+        if (uiEntity.GetEnemyInstance()) {
             setupEnemyIntent(uiEntity.GetEnemyInstance());
         }
-        ;
     }
 
     private void setupEntity(IUIEntity entity, int index)
@@ -355,7 +352,7 @@ public class EnemyView : IUIEventReceiver
 
     private IEnumerator OnDeathHandler(CombatInstance killer)
     {
-        FocusManager.Instance.UnregisterFocusableTarget(this.elementFocusable);
+        FocusManager.Instance.UnregisterFocusableTarget(this.focusable);
         isDead = true;
         yield return null;
     }
