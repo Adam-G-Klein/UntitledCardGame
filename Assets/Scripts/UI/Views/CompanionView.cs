@@ -65,13 +65,15 @@ public class CompanionView : IUIEventReceiver
     private bool isDead = false;
     private VisualElement containerThatHoverIndicatorShows;
     private Coroutine maxHealthIndicatorCoroutine;
+    private bool isTweening = false;
 
     public CompanionView(
             IUIEntity entity,
             VisualTreeAsset template,
             int index,
             CompanionViewContext context,
-            IEntityViewDelegate viewDelegate) {
+            IEntityViewDelegate viewDelegate)
+    {
         this.entity = entity;
         this.viewDelegate = viewDelegate;
         this.template = template;
@@ -79,12 +81,13 @@ public class CompanionView : IUIEventReceiver
         this.context = context;
 
         this.combatInstance = entity.GetCombatInstance();
-        
+
         SetupCompanionView();
 
-        if (this.combatInstance) {
+        if (this.combatInstance)
+        {
             combatInstance.onDamageHandler += DamageScaleBump;
-            combatInstance.onDeathHandler +=  OnDeathHandler;
+            combatInstance.onDeathHandler += OnDeathHandler;
             combatInstance.SetVisualElement(this.container);
         }
     }
@@ -136,7 +139,6 @@ public class CompanionView : IUIEventReceiver
         if (this.context.setupViewDeckButton) SetupViewDeckContainer();
 
         UpdateWidthAndHeight(container);
-
     }
 
     private void SetupLevelIndicator() {
@@ -504,7 +506,7 @@ public class CompanionView : IUIEventReceiver
     }
 
     private void DamageScaleBump(int scale) {
-        if (scale == 0) return; // this could mean the damage didn't go through the block or that the companion died while taking damage
+        if (scale == 0 || this.isTweening) return; // this could mean the damage didn't go through the block or that the companion died while taking damage
 
         float duration = 0.125f;  // Total duration for the scale animation
         float minScale = .8f; // (float)Math.Min(.75, .9 - scale / 500);  // scale bump increases in intensity if entity takes more damage (haven't extensively tested this)
@@ -513,15 +515,21 @@ public class CompanionView : IUIEventReceiver
             this.container.style.scale.value.value.x,
             this.container.style.scale.value.value.y
         );
-        
+
         LeanTween.value(1f, minScale, duration)
             .setEase(LeanTweenType.easeInOutQuad)
             .setLoopPingPong(1) // inverse tween is called when this tween completes. On complete below is called after both tweens complete
-            .setOnUpdate((float currentScale) => {
+            .setOnUpdate((float currentScale) =>
+            {
                 this.container.style.scale = new StyleScale(new Scale(originalElementScale * currentScale));
+            })
+            .setOnStart(() =>
+            {
+                this.isTweening = true;
             })
             .setOnComplete(() =>
             {
+                this.isTweening = false;
                 this.container.style.scale = new StyleScale(new Scale(originalElementScale));
             });
     }
