@@ -6,6 +6,7 @@ using TMPro;
 using Unity.Collections;
 using System.Linq;
 using UnityEngine.Playables;
+using System;
 
 
 [ExecuteInEditMode]
@@ -44,6 +45,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     private float cardBatchingDelay = .1f;
     private int indexToHover = -1;
     private Coroutine dealingCardsCoroutine = null;
+    private Dictionary<GameObject, int> cardToTweenMap = new();
 
     void Start() {
         cardPrefab = EnemyEncounterManager.Instance.encounterConstants.cardPrefab;
@@ -75,6 +77,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                 startPos);
             newCard.gameObject.name = cardInfo.name;
             newCard.interactable = false;
+            newCard.gameObject.SetActive(false);
             WorldPositionVisualElement newCardPlacement = UIDocumentGameObjectPlacer.Instance.CreateCardSlot();
             UIDocumentGameObjectPlacer.Instance.addMapping(newCardPlacement, newCard.gameObject);
             if (newCard.card.cardType.retain) {
@@ -104,7 +107,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
 
 
         for (int i = 0; i < cardsInHand.Count; i++) {
-            MoveCard(cardsInHand[i]);
+            ShiftCard(cardsInHand[i]);
             //yield return new WaitForSeconds(cardDealDelay);
         }
 
@@ -119,6 +122,59 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         }
     }
 
+    private void ShiftCard(PlayableCard cardToShift) {
+        WorldPositionVisualElement WPVE = UIDocumentGameObjectPlacer.Instance.GetCardWPVEFromGO(cardToShift.gameObject);
+        WPVE.UpdatePosition();
+        GameObject moveGO = cardToShift.transform.parent.gameObject;
+        GameObject rotateGO = cardToShift.gameObject;
+
+        float rotationTime = 0.25f;
+        float moveTime = 0.25f;
+
+        // The card was already moving and we wanna change it to move somehow else
+        if (cardToTweenMap.ContainsKey(moveGO)) {
+            LTDescr descr = LeanTween.descr(cardToTweenMap[moveGO]);
+            if (descr == null) {
+                // This should be an abnormal case
+                cardToTweenMap.Remove(moveGO);
+            } else {
+                // This should be the happy path
+                moveTime = descr.time - descr.passed;
+                LeanTween.cancel(moveGO);
+            }
+        }
+        
+        if (cardToTweenMap.ContainsKey(rotateGO)) {
+            LTDescr descr = LeanTween.descr(cardToTweenMap[rotateGO]);
+            if (descr == null) {
+                // This should be an abnormal case
+                cardToTweenMap.Remove(moveGO);
+            } else {
+                // This should be the happy path
+                rotationTime = descr.time - descr.passed;
+                LeanTween.cancel(rotateGO);
+            }
+        }
+
+        // The card isn't already moving :)
+        int rotation = LeanTween.rotate(
+                rotateGO,
+                new Vector3(0, 0, UIDocumentGameObjectPlacer.Instance.GetCardWPVEFromGO(rotateGO).ve.style.rotate.value.angle.value),
+                rotationTime
+                ).setOnComplete(() => { cardToTweenMap.Remove(rotateGO); })
+                .setEase(LeanTweenType.easeInOutQuad).id;
+
+        int move = LeanTween.move(
+                moveGO,
+                WPVE.worldPos,
+                moveTime
+                ).setOnComplete(() => { cardToTweenMap.Remove(moveGO); })
+                .setEase(LeanTweenType.easeInOutQuad).id;
+
+        cardToTweenMap[rotateGO] = rotation;
+        cardToTweenMap[moveGO] = move;
+    }
+
     private void MoveCard(PlayableCard cardToMove, bool disableCardDuringMove = false) {
         if (disableCardDuringMove) cardToMove.interactable = false; // hovering a card changes its position so we really need that to not happen while they are moving to their new spot
         WorldPositionVisualElement WPVE = UIDocumentGameObjectPlacer.Instance.GetCardWPVEFromGO(cardToMove.gameObject);
@@ -128,15 +184,18 @@ public class PlayerHand : GenericSingleton<PlayerHand>
 
 
     private void CardDrawVFX(Vector3 fromLocation, Vector3 toLocation, GameObject gameObject) {
-        if (GOToFXExperience.ContainsKey(gameObject) && GOToFXExperience[gameObject] != null) {
-            FXExperience ex = GOToFXExperience[gameObject];
-            ex.UpdateLocationKey("hand", toLocation);
-            LeanTween.cancel(gameObject);
-            PlayableDirector director = ex.playableDirector;
-            float timeRemaining = (float)(director.duration - director.time);
-            LeanTween.rotate(gameObject, new Vector3(0, 0, UIDocumentGameObjectPlacer.Instance.GetCardWPVEFromGO(gameObject).ve.style.rotate.value.angle.value), timeRemaining).setEase(LeanTweenType.easeInOutQuad);
-            return;
-        }
+        gameObject.SetActive(true);
+        // This code is being deprecated as of a week before magwest.
+        // If this code remains deprecated post mag west it can be deleted.
+        // if (GOToFXExperience.ContainsKey(gameObject) && GOToFXExperience[gameObject] != null) {
+        //     FXExperience ex = GOToFXExperience[gameObject];
+        //     ex.UpdateLocationKey("hand", toLocation);
+        //     LeanTween.cancel(gameObject);
+        //     PlayableDirector director = ex.playableDirector;
+        //     float timeRemaining = (float)(director.duration - director.time);
+        //     LeanTween.rotate(gameObject, new Vector3(0, 0, UIDocumentGameObjectPlacer.Instance.GetCardWPVEFromGO(gameObject).ve.style.rotate.value.angle.value), timeRemaining).setEase(LeanTweenType.easeInOutQuad);
+        //     return;
+        // }
 
         // TODO: update the FXExprience to do rotation as well, this was as much as I could muster rn.
         LeanTween.cancel(gameObject);
@@ -157,8 +216,6 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             Debug.Log("Card draw VFX finished");
             if (gameObject.TryGetComponent<SpriteRenderer>(out var SR)) SR.sortingLayerName = "Cards"; // what is this magic
             gameObject.GetComponent<PlayableCard>().interactable = true;
-            // Hack to try to get Pythia deck shuffling on start of turn working.
-            // EffectManager.Instance.invokeEffectWorkflow(new EffectDocument(), new List<EffectStep>(), null);
 
             if (ControlsManager.Instance.GetControlMethod() == ControlsManager.ControlMethod.Mouse) return;
 
@@ -173,11 +230,12 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     }
 
     public void StopCardDrawFX(GameObject gameObject) {
-        if (GOToFXExperience.ContainsKey(gameObject) && GOToFXExperience[gameObject] != null) {
-            FXExperience ex = GOToFXExperience[gameObject];
-            ex.EarlyStop();
-            GOToFXExperience.Remove(gameObject);
-        }
+        LeanTween.cancel(gameObject);
+        // if (GOToFXExperience.ContainsKey(gameObject) && GOToFXExperience[gameObject] != null) {
+        //     FXExperience ex = GOToFXExperience[gameObject];
+        //     ex.EarlyStop();
+        //     GOToFXExperience.Remove(gameObject);
+        // }
     }
 
     public void HoverNextCard(int previouslyPlayedCardIndex) {

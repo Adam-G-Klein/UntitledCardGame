@@ -50,6 +50,8 @@ PlayableDirector:
   m_SceneBindings:
   - key: {fileID: -6909172982600208713, guid: 6f7b06647641d1e45a316bf00867378b, type: 2}
     value: {fileID: 0}
+  - key: {fileID: -962720381103970220, guid: 6f7b06647641d1e45a316bf00867378b, type: 2}
+    value: {fileID: 0}
   m_ExposedReferences:
     m_References:
     - : {fileID: 7605520522636234201}
@@ -67,3 +69,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playableDirector: {fileID: 2010106815639854465}
   locations: []
+  veMappings: []

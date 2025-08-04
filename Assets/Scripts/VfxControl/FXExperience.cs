@@ -49,6 +49,7 @@ public class FXExperience : MonoBehaviour
                 switch (true) {
                     case true when typeof(TweenTrack).IsAssignableFrom(track.GetType()):
                     case true when typeof(PartialTweenTrack).IsAssignableFrom(track.GetType()):
+                    case true when typeof(ScaleTrack).IsAssignableFrom(track.GetType()):
                         playableDirector.SetGenericBinding(track, bindingsMap[track.name].transform);
                     break;
 

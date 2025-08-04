@@ -53,6 +53,7 @@ public class SaveManager : GenericSingleton<SaveManager>
     {
         SaveSystem.DeleteSave();
     }
+
     [ContextMenu("Delete Player Progress Data")]
     public void DeletePlayerProgressData()
     {
