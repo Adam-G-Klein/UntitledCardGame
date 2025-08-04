@@ -15,8 +15,9 @@
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="middle-section" style="flex-grow: 1; flex-direction: row; max-height: 40%; min-height: 40%;">
-            <ui:VisualElement style="flex-grow: 1; flex-basis: auto; width: 25%; height: 100%; justify-content: center; align-self: flex-start; align-items: center;">
-                <ui:VisualElement name="VisualElement" class="shopButtonContainer" style="align-items: center;">
+            <ui:VisualElement style="flex-grow: 1; flex-basis: auto; width: 20%; height: 100%; justify-content: center; align-self: flex-start; align-items: center;">
+                <ui:VisualElement name="VisualElement" class="shopButtonContainer" style="align-items: center; width: 80%; flex-direction: row-reverse;">
+                    <ui:Label tabindex="-1" text="$1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="upgrade-price-label" class="shopButtonPriceTag" style="translate: -18% 0;" />
                     <ui:VisualElement name="VisualElement" style="flex-grow: 1; flex-direction: row; justify-content: center;">
                         <ui:VisualElement name="upgrade-increment-container" class="upgradeIncrementContainer">
                             <ui:VisualElement class="upgradeIncrement upgradeIncrementEarned" />
@@ -27,17 +28,16 @@
                             <ui:VisualElement class="upgradeIncrement" />
                             <ui:VisualElement class="upgradeIncrement" />
                         </ui:VisualElement>
-                        <ui:Button text="Upgrade" parse-escape-sequences="true" display-tooltip-when-elided="true" name="upgrade-button" class="shopButton" style="margin-right: 0;" />
+                        <ui:Button text="Upgrade" parse-escape-sequences="true" display-tooltip-when-elided="true" name="upgrade-button" class="shopButton" style="margin-right: 0; background-image: url(&quot;project://database/Assets/Sprites/UI/TrimmedPlainButton.png?fileID=2800000&amp;guid=85a91730dc15b6f47b0a0f5923d2e07e&amp;type=3#TrimmedPlainButton&quot;); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; background-color: rgba(214, 162, 104, 0); padding-top: 12px; padding-right: 12px; padding-bottom: 12px; padding-left: 12px;" />
                     </ui:VisualElement>
-                    <ui:Label tabindex="-1" text="$1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="upgrade-price-label" class="shopButtonPriceTag" />
                 </ui:VisualElement>
-                <ui:VisualElement class="shopButtonContainer">
-                    <ui:Button text="Reroll" parse-escape-sequences="true" display-tooltip-when-elided="true" name="reroll-button" class="shopButton" style="margin-right: 0;" />
-                    <ui:Label tabindex="-1" text="$1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="reroll-price-label" style="background-image: url(&quot;project://database/Assets/Sprites/AidensRoom/DialogueBox.png?fileID=2800000&amp;guid=e1a81dd917fe696459cd192b12e9b3fc&amp;type=3#DialogueBox&quot;); align-self: center; margin-left: 0; width: 20%; height: 33%; align-items: center; justify-content: flex-start; -unity-text-align: middle-center; -unity-font-style: bold; font-size: 18px;" />
+                <ui:VisualElement class="shopButtonContainer" style="width: 80%; flex-direction: row-reverse;">
+                    <ui:Label tabindex="-1" text="$1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="reroll-price-label" style="background-image: url(&quot;project://database/Assets/Sprites/AidensRoom/DialogueBox.png?fileID=2800000&amp;guid=e1a81dd917fe696459cd192b12e9b3fc&amp;type=3#DialogueBox&quot;); align-self: center; margin-left: 0; width: 20%; height: 33%; align-items: center; justify-content: flex-start; -unity-text-align: middle-center; -unity-font-style: bold; font-size: 18px; translate: -18% 0;" />
+                    <ui:Button text="Reroll" parse-escape-sequences="true" display-tooltip-when-elided="true" name="reroll-button" class="shopButton" style="margin-right: 0; background-color: rgba(214, 162, 104, 0); background-image: url(&quot;project://database/Assets/Sprites/UI/TrimmedPlainButton.png?fileID=2800000&amp;guid=85a91730dc15b6f47b0a0f5923d2e07e&amp;type=3#TrimmedPlainButton&quot;); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; padding-top: 15px; padding-right: 15px; padding-bottom: 15px; padding-left: 15px;" />
                 </ui:VisualElement>
-                <ui:VisualElement class="shopButtonContainer">
-                    <ui:Button text="Card Removal" parse-escape-sequences="true" display-tooltip-when-elided="true" name="card-remove-button" class="shopButton" style="margin-right: 0;" />
-                    <ui:Label tabindex="-1" text="$8" parse-escape-sequences="true" display-tooltip-when-elided="true" name="card-remove-price-label" style="background-image: url(&quot;project://database/Assets/Sprites/AidensRoom/DialogueBox.png?fileID=2800000&amp;guid=e1a81dd917fe696459cd192b12e9b3fc&amp;type=3#DialogueBox&quot;); align-self: center; margin-left: 0; width: 20%; height: 33%; align-items: center; justify-content: flex-start; -unity-text-align: middle-center; -unity-font-style: bold; font-size: 18px;" />
+                <ui:VisualElement name="VisualElement" class="shopButtonContainer" style="width: 80%; flex-direction: row-reverse;">
+                    <ui:Label tabindex="-1" text="$8" parse-escape-sequences="true" display-tooltip-when-elided="true" name="card-remove-price-label" style="background-image: url(&quot;project://database/Assets/Sprites/AidensRoom/DialogueBox.png?fileID=2800000&amp;guid=e1a81dd917fe696459cd192b12e9b3fc&amp;type=3#DialogueBox&quot;); align-self: center; margin-left: 0; width: 20%; height: 33%; align-items: center; justify-content: flex-start; -unity-text-align: middle-center; -unity-font-style: bold; font-size: 18px; translate: -18% 0;" />
+                    <ui:Button text="Remove Card" parse-escape-sequences="true" display-tooltip-when-elided="true" name="card-remove-button" class="shopButton" style="margin-right: 0; background-color: rgba(214, 162, 104, 0); background-image: url(&quot;project://database/Assets/Sprites/UI/TrimmedPlainButton.png?fileID=2800000&amp;guid=85a91730dc15b6f47b0a0f5923d2e07e&amp;type=3#TrimmedPlainButton&quot;); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; -unity-text-align: middle-center; padding-top: 17px; padding-right: 17px; padding-bottom: 17px; padding-left: 17px;" />
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement style="flex-grow: 1; width: 75%; justify-content: center;">
@@ -59,7 +59,7 @@
                         <ui:VisualElement name="unit-container-4" class="single-unit-container" />
                     </ui:VisualElement>
                     <ui:VisualElement style="flex-grow: 1; height: 50%;">
-                        <ui:Button text="Start Next&#10;Combat" parse-escape-sequences="true" display-tooltip-when-elided="true" name="start-next-combat-button" class="shopButton" style="font-size: 23px;" />
+                        <ui:Button text="Next Combat" parse-escape-sequences="true" display-tooltip-when-elided="true" name="start-next-combat-button" class="shopButton" style="font-size: 23px; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; width: 208px;" />
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="unit-bench-container" style="height: 40%; flex-direction: row; justify-content: flex-start; align-self: auto; align-items: center;">
@@ -109,7 +109,7 @@
                 <ui:Label tabindex="-1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="selling-companion-confirmation-label" style="font-size: 34px;" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="upgradeMenuOuterContainer" picking-mode="Ignore" class="upgrade-menu-outer-container" style="flex-grow: 1; position: absolute; width: 100%; height: 100%; transition-property: background-color; transition-duration: 0.5s; transition-timing-function: linear; justify-content: center;">
+        <ui:VisualElement name="upgradeMenuOuterContainer" picking-mode="Ignore" class="upgrade-menu-outer-container" style="flex-grow: 1; position: absolute; width: 100%; height: 100%; transition-property: background-color; transition-duration: 0.5s; transition-timing-function: linear; justify-content: center; background-image: none;">
             <ui:VisualElement name="upgradeMenuContainer" class="upgrade-menu-container">
                 <ui:Button text="Cancel Upgrade" parse-escape-sequences="true" display-tooltip-when-elided="true" name="cancelUpgrade" style="position: absolute; left: 20px; top: 20px; font-size: 24px;" />
                 <ui:Button text="Confirm Upgrade" parse-escape-sequences="true" display-tooltip-when-elided="true" name="confirmUpgrade" style="position: absolute; bottom: 8%; -unity-font-style: normal; font-size: 24px;" />

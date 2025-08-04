@@ -1,17 +1,14 @@
 .shopButton {
-    background-color: rgb(214, 162, 104);
-    border-left-color: rgb(0, 0, 0);
-    border-right-color: rgb(0, 0, 0);
-    border-top-color: rgb(0, 0, 0);
-    border-bottom-color: rgb(0, 0, 0);
-    border-top-width: 2px;
-    border-right-width: 2px;
-    border-bottom-width: 2px;
-    border-left-width: 2px;
     -unity-font-style: bold;
     font-size: 30px;
     flex-grow: 1;
     align-self: center;
+    background-image: url("project://database/Assets/Sprites/UI/TrimmedPlainButton.png?fileID=2800000&guid=85a91730dc15b6f47b0a0f5923d2e07e&type=3#TrimmedPlainButton");
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    background-color: rgba(0, 0, 0, 0);
 }
 
 .shopButtonContainer {
@@ -55,11 +52,11 @@
 }
 
 .shopButton:hover {
-    background-color: rgb(250, 222, 171);
+    -unity-background-image-tint-color: rgb(207, 207, 207);
 }
 
 .shopButton:focus {
-    background-color: rgb(248, 223, 195);
+    -unity-background-image-tint-color: rgb(207, 207, 207);
 }
 
 .shopButton:active {
@@ -137,20 +134,19 @@
 }
 
 .companion-sell-button {
-    background-color: rgb(255, 109, 109);
     position: absolute;
     left: 0;
     top: -38%;
     right: 0;
     font-size: 24px;
+    -unity-background-image-tint-color: rgb(255, 173, 173);
 }
 
 .companion-sell-button:hover {
-    background-color: rgb(252, 139, 139);
+    -unity-background-image-tint-color: rgb(205, 140, 140);
 }
 
 .companion-sell-button:active {
-    background-color: rgb(255, 0, 0);
 }
 
 .map-combat-counter {
@@ -297,11 +293,9 @@
 }
 
 #companion-selection-cancel-button {
-    background-color: rgb(255, 130, 127);
 }
 
 #companion-selection-cancel-button:focus {
-    background-color: rgb(207, 72, 68);
 }
 
 .focusable-button:focus {
