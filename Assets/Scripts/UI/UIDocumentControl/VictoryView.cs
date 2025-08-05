@@ -48,7 +48,6 @@ public class VictoryView : MonoBehaviour
             // otherwise go to main menu
             SceneManager.LoadScene("MainMenu");
         });
-        FocusManager.Instance.RegisterFocusableTarget(button.AsFocusable());
     }
 
     public void Setup(List<Companion> companions) {
@@ -100,5 +99,7 @@ public class VictoryView : MonoBehaviour
                 mat.SetFloat("_alpha", val);
                 canvasGroup.alpha = val;
             });
+        FocusManager.Instance.StashFocusables(this.GetType().Name);
+        FocusManager.Instance.RegisterFocusableTarget(button.AsFocusable());
     }
 }

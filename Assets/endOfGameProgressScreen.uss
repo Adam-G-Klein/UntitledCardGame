@@ -9,3 +9,19 @@
     height: 40px;
     max-height: 40px;
 }
+
+.end-of-game-progress-exit-button {
+    background-image: url("project://database/Assets/Sprites/Z_OldPlaceholderSprites/arrow_next_noglow.png?fileID=2800000&guid=af68a8e3c8c054de0b2efb914e24434e&type=3#arrow_next_noglow");
+    -unity-background-scale-mode: stretch-to-fill;
+    width: 155px;
+    height: 75px;
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.end-of-game-progress-exit-button:focus {
+    background-image: url("project://database/Assets/Sprites/Z_OldPlaceholderSprites/arrow_next_noglow.png?fileID=2800000&guid=af68a8e3c8c054de0b2efb914e24434e&type=3#arrow_next_noglow");
+    -unity-background-scale-mode: stretch-to-fill;
+    width: 155px;
+    height: 75px;
+    -unity-background-image-tint-color: rgb(201, 201, 201);
+}
