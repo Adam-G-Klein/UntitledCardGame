@@ -10,15 +10,13 @@ using System.Runtime.InteropServices;
 [System.Serializable]
 public class TooltipLine
 {
-
     public string title;
     public string description;
     public int relatedBehaviorIndex;
     public VisualElement GetVisualElement()
     {
         VisualElement ve = new VisualElement();
-        // below class doesn't exist yet
-        // ve.AddToClassList("tooltip-line");
+        ve.AddToClassList("tooltip-line");
 
         Label title = new Label(this.title);
         title.AddToClassList("tooltip-title");
@@ -59,6 +57,7 @@ public class TooltipLine
         this.relatedBehaviorIndex = relatedBehaviorIndex;
     }
 }
+
 [System.Serializable]
 public class TooltipViewModel
 {
@@ -136,7 +135,7 @@ public class TooltipViewModel
     }
 }
 
-[RequireComponent(typeof(MiniUIDocumentWorldspace))]
+[RequireComponent(typeof(MiniUIDocumentScreenspace))]
 public class TooltipView : MonoBehaviour
 {
 
@@ -165,7 +164,7 @@ public class TooltipView : MonoBehaviour
         else
         {
             Debug.Log("TooltipView: Start");
-            VisualElement root = GetComponent<MiniUIDocumentWorldspace>().doc.rootVisualElement;
+            VisualElement root = GetComponent<MiniUIDocumentScreenspace>().doc.rootVisualElement;
             background = root.Q<VisualElement>("tooltip-background");
             Fill();
         }

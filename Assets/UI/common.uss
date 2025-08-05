@@ -458,15 +458,26 @@
 }
 
 .tooltip-title {
-    font-size: 32px;
+    font-size: 36px;
     flex-wrap: wrap;
     -unity-font-style: bold;
+    white-space: normal;
+    color: rgb(234, 182, 106);
+    padding-top: 5px;
+    padding-right: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
 }
 
 .tooltip-text {
-    font-size: 25px;
+    font-size: 30px;
     flex-wrap: wrap;
     white-space: normal;
+    color: rgb(255, 255, 255);
+    padding-top: 5px;
+    padding-right: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
 }
 
 .tooltip-background {
@@ -758,4 +769,24 @@
     border-right-color: rgb(0, 0, 0);
     border-top-color: rgb(0, 0, 0);
     border-bottom-color: rgb(0, 0, 0);
+}
+
+.tooltip-line {
+    background-color: rgb(27, 27, 27);
+    border-top-width: 4px;
+    border-right-width: 4px;
+    border-bottom-width: 4px;
+    border-left-width: 4px;
+    border-top-left-radius: 3%;
+    border-top-right-radius: 3%;
+    border-bottom-right-radius: 3%;
+    border-bottom-left-radius: 3%;
+    border-left-color: rgb(97, 69, 11);
+    border-right-color: rgb(97, 69, 11);
+    border-top-color: rgb(97, 69, 11);
+    border-bottom-color: rgb(97, 69, 11);
+    margin-top: 7px;
+    margin-right: 7px;
+    margin-bottom: 7px;
+    margin-left: 7px;
 }

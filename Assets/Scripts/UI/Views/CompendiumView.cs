@@ -196,7 +196,7 @@ public class CompendiumView : MonoBehaviour, IControlsReceiver {
         }
 
         float xTooltipPos = element.worldBound.center.x + (element.resolvedStyle.width * 0.7f * xPosScale);
-        float yTooltipPos = element.worldBound.center.y - (element.resolvedStyle.height * .2f);
+        float yTooltipPos = element.worldBound.center.y + (element.resolvedStyle.height * .1f);
         Vector3 position = new Vector3(xTooltipPos, yTooltipPos, 0);
         
         Vector3 tooltipPosition = UIDocumentGameObjectPlacer.GetWorldPositionFromUIDocumentPosition(position);
