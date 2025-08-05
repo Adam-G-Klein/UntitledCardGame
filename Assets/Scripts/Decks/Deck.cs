@@ -2,18 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System;
 
 
 [System.Serializable]
 public class Deck
 {
-    public StartingDeck startingDeck;
     [SerializeField]
     public List<Card> cards = new List<Card>();
     public int cardsDealtPerTurn = 1;
     public Deck(CompanionTypeSO companionType)
     {
-        this.startingDeck = companionType.startingDeck;
         this.cardsDealtPerTurn = companionType.initialCardsDealtPerTurn;
         foreach(CardType cardType in companionType.startingDeck.cards)
         {
@@ -23,7 +22,6 @@ public class Deck
 
     public Deck(DeckSerializable deckSerializable, SORegistry registry)
     {
-        this.startingDeck = registry.GetAsset<StartingDeck>(deckSerializable.startingDeckGuid);
         this.cardsDealtPerTurn = deckSerializable.cardsDealtPerTurn;
         this.cards = deckSerializable.cards.Select(c => new Card(c, registry)).ToList();
 
@@ -31,7 +29,6 @@ public class Deck
 
     public Deck(List<Card> cards, int initialCardsDealtPerTurn = 1)
     {
-        this.startingDeck = new StartingDeck(cards);
         this.cardsDealtPerTurn = initialCardsDealtPerTurn;
         foreach(Card card in cards)
         {
@@ -68,12 +65,12 @@ public class Deck
 public class DeckSerializable
 {
     public string startingDeckGuid;
+    public List<string> higherLevelStartingDeckGuids;
     public int cardsDealtPerTurn;
     public List<CardSerializable> cards;
 
     public DeckSerializable(Deck deck)
     {
-        this.startingDeckGuid = deck.startingDeck.GUID;
         this.cardsDealtPerTurn = deck.cardsDealtPerTurn;
         this.cards = deck.cards.Select(c => new CardSerializable(c)).ToList();
     }
