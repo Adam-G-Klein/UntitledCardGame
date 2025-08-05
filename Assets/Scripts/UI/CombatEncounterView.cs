@@ -134,7 +134,7 @@ public class CombatEncounterView : MonoBehaviour,
     private void SetupCompanions(VisualElement container, IEnumerable<IUIEntity> companions) {
         var index = UIDocumentGameObjectPlacer.INITIAL_INDEX;
         foreach (var entity in companions) {
-            container.Add(SetupCompanion(entity, index).container);
+            container.Insert(0, SetupCompanion(entity, index).container);
             index++;
         }
     }
@@ -148,7 +148,8 @@ public class CombatEncounterView : MonoBehaviour,
             // This is why this is a separate function
             // this bridge is a nice way to get from PlayableCard->DeckInstance->CompanionInstance->CompanionView
             entity.companionView = companionView;
-            container.Add(companionView.container);
+            // Need to put them in reverse order due to some UI layering issues with max health indicator
+            container.Insert(0, companionView.container);
             index++;
         }
     }
