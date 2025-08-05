@@ -281,9 +281,9 @@ public class EnemyView : IUIEventReceiver
 
     private void setupEnemyIntent(EnemyInstance enemyInstance)
     {
-
         if (enemyInstance.currentIntent != null)
         {
+            this.intentContainer.style.display = DisplayStyle.Flex;
             if (enemyInstance.currentIntent.GetDisplayValue() != 0)
             {
                 this.intentLabel.style.display = DisplayStyle.Flex;
@@ -352,6 +352,7 @@ public class EnemyView : IUIEventReceiver
 
     private IEnumerator OnDeathHandler(CombatInstance killer)
     {
+        this.selectedIndicator.style.visibility = Visibility.Hidden;
         FocusManager.Instance.UnregisterFocusableTarget(this.focusable);
         isDead = true;
         yield return null;
