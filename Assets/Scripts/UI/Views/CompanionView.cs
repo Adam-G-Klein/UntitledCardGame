@@ -190,7 +190,15 @@ public class CompanionView : IUIEventReceiver
     }
 
     private void SetupBackground() {
-        this.solidBackground.style.backgroundImage = new StyleBackground(this.entity.GetBackgroundImage());
+        Color color;
+        if (this.entity is Companion companion) {
+            color = companion.companionType.pack.packColor;
+        } else if (this.entity is CompanionInstance companionInstance) {
+            color = companionInstance.companion.companionType.pack.packColor;
+        } else {
+            color = Color.white; // Fallback color
+        }
+        this.solidBackground.style.backgroundColor = color;
     }
 
     private void SetupBlockAndHealth() {
