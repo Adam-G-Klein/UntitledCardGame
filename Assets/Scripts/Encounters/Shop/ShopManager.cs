@@ -257,7 +257,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     }
 
     public void ProcessCardRemovalCancelled() {
-        this.buyingCard = false;
+        removingCard = false;
     }
 
     public void SellCompanion(Companion companion, VisualElement ve) {
