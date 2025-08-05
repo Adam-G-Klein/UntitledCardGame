@@ -104,9 +104,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doc: {fileID: 7098966051796360709}
-  stateDirty: 1
-  initialized: 0
-  constantStateUpdate: 0
 --- !u!114 &2856548155032031997
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,5 +121,6 @@ MonoBehaviour:
   testTeamActiveCompanions: {fileID: 0}
   deckViewUIPrefab: {fileID: 0}
   displayOnStart: 0
+  tooltipPrefab: {fileID: 6007338781981315851, guid: fb50e2e263898e24cbb2b01b146179b6, type: 3}
   randomStarterCompanionGen: 1
   docRenderer: {fileID: 0}

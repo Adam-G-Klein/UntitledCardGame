@@ -197,15 +197,21 @@ public class TeamSelectionUI : MonoBehaviour
         if (!isCompanion && cardTypeMap[VE.name].GetTooltip().empty) return;
         if (tooltipMap.ContainsKey(VE.name)) return;
 
-        Vector3 tooltipPosition = UIDocumentGameObjectPlacer.GetWorldPositionFromElement(VE);
+        Vector3 tooltipPosition;
 
-            if (isCompanion) {
-                tooltipPosition.x -= VE.resolvedStyle.width / 300; // this feels super brittle
-                tooltipPosition.y += VE.resolvedStyle.width / 400;
-            } else {
-                tooltipPosition.x -= VE.resolvedStyle.width / 150; // this feels super brittle
-                tooltipPosition.y += VE.resolvedStyle.width / 150;
-            }
+        if (isCompanion) {
+            float xTooltipPos = VE.worldBound.center.x - (VE.resolvedStyle.width * .85f);
+            float yTooltipPos = VE.worldBound.center.y + (VE.resolvedStyle.height * .2f);
+            Vector3 position = new Vector3(xTooltipPos, yTooltipPos, 0);
+            
+            tooltipPosition = UIDocumentGameObjectPlacer.GetWorldPositionFromUIDocumentPosition(position);
+        } else {
+            float xTooltipPos = VE.worldBound.center.x - (VE.resolvedStyle.width * 1.1f);
+            float yTooltipPos = VE.worldBound.center.y + (VE.resolvedStyle.height * .1f);
+            Vector3 position = new Vector3(xTooltipPos, yTooltipPos, 0);
+            
+            tooltipPosition = UIDocumentGameObjectPlacer.GetWorldPositionFromUIDocumentPosition(position);
+        }
         tooltipPosition.z = -2; // THIS SHOULD NOT BE NECESSARY BUT NO OTHER LAYERING WAS WORKING
 
         GameObject uiDocToolTipPrefab = Instantiate(tooltipPrefab, tooltipPosition, new Quaternion());

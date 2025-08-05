@@ -1076,13 +1076,19 @@ public class ShopViewController : MonoBehaviour,
     }
 
     public void DisplayTooltip(VisualElement element, TooltipViewModel tooltipViewModel, bool forCompanionManagementView) {
-        Vector3 tooltipPosition = UIDocumentGameObjectPlacer.GetWorldPositionFromElement(element);
+        Vector3 tooltipPosition;
         if (forCompanionManagementView) {
-            tooltipPosition.x += element.resolvedStyle.height / 75; // this feels super brittle
-            tooltipPosition.y += element.resolvedStyle.height / 100;
+            float xTooltipPos = element.worldBound.center.x - (element.resolvedStyle.width * 1.25f);
+            float yTooltipPos = element.worldBound.center.y + (element.resolvedStyle.height * .4f);
+            Vector3 position = new Vector3(xTooltipPos, yTooltipPos, 0);
+            
+            tooltipPosition = UIDocumentGameObjectPlacer.GetWorldPositionFromUIDocumentPosition(position);
         } else {
-            tooltipPosition.x -= element.resolvedStyle.width / 120; // this feels super brittle
-            tooltipPosition.y += element.resolvedStyle.width / 150;
+            float xTooltipPos = element.worldBound.center.x - (element.resolvedStyle.width * 1f);
+            float yTooltipPos = element.worldBound.center.y + (element.resolvedStyle.height * .1f);
+            Vector3 position = new Vector3(xTooltipPos, yTooltipPos, 0);
+            
+            tooltipPosition = UIDocumentGameObjectPlacer.GetWorldPositionFromUIDocumentPosition(position);
         }
         GameObject uiDocToolTipPrefab = Instantiate(shopManager.tooltipPrefab, tooltipPosition, new Quaternion());
         TooltipView tooltipView = uiDocToolTipPrefab.GetComponent<TooltipView>();
