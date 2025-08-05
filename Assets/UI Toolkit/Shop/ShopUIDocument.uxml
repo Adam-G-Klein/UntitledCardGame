@@ -46,35 +46,37 @@
         </ui:VisualElement>
         <ui:VisualElement name="unit-management" style="flex-grow: 1; max-height: 40%; min-height: 40%;">
             <ui:VisualElement style="flex-grow: 1; background-image: none; -unity-background-scale-mode: scale-and-crop; background-color: rgb(217, 217, 217); border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-top-width: 9px; border-right-width: 9px; border-bottom-width: 9px; border-left-width: 9px; border-top-left-radius: 22px; border-top-right-radius: 22px; border-bottom-right-radius: 22px; border-bottom-left-radius: 22px;">
-                <ui:Label tabindex="-1" text="Unit Management" parse-escape-sequences="true" display-tooltip-when-elided="true" name="unit-management-label" style="-unity-text-align: upper-center; -unity-font-style: bold; font-size: 25px; height: 7.5%;" />
-                <ui:VisualElement name="unit-active-row" style="height: 40%; flex-direction: row; justify-content: flex-start; align-self: auto; align-items: center;">
-                    <ui:VisualElement name="unit-active-label-container" style="width: 15%; height: 100%; align-items: flex-end; justify-content: center;">
-                        <ui:Label tabindex="-1" text="Active" parse-escape-sequences="true" display-tooltip-when-elided="true" name="unit-active-label" style="border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-top-width: 4px; border-right-width: 0; border-bottom-width: 4px; border-left-width: 4px; width: 50%; height: 40%; -unity-text-align: middle-center; font-size: 22px; -unity-font-style: bold; margin-right: 0;" />
+                <ui:Label tabindex="-1" text="Unit Management" parse-escape-sequences="true" display-tooltip-when-elided="true" name="unit-management-label" style="-unity-text-align: upper-center; -unity-font-style: bold; font-size: 28px;" />
+                <ui:VisualElement style="flex-grow: 1; margin-bottom: 10px;">
+                    <ui:VisualElement name="unit-active-row" style="height: 40%; flex-direction: row; justify-content: flex-start; align-self: auto; align-items: center; flex-grow: 1;">
+                        <ui:VisualElement name="unit-active-label-container" style="width: 15%; height: 100%; align-items: flex-end; justify-content: center;">
+                            <ui:Label tabindex="-1" text="Active" parse-escape-sequences="true" display-tooltip-when-elided="true" name="unit-active-label" style="border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-top-width: 4px; border-right-width: 0; border-bottom-width: 4px; border-left-width: 4px; width: 50%; height: 40%; -unity-text-align: middle-center; font-size: 22px; -unity-font-style: bold; margin-right: 0;" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="unit-active-container" style="flex-direction: row; width: 70%; height: 95%; align-self: auto; align-items: center; justify-content: center;">
+                            <ui:VisualElement name="unit-container-0" class="single-unit-container" style="background-color: rgba(0, 0, 0, 0);" />
+                            <ui:VisualElement name="unit-container-1" class="single-unit-container" />
+                            <ui:VisualElement name="unit-container-2" class="single-unit-container" />
+                            <ui:VisualElement name="unit-container-3" class="single-unit-container" />
+                            <ui:VisualElement name="unit-container-4" class="single-unit-container" />
+                        </ui:VisualElement>
+                        <ui:VisualElement style="flex-grow: 1; height: 50%;">
+                            <ui:Button text="Next Combat" parse-escape-sequences="true" display-tooltip-when-elided="true" name="start-next-combat-button" class="shopButton" style="font-size: 23px; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; width: 208px;" />
+                        </ui:VisualElement>
                     </ui:VisualElement>
-                    <ui:VisualElement name="unit-active-container" style="flex-direction: row; width: 70%; height: 90%; align-self: auto; align-items: center; justify-content: center;">
-                        <ui:VisualElement name="unit-container-0" class="single-unit-container" style="background-color: rgba(0, 0, 0, 0);" />
-                        <ui:VisualElement name="unit-container-1" class="single-unit-container" />
-                        <ui:VisualElement name="unit-container-2" class="single-unit-container" />
-                        <ui:VisualElement name="unit-container-3" class="single-unit-container" />
-                        <ui:VisualElement name="unit-container-4" class="single-unit-container" />
-                    </ui:VisualElement>
-                    <ui:VisualElement style="flex-grow: 1; height: 50%;">
-                        <ui:Button text="Next Combat" parse-escape-sequences="true" display-tooltip-when-elided="true" name="start-next-combat-button" class="shopButton" style="font-size: 23px; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; width: 208px;" />
-                    </ui:VisualElement>
-                </ui:VisualElement>
-                <ui:VisualElement name="unit-bench-container" style="height: 40%; flex-direction: row; justify-content: flex-start; align-self: auto; align-items: center;">
-                    <ui:VisualElement name="VisualElement" style="width: 15%; height: 100%; align-items: flex-end; justify-content: center;">
-                        <ui:Label tabindex="-1" text="Bench" parse-escape-sequences="true" display-tooltip-when-elided="true" style="border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-top-width: 4px; border-right-width: 0; border-bottom-width: 4px; border-left-width: 4px; width: 50%; height: 40%; -unity-text-align: middle-center; font-size: 22px; -unity-font-style: bold; margin-right: 0;" />
-                    </ui:VisualElement>
-                    <ui:VisualElement name="bench-container" style="flex-direction: row; width: 70%; height: 90%; align-self: auto; align-items: center; justify-content: center;">
-                        <ui:VisualElement name="unit-container-0" class="single-unit-container" style="background-color: rgba(0, 0, 0, 0);" />
-                        <ui:VisualElement name="unit-container-1" class="single-unit-container" />
-                        <ui:VisualElement name="unit-container-2" class="single-unit-container" />
-                        <ui:VisualElement name="unit-container-3" class="single-unit-container" />
-                        <ui:VisualElement name="unit-container-4" class="single-unit-container" />
-                    </ui:VisualElement>
-                    <ui:VisualElement style="flex-grow: 1; height: 40%; visibility: hidden;">
-                        <ui:Button text="Sell Companion" parse-escape-sequences="true" display-tooltip-when-elided="true" name="sell-companion-button" class="shopButton" style="font-size: 23px; background-color: rgb(255, 130, 127);" />
+                    <ui:VisualElement name="unit-bench-container" style="height: 40%; flex-direction: row; justify-content: flex-start; align-self: auto; align-items: center; flex-grow: 1;">
+                        <ui:VisualElement name="VisualElement" style="width: 15%; height: 100%; align-items: flex-end; justify-content: center;">
+                            <ui:Label tabindex="-1" text="Bench" parse-escape-sequences="true" display-tooltip-when-elided="true" style="border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-top-width: 4px; border-right-width: 0; border-bottom-width: 4px; border-left-width: 4px; width: 50%; height: 40%; -unity-text-align: middle-center; font-size: 22px; -unity-font-style: bold; margin-right: 0;" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="bench-container" style="flex-direction: row; width: 70%; height: 95%; align-self: auto; align-items: center; justify-content: center;">
+                            <ui:VisualElement name="unit-container-0" class="single-unit-container" style="background-color: rgba(0, 0, 0, 0);" />
+                            <ui:VisualElement name="unit-container-1" class="single-unit-container" />
+                            <ui:VisualElement name="unit-container-2" class="single-unit-container" />
+                            <ui:VisualElement name="unit-container-3" class="single-unit-container" />
+                            <ui:VisualElement name="unit-container-4" class="single-unit-container" />
+                        </ui:VisualElement>
+                        <ui:VisualElement style="flex-grow: 1; height: 40%; visibility: hidden;">
+                            <ui:Button text="Sell Companion" parse-escape-sequences="true" display-tooltip-when-elided="true" name="sell-companion-button" class="shopButton" style="font-size: 23px; background-color: rgb(255, 130, 127);" />
+                        </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
