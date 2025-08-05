@@ -194,7 +194,7 @@ public class TeamSelectionUI : MonoBehaviour
             }
 
         }
-        if (!isCompanion && cardTypeMap[VE.name].tooltips.Count == 0) return;
+        if (!isCompanion && cardTypeMap[VE.name].GetTooltip().empty) return;
         if (tooltipMap.ContainsKey(VE.name)) return;
 
         Vector3 tooltipPosition = UIDocumentGameObjectPlacer.GetWorldPositionFromElement(VE);
