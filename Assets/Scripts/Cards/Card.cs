@@ -91,6 +91,7 @@ public class Card : Entity, IEquatable<Card>
     }
 
     public Card(Card card) {
+        this.shopRarity = card.shopRarity;
         this.cardType = card.cardType;
         id = card.id;
         this.effectBuffs = card.effectBuffs;
@@ -99,11 +100,13 @@ public class Card : Entity, IEquatable<Card>
         ResetCardModifications();
     }
 
-    public Card(CardSerializable cardSerializable, SORegistry registry) {
+    public Card(CardSerializable cardSerializable, SORegistry registry)
+    {
         this.cardType = registry.GetAsset<CardType>(cardSerializable.cardTypeGuid);
         this.id = cardSerializable.entityId;
         this.generated = cardSerializable.generated;
         this.setCompanionFrom(registry.GetAsset<CompanionTypeSO>(cardSerializable.companionFromGuid));
+        this.shopRarity = cardSerializable.cardRarity;
     }
 
     public static bool operator !=(Card a, Card b) {
@@ -214,13 +217,14 @@ public class CardSerializable
     public string entityId;
     public string companionFromGuid;
     public bool generated;
+    public Card.CardRarity cardRarity;
     public CardSerializable(Card card)
-    { 
+    {
         // TODO
         this.cardTypeGuid = card.cardType.GUID;
         this.entityId = card.id;
         this.companionFromGuid = card.getCompanionFrom().GUID;
         this.generated = card.generated;
+        this.cardRarity = card.shopRarity;
     }
-
 }

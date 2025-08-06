@@ -324,12 +324,16 @@
 .mana-card-label {
     align-self: center;
     color: rgb(0, 0, 0);
-    font-size: 32px;
+    font-size: 48px;
     margin-right: 0;
     margin-left: 0;
     -unity-font-style: bold;
     -unity-text-align: middle-center;
     margin-top: 2px;
+    position: absolute;
+    left: 15%;
+    top: 23%;
+    width: 40px;
 }
 
 .mana-reduced {
@@ -372,17 +376,15 @@
     white-space: normal;
     align-self: center;
     margin-left: 0;
-    padding-left: 10px;
     align-items: stretch;
     margin-top: 0;
     margin-right: 0;
     margin-bottom: 0;
-    padding-right: 12px;
     color: rgb(0, 0, 0);
-    width: 75%;
+    width: 64%;
     -unity-text-align: middle-center;
     text-overflow: clip;
-    top: 30%;
+    top: 36%;
     flex-shrink: 0;
     position: absolute;
     padding-top: 0;
@@ -395,15 +397,16 @@
     font-size: 27px;
     -unity-font-style: bold;
     white-space: normal;
-    top: 14%;
+    top: 21%;
     flex-wrap: wrap;
     position: absolute;
     flex-direction: column;
     -unity-text-align: middle-center;
     width: 85%;
     color: rgb(173, 61, 61);
-    max-width: 47%;
+    max-width: 42%;
     height: 11%;
+    left: 32%;
 }
 
 .card-image {

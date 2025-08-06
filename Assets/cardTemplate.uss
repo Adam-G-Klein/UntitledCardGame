@@ -12,14 +12,15 @@
 
 .card-text-box {
     height: 50%;
-    width: 75%;
+    width: 67%;
+    align-items: center;
 }
 
 .card-text-box-label {
     width: 100%;
     align-items: center;
     -unity-text-align: middle-center;
-    font-size: 20px;
+    font-size: 18px;
     -unity-font-style: normal;
     background-color: rgb(188, 58, 167);
     color: rgb(255, 255, 255);
@@ -27,35 +28,19 @@
 }
 
 .rarity-gem {
-    flex-grow: 1;
-    position: absolute;
-    width: 30px;
-    height: 30px;
-    background-color: rgb(255, 249, 95);
-    left: 50%;
-    translate: -47% -45%;
-    top: 21px;
-    rotate: 45deg;
-    border-left-color: rgb(0, 0, 0);
-    border-right-color: rgb(0, 0, 0);
-    border-top-color: rgb(0, 0, 0);
-    border-bottom-color: rgb(0, 0, 0);
-    border-top-width: 2px;
-    border-right-width: 2px;
-    border-bottom-width: 2px;
-    border-left-width: 2px;
 }
 
 .rarity-gem-common {
-    background-color: rgb(176, 176, 176);
+    background-image: url("project://database/Assets/Sprites/entityFrames/Companion/middlerarity.png?fileID=2800000&guid=295cb65204ba5aa4cbb89a1d29460876&type=3#middlerarity");
+    visibility: hidden;
 }
 
 .rarity-gem-uncommon {
-    background-color: rgb(156, 212, 219);
+    background-image: url("project://database/Assets/Sprites/entityFrames/Companion/middlerarity.png?fileID=2800000&guid=295cb65204ba5aa4cbb89a1d29460876&type=3#middlerarity");
 }
 
 .rarity-gem-rare {
-    background-color: rgb(255, 252, 117);
+    background-image: url("project://database/Assets/Sprites/entityFrames/Companion/mostrarity.png?fileID=2800000&guid=107d20d89a1261e43a8b0fe7fbe5f14b&type=3#mostrarity");
 }
 
 .card-type-label-large {
@@ -72,8 +57,9 @@
 
 .smaller-mana-label {
     scale: 0.5 0.5;
-    top: -1%;
-    left: -4%;
+    top: 16%;
+    left: 9%;
+    font-size: 40px;
 }
 
 .card-border {

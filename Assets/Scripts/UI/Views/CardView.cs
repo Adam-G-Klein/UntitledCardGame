@@ -21,10 +21,10 @@ public class CardView {
     public static int COMPANION_AND_MANA_INDICATOR_WIDTH_HEIGHT_SHOP = 30;
 
     // Trying to define single pixel sizes for cards to bring some conformity to the look. Changing text sizes reads a little messy imo
-    private static int CARD_TITLE_COMBAT = 44;
-    private static int CARD_DESC_COMBAT = 40;
-    private static int CARD_TITLE_SHOP = 14;
-    private static int CARD_DESC_SHOP = 12; 
+    private static int CARD_TITLE_COMBAT = 40;
+    private static int CARD_DESC_COMBAT = 28;
+    private static int CARD_TITLE_SHOP = 12;
+    private static int CARD_DESC_SHOP = 10; 
 
     public Card cardInstance = null;
     public Color modifiedManaCostColor = Color.green;
@@ -57,8 +57,9 @@ public class CardView {
 
         Label manaContainer = container.Q<Label>("manaLabel"); 
         setManaCost(manaContainer, card);
-        if (cardInShop) {
-            container.Q("manaContainer").AddToClassList("smaller-mana-label");
+        if (cardInShop)
+        {
+            manaContainer.AddToClassList("smaller-mana-label");
         }
 
         VisualElement rarityGem = container.Q("rarityGem");
@@ -74,7 +75,6 @@ public class CardView {
                 rarityGem.AddToClassList("rarity-gem-rare");
                 break;
         }
-        if (cardInShop) rarityGem.AddToClassList("rarity-gem-small");
 
         Label title = container.Q<Label>("cardName");
         //int fontSize = getTitleFontSize(card.Name, cardInShop);
@@ -137,7 +137,6 @@ public class CardView {
     }
 
     private void setManaCost(Label manaCost, CardType card) {
-        manaCost.AddToClassList("mana-card-label");
         if (cardInstance == null) {
              manaCost.text = card.Cost.ToString();
         } else {

@@ -3,22 +3,20 @@
     <Style src="project://database/Assets/fontStyling.uss?fileID=7433441132597879392&amp;guid=d0c0881f1c32747ecb649373600de095&amp;type=3#fontStyling" />
     <Style src="project://database/Assets/cardTemplate.uss?fileID=7433441132597879392&amp;guid=5cb74a6597a464af3b467bb0d6eff3f8&amp;type=3#cardTemplate" />
     <ui:VisualElement name="card-1" focusable="true" class="card-container focusable" style="background-image: none;">
-        <ui:VisualElement name="greenBorder" class="green-card-border" style="flex-grow: 1; top: 50%; border-top-width: 30px; border-right-width: 30px; border-bottom-width: 30px; border-left-width: 30px; visibility: hidden; translate: 0 -50%;" />
-        <ui:VisualElement name="cardBackground" style="width: 85%; height: 85%; position: absolute; top: 50%; translate: 0 -50%; background-color: rgb(255, 255, 255);" />
-        <ui:VisualElement name="cardBorder" class="card-border" />
-        <ui:Label tabindex="-1" text="Swirling&#10;Strike" display-tooltip-when-elided="true" name="cardName" class="card-title-label" style="-unity-font: resource(&apos;fonts/static/Jost-Medium&apos;); -unity-font-style: bold; top: 15%;" />
-        <ui:Label tabindex="-1" text="Deal 2 damage for each card in your hand (x cards)." display-tooltip-when-elided="true" name="cardDesc" class="card-desc-label" style="-unity-font: resource(&apos;fonts/static/Jost-Medium&apos;); top: 31%;" />
-        <ui:VisualElement name="manaContainer" class="mana-container">
-            <ui:Label tabindex="-1" text="1" display-tooltip-when-elided="true" name="manaLabel" class="mana-card-label" />
-        </ui:VisualElement>
-        <ui:VisualElement style="flex-grow: 1; position: absolute; width: 100%; align-items: center; bottom: 12%; height: 17%; left: 1%;">
-            <ui:VisualElement name="VisualElement" class="card-text-box" style="align-items: center;">
+        <ui:VisualElement name="greenBorder" class="green-card-border" style="flex-grow: 1; top: 54%; border-top-width: 30px; border-right-width: 30px; border-bottom-width: 30px; border-left-width: 30px; visibility: hidden; translate: 0 -50%; min-width: 99%; min-height: 93%;" />
+        <ui:VisualElement name="cardBackground" style="width: 85%; height: 85%; position: absolute; top: 54%; translate: 0 -50%; background-color: rgb(255, 255, 255);" />
+        <ui:VisualElement name="cardBorder" class="card-border" style="background-image: resource(&apos;cards/cardsizedright&apos;);" />
+        <ui:Label tabindex="-1" text="homoestasis&#10;at home" display-tooltip-when-elided="true" name="cardName" class="card-title-label" style="-unity-font: resource(&apos;fonts/static/Jost-Medium&apos;); -unity-font-style: bold;" />
+        <ui:Label tabindex="-1" text="Deal 2 damage for each card in your hand (x cards)." display-tooltip-when-elided="true" name="cardDesc" class="card-desc-label" style="-unity-font: resource(&apos;fonts/static/Jost-Medium&apos;); padding-right: 0; padding-left: 0; left: 19%;" />
+        <ui:Label tabindex="-1" text="1" display-tooltip-when-elided="true" name="manaLabel" class="mana-card-label" />
+        <ui:VisualElement style="flex-grow: 1; position: absolute; width: 100%; align-items: center; bottom: 11%; height: 17%; left: 1%;">
+            <ui:VisualElement name="VisualElement" class="card-text-box">
                 <ui:Label tabindex="-1" text="status" parse-escape-sequences="true" display-tooltip-when-elided="true" name="cardTypeLabel" class="card-text-box-label" style="margin-bottom: 0; margin-top: 0;" />
             </ui:VisualElement>
-            <ui:VisualElement name="VisualElement" class="card-text-box" style="align-items: center;">
+            <ui:VisualElement name="VisualElement" class="card-text-box">
                 <ui:Label tabindex="-1" text="chunkrat" parse-escape-sequences="true" display-tooltip-when-elided="true" name="companionNameLabel" class="card-text-box-label" style="background-color: rgb(0, 0, 0);" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="rarityGem" class="rarity-gem" style="top: 5%; left: 50%; translate: -43% -50%;" />
+    <ui:VisualElement name="rarityGem" class="rarity-gem" style="position: absolute; flex-grow: 1; min-width: 100%; min-height: 100%; rotate: 180deg; top: -1%; left: 0.2%;" />
 </ui:UXML>
