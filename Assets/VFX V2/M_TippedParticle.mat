@@ -48,8 +48,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _FadeTexture:
-        m_Texture: {fileID: 2800000, guid: 458658c84ab034746898412c44ca3172, type: 3}
-        m_Scale: {x: 0.5, y: 0.5}
+        m_Texture: {fileID: 2800000, guid: 035fccc8d123ffe49bb042e478f93c43, type: 3}
+        m_Scale: {x: 2, y: 2}
         m_Offset: {x: 0, y: 0}
     - _Fresnel_Texture:
         m_Texture: {fileID: 0}
@@ -94,7 +94,7 @@ Material:
     - _Blend: 0
     - _CastShadows: 1
     - _Cull: 2
-    - _Cutoff_Softness: 0.3
+    - _Cutoff_Softness: 1
     - _Cutoff_Value: 0
     - _Dissolve_Amount: 0
     - _Distorion_in_Custom_Data: 0
@@ -133,7 +133,7 @@ Material:
     - _Colour_B: {r: 1, g: 0, b: 0, a: 0}
     - _Dissolve_Speed: {r: 0, g: 0, b: 0, a: 0}
     - _Distortion_Speed: {r: 0.05, g: 0, b: 0, a: 0}
-    - _Fade_Tex_Speed: {r: -0.1, g: 0, b: 0, a: 0}
+    - _Fade_Tex_Speed: {r: -0.1, g: 0.01, b: 0, a: 0}
     - _Fresnel_Color: {r: 1, g: 1, b: 1, a: 0}
     - _Fresnel_Speed: {r: 0, g: 0, b: 0, a: 0}
     - _LERP_Texture_Scroll: {r: 0, g: 0, b: 0, a: 0}

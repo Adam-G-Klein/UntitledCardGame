@@ -35,38 +35,38 @@ Material:
     RenderType: Transparent
   disabledShaderPasses:
   - DepthOnly
-  m_LockedProperties: 
+  m_LockedProperties: _FadeTexture
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
     - _Distortion_Tex:
-        m_Texture: {fileID: 2800000, guid: 4f43816bdd9de2e4bbd06d7bb0fb74ff, type: 3}
-        m_Scale: {x: 3.71, y: 0.99}
+        m_Texture: {fileID: 2800000, guid: 6be3e8e0b2aaf534ea868d285411ae91, type: 3}
+        m_Scale: {x: 1, y: 0.55}
         m_Offset: {x: 0, y: 0}
     - _FadeTexture:
-        m_Texture: {fileID: 2800000, guid: 0a27beb87d8947349aeeb58116c8e9dd, type: 3}
-        m_Scale: {x: 2, y: 1}
+        m_Texture: {fileID: 2800000, guid: 592720d899ca71a4bb528c63e6c86c0e, type: 3}
+        m_Scale: {x: 1.5, y: 1}
         m_Offset: {x: 0, y: 0}
     - _LERP_Mask_Texture:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _LERP_Texture:
-        m_Texture: {fileID: 2800000, guid: 458658c84ab034746898412c44ca3172, type: 3}
+        m_Texture: {fileID: 2800000, guid: 79510919aa73bdf40beff4c7a9322b2b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 7591ab07c17e9d3488e733dae166d7af, type: 3}
+        m_Texture: {fileID: 2800000, guid: e5ddf262f76b7b3498c021a1ec6128d5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Mask_Tex:
-        m_Texture: {fileID: 2800000, guid: 60fde9a8de488f745a4b89e58e804d03, type: 3}
+        m_Texture: {fileID: 2800000, guid: 79510919aa73bdf40beff4c7a9322b2b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _UV_Distorion_Mask_Tex:
         m_Texture: {fileID: 2800000, guid: 299995673b037bc4facb5b5f60599e64, type: 3}
         m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: -0.12}
+        m_Offset: {x: 0, y: 0.07}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -86,16 +86,16 @@ Material:
     - _Blend: 0
     - _CastShadows: 1
     - _Cull: 2
-    - _Cutoff_Softness: 0.45
+    - _Cutoff_Softness: 0.34
     - _Cutoff_Value: 0
-    - _Distort_the_Mask: 0
-    - _Distortion_Strength: 1.27
+    - _Distort_the_Mask: 1
+    - _Distortion_Strength: 0.88
     - _DstBlend: 10
-    - _Fade_Tex_Pow: 1
-    - _Intensity: 0
+    - _Fade_Tex_Pow: 1.25
+    - _Intensity: 0.05
     - _Mask_Animation: 0
-    - _Mask_Power: 1
-    - _Mask_Strength: 1.43
+    - _Mask_Power: 0.58
+    - _Mask_Strength: 1.61
     - _Partcle_System: 1
     - _QueueControl: 0
     - _QueueOffset: 0
@@ -105,7 +105,7 @@ Material:
     - _Text_Power: 1
     - _Use_Cutoff: 1
     - _Use_Fade_Tex_Instead: 1
-    - _Use_Lerp: 0
+    - _Use_Lerp: 1
     - _Use_Radial: 0
     - _Use_Soft_Sides: 0
     - _ZTest: 4
@@ -113,11 +113,11 @@ Material:
     - _ZWriteControl: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Colour_A: {r: 1, g: 1, b: 1, a: 1}
-    - _Colour_B: {r: 1, g: 0, b: 0, a: 1}
-    - _Distortion_Speed: {r: 0, g: -0.15, b: 0, a: 0}
-    - _Fade_Tex_Speed: {r: 0, g: -0.25, b: 0, a: 0}
-    - _LERP_Texture_Scroll: {r: 0, g: 0, b: 0, a: 0}
+    - _Colour_A: {r: 0, g: 0, b: 0, a: 1}
+    - _Colour_B: {r: 0.827451, g: 0.6862745, b: 0.21568628, a: 1}
+    - _Distortion_Speed: {r: 0.01, g: -0.1, b: 0, a: 0}
+    - _Fade_Tex_Speed: {r: 0.01, g: -0.25, b: 0, a: 0}
+    - _LERP_Texture_Scroll: {r: 0.01, g: -0.25, b: 0, a: 0}
     - _Main_Text_Scroll_Speed: {r: 0, g: 0, b: 0, a: 0}
-    - _Mask_Scroll_Speed: {r: 0, g: 0, b: 0, a: 0}
+    - _Mask_Scroll_Speed: {r: 0, g: -0.1, b: 0, a: 0}
   m_BuildTextureStacks: []

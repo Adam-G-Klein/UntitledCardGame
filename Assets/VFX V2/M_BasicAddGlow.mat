@@ -108,7 +108,7 @@ Material:
     - _Fresnel_Thickness: 0
     - _Intensity: 0
     - _Mask_Animation: 0
-    - _Mask_Power: 1.5
+    - _Mask_Power: 1
     - _Mask_Strength: 0
     - _Not_using_Dist_in_Custom_Data: 1
     - _Partcle_System: 1
@@ -128,12 +128,12 @@ Material:
     - _ZWrite: 0
     - _ZWriteControl: 0
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 4, g: 4, b: 4, a: 1}
     - _Colour_A: {r: 1, g: 1, b: 1, a: 0}
     - _Colour_B: {r: 1, g: 0, b: 0, a: 0}
     - _Dissolve_Speed: {r: 0, g: 0, b: 0, a: 0}
     - _Distortion_Speed: {r: 0, g: 0, b: 0, a: 0}
-    - _Fade_Tex_Speed: {r: 0, g: 0.1, b: 0, a: 0}
+    - _Fade_Tex_Speed: {r: 0, g: 0, b: 0, a: 0}
     - _Fresnel_Color: {r: 1, g: 1, b: 1, a: 1}
     - _Fresnel_Speed: {r: 0, g: 0, b: 0, a: 0}
     - _LERP_Texture_Scroll: {r: 0, g: 0, b: 0, a: 0}

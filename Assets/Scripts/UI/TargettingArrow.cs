@@ -81,6 +81,7 @@ public class TargettingArrow : MonoBehaviour
 
     public void setColor(Color color){
         linerenderer.endColor = color;
+        linerenderer.startColor = color;
     }
 
     // All that's necessary 
