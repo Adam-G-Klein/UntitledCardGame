@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RP_L3_StrategySnek
   m_EditorClassIdentifier: 
   guid: 99be49c8-fb06-482d-a675-f45ec9b54d9b
-  companionName: Strategy Snek++
+  companionName: Thistleton++
   maxHealth: 45
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: 21b532f4dd44106468de81dcf7551015, type: 3}
@@ -47,7 +47,7 @@ MonoBehaviour:
   tooltip:
     empty: 0
     lines:
-    - title: Level Three Strategy Snek
+    - title: Level Three Thistleton
       description: At the start of the first 3 turns of combat, create in hand an
         "Advanced Strategy"
       relatedBehaviorIndex: 0
@@ -55,7 +55,7 @@ MonoBehaviour:
       description: 0. Retain. Exhaust. Draw 2 from target companion, then discard
         1 card in hand.
       relatedBehaviorIndex: 0
-  keepsakeTitle: Strategy Snek
+  keepsakeTitle: Thistleton
   keepsakeDescription: At the start of the first 3 turns of combat, create in hand
     a 0 mana card with Retain that draws 2 and discards
   references:

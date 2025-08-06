@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RP_L3_Dustmite
   m_EditorClassIdentifier: 
   guid: 0c89f197-6cad-46c8-8b28-d18d245ef29f
-  companionName: Dustmite++
+  companionName: Dustsniffer++
   maxHealth: 45
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: d92327149830cc04da3bc65e18068a8c, type: 3}
@@ -40,11 +40,11 @@ MonoBehaviour:
   tooltip:
     empty: 0
     lines:
-    - title: Dustmite
-      description: Whenever you exhaust a card, Dustmite gains 3 block
+    - title: Level Three Dustsniffer
+      description: Whenever you exhaust a card, Dustsniffer gains 3 block
       relatedBehaviorIndex: 0
   keepsakeTitle: Dustmite's Armor
-  keepsakeDescription: Whenever you exhaust a card, Dustmite gains 3 block
+  keepsakeDescription: Whenever you exhaust a card, Dustsniffer gains 3 block
   references:
     version: 2
     RefIds:

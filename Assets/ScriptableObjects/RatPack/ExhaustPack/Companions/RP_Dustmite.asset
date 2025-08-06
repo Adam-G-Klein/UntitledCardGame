@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RP_Dustmite
   m_EditorClassIdentifier: 
   guid: e2e0ffbe-e3d3-4074-bc34-80f233356074
-  companionName: Dustmite
+  companionName: Dustsniffer
   maxHealth: 15
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: d92327149830cc04da3bc65e18068a8c, type: 3}
@@ -47,13 +47,13 @@ MonoBehaviour:
   tooltip:
     empty: 0
     lines:
-    - title: Dustmite
-      description: The first 2 times each turn you exhaust a card, Dustmite gains
+    - title: Dustsniffer
+      description: The first 2 times each turn you exhaust a card, Dustsniffer gains
         2 block
       relatedBehaviorIndex: 0
-  keepsakeTitle: Dustmite's Armor
-  keepsakeDescription: The first 2 times each turn you exhaust a card, Dustmite gains
-    2 block
+  keepsakeTitle: Dustsniffer's Armor
+  keepsakeDescription: The first 2 times each turn you exhaust a card, Dustsniffer
+    gains 2 block
   references:
     version: 2
     RefIds:
