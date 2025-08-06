@@ -79,6 +79,12 @@ MonoBehaviour:
         inputKey: target
         prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
         scale: 1
+    - rid: 2295168569757139594
+      type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardInHandEffect
+        inputKey: selected
+        effect: 0
     - rid: 5602892563578094203
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -86,6 +92,7 @@ MonoBehaviour:
         - rid: 2268261022115299359
         - rid: 7401433308100035075
         - rid: 2268261022115299361
+        - rid: 2295168569757139594
         - rid: 2268261022115299362
         - rid: 2268261022115299363
     - rid: 7401433308100035075
