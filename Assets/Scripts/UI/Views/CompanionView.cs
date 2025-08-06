@@ -25,6 +25,9 @@ public class CompanionView : IUIEventReceiver
     public static CompanionViewContext COMPENDIUM_CONTEXT = 
         new CompanionViewContext(false, false, false, true, false, false, false, false, 1.25f, 0.2f);
 
+    public static CompanionViewContext COMPANION_UPGRADE_CONTEXT = 
+        new CompanionViewContext(false, true, false, false, true, false, false, true, 0.8f, 0.15f, true);
+
     public VisualElement container;
     public VisualElementFocusable focusable;
 
@@ -310,6 +313,7 @@ public class CompanionView : IUIEventReceiver
         }
 
         try {
+            if (this.context.preventDefaultDeckViewButton) return;
             Targetable targetable = this.entity.GetTargetable();
             if (targetable == null) return;
             targetable.OnPointerEnterUI(evt);
@@ -335,6 +339,8 @@ public class CompanionView : IUIEventReceiver
 
         try
         {
+            if (this.context.preventDefaultDeckViewButton) return;
+            
             Targetable targetable = this.entity.GetTargetable();
             if (targetable == null) return;
             targetable.OnPointerLeaveUI(evt);
@@ -348,6 +354,7 @@ public class CompanionView : IUIEventReceiver
     }
 
     private void SetupViewDeckContainer() {
+        if (this.context.preventDefaultDeckViewButton) return;
         this.viewDeckContainer.RegisterCallback<PointerEnterEvent>(HiddenContainerPointerEnter);
         this.viewDeckContainer.RegisterCallback<PointerLeaveEvent>(HiddenContainerPointerLeave);
         pickingModePositionList.Add(this.viewDeckContainer);
@@ -439,14 +446,17 @@ public class CompanionView : IUIEventReceiver
         if (this.isDead) return;
         // This null check exists because ShopItemView will call this with a null event
         // if a shop item is hovered with non mouse controls
+        if (this.context.preventDefaultDeckViewButton) return;
         if (evt != null) elementsKeepingHiddenContainerVisible.Add(evt.currentTarget as VisualElement);
         // this.containerThatHoverIndicatorShows.style.visibility = Visibility.Visible;
+
         this.containerThatHoverIndicatorShows.style.display = DisplayStyle.Flex;
     }
 
     public void HoverDetectorPointerLeave(PointerLeaveEvent evt) {
         // This null check exists because ShopItemView will call this with a null event
         // if a shop item is hovered with non mouse controls
+        if (this.context.preventDefaultDeckViewButton) return;
         if (evt != null) elementsKeepingHiddenContainerVisible.Remove(evt.currentTarget as VisualElement);
         CoroutineRunner.Instance.Run(HideContainerAtEndOfFrame());
     }
@@ -572,6 +582,7 @@ public class CompanionViewContext {
     public bool smallNametag;
     public float aspectRatio;
     public float screenWidthPercent;
+    public bool preventDefaultDeckViewButton;
 
     public CompanionViewContext(
             bool setupDrawDiscardButtons,
@@ -583,7 +594,9 @@ public class CompanionViewContext {
             bool disableNametags,
             bool smallNametag,
             float aspectRatio,
-            float screenWidthPercent) {
+            float screenWidthPercent,
+            bool preventDefaultDeckViewButton = false)
+    {
         this.setupDrawDiscardButtons = setupDrawDiscardButtons;
         this.setupViewDeckButton = setupViewDeckButton;
         this.enableMaxHealthIndicator = enableMaxHealthIndicator;
@@ -594,5 +607,6 @@ public class CompanionViewContext {
         this.smallNametag = smallNametag;
         this.aspectRatio = aspectRatio;
         this.screenWidthPercent = screenWidthPercent;
+        this.preventDefaultDeckViewButton = preventDefaultDeckViewButton;
     }
 }

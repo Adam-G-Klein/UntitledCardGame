@@ -62,6 +62,7 @@ public class ShopViewController : MonoBehaviour,
     // This is the list of focusables to disable when you start dragging a companion around
     private List<VisualElementFocusable> disableOnCompanionDrag = new List<VisualElementFocusable>();
     private List<VisualElementFocusable> companionUpgradeFocusables = new List<VisualElementFocusable>();
+    private List<(CompanionView, CompanionTypeSO, VisualElement)> companionUpgradeInstanceFocusables = new List<(CompanionView, CompanionTypeSO, VisualElement)>();
 
     private IEnumerator notEnoughMoneyCoroutine;
     private IEnumerator upgradeButtonTooltipCoroutine = null;
@@ -976,11 +977,12 @@ public class ShopViewController : MonoBehaviour,
         return moneyLabel;
     }
 
-    public void ShowCompanionUpgradeMenu(List<Companion> companions, Companion upgradeCompanion) {
+    public void ShowCompanionUpgradeMenu(List<Companion> companions, Companion upgradeCompanion)
+    {
         currentUpgradeCompanion = upgradeCompanion;
         inUpgradeMenu = true;
-        VisualElement upgradeMenuOuterContainer = uiDoc.rootVisualElement.Q<VisualElement>(name:"upgradeMenuOuterContainer");
-        VisualElement companionUpgradeMenu = uiDoc.rootVisualElement.Q<VisualElement>(name:"upgradeMenuContainer");
+        VisualElement upgradeMenuOuterContainer = uiDoc.rootVisualElement.Q<VisualElement>(name: "upgradeMenuOuterContainer");
+        VisualElement companionUpgradeMenu = uiDoc.rootVisualElement.Q<VisualElement>(name: "upgradeMenuContainer");
         VisualElement initialCompanionContainer = uiDoc.rootVisualElement.Q<VisualElement>(name: "currentCompanions");
         VisualElement upgradeCompanionsContainer = uiDoc.rootVisualElement.Q<VisualElement>(name: "upgradedCompanion");
         initialCompanionContainer.Clear();
@@ -996,12 +998,13 @@ public class ShopViewController : MonoBehaviour,
             companionContainer.AddToClassList("upgrade-menu-companion-invisible");
 
             CompanionTypeSO companionType = companion.companionType;
-            CompanionView entityView = new CompanionView(companion, shopManager.encounterConstants.companionViewTemplate, index, CompanionView.SHOP_CONTEXT, this);
+            CompanionView entityView = new CompanionView(companion, shopManager.encounterConstants.companionViewTemplate, index, CompanionView.COMPANION_UPGRADE_CONTEXT, this);
             VisualElement portraitContainer = entityView.container.Q(className: "companion-view-companion-image");
             portraitContainer.style.backgroundImage = new StyleBackground(companionType.sprite);
             companionContainer.Add(entityView.container);
             initialCompanionContainer.Add(companionContainer);
 
+            companionUpgradeInstanceFocusables.Add((entityView, companionType, companionContainer));
             int displayIndex = index + 1;
             companionContainer.schedule.Execute(() =>
             {
@@ -1022,57 +1025,98 @@ public class ShopViewController : MonoBehaviour,
         upgradeCompanionContainer.AddToClassList("victory-companion-container");
         upgradeCompanionContainer.AddToClassList("upgrade-menu-companion-invisible");
         CompanionTypeSO upgradeCompanionType = upgradeCompanion.companionType;
-        CompanionView upgradeEntityView = new CompanionView(upgradeCompanion, shopManager.encounterConstants.companionViewTemplate, index + 1, CompanionView.SHOP_CONTEXT, this);
+        CompanionView upgradeEntityView = new CompanionView(upgradeCompanion, shopManager.encounterConstants.companionViewTemplate, index + 1, CompanionView.COMPANION_UPGRADE_CONTEXT, this);
         //entityView.entityContainer.AddToClassList("compendium-item-container");
         VisualElement upgradePortraitContainer = upgradeEntityView.container.Q(className: "companion-view-companion-image");
         upgradePortraitContainer.style.backgroundImage = new StyleBackground(upgradeCompanionType.sprite);
         upgradeCompanionContainer.Add(upgradeEntityView.container);
-        upgradeCompanionContainer.schedule.Execute(() => {
+        upgradeCompanionContainer.schedule.Execute(() =>
+        {
             upgradeCompanionContainer.AddToClassList("upgrade-menu-compainion-1");
         }).StartingIn(delay);
-        upgradeCompanionContainer.schedule.Execute(() => {
+        upgradeCompanionContainer.schedule.Execute(() =>
+        {
             // update hoverable pos after animation
             // UIDocumentHoverableInstantiator.Instance.UpdateHoverablesPosition();
         }).StartingIn(delay + 1000); // GET RACE CONDITIONED LOSER
-        upgradeEntityView.container.RegisterCallback<PointerEnterEvent>((evt) => {
-            DisplayTooltip(upgradeEntityView.container, upgradeCompanionType.tooltip, false);
+        upgradeEntityView.container.RegisterCallback<PointerEnterEvent>((evt) =>
+        {
+            UpgradeViewCompanionOnPointerEnter(upgradeEntityView, upgradeCompanionType.tooltip, false);
         });
-        upgradeEntityView.container.RegisterCallback<PointerLeaveEvent>((evt) => {
-            DestroyTooltip(upgradeEntityView.container);
+        upgradeEntityView.container.RegisterCallback<PointerLeaveEvent>((evt) =>
+        {
+            UpgradeViewcompanionOnPointerLeave(upgradeEntityView);
         });
+        companionUpgradeInstanceFocusables.Add((upgradeEntityView, upgradeCompanionType, upgradeCompanionContainer));
         upgradeCompanionsContainer.Add(upgradeCompanionContainer);
         companionUpgradeMenu.AddToClassList("upgrade-menu-container-visible");
         upgradeMenuOuterContainer.AddToClassList("upgrade-menu-outer-container-visible");
         upgradeMenuOuterContainer.pickingMode = PickingMode.Position;
         FocusManager.Instance.StashFocusables(this.GetType().Name + UPGRADE_MENU);
         companionUpgradeFocusables.ForEach((focusable) => FocusManager.Instance.EnableFocusableTarget(focusable));
+        companionUpgradeInstanceFocusables.ForEach((focusable) =>
+        {
+            VisualElementFocusable VEFocusable = focusable.Item1.container.AsFocusable();
+            FocusManager.Instance.RegisterFocusableTarget(VEFocusable);
+            FocusManager.Instance.EnableFocusableTarget(VEFocusable);
+            VEFocusable.additionalFocusAction += () => UpgradeViewCompanionOnPointerEnter(focusable.Item1, focusable.Item2.tooltip, false);
+            VEFocusable.additionalUnfocusAction += () => UpgradeViewcompanionOnPointerLeave(focusable.Item1);
+        });
     }
 
-    private void CancelUpgrade() {
+    private void UpgradeViewCompanionOnPointerEnter(CompanionView companionView, TooltipViewModel tooltipViewModel, bool forCompanionManagementView)
+    {
+        DisplayTooltip(companionView.container, tooltipViewModel, forCompanionManagementView);
+        companionView.SetSelectionIndicatorVisibility(true);
+    }
+
+    private void UpgradeViewcompanionOnPointerLeave(CompanionView companionView)
+    {
+        DestroyTooltip(companionView.container);
+        companionView.SetSelectionIndicatorVisibility(false);
+    }
+
+    private void CancelUpgrade()
+    {
         if (!inUpgradeMenu) return;
         inUpgradeMenu = false;
-        VisualElement upgradeMenuOuterContainer = uiDoc.rootVisualElement.Q<VisualElement>(name:"upgradeMenuOuterContainer");
-        VisualElement companionUpgradeMenu = uiDoc.rootVisualElement.Q<VisualElement>(name:"upgradeMenuContainer");
+        VisualElement upgradeMenuOuterContainer = uiDoc.rootVisualElement.Q<VisualElement>(name: "upgradeMenuOuterContainer");
+        VisualElement companionUpgradeMenu = uiDoc.rootVisualElement.Q<VisualElement>(name: "upgradeMenuContainer");
         companionUpgradeMenu.RemoveFromClassList("upgrade-menu-container-visible");
         upgradeMenuOuterContainer.RemoveFromClassList("upgrade-menu-outer-container-visible");
         upgradeMenuOuterContainer.pickingMode = PickingMode.Ignore;
         shopManager.CancelUpgradePurchase();
         FocusManager.Instance.UnstashFocusables(this.GetType().Name + UPGRADE_MENU);
         companionUpgradeFocusables.ForEach((focusable) => FocusManager.Instance.DisableFocusableTarget(focusable));
+        companionUpgradeInstanceFocusables.ForEach((focusable) =>
+        {
+            VisualElementFocusable VEFocusable = focusable.Item1.container.AsFocusable();
+            FocusManager.Instance.DisableFocusableTarget(VEFocusable);
+            FocusManager.Instance.UnregisterFocusableTarget(VEFocusable);
+        });
+        companionUpgradeInstanceFocusables.Clear();
     }
 
-    private void ConfirmUpgrade() {
+    private void ConfirmUpgrade()
+    {
         if (!inUpgradeMenu) return;
         inUpgradeMenu = false;
 
-        VisualElement upgradeMenuOuterContainer = uiDoc.rootVisualElement.Q<VisualElement>(name:"upgradeMenuOuterContainer");
-        VisualElement companionUpgradeMenu = uiDoc.rootVisualElement.Q<VisualElement>(name:"upgradeMenuContainer");
+        VisualElement upgradeMenuOuterContainer = uiDoc.rootVisualElement.Q<VisualElement>(name: "upgradeMenuOuterContainer");
+        VisualElement companionUpgradeMenu = uiDoc.rootVisualElement.Q<VisualElement>(name: "upgradeMenuContainer");
         companionUpgradeMenu.RemoveFromClassList("upgrade-menu-container-visible");
         upgradeMenuOuterContainer.RemoveFromClassList("upgrade-menu-outer-container-visible");
         upgradeMenuOuterContainer.pickingMode = PickingMode.Ignore;
         shopManager.ConfirmUpgradePurchase();
         FocusManager.Instance.UnstashFocusables(this.GetType().Name + UPGRADE_MENU);
         companionUpgradeFocusables.ForEach((focusable) => FocusManager.Instance.DisableFocusableTarget(focusable));
+        companionUpgradeInstanceFocusables.ForEach((focusable) =>
+        {
+            VisualElementFocusable VEFocusable = focusable.Item1.container.AsFocusable();
+            FocusManager.Instance.DisableFocusableTarget(VEFocusable);
+            FocusManager.Instance.UnregisterFocusableTarget(VEFocusable);
+        });
+        companionUpgradeInstanceFocusables.Clear();
     }
 
     public void DisplayTooltip(VisualElement element, TooltipViewModel tooltipViewModel, bool forCompanionManagementView) {
