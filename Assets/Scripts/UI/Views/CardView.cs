@@ -21,7 +21,7 @@ public class CardView {
     public static int COMPANION_AND_MANA_INDICATOR_WIDTH_HEIGHT_SHOP = 30;
 
     // Trying to define single pixel sizes for cards to bring some conformity to the look. Changing text sizes reads a little messy imo
-    private static int CARD_TITLE_COMBAT = 40;
+    private static int CARD_TITLE_COMBAT = 32;
     private static int CARD_DESC_COMBAT = 28;
     private static int CARD_TITLE_SHOP = 12;
     private static int CARD_DESC_SHOP = 10; 
