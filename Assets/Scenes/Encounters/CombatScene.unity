@@ -975,63 +975,6 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!1001 &458091165
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1814502909127346008, guid: c84331cba290e7c428e477c031cb32c2, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1814502909127346008, guid: c84331cba290e7c428e477c031cb32c2, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1814502909127346008, guid: c84331cba290e7c428e477c031cb32c2, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1814502909127346008, guid: c84331cba290e7c428e477c031cb32c2, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1814502909127346008, guid: c84331cba290e7c428e477c031cb32c2, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1814502909127346008, guid: c84331cba290e7c428e477c031cb32c2, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1814502909127346008, guid: c84331cba290e7c428e477c031cb32c2, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1814502909127346008, guid: c84331cba290e7c428e477c031cb32c2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1814502909127346008, guid: c84331cba290e7c428e477c031cb32c2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1814502909127346008, guid: c84331cba290e7c428e477c031cb32c2, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3697722780564142629, guid: c84331cba290e7c428e477c031cb32c2, type: 3}
-      propertyPath: m_Name
-      value: BattleScene UI VFX
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: c84331cba290e7c428e477c031cb32c2, type: 3}
 --- !u!1 &475172658
 GameObject:
   m_ObjectHideFlags: 0
@@ -3071,6 +3014,63 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1001 &2002098171
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1814502909127346008, guid: acb1e92b63441445c8fef242b8b02ed9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1814502909127346008, guid: acb1e92b63441445c8fef242b8b02ed9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1814502909127346008, guid: acb1e92b63441445c8fef242b8b02ed9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1814502909127346008, guid: acb1e92b63441445c8fef242b8b02ed9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1814502909127346008, guid: acb1e92b63441445c8fef242b8b02ed9, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1814502909127346008, guid: acb1e92b63441445c8fef242b8b02ed9, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1814502909127346008, guid: acb1e92b63441445c8fef242b8b02ed9, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1814502909127346008, guid: acb1e92b63441445c8fef242b8b02ed9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1814502909127346008, guid: acb1e92b63441445c8fef242b8b02ed9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1814502909127346008, guid: acb1e92b63441445c8fef242b8b02ed9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3697722780564142629, guid: acb1e92b63441445c8fef242b8b02ed9, type: 3}
+      propertyPath: m_Name
+      value: BattleSceneVFX
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: acb1e92b63441445c8fef242b8b02ed9, type: 3}
 --- !u!114 &2058039078 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7190278600534378222, guid: a01603c96ed613e4dadddb16c94272d3, type: 3}
@@ -3509,4 +3509,4 @@ SceneRoots:
   - {fileID: 854016111}
   - {fileID: 38543893}
   - {fileID: 1486469674}
-  - {fileID: 458091165}
+  - {fileID: 2002098171}
