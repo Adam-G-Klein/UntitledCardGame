@@ -135,7 +135,6 @@ public class TooltipViewModel
     }
 }
 
-[RequireComponent(typeof(MiniUIDocumentScreenspace))]
 public class TooltipView : MonoBehaviour
 {
 
@@ -149,36 +148,57 @@ public class TooltipView : MonoBehaviour
     private bool canvasTooltip = false;
 
     public VisualElement background;
+    private Material mat;
+
+    public float fadeInOutTime = 0.25f;
+    public float waitForUIDocFillTime = 0.1f;
+
 
     void Start()
     {
-        if (canvasTooltip)
-        {
-            TextMeshProUGUI text = GetComponentInChildren<TextMeshProUGUI>();
-            text.text = tooltip.plainText;
-            // hack to get tooltips in front, temporary until ui doc rework
-            Canvas canvas = GetComponentInChildren<Canvas>();
-            canvas.overrideSorting = true;
-            canvas.sortingOrder = 25;
-        }
-        else
-        {
-            Debug.Log("TooltipView: Start");
-            VisualElement root = GetComponent<MiniUIDocumentScreenspace>().doc.rootVisualElement;
-            background = root.Q<VisualElement>("tooltip-background");
-            Fill();
-        }
+        Debug.Log("TooltipView: Start");
+        VisualElement root = GetComponent<MiniUIDocumentScreenspace>().doc.rootVisualElement;
+        background = root.Q<VisualElement>("tooltip-background");
+        mat = GetComponent<RawImage>().material;
+        Fill();
     }
 
     public void Fill()
     {
         background.Add(tooltip.GetVisualElement());
         UIDocumentUtils.SetAllPickingMode(background, PickingMode.Ignore);
+        /* TODO: make tooltips support transparency without getting occluded
+            by the combat UI. Timeboxed before magwest
+        LeanTween.value(0, 1, fadeInOutTime)
+            .setOnUpdate((float val) => {
+                mat.SetFloat("_alpha", val);
+            });
+            */
+
+        Invoke("Display", waitForUIDocFillTime);
+    }
+
+    public void Display()
+    {
+        GetComponent<RawImage>().enabled = true;
     }
 
     public void Hide()
     {
         // TODO: add a quick fade or dissolve effect for funsies?
+        /* TODO: make tooltips support transparency without getting occluded
+            by the combat UI. Timeboxed before magwest
+        LeanTween.value(1, 0, fadeInOutTime)
+            .setOnUpdate((float val) =>
+            {
+                mat.SetFloat("_alpha", val);
+            }).setOnComplete(() =>
+            {
+                background.Clear();
+                Destroy(gameObject);
+            });
+            */
+        background.Clear();
         Destroy(gameObject);
     }
 
