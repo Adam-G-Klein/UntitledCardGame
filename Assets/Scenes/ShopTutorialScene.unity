@@ -223,7 +223,7 @@ MonoBehaviour:
         tutorialStepsCount: 3
         buttonText: Next
         uiDocument: {fileID: 1484470107}
-        tutorialImage: {fileID: 21300000, guid: 43ad84f13aa31466eab878d3654e272f, type: 3}
+        tutorialImage: {fileID: 21300000, guid: 68a94619d179e4b1baaf2fb095f61184, type: 3}
     - rid: 4305150327966138391
       type: {class: WaitForNextButtonClickAction, ns: , asm: Assembly-CSharp}
       data:
@@ -241,7 +241,7 @@ MonoBehaviour:
         tutorialStepsCount: 3
         buttonText: Next
         uiDocument: {fileID: 1484470107}
-        tutorialImage: {fileID: 21300000, guid: f6f85b2ac871c4aceab3cf146026ea91, type: 3}
+        tutorialImage: {fileID: 21300000, guid: 60a3726081acb4e6c9ec2247a88232fd, type: 3}
     - rid: 4305150395655913889
       type: {class: UpdateTutorialUIDocAction, ns: , asm: Assembly-CSharp}
       data:
@@ -249,12 +249,13 @@ MonoBehaviour:
         firstLineOfText: Finally, you can upgrade the shop!
         secondLineOfText: This can increase the rarity of shop offerings, give you
           more active team slots, or more mana per turn.
-        thirdLineOfText: 
+        thirdLineOfText: Before going to the next combat don't forget to organize
+          your companions for the next fight!
         tutorialIndex: 3
         tutorialStepsCount: 3
         buttonText: Shop!
         uiDocument: {fileID: 1484470107}
-        tutorialImage: {fileID: 21300000, guid: bff3fec7c522d46ff9e417e45b5f833c, type: 3}
+        tutorialImage: {fileID: 21300000, guid: 7ac5f21edf5ca4fc6beb81ed925cc030, type: 3}
     - rid: 4305150395655913890
       type: {class: WaitForNextButtonClickAction, ns: , asm: Assembly-CSharp}
       data:

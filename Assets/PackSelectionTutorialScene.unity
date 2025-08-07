@@ -211,38 +211,7 @@ MonoBehaviour:
       type: {class: WaitForNextButtonClickAction, ns: , asm: Assembly-CSharp}
       data:
         tutorialActionType: Wait For Next Button Click Action
-    - rid: 4305150327966138369
-      type: {class: WaitForNextButtonClickAction, ns: , asm: Assembly-CSharp}
-      data:
-        tutorialActionType: Wait For Next Button Click Action
     - rid: 4305150327966138370
-      type: {class: UpdateTutorialUIDocAction, ns: , asm: Assembly-CSharp}
-      data:
-        tutorialActionType: Update Tutorial UI Doc Action
-        firstLineOfText: You start with 5 packs unlocked and can unlock more by completing
-          challenges.
-        secondLineOfText: 
-        thirdLineOfText: 
-        tutorialIndex: 2
-        tutorialStepsCount: 3
-        buttonText: Begin!
-        uiDocument: {fileID: 1484470107}
-        tutorialImage: {fileID: 21300000, guid: c2b65e610e4664e18adbf33c4287e7fc, type: 3}
-    - rid: 4305150395655913528
-      type: {class: UpdateTutorialUIDocAction, ns: , asm: Assembly-CSharp}
-      data:
-        tutorialActionType: Update Tutorial UI Doc Action
-        firstLineOfText: 
-        secondLineOfText: Now that you have completed one run you are ready for pack
-          selection!
-        thirdLineOfText: Pack selection determines which companions (and cards!)
-          will be available during your run.
-        tutorialIndex: 1
-        tutorialStepsCount: 3
-        buttonText: Next
-        uiDocument: {fileID: 1484470107}
-        tutorialImage: {fileID: 21300000, guid: 3b76e6e967ebe4cbd9469a39acb60a65, type: 3}
-    - rid: 7112866771293962549
       type: {class: UpdateTutorialUIDocAction, ns: , asm: Assembly-CSharp}
       data:
         tutorialActionType: Update Tutorial UI Doc Action
@@ -250,11 +219,26 @@ MonoBehaviour:
         secondLineOfText: Unlock new ascension levels by winning runs on your highest
           unlocked difficuly setting!
         thirdLineOfText: 
-        tutorialIndex: 3
-        tutorialStepsCount: 3
-        buttonText: Play!
+        tutorialIndex: 2
+        tutorialStepsCount: 2
+        buttonText: Begin!
         uiDocument: {fileID: 1484470107}
-        tutorialImage: {fileID: 0}
+        tutorialImage: {fileID: 21300000, guid: 1b02a80c591ea4ef590a4d473aa312d5, type: 3}
+    - rid: 4305150395655913528
+      type: {class: UpdateTutorialUIDocAction, ns: , asm: Assembly-CSharp}
+      data:
+        tutorialActionType: Update Tutorial UI Doc Action
+        firstLineOfText: Now that you have completed one run you are ready for pack
+          selection!
+        secondLineOfText: Pack selection determines which companions (and cards!)
+          will be available during your run.
+        thirdLineOfText: You start with 5 packs unlocked and can unlock more by completing
+          challenges.
+        tutorialIndex: 1
+        tutorialStepsCount: 2
+        buttonText: Next
+        uiDocument: {fileID: 1484470107}
+        tutorialImage: {fileID: 21300000, guid: 2b80ae860868b4190be8377bd881fc6c, type: 3}
     - rid: 7112866771293962550
       type: {class: WaitForNextButtonClickAction, ns: , asm: Assembly-CSharp}
       data:
@@ -268,8 +252,6 @@ MonoBehaviour:
         - rid: 4305150395655913528
         - rid: 4305150327966138368
         - rid: 4305150327966138370
-        - rid: 4305150327966138369
-        - rid: 7112866771293962549
         - rid: 7112866771293962550
         initAction: 0
 --- !u!4 &230703130
