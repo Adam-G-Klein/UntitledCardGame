@@ -204,18 +204,31 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
         int preferredActiveSlotIdx = -1;
         Companion companionToAdd = null;
-        int existingCompanionActiveSlot = gameState.companions.activeCompanions.FindIndex(c => c.companionType == newCompanion.companionType);
+        int existingL1CompanionActiveSlot = gameState.companions.activeCompanions.FindIndex(c => c.companionType == newCompanion.companionType);
         Companion level2Dude = companionCombinationManager.AttemptCompanionUpgrade(newCompanion);
         MusicController.Instance.PlaySFX("event:/MX/MX_Companion_Upgrade_Stinger");
         if (level2Dude != null)
         {
             // Find an active slot to place the companion so it keeps the same spot in your team.
-            preferredActiveSlotIdx = existingCompanionActiveSlot;
+            preferredActiveSlotIdx = existingL1CompanionActiveSlot;
 
             companionToAdd = level2Dude;
             // Then attempt the level 3 upgrade :)
+            int existingL2CompanionActiveSlot = gameState.companions.activeCompanions.FindIndex(c => c.companionType == level2Dude.companionType);
             Companion level3Dude = companionCombinationManager.AttemptCompanionUpgrade(level2Dude);
-            if (level3Dude != null) companionToAdd = level3Dude;
+            if (level3Dude != null)
+            {
+                if (preferredActiveSlotIdx == -1)
+                {
+                    preferredActiveSlotIdx = existingL2CompanionActiveSlot;
+                }
+                else
+                {
+                    preferredActiveSlotIdx = Math.Min(preferredActiveSlotIdx, existingL2CompanionActiveSlot);
+                }
+
+                companionToAdd = level3Dude;
+            }
         }
         Debug.Log("Preferred active slot index for the companion: " + preferredActiveSlotIdx);
         gameState.AddCompanionToTeam(companionToAdd, preferredActiveSlotIdx);

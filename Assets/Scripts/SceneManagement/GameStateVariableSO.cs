@@ -252,7 +252,7 @@ public class GameStateVariableSO : ScriptableObject
     }
     public void AddCompanionToTeam(Companion c, int preferredActiveSlotIndex = -1) {
         if(this.companions.spaceInActiveCompanions) {
-            if (preferredActiveSlotIndex >= 0) {
+            if (preferredActiveSlotIndex >= 0 && preferredActiveSlotIndex <= this.companions.activeCompanions.Count) {
                 this.companions.activeCompanions.Insert(preferredActiveSlotIndex, c);
             } else {
                 this.companions.activeCompanions.Add(c);
