@@ -94,17 +94,6 @@ MonoBehaviour:
         effectStepName: CardInHandEffect
         inputKey: targetCard
         effect: 2
-    - rid: 2295168179404538110
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 1
-        inputKey: statusCards
-        outputKey: targetCard
-        validTargets: 03000000
-        number: 1
-        specialTargetRule: 6
-        cantCancelTargetting: 1
     - rid: 2295168569757138944
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -121,6 +110,13 @@ MonoBehaviour:
         - rid: 1289961959942521124
         - rid: 1289961959942521127
         - rid: 2295168179404538106
-        - rid: 2295168179404538110
+        - rid: 8034949815888773423
         - rid: 2295168179404538108
         - rid: 2295168569757138944
+    - rid: 8034949815888773423
+      type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetRandomItems
+        inputKey: statusCards
+        scale: 1
+        outputKey: targetCard
