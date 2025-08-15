@@ -47,7 +47,7 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Avenge
-      description: When an enemy dies, gain 10 temporary strength
+      description: When an enemy dies, gain 8 temporary strength
       relatedBehaviorIndex: 0
   DEADLIER_ENEMY_BONUS_STR: -1
   HEALTHIER_ENEMY_BONUS_HEALTH: -1
@@ -121,7 +121,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: self
         statusEffect: 6
-        scale: 10
+        scale: 8
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0

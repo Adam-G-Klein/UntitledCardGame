@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: ae9b8032-05f7-4d2b-be52-60d6d4584294
   Name: Pure Mind
-  Description: Give target companion 4 block. Give them 4 additional block if this
+  Description: Give target companion 3 block. Give them 5 additional block if this
     companion has 7 or less cards in its deck
   defaultValues: []
   Cost: 1
@@ -83,7 +83,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: target
         statusEffect: 2
-        scale: 4
+        scale: 5
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
@@ -107,7 +107,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: target
         statusEffect: 2
-        scale: 4
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0

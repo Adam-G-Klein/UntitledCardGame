@@ -18,7 +18,7 @@ MonoBehaviour:
     cards), then discard all cards in hand
   defaultValues:
   - key: rpl_damage
-    value: 5
+    value: 4
   - key: numberOfCardsInHand
     value: 0
   Cost: 2
@@ -70,7 +70,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: enemyTarget
         combatEffect: 0
-        scale: 5
+        scale: 4
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 0

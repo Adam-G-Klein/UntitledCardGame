@@ -10,18 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: RP_Transfusion
+  m_Name: RP_Start_JaggedKnife
   m_EditorClassIdentifier: 
-  Name: Transfusion
-  Description: Exhaust. Heal target companion 5 HP. Give them 5 max HP if this companion
-    is below half HP
-  defaultValues: []
+  guid: 70081cd2-5c3b-4aa2-a6da-96f491157a3d
+  Name: Jagged Knife
+  Description: Deal {rpl_damage} damage. Bleed self 2 HP
+  defaultValues:
+  - key: rpl_damage
+    value: 6
   Cost: 0
-  Artwork: {fileID: 21300000, guid: 292ee1eb3f315c9448b8c577d0e6a420, type: 3}
-  cardCategory: 2
+  Artwork: {fileID: 21300000, guid: 0f5ecf3627abce84490e1f8ec8e4f24f, type: 3}
+  cardCategory: 1
   vfxPrefab: {fileID: 0}
   playable: 1
-  exhaustsWhenPlayed: 1
+  exhaustsWhenPlayed: 0
   retain: 0
   effectWorkflows:
   - rid: 5602892949302281046
@@ -37,48 +39,22 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 1289961820425028160
-      type: {class: FilterEntityByHP, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: FilterEntityByHP
-        inputKey: self
-        percentThreshold: 0.5
-        absoluteThreshold: 0
-        useAbsoluteThreshold: 0
-        outputKey: selfBelowHalf
-        below: 1
-    - rid: 1289961820425028161
-      type: {class: EndWorkflowIfListEmpty, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: EndWorkflowIfListEmpty
-        inputKey1: selfBelowHalf
-    - rid: 1289961820425028165
-      type: {class: PermanentStatIncrease, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: PermanentStatIncrease
-        inputKey: target
-        statIncreaseType: 1
-        scale: 5
-        getScaleFromKey: 0
-        inputScaleKey: 
     - rid: 5602892949302281046
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
         - rid: 5602892949302281047
         - rid: 5602892949302281048
-        - rid: 1289961820425028160
         - rid: 5602892949302281049
-        - rid: 1289961820425028161
-        - rid: 1289961820425028165
+        - rid: 5602892949302281050
     - rid: 5602892949302281047
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: self
-        validTargets: 
+        outputKey: target
+        validTargets: 00000000
         number: 1
         specialTargetRule: 4
         cantCancelTargetting: 0
@@ -88,8 +64,8 @@ MonoBehaviour:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: target
-        validTargets: 00000000
+        outputKey: enemy
+        validTargets: 02000000
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
@@ -97,12 +73,25 @@ MonoBehaviour:
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
-        inputKey: target
-        combatEffect: 9
-        scale: 5
+        inputKey: enemy
+        combatEffect: 0
+        scale: 6
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 3850217184923880746, guid: 604f6efaa1e828d4bacfc84a25dfbd7a, type: 3}
+        vfxPrefab: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}
+    - rid: 5602892949302281050
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: target
+        combatEffect: 16
+        scale: 2
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 6137048663962808129, guid: 92c26f41ef33c23419e05ceb12660efa, type: 3}

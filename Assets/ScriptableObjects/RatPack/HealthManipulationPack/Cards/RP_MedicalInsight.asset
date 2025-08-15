@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 338f2055-a793-46ae-a3b9-e18f265ac10e
   Name: Medical Insight
-  Description: Exhaust. Heal any 5 HP & if self above half HP, draw 1 card & give
+  Description: Exhaust. Heal any 3 HP & if self above half HP, draw 1 card & give
     2 block
   defaultValues: []
   Cost: 0
@@ -89,7 +89,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: target
         combatEffect: 9
-        scale: 5
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1

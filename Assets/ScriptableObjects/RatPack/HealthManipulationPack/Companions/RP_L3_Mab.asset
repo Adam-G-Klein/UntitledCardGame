@@ -45,12 +45,12 @@ MonoBehaviour:
     - title: Level Three Mab
       description: At the end of combat, heal adjacent companions 20 HP. Each turn,
         adjacent companions lose 1 HP unless they would die. Whenever a companion
-        heals, give it 2 max HP
+        heals, give it 3 block
       relatedBehaviorIndex: 0
   keepsakeTitle: 
   keepsakeDescription: At the end of combat, heal adjacent companions 20 HP. Each
     turn, adjacent companions lose 1 HP unless they would die. Whenever a companion
-    heals, give it 2 max HP
+    heals, give it 3 block
   references:
     version: 2
     RefIds:
@@ -137,28 +137,19 @@ MonoBehaviour:
         abilityTrigger: 15
         effectSteps:
         - rid: 2034230176448512388
-        - rid: 2034230176448512389
+        - rid: 8034949815888773426
         - rid: 2034230176448512390
     - rid: 2034230176448512388
       type: {class: EndWorkflowIfNoMapElement, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EndWorkflowIfNoMapElement
         keyToCheck: healedCompanion
-    - rid: 2034230176448512389
-      type: {class: PermanentStatIncrease, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: PermanentStatIncrease
-        inputKey: healedCompanion
-        statIncreaseType: 1
-        scale: 2
-        getScaleFromKey: 0
-        inputScaleKey: 
     - rid: 2034230176448512390
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
         inputKey: healedCompanion
-        prefabToInstantiate: {fileID: 3850217184923880746, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
+        prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
         scale: 1
     - rid: 7401433059192472040
       type: {class: FilterEntityByHP, ns: , asm: Assembly-CSharp}
@@ -170,3 +161,16 @@ MonoBehaviour:
         useAbsoluteThreshold: 1
         outputKey: above1HP
         below: 0
+    - rid: 8034949815888773426
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: healedCompanion
+        statusEffect: 2
+        scale: 3
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 

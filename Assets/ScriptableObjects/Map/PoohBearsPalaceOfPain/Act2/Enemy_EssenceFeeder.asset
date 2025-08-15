@@ -52,7 +52,7 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Feeding Frenzy
-      description: Every time you play 4 cards, this gains 1 strength!
+      description: Every time you play 4 cards, gain 1 strength and 3 block
       relatedBehaviorIndex: 0
   DEADLIER_ENEMY_BONUS_STR: -1
   HEALTHIER_ENEMY_BONUS_HEALTH: -1
@@ -77,6 +77,7 @@ MonoBehaviour:
         - rid: 205828126246961464
         - rid: 205828126246961465
         - rid: 205828126246961466
+        - rid: 8034949928137261285
         - rid: 205828126246961467
     - rid: 205828126246961458
       type: {class: CombatInstanceCacheLoad, ns: , asm: Assembly-CSharp}
@@ -187,3 +188,16 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 0}
+    - rid: 8034949928137261285
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: self
+        statusEffect: 2
+        scale: 3
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 

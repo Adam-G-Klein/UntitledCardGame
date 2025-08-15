@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 3f1a39a4-06f1-4493-9878-91dc193f851f
   Name: Reckless Blow
-  Description: Target companion loses 3 HP. Deal {rpl_damage} damage to a random
-    enemy
+  Description: Bleed any 3 HP. Deal {rpl_damage} damage at random
   defaultValues:
   - key: rpl_damage
     value: 13

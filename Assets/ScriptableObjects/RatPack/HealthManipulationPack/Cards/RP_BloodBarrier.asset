@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 338f2055-a793-46ae-a3b9-e18f265ac10e
   Name: Blood Barrier
-  Description: Draw 1 card from self. If 2 or more companions below half HP, give
-    adjacent 5 block
+  Description: Draw 1 card from self. If self below half HP, give adjacent 5 block
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: bc01e6303f5aef54696b1695ae9d1ce0, type: 3}
@@ -42,7 +41,7 @@ MonoBehaviour:
       type: {class: FilterEntityByHP, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: FilterEntityByHP
-        inputKey: allies
+        inputKey: self
         percentThreshold: 0.5
         absoluteThreshold: 0
         useAbsoluteThreshold: 0
@@ -69,7 +68,7 @@ MonoBehaviour:
       type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: BooleanComparison
-        hardCodedInputKey1: 2
+        hardCodedInputKey1: 1
         useHardCodedInputKey1: 1
         inputKey1: 
         operation: 2

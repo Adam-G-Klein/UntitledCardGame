@@ -10,15 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: RP_WeaveTogether
+  m_Name: RP_Start_PewPew
   m_EditorClassIdentifier: 
-  guid: ceb00a34-6fba-48f9-99b3-9d2abe831cde
-  Name: Weave Together
-  Description: Draw 1 card from each companion, then discard a card in hand.
-  defaultValues: []
+  guid: 2c130e05-3b96-4925-a7e9-e97d2727c40b
+  Name: Pew Pew
+  Description: Discard a card in hand and deal {rpl_damage} damage at random
+  defaultValues:
+  - key: rpl_damage
+    value: 6
   Cost: 1
-  Artwork: {fileID: 21300000, guid: 3408ba482a44c9f4f866827baed81034, type: 3}
-  cardCategory: 2
+  Artwork: {fileID: 21300000, guid: e8c1b164e48b3ed4ea21cc0ef5d14b1a, type: 3}
+  cardCategory: 1
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
@@ -37,38 +39,11 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 1274772038231786148
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: all
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
-        scale: 1.5
     - rid: 2034230108114649711
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps: []
-    - rid: 2034230108114649715
-      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: DrawCards
-        inputKey: all
-        outputKey: 
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
-    - rid: 2034230108114649716
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: card
-        validTargets: 03000000
-        number: 1
-        specialTargetRule: 5
-        cantCancelTargetting: 1
-    - rid: 2034230108114649717
+    - rid: 2268261022115299329
       type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CardInHandEffect
@@ -80,17 +55,40 @@ MonoBehaviour:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: all
-        validTargets: 00000000
+        outputKey: enemy
+        validTargets: 02000000
         number: 1
-        specialTargetRule: 1
+        specialTargetRule: 6
         cantCancelTargetting: 0
     - rid: 5602892563578094203
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
+        - rid: 7401433308100035075
+        - rid: 2268261022115299329
         - rid: 4463205916933357570
-        - rid: 2034230108114649715
-        - rid: 1274772038231786148
-        - rid: 2034230108114649716
-        - rid: 2034230108114649717
+        - rid: 7401433308100034878
+    - rid: 7401433308100034878
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: enemy
+        combatEffect: 0
+        scale: 6
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 1320532642761013391, guid: 99a456f94890391478f393fcc8ad0b95, type: 3}
+    - rid: 7401433308100035075
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: card
+        validTargets: 03000000
+        number: 1
+        specialTargetRule: 5
+        cantCancelTargetting: 0

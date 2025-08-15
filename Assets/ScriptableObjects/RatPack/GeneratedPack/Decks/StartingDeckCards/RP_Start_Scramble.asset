@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 5f49c2e7-8b9c-4c2e-bcc2-29712135a8b7
   Name: Scramble
-  Description: Shuffle a Wound Status card into target companion's deck then draw
-    3 cards from them
+  Description: Draw 2 cards from any. Create a "Wound" Status card in hand for self
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 5e40f858eddaed340a6366c33c4e216f, type: 3}
@@ -51,7 +50,7 @@ MonoBehaviour:
         effectStepName: DrawCards
         inputKey: target
         outputKey: 
-        scale: 3
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
     - rid: 1289961959942521257
@@ -65,28 +64,14 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 4
         cantCancelTargetting: 0
-    - rid: 5280922841426165941
-      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: FXEffectStep
-        waitForEffect: 0
-        fXExperiencePrefab: {fileID: 4075960956037802917, guid: ec7b1a1529f9141458320888bf8e3d96, type: 3}
-        rootLocationGameObjectKey: 
-        positionMappingList:
-        - fromWorkflow: target
-          toFxExperience: end
-        - fromWorkflow: self
-          toFxExperience: start
-        gameobjectMappingList: []
     - rid: 5602892561590779943
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
         - rid: 5602892561590779944
-        - rid: 5602892561590779946
         - rid: 1289961959942521257
+        - rid: 8034949928137261057
         - rid: 1274772082283774706
-        - rid: 5280922841426165941
         - rid: 1289961959942521193
     - rid: 5602892561590779944
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -99,16 +84,16 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
-    - rid: 5602892561590779946
-      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
+    - rid: 8034949928137261057
+      type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: AddCardsToDeck
-        inputKey: target
+        effectStepName: AddCardsToHand
+        entityFromKey: self
         cardTypes:
         - {fileID: 11400000, guid: a01e6780b2964496da60664e148acadb, type: 2}
-        addToDeckMethod: 1
         getCardsFromKey: 0
         inputCardsKey: 
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+        outputKey: 

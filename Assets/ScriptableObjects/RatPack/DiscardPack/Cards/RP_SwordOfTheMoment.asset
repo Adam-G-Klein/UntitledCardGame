@@ -15,7 +15,7 @@ MonoBehaviour:
   guid: d647fd77-9022-40e3-9cc8-5b6ac6aeddb0
   Name: Sword of the Right Moment
   Description: Deal {rpl_damage} damage to target enemy. When discarded, increase
-    the damage of this card by 8
+    the damage of this card by 10
   defaultValues:
   - key: rpl_damage
     value: 5
@@ -101,7 +101,7 @@ MonoBehaviour:
       data:
         effectStepName: CardModificationEffect
         inputKey: card
-        scale: 8
+        scale: 10
         affectsAllCardsOfType: 0
         cardTypeToModify: {fileID: 0}
         getScaleFromKey: 0

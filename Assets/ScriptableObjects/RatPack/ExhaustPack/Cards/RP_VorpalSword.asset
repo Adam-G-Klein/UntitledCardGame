@@ -15,7 +15,7 @@ MonoBehaviour:
   guid: a05d902b-32df-4e50-b9f7-025043c6fa32
   Name: Vorpal Sword
   Description: Deal {rpl_damage} damage to target enemy. Increase the damage of this
-    card by 6. When exhausted, deal {rpl_damage} to all enemies twice
+    card by 8. When exhausted, deal {rpl_damage} to all enemies twice
   defaultValues:
   - key: rpl_damage
     value: 6
@@ -69,7 +69,7 @@ MonoBehaviour:
       data:
         effectStepName: CardModificationEffect
         inputKey: thisCard
-        scale: 6
+        scale: 8
         affectsAllCardsOfType: 0
         cardTypeToModify: {fileID: 0}
         getScaleFromKey: 0
@@ -86,7 +86,7 @@ MonoBehaviour:
       type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: WaitForSecondsEffect
-        seconds: 0.75
+        seconds: 0.5
     - rid: 2116895648763871336
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:

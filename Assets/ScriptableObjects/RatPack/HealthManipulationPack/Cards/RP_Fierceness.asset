@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: e37e8078-2d79-4f62-a166-5f8b7acdeaf5
   Name: Fierceness
-  Description: Deal {rpl_damage} to target enemy. Gain 5 block if 2 or more companions
-    are below half HP
+  Description: Deal {rpl_damage} to target enemy. Gain 5 block if self below half
+    HP
   defaultValues:
   - key: rpl_damage
     value: 7
@@ -105,7 +105,7 @@ MonoBehaviour:
       type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: BooleanComparison
-        hardCodedInputKey1: 2
+        hardCodedInputKey1: 1
         useHardCodedInputKey1: 1
         inputKey1: 
         operation: 2
@@ -135,7 +135,7 @@ MonoBehaviour:
       type: {class: FilterEntityByHP, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: FilterEntityByHP
-        inputKey: all
+        inputKey: self
         percentThreshold: 0.5
         absoluteThreshold: 0
         useAbsoluteThreshold: 0

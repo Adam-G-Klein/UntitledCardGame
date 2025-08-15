@@ -48,8 +48,8 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Sentinel's Watch
-      description: Whenever you exhaust or discard a card, the Sentinel gains 2 temporary
-        strength
+      description: Whenever you exhaust or discard a card, the Sentinel gains 2 block
+        and 1 temporary strength
       relatedBehaviorIndex: 0
   DEADLIER_ENEMY_BONUS_STR: -1
   HEALTHIER_ENEMY_BONUS_HEALTH: -1
@@ -68,6 +68,7 @@ MonoBehaviour:
         effectSteps:
         - rid: 2295167909047304352
         - rid: 2295167909047304353
+        - rid: 8034949928137261286
         - rid: 2295167909047304354
     - rid: 2295167909047304352
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -86,7 +87,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: self
         statusEffect: 6
-        scale: 2
+        scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
@@ -151,6 +152,32 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+    - rid: 8034949928137261286
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: self
+        statusEffect: 2
+        scale: 2
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+    - rid: 8034949928137261287
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: self
+        statusEffect: 2
+        scale: 2
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 8790164513324270165
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
@@ -158,6 +185,7 @@ MonoBehaviour:
         effectSteps:
         - rid: 8790164513324270166
         - rid: 8790164513324270167
+        - rid: 8034949928137261287
         - rid: 2295167909047304355
     - rid: 8790164513324270166
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -176,7 +204,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: self
         statusEffect: 6
-        scale: 2
+        scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0

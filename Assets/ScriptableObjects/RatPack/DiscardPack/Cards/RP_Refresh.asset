@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: d647fd77-9022-40e3-9cc8-5b6ac6aeddb0
   Name: Refresh
-  Description: Draw cards from this companion until you have 5 cards in hand
+  Description: Draw cards from this companion until you have 6 cards in hand
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 04a1d976953825d4db586e6147348356, type: 3}
@@ -65,7 +65,7 @@ MonoBehaviour:
         inputKey: numCardsInHand
         operand2InputKey: UNUSED
         operation: 1
-        scale: 5
+        scale: 6
         outputKey: out
     - rid: 2295168569757139750
       type: {class: MathStep, ns: , asm: Assembly-CSharp}

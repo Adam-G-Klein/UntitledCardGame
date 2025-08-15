@@ -15,7 +15,7 @@ MonoBehaviour:
   guid: f3bcbedc-1ba2-404a-9c0d-91600d23040e
   Name: Honed Blade
   Description: Deal {rpl_damage} damage. Increase the damage of this "Honed Blade"
-    card by 1 this combat
+    card by 2 this combat
   defaultValues:
   - key: rpl_damage
     value: 5
@@ -105,13 +105,13 @@ MonoBehaviour:
       type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: WaitForSecondsEffect
-        seconds: 0.75
+        seconds: 0.5
     - rid: 5592738912264781840
       type: {class: CardModificationEffect, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CardModificationEffect
         inputKey: card
-        scale: 1
+        scale: 2
         affectsAllCardsOfType: 0
         cardTypeToModify: {fileID: 0}
         getScaleFromKey: 0

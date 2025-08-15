@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: RP_YouGotOptions
   m_EditorClassIdentifier: 
+  guid: 449d559a-25bc-480d-a0e1-52da55b45848
   Name: You Got Options
-  Description: Draw 2 from target companion, then discard a card in hand.
+  Description: Draw 2 from any. Discard a card in hand.
   defaultValues: []
-  Cost: 0
+  Cost: 1
   Artwork: {fileID: 21300000, guid: 8b7f45e259d8a914ca69c92891ca4bf1, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}

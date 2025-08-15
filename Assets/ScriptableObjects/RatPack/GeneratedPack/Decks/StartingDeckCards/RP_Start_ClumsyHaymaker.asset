@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: cf05b4c9-780f-421f-9bab-05ec11aaac9b
   Name: Clumsy Haymaker
-  Description: Deal {rpl_damage} damage to target enemy. Shuffle an unplayable "Wound"
-    Status card into this deck
+  Description: Deal {rpl_damage} damage. Shuffle a "Wound" Status card into own deck
   defaultValues:
   - key: rpl_damage
     value: 12
@@ -53,6 +52,8 @@ MonoBehaviour:
         - fromWorkflow: self
           toFxExperience: start
         gameobjectMappingList: []
+        vePositionMappingList: []
+        veMappingList: []
     - rid: 5280922841426165942
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

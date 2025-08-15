@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 338f2055-a793-46ae-a3b9-e18f265ac10e
   Name: Vengeful Slash
-  Description: Deal {rpl_damage} to target enemy. Deal it twice if 2 or more companions
-    are below half HP
+  Description: Deal {rpl_damage} damage & if self below half HP, deal {rpl_damage}
+    damage
   defaultValues:
   - key: rpl_damage
     value: 6
@@ -44,7 +44,7 @@ MonoBehaviour:
       type: {class: FilterEntityByHP, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: FilterEntityByHP
-        inputKey: allies
+        inputKey: self
         percentThreshold: 0.5
         absoluteThreshold: 0
         useAbsoluteThreshold: 0
@@ -84,7 +84,7 @@ MonoBehaviour:
       type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: BooleanComparison
-        hardCodedInputKey1: 2
+        hardCodedInputKey1: 1
         useHardCodedInputKey1: 1
         inputKey1: 
         operation: 2

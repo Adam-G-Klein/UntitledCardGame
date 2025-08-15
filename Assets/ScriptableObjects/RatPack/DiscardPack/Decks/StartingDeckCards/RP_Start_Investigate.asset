@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: ef7877f2-5332-4414-849b-bce3c0182839
   Name: Investigate
-  Description: Draw 2 cards from target companion, then discard 1 card in hand
+  Description: Draw 2 cards from random x2, then discard 1 card in hand
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 04a1d976953825d4db586e6147348356, type: 3}
@@ -46,6 +46,7 @@ MonoBehaviour:
       data:
         effectSteps:
         - rid: 7401433308100034872
+        - rid: 8034949928137261273
         - rid: 7401433308100034873
         - rid: 7401433308100034877
         - rid: 7401433308100034874
@@ -56,10 +57,10 @@ MonoBehaviour:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: target
+        outputKey: all
         validTargets: 00000000
-        number: 1
-        specialTargetRule: 0
+        number: 2
+        specialTargetRule: 1
         cantCancelTargetting: 0
     - rid: 7401433308100034873
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}
@@ -67,7 +68,7 @@ MonoBehaviour:
         effectStepName: DrawCards
         inputKey: target
         outputKey: 
-        scale: 2
+        scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
     - rid: 7401433308100034874
@@ -94,3 +95,10 @@ MonoBehaviour:
         inputKey: target
         prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
         scale: 1
+    - rid: 8034949928137261273
+      type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetRandomItems
+        inputKey: all
+        scale: 2
+        outputKey: target
