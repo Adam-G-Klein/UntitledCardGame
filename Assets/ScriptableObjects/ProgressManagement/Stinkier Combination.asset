@@ -10,16 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d16a72e0e0a744b35b9551fb7d766634, type: 3}
-  m_Name: StingyConcierge
+  m_Name: Stinkier Combination
   m_EditorClassIdentifier: 
-  description: Stingy Concierge
-  devDescription: Shop items have a chance to cost an additional $1
-  ascensionType: 2
+  description: Stinkier Combination
+  devDescription: Rat combination grants less of a health boost and doesn't remove
+    a card
+  ascensionType: 3
   ascensionModificationValues:
     entries:
-    - Key: expensiveCardRatio
-      Value: 0.4
-    - Key: expensiveRatRatio
-      Value: 0.25
-    - Key: costIncrease
-      Value: 1
+    - Key: maxHealthRatio
+      Value: 0.8

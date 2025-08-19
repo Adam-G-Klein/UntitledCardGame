@@ -18,7 +18,7 @@ public class CompanionInstance : MonoBehaviour, IUIEntity
     // That method is only called AFTER the encountermanager has queried the locations
     // of all of the ui elements in the ui doc and placed the companionInstances in their
     // proper location on the screen
-    public CompanionView companionView; 
+    public CompanionView companionView;
 
     private List<TurnPhaseTrigger> statusEffectTriggers = new List<TurnPhaseTrigger>();
 
@@ -96,6 +96,7 @@ public class CompanionInstance : MonoBehaviour, IUIEntity
     {
         UnregisterUpdateStatusEffects();
         CombatEntityManager.Instance.CompanionDied(this);
+        companion.trackingStats.RecordDeath();
         yield break;
     }
 

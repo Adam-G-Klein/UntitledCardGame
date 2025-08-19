@@ -100,7 +100,7 @@ public class TeamSelectionUI : MonoBehaviour
         {
             Companion companion = new Companion(companionType);
             if (ProgressManager.Instance.IsFeatureEnabled(AscensionType.DAMAGED_COMPANIONS)) {
-                companion.combatStats.currentHealth -= (int)ProgressManager.Instance.GetAscensionSO(AscensionType.DAMAGED_COMPANIONS).modificationValue;
+                companion.combatStats.currentHealth -= (int)ProgressManager.Instance.GetAscensionSO(AscensionType.DAMAGED_COMPANIONS).ascensionModificationValues.GetValueOrDefault("healthReduction", 3f);
             }
             gameState.companions.activeCompanions.Add(companion);
         }
@@ -203,13 +203,13 @@ public class TeamSelectionUI : MonoBehaviour
             float xTooltipPos = VE.worldBound.center.x - (VE.resolvedStyle.width * .85f);
             float yTooltipPos = VE.worldBound.center.y + (VE.resolvedStyle.height * .2f);
             Vector3 position = new Vector3(xTooltipPos, yTooltipPos, 0);
-            
+
             tooltipPosition = UIDocumentGameObjectPlacer.GetWorldPositionFromUIDocumentPosition(position);
         } else {
             float xTooltipPos = VE.worldBound.center.x - (VE.resolvedStyle.width * 1.1f);
             float yTooltipPos = VE.worldBound.center.y + (VE.resolvedStyle.height * .1f);
             Vector3 position = new Vector3(xTooltipPos, yTooltipPos, 0);
-            
+
             tooltipPosition = UIDocumentGameObjectPlacer.GetWorldPositionFromUIDocumentPosition(position);
         }
         tooltipPosition.z = -2; // THIS SHOULD NOT BE NECESSARY BUT NO OTHER LAYERING WAS WORKING

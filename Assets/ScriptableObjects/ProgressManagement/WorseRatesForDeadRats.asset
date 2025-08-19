@@ -10,9 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d16a72e0e0a744b35b9551fb7d766634, type: 3}
-  m_Name: Less Healthy Upgrades
+  m_Name: WorseRatesForDeadRats
   m_EditorClassIdentifier: 
-  description: Less Healthy Upgrades
-  devDescription: Upgrades grant less of a health boost
-  ascensionType: 3
-  modificationValue: 0.8
+  description: Worse Rates for Reborn Rats
+  devDescription: Whenever a rat dies, its sell value is reduced by $1
+  ascensionType: 7
+  ascensionModificationValues:
+    entries:
+    - Key: numDeathsSellFactor
+      Value: 1

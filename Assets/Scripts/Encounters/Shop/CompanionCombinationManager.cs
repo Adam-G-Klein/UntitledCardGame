@@ -145,13 +145,19 @@ public class CompanionCombinationManager : MonoBehaviour
 
         // Remove one card from the base deck each time you upgrade.
         // This is a great experimental idea from Ethan that we should try.
-        cards.Shuffle();
-        for (int i = 0; i < cards.Count; i++) {
-            if (gameState.baseShopData.baseCardsToRemoveOnUpgrade.Contains(cards[i].cardType)) {
-                cards.RemoveAt(i);
-                break;
+        if (!ProgressManager.Instance.IsFeatureEnabled(AscensionType.STINKIER_COMBINATION))
+        {
+            cards.Shuffle();
+            for (int i = 0; i < cards.Count; i++)
+            {
+                if (gameState.baseShopData.baseCardsToRemoveOnUpgrade.Contains(cards[i].cardType))
+                {
+                    cards.RemoveAt(i);
+                    break;
+                }
             }
         }
+
 
         return new Deck(cards, companions[0].companionType.upgradeTo.initialCardsDealtPerTurn);
     }
@@ -161,8 +167,9 @@ public class CompanionCombinationManager : MonoBehaviour
         // add any accumulated max HP buffs.
         int maxHealthBuffs = (int) companions.Select(c => c.combatStats.getMaxHealthBuffs()).ToList().Sum();
         int baseMaxHealth = upgradedCompanion.companionType.maxHealth;
-        if (ProgressManager.Instance.IsFeatureEnabled(AscensionType.LESS_HEALTHY_UPGRADES)) {
-            baseMaxHealth = Mathf.FloorToInt(baseMaxHealth * ProgressManager.Instance.GetAscensionSO(AscensionType.LESS_HEALTHY_UPGRADES).modificationValue);
+        if (ProgressManager.Instance.IsFeatureEnabled(AscensionType.STINKIER_COMBINATION)) {
+            baseMaxHealth = Mathf.FloorToInt(baseMaxHealth * ProgressManager.Instance.GetAscensionSO(AscensionType.STINKIER_COMBINATION).
+                ascensionModificationValues.GetValueOrDefault("maxHealthRatio", 0.9f));
         }
         return baseMaxHealth + maxHealthBuffs;
     }

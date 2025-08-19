@@ -137,7 +137,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         }
         gameState.playerData.GetValue().gold += baseGoldEarnedPerBattle + extraGold;
 
-        // Give player shop upgrade increments for defeating the enemy 
+        // Give player shop upgrade increments for defeating the enemy
         gameState.EarnUpgradeIncrement();
 
         if (onEncounterEndHandler != null)
@@ -264,7 +264,8 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         foreach (EnemyInstance enemy in EnemyEncounterViewModel.Instance.enemies)
         {
             int additionalStrength = enemy.enemy.enemyType.DeadlierEnemyBonusStr;
-            if (additionalStrength == -1) additionalStrength = (int)ProgressManager.Instance.GetAscensionSO(AscensionType.ENEMIES_DEADLIER).modificationValue;
+            if (additionalStrength == -1) additionalStrength = (int)ProgressManager.Instance.GetAscensionSO(AscensionType.ENEMIES_DEADLIER).
+                ascensionModificationValues.GetValueOrDefault("extraStrength", 1f);
             enemy.GetCombatInstance().ApplyStatusEffects(
                 StatusEffectType.Strength,
                 additionalStrength
@@ -296,7 +297,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     public bool GetInToolTip() {
         return inToolTip;
     }
-    
+
     public void SetInToolTip(bool b) {
         inToolTip = b;
     }

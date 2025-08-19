@@ -59,7 +59,8 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     void Start()
     {
         companionCombinationManager = GetComponent<CompanionCombinationManager>();
-        availableBenchSlots = ProgressManager.Instance.IsFeatureEnabled(AscensionType.REDUCED_BENCH_CAPACITY) ? (int)ProgressManager.Instance.GetAscensionSO(AscensionType.REDUCED_BENCH_CAPACITY).modificationValue : 5;
+        availableBenchSlots = ProgressManager.Instance.IsFeatureEnabled(AscensionType.REDUCED_BENCH_CAPACITY) ? (int)ProgressManager.Instance.GetAscensionSO(AscensionType.REDUCED_BENCH_CAPACITY).
+            ascensionModificationValues.GetValueOrDefault("numSlots", 3f) : 5;
     }
 
     public void BuildShopEncounter(ShopEncounter shopEncounter) {
@@ -139,7 +140,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             this.companionInShop = companionInShop;
             newCompanion = new Companion(companionInShop.companionType);
             if (ProgressManager.Instance.IsFeatureEnabled(AscensionType.DAMAGED_COMPANIONS)) {
-                newCompanion.combatStats.currentHealth -= (int)ProgressManager.Instance.GetAscensionSO(AscensionType.DAMAGED_COMPANIONS).modificationValue;
+                newCompanion.combatStats.currentHealth -= (int)ProgressManager.Instance.GetAscensionSO(AscensionType.DAMAGED_COMPANIONS).ascensionModificationValues.GetValueOrDefault("healthReduction", 3f);
             }
             // companionToAdd is the final companion to add to your team :)
             Companion companionToAdd = newCompanion;
@@ -363,10 +364,17 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         }
     }
 
-    private int GetRerollCost(){
-        return ProgressManager.Instance.IsFeatureEnabled(AscensionType.COSTLY_REROLLS)
-                ? shopEncounter.shopData.rerollShopPrice + timesRerolledThisShop
-                : shopEncounter.shopData.rerollShopPrice;
+    private int GetRerollCost()
+    {
+        if (!ProgressManager.Instance.IsFeatureEnabled(AscensionType.COSTLY_REROLLS)) return shopEncounter.shopData.rerollShopPrice;
+
+        var baseIncrease = (int) ProgressManager.Instance.GetAscensionSO(AscensionType.COSTLY_REROLLS).
+            ascensionModificationValues.GetValueOrDefault("baseCostIncrease", 0f);
+
+        var incIncrease = (int) ProgressManager.Instance.GetAscensionSO(AscensionType.COSTLY_REROLLS).
+            ascensionModificationValues.GetValueOrDefault("incrementalCostIncrease", 1f);
+
+        return shopEncounter.shopData.rerollShopPrice + baseIncrease + incIncrease * timesRerolledThisShop;
     }
 
     private void rerollShop()

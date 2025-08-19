@@ -15,4 +15,7 @@ MonoBehaviour:
   description: Deadlier Enemies
   devDescription: Enemies start combat with one additional strength
   ascensionType: 0
-  modificationValue: 1
+  ascensionModificationValues:
+    entries:
+    - Key: extraStrength
+      Value: 1

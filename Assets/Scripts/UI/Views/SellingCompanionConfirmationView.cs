@@ -67,6 +67,10 @@ public class SellingCompanionConfirmationView {
             sellValue.sellValueFromCardsBought,
             sellValue.sellValueFromCardsRemoved
         );
+        if (ProgressManager.Instance.IsFeatureEnabled(AscensionType.WORSE_RATES_FOR_REBORN_RATS))
+        {
+            breakdownReplacedText += $"\n-{sellValue.sellValueReductionFromDeaths} gold from the companion dying {sellValue.numDeaths} times";
+        }
         sellCompanionBreakdownLabel.text = breakdownReplacedText;
         // Enable focusables
         FocusManager.Instance.EnableFocusableTarget(sellingYes.AsFocusable());

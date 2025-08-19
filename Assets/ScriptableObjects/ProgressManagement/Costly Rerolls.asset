@@ -16,3 +16,10 @@ MonoBehaviour:
   devDescription: Within each individual shop, rerolling costs $1 extra each time
     you reroll.
   ascensionType: 6
+  modificationValue: 0
+  ascensionModificationValues:
+    entries:
+    - Key: incrementalCostIncrease
+      Value: 1
+    - Key: baseCostIncrease
+      Value: 0

@@ -161,8 +161,7 @@ public class ShopEncounter : Encounter
         dist.PrintCardDistribution();
         List<CardInShopWithPrice> chosen = dist.ChooseWithoutReplacement(shopLevel.numCardsToShow);
         foreach (CardInShopWithPrice z in chosen) {
-            // TODO add price increases to % of cards here
-            int bonusCost = AddBonusCost();
+            int bonusCost = AddBonusCardCost();
             z.price += bonusCost;
             z.increasedPrice = bonusCost > 0;
             cardsInShop.Add(z);
@@ -214,7 +213,7 @@ public class ShopEncounter : Encounter
                 // "Scarcity" mechanic; we reduce the number of companions
                 // available by removing the keepsake count after pool.
                 int keepsakeCopies = ProgressManager.Instance.IsFeatureEnabled(AscensionType.SCARCE_SHOPS)
-                    ? shopData.numKeepsakeCopies - (int)ProgressManager.Instance.GetAscensionSO(AscensionType.SCARCE_SHOPS).modificationValue
+                    ? shopData.numKeepsakeCopies - (int)ProgressManager.Instance.GetAscensionSO(AscensionType.SCARCE_SHOPS).ascensionModificationValues.GetValueOrDefault("numReduced", 3f)
                     : shopData.numKeepsakeCopies;
                 int numAvailable = keepsakeCopies - numCompanionsOfType(keepsakesOutOfPool, c);
                 // in the case, where we exhaust all the companions of a given type, let there
@@ -228,7 +227,7 @@ public class ShopEncounter : Encounter
             int number = UnityEngine.Random.Range(0, companionSampleDist.Count);
             CompanionTypeSO selected = companionSampleDist[number];
             CompanionInShopWithPrice keepsake = new CompanionInShopWithPrice(selected, shopData.companionKeepsakePrice);
-            int bonusCost = AddBonusCost();
+            int bonusCost = AddBonusRatCost();
             keepsake.price += bonusCost;
             if (bonusCost > 0) keepsake.increasedPrice = true;
             companionsInShop.Add(keepsake);
@@ -236,11 +235,27 @@ public class ShopEncounter : Encounter
         }
     }
 
-    private int AddBonusCost()
+    private int AddBonusRatCost()
     {
-        return ProgressManager.Instance.IsFeatureEnabled(AscensionType.STINGY_CONCIERGE) && UnityEngine.Random.Range(0f, 1f) < 0.25f
-            ? (int)ProgressManager.Instance.GetAscensionSO(AscensionType.STINGY_CONCIERGE).modificationValue
-            : 0;
+        if (!ProgressManager.Instance.IsFeatureEnabled(AscensionType.STINGY_CONCIERGE)) return 0;
+
+        var ratio = ProgressManager.Instance.GetAscensionSO(AscensionType.STINGY_CONCIERGE).
+            ascensionModificationValues.GetValueOrDefault("expensiveRatRatio", 0.25f);
+        if (UnityEngine.Random.Range(0f, 1f) >= ratio) return 0;
+
+        return (int) ProgressManager.Instance.GetAscensionSO(AscensionType.STINGY_CONCIERGE).
+            ascensionModificationValues.GetValueOrDefault("costIncrease", 1f);
+    }
+    private int AddBonusCardCost()
+    {
+        if (!ProgressManager.Instance.IsFeatureEnabled(AscensionType.STINGY_CONCIERGE)) return 0;
+
+        var ratio = ProgressManager.Instance.GetAscensionSO(AscensionType.STINGY_CONCIERGE).
+            ascensionModificationValues.GetValueOrDefault("expensiveCardRatio", 0.25f);
+        if (UnityEngine.Random.Range(0f, 1f) >= ratio) return 0;
+
+        return (int) ProgressManager.Instance.GetAscensionSO(AscensionType.STINGY_CONCIERGE).
+            ascensionModificationValues.GetValueOrDefault("costIncrease", 1f);
     }
 
     private int numCompanionsOfType(List<CompanionTypeSO> companions, CompanionTypeSO companionType)

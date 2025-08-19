@@ -234,7 +234,9 @@ public class ShopViewController : MonoBehaviour,
                 slotNotHighlightColor,
                 slotHighlightColor,
                 slotUnavailableColor);
-            if (ProgressManager.Instance.IsFeatureEnabled(AscensionType.REDUCED_BENCH_CAPACITY) && i >= ProgressManager.Instance.GetAscensionSO(AscensionType.REDUCED_BENCH_CAPACITY).modificationValue) {
+            if (ProgressManager.Instance.IsFeatureEnabled(AscensionType.REDUCED_BENCH_CAPACITY) &&
+                i >= ProgressManager.Instance.GetAscensionSO(AscensionType.REDUCED_BENCH_CAPACITY).
+                ascensionModificationValues.GetValueOrDefault("numSlots", 3f)) {
                 slotView.SetBlocked();
             }
             else {
@@ -933,7 +935,7 @@ public class ShopViewController : MonoBehaviour,
         {
             StopCoroutine(waitAndHideMessageCoroutine);
         }
-            
+
         genericMessageBox.style.visibility = Visibility.Visible;
         genericMessageBox.Q<Label>().text = text;
         waitAndHideMessageCoroutine = WaitAndHideMessageBox(time);
@@ -1125,13 +1127,13 @@ public class ShopViewController : MonoBehaviour,
             float xTooltipPos = element.worldBound.center.x - (element.resolvedStyle.width * 1.25f);
             float yTooltipPos = element.worldBound.center.y + (element.resolvedStyle.height * .4f);
             Vector3 position = new Vector3(xTooltipPos, yTooltipPos, 0);
-            
+
             tooltipPosition = UIDocumentGameObjectPlacer.GetWorldPositionFromUIDocumentPosition(position);
         } else {
             float xTooltipPos = element.worldBound.center.x - (element.resolvedStyle.width * 1f);
             float yTooltipPos = element.worldBound.center.y + (element.resolvedStyle.height * .1f);
             Vector3 position = new Vector3(xTooltipPos, yTooltipPos, 0);
-            
+
             tooltipPosition = UIDocumentGameObjectPlacer.GetWorldPositionFromUIDocumentPosition(position);
         }
         GameObject uiDocToolTipPrefab = Instantiate(shopManager.tooltipPrefab, tooltipPosition, new Quaternion());
@@ -1147,7 +1149,7 @@ public class ShopViewController : MonoBehaviour,
 
     public void DestroyTooltip(VisualElement element) {
         if (!element.HasUserData<List<TooltipView>>()) return;
- 
+
         List<TooltipView> tooltips = element.GetUserData<List<TooltipView>>();
         List<TooltipView> tooltipsToDestroy = new List<TooltipView>(tooltips);
         foreach (TooltipView tooltipView in tooltipsToDestroy) {
