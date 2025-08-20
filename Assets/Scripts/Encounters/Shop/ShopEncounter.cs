@@ -83,17 +83,21 @@ public class ShopEncounter : Encounter
             List<Companion> companionList,
             EncounterConstantsSO constants,
             ShopLevel shopLevel,
-            bool USE_NEW_SHOP) {
+            bool USE_NEW_SHOP)
+    {
         this.shopManager = shopManager;
         this.encounterConstants = constants;
         this.encounterType = EncounterType.Shop;
         // UIDocumentHoverableInstantiator.Instance.CleanupAllHoverables();s
         validateShopData();
         generateShopEncounter(shopLevel, companionList);
-        if (USE_NEW_SHOP) {
+        if (USE_NEW_SHOP)
+        {
             cardsInShop.ForEach(card => shopManager.shopViewController.AddCardToShopView(card));
             companionsInShop.ForEach(companion => shopManager.shopViewController.AddCompanionToShopView(companion));
-        } else {
+        }
+        else
+        {
             setupCards();
             setupKeepsakes();
         }

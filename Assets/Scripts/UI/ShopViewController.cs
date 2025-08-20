@@ -245,7 +245,17 @@ public class ShopViewController : MonoBehaviour,
         }
     }
 
-    private void SetupMap(IEncounterBuilder encounterBuilder) {
+    public VisualElement GetBenchSlotVE(int i)
+    {
+        if (i < 0 || i >= benchSlots.Count)
+        {
+            return null;
+        }
+        return benchSlots[i].root;
+    }
+
+    private void SetupMap(IEncounterBuilder encounterBuilder)
+    {
         mapContainer.Clear();
         /*Label mapTitle = new Label();
         mapTitle.AddToClassList("map-title");
@@ -375,7 +385,25 @@ public class ShopViewController : MonoBehaviour,
         }
     }
 
-    public void RerollButtonOnClick(ClickEvent evt) {
+    public void RefreshCompanionViews()
+    {
+        foreach (CompanionManagementSlotView slotView in activeSlots) {
+            if (slotView.companionManagementView != null)
+            {
+                slotView.companionManagementView.UpdateView();
+            }
+        }
+        foreach (CompanionManagementSlotView slotView in benchSlots)
+        {
+            if (slotView.companionManagementView != null)
+            {
+                slotView.companionManagementView.UpdateView();
+            }
+        }
+    }
+
+    public void RerollButtonOnClick(ClickEvent evt)
+    {
         shopManager.ProcessRerollShopClick();
     }
 

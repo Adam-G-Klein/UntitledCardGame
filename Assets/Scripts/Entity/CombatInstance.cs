@@ -102,7 +102,7 @@ public class CombatInstance : MonoBehaviour
         }
         if (parentType == CombatInstanceParent.COMPANION && (statusEffect == StatusEffectType.Strength || statusEffect == StatusEffectType.TemporaryStrength)) {
             PlayerHand.Instance.UpdatePlayableCards(GetCompanionInstance().deckInstance);
-        } 
+        }
         if (statusEffect == StatusEffectType.BonusBlock)
         {
             statusEffects[StatusEffectType.Defended] += scale;
@@ -193,12 +193,11 @@ public class CombatInstance : MonoBehaviour
                 if (shouldShake) AddShake(damageTaken);
                 break;
             case CombatEffect.Heal:
-                int updatedHealth = Mathf.Min(combatStats.getCurrentHealth() + scale, combatStats.maxHealth);
-                if (updatedHealth - combatStats.getCurrentHealth() > 0)
+                int diff = Heal(scale);
+                if (diff > 0)
                 {
                     StartCoroutine(CombatEntityManager.Instance.OnHeal(this));
                 }
-                combatStats.setCurrentHealth(updatedHealth);
                 break;
             case CombatEffect.DrawFrom:
                 // This no longer needs to be here, completely handled by DeckInstance
@@ -248,33 +247,54 @@ public class CombatInstance : MonoBehaviour
         return combatStats.getCurrentHealth() == 0 ? 0 : damageAfterDefense;
     }
 
-    private int DamageAfterDefense(CombatEffect combatEffect, int damage) {
+    private int Heal(int scale)
+    {
+        if (scale < 0)
+        {
+            Debug.LogWarning("Negative healing by " + scale + " is not supported");
+            return 0;
+        }
+        int updatedHealth = Mathf.Min(combatStats.getCurrentHealth() + scale, combatStats.maxHealth);
+        int diff = updatedHealth - combatStats.getCurrentHealth();
+        combatStats.setCurrentHealth(updatedHealth);
+        return diff;
+    }
+
+    private int DamageAfterDefense(CombatEffect combatEffect, int damage)
+    {
         // Invulnerability removal is handled at end of turn
         if (statusEffects[StatusEffectType.Invulnerability] > 0)
             return 0;
 
         // This is commonly used for pay HP as a cost cards.
-        if (combatEffect == CombatEffect.FixedDamageThatIgnoresBlock) {
+        if (combatEffect == CombatEffect.FixedDamageThatIgnoresBlock)
+        {
             return damage;
         }
 
-        if (statusEffects[StatusEffectType.PlatedArmor] > 0) {
+        if (statusEffects[StatusEffectType.PlatedArmor] > 0)
+        {
             // We have plated armor, so set damage and remove 1 armor
             damage = 0;
             statusEffects[StatusEffectType.PlatedArmor] -= 1;
         }
 
         // No block, so just taking full damage
-        if(statusEffects[StatusEffectType.Defended] == 0)
+        if (statusEffects[StatusEffectType.Defended] == 0)
             return damage;
 
-        if (statusEffects[StatusEffectType.Defended] > damage) {
+        if (statusEffects[StatusEffectType.Defended] > damage)
+        {
             statusEffects[StatusEffectType.Defended] -= damage;
             damage = 0;
-        } else if (statusEffects[StatusEffectType.Defended] < damage) {
+        }
+        else if (statusEffects[StatusEffectType.Defended] < damage)
+        {
             damage -= statusEffects[StatusEffectType.Defended];
             statusEffects[StatusEffectType.Defended] = 0;
-        } else {
+        }
+        else
+        {
             statusEffects[StatusEffectType.Defended] = 0;
             damage = 0;
         }

@@ -20,7 +20,7 @@ public class CompanionManagementView : IControlsReceiver {
     private CompanionView companionView;
 
     private bool draggingThisCompanion = false;
-    
+
     private bool isSellingDisabled = false;
 
     public CompanionManagementView(Companion companion, VisualTreeAsset template, ICompanionManagementViewDelegate viewDelegate) {
@@ -110,7 +110,7 @@ public class CompanionManagementView : IControlsReceiver {
     private void CreateViewDeckButton() {
         if (viewDeckButton != null) {
             viewDeckButton.RemoveFromHierarchy();
-        } 
+        }
         viewDeckButton = new IconButton();
         viewDeckButton.AddToClassList("shopButton");
         viewDeckButton.AddToClassList("companion-view-deck-button");
@@ -186,9 +186,16 @@ public class CompanionManagementView : IControlsReceiver {
         parent.RegisterCallback<PointerMoveEvent>(BoundingBoxParentOnPointerMove);
     }
 
+    public void UpdateView()
+    {
+        companionView.UpdateView();
+    }
 
-    private void BoundingBoxParentOnPointerMove(PointerMoveEvent evt) {
-        if (!companionBoundingBox.worldBound.Contains(evt.position)) {
+
+    private void BoundingBoxParentOnPointerMove(PointerMoveEvent evt)
+    {
+        if (!companionBoundingBox.worldBound.Contains(evt.position))
+        {
             RemoveCompanionHoverButtons();
         }
     }
@@ -200,7 +207,7 @@ public class CompanionManagementView : IControlsReceiver {
             sellCompanionButton = null;
         }
         if (viewDeckButton != null) {
-            viewDeckButton.style.visibility = Visibility.Hidden; 
+            viewDeckButton.style.visibility = Visibility.Hidden;
             viewDeckButton.RemoveFromHierarchy();
             viewDeckButton = null;
         }

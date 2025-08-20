@@ -25,6 +25,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     public GameObject moneySpentPrefab;
     public GameObject shopRerollPrefab;
     public GameObject shopUpgradePrefab;
+    public GameObject healPrefab;
 
     private ShopEncounter shopEncounter;
     private ShopLevel shopLevel;
@@ -90,9 +91,30 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         StartCoroutine(DelayedSetupUnitManagement());
     }
 
-    private IEnumerator DelayedSetupUnitManagement() {
+    private IEnumerator DelayedSetupUnitManagement()
+    {
         yield return new WaitForEndOfFrame();
         shopViewController.RebuildUnitManagement(gameState.companions);
+
+        // Heal the companions on the bench.
+        yield return new WaitForEndOfFrame();
+        if (shopEncounter.shopData.benchHealingAmount > 0)
+        {
+            HealCompanionsOnBench();
+        }
+    }
+
+    private void HealCompanionsOnBench()
+    {
+        for (int i = 0; i < gameState.companions.benchedCompanions.Count; i++)
+        {
+            Companion rat = gameState.companions.benchedCompanions[i];
+            int scale = shopEncounter.shopData.benchHealingAmount;
+            int updatedHealth = Mathf.Min(rat.combatStats.getCurrentHealth() + scale, rat.combatStats.maxHealth);
+            rat.combatStats.setCurrentHealth(updatedHealth);
+            InstantiateShopVFX(healPrefab, shopViewController.GetBenchSlotVE(i), 1.1f);
+        }
+        shopViewController.RefreshCompanionViews();
     }
 
     void Update() {

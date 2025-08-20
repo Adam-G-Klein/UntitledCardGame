@@ -37,9 +37,9 @@ public class ShopDataSO : ScriptableObject
     public int goldEarnedPerBattle;
     public float interestRate;
     public int interestCap;
+    [Header("Neutral cards")]
 
     public CardPoolSO neutralCardPool;
-    public Sprite neutralCardPoolShopIcon;
 
     [Header("Selling the companions in the shop")]
 
@@ -50,9 +50,15 @@ public class ShopDataSO : ScriptableObject
     [Header("Upgrade parameters")]
     public List<CardType> baseCardsToRemoveOnUpgrade;
 
-    public ShopLevel GetShopLevel(int level) {
-        foreach (ShopLevel shopLevel in shopLevels) {
-            if (shopLevel.level == level) {
+    [Header("Controlling healing on the bench")]
+    public int benchHealingAmount;
+
+    public ShopLevel GetShopLevel(int level)
+    {
+        foreach (ShopLevel shopLevel in shopLevels)
+        {
+            if (shopLevel.level == level)
+            {
                 return shopLevel;
             }
         }
