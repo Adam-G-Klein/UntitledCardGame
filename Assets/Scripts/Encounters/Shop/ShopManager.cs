@@ -40,6 +40,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     private Companion newCompanion;
     public GameObject tooltipPrefab;
     private int timesRerolledThisShop = 0;
+    private bool healedCompanions;
     private int availableBenchSlots;
     public int AvailableBenchSlots {
         get { return availableBenchSlots; }
@@ -62,6 +63,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         companionCombinationManager = GetComponent<CompanionCombinationManager>();
         availableBenchSlots = ProgressManager.Instance.IsFeatureEnabled(AscensionType.WORSE_BENCH) ? (int)ProgressManager.Instance.GetAscensionSO(AscensionType.WORSE_BENCH).
             ascensionModificationValues.GetValueOrDefault("numSlots", 3f) : 5;
+        healedCompanions = false;
     }
 
     public void BuildShopEncounter(ShopEncounter shopEncounter) {
@@ -96,11 +98,12 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         yield return new WaitForEndOfFrame();
         shopViewController.RebuildUnitManagement(gameState.companions);
 
-        // Heal the companions on the bench.
-        yield return new WaitForEndOfFrame();
-        if (shopEncounter.shopData.benchHealingAmount > 0)
+        // Heal the companions on the bench if it's the first time this shop.
+        if (!healedCompanions)
         {
+            yield return new WaitForEndOfFrame();
             HealCompanionsOnBench();
+            healedCompanions = true;
         }
     }
 
