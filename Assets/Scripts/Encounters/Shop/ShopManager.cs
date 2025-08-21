@@ -60,7 +60,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     void Start()
     {
         companionCombinationManager = GetComponent<CompanionCombinationManager>();
-        availableBenchSlots = ProgressManager.Instance.IsFeatureEnabled(AscensionType.REDUCED_BENCH_CAPACITY) ? (int)ProgressManager.Instance.GetAscensionSO(AscensionType.REDUCED_BENCH_CAPACITY).
+        availableBenchSlots = ProgressManager.Instance.IsFeatureEnabled(AscensionType.WORSE_BENCH) ? (int)ProgressManager.Instance.GetAscensionSO(AscensionType.WORSE_BENCH).
             ascensionModificationValues.GetValueOrDefault("numSlots", 3f) : 5;
     }
 
@@ -106,10 +106,16 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
     private void HealCompanionsOnBench()
     {
+        int scale = shopEncounter.shopData.benchHealingAmount;
+        if (ProgressManager.Instance.IsFeatureEnabled(AscensionType.WORSE_BENCH))
+        {
+            scale -= (int)ProgressManager.Instance.GetAscensionSO(AscensionType.WORSE_BENCH).
+                ascensionModificationValues.GetValueOrDefault("healingReduction", 0f);
+        }
+        scale = Math.Max(scale, 0);
         for (int i = 0; i < gameState.companions.benchedCompanions.Count; i++)
         {
             Companion rat = gameState.companions.benchedCompanions[i];
-            int scale = shopEncounter.shopData.benchHealingAmount;
             int updatedHealth = Mathf.Min(rat.combatStats.getCurrentHealth() + scale, rat.combatStats.maxHealth);
             rat.combatStats.setCurrentHealth(updatedHealth);
             InstantiateShopVFX(healPrefab, shopViewController.GetBenchSlotVE(i), 1.1f);

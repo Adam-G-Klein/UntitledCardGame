@@ -234,8 +234,8 @@ public class ShopViewController : MonoBehaviour,
                 slotNotHighlightColor,
                 slotHighlightColor,
                 slotUnavailableColor);
-            if (ProgressManager.Instance.IsFeatureEnabled(AscensionType.REDUCED_BENCH_CAPACITY) &&
-                i >= ProgressManager.Instance.GetAscensionSO(AscensionType.REDUCED_BENCH_CAPACITY).
+            if (ProgressManager.Instance.IsFeatureEnabled(AscensionType.WORSE_BENCH) &&
+                i >= ProgressManager.Instance.GetAscensionSO(AscensionType.WORSE_BENCH).
                 ascensionModificationValues.GetValueOrDefault("numSlots", 3f)) {
                 slotView.SetBlocked();
             }
