@@ -13,14 +13,43 @@ public class EnemyIntentArrowsController : MonoBehaviour
     private List<TargettingArrow> arrows = new List<TargettingArrow>();
     private TargettingArrow currentArrow;
     private EnemyInstance enemyInstance;
+    [Space]
+    [Header("Controls for how the targetting arrows behave")]
+    [SerializeField]
+    private float leftRightScreenPlacementPercent = 1;
+    [Header("The amount of bend that's added to arrowBend1 if leftRightScreenPlacementPercent is 1.\nWill be ignored if leftRightScreenPlacementPercent is 0")]
+    [SerializeField]
+    private Vector3 leftRightArrowBendMod1 = new Vector3(0, 0.1f, 0.1f);
+    [Header("The amount of bend that's added to arrowBend2 if leftRightScreenPlacementPercent is 1.\nWill be ignored if leftRightScreenPlacementPercent is 0")]
+    [SerializeField]
+    private Vector3 leftRightArrowBendMod2 = new Vector3(0, -0.1f, 0.1f);
 
+    [SerializeField]
+    private Vector3 arrowRootOffset = Vector3.zero;
+    [SerializeField]
+    [Header("The 1/3rd point of the arrow will pass through the point that is\nLerp(root, followMouse, 0.33) + arrowBend1\nThe value here changes based on leftRightScreenPlacementPercent")]
+    private Vector3 arrowBend1 = Vector3.zero;
+    [SerializeField]
+    [Header("The 2/3rd point of the arrow will pass through the point that is\nLerp(root, followMouse, 0.66) + arrowBend2\nThe value here changes based on leftRightScreenPlacementPercent")]
+    private Vector3 arrowBend2 = Vector3.zero;
+    [SerializeField]
+    private Vector3 targetPositionOffset = new Vector3(0, -1, 0);
 
     void Start(){
         enemyInstance = GetComponentInParent<EnemyInstance>();
     }
 
-    public void updateArrows(EnemyIntent intent) {
-        if (intent.targets.Count == 0 || intent.targets[0] == null) {
+    public void Setup(float leftRightScreenPlacementPercent)
+    {
+        this.leftRightScreenPlacementPercent = leftRightScreenPlacementPercent;
+        arrowBend1 = arrowBend1 + (leftRightArrowBendMod1 * leftRightScreenPlacementPercent);
+        arrowBend2 = arrowBend2 + (leftRightArrowBendMod2 * leftRightScreenPlacementPercent);
+    }
+
+    public void updateArrows(EnemyIntent intent)
+    {
+        if (intent.targets.Count == 0 || intent.targets[0] == null)
+        {
             return;
         }
         Debug.Log("Updating arrows, intent was: " + intent + " and targets count was: " + intent.targets.Count + " target pos: " + intent.targets[0].transform.position);
@@ -33,8 +62,9 @@ public class EnemyIntentArrowsController : MonoBehaviour
         // Todo: set of colors for enemy intent arrows
         setArrowColor(newArrow, new List<EntityType>(){EntityType.Enemy});
         newArrow.transform.position = enemyInstance.transform.position;
-        newArrow.setAllChildrenPosition(enemyInstance.transform.position);
-        newArrow.freeze(target);
+        newArrow.SetArrowBends(arrowBend1, arrowBend2);
+        newArrow.setAllChildrenPosition(enemyInstance.transform.position + arrowRootOffset);
+        newArrow.freeze(target, targetPositionOffset);
         return newArrow;
     }
 

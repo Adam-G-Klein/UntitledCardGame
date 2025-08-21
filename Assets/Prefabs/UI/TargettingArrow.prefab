@@ -206,9 +206,12 @@ MonoBehaviour:
   linerenderer: {fileID: 0}
   vertexCount: 12
   Zpos: 0.0276063
-  bendY: 2
+  arrowBend1: {x: 0, y: 0, z: 0}
+  arrowBend2: {x: 0, y: 0, z: 0}
+  targetPositionOffset: {x: 0, y: 0, z: 0}
   frozen: 0
   selfTargetBulge: 1
+  divideBendByLength: 0
 --- !u!1 &2720080294428696679
 GameObject:
   m_ObjectHideFlags: 0

@@ -218,6 +218,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   colors: {fileID: 11400000, guid: 0e1a20d3aee811141b41ded0ebefd9ca, type: 2}
   arrowPrefab: {fileID: 2592847280397825042, guid: c46d94ec1b401534cb7d61b1a8a9f64e, type: 3}
+  arrowRootOffset: {x: 0, y: -1, z: 0}
+  arrowBend1: {x: 0, y: 0, z: 0}
+  arrowBend2: {x: 0, y: 0, z: 0}
+  targetPositionOffset: {x: 0, y: 1, z: 0}
+  leftRightScreenPlacementPercent: 1
+  leftRightArrowBendMod1: {x: 0, y: -1, z: 0.1}
+  leftRightArrowBendMod2: {x: 0, y: 1, z: 0.1}
 --- !u!114 &4656613037726695331
 MonoBehaviour:
   m_ObjectHideFlags: 0

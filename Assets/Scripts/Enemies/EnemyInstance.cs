@@ -31,7 +31,7 @@ public class EnemyInstance : MonoBehaviour, IUIEntity {
 
     private Dictionary<EnemyBrain, ValueTuple<int, int>> behaviorIndices = new();
 
-    public void Setup(WorldPositionVisualElement placement, Enemy enemy) {
+    public void Setup(WorldPositionVisualElement placement, Enemy enemy, float leftRightScreenPlacementPercent) {
         this.enemy = enemy;
         gameObject.name = enemy.enemyType.name;
         CombatEntityManager.Instance.registerEnemy(this);
@@ -39,7 +39,7 @@ public class EnemyInstance : MonoBehaviour, IUIEntity {
         this.enemyPillarUIController = GetComponent<EnemyPillarUIController>();
         this.placement = placement;
         dead = false;
-        enemyPillarUIController.Setup(this, placement);
+        enemyPillarUIController.Setup(this, leftRightScreenPlacementPercent, placement);
         combatInstance.Setup(enemy.combatStats, enemy, CombatInstance.CombatInstanceParent.ENEMY, placement, this.enemy.enemyType.cacheValueConfigs);
         Debug.Log("EnemyInstance Start for enemy " + enemy.id + " initialized with combat stats (health): " + combatInstance.combatStats.getCurrentHealth());
         combatInstance.SetId(enemy.id);

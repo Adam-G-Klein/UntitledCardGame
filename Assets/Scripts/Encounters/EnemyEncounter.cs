@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem.Interactions;
 using UnityEngine.UIElements;
 
 [System.Serializable]
@@ -75,7 +76,7 @@ public class EnemyEncounter : Encounter
                 encounterConstants.enemyPrefab,
                 newEnemyPlacement.worldPos,
                 encounterBuilder.transform);
-            newEnemy.Setup(newEnemyPlacement, enemyList[i]);
+            newEnemy.Setup(newEnemyPlacement, enemyList[i], (float) i / enemyList.Count);
             createdEnemies.Add(newEnemy);
             placer.addMapping(newEnemyPlacement, newEnemy.gameObject);
         }
