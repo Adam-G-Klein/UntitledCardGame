@@ -14,29 +14,46 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   locked: 0
   Value:
-    rid: 1744193137105961240
+    rid: 8370007468835864580
   references:
     version: 2
     RefIds:
-    - rid: 1744193137105961240
-      type: {class: ShopEncounter, ns: , asm: Assembly-CSharp}
+    - rid: 8370007468835864580
+      type: {class: EnemyEncounter, ns: , asm: Assembly-CSharp}
       data:
-        id: 1fd8d822-8d9f-4fcc-be4e-b2beb4ae4da5
+        id: a169ef81-4c1e-4abb-b6aa-8cf843df590f
         isCompleted: 0
-        shopData: {fileID: 11400000, guid: 64b1d5221aac20348909c6cab7cc24d6, type: 2}
-        cardsInShop:
-        - cardType: {fileID: 11400000, guid: 2d94693b7bfef4f3aa6db7b9dac77c63, type: 2}
-          price: 1
-          sourceCompanion: {fileID: 0}
-          rarity: 1
-        - cardType: {fileID: 11400000, guid: f308041f561b54adaaef9c8368369e1c, type: 2}
-          price: 1
-          sourceCompanion: {fileID: 0}
-          rarity: 2
-        - cardType: {fileID: 11400000, guid: 1b888846ca6cb45b69eea014dd6d885b, type: 2}
-          price: 1
-          sourceCompanion: {fileID: 0}
-          rarity: 1
-        companionsInShop:
-        - companionType: {fileID: 11400000, guid: e80bed6b977594eb1b8a6fcf030f5300, type: 2}
-          price: 3
+        isEliteEncounter: 0
+        enemyList:
+        - id: cc489e4b-acd7-4a05-9ef8-2314d732df60
+          entityType: 1
+          enemyType: {fileID: 11400000, guid: afa8d3a34e51a4a3eb9f1d8f17002c8c, type: 2}
+          combatStats:
+            maxHealth: 35
+            maxHealthBuffs: 0
+            currentHealth: 35
+            baseAttackDamage: 0
+        - id: 721130d2-14cc-4f20-b637-81370a6b3318
+          entityType: 1
+          enemyType: {fileID: 11400000, guid: 05b81b2d9c9c94a23849ec9f08f59eed, type: 2}
+          combatStats:
+            maxHealth: 50
+            maxHealthBuffs: 0
+            currentHealth: 50
+            baseAttackDamage: 0
+        - id: asljdk
+          entityType: 1
+          enemyType: {fileID: 11400000, guid: 05b81b2d9c9c94a23849ec9f08f59eed, type: 2}
+          combatStats:
+            maxHealth: 50
+            maxHealthBuffs: 0
+            currentHealth: 50
+            baseAttackDamage: 0
+        - id: asslkks
+          entityType: 1
+          enemyType: {fileID: 11400000, guid: 05b81b2d9c9c94a23849ec9f08f59eed, type: 2}
+          combatStats:
+            maxHealth: 50
+            maxHealthBuffs: 0
+            currentHealth: 45
+            baseAttackDamage: 0

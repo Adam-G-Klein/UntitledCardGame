@@ -13,14 +13,14 @@ public class EnemyPillarUIController : MonoBehaviour
     [SerializeField] private EnemyIntentDisplay enemyIntentDisplay;
     public EnemyInstance enemyInstance;
 
-    public void Setup(EnemyInstance enemyInstance, WorldPositionVisualElement wpve) {
+    public void Setup(EnemyInstance enemyInstance, float leftRightScreenPlacementPercent, WorldPositionVisualElement wpve) {
         Debug.Log("Setting up UI for " + enemyInstance.name);
         this.enemyInstance = enemyInstance;
         // TODO: add this back here
         //this.statusEffectsController.Setup(enemyInstance.combatInstance);
         // 
         enemyIntentDisplay = GetComponent<EnemyIntentDisplay>();
-        this.enemyIntentDisplay.Setup(enemyInstance);
+        this.enemyIntentDisplay.Setup(enemyInstance, leftRightScreenPlacementPercent);
     }
 
 }

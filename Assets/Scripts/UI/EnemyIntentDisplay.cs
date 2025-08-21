@@ -29,10 +29,11 @@ public class EnemyIntentDisplay : MonoBehaviour
 
     private CombatEntityTrigger onCompanionDeathTrigger;
 
-    public void Setup(EnemyInstance enemyInstance) {
+    public void Setup(EnemyInstance enemyInstance, float leftRightScreenPlacementPercent) {
         Debug.Log("Setting up enemy intent display for " + enemyInstance.name);
         this.enemyInstance = enemyInstance;
         this.arrowController = GetComponent<EnemyIntentArrowsController>();
+        arrowController.Setup(leftRightScreenPlacementPercent);
         turnManager = TurnManager.Instance;
         StartCoroutine(SetupUIDocumentElementsWhenReady());
         combatEntityManager = CombatEntityManager.Instance;

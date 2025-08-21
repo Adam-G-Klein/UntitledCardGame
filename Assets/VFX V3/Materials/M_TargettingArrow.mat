@@ -90,6 +90,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _AlphaClip: 0
+    - _AlphaClipThreshold: 0
     - _AlphaToMask: 0
     - _Blend: 0
     - _CastShadows: 0
@@ -103,11 +104,12 @@ Material:
     - _Fade_Tex_Dissolve_Amount: 0.66
     - _Fade_Tex_Mask_Power: 1
     - _Fade_Tex_Pow: 1
+    - _FinalAlphaMultiply: 0
     - _Fresnel: 0
     - _Fresnel_Thickness: 2.11
     - _Lerp_Intensity: 0.2
-    - _Line_Thickness: 3.04
-    - _Mask_Power: 0.5
+    - _Line_Thickness: 2.99
+    - _Mask_Power: 0.57
     - _Mask_Strength: 1
     - _Not_using_Dist_in_Custom_Data: 0
     - _Offset: 10
@@ -128,11 +130,12 @@ Material:
     - _ZTest: 4
     - _ZWrite: 0
     - _ZWriteControl: 0
+    - _alpha_clip_threshold: 0.74
     m_Colors:
     - _Color: {r: 4, g: 4, b: 4, a: 1}
     - _Color_A: {r: 0.16981131, g: 0.16981131, b: 0.16981131, a: 1}
     - _Color_B: {r: 0.827451, g: 0.6862745, b: 0.21568628, a: 1}
-    - _Colour: {r: 1, g: 1, b: 1, a: 1}
+    - _Colour: {r: 1, g: 1, b: 1, a: 0.53333336}
     - _Dissolve_Speed: {r: -1, g: 0, b: 0, a: 0}
     - _Distortion_Speed: {r: -0.1, g: 0.001, b: 0, a: 0}
     - _Fade_Tex_Speed: {r: -0.05, g: 0.001, b: 0, a: 0}
