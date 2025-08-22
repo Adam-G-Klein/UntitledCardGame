@@ -43,7 +43,8 @@ MonoBehaviour:
     lines:
     - title: Level Two Entropy
       description: Transform 1 card into an exhaustable "Greek Fire" status card
-        at the end of combat.
+        at the end of combat. Whenever you exhaust a card, deal 3 damage to a random
+        enemy
       relatedBehaviorIndex: 0
     - title: Greek Fire
       description: 1. Exhaust. When exhausted, deal 5 damage to a random enemy.
@@ -68,7 +69,7 @@ MonoBehaviour:
       type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: DialogueStep
-        line: beep boop. preparing card destruction laser
+        line: Beep boop. Whose deck should I thin?
         lineTime: 2
     - rid: 205828032053380027
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -138,7 +139,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: target
         combatEffect: 14
-        scale: 2
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
