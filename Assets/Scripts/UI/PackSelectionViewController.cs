@@ -186,9 +186,15 @@ public class PackSelectionViewController : MonoBehaviour, IPackSlotViewDelegate
 
     private void HandlePacksSelected()
     {
-        if (ascensionsEnabled) {
+        if (ascensionsEnabled)
+        {
             gameState.ascensionLevel = ascensionIndex;
         }
+        else
+        {
+            gameState.ascensionLevel = -1;
+        }
+        Debug.Log("Ascensions enabled: " + ascensionsEnabled);
         selectPacksButton.SetEnabled(false);
         gameState.previouslySelectedPackSOs = selectedPackSOs;
         List<CompanionTypeSO> commonCompanions = new();
