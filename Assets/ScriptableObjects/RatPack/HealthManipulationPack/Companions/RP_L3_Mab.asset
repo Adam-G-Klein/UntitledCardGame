@@ -36,21 +36,18 @@ MonoBehaviour:
   abilitiesV2:
   - rid: 205828032053379076
   - rid: 2034230176448512383
-  - rid: 2034230176448512387
   level: 2
   upgradeTo: {fileID: 0}
   tooltip:
     empty: 0
     lines:
     - title: Level Three Mab
-      description: At the end of combat, heal adjacent companions 20 HP. Each turn,
-        adjacent companions lose 1 HP unless they would die. Whenever a companion
-        heals, give it 3 block
+      description: At the end of combat, give adjacent companions 5 max HP & heal
+        8 HP. Each turn, adjacent companions lose 1 HP unless they would die.
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: At the end of combat, heal adjacent companions 20 HP. Each
-    turn, adjacent companions lose 1 HP unless they would die. Whenever a companion
-    heals, give it 3 block
+  keepsakeDescription: At the end of combat, give adjacent companions 5 max HP &
+    heal 8 HP. Each turn, adjacent companions lose 1 HP unless they would die.
   references:
     version: 2
     RefIds:
@@ -61,6 +58,7 @@ MonoBehaviour:
         effectSteps:
         - rid: 205828032053379078
         - rid: 2034229587402555395
+        - rid: 8034950120506654907
         - rid: 2034230176448512382
     - rid: 205828032053379078
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -85,7 +83,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: adj
         combatEffect: 9
-        scale: 20
+        scale: 8
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
@@ -131,26 +129,6 @@ MonoBehaviour:
         effectStepName: GetAdjacentCompanions
         inputKey: self
         outputKey: adj
-    - rid: 2034230176448512387
-      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
-      data:
-        abilityTrigger: 15
-        effectSteps:
-        - rid: 2034230176448512388
-        - rid: 8034949815888773426
-        - rid: 2034230176448512390
-    - rid: 2034230176448512388
-      type: {class: EndWorkflowIfNoMapElement, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: EndWorkflowIfNoMapElement
-        keyToCheck: healedCompanion
-    - rid: 2034230176448512390
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: healedCompanion
-        prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
-        scale: 1
     - rid: 7401433059192472040
       type: {class: FilterEntityByHP, ns: , asm: Assembly-CSharp}
       data:
@@ -161,16 +139,12 @@ MonoBehaviour:
         useAbsoluteThreshold: 1
         outputKey: above1HP
         below: 0
-    - rid: 8034949815888773426
-      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+    - rid: 8034950120506654907
+      type: {class: PermanentStatIncrease, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: ApplyStatus
-        inputKey: healedCompanion
-        statusEffect: 2
-        scale: 3
+        effectStepName: PermanentStatIncrease
+        inputKey: adj
+        statIncreaseType: 1
+        scale: 5
         getScaleFromKey: 0
         inputScaleKey: 
-        multiplyByNumAuraStacks: 0
-        multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 

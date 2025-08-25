@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: RP_Start_Scramble
+  m_Name: RP_IronWill
   m_EditorClassIdentifier: 
-  guid: 5f49c2e7-8b9c-4c2e-bcc2-29712135a8b7
-  Name: Scramble
-  Description: Draw 2 cards from any. Create a "Wound" Status card in hand for them
+  guid: ccdf4006-debf-4a68-9104-af2b733bcc6f
+  Name: Iron Will
+  Description: Create 1 "Ironskin" Status card in hand for any, then exhaust a Status
+    card in hand
   defaultValues: []
-  Cost: 1
-  Artwork: {fileID: 21300000, guid: 5e40f858eddaed340a6366c33c4e216f, type: 3}
+  Cost: 0
+  Artwork: {fileID: 21300000, guid: 6cb44060d9d637b44a6b0567dd3ff92f, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
@@ -44,35 +45,15 @@ MonoBehaviour:
         inputKey: target
         prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
         scale: 1.5
-    - rid: 1289961959942521193
-      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: DrawCards
-        inputKey: target
-        outputKey: 
-        scale: 2
-        getScaleFromKey: 0
-        inputScaleKey: 
-    - rid: 1289961959942521257
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: self
-        validTargets: 
-        number: 1
-        specialTargetRule: 4
-        cantCancelTargetting: 0
     - rid: 5602892561590779943
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
         - rid: 5602892561590779944
-        - rid: 1289961959942521257
-        - rid: 8034949928137261057
+        - rid: 7401433558763438285
         - rid: 1274772082283774706
-        - rid: 1289961959942521193
+        - rid: 8034950120506654874
+        - rid: 8034950120506654875
     - rid: 5602892561590779944
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -84,16 +65,33 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
-    - rid: 8034949928137261057
+    - rid: 7401433558763438285
       type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: AddCardsToHand
         entityFromKey: target
         cardTypes:
-        - {fileID: 11400000, guid: a01e6780b2964496da60664e148acadb, type: 2}
+        - {fileID: 11400000, guid: 069ef7cf9fd524022b76bb3c147c3a90, type: 2}
         getCardsFromKey: 0
         inputCardsKey: 
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
         outputKey: 
+    - rid: 8034950120506654874
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: card
+        validTargets: 03000000
+        number: 1
+        specialTargetRule: 5
+        cantCancelTargetting: 1
+    - rid: 8034950120506654875
+      type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardInHandEffect
+        inputKey: card
+        effect: 1

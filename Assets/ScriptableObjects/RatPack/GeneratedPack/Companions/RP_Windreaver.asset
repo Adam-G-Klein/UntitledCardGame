@@ -25,13 +25,12 @@ MonoBehaviour:
   cardBack: {fileID: 21300000, guid: c08a02b0b1e86fb4b96393e9d8fb4714, type: 3}
   cardFrame: {fileID: 21300000, guid: 6cee2343f3114be45be30618b977bcb0, type: 3}
   cardTypeIconOverride: {fileID: 0}
-  rarity: 2
+  rarity: 1
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 0}
   genericCompanionVFX: {fileID: 0}
   cacheValueConfigs: []
   cardPool: {fileID: 11400000, guid: 345480ef663c54cdfbd4be4285e0a8d6, type: 2}
-  packCardPool: {fileID: 11400000, guid: fb4659890370a4ceda58d0967639becf, type: 2}
   pack: {fileID: 11400000, guid: 0d12b03c0c8754470a900cb4f78a9217, type: 2}
   speakerType: {fileID: 0}
   abilitiesV2:
@@ -43,11 +42,11 @@ MonoBehaviour:
     lines:
     - title: Windreaver
       description: At the end of turn, retain 1 Status card chosen at random. If
-        you have 2 or less Status cards in hand, give adjacent companions 4 block
+        you have 2 or less Status cards in hand, give adjacent companions 3 block
       relatedBehaviorIndex: 0
   keepsakeTitle: 
   keepsakeDescription: At the end of turn, retain 1 Status card chosen at random.
-    If you have 2 or less Status cards in hand, give adjacent companions 4 block
+    If you have 2 or less Status cards in hand, give adjacent companions 3 block
   references:
     version: 2
     RefIds:
@@ -143,7 +142,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: adj
         statusEffect: 2
-        scale: 4
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0

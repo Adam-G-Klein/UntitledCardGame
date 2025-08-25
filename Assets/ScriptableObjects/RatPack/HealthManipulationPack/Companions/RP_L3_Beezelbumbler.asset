@@ -49,11 +49,11 @@ MonoBehaviour:
     lines:
     - title: Level Three Beezelbumbler
       description: The first 2 times Beezelbumbler takes damage in combat, it gains
-        2 strength
+        3 strength
       relatedBehaviorIndex: 0
   keepsakeTitle: Bumbler's Deviltooth
   keepsakeDescription: The first 2 times Beezelbumbler takes damage in combat, it
-    gains 2 strength
+    gains 3 strength
   references:
     version: 2
     RefIds:
@@ -144,7 +144,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: self
         statusEffect: 0
-        scale: 2
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0

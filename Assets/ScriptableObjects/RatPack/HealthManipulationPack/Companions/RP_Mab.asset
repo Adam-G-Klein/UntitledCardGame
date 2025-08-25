@@ -42,11 +42,11 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Mab
-      description: At the end of combat, heal adjacent companions 8 HP. Each turn,
+      description: At the end of combat, heal adjacent companions 6 HP. Each turn,
         adjacent companions lose 1 HP unless they would die
       relatedBehaviorIndex: 0
   keepsakeTitle: Mab's Mercy
-  keepsakeDescription: At the end of combat, heal adjacent companions 8 HP. Each
+  keepsakeDescription: At the end of combat, heal adjacent companions 6 HP. Each
     turn, adjacent companions lose 1 HP unless they would die
   references:
     version: 2
@@ -99,7 +99,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: adj
         combatEffect: 9
-        scale: 8
+        scale: 6
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1

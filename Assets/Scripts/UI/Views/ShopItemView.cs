@@ -34,10 +34,7 @@ public class ShopItemView : IEntityViewDelegate {
 
         // Bit of a hack, but I don't feel like completely refactoring entity view right now
         Companion tempCompanion = new Companion(companion.companionType);
-        if (ProgressManager.Instance.IsFeatureEnabled(AscensionType.DAMAGED_COMPANIONS)) {
-            tempCompanion.combatStats.currentHealth -= (int)ProgressManager.Instance.GetAscensionSO(AscensionType.DAMAGED_COMPANIONS).ascensionModificationValues.GetValueOrDefault("healthReduction", 3f);
-        }
-
+        tempCompanion.combatStats.currentHealth -= companion.sustainedDamage;
         companionView = new CompanionView(tempCompanion, template, 0, CompanionView.SHOP_CONTEXT, this);
         companionView.ScaleView(0.75f);
         shopItemElement.Add(companionView.container);

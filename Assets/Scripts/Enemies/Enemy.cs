@@ -30,14 +30,8 @@ public class Enemy : Entity, ICombatStats, IUIEntity {
         if (enemyInstance.enemy.enemyType.morale == EnemyMorale.AdaptWhenAlone) {
             List<EnemyInstance> allEnemies = CombatEntityManager.Instance.getEnemies();
 
-            int unrelentingCount = 0;
-            for (int i = 0; i < allEnemies.Count; i++) {
-                if (allEnemies[i].enemy.enemyType.morale == EnemyMorale.Unrelenting) {
-                    unrelentingCount += 1;
-                }
-            }
-            if (unrelentingCount == 0) {
-                Debug.Log("No more unrelenting friends left. Time for the fallback plan.");
+            if (allEnemies.Count == 1) {
+                Debug.Log("No more friends left. Time for the fallback plan.");
                 return enemyInstance.ChooseIntent(enemyType.adaptWhenAloneEnemyPattern);
             }
         }

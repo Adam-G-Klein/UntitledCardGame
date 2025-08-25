@@ -19,7 +19,7 @@ MonoBehaviour:
   sprite: {fileID: -2013906114, guid: 52ef76537258f7d43a3a9dc144329c2f, type: 3}
   backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
   entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
-  morale: 0
+  morale: 1
   abilities:
   - rid: 205828126246961421
   - rid: 1289961934975926472
@@ -33,7 +33,7 @@ MonoBehaviour:
     setStartOfCombatValue: 0
   enemyPattern:
     behaviors:
-    - intent: 0
+    - intent: 1
       enemyTargetMethod: 0
       targetsKey: target
       displayValue: 4
@@ -46,7 +46,17 @@ MonoBehaviour:
     behaviors: []
     behaviorType: 0
   adaptWhenAloneEnemyPattern:
-    behaviors: []
+    behaviors:
+    - intent: 0
+      enemyTargetMethod: 0
+      targetsKey: target
+      displayValue: 10
+      effectSteps:
+      - rid: 8034950092883230785
+      - rid: 8034950092883230787
+      - rid: 8034950092883230786
+      - rid: 8034950092883230788
+      - rid: 8034950092883230789
     behaviorType: 0
   initialStatuses: []
   tooltip:
@@ -228,3 +238,52 @@ MonoBehaviour:
       data:
         effectStepName: WaitForSecondsEffect
         seconds: 0.8
+    - rid: 8034950092883230785
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 8034950092883230786
+      type: {class: ScriptableObjectEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ScriptableObjectEffectStep
+        effectStepSO: {fileID: 11400000, guid: 46ac36b880e2ff14aa699c90b6e9f19c, type: 2}
+    - rid: 8034950092883230787
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: target
+        combatEffect: 0
+        scale: 10
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 6137048663962808129, guid: 418a03ccd75ca98409952e0384c196fd, type: 3}
+    - rid: 8034950092883230788
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: self
+        statusEffect: 0
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+    - rid: 8034950092883230789
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 4bed509d0589dae4d922d8eeb61a6292, type: 3}
+        scale: 1

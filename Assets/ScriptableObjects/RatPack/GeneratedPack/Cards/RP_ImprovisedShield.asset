@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 09325321-fdbb-48cc-8910-2c4543112aa9
   Name: Improvised Shield
-  Description: Exhaust target Status card in hand and gain 7 block
+  Description: Retain. Exhaust target Status card in hand to gain 3 block and create
+    an "Ironskin" Status card in hand for self
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 70dd24a7c98646b44870b00b67a720f4, type: 3}
@@ -22,7 +23,7 @@ MonoBehaviour:
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
-  retain: 0
+  retain: 1
   effectWorkflows:
   - rid: 5602892561590779943
   onExhaustEffectWorkflow:
@@ -74,7 +75,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: target
         statusEffect: 2
-        scale: 7
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
@@ -115,4 +116,18 @@ MonoBehaviour:
         - rid: 2295168179404538108
         - rid: 2295168179404538104
         - rid: 2295168179404538105
+        - rid: 8034950120506654868
         - rid: 2295168179404538106
+    - rid: 8034950120506654868
+      type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: AddCardsToHand
+        entityFromKey: target
+        cardTypes:
+        - {fileID: 11400000, guid: 069ef7cf9fd524022b76bb3c147c3a90, type: 2}
+        getCardsFromKey: 0
+        inputCardsKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        outputKey: 

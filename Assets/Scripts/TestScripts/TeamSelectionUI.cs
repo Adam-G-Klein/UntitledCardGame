@@ -99,9 +99,6 @@ public class TeamSelectionUI : MonoBehaviour
         foreach (CompanionTypeSO companionType in team1ActiveCompanions.GetCompanionTypes())
         {
             Companion companion = new Companion(companionType);
-            if (ProgressManager.Instance.IsFeatureEnabled(AscensionType.DAMAGED_COMPANIONS)) {
-                companion.combatStats.currentHealth -= (int)ProgressManager.Instance.GetAscensionSO(AscensionType.DAMAGED_COMPANIONS).ascensionModificationValues.GetValueOrDefault("healthReduction", 3f);
-            }
             gameState.companions.activeCompanions.Add(companion);
         }
 

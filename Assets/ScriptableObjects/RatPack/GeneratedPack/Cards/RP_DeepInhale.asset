@@ -15,7 +15,7 @@ MonoBehaviour:
   guid: ac5eddef-06b6-4e23-a186-c92e285f7dc8
   Name: Deep Inhale
   Description: Shuffle a "Firebreath" into own deck. Increase damage of all "Firebreath"
-    cards by 1
+    cards by 2
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: fc8f2bf76fa3a4e449035d6c80c12fb6, type: 3}
@@ -62,7 +62,7 @@ MonoBehaviour:
       data:
         effectStepName: CardModificationEffect
         inputKey: 
-        scale: 1
+        scale: 2
         affectsAllCardsOfType: 1
         cardTypeToModify: {fileID: 11400000, guid: f906bdd2620a44164814e18d96b00fb0, type: 2}
         getScaleFromKey: 0

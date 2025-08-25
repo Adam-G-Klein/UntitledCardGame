@@ -18,7 +18,7 @@ MonoBehaviour:
     cards)
   defaultValues:
   - key: rpl_damage
-    value: 3
+    value: 5
   - key: numStatusCards
     value: 0
   Cost: 1
@@ -63,7 +63,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: target
         combatEffect: 0
-        scale: 3
+        scale: 5
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1

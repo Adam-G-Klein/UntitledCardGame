@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 09325321-fdbb-48cc-8910-2c4543112aa9
   Name: Geyser
-  Description: Exhaust target Status card in hand and deal {rpl_damage} damage to
-    all enemies
+  Description: Retain. Exhaust target Status card in hand and deal {rpl_damage} damage
+    to all enemies
   defaultValues:
   - key: rpl_damage
     value: 4
@@ -25,7 +25,7 @@ MonoBehaviour:
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
-  retain: 0
+  retain: 1
   effectWorkflows:
   - rid: 5602892561590779943
   onExhaustEffectWorkflow:

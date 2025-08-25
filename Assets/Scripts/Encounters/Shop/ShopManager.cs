@@ -170,9 +170,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             // them to your team;
             this.companionInShop = companionInShop;
             newCompanion = new Companion(companionInShop.companionType);
-            if (ProgressManager.Instance.IsFeatureEnabled(AscensionType.DAMAGED_COMPANIONS)) {
-                newCompanion.combatStats.currentHealth -= (int)ProgressManager.Instance.GetAscensionSO(AscensionType.DAMAGED_COMPANIONS).ascensionModificationValues.GetValueOrDefault("healthReduction", 3f);
-            }
+            newCompanion.combatStats.currentHealth -= companionInShop.sustainedDamage;
             // companionToAdd is the final companion to add to your team :)
             Companion companionToAdd = newCompanion;
 

@@ -67,7 +67,7 @@ MonoBehaviour:
         - {fileID: 11400000, guid: 07ddcab78d7f64ac1849ccdb53efe2c0, type: 2}
         getCardsFromKey: 0
         inputCardsKey: 
-        scale: 2
+        scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
         outputKey: outputCards
@@ -84,7 +84,7 @@ MonoBehaviour:
         effectStepName: CardModificationEffect
         inputKey: 
         scale: 1
-        affectsAllCardsOfType: 0
+        affectsAllCardsOfType: 1
         cardTypeToModify: {fileID: 11400000, guid: 07ddcab78d7f64ac1849ccdb53efe2c0, type: 2}
         getScaleFromKey: 0
         scaleKey: 

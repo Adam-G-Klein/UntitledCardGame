@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: RP_DoubleTrouble
+  m_Name: RP_SiphonPower
   m_EditorClassIdentifier: 
   guid: ac5eddef-06b6-4e23-a186-c92e285f7dc8
-  Name: Double Trouble
-  Description: Create a "Firebreath" Status card in hand for self. Double the damage
-    of all "Firebreath" status cards
+  Name: Siphon Power
+  Description: Exhaust all Status cards in hand. Increase the damage of all "Firebreath"
+    status cards for each card exhausted this way
   defaultValues: []
   Cost: 2
   Artwork: {fileID: 21300000, guid: fc8f2bf76fa3a4e449035d6c80c12fb6, type: 3}
@@ -43,8 +43,11 @@ MonoBehaviour:
       data:
         effectSteps:
         - rid: 4463206030013890565
+        - rid: 8034950120506654869
+        - rid: 8034950120506654870
+        - rid: 8034950120506654871
         - rid: 4463206030013890568
-        - rid: 8034950120506654873
+        - rid: 8034950120506654872
         - rid: 5280922841426165947
     - rid: 4463206030013890565
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -62,12 +65,12 @@ MonoBehaviour:
       data:
         effectStepName: CardModificationEffect
         inputKey: 
-        scale: 1
+        scale: 0
         affectsAllCardsOfType: 1
         cardTypeToModify: {fileID: 11400000, guid: f906bdd2620a44164814e18d96b00fb0, type: 2}
-        getScaleFromKey: 0
-        scaleKey: 
-        modification: 1
+        getScaleFromKey: 1
+        scaleKey: numStatus
+        modification: 0
     - rid: 5280922841426165947
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -75,16 +78,35 @@ MonoBehaviour:
         inputKey: self
         prefabToInstantiate: {fileID: 3850217184923880746, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
         scale: 1
-    - rid: 8034950120506654873
-      type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
+    - rid: 8034950120506654869
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: AddCardsToHand
-        entityFromKey: self
-        cardTypes:
-        - {fileID: 11400000, guid: f906bdd2620a44164814e18d96b00fb0, type: 2}
-        getCardsFromKey: 0
-        inputCardsKey: 
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
-        outputKey: 
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: targets
+        validTargets: 03000000
+        number: 1
+        specialTargetRule: 2
+        cantCancelTargetting: 0
+    - rid: 8034950120506654870
+      type: {class: FilterCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FilterCards
+        inputKey: cards
+        filter:
+          cardCategoriesToInclude: 04000000
+          generatedCardsFilter: 0
+        outputKey: statusCards
+    - rid: 8034950120506654871
+      type: {class: CountStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CountStep
+        inputKey: statusCards
+        outputKey: numStatus
+    - rid: 8034950120506654872
+      type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardInHandEffect
+        inputKey: statusCards
+        effect: 1

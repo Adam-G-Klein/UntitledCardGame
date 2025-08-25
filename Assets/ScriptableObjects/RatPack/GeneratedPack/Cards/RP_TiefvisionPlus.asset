@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 09325321-fdbb-48cc-8910-2c4543112aa9
   Name: Tiefvision+
-  Description: Exhaust. Give any 5 block & scry 1
+  Description: Retain. Exhaust. Give any 5 block & scry 1 & draw 1
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 8c16952da6b2cfa4181be941e4a49469, type: 3}
@@ -22,7 +22,7 @@ MonoBehaviour:
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 1
-  retain: 0
+  retain: 1
   effectWorkflows:
   - rid: 5602892561590779943
   onExhaustEffectWorkflow:
@@ -78,6 +78,7 @@ MonoBehaviour:
         - rid: 8034949815888773299
         - rid: 8034949815888773300
         - rid: 8034949815888773302
+        - rid: 8034950120506654876
     - rid: 8034949815888773299
       type: {class: GetCardsFromDeck, ns: , asm: Assembly-CSharp}
       data:
@@ -111,3 +112,12 @@ MonoBehaviour:
         effect: 2
         cardToTransformInto: {fileID: 0}
         outputKey: 
+    - rid: 8034950120506654876
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DrawCards
+        inputKey: target
+        outputKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 

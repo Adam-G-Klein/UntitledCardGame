@@ -13,11 +13,14 @@ MonoBehaviour:
   m_Name: DamageCompanions
   m_EditorClassIdentifier: 
   description: Damaged Companions
-  devDescription: Starting companions and companions bought from the store have 2
-    fewer starting health.
+  devDescription: A proportion of companions bought in store come with a random amount
+    of damage
   ascensionType: 1
-  modificationValue: 3
   ascensionModificationValues:
     entries:
-    - Key: healthReduction
-      Value: 4
+    - Key: healthReductionMin
+      Value: 2
+    - Key: healthReductionMax
+      Value: 8
+    - Key: pctDamaged
+      Value: 0.5

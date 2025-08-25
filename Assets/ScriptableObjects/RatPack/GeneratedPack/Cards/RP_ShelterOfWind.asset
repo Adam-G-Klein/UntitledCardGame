@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: dc135a0f-67fb-4927-95dd-417465816cb1
   Name: Shelter of Wind
-  Description: Exhaust all Status cards in hand. Give any 5 block for each exhausted
-    ({b} block)
+  Description: Retain. Exhaust all Status cards in hand. Give any 5 block for each
+    exhausted ({b} block)
   defaultValues:
   - key: b
     value: 0
@@ -25,7 +25,7 @@ MonoBehaviour:
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
-  retain: 0
+  retain: 1
   effectWorkflows:
   - rid: 5602892874868589218
   onExhaustEffectWorkflow:

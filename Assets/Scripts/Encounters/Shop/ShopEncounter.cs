@@ -45,12 +45,14 @@ public class CompanionInShopWithPrice {
     public CompanionTypeSO companionType;
     public int price;
     public bool increasedPrice;
+    public int sustainedDamage = 0;
 
-    public CompanionInShopWithPrice(CompanionTypeSO companionType, int price)
+    public CompanionInShopWithPrice(CompanionTypeSO companionType, int price, int sustainedDamage)
     {
         this.companionType = companionType;
         this.price = price;
         this.increasedPrice = false;
+        this.sustainedDamage = sustainedDamage;
     }
 }
 
@@ -230,7 +232,24 @@ public class ShopEncounter : Encounter
             // Pick a keepsake from the sample distribution and add it to the shop's cards
             int number = UnityEngine.Random.Range(0, companionSampleDist.Count);
             CompanionTypeSO selected = companionSampleDist[number];
-            CompanionInShopWithPrice keepsake = new CompanionInShopWithPrice(selected, shopData.companionKeepsakePrice);
+            int sustainedDamage = 0;
+            if (ProgressManager.Instance.IsFeatureEnabled(AscensionType.DAMAGED_COMPANIONS))
+            {
+                // Only a proportion of the companions shown in the shop will be damaged.
+                if (UnityEngine.Random.Range(0f, 1f) <= ProgressManager.Instance.GetAscensionSO(AscensionType.DAMAGED_COMPANIONS).
+                    ascensionModificationValues.GetValueOrDefault("pctDamaged", 0f))
+                {
+                    float min = ProgressManager.Instance.GetAscensionSO(AscensionType.DAMAGED_COMPANIONS).
+                    ascensionModificationValues.GetValueOrDefault("healthReductionMin", 0f);
+                    float max = ProgressManager.Instance.GetAscensionSO(AscensionType.DAMAGED_COMPANIONS).
+                    ascensionModificationValues.GetValueOrDefault("healthReductionMax", 0f);
+                    // Distribute the damage to the companion uniformly at random.
+                    sustainedDamage = (int)UnityEngine.Random.Range(min, max);
+                }
+            }
+            CompanionInShopWithPrice keepsake = new CompanionInShopWithPrice(
+                selected, shopData.companionKeepsakePrice, sustainedDamage
+            );
             int bonusCost = AddBonusRatCost();
             keepsake.price += bonusCost;
             if (bonusCost > 0) keepsake.increasedPrice = true;

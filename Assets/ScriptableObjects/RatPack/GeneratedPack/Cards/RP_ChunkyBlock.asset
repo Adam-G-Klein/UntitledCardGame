@@ -10,25 +10,27 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: RP_Start_RushedDefense
+  m_Name: RP_ChunkyBlock
   m_EditorClassIdentifier: 
-  guid: 0a47eb48-1b86-4d01-8892-d6245eccfacd
-  Name: Rushed Defense
-  Description: Give any 6 block. Discard 1 random card in hand
-  defaultValues: []
-  Cost: 1
-  Artwork: {fileID: 21300000, guid: c0e53d043957bac4c8fb2528ecd0a1b9, type: 3}
+  guid: f78866fe-6e16-4ae1-8790-9200702a9b04
+  Name: Chunky Block
+  Description: Give any 1 block for each card in this companion's deck ({total} cards)
+  defaultValues:
+  - key: total
+    value: 0
+  Cost: 2
+  Artwork: {fileID: 21300000, guid: c22bda8e4471b44c898089214ba8c903, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
   retain: 0
   effectWorkflows:
-  - rid: 5602892563578094203
+  - rid: 5602892563578093568
   onExhaustEffectWorkflow:
     rid: -2
   onDiscardEffectWorkflow:
-    rid: 2034230108114649711
+    rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
   tooltips: 
@@ -37,51 +39,27 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 2034230108114649711
-      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
-      data:
-        effectSteps: []
-    - rid: 2034230108114649717
-      type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CardInHandEffect
-        inputKey: card
-        effect: 0
-    - rid: 4463205916933357570
+    - rid: 2268261004812222464
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: cards
-        validTargets: 03000000
+        outputKey: self
+        validTargets: 
         number: 1
-        specialTargetRule: 2
+        specialTargetRule: 4
         cantCancelTargetting: 0
-    - rid: 5602892563578094203
+    - rid: 5602892563578093568
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
-        - rid: 8034949928137261059
-        - rid: 8034949928137261060
-        - rid: 8034949928137261061
-        - rid: 4463205916933357570
-        - rid: 7401433241610878980
-        - rid: 7401433308100034870
-        - rid: 2034230108114649717
-    - rid: 7401433241610878980
-      type: {class: EndWorkflowIfListEmpty, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: EndWorkflowIfListEmpty
-        inputKey1: cards
-    - rid: 7401433308100034870
-      type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetRandomItems
-        inputKey: cards
-        scale: 1
-        outputKey: card
-    - rid: 8034949928137261059
+        - rid: 5602892563578093569
+        - rid: 2268261004812222464
+        - rid: 5602892563578093571
+        - rid: 8034949995316642096
+        - rid: 8034949995316642098
+    - rid: 5602892563578093569
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
@@ -92,23 +70,35 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
-    - rid: 8034949928137261060
+    - rid: 5602892563578093571
+      type: {class: CountCardsInDeck, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CountCardsInDeck
+        inputDeckKey: self
+        filter:
+          cardCategoriesToInclude: 
+          generatedCardsFilter: 0
+        includeDrawPile: 1
+        includeDiscardPile: 1
+        includeCardsInHand: 1
+        outputKey: total
+    - rid: 8034949995316642096
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ApplyStatus
         inputKey: target
         statusEffect: 2
-        scale: 6
-        getScaleFromKey: 0
-        inputScaleKey: 
+        scale: 0
+        getScaleFromKey: 1
+        inputScaleKey: total
         multiplyByNumAuraStacks: 0
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-    - rid: 8034949928137261061
+    - rid: 8034949995316642098
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
         inputKey: target
         prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
-        scale: 1
+        scale: 2

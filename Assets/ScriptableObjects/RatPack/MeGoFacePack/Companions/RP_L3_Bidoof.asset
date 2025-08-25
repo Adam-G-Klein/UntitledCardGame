@@ -41,10 +41,10 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Level 3 Doofclaw
-      description: Starts combat with 3 strength.
+      description: Starts combat with 4 strength.
       relatedBehaviorIndex: 0
   keepsakeTitle: L3 Doofclaw
-  keepsakeDescription: Starts combat with 3 strength.
+  keepsakeDescription: Starts combat with 4 strength.
   references:
     version: 2
     RefIds:
@@ -73,7 +73,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: self
         statusEffect: 0
-        scale: 3
+        scale: 4
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0

@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: RP_Start_ClumsyHaymaker
+  m_Name: RP_Start_FieryPunch
   m_EditorClassIdentifier: 
   guid: cf05b4c9-780f-421f-9bab-05ec11aaac9b
-  Name: Clumsy Haymaker
-  Description: Deal {rpl_damage} damage. Shuffle a "Wound" Status card into own deck
+  Name: Fiery Punch
+  Description: Deal {rpl_damage} damage. Create a "Firebreath" status card in hand
+    for self
   defaultValues:
   - key: rpl_damage
-    value: 12
+    value: 7
   Cost: 2
   Artwork: {fileID: 21300000, guid: 50bbe2ab14b04f54c96e28c3e3f8e313, type: 3}
   cardCategory: 1
@@ -39,21 +40,6 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 5280922841426165941
-      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: FXEffectStep
-        waitForEffect: 0
-        fXExperiencePrefab: {fileID: 4075960956037802917, guid: ec7b1a1529f9141458320888bf8e3d96, type: 3}
-        rootLocationGameObjectKey: 
-        positionMappingList:
-        - fromWorkflow: self
-          toFxExperience: end
-        - fromWorkflow: self
-          toFxExperience: start
-        gameobjectMappingList: []
-        vePositionMappingList: []
-        veMappingList: []
     - rid: 5280922841426165942
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -72,8 +58,7 @@ MonoBehaviour:
         - rid: 5280922841426165942
         - rid: 5602892561590779944
         - rid: 7401433037623787538
-        - rid: 5602892561590779946
-        - rid: 5280922841426165941
+        - rid: 8034950092883230720
     - rid: 5602892561590779944
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -85,29 +70,29 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
-    - rid: 5602892561590779946
-      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: AddCardsToDeck
-        inputKey: self
-        cardTypes:
-        - {fileID: 11400000, guid: a01e6780b2964496da60664e148acadb, type: 2}
-        addToDeckMethod: 1
-        getCardsFromKey: 0
-        inputCardsKey: 
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
     - rid: 7401433037623787538
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
         inputKey: target
         combatEffect: 0
-        scale: 12
+        scale: 7
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 1320532642761013391, guid: 99a456f94890391478f393fcc8ad0b95, type: 3}
+    - rid: 8034950092883230720
+      type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: AddCardsToHand
+        entityFromKey: self
+        cardTypes:
+        - {fileID: 11400000, guid: f906bdd2620a44164814e18d96b00fb0, type: 2}
+        getCardsFromKey: 0
+        inputCardsKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        outputKey: 

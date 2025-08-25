@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: c29aae5a-c170-4c2c-b6ae-e5578c13b033
   Name: Druid's Inquest
-  Description: Give any 5 block & scry 1
+  Description: Give any 6 block & scry 1
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 27219c2682ae3af4fa76a9968109666f, type: 3}
@@ -43,7 +43,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: target
         statusEffect: 2
-        scale: 5
+        scale: 6
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0

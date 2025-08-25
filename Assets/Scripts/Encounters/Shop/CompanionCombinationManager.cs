@@ -145,7 +145,12 @@ public class CompanionCombinationManager : MonoBehaviour
 
         // Remove one card from the base deck each time you upgrade.
         // This is a great experimental idea from Ethan that we should try.
-        if (!ProgressManager.Instance.IsFeatureEnabled(AscensionType.STINKIER_COMBINATION))
+        int cardsToRemove = 1;
+        if (ProgressManager.Instance.IsFeatureEnabled(AscensionType.STINKIER_COMBINATION)) {
+            cardsToRemove = (int)ProgressManager.Instance.GetAscensionSO(AscensionType.STINKIER_COMBINATION).
+                ascensionModificationValues.GetValueOrDefault("numCardsToRemove", 0f);
+        }
+        if (cardsToRemove > 0)
         {
             cards.Shuffle();
             for (int i = 0; i < cards.Count; i++)

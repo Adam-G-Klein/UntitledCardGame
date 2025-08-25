@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 4c53a09b-04b3-417f-9deb-725295397ee7
   Name: Spice Cake
-  Description: Exhaust. When exhausted, gain 3 max HP and heal 5 HP
+  Description: Exhaust. When exhausted, gain 3 max HP and heal 5 HP and draw 1 card
+    from self
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: a100f38fb92da834786807cb66e2ebba, type: 3}
@@ -48,6 +49,7 @@ MonoBehaviour:
         - rid: 7401433128868512215
         - rid: 7401433128868512218
         - rid: 7401433128868512221
+        - rid: 8034950120506654778
         - rid: 7401433128868512219
     - rid: 7401433128868512215
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -89,3 +91,12 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 0}
+    - rid: 8034950120506654778
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DrawCards
+        inputKey: self
+        outputKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
