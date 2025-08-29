@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 338f2055-a793-46ae-a3b9-e18f265ac10e
   Name: Blood Barrier
-  Description: Draw 1 card from self. If self below half HP, give adjacent 5 block
+  Description: Give adjacent 2 block & if self below half HP, give adjacent 6 block
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: bc01e6303f5aef54696b1695ae9d1ce0, type: 3}
@@ -47,17 +47,6 @@ MonoBehaviour:
         useAbsoluteThreshold: 0
         outputKey: belowHalf
         below: 1
-    - rid: 2295167909047304310
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: allies
-        validTargets: 00000000
-        number: 1
-        specialTargetRule: 1
-        cantCancelTargetting: 0
     - rid: 2295167909047304311
       type: {class: CountStep, ns: , asm: Assembly-CSharp}
       data:
@@ -92,7 +81,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: adj
         statusEffect: 2
-        scale: 5
+        scale: 6
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
@@ -127,16 +116,16 @@ MonoBehaviour:
       data:
         effectSteps:
         - rid: 5602892949302281047
-        - rid: 2295167909047304310
         - rid: 1289961820425028160
         - rid: 2295167909047304311
         - rid: 2295167909047304312
         - rid: 2295168569757140197
         - rid: 2295168569757140198
-        - rid: 2295167909047304313
         - rid: 2295168569757140195
-        - rid: 2295168569757140196
         - rid: 2295168569757140199
+        - rid: 8034950120506654966
+        - rid: 2295167909047304313
+        - rid: 2295168569757140196
     - rid: 5602892949302281047
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -148,3 +137,16 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 4
         cantCancelTargetting: 0
+    - rid: 8034950120506654966
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: adj
+        statusEffect: 2
+        scale: 2
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
