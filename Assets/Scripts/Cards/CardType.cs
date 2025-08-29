@@ -192,10 +192,11 @@ public enum CardCategory {
 [System.Serializable]
 public class CardFilter
 {
-    public enum GeneratedFilter {
+    public enum RetainedCardFilter
+    {
         None,
-        OnlyGeneratedCards,
-        OnlyNonGeneratedCards
+        OnlyRetainedCards,
+        OnlyNonRetainedCards
     }
 
     // If empty, will not be applied.
@@ -203,21 +204,31 @@ public class CardFilter
     public List<CardCategory> cardCategoriesToInclude;
 
     // If none, will not be applied.
-    // Otherwise, will return true if the generated condition on the card matches the specification.
-    public GeneratedFilter generatedCardsFilter;
+    // Otherwise, will return true if that card is in hand and retained.
+    // Note: only applies to "PlayableCard" objects.
+    public RetainedCardFilter retainedCardsFilter;
 
     // Returns true if the card is included by the filter.
     //
-    public bool ApplyFilter(Card card) {
+    public bool ApplyFilter(Card card)
+    {
         bool includeCard = true;
-        if (cardCategoriesToInclude.Count > 0) {
+        if (cardCategoriesToInclude.Count > 0)
+        {
             includeCard &= cardCategoriesToInclude.Contains(card.cardType.cardCategory);
         }
-        if (generatedCardsFilter != GeneratedFilter.None) {
-            includeCard &= (generatedCardsFilter == GeneratedFilter.OnlyGeneratedCards && card.generated) ||
-                (generatedCardsFilter == GeneratedFilter.OnlyNonGeneratedCards && !card.generated);
-        }
-        Debug.Log("Filter [" + includeCard + "]" + "Card " + card.cardType.name + " has generated=" + card.generated + " and cardCategory=" + card.cardType.cardCategory.ToString());
+        // Debug.Log("Filter [" + includeCard + "]" + "Card " + card.cardType.name + "has cardCategory=" + card.cardType.cardCategory.ToString());
         return includeCard;
+    }
+
+    public bool ApplyFilter(PlayableCard card)
+    {
+        bool includeCard = true;
+        // Retained card filter only applies to PlayableCards.
+        if (retainedCardsFilter != RetainedCardFilter.None)
+        {
+            includeCard &= retainedCardsFilter == RetainedCardFilter.OnlyRetainedCards == card.retained;
+        }
+        return includeCard && ApplyFilter(card.card);
     }
 }

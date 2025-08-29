@@ -55,7 +55,7 @@ MonoBehaviour:
         inputKey: allCards
         filter:
           cardCategoriesToInclude: 04000000
-          generatedCardsFilter: 0
+          retainedCardsFilter: 2
         outputKey: statusCards
     - rid: 2295168179404538104
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}

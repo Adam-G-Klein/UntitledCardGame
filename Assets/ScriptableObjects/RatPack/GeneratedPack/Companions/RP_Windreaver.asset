@@ -68,7 +68,7 @@ MonoBehaviour:
         inputKey: cards
         filter:
           cardCategoriesToInclude: 04000000
-          generatedCardsFilter: 0
+          retainedCardsFilter: 2
         outputKey: status
     - rid: 1289961959942521053
       type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}

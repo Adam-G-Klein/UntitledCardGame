@@ -20,6 +20,11 @@ public class FilterCards : EffectStep, IEffectStepCalculation {
     }
 
     public override IEnumerator invoke(EffectDocument document) {
+        // Note on the behavior.
+        // If PlayableCards are provided, the input list of Card objects is ignored.
+        // We take the Card objects from the instantiated PlayableCards.
+        // Otherwise, we ignore the PlayableCards and only do the "outputCards" filtering.
+        // This helps us keep the lists consistent.
         List<Card> inputCards = new List<Card>();
         List<PlayableCard> inputPlayableCards = new List<PlayableCard>();
         if(document.map.ContainsValueWithKey<Card>(inputKey)) {
@@ -35,11 +40,19 @@ public class FilterCards : EffectStep, IEffectStepCalculation {
                 outputCards.Add(card);
             }
         }
-        foreach (PlayableCard card in inputPlayableCards) {
-            if (filter.ApplyFilter(card.card)) {
-                playableCards.Add(card);
+        if (inputPlayableCards.Count > 0)
+        {
+            outputCards.Clear();
+            foreach (PlayableCard card in inputPlayableCards)
+            {
+                if (filter.ApplyFilter(card))
+                {
+                    outputCards.Add(card.card);
+                    playableCards.Add(card);
+                }
             }
         }
+
         document.map.AddItems<Card>(outputKey, outputCards, outputKey);
         document.map.AddItems<PlayableCard>(outputKey, playableCards, outputKey);
         yield return null;
