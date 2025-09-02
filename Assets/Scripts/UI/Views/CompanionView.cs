@@ -569,6 +569,10 @@ public class CompanionView : IUIEventReceiver
         this.maxHealthContainer.style.visibility = Visibility.Visible;
         this.maxHealthIndicatorCoroutine = null;
     }
+
+    public IUIEntity GetEntity() {
+        return this.entity;
+    }
 }
 
 public class CompanionViewContext {

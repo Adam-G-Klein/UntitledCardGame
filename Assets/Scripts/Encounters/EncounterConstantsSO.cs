@@ -14,6 +14,7 @@ public class EncounterConstantsSO : ScriptableObject {
     public GameObject cardPrefab;
     public GameObject companionDeathPrefab;
     public GameObject enemyDeathPrefab;
+    public GameObject companionRevivePrefab;
     [Header("Shop Encounter")]
     public GameObject cardInShopPrefab;
     public GameObject cardSoldOutPrefab;

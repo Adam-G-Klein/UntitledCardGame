@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CombatEntityManager : GenericSingleton<CombatEntityManager>
@@ -33,6 +34,8 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
     public event OnCompanionGainedBlock onBlockGainedHandler;
 
     private bool encounterEnded = false;
+
+    private Dictionary<Companion, GameObject> companionToDeathVFXMap = new Dictionary<Companion, GameObject>();
 
     void Update() {
         if(IS_DEVELOPMENT_MODE && Input.GetKeyDown(KeyCode.J)) {
@@ -205,12 +208,28 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
     }
 
     public void SpawnEntityOnDeathVfx(CombatInstance combatInstance) {
-        if (combatInstance.parentEntity.entityType == EntityType.CompanionInstance) {
-            Instantiate(encounterConstants.companionDeathPrefab, combatInstance.transform.position, Quaternion.identity);
+        if (combatInstance.TryGetComponent<CompanionInstance>(out CompanionInstance companionInstance)) {
+            GameObject deathVFX = Instantiate(encounterConstants.companionDeathPrefab, combatInstance.transform.position, Quaternion.identity);
+            companionToDeathVFXMap[companionInstance.companion] = deathVFX;
+
         // Don't ask me why one is CompanionInstance and the other is just Enemy
         } else if (combatInstance.parentEntity.entityType == EntityType.Enemy) {
             Instantiate(encounterConstants.enemyDeathPrefab, combatInstance.transform.position, Quaternion.identity);
         }
+    }
+
+    public IEnumerator ReviveCompanions(List<Companion> companionsToRevive, GameObject vfxPrefab, float waitTime) {
+        foreach (Companion companion in companionsToRevive) {
+            if (companionToDeathVFXMap.ContainsKey(companion)) {
+                GameObject deathVFX = companionToDeathVFXMap[companion];
+                Vector3 pos = deathVFX.transform.position;
+                Destroy(deathVFX.gameObject);
+                companionToDeathVFXMap.Remove(companion);
+                Instantiate(vfxPrefab, pos, Quaternion.identity);
+                yield return new WaitForSeconds(waitTime);
+            }
+        }
+        yield return null;
     }
 }
 

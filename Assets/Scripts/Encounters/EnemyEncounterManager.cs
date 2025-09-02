@@ -111,17 +111,25 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
 
     public void EndEncounterHandler(EndEncounterEventInfo info)
     {
+        StartCoroutine(EndEncounterCoroutine(info));
+    }
+
+    /*
+        Needed to move the end encounter code from a plain function to a coroutine because 
+        of the VFX timing for reviving companions at the end of the encounter
+    */
+    private IEnumerator EndEncounterCoroutine(EndEncounterEventInfo info) {
         combatOver = true;
         Debug.Log("EndEncounterHandler called, info.outcome is " + info.outcome + " gameState.GetLoopIndex() is " + gameState.GetLoopIndex() + " gameState.lastTutorialLoopIndex is " + gameState.lastTutorialLoopIndex);
         if (info.outcome == EncounterOutcome.Defeat)
         {
             LoseGameHandler();
-            return;
+            yield break;
         }
         if (gameState.activeEncounter.GetValue().id == gameState.map.GetValue().encounters[gameState.map.GetValue().encounters.Count - 1].id)
         {
             WinGameHandler();
-            return;
+            yield break;
         }
         gameState.activeEncounter.GetValue().isCompleted = true;
         Debug.Log("EndEncounterHandler called, activeEncounter is " + gameState.activeEncounter.GetValue().id + " isCompleted is " + gameState.activeEncounter.GetValue().isCompleted);
@@ -148,15 +156,18 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
             }
         }
 
+        List<Companion> revivedCompanions = new List<Companion>();
         // Revive all companions that died during combat to death's door.
         foreach (Companion companion in gameState.companions.allCompanions)
         {
             if (companion.combatStats.currentHealth <= 0)
             {
                 companion.combatStats.setCurrentHealth(1);
+                revivedCompanions.Add(companion);
             }
-
         }
+
+        yield return StartCoroutine(CombatEntityManager.Instance.ReviveCompanions(revivedCompanions, encounterConstants.companionRevivePrefab, 0.5f));
 
         gameState.LoadNextLocation();
         EnemyEncounterViewModel.Instance.SetInMenu(true);
@@ -172,6 +183,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         DialogueManager.Instance.StartAnyDialogueSequence();
         SetInToolTip(false);
         MusicController.Instance.SetCombatState("Victory");
+        yield return null;
     }
 
     private void WinGameHandler() {
