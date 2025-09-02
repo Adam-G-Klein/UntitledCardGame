@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: ccdf4006-debf-4a68-9104-af2b733bcc6f
   Name: Weir Armor
-  Description: Create 2 "Ironskin" status cards in hand for any
+  Description: Give any 4 block & shuffle 2 "Ironskin" Status cards into their deck
   defaultValues: []
-  Cost: 0
+  Cost: 1
   Artwork: {fileID: 21300000, guid: 6cb44060d9d637b44a6b0567dd3ff92f, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
@@ -49,7 +49,8 @@ MonoBehaviour:
       data:
         effectSteps:
         - rid: 5602892561590779944
-        - rid: 7401433558763438285
+        - rid: 8034950120506655436
+        - rid: 8034950120506655437
         - rid: 1274772082283774706
     - rid: 5602892561590779944
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -62,16 +63,29 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
-    - rid: 7401433558763438285
-      type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
+    - rid: 8034950120506655436
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: AddCardsToHand
-        entityFromKey: target
+        effectStepName: ApplyStatus
+        inputKey: target
+        statusEffect: 2
+        scale: 4
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+    - rid: 8034950120506655437
+      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: AddCardsToDeck
+        inputKey: target
         cardTypes:
         - {fileID: 11400000, guid: 069ef7cf9fd524022b76bb3c147c3a90, type: 2}
+        addToDeckMethod: 1
         getCardsFromKey: 0
         inputCardsKey: 
         scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
-        outputKey: 

@@ -84,7 +84,7 @@ MonoBehaviour:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: targets
+        outputKey: cards
         validTargets: 03000000
         number: 1
         specialTargetRule: 2
@@ -96,7 +96,7 @@ MonoBehaviour:
         inputKey: cards
         filter:
           cardCategoriesToInclude: 04000000
-          generatedCardsFilter: 0
+          retainedCardsFilter: 0
         outputKey: statusCards
     - rid: 8034950120506654871
       type: {class: CountStep, ns: , asm: Assembly-CSharp}

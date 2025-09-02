@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 58ea0852-cf84-448a-840c-478c6c1c0927
   Name: Overexert
-  Description: Gain 2 energy and create a "Wound" status card in hand for this companion
+  Description: Gain 2 energy and shuffle a "Wound" status card into own deck
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 5e40f858eddaed340a6366c33c4e216f, type: 3}
@@ -51,19 +51,6 @@ MonoBehaviour:
         scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
-    - rid: 2295168179404538103
-      type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: AddCardsToHand
-        entityFromKey: self
-        cardTypes:
-        - {fileID: 11400000, guid: a01e6780b2964496da60664e148acadb, type: 2}
-        getCardsFromKey: 0
-        inputCardsKey: 
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
-        outputKey: 
     - rid: 5280922841426165942
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -80,6 +67,19 @@ MonoBehaviour:
       data:
         effectSteps:
         - rid: 5280922841426165942
-        - rid: 2295168179404538103
+        - rid: 8034950120506655445
         - rid: 2268261004812222466
         - rid: 2268261004812222467
+    - rid: 8034950120506655445
+      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: AddCardsToDeck
+        inputKey: self
+        cardTypes:
+        - {fileID: 11400000, guid: a01e6780b2964496da60664e148acadb, type: 2}
+        addToDeckMethod: 1
+        getCardsFromKey: 0
+        inputCardsKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 

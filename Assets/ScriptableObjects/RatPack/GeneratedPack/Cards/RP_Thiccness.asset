@@ -10,17 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: RP_BiggerTheBetter
+  m_Name: RP_Thiccness
   m_EditorClassIdentifier: 
-  guid: fb2e4b06-5b35-45c7-b5f3-6fa61b754ecf
-  Name: Bigger the Better
-  Description: Give target companion block equal to the number of cards in THIS companion's
-    deck ({numCards} cards)
+  guid: f78866fe-6e16-4ae1-8790-9200702a9b04
+  Name: Thiccness
+  Description: Give any 4 block & if own deck has at least 12 cards, draw 2 cards
   defaultValues:
-  - key: numCards
+  - key: total
     value: 0
   Cost: 1
-  Artwork: {fileID: 21300000, guid: 5f66e07752da0d34ca5ca0b6a327d011, type: 3}
+  Artwork: {fileID: 21300000, guid: c22bda8e4471b44c898089214ba8c903, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
@@ -51,13 +50,6 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 4
         cantCancelTargetting: 0
-    - rid: 5280922841426165959
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: target
-        prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
-        scale: 1.5
     - rid: 5602892563578093568
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -65,8 +57,11 @@ MonoBehaviour:
         - rid: 5602892563578093569
         - rid: 2268261004812222464
         - rid: 5602892563578093571
-        - rid: 5602892563578093572
-        - rid: 5280922841426165959
+        - rid: 8034949995316642096
+        - rid: 8034949995316642098
+        - rid: 8034950120506655446
+        - rid: 8034950120506655447
+        - rid: 8034950120506655448
     - rid: 5602892563578093569
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -85,21 +80,53 @@ MonoBehaviour:
         inputDeckKey: self
         filter:
           cardCategoriesToInclude: 
-          generatedCardsFilter: 0
+          retainedCardsFilter: 0
         includeDrawPile: 1
         includeDiscardPile: 1
         includeCardsInHand: 1
-        outputKey: numCards
-    - rid: 5602892563578093572
+        outputKey: total
+    - rid: 8034949995316642096
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ApplyStatus
         inputKey: target
         statusEffect: 2
-        scale: 0
-        getScaleFromKey: 1
-        inputScaleKey: numCards
+        scale: 4
+        getScaleFromKey: 0
+        inputScaleKey: 0
         multiplyByNumAuraStacks: 0
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+    - rid: 8034949995316642098
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: target
+        prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
+        scale: 1
+    - rid: 8034950120506655446
+      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: BooleanComparison
+        hardCodedInputKey1: 12
+        useHardCodedInputKey1: 1
+        inputKey1: 
+        operation: 2
+        inputKey2: total
+        outputKey: hasEnough
+    - rid: 8034950120506655447
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: hasEnough
+        conditionToEndOn: 0
+    - rid: 8034950120506655448
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DrawCards
+        inputKey: target
+        outputKey: 
+        scale: 2
+        getScaleFromKey: 0
+        inputScaleKey: 

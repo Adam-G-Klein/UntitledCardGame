@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 5c69788a-f092-46c7-b064-15c235b356cb
   Name: Secure the Bag
-  Description: Draw 1 card random x3. Retain 1 card
+  Description: Draw 1 card random x2. Retain 1 card
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 292ee1eb3f315c9448b8c577d0e6a420, type: 3}
@@ -79,7 +79,7 @@ MonoBehaviour:
       data:
         effectStepName: GetRandomItems
         inputKey: all
-        scale: 3
+        scale: 2
         outputKey: target
     - rid: 8790164924473540611
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}

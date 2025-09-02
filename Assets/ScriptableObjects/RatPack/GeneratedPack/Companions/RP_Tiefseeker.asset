@@ -29,29 +29,37 @@ MonoBehaviour:
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 0}
   genericCompanionVFX: {fileID: 0}
-  cacheValueConfigs: []
+  cacheValueConfigs:
+  - key: turnsRemaining
+    display: 1
+    sprite: {fileID: 21300000, guid: c0e53d043957bac4c8fb2528ecd0a1b9, type: 3}
+    startOfTurnValue: 0
+    setStartOfTurnValue: 0
+    startOfCombatValue: 2
+    setStartOfCombatValue: 1
   cardPool: {fileID: 11400000, guid: 497400d5fb9d14b6c9472ab3f1786e46, type: 2}
   pack: {fileID: 11400000, guid: 0d12b03c0c8754470a900cb4f78a9217, type: 2}
   speakerType: {fileID: 0}
   abilitiesV2:
   - rid: 2034230176448512968
+  - rid: 8034950120506655245
   level: 0
-  upgradeTo: {fileID: 11400000, guid: c7e09ba27d2384df6a8a8704dffec72b, type: 2}
+  upgradeTo: {fileID: 11400000, guid: 2716753a71f78446c974a696d00ce3c1, type: 2}
   tooltip:
     empty: 0
     lines:
     - title: Tiefseeker
-      description: At the end of turn, if you have 2 or more Status cards in hand,
-        add a "Tiefvision" card to bottom of own deck and draw an extra card next
-        turn from self
+      description: The first 2 turns of combat, create in hand a "Tiefvision" card
+        for self. At the end of turn, if you have 2 or more Status cards in hand,
+        draw an extra card next turn from self
       relatedBehaviorIndex: 0
     - title: Tiefvision
-      description: Status card. Exhaust. Give any 3 block & scry 1 & draw 1
+      description: Status card. Exhaust. Give any 2 block & scry 1 & draw 1
       relatedBehaviorIndex: 0
   keepsakeTitle: Hidden Cache
-  keepsakeDescription: At the end of turn, if you have 2 or more Status cards in
-    hand, add a "Tiefvision" to bottom of own deck and draw an extra card next turn
-    from self
+  keepsakeDescription: The first 2 turns of combat, create in hand a "Tiefvision"
+    card for self. At the end of turn, if you have 2 or more Status cards in hand,
+    draw an extra card next turn from self
   references:
     version: 2
     RefIds:
@@ -73,7 +81,7 @@ MonoBehaviour:
         inputKey: cards
         filter:
           cardCategoriesToInclude: 04000000
-          generatedCardsFilter: 0
+          retainedCardsFilter: 0
         outputKey: statusCards
     - rid: 1289961959942521012
       type: {class: CountStep, ns: , asm: Assembly-CSharp}
@@ -152,6 +160,93 @@ MonoBehaviour:
         addToDeckMethod: 2
         getCardsFromKey: 0
         inputCardsKey: 
+        scale: 0
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 8034950120506655245
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 12
+        effectSteps:
+        - rid: 8034950120506655246
+        - rid: 8034950120506655279
+        - rid: 8034950120506655280
+        - rid: 8034950120506655282
+        - rid: 8034950120506655281
+        - rid: 8034950120506655248
+        - rid: 8034950120506655283
+        - rid: 8034950120506655284
+    - rid: 8034950120506655246
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 8034950120506655248
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 6137048663962808129, guid: 032e33b914ed32b418cdc1ed2f15fc6e, type: 3}
+        scale: 1
+    - rid: 8034950120506655279
+      type: {class: CombatInstanceCacheLoad, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatInstanceCacheLoad
+        inputCombatInstanceKey: self
+        cacheKey: turnsRemaining
+        currentWorkflowKey: turnsRemaining
+    - rid: 8034950120506655280
+      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: BooleanComparison
+        hardCodedInputKey1: 0
+        useHardCodedInputKey1: 1
+        inputKey1: 
+        operation: 0
+        inputKey2: turnsRemaining
+        outputKey: done
+    - rid: 8034950120506655281
+      type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: AddCardsToHand
+        entityFromKey: self
+        cardTypes:
+        - {fileID: 11400000, guid: 834b43051d713444cafee2bb0feff170, type: 2}
+        getCardsFromKey: 0
+        inputCardsKey: 
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+        outputKey: 
+    - rid: 8034950120506655282
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: done
+        conditionToEndOn: 1
+    - rid: 8034950120506655283
+      type: {class: MathStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: MathStep
+        inputKey: turnsRemaining
+        operand2InputKey: UNUSED
+        operation: 1
+        scale: 1
+        outputKey: turnsRemaining
+    - rid: 8034950120506655284
+      type: {class: CombatInstanceCacheStore, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatInstanceCacheStore
+        inputCombatInstanceKey: self
+        hardCodedBool: 0
+        useHardCodedBool: 0
+        hardCodedInt: 0
+        useHardCodedInt: 0
+        currentWorkflowKey: turnsRemaining
+        cacheKey: turnsRemaining

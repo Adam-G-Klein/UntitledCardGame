@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 48cc69ae-4756-43aa-b215-af71e139458e
   Name: Firebreath
-  Description: Unplayable. At the end of turn, deal {rpl_damage} damage to a random
-    enemy.
+  Description: Unplayable. At the end of turn, deal {rpl_damage} damage at random
+    & increase the damage of this card by 2
   defaultValues:
   - key: rpl_damage
     value: 4
@@ -50,6 +50,10 @@ MonoBehaviour:
         effectSteps:
         - rid: 5602892561590779905
         - rid: 5602892561590779906
+        - rid: 8034950120506655344
+        - rid: 8034950120506655347
+        - rid: 8034950120506655346
+        - rid: 8034950120506655345
     - rid: 5602892561590779905
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -74,3 +78,37 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}
+    - rid: 8034950120506655344
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 8034950120506655345
+      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: WaitForSecondsEffect
+        seconds: 0.5
+    - rid: 8034950120506655346
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
+        scale: 1
+    - rid: 8034950120506655347
+      type: {class: CardModificationEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardModificationEffect
+        inputKey: self
+        scale: 2
+        affectsAllCardsOfType: 0
+        cardTypeToModify: {fileID: 0}
+        getScaleFromKey: 0
+        scaleKey: 
+        modification: 0

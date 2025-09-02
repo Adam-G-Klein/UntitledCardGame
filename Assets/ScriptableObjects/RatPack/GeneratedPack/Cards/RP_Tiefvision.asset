@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 09325321-fdbb-48cc-8910-2c4543112aa9
   Name: Tiefvision
-  Description: Exhaust. Give any 3 block & scry 1 & draw 1
+  Description: Exhaust. Give any 2 block & scry 1 & draw 1
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 8c16952da6b2cfa4181be941e4a49469, type: 3}
@@ -54,7 +54,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: target
         statusEffect: 2
-        scale: 3
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
