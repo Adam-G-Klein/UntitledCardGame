@@ -182,13 +182,21 @@ public class CombatInstance : MonoBehaviour
             case CombatEffect.FixedDamageWithCardModifications:
             case CombatEffect.FixedDamageThatIgnoresBlock:
                 int damageTaken = TakeDamage(effect, scale, effector);
+                Debug.Log($"{damageTaken} points of damage taken!");
                 if (effector.GetComponent<CompanionInstance>() != null)
                 {
                     MusicController.Instance.PlaySFX("event:/SFX/SFX_BasicAttack");
                 }
                 else if (effector.GetComponent<EnemyInstance>() != null)
                 {
-                    MusicController.Instance.PlaySFX("event:/SFX/SFX_EnemyAttack");
+                    if (damageTaken <= 0 && !killed)
+                    {
+                        MusicController.Instance.PlaySFX("event:/SFX/SFX_FullBlock");
+                    }
+                    else
+                    {
+                        MusicController.Instance.PlaySFX("event:/SFX/SFX_EnemyAttack");
+                    }
                 }
                 if (shouldShake) AddShake(damageTaken);
                 break;
