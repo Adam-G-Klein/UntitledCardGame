@@ -45,13 +45,13 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: target
         statusEffect: 2
-        scale: 0
-        getScaleFromKey: 1
-        inputScaleKey: b
+        scale: 4
+        getScaleFromKey: 0
+        inputScaleKey: 
         multiplyByNumAuraStacks: 0
         multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
+        getMultiplicityFromKey: 1
+        inputMultiplicityKey: numAttacks
     - rid: 1289961820425028265
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -99,7 +99,7 @@ MonoBehaviour:
         inputKey: all
         filter:
           cardCategoriesToInclude: 01000000
-          generatedCardsFilter: 0
+          retainedCardsFilter: 0
         outputKey: attacks
     - rid: 8034949815888773197
       type: {class: CountStep, ns: , asm: Assembly-CSharp}

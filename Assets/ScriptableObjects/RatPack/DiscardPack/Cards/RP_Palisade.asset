@@ -64,13 +64,13 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: target
         statusEffect: 2
-        scale: 0
-        getScaleFromKey: 1
-        inputScaleKey: block
+        scale: 2
+        getScaleFromKey: 0
+        inputScaleKey: 
         multiplyByNumAuraStacks: 0
         multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
+        getMultiplicityFromKey: 1
+        inputMultiplicityKey: numCards
     - rid: 2268261022115299367
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:

@@ -71,10 +71,10 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: target
         statusEffect: 2
-        scale: 0
-        getScaleFromKey: 1
-        inputScaleKey: numPlayedCards
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
         multiplyByNumAuraStacks: 0
         multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
+        getMultiplicityFromKey: 1
+        inputMultiplicityKey: numPlayedCards

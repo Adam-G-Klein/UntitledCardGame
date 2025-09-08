@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98c54fe17bbfaba4697c85c1618843f4, type: 3}
+  m_Name: PoisonPackCardPool
+  m_EditorClassIdentifier: 
+  commonCards:
+  - {fileID: 11400000, guid: d2c9cebf07bba434c92d242c798d1e4c, type: 2}
+  - {fileID: 11400000, guid: a41201e4fb753411ea039ddbcbd63911, type: 2}
+  - {fileID: 11400000, guid: 7e5d4420362364a1d9a231d86ef7aa9b, type: 2}
+  - {fileID: 11400000, guid: 605943cebd7b647fdaef7dd081c1a0ec, type: 2}
+  - {fileID: 11400000, guid: c0a3188d9c73b4f4eac83d3dfcae45d4, type: 2}
+  uncommonCards:
+  - {fileID: 11400000, guid: 9f509479e8b174962b75169fffa38ee5, type: 2}
+  - {fileID: 11400000, guid: 4dfbfc5e5e3db4443952dfc4b2aec26d, type: 2}
+  - {fileID: 11400000, guid: 5aa3f172d558a48eda88440bc44cd6b9, type: 2}
+  rareCards:
+  - {fileID: 11400000, guid: 705b4eec096f340b2a421a8e26d2ae57, type: 2}
+  - {fileID: 11400000, guid: e8bbfd59eb55744c4801f8a8252c3d27, type: 2}
+  - {fileID: 11400000, guid: d13393257fa5149b6b162f57f1987451, type: 2}
+  genericCardIconSprite: {fileID: 0}

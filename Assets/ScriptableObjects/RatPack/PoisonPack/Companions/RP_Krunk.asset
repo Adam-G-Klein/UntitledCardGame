@@ -1,0 +1,148 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
+  m_Name: RP_Krunk
+  m_EditorClassIdentifier: 
+  guid: 931817f6-c796-4f7b-b2ec-522c27f4eb2a
+  companionName: Krunk
+  maxHealth: 30
+  initialCardsDealtPerTurn: 1
+  sprite: {fileID: 21300000, guid: 28b3c9fcc50215a41a060c956d5d2f9e, type: 3}
+  fullSprite: {fileID: 21300000, guid: 28b3c9fcc50215a41a060c956d5d2f9e, type: 3}
+  backgroundImage: {fileID: 21300000, guid: c29a3b4b43cd04c229d752ead9876c9d, type: 3}
+  entityFrame: {fileID: 21300000, guid: 58cdba4c572e146a9a2d7cacfc21e2bf, type: 3}
+  companionManagementFrame: {fileID: 21300000, guid: f8a863ee5de5343cfbb8293c595f4a4a, type: 3}
+  startingDeck: {fileID: 11400000, guid: bd7206f492993495ebf8f40d6c1155c7, type: 2}
+  cardBack: {fileID: 21300000, guid: 20b46ccd593516f4badbdcdb021f67c1, type: 3}
+  cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
+  cardTypeIconOverride: {fileID: 0}
+  rarity: 1
+  cardIdleVfxPrefab: {fileID: 0}
+  genericCompanionSFX: {fileID: 0}
+  genericCompanionVFX: {fileID: 0}
+  cacheValueConfigs: []
+  cardPool: {fileID: 11400000, guid: c1782b55956b249d29a9851efb10b69a, type: 2}
+  pack: {fileID: 11400000, guid: 5b13d2a67a90949d4bb3d8d895000749, type: 2}
+  speakerType: {fileID: 0}
+  abilitiesV2:
+  - rid: 8034950120506655623
+  level: 0
+  upgradeTo: {fileID: 11400000, guid: f5e5ab9ec9eed4de2b413db60026a0e3, type: 2}
+  tooltip:
+    empty: 0
+    lines:
+    - title: Krunk
+      description: End of turn, self-inflict 2 poison and gain 3 block & block equal
+        to the poison on self
+      relatedBehaviorIndex: 0
+  keepsakeTitle: 
+  keepsakeDescription: End of turn, self-inflict 2 poison and gain 3 block & block
+    equal to the poison on self
+  references:
+    version: 2
+    RefIds:
+    - rid: 8034950120506655623
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 2
+        effectSteps:
+        - rid: 8034950120506655628
+        - rid: 8739898274892480525
+        - rid: 8739898274892480524
+        - rid: 8739898274892480523
+        - rid: 8034950120506655629
+        - rid: 8034950120506655632
+        - rid: 8034950120506655633
+        - rid: 8034950120506655630
+        - rid: 8034950120506655631
+    - rid: 8034950120506655628
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 8034950120506655629
+      type: {class: CountStatusEffectsStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CountStatusEffectStep
+        inputKey: self
+        statusEffect: 15
+        onlyCountStatusOnce: 0
+        outputKey: numBurn
+    - rid: 8034950120506655630
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: self
+        statusEffect: 2
+        scale: 0
+        getScaleFromKey: 1
+        inputScaleKey: total
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+    - rid: 8034950120506655631
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
+        scale: 1
+    - rid: 8034950120506655632
+      type: {class: MathStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: MathStep
+        inputKey: numBurn
+        operand2InputKey: UNUSED
+        operation: 2
+        scale: 1
+        outputKey: numBurnMult
+    - rid: 8034950120506655633
+      type: {class: MathStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: MathStep
+        inputKey: numBurnMult
+        operand2InputKey: UNUSED
+        operation: 0
+        scale: 3
+        outputKey: total
+    - rid: 8739898274892480523
+      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: WaitForSecondsEffect
+        seconds: 0.5
+    - rid: 8739898274892480524
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 377a399fb9991684eb788275070abb5e, type: 3}
+        scale: 1
+    - rid: 8739898274892480525
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: self
+        statusEffect: 15
+        scale: 2
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 

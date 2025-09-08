@@ -77,7 +77,7 @@ MonoBehaviour:
         inputDeckKey: self
         filter:
           cardCategoriesToInclude: 
-          generatedCardsFilter: 0
+          retainedCardsFilter: 0
         includeDrawPile: 1
         includeDiscardPile: 1
         includeCardsInHand: 1
@@ -88,13 +88,13 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: target
         statusEffect: 2
-        scale: 0
-        getScaleFromKey: 1
-        inputScaleKey: total
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
         multiplyByNumAuraStacks: 0
         multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
+        getMultiplicityFromKey: 1
+        inputMultiplicityKey: total
     - rid: 8034949995316642098
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:

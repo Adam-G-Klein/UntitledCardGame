@@ -41,25 +41,61 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Level Two Chunkrat
-      description: At end of combat, permanently gain a "Scrumptious Snack" Status
-        card that gives max HP and heals
+      description: At end of combat, choose a card from own deck to permanently transform
+        into a "Scrumptious Snack" status card
       relatedBehaviorIndex: 0
     - title: Scrumptious Snack
       description: Exhaust. When exhausted, gain 2 max HP and heal 3 HP
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: At end of combat, permanently gain a "Scrumptious Snack" Status
-    card that gives max HP and heals
+  keepsakeDescription: At end of combat, choose a card from own deck to permanently
+    transform into a "Scrumptious Snack" status card
   references:
     version: 2
     RefIds:
+    - rid: 754093646965899314
+      type: {class: GetCardsFromDeck, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetCardsFromDeck
+        inputKey: self
+        getLimitedNumber: 0
+        numberOfCardsToGet: 1
+        shuffleIfEmpty: 1
+        outputKey: allCards
+        getAllCardsFromEntities: 0
+        getCardsFromSourceDeck: 1
+        getAllFromOnlyDrawPile: 0
+    - rid: 754093646965899315
+      type: {class: SelectCardsFromList, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: SelectCardsFromList
+        inputKey: allCards
+        outputKey: out
+        promptText: Select card to transform into a "Scrumptious Snack" status card
+          that gives max HP and heals.
+        minTargets: 0
+        maxTargets: 1
+        getNumberOfTargetsFromKey: 0
+        inputNumberOfTargetsKey: 
+        randomizeOrder: 0
+    - rid: 754093646965899317
+      type: {class: CardInDeckEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardInDeckEffect
+        inputCardsKey: out
+        inputDeckKey: self
+        effect: 4
+        cardToTransformInto: {fileID: 11400000, guid: aa5b427c647b744098bd3fcf86857b41, type: 2}
+        outputKey: 
     - rid: 7401433059192472041
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
         abilityTrigger: 1
         effectSteps:
         - rid: 7401433128868512212
-        - rid: 7401433128868512213
+        - rid: 754093646965899314
+        - rid: 754093646965899315
+        - rid: 754093646965899317
     - rid: 7401433128868512212
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -71,16 +107,3 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
-    - rid: 7401433128868512213
-      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: AddCardsToDeck
-        inputKey: self
-        cardTypes:
-        - {fileID: 11400000, guid: aa5b427c647b744098bd3fcf86857b41, type: 2}
-        addToDeckMethod: 3
-        getCardsFromKey: 0
-        inputCardsKey: 
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 

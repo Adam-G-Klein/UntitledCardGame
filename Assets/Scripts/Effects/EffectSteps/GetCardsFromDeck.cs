@@ -31,7 +31,7 @@ public class GetCardsFromDeck : EffectStep {
     [Header("Gets all of the cards in draw and discard from provided entities")]
     [SerializeField]
     private bool getAllCardsFromEntities;
-    [Header("If checked, we don't need an instance in inputKey, we'll get the cards from the entity casting this effect")]
+    [Header("If checked, we get all cards from the source deck, not the in-combat deck")]
     [SerializeField]
     private bool getCardsFromSourceDeck = false;
     [SerializeField]

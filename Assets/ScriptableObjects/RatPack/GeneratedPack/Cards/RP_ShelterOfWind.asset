@@ -63,13 +63,13 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: target
         statusEffect: 2
-        scale: 0
-        getScaleFromKey: 1
-        inputScaleKey: b
+        scale: 5
+        getScaleFromKey: 0
+        inputScaleKey: 
         multiplyByNumAuraStacks: 0
         multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
+        getMultiplicityFromKey: 1
+        inputMultiplicityKey: numStatus
     - rid: 1289961959942521137
       type: {class: MathStep, ns: , asm: Assembly-CSharp}
       data:
@@ -93,7 +93,7 @@ MonoBehaviour:
         inputKey: all
         filter:
           cardCategoriesToInclude: 04000000
-          generatedCardsFilter: 0
+          retainedCardsFilter: 0
         outputKey: filtered
     - rid: 2268261004812222471
       type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}

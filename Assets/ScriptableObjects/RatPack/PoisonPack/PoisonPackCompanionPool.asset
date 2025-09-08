@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: def0d56362b1c32418f82b22b445acbf, type: 3}
+  m_Name: PoisonPackCompanionPool
+  m_EditorClassIdentifier: 
+  commonCompanions:
+  - {fileID: 11400000, guid: ab64300206c254daf8021f3feb7bd2e2, type: 2}
+  uncommonCompanions:
+  - {fileID: 11400000, guid: 6fa28d6dae45e44d49be9d953aea89a6, type: 2}
+  - {fileID: 11400000, guid: a6699d15406c34618b37eef0e5915878, type: 2}
+  rareCompanions:
+  - {fileID: 11400000, guid: ce31ce2f27fae4902922ecceed83d770, type: 2}
