@@ -38,6 +38,8 @@ public class TurnManager : GenericSingleton<TurnManager>
 
     private List<string> turnPhaseChangeBlockers = new List<string>();
 
+    private TurnPhase currentTurnPhase = TurnPhase.START_ENCOUNTER;
+
     void Start()
     {
         StartCoroutine("LateStart");
@@ -49,7 +51,12 @@ public class TurnManager : GenericSingleton<TurnManager>
         EnemyEncounterViewModel.Instance.SetStateDirty();
     }
 
+    public TurnPhase GetTurnPhase() {
+        return currentTurnPhase;
+    }
+
     public void turnPhaseChangedEventHandler(TurnPhaseEventInfo info) {
+        currentTurnPhase = info.newPhase;
         // This is a bit of a hack until we revisit all the different triggers
         // and how we want to architect triggering bettter.
         // There's a nonzero chance this is introducing a race condition, I haven't

@@ -65,10 +65,18 @@ public class CombatEncounterView : MonoBehaviour,
         List<Enemy> enemies = ((EnemyEncounter)gameState.activeEncounter.GetValue()).enemyList;
         List<Companion> companions = gameState.companions.activeCompanions;
         setupEnemies(root.Q<VisualElement>("enemyContainer"), enemies.Cast<IUIEntity>(), true);
-        // setupEntities(root.Q<VisualElement>("companionContainer"), companions.Cast<IUIEntity>(), false);
         SetupCompanions(root.Q<VisualElement>("companionContainer"), companions);
-        //root.Q<Label>("money").text = gameState.playerData.GetValue().gold.ToString();
         UIDocumentUtils.SetAllPickingMode(root, PickingMode.Ignore);
+        
+        VisualElement endTurnElement = root.Q<VisualElement>("end-turn");
+        // StartCoroutine(PleaseSayItAintSo(endTurnElement));
+        Debug.Log(String.Format("{0}: Fuck man please", gameObject.name));
+        endTurnElement.pickingMode = PickingMode.Position;
+        VisualElementUtils.RegisterSelected(endTurnElement, EndPlayerTurnHandler);
+        IconButton endTurnButton = endTurnElement as IconButton;
+        endTurnButton.SetIcon(GFGInputAction.END_TURN, ControlsManager.Instance.GetSpriteForGFGAction(GFGInputAction.END_TURN));
+        ControlsManager.Instance.RegisterIconChanger(endTurnButton);
+
         setupComplete = true;
         VisualElement mapRoot = root.Q("mapRoot");
         mapRoot.Clear();
@@ -76,6 +84,12 @@ public class CombatEncounterView : MonoBehaviour,
         mapView.mapContainer.Q<Label>("money-indicator-label").text = gameState.playerData.GetValue().gold.ToString() + "G";
         mapRoot.Add(mapView.mapContainer);
     }
+
+    private IEnumerator PleaseSayItAintSo(VisualElement endTurnButton) {
+        yield return new WaitForSeconds(1f);
+        endTurnButton.pickingMode = PickingMode.Position;
+    }
+
     /*
         This needs to happen because we have a bit of a circular dependency. The _Intstance monobehaviors
         can't be created until the UI is setup, but the EntityViews need a reference to the _Instances,
@@ -112,7 +126,6 @@ public class CombatEncounterView : MonoBehaviour,
                 view.SetPickingModes(!inMenu && !inDeckView && !combatOver);
             }
         }
-        docRenderer.SetStateDirty();
     }
 
     public void DisableFocusing() {
@@ -217,6 +230,7 @@ public class CombatEncounterView : MonoBehaviour,
         this.inMenu = inMenu;
         UpdateView();
     }
+
     public void SetInDeckView(bool inDeckView) {
         this.inDeckView = inDeckView;
         UpdateView();
@@ -224,5 +238,9 @@ public class CombatEncounterView : MonoBehaviour,
 
     public void SetEndCombat() {
         combatOver = true;
+    }
+
+    private void EndPlayerTurnHandler() {
+        enemyEncounterManager.TryEndPlayerTurn();
     }
 }

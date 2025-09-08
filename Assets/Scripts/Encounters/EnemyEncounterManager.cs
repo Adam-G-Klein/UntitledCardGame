@@ -33,6 +33,8 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     [SerializeField]
     private UIStateEvent uIStateEvent;
     [SerializeField]
+    private TurnPhaseEvent turnPhaseEvent;
+    [SerializeField]
     private GameObject postGamePopup;
     [SerializeField]
     public GameObject placerGO;
@@ -40,6 +42,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     private bool inToolTip = false;
     private bool castingCard = false;
     private bool combatOver = false;
+    private bool endTurnEnabled = true;
 
 
     [SerializeField]
@@ -58,11 +61,12 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         }
     }
 
-
     void Start() {
         encounterBuilt = false;
         // This ends up calling BuildEnemyEncounter below
         combatEncounterView.SetupFromGamestate(this);
+        OptionsViewController.Instance.SetEnterHandler(OnMenuOpenedHandler);
+        OptionsViewController.Instance.SetExitHandler(OnMenuClosedHandler);
         StartCoroutine(StartWhenUIDocReady());
     }
 
@@ -320,11 +324,28 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         castingCard = isCasting;
     }
 
-    public bool GetCastingCard() {return castingCard;}
+    public bool GetCastingCard() {
+        return castingCard;
+    }
 
     internal bool GetCombatOver()
     {
         return combatOver;
+    }
+
+    private void OnMenuOpenedHandler() {
+        Debug.Log("OnMenuOpenedHandler");
+        endTurnEnabled = false;
+    }
+
+    private void OnMenuClosedHandler() {
+        Debug.Log("OnMenuClosedHandler");
+        endTurnEnabled = true;
+    }
+
+    public void TryEndPlayerTurn() {
+        if (endTurnEnabled && TurnManager.Instance.GetTurnPhase() == TurnPhase.PLAYER_TURN)
+            StartCoroutine(turnPhaseEvent.RaiseAtEndOfFrameCoroutine(new TurnPhaseEventInfo(TurnPhase.BEFORE_END_PLAYER_TURN)));
     }
 
     public void ToggleUIDocuments(bool inMenu) {
@@ -333,8 +354,8 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
 
     public void ProcessGFGInputAction(GFGInputAction action)
     {
-        if (action == GFGInputAction.END_TURN && HotkeyManager.Instance.endTurnHotkeyEnabled) {
-            HotkeyManager.Instance.EndTurn();
+        if (action == GFGInputAction.END_TURN) {
+            TryEndPlayerTurn();
         }
     }
 

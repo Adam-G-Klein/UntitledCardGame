@@ -38,6 +38,9 @@ public class OptionsViewController : GenericSingleton<OptionsViewController>, IC
     private Camera mainCamera;
     [SerializeField]
     private GameObject tooltipPrefab;
+    public delegate void EnterExitVoidHandler();
+    private event EnterExitVoidHandler onViewEnterHandler;
+    private event EnterExitVoidHandler onViewExitHandler;
 
     public float getMusicVolumeSliderValue() {
         return musicVolumeSlider.value;
@@ -172,12 +175,12 @@ public class OptionsViewController : GenericSingleton<OptionsViewController>, IC
             canvasGroup.blocksRaycasts = true;
             UIDocumentUtils.SetAllPickingMode(optionsUIDocument.rootVisualElement, PickingMode.Position);
             optionsUIDocument.rootVisualElement.style.visibility = Visibility.Visible;
-            // Have to do this each time due to how the options menu persists across scenes
             FocusManager.Instance.StashFocusables(this.GetType().Name);
             RegisterFocusables();
             FocusManager.Instance.LockFocusables(); // This has to go after we register the options view focusables
             if (ControlsManager.Instance.GetControlMethod() == ControlsManager.ControlMethod.KeyboardController)
                 FocusManager.Instance.SetFocusNextFrame(backButton.AsFocusable());
+            onViewEnterHandler?.Invoke();
         } else {
             SaveManager.Instance.SavePlayerSettings();
             canvasGroup.blocksRaycasts = false;
@@ -187,6 +190,7 @@ public class OptionsViewController : GenericSingleton<OptionsViewController>, IC
             FocusManager.Instance.UnregisterFocusables(optionsUIDocument);
             FocusManager.Instance.UnstashFocusables(this.GetType().Name);
             FocusManager.Instance.UnlockFocusables();
+            onViewExitHandler?.Invoke();
         }
     }
 
@@ -219,5 +223,13 @@ public class OptionsViewController : GenericSingleton<OptionsViewController>, IC
     public void SwappedControlMethod(ControlsManager.ControlMethod controlMethod)
     {
         return;
+    }
+
+    public void SetEnterHandler(EnterExitVoidHandler handler) {
+        onViewEnterHandler += handler;
+    }
+
+    public void SetExitHandler(EnterExitVoidHandler handler) {
+        onViewExitHandler += handler;
     }
 }

@@ -17,9 +17,6 @@ public class UIDocumentScreenspace : MonoBehaviour {
         if(!doc) {
             Debug.LogError("UIDocumentScreenspace: No UIDocument component set on this script. Please set it from the component attached to the gameobject so we load the scene 1 frame faster :)");
         }
-        // Do this in awake so individual controllers can enable clicking on the elements they care about
-        UIDocumentUtils.SetAllPickingMode(doc.rootVisualElement, PickingMode.Ignore);
-
     }
 
     void OnEnable() {

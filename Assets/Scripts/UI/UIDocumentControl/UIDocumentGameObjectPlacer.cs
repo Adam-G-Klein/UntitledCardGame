@@ -173,8 +173,6 @@ public class UIDocumentGameObjectPlacer : GenericSingleton<UIDocumentGameObjectP
         }
         mapsInitialized = true;
         Debug.Log("UIDocumentGameObjectPlacer: Maps initialized, ready");
-        // Hit it with one more picking mode ignore now that we know everything's spawned in
-        UIDocumentUtils.SetAllPickingMode(uiDoc.rootVisualElement, PickingMode.Ignore);
     }
 
     private bool readyToInitializeMaps() {
