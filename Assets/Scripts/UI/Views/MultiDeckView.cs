@@ -70,7 +70,6 @@ public class MultiDeckView
         }
 
         //hover first card
-        Debug.LogError("Starting tab: " + startingTab + " starting index: " + startingIndex);
         List<VisualElement> focusedDeck = deckViewTabVisualElements[startingTab].Q<VisualElement>("SectionsContainer").Children().ToList()[startingIndex].Q<ScrollView>("ScrollView").contentContainer.Children().ToList();
         if (focusedDeck.Count == 0) return;
         VisualElement firstCard = focusedDeck[0];
