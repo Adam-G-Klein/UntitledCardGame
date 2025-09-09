@@ -43,6 +43,8 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     private bool castingCard = false;
     private bool combatOver = false;
     private bool endTurnEnabled = true;
+    private bool inDeckView = false;
+    private bool inOptionsView = false;
 
 
     [SerializeField]
@@ -67,6 +69,8 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         combatEncounterView.SetupFromGamestate(this);
         OptionsViewController.Instance.SetEnterHandler(OnMenuOpenedHandler);
         OptionsViewController.Instance.SetExitHandler(OnMenuClosedHandler);
+        MultiDeckViewManager.Instance.SetEnterHandler(OnDeckViewOpenedHandler);
+        MultiDeckViewManager.Instance.SetExitHandler(OnDeckViewClosedHandler);
         StartCoroutine(StartWhenUIDocReady());
     }
 
@@ -334,17 +338,36 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         return combatOver;
     }
 
-    private void OnMenuOpenedHandler() {
+    private void OnMenuOpenedHandler()
+    {
         Debug.Log("OnMenuOpenedHandler");
+        inOptionsView = true;
         endTurnEnabled = false;
     }
 
-    private void OnMenuClosedHandler() {
+    private void OnMenuClosedHandler()
+    {
         Debug.Log("OnMenuClosedHandler");
-        endTurnEnabled = true;
+        inOptionsView = false;
+        endTurnEnabled = !inDeckView;
     }
 
-    public void TryEndPlayerTurn() {
+    private void OnDeckViewOpenedHandler()
+    {
+        Debug.Log("OnDeckViewOpenedHandler");
+        inDeckView = true;
+        endTurnEnabled = false;
+    }
+
+    private void OnDeckViewClosedHandler()
+    {
+        Debug.Log("OnDeckViewClosedHandler");
+        inDeckView = false;
+        endTurnEnabled = !inOptionsView;
+    }
+
+    public void TryEndPlayerTurn()
+    {
         if (endTurnEnabled && TurnManager.Instance.GetTurnPhase() == TurnPhase.PLAYER_TURN)
             StartCoroutine(turnPhaseEvent.RaiseAtEndOfFrameCoroutine(new TurnPhaseEventInfo(TurnPhase.BEFORE_END_PLAYER_TURN)));
     }

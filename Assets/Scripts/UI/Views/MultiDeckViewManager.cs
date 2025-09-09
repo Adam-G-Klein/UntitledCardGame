@@ -28,6 +28,11 @@ public class MultiDeckViewManager : GenericSingleton<MultiDeckViewManager>, IMul
     private Canvas canvas;
     private Camera mainCamera;
 
+    public delegate void EnterExitVoidHandler();
+    private event EnterExitVoidHandler onViewEnterHandler;
+    private event EnterExitVoidHandler onViewExitHandler;
+    private bool optionsMenuOpen = false;
+
     public enum TabType
     {
         Active = 0,
@@ -40,8 +45,26 @@ public class MultiDeckViewManager : GenericSingleton<MultiDeckViewManager>, IMul
         multiDeckView = new MultiDeckView(this, GetComponent<UIDocument>(), GetComponent<CanvasGroup>());
         canvas = GetComponentInParent<Canvas>();
         mainCamera = Camera.main;
+        OptionsViewController.Instance.SetEnterHandler(() => optionsMenuOpen = true);
+        OptionsViewController.Instance.SetExitHandler(() => optionsMenuOpen = false);
     }
 
+    public void OnViewEnter()
+    {
+        isVisible = true;
+        ControlsManager.Instance.RegisterControlsReceiver(this);
+        UpdateCameraReference();
+        onViewEnterHandler?.Invoke();
+    }
+
+    public void ShowView(List<DeckViewTab> deckViewTabs = null, int startingTab = 0, int startingIndex = 0)
+    {
+        FocusManager.Instance.StashFocusables(this.GetType().Name);
+        multiDeckView.PopulateDeckView(deckViewTabs, startingTab, startingIndex);
+        multiDeckView.ToggleVisibility(true);
+        multiDeckView.RegisterFocusables();
+        FocusManager.Instance.LockFocusables();
+    }
     public void ShowCombatDeckView(CompanionInstance companionInstance = null, int startingTab = 0)
     {
         if (isVisible)
@@ -53,10 +76,8 @@ public class MultiDeckViewManager : GenericSingleton<MultiDeckViewManager>, IMul
             Debug.LogError("No CombatEntityManager found in scene, cannot show combat deck view");
             return;
         }
-        isVisible = true;
+        OnViewEnter();
         int startingIndex = companionInstance == null ? 0 : CombatEntityManager.Instance.getCompanions().Where(c => c != null).ToList().IndexOf(companionInstance);
-        ControlsManager.Instance.RegisterControlsReceiver(this);
-        UpdateCameraReference();
 
         List<DeckViewTab> deckViewTabs = new List<DeckViewTab>();
         DeckViewTab combatDeckViewTab = new DeckViewTab
@@ -92,11 +113,7 @@ public class MultiDeckViewManager : GenericSingleton<MultiDeckViewManager>, IMul
             discardDeckViewTab.sections.Add(section);
         }
         deckViewTabs.Add(discardDeckViewTab);
-        FocusManager.Instance.StashFocusables(this.GetType().Name);
-        multiDeckView.PopulateDeckView(deckViewTabs, startingTab, startingIndex);
-        multiDeckView.ToggleVisibility(true);
-        multiDeckView.RegisterFocusables();
-        FocusManager.Instance.LockFocusables();
+        ShowView(deckViewTabs, startingTab, startingIndex);
     }
 
     public void ShowShopDeckView(bool showCompanionForPurchase = false, Companion companionToShow = null, TabType startingTab = TabType.Active)
@@ -110,9 +127,7 @@ public class MultiDeckViewManager : GenericSingleton<MultiDeckViewManager>, IMul
             Debug.LogError("No ShopManager found in scene, cannot show shop combat deck view");
             return;
         }
-        isVisible = true;
-        ControlsManager.Instance.RegisterControlsReceiver(this);
-        UpdateCameraReference();
+        OnViewEnter();
 
         List<Companion> activeCompanions = gameState.companions.activeCompanions;
         List<DeckViewTab> shopDeckViewTabs = new List<DeckViewTab>();
@@ -185,15 +200,11 @@ public class MultiDeckViewManager : GenericSingleton<MultiDeckViewManager>, IMul
                 startingIndex = companionToShow == null ? 0 : benchCompanions.IndexOf(companionToShow);
             }
         }
-        int startingTabIndex = 0; 
+        int startingTabIndex = 0;
         if (startingTab == TabType.Bench) startingTabIndex = noActiveCompanions ? 0 : 1;
         if (startingTab == TabType.ForPurchase) startingTabIndex = shopDeckViewTabs.Count - 1;
 
-        FocusManager.Instance.StashFocusables(this.GetType().Name);
-        multiDeckView.PopulateDeckView(shopDeckViewTabs, startingTabIndex, startingIndex);
-        multiDeckView.ToggleVisibility(true);
-        multiDeckView.RegisterFocusables();
-        FocusManager.Instance.LockFocusables();
+        ShowView(shopDeckViewTabs, startingTabIndex, startingIndex);
     }
 
     public void HideDeckView()
@@ -203,10 +214,12 @@ public class MultiDeckViewManager : GenericSingleton<MultiDeckViewManager>, IMul
         multiDeckView.UnregisterFocusables();
         FocusManager.Instance.UnstashFocusables(this.GetType().Name);
         ControlsManager.Instance.UnregisterControlsReceiver(this);
+        onViewExitHandler?.Invoke();
     }
 
     public void ProcessGFGInputAction(GFGInputAction action)
     {
+        if (optionsMenuOpen) return;
         if (action == GFGInputAction.BACK)
         {
             multiDeckView.ExitButtonClicked(multiDeckView.exitButton.CreateFakeClickEvent());
@@ -234,14 +247,26 @@ public class MultiDeckViewManager : GenericSingleton<MultiDeckViewManager>, IMul
         // just had to be here tbh
     }
 
-    private void UpdateCameraReference() {
+    private void UpdateCameraReference()
+    {
         mainCamera = Camera.main;
-        if (mainCamera != null) {
+        if (mainCamera != null)
+        {
             Debug.Log("Main camera updated: " + mainCamera.name);
-        } else {
+        }
+        else
+        {
             Debug.LogWarning("Main camera not found");
         }
         canvas.worldCamera = mainCamera;
+    }
+    
+    public void SetEnterHandler(EnterExitVoidHandler handler) {
+        onViewEnterHandler += handler;
+    }
+
+    public void SetExitHandler(EnterExitVoidHandler handler) {
+        onViewExitHandler += handler;
     }
 }
 
