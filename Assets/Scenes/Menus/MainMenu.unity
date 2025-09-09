@@ -459,6 +459,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Singletons
       objectReference: {fileID: 0}
+    - target: {fileID: 471265052921669561, guid: b3624fa3d2367944f9f9ff9793633969, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 352837022}
     - target: {fileID: 4658088288143552190, guid: b3624fa3d2367944f9f9ff9793633969, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.020032
@@ -1188,6 +1192,10 @@ PrefabInstance:
     - target: {fileID: 7985504557537399516, guid: 0e35e41c6de5a4fff9f24104bc1922dd, type: 3}
       propertyPath: m_Name
       value: MainMenuUIDocCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 7985504557537399516, guid: 0e35e41c6de5a4fff9f24104bc1922dd, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8776529763149398982, guid: 0e35e41c6de5a4fff9f24104bc1922dd, type: 3}
       propertyPath: m_Camera

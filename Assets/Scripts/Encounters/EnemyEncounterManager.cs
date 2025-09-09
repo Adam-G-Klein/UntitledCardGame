@@ -84,7 +84,8 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     }
 
     public void BuildEnemyEncounter(EnemyEncounter encounter,
-            UIDocumentGameObjectPlacer placer) {
+            UIDocumentGameObjectPlacer placer)
+    {
         List<CompanionInstance> createdCompanions = new List<CompanionInstance>();
         List<EnemyInstance> createdEnemies = new List<EnemyInstance>();
         encounter.Build(gameState.companions.activeCompanions,
@@ -356,6 +357,10 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     {
         if (action == GFGInputAction.END_TURN) {
             TryEndPlayerTurn();
+        }
+        if (action == GFGInputAction.OPEN_MULTI_DECK_VIEW)
+        {
+            MultiDeckViewManager.Instance.ShowCombatDeckView(gameState.hoveredCompanion);
         }
     }
 

@@ -9,6 +9,7 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
     public TurnPhaseEvent turnPhaseEvent;
 
     // This list assumes ordering
+    [SerializeField]
     private List<CompanionInstance> companions = new List<CompanionInstance>();
     private List<MinionInstance> minions = new List<MinionInstance>();
     [SerializeField]

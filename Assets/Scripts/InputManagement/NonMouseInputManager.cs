@@ -5,7 +5,8 @@ using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.UIElements;
 
-public enum GFGInputAction {
+public enum GFGInputAction
+{
     UP,
     DOWN,
     LEFT,
@@ -29,7 +30,12 @@ public enum GFGInputAction {
     VIEW_DECK,
     VIEW_DISCARD,
     SELL_COMPANION,
-    OPTIONS
+    OPTIONS,
+    OPEN_MULTI_DECK_VIEW,
+    MULTI_DECK_VIEW_TAB_LEFT,
+    MULTI_DECK_VIEW_TAB_RIGHT,
+    MULTI_DECK_VIEW_SECTION_LEFT,
+    MULTI_DECK_VIEW_SECTION_RIGHT
 }
 
 public enum InputMethod {

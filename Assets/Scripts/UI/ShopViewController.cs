@@ -892,16 +892,22 @@ public class ShopViewController : MonoBehaviour,
 
     public void ShowCompanionDeckView(Companion companion)
     {
-        if (cardSelectionViewPrefab != null) {
+        MultiDeckViewManager.Instance.ShowShopDeckView(false, companion, shopManager.gameState.companions.activeCompanions.Contains(companion) ? MultiDeckViewManager.TabType.Active : MultiDeckViewManager.TabType.Bench);
+        /*
+        if (cardSelectionViewPrefab != null)
+        {
             GameObject cardSelectionViewGo = Instantiate(cardSelectionViewPrefab);
             CardSelectionView cardSelectionView = cardSelectionViewGo.GetComponent<CardSelectionView>();
             // Card Selection View stashes focusables on setup
             cardSelectionView.Setup(companion.getDeck().cards, companion, shopManager.encounterConstants.companionViewTemplate);
-        } else { // Not sure why this else exists
+        }
+        else
+        { // Not sure why this else exists
             deckViewContentContainer.Clear();
             deckView.style.visibility = Visibility.Visible;
 
-            foreach (Card card in companion.deck.cards) {
+            foreach (Card card in companion.deck.cards)
+            {
                 CardView cardView = new CardView(card.cardType, companion.companionType, card.shopRarity, true);
                 cardView.cardContainer.style.marginBottom = 10;
                 cardView.cardContainer.style.marginLeft = 10;
@@ -909,7 +915,7 @@ public class ShopViewController : MonoBehaviour,
                 cardView.cardContainer.style.marginTop = 10;
                 deckViewContentContainer.Add(cardView.cardContainer);
             }
-        }
+        }*/
     }
 
     public void ShopDeckViewForCardRemoval(Companion companion) {
@@ -1189,6 +1195,10 @@ public class ShopViewController : MonoBehaviour,
     public void ProcessGFGInputAction(GFGInputAction action)
     {
         // Just need the IControlsReceiver for the SwappedControlMethod
+        if (action == GFGInputAction.OPEN_MULTI_DECK_VIEW)
+        {
+            MultiDeckViewManager.Instance.ShowShopDeckView();
+        }
         return;
     }
 
@@ -1209,6 +1219,8 @@ public class ShopViewController : MonoBehaviour,
 
     public void DisplayCards(CompanionTypeSO companion)
     {
+        MultiDeckViewManager.Instance.ShowShopDeckView(true, new Companion(companion), MultiDeckViewManager.TabType.ForPurchase);
+        /*
         List<Card> instantiatedCards = companion.startingDeck.cards
             .Select(card => new Card(card, companion))
             .ToList();
@@ -1217,6 +1229,7 @@ public class ShopViewController : MonoBehaviour,
         CardSelectionView cardSelectionView = cardSelectionViewGo.GetComponent<CardSelectionView>();
         // Card Selection View stashes focusables on setup
         cardSelectionView.Setup(instantiatedCards, new Companion(companion), shopManager.encounterConstants.companionViewTemplate);
+        */
     }
 
     public Sprite GetStatusEffectSprite(StatusEffectType statusEffectType)

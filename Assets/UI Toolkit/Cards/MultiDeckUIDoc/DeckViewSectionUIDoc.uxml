@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/fontStyling.uss?fileID=7433441132597879392&amp;guid=d0c0881f1c32747ecb649373600de095&amp;type=3#fontStyling" />
+    <Style src="project://database/Assets/multiDeckViewStyles.uss?fileID=7433441132597879392&amp;guid=f6a6ab37e49bd49099fca9ceac746c41&amp;type=3#multiDeckViewStyles" />
+    <Style src="project://database/Assets/UI%20Toolkit/Stylesheets/CompanionView.uss?fileID=7433441132597879392&amp;guid=e88b44cda41b13242a23fc01cc51bd01&amp;type=3#CompanionView" />
+    <ui:VisualElement name="SectionContainer" class="sectionContainer" style="min-width: 13%; flex-grow: 0; min-height: 25%; height: 100%;">
+        <ui:VisualElement name="SectionHeader" style="height: 25%; justify-content: center;" />
+        <ui:VisualElement name="DeckViewContainer" class="deckViewContainer" style="height: 75%;">
+            <ui:ScrollView name="ScrollView" focusable="true" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" style="flex-grow: 1;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

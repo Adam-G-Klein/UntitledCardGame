@@ -148,6 +148,51 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "OpenMultiDeckView",
+                    "type": "Button",
+                    "id": "9ebf9235-e83c-4c45-9ad2-1acfb6268159",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "MultiDeckViewTabLeft",
+                    "type": "Button",
+                    "id": "1e4ff12c-6879-4955-9c8d-e6561fb4d259",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "MultiDeckViewTabRight",
+                    "type": "Button",
+                    "id": "9fc34547-dbaf-4133-9c64-d0760298d6d8",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "MultiDeckViewSectionLeft",
+                    "type": "Button",
+                    "id": "4184b88d-2296-48a4-9bfd-a13a36395f41",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "MultiDeckViewSectionRight",
+                    "type": "Button",
+                    "id": "329594a2-18f3-4dd1-95ed-85b94b9a9cc2",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -654,6 +699,171 @@
                     "processors": "",
                     "groups": ";Xbox",
                     "action": "Options",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0921b045-6090-4196-adfb-9a1ad6777e28",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard;Mouse",
+                    "action": "OpenMultiDeckView",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2ce686f6-39eb-4f8b-94ab-a3b60284d317",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Xbox;Switch;Gamepad",
+                    "action": "OpenMultiDeckView",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7c848132-cb76-41a0-a791-3b689f14cd46",
+                    "path": "<SwitchProControllerHID>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Switch",
+                    "action": "OpenMultiDeckView",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b827420b-8cde-469c-979c-c1d662e0aaa5",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Xbox;Switch;Gamepad",
+                    "action": "MultiDeckViewTabLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3e35710d-bc40-43cb-b2a2-638c391e2f60",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard;Mouse",
+                    "action": "MultiDeckViewTabLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "508dcd2e-0f2b-47b2-8ffb-86ec30980625",
+                    "path": "<SwitchProControllerHID>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Switch",
+                    "action": "MultiDeckViewTabLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ad3b108d-1dc1-4eb7-b253-499deefea474",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard;Mouse",
+                    "action": "MultiDeckViewTabRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e14acefb-f919-450c-b1d8-637815328b91",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Xbox;Switch;Gamepad",
+                    "action": "MultiDeckViewTabRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "91f34652-d75b-46bc-878b-8f4a7c53aa6b",
+                    "path": "<SwitchProControllerHID>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Switch",
+                    "action": "MultiDeckViewTabRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "33171ee7-f7e5-4ec9-859f-a4620d6e187e",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard;Mouse",
+                    "action": "MultiDeckViewSectionLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fe94055d-2dec-4448-98e0-dd6a6140958c",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Xbox;Switch;Gamepad",
+                    "action": "MultiDeckViewSectionLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "eee5981b-fd67-4dfc-b1d7-cab4a491689e",
+                    "path": "<SwitchProControllerHID>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Switch",
+                    "action": "MultiDeckViewSectionLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c2321420-2b58-4b5a-82e0-2df92dff257d",
+                    "path": "<XInputController>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Xbox",
+                    "action": "MultiDeckViewSectionRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "026d9e38-9355-4b96-a1e8-6047fe50a3a4",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard;Mouse",
+                    "action": "MultiDeckViewSectionRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1016601d-8cb8-4a02-b439-4663db398c57",
+                    "path": "<SwitchProControllerHID>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Switch",
+                    "action": "MultiDeckViewSectionRight",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

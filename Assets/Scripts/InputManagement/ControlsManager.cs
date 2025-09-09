@@ -222,12 +222,49 @@ public class ControlsManager : GenericSingleton<ControlsManager>
             ProcessInput(GFGInputAction.OPTIONS);
         }
     }
+    
+    public void handleOpenMultiDeckView(InputAction.CallbackContext context) {
+        if(context.phase == InputActionPhase.Performed) {
+            Debug.Log("[ControlsManager] handleOpenMultiDeckView called");
+            ProcessInput(GFGInputAction.OPEN_MULTI_DECK_VIEW);
+        }
+    }
 
-    private void ProcessInput(GFGInputAction action) {
+    public void handleMultiDeckViewTabLeft(InputAction.CallbackContext context) {
+        if(context.phase == InputActionPhase.Performed) {
+            Debug.Log("[ControlsManager] handleMultiDeckViewTabLeft called");
+            ProcessInput(GFGInputAction.MULTI_DECK_VIEW_TAB_LEFT);
+        }
+    }
+
+    public void handleMultiDeckViewTabRight(InputAction.CallbackContext context) {
+        if(context.phase == InputActionPhase.Performed) {
+            Debug.Log("[ControlsManager] handleMultiDeckViewTabRight called");
+            ProcessInput(GFGInputAction.MULTI_DECK_VIEW_TAB_RIGHT);
+        }
+    }
+
+        public void handleMultiDeckViewSectionLeft(InputAction.CallbackContext context) {
+        if(context.phase == InputActionPhase.Performed) {
+            Debug.Log("[ControlsManager] handleMultiDeckViewSectionLeft called");
+            ProcessInput(GFGInputAction.MULTI_DECK_VIEW_SECTION_LEFT);
+        }
+    }
+
+        public void handleMultiDeckViewSectionRight(InputAction.CallbackContext context) {
+        if(context.phase == InputActionPhase.Performed) {
+            Debug.Log("[ControlsManager] handleMultiDeckViewSectionRight called");
+            ProcessInput(GFGInputAction.MULTI_DECK_VIEW_SECTION_RIGHT);
+        }
+    }
+
+    private void ProcessInput(GFGInputAction action)
+    {
         if (actionsThatSwapControlMethod.Contains(action)) CheckSwapControlMethod(ControlMethod.KeyboardController);
-        
+
         List<IControlsReceiver> immutableControlsReceivers = new List<IControlsReceiver>(controlsReceivers);
-        foreach (IControlsReceiver receiver in immutableControlsReceivers) {
+        foreach (IControlsReceiver receiver in immutableControlsReceivers)
+        {
             receiver.ProcessGFGInputAction(action);
         }
     }

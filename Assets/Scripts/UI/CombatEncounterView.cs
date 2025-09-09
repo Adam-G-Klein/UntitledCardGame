@@ -1,12 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
-using System;
-using Unity.VisualScripting;
 
 public class CombatEncounterView : MonoBehaviour,
     IEntityViewDelegate
@@ -69,8 +65,6 @@ public class CombatEncounterView : MonoBehaviour,
         UIDocumentUtils.SetAllPickingMode(root, PickingMode.Ignore);
         
         VisualElement endTurnElement = root.Q<VisualElement>("end-turn");
-        // StartCoroutine(PleaseSayItAintSo(endTurnElement));
-        Debug.Log(String.Format("{0}: Fuck man please", gameObject.name));
         endTurnElement.pickingMode = PickingMode.Position;
         VisualElementUtils.RegisterSelected(endTurnElement, EndPlayerTurnHandler);
         IconButton endTurnButton = endTurnElement as IconButton;
@@ -83,13 +77,16 @@ public class CombatEncounterView : MonoBehaviour,
         mapView = new MapView(enemyEncounterManager);
         mapView.mapContainer.Q<Label>("money-indicator-label").text = gameState.playerData.GetValue().gold.ToString() + "G";
         mapRoot.Add(mapView.mapContainer);
-    }
 
-    private IEnumerator PleaseSayItAintSo(VisualElement endTurnButton) {
-        yield return new WaitForSeconds(1f);
-        endTurnButton.pickingMode = PickingMode.Position;
+        IconButton deckViewButton = root.Q<IconButton>("deck-view-button");
+        deckViewButton.RegisterOnSelected(ShowDeckView);
+        FocusManager.Instance.RegisterFocusableTarget(deckViewButton.AsFocusable());
+        deckViewButton.SetIcon(
+            GFGInputAction.OPEN_MULTI_DECK_VIEW,
+            ControlsManager.Instance.GetSpriteForGFGAction(GFGInputAction.OPEN_MULTI_DECK_VIEW));
+        ControlsManager.Instance.RegisterIconChanger(deckViewButton);
+        deckViewButton.pickingMode = PickingMode.Position; // doesn't seem like this is being respected :( not sure why...
     }
-
     /*
         This needs to happen because we have a bit of a circular dependency. The _Intstance monobehaviors
         can't be created until the UI is setup, but the EntityViews need a reference to the _Instances,
@@ -240,7 +237,13 @@ public class CombatEncounterView : MonoBehaviour,
         combatOver = true;
     }
 
-    private void EndPlayerTurnHandler() {
+    private void EndPlayerTurnHandler()
+    {
         enemyEncounterManager.TryEndPlayerTurn();
+    }
+    public void ShowDeckView(ClickEvent evt)
+    {
+        MultiDeckViewManager.Instance.ShowCombatDeckView();
+        Debug.LogError("trying to show deck view");
     }
 }

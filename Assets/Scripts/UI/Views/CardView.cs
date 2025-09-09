@@ -29,8 +29,8 @@ public class CardView {
     public Card cardInstance = null;
     public Color modifiedManaCostColor = Color.green;
 
-    private float SCREEN_WIDTH_PERCENT = 0.11f;
-    private float RATIO = 1.53f;
+    private static float SCREEN_WIDTH_PERCENT = 0.11f;
+    private static float RATIO = 1.53f;
     private CardType cardType;
 
     private Card.CardRarity rarity = Card.CardRarity.NONE;
@@ -189,7 +189,7 @@ public class CardView {
         ve.MarkDirtyRepaint();
     }
 
-    private Tuple<int, int> GetWidthAndHeight() {
+    public static Tuple<int, int> GetWidthAndHeight() {
         int width = (int)(Screen.width * SCREEN_WIDTH_PERCENT);
         int height = (int)(width * RATIO);
 

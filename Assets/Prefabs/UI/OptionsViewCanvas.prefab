@@ -132,6 +132,8 @@ MonoBehaviour:
   compendiumUIDocument: {fileID: 4276408167836295075}
   companionPool: {fileID: 11400000, guid: 1a5aa5f2c25ef434a822f87e97339f33, type: 2}
   neutralCardPool: {fileID: 11400000, guid: f16e9cd7d69314290ae5bed1edae4ce0, type: 2}
+  canvasGroup: {fileID: 0}
+  packSOs: []
   gameState: {fileID: 11400000, guid: 9e326417f60894341a96cc8d02868bbe, type: 2}
   tooltipPrefab: {fileID: 2816874809441598624, guid: ae38d023550871540b736760d4242071, type: 3}
 --- !u!1001 &7648190593628460788
@@ -176,7 +178,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5871302209626655063, guid: b67f31ebd16bf45fc8862ddaf477c8df, type: 3}
       propertyPath: m_SortingOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7198029885428463193, guid: b67f31ebd16bf45fc8862ddaf477c8df, type: 3}
       propertyPath: m_TagString

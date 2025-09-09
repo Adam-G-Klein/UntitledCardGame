@@ -400,20 +400,32 @@ public class CompanionView : IUIEventReceiver
         this.pickingModePositionList.Add(this.discardPileButton);
     }
 
-    private void DrawPileButtonOnClick(ClickEvent evt) {
+    private void DrawPileButtonOnClick(ClickEvent evt)
+    {
         if (evt != null) evt.StopPropagation();
         Debug.Log("Draw button clicked");
+        if (combatInstance != null)
+        {
+            MultiDeckViewManager.Instance.ShowCombatDeckView(combatInstance.GetCompanionInstance(), 0);
+            return;
+        }
         DeckInstance deckInstance = this.entity.GetDeckInstance();
-        if (deckInstance == null) {
+        if (deckInstance == null)
+        {
             Debug.LogError("Entity " + this.entity.GetName() + " does not have a deck instance, which is crazy, because it's clearly a companion");
             return;
         }
-        viewDelegate.InstantiateCardView(deckInstance.GetShuffledDrawPile(), deckInstance.combatInstance.name + " draw pile");
+        viewDelegate.InstantiateCardView(deckInstance.GetShuffledDrawPile(), deckInstance.combatInstance.name + " draw pile"); 
     }
 
     private void DiscardPileButtonOnClick(ClickEvent evt) {
         if (evt != null) evt.StopPropagation();
         Debug.Log("Discard button clicked");
+        if (combatInstance != null)
+        {
+            MultiDeckViewManager.Instance.ShowCombatDeckView(combatInstance.GetCompanionInstance(), 1);
+            return;
+        }
         DeckInstance deckInstance = this.entity.GetDeckInstance();
         if (deckInstance == null) {
             Debug.LogError("Entity " + this.entity.GetName() + " does not have a deck instance, which is crazy, because it's clearly a companion");
