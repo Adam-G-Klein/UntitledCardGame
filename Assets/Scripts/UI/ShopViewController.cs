@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
+using Unity.VisualScripting.ReorderableList.Element_Adder_Menu;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -63,6 +64,13 @@ public class ShopViewController : MonoBehaviour,
     private List<VisualElementFocusable> disableOnCompanionDrag = new List<VisualElementFocusable>();
     private List<VisualElementFocusable> companionUpgradeFocusables = new List<VisualElementFocusable>();
     private List<(CompanionView, CompanionTypeSO, VisualElement)> companionUpgradeInstanceFocusables = new List<(CompanionView, CompanionTypeSO, VisualElement)>();
+
+    [Header("Card Buying Animation Curves")]
+    [SerializeField] private AnimationCurve cardBuyVFXHorizontal;
+    [SerializeField] private AnimationCurve cardBuyVFXVertical;
+    [SerializeField] private AnimationCurve cardBuyVFXRotation;
+    [SerializeField] private AnimationCurve cardBuyVFXScale;
+    [SerializeField] private float cardBuyVFXTime;
 
     private IEnumerator notEnoughMoneyCoroutine;
     private IEnumerator upgradeButtonTooltipCoroutine = null;
@@ -317,6 +325,65 @@ public class ShopViewController : MonoBehaviour,
         disableOnCompanionDrag.Remove(shopItemView.visualElementFocusable);
     }
 
+    public void AnimateCardToCompanion(CardInShopWithPrice card, CompanionManagementView companionView) {
+        ShopItemView shopItemView = cardItemToViewMap[card];
+        Vector2 startPoint = VisualElementUtils.GetCenterOfVisualElement(shopItemView.shopItemElement);
+        Vector2 endPoint = VisualElementUtils.GetCenterOfVisualElement(companionView.container);
+
+        VisualElement tempContainer = new VisualElement();
+        tempContainer.style.width = shopItemView.shopItemElement.resolvedStyle.width;
+        tempContainer.style.height = shopItemView.shopItemElement.resolvedStyle.height;
+        tempContainer.style.position = Position.Absolute;
+        tempContainer.style.justifyContent = Justify.Center;
+        tempContainer.style.alignItems = Align.Center;
+
+        uiDoc.rootVisualElement.Add(tempContainer);
+        VisualElement cardElement = shopItemView.shopItemElement.Children().FirstOrDefault();
+        Debug.Log(cardElement);
+        shopItemView.shopItemElement.Remove(cardElement);
+        tempContainer.Add(cardElement);
+
+        shopItemView.Disable();
+
+        cardItemToViewMap.Remove(card);
+
+        FocusManager.Instance.UnregisterFocusableTarget(shopItemView.visualElementFocusable);
+        disableOnCompanionDrag.Remove(shopItemView.visualElementFocusable);
+
+        int spinDirection = 0;
+        if (startPoint.x < endPoint.x) spinDirection = 1;
+        else spinDirection = -1;
+        // Actually do the animation
+        // x value
+        LeanTween.value(startPoint.x, endPoint.x, cardBuyVFXTime)
+            .setEase(cardBuyVFXHorizontal)
+            .setOnUpdate((float val) => {
+                tempContainer.style.left = val - tempContainer.layout.width / 2;
+            })
+            .setOnComplete(() => {
+                uiDoc.rootVisualElement.Remove(tempContainer);
+            });
+        // y value
+        LeanTween.value(startPoint.y, endPoint.y, cardBuyVFXTime)
+            .setEase(cardBuyVFXVertical)
+            .setOnUpdate((float val) => {
+                tempContainer.style.top = val - tempContainer.layout.height / 2;
+            });
+        // Rotation
+        LeanTween.value(0f, spinDirection * 0.5f, cardBuyVFXTime)
+            .setEase(cardBuyVFXRotation)
+            .setOnUpdate((float value) => {
+                float degreeRotation = 360f * value;
+                tempContainer.transform.rotation = Quaternion.AngleAxis(degreeRotation, Vector3.forward);
+            });
+        // Scale
+        LeanTween.value(0.8f, 0.2f, cardBuyVFXTime)
+            .setEase(cardBuyVFXScale)
+            .setOnUpdate((float value) => {
+                tempContainer.transform.scale = new Vector3(value, value, 0f);
+            });
+    }
+
     public void AddCompanionToShopView(CompanionInShopWithPrice companion) {
         ShopItemView newCompanionItemView = new ShopItemView(this, companion, shopManager.encounterConstants.companionViewTemplate);
 
@@ -439,7 +506,7 @@ public class ShopViewController : MonoBehaviour,
 
     public void CompanionManagementOnClick(CompanionManagementView companionView)
     {
-        shopManager.ProcessCompanionClicked(companionView.companion);
+        shopManager.ProcessCompanionClicked(companionView);
     }
 
     public void ConfirmSellCompanion() {

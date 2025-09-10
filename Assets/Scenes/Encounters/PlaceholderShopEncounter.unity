@@ -1498,6 +1498,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1083293101}
     - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: cardBuyVFXTime
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
       propertyPath: statusEffectsSO
       value: 
       objectReference: {fileID: 11400000, guid: b5e8681fc02be284eb308731b490c4c5, type: 2}
@@ -1505,6 +1509,214 @@ PrefabInstance:
       propertyPath: cardSelectionViewPrefab
       value: 
       objectReference: {fileID: 7796338826870056937, guid: dfe80e002ae2aa74faee37067abac6d2, type: 3}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: cardBuyVFXScale.m_Curve.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: cardBuyVFXRotation.m_Curve.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: cardBuyVFXVertical.m_Curve.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: cardBuyVFXHorizontal.m_Curve.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: cardBuyVFXScale.m_Curve.Array.data[1].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: cardBuyVFXScale.m_Curve.Array.data[1].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: cardBuyVFXRotation.m_Curve.Array.data[0].time
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: cardBuyVFXRotation.m_Curve.Array.data[1].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: cardBuyVFXScale.m_Curve.Array.data[0].inSlope
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: cardBuyVFXScale.m_Curve.Array.data[1].inSlope
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: cardBuyVFXVertical.m_Curve.Array.data[1].time
+      value: 0.2571846
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: cardBuyVFXVertical.m_Curve.Array.data[2].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: cardBuyVFXRotation.m_Curve.Array.data[0].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: cardBuyVFXRotation.m_Curve.Array.data[1].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: cardBuyVFXScale.m_Curve.Array.data[0].outSlope
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: cardBuyVFXScale.m_Curve.Array.data[1].outSlope
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: cardBuyVFXVertical.m_Curve.Array.data[0].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: cardBuyVFXVertical.m_Curve.Array.data[1].value
+      value: -0.17464131
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: cardBuyVFXVertical.m_Curve.Array.data[2].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: cardBuyVFXHorizontal.m_Curve.Array.data[1].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: cardBuyVFXHorizontal.m_Curve.Array.data[1].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: cardBuyVFXRotation.m_Curve.Array.data[0].inSlope
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: cardBuyVFXRotation.m_Curve.Array.data[1].inSlope
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: cardBuyVFXVertical.m_Curve.Array.data[0].inSlope
+      value: -0.67905045
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: cardBuyVFXVertical.m_Curve.Array.data[1].inSlope
+      value: 0.4511432
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: cardBuyVFXVertical.m_Curve.Array.data[2].inSlope
+      value: 1.5813369
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: cardBuyVFXRotation.m_Curve.Array.data[0].inWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: cardBuyVFXRotation.m_Curve.Array.data[0].outSlope
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: cardBuyVFXRotation.m_Curve.Array.data[1].inWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: cardBuyVFXRotation.m_Curve.Array.data[1].outSlope
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: cardBuyVFXScale.m_Curve.Array.data[0].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: cardBuyVFXScale.m_Curve.Array.data[1].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: cardBuyVFXVertical.m_Curve.Array.data[0].outSlope
+      value: -0.67905045
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: cardBuyVFXVertical.m_Curve.Array.data[1].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: cardBuyVFXVertical.m_Curve.Array.data[1].outSlope
+      value: 0.4511432
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: cardBuyVFXVertical.m_Curve.Array.data[2].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: cardBuyVFXVertical.m_Curve.Array.data[2].outSlope
+      value: 1.5813369
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: cardBuyVFXHorizontal.m_Curve.Array.data[0].inSlope
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: cardBuyVFXHorizontal.m_Curve.Array.data[1].inSlope
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: cardBuyVFXRotation.m_Curve.Array.data[0].outWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: cardBuyVFXRotation.m_Curve.Array.data[1].outWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: cardBuyVFXVertical.m_Curve.Array.data[0].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: cardBuyVFXVertical.m_Curve.Array.data[1].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: cardBuyVFXHorizontal.m_Curve.Array.data[0].outSlope
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: cardBuyVFXHorizontal.m_Curve.Array.data[1].outSlope
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: cardBuyVFXRotation.m_Curve.Array.data[0].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: cardBuyVFXRotation.m_Curve.Array.data[1].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: cardBuyVFXVertical.m_Curve.Array.data[0].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: cardBuyVFXVertical.m_Curve.Array.data[1].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: cardBuyVFXVertical.m_Curve.Array.data[2].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: cardBuyVFXHorizontal.m_Curve.Array.data[0].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: cardBuyVFXHorizontal.m_Curve.Array.data[1].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
     - target: {fileID: 3701935023595913666, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
       propertyPath: m_Name
       value: ShopManager

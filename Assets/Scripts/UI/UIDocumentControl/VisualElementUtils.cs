@@ -1,4 +1,7 @@
 using System;
+using Unity.Mathematics;
+using Unity.VisualScripting.ReorderableList.Element_Adder_Menu;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 public class VisualElementUtils
@@ -22,5 +25,13 @@ public class VisualElementUtils
                 slider.value -= sliderIncrement;
                 break;
         }
+    }
+
+    public static Vector2 GetCenterOfVisualElement(VisualElement ve) {
+        // float x = ve.style.left.value.value + (ve.resolvedStyle.width / 2f);
+        // float y = ve.style.top.value.value + (ve.resolvedStyle.height / 2f);
+        float x = ve.worldBound.center.x;
+        float y = ve.worldBound.center.y;
+        return new Vector2(x, y);
     }
 }

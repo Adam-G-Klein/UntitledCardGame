@@ -263,11 +263,12 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         shopViewController.RebuildUnitManagement(gameState.companions);
     }
 
-    public void ProcessCompanionClicked(Companion companion) {
+    public void ProcessCompanionClicked(CompanionManagementView companionView) {
         // The player selected a companion, so the transaction is complete
         // (assuming there is a transaction) and we're gonna add the card
         // to the companion's deck and lets forcefully close the companion
         // view UI
+        Companion companion = companionView.companion;
         if (this.buyingCard) {
             if (!IsApplicableCompanion(currentCardBuyRequest, companion)) return;
             Card newCard = new Card(currentCardBuyRequest.cardType, companion.companionType, currentCardBuyRequest.rarity);
@@ -275,7 +276,8 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             companion.trackingStats.RecordCardBuy(newCard);
             gameState.playerData.GetValue().gold -= currentCardBuyRequest.price;
             shopViewController.SetMoney(gameState.playerData.GetValue().gold);
-            shopViewController.RemoveCardFromShopView(currentCardBuyRequestItemView.cardInShop);
+            // shopViewController.RemoveCardFromShopView(currentCardBuyRequestItemView.cardInShop);
+            shopViewController.AnimateCardToCompanion(currentCardBuyRequestItemView.cardInShop, companionView);
             this.buyingCard = false;
             shopViewController.StopBuyingCard();
             InstantiateShopVFX(moneySpentPrefab, currentCardBuyRequestItemView.shopItemElement, 1.5f);
