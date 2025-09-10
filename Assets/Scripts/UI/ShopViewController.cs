@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using Unity.VisualScripting.ReorderableList.Element_Adder_Menu;
 using UnityEngine;
@@ -362,6 +363,21 @@ public class ShopViewController : MonoBehaviour,
             })
             .setOnComplete(() => {
                 uiDoc.rootVisualElement.Remove(tempContainer);
+                float originalScale = 1f;
+                float targetScale = 1.1f;
+                float halfDuration = 0.075f;
+                LeanTween.value(originalScale, targetScale, halfDuration)
+                    .setEase(LeanTweenType.easeOutQuad)
+                    .setOnUpdate((float val) => {
+                        companionView.container.transform.scale = new Vector3(val, val, 1f);
+                    })
+                    .setOnComplete(() => {
+                        LeanTween.value(targetScale, originalScale, halfDuration)
+                            .setEase(LeanTweenType.easeOutQuad)
+                            .setOnUpdate((float val) => {
+                                companionView.container.transform.scale = new Vector3(val, val, 1f);
+                            });
+                    });
             });
         // y value
         LeanTween.value(startPoint.y, endPoint.y, cardBuyVFXTime)
