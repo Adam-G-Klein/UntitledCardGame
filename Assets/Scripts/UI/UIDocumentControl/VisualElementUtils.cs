@@ -1,6 +1,4 @@
 using System;
-using Unity.Mathematics;
-using Unity.VisualScripting.ReorderableList.Element_Adder_Menu;
 using UnityEngine;
 using UnityEngine.UIElements;
 

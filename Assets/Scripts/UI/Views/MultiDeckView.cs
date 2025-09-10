@@ -3,9 +3,6 @@ using System;
 using UnityEngine.UIElements;
 using System.Linq;
 using System.Collections.Generic;
-using System.ComponentModel;
-using OpenCover.Framework.Model;
-using Unity.VisualScripting;
 
 public class MultiDeckView
 {
