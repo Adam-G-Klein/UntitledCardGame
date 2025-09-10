@@ -38,14 +38,13 @@ MonoBehaviour:
     behaviorType: 0
   adaptWhenAloneEnemyPattern:
     behaviors:
-    - intent: 5
-      enemyTargetMethod: 6
-      targetsKey: 
-      displayValue: 0
+    - intent: 1
+      enemyTargetMethod: 0
+      targetsKey: target
+      displayValue: 6
       effectSteps:
-      - rid: 2034229587402555903
-      - rid: 2034229587402555905
-      - rid: 2034229587402555904
+      - rid: 8034950120506655576
+      - rid: 8034950120506655577
     behaviorType: 0
   initialStatuses: []
   tooltip:
@@ -57,40 +56,11 @@ MonoBehaviour:
     - title: USELESS CARD
       description: This card is USELESS!
       relatedBehaviorIndex: 0
+  DEADLIER_ENEMY_BONUS_STR: -1
+  HEALTHIER_ENEMY_BONUS_HEALTH: -1
   references:
     version: 2
     RefIds:
-    - rid: 2034229587402555903
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: self
-        validTargets: 
-        number: 1
-        specialTargetRule: 3
-        cantCancelTargetting: 0
-    - rid: 2034229587402555904
-      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CombatEffectStep
-        inputKey: self
-        combatEffect: 6
-        scale: 0
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
-        vfxPrefab: {fileID: 0}
-    - rid: 2034229587402555905
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: self
-        prefabToInstantiate: {fileID: 7939549763701254822, guid: f4ba6cc7e7a795f49be6c445733f13d4, type: 3}
-        scale: 1
     - rid: 4463205916933358110
       type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
       data:
@@ -117,6 +87,8 @@ MonoBehaviour:
         - fromWorkflow: target
           toFxExperience: end
         gameobjectMappingList: []
+        vePositionMappingList: []
+        veMappingList: []
     - rid: 5280922829633618003
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -128,3 +100,21 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
+    - rid: 8034950120506655576
+      type: {class: ScriptableObjectEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ScriptableObjectEffectStep
+        effectStepSO: {fileID: 11400000, guid: 46ac36b880e2ff14aa699c90b6e9f19c, type: 2}
+    - rid: 8034950120506655577
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: target
+        combatEffect: 0
+        scale: 6
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 0}

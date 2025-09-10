@@ -50,8 +50,9 @@ public class ShopDataSO : ScriptableObject
     [Header("Upgrade parameters")]
     public List<CardType> baseCardsToRemoveOnUpgrade;
 
-    [Header("Controlling healing on the bench")]
+    [Header("Controlling healing in the game")]
     public int benchHealingAmount;
+    public int postEliteHealingAmount;
 
     public ShopLevel GetShopLevel(int level)
     {

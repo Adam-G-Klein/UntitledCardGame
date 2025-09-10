@@ -41,10 +41,12 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: "Level Three Toxb\xF6\xF6gg"
-      description: Each turn, inflict 2 poison on a random enemy x3
+      description: Each turn, inflict 1 poison on a random enemy x5 and inflict 1
+        poison on a random ally x3
       relatedBehaviorIndex: 0
   keepsakeTitle: Venomouse's Mouthwash
-  keepsakeDescription: Each turn, inflict 2 poison on a random enemy x3
+  keepsakeDescription: Each turn, inflict 1 poison on a random enemy x5 and inflict
+    1 poison on a random ally x3
   references:
     version: 2
     RefIds:
@@ -56,6 +58,9 @@ MonoBehaviour:
         - rid: 205827988172308705
         - rid: 205827988172308706
         - rid: 205827988172308707
+        - rid: 754093646965899440
+        - rid: 754093646965899441
+        - rid: 754093646965899442
     - rid: 205827988172308705
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -64,7 +69,7 @@ MonoBehaviour:
         inputKey: 
         outputKey: enemy
         validTargets: 02000000
-        number: 3
+        number: 5
         specialTargetRule: 6
         cantCancelTargetting: 0
     - rid: 205827988172308706
@@ -73,7 +78,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: enemy
         statusEffect: 15
-        scale: 2
+        scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
@@ -85,5 +90,36 @@ MonoBehaviour:
       data:
         effectStepName: InstantiatePrefab
         inputKey: enemy
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 377a399fb9991684eb788275070abb5e, type: 3}
+        scale: 1
+    - rid: 754093646965899440
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: allies
+        validTargets: 00000000
+        number: 3
+        specialTargetRule: 6
+        cantCancelTargetting: 0
+    - rid: 754093646965899441
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: allies
+        statusEffect: 15
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+    - rid: 754093646965899442
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: allies
         prefabToInstantiate: {fileID: 3850217184923880746, guid: 377a399fb9991684eb788275070abb5e, type: 3}
         scale: 1

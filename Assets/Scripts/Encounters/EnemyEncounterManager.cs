@@ -45,6 +45,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     private bool endTurnEnabled = true;
     private bool inDeckView = false;
     private bool inOptionsView = false;
+    private bool isEliteCombat = false;
 
 
     [SerializeField]
@@ -106,6 +107,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         // set up the EnemyEncounterViewModel, which passes information to the UI
         encounterBuilt = true;
         combatOver = false;
+        isEliteCombat = encounter.isEliteEncounter;
     }
 
     public bool IsEncounterBuilt(){
@@ -124,7 +126,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     }
 
     /*
-        Needed to move the end encounter code from a plain function to a coroutine because 
+        Needed to move the end encounter code from a plain function to a coroutine because
         of the VFX timing for reviving companions at the end of the encounter
     */
     private IEnumerator EndEncounterCoroutine(EndEncounterEventInfo info) {
@@ -165,6 +167,22 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
             }
         }
 
+
+        // Heal all surviving companions by a certain amount.
+        if (isEliteCombat)
+        {
+            foreach (Companion companion in gameState.companions.activeCompanions)
+            {
+                if (companion.combatStats.currentHealth > 0)
+                {
+                    companion.combatStats.Heal(gameState.baseShopData.postEliteHealingAmount);
+                }
+            }
+            yield return StartCoroutine(
+                CombatEntityManager.Instance.HealAliveCompanions(encounterConstants.companionRevivePrefab, 0.2f)
+            );
+        }
+
         List<Companion> revivedCompanions = new List<Companion>();
         // Revive all companions that died during combat to death's door.
         foreach (Companion companion in gameState.companions.allCompanions)
@@ -177,6 +195,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         }
 
         yield return StartCoroutine(CombatEntityManager.Instance.ReviveCompanions(revivedCompanions, encounterConstants.companionRevivePrefab, 0.5f));
+
 
         gameState.LoadNextLocation();
         EnemyEncounterViewModel.Instance.SetInMenu(true);

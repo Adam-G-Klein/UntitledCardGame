@@ -24,6 +24,14 @@ MonoBehaviour:
   cacheValueConfigs: []
   enemyPattern:
     behaviors:
+    - intent: 2
+      enemyTargetMethod: 6
+      targetsKey: 
+      displayValue: 0
+      effectSteps:
+      - rid: 3931529445166809421
+      - rid: 8034950120506655575
+      - rid: 5280922829633618024
     - intent: 1
       enemyTargetMethod: 0
       targetsKey: target
@@ -32,10 +40,7 @@ MonoBehaviour:
       - rid: 3931529445166809421
       - rid: 173314522967966481
       - rid: 3931529445166809422
-      - rid: 5280922829633618025
-      - rid: 3931529445166809423
-      - rid: 5280922829633618024
-    behaviorType: 0
+    behaviorType: 2
   belowHalfHPEnemyPattern:
     behaviors: []
     behaviorType: 0
@@ -46,9 +51,12 @@ MonoBehaviour:
   tooltip:
     empty: 0
     lines:
-    - title: Empowered Strike
-      description: Attacks and grows in strength
-      relatedBehaviorIndex: -1
+    - title: Charging up
+      description: Gives itself strength to hit even harder
+      relatedBehaviorIndex: 0
+    - title: Strike
+      description: Attacks your first companion grr
+      relatedBehaviorIndex: 1
   DEADLIER_ENEMY_BONUS_STR: -1
   HEALTHIER_ENEMY_BONUS_HEALTH: -1
   references:
@@ -83,15 +91,6 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 0}
-    - rid: 3931529445166809423
-      type: {class: PermanentStatIncrease, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: PermanentStatIncrease
-        inputKey: self
-        statIncreaseType: 0
-        scale: 2
-        getScaleFromKey: 0
-        inputScaleKey: 
     - rid: 5280922829633618024
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -99,8 +98,16 @@ MonoBehaviour:
         inputKey: self
         prefabToInstantiate: {fileID: 3850217184923880746, guid: 4bed509d0589dae4d922d8eeb61a6292, type: 3}
         scale: 1
-    - rid: 5280922829633618025
-      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
+    - rid: 8034950120506655575
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: WaitForSecondsEffect
-        seconds: 0.3
+        effectStepName: ApplyStatus
+        inputKey: self
+        statusEffect: 0
+        scale: 3
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 

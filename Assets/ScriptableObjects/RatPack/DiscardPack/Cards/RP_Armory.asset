@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 80d9dbaa-3ef1-4708-bed1-d8937d908488
   Name: Armory
-  Description: Unplayable. When discarded, give all companions 1 strength
+  Description: Unplayable. When discarded, give a random companion 1 strength x2
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: deea7b3a1097502488875a6717d4fb34, type: 3}
@@ -52,8 +52,8 @@ MonoBehaviour:
         inputKey: 
         outputKey: all
         validTargets: 00000000
-        number: 1
-        specialTargetRule: 1
+        number: 2
+        specialTargetRule: 6
         cantCancelTargetting: 0
     - rid: 2034230108114649755
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}

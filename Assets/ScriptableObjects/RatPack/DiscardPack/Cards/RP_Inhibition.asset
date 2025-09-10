@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: f9af787b-c70b-4732-873a-8af983f8577d
   Name: Inhibition
-  Description: Unplayable. When discarded, this companion gains 2 strength
+  Description: Unplayable. When discarded, give self 1 strength
   defaultValues: []
-  Cost: 2
+  Cost: 0
   Artwork: {fileID: 21300000, guid: 20b46ccd593516f4badbdcdb021f67c1, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
@@ -61,7 +61,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: self
         statusEffect: 0
-        scale: 2
+        scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
@@ -99,7 +99,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: self
         statusEffect: 0
-        scale: 2
+        scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0

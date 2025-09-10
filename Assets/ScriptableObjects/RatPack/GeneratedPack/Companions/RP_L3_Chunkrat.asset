@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
   m_Name: RP_L3_Chunkrat
   m_EditorClassIdentifier: 
-  guid: ed454070-968b-46dc-a9bd-22db87d03c6f
+  guid: b6b32c40-04cd-4b1b-800e-051c1a11c817
   companionName: Chunkrat++
   maxHealth: 60
   initialCardsDealtPerTurn: 1
@@ -34,58 +34,77 @@ MonoBehaviour:
   pack: {fileID: 11400000, guid: 0d12b03c0c8754470a900cb4f78a9217, type: 2}
   speakerType: {fileID: 0}
   abilitiesV2:
-  - rid: 205828032053379333
+  - rid: 7401433059192472041
   level: 2
   upgradeTo: {fileID: 0}
   tooltip:
     empty: 0
     lines:
     - title: Level Three Chunkrat
-      description: At end of combat, permanently gain a "Spice Cake" Status card
-        that gives max HP and heals
+      description: At end of combat, choose a card from own deck to permanently transform
+        into a "Spice Cake" status card
+      relatedBehaviorIndex: 0
+    - title: Spice Cake
+      description: Exhaust. When exhausted, gain 3 max HP and heal 5 HP and draw
+        1 card from self
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: At end of combat, permanently gain a "Spice Cake" Status card
-    that gives max HP and heals
+  keepsakeDescription: At end of combat, choose a card from own deck to permanently
+    transform into a "Spice Cake" status card
   references:
     version: 2
     RefIds:
-    - rid: 205828032053379333
+    - rid: 754093646965899314
+      type: {class: GetCardsFromDeck, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetCardsFromDeck
+        inputKey: self
+        getLimitedNumber: 0
+        numberOfCardsToGet: 1
+        shuffleIfEmpty: 1
+        outputKey: allCards
+        getAllCardsFromEntities: 0
+        getCardsFromSourceDeck: 1
+        getAllFromOnlyDrawPile: 0
+    - rid: 754093646965899315
+      type: {class: SelectCardsFromList, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: SelectCardsFromList
+        inputKey: allCards
+        outputKey: out
+        promptText: 'Chunkrat++ ability: Select card to perma transform into a "Spice
+          Cake" status card that gives max HP and heals and draws.'
+        minTargets: 0
+        maxTargets: 1
+        getNumberOfTargetsFromKey: 0
+        inputNumberOfTargetsKey: 
+        randomizeOrder: 0
+    - rid: 754093646965899317
+      type: {class: CardInDeckEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardInDeckEffect
+        inputCardsKey: out
+        inputDeckKey: self
+        effect: 4
+        cardToTransformInto: {fileID: 11400000, guid: 9f768b34b9ed540059f2007e7ced70b9, type: 2}
+        outputKey: 
+    - rid: 7401433059192472041
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
         abilityTrigger: 1
         effectSteps:
-        - rid: 205828032053379334
-        - rid: 7401433128868512225
-        - rid: 8790164555430888172
-    - rid: 205828032053379334
+        - rid: 7401433128868512212
+        - rid: 754093646965899314
+        - rid: 754093646965899315
+        - rid: 754093646965899317
+    - rid: 7401433128868512212
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
         outputKey: self
-        validTargets: 
+        validTargets: 00000000
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
-    - rid: 7401433128868512225
-      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: AddCardsToDeck
-        inputKey: self
-        cardTypes:
-        - {fileID: 11400000, guid: 9f768b34b9ed540059f2007e7ced70b9, type: 2}
-        addToDeckMethod: 3
-        getCardsFromKey: 0
-        inputCardsKey: 
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
-    - rid: 8790164555430888172
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: self
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
-        scale: 1

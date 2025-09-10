@@ -36,7 +36,7 @@ MonoBehaviour:
   abilitiesV2:
   - rid: 7401433059192472041
   level: 1
-  upgradeTo: {fileID: 11400000, guid: 5b3a8afa2f99d4310add35b9bb6518cb, type: 2}
+  upgradeTo: {fileID: 11400000, guid: 2477cb421228a4ee590fddec2276fddc, type: 2}
   tooltip:
     empty: 0
     lines:
@@ -71,8 +71,8 @@ MonoBehaviour:
         effectStepName: SelectCardsFromList
         inputKey: allCards
         outputKey: out
-        promptText: Select card to transform into a "Scrumptious Snack" status card
-          that gives max HP and heals.
+        promptText: 'Chunkrat+ ability: Select card to perma transform into a "Scrumptious
+          Snack" status card that gives max HP and heals.'
         minTargets: 0
         maxTargets: 1
         getNumberOfTargetsFromKey: 0

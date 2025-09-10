@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
-  m_Name: Cruncher
+  m_Name: Enemy_TinyChump
   m_EditorClassIdentifier: 
-  guid: b983e00a-9b0b-418d-a9f1-acddeb82c6b3
-  displayName: Cruncher
-  maxHealth: 20
+  guid: 1e1aa836-20f7-405d-b6d1-765564560fd5
+  displayName: Tiny Chump
+  maxHealth: 12
   baseAttackDamage: 0
-  sprite: {fileID: 21300000, guid: 6197f759ce4f09946b3674e7d96bac7f, type: 3}
+  sprite: {fileID: 21300000, guid: 9d911d4e6e625d44cac9b212ee282b98, type: 3}
   backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
   entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
   morale: 0
@@ -27,10 +27,10 @@ MonoBehaviour:
     - intent: 1
       enemyTargetMethod: 0
       targetsKey: target
-      displayValue: 5
+      displayValue: 2
       effectSteps:
       - rid: 3931529445166809421
-      - rid: 173314522967966482
+      - rid: 173314522967966400
       - rid: 3931529445166809422
     behaviorType: 0
   belowHalfHPEnemyPattern:
@@ -43,15 +43,15 @@ MonoBehaviour:
   tooltip:
     empty: 0
     lines:
-    - title: Bite
-      description: Simple Attack
-      relatedBehaviorIndex: -1
+    - title: '>:('
+      description: Small attack
+      relatedBehaviorIndex: 0
   DEADLIER_ENEMY_BONUS_STR: -1
   HEALTHIER_ENEMY_BONUS_HEALTH: -1
   references:
     version: 2
     RefIds:
-    - rid: 173314522967966482
+    - rid: 173314522967966400
       type: {class: ScriptableObjectEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ScriptableObjectEffectStep
@@ -73,7 +73,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: target
         combatEffect: 0
-        scale: 5
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1

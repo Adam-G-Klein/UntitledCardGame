@@ -200,7 +200,7 @@ public class CombatInstance : MonoBehaviour
                 if (shouldShake) AddShake(damageTaken);
                 break;
             case CombatEffect.Heal:
-                int diff = Heal(scale);
+                int diff = combatStats.Heal(scale);
                 if (diff > 0)
                 {
                     StartCoroutine(CombatEntityManager.Instance.OnHeal(this));
@@ -252,19 +252,6 @@ public class CombatInstance : MonoBehaviour
         // could easily double-update with method above
         UpdateView();
         return combatStats.getCurrentHealth() == 0 ? 0 : damageAfterDefense;
-    }
-
-    private int Heal(int scale)
-    {
-        if (scale < 0)
-        {
-            Debug.LogWarning("Negative healing by " + scale + " is not supported");
-            return 0;
-        }
-        int updatedHealth = Mathf.Min(combatStats.getCurrentHealth() + scale, combatStats.maxHealth);
-        int diff = updatedHealth - combatStats.getCurrentHealth();
-        combatStats.setCurrentHealth(updatedHealth);
-        return diff;
     }
 
     private int DamageAfterDefense(CombatEffect combatEffect, int damage)
