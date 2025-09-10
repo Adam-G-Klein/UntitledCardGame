@@ -315,7 +315,7 @@ public abstract class EntityAbilityInstance
         tempContainer.Add(entityVE);
 
         bool done = false;
-        float vfxTime = 0.35f;
+        float vfxTime = 0.5f;
         // Opacity
         LeanTween.value(0.8f, 0f, vfxTime)
             .setEase(LeanTweenType.linear)
