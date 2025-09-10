@@ -28,6 +28,7 @@ public class EnemyInstance : MonoBehaviour, IUIEntity {
 
     public WorldPositionVisualElement placement;
     public bool dead = false;
+    public EnemyView enemyView;
 
     private Dictionary<EnemyBrain, ValueTuple<int, int>> behaviorIndices = new();
 

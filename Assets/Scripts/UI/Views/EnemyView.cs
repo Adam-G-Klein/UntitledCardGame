@@ -362,4 +362,9 @@ public class EnemyView : IUIEventReceiver
     {
         intentContainer.style.display = DisplayStyle.None;
     }
+
+    public IEnumerator AbilityActivatedVFX() {
+        EnemyView clonedEnemyView = new EnemyView(this.uiEntity, 0, this.viewDelegate);
+        yield return EntityAbilityInstance.GenericAbilityTriggeredVFX(this.container, clonedEnemyView.container);
+    }
 }

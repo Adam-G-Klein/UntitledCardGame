@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 [System.Serializable]
 public abstract class EntityAbilityInstance
@@ -16,7 +17,10 @@ public abstract class EntityAbilityInstance
     // Abstract because different implementations of the subclass will create different versions of the base effect document.
     protected abstract EffectDocument createEffectDocument();
 
+    protected abstract IEnumerator abilityTriggeredVFX();
+
     private IEnumerable setupAndInvokeAbility() {
+        yield return abilityTriggeredVFX();
         EffectDocument document = createEffectDocument();
         EffectManager.Instance.invokeEffectWorkflow(document, ability.effectSteps, null);
         yield return null;
@@ -178,6 +182,7 @@ public abstract class EntityAbilityInstance
 
     // This is a bit of a hack, but I'm ok with it being here for now
     private IEnumerator OnCardCast(PlayableCard card) {
+        yield return abilityTriggeredVFX();
         EffectDocument document = createEffectDocument();
         document.map.AddItem<PlayableCard>("cardPlayed", card);
         if (card.deckFrom.TryGetComponent(out CompanionInstance companion)) {
@@ -192,6 +197,7 @@ public abstract class EntityAbilityInstance
     }
     
     private IEnumerator OnBlockGained(CombatInstance combatInstance) {
+        yield return abilityTriggeredVFX();
         EffectDocument document = createEffectDocument();
          if (combatInstance.TryGetComponent(out CompanionInstance companion)) {
             EffectUtils.AddCompanionToDocument(document, "companionThatGainedBlock", companion);
@@ -203,6 +209,7 @@ public abstract class EntityAbilityInstance
     private IEnumerator OnHandEmpty()
     {
         Debug.Log("OnHandEmpty ability invoked!!!");
+        yield return abilityTriggeredVFX();
         EffectManager.Instance.QueueEffectWorkflow(
             new EffectWorkflowClosure(createEffectDocument(), ability.effectWorkflow, null)
         );
@@ -210,6 +217,7 @@ public abstract class EntityAbilityInstance
     }
 
     private IEnumerator OnCardExhaust(DeckInstance deckFrom, PlayableCard card) {
+        yield return abilityTriggeredVFX();
         EffectDocument document = createEffectDocument();
         if (deckFrom.TryGetComponent(out CompanionInstance companion)) {
             EffectUtils.AddCompanionToDocument(document, "companionExhaustedFrom", companion);
@@ -221,6 +229,7 @@ public abstract class EntityAbilityInstance
 
     private IEnumerator OnCardDiscard(DeckInstance deckFrom, PlayableCard card, bool casted) {
         if (!casted) {
+            yield return abilityTriggeredVFX();
             EffectDocument document = createEffectDocument();
             if (deckFrom.TryGetComponent(out CompanionInstance companion)) {
                 EffectUtils.AddCompanionToDocument(document, "companionDiscardedFrom", companion);
@@ -232,6 +241,7 @@ public abstract class EntityAbilityInstance
     }
 
     private IEnumerator OnDeckShuffled(DeckInstance deckFrom) {
+        yield return abilityTriggeredVFX();
         EffectDocument document = createEffectDocument();
         if (deckFrom.TryGetComponent(out CombatInstance combatInstance)) {
             CompanionInstance companion = CombatEntityManager.Instance.getCompanionInstanceForCombatInstance(combatInstance);
@@ -242,6 +252,7 @@ public abstract class EntityAbilityInstance
     }
 
     private IEnumerator OnDamageTaken(CombatInstance damagedInstance) {
+        yield return abilityTriggeredVFX();
         EffectDocument document = createEffectDocument();
         if (damagedInstance.parentType == CombatInstance.CombatInstanceParent.COMPANION) {
             CompanionInstance companion = CombatEntityManager.Instance.getCompanionInstanceForCombatInstance(damagedInstance);
@@ -266,6 +277,7 @@ public abstract class EntityAbilityInstance
 
     private IEnumerator OnHeal(CombatInstance healedInstance) {
         Debug.Log("OnHeal ability invoked!!!");
+        yield return abilityTriggeredVFX();
         EffectDocument document = createEffectDocument();
         if (healedInstance.parentType == CombatInstance.CombatInstanceParent.COMPANION) {
             CompanionInstance companion = CombatEntityManager.Instance.getCompanionInstanceForCombatInstance(healedInstance);
@@ -284,6 +296,45 @@ public abstract class EntityAbilityInstance
         }
         EffectManager.Instance.QueueEffectWorkflow(new EffectWorkflowClosure(document, ability.effectWorkflow, null));
         yield return null;
+    }
+
+    public static IEnumerator GenericAbilityTriggeredVFX(VisualElement original, VisualElement entityVE) {
+        VisualElement root = VisualElementUtils.GetRootVisualElement(original);
+
+        VisualElement tempContainer = new VisualElement();
+        tempContainer.style.width = original.resolvedStyle.width;
+        tempContainer.style.height = original.resolvedStyle.height;
+        tempContainer.style.position = Position.Absolute;
+        tempContainer.style.justifyContent = Justify.Center;
+        tempContainer.style.alignItems = Align.Center;
+
+        root.Add(tempContainer);
+        tempContainer.style.top = original.worldBound.yMin;
+        tempContainer.style.left = original.worldBound.xMin;
+
+        tempContainer.Add(entityVE);
+
+        bool done = false;
+        float vfxTime = 0.35f;
+        // Opacity
+        LeanTween.value(0.8f, 0f, vfxTime)
+            .setEase(LeanTweenType.linear)
+            .setOnUpdate((float value) => {
+                tempContainer.style.opacity = value;
+            })
+            .setOnComplete(() => {
+                root.Remove(tempContainer);
+                done = true;
+            });
+
+        // Scale
+        LeanTween.value(1f, 1.25f, vfxTime)
+            .setEase(LeanTweenType.linear)
+            .setOnUpdate((float value) => {
+                tempContainer.transform.scale = new Vector3(value, value, 1f);
+            });
+
+        yield return new WaitUntil(() => done == true);
     }
 }
 
@@ -305,6 +356,15 @@ public class CompanionInstanceAbilityInstance : EntityAbilityInstance
         document.originEntityType = EntityType.CompanionInstance;
         return document;
     }
+
+    protected override IEnumerator abilityTriggeredVFX()
+    {
+        if (companionInstance.companionView == null) {
+            yield break;
+        }
+        
+        yield return companionInstance.companionView.AbilityActivatedVFX();
+    }
 }
 
 public class EnemyInstanceAbilityInstance : EntityAbilityInstance
@@ -324,5 +384,10 @@ public class EnemyInstanceAbilityInstance : EntityAbilityInstance
         document.map.AddItem(EffectDocument.ORIGIN, this.enemyInstance);
         document.originEntityType = EntityType.Enemy;
         return document;
+    }
+
+    protected override IEnumerator abilityTriggeredVFX()
+    {
+        yield return enemyInstance.enemyView.AbilityActivatedVFX();
     }
 }

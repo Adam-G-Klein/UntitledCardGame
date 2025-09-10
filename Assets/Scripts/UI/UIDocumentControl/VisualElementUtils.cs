@@ -32,4 +32,15 @@ public class VisualElementUtils
         float y = ve.worldBound.center.y;
         return new Vector2(x, y);
     }
+
+    public static VisualElement GetRootVisualElement(VisualElement ve) {
+        if (ve == null) return null;
+
+        VisualElement root = ve;
+        while (root.parent != null)
+        {
+            root = root.parent;
+        }
+        return root;
+    }
 }

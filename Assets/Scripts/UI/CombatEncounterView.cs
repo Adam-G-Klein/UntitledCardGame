@@ -60,7 +60,7 @@ public class CombatEncounterView : MonoBehaviour,
         }
         List<Enemy> enemies = ((EnemyEncounter)gameState.activeEncounter.GetValue()).enemyList;
         List<Companion> companions = gameState.companions.activeCompanions;
-        setupEnemies(root.Q<VisualElement>("enemyContainer"), enemies.Cast<IUIEntity>(), true);
+        setupEnemies(root.Q<VisualElement>("enemyContainer"), enemies.Cast<IUIEntity>());
         SetupCompanions(root.Q<VisualElement>("companionContainer"), companions);
         UIDocumentUtils.SetAllPickingMode(root, PickingMode.Ignore);
         
@@ -100,7 +100,7 @@ public class CombatEncounterView : MonoBehaviour,
         FocusManager.Instance.UnregisterFocusables(companionContainer);
         enemyContainer.Clear();
         companionContainer.Clear();
-        setupEnemies(enemyContainer, enemies.Cast<IUIEntity>(), true);
+        SetupEnemies(enemyContainer, enemies);
         // setupEntities(companionContainer, companions.Cast<IUIEntity>(), false);
         SetupCompanions(companionContainer, companions);
         UIDocumentUtils.SetAllPickingMode(enemyContainer, PickingMode.Ignore);
@@ -133,14 +133,28 @@ public class CombatEncounterView : MonoBehaviour,
 
     void Update() { }
 
-    private void setupEnemies(VisualElement container, IEnumerable<IUIEntity> entities, bool isEnemy) {
+    // This function runs the first frame, which creates the enemy views before the enemy instances
+    // exist.
+    private void setupEnemies(VisualElement container, IEnumerable<IUIEntity> entities) {
         var index = UIDocumentGameObjectPlacer.INITIAL_INDEX;
         foreach (var entity in entities) {
-            container.Add(setupEnemy(entity, index));
+            container.Add(setupEnemy(entity, index).container);
             index++;
         }
     }
 
+    private void SetupEnemies(VisualElement container, IEnumerable<EnemyInstance> enemyInstances) {
+        var index = UIDocumentGameObjectPlacer.INITIAL_INDEX;
+        foreach (EnemyInstance entity in enemyInstances) {
+            EnemyView enemyView = setupEnemy(entity, index);
+            entity.enemyView = enemyView;
+            container.Add(enemyView.container);
+            index++;
+        }
+    }
+
+    // This function runs first frame, which creates the companion views before the companion instances
+    // exist.
     private void SetupCompanions(VisualElement container, IEnumerable<IUIEntity> companions) {
         var index = UIDocumentGameObjectPlacer.INITIAL_INDEX;
         foreach (var entity in companions) {
@@ -149,6 +163,8 @@ public class CombatEncounterView : MonoBehaviour,
         }
     }
 
+    // This function is run every time after the first time the companion views are created, so that the companion instances
+    // are created.
     private void SetupCompanions(VisualElement container, IEnumerable<CompanionInstance> companionInstances)
     {
         var index = UIDocumentGameObjectPlacer.INITIAL_INDEX;
@@ -182,7 +198,7 @@ public class CombatEncounterView : MonoBehaviour,
         return companionView;
     }
 
-    private VisualElement setupEnemy(IUIEntity entity, int index) {
+    private EnemyView setupEnemy(IUIEntity entity, int index) {
         EnemyView newEntityView = new EnemyView(entity, index, this);
         pickingModePositionList.Add(newEntityView);
         entityViews.Add(newEntityView);
@@ -191,7 +207,7 @@ public class CombatEncounterView : MonoBehaviour,
         entityViewFocusable.SetTargetType(Targetable.TargetType.Enemy);
         FocusManager.Instance.RegisterFocusableTarget(entityViewFocusable);
 
-        return newEntityView.container;
+        return newEntityView;
     }
 
     public void updateMana(int mana) {
