@@ -26,6 +26,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     public GameObject shopRerollPrefab;
     public GameObject shopUpgradePrefab;
     public GameObject healPrefab;
+    public GameObject sparklePrefab;
 
     private ShopEncounter shopEncounter;
     private ShopLevel shopLevel;
@@ -213,9 +214,15 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         GameObject instance = Instantiate(prefab, UIDocumentGameObjectPlacer.GetWorldPositionFromElement(ve), Quaternion.identity);
         ScaleGameObjectAndChildren(instance, scale);
     }
-    private void ScaleGameObjectAndChildren(GameObject obj, float scale) {
+    
+    public void Sparkle(VisualElement ve) {
+        InstantiateShopVFX(sparklePrefab, ve, 1.0f);
+    }
+    private void ScaleGameObjectAndChildren(GameObject obj, float scale)
+    {
         obj.transform.localScale *= scale;
-        foreach (Transform child in obj.transform) {
+        foreach (Transform child in obj.transform)
+        {
             child.localScale *= scale;
         }
     }
@@ -269,7 +276,8 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         // to the companion's deck and lets forcefully close the companion
         // view UI
         Companion companion = companionView.companion;
-        if (this.buyingCard) {
+        if (this.buyingCard)
+        {
             if (!IsApplicableCompanion(currentCardBuyRequest, companion)) return;
             Card newCard = new Card(currentCardBuyRequest.cardType, companion.companionType, currentCardBuyRequest.rarity);
             companion.deck.cards.Add(newCard);

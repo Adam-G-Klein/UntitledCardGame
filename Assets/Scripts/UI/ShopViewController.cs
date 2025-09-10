@@ -69,6 +69,8 @@ public class ShopViewController : MonoBehaviour,
     [SerializeField] private AnimationCurve cardBuyVFXRotation;
     [SerializeField] private AnimationCurve cardBuyVFXScale;
     [SerializeField] private float cardBuyVFXTime;
+    [SerializeField] private AnimationCurve companionBuyMoveVFX;
+    [SerializeField] private float companionBuyVFXTime;
 
     private IEnumerator notEnoughMoneyCoroutine;
     private IEnumerator upgradeButtonTooltipCoroutine = null;
@@ -359,6 +361,7 @@ public class ShopViewController : MonoBehaviour,
                 tempContainer.style.left = val - tempContainer.layout.width / 2;
             })
             .setOnComplete(() => {
+                shopManager.Sparkle(tempContainer);
                 uiDoc.rootVisualElement.Remove(tempContainer);
                 float originalScale = 1f;
                 float targetScale = 1.1f;
