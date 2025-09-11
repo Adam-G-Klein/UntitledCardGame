@@ -58,6 +58,7 @@ MonoBehaviour:
         - rid: 2034230017118175444
         - rid: 2034230017118175446
         - rid: 2034230176448512932
+        - rid: 7707884639552274946
         - rid: 2034230176448512829
         - rid: 2034230176448512927
         - rid: 2034230176448512928
@@ -80,7 +81,7 @@ MonoBehaviour:
         inputKey: cards
         filter:
           cardCategoriesToInclude: 04000000
-          generatedCardsFilter: 0
+          retainedCardsFilter: 0
         outputKey: statusCards
     - rid: 2034230176448512829
       type: {class: CountStep, ns: , asm: Assembly-CSharp}
@@ -122,3 +123,7 @@ MonoBehaviour:
       data:
         effectStepName: EndWorkflowIfListEmpty
         inputKey1: statusCards
+    - rid: 7707884639552274946
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX

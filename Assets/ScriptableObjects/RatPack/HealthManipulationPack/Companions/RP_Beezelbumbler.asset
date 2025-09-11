@@ -70,6 +70,7 @@ MonoBehaviour:
         - rid: 7401433308100034593
         - rid: 2034230176448512011
         - rid: 2034230176448512012
+        - rid: 7707884639552274751
         - rid: 2034230176448512013
     - rid: 2034230176448512007
       type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
@@ -151,3 +152,8 @@ MonoBehaviour:
         operation: 1
         scale: 1
         outputKey: numBuffsSubtracted
+    - rid: 7707884639552274751
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        inputKey: self

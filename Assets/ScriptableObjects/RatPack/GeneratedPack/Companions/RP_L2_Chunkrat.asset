@@ -92,6 +92,7 @@ MonoBehaviour:
       data:
         abilityTrigger: 1
         effectSteps:
+        - rid: 7707884639552274977
         - rid: 7401433128868512212
         - rid: 754093646965899314
         - rid: 754093646965899315
@@ -107,3 +108,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
+    - rid: 7707884639552274977
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX

@@ -161,6 +161,7 @@ MonoBehaviour:
       data:
         abilityTrigger: 2
         effectSteps:
+        - rid: 7707884639552274981
         - rid: 1289961959942521051
         - rid: 1289961959942521052
         - rid: 1289961959942521081
@@ -174,3 +175,7 @@ MonoBehaviour:
         - rid: 1289961959942521086
         - rid: 1289961959942521087
         - rid: 1289961959942521088
+    - rid: 7707884639552274981
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX

@@ -17,10 +17,10 @@ public abstract class EntityAbilityInstance
     // Abstract because different implementations of the subclass will create different versions of the base effect document.
     protected abstract EffectDocument createEffectDocument();
 
-    protected abstract IEnumerator abilityTriggeredVFX();
+    // protected abstract IEnumerator abilityTriggeredVFX();
 
     private IEnumerable setupAndInvokeAbility() {
-        yield return abilityTriggeredVFX();
+        // yield return abilityTriggeredVFX();
         EffectDocument document = createEffectDocument();
         EffectManager.Instance.invokeEffectWorkflow(document, ability.effectSteps, null);
         yield return null;
@@ -182,7 +182,7 @@ public abstract class EntityAbilityInstance
 
     // This is a bit of a hack, but I'm ok with it being here for now
     private IEnumerator OnCardCast(PlayableCard card) {
-        yield return abilityTriggeredVFX();
+        //yield return abilityTriggeredVFX();
         EffectDocument document = createEffectDocument();
         document.map.AddItem<PlayableCard>("cardPlayed", card);
         if (card.deckFrom.TryGetComponent(out CompanionInstance companion)) {
@@ -197,7 +197,7 @@ public abstract class EntityAbilityInstance
     }
     
     private IEnumerator OnBlockGained(CombatInstance combatInstance) {
-        yield return abilityTriggeredVFX();
+        //yield return abilityTriggeredVFX();
         EffectDocument document = createEffectDocument();
          if (combatInstance.TryGetComponent(out CompanionInstance companion)) {
             EffectUtils.AddCompanionToDocument(document, "companionThatGainedBlock", companion);
@@ -209,7 +209,7 @@ public abstract class EntityAbilityInstance
     private IEnumerator OnHandEmpty()
     {
         Debug.Log("OnHandEmpty ability invoked!!!");
-        yield return abilityTriggeredVFX();
+        //yield return abilityTriggeredVFX();
         EffectManager.Instance.QueueEffectWorkflow(
             new EffectWorkflowClosure(createEffectDocument(), ability.effectWorkflow, null)
         );
@@ -217,7 +217,7 @@ public abstract class EntityAbilityInstance
     }
 
     private IEnumerator OnCardExhaust(DeckInstance deckFrom, PlayableCard card) {
-        yield return abilityTriggeredVFX();
+        //yield return abilityTriggeredVFX();
         EffectDocument document = createEffectDocument();
         if (deckFrom.TryGetComponent(out CompanionInstance companion)) {
             EffectUtils.AddCompanionToDocument(document, "companionExhaustedFrom", companion);
@@ -229,7 +229,7 @@ public abstract class EntityAbilityInstance
 
     private IEnumerator OnCardDiscard(DeckInstance deckFrom, PlayableCard card, bool casted) {
         if (!casted) {
-            yield return abilityTriggeredVFX();
+            //yield return abilityTriggeredVFX();
             EffectDocument document = createEffectDocument();
             if (deckFrom.TryGetComponent(out CompanionInstance companion)) {
                 EffectUtils.AddCompanionToDocument(document, "companionDiscardedFrom", companion);
@@ -241,7 +241,7 @@ public abstract class EntityAbilityInstance
     }
 
     private IEnumerator OnDeckShuffled(DeckInstance deckFrom) {
-        yield return abilityTriggeredVFX();
+        //yield return abilityTriggeredVFX();
         EffectDocument document = createEffectDocument();
         if (deckFrom.TryGetComponent(out CombatInstance combatInstance)) {
             CompanionInstance companion = CombatEntityManager.Instance.getCompanionInstanceForCombatInstance(combatInstance);
@@ -252,7 +252,7 @@ public abstract class EntityAbilityInstance
     }
 
     private IEnumerator OnDamageTaken(CombatInstance damagedInstance) {
-        yield return abilityTriggeredVFX();
+        //yield return abilityTriggeredVFX();
         EffectDocument document = createEffectDocument();
         if (damagedInstance.parentType == CombatInstance.CombatInstanceParent.COMPANION) {
             CompanionInstance companion = CombatEntityManager.Instance.getCompanionInstanceForCombatInstance(damagedInstance);
@@ -277,7 +277,7 @@ public abstract class EntityAbilityInstance
 
     private IEnumerator OnHeal(CombatInstance healedInstance) {
         Debug.Log("OnHeal ability invoked!!!");
-        yield return abilityTriggeredVFX();
+        //yield return abilityTriggeredVFX();
         EffectDocument document = createEffectDocument();
         if (healedInstance.parentType == CombatInstance.CombatInstanceParent.COMPANION) {
             CompanionInstance companion = CombatEntityManager.Instance.getCompanionInstanceForCombatInstance(healedInstance);
@@ -357,14 +357,14 @@ public class CompanionInstanceAbilityInstance : EntityAbilityInstance
         return document;
     }
 
-    protected override IEnumerator abilityTriggeredVFX()
-    {
-        if (companionInstance.companionView == null) {
-            yield break;
-        }
+    // protected override IEnumerator abilityTriggeredVFX()
+    // {
+    //     if (companionInstance.companionView == null) {
+    //         yield break;
+    //     }
         
-        yield return companionInstance.companionView.AbilityActivatedVFX();
-    }
+    //     yield return companionInstance.companionView.AbilityActivatedVFX();
+    // }
 }
 
 public class EnemyInstanceAbilityInstance : EntityAbilityInstance
@@ -386,8 +386,8 @@ public class EnemyInstanceAbilityInstance : EntityAbilityInstance
         return document;
     }
 
-    protected override IEnumerator abilityTriggeredVFX()
-    {
-        yield return enemyInstance.enemyView.AbilityActivatedVFX();
-    }
+    // protected override IEnumerator abilityTriggeredVFX()
+    // {
+    //     yield return enemyInstance.enemyView.AbilityActivatedVFX();
+    // }
 }

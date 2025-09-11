@@ -55,7 +55,8 @@ public enum EffectStepName {
     DialogueStep,
     FXEffectStep,
     WaitForSecondsEffect,
-    ScriptableObjectEffectStep
+    ScriptableObjectEffectStep,
+    EntityAbilityTriggeredVFX
 }
 
 [System.Serializable]

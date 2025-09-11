@@ -54,6 +54,7 @@ MonoBehaviour:
       data:
         abilityTrigger: 0
         effectSteps:
+        - rid: 7707884639552274884
         - rid: 205827988172308705
         - rid: 205827988172308706
         - rid: 205827988172308707
@@ -88,3 +89,7 @@ MonoBehaviour:
         inputKey: enemy
         prefabToInstantiate: {fileID: 3850217184923880746, guid: 377a399fb9991684eb788275070abb5e, type: 3}
         scale: 1
+    - rid: 7707884639552274884
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX

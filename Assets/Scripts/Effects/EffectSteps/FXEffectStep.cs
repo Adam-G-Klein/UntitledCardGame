@@ -32,7 +32,7 @@ public class FXEffectStep: EffectStep {
     public override IEnumerator invoke(EffectDocument document) {
         Vector3 rootLocation = Vector3.zero;
         try {
-            List<GameObject> rootLocationGameObjects = document.map.GetList<GameObject>(rootLocationGameObjectKey);
+            List<GameObject> rootLocationGameObjects = document.map.TryGetList<GameObject>(rootLocationGameObjectKey);
             if (rootLocationGameObjects.Count > 1) {
                 EffectError(String.Format("Can't set root FXExpreience location because {0} were found", rootLocationGameObjects.Count));
             } else if (rootLocationGameObjects.Count == 1) {

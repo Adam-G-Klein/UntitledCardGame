@@ -50,12 +50,18 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: 7707884639552274866
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        inputKey: self
     - rid: 8034950120506655623
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
         abilityTrigger: 2
         effectSteps:
         - rid: 8034950120506655628
+        - rid: 7707884639552274866
         - rid: 8739898274892480525
         - rid: 8739898274892480524
         - rid: 8739898274892480523

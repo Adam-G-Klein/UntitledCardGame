@@ -67,6 +67,7 @@ MonoBehaviour:
         - rid: 2034230176448512009
         - rid: 7401433308100034592
         - rid: 2034230176448512010
+        - rid: 7707884639552274902
         - rid: 7401433308100034593
         - rid: 2034230176448512011
         - rid: 2034230176448512012
@@ -151,3 +152,8 @@ MonoBehaviour:
         operation: 1
         scale: 1
         outputKey: numBuffsSubtracted
+    - rid: 7707884639552274902
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        inputKey: self

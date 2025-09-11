@@ -57,6 +57,7 @@ MonoBehaviour:
         abilityTrigger: 1
         effectSteps:
         - rid: 205828032053379078
+        - rid: 7707884639552274906
         - rid: 2034229587402555395
         - rid: 8034950120506654906
         - rid: 2034230176448512382
@@ -96,6 +97,7 @@ MonoBehaviour:
         abilityTrigger: 12
         effectSteps:
         - rid: 2034230176448512385
+        - rid: 7707884639552274907
         - rid: 2034230176448512386
         - rid: 7401433059192472040
         - rid: 2034230176448512384
@@ -139,6 +141,16 @@ MonoBehaviour:
         useAbsoluteThreshold: 1
         outputKey: above1HP
         below: 0
+    - rid: 7707884639552274906
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        inputKey: self
+    - rid: 7707884639552274907
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        inputKey: self
     - rid: 8034950120506654906
       type: {class: PermanentStatIncrease, ns: , asm: Assembly-CSharp}
       data:

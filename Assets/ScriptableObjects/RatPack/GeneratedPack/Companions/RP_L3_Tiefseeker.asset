@@ -146,10 +146,19 @@ MonoBehaviour:
         - rid: 1289961959942521012
         - rid: 1289961959942521013
         - rid: 1289961959942521014
+        - rid: 7707884639552274984
         - rid: 1289961959942521018
         - rid: 1289961959942521015
         - rid: 8034949815888773303
         - rid: 1289961959942521017
+    - rid: 7707884639552274984
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+    - rid: 7707884639552274985
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
     - rid: 8034949815888773303
       type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
       data:
@@ -171,6 +180,7 @@ MonoBehaviour:
         - rid: 8034950120506655246
         - rid: 8034950120506655279
         - rid: 8034950120506655280
+        - rid: 7707884639552274985
         - rid: 8034950120506655281
         - rid: 8034950120506655248
         - rid: 8034950120506655283

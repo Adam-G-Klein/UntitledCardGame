@@ -31,7 +31,6 @@ MonoBehaviour:
   genericCompanionVFX: {fileID: 0}
   cacheValueConfigs: []
   cardPool: {fileID: 11400000, guid: eecf4bcc7e4ac4faf9a6978b22d9c3d1, type: 2}
-  packCardPool: {fileID: 11400000, guid: 0bf35a642105d4780a727b994049d862, type: 2}
   pack: {fileID: 11400000, guid: a87b5da767d4e4659b2965e31e340c58, type: 2}
   speakerType: {fileID: 0}
   abilitiesV2:
@@ -55,6 +54,7 @@ MonoBehaviour:
         abilityTrigger: 11
         effectSteps:
         - rid: 8790164513324270202
+        - rid: 7707884639552274903
         - rid: 205828107393564792
         - rid: 205828107393564793
     - rid: 205828107393564792
@@ -77,6 +77,10 @@ MonoBehaviour:
         inputKey: damagedCompanion
         prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
         scale: 1
+    - rid: 7707884639552274903
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
     - rid: 8790164513324270202
       type: {class: EndWorkflowIfNoMapElement, ns: , asm: Assembly-CSharp}
       data:

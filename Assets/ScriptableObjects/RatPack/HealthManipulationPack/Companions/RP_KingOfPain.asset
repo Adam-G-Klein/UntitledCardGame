@@ -38,7 +38,6 @@ MonoBehaviour:
     startOfCombatValue: 0
     setStartOfCombatValue: 1
   cardPool: {fileID: 11400000, guid: a1865aba1d57e42319eced1382227f3d, type: 2}
-  packCardPool: {fileID: 11400000, guid: 0bf35a642105d4780a727b994049d862, type: 2}
   pack: {fileID: 11400000, guid: a87b5da767d4e4659b2965e31e340c58, type: 2}
   speakerType: {fileID: 0}
   abilitiesV2:
@@ -71,6 +70,7 @@ MonoBehaviour:
         - rid: 7401433558763438397
         - rid: 7401433558763438430
         - rid: 7401433558763438398
+        - rid: 7707884639552274901
         - rid: 7401433558763438357
         - rid: 7401433558763438358
     - rid: 7401433558763438356
@@ -165,6 +165,11 @@ MonoBehaviour:
         useHardCodedInt: 0
         currentWorkflowKey: numDamagePlus
         cacheKey: numDamage
+    - rid: 7707884639552274901
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+        inputKey: self
     - rid: 8790164513324270201
       type: {class: EndWorkflowIfNoMapElement, ns: , asm: Assembly-CSharp}
       data:

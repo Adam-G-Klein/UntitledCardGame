@@ -14,7 +14,7 @@ public class CompanionView : IUIEventReceiver
         new CompanionViewContext(true, false, true, true, false, false, false, false, 1.25f, 0.175f);
 
     public static CompanionViewContext COMBAT_CONTEXT_VISUAL_ONLY = 
-        new CompanionViewContext(false, false, false, false, false, false, false, false, 1.25f, 0.175f);
+        new CompanionViewContext(false, false, false, false, false, false, false, false, 1.25f, 0.175f, purelyVisual:true);
 
     public static CompanionViewContext SHOP_CONTEXT = 
         new CompanionViewContext(false, true, false, false, true, false, false, true, 0.8f, 0.15f);
@@ -90,7 +90,7 @@ public class CompanionView : IUIEventReceiver
 
         SetupCompanionView();
 
-        if (this.combatInstance)
+        if (this.combatInstance && !context.purelyVisual)
         {
             combatInstance.onDamageHandler += DamageScaleBump;
             combatInstance.onDeathHandler += OnDeathHandler;
@@ -590,45 +590,8 @@ public class CompanionView : IUIEventReceiver
     }
 
     public IEnumerator AbilityActivatedVFX() {
-        // VisualElement root = VisualElementUtils.GetRootVisualElement(this.container);
-
-        // VisualElement tempContainer = new VisualElement();
-        // tempContainer.style.width = this.container.resolvedStyle.width;
-        // tempContainer.style.height = this.container.resolvedStyle.height;
-        // tempContainer.style.position = Position.Absolute;
-        // tempContainer.style.justifyContent = Justify.Center;
-        // tempContainer.style.alignItems = Align.Center;
-
-        // root.Add(tempContainer);
-        // Debug.Log(String.Format("CompanionView: {0} {0}", this.container.worldBound.yMin, this.container.worldBound.xMin));
-        // tempContainer.style.top = this.container.worldBound.yMin;
-        // tempContainer.style.left = this.container.worldBound.xMin;
-
-        CompanionView clonedCompanionView = new CompanionView(this.entity, this.template, 0, COMBAT_CONTEXT, this.viewDelegate);
+        CompanionView clonedCompanionView = new CompanionView(this.entity, this.template, 0, COMBAT_CONTEXT_VISUAL_ONLY, this.viewDelegate);
         yield return EntityAbilityInstance.GenericAbilityTriggeredVFX(this.container, clonedCompanionView.container);
-        // tempContainer.Add(clonedCompanionView.container);
-
-        // bool done = false;
-        // float vfxTime = 0.35f;
-        // // Opacity
-        // LeanTween.value(0.8f, 0f, vfxTime)
-        //     .setEase(LeanTweenType.linear)
-        //     .setOnUpdate((float value) => {
-        //         tempContainer.style.opacity = value;
-        //     })
-        //     .setOnComplete(() => {
-        //         root.Remove(tempContainer);
-        //         done = true;
-        //     });
-
-        // // Scale
-        // LeanTween.value(1f, 1.25f, vfxTime)
-        //     .setEase(LeanTweenType.linear)
-        //     .setOnUpdate((float value) => {
-        //         tempContainer.transform.scale = new Vector3(value, value, 1f);
-        //     });
-
-        // yield return new WaitUntil(() => done == true);
     }
 }
 
@@ -644,6 +607,7 @@ public class CompanionViewContext {
     public float aspectRatio;
     public float screenWidthPercent;
     public bool preventDefaultDeckViewButton;
+    public bool purelyVisual;
 
     public CompanionViewContext(
             bool setupDrawDiscardButtons,
@@ -656,7 +620,8 @@ public class CompanionViewContext {
             bool smallNametag,
             float aspectRatio,
             float screenWidthPercent,
-            bool preventDefaultDeckViewButton = false)
+            bool preventDefaultDeckViewButton = false,
+            bool purelyVisual = false)
     {
         this.setupDrawDiscardButtons = setupDrawDiscardButtons;
         this.setupViewDeckButton = setupViewDeckButton;
@@ -669,5 +634,6 @@ public class CompanionViewContext {
         this.aspectRatio = aspectRatio;
         this.screenWidthPercent = screenWidthPercent;
         this.preventDefaultDeckViewButton = preventDefaultDeckViewButton;
+        this.purelyVisual = purelyVisual;
     }
 }

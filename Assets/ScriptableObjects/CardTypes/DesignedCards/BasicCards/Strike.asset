@@ -50,9 +50,27 @@ MonoBehaviour:
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
+        - rid: 7707884639552274547
         - rid: 9024302470308298763
         - rid: 9024302470308298764
         - rid: 1274772038231785891
+        - rid: 7707884639552274517
+    - rid: 7707884639552274517
+      type: {class: ScriptableObjectEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ScriptableObjectEffectStep
+        effectStepSO: {fileID: 11400000, guid: 46ac36b880e2ff14aa699c90b6e9f19c, type: 2}
+    - rid: 7707884639552274547
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 4
+        cantCancelTargetting: 0
     - rid: 9024302470308298763
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
