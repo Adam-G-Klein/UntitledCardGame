@@ -401,6 +401,10 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         EnemyEncounterViewModel.Instance.SetInMenu(inMenu);
     }
 
+    public void DamageIndicator(CombatInstance instance, int damage) {
+        combatEncounterView.DamageIndicator(instance, damage);
+    }
+
     public void ProcessGFGInputAction(GFGInputAction action)
     {
         if (action == GFGInputAction.END_TURN) {

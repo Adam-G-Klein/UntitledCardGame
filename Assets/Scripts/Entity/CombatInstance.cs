@@ -198,6 +198,7 @@ public class CombatInstance : MonoBehaviour
                     }
                 }
                 if (shouldShake) AddShake(damageTaken);
+                if (damageTaken > 0) EnemyEncounterManager.Instance.DamageIndicator(this, damageTaken);
                 break;
             case CombatEffect.Heal:
                 int diff = combatStats.Heal(scale);
@@ -251,7 +252,8 @@ public class CombatInstance : MonoBehaviour
         }
         // could easily double-update with method above
         UpdateView();
-        return combatStats.getCurrentHealth() == 0 ? 0 : damageAfterDefense;
+        // return combatStats.getCurrentHealth() == 0 ? 0 : damageAfterDefense;
+        return damageAfterDefense;
     }
 
     private int DamageAfterDefense(CombatEffect combatEffect, int damage)

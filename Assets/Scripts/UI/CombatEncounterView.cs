@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -37,6 +38,9 @@ public class CombatEncounterView : MonoBehaviour,
     private bool inDeckView = false;
     private bool combatOver = false;
     public MapView mapView;
+    
+    private Dictionary<CombatInstance, CompanionView> combatInstanceToCompanionView;
+    private Dictionary<CombatInstance, EnemyView> combatInstanceToEnemyView;
 
     public void SetupFromGamestate(EnemyEncounterManager enemyEncounterManager)
     {
@@ -100,6 +104,8 @@ public class CombatEncounterView : MonoBehaviour,
         FocusManager.Instance.UnregisterFocusables(companionContainer);
         enemyContainer.Clear();
         companionContainer.Clear();
+        this.combatInstanceToCompanionView = new();
+        this.combatInstanceToEnemyView = new();
         SetupEnemies(enemyContainer, enemies);
         // setupEntities(companionContainer, companions.Cast<IUIEntity>(), false);
         SetupCompanions(companionContainer, companions);
@@ -149,6 +155,7 @@ public class CombatEncounterView : MonoBehaviour,
             EnemyView enemyView = setupEnemy(entity, index);
             entity.enemyView = enemyView;
             container.Add(enemyView.container);
+            combatInstanceToEnemyView.Add(entity.combatInstance, enemyView);
             index++;
         }
     }
@@ -176,6 +183,7 @@ public class CombatEncounterView : MonoBehaviour,
             entity.companionView = companionView;
             // Need to put them in reverse order due to some UI layering issues with max health indicator
             container.Insert(0, companionView.container);
+            combatInstanceToCompanionView.Add(entity.combatInstance, companionView);
             index++;
         }
     }
@@ -257,9 +265,57 @@ public class CombatEncounterView : MonoBehaviour,
     {
         enemyEncounterManager.TryEndPlayerTurn();
     }
+
     public void ShowDeckView(ClickEvent evt)
     {
         MultiDeckViewManager.Instance.ShowCombatDeckView();
         Debug.LogError("trying to show deck view");
+    }
+
+    public void DamageIndicator(CombatInstance instance, int damage) {
+        // Purely a visual thing, so would rather not break the game if this fails
+        try {
+            VisualElement originVE;
+            if (combatInstanceToCompanionView.ContainsKey(instance)) {
+                originVE = combatInstanceToCompanionView[instance].container;
+            } else {
+                originVE = combatInstanceToEnemyView[instance].container;
+            }
+
+            float randomX = UnityEngine.Random.Range(originVE.worldBound.xMin + (originVE.layout.width / 3f), originVE.worldBound.xMax - (originVE.layout.width / 3f));
+            // Weird values in the division here just force the location to be towards the center of the enemy sprite
+            float randomY = UnityEngine.Random.Range(originVE.worldBound.yMin + (originVE.layout.height / 6f), originVE.worldBound.yMax - (originVE.layout.height / 2f));
+
+            Label damageLabel = new Label();
+            damageLabel.AddToClassList("damage-indicator-label");
+            damageLabel.text = damage.ToString();
+            root.Add(damageLabel);
+            // damageLabel.style.left = randomX - (damageLabel.layout.width / 2f);
+            // damageLabel.style.top = randomY - (damageLabel.layout.height / 2f);
+            damageLabel.style.left = randomX;
+            damageLabel.style.top = randomY;
+
+            float damageIndicatorTime = 1f;
+            
+            // Scale
+            LeanTween.value(6f, 0.2f, (damageIndicatorTime) / 2)
+                .setEase(LeanTweenType.easeInExpo)
+                .setOnUpdate((float value) => {
+                    damageLabel.transform.scale = new Vector3(value, value, 1f);
+                });
+            
+            // Position 
+            LeanTween.value(0f, 1f, damageIndicatorTime)
+                .setEase(LeanTweenType.linear)
+                .setOnUpdate((float value) => {
+                    // damageLabel.style.top = randomY + (value * damageLabel.style.height.value.value);
+                })
+                .setOnComplete(() => {
+                    root.Remove(damageLabel);
+                });
+
+        } catch (Exception e) {
+            Debug.LogWarning(e);
+        }
     }
 }
