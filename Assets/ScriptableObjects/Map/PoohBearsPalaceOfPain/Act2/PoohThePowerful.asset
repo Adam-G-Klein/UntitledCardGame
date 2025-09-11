@@ -55,8 +55,8 @@ MonoBehaviour:
       description: Strong attack targetting the first companion. Pooh buffs himself
         after because he's a weapon  >:)
       relatedBehaviorIndex: 0
-  DEADLIER_ENEMY_BONUS_STR: -1
-  HEALTHIER_ENEMY_BONUS_HEALTH: -1
+  DEADLIER_ENEMY_BONUS_STR: 2
+  HEALTHIER_ENEMY_BONUS_HEALTH: 30
   references:
     version: 2
     RefIds:
@@ -129,7 +129,7 @@ MonoBehaviour:
         inputKey: cardPlayed
         filter:
           cardCategoriesToInclude: 02000000
-          generatedCardsFilter: 0
+          retainedCardsFilter: 0
         outputKey: nonAttackCardsPlayed
     - rid: 8790164555430887930
       type: {class: CountStep, ns: , asm: Assembly-CSharp}

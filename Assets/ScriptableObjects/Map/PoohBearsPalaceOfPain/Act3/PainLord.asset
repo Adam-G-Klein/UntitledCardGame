@@ -58,13 +58,14 @@ MonoBehaviour:
       description: Shuffles in a painful reminder to all companions deck
       relatedBehaviorIndex: 0
     - title: Painful Reminder
-      description: Unplayable. Take 3 damage if in hand at the end of the turn
-      relatedBehaviorIndex: 0
+      description: Status card. Unplayable. Take 3 damage if in hand at the end of
+        the turn
+      relatedBehaviorIndex: -1
     - title: Empowered Strike
       description: Attacks and becomes more powerful
       relatedBehaviorIndex: 1
-  DEADLIER_ENEMY_BONUS_STR: -1
-  HEALTHIER_ENEMY_BONUS_HEALTH: -1
+  DEADLIER_ENEMY_BONUS_STR: 0
+  HEALTHIER_ENEMY_BONUS_HEALTH: 40
   references:
     version: 2
     RefIds:
@@ -114,7 +115,7 @@ MonoBehaviour:
       data:
         effectStepName: InstantiatePrefab
         inputKey: targets
-        prefabToInstantiate: {fileID: 3850217184923880746, guid: 07700d1630e3ac5428e8548fe3830136, type: 3}
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 377a399fb9991684eb788275070abb5e, type: 3}
         scale: 1
     - rid: 5602893111447519700
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}

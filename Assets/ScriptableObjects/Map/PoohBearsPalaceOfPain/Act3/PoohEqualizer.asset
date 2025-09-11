@@ -32,9 +32,6 @@ MonoBehaviour:
       - rid: 2295167909047304424
       - rid: 5602893111447519701
       - rid: 5602893111447519700
-      - rid: 2034229861011161164
-      - rid: 3443535291885027985
-      - rid: 3443535291885027986
     - intent: 2
       enemyTargetMethod: 6
       targetsKey: 
@@ -67,6 +64,8 @@ MonoBehaviour:
       description: 'Ability: gains strength for each companion above half HP on your
         team'
       relatedBehaviorIndex: -1
+  DEADLIER_ENEMY_BONUS_STR: -1
+  HEALTHIER_ENEMY_BONUS_HEALTH: -1
   references:
     version: 2
     RefIds:
@@ -97,19 +96,6 @@ MonoBehaviour:
         effectStepName: CountStep
         inputKey: targetsAboveHalf
         outputKey: numAboveHalf
-    - rid: 2034229861011161164
-      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: ApplyStatus
-        inputKey: self
-        statusEffect: 0
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplyByNumAuraStacks: 0
-        multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
     - rid: 2295167909047304424
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -121,11 +107,6 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 1
         cantCancelTargetting: 0
-    - rid: 3443535291885027985
-      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: WaitForSecondsEffect
-        seconds: 0.3
     - rid: 3443535291885027986
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
