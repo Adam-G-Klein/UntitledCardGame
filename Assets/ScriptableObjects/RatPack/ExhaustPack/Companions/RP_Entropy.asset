@@ -58,6 +58,7 @@ MonoBehaviour:
       data:
         abilityTrigger: 1
         effectSteps:
+        - rid: 7707884639552275417
         - rid: 205827988172308720
         - rid: 205827988172308721
         - rid: 205827988172308722
@@ -113,3 +114,7 @@ MonoBehaviour:
         effect: 4
         cardToTransformInto: {fileID: 11400000, guid: 07ddcab78d7f64ac1849ccdb53efe2c0, type: 2}
         outputKey: 
+    - rid: 7707884639552275417
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX

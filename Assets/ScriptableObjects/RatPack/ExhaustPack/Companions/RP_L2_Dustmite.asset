@@ -66,6 +66,7 @@ MonoBehaviour:
         - rid: 2295167909047304317
         - rid: 2295167909047304319
         - rid: 2295167909047304320
+        - rid: 7707884639552275419
         - rid: 2295167909047304318
         - rid: 2295167909047304321
         - rid: 2034230017118175365
@@ -144,3 +145,7 @@ MonoBehaviour:
         useHardCodedInt: 0
         currentWorkflowKey: numCardsExhaustedDec
         cacheKey: numCardsExhausted
+    - rid: 7707884639552275419
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
