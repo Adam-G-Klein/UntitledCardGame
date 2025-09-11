@@ -24,6 +24,12 @@ public class CombatEncounterView : MonoBehaviour,
     private StatusEffectsSO statusEffectsSO;
     [SerializeField]
     private EnemyIntentsSO enemyIntentsSO;
+    [SerializeField] private AnimationCurve damageIndicatorXCurve;
+    [SerializeField] private float damageIndicatorXDistance;
+    [SerializeField] private AnimationCurve damageIndicatorYCurve;
+    [SerializeField] private float damageIndicatorYDistance;
+    [SerializeField] private float damageIndicatorTime = 1f;
+    [SerializeField] private Color startingDamangeIndicatorColor;
 
     private List<IUIEventReceiver> pickingModePositionList = new List<IUIEventReceiver>();
     private List<EnemyView> entityViews = new List<EnemyView>();
@@ -274,17 +280,22 @@ public class CombatEncounterView : MonoBehaviour,
 
     public void DamageIndicator(CombatInstance instance, int damage) {
         // Purely a visual thing, so would rather not break the game if this fails
-        try {
+        try
+        {
             VisualElement originVE;
-            if (combatInstanceToCompanionView.ContainsKey(instance)) {
+            if (combatInstanceToCompanionView.ContainsKey(instance))
+            {
                 originVE = combatInstanceToCompanionView[instance].container;
-            } else {
+            }
+            else
+            {
                 originVE = combatInstanceToEnemyView[instance].container;
             }
 
             float randomX = UnityEngine.Random.Range(originVE.worldBound.xMin + (originVE.layout.width / 3f), originVE.worldBound.xMax - (originVE.layout.width / 3f));
             // Weird values in the division here just force the location to be towards the center of the enemy sprite
-            float randomY = UnityEngine.Random.Range(originVE.worldBound.yMin + (originVE.layout.height / 6f), originVE.worldBound.yMax - (originVE.layout.height / 2f));
+            float randomY = UnityEngine.Random.Range(originVE.worldBound.yMin - (originVE.layout.height / 10f), originVE.worldBound.yMin);
+            bool goLeft = (originVE.worldBound.xMin + originVE.layout.width / 2) > randomX;//UnityEngine.Random.Range(0, 2) == 0;
 
             Label damageLabel = new Label();
             damageLabel.AddToClassList("damage-indicator-label");
@@ -295,26 +306,47 @@ public class CombatEncounterView : MonoBehaviour,
             damageLabel.style.left = randomX;
             damageLabel.style.top = randomY;
 
-            float damageIndicatorTime = 1f;
-            
             // Scale
-            LeanTween.value(6f, 0.2f, (damageIndicatorTime) / 2)
-                .setEase(LeanTweenType.easeInExpo)
-                .setOnUpdate((float value) => {
+            LeanTween.value(6f, 0.2f, damageIndicatorTime)
+                .setEase(LeanTweenType.easeInSine)
+                .setOnUpdate((float value) =>
+                {
                     damageLabel.transform.scale = new Vector3(value, value, 1f);
                 });
-            
-            // Position 
+
+            // X Position 
             LeanTween.value(0f, 1f, damageIndicatorTime)
-                .setEase(LeanTweenType.linear)
-                .setOnUpdate((float value) => {
-                    // damageLabel.style.top = randomY + (value * damageLabel.style.height.value.value);
+                .setEase(damageIndicatorXCurve)
+                .setOnUpdate((float value) =>
+                {
+                    damageLabel.style.left = randomX + (goLeft ? -1 : 1) * (value * damageIndicatorXDistance);
                 })
-                .setOnComplete(() => {
+                .setOnComplete(() =>
+                {
                     root.Remove(damageLabel);
                 });
 
-        } catch (Exception e) {
+            // YPos
+            LeanTween.value(0f, 1f, damageIndicatorTime)
+                .setEase(damageIndicatorYCurve)
+                .setOnUpdate((float value) =>
+                {
+                    damageLabel.style.top = randomY + (value * damageIndicatorYDistance);
+                });
+
+            // Color (interested to see how this feels)
+            LeanTween.value(0f, 1f, damageIndicatorTime)
+                .setEase(LeanTweenType.easeOutCubic)
+                .setOnUpdate((float value) =>
+                {
+                    Color lerpedColor = Color.Lerp(startingDamangeIndicatorColor, Color.white, value);
+                    lerpedColor.a = 1;
+                    damageLabel.style.color = new StyleColor(lerpedColor);
+                });
+
+        }
+        catch (Exception e)
+        {
             Debug.LogWarning(e);
         }
     }

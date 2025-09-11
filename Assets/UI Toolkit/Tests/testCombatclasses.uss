@@ -222,11 +222,13 @@
 }
 
 .damage-indicator-label {
+    -unity-font: resource('fonts/static/Jost-Bold');
     position: absolute;
     align-items: center;
     justify-content: center;
-    font-size: 60px;
-    color: rgb(255, 255, 255);
-    -unity-text-outline-width: 1px;
+    font-size: 30px;
+    color: rgba(255, 25, 25, 1);
+    -unity-text-outline-width: 2px;
     -unity-text-outline-color: rgb(0, 0, 0);
+    -unity-font-style: bold;
 }
