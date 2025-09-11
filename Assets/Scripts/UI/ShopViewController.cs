@@ -77,6 +77,7 @@ public class ShopViewController : MonoBehaviour,
     [SerializeField] private AnimationCurve newItemsCurve;
     [SerializeField] private float rerollVfxTime;
     [SerializeField] private float oldToNewDelay;
+    [SerializeField] private float rerollTimeBetweenItems = .1f;
 
     private IEnumerator notEnoughMoneyCoroutine;
     private IEnumerator upgradeButtonTooltipCoroutine = null;
@@ -445,61 +446,92 @@ public class ShopViewController : MonoBehaviour,
 
         tempParentContainer.Add(oldItemsContainer);
         tempParentContainer.Add(newItemsContainer);
-        newItemsContainer.style.top = -shopGoodsArea.resolvedStyle.height;
+        newItemsContainer.style.top = 0;
+
 
         List<ShopItemView> newCardItems = new List<ShopItemView>();
-        foreach (CardInShopWithPrice card in cards) {
+        foreach (CardInShopWithPrice card in cards)
+        {
             ShopItemView newCardItemView = new ShopItemView(this, card);
+            newCardItemView.shopItemElement.style.top = -shopGoodsArea.resolvedStyle.height;
             newItemsContainer.Add(newCardItemView.shopItemElement);
             newCardItems.Add(newCardItemView);
         }
 
         List<ShopItemView> newCompanionItems = new List<ShopItemView>();
-        foreach (CompanionInShopWithPrice companion in companions) {
+        foreach (CompanionInShopWithPrice companion in companions)
+        {
             ShopItemView newCompanionItemView = new ShopItemView(this, companion, shopManager.encounterConstants.companionViewTemplate);
+            newCompanionItemView.shopItemElement.style.top = -shopGoodsArea.resolvedStyle.height;
             newItemsContainer.Add(newCompanionItemView.shopItemElement);
             newCompanionItems.Add(newCompanionItemView);
+            
         }
-
-        // Make the old items move down below shop goods area
-        LeanTween.value(0f, 1f, rerollVfxTime)
-            .setEase(oldItemsCurve)
-            .setOnUpdate((float value) => {
-                oldItemsContainer.style.top = 0f + (value * oldItemsContainer.resolvedStyle.height);
-            })
-            .setOnComplete(() => {
-                shopGoodsArea.Remove(oldItemsContainer);
-            });
         
-        // Make the new items move down from above the shop goods area
-        LeanTween.value(-1f, 0f, rerollVfxTime)
-            .setDelay(oldToNewDelay)
-            .setEase(newItemsCurve)
-            .setOnUpdate((float value) => {
-                newItemsContainer.style.top = 0f + (value * oldItemsContainer.resolvedStyle.height);
-            })
-            .setOnComplete(() => {
-                foreach (ShopItemView newCardItem in newCardItems) {
-                    newItemsContainer.Remove(newCardItem.shopItemElement);
-                    shopGoodsArea.Add(newCardItem.shopItemElement);
-                    cardItemToViewMap.Add(newCardItem.cardInShop, newCardItem);
-                    FocusManager.Instance.RegisterFocusableTarget(newCardItem.visualElementFocusable);
-                    disableOnCompanionDrag.Add(newCardItem.visualElementFocusable);
-                }
+        int numItems = newItemsContainer.childCount;
+        float delay = 0f;
+        for (int i = 0; i < numItems; i++)
+        {
+            int index = i;
+            VisualElement oldItem = oldItemsContainer.Children().ToList()[i];
+            VisualElement newItem = newItemsContainer.Children().ToList()[i];
+            // Make the old items move down below shop goods area
+            LeanTween.value(0f, 1f, rerollVfxTime)
+                .setDelay(delay)
+                .setEase(oldItemsCurve)
+                .setOnUpdate((float value) =>
+                {
+                    oldItem.style.top = 0f + (value * oldItemsContainer.resolvedStyle.height);
+                })
+                .setOnComplete(() =>
+                {
+                    Debug.LogError(index != numItems - 1);
+                    if (index != numItems - 1) return;
+                        tempParentContainer.Remove(oldItemsContainer);
+                        oldItemsContainer.Clear();
+                        oldItemsContainer.RemoveFromHierarchy();
+                });
 
-                foreach (ShopItemView newCompanionItem in newCompanionItems) {
-                    newItemsContainer.Remove(newCompanionItem.shopItemElement);
-                    shopGoodsArea.Add(newCompanionItem.shopItemElement);
-                    companionItemToViewMap.Add(newCompanionItem.companionInShop, newCompanionItem);
-                    FocusManager.Instance.RegisterFocusableTarget(newCompanionItem.visualElementFocusable);
-                    disableOnCompanionDrag.Add(newCompanionItem.visualElementFocusable);
-                }
+            // Make the new items move down from above the shop goods area
+            LeanTween.value(-1f, 0f, rerollVfxTime)
+                .setDelay(oldToNewDelay + delay)
+                .setEase(newItemsCurve)
+                .setOnUpdate((float value) =>
+                {
+                    newItem.style.top = 0f + (value * newItem.resolvedStyle.height);
+                })
+                .setOnComplete(() =>
+                {
+                    if (index != numItems - 1) return;
+                    foreach (ShopItemView newCardItem in newCardItems)
+                    {
+                        newItemsContainer.Remove(newCardItem.shopItemElement);
+                        shopGoodsArea.Add(newCardItem.shopItemElement);
+                        cardItemToViewMap.Add(newCardItem.cardInShop, newCardItem);
+                        FocusManager.Instance.RegisterFocusableTarget(newCardItem.visualElementFocusable);
+                        disableOnCompanionDrag.Add(newCardItem.visualElementFocusable);
+                    }
 
-                rerollButton.SetEnabled(true);
-            });
+                    foreach (ShopItemView newCompanionItem in newCompanionItems)
+                    {
+                        newItemsContainer.Remove(newCompanionItem.shopItemElement);
+                        shopGoodsArea.Add(newCompanionItem.shopItemElement);
+                        companionItemToViewMap.Add(newCompanionItem.companionInShop, newCompanionItem);
+                        FocusManager.Instance.RegisterFocusableTarget(newCompanionItem.visualElementFocusable);
+                        disableOnCompanionDrag.Add(newCompanionItem.visualElementFocusable);
+                    }
+                    tempParentContainer.Remove(newItemsContainer);
+                    newItemsContainer.Clear();
+                    newItemsContainer.RemoveFromHierarchy();
+                    tempParentContainer.RemoveFromHierarchy();
+                    rerollButton.SetEnabled(true);
+                });
+            delay += rerollTimeBetweenItems;
+        }
     }
 
-    private VisualElement CreateTempContainer(float width, float height) {
+    private VisualElement CreateTempContainer(float width, float height)
+    {
         VisualElement temp = new VisualElement();
         temp.style.width = width;
         temp.style.height = height;

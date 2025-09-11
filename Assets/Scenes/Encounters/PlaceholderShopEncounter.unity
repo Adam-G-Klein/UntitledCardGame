@@ -1499,11 +1499,11 @@ PrefabInstance:
       objectReference: {fileID: 1083293101}
     - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
       propertyPath: oldToNewDelay
-      value: 0.4
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
       propertyPath: rerollVfxTime
-      value: 1
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
       propertyPath: cardBuyVFXTime
@@ -1513,6 +1513,10 @@ PrefabInstance:
       propertyPath: statusEffectsSO
       value: 
       objectReference: {fileID: 11400000, guid: b5e8681fc02be284eb308731b490c4c5, type: 2}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: rerollTimeBetweenItems
+      value: 0.08
+      objectReference: {fileID: 0}
     - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
       propertyPath: cardSelectionViewPrefab
       value: 
