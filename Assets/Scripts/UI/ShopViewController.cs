@@ -465,32 +465,39 @@ public class ShopViewController : MonoBehaviour,
             newCompanionItemView.shopItemElement.style.top = -shopGoodsArea.resolvedStyle.height;
             newItemsContainer.Add(newCompanionItemView.shopItemElement);
             newCompanionItems.Add(newCompanionItemView);
-            
+
         }
-        
+
         int numItems = newItemsContainer.childCount;
         float delay = 0f;
         for (int i = 0; i < numItems; i++)
         {
             int index = i;
-            VisualElement oldItem = oldItemsContainer.Children().ToList()[i];
+            List<VisualElement> oldItems = oldItemsContainer.Children().ToList();
             VisualElement newItem = newItemsContainer.Children().ToList()[i];
-            // Make the old items move down below shop goods area
-            LeanTween.value(0f, 1f, rerollVfxTime)
-                .setDelay(delay)
-                .setEase(oldItemsCurve)
-                .setOnUpdate((float value) =>
-                {
-                    oldItem.style.top = 0f + (value * oldItemsContainer.resolvedStyle.height);
-                })
-                .setOnComplete(() =>
-                {
-                    Debug.LogError(index != numItems - 1);
-                    if (index != numItems - 1) return;
+            // If you upgrade the shop and then reroll, there will be more new slots than old
+            // slots. That's a corner case we deal with by checking the bounds.
+            // It looks fine visually if we have the new item in the new slot roll in.
+            if (i < oldItems.Count)
+            {
+                VisualElement oldItem = oldItems[i];
+                // Make the old items move down below shop goods area
+                LeanTween.value(0f, 1f, rerollVfxTime)
+                    .setDelay(delay)
+                    .setEase(oldItemsCurve)
+                    .setOnUpdate((float value) =>
+                    {
+                        oldItem.style.top = 0f + (value * oldItemsContainer.resolvedStyle.height);
+                    })
+                    .setOnComplete(() =>
+                    {
+                        Debug.LogError(index != numItems - 1);
+                        if (index != numItems - 1) return;
                         tempParentContainer.Remove(oldItemsContainer);
                         oldItemsContainer.Clear();
                         oldItemsContainer.RemoveFromHierarchy();
-                });
+                    });
+            }
 
             // Make the new items move down from above the shop goods area
             LeanTween.value(-1f, 0f, rerollVfxTime)
