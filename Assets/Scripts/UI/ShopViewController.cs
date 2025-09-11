@@ -491,7 +491,6 @@ public class ShopViewController : MonoBehaviour,
                     })
                     .setOnComplete(() =>
                     {
-                        Debug.LogError(index != numItems - 1);
                         if (index != numItems - 1) return;
                         tempParentContainer.Remove(oldItemsContainer);
                         oldItemsContainer.Clear();
