@@ -9,12 +9,12 @@
     <Style src="project://database/Assets/mapStylesheet.uss?fileID=7433441132597879392&amp;guid=8bfd0d4a4dd91435a81ceda51a241a08&amp;type=3#mapStylesheet" />
     <ui:VisualElement name="VisualElement" style="flex-grow: 1; flex-direction: column; background-image: none;">
         <ui:VisualElement style="position: absolute; height: 100%; width: 1934px; background-image: url(&quot;project://database/Assets/Sprites/ShopSprites/ShopBackground.png?fileID=2800000&amp;guid=2caa3b811ed888648a93657bf9c73edc&amp;type=3#ShopBackground&quot;); top: -190px; left: -8px;" />
-        <ui:VisualElement name="top-section" class="map-header-container">
-            <ui:VisualElement name="mapContainer" class="map-outer-container">
+        <ui:VisualElement name="top-section" class="map-header-container" style="max-height: 15%; min-height: 15%;">
+            <ui:VisualElement name="mapContainer" class="map-outer-container" style="max-height: 85%;">
                 <ui:Instance template="MapTemplateUiDocument" name="MapTemplateUiDocument" style="flex-grow: 1;" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="middle-section" style="flex-grow: 1; flex-direction: row; max-height: 40%; min-height: 40%;">
+        <ui:VisualElement name="middle-section" style="flex-grow: 1; flex-direction: row; max-height: 45%; min-height: 40%;">
             <ui:VisualElement style="flex-grow: 1; flex-basis: auto; width: 20%; height: 100%; justify-content: center; align-self: flex-start; align-items: center;">
                 <ui:VisualElement name="VisualElement" class="shopButtonContainer" style="align-items: center; width: 80%; flex-direction: row-reverse;">
                     <ui:Label tabindex="-1" text="$1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="upgrade-price-label" class="shopButtonPriceTag" style="translate: -18% 0;" />
@@ -41,7 +41,7 @@
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement style="flex-grow: 1; width: 75%; justify-content: center;">
-                <ui:VisualElement name="shop-goods-area" style="flex-grow: 0; width: 100%; justify-content: center; flex-direction: row; align-self: auto; align-items: center; height: auto; flex-shrink: 0;" />
+                <ui:VisualElement name="shop-goods-area" style="flex-grow: 0; justify-content: center; flex-direction: row; align-self: auto; align-items: center; flex-shrink: 0; overflow: visible; height: 100%;" />
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="unit-management" style="flex-grow: 1; max-height: 40%; min-height: 40%;">

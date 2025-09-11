@@ -84,27 +84,21 @@ public class ShopEncounter : Encounter
             ShopManager shopManager,
             List<Companion> companionList,
             EncounterConstantsSO constants,
-            ShopLevel shopLevel,
-            bool USE_NEW_SHOP)
+            ShopLevel shopLevel)
     {
         this.shopManager = shopManager;
         this.encounterConstants = constants;
         this.encounterType = EncounterType.Shop;
-        // UIDocumentHoverableInstantiator.Instance.CleanupAllHoverables();s
         validateShopData();
         generateShopEncounter(shopLevel, companionList);
-        if (USE_NEW_SHOP)
-        {
-            cardsInShop.ForEach(card => shopManager.shopViewController.AddCardToShopView(card));
-            companionsInShop.ForEach(companion => shopManager.shopViewController.AddCompanionToShopView(companion));
-        }
-        else
-        {
-            setupCards();
-            setupKeepsakes();
-        }
+        cardsInShop.ForEach(card => shopManager.shopViewController.AddCardToShopView(card));
+        companionsInShop.ForEach(companion => shopManager.shopViewController.AddCompanionToShopView(companion));
         shopManager.SetupUnitManagement();
-        // shopManager.shopViewController.SetupStaticHoverables();
+    }
+
+    public void Reroll(List<Companion> companionList, ShopLevel shopLevel) {
+        generateShopEncounter(shopLevel, companionList);
+        shopManager.shopViewController.Reroll(cardsInShop, companionsInShop);
     }
 
     public override void BuildWithEncounterBuilder(IEncounterBuilder encounterBuilder) {

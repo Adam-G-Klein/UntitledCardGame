@@ -63,7 +63,7 @@ public class ShopViewController : MonoBehaviour,
     private List<VisualElementFocusable> companionUpgradeFocusables = new List<VisualElementFocusable>();
     private List<(CompanionView, CompanionTypeSO, VisualElement)> companionUpgradeInstanceFocusables = new List<(CompanionView, CompanionTypeSO, VisualElement)>();
 
-    [Header("Card Buying Animation Curves")]
+    [Header("Card Buying Animation Values")]
     [SerializeField] private AnimationCurve cardBuyVFXHorizontal;
     [SerializeField] private AnimationCurve cardBuyVFXVertical;
     [SerializeField] private AnimationCurve cardBuyVFXRotation;
@@ -71,6 +71,12 @@ public class ShopViewController : MonoBehaviour,
     [SerializeField] private float cardBuyVFXTime;
     [SerializeField] private AnimationCurve companionBuyMoveVFX;
     [SerializeField] private float companionBuyVFXTime;
+
+    [Header("Reroll Animation Values")]
+    [SerializeField] private AnimationCurve oldItemsCurve;
+    [SerializeField] private AnimationCurve newItemsCurve;
+    [SerializeField] private float rerollVfxTime;
+    [SerializeField] private float oldToNewDelay;
 
     private IEnumerator notEnoughMoneyCoroutine;
     private IEnumerator upgradeButtonTooltipCoroutine = null;
@@ -302,6 +308,7 @@ public class ShopViewController : MonoBehaviour,
         SetBlockedActiveSlotsIfNecessary(shopManager.gameState.companions.currentCompanionSlots);
     }
 
+    // Handles setting up cards on first entry, see Reroll function for rerolling
     public void AddCardToShopView(CardInShopWithPrice card) {
         ShopItemView newCardItemView = new ShopItemView(this, card);
 
@@ -313,6 +320,7 @@ public class ShopViewController : MonoBehaviour,
         disableOnCompanionDrag.Add(newCardItemView.visualElementFocusable);
     }
 
+    // Handles removing cards when bought, see Reroll for rerolling
     public void RemoveCardFromShopView(CardInShopWithPrice card) {
         ShopItemView shopItemView = cardItemToViewMap[card];
 
@@ -400,6 +408,109 @@ public class ShopViewController : MonoBehaviour,
             });
     }
 
+    // Handles both the VFX and setting up the new area
+    public void Reroll(List<CardInShopWithPrice> cards, List<CompanionInShopWithPrice> companions) {
+        rerollButton.SetEnabled(false);
+        VisualElement tempParentContainer = CreateTempContainer(shopGoodsArea.resolvedStyle.width, shopGoodsArea.resolvedStyle.height);
+        tempParentContainer.style.overflow = Overflow.Hidden;
+        uiDoc.rootVisualElement.Add(tempParentContainer);
+        tempParentContainer.style.top = shopGoodsArea.worldBound.yMin;
+        tempParentContainer.style.left = shopGoodsArea.worldBound.xMin;
+
+        VisualElement oldItemsContainer = CreateTempContainer(shopGoodsArea.resolvedStyle.width, shopGoodsArea.resolvedStyle.height);
+        VisualElement newItemsContainer = CreateTempContainer(shopGoodsArea.resolvedStyle.width, shopGoodsArea.resolvedStyle.height);
+
+        // Manage cleanup of the maps
+        Dictionary<CardInShopWithPrice, ShopItemView> tempCardItemToViewMap = new Dictionary<CardInShopWithPrice, ShopItemView>(cardItemToViewMap);
+        foreach (KeyValuePair<CardInShopWithPrice, ShopItemView> pair in tempCardItemToViewMap) {
+            FocusManager.Instance.UnregisterFocusableTarget(pair.Value.visualElementFocusable);
+            disableOnCompanionDrag.Remove(pair.Value.visualElementFocusable);
+            cardItemToViewMap.Remove(pair.Key);
+        }
+
+        Dictionary<CompanionInShopWithPrice, ShopItemView> tempCompanionItemToViewMap = new Dictionary<CompanionInShopWithPrice, ShopItemView>(companionItemToViewMap);
+        foreach (KeyValuePair<CompanionInShopWithPrice, ShopItemView> pair in tempCompanionItemToViewMap) {
+            FocusManager.Instance.UnregisterFocusableTarget(pair.Value.visualElementFocusable);
+            disableOnCompanionDrag.Remove(pair.Value.visualElementFocusable);
+            companionItemToViewMap.Remove(pair.Key);
+        }
+
+        // Move over the stuff from shop goods area to temp container
+        // This can't happen in the above foreach loops because dictionaries aren't ordered
+        List<VisualElement> tempChildren = new List<VisualElement>(shopGoodsArea.Children());
+        foreach (VisualElement ve in tempChildren) {
+            shopGoodsArea.Remove(ve);
+            oldItemsContainer.Add(ve);
+        }
+
+        tempParentContainer.Add(oldItemsContainer);
+        tempParentContainer.Add(newItemsContainer);
+        newItemsContainer.style.top = -shopGoodsArea.resolvedStyle.height;
+
+        List<ShopItemView> newCardItems = new List<ShopItemView>();
+        foreach (CardInShopWithPrice card in cards) {
+            ShopItemView newCardItemView = new ShopItemView(this, card);
+            newItemsContainer.Add(newCardItemView.shopItemElement);
+            newCardItems.Add(newCardItemView);
+        }
+
+        List<ShopItemView> newCompanionItems = new List<ShopItemView>();
+        foreach (CompanionInShopWithPrice companion in companions) {
+            ShopItemView newCompanionItemView = new ShopItemView(this, companion, shopManager.encounterConstants.companionViewTemplate);
+            newItemsContainer.Add(newCompanionItemView.shopItemElement);
+            newCompanionItems.Add(newCompanionItemView);
+        }
+
+        // Make the old items move down below shop goods area
+        LeanTween.value(0f, 1f, rerollVfxTime)
+            .setEase(oldItemsCurve)
+            .setOnUpdate((float value) => {
+                oldItemsContainer.style.top = 0f + (value * oldItemsContainer.resolvedStyle.height);
+            })
+            .setOnComplete(() => {
+                shopGoodsArea.Remove(oldItemsContainer);
+            });
+        
+        // Make the new items move down from above the shop goods area
+        LeanTween.value(-1f, 0f, rerollVfxTime)
+            .setDelay(oldToNewDelay)
+            .setEase(newItemsCurve)
+            .setOnUpdate((float value) => {
+                newItemsContainer.style.top = 0f + (value * oldItemsContainer.resolvedStyle.height);
+            })
+            .setOnComplete(() => {
+                foreach (ShopItemView newCardItem in newCardItems) {
+                    newItemsContainer.Remove(newCardItem.shopItemElement);
+                    shopGoodsArea.Add(newCardItem.shopItemElement);
+                    cardItemToViewMap.Add(newCardItem.cardInShop, newCardItem);
+                    FocusManager.Instance.RegisterFocusableTarget(newCardItem.visualElementFocusable);
+                    disableOnCompanionDrag.Add(newCardItem.visualElementFocusable);
+                }
+
+                foreach (ShopItemView newCompanionItem in newCompanionItems) {
+                    newItemsContainer.Remove(newCompanionItem.shopItemElement);
+                    shopGoodsArea.Add(newCompanionItem.shopItemElement);
+                    companionItemToViewMap.Add(newCompanionItem.companionInShop, newCompanionItem);
+                    FocusManager.Instance.RegisterFocusableTarget(newCompanionItem.visualElementFocusable);
+                    disableOnCompanionDrag.Add(newCompanionItem.visualElementFocusable);
+                }
+
+                rerollButton.SetEnabled(true);
+            });
+    }
+
+    private VisualElement CreateTempContainer(float width, float height) {
+        VisualElement temp = new VisualElement();
+        temp.style.width = width;
+        temp.style.height = height;
+        temp.style.position = Position.Absolute;
+        temp.style.justifyContent = Justify.Center;
+        temp.style.alignItems = Align.Center;
+        temp.style.flexDirection = FlexDirection.Row;
+        return temp;
+    }
+
+    // Handles setting up companions on first entry, see Reroll function for rerolling
     public void AddCompanionToShopView(CompanionInShopWithPrice companion) {
         ShopItemView newCompanionItemView = new ShopItemView(this, companion, shopManager.encounterConstants.companionViewTemplate);
 
@@ -411,6 +522,7 @@ public class ShopViewController : MonoBehaviour,
         disableOnCompanionDrag.Add(newCompanionItemView.visualElementFocusable);
     }
 
+    // Handles removing cards when bought, see Reroll for rerolling
     public void RemoveCompanionFromShopView(CompanionInShopWithPrice companion) {
         ShopItemView shopItemView = companionItemToViewMap[companion];
 

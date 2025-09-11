@@ -73,7 +73,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         List<Companion> allCompanions = new();
         allCompanions.AddRange(gameState.companions.activeCompanions);
         allCompanions.AddRange(gameState.companions.benchedCompanions);
-        shopEncounter.Build(this, allCompanions, encounterConstants, this.shopLevel, USE_NEW_SHOP);
+        shopEncounter.Build(this, allCompanions, encounterConstants, this.shopLevel);
         shopViewController.SetMoney(gameState.playerData.GetValue().gold);
         shopViewController.SetShopUpgradePrice(shopLevel.upgradeIncrementCost);
         shopViewController.SetShopRerollPrice(shopEncounter.shopData.rerollShopPrice);
@@ -390,7 +390,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             MusicController.Instance.PlaySFX("event:/SFX/SFX_Reroll");
             gameState.playerData.GetValue().gold -= price;
             shopViewController.SetMoney(gameState.playerData.GetValue().gold);
-            shopViewController.Clear();
+            // shopViewController.Clear();
             InstantiateShopVFX(shopRerollPrefab, shopViewController.GetRerollShopButton(), 1.25f);
             timesRerolledThisShop++;
             price = GetRerollCost();
@@ -422,7 +422,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         List<Companion> allCompanions = new();
         allCompanions.AddRange(gameState.companions.activeCompanions);
         allCompanions.AddRange(gameState.companions.benchedCompanions);
-        shopEncounter.Build(this, allCompanions, encounterConstants, shopLevel, USE_NEW_SHOP);
+        shopEncounter.Reroll(allCompanions, this.shopLevel);
     }
 
     public void ProcessCardRemovalClick() {
