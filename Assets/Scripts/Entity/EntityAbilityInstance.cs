@@ -317,7 +317,7 @@ public abstract class EntityAbilityInstance
         bool done = false;
         float vfxTime = 0.5f;
         // Opacity
-        LeanTween.value(0.8f, 0f, vfxTime)
+        LeanTween.value(0.6f, 0f, vfxTime)
             .setEase(LeanTweenType.linear)
             .setOnUpdate((float value) => {
                 tempContainer.style.opacity = value;
