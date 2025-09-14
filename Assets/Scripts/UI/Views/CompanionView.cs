@@ -17,10 +17,10 @@ public class CompanionView : IUIEventReceiver
         new CompanionViewContext(false, false, false, false, false, false, false, false, 1.25f, 0.175f, purelyVisual:true);
 
     public static CompanionViewContext SHOP_CONTEXT = 
-        new CompanionViewContext(false, true, false, false, true, false, false, true, 0.8f, 0.15f);
+        new CompanionViewContext(false, true, false, false, true, false, false, true, 0.8f, 0.15f * .75f);
     
     public static CompanionViewContext UNIT_MNGMT_CONTEXT = 
-        new CompanionViewContext(false, false, false, false, true, true, true, false, 1.1f, 0.15f);
+        new CompanionViewContext(false, false, false, false, true, true, true, false, 1.1f, 0.15f * .6f);
 
     public static CompanionViewContext CARD_SELECTION_CONTEXT = 
         new CompanionViewContext(false, false, true, true, false, false, false, false, 1.25f, 0.2f);

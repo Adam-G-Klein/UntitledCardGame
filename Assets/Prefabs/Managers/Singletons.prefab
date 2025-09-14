@@ -37,6 +37,7 @@ Transform:
   - {fileID: 5189095709482078911}
   - {fileID: 6737698864390027062}
   - {fileID: 6727305841976354547}
+  - {fileID: 6365450137882161004}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1180621208716994414
@@ -150,7 +151,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6365450137882161004}
-  - component: {fileID: 8749553115092051882}
   - component: {fileID: 8680875321681135680}
   m_Layer: 0
   m_Name: HotkeyManager
@@ -174,20 +174,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4658088288143552190}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8749553115092051882
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2065433092755108743}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d6c790923cf8f64bb8b56d039a2965d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  turnPhaseEvent: {fileID: 11400000, guid: 8731090c52e897e459ac12df3da5fc3a, type: 2}
-  endTurnHotkeyEnabled: 0
 --- !u!114 &8680875321681135680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,7 +190,7 @@ MonoBehaviour:
   unityEventResponse:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8749553115092051882}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: HotkeyManager, Assembly-CSharp
         m_MethodName: turnPhaseChangedEventHandler
         m_Mode: 0
@@ -371,7 +357,7 @@ MonoBehaviour:
     - action: 23
       sprite: {fileID: 21300000, guid: 92acc642aac0d3b49b30df53fdf49491, type: 3}
     - action: 24
-      sprite: {fileID: 21300000, guid: 79afdc0deccc8e34aa35369724a946ca, type: 3}
+      sprite: {fileID: 21300000, guid: 3aa7aed108370674ba885765a4964b68, type: 3}
     - action: 25
       sprite: {fileID: 21300000, guid: 0804af4495a5ea74db3a96c12a9e9dd8, type: 3}
     - action: 26

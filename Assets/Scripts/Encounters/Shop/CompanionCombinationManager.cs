@@ -13,6 +13,21 @@ Tooltips:
 - tooltip view, populates an attached textmeshpro with the string in the tooltip object
 - tooltip object, serializeReference from TooltipInstantiator
 */
+
+public class UpgradeInfo
+{
+    public List<Companion> companionsInvolved;
+    public Companion resultingCompanion;
+    public int resultingSlotViewIndex;
+    public bool onBench;
+    public UpgradeInfo(List<Companion> companionsInvolved, Companion resultingCompanion, int resultingSlotViewIndex, bool onBench)
+    {
+        this.companionsInvolved = companionsInvolved;
+        this.resultingCompanion = resultingCompanion;
+        this.resultingSlotViewIndex = resultingSlotViewIndex;
+        this.onBench = onBench;
+    }
+}
 public class CompanionCombinationManager : MonoBehaviour
 {
     [SerializeField]
@@ -23,8 +38,10 @@ public class CompanionCombinationManager : MonoBehaviour
     [SerializeField]
     private GameObject celebrationParticles;
 
-    public List<Companion> PurchaseWouldCauseUpgrade(Companion newGuy) {
-        if (newGuy.companionType.upgradeTo == null) {
+    public UpgradeInfo PurchaseWouldCauseUpgrade(Companion newGuy)
+    {
+        if (newGuy.companionType.upgradeTo == null)
+        {
             Debug.LogError("purchased a companion and there is no level 2 for it");
             return null;
         }
@@ -36,22 +53,37 @@ public class CompanionCombinationManager : MonoBehaviour
             gameplayConstants.COMPANIONS_FOR_LEVELTHREE_COMBINATION;
 
         // This is an expected result when you buy a companion and do not have enough.
-        if (existingCompanions.Count < numNeededToCombine) {
+        if (existingCompanions.Count < numNeededToCombine)
+        {
             Debug.Log("Not enough companions to trigger combination!");
             return null;
         }
 
-        // Getting here means that we would get at least one upgrade triggered. We need to see if multiple would trigger
-        if (newGuy.companionType.level == CompanionLevel.LevelOne) {
-            Companion combined = ShowUpgradedCompanion(existingCompanions); // this creates a temp upgrade companion to see if another combination would trigger
-            List<Companion> secondUpgradeCompanions = PurchaseWouldCauseUpgrade(combined);
-            if (secondUpgradeCompanions != null) existingCompanions.Add(secondUpgradeCompanions[0]); // this is a little hacky/implementation dependent
+        Companion combined = ShowUpgradedCompanion(existingCompanions);
+        int resultingIndex = 0;
+
+        // This means that we have enough for a level 3 upgrade
+        List<Companion> level2s = CompanionsOfType(newGuy.companionType.upgradeTo);
+        if (level2s.Count + 1 == gameplayConstants.COMPANIONS_FOR_LEVELTHREE_COMBINATION)
+        {
+            List<Companion> level2UpgradeCompanions = new();
+            level2UpgradeCompanions.AddRange(level2s);
+            level2UpgradeCompanions.Add(combined);
+            existingCompanions.AddRange(level2s);
+            combined = ShowUpgradedCompanion(level2UpgradeCompanions);
+            resultingIndex = GetFirstCompanionTypeOccurence(newGuy.companionType.upgradeTo);
+        }
+        else
+        {
+            // get earlier level 1 companion index 
+            resultingIndex = GetFirstCompanionTypeOccurence(newGuy.companionType);
         }
 
-        return existingCompanions;
+        return new UpgradeInfo(existingCompanions, combined, resultingIndex % gameState.companions.activeCompanions.Count, resultingIndex >= gameState.companions.activeCompanions.Count);
     }
 
-    public Companion ShowUpgradedCompanion(List<Companion> companions) {
+    public Companion ShowUpgradedCompanion(List<Companion> companions)
+    {
         return CombineCompanions(companions);
     }
 
@@ -59,8 +91,10 @@ public class CompanionCombinationManager : MonoBehaviour
     // If there are enough at the threshold, it removes the existing companions and creates a
     // combined version to be returned by this method.
     // WARNING: side-effect-ey - this modifies the list of companions on the game state.
-    public Companion AttemptCompanionUpgrade(Companion newGuy) {
-        if (newGuy.companionType.upgradeTo == null) {
+    public Companion AttemptCompanionUpgrade(Companion newGuy)
+    {
+        if (newGuy.companionType.upgradeTo == null)
+        {
             Debug.LogError("purchased a companion and there is no level 2 for it");
             return null;
         }
@@ -72,7 +106,8 @@ public class CompanionCombinationManager : MonoBehaviour
             gameplayConstants.COMPANIONS_FOR_LEVELTHREE_COMBINATION;
 
         // This is an expected result when you buy a companion and do not have enough.
-        if (existingCompanions.Count < numNeededToCombine) {
+        if (existingCompanions.Count < numNeededToCombine)
+        {
             Debug.Log("Not enough companions to trigger combination!");
             return null;
         }
@@ -90,25 +125,33 @@ public class CompanionCombinationManager : MonoBehaviour
     }
 
     // CombineCompanions returns the new combined companion with its deck and stats.
-    private Companion CombineCompanions(List<Companion> companions) {
+    private Companion CombineCompanions(List<Companion> companions)
+    {
         Deck combinedDeck = selectDeckForCombinedCompanions(companions);
 
         // TODO: change this combined companion with whatever mechanics ends up wanting
         Companion combinedCompanion = new Companion(companions[0].companionType.upgradeTo);
         combinedCompanion.deck = combinedDeck;
         combinedCompanion.combatStats.maxHealth = maxHealthForCombinedCompanion(combinedCompanion, companions);
-        combinedCompanion.combatStats.currentHealth = (int) (combinedCompanion.combatStats.maxHealth * currentHealthPctForCombinedCompanion(companions));
+        combinedCompanion.combatStats.currentHealth = (int)(combinedCompanion.combatStats.maxHealth * currentHealthPctForCombinedCompanion(companions));
         combinedCompanion.combatStats.baseAttackDamage = baseAttackDamageForCombinedCompanion(companions);
         combinedCompanion.trackingStats = new CompanionStatTracker(companions);
 
         return combinedCompanion;
     }
 
-    private List<Companion> CompanionsOfType(CompanionTypeSO companionType) {
+    private List<Companion> CompanionsOfType(CompanionTypeSO companionType)
+    {
         return gameState.companions.allCompanions.FindAll(c => c.companionType == companionType);
     }
 
-    private Deck selectDeckForCombinedCompanions(List<Companion> companions) {
+    private int GetFirstCompanionTypeOccurence(CompanionTypeSO companionType)
+    {
+        return gameState.companions.allCompanions.FindIndex(c => c.companionType == companionType);
+    }
+
+    private Deck selectDeckForCombinedCompanions(List<Companion> companions)
+    {
         // TODO(): Allow the player to choose which deck they want to use.
         // For now, select the deck with the least starting cards and add all added cards from other decks
 
@@ -118,14 +161,18 @@ public class CompanionCombinationManager : MonoBehaviour
         Companion companionWithLeastStartingCards = null;
         int leastStartingCards = 10000;
 
-        for (int i = 0; i < companions.Count; i++) {
+        for (int i = 0; i < companions.Count; i++)
+        {
             int startingCards = 0;
-            for (int j = 0; j < companions[i].deck.cards.Count; j++) {
-                if (companions[i].companionType.startingDeck.cards.Contains(companions[i].deck.cards[j].cardType)) {
+            for (int j = 0; j < companions[i].deck.cards.Count; j++)
+            {
+                if (companions[i].companionType.startingDeck.cards.Contains(companions[i].deck.cards[j].cardType))
+                {
                     startingCards += 1;
                 }
             }
-            if (startingCards < leastStartingCards) {
+            if (startingCards < leastStartingCards)
+            {
                 leastStartingCards = startingCards;
                 companionWithLeastStartingCards = companions[i];
             }
@@ -135,9 +182,12 @@ public class CompanionCombinationManager : MonoBehaviour
         // Add all non starting cards from other decks and all cards from the chosen deck to a new deck!
         List<Card> cards = new();
 
-        for (int i = 0; i < companions.Count; i++) {
-            for (int j = 0; j < companions[i].deck.cards.Count; j++) {
-                if (companions[i].id == companionWithLeastStartingCards.id || !companions[i].companionType.startingDeck.cards.Contains(companions[i].deck.cards[j].cardType)) {
+        for (int i = 0; i < companions.Count; i++)
+        {
+            for (int j = 0; j < companions[i].deck.cards.Count; j++)
+            {
+                if (companions[i].id == companionWithLeastStartingCards.id || !companions[i].companionType.startingDeck.cards.Contains(companions[i].deck.cards[j].cardType))
+                {
                     cards.Add(companions[i].deck.cards[j]);
                 }
             }
@@ -146,7 +196,8 @@ public class CompanionCombinationManager : MonoBehaviour
         // Remove one card from the base deck each time you upgrade.
         // This is a great experimental idea from Ethan that we should try.
         int cardsToRemove = 1;
-        if (ProgressManager.Instance.IsFeatureEnabled(AscensionType.STINKIER_COMBINATION)) {
+        if (ProgressManager.Instance.IsFeatureEnabled(AscensionType.STINKIER_COMBINATION))
+        {
             cardsToRemove = (int)ProgressManager.Instance.GetAscensionSO(AscensionType.STINKIER_COMBINATION).
                 ascensionModificationValues.GetValueOrDefault("numCardsToRemove", 0f);
         }
@@ -167,24 +218,28 @@ public class CompanionCombinationManager : MonoBehaviour
         return new Deck(cards, companions[0].companionType.upgradeTo.initialCardsDealtPerTurn);
     }
 
-    private int maxHealthForCombinedCompanion(Companion upgradedCompanion, List<Companion> companions) {
+    private int maxHealthForCombinedCompanion(Companion upgradedCompanion, List<Companion> companions)
+    {
         // Take the base health of the upgraded companion, then
         // add any accumulated max HP buffs.
-        int maxHealthBuffs = (int) companions.Select(c => c.combatStats.getMaxHealthBuffs()).ToList().Sum();
+        int maxHealthBuffs = (int)companions.Select(c => c.combatStats.getMaxHealthBuffs()).ToList().Sum();
         int baseMaxHealth = upgradedCompanion.companionType.maxHealth;
-        if (ProgressManager.Instance.IsFeatureEnabled(AscensionType.STINKIER_COMBINATION)) {
+        if (ProgressManager.Instance.IsFeatureEnabled(AscensionType.STINKIER_COMBINATION))
+        {
             baseMaxHealth = Mathf.FloorToInt(baseMaxHealth * ProgressManager.Instance.GetAscensionSO(AscensionType.STINKIER_COMBINATION).
                 ascensionModificationValues.GetValueOrDefault("maxHealthRatio", 0.9f));
         }
         return baseMaxHealth + maxHealthBuffs;
     }
 
-    private double currentHealthPctForCombinedCompanion(List<Companion> companions) {
+    private double currentHealthPctForCombinedCompanion(List<Companion> companions)
+    {
         // Average together the current health % of each companion.
-        return companions.Select(c => ((double) c.combatStats.currentHealth) / c.combatStats.maxHealth).ToList().Average();
+        return companions.Select(c => ((double)c.combatStats.currentHealth) / c.combatStats.maxHealth).ToList().Average();
     }
 
-    private int baseAttackDamageForCombinedCompanion(List<Companion> companions) {
+    private int baseAttackDamageForCombinedCompanion(List<Companion> companions)
+    {
         // Sum up the base attack damages of each companion.
         return companions.Select(c => c.combatStats.baseAttackDamage).ToList().Sum();
     }

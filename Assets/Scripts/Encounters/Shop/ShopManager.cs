@@ -27,6 +27,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     public GameObject shopUpgradePrefab;
     public GameObject healPrefab;
     public GameObject sparklePrefab;
+    public GameObject bigSparklePrefab;
 
     private ShopEncounter shopEncounter;
     private ShopLevel shopLevel;
@@ -175,48 +176,91 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             // companionToAdd is the final companion to add to your team :)
             Companion companionToAdd = newCompanion;
 
-            List<Companion> companions = companionCombinationManager.PurchaseWouldCauseUpgrade(newCompanion);
-            if (companions != null) {
-                Companion upgradeCompanion = companionCombinationManager.ShowUpgradedCompanion(companions);
-                if (companions.Count == 4) {
-                    List<Companion> level2s = new()
-                    {
-                        companions[3],
-                        upgradeCompanion
-                    };
-                    upgradeCompanion = companionCombinationManager.ShowUpgradedCompanion(level2s);
+            UpgradeInfo upgradeInfo = companionCombinationManager.PurchaseWouldCauseUpgrade(newCompanion);
+            if (upgradeInfo != null)
+            {
+                shopViewController.isBuyingDisabled = true;
+                gameState.playerData.GetValue().gold -= companionInShop.price;
+                shopViewController.SetMoney(gameState.playerData.GetValue().gold);
+                InstantiateShopVFX(moneySpentPrefab, shopItemView.shopItemElement, 1.5f);
+
+                // first we need to find the companionManagementSlotView that all of them are animating towards
+                CompanionManagementSlotView slotView = shopViewController.GetCompanionManagementSlotView(upgradeInfo.resultingSlotViewIndex, upgradeInfo.onBench);
+                Companion targetCompanion = slotView.companionManagementView.companion;
+                int animationsToDo = upgradeInfo.companionsInvolved.Count - 2; // (one for the shop purchase that's taken care of right away and one for the resulting companion view that doesn't move)
+                float delay = 0;
+                shopViewController.AnimateNewCompanionToSlot(companionInShop, slotView, true, delay, () => { shopViewController.CompanionScaleBumpAnimation(slotView.companionManagementView.container, 1, 1.2f, .25f); });
+                delay += .3f;
+
+                for (int i = 0; i < upgradeInfo.companionsInvolved.Count; i++)
+                {
+                    Companion companion = upgradeInfo.companionsInvolved[i];
+
+                    // don't animate the target companion
+                    if ((companion == targetCompanion) || (companion == newCompanion)) continue;
+
+                    CompanionManagementSlotView startingSlotView = shopViewController.GetCompanionManagementSlotView(companion);
+                    animationsToDo -= 1;
+                    bool isLastAnimation = animationsToDo == 0;
+                    shopViewController.AnimateExistingCompanionToSlot(startingSlotView, slotView, true, delay, () => { AnimateExistingCompanionToSlotOnComplete(startingSlotView, slotView.companionManagementView.container, isLastAnimation, slotView, upgradeInfo); });
+                    delay += .3f;
+                    
+                    // the rest are animated from other companionManagementView (this does need to be handled slightly differently)
                 }
-                if (gameState.autoUpgrade) {
-                    ConfirmUpgradePurchase();
-                    return;
-                } else {
-                    shopViewController.ShowCompanionUpgradeMenu(companions, upgradeCompanion);
-                    return;
-                }
+                return;
             }
             if (gameState.companions.activeCompanions.Count + shopViewController.GetBlockedCompanionSlots() == 5 && gameState.companions.benchedCompanions.Count == availableBenchSlots) {
                 StartCoroutine(shopViewController.ShowGenericNotification("You have reached the maximum number of companions.", 2));
                 return;
             }
+            shopViewController.isBuyingDisabled = true;
             gameState.playerData.GetValue().gold -= companionInShop.price;
             shopViewController.SetMoney(gameState.playerData.GetValue().gold);
             gameState.AddCompanionToTeam(companionToAdd);
-            shopViewController.RemoveCompanionFromShopView(companionInShop);
-            shopViewController.RebuildUnitManagement(gameState.companions);
+            CompanionManagementSlotView companionManagementSlotView = shopViewController.FindNextAvailableSlot();
+            shopViewController.AnimateNewCompanionToSlot(companionInShop, companionManagementSlotView, false, 0, () => { CompanionBoughtAnimationOnComplete(companionToAdd, companionManagementSlotView); });
             InstantiateShopVFX(moneySpentPrefab, shopItemView.shopItemElement, 1.5f);
         } else {
             Debug.Log("Not enuff munny");
             shopViewController.NotEnoughMoney();
         }
     }
+    private void AnimateExistingCompanionToSlotOnComplete(CompanionManagementSlotView companionManagementSlotView, VisualElement visualElement, bool isLastAnimation, CompanionManagementSlotView remainingSlotView, UpgradeInfo upgradeInfo)
+    {
+        // maybe this should happen before the animation is over
+        gameState.RemoveCompanionsFromTeam(new List<Companion> { companionManagementSlotView.companionManagementView.companion });
 
-    private void InstantiateShopVFX(GameObject prefab, VisualElement ve, float scale) {
+        companionManagementSlotView.Reset();
+        shopViewController.CompanionScaleBumpAnimation(visualElement, 1, 1.2f, .25f);
+
+        if (isLastAnimation)
+        {
+            shopViewController.CompanionUpgradeAnimation(remainingSlotView, upgradeInfo);
+        }
+    }
+
+
+    private void CompanionBoughtAnimationOnComplete(Companion companion, CompanionManagementSlotView companionManagementSlotView)
+    {
+        shopViewController.SetupCompanionManagementView(companion, companionManagementSlotView);
+        shopViewController.CompanionScaleBumpAnimation(companionManagementSlotView.companionManagementView.container, 1, 1.2f, .25f);
+        shopViewController.isBuyingDisabled = false;
+        //Sparkle(companionManagementSlotView.root);
+    }
+
+    private void InstantiateShopVFX(GameObject prefab, VisualElement ve, float scale)
+    {
         GameObject instance = Instantiate(prefab, UIDocumentGameObjectPlacer.GetWorldPositionFromElement(ve), Quaternion.identity);
         ScaleGameObjectAndChildren(instance, scale);
     }
     
     public void Sparkle(VisualElement ve) {
         InstantiateShopVFX(sparklePrefab, ve, 1.0f);
+    }
+
+    public void UpgradeSparkle(VisualElement ve)
+    {
+        InstantiateShopVFX(bigSparklePrefab, ve, 1.0f);
     }
     private void ScaleGameObjectAndChildren(GameObject obj, float scale)
     {
@@ -238,13 +282,12 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
         int preferredActiveSlotIdx = -1;
         Companion companionToAdd = null;
-        int existingL1CompanionActiveSlot = gameState.companions.activeCompanions.FindIndex(c => c.companionType == newCompanion.companionType);
         Companion level2Dude = companionCombinationManager.AttemptCompanionUpgrade(newCompanion);
         MusicController.Instance.PlaySFX("event:/MX/MX_Companion_Upgrade_Stinger");
         if (level2Dude != null)
         {
             // Find an active slot to place the companion so it keeps the same spot in your team.
-            preferredActiveSlotIdx = existingL1CompanionActiveSlot;
+            preferredActiveSlotIdx = gameState.companions.activeCompanions.FindIndex(c => c.companionType == newCompanion.companionType); ;
 
             companionToAdd = level2Dude;
             // Then attempt the level 3 upgrade :)
@@ -263,11 +306,12 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
                 companionToAdd = level3Dude;
             }
+            Debug.Log("Preferred active slot index for the companion: " + preferredActiveSlotIdx);
+            gameState.AddCompanionToTeam(companionToAdd, preferredActiveSlotIdx);
+            shopViewController.RemoveCompanionFromShopView(companionInShop);
+            shopViewController.RebuildUnitManagement(gameState.companions);
+            return;
         }
-        Debug.Log("Preferred active slot index for the companion: " + preferredActiveSlotIdx);
-        gameState.AddCompanionToTeam(companionToAdd, preferredActiveSlotIdx);
-        shopViewController.RemoveCompanionFromShopView(companionInShop);
-        shopViewController.RebuildUnitManagement(gameState.companions);
     }
 
     public void ProcessCompanionClicked(CompanionManagementView companionView) {

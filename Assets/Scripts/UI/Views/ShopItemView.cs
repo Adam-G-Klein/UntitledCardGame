@@ -36,7 +36,6 @@ public class ShopItemView : IEntityViewDelegate {
         Companion tempCompanion = new Companion(companion.companionType);
         tempCompanion.combatStats.currentHealth -= companion.sustainedDamage;
         companionView = new CompanionView(tempCompanion, template, 0, CompanionView.SHOP_CONTEXT, this);
-        companionView.ScaleView(0.75f);
         shopItemElement.Add(companionView.container);
 
         shopItemElement.RegisterOnSelected(ShopItemViewOnClicked);
@@ -136,5 +135,9 @@ public class ShopItemView : IEntityViewDelegate {
     public void InstantiateCardView(List<Card> cardList, string promptText)
     {
         viewDelegate.DisplayCards(companionInShop.companionType);
+    }
+    public CompanionView GetCompanionView()
+    {
+        return companionView;
     }
 }

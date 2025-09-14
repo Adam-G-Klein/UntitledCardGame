@@ -4899,9 +4899,9 @@ GameObject:
   - component: {fileID: 1043875599843697475}
   - component: {fileID: 824979891390081441}
   - component: {fileID: 931977616453057816}
-  - component: {fileID: 3734453532428954194}
+  - component: {fileID: -7639452458539529493}
   m_Layer: 0
-  m_Name: Shop Sparkle
+  m_Name: Big Shop Sparkle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9790,7 +9790,7 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &3734453532428954194
+--- !u!114 &-7639452458539529493
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9820,7 +9820,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3719606783503216605
 Transform:
   m_ObjectHideFlags: 0
@@ -20326,7 +20326,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.58
+      value: 0.17
       mode: 0
       spread: 0
       speed:
@@ -20555,8 +20555,8 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 3
-        scalar: 1
-        minScalar: 3
+        scalar: 25
+        minScalar: 20
         maxCurve:
           serializedVersion: 2
           m_Curve:

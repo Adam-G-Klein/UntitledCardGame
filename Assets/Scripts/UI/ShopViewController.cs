@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -72,6 +73,10 @@ public class ShopViewController : MonoBehaviour,
     [SerializeField] private AnimationCurve companionBuyMoveVFX;
     [SerializeField] private float companionBuyVFXTime;
 
+    [Header("Companion Buying Animation Values")]
+    [SerializeField] private float companionBuyTime = .175f;
+    [SerializeField] private float companionUpgradeTime = .25f;
+    [SerializeField] private float companionBuyScaleBump = 1.5f;
     [Header("Reroll Animation Values")]
     [SerializeField] private AnimationCurve oldItemsCurve;
     [SerializeField] private AnimationCurve newItemsCurve;
@@ -83,6 +88,7 @@ public class ShopViewController : MonoBehaviour,
     private IEnumerator upgradeButtonTooltipCoroutine = null;
     private VisualElement tooltip;
     private bool sellingCompanions = false;
+    public bool isBuyingDisabled = false;
     private CompanionManagementView companionToSell;
     private string originalSellingCompanionConfirmationText;
     private string originalSellingCompanionBreakdownText;
@@ -175,9 +181,9 @@ public class ShopViewController : MonoBehaviour,
         FocusManager.Instance.DisableFocusableTarget(selectingForCardRemovalButton.AsFocusable());
 
         // setup upgradeMenu
-        Button cancelUpgradeButton = uiDoc.rootVisualElement.Q<Button>(name:"cancelUpgrade");
-        Button confirmUpgradeButton = uiDoc.rootVisualElement.Q<Button>(name:"confirmUpgrade");
-        Button upgradedDeckPreviewButton = uiDoc.rootVisualElement.Q<Button>(name:"upgradedDeckPreview");
+        Button cancelUpgradeButton = uiDoc.rootVisualElement.Q<Button>(name: "cancelUpgrade");
+        Button confirmUpgradeButton = uiDoc.rootVisualElement.Q<Button>(name: "confirmUpgrade");
+        Button upgradedDeckPreviewButton = uiDoc.rootVisualElement.Q<Button>(name: "upgradedDeckPreview");
         cancelUpgradeButton.RegisterOnSelected((evt) => CancelUpgrade());
         confirmUpgradeButton.RegisterOnSelected((evt) => ConfirmUpgrade());
         upgradedDeckPreviewButton.RegisterOnSelected((evt) => PreviewUpgradedDeck());
@@ -185,7 +191,7 @@ public class ShopViewController : MonoBehaviour,
         companionUpgradeFocusables.Add(confirmUpgradeButton.AsFocusable());
         companionUpgradeFocusables.Add(upgradedDeckPreviewButton.AsFocusable());
 
-        VisualElement questionMark = uiDoc.rootVisualElement.Q<VisualElement>(name:"questionMark");
+        VisualElement questionMark = uiDoc.rootVisualElement.Q<VisualElement>(name: "questionMark");
         questionMark.RegisterCallback<PointerEnterEvent>(ShowHelperText);
         questionMark.RegisterCallback<PointerLeaveEvent>(HideHelperText);
         VisualElementFocusable questionMarkFocusable = questionMark.AsFocusable();
@@ -208,11 +214,11 @@ public class ShopViewController : MonoBehaviour,
     }
 
     private void ShowHelperText(PointerEnterEvent evt) {
-        uiDoc.rootVisualElement.Q<VisualElement>(name:"explainerText").AddToClassList("explainer-text-container-visible");
+        uiDoc.rootVisualElement.Q<VisualElement>(name: "explainerText").AddToClassList("explainer-text-container-visible");
     }
 
     private void HideHelperText(PointerLeaveEvent evt) {
-        uiDoc.rootVisualElement.Q<VisualElement>(name:"explainerText").RemoveFromClassList("explainer-text-container-visible");
+        uiDoc.rootVisualElement.Q<VisualElement>(name: "explainerText").RemoveFromClassList("explainer-text-container-visible");
     }
 
     private void ToggleAutoUpgrade(ClickEvent evt) {
@@ -334,7 +340,203 @@ public class ShopViewController : MonoBehaviour,
         disableOnCompanionDrag.Remove(shopItemView.visualElementFocusable);
     }
 
-    public void AnimateCardToCompanion(CardInShopWithPrice card, CompanionManagementView companionView) {
+    public void AnimateNewCompanionToSlot(CompanionInShopWithPrice companion, CompanionManagementSlotView companionManagementSlotView, bool isUpgrade = false, float delay = 0, Action onComplete = null)
+    {
+        ShopItemView shopItemView = companionItemToViewMap[companion];
+        Vector2 startPoint = VisualElementUtils.GetCenterOfVisualElement(shopItemView.shopItemElement);
+        Vector2 endPoint = VisualElementUtils.GetCenterOfVisualElement(companionManagementSlotView.root); // this is the root rather than the companionView (may have a slightly different width and height)
+
+        shopItemView.Disable();
+
+        companionItemToViewMap.Remove(companion);
+
+        FocusManager.Instance.UnregisterFocusableTarget(shopItemView.visualElementFocusable);
+        disableOnCompanionDrag.Remove(shopItemView.visualElementFocusable);
+
+        CompanionMoveAnimation(startPoint, endPoint, shopItemView.shopItemElement, isUpgrade, delay, onComplete);
+
+        CompanionView companionView = shopItemView.GetCompanionView();
+        float widthRatio = CompanionView.UNIT_MNGMT_CONTEXT.screenWidthPercent / CompanionView.SHOP_CONTEXT.screenWidthPercent;
+        float heightRatio = (CompanionView.UNIT_MNGMT_CONTEXT.screenWidthPercent / CompanionView.UNIT_MNGMT_CONTEXT.aspectRatio) / (CompanionView.SHOP_CONTEXT.screenWidthPercent / CompanionView.SHOP_CONTEXT.aspectRatio);
+        float initialWidth = companionView.container.resolvedStyle.width;
+        float initialHeight = companionView.container.resolvedStyle.height;
+
+        // this animation will be a frame or two off from the move... could call this function from within the geometry changed callback 
+        LeanTween.value(1f, widthRatio, isUpgrade ? companionUpgradeTime : companionBuyTime)
+            .setDelay(delay)
+            .setEase(LeanTweenType.easeInSine)
+            .setOnUpdate((float val) =>
+            {
+                companionView.container.style.width = initialWidth * val;
+            });
+
+        LeanTween.value(1f, heightRatio, isUpgrade ? companionUpgradeTime : companionBuyTime)
+            .setDelay(delay)
+            .setEase(LeanTweenType.easeInSine)
+            .setOnUpdate((float val) =>
+            {
+                companionView.container.style.height = initialHeight * val;
+            });
+    }
+
+    public void AnimateExistingCompanionToSlot(CompanionManagementSlotView startingSlotView, CompanionManagementSlotView endingSlotView, bool isUpgrade, float delay = 0, Action onComplete = null)
+    {
+        Vector2 startPoint = VisualElementUtils.GetCenterOfVisualElement(startingSlotView.root);
+        Vector2 endPoint = VisualElementUtils.GetCenterOfVisualElement(endingSlotView.root);
+        CompanionMoveAnimation(startPoint, endPoint, startingSlotView.root, isUpgrade, delay, onComplete); // which container do I move here :thinking:
+    }
+
+
+    private void CompanionMoveAnimation(Vector2 startPoint, Vector2 endPoint, VisualElement parentContainer, bool isUpgrade, float delay = 0, Action onComplete = null)
+    {
+        VisualElement tempContainer = new VisualElement();
+        tempContainer.style.width = parentContainer.resolvedStyle.width;
+        tempContainer.style.height = parentContainer.resolvedStyle.height;
+        tempContainer.style.position = Position.Absolute;
+        tempContainer.style.justifyContent = Justify.Center;
+        tempContainer.style.alignItems = Align.Center;
+
+        uiDoc.rootVisualElement.Add(tempContainer);
+        VisualElement companionElement = parentContainer.Children().FirstOrDefault();
+        tempContainer.style.left = startPoint.x - parentContainer.resolvedStyle.width / 2;
+        tempContainer.style.top = startPoint.y - parentContainer.resolvedStyle.height / 2;
+
+        // This on geometry changed callback ensures the tempcontainer is actually over the visualelement that is about to be moved when we start the animation
+        // otherwise there is a chance that it is still at position 0,0 and there would be a brief flicker (very noticevable and jarring)
+        void OnGeometryChanged(GeometryChangedEvent evt)
+        {
+            if ((tempContainer.style.left == 0) || (tempContainer.style.right == 0)) return;
+            // Unregister immediately when called
+            tempContainer.UnregisterCallback<GeometryChangedEvent>(OnGeometryChanged);
+            
+            // Start the animation
+            StartCompanionMoveAnimation(companionElement, startPoint, endPoint, tempContainer, isUpgrade, delay, onComplete);
+        }
+
+        tempContainer.RegisterCallback<GeometryChangedEvent>(OnGeometryChanged);
+    }
+
+
+    private void StartCompanionMoveAnimation(VisualElement companionElement, Vector2 startPoint, Vector2 endPoint, VisualElement tempContainer, bool isUpgrade, float delay, Action onComplete = null)
+    {
+        tempContainer.Add(companionElement);
+        // x 
+        LeanTween.value(startPoint.x, endPoint.x, isUpgrade ? companionUpgradeTime : companionBuyTime)
+            .setDelay(delay)
+            .setEase(LeanTweenType.easeInSine)
+            .setOnUpdate((float val) =>
+            {
+                tempContainer.style.left = val - tempContainer.layout.width / 2;
+            })
+            .setOnComplete(() =>
+            {
+                tempContainer.style.left = endPoint.x - tempContainer.layout.width / 2;
+                tempContainer.Clear();
+                uiDoc.rootVisualElement.Remove(tempContainer);
+                onComplete?.Invoke();
+            });
+
+        LeanTween.value(startPoint.y, endPoint.y, isUpgrade ? companionUpgradeTime : companionBuyTime)
+            .setDelay(delay)
+            .setEase(LeanTweenType.easeInSine)
+            .setOnUpdate((float val) =>
+            {
+                tempContainer.style.top = val - tempContainer.layout.height / 2;
+            })
+            .setOnComplete(() =>
+            {
+                tempContainer.style.top = endPoint.y - tempContainer.layout.width / 2;
+            });
+    }
+
+    public void CompanionUpgradeAnimation(CompanionManagementSlotView companionManagementSlotView, UpgradeInfo upgradeInfo)
+    {
+        Companion companion = upgradeInfo.resultingCompanion;
+        CompanionManagementView upgradedCompanion = new CompanionManagementView(
+            companion,
+            shopManager.encounterConstants.companionViewTemplate,
+            this);
+        upgradedCompanion.container.style.visibility = Visibility.Hidden;
+        upgradedCompanion.container.style.top = -100f;
+
+        VisualElement visualElement = companionManagementSlotView.companionManagementView.container;
+
+        LTSeq sequence = LeanTween.sequence();
+        float height = -100f;
+
+        // raise up 
+        LeanTween.value(0f, 1f, 1.5f)
+            .setEase(LeanTweenType.easeOutSine)
+            .setOnUpdate((float val) =>
+            {
+                visualElement.style.top = height * val;
+            })
+            .setOnComplete(() =>
+            {
+                shopManager.UpgradeSparkle(visualElement);
+                shopManager.gameState.RemoveCompanionsFromTeam(new List<Companion> { companionManagementSlotView.companionManagementView.companion });
+                companionManagementSlotView.Reset();
+                // prolly throw a bunch of sparkles in here :shrug:
+                companionManagementSlotView.InsertCompanion(upgradedCompanion);
+                shopManager.gameState.AddCompanionToTeam(companion, upgradeInfo.onBench ? -1 : upgradeInfo.resultingSlotViewIndex);
+                upgradedCompanion.container.style.visibility = Visibility.Visible;
+
+                LeanTween.value(1f, 0f, .25f)
+                    .setDelay(.5f)
+                    .setEase(LeanTweenType.easeInQuint)
+                    .setOnUpdate((float val) =>
+                    {
+                        upgradedCompanion.container.style.top = height * val;
+                    })
+                    .setOnComplete(() =>
+                    {
+                        RebuildUnitManagement(shopManager.gameState.companions);
+                        isBuyingDisabled = false;
+                    });
+            });
+    }
+
+
+    public CompanionManagementSlotView FindNextAvailableSlot()
+    {
+        for (int i = 0; i < activeSlots.Count; i++)
+        {
+            CompanionManagementSlotView companionManagementSlotView = activeSlots[i];
+            if (!companionManagementSlotView.IsBlocked() && (companionManagementSlotView.companionManagementView == null)) return companionManagementSlotView;
+        }
+        for (int i = 0; i < benchSlots.Count; i++)
+        {
+            CompanionManagementSlotView companionManagementSlotView = benchSlots[i];
+            if (!companionManagementSlotView.IsBlocked() && (companionManagementSlotView.companionManagementView == null)) return companionManagementSlotView;
+        }
+        Debug.LogError("Could not find an available slot");
+        return null;
+    }
+
+    public CompanionManagementSlotView GetCompanionManagementSlotView(int index, bool onBench)
+    {
+        return onBench ? benchSlots[index] : activeSlots[index];
+    }
+
+    public CompanionManagementSlotView GetCompanionManagementSlotView(Companion companion)
+    {
+        for (int i = 0; i < activeSlots.Count; i++)
+        {
+            CompanionManagementSlotView companionManagementSlotView = activeSlots[i];
+            if (companionManagementSlotView?.companionManagementView?.companion == companion) return companionManagementSlotView;
+        }
+
+        for (int i = 0; i < benchSlots.Count; i++)
+        {
+            CompanionManagementSlotView companionManagementSlotView = benchSlots[i];
+            if (companionManagementSlotView?.companionManagementView?.companion == companion) return companionManagementSlotView;
+        }
+        Debug.LogError("Companion management slot view not found for companion");
+        return null;
+    }
+
+    public void AnimateCardToCompanion(CardInShopWithPrice card, CompanionManagementView companionView)
+    {
         ShopItemView shopItemView = cardItemToViewMap[card];
         Vector2 startPoint = VisualElementUtils.GetCenterOfVisualElement(shopItemView.shopItemElement);
         Vector2 endPoint = VisualElementUtils.GetCenterOfVisualElement(companionView.container);
@@ -345,72 +547,93 @@ public class ShopViewController : MonoBehaviour,
         tempContainer.style.position = Position.Absolute;
         tempContainer.style.justifyContent = Justify.Center;
         tempContainer.style.alignItems = Align.Center;
-
+        tempContainer.style.left = startPoint.x - shopItemView.shopItemElement.resolvedStyle.width / 2;
+        tempContainer.style.top = startPoint.y - shopItemView.shopItemElement.resolvedStyle.height / 2;
         uiDoc.rootVisualElement.Add(tempContainer);
-        VisualElement cardElement = shopItemView.shopItemElement.Children().FirstOrDefault();
-        Debug.Log(cardElement);
-        shopItemView.shopItemElement.Remove(cardElement);
-        tempContainer.Add(cardElement);
 
-        shopItemView.Disable();
+        // this ensures the tempcontainer is effectively positioned before transitioning the cardElement to tempcontainer
+        void OnGeometryChanged(GeometryChangedEvent evt)
+        {
+            if ((tempContainer.style.left == 0) || (tempContainer.style.right == 0)) return;
+            // Unregister immediately when called
+            tempContainer.UnregisterCallback<GeometryChangedEvent>(OnGeometryChanged);
+            
+            VisualElement cardElement = shopItemView.shopItemElement.Children().FirstOrDefault();
+            Debug.Log(cardElement);
+            shopItemView.shopItemElement.Remove(cardElement);
+            tempContainer.Add(cardElement);
 
-        cardItemToViewMap.Remove(card);
+            shopItemView.Disable();
 
-        FocusManager.Instance.UnregisterFocusableTarget(shopItemView.visualElementFocusable);
-        disableOnCompanionDrag.Remove(shopItemView.visualElementFocusable);
+            cardItemToViewMap.Remove(card);
 
-        int spinDirection = 0;
-        if (startPoint.x < endPoint.x) spinDirection = 1;
-        else spinDirection = -1;
-        // Actually do the animation
-        // x value
-        LeanTween.value(startPoint.x, endPoint.x, cardBuyVFXTime)
-            .setEase(cardBuyVFXHorizontal)
+            FocusManager.Instance.UnregisterFocusableTarget(shopItemView.visualElementFocusable);
+            disableOnCompanionDrag.Remove(shopItemView.visualElementFocusable);
+
+            int spinDirection = 0;
+            if (startPoint.x < endPoint.x) spinDirection = 1;
+            else spinDirection = -1;
+            // Actually do the animation
+            // x value
+            LeanTween.value(startPoint.x, endPoint.x, cardBuyVFXTime)
+                .setEase(cardBuyVFXHorizontal)
+                .setOnUpdate((float val) =>
+                {
+                    tempContainer.style.left = val - tempContainer.layout.width / 2;
+                })
+                .setOnComplete(() =>
+                {
+                    shopManager.Sparkle(tempContainer);
+                    tempContainer.Clear();
+                    uiDoc.rootVisualElement.Remove(tempContainer);
+                    CompanionScaleBumpAnimation(companionView.container);
+                });
+            // y value
+            LeanTween.value(startPoint.y, endPoint.y, cardBuyVFXTime)
+                .setEase(cardBuyVFXVertical)
+                .setOnUpdate((float val) =>
+                {
+                    tempContainer.style.top = val - tempContainer.layout.height / 2;
+                });
+            // Rotation
+            LeanTween.value(0f, spinDirection * 0.5f, cardBuyVFXTime)
+                .setEase(cardBuyVFXRotation)
+                .setOnUpdate((float value) =>
+                {
+                    float degreeRotation = 360f * value;
+                    tempContainer.transform.rotation = Quaternion.AngleAxis(degreeRotation, Vector3.forward);
+                });
+            // Scale
+            LeanTween.value(0.8f, 0.2f, cardBuyVFXTime)
+                .setEase(cardBuyVFXScale)
+                .setOnUpdate((float value) =>
+                {
+                    tempContainer.transform.scale = new Vector3(value, value, 0f);
+                });
+        }
+        tempContainer.RegisterCallback<GeometryChangedEvent>(OnGeometryChanged);
+    }
+
+    public void CompanionScaleBumpAnimation(VisualElement container, float originalScale = 1f, float targetScale = 1.1f, float duration = .15f)
+    {
+        var sequence = LeanTween.sequence();
+        
+        sequence.append(LeanTween.value(originalScale, targetScale, duration * 0.4f)
+            .setEase(LeanTweenType.easeOutQuad)
             .setOnUpdate((float val) => {
-                tempContainer.style.left = val - tempContainer.layout.width / 2;
-            })
-            .setOnComplete(() => {
-                shopManager.Sparkle(tempContainer);
-                uiDoc.rootVisualElement.Remove(tempContainer);
-                float originalScale = 1f;
-                float targetScale = 1.1f;
-                float halfDuration = 0.075f;
-                LeanTween.value(originalScale, targetScale, halfDuration)
-                    .setEase(LeanTweenType.easeOutQuad)
-                    .setOnUpdate((float val) => {
-                        companionView.container.transform.scale = new Vector3(val, val, 1f);
-                    })
-                    .setOnComplete(() => {
-                        LeanTween.value(targetScale, originalScale, halfDuration)
-                            .setEase(LeanTweenType.easeOutQuad)
-                            .setOnUpdate((float val) => {
-                                companionView.container.transform.scale = new Vector3(val, val, 1f);
-                            });
-                    });
-            });
-        // y value
-        LeanTween.value(startPoint.y, endPoint.y, cardBuyVFXTime)
-            .setEase(cardBuyVFXVertical)
+                container.transform.scale = new Vector3(val, val, 1f);
+            }));
+        
+        sequence.append(LeanTween.value(targetScale, originalScale, duration * 0.6f)
+            .setEase(LeanTweenType.easeOutBack)
             .setOnUpdate((float val) => {
-                tempContainer.style.top = val - tempContainer.layout.height / 2;
-            });
-        // Rotation
-        LeanTween.value(0f, spinDirection * 0.5f, cardBuyVFXTime)
-            .setEase(cardBuyVFXRotation)
-            .setOnUpdate((float value) => {
-                float degreeRotation = 360f * value;
-                tempContainer.transform.rotation = Quaternion.AngleAxis(degreeRotation, Vector3.forward);
-            });
-        // Scale
-        LeanTween.value(0.8f, 0.2f, cardBuyVFXTime)
-            .setEase(cardBuyVFXScale)
-            .setOnUpdate((float value) => {
-                tempContainer.transform.scale = new Vector3(value, value, 0f);
-            });
+                container.transform.scale = new Vector3(val, val, 1f);
+            }));
     }
 
     // Handles both the VFX and setting up the new area
-    public void Reroll(List<CardInShopWithPrice> cards, List<CompanionInShopWithPrice> companions) {
+    public void Reroll(List<CardInShopWithPrice> cards, List<CompanionInShopWithPrice> companions)
+    {
         rerollButton.SetEnabled(false);
         VisualElement tempParentContainer = CreateTempContainer(shopGoodsArea.resolvedStyle.width, shopGoodsArea.resolvedStyle.height);
         tempParentContainer.style.overflow = Overflow.Hidden;
@@ -423,14 +646,16 @@ public class ShopViewController : MonoBehaviour,
 
         // Manage cleanup of the maps
         Dictionary<CardInShopWithPrice, ShopItemView> tempCardItemToViewMap = new Dictionary<CardInShopWithPrice, ShopItemView>(cardItemToViewMap);
-        foreach (KeyValuePair<CardInShopWithPrice, ShopItemView> pair in tempCardItemToViewMap) {
+        foreach (KeyValuePair<CardInShopWithPrice, ShopItemView> pair in tempCardItemToViewMap)
+        {
             FocusManager.Instance.UnregisterFocusableTarget(pair.Value.visualElementFocusable);
             disableOnCompanionDrag.Remove(pair.Value.visualElementFocusable);
             cardItemToViewMap.Remove(pair.Key);
         }
 
         Dictionary<CompanionInShopWithPrice, ShopItemView> tempCompanionItemToViewMap = new Dictionary<CompanionInShopWithPrice, ShopItemView>(companionItemToViewMap);
-        foreach (KeyValuePair<CompanionInShopWithPrice, ShopItemView> pair in tempCompanionItemToViewMap) {
+        foreach (KeyValuePair<CompanionInShopWithPrice, ShopItemView> pair in tempCompanionItemToViewMap)
+        {
             FocusManager.Instance.UnregisterFocusableTarget(pair.Value.visualElementFocusable);
             disableOnCompanionDrag.Remove(pair.Value.visualElementFocusable);
             companionItemToViewMap.Remove(pair.Key);
@@ -439,7 +664,8 @@ public class ShopViewController : MonoBehaviour,
         // Move over the stuff from shop goods area to temp container
         // This can't happen in the above foreach loops because dictionaries aren't ordered
         List<VisualElement> tempChildren = new List<VisualElement>(shopGoodsArea.Children());
-        foreach (VisualElement ve in tempChildren) {
+        foreach (VisualElement ve in tempChildren)
+        {
             shopGoodsArea.Remove(ve);
             oldItemsContainer.Add(ve);
         }
@@ -610,10 +836,24 @@ public class ShopViewController : MonoBehaviour,
         }
     }
 
-    public void ShopItemOnClick(ShopItemView shopItemView) {
-        if (shopItemView.companionInShop != null) {
+    public void SetupCompanionManagementView(Companion companion, CompanionManagementSlotView companionManagementSlotView)
+    {
+        CompanionManagementView companionView = new CompanionManagementView(
+            companion,
+            shopManager.encounterConstants.companionViewTemplate,
+            this);
+        companionManagementSlotView.InsertCompanion(companionView);
+    }
+
+    public void ShopItemOnClick(ShopItemView shopItemView)
+    {
+        if (isBuyingDisabled) return;
+        if (shopItemView.companionInShop != null)
+        {
             shopManager.ProcessCompanionBuyRequest(shopItemView, shopItemView.companionInShop);
-        } else if (shopItemView.cardInShop != null) {
+        }
+        else if (shopItemView.cardInShop != null)
+        {
             shopManager.ProcessCardBuyRequestV2(shopItemView, shopItemView.cardInShop);
         }
     }

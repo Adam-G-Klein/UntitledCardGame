@@ -1514,6 +1514,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: b5e8681fc02be284eb308731b490c4c5, type: 2}
     - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: companionBuyTime
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: companionUpgradeTime
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
       propertyPath: rerollTimeBetweenItems
       value: 0.08
       objectReference: {fileID: 0}
@@ -1963,6 +1971,10 @@ PrefabInstance:
       objectReference: {fileID: 3850217184923880746, guid: 604f6efaa1e828d4bacfc84a25dfbd7a, type: 3}
     - target: {fileID: 5309632205080498564, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
       propertyPath: sparklePrefab
+      value: 
+      objectReference: {fileID: 5129385027391316217, guid: 591e04f4628af49b8ab65a792da377d8, type: 3}
+    - target: {fileID: 5309632205080498564, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: bigSparklePrefab
       value: 
       objectReference: {fileID: 5129385027391316217, guid: ba5a33c24436d654d961e1cbaf9f22ae, type: 3}
     m_RemovedComponents: []
