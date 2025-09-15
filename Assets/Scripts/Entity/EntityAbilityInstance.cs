@@ -195,7 +195,7 @@ public abstract class EntityAbilityInstance
         EffectManager.Instance.QueueEffectWorkflow(new EffectWorkflowClosure(document, ability.effectWorkflow, null));
         yield return null;
     }
-    
+
     private IEnumerator OnBlockGained(CombatInstance combatInstance) {
         //yield return abilityTriggeredVFX();
         EffectDocument document = createEffectDocument();
@@ -205,7 +205,7 @@ public abstract class EntityAbilityInstance
         EffectManager.Instance.QueueEffectWorkflow(new EffectWorkflowClosure(document, ability.effectWorkflow, null));
         yield return null;
     }
-    
+
     private IEnumerator OnHandEmpty()
     {
         Debug.Log("OnHandEmpty ability invoked!!!");
@@ -231,7 +231,7 @@ public abstract class EntityAbilityInstance
         if (!casted) {
             //yield return abilityTriggeredVFX();
             EffectDocument document = createEffectDocument();
-            if (deckFrom.TryGetComponent(out CompanionInstance companion)) {
+            if (deckFrom != null && deckFrom.TryGetComponent(out CompanionInstance companion)) {
                 EffectUtils.AddCompanionToDocument(document, "companionDiscardedFrom", companion);
             }
             document.map.AddItem<PlayableCard>("cardDiscarded", card);
@@ -362,7 +362,7 @@ public class CompanionInstanceAbilityInstance : EntityAbilityInstance
     //     if (companionInstance.companionView == null) {
     //         yield break;
     //     }
-        
+
     //     yield return companionInstance.companionView.AbilityActivatedVFX();
     // }
 }

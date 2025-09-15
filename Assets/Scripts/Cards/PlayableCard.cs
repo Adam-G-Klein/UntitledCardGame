@@ -51,6 +51,8 @@ public class PlayableCard : MonoBehaviour,
     private bool isCardDiscardPlaying = false;
     public bool interactable = false;
 
+    private Vector3 discardDest;
+
     public void Awake()
     {
         docCard = GetComponent<UIDocumentCard>();
@@ -59,6 +61,7 @@ public class PlayableCard : MonoBehaviour,
     {
         transform.localScale = new Vector3(nonHoverScale, nonHoverScale, 1);
         hoverable = GetComponent<Hoverable>();
+        discardDest = this.deckFrom.transform.position;
     }
 
     public void OnPointerClickVoid()
@@ -207,7 +210,7 @@ public class PlayableCard : MonoBehaviour,
             { "CardScaleTrack", cardGameObject },
         });
         experience.AddLocationToKey("Card", this.transform.position);
-        experience.AddLocationToKey("Companion", this.deckFrom.transform.position);
+        experience.AddLocationToKey("Companion", discardDest);
         // This makes it so that we can use 0,0 as the "current position of the card"
         cardGameObject.transform.SetParent(experience.transform);
         experience.onExperienceOver += CardDiscardVFXFinished;
@@ -270,7 +273,14 @@ public class PlayableCard : MonoBehaviour,
 
     public IEnumerator ExhaustCard()
     {
-        deckFrom.ExhaustCard(card, this);
+        if (deckFrom != null)
+        {
+            deckFrom.ExhaustCard(card, this);
+        }
+        else
+        {
+            Debug.LogWarning($"Trying to exhaust card {card.cardType.Name}, but the deck no longer exists");
+        }
         cleanupAndDestroy();
         yield return null;
     }
@@ -283,7 +293,14 @@ public class PlayableCard : MonoBehaviour,
             yield return StartCoroutine(PlayerHand.Instance.SafeRemoveCardFromHand(this));
         }
         yield return CardDiscardVFX(this.gameObject);
-        deckFrom.DiscardCards(new List<Card> { card });
+        if (deckFrom != null)
+        {
+            deckFrom.DiscardCards(new List<Card> { card });
+        }
+        else
+        {
+            Debug.LogWarning($"Trying to discard card {card.cardType.Name}, but the deck no longer exists");
+        }
     }
 
     public void cleanupAndDestroy()
