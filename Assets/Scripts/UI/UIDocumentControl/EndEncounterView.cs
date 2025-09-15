@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
@@ -15,6 +16,10 @@ public class EndEncounterView : MonoBehaviour
 
     private Material mat;
     private CanvasGroup canvasGroup;
+    private VisualElement goldEarnedContainer;
+    private VisualElement interestEarnedContainer;
+    private int goldEarned;
+    private int interestEarned;
 
 
     void OnEnable()
@@ -37,16 +42,22 @@ public class EndEncounterView : MonoBehaviour
         nextSceneButton.RegisterOnSelected(NextClick);
         VisualElementFocusable nextSceneButtonFocusable = nextSceneButton.AsFocusable();
         FocusManager.Instance.RegisterFocusableTarget(nextSceneButtonFocusable);
+        goldEarnedContainer = doc.rootVisualElement.Q("base-gold-container");
+        interestEarnedContainer = doc.rootVisualElement.Q("interest-container");
     }
 
     public void Setup(int baseGoldEarnedPerBattle, int interestEarned, int interestCap, float interestPercentage)
     {
-        doc.rootVisualElement.Q<Label>("base-gold").text = "Base Gold Earned: " + baseGoldEarnedPerBattle.ToString();
-        doc.rootVisualElement.Q<Label>("interest").text = "Interest Earned: " + interestEarned.ToString();
-        doc.rootVisualElement.Q<Label>("interest-help").text = "(You earn " +
+        goldEarnedContainer.Clear();
+        interestEarnedContainer.Clear();
+
+        this.goldEarned = baseGoldEarnedPerBattle;
+        this.interestEarned = interestEarned;
+        /*doc.rootVisualElement.Q<Label>("interest-help").text = "(You earn " +
             interestPercentage.ToString("P0") + 
             " of your current Gold as Interest, capped at " +
-            interestCap.ToString() + " gold per combat)";
+            interestCap.ToString() + " gold per combat)";*/
+        // add the above back in if we need modularity in interest cap/percent
     }
 
     public void Show() {
@@ -61,12 +72,61 @@ public class EndEncounterView : MonoBehaviour
                 canvasGroup.alpha = val;
             })
             .setOnComplete(() => {
+                StartCoroutine(AnimateText());
                 nextSceneButton.SetEnabled(true);
                 FocusManager.Instance.SetFocus(nextSceneButton.AsFocusable());
             });
     }
 
-    private void NextClick(ClickEvent evt) {
+    private IEnumerator AnimateText()
+    {
+        for (int i = 0; i < goldEarned; i++)
+        {
+            Label label = MakeMoneyLabel();
+            goldEarnedContainer.Add(label);
+            AnimateDollar(label);
+            MusicController.Instance.PlaySFX("event:/SFX/SFX_EarnMoney");
+            yield return new WaitForSeconds(.1f);
+        }
+        for (int i = 0; i < interestEarned; i++)
+        {
+            Label label = MakeMoneyLabel();
+            interestEarnedContainer.Add(label);
+            AnimateDollar(label);
+            MusicController.Instance.PlaySFX("event:/SFX/SFX_EarnMoney");
+            yield return new WaitForSeconds(.1f);
+        }
+    }
+
+    private Label MakeMoneyLabel() {
+        Label label = new Label();
+        label.text = "$";
+        label.AddToClassList("post-combat-text");
+        label.AddToClassList("post-combat-reward-dollar");
+        return label;
+    }
+
+    private void AnimateDollar(VisualElement visualElement)
+    {
+        LeanTween.value(0f, 1f, .1f)
+        .setEase(LeanTweenType.easeOutQuad)
+        .setOnUpdate((float val) =>
+        {
+            visualElement.style.scale = new StyleScale(new Scale(new Vector2(val, val)));
+        });
+
+        LeanTween.value(45, 0, .1f)
+        .setEase(LeanTweenType.easeInBack)
+        .setOnUpdate((float val) =>
+        {
+            visualElement.style.rotate = new StyleRotate(new Rotate(val));
+        });
+    }
+
+    private void NextClick(ClickEvent evt)
+    {
+        // trying out putting the update here when you click the button so the amount of interest you make makes a little more sense
+        gameState.playerData.GetValue().gold += goldEarned + interestEarned;
         // Prevent double clicks because that will advance to the next scene!!!!
         nextSceneButton.SetEnabled(false);
         gameState.LoadNextLocation();

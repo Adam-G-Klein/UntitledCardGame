@@ -154,7 +154,6 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
             Debug.Log("capping extra gold " + extraGold.ToString() + " at interest cap " + gameState.baseShopData.interestCap.ToString());
             extraGold = gameState.baseShopData.interestCap;
         }
-        gameState.playerData.GetValue().gold += baseGoldEarnedPerBattle + extraGold;
 
         // Give player shop upgrade increments for defeating the enemy
         gameState.EarnUpgradeIncrement();
@@ -255,7 +254,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     {
         yield return new WaitForSeconds(endCombatScreenDelay);
         postCombatUI.GetComponent<EndEncounterView>().Show();
-        MusicController.Instance.PlaySFX("event:/SFX/SFX_EarnMoney");
+        //MusicController.Instance.PlaySFX("event:/SFX/SFX_EarnMoney");
     }
     private IEnumerator displayVictoryUIAfterDelay() {
         yield return new WaitForSeconds(endCombatScreenDelay);
