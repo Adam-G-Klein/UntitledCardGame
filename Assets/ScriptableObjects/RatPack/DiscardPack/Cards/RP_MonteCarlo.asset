@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: ed731d8f-fd8e-4e0b-afd6-4c818aea49fc
   Name: Monte Carlo
-  Description: Discard your hand, then draw 1 card from each companion
+  Description: Discard your hand, then draw 1 card from random x3
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 47602993e540997478144938c9b7ec9b, type: 3}
@@ -37,11 +37,18 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 754093826381185171
+      type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetRandomItems
+        inputKey: all
+        scale: 3
+        outputKey: random
     - rid: 1274772038231786148
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
-        inputKey: all
+        inputKey: random
         prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
         scale: 1.5
     - rid: 2034230108114649711
@@ -52,7 +59,7 @@ MonoBehaviour:
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: DrawCards
-        inputKey: all
+        inputKey: random
         outputKey: 
         scale: 1
         getScaleFromKey: 0
@@ -92,5 +99,6 @@ MonoBehaviour:
         - rid: 2034230108114649716
         - rid: 2034230108114649717
         - rid: 4463205916933357570
+        - rid: 754093826381185171
         - rid: 2034230108114649715
         - rid: 1274772038231786148

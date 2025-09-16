@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: cbf3ccde-d1b9-417a-8095-38a8acbbd96a
   Name: Diamond Knife
-  Description: Deal {rpl_damage} to target enemy and draw a card. If you have 3 cards
-    or less in hand, deal the damage twice
+  Description: Deal {rpl_damage} damage and draw a card from self. If you have 3
+    cards or less in hand, deal the damage twice
   defaultValues:
   - key: rpl_damage
     value: 2

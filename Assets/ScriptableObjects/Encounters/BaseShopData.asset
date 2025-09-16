@@ -58,11 +58,11 @@ MonoBehaviour:
     teamSize: 5
     numCardsToShow: 4
     numKeepsakesToShow: 2
-    commonCompanionPercentage: 50
-    uncommonCompanionPercentage: 40
+    commonCompanionPercentage: 40
+    uncommonCompanionPercentage: 50
     rareCompanionPercentage: 10
-    commonCardPercentage: 50
-    uncommonCardPercentage: 40
+    commonCardPercentage: 60
+    uncommonCardPercentage: 30
     rareCardPercentage: 10
     upgradeTooltip:
       empty: 0
@@ -96,19 +96,19 @@ MonoBehaviour:
   rerollShopPrice: 2
   cardRemovalPrice: 6
   shopEncounterEvent: {fileID: 11400000, guid: d82ee33fc33d20544bce205c53a0832e, type: 2}
-  cardPrice: 1
+  cardPrice: 2
   companionKeepsakePrice: 3
   numKeepsakeCopies: 15
   startingGold: 3
   companionTypeCardPoolPct: 35
   packCardPoolPct: 50
   neutralCardPoolPct: 15
-  goldEarnedPerBattle: 8
+  goldEarnedPerBattle: 10
   interestRate: 0.2
   interestCap: 5
   neutralCardPool: {fileID: 11400000, guid: f16e9cd7d69314290ae5bed1edae4ce0, type: 2}
   numCompanionsSellFactor: 1.4
-  numCardsBoughtSellFactor: 0.5
+  numCardsBoughtSellFactor: 1
   numCardsRemovedSellFactor: 2
   baseCardsToRemoveOnUpgrade:
   - {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}

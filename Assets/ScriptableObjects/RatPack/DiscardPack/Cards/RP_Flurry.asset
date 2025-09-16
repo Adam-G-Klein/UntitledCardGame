@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: ebe1b2ee-c85d-4313-b9ed-261ecf553c77
   Name: Flurry
-  Description: Deal {rpl_damage} damage to target enemy for each card you played
-    this turn ({numPlayedCards} cards)
+  Description: Deal {rpl_damage} damage for each card you played this turn ({numPlayedCards}
+    cards)
   defaultValues:
   - key: numPlayedCards
     value: 0
