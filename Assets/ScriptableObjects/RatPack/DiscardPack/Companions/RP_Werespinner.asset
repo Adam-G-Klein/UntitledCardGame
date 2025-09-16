@@ -29,7 +29,14 @@ MonoBehaviour:
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 0}
   genericCompanionVFX: {fileID: 0}
-  cacheValueConfigs: []
+  cacheValueConfigs:
+  - key: numDiscards
+    display: 1
+    sprite: {fileID: 21300000, guid: 87ca436f7312bd8438886b00d3e2e69d, type: 3}
+    startOfTurnValue: 3
+    setStartOfTurnValue: 1
+    startOfCombatValue: 0
+    setStartOfCombatValue: 0
   cardPool: {fileID: 11400000, guid: ea2e0be33aeb148b5b6fb019d0942226, type: 2}
   pack: {fileID: 11400000, guid: 5f4300e0913784f05aeff0dd086d4338, type: 2}
   speakerType: {fileID: 0}
@@ -41,10 +48,12 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Sadderwocky
-      description: Whenever you discard a card, deal 2 damage to a random enemy
+      description: The first 3 times each turn you discard a card, deal 2 damage
+        to a random enemy
       relatedBehaviorIndex: 0
   keepsakeTitle: The Eye
-  keepsakeDescription: Whenever you discard a card, deal 2 damage to a random enemy
+  keepsakeDescription: The first 3 times each turn you discard a card, deal 2 damage
+    to a random enemy
   references:
     version: 2
     RefIds:
@@ -55,8 +64,13 @@ MonoBehaviour:
         effectSteps:
         - rid: 205828032053379741
         - rid: 7401433558763438183
-        - rid: 7401433558763438184
+        - rid: 754093826381185260
+        - rid: 754093826381185261
+        - rid: 754093826381185262
         - rid: 7401433059192471552
+        - rid: 7401433558763438184
+        - rid: 754093826381185263
+        - rid: 754093826381185264
     - rid: 205828032053379741
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -68,6 +82,49 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 6
         cantCancelTargetting: 0
+    - rid: 754093826381185260
+      type: {class: CombatInstanceCacheLoad, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatInstanceCacheLoad
+        inputCombatInstanceKey: self
+        cacheKey: numDiscards
+        currentWorkflowKey: numDiscards
+    - rid: 754093826381185261
+      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: BooleanComparison
+        hardCodedInputKey1: 0
+        useHardCodedInputKey1: 1
+        inputKey1: 
+        operation: 0
+        inputKey2: numDiscards
+        outputKey: done
+    - rid: 754093826381185262
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: done
+        conditionToEndOn: 1
+    - rid: 754093826381185263
+      type: {class: MathStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: MathStep
+        inputKey: numDiscards
+        operand2InputKey: UNUSED
+        operation: 1
+        scale: 1
+        outputKey: numDiscards
+    - rid: 754093826381185264
+      type: {class: CombatInstanceCacheStore, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatInstanceCacheStore
+        inputCombatInstanceKey: self
+        hardCodedBool: 0
+        useHardCodedBool: 0
+        hardCodedInt: 0
+        useHardCodedInt: 0
+        currentWorkflowKey: numDiscards
+        cacheKey: numDiscards
     - rid: 7401433059192471552
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
@@ -80,7 +137,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 1320532642761013391, guid: 99a456f94890391478f393fcc8ad0b95, type: 3}
+        vfxPrefab: {fileID: 1320532642761013391, guid: 4847f21b038e1aa42bceefe5c97ab1ab, type: 3}
     - rid: 7401433558763438183
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

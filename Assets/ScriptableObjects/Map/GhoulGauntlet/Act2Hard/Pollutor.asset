@@ -12,14 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
   m_Name: Pollutor
   m_EditorClassIdentifier: 
+  guid: dc0febcf-7e67-4205-9b35-eeff79eeeef4
   displayName: Mind Goblin
-  maxHealth: 35
+  maxHealth: 15
   baseAttackDamage: 0
   sprite: {fileID: -1328141604, guid: 52ef76537258f7d43a3a9dc144329c2f, type: 3}
   backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
   entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
   morale: 1
   abilities: []
+  cacheValueConfigs: []
   enemyPattern:
     behaviors:
     - intent: 3
@@ -31,70 +33,52 @@ MonoBehaviour:
       - rid: 5602892723852673492
       - rid: 5280922829633618018
     behaviorType: 0
-    behaviorIndex: 0
-    nextBehaviorIndex: 0
   belowHalfHPEnemyPattern:
     behaviors: []
     behaviorType: 0
-    behaviorIndex: 0
-    nextBehaviorIndex: 0
   adaptWhenAloneEnemyPattern:
     behaviors:
-    - intent: 5
-      enemyTargetMethod: 6
-      targetsKey: 
-      displayValue: 0
+    - intent: 1
+      enemyTargetMethod: 0
+      targetsKey: target
+      displayValue: 8
       effectSteps:
-      - rid: 2034229587402555900
-      - rid: 2034229587402555902
-      - rid: 2034229587402555901
+      - rid: 754093826381185270
+      - rid: 754093826381185271
     behaviorType: 0
-    behaviorIndex: 0
-    nextBehaviorIndex: 0
   initialStatuses: []
   tooltip:
     empty: 0
     lines:
     - title: Infectious Spore
-      description: Gives companion a USELESS Card
+      description: Gives companion a USELESS Card on top of the deck
       relatedBehaviorIndex: -1
     - title: USELESS Card
       description: ITS A USELESS CARD
       relatedBehaviorIndex: -1
+  DEADLIER_ENEMY_BONUS_STR: -1
+  HEALTHIER_ENEMY_BONUS_HEALTH: -1
   references:
     version: 2
     RefIds:
-    - rid: 2034229587402555900
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: self
-        validTargets: 
-        number: 1
-        specialTargetRule: 3
-        cantCancelTargetting: 0
-    - rid: 2034229587402555901
+    - rid: 754093826381185270
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
-        inputKey: self
-        combatEffect: 6
-        scale: 0
+        inputKey: target
+        combatEffect: 0
+        scale: 8
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 0}
-    - rid: 2034229587402555902
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+        vfxPrefab: {fileID: 6137048663962808129, guid: 92c26f41ef33c23419e05ceb12660efa, type: 3}
+    - rid: 754093826381185271
+      type: {class: ScriptableObjectEffectStep, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: InstantiatePrefab
-        inputKey: self
-        prefabToInstantiate: {fileID: 7939549763701254822, guid: f4ba6cc7e7a795f49be6c445733f13d4, type: 3}
-        scale: 1
+        effectStepName: ScriptableObjectEffectStep
+        effectStepSO: {fileID: 11400000, guid: 46ac36b880e2ff14aa699c90b6e9f19c, type: 2}
     - rid: 5280922829633618018
       type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
       data:
@@ -108,6 +92,8 @@ MonoBehaviour:
         - fromWorkflow: self
           toFxExperience: start
         gameobjectMappingList: []
+        vePositionMappingList: []
+        veMappingList: []
     - rid: 5280922829633618019
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

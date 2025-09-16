@@ -52,7 +52,7 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Go chumps!
-      description: Buffs the rest of enemies by 2 strength
+      description: Buffs the rest of enemies by 1 strength
       relatedBehaviorIndex: 0
   DEADLIER_ENEMY_BONUS_STR: -1
   HEALTHIER_ENEMY_BONUS_HEALTH: -1
@@ -88,7 +88,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: enemies
         statusEffect: 0
-        scale: 2
+        scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
