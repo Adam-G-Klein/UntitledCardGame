@@ -72,9 +72,9 @@ public class CompanionSellValue
                 numCompanions = 6;
                 break;
         }
-        sellValueFromCompanions = Convert.ToInt32(numCompanions * shopData.numCompanionsSellFactor);
-        sellValueFromCardsBought = Convert.ToInt32(stats.cardsBought.Count * shopData.numCardsBoughtSellFactor);
-        sellValueFromCardsRemoved = Convert.ToInt32(stats.numCardsRemoved * shopData.numCardsRemovedSellFactor);
+        sellValueFromCompanions = (int) Math.Floor(numCompanions * shopData.numCompanionsSellFactor);
+        sellValueFromCardsBought = (int) Math.Floor(stats.cardsBought.Count * shopData.numCardsBoughtSellFactor);
+        sellValueFromCardsRemoved = (int) Math.Floor(stats.numCardsRemoved * shopData.numCardsRemovedSellFactor);
         if (ProgressManager.Instance.IsFeatureEnabled(AscensionType.WORSE_RATES_FOR_REBORN_RATS))
         {
             var numDeathsSellFactor = (int)ProgressManager.Instance.GetAscensionSO(AscensionType.WORSE_RATES_FOR_REBORN_RATS).

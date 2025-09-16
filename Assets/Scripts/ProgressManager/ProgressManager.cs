@@ -52,6 +52,8 @@ public class ProgressManager : GenericSingleton<ProgressManager>
     public bool IsFeatureEnabled(AscensionType ascensionType)
     {
         // check the index of the ascensionType in the ascensionSOList against the current ascension level from gamestate
-        return ascensionInfo.ascensionSOList.FindIndex(x => x.ascensionType == ascensionType) <= gameState.ascensionLevel;
+        // if the ascensipn is not present in the list, it is disabled.
+        int index = ascensionInfo.ascensionSOList.FindIndex(x => x.ascensionType == ascensionType);
+        return index >= 0 && index <= gameState.ascensionLevel;
     }
 }
