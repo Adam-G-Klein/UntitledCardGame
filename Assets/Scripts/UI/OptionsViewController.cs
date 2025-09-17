@@ -96,13 +96,13 @@ public class OptionsViewController : GenericSingleton<OptionsViewController>, IC
         musicVolumeSlider.value = MusicController.Instance.currentMusicVolume;
         sfxVolumeSlider.value = MusicController.Instance.currentSFXVolume;
         compendiumButton = optionsUIDocument.rootVisualElement.Q<Button>("compendiumButton");
-        compendiumButton.clicked += onCompendiumButtonHandler;
+        compendiumButton.RegisterOnSelected(onCompendiumButtonHandler);
         backButton = optionsUIDocument.rootVisualElement.Q<Button>("backButton");
-        backButton.clicked += BackButtonHandler;
+        backButton.RegisterOnSelected(BackButtonHandler);
         mainMenuButton = optionsUIDocument.rootVisualElement.Q<Button>("exitButton");
-        mainMenuButton.clicked += onMainMenuButtonHandler;
+        mainMenuButton.RegisterOnSelected(onMainMenuButtonHandler);
         quitButton = optionsUIDocument.rootVisualElement.Q<Button>("quitButton");
-        quitButton.clicked += onExitGameHandler;
+        quitButton.RegisterOnSelected(onExitGameHandler);
         fullscreenToggle = optionsUIDocument.rootVisualElement.Q<Toggle>("fullscreenToggle");
         fullscreenToggle.value = gameState.fullscreenEnabled;
         fullscreenToggle.RegisterValueChangedCallback(FullScreenToggleEvent);

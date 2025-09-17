@@ -25,8 +25,12 @@ public static class VisualElementExtensions
             if (evt.pointerType == "mouse") {
                 element.schedule.Execute(() => element.Blur()).ExecuteLater(10);
             }
+            OnSelectedTween(element);
         });
-        element.RegisterCallback<NavigationSubmitEvent>(evt => action());
+        element.RegisterCallback<NavigationSubmitEvent>(evt => {
+            action();
+            OnSelectedTween(element);
+        });
     }
 
     public static void RegisterOnSelected(this VisualElement element, Action<ClickEvent> action) {
@@ -36,7 +40,23 @@ public static class VisualElementExtensions
                 element.schedule.Execute(() => element.Blur()).ExecuteLater(10);
             }
         });
-        element.RegisterCallback<NavigationSubmitEvent>(evt => action(element.CreateFakeClickEvent()));
+        element.RegisterCallback<NavigationSubmitEvent>(evt => {
+            action(element.CreateFakeClickEvent());
+            OnSelectedTween(element);
+        });
+    }
+
+    private static void OnSelectedTween(VisualElement element) {
+        LeanTween.value(1f, 0.92f, 0.05f)
+            .setOnUpdate((float value) => {
+                element.transform.scale = new Vector3(value, value, 1f);
+            })
+            .setOnComplete(() => {
+                LeanTween.value(0.92f, 1f, 0.1f)
+                    .setOnUpdate((float value) => {
+                        element.transform.scale = new Vector3(value, value, 1f);
+                    });
+            });
     }
 
     public static void SimulateSubmit(this VisualElement element)
