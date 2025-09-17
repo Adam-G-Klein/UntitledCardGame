@@ -68,7 +68,7 @@ MonoBehaviour:
         - rid: 754093826381185261
         - rid: 754093826381185262
         - rid: 7401433059192471552
-        - rid: 7401433558763438184
+        - rid: 754093848945229857
         - rid: 754093826381185263
         - rid: 754093826381185264
     - rid: 205828032053379741
@@ -125,6 +125,10 @@ MonoBehaviour:
         useHardCodedInt: 0
         currentWorkflowKey: numDiscards
         cacheKey: numDiscards
+    - rid: 754093848945229857
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
     - rid: 7401433059192471552
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
@@ -149,10 +153,3 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
-    - rid: 7401433558763438184
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: self
-        prefabToInstantiate: {fileID: 3850217184923880746, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
-        scale: 1

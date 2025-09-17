@@ -69,7 +69,11 @@ MonoBehaviour:
         - rid: 7401433308100034732
         - rid: 7401433308100034733
         - rid: 7401433308100034734
-        - rid: 7401433308100034735
+        - rid: 754093848945229865
+    - rid: 754093848945229865
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
     - rid: 7401433308100034728
       type: {class: CombatInstanceCacheLoad, ns: , asm: Assembly-CSharp}
       data:
@@ -133,10 +137,3 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
-    - rid: 7401433308100034735
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: self
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
-        scale: 1

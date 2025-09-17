@@ -56,6 +56,11 @@ MonoBehaviour:
         effectSteps:
         - rid: 7401433059192471555
         - rid: 7401433059192471557
+        - rid: 754093848945229859
+    - rid: 754093848945229859
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
     - rid: 7401433059192471555
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

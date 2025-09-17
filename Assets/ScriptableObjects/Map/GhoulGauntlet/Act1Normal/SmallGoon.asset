@@ -24,7 +24,7 @@ MonoBehaviour:
   cacheValueConfigs: []
   enemyPattern:
     behaviors:
-    - intent: 1
+    - intent: 0
       enemyTargetMethod: 0
       targetsKey: target
       displayValue: 4
@@ -32,12 +32,14 @@ MonoBehaviour:
       - rid: 3931529445166809420
       - rid: 173314522967966450
       - rid: 3931529445166809313
-    - intent: 2
-      enemyTargetMethod: 6
-      targetsKey: 
-      displayValue: 2
+    - intent: 1
+      enemyTargetMethod: 4
+      targetsKey: target
+      displayValue: 3
       effectSteps:
       - rid: 3931529445166809420
+      - rid: 754093848945229853
+      - rid: 754093848945229854
       - rid: 754093646965899443
       - rid: 754093646965899444
     behaviorType: 1
@@ -52,10 +54,10 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Strike
-      description: Simple Attack
+      description: attack targeting the first companion
       relatedBehaviorIndex: 0
-    - title: Buff
-      description: Gains strength to hit harder next time
+    - title: Self-buffing Strike
+      description: Attack randomly and gain strength
       relatedBehaviorIndex: 1
   DEADLIER_ENEMY_BONUS_STR: -1
   HEALTHIER_ENEMY_BONUS_HEALTH: -1
@@ -73,7 +75,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: self
         statusEffect: 0
-        scale: 2
+        scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
@@ -87,6 +89,24 @@ MonoBehaviour:
         inputKey: self
         prefabToInstantiate: {fileID: 3850217184923880746, guid: 4bed509d0589dae4d922d8eeb61a6292, type: 3}
         scale: 1
+    - rid: 754093848945229853
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: target
+        combatEffect: 0
+        scale: 3
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 6137048663962808129, guid: 92c26f41ef33c23419e05ceb12660efa, type: 3}
+    - rid: 754093848945229854
+      type: {class: ScriptableObjectEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ScriptableObjectEffectStep
+        effectStepSO: {fileID: 11400000, guid: 46ac36b880e2ff14aa699c90b6e9f19c, type: 2}
     - rid: 3931529445166809313
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
@@ -99,7 +119,7 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 0}
+        vfxPrefab: {fileID: 6137048663962808129, guid: 418a03ccd75ca98409952e0384c196fd, type: 3}
     - rid: 3931529445166809420
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

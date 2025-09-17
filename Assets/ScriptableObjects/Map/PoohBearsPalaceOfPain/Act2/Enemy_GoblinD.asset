@@ -19,7 +19,7 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: af0fdebf2a0f45f4a99b9b32143d4b4a, type: 3}
   backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
   entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
-  morale: 0
+  morale: 1
   abilities: []
   cacheValueConfigs: []
   enemyPattern:
@@ -38,7 +38,14 @@ MonoBehaviour:
     behaviors: []
     behaviorType: 0
   adaptWhenAloneEnemyPattern:
-    behaviors: []
+    behaviors:
+    - intent: 1
+      enemyTargetMethod: 0
+      targetsKey: target
+      displayValue: 7
+      effectSteps:
+      - rid: 754093848945229855
+      - rid: 754093848945229856
     behaviorType: 0
   initialStatuses: []
   tooltip:
@@ -47,9 +54,29 @@ MonoBehaviour:
     - title: Go goblin team!
       description: Shields his friends :)
       relatedBehaviorIndex: -1
+  DEADLIER_ENEMY_BONUS_STR: -1
+  HEALTHIER_ENEMY_BONUS_HEALTH: -1
   references:
     version: 2
     RefIds:
+    - rid: 754093848945229855
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: target
+        combatEffect: 0
+        scale: 7
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 6137048663962808129, guid: e8cc978481c22d74ea0ae0662e9db47a, type: 3}
+    - rid: 754093848945229856
+      type: {class: ScriptableObjectEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ScriptableObjectEffectStep
+        effectStepSO: {fileID: 11400000, guid: 46ac36b880e2ff14aa699c90b6e9f19c, type: 2}
     - rid: 3443535291885027974
       type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
       data:

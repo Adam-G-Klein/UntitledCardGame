@@ -70,6 +70,7 @@ MonoBehaviour:
         - rid: 7401433059192471557
         - rid: 754093826381185268
         - rid: 754093826381185269
+        - rid: 754093848945229858
     - rid: 754093826381185265
       type: {class: CombatInstanceCacheLoad, ns: , asm: Assembly-CSharp}
       data:
@@ -113,6 +114,10 @@ MonoBehaviour:
         useHardCodedInt: 0
         currentWorkflowKey: numDiscards
         cacheKey: numDiscards
+    - rid: 754093848945229858
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
     - rid: 7401433059192471555
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
