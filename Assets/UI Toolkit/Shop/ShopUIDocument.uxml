@@ -8,7 +8,7 @@
     <Style src="project://database/Assets/UI%20Toolkit/Stylesheets/CompanionView.uss?fileID=7433441132597879392&amp;guid=e88b44cda41b13242a23fc01cc51bd01&amp;type=3#CompanionView" />
     <Style src="project://database/Assets/mapStylesheet.uss?fileID=7433441132597879392&amp;guid=8bfd0d4a4dd91435a81ceda51a241a08&amp;type=3#mapStylesheet" />
     <ui:VisualElement name="VisualElement" style="flex-grow: 1; flex-direction: column; background-image: none;">
-        <ui:VisualElement style="position: absolute; height: 100%; width: 1934px; background-image: url(&quot;project://database/Assets/Sprites/ShopSprites/ShopBackground.png?fileID=2800000&amp;guid=2caa3b811ed888648a93657bf9c73edc&amp;type=3#ShopBackground&quot;); top: -190px; left: -8px;" />
+        <ui:VisualElement style="position: absolute; height: 100%; width: 1934px; background-image: none; top: -190px; left: -8px;" />
         <ui:VisualElement name="top-section" class="map-header-container" style="max-height: 15%; min-height: 15%;">
             <ui:VisualElement name="mapContainer" class="map-outer-container" style="max-height: 85%;">
                 <ui:Instance template="MapTemplateUiDocument" name="MapTemplateUiDocument" style="flex-grow: 1;" />

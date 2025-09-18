@@ -481,6 +481,7 @@ public class ShopViewController : MonoBehaviour,
                 shopManager.gameState.AddCompanionToTeam(companion, upgradeInfo.onBench ? -1 : upgradeInfo.resultingSlotViewIndex);
                 upgradedCompanion.container.style.visibility = Visibility.Visible;
 
+
                 LeanTween.value(1f, 0f, .25f)
                     .setDelay(.5f)
                     .setEase(LeanTweenType.easeInQuint)
@@ -492,6 +493,7 @@ public class ShopViewController : MonoBehaviour,
                     {
                         RebuildUnitManagement(shopManager.gameState.companions);
                         isBuyingDisabled = false;
+                        ScreenShakeManager.Instance.ShakeWithForce(1f);
                     });
             });
     }
