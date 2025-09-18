@@ -145,6 +145,8 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         }
 
         Debug.Log($"[PLAYERHAND.DEAL] Done processing");
+        Debug.Log($"[PLAYERHAND.DEAL] Updating playable cards");
+        UpdatePlayableCards();
 
         // Done processing, reset
         dealCoroutine = null;

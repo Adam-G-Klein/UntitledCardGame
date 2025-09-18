@@ -150,7 +150,6 @@ public class PlayableCard : MonoBehaviour,
             yield return StartCoroutine(PlayerHand.Instance.DiscardCard(this, true));
         }
 
-        PlayerHand.Instance.UpdatePlayableCards();
         // If the hand is empty as a result of playing this card, invoke any subscribers.
         if (PlayerHand.Instance.cardsInHand.Count == 0)
         {
