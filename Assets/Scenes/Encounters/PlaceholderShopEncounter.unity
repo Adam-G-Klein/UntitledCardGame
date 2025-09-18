@@ -931,6 +931,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: CinemachineCameras
       objectReference: {fileID: 0}
+    - target: {fileID: 3515355886071417933, guid: a246cd575c4606b48aa933beb9c080a8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4338338661440074655, guid: a246cd575c4606b48aa933beb9c080a8, type: 3}
+      propertyPath: randVelocityLow.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4338338661440074655, guid: a246cd575c4606b48aa933beb9c080a8, type: 3}
+      propertyPath: randVelocityLow.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4338338661440074655, guid: a246cd575c4606b48aa933beb9c080a8, type: 3}
+      propertyPath: randVelocityHigh.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6216190684483306987, guid: a246cd575c4606b48aa933beb9c080a8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -970,6 +986,10 @@ PrefabInstance:
     - target: {fileID: 6216190684483306987, guid: a246cd575c4606b48aa933beb9c080a8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6385570823508935901, guid: a246cd575c4606b48aa933beb9c080a8, type: 3}
+      propertyPath: m_ImpulseDefinition.m_ImpulseShape
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
