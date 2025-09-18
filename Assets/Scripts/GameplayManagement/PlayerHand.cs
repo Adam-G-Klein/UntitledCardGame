@@ -134,6 +134,9 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         // Shift the existing Cards to their slots.
         for (int i = 0; i < cardsToBeShifted.Count; i++)
         {
+            // There is a chance that the thing that triggered the draw exhausts itself
+            // and removes itself from cardsInHand before we get here.
+            // Thus the null check helps us.
             if (cardsToBeShifted[i] == null) continue;
             ShiftCard(cardsToBeShifted[i]);
         }
