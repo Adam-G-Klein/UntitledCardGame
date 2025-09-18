@@ -13,12 +13,10 @@ GameObject:
   - component: {fileID: 8670881613562720748}
   - component: {fileID: 6559890015023456123}
   - component: {fileID: 3339967006749357629}
-  - component: {fileID: 2595263955379066018}
   - component: {fileID: 9072497632964488160}
   - component: {fileID: 1520036689927399670}
   - component: {fileID: -4785001928966702165}
   - component: {fileID: 8494857512198128503}
-  - component: {fileID: 160789473182807700}
   m_Layer: 0
   m_Name: WorldSpaceCompanion
   m_TagString: Companion
@@ -69,6 +67,7 @@ MonoBehaviour:
     trackingStats:
       numCardsRemoved: 0
       cardsBought: []
+      numDeaths: 0
   combatInstance: {fileID: 6559890015023456123}
   deckInstance: {fileID: 8670881613562720748}
   references:
@@ -158,34 +157,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &2595263955379066018
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5285687428135354733}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 529c80957274eb845ab857cc78a85129, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: 7fa89282fdc5197409a5e9b310da94f8, type: 2}
-  unityEventResponse:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5285687428135354732}
-        m_TargetAssemblyTypeName: TargettableEntity, Assembly-CSharp
-        m_MethodName: uIStateEventListener
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &9072497632964488160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,17 +234,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statusEffectsSO: {fileID: 11400000, guid: b5e8681fc02be284eb308731b490c4c5, type: 2}
---- !u!114 &160789473182807700
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5285687428135354733}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1dc4e7816a47be478c84aadea351adb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  statusEffectsDisplay: {fileID: 0}
-  companionInstance: {fileID: 0}

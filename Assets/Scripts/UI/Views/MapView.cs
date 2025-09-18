@@ -35,6 +35,7 @@ public class MapView
         }
         return false;
     }
+    
     private VisualElement makeMapView(IEncounterBuilder encounterBuilder)
     {
         // get current sceneIndex from gameState somehow;

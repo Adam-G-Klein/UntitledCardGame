@@ -61,7 +61,7 @@ public class MainMenuManager : MonoBehaviour
     }
 
     public void startButtonHandler() {
-        if (gameState.conferenceMode) {
+        if (gameState.demoMode) {
             SaveManager.Instance.DeletePlayerProgressData();
         }
         generateMap.generateMapAndChangeScenes();

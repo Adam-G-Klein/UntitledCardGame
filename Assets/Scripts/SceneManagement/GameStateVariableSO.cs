@@ -11,17 +11,17 @@ public enum Location
 {
     NONE,
     MAIN_MENU,
-    WAKE_UP_ROOM,
+    WAKE_UP_ROOM, // Legacy
     TEAM_SIGNING,
-    MAP,
-    TEAM_SELECT,
-    PRE_COMBAT_SPLASH,
+    MAP, // Legacy
+    TEAM_SELECT, // Legacy
+    PRE_COMBAT_SPLASH, // Legacy
     COMBAT,
     POST_COMBAT,
     SHOP,
-    FAKE_SHOP,
-    PRE_BOSSFIGHT_COMBAT_SPLASH,
-    BOSSFIGHT,
+    FAKE_SHOP, // Legacy
+    PRE_BOSSFIGHT_COMBAT_SPLASH, // Legacy
+    BOSSFIGHT, // Legacy
     INTRO_CUTSCENE,
     TUTORIAL,
     SHOP_TUTORIAL,
@@ -89,7 +89,7 @@ public class GameStateVariableSO : ScriptableObject
         }
     }
     public bool autoUpgrade = false;
-    public bool conferenceMode = false;
+    public bool demoMode = false;
     public List<PackSO> previouslySelectedPackSOs;
     public int ascensionLevel = -1;
     public Dictionary<Location, string> locationToScene = new Dictionary<Location, string>() {
@@ -107,19 +107,6 @@ public class GameStateVariableSO : ScriptableObject
         {Location.INTRO_CUTSCENE, "IntroCutscene"}
     };
 
-    private Dictionary<Location, Location> locationToNextLocation = new Dictionary<Location, Location>() {
-        {Location.MAIN_MENU, Location.INTRO_CUTSCENE},
-        {Location.INTRO_CUTSCENE, Location.TUTORIAL},
-        {Location.TUTORIAL, Location.TEAM_SIGNING},
-        {Location.SHOP_TUTORIAL, Location.SHOP},
-        {Location.TEAM_SIGNING, Location.COMBAT},
-        {Location.COMBAT, Location.POST_COMBAT},
-        {Location.POST_COMBAT, Location.SHOP},
-        {Location.SHOP, Location.COMBAT},
-        {Location.PACK_SELECT, Location.TEAM_SIGNING},
-        {Location.PACK_SELECT_TUTORIAL, Location.PACK_SELECT}
-    };
-
 
     [Header("Settings for the demo")]
     public int lastTutorialLoopIndex = 2;
@@ -132,12 +119,8 @@ public class GameStateVariableSO : ScriptableObject
     // My only argument for placing it here is that this is one of the main
     // functions of the GameStateVariable, and the logic is based entirely on
     // what our current game state is. Lmk your thoughts though.
-    public void LoadNextLocation(Location nextLocation = Location.NONE) {
+    public void LoadNextLocation() {
         Debug.Log("Loading next location, current location is: " + currentLocation);
-        if(nextLocation == Location.NONE && !locationToNextLocation.ContainsKey(currentLocation)) {
-            Debug.LogError("Location " + currentLocation + " is not in the locationToNextLocation dictionary");
-            return;
-        }
         // Thought about breaking this up and just special-casing the main menu, combat, shop, tutorial,
         // and map, but at that point I think the switch case is nicer.
         // We also have a nice place for other between scene logic additions to live
@@ -150,10 +133,12 @@ public class GameStateVariableSO : ScriptableObject
                 if (skipTutorials) {
                     currentLocation = Location.PACK_SELECT;
                 }
+
                 if (!hasSeenCombatTutorial) {
-                    currentLocation = locationToNextLocation[currentLocation];
+                    currentLocation = Location.INTRO_CUTSCENE;
                     break;
                 }
+
                 if (hasSeenCombatTutorial && hasSeenShopTutorial)
                 {
                     if (hasSeenPackSelectTutorial)
@@ -170,29 +155,26 @@ public class GameStateVariableSO : ScriptableObject
                 }
                 break;
             case Location.PACK_SELECT_TUTORIAL:
-                currentLocation = locationToNextLocation[currentLocation];
+                currentLocation = Location.PACK_SELECT;
                 break;
             case Location.INTRO_CUTSCENE:
-                currentLocation = locationToNextLocation[currentLocation];
+                currentLocation = Location.TUTORIAL;
                 break;
             case Location.TEAM_SIGNING:
-                currentLocation = locationToNextLocation[currentLocation];
+                currentLocation = Location.COMBAT;
                 break;
             case Location.TUTORIAL:
-                currentLocation = locationToNextLocation[currentLocation];
-                break;
-            case Location.TEAM_SELECT:
-                currentLocation = locationToNextLocation[currentLocation];
+                currentLocation = Location.TEAM_SIGNING;
                 break;
             case Location.COMBAT:
                 Debug.Log("Leaving combat, current location is: " + currentLocation);
                 currentEncounterIndex++;
-                currentLocation = locationToNextLocation[currentLocation];
+                currentLocation = Location.POST_COMBAT;
                 break;
             case Location.POST_COMBAT:
                 Debug.Log("Leaving post combat, current location is: " + currentLocation);
                 if (skipTutorials || hasSeenShopTutorial) {
-                    currentLocation = locationToNextLocation[currentLocation];
+                    currentLocation = Location.SHOP;
                     AdvanceEncounter();
                 } else {
                     currentLocation = Location.SHOP_TUTORIAL;
@@ -200,17 +182,17 @@ public class GameStateVariableSO : ScriptableObject
                 break;
             case Location.SHOP_TUTORIAL:
                 SaveManager.Instance.SaveHandler();
-                currentLocation = locationToNextLocation[currentLocation];
+                currentLocation = Location.SHOP;
                 AdvanceEncounter();
                 break;
             case Location.SHOP:
                 currentEncounterIndex++;
-                currentLocation = locationToNextLocation[currentLocation];
+                currentLocation = Location.COMBAT;
                 EndTutorialLoop();
                 AdvanceEncounter();
                 break;
             case Location.PACK_SELECT:
-                currentLocation = locationToNextLocation[currentLocation];
+                currentLocation = Location.TEAM_SIGNING;
                 break;
             default:
                 Debug.Log("Invalid location in LoadNextLocation switch case");

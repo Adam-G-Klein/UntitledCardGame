@@ -30,7 +30,6 @@ public class PlayableCard : MonoBehaviour,
     public bool hovered = false;
 
     private UIState currentState;
-    private Hoverable hoverable;
 
     // Checked by PlayerHand when discarding the whole hand
     // set back to false there when it's checked
@@ -60,7 +59,6 @@ public class PlayableCard : MonoBehaviour,
     public void Start()
     {
         transform.localScale = new Vector3(nonHoverScale, nonHoverScale, 1);
-        hoverable = GetComponent<Hoverable>();
         discardDest = this.deckFrom.transform.position;
     }
 
@@ -325,12 +323,6 @@ public class PlayableCard : MonoBehaviour,
         if (!interactable || EnemyEncounterManager.Instance.GetCastingCard() || !PlayerHand.Instance.GetCanPlayCards()) return;
         hovered = true;
         HoverAssociatedCompanion();
-        if (hoverable != null)
-        {
-            // Make sure hoverable knows that we've already processed
-            // this hover in case keyboard controls turn on
-            hoverable.hovered = true;
-        }
         // Set the volume first
         MusicController.Instance.PlaySFX("event:/SFX/SFX_UIHover");
         transform.SetAsLastSibling();

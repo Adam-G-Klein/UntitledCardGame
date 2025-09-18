@@ -26,26 +26,6 @@ public class EffectUtils {
         document.map.AddItem(key, companion.combatInstance.GetVisualElement(), dedupeLink);
     }
 
-    public static void AddMinionsToDocument(
-            EffectDocument document,
-            string key,
-            List<MinionInstance> minionInstances) {
-        foreach (MinionInstance instance in minionInstances) {
-            AddMinionToDocument(document, key, instance);
-        }
-    }
-
-    public static void AddMinionToDocument(
-            EffectDocument document,
-            string key,
-            MinionInstance minion) {
-        string dedupeLink = minion.minion.id;
-        document.map.AddItem(key, minion, dedupeLink);
-        document.map.AddItem(key, minion.combatInstance, dedupeLink);
-        document.map.AddItem(key, minion.deckInstance, dedupeLink);
-        document.map.AddItem(key, minion.gameObject, dedupeLink);
-    }
-
     public static void AddEnemiesToDocument(
             EffectDocument document,
             string key,

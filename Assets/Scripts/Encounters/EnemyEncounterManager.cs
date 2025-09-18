@@ -18,7 +18,6 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     public CombatEncounterState combatEncounterState;
     public delegate void OnEncounterEndHandler();
     public event OnEncounterEndHandler onEncounterEndHandler;
-    public EnemyPortraitController enemyPortraitController;
     [SerializeField]
     private GameObject optionsUI;
     [SerializeField]
@@ -147,7 +146,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
 
         // Gold interest calculation
         int baseGoldEarnedPerBattle = gameState.baseShopData.goldEarnedPerBattle;
-        if (gameState.conferenceMode) baseGoldEarnedPerBattle += 2;
+        if (gameState.demoMode) baseGoldEarnedPerBattle += 2;
         int extraGold = Mathf.FloorToInt(gameState.baseShopData.interestRate * gameState.playerData.GetValue().gold);
         if (extraGold > gameState.baseShopData.interestCap)
         {

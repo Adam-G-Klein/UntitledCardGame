@@ -1058,7 +1058,7 @@ public class ShopViewController : MonoBehaviour,
     public void CompanionManagementOnPointerLeave(CompanionManagementView companionManagementView, PointerLeaveEvent evt) {
         if (!isDraggingCompanion || companionBeingDragged != companionManagementView)  return;
 
-        if(evt != null || NonMouseInputManager.Instance.inputMethod == InputMethod.Mouse) {
+        if(evt != null) {
             companionManagementView.container.parent.style.top = evt.position.y - companionManagementView.container.parent.layout.height / 2;
             companionManagementView.container.parent.style.left = evt.position.x - companionManagementView.container.parent.layout.width / 2;
         }

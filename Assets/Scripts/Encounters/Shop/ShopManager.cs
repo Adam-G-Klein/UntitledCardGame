@@ -8,13 +8,11 @@ using UnityEngine.UIElements;
 public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 {
     public bool IS_DEVELOPMENT_MODE = false;
-    public bool USE_NEW_SHOP = false;
 
     [Header("Variables")]
     public GameStateVariableSO gameState;
 
     [Header("Shop")]
-    public ShopUIManager shopUIManager;
     public ShopViewController shopViewController;
     public EncounterConstantsSO encounterConstants;
     public VoidGameEvent shopRefreshEvent;
@@ -48,14 +46,8 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         get { return availableBenchSlots; }
     }
     void Awake() {
-        if (USE_NEW_SHOP) {
-            gameObject.GetComponent<UIDocument>().enabled = true;
-            shopUIManager.gameObject.SetActive(false);
-            shopViewController.Init(this);
-        } else {
-            gameObject.GetComponent<UIDocument>().enabled = false;
-            shopUIManager.gameObject.SetActive(true);
-        }
+        gameObject.GetComponent<UIDocument>().enabled = true;
+        shopViewController.Init(this);
         // This ends up calling BuildShopEncounter below
         gameState.activeEncounter.GetValue().BuildWithEncounterBuilder(this);
     }
@@ -80,7 +72,6 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         shopViewController.SetShopRerollPrice(shopEncounter.shopData.rerollShopPrice);
         shopViewController.SetShopCardRemovalPrice(shopEncounter.shopData.cardRemovalPrice);
 
-        CheckDisableUpgradeButton();
         CheckDisableUpgradeButtonV2();
 
         shopViewController.SetupUpgradeIncrements();
@@ -413,12 +404,6 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         shopViewController.SetMoney(playerData.gold);
     }
 
-    private void CheckDisableUpgradeButton() {
-        if (shopEncounter.shopData.shopLevels.Count - 1 <= shopLevel.level) {
-            shopUIManager.DisableUpgradeButton();
-        }
-    }
-
     private void CheckDisableUpgradeButtonV2() {
         if (shopEncounter.shopData.shopLevels.Count - 1 <= shopLevel.level) {
             shopViewController.DisableUpgradeButton();
@@ -568,10 +553,6 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     public void ShopItemHovered() {
         MusicController.Instance.PlaySFX("event:/SFX/SFX_UIHover");
     }
-
-    // To satisfy interface. Unused
-    public LocationStore companionLocationStore { get; set; }
-    public LocationStore enemyLocationStore { get; set; }
 
     public void SetRemovingCard(bool val) {
         removingCard = val;

@@ -136,10 +136,6 @@ public class GetTargets : EffectStep, IEffectStepCalculation
                     EffectUtils.AddCompanionToDocument(document, outputKey, target.GetComponent<CompanionInstance>());
                 break;
 
-                case Targetable.TargetType.Minion:
-                    EffectUtils.AddMinionToDocument(document, outputKey, target.GetComponent<MinionInstance>());
-                break;
-
                 case Targetable.TargetType.Enemy:
                     EffectUtils.AddEnemyToDocument(document, outputKey, target.GetComponent<EnemyInstance>());
                 break;
@@ -210,13 +206,6 @@ public class GetTargets : EffectStep, IEffectStepCalculation
                 .FindAll(instance => !disallowedTargets.Contains(instance.gameObject));
             enemies.ForEach(enemy => EffectUtils.AddEnemyToDocument(document, outputKey, enemy));
         }
-        if (validTargets.Contains(Targetable.TargetType.Minion)) {
-            List<MinionInstance> minions = CombatEntityManager.Instance.getMinions()
-                .FindAll(instance => !disallowedTargets.Contains(instance.gameObject));
-            minions.ForEach(minion => {
-                EffectUtils.AddMinionToDocument(document, outputKey, minion);
-            });
-        }
         if (validTargets.Contains(Targetable.TargetType.Card)) {
             List<PlayableCard> playableCards = PlayerHand.Instance.cardsInHand
                 .FindAll(card => !disallowedTargets.Contains(card.gameObject));
@@ -238,12 +227,6 @@ public class GetTargets : EffectStep, IEffectStepCalculation
                     .FindAll(instance => !disallowedTargets.Contains(instance.gameObject));
                 EnemyInstance target = enemies[UnityEngine.Random.Range(0, enemies.Count)];
                 EffectUtils.AddEnemyToDocument(document, outputKey, target);
-            }
-            if (validTargets.Contains(Targetable.TargetType.Minion)) {
-                List<MinionInstance> minions = CombatEntityManager.Instance.getMinions()
-                    .FindAll(instance => !disallowedTargets.Contains(instance.gameObject));
-                MinionInstance target = minions[UnityEngine.Random.Range(0, minions.Count)];
-                EffectUtils.AddMinionToDocument(document, outputKey, target);
             }
             if (validTargets.Contains(Targetable.TargetType.Card)) {
                 List<PlayableCard> playableCards = PlayerHand.Instance.cardsInHand
@@ -288,9 +271,7 @@ public class GetTargets : EffectStep, IEffectStepCalculation
             EffectDocument.ORIGIN, 0);
         DeckInstance deckFrom = playableCard.deckFrom;
 
-        if (deckFrom.TryGetComponent(out MinionInstance minion)) {
-            EffectUtils.AddMinionToDocument(document, outputKey, minion);
-        } else if (deckFrom.TryGetComponent(out CompanionInstance companion)) {
+        if (deckFrom.TryGetComponent(out CompanionInstance companion)) {
             EffectUtils.AddCompanionToDocument(document, outputKey, companion);
         }
     }

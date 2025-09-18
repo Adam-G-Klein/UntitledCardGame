@@ -105,46 +105,6 @@ public class ShopEncounter : Encounter
         encounterBuilder.BuildShopEncounter(this);
     }
 
-    private void setupCards() {
-        for (int i = 0; i < cardsInShop.Count; i++) {
-            GameObject instantiatedCard = GameObject.Instantiate(
-                encounterConstants.cardInShopPrefab,
-                this.shopManager.shopUIManager.cardSection
-                );
-
-            CardType cardType = cardsInShop[i].cardType;
-            // Nullable for neutral cards, otherwise it will be attached to a specific companion type.
-            CompanionTypeSO companionType = cardsInShop[i].sourceCompanion;
-
-            CardInShop cardInShop = instantiatedCard.GetComponent<CardInShop>();
-            cardInShop.price = cardsInShop[i].price;
-
-            CardDisplay cardDisplay = cardInShop.cardDisplay;
-            if (companionType != null) {
-                cardInShop.keepSake.sprite = companionType.sprite;
-            }
-            //cardDisplay.Initialize(new Card(cardType, companionType, cardsInShop[i].rarity));
-
-            cardInShop.Setup();
-        }
-    }
-
-    private void setupKeepsakes() {
-        for (int i = 0; i < companionsInShop.Count; i++) {
-            GameObject instantiatedKeepsake = GameObject.Instantiate(
-                encounterConstants.keepsakeInShopPrefab,
-                this.shopManager.shopUIManager.keepSakeSection);
-
-            CompanionTypeSO companionType = companionsInShop[i].companionType;
-            int price = companionsInShop[i].price;
-
-            KeepsakeInShop keepsakeInShop = instantiatedKeepsake.GetComponent<KeepsakeInShop>();
-            keepsakeInShop.price = price;
-            keepsakeInShop.companion = new Companion(companionType);
-            keepsakeInShop.Setup();
-        }
-    }
-
     private void generateShopEncounter(ShopLevel shopLevel, List<Companion> companionList) {
         cardsInShop = new List<CardInShopWithPrice>();
         companionsInShop = new List<CompanionInShopWithPrice>();

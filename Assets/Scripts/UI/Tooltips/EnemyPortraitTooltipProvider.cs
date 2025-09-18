@@ -16,26 +16,19 @@ public class EnemyPortraitTooltipProvder : MonoBehaviour
 {
     private TooltipOnHover tooltipOnHover;
     [SerializeField]
-    private EnemyPillarUIController portrait;
     public TurnPhaseTriggerEvent registerTurnPhaseTriggerEvent;
     private List<TurnPhaseTrigger> turnPhaseTriggers = new List<TurnPhaseTrigger>();
     void Start() {
         tooltipOnHover = GetComponent<TooltipOnHover>();
         tooltipOnHover.tooltip = new TooltipViewModel();
-        if(!portrait) {
-            Debug.LogError("No portrait attached to EnemyPortraitTooltipProvider");
-            return;
-        }
         RegisterTurnPhaseTriggers();
     }
     private void RegisterTurnPhaseTriggers() {
         TurnPhaseTrigger trigger = new TurnPhaseTrigger(TurnPhase.END_PLAYER_TURN, UpdateIntent());
-        portrait.enemyInstance.turnPhaseTriggers.Add(trigger); // add here so EnemyInstance can remove it later
         registerTurnPhaseTriggerEvent.Raise(new TurnPhaseTriggerEventInfo(trigger));
     }
 
     private IEnumerable UpdateIntent() {
-        tooltipOnHover.tooltip = GetTooltipFromIntent(portrait.enemyInstance.currentIntent);
         yield return null;
     }
 

@@ -11,7 +11,6 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
     // This list assumes ordering
     [SerializeField]
     private List<CompanionInstance> companions = new List<CompanionInstance>();
-    private List<MinionInstance> minions = new List<MinionInstance>();
     [SerializeField]
     private List<EnemyInstance> enemies = new List<EnemyInstance>();
 
@@ -49,11 +48,6 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
     public void registerCompanion(CompanionInstance companion)
     {
         companions.Add(companion);
-    }
-
-    public void registerMinion(MinionInstance minion)
-    {
-        minions.Add(minion);
     }
 
     public void registerEnemy(EnemyInstance enemy)
@@ -116,34 +110,12 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
         return null;
     }
 
-    public List<MinionInstance> getMinions()
-    {
-        return minions;
-    }
-
-    public MinionInstance getMinionInstanceById(string id)
-    {
-        foreach (MinionInstance instance in minions)
-        {
-            if (instance.minion.id.Equals(id))
-            {
-                return instance;
-            }
-        }
-        Debug.LogWarning("No minion found by id: " + id);
-        return null;
-    }
-
     public List<CombatInstance> getEnemyTargets()
     {
         List<CombatInstance> retList = new List<CombatInstance>();
         foreach (CompanionInstance companionInstance in companions)
         {
             retList.Add(companionInstance.combatInstance);
-        }
-        foreach (MinionInstance minionInstance in minions)
-        {
-            retList.Add(minionInstance.combatInstance);
         }
         return retList;
     }
@@ -177,12 +149,6 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
                     new TurnPhaseEventInfo(TurnPhase.END_ENCOUNTER)));
             encounterEnded = true;
         }
-    }
-
-    public void MinionDied(MinionInstance minionInstance)
-    {
-        minions.Remove(minionInstance);
-        executeTriggers(CombatEntityTriggerType.MINION_DIED);
     }
 
     public void registerTrigger(CombatEntityTrigger trigger)

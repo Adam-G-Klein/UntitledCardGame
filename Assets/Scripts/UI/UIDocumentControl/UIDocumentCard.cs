@@ -41,13 +41,6 @@ public class UIDocumentCard : MonoBehaviour
             Invoke("LateStart", 0.01f);
             return;
         }
-        CardInShop cCard = GetComponent<CardInShop>();
-        if (cCard != null)
-        {
-            card = cCard.cardDisplay.card;
-            Invoke("LateStart", 0.01f);
-            return;
-        }
         Debug.LogError("UIDocumentCard: No card in playableCard component");
     }
 

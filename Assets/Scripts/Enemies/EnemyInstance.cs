@@ -6,7 +6,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
-[RequireComponent(typeof(EnemyPillarUIController))]
 [RequireComponent(typeof(CombatInstance))]
 [RequireComponent(typeof(Targetable))]
 public class EnemyInstance : MonoBehaviour, IUIEntity {
@@ -17,12 +16,9 @@ public class EnemyInstance : MonoBehaviour, IUIEntity {
     public TurnPhaseTriggerEvent registerTurnPhaseTriggerEvent;
     public TurnPhaseTriggerEvent removeTurnPhaseTriggerEvent;
 
-    // reference for resetting intent if the enemy is taunted
-    private EnemyIntentDisplay intentDisplay;
     [SerializeField]
     private CombatEffectEvent combatEffectEvent;
 
-    private EnemyPillarUIController enemyPillarUIController;
     [HideInInspector]
     public List<TurnPhaseTrigger> turnPhaseTriggers = new List<TurnPhaseTrigger>();
 
@@ -36,11 +32,8 @@ public class EnemyInstance : MonoBehaviour, IUIEntity {
         this.enemy = enemy;
         gameObject.name = enemy.enemyType.name;
         CombatEntityManager.Instance.registerEnemy(this);
-        this.intentDisplay = GetComponentInChildren<EnemyIntentDisplay>();
-        this.enemyPillarUIController = GetComponent<EnemyPillarUIController>();
         this.placement = placement;
         dead = false;
-        enemyPillarUIController.Setup(this, leftRightScreenPlacementPercent, placement);
         combatInstance.Setup(enemy.combatStats, enemy, CombatInstance.CombatInstanceParent.ENEMY, placement, this.enemy.enemyType.cacheValueConfigs);
         Debug.Log("EnemyInstance Start for enemy " + enemy.id + " initialized with combat stats (health): " + combatInstance.combatStats.getCurrentHealth());
         combatInstance.SetId(enemy.id);
@@ -59,7 +52,6 @@ public class EnemyInstance : MonoBehaviour, IUIEntity {
         foreach (InitialStatus status in enemy.enemyType.initialStatuses) {
             combatInstance.SetStatusEffect(status.status, status.scale);
         }
-        // GetComponentInChildren<CombatInstanceDisplayWorldspace>().Setup(combatInstance, placement);
         RegisterTurnPhaseTriggers();
     }
 
@@ -192,13 +184,11 @@ public class EnemyInstance : MonoBehaviour, IUIEntity {
         Debug.Log("EnemyInstance: UpdateView");
         EnemyEncounterViewModel.Instance.SetStateDirty();
         yield return null;
-        // yield return intentDisplay.displayIntent(this);
     }
 
     private IEnumerable EnactIntent() {
         yield return new WaitForSeconds(currentIntent.attackTime);
         if(dead) yield break;
-        intentDisplay.clearIntent();
         EffectDocument document = new EffectDocument();
         document.map.AddItem(EffectDocument.ORIGIN, this);
         document.originEntityType = EntityType.Enemy;

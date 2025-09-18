@@ -21,11 +21,8 @@ public class CardTooltipProvder : MonoBehaviour
         tooltipOnHover = GetComponent<TooltipOnHover>();
         tooltipOnHover.tooltip = new TooltipViewModel();
         PlayableCard card = GetComponent<PlayableCard>();
-        CardInShop cardInShop = GetComponent<CardInShop>();
         if(card) {
             tooltipOnHover.tooltip += card.card.cardType.GetTooltip();
-        } else if (cardInShop) {
-            tooltipOnHover.tooltip += cardInShop.cardDisplay.card.cardType.GetTooltip();
         }
     }
 }
