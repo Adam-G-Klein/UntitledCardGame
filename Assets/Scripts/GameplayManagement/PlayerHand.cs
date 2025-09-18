@@ -42,10 +42,13 @@ public class PlayerHand : GenericSingleton<PlayerHand>
 
     private List<PlayableCard> cardsToDeal = new List<PlayableCard>();
     private bool isBatchingCards = false;
-    private float cardBatchingDelay = .1f;
+    private float cardBatchingDelay = .05f;
     private int indexToHover = -1;
     private Coroutine dealingCardsCoroutine = null;
     private Dictionary<GameObject, int> cardToTweenMap = new();
+
+    private Queue<PlayableCard> cardDealQueue = new Queue<PlayableCard>();
+    private Coroutine dealCoroutine;
 
     void Start() {
         cardPrefab = EnemyEncounterManager.Instance.encounterConstants.cardPrefab;
@@ -61,13 +64,18 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         };
     }
 
-    public List<PlayableCard> DealCards(List<Card> cards, DeckInstance deckFrom) {
-        List<PlayableCard> cardsDealt = new List<PlayableCard>();
-        foreach (Card cardInfo in cards) {
-            if(cardsInHand.Count + cardsToDeal.Count >= GameplayConstantsSingleton.Instance.gameplayConstants.MAX_HAND_SIZE) {
-                Debug.Log("PlayerHand: Hand is full, not dealing card");
+    private List<PlayableCard> DealCardsQueued(List<Card> cards, DeckInstance deckFrom)
+    {
+        List<PlayableCard> cardsEnqueued = new List<PlayableCard>();
+
+        foreach (Card cardInfo in cards)
+        {
+            if (cardsInHand.Count + cardDealQueue.Count >= GameplayConstantsSingleton.Instance.gameplayConstants.MAX_HAND_SIZE)
+            {
+                Debug.Log("PlayerHand: Hand is full, not queuing card");
                 break;
             }
+
             Vector3 startPos = deckFrom.transform.position;
             PlayableCard newCard = PrefabInstantiator.InstantiateCard(
                 cardPrefab,
@@ -78,48 +86,73 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             newCard.gameObject.name = cardInfo.name;
             newCard.interactable = false;
             newCard.gameObject.SetActive(false);
-            WorldPositionVisualElement newCardPlacement = UIDocumentGameObjectPlacer.Instance.CreateCardSlot();
-            UIDocumentGameObjectPlacer.Instance.addMapping(newCardPlacement, newCard.gameObject);
-            if (newCard.card.cardType.retain) {
+            if (newCard.card.cardType.retain)
+            {
                 newCard.retained = true;
             }
-            cardsDealt.Add(newCard);
-            cardsToDeal.Add(newCard);
-            if (isBatchingCards) {
-                isBatchingCards = false;
-                StopCoroutine(dealingCardsCoroutine);
-            }
-            if (!isBatchingCards) {
-                dealingCardsCoroutine = StartCoroutine(DealCardsAfterDelay());
-            }
+
+            // Just enqueue the card (we'll fully instantiate when dealing)
+            cardDealQueue.Enqueue(newCard);
+            // Optionally track which were enqueued
+            // (You might want to return instantiated PlayableCards later instead)
+            cardsEnqueued.Add(newCard);
+
+            Debug.Log($"[PLAYERHAND.DEAL] Enqueuing card {newCard.card.cardType.Name}");
         }
-        return cardsDealt;
+
+        // Ensure only one coroutine is running
+        if (dealCoroutine == null) {
+            dealCoroutine = StartCoroutine(ProcessDealQueue());
+        }
+
+        return cardsEnqueued;
     }
 
-    public IEnumerator DealCardsAfterDelay() {
-        isBatchingCards = true;
-        yield return new WaitForSeconds(cardBatchingDelay);
-        // should ideally make sure that all of the UI elements have been properly added as well rather than just a solid wait time, will revisit if we have problems (ask Ethan)
-        // I need to release this lock as soon as I get started. without this, things will get lost in the void I believe
-        isBatchingCards = false;
-        List<PlayableCard> cardsBeingDealt = new List<PlayableCard>(this.cardsToDeal);
-        cardsToDeal.Clear();
+    private IEnumerator ProcessDealQueue()
+    {
+        List<PlayableCard> cardsToBeShifted = new List<PlayableCard>(cardsInHand);
+        List<PlayableCard> newCards = new List<PlayableCard>();
+        // Invariant: once a card is present in the queue, we guarantee that card will be dealt.
+        while (cardDealQueue.Count > 0)
+        {
+            PlayableCard newCard = cardDealQueue.Dequeue();
 
+            Debug.Log($"[PLAYERHAND.DEAL] Dealing card {newCard.card.cardType.Name}");
 
-        for (int i = 0; i < cardsInHand.Count; i++) {
-            ShiftCard(cardsInHand[i]);
-            //yield return new WaitForSeconds(cardDealDelay);
+            WorldPositionVisualElement newCardPlacement = UIDocumentGameObjectPlacer.Instance.CreateCardSlot();
+            UIDocumentGameObjectPlacer.Instance.addMapping(newCardPlacement, newCard.gameObject);
+            newCards.Add(newCard);
+            cardsInHand.Add(newCard);
+
+            // Wait to see if we catch any more cards in the batch.
+            yield return new WaitForSeconds(cardBatchingDelay);
         }
 
-        // this is to mitigate a case where this is mid animation and a new set of cards is dealt.
-        cardsBeingDealt.ForEach(card => {
-            cardsInHand.Add(card);
-        });
+        // Need to wait a frame for the UI layout system to place the wpve before dealing the card.
+        // This is necessary to do before shifting as well because the existing card wpves need to update.
 
-        for (int i = 0; i < cardsBeingDealt.Count; i++) {
-            MoveCard(cardsBeingDealt[i]);
+        // Shift the existing Cards to their slots.
+        for (int i = 0; i < cardsToBeShifted.Count; i++)
+        {
+            ShiftCard(cardsToBeShifted[i]);
+        }
+
+        // Deal the new cards.
+        for (int i = 0; i < newCards.Count; i++)
+        {
+            MoveCard(newCards[i]);
             yield return new WaitForSeconds(cardDealDelay);
         }
+
+        Debug.Log($"[PLAYERHAND.DEAL] Done processing");
+
+        // Done processing, reset
+        dealCoroutine = null;
+    }
+
+    public List<PlayableCard> DealCards(List<Card> cards, DeckInstance deckFrom)
+    {
+        return DealCardsQueued(cards, deckFrom);
     }
 
     private void ShiftCard(PlayableCard cardToShift) {
@@ -143,7 +176,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                 LeanTween.cancel(moveGO);
             }
         }
-        
+
         if (cardToTweenMap.ContainsKey(rotateGO)) {
             LTDescr descr = LeanTween.descr(cardToTweenMap[rotateGO]);
             if (descr == null) {
@@ -179,6 +212,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         if (disableCardDuringMove) cardToMove.interactable = false; // hovering a card changes its position so we really need that to not happen while they are moving to their new spot
         WorldPositionVisualElement WPVE = UIDocumentGameObjectPlacer.Instance.GetCardWPVEFromGO(cardToMove.gameObject);
         WPVE.UpdatePosition();
+        Debug.Log($"[PLAYERHAND.DEAL] World pos target for card {cardToMove.card.cardType.Name} is {WPVE.worldPos}");
         CardDrawVFX(cardToMove.transform.parent.transform.position, WPVE.worldPos, cardToMove.gameObject);
     }
 
@@ -379,7 +413,13 @@ public class PlayerHand : GenericSingleton<PlayerHand>
 
     public IEnumerator ResizeHand(PlayableCard card)
     {
-        UIDocumentGameObjectPlacer.Instance.RemoveCardSlot(card.gameObject, () => { StartCoroutine(DealCardsAfterDelay()); });
+        UIDocumentGameObjectPlacer.Instance.RemoveCardSlot(card.gameObject, () =>
+        {
+            // Ensure only one coroutine is running
+            if (dealCoroutine == null) {
+                dealCoroutine = StartCoroutine(ProcessDealQueue());
+            }
+        });
         yield return null;
     }
 
