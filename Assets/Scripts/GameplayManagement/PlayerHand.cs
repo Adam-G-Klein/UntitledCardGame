@@ -134,6 +134,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         // Shift the existing Cards to their slots.
         for (int i = 0; i < cardsToBeShifted.Count; i++)
         {
+            if (cardsToBeShifted[i] == null) continue;
             ShiftCard(cardsToBeShifted[i]);
         }
 
@@ -146,6 +147,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
 
         Debug.Log($"[PLAYERHAND.DEAL] Done processing");
         Debug.Log($"[PLAYERHAND.DEAL] Updating playable cards");
+        yield return null;
         UpdatePlayableCards();
 
         // Done processing, reset
