@@ -170,7 +170,7 @@ public class CombatInstance : MonoBehaviour
     }
 
 
-    public void ApplyNonStatusCombatEffect(CombatEffect effect, int scale, CombatInstance effector, GameObject vfxPrefab, bool shouldShake = false) {
+    public void ApplyNonStatusCombatEffect(CombatEffect effect, int scale, CombatInstance effector, GameObject vfxPrefab, bool shouldShake = false, float screenShakeForce = 0.0f) {
         // All the non-status-effect combat effects are handled here
         // status effects are handled in applyCombatEffects
         if (vfxPrefab != null) {
@@ -182,6 +182,10 @@ public class CombatInstance : MonoBehaviour
             case CombatEffect.FixedDamageWithCardModifications:
             case CombatEffect.FixedDamageThatIgnoresBlock:
                 int damageTaken = TakeDamage(effect, scale, effector);
+                if (screenShakeForce > 0.0f)
+                {
+                    ScreenShakeManager.Instance.ShakeWithForce(screenShakeForce);
+                }
                 if (effector.GetComponent<CompanionInstance>() != null)
                 {
                     MusicController.Instance.PlaySFX("event:/SFX/SFX_BasicAttack");

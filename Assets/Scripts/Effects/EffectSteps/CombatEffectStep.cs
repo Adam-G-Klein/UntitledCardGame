@@ -59,7 +59,12 @@ public class CombatEffectStep : EffectStep, IEffectStepCalculation
         for (int i = 0; i < baseMultiplicity; i++) {
             foreach (CombatInstance instance in instances) {
                 if (instance != null) {
-                    instance.ApplyNonStatusCombatEffect(combatEffect, finalScale, originCombatInstance, vfxPrefab, i==0);
+                    instance.ApplyNonStatusCombatEffect(combatEffect,
+                        finalScale,
+                        originCombatInstance,
+                        vfxPrefab,
+                        i==0,
+                        i / 4.0f); // TODO, elevate this logic for ethan to tune
                 }
             }
             

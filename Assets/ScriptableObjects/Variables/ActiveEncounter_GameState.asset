@@ -14,46 +14,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   locked: 0
   Value:
-    rid: 8370007468835864580
+    rid: 2318405335345791103
   references:
     version: 2
     RefIds:
-    - rid: 8370007468835864580
+    - rid: 2318405335345791103
       type: {class: EnemyEncounter, ns: , asm: Assembly-CSharp}
       data:
-        id: a169ef81-4c1e-4abb-b6aa-8cf843df590f
+        id: 1bb471f2-f93a-4e1e-b473-4a6124f2f317
         isCompleted: 0
         isEliteEncounter: 0
         enemyList:
-        - id: cc489e4b-acd7-4a05-9ef8-2314d732df60
+        - id: 5df4be48-f226-4fca-a511-1c93ac85d65a
           entityType: 1
-          enemyType: {fileID: 11400000, guid: afa8d3a34e51a4a3eb9f1d8f17002c8c, type: 2}
+          enemyType: {fileID: 11400000, guid: 6e98a1462e5244b22860d42fa09e5345, type: 2}
           combatStats:
-            maxHealth: 35
+            maxHealth: 20
             maxHealthBuffs: 0
-            currentHealth: 35
-            baseAttackDamage: 0
-        - id: 721130d2-14cc-4f20-b637-81370a6b3318
-          entityType: 1
-          enemyType: {fileID: 11400000, guid: 05b81b2d9c9c94a23849ec9f08f59eed, type: 2}
-          combatStats:
-            maxHealth: 50
-            maxHealthBuffs: 0
-            currentHealth: 50
-            baseAttackDamage: 0
-        - id: asljdk
-          entityType: 1
-          enemyType: {fileID: 11400000, guid: 05b81b2d9c9c94a23849ec9f08f59eed, type: 2}
-          combatStats:
-            maxHealth: 50
-            maxHealthBuffs: 0
-            currentHealth: 50
-            baseAttackDamage: 0
-        - id: asslkks
-          entityType: 1
-          enemyType: {fileID: 11400000, guid: 05b81b2d9c9c94a23849ec9f08f59eed, type: 2}
-          combatStats:
-            maxHealth: 50
-            maxHealthBuffs: 0
-            currentHealth: 45
+            currentHealth: 792
             baseAttackDamage: 0
