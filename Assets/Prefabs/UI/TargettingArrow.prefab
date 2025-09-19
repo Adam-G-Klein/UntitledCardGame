@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   followMouse: 1
-  Zpos: 10
+  Zpos: 0.5
 --- !u!1 &2592847280397825042
 GameObject:
   m_ObjectHideFlags: 0
@@ -180,7 +180,7 @@ LineRenderer:
       m_NumAlphaKeys: 2
     numCornerVertices: 0
     numCapVertices: 0
-    alignment: 0
+    alignment: 1
     textureMode: 0
     textureScale: {x: 1, y: 1}
     shadowBias: 0.5
