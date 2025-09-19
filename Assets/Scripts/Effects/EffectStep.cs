@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 public enum EffectStepName {
+    ActivatePower,
     AddCardsToDeck,
     AddCardsToHand,
     AddManaNextTurn,

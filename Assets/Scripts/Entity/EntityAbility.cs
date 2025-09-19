@@ -35,5 +35,6 @@ public class EntityAbility
         OnCardDiscard,
         OnBlockGained,
         OnAttackCardCast,
+        OnCardDraw,
     }
 }

@@ -14,18 +14,20 @@ public class TurnManager : GenericSingleton<TurnManager>
     private EndEncounterEvent endEncounterEvent;
 
     private Dictionary<TurnPhase, TurnPhase> nextPhase = new Dictionary<TurnPhase, TurnPhase>(){
-        {TurnPhase.START_ENCOUNTER, TurnPhase.START_PLAYER_TURN},
+        {TurnPhase.START_ENCOUNTER, TurnPhase.BEFORE_START_PLAYER_TURN},
+        {TurnPhase.BEFORE_START_PLAYER_TURN, TurnPhase.START_PLAYER_TURN},
         {TurnPhase.START_PLAYER_TURN, TurnPhase.PLAYER_TURN},
         {TurnPhase.PLAYER_TURN, TurnPhase.BEFORE_END_PLAYER_TURN},
         {TurnPhase.BEFORE_END_PLAYER_TURN, TurnPhase.END_PLAYER_TURN},
         {TurnPhase.END_PLAYER_TURN, TurnPhase.START_ENEMY_TURN},
         {TurnPhase.START_ENEMY_TURN, TurnPhase.ENEMIES_TURN},
         {TurnPhase.ENEMIES_TURN, TurnPhase.END_ENEMY_TURN},
-        {TurnPhase.END_ENEMY_TURN, TurnPhase.START_PLAYER_TURN}
+        {TurnPhase.END_ENEMY_TURN, TurnPhase.BEFORE_START_PLAYER_TURN}
     };
 
     private Dictionary<TurnPhase, List<TurnPhaseTrigger>> turnPhaseTriggers = new Dictionary<TurnPhase, List<TurnPhaseTrigger>>(){
         {TurnPhase.START_ENCOUNTER, new List<TurnPhaseTrigger>()},
+        {TurnPhase.BEFORE_START_PLAYER_TURN, new List<TurnPhaseTrigger>()},
         {TurnPhase.START_PLAYER_TURN, new List<TurnPhaseTrigger>()},
         {TurnPhase.PLAYER_TURN, new List<TurnPhaseTrigger>()},
         {TurnPhase.BEFORE_END_PLAYER_TURN, new List<TurnPhaseTrigger>()},

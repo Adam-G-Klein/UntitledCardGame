@@ -70,7 +70,7 @@ public class CardInHandEffect : EffectStep, ITooltipProvider
                     card.deckFrom.inHand.Add(duplicatedCard);
                     List<Card> cardsToBeDealt = new();
                     cardsToBeDealt.Add(duplicatedCard);
-                    PlayerHand.Instance.DealCards(cardsToBeDealt, card.deckFrom);
+                    PlayerHand.Instance.DealCards(cardsToBeDealt, card.deckFrom, false);
                     break;
             }
         }

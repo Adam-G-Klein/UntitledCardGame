@@ -327,7 +327,7 @@ public class DeckInstance : MonoBehaviour
                     newCardsToDeal.Add(inHand[i]);
                 }
             }
-            PlayerHand.Instance.DealCards(newCardsToDeal, this);
+            PlayerHand.Instance.DealCards(newCardsToDeal, this, false);
         }
         if (includeDrawPile)
         {

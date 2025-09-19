@@ -125,6 +125,9 @@ public abstract class EntityAbilityInstance
             case EntityAbility.EntityAbilityTrigger.OnBlockGained:
                 CombatEntityManager.Instance.onBlockGainedHandler += OnBlockGained;
                 break;
+            case EntityAbility.EntityAbilityTrigger.OnCardDraw:
+                PlayerHand.Instance.onCardDrawHandler += OnCardDraw;
+                break;
         }
     }
 
@@ -172,6 +175,10 @@ public abstract class EntityAbilityInstance
         if (ability.abilityTrigger == EntityAbility.EntityAbilityTrigger.OnEntityHealed) {
             CombatEntityManager.Instance.onEntityHealedHandler -= OnHeal;
         }
+        if (ability.abilityTrigger == EntityAbility.EntityAbilityTrigger.OnCardDraw)
+        {
+            PlayerHand.Instance.onCardDrawHandler -= OnCardDraw;
+        }
     }
 
     private void setupForTurnPhaseTrigger(TurnPhase turnPhase) {
@@ -196,10 +203,27 @@ public abstract class EntityAbilityInstance
         yield return null;
     }
 
-    private IEnumerator OnBlockGained(CombatInstance combatInstance) {
+    private IEnumerator OnCardDraw(PlayableCard card)
+    {
+        EffectDocument document = createEffectDocument();
+        EffectUtils.AddPlayableCardToDocument(document, "cardDrawn", card);
+        if (card.deckFrom.TryGetComponent(out CompanionInstance companion)) {
+            if (document.originEntityType == EntityType.CompanionInstance) {
+                CompanionInstance source = document.map.GetItem<CompanionInstance>(EffectDocument.ORIGIN, 0);
+                document.boolMap.Add("cardFromThisOrigin", source == companion);
+            }
+            EffectUtils.AddCompanionToDocument(document, "companionCardPlayedFrom", companion);
+        }
+        EffectManager.Instance.QueueEffectWorkflow(new EffectWorkflowClosure(document, ability.effectWorkflow, null));
+        yield return null;
+    }
+
+    private IEnumerator OnBlockGained(CombatInstance combatInstance)
+    {
         //yield return abilityTriggeredVFX();
         EffectDocument document = createEffectDocument();
-         if (combatInstance.TryGetComponent(out CompanionInstance companion)) {
+        if (combatInstance.TryGetComponent(out CompanionInstance companion))
+        {
             EffectUtils.AddCompanionToDocument(document, "companionThatGainedBlock", companion);
         }
         EffectManager.Instance.QueueEffectWorkflow(new EffectWorkflowClosure(document, ability.effectWorkflow, null));

@@ -61,7 +61,7 @@ public class UIDocumentCard : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.size = CARD_SIZE;
         boxCollider.size = HITBOX_SIZE;
-        pCard.UpdateCardText(); //we gonna run this shit like a millino times
+        // pCard.UpdateCardText(); //we gonna run this shit like a millino times
         spriteRenderer.material.SetTexture("_SecondTex", doc.panelSettings.targetTexture);
     }
 

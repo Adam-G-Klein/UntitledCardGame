@@ -30,102 +30,53 @@ MonoBehaviour:
   genericCompanionSFX: {fileID: 0}
   genericCompanionVFX: {fileID: 0}
   cacheValueConfigs:
-  - key: turnsRemaining
+  - key: numDrawn
     display: 1
-    sprite: {fileID: 21300000, guid: c0e53d043957bac4c8fb2528ecd0a1b9, type: 3}
-    startOfTurnValue: 0
-    setStartOfTurnValue: 0
-    startOfCombatValue: 2
-    setStartOfCombatValue: 1
+    sprite: {fileID: 21300000, guid: a100f38fb92da834786807cb66e2ebba, type: 3}
+    startOfTurnValue: 1
+    setStartOfTurnValue: 1
+    startOfCombatValue: 0
+    setStartOfCombatValue: 0
   cardPool: {fileID: 11400000, guid: 497400d5fb9d14b6c9472ab3f1786e46, type: 2}
   pack: {fileID: 11400000, guid: 0d12b03c0c8754470a900cb4f78a9217, type: 2}
   speakerType: {fileID: 0}
   abilitiesV2:
-  - rid: 2034230176448512968
-  - rid: 8034950120506655245
+  - rid: 754093871974056128
   level: 0
-  upgradeTo: {fileID: 11400000, guid: 2716753a71f78446c974a696d00ce3c1, type: 2}
+  upgradeTo: {fileID: 11400000, guid: 9f6619c386eea4242aed5e155352900a, type: 2}
   tooltip:
     empty: 0
     lines:
     - title: Tiefseeker
-      description: The first 2 turns of combat, create in hand a "Tiefvision" card
-        for self. At the end of turn, if you have 2 or more Status cards in hand,
-        draw an extra card next turn from self
+      description: The first time you draw a Status card each turn, create a "Tiefvision"
+        card in hand
       relatedBehaviorIndex: 0
     - title: Tiefvision
       description: Status card. Exhaust. Give any 2 block & scry 1 & draw 1
       relatedBehaviorIndex: 0
   keepsakeTitle: Hidden Cache
-  keepsakeDescription: The first 2 turns of combat, create in hand a "Tiefvision"
-    card for self. At the end of turn, if you have 2 or more Status cards in hand,
-    draw an extra card next turn from self
+  keepsakeDescription: The first time you draw a Status card each turn, create a
+    "Tiefvision" card in hand
   references:
     version: 2
     RefIds:
-    - rid: 1289961959942521010
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+    - rid: 754093871974056128
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: cards
-        validTargets: 03000000
-        number: 1
-        specialTargetRule: 1
-        cantCancelTargetting: 0
-    - rid: 1289961959942521011
-      type: {class: FilterCards, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: FilterCards
-        inputKey: cards
-        filter:
-          cardCategoriesToInclude: 04000000
-          retainedCardsFilter: 0
-        outputKey: statusCards
-    - rid: 1289961959942521012
-      type: {class: CountStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CountStep
-        inputKey: statusCards
-        outputKey: numStatus
-    - rid: 1289961959942521013
-      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: BooleanComparison
-        hardCodedInputKey1: 2
-        useHardCodedInputKey1: 1
-        inputKey1: 
-        operation: 2
-        inputKey2: numStatus
-        outputKey: hasEnough
-    - rid: 1289961959942521014
-      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: EndWorkflowIfConditionMet
-        inputKey1: hasEnough
-        conditionToEndOn: 0
-    - rid: 1289961959942521015
-      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: ApplyStatus
-        inputKey: self
-        statusEffect: 16
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplyByNumAuraStacks: 0
-        multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
-    - rid: 1289961959942521017
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: self
-        prefabToInstantiate: {fileID: 6137048663962808129, guid: 032e33b914ed32b418cdc1ed2f15fc6e, type: 3}
-        scale: 1
-    - rid: 1289961959942521018
+        abilityTrigger: 19
+        effectSteps:
+        - rid: 754093871974056130
+        - rid: 754093968382754844
+        - rid: 754093968382754847
+        - rid: 754093968382754845
+        - rid: 754093968382754839
+        - rid: 754093968382754840
+        - rid: 754093968382754841
+        - rid: 754093968382754838
+        - rid: 754093968382754842
+        - rid: 754093968382754843
+        - rid: 754093968382754964
+    - rid: 754093871974056130
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
@@ -136,82 +87,18 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
-    - rid: 2034230176448512968
-      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
-      data:
-        abilityTrigger: 2
-        effectSteps:
-        - rid: 1289961959942521010
-        - rid: 1289961959942521011
-        - rid: 1289961959942521012
-        - rid: 1289961959942521013
-        - rid: 1289961959942521014
-        - rid: 7707884639552274987
-        - rid: 1289961959942521018
-        - rid: 1289961959942521015
-        - rid: 8034949815888773303
-        - rid: 1289961959942521017
-    - rid: 7707884639552274987
+    - rid: 754093968382754838
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EntityAbilityTriggeredVFX
-    - rid: 7707884639552274988
-      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: EntityAbilityTriggeredVFX
-    - rid: 8034949815888773303
-      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: AddCardsToDeck
-        inputKey: self
-        cardTypes:
-        - {fileID: 11400000, guid: 834b43051d713444cafee2bb0feff170, type: 2}
-        addToDeckMethod: 2
-        getCardsFromKey: 0
-        inputCardsKey: 
-        scale: 0
-        getScaleFromKey: 0
-        inputScaleKey: 
-    - rid: 8034950120506655245
-      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
-      data:
-        abilityTrigger: 12
-        effectSteps:
-        - rid: 8034950120506655246
-        - rid: 8034950120506655279
-        - rid: 8034950120506655280
-        - rid: 8034950120506655282
-        - rid: 7707884639552274988
-        - rid: 8034950120506655281
-        - rid: 8034950120506655248
-        - rid: 8034950120506655283
-        - rid: 8034950120506655284
-    - rid: 8034950120506655246
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: self
-        validTargets: 
-        number: 1
-        specialTargetRule: 3
-        cantCancelTargetting: 0
-    - rid: 8034950120506655248
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: self
-        prefabToInstantiate: {fileID: 6137048663962808129, guid: 032e33b914ed32b418cdc1ed2f15fc6e, type: 3}
-        scale: 1
-    - rid: 8034950120506655279
+    - rid: 754093968382754839
       type: {class: CombatInstanceCacheLoad, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatInstanceCacheLoad
         inputCombatInstanceKey: self
-        cacheKey: turnsRemaining
-        currentWorkflowKey: turnsRemaining
-    - rid: 8034950120506655280
+        cacheKey: numDrawn
+        currentWorkflowKey: numDrawn
+    - rid: 754093968382754840
       type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: BooleanComparison
@@ -219,9 +106,58 @@ MonoBehaviour:
         useHardCodedInputKey1: 1
         inputKey1: 
         operation: 0
-        inputKey2: turnsRemaining
-        outputKey: done
-    - rid: 8034950120506655281
+        inputKey2: numDrawn
+        outputKey: isZero
+    - rid: 754093968382754841
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: isZero
+        conditionToEndOn: 1
+    - rid: 754093968382754842
+      type: {class: MathStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: MathStep
+        inputKey: numDrawn
+        operand2InputKey: UNUSED
+        operation: 1
+        scale: 1
+        outputKey: numDrawn
+    - rid: 754093968382754843
+      type: {class: CombatInstanceCacheStore, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatInstanceCacheStore
+        inputCombatInstanceKey: self
+        hardCodedBool: 0
+        useHardCodedBool: 0
+        hardCodedInt: 0
+        useHardCodedInt: 0
+        currentWorkflowKey: numDrawn
+        cacheKey: numDrawn
+    - rid: 754093968382754844
+      type: {class: FilterCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FilterCards
+        inputKey: cardDrawn
+        filter:
+          cardCategoriesToInclude: 04000000
+          retainedCardsFilter: 0
+        outputKey: statusCards
+    - rid: 754093968382754845
+      type: {class: EndWorkflowIfListEmpty, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfListEmpty
+        inputKey1: statusCards
+    - rid: 754093968382754847
+      type: {class: DebugEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DebugEffectStep
+        inputCombatInstanceCacheKey: self
+        genericMap: 1
+        ints: 1
+        strings: 0
+        bools: 0
+    - rid: 754093968382754964
       type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: AddCardsToHand
@@ -234,29 +170,3 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         outputKey: 
-    - rid: 8034950120506655282
-      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: EndWorkflowIfConditionMet
-        inputKey1: done
-        conditionToEndOn: 1
-    - rid: 8034950120506655283
-      type: {class: MathStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: MathStep
-        inputKey: turnsRemaining
-        operand2InputKey: UNUSED
-        operation: 1
-        scale: 1
-        outputKey: turnsRemaining
-    - rid: 8034950120506655284
-      type: {class: CombatInstanceCacheStore, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CombatInstanceCacheStore
-        inputCombatInstanceKey: self
-        hardCodedBool: 0
-        useHardCodedBool: 0
-        hardCodedInt: 0
-        useHardCodedInt: 0
-        currentWorkflowKey: turnsRemaining
-        cacheKey: turnsRemaining

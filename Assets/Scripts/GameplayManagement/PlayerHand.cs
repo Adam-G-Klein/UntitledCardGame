@@ -7,6 +7,7 @@ using Unity.Collections;
 using System.Linq;
 using UnityEngine.Playables;
 using System;
+using UnityEditor.Rendering.Universal;
 
 
 [ExecuteInEditMode]
@@ -47,7 +48,10 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     private Coroutine dealingCardsCoroutine = null;
     private Dictionary<GameObject, int> cardToTweenMap = new();
 
-    private Queue<PlayableCard> cardDealQueue = new Queue<PlayableCard>();
+    private Queue<(PlayableCard, bool)> cardDealQueue = new Queue<(PlayableCard, bool)>();
+
+    public delegate IEnumerator OnCardDrawHandler(PlayableCard card);
+    public event OnCardDrawHandler onCardDrawHandler;
 
     void Start() {
         cardPrefab = EnemyEncounterManager.Instance.encounterConstants.cardPrefab;
@@ -72,24 +76,25 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             // Idle if there are no cards to deal.
             if (cardDealQueue.Count == 0)
             {
-                // Bus runs every half a second.
-                yield return new WaitForSeconds(0.5f);
+                // Bus runs every interval.
+                yield return new WaitForSeconds(0.2f);
                 continue;
             }
 
             List<PlayableCard> cardsToBeShifted = new List<PlayableCard>(cardsInHand);
-            List<PlayableCard> newCards = new List<PlayableCard>();
+            List<(PlayableCard, bool)> newCards = new List<(PlayableCard, bool)>();
             // Invariant: once a card is present in the queue, we guarantee that card will be dealt.
             while (cardDealQueue.Count > 0)
             {
-                PlayableCard newCard = cardDealQueue.Dequeue();
+                var x = cardDealQueue.Dequeue();
+                PlayableCard newCard = x.Item1;
+                bool countAsDraw = x.Item2;
 
                 Debug.Log($"[PLAYERHAND.DEAL] Dealing card {newCard.card.cardType.Name}");
 
                 WorldPositionVisualElement newCardPlacement = UIDocumentGameObjectPlacer.Instance.CreateCardSlot();
                 UIDocumentGameObjectPlacer.Instance.addMapping(newCardPlacement, newCard.gameObject);
-                newCards.Add(newCard);
-                cardsInHand.Add(newCard);
+                newCards.Add(x);
 
                 // Wait to see if we catch any more cards in the batch to let more cards get on the bus.
                 yield return new WaitForSeconds(cardBatchingDelay);
@@ -111,8 +116,16 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             // Deal the new cards.
             for (int i = 0; i < newCards.Count; i++)
             {
-                MoveCard(newCards[i]);
+                MoveCard(newCards[i].Item1);
+                cardsInHand.Add(newCards[i].Item1);
                 yield return new WaitForSeconds(cardDealDelay);
+            }
+
+            // process the OnDrawEvents for all the new cards with "countAsDraw" active.
+            for (int i = 0; i < newCards.Count; i++)
+            {
+                if (!newCards[i].Item2) continue;
+                yield return OnCardDraw(newCards[i].Item1);
             }
 
             Debug.Log($"[PLAYERHAND.DEAL] Done processing, now updating the playable cards");
@@ -134,7 +147,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         }
     }
 
-    private List<PlayableCard> DealCardsQueued(List<Card> cards, DeckInstance deckFrom)
+    private List<PlayableCard> DealCardsQueued(List<Card> cards, DeckInstance deckFrom, bool countAsDraw = true)
     {
         List<PlayableCard> cardsEnqueued = new List<PlayableCard>();
 
@@ -162,7 +175,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             }
 
             // Just enqueue the card (we'll fully instantiate when dealing)
-            cardDealQueue.Enqueue(newCard);
+            cardDealQueue.Enqueue((newCard, countAsDraw));
             // Optionally track which were enqueued
             // (You might want to return instantiated PlayableCards later instead)
             cardsEnqueued.Add(newCard);
@@ -179,9 +192,12 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         return cardsEnqueued;
     }
 
-    public List<PlayableCard> DealCards(List<Card> cards, DeckInstance deckFrom)
+    // DealCards deals cards to the hand from the given deck instance.
+    // countAsDraw determines whether this counts as drawing a card.
+    // Sometimes we generate cards in hand and we do not want that to count towards entity abilities.
+    public List<PlayableCard> DealCards(List<Card> cards, DeckInstance deckFrom, bool countAsDraw = true)
     {
-        return DealCardsQueued(cards, deckFrom);
+        return DealCardsQueued(cards, deckFrom, countAsDraw);
     }
 
     private void ShiftCard(PlayableCard cardToShift) {
@@ -449,6 +465,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             //     dealCoroutine = StartCoroutine(ProcessDealQueue());
             // }
             ShiftAllCardsInHand();
+            UpdatePlayableCards();
         });
         yield return null;
     }
@@ -519,25 +536,43 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         }
     }
 
-    public void FocusACard(PlayableCard notThisOne) {
+    public IEnumerator OnCardDraw(PlayableCard card)
+    {
+        if (onCardDrawHandler != null)
+        {
+            foreach (OnCardDrawHandler handler in onCardDrawHandler.GetInvocationList())
+            {
+                yield return StartCoroutine(handler.Invoke(card));
+            }
+        }
+    }
+
+    public void FocusACard(PlayableCard notThisOne)
+    {
         // filter cards by whether they're playable
         List<PlayableCard> playableCards = new List<PlayableCard>();
-        foreach(PlayableCard card in cardsInHand) {
-            if((notThisOne == null || notThisOne != card) && card.card.cardType.playable) {
+        foreach (PlayableCard card in cardsInHand)
+        {
+            if ((notThisOne == null || notThisOne != card) && card.card.cardType.playable)
+            {
                 playableCards.Add(card);
             }
         }
 
         // filter cards by whether we have enough mana to play them
         List<PlayableCard> affordableCards = new List<PlayableCard>();
-        foreach(PlayableCard card in playableCards) {
-            if(card.card.GetManaCost() <= ManaManager.Instance.currentMana) {
+        foreach (PlayableCard card in playableCards)
+        {
+            if (card.card.GetManaCost() <= ManaManager.Instance.currentMana)
+            {
                 affordableCards.Add(card);
             }
         }
-        if(affordableCards.Count > 0) {
+        if (affordableCards.Count > 0)
+        {
             Debug.Log("[NonMouseInputManager] Found a playable and affordable card, hovering card: " + affordableCards[0].name);
-            if (affordableCards[0].TryGetComponent<GameObjectFocusable>(out GameObjectFocusable goFocusable)) {
+            if (affordableCards[0].TryGetComponent<GameObjectFocusable>(out GameObjectFocusable goFocusable))
+            {
                 FocusManager.Instance.SetFocus(goFocusable);
             }
         }

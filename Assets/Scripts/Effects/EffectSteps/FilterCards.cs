@@ -51,10 +51,10 @@ public class FilterCards : EffectStep, IEffectStepCalculation {
                     playableCards.Add(card);
                 }
             }
+            document.map.AddItems<PlayableCard>(outputKey, playableCards, outputKey);
         }
 
         document.map.AddItems<Card>(outputKey, outputCards, outputKey);
-        document.map.AddItems<PlayableCard>(outputKey, playableCards, outputKey);
         yield return null;
     }
 

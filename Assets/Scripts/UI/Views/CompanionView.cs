@@ -10,25 +10,25 @@ public class CompanionView : IUIEventReceiver
 {
     // Currently the frame itself has a 4:5 aspect ratio, but with the extra
     // space the entire companion view template has a 5:4 aspect ratio
-    public static CompanionViewContext COMBAT_CONTEXT = 
+    public static CompanionViewContext COMBAT_CONTEXT =
         new CompanionViewContext(true, false, true, true, false, false, false, false, 1.25f, 0.175f);
 
-    public static CompanionViewContext COMBAT_CONTEXT_VISUAL_ONLY = 
+    public static CompanionViewContext COMBAT_CONTEXT_VISUAL_ONLY =
         new CompanionViewContext(false, false, false, false, false, false, false, false, 1.25f, 0.175f, purelyVisual:true);
 
-    public static CompanionViewContext SHOP_CONTEXT = 
+    public static CompanionViewContext SHOP_CONTEXT =
         new CompanionViewContext(false, true, false, false, true, false, false, true, 0.8f, 0.15f * .75f);
-    
-    public static CompanionViewContext UNIT_MNGMT_CONTEXT = 
+
+    public static CompanionViewContext UNIT_MNGMT_CONTEXT =
         new CompanionViewContext(false, false, false, false, true, true, true, false, 1.1f, 0.15f * .6f);
 
-    public static CompanionViewContext CARD_SELECTION_CONTEXT = 
+    public static CompanionViewContext CARD_SELECTION_CONTEXT =
         new CompanionViewContext(false, false, true, true, false, false, false, false, 1.25f, 0.2f);
-    
-    public static CompanionViewContext COMPENDIUM_CONTEXT = 
+
+    public static CompanionViewContext COMPENDIUM_CONTEXT =
         new CompanionViewContext(false, false, false, true, false, false, false, false, 1.25f, 0.2f);
 
-    public static CompanionViewContext COMPANION_UPGRADE_CONTEXT = 
+    public static CompanionViewContext COMPANION_UPGRADE_CONTEXT =
         new CompanionViewContext(false, true, false, false, true, false, false, true, 0.8f, 0.15f, true);
 
     public VisualElement container;
@@ -231,20 +231,29 @@ public class CompanionView : IUIEventReceiver
         this.pickingModePositionList.Add(this.healthLabel);
     }
 
-    private void SetupStatusIndicators() {
+    private void SetupStatusIndicators()
+    {
         this.statusContainer.Clear();
 
         if (this.combatInstance == null) return;
 
-        foreach (KeyValuePair<StatusEffectType, int> kvp in combatInstance.GetDisplayedStatusEffects()) {
+        foreach (KeyValuePair<StatusEffectType, int> kvp in combatInstance.GetDisplayedStatusEffects())
+        {
             // Block is displayed on the companion frame now :)
             if (kvp.Key == StatusEffectType.Defended) continue;
             this.statusContainer.Add(CreateStatusIndicator(viewDelegate.GetStatusEffectSprite(kvp.Key), kvp.Value.ToString()));
         }
 
         List<DisplayedCacheValue> cacheValues = combatInstance.GetDisplayedCacheValues();
-        foreach (DisplayedCacheValue cacheValue in cacheValues) {
+        foreach (DisplayedCacheValue cacheValue in cacheValues)
+        {
             this.statusContainer.Add(CreateStatusIndicator(cacheValue.sprite, cacheValue.value.ToString()));
+        }
+
+        List<PowerSO> activePowers = combatInstance.GetPowers();
+        foreach (PowerSO p in activePowers)
+        {
+            this.statusContainer.Add(CreateStatusIndicator(p.displaySprite, ""));
         }
     }
 
@@ -295,7 +304,7 @@ public class CompanionView : IUIEventReceiver
             if (targetable == null) return;
             targetable.OnPointerClickUI(evt);
         } catch (Exception e) {
-            Debug.Log("EntityView: Caught exception while trying to get entity targetable," + 
+            Debug.Log("EntityView: Caught exception while trying to get entity targetable," +
                 " might be due to the entity GO being destroyed");
             Debug.LogException(e);
         }
@@ -305,7 +314,7 @@ public class CompanionView : IUIEventReceiver
         if (isDead) return;
 
         // Shop does it's own thing for hovering over companions
-        if (this.context.enableSelectedIndicator) 
+        if (this.context.enableSelectedIndicator)
             this.selectedIndicator.style.visibility = Visibility.Visible;
 
         // Pointer enter came from focus
@@ -321,7 +330,7 @@ public class CompanionView : IUIEventReceiver
             if (targetable == null) return;
             targetable.OnPointerEnterUI(evt);
         } catch (Exception e) {
-            Debug.Log("EntityView: Caught exception while trying to get entity targetable," + 
+            Debug.Log("EntityView: Caught exception while trying to get entity targetable," +
                 " might be due to the entity GO being destroyed");
             Debug.LogException(e);
         }
@@ -343,7 +352,7 @@ public class CompanionView : IUIEventReceiver
         try
         {
             if (this.context.preventDefaultDeckViewButton) return;
-            
+
             Targetable targetable = this.entity.GetTargetable();
             if (targetable == null) return;
             targetable.OnPointerLeaveUI(evt);
@@ -418,7 +427,7 @@ public class CompanionView : IUIEventReceiver
             Debug.LogError("Entity " + this.entity.GetName() + " does not have a deck instance, which is crazy, because it's clearly a companion");
             return;
         }
-        viewDelegate.InstantiateCardView(deckInstance.GetShuffledDrawPile(), deckInstance.combatInstance.name + " draw pile"); 
+        viewDelegate.InstantiateCardView(deckInstance.GetShuffledDrawPile(), deckInstance.combatInstance.name + " draw pile");
     }
 
     private void DiscardPileButtonOnClick(ClickEvent evt) {

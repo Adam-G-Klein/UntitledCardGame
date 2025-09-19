@@ -17,14 +17,25 @@ Just grab the tooltiop from the companionType on the attached CompanionInstance
 public class CombatCompanionTooltipProvder : MonoBehaviour
 {
     private TooltipOnHover tooltipOnHover;
-    void Start() {
+    void Start()
+    {
         tooltipOnHover = GetComponent<TooltipOnHover>();
         tooltipOnHover.tooltip = new TooltipViewModel();
         CompanionInstance companion = GetComponent<CompanionInstance>();
         tooltipOnHover.tooltip += companion.companion.companionType.tooltip;
+        foreach (PowerSO power in companion.combatInstance.GetPowers())
+        {
+            tooltipOnHover.tooltip += power.GetTooltip();
+        }
     }
 
-    public void DisableTooltip() {
+    public void AddTooltip(TooltipViewModel tooltip)
+    {
+        tooltipOnHover.tooltip += tooltip;
+    }
+
+    public void DisableTooltip()
+    {
         tooltipOnHover.Destroy();
     }
 }

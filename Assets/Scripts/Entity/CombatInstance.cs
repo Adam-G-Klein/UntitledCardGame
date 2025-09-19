@@ -81,6 +81,8 @@ public class CombatInstance : MonoBehaviour
         new Dictionary<StatusEffectType, int> (initialStatusEffects);
     private StatusEffectsDisplay statusEffectsDisplay;
 
+    private PowerPool powers = new();
+
     // cachedEffectValues is used to persist state across the entire combat.
     // For example, if an enemy needs to count the number of cards played in
     // a given turn, they can load and store a value here.
@@ -154,7 +156,7 @@ public class CombatInstance : MonoBehaviour
         // or the start of the turn.
         startOfCombatCacheInit = new TurnPhaseTrigger(TurnPhase.START_ENCOUNTER, startOfCombatCacheInitCoroutine());
         TurnManager.Instance.addTurnPhaseTrigger(startOfCombatCacheInit);
-        startOfTurnCacheInit = new TurnPhaseTrigger(TurnPhase.START_PLAYER_TURN, startOfTurnCacheInitCoroutine());
+        startOfTurnCacheInit = new TurnPhaseTrigger(TurnPhase.BEFORE_START_PLAYER_TURN, startOfTurnCacheInitCoroutine());
         TurnManager.Instance.addTurnPhaseTrigger(startOfTurnCacheInit);
 
         statusEffectsDisplay.Setup(this, wpve);
@@ -367,8 +369,27 @@ public class CombatInstance : MonoBehaviour
         }
     }
 
-    public CompanionInstance GetCompanionInstance() {
-        switch(parentType) {
+    public bool ActivatePower(PowerSO power)
+    {
+        bool activated = powers.ActivatePower(power);
+        UpdateView();
+        return activated;
+    }
+
+    public List<PowerSO> GetPowers()
+    {
+        return powers.GetPowers();
+    }
+
+    public bool HasPower(PowerSO.PowerType powerType)
+    {
+        return powers.HasPower(powerType);
+    }
+
+    public CompanionInstance GetCompanionInstance()
+    {
+        switch (parentType)
+        {
             case CombatInstanceParent.COMPANION:
                 return GetComponent<CompanionInstance>();
             default:
@@ -380,11 +401,18 @@ public class CombatInstance : MonoBehaviour
         switch (status)
         {
             case StatusEffectType.Defended:
-                if (statusEffects[StatusEffectType.MaxBlockToLoseAtEndOfTurn] != initialStatusEffects[StatusEffectType.MaxBlockToLoseAtEndOfTurn])
+                if (HasPower(PowerSO.PowerType.Barricade))
+                {
+                    break;
+                }
+                else if (statusEffects[StatusEffectType.MaxBlockToLoseAtEndOfTurn] != initialStatusEffects[StatusEffectType.MaxBlockToLoseAtEndOfTurn])
                 {
                     statusEffects[status] = Mathf.Max(0, statusEffects[status] - statusEffects[StatusEffectType.MaxBlockToLoseAtEndOfTurn]);
                 }
-                else statusEffects[status] = 0;
+                else
+                {
+                    statusEffects[status] = 0;
+                }
                 break;
             case StatusEffectType.MaxBlockToLoseAtEndOfTurn:
                 statusEffects[status] = -1;

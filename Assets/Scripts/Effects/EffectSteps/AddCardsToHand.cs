@@ -90,7 +90,7 @@ public class AddCardsToHand : EffectStep, ITooltipProvider {
                     }
                     // Add to both the hand and the deck.
                     entityFrom.inHand.AddRange(cards);
-                    cardsAdded.AddRange(PlayerHand.Instance.DealCards(cards, entityFrom));
+                    cardsAdded.AddRange(PlayerHand.Instance.DealCards(cards, entityFrom, false));
                 }
             } else {
                 Debug.LogError("DeckInstance does not have a companion type, cannot create new cards to add to it. won't know how to display their frames and icons without the companion reference");

@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 [RequireComponent(typeof(CombatInstance))]
 [RequireComponent(typeof(DeckInstance))]
 [RequireComponent(typeof(Targetable))]
+[RequireComponent(typeof(CombatCompanionTooltipProvder))]
 public class CompanionInstance : MonoBehaviour, IUIEntity
 {
     public Companion companion;
@@ -63,7 +64,25 @@ public class CompanionInstance : MonoBehaviour, IUIEntity
         CombatEntityManager.Instance.registerCompanion(this);
     }
 
-    private void RegisterUpdateStatusEffects() {
+    public void ActivatePower(PowerSO power)
+    {
+        bool activated = combatInstance.ActivatePower(power);
+        // If it's activated, then we will set up the abilities on the entity ability instance.
+        if (activated)
+        {
+            Debug.Log($"Ability activated for power {power.name}");
+            foreach (EntityAbility ability in power.abilities)
+            {
+                CompanionInstanceAbilityInstance abilityInstance = new(ability, this);
+                abilityInstance.Setup();
+            }
+        }
+        CombatCompanionTooltipProvder tooltipProvider = GetComponent<CombatCompanionTooltipProvder>();
+        tooltipProvider.AddTooltip(power.GetTooltip());
+    }
+
+    private void RegisterUpdateStatusEffects()
+    {
         statusEffectTriggers.Add(new TurnPhaseTrigger(
             TurnPhase.END_ENEMY_TURN,
             combatInstance.UpdateStatusEffects(new List<StatusEffectType> {

@@ -53,7 +53,7 @@ public class CombatEffectStep : EffectStep, IEffectStepCalculation
         if (finalScale == -1) yield return null;
 
         const float delayIncrement = 1f;
-        
+
         // Update loop to do each instance of damage as the outer loop so that they can be timed across companions
         // taking damage from the same effect
         for (int i = 0; i < baseMultiplicity; i++) {
@@ -67,12 +67,12 @@ public class CombatEffectStep : EffectStep, IEffectStepCalculation
                         i / 4.0f); // TODO, elevate this logic for ethan to tune
                 }
             }
-            
+
             if (vfxPrefab && i < baseMultiplicity - 1) {
                 yield return new WaitForSeconds(delayIncrement / baseMultiplicity);
             }
         }
-        
+
         yield return null;
     }
 
@@ -118,6 +118,10 @@ public class CombatEffectStep : EffectStep, IEffectStepCalculation
                 newScale = baseScale + origin.GetCurrentDamage();
                 if (card != null) {
                     newScale = card.card.UpdateScaleForCardModifications(newScale);
+                }
+                if (origin.HasPower(PowerSO.PowerType.DoubleDamage))
+                {
+                    newScale *= 2;
                 }
             break;
             case CombatEffect.FixedDamageWithCardModifications:

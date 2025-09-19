@@ -1,6 +1,7 @@
 using UnityEngine;
 
-public enum TurnPhase {
+public enum TurnPhase
+{
     START_ENCOUNTER,
     START_PLAYER_TURN,
     PLAYER_TURN,
@@ -9,7 +10,8 @@ public enum TurnPhase {
     START_ENEMY_TURN,
     ENEMIES_TURN,
     END_ENEMY_TURN,
-    END_ENCOUNTER
+    END_ENCOUNTER,
+    BEFORE_START_PLAYER_TURN,
 }
 
 [System.Serializable]
@@ -22,6 +24,6 @@ public class TurnPhaseEventInfo {
 }
 
 [CreateAssetMenu(
-    fileName = "NewTurnPhaseEvent", 
+    fileName = "NewTurnPhaseEvent",
     menuName = "Events/Turn Management/Turn Phase Event")]
 public class TurnPhaseEvent : BaseGameEvent<TurnPhaseEventInfo> { }
