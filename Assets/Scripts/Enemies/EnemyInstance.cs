@@ -26,6 +26,8 @@ public class EnemyInstance : MonoBehaviour, IUIEntity {
     public bool dead = false;
     public EnemyView enemyView;
 
+    private EnemyIntentArrowsController enemyIntentArrows;
+
     private Dictionary<EnemyBrain, ValueTuple<int, int>> behaviorIndices = new();
 
     public void Setup(WorldPositionVisualElement placement, Enemy enemy, float leftRightScreenPlacementPercent) {
@@ -37,7 +39,8 @@ public class EnemyInstance : MonoBehaviour, IUIEntity {
         combatInstance.Setup(enemy.combatStats, enemy, CombatInstance.CombatInstanceParent.ENEMY, placement, this.enemy.enemyType.cacheValueConfigs);
         Debug.Log("EnemyInstance Start for enemy " + enemy.id + " initialized with combat stats (health): " + combatInstance.combatStats.getCurrentHealth());
         combatInstance.SetId(enemy.id);
-        EnemyIntentDisplay enemyIntentDisplay = GetComponent<EnemyIntentDisplay>();
+        this.enemyIntentArrows = GetComponent<EnemyIntentArrowsController>();
+        this.enemyIntentArrows.Setup(this, leftRightScreenPlacementPercent);
 
         // ---- set up abilities ----
         // We cannot perform "Setup" on the ability itself, because that is global on the
@@ -194,6 +197,7 @@ public class EnemyInstance : MonoBehaviour, IUIEntity {
         EffectDocument document = new EffectDocument();
         document.map.AddItem(EffectDocument.ORIGIN, this);
         document.originEntityType = EntityType.Enemy;
+        enemyIntentArrows.clearArrows();
         List<CombatInstance> combatInstanceTargets = currentIntent.targets.Select(x => x.combatInstance).ToList();
         List<DeckInstance> deckInstanceTargets = currentIntent.targets.Select(x => x.deckInstance).ToList();
         List<GameObject> gameObjectTargets = currentIntent.targets.Select(x => x.gameObject).ToList();

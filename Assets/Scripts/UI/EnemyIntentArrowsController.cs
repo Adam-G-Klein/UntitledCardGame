@@ -34,16 +34,69 @@ public class EnemyIntentArrowsController : MonoBehaviour
     private Vector3 arrowBend2 = Vector3.zero;
     [SerializeField]
     private Vector3 targetPositionOffset = new Vector3(0, -1, 0);
+    private TurnManager turnManager;
+    private CombatEntityManager combatEntityManager;
+    private TurnPhaseTrigger displayIntentTrigger;
+    private TurnPhaseTriggerEvent registerTurnPhaseTriggerEvent;
+    private TurnPhaseTriggerEvent removeTurnPhaseTriggerEvent;
+    private CombatEntityTrigger onCompanionDeathTrigger;
 
-    void Start(){
-        enemyInstance = GetComponentInParent<EnemyInstance>();
-    }
-
-    public void Setup(float leftRightScreenPlacementPercent)
+    public void Setup(EnemyInstance enemyInstance, float leftRightScreenPlacementPercent)
     {
+        this.enemyInstance = enemyInstance;
+        this.turnManager = TurnManager.Instance;
+        this.combatEntityManager = CombatEntityManager.Instance;
+        this.displayIntentTrigger = new TurnPhaseTrigger(TurnPhase.START_PLAYER_TURN, displayIntent(enemyInstance));
+        this.turnManager.registerTurnPhaseTriggerEventHandler(new TurnPhaseTriggerEventInfo(displayIntentTrigger));
+        this.onCompanionDeathTrigger = new CombatEntityTrigger(CombatEntityTriggerType.COMPANION_DIED, UpdateDisplayAfterCompanionDies());
+        this.combatEntityManager.registerTrigger(onCompanionDeathTrigger);
+        this.enemyInstance.combatInstance.onDeathHandler += OnDeath;
+        
         this.leftRightScreenPlacementPercent = leftRightScreenPlacementPercent;
         arrowBend1 = arrowBend1 + (leftRightArrowBendMod1 * leftRightScreenPlacementPercent);
         arrowBend2 = arrowBend2 + (leftRightArrowBendMod2 * leftRightScreenPlacementPercent);
+    }
+
+    void OnDestroy() {
+        removeTurnPhaseTriggerEvent.Raise(new TurnPhaseTriggerEventInfo(displayIntentTrigger));
+    }
+
+    public IEnumerator OnDeath(CombatInstance killer) {
+        clearArrows();
+        removeTurnPhaseTriggerEvent.Raise(new TurnPhaseTriggerEventInfo(displayIntentTrigger));
+        combatEntityManager.unregisterTrigger(onCompanionDeathTrigger);
+        yield return null;
+    }
+
+    public IEnumerable displayIntent(EnemyInstance enemy)  {
+        clearArrows();
+        StartCoroutine(displayIntentAfterDelay(enemy));
+        yield return null;
+    }
+
+    public IEnumerable UpdateDisplayAfterCompanionDies() {
+        List<CompanionInstance> targets = enemyInstance.currentIntent.targets;
+        List<CompanionInstance> newTargets = new List<CompanionInstance>();
+        foreach (CompanionInstance companion in targets) {
+            if (combatEntityManager.getCompanions().Contains(companion)) {
+                newTargets.Add(companion);
+            }
+        }
+        enemyInstance.currentIntent.targets = newTargets;
+        StartCoroutine(displayIntentAfterDelay(enemyInstance));
+        yield return null;
+    }
+
+    // Todo, needn't be waiting
+    private IEnumerator displayIntentAfterDelay(EnemyInstance enemy) {
+        yield return new WaitForSeconds(1);
+        clearArrows();
+        if (enemy.currentIntent == null) {
+            StartCoroutine(displayIntentAfterDelay(enemy));
+            yield break;
+        }
+        updateArrows(enemy.currentIntent);
+        yield return null;
     }
 
     public void updateArrows(EnemyIntent intent)

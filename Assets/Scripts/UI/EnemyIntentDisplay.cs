@@ -11,14 +11,10 @@ in combatEncounterView ***/
 [RequireComponent(typeof(EnemyIntentArrowsController))]
 public class EnemyIntentDisplay : MonoBehaviour
 {
-    // private List<EnemyIntentImage> intentImages = new List<EnemyIntentImage>();
-    public List<IntentImage> intentImages = new List<IntentImage>();
     private EnemyIntentArrowsController arrowController;
 
     private EnemyInstance enemyInstance;
     private TurnManager turnManager;
-    private Label intentText;
-    private VisualElement pillarBox;
     private CombatEntityManager combatEntityManager;
     // public so that enemyinstance can remove it on death
     // can figure out a better way to do it later
@@ -33,33 +29,14 @@ public class EnemyIntentDisplay : MonoBehaviour
         Debug.Log("Setting up enemy intent display for " + enemyInstance.name);
         this.enemyInstance = enemyInstance;
         this.arrowController = GetComponent<EnemyIntentArrowsController>();
-        arrowController.Setup(leftRightScreenPlacementPercent);
+        // arrowController.Setup(leftRightScreenPlacementPercent);
         turnManager = TurnManager.Instance;
-        StartCoroutine(SetupUIDocumentElementsWhenReady());
         combatEntityManager = CombatEntityManager.Instance;
         displayIntentTrigger = new TurnPhaseTrigger(TurnPhase.START_PLAYER_TURN, displayIntent(enemyInstance));
         turnManager.registerTurnPhaseTriggerEventHandler(new TurnPhaseTriggerEventInfo(displayIntentTrigger));
         onCompanionDeathTrigger = new CombatEntityTrigger(CombatEntityTriggerType.COMPANION_DIED, UpdateDisplayAfterCompanionDies());
         combatEntityManager.registerTrigger(onCompanionDeathTrigger);
         enemyInstance.combatInstance.onDeathHandler += OnDeath;
-    }
-
-    // everything is global in the combat view ui rn
-    private IEnumerator SetupUIDocumentElementsWhenReady() {
-        /*
-        yield return new WaitUntil(() => UIDocumentGameObjectPlacer.Instance.IsReady());
-        VisualElement root = UIDocumentUtils.GetRootElement(enemyInstance.placement.ve);
-        pillarBox = root.Q<VisualElement>(className: enemyInstance.placement.ve.name + CombatEncounterView.DETAILS_CONTAINER_SUFFIX);
-        if(pillarBox == null) {
-            Debug.LogError("No pillar box found on " + enemyInstance.placement.ve.name);
-        }
-
-        intentText = root.Q<Label>(className: enemyInstance.placement.ve.name + CombatEncounterView.DETAILS_DESCRIPTION_SUFFIX);
-        if(intentText == null) {
-            Debug.LogError("No intent text found on " + enemyInstance.placement.ve.name);
-        }
-        */
-        yield return null;
     }
 
     void OnDestroy() {
@@ -108,10 +85,4 @@ public class EnemyIntentDisplay : MonoBehaviour
         arrowController.clearArrows();
     }
 
-}
-
-[System.Serializable]
-public class IntentImage {
-    public EnemyIntentType intent;
-    public UnityEngine.UIElements.Image image;
 }
