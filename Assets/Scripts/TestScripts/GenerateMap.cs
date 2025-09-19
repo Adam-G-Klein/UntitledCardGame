@@ -13,9 +13,13 @@ public class GenerateMap : MonoBehaviour
 {
     public GameStateVariableSO gameState;
     public MapGeneratorSO mapGenerator;
+    public MapGeneratorSO demoMapGenerator;
 
     public void generateMapAndChangeScenes() {
-        gameState.StartNewRun(mapGenerator);
+        if (gameState.demoMode)
+            gameState.StartNewRun(demoMapGenerator);
+        else
+            gameState.StartNewRun(mapGenerator);
     }
 
 }

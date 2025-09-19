@@ -11,7 +11,7 @@ using Unity.VisualScripting;
 
 public class EndOfRunProgressViewController : MonoBehaviour
 {
-
+    public GameStateVariableSO gameState;
     public UIDocument endOfRunProgressUIDocument;
     private VisualElement progressBarsContainer;
     public VisualTreeAsset progressBarTemplate;
@@ -27,6 +27,8 @@ public class EndOfRunProgressViewController : MonoBehaviour
             button.SetEnabled(false);
             SceneManager.LoadScene("MainMenu");
         });
+        if (gameState.demoMode)
+            endOfRunProgressUIDocument.rootVisualElement.Q<VisualElement>("demo-no-progress").style.display = DisplayStyle.Flex;
         FocusManager.Instance.RegisterFocusableTarget(button.AsFocusable());
 
         // Save player progress after the new lockedInProgress values are set

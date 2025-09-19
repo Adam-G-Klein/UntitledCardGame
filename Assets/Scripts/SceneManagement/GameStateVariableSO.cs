@@ -107,31 +107,27 @@ public class GameStateVariableSO : ScriptableObject
         {Location.INTRO_CUTSCENE, "IntroCutscene"}
     };
 
-
     [Header("Settings for the demo")]
     public int lastTutorialLoopIndex = 2;
     public int bossFightLoopIndex = 6;
     public int tutorialLoops = 2;
     public bool fullscreenEnabled = true;
 
-    // TODO: make this more versatile if we want the map to actually do things.
-    // also want to field criticism about whether this should live here.
-    // My only argument for placing it here is that this is one of the main
-    // functions of the GameStateVariable, and the logic is based entirely on
-    // what our current game state is. Lmk your thoughts though.
     public void LoadNextLocation() {
         Debug.Log("Loading next location, current location is: " + currentLocation);
-        // Thought about breaking this up and just special-casing the main menu, combat, shop, tutorial,
-        // and map, but at that point I think the switch case is nicer.
-        // We also have a nice place for other between scene logic additions to live
         switch(currentLocation) {
             case Location.MAIN_MENU:
                 nextMapIndex = 0;
                 nextEncounter.SetValue(map.GetValue().encounters[nextMapIndex]);
                 AdvanceEncounter();
+
                 // The following is only necessary while we don't want the pack selection tutorial early in the experience as it currently looks bad
-                if (skipTutorials) {
+                if (skipTutorials && !demoMode) {
                     currentLocation = Location.PACK_SELECT;
+                    break;
+                } else if (skipTutorials) {
+                    currentLocation = Location.TEAM_SIGNING;
+                    break;
                 }
 
                 if (!hasSeenCombatTutorial) {
@@ -139,18 +135,15 @@ public class GameStateVariableSO : ScriptableObject
                     break;
                 }
 
-                if (hasSeenCombatTutorial && hasSeenShopTutorial)
-                {
-                    if (hasSeenPackSelectTutorial)
-                    {
+                if (hasSeenCombatTutorial && hasSeenShopTutorial && !demoMode) {
+                    if (hasSeenPackSelectTutorial) {
                         currentLocation = Location.PACK_SELECT;
                     }
-                    else
-                    {
+                    else {
                         currentLocation = Location.PACK_SELECT_TUTORIAL;
                     }
-                }
-                else {
+                    break;
+                } else {
                     currentLocation = Location.TEAM_SIGNING;
                 }
                 break;
