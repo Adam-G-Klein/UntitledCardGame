@@ -47,6 +47,8 @@ public class MainMenuManager : MonoBehaviour
         optionsButton = mainMenuUIDocument.rootVisualElement.Q<Button>("optionsButton");
         exitButton = mainMenuUIDocument.rootVisualElement.Q<Button>("exitButton");
 
+        if (gameState.demoMode) mainMenuUIDocument.rootVisualElement.Q<Label>("game-isnt-fully-done-label").style.display = DisplayStyle.Flex;
+
         startButton.RegisterOnSelected(startButtonHandler);
         continueButton.RegisterOnSelected(ContinueButtonHandler);
         optionsButton.RegisterOnSelected(optionsButtonHandler);
