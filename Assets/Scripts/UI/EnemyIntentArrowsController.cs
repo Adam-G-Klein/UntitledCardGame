@@ -34,11 +34,11 @@ public class EnemyIntentArrowsController : MonoBehaviour
     private Vector3 arrowBend2 = Vector3.zero;
     [SerializeField]
     private Vector3 targetPositionOffset = new Vector3(0, -1, 0);
+    
+    public TurnPhaseTriggerEvent removeTurnPhaseTriggerEvent;
     private TurnManager turnManager;
     private CombatEntityManager combatEntityManager;
     private TurnPhaseTrigger displayIntentTrigger;
-    private TurnPhaseTriggerEvent registerTurnPhaseTriggerEvent;
-    private TurnPhaseTriggerEvent removeTurnPhaseTriggerEvent;
     private CombatEntityTrigger onCompanionDeathTrigger;
 
     public void Setup(EnemyInstance enemyInstance, float leftRightScreenPlacementPercent)

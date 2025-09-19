@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 2382815032633642268}
   - component: {fileID: 5437825517042753912}
   - component: {fileID: 1981669375319240908}
-  - component: {fileID: 9136375820836015438}
   - component: {fileID: 7412025818965109248}
   - component: {fileID: 5226732806696292264}
   - component: {fileID: 3938793759006504333}
@@ -187,22 +186,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &9136375820836015438
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1818299386461833425}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49dae7b92ef5bc449b4ecc4db98b4a0e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  intentImages: []
-  registerTurnPhaseTriggerEvent: {fileID: 11400000, guid: f82cd01826dfef44391e6a853f3d2e89, type: 2}
-  removeTurnPhaseTriggerEvent: {fileID: 11400000, guid: 88acfcb7f9a9846468020e4e3854b467, type: 2}
-  valueText: {fileID: 0}
 --- !u!114 &7412025818965109248
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,6 +207,7 @@ MonoBehaviour:
   arrowBend1: {x: 0, y: 0, z: 0}
   arrowBend2: {x: 0, y: 0, z: 0}
   targetPositionOffset: {x: 0, y: 1, z: 0}
+  removeTurnPhaseTriggerEvent: {fileID: 11400000, guid: 88acfcb7f9a9846468020e4e3854b467, type: 2}
 --- !u!114 &5226732806696292264
 MonoBehaviour:
   m_ObjectHideFlags: 0
