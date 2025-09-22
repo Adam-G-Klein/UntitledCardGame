@@ -1,0 +1,15 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/fontStyling.uss?fileID=7433441132597879392&amp;guid=d0c0881f1c32747ecb649373600de095&amp;type=3#fontStyling" />
+    <ui:VisualElement style="flex-grow: 1; background-color: rgb(155, 155, 155);">
+        <ui:VisualElement style="flex-grow: 1; height: 10%;">
+            <ui:Label tabindex="-1" text="Thanks for playing! BadlyUpscaledPixelRat is asking that you wishlist the game on Steam!&#10;" parse-escape-sequences="true" display-tooltip-when-elided="true" name="main-label" style="font-size: 69px; white-space: normal; padding-top: 53px; padding-right: 53px; padding-bottom: 0; padding-left: 53px; -unity-text-align: upper-center; height: 271px;" />
+        </ui:VisualElement>
+        <ui:VisualElement style="flex-grow: 1; height: 24%; flex-direction: column; align-items: center;">
+            <ui:VisualElement name="rat-element" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Sprites/Z_OldPlaceholderSprites/NeutralRat.png?fileID=21300000&amp;guid=fa3e3857b40752f4fb70d17a20e86e3e&amp;type=3#NeutralRat&quot;); width: 34%; height: 100%;" />
+        </ui:VisualElement>
+        <ui:VisualElement style="flex-grow: 1; flex-direction: row; align-items: center; justify-content: space-around;">
+            <ui:Button text="Go To Steam Page" parse-escape-sequences="true" display-tooltip-when-elided="true" name="steam-page-button" style="font-size: 46px;" />
+            <ui:Button text="Ignore him and exit" parse-escape-sequences="true" display-tooltip-when-elided="true" name="exit-button" style="font-size: 46px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

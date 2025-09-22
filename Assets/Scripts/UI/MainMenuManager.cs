@@ -89,6 +89,10 @@ public class MainMenuManager : MonoBehaviour
     }
 
     public void exitButtonHandler() {
+        if (gameState.demoMode) {
+            SceneTransitionManager.LoadScene("DemoExitGameMenu");
+            return;
+        }
         Application.Quit();
     }
 }
