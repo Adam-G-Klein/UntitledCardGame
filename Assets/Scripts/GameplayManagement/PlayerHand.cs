@@ -7,7 +7,7 @@ using Unity.Collections;
 using System.Linq;
 using UnityEngine.Playables;
 using System;
-using UnityEditor.Rendering.Universal;
+using UnityEngine.Splines;
 
 
 [ExecuteInEditMode]
@@ -15,6 +15,7 @@ using UnityEditor.Rendering.Universal;
 public class PlayerHand : GenericSingleton<PlayerHand>
 {
     public List<PlayableCard> cardsInHand;
+    public SplineContainer splineContainer;
 
     private GameObject cardPrefab;
     private GameObject cardDrawVFXPrefab;
@@ -53,9 +54,12 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     public delegate IEnumerator OnCardDrawHandler(PlayableCard card);
     public event OnCardDrawHandler onCardDrawHandler;
 
+    private int MAX_HAND_SIZE;
+
     void Start() {
         cardPrefab = EnemyEncounterManager.Instance.encounterConstants.cardPrefab;
         cardDrawVFXPrefab = EnemyEncounterManager.Instance.encounterConstants.cardDrawVFXPrefab;
+        MAX_HAND_SIZE = GameplayConstantsSingleton.Instance.gameplayConstants.MAX_HAND_SIZE;
 
         StartCoroutine(CardDealerWorker());
     }
@@ -83,6 +87,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
 
             List<PlayableCard> cardsToBeShifted = new List<PlayableCard>(cardsInHand);
             List<(PlayableCard, bool)> newCards = new List<(PlayableCard, bool)>();
+            List<PlayableCard> newCardsWithoutTheBoolField = new List<PlayableCard>();
             // Invariant: once a card is present in the queue, we guarantee that card will be dealt.
             while (cardDealQueue.Count > 0)
             {
@@ -95,31 +100,13 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                 WorldPositionVisualElement newCardPlacement = UIDocumentGameObjectPlacer.Instance.CreateCardSlot();
                 UIDocumentGameObjectPlacer.Instance.addMapping(newCardPlacement, newCard.gameObject);
                 newCards.Add(x);
+                newCardsWithoutTheBoolField.Add(x.Item1);
 
                 // Wait to see if we catch any more cards in the batch to let more cards get on the bus.
                 yield return new WaitForSeconds(cardBatchingDelay);
             }
 
-            // Need to wait a frame for the UI layout system to place the wpve before dealing the card.
-            // This is necessary to do before shifting as well because the existing card wpves need to update.
-
-            // Shift the existing Cards to their slots.
-            for (int i = 0; i < cardsToBeShifted.Count; i++)
-            {
-                // There is a chance that the thing that triggered the draw exhausts itself
-                // and removes itself from cardsInHand before we get here.
-                // Thus the null check helps us.
-                if (cardsToBeShifted[i] == null) continue;
-                ShiftCard(cardsToBeShifted[i]);
-            }
-
-            // Deal the new cards.
-            for (int i = 0; i < newCards.Count; i++)
-            {
-                MoveCard(newCards[i].Item1);
-                cardsInHand.Add(newCards[i].Item1);
-                yield return new WaitForSeconds(cardDealDelay);
-            }
+            yield return UpdateCardPositions(newCardsWithoutTheBoolField);
 
             // process the OnDrawEvents for all the new cards with "countAsDraw" active.
             for (int i = 0; i < newCards.Count; i++)
@@ -129,9 +116,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             }
 
             Debug.Log($"[PLAYERHAND.DEAL] Done processing, now updating the playable cards");
-            yield return null;
             UpdatePlayableCards();
-
         }
     }
 
@@ -145,6 +130,57 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             if (cardsInHand[i] == null) continue;
             ShiftCard(cardsInHand[i]);
         }
+    }
+
+    private IEnumerator UpdateCardPositions(List<PlayableCard> newCards = null) {
+        if (cardsInHand.Count == 0) yield break;
+
+        float cardSpacing = 1f / MAX_HAND_SIZE;
+        float firstCardPosition = 0.5f - (cardsInHand.Count - 1) * cardSpacing / 2;
+        Spline spline = splineContainer.Spline;
+
+        for (int i = 0; i < cardsInHand.Count; i++) {
+            float p = firstCardPosition + (i * cardSpacing);
+            Vector3 splinePosition = spline.EvaluatePosition(p);
+            Vector3 editedPosition = new Vector3(splinePosition.x, splinePosition.y, 0f);
+            Vector3 forward = spline.EvaluateTangent(p);
+            Vector3 up = spline.EvaluateUpVector(p);
+            Quaternion rotation = Quaternion.LookRotation(up, Vector3.Cross(up, forward).normalized);
+            bool isNew = newCards.Contains(cardsInHand[i]);
+            yield return MoveSingleCard(cardsInHand[i], editedPosition, rotation, isNew);
+    }}
+
+    private IEnumerator MoveSingleCard(PlayableCard cardToMove, Vector3 position, Quaternion rotation, bool isNewCard) {
+        if (isNewCard) cardToMove.gameObject.SetActive(true);
+        GameObject moveGO = cardToMove.transform.parent.gameObject;
+        GameObject rotateGO = cardToMove.gameObject;
+        float rotationTime = 0.25f;
+        float moveTime = 0.25f;
+
+        LeanTween.rotate(rotateGO, rotation.eulerAngles, rotationTime)
+                // .setOnComplete(() => { cardToTweenMap.Remove(rotateGO); })
+                .setEase(LeanTweenType.easeInOutQuad);
+
+        LeanTween.move(moveGO, position, moveTime)
+                .setOnComplete(() => { 
+                    if (!isNewCard) return;
+
+                    if (cardToMove.TryGetComponent<SpriteRenderer>(out var SR)) SR.sortingLayerName = "Cards"; // what is this magic
+                    cardToMove.interactable = true;
+
+                    if (ControlsManager.Instance.GetControlMethod() == ControlsManager.ControlMethod.Mouse) return;
+
+                    if (cardsInHand.IndexOf(cardToMove) == indexToHover) {
+                        if (cardToMove.TryGetComponent<GameObjectFocusable>(out GameObjectFocusable goFocusable)) {
+                            FocusManager.Instance.SetFocus(goFocusable);
+                        }
+                        indexToHover = -1;
+                        return;
+                    }
+                })
+                .setEase(LeanTweenType.easeInOutQuad);
+
+        yield return new WaitForSeconds(cardDealDelay);
     }
 
     private List<PlayableCard> DealCardsQueued(List<Card> cards, DeckInstance deckFrom, bool countAsDraw = true)
