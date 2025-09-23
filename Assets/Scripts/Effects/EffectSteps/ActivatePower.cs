@@ -7,7 +7,7 @@ using UnityEngine;
     Activate a Power on an entity.
     This activates a passive ability that lives with the combat Instance for the rest of the combat.
 */
-public class ActivatePower : EffectStep, ITooltipProvider
+public class ActivatePower : EffectStep
 {
     [SerializeField]
     private string inputKey = "";
@@ -35,8 +35,8 @@ public class ActivatePower : EffectStep, ITooltipProvider
         }
     }
 
-    public TooltipViewModel GetTooltip()
-    {
-        return power.GetTooltip();
-    }
+    // public TooltipViewModel GetTooltip()
+    // {
+    //     return power.GetTooltip();
+    // }
 }
