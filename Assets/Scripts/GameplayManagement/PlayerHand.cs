@@ -8,6 +8,7 @@ using System.Linq;
 using UnityEngine.Playables;
 using System;
 using UnityEngine.Splines;
+using Unity.VisualScripting;
 
 
 [ExecuteInEditMode]
@@ -16,6 +17,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
 {
     public List<PlayableCard> cardsInHand;
     public SplineContainer splineContainer;
+    public AnimationCurve distanceMovementCurve;
 
     private GameObject cardPrefab;
     private GameObject cardDrawVFXPrefab;
@@ -50,6 +52,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     private Dictionary<GameObject, int> cardToTweenMap = new();
 
     private Queue<PlayableCard> cardDealQueue = new Queue<PlayableCard>();
+    private bool alreadyUpdatingCardPositions = false;
 
     private int MAX_HAND_SIZE;
 
@@ -100,7 +103,9 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                 yield return new WaitForSeconds(cardBatchingDelay);
             }
 
-            yield return UpdateCardPositions(newCards);
+            if (!alreadyUpdatingCardPositions) {
+                yield return UpdateCardPositions(newCards);
+            }
 
             // // Need to wait a frame for the UI layout system to place the wpve before dealing the card.
             // // This is necessary to do before shifting as well because the existing card wpves need to update.
@@ -141,23 +146,60 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         }
     }
 
-    private IEnumerator UpdateCardPositions(List<PlayableCard> newCards = null) {
+    public void HoverCard(PlayableCard card) {
+        StartCoroutine(UpdateCardPositions(null, card));
+    }
+
+    public void UnhoverCard() {
+        StartCoroutine(UpdateCardPositions());
+    }
+    
+    // Function that updates all card positions
+    // Optionally takes a list of new cards to dictate if a card is being newly delt, or just shifting in the hand
+    // Optionally takes a playable card, which indicates a card to give extra room in the hand to
+    private IEnumerator UpdateCardPositions(
+            List<PlayableCard> newCards = null,
+            PlayableCard hoveredCard = null) {
         if (cardsInHand.Count == 0) yield break;
 
-        float cardSpacing = 1f / MAX_HAND_SIZE;
-        float firstCardPosition = 0.5f - (cardsInHand.Count - 1) * cardSpacing / 2;
+        float minCardSpacing = 1f / MAX_HAND_SIZE;
+        float maxCardSpacing = 1f / 7;
+        float cardSpacing = Mathf.Clamp(1f / cardsInHand.Count, minCardSpacing, maxCardSpacing);
+        int hoveredIndex = cardsInHand.IndexOf(hoveredCard);
+        float firstCardPosition = 0.5f - (cardsInHand.Count - 1) * (cardSpacing / 2);
         Spline spline = splineContainer.Spline;
 
         for (int i = 0; i < cardsInHand.Count; i++) {
-            float p = firstCardPosition + (i * cardSpacing);
+            // float p = firstCardPosition + (i * cardSpacing);
+            float p = CalculateSplinePosition(firstCardPosition, cardSpacing, i, hoveredIndex);
             Vector3 splinePosition = spline.EvaluatePosition(p);
             Vector3 editedPosition = new Vector3(splinePosition.x, splinePosition.y, 0f);
             Vector3 forward = spline.EvaluateTangent(p);
             Vector3 up = spline.EvaluateUpVector(p);
             Quaternion rotation = Quaternion.LookRotation(up, Vector3.Cross(up, forward).normalized);
-            bool isNew = newCards.Contains(cardsInHand[i]);
+            bool isNew = newCards != null && newCards.Contains(cardsInHand[i]);
             yield return MoveSingleCard(cardsInHand[i], editedPosition, rotation, isNew);
     }}
+
+    private float CalculateSplinePosition(float firstPos, float spacing, int index, int hoveredIndex) {
+        if (hoveredIndex == -1) {
+            return firstPos + (index * spacing);
+        }
+
+        float extraSpacePerSide = 0.05f;
+        float positionCalc;
+        float distance = Mathf.Abs(index - hoveredIndex);
+        float extraSpacePercent = distanceMovementCurve.Evaluate(distance);
+        if (index < hoveredIndex) {
+            positionCalc = firstPos + (index * spacing) - extraSpacePercent * extraSpacePerSide;
+        } else if (index > hoveredIndex) {
+            positionCalc = firstPos + (index * spacing) + extraSpacePercent * extraSpacePerSide;
+        } else {
+            positionCalc = firstPos + (index * spacing);
+        }
+
+        return positionCalc;
+    }
 
     private IEnumerator MoveSingleCard(PlayableCard cardToMove, Vector3 position, Quaternion rotation, bool isNewCard) {
         if (isNewCard) cardToMove.gameObject.SetActive(true);
@@ -188,6 +230,16 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                     }
                 })
                 .setEase(LeanTweenType.easeInOutQuad);
+        
+        // Scale from 0 to regular size if dealing card
+        if (isNewCard) {
+            Vector3 initialScale = moveGO.transform.localScale;
+            moveGO.transform.localScale = Vector3.zero;
+            LeanTween.value(0f, 1f, moveTime)
+                .setOnUpdate((float val) => {
+                    moveGO.transform.localScale = val * initialScale;
+                });
+        }
 
         yield return new WaitForSeconds(cardDealDelay);
     }
