@@ -316,6 +316,7 @@ public class PlayableCard : MonoBehaviour,
             .setEase(LeanTweenType.easeOutQuint);
         LeanTween.moveLocal(gameObject, new Vector3(0, hoverYOffset, hoverZOffset), hoverAnimationTime)
             .setEase(LeanTweenType.easeOutQuint);
+        PlayerHand.Instance.HoverCard(this);
     }
 
     public void OnPointerExitVoid()
@@ -328,6 +329,7 @@ public class PlayableCard : MonoBehaviour,
         if (!interactable || !hovered) return;
         UnHoverAssociatedCompanion();
         ResetCardScale();
+        PlayerHand.Instance.UnhoverCard();
     }
 
     public void ResetCardScale()
