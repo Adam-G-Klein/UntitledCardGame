@@ -124,11 +124,11 @@ public class TooltipViewModel
         }
         else if (a.empty)
         {
-            return b;
+            return new TooltipViewModel(b.lines);
         }
         else if (b.empty)
         {
-            return a;
+            return new TooltipViewModel(a.lines);
         }
         a.lines.AddRange(b.lines);
         return new TooltipViewModel(a.lines);
