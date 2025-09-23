@@ -35,8 +35,8 @@ public class ActivatePower : EffectStep
         }
     }
 
-    // public TooltipViewModel GetTooltip()
-    // {
-    //     return power.GetTooltip();
-    // }
+    public TooltipViewModel GetTooltip()
+    {
+        return new TooltipViewModel("Power", "Powers are rest-of-combat passive effects applied to individual companions");
+    }
 }
