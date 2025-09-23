@@ -179,12 +179,14 @@ public class CardType: IdentifiableSO, ITooltipProvider
     }
 }
 
-public enum CardCategory {
+public enum CardCategory
+{
     None,
     Attack,
     NonAttack,
     Saga,
-    Status
+    Status,
+    Power,
 }
 
 // CardFilter specifies a filter to apply to cards.

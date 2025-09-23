@@ -24,7 +24,7 @@ public class CardView {
     private static int CARD_TITLE_COMBAT = 32;
     private static int CARD_DESC_COMBAT = 28;
     private static int CARD_TITLE_SHOP = 12;
-    private static int CARD_DESC_SHOP = 10; 
+    private static int CARD_DESC_SHOP = 10;
 
     public Card cardInstance = null;
     public Color modifiedManaCostColor = Color.green;
@@ -55,7 +55,7 @@ public class CardView {
         container.AddToClassList("card-container");
         cardFocusable = container.AsFocusable();
 
-        Label manaContainer = container.Q<Label>("manaLabel"); 
+        Label manaContainer = container.Q<Label>("manaLabel");
         setManaCost(manaContainer, card);
         if (cardInShop)
         {
@@ -123,6 +123,9 @@ public class CardView {
                 break;
             case CardCategory.Status:
                 cardTypeLabel.AddToClassList("status-card-label-color");
+                break;
+            case CardCategory.Power:
+                cardTypeLabel.AddToClassList("power-card-label-color");
                 break;
         }
         if (!cardInShop) cardTypeLabel.AddToClassList("card-type-label-large");
