@@ -197,7 +197,17 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     // Sometimes we generate cards in hand and we do not want that to count towards entity abilities.
     public List<PlayableCard> DealCards(List<Card> cards, DeckInstance deckFrom, bool countAsDraw = true)
     {
-        return DealCardsQueued(cards, deckFrom, countAsDraw);
+        List<PlayableCard> dealt = DealCardsQueued(cards, deckFrom, countAsDraw);
+        // If the deck is not null, we'll discard all the cards not successfully dealt to hand.
+        if (deckFrom != null)
+        {
+            var remaining = cards
+                .Except(dealt.Select(c => c.card))
+                .ToList();
+            Debug.Log($"Found {cards.Count} cards that could not be dealt to hand, discarding to deck");
+            deckFrom.DiscardCards(remaining);
+        }
+        return dealt;
     }
 
     private void ShiftCard(PlayableCard cardToShift) {
