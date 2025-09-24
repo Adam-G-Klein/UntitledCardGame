@@ -17,7 +17,23 @@ public class PlayerHand : GenericSingleton<PlayerHand>
 {
     public List<PlayableCard> cardsInHand;
     public SplineContainer splineContainer;
+    /*
+        This curve is used to get what percent a card should move based on proximity
+        to the current card being hovered. A card in hand directly next to the card being hovered
+        should move out of the way much more than a card that is 4 cards away at the end of the hand.
+        This doesn't actually control the "base" amount the cards move, that is the curve below.
+    */
     public AnimationCurve distanceMovementCurve;
+    /*
+        This curve is used to determine how much "base" movement cards will move out
+        of the way when a card is hovered. This curve is necessary because when you
+        have a low amount of cards in hand, the cards are already spaced out enough that
+        hovering left and right is easy / the cards are big enough to easily receive the
+        pointer input. When you have 8-10 cards in hand, without giving more space when
+        a card is hovered, moving your mouse from the hovered card to the card immediately
+        next to it becomes really hard because there's only like 25% of the width of the card
+        showing that can receive the mouse on pointer enter event.
+    */
     public AnimationCurve extraDistanceHoverCurve;
     [SerializeField]
     private float hoverScale;
@@ -69,6 +85,13 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     public event OnCardDrawHandler onCardDrawHandler;
 
     private int MAX_HAND_SIZE;
+    /*
+        This int designates the scaling point for cards in hand. With a value of 7,
+        this means that even if there are less cards in hand than 7, the the cards will
+        be spaced out in the hand as if there were 7 cards in hand. So with any number
+        of cards from 2 to 7, card spacing will be the same. Once we exceed 7 cards in hand,
+        the space between cards starts decreasing in order to fit the larger amount of cards.
+    */
     private int HAND_START_SCALING = 7;
     private PlayableCard hoveredCard = null;
     private float splineMiddleYpos;
@@ -463,8 +486,9 @@ public class PlayerHand : GenericSingleton<PlayerHand>
 
     public IEnumerator DiscardCardAndNotifyDiscardHandlers(PlayableCard card, bool cardCasted)
     {
+        // StartCoroutine(card.DiscardToDeck());
+        yield return card.DiscardToDeck();
         if (!cardCasted) yield return ResizeHand(card);
-        StartCoroutine(card.DiscardToDeck());
         yield return OnCardDiscard(card.deckFrom, card, cardCasted);
     }
 

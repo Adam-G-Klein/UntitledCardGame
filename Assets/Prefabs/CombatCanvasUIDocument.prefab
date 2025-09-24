@@ -13,8 +13,6 @@ GameObject:
   - component: {fileID: 5558227210676135366}
   - component: {fileID: 3491427938049875242}
   - component: {fileID: 8104869312425162302}
-  - component: {fileID: 559762870808071398}
-  - component: {fileID: 1704252872585834326}
   - component: {fileID: 7450656872853957637}
   - component: {fileID: 5946589008991207965}
   - component: {fileID: 9176702735516032690}
@@ -109,47 +107,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiDoc: {fileID: 5558227210676135366}
   autoPlaceEnemies: 1
---- !u!114 &559762870808071398
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 782343934611933542}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f54f1b2283029124ea05bdd4df6ffb1a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameEvent: {fileID: 11400000, guid: 8731090c52e897e459ac12df3da5fc3a, type: 2}
-  unityEventResponse:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1704252872585834326}
-        m_TargetAssemblyTypeName: PlayerHand, Assembly-CSharp
-        m_MethodName: TurnPhaseChangedEventHandler
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &1704252872585834326
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 782343934611933542}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b458032db5467024b8efa5ba14e9e79b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cardsInHand: []
 --- !u!114 &7450656872853957637
 MonoBehaviour:
   m_ObjectHideFlags: 0
