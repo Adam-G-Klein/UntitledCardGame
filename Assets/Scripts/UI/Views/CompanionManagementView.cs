@@ -248,8 +248,9 @@ public class CompanionManagementView : IControlsReceiver {
         this.upgradeAnimationPlaying = isItPlaying;
     }
 
-    public CompanionView GetCompanionView() {
-        return this.companionView;
+    public void ResetToNeutral() {
+        viewDelegate.DestroyTooltip(companionView.container);
+        RemoveCompanionHoverButtons();
     }
 
     public void ProcessGFGInputAction(GFGInputAction action)
@@ -266,7 +267,6 @@ public class CompanionManagementView : IControlsReceiver {
 
     public void SwappedControlMethod(ControlsManager.ControlMethod controlMethod)
     {
-        // This is gonna be a whole ordeal
         return;
     }
 }

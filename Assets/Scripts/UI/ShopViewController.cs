@@ -805,13 +805,13 @@ public class ShopViewController : MonoBehaviour,
     private void ClearUnitManagement() {
         foreach (CompanionManagementSlotView slotView in activeSlots) {
             if (!slotView.IsEmpty()) 
-                DestroyTooltip(slotView.companionManagementView.GetCompanionView().container);
+                slotView.companionManagementView.ResetToNeutral();
             slotView.Reset();
         }
 
         foreach (CompanionManagementSlotView slotView in benchSlots) {
             if (!slotView.IsEmpty()) 
-                DestroyTooltip(slotView.companionManagementView.GetCompanionView().container);
+                slotView.companionManagementView.ResetToNeutral();
             slotView.Reset();
         }
     }
@@ -1688,6 +1688,16 @@ public class ShopViewController : MonoBehaviour,
             isDraggingCompanion = false;
             companionBeingDragged = null;
             originalSlot = null;
+        }
+
+        foreach (CompanionManagementSlotView slotView in activeSlots) {
+            if (slotView.IsEmpty()) continue;
+            slotView.companionManagementView.ResetToNeutral();
+        }
+
+        foreach (CompanionManagementSlotView slotView in benchSlots) {
+            if (slotView.IsEmpty()) continue;
+            slotView.companionManagementView.ResetToNeutral();
         }
     }
 
