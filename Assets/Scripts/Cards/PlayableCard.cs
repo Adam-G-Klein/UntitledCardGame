@@ -145,7 +145,16 @@ public class PlayableCard : MonoBehaviour,
             PlayerHand.Instance.HoverNextCard(cardPlayedIndex);
 
             yield return StartCoroutine(PlayerHand.Instance.ResizeHand(this));
-            yield return StartCoroutine(PlayerHand.Instance.DiscardCard(this, true));
+
+            // Non-power cards should discard to deck after they are played.
+            if (card.cardType.cardCategory == CardCategory.Power)
+            {
+                cleanupAndDestroy();
+            }
+            else
+            {
+                yield return StartCoroutine(PlayerHand.Instance.DiscardCard(this, true));
+            }
         }
 
         // If the hand is empty as a result of playing this card, invoke any subscribers.
@@ -168,33 +177,6 @@ public class PlayableCard : MonoBehaviour,
             cardExhaustVFXPrefab,
             this.transform.position,
             Quaternion.identity);
-    }
-
-    private IEnumerator CardCastVFX(GameObject cardGameObject)
-    {
-        this.isCardCastPlaying = true;
-        FXExperience experience = PrefabInstantiator.instantiateFXExperience(cardCastVFXPrefab, cardGameObject.transform.position);
-
-        experience.BindGameObjectsToTracks(new Dictionary<string, GameObject>() {
-            { "CardAnimationTrack", cardGameObject },
-            { "CardTweenTrack", cardGameObject },
-        });
-        experience.AddLocationToKey("Card", this.transform.position);
-        experience.AddLocationToKey("Companion", this.deckFrom.transform.position);
-        // This makes it so that we can use 0,0 as the "current position of the card"
-        cardGameObject.transform.SetParent(experience.transform);
-        experience.onExperienceOver += CardCastVFXFinished;
-        Debug.Log("Started card cast VFX");
-        experience.StartExperience();
-        yield return new WaitUntil(() => this.isCardCastPlaying == false);
-        Debug.Log("Finished card cast VFX");
-    }
-
-    private void CardCastVFXFinished()
-    {
-        // If we don't do this, then the crew (the card) goes down with the ship (the FXExperience)
-        this.gameObject.transform.SetParent(null);
-        this.isCardCastPlaying = false;
     }
 
     private IEnumerator CardDiscardVFX(GameObject cardGameObject)
