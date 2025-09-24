@@ -116,22 +116,23 @@ public class TooltipViewModel
     // TODO: prevent duplicate tooltips from getting added together
     // VERY likely to happen if someone adds the strength keyword to a cardtype's
     // tooltipKeyword list when the strength status is already on the card
+    // DO NOT MUTATE THE TOOLTIPVIEWMODELS plz.
     public static TooltipViewModel operator +(TooltipViewModel a, TooltipViewModel b)
     {
+        List<TooltipLine> newLines = new();
         if (a.empty && b.empty)
         {
             return new TooltipViewModel();
         }
-        else if (a.empty)
+        if (!a.empty)
         {
-            return new TooltipViewModel(b.lines);
+            newLines.AddRange(a.lines);
         }
-        else if (b.empty)
+        if (!b.empty)
         {
-            return new TooltipViewModel(a.lines);
+            newLines.AddRange(b.lines);
         }
-        a.lines.AddRange(b.lines);
-        return new TooltipViewModel(a.lines);
+        return new TooltipViewModel(newLines);
     }
 }
 
