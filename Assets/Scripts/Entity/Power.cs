@@ -37,6 +37,8 @@ public class PowerSO : ScriptableObject
         DoubleDamage,
         // EveryAttackBlock: gain block each time you play an attack from this companion
         EveryAttackBlock,
+        // Ironheart: generate an "Ironskin" each turn
+        Ironheart,
     }
 
     public TooltipViewModel GetTooltip()

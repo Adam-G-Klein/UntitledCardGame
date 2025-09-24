@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ac8d29b7a56d46539bdf7eeb2d1260a, type: 3}
-  m_Name: EveryAttackBlock
+  m_Name: Ironheart
   m_EditorClassIdentifier: 
-  powerType: 3
+  powerType: 4
   abilities:
-  - rid: 754093871974056662
-  displaySprite: {fileID: 21300000, guid: a017db4444d2c7a4ab2166b6a232c480, type: 3}
+  - rid: 754093991137640772
+  displaySprite: {fileID: 21300000, guid: 6cb44060d9d637b44a6b0567dd3ff92f, type: 3}
   tooltip:
     rid: 754093871974056657
   references:
@@ -26,18 +26,17 @@ MonoBehaviour:
       data:
         empty: 0
         lines:
-        - title: Agile Stance
-          description: Every time you play an attack, give self 2 block
+        - title: Ironheart
+          description: Each turn, create an "Ironskin" Status card in hand for self
           relatedBehaviorIndex: 0
-    - rid: 754093871974056662
+    - rid: 754093991137640772
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
-        abilityTrigger: 18
+        abilityTrigger: 12
         effectSteps:
-        - rid: 754093871974056663
-        - rid: 754093871974056664
-        - rid: 754093871974056665
-    - rid: 754093871974056663
+        - rid: 754093991137640773
+        - rid: 754093991137640774
+    - rid: 754093991137640773
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
@@ -48,23 +47,16 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
-    - rid: 754093871974056664
-      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+    - rid: 754093991137640774
+      type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: ApplyStatus
-        inputKey: self
-        statusEffect: 2
-        scale: 2
+        effectStepName: AddCardsToHand
+        entityFromKey: self
+        cardTypes:
+        - {fileID: 11400000, guid: 069ef7cf9fd524022b76bb3c147c3a90, type: 2}
+        getCardsFromKey: 0
+        inputCardsKey: 
+        scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
-        multiplyByNumAuraStacks: 0
-        multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
-    - rid: 754093871974056665
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: self
-        prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
-        scale: 1
+        outputKey: 
