@@ -20,8 +20,8 @@ public class CompanionManagementView : IControlsReceiver {
     private CompanionView companionView;
 
     private bool draggingThisCompanion = false;
-
     private bool isSellingDisabled = false;
+    private bool upgradeAnimationPlaying = false;
 
     public CompanionManagementView(Companion companion, VisualTreeAsset template, ICompanionManagementViewDelegate viewDelegate) {
         this.viewDelegate = viewDelegate;
@@ -48,7 +48,7 @@ public class CompanionManagementView : IControlsReceiver {
 
     public void CompanionManagementOnPointerEnter(PointerEnterEvent evt)
     {
-        if (viewDelegate.IsSellingCompanions() || viewDelegate.IsDraggingCompanion()) return;
+        if (viewDelegate.IsSellingCompanions() || viewDelegate.IsDraggingCompanion() || upgradeAnimationPlaying) return;
         CreateViewDeckButton();
         if (!isSellingDisabled) CreateSellCompanionButton();
         CreateCompanionBoundingBox();
@@ -242,6 +242,14 @@ public class CompanionManagementView : IControlsReceiver {
 
     public void EnableSelling() {
         isSellingDisabled = false;
+    }
+
+    public void SetUpdateAnimationPlaying(bool isItPlaying) {
+        this.upgradeAnimationPlaying = isItPlaying;
+    }
+
+    public CompanionView GetCompanionView() {
+        return this.companionView;
     }
 
     public void ProcessGFGInputAction(GFGInputAction action)

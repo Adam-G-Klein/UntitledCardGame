@@ -278,16 +278,6 @@ public class ShopViewController : MonoBehaviour,
     private void SetupMap(IEncounterBuilder encounterBuilder)
     {
         mapContainer.Clear();
-        /*Label mapTitle = new Label();
-        mapTitle.AddToClassList("map-title");
-        mapTitle.text = "Map";
-        mapContainer.Add(mapTitle);
-        Label combatCounter = new Label();
-        combatCounter.AddToClassList("map-combat-counter");
-        int totalCombats = (ShopManager.Instance.gameState.map.GetValue().encounters.Count + 1) / 2;
-        int wonCombats = (ShopManager.Instance.gameState.currentEncounterIndex / 2) + 1;
-        combatCounter.text = "Combats Won: " + wonCombats + "/" + totalCombats;
-        mapContainer.Add(combatCounter);*/
         mapContainer.Add(new MapView(encounterBuilder).mapContainer);
     }
 
@@ -451,6 +441,8 @@ public class ShopViewController : MonoBehaviour,
 
     public void CompanionUpgradeAnimation(CompanionManagementSlotView companionManagementSlotView, UpgradeInfo upgradeInfo)
     {
+        FocusManager.Instance.DisableFocusableTarget(companionManagementSlotView.veFocusable);
+        companionManagementSlotView.companionManagementView.SetUpdateAnimationPlaying(true);
         Companion companion = upgradeInfo.resultingCompanion;
         CompanionManagementView upgradedCompanion = new CompanionManagementView(
             companion,
@@ -458,6 +450,7 @@ public class ShopViewController : MonoBehaviour,
             this);
         upgradedCompanion.container.style.visibility = Visibility.Hidden;
         upgradedCompanion.container.style.top = -100f;
+        upgradedCompanion.SetUpdateAnimationPlaying(true);
 
         VisualElement visualElement = companionManagementSlotView.companionManagementView.container;
 
@@ -491,6 +484,8 @@ public class ShopViewController : MonoBehaviour,
                     })
                     .setOnComplete(() =>
                     {
+                        FocusManager.Instance.EnableFocusableTarget(companionManagementSlotView.veFocusable);
+                        upgradedCompanion.SetUpdateAnimationPlaying(false);
                         RebuildUnitManagement(shopManager.gameState.companions);
                         isBuyingDisabled = false;
                         ScreenShakeManager.Instance.ShakeWithForce(1f);
@@ -809,10 +804,14 @@ public class ShopViewController : MonoBehaviour,
 
     private void ClearUnitManagement() {
         foreach (CompanionManagementSlotView slotView in activeSlots) {
+            if (!slotView.IsEmpty()) 
+                DestroyTooltip(slotView.companionManagementView.GetCompanionView().container);
             slotView.Reset();
         }
 
         foreach (CompanionManagementSlotView slotView in benchSlots) {
+            if (!slotView.IsEmpty()) 
+                DestroyTooltip(slotView.companionManagementView.GetCompanionView().container);
             slotView.Reset();
         }
     }
