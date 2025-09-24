@@ -17,15 +17,7 @@ public class SORegistryEditor : Editor
         if (GUILayout.Button("Auto-Populate"))
         {
             SORegistry registry = (SORegistry)target;
-            List<IdentifiableSO> allAssets = AssetDatabase.FindAssets("t:IdentifiableSO")
-                .Select(guid => AssetDatabase.LoadAssetAtPath<IdentifiableSO>(AssetDatabase.GUIDToAssetPath(guid)))
-                .Where(asset => asset != null)
-                .ToList();
-
-            registry.RegisterAssets(allAssets);
-
-            EditorUtility.SetDirty(registry);
-            AssetDatabase.SaveAssets();
+            PopulateSORegistry(registry);
         }
 
         if (GUILayout.Button("Print GUIDS"))
@@ -47,6 +39,18 @@ public class SORegistryEditor : Editor
                 }
             }
         }
+    }
+
+    public static void PopulateSORegistry(SORegistry registry) {
+        List<IdentifiableSO> allAssets = AssetDatabase.FindAssets("t:IdentifiableSO")
+            .Select(guid => AssetDatabase.LoadAssetAtPath<IdentifiableSO>(AssetDatabase.GUIDToAssetPath(guid)))
+            .Where(asset => asset != null)
+            .ToList();
+
+        registry.RegisterAssets(allAssets);
+
+        EditorUtility.SetDirty(registry);
+        AssetDatabase.SaveAssets();
     }
 }
 #endif
