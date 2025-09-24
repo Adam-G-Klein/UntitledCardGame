@@ -119,6 +119,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                 UIDocumentGameObjectPlacer.Instance.addMapping(newCardPlacement, newCard.gameObject);
                 newCards.Add(x);
                 newCardsWithoutTheBoolField.Add(x.Item1);
+                cardsInHand.Add(x.Item1);
 
                 // Wait to see if we catch any more cards in the batch to let more cards get on the bus.
                 yield return new WaitForSeconds(cardBatchingDelay);
@@ -135,18 +136,6 @@ public class PlayerHand : GenericSingleton<PlayerHand>
 
             Debug.Log($"[PLAYERHAND.DEAL] Done processing, now updating the playable cards");
             UpdatePlayableCards();
-        }
-    }
-
-    private void ShiftAllCardsInHand()
-    {
-        for (int i = 0; i < cardsInHand.Count; i++)
-        {
-            // There is a chance that the thing that triggered the draw exhausts itself
-            // and removes itself from cardsInHand before we get here.
-            // Thus the null check helps us.
-            if (cardsInHand[i] == null) continue;
-            ShiftCard(cardsInHand[i]);
         }
     }
 
@@ -229,7 +218,10 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     }
 
     private void MoveSingleCard(PlayableCard cardToMove, Vector3 position, Quaternion rotation, bool isNewCard) {
-        if (isNewCard) cardToMove.gameObject.SetActive(true);
+        if (isNewCard) {
+            cardToMove.gameObject.SetActive(true);
+            Debug.Log(String.Format("PlayerHand: Set cardToMove gameobject active"));
+        }
         GameObject moveGO = cardToMove.transform.parent.gameObject;
         GameObject rotateGO = cardToMove.gameObject;
         float rotationTime = 0.25f;
@@ -335,123 +327,6 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             deckFrom.DiscardCards(remaining);
         }
         return dealt;
-    }
-
-    private void ShiftCard(PlayableCard cardToShift) {
-        WorldPositionVisualElement WPVE = UIDocumentGameObjectPlacer.Instance.GetCardWPVEFromGO(cardToShift.gameObject);
-        WPVE.UpdatePosition();
-        GameObject moveGO = cardToShift.transform.parent.gameObject;
-        GameObject rotateGO = cardToShift.gameObject;
-
-        float rotationTime = 0.25f;
-        float moveTime = 0.25f;
-
-        // The card was already moving and we wanna change it to move somehow else
-        if (cardToTweenMap.ContainsKey(moveGO)) {
-            LTDescr descr = LeanTween.descr(cardToTweenMap[moveGO]);
-            if (descr == null) {
-                // This should be an abnormal case
-                cardToTweenMap.Remove(moveGO);
-            } else {
-                // This should be the happy path
-                moveTime = descr.time - descr.passed;
-                LeanTween.cancel(moveGO);
-            }
-        }
-
-        if (cardToTweenMap.ContainsKey(rotateGO)) {
-            LTDescr descr = LeanTween.descr(cardToTweenMap[rotateGO]);
-            if (descr == null) {
-                // This should be an abnormal case
-                cardToTweenMap.Remove(moveGO);
-            } else {
-                // This should be the happy path
-                rotationTime = descr.time - descr.passed;
-                LeanTween.cancel(rotateGO);
-            }
-        }
-
-        // The card isn't already moving :)
-        int rotation = LeanTween.rotate(
-                rotateGO,
-                new Vector3(0, 0, UIDocumentGameObjectPlacer.Instance.GetCardWPVEFromGO(rotateGO).ve.style.rotate.value.angle.value),
-                rotationTime
-                ).setOnComplete(() => { cardToTweenMap.Remove(rotateGO); })
-                .setEase(LeanTweenType.easeInOutQuad).id;
-
-        int move = LeanTween.move(
-                moveGO,
-                WPVE.worldPos,
-                moveTime
-                ).setOnComplete(() => { cardToTweenMap.Remove(moveGO); })
-                .setEase(LeanTweenType.easeInOutQuad).id;
-
-        cardToTweenMap[rotateGO] = rotation;
-        cardToTweenMap[moveGO] = move;
-    }
-
-    private void MoveCard(PlayableCard cardToMove, bool disableCardDuringMove = false) {
-        if (disableCardDuringMove) cardToMove.interactable = false; // hovering a card changes its position so we really need that to not happen while they are moving to their new spot
-        WorldPositionVisualElement WPVE = UIDocumentGameObjectPlacer.Instance.GetCardWPVEFromGO(cardToMove.gameObject);
-        WPVE.UpdatePosition();
-        Debug.Log($"[PLAYERHAND.DEAL] World pos target for card {cardToMove.card.cardType.Name} is {WPVE.worldPos}");
-        CardDrawVFX(cardToMove.transform.parent.transform.position, WPVE.worldPos, cardToMove.gameObject);
-    }
-
-
-    private void CardDrawVFX(Vector3 fromLocation, Vector3 toLocation, GameObject gameObject) {
-        gameObject.SetActive(true);
-        // This code is being deprecated as of a week before magwest.
-        // If this code remains deprecated post mag west it can be deleted.
-        // if (GOToFXExperience.ContainsKey(gameObject) && GOToFXExperience[gameObject] != null) {
-        //     FXExperience ex = GOToFXExperience[gameObject];
-        //     ex.UpdateLocationKey("hand", toLocation);
-        //     LeanTween.cancel(gameObject);
-        //     PlayableDirector director = ex.playableDirector;
-        //     float timeRemaining = (float)(director.duration - director.time);
-        //     LeanTween.rotate(gameObject, new Vector3(0, 0, UIDocumentGameObjectPlacer.Instance.GetCardWPVEFromGO(gameObject).ve.style.rotate.value.angle.value), timeRemaining).setEase(LeanTweenType.easeInOutQuad);
-        //     return;
-        // }
-
-        // TODO: update the FXExprience to do rotation as well, this was as much as I could muster rn.
-        LeanTween.cancel(gameObject);
-        LeanTween.rotate(gameObject, new Vector3(0, 0, UIDocumentGameObjectPlacer.Instance.GetCardWPVEFromGO(gameObject).ve.style.rotate.value.angle.value), .75f).setEase(LeanTweenType.easeInOutQuad);
-
-        FXExperience experience = PrefabInstantiator.instantiateFXExperience(cardDrawVFXPrefab, Vector3.zero);
-        GOToFXExperience[gameObject] = experience;
-
-        gameObject.GetComponent<PlayableCard>().SetBasePosition(toLocation);
-        experience.AddLocationToKey("companion", fromLocation);
-
-        experience.AddLocationToKey("hand", toLocation);
-        experience.BindGameObjectsToTracks(new Dictionary<string, GameObject>() {
-            { "card", gameObject.transform.parent.gameObject },
-        });
-
-        experience.StartExperience( () => {
-            Debug.Log("Card draw VFX finished");
-            if (gameObject.TryGetComponent<SpriteRenderer>(out var SR)) SR.sortingLayerName = "Cards"; // what is this magic
-            gameObject.GetComponent<PlayableCard>().interactable = true;
-
-            if (ControlsManager.Instance.GetControlMethod() == ControlsManager.ControlMethod.Mouse) return;
-
-            if (cardsInHand.IndexOf(gameObject.GetComponent<PlayableCard>()) == indexToHover) {
-                if (cardsInHand[indexToHover].TryGetComponent<GameObjectFocusable>(out GameObjectFocusable goFocusable)) {
-                    FocusManager.Instance.SetFocus(goFocusable);
-                }
-                indexToHover = -1;
-                return;
-            }
-        });
-    }
-
-    public void StopCardDrawFX(GameObject gameObject) {
-        LeanTween.cancel(gameObject);
-        // if (GOToFXExperience.ContainsKey(gameObject) && GOToFXExperience[gameObject] != null) {
-        //     FXExperience ex = GOToFXExperience[gameObject];
-        //     ex.EarlyStop();
-        //     GOToFXExperience.Remove(gameObject);
-        // }
     }
 
     public void HoverNextCard(int previouslyPlayedCardIndex) {

@@ -121,7 +121,6 @@ public class PlayableCard : MonoBehaviour,
         IncrementCastCount();
         EnemyEncounterManager.Instance.combatEncounterState.CastCard(card);
         yield return StartCoroutine(PlayerHand.Instance.OnCardCast(this));
-        PlayerHand.Instance.StopCardDrawFX(gameObject);
 
         if (card.cardType.exhaustsWhenPlayed)
         {
