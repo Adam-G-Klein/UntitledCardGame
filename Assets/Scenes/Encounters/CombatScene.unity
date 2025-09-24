@@ -2037,17 +2037,17 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: -0.006072998
-      value: 0.80890656
-      inSlope: -0.007980448
-      outSlope: -0.007980448
+      time: 0.00680542
+      value: 0.8045578
+      inSlope: -0.0021409509
+      outSlope: -0.0021409509
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 1.0201
-      value: 0.80071723
+      time: 1.0006473
+      value: 0.80243003
       inSlope: -0.018485248
       outSlope: -0.018485248
       tangentMode: 0
@@ -2055,10 +2055,19 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.06667019
     - serializedVersion: 3
-      time: 3.0244808
-      value: 0.0037629316
-      inSlope: -0.39760625
-      outSlope: -0.39760625
+      time: 2.0142179
+      value: 0.7097656
+      inSlope: -0.25272825
+      outSlope: -0.25272825
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.1042925
+      outWeight: 0.11333402
+    - serializedVersion: 3
+      time: 4.505026
+      value: 0.0012604902
+      inSlope: -0.2844479
+      outSlope: -0.2844479
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -2066,6 +2075,35 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  extraDistanceHoverCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -0.002697236
+      value: 0.05028284
+      inSlope: 0.056323405
+      outSlope: 0.056323405
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.99938965
+      value: 0.106723785
+      inSlope: 0.056323405
+      outSlope: 0.056323405
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  hoverScale: 2.75
+  nonHoverScale: 2
+  hoverYOffset: 1.25
+  hoverZOffset: -0.5
+  hoverAnimationTime: 0.2
 --- !u!114 &1133379867
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2962,58 +3000,58 @@ MonoBehaviour:
     m_Knots:
     - Position:
         x: -5.293653
-        y: -4.349942
+        y: -4.99
         z: -0.5
       TangentIn:
         x: -0
         y: -0
-        z: -0.52530605
+        z: -0.5318358
       TangentOut:
         x: 0
         y: 0
-        z: 0.52530605
+        z: 0.5318358
       Rotation:
         value:
-          x: 0.48197266
-          y: 0.51739967
-          z: 0.5173997
-          w: 0.4819726
+          x: 0.47532198
+          y: 0.523516
+          z: 0.5235155
+          w: 0.4753225
     - Position:
-        x: -0.053778768
-        y: -3.9779754
+        x: 0
+        y: -4.477975
         z: -0.5
       TangentIn:
         x: 0
         y: 0
-        z: -3.49178
+        z: -3.190001
       TangentOut:
         x: 0
         y: 0
-        z: 3.49178
+        z: 3.190001
       Rotation:
         value:
-          x: 0.49978676
-          y: 0.50021297
-          z: 0.50021315
-          w: 0.49978694
+          x: 0.5001645
+          y: 0.49983516
+          z: 0.4998474
+          w: 0.50015265
     - Position:
-        x: 4.830299
-        y: -4.3175964
+        x: 5.29
+        y: -4.99
         z: -0.5
       TangentIn:
         x: -0
         y: -0
-        z: -0.48958713
+        z: -0.5314722
       TangentOut:
         x: 0
         y: 0
-        z: 0.48958713
+        z: 0.5314722
       Rotation:
         value:
-          x: 0.5170515
-          y: 0.48234612
-          z: 0.48234624
-          w: 0.51705146
+          x: 0.5235315
+          y: 0.47530496
+          z: 0.47530496
+          w: 0.52353156
     m_MetaData:
     - Mode: 0
       Tension: 0.5

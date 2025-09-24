@@ -35,7 +35,7 @@ public class PlayableCard : MonoBehaviour,
     // set back to false there when it's checked
     public bool retained = false;
     public AudioClip cardHover;
-    public float hoverSFXVolume = 0.1f;
+    // public float hoverSFXVolume = 0.1f;
     public float hoverYOffset = .75f;
     public float hoverZOffset = 0.5f;
     public GameObject hoverObjectToMove;
@@ -326,14 +326,6 @@ public class PlayableCard : MonoBehaviour,
         // Set the volume first
         MusicController.Instance.PlaySFX("event:/SFX/SFX_UIHover");
         transform.SetAsLastSibling();
-
-        //PlayerHand.Instance.HoverNextCard(-1); // this prevents card moving in hand from forcefully chaning hover target if playable has manually selected a new card
-
-        LeanTween.cancel(gameObject);
-        LeanTween.scale(gameObject, new Vector3(hoverScale, hoverScale, 1), hoverAnimationTime)
-            .setEase(LeanTweenType.easeOutQuint);
-        LeanTween.moveLocal(gameObject, new Vector3(0, hoverYOffset, hoverZOffset), hoverAnimationTime)
-            .setEase(LeanTweenType.easeOutQuint);
         PlayerHand.Instance.HoverCard(this);
     }
 
@@ -346,17 +338,18 @@ public class PlayableCard : MonoBehaviour,
     {
         if (!interactable || !hovered) return;
         UnHoverAssociatedCompanion();
-        ResetCardScale();
-        PlayerHand.Instance.UnhoverCard();
+        PlayerHand.Instance.UnhoverCard(this);
     }
 
+
+    // TODO: Move over last use of this card
     public void ResetCardScale()
     {
         if (hovered)
         {
             hovered = false;
 
-            LeanTween.cancel(gameObject);
+            // LeanTween.cancel(gameObject);
             LeanTween.scale(gameObject, new Vector3(nonHoverScale, nonHoverScale, 1), hoverAnimationTime)
                 .setEase(LeanTweenType.easeOutQuint);
             LeanTween.moveLocal(gameObject, new Vector3(0, 0, 0), hoverAnimationTime)

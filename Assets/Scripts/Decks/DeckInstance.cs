@@ -123,6 +123,11 @@ public class DeckInstance : MonoBehaviour
         }
     }
 
+    [ContextMenu("DealOneCard")]
+    public void DealOneCard() {
+        DealCardsToPlayerHand(1);
+    }
+
     public List<PlayableCard> DealCardsToPlayerHand(int numCards)
     {
         List<Card> cards = DealCardsFromDeck(numCards);
