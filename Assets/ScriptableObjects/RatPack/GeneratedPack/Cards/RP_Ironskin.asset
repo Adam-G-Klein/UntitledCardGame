@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 48cc69ae-4756-43aa-b215-af71e139458e
   Name: Ironskin
-  Description: Exhaust. if in hand at the end of turn, lose 2 HP. When exhausted,
-    give all 4 block
-  defaultValues: []
+  Description: Exhaust. If in hand at the end of turn, deal {rpl_damage} damage to
+    self. When exhausted, give all 4 block
+  defaultValues:
+  - key: rpl_damage
+    value: 2
   Cost: 1
   Artwork: {fileID: 21300000, guid: e3425c0bf387f4d47907af9ce0eff56b, type: 3}
   cardCategory: 4
@@ -98,7 +100,7 @@ MonoBehaviour:
       data:
         effectStepName: CombatEffectStep
         inputKey: self
-        combatEffect: 16
+        combatEffect: 14
         scale: 2
         getScaleFromKey: 0
         inputScaleKey: 

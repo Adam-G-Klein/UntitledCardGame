@@ -45,6 +45,8 @@ public class PowerSO : ScriptableObject
         Ironheart,
         // Bloodfire: each turn, lose 1 HP and gain ...
         Bloodfire,
+        // Witchwork: end of turn, give all Status cards in hand +2 damage
+        Witchwork,
     }
 
     public TooltipViewModel GetTooltip()
