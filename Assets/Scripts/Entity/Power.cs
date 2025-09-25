@@ -39,6 +39,8 @@ public class PowerSO : ScriptableObject
         EveryAttackBlock,
         // Ironheart: generate an "Ironskin" each turn
         Ironheart,
+        // Bloodfire: each turn, lose 1 HP and gain ...
+        Bloodfire,
     }
 
     public TooltipViewModel GetTooltip()

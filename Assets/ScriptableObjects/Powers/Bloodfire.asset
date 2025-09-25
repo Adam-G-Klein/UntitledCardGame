@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ac8d29b7a56d46539bdf7eeb2d1260a, type: 3}
+  m_Name: Bloodfire
+  m_EditorClassIdentifier: 
+  powerType: 5
+  abilities:
+  - rid: 754093991137640772
+  displaySprite: {fileID: 21300000, guid: 0a945af76f65ffb48ae4078484f55d30, type: 3}
+  tooltip:
+    rid: 754093871974056657
+  references:
+    version: 2
+    RefIds:
+    - rid: 754093871974056657
+      type: {class: TooltipViewModel, ns: , asm: Assembly-CSharp}
+      data:
+        empty: 0
+        lines:
+        - title: Bloodfire
+          description: Each turn, bleed self 1 HP and draw a card from self
+          relatedBehaviorIndex: 0
+    - rid: 754093991137640772
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 12
+        effectSteps:
+        - rid: 754093991137640773
+        - rid: 754093991137641080
+        - rid: 754093991137641081
+    - rid: 754093991137640773
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 754093991137641080
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: self
+        combatEffect: 16
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 6137048663962808129, guid: 92c26f41ef33c23419e05ceb12660efa, type: 3}
+    - rid: 754093991137641081
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DrawCards
+        inputKey: self
+        outputKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
