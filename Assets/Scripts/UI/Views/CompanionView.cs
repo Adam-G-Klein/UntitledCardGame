@@ -250,10 +250,11 @@ public class CompanionView : IUIEventReceiver
             this.statusContainer.Add(CreateStatusIndicator(cacheValue.sprite, cacheValue.value.ToString()));
         }
 
-        List<PowerSO> activePowers = combatInstance.GetPowers();
-        foreach (PowerSO p in activePowers)
+        List<(PowerSO, int)> activePowers = combatInstance.GetPowersWithStackCounts();
+        foreach ((PowerSO, int) p in activePowers)
         {
-            this.statusContainer.Add(CreateStatusIndicator(p.displaySprite, ""));
+            string val = p.Item2 == 0 ? "" : p.Item2.ToString();
+            this.statusContainer.Add(CreateStatusIndicator(p.Item1.displaySprite, val));
         }
     }
 

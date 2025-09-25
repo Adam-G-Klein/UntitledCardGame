@@ -23,7 +23,7 @@ public class CombatCompanionTooltipProvder : MonoBehaviour
         tooltipOnHover.tooltip = new TooltipViewModel();
         CompanionInstance companion = GetComponent<CompanionInstance>();
         tooltipOnHover.tooltip += companion.companion.companionType.tooltip;
-        foreach (PowerSO power in companion.combatInstance.GetPowers())
+        foreach (PowerSO power in companion.combatInstance.GetUniquePowers())
         {
             tooltipOnHover.tooltip += power.GetTooltip();
         }

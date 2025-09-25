@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
@@ -77,8 +78,14 @@ public class CompanionInstance : MonoBehaviour, IUIEntity
                 abilityInstance.Setup();
             }
         }
-        CombatCompanionTooltipProvder tooltipProvider = GetComponent<CombatCompanionTooltipProvder>();
-        tooltipProvider.AddTooltip(power.GetTooltip());
+        List<(PowerSO, int)> powersWithStacks = combatInstance.GetPowersWithStackCounts();
+        List<(PowerSO, int)> selected = powersWithStacks.Where(p => p.Item1.powerType == power.powerType).ToList();
+        // Only add the tooltip if this was the first instance of the power added.
+        if (selected.Count >= 1 && selected.First().Item2 == 1)
+        {
+            CombatCompanionTooltipProvder tooltipProvider = GetComponent<CombatCompanionTooltipProvder>();
+            tooltipProvider.AddTooltip(power.GetTooltip());
+        }
     }
 
     private void RegisterUpdateStatusEffects()

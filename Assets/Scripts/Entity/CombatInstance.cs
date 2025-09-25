@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.Collections;
 using UnityEngine;
 using UnityEngine.UIElements;
+using System.Linq;
 
 [System.Serializable]
 public class CacheConfiguration {
@@ -376,9 +377,20 @@ public class CombatInstance : MonoBehaviour
         return activated;
     }
 
-    public List<PowerSO> GetPowers()
+    public List<PowerSO> GetUniquePowers()
     {
-        return powers.GetPowers();
+        return powers.GetPowers()
+            .GroupBy(p => p.powerType)
+            .Select(g => g.First())
+            .ToList();
+    }
+
+    public List<(PowerSO, int)> GetPowersWithStackCounts()
+    {
+        return powers.GetPowers()
+            .GroupBy(p => p.powerType)
+            .Select(g => (g.First(), g.Count()))
+            .ToList();
     }
 
     public bool HasPower(PowerSO.PowerType powerType)

@@ -28,6 +28,10 @@ public class PowerSO : ScriptableObject
     [SerializeReference]
     private TooltipViewModel tooltip = new();
 
+    // By default, powers will stack.
+    [SerializeField]
+    public bool stackable = true;
+
     public enum PowerType
     {
         None,
@@ -54,26 +58,26 @@ public class PowerSO : ScriptableObject
 public class PowerPool
 {
     // Invariant: we only have one active power of a given type in the pool.
-    Dictionary<PowerSO.PowerType, PowerSO> activePowers = new();
+    List<PowerSO> activePowers = new();
 
     public bool ActivatePower(PowerSO power)
     {
-        // Idempotent method: if the entity already has this power active, do nothing.
-        if (!activePowers.ContainsKey(power.powerType))
+        // If it's not stackable, check if the list already contains the power.
+        if (!power.stackable && HasPower(power.powerType))
         {
-            activePowers[power.powerType] = power;
-            return true;
+            return false;
         }
-        return false;
+        activePowers.Add(power);
+        return true;
     }
 
     public bool HasPower(PowerSO.PowerType powerType)
     {
-        return activePowers.ContainsKey(powerType);
+        return activePowers.Any(p => p.powerType == powerType);
     }
 
     public List<PowerSO> GetPowers()
     {
-        return activePowers.Values.ToList();
+        return activePowers;
     }
 }
