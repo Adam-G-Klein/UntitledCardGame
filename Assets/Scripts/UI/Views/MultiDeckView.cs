@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using UnityEngine.UIElements;
 using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 
 public class MultiDeckView
@@ -30,6 +31,8 @@ public class MultiDeckView
     private VisualElement visibilityRoot;
     private IMultiDeckViewDelegate multiDeckViewDelegate;
     private bool inTransition = false;
+    private VisualElement tabDescriptorContainer;
+    private string TAB_DESCRIPTOR = "tab-descriptor-{0}";
 
     public MultiDeckView(IMultiDeckViewDelegate multiDeckViewDelegate, UIDocument uIDocument, CanvasGroup canvasGroup)
     {
@@ -41,6 +44,7 @@ public class MultiDeckView
         CARD_SIZE = new Vector2(cardSizeTuple.Item1, cardSizeTuple.Item2);
         tabsContainer = uiDocument.rootVisualElement.Q("SectionsContainer");
         visibilityRoot = uiDocument.rootVisualElement.Q("rootElement");
+        tabDescriptorContainer = uiDocument.rootVisualElement.Q("tab-descriptor-container");
         ToggleVisibility(false);
         SetupButtons();
     }
@@ -48,6 +52,7 @@ public class MultiDeckView
     public void PopulateDeckView(List<DeckViewTab> deckViewTabs, int startingTab = 0, int startingIndex = 0)
     {
         currentTabIndex = startingTab;
+        tabDescriptorContainer.DoForAllChildren((element) => element.style.display = DisplayStyle.None);
         for (int i = 0; i < deckViewTabs.Count; i++)
         {
             DeckViewTab tab = deckViewTabs[i];
@@ -59,11 +64,15 @@ public class MultiDeckView
             if (i == startingTab)
             {
                 MoveInTab(tabContainer, false, true);
+                SetTabDescriptorActive(i);
             }
             else
             {
                 MoveOutTab(tabContainer, false, true);
             }
+            VisualElement tabDescriptor = uiDocument.rootVisualElement.Q<VisualElement>(String.Format(TAB_DESCRIPTOR, i));
+            tabDescriptor.style.display = DisplayStyle.Flex;
+            tabDescriptor.Q<Label>().text = tab.title;
         }
 
         //hover first card
@@ -75,6 +84,9 @@ public class MultiDeckView
 
     private void SetupButtons()
     {
+        // leftButton and rightButton move which companion you're looking at
+        // tabLeftButton and tabRightButton move what set of companions / sets
+        // of cards you're looking at (active/bench or draw/discard)
         // setup leftButton
         leftButton = uiDocument.rootVisualElement.Q<IconButton>("leftButton");
         leftButton.RegisterOnSelected(LeftButtonClicked);
@@ -206,6 +218,7 @@ public class MultiDeckView
         MoveOutTab(deckViewTabVisualElements[currentTabIndex], true);
         int newIndex = (currentTabIndex - 1 + deckViewTabVisualElements.Count) % deckViewTabVisualElements.Count;
         MoveInTab(deckViewTabVisualElements[newIndex], true);
+        SetTabDescriptorActive(newIndex);
         currentTabIndex = newIndex;
     }
 
@@ -217,6 +230,7 @@ public class MultiDeckView
         ToggleDeckFocusability(deckViewTabVisualElements[currentTabIndex].Q<VisualElement>("SectionsContainer").Children().ToList(), false);
         int newIndex = (currentTabIndex + 1 + deckViewTabVisualElements.Count) % deckViewTabVisualElements.Count;
         MoveInTab(deckViewTabVisualElements[newIndex], false);
+        SetTabDescriptorActive(newIndex);
         currentTabIndex = newIndex;
         ToggleDeckFocusability(deckViewTabVisualElements[currentTabIndex].Q<VisualElement>("SectionsContainer").Children().ToList(), true);
     }
@@ -270,6 +284,13 @@ public class MultiDeckView
         });
     }
 
+    private void SetTabDescriptorActive(int index) {
+        for (int i = 0; i < 3; i++) {
+            if (i == index) uiDocument.rootVisualElement.Q<VisualElement>(String.Format(TAB_DESCRIPTOR, i)).AddToClassList("tab-descriptor-selected");
+            else uiDocument.rootVisualElement.Q<VisualElement>(String.Format(TAB_DESCRIPTOR, i)).RemoveFromClassList("tab-descriptor-selected");
+        }
+    }
+
     private void SetupCards(DeckViewTab deckViewTab, VisualElement tabContainer, bool isStartingTab, int startingIndex = 0)
     {
         deckViewsContainer = tabContainer.Q("SectionsContainer");
@@ -281,6 +302,23 @@ public class MultiDeckView
             }
             else
             {
+                if (deckViewsContainer.Children().ToList()[i].style.display == DisplayStyle.None) {
+                    int index = i;
+                    deckViewsContainer.Children().ToList()[i].style.display = DisplayStyle.Flex;
+                    EventCallback<GeometryChangedEvent> onGeometryChanged = null;
+                    onGeometryChanged = (evt) => {
+                        if ((isStartingTab && index == startingIndex) || (!isStartingTab && index == 0)) {
+                            FocusDeckSection(deckViewsContainer.Children().ToList()[index], true);
+                        }
+                        else {
+                            UnFocusDeckSection(deckViewsContainer.Children().ToList()[index], true);
+                        }
+                        (evt.target as VisualElement).UnregisterCallback<GeometryChangedEvent>(onGeometryChanged);
+                    };
+                    deckViewsContainer.Children().ToList()[i].RegisterCallback<GeometryChangedEvent>(onGeometryChanged);
+                }
+
+                deckViewsContainer.Children().ToList()[i].style.display = DisplayStyle.Flex;
                 VisualElement sectionContainer = deckViewsContainer.Children().ToList()[i];
                 Companion companion = deckViewTab.sections[i].companion;
                 VisualTreeAsset companionTemplate = EncounterConstantsSingleton.Instance.encounterConstantsSO.companionViewTemplate;
@@ -309,6 +347,7 @@ public class MultiDeckView
                     }
                 }
             }
+
             if ((isStartingTab && i == startingIndex) || (!isStartingTab && i == 0))
             {
                 FocusDeckSection(deckViewsContainer.Children().ToList()[i], true);

@@ -55,5 +55,17 @@
 }
 
 .no-transition {
-    transition: none !important;
+    transition: none;
+}
+
+.tab-descriptor {
+    flex-grow: 0;
+    width: 33%;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(128, 128, 128);
+}
+
+.tab-descriptor-selected {
+    background-color: rgb(188, 188, 188);
 }
