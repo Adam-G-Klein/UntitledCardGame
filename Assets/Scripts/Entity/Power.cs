@@ -39,7 +39,7 @@ public class PowerSO : ScriptableObject
         Barricade,
         // DoubleDamage: all attacks played from this companion deal double damage
         DoubleDamage,
-        // EveryAttackBlock: gain block each time you play an attack from this companion
+        // EveryAttackBlock: gain block each time you play an attack
         EveryAttackBlock,
         // Ironheart: generate an "Ironskin" each turn
         Ironheart,
@@ -47,8 +47,10 @@ public class PowerSO : ScriptableObject
         Bloodfire,
         // Witchwork: end of turn, give all Status cards in hand +2 damage
         Witchwork,
-        // PerpetualMotion: whenever the hand is empty, do X
+        // PerpetualMotion: whenever the hand is empty, draw cards
         PerpetualMotion,
+        // FollowUp: If the last card played this turn was an attack, attacks from this companion deal +3 damage
+        FollowUp,
     }
 
     public TooltipViewModel GetTooltip()
