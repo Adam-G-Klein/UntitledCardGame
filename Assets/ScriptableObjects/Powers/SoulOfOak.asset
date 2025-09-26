@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ac8d29b7a56d46539bdf7eeb2d1260a, type: 3}
-  m_Name: Ironheart
+  m_Name: SoulOfOak
   m_EditorClassIdentifier: 
-  powerType: 4
-  title: Ironheart
-  description: Each turn, create an "Ironskin" Status card in hand for self
+  powerType: 9
+  title: Soul of Oak
+  description: End of turn, gain 2 block for each Status card in hand
   abilities:
   - rid: 754093991137640772
-  displaySprite: {fileID: 21300000, guid: 6cb44060d9d637b44a6b0567dd3ff92f, type: 3}
+  displaySprite: {fileID: 21300000, guid: bdd59c505b86bf44cabf5f9f82a41064, type: 3}
   tooltip:
     rid: 754093871974056657
   stackable: 1
@@ -32,31 +32,27 @@ MonoBehaviour:
     - rid: 754093991137640772
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
-        abilityTrigger: 12
+        abilityTrigger: 2
         effectSteps:
-        - rid: 754093991137640773
-        - rid: 754093991137640774
-    - rid: 754093991137640773
+        - rid: 754093991137641208
+        - rid: 754093991137641209
+    - rid: 754093991137641208
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: self
-        validTargets: 
+        outputKey: cards
+        validTargets: 03000000
         number: 1
-        specialTargetRule: 3
+        specialTargetRule: 1
         cantCancelTargetting: 0
-    - rid: 754093991137640774
-      type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
+    - rid: 754093991137641209
+      type: {class: FilterCards, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: AddCardsToHand
-        entityFromKey: self
-        cardTypes:
-        - {fileID: 11400000, guid: 069ef7cf9fd524022b76bb3c147c3a90, type: 2}
-        getCardsFromKey: 0
-        inputCardsKey: 
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
-        outputKey: 
+        effectStepName: FilterCards
+        inputKey: cards
+        filter:
+          cardCategoriesToInclude: 04000000
+          retainedCardsFilter: 0
+        outputKey: statusCards

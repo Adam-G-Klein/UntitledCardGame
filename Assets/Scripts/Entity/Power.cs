@@ -15,6 +15,12 @@ public class PowerSO : ScriptableObject
     [SerializeField]
     public PowerType powerType = PowerType.None;
 
+    [SerializeField]
+    public string title;
+
+    [SerializeField]
+    public string description;
+
     // The abilities are optional: once we activate the power, we will create an EntityAbilityInstance.
     // That allows us to do simple things in response to common game events.
     // If there is something special, we can do a switch on whether the companion has a particular power active
@@ -51,11 +57,17 @@ public class PowerSO : ScriptableObject
         PerpetualMotion,
         // FollowUp: If the last card played this turn was an attack, attacks from this companion deal +3 damage
         FollowUp,
+        // SoulOfOak: Gain X block for each status card in hand.
+        SoulOfOak,
     }
 
     public TooltipViewModel GetTooltip()
     {
-        if (tooltip == null)  return new TooltipViewModel();
+        if (tooltip.empty || tooltip.lines.Count == 0)
+        {
+            TooltipLine x = new TooltipLine(title, description);
+            return new TooltipViewModel(new List<TooltipLine> {x} );
+        }
         return tooltip;
     }
 }

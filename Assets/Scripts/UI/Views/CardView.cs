@@ -1,6 +1,8 @@
 using UnityEngine;
 using System;
 using UnityEngine.UIElements;
+using System.Linq;
+using Unity.VisualScripting;
 
 
 // This class isn't expected to have a delegate view or delegate controller because it'll be wrapped
@@ -88,6 +90,19 @@ public class CardView {
         //fontSize = getDescFontSize(desc, cardInShop);
         fontSize = cardInShop ? CARD_DESC_SHOP : CARD_DESC_COMBAT;
         //if (!cardInShop) description.text = $"<line-height={60}%>{desc}</line-height>";
+
+        // Special handling for passive cards that only activate powers: give them a consistent name and description.
+        if (card.cardCategory == CardCategory.Passive)
+        {
+            // Get the description text from the activePower effect step (should be same as passive).
+            ActivatePower activateStep = card.effectWorkflows[0].effectSteps.OfType<ActivatePower>().ToList().FirstOrDefault();
+            if (activateStep != null)
+            {
+                title.text = activateStep.power.title;
+                desc = activateStep.power.description;
+            }
+        }
+
         description.text = desc;
         description.style.fontSize = fontSize;
 

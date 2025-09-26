@@ -13,11 +13,14 @@ MonoBehaviour:
   m_Name: Bloodfire
   m_EditorClassIdentifier: 
   powerType: 5
+  title: Bloodfire
+  description: Each turn, bleed self 1 HP and draw a card from self
   abilities:
   - rid: 754093991137640772
   displaySprite: {fileID: 21300000, guid: 0a945af76f65ffb48ae4078484f55d30, type: 3}
   tooltip:
     rid: 754093871974056657
+  stackable: 1
   references:
     version: 2
     RefIds:
@@ -25,10 +28,7 @@ MonoBehaviour:
       type: {class: TooltipViewModel, ns: , asm: Assembly-CSharp}
       data:
         empty: 0
-        lines:
-        - title: Bloodfire
-          description: Each turn, bleed self 1 HP and draw a card from self
-          relatedBehaviorIndex: 0
+        lines: []
     - rid: 754093991137640772
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:

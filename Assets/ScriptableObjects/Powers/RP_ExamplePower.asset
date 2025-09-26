@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: RP_PerpetualMotion
+  m_Name: RP_ExamplePower
   m_EditorClassIdentifier: 
   guid: fd804129-8749-4bed-b4d5-6204f307edaa
-  Name: 
-  Description: 
+  Name: Perpetual Motion
+  Description: The first time each turn your hand is empty, draw 1 card from self
+    and adjacent
   defaultValues: []
   Cost: 2
   Artwork: {fileID: 0}

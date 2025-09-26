@@ -13,7 +13,7 @@ public class ActivatePower : EffectStep
     private string inputKey = "";
 
     [SerializeField]
-    private PowerSO power;
+    public PowerSO power;
 
     public ActivatePower()
     {

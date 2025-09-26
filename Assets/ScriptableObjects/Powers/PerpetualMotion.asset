@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: PerpetualMotion
   m_EditorClassIdentifier: 
   powerType: 7
+  title: Perpetual Motion
+  description: The first time each turn your hand is empty, draw 1 card from self
+    and adjacent
   abilities:
   - rid: 754093991137641276
   - rid: 754093991137641285
@@ -27,11 +30,7 @@ MonoBehaviour:
       type: {class: TooltipViewModel, ns: , asm: Assembly-CSharp}
       data:
         empty: 0
-        lines:
-        - title: Perpetual Motion
-          description: The first time each turn your hand is empty, draw 1 card from
-            self and adjacent
-          relatedBehaviorIndex: 0
+        lines: []
     - rid: 754093991137641276
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
