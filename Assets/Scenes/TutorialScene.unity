@@ -228,6 +228,8 @@ MonoBehaviour:
         buttonText: Next
         uiDocument: {fileID: 1484470107}
         tutorialImage: {fileID: 21300000, guid: 01a4042d36dc148b3a1cd96e38003f4d, type: 3}
+        backgroundImage: {fileID: 0}
+        tutorialTitle: 
     - rid: 4305150327966138371
       type: {class: UpdateTutorialUIDocAction, ns: , asm: Assembly-CSharp}
       data:
@@ -241,6 +243,8 @@ MonoBehaviour:
         buttonText: Play!
         uiDocument: {fileID: 1484470107}
         tutorialImage: {fileID: 21300000, guid: 0ac2f5660318a4fa7b21a60a365033e5, type: 3}
+        backgroundImage: {fileID: 0}
+        tutorialTitle: 
     - rid: 4305150327966138391
       type: {class: WaitForNextButtonClickAction, ns: , asm: Assembly-CSharp}
       data:
@@ -259,6 +263,8 @@ MonoBehaviour:
         buttonText: Next
         uiDocument: {fileID: 1484470107}
         tutorialImage: {fileID: 21300000, guid: d36e9657c6f484410b8acdbdc82392cd, type: 3}
+        backgroundImage: {fileID: 21300000, guid: 3bc6b06a22c074af8a6c077f43bd58fb, type: 3}
+        tutorialTitle: GAMEPLAY TUTORIAL
     - rid: 8205569917033382831
       type: {class: UnityEventTutorialStep, ns: , asm: Assembly-CSharp}
       data:

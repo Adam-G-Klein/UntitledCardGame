@@ -34,7 +34,7 @@ public class UIDocNextTutorialButtonController : MonoBehaviour {
         // nextTutorialElement.RegisterCallback<ClickEvent>((evt) => {
         //     NextTutorialElementButtonHandler();
         // });
-        VisualElementUtils.RegisterSelected(nextTutorialElement, NextTutorialElementButtonHandler);
+        nextTutorialElement.RegisterOnSelected(NextTutorialElementButtonHandler);
 
         backTutorialElement = screenspaceDoc.GetVisualElement("back");
         backTutorialElement.AddToClassList("tutorial-button-disabled");
@@ -42,7 +42,7 @@ public class UIDocNextTutorialButtonController : MonoBehaviour {
         // backTutorialElement.RegisterCallback<ClickEvent>((evt) => {
         //     BackTutorialElementButtonHandler();
         // });
-        VisualElementUtils.RegisterSelected(backTutorialElement, BackTutorialElementButtonHandler);
+        backTutorialElement.RegisterOnSelected(BackTutorialElementButtonHandler);
 
         FocusManager.Instance.RegisterFocusableTarget(nextTutorialElement.AsFocusable());
         FocusManager.Instance.RegisterFocusableTarget(backTutorialElement.AsFocusable());

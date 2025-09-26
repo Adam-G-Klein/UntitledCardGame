@@ -70,35 +70,24 @@
     position: absolute;
     left: auto;
     top: auto;
-    width: 180px;
+    width: 330px;
     right: 10%;
-    font-size: 50px;
-    bottom: 2%;
+    height: 105px;
+    background-image: url("project://database/Assets/Sprites/UI/TrimmedPlainButton.png?fileID=2800000&guid=85a91730dc15b6f47b0a0f5923d2e07e&type=3#TrimmedPlainButton");
+    background-color: rgba(0, 0, 0, 0);
+    font-size: 36px;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
 }
 
 .tutorial-button-disabled {
-    background-color: rgb(46, 45, 45);
-    border-left-color: rgb(46, 45, 45);
-    border-right-color: rgb(46, 45, 45);
-    border-top-color: rgb(46, 45, 45);
-    border-bottom-color: rgb(46, 45, 45);
 }
 
 .tutorial-button.tutorial-button-disabled:focus {
     background-color: rgb(46, 45, 45);
-    border-left-color: rgb(46, 45, 45);
-    border-right-color: rgb(46, 45, 45);
-    border-top-color: rgb(46, 45, 45);
-    border-bottom-color: rgb(46, 45, 45);
 }
 
 .tutorial-button:focus {
-    position: absolute;
-    left: auto;
-    top: auto;
-    width: 180px;
-    right: 10%;
-    font-size: 50px;
-    bottom: 2%;
-    background-color: rgb(126, 126, 126);
 }

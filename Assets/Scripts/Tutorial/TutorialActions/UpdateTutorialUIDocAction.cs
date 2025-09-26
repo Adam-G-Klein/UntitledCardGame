@@ -29,6 +29,10 @@ public class UpdateTutorialUIDocAction : TutorialAction
 
     [SerializeField]
     private Sprite tutorialImage;
+    [SerializeField]
+    private Sprite backgroundImage;
+    [SerializeField]
+    private String tutorialTitle;
 
     public UpdateTutorialUIDocAction()
     {
@@ -47,10 +51,21 @@ public class UpdateTutorialUIDocAction : TutorialAction
         VisualElement visualElement = root.Q<VisualElement>("tutorialImage");
         visualElement.style.backgroundImage = new StyleBackground(tutorialImage);
 
+        if (backgroundImage != null)
+        {
+            VisualElement backgroundImageVE = root.Q<VisualElement>("backgroundImage");
+            backgroundImageVE.style.backgroundImage = new StyleBackground(backgroundImage);
+        }
+
         if (buttonText != null)
         {
             Button tutorialButton = root.Q<Button>("next");
             tutorialButton.text = buttonText;
+        }
+        if (tutorialTitle != "")
+        {
+            Label label = root.Q<Label>("tutorialTitle");
+            label.text = tutorialTitle;
         }
 
         uiDocument.GetComponent<UIDocumentScreenspace>().SetStateDirty();

@@ -224,6 +224,8 @@ MonoBehaviour:
         buttonText: Begin!
         uiDocument: {fileID: 1484470107}
         tutorialImage: {fileID: 21300000, guid: 1b02a80c591ea4ef590a4d473aa312d5, type: 3}
+        backgroundImage: {fileID: 0}
+        tutorialTitle: 
     - rid: 4305150395655913528
       type: {class: UpdateTutorialUIDocAction, ns: , asm: Assembly-CSharp}
       data:
@@ -239,6 +241,8 @@ MonoBehaviour:
         buttonText: Next
         uiDocument: {fileID: 1484470107}
         tutorialImage: {fileID: 21300000, guid: 2b80ae860868b4190be8377bd881fc6c, type: 3}
+        backgroundImage: {fileID: 21300000, guid: 60b1fd211ce87495b9d9e8030f7a5633, type: 3}
+        tutorialTitle: PACK SELECTION TUTORIAL
     - rid: 7112866771293962550
       type: {class: WaitForNextButtonClickAction, ns: , asm: Assembly-CSharp}
       data:

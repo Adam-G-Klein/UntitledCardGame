@@ -215,15 +215,17 @@ MonoBehaviour:
       type: {class: UpdateTutorialUIDocAction, ns: , asm: Assembly-CSharp}
       data:
         tutorialActionType: Update Tutorial UI Doc Action
-        firstLineOfText: 'You can also buy cards for your companions. '
-        secondLineOfText: Some cards can only be given to specific companions or
-          packs of companions.
+        firstLineOfText: Additionally, you can upgrade the shop!
+        secondLineOfText: This can increase the rarity of shop offerings, give you
+          more active team slots, or more mana per turn.
         thirdLineOfText: 
         tutorialIndex: 2
         tutorialStepsCount: 3
         buttonText: Next
         uiDocument: {fileID: 1484470107}
-        tutorialImage: {fileID: 21300000, guid: 68a94619d179e4b1baaf2fb095f61184, type: 3}
+        tutorialImage: {fileID: 21300000, guid: 1166f214e0b7f40c3ad44f79c683c2db, type: 3}
+        backgroundImage: {fileID: 0}
+        tutorialTitle: 
     - rid: 4305150327966138391
       type: {class: WaitForNextButtonClickAction, ns: , asm: Assembly-CSharp}
       data:
@@ -232,30 +234,33 @@ MonoBehaviour:
       type: {class: UpdateTutorialUIDocAction, ns: , asm: Assembly-CSharp}
       data:
         tutorialActionType: Update Tutorial UI Doc Action
-        firstLineOfText: This is the shop! You come here after each combat.
-        secondLineOfText: In the shop you can buy new companions for your team. New
-          companions will have their own starting decks and full health bar.
-        thirdLineOfText: If you buy three of the same companion they will combine
-          to form an upgraded companion!
+        firstLineOfText: After each combat you visit the shop!
+        secondLineOfText: Here you can buy new companions. Acquire 3 of the same
+          companion to upgrade!
+        thirdLineOfText: You can also buy new cards for any of your active or benched
+          companions.
         tutorialIndex: 1
         tutorialStepsCount: 3
         buttonText: Next
         uiDocument: {fileID: 1484470107}
-        tutorialImage: {fileID: 21300000, guid: 60a3726081acb4e6c9ec2247a88232fd, type: 3}
+        tutorialImage: {fileID: 21300000, guid: 5ce5ca75403a34199b2a74313bd2930f, type: 3}
+        backgroundImage: {fileID: 21300000, guid: 3d98cf7fb99d441e1b5fc8b0e3014f62, type: 3}
+        tutorialTitle: SHOP TUTORIAL
     - rid: 4305150395655913889
       type: {class: UpdateTutorialUIDocAction, ns: , asm: Assembly-CSharp}
       data:
         tutorialActionType: Update Tutorial UI Doc Action
-        firstLineOfText: Finally, you can upgrade the shop!
-        secondLineOfText: This can increase the rarity of shop offerings, give you
-          more active team slots, or more mana per turn.
-        thirdLineOfText: Before going to the next combat don't forget to organize
-          your companions for the next fight!
+        firstLineOfText: Finally, don't forget to reposition your units for the next
+          fight!
+        secondLineOfText: 'Units left of the bench heal a small amount during combat. '
+        thirdLineOfText: 
         tutorialIndex: 3
         tutorialStepsCount: 3
         buttonText: Shop!
         uiDocument: {fileID: 1484470107}
-        tutorialImage: {fileID: 21300000, guid: 7ac5f21edf5ca4fc6beb81ed925cc030, type: 3}
+        tutorialImage: {fileID: 21300000, guid: d3842a3b4c3c248e59b70db56ccd132a, type: 3}
+        backgroundImage: {fileID: 0}
+        tutorialTitle: 
     - rid: 4305150395655913890
       type: {class: WaitForNextButtonClickAction, ns: , asm: Assembly-CSharp}
       data:

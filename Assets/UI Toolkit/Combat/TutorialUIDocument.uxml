@@ -2,21 +2,23 @@
     <Style src="project://database/Assets/tutorial.uss?fileID=7433441132597879392&amp;guid=a7236d75a8675493a9b0bb0543113efc&amp;type=3#tutorial" />
     <Style src="project://database/Assets/fontStyling.uss?fileID=7433441132597879392&amp;guid=d0c0881f1c32747ecb649373600de095&amp;type=3#fontStyling" />
     <ui:VisualElement name="tutorial-container" class="tutorial-container" style="color: rgb(0, 0, 0); background-color: rgb(0, 0, 0);">
+        <ui:VisualElement name="backgroundImage" style="flex-grow: 1; position: absolute; width: 100%; height: 100%; background-image: resource(&apos;Backgrounds/TeamPreviewBackground&apos;);" />
+        <ui:VisualElement style="flex-grow: 1; width: 100%; height: 100%; position: absolute; background-color: rgba(0, 0, 0, 0.67);" />
         <ui:VisualElement class="tutorial-content-container" style="margin-right: 7%; padding-left: 0; padding-right: 0; margin-left: 7%;">
             <ui:VisualElement name="VisualElement" class="tutorial-image-container" style="width: 50%;">
-                <ui:VisualElement name="tutorialImage" class="tutorial-image" style="background-image: url(&quot;project://database/Assets/Sprites/tutorialPlaceholderSprites/tutorialTemp1.png?fileID=2800000&amp;guid=4ab3d81fa4fac4331abed042e043d296&amp;type=3#tutorialTemp1&quot;); -unity-background-scale-mode: scale-and-crop;" />
+                <ui:VisualElement name="tutorialImage" class="tutorial-image" style="background-image: url(&quot;project://database/Assets/Sprites/tutorialPlaceholderSprites/tutorialTemp1.png?fileID=2800000&amp;guid=4ab3d81fa4fac4331abed042e043d296&amp;type=3#tutorialTemp1&quot;); -unity-background-scale-mode: scale-and-crop; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px;" />
             </ui:VisualElement>
-            <ui:VisualElement name="tutorialTextContainer" class="tutorial-text-container">
+            <ui:VisualElement name="tutorialTextContainer" class="tutorial-text-container" style="padding-top: 30px;">
                 <ui:Label tabindex="-1" text="This is your team of companions!" parse-escape-sequences="true" display-tooltip-when-elided="true" name="tutorialText1" class="tutorial-text" style="flex-wrap: wrap;" />
                 <ui:Label tabindex="-1" text="Each companion has their own deck of cards, card pools, and abilities!" parse-escape-sequences="true" display-tooltip-when-elided="true" name="tutorialText2" class="tutorial-text" style="flex-wrap: wrap; white-space: normal;" />
                 <ui:Label tabindex="-1" text="Each companion also has their own statuses like hp and strength!" parse-escape-sequences="true" display-tooltip-when-elided="true" name="tutorialText3" class="tutorial-text" style="white-space: normal; flex-wrap: wrap;" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement class="tutorial-progress-container" style="top: auto; bottom: 2%;">
-            <ui:Label tabindex="-1" text="Tutorial" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Label" style="align-self: center; margin-bottom: 0; padding-bottom: 0; color: rgb(255, 216, 4); font-size: 50px;" />
-            <ui:Label tabindex="-1" text="(Page 1 of 3)" parse-escape-sequences="true" display-tooltip-when-elided="true" name="tutorialIndexText" style="align-self: center; align-items: center; margin-right: auto; margin-left: 2px; margin-top: 0; padding-top: 2px; color: rgb(255, 255, 255); font-size: 50px;" />
-        </ui:VisualElement>
+        <ui:Label tabindex="-1" text="SHOP TUTORIAL" parse-escape-sequences="true" display-tooltip-when-elided="true" name="tutorialTitle" style="align-self: center; padding-bottom: 0; color: rgb(255, 255, 255); font-size: 72px; margin-top: 6.25%; position: absolute; translate: 0 -50%; -unity-font: resource(&apos;fonts/static/Jost-Medium&apos;); -unity-text-outline-width: 2px; -unity-text-outline-color: rgb(0, 0, 0);" />
     </ui:VisualElement>
-    <ui:Button text="Next" parse-escape-sequences="true" display-tooltip-when-elided="true" name="next" class="tutorial-button focusable" />
-    <ui:Button text="Back" parse-escape-sequences="true" display-tooltip-when-elided="true" name="back" class="tutorial-button focusable" style="right: auto; top: auto; left: 10%;" />
+    <ui:VisualElement name="VisualElement" style="flex-grow: 1; position: absolute; width: 100%; height: 105px; align-items: center; bottom: 2%; justify-content: center;">
+        <ui:Label tabindex="-1" text="(Page 1 of 3)" parse-escape-sequences="true" display-tooltip-when-elided="true" name="tutorialIndexText" style="color: rgb(255, 255, 255); font-size: 50px; -unity-text-align: middle-left;" />
+        <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="next" class="tutorial-button focusable" />
+        <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="back" text="Back" class="tutorial-button focusable" style="right: auto; top: auto; left: 10%;" />
+    </ui:VisualElement>
 </ui:UXML>
