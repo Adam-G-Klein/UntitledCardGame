@@ -16,6 +16,7 @@ public class PowerSO : ScriptableObject
     public PowerType powerType = PowerType.None;
 
     [SerializeField]
+    [Header("Title and description populate the card that activates this passive.")]
     public string title;
 
     [SerializeField]
