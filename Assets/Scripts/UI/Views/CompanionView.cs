@@ -253,7 +253,7 @@ public class CompanionView : IUIEventReceiver
         List<(PowerSO, int)> activePowers = combatInstance.GetPowersWithStackCounts();
         foreach ((PowerSO, int) p in activePowers)
         {
-            string val = p.Item2 == 0 ? "" : p.Item2.ToString();
+            string val = p.Item1.stackable ?  p.Item2.ToString() : "";
             this.statusContainer.Add(CreateStatusIndicator(p.Item1.displaySprite, val));
         }
     }
