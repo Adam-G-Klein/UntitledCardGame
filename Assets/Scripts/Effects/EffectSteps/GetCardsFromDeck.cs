@@ -54,7 +54,7 @@ public class GetCardsFromDeck : EffectStep {
             addInstanceCards(instance, outputCards);
         }
         foreach(Card card in outputCards) {
-            Debug.Log("Got card from deck: " + card.cardType.Name + " id: " + card.id);
+            Debug.Log("Got card from deck: " + card.cardType.GetName() + " id: " + card.id);
         }
         document.map.AddItems<Card>(outputKey, outputCards);
         yield return null;

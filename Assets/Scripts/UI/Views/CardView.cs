@@ -79,29 +79,18 @@ public class CardView {
         }
 
         Label title = container.Q<Label>("cardName");
+        string titleText = card.GetName();
+        string desc = card.GetDescription();
         //int fontSize = getTitleFontSize(card.Name, cardInShop);
         int fontSize = cardInShop ? CARD_TITLE_SHOP : CARD_TITLE_COMBAT;
-        if (!cardInShop) title.text = $"<line-height={75}%>{card.Name}</line-height>";
-        else title.text = card.Name;
+        if (!cardInShop) title.text = $"<line-height={75}%>{titleText}</line-height>";
+        else title.text = titleText;
         title.style.fontSize = fontSize;
 
         Label description = container.Q<Label>("cardDesc");
-        string desc = card.GetDescription();
         //fontSize = getDescFontSize(desc, cardInShop);
         fontSize = cardInShop ? CARD_DESC_SHOP : CARD_DESC_COMBAT;
         //if (!cardInShop) description.text = $"<line-height={60}%>{desc}</line-height>";
-
-        // Special handling for passive cards that only activate powers: give them a consistent name and description.
-        if (card.cardCategory == CardCategory.Passive)
-        {
-            // Get the description text from the activePower effect step (should be same as passive).
-            ActivatePower activateStep = card.effectWorkflows[0].effectSteps.OfType<ActivatePower>().ToList().FirstOrDefault();
-            if (activateStep != null)
-            {
-                title.text = activateStep.power.title;
-                desc = activateStep.power.description;
-            }
-        }
 
         description.text = desc;
         description.style.fontSize = fontSize;

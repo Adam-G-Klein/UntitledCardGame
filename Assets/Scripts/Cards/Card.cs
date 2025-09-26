@@ -11,7 +11,7 @@ public class Card : Entity, IEquatable<Card>
     [HideInInspector]
     public string name {
         get {
-            return cardType.Name;
+            return cardType.GetName();
         }
     }
 
@@ -60,23 +60,6 @@ public class Card : Entity, IEquatable<Card>
     // Deprecated
     private Dictionary<CombatEffect, int> effectBuffs = new Dictionary<CombatEffect, int>();
     public Dictionary<CardModification, int> cardModifications = new Dictionary<CardModification, int>();
-
-    [HideInInspector]
-    public string description {
-        get {
-            String retDescription = cardType.Description;
-            if (effectBuffs == null || effectBuffs.Count == 0) {
-                return retDescription;
-            }
-            foreach(CombatEffect effect in effectBuffs.Keys){
-                if(effectBuffs[effect] != 0) {
-                    retDescription += "\n" + "(" + effectBuffs[effect] + " additional " + effect.ToString() + ")";
-                }
-            }
-            return retDescription;
-        }
-    }
-
 
     [SerializeReference]
     public CardType cardType;

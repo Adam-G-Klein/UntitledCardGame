@@ -123,7 +123,7 @@ public class AddCardsToDeck : EffectStep, ITooltipProvider {
         }
         List<TooltipLine> lines = new();
         foreach (CardType cardType in cardTypes) {
-            TooltipLine l = new TooltipLine(cardType.Name, cardType.Cost + ". " + cardType.GetDescription());
+            TooltipLine l = new TooltipLine(cardType.GetName(), cardType.Cost + ". " + cardType.GetDescription());
             lines.Add(l);
         }
         return new TooltipViewModel(lines);

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 
 [System.Serializable]
 public class CardValue
@@ -75,9 +76,37 @@ public class CardType: IdentifiableSO, ITooltipProvider
         cardModifications[modification] += scale;
     }
 
+    private string GetBaseDescription()
+    {
+        if (cardCategory == CardCategory.Passive)
+        {
+            // Get the description text from the activePower effect step (should be same as passive).
+            ActivatePower activateStep = effectWorkflows[0].effectSteps.OfType<ActivatePower>().ToList().FirstOrDefault();
+            if (activateStep != null)
+            {
+                return activateStep.power.description;
+            }
+        }
+        return Description;
+    }
+
+    public string GetName()
+    {
+        if (cardCategory == CardCategory.Passive)
+        {
+            // Get the title text from the activePower effect step (should be same as passive).
+            ActivatePower activateStep = effectWorkflows[0].effectSteps.OfType<ActivatePower>().ToList().FirstOrDefault();
+            if (activateStep != null)
+            {
+                return activateStep.power.title;
+            }
+        }
+        return Name;
+    }
+
     public string GetDescription()
     {
-        string description = Description;
+        string description = GetBaseDescription();
         foreach (var defaultValue in defaultValues)
         {
             description = description.Replace($"{{{defaultValue.key}}}", $"{defaultValue.value}");
@@ -87,8 +116,7 @@ public class CardType: IdentifiableSO, ITooltipProvider
 
     public string GetDescriptionWithUpdatedValues(Dictionary<string, int> intMap)
     {
-        string description = Description;
-
+        string description = GetBaseDescription();
         // Loop through each default value and check if it exists in document.intMap
         foreach (var defaultValue in defaultValues)
         {

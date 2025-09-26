@@ -136,7 +136,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                 PlayableCard newCard = x.Item1;
                 bool countAsDraw = x.Item2;
 
-                Debug.Log($"[PLAYERHAND.DEAL] Dealing card {newCard.card.cardType.Name}");
+                Debug.Log($"[PLAYERHAND.DEAL] Dealing card {newCard.card.cardType.GetName()}");
 
                 WorldPositionVisualElement newCardPlacement = UIDocumentGameObjectPlacer.Instance.CreateCardSlot();
                 UIDocumentGameObjectPlacer.Instance.addMapping(newCardPlacement, newCard.gameObject);
@@ -179,7 +179,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                 .setEase(LeanTweenType.easeOutQuint);
         UpdateCardPositions();
     }
-    
+
     // Function that updates all card positions
     // Optionally takes a list of new cards to dictate if a card is being newly delt, or just shifting in the hand
     // Optionally takes a playable card, which indicates a card to give extra room in the hand to
@@ -260,7 +260,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         }
 
         LeanTween.move(moveGO, position, isNewCard ? dealMoveTime : moveTime)
-                .setOnComplete(() => { 
+                .setOnComplete(() => {
                     if (!isNewCard) return;
 
                     if (cardToMove.TryGetComponent<SpriteRenderer>(out var SR)) SR.sortingLayerName = "Cards"; // what is this magic
@@ -277,7 +277,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                     }
                 })
                 .setEase(LeanTweenType.easeInOutQuad);
-        
+
         // Scale from 0 to regular size if dealing card
         if (isNewCard) {
             Vector3 initialScale = moveGO.transform.localScale;
@@ -322,7 +322,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             // (You might want to return instantiated PlayableCards later instead)
             cardsEnqueued.Add(newCard);
 
-            Debug.Log($"[PLAYERHAND.DEAL] Enqueuing card {newCard.card.cardType.Name}");
+            Debug.Log($"[PLAYERHAND.DEAL] Enqueuing card {newCard.card.cardType.GetName()}");
         }
 
         // Ensure only one coroutine is running

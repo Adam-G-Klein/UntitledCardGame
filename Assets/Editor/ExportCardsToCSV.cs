@@ -82,7 +82,7 @@ public class ExportCardsToCSV
         // csv.AppendLine("CardName,PoolName,Text,Rarity,CardCategory");
         string cardName = card.name.Replace(",", "");
         string poolName = pool.name.Replace(",", "");
-        string text = card.Description.Replace(",", "");
+        string text = card.GetDescription().Replace(",", "");
         string rarityStr = rarity.ToString();
         string cardCategory = card.cardCategory.ToString();
         return $"{cardName},{poolName},{text},{rarityStr},{cardCategory}";

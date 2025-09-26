@@ -257,7 +257,7 @@ public class PlayableCard : MonoBehaviour,
         }
         else
         {
-            Debug.LogWarning($"Trying to exhaust card {card.cardType.Name}, but the deck no longer exists");
+            Debug.LogWarning($"Trying to exhaust card {card.cardType.GetName()}, but the deck no longer exists");
         }
         cleanupAndDestroy();
         yield return null;
@@ -277,7 +277,7 @@ public class PlayableCard : MonoBehaviour,
         }
         else
         {
-            Debug.LogWarning($"Trying to discard card {card.cardType.Name}, but the deck no longer exists");
+            Debug.LogWarning($"Trying to discard card {card.cardType.GetName()}, but the deck no longer exists");
         }
     }
 
