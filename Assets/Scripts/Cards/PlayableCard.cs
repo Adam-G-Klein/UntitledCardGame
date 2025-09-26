@@ -146,7 +146,7 @@ public class PlayableCard : MonoBehaviour,
             yield return StartCoroutine(PlayerHand.Instance.ResizeHand(this));
 
             // Non-power cards should discard to deck after they are played.
-            if (card.cardType.cardCategory == CardCategory.Power)
+            if (card.cardType.cardCategory == CardCategory.Passive)
             {
                 cleanupAndDestroy();
             }

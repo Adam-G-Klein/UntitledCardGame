@@ -37,6 +37,6 @@ public class ActivatePower : EffectStep
 
     public TooltipViewModel GetTooltip()
     {
-        return new TooltipViewModel("Power", "Powers are rest-of-combat passive effects applied to individual companions");
+        return new TooltipViewModel("Passive", "Passive cards are rest-of-combat passive effects applied to individual companions");
     }
 }

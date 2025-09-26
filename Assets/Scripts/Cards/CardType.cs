@@ -186,7 +186,7 @@ public enum CardCategory
     NonAttack,
     Saga,
     Status,
-    Power,
+    Passive,
 }
 
 // CardFilter specifies a filter to apply to cards.

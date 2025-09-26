@@ -124,7 +124,7 @@ public class CardView {
             case CardCategory.Status:
                 cardTypeLabel.AddToClassList("status-card-label-color");
                 break;
-            case CardCategory.Power:
+            case CardCategory.Passive:
                 cardTypeLabel.AddToClassList("power-card-label-color");
                 break;
         }
