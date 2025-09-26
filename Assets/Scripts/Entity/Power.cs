@@ -47,6 +47,8 @@ public class PowerSO : ScriptableObject
         Bloodfire,
         // Witchwork: end of turn, give all Status cards in hand +2 damage
         Witchwork,
+        // PerpetualMotion: whenever the hand is empty, do X
+        PerpetualMotion,
     }
 
     public TooltipViewModel GetTooltip()
