@@ -327,6 +327,7 @@ public class CombatInstance : MonoBehaviour
         // CombatEntityManager.Instance.combatEntityDied(this);
         TurnManager.Instance.removeTurnPhaseBlocker(blockerId);
         UpdateView();
+        MusicController.Instance.PlaySFX("event:/MX/MX_CompanionDeath");
         CombatEntityManager.Instance.SpawnEntityOnDeathVfx(this);
         Destroy(this.gameObject);
         yield return null;

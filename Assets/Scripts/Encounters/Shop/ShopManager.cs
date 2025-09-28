@@ -158,7 +158,8 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             return;
         }
 
-        if (gameState.playerData.GetValue().gold >= companionInShop.price) {
+        if (gameState.playerData.GetValue().gold >= companionInShop.price)
+        {
             // Create a new instance of the companion and then attempt companion upgrades before adding
             // them to your team;
             this.companionInShop = companionInShop;
@@ -174,6 +175,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
                 gameState.playerData.GetValue().gold -= companionInShop.price;
                 shopViewController.SetMoney(gameState.playerData.GetValue().gold);
                 InstantiateShopVFX(moneySpentPrefab, shopItemView.shopItemElement, 1.5f);
+                MusicController.Instance.PlaySFX("event:/SFX/SFX_CompanionBuy");
 
                 // first we need to find the companionManagementSlotView that all of them are animating towards
                 CompanionManagementSlotView slotView = shopViewController.GetCompanionManagementSlotView(upgradeInfo.resultingSlotViewIndex, upgradeInfo.onBench);
@@ -195,12 +197,13 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
                     bool isLastAnimation = animationsToDo == 0;
                     shopViewController.AnimateExistingCompanionToSlot(startingSlotView, slotView, true, delay, () => { AnimateExistingCompanionToSlotOnComplete(startingSlotView, slotView.companionManagementView.container, isLastAnimation, slotView, upgradeInfo); });
                     delay += .3f;
-                    
+
                     // the rest are animated from other companionManagementView (this does need to be handled slightly differently)
                 }
                 return;
             }
-            if (gameState.companions.activeCompanions.Count + shopViewController.GetBlockedCompanionSlots() == 5 && gameState.companions.benchedCompanions.Count == availableBenchSlots) {
+            if (gameState.companions.activeCompanions.Count + shopViewController.GetBlockedCompanionSlots() == 5 && gameState.companions.benchedCompanions.Count == availableBenchSlots)
+            {
                 StartCoroutine(shopViewController.ShowGenericNotification("You have reached the maximum number of companions.", 2));
                 return;
             }
@@ -211,7 +214,10 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             CompanionManagementSlotView companionManagementSlotView = shopViewController.FindNextAvailableSlot();
             shopViewController.AnimateNewCompanionToSlot(companionInShop, companionManagementSlotView, false, 0, () => { CompanionBoughtAnimationOnComplete(companionToAdd, companionManagementSlotView); });
             InstantiateShopVFX(moneySpentPrefab, shopItemView.shopItemElement, 1.5f);
-        } else {
+            MusicController.Instance.PlaySFX("event:/SFX/SFX_CompanionBuy");
+        }
+        else
+        {
             Debug.Log("Not enuff munny");
             shopViewController.NotEnoughMoney();
         }
@@ -394,7 +400,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             shopLevel = shopEncounter.shopData.GetShopLevel(playerData.shopLevel);
             shopViewController.SetShopUpgradePrice(shopLevel.upgradeIncrementCost);
             InstantiateShopVFX(shopUpgradePrefab, shopViewController.GetUpgradeShopButton(), 1f);
-            MusicController.Instance.PlaySFX("event:/MX/MX_Companion_Upgrade_Stinger");
+            MusicController.Instance.PlaySFX("event:/MX/MX_Shop_Upgrade_Stinger");
             CheckDisableUpgradeButtonV2();
             shopViewController.SetupUpgradeIncrements();
             shopViewController.RebuildUnitManagement(gameState.companions);
