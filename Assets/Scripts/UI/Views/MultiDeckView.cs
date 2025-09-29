@@ -75,6 +75,11 @@ public class MultiDeckView
             tabDescriptor.Q<Label>().text = tab.title;
         }
 
+        if (deckViewTabs.Count == 1) {
+            uiDocument.rootVisualElement.Q<IconButton>("tabLeftButton").style.visibility = Visibility.Hidden;
+            uiDocument.rootVisualElement.Q<IconButton>("tabRightButton").style.visibility = Visibility.Hidden;
+        }
+
         //hover first card
         List<VisualElement> focusedDeck = deckViewTabVisualElements[startingTab].Q<VisualElement>("SectionsContainer").Children().ToList()[startingIndex].Q<ScrollView>("ScrollView").contentContainer.Children().ToList();
         if (focusedDeck.Count == 0) return;
