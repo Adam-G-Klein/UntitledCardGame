@@ -52,8 +52,7 @@ public class CompanionManagementView : IControlsReceiver {
         CreateViewDeckButton();
         if (!isSellingDisabled) CreateSellCompanionButton();
         CreateCompanionBoundingBox();
-        // viewDelegate.DisplayTooltip(entityView.entityContainer, companion.companionType.tooltip, true);
-        viewDelegate.DisplayTooltip(companionView.container, companion.companionType.tooltip, true);
+        viewDelegate.DisplayTooltip(companionView.container, companion.companionType.tooltip, TooltipContext.CompanionManagementView);
     }
 
     public void CompanionManagementNonMouseSelect() {

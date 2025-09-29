@@ -9,7 +9,7 @@ public interface IShopItemViewDelegate {
     void RerollButtonOnClick(ClickEvent evt);
     void UpgradeButtonOnClick(ClickEvent evt);
 
-    void DisplayTooltip(VisualElement element, TooltipViewModel tooltipViewModel, bool forCompanionManagementView);
+    void DisplayTooltip(VisualElement element, TooltipViewModel tooltipViewModel, TooltipContext context);
     void DestroyTooltip(VisualElement element);
     void DisplayCards(CompanionTypeSO companion);
     MonoBehaviour GetMonoBehaviour();

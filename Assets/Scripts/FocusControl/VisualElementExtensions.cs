@@ -46,6 +46,16 @@ public static class VisualElementExtensions
         });
     }
 
+    public static void RegisterOnFocused(this VisualElement element, Action action) {
+        element.RegisterCallback<PointerEnterEvent>((evt) => action());
+        element.AsFocusable().additionalFocusAction += action;
+    }
+
+    public static void RegisterOnUnfocused(this VisualElement element, Action action) {
+        element.RegisterCallback<PointerLeaveEvent>((evt) => action());
+        element.AsFocusable().additionalUnfocusAction += action;
+    }
+
     private static void OnSelectedTween(VisualElement element) {
         LeanTween.value(1f, 0.92f, 0.05f)
             .setOnUpdate((float value) => {

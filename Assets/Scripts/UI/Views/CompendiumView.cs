@@ -24,8 +24,10 @@ public class CompendiumView : MonoBehaviour, IControlsReceiver {
     private Dictionary<String, TooltipView> tooltipMap = new();
     private List<VisualElement> elementsWithTooltips = new();
     private GameObject tooltipPrefab;
+    private TooltipController tooltipController;
 
     public CompendiumView(UIDocument uiDocument, CompanionPoolSO companionPool, CardPoolSO neutralCardPool, List<PackSO> packSOs, GameObject tooltipPrefab) {
+        this.tooltipController = new TooltipController(tooltipPrefab);
         FocusManager.Instance.StashFocusables(this.GetType().Name);
         this.uiDocument = uiDocument;
         this.tooltipPrefab = tooltipPrefab;
@@ -137,10 +139,10 @@ public class CompendiumView : MonoBehaviour, IControlsReceiver {
                 if (card.GetTooltip().empty) {
                     return;
                 }
-                DisplayTooltip(cardContainer, card.GetTooltip(), 1.5f);
+                tooltipController.DisplayTooltip(cardContainer, card.GetTooltip(), TooltipContext.CompendiumCard);
             });
             cardContainer.RegisterCallback<PointerLeaveEvent>((evt) => {
-                DestroyTooltip(cardContainer);
+                tooltipController.DestroyTooltip(cardContainer);
             });
         });
     }
@@ -171,14 +173,14 @@ public class CompendiumView : MonoBehaviour, IControlsReceiver {
                 companionRow.Add(companionView.container);
                 companionView.container.name = companionToDisplay.companionType.companionName + index;
                 companionView.container.RegisterCallback<PointerEnterEvent>((evt) => {
-                    DisplayTooltip(companionView.container, companionToDisplay.companionType.tooltip);
+                    tooltipController.DisplayTooltip(companionView.container, companionToDisplay.companionType.tooltip, TooltipContext.CompendiumCompanion);
                 });
                 companionView.container.RegisterCallback<PointerLeaveEvent>((evt) => {
-                    DestroyTooltip(companionView.container);
+                    tooltipController.DestroyTooltip(companionView.container);
                 });
                 VisualElementFocusable entityViewFocusable = companionView.container.GetUserData<VisualElementFocusable>();
-                entityViewFocusable.additionalFocusAction += () => {DisplayTooltip(companionView.container, companionToDisplay.companionType.tooltip);};
-                entityViewFocusable.additionalUnfocusAction += () => {DestroyTooltip(companionView.container);};
+                entityViewFocusable.additionalFocusAction += () => {tooltipController.DisplayTooltip(companionView.container, companionToDisplay.companionType.tooltip, TooltipContext.CompendiumCompanion);};
+                entityViewFocusable.additionalUnfocusAction += () => {tooltipController.DestroyTooltip(companionView.container);};
                 FocusManager.Instance.RegisterFocusableTarget(entityViewFocusable);
             };
             companionsSection.Add(companionRow);
@@ -186,34 +188,6 @@ public class CompendiumView : MonoBehaviour, IControlsReceiver {
         companionScrollView.Add(companionsSection);
         DisableCompanionFocusables();
         companionScrollView.style.display = DisplayStyle.None; 
-    }
-
-    // xPosScale exists because the calculation for xTooltipPos for cards was acting strange and I couldn't figure out why
-    public void DisplayTooltip(VisualElement element, TooltipViewModel tooltipViewModel, float xPosScale = 1f) {
-        elementsWithTooltips.Add(element);
-        if (tooltipMap.ContainsKey(element.name)) {
-            return;
-        }
-
-        float xTooltipPos = element.worldBound.center.x + (element.resolvedStyle.width * 0.7f * xPosScale);
-        float yTooltipPos = element.worldBound.center.y + (element.resolvedStyle.height * .1f);
-        Vector3 position = new Vector3(xTooltipPos, yTooltipPos, 0);
-        
-        Vector3 tooltipPosition = UIDocumentGameObjectPlacer.GetWorldPositionFromUIDocumentPosition(position);
-        
-        GameObject uiDocToolTipPrefab = Instantiate(tooltipPrefab, new Vector3(tooltipPosition.x, tooltipPosition.y, -1), new Quaternion());
-        TooltipView tooltipView = uiDocToolTipPrefab.GetComponent<TooltipView>();
-        tooltipView.tooltip = tooltipViewModel;
-
-        tooltipMap[element.name] = tooltipView;
-    }
-
-    public void DestroyTooltip(VisualElement element) {
-        if(tooltipMap.ContainsKey(element.name)) {
-            elementsWithTooltips.Remove(element);
-            Destroy(tooltipMap[element.name].gameObject);
-            tooltipMap.Remove(element.name);
-        }
     }
 
     private void DisableCompanionFocusables() {

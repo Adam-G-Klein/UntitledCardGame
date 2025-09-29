@@ -127,7 +127,7 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
+  m_PlaneDistance: 10
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -136,7 +136,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: -1724358231
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &1609796250940596688
@@ -529,6 +529,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PortraitDialogueSpeakers
       objectReference: {fileID: 0}
+    - target: {fileID: 6974883060502523874, guid: 04d99c4ae05c32d499e1117b24615e95, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7076142842144775898, guid: 04d99c4ae05c32d499e1117b24615e95, type: 3}
       propertyPath: m_SizeDelta.x
       value: 2747.126
@@ -627,16 +631,24 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 159235656126804884, guid: 5afe25297906a7849b0d130e94e31e9b, type: 3}
       propertyPath: m_Name
-      value: TeamSigningUI
+      value: StartingTeamView
       objectReference: {fileID: 0}
     - target: {fileID: 159235656126804884, guid: 5afe25297906a7849b0d130e94e31e9b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2856548155032031997, guid: 5afe25297906a7849b0d130e94e31e9b, type: 3}
       propertyPath: testTeamActiveCompanions
       value: 
       objectReference: {fileID: 11400000, guid: 636fd08ffdf3c0245acac267e76b3530, type: 2}
+    - target: {fileID: 4053542759321663305, guid: 5afe25297906a7849b0d130e94e31e9b, type: 3}
+      propertyPath: m_Texture
+      value: 
+      objectReference: {fileID: 8400000, guid: bd2420b1653d645af875011014deffab, type: 2}
+    - target: {fileID: 4053542759321663305, guid: 5afe25297906a7849b0d130e94e31e9b, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: 6bdbd452fba48dd41ac2fd3deba3d346, type: 2}
     - target: {fileID: 8335891183572432943, guid: 5afe25297906a7849b0d130e94e31e9b, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

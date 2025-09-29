@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -10,8 +9,7 @@ public class ShopViewController : MonoBehaviour,
     IShopItemViewDelegate,
     ICompanionManagementViewDelegate,
     ISellingCompanionConfirmationViewDelegate,
-    IControlsReceiver,
-    IEntityViewDelegate
+    IControlsReceiver
 {
     [SerializeField]
     private StatusEffectsSO statusEffectsSO;
@@ -98,6 +96,7 @@ public class ShopViewController : MonoBehaviour,
     private static string COMPANION_MANAGEMENT = "CompanionManagement";
     private static string UPGRADE_MENU = "UpgradeMenu";
     private IEnumerator waitAndHideMessageCoroutine;
+    private TooltipController tooltipController;
 
     public void Start()
     {
@@ -111,6 +110,8 @@ public class ShopViewController : MonoBehaviour,
         }
 
         this.shopManager = shopManager;
+
+        this.tooltipController = new TooltipController(shopManager.tooltipPrefab);
 
         cardItemToViewMap = new Dictionary<CardInShopWithPrice, ShopItemView>();
         companionItemToViewMap = new Dictionary<CompanionInShopWithPrice, ShopItemView>();
@@ -1508,7 +1509,7 @@ public class ShopViewController : MonoBehaviour,
             companionContainer.AddToClassList("upgrade-menu-companion-invisible");
 
             CompanionTypeSO companionType = companion.companionType;
-            CompanionView entityView = new CompanionView(companion, shopManager.encounterConstants.companionViewTemplate, index, CompanionView.COMPANION_UPGRADE_CONTEXT, this);
+            CompanionView entityView = new CompanionView(companion, shopManager.encounterConstants.companionViewTemplate, index, CompanionView.COMPANION_UPGRADE_CONTEXT, null);
             VisualElement portraitContainer = entityView.container.Q(className: "companion-view-companion-image");
             portraitContainer.style.backgroundImage = new StyleBackground(companionType.sprite);
             companionContainer.Add(entityView.container);
@@ -1522,11 +1523,11 @@ public class ShopViewController : MonoBehaviour,
             }).StartingIn(delay);
             entityView.container.RegisterCallback<PointerEnterEvent>((evt) =>
             {
-                DisplayTooltip(entityView.container, companion.companionType.tooltip, false);
+                tooltipController.DisplayTooltip(entityView.container, companion.companionType.tooltip, TooltipContext.Shop);
             });
             entityView.container.RegisterCallback<PointerLeaveEvent>((evt) =>
             {
-                DestroyTooltip(entityView.container);
+                tooltipController.DestroyTooltip(entityView.container);
             });
             delay += 250;
         }
@@ -1535,7 +1536,7 @@ public class ShopViewController : MonoBehaviour,
         upgradeCompanionContainer.AddToClassList("victory-companion-container");
         upgradeCompanionContainer.AddToClassList("upgrade-menu-companion-invisible");
         CompanionTypeSO upgradeCompanionType = upgradeCompanion.companionType;
-        CompanionView upgradeEntityView = new CompanionView(upgradeCompanion, shopManager.encounterConstants.companionViewTemplate, index + 1, CompanionView.COMPANION_UPGRADE_CONTEXT, this);
+        CompanionView upgradeEntityView = new CompanionView(upgradeCompanion, shopManager.encounterConstants.companionViewTemplate, index + 1, CompanionView.COMPANION_UPGRADE_CONTEXT, null);
         //entityView.entityContainer.AddToClassList("compendium-item-container");
         VisualElement upgradePortraitContainer = upgradeEntityView.container.Q(className: "companion-view-companion-image");
         upgradePortraitContainer.style.backgroundImage = new StyleBackground(upgradeCompanionType.sprite);
@@ -1576,13 +1577,13 @@ public class ShopViewController : MonoBehaviour,
 
     private void UpgradeViewCompanionOnPointerEnter(CompanionView companionView, TooltipViewModel tooltipViewModel, bool forCompanionManagementView)
     {
-        DisplayTooltip(companionView.container, tooltipViewModel, forCompanionManagementView);
+        tooltipController.DisplayTooltip(companionView.container, tooltipViewModel, TooltipContext.CompanionManagementView);
         companionView.SetSelectionIndicatorVisibility(true);
     }
 
     private void UpgradeViewcompanionOnPointerLeave(CompanionView companionView)
     {
-        DestroyTooltip(companionView.container);
+        tooltipController.DestroyTooltip(companionView.container);
         companionView.SetSelectionIndicatorVisibility(false);
     }
 
@@ -1629,41 +1630,12 @@ public class ShopViewController : MonoBehaviour,
         companionUpgradeInstanceFocusables.Clear();
     }
 
-    public void DisplayTooltip(VisualElement element, TooltipViewModel tooltipViewModel, bool forCompanionManagementView) {
-        Vector3 tooltipPosition;
-        if (forCompanionManagementView) {
-            float xTooltipPos = element.worldBound.center.x - (element.resolvedStyle.width * 1.25f);
-            float yTooltipPos = element.worldBound.center.y + (element.resolvedStyle.height * .4f);
-            Vector3 position = new Vector3(xTooltipPos, yTooltipPos, 0);
-
-            tooltipPosition = UIDocumentGameObjectPlacer.GetWorldPositionFromUIDocumentPosition(position);
-        } else {
-            float xTooltipPos = element.worldBound.center.x - (element.resolvedStyle.width * 1f);
-            float yTooltipPos = element.worldBound.center.y + (element.resolvedStyle.height * .1f);
-            Vector3 position = new Vector3(xTooltipPos, yTooltipPos, 0);
-
-            tooltipPosition = UIDocumentGameObjectPlacer.GetWorldPositionFromUIDocumentPosition(position);
-        }
-        GameObject uiDocToolTipPrefab = Instantiate(shopManager.tooltipPrefab, tooltipPosition, new Quaternion());
-        TooltipView tooltipView = uiDocToolTipPrefab.GetComponent<TooltipView>();
-        tooltipView.tooltip = tooltipViewModel;
-
-        if (!element.HasUserData<List<TooltipView>>()) {
-            element.SetUserData(new List<TooltipView>());
-        }
-
-        element.GetUserData<List<TooltipView>>().Add(tooltipView);
+    public void DisplayTooltip(VisualElement element, TooltipViewModel tooltipViewModel, TooltipContext context) {
+        tooltipController.DisplayTooltip(element, tooltipViewModel, context);
     }
 
     public void DestroyTooltip(VisualElement element) {
-        if (!element.HasUserData<List<TooltipView>>()) return;
-
-        List<TooltipView> tooltips = element.GetUserData<List<TooltipView>>();
-        List<TooltipView> tooltipsToDestroy = new List<TooltipView>(tooltips);
-        foreach (TooltipView tooltipView in tooltipsToDestroy) {
-            tooltips.Remove(tooltipView);
-            Destroy(tooltipView.gameObject);
-        }
+        tooltipController.DestroyTooltip(element);
     }
 
     public void ProcessGFGInputAction(GFGInputAction action)
@@ -1704,30 +1676,5 @@ public class ShopViewController : MonoBehaviour,
     public void DisplayCards(CompanionTypeSO companion)
     {
         MultiDeckViewManager.Instance.ShowShopDeckView(true, new Companion(companion), MultiDeckViewManager.TabType.ForPurchase);
-        /*
-        List<Card> instantiatedCards = companion.startingDeck.cards
-            .Select(card => new Card(card, companion))
-            .ToList();
-
-        GameObject cardSelectionViewGo = Instantiate(cardSelectionViewPrefab);
-        CardSelectionView cardSelectionView = cardSelectionViewGo.GetComponent<CardSelectionView>();
-        // Card Selection View stashes focusables on setup
-        cardSelectionView.Setup(instantiatedCards, new Companion(companion), shopManager.encounterConstants.companionViewTemplate);
-        */
-    }
-
-    public Sprite GetStatusEffectSprite(StatusEffectType statusEffectType)
-    {
-        return statusEffectsSO.GetStatusEffectImage(statusEffectType);
-    }
-
-    public Sprite GetEnemyIntentImage(EnemyIntentType enemyIntentType)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void InstantiateCardView(List<Card> cardList, string promptText)
-    {
-        throw new NotImplementedException();
     }
 }

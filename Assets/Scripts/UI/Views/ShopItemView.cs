@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class ShopItemView : IEntityViewDelegate {
+public class ShopItemView : ICompanionViewDelegate {
     public VisualElement shopItemElement;
     public VisualElementFocusable visualElementFocusable;
     public CompanionInShopWithPrice companionInShop = null;
@@ -106,11 +106,11 @@ public class ShopItemView : IEntityViewDelegate {
     private void OnPointerEnter(PointerEnterEvent evt) {
         viewDelegate.ShopItemViewHovered(this);
         if (companionInShop != null) {
-            viewDelegate.DisplayTooltip(shopItemElement, companionInShop.companionType.tooltip, false);
+            viewDelegate.DisplayTooltip(shopItemElement, companionInShop.companionType.tooltip, TooltipContext.Shop);
         } else {
             TooltipViewModel tvm = cardInShop.cardType.GetTooltip();
             if (tvm.empty) return;
-            viewDelegate.DisplayTooltip(shopItemElement, tvm, false);
+            viewDelegate.DisplayTooltip(shopItemElement, tvm, TooltipContext.Shop);
         }
     }
 
@@ -131,13 +131,14 @@ public class ShopItemView : IEntityViewDelegate {
     {
         throw new NotImplementedException();
     }
-
-    public void InstantiateCardView(List<Card> cardList, string promptText)
-    {
-        viewDelegate.DisplayCards(companionInShop.companionType);
-    }
+    
     public CompanionView GetCompanionView()
     {
         return companionView;
+    }
+
+    public void ViewDeck(DeckViewType deckViewType, Companion companion = null, CompanionInstance companionInstance = null)
+    {
+        viewDelegate.DisplayCards(companionInShop.companionType);
     }
 }

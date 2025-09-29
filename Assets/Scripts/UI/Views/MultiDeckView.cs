@@ -465,3 +465,9 @@ public class MultiDeckView
         numSectionsForEachTab.Clear();
     }
 }
+
+public enum DeckViewType {
+    Draw,
+    Discard,
+    EntireDeck
+}

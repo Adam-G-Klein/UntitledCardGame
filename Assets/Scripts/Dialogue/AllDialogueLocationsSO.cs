@@ -118,7 +118,7 @@ public class AllDialogueLocationsSO: ScriptableObject
         switch(loc) {
             case Location.WAKE_UP_ROOM:
                 return tutorialAidensRoom;
-            case Location.TEAM_SIGNING:
+            case Location.STARTING_TEAM:
                 return tutorialTeamSigning;
             case Location.TEAM_SELECT:
                 return tutorialTeamSelect1;

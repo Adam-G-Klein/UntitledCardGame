@@ -29,17 +29,19 @@ public class CompanionView : IUIEventReceiver
         new CompanionViewContext(false, false, false, true, false, false, false, false, 1.25f, 0.2f);
 
     public static CompanionViewContext COMPANION_UPGRADE_CONTEXT =
-        new CompanionViewContext(false, true, false, false, true, false, false, true, 0.8f, 0.15f, true);
+        new CompanionViewContext(false, false, false, false, true, false, false, true, 0.8f, 0.15f, true);
 
     public VisualElement container;
     public VisualElementFocusable focusable;
 
-    private IUIEntity entity;
-    private IEntityViewDelegate viewDelegate;
+    // private IUIEntity entity;
+    private ICompanionViewDelegate viewDelegate;
     private VisualTreeAsset template;
     private int index;
     private CompanionViewContext context;
-    private CombatInstance combatInstance;
+    private CompanionInstance companionInstance = null;
+    private Companion companion = null;
+    private CombatInstance combatInstance = null;
 
     private VisualElement parentContainer;
     private VisualElement statusVertical;
@@ -74,19 +76,22 @@ public class CompanionView : IUIEventReceiver
     private bool isTweening = false;
 
     public CompanionView(
-            IUIEntity entity,
+            Companion companion,
             VisualTreeAsset template,
             int index,
             CompanionViewContext context,
-            IEntityViewDelegate viewDelegate)
-    {
-        this.entity = entity;
+            ICompanionViewDelegate viewDelegate,
+            CompanionInstance companionInstance = null) {
+        this.companionInstance = companionInstance;
+        this.companion = companion;
         this.viewDelegate = viewDelegate;
         this.template = template;
         this.index = index;
         this.context = context;
 
-        this.combatInstance = entity.GetCombatInstance();
+        if (this.companionInstance != null) {
+            this.combatInstance = this.companionInstance.combatInstance;
+        }
 
         SetupCompanionView();
 
@@ -148,14 +153,7 @@ public class CompanionView : IUIEventReceiver
     }
 
     private void SetupLevelIndicator() {
-        Companion companion = null;
-        if (this.entity is Companion comp) {
-            companion = comp;
-        } else if (this.entity is CompanionInstance instance) {
-            companion = instance.companion;
-        }
-
-        switch (companion.companionType.level) {
+        switch (this.companion.companionType.level) {
             case CompanionLevel.LevelThree:
                 this.levelThreeIndicator.style.display = DisplayStyle.Flex;
             break;
@@ -172,14 +170,7 @@ public class CompanionView : IUIEventReceiver
     }
 
     private void SetupRarityIndicator() {
-        Companion companion = null;
-        if (this.entity is Companion comp) {
-            companion = comp;
-        } else if (this.entity is CompanionInstance instance) {
-            companion = instance.companion;
-        }
-
-        switch (companion.companionType.rarity) {
+        switch (this.companion.companionType.rarity) {
             case CompanionRarity.RARE:
                 this.rarityHighIndicator.style.display = DisplayStyle.Flex;
             break;
@@ -196,21 +187,14 @@ public class CompanionView : IUIEventReceiver
     }
 
     private void SetupBackground() {
-        Color color;
-        if (this.entity is Companion companion) {
-            color = companion.companionType.pack.packColor;
-        } else if (this.entity is CompanionInstance companionInstance) {
-            color = companionInstance.companion.companionType.pack.packColor;
-        } else {
-            color = Color.white; // Fallback color
-        }
+        Color color = this.companion.companionType.pack.packColor;
         this.solidBackground.style.backgroundColor = color;
     }
 
     private void SetupBlockAndHealth() {
-        if (this.combatInstance == null) {
-            this.healthLabel.text = this.entity.GetCurrentHealth().ToString();
-            this.maxHealthLabel.text = this.entity.GetCombatStats().getMaxHealth().ToString();
+        if (this.companionInstance == null) {
+            this.healthLabel.text = this.companion.GetCurrentHealth().ToString();
+            this.maxHealthLabel.text = this.companion.GetCombatStats().getMaxHealth().ToString();
             this.blockLabel.style.visibility = Visibility.Hidden;
         } else {
             this.healthLabel.text = this.combatInstance.combatStats.currentHealth.ToString();
@@ -285,7 +269,11 @@ public class CompanionView : IUIEventReceiver
         this.focusable.additionalFocusAction += () => ContainerPointerEnter(null);
         this.focusable.additionalUnfocusAction += () => ContainerPointerLeave(null);
 
-        this.focusable.SetInputAction(GFGInputAction.VIEW_DECK, () => DrawPileButtonOnClick(null));
+        this.focusable.SetInputAction(GFGInputAction.VIEW_DECK, () => {
+            if (this.context.setupViewDeckButton) ViewDeckButtonOnClick(null);
+            else if (this.context.setupDrawDiscardButtons) DrawPileButtonOnClick(null);
+            else return;
+        });
         this.focusable.SetInputAction(GFGInputAction.VIEW_DISCARD, () => DiscardPileButtonOnClick(null));
 
         if (this.context.trimToJustMainBody) {
@@ -301,7 +289,8 @@ public class CompanionView : IUIEventReceiver
 
     private void ContainerPointerClick(ClickEvent evt) {
         try {
-            Targetable targetable = this.entity.GetTargetable();
+            if (this.companionInstance == null) return;
+            Targetable targetable = this.companionInstance.GetTargetable();
             if (targetable == null) return;
             targetable.OnPointerClickUI(evt);
         } catch (Exception e) {
@@ -326,8 +315,8 @@ public class CompanionView : IUIEventReceiver
         }
 
         try {
-            if (this.context.preventDefaultDeckViewButton) return;
-            Targetable targetable = this.entity.GetTargetable();
+            if (this.context.preventDefaultDeckViewButton || this.companionInstance == null) return;
+            Targetable targetable = this.companionInstance.GetTargetable();
             if (targetable == null) return;
             targetable.OnPointerEnterUI(evt);
         } catch (Exception e) {
@@ -352,9 +341,9 @@ public class CompanionView : IUIEventReceiver
 
         try
         {
-            if (this.context.preventDefaultDeckViewButton) return;
+            if (this.context.preventDefaultDeckViewButton || this.companionInstance == null) return;
 
-            Targetable targetable = this.entity.GetTargetable();
+            Targetable targetable = this.companionInstance.GetTargetable();
             if (targetable == null) return;
             targetable.OnPointerLeaveUI(evt);
         }
@@ -387,7 +376,7 @@ public class CompanionView : IUIEventReceiver
     private void ViewDeckButtonOnClick(ClickEvent evt) {
         if (evt != null) evt.StopPropagation();
         // Luke needs to fix this because it's bad but I'm in a rush
-        viewDelegate.InstantiateCardView(new List<Card>(), "");
+        viewDelegate.ViewDeck(DeckViewType.EntireDeck, companion);
     }
 
     private void SetupDrawDiscardContainer() {
@@ -417,34 +406,19 @@ public class CompanionView : IUIEventReceiver
     {
         if (evt != null) evt.StopPropagation();
         Debug.Log("Draw button clicked");
-        if (combatInstance != null)
+        if (this.companionInstance != null)
         {
-            MultiDeckViewManager.Instance.ShowCombatDeckView(combatInstance.GetCompanionInstance(), 0);
-            return;
+            viewDelegate.ViewDeck(DeckViewType.Draw, null, this.companionInstance);
         }
-        DeckInstance deckInstance = this.entity.GetDeckInstance();
-        if (deckInstance == null)
-        {
-            Debug.LogError("Entity " + this.entity.GetName() + " does not have a deck instance, which is crazy, because it's clearly a companion");
-            return;
-        }
-        viewDelegate.InstantiateCardView(deckInstance.GetShuffledDrawPile(), deckInstance.combatInstance.name + " draw pile");
     }
 
     private void DiscardPileButtonOnClick(ClickEvent evt) {
         if (evt != null) evt.StopPropagation();
         Debug.Log("Discard button clicked");
-        if (combatInstance != null)
+        if (this.companionInstance != null)
         {
-            MultiDeckViewManager.Instance.ShowCombatDeckView(combatInstance.GetCompanionInstance(), 1);
-            return;
+            viewDelegate.ViewDeck(DeckViewType.Discard, null, this.companionInstance);
         }
-        DeckInstance deckInstance = this.entity.GetDeckInstance();
-        if (deckInstance == null) {
-            Debug.LogError("Entity " + this.entity.GetName() + " does not have a deck instance, which is crazy, because it's clearly a companion");
-            return;
-        }
-        viewDelegate.InstantiateCardView(deckInstance.GetShuffledDiscardPile(), deckInstance.combatInstance.name + " discard pile");
     }
 
     private void HiddenContainerPointerEnter(PointerEnterEvent evt) {
@@ -494,12 +468,7 @@ public class CompanionView : IUIEventReceiver
     }
 
     private void SetupCompanionSprite() {
-        Sprite sprite = null;
-        if (entity is Companion companion) {
-            sprite = companion.companionType.sprite;
-        } else if (entity is CompanionInstance companionInstance) {
-            sprite = companionInstance.companion.companionType.sprite;
-        }
+        Sprite sprite = this.companion.getSprite();
         this.imageElement.style.backgroundImage = new StyleBackground(sprite);
         if (this.context.makeSpriteFillSpace) {
             this.imageElement.AddToClassList("companion-view-companion-image-fill-space");
@@ -514,7 +483,7 @@ public class CompanionView : IUIEventReceiver
         } else if (this.context.smallNametag) {
             this.primaryNameLabel.AddToClassList("companion-view-primary-name-label-small");
         }
-        this.primaryNameLabel.text = entity.GetName();
+        this.primaryNameLabel.text = this.companion.GetName();
         this.secondaryNameLabel.text = ""; // TODO: Do this lmao
     }
 
@@ -595,12 +564,8 @@ public class CompanionView : IUIEventReceiver
         this.maxHealthIndicatorCoroutine = null;
     }
 
-    public IUIEntity GetEntity() {
-        return this.entity;
-    }
-
     public IEnumerator AbilityActivatedVFX() {
-        CompanionView clonedCompanionView = new CompanionView(this.entity, this.template, 0, COMBAT_CONTEXT_VISUAL_ONLY, this.viewDelegate);
+        CompanionView clonedCompanionView = new CompanionView(this.companion, this.template, 0, COMBAT_CONTEXT_VISUAL_ONLY, this.viewDelegate, this.companionInstance);
         yield return EntityAbilityInstance.GenericAbilityTriggeredVFX(this.container, clonedCompanionView.container);
     }
 }

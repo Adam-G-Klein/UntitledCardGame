@@ -6,7 +6,8 @@ using UnityEngine.UI;
 using UnityEngine.UIElements;
 
 public class CombatEncounterView : MonoBehaviour,
-    IEntityViewDelegate
+    IEntityViewDelegate,
+    ICompanionViewDelegate
 {
     public GameStateVariableSO gameState;
     private VisualElement root;
@@ -168,39 +169,40 @@ public class CombatEncounterView : MonoBehaviour,
 
     // This function runs first frame, which creates the companion views before the companion instances
     // exist.
-    private void SetupCompanions(VisualElement container, IEnumerable<IUIEntity> companions) {
+    private void SetupCompanions(VisualElement container, List<Companion> companions) {
         var index = UIDocumentGameObjectPlacer.INITIAL_INDEX;
-        foreach (var entity in companions) {
-            container.Insert(0, SetupCompanion(entity, index).container);
+        foreach (Companion companion in companions) {
+            container.Insert(0, SetupCompanion(companion, index).container);
             index++;
         }
     }
 
     // This function is run every time after the first time the companion views are created, so that the companion instances
     // are created.
-    private void SetupCompanions(VisualElement container, IEnumerable<CompanionInstance> companionInstances)
+    private void SetupCompanions(VisualElement container, List<CompanionInstance> companionInstances)
     {
         var index = UIDocumentGameObjectPlacer.INITIAL_INDEX;
-        foreach (CompanionInstance entity in companionInstances)
+        foreach (CompanionInstance companionInstance in companionInstances)
         {
-            CompanionView companionView = SetupCompanion(entity, index);
+            CompanionView companionView = SetupCompanion(companionInstance.companion, index, companionInstance);
             // This is why this is a separate function
             // this bridge is a nice way to get from PlayableCard->DeckInstance->CompanionInstance->CompanionView
-            entity.companionView = companionView;
+            companionInstance.companionView = companionView;
             // Need to put them in reverse order due to some UI layering issues with max health indicator
             container.Insert(0, companionView.container);
-            combatInstanceToCompanionView.Add(entity.combatInstance, companionView);
+            combatInstanceToCompanionView.Add(companionInstance.combatInstance, companionView);
             index++;
         }
     }
 
-    private CompanionView SetupCompanion(IUIEntity companionInstance, int index) {
+    private CompanionView SetupCompanion(Companion companion, int index, CompanionInstance companionInstance = null) {
         CompanionView companionView = new CompanionView(
-                companionInstance,
+                companion,
                 this.enemyEncounterManager.encounterConstants.companionViewTemplate,
                 index,
                 CompanionView.COMBAT_CONTEXT,
-                this);
+                this,
+                companionInstance);
 
         pickingModePositionList.Add(companionView);
         companionViews.Add(companionView);
@@ -349,5 +351,27 @@ public class CombatEncounterView : MonoBehaviour,
         {
             Debug.LogWarning(e);
         }
+    }
+
+    public void ViewDeck(DeckViewType deckViewType, Companion companion = null, CompanionInstance companionInstance = null)
+    {
+        if (companionInstance == null) {
+            Debug.LogError("CombatEncounterManager: ViewDeck delegate called for a companion, but CompanionInstance is null!");
+            return;
+        }
+
+        int startingTab;
+        switch (deckViewType) {
+            case DeckViewType.Draw:
+                startingTab = 0;
+            break;
+
+            case DeckViewType.Discard:
+            default:
+                startingTab = 1;
+            break;
+        }
+
+        MultiDeckViewManager.Instance.ShowCombatDeckView(companionInstance, startingTab);
     }
 }

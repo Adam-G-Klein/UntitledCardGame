@@ -12,7 +12,7 @@ public enum Location
     NONE,
     MAIN_MENU,
     WAKE_UP_ROOM, // Legacy
-    TEAM_SIGNING,
+    STARTING_TEAM,
     MAP, // Legacy
     TEAM_SELECT, // Legacy
     PRE_COMBAT_SPLASH, // Legacy
@@ -94,7 +94,7 @@ public class GameStateVariableSO : ScriptableObject
     public int ascensionLevel = -1;
     public Dictionary<Location, string> locationToScene = new Dictionary<Location, string>() {
         {Location.MAIN_MENU, "MainMenu"},
-        {Location.TEAM_SIGNING, "TeamSigning"},
+        {Location.STARTING_TEAM, "StartingTeam"},
         {Location.TUTORIAL, "TutorialScene"},
         {Location.PACK_SELECT_TUTORIAL, "PackSelectionTutorialScene"},
         {Location.SHOP_TUTORIAL, "ShopTutorialScene"},
@@ -126,7 +126,7 @@ public class GameStateVariableSO : ScriptableObject
                     currentLocation = Location.PACK_SELECT;
                     break;
                 } else if (skipTutorials) {
-                    currentLocation = Location.TEAM_SIGNING;
+                    currentLocation = Location.STARTING_TEAM;
                     break;
                 }
 
@@ -144,7 +144,7 @@ public class GameStateVariableSO : ScriptableObject
                     }
                     break;
                 } else {
-                    currentLocation = Location.TEAM_SIGNING;
+                    currentLocation = Location.STARTING_TEAM;
                 }
                 break;
             case Location.PACK_SELECT_TUTORIAL:
@@ -153,11 +153,11 @@ public class GameStateVariableSO : ScriptableObject
             case Location.INTRO_CUTSCENE:
                 currentLocation = Location.TUTORIAL;
                 break;
-            case Location.TEAM_SIGNING:
+            case Location.STARTING_TEAM:
                 currentLocation = Location.COMBAT;
                 break;
             case Location.TUTORIAL:
-                currentLocation = Location.TEAM_SIGNING;
+                currentLocation = Location.STARTING_TEAM;
                 break;
             case Location.COMBAT:
                 Debug.Log("Leaving combat, current location is: " + currentLocation);
@@ -185,7 +185,7 @@ public class GameStateVariableSO : ScriptableObject
                 AdvanceEncounter();
                 break;
             case Location.PACK_SELECT:
-                currentLocation = Location.TEAM_SIGNING;
+                currentLocation = Location.STARTING_TEAM;
                 break;
             default:
                 Debug.Log("Invalid location in LoadNextLocation switch case");
