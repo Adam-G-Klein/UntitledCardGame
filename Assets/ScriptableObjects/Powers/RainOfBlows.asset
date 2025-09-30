@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ac8d29b7a56d46539bdf7eeb2d1260a, type: 3}
+  m_Name: RainOfBlows
+  m_EditorClassIdentifier: 
+  powerType: 10
+  title: Rain of Blows
+  description: Each attack from this companion deals +1 damage for each attack you
+    played this turn
+  abilities: []
+  displaySprite: {fileID: 21300000, guid: 5f4a5816818fe0841957c1e340e8a570, type: 3}
+  tooltip:
+    rid: 754093871974056658
+  stackable: 1
+  references:
+    version: 2
+    RefIds:
+    - rid: 754093871974056658
+      type: {class: TooltipViewModel, ns: , asm: Assembly-CSharp}
+      data:
+        empty: 0
+        lines: []

@@ -60,6 +60,21 @@ public class PowerSO : ScriptableObject
         FollowUp,
         // SoulOfOak: Gain X block for each status card in hand.
         SoulOfOak,
+        // RainOfBlows: Each attack from this companion deals +1 damage for each attack you played this turn.
+        RainOfBlows,
+        // Lifesink: end of turn, bleed all 1 HP and gain some defense
+        Lifesink,
+        // DustUntoDust: end of turn, exhaust all cards in hand and give self 4 block
+        DustUntoDust,
+        DemonRatForm,
+        // Retaliation: whenever self loses HP, deal X to a random enemy
+        Retaliation,
+        // EternalFlame: shuffle greek fire into own deck.
+        EternalFlame,
+        // Maelstrom: whenever you play a card, do X
+        Maelstrom,
+        // VortexOfSilence: end of turn, if your hand is empty, deal a shit ton of damage
+        VortexOfSilence,
     }
 
     public TooltipViewModel GetTooltip()

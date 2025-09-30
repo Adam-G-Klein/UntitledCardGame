@@ -51,7 +51,7 @@ public class ExportCardsToCSV
         StringBuilder csv = new StringBuilder();
 
         // CSV Header
-        csv.AppendLine("CardName,PoolName,Text,Rarity,CardCategory");
+        csv.AppendLine("CardName,PoolName,Text,Rarity,CardCategory,ManaCost");
 
         // CSV Data Rows
         foreach (CardPoolSO pool in cardPools)
@@ -85,6 +85,7 @@ public class ExportCardsToCSV
         string text = card.GetDescription().Replace(",", "");
         string rarityStr = rarity.ToString();
         string cardCategory = card.cardCategory.ToString();
-        return $"{cardName},{poolName},{text},{rarityStr},{cardCategory}";
+        string manaCost = card.Cost.ToString();
+        return $"{cardName},{poolName},{text},{rarityStr},{cardCategory},{manaCost}";
     }
 }

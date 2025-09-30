@@ -10,23 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: RP_PatientDestruction
+  m_Name: RP_Maelstrom
   m_EditorClassIdentifier: 
-  guid: f41792e1-ada4-473f-b3ea-70daffd98137
-  Name: Patient Destruction
-  Description: Retain. Deal {rpl_damage} damage twice.
-  defaultValues:
-  - key: rpl_damage
-    value: 7
+  guid: fd804129-8749-4bed-b4d5-6204f307edaa
+  Name: 
+  Description: 
+  defaultValues: []
   Cost: 2
-  Artwork: {fileID: 21300000, guid: 977664b7b0443cc4682f0fb74f848cd1, type: 3}
-  cardCategory: 1
+  Artwork: {fileID: 0}
+  cardCategory: 5
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
-  retain: 1
+  retain: 0
   effectWorkflows:
-  - rid: 5602892675124822189
+  - rid: 754093991137641289
   onExhaustEffectWorkflow:
     rid: -2
   onDiscardEffectWorkflow:
@@ -39,33 +37,26 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 5602892675124822189
+    - rid: 754093991137641289
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
-        - rid: 5602892675124822190
-        - rid: 5602892675124822191
-    - rid: 5602892675124822190
+        - rid: 754093991137641290
+        - rid: 754093991137641291
+    - rid: 754093991137641290
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: enemy
-        validTargets: 02000000
+        outputKey: self
+        validTargets: 
         number: 1
-        specialTargetRule: 0
+        specialTargetRule: 4
         cantCancelTargetting: 0
-    - rid: 5602892675124822191
-      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+    - rid: 754093991137641291
+      type: {class: ActivatePower, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: CombatEffectStep
-        inputKey: enemy
-        combatEffect: 0
-        scale: 6
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplicity: 2
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
-        vfxPrefab: {fileID: 1320532642761013391, guid: 4847f21b038e1aa42bceefe5c97ab1ab, type: 3}
+        effectStepName: ActivatePower
+        inputKey: self
+        power: {fileID: 11400000, guid: ddb2c3df8bea64aa6a4821bd3b7ff2c7, type: 2}

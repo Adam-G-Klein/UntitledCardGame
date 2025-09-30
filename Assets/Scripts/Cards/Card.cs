@@ -144,14 +144,37 @@ public class Card : Entity, IEquatable<Card>
         return Mathf.Max(0, cardType.Cost - totalReduction);
     }
 
-    public int UpdateScaleForCardModifications(int oldScale) {
+    public int UpdateScaleForCardModificationsAndPassives(int oldScale, CombatInstance origin) {
         int newScale = oldScale;
+        // FollowUp: If we cast an attack last, our next attack deals +3 damage.
+        if (origin.HasPower(PowerSO.PowerType.FollowUp))
+        {
+            Card lastCastCard = EnemyEncounterManager.Instance.combatEncounterState.GetLastCastCard();
+            // Debug.Log("Last cast card category: " + lastCastCard.cardType.cardCategory + ", num stack of power")
+            if (lastCastCard != null && lastCastCard.cardType.cardCategory == CardCategory.Attack)
+            {
+                newScale += 3 * origin.GetNumStackOfPower(PowerSO.PowerType.FollowUp);
+            }
+        }
+        // RainOfBlows: each attack deals +1 damage for each attack played this turn.
+        if (origin.HasPower(PowerSO.PowerType.RainOfBlows))
+        {
+            int numAttacks = EnemyEncounterManager.Instance.combatEncounterState.GetNumCardsOfCategoryPlayedThisTurn(CardCategory.Attack);
+            newScale += numAttacks * origin.GetNumStackOfPower(PowerSO.PowerType.RainOfBlows);
+        }
+
         // Making the choice to do fixed damage first, then multiplication. I don't think it will matter unless
         // both effects end up on one single card
         newScale += cardModifications[CardModification.FixedDamageIncrease];
         newScale += cardType.cardModifications[CardModification.FixedDamageIncrease];
-        newScale = newScale * (int)(Mathf.Pow(2, cardModifications[CardModification.DoubleDamageIncrease]));
-        newScale = newScale * (int)(Mathf.Pow(2, cardType.cardModifications[CardModification.DoubleDamageIncrease]));
+        newScale *= (int) Mathf.Pow(2, cardModifications[CardModification.DoubleDamageIncrease]);
+        newScale *= (int) Mathf.Pow(2, cardType.cardModifications[CardModification.DoubleDamageIncrease]);
+
+        // DoubleDamage: If we cast an attack last, our next attack deals +3 damage.
+        if (origin.HasPower(PowerSO.PowerType.DoubleDamage))
+        {
+            newScale *= (int) Math.Pow(2, origin.GetNumStackOfPower(PowerSO.PowerType.DoubleDamage));
+        }
 
         return newScale;
     }

@@ -17,11 +17,13 @@ public class CombatEncounterState
         cardsCastThisTurn.Add(card);
     }
 
-    public void ExhaustCard(Card card) {
+    public void ExhaustCard(Card card)
+    {
         cardsExhaustThisTurn.Add(card);
     }
-    
-    public void UpdateStateOnEndTurn() {
+
+    public void UpdateStateOnEndTurn()
+    {
         turn++;
         cardsCastThisCombat.AddRange(cardsCastThisTurn);
         cardsCastThisTurn = new List<Card>();
@@ -29,15 +31,35 @@ public class CombatEncounterState
         cardsExhaustThisTurn = new List<Card>();
     }
 
-    public Card GetLastCastCard() {
-        return cardsCastThisTurn[cardsCastThisTurn.Count];
+    public Card GetLastCastCard()
+    {
+        if (cardsCastThisTurn.Count == 0)
+        {
+            return null;
+        }
+        return cardsCastThisTurn[cardsCastThisTurn.Count - 1];
     }
 
-    public void DeckShuffled(DeckInstance deckInstance) {
+    public void DeckShuffled(DeckInstance deckInstance)
+    {
         decksShuffledThisCombat.Add(deckInstance);
     }
 
-    public int GetNumberOfDecksShuffled() {
+    public int GetNumberOfDecksShuffled()
+    {
         return decksShuffledThisCombat.Count;
+    }
+
+    public int GetNumCardsOfCategoryPlayedThisTurn(CardCategory category)
+    {
+        int count = 0;
+        foreach (Card card in cardsCastThisTurn)
+        {
+            if (card.cardType.cardCategory == category)
+            {
+                count += 1;
+            }
+        }
+        return count;
     }
 }

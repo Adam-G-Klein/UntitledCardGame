@@ -9,25 +9,21 @@ using UnityEngine;
 public class QuantityOfCardTypePlayedThisTurn : EffectStep, IEffectStepCalculation
 {
     [SerializeField]
-    private CardCategory cardCategory; 
+    private CardCategory cardCategory;
     [SerializeField]
     private bool getAll = false;
     [SerializeField]
     private string outputKey = "";
-    
+
     public QuantityOfCardTypePlayedThisTurn() {
         effectStepName = "QuantityOfCardTypePlayedThisTurn";
     }
 
     public override IEnumerator invoke(EffectDocument document) {
-        List<Card> cards = EnemyEncounterManager.Instance.combatEncounterState.cardsCastThisTurn;
-        int count = 0;
-        foreach (Card card in cards) {
-            if (getAll) {
-                count += 1;
-            } else if (card.cardType.cardCategory == cardCategory) {
-                count += 1;
-            }
+        int count = EnemyEncounterManager.Instance.combatEncounterState.GetNumCardsOfCategoryPlayedThisTurn(cardCategory);;
+        if (getAll)
+        {
+            count = EnemyEncounterManager.Instance.combatEncounterState.cardsCastThisTurn.Count;
         }
         document.intMap[outputKey] = count;
         yield return null;

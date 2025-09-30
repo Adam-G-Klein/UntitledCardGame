@@ -15,7 +15,7 @@ MonoBehaviour:
   guid: 4f8f41d0-a5a9-428f-8808-a3b7ea23890f
   Name: Brainstorm
   Description: Deal {rpl_damage} damage for each card in hand ({numberOfCardsInHand}
-    cards), then discard 1 card at random
+    cards), then discard 2 cards at random
   defaultValues:
   - key: rpl_damage
     value: 2
@@ -104,7 +104,7 @@ MonoBehaviour:
       data:
         effectStepName: GetRandomItems
         inputKey: cards
-        scale: 1
+        scale: 2
         outputKey: card
     - rid: 2295168569757139627
       type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}

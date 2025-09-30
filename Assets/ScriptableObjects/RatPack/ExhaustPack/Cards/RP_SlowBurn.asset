@@ -15,7 +15,7 @@ MonoBehaviour:
   guid: 2976fe0b-5e94-4884-a0ce-369836d3ffa8
   Name: Slow Burn
   Description: Shuffle a copy of "Greek Fire" into each deck. Increase the damage
-    of ALL "Greek Fire" cards by 1
+    of ALL "Greek Fire" cards by 2
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: cf5aa02f77468564190f8694f7007ee1, type: 3}
@@ -71,7 +71,7 @@ MonoBehaviour:
       data:
         effectStepName: CardModificationEffect
         inputKey: 
-        scale: 1
+        scale: 2
         affectsAllCardsOfType: 1
         cardTypeToModify: {fileID: 11400000, guid: 07ddcab78d7f64ac1849ccdb53efe2c0, type: 2}
         getScaleFromKey: 0

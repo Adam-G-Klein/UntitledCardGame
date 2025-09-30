@@ -116,27 +116,14 @@ public class CombatEffectStep : EffectStep, IEffectStepCalculation
         switch (combatEffect) {
             case CombatEffect.Damage:
                 newScale = baseScale + origin.GetCurrentDamage();
-                // FollowUp: If we cast an attack last, our next attack deals +3 damage.
-                if (origin.HasPower(PowerSO.PowerType.FollowUp))
-                {
-                    Card lastCastCard = EnemyEncounterManager.Instance.combatEncounterState.GetLastCastCard();
-                    if (lastCastCard.cardType.cardCategory == CardCategory.Attack)
-                    {
-                        newScale += 3;
-                    }
-                }
                 if (card != null)
                 {
-                    newScale = card.card.UpdateScaleForCardModifications(newScale);
-                }
-                if (origin.HasPower(PowerSO.PowerType.DoubleDamage))
-                {
-                    newScale *= 2;
+                    newScale = card.card.UpdateScaleForCardModificationsAndPassives(newScale, origin);
                 }
             break;
             case CombatEffect.FixedDamageWithCardModifications:
                 if (card != null) {
-                    newScale = card.card.UpdateScaleForCardModifications(newScale);
+                    newScale = card.card.UpdateScaleForCardModificationsAndPassives(newScale, origin);
                 }
             break;
         }

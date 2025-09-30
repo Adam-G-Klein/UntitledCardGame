@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: ca87df57-ec57-4fc6-82c9-95513dcc5d6c
   Name: Detonate
-  Description: Retain. Exhaust all cards in hand and deal {rpl_damage} to all enemies
-    for each card exhausted.
+  Description: Exhaust all cards in hand and deal {rpl_damage} to all enemies for
+    each card exhausted.
   defaultValues:
   - key: rpl_damage
     value: 2
@@ -25,7 +25,7 @@ MonoBehaviour:
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
-  retain: 1
+  retain: 0
   effectWorkflows:
   - rid: 2116895648763871336
   onExhaustEffectWorkflow:
@@ -58,7 +58,7 @@ MonoBehaviour:
         inputKey: cards
         filter:
           cardCategoriesToInclude: 
-          generatedCardsFilter: 0
+          retainedCardsFilter: 0
         outputKey: statusCards
     - rid: 1289961820425027792
       type: {class: CountStep, ns: , asm: Assembly-CSharp}

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: b8236695-c8bf-400f-83e8-9196ba7b08ba
   Name: Blitz
-  Description: Discard 2 random cards in hand and gain 2 energy
+  Description: Discard 3 cards in hand and gain 2 energy
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 3708c5d775e17b749bf81d2b922f6024, type: 3}
@@ -47,13 +47,6 @@ MonoBehaviour:
         effectStepName: CardInHandEffect
         inputKey: selected
         effect: 0
-    - rid: 2268261022115299347
-      type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetRandomItems
-        inputKey: cards
-        scale: 2
-        outputKey: selected
     - rid: 2268261022115299349
       type: {class: ManaChange, ns: , asm: Assembly-CSharp}
       data:
@@ -66,7 +59,6 @@ MonoBehaviour:
       data:
         effectSteps:
         - rid: 7401433308100035075
-        - rid: 2268261022115299347
         - rid: 2268261022115299329
         - rid: 2268261022115299349
     - rid: 7401433308100035075
@@ -77,6 +69,6 @@ MonoBehaviour:
         inputKey: 
         outputKey: cards
         validTargets: 03000000
-        number: 1
-        specialTargetRule: 2
+        number: 3
+        specialTargetRule: 5
         cantCancelTargetting: 0

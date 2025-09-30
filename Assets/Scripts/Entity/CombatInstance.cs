@@ -397,6 +397,15 @@ public class CombatInstance : MonoBehaviour
             .ToList();
     }
 
+    public int GetNumStackOfPower(PowerSO.PowerType powerType)
+    {
+        if (!powers.HasPower(powerType))
+        {
+            return 0;
+        }
+        return GetPowersWithStackCounts().Where(x => x.Item1.powerType == powerType).First().Item2;
+    }
+
     public bool HasPower(PowerSO.PowerType powerType)
     {
         return powers.HasPower(powerType);
