@@ -457,7 +457,7 @@ public class ShopViewController : MonoBehaviour,
 
         LTSeq sequence = LeanTween.sequence();
         float height = -100f;
-
+        MusicController.Instance.PlaySFX("event:/MX/MX_CompanionUpgradeStinger");
         // raise up 
         LeanTween.value(0f, 1f, 1.5f)
             .setEase(LeanTweenType.easeOutSine)
@@ -490,6 +490,7 @@ public class ShopViewController : MonoBehaviour,
                         RebuildUnitManagement(shopManager.gameState.companions);
                         isBuyingDisabled = false;
                         ScreenShakeManager.Instance.ShakeWithForce(1f);
+                        MusicController.Instance.PlaySFX("event:/SFX/SFX_CompanionUpgradeThud");
                     });
             });
     }

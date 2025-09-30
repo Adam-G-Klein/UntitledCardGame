@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="Event" id="{014d36bd-421e-4cea-9d45-8a49e3dd266f}">
 		<property name="name">
-			<value>MX_Companion_Upgrade_Stinger</value>
+			<value>MX_CompanionUpgradeStinger</value>
 		</property>
 		<property name="outputFormat">
 			<value>1</value>
@@ -100,8 +100,8 @@
 	</object>
 	<object class="MixerBusPanner" id="{973ce173-6250-4e7d-a0c4-c8c217c4c491}" />
 	<object class="SingleSound" id="{4ce760a8-b4d1-4326-9191-d836a3832d9a}">
-		<property name="startOffset">
-			<value>2.5</value>
+		<property name="volume">
+			<value>4</value>
 		</property>
 		<relationship name="audioFile">
 			<destination>{560fc415-d1cd-4406-a625-a8d0dffec6b7}</destination>
