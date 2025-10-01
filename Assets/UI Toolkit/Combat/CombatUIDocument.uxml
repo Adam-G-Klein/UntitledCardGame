@@ -45,7 +45,7 @@
             </ui:VisualElement>
             <ui:VisualElement name="cardContainer" class="cardContainer" style="background-color: rgba(0, 0, 0, 0); width: 80%; top: 60px;" />
         </ui:VisualElement>
-        <IconButton name="end-turn" class="focusable end-turn-button" style="position: absolute; height: 93px; width: 270px; font-size: 27px; -unity-font-style: bold; background-color: rgba(188, 188, 188, 0); background-image: resource(&apos;combat/endnewturn&apos;); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; right: 20px; bottom: 20px;" />
+        <IconButton name="end-turn" text="END TURN" class="focusable end-turn-button" style="position: absolute; height: 93px; width: 270px; font-size: 36px; -unity-font-style: normal; background-color: rgba(188, 188, 188, 0); background-image: url(&quot;project://database/Assets/Sprites/UI/fancy_button_empty.png?fileID=2800000&amp;guid=6080ecdbe7d39d94b9b0546968063025&amp;type=3#fancy_button_empty&quot;); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; right: 20px; bottom: 20px; color: rgb(238, 229, 197); padding-top: 41px;" />
         <ui:VisualElement name="mamna" style="flex-grow: 1; position: absolute; left: 1%; height: 200px; width: 200px; align-items: center; align-self: auto; justify-content: center; bottom: 2%;">
             <ui:VisualElement name="manaContainer" class="mana-container-styling" style="background-image: resource(&apos;combat/Manaindicator&apos;);" />
             <ui:VisualElement style="flex-grow: 1; position: absolute; align-items: center; justify-content: center; left: 34px; bottom: 27px;">
@@ -53,6 +53,6 @@
             </ui:VisualElement>
             <ui:VisualElement name="tail" class="mana-container-styling" style="background-image: resource(&apos;combat/justtail&apos;); top: 0; left: 0;" />
         </ui:VisualElement>
-        <IconButton name="deck-view-button" class="focusable end-turn-button" style="position: absolute; height: 93px; width: 270px; font-size: 27px; -unity-font-style: bold; background-color: rgba(188, 188, 188, 0); background-image: resource(&apos;combat/endnewturn&apos;); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; top: 20px; right: 20px;" />
+        <IconButton name="deck-view-button" text="VIEW DECKS" class="focusable end-turn-button" style="position: absolute; height: 93px; width: 270px; font-size: 32px; -unity-font-style: normal; background-color: rgba(188, 188, 188, 0); background-image: url(&quot;project://database/Assets/Sprites/UI/fancy_button_empty.png?fileID=2800000&amp;guid=6080ecdbe7d39d94b9b0546968063025&amp;type=3#fancy_button_empty&quot;); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; top: 20px; right: 20px; color: rgb(238, 229, 197); padding-top: 41px;" />
     </ui:VisualElement>
 </ui:UXML>
