@@ -1,5 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/fontStyling.uss?fileID=7433441132597879392&amp;guid=d0c0881f1c32747ecb649373600de095&amp;type=3#fontStyling" />
+    <Style src="project://database/Assets/UI%20Toolkit/Stylesheets/DemoExitGameStylesheet.uss?fileID=7433441132597879392&amp;guid=cbceada6c7602c044a09535e466021fb&amp;type=3#DemoExitGameStylesheet" />
     <ui:VisualElement style="flex-grow: 1; background-color: rgb(155, 155, 155);">
         <ui:VisualElement style="flex-grow: 1; height: 10%;">
             <ui:Label tabindex="-1" text="Thanks for playing! BadlyUpscaledPixelRat is asking that you wishlist the game on Steam!&#10;" parse-escape-sequences="true" display-tooltip-when-elided="true" name="main-label" style="font-size: 69px; white-space: normal; padding-top: 53px; padding-right: 53px; padding-bottom: 0; padding-left: 53px; -unity-text-align: upper-center; height: 271px;" />

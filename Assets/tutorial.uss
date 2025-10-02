@@ -83,11 +83,13 @@
 }
 
 .tutorial-button-disabled {
+    -unity-background-image-tint-color: rgba(0, 0, 0, 0.56);
 }
 
 .tutorial-button.tutorial-button-disabled:focus {
-    background-color: rgb(46, 45, 45);
+    scale: 1.1 1.1;
 }
 
 .tutorial-button:focus {
+    scale: 1.1 1.1;
 }

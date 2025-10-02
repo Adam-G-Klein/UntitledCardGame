@@ -32,6 +32,11 @@ public class ExitGameViewController : MonoBehaviour
 
         exitButton.RegisterCallback<PointerEnterEvent>(ExitButtonPointerEnterHandler);
         exitButton.RegisterCallback<PointerLeaveEvent>(ExitButtonPointerExitHandler);
+
+        FocusManager.Instance.RegisterFocusableTarget(steamPageButton.AsFocusable());
+        FocusManager.Instance.RegisterFocusableTarget(exitButton.AsFocusable());
+        exitButton.AsFocusable().additionalFocusAction += () => ExitButtonPointerEnterHandler(null);
+        exitButton.AsFocusable().additionalUnfocusAction += () => ExitButtonPointerExitHandler(null);
     }
 
     private void VisitSteamPageHandler() {

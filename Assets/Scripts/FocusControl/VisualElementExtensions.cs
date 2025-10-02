@@ -65,7 +65,8 @@ public static class VisualElementExtensions
                 LeanTween.value(0.92f, 1f, 0.1f)
                     .setOnUpdate((float value) => {
                         element.transform.scale = new Vector3(value, value, 1f);
-                    });
+                    })
+                    .setOnComplete(() => element.style.scale = StyleKeyword.Null);
             });
     }
 
