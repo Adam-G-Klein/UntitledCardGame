@@ -15,7 +15,7 @@ MonoBehaviour:
   activeCompanions:
   - id: 4172d530-f979-4be3-980d-beb915bd019c
     entityType: 0
-    companionType: {fileID: 11400000, guid: c8d7d8ca579c743b59b1b87f3aae4ad6, type: 2}
+    companionType: {fileID: 11400000, guid: 04c7e341cd1cb4872bc1252299c09f2e, type: 2}
     deck:
       cards:
       - id: 66bdd32c-d57a-4773-9ed1-03d570734cc5
@@ -29,13 +29,21 @@ MonoBehaviour:
     combatStats:
       maxHealth: 20
       maxHealthBuffs: 0
+<<<<<<< Updated upstream
       currentHealth: 4
+=======
+      currentHealth: 1
+>>>>>>> Stashed changes
       baseAttackDamage: 0
     onCombineAbilities: []
     trackingStats:
       numCardsRemoved: 0
       cardsBought: []
+<<<<<<< Updated upstream
       numDeaths: 5
+=======
+      numDeaths: 1
+>>>>>>> Stashed changes
   - id: f9b60196-75b9-418d-9a07-252b29d497ab
     entityType: 0
     companionType: {fileID: 11400000, guid: d46a66f8d86b8413097eaca31924aa9b, type: 2}
@@ -131,7 +139,11 @@ MonoBehaviour:
     combatStats:
       maxHealth: 15
       maxHealthBuffs: 0
+<<<<<<< Updated upstream
       currentHealth: 11
+=======
+      currentHealth: 2
+>>>>>>> Stashed changes
       baseAttackDamage: 0
     onCombineAbilities: []
     trackingStats:
