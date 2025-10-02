@@ -67,6 +67,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: e0120487fc52d224380f0f90a9da77b4, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Overlay_Tex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Texture2DAsset_5532e096ecb1417c86fdd8a187f01539_Out_0_Texture2D:
         m_Texture: {fileID: 2800000, guid: e0120487fc52d224380f0f90a9da77b4, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -107,12 +111,15 @@ Material:
     - _FinalAlphaMultiply: 0
     - _Fresnel: 0
     - _Fresnel_Thickness: 2.11
-    - _Lerp_Intensity: 0.2
+    - _Lerp_Intensity: 3.63
     - _Line_Thickness: 2.99
     - _Mask_Power: 0.57
     - _Mask_Strength: 1
     - _Not_using_Dist_in_Custom_Data: 0
     - _Offset: 10
+    - _Overlay_Power: 0
+    - _Overlay_Strength: 0
+    - _Overlay_Strength_1: 0
     - _Partcle_System: 0
     - _QueueControl: 0
     - _QueueOffset: 0
@@ -124,6 +131,7 @@ Material:
     - _Use_Cutoff: 1
     - _Use_Fade_Tex_Instead: 1
     - _Use_Lerp: 1
+    - _Use_Overlay_0_No: 0
     - _Use_Radial: 0
     - _Use_Soft_Sides: 0
     - _Vertex_Displacement_Strength: 0
@@ -134,7 +142,7 @@ Material:
     m_Colors:
     - _Color: {r: 4, g: 4, b: 4, a: 1}
     - _Color_A: {r: 0.16981131, g: 0.16981131, b: 0.16981131, a: 1}
-    - _Color_B: {r: 0.827451, g: 0.6862745, b: 0.21568628, a: 1}
+    - _Color_B: {r: 0.16171236, g: 0.38698584, b: 0.4339623, a: 1}
     - _Colour: {r: 1, g: 1, b: 1, a: 0.53333336}
     - _Dissolve_Speed: {r: -1, g: 0, b: 0, a: 0}
     - _Distortion_Speed: {r: -0.1, g: 0.001, b: 0, a: 0}
@@ -146,6 +154,7 @@ Material:
     - _Main_Text_Scroll_Speed: {r: 0, g: 0, b: 0, a: 0}
     - _Mask_Scroll_Speed: {r: 0, g: 0, b: 0, a: 0}
     - _Offset_Colour: {r: 0, g: 0, b: 0, a: 1}
+    - _Overlay_Speed: {r: 0, g: 0, b: 0, a: 0}
     - _Scroll_Speed: {r: 0, g: 0, b: 0, a: 0}
     - _Vertex_Displacement_Speed: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

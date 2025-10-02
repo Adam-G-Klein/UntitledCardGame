@@ -39139,7 +39139,7 @@ GameObject:
   - component: {fileID: 6315880405963397111}
   - component: {fileID: 9013042698860666091}
   m_Layer: 0
-  m_Name: Mouse Impact (2)
+  m_Name: Sword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40161,18 +40161,18 @@ ParticleSystem:
       repeatInterval: 0.2
       probability: 1
   SizeModule:
-    enabled: 0
+    enabled: 1
     curve:
       serializedVersion: 2
       minMaxState: 1
-      scalar: 1.5
+      scalar: 1
       minScalar: 1
       maxCurve:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 3
           time: 0
-          value: 0
+          value: 1
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -40180,31 +40180,22 @@ ParticleSystem:
           inWeight: 0
           outWeight: 0
         - serializedVersion: 3
-          time: 0.1644296
-          value: 0.65608406
-          inSlope: 0.8577283
-          outSlope: 0.8577283
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0.23963138
-          outWeight: 1
-        - serializedVersion: 3
-          time: 0.21759237
-          value: 0.98225325
-          inSlope: 0.4074554
-          outSlope: 0.4074554
-          tangentMode: 0
+          time: 0.56928957
+          value: 1
+          inSlope: Infinity
+          outSlope: -0.087226704
+          tangentMode: 7
           weightedMode: 0
           inWeight: 0.33333334
-          outWeight: 0.33333334
+          outWeight: 0.2411253
         - serializedVersion: 3
-          time: 0.27039248
-          value: 0.64949626
-          inSlope: 0
-          outSlope: 0
+          time: 1
+          value: 1
+          inSlope: -0.47731432
+          outSlope: -0.47731432
           tangentMode: 0
           weightedMode: 0
-          inWeight: 0
+          inWeight: 0.28964415
           outWeight: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
