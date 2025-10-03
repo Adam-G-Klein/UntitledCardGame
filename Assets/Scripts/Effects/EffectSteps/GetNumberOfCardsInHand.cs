@@ -18,7 +18,7 @@ public class GetNumberOfCardsInHand : EffectStep, IEffectStepCalculation {
     }
 
     public override IEnumerator invoke(EffectDocument document) {
-        document.intMap[outputKey] = PlayerHand.Instance.cardsInHand.Count;
+        document.intMap[outputKey] = PlayerHand.Instance.GetCardsOrdered().Count;
         yield return null;
     }
 

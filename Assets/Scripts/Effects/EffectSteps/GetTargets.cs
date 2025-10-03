@@ -207,7 +207,7 @@ public class GetTargets : EffectStep, IEffectStepCalculation
             enemies.ForEach(enemy => EffectUtils.AddEnemyToDocument(document, outputKey, enemy));
         }
         if (validTargets.Contains(Targetable.TargetType.Card)) {
-            List<PlayableCard> playableCards = PlayerHand.Instance.cardsInHand
+            List<PlayableCard> playableCards = PlayerHand.Instance.GetCardsOrdered()
                 .FindAll(card => !disallowedTargets.Contains(card.gameObject));
             playableCards.ForEach(playableCard => EffectUtils.AddPlayableCardToDocument(document, outputKey, playableCard));
         }
@@ -229,7 +229,7 @@ public class GetTargets : EffectStep, IEffectStepCalculation
                 EffectUtils.AddEnemyToDocument(document, outputKey, target);
             }
             if (validTargets.Contains(Targetable.TargetType.Card)) {
-                List<PlayableCard> playableCards = PlayerHand.Instance.cardsInHand
+                List<PlayableCard> playableCards = PlayerHand.Instance.GetCardsOrdered()
                     .FindAll(card => !disallowedTargets.Contains(card.gameObject));
                 PlayableCard target = playableCards[UnityEngine.Random.Range(0, playableCards.Count)];
                 EffectUtils.AddPlayableCardToDocument(document, outputKey, target);

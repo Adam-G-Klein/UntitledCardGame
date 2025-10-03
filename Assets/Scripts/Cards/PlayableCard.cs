@@ -114,8 +114,8 @@ public class PlayableCard : MonoBehaviour,
             ProgressManager.Instance.ReportProgressEvent(GameActionType.ZERO_COST_ATTACKS_PLAYED, 1);
         }
 
-
-        int cardPlayedIndex = PlayerHand.Instance.cardsInHand.IndexOf(this);
+        List<PlayableCard> cardsInHand = PlayerHand.Instance.GetCardsOrdered();
+        int cardPlayedIndex = cardsInHand.IndexOf(this);
         ManaManager.Instance.updateMana(-card.GetManaCost());
         StartCoroutine(cardCastEvent.RaiseAtEndOfFrameCoroutine(new CardCastEventInfo(card)));
         IncrementCastCount();
@@ -157,7 +157,7 @@ public class PlayableCard : MonoBehaviour,
         }
 
         // If the hand is empty as a result of playing this card, invoke any subscribers.
-        if (PlayerHand.Instance.cardsInHand.Count == 0)
+        if (cardsInHand.Count == 0)
         {
             Debug.Log("Hand is empty, triggering downstream OnHandEmpty subscribers");
             yield return PlayerHand.Instance.OnHandEmpty();
@@ -266,7 +266,7 @@ public class PlayableCard : MonoBehaviour,
     // Called by playerHand.discardCard
     public IEnumerator DiscardToDeck()
     {
-        if (PlayerHand.Instance.cardsInHand.Contains(this))
+        if (PlayerHand.Instance.GetCardsOrdered().Contains(this))
         {
             yield return StartCoroutine(PlayerHand.Instance.SafeRemoveCardFromHand(this));
         }

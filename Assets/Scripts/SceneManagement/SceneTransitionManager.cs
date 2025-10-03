@@ -57,6 +57,7 @@ public class SceneTransitionManager : MonoBehaviour
     {
         if (instance != null && !instance.isFading)
         {
+            LeanTween.cancelAll(); // Got a bad error when I tried to load a scene with a tween running
             instance.StartCoroutine(instance.FadeAndLoadScene(sceneName));
         }
     }

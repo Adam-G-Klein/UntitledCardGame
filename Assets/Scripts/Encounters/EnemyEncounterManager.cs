@@ -84,6 +84,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         ControlsManager.Instance.RegisterControlsReceiver(this);
         gameState.activeEncounter.GetValue().BuildWithEncounterBuilder(this);
         ManaManager.Instance.SetManaPerTurn(gameState.playerData.GetValue().manaPerTurn);
+        PlayerHand.Instance.SetupCompanionOrder();
         RegisterCombatEncounterStateActions();
     }
 
