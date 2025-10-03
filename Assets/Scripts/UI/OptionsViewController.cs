@@ -137,7 +137,8 @@ public class OptionsViewController : GenericSingleton<OptionsViewController>, IC
     public void onMainMenuButtonHandler() {
         // Load the main menu scene
         MusicController.Instance.PrepareForGoingBackToMainMenu();
-        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
+        // UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
+        SceneTransitionManager.LoadScene("MainMenu");
         ToggleVisibility();
     }
 
