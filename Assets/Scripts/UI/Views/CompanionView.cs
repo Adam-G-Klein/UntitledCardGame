@@ -513,7 +513,7 @@ public class CompanionView : IUIEventReceiver
 
     public void SetPickingModes(bool enable) {
         foreach (VisualElement ve in pickingModePositionList) {
-            ve.pickingMode = PickingMode.Position;
+            ve.pickingMode = enable ? PickingMode.Position : PickingMode.Ignore;
         }
     }
 

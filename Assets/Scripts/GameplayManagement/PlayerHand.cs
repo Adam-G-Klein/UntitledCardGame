@@ -1,14 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
-using Unity.Collections;
 using System.Linq;
-using UnityEngine.Playables;
 using System;
 using UnityEngine.Splines;
-using Unity.VisualScripting;
+using UnityEngine.UIElements;
 
 
 [ExecuteInEditMode]
@@ -45,6 +41,9 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     private float hoverZOffset;
     [SerializeField]
     private float hoverAnimationTime;
+
+    [SerializeField]
+    private SplineContainer cardInHandSelectionSpline;
 
 
     private GameObject cardPrefab;
@@ -649,5 +648,119 @@ public class PlayerHand : GenericSingleton<PlayerHand>
 
     public bool GetCanPlayCards() {
         return canPlayCards;
+    }
+
+    public void SelectCardsFromHand(
+            int number,
+            List<GameObject> disallowedCards,
+            List<GameObject> cardsLimitedTo,
+            Action<CancelContext> cancelCallback,
+            Action<List<PlayableCard>> callback,
+            PlayableCard cardCast = null) {
+        string CHOOSE_X_CARDS = "Choose {0} cards";
+        string CHOOSE_A_CARD = "Choose a card";
+        string SELECT_CONFIRM = "Select Confirm";
+
+        CombatEncounterView combatEncounterView = EnemyEncounterManager.Instance.combatEncounterView;
+        CardInHandSelectionView selectionView = combatEncounterView.GetCardSelectionView();
+        List<PlayableCard> selectedCards = new List<PlayableCard>();
+
+        TargettingManager.Instance.targetSuppliedHandler += SelectingCardSuppliedHandler;
+        TargettingManager.Instance.cancelTargettingHandler += SelectingCardCancelHandler;
+        
+        combatEncounterView.SetCompanionsAndEnemiesEnabled(false);
+        selectionView.SetConfirmedHandler(SelectingCardConfirmed);
+        selectionView.EnableSelection(GetPromptText(), GeoChangedHandler);
+
+        void SelectingCardSuppliedHandler(Targetable target) {
+            // Check if the provided target is disallowed
+            if (disallowedCards != null && disallowedCards.Contains(target.gameObject))
+                return;
+
+            // Check if we only want to pick from a specific list of targets
+            if (cardsLimitedTo != null && !cardsLimitedTo.Contains(target.gameObject)) {
+                return;
+            }
+
+            // Check if the entity type is correct
+            if (target.targetType != Targetable.TargetType.Card) {
+                return;
+            }
+
+            if (target.TryGetComponent<PlayableCard>(out PlayableCard targetCard)) {
+                if (selectedCards.Contains(targetCard)) {
+                    // Move from selected spline back to player hand
+                    selectedCards.Remove(targetCard);
+                    deckInstanceToPlayableCard[targetCard.deckFrom].Add(targetCard);
+                } else if (selectedCards.Count != number) {
+                    // Move from hand to selected spline
+                    deckInstanceToPlayableCard[targetCard.deckFrom].Remove(targetCard);
+                    selectedCards.Add(targetCard);
+                }
+                UpdateCardSelectionSplineCardPositions();
+                UpdateCardPositions();
+                selectionView.UpdateLabelText(GetPromptText());
+            }
+        }
+
+        void SelectingCardCancelHandler(CancelContext context) {
+            cancelCallback(context);
+        }
+
+        void SelectingCardConfirmed() {
+            combatEncounterView.SetCompanionsAndEnemiesEnabled(true);
+            selectionView.RemoveConfirmedHandler(SelectingCardConfirmed);
+            TargettingManager.Instance.targetSuppliedHandler -= SelectingCardSuppliedHandler;
+            TargettingManager.Instance.cancelTargettingHandler -= SelectingCardCancelHandler;
+            selectionView.DisableSelection();
+            if (cardCast != null) {
+                deckInstanceToPlayableCard[cardCast.deckFrom].Add(cardCast);
+            }
+            callback(selectedCards);
+        }
+
+        string GetPromptText() {
+            int cardsRemainingToSelect = number - selectedCards.Count;
+            if (cardsRemainingToSelect > 1) {
+                return String.Format(CHOOSE_X_CARDS, cardsRemainingToSelect);
+            } else if (cardsRemainingToSelect == 1) {
+                return CHOOSE_A_CARD;
+            }
+
+            return SELECT_CONFIRM;
+        }
+
+        void GeoChangedHandler(GeometryChangedEvent evt) {
+            // Update the position of the spline
+            if (cardCast != null) {
+                UnhoverCard(cardCast);
+                Vector3 worldspacePosition = UIDocumentGameObjectPlacer.GetWorldPositionFromElement(selectionView.GetCardCastLocationElement());
+                Debug.Log("SelectCardsFromHand: worldspace position " + worldspacePosition.ToString());
+                deckInstanceToPlayableCard[cardCast.deckFrom].Remove(cardCast);
+                MoveSingleCard(cardCast, worldspacePosition, Quaternion.identity, false);
+            }
+        }
+
+        void UpdateCardSelectionSplineCardPositions() {
+            float minCardSpacing = 1f / MAX_HAND_SIZE;
+            float maxCardSpacing = 1f / HAND_START_SCALING;
+            float cardSpacing = Mathf.Clamp(1f / selectedCards.Count, minCardSpacing, maxCardSpacing);
+            float firstCardPosition = 0.5f - (selectedCards.Count - 1) * (cardSpacing / 2);
+
+            // Lower z value = closer to camera
+            // between 1 and -0.5
+            float zValueSpacing = 1.5f / selectedCards.Count;
+            float zStart = 2f;
+            Spline spline = cardInHandSelectionSpline.Spline;
+
+            for (int i = 0; i < selectedCards.Count; i++) {
+                float p = firstCardPosition + (i * cardSpacing);
+                float zPos = zStart - (i * zValueSpacing);
+                Vector3 splinePosition = spline.EvaluatePosition(p);
+                float yPos = splinePosition.y;
+                Vector3 editedPosition = new Vector3(splinePosition.x, yPos, zPos);
+                MoveSingleCard(selectedCards[i], editedPosition, Quaternion.identity, false);
+            }
+        }
     }
 }

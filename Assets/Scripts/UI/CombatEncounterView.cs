@@ -10,6 +10,7 @@ public class CombatEncounterView : MonoBehaviour,
     ICompanionViewDelegate
 {
     public GameStateVariableSO gameState;
+    private UIDocument uiDoc;
     private VisualElement root;
     private EnemyEncounterManager enemyEncounterManager;
 
@@ -45,6 +46,7 @@ public class CombatEncounterView : MonoBehaviour,
     private bool inDeckView = false;
     private bool combatOver = false;
     public MapView mapView;
+    private CardInHandSelectionView cardInHandSelectionView;
     
     private Dictionary<CombatInstance, CompanionView> combatInstanceToCompanionView;
     private Dictionary<CombatInstance, EnemyView> combatInstanceToEnemyView;
@@ -53,7 +55,8 @@ public class CombatEncounterView : MonoBehaviour,
     {
         this.enemyEncounterManager = enemyEncounterManager;
         docRenderer = gameObject.GetComponent<UIDocumentScreenspace>();
-        root = GetComponent<UIDocument>().rootVisualElement;
+        uiDoc = GetComponent<UIDocument>();
+        root = uiDoc.rootVisualElement;
         if (!statusEffectsSO)
         {
             Debug.LogError("StatusEffectsSO is null, Go to ScriptableObjects/Configuration and set the SO there in the CombatCanvasUIDocument/CombatUI prefab");
@@ -89,6 +92,8 @@ public class CombatEncounterView : MonoBehaviour,
         mapView.mapContainer.Q<Label>("money-indicator-label").text = gameState.playerData.GetValue().gold.ToString() + "G";
         mapRoot.Add(mapView.mapContainer);
 
+        cardInHandSelectionView = new CardInHandSelectionView(uiDoc, root.Q<VisualElement>("card-in-hand-selection-view"));
+
         IconButton deckViewButton = root.Q<IconButton>("deck-view-button");
         deckViewButton.RegisterOnSelected(ShowDeckView);
         FocusManager.Instance.RegisterFocusableTarget(deckViewButton.AsFocusable());
@@ -96,8 +101,9 @@ public class CombatEncounterView : MonoBehaviour,
             GFGInputAction.OPEN_MULTI_DECK_VIEW,
             ControlsManager.Instance.GetSpriteForGFGAction(GFGInputAction.OPEN_MULTI_DECK_VIEW));
         ControlsManager.Instance.RegisterIconChanger(deckViewButton);
-        deckViewButton.pickingMode = PickingMode.Position; // doesn't seem like this is being respected :( not sure why...
+        deckViewButton.pickingMode = PickingMode.Position;
     }
+
     /*
         This needs to happen because we have a bit of a circular dependency. The _Intstance monobehaviors
         can't be created until the UI is setup, but the EntityViews need a reference to the _Instances,
@@ -233,6 +239,10 @@ public class CombatEncounterView : MonoBehaviour,
 
     public void updateMoney(int money) {
         docRenderer.SetStateDirty();
+    }
+
+    public CardInHandSelectionView GetCardSelectionView() {
+        return this.cardInHandSelectionView;
     }
 
     public Sprite GetStatusEffectSprite(StatusEffectType statusEffectType)
@@ -373,5 +383,15 @@ public class CombatEncounterView : MonoBehaviour,
         }
 
         MultiDeckViewManager.Instance.ShowCombatDeckView(companionInstance, startingTab);
+    }
+
+    public void SetCompanionsAndEnemiesEnabled(bool enabled) {
+        foreach (CompanionView view in companionViews) {
+            view.SetPickingModes(enabled);
+        }
+
+        foreach (EnemyView view in entityViews) {
+            view.SetPickingModes(enabled);
+        }
     }
 }

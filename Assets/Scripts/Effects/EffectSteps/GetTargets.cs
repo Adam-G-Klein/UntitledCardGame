@@ -59,7 +59,7 @@ public class GetTargets : EffectStep, IEffectStepCalculation
     private List<GameObject> limitOptions;
     private List<GameObject> disallowedTargets;
     private GameObject self;
-    private PlayableCard originCard;
+    private PlayableCard originCard = null;
 
     public GetTargets() {
         effectStepName = "GetTargets";
@@ -103,19 +103,27 @@ public class GetTargets : EffectStep, IEffectStepCalculation
             GetTargetsRandomly(document);
         } else {
             // if we're here then we need to user to click something on the screen
-            Debug.Log("TargettingManager.Instance.targetSuppliedHandler += TargetSuppliedHandler;");
-            cancelled = false;
-            TargettingManager.Instance.targetSuppliedHandler += TargetSuppliedHandler;
-            TargettingManager.Instance.cancelTargettingHandler += CancelHandler;
-            TargettingArrowsController.Instance.createTargettingArrow(validTargets, self);
-            // if(NonMouseInputManager.Instance.inputMethod != InputMethod.Mouse) {
-                // NonMouseInputManager.Instance.SetValidTargets(validTargets);
-            // }
             FocusManager.Instance.StashFocusablesNotOfTargetType(validTargets, this.GetType().Name);
             UIStateManager.Instance.setState(UIState.EFFECT_TARGETTING);
-            yield return new WaitUntil(() => targetsList.Count == number || (!cantCancelTargetting && cancelled));
-            TargettingManager.Instance.targetSuppliedHandler -= TargetSuppliedHandler;
-            TargettingManager.Instance.cancelTargettingHandler -= CancelHandler;
+            if (validTargets.Count == 1 && validTargets.Contains(Targetable.TargetType.Card)) {
+                bool selected = false;
+                PlayerHand.Instance.SelectCardsFromHand(number, disallowedTargets, limitOptions, CancelHandler, (List<PlayableCard> selectedCards) => {
+                    foreach (PlayableCard card in selectedCards) {
+                        targetsList.Add(card.GetComponent<Targetable>());
+                    }
+                    selected = true;
+                }, originCard);
+                yield return new WaitUntil(() => selected == true || (!cantCancelTargetting && cancelled));
+            } else {
+                cancelled = false;
+                TargettingManager.Instance.targetSuppliedHandler += TargetSuppliedHandler;
+                TargettingManager.Instance.cancelTargettingHandler += CancelHandler;
+                TargettingArrowsController.Instance.createTargettingArrow(validTargets, self);
+                yield return new WaitUntil(() => targetsList.Count == number || (!cantCancelTargetting && cancelled));
+                TargettingManager.Instance.targetSuppliedHandler -= TargetSuppliedHandler;
+                TargettingManager.Instance.cancelTargettingHandler -= CancelHandler;
+            }
+
             FocusManager.Instance.UnstashFocusables(this.GetType().Name);
             // If the user cancelled the effect workflow, we should interrupt it.
             // Also, disable the callback so the card doesn't finish casting :)
