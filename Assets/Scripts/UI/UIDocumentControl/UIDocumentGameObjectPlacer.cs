@@ -6,6 +6,7 @@ using UnityEditor;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEngine.Rendering.Universal;
 
 public class WorldPositionVisualElement {
     public Vector3 worldPos;
@@ -329,6 +330,7 @@ public class UIDocumentGameObjectPlacer : GenericSingleton<UIDocumentGameObjectP
         Debug.Log("screenPosition: " + screenPosition);
         if(float.IsNaN(screenPosition.x) || float.IsNaN(screenPosition.y))
         {
+            Debug.LogError("GetWorldPositionFromUIDocumentPosition: x or y position is not a number");
             return Vector3.zero;
         }
         Vector3 worldPosition;

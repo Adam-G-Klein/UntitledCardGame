@@ -55,4 +55,13 @@
         </ui:VisualElement>
         <IconButton name="deck-view-button" text="VIEW DECKS" class="focusable end-turn-button" style="position: absolute; height: 93px; width: 270px; font-size: 32px; -unity-font-style: normal; background-color: rgba(188, 188, 188, 0); background-image: url(&quot;project://database/Assets/Sprites/UI/fancy_button_empty.png?fileID=2800000&amp;guid=6080ecdbe7d39d94b9b0546968063025&amp;type=3#fancy_button_empty&quot;); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; top: 20px; right: 20px; color: rgb(238, 229, 197); padding-top: 41px;" />
     </ui:VisualElement>
+    <ui:VisualElement name="card-in-hand-selection-view" style="flex-grow: 1; position: absolute; width: 100%; height: 100%; justify-content: center; align-items: center; display: none; background-color: rgba(0, 0, 0, 0.56);">
+        <ui:VisualElement style="flex-grow: 0; width: 60%; height: 60%; align-items: center; translate: 0 -10%; display: flex;">
+            <ui:Label tabindex="-1" text="Select a card" parse-escape-sequences="true" display-tooltip-when-elided="true" name="card-in-harnd-selection-label" style="-unity-text-align: upper-center; -unity-font: resource(&apos;fonts/static/Jost-Medium&apos;); -unity-font-style: bold; color: rgb(255, 255, 255); font-size: 42px;" />
+            <ui:VisualElement name="card-in-hand-selection-area" style="flex-grow: 1; width: 100%;">
+                <ui:VisualElement name="card-in-hand-selection-card-cast-location" style="flex-grow: 0; position: absolute; left: -20%; top: 50%; width: 5%; height: 5%; flex-shrink: 0;" />
+            </ui:VisualElement>
+            <IconButton text="Confirm" name="card-in-hand-selection-button" style="width: 20%; height: 10%; font-size: 37px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
 </ui:UXML>
