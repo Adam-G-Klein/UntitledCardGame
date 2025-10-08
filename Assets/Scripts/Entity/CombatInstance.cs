@@ -208,6 +208,7 @@ public class CombatInstance : MonoBehaviour
                 if (damageTaken > 0) EnemyEncounterManager.Instance.DamageIndicator(this, damageTaken);
                 break;
             case CombatEffect.Heal:
+                MusicController.Instance.PlaySFX("event:/SFX/SFX_PositiveEffect");
                 int diff = combatStats.Heal(scale);
                 if (diff > 0)
                 {
