@@ -502,7 +502,6 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     // Do not call on whole hand, only call on individual cards
     // modifies the list of cards in hand
     public IEnumerator ExhaustCard(PlayableCard card) {
-        card.CardExhaustVFX();
         // If statements are here to take into account if a card exhausts itself
         // as part of its effect workflow
         if (cardsInHand.Contains(card)) {
@@ -518,6 +517,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                 new EffectWorkflowClosure(document, card.card.cardType.onExhaustEffectWorkflow, null)
             );
         }
+        card.CardExhaustVFX();
         yield return OnCardExhaust(card.deckFrom, card);
         // Queue up the callback last before returning execution so the callback will destroy the card
         // ONLY after the on exhaust workflows.
