@@ -11,7 +11,7 @@ public interface IUIEntity : ICombatStats
     public string GetDescription();
 
     // will return null if the entity is not in combat, or if combat is still initializing
-    public CombatInstance GetCombatInstance(); 
+    public CombatInstance GetCombatInstance();
 
     // will return null if the entity is not an enemy instance
     public EnemyInstance GetEnemyInstance();
@@ -21,4 +21,6 @@ public interface IUIEntity : ICombatStats
     public Targetable GetTargetable();
     Sprite GetBackgroundImage();
     Sprite GetEntityFrame();
+
+    DisplayType GetDisplayType();
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
@@ -127,6 +128,7 @@ public class EnemyView : IUIEventReceiver
         SetupBlockAndHealth();
         SetupStatusIndicators();
         UpdateWidthAndHeight();
+        //DamageScaleBump(1);
     }
 
 
@@ -320,9 +322,12 @@ public class EnemyView : IUIEventReceiver
         }
     }
 
-    private void DamageScaleBump(int scale)
+    public void DamageScaleBump(int scale = -1)
     {
-        if (scale == 0 || this.isTweening) return; // this could mean the damage didn't go through the block or that the companion died while taking damage
+        // TODO re enable
+        //if (scale == 0 || this.isTweening) return; // this could mean the damage didn't go through the block or that the companion died while taking damage
+        Debug.Log("Meothra, Called ui scale bump!");
+        this.container.style.rotate = new StyleRotate(new Rotate(scale * 90));
 
         float duration = 0.125f;  // Total duration for the scale animation
         float minScale = .8f; // (float)Math.Min(.75, .9 - scale / 500);  // scale bump increases in intensity if entity takes more damage (haven't extensively tested this)
@@ -350,6 +355,66 @@ public class EnemyView : IUIEventReceiver
             });
     }
 
+    public void BossFrameDestructionRotationShake(float scale, float duration, int pingpongs)
+    {
+
+
+
+        float originalElementRotation = this.container.style.rotate.value.angle.value;
+        float maxRotation = originalElementRotation + scale;
+
+        LeanTween.value(originalElementRotation, maxRotation, duration)
+            .setEase(LeanTweenType.easeInOutQuad)
+            .setLoopPingPong(pingpongs) // inverse tween is called when this tween completes. On complete below is called after both tweens complete
+            .setOnUpdate((float currentRotation) =>
+            {
+                this.container.style.rotate = new StyleRotate(new Rotate(currentRotation));
+            })
+            .setOnStart(() =>
+            {
+                this.isTweening = true;
+            })
+            .setOnComplete(() =>
+            {
+                this.isTweening = false;
+                this.container.style.rotate = new StyleRotate(new Rotate(originalElementRotation));
+            });
+    }
+
+    public void BossFrameDestructionPositionShake(float scale, float duration, int pingpongs, float delay = 0f)
+    {
+        /*
+        if(delay > 0f)
+        {
+            LeanTween.delayedCall(delay, () => {
+                BossFrameDestructionPositionShake(scale, duration, pingpongs, 0f);
+            });
+            return;
+        }
+        */
+
+        float originalElementPosition =
+            this.container.style.right.value.value;
+
+        // just do x for now, need to do a full vector tween to do more
+        LeanTween.value(originalElementPosition, scale, duration)
+            .setEase(LeanTweenType.easeInOutQuad)
+            .setLoopPingPong(pingpongs) // inverse tween is called when this tween completes. On complete below is called after both tweens complete
+            .setOnUpdate((float currentPosition) =>
+            {
+                this.container.style.right = currentPosition;
+            })
+            .setOnStart(() =>
+            {
+                this.isTweening = true;
+            })
+            .setOnComplete(() =>
+            {
+                this.isTweening = false;
+                this.container.style.right = originalElementPosition;
+            });
+    }
+
     private IEnumerator OnDeathHandler(CombatInstance killer)
     {
         this.selectedIndicator.style.visibility = Visibility.Hidden;
@@ -363,8 +428,14 @@ public class EnemyView : IUIEventReceiver
         intentContainer.style.display = DisplayStyle.None;
     }
 
-    public IEnumerator AbilityActivatedVFX() {
+    public IEnumerator AbilityActivatedVFX()
+    {
         EnemyView clonedEnemyView = new EnemyView(this.uiEntity, 0, this.viewDelegate);
         yield return EntityAbilityInstance.GenericAbilityTriggeredVFX(this.container, clonedEnemyView.container);
+    }
+
+    public IUIEntity GetEntity()
+    {
+        return this.uiEntity;
     }
 }

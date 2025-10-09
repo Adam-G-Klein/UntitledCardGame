@@ -26,7 +26,8 @@ public class CompanionInstance : MonoBehaviour, IUIEntity
 
     private BoxCollider2D boxCollider2D;
 
-    public void Setup(WorldPositionVisualElement wpve, Companion companion) {
+    public void Setup(WorldPositionVisualElement wpve, Companion companion)
+    {
 
         // ---- set some local member variables ----
         this.companion = companion;
@@ -55,7 +56,8 @@ public class CompanionInstance : MonoBehaviour, IUIEntity
         // all try to write state to the same Ability class.
         // Thus, we do this hack around for now where we create a "CompanionAbilityInstance"
         // that has a read-only reference to the Ability but keeps its own state.
-        foreach (EntityAbility ability in companion.companionType.abilitiesV2) {
+        foreach (EntityAbility ability in companion.companionType.abilitiesV2)
+        {
             CompanionInstanceAbilityInstance abilityInstance = new(ability, this);
             abilityInstance.Setup();
         }
@@ -115,7 +117,8 @@ public class CompanionInstance : MonoBehaviour, IUIEntity
         statusEffectTriggers.ForEach(trigger => TurnManager.Instance.addTurnPhaseTrigger(trigger));
     }
 
-    private void UnregisterUpdateStatusEffects() {
+    private void UnregisterUpdateStatusEffects()
+    {
         statusEffectTriggers.ForEach(trigger => TurnManager.Instance.removeTurnPhaseTrigger(trigger));
     }
 
@@ -131,47 +134,63 @@ public class CompanionInstance : MonoBehaviour, IUIEntity
         yield break;
     }
 
-    public void SetCompanionAbilityDeathCallback(IEnumerable callback) {
+    public void SetCompanionAbilityDeathCallback(IEnumerable callback)
+    {
     }
 
-    public string GetName() {
+    public string GetName()
+    {
         return companion.GetName();
     }
 
-    public int GetCurrentHealth() {
+    public int GetCurrentHealth()
+    {
         return combatInstance.combatStats.getCurrentHealth();
     }
 
-    public string GetDescription() {
+    public string GetDescription()
+    {
         return companion.companionType.keepsakeDescription;
     }
 
-    public CombatStats GetCombatStats() {
+    public CombatStats GetCombatStats()
+    {
         return combatInstance.combatStats;
     }
 
-    public CombatInstance GetCombatInstance() {
+    public CombatInstance GetCombatInstance()
+    {
         return combatInstance;
     }
 
-    public EnemyInstance GetEnemyInstance() {
+    public EnemyInstance GetEnemyInstance()
+    {
         return null;
     }
 
-    public DeckInstance GetDeckInstance() {
+    public DeckInstance GetDeckInstance()
+    {
         return deckInstance;
     }
 
-    public Targetable GetTargetable() {
+    public Targetable GetTargetable()
+    {
         return GetComponent<Targetable>();
     }
 
-    public Sprite GetBackgroundImage() {
+    public Sprite GetBackgroundImage()
+    {
         return companion.companionType.backgroundImage;
     }
 
-    public Sprite GetEntityFrame() {
+    public Sprite GetEntityFrame()
+    {
         return companion.companionType.entityFrame;
+    }
+
+    public DisplayType GetDisplayType()
+    {
+        return DisplayType.UIDOC;
     }
 }
 

@@ -50,8 +50,9 @@ public class CombatEncounterView : MonoBehaviour,
 
     private Dictionary<CombatInstance, CompanionView> combatInstanceToCompanionView;
     private Dictionary<CombatInstance, EnemyView> combatInstanceToEnemyView;
+    private bool bossFight = false;
 
-    public void SetupFromGamestate(EnemyEncounterManager enemyEncounterManager)
+    public void SetupFromGamestate(EnemyEncounterManager enemyEncounterManager, bool skipMapSetup = false, bool skipEnemySetup = false)
     {
         this.enemyEncounterManager = enemyEncounterManager;
         docRenderer = gameObject.GetComponent<UIDocumentScreenspace>();
@@ -74,7 +75,10 @@ public class CombatEncounterView : MonoBehaviour,
         }
         List<Enemy> enemies = ((EnemyEncounter)gameState.activeEncounter.GetValue()).enemyList;
         List<Companion> companions = gameState.companions.activeCompanions;
-        setupEnemies(root.Q<VisualElement>("enemyContainer"), enemies.Cast<IUIEntity>());
+        if (!skipEnemySetup)
+        {
+            setupEnemies(root.Q<VisualElement>("enemyContainer"), enemies.Cast<IUIEntity>());
+        }
         SetupCompanions(root.Q<VisualElement>("companionContainer"), companions);
         UIDocumentUtils.SetAllPickingMode(root, PickingMode.Ignore);
 
@@ -86,11 +90,15 @@ public class CombatEncounterView : MonoBehaviour,
         ControlsManager.Instance.RegisterIconChanger(endTurnButton);
 
         setupComplete = true;
+        // for the boss fight
         VisualElement mapRoot = root.Q("mapRoot");
         mapRoot.Clear();
-        mapView = new MapView(enemyEncounterManager);
-        mapView.mapContainer.Q<Label>("money-indicator-label").text = gameState.playerData.GetValue().gold.ToString() + "$";
-        mapRoot.Add(mapView.mapContainer);
+        if (!skipMapSetup)
+        {
+            mapView = new MapView(enemyEncounterManager);
+            mapView.mapContainer.Q<Label>("money-indicator-label").text = gameState.playerData.GetValue().gold.ToString() + "$";
+            mapRoot.Add(mapView.mapContainer);
+        }
 
         cardInHandSelectionView = new CardInHandSelectionView(uiDoc, root.Q<VisualElement>("card-in-hand-selection-view"));
 
@@ -104,13 +112,13 @@ public class CombatEncounterView : MonoBehaviour,
         deckViewButton.pickingMode = PickingMode.Position;
     }
 
-    /*
-        This needs to happen because we have a bit of a circular dependency. The _Intstance monobehaviors
-        can't be created until the UI is setup, but the EntityViews need a reference to the _Instances,
-        so we first setup the UI with just Companion and Enemy from gamestate, then we reset them to hold
-        references to the _Instances cast to IUIEntity afterwards.
-    */
-    public void ResetEntities(List<CompanionInstance> companions, List<EnemyInstance> enemies)
+    public void DestroyMapAndEnemyUI()
+    {
+    //    clearViews();
+    //    SetupFromGamestate(enemyEncounterManager, true, true);
+    }
+
+    private void clearViews()
     {
         VisualElement enemyContainer = root.Q<VisualElement>("enemyContainer");
         VisualElement companionContainer = root.Q<VisualElement>("companionContainer");
@@ -120,6 +128,19 @@ public class CombatEncounterView : MonoBehaviour,
         companionContainer.Clear();
         this.combatInstanceToCompanionView = new();
         this.combatInstanceToEnemyView = new();
+    }
+
+    /*
+        This needs to happen because we have a bit of a circular dependency. The _Intstance monobehaviors
+        can't be created until the UI is setup, but the EntityViews need a reference to the _Instances,
+        so we first setup the UI with just Companion and Enemy from gamestate, then we reset them to hold
+        references to the _Instances cast to IUIEntity afterwards.
+    */
+    public void ResetEntities(List<CompanionInstance> companions, List<EnemyInstance> enemies)
+    {
+        clearViews();
+        VisualElement enemyContainer = root.Q<VisualElement>("enemyContainer");
+        VisualElement companionContainer = root.Q<VisualElement>("companionContainer");
         SetupEnemies(enemyContainer, enemies);
         // setupEntities(companionContainer, companions.Cast<IUIEntity>(), false);
         SetupCompanions(companionContainer, companions);
@@ -133,12 +154,14 @@ public class CombatEncounterView : MonoBehaviour,
         if (!setupComplete)
         {
             SetupFromGamestate(this.enemyEncounterManager);
-        }
-        else
-        {
-            root.Q<Label>("money-indicator-label").text = gameState.playerData.GetValue().gold.ToString() + "$";
-            foreach (EnemyView entityView in entityViews)
+        } else {
+            var moneyVisElem = root.Q<Label>("money-indicator-label"); 
+            // TODO, nullptr if big boss fight cuz no money indicator
+            if(moneyVisElem != null)
             {
+                moneyVisElem.text = gameState.playerData.GetValue().gold.ToString() + "G";
+            }
+            foreach (EnemyView entityView in entityViews) {
                 entityView.UpdateView();
             }
             foreach (CompanionView view in companionViews)
@@ -167,9 +190,17 @@ public class CombatEncounterView : MonoBehaviour,
     private void setupEnemies(VisualElement container, IEnumerable<IUIEntity> entities)
     {
         var index = UIDocumentGameObjectPlacer.INITIAL_INDEX;
-        foreach (var entity in entities)
-        {
+        foreach (var entity in entities) {
             container.Add(setupEnemy(entity, index).container);
+            // for when we have more bosses or different enemy types that need special handling
+            switch (entity.GetDisplayType())
+            {
+                case DisplayType.MEOTHRA:
+                    bossFight = true;
+                    break;
+                default:
+                    break;
+            }
             index++;
         }
     }
@@ -179,6 +210,7 @@ public class CombatEncounterView : MonoBehaviour,
         var index = UIDocumentGameObjectPlacer.INITIAL_INDEX;
         foreach (EnemyInstance entity in enemyInstances)
         {
+            // setupEnemy adds to the list
             EnemyView enemyView = setupEnemy(entity, index);
             entity.enemyView = enemyView;
             container.Add(enemyView.container);
@@ -432,7 +464,8 @@ public class CombatEncounterView : MonoBehaviour,
             try
             {
                 instance.GetComponent<TooltipOnHover>()?.OnPointerExitVoid();
-            } catch (MissingReferenceException exception)
+            }
+            catch (MissingReferenceException exception)
             {
                 // If an enemy has died, we'll hit this case, but we don't want to fail outright
                 Debug.LogException(exception);
@@ -444,11 +477,15 @@ public class CombatEncounterView : MonoBehaviour,
             try
             {
                 instance.GetComponent<TooltipOnHover>()?.OnPointerExitVoid();
-            } catch (MissingReferenceException exception)
+            }
+            catch (MissingReferenceException exception)
             {
                 // If an enemy has died, we'll hit this case, but we don't want to fail outright
                 Debug.LogException(exception);
             }
         }
+    }
+    public List<EnemyView> GetEnemyViews() {
+        return entityViews;
     }
 }

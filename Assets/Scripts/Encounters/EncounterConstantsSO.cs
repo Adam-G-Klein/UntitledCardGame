@@ -9,6 +9,7 @@ public class EncounterConstantsSO : ScriptableObject {
     [Header("Enemy Encounter")]
     public GameObject companionPrefab;
     public GameObject enemyPrefab;
+    public GameObject SmokeAndArmsBossPrefab;
     public GameObject minionPrefab;
     public GameObject playerPrefab;
     public GameObject cardPrefab;
@@ -27,4 +28,6 @@ public class EncounterConstantsSO : ScriptableObject {
     public CardType cardGeneratedByOrb;
     public GameObject cardDrawVFXPrefab;
     public Sprite genericCardCompanionTypeSprite;
+    [Header("Boss Fight Constants")]
+    public Vector2 bossSpawnLocation = Vector2.zero;
 }
