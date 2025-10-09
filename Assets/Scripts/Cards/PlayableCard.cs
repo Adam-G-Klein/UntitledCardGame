@@ -322,14 +322,23 @@ public class PlayableCard : MonoBehaviour,
 
 
     // TODO: Move over last use of this card
-    public void ResetCardScale()
+    public void ResetCardScale(bool focus = false)
     {
-        if (hovered) {
+        interactable = true;
+        currentlyCastingCard = false;
+        if (focus == false && hovered)
+        {
             hovered = false;
             PlayerHand.Instance.UnhoverCard(this);
         }
-        interactable = true;
-        currentlyCastingCard = false;
+        else if (focus == true)
+        {
+            if (gameObject.TryGetComponent<GameObjectFocusable>(out GameObjectFocusable goFocusable))
+            {
+                FocusManager.Instance.SetFocus(goFocusable);
+            }
+            OnPointerEnterVoid();
+        }
     }
 
     // Used when instantiating the card after Start has run

@@ -193,13 +193,16 @@ public class GetTargets : EffectStep, IEffectStepCalculation
             context.canCancel = true;
             cancelled = true;
             FocusManager.Instance.UnstashFocusables(this.GetType().Name);
-            if (ControlsManager.Instance.GetControlMethod() == ControlsManager.ControlMethod.KeyboardController) {
-                if (originCard.TryGetComponent<GameObjectFocusable>(out GameObjectFocusable goFocusable)) {
-                    FocusManager.Instance.SetFocus(goFocusable);
-                }
-            }
+            PlayerHand.Instance.SetHoverable(true);
             if (originCard != null) {
-                originCard.ResetCardScale();
+                if (ControlsManager.Instance.GetControlMethod() == ControlsManager.ControlMethod.KeyboardController)
+                {
+                    originCard.ResetCardScale(true);
+                }
+                else
+                {
+                    originCard.ResetCardScale(false);
+                }
                 EnemyEncounterManager.Instance.SetCastingCard(false);
                 PlayerHand.Instance.UpdateCardPositions();
             }
