@@ -37,7 +37,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     private GameObject postGamePopup;
     [SerializeField]
     public GameObject placerGO;
-    private bool encounterBuilt = false;
+    private bool startTheTurns = false;
     private bool inToolTip = false;
     private bool castingCard = false;
     private bool combatOver = false;
@@ -64,7 +64,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     }
 
     void Start() {
-        encounterBuilt = false;
+        startTheTurns = false;
         // This ends up calling BuildEnemyEncounter below
         combatEncounterView.SetupFromGamestate(this);
         OptionsViewController.Instance.SetEnterHandler(OnMenuOpenedHandler);
@@ -104,13 +104,16 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         EnemyEncounterViewModel.Instance.SetStateDirty();
         combatEncounterView.ResetEntities(createdCompanions, createdEnemies);
         // set up the EnemyEncounterViewModel, which passes information to the UI
-        encounterBuilt = true;
+        // set up a coroutine for all of the things (like dialogue and a boss start animation) to yield on before we tell the turn manager 
+        // (using the flag below) to start the turns (display player turn splash, deal cards)
+        startTheTurns = true;
         combatOver = false;
         isEliteCombat = encounter.isEliteEncounter;
     }
 
-    public bool IsEncounterBuilt(){
-        return encounterBuilt;
+    public bool EncounterStartReady()
+    {
+        return startTheTurns;
     }
 
     void Update() {

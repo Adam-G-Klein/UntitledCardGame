@@ -48,7 +48,8 @@ public class TurnManager : GenericSingleton<TurnManager>
     }
 
     private IEnumerator LateStart() {
-        yield return new WaitUntil(() => EnemyEncounterManager.Instance.IsEncounterBuilt());
+        yield return new WaitUntil(() => EnemyEncounterManager.Instance.EncounterStartReady());
+        // place to hook in a wait on a boss fight animation sequence?
         StartCoroutine(turnPhaseEvent.RaiseAtEndOfFrameCoroutine(new TurnPhaseEventInfo(TurnPhase.START_ENCOUNTER)));
         EnemyEncounterViewModel.Instance.SetStateDirty();
     }

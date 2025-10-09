@@ -8,7 +8,8 @@ using UnityEngine.UIElements;
 
 [RequireComponent(typeof(CombatInstance))]
 [RequireComponent(typeof(Targetable))]
-public class EnemyInstance : MonoBehaviour, IUIEntity {
+public class EnemyInstance : MonoBehaviour, IUIEntity
+{
     public Enemy enemy;
     public CombatInstance combatInstance;
 
@@ -30,7 +31,8 @@ public class EnemyInstance : MonoBehaviour, IUIEntity {
 
     private Dictionary<EnemyBrain, ValueTuple<int, int>> behaviorIndices = new();
 
-    public void Setup(WorldPositionVisualElement placement, Enemy enemy, float leftRightScreenPlacementPercent) {
+    public void Setup(WorldPositionVisualElement placement, Enemy enemy, float leftRightScreenPlacementPercent)
+    {
         this.enemy = enemy;
         gameObject.name = enemy.enemyType.name;
         CombatEntityManager.Instance.registerEnemy(this);
@@ -54,16 +56,19 @@ public class EnemyInstance : MonoBehaviour, IUIEntity {
         }
 
         combatInstance.onDeathHandler += OnDeath;
-        foreach (InitialStatus status in enemy.enemyType.initialStatuses) {
+        foreach (InitialStatus status in enemy.enemyType.initialStatuses)
+        {
             combatInstance.SetStatusEffect(status.status, status.scale);
         }
         RegisterTurnPhaseTriggers();
     }
 
-    public EnemyIntent ChooseIntent(EnemyBrain brain) {
+    public EnemyIntent ChooseIntent(EnemyBrain brain)
+    {
         Debug.Log("ChooseIntent");
         List<EnemyBehavior> behaviors = brain.behaviors;
-        if(behaviors.Count == 0) {
+        if (behaviors.Count == 0)
+        {
             Debug.LogError("No behaviors defined for enemy");
             return null;
         }
@@ -71,7 +76,8 @@ public class EnemyInstance : MonoBehaviour, IUIEntity {
 
         int behaviorIndex = idxs.Item1;
         int nextBehaviorIndex = idxs.Item2;
-        switch (brain.behaviorType) {
+        switch (brain.behaviorType)
+        {
             case EnemyBrain.EnemyBehaviorPattern.SequentialCycling:
                 behaviorIndex = nextBehaviorIndex;
                 nextBehaviorIndex = (nextBehaviorIndex + 1) % behaviors.Count;
@@ -91,7 +97,8 @@ public class EnemyInstance : MonoBehaviour, IUIEntity {
         // an important behavior to support for now.
         CompanionInstance target = ChooseTargets(action.enemyTargetMethod);
         List<CompanionInstance> targetList = new();
-        if (target != null) {
+        if (target != null)
+        {
             targetList.Add(target);
         }
 
@@ -108,35 +115,38 @@ public class EnemyInstance : MonoBehaviour, IUIEntity {
             action.effectSteps);
     }
 
-    public int GetBehaviorIndexForBrain(EnemyBrain brain) {
-        return behaviorIndices.GetValueOrDefault(brain, new (0, 0)).Item1;
+    public int GetBehaviorIndexForBrain(EnemyBrain brain)
+    {
+        return behaviorIndices.GetValueOrDefault(brain, new(0, 0)).Item1;
     }
 
-    private CompanionInstance ChooseTargets(EnemyTargetMethod targetMethod) {
+    private CompanionInstance ChooseTargets(EnemyTargetMethod targetMethod)
+    {
         CompanionInstance target = null;
         List<CompanionInstance> possibleTargets = new List<CompanionInstance>();
-        switch (targetMethod) {
+        switch (targetMethod)
+        {
             case EnemyTargetMethod.FirstCompanion:
                 target = CombatEntityManager.Instance.GetCompanionInstanceAtPosition(0);
-            break;
+                break;
 
             case EnemyTargetMethod.LastCompanion:
                 target = CombatEntityManager.Instance.GetCompanionInstanceAtPosition(-1);
-            break;
+                break;
 
             case EnemyTargetMethod.SecondFromFront:
                 target = CombatEntityManager.Instance.GetCompanionInstanceAtPosition(1);
-            break;
+                break;
 
             case EnemyTargetMethod.ThirdFromFront:
                 target = CombatEntityManager.Instance.GetCompanionInstanceAtPosition(2);
-            break;
+                break;
 
             case EnemyTargetMethod.RandomCompanion:
                 CombatEntityManager.Instance.getCompanions()
                     .ForEach(companion => possibleTargets.Add(companion));
                 target = possibleTargets[UnityEngine.Random.Range(0, possibleTargets.Count)];
-            break;
+                break;
 
             // case EnemyTargetMethod.RandomEnemyNotSelf:
             //     CombatEntityManager.Instance.getEnemies()
@@ -151,17 +161,20 @@ public class EnemyInstance : MonoBehaviour, IUIEntity {
             case EnemyTargetMethod.LowestHealth:
                 List<CompanionInstance> companions = CombatEntityManager.Instance.getCompanions();
                 target = companions[0];
-                foreach (CompanionInstance instance in companions) {
-                    if (instance.combatInstance.combatStats.getCurrentHealth() < target.combatInstance.combatStats.getCurrentHealth()) {
+                foreach (CompanionInstance instance in companions)
+                {
+                    if (instance.combatInstance.combatStats.getCurrentHealth() < target.combatInstance.combatStats.getCurrentHealth())
+                    {
                         target = instance;
                     }
                 }
-            break;
+                break;
         }
         return target;
     }
 
-    private void RegisterTurnPhaseTriggers() {
+    private void RegisterTurnPhaseTriggers()
+    {
         // Don't need this for now, portraits are covering
         turnPhaseTriggers.Add(new TurnPhaseTrigger(TurnPhase.START_PLAYER_TURN, DeclareIntent()));
         turnPhaseTriggers.Add(new TurnPhaseTrigger(
@@ -173,27 +186,32 @@ public class EnemyInstance : MonoBehaviour, IUIEntity {
         turnPhaseTriggers.Add(new TurnPhaseTrigger(TurnPhase.ENEMIES_TURN, EnactIntent()));
         turnPhaseTriggers.Add(new TurnPhaseTrigger(TurnPhase.END_PLAYER_TURN, ClearBlock()));
         turnPhaseTriggers.Add(new TurnPhaseTrigger(TurnPhase.END_ENEMY_TURN, ClearTemporaryStrength()));
-        foreach(TurnPhaseTrigger trigger in turnPhaseTriggers) {
+        foreach (TurnPhaseTrigger trigger in turnPhaseTriggers)
+        {
             registerTurnPhaseTriggerEvent.Raise(new TurnPhaseTriggerEventInfo(trigger));
         }
     }
 
-    private void UnregisterTurnPhaseTriggers() {
-        foreach(TurnPhaseTrigger trigger in turnPhaseTriggers) {
+    private void UnregisterTurnPhaseTriggers()
+    {
+        foreach (TurnPhaseTrigger trigger in turnPhaseTriggers)
+        {
             removeTurnPhaseTriggerEvent.Raise(new TurnPhaseTriggerEventInfo(trigger));
         }
     }
 
-    private IEnumerable DeclareIntent() {
+    private IEnumerable DeclareIntent()
+    {
         currentIntent = enemy.ChooseIntent(this);
         Debug.Log("EnemyInstance: UpdateView");
         EnemyEncounterViewModel.Instance.SetStateDirty();
         yield return null;
     }
 
-    private IEnumerable EnactIntent() {
+    private IEnumerable EnactIntent()
+    {
         yield return new WaitForSeconds(currentIntent.attackTime);
-        if(dead) yield break;
+        if (dead) yield break;
         EffectDocument document = new EffectDocument();
         document.map.AddItem(EffectDocument.ORIGIN, this);
         document.originEntityType = EntityType.Enemy;
@@ -210,21 +228,25 @@ public class EnemyInstance : MonoBehaviour, IUIEntity {
         yield return null;
     }
 
-    private IEnumerable ClearBlock() {
+    private IEnumerable ClearBlock()
+    {
         combatInstance.SetStatusEffect(StatusEffectType.Defended, 0);
         yield return null;
     }
 
-    private IEnumerable ClearTemporaryStrength() {
+    private IEnumerable ClearTemporaryStrength()
+    {
         combatInstance.SetStatusEffect(StatusEffectType.TemporaryStrength, 0);
         yield return null;
     }
 
-    public void SetTauntedTarget(CombatInstance target){
+    public void SetTauntedTarget(CombatInstance target)
+    {
         throw new NotImplementedException();
     }
 
-    private IEnumerator OnDeath(CombatInstance killer) {
+    private IEnumerator OnDeath(CombatInstance killer)
+    {
         Debug.Log("EnemyInstance OnDeath handler");
         UnregisterTurnPhaseTriggers();
         dead = true;
@@ -232,46 +254,62 @@ public class EnemyInstance : MonoBehaviour, IUIEntity {
         yield return null;
     }
 
-    public string GetName() {
+    public string GetName()
+    {
         return enemy.GetName();
     }
 
-    public int GetCurrentHealth() {
+    public int GetCurrentHealth()
+    {
         return combatInstance.combatStats.getCurrentHealth();
     }
 
-    public string GetDescription() {
-        if(currentIntent == null) {
+    public string GetDescription()
+    {
+        if (currentIntent == null)
+        {
             return "";
         }
         return currentIntent.intentType.ToString();
     }
 
-    public CombatStats GetCombatStats() {
+    public CombatStats GetCombatStats()
+    {
         return combatInstance.combatStats;
     }
 
-    public CombatInstance GetCombatInstance() {
+    public CombatInstance GetCombatInstance()
+    {
         return combatInstance;
     }
 
-    public EnemyInstance GetEnemyInstance() {
+    public EnemyInstance GetEnemyInstance()
+    {
         return this;
     }
 
-    public DeckInstance GetDeckInstance() {
+    public DeckInstance GetDeckInstance()
+    {
         return null;
     }
 
-    public Targetable GetTargetable() {
+    public Targetable GetTargetable()
+    {
         return GetComponent<Targetable>();
     }
 
-    public Sprite GetBackgroundImage() {
+    public Sprite GetBackgroundImage()
+    {
         return enemy.enemyType.backgroundImage;
     }
 
-    public Sprite GetEntityFrame() {
+    public Sprite GetEntityFrame()
+    {
         return enemy.enemyType.entityFrame;
+    }
+
+    public DisplayType GetDisplayType()
+    {
+        return enemy.enemyType.enemyDisplayType;
     }
 }

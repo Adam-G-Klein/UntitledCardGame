@@ -72,14 +72,48 @@ public class EnemyEncounter : Encounter
         for(int i = 0; i < enemyList.Count; i++)
         {
             WorldPositionVisualElement newEnemyPlacement = placer.checkoutEnemyMapping();
+            GameObject enemyPrefabToInstantiate = getEnemyPrefabToInstantiate(enemyList[i]);
+            Vector2 enemyPosition = getEnemySpawnLocation(enemyList[i], newEnemyPlacement);
+            if(enemyPrefabToInstantiate == null) {
+                Debug.LogError("Enemy prefab is null, you probably didnt set it in the encounterconstants");
+            }
             EnemyInstance newEnemy = PrefabInstantiator.instantiateEnemy(
-                encounterConstants.enemyPrefab,
-                newEnemyPlacement.worldPos,
+                enemyPrefabToInstantiate,
+                enemyPosition,
                 encounterBuilder.transform);
             newEnemy.Setup(newEnemyPlacement, enemyList[i], (float) i / enemyList.Count);
             createdEnemies.Add(newEnemy);
             placer.addMapping(newEnemyPlacement, newEnemy.gameObject);
         }
+    }
+
+    private GameObject getEnemyPrefabToInstantiate(Enemy enemy) {
+        GameObject toInstantiate;
+        switch(enemy.enemyType.enemyDisplayType) {
+            case DisplayType.BOSS_SMOKE_AND_ARMS:
+                toInstantiate = encounterConstants.SmokeAndArmsBossPrefab;
+                break;
+            default:
+                toInstantiate = encounterConstants.enemyPrefab;
+                break;
+        }
+        return toInstantiate;
+    }
+
+    private Vector2 getEnemySpawnLocation(Enemy enemy, WorldPositionVisualElement worldPositionVisualElement)
+    {
+
+        Vector2 toReturn;
+        switch (enemy.enemyType.enemyDisplayType)
+        {
+            case DisplayType.BOSS_SMOKE_AND_ARMS:
+                toReturn = encounterConstants.bossSpawnLocation;
+                break;
+            default:
+                toReturn = worldPositionVisualElement.worldPos;
+                break;
+        }
+        return toReturn;
     }
 
     private void setupCompanions(List<Companion> companionList, List<CompanionInstance> createdCompanions)

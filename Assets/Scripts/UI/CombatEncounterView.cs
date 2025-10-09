@@ -48,6 +48,7 @@ public class CombatEncounterView : MonoBehaviour,
     
     private Dictionary<CombatInstance, CompanionView> combatInstanceToCompanionView;
     private Dictionary<CombatInstance, EnemyView> combatInstanceToEnemyView;
+    private bool bossFight = false;
 
     public void SetupFromGamestate(EnemyEncounterManager enemyEncounterManager)
     {
@@ -85,9 +86,13 @@ public class CombatEncounterView : MonoBehaviour,
         setupComplete = true;
         VisualElement mapRoot = root.Q("mapRoot");
         mapRoot.Clear();
-        mapView = new MapView(enemyEncounterManager);
-        mapView.mapContainer.Q<Label>("money-indicator-label").text = gameState.playerData.GetValue().gold.ToString() + "G";
-        mapRoot.Add(mapView.mapContainer);
+        // Set in SetupEnemies while we're iterating and checking the enemies
+        if (!bossFight)
+        {
+            mapView = new MapView(enemyEncounterManager);
+            mapView.mapContainer.Q<Label>("money-indicator-label").text = gameState.playerData.GetValue().gold.ToString() + "G";
+            mapRoot.Add(mapView.mapContainer);
+        }
 
         IconButton deckViewButton = root.Q<IconButton>("deck-view-button");
         deckViewButton.RegisterOnSelected(ShowDeckView);
@@ -125,6 +130,7 @@ public class CombatEncounterView : MonoBehaviour,
         if(!setupComplete) {
             SetupFromGamestate(this.enemyEncounterManager);
         } else {
+            // TODO, nullptr if boss fight cuz no money indicator
             root.Q<Label>("money-indicator-label").text = gameState.playerData.GetValue().gold.ToString() + "G";
             foreach (EnemyView entityView in entityViews) {
                 entityView.UpdateView();
@@ -151,7 +157,19 @@ public class CombatEncounterView : MonoBehaviour,
     private void setupEnemies(VisualElement container, IEnumerable<IUIEntity> entities) {
         var index = UIDocumentGameObjectPlacer.INITIAL_INDEX;
         foreach (var entity in entities) {
-            container.Add(setupEnemy(entity, index).container);
+            switch (entity.GetDisplayType())
+            {
+                case DisplayType.BOSS_SMOKE_AND_ARMS:
+                    // TODO - currently a no op
+                    /// .... but let's remove the map while we're here
+                    /// this bool will get checked up in setupFromGamestate 
+                    bossFight = true;
+                    container.Add(setupEnemy(entity, index).container);
+                    break;
+                default:
+                    container.Add(setupEnemy(entity, index).container);
+                    break;
+            }
             index++;
         }
     }
@@ -159,10 +177,17 @@ public class CombatEncounterView : MonoBehaviour,
     private void SetupEnemies(VisualElement container, IEnumerable<EnemyInstance> enemyInstances) {
         var index = UIDocumentGameObjectPlacer.INITIAL_INDEX;
         foreach (EnemyInstance entity in enemyInstances) {
-            EnemyView enemyView = setupEnemy(entity, index);
-            entity.enemyView = enemyView;
-            container.Add(enemyView.container);
-            combatInstanceToEnemyView.Add(entity.combatInstance, enemyView);
+            switch(entity.enemy.enemyType.enemyDisplayType) {
+                case DisplayType.BOSS_SMOKE_AND_ARMS:
+                    // no op
+                break;
+                default:
+                    EnemyView enemyView = setupEnemy(entity, index);
+                    entity.enemyView = enemyView;
+                    container.Add(enemyView.container);
+                    combatInstanceToEnemyView.Add(entity.combatInstance, enemyView);
+                break;
+            }
             index++;
         }
     }

@@ -47,41 +47,51 @@ public class Companion : Entity, ICombatStats, IDeckEntity, IUIEntity
         }
     }
 
-    public Sprite getSprite() {
+    public Sprite getSprite()
+    {
         return this.companionType.sprite;
     }
 
-    public Sprite GetBackgroundImage() {
+    public Sprite GetBackgroundImage()
+    {
         return this.companionType.backgroundImage;
     }
 
-    public Sprite GetEntityFrame() {
+    public Sprite GetEntityFrame()
+    {
         return this.companionType.entityFrame;
     }
 
-    public Sprite GetCompanionManagementViewFrame() {
+    public Sprite GetCompanionManagementViewFrame()
+    {
         return this.companionType.companionManagementFrame;
     }
 
 
-    public Deck getDeck() {
+    public Deck getDeck()
+    {
         return this.deck;
     }
 
-    public int getDealtPerTurn() {
+    public int getDealtPerTurn()
+    {
         return this.deck.cardsDealtPerTurn;
     }
 
-    public void setDealtPerTurn(int dealtPerTurn) {
+    public void setDealtPerTurn(int dealtPerTurn)
+    {
         this.deck.cardsDealtPerTurn = dealtPerTurn;
     }
 
-    public void Upgrade(List<Companion> companionsCombined) {
+    public void Upgrade(List<Companion> companionsCombined)
+    {
 
         // if this upgrade initiated from combining companions go ahead and replace the current deck with a superset of all the other companions
-        if (companionsCombined != default && (companionsCombined.Count > 0)) {
+        if (companionsCombined != default && (companionsCombined.Count > 0))
+        {
             deck.cards.Clear();
-            foreach (var companion in companionsCombined) {
+            foreach (var companion in companionsCombined)
+            {
                 deck.AddCards(companion.deck);
             }
         }
@@ -98,11 +108,14 @@ public class Companion : Entity, ICombatStats, IDeckEntity, IUIEntity
         return this.combatStats;
     }
 
-    public void InvokeOnCombineAbilities(GameStateVariableSO gameState) {
-        if (onCombineAbilities == null || onCombineAbilities.Count < 1) {
+    public void InvokeOnCombineAbilities(GameStateVariableSO gameState)
+    {
+        if (onCombineAbilities == null || onCombineAbilities.Count < 1)
+        {
             return;
         }
-        if (onCombineAbilities.Count > 1) {
+        if (onCombineAbilities.Count > 1)
+        {
             Debug.Log("Companion " + this.companionType.name + " should only have 1 on combine ability, instead it has multiple.");
         }
         EffectDocument document = new();
@@ -147,6 +160,11 @@ public class Companion : Entity, ICombatStats, IDeckEntity, IUIEntity
     public Targetable GetTargetable()
     {
         return null;
+    }
+
+    public DisplayType GetDisplayType()
+    {
+        return DisplayType.UIDOC;
     }
 }
 
