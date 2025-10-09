@@ -140,6 +140,7 @@ public class TooltipView : MonoBehaviour
 {
 
     public TooltipViewModel tooltip = null;
+    public Canvas canvas;
 
     [SerializeField]
     [Header("Set below to true to display the tooltipView in the scene at all times.\nUseful for debugging with the prefab manually added to the scene")]
@@ -161,6 +162,7 @@ public class TooltipView : MonoBehaviour
         VisualElement root = GetComponent<MiniUIDocumentScreenspace>().doc.rootVisualElement;
         background = root.Q<VisualElement>("tooltip-background");
         mat = GetComponent<RawImage>().material;
+        canvas.sortingLayerName = "OverlayUI";
         Fill();
     }
 
