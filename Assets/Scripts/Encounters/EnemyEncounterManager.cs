@@ -348,8 +348,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     }
 
 
-    public void SetCastingCard(bool isCasting)
-    {
+    public void SetCastingCard(bool isCasting) {
         castingCard = isCasting;
     }
 

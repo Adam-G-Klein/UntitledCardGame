@@ -44,6 +44,7 @@ public class CardInHandEffect : EffectStep, ITooltipProvider
                 case CardInHandEffectName.Discard:
                 case CardInHandEffectName.Exhaust:
                     card.interactable = false;
+                    card.hoverable = false;
                     break;
                 default:
                     continue;

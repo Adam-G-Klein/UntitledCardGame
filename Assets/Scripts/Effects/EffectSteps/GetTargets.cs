@@ -197,6 +197,7 @@ public class GetTargets : EffectStep, IEffectStepCalculation
             if (originCard != null) {
                 originCard.ResetCardScale();
                 EnemyEncounterManager.Instance.SetCastingCard(false);
+                PlayerHand.Instance.UpdateCardPositions();
             }
         }
     }

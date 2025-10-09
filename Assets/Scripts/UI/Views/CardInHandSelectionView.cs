@@ -4,18 +4,20 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class CardInHandSelectionView {
+public class CardInHandSelectionView
+{
     private UIDocument rootUiDoc;
     private VisualElement rootElement;
     private Label label;
     private VisualElement mainArea;
-    private IconButton confirmButton;
+    public IconButton confirmButton;
     private VisualElement cardCastLocationVisualElement;
 
     private Action onConfirmHandler = null;
     private static List<Targetable.TargetType> PLAYABLE_CARD_TARGET = new List<Targetable.TargetType>() { Targetable.TargetType.Card };
 
-    public CardInHandSelectionView(UIDocument rootUiDoc, VisualElement rootElement) {
+    public CardInHandSelectionView(UIDocument rootUiDoc, VisualElement rootElement)
+    {
         this.rootUiDoc = rootUiDoc;
         this.rootElement = rootElement;
         this.label = rootElement.Q<Label>("card-in-harnd-selection-label");
@@ -29,7 +31,8 @@ public class CardInHandSelectionView {
         ControlsManager.Instance.RegisterIconChanger(this.confirmButton);
     }
 
-    public void EnableSelection(string text, Action<GeometryChangedEvent> geoChanged) {
+    public void EnableSelection(string text, Action<GeometryChangedEvent> geoChanged)
+    {
         FocusManager.Instance.StashFocusablesNotOfTargetType(PLAYABLE_CARD_TARGET, this.GetType().Name);
         FocusManager.Instance.EnableFocusableTarget(this.confirmButton.AsFocusable());
         this.rootElement.style.display = DisplayStyle.Flex;
@@ -37,32 +40,50 @@ public class CardInHandSelectionView {
         this.confirmButton.pickingMode = PickingMode.Position;
 
         EventCallback<GeometryChangedEvent> geoChangedEvent = null;
-        geoChangedEvent = (evt) => {
+        geoChangedEvent = (evt) =>
+        {
             geoChanged(evt);
             this.rootElement.UnregisterCallback(geoChangedEvent);
         };
         this.rootElement.RegisterCallback(geoChangedEvent);
     }
 
-    public void DisableSelection() {
+    public void DisableSelection()
+    {
         FocusManager.Instance.UnstashFocusables(this.GetType().Name);
         FocusManager.Instance.DisableFocusableTarget(this.confirmButton.AsFocusable());
         this.rootElement.style.display = DisplayStyle.None;
     }
 
-    public void UpdateLabelText(string text) {
+    public void UpdateLabelText(string text)
+    {
         this.label.text = text;
     }
 
-    public void SetConfirmedHandler(Action action) {
+    public void SetConfirmedHandler(Action action)
+    {
         onConfirmHandler = action;
     }
 
-    public void RemoveConfirmedHandler(Action action) {
+    public void RemoveConfirmedHandler(Action action)
+    {
         onConfirmHandler = null;
     }
 
-    public VisualElement GetCardCastLocationElement() {
+    public VisualElement GetCardCastLocationElement()
+    {
         return this.cardCastLocationVisualElement;
+    }
+
+    public Vector3 GetSplineStartpoint()
+    {
+        Vector3 uiPoint = new Vector3(mainArea.worldBound.xMin, mainArea.worldBound.center.y, 0);
+        return UIDocumentGameObjectPlacer.GetWorldPositionFromUIDocumentPosition(uiPoint);
+    }
+
+    public Vector3 GetSplineEndpoint()
+    {
+        Vector3 uiPoint = new Vector3(mainArea.worldBound.xMax, mainArea.worldBound.center.y, 0);
+        return UIDocumentGameObjectPlacer.GetWorldPositionFromUIDocumentPosition(uiPoint);
     }
 }

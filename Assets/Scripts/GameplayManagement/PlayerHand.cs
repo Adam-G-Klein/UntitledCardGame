@@ -5,6 +5,8 @@ using System.Linq;
 using System;
 using UnityEngine.Splines;
 using UnityEngine.UIElements;
+using UnityEngine.Playables;
+using UnityEditor;
 
 
 [ExecuteInEditMode]
@@ -90,12 +92,14 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     private PlayableCard hoveredCard = null;
     private float splineMiddleYpos;
 
-    void Awake() {
+    void Awake()
+    {
         this.orderedDeckInstances = new List<DeckInstance>();
         this.deckInstanceToPlayableCard = new Dictionary<DeckInstance, List<PlayableCard>>();
     }
 
-    void Start() {
+    void Start()
+    {
         cardPrefab = EnemyEncounterManager.Instance.encounterConstants.cardPrefab;
         MAX_HAND_SIZE = GameplayConstantsSingleton.Instance.gameplayConstants.MAX_HAND_SIZE;
         splineMiddleYpos = splineContainer.Spline[1].Position.y;
@@ -105,25 +109,33 @@ public class PlayerHand : GenericSingleton<PlayerHand>
 
     // This is called in EnemyEncounterManager after setting up the encounter
     // to ensure the companions have been registered with the combat entity manager
-    public void SetupCompanionOrder() {
-        foreach (CompanionInstance companion in CombatEntityManager.Instance.getCompanions()) {
+    public void SetupCompanionOrder()
+    {
+        foreach (CompanionInstance companion in CombatEntityManager.Instance.getCompanions())
+        {
             orderedDeckInstances.Add(companion.GetDeckInstance());
             deckInstanceToPlayableCard.Add(companion.GetDeckInstance(), new List<PlayableCard>());
         }
     }
 
-    public void UpdatePlayableCards(DeckInstance deckFrom = null) {
+    public void UpdatePlayableCards(DeckInstance deckFrom = null)
+    {
         // TODO loop through all cards and update all cards from the related deck
-        foreach(PlayableCard playableCard in GetCardsOrdered()) {
-            if (null == deckFrom || playableCard.deckFrom == deckFrom) {
+        foreach (PlayableCard playableCard in GetCardsOrdered())
+        {
+            if (null == deckFrom || playableCard.deckFrom == deckFrom)
+            {
                 playableCard.UpdateCardText();
             }
-        };
+        }
+        ;
     }
 
-    public List<PlayableCard> GetCardsOrdered() {
+    public List<PlayableCard> GetCardsOrdered()
+    {
         List<PlayableCard> cards = new List<PlayableCard>();
-        foreach (DeckInstance deckInstance in orderedDeckInstances) {
+        foreach (DeckInstance deckInstance in orderedDeckInstances)
+        {
             cards.AddRange(deckInstanceToPlayableCard[deckInstance]);
         }
         return cards;
@@ -156,16 +168,20 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                 UIDocumentGameObjectPlacer.Instance.addMapping(newCardPlacement, newCard.gameObject);
                 newCards.Add(x);
                 newCardsWithoutTheBoolField.Add(x.Item1);
-                if (newCard.deckFrom == null) {
+                if (newCard.deckFrom == null)
+                {
                     Debug.LogError("PlayerHand: Tried to deal a card with a null deck from, this should never happen.");
                     newCards.Remove(x);
                     newCardsWithoutTheBoolField.Remove(x.Item1);
                     continue;
-                } else if (!orderedDeckInstances.Contains(newCard.deckFrom)) {
-                    Debug.LogError("PlayerHand: The player hand doesn't know about a deck instance that a new card was" + 
+                }
+                else if (!orderedDeckInstances.Contains(newCard.deckFrom))
+                {
+                    Debug.LogError("PlayerHand: The player hand doesn't know about a deck instance that a new card was" +
                         " delt from, adding it to the end of the hand");
                     orderedDeckInstances.Add(newCard.deckFrom);
-                    if (!deckInstanceToPlayableCard.ContainsKey(newCard.deckFrom)) {
+                    if (!deckInstanceToPlayableCard.ContainsKey(newCard.deckFrom))
+                    {
                         deckInstanceToPlayableCard.Add(newCard.deckFrom, new List<PlayableCard>());
                     }
                 }
@@ -190,16 +206,20 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         }
     }
 
-    public void HoverCard(PlayableCard card) {
+    public void HoverCard(PlayableCard card)
+    {
         hoveredCard = card;
         LeanTween.scale(card.gameObject, new Vector3(hoverScale, hoverScale, 1), hoverAnimationTime)
             .setEase(LeanTweenType.easeOutQuint);
-        LeanTween.moveLocal(card.gameObject, new Vector3(0, hoverYOffset, hoverZOffset), hoverAnimationTime)
+        float yOffset = hoverYOffset;
+        if (card.hoverInPlace) yOffset = 0f;
+        LeanTween.moveLocal(card.gameObject, new Vector3(0, yOffset, hoverZOffset), hoverAnimationTime)
             .setEase(LeanTweenType.easeOutQuint);
         UpdateCardPositions(null);
     }
 
-    public void UnhoverCard(PlayableCard card) {
+    public void UnhoverCard(PlayableCard card)
+    {
         hoveredCard = null;
         LeanTween.scale(card.gameObject, new Vector3(nonHoverScale, nonHoverScale, 1), hoverAnimationTime)
                 .setEase(LeanTweenType.easeOutQuint);
@@ -211,7 +231,8 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     // Function that updates all card positions
     // Optionally takes a list of new cards to dictate if a card is being newly delt, or just shifting in the hand
     // Optionally takes a playable card, which indicates a card to give extra room in the hand to
-    private void UpdateCardPositions(List<PlayableCard> newCards = null) {
+    public void UpdateCardPositions(List<PlayableCard> newCards = null)
+    {
         List<PlayableCard> cardsInHand = GetCardsOrdered();
         if (cardsInHand.Count == 0) return;
 
@@ -227,7 +248,8 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         float zStart = 2f;
         Spline spline = splineContainer.Spline;
 
-        for (int i = 0; i < cardsInHand.Count; i++) {
+        for (int i = 0; i < cardsInHand.Count; i++)
+        {
             float p = CalculateSplinePosition(firstCardPosition, cardSpacing, i, hoveredIndex, cardsInHand.Count);
             float zPos = zStart - (i * zValueSpacing);
             Vector3 splinePosition = spline.EvaluatePosition(p);
@@ -235,17 +257,17 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             if (cardsInHand[i] == hoveredCard) yPos = splineMiddleYpos;
             Vector3 editedPosition = new Vector3(splinePosition.x, yPos, zPos);
             Vector3 forward = spline.EvaluateTangent(p);
-            Debug.Log(forward);
             Vector3 up = spline.EvaluateUpVector(p);
-            Debug.Log(up);
             Quaternion rotation = Quaternion.LookRotation(up, Vector3.Cross(up, forward).normalized);
-            Debug.Log(rotation);
             bool isNew = newCards != null && newCards.Contains(cardsInHand[i]);
             MoveSingleCard(cardsInHand[i], editedPosition, rotation, isNew);
-    }}
+        }
+    }
 
-    private float CalculateSplinePosition(float firstPos, float spacing, int index, int hoveredIndex, int totalCardsInHand) {
-        if (hoveredIndex == -1) {
+    private float CalculateSplinePosition(float firstPos, float spacing, int index, int hoveredIndex, int totalCardsInHand)
+    {
+        if (hoveredIndex == -1)
+        {
             return firstPos + (index * spacing);
         }
 
@@ -256,11 +278,16 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         float positionCalc;
         float distance = Mathf.Abs(index - hoveredIndex);
         float extraSpacePercent = distanceMovementCurve.Evaluate(distance);
-        if (index < hoveredIndex) {
+        if (index < hoveredIndex)
+        {
             positionCalc = firstPos + (index * spacing) - extraSpacePercent * extraSpacePerSide;
-        } else if (index > hoveredIndex) {
+        }
+        else if (index > hoveredIndex)
+        {
             positionCalc = firstPos + (index * spacing) + extraSpacePercent * extraSpacePerSide;
-        } else {
+        }
+        else
+        {
             positionCalc = firstPos + (index * spacing);
         }
 
@@ -268,8 +295,10 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         return Mathf.Clamp01(positionCalc);
     }
 
-    private void MoveSingleCard(PlayableCard cardToMove, Vector3 position, Quaternion rotation, bool isNewCard) {
-        if (isNewCard) {
+    private void MoveSingleCard(PlayableCard cardToMove, Vector3 position, Quaternion rotation, bool isNewCard)
+    {
+        if (isNewCard)
+        {
             cardToMove.gameObject.SetActive(true);
             Debug.Log(String.Format("PlayerHand: Set cardToMove gameobject active"));
         }
@@ -279,26 +308,33 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         float moveTime = 0.25f;
         float dealMoveTime = 0.5f;
 
-        if (cardToMove != hoveredCard) {
+        if (cardToMove != hoveredCard)
+        {
             LeanTween.rotate(rotateGO, rotation.eulerAngles, rotationTime)
                     .setEase(LeanTweenType.easeInOutQuad);
-        } else {
+        }
+        else
+        {
             LeanTween.rotate(rotateGO, Vector3.zero, rotationTime)
                     .setEase(LeanTweenType.easeInOutQuad);
         }
 
         LeanTween.move(moveGO, position, isNewCard ? dealMoveTime : moveTime)
-                .setOnComplete(() => {
+                .setOnComplete(() =>
+                {
                     if (!isNewCard) return;
 
                     if (cardToMove.TryGetComponent<SpriteRenderer>(out var SR)) SR.sortingLayerName = "Cards"; // what is this magic
                     cardToMove.interactable = true;
+                    cardToMove.hoverable = true;
 
                     if (ControlsManager.Instance.GetControlMethod() == ControlsManager.ControlMethod.Mouse) return;
 
                     List<PlayableCard> cardsInHand = GetCardsOrdered();
-                    if (cardsInHand.IndexOf(cardToMove) == indexToHover) {
-                        if (cardToMove.TryGetComponent<GameObjectFocusable>(out GameObjectFocusable goFocusable)) {
+                    if (cardsInHand.IndexOf(cardToMove) == indexToHover)
+                    {
+                        if (cardToMove.TryGetComponent<GameObjectFocusable>(out GameObjectFocusable goFocusable))
+                        {
                             FocusManager.Instance.SetFocus(goFocusable);
                         }
                         indexToHover = -1;
@@ -308,11 +344,13 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                 .setEase(LeanTweenType.easeInOutQuad);
 
         // Scale from 0 to regular size if dealing card
-        if (isNewCard) {
+        if (isNewCard)
+        {
             Vector3 initialScale = moveGO.transform.localScale;
             moveGO.transform.localScale = Vector3.zero;
             LeanTween.value(0f, 1f, moveTime)
-                .setOnUpdate((float val) => {
+                .setOnUpdate((float val) =>
+                {
                     moveGO.transform.localScale = val * initialScale;
                 });
         }
@@ -339,6 +377,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                 startPos);
             newCard.gameObject.name = cardInfo.name;
             newCard.interactable = false;
+            newCard.hoverable = false;
             newCard.gameObject.SetActive(false);
             if (newCard.card.cardType.retain)
             {
@@ -381,29 +420,35 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         return dealt;
     }
 
-    public void HoverNextCard(int previouslyPlayedCardIndex) {
+    public void HoverNextCard(int previouslyPlayedCardIndex)
+    {
         if (ControlsManager.Instance.GetControlMethod() == ControlsManager.ControlMethod.Mouse) return;
 
         List<PlayableCard> cardsInHand = GetCardsOrdered();
-        if (cardsInHand.Count == 0) {
+        if (cardsInHand.Count == 0)
+        {
             indexToHover = 0;
             return;
         }
         indexToHover = -1;
         int nextHoverIndex = cardsInHand.Count <= previouslyPlayedCardIndex ? 0 : previouslyPlayedCardIndex;
 
-        if (cardsInHand[nextHoverIndex].TryGetComponent<GameObjectFocusable>(out GameObjectFocusable goFocusable)) {
+        if (cardsInHand[nextHoverIndex].TryGetComponent<GameObjectFocusable>(out GameObjectFocusable goFocusable))
+        {
             FocusManager.Instance.SetFocus(goFocusable);
         }
 
     }
 
-    public void TurnPhaseChangedEventHandler(TurnPhaseEventInfo info) {
-        if (info.newPhase == TurnPhase.PLAYER_TURN) {
+    public void TurnPhaseChangedEventHandler(TurnPhaseEventInfo info)
+    {
+        if (info.newPhase == TurnPhase.PLAYER_TURN)
+        {
             canPlayCards = true;
             indexToHover = 0;
         }
-        if(info.newPhase == TurnPhase.END_PLAYER_TURN) {
+        if (info.newPhase == TurnPhase.END_PLAYER_TURN)
+        {
             canPlayCards = false;
             List<PlayableCard> retainedCards = new();
             // Run the effect workflows for all the cards left in the hand,
@@ -414,34 +459,43 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             indexToHover = 0;
             List<PlayableCard> cardsInHand = GetCardsOrdered();
             List<PlayableCard> cardsToImmediatelyDiscard = new();
-            foreach (PlayableCard card in cardsInHand) {
+            foreach (PlayableCard card in cardsInHand)
+            {
                 IEnumerator callback = null;
                 // Do not destroy the card if it is retained.
-                if (card.retained) {
+                if (card.retained)
+                {
                     retainedCards.Add(card);
                     // If the retain is a temporary effect and not innate to the card,
                     // remove the "retain".
-                    if (!card.card.cardType.retain) {
+                    if (!card.card.cardType.retain)
+                    {
                         card.retained = false;
                     }
-                } else {
+                }
+                else
+                {
                     StartCoroutine(ResizeHand(card));
                     callback = DiscardCard(card, true);
                 }
                 CardType ct = card.card.cardType;
 
-                if (ct.inPlayerHandEndOfTurnWorkflow != null && ct.inPlayerHandEndOfTurnWorkflow.effectSteps.Count > 0) {
+                if (ct.inPlayerHandEndOfTurnWorkflow != null && ct.inPlayerHandEndOfTurnWorkflow.effectSteps.Count > 0)
+                {
                     List<EffectStep> workflowSteps = ct.inPlayerHandEndOfTurnWorkflow.effectSteps;
                     EffectDocument document = new EffectDocument();
                     document.map.AddItem(EffectDocument.ORIGIN, card.GetComponent<PlayableCard>());
                     document.originEntityType = EntityType.Card;
                     Debug.Log("Invoking end of turn effect workflow with steps: " + workflowSteps.Count);
                     EffectManager.Instance.invokeEffectWorkflow(document, workflowSteps, callback);
-                } else if (!retainedCards.Contains(card)) {
+                }
+                else if (!retainedCards.Contains(card))
+                {
                     cardsToImmediatelyDiscard.Add(card);
                 }
             }
-            foreach (PlayableCard card in cardsToImmediatelyDiscard) {
+            foreach (PlayableCard card in cardsToImmediatelyDiscard)
+            {
                 StartCoroutine(DiscardCard(card, true));
             }
             cardsInHandLocked = false;
@@ -450,36 +504,47 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         }
     }
 
-    public IEnumerator SafeRemoveCardFromHand(PlayableCard card) {
+    public IEnumerator SafeRemoveCardFromHand(PlayableCard card)
+    {
         yield return new WaitUntil(() => !cardsInHandLocked);
         // cardsInHand.Remove(card);
         deckInstanceToPlayableCard[card.deckFrom].Remove(card);
     }
 
-    public void SafeRemoveCardFromHand(Card card) {
+    public void SafeRemoveCardFromHand(Card card)
+    {
         StartCoroutine(SafeRemoveCardFromHand(GetCardById(card.id)));
     }
 
-    public IEnumerator OnCardExhaust(DeckInstance deckFrom, PlayableCard card) {
-        if (onCardExhaustHandler != null) {
-            foreach (OnCardExhaustHandler handler in onCardExhaustHandler.GetInvocationList()) {
+    public IEnumerator OnCardExhaust(DeckInstance deckFrom, PlayableCard card)
+    {
+        if (onCardExhaustHandler != null)
+        {
+            foreach (OnCardExhaustHandler handler in onCardExhaustHandler.GetInvocationList())
+            {
                 yield return handler.Invoke(deckFrom, card);
             }
         }
     }
 
-    public IEnumerator OnCardDiscard(DeckInstance deckFrom, PlayableCard card, bool casted) {
-        if (onCardDiscardHandler != null) {
-            foreach (OnCardDiscardHandler handler in onCardDiscardHandler.GetInvocationList()) {
+    public IEnumerator OnCardDiscard(DeckInstance deckFrom, PlayableCard card, bool casted)
+    {
+        if (onCardDiscardHandler != null)
+        {
+            foreach (OnCardDiscardHandler handler in onCardDiscardHandler.GetInvocationList())
+            {
                 yield return handler.Invoke(deckFrom, card, casted);
             }
         }
     }
 
-    public IEnumerator OnHandEmpty() {
-        if (onHandEmptyHandler != null) {
+    public IEnumerator OnHandEmpty()
+    {
+        if (onHandEmptyHandler != null)
+        {
             Debug.Log("OnHandEmpty number of invocations: " + onHandEmptyHandler.GetInvocationList().Count());
-            foreach (OnHandEmptyHandler handler in onHandEmptyHandler.GetInvocationList()) {
+            foreach (OnHandEmptyHandler handler in onHandEmptyHandler.GetInvocationList())
+            {
                 yield return StartCoroutine(handler.Invoke());
             }
         }
@@ -533,15 +598,18 @@ public class PlayerHand : GenericSingleton<PlayerHand>
 
     // Do not call on whole hand, only call on individual cards
     // modifies the list of cards in hand
-    public IEnumerator ExhaustCard(PlayableCard card) {
+    public IEnumerator ExhaustCard(PlayableCard card)
+    {
         // If statements are here to take into account if a card exhausts itself
         // as part of its effect workflow
-        if (GetCardsOrdered().Contains(card)) {
+        if (GetCardsOrdered().Contains(card))
+        {
             yield return SafeRemoveCardFromHand(card);
         }
         yield return ResizeHand(card);
 
-        if (card.card.cardType.onExhaustEffectWorkflow != null) {
+        if (card.card.cardType.onExhaustEffectWorkflow != null)
+        {
             EffectDocument document = new EffectDocument();
             document.originEntityType = EntityType.Card;
             if (card != null) document.map.AddItem<PlayableCard>(EffectDocument.ORIGIN, card);
@@ -554,16 +622,20 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         // Queue up the callback last before returning execution so the callback will destroy the card
         // ONLY after the on exhaust workflows.
         // Any workflows queued by `deckFrom.ExhaustCard` will run BEFORE this.
-        if(card.gameObject.activeSelf) {
+        if (card.gameObject.activeSelf)
+        {
             EffectManager.Instance.QueueEffectWorkflow(
                 new EffectWorkflowClosure(new EffectDocument(), new EffectWorkflow(), card.ExhaustCard())
             );
         }
     }
 
-    public PlayableCard GetCardById(string id) {
-        foreach (PlayableCard card in GetCardsOrdered()) {
-            if (card.card.id == id) {
+    public PlayableCard GetCardById(string id)
+    {
+        foreach (PlayableCard card in GetCardsOrdered())
+        {
+            if (card.card.id == id)
+            {
                 return card;
             }
         }
@@ -589,9 +661,12 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         }
     }
 
-    public IEnumerator OnDeckShuffled(DeckInstance deck) {
-        if (onDeckShuffledHandler != null) {
-            foreach (OnDeckShuffleHandler handler in onDeckShuffledHandler.GetInvocationList()) {
+    public IEnumerator OnDeckShuffled(DeckInstance deck)
+    {
+        if (onDeckShuffledHandler != null)
+        {
+            foreach (OnDeckShuffleHandler handler in onDeckShuffledHandler.GetInvocationList())
+            {
                 yield return StartCoroutine(handler.Invoke(deck));
             }
         }
@@ -639,14 +714,25 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         }
     }
 
-    public void DisableHand() {
+    public void DisableHand()
+    {
         canPlayCards = false;
-        foreach (PlayableCard card in GetCardsOrdered()) {
+        foreach (PlayableCard card in GetCardsOrdered())
+        {
             card.interactable = false; // not sure why this wasn't enough honestly :/
         }
     }
 
-    public bool GetCanPlayCards() {
+    public void SetHoverable(bool boolean)
+    {
+        foreach (PlayableCard card in GetCardsOrdered())
+        {
+            card.hoverable = boolean;
+        }
+    }
+
+    public bool GetCanPlayCards()
+    {
         return canPlayCards;
     }
 
@@ -656,84 +742,159 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             List<GameObject> cardsLimitedTo,
             Action<CancelContext> cancelCallback,
             Action<List<PlayableCard>> callback,
-            PlayableCard cardCast = null) {
+            PlayableCard cardCast = null)
+    {
         string CHOOSE_X_CARDS = "Choose {0} cards";
         string CHOOSE_A_CARD = "Choose a card";
         string SELECT_CONFIRM = "Select Confirm";
 
         CombatEncounterView combatEncounterView = EnemyEncounterManager.Instance.combatEncounterView;
         CardInHandSelectionView selectionView = combatEncounterView.GetCardSelectionView();
+
+        SetHoverable(true);
+
         List<PlayableCard> selectedCards = new List<PlayableCard>();
 
         TargettingManager.Instance.targetSuppliedHandler += SelectingCardSuppliedHandler;
         TargettingManager.Instance.cancelTargettingHandler += SelectingCardCancelHandler;
-        
+
         combatEncounterView.SetCompanionsAndEnemiesEnabled(false);
+        combatEncounterView.DestroyAllTooltips();
         selectionView.SetConfirmedHandler(SelectingCardConfirmed);
         selectionView.EnableSelection(GetPromptText(), GeoChangedHandler);
 
-        void SelectingCardSuppliedHandler(Targetable target) {
+        void SelectingCardSuppliedHandler(Targetable target)
+        {
             // Check if the provided target is disallowed
             if (disallowedCards != null && disallowedCards.Contains(target.gameObject))
                 return;
 
             // Check if we only want to pick from a specific list of targets
-            if (cardsLimitedTo != null && !cardsLimitedTo.Contains(target.gameObject)) {
+            if (cardsLimitedTo != null && !cardsLimitedTo.Contains(target.gameObject))
+            {
                 return;
             }
 
             // Check if the entity type is correct
-            if (target.targetType != Targetable.TargetType.Card) {
+            if (target.targetType != Targetable.TargetType.Card)
+            {
                 return;
             }
 
-            if (target.TryGetComponent<PlayableCard>(out PlayableCard targetCard)) {
-                if (selectedCards.Contains(targetCard)) {
+            if (target.TryGetComponent<PlayableCard>(out PlayableCard targetCard))
+            {
+                PlayableCard nextCardToHover = null;
+                if (selectedCards.Contains(targetCard))
+                {
                     // Move from selected spline back to player hand
                     selectedCards.Remove(targetCard);
                     deckInstanceToPlayableCard[targetCard.deckFrom].Add(targetCard);
-                } else if (selectedCards.Count != number) {
+                    targetCard.hoverInPlace = false;
+                    nextCardToHover = targetCard;
+                }
+                else if (selectedCards.Count != number)
+                {
                     // Move from hand to selected spline
                     deckInstanceToPlayableCard[targetCard.deckFrom].Remove(targetCard);
                     selectedCards.Add(targetCard);
+                    targetCard.hoverInPlace = true;
+
+                    // In a complicated fashion, find the next card to hover
+                    List<PlayableCard> orderedCards = GetCardsOrdered();
+                    int indexOfTargetCard = orderedCards.IndexOf(targetCard);
+                    int nextIndex = 0;
+                    if (orderedCards.Count == 1)
+                    {
+                        nextIndex = -1;
+                    }
+                    else if (indexOfTargetCard == orderedCards.Count - 1)
+                    {
+                        nextIndex = indexOfTargetCard - 1;
+                    }
+                    else if (indexOfTargetCard == 0)
+                    {
+                        nextIndex = 1;
+                    }
+                    else
+                    {
+                        nextIndex = indexOfTargetCard + 1;
+                    }
+
+                    if (nextIndex != -1)
+                    {
+                        nextCardToHover = orderedCards[nextIndex];
+                    }
+
                 }
+                else
+                {
+                    return;
+                }
+                targetCard.interactable = false;
+                UnhoverCard(targetCard);
                 UpdateCardSelectionSplineCardPositions();
                 UpdateCardPositions();
                 selectionView.UpdateLabelText(GetPromptText());
+
+                if (selectedCards.Count == number && ControlsManager.Instance.GetControlMethod() != ControlsManager.ControlMethod.Mouse) {
+                    StartCoroutine(DoAfterAllTweens(() => FocusManager.Instance.SetFocus(selectionView.confirmButton.AsFocusable())));
+                }
+                else if (nextCardToHover != null && ControlsManager.Instance.GetControlMethod() != ControlsManager.ControlMethod.Mouse)
+                {
+                    StartCoroutine(DoAfterAllTweens(() => FocusManager.Instance.SetFocus(nextCardToHover.GetComponent<GameObjectFocusable>())));
+                }
             }
         }
 
-        void SelectingCardCancelHandler(CancelContext context) {
+        void SelectingCardCancelHandler(CancelContext context)
+        {
             cancelCallback(context);
         }
 
-        void SelectingCardConfirmed() {
+        void SelectingCardConfirmed()
+        {
+            if (selectedCards.Count != number) return;
             combatEncounterView.SetCompanionsAndEnemiesEnabled(true);
             selectionView.RemoveConfirmedHandler(SelectingCardConfirmed);
             TargettingManager.Instance.targetSuppliedHandler -= SelectingCardSuppliedHandler;
             TargettingManager.Instance.cancelTargettingHandler -= SelectingCardCancelHandler;
             selectionView.DisableSelection();
-            if (cardCast != null) {
+            if (cardCast != null)
+            {
                 deckInstanceToPlayableCard[cardCast.deckFrom].Add(cardCast);
             }
+            EnemyEncounterManager.Instance.SetCastingCard(true);
             callback(selectedCards);
         }
 
-        string GetPromptText() {
+        string GetPromptText()
+        {
             int cardsRemainingToSelect = number - selectedCards.Count;
-            if (cardsRemainingToSelect > 1) {
+            if (cardsRemainingToSelect > 1)
+            {
                 return String.Format(CHOOSE_X_CARDS, cardsRemainingToSelect);
-            } else if (cardsRemainingToSelect == 1) {
+            }
+            else if (cardsRemainingToSelect == 1)
+            {
                 return CHOOSE_A_CARD;
             }
 
             return SELECT_CONFIRM;
         }
 
-        void GeoChangedHandler(GeometryChangedEvent evt) {
+        void GeoChangedHandler(GeometryChangedEvent evt)
+        {
             // Update the position of the spline
-            if (cardCast != null) {
+            BezierKnot startPoint = cardInHandSelectionSpline.Spline[0];
+            startPoint.Position = selectionView.GetSplineStartpoint();
+            cardInHandSelectionSpline.Spline.SetKnot(0, startPoint);
+            BezierKnot endPoint = cardInHandSelectionSpline.Spline[1];
+            endPoint.Position = selectionView.GetSplineEndpoint();
+            cardInHandSelectionSpline.Spline.SetKnot(1, endPoint);
+            if (cardCast != null)
+            {
                 UnhoverCard(cardCast);
+                cardCast.hoverable = false;
                 Vector3 worldspacePosition = UIDocumentGameObjectPlacer.GetWorldPositionFromElement(selectionView.GetCardCastLocationElement());
                 Debug.Log("SelectCardsFromHand: worldspace position " + worldspacePosition.ToString());
                 deckInstanceToPlayableCard[cardCast.deckFrom].Remove(cardCast);
@@ -741,7 +902,8 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             }
         }
 
-        void UpdateCardSelectionSplineCardPositions() {
+        void UpdateCardSelectionSplineCardPositions()
+        {
             float minCardSpacing = 1f / MAX_HAND_SIZE;
             float maxCardSpacing = 1f / HAND_START_SCALING;
             float cardSpacing = Mathf.Clamp(1f / selectedCards.Count, minCardSpacing, maxCardSpacing);
@@ -753,7 +915,8 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             float zStart = 2f;
             Spline spline = cardInHandSelectionSpline.Spline;
 
-            for (int i = 0; i < selectedCards.Count; i++) {
+            for (int i = 0; i < selectedCards.Count; i++)
+            {
                 float p = firstCardPosition + (i * cardSpacing);
                 float zPos = zStart - (i * zValueSpacing);
                 Vector3 splinePosition = spline.EvaluatePosition(p);
@@ -762,5 +925,11 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                 MoveSingleCard(selectedCards[i], editedPosition, Quaternion.identity, false);
             }
         }
+    }
+
+    private IEnumerator DoAfterAllTweens(Action action)
+    {
+        yield return new WaitUntil(() => LeanTween.tweensRunning == 0);
+        action?.Invoke();
     }
 }

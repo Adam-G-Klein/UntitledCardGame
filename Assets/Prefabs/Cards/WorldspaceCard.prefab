@@ -81,7 +81,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CARD_SIZE: {x: 1, y: 1.53}
-  HITBOX_SIZE: {x: 1, y: 2.4}
+  HITBOX_SIZE: {x: 1, y: 1.53}
   renderTextureConstantly: 0
 --- !u!212 &6443691569999266555
 SpriteRenderer:
@@ -209,13 +209,14 @@ MonoBehaviour:
   hovered: 0
   retained: 0
   cardHover: {fileID: 0}
-  hoverSFXVolume: 0.1
   hoverYOffset: 1.25
   hoverZOffset: -0.5
   hoverObjectToMove: {fileID: 0}
   cardCastVFXPrefab: {fileID: 6841246063235012224, guid: bf344b2c905c8764ba1ea4f4230150c2, type: 3}
   cardExhaustVFXPrefab: {fileID: 7939549763701254822, guid: e84fb44c2a5a75e49a192002a9096046, type: 3}
   interactable: 0
+  hoverable: 1
+  hoverInPlace: 0
 --- !u!61 &-8509860225040359179
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -259,7 +260,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 8, y: 18}
+  m_Size: {x: 1, y: 1.564518}
   m_EdgeRadius: 0
 --- !u!95 &6627301573617809454
 Animator:

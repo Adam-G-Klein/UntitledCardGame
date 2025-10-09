@@ -1,13 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 using UnityEngine.EventSystems;
-using System;
-using Unity.VisualScripting;
-using UnityEngine.UIElements;
-using System.Linq;
 
 [RequireComponent(typeof(UIDocumentCard))]
 [RequireComponent(typeof(UIStateEventListener))]
@@ -46,9 +40,10 @@ public class PlayableCard : MonoBehaviour,
     public GameObject cardExhaustVFXPrefab;
 
     private UIDocumentCard docCard;
-    private bool isCardCastPlaying = false;
-    private bool isCardDiscardPlaying = false;
-    public bool interactable = false;
+    public bool interactable = false; // To be set to true when clicking on the card shouldn't do anything
+    public bool hoverable = true; // To be set to true when hovering/focusing the card shouldn't make the card do anything
+    public bool currentlyCastingCard = false;
+    public bool hoverInPlace = false;
 
     private Vector3 discardDest;
 
@@ -97,7 +92,9 @@ public class PlayableCard : MonoBehaviour,
         }
         if (eventData != null && eventData.button != PointerEventData.InputButton.Left) return;
         EnemyEncounterManager.Instance.SetCastingCard(true);
+        PlayerHand.Instance.SetHoverable(false);
         interactable = false;
+        currentlyCastingCard = true;
 
         EffectDocument document = new EffectDocument();
         document.map.AddItem(EffectDocument.ORIGIN, this);
@@ -301,7 +298,7 @@ public class PlayableCard : MonoBehaviour,
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (!interactable || EnemyEncounterManager.Instance.GetCastingCard() || !PlayerHand.Instance.GetCanPlayCards()) return;
+        if (!hoverable || !PlayerHand.Instance.GetCanPlayCards()) return;
         hovered = true;
         HoverAssociatedCompanion();
         // Set the volume first
@@ -317,7 +314,7 @@ public class PlayableCard : MonoBehaviour,
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (!interactable || !hovered) return;
+        if (currentlyCastingCard || !hovered) return;
         UnHoverAssociatedCompanion();
         PlayerHand.Instance.UnhoverCard(this);
     }
@@ -326,17 +323,12 @@ public class PlayableCard : MonoBehaviour,
     // TODO: Move over last use of this card
     public void ResetCardScale()
     {
-        if (hovered)
-        {
+        if (hovered) {
             hovered = false;
-
-            // LeanTween.cancel(gameObject);
-            LeanTween.scale(gameObject, new Vector3(nonHoverScale, nonHoverScale, 1), hoverAnimationTime)
-                .setEase(LeanTweenType.easeOutQuint);
-            LeanTween.moveLocal(gameObject, new Vector3(0, 0, 0), hoverAnimationTime)
-                .setEase(LeanTweenType.easeOutQuint);
+            PlayerHand.Instance.UnhoverCard(this);
         }
         interactable = true;
+        currentlyCastingCard = false;
     }
 
     // Used when instantiating the card after Start has run

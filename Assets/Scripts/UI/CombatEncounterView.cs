@@ -47,7 +47,7 @@ public class CombatEncounterView : MonoBehaviour,
     private bool combatOver = false;
     public MapView mapView;
     private CardInHandSelectionView cardInHandSelectionView;
-    
+
     private Dictionary<CombatInstance, CompanionView> combatInstanceToCompanionView;
     private Dictionary<CombatInstance, EnemyView> combatInstanceToEnemyView;
 
@@ -77,7 +77,7 @@ public class CombatEncounterView : MonoBehaviour,
         setupEnemies(root.Q<VisualElement>("enemyContainer"), enemies.Cast<IUIEntity>());
         SetupCompanions(root.Q<VisualElement>("companionContainer"), companions);
         UIDocumentUtils.SetAllPickingMode(root, PickingMode.Ignore);
-        
+
         VisualElement endTurnElement = root.Q<VisualElement>("end-turn");
         endTurnElement.pickingMode = PickingMode.Position;
         VisualElementUtils.RegisterSelected(endTurnElement, EndPlayerTurnHandler);
@@ -110,7 +110,8 @@ public class CombatEncounterView : MonoBehaviour,
         so we first setup the UI with just Companion and Enemy from gamestate, then we reset them to hold
         references to the _Instances cast to IUIEntity afterwards.
     */
-    public void ResetEntities(List<CompanionInstance> companions, List<EnemyInstance> enemies) {
+    public void ResetEntities(List<CompanionInstance> companions, List<EnemyInstance> enemies)
+    {
         VisualElement enemyContainer = root.Q<VisualElement>("enemyContainer");
         VisualElement companionContainer = root.Q<VisualElement>("companionContainer");
         FocusManager.Instance.UnregisterFocusables(enemyContainer);
@@ -127,25 +128,34 @@ public class CombatEncounterView : MonoBehaviour,
         FocusManager.Instance.RegisterFocusables(GetComponent<UIDocument>());
     }
 
-    public void UpdateView() {
-        if(!setupComplete) {
+    public void UpdateView()
+    {
+        if (!setupComplete)
+        {
             SetupFromGamestate(this.enemyEncounterManager);
-        } else {
+        }
+        else
+        {
             root.Q<Label>("money-indicator-label").text = gameState.playerData.GetValue().gold.ToString() + "G";
-            foreach (EnemyView entityView in entityViews) {
+            foreach (EnemyView entityView in entityViews)
+            {
                 entityView.UpdateView();
             }
-            foreach (CompanionView view in companionViews) {
+            foreach (CompanionView view in companionViews)
+            {
                 view.UpdateView();
             }
-            foreach (IUIEventReceiver view in pickingModePositionList) {
+            foreach (IUIEventReceiver view in pickingModePositionList)
+            {
                 view.SetPickingModes(!inMenu && !inDeckView && !combatOver);
             }
         }
     }
 
-    public void DisableFocusing() {
-        foreach (EnemyView entityView in entityViews) {
+    public void DisableFocusing()
+    {
+        foreach (EnemyView entityView in entityViews)
+        {
             FocusManager.Instance.UnregisterFocusableTarget(entityView.container.GetUserData<VisualElementFocusable>());
         }
     }
@@ -154,17 +164,21 @@ public class CombatEncounterView : MonoBehaviour,
 
     // This function runs the first frame, which creates the enemy views before the enemy instances
     // exist.
-    private void setupEnemies(VisualElement container, IEnumerable<IUIEntity> entities) {
+    private void setupEnemies(VisualElement container, IEnumerable<IUIEntity> entities)
+    {
         var index = UIDocumentGameObjectPlacer.INITIAL_INDEX;
-        foreach (var entity in entities) {
+        foreach (var entity in entities)
+        {
             container.Add(setupEnemy(entity, index).container);
             index++;
         }
     }
 
-    private void SetupEnemies(VisualElement container, IEnumerable<EnemyInstance> enemyInstances) {
+    private void SetupEnemies(VisualElement container, IEnumerable<EnemyInstance> enemyInstances)
+    {
         var index = UIDocumentGameObjectPlacer.INITIAL_INDEX;
-        foreach (EnemyInstance entity in enemyInstances) {
+        foreach (EnemyInstance entity in enemyInstances)
+        {
             EnemyView enemyView = setupEnemy(entity, index);
             entity.enemyView = enemyView;
             container.Add(enemyView.container);
@@ -175,9 +189,11 @@ public class CombatEncounterView : MonoBehaviour,
 
     // This function runs first frame, which creates the companion views before the companion instances
     // exist.
-    private void SetupCompanions(VisualElement container, List<Companion> companions) {
+    private void SetupCompanions(VisualElement container, List<Companion> companions)
+    {
         var index = UIDocumentGameObjectPlacer.INITIAL_INDEX;
-        foreach (Companion companion in companions) {
+        foreach (Companion companion in companions)
+        {
             container.Insert(0, SetupCompanion(companion, index).container);
             index++;
         }
@@ -201,7 +217,8 @@ public class CombatEncounterView : MonoBehaviour,
         }
     }
 
-    private CompanionView SetupCompanion(Companion companion, int index, CompanionInstance companionInstance = null) {
+    private CompanionView SetupCompanion(Companion companion, int index, CompanionInstance companionInstance = null)
+    {
         CompanionView companionView = new CompanionView(
                 companion,
                 this.enemyEncounterManager.encounterConstants.companionViewTemplate,
@@ -212,7 +229,7 @@ public class CombatEncounterView : MonoBehaviour,
 
         pickingModePositionList.Add(companionView);
         companionViews.Add(companionView);
-        
+
         VisualElementFocusable focusable = companionView.container.GetUserData<VisualElementFocusable>();
         focusable.SetTargetType(Targetable.TargetType.Companion);
         FocusManager.Instance.RegisterFocusableTarget(focusable);
@@ -220,7 +237,8 @@ public class CombatEncounterView : MonoBehaviour,
         return companionView;
     }
 
-    private EnemyView setupEnemy(IUIEntity entity, int index) {
+    private EnemyView setupEnemy(IUIEntity entity, int index)
+    {
         EnemyView newEntityView = new EnemyView(entity, index, this);
         pickingModePositionList.Add(newEntityView);
         entityViews.Add(newEntityView);
@@ -232,16 +250,19 @@ public class CombatEncounterView : MonoBehaviour,
         return newEntityView;
     }
 
-    public void updateMana(int mana) {
+    public void updateMana(int mana)
+    {
         root.Q<Label>("manaCounter").text = mana.ToString();
         docRenderer.SetStateDirty();
     }
 
-    public void updateMoney(int money) {
+    public void updateMoney(int money)
+    {
         docRenderer.SetStateDirty();
     }
 
-    public CardInHandSelectionView GetCardSelectionView() {
+    public CardInHandSelectionView GetCardSelectionView()
+    {
         return this.cardInHandSelectionView;
     }
 
@@ -265,17 +286,20 @@ public class CombatEncounterView : MonoBehaviour,
         return enemyIntentsSO.GetIntentImage(enemyIntentType);
     }
 
-    public void SetInMenu(bool inMenu) {
+    public void SetInMenu(bool inMenu)
+    {
         this.inMenu = inMenu;
         UpdateView();
     }
 
-    public void SetInDeckView(bool inDeckView) {
+    public void SetInDeckView(bool inDeckView)
+    {
         this.inDeckView = inDeckView;
         UpdateView();
     }
 
-    public void SetEndCombat() {
+    public void SetEndCombat()
+    {
         combatOver = true;
     }
 
@@ -290,7 +314,8 @@ public class CombatEncounterView : MonoBehaviour,
         Debug.LogError("trying to show deck view");
     }
 
-    public void DamageIndicator(CombatInstance instance, int damage) {
+    public void DamageIndicator(CombatInstance instance, int damage)
+    {
         // Purely a visual thing, so would rather not break the game if this fails
         try
         {
@@ -365,33 +390,51 @@ public class CombatEncounterView : MonoBehaviour,
 
     public void ViewDeck(DeckViewType deckViewType, Companion companion = null, CompanionInstance companionInstance = null)
     {
-        if (companionInstance == null) {
+        if (companionInstance == null)
+        {
             Debug.LogError("CombatEncounterManager: ViewDeck delegate called for a companion, but CompanionInstance is null!");
             return;
         }
 
         int startingTab;
-        switch (deckViewType) {
+        switch (deckViewType)
+        {
             case DeckViewType.Draw:
                 startingTab = 0;
-            break;
+                break;
 
             case DeckViewType.Discard:
             default:
                 startingTab = 1;
-            break;
+                break;
         }
 
         MultiDeckViewManager.Instance.ShowCombatDeckView(companionInstance, startingTab);
     }
 
-    public void SetCompanionsAndEnemiesEnabled(bool enabled) {
-        foreach (CompanionView view in companionViews) {
+    public void SetCompanionsAndEnemiesEnabled(bool enabled)
+    {
+        foreach (CompanionView view in companionViews)
+        {
             view.SetPickingModes(enabled);
         }
 
-        foreach (EnemyView view in entityViews) {
+        foreach (EnemyView view in entityViews)
+        {
             view.SetPickingModes(enabled);
+        }
+    }
+
+    public void DestroyAllTooltips()
+    {
+        foreach (CombatInstance instance in combatInstanceToCompanionView.Keys)
+        {
+            instance.GetComponent<TooltipOnHover>()?.OnPointerExitVoid();
+        }
+
+        foreach (CombatInstance instance in combatInstanceToEnemyView.Keys)
+        {
+            instance.GetComponent<TooltipOnHover>()?.OnPointerExitVoid();
         }
     }
 }
