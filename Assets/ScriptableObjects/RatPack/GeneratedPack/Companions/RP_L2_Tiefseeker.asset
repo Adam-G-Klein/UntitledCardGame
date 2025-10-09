@@ -33,7 +33,7 @@ MonoBehaviour:
   - key: numDrawn
     display: 1
     sprite: {fileID: 21300000, guid: a100f38fb92da834786807cb66e2ebba, type: 3}
-    startOfTurnValue: 2
+    startOfTurnValue: 5
     setStartOfTurnValue: 1
     startOfCombatValue: 0
     setStartOfCombatValue: 0
@@ -48,15 +48,12 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Level Two Tiefseeker
-      description: The first 2 times you draw a Status card each turn, create a "Tiefvision"
-        card in hand
-      relatedBehaviorIndex: 0
-    - title: Tiefvision
-      description: Status card. Exhaust. Give any 2 block & scry 1 & draw 1
+      description: The first 5 times you draw a Status card each turn, draw 1 from
+        self
       relatedBehaviorIndex: 0
   keepsakeTitle: Hidden Cache
-  keepsakeDescription: The first 2 times you draw a Status card each turn, create
-    a "Tiefvision" card in hand
+  keepsakeDescription: The first 5 times you draw a Status card each turn, draw 1
+    from self
   references:
     version: 2
     RefIds:
@@ -75,7 +72,7 @@ MonoBehaviour:
         - rid: 754093968382754838
         - rid: 754093968382754842
         - rid: 754093968382754843
-        - rid: 754093968382754964
+        - rid: 2511001095643857207
     - rid: 754093871974056130
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -157,16 +154,12 @@ MonoBehaviour:
         ints: 1
         strings: 0
         bools: 0
-    - rid: 754093968382754964
-      type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
+    - rid: 2511001095643857207
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: AddCardsToHand
-        entityFromKey: self
-        cardTypes:
-        - {fileID: 11400000, guid: 834b43051d713444cafee2bb0feff170, type: 2}
-        getCardsFromKey: 0
-        inputCardsKey: 
+        effectStepName: DrawCards
+        inputKey: self
+        outputKey: 
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
-        outputKey: 

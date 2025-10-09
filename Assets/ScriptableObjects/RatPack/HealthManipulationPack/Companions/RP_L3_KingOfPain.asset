@@ -29,14 +29,7 @@ MonoBehaviour:
   cardIdleVfxPrefab: {fileID: 0}
   genericCompanionSFX: {fileID: 0}
   genericCompanionVFX: {fileID: 0}
-  cacheValueConfigs:
-  - key: numDamage
-    display: 1
-    sprite: {fileID: 21300000, guid: 27ec1549f8e73da4c93e706a368e736b, type: 3}
-    startOfTurnValue: 0
-    setStartOfTurnValue: 0
-    startOfCombatValue: 0
-    setStartOfCombatValue: 1
+  cacheValueConfigs: []
   cardPool: {fileID: 11400000, guid: a1865aba1d57e42319eced1382227f3d, type: 2}
   pack: {fileID: 11400000, guid: a87b5da767d4e4659b2965e31e340c58, type: 2}
   speakerType: {fileID: 0}
@@ -48,12 +41,10 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Level Three King of Pain
-      description: Every 3 times a companion takes damage, King of Pain and the last
-        companion damaged gain 1 strength
+      description: Every time a companion loses HP, give self 1 strength
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: Every 3 times a companion takes damage, King of Pain and the
-    last companion damaged gain 1 strength
+  keepsakeDescription: Every time a companion loses HP, give self 1 strength
   references:
     version: 2
     RefIds:
@@ -64,18 +55,9 @@ MonoBehaviour:
         effectSteps:
         - rid: 8790164513324270201
         - rid: 7401433558763438356
-        - rid: 7401433558763438393
-        - rid: 7401433558763438394
-        - rid: 7401433558763438395
-        - rid: 7401433558763438396
-        - rid: 7401433558763438397
-        - rid: 7401433558763438430
-        - rid: 7401433558763438398
         - rid: 7707884639552274911
         - rid: 7401433558763438357
-        - rid: 7401433558763438462
         - rid: 7401433558763438358
-        - rid: 7401433558763438463
     - rid: 7401433558763438356
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -107,92 +89,10 @@ MonoBehaviour:
         inputKey: self
         prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
         scale: 1
-    - rid: 7401433558763438393
-      type: {class: CombatInstanceCacheLoad, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CombatInstanceCacheLoad
-        inputCombatInstanceKey: self
-        cacheKey: numDamage
-        currentWorkflowKey: numDamage
-    - rid: 7401433558763438394
-      type: {class: MathStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: MathStep
-        inputKey: numDamage
-        operand2InputKey: UNUSED
-        operation: 0
-        scale: 1
-        outputKey: numDamagePlus
-    - rid: 7401433558763438395
-      type: {class: MathStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: MathStep
-        inputKey: numDamage
-        operand2InputKey: UNUSED
-        operation: 3
-        scale: 3
-        outputKey: numDamageDiv3
-    - rid: 7401433558763438396
-      type: {class: MathStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: MathStep
-        inputKey: numDamagePlus
-        operand2InputKey: UNUSED
-        operation: 3
-        scale: 3
-        outputKey: numDamagePlusDiv3
-    - rid: 7401433558763438397
-      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: BooleanComparison
-        hardCodedInputKey1: 0
-        useHardCodedInputKey1: 0
-        inputKey1: numDamageDiv3
-        operation: 1
-        inputKey2: numDamagePlusDiv3
-        outputKey: multOf3
-    - rid: 7401433558763438398
-      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: EndWorkflowIfConditionMet
-        inputKey1: multOf3
-        conditionToEndOn: 0
-    - rid: 7401433558763438430
-      type: {class: CombatInstanceCacheStore, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CombatInstanceCacheStore
-        inputCombatInstanceKey: self
-        hardCodedBool: 0
-        useHardCodedBool: 0
-        hardCodedInt: 0
-        useHardCodedInt: 0
-        currentWorkflowKey: numDamagePlus
-        cacheKey: numDamage
-    - rid: 7401433558763438462
-      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: ApplyStatus
-        inputKey: damagedCompanion
-        statusEffect: 0
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplyByNumAuraStacks: 0
-        multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
-    - rid: 7401433558763438463
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: damagedCompanion
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
-        scale: 1
     - rid: 7707884639552274911
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EntityAbilityTriggeredVFX
-        inputKey: self
     - rid: 8790164513324270201
       type: {class: EndWorkflowIfNoMapElement, ns: , asm: Assembly-CSharp}
       data:

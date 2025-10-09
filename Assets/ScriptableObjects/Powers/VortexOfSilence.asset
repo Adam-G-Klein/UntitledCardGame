@@ -62,7 +62,7 @@ MonoBehaviour:
         effectStepName: BooleanComparison
         hardCodedInputKey1: 0
         useHardCodedInputKey1: 1
-        inputKey1: enem
+        inputKey1: 
         operation: 0
         inputKey2: numCards
         outputKey: empty
@@ -71,7 +71,7 @@ MonoBehaviour:
       data:
         effectStepName: EndWorkflowIfConditionMet
         inputKey1: empty
-        conditionToEndOn: 1
+        conditionToEndOn: 0
     - rid: 2511000990761353372
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:

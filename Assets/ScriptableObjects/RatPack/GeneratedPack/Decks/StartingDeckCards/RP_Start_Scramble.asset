@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 5f49c2e7-8b9c-4c2e-bcc2-29712135a8b7
   Name: Scramble
-  Description: Draw 2 cards from any. Create a "Wound" Status card in hand for them
+  Description: Draw 2 cards from any & shuffle a "Wound" Status card into their deck
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 5e40f858eddaed340a6366c33c4e216f, type: 3}
@@ -64,15 +64,28 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 4
         cantCancelTargetting: 0
+    - rid: 2511001095643857211
+      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: AddCardsToDeck
+        inputKey: target
+        cardTypes:
+        - {fileID: 11400000, guid: a01e6780b2964496da60664e148acadb, type: 2}
+        addToDeckMethod: 1
+        getCardsFromKey: 0
+        inputCardsKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
     - rid: 5602892561590779943
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
         - rid: 5602892561590779944
         - rid: 1289961959942521257
-        - rid: 8034949928137261057
         - rid: 1274772082283774706
         - rid: 1289961959942521193
+        - rid: 2511001095643857211
     - rid: 5602892561590779944
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -84,16 +97,3 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
-    - rid: 8034949928137261057
-      type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: AddCardsToHand
-        entityFromKey: target
-        cardTypes:
-        - {fileID: 11400000, guid: a01e6780b2964496da60664e148acadb, type: 2}
-        getCardsFromKey: 0
-        inputCardsKey: 
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
-        outputKey: 

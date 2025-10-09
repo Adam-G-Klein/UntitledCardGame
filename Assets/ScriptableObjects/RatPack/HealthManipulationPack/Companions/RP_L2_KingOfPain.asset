@@ -48,12 +48,10 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Level Two King of Pain
-      description: Every 4 times a companion takes damage, King of Pain and the last
-        companion damaged gain 1 strength
+      description: Every 3 times a companion loses HP, give self 2 strength
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: Every 4 times a companion takes damage, King of Pain and the
-    last companion damaged gain 1 strength
+  keepsakeDescription: Every 3 times a companion loses HP, give self 2 strength
   references:
     version: 2
     RefIds:
@@ -73,9 +71,7 @@ MonoBehaviour:
         - rid: 7401433558763438398
         - rid: 7707884639552274905
         - rid: 7401433558763438357
-        - rid: 7401433558763438462
         - rid: 7401433558763438358
-        - rid: 7401433558763438463
     - rid: 7401433558763438356
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -93,7 +89,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: self
         statusEffect: 0
-        scale: 1
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
@@ -130,7 +126,7 @@ MonoBehaviour:
         inputKey: numDamage
         operand2InputKey: UNUSED
         operation: 3
-        scale: 4
+        scale: 3
         outputKey: numDamageDiv3
     - rid: 7401433558763438396
       type: {class: MathStep, ns: , asm: Assembly-CSharp}
@@ -139,7 +135,7 @@ MonoBehaviour:
         inputKey: numDamagePlus
         operand2InputKey: UNUSED
         operation: 3
-        scale: 4
+        scale: 3
         outputKey: numDamagePlusDiv3
     - rid: 7401433558763438397
       type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
@@ -168,31 +164,10 @@ MonoBehaviour:
         useHardCodedInt: 0
         currentWorkflowKey: numDamagePlus
         cacheKey: numDamage
-    - rid: 7401433558763438462
-      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: ApplyStatus
-        inputKey: damagedCompanion
-        statusEffect: 0
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplyByNumAuraStacks: 0
-        multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
-    - rid: 7401433558763438463
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: damagedCompanion
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
-        scale: 1
     - rid: 7707884639552274905
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EntityAbilityTriggeredVFX
-        inputKey: self
     - rid: 8790164513324270201
       type: {class: EndWorkflowIfNoMapElement, ns: , asm: Assembly-CSharp}
       data:
