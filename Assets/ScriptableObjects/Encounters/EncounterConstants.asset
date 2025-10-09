@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   companionPrefab: {fileID: 5285687428135354733, guid: 24f62d5c366ae1e488c1f12d6dd09200, type: 3}
   enemyPrefab: {fileID: 1818299386461833425, guid: 34d1fb5b688453b4a919a06abb42f422, type: 3}
+  SmokeAndArmsBossPrefab: {fileID: 1818299386461833425, guid: a99d3923036e772438f69e7c8b5fba7a, type: 3}
   minionPrefab: {fileID: 3793161618878564120, guid: 86773367736110f48bef92cbf342bb6f, type: 3}
   playerPrefab: {fileID: 5707403771782775114, guid: 17ffb8b95d52187448098481944127fa, type: 3}
   cardPrefab: {fileID: 2953694679348611399, guid: 8054bb662069f4b18b9d1e4d99a9215e, type: 3}
@@ -28,3 +29,4 @@ MonoBehaviour:
   cardGeneratedByOrb: {fileID: 11400000, guid: 8ac3c6ab98795bc478560ad2d78e80ae, type: 2}
   cardDrawVFXPrefab: {fileID: 6098351819381026378, guid: bb270a4415ab7d14eae6b9d6ccc52756, type: 3}
   genericCardCompanionTypeSprite: {fileID: 21300000, guid: c63f296ce93d3e74780174ff97fc07c9, type: 3}
+  bossSpawnLocation: {x: 0, y: 1.5}

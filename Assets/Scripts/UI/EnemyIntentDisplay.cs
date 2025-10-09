@@ -6,8 +6,9 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 /***
-This class just handles the intent arrows right now. The rest of the intent is read from the EnemyInstance
-in combatEncounterView ***/
+I believe this class is FULLY DEPRECATED, see EnemyInstance setting up the arrows controller directly
+***/
+/*
 [RequireComponent(typeof(EnemyIntentArrowsController))]
 public class EnemyIntentDisplay : MonoBehaviour
 {
@@ -84,5 +85,5 @@ public class EnemyIntentDisplay : MonoBehaviour
     public void clearIntent() {
         arrowController.clearArrows();
     }
-
 }
+*/

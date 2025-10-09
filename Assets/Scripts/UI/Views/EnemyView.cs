@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
@@ -120,6 +121,7 @@ public class EnemyView : IUIEventReceiver
         // Moving past the random VisualElement parent CloneTree() creates
         this.container = enemyRoot.Children().First();
         this.container.name = container.name + this.index;
+        this.container.style.rotate = new StyleRotate(new Rotate(-90));
         this.pickingModePositionList.Add(container);
         SetupMainContainer();
         SetupBackground();
@@ -127,6 +129,7 @@ public class EnemyView : IUIEventReceiver
         SetupBlockAndHealth();
         SetupStatusIndicators();
         UpdateWidthAndHeight();
+        DamageScaleBump(1);
     }
 
 
@@ -320,9 +323,10 @@ public class EnemyView : IUIEventReceiver
         }
     }
 
-    private void DamageScaleBump(int scale)
+    public void DamageScaleBump(int scale = -1)
     {
-        if (scale == 0 || this.isTweening) return; // this could mean the damage didn't go through the block or that the companion died while taking damage
+        // TODO re enable
+        //if (scale == 0 || this.isTweening) return; // this could mean the damage didn't go through the block or that the companion died while taking damage
 
         float duration = 0.125f;  // Total duration for the scale animation
         float minScale = .8f; // (float)Math.Min(.75, .9 - scale / 500);  // scale bump increases in intensity if entity takes more damage (haven't extensively tested this)
@@ -350,6 +354,37 @@ public class EnemyView : IUIEventReceiver
             });
     }
 
+    public void BossFrameDestructionRotationShake(float scale, float duration)
+    {
+        //if (scale == 0 || this.isTweening) return; // this could mean the damage didn't go through the block or that the companion died while taking damage
+
+
+
+        Debug.Log("Meothra setting rotation to " + scale);
+        this.container.style.rotate = new StyleRotate(new Rotate(scale));
+        UpdateWidthAndHeight();
+
+        // float originalElementRotation = this.container.style.rotate.value.angle.value;
+        // float maxRotation = originalElementRotation + scale;
+
+        // LeanTween.value(originalElementRotation, maxRotation, duration)
+        //     .setEase(LeanTweenType.easeInOutQuad)
+        //     .setLoopPingPong(1) // inverse tween is called when this tween completes. On complete below is called after both tweens complete
+        //     .setOnUpdate((float currentRotation) =>
+        //     {
+        //         this.container.style.rotate = new StyleRotate(new Rotate(currentRotation));
+        //     })
+        //     .setOnStart(() =>
+        //     {
+        //         this.isTweening = true;
+        //     })
+        //     .setOnComplete(() =>
+        //     {
+        //         this.isTweening = false;
+        //         this.container.style.rotate = new StyleRotate(new Rotate(originalElementRotation));
+        //     });
+    }
+
     private IEnumerator OnDeathHandler(CombatInstance killer)
     {
         this.selectedIndicator.style.visibility = Visibility.Hidden;
@@ -363,8 +398,14 @@ public class EnemyView : IUIEventReceiver
         intentContainer.style.display = DisplayStyle.None;
     }
 
-    public IEnumerator AbilityActivatedVFX() {
+    public IEnumerator AbilityActivatedVFX()
+    {
         EnemyView clonedEnemyView = new EnemyView(this.uiEntity, 0, this.viewDelegate);
         yield return EntityAbilityInstance.GenericAbilityTriggeredVFX(this.container, clonedEnemyView.container);
+    }
+
+    public IUIEntity GetEntity()
+    {
+        return this.uiEntity;
     }
 }

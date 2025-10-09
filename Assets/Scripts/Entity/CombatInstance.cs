@@ -160,7 +160,8 @@ public class CombatInstance : MonoBehaviour
         startOfTurnCacheInit = new TurnPhaseTrigger(TurnPhase.BEFORE_START_PLAYER_TURN, startOfTurnCacheInitCoroutine());
         TurnManager.Instance.addTurnPhaseTrigger(startOfTurnCacheInit);
 
-        statusEffectsDisplay.Setup(this, wpve);
+        // null if boss that doesn't have status display
+        if(statusEffectsDisplay != null) statusEffectsDisplay.Setup(this, wpve);       
         this.wpve = wpve;
     }
 
