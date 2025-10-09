@@ -215,6 +215,14 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             shopViewController.AnimateNewCompanionToSlot(companionInShop, companionManagementSlotView, false, 0, () => { CompanionBoughtAnimationOnComplete(companionToAdd, companionManagementSlotView); });
             InstantiateShopVFX(moneySpentPrefab, shopItemView.shopItemElement, 1.5f);
             MusicController.Instance.PlaySFX("event:/SFX/SFX_CompanionBuy");
+
+            // Also record an analytics event for buying the companion.
+            var eventData = new CompanionBuyAnalyticsEvent
+            {
+                CompanionName = companionInShop.companionType.name,
+                PackName = companionInShop.companionType.pack.name
+            };
+            AnalyticsManager.Instance.RecordEvent(eventData);
         }
         else
         {
@@ -250,7 +258,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         GameObject instance = Instantiate(prefab, UIDocumentGameObjectPlacer.GetWorldPositionFromElement(ve), Quaternion.identity);
         ScaleGameObjectAndChildren(instance, scale);
     }
-    
+
     public void Sparkle(VisualElement ve) {
         InstantiateShopVFX(sparklePrefab, ve, 1.0f);
     }
@@ -330,6 +338,15 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             this.buyingCard = false;
             shopViewController.StopBuyingCard();
             InstantiateShopVFX(moneySpentPrefab, currentCardBuyRequestItemView.shopItemElement, 1.5f);
+
+            // Fire off a cardBought Analytics event.
+            var cardBuy = new CardBuyAnalyticsEvent
+            {
+                CardName = newCard.cardType.name,
+                PackName = currentCardBuyRequest.packSO?.name ?? "",
+                CompanionName = companion.companionType.name,
+            };
+            AnalyticsManager.Instance.RecordEvent(cardBuy);
         }
 
         if (removingCard) {

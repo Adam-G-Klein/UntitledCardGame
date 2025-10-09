@@ -36,6 +36,9 @@
                 <ui:VisualElement class="menu-option" style="flex-grow: 0;">
                     <ui:Toggle label="Auto Upgrade" name="auto-upgrade-toggle" class="focusable selected-sfx" style="font-size: 18px;" />
                 </ui:VisualElement>
+                <ui:VisualElement class="menu-option" style="flex-grow: 0;">
+                    <ui:Toggle label="Consent to Data Collection" name="data-consent-toggle" value="true" class="focusable selected-sfx" style="font-size: 18px;" />
+                </ui:VisualElement>
                 <ui:VisualElement name="VisualElement" class="menu-option">
                     <ui:Button text="View Compendium" parse-escape-sequences="true" display-tooltip-when-elided="true" name="compendiumButton" class="options-button focusable selected-sfx" />
                 </ui:VisualElement>

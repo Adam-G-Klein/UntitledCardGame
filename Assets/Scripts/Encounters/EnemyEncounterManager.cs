@@ -214,6 +214,12 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     }
 
     private void WinGameHandler() {
+        var winGameEvent = new RunEndedAnalyticsEvent
+        {
+            EndCondition = RunEndedCondition.VICTORY,
+        };
+        AnalyticsManager.Instance.RecordEvent(winGameEvent);
+
         ProgressManager.Instance.ReportProgressEvent(GameActionType.WIN_A_RUN, 1);
         ProgressManager.Instance.SetMaxAscensionUnlocked(gameState.ascensionLevel + 1); // when you win at ascension level x, you unlock ascension level x + 1
         SaveManager.Instance.SavePlayerProgress(); // lock in values now in case of crash/player quits before progression screen
@@ -231,6 +237,12 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     }
 
     private void LoseGameHandler() {
+        var loseGameEvent = new RunEndedAnalyticsEvent
+        {
+            EndCondition = RunEndedCondition.DEFEAT,
+        };
+        AnalyticsManager.Instance.RecordEvent(loseGameEvent);
+
         SaveManager.Instance.DeleteSaveData();
         postGamePopup.SetActive(true);
         MusicController.Instance.SetCombatState("Defeat");

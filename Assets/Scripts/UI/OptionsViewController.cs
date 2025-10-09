@@ -32,6 +32,7 @@ public class OptionsViewController : GenericSingleton<OptionsViewController>, IC
     private Button compendiumButton;
     private Toggle fullscreenToggle;
     private Toggle autoUpgradeToggle;
+    private Toggle dataConsentToggle;
     [SerializeField]
     private GameStateVariableSO gameState;
     // Start is called before the first frame update
@@ -75,6 +76,13 @@ public class OptionsViewController : GenericSingleton<OptionsViewController>, IC
         gameState.autoUpgrade = value;
     }
 
+    public bool getIsDataCollectionEnabled() {
+        return gameState.consentToDataCollection;
+    }
+    public void setIsDataCollectionEnabled(bool value) {
+        gameState.consentToDataCollection = value;
+    }
+
     void Awake() {
         // DontDestroyOnLoad(this.gameObject);
         canvasGroup = GetComponent<CanvasGroup>();
@@ -109,6 +117,9 @@ public class OptionsViewController : GenericSingleton<OptionsViewController>, IC
         autoUpgradeToggle = optionsUIDocument.rootVisualElement.Q<Toggle>("auto-upgrade-toggle");
         autoUpgradeToggle.RegisterValueChangedCallback(AutoUpgradeToggleEvent);
         autoUpgradeToggle.value = gameState.autoUpgrade;
+        dataConsentToggle = optionsUIDocument.rootVisualElement.Q<Toggle>("data-consent-toggle");
+        dataConsentToggle.RegisterValueChangedCallback(DataConsentToggleEvent);
+        dataConsentToggle.value = gameState.consentToDataCollection;
 
         canvasGroup.blocksRaycasts = false;
 
@@ -116,7 +127,8 @@ public class OptionsViewController : GenericSingleton<OptionsViewController>, IC
         MusicController.Instance.RegisterButtonClickSFX(optionsUIDocument);
     }
 
-    private void OptionsMenuButton() {
+    private void OptionsMenuButton()
+    {
         compendiumView?.ExitButtonHandler();
         ToggleVisibility(optionsUIDocument.rootVisualElement.style.visibility == Visibility.Hidden);
     }
@@ -163,7 +175,7 @@ public class OptionsViewController : GenericSingleton<OptionsViewController>, IC
     public void onVolumeSliderChangedHandler(float value, VolumeType volumeType) {
        MusicController.Instance.SetVolume(value, volumeType);
     }
-    
+
     public void OnTimescaleSliderChange(float value) {
         Time.timeScale = 1 + (value * 4);
     }
@@ -212,14 +224,21 @@ public class OptionsViewController : GenericSingleton<OptionsViewController>, IC
         gameState.fullscreenEnabled = evt.newValue;
         Screen.SetResolution(1920, 1080, gameState.fullscreenEnabled);
     }
-    
+
     private void AutoUpgradeToggleEvent(ChangeEvent<bool> evt) {
         gameState.autoUpgrade = evt.newValue;
     }
 
+    private void DataConsentToggleEvent(ChangeEvent<bool> evt)
+    {
+        gameState.consentToDataCollection = evt.newValue;
+        AnalyticsManager.Instance.ConfigureDataCollection();
+    }
+
     public void ProcessGFGInputAction(GFGInputAction action)
     {
-        if (action == GFGInputAction.OPTIONS) {
+        if (action == GFGInputAction.OPTIONS)
+        {
             OptionsMenuButton();
         }
     }

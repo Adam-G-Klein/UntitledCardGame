@@ -53,6 +53,7 @@ public class GameStateVariableSO : ScriptableObject
     public List<DialogueSequenceSO> viewedSequences;
     public CompanionInstance hoveredCompanion = null;
     public int currentEncounterIndex = 0;
+    public Guid currentRunID;
     [SerializeField]
     public bool skipTutorials = false;
     [SerializeField]
@@ -90,6 +91,10 @@ public class GameStateVariableSO : ScriptableObject
     }
     public bool autoUpgrade = false;
     public bool demoMode = false;
+    // True by default because fuck it we'll get way more data this way.
+    // I feel like marky z
+    public bool consentToDataCollection = true;
+
     public List<PackSO> previouslySelectedPackSOs;
     public int ascensionLevel = -1;
     public Dictionary<Location, string> locationToScene = new Dictionary<Location, string>() {
@@ -346,10 +351,18 @@ public class GameStateVariableSO : ScriptableObject
 
     public void StartNewRun(MapGeneratorSO mapGeneratorSO) {
         currentEncounterIndex = 0;
+        currentRunID = Guid.NewGuid();
         setMapGenerator(mapGeneratorSO);
         map.SetValue(mapGenerator.generateMap());
         playerData.initialize(baseShopData);
         viewedSequences = new List<DialogueSequenceSO>();
+
+        // Record an event to record the start of the run.
+        // We should move this to the pack selection screen or the starting team
+        // so we can also record the starting team, configured ascensions, selected packs.
+        var startEvent = new RunStartedAnalyticsEvent{};
+        AnalyticsManager.Instance.RecordEvent(startEvent);
+
         SetLocation(Location.MAIN_MENU);
         LoadNextLocation();
     }
