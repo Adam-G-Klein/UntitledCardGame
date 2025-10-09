@@ -1,6 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/tutorial.uss?fileID=7433441132597879392&amp;guid=a7236d75a8675493a9b0bb0543113efc&amp;type=3#tutorial" />
     <Style src="project://database/Assets/fontStyling.uss?fileID=7433441132597879392&amp;guid=d0c0881f1c32747ecb649373600de095&amp;type=3#fontStyling" />
+    <Style src="project://database/Assets/UI%20Toolkit/Stylesheets/ButtonStyle.uss?fileID=7433441132597879392&amp;guid=acefe7eb60f7cac43a283bde6352a710&amp;type=3#ButtonStyle" />
     <ui:VisualElement name="tutorial-container" class="tutorial-container" style="color: rgb(0, 0, 0); background-color: rgb(0, 0, 0);">
         <ui:VisualElement name="backgroundImage" style="flex-grow: 1; position: absolute; width: 100%; height: 100%; background-image: resource(&apos;Backgrounds/TeamPreviewBackground&apos;);" />
         <ui:VisualElement style="flex-grow: 1; width: 100%; height: 100%; position: absolute; background-color: rgba(0, 0, 0, 0.67);" />
