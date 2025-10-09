@@ -7,6 +7,7 @@ using UnityEngine.Splines;
 using UnityEngine.UIElements;
 using UnityEngine.Playables;
 using UnityEditor;
+using Unity.VisualScripting;
 
 
 [ExecuteInEditMode]
@@ -51,6 +52,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     private GameObject cardPrefab;
     private List<DeckInstance> orderedDeckInstances;
     private Dictionary<DeckInstance, List<PlayableCard>> deckInstanceToPlayableCard;
+    private List<PlayableCard> orderedCards;
     public delegate IEnumerator OnCardExhaustHandler(DeckInstance deckFrom, PlayableCard card);
     public event OnCardExhaustHandler onCardExhaustHandler;
 
@@ -90,12 +92,14 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     */
     private int HAND_START_SCALING = 7;
     private PlayableCard hoveredCard = null;
+    private int lastHoveredIndex = -1;
     private float splineMiddleYpos;
 
     void Awake()
     {
         this.orderedDeckInstances = new List<DeckInstance>();
         this.deckInstanceToPlayableCard = new Dictionary<DeckInstance, List<PlayableCard>>();
+        this.orderedCards = new List<PlayableCard>();
     }
 
     void Start()
@@ -133,12 +137,22 @@ public class PlayerHand : GenericSingleton<PlayerHand>
 
     public List<PlayableCard> GetCardsOrdered()
     {
-        List<PlayableCard> cards = new List<PlayableCard>();
+        return orderedCards;
+        // List<PlayableCard> cards = new List<PlayableCard>();
+        // foreach (DeckInstance deckInstance in orderedDeckInstances)
+        // {
+        //     cards.AddRange(deckInstanceToPlayableCard[deckInstance]);
+        // }
+        // return cards;
+    }
+
+    private void UpdateOrderedCards()
+    {
+        orderedCards.Clear();
         foreach (DeckInstance deckInstance in orderedDeckInstances)
         {
-            cards.AddRange(deckInstanceToPlayableCard[deckInstance]);
+            orderedCards.AddRange(deckInstanceToPlayableCard[deckInstance]);
         }
-        return cards;
     }
 
     private IEnumerator CardDealerWorker()
@@ -192,6 +206,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                 yield return new WaitForSeconds(cardBatchingDelay);
             }
 
+            UpdateOrderedCards();
             UpdateCardPositions(newCardsWithoutTheBoolField);
 
             // process the OnDrawEvents for all the new cards with "countAsDraw" active.
@@ -209,6 +224,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     public void HoverCard(PlayableCard card)
     {
         hoveredCard = card;
+        lastHoveredIndex = orderedCards.IndexOf(hoveredCard);
         LeanTween.scale(card.gameObject, new Vector3(hoverScale, hoverScale, 1), hoverAnimationTime)
             .setEase(LeanTweenType.easeOutQuint);
         float yOffset = hoverYOffset;
@@ -233,34 +249,33 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     // Optionally takes a playable card, which indicates a card to give extra room in the hand to
     public void UpdateCardPositions(List<PlayableCard> newCards = null)
     {
-        List<PlayableCard> cardsInHand = GetCardsOrdered();
-        if (cardsInHand.Count == 0) return;
+        if (orderedCards.Count == 0) return;
 
         float minCardSpacing = 1f / MAX_HAND_SIZE;
         float maxCardSpacing = 1f / HAND_START_SCALING;
-        float cardSpacing = Mathf.Clamp(1f / cardsInHand.Count, minCardSpacing, maxCardSpacing);
-        int hoveredIndex = cardsInHand.IndexOf(hoveredCard);
-        float firstCardPosition = 0.5f - (cardsInHand.Count - 1) * (cardSpacing / 2);
+        float cardSpacing = Mathf.Clamp(1f / orderedCards.Count, minCardSpacing, maxCardSpacing);
+        int hoveredIndex = orderedCards.IndexOf(hoveredCard);
+        float firstCardPosition = 0.5f - (orderedCards.Count - 1) * (cardSpacing / 2);
 
         // Lower z value = closer to camera
         // between 1 and -0.5
-        float zValueSpacing = 1.5f / cardsInHand.Count;
+        float zValueSpacing = 1.5f / orderedCards.Count;
         float zStart = 2f;
         Spline spline = splineContainer.Spline;
 
-        for (int i = 0; i < cardsInHand.Count; i++)
+        for (int i = 0; i < orderedCards.Count; i++)
         {
-            float p = CalculateSplinePosition(firstCardPosition, cardSpacing, i, hoveredIndex, cardsInHand.Count);
+            float p = CalculateSplinePosition(firstCardPosition, cardSpacing, i, hoveredIndex, orderedCards.Count);
             float zPos = zStart - (i * zValueSpacing);
             Vector3 splinePosition = spline.EvaluatePosition(p);
             float yPos = splinePosition.y;
-            if (cardsInHand[i] == hoveredCard) yPos = splineMiddleYpos;
+            if (orderedCards[i] == hoveredCard) yPos = splineMiddleYpos;
             Vector3 editedPosition = new Vector3(splinePosition.x, yPos, zPos);
             Vector3 forward = spline.EvaluateTangent(p);
             Vector3 up = spline.EvaluateUpVector(p);
             Quaternion rotation = Quaternion.LookRotation(up, Vector3.Cross(up, forward).normalized);
-            bool isNew = newCards != null && newCards.Contains(cardsInHand[i]);
-            MoveSingleCard(cardsInHand[i], editedPosition, rotation, isNew);
+            bool isNew = newCards != null && newCards.Contains(orderedCards[i]);
+            MoveSingleCard(orderedCards[i], editedPosition, rotation, isNew);
         }
     }
 
@@ -420,7 +435,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         return dealt;
     }
 
-    public void HoverNextCard(int previouslyPlayedCardIndex)
+    public void HoverNextCardAfterCast()
     {
         if (ControlsManager.Instance.GetControlMethod() == ControlsManager.ControlMethod.Mouse) return;
 
@@ -431,7 +446,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             return;
         }
         indexToHover = -1;
-        int nextHoverIndex = cardsInHand.Count <= previouslyPlayedCardIndex ? 0 : previouslyPlayedCardIndex;
+        int nextHoverIndex = cardsInHand.Count <= lastHoveredIndex ? lastHoveredIndex - 1 : lastHoveredIndex;
 
         if (cardsInHand[nextHoverIndex].TryGetComponent<GameObjectFocusable>(out GameObjectFocusable goFocusable))
         {
@@ -509,6 +524,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         yield return new WaitUntil(() => !cardsInHandLocked);
         // cardsInHand.Remove(card);
         deckInstanceToPlayableCard[card.deckFrom].Remove(card);
+        UpdateOrderedCards();
     }
 
     public void SafeRemoveCardFromHand(Card card)
@@ -789,6 +805,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                     // Move from selected spline back to player hand
                     selectedCards.Remove(targetCard);
                     deckInstanceToPlayableCard[targetCard.deckFrom].Add(targetCard);
+                    UpdateOrderedCards();
                     targetCard.hoverInPlace = false;
                     nextCardToHover = targetCard;
                 }
@@ -800,24 +817,23 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                     targetCard.hoverInPlace = true;
 
                     // In a complicated fashion, find the next card to hover
-                    List<PlayableCard> orderedCards = GetCardsOrdered();
-                    int indexOfTargetCard = orderedCards.IndexOf(targetCard);
+                    int indexOfTargetCardBeforeRemoving = orderedCards.IndexOf(targetCard);
                     int nextIndex = 0;
                     if (orderedCards.Count == 1)
                     {
                         nextIndex = -1;
                     }
-                    else if (indexOfTargetCard == orderedCards.Count - 1)
+                    else if (indexOfTargetCardBeforeRemoving == orderedCards.Count - 1)
                     {
-                        nextIndex = indexOfTargetCard - 1;
+                        nextIndex = indexOfTargetCardBeforeRemoving - 1;
                     }
-                    else if (indexOfTargetCard == 0)
+                    else if (indexOfTargetCardBeforeRemoving == 0)
                     {
                         nextIndex = 1;
                     }
                     else
                     {
-                        nextIndex = indexOfTargetCard + 1;
+                        nextIndex = indexOfTargetCardBeforeRemoving + 1;
                     }
 
                     if (nextIndex != -1)
@@ -830,6 +846,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                 {
                     return;
                 }
+                UpdateOrderedCards();
                 targetCard.interactable = false;
                 UnhoverCard(targetCard);
                 UpdateCardSelectionSplineCardPositions();
@@ -859,10 +876,10 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             TargettingManager.Instance.targetSuppliedHandler -= SelectingCardSuppliedHandler;
             TargettingManager.Instance.cancelTargettingHandler -= SelectingCardCancelHandler;
             selectionView.DisableSelection();
-            if (cardCast != null)
-            {
-                deckInstanceToPlayableCard[cardCast.deckFrom].Add(cardCast);
-            }
+            // if (cardCast != null)
+            // {
+            //     deckInstanceToPlayableCard[cardCast.deckFrom].Add(cardCast);
+            // }
             EnemyEncounterManager.Instance.SetCastingCard(true);
             callback(selectedCards);
         }

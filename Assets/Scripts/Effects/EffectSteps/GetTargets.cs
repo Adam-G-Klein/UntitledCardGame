@@ -103,9 +103,11 @@ public class GetTargets : EffectStep, IEffectStepCalculation
             GetTargetsRandomly(document);
         } else {
             // if we're here then we need to user to click something on the screen
-            FocusManager.Instance.StashFocusablesNotOfTargetType(validTargets, this.GetType().Name);
-            UIStateManager.Instance.setState(UIState.EFFECT_TARGETTING);
+            // FocusManager.Instance.StashFocusablesNotOfTargetType(validTargets, this.GetType().Name);
+            // UIStateManager.Instance.setState(UIState.EFFECT_TARGETTING);
             if (validTargets.Count == 1 && validTargets.Contains(Targetable.TargetType.Card)) {
+                FocusManager.Instance.StashFocusablesNotOfTargetType(validTargets, this.GetType().Name);
+                UIStateManager.Instance.setState(UIState.EFFECT_TARGETTING);
                 bool selected = false;
                 PlayerHand.Instance.SelectCardsFromHand(number, disallowedTargets, limitOptions, CancelHandler, (List<PlayableCard> selectedCards) => {
                     foreach (PlayableCard card in selectedCards) {
@@ -119,6 +121,8 @@ public class GetTargets : EffectStep, IEffectStepCalculation
                 TargettingManager.Instance.targetSuppliedHandler += TargetSuppliedHandler;
                 TargettingManager.Instance.cancelTargettingHandler += CancelHandler;
                 TargettingArrowsController.Instance.createTargettingArrow(validTargets, self);
+                FocusManager.Instance.StashFocusablesNotOfTargetType(validTargets, this.GetType().Name);
+                UIStateManager.Instance.setState(UIState.EFFECT_TARGETTING);
                 yield return new WaitUntil(() => targetsList.Count == number || (!cantCancelTargetting && cancelled));
                 TargettingManager.Instance.targetSuppliedHandler -= TargetSuppliedHandler;
                 TargettingManager.Instance.cancelTargettingHandler -= CancelHandler;

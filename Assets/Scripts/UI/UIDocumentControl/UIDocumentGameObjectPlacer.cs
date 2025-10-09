@@ -330,7 +330,7 @@ public class UIDocumentGameObjectPlacer : GenericSingleton<UIDocumentGameObjectP
         Debug.Log("screenPosition: " + screenPosition);
         if(float.IsNaN(screenPosition.x) || float.IsNaN(screenPosition.y))
         {
-            Debug.LogError("GetWorldPositionFromUIDocumentPosition: x or y position is not a number");
+            Debug.LogWarning("GetWorldPositionFromUIDocumentPosition: x or y position is not a number");
             return Vector3.zero;
         }
         Vector3 worldPosition;

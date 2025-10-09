@@ -127,7 +127,7 @@ public class PlayableCard : MonoBehaviour,
             Debug.Log("DONE WITH exhaust when played coroutine");
 
             EnemyEncounterManager.Instance.SetCastingCard(false);
-            PlayerHand.Instance.HoverNextCard(cardPlayedIndex);
+            PlayerHand.Instance.HoverNextCardAfterCast();
 
             // Add a WaitForSeconds so that the target hovering does not break when using keyboard.
             // yield return new WaitForSeconds(0.5f);
@@ -139,7 +139,7 @@ public class PlayableCard : MonoBehaviour,
             yield return StartCoroutine(PlayerHand.Instance.SafeRemoveCardFromHand(this));
 
             EnemyEncounterManager.Instance.SetCastingCard(false);
-            PlayerHand.Instance.HoverNextCard(cardPlayedIndex);
+            PlayerHand.Instance.HoverNextCardAfterCast();
 
             yield return StartCoroutine(PlayerHand.Instance.ResizeHand(this));
 
