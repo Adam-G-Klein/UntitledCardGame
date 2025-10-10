@@ -94,6 +94,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     private PlayableCard hoveredCard = null;
     private int lastHoveredIndex = -1;
     private float splineMiddleYpos;
+    public List<PlayableCard> cardsInSelectionSpline = null;
 
     void Awake()
     {
@@ -516,6 +517,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             cardsInHandLocked = false;
 
             cardsInHand = retainedCards;
+            UpdateCardPositions();
         }
     }
 
@@ -524,6 +526,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         yield return new WaitUntil(() => !cardsInHandLocked);
         // cardsInHand.Remove(card);
         deckInstanceToPlayableCard[card.deckFrom].Remove(card);
+        if (cardsInSelectionSpline != null && cardsInSelectionSpline.Contains(card)) cardsInSelectionSpline.Remove(card);
         UpdateOrderedCards();
     }
 
@@ -618,7 +621,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     {
         // If statements are here to take into account if a card exhausts itself
         // as part of its effect workflow
-        if (GetCardsOrdered().Contains(card))
+        if (GetCardsOrdered().Contains(card) || cardsInSelectionSpline.Contains(card))
         {
             yield return SafeRemoveCardFromHand(card);
         }
@@ -876,12 +879,20 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             TargettingManager.Instance.targetSuppliedHandler -= SelectingCardSuppliedHandler;
             TargettingManager.Instance.cancelTargettingHandler -= SelectingCardCancelHandler;
             selectionView.DisableSelection();
-            // if (cardCast != null)
-            // {
-            //     deckInstanceToPlayableCard[cardCast.deckFrom].Add(cardCast);
-            // }
-            EnemyEncounterManager.Instance.SetCastingCard(true);
+            cardsInSelectionSpline = new List<PlayableCard>(selectedCards);
             callback(selectedCards);
+            EffectManager.Instance.RegisterEffectWorkflowFinishedDelegate(() =>
+            {
+                List<PlayableCard> temp = new List<PlayableCard>(cardsInSelectionSpline);
+                foreach (PlayableCard card in temp)
+                {
+                    Debug.Log(String.Format("SelectingCardConfirmed: {0}", card));
+                    deckInstanceToPlayableCard[card.deckFrom].Add(card);
+                    cardsInSelectionSpline.Remove(card);
+                }
+                UpdateOrderedCards();
+                UpdateCardPositions();
+            });
         }
 
         string GetPromptText()
@@ -915,6 +926,8 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                 Vector3 worldspacePosition = UIDocumentGameObjectPlacer.GetWorldPositionFromElement(selectionView.GetCardCastLocationElement());
                 Debug.Log("SelectCardsFromHand: worldspace position " + worldspacePosition.ToString());
                 deckInstanceToPlayableCard[cardCast.deckFrom].Remove(cardCast);
+                UpdateOrderedCards();
+                UpdateCardPositions();
                 MoveSingleCard(cardCast, worldspacePosition, Quaternion.identity, false);
             }
         }

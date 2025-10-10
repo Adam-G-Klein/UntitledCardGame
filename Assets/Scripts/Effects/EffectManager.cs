@@ -8,6 +8,7 @@ using UnityEngine;
 public class EffectManager : GenericSingleton<EffectManager>
 {
     private Queue<EffectWorkflowClosure> effectWorkflowQueue;
+    private Action effectWorkflowFinishedDelegate = null;
 
     private bool effectRunning = false;
 
@@ -69,11 +70,15 @@ public class EffectManager : GenericSingleton<EffectManager>
                 Debug.Log("Callback disabled for the current effect workflow");
             }
 
-            if (workflow.callback != null && !workflow.document.disableCallback) {
+            if (workflow.callback != null && !workflow.document.disableCallback)
+            {
                 Debug.Log("Running callback for effect workflow");
                 yield return StartCoroutine(workflow.callback);
                 Debug.Log("Done with the callback for effect workflow");
             }
+
+            effectWorkflowFinishedDelegate?.Invoke();
+            effectWorkflowFinishedDelegate = null;
         }
 
         effectRunning = false;
@@ -88,18 +93,27 @@ public class EffectManager : GenericSingleton<EffectManager>
     private IEnumerator effectWorkflowCoroutineForCalculation(
         EffectDocument document,
         List<EffectStep> effectSteps,
-        IEnumerator callback) {
-        foreach (EffectStep step in effectSteps) {
-            if (document.workflowInterrupted) {
+        IEnumerator callback)
+    {
+        foreach (EffectStep step in effectSteps)
+        {
+            if (document.workflowInterrupted)
+            {
                 break;
             }
-            if (step is IEffectStepCalculation) {
-                yield return  ((IEffectStepCalculation)step).invokeForCalculation(document);;
+            if (step is IEffectStepCalculation)
+            {
+                yield return ((IEffectStepCalculation)step).invokeForCalculation(document); ;
             }
         }
 
         if (callback != null && !document.disableCallback) yield return callback;
 
         yield return null;
+    }
+
+    public void RegisterEffectWorkflowFinishedDelegate(Action action)
+    {
+        effectWorkflowFinishedDelegate += action;
     }
 }

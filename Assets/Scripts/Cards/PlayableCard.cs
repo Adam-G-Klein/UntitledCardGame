@@ -264,7 +264,7 @@ public class PlayableCard : MonoBehaviour,
     // Called by playerHand.discardCard
     public IEnumerator DiscardToDeck()
     {
-        if (PlayerHand.Instance.GetCardsOrdered().Contains(this))
+        if (PlayerHand.Instance.GetCardsOrdered().Contains(this) || PlayerHand.Instance.cardsInSelectionSpline.Contains(this))
         {
             yield return StartCoroutine(PlayerHand.Instance.SafeRemoveCardFromHand(this));
         }
