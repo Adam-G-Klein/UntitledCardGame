@@ -317,6 +317,7 @@ public class PlayableCard : MonoBehaviour,
     {
         if (currentlyCastingCard || !hovered) return;
         UnHoverAssociatedCompanion();
+        hovered = false;
         PlayerHand.Instance.UnhoverCard(this);
     }
 

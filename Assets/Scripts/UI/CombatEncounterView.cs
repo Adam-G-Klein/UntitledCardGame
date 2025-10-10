@@ -429,12 +429,26 @@ public class CombatEncounterView : MonoBehaviour,
     {
         foreach (CombatInstance instance in combatInstanceToCompanionView.Keys)
         {
-            instance.GetComponent<TooltipOnHover>()?.OnPointerExitVoid();
+            try
+            {
+                instance.GetComponent<TooltipOnHover>()?.OnPointerExitVoid();
+            } catch (MissingReferenceException exception)
+            {
+                // If an enemy has died, we'll hit this case, but we don't want to fail outright
+                Debug.LogException(exception);
+            }
         }
 
         foreach (CombatInstance instance in combatInstanceToEnemyView.Keys)
         {
-            instance.GetComponent<TooltipOnHover>()?.OnPointerExitVoid();
+            try
+            {
+                instance.GetComponent<TooltipOnHover>()?.OnPointerExitVoid();
+            } catch (MissingReferenceException exception)
+            {
+                // If an enemy has died, we'll hit this case, but we don't want to fail outright
+                Debug.LogException(exception);
+            }
         }
     }
 }
