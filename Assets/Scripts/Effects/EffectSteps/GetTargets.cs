@@ -102,6 +102,7 @@ public class GetTargets : EffectStep, IEffectStepCalculation
         } else if (specialTargetRule == SpecialTargetRule.TargetRandom) {
             GetTargetsRandomly(document);
         } else {
+            cancelled = false;
             // if we're here then we need to user to click something on the screen
             // FocusManager.Instance.StashFocusablesNotOfTargetType(validTargets, this.GetType().Name);
             // UIStateManager.Instance.setState(UIState.EFFECT_TARGETTING);
@@ -117,7 +118,6 @@ public class GetTargets : EffectStep, IEffectStepCalculation
                 }, originCard);
                 yield return new WaitUntil(() => selected == true || (!cantCancelTargetting && cancelled));
             } else {
-                cancelled = false;
                 TargettingManager.Instance.targetSuppliedHandler += TargetSuppliedHandler;
                 TargettingManager.Instance.cancelTargettingHandler += CancelHandler;
                 TargettingArrowsController.Instance.createTargettingArrow(validTargets, self);

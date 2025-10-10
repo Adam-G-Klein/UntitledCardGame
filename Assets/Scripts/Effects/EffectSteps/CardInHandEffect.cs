@@ -30,7 +30,7 @@ public class CardInHandEffect : EffectStep, ITooltipProvider
 
     public override IEnumerator invoke(EffectDocument document) {
         if (!document.map.ContainsValueWithKey<PlayableCard>(inputKey)) {
-           EffectError("No input PlayableCard for given key " + inputKey);
+            EffectError("No input PlayableCard for given key " + inputKey);
             yield return null;
         }
 

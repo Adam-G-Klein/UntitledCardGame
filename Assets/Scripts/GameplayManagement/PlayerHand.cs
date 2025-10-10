@@ -869,6 +869,23 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         void SelectingCardCancelHandler(CancelContext context)
         {
             cancelCallback(context);
+            if (context.canCancel != true) return;
+            combatEncounterView.SetCompanionsAndEnemiesEnabled(true);
+            selectionView.RemoveConfirmedHandler(SelectingCardConfirmed);
+            TargettingManager.Instance.targetSuppliedHandler -= SelectingCardSuppliedHandler;
+            TargettingManager.Instance.cancelTargettingHandler -= SelectingCardCancelHandler;
+            selectionView.DisableSelection();
+            List<PlayableCard> temp = new List<PlayableCard>(selectedCards);
+            foreach (PlayableCard card in temp)
+            {
+                selectedCards.Remove(card);
+                deckInstanceToPlayableCard[card.deckFrom].Add(card);
+            }
+            cardCast.hoverable = true;
+            deckInstanceToPlayableCard[cardCast.deckFrom].Add(cardCast);
+            UpdateOrderedCards();
+            UpdateCardPositions();
+            cardsInSelectionSpline = null;
         }
 
         void SelectingCardConfirmed()
