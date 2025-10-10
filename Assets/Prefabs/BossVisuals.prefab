@@ -343,7 +343,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2789610767109438474}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.70790684, w: 0.7063058}
+  m_LocalRotation: {x: 0, y: -0, z: 0.6396025, w: 0.76870584}
   m_LocalPosition: {x: -1.6400001, y: 3.6499999, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5431,7 +5431,7 @@ GameObject:
   - component: {fileID: 8204637380993223127}
   - component: {fileID: 2649281282087334886}
   m_Layer: 0
-  m_Name: New CCDSolver2D
+  m_Name: LeftArmSolver
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5451,7 +5451,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 19393254267903340}
-  - {fileID: 7439728389862844269}
   m_Father: {fileID: 1941423011119106058}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2649281282087334886
@@ -5491,9 +5490,9 @@ MonoBehaviour:
     - {x: 0, y: 0, z: 0, w: 0}
     - {x: 0, y: 0, z: 0, w: 0}
     - {x: 0, y: 0, z: 0, w: 0}
-  m_Iterations: 10
-  m_Tolerance: 0.01
-  m_Velocity: 0.5
+  m_Iterations: 50
+  m_Tolerance: 0.0956
+  m_Velocity: 0.05
 --- !u!1 &3719363202447234248
 GameObject:
   m_ObjectHideFlags: 0
@@ -5645,7 +5644,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4901566773503331107}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.5299192, w: 0.8480481}
+  m_LocalRotation: {x: 0, y: 0, z: 0.35836023, w: 0.93358344}
   m_LocalPosition: {x: -0.65, y: 3.93, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5804,6 +5803,7 @@ Transform:
   m_Children:
   - {fileID: 3839186260327711786}
   - {fileID: 3616037768610041858}
+  - {fileID: 7439728389862844269}
   - {fileID: 8204637380993223127}
   - {fileID: 6402120271322547439}
   - {fileID: 4742037268618096635}
@@ -5903,7 +5903,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5479035420035407304}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.46698177, w: 0.8842669}
+  m_LocalRotation: {x: 0, y: 0, z: 0.40566236, w: 0.91402304}
   m_LocalPosition: {x: 1.44, y: 4.08, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5968,13 +5968,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5993673372265425080}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.45173404, w: 0.89215267}
+  m_LocalRotation: {x: -0, y: -0, z: 0.74112916, w: 0.67136246}
   m_LocalPosition: {x: 0.91, y: 1.46, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1695836174951077808}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 53.71}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &125978193310491672
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6321,7 +6321,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7439728389862844269}
   m_Layer: 0
-  m_Name: New CCDSolver2D_Target
+  m_Name: LeftArmTarget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6336,11 +6336,11 @@ Transform:
   m_GameObject: {fileID: 6992884946308971438}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.2804706, w: -0.95986265}
-  m_LocalPosition: {x: -4.8078523, y: -1.1457689, z: 0}
+  m_LocalPosition: {x: -7.18, y: -0.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8204637380993223127}
+  m_Father: {fileID: 1941423011119106058}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7448207558466951281
 GameObject:
@@ -6366,7 +6366,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7448207558466951281}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.52922785, w: 0.84847975}
+  m_LocalRotation: {x: 0, y: 0, z: 0.51787275, w: 0.85545766}
   m_LocalPosition: {x: 1.27, y: 3.67, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
