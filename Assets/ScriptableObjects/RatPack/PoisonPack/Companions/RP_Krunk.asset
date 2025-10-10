@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
   m_Name: RP_Krunk
   m_EditorClassIdentifier: 
-  guid: 931817f6-c796-4f7b-b2ec-522c27f4eb2a
+  guid: a76f08cf-6f98-476a-b3f4-403c172e88bd
   companionName: Krunk
   maxHealth: 30
   initialCardsDealtPerTurn: 1
@@ -54,7 +54,6 @@ MonoBehaviour:
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EntityAbilityTriggeredVFX
-        inputKey: self
     - rid: 8034950120506655623
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: RP_Devastation
   m_EditorClassIdentifier: 
-  guid: 338f2055-a793-46ae-a3b9-e18f265ac10e
+  guid: 42ef6eab-0ae7-4ce5-92fe-e3c30d1220b1
   Name: Devastation
   Description: Deal {rpl_damage} damage x2. If self above half HP, lose 3 HP and
     increase damage of all Attack cards in hand by 7
@@ -116,7 +116,7 @@ MonoBehaviour:
         inputKey: allCards
         filter:
           cardCategoriesToInclude: 01000000
-          generatedCardsFilter: 0
+          retainedCardsFilter: 0
         outputKey: attacks
     - rid: 2295168569757140205
       type: {class: CardModificationEffect, ns: , asm: Assembly-CSharp}

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: RP_Redistribute
   m_EditorClassIdentifier: 
-  guid: 404817d3-76f9-4c0e-9be3-103db47c2fc4
+  guid: ebd76872-7d98-45a6-b980-f6572a1dbe47
   Name: Redistribute
   Description: Discard an Attack card. Create a "Dagger" card in hand for adjacent
   defaultValues: []
@@ -55,7 +55,7 @@ MonoBehaviour:
         inputKey: cards
         filter:
           cardCategoriesToInclude: 01000000
-          generatedCardsFilter: 0
+          retainedCardsFilter: 0
         outputKey: attacks
     - rid: 1289961820425028208
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}

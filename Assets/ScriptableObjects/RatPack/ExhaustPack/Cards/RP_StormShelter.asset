@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: RP_StormShelter
   m_EditorClassIdentifier: 
-  guid: aa41a28c-3f0a-4a0a-b86e-b5f269593105
+  guid: bdb1104d-6b3a-468d-8bc2-8b7c6c388ef9
   Name: Storm Shelter
   Description: Gain 5 block. Give all companions 2 block if this companion has 7
     or less cards in its deck
@@ -45,7 +45,7 @@ MonoBehaviour:
         inputDeckKey: self
         filter:
           cardCategoriesToInclude: 
-          generatedCardsFilter: 0
+          retainedCardsFilter: 0
         includeDrawPile: 1
         includeDiscardPile: 1
         includeCardsInHand: 1

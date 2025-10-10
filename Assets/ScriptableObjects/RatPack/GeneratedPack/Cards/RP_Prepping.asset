@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: RP_Prepping
   m_EditorClassIdentifier: 
-  guid: 09325321-fdbb-48cc-8910-2c4543112aa9
+  guid: b6f2a29e-bfc5-477a-8793-e19f9b304e6e
   Name: Prepping
   Description: Draw 2 cards from any. Retain all Status cards in hand
   defaultValues: []
@@ -55,7 +55,7 @@ MonoBehaviour:
         inputKey: allCards
         filter:
           cardCategoriesToInclude: 04000000
-          generatedCardsFilter: 0
+          retainedCardsFilter: 0
         outputKey: statusCards
     - rid: 2295168179404538104
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}

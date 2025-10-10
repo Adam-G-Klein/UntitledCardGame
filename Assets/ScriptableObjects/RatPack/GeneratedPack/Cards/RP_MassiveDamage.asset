@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: RP_MassiveDamage
   m_EditorClassIdentifier: 
-  guid: f78866fe-6e16-4ae1-8790-9200702a9b04
+  guid: 424a3e0a-0894-44f2-a973-46ff91a0e590
   Name: Massive Damage
   Description: Deal {rpl_damage} damage for each card in this companion's deck ({total}
     cards)
@@ -92,7 +92,7 @@ MonoBehaviour:
         inputDeckKey: self
         filter:
           cardCategoriesToInclude: 
-          generatedCardsFilter: 0
+          retainedCardsFilter: 0
         includeDrawPile: 1
         includeDiscardPile: 1
         includeCardsInHand: 1

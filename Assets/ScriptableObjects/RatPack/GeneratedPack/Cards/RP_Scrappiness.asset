@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: RP_Scrappiness
   m_EditorClassIdentifier: 
-  guid: 09325321-fdbb-48cc-8910-2c4543112aa9
+  guid: 4ba73f9c-ccb9-4767-8d48-f0f92f600678
   Name: Scrappiness
   Description: Exhaust target Status card in hand and create 2 "Firebreath" Status
     cards in hand for self
@@ -56,7 +56,7 @@ MonoBehaviour:
         inputKey: allCards
         filter:
           cardCategoriesToInclude: 04000000
-          generatedCardsFilter: 0
+          retainedCardsFilter: 0
         outputKey: statusCards
     - rid: 2295168179404538104
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
