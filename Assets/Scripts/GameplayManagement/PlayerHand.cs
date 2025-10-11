@@ -850,7 +850,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                     return;
                 }
                 UpdateOrderedCards();
-                targetCard.interactable = false;
+                // targetCard.interactable = false;
                 UnhoverCard(targetCard);
                 UpdateCardSelectionSplineCardPositions();
                 UpdateCardPositions();
