@@ -449,11 +449,16 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         indexToHover = -1;
         int nextHoverIndex = cardsInHand.Count <= lastHoveredIndex ? lastHoveredIndex - 1 : lastHoveredIndex;
 
-        if (cardsInHand[nextHoverIndex].TryGetComponent<GameObjectFocusable>(out GameObjectFocusable goFocusable))
+        try
         {
-            FocusManager.Instance.SetFocus(goFocusable);
+            if (cardsInHand[nextHoverIndex].TryGetComponent<GameObjectFocusable>(out GameObjectFocusable goFocusable))
+            {
+                FocusManager.Instance.SetFocus(goFocusable);
+            }
+        } catch (Exception e)
+        {
+            Debug.LogException(e);
         }
-
     }
 
     public void TurnPhaseChangedEventHandler(TurnPhaseEventInfo info)

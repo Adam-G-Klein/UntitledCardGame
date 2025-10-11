@@ -13,6 +13,7 @@ public class SaveState {
     private List<CompanionSerializable> benchCompanions;
     private List<EncounterSerializable> map;
     private int currentEncounterIndex;
+    private int currentCompanionSlots;
     private PlayerDataSerializable playerData;
     private int ascensionLevel;
 
@@ -22,6 +23,7 @@ public class SaveState {
           this.activeCompanions = gameState.companions.activeCompanions
                .Select(companion => new CompanionSerializable(companion))
                .ToList();
+          this.currentCompanionSlots = gameState.companions.currentCompanionSlots;
 
           this.benchCompanions = gameState.companions.benchedCompanions
                .Select(companion => new CompanionSerializable(companion))
@@ -54,6 +56,7 @@ public class SaveState {
           gameState.currentEncounterIndex = this.currentEncounterIndex;
 
           gameState.playerData.SetValue(new PlayerData(this.playerData));
+          gameState.companions.currentCompanionSlots = this.currentCompanionSlots;
           gameState.ascensionLevel = this.ascensionLevel;
     }
 }
