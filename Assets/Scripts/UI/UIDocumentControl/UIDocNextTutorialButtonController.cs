@@ -46,7 +46,8 @@ public class UIDocNextTutorialButtonController : MonoBehaviour {
 
         FocusManager.Instance.RegisterFocusableTarget(nextTutorialElement.AsFocusable());
         FocusManager.Instance.RegisterFocusableTarget(backTutorialElement.AsFocusable());
-        FocusManager.Instance.SetFocus(nextTutorialElement.AsFocusable());
+        if (ControlsManager.Instance.GetControlMethod() == ControlsManager.ControlMethod.KeyboardController)
+            FocusManager.Instance.SetFocus(nextTutorialElement.AsFocusable());
         yield return null;
     }
 

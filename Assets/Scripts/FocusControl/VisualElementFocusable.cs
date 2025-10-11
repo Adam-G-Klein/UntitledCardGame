@@ -17,7 +17,8 @@ public class VisualElementFocusable : IFocusableTarget
         this.actionMap = new Dictionary<GFGInputAction, Action>();
         this.actionMap[GFGInputAction.SELECT] = () => element.SimulateSubmit();
         this.element.RegisterCallback<DetachFromPanelEvent>(evt => {
-            FocusManager.Instance.UnregisterFocusableTarget(this);
+            FocusManager focusManager = FocusManager.CheckInstance;
+            if (focusManager) focusManager.UnregisterFocusableTarget(this);
         });
     }
 

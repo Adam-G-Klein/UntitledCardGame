@@ -13,7 +13,8 @@ public class GameObjectFocusable : MonoBehaviour, IFocusableTarget
     }
 
     void OnDisable() {
-        FocusManager.Instance.UnregisterFocusableTarget(this);
+        FocusManager focusManager = FocusManager.CheckInstance;
+        if (focusManager) focusManager.UnregisterFocusableTarget(this);
     }
 
 
