@@ -38,6 +38,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     [SerializeField]
     public GameObject placerGO;
     private bool startTheTurns = false;
+    private bool cinematicIntroComplete = false;
     private bool inToolTip = false;
     private bool castingCard = false;
     private bool combatOver = false;
@@ -98,28 +99,44 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
             createdEnemies,
             placer
             );
+        // set up the EnemyEncounterViewModel, which passes information to the UI
         EnemyEncounterViewModel.Instance.companions = createdCompanions;
         EnemyEncounterViewModel.Instance.enemies = createdEnemies;
         EnemyEncounterViewModel.Instance.SetListener(combatEncounterView);
         EnemyEncounterViewModel.Instance.SetStateDirty();
         combatEncounterView.ResetEntities(createdCompanions, createdEnemies);
-        // set up the EnemyEncounterViewModel, which passes information to the UI
-        // set up a coroutine for all of the things (like dialogue and a boss start animation) to yield on before we tell the turn manager 
-        // (using the flag below) to start the turns (display player turn splash, deal cards)
-        startTheTurns = true;
         combatOver = false;
         isEliteCombat = encounter.isEliteEncounter;
+        // a coroutine for all of the things (like dialogue and a boss start animation) to yield on before we tell the turn manager 
+        // sets the startTheTurns flag to start the turns (display player turn splash, deal cards)
+        StartCoroutine(PreEncounterCoroutine());
     }
 
     public bool EncounterStartReady()
     {
+        // Set in PreEncounterCoroutine
         return startTheTurns;
     }
 
-    void Update() {
-        if(Input.GetKeyDown(KeyCode.K)) {
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.K))
+        {
             endEncounterEvent.Raise(new EndEncounterEventInfo(EncounterOutcome.Victory));
         }
+    }
+
+    public void CinematicIntroComplete()
+    {
+        cinematicIntroComplete = true;
+    }
+
+    private IEnumerator PreEncounterCoroutine()
+    {
+        yield return new WaitUntil(() => cinematicIntroComplete == true);
+        // todo, yield return on additional dialogue being complete from another manager? 
+        startTheTurns = true;
+        yield return null;
     }
 
     public void EndEncounterHandler(EndEncounterEventInfo info)
