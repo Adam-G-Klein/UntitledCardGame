@@ -24,14 +24,6 @@ MonoBehaviour:
   cacheValueConfigs: []
   enemyPattern:
     behaviors:
-    - intent: 0
-      enemyTargetMethod: 0
-      targetsKey: target
-      displayValue: 4
-      effectSteps:
-      - rid: 3931529445166809420
-      - rid: 173314522967966450
-      - rid: 3931529445166809313
     - intent: 1
       enemyTargetMethod: 4
       targetsKey: target
@@ -53,22 +45,14 @@ MonoBehaviour:
   tooltip:
     empty: 0
     lines:
-    - title: Strike
-      description: attack targeting the first companion
-      relatedBehaviorIndex: 0
-    - title: Self-buffing Strike
+    - title: Drunken rage
       description: Attack randomly and gain strength
-      relatedBehaviorIndex: 1
+      relatedBehaviorIndex: 0
   DEADLIER_ENEMY_BONUS_STR: -1
-  HEALTHIER_ENEMY_BONUS_HEALTH: -1
+  HEALTHIER_ENEMY_BONUS_HEALTH: 3
   references:
     version: 2
     RefIds:
-    - rid: 173314522967966450
-      type: {class: ScriptableObjectEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: ScriptableObjectEffectStep
-        effectStepSO: {fileID: 11400000, guid: 46ac36b880e2ff14aa699c90b6e9f19c, type: 2}
     - rid: 754093646965899443
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
@@ -107,19 +91,6 @@ MonoBehaviour:
       data:
         effectStepName: ScriptableObjectEffectStep
         effectStepSO: {fileID: 11400000, guid: 46ac36b880e2ff14aa699c90b6e9f19c, type: 2}
-    - rid: 3931529445166809313
-      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CombatEffectStep
-        inputKey: target
-        combatEffect: 0
-        scale: 4
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
-        vfxPrefab: {fileID: 6137048663962808129, guid: 418a03ccd75ca98409952e0384c196fd, type: 3}
     - rid: 3931529445166809420
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
