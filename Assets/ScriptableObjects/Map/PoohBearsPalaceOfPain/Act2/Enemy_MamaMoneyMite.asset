@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 2ca78184-c100-45aa-9475-6ea5687910fb
   displayName: Mama Money Mite
-  maxHealth: 35
+  maxHealth: 30
   baseAttackDamage: 0
   sprite: {fileID: 21300000, guid: 5e0ee4484bb8f7147a4d52f237dcc625, type: 3}
   backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
@@ -24,31 +24,17 @@ MonoBehaviour:
   cacheValueConfigs: []
   enemyPattern:
     behaviors:
-    - intent: 2
-      enemyTargetMethod: 6
-      targetsKey: 0
-      displayValue: 0
-      effectSteps:
-      - rid: 3931529445166809421
-      - rid: 2268260642759377006
-      - rid: 2268260642759377007
-    - intent: 2
-      enemyTargetMethod: 6
-      targetsKey: 0
-      displayValue: 0
-      effectSteps:
-      - rid: 3931529445166809421
-      - rid: 2268260642759377006
-      - rid: 2268260642759377007
     - intent: 0
-      enemyTargetMethod: 0
-      targetsKey: target
-      displayValue: 5
+      enemyTargetMethod: 6
+      targetsKey: 
+      displayValue: 3
       effectSteps:
-      - rid: 3931529445166809421
-      - rid: 173314522967966405
-      - rid: 3931529445166809422
-    behaviorType: 2
+      - rid: 2511001147088306349
+      - rid: 2511001147088306350
+      - rid: 2511001147088306351
+      - rid: 2511001147088306352
+      - rid: 2511001147088306353
+    behaviorType: 0
   belowHalfHPEnemyPattern:
     behaviors: []
     behaviorType: 0
@@ -59,43 +45,39 @@ MonoBehaviour:
   tooltip:
     empty: 0
     lines:
-    - title: Rawr
-      description: Gaining strength to avenge the money mites
-      relatedBehaviorIndex: -1
-    - title: '>:('
-      description: Big attack
-      relatedBehaviorIndex: 2
+    - title: AOE attack
+      description: Attacks all your companions
+      relatedBehaviorIndex: 0
   DEADLIER_ENEMY_BONUS_STR: -1
-  HEALTHIER_ENEMY_BONUS_HEALTH: 10
+  HEALTHIER_ENEMY_BONUS_HEALTH: 5
   references:
     version: 2
     RefIds:
-    - rid: 173314522967966405
-      type: {class: ScriptableObjectEffectStep, ns: , asm: Assembly-CSharp}
+    - rid: 2511001147088306349
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: ScriptableObjectEffectStep
-        effectStepSO: {fileID: 11400000, guid: 46ac36b880e2ff14aa699c90b6e9f19c, type: 2}
-    - rid: 2268260642759377006
-      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: all
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 1
+        cantCancelTargetting: 0
+    - rid: 2511001147088306350
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: ApplyStatus
-        inputKey: self
-        statusEffect: 0
-        scale: 5
+        effectStepName: CombatEffectStep
+        inputKey: all
+        combatEffect: 0
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
-        multiplyByNumAuraStacks: 0
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-    - rid: 2268260642759377007
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: self
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
-        scale: 1
-    - rid: 3931529445166809421
+        vfxPrefab: {fileID: 6137048663962808129, guid: 92c26f41ef33c23419e05ceb12660efa, type: 3}
+    - rid: 2511001147088306351
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
@@ -106,16 +88,23 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
-    - rid: 3931529445166809422
-      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+    - rid: 2511001147088306352
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: CombatEffectStep
-        inputKey: target
-        combatEffect: 0
-        scale: 5
+        effectStepName: ApplyStatus
+        inputKey: self
+        statusEffect: 0
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
+        multiplyByNumAuraStacks: 0
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 0}
+    - rid: 2511001147088306353
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 4bed509d0589dae4d922d8eeb61a6292, type: 3}
+        scale: 1
