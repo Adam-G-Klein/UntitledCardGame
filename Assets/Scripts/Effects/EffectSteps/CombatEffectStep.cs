@@ -134,11 +134,13 @@ public class CombatEffectStep : EffectStep, IEffectStepCalculation
     {
         if (combatEffect == CombatEffect.Damage || combatEffect == CombatEffect.FixedDamageWithCardModifications) {
             int finalScale = getFinalScale(document);
-            Debug.Log(finalScale);
-            if (document.intMap.ContainsKey("rpl_damage")) {
-                document.intMap["rpl_damage"] = finalScale;
+            // Debug.Log(finalScale);
+            string damageRplKey = document.stringMap.GetValueOrDefault("card_calculation_rpl_damage_key", "rpl_damage");
+            Debug.Log($"Damage RPL key {damageRplKey} has final scale {finalScale}");
+            if (document.intMap.ContainsKey(damageRplKey)) {
+                document.intMap[damageRplKey] = finalScale;
             } else {
-                document.intMap.Add("rpl_damage", finalScale);
+                document.intMap.Add(damageRplKey, finalScale);
             }
         }
         yield return null;

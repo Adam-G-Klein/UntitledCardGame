@@ -14,11 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 3e24d683-98d6-4ce3-94a4-e75a72c1c9c6
   Name: Throwing Knives
-  Description: Deal {rpl_damage} damage to target enemy. When discarded, deal {rpl_damage}
+  Description: Deal {rpl_damage} damage to target enemy. When discarded, deal {ondiscard_rpl_damage}
     to a random enemy
   defaultValues:
   - key: rpl_damage
-    value: 8
+    value: 11
+  - key: ondiscard_rpl_damage
+    value: 5
   Cost: 2
   Artwork: {fileID: 21300000, guid: 8f7d978fe57e96342a8335f56279ee7e, type: 3}
   cardCategory: 1
@@ -69,7 +71,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: enemy
         combatEffect: 0
-        scale: 8
+        scale: 11
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
@@ -93,10 +95,10 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: enemy
         combatEffect: 0
-        scale: 8
+        scale: 5
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 1320532642761013391, guid: 99a456f94890391478f393fcc8ad0b95, type: 3}
+        vfxPrefab: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}

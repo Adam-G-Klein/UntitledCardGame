@@ -28,12 +28,14 @@ public class EffectManager : GenericSingleton<EffectManager>
         QueueEffectWorkflow(new EffectWorkflowClosure(document, new EffectWorkflow(effectSteps), callback));
     }
 
-    public void invokeEffectWorkflowForCalculation(
+    // These are relatively safe to run as Coroutines because they don't mutate state.
+    public IEnumerator invokeEffectWorkflowForCalculation(
             EffectDocument document,
             List<EffectStep> effectSteps,
-            IEnumerator callback) {
+            IEnumerator callback)
+    {
         Debug.Log("Invoking effect workflow for calculation via sync call");
-        StartCoroutine(effectWorkflowCoroutineForCalculation(document, effectSteps, callback));
+        yield return StartCoroutine(effectWorkflowCoroutineForCalculation(document, effectSteps, callback));
     }
 
     public void QueueEffectWorkflow(EffectWorkflowClosure workflow) {

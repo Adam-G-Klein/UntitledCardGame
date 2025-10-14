@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+
 [RequireComponent(typeof(UIDocumentCard))]
 [RequireComponent(typeof(UIStateEventListener))]
 [RequireComponent(typeof(Targetable))]
@@ -44,6 +45,8 @@ public class PlayableCard : MonoBehaviour,
     public bool hoverable = true; // To be set to true when hovering/focusing the card shouldn't make the card do anything
     public bool currentlyCastingCard = false;
     public bool hoverInPlace = false;
+
+    private const string CardCalculationDamageKey = "card_calculation_rpl_damage_key";
 
     private Vector3 discardDest;
 
@@ -206,34 +209,54 @@ public class PlayableCard : MonoBehaviour,
     public void UpdateCardText()
     {
         Debug.Log("trying to update card text");
-        if (card.effectSteps != null && card.effectSteps.Count != 0)
-        {
-            invokeCalculationOnCardEffectWorkflow(card.effectSteps);
-        }
-        if (card.cardType.inPlayerHandEndOfTurnWorkflow != null && card.cardType.inPlayerHandEndOfTurnWorkflow.effectSteps.Count != 0)
-        {
-            invokeCalculationOnCardEffectWorkflow(card.cardType.inPlayerHandEndOfTurnWorkflow.effectSteps);
-        }
-        if (card.cardType.onExhaustEffectWorkflow != null && card.cardType.onExhaustEffectWorkflow.effectSteps.Count != 0)
-        {
-            invokeCalculationOnCardEffectWorkflow(card.cardType.onExhaustEffectWorkflow.effectSteps);
-        }
-        if (card.cardType.onDiscardEffectWorkflow != null && card.cardType.onDiscardEffectWorkflow.effectSteps.Count != 0)
-        {
-            invokeCalculationOnCardEffectWorkflow(card.cardType.onDiscardEffectWorkflow.effectSteps);
-        }
+        StartCoroutine(UpdateCardTextCoroutine());
     }
 
-    private void invokeCalculationOnCardEffectWorkflow(List<EffectStep> steps)
+    public IEnumerator UpdateCardTextCoroutine()
     {
         EffectDocument document = new EffectDocument();
         document.map.AddItem(EffectDocument.ORIGIN, this);
         document.originEntityType = EntityType.Card;
-        EffectManager.Instance.invokeEffectWorkflowForCalculation(
-            document,
-            steps,
-            CardFinishedCalculatingCallback(document));
+
+        if (card.effectSteps != null && card.effectSteps.Count != 0)
+        {
+            document.stringMap[CardCalculationDamageKey] = "rpl_damage";
+            yield return EffectManager.Instance.invokeEffectWorkflowForCalculation(
+                document,
+                card.effectSteps,
+                null
+            );
+        }
+        if (card.cardType.inPlayerHandEndOfTurnWorkflow != null && card.cardType.inPlayerHandEndOfTurnWorkflow.effectSteps.Count != 0)
+        {
+            document.stringMap[CardCalculationDamageKey] = "inhand_rpl_damage";
+            yield return EffectManager.Instance.invokeEffectWorkflowForCalculation(
+                document,
+                card.cardType.inPlayerHandEndOfTurnWorkflow.effectSteps,
+                null
+            );
+        }
+        if (card.cardType.onExhaustEffectWorkflow != null && card.cardType.onExhaustEffectWorkflow.effectSteps.Count != 0)
+        {
+            document.stringMap[CardCalculationDamageKey] = "onexhaust_rpl_damage";
+            yield return EffectManager.Instance.invokeEffectWorkflowForCalculation(
+                document,
+                card.cardType.onExhaustEffectWorkflow.effectSteps,
+                null
+            );
+        }
+        if (card.cardType.onDiscardEffectWorkflow != null && card.cardType.onDiscardEffectWorkflow.effectSteps.Count != 0)
+        {
+            document.stringMap[CardCalculationDamageKey] = "ondiscard_rpl_damage";
+            yield return EffectManager.Instance.invokeEffectWorkflowForCalculation(
+                document,
+                card.cardType.onDiscardEffectWorkflow.effectSteps,
+                null
+            );
+        }
+        yield return CardFinishedCalculatingCallback(document);
     }
+
 
     private IEnumerator CardFinishedCalculatingCallback(EffectDocument document)
     {
