@@ -626,7 +626,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     {
         // If statements are here to take into account if a card exhausts itself
         // as part of its effect workflow
-        if (GetCardsOrdered().Contains(card) || cardsInSelectionSpline.Contains(card))
+        if (GetCardsOrdered().Contains(card) || (cardsInSelectionSpline != null && cardsInSelectionSpline.Contains(card)))
         {
             yield return SafeRemoveCardFromHand(card);
         }
