@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/fontStyling.uss?fileID=7433441132597879392&amp;guid=d0c0881f1c32747ecb649373600de095&amp;type=3#fontStyling" />
+    <ui:VisualElement picking-mode="Ignore" style="flex-grow: 1; flex-direction: row;">
+        <ui:VisualElement name="speaker-portrait" style="flex-grow: 0; flex-shrink: 0; width: 30%; translate: 0 20%; background-image: url(&quot;project://database/Assets/Sprites/MagWest25Art/Bidoof.png?fileID=2800000&amp;guid=dbf53e25030e1f04ba35841bc35f0dc1&amp;type=3#Bidoof&quot;);" />
+    </ui:VisualElement>
+    <ui:VisualElement picking-mode="Ignore" style="flex-grow: 0; height: 50%; flex-shrink: 0; background-image: url(&quot;project://database/Assets/Sprites/UI/GFG_UI__0004s_0001s_0003_Unit-management_BG_Flat.png?fileID=2800000&amp;guid=4e65776cb2eab7a44b2c15877ca4f342&amp;type=3#GFG_UI__0004s_0001s_0003_Unit-management_BG_Flat&quot;);">
+        <ui:VisualElement name="VisualElement" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Sprites/UI/GFG_UI__0004s_0001s_0000_Unit-Managementbox.png?fileID=2800000&amp;guid=859b2acc6dd679a4f8840c2041fadcd0&amp;type=3#GFG_UI__0004s_0001s_0000_Unit-Managementbox&quot;); scale: 1 1.1; translate: 0 -13px; align-items: center; justify-content: center;">
+            <ui:Label tabindex="-1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="main-text-label" text="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghyzABCDEFGHIJK" style="width: 90%; height: 75%; translate: 0 5%; font-size: 42px; white-space: normal;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -76,11 +76,13 @@ public class PlayableCard : MonoBehaviour,
         if (currentState != UIState.DEFAULT || !interactable || EnemyEncounterManager.Instance.GetCastingCard() || !PlayerHand.Instance.GetCanPlayCards()) return;
         if (card.GetManaCost() > ManaManager.Instance.currentMana)
         {
-            StartCoroutine(GenericEntityDialogueParticipant
-                .Instance
-                .SpeakCompanionLine(
-                    "You don't have enough mana for me to cast that for you :(",
-                    deckFrom.GetComponent<CompanionInstance>().companion.companionType, 3f));
+            // StartCoroutine(GenericEntityDialogueParticipant
+            //     .Instance
+            //     .SpeakCompanionLine(
+            //         "You don't have enough mana for me to cast that for you :(",
+            //         deckFrom.GetComponent<CompanionInstance>().companion.companionType, 3f));
+            DialogueView.Instance.SpeakLine(deckFrom.GetComponent<CompanionInstance>().companion.companionType,
+                    "You don't have enough mana for me to cast that for you.");
             return;
         }
 
