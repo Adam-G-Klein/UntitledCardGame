@@ -38,13 +38,16 @@ public class CombatEffectStep : EffectStep, IEffectStepCalculation
     private GameObject vfxPrefab = null;
     private CombatInstance originCombatInstance;
     private int baseMultiplicity;
-    public CombatEffectStep() {
+    public CombatEffectStep()
+    {
         effectStepName = "CombatEffectStep";
     }
 
-    public override IEnumerator invoke(EffectDocument document) {
+    public override IEnumerator invoke(EffectDocument document)
+    {
         List<CombatInstance> instances = document.map.GetList<CombatInstance>(inputKey);
-        if (instances.Count == 0) {
+        if (instances.Count == 0)
+        {
             EffectError("No input targets present for key " + inputKey);
             yield return null;
         }
@@ -56,19 +59,23 @@ public class CombatEffectStep : EffectStep, IEffectStepCalculation
 
         // Update loop to do each instance of damage as the outer loop so that they can be timed across companions
         // taking damage from the same effect
-        for (int i = 0; i < baseMultiplicity; i++) {
-            foreach (CombatInstance instance in instances) {
-                if (instance != null) {
+        for (int i = 0; i < baseMultiplicity; i++)
+        {
+            foreach (CombatInstance instance in instances)
+            {
+                if (instance != null)
+                {
                     instance.ApplyNonStatusCombatEffect(combatEffect,
                         finalScale,
                         originCombatInstance,
                         vfxPrefab,
-                        i==0,
+                        i == 0,
                         i / 4.0f); // TODO, elevate this logic for ethan to tune
                 }
             }
 
-            if (vfxPrefab && i < baseMultiplicity - 1) {
+            if (vfxPrefab && i < baseMultiplicity - 1)
+            {
                 yield return new WaitForSeconds(delayIncrement / baseMultiplicity);
             }
         }
@@ -76,32 +83,46 @@ public class CombatEffectStep : EffectStep, IEffectStepCalculation
         yield return null;
     }
 
-    private int getFinalScale(EffectDocument document) {
+    private int getFinalScale(EffectDocument document)
+    {
         PlayableCard originCard = null;
         // Determine whether origin of damage is from a card, companion ability, or enemy attack
         // and get that origin
-        if (document.map.ContainsValueWithKey<PlayableCard>(EffectDocument.ORIGIN)) {
+        if (document.map.ContainsValueWithKey<PlayableCard>(EffectDocument.ORIGIN))
+        {
             originCard = document.map.GetItem<PlayableCard>(EffectDocument.ORIGIN, 0);
             originCombatInstance = originCard.deckFrom.combatInstance;
-        } else if (document.map.ContainsValueWithKey<CompanionInstance>(EffectDocument.ORIGIN)) {
+        }
+        else if (document.map.ContainsValueWithKey<CompanionInstance>(EffectDocument.ORIGIN))
+        {
             originCombatInstance = document.map.GetItem<CompanionInstance>(EffectDocument.ORIGIN, 0).combatInstance;
-        } else if (document.map.ContainsValueWithKey<EnemyInstance>(EffectDocument.ORIGIN)) {
+        }
+        else if (document.map.ContainsValueWithKey<EnemyInstance>(EffectDocument.ORIGIN))
+        {
             originCombatInstance = document.map.GetItem<EnemyInstance>(EffectDocument.ORIGIN, 0).combatInstance;
-        } else {
+        }
+        else
+        {
             EffectError("No origin set in EffectDocument to pull stats from");
             return -1;
         }
 
         int baseScale;
-        if (getScaleFromKey && document.intMap.ContainsKey(inputScaleKey)) {
+        if (getScaleFromKey && document.intMap.ContainsKey(inputScaleKey))
+        {
             baseScale = document.intMap[inputScaleKey];
-        } else {
+        }
+        else
+        {
             baseScale = scale;
         }
 
-        if (getMultiplicityFromKey && document.intMap.ContainsKey(inputMultiplicityKey)) {
+        if (getMultiplicityFromKey && document.intMap.ContainsKey(inputMultiplicityKey))
+        {
             baseMultiplicity = document.intMap[inputMultiplicityKey];
-        } else {
+        }
+        else
+        {
             baseMultiplicity = multiplicity;
         }
 
@@ -111,37 +132,47 @@ public class CombatEffectStep : EffectStep, IEffectStepCalculation
     private int UpdateScaleForEffect(
             int baseScale,
             CombatInstance origin,
-            PlayableCard card = null) {
+            PlayableCard card = null)
+    {
         int newScale = baseScale;
-        switch (combatEffect) {
+        switch (combatEffect)
+        {
             case CombatEffect.Damage:
                 newScale = baseScale + origin.GetCurrentDamage();
                 if (card != null)
                 {
                     newScale = card.card.UpdateScaleForCardModificationsAndPassives(newScale, origin);
                 }
-            break;
+                break;
             case CombatEffect.FixedDamageWithCardModifications:
-                if (card != null) {
+                if (card != null)
+                {
                     newScale = card.card.UpdateScaleForCardModificationsAndPassives(newScale, origin);
                 }
-            break;
+                break;
         }
 
         return newScale;
     }
     public IEnumerator invokeForCalculation(EffectDocument document)
     {
-        if (combatEffect == CombatEffect.Damage || combatEffect == CombatEffect.FixedDamageWithCardModifications) {
+        if (combatEffect == CombatEffect.Damage || combatEffect == CombatEffect.FixedDamageWithCardModifications)
+        {
             int finalScale = getFinalScale(document);
-            // Debug.Log(finalScale);
             string damageRplKey = document.stringMap.GetValueOrDefault("card_calculation_rpl_damage_key", "rpl_damage");
-            Debug.Log($"Damage RPL key {damageRplKey} has final scale {finalScale}");
-            if (document.intMap.ContainsKey(damageRplKey)) {
-                document.intMap[damageRplKey] = finalScale;
-            } else {
-                document.intMap.Add(damageRplKey, finalScale);
-            }
+            // Help subsequent combat effect steps store their damage under a different key.
+            // If we have a card that does multiple combat effect steps with different values, we should have some way to access them.
+            // The index will be local to the efect workflow.
+            string numCombatStepInvocationsKey = damageRplKey + "_num_combateffectsteps";
+            int numCombatEffectStepInvocations = document.intMap.GetValueOrDefault(numCombatStepInvocationsKey, 1);
+
+            // For the second and third invocations, we add the suffix with the damage.
+            string adjustedDamageRplKey = numCombatEffectStepInvocations > 1 ? $"{damageRplKey}_{numCombatEffectStepInvocations}" : damageRplKey;
+
+            Debug.Log($"Damage RPL key {adjustedDamageRplKey} has final scale {finalScale}");
+
+            document.intMap[adjustedDamageRplKey] = finalScale;
+            document.intMap[numCombatStepInvocationsKey] = numCombatEffectStepInvocations + 1;
         }
         yield return null;
     }
