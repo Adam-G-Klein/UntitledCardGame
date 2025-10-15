@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 83f75257-cb11-4e7e-8ae3-bf1774998be4
   Name: Greek Fire
-  Description: Exhaust. When exhausted, deal {rpl_damage} damage to a random enemy.
+  Description: Exhaust. When exhausted, deal {onexhaust_rpl_damage} damage to a random
+    enemy.
   defaultValues:
-  - key: rpl_damage
+  - key: onexhaust_rpl_damage
     value: 5
   Cost: 1
   Artwork: {fileID: 21300000, guid: fccdd43ca64c8644fa54c06ab327bdd3, type: 3}

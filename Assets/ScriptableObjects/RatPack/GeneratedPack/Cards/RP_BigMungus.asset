@@ -15,9 +15,9 @@ MonoBehaviour:
   guid: 4bc0bb05-4f39-4258-8dfe-878fc841121b
   Name: Big Mungus
   Description: Unplayable. When in hand at the end of turn, deal damage to a random
-    enemy equal to the number of cards in this deck ({rpl_damage} damage)
+    enemy equal to the number of cards in this deck ({inhand_rpl_damage} damage)
   defaultValues:
-  - key: rpl_damage
+  - key: inhand_rpl_damage
     value: 0
   Cost: 0
   Artwork: {fileID: 21300000, guid: bdd59c505b86bf44cabf5f9f82a41064, type: 3}
@@ -70,7 +70,7 @@ MonoBehaviour:
         inputDeckKey: self
         filter:
           cardCategoriesToInclude: 
-          generatedCardsFilter: 0
+          retainedCardsFilter: 0
         includeDrawPile: 1
         includeDiscardPile: 1
         includeCardsInHand: 1

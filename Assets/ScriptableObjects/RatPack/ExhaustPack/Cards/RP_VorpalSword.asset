@@ -15,10 +15,12 @@ MonoBehaviour:
   guid: 4f5cbc1c-af10-4a39-b883-46e0c0c248bc
   Name: Vorpal Sword
   Description: Deal {rpl_damage} damage to target enemy. Increase the damage of this
-    card by 8. When exhausted, deal {rpl_damage} to all enemies twice
+    card by 8. When exhausted, deal {onexhaust_rpl_damage} to all enemies
   defaultValues:
   - key: rpl_damage
     value: 6
+  - key: onexhaust_rpl_damage
+    value: 12
   Cost: 2
   Artwork: {fileID: 21300000, guid: 8f7d978fe57e96342a8335f56279ee7e, type: 3}
   cardCategory: 1
@@ -120,10 +122,10 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: targets
         combatEffect: 0
-        scale: 6
+        scale: 12
         getScaleFromKey: 0
         inputScaleKey: 
-        multiplicity: 2
+        multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 1320532642761013391, guid: 99a456f94890391478f393fcc8ad0b95, type: 3}
