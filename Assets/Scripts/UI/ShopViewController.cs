@@ -40,7 +40,7 @@ public class ShopViewController : MonoBehaviour,
     public VisualElement selectingIndicator;
     public Button selectingCancelButton;
     private VisualElement selectingIndicatorForCardRemovalIndicator;
-    private Button selectingForCardRemovalButton;
+    private Button cancelCardRemovalButton;
     private Button startNextCombatButton;
 
     public Label upgradePriceLabel;
@@ -176,10 +176,10 @@ public class ShopViewController : MonoBehaviour,
         disableOnCompanionDrag.Add(cardRemovalButton.AsFocusable());
 
         selectingIndicatorForCardRemovalIndicator = uiDoc.rootVisualElement.Q<VisualElement>("companion-selection-for-card-removal-indicator");
-        selectingForCardRemovalButton = uiDoc.rootVisualElement.Q<Button>("companion-selection-for-card-removal-cancel-button");
-        selectingForCardRemovalButton.RegisterOnSelected(CancelCardRemoval);
-        FocusManager.Instance.RegisterFocusableTarget(selectingForCardRemovalButton.AsFocusable());
-        FocusManager.Instance.DisableFocusableTarget(selectingForCardRemovalButton.AsFocusable());
+        cancelCardRemovalButton = uiDoc.rootVisualElement.Q<Button>("companion-selection-for-card-removal-cancel-button");
+        cancelCardRemovalButton.RegisterOnSelected(CancelCardRemoval);
+        FocusManager.Instance.RegisterFocusableTarget(cancelCardRemovalButton.AsFocusable());
+        FocusManager.Instance.DisableFocusableTarget(cancelCardRemovalButton.AsFocusable());
 
         // setup upgradeMenu
         Button cancelUpgradeButton = uiDoc.rootVisualElement.Q<Button>(name: "cancelUpgrade");
@@ -352,7 +352,7 @@ public class ShopViewController : MonoBehaviour,
         float initialWidth = companionView.container.resolvedStyle.width;
         float initialHeight = companionView.container.resolvedStyle.height;
 
-        // this animation will be a frame or two off from the move... could call this function from within the geometry changed callback 
+        // this animation will be a frame or two off from the move... could call this function from within the geometry changed callback
         LeanTween.value(1f, widthRatio, isUpgrade ? companionUpgradeTime : companionBuyTime)
             .setDelay(delay)
             .setEase(LeanTweenType.easeInSine)
@@ -399,7 +399,7 @@ public class ShopViewController : MonoBehaviour,
             if ((tempContainer.style.left == 0) || (tempContainer.style.right == 0)) return;
             // Unregister immediately when called
             tempContainer.UnregisterCallback<GeometryChangedEvent>(OnGeometryChanged);
-            
+
             // Start the animation
             StartCompanionMoveAnimation(companionElement, startPoint, endPoint, tempContainer, isUpgrade, delay, onComplete);
         }
@@ -411,7 +411,7 @@ public class ShopViewController : MonoBehaviour,
     private void StartCompanionMoveAnimation(VisualElement companionElement, Vector2 startPoint, Vector2 endPoint, VisualElement tempContainer, bool isUpgrade, float delay, Action onComplete = null)
     {
         tempContainer.Add(companionElement);
-        // x 
+        // x
         LeanTween.value(startPoint.x, endPoint.x, isUpgrade ? companionUpgradeTime : companionBuyTime)
             .setDelay(delay)
             .setEase(LeanTweenType.easeInSine)
@@ -458,7 +458,7 @@ public class ShopViewController : MonoBehaviour,
         LTSeq sequence = LeanTween.sequence();
         float height = -100f;
         MusicController.Instance.PlaySFX("event:/MX/MX_CompanionUpgradeStinger");
-        // raise up 
+        // raise up
         LeanTween.value(0f, 1f, 1.5f)
             .setEase(LeanTweenType.easeOutSine)
             .setOnUpdate((float val) =>
@@ -556,7 +556,7 @@ public class ShopViewController : MonoBehaviour,
             if ((tempContainer.style.left == 0) || (tempContainer.style.right == 0)) return;
             // Unregister immediately when called
             tempContainer.UnregisterCallback<GeometryChangedEvent>(OnGeometryChanged);
-            
+
             VisualElement cardElement = shopItemView.shopItemElement.Children().FirstOrDefault();
             Debug.Log(cardElement);
             shopItemView.shopItemElement.Remove(cardElement);
@@ -616,13 +616,13 @@ public class ShopViewController : MonoBehaviour,
     public void CompanionScaleBumpAnimation(VisualElement container, float originalScale = 1f, float targetScale = 1.1f, float duration = .15f)
     {
         var sequence = LeanTween.sequence();
-        
+
         sequence.append(LeanTween.value(originalScale, targetScale, duration * 0.4f)
             .setEase(LeanTweenType.easeOutQuad)
             .setOnUpdate((float val) => {
                 container.transform.scale = new Vector3(val, val, 1f);
             }));
-        
+
         sequence.append(LeanTween.value(targetScale, originalScale, duration * 0.6f)
             .setEase(LeanTweenType.easeOutBack)
             .setOnUpdate((float val) => {
@@ -806,13 +806,13 @@ public class ShopViewController : MonoBehaviour,
 
     private void ClearUnitManagement() {
         foreach (CompanionManagementSlotView slotView in activeSlots) {
-            if (!slotView.IsEmpty()) 
+            if (!slotView.IsEmpty())
                 slotView.companionManagementView.ResetToNeutral();
             slotView.Reset();
         }
 
         foreach (CompanionManagementSlotView slotView in benchSlots) {
-            if (!slotView.IsEmpty()) 
+            if (!slotView.IsEmpty())
                 slotView.companionManagementView.ResetToNeutral();
             slotView.Reset();
         }
@@ -1277,6 +1277,8 @@ public class ShopViewController : MonoBehaviour,
         canDragCompanions = false;
         selectingCompanionVeil.style.visibility = Visibility.Visible;
         selectingIndicatorForCardRemovalIndicator.style.visibility = Visibility.Visible;
+        FocusManager.Instance.EnableFocusableTarget(cancelCardRemovalButton.AsFocusable());
+        StashNonCompanionViewFocusables(this.GetType().Name + "CardRemoval");
     }
 
 
@@ -1291,6 +1293,8 @@ public class ShopViewController : MonoBehaviour,
         canDragCompanions = true;
         selectingCompanionVeil.style.visibility = Visibility.Hidden;
         selectingIndicatorForCardRemovalIndicator.style.visibility = Visibility.Hidden;
+        FocusManager.Instance.DisableFocusableTarget(cancelCardRemovalButton.AsFocusable());
+        FocusManager.Instance.UnstashFocusables(this.GetType().Name + "CardRemoval");
     }
 
 
