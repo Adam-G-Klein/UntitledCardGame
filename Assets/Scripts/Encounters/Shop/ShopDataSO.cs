@@ -19,7 +19,10 @@ public class ShopDataSO : ScriptableObject
     public int cardRemovalPrice;
     public ShopEncounterEvent shopEncounterEvent;
 
-    public int cardPrice;
+    public int commonCardPrice = 1;
+    public int uncommonCardPrice = 2;
+    public int rareCardPrice = 3;
+
     public int companionKeepsakePrice;
 
     // The number of keepsake copies avaialble in the shop.
