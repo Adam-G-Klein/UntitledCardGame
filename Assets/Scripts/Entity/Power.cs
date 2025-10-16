@@ -83,6 +83,14 @@ public class PowerSO : ScriptableObject
         HotStreak,
         // KeepRolling: when you discard a card from this companion, draw a card at random
         KeepRolling,
+        // ForgeGodsWrath: less than 7 cards, add a cool card to deck.
+        ForgeGodsWrath,
+        // EverythingBurns: Whenever you exhaust a Status card, give all Greek Fire cards +1 damage
+        EverythingBurns,
+        // PainTrain: deck shuffled damage
+        PainTrain,
+        // HeatVents: each turn, draw an extra card then exhaust 2 cards in hand.
+        HeatVents,
     }
 
     public TooltipViewModel GetTooltip()

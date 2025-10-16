@@ -15,7 +15,7 @@ MonoBehaviour:
   guid: 2976fe0b-5e94-4884-a0ce-369836d3ffa8
   Name: Explosive Potential
   Description: Exhaust card in hand. Shuffle 2 copies of "Greek Fire" into own deck.
-    Draw 2 cards from self
+    Draw 1 card from self
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: ff6e22bc9b4fa614792848018179ceda, type: 3}
@@ -51,7 +51,7 @@ MonoBehaviour:
         effectStepName: DrawCards
         inputKey: self
         outputKey: 
-        scale: 2
+        scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
     - rid: 2034230108114649098

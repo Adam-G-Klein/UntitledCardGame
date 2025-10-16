@@ -275,6 +275,10 @@ public abstract class EntityAbilityInstance
         if (deckFrom.TryGetComponent(out CombatInstance combatInstance)) {
             CompanionInstance companion = CombatEntityManager.Instance.getCompanionInstanceForCombatInstance(combatInstance);
             EffectUtils.AddCompanionToDocument(document, "companionDeckFrom", companion);
+            if (document.originEntityType == EntityType.CompanionInstance) {
+                CompanionInstance source = document.map.GetItem<CompanionInstance>(EffectDocument.ORIGIN, 0);
+                document.boolMap.Add("ownDeckShuffled", source == companion);
+            }
         }
         EffectManager.Instance.QueueEffectWorkflow(new EffectWorkflowClosure(document, ability.effectWorkflow, null));
         yield return null;
