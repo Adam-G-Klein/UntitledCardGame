@@ -99,6 +99,14 @@ public class PowerSO : ScriptableObject
         ForestProphet,
         // TotalMeltdown: add Firebreath cards to each deck
         TotalMeltdown,
+        // BalancedTemper: self damage until below half HP
+        BalancedTemper,
+        // _: whenever heals, they gain 3 block
+        Rejuvenation,
+        // _: Whenever a companion gains block, bleed self 1 HP and draw a card from self
+        OldGodsSanctuary,
+        // _: Whenever a companion gains block, if self below half HP, heal 2 HP and deal 7 damage to random enemy
+        UncheckedVitality,
     }
 
     public TooltipViewModel GetTooltip()
