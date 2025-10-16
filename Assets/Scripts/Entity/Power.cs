@@ -91,6 +91,14 @@ public class PowerSO : ScriptableObject
         PainTrain,
         // HeatVents: each turn, draw an extra card then exhaust 2 cards in hand.
         HeatVents,
+        // CrushingWeight: dmg based on deck size
+        CrushingWeight,
+        // EbbAndFlow: dmg / block for exhausting status cards
+        EbbAndFlow,
+        // ForestProphet: create Tiefvision cards
+        ForestProphet,
+        // TotalMeltdown: add Firebreath cards to each deck
+        TotalMeltdown,
     }
 
     public TooltipViewModel GetTooltip()

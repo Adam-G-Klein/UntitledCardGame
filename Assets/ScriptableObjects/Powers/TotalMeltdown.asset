@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ac8d29b7a56d46539bdf7eeb2d1260a, type: 3}
-  m_Name: Witchwork
+  m_Name: TotalMeltdown
   m_EditorClassIdentifier: 
-  powerType: 6
-  title: Witchwork
-  description: End of turn, double the damage of all Status cards in hand
+  powerType: 29
+  title: Total Meltdown
+  description: End of turn, shuffle a "Firebreath" status card into a random deck
+    x3 and increase the damage of all "Firebreath" cards by 2
   abilities:
   - rid: 754093991137640772
   displaySprite: {fileID: 21300000, guid: 06c409edcf5e308438ea9c89ccd99c68, type: 3}
@@ -35,50 +36,48 @@ MonoBehaviour:
         abilityTrigger: 2
         effectSteps:
         - rid: 754093991137641208
-        - rid: 754093991137641209
+        - rid: 2511001254715195668
+        - rid: 2511001254715195669
         - rid: 754093991137641210
-        - rid: 754093991137641211
-        - rid: 754093991137641212
     - rid: 754093991137641208
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: cards
-        validTargets: 03000000
-        number: 1
-        specialTargetRule: 1
+        outputKey: targets
+        validTargets: 00000000
+        number: 3
+        specialTargetRule: 6
         cantCancelTargetting: 0
-    - rid: 754093991137641209
-      type: {class: FilterCards, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: FilterCards
-        inputKey: cards
-        filter:
-          cardCategoriesToInclude: 04000000
-          retainedCardsFilter: 0
-        outputKey: statusCards
     - rid: 754093991137641210
       type: {class: CardModificationEffect, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CardModificationEffect
-        inputKey: statusCards
-        scale: 1
-        affectsAllCardsOfType: 0
-        cardTypeToModify: {fileID: 0}
+        inputKey: 
+        scale: 2
+        affectsAllCardsOfType: 1
+        cardTypeToModify: {fileID: 11400000, guid: f906bdd2620a44164814e18d96b00fb0, type: 2}
         getScaleFromKey: 0
         scaleKey: 
-        modification: 1
-    - rid: 754093991137641211
+        modification: 0
+    - rid: 2511001254715195668
+      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: AddCardsToDeck
+        inputKey: targets
+        cardTypes:
+        - {fileID: 11400000, guid: f906bdd2620a44164814e18d96b00fb0, type: 2}
+        addToDeckMethod: 1
+        getCardsFromKey: 0
+        inputCardsKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 2511001254715195669
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
-        inputKey: statusCards
-        prefabToInstantiate: {fileID: 3850217184923880746, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
+        inputKey: targets
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
         scale: 1
-    - rid: 754093991137641212
-      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: WaitForSecondsEffect
-        seconds: 0.3
