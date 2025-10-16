@@ -255,8 +255,13 @@ public abstract class EntityAbilityInstance
         if (!casted) {
             //yield return abilityTriggeredVFX();
             EffectDocument document = createEffectDocument();
-            if (deckFrom != null && deckFrom.TryGetComponent(out CompanionInstance companion)) {
+            if (deckFrom != null && deckFrom.TryGetComponent(out CompanionInstance companion))
+            {
                 EffectUtils.AddCompanionToDocument(document, "companionDiscardedFrom", companion);
+                if (document.originEntityType == EntityType.CompanionInstance) {
+                    CompanionInstance source = document.map.GetItem<CompanionInstance>(EffectDocument.ORIGIN, 0);
+                    document.boolMap.Add("discardedFromThisOrigin", source == companion);
+                }
             }
             document.map.AddItem<PlayableCard>("cardDiscarded", card);
             EffectManager.Instance.QueueEffectWorkflow(new EffectWorkflowClosure(document, ability.effectWorkflow, null));

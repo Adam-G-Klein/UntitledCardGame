@@ -162,6 +162,12 @@ public class Card : Entity, IEquatable<Card>
             int numAttacks = EnemyEncounterManager.Instance.combatEncounterState.GetNumCardsOfCategoryPlayedThisTurn(CardCategory.Attack);
             newScale += numAttacks * origin.GetNumStackOfPower(PowerSO.PowerType.RainOfBlows);
         }
+        // HotStreak: deal +1 damage for each card discarded this turn
+        if (origin.HasPower(PowerSO.PowerType.HotStreak))
+        {
+            int numDiscarded = EnemyEncounterManager.Instance.combatEncounterState.cardsDiscardedThisTurn.Count;
+            newScale += numDiscarded * origin.GetNumStackOfPower(PowerSO.PowerType.HotStreak);
+        }
 
         // Making the choice to do fixed damage first, then multiplication. I don't think it will matter unless
         // both effects end up on one single card

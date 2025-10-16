@@ -610,6 +610,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         // StartCoroutine(card.DiscardToDeck());
         yield return card.DiscardToDeck();
         if (!cardCasted) yield return ResizeHand(card);
+        if (!cardCasted) EnemyEncounterManager.Instance.combatEncounterState.DiscardCard(card.card);
         yield return OnCardDiscard(card.deckFrom, card, cardCasted);
     }
 
@@ -642,6 +643,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             );
         }
         card.CardExhaustVFX();
+        EnemyEncounterManager.Instance.combatEncounterState.ExhaustCard(card.card);
         yield return OnCardExhaust(card.deckFrom, card);
         // Queue up the callback last before returning execution so the callback will destroy the card
         // ONLY after the on exhaust workflows.

@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ac8d29b7a56d46539bdf7eeb2d1260a, type: 3}
+  m_Name: RadiantCharisma
+  m_EditorClassIdentifier: 
+  powerType: 19
+  title: Radiant Charisma
+  description: Whenever you discard a card, deal damage to a random enemy equal to
+    the number of cards discarded this turn
+  abilities:
+  - rid: 754093871974056662
+  displaySprite: {fileID: 21300000, guid: 458da5baaf1f7484c8bde76f67773d1b, type: 3}
+  tooltip:
+    rid: 754093871974056657
+  stackable: 1
+  references:
+    version: 2
+    RefIds:
+    - rid: 754093871974056657
+      type: {class: TooltipViewModel, ns: , asm: Assembly-CSharp}
+      data:
+        empty: 0
+        lines: []
+    - rid: 754093871974056662
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 16
+        effectSteps:
+        - rid: 754093871974056663
+        - rid: 2511001254715195489
+        - rid: 2511000990761353347
+    - rid: 754093871974056663
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: enemy
+        validTargets: 02000000
+        number: 1
+        specialTargetRule: 6
+        cantCancelTargetting: 0
+    - rid: 2511000990761353347
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: enemy
+        combatEffect: 14
+        scale: 0
+        getScaleFromKey: 1
+        inputScaleKey: numDiscarded
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}
+    - rid: 2511001254715195489
+      type: {class: GetCombatEncounterStat, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetCombatEncounterStat
+        statOfInterest: 0
+        outputKey: numDiscarded

@@ -1,7 +1,8 @@
 using System.Collections;
 using UnityEngine;
 
-public enum EffectStepName {
+public enum EffectStepName
+{
     ActivatePower,
     AddCardsToDeck,
     AddCardsToHand,
@@ -34,6 +35,7 @@ public enum EffectStepName {
     GetCardsFromDeck,
     GetCardsFromDiscard,
     GetCastCountFromCard,
+    GetCombatEncounterStat,
     GetDecksShuffledThisCombat,
     GetHPStatistics,
     GetNumberOfCardsInHand,

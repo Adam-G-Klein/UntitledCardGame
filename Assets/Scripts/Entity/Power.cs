@@ -75,6 +75,14 @@ public class PowerSO : ScriptableObject
         Maelstrom,
         // VortexOfSilence: end of turn, if your hand is empty, deal a shit ton of damage
         VortexOfSilence,
+        // Patience: end of turn, retain 1 card.
+        Patience,
+        // Whenever you discard a card, deal dmg equal to the number of cards discarded this turn to a random enemy
+        RadiantCharisma,
+        // HotStreak: attacks deal +2 damage for each card you discarded this turn.
+        HotStreak,
+        // KeepRolling: when you discard a card from this companion, draw a card at random
+        KeepRolling,
     }
 
     public TooltipViewModel GetTooltip()
