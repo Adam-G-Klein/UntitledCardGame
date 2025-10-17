@@ -1,0 +1,124 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ac8d29b7a56d46539bdf7eeb2d1260a, type: 3}
+  m_Name: SeizeTheInitiative
+  m_EditorClassIdentifier: 
+  powerType: 36
+  title: Seize the Initiative
+  description: The first time each turn you play an Attack, gain 1 energy and draw
+    1 card from self
+  abilities:
+  - rid: 754093991137641276
+  - rid: 754093991137641285
+  displaySprite: {fileID: -708212254, guid: a858744b83e5a80448c69680deac9279, type: 3}
+  tooltip:
+    rid: 754093871974056657
+  stackable: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 754093871974056657
+      type: {class: TooltipViewModel, ns: , asm: Assembly-CSharp}
+      data:
+        empty: 0
+        lines: []
+    - rid: 754093991137641276
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 18
+        effectSteps:
+        - rid: 754093991137641281
+        - rid: 754093991137641282
+        - rid: 754093991137641284
+        - rid: 754093991137641279
+        - rid: 2511001254715195972
+        - rid: 754093991137641283
+    - rid: 754093991137641279
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DrawCards
+        inputKey: self
+        outputKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 754093991137641281
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 754093991137641282
+      type: {class: CombatInstanceCacheLoad, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatInstanceCacheLoad
+        inputCombatInstanceKey: self
+        cacheKey: perpetualMotionActivated
+        currentWorkflowKey: perpetualMotionActivated
+    - rid: 754093991137641283
+      type: {class: CombatInstanceCacheStore, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatInstanceCacheStore
+        inputCombatInstanceKey: self
+        hardCodedBool: 1
+        useHardCodedBool: 1
+        hardCodedInt: 0
+        useHardCodedInt: 0
+        currentWorkflowKey: 
+        cacheKey: perpetualMotionActivated
+    - rid: 754093991137641284
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: perpetualMotionActivated
+        conditionToEndOn: 1
+    - rid: 754093991137641285
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 12
+        effectSteps:
+        - rid: 754093991137641287
+        - rid: 754093991137641288
+    - rid: 754093991137641287
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 754093991137641288
+      type: {class: CombatInstanceCacheStore, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatInstanceCacheStore
+        inputCombatInstanceKey: self
+        hardCodedBool: 0
+        useHardCodedBool: 1
+        hardCodedInt: 0
+        useHardCodedInt: 0
+        currentWorkflowKey: 
+        cacheKey: perpetualMotionActivated
+    - rid: 2511001254715195972
+      type: {class: ManaChange, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ManaChange
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 

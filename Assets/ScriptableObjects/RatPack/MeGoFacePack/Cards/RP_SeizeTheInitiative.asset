@@ -1,0 +1,112 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
+  m_Name: RP_SeizeTheInitiative
+  m_EditorClassIdentifier: 
+  guid: fc100ca6-a043-456b-bcd9-2d774eb9e2ac
+  Name: 
+  Description: 
+  defaultValues: []
+  Cost: 1
+  Artwork: {fileID: 0}
+  cardCategory: 5
+  vfxPrefab: {fileID: 0}
+  playable: 1
+  exhaustsWhenPlayed: 0
+  retain: 0
+  effectWorkflows:
+  - rid: 754093991137641289
+  onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
+    rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  tooltips: 
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 754093991137641289
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 754093991137641290
+        - rid: 754093991137641291
+        - rid: 2511001254715195976
+        - rid: 2511001254715195978
+        - rid: 2511001254715195979
+        - rid: 2511001254715195980
+        - rid: 2511001254715195981
+    - rid: 754093991137641290
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 4
+        cantCancelTargetting: 0
+    - rid: 754093991137641291
+      type: {class: ActivatePower, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ActivatePower
+        inputKey: self
+        power: {fileID: 11400000, guid: d77a85e75840f48e4903c931968b06c4, type: 2}
+    - rid: 2511001254715195976
+      type: {class: CombatInstanceCacheStore, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatInstanceCacheStore
+        inputCombatInstanceKey: self
+        hardCodedBool: 0
+        useHardCodedBool: 1
+        hardCodedInt: 0
+        useHardCodedInt: 0
+        currentWorkflowKey: 
+        cacheKey: perpetualMotionActivated
+    - rid: 2511001254715195978
+      type: {class: QuantityOfCardTypePlayedThisTurn, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: QuantityOfCardTypePlayedThisTurn
+        cardCategory: 1
+        getAll: 0
+        outputKey: numAttacks
+    - rid: 2511001254715195979
+      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: BooleanComparison
+        hardCodedInputKey1: 0
+        useHardCodedInputKey1: 1
+        inputKey1: 
+        operation: 1
+        inputKey2: numAttacks
+        outputKey: attackPlayed
+    - rid: 2511001254715195980
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: attackPlayed
+        conditionToEndOn: 1
+    - rid: 2511001254715195981
+      type: {class: CombatInstanceCacheStore, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatInstanceCacheStore
+        inputCombatInstanceKey: self
+        hardCodedBool: 1
+        useHardCodedBool: 1
+        hardCodedInt: 0
+        useHardCodedInt: 0
+        currentWorkflowKey: 
+        cacheKey: perpetualMotionActivated

@@ -107,6 +107,12 @@ public class PowerSO : ScriptableObject
         OldGodsSanctuary,
         // _: Whenever a companion gains block, if self below half HP, heal 2 HP and deal 7 damage to random enemy
         UncheckedVitality,
+        // _: End of turn, retain an Attack card and give it +3 damage
+        Whetstone,
+        // _: Whenever you play an Attack, give all 1 block
+        LayeredSteel,
+        // _: The first attack you play each turn, gain 1 energy and draw a card
+        SeizeTheInitiative,
     }
 
     public TooltipViewModel GetTooltip()

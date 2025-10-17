@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: RP_DoubleDamage
+  m_Name: RP_Whetstone
   m_EditorClassIdentifier: 
-  guid: 26421cd5-c05b-4aff-b323-ad9584d03dee
-  Name: Double Damage
-  Description: Activate "Double Damage" power for any
+  guid: 9eec21a1-9fa0-48c0-b71d-132f0dcd3e86
+  Name: 
+  Description: 
   defaultValues: []
-  Cost: 0
+  Cost: 1
   Artwork: {fileID: 0}
-  cardCategory: 2
+  cardCategory: 5
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
   retain: 0
   effectWorkflows:
-  - rid: 754093848945230748
+  - rid: 754093991137641289
   onExhaustEffectWorkflow:
     rid: -2
   onDiscardEffectWorkflow:
@@ -37,26 +37,26 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 754093848945230748
+    - rid: 754093991137641289
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
-        - rid: 754093848945230749
-        - rid: 754093848945230750
-    - rid: 754093848945230749
+        - rid: 754093991137641290
+        - rid: 754093991137641291
+    - rid: 754093991137641290
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: target
-        validTargets: 00000000
+        outputKey: self
+        validTargets: 
         number: 1
-        specialTargetRule: 0
+        specialTargetRule: 4
         cantCancelTargetting: 0
-    - rid: 754093848945230750
+    - rid: 754093991137641291
       type: {class: ActivatePower, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ActivatePower
-        inputKey: target
-        power: {fileID: 11400000, guid: f810d7fd7da1e439aa92dedf479b7a7a, type: 2}
+        inputKey: self
+        power: {fileID: 11400000, guid: b22ee12c2a22448bf8f3818cf692480a, type: 2}
