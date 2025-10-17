@@ -192,7 +192,7 @@ public abstract class EntityAbilityInstance
         //yield return abilityTriggeredVFX();
         EffectDocument document = createEffectDocument();
         document.map.AddItem<PlayableCard>("cardPlayed", card);
-        if (card.deckFrom.TryGetComponent(out CompanionInstance companion)) {
+        if (card.deckFrom != null && card.deckFrom.TryGetComponent(out CompanionInstance companion)) {
             if (document.originEntityType == EntityType.CompanionInstance) {
                 CompanionInstance source = document.map.GetItem<CompanionInstance>(EffectDocument.ORIGIN, 0);
                 document.boolMap.Add("cardFromThisOrigin", source == companion);
@@ -207,7 +207,7 @@ public abstract class EntityAbilityInstance
     {
         EffectDocument document = createEffectDocument();
         EffectUtils.AddPlayableCardToDocument(document, "cardDrawn", card);
-        if (card.deckFrom.TryGetComponent(out CompanionInstance companion)) {
+        if (card.deckFrom != null && card.deckFrom.TryGetComponent(out CompanionInstance companion)) {
             if (document.originEntityType == EntityType.CompanionInstance) {
                 CompanionInstance source = document.map.GetItem<CompanionInstance>(EffectDocument.ORIGIN, 0);
                 document.boolMap.Add("cardFromThisOrigin", source == companion);
@@ -243,7 +243,7 @@ public abstract class EntityAbilityInstance
     private IEnumerator OnCardExhaust(DeckInstance deckFrom, PlayableCard card) {
         //yield return abilityTriggeredVFX();
         EffectDocument document = createEffectDocument();
-        if (deckFrom.TryGetComponent(out CompanionInstance companion)) {
+        if (deckFrom != null && deckFrom.TryGetComponent(out CompanionInstance companion)) {
             EffectUtils.AddCompanionToDocument(document, "companionExhaustedFrom", companion);
         }
         document.map.AddItem<PlayableCard>("cardExhausted", card);
@@ -272,7 +272,7 @@ public abstract class EntityAbilityInstance
     private IEnumerator OnDeckShuffled(DeckInstance deckFrom) {
         //yield return abilityTriggeredVFX();
         EffectDocument document = createEffectDocument();
-        if (deckFrom.TryGetComponent(out CombatInstance combatInstance)) {
+        if (deckFrom != null && deckFrom.TryGetComponent(out CombatInstance combatInstance)) {
             CompanionInstance companion = CombatEntityManager.Instance.getCompanionInstanceForCombatInstance(combatInstance);
             EffectUtils.AddCompanionToDocument(document, "companionDeckFrom", companion);
             if (document.originEntityType == EntityType.CompanionInstance) {
