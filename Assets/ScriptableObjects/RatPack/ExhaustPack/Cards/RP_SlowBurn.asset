@@ -14,10 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: e26efa8b-8672-49ea-bb8a-f664dba0e6f0
   Name: Slow Burn
-  Description: Shuffle a copy of "Greek Fire" into each deck. Increase the damage
-    of ALL "Greek Fire" cards by 2
+  Description: Shuffle a copy of "Greek Fire" into each deck. Draw 1 card from self
   defaultValues: []
-  Cost: 0
+  Cost: 1
   Artwork: {fileID: 21300000, guid: cf5aa02f77468564190f8694f7007ee1, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
@@ -65,18 +64,28 @@ MonoBehaviour:
         - rid: 9024302470308298798
         - rid: 1274772082283774361
         - rid: 2034230108114649098
-        - rid: 8034949815888773266
-    - rid: 8034949815888773266
-      type: {class: CardModificationEffect, ns: , asm: Assembly-CSharp}
+        - rid: 2511001254715196068
+        - rid: 2511001254715196067
+    - rid: 2511001254715196067
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: CardModificationEffect
-        inputKey: 
-        scale: 2
-        affectsAllCardsOfType: 1
-        cardTypeToModify: {fileID: 11400000, guid: 07ddcab78d7f64ac1849ccdb53efe2c0, type: 2}
+        effectStepName: DrawCards
+        inputKey: self
+        outputKey: 
+        scale: 1
         getScaleFromKey: 0
-        scaleKey: 
-        modification: 0
+        inputScaleKey: 
+    - rid: 2511001254715196068
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 4
+        cantCancelTargetting: 0
     - rid: 9024302470308298798
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
