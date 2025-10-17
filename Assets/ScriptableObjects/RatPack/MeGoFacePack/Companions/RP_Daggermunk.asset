@@ -41,15 +41,15 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Daggermunk
-      description: At the start of each turn, create a 0 mana "Dagger" card in hand
-        for a random companion
+      description: Each turn, create a 0 mana "Dagger" card in hand for a random
+        adjacent companion
       relatedBehaviorIndex: 0
     - title: Dagger
       description: 0. Exhaust. Deal 3 damage.
       relatedBehaviorIndex: 0
   keepsakeTitle: Daggermunk
-  keepsakeDescription: At the start of each turn, create a 0 mana "Dagger" card in
-    hand for a random companion
+  keepsakeDescription: Each turn, create a 0 mana "Dagger" card in hand for a random
+    adjacent companion
   references:
     version: 2
     RefIds:
@@ -60,6 +60,8 @@ MonoBehaviour:
         effectSteps:
         - rid: 7707884639552274889
         - rid: 205827988172308705
+        - rid: 2511001254715195859
+        - rid: 2511001254715195860
         - rid: 2034230017118175263
         - rid: 1289961959942521114
     - rid: 205827988172308705
@@ -68,10 +70,10 @@ MonoBehaviour:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: target
+        outputKey: self
         validTargets: 00000000
         number: 1
-        specialTargetRule: 6
+        specialTargetRule: 3
         cantCancelTargetting: 0
     - rid: 1289961959942521114
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
@@ -93,6 +95,19 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         outputKey: 
+    - rid: 2511001254715195859
+      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetAdjacentCompanions
+        inputKey: self
+        outputKey: adj
+    - rid: 2511001254715195860
+      type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetRandomItems
+        inputKey: adj
+        scale: 1
+        outputKey: target
     - rid: 7707884639552274889
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:

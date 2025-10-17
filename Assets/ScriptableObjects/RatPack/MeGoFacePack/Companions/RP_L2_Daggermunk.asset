@@ -41,15 +41,15 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Level 2 Daggermunk
-      description: At the start of each turn, create a 0 mana "Dagger" card in hand
-        for 2 random companions
+      description: Each turn, create a 0 mana "Dagger" card in hand for a random
+        adjacent companion x2
       relatedBehaviorIndex: 0
     - title: Dagger
       description: 0. Exhaust. Deal 3 damage.
       relatedBehaviorIndex: 0
   keepsakeTitle: Level 2 Daggermunk
-  keepsakeDescription: At the start of each turn, create a 0 mana "Dagger" card in
-    hand for 2 random companions
+  keepsakeDescription: Each turn, create a 0 mana "Dagger" card in hand for a random
+    adjacent companion x2
   references:
     version: 2
     RefIds:
@@ -60,39 +60,43 @@ MonoBehaviour:
         effectSteps:
         - rid: 7707884639552274893
         - rid: 205828032053379329
+        - rid: 2511001254715195861
         - rid: 1289961820425028203
+        - rid: 2511001254715195862
         - rid: 2034230017118175327
+        - rid: 2511001254715195863
         - rid: 1289961959942521116
+        - rid: 2511001254715195864
     - rid: 205828032053379329
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: all
-        validTargets: 00000000
+        outputKey: self
+        validTargets: 
         number: 1
-        specialTargetRule: 1
+        specialTargetRule: 3
         cantCancelTargetting: 0
     - rid: 1289961820425028203
       type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetRandomItems
-        inputKey: all
-        scale: 2
-        outputKey: target
+        inputKey: adj
+        scale: 1
+        outputKey: target1
     - rid: 1289961959942521116
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
-        inputKey: target
+        inputKey: target1
         prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
         scale: 1
     - rid: 2034230017118175327
       type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: AddCardsToHand
-        entityFromKey: target
+        entityFromKey: target1
         cardTypes:
         - {fileID: 11400000, guid: 224034c097974444fa35170919327ce6, type: 2}
         getCardsFromKey: 0
@@ -101,6 +105,39 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         outputKey: 
+    - rid: 2511001254715195861
+      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetAdjacentCompanions
+        inputKey: self
+        outputKey: adj
+    - rid: 2511001254715195862
+      type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetRandomItems
+        inputKey: adj
+        scale: 1
+        outputKey: target2
+    - rid: 2511001254715195863
+      type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: AddCardsToHand
+        entityFromKey: target2
+        cardTypes:
+        - {fileID: 11400000, guid: 224034c097974444fa35170919327ce6, type: 2}
+        getCardsFromKey: 0
+        inputCardsKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        outputKey: 
+    - rid: 2511001254715195864
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: target2
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        scale: 1
     - rid: 7707884639552274893
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
