@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerType: 12
   title: Dust unto Dust
-  description: End of turn, exhaust a card in hand at random and give self 4 block
+  description: End of turn, exhaust a card in hand at random and give self 3 block
   abilities:
   - rid: 754093991137640772
   displaySprite: {fileID: 21300000, guid: 35286054ab881eb4993a26c55a12dd5a, type: 3}
@@ -67,7 +67,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: self
         statusEffect: 2
-        scale: 4
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0

@@ -15,11 +15,11 @@ MonoBehaviour:
   guid: 8787f154-642a-473e-9b6e-ab3b7741ffc5
   Name: Grimmblade
   Description: Deal {rpl_damage} damage. Draw 1 card from self. Increase the damage
-    of all "Grimmblade" cards by 8
+    of all "Grimmblade" cards by 10
   defaultValues:
   - key: rpl_damage
     value: 8
-  Cost: 1
+  Cost: 2
   Artwork: {fileID: 21300000, guid: 109c4464923594f4bb2478d2624dcf1a, type: 3}
   cardCategory: 1
   vfxPrefab: {fileID: 0}
@@ -72,7 +72,7 @@ MonoBehaviour:
       data:
         effectStepName: CardModificationEffect
         inputKey: 
-        scale: 8
+        scale: 10
         affectsAllCardsOfType: 1
         cardTypeToModify: {fileID: 11400000}
         getScaleFromKey: 0
