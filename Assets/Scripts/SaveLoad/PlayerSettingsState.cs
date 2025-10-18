@@ -8,9 +8,10 @@ using UnityEngine;
 public class PlayerSettingsState {
      private float musicVolume;
      private float sfxVolume;
-     private float gameSpeed; 
+     private float gameSpeed;
      private bool fullScreen;
      private bool autoUpgrade;
+     private bool consentToDataCollection;
 
      public PlayerSettingsState()
      {
@@ -19,6 +20,7 @@ public class PlayerSettingsState {
           this.gameSpeed = OptionsViewController.Instance.getGameSpeedSliderValue();
           this.fullScreen = OptionsViewController.Instance.getIsFullScreened();
           this.autoUpgrade = OptionsViewController.Instance.getIsAutoUpgradeEnabled();
+          this.consentToDataCollection = OptionsViewController.Instance.getIsDataCollectionEnabled();
      }
 
      public void LoadPlayerSettings()
@@ -28,5 +30,6 @@ public class PlayerSettingsState {
           OptionsViewController.Instance.setGameSpeedSliderValue(this.gameSpeed);
           OptionsViewController.Instance.setIsFullScreened(this.fullScreen);
           OptionsViewController.Instance.setIsAutoUpgradeEnabled(this.autoUpgrade);
+          OptionsViewController.Instance.setIsDataCollectionEnabled(this.consentToDataCollection);
      }
 }

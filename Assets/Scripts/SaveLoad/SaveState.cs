@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -5,14 +6,15 @@ using UnityEngine;
 
 
 [System.Serializable]
-public class SaveState {
+public class SaveState
+{
 
     private string saveName;
-    public string SaveName => saveName;
     private List<CompanionSerializable> activeCompanions;
     private List<CompanionSerializable> benchCompanions;
     private List<EncounterSerializable> map;
     private int currentEncounterIndex;
+    private Guid runID;
     private int currentCompanionSlots;
     private PlayerDataSerializable playerData;
     private int ascensionLevel;
@@ -36,6 +38,7 @@ public class SaveState {
                .ToList();
 
           this.currentEncounterIndex = gameState.currentEncounterIndex;
+          this.runID = gameState.currentRunID;
 
           this.playerData = new PlayerDataSerializable(gameState.playerData.GetValue());
           this.ascensionLevel = gameState.ascensionLevel;
@@ -54,6 +57,7 @@ public class SaveState {
           gameState.map.SetValue(new Map(this.map, registry, gameState.baseShopData));
 
           gameState.currentEncounterIndex = this.currentEncounterIndex;
+          gameState.currentRunID = this.runID;
 
           gameState.playerData.SetValue(new PlayerData(this.playerData));
           gameState.companions.currentCompanionSlots = this.currentCompanionSlots;
