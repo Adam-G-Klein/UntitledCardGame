@@ -2,15 +2,16 @@
     <Style src="project://database/Assets/UI/common.uss?fileID=7433441132597879392&amp;guid=8d0bc28a2ed710a44b762e4c857ac6f9&amp;type=3#common" />
     <Style src="project://database/Assets/fontStyling.uss?fileID=7433441132597879392&amp;guid=d0c0881f1c32747ecb649373600de095&amp;type=3#fontStyling" />
     <Style src="project://database/Assets/UI%20Toolkit/Stylesheets/ButtonStyle.uss?fileID=7433441132597879392&amp;guid=acefe7eb60f7cac43a283bde6352a710&amp;type=3#ButtonStyle" />
-    <ui:VisualElement style="flex-grow: 1; width: 100%; height: 100%; background-color: rgb(0, 0, 0); align-self: center; align-items: center; justify-content: center;">
-        <ui:VisualElement name="VisualElement" style="flex-grow: 1; width: 40%; height: 80%; max-height: 80%; border-top-width: 4px; border-right-width: 4px; border-bottom-width: 4px; border-left-width: 4px; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); background-color: rgb(147, 147, 147); align-items: center; justify-content: center; align-self: center;">
-            <ui:VisualElement style="flex-grow: 1; width: 80%; height: 80%; max-height: 80%; align-items: center; justify-content: center; align-self: center;">
-                <ui:Label tabindex="-1" text="Options" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 36px; -unity-font: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/LiberationSans.ttf?fileID=12800000&amp;guid=e3265ab4bf004d28a9537516768c1c75&amp;type=3#LiberationSans&quot;); margin-bottom: 20px;" />
+    <Style src="project://database/Assets/OptionMenuStyles.uss?fileID=7433441132597879392&amp;guid=51e6ad66d059f419c992b73fe3288e01&amp;type=3#OptionMenuStyles" />
+    <ui:VisualElement style="flex-grow: 1; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0); align-self: center; align-items: center; justify-content: center; background-image: url(&quot;project://database/Assets/Sprites/Environments/HotelLobbyDemoVers.png?fileID=2800000&amp;guid=edae6dc1aa092544db0d74922a2659e3&amp;type=3#HotelLobbyDemoVers&quot;); -unity-background-image-tint-color: rgb(43, 43, 43);">
+        <ui:VisualElement name="VisualElement" style="flex-grow: 1; width: 40%; height: 80%; max-height: 80%; background-color: rgb(147, 147, 147); align-items: center; justify-content: center; align-self: center; background-image: url(&quot;project://database/Assets/Sprites/UI/SettingsBackground%20(1).png?fileID=2800000&amp;guid=fac887abae9764b409365d9aaffaae1a&amp;type=3#SettingsBackground (1)&quot;);">
+            <ui:VisualElement style="flex-grow: 1; width: 80%; height: 85%; max-height: 85%; align-items: center; justify-content: center; align-self: center;">
+                <ui:Label tabindex="-1" text="Options" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 42px; -unity-font: url(&quot;project://database/Assets/TextMesh%20Pro/Fonts/LiberationSans.ttf?fileID=12800000&amp;guid=e3265ab4bf004d28a9537516768c1c75&amp;type=3#LiberationSans&quot;); margin-bottom: 4px;" />
                 <ui:VisualElement name="VisualElement" class="menu-option">
                     <ui:Label tabindex="-1" text="Music Volume" parse-escape-sequences="true" display-tooltip-when-elided="true" class="menu-option-title" />
-                    <ui:VisualElement class="menu-scrollbar-container">
+                    <ui:VisualElement class="menu-scrollbar-container" style="justify-content: space-between;">
                         <ui:Label tabindex="-1" text="0" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Label" />
-                        <ui:Slider high-value="1" show-input-field="false" name="musicVolumeSlider" usage-hints="None" class="focusable" style="width: 80%; justify-content: center;" />
+                        <ui:Slider high-value="1" show-input-field="false" name="musicVolumeSlider" usage-hints="None" class="focusable" style="width: 85%; justify-content: center;" />
                         <ui:Label tabindex="-1" text="100" parse-escape-sequences="true" display-tooltip-when-elided="true" style="-unity-font-style: normal;" />
                     </ui:VisualElement>
                 </ui:VisualElement>
@@ -18,7 +19,7 @@
                     <ui:Label tabindex="-1" text="SFX Volume" parse-escape-sequences="true" display-tooltip-when-elided="true" class="menu-option-title" />
                     <ui:VisualElement class="menu-scrollbar-container">
                         <ui:Label tabindex="-1" text="0" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Label" />
-                        <ui:Slider high-value="1" show-input-field="false" name="sfxVolumeSlider" usage-hints="None" class="focusable" style="width: 80%; justify-content: center;" />
+                        <ui:Slider high-value="1" show-input-field="false" name="sfxVolumeSlider" usage-hints="None" class="focusable" style="width: 85%; justify-content: center;" />
                         <ui:Label tabindex="-1" text="100" parse-escape-sequences="true" display-tooltip-when-elided="true" style="-unity-font-style: normal;" />
                     </ui:VisualElement>
                 </ui:VisualElement>
@@ -26,30 +27,32 @@
                     <ui:Label tabindex="-1" text="Game Speed" parse-escape-sequences="true" display-tooltip-when-elided="true" class="menu-option-title" />
                     <ui:VisualElement class="menu-scrollbar-container">
                         <ui:Label tabindex="-1" text="1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Label" />
-                        <ui:Slider show-input-field="false" name="gameSpeedSlider" class="focusable" style="width: 80%; justify-content: center; min-width: 80%;" />
+                        <ui:Slider show-input-field="false" name="gameSpeedSlider" class="focusable" style="width: 85%; justify-content: center; min-width: 80%;" />
                         <ui:Label tabindex="-1" text="5   " parse-escape-sequences="true" display-tooltip-when-elided="true" style="-unity-font-style: normal;" />
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement class="menu-option" style="flex-grow: 0;">
-                    <ui:Toggle label="Full Screen" name="fullscreenToggle" class="focusable selected-sfx" style="font-size: 18px;" />
-                </ui:VisualElement>
-                <ui:VisualElement class="menu-option" style="flex-grow: 0;">
-                    <ui:Toggle label="Auto Upgrade" name="auto-upgrade-toggle" class="focusable selected-sfx" style="font-size: 18px;" />
-                </ui:VisualElement>
-                <ui:VisualElement class="menu-option" style="flex-grow: 0;">
-                    <ui:Toggle label="Consent to Data Collection" name="data-consent-toggle" value="true" class="focusable selected-sfx" style="font-size: 18px;" />
-                </ui:VisualElement>
-                <ui:VisualElement name="VisualElement" class="menu-option">
-                    <ui:Button text="View Compendium" parse-escape-sequences="true" display-tooltip-when-elided="true" name="compendiumButton" class="options-button focusable selected-sfx" />
-                </ui:VisualElement>
-                <ui:VisualElement name="VisualElement" class="menu-option">
-                    <ui:Button text="Back" parse-escape-sequences="true" display-tooltip-when-elided="true" name="backButton" class="options-button focusable selected-sfx" />
+                <ui:VisualElement style="flex-grow: 1; width: 100%; margin-top: 10px; margin-bottom: 10px;">
+                    <ui:VisualElement class="menu-option" style="flex-grow: 0;">
+                        <ui:Toggle label="Full Screen" name="fullscreenToggle" class="focusable selected-sfx options-menu-toggle" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="menu-option" style="flex-grow: 0; display: none;">
+                        <ui:Toggle label="Auto Upgrade" name="auto-upgrade-toggle" class="focusable selected-sfx" style="font-size: 18px;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="menu-option" style="flex-grow: 0;">
+                        <ui:Toggle label="Consent to Metrics Collection" name="data-consent-toggle" value="true" class="focusable selected-sfx options-menu-toggle" />
+                    </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="VisualElement" class="menu-option">
-                    <ui:Button text="Exit to Main Menu" parse-escape-sequences="true" display-tooltip-when-elided="true" name="exitButton" class="options-button focusable selected-sfx" />
+                    <ui:Button text="Compendium" parse-escape-sequences="true" display-tooltip-when-elided="true" name="compendiumButton" class="focusable selected-sfx main-menu-button options-menu-button" />
                 </ui:VisualElement>
                 <ui:VisualElement name="VisualElement" class="menu-option">
-                    <ui:Button text="Quit Game" parse-escape-sequences="true" display-tooltip-when-elided="true" name="quitButton" class="options-button focusable selected-sfx" />
+                    <ui:Button text="Back" parse-escape-sequences="true" display-tooltip-when-elided="true" name="backButton" class="focusable selected-sfx main-menu-button options-menu-button" />
+                </ui:VisualElement>
+                <ui:VisualElement name="VisualElement" class="menu-option">
+                    <ui:Button text="Main Menu" parse-escape-sequences="true" display-tooltip-when-elided="true" name="exitButton" class="focusable selected-sfx main-menu-button options-menu-button" />
+                </ui:VisualElement>
+                <ui:VisualElement name="VisualElement" class="menu-option">
+                    <ui:Button text="Quit" parse-escape-sequences="true" display-tooltip-when-elided="true" name="quitButton" class="focusable selected-sfx main-menu-button options-menu-button" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>

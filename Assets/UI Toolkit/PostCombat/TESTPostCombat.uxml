@@ -4,9 +4,9 @@
     <Style src="project://database/Assets/fontStyling.uss?fileID=7433441132597879392&amp;guid=d0c0881f1c32747ecb649373600de095&amp;type=3#fontStyling" />
     <Style src="project://database/Assets/UI%20Toolkit/Stylesheets/ButtonStyle.uss?fileID=7433441132597879392&amp;guid=acefe7eb60f7cac43a283bde6352a710&amp;type=3#ButtonStyle" />
     <ui:VisualElement style="flex-grow: 1; justify-content: center;">
-        <ui:VisualElement class="post-combat-background" style="width: 35%; align-self: center; height: 60%; background-image: none; background-color: rgba(0, 0, 0, 0.63); align-items: center; justify-content: center;">
+        <ui:VisualElement class="post-combat-background" style="width: 35%; align-self: center; height: 60%; background-image: url(&quot;project://database/Assets/Sprites/UI/CombatRewardsBackground%20(1).png?fileID=2800000&amp;guid=22d02968a50274729a4f4335573f045b&amp;type=3#CombatRewardsBackground (1)&quot;); background-color: rgba(0, 0, 0, 0); align-items: center; justify-content: center;">
             <ui:VisualElement style="flex-grow: 1; width: 90%; height: 90%; max-height: 90%;">
-                <ui:Label tabindex="-1" text="Combat Rewards!" parse-escape-sequences="true" display-tooltip-when-elided="true" class="post-combat-text" style="translate: 0 0; font-size: 48px; transform-origin: center;" />
+                <ui:Label tabindex="-1" text="Combat Rewards!" parse-escape-sequences="true" display-tooltip-when-elided="true" class="post-combat-text" style="translate: 0 0; font-size: 48px; transform-origin: center; margin-top: 2%;" />
                 <ui:VisualElement style="top: 50%; position: absolute; min-width: 100%; left: 50%; translate: -50% -50%;">
                     <ui:VisualElement class="combat-rewards-section">
                         <ui:Label tabindex="-1" text="Base Reward:" display-tooltip-when-elided="true" name="base-gold-label" class="post-combat-text" style="font-size: 28px; -unity-text-align: middle-left; margin-left: 20px;" />
@@ -28,7 +28,7 @@
                     <ui:VisualElement name="VisualElement" style="flex-grow: 0; align-items: center;">
                         <ui:VisualElement name="horizontlLineBreak" style="flex-grow: 1; margin-top: 3%; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px; width: 70%; align-items: center; margin-bottom: 3%;" />
                     </ui:VisualElement>
-                    <ui:VisualElement class="combat-rewards-section" style="border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; flex-direction: row; justify-content: space-between;">
+                    <ui:VisualElement class="combat-rewards-section" style="flex-direction: row; justify-content: space-between;">
                         <ui:Label tabindex="-1" text="Upgrade Shards Earned:" display-tooltip-when-elided="true" name="upgradeIncrementsLabel" class="post-combat-text" style="margin-left: 20px;" />
                         <ui:Label tabindex="-1" text="1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="upgradeIncrementsEarned" class="post-combat-text" style="margin-right: 20px; font-size: 28px;" />
                     </ui:VisualElement>
