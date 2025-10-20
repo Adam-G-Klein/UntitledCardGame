@@ -1186,7 +1186,7 @@ public class ShopViewController : MonoBehaviour,
     }
 
     public void SetMoney(int money) {
-        moneyLabel.text = money.ToString() + "G";
+        moneyLabel.text = money.ToString() + "$";
     }
 
     public void NotEnoughMoney() {

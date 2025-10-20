@@ -89,7 +89,7 @@ public class CombatEncounterView : MonoBehaviour,
         VisualElement mapRoot = root.Q("mapRoot");
         mapRoot.Clear();
         mapView = new MapView(enemyEncounterManager);
-        mapView.mapContainer.Q<Label>("money-indicator-label").text = gameState.playerData.GetValue().gold.ToString() + "G";
+        mapView.mapContainer.Q<Label>("money-indicator-label").text = gameState.playerData.GetValue().gold.ToString() + "$";
         mapRoot.Add(mapView.mapContainer);
 
         cardInHandSelectionView = new CardInHandSelectionView(uiDoc, root.Q<VisualElement>("card-in-hand-selection-view"));
@@ -136,7 +136,7 @@ public class CombatEncounterView : MonoBehaviour,
         }
         else
         {
-            root.Q<Label>("money-indicator-label").text = gameState.playerData.GetValue().gold.ToString() + "G";
+            root.Q<Label>("money-indicator-label").text = gameState.playerData.GetValue().gold.ToString() + "$";
             foreach (EnemyView entityView in entityViews)
             {
                 entityView.UpdateView();
