@@ -46,7 +46,7 @@
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="unit-management" style="flex-grow: 1; max-height: 40%; min-height: 40%;">
-            <ui:VisualElement name="VisualElement" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Sprites/UI/ShopUnitManagement1.png?fileID=2800000&amp;guid=4ee0bb7aea7506f408fe65364f854ff8&amp;type=3#ShopUnitManagement1&quot;); border-top-left-radius: 11px; border-top-right-radius: 11px; border-bottom-right-radius: 11px; border-bottom-left-radius: 11px;">
+            <ui:VisualElement name="VisualElement" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Sprites/UI/ShopUnitManagement1.png?fileID=2800000&amp;guid=4ee0bb7aea7506f408fe65364f854ff8&amp;type=3#ShopUnitManagement1&quot;); border-top-left-radius: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; border-bottom-left-radius: 0;">
                 <ui:Label tabindex="-1" text="Unit Management" parse-escape-sequences="true" display-tooltip-when-elided="true" name="unit-management-label" style="-unity-text-align: upper-center; -unity-font-style: bold; font-size: 28px; color: rgb(255, 255, 255);" />
                 <ui:VisualElement style="flex-grow: 1; margin-bottom: 10px;">
                     <ui:VisualElement name="unit-active-row" style="height: 40%; flex-direction: row; justify-content: flex-start; align-self: auto; align-items: center; flex-grow: 1;">
