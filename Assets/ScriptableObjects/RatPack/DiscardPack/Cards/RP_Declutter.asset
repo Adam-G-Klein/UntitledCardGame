@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: f0a40006-54fe-4ac6-a171-7e6746ab925e
   Name: Declutter
-  Description: 'Gain 1 energy. Discard 1 card in hand. '
+  Description: Discard 2 cards in hand. Gain 2 energy
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: c0e53d043957bac4c8fb2528ecd0a1b9, type: 3}
@@ -47,13 +47,6 @@ MonoBehaviour:
         effectStepName: CardInHandEffect
         inputKey: card
         effect: 0
-    - rid: 2034230108114649756
-      type: {class: ManaChange, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: ManaChange
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
     - rid: 4463205916933357570
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -62,47 +55,20 @@ MonoBehaviour:
         inputKey: 
         outputKey: card
         validTargets: 03000000
-        number: 1
+        number: 2
         specialTargetRule: 5
         cantCancelTargetting: 0
     - rid: 5602892563578094203
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
-        - rid: 7401433241610878979
-        - rid: 2034230108114649756
-        - rid: 7401433241610878980
-        - rid: 7112866130419515421
         - rid: 4463205916933357570
         - rid: 2034230108114649717
         - rid: 7112866130419515422
-    - rid: 7112866130419515421
-      type: {class: ManaChange, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: ManaChange
-        scale: -1
-        getScaleFromKey: 0
-        inputScaleKey: 
     - rid: 7112866130419515422
       type: {class: ManaChange, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ManaChange
-        scale: 1
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
-    - rid: 7401433241610878979
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: allothers
-        validTargets: 03000000
-        number: 1
-        specialTargetRule: 2
-        cantCancelTargetting: 0
-    - rid: 7401433241610878980
-      type: {class: EndWorkflowIfListEmpty, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: EndWorkflowIfListEmpty
-        inputKey1: allothers

@@ -48,8 +48,8 @@ MonoBehaviour:
         effectStepName: FilterCards
         inputKey: cards
         filter:
-          cardCategoriesToInclude: 010000000200000003000000
-          generatedCardsFilter: 0
+          cardCategoriesToInclude: 010000000200000005000000
+          retainedCardsFilter: 0
         outputKey: nonGen
     - rid: 2034229587402555942
       type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}

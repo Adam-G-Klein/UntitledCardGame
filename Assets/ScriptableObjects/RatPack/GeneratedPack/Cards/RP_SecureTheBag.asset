@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 5c69788a-f092-46c7-b064-15c235b356cb
   Name: Secure the Bag
-  Description: Draw 1 card random x2. Retain 1 card
+  Description: Draw 1 card random x2. Retain 2 cards
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 292ee1eb3f315c9448b8c577d0e6a420, type: 3}
@@ -37,6 +37,13 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 2511001441869234177
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: targetCard
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
+        scale: 1
     - rid: 5280922841426165977
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -54,6 +61,7 @@ MonoBehaviour:
         - rid: 5280922841426165977
         - rid: 8790164924473540611
         - rid: 8790164924473540612
+        - rid: 2511001441869234177
     - rid: 5602892723852673196
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -89,7 +97,7 @@ MonoBehaviour:
         inputKey: 
         outputKey: targetCard
         validTargets: 03000000
-        number: 1
+        number: 2
         specialTargetRule: 5
         cantCancelTargetting: 1
     - rid: 8790164924473540612

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 80d9dbaa-3ef1-4708-bed1-d8937d908488
   Name: Umbrella
-  Description: Retain. When discarded, give all companions 4 block
+  Description: Retain. When discarded, give all companions 3 block
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: a5222a8d127763c49b397cce916345ec, type: 3}
@@ -72,7 +72,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: all
         statusEffect: 2
-        scale: 4
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0

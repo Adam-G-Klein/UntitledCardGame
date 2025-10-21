@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerType: 33
   title: Irresistable Vitability
-  description: Whenever a companion gains block, if self below half HP, heal self
-    2 HP and deal 4 damage to a random enemy
+  description: Whenever a companion gains block, if self below half HP, deal 3 damage
+    to a random enemy
   abilities:
   - rid: 2511001254715195846
   displaySprite: {fileID: 21300000, guid: af0fdebf2a0f45f4a99b9b32143d4b4a, type: 3}
@@ -39,7 +39,6 @@ MonoBehaviour:
         - rid: 2511001254715195848
         - rid: 2511001254715195852
         - rid: 2511001254715195849
-        - rid: 2511001254715195850
         - rid: 2511001254715195851
     - rid: 2511001254715195847
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -73,26 +72,13 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 6
         cantCancelTargetting: 0
-    - rid: 2511001254715195850
-      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CombatEffectStep
-        inputKey: self
-        combatEffect: 9
-        scale: 2
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
-        vfxPrefab: {fileID: 3850217184923880746, guid: 604f6efaa1e828d4bacfc84a25dfbd7a, type: 3}
     - rid: 2511001254715195851
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
         inputKey: enemy
         combatEffect: 0
-        scale: 4
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1

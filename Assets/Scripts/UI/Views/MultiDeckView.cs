@@ -332,6 +332,8 @@ public class MultiDeckView
                 companionView.ScaleView(.45f);
                 sectionContainer.Q("SectionHeader").Add(companionView.container);
 
+                CompanionInstance ci = CombatEntityManager.Instance.GetCompanionInstanceAtPosition(i);
+
                 ScrollView scrollView = sectionContainer.Q<ScrollView>("ScrollView");
                 List<Card> cards = deckViewTab.sections[i].cards;
                 for (int j = 0; j < cards.Count; j++)
@@ -346,6 +348,11 @@ public class MultiDeckView
                     cardView.cardContainer.RegisterCallback<PointerLeaveEvent>(OnPointerLeave);
                     cardView.cardFocusable.additionalFocusAction += () => OnPointerEnter(null);
                     cardView.cardFocusable.additionalUnfocusAction += () => OnPointerLeave(null);
+
+                    // Hack to display the modified card values when pulling up the deck values.
+                    string modText = card.GetModifiedDescriptionForDeckView(ci.combatInstance);
+                    cardView.UpdateCardText(modText);
+
                     if (i != startingIndex)
                     {
                         FocusManager.Instance.DisableFocusableTarget(cardView.cardFocusable);

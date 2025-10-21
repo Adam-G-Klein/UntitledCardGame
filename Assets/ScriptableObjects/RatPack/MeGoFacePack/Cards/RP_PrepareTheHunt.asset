@@ -51,7 +51,7 @@ MonoBehaviour:
         inputKey: cards
         filter:
           cardCategoriesToInclude: 01000000
-          generatedCardsFilter: 0
+          retainedCardsFilter: 0
         outputKey: attacks
     - rid: 2034230108114649249
       type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
@@ -77,17 +77,42 @@ MonoBehaviour:
         inputKey: attacks
         prefabToInstantiate: {fileID: 3850217184923880746, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
         scale: 1
+    - rid: 2511001441869234178
+      type: {class: FilterCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FilterCards
+        inputKey: drawnCards
+        filter:
+          cardCategoriesToInclude: 01000000
+          retainedCardsFilter: 0
+        outputKey: drawnAttacks
+    - rid: 2511001441869234179
+      type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardInHandEffect
+        inputKey: drawnAttacks
+        effect: 2
+    - rid: 2511001441869234180
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: drawnAttacks
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
+        scale: 1
     - rid: 5602892563578093692
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
         - rid: 5602892563578093693
+        - rid: 2034230176448512697
         - rid: 5602892563578093694
         - rid: 1274772082283774506
-        - rid: 2034230176448512697
         - rid: 2034230108114649248
+        - rid: 2511001441869234178
         - rid: 2034230108114649249
+        - rid: 2511001441869234179
         - rid: 2295167909047304314
+        - rid: 2511001441869234180
         - rid: 8034949815888773188
     - rid: 5602892563578093693
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}

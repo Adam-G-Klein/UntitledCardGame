@@ -15,10 +15,10 @@ MonoBehaviour:
   guid: 6f856546-ac90-46ff-804e-8eeace8f10ec
   Name: Firebreath
   Description: Unplayable. At the end of turn, deal {inhand_rpl_damage} damage at
-    random & increase the damage of this card by 2
+    random & increase the damage of this card by 4
   defaultValues:
   - key: inhand_rpl_damage
-    value: 4
+    value: 3
   Cost: 0
   Artwork: {fileID: 21300000, guid: a5b8c5dccafa78942bf687e9f47d4ce4, type: 3}
   cardCategory: 4
@@ -71,7 +71,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: enemy
         combatEffect: 14
-        scale: 4
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
@@ -106,7 +106,7 @@ MonoBehaviour:
       data:
         effectStepName: CardModificationEffect
         inputKey: self
-        scale: 2
+        scale: 4
         affectsAllCardsOfType: 0
         cardTypeToModify: {fileID: 0}
         getScaleFromKey: 0

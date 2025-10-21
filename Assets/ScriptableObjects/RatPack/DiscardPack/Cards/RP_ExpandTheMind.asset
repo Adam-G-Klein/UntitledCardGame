@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 9060dfea-8c04-45b5-ad29-8206853630df
   Name: Expand the Mind
-  Description: 'Draw 1 from self & if you have 3 or less cards in hand, draw 1 card
-    and discard a card in hand '
+  Description: Draw 1 from random & if you have 3 or less cards in hand, draw 1 card
+    from random
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 90fa2971dfe769a49a60ad648e956340, type: 3}
@@ -38,23 +38,6 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 2034230108114649667
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: targetCard
-        validTargets: 03000000
-        number: 1
-        specialTargetRule: 5
-        cantCancelTargetting: 1
-    - rid: 2034230108114649668
-      type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CardInHandEffect
-        inputKey: targetCard
-        effect: 0
     - rid: 2268261022115299330
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -92,11 +75,22 @@ MonoBehaviour:
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: DrawCards
-        inputKey: target
+        inputKey: second
         outputKey: 
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+    - rid: 2511001371140161594
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: second
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 6
+        cantCancelTargetting: 0
     - rid: 5280922841426165977
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -115,9 +109,8 @@ MonoBehaviour:
         - rid: 5602892723852673197
         - rid: 5280922841426165977
         - rid: 2268261022115299333
+        - rid: 2511001371140161594
         - rid: 2268261022115299334
-        - rid: 2034230108114649667
-        - rid: 2034230108114649668
     - rid: 5602892723852673196
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -127,7 +120,7 @@ MonoBehaviour:
         outputKey: target
         validTargets: 00000000
         number: 1
-        specialTargetRule: 4
+        specialTargetRule: 6
         cantCancelTargetting: 0
     - rid: 5602892723852673197
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}

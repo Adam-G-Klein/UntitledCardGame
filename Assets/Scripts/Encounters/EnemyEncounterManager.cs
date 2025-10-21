@@ -166,6 +166,9 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
             }
         }
 
+        // Load the next location so that the music starts, otherwise there's an awkward pause.
+        gameState.LoadNextLocation();
+
 
         // Heal all surviving companions by a certain amount.
         if (isEliteCombat)
@@ -196,7 +199,6 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         yield return StartCoroutine(CombatEntityManager.Instance.ReviveCompanions(revivedCompanions, encounterConstants.companionRevivePrefab, 0.5f));
 
 
-        gameState.LoadNextLocation();
         EnemyEncounterViewModel.Instance.SetInMenu(true);
         postCombatUI.SetActive(true);
         uIStateEvent.Raise(new UIStateEventInfo(UIState.END_ENCOUNTER));

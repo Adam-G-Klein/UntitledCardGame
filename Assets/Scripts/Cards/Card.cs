@@ -131,9 +131,11 @@ public class Card : Entity, IEquatable<Card>
         workflowIndex = Mathf.Min(newIndex, cardType.effectWorkflows.Count - 1);
     }
 
-    public int GetManaCost() {
+    public int GetManaCost()
+    {
         int totalReduction = 0;
-        if(cardModifications == null) {
+        if (cardModifications == null)
+        {
             ResetCardModifications();
         }
         totalReduction += cardModifications[CardModification.ThisTurnManaDecrease];
@@ -142,6 +144,18 @@ public class Card : Entity, IEquatable<Card>
         totalReduction += cardType.cardModifications[CardModification.ThisCombatManaDecrease];
 
         return Mathf.Max(0, cardType.Cost - totalReduction);
+    }
+
+    public string GetModifiedDescriptionForDeckView(CombatInstance origin)
+    {
+        // Simple hack where we go through the default values and update for card modifications.
+        // Nice thing is that this lets us visualize in the deck view any long term card buffs.
+        Dictionary<string, int> intMap = new();
+        foreach (var defaultValue in cardType.defaultValues)
+        {
+            intMap[defaultValue.key] = UpdateScaleForCardModificationsAndPassives(defaultValue.value, origin);
+        }
+        return cardType.GetDescriptionWithUpdatedValues(intMap);
     }
 
     public int UpdateScaleForCardModificationsAndPassives(int oldScale, CombatInstance origin) {

@@ -14,10 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 56998b45-0dd2-4b05-96cb-3100b7badec2
   Name: Diamond Knife
-  Description: Deal {rpl_damage} damage and draw a card from self. If you have 3
-    cards or less in hand, deal the damage twice
+  Description: Deal {rpl_damage} damage & if you have 3 cards or less in hand, deal
+    {rpl_damage_2} damage. Draw a card from self
   defaultValues:
   - key: rpl_damage
+    value: 3
+  - key: rpl_damage_2
     value: 2
   Cost: 0
   Artwork: {fileID: 21300000, guid: 5b64a8077dbbd6f409858be2a69e6188, type: 3}
@@ -103,7 +105,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: enemy
         combatEffect: 0
-        scale: 2
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1

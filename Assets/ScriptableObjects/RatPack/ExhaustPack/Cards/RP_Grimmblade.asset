@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 8787f154-642a-473e-9b6e-ab3b7741ffc5
   Name: Grimmblade
-  Description: Deal {rpl_damage} damage. Draw 1 card from self. Increase the damage
-    of all "Grimmblade" cards by 10
+  Description: Exhaust. Deal {rpl_damage} damage. Draw 1 card from self. Increase
+    the damage of all "Grimmblade" cards by 5
   defaultValues:
   - key: rpl_damage
     value: 8
@@ -24,7 +24,7 @@ MonoBehaviour:
   cardCategory: 1
   vfxPrefab: {fileID: 0}
   playable: 1
-  exhaustsWhenPlayed: 0
+  exhaustsWhenPlayed: 1
   retain: 0
   effectWorkflows:
   - rid: 5602892675124822189
@@ -72,7 +72,7 @@ MonoBehaviour:
       data:
         effectStepName: CardModificationEffect
         inputKey: 
-        scale: 10
+        scale: 5
         affectsAllCardsOfType: 1
         cardTypeToModify: {fileID: 11400000}
         getScaleFromKey: 0
