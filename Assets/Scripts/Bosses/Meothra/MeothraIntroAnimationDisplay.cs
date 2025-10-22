@@ -17,12 +17,10 @@ public class MeothraIntroAnimationDisplay : MonoBehaviour
     public List<Vector2> rotationShakeScales = new List<Vector2>() { new Vector2(1, 1), new Vector2(2, 2), new Vector2(3, 3)};
     [SerializeField]
     private int currentShakeIndex = 0;
-    private EnemyView startingFrameView;
     private PlayableDirector playableDirector;
 
     public void Setup()
     {
-        startingFrameView = EnemyEncounterManager.Instance.combatEncounterView.GetEnemyViews()[0];
         /*
         if(startingFrameView.GetEntity().GetEnemyInstance().GetDisplayType() != DisplayType.MEOTHRA)
         {
@@ -43,7 +41,10 @@ public class MeothraIntroAnimationDisplay : MonoBehaviour
         }
         //Vector2 currRotationShake = rotationShakeScales[currentShakeIndex];
         //startingFrameView.BossFrameDestructionRotationShake(currRotationShake.x, currRotationShake.y);
-        startingFrameView.DamageScaleBump(1);
+
+        // LOOK IT WORKS
+        EnemyView view = EnemyEncounterManager.Instance.combatEncounterView.GetEnemyViews()[1];
+        view.DamageScaleBump(1);
         currentShakeIndex++;
     }
 

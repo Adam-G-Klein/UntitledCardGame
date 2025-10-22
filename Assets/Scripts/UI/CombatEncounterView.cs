@@ -192,6 +192,7 @@ public class CombatEncounterView : MonoBehaviour,
         var index = UIDocumentGameObjectPlacer.INITIAL_INDEX;
         foreach (EnemyInstance entity in enemyInstances)
         {
+            // setupEnemy adds to the list
             EnemyView enemyView = setupEnemy(entity, index);
             entity.enemyView = enemyView;
             container.Add(enemyView.container);
