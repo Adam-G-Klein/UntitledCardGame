@@ -22,4 +22,5 @@
         </ui:VisualElement>
     </ui:VisualElement>
     <ui:Label tabindex="-1" text="Demo Version, art not final" parse-escape-sequences="true" display-tooltip-when-elided="true" name="game-isnt-fully-done-label" style="position: absolute; height: 51px; width: 370px; top: 1021px; left: 31px; color: rgb(255, 255, 255); font-size: 32px; flex-wrap: wrap; overflow: visible; display: none;" />
+    <ui:Button text="Wishlist!" parse-escape-sequences="true" display-tooltip-when-elided="true" name="wishlistButton" class="main-menu-button focusable selected-sfx" style="background-image: url(&quot;project://database/Assets/Sprites/UI/TrimmedPlainButton.png?fileID=2800000&amp;guid=85a91730dc15b6f47b0a0f5923d2e07e&amp;type=3#TrimmedPlainButton&quot;); position: absolute; width: 14.5%; bottom: 2%; right: 1%; display: none;" />
 </ui:UXML>

@@ -47,7 +47,10 @@ public class MainMenuManager : MonoBehaviour
         optionsButton = mainMenuUIDocument.rootVisualElement.Q<Button>("optionsButton");
         exitButton = mainMenuUIDocument.rootVisualElement.Q<Button>("exitButton");
 
-        if (gameState.demoMode) mainMenuUIDocument.rootVisualElement.Q<Label>("game-isnt-fully-done-label").style.display = DisplayStyle.Flex;
+        if (gameState.demoMode) {
+            mainMenuUIDocument.rootVisualElement.Q<Label>("game-isnt-fully-done-label").style.display = DisplayStyle.Flex;
+            mainMenuUIDocument.rootVisualElement.Q<Button>("wishlistButton").style.display = DisplayStyle.Flex;
+        }
 
         startButton.RegisterOnSelected(startButtonHandler);
         continueButton.RegisterOnSelected(ContinueButtonHandler);
