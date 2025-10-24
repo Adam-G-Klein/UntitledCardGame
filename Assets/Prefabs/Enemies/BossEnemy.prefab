@@ -329,9 +329,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationShakeScales:
-  - {x: 90, y: 1}
-  - {x: 180, y: 2}
-  - {x: 270, y: 3}
+  - {x: 3, y: 0.1, z: 2}
+  - {x: -6, y: 0.1, z: 6}
+  - {x: 9, y: 0.08, z: 1}
+  - {x: -9, y: 0.08, z: 1}
+  - {x: 18, y: 0.08, z: 2}
+  - {x: -18, y: 0.08, z: 2}
+  rotationShake: 1
+  positionShake: 1
+  positionShakes:
+  - -10
+  - 10
+  - -20
+  - 20
+  - -40
+  - 40
   currentShakeIndex: 0
 --- !u!1001 &6947690666210245000
 PrefabInstance:

@@ -121,7 +121,6 @@ public class EnemyView : IUIEventReceiver
         // Moving past the random VisualElement parent CloneTree() creates
         this.container = enemyRoot.Children().First();
         this.container.name = container.name + this.index;
-        this.container.style.rotate = new StyleRotate(new Rotate(-90));
         this.pickingModePositionList.Add(container);
         SetupMainContainer();
         SetupBackground();
@@ -356,35 +355,64 @@ public class EnemyView : IUIEventReceiver
             });
     }
 
-    public void BossFrameDestructionRotationShake(float scale, float duration)
+    public void BossFrameDestructionRotationShake(float scale, float duration, int pingpongs)
     {
-        //if (scale == 0 || this.isTweening) return; // this could mean the damage didn't go through the block or that the companion died while taking damage
 
 
 
-        Debug.Log("Meothra setting rotation to " + scale);
-        this.container.style.rotate = new StyleRotate(new Rotate(scale));
-        UpdateWidthAndHeight();
+        float originalElementRotation = this.container.style.rotate.value.angle.value;
+        float maxRotation = originalElementRotation + scale;
 
-        // float originalElementRotation = this.container.style.rotate.value.angle.value;
-        // float maxRotation = originalElementRotation + scale;
+        LeanTween.value(originalElementRotation, maxRotation, duration)
+            .setEase(LeanTweenType.easeInOutQuad)
+            .setLoopPingPong(pingpongs) // inverse tween is called when this tween completes. On complete below is called after both tweens complete
+            .setOnUpdate((float currentRotation) =>
+            {
+                this.container.style.rotate = new StyleRotate(new Rotate(currentRotation));
+            })
+            .setOnStart(() =>
+            {
+                this.isTweening = true;
+            })
+            .setOnComplete(() =>
+            {
+                this.isTweening = false;
+                this.container.style.rotate = new StyleRotate(new Rotate(originalElementRotation));
+            });
+    }
 
-        // LeanTween.value(originalElementRotation, maxRotation, duration)
-        //     .setEase(LeanTweenType.easeInOutQuad)
-        //     .setLoopPingPong(1) // inverse tween is called when this tween completes. On complete below is called after both tweens complete
-        //     .setOnUpdate((float currentRotation) =>
-        //     {
-        //         this.container.style.rotate = new StyleRotate(new Rotate(currentRotation));
-        //     })
-        //     .setOnStart(() =>
-        //     {
-        //         this.isTweening = true;
-        //     })
-        //     .setOnComplete(() =>
-        //     {
-        //         this.isTweening = false;
-        //         this.container.style.rotate = new StyleRotate(new Rotate(originalElementRotation));
-        //     });
+    public void BossFrameDestructionPositionShake(float scale, float duration, int pingpongs, float delay = 0f)
+    {
+        /*
+        if(delay > 0f)
+        {
+            LeanTween.delayedCall(delay, () => {
+                BossFrameDestructionPositionShake(scale, duration, pingpongs, 0f);
+            });
+            return;
+        }
+        */
+
+        float originalElementPosition =
+            this.container.style.right.value.value;
+
+        // just do x for now, need to do a full vector tween to do more
+        LeanTween.value(originalElementPosition, scale, duration)
+            .setEase(LeanTweenType.easeInOutQuad)
+            .setLoopPingPong(pingpongs) // inverse tween is called when this tween completes. On complete below is called after both tweens complete
+            .setOnUpdate((float currentPosition) =>
+            {
+                this.container.style.right = currentPosition;
+            })
+            .setOnStart(() =>
+            {
+                this.isTweening = true;
+            })
+            .setOnComplete(() =>
+            {
+                this.isTweening = false;
+                this.container.style.right = originalElementPosition;
+            });
     }
 
     private IEnumerator OnDeathHandler(CombatInstance killer)
