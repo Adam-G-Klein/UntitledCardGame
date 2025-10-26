@@ -128,7 +128,7 @@ public class CardType: IdentifiableSO, ITooltipProvider
 
                 if (currentValue > defaultValue.value)
                 {
-                    styledValue = $"<color=#045700><size=+5><b>{currentValue}</b></size></color>";
+                    styledValue = $"<color=#045700><b>{currentValue}</b></color>";
                 }
                 else if (currentValue < defaultValue.value)
                 {
