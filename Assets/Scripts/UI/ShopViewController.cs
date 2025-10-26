@@ -282,8 +282,9 @@ public class ShopViewController : MonoBehaviour,
         mapContainer.Add(new MapView(encounterBuilder).mapContainer);
     }
 
-    public void SetupUpgradeIncrements() {
+    public void SetupUpgradeIncrements(bool shopFullyUpgraded = false) {
         upgradeIncrementContainer.Clear();
+        if (shopFullyUpgraded) return;
         int incrementsToUnlock = shopManager.GetShopLevel().shopLevelIncrementsToUnlock;
         for (int i = 0; i < incrementsToUnlock; i++) {
             VisualElement newIncrement = new();

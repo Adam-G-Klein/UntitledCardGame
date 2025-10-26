@@ -419,7 +419,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             InstantiateShopVFX(shopUpgradePrefab, shopViewController.GetUpgradeShopButton(), 1f);
             MusicController.Instance.PlaySFX("event:/MX/MX_Shop_Upgrade_Stinger");
             CheckDisableUpgradeButtonV2();
-            shopViewController.SetupUpgradeIncrements();
+            shopViewController.SetupUpgradeIncrements(shopEncounter.shopData.shopLevels.Count - 1 <= shopLevel.level);
             shopViewController.RebuildUnitManagement(gameState.companions);
         } else {
             shopViewController.ActivateUpgradeIncrement(playerData.shopLevelIncrementsEarned - 1 /* -1 because we just earned an increment */);
