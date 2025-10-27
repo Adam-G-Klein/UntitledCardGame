@@ -31,13 +31,15 @@ public class CutsceneStartStopper : GenericSingleton<CutsceneStartStopper>, ICon
     void Update() {
         if (Input.GetMouseButtonDown(0)) {
             if (isStopped) {
-                playableDirector.Play();
+                playableDirector.playableGraph.GetRootPlayable(0).SetSpeed(1);
+                isStopped = false;
             }
         }
     }
 
     public void StopTimeline() {
-        playableDirector.Pause();
+        playableDirector.playableGraph.GetRootPlayable(0).SetSpeed(0);
+        playableDirector.Evaluate();
         isStopped = true;
     }
 
@@ -45,7 +47,8 @@ public class CutsceneStartStopper : GenericSingleton<CutsceneStartStopper>, ICon
     {
         if (action == GFGInputAction.SELECT) {
             if (isStopped) {
-                playableDirector.Play();
+                playableDirector.playableGraph.GetRootPlayable(0).SetSpeed(1);
+                isStopped = false;
             }
         }
     }

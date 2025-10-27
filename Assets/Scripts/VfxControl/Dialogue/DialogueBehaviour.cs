@@ -18,6 +18,9 @@ public class DialogueBehaviour : PlayableBehaviour
         int charsToShow = Mathf.FloorToInt((float)(revealSpeed * time));
         charsToShow = Mathf.Clamp(charsToShow, 0, dialogueText.Length);
 
-        uiController.SetText(dialogueText.Substring(0, charsToShow));
+        string visible = dialogueText.Substring(0, charsToShow);
+        string invisible = $"<color=#00000000>{dialogueText.Substring(charsToShow)}</color>";
+
+        uiController.SetText(visible + invisible);
     }
 }
