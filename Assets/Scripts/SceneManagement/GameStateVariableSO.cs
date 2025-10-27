@@ -98,7 +98,6 @@ public class GameStateVariableSO : ScriptableObject
     }
     public bool autoUpgrade = false;
     public BuildType buildType = BuildType.RELEASE;
-    public bool demoMode = false;
     // True by default because fuck it we'll get way more data this way.
     // I feel like marky z
     public bool consentToDataCollection = true;
