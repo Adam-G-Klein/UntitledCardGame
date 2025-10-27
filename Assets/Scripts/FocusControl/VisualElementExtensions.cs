@@ -57,6 +57,7 @@ public static class VisualElementExtensions
     }
 
     private static void OnSelectedTween(VisualElement element) {
+        MusicController.Instance.PlaySFX("event:/SFX/SFX_ButtonClick");
         LeanTween.value(1f, 0.92f, 0.05f)
             .setOnUpdate((float value) => {
                 element.transform.scale = new Vector3(value, value, 1f);
