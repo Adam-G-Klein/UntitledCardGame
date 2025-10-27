@@ -332,6 +332,7 @@ public class MultiDeckView
                 companionView.ScaleView(.45f);
                 sectionContainer.Q("SectionHeader").Add(companionView.container);
 
+                // Note, this is only valid for during combat. In the shop, we will have no valid combat instance.
                 CompanionInstance ci = CombatEntityManager.Instance.GetCompanionInstanceAtPosition(i);
 
                 ScrollView scrollView = sectionContainer.Q<ScrollView>("ScrollView");

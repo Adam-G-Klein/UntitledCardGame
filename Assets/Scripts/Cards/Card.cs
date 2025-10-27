@@ -153,7 +153,13 @@ public class Card : Entity, IEquatable<Card>
         Dictionary<string, int> intMap = new();
         foreach (var defaultValue in cardType.defaultValues)
         {
-            intMap[defaultValue.key] = UpdateScaleForCardModificationsAndPassives(defaultValue.value, origin);
+            int value = defaultValue.value;
+            // If we are in the shop, the combat instance will be null.
+            if (origin != null)
+            {
+                value = UpdateScaleForCardModificationsAndPassives(defaultValue.value, origin);
+            }
+            intMap[defaultValue.key] = value;
         }
         return cardType.GetDescriptionWithUpdatedValues(intMap);
     }
