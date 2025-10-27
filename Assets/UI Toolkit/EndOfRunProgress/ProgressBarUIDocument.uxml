@@ -3,9 +3,9 @@
     <Style src="project://database/Assets/fontStyling.uss?fileID=7433441132597879392&amp;guid=d0c0881f1c32747ecb649373600de095&amp;type=3#fontStyling" />
     <ui:VisualElement name="progressBarContainer" style="padding-top: 20px; padding-bottom: 20px;">
         <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
-            <ui:Label tabindex="-1" text="Discard 100 Cards:" parse-escape-sequences="true" display-tooltip-when-elided="true" name="goalTitle" style="font-size: 30px;" />
-            <ui:Label tabindex="-1" text="0" parse-escape-sequences="true" display-tooltip-when-elided="true" name="goalCurrentValue" style="font-size: 30px;" />
+            <ui:Label tabindex="-1" text="Discard 100 Cards:" parse-escape-sequences="true" display-tooltip-when-elided="true" name="goalTitle" style="font-size: 30px; color: rgb(255, 255, 255);" />
+            <ui:Label tabindex="-1" text="0" parse-escape-sequences="true" display-tooltip-when-elided="true" name="goalCurrentValue" style="font-size: 30px; color: rgb(255, 255, 255);" />
         </ui:VisualElement>
-        <ui:ProgressBar value="0" name="goalProgressBar" />
+        <ui:ProgressBar value="0" name="goalProgressBar" style="background-color: rgba(0, 0, 0, 0);" />
     </ui:VisualElement>
 </ui:UXML>
