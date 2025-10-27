@@ -238,6 +238,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64aa3a4034efe9746876c78701316a96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyInstance: {fileID: 0}
 --- !u!114 &7580708747725456903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -250,6 +251,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8789b889466da314cab0297e38335178, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyInstance: {fileID: 1818299386461833454}
+  meothraIntentDisplay: {fileID: 4976460786884134175}
+  meothraIntroAnimation: {fileID: 7974018165867473959}
 --- !u!320 &6785631429979002981
 PlayableDirector:
   m_ObjectHideFlags: 0
