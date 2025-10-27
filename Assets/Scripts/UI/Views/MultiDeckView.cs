@@ -351,8 +351,11 @@ public class MultiDeckView
                     cardView.cardFocusable.additionalUnfocusAction += () => OnPointerLeave(null);
 
                     // Hack to display the modified card values when pulling up the deck values.
-                    string modText = card.GetModifiedDescriptionForDeckView(ci.combatInstance);
-                    cardView.UpdateCardText(modText);
+                    if (ci != null)
+                    {
+                        string modText = card.GetModifiedDescriptionForDeckView(ci.combatInstance);
+                        cardView.UpdateCardText(modText);
+                    }
 
                     if (i != startingIndex)
                     {
