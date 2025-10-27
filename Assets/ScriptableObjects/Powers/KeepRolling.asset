@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerType: 21
   title: Keep Rolling
-  description: Whenever you discard a card from this companion, draw 1 card from
-    random
+  description: End of turn, if you have 3 or less cards in hand, draw an extra card
+    next turn from self
   abilities:
-  - rid: 754093871974056662
+  - rid: 2511001503980847362
   displaySprite: {fileID: 21300000, guid: 04bf14070e798284f9f39ea08b676c4a, type: 3}
   tooltip:
     rid: 754093871974056657
@@ -30,50 +30,63 @@ MonoBehaviour:
       data:
         empty: 0
         lines: []
-    - rid: 754093871974056662
+    - rid: 2511001503980847362
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
-        abilityTrigger: 16
+        abilityTrigger: 2
         effectSteps:
-        - rid: 2511001254715195512
-        - rid: 2511001254715195513
-        - rid: 2511001254715195514
-        - rid: 2511001254715195515
-        - rid: 2511001254715195516
-    - rid: 2511001254715195512
-      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: EndWorkflowIfConditionMet
-        inputKey1: discardedFromThisOrigin
-        conditionToEndOn: 0
-    - rid: 2511001254715195513
-      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: EntityAbilityTriggeredVFX
-    - rid: 2511001254715195514
+        - rid: 2511001503980847364
+        - rid: 2511001503980847365
+        - rid: 2511001503980847366
+        - rid: 2511001503980847367
+        - rid: 2511001503980847368
+        - rid: 2511001503980847369
+    - rid: 2511001503980847364
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: random
-        validTargets: 00000000
+        outputKey: self
+        validTargets: 
         number: 1
-        specialTargetRule: 6
+        specialTargetRule: 3
         cantCancelTargetting: 0
-    - rid: 2511001254715195515
-      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+    - rid: 2511001503980847365
+      type: {class: GetNumberOfCardsInHand, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: DrawCards
-        inputKey: random
-        outputKey: 
+        effectStepName: GetNumberOfCardsInHand
+        outputKey: numCards
+    - rid: 2511001503980847366
+      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: BooleanComparison
+        hardCodedInputKey1: 3
+        useHardCodedInputKey1: 1
+        inputKey1: 
+        operation: 4
+        inputKey2: numCards
+        outputKey: lessThan3
+    - rid: 2511001503980847367
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: lessThan3
+        conditionToEndOn: 0
+    - rid: 2511001503980847368
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: self
+        statusEffect: 16
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
-    - rid: 2511001254715195516
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+    - rid: 2511001503980847369
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: InstantiatePrefab
-        inputKey: random
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
-        scale: 1
+        effectStepName: EntityAbilityTriggeredVFX

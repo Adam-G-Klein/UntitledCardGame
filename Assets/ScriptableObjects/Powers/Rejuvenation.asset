@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerType: 31
   title: Rejuvenation
-  description: Whenever a companion heals, give adjacent 2 block
+  description: Whenever a companion heals, give adjacent 4 block
   abilities:
   - rid: 2511001254715195776
   displaySprite: {fileID: 21300000, guid: 8b7f45e259d8a914ca69c92891ca4bf1, type: 3}
@@ -50,7 +50,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: adj
         statusEffect: 2
-        scale: 2
+        scale: 4
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0

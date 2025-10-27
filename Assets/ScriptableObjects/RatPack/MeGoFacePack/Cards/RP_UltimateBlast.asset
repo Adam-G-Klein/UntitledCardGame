@@ -17,7 +17,7 @@ MonoBehaviour:
   Description: Deal {rpl_damage} damage 7 times.
   defaultValues:
   - key: rpl_damage
-    value: 1
+    value: 2
   Cost: 3
   Artwork: {fileID: -1102274441, guid: 33ba4bd24a9cc384c880d4c9d5443278, type: 3}
   cardCategory: 1
@@ -62,7 +62,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: enemy
         combatEffect: 0
-        scale: 1
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 7

@@ -43,11 +43,15 @@ public class CombatEncounterState
 
     public Card GetLastCastCard()
     {
-        if (cardsCastThisTurn.Count == 0)
+        if (cardsCastThisTurn.Count > 0)
         {
-            return null;
+            return cardsCastThisTurn[cardsCastThisTurn.Count - 1];
         }
-        return cardsCastThisTurn[cardsCastThisTurn.Count - 1];
+        if (cardsCastThisCombat.Count > 0 )
+        {
+            return cardsCastThisCombat[cardsCastThisCombat.Count - 1];
+        }
+        return null;
     }
 
     public void DeckShuffled(DeckInstance deckInstance)

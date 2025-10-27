@@ -9,30 +9,22 @@ using UnityEngine;
 public class CheckTypeOfMostRecentlyPlayedCard : EffectStep, IEffectStepCalculation
 {
     [SerializeField]
-    private CardCategory cardCategory; 
-    
+    private CardCategory cardCategory;
+
     [SerializeField]
     private string outputKey = "";
-    
+
     public CheckTypeOfMostRecentlyPlayedCard() {
         effectStepName = "CheckTypeOfMostRecentlyPlayedCard";
     }
 
     public override IEnumerator invoke(EffectDocument document) {
-        List<Card> cardsCastThisCombat = EnemyEncounterManager.Instance.combatEncounterState.cardsCastThisCombat;
-        List<Card> cardsCastThisTurn = EnemyEncounterManager.Instance.combatEncounterState.cardsCastThisTurn;
         bool result = false;
-        Debug.Log("------------------");
-        if (cardsCastThisTurn.Count == 0) {
-            if (cardsCastThisCombat.Count > 0 && cardsCastThisCombat[cardsCastThisCombat.Count - 1].cardType.cardCategory == cardCategory) {
-                    result = true;
-            }
-        } else {
-            if (cardsCastThisTurn[cardsCastThisTurn.Count - 1].cardType.cardCategory == cardCategory) {
-                result = true;
-            }
+        Card lastPlayed = EnemyEncounterManager.Instance.combatEncounterState.GetLastCastCard();
+        if (lastPlayed != null )
+        {
+            result = lastPlayed.cardType.cardCategory == cardCategory;
         }
-        
         Debug.Log("cardCategory" + cardCategory);
         Debug.Log("result" + result);
         document.boolMap[outputKey] = result;

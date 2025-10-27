@@ -41,10 +41,12 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Level Three Grizzlypooh
-      description: Whenever a companion takes damage, it gains 4 block
+      description: Whenever Grizzlypooh loses HP, give self 5 block & give adj 3
+        block
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: Whenever a companion takes damage, it gains 4 block
+  keepsakeDescription: Whenever Grizzlypooh loses HP, give self 5 block & give adj
+    3 block
   references:
     version: 2
     RefIds:
@@ -54,16 +56,64 @@ MonoBehaviour:
         abilityTrigger: 11
         effectSteps:
         - rid: 8790164513324270203
+        - rid: 2511001503980847388
         - rid: 7707884639552274910
+        - rid: 2511001503980847384
+        - rid: 2511001503980847385
         - rid: 8790164583925416398
+        - rid: 2511001503980847386
         - rid: 205828107393564793
+        - rid: 2511001503980847387
     - rid: 205828107393564793
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
-        inputKey: damagedCompanion
+        inputKey: self
         prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
         scale: 1
+    - rid: 2511001503980847384
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 2511001503980847385
+      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetAdjacentCompanions
+        inputKey: self
+        outputKey: adj
+    - rid: 2511001503980847386
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: adj
+        statusEffect: 2
+        scale: 3
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+    - rid: 2511001503980847387
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: adj
+        prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
+        scale: 1
+    - rid: 2511001503980847388
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: selfDamaged
+        conditionToEndOn: 0
     - rid: 7707884639552274910
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
@@ -77,9 +127,9 @@ MonoBehaviour:
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ApplyStatus
-        inputKey: damagedCompanion
+        inputKey: self
         statusEffect: 2
-        scale: 4
+        scale: 5
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0

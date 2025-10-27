@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: RP_KeepRolling
+  m_Name: RP_PointierKnives
   m_EditorClassIdentifier: 
-  guid: 0e23db1a-cea6-4e02-8d07-ee7db4a8b159
-  Name: 
-  Description: 
+  guid: 07926cfe-1a72-4aea-855c-db74586befc2
+  Name: Pointier Knives
+  Description: Give all "Dagger" cards +3 damage
   defaultValues: []
-  Cost: 0
-  Artwork: {fileID: 0}
-  cardCategory: 5
+  Cost: 1
+  Artwork: {fileID: 21300000, guid: 292ee1eb3f315c9448b8c577d0e6a420, type: 3}
+  cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
   retain: 0
   effectWorkflows:
-  - rid: 754093991137641289
+  - rid: 2511001503980847375
   onExhaustEffectWorkflow:
     rid: -2
   onDiscardEffectWorkflow:
@@ -37,26 +37,19 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 754093991137641289
+    - rid: 2511001503980847375
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
-        - rid: 754093991137641290
-        - rid: 754093991137641291
-    - rid: 754093991137641290
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+        - rid: 2511001503980847377
+    - rid: 2511001503980847377
+      type: {class: CardModificationEffect, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
+        effectStepName: CardModificationEffect
         inputKey: 
-        outputKey: self
-        validTargets: 
-        number: 1
-        specialTargetRule: 4
-        cantCancelTargetting: 0
-    - rid: 754093991137641291
-      type: {class: ActivatePower, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: ActivatePower
-        inputKey: self
-        power: {fileID: 11400000, guid: 9452f94397d0241a2bd65f869e395f24, type: 2}
+        scale: 3
+        affectsAllCardsOfType: 1
+        cardTypeToModify: {fileID: 11400000, guid: 224034c097974444fa35170919327ce6, type: 2}
+        getScaleFromKey: 0
+        scaleKey: 
+        modification: 0

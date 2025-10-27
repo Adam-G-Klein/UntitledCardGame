@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 404817d3-76f9-4c0e-9be3-103db47c2fc4
   Name: Sparring
-  Description: Discard an Attack card, then draw 1 card from this companion and gain
-    1 energy
+  Description: Discard an Attack card, then draw 1 card from self and gain 1 energy
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 8b7f45e259d8a914ca69c92891ca4bf1, type: 3}
@@ -63,7 +62,7 @@ MonoBehaviour:
         inputKey: cards
         filter:
           cardCategoriesToInclude: 01000000
-          generatedCardsFilter: 0
+          retainedCardsFilter: 0
         outputKey: attacks
     - rid: 1289961820425028208
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}

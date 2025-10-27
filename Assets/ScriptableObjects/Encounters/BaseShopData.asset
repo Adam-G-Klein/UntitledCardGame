@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shopLevels:
   - level: 0
-    shopLevelIncrementsToUnlock: 5
+    shopLevelIncrementsToUnlock: 7
     upgradeIncrementCost: 2
     mana: 3
     teamSize: 3
@@ -96,7 +96,9 @@ MonoBehaviour:
   rerollShopPrice: 2
   cardRemovalPrice: 6
   shopEncounterEvent: {fileID: 11400000, guid: d82ee33fc33d20544bce205c53a0832e, type: 2}
-  cardPrice: 2
+  commonCardPrice: 1
+  uncommonCardPrice: 2
+  rareCardPrice: 3
   companionKeepsakePrice: 3
   numKeepsakeCopies: 15
   startingGold: 3

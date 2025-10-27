@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerType: 32
   title: Sanctuary of the Old Gods
-  description: Whenever a companion gains block, bleed self 1 HP & draw 1 card from
-    self
+  description: Whenever a companion gains block, deal 1 damage to self & draw 1 card
   abilities:
   - rid: 2511001254715195842
   displaySprite: {fileID: 21300000, guid: 3296a63e824de414bb4b578c4822fbdb, type: 3}
@@ -54,7 +53,7 @@ MonoBehaviour:
       data:
         effectStepName: CombatEffectStep
         inputKey: self
-        combatEffect: 16
+        combatEffect: 14
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 

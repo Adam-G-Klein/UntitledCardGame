@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 2d81516b-dc17-4492-8ca3-59be5b4bfd82
   Name: Sharpening
-  Description: Choose target Attack card in hand. Increase its damage by 3 for the
-    rest of combat.
+  Description: Choose any Attack card in hand. Increase its damage by 3 for the rest
+    of combat.
   defaultValues: []
-  Cost: 1
+  Cost: 0
   Artwork: {fileID: 21300000, guid: 292ee1eb3f315c9448b8c577d0e6a420, type: 3}
   cardCategory: 2
   vfxPrefab: {fileID: 0}
@@ -56,7 +56,7 @@ MonoBehaviour:
         inputKey: cards
         filter:
           cardCategoriesToInclude: 01000000
-          generatedCardsFilter: 0
+          retainedCardsFilter: 0
         outputKey: attacks
     - rid: 1289961820425028208
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}

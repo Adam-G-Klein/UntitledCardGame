@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: RP_CircularBlade
+  m_Name: RP_DeadlyFlourish
   m_EditorClassIdentifier: 
-  guid: 8ce5b06c-bdaa-4ce6-b95f-1d75927a1d1d
-  Name: Circular Blade
+  guid: 8a8e4cf9-8644-404b-997b-f7d283138983
+  Name: Deadly Flourish
   Description: Deal {rpl_damage} damage. If the last card you played was an Attack,
-    draw 1 card from random x2
+    create a "Dagger" card in hand for self
   defaultValues:
   - key: rpl_damage
-    value: 7
+    value: 4
   Cost: 1
   Artwork: {fileID: 21300000, guid: b87c75bd71fd78540bcab566820366a8, type: 3}
   cardCategory: 1
@@ -40,23 +40,16 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 1289961820425028297
-      type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetRandomItems
-        inputKey: target
-        scale: 2
-        outputKey: self
     - rid: 2034230176448512659
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: target
+        outputKey: self
         validTargets: 00000000
         number: 1
-        specialTargetRule: 1
+        specialTargetRule: 4
         cantCancelTargetting: 0
     - rid: 2034230176448512660
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
@@ -65,15 +58,6 @@ MonoBehaviour:
         inputKey: self
         prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
         scale: 1
-    - rid: 2034230176448512661
-      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: DrawCards
-        inputKey: self
-        outputKey: 
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
     - rid: 2511001503980847372
       type: {class: CheckTypeOfMostRecentlyPlayedCard, ns: , asm: Assembly-CSharp}
       data:
@@ -86,6 +70,19 @@ MonoBehaviour:
         effectStepName: EndWorkflowIfConditionMet
         inputKey1: isAttack
         conditionToEndOn: 0
+    - rid: 2511001503980847374
+      type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: AddCardsToHand
+        entityFromKey: self
+        cardTypes:
+        - {fileID: 11400000, guid: 224034c097974444fa35170919327ce6, type: 2}
+        getCardsFromKey: 0
+        inputCardsKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        outputKey: 
     - rid: 5602892675124822189
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -95,8 +92,7 @@ MonoBehaviour:
         - rid: 2511001503980847372
         - rid: 2511001503980847373
         - rid: 2034230176448512659
-        - rid: 1289961820425028297
-        - rid: 2034230176448512661
+        - rid: 2511001503980847374
         - rid: 2034230176448512660
     - rid: 5602892675124822190
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -115,7 +111,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: enemy
         combatEffect: 0
-        scale: 7
+        scale: 4
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1

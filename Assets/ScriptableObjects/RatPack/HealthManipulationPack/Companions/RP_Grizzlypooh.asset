@@ -41,10 +41,10 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Grizzlypooh
-      description: Whenever Grizzlypooh takes damage, it gains 3 block.
+      description: Whenever Grizzlypooh loses HP, give self 3 block
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: Whenever Grizzlypooh takes damage, it gains 3 block.
+  keepsakeDescription: Whenever Grizzlypooh loses HP, give self 3 block
   references:
     version: 2
     RefIds:
