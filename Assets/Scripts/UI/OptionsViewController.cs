@@ -157,7 +157,7 @@ public class OptionsViewController : GenericSingleton<OptionsViewController>, IC
     public void onExitGameHandler()
     {
         SaveManager.Instance.SavePlayerSettings();
-        if (gameState.demoMode) {
+        if (gameState.buildType == BuildType.DEMO) {
             SceneTransitionManager.LoadScene("DemoExitGameMenu");
             return;
         }

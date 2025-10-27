@@ -47,7 +47,7 @@ public class MainMenuManager : MonoBehaviour
         optionsButton = mainMenuUIDocument.rootVisualElement.Q<Button>("optionsButton");
         exitButton = mainMenuUIDocument.rootVisualElement.Q<Button>("exitButton");
 
-        if (gameState.demoMode) {
+        if (gameState.buildType == BuildType.DEMO) {
             mainMenuUIDocument.rootVisualElement.Q<Label>("game-isnt-fully-done-label").style.display = DisplayStyle.Flex;
             mainMenuUIDocument.rootVisualElement.Q<Button>("wishlistButton").style.display = DisplayStyle.Flex;
         }
@@ -66,7 +66,7 @@ public class MainMenuManager : MonoBehaviour
     }
 
     public void startButtonHandler() {
-        if (gameState.demoMode) {
+        if (gameState.buildType == BuildType.CONVENTION) {
             SaveManager.Instance.DeletePlayerProgressData();
         }
         generateMap.generateMapAndChangeScenes();
@@ -92,7 +92,7 @@ public class MainMenuManager : MonoBehaviour
     }
 
     public void exitButtonHandler() {
-        if (gameState.demoMode) {
+        if (gameState.buildType == BuildType.DEMO) {
             SceneTransitionManager.LoadScene("DemoExitGameMenu");
             return;
         }

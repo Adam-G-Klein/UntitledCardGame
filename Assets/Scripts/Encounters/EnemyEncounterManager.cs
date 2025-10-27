@@ -147,7 +147,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
 
         // Gold interest calculation
         int baseGoldEarnedPerBattle = gameState.baseShopData.goldEarnedPerBattle;
-        if (gameState.demoMode) baseGoldEarnedPerBattle += 2;
+        if (gameState.buildType == BuildType.DEMO) baseGoldEarnedPerBattle += 2;
         int extraGold = Mathf.FloorToInt(gameState.baseShopData.interestRate * gameState.playerData.GetValue().gold);
         if (extraGold > gameState.baseShopData.interestCap)
         {

@@ -27,7 +27,7 @@ public class EndOfRunProgressViewController : MonoBehaviour
             button.SetEnabled(false);
             SceneManager.LoadScene("MainMenu");
         });
-        if (gameState.demoMode)
+        if (gameState.buildType == BuildType.DEMO)
             endOfRunProgressUIDocument.rootVisualElement.Q<VisualElement>("demo-no-progress").style.display = DisplayStyle.Flex;
         FocusManager.Instance.RegisterFocusableTarget(button.AsFocusable());
 

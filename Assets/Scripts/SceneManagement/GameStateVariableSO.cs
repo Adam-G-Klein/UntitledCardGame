@@ -29,6 +29,13 @@ public enum Location
     PACK_SELECT_TUTORIAL,
 }
 
+public enum BuildType
+{
+    RELEASE, // eventually used for the release version 
+    DEMO, // shows "warning" message about art not being done and gates player progress
+    CONVENTION // resets progress/tutorials after each run
+}
+
 [CreateAssetMenu(
     fileName = "NewGameStateVariable",
     menuName = "Variables/Game State Variable")]
@@ -90,6 +97,7 @@ public class GameStateVariableSO : ScriptableObject
         }
     }
     public bool autoUpgrade = false;
+    public BuildType buildType = BuildType.RELEASE;
     public bool demoMode = false;
     // True by default because fuck it we'll get way more data this way.
     // I feel like marky z
@@ -127,7 +135,7 @@ public class GameStateVariableSO : ScriptableObject
                 AdvanceEncounter();
 
                 // The following is only necessary while we don't want the pack selection tutorial early in the experience as it currently looks bad
-                if (skipTutorials && !demoMode) {
+                if (skipTutorials && buildType != BuildType.DEMO) {
                     currentLocation = Location.PACK_SELECT;
                     break;
                 } else if (skipTutorials) {
@@ -140,7 +148,7 @@ public class GameStateVariableSO : ScriptableObject
                     break;
                 }
 
-                if (hasSeenCombatTutorial && hasSeenShopTutorial && !demoMode) {
+                if (hasSeenCombatTutorial && hasSeenShopTutorial && buildType != BuildType.DEMO) {
                     if (hasSeenPackSelectTutorial) {
                         currentLocation = Location.PACK_SELECT;
                     }
