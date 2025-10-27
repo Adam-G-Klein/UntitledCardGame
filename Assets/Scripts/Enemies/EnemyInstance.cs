@@ -27,6 +27,10 @@ public class EnemyInstance : MonoBehaviour, IUIEntity
     public bool dead = false;
     public EnemyView enemyView;
 
+    public Action onIntentDeclared;
+    public delegate IEnumerator PreEnactIntent(List<Vector3> positions);
+    public event PreEnactIntent preEnactIntentHook;
+
     private EnemyIntentArrowsController enemyIntentArrows;
 
     private Dictionary<EnemyBrain, ValueTuple<int, int>> behaviorIndices = new();
@@ -210,6 +214,7 @@ public class EnemyInstance : MonoBehaviour, IUIEntity
         currentIntent = enemy.ChooseIntent(this);
         Debug.Log("EnemyInstance: UpdateView");
         EnemyEncounterViewModel.Instance.SetStateDirty();
+        onIntentDeclared?.Invoke();
         yield return null;
     }
 
@@ -225,6 +230,12 @@ public class EnemyInstance : MonoBehaviour, IUIEntity
         List<DeckInstance> deckInstanceTargets = currentIntent.targets.Select(x => x.deckInstance).ToList();
         List<GameObject> gameObjectTargets = currentIntent.targets.Select(x => x.gameObject).ToList();
         List<VisualElement> visualElementTargets = currentIntent.targets.Select(x => x.combatInstance.GetVisualElement()).ToList();
+
+        if (preEnactIntentHook != null) {
+            List<Vector3> targetPositions = currentIntent.targets.Select(x => x.transform.position).ToList();
+            yield return preEnactIntentHook.Invoke(targetPositions);
+        }
+
         document.map.AddItems<CombatInstance>(currentIntent.targetsKey, combatInstanceTargets);
         document.map.AddItems<DeckInstance>(currentIntent.targetsKey, deckInstanceTargets);
         document.map.AddItems<GameObject>(currentIntent.targetsKey, gameObjectTargets);

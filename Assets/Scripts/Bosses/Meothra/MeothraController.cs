@@ -7,14 +7,22 @@ using UnityEngine.UIElements;
 
 public class MeothraController : MonoBehaviour, IBossController
 {
+    [SerializeField] private EnemyInstance enemyInstance;
+    [SerializeField] private MeothraIntentDisplay meothraIntentDisplay;
+    [SerializeField] private MeothraIntroAnimationDisplay meothraIntroAnimation;
 
-    private MeothraIntentDisplay meothraIntentDisplay;
-    private MeothraIntroAnimationDisplay meothraIntroAnimation;
     public void Setup()
     {
-        meothraIntentDisplay = GetComponent<MeothraIntentDisplay>();
+        if (enemyInstance == null) enemyInstance = GetComponent<EnemyInstance>();
+        if (meothraIntentDisplay == null) meothraIntentDisplay = GetComponent<MeothraIntentDisplay>();
+        if (meothraIntroAnimation == null) meothraIntroAnimation = GetComponentInChildren<MeothraIntroAnimationDisplay>();
+
         meothraIntentDisplay.Setup();
-        meothraIntroAnimation = GetComponentInChildren<MeothraIntroAnimationDisplay>();
         meothraIntroAnimation.Setup();
+        enemyInstance.preEnactIntentHook += Attack;
+    }
+
+    private IEnumerator Attack(List<Vector3> positions) {
+        yield return null;
     }
 }
