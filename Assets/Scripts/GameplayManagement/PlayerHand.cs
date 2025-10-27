@@ -372,13 +372,18 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         }
     }
 
-    private List<PlayableCard> DealCardsQueued(List<Card> cards, DeckInstance deckFrom, bool countAsDraw = true)
+    private List<PlayableCard> DealCardsQueued(List<Card> cards, DeckInstance deckFrom, bool countAsDraw = true, bool fromCardCast = false)
     {
         List<PlayableCard> cardsEnqueued = new List<PlayableCard>();
-
+        // If the origin is the card, lets temporarily increase the hand size limit so the card can replace itself.
+        int handSizeLimit = GameplayConstantsSingleton.Instance.gameplayConstants.MAX_HAND_SIZE;
+        if (fromCardCast)
+        {
+            handSizeLimit += 1;
+        }
         foreach (Card cardInfo in cards)
         {
-            if (GetCardsOrdered().Count + cardDealQueue.Count >= GameplayConstantsSingleton.Instance.gameplayConstants.MAX_HAND_SIZE)
+            if (GetCardsOrdered().Count + cardDealQueue.Count >= handSizeLimit)
             {
                 Debug.Log("PlayerHand: Hand is full, not queuing card");
                 break;
@@ -421,9 +426,9 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     // DealCards deals cards to the hand from the given deck instance.
     // countAsDraw determines whether this counts as drawing a card.
     // Sometimes we generate cards in hand and we do not want that to count towards entity abilities.
-    public List<PlayableCard> DealCards(List<Card> cards, DeckInstance deckFrom, bool countAsDraw = true)
+    public List<PlayableCard> DealCards(List<Card> cards, DeckInstance deckFrom, bool countAsDraw = true, bool fromCardCast = false)
     {
-        List<PlayableCard> dealt = DealCardsQueued(cards, deckFrom, countAsDraw);
+        List<PlayableCard> dealt = DealCardsQueued(cards, deckFrom, countAsDraw, fromCardCast);
         // If the deck is not null, we'll discard all the cards not successfully dealt to hand.
         if (deckFrom != null)
         {

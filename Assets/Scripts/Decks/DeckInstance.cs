@@ -128,10 +128,10 @@ public class DeckInstance : MonoBehaviour
         DealCardsToPlayerHand(1);
     }
 
-    public List<PlayableCard> DealCardsToPlayerHand(int numCards)
+    public List<PlayableCard> DealCardsToPlayerHand(int numCards, bool fromCardCast = false)
     {
         List<Card> cards = DealCardsFromDeck(numCards);
-        return PlayerHand.Instance.DealCards(cards, this);
+        return PlayerHand.Instance.DealCards(cards, this, true, fromCardCast);
     }
 
     public void AddCardFromDeckToHand(Card card)
