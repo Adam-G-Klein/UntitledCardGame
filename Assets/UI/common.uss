@@ -762,10 +762,6 @@
     background-color: rgba(0, 0, 0, 0.43);
 }
 
-.compendium-button:focus {
-    background-color: rgb(118, 118, 118);
-}
-
 .next-button:focus {
     -unity-background-image-tint-color: rgb(145, 145, 145);
 }
@@ -821,4 +817,16 @@
     align-items: center;
     flex-direction: column;
     -unity-background-image-tint-color: rgb(96, 96, 96);
+}
+
+.compendium-button {
+    width: 176px;
+    height: 50px;
+    margin-bottom: 0;
+    padding-bottom: 5px;
+    font-size: 24px;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
 }
