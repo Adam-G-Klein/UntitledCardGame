@@ -27,7 +27,6 @@
                             <ui:VisualElement class="upgradeIncrement upgradeIncrementEarned" />
                             <ui:VisualElement class="upgradeIncrement" />
                             <ui:VisualElement class="upgradeIncrement" />
-                            <ui:VisualElement class="upgradeIncrement upgradeIncrementEarned" style="position: absolute; height: 100%; width: 15%; scale: 1 2;" />
                         </ui:VisualElement>
                         <ui:Button text="Buy RP" parse-escape-sequences="true" display-tooltip-when-elided="true" name="upgrade-button" class="shopButton" style="margin-right: 0; background-image: url(&quot;project://database/Assets/Sprites/UI/TrimmedPlainButton.png?fileID=2800000&amp;guid=85a91730dc15b6f47b0a0f5923d2e07e&amp;type=3#TrimmedPlainButton&quot;); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; background-color: rgba(214, 162, 104, 0); padding-top: 12px; padding-right: 12px; padding-bottom: 12px; padding-left: 12px;" />
                     </ui:VisualElement>
@@ -47,7 +46,7 @@
         </ui:VisualElement>
         <ui:VisualElement name="unit-management" style="flex-grow: 1; max-height: 40%; min-height: 40%;">
             <ui:VisualElement name="VisualElement" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Sprites/UI/ShopUnitManagement1.png?fileID=2800000&amp;guid=4ee0bb7aea7506f408fe65364f854ff8&amp;type=3#ShopUnitManagement1&quot;); border-top-left-radius: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; border-bottom-left-radius: 0;">
-                <ui:Label tabindex="-1" text="Unit Management" parse-escape-sequences="true" display-tooltip-when-elided="true" name="unit-management-label" style="-unity-text-align: upper-center; -unity-font-style: bold; font-size: 28px; color: rgb(255, 255, 255);" />
+                <ui:Label tabindex="-1" text="Unit Management" parse-escape-sequences="true" display-tooltip-when-elided="true" name="unit-management-label" style="-unity-font-style: bold; font-size: 28px; color: rgb(255, 255, 255); margin-top: 10px; margin-bottom: -4px; -unity-text-align: upper-center;" />
                 <ui:VisualElement style="flex-grow: 1; margin-bottom: 10px;">
                     <ui:VisualElement name="unit-active-row" style="height: 40%; flex-direction: row; justify-content: flex-start; align-self: auto; align-items: center; flex-grow: 1;">
                         <ui:VisualElement name="unit-active-label-container" style="width: 15%; height: 100%; align-items: flex-end; justify-content: center;">
