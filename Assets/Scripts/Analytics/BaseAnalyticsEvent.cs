@@ -13,6 +13,9 @@ public abstract class BaseAnalyticsEvent : Event
         // For example, the ID of the current run.
         SetParameter("runID", AnalyticsManager.Instance.gameState.currentRunID.ToString());
 
+        // Current encounter index.
+        SetParameter("encounterIndex", AnalyticsManager.Instance.gameState.currentEncounterIndex);
+
         // TODO: add more here, current version of the game, ascension level, etc.
         // SetParameter("playerLevel", PlayerStats.Level);
     }
