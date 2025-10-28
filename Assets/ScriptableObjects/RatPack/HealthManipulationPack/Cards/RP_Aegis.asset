@@ -10,17 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: RP_Fierceness
+  m_Name: RP_Aegis
   m_EditorClassIdentifier: 
-  guid: e37e8078-2d79-4f62-a166-5f8b7acdeaf5
-  Name: Fierceness
-  Description: Deal {rpl_damage} damage. Gain 5 block if self below half HP
-  defaultValues:
-  - key: rpl_damage
-    value: 7
-  Cost: 1
+  guid: ad5b2407-6f34-4682-9a85-61f4480f9452
+  Name: Aegis
+  Description: Give self 8 block & if self below half HP, give self 6 block
+  defaultValues: []
+  Cost: 2
   Artwork: {fileID: 21300000, guid: 5e40f858eddaed340a6366c33c4e216f, type: 3}
-  cardCategory: 1
+  cardCategory: 2
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
@@ -46,54 +44,19 @@ MonoBehaviour:
         inputKey: self
         prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
         scale: 1.5
-    - rid: 1289961820425028169
-      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CombatEffectStep
-        inputKey: target
-        combatEffect: 0
-        scale: 7
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
-        vfxPrefab: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}
     - rid: 1289961820425028170
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ApplyStatus
         inputKey: self
         statusEffect: 2
-        scale: 5
+        scale: 6
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-    - rid: 1289961820425028171
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: target
-        validTargets: 02000000
-        number: 1
-        specialTargetRule: 0
-        cantCancelTargetting: 0
-    - rid: 1289961959942521197
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: all
-        validTargets: 00000000
-        number: 1
-        specialTargetRule: 1
-        cantCancelTargetting: 0
     - rid: 1289961959942521198
       type: {class: CountStep, ns: , asm: Assembly-CSharp}
       data:
@@ -116,20 +79,31 @@ MonoBehaviour:
         effectStepName: EndWorkflowIfConditionMet
         inputKey1: enoughBelowHalf
         conditionToEndOn: 0
+    - rid: 2511001503980847477
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: self
+        statusEffect: 2
+        scale: 8
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 5602892723852673317
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
         - rid: 7401433558763438506
-        - rid: 1289961820425028171
-        - rid: 1289961820425028169
-        - rid: 1289961959942521197
+        - rid: 2511001503980847477
+        - rid: 1274772082283774959
         - rid: 5602892723852673323
         - rid: 1289961959942521198
         - rid: 1289961959942521199
         - rid: 1289961959942521200
         - rid: 1289961820425028170
-        - rid: 1274772082283774959
     - rid: 5602892723852673323
       type: {class: FilterEntityByHP, ns: , asm: Assembly-CSharp}
       data:
