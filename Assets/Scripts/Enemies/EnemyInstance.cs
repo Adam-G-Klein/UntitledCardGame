@@ -28,6 +28,7 @@ public class EnemyInstance : MonoBehaviour, IUIEntity
     public EnemyView enemyView;
 
     public Action onIntentDeclared;
+    public Action onIntentEnacted;
     public delegate IEnumerator PreEnactIntent(List<Vector3> positions);
     public event PreEnactIntent preEnactIntentHook;
 
@@ -225,13 +226,14 @@ public class EnemyInstance : MonoBehaviour, IUIEntity
         EffectDocument document = new EffectDocument();
         document.map.AddItem(EffectDocument.ORIGIN, this);
         document.originEntityType = EntityType.Enemy;
-        enemyIntentArrows.clearArrows();
+        if (enemyIntentArrows != null) enemyIntentArrows.clearArrows();
         List<CombatInstance> combatInstanceTargets = currentIntent.targets.Select(x => x.combatInstance).ToList();
         List<DeckInstance> deckInstanceTargets = currentIntent.targets.Select(x => x.deckInstance).ToList();
         List<GameObject> gameObjectTargets = currentIntent.targets.Select(x => x.gameObject).ToList();
         List<VisualElement> visualElementTargets = currentIntent.targets.Select(x => x.combatInstance.GetVisualElement()).ToList();
 
-        if (preEnactIntentHook != null) {
+        onIntentEnacted?.Invoke(); // For boss, allows us to make intent invisible right as we're enacting
+        if (preEnactIntentHook != null) { // For boss, allows us to yield on attack animation
             List<Vector3> targetPositions = currentIntent.targets.Select(x => x.transform.position).ToList();
             yield return preEnactIntentHook.Invoke(targetPositions);
         }
