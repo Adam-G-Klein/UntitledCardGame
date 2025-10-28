@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +9,7 @@ public class CanvasIconIndicator : MonoBehaviour, IIconChange
     public Image image;
     public GFGInputAction action;
     public Sprite defaultSprite;
+    public TextMeshProUGUI tmp;
 
     public GFGInputAction GetAction()
     {

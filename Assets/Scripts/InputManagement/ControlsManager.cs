@@ -288,6 +288,19 @@ public class ControlsManager : GenericSingleton<ControlsManager>
             return;
         }
 
+        switch (controlScheme) {
+            case ControlScheme.Switch:
+            case ControlScheme.Gamepad:
+            case ControlScheme.Xbox:
+            case ControlScheme.Keyboard:
+                CheckSwapControlMethod(ControlMethod.KeyboardController);
+            break;
+
+            case ControlScheme.Mouse:
+                CheckSwapControlMethod(ControlMethod.Mouse);
+            break;
+        }
+
         persistentControls.currentControlScheme = controlScheme;
 
         foreach (IIconChange iconChange in iconChangers) {
