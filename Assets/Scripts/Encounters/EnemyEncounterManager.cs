@@ -186,12 +186,12 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         }
 
         List<Companion> revivedCompanions = new List<Companion>();
-        // Revive all companions that died during combat to death's door, then heal because we're nice to players.
+        // Revive all companions that died during combat to death's door.
         foreach (Companion companion in gameState.companions.allCompanions)
         {
             if (companion.combatStats.currentHealth <= 0)
             {
-                companion.combatStats.setCurrentHealth(gameState.baseShopData.postEliteHealingAmount);
+                companion.combatStats.setCurrentHealth(1);
                 revivedCompanions.Add(companion);
             }
         }
