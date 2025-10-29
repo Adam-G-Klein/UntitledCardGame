@@ -76,7 +76,7 @@ MonoBehaviour:
         multiplicity: 0
         getMultiplicityFromKey: 1
         inputMultiplicityKey: numberOfCardsInHand
-        vfxPrefab: {fileID: 0}
+        vfxPrefab: {fileID: 1320532642761013391, guid: 4847f21b038e1aa42bceefe5c97ab1ab, type: 3}
     - rid: 2116895648763871330
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -85,14 +85,6 @@ MonoBehaviour:
         - rid: 1886371092460208252
         - rid: 5602892679876706768
         - rid: 1886371092460208256
-        - rid: 5280922841426165990
-    - rid: 5280922841426165990
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: enemyTarget
-        prefabToInstantiate: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}
-        scale: 1.5
     - rid: 5602892679876706768
       type: {class: CountStep, ns: , asm: Assembly-CSharp}
       data:

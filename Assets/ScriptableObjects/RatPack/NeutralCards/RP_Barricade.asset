@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: RP_Barricade
   m_EditorClassIdentifier: 
   guid: 73f7e743-c181-4fc2-9dbb-7f5072bf8aed
-  Name: Barricade
-  Description: Activate "Barricade" power for any
+  Name: 
+  Description: 
   defaultValues: []
-  Cost: 0
+  Cost: 3
   Artwork: {fileID: 0}
-  cardCategory: 2
+  cardCategory: 5
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
@@ -52,7 +52,7 @@ MonoBehaviour:
         outputKey: target
         validTargets: 00000000
         number: 1
-        specialTargetRule: 0
+        specialTargetRule: 4
         cantCancelTargetting: 0
     - rid: 754093848945230750
       type: {class: ActivatePower, ns: , asm: Assembly-CSharp}

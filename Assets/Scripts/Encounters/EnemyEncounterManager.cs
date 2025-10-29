@@ -169,22 +169,6 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         // Load the next location so that the music starts, otherwise there's an awkward pause.
         gameState.LoadNextLocation();
 
-
-        // Heal all surviving companions by a certain amount.
-        if (isEliteCombat)
-        {
-            foreach (Companion companion in gameState.companions.activeCompanions)
-            {
-                if (companion.combatStats.currentHealth > 0)
-                {
-                    companion.combatStats.Heal(gameState.baseShopData.postEliteHealingAmount);
-                }
-            }
-            yield return StartCoroutine(
-                CombatEntityManager.Instance.HealAliveCompanions(encounterConstants.companionRevivePrefab, 0.2f)
-            );
-        }
-
         List<Companion> revivedCompanions = new List<Companion>();
         // Revive all companions that died during combat to death's door.
         foreach (Companion companion in gameState.companions.allCompanions)
@@ -198,6 +182,21 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
 
         yield return StartCoroutine(CombatEntityManager.Instance.ReviveCompanions(revivedCompanions, encounterConstants.companionRevivePrefab, 0.5f));
 
+
+        // Heal all surviving companions by a certain amount for elite combats.
+        if (isEliteCombat)
+        {
+            foreach (Companion companion in gameState.companions.activeCompanions)
+            {
+                if (companion.combatStats.currentHealth > 0)
+                {
+                    companion.combatStats.Heal(gameState.baseShopData.postEliteHealingAmount);
+                }
+            }
+            yield return StartCoroutine(
+                CombatEntityManager.Instance.HealAliveCompanions(encounterConstants.companionRevivePrefab, 0.2f)
+            );
+        }
 
         EnemyEncounterViewModel.Instance.SetInMenu(true);
         postCombatUI.SetActive(true);
