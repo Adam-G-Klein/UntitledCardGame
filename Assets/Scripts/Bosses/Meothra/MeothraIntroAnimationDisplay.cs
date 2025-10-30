@@ -74,4 +74,9 @@ public class MeothraIntroAnimationDisplay : MonoBehaviour
         EnemyEncounterManager.Instance.CinematicIntroComplete();
     }
 
+    public void DestroyMapAndEnemyUI()
+    {
+        EnemyEncounterManager.Instance.combatEncounterView.DestroyMapAndEnemyUI();
+    }
+
 }

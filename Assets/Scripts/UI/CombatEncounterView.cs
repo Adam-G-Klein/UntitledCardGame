@@ -52,7 +52,7 @@ public class CombatEncounterView : MonoBehaviour,
     private Dictionary<CombatInstance, EnemyView> combatInstanceToEnemyView;
     private bool bossFight = false;
 
-    public void SetupFromGamestate(EnemyEncounterManager enemyEncounterManager)
+    public void SetupFromGamestate(EnemyEncounterManager enemyEncounterManager, bool skipMapSetup = false, bool skipEnemySetup = false)
     {
         this.enemyEncounterManager = enemyEncounterManager;
         docRenderer = gameObject.GetComponent<UIDocumentScreenspace>();
@@ -75,7 +75,10 @@ public class CombatEncounterView : MonoBehaviour,
         }
         List<Enemy> enemies = ((EnemyEncounter)gameState.activeEncounter.GetValue()).enemyList;
         List<Companion> companions = gameState.companions.activeCompanions;
-        setupEnemies(root.Q<VisualElement>("enemyContainer"), enemies.Cast<IUIEntity>());
+        if (!skipEnemySetup)
+        {
+            setupEnemies(root.Q<VisualElement>("enemyContainer"), enemies.Cast<IUIEntity>());
+        }
         SetupCompanions(root.Q<VisualElement>("companionContainer"), companions);
         UIDocumentUtils.SetAllPickingMode(root, PickingMode.Ignore);
 
@@ -87,13 +90,15 @@ public class CombatEncounterView : MonoBehaviour,
         ControlsManager.Instance.RegisterIconChanger(endTurnButton);
 
         setupComplete = true;
+        // for the boss fight
         VisualElement mapRoot = root.Q("mapRoot");
         mapRoot.Clear();
-        // Set in SetupEnemies while we're iterating and checking the enemies
-        // TODO: remove the map view after the boss explosion
-        mapView = new MapView(enemyEncounterManager);
-        mapView.mapContainer.Q<Label>("money-indicator-label").text = gameState.playerData.GetValue().gold.ToString() + "$";
-        mapRoot.Add(mapView.mapContainer);
+        if (!skipMapSetup)
+        {
+            mapView = new MapView(enemyEncounterManager);
+            mapView.mapContainer.Q<Label>("money-indicator-label").text = gameState.playerData.GetValue().gold.ToString() + "$";
+            mapRoot.Add(mapView.mapContainer);
+        }
 
         cardInHandSelectionView = new CardInHandSelectionView(uiDoc, root.Q<VisualElement>("card-in-hand-selection-view"));
 
@@ -105,6 +110,11 @@ public class CombatEncounterView : MonoBehaviour,
             ControlsManager.Instance.GetSpriteForGFGAction(GFGInputAction.OPEN_MULTI_DECK_VIEW));
         ControlsManager.Instance.RegisterIconChanger(deckViewButton);
         deckViewButton.pickingMode = PickingMode.Position;
+    }
+
+    public void DestroyMapAndEnemyUI()
+    {
+        SetupFromGamestate(enemyEncounterManager, true, true);
     }
 
     /*
