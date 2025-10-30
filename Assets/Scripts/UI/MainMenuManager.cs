@@ -50,6 +50,7 @@ public class MainMenuManager : MonoBehaviour
         if (gameState.buildType == BuildType.DEMO) {
             mainMenuUIDocument.rootVisualElement.Q<Label>("game-isnt-fully-done-label").style.display = DisplayStyle.Flex;
             mainMenuUIDocument.rootVisualElement.Q<Button>("wishlistButton").style.display = DisplayStyle.Flex;
+            mainMenuUIDocument.rootVisualElement.Q<Button>("wishlistButton").clicked += VisitSteamPageHandler;
         }
 
         startButton.RegisterOnSelected(startButtonHandler);
@@ -97,5 +98,9 @@ public class MainMenuManager : MonoBehaviour
             return;
         }
         Application.Quit();
+    }
+
+    private void VisitSteamPageHandler() {
+        Application.OpenURL("https://store.steampowered.com/app/3931980/Rite_of_the_Dealer/");
     }
 }
