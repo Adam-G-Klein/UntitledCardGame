@@ -19,30 +19,31 @@ public static class VisualElementExtensions
         element.focusable = true;
     }
 
-    public static void RegisterOnSelected(this VisualElement element, Action action) {
+    public static void RegisterOnSelected(this VisualElement element, Action action, bool playfx = true) {
         element.RegisterCallback<ClickEvent>(evt => {
             action();
             if (evt.pointerType == "mouse") {
                 element.schedule.Execute(() => element.Blur()).ExecuteLater(10);
             }
-            OnSelectedTween(element);
+            if (playfx) OnSelectedTween(element);
         });
         element.RegisterCallback<NavigationSubmitEvent>(evt => {
             action();
-            OnSelectedTween(element);
+            if (playfx) OnSelectedTween(element);
         });
     }
 
-    public static void RegisterOnSelected(this VisualElement element, Action<ClickEvent> action) {
+    public static void RegisterOnSelected(this VisualElement element, Action<ClickEvent> action, bool playfx = true) {
         element.RegisterCallback<ClickEvent>(evt => {
             action(evt);
             if (evt.pointerType == "mouse") {
                 element.schedule.Execute(() => element.Blur()).ExecuteLater(10);
             }
+            if (playfx) OnSelectedTween(element);
         });
         element.RegisterCallback<NavigationSubmitEvent>(evt => {
             action(element.CreateFakeClickEvent());
-            OnSelectedTween(element);
+            if (playfx) OnSelectedTween(element);
         });
     }
 

@@ -24,7 +24,7 @@ public class TeamSelectionUI : MonoBehaviour, ICompanionViewDelegate
 
     public UIDocumentScreenspace docRenderer;
 
-    private List<CompanionView> companionViews = new List<CompanionView>();
+    private List<CompanionViewNew> companionViews = new List<CompanionViewNew>();
 
     private void Start()
     {
@@ -80,11 +80,11 @@ public class TeamSelectionUI : MonoBehaviour, ICompanionViewDelegate
     private void InitializeCompanions(List<Companion> companions) {
         VisualElement companionContainer =  root.Q<VisualElement>("CompanionPortaitsContainer");
         foreach (Companion companion in companions) {
-            CompanionView companionView = new CompanionView(
+            CompanionViewNew companionView = new CompanionViewNew(
                     companion,
-                    EncounterConstantsSingleton.Instance.encounterConstantsSO.companionViewTemplate,
+                    EncounterConstantsSingleton.Instance.encounterConstantsSO.companionViewNewTemplate,
                     0,
-                    CompanionView.SHOP_CONTEXT,
+                    CompanionViewNew.SHOP_CONTEXT,
                     this);
             companionView.ScaleView(1.3f);
             companionContainer.Add(companionView.container);

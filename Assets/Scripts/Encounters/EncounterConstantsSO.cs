@@ -22,6 +22,7 @@ public class EncounterConstantsSO : ScriptableObject {
     public GameObject randomBackgroundPrefab;
     [Header("Misc")]
     public VisualTreeAsset companionViewTemplate;
+    public VisualTreeAsset companionViewNewTemplate;
     public CardType cardGeneratedByOrb;
     public GameObject cardDrawVFXPrefab;
     public Sprite genericCardCompanionTypeSprite;
