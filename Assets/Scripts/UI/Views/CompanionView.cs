@@ -261,7 +261,7 @@ public class CompanionView : IUIEventReceiver
     }
 
     private void SetupMainContainer() {
-        this.container.RegisterOnSelected(() => ContainerPointerClick(null));
+        this.container.RegisterOnSelected(() => ContainerPointerClick(null), false);
         this.container.RegisterCallback<PointerEnterEvent>(ContainerPointerEnter);
         this.container.RegisterCallback<PointerLeaveEvent>(ContainerPointerLeave);
 
