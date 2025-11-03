@@ -68,7 +68,7 @@ MonoBehaviour:
     - title: '>:('
       description: Big attack
       relatedBehaviorIndex: 2
-  DEADLIER_ENEMY_BONUS_STR: -1
+  DEADLIER_ENEMY_BONUS_STR: 5
   HEALTHIER_ENEMY_BONUS_HEALTH: 5
   references:
     version: 2
@@ -84,7 +84,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: self
         statusEffect: 0
-        scale: 6
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
