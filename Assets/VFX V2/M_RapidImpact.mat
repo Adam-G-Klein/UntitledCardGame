@@ -44,8 +44,8 @@ Material:
         m_Scale: {x: 0.1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Distortion_Tex:
-        m_Texture: {fileID: 2800000, guid: 0009a37dcf5808e4fbf074aeca753987, type: 3}
-        m_Scale: {x: 1, y: 1}
+        m_Texture: {fileID: 2800000, guid: 79510919aa73bdf40beff4c7a9322b2b, type: 3}
+        m_Scale: {x: 0.1, y: 0.1}
         m_Offset: {x: 0, y: 0}
     - _FadeTexture:
         m_Texture: {fileID: 2800000, guid: d50569c4e8032c3408b54117313f5ff2, type: 3}
@@ -69,6 +69,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _Mask_Tex:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OverlayTex:
+        m_Texture: {fileID: 2800000, guid: 2a65b923cce726d48ae361548a3d2f01, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _UV_Distorion_Mask_Tex:
@@ -98,7 +102,7 @@ Material:
     - _Cutoff_Value: 0
     - _Dissolve_Amount: 0
     - _Distort_the_Mask: 0
-    - _Distortion_Strength: 0
+    - _Distortion_Strength: 0.05
     - _DstBlend: 10
     - _Fade_Tex_Dissolve_Amount: 0
     - _Fade_Tex_Pow: 1
@@ -110,6 +114,7 @@ Material:
     - _Mask_Power: 1
     - _Mask_Strength: 0
     - _Not_using_Dist_in_Custom_Data: 1
+    - _Overlay_Strength: 0.9
     - _Partcle_System: 1
     - _QueueControl: 0
     - _QueueOffset: 0
@@ -120,6 +125,7 @@ Material:
     - _Use_Cutoff: 1
     - _Use_Fade_Tex_Instead: 1
     - _Use_Lerp: 1
+    - _Use_Overlay_0_No: 1
     - _Use_Radial: 1
     - _Use_Soft_Sides: 0
     - _Vertex_Displacement_Strength: 0
@@ -131,7 +137,7 @@ Material:
     - _Colour_A: {r: 1, g: 1, b: 1, a: 1}
     - _Colour_B: {r: 1, g: 0, b: 0, a: 1}
     - _Dissolve_Speed: {r: -0.1, g: 0, b: 0, a: 0}
-    - _Distortion_Speed: {r: 0.1, g: 0, b: 0, a: 0}
+    - _Distortion_Speed: {r: -0.1, g: 0, b: 0, a: 0}
     - _Fade_Tex_Speed: {r: -0.05, g: 0, b: 0, a: 0}
     - _Fresnel_Color: {r: 1, g: 1, b: 1, a: 0}
     - _Fresnel_Speed: {r: 0, g: 0, b: 0, a: 0}
@@ -139,5 +145,6 @@ Material:
     - _Main_Tex_Colour: {r: 47.937256, g: 47.937256, b: 47.937256, a: 1}
     - _Main_Text_Scroll_Speed: {r: 0, g: 0, b: 0, a: 0}
     - _Mask_Scroll_Speed: {r: 0, g: 0, b: 0, a: 0}
+    - _Overlay_Speed: {r: 0, g: 0, b: 0, a: 0}
     - _Vertex_Displacement_Speed: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

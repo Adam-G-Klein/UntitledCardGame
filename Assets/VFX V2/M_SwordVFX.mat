@@ -31,8 +31,8 @@ Material:
         m_Scale: {x: 0.1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Distortion_Tex:
-        m_Texture: {fileID: 2800000, guid: 08ba110c5e7cb234eae631e06b1d6b90, type: 3}
-        m_Scale: {x: 1, y: 1}
+        m_Texture: {fileID: 2800000, guid: 79510919aa73bdf40beff4c7a9322b2b, type: 3}
+        m_Scale: {x: 0.87, y: 1}
         m_Offset: {x: 0, y: 0}
     - _FadeTexture:
         m_Texture: {fileID: 2800000, guid: 79510919aa73bdf40beff4c7a9322b2b, type: 3}
@@ -59,11 +59,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OverlayTex:
-        m_Texture: {fileID: 2800000, guid: 79510919aa73bdf40beff4c7a9322b2b, type: 3}
-        m_Scale: {x: 1, y: 1}
+        m_Texture: {fileID: 2800000, guid: 2a65b923cce726d48ae361548a3d2f01, type: 3}
+        m_Scale: {x: 1, y: 1.25}
         m_Offset: {x: 0, y: 0}
     - _UV_Distorion_Mask_Tex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 24aafb5b9c6fdd94fba2143d92dc0ee3, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -98,9 +98,9 @@ Material:
     - _Intensity: 3.24
     - _Mask_Animation: 0
     - _Mask_Power: 1
-    - _Mask_Strength: 0
+    - _Mask_Strength: 0.3
     - _Not_using_Dist_in_Custom_Data: 1
-    - _Overlay_Strength: 0.17
+    - _Overlay_Strength: 0.12
     - _Partcle_System: 1
     - _QueueControl: 0
     - _QueueOffset: 0
@@ -131,7 +131,7 @@ Material:
     - _Main_Tex_Colour: {r: 47.937256, g: 47.937256, b: 47.937256, a: 1}
     - _Main_Text_Scroll_Speed: {r: 0, g: 0, b: 0, a: 0}
     - _Mask_Scroll_Speed: {r: 0, g: 0, b: 0, a: 0}
-    - _Overlay_Speed: {r: -0.015, g: 0, b: 0, a: 0}
+    - _Overlay_Speed: {r: 0.015, g: 0, b: 0, a: 0}
     - _Scroll_Speed: {r: 0, g: 0, b: 0, a: 0}
     - _Vertex_Displacement_Speed: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

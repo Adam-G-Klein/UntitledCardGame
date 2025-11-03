@@ -44,8 +44,8 @@ Material:
         m_Scale: {x: 3, y: 3}
         m_Offset: {x: 0, y: 0}
     - _Distortion_Tex:
-        m_Texture: {fileID: 2800000, guid: 8e4ab3c3dfd12ff4795f9cd7afd1bb1a, type: 3}
-        m_Scale: {x: 1, y: 1}
+        m_Texture: {fileID: 2800000, guid: 79510919aa73bdf40beff4c7a9322b2b, type: 3}
+        m_Scale: {x: 2, y: 2}
         m_Offset: {x: 0, y: 0}
     - _FadeTexture:
         m_Texture: {fileID: 2800000, guid: 24aafb5b9c6fdd94fba2143d92dc0ee3, type: 3}
@@ -69,6 +69,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _Mask_Tex:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OverlayTex:
+        m_Texture: {fileID: 2800000, guid: 2a65b923cce726d48ae361548a3d2f01, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _UV_Distorion_Mask_Tex:
@@ -99,7 +103,7 @@ Material:
     - _Dissolve_Amount: 0
     - _Distorion_in_Custom_Data: 0
     - _Distort_the_Mask: 0
-    - _Distortion_Strength: 0
+    - _Distortion_Strength: -0.03
     - _DstBlend: 1
     - _Fade_Tex_Dissolve_Amount: 0
     - _Fade_Tex_Pow: 1
@@ -109,8 +113,9 @@ Material:
     - _Intensity: 0
     - _Mask_Animation: 0
     - _Mask_Power: 0.33
-    - _Mask_Strength: 0
+    - _Mask_Strength: 1.67
     - _Not_using_Dist_in_Custom_Data: 1
+    - _Overlay_Strength: 0.73
     - _Partcle_System: 1
     - _QueueControl: 0
     - _QueueOffset: 0
@@ -121,6 +126,7 @@ Material:
     - _Use_Cutoff: 1
     - _Use_Fade_Tex_Instead: 1
     - _Use_Lerp: 0
+    - _Use_Overlay_0_No: 1
     - _Use_Radial: 0
     - _Use_Soft_Sides: 0
     - _Vertex_Displacement_Strength: 0
@@ -132,7 +138,7 @@ Material:
     - _Colour_A: {r: 1, g: 1, b: 1, a: 0}
     - _Colour_B: {r: 1, g: 0, b: 0, a: 0}
     - _Dissolve_Speed: {r: 0, g: 0, b: 0, a: 0}
-    - _Distortion_Speed: {r: 0.05, g: 0, b: 0, a: 0}
+    - _Distortion_Speed: {r: 0.015, g: 0, b: 0, a: 0}
     - _Fade_Tex_Speed: {r: 0, g: 0, b: 0, a: 0}
     - _Fresnel_Color: {r: 1, g: 1, b: 1, a: 0}
     - _Fresnel_Speed: {r: 0, g: 0, b: 0, a: 0}
@@ -140,6 +146,7 @@ Material:
     - _Main_Tex_Colour: {r: 8, g: 8, b: 8, a: 1}
     - _Main_Text_Scroll_Speed: {r: 0, g: 0, b: 0, a: 0}
     - _Mask_Scroll_Speed: {r: 0, g: 0, b: 0, a: 0}
+    - _Overlay_Speed: {r: 0.015, g: 0, b: 0, a: 0}
     - _Scroll_Speed: {r: 0, g: 0, b: 0, a: 0}
     - _VFX: {r: 0, g: 0, b: 0, a: 0}
     - _Vertex_Displacement_Speed: {r: 0, g: 0, b: 0, a: 0}
