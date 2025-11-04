@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerType: 33
   title: Irresistable Vitability
-  description: Whenever a companion gains block, if self below half HP, deal 3 damage
+  description: Whenever a companion gains block, if self below half HP, deal 2 damage
     to a random enemy
   abilities:
   - rid: 2511001254715195846
@@ -77,8 +77,8 @@ MonoBehaviour:
       data:
         effectStepName: CombatEffectStep
         inputKey: enemy
-        combatEffect: 0
-        scale: 3
+        combatEffect: 14
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1

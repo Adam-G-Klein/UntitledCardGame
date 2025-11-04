@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerType: 6
   title: Witchwork
-  description: End of turn, double the damage of all Status cards in hand
+  description: End of turn, give all Status cards in hand +5 damage
   abilities:
   - rid: 754093991137640772
   displaySprite: {fileID: 21300000, guid: 06c409edcf5e308438ea9c89ccd99c68, type: 3}
@@ -64,12 +64,12 @@ MonoBehaviour:
       data:
         effectStepName: CardModificationEffect
         inputKey: statusCards
-        scale: 1
+        scale: 5
         affectsAllCardsOfType: 0
         cardTypeToModify: {fileID: 0}
         getScaleFromKey: 0
         scaleKey: 
-        modification: 1
+        modification: 0
     - rid: 754093991137641211
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:

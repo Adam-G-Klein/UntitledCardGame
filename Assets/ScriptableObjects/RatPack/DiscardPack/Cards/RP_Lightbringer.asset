@@ -14,11 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: d647fd77-9022-40e3-9cc8-5b6ac6aeddb0
   Name: Lightbringer
-  Description: Deal {rpl_damage} damage to target enemy. If you have 3 or less cards
-    in hand, increase the damage of all Attack cards in this deck by 2
+  Description: Deal {rpl_damage} damage & if you have 3 or less cards in hand, deal
+    {rpl_damage_2} damage
   defaultValues:
   - key: rpl_damage
     value: 10
+  - key: rpl_damage_2
+    value: 15
   Cost: 2
   Artwork: {fileID: 21300000, guid: 9c7b553a4a5050646818dbc514a54e9a, type: 3}
   cardCategory: 1
@@ -65,13 +67,20 @@ MonoBehaviour:
         - rid: 8034949928137261275
         - rid: 8034949928137261276
         - rid: 8034949928137261277
-        - rid: 8034949928137261279
-        - rid: 8034949928137261278
-        - rid: 8034949928137261284
-        - rid: 8034949928137261280
-        - rid: 8034949928137261283
-        - rid: 8034949928137261281
-        - rid: 8034949928137261282
+        - rid: 5633447986213158970
+    - rid: 5633447986213158970
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: enemy
+        combatEffect: 0
+        scale: 15
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 1320532642761013391, guid: 99a456f94890391478f393fcc8ad0b95, type: 3}
     - rid: 7401433308100034878
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
@@ -118,69 +127,3 @@ MonoBehaviour:
         effectStepName: EndWorkflowIfConditionMet
         inputKey1: lessThan3
         conditionToEndOn: 0
-    - rid: 8034949928137261278
-      type: {class: GetCardsFromDeck, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetCardsFromDeck
-        inputKey: self
-        getLimitedNumber: 0
-        numberOfCardsToGet: 1
-        shuffleIfEmpty: 0
-        outputKey: allCards
-        getAllCardsFromEntities: 1
-        getCardsFromSourceDeck: 0
-        getAllFromOnlyDrawPile: 0
-    - rid: 8034949928137261279
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: self
-        validTargets: 
-        number: 1
-        specialTargetRule: 4
-        cantCancelTargetting: 0
-    - rid: 8034949928137261280
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: thisCard
-        validTargets: 
-        number: 1
-        specialTargetRule: 3
-        cantCancelTargetting: 0
-    - rid: 8034949928137261281
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: thisCard
-        prefabToInstantiate: {fileID: 3850217184923880746, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
-        scale: 1
-    - rid: 8034949928137261282
-      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: WaitForSecondsEffect
-        seconds: 0.5
-    - rid: 8034949928137261283
-      type: {class: CardModificationEffect, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CardModificationEffect
-        inputKey: attacks
-        scale: 2
-        affectsAllCardsOfType: 0
-        cardTypeToModify: {fileID: 0}
-        getScaleFromKey: 0
-        scaleKey: 
-        modification: 0
-    - rid: 8034949928137261284
-      type: {class: FilterCards, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: FilterCards
-        inputKey: allCards
-        filter:
-          cardCategoriesToInclude: 01000000
-          generatedCardsFilter: 0
-        outputKey: attacks
