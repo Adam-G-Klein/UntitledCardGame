@@ -97,7 +97,7 @@ public class CardView {
 
         Label companionNameLabel = container.Q<Label>("companionNameLabel");
         if (!cardInShop) companionNameLabel.AddToClassList("card-type-label-large");
-        if (packSO != null)
+        /*if (packSO != null)
         {
             container.Q("cardBackground").style.backgroundColor = packSO.packColor;
             companionNameLabel.text = packSO.packName + " Pack";
@@ -111,7 +111,7 @@ public class CardView {
         {
             companionNameLabel.text = "ANY";
             companionNameLabel.AddToClassList("card-type-label-any");
-        }
+        }*/
 
         Label cardTypeLabel = container.Q<Label>("cardTypeLabel");
         cardTypeLabel.text = cardTypeLabel.text = System.Text.RegularExpressions.Regex.Replace(

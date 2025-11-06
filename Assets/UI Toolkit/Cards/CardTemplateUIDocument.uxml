@@ -9,11 +9,11 @@
         <ui:Label tabindex="-1" text="homoestasis&#10;at home" display-tooltip-when-elided="true" name="cardName" class="card-title-label" style="-unity-font: resource(&apos;fonts/static/Jost-Medium&apos;); -unity-font-style: bold;" />
         <ui:Label tabindex="-1" text="Deal 2 damage for each card in your hand (x cards)." display-tooltip-when-elided="true" name="cardDesc" class="card-desc-label" style="-unity-font: resource(&apos;fonts/static/Jost-Medium&apos;); padding-right: 0; padding-left: 0; left: 19%;" />
         <ui:Label tabindex="-1" text="1" display-tooltip-when-elided="true" name="manaLabel" class="mana-card-label" />
-        <ui:VisualElement style="flex-grow: 1; position: absolute; width: 100%; align-items: center; bottom: 11%; height: 17%; left: 1%;">
-            <ui:VisualElement name="VisualElement" class="card-text-box">
+        <ui:VisualElement style="flex-grow: 1; position: absolute; width: 100%; align-items: center; bottom: 10.5%; height: 8.5%; left: 0.9%;">
+            <ui:VisualElement name="VisualElement" class="card-text-box" style="height: 100%;">
                 <ui:Label tabindex="-1" text="status" parse-escape-sequences="true" display-tooltip-when-elided="true" name="cardTypeLabel" class="card-text-box-label" style="margin-bottom: 0; margin-top: 0;" />
             </ui:VisualElement>
-            <ui:VisualElement name="VisualElement" class="card-text-box">
+            <ui:VisualElement name="VisualElement" class="card-text-box" style="display: none; visibility: hidden;">
                 <ui:Label tabindex="-1" text="chunkrat" parse-escape-sequences="true" display-tooltip-when-elided="true" name="companionNameLabel" class="card-text-box-label" style="background-color: rgb(0, 0, 0);" />
             </ui:VisualElement>
         </ui:VisualElement>
