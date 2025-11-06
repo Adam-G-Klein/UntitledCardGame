@@ -49,7 +49,8 @@ Shader "Signified/PostCombatUIDocumentRenderTarget"
                 fixed4 col;
                 col = tex2D(_MainTex, i.uv);
                 if(col.a == 0) discard;
-                col = fixed4(col.r, col.g, col.b, _alpha);
+                //col = fixed4(col.r, col.g, col.b, _alpha);
+                col.a *= _alpha;
                 return col;
             }
             ENDCG
