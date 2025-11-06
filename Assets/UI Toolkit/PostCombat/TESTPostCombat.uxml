@@ -29,7 +29,7 @@
                         <ui:VisualElement name="horizontlLineBreak" style="flex-grow: 1; margin-top: 3%; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px; width: 70%; align-items: center; margin-bottom: 3%;" />
                     </ui:VisualElement>
                     <ui:VisualElement class="combat-rewards-section" style="flex-direction: row; justify-content: space-between;">
-                        <ui:Label tabindex="-1" text="Upgrade Shards Earned:" display-tooltip-when-elided="true" name="upgradeIncrementsLabel" class="post-combat-text" style="margin-left: 20px;" />
+                        <ui:Label tabindex="-1" text="RP Earned:" display-tooltip-when-elided="true" name="upgradeIncrementsLabel" class="post-combat-text" style="margin-left: 20px;" />
                         <ui:Label tabindex="-1" text="1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="upgradeIncrementsEarned" class="post-combat-text" style="margin-right: 20px; font-size: 28px;" />
                     </ui:VisualElement>
                 </ui:VisualElement>
