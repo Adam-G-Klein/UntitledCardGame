@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -294,6 +293,7 @@ public class CompanionView : IUIEventReceiver
 
     private void SetupName() {
         this.name.text = this.companion.GetName();
+        this.name.style.fontSize = context.nameFontSize;
     }
 
     private void SetupCompanionSprite() {
@@ -483,28 +483,31 @@ public class CompanionView : IUIEventReceiver
         public bool setupDrawDiscardButtons;
         public bool setupViewDeckButton;
         public bool enableSelectedIndicator;
+        public int nameFontSize;
         public float screenWidthPercent;
 
         public CompanionViewContext(
                 bool setupDrawDiscardButtons,
                 bool setupViewDeckButton,
                 bool enableSelectedIndicator,
+                int nameFontSize,
                 float screenWidthPercent) {
             this.setupDrawDiscardButtons = setupDrawDiscardButtons;
             this.setupViewDeckButton = setupViewDeckButton;
             this.enableSelectedIndicator = enableSelectedIndicator;
+            this.nameFontSize = nameFontSize;
             this.screenWidthPercent = screenWidthPercent;
         }
     }
 
     public static CompanionViewContext COMBAT_CONTEXT = new CompanionViewContext(
-        true, false, true, 0.15f);
+        true, false, true, 26, 0.15f);
     public static CompanionViewContext SHOP_CONTEXT = new CompanionViewContext(
-        false, true, false, 0.15f * .75f);
+        false, true, false, 18, 0.15f * .75f);
     public static CompanionViewContext COMPENDIUM_CONTEXT = new CompanionViewContext(
-        false, false, false, 0.2f);
+        false, false, false, 26, 0.2f);
     public static CompanionViewContext CARD_SELECTION_CONTEXT = new CompanionViewContext(
-        false, false, true, 0.2f);
+        false, false, true, 26, 0.2f);
     public static CompanionViewContext COMPANION_UPGRADE_CONTEXT = new CompanionViewContext(
-        false, false, false, 0.15f);
+        false, false, false, 21, 0.15f);
 }
