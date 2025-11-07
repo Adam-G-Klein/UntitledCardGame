@@ -348,8 +348,8 @@ public class ShopViewController : MonoBehaviour,
         CompanionMoveAnimation(startPoint, endPoint, shopItemView.shopItemElement, isUpgrade, delay, onComplete);
 
         CompanionView companionView = shopItemView.GetCompanionView();
-        float widthRatio = CompanionView.UNIT_MNGMT_CONTEXT.screenWidthPercent / CompanionView.SHOP_CONTEXT.screenWidthPercent;
-        float heightRatio = (CompanionView.UNIT_MNGMT_CONTEXT.screenWidthPercent / CompanionView.UNIT_MNGMT_CONTEXT.aspectRatio) / (CompanionView.SHOP_CONTEXT.screenWidthPercent / CompanionView.SHOP_CONTEXT.aspectRatio);
+        float widthRatio = CompanionViewOld.UNIT_MNGMT_CONTEXT.screenWidthPercent / CompanionViewOld.SHOP_CONTEXT.screenWidthPercent;
+        float heightRatio = (CompanionViewOld.UNIT_MNGMT_CONTEXT.screenWidthPercent / CompanionViewOld.UNIT_MNGMT_CONTEXT.aspectRatio) / (CompanionViewOld.SHOP_CONTEXT.screenWidthPercent / CompanionViewOld.SHOP_CONTEXT.aspectRatio);
         float initialWidth = companionView.container.resolvedStyle.width;
         float initialHeight = companionView.container.resolvedStyle.height;
 
@@ -448,7 +448,7 @@ public class ShopViewController : MonoBehaviour,
         Companion companion = upgradeInfo.resultingCompanion;
         CompanionManagementView upgradedCompanion = new CompanionManagementView(
             companion,
-            shopManager.encounterConstants.companionViewTemplate,
+            shopManager.encounterConstants.companionViewTemplateOld,
             this);
         upgradedCompanion.container.style.visibility = Visibility.Hidden;
         upgradedCompanion.container.style.top = -100f;
@@ -823,7 +823,7 @@ public class ShopViewController : MonoBehaviour,
         for (int i = 0; i < companions.Count; i++) {
             CompanionManagementView companionView = new CompanionManagementView(
                     companions[i],
-                    shopManager.encounterConstants.companionViewTemplate,
+                    shopManager.encounterConstants.companionViewTemplateOld,
                     this);
             activeSlots[i].InsertCompanion(companionView);
         }
@@ -834,7 +834,7 @@ public class ShopViewController : MonoBehaviour,
         for (int i = 0; i < companions.Count; i++) {
             CompanionManagementView companionView = new CompanionManagementView(
                     companions[i],
-                    shopManager.encounterConstants.companionViewTemplate,
+                    shopManager.encounterConstants.companionViewTemplateOld,
                     this);
             benchSlots[i].InsertCompanion(companionView);
         }
@@ -844,7 +844,7 @@ public class ShopViewController : MonoBehaviour,
     {
         CompanionManagementView companionView = new CompanionManagementView(
             companion,
-            shopManager.encounterConstants.companionViewTemplate,
+            shopManager.encounterConstants.companionViewTemplateOld,
             this);
         companionManagementSlotView.InsertCompanion(companionView);
     }

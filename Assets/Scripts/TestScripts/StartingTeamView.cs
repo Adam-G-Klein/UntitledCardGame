@@ -24,7 +24,7 @@ public class TeamSelectionUI : MonoBehaviour, ICompanionViewDelegate
 
     public UIDocumentScreenspace docRenderer;
 
-    private List<CompanionViewNew> companionViews = new List<CompanionViewNew>();
+    private List<CompanionView> companionViews = new List<CompanionView>();
 
     private void Start()
     {
@@ -80,13 +80,13 @@ public class TeamSelectionUI : MonoBehaviour, ICompanionViewDelegate
     private void InitializeCompanions(List<Companion> companions) {
         VisualElement companionContainer =  root.Q<VisualElement>("CompanionPortaitsContainer");
         foreach (Companion companion in companions) {
-            CompanionViewNew companionView = new CompanionViewNew(
+            CompanionView companionView = new CompanionView(
                     companion,
-                    EncounterConstantsSingleton.Instance.encounterConstantsSO.companionViewNewTemplate,
+                    EncounterConstantsSingleton.Instance.encounterConstantsSO.companionViewTemplate,
                     0,
-                    CompanionViewNew.SHOP_CONTEXT,
+                    CompanionView.SHOP_CONTEXT,
                     this);
-            companionView.ScaleView(1.3f);
+            companionView.ScaleView(1.5f);
             companionContainer.Add(companionView.container);
             companionView.container.RegisterOnFocused(() => tooltipController.DisplayTooltip(companionView.container, companion.companionType.tooltip, TooltipContext.StartingTeam));
             companionView.container.RegisterOnUnfocused(() => tooltipController.DestroyTooltip(companionView.container));
