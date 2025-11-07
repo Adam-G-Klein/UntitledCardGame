@@ -3,10 +3,6 @@ using System;
 using System.Linq;
 using UnityEngine.UIElements;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using FMODUnity;
-using System.ComponentModel;
 
 public class CompanionManagementView : IControlsReceiver {
     public VisualElement container;
@@ -234,7 +230,7 @@ public class CompanionManagementView : IControlsReceiver {
         companionBoundingBox = new VisualElement();
         companionBoundingBox.style.position = Position.Absolute;
         companionBoundingBox.pickingMode = PickingMode.Ignore;
-        float width = container.worldBound.width * 1.5f;
+        float width = container.worldBound.width * 1.1f;
         float height = container.worldBound.height * 1.5f;
         companionBoundingBox.style.width = width;
         companionBoundingBox.style.height = height;
@@ -317,6 +313,26 @@ public class CompanionManagementView : IControlsReceiver {
     public void ResetToNeutral() {
         viewDelegate.DestroyTooltip(container);
         RemoveCompanionHoverButtons();
+    }
+
+    public void UpdateWidthAndHeight(float screenWidthPercent) {
+        Tuple<int, int> entityWidthHeight = GetWidthAndHeight(screenWidthPercent);
+        container.style.width = entityWidthHeight.Item1;
+        container.style.height = entityWidthHeight.Item2;
+    }
+
+    private Tuple<int, int> GetWidthAndHeight(float screenWidthPercent) {
+        int width = (int)(Screen.width * screenWidthPercent);
+
+        // This drove me insane btw
+        #if UNITY_EDITOR
+        UnityEditor.PlayModeWindow.GetRenderingResolution(out uint windowWidth, out uint windowHeight);
+        width = (int)(windowWidth * screenWidthPercent);
+        #endif
+
+        int height = (int) ((float) width * (160f/260f)); // 1:1 aspect ratio
+
+        return new Tuple<int, int>(width, height);
     }
 
     public void ProcessGFGInputAction(GFGInputAction action)

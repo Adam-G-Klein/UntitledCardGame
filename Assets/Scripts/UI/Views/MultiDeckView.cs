@@ -326,10 +326,10 @@ public class MultiDeckView
                 deckViewsContainer.Children().ToList()[i].style.display = DisplayStyle.Flex;
                 VisualElement sectionContainer = deckViewsContainer.Children().ToList()[i];
                 Companion companion = deckViewTab.sections[i].companion;
-                VisualTreeAsset companionTemplate = EncounterConstantsSingleton.Instance.encounterConstantsSO.companionViewTemplate;
-                CompanionView companionView = new CompanionView(companion, companionTemplate, 0, CompanionView.COMPENDIUM_CONTEXT, null);
+                VisualTreeAsset companionTemplate = EncounterConstantsSingleton.Instance.encounterConstantsSO.companionManagementViewTemplate;
+                CompanionManagementView companionView = new CompanionManagementView(companion, companionTemplate, null);
                 companionView.container.AddToClassList("companionView");
-                companionView.ScaleView(.45f);
+                companionView.UpdateWidthAndHeight(.15f);
                 sectionContainer.Q("SectionHeader").Add(companionView.container);
 
                 // Note, this is only valid for during combat. In the shop, we will have no valid combat instance.

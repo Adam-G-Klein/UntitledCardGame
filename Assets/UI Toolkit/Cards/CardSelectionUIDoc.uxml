@@ -4,9 +4,9 @@
     <Style src="project://database/Assets/UI%20Toolkit/Stylesheets/cardSelectionView.uss?fileID=7433441132597879392&amp;guid=5a0eb55a9774f554fbf70e78f3f7dadf&amp;type=3#cardSelectionView" />
     <Style src="project://database/Assets/fontStyling.uss?fileID=7433441132597879392&amp;guid=d0c0881f1c32747ecb649373600de095&amp;type=3#fontStyling" />
     <Style src="project://database/Assets/UI%20Toolkit/Stylesheets/CompanionView.uss?fileID=7433441132597879392&amp;guid=e88b44cda41b13242a23fc01cc51bd01&amp;type=3#CompanionView" />
-    <ui:VisualElement style="flex-grow: 1; background-color: rgb(107, 107, 107);">
+    <ui:VisualElement style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Sprites/UI/CombatRewardsBackground%20(1).png?fileID=2800000&amp;guid=22d02968a50274729a4f4335573f045b&amp;type=3#CombatRewardsBackground (1)&quot;);">
         <ui:VisualElement name="companion-area" style="flex-grow: 0; height: 30%; display: flex; align-items: center; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-bottom-width: 4px;">
-            <ui:Label tabindex="-1" text="Companion Description Text" parse-escape-sequences="true" display-tooltip-when-elided="true" name="companion-description-text" style="font-size: 26px;" />
+            <ui:Label tabindex="-1" text="Companion Description Text" parse-escape-sequences="true" display-tooltip-when-elided="true" name="companion-description-text" style="font-size: 26px; color: rgb(255, 255, 255);" />
         </ui:VisualElement>
         <ui:VisualElement style="flex-grow: 1; height: 60%;">
             <ui:ScrollView vertical-scroller-visibility="AlwaysVisible" name="card-scroll-view" horizontal-scroller-visibility="Hidden" style="flex-grow: 1; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0);">
@@ -14,8 +14,8 @@
             </ui:ScrollView>
         </ui:VisualElement>
         <ui:VisualElement style="flex-grow: 0; height: 10%; align-items: center; flex-direction: row; justify-content: center;">
-            <ui:Label tabindex="-1" text="Please select 1 card." parse-escape-sequences="true" display-tooltip-when-elided="true" name="prompt-text-label" style="font-size: 30px; margin-right: 5%;" />
-            <ui:Button text="Confirm" parse-escape-sequences="true" display-tooltip-when-elided="true" name="confirm-exit-button" class="focusable exit-button" style="font-size: 30px; margin-left: 5%; flex-shrink: 1;" />
+            <ui:Label tabindex="-1" text="Please select 1 card." parse-escape-sequences="true" display-tooltip-when-elided="true" name="prompt-text-label" style="font-size: 30px; margin-right: 5%; color: rgb(255, 255, 255); height: 90%; flex-wrap: nowrap; max-width: 80%; white-space: normal;" />
+            <ui:Button text="Confirm" parse-escape-sequences="true" display-tooltip-when-elided="true" name="confirm-exit-button" class="focusable exit-button" style="font-size: 30px; margin-left: 5%; flex-shrink: 1; background-image: url(&quot;project://database/Assets/Sprites/UI/TrimmedPlainButton.png?fileID=2800000&amp;guid=85a91730dc15b6f47b0a0f5923d2e07e&amp;type=3#TrimmedPlainButton&quot;); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; background-color: rgba(188, 188, 188, 0); flex-grow: 0; width: 10%;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

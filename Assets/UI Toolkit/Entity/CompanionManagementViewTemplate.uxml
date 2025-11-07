@@ -1,5 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:VisualElement style="flex-grow: 1; justify-content: flex-end; align-items: center; height: 100%; width: 100%;">
+    <ui:VisualElement style="justify-content: flex-end; align-items: center; height: 100%; width: 100%;">
         <ui:VisualElement name="management-view-sprite" style="flex-grow: 1; position: absolute; background-image: url(&quot;project://database/Assets/Sprites/MagWest25Art/Bidoof.png?fileID=2800000&amp;guid=dbf53e25030e1f04ba35841bc35f0dc1&amp;type=3#Bidoof&quot;); width: 66%; height: 100%; align-self: center;" />
         <ui:VisualElement name="management-view-frame" style="background-image: none; height: 46%; width: 90%;">
             <ui:VisualElement name="management-view-bronze-frame" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Sprites/entityFrames/Companion/bronzeframetexturefill.png?fileID=2800000&amp;guid=59186e2f96f0b0240a6f5b645de10fc2&amp;type=3#bronzeframetexturefill&quot;); position: absolute; width: 100%; height: 100%;" />
