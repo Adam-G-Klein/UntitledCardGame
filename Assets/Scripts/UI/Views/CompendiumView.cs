@@ -79,7 +79,7 @@ public class CompendiumView : MonoBehaviour, IControlsReceiver {
     }
 
     public void ExitButtonHandler() {
-        uiDocument.rootVisualElement.style.visibility = Visibility.Hidden;
+        uiDocument.rootVisualElement.style.display = DisplayStyle.None;
         FocusManager.Instance.UnregisterFocusables(uiDocument);
         FocusManager.Instance.UnstashFocusables(this.GetType().Name);
         ControlsManager.Instance.UnregisterControlsReceiver(this);

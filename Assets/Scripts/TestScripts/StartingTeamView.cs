@@ -84,7 +84,7 @@ public class TeamSelectionUI : MonoBehaviour, ICompanionViewDelegate
                     companion,
                     EncounterConstantsSingleton.Instance.encounterConstantsSO.companionViewTemplate,
                     0,
-                    CompanionView.SHOP_CONTEXT,
+                    CompanionView.STARTING_TEAM_CONTEXT,
                     this);
             companionView.ScaleView(1.5f);
             companionContainer.Add(companionView.container);

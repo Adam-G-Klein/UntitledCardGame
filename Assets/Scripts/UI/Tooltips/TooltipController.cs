@@ -85,7 +85,7 @@ public class TooltipController {
             break;
 
             case TooltipContext.CompanionManagementView:
-                xTooltipPos = element.worldBound.center.x - (element.resolvedStyle.width * 1.25f);
+                xTooltipPos = element.worldBound.center.x - (element.resolvedStyle.width * 1f);
                 yTooltipPos = element.worldBound.center.y + (element.resolvedStyle.height * .4f);
                 position = UIDocumentGameObjectPlacer.GetWorldPositionFromUIDocumentPosition(new Vector3(xTooltipPos, yTooltipPos, 0));
             break;

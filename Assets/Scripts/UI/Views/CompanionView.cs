@@ -43,6 +43,9 @@ public class CompanionView : IUIEventReceiver
     private VisualElement containerThatHoverIndicatorShows;
     private bool isTweening = false;
 
+    private int lastHealthValue;
+    private bool isHealthTweening = false;
+
     private static string HEALTH_LABEL_STRING = "{0}/{1}";
 
     public CompanionView(
@@ -115,7 +118,7 @@ public class CompanionView : IUIEventReceiver
     }
 
     public void UpdateView() {
-        SetupHealth();
+        UpdateHealth();
         SetupStatusIndicators();
     }
 
@@ -239,8 +242,6 @@ public class CompanionView : IUIEventReceiver
 
         foreach (KeyValuePair<StatusEffectType, int> kvp in combatInstance.GetDisplayedStatusEffects())
         {
-            // Block is displayed on the companion frame now :)
-            if (kvp.Key == StatusEffectType.Defended) continue;
             this.statusArea.Add(CreateStatusIndicator(viewDelegate.GetStatusEffectSprite(kvp.Key), kvp.Value.ToString()));
         }
 
@@ -276,6 +277,41 @@ public class CompanionView : IUIEventReceiver
         return statusIndicator;
     }
 
+    private void UpdateHealth() {
+        if (isHealthTweening) return;
+
+        int currentHealth;
+        int maxHealth;
+        if (this.companionInstance == null) {
+            currentHealth = this.companion.GetCurrentHealth();
+            maxHealth = this.companion.GetCombatStats().getMaxHealth();
+        } else {
+            currentHealth = this.combatInstance.combatStats.currentHealth;
+            maxHealth = this.combatInstance.combatStats.maxHealth;
+        }
+
+        if (currentHealth == lastHealthValue) return;
+
+        isHealthTweening = true;
+
+        float pointsPerSecond = 8f;
+        int healthDifference = lastHealthValue - currentHealth;
+        LeanTween.value(lastHealthValue, currentHealth, healthDifference / pointsPerSecond)
+            .setEase(LeanTweenType.linear)
+            .setOnUpdate((float val) => {
+                int intVal = Mathf.RoundToInt(val);
+                this.healthBarLabel.text = String.Format(HEALTH_LABEL_STRING, intVal, maxHealth);
+                float healthPercent = val / (float) maxHealth;
+                this.healthBarFill.style.width = Length.Percent(healthPercent * 100);
+            })
+            .setOnComplete(() => {
+                isHealthTweening = false;
+                lastHealthValue = currentHealth;
+                // In case multiple instances of damage come through in close timing
+                UpdateHealth();
+            });
+    }
+
     private void SetupHealth() {
         int currentHealth;
         int maxHealth;
@@ -289,6 +325,7 @@ public class CompanionView : IUIEventReceiver
         this.healthBarLabel.text = String.Format(HEALTH_LABEL_STRING, currentHealth, maxHealth);
         float healthPercent = (float) currentHealth / (float) maxHealth;
         this.healthBarFill.style.width = Length.Percent(healthPercent * 100);
+        lastHealthValue = currentHealth;
     }
 
     private void SetupName() {
@@ -464,8 +501,7 @@ public class CompanionView : IUIEventReceiver
         return new Tuple<int, int>(width, height);
     }
 
-    public void SetPickingModes(bool enable)
-    {
+    public void SetPickingModes(bool enable) {
         foreach (VisualElement ve in pickingModePositionList) {
             ve.pickingMode = enable ? PickingMode.Position : PickingMode.Ignore;
         }
@@ -504,6 +540,8 @@ public class CompanionView : IUIEventReceiver
         true, false, true, 26, 0.15f);
     public static CompanionViewContext SHOP_CONTEXT = new CompanionViewContext(
         false, true, false, 18, 0.15f * .75f);
+    public static CompanionViewContext STARTING_TEAM_CONTEXT = new CompanionViewContext(
+        false, true, false, 28, 0.15f * .75f);
     public static CompanionViewContext COMPENDIUM_CONTEXT = new CompanionViewContext(
         false, false, false, 26, 0.2f);
     public static CompanionViewContext CARD_SELECTION_CONTEXT = new CompanionViewContext(

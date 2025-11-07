@@ -244,14 +244,14 @@ public class CompanionViewOld : IUIEventReceiver
 
     private VisualElement CreateStatusIndicator(Sprite icon, string textValue) {
         VisualElement statusIndicator = new VisualElement();
-        statusIndicator.AddToClassList("companion-view-status-indicator");
+        statusIndicator.AddToClassList("companion-view-status-indicator-old");
 
         Label statusLabel = new Label();
-        statusLabel.AddToClassList("companion-view-status-indicator-label");
+        statusLabel.AddToClassList("companion-view-status-indicator-old-label");
         statusLabel.text = textValue;
 
         VisualElement statusIcon = new VisualElement();
-        statusIcon.AddToClassList("companion-view-status-indicator-icon");
+        statusIcon.AddToClassList("companion-view-status-indicator-old-icon");
         statusIcon.style.backgroundImage = new StyleBackground(icon);
 
         statusIndicator.Add(statusLabel);

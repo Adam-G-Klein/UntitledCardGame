@@ -165,6 +165,7 @@ public class OptionsViewController : GenericSingleton<OptionsViewController>, IC
     }
 
     public void onCompendiumButtonHandler() {
+        compendiumUIDocument.rootVisualElement.style.display = DisplayStyle.Flex;
         compendiumUIDocument.rootVisualElement.style.visibility = Visibility.Visible;
         compendiumView = null; // in the future we would ideally have some way of tracking if it had to be recreated based on change in gamestate
         FocusManager.Instance.StashLockedFocusables(this.GetType().Name);

@@ -1,4 +1,4 @@
-.companion-view-status-indicator {
+.companion-view-status-indicator-old {
     flex-grow: 0;
     background-color: rgb(153, 153, 153);
     flex-shrink: 0;
@@ -36,7 +36,7 @@
     font-size: 20px;
 }
 
-.companion-view-status-indicator-icon {
+.companion-view-status-indicator-old-icon {
     flex-grow: 0;
     background-image: url("project://database/Assets/Sprites/Z_OldPlaceholderSprites/bicep.png?fileID=2800000&guid=ed55b8c3c8cddf84e9879c69c720553a&type=3#bicep");
     flex-direction: column;
@@ -78,7 +78,7 @@
     max-height: 100%;
 }
 
-.companion-view-status-indicator-label {
+.companion-view-status-indicator-old-label {
     -unity-font-style: bold;
     font-size: 24px;
     -unity-text-align: middle-center;

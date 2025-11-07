@@ -549,8 +549,10 @@ public class CombatInstance : MonoBehaviour
                 value += combatStats.baseAttackDamage;
             }
             // block is queried separately now
-            if (value != initialStatusEffects[statusEffect.Key]
-                && statusEffect.Key != StatusEffectType.Defended)
+            // ^^ Get Undo-d goober
+            // if (value != initialStatusEffects[statusEffect.Key]
+            //     && statusEffect.Key != StatusEffectType.Defended)
+            if (value != initialStatusEffects[statusEffect.Key])
             {
                 displayedStatusEffects.Add(statusEffect.Key, value);
             }
