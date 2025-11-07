@@ -301,7 +301,6 @@ public class CompanionView : IUIEventReceiver
         if (sprite == null) {
             sprite = this.companion.getSprite();
         }
-        Debug.Log($"CompanionView {sprite} {this.spriteElement} {this.spriteElement.style}");
         this.spriteElement.style.backgroundImage = new StyleBackground(sprite);
     }
 
