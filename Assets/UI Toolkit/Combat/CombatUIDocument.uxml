@@ -5,11 +5,11 @@
     <Style src="project://database/Assets/UI%20Toolkit/Stylesheets/entity.uss?fileID=7433441132597879392&amp;guid=f28fa9619ee10d041b7306d0537405c5&amp;type=3#entity" />
     <Style src="project://database/Assets/UI%20Toolkit/Stylesheets/IconButton.uss?fileID=7433441132597879392&amp;guid=45daf1b0dd28cfb42b3347777cd65e2d&amp;type=3#IconButton" />
     <Style src="project://database/Assets/fontStyling.uss?fileID=7433441132597879392&amp;guid=d0c0881f1c32747ecb649373600de095&amp;type=3#fontStyling" />
-    <Style src="project://database/Assets/UI%20Toolkit/Stylesheets/CompanionView.uss?fileID=7433441132597879392&amp;guid=e88b44cda41b13242a23fc01cc51bd01&amp;type=3#CompanionView" />
     <Style src="project://database/Assets/mapStylesheet.uss?fileID=7433441132597879392&amp;guid=8bfd0d4a4dd91435a81ceda51a241a08&amp;type=3#mapStylesheet" />
     <Style src="project://database/Assets/UI%20Toolkit/Stylesheets/ButtonStyle.uss?fileID=7433441132597879392&amp;guid=acefe7eb60f7cac43a283bde6352a710&amp;type=3#ButtonStyle" />
+    <Style src="project://database/Assets/UI%20Toolkit/Stylesheets/CompanionViewNew.uss?fileID=7433441132597879392&amp;guid=715a20f0aa0920b47918dd6f4e424bbf&amp;type=3#CompanionViewNew" />
     <ui:VisualElement style="flex-grow: 1; position: absolute; left: 0; top: 77.5%; background-image: none; width: 100%; height: 22.5%;" />
-    <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: column;">
+    <ui:VisualElement style="flex-grow: 1; flex-direction: column;">
         <ui:VisualElement name="VisualElement" class="map-header-container" style="position: absolute; width: 100%;">
             <ui:VisualElement name="mapRoot" class="map-outer-container">
                 <ui:Instance template="MapTemplateUiDocument" name="MapTemplateUiDocument" style="flex-grow: 1;" />

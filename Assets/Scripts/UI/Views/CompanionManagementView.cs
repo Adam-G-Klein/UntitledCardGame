@@ -17,7 +17,7 @@ public class CompanionManagementView : IControlsReceiver {
     private IconButton viewDeckButton = null;
     private IconButton sellCompanionButton = null;
     private VisualElement companionBoundingBox = null;
-    private CompanionView companionView;
+    private CompanionViewOld companionView;
 
     private bool draggingThisCompanion = false;
     private bool isSellingDisabled = false;
@@ -30,7 +30,7 @@ public class CompanionManagementView : IControlsReceiver {
     }
 
     public VisualElement MakeCompanionManagementView(Companion companion, VisualTreeAsset template) {
-        companionView = new CompanionView(companion, template, 0, CompanionView.UNIT_MNGMT_CONTEXT, null);
+        companionView = new CompanionViewOld(companion, template, 0, CompanionViewOld.UNIT_MNGMT_CONTEXT, null);
 
         companionView.container.RegisterCallback<ClickEvent>(CompanionManagementOnClick);
 
