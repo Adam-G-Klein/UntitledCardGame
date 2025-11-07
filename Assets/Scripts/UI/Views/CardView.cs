@@ -3,6 +3,7 @@ using System;
 using UnityEngine.UIElements;
 using System.Linq;
 using Unity.VisualScripting;
+using System.Collections.Generic;
 
 
 // This class isn't expected to have a delegate view or delegate controller because it'll be wrapped
@@ -39,6 +40,7 @@ public class CardView {
     // fillUIDocument - in some cases (like the current shop and the intro screen) we don't want this card to
     // take up its whole ui doc. In others, like combat (where the card is in worldspace splatted to a texture)
     // we do.
+    private static Dictionary<CompanionTypeSO, Sprite> silhouetteCache = new Dictionary<CompanionTypeSO, Sprite>();
     public CardView(CardType cardType, CompanionTypeSO companionType, Card.CardRarity rarity, bool cardInShop = false, PackSO packSO = null) {
         this.rarity = rarity;
         cardContainer = makeCardView(cardType, companionType, cardInShop, packSO);
@@ -112,6 +114,13 @@ public class CardView {
             companionNameLabel.text = "ANY";
             companionNameLabel.AddToClassList("card-type-label-any");
         }*/
+        VisualElement cardBackground = container.Q("cardBackground");
+        if (!cardInShop && companionType != null) {
+            Sprite silhouette = GetSilhouette(companionType);
+            cardBackground.style.backgroundImage = new StyleBackground(silhouette.texture);   
+        } else {
+            cardBackground.style.display = DisplayStyle.None;
+        }
 
         Label cardTypeLabel = container.Q<Label>("cardTypeLabel");
         cardTypeLabel.text = cardTypeLabel.text = System.Text.RegularExpressions.Regex.Replace(
@@ -210,7 +219,66 @@ public class CardView {
         return new Tuple<int, int>(width, height);
     }
 
-    public CardType GetCardType() {
+    public CardType GetCardType()
+    {
         return cardType;
+    }
+        
+    public static Sprite GetSilhouette(CompanionTypeSO companionType, float alpha = 0.4f)
+    {
+        Sprite original = companionType.fullSprite;
+        // Check if we've already processed this sprite
+        if (silhouetteCache.ContainsKey(companionType))
+            return silhouetteCache[companionType];
+        
+        // Step 1: Get the original texture from the sprite
+        Texture2D originalTex = original.texture;
+        
+        // Step 2: Create a new texture with same dimensions
+        Texture2D newTex = new Texture2D(
+            (int)original.textureRect.width,   // Width of the sprite's region in the texture
+            (int)original.textureRect.height,  // Height of the sprite's region
+            TextureFormat.RGBA32,              // Color format (Red, Green, Blue, Alpha - 32 bits)
+            false                              // No mipmaps (we don't need them for UI)
+        );
+        
+        // Step 3: Get the pixels from the SPECIFIC REGION of the texture that this sprite uses
+        // (Important because sprite atlases can have multiple sprites in one texture)
+        Color[] pixels = originalTex.GetPixels(
+            (int)original.textureRect.x,      // Start X in texture
+            (int)original.textureRect.y,      // Start Y in texture
+            (int)original.textureRect.width,  // How many pixels wide
+            (int)original.textureRect.height  // How many pixels tall
+        );
+        
+        // Step 4: Process each pixel - convert to black with modified alpha
+        for (int i = 0; i < pixels.Length; i++)
+        {
+            // This is doing exactly what the shader fragment shader did:
+            // Keep the original alpha, multiply by our desired alpha, make RGB black
+            pixels[i] = new Color(
+                0,                      // R = black
+                0,                      // G = black
+                0,                      // B = black
+                pixels[i].a * alpha     // A = original alpha × our control value
+            );
+        }
+        
+        // Step 5: Write the processed pixels into our new texture
+        newTex.SetPixels(pixels);
+        newTex.Apply();  // Actually upload to GPU memory
+        
+        // Step 6: Create a new sprite from this texture
+        Sprite silhouette = Sprite.Create(
+            newTex,                                          // The texture we just created
+            new Rect(0, 0, newTex.width, newTex.height),   // Use the entire texture
+            new Vector2(0.5f, 0.5f),                       // Pivot point (center)
+            original.pixelsPerUnit                          // Match original's pixel density
+        );
+        
+        // Step 7: Cache it so we don't have to do this again
+        silhouetteCache[companionType] = silhouette;
+        
+        return silhouette;
     }
 }
