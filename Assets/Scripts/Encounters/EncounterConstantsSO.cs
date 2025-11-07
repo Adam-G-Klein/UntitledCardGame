@@ -23,6 +23,7 @@ public class EncounterConstantsSO : ScriptableObject {
     [Header("Misc")]
     public VisualTreeAsset companionViewTemplate;
     public VisualTreeAsset companionViewTemplateOld;
+    public VisualTreeAsset companionManagementViewTemplate;
     public CardType cardGeneratedByOrb;
     public GameObject cardDrawVFXPrefab;
     public Sprite genericCardCompanionTypeSprite;

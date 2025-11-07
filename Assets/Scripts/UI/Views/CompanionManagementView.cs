@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using FMODUnity;
+using System.ComponentModel;
 
 public class CompanionManagementView : IControlsReceiver {
     public VisualElement container;
@@ -13,37 +14,103 @@ public class CompanionManagementView : IControlsReceiver {
 
     private ICompanionManagementViewDelegate viewDelegate;
 
+    private VisualElement spriteElement;
+    private VisualElement bronzeFrame;
+    private VisualElement silverFrame;
+    private VisualElement goldFrame;
+    private Label name;
+    private VisualElement healthBarFill;
+    private Label healthBarLabel;
     private VisualElement darkBox;
     private IconButton viewDeckButton = null;
     private IconButton sellCompanionButton = null;
     private VisualElement companionBoundingBox = null;
-    private CompanionViewOld companionView;
+    // private CompanionViewOld companionView;
 
     private bool draggingThisCompanion = false;
     private bool isSellingDisabled = false;
     private bool upgradeAnimationPlaying = false;
 
+    private static string HEALTH_LABEL_STRING = "{0}/{1}";
+
     public CompanionManagementView(Companion companion, VisualTreeAsset template, ICompanionManagementViewDelegate viewDelegate) {
         this.viewDelegate = viewDelegate;
-        container = MakeCompanionManagementView(companion, template);
         this.companion = companion;
+        container = MakeCompanionManagementView(companion, template);
     }
 
     public VisualElement MakeCompanionManagementView(Companion companion, VisualTreeAsset template) {
-        companionView = new CompanionViewOld(companion, template, 0, CompanionViewOld.UNIT_MNGMT_CONTEXT, null);
+        VisualElement managementRoot = template.CloneTree();
 
-        companionView.container.RegisterCallback<ClickEvent>(CompanionManagementOnClick);
+        this.spriteElement = managementRoot.Q<VisualElement>("management-view-sprite");
+        this.bronzeFrame = managementRoot.Q<VisualElement>("management-view-bronze-frame");
+        this.silverFrame = managementRoot.Q<VisualElement>("management-view-silver-frame");
+        this.goldFrame = managementRoot.Q<VisualElement>("management-view-gold-frame");
+        this.name = managementRoot.Q<Label>("management-view-name-label");
+        this.healthBarFill = managementRoot.Q<VisualElement>("management-view-health-bar-fill");
+        this.healthBarLabel = managementRoot.Q<Label>("management-view-health-bar-label");
 
-        companionView.container.RegisterCallback<PointerDownEvent>((evt) => CompanionManagementOnPointerDown(evt, true));
-        companionView.container.RegisterCallback<PointerMoveEvent>(CompanionManagementOnPointerMove);
-        companionView.container.RegisterCallback<PointerUpEvent>(ComapnionManagementOnPointerUp);
+        VisualElement container = managementRoot.Children().First();
 
-        companionView.container.RegisterCallback<PointerLeaveEvent>(ComapnionManagementOnPointerLeave);
-        companionView.container.RegisterCallback<PointerEnterEvent>(CompanionManagementOnPointerEnter);
+        SetupCompanionSprite();
+        SetupName();
+        SetupHealth();
+        SetupLevelIndicator();
 
-        companionView.container.name = companion.companionType.name;
+        container.RegisterCallback<ClickEvent>(CompanionManagementOnClick);
 
-        return companionView.container;
+        container.RegisterCallback<PointerDownEvent>((evt) => CompanionManagementOnPointerDown(evt, true));
+        container.RegisterCallback<PointerMoveEvent>(CompanionManagementOnPointerMove);
+        container.RegisterCallback<PointerUpEvent>(ComapnionManagementOnPointerUp);
+
+        container.RegisterCallback<PointerLeaveEvent>(ComapnionManagementOnPointerLeave);
+        container.RegisterCallback<PointerEnterEvent>(CompanionManagementOnPointerEnter);
+
+        container.name = companion.companionType.name;
+
+        return container;
+    }
+
+    private void SetupLevelIndicator() {
+        bronzeFrame.style.visibility = Visibility.Hidden;
+        silverFrame.style.visibility = Visibility.Hidden;
+        goldFrame.style.visibility = Visibility.Hidden;
+        switch (this.companion.companionType.level) {
+            case CompanionLevel.LevelThree:
+                goldFrame.style.visibility = Visibility.Visible;
+            break;
+
+            case CompanionLevel.LevelTwo:
+                silverFrame.style.visibility = Visibility.Visible;
+            break;
+
+            case CompanionLevel.LevelOne:
+            default:
+                bronzeFrame.style.visibility = Visibility.Visible;
+            break;
+        }
+    }
+
+    private void SetupHealth() {
+        int currentHealth;
+        int maxHealth;
+        currentHealth = this.companion.GetCurrentHealth();
+        maxHealth = this.companion.GetCombatStats().getMaxHealth();
+        this.healthBarLabel.text = String.Format(HEALTH_LABEL_STRING, currentHealth, maxHealth);
+        float healthPercent = (float) currentHealth / (float) maxHealth;
+        this.healthBarFill.style.width = Length.Percent(healthPercent * 100);
+    }
+
+    private void SetupName() {
+        this.name.text = this.companion.GetName();
+    }
+
+    private void SetupCompanionSprite() {
+        Sprite sprite = this.companion.companionType.fullSprite;
+        if (sprite == null) {
+            sprite = this.companion.getSprite();
+        }
+        this.spriteElement.style.backgroundImage = new StyleBackground(sprite);
     }
 
     public void CompanionManagementOnPointerEnter(PointerEnterEvent evt)
@@ -52,7 +119,7 @@ public class CompanionManagementView : IControlsReceiver {
         CreateViewDeckButton();
         if (!isSellingDisabled) CreateSellCompanionButton();
         CreateCompanionBoundingBox();
-        viewDelegate.DisplayTooltip(companionView.container, companion.companionType.tooltip, TooltipContext.CompanionManagementView);
+        viewDelegate.DisplayTooltip(container, companion.companionType.tooltip, TooltipContext.CompanionManagementView);
     }
 
     public void CompanionManagementNonMouseSelect() {
@@ -69,7 +136,7 @@ public class CompanionManagementView : IControlsReceiver {
     public void CompanionManagementOnPointerDown(PointerDownEvent evt, bool usingMouse) {
         Debug.Log("Companion on pointer down");
         RemoveCompanionHoverButtons();
-        viewDelegate.DestroyTooltip(companionView.container);
+        viewDelegate.DestroyTooltip(container);
         draggingThisCompanion = true;
         if (usingMouse) {
             viewDelegate.CompanionManagementOnPointerDown(this, evt.position);
@@ -96,12 +163,12 @@ public class CompanionManagementView : IControlsReceiver {
 
     public void ComapnionManagementOnPointerLeave(PointerLeaveEvent evt) {
         viewDelegate.CompanionManagementOnPointerLeave(this, evt);
-        viewDelegate.DestroyTooltip(companionView.container);
+        viewDelegate.DestroyTooltip(container);
     }
 
     public void CompanionManagementOnUnfocus() {
         viewDelegate.CompanionManagementOnPointerLeave(this, null);
-        viewDelegate.DestroyTooltip(companionView.container);
+        viewDelegate.DestroyTooltip(container);
         RemoveCompanionHoverButtons();
     }
 
@@ -186,7 +253,7 @@ public class CompanionManagementView : IControlsReceiver {
 
     public void UpdateView()
     {
-        companionView.UpdateView();
+        return;
     }
 
 
@@ -248,7 +315,7 @@ public class CompanionManagementView : IControlsReceiver {
     }
 
     public void ResetToNeutral() {
-        viewDelegate.DestroyTooltip(companionView.container);
+        viewDelegate.DestroyTooltip(container);
         RemoveCompanionHoverButtons();
     }
 
@@ -260,7 +327,7 @@ public class CompanionManagementView : IControlsReceiver {
             viewDelegate.ComapnionManagementOnPointerUp(this, FocusManager.Instance.GetCurrentFocus().GetUIPosition());
             FocusManager.Instance.onFocusDelegate -= FocusChangedWhileDragging;
             ControlsManager.Instance.UnregisterControlsReceiver(this);
-            viewDelegate.DestroyTooltip(companionView.container);
+            viewDelegate.DestroyTooltip(container);
         }
     }
 
