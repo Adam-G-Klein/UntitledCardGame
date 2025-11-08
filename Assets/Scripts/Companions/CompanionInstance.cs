@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 [RequireComponent(typeof(CombatInstance))]
 [RequireComponent(typeof(DeckInstance))]
@@ -15,6 +13,8 @@ public class CompanionInstance : MonoBehaviour, IUIEntity
     [Header("Image or SpriteRenderer required in children")]
     public CombatInstance combatInstance;
     public DeckInstance deckInstance;
+    public StatusEffectsDisplay statusEffectsDisplay;
+    public CombatCompanionTooltipProvder tooltipProvider;
 
     // MAY BE NULL if CombatEncounterView.ResetEntities hasn't been called yet
     // That method is only called AFTER the encountermanager has queried the locations
@@ -44,6 +44,8 @@ public class CompanionInstance : MonoBehaviour, IUIEntity
         // GetComponentInChildren<CombatInstanceDisplayWorldspace>().Setup(combatInstance, wpve);
         // ---- set up status effects turn triggers, so they update when turn phases change ----
         RegisterUpdateStatusEffects();
+
+        combatInstance.onStatusEffectChangeHandler += OnStatusEffectChangeHandler;
 
 
         // ---- set up abilities ----
@@ -83,7 +85,6 @@ public class CompanionInstance : MonoBehaviour, IUIEntity
         // Only add the tooltip if this was the first instance of the power added.
         if (selected.Count >= 1 && selected.First().Item2 == 1)
         {
-            CombatCompanionTooltipProvder tooltipProvider = GetComponent<CombatCompanionTooltipProvder>();
             tooltipProvider.AddTooltip(power.GetTooltip());
         }
     }
@@ -116,6 +117,10 @@ public class CompanionInstance : MonoBehaviour, IUIEntity
 
     private void UnregisterUpdateStatusEffects() {
         statusEffectTriggers.ForEach(trigger => TurnManager.Instance.removeTurnPhaseTrigger(trigger));
+    }
+
+    private void OnStatusEffectChangeHandler() {
+        tooltipProvider.UpdateStatusTooltips(combatInstance.GetDisplayedStatusEffects(), statusEffectsDisplay.statusEffectsSO.statusEffects);
     }
 
     public IEnumerator OnDeath(CombatInstance killer)

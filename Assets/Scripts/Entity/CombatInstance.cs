@@ -45,6 +45,9 @@ public class CombatInstance : MonoBehaviour
     public delegate void OnDamageHandler(int scale);
     public event OnDamageHandler onDamageHandler;
 
+    public delegate void OnStatusEffectChangeHandler();
+    public event OnStatusEffectChangeHandler onStatusEffectChangeHandler;
+
     //public AudioClip genericInteractionSFX;
     public GameObject genericInteractionVFX;
 
@@ -132,6 +135,7 @@ public class CombatInstance : MonoBehaviour
             MusicController.Instance.PlaySFX("event:/SFX/SFX_PositiveEffect");
         }
         UpdateView();
+        onStatusEffectChangeHandler?.Invoke();
     }
 
     public void Setup(
@@ -361,6 +365,7 @@ public class CombatInstance : MonoBehaviour
             UpdateStatusEffect(effect);
         }
         UpdateView();
+        onStatusEffectChangeHandler?.Invoke();
         yield return null;
     }
 

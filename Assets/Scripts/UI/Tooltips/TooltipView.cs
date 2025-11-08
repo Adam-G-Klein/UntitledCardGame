@@ -134,6 +134,26 @@ public class TooltipViewModel
         }
         return new TooltipViewModel(newLines);
     }
+
+    public static TooltipViewModel operator -(TooltipViewModel a, TooltipViewModel b)
+    {
+        List<TooltipLine> newLines = new();
+        if (a.empty && b.empty)
+        {
+            return new TooltipViewModel();
+        }
+        if (!a.empty)
+        {
+            newLines.AddRange(a.lines);
+        }
+        if (!b.empty)
+        {
+            foreach (var line in b.lines) {
+                newLines.Remove(line);
+            }
+        }
+        return new TooltipViewModel(newLines);
+    }
 }
 
 public class TooltipView : MonoBehaviour

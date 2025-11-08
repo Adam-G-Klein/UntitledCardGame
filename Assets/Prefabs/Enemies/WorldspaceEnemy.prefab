@@ -62,6 +62,8 @@ MonoBehaviour:
       currentHealth: 0
       baseAttackDamage: 0
   combatInstance: {fileID: 6706516355190666426}
+  tooltipProvider: {fileID: 616890501312769047}
+  statusEffectsDisplay: {fileID: 5226732806696292264}
   registerTurnPhaseTriggerEvent: {fileID: 11400000, guid: f82cd01826dfef44391e6a853f3d2e89, type: 2}
   removeTurnPhaseTriggerEvent: {fileID: 11400000, guid: 88acfcb7f9a9846468020e4e3854b467, type: 2}
   combatEffectEvent: {fileID: 11400000, guid: 7b4f8952c0f9b4d4a80b72189e46bd3c, type: 2}

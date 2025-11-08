@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine.EventSystems;
 using UnityEditor;
 using System;
+using UnityEngine.Rendering;
 
 /*
 Just grab the tooltiop from the enemyType on the attached EnemyInstance
@@ -21,6 +22,8 @@ public class CombatEnemyTooltipProvder : MonoBehaviour
     private int behaviorIndex;
     private EnemyInstance enemy;
 
+    private Dictionary<StatusEffectType, TooltipViewModel> statusTooltips = new Dictionary<StatusEffectType, TooltipViewModel>();
+
     internal void DisableTooltip()
     {
         tooltipOnHover.Destroy();
@@ -34,12 +37,9 @@ public class CombatEnemyTooltipProvder : MonoBehaviour
         UpdateToolTip();
     }
 
-    void Update() {
-        int newIndex = enemy.GetBehaviorIndexForBrain(enemy.enemy.enemyType.enemyPattern);
-        if (behaviorIndex != newIndex) {
-            behaviorIndex = newIndex;
-            UpdateToolTip();
-        }
+    public void IntentDeclared(int behaviorIndex) {
+        this.behaviorIndex = behaviorIndex;
+        UpdateToolTip();
     }
 
     void UpdateToolTip() {
@@ -55,5 +55,24 @@ public class CombatEnemyTooltipProvder : MonoBehaviour
         TooltipViewModel tempViewModel = new TooltipViewModel(lines);
         tooltipOnHover.tooltip.empty = true; // pseudo reset of the current tooltip.
         tooltipOnHover.tooltip += tempViewModel;
+
+        foreach (KeyValuePair<StatusEffectType, TooltipViewModel> kvp in statusTooltips) {
+            tooltipOnHover.tooltip += kvp.Value;
+        }
+    }
+
+    public void UpdateStatusTooltips(Dictionary<StatusEffectType, int> statusMap, List<StatusEffect> statusEffects) {
+        HashSet<StatusEffectType> statuses = new HashSet<StatusEffectType>();
+        foreach (KeyValuePair<StatusEffectType, int> kvp in statusMap) {
+            statuses.Add(kvp.Key);
+        }
+
+        foreach (StatusEffect status in statusEffects) {
+            if (statuses.Contains(status.type) && !statusTooltips.ContainsKey(status.type)) {
+                statusTooltips.Add(status.type, status.tooltip);
+            } else if (!statuses.Contains(status.type) && statusTooltips.ContainsKey(status.type)) {
+                statusTooltips.Remove(status.type);
+            }
+        }        
     }
 }

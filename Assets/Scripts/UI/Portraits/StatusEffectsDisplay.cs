@@ -28,20 +28,12 @@ public enum StatusEffectType
     ExtraCardsToDealNextTurn
 }
 
-public class StatusEffectsDisplayViewModel {
-    public Dictionary<StatusEffectType, int> statusEffects;
-    public StatusEffectsDisplayViewModel(Dictionary<StatusEffectType, int> statusEffectValues) {
-        this.statusEffects = statusEffectValues;
-    }
-}
-
 public class StatusEffectsDisplay: MonoBehaviour
 {
     private CombatInstance combatInstance;
     private VisualElement statusEffectsParent;
 
-    [SerializeField]
-    private StatusEffectsSO statusEffectsSO;
+    public StatusEffectsSO statusEffectsSO;
 
     private List<VisualElement> drawnTabs = new List<VisualElement>();
 

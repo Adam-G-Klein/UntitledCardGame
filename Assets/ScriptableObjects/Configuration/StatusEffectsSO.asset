@@ -15,23 +15,81 @@ MonoBehaviour:
   statusEffects:
   - type: 0
     image: {fileID: 21300000, guid: ed55b8c3c8cddf84e9879c69c720553a, type: 3}
+    tooltip:
+      empty: 0
+      lines:
+      - title: Strength
+        description: Increases the damage delt by the number of strength this has.
+        relatedBehaviorIndex: 0
   - type: 2
     image: {fileID: 21300000, guid: cf8968d28b97a5a4686797b966115474, type: 3}
+    tooltip:
+      empty: 0
+      lines:
+      - title: Block
+        description: Reduce the damage taken for this companion by the number of
+          block it has.
+        relatedBehaviorIndex: 0
   - type: 9
     image: {fileID: 21300000, guid: d231fe42ccd81da429241347231e5778, type: 3}
+    tooltip:
+      empty: 0
+      lines: []
   - type: 11
     image: {fileID: 21300000, guid: de23c3e9343118d4aabf90e19c84243a, type: 3}
+    tooltip:
+      empty: 0
+      lines:
+      - title: Money on Death
+        description: When this dies, receive this amount of money.
+        relatedBehaviorIndex: 0
   - type: 10
     image: {fileID: 21300000, guid: f4084e31f28c82d4e9beb16d2b508003, type: 3}
+    tooltip:
+      empty: 0
+      lines: []
   - type: 1
     image: {fileID: 21300000, guid: 9eec12afe5623f54abf4eb6c5d9261ee, type: 3}
+    tooltip:
+      empty: 0
+      lines: []
   - type: 6
     image: {fileID: 21300000, guid: adc0ab9fa74646a4697d6af203f036a7, type: 3}
+    tooltip:
+      empty: 0
+      lines:
+      - title: Temporary Strength
+        description: Increases the damage delt by the number of temporary strength
+          this has, goes away at the end of the turn.
+        relatedBehaviorIndex: 0
   - type: 12
     image: {fileID: 21300000, guid: 65cd3a3ca90b87545a78e7a18b09c311, type: 3}
+    tooltip:
+      empty: 0
+      lines:
+      - title: Charge
+        description: At the end of turn, gain 3 block and lose 1 charge.
+        relatedBehaviorIndex: 0
   - type: 14
     image: {fileID: 21300000, guid: a7eb0f0f0eaaf6943843625fe73cba7d, type: 3}
+    tooltip:
+      empty: 0
+      lines: []
   - type: 15
     image: {fileID: 21300000, guid: fe5748b149e8b274ab967608681b48c4, type: 3}
+    tooltip:
+      empty: 0
+      lines:
+      - title: Burn
+        description: At the beginning of turn, lose HP equal to the number of burn
+          and lose 1 burn.
+        relatedBehaviorIndex: 0
   - type: 16
     image: {fileID: 21300000, guid: 7d13e867f4dd988488e4c5a179fa0857, type: 3}
+    tooltip:
+      empty: 0
+      lines:
+      - title: Extra Cards
+        description: Deal extra cards from this companion equal to the value of Extra
+          Cards.
+        relatedBehaviorIndex: 0

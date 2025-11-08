@@ -8,6 +8,7 @@ using TMPro;
 public class StatusEffect {
     public StatusEffectType type;
     public Sprite image;
+    public TooltipViewModel tooltip;
 
     public StatusEffect() {}
 

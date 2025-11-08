@@ -11,6 +11,8 @@ using UnityEngine.UIElements;
 public class EnemyInstance : MonoBehaviour, IUIEntity {
     public Enemy enemy;
     public CombatInstance combatInstance;
+    public CombatEnemyTooltipProvder tooltipProvider;
+    public StatusEffectsDisplay statusEffectsDisplay;
 
     public EnemyIntent currentIntent;
     public TurnPhaseTriggerEvent registerTurnPhaseTriggerEvent;
@@ -41,6 +43,8 @@ public class EnemyInstance : MonoBehaviour, IUIEntity {
         combatInstance.SetId(enemy.id);
         this.enemyIntentArrows = GetComponent<EnemyIntentArrowsController>();
         this.enemyIntentArrows.Setup(this, leftRightScreenPlacementPercent);
+
+        combatInstance.onStatusEffectChangeHandler += OnStatusEffectChangeHandler;
 
         // ---- set up abilities ----
         // We cannot perform "Setup" on the ability itself, because that is global on the
@@ -188,6 +192,7 @@ public class EnemyInstance : MonoBehaviour, IUIEntity {
         currentIntent = enemy.ChooseIntent(this);
         Debug.Log("EnemyInstance: UpdateView");
         EnemyEncounterViewModel.Instance.SetStateDirty();
+        tooltipProvider.IntentDeclared(GetBehaviorIndexForBrain(enemy.enemyType.enemyPattern));
         yield return null;
     }
 
@@ -218,6 +223,10 @@ public class EnemyInstance : MonoBehaviour, IUIEntity {
     private IEnumerable ClearTemporaryStrength() {
         combatInstance.SetStatusEffect(StatusEffectType.TemporaryStrength, 0);
         yield return null;
+    }
+
+    private void OnStatusEffectChangeHandler() {
+        tooltipProvider.UpdateStatusTooltips(combatInstance.GetDisplayedStatusEffects(), statusEffectsDisplay.statusEffectsSO.statusEffects);
     }
 
     public void SetTauntedTarget(CombatInstance target){
