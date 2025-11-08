@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 52581568-022a-4b93-abde-3f8d86ce8baa
   Name: Archaic Hammer
-  Description: Deal {rpl_damage} damage. If this companion has 7 or less cards in
-    its deck, increase the damage of ALL "Greek Fire" cards by 2
+  Description: Deal {rpl_damage} damage. If self has 7 or less cards in own deck,
+    increase the damage of ALL "Greek Fire" cards by 2
   defaultValues:
   - key: rpl_damage
     value: 6
