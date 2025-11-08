@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerType: 15
   title: Eternal Flame
-  description: End of turn, shuffle a "Greek Fire" Status card into own deck & increase
-    the damage of all "Greek Fire" cards by 1
+  description: End of turn, shuffle a "Greek Fire" Status card into own deck
   abilities:
   - rid: 754093991137640772
   displaySprite: {fileID: 21300000, guid: fccdd43ca64c8644fa54c06ab327bdd3, type: 3}
@@ -37,7 +36,6 @@ MonoBehaviour:
         effectSteps:
         - rid: 754093991137640773
         - rid: 2511000960759496707
-        - rid: 2511000960759496708
         - rid: 2511000960759496709
     - rid: 754093991137640773
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -63,17 +61,6 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
-    - rid: 2511000960759496708
-      type: {class: CardModificationEffect, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CardModificationEffect
-        inputKey: self
-        scale: 1
-        affectsAllCardsOfType: 1
-        cardTypeToModify: {fileID: 11400000, guid: 07ddcab78d7f64ac1849ccdb53efe2c0, type: 2}
-        getScaleFromKey: 0
-        scaleKey: 
-        modification: 0
     - rid: 2511000960759496709
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
