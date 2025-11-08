@@ -83,7 +83,12 @@ public class EnemyEncounter : Encounter
                 encounterBuilder.transform);
             newEnemy.Setup(newEnemyPlacement, enemyList[i], (float) i / enemyList.Count);
             IBossController bossController = newEnemy.TryGetBossController();
-            if (bossController != null) bossController.Setup();
+            if (bossController != null)
+            {
+                bossController.Setup();
+                EnemyEncounterManager.Instance.isBoss = true;
+
+            } 
             createdEnemies.Add(newEnemy);
             placer.addMapping(newEnemyPlacement, newEnemy.gameObject);
         }

@@ -46,6 +46,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     private bool inDeckView = false;
     private bool inOptionsView = false;
     private bool isEliteCombat = false;
+    public bool isBoss = false;
 
 
     [SerializeField]
@@ -142,7 +143,10 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     private IEnumerator PreEncounterCoroutine()
     {
         Debug.Log("Starting PreEncounterCoroutine, waiting for cinematic intro to complete");
-        yield return new WaitUntil(() => cinematicIntroComplete == true);
+        if(isBoss)
+        {
+            yield return new WaitUntil(() => cinematicIntroComplete == true);
+        }
         // todo, yield return on additional dialogue being complete from another manager? 
         startTheTurns = true;
         yield return null;
