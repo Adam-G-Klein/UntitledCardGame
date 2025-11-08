@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: e088c803-47c8-46ec-9be4-774a070e8a4b
   Name: Convergence
-  Description: Give adjacent companions 5 block. Give them 3 additional block if
-    this companion has 7 or less cards in its deck
+  Description: Give adjacent 5 block & if self has 7 or less cards in own deck, give
+    +3 block
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: c338159c274399e42bff6fbabd825764, type: 3}
@@ -45,7 +45,7 @@ MonoBehaviour:
         inputDeckKey: self
         filter:
           cardCategoriesToInclude: 
-          generatedCardsFilter: 0
+          retainedCardsFilter: 0
         includeDrawPile: 1
         includeDiscardPile: 1
         includeCardsInHand: 1
