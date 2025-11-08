@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: e939cd7e-2c8b-40fc-a398-0be2edb2d5bc
   displayName: Angry Emmett
-  maxHealth: 70
+  maxHealth: 55
   baseAttackDamage: 0
+  enemyDisplayType: 0
   sprite: {fileID: 21300000, guid: 4eff3f79553794d909415243e5c40924, type: 3}
   backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
   entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
@@ -28,7 +29,7 @@ MonoBehaviour:
     - intent: 1
       enemyTargetMethod: 0
       targetsKey: target
-      displayValue: 5
+      displayValue: 4
       effectSteps:
       - rid: 3931529445166809429
       - rid: 173314522967966397
@@ -54,8 +55,8 @@ MonoBehaviour:
       description: Whenever Emmett takes damage, he gains 1 temporary strength for
         its next attack
       relatedBehaviorIndex: 0
-  DEADLIER_ENEMY_BONUS_STR: -1
-  HEALTHIER_ENEMY_BONUS_HEALTH: -1
+  DEADLIER_ENEMY_BONUS_STR: 1
+  HEALTHIER_ENEMY_BONUS_HEALTH: 15
   references:
     version: 2
     RefIds:
@@ -75,7 +76,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: target
         combatEffect: 0
-        scale: 5
+        scale: 4
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1

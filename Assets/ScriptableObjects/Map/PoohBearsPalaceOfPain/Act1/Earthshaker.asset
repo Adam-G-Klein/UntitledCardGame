@@ -16,6 +16,7 @@ MonoBehaviour:
   displayName: Earthshaker
   maxHealth: 60
   baseAttackDamage: 0
+  enemyDisplayType: 0
   sprite: {fileID: 21300000, guid: 27ec1549f8e73da4c93e706a368e736b, type: 3}
   backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
   entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
@@ -53,7 +54,7 @@ MonoBehaviour:
       description: Deals AOE damage to your entire team and slowly grows stronger
       relatedBehaviorIndex: 0
   DEADLIER_ENEMY_BONUS_STR: -1
-  HEALTHIER_ENEMY_BONUS_HEALTH: -1
+  HEALTHIER_ENEMY_BONUS_HEALTH: 5
   references:
     version: 2
     RefIds:
