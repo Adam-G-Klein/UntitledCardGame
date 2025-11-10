@@ -1,0 +1,147 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
+  m_Name: RP_L3_Noddie
+  m_EditorClassIdentifier: 
+  guid: 99be49c8-fb06-482d-a675-f45ec9b54d9b
+  companionName: Noddie++
+  maxHealth: 45
+  initialCardsDealtPerTurn: 1
+  sprite: {fileID: 21300000, guid: c2029d3d35ba2714d827b1fb8fa4a0fe, type: 3}
+  fullSprite: {fileID: 21300000, guid: c2029d3d35ba2714d827b1fb8fa4a0fe, type: 3}
+  backgroundImage: {fileID: 21300000, guid: 094c4d0ce89284effb02b7e66c41c106, type: 3}
+  entityFrame: {fileID: 21300000, guid: 93992d0d35ca9405b831e052145f48f8, type: 3}
+  companionManagementFrame: {fileID: 21300000, guid: 3438500f50c834ffd8cab1850f7e94bf, type: 3}
+  startingDeck: {fileID: 11400000, guid: b23f200d4ca864a2d8598bdda929ba0f, type: 2}
+  cardBack: {fileID: 21300000, guid: a5222a8d127763c49b397cce916345ec, type: 3}
+  cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
+  cardTypeIconOverride: {fileID: 0}
+  rarity: 0
+  cardIdleVfxPrefab: {fileID: 0}
+  genericCompanionSFX: {fileID: 0}
+  genericCompanionVFX: {fileID: 0}
+  cacheValueConfigs:
+  - key: turnsRemaining
+    display: 1
+    sprite: {fileID: 21300000, guid: 075d631d82a8340fab8366ba447f5ec8, type: 3}
+    startOfTurnValue: 0
+    setStartOfTurnValue: 0
+    startOfCombatValue: 2
+    setStartOfCombatValue: 1
+  cardPool: {fileID: 11400000, guid: 5b268e007a928469b9689a9868334b23, type: 2}
+  pack: {fileID: 11400000, guid: 5f4300e0913784f05aeff0dd086d4338, type: 2}
+  speakerType: {fileID: 0}
+  abilitiesV2:
+  - rid: 7401433308100034736
+  level: 2
+  upgradeTo: {fileID: 0}
+  tooltip:
+    empty: 0
+    lines:
+    - title: Noddie++
+      description: At the start of the first 3 turns of combat, create in hand an
+        "Advanced Strategy"
+      relatedBehaviorIndex: 0
+    - title: Advanced Strategy
+      description: 0. Retain. Exhaust. Draw 2 from target companion, then discard
+        1 card in hand.
+      relatedBehaviorIndex: 0
+  keepsakeTitle: Thistleton
+  keepsakeDescription: At the start of the first 3 turns of combat, create in hand
+    a 0 mana card with Retain that draws 2 and discards
+  references:
+    version: 2
+    RefIds:
+    - rid: 754093848945229862
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+    - rid: 7401433308100034736
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 12
+        effectSteps:
+        - rid: 7401433308100034737
+        - rid: 7401433308100034771
+        - rid: 7401433308100034772
+        - rid: 7401433308100034773
+        - rid: 7401433308100034739
+        - rid: 7401433308100034774
+        - rid: 7401433308100034775
+        - rid: 754093848945229862
+    - rid: 7401433308100034737
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 7401433308100034739
+      type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: AddCardsToHand
+        entityFromKey: self
+        cardTypes:
+        - {fileID: 11400000, guid: a29b5a44573154cd5a9bfd0b54c59c36, type: 2}
+        getCardsFromKey: 0
+        inputCardsKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        outputKey: 
+    - rid: 7401433308100034771
+      type: {class: CombatInstanceCacheLoad, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatInstanceCacheLoad
+        inputCombatInstanceKey: self
+        cacheKey: turnsRemaining
+        currentWorkflowKey: turnsRemaining
+    - rid: 7401433308100034772
+      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: BooleanComparison
+        hardCodedInputKey1: 0
+        useHardCodedInputKey1: 1
+        inputKey1: 
+        operation: 0
+        inputKey2: turnsRemaining
+        outputKey: done
+    - rid: 7401433308100034773
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: done
+        conditionToEndOn: 1
+    - rid: 7401433308100034774
+      type: {class: MathStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: MathStep
+        inputKey: turnsRemaining
+        operand2InputKey: UNUSED
+        operation: 1
+        scale: 1
+        outputKey: turnsRemaining
+    - rid: 7401433308100034775
+      type: {class: CombatInstanceCacheStore, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatInstanceCacheStore
+        inputCombatInstanceKey: self
+        hardCodedBool: 0
+        useHardCodedBool: 0
+        hardCodedInt: 0
+        useHardCodedInt: 0
+        currentWorkflowKey: turnsRemaining
+        cacheKey: turnsRemaining
