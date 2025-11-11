@@ -323,10 +323,7 @@ public class EnemyView : IUIEventReceiver
 
     public void DamageScaleBump(int scale = -1)
     {
-        // TODO re enable
-        //if (scale == 0 || this.isTweening) return; // this could mean the damage didn't go through the block or that the companion died while taking damage
-        Debug.Log("Meothra, Called ui scale bump!");
-        this.container.style.rotate = new StyleRotate(new Rotate(scale * 90));
+        if (scale == 0 || this.isTweening) return; 
 
         float duration = 0.125f;  // Total duration for the scale animation
         float minScale = .8f; // (float)Math.Min(.75, .9 - scale / 500);  // scale bump increases in intensity if entity takes more damage (haven't extensively tested this)
