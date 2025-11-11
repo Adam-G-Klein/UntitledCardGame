@@ -114,8 +114,8 @@ public class CombatEncounterView : MonoBehaviour,
 
     public void DestroyMapAndEnemyUI()
     {
-    //    clearViews();
-    //    SetupFromGamestate(enemyEncounterManager, true, true);
+         clearViews();
+         SetupFromGamestate(enemyEncounterManager, true, true);
     }
 
     private void clearViews()
