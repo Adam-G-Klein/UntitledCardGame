@@ -52,7 +52,7 @@ public class CombatEncounterView : MonoBehaviour,
     private Dictionary<CombatInstance, EnemyView> combatInstanceToEnemyView;
     private bool bossFight = false;
 
-    public void SetupFromGamestate(EnemyEncounterManager enemyEncounterManager, bool skipMapSetup = false, bool skipEnemySetup = false)
+    public void SetupFromGamestate(EnemyEncounterManager enemyEncounterManager)
     {
         this.enemyEncounterManager = enemyEncounterManager;
         docRenderer = gameObject.GetComponent<UIDocumentScreenspace>();
@@ -75,10 +75,7 @@ public class CombatEncounterView : MonoBehaviour,
         }
         List<Enemy> enemies = ((EnemyEncounter)gameState.activeEncounter.GetValue()).enemyList;
         List<Companion> companions = gameState.companions.activeCompanions;
-        if (!skipEnemySetup)
-        {
-            setupEnemies(root.Q<VisualElement>("enemyContainer"), enemies.Cast<IUIEntity>());
-        }
+        setupEnemies(root.Q<VisualElement>("enemyContainer"), enemies.Cast<IUIEntity>());
         SetupCompanions(root.Q<VisualElement>("companionContainer"), companions);
         UIDocumentUtils.SetAllPickingMode(root, PickingMode.Ignore);
 
@@ -93,12 +90,9 @@ public class CombatEncounterView : MonoBehaviour,
         // for the boss fight
         VisualElement mapRoot = root.Q("mapRoot");
         mapRoot.Clear();
-        if (!skipMapSetup)
-        {
-            mapView = new MapView(enemyEncounterManager);
-            mapView.mapContainer.Q<Label>("money-indicator-label").text = gameState.playerData.GetValue().gold.ToString() + "$";
-            mapRoot.Add(mapView.mapContainer);
-        }
+        mapView = new MapView(enemyEncounterManager);
+        mapView.mapContainer.Q<Label>("money-indicator-label").text = gameState.playerData.GetValue().gold.ToString() + "$";
+        mapRoot.Add(mapView.mapContainer);
 
         cardInHandSelectionView = new CardInHandSelectionView(uiDoc, root.Q<VisualElement>("card-in-hand-selection-view"));
 
@@ -114,8 +108,11 @@ public class CombatEncounterView : MonoBehaviour,
 
     public void DestroyMapAndEnemyUI()
     {
-         clearViews();
-         SetupFromGamestate(enemyEncounterManager, true, true);
+        VisualElement mapRoot = root.Q("mapRoot");
+        mapRoot.Clear();
+        VisualElement enemyContainer = root.Q<VisualElement>("enemyContainer");
+        FocusManager.Instance.UnregisterFocusables(enemyContainer);
+        enemyContainer.Clear();
     }
 
     private void clearViews()

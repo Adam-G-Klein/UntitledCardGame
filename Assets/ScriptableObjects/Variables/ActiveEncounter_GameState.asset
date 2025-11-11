@@ -14,22 +14,55 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   locked: 0
   Value:
-    rid: 3365866960405921828
+    rid: 3365867027364315153
   references:
     version: 2
     RefIds:
-    - rid: 3365866960405921828
-      type: {class: EnemyEncounter, ns: , asm: Assembly-CSharp}
+    - rid: 3365867027364315153
+      type: {class: ShopEncounter, ns: , asm: Assembly-CSharp}
       data:
-        id: cdb97cfe-f70e-477e-9b6d-c2bf36f87cf9
+        id: 095cb351-4427-4208-9e07-eda200149b48
         isCompleted: 0
-        isEliteEncounter: 0
-        enemyList:
-        - id: 964c9623-585e-4917-8f54-36f57f788919
-          entityType: 1
-          enemyType: {fileID: 11400000, guid: 1e01ae2a7723d1a46ad929b8fd229d98, type: 2}
-          combatStats:
-            maxHealth: 20
-            maxHealthBuffs: 0
-            currentHealth: 9
-            baseAttackDamage: 0
+        shopData: {fileID: 11400000, guid: 64b1d5221aac20348909c6cab7cc24d6, type: 2}
+        cardsInShop:
+        - cardType: {fileID: 11400000, guid: b797f6c6ca1504e1e9f7218ec0f2d743, type: 2}
+          price: 1
+          cardPool: {fileID: 11400000, guid: 5b268e007a928469b9689a9868334b23, type: 2}
+          sourceCompanion: {fileID: 11400000, guid: 04c7e341cd1cb4872bc1252299c09f2e, type: 2}
+          rarity: 1
+          genericArtwork: {fileID: 0}
+          packSO: {fileID: 0}
+          increasedPrice: 0
+        - cardType: {fileID: 11400000, guid: 442045fb1af404361b38ce9ee0cd083b, type: 2}
+          price: 1
+          cardPool: {fileID: 11400000, guid: 5f4dfcdc555374920a665ed173393d99, type: 2}
+          sourceCompanion: {fileID: 11400000, guid: d46a66f8d86b8413097eaca31924aa9b, type: 2}
+          rarity: 1
+          genericArtwork: {fileID: 0}
+          packSO: {fileID: 0}
+          increasedPrice: 0
+        - cardType: {fileID: 11400000, guid: addc67def8bcf4766813e5fcdd9fbf65, type: 2}
+          price: 1
+          cardPool: {fileID: 11400000, guid: 0bf35a642105d4780a727b994049d862, type: 2}
+          sourceCompanion: {fileID: 0}
+          rarity: 1
+          genericArtwork: {fileID: 0}
+          packSO: {fileID: 11400000, guid: a87b5da767d4e4659b2965e31e340c58, type: 2}
+          increasedPrice: 0
+        - cardType: {fileID: 11400000, guid: 4c307bd2f031345a28cb5d43b1d61ee6, type: 2}
+          price: 1
+          cardPool: {fileID: 11400000, guid: f16e9cd7d69314290ae5bed1edae4ce0, type: 2}
+          sourceCompanion: {fileID: 0}
+          rarity: 1
+          genericArtwork: {fileID: 0}
+          packSO: {fileID: 0}
+          increasedPrice: 0
+        companionsInShop:
+        - companionType: {fileID: 11400000, guid: 260de4ccd12c947a39356f896e7514b5, type: 2}
+          price: 3
+          increasedPrice: 0
+          sustainedDamage: 0
+        - companionType: {fileID: 11400000, guid: dcd7118c5346a4522ac61110debabb1b, type: 2}
+          price: 3
+          increasedPrice: 0
+          sustainedDamage: 0
