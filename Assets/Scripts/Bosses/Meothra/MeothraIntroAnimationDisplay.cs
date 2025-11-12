@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Animations;
 using UnityEngine.Playables;
 using UnityEngine.UIElements;
 
@@ -24,6 +25,12 @@ public class MeothraIntroAnimationDisplay : MonoBehaviour
     private int currentShakeIndex = 0;
     private PlayableDirector playableDirector;
 
+    [Header("Swap the animator after the intro so that we can move the IK handles independent of the timeline")]
+    [SerializeField] private RuntimeAnimatorController introAnimatorController;
+    [SerializeField] private RuntimeAnimatorController combatAnimatorController;
+    private Animator animator;
+    private PlayableDirector director;
+
     public void Setup()
     {
         /*
@@ -33,8 +40,16 @@ public class MeothraIntroAnimationDisplay : MonoBehaviour
             return;
         }
         */
-        playableDirector = GetComponent<PlayableDirector>();
-        playableDirector.Play();
+        director = GetComponent<PlayableDirector>();
+        director.Play();
+        animator = GetComponentInChildren<Animator>();
+        if(animator == null)
+        {
+            Debug.LogError("MeothraIntroAnimationDisplay: Setup could not find Animator!");
+            return;
+        }
+        animator.runtimeAnimatorController = introAnimatorController;
+
     }
     public void DoNextShake()
     {
@@ -77,6 +92,24 @@ public class MeothraIntroAnimationDisplay : MonoBehaviour
     public void DestroyMapAndEnemyUI()
     {
         EnemyEncounterManager.Instance.combatEncounterView.DestroyMapAndEnemyUI();
+    }
+
+    public void SwapToCombatAnimationController()
+    {
+        animator.runtimeAnimatorController = combatAnimatorController;
+        // disable the animator track in the playable director
+        PlayableGraph graph = director.playableGraph;
+        for(int i =0; i < graph.GetOutputCount(); i++)
+        {
+            PlayableOutput output = graph.GetOutput(i);
+            Debug.Log("Meothra timeline output type: " + output.GetPlayableOutputType().ToString());
+            if(output.GetPlayableOutputType() == typeof(AnimationPlayableOutput))
+            {
+                Debug.Log("MeothraIntroAnimationDisplay: Disabling animator output track in playable director");
+                output.SetWeight(0f);
+                graph.Destroy();
+            }
+        }
     }
 
 }

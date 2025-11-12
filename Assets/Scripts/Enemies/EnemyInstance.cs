@@ -219,7 +219,12 @@ public class EnemyInstance : MonoBehaviour, IUIEntity
         currentIntent = enemy.ChooseIntent(this);
         Debug.Log("EnemyInstance: UpdateView");
         EnemyEncounterViewModel.Instance.SetStateDirty();
-        //tooltipProvider.IntentDeclared(GetBehaviorIndexForBrain(enemy.enemyType.enemyPattern));
+        // TODO, implement meothra tooltip provider
+        if(tooltipProvider != null)
+        {
+            tooltipProvider.IntentDeclared(GetBehaviorIndexForBrain(enemy.enemyType.enemyPattern));
+        }
+        onIntentDeclared?.Invoke();
         yield return null;
     }
 

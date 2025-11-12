@@ -42,7 +42,7 @@ public class MeothraIntentDisplay: MonoBehaviour
             intentLabel.style.display = DisplayStyle.None;
         }
         intentTransform.position = intentAnchor.transform.position + anchorOffset;
-        targetPointer.transform.position = enemyInstance.currentIntent.targets[0].transform.position;
+        //targetPointer.transform.position = enemyInstance.currentIntent.targets[0].transform.position;
     }
 
     private void HideIntent()
