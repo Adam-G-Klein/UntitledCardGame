@@ -8,7 +8,7 @@ using System.Linq;
 
 // This class isn't expected to have a delegate view or delegate controller because it'll be wrapped
 // by one that does
-public class CompendiumView : MonoBehaviour, IControlsReceiver {
+public class CompendiumView : IControlsReceiver {
     public VisualElement compendiumContainer;
     private UIDocument uiDocument;
     private CompendiumType currentCompendiumView = CompendiumType.CARD;
@@ -25,6 +25,8 @@ public class CompendiumView : MonoBehaviour, IControlsReceiver {
     private List<VisualElement> elementsWithTooltips = new();
     private GameObject tooltipPrefab;
     private TooltipController tooltipController;
+    private Button companionButton;
+    private Button cardButton;
 
     public CompendiumView(UIDocument uiDocument, CompanionPoolSO companionPool, CardPoolSO neutralCardPool, List<PackSO> packSOs, GameObject tooltipPrefab) {
         this.tooltipController = new TooltipController(tooltipPrefab);
@@ -37,12 +39,15 @@ public class CompendiumView : MonoBehaviour, IControlsReceiver {
         companionScrollView.Clear();
         SetupCardView(companionPool, neutralCardPool, packSOs);
         SetupCompanionView(companionPool);
-        CardButtonHandler();
 
         // setup buttons
+        companionButton = uiDocument.rootVisualElement.Q<Button>("companionButton");
+        cardButton = uiDocument.rootVisualElement.Q<Button>("cardButton");
+        CardButtonHandler();
+
         uiDocument.rootVisualElement.Q<Button>("exitButton").clicked += ExitButtonHandler;
-        uiDocument.rootVisualElement.Q<Button>("cardButton").clicked += CardButtonHandler;
-        uiDocument.rootVisualElement.Q<Button>("companionButton").clicked += CompanionButtonHandler;
+        cardButton.clicked += CardButtonHandler;
+        companionButton.clicked += CompanionButtonHandler;
         uiDocument.rootVisualElement.Q<Button>("enemyButton").clicked += EnemyButtonHandler;
 
         FocusManager.Instance.RegisterFocusables(uiDocument);
@@ -67,6 +72,10 @@ public class CompendiumView : MonoBehaviour, IControlsReceiver {
         companionScrollView.style.display = DisplayStyle.Flex;
         EnableCompanionFocusables();
         ResetScrollers();
+
+        companionButton.RemoveFromClassList("compendium-button-disabled");
+        cardButton.AddToClassList("compendium-button-disabled");
+        FocusManager.Instance.Unfocus();
     }
 
     private void CardButtonHandler()
@@ -76,6 +85,10 @@ public class CompendiumView : MonoBehaviour, IControlsReceiver {
         companionScrollView.style.display = DisplayStyle.None;
         EnableCardFocusables();
         ResetScrollers();
+
+        companionButton.AddToClassList("compendium-button-disabled");
+        cardButton.RemoveFromClassList("compendium-button-disabled");
+        FocusManager.Instance.Unfocus();
     }
 
     public void ExitButtonHandler() {
@@ -83,6 +96,8 @@ public class CompendiumView : MonoBehaviour, IControlsReceiver {
         FocusManager.Instance.UnregisterFocusables(uiDocument);
         FocusManager.Instance.UnstashFocusables(this.GetType().Name);
         ControlsManager.Instance.UnregisterControlsReceiver(this);
+        Cleanup();
+        OptionsViewController.Instance.onCloseCompenidum();
     }
 
     private void SetupCardView(CompanionPoolSO companionPool,CardPoolSO neutralCardPool, List<PackSO> packSOs) {
@@ -161,7 +176,7 @@ public class CompendiumView : MonoBehaviour, IControlsReceiver {
             companionsSection.Add(sectionTitle);
 
             VisualElement companionRow = new VisualElement();
-            companionRow.AddToClassList("compendium-section-container");
+            companionRow.AddToClassList("compendium-companions-section-container");
 
             List<Companion> companionsToDisplay = new List<Companion>
             { new Companion(companion), new Companion(companion.upgradeTo), new Companion(companion.upgradeTo.upgradeTo) };
@@ -236,7 +251,7 @@ public class CompendiumView : MonoBehaviour, IControlsReceiver {
         scroller.value += amount * (scroller.highValue-scroller.lowValue);
         Dictionary<string, TooltipView> dictCopy = new(tooltipMap);
         foreach (KeyValuePair<string, TooltipView> kvp in dictCopy) {
-            Destroy(kvp.Value.gameObject);
+            GameObject.Destroy(kvp.Value.gameObject);
             tooltipMap.Remove(kvp.Key);
         }
     }
@@ -249,5 +264,18 @@ public class CompendiumView : MonoBehaviour, IControlsReceiver {
     public void SwappedControlMethod(ControlsManager.ControlMethod controlMethod)
     {
         return;
+    }
+
+    public void Cleanup() {
+        // likely not necessary, but was getting some lag after working on compendium view for awhile so I am worried about a memory leak
+        // Unsubscribe from events
+        uiDocument.rootVisualElement.Q<Button>("exitButton").clicked -= ExitButtonHandler;
+        cardButton.clicked -= CardButtonHandler;
+        companionButton.clicked -= CompanionButtonHandler;
+        uiDocument.rootVisualElement.Q<Button>("enemyButton").clicked -= EnemyButtonHandler;
+
+        // Additional cleanup logic if necessary
+        cardsScrollView?.Clear();
+        companionScrollView?.Clear();
     }
 }

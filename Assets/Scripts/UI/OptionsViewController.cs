@@ -164,13 +164,19 @@ public class OptionsViewController : GenericSingleton<OptionsViewController>, IC
         Application.Quit();
     }
 
-    public void onCompendiumButtonHandler() {
+    public void onCompendiumButtonHandler()
+    {
+        compendiumView = null;
         compendiumUIDocument.rootVisualElement.style.display = DisplayStyle.Flex;
         compendiumUIDocument.rootVisualElement.style.visibility = Visibility.Visible;
-        compendiumView = null; // in the future we would ideally have some way of tracking if it had to be recreated based on change in gamestate
         FocusManager.Instance.StashLockedFocusables(this.GetType().Name);
         FocusManager.Instance.UnlockFocusables();
         compendiumView = new CompendiumView(compendiumUIDocument, companionPool, neutralCardPool, packSOs, tooltipPrefab);
+    }
+    
+    public void onCloseCompenidum()
+    {
+        compendiumView = null;
     }
 
     public void onVolumeSliderChangedHandler(float value, VolumeType volumeType) {
