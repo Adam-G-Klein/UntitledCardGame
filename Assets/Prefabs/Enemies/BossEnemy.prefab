@@ -468,10 +468,6 @@ PlayableDirector:
     value: {fileID: 6215186920877093653}
   - key: {fileID: 5264023060522250358, guid: 0e17ca10cba89f544ab75d248dd9f9b7, type: 2}
     value: {fileID: 3618462785228998342}
-  - key: {fileID: 1636172527288368260, guid: dc78d963ff8533a4f8c3e264e5231baf, type: 2}
-    value: {fileID: 6215186920877093653}
-  - key: {fileID: -2766440780096269908, guid: dc78d963ff8533a4f8c3e264e5231baf, type: 2}
-    value: {fileID: 8108817387768579365}
   m_ExposedReferences:
     m_References: []
 --- !u!114 &6215186920877093653
@@ -716,6 +712,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7161144235292359258, guid: 535d880997a80914281e8c1d7b3ae8b5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9068233716136097497, guid: 535d880997a80914281e8c1d7b3ae8b5, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
@@ -761,11 +761,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &8108817387768579365 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7161144235292359258, guid: 535d880997a80914281e8c1d7b3ae8b5, type: 3}
-  m_PrefabInstance: {fileID: 1434731618481405823}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &8237915836317127949 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7042437949734365810, guid: 535d880997a80914281e8c1d7b3ae8b5, type: 3}

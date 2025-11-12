@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -48,6 +49,23 @@ public class MeothraVFXController : MonoBehaviour
         Debug.Log("MeothraVFXController: StopBillowing called!");
         // TODO wait for the end of the current billowing animation and destroy it
         currentIdleBackgroundEffectInstance = Instantiate(idleBackgroundEffect, idleBackgroundEffectSpawnPoint.position, idleBackgroundEffectSpawnPoint.rotation);
+        ParticleSystem[] particleSystems = currentIdleBackgroundEffectInstance.GetComponentsInChildren<ParticleSystem>();
+        List<List<Vector4>> allCustomParticleData = new List<List<Vector4>>();
+        LeanTween.value(1, 0, 20).setOnUpdate((float val) =>
+        {
+            foreach (ParticleSystem ps in particleSystems)
+            {
+                List<Vector4> customParticleData = new List<Vector4>();
+                ps.GetCustomParticleData(customParticleData, ParticleSystemCustomData.Custom1);
+                // get the first particle, set its x value to val, our tweened value
+                for(int i = 0; i < customParticleData.Count; i++)
+                {
+                    customParticleData[i] = new Vector4(val, 0, 0, 0);
+                }
+                ps.SetCustomParticleData(customParticleData, ParticleSystemCustomData.Custom1);
+            }
+        });
+        
     }
 
     public void Retract()
