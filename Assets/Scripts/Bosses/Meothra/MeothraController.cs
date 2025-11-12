@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 
 public class MeothraController : MonoBehaviour, IBossController
 {
-    [SerializeField] private EnemyInstance enemyInstance;
+    [SerializeField] public EnemyInstance enemyInstance;
     [SerializeField] private MeothraIntentDisplay meothraIntentDisplay;
     [SerializeField] private MeothraIntroAnimationDisplay meothraIntroAnimation;
 
@@ -23,7 +23,8 @@ public class MeothraController : MonoBehaviour, IBossController
         enemyInstance.combatInstance.onDamageHandler += OnDamageHandler;
     }
 
-    private IEnumerator Attack(List<Vector3> positions) {
+    private IEnumerator Attack(List<Vector3> positions)
+    {
         yield return null;
     }
 
@@ -37,4 +38,9 @@ public class MeothraController : MonoBehaviour, IBossController
         yield return new WaitForSeconds(0.25f);
         meothraIntentDisplay.ShowIntent();
     }
+    public Vector3 GetFrameLocation()
+    {
+        return enemyInstance.placement.worldPos;
+    }
+
 }

@@ -8,11 +8,37 @@ using UnityEngine.UIElements;
 public class MeothraVFXController : MonoBehaviour
 {
 
+    [SerializeField] private GameObject introExplosion;
+    [SerializeField] private GameObject idleBackgroundEffect;
+    [SerializeField] private Transform idleBackgroundEffectSpawnPoint;
+    [SerializeField] private GameObject endingSwirlEffect;
+    [SerializeField] private Transform endingSwirlEffectSpawnPoint;
+    private GameObject currentEndingSwirlEffectInstance;
+    [SerializeField] private GameObject startingSwirlEffect;
+    [SerializeField] private Transform startingSwirlEffectSpawnPoint;
+    [SerializeField] private GameObject currentStartingSwirlEffectInstance;
+
+    [SerializeField] private GameObject combatOverSucc;
+    [SerializeField] private Transform combatOverSuccSpawnPoint;
+    private GameObject currentCombatOverSuccInstance;
+    private GameObject currentExplosionEffectInstance;
+    [SerializeField] private GameObject currentIdleBackgroundEffectInstance;
+    [SerializeField] private MeothraController meothraController;
+
+    void Update()
+    {
+        if(currentStartingSwirlEffectInstance != null)
+        {
+            currentStartingSwirlEffectInstance.transform.position = meothraController.enemyInstance.enemyView.focusable.GetWorldspacePosition();
+        }
+    }
+
     public void Explode()
     {
-        // TODO: Ayo to implement here
 
         Debug.Log("MeothraVFXController: Explode called!");
+        Destroy(currentStartingSwirlEffectInstance);
+        currentExplosionEffectInstance = Instantiate(introExplosion, meothraController.GetFrameLocation(), Quaternion.identity);
 
     }
 
@@ -20,14 +46,19 @@ public class MeothraVFXController : MonoBehaviour
     {
         // TODO: Ayo to implement here
         Debug.Log("MeothraVFXController: StopBillowing called!");
-
+        // TODO wait for the end of the current billowing animation and destroy it
+        currentIdleBackgroundEffectInstance = Instantiate(idleBackgroundEffect, idleBackgroundEffectSpawnPoint.position, idleBackgroundEffectSpawnPoint.rotation);
     }
 
     public void Retract()
     {
         // TODO: Ayo to implement here
         Debug.Log("MeothraVFXController: Retract called!");
-
+        // TODO, make it work
+        LeanTween.alpha(currentIdleBackgroundEffectInstance, 0f, 2f)
+            .setOnComplete(() => Destroy(currentIdleBackgroundEffectInstance));
+        currentCombatOverSuccInstance = Instantiate(combatOverSucc, meothraController.GetFrameLocation(), Quaternion.identity);
+        currentEndingSwirlEffectInstance = Instantiate(endingSwirlEffect, meothraController.GetFrameLocation(), Quaternion.identity);
     }
 
     public void RetractionComplete()
@@ -40,6 +71,8 @@ public class MeothraVFXController : MonoBehaviour
     {
         // TODO: Ayo to implement here
         Debug.Log("MeothraVFXController: FullyDestroy called!");
+        Destroy(currentEndingSwirlEffectInstance);
+        Destroy(currentCombatOverSuccInstance);
 
     }
 }
