@@ -23,7 +23,6 @@ public class MeothraIntroAnimationDisplay : MonoBehaviour
     
     [SerializeField]
     private int currentShakeIndex = 0;
-    private PlayableDirector playableDirector;
 
     [Header("Swap the animator after the intro so that we can move the IK handles independent of the timeline")]
     [SerializeField] private RuntimeAnimatorController introAnimatorController;
@@ -87,6 +86,7 @@ public class MeothraIntroAnimationDisplay : MonoBehaviour
     public void CinematicIntroComplete()
     {
         EnemyEncounterManager.Instance.CinematicIntroComplete();
+        director.Stop();
     }
 
     public void DestroyMapAndEnemyUI()
