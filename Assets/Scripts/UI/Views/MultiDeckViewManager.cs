@@ -79,7 +79,7 @@ public class MultiDeckViewManager : GenericSingleton<MultiDeckViewManager>, IMul
         List<DeckViewTab> deckViewTabs = new List<DeckViewTab>();
         DeckViewTab combatDeckViewTab = new DeckViewTab
         {
-            title = "Draw",
+            title = "Deck",
             sections = new List<DeckViewTabSection>()
         };
         List<CompanionInstance> activeCompanions = CombatEntityManager.Instance.getCompanions().Where(c => c != null).ToList();
