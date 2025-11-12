@@ -107,7 +107,6 @@ public class MeothraIntroAnimationDisplay : MonoBehaviour
             {
                 Debug.Log("MeothraIntroAnimationDisplay: Disabling animator output track in playable director");
                 output.SetWeight(0f);
-                graph.Destroy();
             }
         }
     }
