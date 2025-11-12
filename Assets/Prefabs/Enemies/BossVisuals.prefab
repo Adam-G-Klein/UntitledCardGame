@@ -1830,6 +1830,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5939685945306643193}
     m_Modifications:
+    - target: {fileID: 920027969915971360, guid: 538508b4193575c4389c45188b8bfd69, type: 3}
+      propertyPath: m_Events.m_Events.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 920027969915971360, guid: 538508b4193575c4389c45188b8bfd69, type: 3}
+      propertyPath: m_Events.m_Signals.Array.size
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 2434045349470973451, guid: 538508b4193575c4389c45188b8bfd69, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

@@ -882,7 +882,7 @@
                 "m_Node": {
                     "m_Id": "ad2a7049da884b38b87bb2defbb051bf"
                 },
-                "m_SlotId": 1
+                "m_SlotId": 2
             },
             "m_InputSlot": {
                 "m_Node": {
@@ -896,7 +896,7 @@
                 "m_Node": {
                     "m_Id": "ad2a7049da884b38b87bb2defbb051bf"
                 },
-                "m_SlotId": 1
+                "m_SlotId": 2
             },
             "m_InputSlot": {
                 "m_Node": {
@@ -1185,10 +1185,10 @@
     "m_Guid": {
         "m_GuidSerialized": "8127c43e-7398-4d74-8d0d-8540639aeb3e"
     },
-    "m_Name": "-> Cutoff",
+    "m_Name": "v Cutoff",
     "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "-> Cutoff",
-    "m_DefaultReferenceName": "_Cutoff",
+    "m_RefNameGeneratedByDisplayName": "v Cutoff",
+    "m_DefaultReferenceName": "_v_Cutoff",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
     "m_UseCustomSlotLabel": false,
@@ -3051,7 +3051,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "4205e80bc2dc469abf9686ddd5f7c6e5",
     "m_Id": 0,
-    "m_DisplayName": "<- Cutoff",
+    "m_DisplayName": "^ Cutoff",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
@@ -4796,10 +4796,10 @@
     "m_Guid": {
         "m_GuidSerialized": "d22a769d-c365-4b92-8d78-e814eb1b5fd1"
     },
-    "m_Name": "-> R Power",
+    "m_Name": "v Bottom Power",
     "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "-> R Power",
-    "m_DefaultReferenceName": "_R_Power",
+    "m_RefNameGeneratedByDisplayName": "v Bottom Power",
+    "m_DefaultReferenceName": "_v_Bottom_Power",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
     "m_UseCustomSlotLabel": false,
@@ -5108,7 +5108,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "8cf17da23aeb4440931daf4c784cee9a",
     "m_Id": 0,
-    "m_DisplayName": "-> R Power",
+    "m_DisplayName": "v Bottom Power",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
@@ -5149,10 +5149,10 @@
     "m_Guid": {
         "m_GuidSerialized": "391dc0ea-82ec-4a81-b647-e05cd443b4c1"
     },
-    "m_Name": "L <- Power",
+    "m_Name": "^ Top Power",
     "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "L <- Power",
-    "m_DefaultReferenceName": "_L_Power",
+    "m_RefNameGeneratedByDisplayName": "^ Top Power",
+    "m_DefaultReferenceName": "_Top_Power",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
     "m_UseCustomSlotLabel": false,
@@ -6529,7 +6529,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "ca7fadf1bfbf42c2b83741970636419f",
     "m_Id": 0,
-    "m_DisplayName": "-> Cutoff",
+    "m_DisplayName": "v Cutoff",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
@@ -6580,10 +6580,10 @@
     "m_Guid": {
         "m_GuidSerialized": "1a31725a-0da2-4adc-ab39-94bc393933b1"
     },
-    "m_Name": "<- Cutoff",
+    "m_Name": "^ Cutoff",
     "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "<- Cutoff",
-    "m_DefaultReferenceName": "_Cutoff_1",
+    "m_RefNameGeneratedByDisplayName": "^ Cutoff",
+    "m_DefaultReferenceName": "_Cutoff",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
     "m_UseCustomSlotLabel": false,
@@ -7469,7 +7469,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "ef0623fb6f034edd9e9d630549ce3226",
     "m_Id": 0,
-    "m_DisplayName": "L <- Power",
+    "m_DisplayName": "^ Top Power",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
