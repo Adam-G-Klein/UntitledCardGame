@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab8ea54faf5a15e429a5a40d1f6f4818, type: 3}
+  m_Name: TestBossfightMapGenerator
+  m_EditorClassIdentifier: 
+  map:
+    encounters:
+    - rid: 3054805330898190336
+  references:
+    version: 2
+    RefIds:
+    - rid: 3054805330898190336
+      type: {class: EnemyEncounter, ns: , asm: Assembly-CSharp}
+      data:
+        id: 8a8e6f64-16bf-4702-b379-48dbcf9bfdaa
+        isCompleted: 0
+        isEliteEncounter: 0
+        enemyList:
+        - id: boss123
+          entityType: 1
+          enemyType: {fileID: 11400000, guid: 1e01ae2a7723d1a46ad929b8fd229d98, type: 2}
+          combatStats:
+            maxHealth: 100
+            maxHealthBuffs: 0
+            currentHealth: 100
+            baseAttackDamage: 0

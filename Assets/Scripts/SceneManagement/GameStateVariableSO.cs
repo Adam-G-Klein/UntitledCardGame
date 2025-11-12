@@ -125,7 +125,7 @@ public class GameStateVariableSO : ScriptableObject
     public int tutorialLoops = 2;
     public bool fullscreenEnabled = true;
 
-    public void LoadNextLocation() {
+    public void LoadNextLocation(bool debug = false) {
         Debug.Log("Loading next location, current location is: " + currentLocation);
         switch(currentLocation) {
             case Location.MAIN_MENU:
@@ -205,7 +205,7 @@ public class GameStateVariableSO : ScriptableObject
         }
 
         if (currentLocation == Location.SHOP || currentLocation == Location.COMBAT) {
-            SaveManager.Instance.SaveHandler();
+            if (!debug) SaveManager.Instance.SaveHandler();
         }
 
         updateMusic(currentLocation);
