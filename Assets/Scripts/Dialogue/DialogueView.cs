@@ -10,6 +10,7 @@ public class DialogueView : GenericSingleton<DialogueView>
 {
     public UIDocument uiDoc;
     public RawImage rawImage;
+    public Canvas canvas;
     public float charRevealDelay;
     public float postFullTextDelay;
     public int maxChars;

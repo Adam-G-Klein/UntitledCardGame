@@ -81,6 +81,7 @@ public class PlayableCard : MonoBehaviour,
             //     .SpeakCompanionLine(
             //         "You don't have enough mana for me to cast that for you :(",
             //         deckFrom.GetComponent<CompanionInstance>().companion.companionType, 3f));
+            DialogueView.Instance.gameObject.SetActive(true);
             DialogueView.Instance.SpeakLine(deckFrom.GetComponent<CompanionInstance>().companion.companionType,
                     "You don't have enough mana for me to cast that for you.");
             return;

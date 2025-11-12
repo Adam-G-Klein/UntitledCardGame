@@ -32,7 +32,7 @@ public class Targetable : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
         TargetableClicked();
     }
 
-    private void TargetableClicked() {
+    public void TargetableClicked() {
         if(targetType == TargetType.Companion) {
             Debug.Log("Targetable: Clicked on companion");
         } else if(targetType == TargetType.Minion) {
@@ -53,7 +53,7 @@ public class Targetable : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
         TargetableEntered();
     }
 
-    private void TargetableEntered() {
+    public void TargetableEntered() {
         if (targetType == TargetType.Companion) {
             EnemyEncounterManager.Instance.gameState.UpdateHoveredCompanion(GetComponent<CompanionInstance>());
         }
@@ -68,7 +68,7 @@ public class Targetable : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
         TargetableExited();
     }
 
-    private void TargetableExited() {
+    public void TargetableExited() {
         if (targetType == TargetType.Companion) {
             EnemyEncounterManager.Instance.gameState.UpdateHoveredCompanion(null);
         }

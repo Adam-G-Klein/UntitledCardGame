@@ -2226,7 +2226,7 @@ GameObject:
   - component: {fileID: 1532229972}
   - component: {fileID: 1532229971}
   - component: {fileID: 1532229974}
-  m_Layer: 5
+  m_Layer: 2
   m_Name: WorldspaceDialogueView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2289,7 +2289,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: 538332dcfd314f64bb0379551953f675, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -2340,6 +2340,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiDoc: {fileID: 1532229973}
   rawImage: {fileID: 1532229971}
+  canvas: {fileID: 1532229968}
   charRevealDelay: 0.02
   postFullTextDelay: 2
   maxChars: 120
@@ -3715,7 +3716,8 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 430066739}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 1624549941427933647, guid: a01603c96ed613e4dadddb16c94272d3, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a01603c96ed613e4dadddb16c94272d3, type: 3}
@@ -3727,6 +3729,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2709368508900977881, guid: a246cd575c4606b48aa933beb9c080a8, type: 3}
+      propertyPath: m_EventMask.m_Bits
+      value: 1019
+      objectReference: {fileID: 0}
     - target: {fileID: 3515355886071417933, guid: a246cd575c4606b48aa933beb9c080a8, type: 3}
       propertyPath: m_Name
       value: CinemachineCameras
