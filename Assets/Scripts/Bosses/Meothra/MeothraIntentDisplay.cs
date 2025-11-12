@@ -45,11 +45,12 @@ public class MeothraIntentDisplay: MonoBehaviour
         //targetPointer.transform.position = enemyInstance.currentIntent.targets[0].transform.position;
     }
 
-    private void HideIntent()
+    public void HideIntent()
     {
         intentUIDoc.rootVisualElement.visible = false;
     }
 
-
-
+    public void ShowIntent() {
+        intentUIDoc.rootVisualElement.visible = true;
+    }
 }

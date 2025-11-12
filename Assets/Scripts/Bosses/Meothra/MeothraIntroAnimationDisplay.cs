@@ -94,6 +94,10 @@ public class MeothraIntroAnimationDisplay : MonoBehaviour
         EnemyEncounterManager.Instance.combatEncounterView.DestroyMapAndEnemyUI();
     }
 
+    public void DoScreenShake() {
+        ScreenShakeManager.Instance.ShakeWithForce(1f);
+    }
+
     public void SwapToCombatAnimationController()
     {
         animator.runtimeAnimatorController = combatAnimatorController;
