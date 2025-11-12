@@ -74,7 +74,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
         CheckDisableUpgradeButtonV2();
 
-        shopViewController.SetupUpgradeIncrements();
+        shopViewController.SetupUpgradeIncrements(shopEncounter.shopData.shopLevels.Count - 1 <= shopLevel.level);
         /* uncomment to re-enable shop dialogue
         DialogueManager.Instance.SetDialogueLocation(
             gameState.dialogueLocations.GetDialogueLocation(gameState));
