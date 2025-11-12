@@ -6,7 +6,7 @@ using System.Collections;
 public class SceneTransitionManager : MonoBehaviour
 {
     [Header("Transition Settings")]
-    [SerializeField] private float fadeSpeed = 1.5f;
+    [SerializeField] private float fadeTime = .25f;
     [SerializeField] private Color fadeColor = Color.black;
     
     private static SceneTransitionManager instance;
@@ -53,13 +53,19 @@ public class SceneTransitionManager : MonoBehaviour
         rect.sizeDelta = Vector2.zero;
     }
 
-    public static void LoadScene(string sceneName)
+    public static void LoadScene(string sceneName, float delay = 0f)
     {
         if (instance != null && !instance.isFading)
         {
-            LeanTween.cancelAll(); // Got a bad error when I tried to load a scene with a tween running
-            instance.StartCoroutine(instance.FadeAndLoadScene(sceneName));
+            instance.StartCoroutine(instance.WaitAndLoadScene(sceneName));
         }
+    }
+    
+    private IEnumerator WaitAndLoadScene(string sceneName, float delay = 0f)
+    {
+        yield return new WaitForSeconds(delay); // Wait for the specified delay
+        LeanTween.cancelAll(); // Cancel any running tweens
+        yield return StartCoroutine(FadeAndLoadScene(sceneName)); // Start the fade and load process
     }
 
     private IEnumerator FadeAndLoadScene(string sceneName)
@@ -82,13 +88,19 @@ public class SceneTransitionManager : MonoBehaviour
 
     private IEnumerator Fade(float targetAlpha)
     {
-        float alpha = fadeImage.color.a;
+    
+        // Set the target color with the desired alpha
+        Color targetColor = new Color(fadeColor.r, fadeColor.g, fadeColor.b, targetAlpha);
         
-        while (!Mathf.Approximately(alpha, targetAlpha))
+        // Use LeanTween to tween the alpha value of the fadeImage
+        LeanTween.alpha(fadeImage.rectTransform, targetAlpha, fadeTime).setOnComplete(() =>
         {
-            alpha = Mathf.MoveTowards(alpha, targetAlpha, fadeSpeed * Time.deltaTime);
-            fadeImage.color = new Color(fadeColor.r, fadeColor.g, fadeColor.b, alpha);
-            yield return null;
-        }
+            // Ensure the final color is set after the tween completes
+            fadeImage.color = targetColor;
+        });
+
+        // Wait for the duration of the fade
+        yield return new WaitForSeconds(fadeTime);
+    
     }
 }

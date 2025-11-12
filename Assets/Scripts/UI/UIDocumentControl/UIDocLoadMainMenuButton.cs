@@ -11,7 +11,7 @@ public class UIDocMainMenuButton : MonoBehaviour
     private VisualElement nextSceneButton;
 
     public void loadMainMenu() {
-        SceneManager.LoadScene("MainMenu");
+        SceneTransitionManager.LoadScene("MainMenu");
         nextSceneButton.SetEnabled(false);
     }
     void OnEnable() {
