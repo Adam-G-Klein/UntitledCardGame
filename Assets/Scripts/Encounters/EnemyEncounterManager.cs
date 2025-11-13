@@ -39,6 +39,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     public GameObject placerGO;
     private bool startTheTurns = false;
     private bool cinematicIntroComplete = false;
+    private bool cinematicOutroComplete = false;
     private bool inToolTip = false;
     private bool castingCard = false;
     private bool combatOver = false;
@@ -140,6 +141,11 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         cinematicIntroComplete = true;
     }
 
+    public void CinematicOutroComplete()
+    {
+        cinematicOutroComplete = true;
+    }
+
     private IEnumerator PreEncounterCoroutine()
     {
         Debug.Log("Starting PreEncounterCoroutine, waiting for cinematic intro to complete");
@@ -171,6 +177,11 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         }
         if (gameState.activeEncounter.GetValue().id == gameState.map.GetValue().encounters[gameState.map.GetValue().encounters.Count - 1].id)
         {
+            if (isBoss) {
+                // Kick off the cinematic outro timeline here
+                Debug.Log("EnemyEncounterManager was supposed to kickoff the outra cinematic here");
+                yield return new WaitUntil(() => cinematicOutroComplete == true);
+            }
             WinGameHandler();
             yield break;
         }
@@ -286,9 +297,10 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     }
 
     public void TurnOffInteractions() {
-        FocusManager.Instance.Unfocus();
+        FocusManager.Instance.UnregisterAll();
         PlayerHand.Instance.DisableHand();
-        combatEncounterView.UpdateView();
+        combatEncounterView.DisableInteractions();
+        // combatEncounterView.UpdateView();
     }
 
     public void TurnOffFocusing() {

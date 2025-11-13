@@ -40,6 +40,7 @@ public class CompanionView : IUIEventReceiver
     private List<VisualElement> pickingModePositionList = new List<VisualElement>();
     private List<VisualElement> elementsKeepingHiddenContainerVisible = new List<VisualElement>();
     private bool isDead = false;
+    private bool isFullyDisabled = false;
     private VisualElement containerThatHoverIndicatorShows;
     private bool isTweening = false;
 
@@ -502,9 +503,15 @@ public class CompanionView : IUIEventReceiver
     }
 
     public void SetPickingModes(bool enable) {
+        if (isFullyDisabled) return;
         foreach (VisualElement ve in pickingModePositionList) {
             ve.pickingMode = enable ? PickingMode.Position : PickingMode.Ignore;
         }
+    }
+
+    public void DisableInteractions() {
+        UIDocumentUtils.SetAllPickingMode(this.container, PickingMode.Ignore);
+        this.isFullyDisabled = true;
     }
 
     public IEnumerator AbilityActivatedVFX() {

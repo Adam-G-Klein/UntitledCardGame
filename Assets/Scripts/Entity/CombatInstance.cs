@@ -101,6 +101,7 @@ public class CombatInstance : MonoBehaviour
     // basically the entire combat screen is UI Doc and we're gonna be hiding
     // the sprites on the game objects that sit on the scene.
     private VisualElement rootVisualElement;
+    private bool destroyOnDeath = true;
 
     public void ApplyStatusEffects(StatusEffectType statusEffect, int scale) {
         Debug.Log(String.Format("Applying status with scale {0}", scale));
@@ -144,7 +145,8 @@ public class CombatInstance : MonoBehaviour
         Entity parentEntity,
         CombatInstanceParent parentType,
         WorldPositionVisualElement wpve,
-        List<CacheConfiguration> cacheConfigs = null
+        List<CacheConfiguration> cacheConfigs = null,
+        bool destroyOnDeath = true
     ) {
         this.combatStats = combatStats;
         this.parentType = parentType;
@@ -168,6 +170,7 @@ public class CombatInstance : MonoBehaviour
         // null if boss that doesn't have status display
         if(statusEffectsDisplay != null) statusEffectsDisplay.Setup(this, wpve);       
         this.wpve = wpve;
+        this.destroyOnDeath = destroyOnDeath;
     }
 
     public int GetCurrentDamage() {
@@ -339,7 +342,7 @@ public class CombatInstance : MonoBehaviour
             MusicController.Instance.PlaySFX("event:/MX/MX_CompanionDeath");
         }
         CombatEntityManager.Instance.SpawnEntityOnDeathVfx(this);
-        Destroy(this.gameObject);
+        if (destroyOnDeath) Destroy(this.gameObject);
         yield return null;
     }
 

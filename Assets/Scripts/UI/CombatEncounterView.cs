@@ -172,6 +172,16 @@ public class CombatEncounterView : MonoBehaviour,
         }
     }
 
+    public void DisableInteractions() {
+        foreach (EnemyView entityView in entityViews) {
+            entityView.DisableInteractions();
+        }
+        foreach (CompanionView view in companionViews)
+        {
+            view.DisableInteractions();
+        }
+    }
+
     public void DisableFocusing()
     {
         foreach (EnemyView entityView in entityViews)

@@ -45,7 +45,8 @@ public class EnemyInstance : MonoBehaviour, IUIEntity
         CombatEntityManager.Instance.registerEnemy(this);
         this.placement = placement;
         dead = false;
-        combatInstance.Setup(enemy.combatStats, enemy, CombatInstance.CombatInstanceParent.ENEMY, placement, this.enemy.enemyType.cacheValueConfigs);
+        bool destroyOnDeath = enemy.enemyType.enemyDisplayType == DisplayType.MEOTHRA ? false : true;
+        combatInstance.Setup(enemy.combatStats, enemy, CombatInstance.CombatInstanceParent.ENEMY, placement, this.enemy.enemyType.cacheValueConfigs, destroyOnDeath);
         Debug.Log("EnemyInstance Start for enemy " + enemy.id + " initialized with combat stats (health): " + combatInstance.combatStats.getCurrentHealth());
         combatInstance.SetId(enemy.id);
         this.enemyIntentArrows = GetComponent<EnemyIntentArrowsController>();

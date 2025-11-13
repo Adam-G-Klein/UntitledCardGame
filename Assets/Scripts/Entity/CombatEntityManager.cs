@@ -227,8 +227,9 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
 
             // Don't ask me why one is CompanionInstance and the other is just Enemy
         }
-        else if (combatInstance.parentEntity.entityType == EntityType.Enemy)
+        else if (combatInstance.TryGetComponent<EnemyInstance>(out EnemyInstance enemyInstance))
         {
+            if (enemyInstance.enemy.enemyType.enemyDisplayType == DisplayType.MEOTHRA) return; // Don't spawn death VFX for Boss
             Instantiate(encounterConstants.enemyDeathPrefab, combatInstance.transform.position, Quaternion.identity);
         }
     }

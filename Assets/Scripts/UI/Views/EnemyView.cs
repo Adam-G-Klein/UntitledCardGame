@@ -411,6 +411,10 @@ public class EnemyView : IUIEventReceiver
             });
     }
 
+    public void DisableInteractions() {
+        UIDocumentUtils.SetAllPickingMode(this.container, PickingMode.Ignore);
+    }
+
     private IEnumerator OnDeathHandler(CombatInstance killer)
     {
         this.selectedIndicator.style.visibility = Visibility.Hidden;
