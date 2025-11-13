@@ -54,9 +54,11 @@ public class MeothraHealthDisplay : MonoBehaviour
             .setEase(LeanTweenType.linear)
             .setOnUpdate((float val) => {
                 int intVal = Mathf.RoundToInt(val);
-                this.healthBarLabel.text = String.Format(HEALTH_LABEL_STRING, intVal, maxHealth);
+                if(healthBarLabel != null)
+                    this.healthBarLabel.text = String.Format(HEALTH_LABEL_STRING, intVal, maxHealth);
                 float healthPercent = val / (float) maxHealth;
-                this.healthBarFill.style.width = Length.Percent(healthPercent * 100);
+                if(healthBarFill != null)
+                    this.healthBarFill.style.width = Length.Percent(healthPercent * 100);
             })
             .setOnComplete(() => {
                 isHealthTweening = false;
