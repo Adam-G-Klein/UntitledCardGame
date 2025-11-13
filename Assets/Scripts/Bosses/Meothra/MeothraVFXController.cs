@@ -25,6 +25,7 @@ public class MeothraVFXController : MonoBehaviour
     private GameObject currentExplosionEffectInstance;
     [SerializeField] private GameObject currentIdleBackgroundEffectInstance;
     [SerializeField] private MeothraController meothraController;
+    [SerializeField] private List<Material> idleBackgroundMaterials = new List<Material>();
 
     void Update()
     {
@@ -50,20 +51,24 @@ public class MeothraVFXController : MonoBehaviour
         // TODO wait for the end of the current billowing animation and destroy it
         currentIdleBackgroundEffectInstance = Instantiate(idleBackgroundEffect, idleBackgroundEffectSpawnPoint.position, idleBackgroundEffectSpawnPoint.rotation);
         List<List<Vector4>> allCustomParticleData = new List<List<Vector4>>();
-        LeanTween.value(1, 0, 20).setOnUpdate((float val) =>
+        LeanTween.value(1, -1, 20).setOnUpdate((float val) =>
         {
+            /* one would hope this would work. 
             ParticleSystem[] particleSystems = currentIdleBackgroundEffectInstance.GetComponentsInChildren<ParticleSystem>();
-            foreach (ParticleSystem ps in particleSystems)
+            List<Vector4> customParticleData = new List<Vector4>();
+            ps.GetCustomParticleData(customParticleData, ParticleSystemCustomData.Custom1);
+            // get the first particle, set its x value to val, our tweened value
+            for(int i = 0; i < customParticleData.Count; i++)
             {
-                List<Vector4> customParticleData = new List<Vector4>();
-                ps.GetCustomParticleData(customParticleData, ParticleSystemCustomData.Custom1);
-                // get the first particle, set its x value to val, our tweened value
-                for(int i = 0; i < customParticleData.Count; i++)
-                {
-                    customParticleData[i] = new Vector4(val, 0, 0, 0);
-                }
-                ps.SetCustomParticleData(customParticleData, ParticleSystemCustomData.Custom1);
+                customParticleData[i] = new Vector4(val, 0, 0, 0);
             }
+            ps.SetCustomParticleData(customParticleData, ParticleSystemCustomData.Custom1);
+            */
+            foreach(Material mat in idleBackgroundMaterials)
+            {
+                mat.SetFloat("_Cutoff_Value", val);
+            }
+
         });
         
     }
