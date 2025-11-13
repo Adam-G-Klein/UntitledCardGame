@@ -31,7 +31,6 @@ MonoBehaviour:
       displayValue: 6
       effectSteps:
       - rid: 3931529445166809420
-      - rid: 173314522967966368
       - rid: 3931529445166809313
     behaviorType: 0
   belowHalfHPEnemyPattern:
@@ -52,11 +51,6 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 173314522967966368
-      type: {class: ScriptableObjectEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: ScriptableObjectEffectStep
-        effectStepSO: {fileID: 11400000, guid: 46ac36b880e2ff14aa699c90b6e9f19c, type: 2}
     - rid: 3931529445166809313
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:

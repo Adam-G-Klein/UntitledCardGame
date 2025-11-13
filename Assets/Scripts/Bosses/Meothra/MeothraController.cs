@@ -13,6 +13,9 @@ public class MeothraController : MonoBehaviour, IBossController
     [SerializeField] private MeothraHealthDisplay meothraHealthDisplay;
 
     [SerializeField] private GameObject selectedIndicator;
+    [SerializeField] private GameObject specialAttackVFX;
+
+    private bool suppressSelectedIndicator = true;
 
     public void Setup()
     {
@@ -24,12 +27,21 @@ public class MeothraController : MonoBehaviour, IBossController
         meothraIntentDisplay.Setup();
         meothraIntroAnimation.Setup();
         meothraIntroAnimation.cinematicIntroCompleteHandler += meothraHealthDisplay.ShowView;
+        meothraIntroAnimation.cinematicIntroCompleteHandler += () => suppressSelectedIndicator = false;
         enemyInstance.preEnactIntentHook += Attack;
         enemyInstance.combatInstance.onDamageHandler += OnDamageHandler;
     }
 
     private IEnumerator Attack(List<Vector3> positions)
     {
+        GameObject gameObject = GameObject.Instantiate(
+                specialAttackVFX,
+                positions[0],
+                Quaternion.identity);
+        // gameObject.transform.localScale *= 2f;
+        // foreach (Transform child in gameObject.transform) {
+        //     child.localScale *= 2f;
+        // }
         yield return null;
     }
 
@@ -50,6 +62,7 @@ public class MeothraController : MonoBehaviour, IBossController
     }
 
     public void EnableSelectedIndicator() {
+        if (suppressSelectedIndicator) return; // Wait for cinematic intro to be over
         selectedIndicator.SetActive(true);
     }
 
