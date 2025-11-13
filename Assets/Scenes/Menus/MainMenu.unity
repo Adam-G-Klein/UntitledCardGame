@@ -596,7 +596,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameState: {fileID: 11400000, guid: 9e326417f60894341a96cc8d02868bbe, type: 2}
   mapGenerator: {fileID: 11400000, guid: 9c609d9cb3a1547f4a23a5a9d7c047db, type: 2}
-  demoMapGenerator: {fileID: 11400000, guid: 9c609d9cb3a1547f4a23a5a9d7c047db, type: 2}
+  demoMapGenerator: {fileID: 11400000, guid: 9350963a1cdcf456b86e35dc94201915, type: 2}
 --- !u!1 &2116912956
 GameObject:
   m_ObjectHideFlags: 0
@@ -626,7 +626,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ebb04de77aee4b49a3e6a1a479fc48a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeSpeed: 2
+  fadeTime: 0.25
   fadeColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!4 &2116912958
 Transform:
