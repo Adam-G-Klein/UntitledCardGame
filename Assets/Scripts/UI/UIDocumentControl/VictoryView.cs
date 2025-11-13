@@ -58,9 +58,6 @@ public class VictoryView : MonoBehaviour
             companionContainer.AddToClassList("victory-companion-container");
             CompanionTypeSO companionType = companions[i].companionType;
             CompanionView entityView = new CompanionView(companions[i], EnemyEncounterManager.Instance.encounterConstants.companionViewTemplate, i, CompanionView.COMBAT_CONTEXT, combatEncounterView);
-            //entityView.entityContainer.AddToClassList("compendium-item-container");
-            VisualElement portraitContainer = entityView.container.Q(className: "companion-view-companion-image");
-            portraitContainer.style.backgroundImage = new StyleBackground(companionType.sprite);
             companionContainer.Add(entityView.container);
             
             List<Card> cards = new List<Card>();
