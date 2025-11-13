@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/fontStyling.uss?fileID=7433441132597879392&amp;guid=d0c0881f1c32747ecb649373600de095&amp;type=3#fontStyling" />
+    <ui:VisualElement name="VisualElement" picking-mode="Ignore" style="flex-grow: 1; width: 100%; height: 100%; align-items: center; position: absolute; justify-content: center;">
+        <ui:Label tabindex="-1" text="Meothra" parse-escape-sequences="true" display-tooltip-when-elided="true" name="boss-name-label" style="-unity-text-align: upper-center; -unity-font-style: bold; font-size: 94px; padding-bottom: 0; color: rgb(255, 255, 255); margin-top: 0; margin-bottom: 0; padding-top: 0;" />
+        <ui:VisualElement style="flex-grow: 0; flex-shrink: 0; width: 91%; height: 39%; border-top-width: 6px; border-right-width: 6px; border-bottom-width: 6px; border-left-width: 6px; border-left-color: rgb(30, 30, 30); border-right-color: rgb(30, 30, 30); border-top-color: rgb(30, 30, 30); border-bottom-color: rgb(30, 30, 30); margin-bottom: 5px;">
+            <ui:VisualElement name="boss-health-bar-background" style="flex-grow: 1; position: absolute; width: 100%; height: 100%; background-color: rgb(255, 255, 255);" />
+            <ui:VisualElement name="boss-health-bar-fill" style="flex-grow: 0; background-color: rgb(158, 0, 3); flex-shrink: 0; width: 89%; height: 100%;" />
+            <ui:Label tabindex="-1" text="45/50" parse-escape-sequences="true" display-tooltip-when-elided="true" name="boss-health-bar-label" style="position: absolute; left: 25%; right: 25%; top: 0; bottom: 0; -unity-font-style: bold; -unity-text-align: middle-center; font-size: 43px; color: rgb(30, 30, 30); margin-top: 2px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -20,6 +20,9 @@ public class MeothraIntroAnimationDisplay : MonoBehaviour
     public bool positionShake = false;
     [Header("Shake Magnitude, Duration (not used, just half rotation duration), pingpongs")]
     public List<float> positionShakes = new List<float>() { 10f, 20f, 30f };
+
+    public delegate void OnCinematicIntroCompleteHandler();
+    public event OnCinematicIntroCompleteHandler cinematicIntroCompleteHandler;
     
     [SerializeField]
     private int currentShakeIndex = 0;
@@ -87,6 +90,7 @@ public class MeothraIntroAnimationDisplay : MonoBehaviour
     {
         EnemyEncounterManager.Instance.CinematicIntroComplete();
         director.Stop();
+        cinematicIntroCompleteHandler?.Invoke();
     }
 
     public void DestroyMapAndEnemyUI()

@@ -48,7 +48,8 @@ public class CombatInstance : MonoBehaviour
     public delegate void OnStatusEffectChangeHandler();
     public event OnStatusEffectChangeHandler onStatusEffectChangeHandler;
 
-    //public AudioClip genericInteractionSFX;
+    public delegate void UpdateViewHandler();
+    public event UpdateViewHandler updateViewHandler;
     public GameObject genericInteractionVFX;
 
     // Only used for debugging purposes, will be set by some other script
@@ -523,6 +524,7 @@ public class CombatInstance : MonoBehaviour
 
     private void UpdateView() {
         EnemyEncounterViewModel.Instance.SetStateDirty();
+        updateViewHandler?.Invoke();
     }
 
     public void SetStatusEffect(StatusEffectType statusEffectType, int value) {

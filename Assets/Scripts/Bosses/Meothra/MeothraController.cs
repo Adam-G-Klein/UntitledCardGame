@@ -10,15 +10,18 @@ public class MeothraController : MonoBehaviour, IBossController
     [SerializeField] public EnemyInstance enemyInstance;
     [SerializeField] private MeothraIntentDisplay meothraIntentDisplay;
     [SerializeField] private MeothraIntroAnimationDisplay meothraIntroAnimation;
+    [SerializeField] private MeothraHealthDisplay meothraHealthDisplay;
 
     public void Setup()
     {
         if (enemyInstance == null) enemyInstance = GetComponent<EnemyInstance>();
         if (meothraIntentDisplay == null) meothraIntentDisplay = GetComponent<MeothraIntentDisplay>();
         if (meothraIntroAnimation == null) meothraIntroAnimation = GetComponentInChildren<MeothraIntroAnimationDisplay>();
+        if (meothraHealthDisplay == null) meothraHealthDisplay = GetComponentInChildren<MeothraHealthDisplay>();
 
         meothraIntentDisplay.Setup();
         meothraIntroAnimation.Setup();
+        meothraIntroAnimation.cinematicIntroCompleteHandler += meothraHealthDisplay.ShowView;
         enemyInstance.preEnactIntentHook += Attack;
         enemyInstance.combatInstance.onDamageHandler += OnDamageHandler;
     }
@@ -38,6 +41,7 @@ public class MeothraController : MonoBehaviour, IBossController
         yield return new WaitForSeconds(0.25f);
         meothraIntentDisplay.ShowIntent();
     }
+
     public Vector3 GetFrameLocation()
     {
         return enemyInstance.placement.worldPos;
