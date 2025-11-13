@@ -51,7 +51,7 @@ public class MeothraVFXController : MonoBehaviour
         // TODO wait for the end of the current billowing animation and destroy it
         currentIdleBackgroundEffectInstance = Instantiate(idleBackgroundEffect, idleBackgroundEffectSpawnPoint.position, idleBackgroundEffectSpawnPoint.rotation);
         List<List<Vector4>> allCustomParticleData = new List<List<Vector4>>();
-        LeanTween.value(1, -1, 20).setOnUpdate((float val) =>
+        LeanTween.value(2, -1, 2).setOnUpdate((float val) =>
         {
             /* one would hope this would work. 
             ParticleSystem[] particleSystems = currentIdleBackgroundEffectInstance.GetComponentsInChildren<ParticleSystem>();
