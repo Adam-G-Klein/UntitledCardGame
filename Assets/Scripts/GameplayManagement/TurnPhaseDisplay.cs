@@ -49,6 +49,7 @@ public class TurnPhaseDisplay : MonoBehaviour {
     }
 
     public IEnumerator DisplayVictory() {
+        if (EnemyEncounterManager.Instance.isBoss == true) yield break;
         GameObject victory = Instantiate(victoryPrefab, effectParent.transform); 
         victory.transform.localPosition = new Vector3(0, 0, effectZOffset);
         yield return new WaitForSeconds(victoryDuration);
