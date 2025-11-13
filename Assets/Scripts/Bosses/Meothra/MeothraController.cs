@@ -12,6 +12,8 @@ public class MeothraController : MonoBehaviour, IBossController
     [SerializeField] private MeothraIntroAnimationDisplay meothraIntroAnimation;
     [SerializeField] private MeothraHealthDisplay meothraHealthDisplay;
 
+    [SerializeField] private GameObject selectedIndicator;
+
     public void Setup()
     {
         if (enemyInstance == null) enemyInstance = GetComponent<EnemyInstance>();
@@ -47,4 +49,11 @@ public class MeothraController : MonoBehaviour, IBossController
         return enemyInstance.placement.worldPos;
     }
 
+    public void EnableSelectedIndicator() {
+        selectedIndicator.SetActive(true);
+    }
+
+    public void DisableSelectedIndicator() {
+        selectedIndicator.SetActive(false);
+    }
 }

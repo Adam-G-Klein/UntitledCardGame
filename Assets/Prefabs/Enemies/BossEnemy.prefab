@@ -208,10 +208,10 @@ Transform:
   m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 5465341329512774258}
   - {fileID: 4721795697928242566}
   - {fileID: 8781745298917095573}
   - {fileID: 1560447508882690836}
-  - {fileID: 5465341329512774258}
   - {fileID: 7377717727517334358}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -348,6 +348,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 7580708747725456903}
+        m_TargetAssemblyTypeName: MeothraController, Assembly-CSharp
+        m_MethodName: EnableSelectedIndicator
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   pointerExitEvent:
     m_PersistentCalls:
       m_Calls:
@@ -355,6 +367,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: TooltipOnHover, Assembly-CSharp
         m_MethodName: OnPointerExit
         m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7580708747725456903}
+        m_TargetAssemblyTypeName: MeothraController, Assembly-CSharp
+        m_MethodName: DisableSelectedIndicator
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -433,6 +457,7 @@ MonoBehaviour:
   meothraIntentDisplay: {fileID: 4976460786884134175}
   meothraIntroAnimation: {fileID: 7974018165867473959}
   meothraHealthDisplay: {fileID: 3795068806916113228}
+  selectedIndicator: {fileID: 9123599744773912000}
 --- !u!320 &6785631429979002981
 PlayableDirector:
   m_ObjectHideFlags: 0
@@ -975,12 +1000,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 1818299386461833455}
     m_Modifications:
     - target: {fileID: 965245180508714823, guid: 7a608f3cb46a8c841b93c15b9c07b04e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 965245180508714823, guid: 7a608f3cb46a8c841b93c15b9c07b04e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 965245180508714823, guid: 7a608f3cb46a8c841b93c15b9c07b04e, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 965245180508714823, guid: 7a608f3cb46a8c841b93c15b9c07b04e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.04
       objectReference: {fileID: 0}
     - target: {fileID: 965245180508714823, guid: 7a608f3cb46a8c841b93c15b9c07b04e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 2.46
       objectReference: {fileID: 0}
     - target: {fileID: 965245180508714823, guid: 7a608f3cb46a8c841b93c15b9c07b04e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1014,9 +1051,45 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1794311173183590155, guid: 7a608f3cb46a8c841b93c15b9c07b04e, type: 3}
+      propertyPath: m_SortingLayer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1794311173183590155, guid: 7a608f3cb46a8c841b93c15b9c07b04e, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1794311173183590155, guid: 7a608f3cb46a8c841b93c15b9c07b04e, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1960729315
+      objectReference: {fileID: 0}
     - target: {fileID: 4044371253566929141, guid: 7a608f3cb46a8c841b93c15b9c07b04e, type: 3}
       propertyPath: m_Name
       value: BossSelectedIndicator
+      objectReference: {fileID: 0}
+    - target: {fileID: 4044371253566929141, guid: 7a608f3cb46a8c841b93c15b9c07b04e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7874796612612049607, guid: 7a608f3cb46a8c841b93c15b9c07b04e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7407
+      objectReference: {fileID: 0}
+    - target: {fileID: 7874796612612049607, guid: 7a608f3cb46a8c841b93c15b9c07b04e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.7407
+      objectReference: {fileID: 0}
+    - target: {fileID: 7874796612612049607, guid: 7a608f3cb46a8c841b93c15b9c07b04e, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.7407
+      objectReference: {fileID: 0}
+    - target: {fileID: 7874796612612049607, guid: 7a608f3cb46a8c841b93c15b9c07b04e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7874796612612049607, guid: 7a608f3cb46a8c841b93c15b9c07b04e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1026,5 +1099,10 @@ PrefabInstance:
 --- !u!4 &5465341329512774258 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 965245180508714823, guid: 7a608f3cb46a8c841b93c15b9c07b04e, type: 3}
+  m_PrefabInstance: {fileID: 5097502598894685493}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &9123599744773912000 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4044371253566929141, guid: 7a608f3cb46a8c841b93c15b9c07b04e, type: 3}
   m_PrefabInstance: {fileID: 5097502598894685493}
   m_PrefabAsset: {fileID: 0}
