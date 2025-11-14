@@ -9,4 +9,6 @@ public class CardBuyAnalyticsEvent : BaseAnalyticsEvent
     public string CardName { set { SetParameter("cardName", value); } }
     public string PackName { set { SetParameter("packName", value); } }
     public string CompanionName { set { SetParameter("companionName", value); } }
+    public string CardCategory { set { SetParameter("cardCategory", value); } }
+    public string Rarity { set { SetParameter("rarity", value); } }
 }

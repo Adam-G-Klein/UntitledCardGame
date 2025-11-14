@@ -345,6 +345,8 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
                 CardName = newCard.cardType.name,
                 PackName = currentCardBuyRequest.packSO?.name ?? "",
                 CompanionName = companion.companionType.name,
+                CardCategory = newCard.cardType.cardCategory.ToString(),
+                Rarity = newCard.shopRarity.ToString(),
             };
             AnalyticsManager.Instance.RecordEvent(cardBuy);
         }
