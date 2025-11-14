@@ -500,6 +500,10 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
             StartCoroutine(turnPhaseEvent.RaiseAtEndOfFrameCoroutine(new TurnPhaseEventInfo(TurnPhase.BEFORE_END_PLAYER_TURN)));
     }
 
+    public void CanEndTurn(bool val) {
+        endTurnEnabled = val;
+    }
+
     public void ToggleUIDocuments(bool inMenu) {
         EnemyEncounterViewModel.Instance.SetInMenu(inMenu);
     }

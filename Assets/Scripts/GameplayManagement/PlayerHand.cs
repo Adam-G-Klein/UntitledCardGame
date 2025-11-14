@@ -166,6 +166,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             // Idle if there are no cards to deal.
             if (cardDealQueue.Count == 0)
             {
+                EnemyEncounterManager.Instance.CanEndTurn(true);
                 // Bus runs every interval.
                 yield return new WaitForSeconds(0.2f);
                 continue;
@@ -431,6 +432,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     // Sometimes we generate cards in hand and we do not want that to count towards entity abilities.
     public List<PlayableCard> DealCards(List<Card> cards, DeckInstance deckFrom, bool countAsDraw = true, bool fromCardCast = false)
     {
+        EnemyEncounterManager.Instance.CanEndTurn(false);
         List<PlayableCard> dealt = DealCardsQueued(cards, deckFrom, countAsDraw, fromCardCast);
         // If the deck is not null, we'll discard all the cards not successfully dealt to hand.
         if (deckFrom != null)
