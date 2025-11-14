@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24f95da87f612e047aaeac10756d2ec7, type: 3}
-  m_Name: Act1_Demo_BabyEnemyPool
+  m_Script: {fileID: 11500000, guid: 17a7027b6d1213c4fa7f5d4be961eaab, type: 3}
+  m_Name: Enc_FreakyGeese
   m_EditorClassIdentifier: 
-  enemyEncounterTypes:
-  - {fileID: 11400000, guid: eb6319a84b3d54474a75d847829ffb4f, type: 2}
-  isElite: 0
+  enemies:
+  - {fileID: 11400000, guid: eff86e491e6374403a59219f5f13c099, type: 2}
+  - {fileID: 11400000, guid: c28067d011930424cb057b09f9ce0f2c, type: 2}
+  devNotes: 
