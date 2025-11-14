@@ -176,6 +176,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1818299386461833455}
   - component: {fileID: 1818299386461833454}
+  - component: {fileID: 6785631429979002981}
   - component: {fileID: 6706516355190666426}
   - component: {fileID: 2382815032633642268}
   - component: {fileID: 5437825517042753912}
@@ -184,7 +185,6 @@ GameObject:
   - component: {fileID: 616890501312769047}
   - component: {fileID: 4976460786884134175}
   - component: {fileID: 7580708747725456903}
-  - component: {fileID: 6785631429979002981}
   - component: {fileID: 6215186920877093653}
   - component: {fileID: 7974018165867473959}
   - component: {fileID: 3795068806916113228}
@@ -243,6 +243,37 @@ MonoBehaviour:
   removeTurnPhaseTriggerEvent: {fileID: 11400000, guid: 88acfcb7f9a9846468020e4e3854b467, type: 2}
   combatEffectEvent: {fileID: 11400000, guid: 7b4f8952c0f9b4d4a80b72189e46bd3c, type: 2}
   dead: 0
+--- !u!320 &6785631429979002981
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1818299386461833425}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: dc78d963ff8533a4f8c3e264e5231baf, type: 2}
+  m_InitialState: 0
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings:
+  - key: {fileID: 8038126005520509943, guid: dc78d963ff8533a4f8c3e264e5231baf, type: 2}
+    value: {fileID: 6215186920877093653}
+  - key: {fileID: 4897494481864241821, guid: dc78d963ff8533a4f8c3e264e5231baf, type: 2}
+    value: {fileID: 4841943011131818125}
+  - key: {fileID: -8607274687197575717, guid: dc78d963ff8533a4f8c3e264e5231baf, type: 2}
+    value: {fileID: 6215186920877093653}
+  - key: {fileID: 5264023060522250358, guid: dc78d963ff8533a4f8c3e264e5231baf, type: 2}
+    value: {fileID: 8237915836317127949}
+  - key: {fileID: 8035087430782629095, guid: dc78d963ff8533a4f8c3e264e5231baf, type: 2}
+    value: {fileID: 3618462785228998342}
+  - key: {fileID: -8581987068495075184, guid: dc78d963ff8533a4f8c3e264e5231baf, type: 2}
+    value: {fileID: 3803154668407854279}
+  - key: {fileID: -8607274687197575717, guid: 0e17ca10cba89f544ab75d248dd9f9b7, type: 2}
+    value: {fileID: 6215186920877093653}
+  m_ExposedReferences:
+    m_References: []
 --- !u!114 &6706516355190666426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -459,47 +490,6 @@ MonoBehaviour:
   meothraHealthDisplay: {fileID: 3795068806916113228}
   selectedIndicator: {fileID: 9123599744773912000}
   specialAttackVFX: {fileID: 6137048663962808129, guid: 418a03ccd75ca98409952e0384c196fd, type: 3}
---- !u!320 &6785631429979002981
-PlayableDirector:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1818299386461833425}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: dc78d963ff8533a4f8c3e264e5231baf, type: 2}
-  m_InitialState: 0
-  m_WrapMode: 2
-  m_DirectorUpdateMode: 1
-  m_InitialTime: 0
-  m_SceneBindings:
-  - key: {fileID: 8038126005520509943, guid: dc78d963ff8533a4f8c3e264e5231baf, type: 2}
-    value: {fileID: 6215186920877093653}
-  - key: {fileID: 4897494481864241821, guid: dc78d963ff8533a4f8c3e264e5231baf, type: 2}
-    value: {fileID: 4841943011131818125}
-  - key: {fileID: -8607274687197575717, guid: dc78d963ff8533a4f8c3e264e5231baf, type: 2}
-    value: {fileID: 6215186920877093653}
-  - key: {fileID: 5264023060522250358, guid: dc78d963ff8533a4f8c3e264e5231baf, type: 2}
-    value: {fileID: 8237915836317127949}
-  - key: {fileID: 8035087430782629095, guid: dc78d963ff8533a4f8c3e264e5231baf, type: 2}
-    value: {fileID: 3618462785228998342}
-  - key: {fileID: -8581987068495075184, guid: dc78d963ff8533a4f8c3e264e5231baf, type: 2}
-    value: {fileID: 3803154668407854279}
-  - key: {fileID: -297206242793615280, guid: 0e17ca10cba89f544ab75d248dd9f9b7, type: 2}
-    value: {fileID: 3803154668407854279}
-  - key: {fileID: 8038126005520509943, guid: 0e17ca10cba89f544ab75d248dd9f9b7, type: 2}
-    value: {fileID: 6215186920877093653}
-  - key: {fileID: -8607274687197575717, guid: 0e17ca10cba89f544ab75d248dd9f9b7, type: 2}
-    value: {fileID: 6215186920877093653}
-  - key: {fileID: 4897494481864241821, guid: 0e17ca10cba89f544ab75d248dd9f9b7, type: 2}
-    value: {fileID: 6215186920877093653}
-  - key: {fileID: -5462914984849492552, guid: 0e17ca10cba89f544ab75d248dd9f9b7, type: 2}
-    value: {fileID: 6215186920877093653}
-  - key: {fileID: 5264023060522250358, guid: 0e17ca10cba89f544ab75d248dd9f9b7, type: 2}
-    value: {fileID: 3618462785228998342}
-  m_ExposedReferences:
-    m_References: []
 --- !u!114 &6215186920877093653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -518,6 +508,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: ed2aeccf14d66954c9959689bb252d6b, type: 2}
     - {fileID: 11400000, guid: a89ac8a70e3cddd42ab12d4f8ac6824d, type: 2}
     - {fileID: 11400000, guid: 3608973291f4dfe4cae23d20b02bcfca, type: 2}
+    - {fileID: 11400000, guid: b306ca6130002fb4f8340803958591a3, type: 2}
     m_Events:
     - m_PersistentCalls:
         m_Calls:
@@ -570,6 +561,20 @@ MonoBehaviour:
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1818299386461833425}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: 
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: 
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
@@ -796,7 +801,7 @@ PrefabInstance:
     - target: {fileID: 2823393901766470584, guid: 535d880997a80914281e8c1d7b3ae8b5, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 66b484ad3387fba4bab95bb478f0fd33, type: 2}
+      objectReference: {fileID: 9100000, guid: dcda5d0e4157d8e4c9f209e3f6d3bbd3, type: 2}
     - target: {fileID: 3193746721326342044, guid: 535d880997a80914281e8c1d7b3ae8b5, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.38748765
