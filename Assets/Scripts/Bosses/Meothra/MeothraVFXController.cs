@@ -26,34 +26,37 @@ public class MeothraVFXController : MonoBehaviour
     [SerializeField] private GameObject currentIdleBackgroundEffectInstance;
     [SerializeField] private MeothraController meothraController;
     [SerializeField] private List<Material> idleBackgroundMaterials = new List<Material>();
+    [SerializeField] private float idleMaterialTweenInDuration = 5f;
+    [SerializeField] private float idleMaterialTweenOutDuration = 5f;
 
     void Update()
     {
-        if(currentStartingSwirlEffectInstance != null)
+        if(currentStartingSwirlEffectInstance != null && currentStartingSwirlEffectInstance.activeInHierarchy)
         {
             currentStartingSwirlEffectInstance.transform.position = meothraController.enemyInstance.enemyView.focusable.GetWorldspacePosition();
         }
     }
 
+    // DEPRECATED, timeline now handles this
     public void Explode()
     {
 
         Debug.Log("MeothraVFXController: Explode called!");
-        Destroy(currentStartingSwirlEffectInstance);
-        currentExplosionEffectInstance = Instantiate(introExplosion, meothraController.GetFrameLocation(), Quaternion.identity);
 
     }
 
-    public void StopBillowing()
+    public void TweenInIdleMaterials()
     {
         // TODO: Ayo to implement here
         Debug.Log("MeothraVFXController: StopBillowing called!");
         // TODO wait for the end of the current billowing animation and destroy it
-        currentIdleBackgroundEffectInstance = Instantiate(idleBackgroundEffect, idleBackgroundEffectSpawnPoint.position, idleBackgroundEffectSpawnPoint.rotation);
         List<List<Vector4>> allCustomParticleData = new List<List<Vector4>>();
-        LeanTween.value(2, -1, 5).setOnUpdate((float val) =>
+        LeanTween.value(2, -1, idleMaterialTweenInDuration).setOnUpdate((float val) =>
         {
-            /* one would hope this would work. 
+            /* 
+            // one would hope this would work. 
+            // alas it does not.
+            // keeping it here so people know there is theoretically a better way
             ParticleSystem[] particleSystems = currentIdleBackgroundEffectInstance.GetComponentsInChildren<ParticleSystem>();
             List<Vector4> customParticleData = new List<Vector4>();
             ps.GetCustomParticleData(customParticleData, ParticleSystemCustomData.Custom1);
@@ -73,23 +76,36 @@ public class MeothraVFXController : MonoBehaviour
         
     }
 
+    public void TweenOutIdleMaterials()
+    {
+        LeanTween.value(-1, 2, idleMaterialTweenOutDuration).setOnUpdate((float val) =>
+        {
+            foreach (Material mat in idleBackgroundMaterials)
+            {
+                mat.SetFloat("_Cutoff_Value", val);
+            }
+
+        }).setOnComplete(() =>
+        {
+            Destroy(currentIdleBackgroundEffectInstance);
+        });}
+
+    // DEPRECATED, timeline now handles this
     public void Retract()
     {
         // TODO: Ayo to implement here
         Debug.Log("MeothraVFXController: Retract called!");
         // TODO, make it work
-        LeanTween.alpha(currentIdleBackgroundEffectInstance, 0f, 2f)
-            .setOnComplete(() => Destroy(currentIdleBackgroundEffectInstance));
-        currentCombatOverSuccInstance = Instantiate(combatOverSucc, meothraController.GetFrameLocation(), Quaternion.identity);
-        currentEndingSwirlEffectInstance = Instantiate(endingSwirlEffect, meothraController.GetFrameLocation(), Quaternion.identity);
     }
 
+    // DEPRECATED, timeline now handles this
     public void RetractionComplete()
     {
         // TODO: Ayo to implement here
         Debug.Log("MeothraVFXController: RetractionComplete called!");
     }
 
+    // DEPRECATED, timeline now handles this
     public void FullyDestroy()
     {
         // TODO: Ayo to implement here

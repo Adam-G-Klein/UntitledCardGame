@@ -272,6 +272,12 @@ PlayableDirector:
     value: {fileID: 3803154668407854279}
   - key: {fileID: -8607274687197575717, guid: 0e17ca10cba89f544ab75d248dd9f9b7, type: 2}
     value: {fileID: 6215186920877093653}
+  - key: {fileID: 3570387010816380764, guid: dc78d963ff8533a4f8c3e264e5231baf, type: 2}
+    value: {fileID: 7970827878684476644}
+  - key: {fileID: -7865634725410458950, guid: dc78d963ff8533a4f8c3e264e5231baf, type: 2}
+    value: {fileID: 8093333058995997335}
+  - key: {fileID: 587172612479492602, guid: dc78d963ff8533a4f8c3e264e5231baf, type: 2}
+    value: {fileID: 3430957034230942550}
   m_ExposedReferences:
     m_References: []
 --- !u!114 &6706516355190666426
@@ -834,6 +840,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.765831
       objectReference: {fileID: 0}
+    - target: {fileID: 5826313549611827186, guid: 535d880997a80914281e8c1d7b3ae8b5, type: 3}
+      propertyPath: m_Events.m_Events.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: TweenInIdleMaterials
+      objectReference: {fileID: 0}
     - target: {fileID: 5939685945306643193, guid: 535d880997a80914281e8c1d7b3ae8b5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -903,6 +913,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4055829790100696917, guid: 535d880997a80914281e8c1d7b3ae8b5, type: 3}
   m_PrefabInstance: {fileID: 1434731618481405823}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &3430957034230942550 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4356113270397760553, guid: 535d880997a80914281e8c1d7b3ae8b5, type: 3}
+  m_PrefabInstance: {fileID: 1434731618481405823}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3618462785228998342 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2440507299476896185, guid: 535d880997a80914281e8c1d7b3ae8b5, type: 3}
@@ -929,6 +944,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &7970827878684476644 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9040731573051079579, guid: 535d880997a80914281e8c1d7b3ae8b5, type: 3}
+  m_PrefabInstance: {fileID: 1434731618481405823}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8093333058995997335 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7185628751919265256, guid: 535d880997a80914281e8c1d7b3ae8b5, type: 3}
+  m_PrefabInstance: {fileID: 1434731618481405823}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &8237915836317127949 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7042437949734365810, guid: 535d880997a80914281e8c1d7b3ae8b5, type: 3}
