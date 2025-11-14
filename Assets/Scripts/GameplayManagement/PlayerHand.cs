@@ -54,7 +54,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     private Dictionary<DeckInstance, List<PlayableCard>> deckInstanceToPlayableCard;
     private List<PlayableCard> orderedCards;
     public delegate IEnumerator OnCardExhaustHandler(DeckInstance deckFrom, PlayableCard card);
-    public event OnCardExhaustHandler onCardExhaustHandler;
+    public PriorityEventDispatcher<OnCardExhaustHandler> onCardExhaustDispatcher = new();
 
     public delegate IEnumerator OnCardDiscardHandler(DeckInstance deckFrom, PlayableCard card, bool casted);
     public event OnCardDiscardHandler onCardDiscardHandler;
@@ -547,13 +547,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
 
     public IEnumerator OnCardExhaust(DeckInstance deckFrom, PlayableCard card)
     {
-        if (onCardExhaustHandler != null)
-        {
-            foreach (OnCardExhaustHandler handler in onCardExhaustHandler.GetInvocationList())
-            {
-                yield return handler.Invoke(deckFrom, card);
-            }
-        }
+       yield return StartCoroutine(onCardExhaustDispatcher.Invoke(deckFrom, card).GetEnumerator());
     }
 
     public IEnumerator OnCardDiscard(DeckInstance deckFrom, PlayableCard card, bool casted)

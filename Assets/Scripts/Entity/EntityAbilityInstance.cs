@@ -105,7 +105,7 @@ public abstract class EntityAbilityInstance
                 // in the shop as of this writing
                 break;
             case EntityAbility.EntityAbilityTrigger.OnCardExhausted:
-                PlayerHand.Instance.onCardExhaustHandler += OnCardExhaust;
+                PlayerHand.Instance.onCardExhaustDispatcher.AddHandler(OnCardExhaust, ability.weight);
                 break;
             case EntityAbility.EntityAbilityTrigger.OnCardDiscard:
                 PlayerHand.Instance.onCardDiscardHandler += OnCardDiscard;
@@ -164,7 +164,7 @@ public abstract class EntityAbilityInstance
         // and persists longer than the "Instance" game objects.
         // When should we unsubscribe so that we do not get memory leaks?
         if (ability.abilityTrigger == EntityAbility.EntityAbilityTrigger.OnCardExhausted) {
-            PlayerHand.Instance.onCardExhaustHandler -= OnCardExhaust;
+            PlayerHand.Instance.onCardExhaustDispatcher.RemoveHandler(OnCardExhaust);
         }
         if (ability.abilityTrigger == EntityAbility.EntityAbilityTrigger.OnDeckShuffled) {
             PlayerHand.Instance.onDeckShuffledHandler -= OnDeckShuffled;
@@ -242,6 +242,7 @@ public abstract class EntityAbilityInstance
 
     private IEnumerator OnCardExhaust(DeckInstance deckFrom, PlayableCard card) {
         //yield return abilityTriggeredVFX();
+        Debug.Log("OnCardExhaust ability invoked!!!");
         EffectDocument document = createEffectDocument();
         if (deckFrom != null && deckFrom.TryGetComponent(out CompanionInstance companion)) {
             EffectUtils.AddCompanionToDocument(document, "companionExhaustedFrom", companion);

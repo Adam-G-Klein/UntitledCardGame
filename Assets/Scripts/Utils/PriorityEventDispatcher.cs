@@ -1,9 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
-
-public class PriorityDispatcher<TDelegate> where TDelegate : Delegate
+public class PriorityEventDispatcher<TDelegate> where TDelegate : Delegate
 {
     private readonly List<(int priority, TDelegate handler)> handlers = new();
 
