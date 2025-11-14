@@ -8,4 +8,5 @@ public class CompanionBuyAnalyticsEvent : BaseAnalyticsEvent
 
     public string CompanionName { set { SetParameter("companionName", value); } }
     public string PackName { set { SetParameter("packName", value); } }
+    public string Rarity { set { SetParameter("rarity", value); } }
 }

@@ -220,7 +220,8 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             var eventData = new CompanionBuyAnalyticsEvent
             {
                 CompanionName = companionInShop.companionType.name,
-                PackName = companionInShop.companionType.pack.name
+                PackName = companionInShop.companionType.pack.name,
+                Rarity = companionInShop.rarity.ToString()
             };
             AnalyticsManager.Instance.RecordEvent(eventData);
         }

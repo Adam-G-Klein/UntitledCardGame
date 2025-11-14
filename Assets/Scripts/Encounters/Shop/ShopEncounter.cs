@@ -46,13 +46,15 @@ public class CompanionInShopWithPrice {
     public int price;
     public bool increasedPrice;
     public int sustainedDamage = 0;
+    public CompanionRarity rarity;
 
-    public CompanionInShopWithPrice(CompanionTypeSO companionType, int price, int sustainedDamage)
+    public CompanionInShopWithPrice(CompanionTypeSO companionType, int price, int sustainedDamage, CompanionRarity rarity)
     {
         this.companionType = companionType;
         this.price = price;
         this.increasedPrice = false;
         this.sustainedDamage = sustainedDamage;
+        this.rarity = rarity;
     }
 }
 
@@ -139,7 +141,7 @@ public class ShopEncounter : Encounter
         for (int i = 0; i < numKeepsakesToGenerate; i++)
         {
             // Determine what the companion pool is for this single keepsake being generated
-            Rarity rarity = PickRarity(
+            CompanionRarity rarity = PickRarity(
                 shopLevel.commonCompanionPercentage,
                 shopLevel.uncommonCompanionPercentage,
                 shopLevel.rareCompanionPercentage,
@@ -151,15 +153,15 @@ public class ShopEncounter : Encounter
             List<CompanionTypeSO> companions = new List<CompanionTypeSO>();
             switch (rarity)
             {
-                case Rarity.Common:
+                case CompanionRarity.COMMON:
                     companions = shopData.companionPool.commonCompanions;
                     break;
 
-                case Rarity.Uncommon:
+                case CompanionRarity.UNCOMMON:
                     companions = shopData.companionPool.uncommonCompanions;
                     break;
 
-                case Rarity.Rare:
+                case CompanionRarity.RARE:
                     companions = shopData.companionPool.rareCompanions;
                     break;
             }
@@ -202,7 +204,7 @@ public class ShopEncounter : Encounter
                 }
             }
             CompanionInShopWithPrice keepsake = new CompanionInShopWithPrice(
-                selected, shopData.companionKeepsakePrice, sustainedDamage
+                selected, shopData.companionKeepsakePrice, sustainedDamage, rarity
             );
             int bonusCost = AddBonusRatCost();
             keepsake.price += bonusCost;
@@ -258,27 +260,27 @@ public class ShopEncounter : Encounter
         return count;
     }
 
-    private Rarity PickRarity(
+    private CompanionRarity PickRarity(
             int commonPercent,
             int uncommonPercent,
             int rarePercent,
             bool commons,
             bool uncommons,
             bool rares) {
-        List<Rarity> rarityPool = new List<Rarity>();
+        List<CompanionRarity> rarityPool = new List<CompanionRarity>();
         List<int> percents = new List<int>();
         if (commons) {
-            rarityPool.Add(Rarity.Common);
+            rarityPool.Add(CompanionRarity.COMMON);
             percents.Add(commonPercent);
         }
 
         if (uncommons) {
-            rarityPool.Add(Rarity.Uncommon);
+            rarityPool.Add(CompanionRarity.UNCOMMON);
             percents.Add(uncommonPercent);
         }
 
         if (rares) {
-            rarityPool.Add(Rarity.Rare);
+            rarityPool.Add(CompanionRarity.RARE);
             percents.Add(rarePercent);
         }
 
@@ -299,7 +301,7 @@ public class ShopEncounter : Encounter
             "It's likely that the card pool for this companion is empty");
 
         // Should never hit this case
-        return Rarity.Common;
+        return CompanionRarity.COMMON;
     }
 
     private enum Rarity {
