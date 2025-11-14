@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using CommonTools.Extensions;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -28,6 +29,16 @@ public class MeothraVFXController : MonoBehaviour
     [SerializeField] private List<Material> idleBackgroundMaterials = new List<Material>();
     [SerializeField] private float idleMaterialTweenInDuration = 5f;
     [SerializeField] private float idleMaterialTweenOutDuration = 5f;
+
+/*
+    void OnGUI()
+    {
+        foreach(ParticleSystem ps in GetComponentsInChildren<ParticleSystem>())
+        {
+            ps.PlayInEditor(true, null);
+        }
+    }
+    */
 
     void Update()
     {
