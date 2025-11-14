@@ -16,6 +16,7 @@ public class EnemyEncounter : Encounter
 
     private UIDocumentGameObjectPlacer placer;
     private IEncounterBuilder encounterBuilder;
+    public string encounterName;
 
     public EnemyEncounter() {
         this.encounterType = EncounterType.Enemy;
@@ -24,15 +25,18 @@ public class EnemyEncounter : Encounter
     public EnemyEncounter(EnemyEncounterTypeSO enemyEncounterType) {
         this.encounterType = EncounterType.Enemy;
         enemyList = new List<Enemy>();
-        foreach (EnemyTypeSO enemyType in enemyEncounterType.enemies) {
+        foreach (EnemyTypeSO enemyType in enemyEncounterType.enemies)
+        {
             enemyList.Add(new Enemy(enemyType));
         }
+        encounterName = enemyEncounterType.name;
     }
 
     public EnemyEncounter(EnemyEncounterSerializable enemyEncounterSerializable, SORegistry registry) {
         this.encounterType = EncounterType.Enemy;
         this.enemyList = enemyEncounterSerializable.enemies.Select(enemy => new Enemy(enemy, registry)).ToList();
         this.isEliteEncounter = enemyEncounterSerializable.isEliteEncounter;
+        this.encounterName = enemyEncounterSerializable.encounterName;
     }
 
     public void SetIsElite(bool isElite) {
@@ -88,7 +92,7 @@ public class EnemyEncounter : Encounter
                 bossController.Setup();
                 EnemyEncounterManager.Instance.isBoss = true;
 
-            } 
+            }
             createdEnemies.Add(newEnemy);
             placer.addMapping(newEnemyPlacement, newEnemy.gameObject);
         }
@@ -146,11 +150,12 @@ public class EnemyEncounter : Encounter
     }
 }
 
-[System.Serializable] 
+[System.Serializable]
 public class EnemyEncounterSerializable : EncounterSerializable
 {
     public List<EnemySerializeable> enemies;
     public bool isEliteEncounter;
+    public string encounterName;
 
     public EnemyEncounterSerializable(EnemyEncounter encounter) : base(encounter)
     {
@@ -158,5 +163,6 @@ public class EnemyEncounterSerializable : EncounterSerializable
             .Select(enemy => new EnemySerializeable(enemy))
             .ToList();
         this.isEliteEncounter = encounter.isEliteEncounter;
+        this.encounterName = encounter.encounterName;
     }
 }

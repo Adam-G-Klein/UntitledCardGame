@@ -48,6 +48,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     private bool inOptionsView = false;
     private bool isEliteCombat = false;
     public bool isBoss = false;
+    private string encounterName;
 
 
     [SerializeField]
@@ -110,6 +111,16 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         combatEncounterView.ResetEntities(createdCompanions, createdEnemies);
         combatOver = false;
         isEliteCombat = encounter.isEliteEncounter;
+        encounterName = encounter.encounterName;
+
+
+        // Fire off a combatEnded Analytics event.
+        var combatStartedEvent = new CombatStartedAnalyticsEvent
+        {
+            EncounterName = encounterName,
+        };
+        AnalyticsManager.Instance.RecordEvent(combatStartedEvent);
+
         // a coroutine for all of the things (like dialogue and a boss start animation) to yield on before we tell the turn manager
         // sets the startTheTurns flag to start the turns (display player turn splash, deal cards)
         StartCoroutine(PreEncounterCoroutine());
@@ -169,6 +180,15 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     */
     private IEnumerator EndEncounterCoroutine(EndEncounterEventInfo info) {
         combatOver = true;
+
+        // Fire off a combatEnded Analytics event.
+        var combatEndedEvent = new CombatEndedAnalyticsEvent
+        {
+            EncounterName = encounterName,
+            TurnIndex = combatEncounterState.turn
+        };
+        AnalyticsManager.Instance.RecordEvent(combatEndedEvent);
+
         Debug.Log("EndEncounterHandler called, info.outcome is " + info.outcome + " gameState.GetLoopIndex() is " + gameState.GetLoopIndex() + " gameState.lastTutorialLoopIndex is " + gameState.lastTutorialLoopIndex);
         if (info.outcome == EncounterOutcome.Defeat)
         {
