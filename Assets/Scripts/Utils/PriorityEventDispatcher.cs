@@ -18,6 +18,20 @@ public class PriorityEventDispatcher<TDelegate> where TDelegate : Delegate
         handlers.RemoveAll(h => h.handler == handler);
     }
 
+    public int Count()
+    {
+        return handlers.Count;
+    }
+    public PriorityEventDispatcher<TDelegate> Clone()
+    {
+        var clone = new PriorityEventDispatcher<TDelegate>();
+        // Copy all handler/priority pairs
+        foreach (var entry in handlers)
+            clone.handlers.Add(entry);
+
+        return clone;
+    }
+
     public IEnumerable<IEnumerator> Invoke(params object[] args)
     {
         foreach (var (priority, handler) in handlers)

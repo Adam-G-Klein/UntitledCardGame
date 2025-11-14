@@ -184,7 +184,7 @@ public abstract class EntityAbilityInstance
     private void setupForTurnPhaseTrigger(TurnPhase turnPhase) {
         TurnPhaseTrigger newTrigger = new TurnPhaseTrigger(turnPhase, setupAndInvokeAbility());
         turnPhaseTriggers.Add(newTrigger);
-        TurnManager.Instance.addTurnPhaseTrigger(newTrigger);
+        TurnManager.Instance.addTurnPhaseTrigger(newTrigger, ability.weight);
     }
 
     // This is a bit of a hack, but I'm ok with it being here for now

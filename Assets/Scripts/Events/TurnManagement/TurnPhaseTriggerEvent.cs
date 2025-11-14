@@ -1,9 +1,12 @@
 using UnityEngine;
 using System.Collections;
+using System;
 
 public class TurnPhaseTrigger {
     public TurnPhase phase;
     public IEnumerable triggerResponse;
+    public Func<IEnumerator> boundHandler;   // store handler for removal
+
 
     public TurnPhaseTrigger(TurnPhase phase, IEnumerable triggerResponse)
     {
@@ -27,6 +30,6 @@ public class TurnPhaseTriggerEventInfo {
 }
 
 [CreateAssetMenu(
-    fileName = "NewTurnPhaseTriggerEvent", 
+    fileName = "NewTurnPhaseTriggerEvent",
     menuName = "Events/Turn Management/Turn Phase Trigger Event")]
 public class TurnPhaseTriggerEvent : BaseGameEvent<TurnPhaseTriggerEventInfo> { }

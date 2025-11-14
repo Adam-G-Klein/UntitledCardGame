@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,17 +26,17 @@ public class TurnManager : GenericSingleton<TurnManager>
         {TurnPhase.END_ENEMY_TURN, TurnPhase.BEFORE_START_PLAYER_TURN}
     };
 
-    private Dictionary<TurnPhase, List<TurnPhaseTrigger>> turnPhaseTriggers = new Dictionary<TurnPhase, List<TurnPhaseTrigger>>(){
-        {TurnPhase.START_ENCOUNTER, new List<TurnPhaseTrigger>()},
-        {TurnPhase.BEFORE_START_PLAYER_TURN, new List<TurnPhaseTrigger>()},
-        {TurnPhase.START_PLAYER_TURN, new List<TurnPhaseTrigger>()},
-        {TurnPhase.PLAYER_TURN, new List<TurnPhaseTrigger>()},
-        {TurnPhase.BEFORE_END_PLAYER_TURN, new List<TurnPhaseTrigger>()},
-        {TurnPhase.END_PLAYER_TURN, new List<TurnPhaseTrigger>()},
-        {TurnPhase.START_ENEMY_TURN, new List<TurnPhaseTrigger>()},
-        {TurnPhase.ENEMIES_TURN, new List<TurnPhaseTrigger>()},
-        {TurnPhase.END_ENEMY_TURN, new List<TurnPhaseTrigger>()},
-        {TurnPhase.END_ENCOUNTER, new List<TurnPhaseTrigger>()}
+    private Dictionary<TurnPhase, PriorityEventDispatcher<Func<IEnumerator>>> turnPhaseTriggers = new Dictionary<TurnPhase, PriorityEventDispatcher<Func<IEnumerator>>>(){
+        {TurnPhase.START_ENCOUNTER, new()},
+        {TurnPhase.BEFORE_START_PLAYER_TURN, new()},
+        {TurnPhase.START_PLAYER_TURN, new()},
+        {TurnPhase.PLAYER_TURN, new()},
+        {TurnPhase.BEFORE_END_PLAYER_TURN, new()},
+        {TurnPhase.END_PLAYER_TURN, new()},
+        {TurnPhase.START_ENEMY_TURN, new()},
+        {TurnPhase.ENEMIES_TURN, new()},
+        {TurnPhase.END_ENEMY_TURN, new()},
+        {TurnPhase.END_ENCOUNTER, new()}
     };
 
     private List<string> turnPhaseChangeBlockers = new List<string>();
@@ -91,7 +92,7 @@ public class TurnManager : GenericSingleton<TurnManager>
     }
 
     private IEnumerator nextPhaseAfterTriggers(TurnPhase currentPhase) {
-        Debug.Log("nextPhaseAfterTriggers found " + turnPhaseTriggers[currentPhase].Count + " triggers for phase " + currentPhase);
+        Debug.Log("nextPhaseAfterTriggers found " + turnPhaseTriggers[currentPhase].Count() + " triggers for phase " + currentPhase);
         yield return StartCoroutine(runTriggersForPhase(currentPhase));
         // Wait for effects to resolve before raising the next turn phase event.
         // We need to do this because many of the "runTriggersForPhase" in the game
@@ -116,20 +117,13 @@ public class TurnManager : GenericSingleton<TurnManager>
     private IEnumerator runTriggersForPhase(TurnPhase phase) {
         Debug.Log("TurnPhaseManager: Running triggers for turn phase " + phase);
         // Copy over the list, because the triggers may result in mutations to the `turnPhaseTriggers` list.
-        List<TurnPhaseTrigger> triggersToRun = new();
-        foreach(TurnPhaseTrigger trigger in turnPhaseTriggers[phase]) {
-            triggersToRun.Add(trigger);
-        }
-        foreach(TurnPhaseTrigger trigger in triggersToRun) {
-            yield return StartCoroutine(trigger.triggerResponse.GetEnumerator());
-        }
+        PriorityEventDispatcher<Func<IEnumerator>> clone = turnPhaseTriggers[phase].Clone();
+       yield return StartCoroutine(clone.Invoke().GetEnumerator());
     }
 
     private IEnumerator runEndEncounterTriggers() {
         Debug.Log("TurnPhaseManager: Running triggers for endEncounter");
-        foreach(TurnPhaseTrigger trigger in turnPhaseTriggers[TurnPhase.END_ENCOUNTER]) {
-            yield return StartCoroutine(trigger.triggerResponse.GetEnumerator());
-        }
+        yield return StartCoroutine(turnPhaseTriggers[TurnPhase.END_ENCOUNTER].Invoke().GetEnumerator());
         // Wait for effects started by the end encounter triggers to resolve :)
         yield return new WaitUntil(() => EffectManager.Instance.IsEffectRunning() == false);
 
@@ -149,12 +143,13 @@ public class TurnManager : GenericSingleton<TurnManager>
         removeTurnPhaseTrigger(info.turnPhaseTrigger);
     }
 
-    public void addTurnPhaseTrigger(TurnPhaseTrigger trigger) {
-        turnPhaseTriggers[trigger.phase].Add(trigger);
+    public void addTurnPhaseTrigger(TurnPhaseTrigger trigger, int weight = 0) {
+        trigger.boundHandler = () => trigger.triggerResponse.GetEnumerator();
+        turnPhaseTriggers[trigger.phase].AddHandler(trigger.boundHandler, weight);
     }
 
     public void removeTurnPhaseTrigger(TurnPhaseTrigger trigger) {
-        turnPhaseTriggers[trigger.phase].Remove(trigger);
+        turnPhaseTriggers[trigger.phase].RemoveHandler(trigger.boundHandler);
     }
 
     public void addTurnPhaseBlocker(string blocker) {
