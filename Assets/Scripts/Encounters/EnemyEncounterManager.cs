@@ -5,9 +5,9 @@ using UnityEngine;
 using UnityEditor;
 using Unity.VisualScripting;
 using TMPro;
-using UnityEngine.UIElements;
 using FMODUnity;
 using FMOD.Studio;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(EndEncounterEventListener))]
 public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IEncounterBuilder, IControlsReceiver
@@ -37,6 +37,8 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     private GameObject postGamePopup;
     [SerializeField]
     public GameObject placerGO;
+    [SerializeField]
+    private GameObject combatEnvironmentParent;
     private bool startTheTurns = false;
     private bool cinematicIntroComplete = false;
     private bool cinematicOutroComplete = false;
@@ -113,6 +115,23 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         isEliteCombat = encounter.isEliteEncounter;
         encounterName = encounter.encounterName;
 
+        switch (encounter.act) {
+            case Act.One:
+                SetupCombatEnvironment(encounterConstants.actOneEnvironment);
+            break;
+
+            case Act.Two:
+                SetupCombatEnvironment(encounterConstants.actTwoEnvironment);
+            break;
+
+            case Act.Three:
+                SetupCombatEnvironment(encounterConstants.actThreeEnvironment);
+            break;
+
+            default:
+                // The scene has the act one environment setup by default
+            break;
+        }
 
         // Fire off a combatEnded Analytics event.
         var combatStartedEvent = new CombatStartedAnalyticsEvent
@@ -347,6 +366,15 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     public void BuildShopEncounter(ShopEncounter encounter) {
         Debug.LogError("The enemy encounter scene was loaded but the active encounter is a shop!");
         return;
+    }
+
+    private void SetupCombatEnvironment(GameObject prefab) {
+        foreach (Transform child in combatEnvironmentParent.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+        Instantiate(prefab, Vector3.zero, Quaternion.identity, combatEnvironmentParent.transform);
     }
 
     private void RegisterCombatEncounterStateActions()

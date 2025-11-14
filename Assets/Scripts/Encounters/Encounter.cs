@@ -12,6 +12,7 @@ public abstract class Encounter
 {
     public string id = Id.newGuid();
     public bool isCompleted = false;
+    public Act act = Act.One;
 
     public abstract void BuildWithEncounterBuilder(IEncounterBuilder encounterBuilder);
 
@@ -50,4 +51,10 @@ public abstract class EncounterSerializable {
         this.isCompleted = encounter.isCompleted;
         this.encounterType = encounter.getEncounterType();
     }
+}
+
+public enum Act {
+    One,
+    Two,
+    Three
 }

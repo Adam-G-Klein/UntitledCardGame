@@ -16,6 +16,9 @@ public class EncounterConstantsSO : ScriptableObject {
     public GameObject companionDeathPrefab;
     public GameObject enemyDeathPrefab;
     public GameObject companionRevivePrefab;
+    public GameObject actOneEnvironment;
+    public GameObject actTwoEnvironment;
+    public GameObject actThreeEnvironment;
     [Header("Shop Encounter")]
     public GameObject cardInShopPrefab;
     public GameObject cardSoldOutPrefab;
