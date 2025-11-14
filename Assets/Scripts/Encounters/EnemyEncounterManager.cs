@@ -110,7 +110,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         combatEncounterView.ResetEntities(createdCompanions, createdEnemies);
         combatOver = false;
         isEliteCombat = encounter.isEliteEncounter;
-        // a coroutine for all of the things (like dialogue and a boss start animation) to yield on before we tell the turn manager 
+        // a coroutine for all of the things (like dialogue and a boss start animation) to yield on before we tell the turn manager
         // sets the startTheTurns flag to start the turns (display player turn splash, deal cards)
         StartCoroutine(PreEncounterCoroutine());
     }
@@ -153,7 +153,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         {
             yield return new WaitUntil(() => cinematicIntroComplete == true);
         }
-        // todo, yield return on additional dialogue being complete from another manager? 
+        // todo, yield return on additional dialogue being complete from another manager?
         startTheTurns = true;
         yield return null;
     }
@@ -198,6 +198,8 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
             extraGold = gameState.baseShopData.interestCap;
         }
 
+        MusicController.Instance.SetCombatState("Victory");
+
         // Give player shop upgrade increments for defeating the enemy
         gameState.EarnUpgradeIncrement();
 
@@ -208,9 +210,6 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
                 handler.Invoke();
             }
         }
-
-        // Load the next location so that the music starts, otherwise there's an awkward pause.
-        gameState.LoadNextLocation();
 
         List<Companion> revivedCompanions = new List<Companion>();
         // Revive all companions that died during combat to death's door.
@@ -241,6 +240,8 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
             );
         }
 
+        gameState.LoadNextLocation();
+
         EnemyEncounterViewModel.Instance.SetInMenu(true);
         postCombatUI.SetActive(true);
         uIStateEvent.Raise(new UIStateEventInfo(UIState.END_ENCOUNTER));
@@ -253,7 +254,6 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         DialogueManager.Instance.SetDialogueLocation(gameState);
         DialogueManager.Instance.StartAnyDialogueSequence();
         SetInToolTip(false);
-        MusicController.Instance.SetCombatState("Victory");
         yield return null;
     }
 
