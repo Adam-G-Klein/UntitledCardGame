@@ -57,18 +57,22 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     public PriorityEventDispatcher<OnCardExhaustHandler> onCardExhaustDispatcher = new();
 
     public delegate IEnumerator OnCardDiscardHandler(DeckInstance deckFrom, PlayableCard card, bool casted);
-    public event OnCardDiscardHandler onCardDiscardHandler;
+    public PriorityEventDispatcher<OnCardDiscardHandler> onCardDiscardDispatcher = new();
 
     public delegate IEnumerator OnCardCastHandler(PlayableCard card);
-    public event OnCardCastHandler onCardCastHandler;
+    public PriorityEventDispatcher<OnCardCastHandler> onCardCastDispatcher = new();
+
     public delegate IEnumerator OnAttackCardCastHandler(PlayableCard card);
-    public event OnAttackCardCastHandler onAttackCardCastHandler;
+    public PriorityEventDispatcher<OnAttackCardCastHandler> onAttackCardCastDispatcher = new();
 
     public delegate IEnumerator OnHandEmptyHandler();
-    public event OnHandEmptyHandler onHandEmptyHandler;
+    public PriorityEventDispatcher<OnHandEmptyHandler> onHandEmptyDispatcher = new();
 
     public delegate IEnumerator OnDeckShuffleHandler(DeckInstance deckFrom);
-    public event OnDeckShuffleHandler onDeckShuffledHandler;
+    public PriorityEventDispatcher<OnDeckShuffleHandler> onDeckShuffledDispatcher = new();
+
+    public delegate IEnumerator OnCardDrawHandler(PlayableCard card);
+    public PriorityEventDispatcher<OnCardDrawHandler> onCardDrawDispatcher = new();
 
     private bool cardsInHandLocked = false;
     private readonly float cardDealDelay = .05f;
@@ -79,8 +83,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
 
     private Queue<(PlayableCard, bool)> cardDealQueue = new Queue<(PlayableCard, bool)>();
 
-    public delegate IEnumerator OnCardDrawHandler(PlayableCard card);
-    public event OnCardDrawHandler onCardDrawHandler;
+
 
     private int MAX_HAND_SIZE;
     /*
@@ -552,25 +555,12 @@ public class PlayerHand : GenericSingleton<PlayerHand>
 
     public IEnumerator OnCardDiscard(DeckInstance deckFrom, PlayableCard card, bool casted)
     {
-        if (onCardDiscardHandler != null)
-        {
-            foreach (OnCardDiscardHandler handler in onCardDiscardHandler.GetInvocationList())
-            {
-                yield return handler.Invoke(deckFrom, card, casted);
-            }
-        }
+       yield return StartCoroutine(onCardDiscardDispatcher.Invoke(deckFrom, card, casted).GetEnumerator());
     }
 
     public IEnumerator OnHandEmpty()
     {
-        if (onHandEmptyHandler != null)
-        {
-            Debug.Log("OnHandEmpty number of invocations: " + onHandEmptyHandler.GetInvocationList().Count());
-            foreach (OnHandEmptyHandler handler in onHandEmptyHandler.GetInvocationList())
-            {
-                yield return StartCoroutine(handler.Invoke());
-            }
-        }
+       yield return StartCoroutine(onHandEmptyDispatcher.Invoke().GetEnumerator());
     }
 
     // Do not call on whole hand, only call on individual cards
@@ -670,42 +660,21 @@ public class PlayerHand : GenericSingleton<PlayerHand>
 
     public IEnumerator OnCardCast(PlayableCard card)
     {
-        if (onCardCastHandler != null)
+        yield return StartCoroutine(onCardCastDispatcher.Invoke(card).GetEnumerator());
+        if (card.card.cardType.cardCategory == CardCategory.Attack)
         {
-            foreach (OnCardCastHandler handler in onCardCastHandler.GetInvocationList())
-            {
-                yield return StartCoroutine(handler.Invoke(card));
-            }
-        }
-        if (onAttackCardCastHandler != null && card.card.cardType.cardCategory == CardCategory.Attack)
-        {
-            foreach (OnAttackCardCastHandler handler in onAttackCardCastHandler.GetInvocationList())
-            {
-                yield return StartCoroutine(handler.Invoke(card));
-            }
+            yield return StartCoroutine(onAttackCardCastDispatcher.Invoke(card).GetEnumerator());
         }
     }
 
     public IEnumerator OnDeckShuffled(DeckInstance deck)
     {
-        if (onDeckShuffledHandler != null)
-        {
-            foreach (OnDeckShuffleHandler handler in onDeckShuffledHandler.GetInvocationList())
-            {
-                yield return StartCoroutine(handler.Invoke(deck));
-            }
-        }
+        yield return StartCoroutine(onDeckShuffledDispatcher.Invoke(deck).GetEnumerator());
     }
 
     public IEnumerator OnCardDraw(PlayableCard card)
     {
-        if (onCardDrawHandler != null)
-        {
-            foreach (OnCardDrawHandler handler in onCardDrawHandler.GetInvocationList())
-            {
-                yield return StartCoroutine(handler.Invoke(card));
-            }
-        }
+        yield return StartCoroutine(onCardDrawDispatcher.Invoke(card).GetEnumerator());
     }
 
     public void FocusACard(PlayableCard notThisOne)

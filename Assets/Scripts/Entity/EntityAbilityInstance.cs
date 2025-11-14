@@ -94,10 +94,10 @@ public abstract class EntityAbilityInstance
                 break;
 
             case EntityAbility.EntityAbilityTrigger.OnCardCast:
-                PlayerHand.Instance.onCardCastHandler += OnCardCast;
+                PlayerHand.Instance.onCardCastDispatcher.AddHandler(OnCardCast, ability.weight);
                 break;
             case EntityAbility.EntityAbilityTrigger.OnAttackCardCast:
-                PlayerHand.Instance.onAttackCardCastHandler += OnCardCast;
+                PlayerHand.Instance.onAttackCardCastDispatcher.AddHandler(OnCardCast, ability.weight);
                 break;
             case EntityAbility.EntityAbilityTrigger.OnCombine:
                 // This is handled in the Companion class's constructor.
@@ -108,10 +108,10 @@ public abstract class EntityAbilityInstance
                 PlayerHand.Instance.onCardExhaustDispatcher.AddHandler(OnCardExhaust, ability.weight);
                 break;
             case EntityAbility.EntityAbilityTrigger.OnCardDiscard:
-                PlayerHand.Instance.onCardDiscardHandler += OnCardDiscard;
+                PlayerHand.Instance.onCardDiscardDispatcher.AddHandler(OnCardDiscard, ability.weight);
                 break;
             case EntityAbility.EntityAbilityTrigger.OnDeckShuffled:
-                PlayerHand.Instance.onDeckShuffledHandler += OnDeckShuffled;
+                PlayerHand.Instance.onDeckShuffledDispatcher.AddHandler(OnDeckShuffled, ability.weight);
                 break;
             case EntityAbility.EntityAbilityTrigger.OnEntityDamageTaken:
                 CombatEntityManager.Instance.onEntityDamageHandler += OnDamageTaken;
@@ -120,13 +120,13 @@ public abstract class EntityAbilityInstance
                 CombatEntityManager.Instance.onEntityHealedHandler += OnHeal;
                 break;
             case EntityAbility.EntityAbilityTrigger.OnHandEmpty:
-                PlayerHand.Instance.onHandEmptyHandler += OnHandEmpty;
+                PlayerHand.Instance.onHandEmptyDispatcher.AddHandler(OnHandEmpty, ability.weight);
                 break;
             case EntityAbility.EntityAbilityTrigger.OnBlockGained:
                 CombatEntityManager.Instance.onBlockGainedHandler += OnBlockGained;
                 break;
             case EntityAbility.EntityAbilityTrigger.OnCardDraw:
-                PlayerHand.Instance.onCardDrawHandler += OnCardDraw;
+                PlayerHand.Instance.onCardDrawDispatcher.AddHandler(OnCardDraw, ability.weight);
                 break;
         }
     }
@@ -146,17 +146,17 @@ public abstract class EntityAbilityInstance
         }
 
         if (ability.abilityTrigger == EntityAbility.EntityAbilityTrigger.OnCardCast) {
-            PlayerHand.Instance.onCardCastHandler -= OnCardCast;
+            PlayerHand.Instance.onCardCastDispatcher.RemoveHandler(OnCardCast);
         }
         if (ability.abilityTrigger == EntityAbility.EntityAbilityTrigger.OnAttackCardCast) {
-            PlayerHand.Instance.onAttackCardCastHandler -= OnCardCast;
+            PlayerHand.Instance.onAttackCardCastDispatcher.RemoveHandler(OnCardCast);
         }
         if (ability.abilityTrigger == EntityAbility.EntityAbilityTrigger.OnCardDiscard)
         {
-            PlayerHand.Instance.onCardDiscardHandler -= OnCardDiscard;
+            PlayerHand.Instance.onCardDiscardDispatcher.RemoveHandler(OnCardDiscard);
         }
         if (ability.abilityTrigger == EntityAbility.EntityAbilityTrigger.OnHandEmpty) {
-            PlayerHand.Instance.onHandEmptyHandler -= OnHandEmpty;
+            PlayerHand.Instance.onHandEmptyDispatcher.RemoveHandler(OnHandEmpty);
         }
 
 
@@ -167,7 +167,7 @@ public abstract class EntityAbilityInstance
             PlayerHand.Instance.onCardExhaustDispatcher.RemoveHandler(OnCardExhaust);
         }
         if (ability.abilityTrigger == EntityAbility.EntityAbilityTrigger.OnDeckShuffled) {
-            PlayerHand.Instance.onDeckShuffledHandler -= OnDeckShuffled;
+            PlayerHand.Instance.onDeckShuffledDispatcher.RemoveHandler(OnDeckShuffled);
         }
         if (ability.abilityTrigger == EntityAbility.EntityAbilityTrigger.OnEntityDamageTaken) {
             CombatEntityManager.Instance.onEntityDamageHandler -= OnDamageTaken;
@@ -177,7 +177,7 @@ public abstract class EntityAbilityInstance
         }
         if (ability.abilityTrigger == EntityAbility.EntityAbilityTrigger.OnCardDraw)
         {
-            PlayerHand.Instance.onCardDrawHandler -= OnCardDraw;
+            PlayerHand.Instance.onCardDrawDispatcher.RemoveHandler(OnCardDraw);
         }
     }
 
