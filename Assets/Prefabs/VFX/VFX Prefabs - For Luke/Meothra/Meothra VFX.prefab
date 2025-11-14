@@ -36,6 +36,7 @@ Transform:
   - {fileID: 6407151547917093405}
   - {fileID: 6934820546455890487}
   - {fileID: 5738157546742601680}
+  - {fileID: 3393275805134080896}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!198 &8932529479899286131
@@ -4896,6 +4897,68 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 6153263010092510806, guid: 9af09a8f5ce4c704592f4eeb51b5fa9f, type: 3}
   m_PrefabInstance: {fileID: 1877180583543307158}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4158639278410213768
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 449612666359600552}
+    m_Modifications:
+    - target: {fileID: 1630622190427791880, guid: f6bd04c7e21dc864185ea976f7e56e07, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1630622190427791880, guid: f6bd04c7e21dc864185ea976f7e56e07, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1630622190427791880, guid: f6bd04c7e21dc864185ea976f7e56e07, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1630622190427791880, guid: f6bd04c7e21dc864185ea976f7e56e07, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1630622190427791880, guid: f6bd04c7e21dc864185ea976f7e56e07, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1630622190427791880, guid: f6bd04c7e21dc864185ea976f7e56e07, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1630622190427791880, guid: f6bd04c7e21dc864185ea976f7e56e07, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1630622190427791880, guid: f6bd04c7e21dc864185ea976f7e56e07, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1630622190427791880, guid: f6bd04c7e21dc864185ea976f7e56e07, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 1630622190427791880, guid: f6bd04c7e21dc864185ea976f7e56e07, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6137048663962808129, guid: f6bd04c7e21dc864185ea976f7e56e07, type: 3}
+      propertyPath: m_Name
+      value: Meothra Slash Attack
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f6bd04c7e21dc864185ea976f7e56e07, type: 3}
+--- !u!4 &3393275805134080896 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1630622190427791880, guid: f6bd04c7e21dc864185ea976f7e56e07, type: 3}
+  m_PrefabInstance: {fileID: 4158639278410213768}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6206573992464087088
 PrefabInstance:

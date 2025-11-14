@@ -60,7 +60,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _LERP_Texture:
-        m_Texture: {fileID: 2800000, guid: 24aafb5b9c6fdd94fba2143d92dc0ee3, type: 3}
+        m_Texture: {fileID: 2800000, guid: 0a27beb87d8947349aeeb58116c8e9dd, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Lerp_Mask_Texture:
@@ -84,7 +84,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OverlayTex:
-        m_Texture: {fileID: 2800000, guid: 79510919aa73bdf40beff4c7a9322b2b, type: 3}
+        m_Texture: {fileID: 2800000, guid: 0a27beb87d8947349aeeb58116c8e9dd, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Overlay_Tex:
@@ -136,7 +136,7 @@ Material:
     - _FinalAlphaMultiply: 0
     - _Fresnel: 0
     - _Fresnel_Thickness: 2.11
-    - _Intensity: 0.36
+    - _Intensity: 0.28
     - _Lerp_Intensity: 3.63
     - _Line_Thickness: 2.99
     - _Mask_Power: 0
@@ -183,7 +183,7 @@ Material:
     - _Main_Text_Scroll_Speed: {r: 0, g: 0, b: 0, a: 0}
     - _Mask_Scroll_Speed: {r: 0, g: 0, b: 0, a: 0}
     - _Offset_Colour: {r: 0, g: 0, b: 0, a: 1}
-    - _Overlay_Speed: {r: 1, g: 0, b: 0, a: 0}
+    - _Overlay_Speed: {r: 1, g: 1, b: 0, a: 0}
     - _Scroll_Speed: {r: 0, g: 0, b: 0, a: 0}
     - _Vertex_Displacement_Speed: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
