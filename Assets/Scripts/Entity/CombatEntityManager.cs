@@ -25,15 +25,12 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
             };
 
     public delegate IEnumerator OnEntityDamage(CombatInstance combatInstance);
-    public event OnEntityDamage onEntityDamageHandler;
-    public PriorityEventDispatcher<OnEntityDamage> onEntityDamageDispatcher;
+    public PriorityEventDispatcher<OnEntityDamage> onEntityDamageDispatcher = new();
 
     public delegate IEnumerator OnEntityHealed(CombatInstance combatInstance);
-    public event OnEntityHealed onEntityHealedHandler;
     public PriorityEventDispatcher<OnEntityHealed> onEntityHealedDispatcher;
 
     public delegate IEnumerator OnCompanionGainedBlock(CombatInstance combatInstance);
-    public event OnCompanionGainedBlock onBlockGainedHandler;
     public PriorityEventDispatcher<OnCompanionGainedBlock> onBlockGainedDispatcher;
 
     private bool encounterEnded = false;
@@ -185,35 +182,17 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
 
     public IEnumerator OnDamageTaken(CombatInstance combatInstance)
     {
-        if (onEntityDamageHandler != null)
-        {
-            foreach (OnEntityDamage handler in onEntityDamageHandler.GetInvocationList())
-            {
-                yield return StartCoroutine(handler.Invoke(combatInstance));
-            }
-        }
+        yield return StartCoroutine(onEntityDamageDispatcher.Invoke(combatInstance).GetEnumerator());
     }
 
     public IEnumerator OnHeal(CombatInstance combatInstance)
     {
-        if (onEntityHealedHandler != null)
-        {
-            foreach (OnEntityHealed handler in onEntityHealedHandler.GetInvocationList())
-            {
-                yield return StartCoroutine(handler.Invoke(combatInstance));
-            }
-        }
+        yield return StartCoroutine(onEntityHealedDispatcher.Invoke(combatInstance).GetEnumerator());
     }
 
     public IEnumerator OnBlockGained(CombatInstance combatInstance)
     {
-        if (onBlockGainedHandler != null)
-        {
-            foreach (OnCompanionGainedBlock handler in onBlockGainedHandler.GetInvocationList())
-            {
-                yield return StartCoroutine(handler.Invoke(combatInstance));
-            }
-        }
+        yield return StartCoroutine(onBlockGainedDispatcher.Invoke(combatInstance).GetEnumerator());
     }
 
     public bool IsEncounterEnded()
