@@ -26,12 +26,15 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
 
     public delegate IEnumerator OnEntityDamage(CombatInstance combatInstance);
     public event OnEntityDamage onEntityDamageHandler;
+    public PriorityEventDispatcher<OnEntityDamage> onEntityDamageDispatcher;
 
     public delegate IEnumerator OnEntityHealed(CombatInstance combatInstance);
     public event OnEntityHealed onEntityHealedHandler;
+    public PriorityEventDispatcher<OnEntityHealed> onEntityHealedDispatcher;
 
     public delegate IEnumerator OnCompanionGainedBlock(CombatInstance combatInstance);
     public event OnCompanionGainedBlock onBlockGainedHandler;
+    public PriorityEventDispatcher<OnCompanionGainedBlock> onBlockGainedDispatcher;
 
     private bool encounterEnded = false;
 

@@ -114,16 +114,16 @@ public abstract class EntityAbilityInstance
                 PlayerHand.Instance.onDeckShuffledDispatcher.AddHandler(OnDeckShuffled, ability.weight);
                 break;
             case EntityAbility.EntityAbilityTrigger.OnEntityDamageTaken:
-                CombatEntityManager.Instance.onEntityDamageHandler += OnDamageTaken;
+                CombatEntityManager.Instance.onEntityDamageDispatcher.AddHandler(OnDamageTaken, ability.weight);
                 break;
             case EntityAbility.EntityAbilityTrigger.OnEntityHealed:
-                CombatEntityManager.Instance.onEntityHealedHandler += OnHeal;
+                CombatEntityManager.Instance.onEntityHealedDispatcher.AddHandler(OnHeal, ability.weight);
                 break;
             case EntityAbility.EntityAbilityTrigger.OnHandEmpty:
                 PlayerHand.Instance.onHandEmptyDispatcher.AddHandler(OnHandEmpty, ability.weight);
                 break;
             case EntityAbility.EntityAbilityTrigger.OnBlockGained:
-                CombatEntityManager.Instance.onBlockGainedHandler += OnBlockGained;
+                CombatEntityManager.Instance.onBlockGainedDispatcher.AddHandler(OnBlockGained, ability.weight);
                 break;
             case EntityAbility.EntityAbilityTrigger.OnCardDraw:
                 PlayerHand.Instance.onCardDrawDispatcher.AddHandler(OnCardDraw, ability.weight);
@@ -170,10 +170,10 @@ public abstract class EntityAbilityInstance
             PlayerHand.Instance.onDeckShuffledDispatcher.RemoveHandler(OnDeckShuffled);
         }
         if (ability.abilityTrigger == EntityAbility.EntityAbilityTrigger.OnEntityDamageTaken) {
-            CombatEntityManager.Instance.onEntityDamageHandler -= OnDamageTaken;
+            CombatEntityManager.Instance.onEntityDamageDispatcher.RemoveHandler(OnDamageTaken);
         }
         if (ability.abilityTrigger == EntityAbility.EntityAbilityTrigger.OnEntityHealed) {
-            CombatEntityManager.Instance.onEntityHealedHandler -= OnHeal;
+            CombatEntityManager.Instance.onEntityHealedDispatcher.RemoveHandler(OnHeal);
         }
         if (ability.abilityTrigger == EntityAbility.EntityAbilityTrigger.OnCardDraw)
         {
