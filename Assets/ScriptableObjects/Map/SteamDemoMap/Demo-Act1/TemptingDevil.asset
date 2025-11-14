@@ -44,6 +44,7 @@ MonoBehaviour:
       targetsKey: target
       displayValue: 6
       effectSteps:
+      - rid: 5633448213729509554
       - rid: 8034950120506655576
       - rid: 8034950120506655577
     behaviorType: 0
@@ -102,6 +103,17 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
+    - rid: 5633448213729509554
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
     - rid: 8034950120506655576
       type: {class: ScriptableObjectEffectStep, ns: , asm: Assembly-CSharp}
       data:
@@ -119,4 +131,4 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 0}
+        vfxPrefab: {fileID: 6137048663962808129, guid: 92c26f41ef33c23419e05ceb12660efa, type: 3}
