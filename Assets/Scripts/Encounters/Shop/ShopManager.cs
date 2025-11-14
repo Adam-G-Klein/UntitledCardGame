@@ -418,6 +418,14 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         PlayerData playerData = gameState.playerData.GetValue();
         if (didUpgrade) {
             shopLevel = shopEncounter.shopData.GetShopLevel(playerData.shopLevel);
+
+            // Record an event for the analytics service.
+            var eventData = new ShopUpgradedAnalyticsEvent
+            {
+                ShopLevel = shopLevel.level
+            };
+            AnalyticsManager.Instance.RecordEvent(eventData);
+
             shopViewController.SetShopUpgradePrice(shopLevel.upgradeIncrementCost);
             InstantiateShopVFX(shopUpgradePrefab, shopViewController.GetUpgradeShopButton(), 1f);
             MusicController.Instance.PlaySFX("event:/MX/MX_Shop_Upgrade_Stinger");
