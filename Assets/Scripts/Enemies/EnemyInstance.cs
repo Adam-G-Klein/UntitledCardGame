@@ -269,6 +269,9 @@ public class EnemyInstance : MonoBehaviour, IUIEntity
     }
 
     private void OnStatusEffectChangeHandler() {
+        if(tooltipProvider == null || statusEffectsDisplay == null) {
+            return;
+        }
         tooltipProvider.UpdateStatusTooltips(combatInstance.GetDisplayedStatusEffects(), statusEffectsDisplay.statusEffectsSO.statusEffects);
     }
 

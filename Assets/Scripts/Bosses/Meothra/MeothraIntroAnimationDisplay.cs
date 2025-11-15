@@ -28,8 +28,6 @@ public class MeothraIntroAnimationDisplay : MonoBehaviour
     private int currentShakeIndex = 0;
 
     [Header("Swap the animator after the intro so that we can move the IK handles independent of the timeline")]
-    [SerializeField] private RuntimeAnimatorController introAnimatorController;
-    [SerializeField] private RuntimeAnimatorController combatAnimatorController;
     private Animator animator;
     private PlayableDirector director;
 
@@ -50,7 +48,6 @@ public class MeothraIntroAnimationDisplay : MonoBehaviour
             Debug.LogError("MeothraIntroAnimationDisplay: Setup could not find Animator!");
             return;
         }
-        animator.runtimeAnimatorController = introAnimatorController;
 
     }
     public void DoNextShake()
@@ -104,7 +101,6 @@ public class MeothraIntroAnimationDisplay : MonoBehaviour
 
     public void SwapToCombatAnimationController()
     {
-        animator.runtimeAnimatorController = combatAnimatorController;
         // disable the animator track in the playable director
         PlayableGraph graph = director.playableGraph;
         for(int i =0; i < graph.GetOutputCount(); i++)

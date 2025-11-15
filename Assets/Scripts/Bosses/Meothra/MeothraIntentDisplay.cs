@@ -17,6 +17,13 @@ public class MeothraIntentDisplay: MonoBehaviour
     private VisualElement intentImage;
     private Label intentLabel;
 
+    void Update()
+    {
+        if (intentUIDoc.rootVisualElement.visible) {
+            intentTransform.position = intentAnchor.transform.position + anchorOffset;
+        }
+    }
+
     public void Setup()
     {
         if (enemyInstance == null) enemyInstance = GetComponent<EnemyInstance>();
@@ -42,7 +49,7 @@ public class MeothraIntentDisplay: MonoBehaviour
             intentLabel.style.display = DisplayStyle.None;
         }
         intentTransform.position = intentAnchor.transform.position + anchorOffset;
-        //targetPointer.transform.position = enemyInstance.currentIntent.targets[0].transform.position;
+        targetPointer.transform.position = enemyInstance.currentIntent.targets[0].transform.position;
     }
 
     public void HideIntent()
