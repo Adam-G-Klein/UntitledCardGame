@@ -41,8 +41,8 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Pommel+
-      description: Each time you play an Attack card, give companions adjacent to
-        Hyperwoof 2 temporary strength
+      description: Each time you play an Attack, give adjacent companions 2 temporary
+        strength
       relatedBehaviorIndex: 0
   keepsakeTitle: 
   keepsakeDescription: Each time you play an Attack card, give companions adjacent
@@ -62,6 +62,7 @@ MonoBehaviour:
         - rid: 2034230176448512663
         - rid: 2034230176448512494
         - rid: 2034230176448512495
+        weight: 0
     - rid: 2034230176448512491
       type: {class: FilterCards, ns: , asm: Assembly-CSharp}
       data:
