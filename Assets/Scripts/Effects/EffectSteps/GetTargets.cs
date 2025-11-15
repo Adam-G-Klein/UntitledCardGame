@@ -115,7 +115,7 @@ public class GetTargets : EffectStep, IEffectStepCalculation
                         targetsList.Add(card.GetComponent<Targetable>());
                     }
                     selected = true;
-                }, originCard);
+                }, originCard, !cantCancelTargetting);
                 yield return new WaitUntil(() => selected == true || (!cantCancelTargetting && cancelled));
             } else {
                 TargettingManager.Instance.targetSuppliedHandler += TargetSuppliedHandler;

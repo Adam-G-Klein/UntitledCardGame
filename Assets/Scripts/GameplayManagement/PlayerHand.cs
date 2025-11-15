@@ -738,7 +738,8 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             List<GameObject> cardsLimitedTo,
             Action<CancelContext> cancelCallback,
             Action<List<PlayableCard>> callback,
-            PlayableCard cardCast = null)
+            PlayableCard cardCast = null,
+            bool canCancel = false)
     {
         string CHOOSE_X_CARDS = "Choose {0} cards";
         string CHOOSE_A_CARD = "Choose a card";
@@ -757,7 +758,8 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         combatEncounterView.SetCompanionsAndEnemiesEnabled(false);
         combatEncounterView.DestroyAllTooltips();
         selectionView.SetConfirmedHandler(SelectingCardConfirmed);
-        selectionView.EnableSelection(GetPromptText(), GeoChangedHandler);
+        if (canCancel) selectionView.EnableCancelHandler(() => UIStateManager.Instance.TryCancelTargetting());
+        selectionView.EnableSelection(GetPromptText(), GeoChangedHandler, canCancel);
 
         void SelectingCardSuppliedHandler(Targetable target)
         {
@@ -849,6 +851,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             if (context.canCancel != true) return;
             combatEncounterView.SetCompanionsAndEnemiesEnabled(true);
             selectionView.RemoveConfirmedHandler(SelectingCardConfirmed);
+            selectionView.RemoveCancelHandler();
             TargettingManager.Instance.targetSuppliedHandler -= SelectingCardSuppliedHandler;
             TargettingManager.Instance.cancelTargettingHandler -= SelectingCardCancelHandler;
             selectionView.DisableSelection();
@@ -870,6 +873,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             if (selectedCards.Count != number) return;
             combatEncounterView.SetCompanionsAndEnemiesEnabled(true);
             selectionView.RemoveConfirmedHandler(SelectingCardConfirmed);
+            selectionView.RemoveCancelHandler();
             TargettingManager.Instance.targetSuppliedHandler -= SelectingCardSuppliedHandler;
             TargettingManager.Instance.cancelTargettingHandler -= SelectingCardCancelHandler;
             selectionView.DisableSelection();
