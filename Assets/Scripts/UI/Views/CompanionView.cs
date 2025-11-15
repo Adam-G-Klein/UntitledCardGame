@@ -47,8 +47,6 @@ public class CompanionView : IUIEventReceiver
     private int lastHealthValue;
     private bool isHealthTweening = false;
 
-    private static string HEALTH_LABEL_STRING = "{0}/{1}";
-
     public CompanionView(
             Companion companion,
             VisualTreeAsset template,
@@ -295,17 +293,7 @@ public class CompanionView : IUIEventReceiver
 
         isHealthTweening = true;
 
-        float pointsPerSecond = 8f;
-        int healthDifference = lastHealthValue - currentHealth;
-        LeanTween.value(lastHealthValue, currentHealth, healthDifference / pointsPerSecond)
-            .setEase(LeanTweenType.linear)
-            .setOnUpdate((float val) => {
-                int intVal = Mathf.RoundToInt(val);
-                this.healthBarLabel.text = String.Format(HEALTH_LABEL_STRING, intVal, maxHealth);
-                float healthPercent = val / (float) maxHealth;
-                this.healthBarFill.style.width = Length.Percent(healthPercent * 100);
-            })
-            .setOnComplete(() => {
+        HealthBarUtils.UpdateHealth(lastHealthValue, currentHealth, maxHealth, healthBarFill, healthBarLabel, () => {
                 isHealthTweening = false;
                 lastHealthValue = currentHealth;
                 // In case multiple instances of damage come through in close timing
@@ -323,9 +311,7 @@ public class CompanionView : IUIEventReceiver
             currentHealth = this.combatInstance.combatStats.currentHealth;
             maxHealth = this.combatInstance.combatStats.maxHealth;
         }
-        this.healthBarLabel.text = String.Format(HEALTH_LABEL_STRING, currentHealth, maxHealth);
-        float healthPercent = (float) currentHealth / (float) maxHealth;
-        this.healthBarFill.style.width = Length.Percent(healthPercent * 100);
+        HealthBarUtils.SetupHealth(currentHealth, maxHealth, healthBarFill, healthBarLabel);
         lastHealthValue = currentHealth;
     }
 

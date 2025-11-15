@@ -206,13 +206,13 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
         {
             GameObject deathVFX = Instantiate(encounterConstants.companionDeathPrefab, combatInstance.transform.position, Quaternion.identity);
             companionToDeathVFXMap[companionInstance.companion] = deathVFX;
-
-            // Don't ask me why one is CompanionInstance and the other is just Enemy
+            deathVFX.ScaleSelfAndChildren(1.1f);
         }
         else if (combatInstance.TryGetComponent<EnemyInstance>(out EnemyInstance enemyInstance))
         {
             if (enemyInstance.enemy.enemyType.enemyDisplayType == DisplayType.MEOTHRA) return; // Don't spawn death VFX for Boss
-            Instantiate(encounterConstants.enemyDeathPrefab, combatInstance.transform.position, Quaternion.identity);
+            GameObject deathVFX = Instantiate(encounterConstants.enemyDeathPrefab, combatInstance.transform.position, Quaternion.identity);
+            deathVFX.ScaleSelfAndChildren(1.1f);
         }
     }
 

@@ -74,7 +74,7 @@ public class EnemyView : IUIEventReceiver
         {
             combatInstance.onDamageHandler += DamageScaleBump;
             combatInstance.onDeathHandler += OnDeathHandler;
-            combatInstance.SetVisualElement(this.container);
+            combatInstance.SetVisualElement(this.spriteElement);
         }
     }
 

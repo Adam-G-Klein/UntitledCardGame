@@ -27,6 +27,9 @@ public class CompanionManagementView : IControlsReceiver {
     private bool isSellingDisabled = false;
     private bool upgradeAnimationPlaying = false;
 
+    private int lastHealthValue;
+    private bool isHealthTweening = false;
+
     private static string HEALTH_LABEL_STRING = "{0}/{1}";
 
     public CompanionManagementView(Companion companion, VisualTreeAsset template, ICompanionManagementViewDelegate viewDelegate) {
@@ -95,6 +98,26 @@ public class CompanionManagementView : IControlsReceiver {
         this.healthBarLabel.text = String.Format(HEALTH_LABEL_STRING, currentHealth, maxHealth);
         float healthPercent = (float) currentHealth / (float) maxHealth;
         this.healthBarFill.style.width = Length.Percent(healthPercent * 100);
+    }
+
+    private void UpdateHealth() {
+        if (isHealthTweening) return;
+
+        int currentHealth;
+        int maxHealth;
+        currentHealth = this.companion.GetCurrentHealth();
+        maxHealth = this.companion.GetCombatStats().getMaxHealth();
+
+        if (currentHealth == lastHealthValue) return;
+
+        isHealthTweening = true;
+
+        HealthBarUtils.UpdateHealth(lastHealthValue, currentHealth, maxHealth, healthBarFill, healthBarLabel, () => {
+                isHealthTweening = false;
+                lastHealthValue = currentHealth;
+                // In case multiple instances of damage come through in close timing
+                UpdateHealth();
+            });
     }
 
     private void SetupName() {
@@ -251,7 +274,7 @@ public class CompanionManagementView : IControlsReceiver {
 
     public void UpdateView()
     {
-        return;
+        UpdateHealth();
     }
 
 
