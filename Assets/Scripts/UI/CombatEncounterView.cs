@@ -337,9 +337,9 @@ public class CombatEncounterView : MonoBehaviour,
         UpdateView();
     }
 
-    public void SetEndCombat()
+    public void SetEndCombat(bool isCombatOver = true)
     {
-        combatOver = true;
+        combatOver = isCombatOver;
     }
 
     private void EndPlayerTurnHandler()
@@ -349,6 +349,7 @@ public class CombatEncounterView : MonoBehaviour,
 
     public void ShowDeckView(ClickEvent evt)
     {
+        if (combatOver) return;
         MultiDeckViewManager.Instance.ShowCombatDeckView();
         Debug.LogError("trying to show deck view");
     }

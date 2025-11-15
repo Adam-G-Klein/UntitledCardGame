@@ -265,6 +265,11 @@ public class MultiDeckViewManager : GenericSingleton<MultiDeckViewManager>, IMul
     public void SetExitHandler(EnterExitVoidHandler handler) {
         onViewExitHandler += handler;
     }
+
+    public void TurnOffInteractions()
+    {
+        multiDeckView.TurnOffInteractions();
+    }
 }
 
 public interface IMultiDeckViewDelegate

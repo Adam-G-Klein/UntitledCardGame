@@ -33,6 +33,7 @@ public class MultiDeckView
     private bool inTransition = false;
     private VisualElement tabDescriptorContainer;
     private string TAB_DESCRIPTOR = "tab-descriptor-{0}";
+    private bool isEnabled = true;
 
     public MultiDeckView(IMultiDeckViewDelegate multiDeckViewDelegate, UIDocument uIDocument, CanvasGroup canvasGroup)
     {
@@ -442,6 +443,7 @@ public class MultiDeckView
 
     public void ToggleVisibility(bool visible = false)
     {
+        if (!isEnabled) return;
         if (visible)
         {
             canvasGroup.blocksRaycasts = true;
@@ -480,6 +482,12 @@ public class MultiDeckView
         deckViewTabVisualElements.Clear();
         focusedSectionsForEachTab.Clear();
         numSectionsForEachTab.Clear();
+    }
+
+    public void TurnOffInteractions() {
+        ToggleVisibility(false);
+        CleanUp();
+        isEnabled = false;
     }
 }
 

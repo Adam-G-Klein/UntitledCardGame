@@ -199,6 +199,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     */
     private IEnumerator EndEncounterCoroutine(EndEncounterEventInfo info) {
         combatOver = true;
+        combatEncounterView.SetEndCombat(true);
 
         // Fire off a combatEnded Analytics event.
         var combatEndedEvent = new CombatEndedAnalyticsEvent
@@ -285,6 +286,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         postCombatUI.SetActive(true);
         uIStateEvent.Raise(new UIStateEventInfo(UIState.END_ENCOUNTER));
         //postCombatUI.transform.SetSiblingIndex(postCombatUI.transform.parent.childCount - 1);
+        
         TurnOffInteractions();
         TurnOffFocusing();// Needs to go before the next line bc this line disables existing focus, while the next line sets up more focus
         postCombatUI.GetComponent<EndEncounterView>().Setup(baseGoldEarnedPerBattle, extraGold, gameState.baseShopData.interestCap, gameState.baseShopData.interestRate);
@@ -336,6 +338,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     }
 
     public void TurnOffInteractions() {
+        MultiDeckViewManager.Instance.TurnOffInteractions();
         FocusManager.Instance.UnregisterAll();
         PlayerHand.Instance.DisableHand();
         combatEncounterView.DisableInteractions();
@@ -519,6 +522,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         }
         if (action == GFGInputAction.OPEN_MULTI_DECK_VIEW)
         {
+            if (combatOver) return;
             MultiDeckViewManager.Instance.ShowCombatDeckView(gameState.hoveredCompanion);
         }
     }
