@@ -304,3 +304,19 @@
 .focusable-button:focus {
     background-color: rgb(120, 120, 120);
 }
+
+.inlineMessageStyle {
+    border-left-color: rgb(218, 173, 93);
+    border-right-color: rgb(218, 173, 93);
+    border-top-color: rgb(218, 173, 93);
+    border-bottom-color: rgb(218, 173, 93);
+    border-top-width: 6px;
+    border-right-width: 6px;
+    border-bottom-width: 6px;
+    border-left-width: 6px;
+    background-color: rgb(255, 249, 236);
+    -unity-text-align: middle-left;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 32px;
+}
