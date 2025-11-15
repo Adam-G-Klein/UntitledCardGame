@@ -44,12 +44,14 @@ public abstract class EncounterSerializable {
     public string id;
     public bool isCompleted;
     public EncounterType encounterType;
+    public Act act;
 
     public EncounterSerializable(Encounter encounter)
     {
         this.id = encounter.id;
         this.isCompleted = encounter.isCompleted;
         this.encounterType = encounter.getEncounterType();
+        this.act = encounter.act;
     }
 }
 

@@ -78,6 +78,7 @@ public class ShopEncounter : Encounter
     }
 
     public ShopEncounter(ShopEncounterSerializable shopEncounterSerializable, SORegistry registry, ShopDataSO shopData) {
+        this.act = shopEncounterSerializable.act;
         this.encounterType = EncounterType.Shop;
         this.shopData = shopData;
     }

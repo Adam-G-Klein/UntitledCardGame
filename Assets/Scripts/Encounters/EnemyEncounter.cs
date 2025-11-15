@@ -33,6 +33,7 @@ public class EnemyEncounter : Encounter
     }
 
     public EnemyEncounter(EnemyEncounterSerializable enemyEncounterSerializable, SORegistry registry) {
+        this.act = enemyEncounterSerializable.act;
         this.encounterType = EncounterType.Enemy;
         this.enemyList = enemyEncounterSerializable.enemies.Select(enemy => new Enemy(enemy, registry)).ToList();
         this.isEliteEncounter = enemyEncounterSerializable.isEliteEncounter;
