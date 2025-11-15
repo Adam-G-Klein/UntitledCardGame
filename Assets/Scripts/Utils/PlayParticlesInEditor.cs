@@ -1,4 +1,4 @@
-
+#if UNITY_EDITOR
 /* LICENSE
 Copyright (c) 2021 Adrian Babilinski
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -227,3 +227,4 @@ public static void PlayInEditor(this ParticleSystem particleSystem, bool withChi
 
 	}
 }
+#endif

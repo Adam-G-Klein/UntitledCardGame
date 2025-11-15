@@ -108,12 +108,14 @@ public class CompanionManagementSlotView {
     }
 
     public void FocusHandler() {
+        SetHighlighted();
         if (companionManagementView != null) {
             companionManagementView.CompanionManagementOnPointerEnter(null);
         }
     }
 
     public void UnfocusHandler() {
+        SetNotHighlighted();
         if (companionManagementView != null) {
             companionManagementView.CompanionManagementOnUnfocus();
         }
