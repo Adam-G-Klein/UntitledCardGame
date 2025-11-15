@@ -8,12 +8,6 @@
             <ui:VisualElement style="flex-grow: 1; width: 90%; height: 90%; max-height: 90%;">
                 <ui:Label tabindex="-1" text="Combat Rewards!" parse-escape-sequences="true" display-tooltip-when-elided="true" class="post-combat-text" style="translate: 0 0; font-size: 48px; transform-origin: center; margin-top: 2%;" />
                 <ui:VisualElement style="top: 50%; position: absolute; min-width: 100%; left: 50%; translate: -50% -50%;">
-                    <ui:VisualElement class="combat-rewards-section">
-                        <ui:Label tabindex="-1" text="Base Reward:" display-tooltip-when-elided="true" name="base-gold-label" class="post-combat-text" style="font-size: 28px; -unity-text-align: middle-left; margin-left: 20px;" />
-                        <ui:VisualElement name="base-gold-container" class="post-combat-reward-container">
-                            <ui:Label tabindex="-1" display-tooltip-when-elided="true" name="base-gold" text="5" class="post-combat-text post-combat-reward-dollar" />
-                        </ui:VisualElement>
-                    </ui:VisualElement>
                     <ui:VisualElement class="combat-rewards-section" style="border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; flex-direction: row; justify-content: space-between;">
                         <ui:Label tabindex="-1" text="1 interest per $5 (5 max): " display-tooltip-when-elided="true" name="interest-help" class="post-combat-text" style="-unity-text-align: middle-left; font-size: 28px; -unity-font-style: bold; color: rgb(255, 255, 255); margin-left: 20px;" />
                         <ui:VisualElement name="interest-container" class="post-combat-reward-container">
@@ -23,6 +17,12 @@
                             <ui:Label tabindex="-1" text="5" display-tooltip-when-elided="true" name="interest" class="post-combat-text post-combat-reward-dollar" style="margin-right: 0;" />
                             <ui:Label tabindex="-1" text="5" display-tooltip-when-elided="true" name="interest" class="post-combat-text post-combat-reward-dollar" style="margin-right: 0;" />
                             <ui:Label tabindex="-1" text="5" display-tooltip-when-elided="true" name="interest" class="post-combat-text post-combat-reward-dollar" style="margin-right: 0;" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement class="combat-rewards-section">
+                        <ui:Label tabindex="-1" text="Base Reward:" display-tooltip-when-elided="true" name="base-gold-label" class="post-combat-text" style="font-size: 28px; -unity-text-align: middle-left; margin-left: 20px;" />
+                        <ui:VisualElement name="base-gold-container" class="post-combat-reward-container">
+                            <ui:Label tabindex="-1" display-tooltip-when-elided="true" name="base-gold" text="5" class="post-combat-text post-combat-reward-dollar" />
                         </ui:VisualElement>
                     </ui:VisualElement>
                     <ui:VisualElement name="VisualElement" style="flex-grow: 0; align-items: center;">

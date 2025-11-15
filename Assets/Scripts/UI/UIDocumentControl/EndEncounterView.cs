@@ -80,18 +80,18 @@ public class EndEncounterView : MonoBehaviour
 
     private IEnumerator AnimateText()
     {
-        for (int i = 0; i < goldEarned; i++)
-        {
-            Label label = MakeMoneyLabel();
-            goldEarnedContainer.Add(label);
-            AnimateDollar(label);
-            MusicController.Instance.PlaySFX("event:/SFX/SFX_EarnMoney");
-            yield return new WaitForSeconds(.1f);
-        }
         for (int i = 0; i < interestEarned; i++)
         {
             Label label = MakeMoneyLabel();
             interestEarnedContainer.Add(label);
+            AnimateDollar(label);
+            MusicController.Instance.PlaySFX("event:/SFX/SFX_EarnMoney");
+            yield return new WaitForSeconds(.1f);
+        }
+        for (int i = 0; i < goldEarned; i++)
+        {
+            Label label = MakeMoneyLabel();
+            goldEarnedContainer.Add(label);
             AnimateDollar(label);
             MusicController.Instance.PlaySFX("event:/SFX/SFX_EarnMoney");
             yield return new WaitForSeconds(.1f);
