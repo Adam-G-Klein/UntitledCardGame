@@ -30,6 +30,6 @@
             <ui:VisualElement name="enemy-view-selected-indicator-bottom-right" picking-mode="Ignore" style="flex-grow: 1; position: absolute; background-image: url(&quot;project://database/Assets/Sprites/Z_OldPlaceholderSprites/SelectionIndicatorBottomRight.png?fileID=21300000&amp;guid=c07db7f00d85b4e4dbc924f217681a80&amp;type=3#SelectionIndicatorBottomRight&quot;); height: 12.5%; width: 15%; left: auto; right: -5%; bottom: -5%; -unity-background-image-tint-color: rgb(255, 51, 36);" />
             <ui:VisualElement name="enemy-view-selected-indicator-bottom-left" picking-mode="Ignore" style="flex-grow: 1; position: absolute; background-image: url(&quot;project://database/Assets/Sprites/Z_OldPlaceholderSprites/SelectionIndicatorBottomLeft.png?fileID=21300000&amp;guid=ac9bfb33f373c654ea507780e2aa69e0&amp;type=3#SelectionIndicatorBottomLeft&quot;); height: 12.5%; width: 15%; left: -5%; bottom: -5%; -unity-background-image-tint-color: rgb(255, 51, 36);" />
         </ui:VisualElement>
-        <ui:VisualElement name="enemy-view-status-area" style="flex-grow: 1; position: absolute; height: 50%; width: 100%;" />
+        <ui:VisualElement name="enemy-view-status-area" style="flex-grow: 0; position: absolute; height: 43%; width: 100%; translate: 0 100%; flex-shrink: 0;" />
     </ui:VisualElement>
 </ui:UXML>

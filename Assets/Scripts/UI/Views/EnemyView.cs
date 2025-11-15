@@ -202,14 +202,14 @@ public class EnemyView : IUIEventReceiver
     private VisualElement CreateStatusIndicator(Sprite icon, string textValue)
     {
         VisualElement statusIndicator = new VisualElement();
-        statusIndicator.AddToClassList("entity-view-status-indicator-old");
+        statusIndicator.AddToClassList("entity-view-status-indicator");
 
         Label statusLabel = new Label();
-        statusLabel.AddToClassList("entity-view-status-indicator-old-label");
+        statusLabel.AddToClassList("entity-view-status-indicator-label");
         statusLabel.text = textValue;
 
         VisualElement statusIcon = new VisualElement();
-        statusIcon.AddToClassList("entity-view-status-indicator-old-icon");
+        statusIcon.AddToClassList("entity-view-status-indicator-icon");
         statusIcon.style.backgroundImage = new StyleBackground(icon);
 
         statusIndicator.Add(statusLabel);
