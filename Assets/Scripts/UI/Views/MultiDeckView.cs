@@ -215,7 +215,6 @@ public class MultiDeckView
         UnFocusDeckSection(deckViewTabVisualElements[currentTabIndex].Q<VisualElement>("SectionsContainer").Children().ToList()[focusedSectionsForEachTab[currentTabIndex]], false);
         focusedSectionsForEachTab[currentTabIndex]++;
         FocusDeckSection(deckViewTabVisualElements[currentTabIndex].Q<VisualElement>("SectionsContainer").Children().ToList()[focusedSectionsForEachTab[currentTabIndex]], false);
-        Debug.LogError(focusedSectionsForEachTab[currentTabIndex]);
     }
 
     public void TabLeftButtonClicked(ClickEvent evt)

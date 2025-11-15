@@ -111,6 +111,7 @@ public class CompanionManagementView : IControlsReceiver {
 
     public void CompanionManagementOnPointerEnter(PointerEnterEvent evt)
     {
+        if (viewDelegate == null) return;
         if (viewDelegate.IsSellingCompanions() || viewDelegate.IsDraggingCompanion() || upgradeAnimationPlaying) return;
         CreateViewDeckButton();
         if (!isSellingDisabled) CreateSellCompanionButton();
@@ -149,7 +150,7 @@ public class CompanionManagementView : IControlsReceiver {
     }
 
     private void CompanionManagementOnPointerMove(PointerMoveEvent evt) {
-        viewDelegate.CompanionManagementOnPointerMove(this, evt.position);
+        viewDelegate?.CompanionManagementOnPointerMove(this, evt.position);
     }
 
     public void ComapnionManagementOnPointerUp(PointerUpEvent evt) {
@@ -158,6 +159,7 @@ public class CompanionManagementView : IControlsReceiver {
     }
 
     public void ComapnionManagementOnPointerLeave(PointerLeaveEvent evt) {
+        if (viewDelegate == null) return;
         viewDelegate.CompanionManagementOnPointerLeave(this, evt);
         viewDelegate.DestroyTooltip(container);
     }

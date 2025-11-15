@@ -3,8 +3,8 @@
     <Style src="project://database/Assets/fontStyling.uss?fileID=7433441132597879392&amp;guid=d0c0881f1c32747ecb649373600de095&amp;type=3#fontStyling" />
     <Style src="project://database/Assets/multiDeckViewStyles.uss?fileID=7433441132597879392&amp;guid=f6a6ab37e49bd49099fca9ceac746c41&amp;type=3#multiDeckViewStyles" />
     <Style src="project://database/Assets/UI%20Toolkit/Stylesheets/IconButton.uss?fileID=7433441132597879392&amp;guid=45daf1b0dd28cfb42b3347777cd65e2d&amp;type=3#IconButton" />
-    <ui:VisualElement name="rootElement" style="flex-grow: 1; visibility: hidden;">
-        <ui:VisualElement name="bgTint" style="flex-grow: 1; position: absolute; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.63);" />
+    <ui:VisualElement name="rootElement" style="flex-grow: 1; visibility: visible;">
+        <ui:VisualElement name="bgTint" style="flex-grow: 1; position: absolute; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.81); top: 0; left: 0;" />
         <ui:VisualElement name="VisualElement" style="flex-grow: 1;">
             <ui:VisualElement name="SectionsContainer" style="flex-grow: 1; flex-direction: row;">
                 <ui:Instance template="MultiDeckViewTabUIDocument" name="MultiDeckViewTabUIDocument" class="tabContainer" />
@@ -12,10 +12,11 @@
                 <ui:Instance template="MultiDeckViewTabUIDocument" name="MultiDeckViewTabUIDocument" class="tabContainer" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement style="flex-grow: 1; position: absolute; width: 100%; height: 25%;">
+        <ui:VisualElement style="flex-grow: 1; position: absolute; width: 100%; height: 15%; background-color: rgba(0, 0, 0, 0);">
+            <ui:VisualElement name="bgImage" style="flex-grow: 1; position: absolute; width: 120%; height: 100%; align-self: center; background-image: url(&quot;project://database/Assets/Sprites/UI/CombatRewardsBackground%20(1).png?fileID=2800000&amp;guid=22d02968a50274729a4f4335573f045b&amp;type=3#CombatRewardsBackground (1)&quot;); -unity-background-scale-mode: scale-and-crop; border-bottom-color: rgb(180, 180, 180); border-bottom-width: 4px;" />
             <ui:VisualElement style="flex-direction: row; justify-content: center;">
-                <IconButton text="&#10;" parse-escape-sequences="true" display-tooltip-when-elided="true" name="tabLeftButton" focusable="true" class="multiDeckViewButton" style="align-self: center; width: 100px; background-image: url(&quot;project://database/Assets/Sprites/Z_OldPlaceholderSprites/arrow_back_noglow.png?fileID=2800000&amp;guid=3f147f86cd796db47a3c80d434bc2b08&amp;type=3#arrow_back_noglow&quot;);" />
-                <ui:VisualElement name="tab-descriptor-container" style="flex-direction: row; width: 200px; margin-right: 3%; margin-left: 3%; flex-grow: 0.2; justify-content: center;">
+                <IconButton text="&#10;" parse-escape-sequences="true" display-tooltip-when-elided="true" name="tabLeftButton" focusable="true" class="multiDeckViewButton" style="align-self: center; width: 100px; background-image: url(&quot;project://database/Assets/Sprites/Z_OldPlaceholderSprites/arrow_back_noglow.png?fileID=2800000&amp;guid=3f147f86cd796db47a3c80d434bc2b08&amp;type=3#arrow_back_noglow&quot;); top: 10px;" />
+                <ui:VisualElement name="tab-descriptor-container" style="flex-direction: row; width: 200px; margin-right: 3%; margin-left: 3%; flex-grow: 0.2; justify-content: center; top: 10px;">
                     <ui:VisualElement name="tab-descriptor-0" class="tab-descriptor" style="display: none;">
                         <ui:Label tabindex="-1" text="Active" parse-escape-sequences="true" display-tooltip-when-elided="true" />
                     </ui:VisualElement>
@@ -26,10 +27,10 @@
                         <ui:Label tabindex="-1" text="Shop" parse-escape-sequences="true" display-tooltip-when-elided="true" style="-unity-text-align: middle-center;" />
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <IconButton text="&#10;" parse-escape-sequences="true" display-tooltip-when-elided="true" name="tabRightButton" focusable="true" class="multiDeckViewButton" style="align-self: center; width: 100px; background-image: url(&quot;project://database/Assets/Sprites/Z_OldPlaceholderSprites/arrow_next_noglow.png?fileID=2800000&amp;guid=af68a8e3c8c054de0b2efb914e24434e&amp;type=3#arrow_next_noglow&quot;);" />
+                <IconButton text="&#10;" parse-escape-sequences="true" display-tooltip-when-elided="true" name="tabRightButton" focusable="true" class="multiDeckViewButton" style="align-self: center; width: 100px; background-image: url(&quot;project://database/Assets/Sprites/Z_OldPlaceholderSprites/arrow_next_noglow.png?fileID=2800000&amp;guid=af68a8e3c8c054de0b2efb914e24434e&amp;type=3#arrow_next_noglow&quot;); top: 10px;" />
             </ui:VisualElement>
             <IconButton text="Exit" parse-escape-sequences="true" display-tooltip-when-elided="true" name="exitButton" class="multiDeckViewButton" style="position: absolute; width: 100px; left: 10px; top: 10px;" />
-            <IconButton parse-escape-sequences="true" display-tooltip-when-elided="true" name="rightButton" class="multiDeckViewButton" style="position: absolute; bottom: 10px; right: 10px; width: 100px; background-image: url(&quot;project://database/Assets/Sprites/Z_OldPlaceholderSprites/arrow_next_noglow.png?fileID=2800000&amp;guid=af68a8e3c8c054de0b2efb914e24434e&amp;type=3#arrow_next_noglow&quot;);" />
+            <IconButton parse-escape-sequences="true" display-tooltip-when-elided="true" name="rightButton" class="multiDeckViewButton" style="position: absolute; right: 10px; width: 100px; background-image: url(&quot;project://database/Assets/Sprites/Z_OldPlaceholderSprites/arrow_next_noglow.png?fileID=2800000&amp;guid=af68a8e3c8c054de0b2efb914e24434e&amp;type=3#arrow_next_noglow&quot;); bottom: 10px;" />
             <IconButton text="&#10;" parse-escape-sequences="true" display-tooltip-when-elided="true" name="leftButton" class="multiDeckViewButton" style="position: absolute; bottom: 10px; width: 100px; left: 10px; background-image: url(&quot;project://database/Assets/Sprites/Z_OldPlaceholderSprites/arrow_back_noglow.png?fileID=2800000&amp;guid=3f147f86cd796db47a3c80d434bc2b08&amp;type=3#arrow_back_noglow&quot;);" />
         </ui:VisualElement>
     </ui:VisualElement>
