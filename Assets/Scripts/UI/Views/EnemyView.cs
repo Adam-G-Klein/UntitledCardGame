@@ -12,70 +12,65 @@ public class EnemyView : IUIEventReceiver
 {
     public VisualElement container;
     public IEntityViewDelegate viewDelegate;
+    public VisualElementFocusable focusable;
 
     public static string STATUS_EFFECTS_CONTAINER_SUFFIX = "-status-effects";
 
-    private float SCREEN_WIDTH_PERCENT = 0.175f;
-    private float ENEMY_RATIO = 1f;
+    private float SCREEN_WIDTH_PERCENT = 0.15f;
+    private float ENEMY_RATIO = 1.15f;
 
-    private IUIEntity uiEntity;
+    private Enemy enemy = null;
+    private EnemyInstance enemyInstance = null;
+    private CombatInstance combatInstance = null;
+    private VisualTreeAsset template;
     private int index;
     private bool isDead = false;
 
     private List<VisualElement> pickingModePositionList = new List<VisualElement>();
-    private List<VisualElement> elementsKeepingDrawDiscardVisible = new List<VisualElement>();
 
-    private VisualElement pillar;
-    private VisualElement drawDiscardContainer;
-    private VisualElement healthAndBlockTab = null;
-    private VisualElement statusEffectsTab = null;
-    private VisualElement descriptionContainer = null;
-    private CombatInstance combatInstance = null;
     private Vector3 originalScale;
     private Vector2 originalElementScale;
     private int ENTITY_NAME_MAX_CHARS = 6;
     private int ENTITY_NAME_FONT_SIZE = 20;
     public GameObject tweenTarget;
 
-    private VisualElement parentContainer;
-    private VisualElement statusVertical;
-    private VisualElement statusContainer;
-    private VisualElement extraSpace;
-    private VisualElement solidBackground;
-    private VisualElement imageElement;
-    private VisualElement lowerHoverDetector;
-    private VisualElement viewDeckContainer;
-    private IconButton drawPileButton;
-    private IconButton discardPileButton;
-    private IconButton viewDeckButton;
-    private Label primaryNameLabel;
-    private Label secondaryNameLabel;
-    private Label blockLabel;
-    private Label healthLabel;
-    private Label maxHealthLabel;
-    private VisualElement maxHealthContainer;
+    private VisualElement statusArea;
+    private VisualElement spriteElement;
+    private Label name;
+    private VisualElement healthBarFill;
+    private Label healthBarLabel;
     private VisualElement selectedIndicator;
-    private VisualTreeAsset template;
-    public VisualElementFocusable focusable;
     private Label intentLabel;
     private VisualElement intentImage;
     private VisualElement intentContainer;
     private bool isTweening = false;
 
+    private int lastHealthValue;
+    private bool isHealthTweening = false;
+
+    private static string HEALTH_LABEL_STRING = "{0}/{1}";
+
 
     public EnemyView(
-        IUIEntity entity,
+        Enemy enemy,
         int index,
-        IEntityViewDelegate viewDelegate)
+        IEntityViewDelegate viewDelegate,
+        EnemyInstance enemyInstance = null)
     {
-        this.uiEntity = entity;
+        this.enemy = enemy;
+        this.enemyInstance = enemyInstance;
         this.index = index;
         this.viewDelegate = viewDelegate;
         this.template = GameplayConstantsSingleton.Instance.gameplayConstants.enemyTemplate;
-        setupEntity(entity, index);
 
-        this.combatInstance = entity.GetCombatInstance();
-        if (this.combatInstance)
+        if (this.enemyInstance != null)
+        {
+            this.combatInstance = this.enemyInstance.combatInstance;
+        }
+
+        SetupEnemyView();
+
+        if (this.combatInstance != null)
         {
             combatInstance.onDamageHandler += DamageScaleBump;
             combatInstance.onDeathHandler += OnDeathHandler;
@@ -92,113 +87,129 @@ public class EnemyView : IUIEventReceiver
 
     public void UpdateView()
     {
-        SetupBlockAndHealth();
+        UpdateHealth();
         SetupStatusIndicators();
-        if (uiEntity.GetEnemyInstance()) {
-            setupEnemyIntent(uiEntity.GetEnemyInstance());
+        if (enemyInstance) {
+            SetupEnemyIntent();
         }
     }
 
-    private void setupEntity(IUIEntity entity, int index)
-    {
+    private void SetupEnemyView() {
         VisualElement enemyRoot = this.template.CloneTree();
 
-        this.parentContainer = enemyRoot.Q<VisualElement>("companion-view-parent-container");
-        this.statusContainer = enemyRoot.Q<VisualElement>("companion-view-status-container");
-        this.statusVertical = enemyRoot.Q<VisualElement>("companion-view-status-vertical");
-        this.extraSpace = enemyRoot.Q<VisualElement>("companion-view-extra-space");
-        this.solidBackground = enemyRoot.Q<VisualElement>("companion-view-solid-background");
-        this.imageElement = enemyRoot.Q<VisualElement>("companion-view-companion-image");
-        this.primaryNameLabel = enemyRoot.Q<Label>("companion-view-primary-name-label");
-        this.secondaryNameLabel = enemyRoot.Q<Label>("companion-view-secondary-name-label");
-        this.blockLabel = enemyRoot.Q<Label>("companion-view-block-value-label");
-        this.healthLabel = enemyRoot.Q<Label>("companion-view-health-value-label");
-        this.selectedIndicator = enemyRoot.Q<VisualElement>("companion-view-selected-indicator");
-        this.intentLabel = enemyRoot.Q<Label>("enemy-intent-label");
-        this.intentImage = enemyRoot.Q<VisualElement>("enemy-intent-image");
-        this.intentContainer = enemyRoot.Q<VisualElement>("intentContainer");
+        this.statusArea = enemyRoot.Q<VisualElement>("enemy-view-status-area");
+        this.spriteElement = enemyRoot.Q<VisualElement>("enemy-view-sprite");
+        this.name = enemyRoot.Q<Label>("enemy-view-name-label");
+        this.healthBarFill = enemyRoot.Q<VisualElement>("enemy-view-health-bar-fill");
+        this.healthBarLabel = enemyRoot.Q<Label>("enemy-view-health-bar-label");
+        this.selectedIndicator = enemyRoot.Q<VisualElement>("enemy-view-selected-indicator");
+        this.intentContainer = enemyRoot.Q<VisualElement>("enemy-view-intent-container");
+        this.intentImage = enemyRoot.Q<VisualElement>("enemy-view-intent-image");
+        this.intentLabel = enemyRoot.Q<Label>("enemy-view-intent-label");
+
         // Moving past the random VisualElement parent CloneTree() creates
         this.container = enemyRoot.Children().First();
         this.container.name = container.name + this.index;
         this.pickingModePositionList.Add(container);
         SetupMainContainer();
-        SetupBackground();
         SetupSprite();
-        SetupBlockAndHealth();
+        SetupName();
+        SetupHealth();
         SetupStatusIndicators();
         UpdateWidthAndHeight();
-        //DamageScaleBump(1);
-    }
-
-
-    private void SetupBackground()
-    {
-        this.solidBackground.style.backgroundImage = new StyleBackground(this.uiEntity.GetBackgroundImage());
     }
 
     private void SetupSprite()
     {
-        Sprite sprite = null;
-        if (uiEntity is Enemy enemy)
-        {
-            sprite = enemy.enemyType.sprite;
-        }
-        else if (uiEntity is EnemyInstance enemyInstance)
-        {
-            sprite = enemyInstance.enemy.enemyType.sprite;
-        }
-        this.imageElement.style.backgroundImage = new StyleBackground(sprite);
+        Sprite sprite = this.enemy.enemyType.sprite;
+        this.spriteElement.style.backgroundImage = new StyleBackground(sprite);
     }
 
+    private void SetupName() {
+        this.name.text = this.enemy.GetName();
+    }
 
-
-    private void SetupBlockAndHealth()
-    {
-        if (this.combatInstance == null)
-        {
-            this.healthLabel.text = this.uiEntity.GetCurrentHealth().ToString();
-            this.blockLabel.style.visibility = Visibility.Hidden;
+    private void SetupHealth() {
+        int currentHealth;
+        int maxHealth;
+        if (this.enemyInstance == null) {
+            currentHealth = this.enemy.GetCurrentHealth();
+            maxHealth = this.enemy.GetCombatStats().getMaxHealth();
+        } else {
+            currentHealth = this.combatInstance.combatStats.currentHealth;
+            maxHealth = this.combatInstance.combatStats.maxHealth;
         }
-        else
-        {
-            this.blockLabel.style.visibility = Visibility.Visible;
-            this.healthLabel.text = this.combatInstance.combatStats.currentHealth.ToString();
-            this.blockLabel.text = this.combatInstance.GetStatus(StatusEffectType.Defended).ToString();
+        this.healthBarLabel.text = String.Format(HEALTH_LABEL_STRING, currentHealth, maxHealth);
+        float healthPercent = (float) currentHealth / (float) maxHealth;
+        this.healthBarFill.style.width = Length.Percent(healthPercent * 100);
+        lastHealthValue = currentHealth;
+    }
+
+    private void UpdateHealth() {
+        if (isHealthTweening) return;
+
+        int currentHealth;
+        int maxHealth;
+        if (this.enemyInstance == null) {
+            currentHealth = this.enemy.GetCurrentHealth();
+            maxHealth = this.enemy.GetCombatStats().getMaxHealth();
+        } else {
+            currentHealth = this.combatInstance.combatStats.currentHealth;
+            maxHealth = this.combatInstance.combatStats.maxHealth;
         }
 
-        this.pickingModePositionList.Add(this.healthLabel);
+        if (currentHealth == lastHealthValue) return;
+
+        isHealthTweening = true;
+
+        float pointsPerSecond = 8f;
+        int healthDifference = lastHealthValue - currentHealth;
+        LeanTween.value(lastHealthValue, currentHealth, healthDifference / pointsPerSecond)
+            .setEase(LeanTweenType.linear)
+            .setOnUpdate((float val) => {
+                int intVal = Mathf.RoundToInt(val);
+                this.healthBarLabel.text = String.Format(HEALTH_LABEL_STRING, intVal, maxHealth);
+                float healthPercent = val / (float) maxHealth;
+                this.healthBarFill.style.width = Length.Percent(healthPercent * 100);
+            })
+            .setOnComplete(() => {
+                isHealthTweening = false;
+                lastHealthValue = currentHealth;
+                // In case multiple instances of damage come through in close timing
+                UpdateHealth();
+            });
     }
 
     private void SetupStatusIndicators()
     {
-        this.statusContainer.Clear();
+        this.statusArea.Clear();
 
         if (this.combatInstance == null) return;
 
         foreach (KeyValuePair<StatusEffectType, int> kvp in combatInstance.GetDisplayedStatusEffects())
         {
             if (kvp.Key == StatusEffectType.Defended) continue;
-            this.statusContainer.Add(CreateStatusIndicator(viewDelegate.GetStatusEffectSprite(kvp.Key), kvp.Value.ToString()));
+            this.statusArea.Add(CreateStatusIndicator(viewDelegate.GetStatusEffectSprite(kvp.Key), kvp.Value.ToString()));
         }
 
         List<DisplayedCacheValue> cacheValues = combatInstance.GetDisplayedCacheValues();
         foreach (DisplayedCacheValue cacheValue in cacheValues)
         {
-            this.statusContainer.Add(CreateStatusIndicator(cacheValue.sprite, cacheValue.value.ToString()));
+            this.statusArea.Add(CreateStatusIndicator(cacheValue.sprite, cacheValue.value.ToString()));
         }
     }
 
     private VisualElement CreateStatusIndicator(Sprite icon, string textValue)
     {
         VisualElement statusIndicator = new VisualElement();
-        statusIndicator.AddToClassList("companion-view-status-indicator-old");
+        statusIndicator.AddToClassList("entity-view-status-indicator-old");
 
         Label statusLabel = new Label();
-        statusLabel.AddToClassList("companion-view-status-indicator-old-label");
+        statusLabel.AddToClassList("entity-view-status-indicator-old-label");
         statusLabel.text = textValue;
 
         VisualElement statusIcon = new VisualElement();
-        statusIcon.AddToClassList("companion-view-status-indicator-old-icon");
+        statusIcon.AddToClassList("entity-view-status-indicator-old-icon");
         statusIcon.style.backgroundImage = new StyleBackground(icon);
 
         statusIndicator.Add(statusLabel);
@@ -227,7 +238,8 @@ public class EnemyView : IUIEventReceiver
     {
         try
         {
-            Targetable targetable = this.uiEntity.GetTargetable();
+            if (enemyInstance == null) return;
+            Targetable targetable = enemyInstance.GetTargetable();
             if (targetable == null) return;
             targetable.OnPointerClickUI(evt);
         }
@@ -247,7 +259,8 @@ public class EnemyView : IUIEventReceiver
 
         try
         {
-            Targetable targetable = this.uiEntity.GetTargetable();
+            if (enemyInstance == null) return;
+            Targetable targetable = enemyInstance.GetTargetable();
             if (targetable == null) return;
             targetable.OnPointerEnterUI(evt);
         }
@@ -267,7 +280,8 @@ public class EnemyView : IUIEventReceiver
 
         try
         {
-            Targetable targetable = this.uiEntity.GetTargetable();
+            if (enemyInstance == null) return;
+            Targetable targetable = enemyInstance.GetTargetable();
             if (targetable == null) return;
             targetable.OnPointerLeaveUI(evt);
         }
@@ -280,7 +294,7 @@ public class EnemyView : IUIEventReceiver
     }
 
 
-    private void setupEnemyIntent(EnemyInstance enemyInstance)
+    private void SetupEnemyIntent()
     {
         if (enemyInstance.currentIntent != null)
         {
@@ -304,11 +318,11 @@ public class EnemyView : IUIEventReceiver
         int height = (int)(width * ENEMY_RATIO);
 
         // This drove me insane btw
-#if UNITY_EDITOR
+        #if UNITY_EDITOR
         UnityEditor.PlayModeWindow.GetRenderingResolution(out uint windowWidth, out uint windowHeight);
         width = (int)(windowWidth * SCREEN_WIDTH_PERCENT);
         height = (int)(width * ENEMY_RATIO);
-#endif
+        #endif
 
         return new Tuple<int, int>(width, height);
     }
@@ -353,9 +367,6 @@ public class EnemyView : IUIEventReceiver
 
     public void BossFrameDestructionRotationShake(float scale, float duration, int pingpongs)
     {
-
-
-
         float originalElementRotation = this.container.style.rotate.value.angle.value;
         float maxRotation = originalElementRotation + scale;
 
@@ -428,14 +439,11 @@ public class EnemyView : IUIEventReceiver
         intentContainer.style.display = DisplayStyle.None;
     }
 
-    public IEnumerator AbilityActivatedVFX()
-    {
-        EnemyView clonedEnemyView = new EnemyView(this.uiEntity, 0, this.viewDelegate);
-        yield return EntityAbilityInstance.GenericAbilityTriggeredVFX(this.container, clonedEnemyView.container);
-    }
-
-    public IUIEntity GetEntity()
-    {
-        return this.uiEntity;
+    public IEnumerator AbilityActivatedVFX() {
+        VisualElement spriteCopy = new VisualElement();
+        spriteCopy.style.backgroundImage = new StyleBackground(this.enemy.enemyType.sprite);
+        spriteCopy.style.width = new Length(100, LengthUnit.Percent);
+        spriteCopy.style.height = new Length(100, LengthUnit.Percent);
+        yield return EntityAbilityInstance.GenericAbilityTriggeredVFX(this.spriteElement, spriteCopy);
     }
 }

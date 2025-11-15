@@ -75,7 +75,7 @@ public class CombatEncounterView : MonoBehaviour,
         }
         List<Enemy> enemies = ((EnemyEncounter)gameState.activeEncounter.GetValue()).enemyList;
         List<Companion> companions = gameState.companions.activeCompanions;
-        setupEnemies(root.Q<VisualElement>("enemyContainer"), enemies.Cast<IUIEntity>());
+        setupEnemies(root.Q<VisualElement>("enemyContainer"), enemies);
         SetupCompanions(root.Q<VisualElement>("companionContainer"), companions);
         UIDocumentUtils.SetAllPickingMode(root, PickingMode.Ignore);
 
@@ -194,10 +194,10 @@ public class CombatEncounterView : MonoBehaviour,
 
     // This function runs the first frame, which creates the enemy views before the enemy instances
     // exist.
-    private void setupEnemies(VisualElement container, IEnumerable<IUIEntity> entities)
+    private void setupEnemies(VisualElement container, IEnumerable<Enemy> enemies)
     {
         var index = UIDocumentGameObjectPlacer.INITIAL_INDEX;
-        foreach (var entity in entities) {
+        foreach (var entity in enemies) {
             container.Add(setupEnemy(entity, index).container);
             // for when we have more bosses or different enemy types that need special handling
             switch (entity.GetDisplayType())
@@ -215,13 +215,13 @@ public class CombatEncounterView : MonoBehaviour,
     private void SetupEnemies(VisualElement container, IEnumerable<EnemyInstance> enemyInstances)
     {
         var index = UIDocumentGameObjectPlacer.INITIAL_INDEX;
-        foreach (EnemyInstance entity in enemyInstances)
+        foreach (EnemyInstance enemyInstance in enemyInstances)
         {
             // setupEnemy adds to the list
-            EnemyView enemyView = setupEnemy(entity, index);
-            entity.enemyView = enemyView;
+            EnemyView enemyView = setupEnemy(enemyInstance.enemy, index, enemyInstance);
+            enemyInstance.enemyView = enemyView;
             container.Add(enemyView.container);
-            combatInstanceToEnemyView.Add(entity.combatInstance, enemyView);
+            combatInstanceToEnemyView.Add(enemyInstance.combatInstance, enemyView);
             index++;
         }
     }
@@ -276,9 +276,9 @@ public class CombatEncounterView : MonoBehaviour,
         return companionView;
     }
 
-    private EnemyView setupEnemy(IUIEntity entity, int index)
+    private EnemyView setupEnemy(Enemy enemy, int index, EnemyInstance enemyInstance = null)
     {
-        EnemyView newEntityView = new EnemyView(entity, index, this);
+        EnemyView newEntityView = new EnemyView(enemy, index, this, enemyInstance);
         pickingModePositionList.Add(newEntityView);
         entityViews.Add(newEntityView);
 

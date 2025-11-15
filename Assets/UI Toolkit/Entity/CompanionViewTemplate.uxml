@@ -1,6 +1,4 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/UI%20Toolkit/Stylesheets/CompanionViewNew.uss?fileID=7433441132597879392&amp;guid=715a20f0aa0920b47918dd6f4e424bbf&amp;type=3#CompanionViewNew" />
-    <Style src="project://database/Assets/fontStyling.uss?fileID=7433441132597879392&amp;guid=d0c0881f1c32747ecb649373600de095&amp;type=3#fontStyling" />
     <ui:VisualElement name="companion-view-parent-container" picking-mode="Ignore" style="flex-grow: 0; align-items: center; justify-content: flex-end; flex-shrink: 0; width: 100%; height: 100%;">
         <ui:VisualElement picking-mode="Ignore" style="flex-grow: 1; flex-shrink: 0; width: 91%; justify-content: flex-end; align-items: center;">
             <ui:VisualElement name="companion-view-background-gradient" style="flex-grow: 0; width: 100%; height: 45%; translate: 0 2%; flex-shrink: 0;">
