@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RP_Beezelbumbler
   m_EditorClassIdentifier: 
   guid: 0cb85a22-217b-405f-865b-bba0b32161bf
-  companionName: Beezelbumbler
+  companionName: Beezel
   maxHealth: 15
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: b2c03f209141544b38b538492ea66b34, type: 3}
@@ -47,9 +47,8 @@ MonoBehaviour:
   tooltip:
     empty: 0
     lines:
-    - title: Beezelbumbler
-      description: The first 2 times Beezelbumbler takes damage in combat, it gains
-        1 strength
+    - title: Beezel
+      description: The first 2 times Beezel takes damage in combat, it gains 1 strength
       relatedBehaviorIndex: 0
   keepsakeTitle: Beezelbumbler's Fangs
   keepsakeDescription: The first 2 times Beezelbumbler takes damage in combat, it
@@ -72,6 +71,7 @@ MonoBehaviour:
         - rid: 2034230176448512012
         - rid: 7707884639552274751
         - rid: 2034230176448512013
+        weight: 0
     - rid: 2034230176448512007
       type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
       data:
