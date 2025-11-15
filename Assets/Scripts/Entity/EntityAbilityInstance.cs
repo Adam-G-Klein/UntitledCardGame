@@ -349,7 +349,7 @@ public abstract class EntityAbilityInstance
         tempContainer.Add(entityVE);
 
         bool done = false;
-        float vfxTime = 0.75f;
+        float vfxTime = .75f;
         // Opacity
         LeanTween.value(1f, 0.1f, vfxTime)
             .setEase(LeanTweenType.linear)
@@ -362,7 +362,7 @@ public abstract class EntityAbilityInstance
             });
 
         // Scale
-        LeanTween.value(1f, 1.5f, vfxTime)
+        LeanTween.value(1f, 1.35f, vfxTime)
             .setEase(LeanTweenType.linear)
             .setOnUpdate((float value) => {
                 tempContainer.transform.scale = new Vector3(value, value, 1f);

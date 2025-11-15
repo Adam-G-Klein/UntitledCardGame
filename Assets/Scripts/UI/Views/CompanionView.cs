@@ -503,6 +503,8 @@ public class CompanionView : IUIEventReceiver
     public IEnumerator AbilityActivatedVFX() {
         VisualElement spriteCopy = new VisualElement();
         spriteCopy.style.backgroundImage = new StyleBackground(this.companion.companionType.fullSprite);
+        // maybe using flex grow 1 instead would work here :thinking:
+        spriteCopy.style.backgroundSize = new StyleBackgroundSize(new BackgroundSize(BackgroundSizeType.Contain));
         spriteCopy.style.width = new Length(100, LengthUnit.Percent);
         spriteCopy.style.height = new Length(100, LengthUnit.Percent);
         yield return EntityAbilityInstance.GenericAbilityTriggeredVFX(this.spriteElement, spriteCopy);
