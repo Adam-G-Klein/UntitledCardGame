@@ -11,11 +11,11 @@ public class MeothraIntentDisplay: MonoBehaviour
     [SerializeField] GameObject intentAnchor;
     [SerializeField] Vector3 anchorOffset;
     [SerializeField] EnemyIntentsSO enemyIntentsSO;
-    [SerializeField] GameObject targetPointer;
 
     private Transform intentTransform;
     private VisualElement intentImage;
     private Label intentLabel;
+    private MeothraAnimationController meothraAnimationController;
 
     void Update()
     {
@@ -28,9 +28,11 @@ public class MeothraIntentDisplay: MonoBehaviour
     {
         if (enemyInstance == null) enemyInstance = GetComponent<EnemyInstance>();
 
-        enemyInstance.onIntentDeclared += UpdateIntent;
+        enemyInstance.onIntentDeclared = UpdateIntent();
         enemyInstance.onIntentEnacted += HideIntent;
         intentTransform = intentUIDoc.transform;
+
+        meothraAnimationController = GetComponentInChildren<MeothraAnimationController>();
 
         UIDocumentUtils.SetAllPickingMode(intentUIDoc.rootVisualElement, PickingMode.Ignore);
         intentImage = intentUIDoc.rootVisualElement.Q<VisualElement>("intent-image");
@@ -38,7 +40,10 @@ public class MeothraIntentDisplay: MonoBehaviour
         intentUIDoc.rootVisualElement.visible = false;
     }
 
-    private void UpdateIntent() {
+    private IEnumerable UpdateIntent() {
+        yield return meothraAnimationController.DisplayNextTarget(
+            enemyInstance.currentIntent.targets[0].transform.position
+        );
         intentUIDoc.rootVisualElement.visible = true;
         intentImage.style.backgroundImage = new StyleBackground(
                 enemyIntentsSO.GetIntentImage(enemyInstance.currentIntent.intentType));
@@ -48,8 +53,7 @@ public class MeothraIntentDisplay: MonoBehaviour
         } else {
             intentLabel.style.display = DisplayStyle.None;
         }
-        intentTransform.position = intentAnchor.transform.position + anchorOffset;
-        targetPointer.transform.position = enemyInstance.currentIntent.targets[0].transform.position;
+        yield return null;
     }
 
     public void HideIntent()

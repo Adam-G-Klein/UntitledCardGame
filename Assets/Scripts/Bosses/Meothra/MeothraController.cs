@@ -28,6 +28,7 @@ public class MeothraController : MonoBehaviour, IBossController
 
         meothraIntentDisplay.Setup();
         meothraIntroAnimation.Setup();
+        meothraAnimationController.Setup();
         meothraIntroAnimation.cinematicIntroCompleteHandler += meothraHealthDisplay.ShowView;
         meothraIntroAnimation.cinematicIntroCompleteHandler += () => suppressSelectedIndicator = false;
         enemyInstance.preEnactIntentHook += Attack;

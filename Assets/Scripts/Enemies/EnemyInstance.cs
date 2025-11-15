@@ -29,7 +29,7 @@ public class EnemyInstance : MonoBehaviour, IUIEntity
     public bool dead = false;
     public EnemyView enemyView;
 
-    public Action onIntentDeclared;
+    public IEnumerable onIntentDeclared;
     public Action onIntentEnacted;
     public delegate IEnumerator PreEnactIntent(List<Vector3> positions);
     public event PreEnactIntent preEnactIntentHook;
@@ -225,7 +225,14 @@ public class EnemyInstance : MonoBehaviour, IUIEntity
         {
             tooltipProvider.IntentDeclared(GetBehaviorIndexForBrain(enemy.enemyType.enemyPattern));
         }
-        onIntentDeclared?.Invoke();
+        // iterate through any triggers, yield on all of them
+        if(onIntentDeclared != null)
+        {
+            foreach (var enumerator in onIntentDeclared)
+            {
+                yield return enumerator;
+            }
+        }
         yield return null;
     }
 
