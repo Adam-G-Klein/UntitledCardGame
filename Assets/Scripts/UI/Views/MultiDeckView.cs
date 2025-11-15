@@ -183,11 +183,11 @@ public class MultiDeckView
     public void OnFocusComplete(ScrollView scrollView)
     {
         // ideally do after a slight delay
+        inTransition = false;
         if (scrollView.contentContainer.Children().ToList().Count == 0) return;
         ToggleDeckFocusability(scrollView.contentContainer.Children().ToList(), true);
         VisualElement firstCard = scrollView.contentContainer.Children().ToList()[0];
         FocusManager.Instance.SetFocus(firstCard.AsFocusable());
-        inTransition = false;
     }
 
     private void ToggleDeckFocusability(List<VisualElement> elements, bool enable)
@@ -214,7 +214,9 @@ public class MultiDeckView
         if (inTransition || focusedSectionsForEachTab[currentTabIndex] == numSectionsForEachTab[currentTabIndex] - 1) return; // remove this line to enable wrap around...I don't think I like it
         UnFocusDeckSection(deckViewTabVisualElements[currentTabIndex].Q<VisualElement>("SectionsContainer").Children().ToList()[focusedSectionsForEachTab[currentTabIndex]], false);
         focusedSectionsForEachTab[currentTabIndex]++;
-        FocusDeckSection(deckViewTabVisualElements[currentTabIndex].Q<VisualElement>("SectionsContainer").Children().ToList()[focusedSectionsForEachTab[currentTabIndex]], false);    }
+        FocusDeckSection(deckViewTabVisualElements[currentTabIndex].Q<VisualElement>("SectionsContainer").Children().ToList()[focusedSectionsForEachTab[currentTabIndex]], false);
+        Debug.LogError(focusedSectionsForEachTab[currentTabIndex]);
+    }
 
     public void TabLeftButtonClicked(ClickEvent evt)
     {
