@@ -11,6 +11,7 @@ public class MeothraController : MonoBehaviour, IBossController
     [SerializeField] private MeothraIntentDisplay meothraIntentDisplay;
     [SerializeField] private MeothraIntroAnimationDisplay meothraIntroAnimation;
     [SerializeField] private MeothraHealthDisplay meothraHealthDisplay;
+    private MeothraAnimationController meothraAnimationController;
 
     [SerializeField] private GameObject selectedIndicator;
     [SerializeField] private GameObject specialAttackVFX;
@@ -23,6 +24,7 @@ public class MeothraController : MonoBehaviour, IBossController
         if (meothraIntentDisplay == null) meothraIntentDisplay = GetComponent<MeothraIntentDisplay>();
         if (meothraIntroAnimation == null) meothraIntroAnimation = GetComponentInChildren<MeothraIntroAnimationDisplay>();
         if (meothraHealthDisplay == null) meothraHealthDisplay = GetComponentInChildren<MeothraHealthDisplay>();
+        if (meothraAnimationController == null) meothraAnimationController = GetComponentInChildren<MeothraAnimationController>();
 
         meothraIntentDisplay.Setup();
         meothraIntroAnimation.Setup();
@@ -34,15 +36,10 @@ public class MeothraController : MonoBehaviour, IBossController
 
     private IEnumerator Attack(List<Vector3> positions)
     {
-        GameObject gameObject = GameObject.Instantiate(
-                specialAttackVFX,
-                positions[0],
-                Quaternion.identity);
         MusicController.Instance.PlaySFX("event:/SFX/BossFight/SFX_MeothraAttack");
-        // gameObject.transform.localScale *= 2f;
-        // foreach (Transform child in gameObject.transform) {
-        //     child.localScale *= 2f;
-        // }
+        yield return StartCoroutine(
+            meothraAnimationController.StrikeAnimation(positions[0])
+        );
         yield return null;
     }
 
