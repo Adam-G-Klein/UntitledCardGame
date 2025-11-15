@@ -38,6 +38,7 @@ public class MeothraController : MonoBehaviour, IBossController
                 specialAttackVFX,
                 positions[0],
                 Quaternion.identity);
+        MusicController.Instance.PlaySFX("event:/SFX/BossFight/SFX_MeothraAttack");
         // gameObject.transform.localScale *= 2f;
         // foreach (Transform child in gameObject.transform) {
         //     child.localScale *= 2f;
@@ -52,6 +53,7 @@ public class MeothraController : MonoBehaviour, IBossController
     private IEnumerator OnDamageVFX() {
         meothraIntentDisplay.HideIntent();
         ScreenShakeManager.Instance.ShakeWithForce(1f);
+        MusicController.Instance.PlaySFX("event:/SFX/BossFight/SFX_MeothraTakeDamage");
         yield return new WaitForSeconds(0.25f);
         meothraIntentDisplay.ShowIntent();
     }

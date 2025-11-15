@@ -339,7 +339,7 @@ public class CombatInstance : MonoBehaviour
         UpdateView();
         if (parentType == CombatInstanceParent.COMPANION)
         {
-            MusicController.Instance.PlaySFX("event:/MX/MX_CompanionDeath");
+            MusicController.Instance.PlaySFX("event:/VO/VO_CompanionDeathMedium");
         }
         CombatEntityManager.Instance.SpawnEntityOnDeathVfx(this);
         if (destroyOnDeath) Destroy(this.gameObject);

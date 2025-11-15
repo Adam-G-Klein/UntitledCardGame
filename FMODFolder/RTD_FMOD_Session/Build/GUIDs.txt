@@ -3,6 +3,7 @@
 {31a24048-410e-494f-9fb6-46f47f09e5b2} bus:/
 {d68395be-23ed-438d-824f-6edb2e03265e} bus:/MX
 {fbb5433c-df87-4203-adfa-15ab6e3e549a} bus:/Reverb
+{12fa3fda-9f96-4f70-a7a1-24e2273bc2bb} event:/MX/MX_BossCombat_Meothra
 {f4d40ed5-d050-4aac-a964-297ff7f53d29} event:/MX/MX_Combat
 {2c3b411a-e031-4457-a443-4c4d1b659605} event:/MX/MX_CombatStingers
 {2b9c639c-871f-4972-bb4c-e50a39b0a3fa} event:/MX/MX_CompanionDeath
@@ -13,6 +14,9 @@
 {c82e16a4-ce3a-4582-9c86-94d79f2b737a} event:/MX/MX_TeamPreview
 {67626a08-3513-4c21-8d9c-c44dfb570f81} event:/MX/MX_Theme
 {f56ebe06-7ee9-4b8c-8004-2ea4088357ee} event:/MX/MX_Tutorial
+{a7f45144-e4a5-4cd4-bf35-f274181466f7} event:/SFX/BossFight/SFX_MeothraAttack
+{93538634-0c41-4d29-addd-0b0694bef6e1} event:/SFX/BossFight/SFX_MeothraTakeDamage
+{5185dbdb-04e3-47d3-9803-86ae53b517fc} event:/SFX/BossFight/SFX_VFX_Explosion
 {a997c2fc-4cc0-485d-b8b3-d61e57de4848} event:/SFX/SFX_BasicAttack
 {941f674b-dc83-4f87-bb26-55f6d491043c} event:/SFX/SFX_ButtonClick
 {d454020f-c3d7-47b6-a7f1-180e4562c988} event:/SFX/SFX_CardRemoval
@@ -27,6 +31,9 @@
 {d2356a75-f08a-450d-9fc8-5ca5e7768797} event:/SFX/SFX_StartRun
 {0df3039c-279d-4cda-a1ff-010d831347bb} event:/SFX/SFX_UIHover
 {a71a5463-ce76-47d9-be4e-e115ed956eab} event:/SetVolume
+{8fd1ba29-542e-4515-9c17-feff1bcf4906} event:/VO/VO_CompanionDeathHigh
+{7713808f-1796-45e8-9876-7a0430b24b94} event:/VO/VO_CompanionDeathLow
+{09d93554-37e2-4f07-b658-550fa78b3354} event:/VO/VO_CompanionDeathMedium
 {b26fbb92-02fe-4af2-9eb6-5f5475686a0b} parameter:/Combat State
 {0ad23db8-938d-4bae-bad7-5f70b72a7cf1} parameter:/CombatLoopVolume
 {0703668e-58d3-4961-aadb-094caea97921} parameter:/Volume
