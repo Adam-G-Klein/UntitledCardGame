@@ -177,11 +177,11 @@ public class CompanionManagementView : IControlsReceiver {
         viewDeckButton.AddToClassList("companion-view-deck-button");
         viewDeckButton.AddToClassList("icon-button-absolute");
         viewDeckButton.SetIconHeight(1f);
-        viewDeckButton.text = "View Deck";
+        viewDeckButton.text = "Deck";
         viewDeckButton.SetIcon(GFGInputAction.VIEW_DECK, ControlsManager.Instance.GetSpriteForGFGAction(GFGInputAction.VIEW_DECK));
         ControlsManager.Instance.RegisterIconChanger(viewDeckButton);
 
-        viewDeckButton.style.width = container.worldBound.width;
+        viewDeckButton.style.width = container.worldBound.width * 0.45f;
         viewDeckButton.style.top = container.worldBound.yMin - container.worldBound.height * 0.3f;
         viewDeckButton.style.left = container.worldBound.xMin - 4;
         viewDeckButton.style.height = container.worldBound.height * 0.3f;
@@ -205,9 +205,9 @@ public class CompanionManagementView : IControlsReceiver {
         sellCompanionButton.SetIcon(GFGInputAction.SELL_COMPANION, ControlsManager.Instance.GetSpriteForGFGAction(GFGInputAction.SELL_COMPANION));
         ControlsManager.Instance.RegisterIconChanger(sellCompanionButton);
 
-        sellCompanionButton.style.width = container.worldBound.width;
-        sellCompanionButton.style.top = container.worldBound.yMax - 4;
-        sellCompanionButton.style.left = container.worldBound.xMin - 4;
+        sellCompanionButton.style.width = container.worldBound.width * 0.45f;
+        sellCompanionButton.style.top = container.worldBound.yMin - container.worldBound.height * 0.3f;
+        sellCompanionButton.style.left = container.worldBound.xMin + (container.worldBound.width * 0.5f) + 4;
         sellCompanionButton.style.height = container.worldBound.height * 0.3f;
         sellCompanionButton.name = "sellcompanion";
 
