@@ -129,6 +129,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2588801776695845837, guid: b4d46fae808098e45879a8915e1fd7f9, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e21f8881fe8fa2a42a4d1a1ad9c1b9d1, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -217,8 +221,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: BattleSceneVFX
       objectReference: {fileID: 0}
+    - target: {fileID: 4912663564863659126, guid: acb1e92b63441445c8fef242b8b02ed9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 8.67
+      objectReference: {fileID: 0}
+    - target: {fileID: 4912663564863659126, guid: acb1e92b63441445c8fef242b8b02ed9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 146985345034477401, guid: acb1e92b63441445c8fef242b8b02ed9, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: acb1e92b63441445c8fef242b8b02ed9, type: 3}
