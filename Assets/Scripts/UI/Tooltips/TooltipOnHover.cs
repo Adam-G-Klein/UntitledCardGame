@@ -120,22 +120,24 @@ public class TooltipOnHover : MonoBehaviour,
 
     private IEnumerator DisplayTooltip() {
         coroutineIsRunning = true;
-        Debug.Log("Tooltip: Displaying tooltip in " + displayWaitTime + " seconds.");
         yield return new WaitForSeconds(displayWaitTime);
-        Debug.Log("Tooltip: Displaying tooltip now.");
+        TooltipView instantiatedView;
         if(instantiateInWorldspace) {
-            instantaitedViews.Add(PrefabInstantiator.instantiateTooltipView(
+            instantiatedView = PrefabInstantiator.instantiateTooltipView(
                 tooltipPrefab,
                 tooltip,
                 transform.position + positionOffset, //this is in world space for some reason
-                null));
+                null);
+            instantaitedViews.Add(instantiatedView);
         } else {
-            instantaitedViews.Add(PrefabInstantiator.instantiateTooltipView(
+            instantiatedView = PrefabInstantiator.instantiateTooltipView(
                 tooltipPrefab,
                 tooltip,
                 transform.position + positionOffset, //this is in world space for some reason
-                transform));
+                transform);
+            instantaitedViews.Add(instantiatedView);
         }
+        TooltipController.ClampTooltipToScreen(instantiatedView.gameObject, Camera.main);
         coroutineIsRunning = false;
     }
 }
