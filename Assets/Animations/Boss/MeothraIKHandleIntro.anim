@@ -925,6 +925,17 @@ AnimationClip:
     classID: 212
     script: {fileID: 0}
     flags: 2
+  - serializedVersion: 2
+    curve:
+    - time: 0
+      value: {fileID: 21300000, guid: fc0057c4d3b6844429859a824555b350, type: 3}
+    - time: 3.9833333
+      value: {fileID: 21300000, guid: fc0057c4d3b6844429859a824555b350, type: 3}
+    attribute: m_Sprite
+    path: Skeleton/LeftArm/UpperArm/Forearm/Wrist/Hand/HandSprite
+    classID: 212
+    script: {fileID: 0}
+    flags: 2
   m_SampleRate: 60
   m_WrapMode: 0
   m_Bounds:
@@ -1077,6 +1088,15 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     - serializedVersion: 2
+      path: 496603839
+      attribute: 0
+      script: {fileID: 0}
+      typeID: 212
+      customType: 23
+      isPPtrCurve: 1
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
+    - serializedVersion: 2
       path: 2181413645
       attribute: 2526845255
       script: {fileID: 0}
@@ -1207,12 +1227,14 @@ AnimationClip:
     - {fileID: 181298479, guid: 818b02860100fe742851a85eea5612ad, type: 3}
     - {fileID: -1614696067, guid: 818b02860100fe742851a85eea5612ad, type: 3}
     - {fileID: 194004126, guid: 818b02860100fe742851a85eea5612ad, type: 3}
+    - {fileID: 21300000, guid: fc0057c4d3b6844429859a824555b350, type: 3}
+    - {fileID: 21300000, guid: fc0057c4d3b6844429859a824555b350, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 3.9833333
+    m_StopTime: 4
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
