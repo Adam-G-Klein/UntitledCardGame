@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.Splines;
+using FMODUnity;
 
 public class MeothraAnimationController: MonoBehaviour
 {
@@ -24,6 +25,7 @@ public class MeothraAnimationController: MonoBehaviour
     [SerializeField] private Vector3 intentTargettingPointerOffset;
     [SerializeField] float tweenBackToPointingTime = 1f;
     [SerializeField] private Transform handIntentLocation;
+    [SerializeField] private float strikePrepTime = 1f;
    private Animator animator;
 
     public void Setup()
@@ -31,11 +33,20 @@ public class MeothraAnimationController: MonoBehaviour
         if (animator == null) animator = GetComponent<Animator>();
     }
     // TODO: rotate strike spline based on how negative or positive the x position is
+    // TODO: rotate and move root motion and right hand
     public IEnumerator StrikeAnimation(Vector3 strikePosition)
     {
         GameObject splineParent = Instantiate(strikeSpline, strikePosition, Quaternion.identity);
         SplineContainer splineContainer = splineParent.GetComponentInChildren<SplineContainer>();
         Spline spline = splineContainer.Spline;
+
+        int ltid = LeanTween.move(lhTarg.gameObject, 
+            splineContainer.transform.TransformPoint(spline.EvaluatePosition(0)), 
+            strikePrepTime)
+            .setEaseInOutQuint()
+            .id;
+        yield return new WaitUntil(() => !LeanTween.isTweening(ltid));
+
         animator.Play("Strike");
         LeanTween.value(0f, 1f, strikeTime).setOnUpdate((float val) =>
         {
