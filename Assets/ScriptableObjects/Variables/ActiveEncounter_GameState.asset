@@ -23,13 +23,15 @@ MonoBehaviour:
       data:
         id: 1d8aec7c-917d-409a-8357-e703c89d11cd
         isCompleted: 0
+        act: 0
         isEliteEncounter: 0
         enemyList:
         - id: d7caf7b6-af61-4e29-b9ad-7510f6625fad
           entityType: 1
           enemyType: {fileID: 11400000, guid: 1e01ae2a7723d1a46ad929b8fd229d98, type: 2}
           combatStats:
-            maxHealth: 35
+            maxHealth: 100
             maxHealthBuffs: 0
-            currentHealth: 1
+            currentHealth: 100
             baseAttackDamage: 3
+        encounterName: 

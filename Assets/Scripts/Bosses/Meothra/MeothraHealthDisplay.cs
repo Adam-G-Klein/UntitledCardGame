@@ -34,6 +34,7 @@ public class MeothraHealthDisplay : MonoBehaviour
         healthBarUIDoc.rootVisualElement.visible = false;
     }
 
+    // called from the timeline when we wanna display it
     public void ShowView() {
         healthBarUIDoc.rootVisualElement.visible = true;
     }
