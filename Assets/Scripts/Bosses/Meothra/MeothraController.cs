@@ -26,11 +26,13 @@ public class MeothraController : MonoBehaviour, IBossController
         if (meothraIntroAnimation == null) meothraIntroAnimation = GetComponentInChildren<MeothraIntroAnimationDisplay>();
         if (meothraHealthDisplay == null) meothraHealthDisplay = GetComponentInChildren<MeothraHealthDisplay>();
         if (meothraAnimationController == null) meothraAnimationController = GetComponentInChildren<MeothraAnimationController>();
+        if (meothraOutroAnimationDisplay == null) meothraOutroAnimationDisplay = GetComponentInChildren<MeothraOutroAnimationDisplay>();
 
         meothraIntentDisplay.Setup();
         meothraIntroAnimation.Setup();
         meothraAnimationController.Setup();
         meothraIntroAnimation.cinematicIntroCompleteHandler += () => suppressSelectedIndicator = false;
+        meothraOutroAnimationDisplay.Setup();
         enemyInstance.preEnactIntentHook += Attack;
         enemyInstance.combatInstance.onDamageHandler += OnDamageHandler;
         enemyInstance.combatInstance.onDeathHandler += OnDeath; 

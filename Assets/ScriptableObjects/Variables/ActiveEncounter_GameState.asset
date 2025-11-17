@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   locked: 0
   Value:
-    rid: 3365867179106369537
+    rid: 3365867179106369550
   references:
     version: 2
     RefIds:
-    - rid: 3365867179106369537
+    - rid: 3365867179106369550
       type: {class: EnemyEncounter, ns: , asm: Assembly-CSharp}
       data:
         id: 690c61e2-850a-4cff-ac95-289aa7a17083
@@ -32,6 +32,6 @@ MonoBehaviour:
           combatStats:
             maxHealth: 30
             maxHealthBuffs: 0
-            currentHealth: 0
+            currentHealth: 37
             baseAttackDamage: 5
         encounterName: 
