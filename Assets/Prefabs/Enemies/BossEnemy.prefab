@@ -27,12 +27,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 396511407943498853}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1818299386461833455}
+  m_Father: {fileID: 465585465598306222}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -113,59 +113,6 @@ MonoBehaviour:
   m_ParentUI: {fileID: 0}
   sourceAsset: {fileID: 9197481963319205126, guid: d58854eb50ded68479c59c34d7bdbb59, type: 3}
   m_SortingOrder: 0
---- !u!1 &913608372028498442
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1560447508882690836}
-  - component: {fileID: 749172041461243192}
-  m_Layer: 0
-  m_Name: IntroAnimationController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1560447508882690836
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 913608372028498442}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1818299386461833455}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &749172041461243192
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 913608372028498442}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1818299386461833425
 GameObject:
   m_ObjectHideFlags: 0
@@ -210,9 +157,7 @@ Transform:
   m_Children:
   - {fileID: 5465341329512774258}
   - {fileID: 4721795697928242566}
-  - {fileID: 8781745298917095573}
-  - {fileID: 1560447508882690836}
-  - {fileID: 7377717727517334358}
+  - {fileID: 465585465598306222}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1818299386461833454
@@ -280,6 +225,10 @@ PlayableDirector:
     value: {fileID: 3430957034230942550}
   - key: {fileID: -3413766896347496238, guid: dc78d963ff8533a4f8c3e264e5231baf, type: 2}
     value: {fileID: 0}
+  - key: {fileID: -3877753409198745687, guid: dc78d963ff8533a4f8c3e264e5231baf, type: 2}
+    value: {fileID: 5348502461677695798}
+  - key: {fileID: -1805768535105624242, guid: dc78d963ff8533a4f8c3e264e5231baf, type: 2}
+    value: {fileID: 8359680345290879244}
   m_ExposedReferences:
     m_References: []
 --- !u!114 &6706516355190666426
@@ -590,13 +539,13 @@ MonoBehaviour:
           m_CallState: 2
     - m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1818299386461833425}
-          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_MethodName: 
+        - m_Target: {fileID: 3795068806916113228}
+          m_TargetAssemblyTypeName: MeothraHealthDisplay, Assembly-CSharp
+          m_MethodName: ShowView
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: 
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
@@ -645,13 +594,68 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyInstance: {fileID: 1818299386461833454}
   healthBarUIDoc: {fileID: 8129773048476901431}
+--- !u!1 &6033903170645389914
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 465585465598306222}
+  - component: {fileID: 5348502461677695798}
+  m_Layer: 0
+  m_Name: MeothraUI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &465585465598306222
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6033903170645389914}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8781745298917095573}
+  - {fileID: 7377717727517334358}
+  m_Father: {fileID: 1818299386461833455}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &5348502461677695798
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6033903170645389914}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2efc296568caf8645bb0c5450a102eee, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &661940135147605982
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1818299386461833455}
+    m_TransformParent: {fileID: 465585465598306222}
     m_Modifications:
     - target: {fileID: 8020141435171493000, guid: e6a6ea64154a4214ab467937efb10ceb, type: 3}
       propertyPath: m_Pivot.x
@@ -695,31 +699,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8020141435171493000, guid: e6a6ea64154a4214ab467937efb10ceb, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.0037780686
+      value: 0.16
       objectReference: {fileID: 0}
     - target: {fileID: 8020141435171493000, guid: e6a6ea64154a4214ab467937efb10ceb, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.97191995
       objectReference: {fileID: 0}
     - target: {fileID: 8020141435171493000, guid: e6a6ea64154a4214ab467937efb10ceb, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8020141435171493000, guid: e6a6ea64154a4214ab467937efb10ceb, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8020141435171493000, guid: e6a6ea64154a4214ab467937efb10ceb, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0.23531173
       objectReference: {fileID: 0}
     - target: {fileID: 8020141435171493000, guid: e6a6ea64154a4214ab467937efb10ceb, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 4.66
+      value: -0.15
       objectReference: {fileID: 0}
     - target: {fileID: 8020141435171493000, guid: e6a6ea64154a4214ab467937efb10ceb, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.34
+      value: 2.88
       objectReference: {fileID: 0}
     - target: {fileID: 8020141435171493000, guid: e6a6ea64154a4214ab467937efb10ceb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -731,11 +735,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8020141435171493000, guid: e6a6ea64154a4214ab467937efb10ceb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: 27.22
       objectReference: {fileID: 0}
     - target: {fileID: 9019623668269760210, guid: e6a6ea64154a4214ab467937efb10ceb, type: 3}
       propertyPath: m_Name
       value: BossHealthBar
+      objectReference: {fileID: 0}
+    - target: {fileID: 9019623668269760210, guid: e6a6ea64154a4214ab467937efb10ceb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -752,12 +760,17 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8790303578512076777, guid: e6a6ea64154a4214ab467937efb10ceb, type: 3}
   m_PrefabInstance: {fileID: 661940135147605982}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 8359680345290879244}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &8359680345290879244 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9019623668269760210, guid: e6a6ea64154a4214ab467937efb10ceb, type: 3}
+  m_PrefabInstance: {fileID: 661940135147605982}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1434731618481405823
 PrefabInstance:
   m_ObjectHideFlags: 0
