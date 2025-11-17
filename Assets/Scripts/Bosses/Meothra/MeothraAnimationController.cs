@@ -16,7 +16,13 @@ public class MeothraAnimationController: MonoBehaviour
     [SerializeField] private Transform rPole;
 
     [SerializeField] private float strikeTime;
-    [SerializeField] private GameObject strikeSpline;
+    [SerializeField] private GameObject lhstrikeSpline;
+    [SerializeField] private GameObject lpolestrikeSpline;
+    [SerializeField] private GameObject rhstrikeSpline;
+    [SerializeField] private GameObject rpolestrikeSpline;
+
+    [SerializeField] private GameObject headstrikeSpline;
+
     [SerializeField] private GameObject strikeVFX;
     /* // for curve debugging
     [SerializeField] private float currentStrikeTime;
@@ -28,6 +34,8 @@ public class MeothraAnimationController: MonoBehaviour
     [SerializeField] private float strikePrepTime = 1f;
    private Animator animator;
 
+
+
     public void Setup()
     {
         if (animator == null) animator = GetComponent<Animator>();
@@ -36,15 +44,18 @@ public class MeothraAnimationController: MonoBehaviour
     // TODO: rotate and move root motion and right hand
     public IEnumerator StrikeAnimation(Vector3 strikePosition)
     {
-        GameObject splineParent = Instantiate(strikeSpline, strikePosition, Quaternion.identity);
-        SplineContainer splineContainer = splineParent.GetComponentInChildren<SplineContainer>();
+        
+        GameObject leftHand = Instantiate(lhstrikeSpline, strikePosition, Quaternion.identity);
+        SplineContainer splineContainer = leftHand.GetComponentInChildren<SplineContainer>();
         Spline spline = splineContainer.Spline;
 
+        // move left hand to start of strike position
         int ltid = LeanTween.move(lhTarg.gameObject, 
             splineContainer.transform.TransformPoint(spline.EvaluatePosition(0)), 
             strikePrepTime)
             .setEaseInOutQuint()
             .id;
+        // move right hand to strike position
         yield return new WaitUntil(() => !LeanTween.isTweening(ltid));
 
         animator.Play("Strike");
@@ -67,7 +78,7 @@ public class MeothraAnimationController: MonoBehaviour
                 strikePosition,
                 Quaternion.identity);
         yield return new WaitForSeconds(strikeTime / 2);
-        Destroy(splineParent); // clean up clean up everybody do your share
+        Destroy(leftHand); // clean up clean up everybody do your share
     }
 
     public IEnumerator DisplayNextTarget(Vector3 targetPosition)

@@ -14,11 +14,13 @@ public class MeothraOutroAnimationDisplay : MonoBehaviour
     private Animator animator;
     private PlayableDirector director;
     [SerializeField] private TimelineAsset outroTimeline;
+    private MeothraIntroAnimationDisplay meothraIntroAnimationDisplay;
 
     public void Setup()
     {
         director = GetComponent<PlayableDirector>();
         animator = GetComponentInChildren<Animator>();
+        meothraIntroAnimationDisplay = GetComponent<MeothraIntroAnimationDisplay>();
         if (animator == null)
         {
             Debug.LogError("MeothraOutroAnimationDisplay: Setup could not find Animator!");
@@ -33,8 +35,16 @@ public class MeothraOutroAnimationDisplay : MonoBehaviour
     }
     public IEnumerator PlayOutroAnimation()
     {
+        meothraIntroAnimationDisplay.currentShakeIndex = 2;
         director.playableAsset = outroTimeline;
+        director.time = 0.0f;
         director.Play();
         yield return new WaitUntil(() => director.state != PlayState.Playing);
+        Debug.Log("MeothraOutroAnimationDisplay: Outro animation complete!");
+    }
+
+    public void RecreateMapAndEnemyUI()
+    {
+        EnemyEncounterManager.Instance.combatEncounterView.RecreateMapAndEnemyUI();
     }
 }

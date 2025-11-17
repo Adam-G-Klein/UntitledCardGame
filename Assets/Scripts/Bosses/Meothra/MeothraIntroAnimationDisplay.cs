@@ -25,7 +25,7 @@ public class MeothraIntroAnimationDisplay : MonoBehaviour
     public event OnCinematicIntroCompleteHandler cinematicIntroCompleteHandler;
     
     [SerializeField]
-    private int currentShakeIndex = 0;
+    public int currentShakeIndex = 0;
 
     [Header("Swap the animator after the intro so that we can move the IK handles independent of the timeline")]
     private Animator animator;

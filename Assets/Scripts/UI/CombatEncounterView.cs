@@ -106,13 +106,26 @@ public class CombatEncounterView : MonoBehaviour,
         deckViewButton.pickingMode = PickingMode.Position;
     }
 
+    // for boss fight intro
     public void DestroyMapAndEnemyUI()
     {
         VisualElement mapRoot = root.Q("mapRoot");
-        mapRoot.Clear();
+        // display none
+        mapRoot.style.display = DisplayStyle.None;
         VisualElement enemyContainer = root.Q<VisualElement>("enemyContainer");
         FocusManager.Instance.UnregisterFocusables(enemyContainer);
-        enemyContainer.Clear();
+        enemyContainer.style.display = DisplayStyle.None;
+    }
+
+    // for boss fight outro
+    public void RecreateMapAndEnemyUI()
+    {
+        VisualElement mapRoot = root.Q("mapRoot");
+        mapRoot.style.display = DisplayStyle.Flex;
+        VisualElement enemyContainer = root.Q<VisualElement>("enemyContainer");
+        // don't need focusables back, combat is over
+        //FocusManager.Instance.RegisterFocusables(enemyContainer);
+        enemyContainer.style.display = DisplayStyle.Flex;
     }
 
     private void clearViews()

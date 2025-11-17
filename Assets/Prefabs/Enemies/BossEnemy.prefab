@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 6215186920877093653}
   - component: {fileID: 7974018165867473959}
   - component: {fileID: 3795068806916113228}
+  - component: {fileID: 4344747775181860495}
   m_Layer: 0
   m_Name: BossEnemy
   m_TagString: Untagged
@@ -197,7 +198,7 @@ PlayableDirector:
   m_GameObject: {fileID: 1818299386461833425}
   m_Enabled: 1
   serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: e47263a34c1b230468db6cdec55e4c92, type: 2}
+  m_PlayableAsset: {fileID: 11400000, guid: 0e17ca10cba89f544ab75d248dd9f9b7, type: 2}
   m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
@@ -239,6 +240,10 @@ PlayableDirector:
     value: {fileID: 3803154668407854279}
   - key: {fileID: 8263603804703797191, guid: e47263a34c1b230468db6cdec55e4c92, type: 2}
     value: {fileID: 4593751648755043481}
+  - key: {fileID: -1819912346590619500, guid: e47263a34c1b230468db6cdec55e4c92, type: 2}
+    value: {fileID: 8108817387768579365}
+  - key: {fileID: -5367580507279164515, guid: e47263a34c1b230468db6cdec55e4c92, type: 2}
+    value: {fileID: 4231329288037765707}
   m_ExposedReferences:
     m_References: []
 --- !u!114 &6706516355190666426
@@ -474,8 +479,9 @@ MonoBehaviour:
     - {fileID: 11400000, guid: ed2aeccf14d66954c9959689bb252d6b, type: 2}
     - {fileID: 11400000, guid: a89ac8a70e3cddd42ab12d4f8ac6824d, type: 2}
     - {fileID: 11400000, guid: 3608973291f4dfe4cae23d20b02bcfca, type: 2}
-    - {fileID: 11400000, guid: b306ca6130002fb4f8340803958591a3, type: 2}
+    - {fileID: 0}
     - {fileID: 11400000, guid: dfe44d586bba7b94d946949877755308, type: 2}
+    - {fileID: 11400000, guid: d4a3378513a9c9c40ae20f17165e126b, type: 2}
     m_Events:
     - m_PersistentCalls:
         m_Calls:
@@ -561,6 +567,20 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4344747775181860495}
+          m_TargetAssemblyTypeName: MeothraOutroAnimationDisplay, Assembly-CSharp
+          m_MethodName: RecreateMapAndEnemyUI
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!114 &7974018165867473959
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -604,6 +624,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyInstance: {fileID: 1818299386461833454}
   healthBarUIDoc: {fileID: 8129773048476901431}
+--- !u!114 &4344747775181860495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1818299386461833425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70707fd789d1c5646ad79b375b5bf5a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outroTimeline: {fileID: 11400000, guid: e47263a34c1b230468db6cdec55e4c92, type: 2}
 --- !u!1 &6033903170645389914
 GameObject:
   m_ObjectHideFlags: 0
@@ -831,19 +864,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1661679911090815164, guid: 535d880997a80914281e8c1d7b3ae8b5, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.8684124
+      value: 0.8684123
       objectReference: {fileID: 0}
     - target: {fileID: 1661679911090815164, guid: 535d880997a80914281e8c1d7b3ae8b5, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.00041742716
+      value: -0.00041742704
       objectReference: {fileID: 0}
     - target: {fileID: 1661679911090815164, guid: 535d880997a80914281e8c1d7b3ae8b5, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.0016224317
+      value: -0.0016224312
       objectReference: {fileID: 0}
     - target: {fileID: 1661679911090815164, guid: 535d880997a80914281e8c1d7b3ae8b5, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.49583992
+      value: 0.49583986
       objectReference: {fileID: 0}
     - target: {fileID: 1759882943856906865, guid: 535d880997a80914281e8c1d7b3ae8b5, type: 3}
       propertyPath: meothraController
@@ -879,19 +912,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3193746721326342044, guid: 535d880997a80914281e8c1d7b3ae8b5, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.66303027
+      value: 0.6630298
       objectReference: {fileID: 0}
     - target: {fileID: 3193746721326342044, guid: 535d880997a80914281e8c1d7b3ae8b5, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.00020604773
+      value: 0.00020604683
       objectReference: {fileID: 0}
     - target: {fileID: 3193746721326342044, guid: 535d880997a80914281e8c1d7b3ae8b5, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.00024254555
+      value: -0.00024254556
       objectReference: {fileID: 0}
     - target: {fileID: 3193746721326342044, guid: 535d880997a80914281e8c1d7b3ae8b5, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.74859256
+      value: 0.74859303
       objectReference: {fileID: 0}
     - target: {fileID: 4724377877011046044, guid: 535d880997a80914281e8c1d7b3ae8b5, type: 3}
       propertyPath: m_Effectors.Array.size
@@ -923,19 +956,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5249991117898428319, guid: 535d880997a80914281e8c1d7b3ae8b5, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.6271984
+      value: 0.6271989
       objectReference: {fileID: 0}
     - target: {fileID: 5249991117898428319, guid: 535d880997a80914281e8c1d7b3ae8b5, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.0012621933
+      value: -0.0012621928
       objectReference: {fileID: 0}
     - target: {fileID: 5249991117898428319, guid: 535d880997a80914281e8c1d7b3ae8b5, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.0008318672
+      value: 0.0008318671
       objectReference: {fileID: 0}
     - target: {fileID: 5249991117898428319, guid: 535d880997a80914281e8c1d7b3ae8b5, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.7788581
+      value: 0.77885777
       objectReference: {fileID: 0}
     - target: {fileID: 5939685945306643193, guid: 535d880997a80914281e8c1d7b3ae8b5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1001,6 +1034,11 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 2823393901766470584, guid: 535d880997a80914281e8c1d7b3ae8b5, type: 3}
   m_PrefabInstance: {fileID: 1434731618481405823}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4231329288037765707 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2977305275241360692, guid: 535d880997a80914281e8c1d7b3ae8b5, type: 3}
+  m_PrefabInstance: {fileID: 1434731618481405823}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4593751648755043481 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3182206583609373670, guid: 535d880997a80914281e8c1d7b3ae8b5, type: 3}
@@ -1040,6 +1078,11 @@ GameObject:
 --- !u!1 &8093333058995997335 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7185628751919265256, guid: 535d880997a80914281e8c1d7b3ae8b5, type: 3}
+  m_PrefabInstance: {fileID: 1434731618481405823}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8108817387768579365 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7161144235292359258, guid: 535d880997a80914281e8c1d7b3ae8b5, type: 3}
   m_PrefabInstance: {fileID: 1434731618481405823}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &8237915836317127949 stripped
