@@ -248,6 +248,22 @@ public class MultiDeckView
         multiDeckViewDelegate.HideDeckView();
         // Cleanup
         CleanUp();
+        StopScrolling();
+    }
+
+    public void StartScrolling(int direction) {
+        GetCurrentScrollView().StartScrolling(0.005f, direction);
+    }
+
+    public void StopScrolling() {
+        GetCurrentScrollView().StopScrolling();
+    }
+
+    private ScrollView GetCurrentScrollView() {
+        return deckViewTabVisualElements[currentTabIndex].Q<VisualElement>("SectionsContainer")
+            .Children()
+            .ToList()[focusedSectionsForEachTab[currentTabIndex]]
+            .Q<ScrollView>("ScrollView");
     }
 
     private void MoveOutTab(VisualElement visualElementToMoveOut, bool sendRight, bool instant = false)

@@ -237,6 +237,19 @@ public class MultiDeckViewManager : GenericSingleton<MultiDeckViewManager>, IMul
         {
             multiDeckView.RightButtonClicked(multiDeckView.tabRightButton.CreateFakeClickEvent());
         }
+        if (action == GFGInputAction.SECONDARY_DOWN_START)
+        {
+            multiDeckView.StartScrolling(1);
+        }
+        if (action == GFGInputAction.SECONDARY_UP_START)
+        {
+            multiDeckView.StartScrolling(-1);
+        }
+        if (action == GFGInputAction.SECONDARY_DOWN_END || action == GFGInputAction.SECONDARY_UP_END)
+        {
+            multiDeckView.StopScrolling();
+        }
+
     }
 
     public void SwappedControlMethod(ControlsManager.ControlMethod controlMethod)
