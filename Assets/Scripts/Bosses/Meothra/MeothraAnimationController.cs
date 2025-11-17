@@ -49,10 +49,13 @@ public class MeothraAnimationController: MonoBehaviour
 
     private Dictionary<GameObject, Transform> splineToHandleMap = new Dictionary<GameObject, Transform> ();
     private Dictionary<Transform, Transform> handleToRestPositionMap = new Dictionary<Transform, Transform>();
+    // 13 x units from left side of screen to right side
+    // 45 units of z rotation
+
     [Header("Rotation of splines by X offset so that strike angles look better")]
+    [SerializeField] private Transform primeStrikeLocation;
+    [SerializeField] private float degSplineRotationPerXOffset = 45f / 13f;
     
-
-
 
     public void Setup()
     {
@@ -75,17 +78,22 @@ public class MeothraAnimationController: MonoBehaviour
     // TODO: rotate and move root motion and right hand
     public IEnumerator StrikeAnimation(Vector3 strikePosition)
     {
+
+        float strikePositionDelta = strikePosition.x - primeStrikeLocation.position.x;
+        float splineRotationAmount = degSplineRotationPerXOffset * strikePositionDelta;
         Dictionary<GameObject, Transform> instantiateSplineToHandleMap = new Dictionary<GameObject, Transform> ();
         // move each object to the start of its spline
         foreach(KeyValuePair<GameObject, Transform> entry in splineToHandleMap)
         {
             GameObject splineObj = Instantiate(entry.Key, entry.Value.position, Quaternion.identity);
+            splineObj.transform.Rotate(Vector3.forward, splineRotationAmount);
             instantiateSplineToHandleMap.Add(splineObj, entry.Value);
             StartCoroutine(MoveGameObjectToStartOfSpline(splineObj, entry.Value, strikePrepTime));
         }
         // move right hand to strike position
-        GameObject leftHand = Instantiate(lhstrikeSpline, strikePosition, Quaternion.identity);
-        yield return MoveGameObjectToStartOfSpline(leftHand, lhTarg.transform, strikePrepTime);
+        GameObject leftHandSpline = Instantiate(lhstrikeSpline, strikePosition, Quaternion.identity);
+        leftHandSpline.transform.Rotate(Vector3.forward, splineRotationAmount);
+        yield return MoveGameObjectToStartOfSpline(leftHandSpline, lhTarg.transform, strikePrepTime);
 
         animator.Play("Strike");
         foreach(KeyValuePair<GameObject, Transform> entry in instantiateSplineToHandleMap)
@@ -93,7 +101,7 @@ public class MeothraAnimationController: MonoBehaviour
             StartCoroutine(MoveGameObjectOnSpline(entry.Key, entry.Value, strikeTime));
         }
         // don't yield so we can still control the timing of the strike vfx
-        StartCoroutine(MoveGameObjectOnSpline(leftHand, lhTarg.transform, strikeTime));
+        StartCoroutine(MoveGameObjectOnSpline(leftHandSpline, lhTarg.transform, strikeTime));
         yield return new WaitForSeconds(strikeTime / 2);    
 
         GameObject gameObject = GameObject.Instantiate(
@@ -103,7 +111,7 @@ public class MeothraAnimationController: MonoBehaviour
         yield return new WaitForSeconds(strikeTime / 2);
         animator.Play("Idle");
         StartCoroutine(BackToIdlePositions());
-        Destroy(leftHand); // clean up clean up everybody do your share
+        //Destroy(leftHandSpline); // clean up clean up everybody do your share
     
     }
 
