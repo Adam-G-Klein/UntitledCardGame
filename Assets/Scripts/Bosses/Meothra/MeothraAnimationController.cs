@@ -6,16 +6,27 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.Splines;
 using FMODUnity;
+using UnityEngine.InputSystem;
 
 public class MeothraAnimationController: MonoBehaviour
 {
+    [Header("References to the rig's IK handles")]
 
     [SerializeField] private Transform lhTarg;
     [SerializeField] private Transform lPole;
     [SerializeField] private Transform rhTarg;
     [SerializeField] private Transform rPole;
+    [SerializeField] private Transform headTarg;
+    [Header("References to the positions of the handles 'at rest'")]
 
-    [SerializeField] private float strikeTime;
+    [SerializeField] private Transform lhRest;
+    [SerializeField] private Transform lPoleRest;
+    [SerializeField] private Transform rhRest;
+    [SerializeField] private Transform rPoleRest;
+    [SerializeField] private Transform headRest;
+
+    [Header("reference to movement splines")]
+
     [SerializeField] private GameObject lhstrikeSpline;
     [SerializeField] private GameObject lpolestrikeSpline;
     [SerializeField] private GameObject rhstrikeSpline;
@@ -23,6 +34,7 @@ public class MeothraAnimationController: MonoBehaviour
 
     [SerializeField] private GameObject headstrikeSpline;
 
+    [SerializeField] private float strikeTime;
     [SerializeField] private GameObject strikeVFX;
     /* // for curve debugging
     [SerializeField] private float currentStrikeTime;
@@ -32,45 +44,55 @@ public class MeothraAnimationController: MonoBehaviour
     [SerializeField] float tweenBackToPointingTime = 1f;
     [SerializeField] private Transform handIntentLocation;
     [SerializeField] private float strikePrepTime = 1f;
-   private Animator animator;
+    [SerializeField] private float backToIdleTime = 1f;
+    private Animator animator;
+
+    private Dictionary<GameObject, Transform> splineToHandleMap = new Dictionary<GameObject, Transform> ();
+    private Dictionary<Transform, Transform> handleToRestPositionMap = new Dictionary<Transform, Transform>();
+    
 
 
 
     public void Setup()
     {
         if (animator == null) animator = GetComponent<Animator>();
+        // special case for left hand since we want it to go right over the target
+        // TODO: poles
+        splineToHandleMap.Add(lpolestrikeSpline, lPole);
+        splineToHandleMap.Add(rhstrikeSpline, rhTarg);
+        splineToHandleMap.Add(rpolestrikeSpline, rPole);
+        splineToHandleMap.Add(headstrikeSpline, headTarg);
+
+        handleToRestPositionMap.Add(lhTarg, lhRest);
+        handleToRestPositionMap.Add(lPole, lPoleRest);
+        handleToRestPositionMap.Add(rhTarg, rhRest);
+        handleToRestPositionMap.Add(rPole, rPoleRest);
+        handleToRestPositionMap.Add(headTarg, headRest);
+
     }
     // TODO: rotate strike spline based on how negative or positive the x position is
     // TODO: rotate and move root motion and right hand
     public IEnumerator StrikeAnimation(Vector3 strikePosition)
     {
-        
-        GameObject leftHand = Instantiate(lhstrikeSpline, strikePosition, Quaternion.identity);
-        SplineContainer splineContainer = leftHand.GetComponentInChildren<SplineContainer>();
-        Spline spline = splineContainer.Spline;
-
-        // move left hand to start of strike position
-        int ltid = LeanTween.move(lhTarg.gameObject, 
-            splineContainer.transform.TransformPoint(spline.EvaluatePosition(0)), 
-            strikePrepTime)
-            .setEaseInOutQuint()
-            .id;
+        Dictionary<GameObject, Transform> instantiateSplineToHandleMap = new Dictionary<GameObject, Transform> ();
+        // move each object to the start of its spline
+        foreach(KeyValuePair<GameObject, Transform> entry in splineToHandleMap)
+        {
+            GameObject splineObj = Instantiate(entry.Key, entry.Value.position, Quaternion.identity);
+            instantiateSplineToHandleMap.Add(splineObj, entry.Value);
+            StartCoroutine(MoveGameObjectToStartOfSpline(splineObj, entry.Value, strikePrepTime));
+        }
         // move right hand to strike position
-        yield return new WaitUntil(() => !LeanTween.isTweening(ltid));
+        GameObject leftHand = Instantiate(lhstrikeSpline, strikePosition, Quaternion.identity);
+        yield return MoveGameObjectToStartOfSpline(leftHand, lhTarg.transform, strikePrepTime);
 
         animator.Play("Strike");
-        LeanTween.value(0f, 1f, strikeTime).setOnUpdate((float val) =>
+        foreach(KeyValuePair<GameObject, Transform> entry in instantiateSplineToHandleMap)
         {
-            Vector3 localPosition = spline.EvaluatePosition(val);
-            // convert local position to world position
-            Vector3 worldPosition = splineContainer.transform.TransformPoint(localPosition);
-            lhTarg.position = worldPosition; 
-            /* // for curve debugging
-            currentStrikeTime = val;
-            currentStrikePosition = worldPosition;
-            */
-            
-        }).setEaseInOutQuint();
+            StartCoroutine(MoveGameObjectOnSpline(entry.Key, entry.Value, strikeTime));
+        }
+        // don't yield so we can still control the timing of the strike vfx
+        StartCoroutine(MoveGameObjectOnSpline(leftHand, lhTarg.transform, strikeTime));
         yield return new WaitForSeconds(strikeTime / 2);    
 
         GameObject gameObject = GameObject.Instantiate(
@@ -78,12 +100,50 @@ public class MeothraAnimationController: MonoBehaviour
                 strikePosition,
                 Quaternion.identity);
         yield return new WaitForSeconds(strikeTime / 2);
+        animator.Play("Idle");
+        StartCoroutine(BackToIdlePositions());
         Destroy(leftHand); // clean up clean up everybody do your share
+    
+    }
+
+    public IEnumerator MoveGameObjectToStartOfSpline(GameObject spline, Transform toBeMoved, float time)
+    {
+        SplineContainer splineContainer = spline.GetComponentInChildren<SplineContainer>();
+        Spline splineComp = splineContainer.Spline;
+        Vector3 startPosition = splineComp.EvaluatePosition(0);
+        Vector3 worldStartPosition = splineContainer.transform.TransformPoint(startPosition);
+        int tween = LeanTween.move(toBeMoved.gameObject, worldStartPosition, time)
+            .setEaseInOutQuint()
+            .id;
+        yield return new WaitUntil(() => !LeanTween.isTweening(tween));
+    }
+
+    public IEnumerator MoveGameObjectOnSpline(GameObject spline, Transform toBeMoved, float time) {
+        SplineContainer splineContainer = spline.GetComponentInChildren<SplineContainer>();
+        Spline splineComp = splineContainer.Spline;
+        LeanTween.value(0f, 1f, time).setOnUpdate((float val) =>
+        {
+            Vector3 localPosition = splineComp.EvaluatePosition(val);
+            // convert local position to world position
+            Vector3 worldPosition = splineContainer.transform.TransformPoint(localPosition);
+            toBeMoved.position = worldPosition;
+        }).setEaseInOutQuint();
+        yield return new WaitForSeconds(time);
+    }
+
+    private IEnumerator BackToIdlePositions() {
+        foreach (var kvp in handleToRestPositionMap) {
+            Transform handle = kvp.Key;
+            Transform restPos = kvp.Value;
+            LeanTween.move(handle.gameObject, restPos.position, backToIdleTime).setEaseInOutQuint();
+        }
+        yield return null;
     }
 
     public IEnumerator DisplayNextTarget(Vector3 targetPosition)
     {
-        animator.Play("Idle");
+        if(animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "Idle")
+            animator.Play("Idle");
         Vector3 startLPos = lhTarg.position;
         Vector3 startRPos = rhTarg.position;
         Quaternion startRRot = rhTarg.rotation;
