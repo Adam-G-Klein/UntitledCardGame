@@ -172,6 +172,10 @@ public class ControlsManager : GenericSingleton<ControlsManager>
         if(context.phase == InputActionPhase.Performed) {
             Debug.Log("[ControlsManager] handleSecondaryNavigateUp called");
             ProcessInput(GFGInputAction.SECONDARY_UP);
+        } else if(context.phase == InputActionPhase.Started) {
+            ProcessInput(GFGInputAction.SECONDARY_UP_START);
+        } else if(context.phase == InputActionPhase.Canceled) {
+            ProcessInput(GFGInputAction.SECONDARY_UP_END);
         }
     }
 
@@ -179,6 +183,10 @@ public class ControlsManager : GenericSingleton<ControlsManager>
         if(context.phase == InputActionPhase.Performed) {
             Debug.Log("[ControlsManager] handleSecondaryNavigateDown called");
             ProcessInput(GFGInputAction.SECONDARY_DOWN);
+        } else if(context.phase == InputActionPhase.Started) {
+            ProcessInput(GFGInputAction.SECONDARY_DOWN_START);
+        } else if(context.phase == InputActionPhase.Canceled) {
+            ProcessInput(GFGInputAction.SECONDARY_DOWN_END);
         }
     }
 

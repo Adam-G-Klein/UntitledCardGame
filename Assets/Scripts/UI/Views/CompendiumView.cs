@@ -28,6 +28,8 @@ public class CompendiumView : IControlsReceiver {
     private Button companionButton;
     private Button cardButton;
 
+    private List<Coroutine> scrollCoroutines = new List<Coroutine>();
+
     public CompendiumView(UIDocument uiDocument, CompanionPoolSO companionPool, CardPoolSO neutralCardPool, List<PackSO> packSOs, GameObject tooltipPrefab) {
         this.tooltipController = new TooltipController(tooltipPrefab);
         FocusManager.Instance.StashFocusables(this.GetType().Name);
@@ -76,6 +78,7 @@ public class CompendiumView : IControlsReceiver {
         companionButton.RemoveFromClassList("compendium-button-disabled");
         cardButton.AddToClassList("compendium-button-disabled");
         FocusManager.Instance.Unfocus();
+        currentCompendiumView = CompendiumType.COMPANION;
     }
 
     private void CardButtonHandler()
@@ -89,6 +92,7 @@ public class CompendiumView : IControlsReceiver {
         companionButton.AddToClassList("compendium-button-disabled");
         cardButton.RemoveFromClassList("compendium-button-disabled");
         FocusManager.Instance.Unfocus();
+        currentCompendiumView = CompendiumType.CARD;
     }
 
     public void ExitButtonHandler() {
@@ -232,23 +236,34 @@ public class CompendiumView : IControlsReceiver {
     public void ProcessGFGInputAction(GFGInputAction action)
     {
         switch (action) {
-            case GFGInputAction.SECONDARY_UP:
-                ScrollScroller(cardsScrollView, -0.1f);
-                ScrollScroller(companionScrollView, -0.1f);
+            case GFGInputAction.SECONDARY_UP_START:
+                GetCurrentScrollView().StartScrolling(0.001f, -1);
+                DestroyTooltips();
                 FocusManager.Instance.Unfocus();
             break;
 
-            case GFGInputAction.SECONDARY_DOWN:
-                ScrollScroller(cardsScrollView, 0.1f);
-                ScrollScroller(companionScrollView, 0.1f);
+            case GFGInputAction.SECONDARY_DOWN_START:
+                GetCurrentScrollView().StartScrolling(0.001f, 1);
+                DestroyTooltips();
                 FocusManager.Instance.Unfocus();
+            break;
+
+            case GFGInputAction.SECONDARY_DOWN_END:
+            case GFGInputAction.SECONDARY_UP_END:
+                GetCurrentScrollView().StopScrolling();
             break;
         }
     }
 
-    private void ScrollScroller(ScrollView scrollView, float amount) {
-        Scroller scroller = scrollView.verticalScroller;
-        scroller.value += amount * (scroller.highValue-scroller.lowValue);
+    private ScrollView GetCurrentScrollView() {
+        if (currentCompendiumView == CompendiumType.COMPANION) {
+            return companionScrollView;
+        } else {
+            return cardsScrollView;
+        }
+    }
+
+    private void DestroyTooltips() {
         Dictionary<string, TooltipView> dictCopy = new(tooltipMap);
         foreach (KeyValuePair<string, TooltipView> kvp in dictCopy) {
             GameObject.Destroy(kvp.Value.gameObject);
