@@ -74,6 +74,7 @@ public class EndEncounterView : MonoBehaviour
             .setOnComplete(() => {
                 StartCoroutine(AnimateText());
                 nextSceneButton.SetEnabled(true);
+                FocusManager.Instance.EnableFocusableTarget(nextSceneButton.AsFocusable());
                 FocusManager.Instance.SetFocus(nextSceneButton.AsFocusable());
             });
     }

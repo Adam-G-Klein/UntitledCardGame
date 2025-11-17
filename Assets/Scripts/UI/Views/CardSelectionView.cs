@@ -91,6 +91,7 @@ public class CardSelectionView : MonoBehaviour
         
         this.promptTextLabel.text = promptText;
         FocusManager.Instance.RegisterFocusables(uiDoc);
+        FocusManager.Instance.LockFocusables();
     }
 
     private void InitFields() {
@@ -106,7 +107,8 @@ public class CardSelectionView : MonoBehaviour
         if (cardsSelected.Contains(cardView)) {
             cardsSelected.Remove(cardView);
             // Undo styling for having card selected
-            cardView.cardContainer.parent.RemoveFromClassList("card-selected");
+            // cardView.cardContainer.parent.RemoveFromClassList("card-selected");
+            cardView.cardContainer.RemoveFromClassList("card-selected");
             return;
         }
 
@@ -116,7 +118,8 @@ public class CardSelectionView : MonoBehaviour
 
         cardsSelected.Add(cardView);
         // Setup styling for having card selected
-        cardView.cardContainer.parent.AddToClassList("card-selected");
+        // cardView.cardContainer.parent.AddToClassList("card-selected");
+        cardView.cardContainer.AddToClassList("card-selected");
     }
 
     private void ExitView() {
@@ -142,6 +145,7 @@ public class CardSelectionView : MonoBehaviour
         }
         FocusManager.Instance.UnregisterFocusables(uiDoc);
         FocusManager.Instance.UnstashFocusables(this.GetType().Name);
+        FocusManager.Instance.UnlockFocusables();
         Destroy(this.gameObject);
     }
 

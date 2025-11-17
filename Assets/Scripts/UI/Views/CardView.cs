@@ -58,7 +58,9 @@ public class CardView {
     private VisualElement makeCardView(CardType card, CompanionTypeSO companionType, bool cardInShop = false, PackSO packSO = null) {
         VisualTreeAsset visualTreeAsset = GameplayConstantsSingleton.Instance.gameplayConstants.cardTemplate;
         VisualElement container = visualTreeAsset.CloneTree();
+        container.focusable = true;
         container.AddToClassList("card-container");
+        container.AddToClassList("focusable");
         cardFocusable = container.AsFocusable();
 
         Label manaContainer = container.Q<Label>("manaLabel");
