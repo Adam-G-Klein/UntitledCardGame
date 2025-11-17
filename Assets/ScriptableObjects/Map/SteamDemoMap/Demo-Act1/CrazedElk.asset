@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
-  m_Name: StraightUpGoon
+  m_Name: CrazedElk
   m_EditorClassIdentifier: 
   guid: 79a89f7b-b540-4cca-885c-e2d53e038272
-  displayName: Creepy Crawly
+  displayName: Racketeer Elk
   maxHealth: 25
   baseAttackDamage: 0
   enemyDisplayType: 0
-  sprite: {fileID: 21300000, guid: 75d48219ba751ee48831234b9c4a6041, type: 3}
+  sprite: {fileID: 21300000, guid: 3425f2ba3d8884f069901550072066c7, type: 3}
   backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
   entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
   morale: 0
@@ -47,8 +47,8 @@ MonoBehaviour:
   tooltip:
     empty: 0
     lines:
-    - title: Empowered Strike
-      description: Attacks and grows in strength
+    - title: Teach 'em a lesson
+      description: Attacks the first rat and grows stronger
       relatedBehaviorIndex: -1
   DEADLIER_ENEMY_BONUS_STR: -1
   HEALTHIER_ENEMY_BONUS_HEALTH: -1

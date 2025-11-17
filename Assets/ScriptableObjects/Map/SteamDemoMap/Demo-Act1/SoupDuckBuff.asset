@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
-  m_Name: MightyMite
+  m_Name: SoupDuckBuff
   m_EditorClassIdentifier: 
-  guid: bd04dd39-f2ec-40f8-9360-c39cceb02495
-  displayName: Mighty Mite
-  maxHealth: 35
+  guid: 901812dd-fc45-4df5-8d09-712eceb11bbf
+  displayName: Soup Duck
+  maxHealth: 12
   baseAttackDamage: 0
   enemyDisplayType: 0
-  sprite: {fileID: 21300000, guid: 9bd71e2f3cc128d41905a6db51025fd0, type: 3}
+  sprite: {fileID: 21300000, guid: 2bcd09ec1f96a4a4aace6d4639d6c7eb, type: 3}
   backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
   entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
   morale: 0
@@ -31,12 +31,11 @@ MonoBehaviour:
       displayValue: 3
       effectSteps:
       - rid: 3931529445166809421
-      - rid: 173314522967966541
+      - rid: 173314522967966481
       - rid: 3931529445166809422
-      - rid: 5280922829633618025
-      - rid: 5633448273828905019
-      - rid: 5280922829633618024
-    behaviorType: 0
+      - rid: 5633448213729509463
+      - rid: 5633448213729509464
+    behaviorType: 2
   belowHalfHPEnemyPattern:
     behaviors: []
     behaviorType: 0
@@ -47,15 +46,15 @@ MonoBehaviour:
   tooltip:
     empty: 0
     lines:
-    - title: Empowered Strike
-      description: Attacks and grows in strength
+    - title: Bite and drink soup
+      description: Attack and grows stronger
       relatedBehaviorIndex: -1
   DEADLIER_ENEMY_BONUS_STR: -1
   HEALTHIER_ENEMY_BONUS_HEALTH: -1
   references:
     version: 2
     RefIds:
-    - rid: 173314522967966541
+    - rid: 173314522967966481
       type: {class: ScriptableObjectEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ScriptableObjectEffectStep
@@ -84,19 +83,7 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 0}
-    - rid: 5280922829633618024
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: self
-        prefabToInstantiate: {fileID: 3850217184923880746, guid: 4bed509d0589dae4d922d8eeb61a6292, type: 3}
-        scale: 1
-    - rid: 5280922829633618025
-      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: WaitForSecondsEffect
-        seconds: 0.3
-    - rid: 5633448273828905019
+    - rid: 5633448213729509463
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ApplyStatus
@@ -109,3 +96,10 @@ MonoBehaviour:
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+    - rid: 5633448213729509464
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
+        scale: 1

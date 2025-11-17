@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
-  m_Name: TemptingDevil
+  m_Name: HucksterLizard
   m_EditorClassIdentifier: 
   guid: e8315b60-ed81-43fb-a466-e45a5fdf55b3
-  displayName: Tempting Devil
+  displayName: Huckster Lizard
   maxHealth: 15
   baseAttackDamage: 0
   enemyDisplayType: 0
-  sprite: {fileID: 21300000, guid: 27f1adcfc988441759631bb342034add, type: 3}
+  sprite: {fileID: 21300000, guid: 7aa149c240ec849f6a442370424d5967, type: 3}
   backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
   entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
   morale: 1
@@ -52,12 +52,12 @@ MonoBehaviour:
   tooltip:
     empty: 1
     lines:
-    - title: Suspicious offer
-      description: Adds a malicious card "Contract with the Devil" to the top of
-        a deck chosen at random
+    - title: Too good to be true
+      description: Adds a malicious card "Limited-Time Offer" to the top of a deck
+        chosen at random
       relatedBehaviorIndex: 0
-    - title: Contract with the Devil
-      description: Draw 2 cards from self & bleed 2 HP
+    - title: Limited-Time Offer
+      description: Draw 2 cards from self & bleed HP
       relatedBehaviorIndex: 0
   DEADLIER_ENEMY_BONUS_STR: -1
   HEALTHIER_ENEMY_BONUS_HEALTH: -1
