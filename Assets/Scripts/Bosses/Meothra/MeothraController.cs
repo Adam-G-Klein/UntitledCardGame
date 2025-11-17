@@ -12,6 +12,7 @@ public class MeothraController : MonoBehaviour, IBossController
     [SerializeField] private MeothraIntroAnimationDisplay meothraIntroAnimation;
     [SerializeField] private MeothraHealthDisplay meothraHealthDisplay;
     private MeothraAnimationController meothraAnimationController;
+    private MeothraOutroAnimationDisplay meothraOutroAnimationDisplay;
 
     [SerializeField] private GameObject selectedIndicator;
     [SerializeField] private GameObject specialAttackVFX;
@@ -32,6 +33,13 @@ public class MeothraController : MonoBehaviour, IBossController
         meothraIntroAnimation.cinematicIntroCompleteHandler += () => suppressSelectedIndicator = false;
         enemyInstance.preEnactIntentHook += Attack;
         enemyInstance.combatInstance.onDamageHandler += OnDamageHandler;
+        enemyInstance.combatInstance.onDeathHandler += OnDeath; 
+    }
+
+    private IEnumerator OnDeath(CombatInstance killer)
+    {
+        Debug.Log("MeothraController: OnDeath called!");
+        yield return StartCoroutine(meothraOutroAnimationDisplay.PlayOutroAnimation());
     }
 
     private IEnumerator Attack(List<Vector3> positions)
@@ -49,9 +57,11 @@ public class MeothraController : MonoBehaviour, IBossController
 
     private IEnumerator OnDamageVFX() {
         meothraIntentDisplay.HideIntent();
+        meothraAnimationController.PlayHurtAnimation();
         ScreenShakeManager.Instance.ShakeWithForce(1f);
         MusicController.Instance.PlaySFX("event:/SFX/BossFight/SFX_MeothraTakeDamage");
         yield return new WaitForSeconds(0.25f);
+        meothraAnimationController.PlayIdleAnimation();
         meothraIntentDisplay.ShowIntent();
     }
 

@@ -85,6 +85,15 @@ public class MeothraAnimationController: MonoBehaviour
             rhTarg.rotation = Quaternion.Lerp(startRRot, handIntentLocation.rotation, val);
         }).setEaseInOutQuint().id;
         yield return new WaitForSeconds(tweenBackToPointingTime);
+    }
 
+    public void PlayHurtAnimation()
+    {
+        animator.Play("Hurt");
+    }
+
+    public void PlayIdleAnimation()
+    {
+        animator.Play("Idle");
     }
 }
