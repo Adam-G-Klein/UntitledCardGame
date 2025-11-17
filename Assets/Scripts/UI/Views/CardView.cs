@@ -101,7 +101,7 @@ public class CardView {
         if (companionType != null) {
             Sprite silhouette = GetSilhouette(companionType.fullSprite, companionType.companionName);
             cardBackground.style.backgroundImage = new StyleBackground(silhouette.texture);  
-        } else if (packSO != null)
+        } else if (packSO != null && packSO.packIcon != null)
         {
             Sprite silhouette = GetSilhouette(packSO.packIcon, packSO.packName);
             cardBackground.style.backgroundImage = new StyleBackground(silhouette.texture);  

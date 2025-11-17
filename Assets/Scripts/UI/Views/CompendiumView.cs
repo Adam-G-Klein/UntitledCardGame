@@ -147,8 +147,6 @@ public class CompendiumView : IControlsReceiver {
         cards.ForEach(card => {
             PackSO packToUse = companion != null ? companion.pack : packSO;
             VisualElement cardContainer = new CardView(card, companion, cardRarity, true, packToUse).cardContainer;
-            Debug.LogError(cardContainer.style.height);
-            Debug.LogError(cardContainer.style.width);
             cardContainer.AddToClassList("compendium-item-container");
             companionCardsContainer.Add(cardContainer);
             cardContainer.name = card.name;
