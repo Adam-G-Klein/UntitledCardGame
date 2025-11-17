@@ -319,17 +319,6 @@
                 },
                 {
                     "name": "",
-                    "id": "906bbfd5-9474-419d-a4e7-9d39577d8872",
-                    "path": "<Keyboard>/upArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard",
-                    "action": "NavigateUp",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "dbf8d161-d46b-46a6-9807-d08978f0e08b",
                     "path": "<Gamepad>/leftStick/up",
                     "interactions": "",
@@ -347,17 +336,6 @@
                     "processors": "",
                     "groups": ";Gamepad;Xbox;Switch",
                     "action": "NavigateUp",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "2da33d7d-d7a0-4b2e-b434-fc4871045d36",
-                    "path": "<Keyboard>/downArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard",
-                    "action": "NavigateDown",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -407,17 +385,6 @@
                 },
                 {
                     "name": "",
-                    "id": "ddbb3ac6-b417-460d-9462-a33e11732afb",
-                    "path": "<Keyboard>/leftArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard",
-                    "action": "NavigateLeft",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "10aa1964-84c6-4d3e-affb-c55d28d57dae",
                     "path": "<Gamepad>/leftStick/left",
                     "interactions": "",
@@ -442,17 +409,6 @@
                     "name": "",
                     "id": "58d65ae2-f2c1-4967-8558-5236f7760a7a",
                     "path": "<Keyboard>/d",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard",
-                    "action": "NavigateRight",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "03ca2331-c033-492f-9f3c-3986b832d060",
-                    "path": "<Keyboard>/rightArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard",
@@ -495,11 +451,33 @@
                 },
                 {
                     "name": "",
+                    "id": "31b1fa7b-27c6-4319-b9ba-434d2d0e925f",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SecondaryNavigateUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "46f631ca-bf9b-4037-8949-ca7d999e3219",
                     "path": "<Gamepad>/rightStick/down",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad;Xbox;Switch",
+                    "action": "SecondaryNavigateDown",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f91e0f79-2de8-4410-be83-73cf1316b47f",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
                     "action": "SecondaryNavigateDown",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -517,11 +495,33 @@
                 },
                 {
                     "name": "",
+                    "id": "cc1181e2-3250-4665-abdc-7708898ff3b9",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SecondaryNavigateLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "36a03336-6f40-42d0-9f02-f6b1df9a5ab0",
                     "path": "<Gamepad>/rightStick/right",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad;Xbox;Switch",
+                    "action": "SecondaryNavigateRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "51932dca-d9df-473b-9cb8-385e3981e53f",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
                     "action": "SecondaryNavigateRight",
                     "isComposite": false,
                     "isPartOfComposite": false
