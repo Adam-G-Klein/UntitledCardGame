@@ -23,6 +23,7 @@ public class CardType: IdentifiableSO, ITooltipProvider
     public int Cost;
     public Sprite Artwork;
     public CardCategory cardCategory;
+    public PackSO packFrom;
     public GameObject vfxPrefab;
     // For unplayable status cards
     public bool playable = true;

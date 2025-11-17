@@ -22,6 +22,7 @@ MonoBehaviour:
   Cost: 2
   Artwork: {fileID: 21300000, guid: 8f7d978fe57e96342a8335f56279ee7e, type: 3}
   cardCategory: 1
+  packFrom: {fileID: 11400000, guid: 79e479ca9df7a4369ba7fa951e0af116, type: 2}
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
@@ -71,7 +72,7 @@ MonoBehaviour:
         inputDeckKey: self
         filter:
           cardCategoriesToInclude: 
-          generatedCardsFilter: 0
+          retainedCardsFilter: 0
         includeDrawPile: 1
         includeDiscardPile: 1
         includeCardsInHand: 1

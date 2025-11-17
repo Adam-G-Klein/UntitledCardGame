@@ -24,6 +24,7 @@ MonoBehaviour:
   Cost: 1
   Artwork: {fileID: 21300000, guid: 5500487feb715b54490f91e1c9796e9c, type: 3}
   cardCategory: 1
+  packFrom: {fileID: 11400000, guid: 0d12b03c0c8754470a900cb4f78a9217, type: 2}
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
@@ -49,7 +50,7 @@ MonoBehaviour:
         inputKey: all
         filter:
           cardCategoriesToInclude: 04000000
-          generatedCardsFilter: 0
+          retainedCardsFilter: 0
         outputKey: filtered
     - rid: 2268261004812222473
       type: {class: CountStep, ns: , asm: Assembly-CSharp}
