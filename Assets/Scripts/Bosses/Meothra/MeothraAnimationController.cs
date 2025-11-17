@@ -49,6 +49,7 @@ public class MeothraAnimationController: MonoBehaviour
 
     private Dictionary<GameObject, Transform> splineToHandleMap = new Dictionary<GameObject, Transform> ();
     private Dictionary<Transform, Transform> handleToRestPositionMap = new Dictionary<Transform, Transform>();
+    [Header("Rotation of splines by X offset so that strike angles look better")]
     
 
 
