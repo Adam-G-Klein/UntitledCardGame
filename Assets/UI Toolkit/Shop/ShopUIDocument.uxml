@@ -107,7 +107,7 @@
             </ui:ScrollView>
             <ui:Button text="Close" parse-escape-sequences="true" display-tooltip-when-elided="true" class="shopButton" />
         </ui:VisualElement>
-        <ui:VisualElement name="generic-message-box" style="flex-grow: 1; position: absolute; left: 25%; top: 30%; right: 25%; bottom: 50%; background-color: rgb(217, 217, 217); border-top-width: 8px; border-right-width: 8px; border-bottom-width: 8px; border-left-width: 8px; border-top-left-radius: 22px; border-top-right-radius: 22px; border-bottom-right-radius: 22px; border-bottom-left-radius: 22px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); visibility: hidden;">
+        <ui:VisualElement name="generic-message-box" style="flex-grow: 1; position: absolute; left: 25%; top: 30%; right: 25%; bottom: 50%; background-color: rgb(255, 249, 236); border-top-width: 8px; border-right-width: 8px; border-bottom-width: 8px; border-left-width: 8px; border-top-left-radius: 22px; border-top-right-radius: 22px; border-bottom-right-radius: 22px; border-bottom-left-radius: 22px; border-left-color: rgb(149, 113, 29); border-right-color: rgb(149, 113, 29); border-top-color: rgb(149, 113, 29); border-bottom-color: rgb(149, 113, 29); visibility: hidden;">
             <ui:VisualElement style="flex-grow: 1; justify-content: center; align-items: center;">
                 <ui:Label tabindex="-1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="selling-companion-confirmation-label" style="font-size: 34px;" />
             </ui:VisualElement>

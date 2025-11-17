@@ -1191,17 +1191,7 @@ public class ShopViewController : MonoBehaviour,
     }
 
     public void NotEnoughMoney() {
-        if (notEnoughMoneyCoroutine == null) {
-            notEnoughMoneyCoroutine = ShowNotEnoughMoney();
-            StartCoroutine(notEnoughMoneyCoroutine);
-        }
-    }
-
-    private IEnumerator ShowNotEnoughMoney() {
-        notEnoughMoneyLabel.style.visibility = Visibility.Visible;
-        yield return new WaitForSeconds(3f);
-        notEnoughMoneyLabel.style.visibility = Visibility.Hidden;
-        notEnoughMoneyCoroutine = null;
+        StartCoroutine(ShowGenericNotification("Not enough $!"));
     }
 
     public void CardBuyingSetup(ShopItemView shopItemView, CardInShopWithPrice cardInShop) {
