@@ -36,6 +36,7 @@ public class CompanionView : IUIEventReceiver
     private IconButton viewDeckButton;
     private VisualElement hoverDetector;
     private VisualElement selectedIndicator;
+    private VisualElement rarityIndicator;
 
     private List<VisualElement> pickingModePositionList = new List<VisualElement>();
     private List<VisualElement> elementsKeepingHiddenContainerVisible = new List<VisualElement>();
@@ -97,11 +98,13 @@ public class CompanionView : IUIEventReceiver
         this.discardPileButton = companionRoot.Q<IconButton>("companion-view-discard-pile-button");
         this.viewDeckButton = companionRoot.Q<IconButton>("companion-view-view-deck-button");
         this.selectedIndicator = companionRoot.Q<VisualElement>("companion-view-selected-indicator");
+        this.rarityIndicator = companionRoot.Q<VisualElement>("companion-view-rarity-icon");
 
         // Moving past the random VisualElement parent CloneTree() creates
         this.container = companionRoot.Children().First();
         this.container.name = container.name + this.index;
         this.pickingModePositionList.Add(container);
+        SetupRarityIndicator();
         SetupMainContainer();
         SetupCompanionSprite();
         SetupName();
@@ -146,6 +149,24 @@ public class CompanionView : IUIEventReceiver
                 bronzeGradient.style.visibility = Visibility.Visible;
             break;
         }
+    }
+
+    private void SetupRarityIndicator() {
+        Sprite rarityIndicator = null;
+        PackSO pack = companion.companionType.pack;
+        switch(this.companion.companionType.rarity) {
+            case CompanionRarity.COMMON:
+                rarityIndicator = pack.commonIcon;
+                break;
+            case CompanionRarity.UNCOMMON:
+                rarityIndicator = pack.uncommonIcon;
+                break;
+            case CompanionRarity.RARE:
+                rarityIndicator = pack.rareIcon;
+                break;
+        }
+        
+        this.rarityIndicator.style.backgroundImage = new StyleBackground(rarityIndicator);
     }
 
     private void SetupViewDeckContainer() {

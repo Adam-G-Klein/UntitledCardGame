@@ -1,0 +1,19 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/fontStyling.uss?fileID=7433441132597879392&amp;guid=d0c0881f1c32747ecb649373600de095&amp;type=3#fontStyling" />
+    <Style src="project://database/Assets/cardTemplateV2.uss?fileID=7433441132597879392&amp;guid=922dd945fb23f42b392b047dcd9a06b7&amp;type=3#cardTemplateV2" />
+    <ui:VisualElement style="flex-grow: 1; width: 100%; height: 100%;">
+        <ui:VisualElement name="cardBackgroundTexture" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Sprites/NewCardFrames/DemoCardFrame2_Background.png?fileID=2800000&amp;guid=f4ee8334819ac464a9ea0f77022602f1&amp;type=3#DemoCardFrame2_Background&quot;); position: absolute; width: 100%; height: 100%; scale: 1 1;" />
+        <ui:VisualElement name="cardHeaderImage" style="flex-grow: 1; position: absolute; width: 100%; height: 100%; background-image: url(&quot;project://database/Assets/Sprites/NewCardFrames/DemoCardFrame2_TopMain.png?fileID=2800000&amp;guid=e7a6743584f264783ae1b502daab3285&amp;type=3#DemoCardFrame2_TopMain&quot;);" />
+        <ui:VisualElement name="cardBodyContainer" style="flex-grow: 1; position: absolute; width: 100%; height: 100%; background-image: url(&quot;project://database/Assets/Sprites/NewCardFrames/DemoCardFrame2_BottomMain.png?fileID=2800000&amp;guid=ecea866a15237424b980d3f526a3af28&amp;type=3#DemoCardFrame2_BottomMain&quot;);" />
+        <ui:VisualElement name="manaContainer" style="flex-grow: 1; position: absolute; width: 100%; height: 100%; background-image: url(&quot;project://database/Assets/Sprites/NewCardFrames/manaCircle.png?fileID=2800000&amp;guid=389e32003d76e44d0b9a317ab6fcce06&amp;type=3#manaCircle&quot;);" />
+        <ui:VisualElement name="dynamicElements" style="flex-grow: 1;">
+            <ui:VisualElement name="greenBorder" style="flex-grow: 1; border-left-color: rgb(0, 255, 21); border-right-color: rgb(0, 255, 21); border-top-color: rgb(0, 255, 21); border-bottom-color: rgb(0, 255, 21); border-top-width: 12px; border-right-width: 12px; border-bottom-width: 12px; border-left-width: 12px; border-top-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; border-bottom-left-radius: 15px; visibility: hidden;" />
+            <ui:VisualElement name="cardBackground" style="width: 64%; height: 44%; position: absolute; bottom: 19%; align-self: center; background-image: url(&quot;project://database/Assets/Sprites/Companions/Cleavus.png?fileID=21300000&amp;guid=b746caed2c443064cbd845440619f239&amp;type=3#Cleavus&quot;); -unity-background-scale-mode: scale-to-fit; -unity-background-image-tint-color: rgba(0, 0, 0, 0.24);" />
+            <ui:Label tabindex="-1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="manaLabel" text="2" class="manaLabel" style="height: 9.1%;" />
+            <ui:Label tabindex="-1" text="Deal 5 damage. Discard a card at random" parse-escape-sequences="true" display-tooltip-when-elided="true" name="cardDesc" class="cardDescription" />
+            <ui:Label tabindex="-1" text="Eternal Flame" parse-escape-sequences="true" display-tooltip-when-elided="true" name="cardName" class="cardName" />
+            <ui:Label tabindex="-1" text="Attack" parse-escape-sequences="true" display-tooltip-when-elided="true" name="cardTypeLabel" class="cardTypeLabel" />
+        </ui:VisualElement>
+        <ui:VisualElement name="cardOutline" class="cardOutline" />
+    </ui:VisualElement>
+</ui:UXML>

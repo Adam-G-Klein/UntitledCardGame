@@ -33,14 +33,15 @@ public class CardView {
     public Color modifiedManaCostColor = Color.green;
 
     private static float SCREEN_WIDTH_PERCENT = 0.11f;
-    private static float RATIO = 1.53f;
+    private static float RATIO = 832f/543f;
     private CardType cardType;
 
     private Card.CardRarity rarity = Card.CardRarity.NONE;
     // fillUIDocument - in some cases (like the current shop and the intro screen) we don't want this card to
     // take up its whole ui doc. In others, like combat (where the card is in worldspace splatted to a texture)
     // we do.
-    private static Dictionary<CompanionTypeSO, Sprite> silhouetteCache = new Dictionary<CompanionTypeSO, Sprite>();
+    private static Dictionary<String, Sprite> silhouetteCache = new Dictionary<String, Sprite>();
+
     public CardView(CardType cardType, CompanionTypeSO companionType, Card.CardRarity rarity, bool cardInShop = false, PackSO packSO = null) {
         this.rarity = rarity;
         cardContainer = makeCardView(cardType, companionType, cardInShop, packSO);
@@ -61,12 +62,8 @@ public class CardView {
 
         Label manaContainer = container.Q<Label>("manaLabel");
         setManaCost(manaContainer, card);
-        if (cardInShop)
-        {
-            manaContainer.AddToClassList("smaller-mana-label");
-        }
 
-        VisualElement rarityGem = container.Q("rarityGem");
+        /*VisualElement rarityGem = container.Q("rarityGem");
         switch (rarity) {
             case Card.CardRarity.COMMON:
             case Card.CardRarity.NONE:
@@ -78,27 +75,13 @@ public class CardView {
             case Card.CardRarity.RARE:
                 rarityGem.AddToClassList("rarity-gem-rare");
                 break;
-        }
+        }*/
 
         Label title = container.Q<Label>("cardName");
-        string titleText = card.GetName();
-        string desc = card.GetDescription();
-        //int fontSize = getTitleFontSize(card.Name, cardInShop);
-        int fontSize = cardInShop ? CARD_TITLE_SHOP : CARD_TITLE_COMBAT;
-        if (!cardInShop) title.text = $"<line-height={75}%>{titleText}</line-height>";
-        else title.text = titleText;
-        title.style.fontSize = fontSize;
-
+        title.text = card.GetName();
         Label description = container.Q<Label>("cardDesc");
-        //fontSize = getDescFontSize(desc, cardInShop);
-        fontSize = cardInShop ? CARD_DESC_SHOP : CARD_DESC_COMBAT;
-        //if (!cardInShop) description.text = $"<line-height={60}%>{desc}</line-height>";
+        description.text = card.GetDescription();
 
-        description.text = desc;
-        description.style.fontSize = fontSize;
-
-        Label companionNameLabel = container.Q<Label>("companionNameLabel");
-        if (!cardInShop) companionNameLabel.AddToClassList("card-type-label-large");
         /*if (packSO != null)
         {
             container.Q("cardBackground").style.backgroundColor = packSO.packColor;
@@ -115,40 +98,44 @@ public class CardView {
             companionNameLabel.AddToClassList("card-type-label-any");
         }*/
         VisualElement cardBackground = container.Q("cardBackground");
-        if (!cardInShop && companionType != null) {
-            Sprite silhouette = GetSilhouette(companionType);
-            cardBackground.style.backgroundImage = new StyleBackground(silhouette.texture);   
-        } else {
+        if (companionType != null) {
+            Sprite silhouette = GetSilhouette(companionType.fullSprite, companionType.companionName);
+            cardBackground.style.backgroundImage = new StyleBackground(silhouette.texture);  
+        } else if (packSO != null)
+        {
+            Sprite silhouette = GetSilhouette(packSO.packIcon, packSO.packName);
+            cardBackground.style.backgroundImage = new StyleBackground(silhouette.texture);  
+        } 
+        else {
             cardBackground.style.display = DisplayStyle.None;
         }
+
+        VisualElement cardBackgroundTexture = container.Q("cardBackgroundTexture");
+        float xScale = UnityEngine.Random.Range(0, 2) == 0 ? -1 : 1;
+        float yScale = UnityEngine.Random.Range(0, 2) == 0 ? -1 : 1;
+
+        // Set the scale of the cardBackgroundTexture
+        cardBackgroundTexture.style.scale = new StyleScale(new Scale(new Vector2(xScale, yScale)));
 
         Label cardTypeLabel = container.Q<Label>("cardTypeLabel");
         cardTypeLabel.text = cardTypeLabel.text = System.Text.RegularExpressions.Regex.Replace(
             card.cardCategory.ToString(), "(?<!^)([A-Z])", " $1"
         ).Trim();
-        switch (card.cardCategory)
-        {
-            case CardCategory.Attack:
-                cardTypeLabel.AddToClassList("attack-card-label-color");
-                break;
-            case CardCategory.NonAttack:
-                cardTypeLabel.AddToClassList("non-attack-card-label-color");
-                break;
-            case CardCategory.Status:
-                cardTypeLabel.AddToClassList("status-card-label-color");
-                break;
-            case CardCategory.Passive:
-                cardTypeLabel.AddToClassList("power-card-label-color");
-                break;
-        }
-        if (!cardInShop) cardTypeLabel.AddToClassList("card-type-label-large");
 
         if (cardInShop)
         {
             Tuple<int, int> cardWidthHeight = GetWidthAndHeight();
             container.style.width = cardWidthHeight.Item1;
             container.style.height = cardWidthHeight.Item2;
+
+            title.AddToClassList("cardNameShop");
+            description.AddToClassList("cardDescriptionShop");
+            cardTypeLabel.AddToClassList("cardTypeLabelShop");
+            manaContainer.AddToClassList("manaLabelShop");
+            container.Q("cardOutline").AddToClassList("cardOutlineShop");
         }
+
+
         return container;
     }
 
@@ -181,7 +168,7 @@ public class CardView {
     }
 
     public void UpdateCardText(string newText) {
-        Label label = cardContainer.Q<Label>(null, "card-desc-label");
+        Label label = cardContainer.Q<Label>("cardDesc");
         label.text = newText;
         label.MarkDirtyRepaint();
     }
@@ -194,7 +181,7 @@ public class CardView {
 
     public void SetHighlight(bool isHighlightVisible) {
         if (cardContainer == null) return;
-        VisualElement ve = cardContainer.Q<VisualElement>(null, "green-card-border");
+        VisualElement ve = cardContainer.Q<VisualElement>("greenBorder");
         if (isHighlightVisible) {
             //UpdateCardText("active");
             ve.visible = true;
@@ -224,13 +211,23 @@ public class CardView {
         return cardType;
     }
         
-    public static Sprite GetSilhouette(CompanionTypeSO companionType, float alpha = 0.4f)
+    public static Sprite GetSilhouette(Sprite originalSprite, String UID, float alpha = 0.4f)
     {
-        Sprite original = companionType.fullSprite;
+        Sprite original = originalSprite;
         // Check if we've already processed this sprite
-        if (silhouetteCache.ContainsKey(companionType))
-            return silhouetteCache[companionType];
+        if (silhouetteCache.ContainsKey(UID))
+            return silhouetteCache[UID];
         
+        Sprite silhouette = CreateSilhouette(original, alpha);
+        
+        // Step 7: Cache it so we don't have to do this again
+        silhouetteCache[UID] = silhouette;
+        
+        return silhouette;
+    }
+
+    public static Sprite CreateSilhouette(Sprite original, float alpha)
+    {
         // Step 1: Get the original texture from the sprite
         Texture2D originalTex = original.texture;
         
@@ -269,16 +266,11 @@ public class CardView {
         newTex.Apply();  // Actually upload to GPU memory
         
         // Step 6: Create a new sprite from this texture
-        Sprite silhouette = Sprite.Create(
+        return Sprite.Create(
             newTex,                                          // The texture we just created
             new Rect(0, 0, newTex.width, newTex.height),   // Use the entire texture
             new Vector2(0.5f, 0.5f),                       // Pivot point (center)
             original.pixelsPerUnit                          // Match original's pixel density
         );
-        
-        // Step 7: Cache it so we don't have to do this again
-        silhouetteCache[companionType] = silhouette;
-        
-        return silhouette;
     }
 }

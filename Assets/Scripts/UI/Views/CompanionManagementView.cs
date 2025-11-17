@@ -21,6 +21,7 @@ public class CompanionManagementView : IControlsReceiver {
     private IconButton viewDeckButton = null;
     private IconButton sellCompanionButton = null;
     private VisualElement companionBoundingBox = null;
+    private VisualElement rarityIndicator = null;
     // private CompanionViewOld companionView;
 
     private bool draggingThisCompanion = false;
@@ -48,9 +49,11 @@ public class CompanionManagementView : IControlsReceiver {
         this.name = managementRoot.Q<Label>("management-view-name-label");
         this.healthBarFill = managementRoot.Q<VisualElement>("management-view-health-bar-fill");
         this.healthBarLabel = managementRoot.Q<Label>("management-view-health-bar-label");
+        this.rarityIndicator = managementRoot.Q<VisualElement>("management-view-rarity-indicator");
 
         VisualElement container = managementRoot.Children().First();
 
+        SetupRarityIndicator();
         SetupCompanionSprite();
         SetupName();
         SetupHealth();
@@ -88,6 +91,23 @@ public class CompanionManagementView : IControlsReceiver {
                 bronzeFrame.style.visibility = Visibility.Visible;
             break;
         }
+    }
+
+    private void SetupRarityIndicator() {
+        Sprite rarityIndicator = null;
+        PackSO pack = companion.companionType.pack;
+        switch(this.companion.companionType.rarity) {
+            case CompanionRarity.COMMON:
+                rarityIndicator = pack.commonIcon;
+                break;
+            case CompanionRarity.UNCOMMON:
+                rarityIndicator = pack.uncommonIcon;
+                break;
+            case CompanionRarity.RARE:
+                rarityIndicator = pack.rareIcon;
+                break;
+        }
+        this.rarityIndicator.style.backgroundImage = new StyleBackground(rarityIndicator);
     }
 
     private void SetupHealth() {

@@ -19,4 +19,10 @@ public class PackSO : ScriptableObject
     public Sprite cardBack;
     // cardPoolIcon is the icon that will be displayed on the cards in the shop.
     public Sprite cardPoolIcon;
+    public Sprite packIcon;
+
+    [Header("Rarity Icons")]
+    public Sprite commonIcon;
+    public Sprite uncommonIcon;
+    public Sprite rareIcon;
 }
