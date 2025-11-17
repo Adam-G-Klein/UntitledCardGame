@@ -43,6 +43,7 @@ public class CardView {
     private static Dictionary<String, Sprite> silhouetteCache = new Dictionary<String, Sprite>();
 
     public CardView(CardType cardType, CompanionTypeSO companionType, Card.CardRarity rarity, bool cardInShop = false, PackSO packSO = null) {
+        this.cardType = cardType;
         this.rarity = rarity;
         cardContainer = makeCardView(cardType, companionType, cardInShop, packSO);
     }
@@ -107,8 +108,31 @@ public class CardView {
             cardBackground.style.backgroundImage = new StyleBackground(silhouette.texture);  
         } 
         else {
-            cardBackground.style.display = DisplayStyle.None;
+            Sprite silhouette = GetSilhouette(GameplayConstantsSingleton.Instance.gameplayConstants.neutralPackIcon, "neutral");
+            cardBackground.style.backgroundImage = new StyleBackground(silhouette.texture);  
         }
+
+        VisualElement rarityIndicator = container.Q("rarityIndicator");
+        Sprite rarityIndicatorSprite = null;
+        switch(rarity) {
+            case Card.CardRarity.NONE:
+            case Card.CardRarity.COMMON:
+                if (cardType.packFrom != null) rarityIndicatorSprite = cardType.packFrom.commonIcon;
+                else if (companionType != null) rarityIndicatorSprite = companionType.pack.commonIcon;
+                else rarityIndicatorSprite = GameplayConstantsSingleton.Instance.gameplayConstants.neutralCommonIcon;
+                break;
+            case Card.CardRarity.UNCOMMON:
+                if (cardType.packFrom != null) rarityIndicatorSprite = cardType.packFrom.uncommonIcon;
+                else if (companionType != null) rarityIndicatorSprite = companionType.pack.uncommonIcon;
+                else rarityIndicatorSprite = GameplayConstantsSingleton.Instance.gameplayConstants.neutralUncommonIcon;
+                break;
+            case Card.CardRarity.RARE:
+                if (cardType.packFrom != null) rarityIndicatorSprite = cardType.packFrom.rareIcon;
+                else if (companionType != null) rarityIndicatorSprite = companionType.pack.rareIcon;
+                else rarityIndicatorSprite = GameplayConstantsSingleton.Instance.gameplayConstants.neutralRareIcon;
+                break;
+        }
+        rarityIndicator.style.backgroundImage = new StyleBackground(rarityIndicatorSprite);
 
         VisualElement cardBackgroundTexture = container.Q("cardBackgroundTexture");
         float xScale = UnityEngine.Random.Range(0, 2) == 0 ? -1 : 1;

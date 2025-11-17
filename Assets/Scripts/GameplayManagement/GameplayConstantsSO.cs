@@ -18,4 +18,8 @@ public class GameplayConstantsSO : ScriptableObject
     public VisualTreeAsset cardTemplate;
     public VisualTreeAsset mapTemplate;
     public VisualTreeAsset enemyTemplate;
+    public Sprite neutralCommonIcon;
+    public Sprite neutralUncommonIcon;
+    public Sprite neutralRareIcon;
+    public Sprite neutralPackIcon;
 }
