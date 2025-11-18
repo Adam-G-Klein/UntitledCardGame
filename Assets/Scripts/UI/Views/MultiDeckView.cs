@@ -266,6 +266,7 @@ public class MultiDeckView
 
     public void ExitButtonClicked(ClickEvent evt)
     {
+        MoveOutTab(deckViewTabVisualElements[currentTabIndex], true, true);
         ToggleVisibility(false);
         multiDeckViewDelegate.HideDeckView();
         // Cleanup
@@ -533,7 +534,6 @@ public class MultiDeckView
                 UnFocusDeckSection(section, true);
             }
         }
-        MoveOutTab(deckViewTabVisualElements[currentTabIndex], true, true);
         deckViewTabVisualElements.Clear();
         focusedSectionsForEachTab.Clear();
         numSectionsForEachTab.Clear();
