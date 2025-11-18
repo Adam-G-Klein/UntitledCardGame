@@ -178,7 +178,6 @@ public class EnemyView : IUIEventReceiver
 
         foreach (KeyValuePair<StatusEffectType, int> kvp in combatInstance.GetDisplayedStatusEffects())
         {
-            if (kvp.Key == StatusEffectType.Defended) continue;
             this.statusArea.Add(CreateStatusIndicator(viewDelegate.GetStatusEffectSprite(kvp.Key), kvp.Value.ToString()));
         }
 
