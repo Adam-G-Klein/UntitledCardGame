@@ -22,6 +22,7 @@ MonoBehaviour:
   Cost: 3
   Artwork: {fileID: 21300000, guid: d368c9ba74e98f7408c2a579fc6febcb, type: 3}
   cardCategory: 1
+  packFrom: {fileID: 0}
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
@@ -34,7 +35,8 @@ MonoBehaviour:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
-  tooltips: 15000000
+  tooltips: 24000000
+  tooltipKeyword: 37
   references:
     version: 2
     RefIds:
