@@ -33,6 +33,7 @@ public class MeothraController : MonoBehaviour, IBossController
         meothraAnimationController.Setup();
         meothraIntroAnimation.cinematicIntroCompleteHandler += () => suppressSelectedIndicator = false;
         meothraOutroAnimationDisplay.Setup();
+        meothraHealthDisplay.Setup();
         enemyInstance.preEnactIntentHook += Attack;
         enemyInstance.combatInstance.onDamageHandler += OnDamageHandler;
         enemyInstance.combatInstance.onDeathHandler += OnDeath; 
@@ -65,6 +66,16 @@ public class MeothraController : MonoBehaviour, IBossController
         yield return new WaitForSeconds(0.25f);
         meothraAnimationController.PlayIdleAnimation();
         meothraIntentDisplay.ShowIntent();
+    }
+
+    public void ShowHealthBar()
+    {
+        if(!meothraHealthDisplay.isSetup)
+        {
+            meothraHealthDisplay.Setup();
+        }
+        meothraHealthDisplay.ShowView();
+
     }
 
     public Vector3 GetFrameLocation()

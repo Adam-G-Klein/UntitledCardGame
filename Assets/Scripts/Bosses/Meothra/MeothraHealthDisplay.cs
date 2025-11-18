@@ -18,9 +18,10 @@ public class MeothraHealthDisplay : MonoBehaviour
     private bool isHealthTweening = false;
 
     private static string HEALTH_LABEL_STRING = "{0}/{1}";
+    public bool isSetup = false;
     
     // Start is called before the first frame update
-    void Start()
+    public void Setup()
     {
         if (enemyInstance == null) enemyInstance = GetComponent<EnemyInstance>();
         enemyInstance.combatInstance.updateViewHandler += UpdateViewHandler;
@@ -32,6 +33,7 @@ public class MeothraHealthDisplay : MonoBehaviour
         UpdateViewHandler();
         
         healthBarUIDoc.rootVisualElement.visible = false;
+        isSetup = true;
     }
 
     // called from the timeline when we wanna display it

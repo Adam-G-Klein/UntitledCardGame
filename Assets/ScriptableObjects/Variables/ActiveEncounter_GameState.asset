@@ -22,7 +22,7 @@ MonoBehaviour:
       type: {class: EnemyEncounter, ns: , asm: Assembly-CSharp}
       data:
         id: 3bd78b01-4c70-4a75-8709-96c05a34e432
-        isCompleted: 0
+        isCompleted: 1
         act: 0
         isEliteEncounter: 0
         enemyList:
@@ -32,6 +32,6 @@ MonoBehaviour:
           combatStats:
             maxHealth: 18
             maxHealthBuffs: 0
-            currentHealth: 18
+            currentHealth: 0
             baseAttackDamage: 0
         encounterName: Enc_FreakyGeese
