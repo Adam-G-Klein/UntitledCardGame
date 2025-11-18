@@ -19,7 +19,9 @@ public class MeothraIntentDisplay: MonoBehaviour
 
     void Update()
     {
-        if (intentUIDoc.rootVisualElement.visible) {
+        if (intentUIDoc != null && 
+        intentUIDoc.rootVisualElement != null &&
+        intentUIDoc.rootVisualElement.visible) {
             intentTransform.position = intentAnchor.transform.position + anchorOffset;
         }
     }

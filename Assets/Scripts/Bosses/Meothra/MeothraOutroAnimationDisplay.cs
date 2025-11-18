@@ -47,8 +47,9 @@ public class MeothraOutroAnimationDisplay : MonoBehaviour
         director.playableAsset = outroTimeline;
         director.time = 0.0f;
         director.Play();
-        yield return new WaitUntil(() => director.state != PlayState.Playing);
+        yield return new WaitForSeconds((float)outroTimeline.duration);
         Debug.Log("MeothraOutroAnimationDisplay: Outro animation complete!");
+        EnemyEncounterManager.Instance.CinematicOutroComplete();
     }
 
     public void TweenOutIdleMaterials()

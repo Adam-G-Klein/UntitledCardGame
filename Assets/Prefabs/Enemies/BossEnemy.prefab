@@ -198,7 +198,7 @@ PlayableDirector:
   m_GameObject: {fileID: 1818299386461833425}
   m_Enabled: 1
   serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: 0e17ca10cba89f544ab75d248dd9f9b7, type: 2}
+  m_PlayableAsset: {fileID: 11400000, guid: dc78d963ff8533a4f8c3e264e5231baf, type: 2}
   m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
@@ -235,7 +235,7 @@ PlayableDirector:
   - key: {fileID: 121045702550922206, guid: e47263a34c1b230468db6cdec55e4c92, type: 2}
     value: {fileID: 6215186920877093653}
   - key: {fileID: 8599570163279198636, guid: 0e17ca10cba89f544ab75d248dd9f9b7, type: 2}
-    value: {fileID: 0}
+    value: {fileID: 3430957034230942550}
   - key: {fileID: 8784992619481160396, guid: e47263a34c1b230468db6cdec55e4c92, type: 2}
     value: {fileID: 3803154668407854279}
   - key: {fileID: 8263603804703797191, guid: e47263a34c1b230468db6cdec55e4c92, type: 2}
@@ -246,6 +246,8 @@ PlayableDirector:
     value: {fileID: 4231329288037765707}
   - key: {fileID: -4860615801621835802, guid: e47263a34c1b230468db6cdec55e4c92, type: 2}
     value: {fileID: 3430957034230942550}
+  - key: {fileID: 8364690331070590984, guid: e47263a34c1b230468db6cdec55e4c92, type: 2}
+    value: {fileID: 6033903170645389914}
   m_ExposedReferences:
     m_References: []
 --- !u!114 &6706516355190666426
@@ -485,6 +487,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: dfe44d586bba7b94d946949877755308, type: 2}
     - {fileID: 11400000, guid: d4a3378513a9c9c40ae20f17165e126b, type: 2}
     - {fileID: 11400000, guid: 25d9597bc9fbd9144b4a4cb247e23bd9, type: 2}
+    - {fileID: 11400000, guid: 59e1396f577000a44958f6eaea308741, type: 2}
     m_Events:
     - m_PersistentCalls:
         m_Calls:
@@ -589,6 +592,20 @@ MonoBehaviour:
         - m_Target: {fileID: 4344747775181860495}
           m_TargetAssemblyTypeName: MeothraOutroAnimationDisplay, Assembly-CSharp
           m_MethodName: TweenOutIdleMaterials
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 830189521433193742}
+          m_TargetAssemblyTypeName: MeothraVFXController, Assembly-CSharp
+          m_MethodName: TweenInIdleMaterials
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -803,7 +820,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9019623668269760210, guid: e6a6ea64154a4214ab467937efb10ceb, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1172,6 +1189,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 535d880997a80914281e8c1d7b3ae8b5, type: 3}
+--- !u!114 &830189521433193742 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1759882943856906865, guid: 535d880997a80914281e8c1d7b3ae8b5, type: 3}
+  m_PrefabInstance: {fileID: 1434731618481405823}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8237915836317127949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8b49d4949a9c44c9c684e49acb64cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &2296234003511616333 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 879587755307392050, guid: 535d880997a80914281e8c1d7b3ae8b5, type: 3}
