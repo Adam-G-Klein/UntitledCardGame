@@ -84,11 +84,14 @@ public class MultiDeckView
             tabDescriptor.Q<Label>().text = tab.title;
             // currentTabIndex += 1;
         }
-        currentTabIndex = startingIndex;
+        currentTabIndex = startingTab;
 
         if (deckViewTabs.Count == 1) {
             uiDocument.rootVisualElement.Q<IconButton>("tabLeftButton").style.visibility = Visibility.Hidden;
             uiDocument.rootVisualElement.Q<IconButton>("tabRightButton").style.visibility = Visibility.Hidden;
+        } else {
+            uiDocument.rootVisualElement.Q<IconButton>("tabLeftButton").style.visibility = StyleKeyword.Null;
+            uiDocument.rootVisualElement.Q<IconButton>("tabRightButton").style.visibility = StyleKeyword.Null;
         }
 
         //hover first card
@@ -254,7 +257,6 @@ public class MultiDeckView
 
     public void ExitButtonClicked(ClickEvent evt)
     {
-        StopScrolling();
         ToggleVisibility(false);
         multiDeckViewDelegate.HideDeckView();
         // Cleanup
