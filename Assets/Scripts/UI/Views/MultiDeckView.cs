@@ -533,6 +533,7 @@ public class MultiDeckView
                 UnFocusDeckSection(section, true);
             }
         }
+        MoveOutTab(deckViewTabVisualElements[currentTabIndex], true, true);
         deckViewTabVisualElements.Clear();
         focusedSectionsForEachTab.Clear();
         numSectionsForEachTab.Clear();
