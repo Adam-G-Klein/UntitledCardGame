@@ -10,86 +10,96 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: RP_ThrowEverythingAtThem
+  m_Name: RP_ShieldBash
   m_EditorClassIdentifier: 
-  guid: 2c130e05-3b96-4925-a7e9-e97d2727c40b
-  Name: Throw Everything at Them
-  Description: Discard a card in hand and deal {rpl_damage} damage to a random enemy
+  guid: 15abf82c-6edf-4da8-81bc-0e84301e76ed
+  Name: Shield Bash
+  Description: Retain. Deal damage equal to the total block on your team ({rpl_damage}
+    damage)
   defaultValues:
   - key: rpl_damage
-    value: 5
-  Cost: 0
-  Artwork: {fileID: 21300000, guid: 27ec1549f8e73da4c93e706a368e736b, type: 3}
+    value: 0
+  Cost: 1
+  Artwork: {fileID: 21300000, guid: 8a6101d38c903424cbd7264288132aac, type: 3}
   cardCategory: 1
-  packFrom: {fileID: 11400000, guid: 5f4300e0913784f05aeff0dd086d4338, type: 2}
+  packFrom: {fileID: 0}
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
-  retain: 0
+  retain: 1
   effectWorkflows:
-  - rid: 5602892563578094203
+  - rid: 2034230108114649448
   onExhaustEffectWorkflow:
     rid: -2
   onDiscardEffectWorkflow:
-    rid: 2034230108114649711
+    rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
   tooltips: 
+  tooltipKeyword: 37
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 2034230108114649711
+    - rid: 2034230108114649448
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
-        effectSteps: []
-    - rid: 2268261022115299329
-      type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CardInHandEffect
-        inputKey: card
-        effect: 0
-    - rid: 4463205916933357570
+        effectSteps:
+        - rid: 2034230108114649449
+        - rid: 2034230108114649452
+        - rid: 2034230108114649450
+        - rid: 2034230108114649669
+        - rid: 2034230108114649451
+    - rid: 2034230108114649449
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: enemy
-        validTargets: 02000000
+        outputKey: all
+        validTargets: 00000000
         number: 1
-        specialTargetRule: 6
+        specialTargetRule: 1
         cantCancelTargetting: 0
-    - rid: 5602892563578094203
-      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+    - rid: 2034230108114649450
+      type: {class: CountStatusEffectsStep, ns: , asm: Assembly-CSharp}
       data:
-        effectSteps:
-        - rid: 7401433308100035075
-        - rid: 2268261022115299329
-        - rid: 4463205916933357570
-        - rid: 7401433308100034878
-    - rid: 7401433308100034878
+        effectStepName: CountStatusEffectStep
+        inputKey: all
+        statusEffect: 2
+        onlyCountStatusOnce: 0
+        outputKey: total
+    - rid: 2034230108114649451
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
-        inputKey: enemy
+        inputKey: target
         combatEffect: 0
-        scale: 5
-        getScaleFromKey: 0
-        inputScaleKey: 
+        scale: 0
+        getScaleFromKey: 1
+        inputScaleKey: dmg
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 1320532642761013391, guid: 99a456f94890391478f393fcc8ad0b95, type: 3}
-    - rid: 7401433308100035075
+    - rid: 2034230108114649452
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: card
-        validTargets: 03000000
+        outputKey: target
+        validTargets: 02000000
         number: 1
-        specialTargetRule: 5
+        specialTargetRule: 0
         cantCancelTargetting: 0
+    - rid: 2034230108114649669
+      type: {class: MathStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: MathStep
+        inputKey: total
+        operand2InputKey: UNUSED
+        operation: 3
+        scale: 1
+        outputKey: dmg

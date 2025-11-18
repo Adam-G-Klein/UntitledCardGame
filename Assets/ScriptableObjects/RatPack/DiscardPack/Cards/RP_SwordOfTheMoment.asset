@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RP_SwordOfTheMoment
   m_EditorClassIdentifier: 
   guid: 12d2a728-4f7f-4d93-b62e-c370f852824e
-  Name: Sword of the Right Moment
+  Name: Timed Strike
   Description: Deal {rpl_damage} damage to target enemy. When discarded, increase
     the damage of this card by 10
   defaultValues:
@@ -36,6 +36,7 @@ MonoBehaviour:
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
   tooltips: 
+  tooltipKeyword: 37
   references:
     version: 2
     RefIds:

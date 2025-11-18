@@ -42,10 +42,7 @@ MonoBehaviour:
     lines:
     - title: Level Two Chunkrat
       description: At end of combat, choose a card from own deck to permanently transform
-        into a "Scrumptious Snack" status card
-      relatedBehaviorIndex: 0
-    - title: Scrumptious Snack
-      description: Exhaust. When exhausted, gain 2 max HP and heal 3 HP
+        into a "Scrumptious Snack".
       relatedBehaviorIndex: 0
   keepsakeTitle: 
   keepsakeDescription: At end of combat, choose a card from own deck to permanently
@@ -97,6 +94,7 @@ MonoBehaviour:
         - rid: 754093646965899314
         - rid: 754093646965899315
         - rid: 754093646965899317
+        weight: 0
     - rid: 7401433128868512212
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

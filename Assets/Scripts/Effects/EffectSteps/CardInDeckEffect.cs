@@ -96,6 +96,9 @@ public class CardInDeckEffect : EffectStep, ITooltipProvider
         PermaTransform,
     }
     public TooltipViewModel GetTooltip(){
+        if (effect == CardInDeckEffectName.PermaTransform) {
+            return KeywordTooltipProvider.Instance.GetTooltip(cardToTransformInto.GetTooltipKeyword());
+        }
         if(KeywordTooltipProvider.Instance.HasTooltip(tooltipMapping[effect])){
             return KeywordTooltipProvider.Instance.GetTooltip(tooltipMapping[effect]);
         }

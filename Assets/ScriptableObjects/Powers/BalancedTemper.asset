@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerType: 30
   title: Balanced Temper
-  description: End of turn, if self above half HP, bleed self 3 HP and gain 2 strength
+  description: End of turn, if above half HP, lose 3 HP and gain 2 strength
   abilities:
   - rid: 2511001254715195769
   displaySprite: {fileID: 21300000, guid: e0ab2143b8408423ab692d481858408a, type: 3}
@@ -40,6 +40,7 @@ MonoBehaviour:
         - rid: 2511001254715195773
         - rid: 2511001254715195774
         - rid: 2511001254715195775
+        weight: 0
     - rid: 2511001254715195770
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

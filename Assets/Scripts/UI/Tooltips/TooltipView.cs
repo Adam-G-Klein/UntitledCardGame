@@ -130,7 +130,15 @@ public class TooltipViewModel
         }
         if (!b.empty)
         {
-            newLines.AddRange(b.lines);
+            var existingTitles = new System.Collections.Generic.HashSet<string>(newLines.Select(l => l.title));
+            foreach (var line in b.lines)
+            {
+                if (!existingTitles.Contains(line.title))
+                {
+                    newLines.Add(line);
+                    existingTitles.Add(line.title);
+                }
+            }
         }
         return new TooltipViewModel(newLines);
     }

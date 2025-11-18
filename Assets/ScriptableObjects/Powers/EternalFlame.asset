@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerType: 15
   title: Eternal Flame
-  description: End of turn, shuffle a "Greek Fire" Status card into own deck
+  description: End of turn, shuffle a "Greek Fire" into own deck
   abilities:
   - rid: 754093991137640772
   displaySprite: {fileID: 21300000, guid: fccdd43ca64c8644fa54c06ab327bdd3, type: 3}
@@ -32,7 +32,7 @@ MonoBehaviour:
         - title: Eternal Flame
           description: End of turn, shuffle a "Greek Fire" Status card into own deck
           relatedBehaviorIndex: 0
-        - title: Greek Fire
+        - title: Greek Fire - Status
           description: 1. Exhaust. When exhausted, deal 5 damage to a random enemy.
           relatedBehaviorIndex: 0
     - rid: 754093991137640772

@@ -15,7 +15,7 @@ MonoBehaviour:
   guid: 8a8e4cf9-8644-404b-997b-f7d283138983
   Name: Deadly Flourish
   Description: Deal {rpl_damage} damage. If the last card you played was an Attack,
-    create a "Dagger" card in hand for self
+    create a "Dagger" in hand for self
   defaultValues:
   - key: rpl_damage
     value: 4
@@ -36,6 +36,7 @@ MonoBehaviour:
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
   tooltips: 
+  tooltipKeyword: 37
   references:
     version: 2
     RefIds:

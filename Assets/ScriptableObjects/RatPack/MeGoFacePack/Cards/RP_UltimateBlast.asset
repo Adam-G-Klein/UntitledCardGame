@@ -14,13 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 19c3b25d-b2f2-435a-8d12-c1599fc14356
   Name: Ultimate Blast
-  Description: Deal {rpl_damage} damage 7 times.
+  Description: Deal {rpl_damage} damage x7.
   defaultValues:
   - key: rpl_damage
     value: 2
   Cost: 3
   Artwork: {fileID: -1102274441, guid: 33ba4bd24a9cc384c880d4c9d5443278, type: 3}
   cardCategory: 1
+  packFrom: {fileID: 0}
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
@@ -34,6 +35,7 @@ MonoBehaviour:
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
   tooltips: 
+  tooltipKeyword: 0
   references:
     version: 2
     RefIds:

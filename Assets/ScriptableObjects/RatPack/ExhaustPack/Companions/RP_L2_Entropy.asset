@@ -42,12 +42,8 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Level Two Entropy
-      description: Transform 1 card into an exhaustable "Greek Fire" status card
-        at the end of combat. Whenever you exhaust a card, deal 2 damage to a random
-        enemy
-      relatedBehaviorIndex: 0
-    - title: Greek Fire
-      description: 1. Exhaust. When exhausted, deal 5 damage to a random enemy.
+      description: Transform 1 card into "Greek Fire" at the end of combat. Whenever
+        you exhaust a card, deal 2 damage to a random enemy
       relatedBehaviorIndex: 0
   keepsakeTitle: 
   keepsakeDescription: Transform 1 card into an exhaustable "Greek Fire" status card
@@ -67,6 +63,7 @@ MonoBehaviour:
         - rid: 205828032053380028
         - rid: 205828032053380029
         - rid: 2034230108114649088
+        weight: 0
     - rid: 205828032053380026
       type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
       data:
@@ -125,6 +122,7 @@ MonoBehaviour:
         - rid: 7707884639552275421
         - rid: 2034230108114649091
         - rid: 7401433059192472084
+        weight: 0
     - rid: 2034230108114649091
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

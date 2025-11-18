@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Linq;
+using UnityEditor;
 
 [System.Serializable]
 public class CardValue
@@ -58,6 +59,10 @@ public class CardType: IdentifiableSO, ITooltipProvider
             "Adding their keywords here will cause duplicates in the resulting tooltip")]
     public List<TooltipKeyword> tooltips;
 
+    [Header("A tooltip for the card that should be displayed when the card is generated.\n" +
+            "You can add new tooltip keywords in the tooltip map.")]
+    public TooltipKeyword tooltipKeyword = TooltipKeyword.NONE;
+
     // Revisit this implementation of card type level modifications
     public Dictionary<CardModification, int> cardModifications = new Dictionary<CardModification, int>() {
         {CardModification.FixedDamageIncrease, 0},
@@ -85,7 +90,7 @@ public class CardType: IdentifiableSO, ITooltipProvider
             ActivatePower activateStep = effectWorkflows[0].effectSteps.OfType<ActivatePower>().ToList().FirstOrDefault();
             if (activateStep != null)
             {
-                return "Give self the passive: " + activateStep.power.description;
+                return "Gain passive: " + activateStep.power.description;
             }
         }
         return Description;
@@ -150,6 +155,10 @@ public class CardType: IdentifiableSO, ITooltipProvider
             }
         }
         return description;
+    }
+
+    public TooltipKeyword GetTooltipKeyword() {
+        return tooltipKeyword;
     }
 
     public TooltipViewModel GetTooltip()

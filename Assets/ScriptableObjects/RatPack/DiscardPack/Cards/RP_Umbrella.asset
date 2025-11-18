@@ -14,11 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 80d9dbaa-3ef1-4708-bed1-d8937d908488
   Name: Umbrella
-  Description: Retain. When discarded, give all companions 3 block
+  Description: Unplayable. Retain. When discarded, give all companions 3 block
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: a5222a8d127763c49b397cce916345ec, type: 3}
   cardCategory: 2
+  packFrom: {fileID: 0}
   vfxPrefab: {fileID: 0}
   playable: 0
   exhaustsWhenPlayed: 0
@@ -32,6 +33,7 @@ MonoBehaviour:
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
   tooltips: 
+  tooltipKeyword: 37
   references:
     version: 2
     RefIds:

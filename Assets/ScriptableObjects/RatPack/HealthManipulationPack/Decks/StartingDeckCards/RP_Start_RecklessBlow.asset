@@ -14,13 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 3f1a39a4-06f1-4493-9878-91dc193f851f
   Name: Reckless Blow
-  Description: Bleed any 3 HP. Deal {rpl_damage} damage at random
+  Description: Any loses 3 HP. Deal {rpl_damage} damage at random
   defaultValues:
   - key: rpl_damage
     value: 13
   Cost: 2
   Artwork: {fileID: 21300000, guid: 27ec1549f8e73da4c93e706a368e736b, type: 3}
   cardCategory: 1
+  packFrom: {fileID: 0}
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
@@ -34,6 +35,7 @@ MonoBehaviour:
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
   tooltips: 
+  tooltipKeyword: 37
   references:
     version: 2
     RefIds:

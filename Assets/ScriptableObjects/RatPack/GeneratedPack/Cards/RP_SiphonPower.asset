@@ -15,11 +15,12 @@ MonoBehaviour:
   guid: ac5eddef-06b6-4e23-a186-c92e285f7dc8
   Name: Siphon Power
   Description: Exhaust all Status cards in hand. Increase the damage of all "Firebreath"
-    status cards for each card exhausted this way
+    by 1 for each card exhausted this way.
   defaultValues: []
   Cost: 2
   Artwork: {fileID: 21300000, guid: fc8f2bf76fa3a4e449035d6c80c12fb6, type: 3}
   cardCategory: 2
+  packFrom: {fileID: 0}
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
@@ -33,6 +34,7 @@ MonoBehaviour:
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
   tooltips: 
+  tooltipKeyword: 0
   references:
     version: 2
     RefIds:

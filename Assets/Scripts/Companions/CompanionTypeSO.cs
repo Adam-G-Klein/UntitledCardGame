@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public enum CompanionLevel {
@@ -56,9 +57,32 @@ public class CompanionTypeSO : IdentifiableSO
     public CompanionLevel level;
     [SerializeField]
     public CompanionTypeSO upgradeTo;
+    // USE GETTOOLTIP TO get tooltip for generated cards and the like
     public TooltipViewModel tooltip;
 
     [Header("Companion keepsake descriptions for team signing")]
     public string keepsakeTitle;
     public string keepsakeDescription;
+
+    public TooltipViewModel GetTooltip()
+    {
+        TooltipViewModel tooltipViewModel = new TooltipViewModel(tooltip.lines);
+        foreach (EntityAbility entityAbility in abilitiesV2)
+        {
+            foreach (EffectStep step in entityAbility.effectSteps)
+            {
+                Debug.Log("CompanionTypeSO.GetTooltip(): Found effect step " + step.effectStepName);
+                if (step is ITooltipProvider)
+                {
+                    ITooltipProvider tooltipProvider = (ITooltipProvider)step;
+                    // + is overridden in Tooltip class to concatenate plaintext strings
+                    // this code should stay operable when images are added if we update the
+                    // operation override
+                    tooltipViewModel += tooltipProvider.GetTooltip();
+                    Debug.Log("CompanionTypeSO.GetTooltip(): Added tooltip " + tooltip.plainText);
+                }
+            }      
+        }
+        return tooltipViewModel;
+    }
 }

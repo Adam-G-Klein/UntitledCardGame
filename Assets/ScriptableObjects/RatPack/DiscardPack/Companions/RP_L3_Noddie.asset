@@ -48,12 +48,8 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Noddie++
-      description: At the start of the first 3 turns of combat, create in hand an
-        "Advanced Strategy"
-      relatedBehaviorIndex: 0
-    - title: Advanced Strategy
-      description: 0. Retain. Exhaust. Draw 2 from target companion, then discard
-        1 card in hand.
+      description: At the start of the first 3 turns of combat, create a "Advanced
+        Strategy" in hand
       relatedBehaviorIndex: 0
   keepsakeTitle: Thistleton
   keepsakeDescription: At the start of the first 3 turns of combat, create in hand
@@ -78,6 +74,7 @@ MonoBehaviour:
         - rid: 7401433308100034774
         - rid: 7401433308100034775
         - rid: 754093848945229862
+        weight: 0
     - rid: 7401433308100034737
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

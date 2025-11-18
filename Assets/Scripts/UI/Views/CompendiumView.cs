@@ -192,13 +192,13 @@ public class CompendiumView : IControlsReceiver {
                 companionRow.Add(companionView.container);
                 companionView.container.name = companionToDisplay.companionType.companionName + index;
                 companionView.container.RegisterCallback<PointerEnterEvent>((evt) => {
-                    tooltipController.DisplayTooltip(companionView.container, companionToDisplay.companionType.tooltip, TooltipContext.CompendiumCompanion);
+                    tooltipController.DisplayTooltip(companionView.container, companionToDisplay.companionType.GetTooltip(), TooltipContext.CompendiumCompanion);
                 });
                 companionView.container.RegisterCallback<PointerLeaveEvent>((evt) => {
                     tooltipController.DestroyTooltip(companionView.container);
                 });
                 VisualElementFocusable entityViewFocusable = companionView.container.GetUserData<VisualElementFocusable>();
-                entityViewFocusable.additionalFocusAction += () => {tooltipController.DisplayTooltip(companionView.container, companionToDisplay.companionType.tooltip, TooltipContext.CompendiumCompanion);};
+                entityViewFocusable.additionalFocusAction += () => {tooltipController.DisplayTooltip(companionView.container, companionToDisplay.companionType.GetTooltip(), TooltipContext.CompendiumCompanion);};
                 entityViewFocusable.additionalUnfocusAction += () => {tooltipController.DestroyTooltip(companionView.container);};
                 FocusManager.Instance.RegisterFocusableTarget(entityViewFocusable);
             };

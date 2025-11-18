@@ -10,15 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: RP_Woofweapons
+  m_Name: RP_TakeAim
   m_EditorClassIdentifier: 
   guid: cabe2f18-a54f-4b66-b267-546917156bd6
-  Name: Woof Weapons
+  Name: Take Aim
   Description: Discount all Attack cards in hand by 1 energy this turn
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: e485a5f74ee5d074187ebd614e44b7fd, type: 3}
   cardCategory: 2
+  packFrom: {fileID: 0}
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
@@ -32,6 +33,7 @@ MonoBehaviour:
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
   tooltips: 
+  tooltipKeyword: 37
   references:
     version: 2
     RefIds:
@@ -55,7 +57,7 @@ MonoBehaviour:
         inputKey: cards
         filter:
           cardCategoriesToInclude: 01000000
-          generatedCardsFilter: 0
+          retainedCardsFilter: 0
         outputKey: attacks
     - rid: 2116895648763871336
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}

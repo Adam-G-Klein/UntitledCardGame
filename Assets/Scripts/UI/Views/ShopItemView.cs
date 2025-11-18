@@ -106,7 +106,7 @@ public class ShopItemView : ICompanionViewDelegate {
     private void OnPointerEnter(PointerEnterEvent evt) {
         viewDelegate.ShopItemViewHovered(this);
         if (companionInShop != null) {
-            viewDelegate.DisplayTooltip(shopItemElement, companionInShop.companionType.tooltip, TooltipContext.Shop);
+            viewDelegate.DisplayTooltip(shopItemElement, companionInShop.companionType.GetTooltip(), TooltipContext.Shop);
         } else {
             TooltipViewModel tvm = cardInShop.cardType.GetTooltip();
             if (tvm.empty) return;

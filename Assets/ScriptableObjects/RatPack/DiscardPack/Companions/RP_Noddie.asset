@@ -48,12 +48,8 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Noddie
-      description: At the start of the first 2 turns of combat, create in hand a
-        "Basic Strategy"
-      relatedBehaviorIndex: 0
-    - title: Basic Strategy
-      description: 0. Exhaust. Draw 1 from target companion, then discard 1 card
-        in hand.
+      description: At the start of the first 2 turns of combat, create a "Basic Strategy"
+        in hand
       relatedBehaviorIndex: 0
   keepsakeTitle: Thistleton's Compass
   keepsakeDescription: At the start of the first 2 turns of combat, create in hand
@@ -78,6 +74,7 @@ MonoBehaviour:
         - rid: 7401433308100034774
         - rid: 7401433308100034775
         - rid: 754093848945229860
+        weight: 0
     - rid: 7401433308100034737
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

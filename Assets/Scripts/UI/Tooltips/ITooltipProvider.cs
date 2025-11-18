@@ -43,7 +43,20 @@ public enum TooltipKeyword
     MaxBlockLost,
     Burn,
     ExtraCardsToDealNextTurn,
-    GreekFire
+    GreekFire,
+    NONE,
+    Dagger,
+    YummySnack,
+    ScrumptiousSnack,
+    SpiceCake,
+    BasicStrategy,
+    CarefulStrategy,
+    AdvancedStrategy,
+    DaggerPlus,
+    IronSkin,
+    Wound,
+    PowerfulStature,
+    Tiefvision
 }
 public interface ITooltipProvider
 {

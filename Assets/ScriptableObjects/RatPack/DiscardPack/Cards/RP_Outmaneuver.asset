@@ -14,13 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 580db303-cda8-4efb-bc9b-ec91f9912f2e
   Name: Quick Maneuver
-  Description: Deal {rpl_damage} damage and discard a random card in hand
+  Description: Deal {rpl_damage} damage and discard a random card
   defaultValues:
   - key: rpl_damage
     value: 15
   Cost: 0
   Artwork: {fileID: 21300000, guid: 5500487feb715b54490f91e1c9796e9c, type: 3}
   cardCategory: 1
+  packFrom: {fileID: 0}
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
@@ -34,6 +35,7 @@ MonoBehaviour:
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
   tooltips: 
+  tooltipKeyword: 37
   references:
     version: 2
     RefIds:

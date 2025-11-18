@@ -88,7 +88,7 @@ public class TeamSelectionUI : MonoBehaviour, ICompanionViewDelegate
                     this);
             companionView.ScaleView(1.5f);
             companionContainer.Add(companionView.container);
-            companionView.container.RegisterOnFocused(() => tooltipController.DisplayTooltip(companionView.container, companion.companionType.tooltip, TooltipContext.StartingTeam));
+            companionView.container.RegisterOnFocused(() => tooltipController.DisplayTooltip(companionView.container, companion.companionType.GetTooltip(), TooltipContext.StartingTeam));
             companionView.container.RegisterOnUnfocused(() => tooltipController.DestroyTooltip(companionView.container));
             FocusManager.Instance.RegisterFocusableTarget(companionView.focusable);
         }

@@ -116,15 +116,17 @@ public class AddCardsToDeck : EffectStep, ITooltipProvider {
         }
     }
 
-
     public TooltipViewModel GetTooltip() {
         if (cardTypes.Count == 0) {
             return new TooltipViewModel(empty: true);
         }
         List<TooltipLine> lines = new();
         foreach (CardType cardType in cardTypes) {
-            TooltipLine l = new TooltipLine(cardType.GetName(), cardType.Cost + ". " + cardType.GetDescription());
-            lines.Add(l);
+            if (cardType.tooltipKeyword != TooltipKeyword.NONE) {
+                lines.AddRange(KeywordTooltipProvider.Instance.GetTooltip(cardType.tooltipKeyword).lines);
+            } else {
+                lines.Add(new TooltipLine(cardType.GetName(), cardType.Cost + ". " + cardType.GetDescription()));
+            }
         }
         return new TooltipViewModel(lines);
     }

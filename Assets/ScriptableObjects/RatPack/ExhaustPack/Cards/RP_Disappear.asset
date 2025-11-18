@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: RP_MakeYouDisappear
+  m_Name: RP_Disappear
   m_EditorClassIdentifier: 
   guid: 2e405ae9-fd46-49a9-886c-4c02a36f4906
-  Name: Make You Disappear
+  Name: Disappear
   Description: Exhaust. Exhaust target card and permanently remove it from its source
     deck.
   defaultValues: []
@@ -34,6 +34,7 @@ MonoBehaviour:
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
   tooltips: 1c000000
+  tooltipKeyword: 37
   references:
     version: 2
     RefIds:

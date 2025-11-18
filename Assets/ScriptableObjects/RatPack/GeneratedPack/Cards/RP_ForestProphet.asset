@@ -19,6 +19,7 @@ MonoBehaviour:
   Cost: 0
   Artwork: {fileID: 0}
   cardCategory: 5
+  packFrom: {fileID: 0}
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
@@ -32,6 +33,7 @@ MonoBehaviour:
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
   tooltips: 
+  tooltipKeyword: 49
   references:
     version: 2
     RefIds:

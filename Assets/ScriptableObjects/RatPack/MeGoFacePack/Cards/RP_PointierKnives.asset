@@ -14,11 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 07926cfe-1a72-4aea-855c-db74586befc2
   Name: Pointier Knives
-  Description: Give all "Dagger" cards +3 damage
+  Description: Give all "Dagger"s +3 damage
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 292ee1eb3f315c9448b8c577d0e6a420, type: 3}
   cardCategory: 2
+  packFrom: {fileID: 0}
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
@@ -32,6 +33,7 @@ MonoBehaviour:
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
   tooltips: 
+  tooltipKeyword: 37
   references:
     version: 2
     RefIds:

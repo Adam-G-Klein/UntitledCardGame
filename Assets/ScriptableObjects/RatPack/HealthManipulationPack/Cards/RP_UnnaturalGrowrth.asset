@@ -10,15 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: RP_PerformanceEnhancer
+  m_Name: RP_UnnaturalGrowrth
   m_EditorClassIdentifier: 
   guid: 9bf3752d-5a89-4b7a-bbc3-ccb2a532aa85
-  Name: Performance Enhancer
+  Name: Unnatural Growth
   Description: Gain 1 energy. Draw 1 card from self. Lose 2 HP
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: db358496fbbc0478cbc8b0b1a85e4374, type: 3}
   cardCategory: 2
+  packFrom: {fileID: 0}
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
@@ -32,6 +33,7 @@ MonoBehaviour:
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
   tooltips: 
+  tooltipKeyword: 37
   references:
     version: 2
     RefIds:

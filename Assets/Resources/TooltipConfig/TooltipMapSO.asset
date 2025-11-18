@@ -85,7 +85,7 @@ MonoBehaviour:
     description: 1. Exhaust. When exhausted, deal 5 damage to a random enemy.
     relateBehaviorIndex: 0
     tooltipKeyword: 21
-  - title: Firebreath
+  - title: Firebreath - Status
     description: 0. Unplayable. At the end of turn, deal 6 damage to a random enemy.
     relateBehaviorIndex: 0
     tooltipKeyword: 22
@@ -148,7 +148,61 @@ MonoBehaviour:
       of the turn
     relateBehaviorIndex: 0
     tooltipKeyword: 35
-  - title: Greek Fire
+  - title: Greek Fire - Status
     description: 1. Exhaust. When exhausted, deal 5 damage to a random enemy.
     relateBehaviorIndex: 0
     tooltipKeyword: 36
+  - title: Dagger - Attack
+    description: 0. Exhaust. Deal 3 damage
+    relateBehaviorIndex: 0
+    tooltipKeyword: 38
+  - title: Yummy Snack - Status
+    description: 0. Exhaust. When exhausted, gain 1 max HP and heal 2 HP
+    relateBehaviorIndex: 0
+    tooltipKeyword: 39
+  - title: Scrumptious Snack - Status
+    description: 0. Exhaust. When exhausted, gain 2 max HP and heal 4 HP
+    relateBehaviorIndex: 0
+    tooltipKeyword: 40
+  - title: Spice Cake - Status
+    description: 0. Exhaust. When exhausted, gain 3 max HP and heal 5 HP and draw
+      1 card from self
+    relateBehaviorIndex: 0
+    tooltipKeyword: 41
+  - title: Basic Strategy - Non Attack
+    description: 0. Exhaust. Draw 1 from target companion, then discard 1 card in
+      hand.
+    relateBehaviorIndex: 0
+    tooltipKeyword: 42
+  - title: Careful Strategy - Non Attack
+    description: 0. Retain. Exhaust. Draw 1 from target companion, then discard 1
+      card in hand.
+    relateBehaviorIndex: 0
+    tooltipKeyword: 43
+  - title: Advanced Strategy - Non Attack
+    description: 0. Retain. Exhaust. Draw 2 from target companion, then discard 1
+      card in hand.
+    relateBehaviorIndex: 0
+    tooltipKeyword: 44
+  - title: Dagger+ - Attack
+    description: 0. Exhaust. Deal 5 damage.
+    relateBehaviorIndex: 0
+    tooltipKeyword: 45
+  - title: Ironskin - Status
+    description: 0. Exhaust. If in hand at the end of turn, deal 2 damage to self.
+      When exhausted, give all 4 block
+    relateBehaviorIndex: 0
+    tooltipKeyword: 46
+  - title: Wound - Status
+    description: 0. Unplayable
+    relateBehaviorIndex: 0
+    tooltipKeyword: 47
+  - title: Powerful Stature - Status
+    description: 0. Unplayable. When in hand at the end of turn, deal damage to a
+      random enemy equal to the number of cards in this deck.
+    relateBehaviorIndex: 0
+    tooltipKeyword: 48
+  - title: Tiefvision - Status
+    description: 0. Exhaust. Give any 2 block & scry 1 & draw 1.
+    relateBehaviorIndex: 0
+    tooltipKeyword: 49

@@ -42,11 +42,7 @@ MonoBehaviour:
     lines:
     - title: Level Three Chunkrat
       description: At end of combat, choose a card from own deck to permanently transform
-        into a "Spice Cake" status card
-      relatedBehaviorIndex: 0
-    - title: Spice Cake
-      description: Exhaust. When exhausted, gain 3 max HP and heal 5 HP and draw
-        1 card from self
+        into a "Spice Cake".
       relatedBehaviorIndex: 0
   keepsakeTitle: 
   keepsakeDescription: At end of combat, choose a card from own deck to permanently
@@ -98,6 +94,7 @@ MonoBehaviour:
         - rid: 754093646965899314
         - rid: 754093646965899315
         - rid: 754093646965899317
+        weight: 0
     - rid: 7401433128868512212
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

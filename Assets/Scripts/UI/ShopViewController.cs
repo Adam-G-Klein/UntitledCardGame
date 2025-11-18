@@ -1519,7 +1519,7 @@ public class ShopViewController : MonoBehaviour,
             }).StartingIn(delay);
             entityView.container.RegisterCallback<PointerEnterEvent>((evt) =>
             {
-                tooltipController.DisplayTooltip(entityView.container, companion.companionType.tooltip, TooltipContext.Shop);
+                tooltipController.DisplayTooltip(entityView.container, companion.companionType.GetTooltip(), TooltipContext.Shop);
             });
             entityView.container.RegisterCallback<PointerLeaveEvent>((evt) =>
             {
@@ -1548,7 +1548,7 @@ public class ShopViewController : MonoBehaviour,
         }).StartingIn(delay + 1000); // GET RACE CONDITIONED LOSER
         upgradeEntityView.container.RegisterCallback<PointerEnterEvent>((evt) =>
         {
-            UpgradeViewCompanionOnPointerEnter(upgradeEntityView, upgradeCompanionType.tooltip, false);
+            UpgradeViewCompanionOnPointerEnter(upgradeEntityView, upgradeCompanionType.GetTooltip(), false);
         });
         upgradeEntityView.container.RegisterCallback<PointerLeaveEvent>((evt) =>
         {
@@ -1566,7 +1566,7 @@ public class ShopViewController : MonoBehaviour,
             VisualElementFocusable VEFocusable = focusable.Item1.container.AsFocusable();
             FocusManager.Instance.RegisterFocusableTarget(VEFocusable);
             FocusManager.Instance.EnableFocusableTarget(VEFocusable);
-            VEFocusable.additionalFocusAction += () => UpgradeViewCompanionOnPointerEnter(focusable.Item1, focusable.Item2.tooltip, false);
+            VEFocusable.additionalFocusAction += () => UpgradeViewCompanionOnPointerEnter(focusable.Item1, focusable.Item2.GetTooltip(), false);
             VEFocusable.additionalUnfocusAction += () => UpgradeViewcompanionOnPointerLeave(focusable.Item1);
         });
     }

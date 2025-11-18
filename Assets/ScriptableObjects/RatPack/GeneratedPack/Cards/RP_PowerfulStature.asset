@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: RP_BigMungus
+  m_Name: RP_PowerfulStature
   m_EditorClassIdentifier: 
   guid: 4bc0bb05-4f39-4258-8dfe-878fc841121b
-  Name: Big Mungus
+  Name: Powerful Stature
   Description: Unplayable. When in hand at the end of turn, deal damage to a random
     enemy equal to the number of cards in this deck ({inhand_rpl_damage} damage)
   defaultValues:
@@ -22,6 +22,7 @@ MonoBehaviour:
   Cost: 0
   Artwork: {fileID: 21300000, guid: bdd59c505b86bf44cabf5f9f82a41064, type: 3}
   cardCategory: 4
+  packFrom: {fileID: 0}
   vfxPrefab: {fileID: 0}
   playable: 0
   exhaustsWhenPlayed: 0
@@ -35,6 +36,7 @@ MonoBehaviour:
   inPlayerHandEndOfTurnWorkflow:
     rid: 1289961959942521117
   tooltips: 
+  tooltipKeyword: 48
   references:
     version: 2
     RefIds:

@@ -41,11 +41,7 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Sykes
-      description: Each turn, create a 0 mana "Dagger" card in hand for a random
-        adjacent companion
-      relatedBehaviorIndex: 0
-    - title: Dagger
-      description: 0. Exhaust. Deal 3 damage.
+      description: Each turn, create a "Dagger" in hand for a random adjacent companion
       relatedBehaviorIndex: 0
   keepsakeTitle: Daggermunk
   keepsakeDescription: Each turn, create a 0 mana "Dagger" card in hand for a random
@@ -64,6 +60,7 @@ MonoBehaviour:
         - rid: 2511001254715195860
         - rid: 2034230017118175263
         - rid: 1289961959942521114
+        weight: 0
     - rid: 205827988172308705
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

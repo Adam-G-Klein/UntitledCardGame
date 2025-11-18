@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerType: 36
   title: Seize the Initiative
-  description: The first time each turn you play an Attack, gain 1 energy and draw
+  description: The first time you play an Attack each turn, gain 1 energy and draw
     1 card from self
   abilities:
   - rid: 754093991137641276
@@ -42,6 +42,7 @@ MonoBehaviour:
         - rid: 754093991137641279
         - rid: 2511001254715195972
         - rid: 754093991137641283
+        weight: 0
     - rid: 754093991137641279
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:
@@ -93,6 +94,7 @@ MonoBehaviour:
         effectSteps:
         - rid: 754093991137641287
         - rid: 754093991137641288
+        weight: 0
     - rid: 754093991137641287
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

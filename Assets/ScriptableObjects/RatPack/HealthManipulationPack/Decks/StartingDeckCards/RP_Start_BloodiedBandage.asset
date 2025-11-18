@@ -14,11 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 830a6426-396a-4b28-97ac-01bd4d514f45
   Name: Bloodied Bandage
-  Description: Exhaust. Heal any 7 HP & bleed 1 HP
+  Description: Exhaust. Heal any 7 HP, then they lose 1 HP
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 06c409edcf5e308438ea9c89ccd99c68, type: 3}
   cardCategory: 2
+  packFrom: {fileID: 0}
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 1
@@ -32,6 +33,7 @@ MonoBehaviour:
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
   tooltips: 
+  tooltipKeyword: 37
   references:
     version: 2
     RefIds:

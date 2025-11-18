@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: OldGodsSanctuary
   m_EditorClassIdentifier: 
   powerType: 32
-  title: Sanctuary of the Old Gods
-  description: Whenever a companion gains block, deal 1 damage to self & draw 1 card
+  title: Shielded Fury
+  description: Whenever a companion gains block, lose 1 hp & draw 1 card
   abilities:
   - rid: 2511001254715195842
   displaySprite: {fileID: 21300000, guid: 3296a63e824de414bb4b578c4822fbdb, type: 3}
@@ -37,6 +37,7 @@ MonoBehaviour:
         - rid: 2511001254715195843
         - rid: 2511001254715195844
         - rid: 2511001254715195845
+        weight: 0
     - rid: 2511001254715195843
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
