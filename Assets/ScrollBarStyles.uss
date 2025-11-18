@@ -1,0 +1,42 @@
+.unity-scroll-view__vertical-scroller {
+}
+
+.unity-scroller__slider .unity-base-slider__input {
+}
+
+.unity-scroller__low-button {
+    display: none;
+}
+
+.unity-scroller__high-button {
+    display: none;
+}
+
+.unity-scroller__slider {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.unity-base-slider__tracker {
+    background-color: rgb(135, 135, 135);
+}
+
+.unity-base-slider__dragger {
+    background-color: rgb(243, 233, 233);
+    border-left-color: rgb(197, 180, 53);
+    border-right-color: rgb(197, 180, 53);
+    border-top-color: rgb(197, 180, 53);
+    border-bottom-color: rgb(197, 180, 53);
+    border-top-width: 4px;
+    border-right-width: 4px;
+    border-bottom-width: 4px;
+    border-left-width: 4px;
+}
+
+.unity-slider:focus .unity-base-slider__dragger {
+    background-color: rgb(118, 118, 118);
+    border-left-color: rgb(168, 155, 55);
+    border-right-color: rgb(168, 155, 55);
+    border-top-color: rgb(168, 155, 55);
+    border-bottom-color: rgb(168, 155, 55);
+}
