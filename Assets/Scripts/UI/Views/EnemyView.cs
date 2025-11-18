@@ -162,22 +162,12 @@ public class EnemyView : IUIEventReceiver
 
         isHealthTweening = true;
 
-        float pointsPerSecond = 8f;
-        int healthDifference = lastHealthValue - currentHealth;
-        LeanTween.value(lastHealthValue, currentHealth, healthDifference / pointsPerSecond)
-            .setEase(LeanTweenType.linear)
-            .setOnUpdate((float val) => {
-                int intVal = Mathf.RoundToInt(val);
-                this.healthBarLabel.text = String.Format(HEALTH_LABEL_STRING, intVal, maxHealth);
-                float healthPercent = val / (float) maxHealth;
-                this.healthBarFill.style.width = Length.Percent(healthPercent * 100);
-            })
-            .setOnComplete(() => {
-                isHealthTweening = false;
-                lastHealthValue = currentHealth;
-                // In case multiple instances of damage come through in close timing
-                UpdateHealth();
-            });
+        HealthBarUtils.UpdateHealth(lastHealthValue, currentHealth, maxHealth, healthBarFill, healthBarLabel, () => {
+            isHealthTweening = false;
+            lastHealthValue = currentHealth;
+            // In case multiple instances of damage come through in close timing
+            UpdateHealth();
+        });
     }
 
     private void SetupStatusIndicators()

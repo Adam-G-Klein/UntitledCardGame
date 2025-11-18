@@ -25,8 +25,8 @@ public static class HealthBarUtils {
             Action onComplete) {
         float pointsPerSecond = 8f;
         int healthDifference = lastHealthValue - currentHealth;
-        LeanTween.value(lastHealthValue, currentHealth, healthDifference / pointsPerSecond)
-            .setEase(LeanTweenType.linear)
+        LeanTween.value(lastHealthValue, currentHealth, Mathf.Min(.3f, healthDifference / pointsPerSecond))
+            .setEase(LeanTweenType.easeOutQuad)
             .setOnUpdate((float val) => {
                 int intVal = Mathf.RoundToInt(val);
                 healthBarLabel.text = String.Format(HEALTH_LABEL_STRING, intVal, maxHealth);

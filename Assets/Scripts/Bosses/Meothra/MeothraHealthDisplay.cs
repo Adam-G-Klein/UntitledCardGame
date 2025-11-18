@@ -51,23 +51,11 @@ public class MeothraHealthDisplay : MonoBehaviour
 
         isHealthTweening = true;
 
-        float pointsPerSecond = 8f;
-        int healthDifference = lastHealthValue - currentHealth;
-        LeanTween.value(lastHealthValue, currentHealth, healthDifference / pointsPerSecond)
-            .setEase(LeanTweenType.linear)
-            .setOnUpdate((float val) => {
-                int intVal = Mathf.RoundToInt(val);
-                if(healthBarLabel != null)
-                    this.healthBarLabel.text = String.Format(HEALTH_LABEL_STRING, intVal, maxHealth);
-                float healthPercent = val / (float) maxHealth;
-                if(healthBarFill != null)
-                    this.healthBarFill.style.width = Length.Percent(healthPercent * 100);
-            })
-            .setOnComplete(() => {
-                isHealthTweening = false;
-                lastHealthValue = currentHealth;
-                // In case multiple instances of damage come through in close timing
-                UpdateViewHandler();
-            });
+        HealthBarUtils.UpdateHealth(lastHealthValue, currentHealth, maxHealth, healthBarFill, healthBarLabel, () => {
+            isHealthTweening = false;
+            lastHealthValue = currentHealth;
+            // In case multiple instances of damage come through in close timing
+            UpdateViewHandler();
+        });
     }
 }
