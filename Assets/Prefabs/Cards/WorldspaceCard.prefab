@@ -213,9 +213,10 @@ MonoBehaviour:
   hoverZOffset: -0.5
   hoverObjectToMove: {fileID: 0}
   cardCastVFXPrefab: {fileID: 6841246063235012224, guid: bf344b2c905c8764ba1ea4f4230150c2, type: 3}
-  cardExhaustVFXPrefab: {fileID: 7939549763701254822, guid: e84fb44c2a5a75e49a192002a9096046, type: 3}
+  cardExhaustVFXPrefab: {fileID: 6841246063235012224, guid: 4c3a4ac7edc66db4d98e48afacc1d7ad, type: 3}
   interactable: 0
   hoverable: 1
+  currentlyCastingCard: 0
   hoverInPlace: 0
 --- !u!61 &-8509860225040359179
 BoxCollider2D:

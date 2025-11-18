@@ -45,6 +45,8 @@ public class PlayableCard : MonoBehaviour,
     public bool hoverable = true; // To be set to true when hovering/focusing the card shouldn't make the card do anything
     public bool currentlyCastingCard = false;
     public bool hoverInPlace = false;
+    
+    private bool cardExhaustVFXFinished = false;
 
     private const string CardCalculationDamageKey = "card_calculation_rpl_damage_key";
 
@@ -176,10 +178,23 @@ public class PlayableCard : MonoBehaviour,
 
     public void CardExhaustVFX()
     {
-        GameObject.Instantiate(
-            cardExhaustVFXPrefab,
-            this.transform.position,
-            Quaternion.identity);
+        // GameObject.Instantiate(
+        //     cardExhaustVFXPrefab,
+        //     this.transform.position,
+        //     Quaternion.identity);
+        FXExperience experience = PrefabInstantiator.instantiateFXExperience(cardExhaustVFXPrefab, gameObject.transform.position);
+
+        experience.BindGameObjectsToTracks(new Dictionary<string, GameObject>() {
+            { "CardAnimationTrack", gameObject },
+        });
+        // experience.AddLocationToKey("Card", this.transform.position);
+        // experience.AddLocationToKey("Companion", discardDest);
+        // This makes it so that we can use 0,0 as the "current position of the card"
+        gameObject.transform.SetParent(experience.transform);
+        experience.onExperienceOver += () => {
+            cardExhaustVFXFinished = true;
+        };
+        experience.StartExperience();
     }
 
     private IEnumerator CardDiscardVFX(GameObject cardGameObject)
@@ -283,6 +298,7 @@ public class PlayableCard : MonoBehaviour,
         {
             Debug.LogWarning($"Trying to exhaust card {card.cardType.GetName()}, but the deck no longer exists");
         }
+        yield return new WaitUntil(() => cardExhaustVFXFinished == true);
         cleanupAndDestroy();
         yield return null;
     }
