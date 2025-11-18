@@ -64,8 +64,17 @@
     align-items: center;
     justify-content: center;
     background-color: rgb(128, 128, 128);
+    min-width: 100px;
 }
 
 .tab-descriptor-selected {
     background-color: rgb(188, 188, 188);
+    border-left-color: rgb(255, 255, 255);
+    border-right-color: rgb(255, 255, 255);
+    border-top-color: rgb(255, 255, 255);
+    border-bottom-color: rgb(255, 255, 255);
+    border-top-width: 4px;
+    border-right-width: 4px;
+    border-bottom-width: 4px;
+    border-left-width: 4px;
 }
