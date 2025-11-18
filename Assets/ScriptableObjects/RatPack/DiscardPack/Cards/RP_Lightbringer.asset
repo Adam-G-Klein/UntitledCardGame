@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RP_Lightbringer
   m_EditorClassIdentifier: 
   guid: d647fd77-9022-40e3-9cc8-5b6ac6aeddb0
-  Name: Lightbringer
+  Name: Hyperfocused Shot
   Description: Deal {rpl_damage} damage & if you have 3 or less cards in hand, deal
     {rpl_damage_2} damage
   defaultValues:
@@ -38,6 +38,7 @@ MonoBehaviour:
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
   tooltips: 
+  tooltipKeyword: 37
   references:
     version: 2
     RefIds:

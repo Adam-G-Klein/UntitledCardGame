@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RP_Strafe
   m_EditorClassIdentifier: 
   guid: eb62cd01-5178-40b9-ade5-5ab5d5c038ec
-  Name: Strafe
+  Name: Quickdraw
   Description: Unplayable. When discarded, deal {ondiscard_rpl_damage} damage to
     a random enemy and draw 1 card from self
   defaultValues:
@@ -22,6 +22,7 @@ MonoBehaviour:
   Cost: 0
   Artwork: {fileID: 21300000, guid: 9fc5df2c57ed7dd4686ab9274820f38e, type: 3}
   cardCategory: 1
+  packFrom: {fileID: 0}
   vfxPrefab: {fileID: 0}
   playable: 0
   exhaustsWhenPlayed: 0
@@ -35,6 +36,7 @@ MonoBehaviour:
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
   tooltips: 
+  tooltipKeyword: 37
   references:
     version: 2
     RefIds:

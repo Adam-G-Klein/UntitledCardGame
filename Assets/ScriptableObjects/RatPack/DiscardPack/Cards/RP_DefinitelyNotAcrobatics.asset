@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: RP_DefinitelyNotAcrobatics
   m_EditorClassIdentifier: 
   guid: b091d6b4-1bbe-4f44-bec2-44d1aa91050f
-  Name: Definitely Not Acrobatics
+  Name: Bridge Shuffle
   Description: Draw 1 card at random x3, then discard a card in hand.
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 04bf14070e798284f9f39ea08b676c4a, type: 3}
   cardCategory: 2
+  packFrom: {fileID: 0}
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
@@ -32,6 +33,7 @@ MonoBehaviour:
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
   tooltips: 
+  tooltipKeyword: 37
   references:
     version: 2
     RefIds:

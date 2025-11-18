@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: RP_QuicksilverKnife
+  m_Name: RP_DartingBlade
   m_EditorClassIdentifier: 
   guid: 56998b45-0dd2-4b05-96cb-3100b7badec2
-  Name: Diamond Knife
+  Name: Darting Blade
   Description: Deal {rpl_damage} damage & if you have 3 cards or less in hand, deal
     {rpl_damage_2} damage. Draw a card from self
   defaultValues:
@@ -24,6 +24,7 @@ MonoBehaviour:
   Cost: 0
   Artwork: {fileID: 21300000, guid: 5b64a8077dbbd6f409858be2a69e6188, type: 3}
   cardCategory: 1
+  packFrom: {fileID: 0}
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
@@ -37,6 +38,7 @@ MonoBehaviour:
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
   tooltips: 
+  tooltipKeyword: 37
   references:
     version: 2
     RefIds:

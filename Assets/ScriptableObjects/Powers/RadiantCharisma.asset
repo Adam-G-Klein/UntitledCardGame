@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RadiantCharisma
   m_EditorClassIdentifier: 
   powerType: 19
-  title: Radiant Charisma
+  title: Confidence Game
   description: Whenever you discard a card, deal damage to a random enemy equal to
     the number of cards discarded this turn
   abilities:
@@ -38,6 +38,7 @@ MonoBehaviour:
         - rid: 754093871974056663
         - rid: 2511001254715195489
         - rid: 2511000990761353347
+        weight: 0
     - rid: 754093871974056663
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

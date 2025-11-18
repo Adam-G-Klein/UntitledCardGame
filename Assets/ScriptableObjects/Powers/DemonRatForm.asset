@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DemonRatForm
   m_EditorClassIdentifier: 
   powerType: 13
-  title: Demon Rat Form
+  title: Rats Together Strong
   description: End of turn, give self & adjacent 1 strength
   abilities:
   - rid: 754094139776958548
@@ -40,6 +40,7 @@ MonoBehaviour:
         - rid: 2511000990761353348
         - rid: 2511000990761353349
         - rid: 2511000990761353350
+        weight: 0
     - rid: 754094139776958549
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
