@@ -184,14 +184,29 @@ public class TooltipView : MonoBehaviour
     public float fadeInOutTime = 0.25f;
     public float waitForUIDocFillTime = 0.1f;
 
+    void Awake()
+    {
+        // I (Ethan) was getting some occasional crashes relating to the unity rendering pipeline failing to write to 
+        // tooltip canvases. Making them disabled until they are fully setup seems to have helped.
+        if (canvas != null)
+        {
+            canvas.enabled = false;
+        }
+    }
+
 
     void Start()
     {
+        if (canvas != null)
+        {
+            canvas.sortingLayerName = "OverlayUI";
+            canvas.targetDisplay = 0; // Ensure valid display target
+        }
+
         Debug.Log("TooltipView: Start");
         VisualElement root = GetComponent<MiniUIDocumentScreenspace>().doc.rootVisualElement;
         background = root.Q<VisualElement>("tooltip-background");
         mat = GetComponent<RawImage>().material;
-        canvas.sortingLayerName = "OverlayUI";
         transform.position = new Vector3(transform.position.x, transform.position.y, 15f);
         Fill();
     }
@@ -214,6 +229,10 @@ public class TooltipView : MonoBehaviour
     public void Display()
     {
         GetComponent<RawImage>().enabled = true;
+        if (canvas != null)
+        {
+            canvas.enabled = true;
+        }
     }
 
     public void Hide()
