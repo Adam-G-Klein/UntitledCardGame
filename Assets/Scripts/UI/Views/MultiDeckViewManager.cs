@@ -22,6 +22,8 @@ public class MultiDeckViewManager : GenericSingleton<MultiDeckViewManager>, IMul
     private bool isVisible = false;
     [SerializeField]
     private GameStateVariableSO gameState;
+    [SerializeField]
+    private GameObject tooltipPrefab;
     private Canvas canvas;
     private Camera mainCamera;
 
@@ -39,7 +41,7 @@ public class MultiDeckViewManager : GenericSingleton<MultiDeckViewManager>, IMul
 
     public void Start()
     {
-        multiDeckView = new MultiDeckView(this, GetComponent<UIDocument>(), GetComponent<CanvasGroup>());
+        multiDeckView = new MultiDeckView(this, GetComponent<UIDocument>(), GetComponent<CanvasGroup>(), tooltipPrefab);
         canvas = GetComponentInParent<Canvas>();
         mainCamera = Camera.main;
         OptionsViewController.Instance.SetEnterHandler(() => optionsMenuOpen = true);

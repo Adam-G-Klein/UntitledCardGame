@@ -35,6 +35,8 @@ public class MultiDeckView
     private string TAB_DESCRIPTOR = "tab-descriptor-{0}";
     private bool isEnabled = true;
 
+    private TooltipController tooltipController;
+
     private Dictionary<int, int> CARDS_WIDE_PER_COMP_NUM = new Dictionary<int, int>() {
         { 1, 8 },
         { 2, 6 },
@@ -43,8 +45,9 @@ public class MultiDeckView
         { 5, 3 }
     };
 
-    public MultiDeckView(IMultiDeckViewDelegate multiDeckViewDelegate, UIDocument uIDocument, CanvasGroup canvasGroup)
+    public MultiDeckView(IMultiDeckViewDelegate multiDeckViewDelegate, UIDocument uIDocument, CanvasGroup canvasGroup, GameObject tooltipPrefab)
     {
+        this.tooltipController = new TooltipController(tooltipPrefab);
         this.uiDocument = uIDocument;
         this.canvasGroup = canvasGroup;
         this.multiDeckViewDelegate = multiDeckViewDelegate;
@@ -177,6 +180,8 @@ public class MultiDeckView
         .setEase(animationEaseType);
 
         ToggleDeckFocusability(deckView.Q<ScrollView>("ScrollView").contentContainer.Children().ToList(), false);
+        VisualElement companionView = deckView.Q<VisualElement>(className: "companionView");
+        if (companionView != null) FocusManager.Instance.DisableFocusableTarget(companionView.AsFocusable());
         SetPositionForUnSelectedSection(deckView, instant);
     }
 
@@ -184,6 +189,7 @@ public class MultiDeckView
     {
         inTransition = true;
         ScrollView scrollView = deckView.Q<ScrollView>("ScrollView");
+        VisualElement companionView = deckView.Q<VisualElement>(className: "companionView");
         LeanTween.value(0f, 1f, instant ? 0f : animationDuration)
             .setOnUpdate((float val) =>
             {
@@ -191,16 +197,17 @@ public class MultiDeckView
             })
             .setEase(animationEaseType)
             .setOnComplete(() => {
-                OnFocusComplete(scrollView);
+                OnFocusComplete(scrollView, companionView);
             });
         SetPositionForSelectedSection(scrollView, instant);
     }
-    public void OnFocusComplete(ScrollView scrollView)
+    public void OnFocusComplete(ScrollView scrollView, VisualElement companionView)
     {
         // ideally do after a slight delay
         inTransition = false;
         if (scrollView.contentContainer.Children().ToList().Count == 0) return;
         ToggleDeckFocusability(scrollView.contentContainer.Children().ToList(), true);
+        if (companionView != null) FocusManager.Instance.EnableFocusableTarget(companionView.AsFocusable());
         if (ControlsManager.Instance.GetControlMethod() == ControlsManager.ControlMethod.Mouse) return;
         VisualElement firstCard = scrollView.contentContainer.Children().ToList()[0];
         FocusManager.Instance.SetFocus(firstCard.AsFocusable());
@@ -360,7 +367,22 @@ public class MultiDeckView
                 Companion companion = deckViewTab.sections[i].companion;
                 VisualTreeAsset companionTemplate = EncounterConstantsSingleton.Instance.encounterConstantsSO.companionManagementViewTemplate;
                 CompanionManagementView companionView = new CompanionManagementView(companion, companionTemplate, null);
+                VisualElementFocusable companionFocusable = companionView.container.AsFocusable();
+                companionView.container.RegisterCallback<PointerEnterEvent>((evt) => {
+                    tooltipController.DisplayTooltip(companionView.container, companion.companionType.GetTooltip(), TooltipContext.MultiDeckView);
+                });
+                companionView.container.RegisterCallback<PointerLeaveEvent>((evt) => {
+                    tooltipController.DestroyTooltip(companionView.container);
+                });
+                companionFocusable.additionalFocusAction += () => {
+                    tooltipController.DisplayTooltip(companionView.container, companion.companionType.GetTooltip(), TooltipContext.MultiDeckView);
+                };
+                companionFocusable.additionalUnfocusAction += () => {
+                    tooltipController.DestroyTooltip(companionView.container);
+                };
+                FocusManager.Instance.RegisterFocusableTarget(companionFocusable);
                 companionView.container.AddToClassList("companionView");
+                companionView.container.AddToClassList("multi-deck-view-focus-item");
                 companionView.UpdateWidthAndHeight(.15f);
                 sectionContainer.Q("SectionHeader").Add(companionView.container);
 
@@ -378,10 +400,26 @@ public class MultiDeckView
                     cardView.cardContainer.MakeFocusable();
                     scrollView.Add(cardView.cardContainer);
                     FocusManager.Instance.RegisterFocusableTarget(cardView.cardFocusable);
-                    cardView.cardContainer.RegisterCallback<PointerEnterEvent>(OnPointerEnter);
-                    cardView.cardContainer.RegisterCallback<PointerLeaveEvent>(OnPointerLeave);
-                    cardView.cardFocusable.additionalFocusAction += () => OnPointerEnter(null);
-                    cardView.cardFocusable.additionalUnfocusAction += () => OnPointerLeave(null);
+
+                    cardView.cardContainer.RegisterCallback<PointerEnterEvent>((evt) => {
+                        if (card.cardType.GetTooltip().empty) {
+                            return;
+                        }
+                        tooltipController.DisplayTooltip(cardView.cardContainer, card.cardType.GetTooltip(), TooltipContext.MultiDeckView);
+                    });
+                    cardView.cardContainer.RegisterCallback<PointerLeaveEvent>((evt) => {
+                        tooltipController.DestroyTooltip(cardView.cardContainer);
+                    });
+                    VisualElementFocusable cardFocusable = cardView.cardContainer.AsFocusable();
+                    cardFocusable.additionalFocusAction += () => {
+                        if (card.cardType.GetTooltip().empty) {
+                            return;
+                        }
+                        tooltipController.DisplayTooltip(cardView.cardContainer, card.cardType.GetTooltip(), TooltipContext.MultiDeckView);
+                    };
+                    cardFocusable.additionalUnfocusAction += () => {
+                        tooltipController.DestroyTooltip(cardView.cardContainer);
+                    };
 
                     // Hack to display the modified card values when pulling up the deck values.
                     if (ci != null)
@@ -406,14 +444,6 @@ public class MultiDeckView
                 UnFocusDeckSection(deckViewsContainer.Children().ToList()[i], true);
             }
         }
-    }
-
-    private void OnPointerEnter(PointerEnterEvent evt)
-    {
-    }
-
-    private void OnPointerLeave(PointerLeaveEvent evt)
-    {
     }
 
     private void SetPositionForSelectedSection(ScrollView scrollView, bool instant = false)
@@ -499,13 +529,6 @@ public class MultiDeckView
             {
                 section.Q<VisualElement>("SectionHeader").Clear();
                 ScrollView scrollView = section.Q<ScrollView>("ScrollView");
-                List<VisualElement> cards = scrollView.contentContainer.Children().ToList();
-                foreach (VisualElement card in cards)
-                {
-                    FocusManager.Instance.UnregisterFocusableTarget(card.AsFocusable());
-                    card.UnregisterCallback<PointerEnterEvent>(OnPointerEnter);
-                    card.UnregisterCallback<PointerLeaveEvent>(OnPointerLeave);
-                }
                 scrollView.Clear();
                 UnFocusDeckSection(section, true);
             }
@@ -513,6 +536,7 @@ public class MultiDeckView
         deckViewTabVisualElements.Clear();
         focusedSectionsForEachTab.Clear();
         numSectionsForEachTab.Clear();
+        tooltipController.DestroyAllTooltips();
     }
 
     public void TurnOffInteractions() {
