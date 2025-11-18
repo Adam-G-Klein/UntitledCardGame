@@ -35,6 +35,14 @@ public class MultiDeckView
     private string TAB_DESCRIPTOR = "tab-descriptor-{0}";
     private bool isEnabled = true;
 
+    private Dictionary<int, int> CARDS_WIDE_PER_COMP_NUM = new Dictionary<int, int>() {
+        { 1, 8 },
+        { 2, 6 },
+        { 3, 5 },
+        { 4, 4 },
+        { 5, 3 }
+    };
+
     public MultiDeckView(IMultiDeckViewDelegate multiDeckViewDelegate, UIDocument uIDocument, CanvasGroup canvasGroup)
     {
         this.uiDocument = uIDocument;
@@ -52,7 +60,7 @@ public class MultiDeckView
 
     public void PopulateDeckView(List<DeckViewTab> deckViewTabs, int startingTab = 0, int startingIndex = 0)
     {
-        currentTabIndex = startingTab;
+        currentTabIndex = 0;
         tabDescriptorContainer.DoForAllChildren((element) => element.style.display = DisplayStyle.None);
         for (int i = 0; i < deckViewTabs.Count; i++)
         {
@@ -74,7 +82,9 @@ public class MultiDeckView
             VisualElement tabDescriptor = uiDocument.rootVisualElement.Q<VisualElement>(String.Format(TAB_DESCRIPTOR, i));
             tabDescriptor.style.display = DisplayStyle.Flex;
             tabDescriptor.Q<Label>().text = tab.title;
+            // currentTabIndex += 1;
         }
+        currentTabIndex = startingIndex;
 
         if (deckViewTabs.Count == 1) {
             uiDocument.rootVisualElement.Q<IconButton>("tabLeftButton").style.visibility = Visibility.Hidden;
@@ -244,11 +254,11 @@ public class MultiDeckView
 
     public void ExitButtonClicked(ClickEvent evt)
     {
+        StopScrolling();
         ToggleVisibility(false);
         multiDeckViewDelegate.HideDeckView();
         // Cleanup
         CleanUp();
-        StopScrolling();
     }
 
     public void StartScrolling(int direction) {
@@ -412,8 +422,8 @@ public class MultiDeckView
             VisualElement element = scrollViewContents[i];
             float initialTop = element.resolvedStyle.top;
             float initialLeft = element.resolvedStyle.left;
-            float finalLeft = basePosition.x + X_STEP * (i % 4);
-            float finalTop = basePosition.y + Y_STEP * Mathf.Floor(i / 4);
+            float finalLeft = basePosition.x + X_STEP * (i % CARDS_WIDE_PER_COMP_NUM[numSectionsForEachTab[currentTabIndex]]);
+            float finalTop = basePosition.y + Y_STEP * Mathf.Floor(i / CARDS_WIDE_PER_COMP_NUM[numSectionsForEachTab[currentTabIndex]]);
             LeanTween.value(0f, 1f, instant ? 0f : animationDuration)
             .setOnUpdate((float val) =>
             {
