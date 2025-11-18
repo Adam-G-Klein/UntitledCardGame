@@ -56,7 +56,7 @@ ParticleSystem:
   startDelay:
     serializedVersion: 2
     minMaxState: 0
-    scalar: 1.5
+    scalar: 0
     minScalar: 0
     maxCurve:
       serializedVersion: 2
@@ -1030,7 +1030,7 @@ ParticleSystem:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
-      cycleCount: 3
+      cycleCount: 1
       repeatInterval: 0.45
       probability: 1
   SizeModule:
@@ -4862,8 +4862,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 212860681
-  m_SortingLayer: 8
+  m_SortingLayerID: -1960729315
+  m_SortingLayer: 5
   m_SortingOrder: 3
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -9750,8 +9750,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 212860681
-  m_SortingLayer: 8
+  m_SortingLayerID: -1960729315
+  m_SortingLayer: 5
   m_SortingOrder: 4
   m_RenderMode: 1
   m_MeshDistribution: 0
@@ -14688,8 +14688,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 212860681
-  m_SortingLayer: 8
+  m_SortingLayerID: -1960729315
+  m_SortingLayer: 5
   m_SortingOrder: 4
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -19576,8 +19576,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 212860681
-  m_SortingLayer: 8
+  m_SortingLayerID: -1960729315
+  m_SortingLayer: 5
   m_SortingOrder: -2
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -24515,8 +24515,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 212860681
-  m_SortingLayer: 8
+  m_SortingLayerID: -1960729315
+  m_SortingLayer: 5
   m_SortingOrder: 4
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -24567,7 +24567,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8913151709818506576
 Transform:
   m_ObjectHideFlags: 0
@@ -25580,11 +25580,11 @@ ParticleSystem:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
-      cycleCount: 3
+      cycleCount: 1
       repeatInterval: 0.45
       probability: 1
   SizeModule:
-    enabled: 1
+    enabled: 0
     curve:
       serializedVersion: 2
       minMaxState: 1
@@ -28873,8 +28873,8 @@ ParticleSystem:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 3
-          time: 0
-          value: -1
+          time: 0.008872986
+          value: 1
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -28882,7 +28882,16 @@ ParticleSystem:
           inWeight: 0
           outWeight: 0
         - serializedVersion: 3
-          time: 1
+          time: 0.48951885
+          value: -1
+          inSlope: -0.5193162
+          outSlope: -0.5193162
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.9863281
           value: 1
           inSlope: 2
           outSlope: 2
@@ -29403,8 +29412,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 212860681
-  m_SortingLayer: 8
+  m_SortingLayerID: -1960729315
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -29466,7 +29475,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -1, y: 0, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6482027958222688288}
@@ -39143,8 +39152,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 212860681
-  m_SortingLayer: 8
+  m_SortingLayerID: -1960729315
+  m_SortingLayer: 5
   m_SortingOrder: 1
   m_RenderMode: 4
   m_MeshDistribution: 0
@@ -39219,7 +39228,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3776822057434558567}
   serializedVersion: 8
-  lengthInSec: 5
+  lengthInSec: 0.05
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -39294,7 +39303,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 4
+      scalar: 2
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -39465,7 +39474,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 30
+      scalar: 10
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -44040,8 +44049,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 212860681
-  m_SortingLayer: 8
+  m_SortingLayerID: -1960729315
+  m_SortingLayer: 5
   m_SortingOrder: -1
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -44092,7 +44101,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7770617988798667718
 Transform:
   m_ObjectHideFlags: 0
@@ -48937,8 +48946,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 212860681
-  m_SortingLayer: 8
+  m_SortingLayerID: -1960729315
+  m_SortingLayer: 5
   m_SortingOrder: 3
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -53876,8 +53885,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 212860681
-  m_SortingLayer: 8
+  m_SortingLayerID: -1960729315
+  m_SortingLayer: 5
   m_SortingOrder: 4
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -53928,7 +53937,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6482027958222688288
 Transform:
   m_ObjectHideFlags: 0
@@ -58764,8 +58773,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 212860681
-  m_SortingLayer: 8
+  m_SortingLayerID: -1960729315
+  m_SortingLayer: 5
   m_SortingOrder: -1
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -58915,7 +58924,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 7
+      scalar: 2
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -63122,22 +63131,49 @@ ParticleSystem:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 3
-          time: 0.5564209
-          value: -1
-          inSlope: 9.67664
-          outSlope: 9.67664
-          tangentMode: 0
+          time: 0
+          value: 0.05405426
+          inSlope: -11.484197
+          outSlope: -11.484197
+          tangentMode: 34
           weightedMode: 0
           inWeight: 0
-          outWeight: 0.10270824
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.091783024
+          value: -1
+          inSlope: -5.7420983
+          outSlope: -5.7420983
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.47739333
+          value: -1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.860394
+          value: -1
+          inSlope: 7.163016
+          outSlope: 7.163016
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
         - serializedVersion: 3
           time: 1
-          value: 0.9729863
-          inSlope: 7.670068
-          outSlope: 7.670068
-          tangentMode: 0
+          value: 1
+          inSlope: 14.326032
+          outSlope: 14.326032
+          tangentMode: 34
           weightedMode: 0
-          inWeight: 0.10267532
+          inWeight: 0.33333334
           outWeight: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
@@ -63652,8 +63688,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 212860681
-  m_SortingLayer: 8
+  m_SortingLayerID: -1960729315
+  m_SortingLayer: 5
   m_SortingOrder: -1
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -63704,7 +63740,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6556080072600269608
 Transform:
   m_ObjectHideFlags: 0
@@ -68540,8 +68576,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 212860681
-  m_SortingLayer: 8
+  m_SortingLayerID: -1960729315
+  m_SortingLayer: 5
   m_SortingOrder: -1
   m_RenderMode: 0
   m_MeshDistribution: 0
