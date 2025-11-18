@@ -103,7 +103,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 1be957c867e88f0489d20846a1a4db67, type: 2}
   - {fileID: 2100000, guid: 523a9858b2d3d844e86df0dd32368e23, type: 2}
   idleMaterialTweenInDuration: 5
-  idleMaterialTweenOutDuration: 5
+  idleMaterialTweenOutDuration: 3
 --- !u!114 &920027969915971360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -341,7 +341,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5471009176790888696, guid: 0ffc05750d6ba26408fbf4b4226fcbed, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1.7
       objectReference: {fileID: 0}
     - target: {fileID: 5471009176790888696, guid: 0ffc05750d6ba26408fbf4b4226fcbed, type: 3}
       propertyPath: m_LocalPosition.z

@@ -99,20 +99,4 @@ public class MeothraIntroAnimationDisplay : MonoBehaviour
         ScreenShakeManager.Instance.ShakeWithForce(1f);
     }
 
-    public void SwapToCombatAnimationController()
-    {
-        // disable the animator track in the playable director
-        PlayableGraph graph = director.playableGraph;
-        for(int i =0; i < graph.GetOutputCount(); i++)
-        {
-            PlayableOutput output = graph.GetOutput(i);
-            Debug.Log("Meothra timeline output type: " + output.GetPlayableOutputType().ToString());
-            if(output.GetPlayableOutputType() == typeof(AnimationPlayableOutput))
-            {
-                Debug.Log("MeothraIntroAnimationDisplay: Disabling animator output track in playable director");
-                output.SetWeight(0f);
-            }
-        }
-    }
-
 }

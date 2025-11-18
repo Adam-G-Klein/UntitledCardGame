@@ -244,6 +244,8 @@ PlayableDirector:
     value: {fileID: 8108817387768579365}
   - key: {fileID: -5367580507279164515, guid: e47263a34c1b230468db6cdec55e4c92, type: 2}
     value: {fileID: 4231329288037765707}
+  - key: {fileID: -4860615801621835802, guid: e47263a34c1b230468db6cdec55e4c92, type: 2}
+    value: {fileID: 3430957034230942550}
   m_ExposedReferences:
     m_References: []
 --- !u!114 &6706516355190666426
@@ -482,6 +484,7 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: 11400000, guid: dfe44d586bba7b94d946949877755308, type: 2}
     - {fileID: 11400000, guid: d4a3378513a9c9c40ae20f17165e126b, type: 2}
+    - {fileID: 11400000, guid: 25d9597bc9fbd9144b4a4cb247e23bd9, type: 2}
     m_Events:
     - m_PersistentCalls:
         m_Calls:
@@ -572,6 +575,20 @@ MonoBehaviour:
         - m_Target: {fileID: 4344747775181860495}
           m_TargetAssemblyTypeName: MeothraOutroAnimationDisplay, Assembly-CSharp
           m_MethodName: RecreateMapAndEnemyUI
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4344747775181860495}
+          m_TargetAssemblyTypeName: MeothraOutroAnimationDisplay, Assembly-CSharp
+          m_MethodName: TweenOutIdleMaterials
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -906,6 +923,14 @@ PrefabInstance:
       propertyPath: rPoleRest
       value: 
       objectReference: {fileID: 6488349483186221155}
+    - target: {fileID: 1214609777615230706, guid: 535d880997a80914281e8c1d7b3ae8b5, type: 3}
+      propertyPath: maxOrthoSize
+      value: 5.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1214609777615230706, guid: 535d880997a80914281e8c1d7b3ae8b5, type: 3}
+      propertyPath: minOrthoSize
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1214609777615230706, guid: 535d880997a80914281e8c1d7b3ae8b5, type: 3}
       propertyPath: primeStrikeLocation
       value: 

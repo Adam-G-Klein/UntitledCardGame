@@ -101,7 +101,8 @@ public class MeothraVFXController : MonoBehaviour
         }).setOnComplete(() =>
         {
             Destroy(currentIdleBackgroundEffectInstance);
-        });}
+        });
+    }
 
     // DEPRECATED, timeline now handles this
     public void Retract()

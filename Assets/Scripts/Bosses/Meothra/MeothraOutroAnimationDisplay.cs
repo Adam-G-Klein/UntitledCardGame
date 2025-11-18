@@ -15,12 +15,14 @@ public class MeothraOutroAnimationDisplay : MonoBehaviour
     private PlayableDirector director;
     [SerializeField] private TimelineAsset outroTimeline;
     private MeothraIntroAnimationDisplay meothraIntroAnimationDisplay;
+    private MeothraVFXController meothraVFXController;
 
     public void Setup()
     {
         director = GetComponent<PlayableDirector>();
         animator = GetComponentInChildren<Animator>();
         meothraIntroAnimationDisplay = GetComponent<MeothraIntroAnimationDisplay>();
+        meothraVFXController = GetComponentInChildren<MeothraVFXController>();
         if (animator == null)
         {
             Debug.LogError("MeothraOutroAnimationDisplay: Setup could not find Animator!");
@@ -32,6 +34,12 @@ public class MeothraOutroAnimationDisplay : MonoBehaviour
             Debug.LogError("MeothraOutroAnimationDisplay: Setup could not find PlayableDirector!");
             return;
         }
+
+        if (meothraVFXController == null)
+        {
+            Debug.LogError("MeothraOutroAnimationDisplay: Setup could not find MeothraVFXController!");
+            return;
+        }
     }
     public IEnumerator PlayOutroAnimation()
     {
@@ -41,6 +49,11 @@ public class MeothraOutroAnimationDisplay : MonoBehaviour
         director.Play();
         yield return new WaitUntil(() => director.state != PlayState.Playing);
         Debug.Log("MeothraOutroAnimationDisplay: Outro animation complete!");
+    }
+
+    public void TweenOutIdleMaterials()
+    {
+        meothraVFXController.TweenOutIdleMaterials();
     }
 
     public void RecreateMapAndEnemyUI()

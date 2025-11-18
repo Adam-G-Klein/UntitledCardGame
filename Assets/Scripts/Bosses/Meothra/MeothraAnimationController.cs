@@ -55,6 +55,12 @@ public class MeothraAnimationController: MonoBehaviour
     [Header("Rotation of splines by X offset so that strike angles look better")]
     [SerializeField] private Transform primeStrikeLocation;
     [SerializeField] private float degSplineRotationPerXOffset = 45f / 13f;
+
+    [Header("Camera Movement Controls")]
+    private Cinemachine.CinemachineVirtualCamera virtualCamera;
+    [SerializeField]private float maxOrthoSize = 5.40f;
+    [SerializeField]private float normalOrthoSize = 5.0f;
+    [SerializeField]private float minOrthoSize = 4.80f;
     
 
     public void Setup()
@@ -72,6 +78,13 @@ public class MeothraAnimationController: MonoBehaviour
         handleToRestPositionMap.Add(rhTarg, rhRest);
         handleToRestPositionMap.Add(rPole, rPoleRest);
         handleToRestPositionMap.Add(headTarg, headRest);
+
+        // janky but works for now
+        virtualCamera = ScreenShakeManager.Instance.GetComponent<Cinemachine.CinemachineVirtualCamera>();
+        if(virtualCamera == null)
+        {
+            Debug.LogError("MeothraAnimationController: Setup: could not find CinemachineVirtualCamera on ScreenShakeManager!");
+        }
 
     }
     // TODO: rotate strike spline based on how negative or positive the x position is
@@ -93,6 +106,7 @@ public class MeothraAnimationController: MonoBehaviour
         // move right hand to strike position
         GameObject leftHandSpline = Instantiate(lhstrikeSpline, strikePosition, Quaternion.identity);
         leftHandSpline.transform.Rotate(Vector3.forward, splineRotationAmount);
+        StartCoroutine(ZoomCamera(maxOrthoSize, strikePrepTime));
         yield return MoveGameObjectToStartOfSpline(leftHandSpline, lhTarg.transform, strikePrepTime);
 
         animator.Play("Strike");
@@ -102,7 +116,8 @@ public class MeothraAnimationController: MonoBehaviour
         }
         // don't yield so we can still control the timing of the strike vfx
         StartCoroutine(MoveGameObjectOnSpline(leftHandSpline, lhTarg.transform, strikeTime));
-        yield return new WaitForSeconds(strikeTime / 2);    
+        StartCoroutine(ZoomCamera(minOrthoSize, strikeTime));
+        yield return new WaitForSeconds(strikeTime / 2);
 
         GameObject gameObject = GameObject.Instantiate(
                 strikeVFX,
@@ -111,8 +126,19 @@ public class MeothraAnimationController: MonoBehaviour
         yield return new WaitForSeconds(strikeTime / 2);
         animator.Play("Idle");
         StartCoroutine(BackToIdlePositions());
+        StartCoroutine(ZoomCamera(normalOrthoSize, backToIdleTime));
         //Destroy(leftHandSpline); // clean up clean up everybody do your share
     
+    }
+
+    private IEnumerator ZoomCamera(float toValue, float zoomTime)
+    {
+        // use leantween to zoom out the camera
+        float tween = LeanTween.value(virtualCamera.m_Lens.OrthographicSize, toValue, zoomTime).setOnUpdate((float val) =>
+        {
+            virtualCamera.m_Lens.OrthographicSize = val;
+        }).setEaseInOutQuint().id;
+        yield return null;
     }
 
     public IEnumerator MoveGameObjectToStartOfSpline(GameObject spline, Transform toBeMoved, float time)
