@@ -14,11 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 86511070-4f70-4675-a930-a12a7bb14c54
   Name: Bad Medicine
-  Description: Exhaust. Heal 10 HP & shuffle in an "Wound" Status card
+  Description: Exhaust. Heal 10 HP & shuffle in a "Treegunk" Status card
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: fe5748b149e8b274ab967608681b48c4, type: 3}
   cardCategory: 2
+  packFrom: {fileID: 0}
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 1
@@ -32,6 +33,7 @@ MonoBehaviour:
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
   tooltips: 
+  tooltipKeyword: 37
   references:
     version: 2
     RefIds:

@@ -14,14 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: d7b25ee0-b462-4b79-87e2-ecac415d04f3
   Name: Homeopathy
-  Description: Exhaust. Heal target companion 7 HP. Heal an additional 5 HP if this
-    companion has 7 or less cards in its deck
+  Description: Exhaust. Heal target companion 7 HP & if self has 7 or less cards
+    in own deck, heal +5 HP
   defaultValues:
   - key: hp
     value: 15
   Cost: 0
   Artwork: {fileID: 21300000, guid: b26e83dbae52f5a40bf3378f7fed66ac, type: 3}
   cardCategory: 2
+  packFrom: {fileID: 0}
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 1
@@ -35,6 +36,7 @@ MonoBehaviour:
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
   tooltips: 
+  tooltipKeyword: 37
   references:
     version: 2
     RefIds:
