@@ -97,6 +97,7 @@ public class MultiDeckView
         //hover first card
         List<VisualElement> focusedDeck = deckViewTabVisualElements[startingTab].Q<VisualElement>("SectionsContainer").Children().ToList()[startingIndex].Q<ScrollView>("ScrollView").contentContainer.Children().ToList();
         if (focusedDeck.Count == 0) return;
+        if (ControlsManager.Instance.GetControlMethod() == ControlsManager.ControlMethod.Mouse) return;
         VisualElement firstCard = focusedDeck[0];
         FocusManager.Instance.SetFocus(firstCard.AsFocusable());
     }
@@ -200,6 +201,7 @@ public class MultiDeckView
         inTransition = false;
         if (scrollView.contentContainer.Children().ToList().Count == 0) return;
         ToggleDeckFocusability(scrollView.contentContainer.Children().ToList(), true);
+        if (ControlsManager.Instance.GetControlMethod() == ControlsManager.ControlMethod.Mouse) return;
         VisualElement firstCard = scrollView.contentContainer.Children().ToList()[0];
         FocusManager.Instance.SetFocus(firstCard.AsFocusable());
     }
@@ -372,6 +374,7 @@ public class MultiDeckView
                     Card card = cards[j];
                     CardView cardView = new CardView(card.cardType, companion.companionType, card.shopRarity, true);
                     cardView.cardContainer.AddToClassList("cardView");
+                    cardView.cardContainer.AddToClassList("multi-deck-view-focus-item");
                     cardView.cardContainer.MakeFocusable();
                     scrollView.Add(cardView.cardContainer);
                     FocusManager.Instance.RegisterFocusableTarget(cardView.cardFocusable);
