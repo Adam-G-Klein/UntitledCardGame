@@ -123,6 +123,7 @@ public class MeothraAnimationController: MonoBehaviour
                 strikeVFX,
                 strikePosition,
                 Quaternion.identity);
+        MusicController.Instance.PlaySFX("event:/SFX/BossFight/SFX_MeothraAttack");
         yield return new WaitForSeconds(strikeTime / 2);
         animator.Play("Idle");
         StartCoroutine(BackToIdlePositions());

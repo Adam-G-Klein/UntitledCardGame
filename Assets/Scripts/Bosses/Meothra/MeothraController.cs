@@ -47,7 +47,6 @@ public class MeothraController : MonoBehaviour, IBossController
 
     private IEnumerator Attack(List<Vector3> positions)
     {
-        MusicController.Instance.PlaySFX("event:/SFX/BossFight/SFX_MeothraAttack");
         yield return StartCoroutine(
             meothraAnimationController.StrikeAnimation(positions[0])
         );
