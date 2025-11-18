@@ -6,6 +6,7 @@ using UnityEngine.UIElements;
 using TMPro;
 using System.Linq;
 using System.Runtime.InteropServices;
+using Unity.VisualScripting;
 
 [System.Serializable]
 public class TooltipLine
@@ -191,6 +192,7 @@ public class TooltipView : MonoBehaviour
         background = root.Q<VisualElement>("tooltip-background");
         mat = GetComponent<RawImage>().material;
         canvas.sortingLayerName = "OverlayUI";
+        transform.position = new Vector3(transform.position.x, transform.position.y, 15f);
         Fill();
     }
 
