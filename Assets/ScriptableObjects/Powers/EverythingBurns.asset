@@ -15,7 +15,7 @@ MonoBehaviour:
   powerType: 23
   title: Everything Burns
   description: Whenever you exhaust a Status card, increase the damage of all "Greek
-    Fire" status cards by 1
+    Fire" by 1 this combat.
   abilities:
   - rid: 2511001254715195615
   displaySprite: {fileID: 21300000, guid: a5b8c5dccafa78942bf687e9f47d4ce4, type: 3}
@@ -39,6 +39,7 @@ MonoBehaviour:
         - rid: 2511001254715195617
         - rid: 2511001254715195618
         - rid: 2511001254715195619
+        weight: 0
     - rid: 2511001254715195616
       type: {class: FilterCards, ns: , asm: Assembly-CSharp}
       data:

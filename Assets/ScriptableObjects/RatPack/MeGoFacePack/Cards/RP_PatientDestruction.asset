@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: f41792e1-ada4-473f-b3ea-70daffd98137
   Name: Patient Destruction
-  Description: Retain. Deal {rpl_damage} damage twice.
+  Description: Retain. Deal {rpl_damage} damage x2.
   defaultValues:
   - key: rpl_damage
     value: 6
@@ -35,6 +35,7 @@ MonoBehaviour:
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
   tooltips: 
+  tooltipKeyword: 37
   references:
     version: 2
     RefIds:

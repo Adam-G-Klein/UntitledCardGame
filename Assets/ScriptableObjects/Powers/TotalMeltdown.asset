@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerType: 29
   title: Total Meltdown
-  description: End of turn, shuffle a "Firebreath" status card into a random deck
-    x3 and increase the damage of all "Firebreath" cards by 2
+  description: End of turn, shuffle a "Stinkweed" into a random deck x3 and increase
+    the damage of all "Stinkweed" by 2
   abilities:
   - rid: 754093991137640772
   displaySprite: {fileID: 21300000, guid: 06c409edcf5e308438ea9c89ccd99c68, type: 3}
@@ -39,6 +39,7 @@ MonoBehaviour:
         - rid: 2511001254715195668
         - rid: 2511001254715195669
         - rid: 754093991137641210
+        weight: 0
     - rid: 754093991137641208
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

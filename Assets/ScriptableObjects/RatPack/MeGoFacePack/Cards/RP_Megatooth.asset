@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 10131179-daca-4702-86ec-aeb81555ba33
   Name: Megatooth
-  Description: Deal {rpl_damage} damage to target enemy three times and give adjacent
-    companions 5 block
+  Description: Deal {rpl_damage} damage to x3 and give adjacent companions 5 block
   defaultValues:
   - key: rpl_damage
     value: 2
@@ -36,6 +35,7 @@ MonoBehaviour:
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
   tooltips: 
+  tooltipKeyword: 37
   references:
     version: 2
     RefIds:

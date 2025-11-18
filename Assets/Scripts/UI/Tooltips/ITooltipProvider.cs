@@ -29,7 +29,7 @@ public enum TooltipKeyword
     Debt,
     Transform,
     EntropysBurn,
-    Firebreath,
+    Stinkweed,
     MabsBoon,
     MabsMight,
     ArterialBlade,
@@ -54,7 +54,7 @@ public enum TooltipKeyword
     AdvancedStrategy,
     DaggerPlus,
     IronSkin,
-    Wound,
+    Treegunk,
     PowerfulStature,
     Tiefvision
 }

@@ -85,8 +85,9 @@ MonoBehaviour:
     description: 1. Exhaust. When exhausted, deal 5 damage to a random enemy.
     relateBehaviorIndex: 0
     tooltipKeyword: 21
-  - title: Firebreath - Status
-    description: 0. Unplayable. At the end of turn, deal 6 damage to a random enemy.
+  - title: Stinkweed - Status
+    description: 0. Unplayable. At the end of turn, deal 3 damage at random & increase
+      the damage of this card by 3
     relateBehaviorIndex: 0
     tooltipKeyword: 22
   - title: Arterial Blade
@@ -193,7 +194,7 @@ MonoBehaviour:
       When exhausted, give all 4 block
     relateBehaviorIndex: 0
     tooltipKeyword: 46
-  - title: Wound - Status
+  - title: Treegunk - Status
     description: 0. Unplayable
     relateBehaviorIndex: 0
     tooltipKeyword: 47

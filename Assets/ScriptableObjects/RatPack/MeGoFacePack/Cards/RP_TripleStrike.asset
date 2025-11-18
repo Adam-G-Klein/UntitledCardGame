@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 7a37a3d7-c978-4513-ade0-431e3cad896d
   Name: Triple Strike
-  Description: Deal {rpl_damage} damage to target enemy three times.
+  Description: Deal {rpl_damage} damage x3.
   defaultValues:
   - key: rpl_damage
     value: 2
@@ -35,6 +35,7 @@ MonoBehaviour:
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
   tooltips: 
+  tooltipKeyword: 37
   references:
     version: 2
     RefIds:

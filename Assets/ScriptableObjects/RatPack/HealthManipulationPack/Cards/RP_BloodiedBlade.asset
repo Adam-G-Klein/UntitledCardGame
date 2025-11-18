@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 12c4e7fa-2d1e-4910-abb8-2361628d6a5e
   Name: Bloodied Blade
-  Description: Bleed any 3 HP. Deal {rpl_damage} damage to a random enemy
+  Description: Any companion loses 3 HP. Deal {rpl_damage} damage to a random enemy
   defaultValues:
   - key: rpl_damage
     value: 10
@@ -35,6 +35,7 @@ MonoBehaviour:
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
   tooltips: 
+  tooltipKeyword: 37
   references:
     version: 2
     RefIds:
