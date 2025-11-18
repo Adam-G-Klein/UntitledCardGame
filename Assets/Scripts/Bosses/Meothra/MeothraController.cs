@@ -33,7 +33,6 @@ public class MeothraController : MonoBehaviour, IBossController
         meothraAnimationController.Setup();
         meothraIntroAnimation.cinematicIntroCompleteHandler += () => suppressSelectedIndicator = false;
         meothraOutroAnimationDisplay.Setup();
-        meothraHealthDisplay.Setup();
         enemyInstance.preEnactIntentHook += Attack;
         enemyInstance.combatInstance.onDamageHandler += OnDamageHandler;
         enemyInstance.combatInstance.onDeathHandler += OnDeath; 
