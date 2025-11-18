@@ -45,7 +45,6 @@ public class CompendiumView : IControlsReceiver {
         // setup buttons
         companionButton = uiDocument.rootVisualElement.Q<Button>("companionButton");
         cardButton = uiDocument.rootVisualElement.Q<Button>("cardButton");
-        CardButtonHandler();
 
         uiDocument.rootVisualElement.Q<Button>("exitButton").clicked += ExitButtonHandler;
         cardButton.clicked += CardButtonHandler;
@@ -55,6 +54,8 @@ public class CompendiumView : IControlsReceiver {
         FocusManager.Instance.RegisterFocusables(uiDocument);
         MusicController.Instance.RegisterButtonClickSFX(uiDocument);
         uiDocument.StartCoroutine(RegisterControlsReceiverAtEndOfFrame());
+
+        CardButtonHandler();
     }
 
     private IEnumerator RegisterControlsReceiverAtEndOfFrame() {
@@ -163,6 +164,16 @@ public class CompendiumView : IControlsReceiver {
             cardContainer.RegisterCallback<PointerLeaveEvent>((evt) => {
                 tooltipController.DestroyTooltip(cardContainer);
             });
+            VisualElementFocusable cardFocusable = cardContainer.AsFocusable();
+            cardFocusable.additionalFocusAction += () => {
+                if (card.GetTooltip().empty) {
+                    return;
+                }
+                tooltipController.DisplayTooltip(cardContainer, card.GetTooltip(), TooltipContext.CompendiumCard);
+            };
+            cardFocusable.additionalUnfocusAction += () => {
+                tooltipController.DestroyTooltip(cardContainer);
+            };
         });
     }
 
@@ -189,6 +200,7 @@ public class CompendiumView : IControlsReceiver {
                 Companion tempCompanion = new Companion(companionToDisplay.companionType);
                 VisualTreeAsset companionTemplate = EncounterConstantsSingleton.Instance.encounterConstantsSO.companionViewTemplate;
                 CompanionView companionView = new CompanionView(tempCompanion, companionTemplate, 0, CompanionView.COMPENDIUM_CONTEXT, null);
+                companionView.container.AddToClassList("compendium-item-container");
                 companionRow.Add(companionView.container);
                 companionView.container.name = companionToDisplay.companionType.companionName + index;
                 companionView.container.RegisterCallback<PointerEnterEvent>((evt) => {
@@ -198,8 +210,12 @@ public class CompendiumView : IControlsReceiver {
                     tooltipController.DestroyTooltip(companionView.container);
                 });
                 VisualElementFocusable entityViewFocusable = companionView.container.GetUserData<VisualElementFocusable>();
-                entityViewFocusable.additionalFocusAction += () => {tooltipController.DisplayTooltip(companionView.container, companionToDisplay.companionType.GetTooltip(), TooltipContext.CompendiumCompanion);};
-                entityViewFocusable.additionalUnfocusAction += () => {tooltipController.DestroyTooltip(companionView.container);};
+                entityViewFocusable.additionalFocusAction += () => {
+                    tooltipController.DisplayTooltip(companionView.container, companionToDisplay.companionType.GetTooltip(), TooltipContext.CompendiumCompanion);
+                };
+                entityViewFocusable.additionalUnfocusAction += () => {
+                    tooltipController.DestroyTooltip(companionView.container);
+                };
                 FocusManager.Instance.RegisterFocusableTarget(entityViewFocusable);
             };
             companionsSection.Add(companionRow);
