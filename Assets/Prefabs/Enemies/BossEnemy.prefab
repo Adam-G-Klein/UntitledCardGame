@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 7974018165867473959}
   - component: {fileID: 3795068806916113228}
   - component: {fileID: 4344747775181860495}
+  - component: {fileID: 8614843972505601703}
   m_Layer: 0
   m_Name: BossEnemy
   m_TagString: Untagged
@@ -465,6 +466,7 @@ MonoBehaviour:
   meothraIntentDisplay: {fileID: 4976460786884134175}
   meothraIntroAnimation: {fileID: 7974018165867473959}
   meothraHealthDisplay: {fileID: 3795068806916113228}
+  focusable: {fileID: 0}
   selectedIndicator: {fileID: 9123599744773912000}
   specialAttackVFX: {fileID: 6137048663962808129, guid: 418a03ccd75ca98409952e0384c196fd, type: 3}
 --- !u!114 &6215186920877093653
@@ -674,6 +676,89 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outroTimeline: {fileID: 11400000, guid: e47263a34c1b230468db6cdec55e4c92, type: 2}
+--- !u!114 &8614843972505601703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1818299386461833425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 695ffd7c5d5d49b43af7fe3970a8abed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  focusEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1981669375319240908}
+        m_TargetAssemblyTypeName: Targetable, Assembly-CSharp
+        m_MethodName: TargetableEntered
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3938793759006504333}
+        m_TargetAssemblyTypeName: TooltipOnHover, Assembly-CSharp
+        m_MethodName: OnPointerEnterVoid
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  unfocusEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1981669375319240908}
+        m_TargetAssemblyTypeName: Targetable, Assembly-CSharp
+        m_MethodName: TargetableExited
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 3938793759006504333}
+        m_TargetAssemblyTypeName: TooltipOnHover, Assembly-CSharp
+        m_MethodName: OnPointerExitVoid
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  eventList:
+  - action: 4
+    unityEvent:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1981669375319240908}
+          m_TargetAssemblyTypeName: Targetable, Assembly-CSharp
+          m_MethodName: OnSubmit
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &6033903170645389914
 GameObject:
   m_ObjectHideFlags: 0
@@ -1165,7 +1250,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6107185593936608450, guid: 535d880997a80914281e8c1d7b3ae8b5, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7974172802940582066, guid: 535d880997a80914281e8c1d7b3ae8b5, type: 3}
       propertyPath: m_LocalPosition.x

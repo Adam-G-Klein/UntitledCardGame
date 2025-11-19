@@ -13,6 +13,7 @@ public class MeothraController : MonoBehaviour, IBossController
     [SerializeField] private MeothraHealthDisplay meothraHealthDisplay;
     private MeothraAnimationController meothraAnimationController;
     private MeothraOutroAnimationDisplay meothraOutroAnimationDisplay;
+    [SerializeField] private GameObjectFocusable focusable;
 
     [SerializeField] private GameObject selectedIndicator;
     [SerializeField] private GameObject specialAttackVFX;
@@ -27,20 +28,27 @@ public class MeothraController : MonoBehaviour, IBossController
         if (meothraHealthDisplay == null) meothraHealthDisplay = GetComponentInChildren<MeothraHealthDisplay>();
         if (meothraAnimationController == null) meothraAnimationController = GetComponentInChildren<MeothraAnimationController>();
         if (meothraOutroAnimationDisplay == null) meothraOutroAnimationDisplay = GetComponentInChildren<MeothraOutroAnimationDisplay>();
+        if (focusable == null) focusable = GetComponent<GameObjectFocusable>();
 
         meothraIntentDisplay.Setup();
         meothraIntroAnimation.Setup();
         meothraAnimationController.Setup();
-        meothraIntroAnimation.cinematicIntroCompleteHandler += () => suppressSelectedIndicator = false;
+        meothraIntroAnimation.cinematicIntroCompleteHandler += () => {
+            suppressSelectedIndicator = false;
+            FocusManager.Instance.EnableFocusableTarget(focusable);
+        };
         meothraOutroAnimationDisplay.Setup();
         enemyInstance.preEnactIntentHook += Attack;
         enemyInstance.combatInstance.onDamageHandler += OnDamageHandler;
-        enemyInstance.combatInstance.onDeathHandler += OnDeath; 
+        enemyInstance.combatInstance.onDeathHandler += OnDeath;
+        FocusManager.Instance.RegisterFocusableTarget(focusable);
+        FocusManager.Instance.DisableFocusableTarget(focusable);
     }
 
     private IEnumerator OnDeath(CombatInstance killer)
     {
         Debug.Log("MeothraController: OnDeath called!");
+        FocusManager.Instance.UnregisterFocusableTarget(focusable);
         yield return StartCoroutine(meothraOutroAnimationDisplay.PlayOutroAnimation());
     }
 
