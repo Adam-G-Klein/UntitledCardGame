@@ -937,7 +937,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         void UpdateCardSelectionSplineCardPositions()
         {
             float minCardSpacing = 1f / MAX_HAND_SIZE;
-            float maxCardSpacing = 1f / HAND_START_SCALING;
+            float maxCardSpacing = 1f / 4;
             float cardSpacing = Mathf.Clamp(1f / selectedCards.Count, minCardSpacing, maxCardSpacing);
             float firstCardPosition = 0.5f - (selectedCards.Count - 1) * (cardSpacing / 2);
 
