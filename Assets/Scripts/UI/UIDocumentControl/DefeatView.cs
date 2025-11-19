@@ -60,14 +60,15 @@ public class DefeatView : MonoBehaviour
             enemyContainer.AddToClassList("victory-companion-container");
             EnemyTypeSO enemyTypeSO = enemies[i].enemyType;
             EnemyView entityView = new EnemyView(enemies[i], 0, combatEncounterView);
-            //entityView.entityContainer.AddToClassList("compendium-item-container");
-            VisualElement portraitContainer = entityView.container.Q(className: "companion-view-companion-image");
+            // VisualElement portraitContainer = entityView.container.Q(className: "companion-view-companion-image");
             entityView.HideIntent();
-            portraitContainer.style.backgroundImage = new StyleBackground(enemyTypeSO.sprite);
+            // portraitContainer.style.backgroundImage = new StyleBackground(enemyTypeSO.sprite);
             enemyContainer.Add(entityView.container);
             
             container.Add(enemyContainer);
         }
+        // FocusManager.Instance.EnableFocusableTarget(button.AsFocusable());
+        FocusManager.Instance.RegisterFocusableTarget(button.AsFocusable());
     }
 
     public void Show() {

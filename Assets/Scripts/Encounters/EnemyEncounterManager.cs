@@ -331,8 +331,8 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         SaveManager.Instance.DeleteSaveData();
         postGamePopup.SetActive(true);
         MusicController.Instance.SetCombatState("Defeat");
-        postGamePopup.GetComponent<DefeatView>().Setup(((EnemyEncounter)gameState.activeEncounter.GetValue()).enemyList);
         TurnOffInteractions();
+        postGamePopup.GetComponent<DefeatView>().Setup(((EnemyEncounter)gameState.activeEncounter.GetValue()).enemyList);
         StartCoroutine(displayDefeatUIAfterDelay());
         SetInToolTip(false);
     }

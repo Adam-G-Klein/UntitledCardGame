@@ -741,6 +741,7 @@
 
 .main-menu-button:hover {
     -unity-background-image-tint-color: rgb(202, 202, 202);
+    scale: 1.1 1.1;
 }
 
 .main-menu-button:active {
@@ -749,6 +750,7 @@
 
 .main-menu-button:focus {
     -unity-background-image-tint-color: rgb(202, 202, 202);
+    scale: 1.1 1.1;
 }
 
 .unity-slider:focus .unity-base-slider__dragger {
