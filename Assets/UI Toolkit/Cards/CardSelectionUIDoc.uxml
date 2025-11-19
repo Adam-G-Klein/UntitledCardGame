@@ -5,11 +5,12 @@
     <Style src="project://database/Assets/fontStyling.uss?fileID=7433441132597879392&amp;guid=d0c0881f1c32747ecb649373600de095&amp;type=3#fontStyling" />
     <Style src="project://database/Assets/UI%20Toolkit/Stylesheets/CompanionView.uss?fileID=7433441132597879392&amp;guid=715a20f0aa0920b47918dd6f4e424bbf&amp;type=3#CompanionView" />
     <Style src="project://database/Assets/cardTemplateV2.uss?fileID=7433441132597879392&amp;guid=922dd945fb23f42b392b047dcd9a06b7&amp;type=3#cardTemplateV2" />
+    <Style src="project://database/Assets/ScrollBarStyles.uss?fileID=7433441132597879392&amp;guid=2980896833cea4ded9b44f3cf3a5a143&amp;type=3#ScrollBarStyles" />
     <ui:VisualElement style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Sprites/UI/CombatRewardsBackground%20(1).png?fileID=2800000&amp;guid=22d02968a50274729a4f4335573f045b&amp;type=3#CombatRewardsBackground (1)&quot;);">
         <ui:VisualElement name="companion-area" style="flex-grow: 0; height: 30%; display: flex; align-items: center; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-bottom-width: 4px;">
             <ui:Label tabindex="-1" text="Companion Description Text" parse-escape-sequences="true" display-tooltip-when-elided="true" name="companion-description-text" style="font-size: 26px; color: rgb(255, 255, 255);" />
         </ui:VisualElement>
-        <ui:VisualElement style="flex-grow: 1; height: 60%;">
+        <ui:VisualElement style="flex-grow: 1; height: 60%; margin-right: 17px; margin-left: 17px;">
             <ui:ScrollView vertical-scroller-visibility="AlwaysVisible" name="card-scroll-view" horizontal-scroller-visibility="Hidden" style="flex-grow: 1; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0);">
                 <ui:VisualElement name="card-scroll-view-container" style="flex-grow: 1; flex-wrap: wrap; height: 100%; flex-direction: row; justify-content: center;" />
             </ui:ScrollView>
