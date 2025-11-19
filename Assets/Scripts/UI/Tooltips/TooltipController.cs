@@ -74,7 +74,7 @@ public class TooltipController {
             break;
 
             case TooltipContext.StartingTeam:
-                xTooltipPos = element.worldBound.center.x - (element.resolvedStyle.width * 0.93f);
+                xTooltipPos = element.worldBound.center.x - (element.resolvedStyle.width * 0.73f);
                 yTooltipPos = element.worldBound.center.y + (element.resolvedStyle.height * .2f);
                 position = UIDocumentGameObjectPlacer.GetWorldPositionFromUIDocumentPosition(new Vector3(xTooltipPos, yTooltipPos, 0));
                 position.z = -2;
@@ -82,13 +82,13 @@ public class TooltipController {
 
             case TooltipContext.Shop:
             case TooltipContext.MultiDeckView:
-                xTooltipPos = element.worldBound.center.x - (element.resolvedStyle.width * 1f);
+                xTooltipPos = element.worldBound.center.x - (element.resolvedStyle.width * .8f);
                 yTooltipPos = element.worldBound.center.y + (element.resolvedStyle.height * .1f);
                 position = UIDocumentGameObjectPlacer.GetWorldPositionFromUIDocumentPosition(new Vector3(xTooltipPos, yTooltipPos, 0));
             break;
 
             case TooltipContext.CompanionManagementView:
-                xTooltipPos = element.worldBound.center.x - (element.resolvedStyle.width * 1f);
+                xTooltipPos = element.worldBound.center.x - (element.resolvedStyle.width * .8f);
                 yTooltipPos = element.worldBound.center.y + (element.resolvedStyle.height * .4f);
                 position = UIDocumentGameObjectPlacer.GetWorldPositionFromUIDocumentPosition(new Vector3(xTooltipPos, yTooltipPos, 0));
             break;
