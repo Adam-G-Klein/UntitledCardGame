@@ -30,6 +30,8 @@ public class MeothraHealthDisplay : MonoBehaviour
         this.healthBarFill = healthBarUIDoc.rootVisualElement.Q<VisualElement>("boss-health-bar-fill");
         this.healthBarLabel = healthBarUIDoc.rootVisualElement.Q<Label>("boss-health-bar-label");
 
+        this.nameLabel.text = enemyInstance.enemy.enemyType.displayName;
+
         UpdateViewHandler();
         
         healthBarUIDoc.rootVisualElement.visible = false;
