@@ -53,6 +53,7 @@ public class GetTargets : EffectStep, IEffectStepCalculation
     private SpecialTargetRule specialTargetRule = SpecialTargetRule.None;
     [SerializeField]
     private bool cantCancelTargetting = false;
+    [SerializeField] private string cardSelectionHelperText;
     private bool cancelled = false;
 
     private List<Targetable> targetsList;
@@ -115,7 +116,7 @@ public class GetTargets : EffectStep, IEffectStepCalculation
                         targetsList.Add(card.GetComponent<Targetable>());
                     }
                     selected = true;
-                }, originCard, !cantCancelTargetting);
+                }, originCard, !cantCancelTargetting, cardSelectionHelperText);
                 yield return new WaitUntil(() => selected == true || (!cantCancelTargetting && cancelled));
             } else {
                 TargettingManager.Instance.targetSuppliedHandler += TargetSuppliedHandler;

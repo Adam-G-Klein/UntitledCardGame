@@ -738,11 +738,12 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             List<GameObject> cardsLimitedTo,
             Action<CancelContext> cancelCallback,
             Action<List<PlayableCard>> callback,
-            PlayableCard cardCast = null,
-            bool canCancel = false)
+            PlayableCard cardCast, // Nullable
+            bool canCancel,
+            string helperText = "")
     {
-        string CHOOSE_X_CARDS = "Choose {0} cards";
-        string CHOOSE_A_CARD = "Choose a card";
+        string CHOOSE_X_CARDS = "Choose {0} cards{1}";
+        string CHOOSE_A_CARD = "Choose a card{0}";
         string SELECT_CONFIRM = "Select Confirm";
 
         CombatEncounterView combatEncounterView = EnemyEncounterManager.Instance.combatEncounterView;
@@ -861,8 +862,10 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                 selectedCards.Remove(card);
                 deckInstanceToPlayableCard[card.deckFrom].Add(card);
             }
-            cardCast.hoverable = true;
-            deckInstanceToPlayableCard[cardCast.deckFrom].Add(cardCast);
+            if (cardCast != null) {
+                cardCast.hoverable = true;
+                deckInstanceToPlayableCard[cardCast.deckFrom].Add(cardCast);
+            }
             UpdateOrderedCards();
             UpdateCardPositions();
             cardsInSelectionSpline = null;
@@ -887,6 +890,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                     Debug.Log(String.Format("SelectingCardConfirmed: {0}", card));
                     deckInstanceToPlayableCard[card.deckFrom].Add(card);
                     cardsInSelectionSpline.Remove(card);
+                    card.hoverInPlace = false;
                 }
                 UpdateOrderedCards();
                 UpdateCardPositions();
@@ -898,11 +902,11 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             int cardsRemainingToSelect = number - selectedCards.Count;
             if (cardsRemainingToSelect > 1)
             {
-                return String.Format(CHOOSE_X_CARDS, cardsRemainingToSelect);
+                return String.Format(CHOOSE_X_CARDS, cardsRemainingToSelect, helperText);
             }
             else if (cardsRemainingToSelect == 1)
             {
-                return CHOOSE_A_CARD;
+                return String.Format(CHOOSE_A_CARD, helperText);
             }
 
             return SELECT_CONFIRM;
