@@ -451,7 +451,7 @@ public class MultiDeckView
     {
         Vector2 basePosition = new Vector2(CARD_SIZE.x / 2 + 20, 20);
         float X_STEP = CARD_SIZE.x + 20;
-        float Y_STEP = CARD_SIZE.y - 10;
+        float Y_STEP = CARD_SIZE.y + 20;
         List<VisualElement> scrollViewContents = scrollView.contentContainer.Children().ToList();
         for (int i = 0; i < scrollViewContents.Count; i++)
         {
