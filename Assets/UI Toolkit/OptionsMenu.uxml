@@ -23,7 +23,7 @@
                         <ui:Label tabindex="-1" text="100" parse-escape-sequences="true" display-tooltip-when-elided="true" style="-unity-font-style: normal;" />
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="VisualElement" class="menu-option">
+                <ui:VisualElement name="VisualElement" class="menu-option" style="display: none;">
                     <ui:Label tabindex="-1" text="Game Speed" parse-escape-sequences="true" display-tooltip-when-elided="true" class="menu-option-title" />
                     <ui:VisualElement class="menu-scrollbar-container">
                         <ui:Label tabindex="-1" text="1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Label" />
