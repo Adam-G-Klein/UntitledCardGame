@@ -326,7 +326,6 @@ public class EnemyView : IUIEventReceiver
 
     public void DamageScaleBump(int scale = -1)
     {
-        Debug.LogError("Im in here I promise");
         if (scale == 0 || this.isTweening) return; 
 
         float duration = 0.125f;  // Total duration for the scale animation
