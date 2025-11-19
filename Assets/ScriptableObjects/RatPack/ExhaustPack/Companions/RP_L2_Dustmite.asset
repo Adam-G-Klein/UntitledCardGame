@@ -47,7 +47,7 @@ MonoBehaviour:
   tooltip:
     empty: 0
     lines:
-    - title: Level Two Dustsniffer
+    - title: Dustsniffer+
       description: The first 3 times each turn you exhaust a card, Dustsniffer gains
         3 block
       relatedBehaviorIndex: 0
@@ -71,6 +71,7 @@ MonoBehaviour:
         - rid: 2295167909047304321
         - rid: 2034230017118175365
         - rid: 2034230017118175366
+        weight: 0
     - rid: 2034230017118175364
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

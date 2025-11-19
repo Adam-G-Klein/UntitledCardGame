@@ -40,7 +40,7 @@ MonoBehaviour:
   tooltip:
     empty: 0
     lines:
-    - title: Level Three King of Pain
+    - title: King of Pain++
       description: Every time a companion loses HP, give self 1 strength
       relatedBehaviorIndex: 0
   keepsakeTitle: 
@@ -58,6 +58,7 @@ MonoBehaviour:
         - rid: 7707884639552274911
         - rid: 7401433558763438357
         - rid: 7401433558763438358
+        weight: 0
     - rid: 7401433558763438356
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

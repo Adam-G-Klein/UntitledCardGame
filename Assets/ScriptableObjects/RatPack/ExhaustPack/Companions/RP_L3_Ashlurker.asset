@@ -40,7 +40,7 @@ MonoBehaviour:
   tooltip:
     empty: 0
     lines:
-    - title: Level Three Ashlurker
+    - title: Ashlurker++
       description: Whenever you exhaust a card, draw 2 cards from this companion
       relatedBehaviorIndex: 0
   keepsakeTitle: 
@@ -57,6 +57,7 @@ MonoBehaviour:
         - rid: 7401433308100034729
         - rid: 7401433308100034734
         - rid: 7401433308100034735
+        weight: 0
     - rid: 7401433308100034729
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:

@@ -41,7 +41,7 @@ MonoBehaviour:
   tooltip:
     empty: 0
     lines:
-    - title: Level Two Mab
+    - title: Mab+
       description: At the end of combat, give adjacent companions 2 max HP & heal
         8 HP. Each turn, adjacent companions lose 1 HP unless they would die.
       relatedBehaviorIndex: 0
@@ -61,6 +61,7 @@ MonoBehaviour:
         - rid: 2034229587402555395
         - rid: 8034950120506654906
         - rid: 2034230176448512382
+        weight: 0
     - rid: 205828032053379078
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -101,6 +102,7 @@ MonoBehaviour:
         - rid: 2034230176448512386
         - rid: 7401433059192472040
         - rid: 2034230176448512384
+        weight: 0
     - rid: 2034230176448512384
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:

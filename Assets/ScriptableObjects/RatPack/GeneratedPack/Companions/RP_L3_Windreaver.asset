@@ -40,7 +40,7 @@ MonoBehaviour:
   tooltip:
     empty: 0
     lines:
-    - title: Level Three Windreaver
+    - title: Windreaver++
       description: At the end of turn, retain 2 Status cards chosen at random. If
         you have 2 or less Status cards in hand, give adjacent companions 7 block
       relatedBehaviorIndex: 0
@@ -175,6 +175,7 @@ MonoBehaviour:
         - rid: 1289961959942521086
         - rid: 1289961959942521087
         - rid: 1289961959942521088
+        weight: 0
     - rid: 7707884639552274986
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:

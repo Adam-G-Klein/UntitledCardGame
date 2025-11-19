@@ -40,7 +40,7 @@ MonoBehaviour:
   tooltip:
     empty: 0
     lines:
-    - title: Level Three Grizzlypooh
+    - title: Grizzlypooh++
       description: Whenever Grizzlypooh loses HP, give self 5 block & give adj 3
         block
       relatedBehaviorIndex: 0
@@ -64,6 +64,7 @@ MonoBehaviour:
         - rid: 2511001503980847386
         - rid: 205828107393564793
         - rid: 2511001503980847387
+        weight: 0
     - rid: 205828107393564793
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
