@@ -193,6 +193,7 @@ public class PlayableCard : MonoBehaviour,
         gameObject.transform.SetParent(experience.transform);
         experience.onExperienceOver += () => {
             cardExhaustVFXFinished = true;
+            this.gameObject.transform.SetParent(null);
         };
         experience.StartExperience();
     }
