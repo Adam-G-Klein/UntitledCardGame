@@ -364,7 +364,6 @@ public class CombatEncounterView : MonoBehaviour,
     {
         if (combatOver) return;
         MultiDeckViewManager.Instance.ShowCombatDeckView();
-        Debug.LogError("trying to show deck view");
     }
 
     public void DamageIndicator(CombatInstance instance, int damage)
@@ -489,7 +488,7 @@ public class CombatEncounterView : MonoBehaviour,
             catch (MissingReferenceException exception)
             {
                 // If an enemy has died, we'll hit this case, but we don't want to fail outright
-                Debug.LogException(exception);
+                Debug.LogWarning(exception);
             }
         }
 
@@ -502,7 +501,7 @@ public class CombatEncounterView : MonoBehaviour,
             catch (MissingReferenceException exception)
             {
                 // If an enemy has died, we'll hit this case, but we don't want to fail outright
-                Debug.LogException(exception);
+                Debug.LogWarning(exception);
             }
         }
     }
