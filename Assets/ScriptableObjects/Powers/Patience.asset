@@ -34,6 +34,8 @@ MonoBehaviour:
       data:
         abilityTrigger: 2
         effectSteps:
+        - rid: 3054805490065474020
+        - rid: 3054805490065474021
         - rid: 754093991137641208
         - rid: 2511001254715195487
         - rid: 754093991137641211
@@ -49,7 +51,7 @@ MonoBehaviour:
         validTargets: 03000000
         number: 1
         specialTargetRule: 0
-        cantCancelTargetting: 0
+        cantCancelTargetting: 1
         cardSelectionHelperText: ' to retain'
     - rid: 754093991137641211
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
@@ -69,3 +71,20 @@ MonoBehaviour:
         effectStepName: CardInHandEffect
         inputKey: card
         effect: 2
+    - rid: 3054805490065474020
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: allCardsInHand
+        validTargets: 03000000
+        number: 1
+        specialTargetRule: 1
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+    - rid: 3054805490065474021
+      type: {class: EndWorkflowIfListEmpty, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfListEmpty
+        inputKey1: allCardsInHand
