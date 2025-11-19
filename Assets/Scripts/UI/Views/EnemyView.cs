@@ -326,14 +326,15 @@ public class EnemyView : IUIEventReceiver
 
     public void DamageScaleBump(int scale = -1)
     {
+        Debug.LogError("Im in here I promise");
         if (scale == 0 || this.isTweening) return; 
 
         float duration = 0.125f;  // Total duration for the scale animation
         float minScale = .8f; // (float)Math.Min(.75, .9 - scale / 500);  // scale bump increases in intensity if entity takes more damage (haven't extensively tested this)
 
         Vector2 originalElementScale = new Vector2(
-            this.container.style.scale.value.value.x,
-            this.container.style.scale.value.value.y
+            this.spriteElement.style.scale.value.value.x,
+            this.spriteElement.style.scale.value.value.y
         );
 
         LeanTween.value(1f, minScale, duration)
@@ -341,7 +342,7 @@ public class EnemyView : IUIEventReceiver
             .setLoopPingPong(1) // inverse tween is called when this tween completes. On complete below is called after both tweens complete
             .setOnUpdate((float currentScale) =>
             {
-                this.container.style.scale = new StyleScale(new Scale(originalElementScale * currentScale));
+                this.spriteElement.style.scale = new StyleScale(new Scale(originalElementScale * currentScale));
             })
             .setOnStart(() =>
             {
@@ -350,7 +351,7 @@ public class EnemyView : IUIEventReceiver
             .setOnComplete(() =>
             {
                 this.isTweening = false;
-                this.container.style.scale = new StyleScale(new Scale(originalElementScale));
+                this.spriteElement.style.scale = new StyleScale(new Scale(originalElementScale));
             });
     }
 
