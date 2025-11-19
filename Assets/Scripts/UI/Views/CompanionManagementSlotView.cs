@@ -109,6 +109,7 @@ public class CompanionManagementSlotView {
 
     public void FocusHandler() {
         SetHighlighted();
+        MusicController.Instance.PlaySFX("event:/SFX/SFX_UIHover");
         if (companionManagementView != null) {
             companionManagementView.CompanionManagementOnPointerEnter(null);
         }

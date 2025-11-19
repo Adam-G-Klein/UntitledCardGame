@@ -156,6 +156,7 @@ public class CompendiumView : IControlsReceiver {
             companionCardsContainer.Add(cardContainer);
             cardContainer.name = card.name;
             cardContainer.RegisterCallback<PointerEnterEvent>((evt) => {
+                MusicController.Instance.PlaySFX("event:/SFX/SFX_UIHover");
                 if (card.GetTooltip().empty) {
                     return;
                 }
@@ -166,6 +167,7 @@ public class CompendiumView : IControlsReceiver {
             });
             VisualElementFocusable cardFocusable = cardContainer.AsFocusable();
             cardFocusable.additionalFocusAction += () => {
+                MusicController.Instance.PlaySFX("event:/SFX/SFX_UIHover");
                 if (card.GetTooltip().empty) {
                     return;
                 }

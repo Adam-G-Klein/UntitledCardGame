@@ -375,10 +375,15 @@ public class MultiDeckView
                 companionView.container.RegisterCallback<PointerLeaveEvent>((evt) => {
                     tooltipController.DestroyTooltip(companionView.container);
                 });
+
+                // Don't put the SFX in the RegisterCallbacks for companions above, it's already done in 
+                // CompanionManagementView
                 companionFocusable.additionalFocusAction += () => {
+                    MusicController.Instance.PlaySFX("event:/SFX/SFX_UIHover");
                     tooltipController.DisplayTooltip(companionView.container, companion.companionType.GetTooltip(), TooltipContext.MultiDeckView);
                 };
                 companionFocusable.additionalUnfocusAction += () => {
+                    MusicController.Instance.PlaySFX("event:/SFX/SFX_UIHover");
                     tooltipController.DestroyTooltip(companionView.container);
                 };
                 FocusManager.Instance.RegisterFocusableTarget(companionFocusable);
@@ -403,6 +408,7 @@ public class MultiDeckView
                     FocusManager.Instance.RegisterFocusableTarget(cardView.cardFocusable);
 
                     cardView.cardContainer.RegisterCallback<PointerEnterEvent>((evt) => {
+                        MusicController.Instance.PlaySFX("event:/SFX/SFX_UIHover");
                         if (card.cardType.GetTooltip().empty) {
                             return;
                         }
@@ -413,6 +419,7 @@ public class MultiDeckView
                     });
                     VisualElementFocusable cardFocusable = cardView.cardContainer.AsFocusable();
                     cardFocusable.additionalFocusAction += () => {
+                        MusicController.Instance.PlaySFX("event:/SFX/SFX_UIHover");
                         if (card.cardType.GetTooltip().empty) {
                             return;
                         }

@@ -81,7 +81,7 @@ public class CombatEncounterView : MonoBehaviour,
 
         VisualElement endTurnElement = root.Q<VisualElement>("end-turn");
         endTurnElement.pickingMode = PickingMode.Position;
-        VisualElementUtils.RegisterSelected(endTurnElement, EndPlayerTurnHandler);
+        endTurnElement.RegisterOnSelected(EndPlayerTurnHandler);
         IconButton endTurnButton = endTurnElement as IconButton;
         endTurnButton.SetIcon(GFGInputAction.END_TURN, ControlsManager.Instance.GetSpriteForGFGAction(GFGInputAction.END_TURN));
         ControlsManager.Instance.RegisterIconChanger(endTurnButton);

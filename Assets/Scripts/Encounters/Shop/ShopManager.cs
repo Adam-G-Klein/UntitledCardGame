@@ -585,7 +585,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     }
 
     public void ShopItemHovered() {
-        MusicController.Instance.PlaySFX("event:/SFX/SFX_UIHover");
+        // MusicController.Instance.PlaySFX("event:/SFX/SFX_UIHover");
     }
 
     public void SetRemovingCard(bool val) {

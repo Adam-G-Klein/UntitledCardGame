@@ -154,6 +154,7 @@ public class CompanionManagementView : IControlsReceiver {
 
     public void CompanionManagementOnPointerEnter(PointerEnterEvent evt)
     {
+        MusicController.Instance.PlaySFX("event:/SFX/SFX_UIHover");
         if (viewDelegate == null) return;
         if (viewDelegate.IsSellingCompanions() || viewDelegate.IsDraggingCompanion() || upgradeAnimationPlaying) return;
         CreateViewDeckButton();

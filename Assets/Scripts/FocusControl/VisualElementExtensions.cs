@@ -19,7 +19,7 @@ public static class VisualElementExtensions
         element.focusable = true;
     }
 
-    public static void RegisterOnSelected(this VisualElement element, Action action, bool playfx = true) {
+    public static void RegisterOnSelected(this VisualElement element, Action action, bool playfx = true, bool playsfx = true) {
         element.RegisterCallback<ClickEvent>(evt => {
             action();
             if (evt.pointerType == "mouse") {
@@ -31,9 +31,15 @@ public static class VisualElementExtensions
             action();
             if (playfx) OnSelectedTween(element);
         });
+        if (playsfx) {
+            element.AsFocusable().additionalFocusAction += () => MusicController.Instance.PlaySFX("event:/SFX/SFX_UIHover");
+            element.RegisterCallback<PointerEnterEvent>((evt) => {
+                MusicController.Instance.PlaySFX("event:/SFX/SFX_UIHover");
+            });
+        }
     }
 
-    public static void RegisterOnSelected(this VisualElement element, Action<ClickEvent> action, bool playfx = true) {
+    public static void RegisterOnSelected(this VisualElement element, Action<ClickEvent> action, bool playfx = true, bool playsfx = true) {
         element.RegisterCallback<ClickEvent>(evt => {
             action(evt);
             if (evt.pointerType == "mouse") {
@@ -45,6 +51,12 @@ public static class VisualElementExtensions
             action(element.CreateFakeClickEvent());
             if (playfx) OnSelectedTween(element);
         });
+        if (playsfx) {
+            element.AsFocusable().additionalFocusAction += () => MusicController.Instance.PlaySFX("event:/SFX/SFX_UIHover");
+            element.RegisterCallback<PointerEnterEvent>((evt) => {
+                MusicController.Instance.PlaySFX("event:/SFX/SFX_UIHover");
+            });
+        }
     }
 
     public static void RegisterOnFocused(this VisualElement element, Action action) {
