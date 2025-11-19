@@ -481,6 +481,7 @@ public class CombatEncounterView : MonoBehaviour,
     {
         foreach (CombatInstance instance in combatInstanceToCompanionView.Keys)
         {
+            if (instance == null) continue;
             try
             {
                 instance.GetComponent<TooltipOnHover>()?.OnPointerExitVoid();
@@ -494,6 +495,7 @@ public class CombatEncounterView : MonoBehaviour,
 
         foreach (CombatInstance instance in combatInstanceToEnemyView.Keys)
         {
+            if (instance == null) continue;
             try
             {
                 instance.GetComponent<TooltipOnHover>()?.OnPointerExitVoid();
@@ -505,6 +507,7 @@ public class CombatEncounterView : MonoBehaviour,
             }
         }
     }
+
     public List<EnemyView> GetEnemyViews() {
         return entityViews;
     }
