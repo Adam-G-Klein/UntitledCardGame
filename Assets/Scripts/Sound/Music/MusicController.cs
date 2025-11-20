@@ -8,6 +8,7 @@ public class MusicController : GenericSingleton<MusicController>
 {
     [SerializeField] FMODUnity.EventReference fmodMixer;
     [SerializeField][ParamRef] public string combatState;
+    public FMODUnity.EventReference meothraMusic;
     private FMOD.Studio.EventInstance mixerInstance;
     private FMOD.Studio.EventInstance instance;
     public List<LocationTrack> locationTracks;
@@ -61,7 +62,7 @@ public class MusicController : GenericSingleton<MusicController>
         }
     }
 
-    public void SetVolume(float volume, VolumeType volumeType) {
+     public void SetVolume(float volume, VolumeType volumeType) {
         switch(volumeType) {
             case VolumeType.SFX:
                 currentSFXVolume = volume;
@@ -125,6 +126,17 @@ public class MusicController : GenericSingleton<MusicController>
             default:
                 break;
         }
+    }
+
+    public void PlayBossMusic() 
+    {
+        instance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        instance.release();
+        // instance = FMODUnity.RuntimeManager.CreateInstance(meothraMusic);
+        instance = FMODUnity.RuntimeManager.CreateInstance("{12fa3fda-9f96-4f70-a7a1-24e2273bc2bb}");
+        instance.start();
+        instance.setVolume(currentMusicVolume);
+        // currentReference = meothraMusic;
     }
 
     // Update is called once per frame

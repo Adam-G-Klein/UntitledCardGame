@@ -29,6 +29,8 @@ public class MeothraController : MonoBehaviour, IBossController
         if (meothraAnimationController == null) meothraAnimationController = GetComponentInChildren<MeothraAnimationController>();
         if (meothraOutroAnimationDisplay == null) meothraOutroAnimationDisplay = GetComponentInChildren<MeothraOutroAnimationDisplay>();
         if (focusable == null) focusable = GetComponent<GameObjectFocusable>();
+        MusicController.Instance.PlayBossMusic();
+        
 
         meothraIntentDisplay.Setup();
         meothraIntroAnimation.Setup();
