@@ -17,7 +17,7 @@ MonoBehaviour:
   maxHealth: 120
   baseAttackDamage: 0
   enemyDisplayType: 0
-  sprite: {fileID: 21300000, guid: 3425f2ba3d8884f069901550072066c7, type: 3}
+  sprite: {fileID: 21300000, guid: 690997149efc2d74888e3d1bfed1b225, type: 3}
   backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
   entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
   morale: 0
@@ -80,6 +80,7 @@ MonoBehaviour:
         - rid: 205828126246961466
         - rid: 8034949928137261285
         - rid: 205828126246961467
+        weight: 0
     - rid: 205828126246961458
       type: {class: CombatInstanceCacheLoad, ns: , asm: Assembly-CSharp}
       data:
@@ -98,6 +99,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 205828126246961460
       type: {class: MathStep, ns: , asm: Assembly-CSharp}
       data:
@@ -176,6 +178,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 205828126246961606
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:

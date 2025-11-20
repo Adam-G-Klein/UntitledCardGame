@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: DuoPoohBear
   m_EditorClassIdentifier: 
   guid: 059295ec-69f5-4ba1-904a-03d1cb01242a
-  displayName: Pooh the Chaotic
+  displayName: Chaotic Pooh
   maxHealth: 60
   baseAttackDamage: 0
   enemyDisplayType: 0
-  sprite: {fileID: 21300000, guid: 14c5e60f4b8814ee0a50118f46266ff5, type: 3}
+  sprite: {fileID: 21300000, guid: 9a02158f2c6e8479bb9c21bbe525e9e8, type: 3}
   backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
   entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
   morale: 0
@@ -92,6 +92,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 5280922829633617990
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 0d011ef7-c98d-4486-879b-e959bc4bbf60
   Name: Focus Shield
-  Description: Give any 3 block & if you have 3 or less cards in hand, give 4 block
+  Description: Give any 3 block & if you have 3 or less cards in hand, give +4 block
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 6ea2475484f389f4bb3e309b575cdf7e, type: 3}
@@ -33,6 +33,7 @@ MonoBehaviour:
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
   tooltips: 
+  tooltipKeyword: 37
   references:
     version: 2
     RefIds:
@@ -49,6 +50,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 1
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 1289961820425028089
       type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
       data:
@@ -89,6 +91,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 2034230108114649173
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:

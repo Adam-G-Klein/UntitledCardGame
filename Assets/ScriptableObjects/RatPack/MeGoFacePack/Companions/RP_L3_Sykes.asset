@@ -44,9 +44,6 @@ MonoBehaviour:
       description: Each turn, create a 0 mana "Dagger+" card in hand for a random
         adjacent companion x2
       relatedBehaviorIndex: 0
-    - title: Dagger+
-      description: 0. Exhaust. Deal 5 damage.
-      relatedBehaviorIndex: 0
   keepsakeTitle: Level Three Daggermunk
   keepsakeDescription: Each turn, create a 0 mana "Dagger+" card in hand for a random
     adjacent companion x2
@@ -67,6 +64,7 @@ MonoBehaviour:
         - rid: 2511001254715195867
         - rid: 1289961959942521115
         - rid: 2511001254715195868
+        weight: 0
     - rid: 205828032053379326
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -78,6 +76,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 1289961820425028349
       type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}
       data:

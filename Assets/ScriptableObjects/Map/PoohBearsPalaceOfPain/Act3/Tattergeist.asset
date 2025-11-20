@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
-  m_Name: GreatSerpent
+  m_Name: Tattergeist
   m_EditorClassIdentifier: 
   guid: fdcfd110-22dc-4989-a339-f729638716e1
-  displayName: Great Serpent
+  displayName: Tattergeist
   maxHealth: 60
   baseAttackDamage: 0
   enemyDisplayType: 0
@@ -90,6 +90,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 3443535291885027989
       type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
       data:
@@ -106,6 +107,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 4463205916933358107
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:

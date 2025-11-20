@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: DuoSweetie
   m_EditorClassIdentifier: 
   guid: 7afc358c-b0cd-4065-a02a-8f863448a6f2
-  displayName: Sweetie the Low-key Angry
+  displayName: Angry Sweetie
   maxHealth: 50
   baseAttackDamage: 0
   enemyDisplayType: 0
-  sprite: {fileID: 21300000, guid: 7aa149c240ec849f6a442370424d5967, type: 3}
+  sprite: {fileID: 21300000, guid: 610959c6eb969430188e6c6317075511, type: 3}
   backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
   entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
   morale: 0
@@ -74,6 +74,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 3931529445166809326
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
@@ -98,6 +99,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 1
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 8034949995316642094
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:

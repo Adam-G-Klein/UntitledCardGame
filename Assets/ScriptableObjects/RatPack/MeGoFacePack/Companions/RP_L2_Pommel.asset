@@ -45,8 +45,8 @@ MonoBehaviour:
         strength
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: Each time you play an Attack card, give companions adjacent
-    to Hyperwoof 2 temporary strength
+  keepsakeDescription: Each time you play an Attack, give adjacent companions 2 temporary
+    strength
   references:
     version: 2
     RefIds:
@@ -88,6 +88,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 2034230176448512494
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
