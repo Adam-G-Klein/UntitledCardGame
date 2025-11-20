@@ -72,7 +72,7 @@ public class CardSelectionView : MonoBehaviour
             this.companionArea.style.display = DisplayStyle.None;
         } else {
             CompanionView companionView = new CompanionView(companion, companionViewTemplate, 0, CompanionView.CARD_SELECTION_CONTEXT, null);
-            companionView.ScaleView(0.85f);
+            companionView.ScaleView(0.70f);
             this.companionArea.Insert(0, companionView.container);
 
             Label companionText = uiDoc.rootVisualElement.Q<Label>("companion-description-text");

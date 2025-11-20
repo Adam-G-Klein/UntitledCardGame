@@ -301,7 +301,7 @@ public class CompanionManagementView : IControlsReceiver {
 
     private void BoundingBoxParentOnPointerMove(PointerMoveEvent evt)
     {
-        if (!companionBoundingBox.worldBound.Contains(evt.position))
+        if (companionBoundingBox != null && !companionBoundingBox.worldBound.Contains(evt.position))
         {
             RemoveCompanionHoverButtons();
         }
