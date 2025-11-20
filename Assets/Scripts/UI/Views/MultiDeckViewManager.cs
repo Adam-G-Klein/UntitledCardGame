@@ -70,7 +70,7 @@ public class MultiDeckViewManager : GenericSingleton<MultiDeckViewManager>, IMul
         {
             return;
         }
-        if (!CombatEntityManager.Instance)
+        if (!CombatEntityManager.CheckInstance)
         {
             Debug.LogError("No CombatEntityManager found in scene, cannot show combat deck view");
             return;

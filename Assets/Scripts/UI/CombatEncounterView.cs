@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
@@ -47,6 +48,7 @@ public class CombatEncounterView : MonoBehaviour,
     private bool combatOver = false;
     public MapView mapView;
     private CardInHandSelectionView cardInHandSelectionView;
+    private UnityEngine.UIElements.Button endTurnButton;
 
     private Dictionary<CombatInstance, CompanionView> combatInstanceToCompanionView;
     private Dictionary<CombatInstance, EnemyView> combatInstanceToEnemyView;
@@ -79,12 +81,12 @@ public class CombatEncounterView : MonoBehaviour,
         SetupCompanions(root.Q<VisualElement>("companionContainer"), companions);
         UIDocumentUtils.SetAllPickingMode(root, PickingMode.Ignore);
 
-        VisualElement endTurnElement = root.Q<VisualElement>("end-turn");
-        endTurnElement.pickingMode = PickingMode.Position;
-        endTurnElement.RegisterOnSelected(EndPlayerTurnHandler);
-        IconButton endTurnButton = endTurnElement as IconButton;
-        endTurnButton.SetIcon(GFGInputAction.END_TURN, ControlsManager.Instance.GetSpriteForGFGAction(GFGInputAction.END_TURN));
-        ControlsManager.Instance.RegisterIconChanger(endTurnButton);
+        endTurnButton = root.Q<UnityEngine.UIElements.Button>("end-turn");
+        endTurnButton.pickingMode = PickingMode.Position;
+        endTurnButton.RegisterOnSelected(EndPlayerTurnHandler);
+        IconButton endTurnIcon = endTurnButton as IconButton;
+        endTurnIcon.SetIcon(GFGInputAction.END_TURN, ControlsManager.Instance.GetSpriteForGFGAction(GFGInputAction.END_TURN));
+        ControlsManager.Instance.RegisterIconChanger(endTurnIcon);
 
         setupComplete = true;
         // for the boss fight

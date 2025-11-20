@@ -77,6 +77,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     private bool cardsInHandLocked = false;
     private readonly float cardDealDelay = .05f;
     private bool canPlayCards = true;
+    private bool dealingCardsPreventedEndingTurn = false;
 
     private float cardBatchingDelay = .1f;
     private int indexToHover = -1;
@@ -166,7 +167,10 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             // Idle if there are no cards to deal.
             if (cardDealQueue.Count == 0)
             {
-                EnemyEncounterManager.Instance.CanEndTurn(true);
+                if (dealingCardsPreventedEndingTurn) {
+                    EnemyEncounterManager.Instance.CanEndTurn(true);
+                    dealingCardsPreventedEndingTurn = false;
+                }
                 // Bus runs every interval.
                 yield return new WaitForSeconds(0.2f);
                 continue;
@@ -433,6 +437,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     public List<PlayableCard> DealCards(List<Card> cards, DeckInstance deckFrom, bool countAsDraw = true, bool fromCardCast = false)
     {
         EnemyEncounterManager.Instance.CanEndTurn(false);
+        dealingCardsPreventedEndingTurn = true;
         List<PlayableCard> dealt = DealCardsQueued(cards, deckFrom, countAsDraw, fromCardCast);
         // If the deck is not null, we'll discard all the cards not successfully dealt to hand.
         if (deckFrom != null)
