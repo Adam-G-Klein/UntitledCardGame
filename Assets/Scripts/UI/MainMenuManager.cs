@@ -101,6 +101,6 @@ public class MainMenuManager : MonoBehaviour
     }
 
     private void VisitSteamPageHandler() {
-        Application.OpenURL("https://store.steampowered.com/app/3931980/Rite_of_the_Dealer/");
+        Application.OpenURL("https://store.steampowered.com/app/3931980/Paccarat/");
     }
 }

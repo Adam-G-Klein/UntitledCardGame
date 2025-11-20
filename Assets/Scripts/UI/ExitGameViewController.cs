@@ -40,7 +40,7 @@ public class ExitGameViewController : MonoBehaviour
     }
 
     private void VisitSteamPageHandler() {
-        Application.OpenURL("https://store.steampowered.com/app/3931980/Rite_of_the_Dealer/");
+        Application.OpenURL("https://store.steampowered.com/app/3931980/Paccarat/");
         visitedSteamPage = true;
         exitButton.text = buttonHappyText;
         ratElement.style.backgroundImage = new StyleBackground(happySprite);
