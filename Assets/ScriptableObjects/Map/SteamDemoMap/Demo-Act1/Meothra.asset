@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Meothra
   m_EditorClassIdentifier: 
   guid: ab269716-f448-4bdd-b825-cf9f5af094e6
-  displayName: Baron Grimmwhisker
+  displayName: Grimmwhisker
   maxHealth: 60
   baseAttackDamage: 0
   enemyDisplayType: 2
@@ -81,6 +81,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 3931529445166809422
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
