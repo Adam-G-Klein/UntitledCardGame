@@ -274,7 +274,7 @@ public class MultiDeckView
     }
 
     public void StartScrolling(int direction) {
-        GetCurrentScrollView().StartScrolling(0.005f, direction);
+        GetCurrentScrollView().StartScrolling(0.015f, direction);
     }
 
     public void StopScrolling() {
