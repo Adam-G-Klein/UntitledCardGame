@@ -58,18 +58,11 @@ MonoBehaviour:
         abilityTrigger: 1
         effectSteps:
         - rid: 7707884639552275425
-        - rid: 205828032053380026
         - rid: 205828032053380027
         - rid: 205828032053380028
         - rid: 205828032053380029
         - rid: 205828032053380030
         weight: 0
-    - rid: 205828032053380026
-      type: {class: DialogueStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: DialogueStep
-        line: Beep boop. Whose deck should I thin?
-        lineTime: 2
     - rid: 205828032053380027
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -81,6 +74,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 1
+        cardSelectionHelperText: 
     - rid: 205828032053380028
       type: {class: GetCardsFromDeck, ns: , asm: Assembly-CSharp}
       data:
@@ -147,6 +141,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 6
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 7707884639552275425
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
