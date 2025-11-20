@@ -198,6 +198,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         of the VFX timing for reviving companions at the end of the encounter
     */
     private IEnumerator EndEncounterCoroutine(EndEncounterEventInfo info) {
+        TurnOffInteractions();
         combatOver = true;
         combatEncounterView.SetEndCombat(true);
 
@@ -287,7 +288,6 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         uIStateEvent.Raise(new UIStateEventInfo(UIState.END_ENCOUNTER));
         //postCombatUI.transform.SetSiblingIndex(postCombatUI.transform.parent.childCount - 1);
         
-        TurnOffInteractions();
         TurnOffFocusing();// Needs to go before the next line bc this line disables existing focus, while the next line sets up more focus
         postCombatUI.GetComponent<EndEncounterView>().Setup(baseGoldEarnedPerBattle, extraGold, gameState.baseShopData.interestCap, gameState.baseShopData.interestRate);
         StartCoroutine(displayPostCombatUIAfterDelay());
