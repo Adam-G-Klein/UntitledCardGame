@@ -172,6 +172,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             if (upgradeInfo != null)
             {
                 shopViewController.isBuyingDisabled = true;
+                shopViewController.canDragCompanions = false;
                 gameState.playerData.GetValue().gold -= companionInShop.price;
                 shopViewController.SetMoney(gameState.playerData.GetValue().gold);
                 InstantiateShopVFX(moneySpentPrefab, shopItemView.shopItemElement, 1.5f);
@@ -208,6 +209,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
                 return;
             }
             shopViewController.isBuyingDisabled = true;
+            shopViewController.canDragCompanions = false;
             gameState.playerData.GetValue().gold -= companionInShop.price;
             shopViewController.SetMoney(gameState.playerData.GetValue().gold);
             gameState.AddCompanionToTeam(companionToAdd);
@@ -251,6 +253,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         shopViewController.SetupCompanionManagementView(companion, companionManagementSlotView);
         shopViewController.CompanionScaleBumpAnimation(companionManagementSlotView.companionManagementView.container, 1, 1.2f, .25f);
         shopViewController.isBuyingDisabled = false;
+        shopViewController.canDragCompanions = true;
         //Sparkle(companionManagementSlotView.root);
     }
 

@@ -490,6 +490,7 @@ public class ShopViewController : MonoBehaviour,
                         upgradedCompanion.SetUpdateAnimationPlaying(false);
                         RebuildUnitManagement(shopManager.gameState.companions);
                         isBuyingDisabled = false;
+                        canDragCompanions = true;
                         ScreenShakeManager.Instance.ShakeWithForce(1f);
                         MusicController.Instance.PlaySFX("event:/SFX/SFX_CompanionUpgradeThud");
                     });
