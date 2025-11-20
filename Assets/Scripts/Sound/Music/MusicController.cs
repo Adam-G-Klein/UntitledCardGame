@@ -77,7 +77,11 @@ public class MusicController : GenericSingleton<MusicController>
 
     public void PlaySFX(string sfx)
     {
-        RuntimeManager.PlayOneShot(sfx, currentSFXVolume);
+        // want the boss attack to feel weightier, so increase volume
+        // and hard code to avoid affecting other SFX volume
+        if (sfx == "event:/SFX/BossFight/SFX_MeothraAttack") { RuntimeManager.PlayOneShot(sfx, 0.75f); }
+        else { RuntimeManager.PlayOneShot(sfx, currentSFXVolume); }
+        
     }
 
     public void PlayStartSFX()
