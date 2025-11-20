@@ -114,6 +114,9 @@
 		</relationship>
 	</object>
 	<object class="EventMixerGroup" id="{6d0934ae-be45-4a42-838d-0c0de9023de1}">
+		<property name="volume">
+			<value>1.5</value>
+		</property>
 		<property name="name">
 			<value>Audio 1</value>
 		</property>
@@ -135,9 +138,7 @@
 			<value>0.5</value>
 		</property>
 		<relationship name="sounds">
-			<destination>{ba703640-a49b-4a2b-b39e-e8f45801b31a}</destination>
 			<destination>{c71694fe-ab3a-46d5-b89d-b8346fd07750}</destination>
-			<destination>{e5537976-5efa-41b4-87cf-e0df25db3506}</destination>
 			<destination>{93097b60-2b70-4ca3-835d-5fb32de2f96f}</destination>
 			<destination>{1fefb15a-6ee9-4fd1-88f8-680462045046}</destination>
 			<destination>{06933d97-f52a-46cf-846c-c9af786a6968}</destination>
@@ -146,7 +147,7 @@
 	</object>
 	<object class="EventMixerGroup" id="{0246f619-8dfe-4864-8fb4-c493bcc9b21f}">
 		<property name="volume">
-			<value>-10</value>
+			<value>-1</value>
 		</property>
 		<property name="name">
 			<value>Audio 2</value>
@@ -163,6 +164,7 @@
 	</object>
 	<object class="MixerBusEffectChain" id="{df8e40cc-3721-4818-8e0a-cc1625db1d8c}">
 		<relationship name="effects">
+			<destination>{768ce860-b63b-4cac-82d0-d421b6581cb8}</destination>
 			<destination>{9927b98a-e757-43fe-bb47-13d1f5837455}</destination>
 		</relationship>
 	</object>
@@ -192,9 +194,7 @@
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{847c79d2-73b3-49e6-8263-fb081dd8560e}" />
-	<object class="SilenceSound" id="{ba703640-a49b-4a2b-b39e-e8f45801b31a}" />
 	<object class="SilenceSound" id="{c71694fe-ab3a-46d5-b89d-b8346fd07750}" />
-	<object class="SilenceSound" id="{e5537976-5efa-41b4-87cf-e0df25db3506}" />
 	<object class="SilenceSound" id="{93097b60-2b70-4ca3-835d-5fb32de2f96f}" />
 	<object class="SingleSound" id="{1fefb15a-6ee9-4fd1-88f8-680462045046}">
 		<relationship name="audioFile">
@@ -217,6 +217,14 @@
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{daa468ec-21f9-4d15-abac-4e6ce554c557}" />
+	<object class="LimiterEffect" id="{768ce860-b63b-4cac-82d0-d421b6581cb8}">
+		<property name="ceiling">
+			<value>-1.10000002</value>
+		</property>
+		<property name="release">
+			<value>5.80000019</value>
+		</property>
+	</object>
 	<object class="MixerBusFader" id="{9927b98a-e757-43fe-bb47-13d1f5837455}" />
 	<object class="MixerBusFader" id="{0e4fb858-5b15-4cd4-8d1c-e6129f2dc9a5}" />
 	<object class="MixerBusFader" id="{9b8f3185-c9cb-4650-9584-0d561857b5f3}" />
