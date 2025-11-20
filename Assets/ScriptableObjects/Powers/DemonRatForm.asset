@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DemonRatForm
   m_EditorClassIdentifier: 
   powerType: 13
-  title: Rats Together Strong
+  title: Power of the Pack
   description: End of turn, give self & adjacent 1 strength
   abilities:
   - rid: 754094139776958548
@@ -52,6 +52,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 754094139776958550
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
