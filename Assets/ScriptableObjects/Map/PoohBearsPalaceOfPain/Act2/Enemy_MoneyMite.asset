@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Enemy_MoneyMite
   m_EditorClassIdentifier: 
   guid: 115890b6-b3d4-4bcd-ae33-78c88b92389d
-  displayName: Money Mite
+  displayName: Gold Gremlin
   maxHealth: 15
   baseAttackDamage: 0
   enemyDisplayType: 0
@@ -96,6 +96,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 4463205916933358347
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
@@ -134,3 +135,4 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
+        cardSelectionHelperText: 

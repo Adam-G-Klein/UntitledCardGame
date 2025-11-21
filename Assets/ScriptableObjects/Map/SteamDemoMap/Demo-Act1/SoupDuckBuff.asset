@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SoupDuckBuff
   m_EditorClassIdentifier: 
   guid: 901812dd-fc45-4df5-8d09-712eceb11bbf
-  displayName: Soup Duck
+  displayName: Fowler
   maxHealth: 12
   baseAttackDamage: 0
   enemyDisplayType: 0
@@ -70,6 +70,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 3931529445166809422
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:

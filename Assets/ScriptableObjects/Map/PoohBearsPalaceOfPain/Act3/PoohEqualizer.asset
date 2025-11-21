@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: PoohEqualizer
   m_EditorClassIdentifier: 
   guid: 3af5c5c6-787b-4e19-bbef-5c7530283f2c
-  displayName: Pooh, Equalizer
+  displayName: The Equalizer
   maxHealth: 110
   baseAttackDamage: 0
   enemyDisplayType: 0
-  sprite: {fileID: 21300000, guid: 86313e022c582cf4ba37873bc6a0b704, type: 3}
+  sprite: {fileID: 21300000, guid: 14c5e60f4b8814ee0a50118f46266ff5, type: 3}
   backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
   entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
   morale: 0
@@ -61,7 +61,7 @@ MonoBehaviour:
     - title: Balance in the force
       description: Gain 1 strength for each companion above half HP
       relatedBehaviorIndex: 1
-    - title: Pooh the Equalizer
+    - title: The Equalizer
       description: 'Ability: gains strength for each companion above half HP on your
         team'
       relatedBehaviorIndex: -1
@@ -81,6 +81,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 1
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 2034229861011161099
       type: {class: FilterEntityByHP, ns: , asm: Assembly-CSharp}
       data:
@@ -108,6 +109,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 1
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 3443535291885027986
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -139,6 +141,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 5602893111447519702
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:

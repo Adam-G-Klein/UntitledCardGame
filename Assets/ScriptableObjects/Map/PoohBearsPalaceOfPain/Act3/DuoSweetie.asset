@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: DuoSweetie
   m_EditorClassIdentifier: 
   guid: 7afc358c-b0cd-4065-a02a-8f863448a6f2
-  displayName: Angry Sweetie
+  displayName: Leg Sweeper
   maxHealth: 50
   baseAttackDamage: 0
   enemyDisplayType: 0
-  sprite: {fileID: 21300000, guid: 610959c6eb969430188e6c6317075511, type: 3}
+  sprite: {fileID: 21300000, guid: 59f39a1a4384a56469d68d75f27f1520, type: 3}
   backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
   entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
   morale: 0
@@ -52,11 +52,11 @@ MonoBehaviour:
   tooltip:
     empty: 0
     lines:
-    - title: Sweetie hates everyone
-      description: Deals AOE damage to your entire team just because >:)
+    - title: Takedown
+      description: Deals AOE damage
       relatedBehaviorIndex: 0
-    - title: power of the crunchies
-      description: gives herself strength
+    - title: Empower
+      description: Gives himself strength
       relatedBehaviorIndex: 1
   DEADLIER_ENEMY_BONUS_STR: -1
   HEALTHIER_ENEMY_BONUS_HEALTH: -1

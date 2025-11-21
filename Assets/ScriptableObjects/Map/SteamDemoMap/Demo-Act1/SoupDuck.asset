@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SoupDuck
   m_EditorClassIdentifier: 
   guid: 019b4545-7aff-47fe-8e99-48cdc1d38604
-  displayName: Soup Duck
+  displayName: Ducky
   maxHealth: 18
   baseAttackDamage: 0
   enemyDisplayType: 0
@@ -68,6 +68,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 3931529445166809422
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
