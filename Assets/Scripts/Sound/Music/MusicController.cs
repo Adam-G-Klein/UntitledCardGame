@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using FMODUnity;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class MusicController : GenericSingleton<MusicController>
@@ -28,12 +29,29 @@ public class MusicController : GenericSingleton<MusicController>
         // A rare use case for this, we want our music to give nary a FLINCH at a scene change
         // GenericSingleton handles deduping across scenes
         DontDestroyOnLoad(this.gameObject);
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     public void PrepareForGoingBackToMainMenu() {
         instance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         instance.release();
+        SceneManager.sceneLoaded -= OnSceneLoaded;
         Destroy(this.gameObject);
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        /*
+        Can get a really niche bug where we go to main menu,
+        and after we destroy the current MusicController and before the scene
+        loads, a script calls playSFX and instantiates a new MusicController due to
+        GenericSingleton. So this is here to check if we accidentally spawned a new
+        MusicController.
+        */
+        if (locationTracks == null) {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+            Destroy(this.gameObject);
+        }
     }
     
     public void PlayMusicLocation(Location location)
