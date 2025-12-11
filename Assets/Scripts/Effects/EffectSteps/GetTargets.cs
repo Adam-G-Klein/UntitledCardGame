@@ -103,6 +103,8 @@ public class GetTargets : EffectStep, IEffectStepCalculation
 
         if (getAllValidTargets) {
             GetAllValidTargets(document);
+        } else if (specialTargetRule == SpecialTargetRule.TargetLeftmost) {
+            GetTargetAtPosition(document, 0);
         } else if (specialTargetRule == SpecialTargetRule.TargetRandom) {
             GetTargetsRandomly(document);
         } else {
@@ -233,6 +235,26 @@ public class GetTargets : EffectStep, IEffectStepCalculation
         }
     }
 
+    private void GetTargetAtPosition(EffectDocument document, int pos = 0) {
+        if (validTargets.Contains(Targetable.TargetType.Companion)) {
+            List<CompanionInstance> companions = CombatEntityManager.Instance.getCompanions()
+                .FindAll(instance => !disallowedTargets.Contains(instance.gameObject));
+            int index = Mathf.Clamp(pos, 0, companions.Count - 1);
+            EffectUtils.AddCompanionToDocument(document, outputKey, companions[index]);
+        }
+        if (validTargets.Contains(Targetable.TargetType.Enemy)) {
+            List<EnemyInstance> enemies = CombatEntityManager.Instance.getEnemies()
+                .FindAll(instance => !disallowedTargets.Contains(instance.gameObject));
+            int index = Mathf.Clamp(pos, 0, enemies.Count - 1);
+            EffectUtils.AddEnemyToDocument(document, outputKey, enemies[index]);
+        }
+        if (validTargets.Contains(Targetable.TargetType.Card)) {
+            List<PlayableCard> playableCards = PlayerHand.Instance.GetCardsOrdered()
+                .FindAll(card => !disallowedTargets.Contains(card.gameObject));
+            int index = Mathf.Clamp(pos, 0, playableCards.Count - 1);
+            EffectUtils.AddPlayableCardToDocument(document, outputKey, playableCards[index]);
+        }
+    }
 
     private void GetTargetsRandomly(EffectDocument document) {
         for (int i = 0; i < number ; i++) {
@@ -362,6 +384,7 @@ public class GetTargets : EffectStep, IEffectStepCalculation
         TargetEntityThatDeltCard,
         TargetAllEntitiesExceptEntityThatDealtCard,
         CantTargetSelf,
-        TargetRandom
+        TargetRandom,
+        TargetLeftmost,
     }
 }
