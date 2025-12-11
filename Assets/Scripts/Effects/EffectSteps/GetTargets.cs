@@ -382,9 +382,9 @@ public class GetTargets : EffectStep, IEffectStepCalculation
         TargetAllValidTargetsExceptSelf,
         TargetSelf,
         TargetEntityThatDeltCard,
-        TargetAllEntitiesExceptEntityThatDealtCard,
         CantTargetSelf,
         TargetRandom,
         TargetLeftmost,
+        TargetAllEntitiesExceptEntityThatDealtCard,
     }
 }
