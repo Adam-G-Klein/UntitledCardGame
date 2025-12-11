@@ -251,6 +251,9 @@ public class CardFilter
     // Note: only applies to "PlayableCard" objects.
     public RetainedCardFilter retainedCardsFilter;
 
+    // Match an exact card type.
+    public CardType exactCardType = null;
+
     // Returns true if the card is included by the filter.
     //
     public bool ApplyFilter(Card card)
@@ -260,7 +263,10 @@ public class CardFilter
         {
             includeCard &= cardCategoriesToInclude.Contains(card.cardType.cardCategory);
         }
-        // Debug.Log("Filter [" + includeCard + "]" + "Card " + card.cardType.name + "has cardCategory=" + card.cardType.cardCategory.ToString());
+        if (exactCardType != null)
+        {
+            includeCard &= card.cardType == exactCardType;
+        }
         return includeCard;
     }
 

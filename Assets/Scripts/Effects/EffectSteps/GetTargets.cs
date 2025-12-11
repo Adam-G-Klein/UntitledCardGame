@@ -77,6 +77,9 @@ public class GetTargets : EffectStep, IEffectStepCalculation
         } else if (specialTargetRule == SpecialTargetRule.TargetEntityThatDeltCard) {
             addOriginCardEntityFromToDocument(document);
             yield break;
+        } else if (specialTargetRule == SpecialTargetRule.TargetAllEntitiesExceptEntityThatDealtCard) {
+            addAllEntitiesExceptOriginCardEntityToDocument(document);
+            yield break;
         }
 
         targetsList = new List<Targetable>();
@@ -293,6 +296,23 @@ public class GetTargets : EffectStep, IEffectStepCalculation
         }
     }
 
+    public void addAllEntitiesExceptOriginCardEntityToDocument(EffectDocument document) {
+        if (document.originEntityType != EntityType.Card) {
+            EffectError("addAllEntitiesExceptOriginCardEntityToDocument" +
+                " called, but origin of effect isn't a PlayableCard");
+            return;
+        }
+
+        PlayableCard playableCard = document.map.GetItem<PlayableCard>(
+            EffectDocument.ORIGIN, 0);
+        DeckInstance deckFrom = playableCard.deckFrom;
+
+        List<CompanionInstance> companions = CombatEntityManager.Instance.getCompanions();
+        companions.RemoveAll(companion => companion == deckFrom.GetComponent<CompanionInstance>());
+
+        EffectUtils.AddCompanionsToDocument(document, outputKey, companions);
+    }
+
     public void addSelfToDocument(EffectDocument document) {
         if (document.originEntityType == EntityType.Unknown) {
             EffectError("TargetSelf rule checked but" +
@@ -340,6 +360,7 @@ public class GetTargets : EffectStep, IEffectStepCalculation
         TargetAllValidTargetsExceptSelf,
         TargetSelf,
         TargetEntityThatDeltCard,
+        TargetAllEntitiesExceptEntityThatDealtCard,
         CantTargetSelf,
         TargetRandom
     }

@@ -67,6 +67,11 @@ public class GetCardsFromDeck : EffectStep {
                 outputCards.AddRange(instance.sourceDeck.cards);
             } else if (getAllFromOnlyDrawPile) {
                 outputCards.AddRange(instance.drawPile);
+            } else if (getAllCardsFromEntities) {
+                // Get all cards from both draw and discard piles and in-hand.
+                outputCards.AddRange(instance.drawPile);
+                outputCards.AddRange(instance.discardPile);
+                outputCards.AddRange(instance.inHand);
             } else {
                 int num;
                 if (getLimitedNumber) {
