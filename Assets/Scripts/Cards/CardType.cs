@@ -51,6 +51,9 @@ public class CardType: IdentifiableSO, ITooltipProvider
     // When the card is kept in hand for the end of the turn, we can do
     // an optional effect workflow, like "lose 2 HP".
     public EffectWorkflow inPlayerHandEndOfTurnWorkflow;
+    [SerializeReference]
+    // When the card is drawn, we can do an optional effect workflow, like "draw 1 card".
+    public EffectWorkflow onDrawEffectWorkflow;
 
     [SerializeField]
     // TODO: re-arch this if it becomes a big enough pain
