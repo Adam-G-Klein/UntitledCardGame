@@ -7,6 +7,8 @@ public class GetAdjacentCompanions : EffectStep, IEffectStepCalculation {
     [SerializeField]
     private string inputKey = "";
     [SerializeField]
+    private bool includeInputCompanion = false;
+    [SerializeField]
     private string outputKey = "";
 
     public GetAdjacentCompanions() {
@@ -26,6 +28,9 @@ public class GetAdjacentCompanions : EffectStep, IEffectStepCalculation {
         foreach (CompanionInstance instance in companionInstances) {
             adjacentCompanions.AddRange(GetAdjacentCompanionns(instance, allCompanions));
         }
+        if (includeInputCompanion) {
+            adjacentCompanions.AddRange(companionInstances);
+        }
 
         EffectUtils.AddCompanionsToDocument(document, outputKey, adjacentCompanions);
         yield return null;
@@ -39,7 +44,7 @@ public class GetAdjacentCompanions : EffectStep, IEffectStepCalculation {
     private List<CompanionInstance> GetAdjacentCompanionns(CompanionInstance instance, List<CompanionInstance> allCompanions) {
         List<CompanionInstance> adjacentCompanions = new List<CompanionInstance>();
         int companionIndex = allCompanions.IndexOf(instance);
-        Debug.Log("Dingo");
+        // Debug.Log("Dingo");
         Debug.Log(companionIndex);
         Debug.Log(allCompanions.Count);
 

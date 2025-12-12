@@ -16,6 +16,7 @@ public enum EffectStepName
     CombatEffectStep,
     CombatInstanceCacheLoad,
     CombatInstanceCacheStore,
+    CombatInstanceTookDamageThisTurn,
     ConvertPlayableCardToCard,
     ConvertPlayableCardToDeckInstance,
     CountCardsInDeck,
