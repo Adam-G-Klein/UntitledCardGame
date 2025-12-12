@@ -77,23 +77,10 @@ MonoBehaviour:
       data:
         abilityTrigger: 12
         effectSteps:
-        - rid: 758315839196758596
         - rid: 758315839196758597
         - rid: 758315839196758598
         - rid: 758315839196758599
         weight: 0
-    - rid: 758315839196758596
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: 
-        validTargets: 
-        number: 1
-        specialTargetRule: 0
-        cantCancelTargetting: 0
-        cardSelectionHelperText: 
     - rid: 758315839196758597
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
