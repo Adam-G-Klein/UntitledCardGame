@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerType: 4
   title: Ironheart
-  description: Each turn, create an "Ironskin" card in hand for self
+  description: End of turn, shuffle an Ironseed into own deck
   abilities:
   - rid: 754093991137640772
   displaySprite: {fileID: 21300000, guid: 6cb44060d9d637b44a6b0567dd3ff92f, type: 3}
@@ -39,10 +39,11 @@ MonoBehaviour:
     - rid: 754093991137640772
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
-        abilityTrigger: 12
+        abilityTrigger: 2
         effectSteps:
         - rid: 754093991137640773
-        - rid: 754093991137640774
+        - rid: 758315839196758531
+        - rid: 758315839196758532
         weight: 0
     - rid: 754093991137640773
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -55,16 +56,24 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
-    - rid: 754093991137640774
-      type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
+        cardSelectionHelperText: 
+    - rid: 758315839196758531
+      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: AddCardsToHand
-        entityFromKey: self
+        effectStepName: AddCardsToDeck
+        inputKey: self
         cardTypes:
-        - {fileID: 11400000, guid: 069ef7cf9fd524022b76bb3c147c3a90, type: 2}
+        - {fileID: 11400000, guid: e192bd20eebe8431096f2411bd7c50b3, type: 2}
+        addToDeckMethod: 1
         getCardsFromKey: 0
         inputCardsKey: 
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
-        outputKey: 
+    - rid: 758315839196758532
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        scale: 1
