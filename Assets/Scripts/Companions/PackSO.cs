@@ -12,13 +12,10 @@ public class PackSO : ScriptableObject
     public string packDescription;
     public CompanionPoolSO companionPoolSO;
     public CardPoolSO packCardPoolSO;
+    public UnlockableCardPoolSO unlockableCardPoolSO;
     public Color packColor;
 
     [Header("Art Assets")]
-    public Sprite cardFrame;
-    public Sprite cardBack;
-    // cardPoolIcon is the icon that will be displayed on the cards in the shop.
-    public Sprite cardPoolIcon;
     public Sprite packIcon;
 
     [Header("Rarity Icons")]

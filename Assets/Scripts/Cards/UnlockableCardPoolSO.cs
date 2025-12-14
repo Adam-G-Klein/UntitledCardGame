@@ -6,6 +6,8 @@ using UnityEngine;
 [System.Serializable]
 public class UnlockableCard
 {
+    // TODO: Make this much more serialization-safe, backwards compatible, etc.
+    // Unclear how well this will work with future changes to the CardType.
     [SerializeReference]
     public CardType cardType;
 
@@ -24,28 +26,12 @@ public class UnlockableCardPoolSO: ScriptableObject
     [SerializeField]
     private List<UnlockableCard> rareCards;
 
-    // Get accessors for common cards, uncommon cards, and rare cards, only returning unlocked cards.
-    public List<CardType> CommonCards
+    public List<UnlockableCard> GetAllUnlockableCards()
     {
-        get
-        {
-            return commonCards.Where(x => x.isUnlocked).Select(x => x.cardType).ToList();
-        }
+        return commonCards.Concat(uncommonCards).Concat(rareCards).ToList();
     }
 
-    public List<CardType> UncommonCards
-    {
-        get
-        {
-            return uncommonCards.Where(x => x.isUnlocked).Select(x => x.cardType).ToList();
-        }
-    }
-
-    public List<CardType> RareCards
-    {
-        get
-        {
-            return rareCards.Where(x => x.isUnlocked).Select(x => x.cardType).ToList();
-        }
-    }
+    public List<CardType> CommonCards => commonCards.Where(x => x.isUnlocked).Select(x => x.cardType).ToList();
+    public List<CardType> UncommonCards => uncommonCards.Where(x => x.isUnlocked).Select(x => x.cardType).ToList();
+    public List<CardType> RareCards => rareCards.Where(x => x.isUnlocked).Select(x => x.cardType).ToList();
 }
