@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98c54fe17bbfaba4697c85c1618843f4, type: 3}
   m_Name: RP_ChunkratCardPool
   m_EditorClassIdentifier: 
-  commonCards: []
-  uncommonCards: []
+  commonCards:
+  - {fileID: 11400000, guid: b561447cf325b4782b5e2687b1faaf69, type: 2}
+  uncommonCards:
+  - {fileID: 11400000, guid: 13df231ce52a64ecc8aaf95497be3004, type: 2}
   rareCards: []
   genericCardIconSprite: {fileID: 0}

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerType: 28
   title: Forest Prophet
-  description: End of turn, add a "Tiefvision" to bottom of own deck
+  description: End of turn, add a Sightshard to bottom of own deck
   abilities:
   - rid: 2511001254715195653
   displaySprite: {fileID: 21300000, guid: d1ea56d5b7ea8407faebb13c56ed8e92, type: 3}
@@ -30,9 +30,9 @@ MonoBehaviour:
         empty: 0
         lines:
         - title: Forest Prophet
-          description: End of turn, add a "Tiefvision" to bottom of own deck
+          description: End of turn, add a Sightshard to bottom of own deck
           relatedBehaviorIndex: 0
-        - title: Tiefvision - Status
+        - title: Sightshard - Charm
           description: 0. Exhaust. Give any 2 block & scry 1 & draw 1
           relatedBehaviorIndex: 0
     - rid: 2511001254715195653
@@ -54,6 +54,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 2511001254715195655
       type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
       data:

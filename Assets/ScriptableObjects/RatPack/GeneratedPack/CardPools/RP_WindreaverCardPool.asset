@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98c54fe17bbfaba4697c85c1618843f4, type: 3}
   m_Name: RP_WindreaverCardPool
   m_EditorClassIdentifier: 
-  commonCards: []
-  uncommonCards: []
+  commonCards:
+  - {fileID: 11400000, guid: 5bcfec8d9f74a4374b596dfdd8c299a5, type: 2}
+  uncommonCards:
+  - {fileID: 11400000, guid: 2394af5fd215d481aa0d40ffd291b0de, type: 2}
   rareCards: []
   genericCardIconSprite: {fileID: 0}

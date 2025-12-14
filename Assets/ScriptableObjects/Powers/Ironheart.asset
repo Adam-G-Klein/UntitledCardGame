@@ -29,8 +29,16 @@ MonoBehaviour:
     - rid: 754093871974056657
       type: {class: TooltipViewModel, ns: , asm: Assembly-CSharp}
       data:
-        empty: 1
-        lines: []
+        empty: 0
+        lines:
+        - title: Ironheart
+          description: Each turn, draw an extra card. End of turn, shuffle an Ironseed
+            into own deck.
+          relatedBehaviorIndex: 0
+        - title: Sightshard - Charm
+          description: Unplayable. When drawn, give all 3 block. End of turn, deal
+            2 damage to self
+          relatedBehaviorIndex: 0
     - rid: 754093991137640772
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:

@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: RP_Scrappiness
+  m_Name: PB_BogmarchEddy
   m_EditorClassIdentifier: 
-  guid: 4ba73f9c-ccb9-4767-8d48-f0f92f600678
-  Name: Scrappiness
-  Description: Exhaust any Charm card in hand & create 1 Doombloom in hand for each
-    adjacent rat
+  guid: 484ca44a-34dd-4933-95b3-4a3f660fb658
+  Name: Bogmarch Eddy
+  Description: Exhaust any Charm card in hand & draw 1 card from 2 random rats &
+    gain 1 energy
   defaultValues: []
-  Cost: 1
-  Artwork: {fileID: 21300000, guid: b6a3a72ddfbd65c429c809259c81ca0b, type: 3}
+  Cost: 0
+  Artwork: {fileID: 21300000, guid: 70dd24a7c98646b44870b00b67a720f4, type: 3}
   cardCategory: 2
   packFrom: {fileID: 0}
   vfxPrefab: {fileID: 0}
@@ -36,7 +36,7 @@ MonoBehaviour:
   onDrawEffectWorkflow:
     rid: -2
   tooltips: 
-  tooltipKeyword: 0
+  tooltipKeyword: 37
   references:
     version: 2
     RefIds:
@@ -70,10 +70,10 @@ MonoBehaviour:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: target
+        outputKey: all
         validTargets: 00000000
         number: 1
-        specialTargetRule: 4
+        specialTargetRule: 1
         cantCancelTargetting: 0
         cardSelectionHelperText: 
     - rid: 2295168179404538106
@@ -98,22 +98,9 @@ MonoBehaviour:
         outputKey: targetCard
         validTargets: 03000000
         number: 1
-        specialTargetRule: 5
+        specialTargetRule: 0
         cantCancelTargetting: 0
         cardSelectionHelperText: 
-    - rid: 2295168569757138947
-      type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: AddCardsToHand
-        entityFromKey: target
-        cardTypes:
-        - {fileID: 11400000, guid: f906bdd2620a44164814e18d96b00fb0, type: 2}
-        getCardsFromKey: 0
-        inputCardsKey: 
-        scale: 2
-        getScaleFromKey: 0
-        inputScaleKey: 
-        outputKey: 
     - rid: 5602892561590779943
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -123,5 +110,33 @@ MonoBehaviour:
         - rid: 2295168179404538110
         - rid: 2295168179404538108
         - rid: 2295168179404538104
+        - rid: 8034950120506655442
+        - rid: 8034950120506655443
         - rid: 2295168179404538106
-        - rid: 2295168569757138947
+        - rid: 8034950120506655444
+    - rid: 8034950120506655442
+      type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetRandomItems
+        inputKey: all
+        scale: 2
+        scaleKey: 
+        getScaleFromKey: 0
+        outputKey: target
+        withReplacement: 0
+    - rid: 8034950120506655443
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DrawCards
+        inputKey: target
+        outputKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 8034950120506655444
+      type: {class: ManaChange, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ManaChange
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 

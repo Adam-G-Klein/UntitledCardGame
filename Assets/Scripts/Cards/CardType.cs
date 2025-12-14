@@ -226,7 +226,7 @@ public enum CardCategory
     Attack,
     NonAttack,
     Saga,
-    Status,
+    Charm,
     Passive,
 }
 

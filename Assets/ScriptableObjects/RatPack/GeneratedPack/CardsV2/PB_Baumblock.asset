@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 3cef151c-b19e-49d3-adc5-4a7dd30dba01
   Name: Baumblock
-  Description: Give any 12 block & shuffle a Bitterbark card into their deck & own
-    deck
+  Description: Give any 12 block & shuffle 2 Bitterbarks into own deck
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 46c78f719703f154f896d900ed853b52, type: 3}
@@ -52,7 +51,7 @@ MonoBehaviour:
         addToDeckMethod: 1
         getCardsFromKey: 0
         inputCardsKey: 
-        scale: 1
+        scale: 0
         getScaleFromKey: 0
         inputScaleKey: 
     - rid: 758315839196758534
@@ -77,21 +76,6 @@ MonoBehaviour:
         inputKey: target
         prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
         scale: 1.5
-    - rid: 5280922841426165941
-      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: FXEffectStep
-        waitForEffect: 0
-        fXExperiencePrefab: {fileID: 4075960956037802917, guid: ec7b1a1529f9141458320888bf8e3d96, type: 3}
-        rootLocationGameObjectKey: 
-        positionMappingList:
-        - fromWorkflow: target
-          toFxExperience: end
-        - fromWorkflow: self
-          toFxExperience: start
-        gameobjectMappingList: []
-        vePositionMappingList: []
-        veMappingList: []
     - rid: 5280922841426165942
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -114,7 +98,6 @@ MonoBehaviour:
         - rid: 758315839196758533
         - rid: 5602892561590779946
         - rid: 1274772082283774706
-        - rid: 5280922841426165941
         - rid: 758315839196758534
     - rid: 5602892561590779944
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -151,6 +134,6 @@ MonoBehaviour:
         addToDeckMethod: 1
         getCardsFromKey: 0
         inputCardsKey: 
-        scale: 1
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
