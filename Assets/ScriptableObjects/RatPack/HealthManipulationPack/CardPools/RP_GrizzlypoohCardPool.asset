@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98c54fe17bbfaba4697c85c1618843f4, type: 3}
   m_Name: RP_GrizzlypoohCardPool
   m_EditorClassIdentifier: 
-  commonCards: []
-  uncommonCards: []
+  commonCards:
+  - {fileID: 11400000, guid: dd0295c63ed5a4bd9ab7aa0803c40f88, type: 2}
+  uncommonCards:
+  - {fileID: 11400000, guid: da4cee7242caa4d47bab2dc315f2c474, type: 2}
   rareCards: []
   genericCardIconSprite: {fileID: 0}

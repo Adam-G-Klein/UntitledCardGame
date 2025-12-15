@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98c54fe17bbfaba4697c85c1618843f4, type: 3}
   m_Name: RP_StrategySnekCardPool
   m_EditorClassIdentifier: 
-  commonCards: []
-  uncommonCards: []
+  commonCards:
+  - {fileID: 11400000, guid: 43e3ba593ba474d6e9e18ac04ba38b4d, type: 2}
+  uncommonCards:
+  - {fileID: 11400000, guid: b68801f5cd2464dce92962a74a9a1d44, type: 2}
   rareCards: []
   genericCardIconSprite: {fileID: 0}

@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98c54fe17bbfaba4697c85c1618843f4, type: 3}
   m_Name: RP_StormprophetCardPool
   m_EditorClassIdentifier: 
-  commonCards: []
-  uncommonCards: []
+  commonCards:
+  - {fileID: 11400000, guid: 3663e167c61af4d2889a764f724d9bef, type: 2}
+  uncommonCards:
+  - {fileID: 11400000, guid: d7a0d18e66cfd457ba0e178f206e4a55, type: 2}
   rareCards: []
   genericCardIconSprite: {fileID: 0}
