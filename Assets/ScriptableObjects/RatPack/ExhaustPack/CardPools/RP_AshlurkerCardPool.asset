@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98c54fe17bbfaba4697c85c1618843f4, type: 3}
   m_Name: RP_AshlurkerCardPool
   m_EditorClassIdentifier: 
-  commonCards: []
-  uncommonCards: []
+  commonCards:
+  - {fileID: 11400000, guid: ea10be037bc7741ad9a64e151c7ecc22, type: 2}
+  uncommonCards:
+  - {fileID: 11400000, guid: 492ef1c50c35f451a96fc9c574832ea2, type: 2}
   rareCards: []
   genericCardIconSprite: {fileID: 0}
