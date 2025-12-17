@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98c54fe17bbfaba4697c85c1618843f4, type: 3}
   m_Name: RP_BidoofCardPool
   m_EditorClassIdentifier: 
-  commonCards: []
-  uncommonCards: []
+  commonCards:
+  - {fileID: 11400000, guid: d907880c156ed41068701d76bc25d962, type: 2}
+  uncommonCards:
+  - {fileID: 11400000, guid: 3a5cd57a1bedd4ec2b5b8ccd0bea483b, type: 2}
   rareCards: []
   genericCardIconSprite: {fileID: 0}

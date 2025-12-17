@@ -15,10 +15,10 @@ MonoBehaviour:
   guid: 207c2d14-3124-4054-87f0-cda50587e297
   Name: Doombloom
   Description: Unplayable. End of turn, deal {inhand_rpl_damage} damage to a random
-    foe. When drawn, give this card +2 damage
+    foe. When drawn, give this card +4 damage
   defaultValues:
   - key: inhand_rpl_damage
-    value: 3
+    value: 2
   Cost: 0
   Artwork: {fileID: 21300000, guid: a5b8c5dccafa78942bf687e9f47d4ce4, type: 3}
   cardCategory: 4
@@ -69,7 +69,7 @@ MonoBehaviour:
       data:
         effectStepName: CardModificationEffect
         inputKey: self
-        scale: 2
+        scale: 4
         affectsAllCardsOfType: 0
         cardTypeToModify: {fileID: 0}
         getScaleFromKey: 0
@@ -115,7 +115,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: enemy
         combatEffect: 14
-        scale: 3
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1

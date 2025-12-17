@@ -47,6 +47,9 @@ public class CardModificationEffect : EffectStep {
             card.ChangeCardModification(modification, newScale);
         }
 
+        // Update all the playable cards in the player's hand to reflect the modification.
+        PlayerHand.Instance.UpdatePlayableCards();
+
         yield return null;
     }
 }

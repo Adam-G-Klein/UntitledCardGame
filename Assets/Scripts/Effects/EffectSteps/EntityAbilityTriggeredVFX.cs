@@ -16,7 +16,7 @@ public class EntityAbilityTriggeredVFX : EffectStep {
             CoroutineRunner.Instance.Run(companions[0].companionView.AbilityActivatedVFX());
             yield break;
         }
-        
+
         List<EnemyInstance> enemies = document.map.TryGetList<EnemyInstance>(EffectDocument.ORIGIN);
         if (enemies.Count == 1) {
             CoroutineRunner.Instance.Run(enemies[0].enemyView.AbilityActivatedVFX());

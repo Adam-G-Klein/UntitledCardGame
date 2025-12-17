@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 05913102-c3c1-4d33-b2c9-1bb04ef13165
   Name: Pureknife
-  Description: Deal {rpl_damage} damage. When drawn, gain +4 damage
+  Description: Deal {rpl_damage} damage & draw 1 card from self. When drawn, gain
+    +4 damage
   defaultValues:
   - key: rpl_damage
     value: 2
@@ -90,6 +91,34 @@ MonoBehaviour:
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps: []
+    - rid: 758315839196758779
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 4
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+    - rid: 758315839196758780
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DrawCards
+        inputKey: self
+        outputKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 758315839196758781
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        scale: 1
     - rid: 1488501614819147776
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -121,3 +150,6 @@ MonoBehaviour:
         effectSteps:
         - rid: 1488501614819147776
         - rid: 1488501614819147777
+        - rid: 758315839196758779
+        - rid: 758315839196758780
+        - rid: 758315839196758781
