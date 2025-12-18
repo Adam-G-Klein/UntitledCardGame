@@ -100,19 +100,18 @@ public class MusicController : GenericSingleton<MusicController>
             case VolumeType.MUSIC:
                 currentMusicVolume = volume;
                 mxVCA.setVolume(volume);
-                // instance.setVolume(volume);
             break;
         }
     }
 
     public void PlaySFX(string sfx)
     {
-        RuntimeManager.PlayOneShot(sfx, currentSFXVolume);
+        RuntimeManager.PlayOneShot(sfx, 1f);
     }
 
     public void PlayStartSFX()
     {
-        RuntimeManager.PlayOneShot("event:/SFX/SFX_StartRun", currentSFXVolume);
+        RuntimeManager.PlayOneShot("event:/SFX/SFX_StartRun", 1f);
     }
 
     public void RegisterButtonClickSFX(UIDocument uiDoc) {
