@@ -14,6 +14,10 @@ public class MusicController : GenericSingleton<MusicController>
     private FMOD.Studio.EventInstance instance;
     public List<LocationTrack> locationTracks;
     private FMODUnity.EventReference currentReference;
+    private FMOD.Studio.VCA sfxVCA;
+    private FMOD.Studio.VCA mxVCA;
+    public string sfxVCAPath;
+    public string mxVCAPath;
     public float currentMusicVolume = 0.5f;
     public float currentSFXVolume = 0.5f;
 
@@ -30,6 +34,12 @@ public class MusicController : GenericSingleton<MusicController>
         // GenericSingleton handles deduping across scenes
         DontDestroyOnLoad(this.gameObject);
         SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void Start()
+    {
+        mxVCA = FMODUnity.RuntimeManager.GetVCA(mxVCAPath);
+        sfxVCA = FMODUnity.RuntimeManager.GetVCA(sfxVCAPath);
     }
 
     public void PrepareForGoingBackToMainMenu() {
@@ -84,22 +94,20 @@ public class MusicController : GenericSingleton<MusicController>
         switch(volumeType) {
             case VolumeType.SFX:
                 currentSFXVolume = volume;
+                sfxVCA.setVolume(volume);
             break;
 
             case VolumeType.MUSIC:
                 currentMusicVolume = volume;
-                instance.setVolume(volume);
+                mxVCA.setVolume(volume);
+                // instance.setVolume(volume);
             break;
         }
     }
 
     public void PlaySFX(string sfx)
     {
-        // want the boss attack to feel weightier, so increase volume
-        // and hard code to avoid affecting other SFX volume
-        if (sfx == "event:/SFX/BossFight/SFX_MeothraAttack") { RuntimeManager.PlayOneShot(sfx, 1f); }
-        else { RuntimeManager.PlayOneShot(sfx, currentSFXVolume); }
-        
+        RuntimeManager.PlayOneShot(sfx, currentSFXVolume);
     }
 
     public void PlayStartSFX()
@@ -157,7 +165,7 @@ public class MusicController : GenericSingleton<MusicController>
         // instance = FMODUnity.RuntimeManager.CreateInstance(meothraMusic);
         instance = FMODUnity.RuntimeManager.CreateInstance("{12fa3fda-9f96-4f70-a7a1-24e2273bc2bb}");
         instance.start();
-        instance.setVolume(currentMusicVolume);
+        // instance.setVolume(currentMusicVolume);
         // currentReference = meothraMusic;
     }
 
