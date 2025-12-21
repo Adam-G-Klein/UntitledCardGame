@@ -10,24 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: PB_BloodiedBlade
+  m_Name: PB_Ferocity
   m_EditorClassIdentifier: 
-  guid: a5894b45-a21f-4325-bf7a-53fcb902dccf
-  Name: Bloodied Blade
-  Description: Deal {rpl_damage} damage & bleed self and adjacent 2 HP
-  defaultValues:
-  - key: rpl_damage
-    value: 10
+  guid: 85f67b0b-a47c-4438-b7e4-897480446381
+  Name: Ferocity
+  Description: Bleed any rat 3 HP & give 2 strength
+  defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 0f5ecf3627abce84490e1f8ec8e4f24f, type: 3}
-  cardCategory: 1
+  cardCategory: 2
   packFrom: {fileID: 11400000, guid: a87b5da767d4e4659b2965e31e340c58, type: 2}
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
   retain: 0
   effectWorkflows:
-  - rid: 5602892949302281046
+  - rid: 5602892675124822081
   onExhaustEffectWorkflow:
     rid: -2
   onDiscardEffectWorkflow:
@@ -43,69 +41,62 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 758315839196758637
-      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
+    - rid: 5280922807842373638
+      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: GetAdjacentCompanions
-        inputKey: self
-        includeInputCompanion: 1
-        outputKey: bleeders
-    - rid: 5602892949302281046
+        effectStepName: WaitForSecondsEffect
+        seconds: 0.25
+    - rid: 5280922807842373639
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: target
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
+        scale: 1.2
+    - rid: 5602892675124822081
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
-        - rid: 5602892949302281047
-        - rid: 758315839196758637
-        - rid: 5602892949302281048
-        - rid: 5602892949302281049
-        - rid: 5602892949302281050
-    - rid: 5602892949302281047
+        - rid: 5602892675124822082
+        - rid: 5602892675124822084
+        - rid: 5602892675124822085
+        - rid: 5280922807842373638
+        - rid: 5280922807842373639
+    - rid: 5602892675124822082
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: self
+        outputKey: target
         validTargets: 00000000
-        number: 1
-        specialTargetRule: 4
-        cantCancelTargetting: 0
-        cardSelectionHelperText: 
-    - rid: 5602892949302281048
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: enemy
-        validTargets: 02000000
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
         cardSelectionHelperText: 
-    - rid: 5602892949302281049
+    - rid: 5602892675124822084
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
-        inputKey: enemy
-        combatEffect: 0
-        scale: 10
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
-        vfxPrefab: {fileID: 1320532642761013391, guid: 99a456f94890391478f393fcc8ad0b95, type: 3}
-    - rid: 5602892949302281050
-      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CombatEffectStep
-        inputKey: bleeders
+        inputKey: target
         combatEffect: 16
-        scale: 2
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 6137048663962808129, guid: 92c26f41ef33c23419e05ceb12660efa, type: 3}
+    - rid: 5602892675124822085
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: target
+        statusEffect: 0
+        scale: 2
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
