@@ -41,10 +41,12 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Grizzlypooh
-      description: Whenever Grizzlypooh loses HP, give leftmost rat 3 block
+      description: Whenever Grizzlypooh loses HP, give leftmost rat 2 block & give
+        self 1 block
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: Whenever Grizzlypooh loses HP, give leftmost rat 3 block
+  keepsakeDescription: Whenever Grizzlypooh loses HP, give leftmost rat 2 block &
+    give self 1 block
   references:
     version: 2
     RefIds:
@@ -59,6 +61,9 @@ MonoBehaviour:
         - rid: 758316073527279620
         - rid: 205828107393564792
         - rid: 205828107393564793
+        - rid: 758316073527279626
+        - rid: 758316073527279627
+        - rid: 758316073527279628
         weight: 0
     - rid: 205828107393564791
       type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
@@ -98,6 +103,38 @@ MonoBehaviour:
         specialTargetRule: 7
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+    - rid: 758316073527279626
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+    - rid: 758316073527279627
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: self
+        statusEffect: 2
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+    - rid: 758316073527279628
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
+        scale: 1
     - rid: 7707884639552274900
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
