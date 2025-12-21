@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: PB_Offertory
+  m_Name: PB_NoPainNoGain
   m_EditorClassIdentifier: 
-  guid: 4639d31a-8c62-4127-bb1f-186634d7f152
-  Name: Offertory
-  Description: Bleed 3 random rats 2 HP & draw 1 card from each
+  guid: 579b2eab-50e8-42a9-a6a2-28f74b11da85
+  Name: No Pain No Gain
+  Description: Bleed any 1 HP & draw 1 card x4
   defaultValues: []
-  Cost: 0
-  Artwork: {fileID: 21300000, guid: 38c8aa9e04946486b8069de5512d0441, type: 3}
+  Cost: 1
+  Artwork: {fileID: 21300000, guid: e0ab2143b8408423ab692d481858408a, type: 3}
   cardCategory: 2
   packFrom: {fileID: 11400000, guid: a87b5da767d4e4659b2965e31e340c58, type: 2}
   vfxPrefab: {fileID: 0}
@@ -25,7 +25,7 @@ MonoBehaviour:
   exhaustsWhenPlayed: 0
   retain: 0
   effectWorkflows:
-  - rid: 5602892675124822081
+  - rid: 5602892949302281051
   onExhaustEffectWorkflow:
     rid: -2
   onDiscardEffectWorkflow:
@@ -41,41 +41,39 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 758315839196758749
-      type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}
+    - rid: 2034230176448512019
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: GetRandomItems
-        inputKey: all
+        effectStepName: DrawCards
+        inputKey: target
+        outputKey: 
         scale: 1
-        scaleKey: 
         getScaleFromKey: 0
-        outputKey: companions
-        withReplacement: 0
-    - rid: 5602892675124822081
+        inputScaleKey: 
+    - rid: 5602892949302281051
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
-        - rid: 5602892675124822082
-        - rid: 758315839196758749
-        - rid: 5602892675124822084
-        - rid: 7401433558763438507
-    - rid: 5602892675124822082
+        - rid: 5602892949302281052
+        - rid: 2034230176448512019
+        - rid: 5602892949302281053
+    - rid: 5602892949302281052
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: all
+        outputKey: target
         validTargets: 00000000
-        number: 1
-        specialTargetRule: 1
+        number: 2
+        specialTargetRule: 0
         cantCancelTargetting: 0
         cardSelectionHelperText: 
-    - rid: 5602892675124822084
+    - rid: 5602892949302281053
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
-        inputKey: companions
+        inputKey: target
         combatEffect: 16
         scale: 2
         getScaleFromKey: 0
@@ -84,12 +82,3 @@ MonoBehaviour:
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 6137048663962808129, guid: 92c26f41ef33c23419e05ceb12660efa, type: 3}
-    - rid: 7401433558763438507
-      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: DrawCards
-        inputKey: companions
-        outputKey: 
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
