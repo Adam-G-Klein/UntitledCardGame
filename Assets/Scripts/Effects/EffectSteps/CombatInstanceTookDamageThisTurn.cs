@@ -7,7 +7,7 @@ using UnityEngine;
 /*
 
 */
-public class CombatInstanceTookDamageThisTurn : EffectStep
+public class CombatInstanceTookDamageThisTurn : EffectStep, IEffectStepCalculation
 {
     [SerializeField]
     private string inputCombatInstanceKey = "";
@@ -35,5 +35,10 @@ public class CombatInstanceTookDamageThisTurn : EffectStep
         bool tookDamage = EnemyEncounterManager.Instance.combatEncounterState.DidCombatInstanceTakeDamageThisTurn(target);
         document.boolMap[outputKey] = tookDamage;
         yield return null;
+    }
+
+    public IEnumerator invokeForCalculation(EffectDocument document)
+    {
+        yield return invoke(document);
     }
 }
