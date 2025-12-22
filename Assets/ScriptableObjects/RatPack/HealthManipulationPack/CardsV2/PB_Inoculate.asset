@@ -12,14 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: PB_Inoculate
   m_EditorClassIdentifier: 
-  guid: 28537181-a993-4d83-a3fd-dca51e2cb224
+  guid: cfe67ff1-2ed8-4e57-9acd-7be3b6500069
   Name: Inoculate
-  Description: Exhaust. Heal any 3 HP & draw 1 card
+  Description: 'Exhaust. If self below half HP, draw 1 card from self. Heal all 4
+    HP. '
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 06c409edcf5e308438ea9c89ccd99c68, type: 3}
   cardCategory: 2
-  packFrom: {fileID: 11400000, guid: a87b5da767d4e4659b2965e31e340c58, type: 2}
+  packFrom: {fileID: 0}
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 1
@@ -47,7 +48,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: target
         combatEffect: 9
-        scale: 3
+        scale: 4
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
@@ -58,18 +59,41 @@ MonoBehaviour:
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: DrawCards
-        inputKey: target
+        inputKey: self
         outputKey: 
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+    - rid: 2295168569757140190
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 4
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+    - rid: 2295168569757140191
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        scale: 1
     - rid: 5602892723852673317
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
         - rid: 5602892723852673319
+        - rid: 2295168569757140190
+        - rid: 8034950120506654967
         - rid: 2034230176448512018
+        - rid: 8034950120506654969
         - rid: 2295168569757139965
+        - rid: 2295168569757140191
     - rid: 5602892723852673319
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -79,6 +103,21 @@ MonoBehaviour:
         outputKey: target
         validTargets: 00000000
         number: 1
-        specialTargetRule: 0
+        specialTargetRule: 1
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+    - rid: 8034950120506654967
+      type: {class: FilterEntityByHP, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FilterEntityByHP
+        inputKey: self
+        percentThreshold: 0.5
+        absoluteThreshold: 0
+        useAbsoluteThreshold: 0
+        outputKey: selfBelowHalf
+        below: 1
+    - rid: 8034950120506654969
+      type: {class: EndWorkflowIfListEmpty, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfListEmpty
+        inputKey1: selfBelowHalf

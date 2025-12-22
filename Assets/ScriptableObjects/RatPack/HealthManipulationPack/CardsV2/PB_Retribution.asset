@@ -10,16 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: PB_BloodiedBlade
+  m_Name: PB_Retribution
   m_EditorClassIdentifier: 
-  guid: a5894b45-a21f-4325-bf7a-53fcb902dccf
-  Name: Bloodied Blade
-  Description: Deal {rpl_damage} damage & bleed self and adjacent 1 HP
+  guid: a832a2cd-717a-4e06-9036-205dbe3ee7e2
+  Name: Retribution
+  Description: Deal {rpl_damage} damage for each rat below half HP ({numComps} rats)
   defaultValues:
   - key: rpl_damage
-    value: 8
-  Cost: 1
-  Artwork: {fileID: 21300000, guid: 0f5ecf3627abce84490e1f8ec8e4f24f, type: 3}
+    value: 7
+  - key: numComps
+    value: 0
+  Cost: 2
+  Artwork: {fileID: 21300000, guid: 87ca436f7312bd8438886b00d3e2e69d, type: 3}
   cardCategory: 1
   packFrom: {fileID: 11400000, guid: a87b5da767d4e4659b2965e31e340c58, type: 2}
   vfxPrefab: {fileID: 0}
@@ -43,22 +45,44 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 758315839196758637
-      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
+    - rid: 1289961820425028160
+      type: {class: FilterEntityByHP, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: GetAdjacentCompanions
-        inputKey: self
-        includeInputCompanion: 1
-        outputKey: bleeders
+        effectStepName: FilterEntityByHP
+        inputKey: allies
+        percentThreshold: 0.5
+        absoluteThreshold: 0
+        useAbsoluteThreshold: 0
+        outputKey: belowHalf
+        below: 1
+    - rid: 2295167909047304310
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: allies
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 1
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+    - rid: 2295167909047304311
+      type: {class: CountStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CountStep
+        inputKey: belowHalf
+        outputKey: numComps
     - rid: 5602892949302281046
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
         - rid: 5602892949302281047
-        - rid: 758315839196758637
+        - rid: 2295167909047304310
         - rid: 5602892949302281048
+        - rid: 1289961820425028160
+        - rid: 2295167909047304311
         - rid: 5602892949302281049
-        - rid: 5602892949302281050
     - rid: 5602892949302281047
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -66,7 +90,7 @@ MonoBehaviour:
         useInputToLimitOptions: 0
         inputKey: 
         outputKey: self
-        validTargets: 00000000
+        validTargets: 
         number: 1
         specialTargetRule: 4
         cantCancelTargetting: 0
@@ -89,23 +113,10 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: enemy
         combatEffect: 0
-        scale: 8
+        scale: 7
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
-        vfxPrefab: {fileID: 1320532642761013391, guid: 99a456f94890391478f393fcc8ad0b95, type: 3}
-    - rid: 5602892949302281050
-      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CombatEffectStep
-        inputKey: bleeders
-        combatEffect: 16
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
-        vfxPrefab: {fileID: 6137048663962808129, guid: 92c26f41ef33c23419e05ceb12660efa, type: 3}
+        getMultiplicityFromKey: 1
+        inputMultiplicityKey: numComps
+        vfxPrefab: {fileID: 1320532642761013391, guid: 4847f21b038e1aa42bceefe5c97ab1ab, type: 3}

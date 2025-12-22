@@ -42,12 +42,12 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Mab
-      description: At the end of combat, heal adjacent companions 6 HP. Each turn,
-        adjacent companions lose 1 HP unless they would die
+      description: At the end of combat, heal adjacent rats 4 HP. Each turn, adjacent
+        rats lose 1 HP unless they would die
       relatedBehaviorIndex: 0
   keepsakeTitle: Mab's Mercy
-  keepsakeDescription: At the end of combat, heal adjacent companions 6 HP. Each
-    turn, adjacent companions lose 1 HP unless they would die
+  keepsakeDescription: At the end of combat, heal adjacent rats 4 HP. Each turn,
+    adjacent rats lose 1 HP unless they would die
   references:
     version: 2
     RefIds:
@@ -61,6 +61,7 @@ MonoBehaviour:
         - rid: 2034230176448512341
         - rid: 205828107393564676
         - rid: 2034230176448512343
+        weight: 0
     - rid: 205828032053379073
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -72,6 +73,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 205828107393564676
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -84,6 +86,7 @@ MonoBehaviour:
       data:
         effectStepName: GetAdjacentCompanions
         inputKey: self
+        includeInputCompanion: 0
         outputKey: adj
     - rid: 2034230176448512342
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
@@ -95,13 +98,14 @@ MonoBehaviour:
         - rid: 2034230176448512346
         - rid: 7401433059192472008
         - rid: 2034230176448512348
+        weight: 0
     - rid: 2034230176448512343
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
         inputKey: adj
         combatEffect: 9
-        scale: 6
+        scale: 4
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
@@ -119,11 +123,13 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 2034230176448512346
       type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetAdjacentCompanions
         inputKey: self
+        includeInputCompanion: 0
         outputKey: adj
     - rid: 2034230176448512348
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
