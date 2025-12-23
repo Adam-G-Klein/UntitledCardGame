@@ -1,0 +1,135 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
+  m_Name: PB_HyperfocusedShot
+  m_EditorClassIdentifier: 
+  guid: 7bf440f2-0753-4bdb-87ed-07b9dd4aec08
+  Name: Hyperfocused Shot
+  Description: Deal {rpl_damage} damage & if you have 3 or less cards in hand, deal
+    {rpl_damage_2} damage
+  defaultValues:
+  - key: rpl_damage
+    value: 10
+  - key: rpl_damage_2
+    value: 15
+  Cost: 2
+  Artwork: {fileID: 21300000, guid: 9c7b553a4a5050646818dbc514a54e9a, type: 3}
+  cardCategory: 1
+  packFrom: {fileID: 11400000, guid: 5f4300e0913784f05aeff0dd086d4338, type: 2}
+  vfxPrefab: {fileID: 0}
+  playable: 1
+  exhaustsWhenPlayed: 0
+  retain: 0
+  effectWorkflows:
+  - rid: 5602892563578094203
+  onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
+    rid: 2034230108114649711
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  onDrawEffectWorkflow:
+    rid: -2
+  tooltips: 
+  tooltipKeyword: 37
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 2034230108114649711
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps: []
+    - rid: 4463205916933357570
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: enemy
+        validTargets: 02000000
+        number: 1
+        specialTargetRule: 0
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+    - rid: 5602892563578094203
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 4463205916933357570
+        - rid: 7401433308100034878
+        - rid: 8034949928137261274
+        - rid: 8034949928137261275
+        - rid: 8034949928137261276
+        - rid: 8034949928137261277
+        - rid: 5633447986213158970
+    - rid: 5633447986213158970
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: enemy
+        combatEffect: 0
+        scale: 15
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 1320532642761013391, guid: 99a456f94890391478f393fcc8ad0b95, type: 3}
+    - rid: 7401433308100034878
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: enemy
+        combatEffect: 0
+        scale: 10
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 1320532642761013391, guid: 99a456f94890391478f393fcc8ad0b95, type: 3}
+    - rid: 8034949928137261274
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: all
+        validTargets: 03000000
+        number: 1
+        specialTargetRule: 1
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+    - rid: 8034949928137261275
+      type: {class: CountStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CountStep
+        inputKey: all
+        outputKey: numCards
+    - rid: 8034949928137261276
+      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: BooleanComparison
+        hardCodedInputKey1: 3
+        useHardCodedInputKey1: 1
+        inputKey1: 
+        operation: 4
+        inputKey2: numCards
+        outputKey: lessThan3
+    - rid: 8034949928137261277
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: lessThan3
+        conditionToEndOn: 0

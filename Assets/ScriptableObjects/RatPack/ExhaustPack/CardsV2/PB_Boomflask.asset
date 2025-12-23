@@ -10,33 +10,33 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: PB_ObliqueBlade
+  m_Name: PB_Boomflask
   m_EditorClassIdentifier: 
-  guid: ce06dbcf-a7b6-401b-8d22-674631b810bd
-  Name: Oblique Blade
-  Description: Deal {rpl_damage} damage. Give all Oblique Blades in other decks +5
-    damage
+  guid: a9b6d0d0-55b4-42c1-99fa-2289245610a4
+  Name: Boomflask
+  Description: Unplayable. When drawn, gain +5 damage. When exhausted, deal {onexhaust_rpl_damage}
+    damage to all foes
   defaultValues:
-  - key: rpl_damage
-    value: 7
-  Cost: 1
-  Artwork: {fileID: 21300000, guid: bc01e6303f5aef54696b1695ae9d1ce0, type: 3}
-  cardCategory: 1
-  packFrom: {fileID: 11400000, guid: 79e479ca9df7a4369ba7fa951e0af116, type: 2}
+  - key: onexhaust_rpl_damage
+    value: 4
+  Cost: 0
+  Artwork: {fileID: 21300000, guid: b36bd4612398377409a80259b0f5a90a, type: 3}
+  cardCategory: 4
+  packFrom: {fileID: 0}
   vfxPrefab: {fileID: 0}
-  playable: 1
+  playable: 0
   exhaustsWhenPlayed: 0
   retain: 0
   effectWorkflows:
   - rid: 2116895648763871339
   onExhaustEffectWorkflow:
-    rid: -2
+    rid: 758315839196758766
   onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
   onDrawEffectWorkflow:
-    rid: -2
+    rid: 758315839196758761
   tooltips: 
   tooltipKeyword: 37
   references:
@@ -44,91 +44,81 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 758315839196758203
+    - rid: 758315839196758761
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 758315839196758762
+        - rid: 758315839196758763
+        - rid: 758315839196758764
+        - rid: 758315839196758765
+    - rid: 758315839196758762
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: others
-        validTargets: 
+        outputKey: card
+        validTargets: 03000000
         number: 1
-        specialTargetRule: 8
+        specialTargetRule: 3
         cantCancelTargetting: 0
         cardSelectionHelperText: 
-    - rid: 758315839196758263
-      type: {class: GetCardsFromDeck, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetCardsFromDeck
-        inputKey: others
-        getLimitedNumber: 0
-        numberOfCardsToGet: 1
-        shuffleIfEmpty: 0
-        outputKey: otherCards
-        getAllCardsFromEntities: 1
-        getCardsFromSourceDeck: 0
-        getAllFromOnlyDrawPile: 0
-    - rid: 758315839196758264
-      type: {class: FilterCards, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: FilterCards
-        inputKey: otherCards
-        filter:
-          cardCategoriesToInclude: 
-          retainedCardsFilter: 0
-          exactCardType: {fileID: 11400000}
-        outputKey: otherBlades
-    - rid: 758315839196758265
+    - rid: 758315839196758763
       type: {class: CardModificationEffect, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CardModificationEffect
-        inputKey: otherBlades
+        inputKey: card
         scale: 5
         affectsAllCardsOfType: 0
         cardTypeToModify: {fileID: 0}
         getScaleFromKey: 0
         scaleKey: 
         modification: 0
-    - rid: 758315839196758266
+    - rid: 758315839196758764
+      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: WaitForSecondsEffect
+        seconds: 0.2
+    - rid: 758315839196758765
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
-        inputKey: others
+        inputKey: card
         prefabToInstantiate: {fileID: 6137048663962808129, guid: 032e33b914ed32b418cdc1ed2f15fc6e, type: 3}
         scale: 1
-    - rid: 1488501614819147776
+    - rid: 758315839196758766
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 758316092100444221
+        - rid: 758316092100444222
+    - rid: 758316092100444221
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: enemy
+        outputKey: enemies
         validTargets: 02000000
         number: 1
-        specialTargetRule: 0
+        specialTargetRule: 1
         cantCancelTargetting: 0
         cardSelectionHelperText: 
-    - rid: 1488501614819147777
+    - rid: 758316092100444222
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
-        inputKey: enemy
+        inputKey: enemies
         combatEffect: 0
-        scale: 7
+        scale: 4
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}
+        vfxPrefab: {fileID: 1320532642761013391, guid: 99a456f94890391478f393fcc8ad0b95, type: 3}
     - rid: 2116895648763871339
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
-        effectSteps:
-        - rid: 1488501614819147776
-        - rid: 1488501614819147777
-        - rid: 758315839196758203
-        - rid: 758315839196758263
-        - rid: 758315839196758264
-        - rid: 758315839196758265
-        - rid: 758315839196758266
+        effectSteps: []

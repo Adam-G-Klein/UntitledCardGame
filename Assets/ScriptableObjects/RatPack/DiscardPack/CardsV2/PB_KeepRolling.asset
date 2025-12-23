@@ -10,26 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: RP_Blitz
+  m_Name: PB_KeepRolling
   m_EditorClassIdentifier: 
-  guid: b8236695-c8bf-400f-83e8-9196ba7b08ba
-  Name: Blitz
-  Description: Discard 3 cards in hand & gain 2 energy
+  guid: e4dfa80e-3523-43ad-a197-402c03a7e2d1
+  Name: 
+  Description: 
   defaultValues: []
   Cost: 0
-  Artwork: {fileID: 21300000, guid: 3708c5d775e17b749bf81d2b922f6024, type: 3}
-  cardCategory: 1
+  Artwork: {fileID: 0}
+  cardCategory: 5
   packFrom: {fileID: 11400000, guid: 5f4300e0913784f05aeff0dd086d4338, type: 2}
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
   retain: 0
   effectWorkflows:
-  - rid: 5602892563578094203
+  - rid: 754093991137641289
   onExhaustEffectWorkflow:
     rid: -2
   onDiscardEffectWorkflow:
-    rid: 2034230108114649711
+    rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
   onDrawEffectWorkflow:
@@ -41,39 +41,27 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 2034230108114649711
-      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
-      data:
-        effectSteps: []
-    - rid: 2268261022115299329
-      type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CardInHandEffect
-        inputKey: selected
-        effect: 0
-    - rid: 2268261022115299349
-      type: {class: ManaChange, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: ManaChange
-        scale: 2
-        getScaleFromKey: 0
-        inputScaleKey: 
-    - rid: 5602892563578094203
+    - rid: 754093991137641289
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
-        - rid: 7401433308100035075
-        - rid: 2268261022115299329
-        - rid: 2268261022115299349
-    - rid: 7401433308100035075
+        - rid: 754093991137641290
+        - rid: 754093991137641291
+    - rid: 754093991137641290
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: selected
-        validTargets: 03000000
-        number: 3
-        specialTargetRule: 5
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 4
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+    - rid: 754093991137641291
+      type: {class: ActivatePower, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ActivatePower
+        inputKey: self
+        power: {fileID: 11400000, guid: 9452f94397d0241a2bd65f869e395f24, type: 2}

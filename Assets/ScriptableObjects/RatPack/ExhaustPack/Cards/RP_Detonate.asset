@@ -35,7 +35,10 @@ MonoBehaviour:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
+  onDrawEffectWorkflow:
+    rid: -2
   tooltips: 
+  tooltipKeyword: 37
   references:
     version: 2
     RefIds:
@@ -52,6 +55,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 2
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 1289961820425027791
       type: {class: FilterCards, ns: , asm: Assembly-CSharp}
       data:
@@ -60,6 +64,7 @@ MonoBehaviour:
         filter:
           cardCategoriesToInclude: 
           retainedCardsFilter: 0
+          exactCardType: {fileID: 0}
         outputKey: statusCards
     - rid: 1289961820425027792
       type: {class: CountStep, ns: , asm: Assembly-CSharp}
@@ -84,6 +89,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 1
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 1289961820425027795
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
