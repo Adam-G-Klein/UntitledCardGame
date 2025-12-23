@@ -1,0 +1,101 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
+  m_Name: RP_chargebug_L2
+  m_EditorClassIdentifier: 
+  guid: 7f43e2fe-236d-47d0-9d48-21345529a1fe
+  companionName: ChargeBug+
+  maxHealth: 15
+  initialCardsDealtPerTurn: 1
+  sprite: {fileID: 21300000, guid: 1a9a70bfa38177248ae11e5367177638, type: 3}
+  fullSprite: {fileID: 21300000, guid: 1a9a70bfa38177248ae11e5367177638, type: 3}
+  backgroundImage: {fileID: 21300000, guid: 8def2ec2f48614f2db206b539f065b04, type: 3}
+  entityFrame: {fileID: 21300000, guid: afd87e9d98de04d57bf1e171342575e4, type: 3}
+  companionManagementFrame: {fileID: 21300000, guid: cb92d66ed93cb415791ff837bd1604d5, type: 3}
+  startingDeck: {fileID: 11400000, guid: 04eca648e4c414c85941b0ed596f4698, type: 2}
+  cardBack: {fileID: 21300000, guid: a5222a8d127763c49b397cce916345ec, type: 3}
+  cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
+  cardTypeIconOverride: {fileID: 0}
+  rarity: 0
+  cardIdleVfxPrefab: {fileID: 0}
+  genericCompanionSFX: {fileID: 0}
+  genericCompanionVFX: {fileID: 0}
+  cacheValueConfigs: []
+  cardPool: {fileID: 11400000, guid: 0830a70c1219449a29166be12a5e70e8, type: 2}
+  packCardPool: {fileID: 11400000, guid: dcb4ce06498e14623a021cf140d879bb, type: 2}
+  pack: {fileID: 11400000, guid: 5fcec41dc4c664deda58b9e1b4074804, type: 2}
+  speakerType: {fileID: 0}
+  abilitiesV2:
+  - rid: 205828032053379705
+  level: 1
+  upgradeTo: {fileID: 11400000, guid: 06423a11c3c2547bf90ff7492147f299, type: 2}
+  tooltip:
+    empty: 0
+    lines:
+    - title: Charge Bug+
+      description: At the beginning of combat adjacent companions gain 4 charge.
+      relatedBehaviorIndex: 0
+    - title: Charge
+      description: At the end of the turn, units with charge lose one charge and
+        gain 3 block.
+      relatedBehaviorIndex: 0
+  keepsakeTitle: 
+  keepsakeDescription: 
+  references:
+    version: 2
+    RefIds:
+    - rid: 205828032053379705
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 0
+        effectSteps:
+        - rid: 205828032053379741
+        - rid: 8829271167484559661
+        - rid: 8829271167484559739
+        - rid: 8829271167484559740
+    - rid: 205828032053379741
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 8829271167484559661
+      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetAdjacentCompanions
+        inputKey: self
+        outputKey: adj
+    - rid: 8829271167484559739
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: adj
+        statusEffect: 12
+        scale: 4
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+    - rid: 8829271167484559740
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: adj
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
+        scale: 1

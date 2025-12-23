@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98c54fe17bbfaba4697c85c1618843f4, type: 3}
+  m_Name: RP_BurnPackCardPool
+  m_EditorClassIdentifier: 
+  commonCards:
+  - {fileID: 11400000, guid: aea582b28589b4fa4940b2d51d44e219, type: 2}
+  - {fileID: 11400000, guid: 77ef8fbd6ef55491b90b82c963990cb6, type: 2}
+  - {fileID: 11400000, guid: e077fd9c937544764aeaa0ce52e3e01e, type: 2}
+  - {fileID: 11400000, guid: a836aefc4d04344a8a002dc388e6b3a8, type: 2}
+  - {fileID: 11400000, guid: 7c58b6f66869d4bb6a7e9f181cc818d1, type: 2}
+  uncommonCards:
+  - {fileID: 11400000, guid: e4e3b7e98284a44a3ae6f1ec033fe600, type: 2}
+  - {fileID: 11400000, guid: 20a60230e46054e25a4bf4e241837985, type: 2}
+  - {fileID: 11400000, guid: ae2cb01b2544a416e94b1b5e026dd77c, type: 2}
+  rareCards:
+  - {fileID: 11400000, guid: 3a58977b69cd64773a22e71dc7222f75, type: 2}
+  - {fileID: 11400000, guid: f63478d988c6843e18b9c893444cc834, type: 2}
+  - {fileID: 11400000, guid: 57b98f9a2aabb4dae82c3b308d6226e6, type: 2}
+  genericCardIconSprite: {fileID: 21300000, guid: ddd7a30cf3775e7408a7d3063b157c6d, type: 3}

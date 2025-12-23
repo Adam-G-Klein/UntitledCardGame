@@ -1,0 +1,142 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
+  m_Name: RP_SparkPlug_L3
+  m_EditorClassIdentifier: 
+  guid: 478aaaed-631a-4028-9856-02eb8ecdedc5
+  companionName: Spark Plug++
+  maxHealth: 15
+  initialCardsDealtPerTurn: 1
+  sprite: {fileID: 21300000, guid: 3be7fa8d97438ed4d8c5b1971f473fa1, type: 3}
+  fullSprite: {fileID: 21300000, guid: 3be7fa8d97438ed4d8c5b1971f473fa1, type: 3}
+  backgroundImage: {fileID: 21300000, guid: 8def2ec2f48614f2db206b539f065b04, type: 3}
+  entityFrame: {fileID: 21300000, guid: afd87e9d98de04d57bf1e171342575e4, type: 3}
+  companionManagementFrame: {fileID: 21300000, guid: cb92d66ed93cb415791ff837bd1604d5, type: 3}
+  startingDeck: {fileID: 11400000, guid: 3ef4a63615bc342f08b5df8bca790a74, type: 2}
+  cardBack: {fileID: 21300000, guid: a5222a8d127763c49b397cce916345ec, type: 3}
+  cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
+  cardTypeIconOverride: {fileID: 0}
+  rarity: 1
+  cardIdleVfxPrefab: {fileID: 0}
+  genericCompanionSFX: {fileID: 0}
+  genericCompanionVFX: {fileID: 0}
+  cacheValueConfigs:
+  - key: triggersRemaining
+    display: 1
+    sprite: {fileID: 21300000, guid: e214fa1b4dba7e0418f0b2af6b7d6df3, type: 3}
+    startOfTurnValue: 4
+    setStartOfTurnValue: 1
+    startOfCombatValue: 0
+    setStartOfCombatValue: 0
+  cardPool: {fileID: 11400000, guid: e66a5971cde4248d3838e6dee72a7370, type: 2}
+  packCardPool: {fileID: 11400000, guid: dcb4ce06498e14623a021cf140d879bb, type: 2}
+  pack: {fileID: 11400000, guid: 5fcec41dc4c664deda58b9e1b4074804, type: 2}
+  speakerType: {fileID: 0}
+  abilitiesV2:
+  - rid: 205828032053379705
+  level: 2
+  upgradeTo: {fileID: 0}
+  tooltip:
+    empty: 0
+    lines:
+    - title: Spark Plug++
+      description: The first 4 times a companion plays an attack card each turn,
+        they gain 1 charge.
+      relatedBehaviorIndex: 0
+    - title: Charge
+      description: At the end of the turn, units with charge lose one charge and
+        gain 3 block.
+      relatedBehaviorIndex: 0
+  keepsakeTitle: 
+  keepsakeDescription: 
+  references:
+    version: 2
+    RefIds:
+    - rid: 205828032053379705
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 18
+        effectSteps:
+        - rid: 205828032053379741
+        - rid: 8829271167484559784
+        - rid: 8829271167484559785
+        - rid: 8829271167484559786
+        - rid: 8829271167484559787
+        - rid: 8829271167484559788
+        - rid: 8829271167484559789
+    - rid: 205828032053379741
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+    - rid: 8829271167484559784
+      type: {class: CombatInstanceCacheLoad, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatInstanceCacheLoad
+        inputCombatInstanceKey: self
+        cacheKey: triggersRemaining
+        currentWorkflowKey: triggersRemaining
+    - rid: 8829271167484559785
+      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: BooleanComparison
+        hardCodedInputKey1: 0
+        useHardCodedInputKey1: 1
+        inputKey1: 
+        operation: 0
+        inputKey2: triggersRemaining
+        outputKey: done
+    - rid: 8829271167484559786
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: done
+        conditionToEndOn: 1
+    - rid: 8829271167484559787
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: companionCardPlayedFrom
+        statusEffect: 12
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+    - rid: 8829271167484559788
+      type: {class: MathStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: MathStep
+        inputKey: triggersRemaining
+        operand2InputKey: UNUSED
+        operation: 1
+        scale: 1
+        outputKey: triggersRemaining
+    - rid: 8829271167484559789
+      type: {class: CombatInstanceCacheStore, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatInstanceCacheStore
+        inputCombatInstanceKey: self
+        hardCodedBool: 0
+        useHardCodedBool: 0
+        hardCodedInt: 0
+        useHardCodedInt: 0
+        currentWorkflowKey: triggersRemaining
+        cacheKey: triggersRemaining

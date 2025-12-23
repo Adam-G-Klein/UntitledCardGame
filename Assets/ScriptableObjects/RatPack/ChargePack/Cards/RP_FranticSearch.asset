@@ -1,0 +1,119 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
+  m_Name: RP_FranticSearch
+  m_EditorClassIdentifier: 
+  guid: 706179b3-fdf6-417c-a056-4de559d9d9b5
+  Name: Frantic Search
+  Description: Discharge 2. Draw 2 from target companion. Exhaust
+  defaultValues: []
+  Cost: 0
+  Artwork: {fileID: 21300000, guid: 5a2971991e927e24897e5770045653ec, type: 3}
+  cardCategory: 2
+  packFrom: {fileID: 11400000, guid: 5fcec41dc4c664deda58b9e1b4074804, type: 2}
+  vfxPrefab: {fileID: 0}
+  playable: 1
+  exhaustsWhenPlayed: 1
+  retain: 0
+  effectWorkflows:
+  - rid: 5602892723852673195
+  onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
+    rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  tooltips: 20000000
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 5602892723852673195
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 8829271167484559794
+        - rid: 5602892723852673196
+        - rid: 8829271167484559790
+        - rid: 8829271167484559791
+        - rid: 8829271167484559792
+        - rid: 8829271167484559793
+        - rid: 8829271167484560081
+    - rid: 5602892723852673196
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 4
+        cantCancelTargetting: 0
+    - rid: 8829271167484559790
+      type: {class: CountStatusEffectsStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CountStatusEffectStep
+        inputKey: self
+        statusEffect: 12
+        onlyCountStatusOnce: 0
+        outputKey: charge
+    - rid: 8829271167484559791
+      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: BooleanComparison
+        hardCodedInputKey1: 2
+        useHardCodedInputKey1: 1
+        inputKey1: 
+        operation: 2
+        inputKey2: charge
+        outputKey: hasEnoughCharge
+    - rid: 8829271167484559792
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: hasEnoughCharge
+        conditionToEndOn: 0
+    - rid: 8829271167484559793
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: self
+        statusEffect: 12
+        scale: -2
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+    - rid: 8829271167484559794
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: target
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 0
+        cantCancelTargetting: 0
+    - rid: 8829271167484560081
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DrawCards
+        inputKey: target
+        outputKey: 
+        scale: 2
+        getScaleFromKey: 0
+        inputScaleKey: 
