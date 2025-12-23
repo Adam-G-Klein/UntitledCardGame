@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 09325321-fdbb-48cc-8910-2c4543112aa9
   Name: Wormwork
-  Description: Give any 6 block. Exhaust a Status card in hand at random
+  Description: Give any 6 block & exhaust a Charm card in hand at random
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 8c16952da6b2cfa4181be941e4a49469, type: 3}
@@ -31,6 +31,8 @@ MonoBehaviour:
   onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  onDrawEffectWorkflow:
     rid: -2
   tooltips: 
   tooltipKeyword: 37
@@ -50,6 +52,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 2
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 1289961959942521127
       type: {class: FilterCards, ns: , asm: Assembly-CSharp}
       data:
@@ -58,6 +61,7 @@ MonoBehaviour:
         filter:
           cardCategoriesToInclude: 04000000
           retainedCardsFilter: 0
+          exactCardType: {fileID: 0}
         outputKey: statusCards
     - rid: 2295168179404538104
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -70,6 +74,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 2295168179404538105
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
@@ -96,7 +101,10 @@ MonoBehaviour:
         effectStepName: GetRandomItems
         inputKey: statusCards
         scale: 1
+        scaleKey: 
+        getScaleFromKey: 0
         outputKey: selected
+        withReplacement: 0
     - rid: 2295168179404538108
       type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
       data:

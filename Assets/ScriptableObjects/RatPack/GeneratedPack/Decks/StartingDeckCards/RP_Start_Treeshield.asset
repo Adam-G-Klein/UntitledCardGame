@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: RP_Start_Treeshield
   m_EditorClassIdentifier: 
   guid: 3cefa59b-a5da-42ed-81a2-cf37ccd55340
-  Name: Treeshield
-  Description: Give any 7 block and shuffle a "Treegunk" into their deck
+  Name: Natural Defenses
+  Description: Give any 7 block and shuffle a Bitterbark into their deck
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 46c78f719703f154f896d900ed853b52, type: 3}
@@ -31,6 +31,8 @@ MonoBehaviour:
   onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  onDrawEffectWorkflow:
     rid: -2
   tooltips: 
   tooltipKeyword: 37
@@ -72,6 +74,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 4
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 5602892561590779943
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -93,6 +96,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 5602892561590779945
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
@@ -112,7 +116,7 @@ MonoBehaviour:
         effectStepName: AddCardsToDeck
         inputKey: target
         cardTypes:
-        - {fileID: 11400000, guid: a01e6780b2964496da60664e148acadb, type: 2}
+        - {fileID: 11400000, guid: e5aefb6a1e4354d73910a59bd8677cf0, type: 2}
         addToDeckMethod: 1
         getCardsFromKey: 0
         inputCardsKey: 
