@@ -14,11 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 497a5540-e457-46a4-b13a-38e5ee87d807
   Name: Fwoosh
-  Description: Draw 2 cards from any. Choose 1 card in hand to exhaust.
+  Description: Draw 2 cards from any & choose 1 card in hand to exhaust.
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 90fa2971dfe769a49a60ad648e956340, type: 3}
   cardCategory: 2
+  packFrom: {fileID: 0}
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
@@ -31,7 +32,10 @@ MonoBehaviour:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
+  onDrawEffectWorkflow:
+    rid: -2
   tooltips: 
+  tooltipKeyword: 37
   references:
     version: 2
     RefIds:
@@ -81,6 +85,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 9024302470308298799
       type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
       data:
@@ -98,3 +103,4 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 5
         cantCancelTargetting: 1
+        cardSelectionHelperText: 

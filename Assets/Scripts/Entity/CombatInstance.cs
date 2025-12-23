@@ -168,7 +168,7 @@ public class CombatInstance : MonoBehaviour
         TurnManager.Instance.addTurnPhaseTrigger(startOfTurnCacheInit);
 
         // null if boss that doesn't have status display
-        if(statusEffectsDisplay != null) statusEffectsDisplay.Setup(this, wpve);       
+        if(statusEffectsDisplay != null) statusEffectsDisplay.Setup(this, wpve);
         this.wpve = wpve;
         this.destroyOnDeath = destroyOnDeath;
     }
@@ -255,6 +255,9 @@ public class CombatInstance : MonoBehaviour
             // we invoke them here.
             // Note: this only should run if there is damage dealt to the guy.
             StartCoroutine(CombatEntityManager.Instance.OnDamageTaken(this));
+
+            // We took damage!!
+            EnemyEncounterManager.Instance.combatEncounterState.RegisterCombatInstanceTookDamageThisTurn(this);
         }
 
         Debug.Log("Take Damage is Setting current health to " + Mathf.Max(combatStats.getCurrentHealth() - damageAfterDefense, 0));

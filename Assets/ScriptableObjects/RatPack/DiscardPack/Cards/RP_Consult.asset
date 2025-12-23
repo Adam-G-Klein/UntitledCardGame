@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 7863a3ea-6164-4336-9f17-a7685452b006
   Name: Consult
-  Description: Draw 1 from any, then discard a card.
+  Description: Draw 1 from any & discard a card in hand
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 7d13e867f4dd988488e4c5a179fa0857, type: 3}
@@ -31,6 +31,8 @@ MonoBehaviour:
   onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  onDrawEffectWorkflow:
     rid: -2
   tooltips: 
   tooltipKeyword: 37
@@ -50,6 +52,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 5
         cantCancelTargetting: 1
+        cardSelectionHelperText: 
     - rid: 2034230108114649668
       type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
       data:
@@ -83,6 +86,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 5602892723852673197
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:

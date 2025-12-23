@@ -219,10 +219,22 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             UpdateCardPositions(newCardsWithoutTheBoolField);
 
             // process the OnDrawEvents for all the new cards with "countAsDraw" active.
+            // Count as draw is needed, because we "draw" cards for example when we generate cards in hand.
             for (int i = 0; i < newCards.Count; i++)
             {
                 if (!newCards[i].Item2) continue;
                 yield return OnCardDraw(newCards[i].Item1);
+                // If the card has an on draw effect workflow, invoke it now.
+                CardType ct = newCards[i].Item1.card.cardType;
+                if (ct.onDrawEffectWorkflow != null && ct.onDrawEffectWorkflow.effectSteps.Count > 0)
+                {
+                    List<EffectStep> workflowSteps = ct.onDrawEffectWorkflow.effectSteps;
+                    EffectDocument document = new EffectDocument();
+                    document.map.AddItem(EffectDocument.ORIGIN, newCards[i].Item1);
+                    document.originEntityType = EntityType.Card;
+                    Debug.Log("Invoking on draw effect workflow with steps: " + workflowSteps.Count);
+                    EffectManager.Instance.invokeEffectWorkflow(document, workflowSteps, null);
+                }
             }
 
             Debug.Log($"[PLAYERHAND.DEAL] Done processing, now updating the playable cards");

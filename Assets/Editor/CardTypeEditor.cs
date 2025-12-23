@@ -13,6 +13,7 @@ public class CardTypeEditor : Editor {
     EffectStepName onDiscardStepName = EffectStepName.Default;
 
     EffectStepName inPlayerHandEndOfTurnStepName = EffectStepName.Default;
+    EffectStepName onDrawStepName = EffectStepName.Default;
 
     int editedEffectWorkflow = 0;
     public override void OnInspectorGUI() {
@@ -84,6 +85,7 @@ public class CardTypeEditor : Editor {
             }
 
             cardType.onExhaustEffectWorkflow.effectSteps.Add(newEffect);
+            save(cardType);
         }
 
         EditorGUILayout.Space(20);
@@ -103,6 +105,7 @@ public class CardTypeEditor : Editor {
             }
 
             cardType.onDiscardEffectWorkflow.effectSteps.Add(newEffect);
+            save(cardType);
         }
 
         EditorGUILayout.Space(20);
@@ -122,6 +125,24 @@ public class CardTypeEditor : Editor {
             }
 
             cardType.inPlayerHandEndOfTurnWorkflow.effectSteps.Add(newEffect);
+        }
+
+        EditorGUILayout.Space(20);
+        EditorGUILayout.LabelField("On Draw effect Step Controls");
+        EditorGUILayout.Space(5);
+
+        onDrawStepName = (EffectStepName) EditorGUILayout.EnumPopup(
+            "New effect",
+            onDrawStepName);
+        if (GUILayout.Button("Add Effect")) {
+            EffectStep newEffect = InstantiateFromClassname.Instantiate<EffectStep>(
+                onDrawStepName.ToString(),
+                new object[] {});
+            if (cardType.onDrawEffectWorkflow == null) {
+                cardType.onDrawEffectWorkflow = new EffectWorkflow();
+            }
+            cardType.onDrawEffectWorkflow.effectSteps.Add(newEffect);
+            save(cardType);
         }
     }
 

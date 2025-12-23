@@ -57,7 +57,7 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
 
     public List<CompanionInstance> getCompanions()
     {
-        return companions;
+        return new List<CompanionInstance>(companions);
     }
 
     // position 0 is front

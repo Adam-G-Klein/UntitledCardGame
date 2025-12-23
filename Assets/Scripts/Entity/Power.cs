@@ -37,7 +37,11 @@ public class PowerSO : ScriptableObject
 
     // By default, powers will stack.
     [SerializeField]
-    public bool stackable = true;
+    private bool stackable = true;
+
+    // get accessor for stackable:
+    // For now, let's ignore the property and make all powers non-stackable.
+    public bool Stackable { get { return false; } }
 
     public enum PowerType
     {
@@ -135,7 +139,7 @@ public class PowerPool
     public bool ActivatePower(PowerSO power)
     {
         // If it's not stackable, check if the list already contains the power.
-        if (!power.stackable && HasPower(power.powerType))
+        if (!power.Stackable && HasPower(power.powerType))
         {
             return false;
         }

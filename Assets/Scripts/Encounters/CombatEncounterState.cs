@@ -12,6 +12,10 @@ public class CombatEncounterState
     public List<Card> cardsDiscardedThisTurn = new List<Card>();
     public List<Card> cardsDiscardedThisCombat = new List<Card>();
     public List<DeckInstance> decksShuffledThisCombat = new List<DeckInstance>();
+
+    private Dictionary<CombatInstance, bool> combatInstanceTookDamageThisTurn =
+        new Dictionary<CombatInstance, bool>();
+
     public int turn = 1;
 
     public void CastCard(Card card)
@@ -39,6 +43,7 @@ public class CombatEncounterState
         cardsExhaustThisTurn = new List<Card>();
         cardsDiscardedThisCombat.AddRange(cardsDiscardedThisTurn);
         cardsDiscardedThisTurn = new List<Card>();
+        combatInstanceTookDamageThisTurn.Clear();
     }
 
     public Card GetLastCastCard()
@@ -75,5 +80,19 @@ public class CombatEncounterState
             }
         }
         return count;
+    }
+
+    public bool DidCombatInstanceTakeDamageThisTurn(CombatInstance combatInstance)
+    {
+        if (combatInstanceTookDamageThisTurn.ContainsKey(combatInstance))
+        {
+            return combatInstanceTookDamageThisTurn[combatInstance];
+        }
+        return false;
+    }
+
+    public void RegisterCombatInstanceTookDamageThisTurn(CombatInstance combatInstance)
+    {
+        combatInstanceTookDamageThisTurn[combatInstance] = true;
     }
 }

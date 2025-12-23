@@ -134,9 +134,31 @@ public class ShopCardProbabilityDistBuilder {
     }
 
     private int CountCardsWithSameFeatures(CardWithWeight target) {
+        return filteredCards.Count(card =>
+            card.rarity == target.rarity &&
+            card.cardSource == target.cardSource &&
+            (card.cardSource != CardSource.CompanionPool || card.card.sourceCompanion == target.card.sourceCompanion) &&
+            (card.cardSource != CardSource.PackPool || card.card.packSO == target.card.packSO)
+        );
+    }
+
+    private int CountNumGroupsForRarityAndCardSource(Card.CardRarity rarity, CardSource cardSource) {
         return filteredCards
-            .Where(g => (g.rarity, g.cardSource) == (target.rarity, target.cardSource))
-            .ToList()
+            .Where(card =>
+                card.rarity == rarity &&
+                card.cardSource == cardSource
+            )
+            .Select(card =>
+                // Group by companion type if from companion pool.
+                card.cardSource == CardSource.CompanionPool ?
+                    card.card.sourceCompanion.name :
+                // Group by pack if from pack pool.
+                card.cardSource == CardSource.PackPool ?
+                    card.card.packSO.name :
+                // Otherwise, group all neutral cards together.
+                    "neutral"
+            )
+            .Distinct()
             .Count();
     }
 
@@ -146,16 +168,24 @@ public class ShopCardProbabilityDistBuilder {
     // - card source probability (allows us to control how many neutral cards vs. pack vs. companion type the player sees)
     // Then, we have the count of each card with the same exact features.
     // For now, we divide that space equally.
+    // We also have "groups" for each card source and rarity; for example, all the packs with a common card.
+    // We will weight the packs evenly, no matter how many cards they have :)
     // The sum of the probabilities in the returned list should sum to one.
     public ShopProbabilityDistribution Build() {
         List<CardWithWeight> cardCategoricalDistribution = new();
         foreach (CardWithWeight card in filteredCards) {
+            // Count the numer of groups for this rarity and card source.
+            int numGroups = this.CountNumGroupsForRarityAndCardSource(card.rarity, card.cardSource);
             int count = this.CountCardsWithSameFeatures(card);
-            // Debug.Log("Number of cards with same features: " + count + ", card " + card.card.cardType.name);
+            // Debug.Log("Number of cards with same features: " + count + ", card " + card.card.cardType.name + ", number of groups: " + numGroups);
             float probInGroup = 1f / (float) count;
-            float combinedProb = probInGroup * rarityProb[card.rarity] * cardSourceProb[card.cardSource];
+            float groupProb = 1f / (float) numGroups;  // Each group gets equal probability mass.
+            float combinedProb = probInGroup * groupProb * rarityProb[card.rarity] * cardSourceProb[card.cardSource];
             cardCategoricalDistribution.Add(new CardWithWeight(card, combinedProb));
         }
+        cardCategoricalDistribution = cardCategoricalDistribution
+            .OrderByDescending(c => c.weight)
+            .ToList();
         return new ShopProbabilityDistribution(cardCategoricalDistribution);
     }
 }
@@ -211,5 +241,8 @@ public class ShopProbabilityDistribution {
         {
             Debug.Log($"[Card Probability Distribution] {card.card.cardType.name} ({card.rarity}, {card.cardSource}): {card.weight}");
         }
+        // Check that the probabilities sum to 1.
+        float totalProb = cardCategoricalDistribution.Select(c => c.weight).ToList().Sum();
+        Debug.Log($"[Card Probability Distribution] Total Probability: {totalProb}");
     }
 }

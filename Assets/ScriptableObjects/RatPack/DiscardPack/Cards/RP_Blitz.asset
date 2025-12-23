@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: b8236695-c8bf-400f-83e8-9196ba7b08ba
   Name: Blitz
-  Description: Discard 3 cards and gain 2 energy
+  Description: Discard 3 cards in hand & gain 2 energy
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 3708c5d775e17b749bf81d2b922f6024, type: 3}
@@ -31,6 +31,8 @@ MonoBehaviour:
   onDiscardEffectWorkflow:
     rid: 2034230108114649711
   inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  onDrawEffectWorkflow:
     rid: -2
   tooltips: 
   tooltipKeyword: 37
@@ -74,3 +76,4 @@ MonoBehaviour:
         number: 3
         specialTargetRule: 5
         cantCancelTargetting: 0
+        cardSelectionHelperText: 

@@ -51,6 +51,9 @@ public class CardType: IdentifiableSO, ITooltipProvider
     // When the card is kept in hand for the end of the turn, we can do
     // an optional effect workflow, like "lose 2 HP".
     public EffectWorkflow inPlayerHandEndOfTurnWorkflow;
+    [SerializeReference]
+    // When the card is drawn, we can do an optional effect workflow, like "draw 1 card".
+    public EffectWorkflow onDrawEffectWorkflow;
 
     [SerializeField]
     // TODO: re-arch this if it becomes a big enough pain
@@ -223,7 +226,7 @@ public enum CardCategory
     Attack,
     NonAttack,
     Saga,
-    Status,
+    Charm,
     Passive,
 }
 
@@ -248,6 +251,9 @@ public class CardFilter
     // Note: only applies to "PlayableCard" objects.
     public RetainedCardFilter retainedCardsFilter;
 
+    // Match an exact card type.
+    public CardType exactCardType = null;
+
     // Returns true if the card is included by the filter.
     //
     public bool ApplyFilter(Card card)
@@ -257,7 +263,10 @@ public class CardFilter
         {
             includeCard &= cardCategoriesToInclude.Contains(card.cardType.cardCategory);
         }
-        // Debug.Log("Filter [" + includeCard + "]" + "Card " + card.cardType.name + "has cardCategory=" + card.cardType.cardCategory.ToString());
+        if (exactCardType != null)
+        {
+            includeCard &= card.cardType == exactCardType;
+        }
         return includeCard;
     }
 

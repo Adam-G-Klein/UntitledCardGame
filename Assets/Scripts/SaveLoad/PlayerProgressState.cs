@@ -25,7 +25,7 @@ public class PlayerProgressState
           this.hasWonRun = new AchievementSerializable(achievementSOList.Find(x => x.gameActionType == GameActionType.WIN_A_RUN));
           this.maxAscensionUnlocked = ProgressManager.Instance.ascensionInfo.playersMaxAscensionUnlocked;
 
-          // Not yet implemented 
+          // Not yet implemented
           //this.numCardsDiscarded = new AchievementSerializable(achievementSOList.Find(x => x.gameActionType == GameActionType.DISCARD_A_CARD));
           //this.healthGained = new AchievementSerializable(achievementSOList.Find(x => x.gameActionType == GameActionType.HEALTH_GAINED));
           //this.statusCardsGained = new AchievementSerializable(achievementSOList.Find(x => x.gameActionType == GameActionType.STATUS_CARDS_GAINED));
@@ -35,6 +35,7 @@ public class PlayerProgressState
           this.hasSeenPackSelectTutorial = gameState.HasSeenPackSelectTutorial;
           this.hasSeenShopTutorial = gameState.HasSeenShopTutorial;
           this.nextTutorialID = TutorialManager.Instance.UpcomingTutorialID;
+
      }
 
      public void LoadToLocalPlayerProgress(GameStateVariableSO gameState)
@@ -76,7 +77,7 @@ public class PlayerProgressState
           // PrintAchievementProgress(ProgressManager.Instance.achievementSOList.Find(x => x.gameActionType == GameActionType.STATUS_CARDS_GAINED));
           Debug.Log($"ProgressManager - Max Ascension Unlocked: {ProgressManager.Instance.ascensionInfo.playersMaxAscensionUnlocked}");
      }
-     
+
      private void PrintAchievementProgress(AchievementSO achievementSO)
      {
           Debug.Log($"ProgressManager - Achievement: {achievementSO.achievementName}, Current Progress: {achievementSO.currentProgress}, Locked In Progress: {achievementSO.lockedInProgress}, Is Completed: {achievementSO.isCompleted}");

@@ -77,6 +77,9 @@ public class GetTargets : EffectStep, IEffectStepCalculation
         } else if (specialTargetRule == SpecialTargetRule.TargetEntityThatDeltCard) {
             addOriginCardEntityFromToDocument(document);
             yield break;
+        } else if (specialTargetRule == SpecialTargetRule.TargetAllEntitiesExceptEntityThatDealtCard) {
+            addAllEntitiesExceptOriginCardEntityToDocument(document);
+            yield break;
         }
 
         targetsList = new List<Targetable>();
@@ -100,6 +103,8 @@ public class GetTargets : EffectStep, IEffectStepCalculation
 
         if (getAllValidTargets) {
             GetAllValidTargets(document);
+        } else if (specialTargetRule == SpecialTargetRule.TargetLeftmost) {
+            GetTargetAtPosition(document, 0);
         } else if (specialTargetRule == SpecialTargetRule.TargetRandom) {
             GetTargetsRandomly(document);
         } else {
@@ -230,6 +235,26 @@ public class GetTargets : EffectStep, IEffectStepCalculation
         }
     }
 
+    private void GetTargetAtPosition(EffectDocument document, int pos = 0) {
+        if (validTargets.Contains(Targetable.TargetType.Companion)) {
+            List<CompanionInstance> companions = CombatEntityManager.Instance.getCompanions()
+                .FindAll(instance => !disallowedTargets.Contains(instance.gameObject));
+            int index = Mathf.Clamp(pos, 0, companions.Count - 1);
+            EffectUtils.AddCompanionToDocument(document, outputKey, companions[index]);
+        }
+        if (validTargets.Contains(Targetable.TargetType.Enemy)) {
+            List<EnemyInstance> enemies = CombatEntityManager.Instance.getEnemies()
+                .FindAll(instance => !disallowedTargets.Contains(instance.gameObject));
+            int index = Mathf.Clamp(pos, 0, enemies.Count - 1);
+            EffectUtils.AddEnemyToDocument(document, outputKey, enemies[index]);
+        }
+        if (validTargets.Contains(Targetable.TargetType.Card)) {
+            List<PlayableCard> playableCards = PlayerHand.Instance.GetCardsOrdered()
+                .FindAll(card => !disallowedTargets.Contains(card.gameObject));
+            int index = Mathf.Clamp(pos, 0, playableCards.Count - 1);
+            EffectUtils.AddPlayableCardToDocument(document, outputKey, playableCards[index]);
+        }
+    }
 
     private void GetTargetsRandomly(EffectDocument document) {
         for (int i = 0; i < number ; i++) {
@@ -293,6 +318,23 @@ public class GetTargets : EffectStep, IEffectStepCalculation
         }
     }
 
+    public void addAllEntitiesExceptOriginCardEntityToDocument(EffectDocument document) {
+        if (document.originEntityType != EntityType.Card) {
+            EffectError("addAllEntitiesExceptOriginCardEntityToDocument" +
+                " called, but origin of effect isn't a PlayableCard");
+            return;
+        }
+
+        PlayableCard playableCard = document.map.GetItem<PlayableCard>(
+            EffectDocument.ORIGIN, 0);
+        DeckInstance deckFrom = playableCard.deckFrom;
+
+        List<CompanionInstance> companions = CombatEntityManager.Instance.getCompanions();
+        companions.RemoveAll(companion => companion == deckFrom.GetComponent<CompanionInstance>());
+
+        EffectUtils.AddCompanionsToDocument(document, outputKey, companions);
+    }
+
     public void addSelfToDocument(EffectDocument document) {
         if (document.originEntityType == EntityType.Unknown) {
             EffectError("TargetSelf rule checked but" +
@@ -341,6 +383,8 @@ public class GetTargets : EffectStep, IEffectStepCalculation
         TargetSelf,
         TargetEntityThatDeltCard,
         CantTargetSelf,
-        TargetRandom
+        TargetRandom,
+        TargetLeftmost,
+        TargetAllEntitiesExceptEntityThatDealtCard,
     }
 }

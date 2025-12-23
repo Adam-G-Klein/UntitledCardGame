@@ -41,12 +41,12 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Grizzlypooh+
-      description: Whenever Grizzlypooh loses HP, give self 4 block & give adj 2
-        block
+      description: Whenever Grizzlypooh loses HP, give leftmost rat 3 block & give
+        self 1 block
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: Whenever Grizzlypooh loses HP, give self 4 block & give adj
-    2 block
+  keepsakeDescription: Whenever Grizzlypooh loses HP, give leftmost rat 3 block &
+    give self 1 block
   references:
     version: 2
     RefIds:
@@ -60,8 +60,8 @@ MonoBehaviour:
         - rid: 7707884639552274903
         - rid: 2511001503980847380
         - rid: 205828107393564792
-        - rid: 2511001503980847381
         - rid: 205828107393564793
+        - rid: 758316073527279621
         - rid: 2511001503980847382
         - rid: 2511001503980847383
         weight: 0
@@ -71,7 +71,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: self
         statusEffect: 2
-        scale: 4
+        scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
@@ -85,6 +85,18 @@ MonoBehaviour:
         inputKey: self
         prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
         scale: 1
+    - rid: 758316073527279621
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: left
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 7
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 2511001503980847380
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -96,19 +108,14 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
-    - rid: 2511001503980847381
-      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetAdjacentCompanions
-        inputKey: self
-        outputKey: adj
+        cardSelectionHelperText: 
     - rid: 2511001503980847382
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ApplyStatus
-        inputKey: adj
+        inputKey: left
         statusEffect: 2
-        scale: 2
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
@@ -119,7 +126,7 @@ MonoBehaviour:
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
-        inputKey: adj
+        inputKey: left
         prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
         scale: 1
     - rid: 2511001503980847389

@@ -165,7 +165,7 @@ public class CompanionView : IUIEventReceiver
                 rarityIndicator = pack.rareIcon;
                 break;
         }
-        
+
         this.rarityIndicator.style.backgroundImage = new StyleBackground(rarityIndicator);
     }
 
@@ -274,7 +274,7 @@ public class CompanionView : IUIEventReceiver
         List<(PowerSO, int)> activePowers = combatInstance.GetPowersWithStackCounts();
         foreach ((PowerSO, int) p in activePowers)
         {
-            string val = p.Item1.stackable ?  p.Item2.ToString() : "";
+            string val = p.Item1.Stackable ?  p.Item2.ToString() : "";
             this.statusArea.Add(CreateStatusIndicator(p.Item1.displaySprite, val));
         }
     }

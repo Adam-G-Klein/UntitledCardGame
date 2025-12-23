@@ -42,12 +42,12 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Mab+
-      description: At the end of combat, give adjacent companions 2 max HP & heal
-        8 HP. Each turn, adjacent companions lose 1 HP unless they would die.
+      description: At the end of combat, give adjacent rats 2 max HP & heal 4 HP.
+        Each turn, adjacent rats lose 1 HP unless they would die.
       relatedBehaviorIndex: 0
   keepsakeTitle: 
-  keepsakeDescription: At the end of combat, give adjacent companions 2 max HP &
-    heal 8 HP. Each turn, adjacent companions lose 1 HP unless they would die.
+  keepsakeDescription: At the end of combat, give adjacent rats 2 max HP & heal 4
+    HP. Each turn, adjacent rats lose 1 HP unless they would die.
   references:
     version: 2
     RefIds:
@@ -73,11 +73,13 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 2034229587402555395
       type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetAdjacentCompanions
         inputKey: self
+        includeInputCompanion: 0
         outputKey: adj
     - rid: 2034230176448512382
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
@@ -85,7 +87,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: adj
         combatEffect: 9
-        scale: 8
+        scale: 4
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
@@ -127,11 +129,13 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 2034230176448512386
       type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetAdjacentCompanions
         inputKey: self
+        includeInputCompanion: 0
         outputKey: adj
     - rid: 7401433059192472040
       type: {class: FilterEntityByHP, ns: , asm: Assembly-CSharp}

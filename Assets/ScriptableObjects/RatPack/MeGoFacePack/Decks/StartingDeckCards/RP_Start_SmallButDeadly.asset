@@ -14,11 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: aff68422-4bc4-4c67-a69d-069eda5a40f0
   Name: Small but Deadly
-  Description: Give any 1 strength
+  Description: Give any 1 strength & 1 temporary strength
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 5f66e07752da0d34ca5ca0b6a327d011, type: 3}
   cardCategory: 2
+  packFrom: {fileID: 0}
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
@@ -31,12 +32,28 @@ MonoBehaviour:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
+  onDrawEffectWorkflow:
+    rid: -2
   tooltips: 
+  tooltipKeyword: 37
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 758316092100444257
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: targetCompanion
+        statusEffect: 6
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 1274772082283774276
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -50,6 +67,7 @@ MonoBehaviour:
         effectSteps:
         - rid: 5602892533381726227
         - rid: 5602892533381726228
+        - rid: 758316092100444257
         - rid: 1274772082283774276
     - rid: 5602892533381726227
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -62,6 +80,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 5602892533381726228
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:

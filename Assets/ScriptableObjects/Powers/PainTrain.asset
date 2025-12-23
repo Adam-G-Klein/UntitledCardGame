@@ -37,6 +37,8 @@ MonoBehaviour:
         - rid: 2511001254715195609
         - rid: 754093991137641208
         - rid: 2511001254715195610
+        - rid: 758315839196758782
+        weight: 0
     - rid: 754093991137641208
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -48,6 +50,11 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 6
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
+    - rid: 758315839196758782
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
     - rid: 2511001254715195609
       type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
       data:

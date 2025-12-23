@@ -14,11 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 0a47eb48-1b86-4d01-8892-d6245eccfacd
   Name: Stalwart
-  Description: Give any 5 block. When discarded, give all 2 block
+  Description: Give any 5 block. When discarded, give leftmost rat 2 block
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: c0e53d043957bac4c8fb2528ecd0a1b9, type: 3}
   cardCategory: 2
+  packFrom: {fileID: 0}
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
@@ -31,7 +32,10 @@ MonoBehaviour:
     rid: 2034230108114649711
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
+  onDrawEffectWorkflow:
+    rid: -2
   tooltips: 
+  tooltipKeyword: 37
   references:
     version: 2
     RefIds:
@@ -62,6 +66,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 8034949928137261060
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
@@ -88,11 +93,12 @@ MonoBehaviour:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: all
+        outputKey: left
         validTargets: 00000000
         number: 1
-        specialTargetRule: 1
+        specialTargetRule: 7
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 8034950092883230781
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -101,7 +107,7 @@ MonoBehaviour:
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ApplyStatus
-        inputKey: all
+        inputKey: left
         statusEffect: 2
         scale: 2
         getScaleFromKey: 0
@@ -114,6 +120,6 @@ MonoBehaviour:
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
-        inputKey: all
+        inputKey: left
         prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
         scale: 1

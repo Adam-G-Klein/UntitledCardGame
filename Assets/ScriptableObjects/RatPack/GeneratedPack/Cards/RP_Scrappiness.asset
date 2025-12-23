@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 4ba73f9c-ccb9-4767-8d48-f0f92f600678
   Name: Scrappiness
-  Description: Exhaust a Status card and create 2 "Stinkweed" in hand for self
+  Description: Exhaust any Charm card in hand & create 1 Doombloom in hand for each
+    adjacent rat
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: b6a3a72ddfbd65c429c809259c81ca0b, type: 3}
@@ -31,6 +32,8 @@ MonoBehaviour:
   onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  onDrawEffectWorkflow:
     rid: -2
   tooltips: 
   tooltipKeyword: 0
@@ -50,6 +53,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 2
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 1289961959942521127
       type: {class: FilterCards, ns: , asm: Assembly-CSharp}
       data:
@@ -58,6 +62,7 @@ MonoBehaviour:
         filter:
           cardCategoriesToInclude: 04000000
           retainedCardsFilter: 0
+          exactCardType: {fileID: 0}
         outputKey: statusCards
     - rid: 2295168179404538104
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -70,6 +75,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 4
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 2295168179404538106
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -94,6 +100,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 5
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 2295168569757138947
       type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
       data:

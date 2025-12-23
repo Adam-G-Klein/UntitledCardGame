@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerType: 34
   title: Whetstone
-  description: End of turn, retain a random Attack card in hand and give all Attacks
-    in hand +2 damage
+  description: End of turn, retain a random Attack card in hand and give it +2 damage
   abilities:
   - rid: 754093991137640772
   displaySprite: {fileID: 21300000, guid: bc01e6303f5aef54696b1695ae9d1ce0, type: 3}
@@ -38,11 +37,12 @@ MonoBehaviour:
         - rid: 754093991137641208
         - rid: 754093991137641209
         - rid: 2511001254715195969
+        - rid: 2511001254715195968
         - rid: 754093991137641210
         - rid: 754093991137641211
-        - rid: 2511001254715195968
         - rid: 2511001254715195970
         - rid: 754093991137641212
+        weight: 0
     - rid: 754093991137641208
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -54,6 +54,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 1
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 754093991137641209
       type: {class: FilterCards, ns: , asm: Assembly-CSharp}
       data:
@@ -62,12 +63,13 @@ MonoBehaviour:
         filter:
           cardCategoriesToInclude: 01000000
           retainedCardsFilter: 0
+          exactCardType: {fileID: 0}
         outputKey: attacks
     - rid: 754093991137641210
       type: {class: CardModificationEffect, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CardModificationEffect
-        inputKey: attacks
+        inputKey: cardToRetain
         scale: 2
         affectsAllCardsOfType: 0
         cardTypeToModify: {fileID: 0}
@@ -78,7 +80,7 @@ MonoBehaviour:
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
-        inputKey: attacks
+        inputKey: cardToRetain
         prefabToInstantiate: {fileID: 3850217184923880746, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
         scale: 1
     - rid: 754093991137641212
@@ -92,7 +94,10 @@ MonoBehaviour:
         effectStepName: GetRandomItems
         inputKey: nonRetainedAttacks
         scale: 1
+        scaleKey: 
+        getScaleFromKey: 0
         outputKey: cardToRetain
+        withReplacement: 0
     - rid: 2511001254715195969
       type: {class: FilterCards, ns: , asm: Assembly-CSharp}
       data:
@@ -101,6 +106,7 @@ MonoBehaviour:
         filter:
           cardCategoriesToInclude: 
           retainedCardsFilter: 2
+          exactCardType: {fileID: 0}
         outputKey: nonRetainedAttacks
     - rid: 2511001254715195970
       type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
