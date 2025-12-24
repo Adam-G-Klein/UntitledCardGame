@@ -158,7 +158,7 @@ public class CombatInstance : MonoBehaviour
         this.cachedEffectValues = new EffectDocument();
         this.statusEffectsDisplay = GetComponent<StatusEffectsDisplay>();
         if (cacheConfigs != null) {
-            this.cacheConfigs = cacheConfigs;
+            this.cacheConfigs = new List<CacheConfiguration>(cacheConfigs);
         }
         // Set up turn triggers to store values in the cache effect document at the start of combat
         // or the start of the turn.
