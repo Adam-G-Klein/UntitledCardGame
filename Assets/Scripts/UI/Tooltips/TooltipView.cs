@@ -110,6 +110,7 @@ public class TooltipViewModel
 
     public TooltipViewModel(bool empty = true)
     {
+        this.lines = new List<TooltipLine>();
         this.empty = empty;
     }
 
@@ -186,7 +187,7 @@ public class TooltipView : MonoBehaviour
 
     void Awake()
     {
-        // I (Ethan) was getting some occasional crashes relating to the unity rendering pipeline failing to write to 
+        // I (Ethan) was getting some occasional crashes relating to the unity rendering pipeline failing to write to
         // tooltip canvases. Making them disabled until they are fully setup seems to have helped.
         if (canvas != null)
         {
