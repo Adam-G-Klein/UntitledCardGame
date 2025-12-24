@@ -48,11 +48,11 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Tiefseeker
-      description: The first 2 times you draw a Status card each turn, draw 1 from
+      description: The first 2 times you draw a Charm card each turn, draw 1 from
         self
       relatedBehaviorIndex: 0
   keepsakeTitle: Hidden Cache
-  keepsakeDescription: The first 2 times you draw a Status card each turn, draw 1
+  keepsakeDescription: The first 2 times you draw a Charm card each turn, draw 1
     from self
   references:
     version: 2
@@ -72,6 +72,7 @@ MonoBehaviour:
         - rid: 754093968382754842
         - rid: 754093968382754843
         - rid: 2511001095643857206
+        weight: 0
     - rid: 754093871974056130
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -83,6 +84,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 754093968382754838
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
@@ -138,6 +140,7 @@ MonoBehaviour:
         filter:
           cardCategoriesToInclude: 04000000
           retainedCardsFilter: 0
+          exactCardType: {fileID: 0}
         outputKey: statusCards
     - rid: 754093968382754845
       type: {class: EndWorkflowIfListEmpty, ns: , asm: Assembly-CSharp}

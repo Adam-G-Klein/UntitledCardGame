@@ -41,10 +41,10 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Tiefseeker++
-      description: Whenever you draw a Status card, draw 1 from self
+      description: Whenever you draw a Charm card, draw 1 from self
       relatedBehaviorIndex: 0
   keepsakeTitle: Hidden Cache
-  keepsakeDescription: Whenever you draw a Status card, draw 1 from self
+  keepsakeDescription: Whenever you draw a Charm card, draw 1 from self
   references:
     version: 2
     RefIds:
@@ -70,6 +70,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 754093968382754844
       type: {class: FilterCards, ns: , asm: Assembly-CSharp}
       data:
@@ -78,6 +79,7 @@ MonoBehaviour:
         filter:
           cardCategoriesToInclude: 04000000
           retainedCardsFilter: 0
+          exactCardType: {fileID: 0}
         outputKey: statusCards
     - rid: 754093968382754845
       type: {class: EndWorkflowIfListEmpty, ns: , asm: Assembly-CSharp}

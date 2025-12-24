@@ -41,12 +41,12 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Firebreather+
-      description: At the end of turn, deal 5 damage to all enemies for each Status
-        card in your hand
+      description: At the end of turn, deal 5 damage to all foes for each Charm card
+        in your hand
       relatedBehaviorIndex: 0
   keepsakeTitle: Firebreather
-  keepsakeDescription: At the end of turn, deal 5 damage to all enemies for each
-    Status card in your hand
+  keepsakeDescription: At the end of turn, deal 5 damage to all foes for each Charm
+    card in your hand
   references:
     version: 2
     RefIds:
@@ -75,6 +75,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 1
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 2034230017118175446
       type: {class: FilterCards, ns: , asm: Assembly-CSharp}
       data:
@@ -83,6 +84,7 @@ MonoBehaviour:
         filter:
           cardCategoriesToInclude: 04000000
           retainedCardsFilter: 0
+          exactCardType: {fileID: 0}
         outputKey: statusCards
     - rid: 2034230176448512829
       type: {class: CountStep, ns: , asm: Assembly-CSharp}
@@ -101,6 +103,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 1
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 2034230176448512928
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:

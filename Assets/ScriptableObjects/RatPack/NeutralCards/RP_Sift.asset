@@ -14,11 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 096d22ef-8f52-4210-bbb2-2783109123d1
   Name: Sift
-  Description: Draw 1 card from 3 random companions
+  Description: Draw 1 card from 3 random rats
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 04bf14070e798284f9f39ea08b676c4a, type: 3}
   cardCategory: 2
+  packFrom: {fileID: 0}
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
@@ -31,7 +32,10 @@ MonoBehaviour:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
+  onDrawEffectWorkflow:
+    rid: -2
   tooltips: 
+  tooltipKeyword: 37
   references:
     version: 2
     RefIds:
@@ -43,7 +47,10 @@ MonoBehaviour:
         effectStepName: GetRandomItems
         inputKey: all
         scale: 3
+        scaleKey: 
+        getScaleFromKey: 0
         outputKey: target
+        withReplacement: 0
     - rid: 5280922841426165977
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -70,6 +77,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 1
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 5602892723852673197
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:

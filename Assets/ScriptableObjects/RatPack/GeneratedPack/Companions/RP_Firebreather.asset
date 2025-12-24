@@ -41,15 +41,25 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Firebreather
-      description: At the end of turn, deal 4 damage to a random enemy for each Status
+      description: At the end of turn, deal 4 damage to a random foe for each Charm
         card in your hand
       relatedBehaviorIndex: 0
   keepsakeTitle: Firebreather
-  keepsakeDescription: At the end of turn, deal 4 damage to a random enemy for each
-    Status card in your hand
+  keepsakeDescription: At the end of turn, deal 4 damage to a random foe for each
+    Charm card in your hand
   references:
     version: 2
     RefIds:
+    - rid: 758316092100444272
+      type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetRandomItems
+        inputKey: enemies
+        scale: 1
+        scaleKey: numStatusCards
+        getScaleFromKey: 1
+        outputKey: targets
+        withReplacement: 1
     - rid: 2034230017118175443
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
@@ -61,8 +71,10 @@ MonoBehaviour:
         - rid: 7707884639552274946
         - rid: 2034230176448512829
         - rid: 2034230176448512927
+        - rid: 758316092100444272
         - rid: 2034230176448512928
         - rid: 2034230176448512930
+        weight: 0
     - rid: 2034230017118175444
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -74,6 +86,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 1
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 2034230017118175446
       type: {class: FilterCards, ns: , asm: Assembly-CSharp}
       data:
@@ -82,6 +95,7 @@ MonoBehaviour:
         filter:
           cardCategoriesToInclude: 04000000
           retainedCardsFilter: 0
+          exactCardType: {fileID: 0}
         outputKey: statusCards
     - rid: 2034230176448512829
       type: {class: CountStep, ns: , asm: Assembly-CSharp}
@@ -98,13 +112,14 @@ MonoBehaviour:
         outputKey: enemies
         validTargets: 02000000
         number: 1
-        specialTargetRule: 6
+        specialTargetRule: 1
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 2034230176448512928
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
-        inputKey: enemies
+        inputKey: targets
         combatEffect: 14
         scale: 4
         getScaleFromKey: 0
