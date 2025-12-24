@@ -35,13 +35,17 @@ public class PowerSO : ScriptableObject
     [SerializeReference]
     private TooltipViewModel tooltip = new();
 
-    // By default, powers will stack.
-    [SerializeField]
-    private bool stackable = true;
+    // By default, powers will NOT stack.
+    // [SerializeField]
+    // private bool stackable = false;
 
     // get accessor for stackable:
     // For now, let's ignore the property and make all powers non-stackable.
     public bool Stackable { get { return false; } }
+
+    // Use this to display cached values for the power (e.g. number of triggers left).
+    public CacheConfiguration cacheConfiguration = new CacheConfiguration();
+
 
     public enum PowerType
     {
@@ -117,6 +121,8 @@ public class PowerSO : ScriptableObject
         LayeredSteel,
         // _: The first attack you play each turn, gain 1 energy and draw a card
         SeizeTheInitiative,
+        // _: End turn, if you exhausted at least 3 cards, deal a ton of damage
+        Apocalypse,
     }
 
     public TooltipViewModel GetTooltip()

@@ -1,0 +1,86 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
+  m_Name: PB_Apocalypse
+  m_EditorClassIdentifier: 
+  guid: 38812b69-d785-4a2b-8f4e-32df57cbffb1
+  Name: 
+  Description: 
+  defaultValues: []
+  Cost: 1
+  Artwork: {fileID: 0}
+  cardCategory: 5
+  packFrom: {fileID: 11400000, guid: 79e479ca9df7a4369ba7fa951e0af116, type: 2}
+  vfxPrefab: {fileID: 0}
+  playable: 1
+  exhaustsWhenPlayed: 0
+  retain: 0
+  effectWorkflows:
+  - rid: 754093991137641289
+  onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
+    rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  onDrawEffectWorkflow:
+    rid: -2
+  tooltips: 
+  tooltipKeyword: 37
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 754093991137641289
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 754093991137641290
+        - rid: 754093991137641291
+        - rid: 758316092100444554
+        - rid: 754093991137641292
+    - rid: 754093991137641290
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 4
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+    - rid: 754093991137641291
+      type: {class: ActivatePower, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ActivatePower
+        inputKey: self
+        power: {fileID: 11400000, guid: a802b8deca5d94a13a8401d27147870e, type: 2}
+    - rid: 754093991137641292
+      type: {class: CombatInstanceCacheStore, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatInstanceCacheStore
+        inputCombatInstanceKey: self
+        hardCodedBool: 0
+        useHardCodedBool: 0
+        hardCodedInt: 0
+        useHardCodedInt: 0
+        currentWorkflowKey: numExhaust
+        cacheKey: exhaustedCardCount
+    - rid: 758316092100444554
+      type: {class: GetCombatEncounterStat, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetCombatEncounterStat
+        statOfInterest: 2
+        outputKey: numExhaust

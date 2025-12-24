@@ -271,11 +271,12 @@ public class CompanionView : IUIEventReceiver
             this.statusArea.Add(CreateStatusIndicator(cacheValue.sprite, cacheValue.value.ToString()));
         }
 
+        // Create visuals for the powers that don't display cached values.
         List<(PowerSO, int)> activePowers = combatInstance.GetPowersWithStackCounts();
         foreach ((PowerSO, int) p in activePowers)
         {
-            string val = p.Item1.Stackable ?  p.Item2.ToString() : "";
-            this.statusArea.Add(CreateStatusIndicator(p.Item1.displaySprite, val));
+            if (p.Item1.cacheConfiguration.key != "" && p.Item1.cacheConfiguration.display) continue;
+            this.statusArea.Add(CreateStatusIndicator(p.Item1.displaySprite, ""));
         }
     }
 

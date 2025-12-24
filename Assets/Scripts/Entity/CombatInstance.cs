@@ -391,6 +391,13 @@ public class CombatInstance : MonoBehaviour
     public bool ActivatePower(PowerSO power)
     {
         bool activated = powers.ActivatePower(power);
+
+        // If the cache configuration is enabled, add to the combat instance's list.
+        if (activated && power.cacheConfiguration.key != "")
+        {
+            cacheConfigs.Add(power.cacheConfiguration);
+        }
+
         UpdateView();
         return activated;
     }
