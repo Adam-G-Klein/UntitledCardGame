@@ -45,7 +45,7 @@ public class PlayableCard : MonoBehaviour,
     public bool hoverable = true; // To be set to true when hovering/focusing the card shouldn't make the card do anything
     public bool currentlyCastingCard = false;
     public bool hoverInPlace = false;
-    
+
     private bool cardExhaustVFXFinished = false;
 
     private const string CardCalculationDamageKey = "card_calculation_rpl_damage_key";
@@ -270,6 +270,15 @@ public class PlayableCard : MonoBehaviour,
             yield return EffectManager.Instance.invokeEffectWorkflowForCalculation(
                 document,
                 card.cardType.onDiscardEffectWorkflow.effectSteps,
+                null
+            );
+        }
+        if (card.cardType.onDrawEffectWorkflow != null && card.cardType.onDrawEffectWorkflow.effectSteps.Count != 0)
+        {
+            document.stringMap[CardCalculationDamageKey] = "ondraw_rpl_damage";
+            yield return EffectManager.Instance.invokeEffectWorkflowForCalculation(
+                document,
+                card.cardType.onDrawEffectWorkflow.effectSteps,
                 null
             );
         }

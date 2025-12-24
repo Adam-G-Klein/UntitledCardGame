@@ -10,18 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: PB_Retribution
+  m_Name: PB_KnifeOfTheOldOnes
   m_EditorClassIdentifier: 
-  guid: a832a2cd-717a-4e06-9036-205dbe3ee7e2
-  Name: Retribution
-  Description: Deal {rpl_damage} damage for each rat below half HP ({numComps} rats)
+  guid: d44c5cef-046d-41eb-838f-8c791be6f33d
+  Name: Knife of the Old Ones
+  Description: Deal {rpl_damage} damage & if self lost HP this turn, give all Attack
+    cards in hand +2 damage
   defaultValues:
   - key: rpl_damage
-    value: 7
-  - key: numComps
-    value: 0
-  Cost: 2
-  Artwork: {fileID: 21300000, guid: 87ca436f7312bd8438886b00d3e2e69d, type: 3}
+    value: 3
+  Cost: 0
+  Artwork: {fileID: 21300000, guid: 0f5ecf3627abce84490e1f8ec8e4f24f, type: 3}
   cardCategory: 1
   packFrom: {fileID: 11400000, guid: a87b5da767d4e4659b2965e31e340c58, type: 2}
   vfxPrefab: {fileID: 0}
@@ -45,44 +44,71 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 1289961820425028160
-      type: {class: FilterEntityByHP, ns: , asm: Assembly-CSharp}
+    - rid: 758315839196758670
+      type: {class: CombatInstanceTookDamageThisTurn, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: FilterEntityByHP
-        inputKey: allies
-        percentThreshold: 0.5
-        absoluteThreshold: 0
-        useAbsoluteThreshold: 0
-        outputKey: belowHalf
-        below: 1
-    - rid: 2295167909047304310
+        effectStepName: CombatInstanceTookDamageThisTurn
+        inputCombatInstanceKey: self
+        outputKey: tookDamage
+    - rid: 758315839196758671
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: tookDamage
+        conditionToEndOn: 0
+    - rid: 758316092100444624
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: allies
-        validTargets: 00000000
+        outputKey: cards
+        validTargets: 03000000
         number: 1
-        specialTargetRule: 1
+        specialTargetRule: 2
         cantCancelTargetting: 0
         cardSelectionHelperText: 
-    - rid: 2295167909047304311
-      type: {class: CountStep, ns: , asm: Assembly-CSharp}
+    - rid: 758316092100444625
+      type: {class: FilterCards, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: CountStep
-        inputKey: belowHalf
-        outputKey: numComps
+        effectStepName: FilterCards
+        inputKey: cards
+        filter:
+          cardCategoriesToInclude: 01000000
+          retainedCardsFilter: 0
+          exactCardType: {fileID: 0}
+        outputKey: attacks
+    - rid: 758316092100444626
+      type: {class: CardModificationEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardModificationEffect
+        inputKey: attacks
+        scale: 2
+        affectsAllCardsOfType: 0
+        cardTypeToModify: {fileID: 0}
+        getScaleFromKey: 0
+        scaleKey: 
+        modification: 0
+    - rid: 758316092100444627
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: attacks
+        prefabToInstantiate: {fileID: 3850217184923880746, guid: 1ee62f6e09ec4ec45b8c7e4269c64149, type: 3}
+        scale: 1
     - rid: 5602892949302281046
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
         - rid: 5602892949302281047
-        - rid: 2295167909047304310
         - rid: 5602892949302281048
-        - rid: 1289961820425028160
-        - rid: 2295167909047304311
         - rid: 5602892949302281049
+        - rid: 758315839196758670
+        - rid: 758315839196758671
+        - rid: 758316092100444624
+        - rid: 758316092100444625
+        - rid: 758316092100444626
+        - rid: 758316092100444627
     - rid: 5602892949302281047
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -90,7 +116,7 @@ MonoBehaviour:
         useInputToLimitOptions: 0
         inputKey: 
         outputKey: self
-        validTargets: 
+        validTargets: 00000000
         number: 1
         specialTargetRule: 4
         cantCancelTargetting: 0
@@ -113,10 +139,10 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: enemy
         combatEffect: 0
-        scale: 7
+        scale: 8
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
-        getMultiplicityFromKey: 1
-        inputMultiplicityKey: numComps
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
         vfxPrefab: {fileID: 1320532642761013391, guid: 4847f21b038e1aa42bceefe5c97ab1ab, type: 3}
