@@ -13,13 +13,11 @@ MonoBehaviour:
   m_Name: Costly Rerolls
   m_EditorClassIdentifier: 
   description: Costly Rerolls
-  devDescription: Within each individual shop, rerolling costs $1 extra each time
-    you reroll.
+  devDescription: Make rerolling more expensive so it's harder to force things
   ascensionType: 6
-  modificationValue: 0
   ascensionModificationValues:
     entries:
     - Key: incrementalCostIncrease
       Value: 1
     - Key: baseCostIncrease
-      Value: 0
+      Value: 1

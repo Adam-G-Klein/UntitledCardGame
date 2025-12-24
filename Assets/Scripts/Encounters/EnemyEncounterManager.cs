@@ -231,7 +231,6 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
 
         // Gold interest calculation
         int baseGoldEarnedPerBattle = gameState.baseShopData.goldEarnedPerBattle;
-        if (gameState.buildType == BuildType.DEMO) baseGoldEarnedPerBattle += 2;
         int extraGold = Mathf.FloorToInt(gameState.baseShopData.interestRate * gameState.playerData.GetValue().gold);
         if (extraGold > gameState.baseShopData.interestCap)
         {
@@ -287,7 +286,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         postCombatUI.SetActive(true);
         uIStateEvent.Raise(new UIStateEventInfo(UIState.END_ENCOUNTER));
         //postCombatUI.transform.SetSiblingIndex(postCombatUI.transform.parent.childCount - 1);
-        
+
         TurnOffFocusing();// Needs to go before the next line bc this line disables existing focus, while the next line sets up more focus
         postCombatUI.GetComponent<EndEncounterView>().Setup(baseGoldEarnedPerBattle, extraGold, gameState.baseShopData.interestCap, gameState.baseShopData.interestRate);
         StartCoroutine(displayPostCombatUIAfterDelay());
