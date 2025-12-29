@@ -72,6 +72,9 @@
 		</relationship>
 	</object>
 	<object class="EventMixerMaster" id="{de6022ea-c3f5-4a5e-bc17-3424d46666de}">
+		<property name="volume">
+			<value>-2</value>
+		</property>
 		<relationship name="effectChain">
 			<destination>{aac429f1-617e-4001-82a9-3540b5f8e4cd}</destination>
 		</relationship>
@@ -140,7 +143,7 @@
 			<value>highGain</value>
 		</property>
 		<property name="amount">
-			<value>19</value>
+			<value>11</value>
 		</property>
 	</object>
 	<object class="RandomizerModulator" id="{b1a9a2d9-18e8-49d6-bfaf-f64971c40a44}">

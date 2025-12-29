@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="MixerGroup" id="{7b57541f-8523-40af-8db1-b750eec015bf}">
+		<property name="name">
+			<value>Stings</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{91101d04-4eae-4506-9483-0546f80ea61c}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{b33f1837-1d6c-43a4-8d4c-92f72ae08705}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{d68395be-23ed-438d-824f-6edb2e03265e}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{91101d04-4eae-4506-9483-0546f80ea61c}">
+		<relationship name="effects">
+			<destination>{c8813cd7-df2d-4cbc-bc41-f59952fdd608}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{b33f1837-1d6c-43a4-8d4c-92f72ae08705}" />
+	<object class="MixerBusFader" id="{c8813cd7-df2d-4cbc-bc41-f59952fdd608}" />
+</objects>

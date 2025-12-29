@@ -292,7 +292,6 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         int preferredActiveSlotIdx = -1;
         Companion companionToAdd = null;
         Companion level2Dude = companionCombinationManager.AttemptCompanionUpgrade(newCompanion);
-        MusicController.Instance.PlaySFX("event:/MX/MX_Companion_Upgrade_Stinger");
         if (level2Dude != null)
         {
             // Find an active slot to place the companion so it keeps the same spot in your team.
