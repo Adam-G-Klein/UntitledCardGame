@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 579b2eab-50e8-42a9-a6a2-28f74b11da85
   Name: No Pain No Gain
-  Description: Bleed any 1 HP & draw 1 card x4
+  Description: Bleed any 1 HP & draw 1 card x3
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: e0ab2143b8408423ab692d481858408a, type: 3}
@@ -65,7 +65,7 @@ MonoBehaviour:
         inputKey: 
         outputKey: target
         validTargets: 00000000
-        number: 4
+        number: 3
         specialTargetRule: 0
         cantCancelTargetting: 0
         cardSelectionHelperText: 
