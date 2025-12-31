@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerType: 37
   title: Apocalypse
-  description: End of turn, if you exhausted at least 3 cards, deal 15 damage to
+  description: End of turn, if you exhausted at least 2 cards, deal 15 damage to
     all enemies
   abilities:
   - rid: 754093991137641276
@@ -123,7 +123,7 @@ MonoBehaviour:
       type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: BooleanComparison
-        hardCodedInputKey1: 3
+        hardCodedInputKey1: 2
         useHardCodedInputKey1: 1
         inputKey1: 
         operation: 2
