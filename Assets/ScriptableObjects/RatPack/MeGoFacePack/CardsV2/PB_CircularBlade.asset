@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: PB_TasteForViolence
+  m_Name: PB_CircularBlade
   m_EditorClassIdentifier: 
-  guid: 11b32149-c33e-403c-925c-07a9b6514b6e
-  Name: Taste for Violence
+  guid: eb32ee39-0f5b-4255-8962-0dc38701f8bc
+  Name: Circular Blade
   Description: Deal {rpl_damage} damage & if the last card you played was an Attack,
-    give self 1 strength
+    draw 1 card from 2 random rats
   defaultValues:
   - key: rpl_damage
-    value: 5
+    value: 7
   Cost: 1
   Artwork: {fileID: 21300000, guid: b87c75bd71fd78540bcab566820366a8, type: 3}
   cardCategory: 1
@@ -44,29 +44,26 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 758315839196758704
-      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+    - rid: 1289961820425028297
+      type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: ApplyStatus
-        inputKey: self
-        statusEffect: 0
-        scale: 1
+        effectStepName: GetRandomItems
+        inputKey: target
+        scale: 2
+        scaleKey: 
         getScaleFromKey: 0
-        inputScaleKey: 
-        multiplyByNumAuraStacks: 0
-        multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
+        outputKey: self
+        withReplacement: 0
     - rid: 2034230176448512659
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: self
+        outputKey: target
         validTargets: 00000000
         number: 1
-        specialTargetRule: 4
+        specialTargetRule: 1
         cantCancelTargetting: 0
         cardSelectionHelperText: 
     - rid: 2034230176448512660
@@ -74,8 +71,17 @@ MonoBehaviour:
       data:
         effectStepName: InstantiatePrefab
         inputKey: self
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
         scale: 1
+    - rid: 2034230176448512661
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DrawCards
+        inputKey: self
+        outputKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
     - rid: 2511001503980847372
       type: {class: CheckTypeOfMostRecentlyPlayedCard, ns: , asm: Assembly-CSharp}
       data:
@@ -97,7 +103,8 @@ MonoBehaviour:
         - rid: 2511001503980847372
         - rid: 2511001503980847373
         - rid: 2034230176448512659
-        - rid: 758315839196758704
+        - rid: 1289961820425028297
+        - rid: 2034230176448512661
         - rid: 2034230176448512660
     - rid: 5602892675124822190
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -117,7 +124,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: enemy
         combatEffect: 0
-        scale: 5
+        scale: 7
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1

@@ -20,7 +20,14 @@ MonoBehaviour:
   displaySprite: {fileID: 21300000, guid: bc01e6303f5aef54696b1695ae9d1ce0, type: 3}
   tooltip:
     rid: 754093871974056657
-  stackable: 1
+  cacheConfiguration:
+    key: 
+    display: 1
+    sprite: {fileID: 0}
+    startOfTurnValue: 0
+    setStartOfTurnValue: 0
+    startOfCombatValue: 0
+    setStartOfCombatValue: 0
   references:
     version: 2
     RefIds:
@@ -105,7 +112,7 @@ MonoBehaviour:
         inputKey: attacks
         filter:
           cardCategoriesToInclude: 
-          retainedCardsFilter: 2
+          retainedCardsFilter: 0
           exactCardType: {fileID: 0}
         outputKey: nonRetainedAttacks
     - rid: 2511001254715195970

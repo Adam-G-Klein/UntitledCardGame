@@ -13,14 +13,21 @@ MonoBehaviour:
   m_Name: DemonRatForm
   m_EditorClassIdentifier: 
   powerType: 13
-  title: Power of the Pack
+  title: Martial Training
   description: End of turn, give self & adjacent 1 strength
   abilities:
   - rid: 754094139776958548
   displaySprite: {fileID: 21300000, guid: e0ab2143b8408423ab692d481858408a, type: 3}
   tooltip:
     rid: 754093871974056658
-  stackable: 0
+  cacheConfiguration:
+    key: 
+    display: 1
+    sprite: {fileID: 0}
+    startOfTurnValue: 0
+    setStartOfTurnValue: 0
+    startOfCombatValue: 0
+    setStartOfCombatValue: 0
   references:
     version: 2
     RefIds:
@@ -35,8 +42,6 @@ MonoBehaviour:
         abilityTrigger: 2
         effectSteps:
         - rid: 754094139776958549
-        - rid: 754094139776958550
-        - rid: 754094139776958551
         - rid: 2511000990761353348
         - rid: 2511000990761353349
         - rid: 2511000990761353350
@@ -53,31 +58,12 @@ MonoBehaviour:
         specialTargetRule: 3
         cantCancelTargetting: 0
         cardSelectionHelperText: 
-    - rid: 754094139776958550
-      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: ApplyStatus
-        inputKey: self
-        statusEffect: 0
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplyByNumAuraStacks: 0
-        multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
-    - rid: 754094139776958551
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: self
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
-        scale: 1
     - rid: 2511000990761353348
       type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetAdjacentCompanions
         inputKey: self
+        includeInputCompanion: 1
         outputKey: adj
     - rid: 2511000990761353349
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
