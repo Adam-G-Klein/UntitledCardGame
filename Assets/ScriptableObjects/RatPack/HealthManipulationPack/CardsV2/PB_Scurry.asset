@@ -15,10 +15,10 @@ MonoBehaviour:
   guid: 7092d4c0-422e-46e3-9a92-41f2a0e4d516
   Name: Scurry
   Description: Deal {rpl_damage} damage & if self below half HP, gain 1 energy &
-    give leftmost rat 3 block
+    give leftmost rat 4 block
   defaultValues:
   - key: rpl_damage
-    value: 5
+    value: 4
   Cost: 1
   Artwork: {fileID: 21300000, guid: bc01e6303f5aef54696b1695ae9d1ce0, type: 3}
   cardCategory: 1
@@ -62,7 +62,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: left
         statusEffect: 2
-        scale: 3
+        scale: 4
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
@@ -160,7 +160,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: enemy
         combatEffect: 0
-        scale: 5
+        scale: 4
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
