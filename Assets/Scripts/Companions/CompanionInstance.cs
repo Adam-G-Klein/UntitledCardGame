@@ -84,11 +84,16 @@ public class CompanionInstance : MonoBehaviour, IUIEntity
         }
         List<(PowerSO, int)> powersWithStacks = combatInstance.GetPowersWithStackCounts();
         List<(PowerSO, int)> selected = powersWithStacks.Where(p => p.Item1.powerType == power.powerType).ToList();
-        // Only add the tooltip if this was the first instance of the power added.
-        if (selected.Count >= 1 && selected.First().Item2 == 1)
+        // If it's stackable, we may have multiple instances of it, so rmeove the first tooltip.
+        if (selected.Count >= 1 && selected.First().Item2 > 1)
         {
-            tooltipProvider.AddTooltip(power.GetTooltip());
+            TooltipViewModel b = power.GetTooltip(selected.First().Item2 - 1);
+            foreach (var line in b.lines)
+            {
+                tooltipProvider.RemoveTooltipTitleRegexp(line.title);
+            }
         }
+        tooltipProvider.AddTooltip(power.GetTooltip(selected.First().Item2));
     }
 
     private void RegisterUpdateStatusEffects()

@@ -25,15 +25,21 @@ public class CombatCompanionTooltipProvder : MonoBehaviour
         tooltipOnHover.tooltip = new TooltipViewModel();
         CompanionInstance companion = GetComponent<CompanionInstance>();
         tooltipOnHover.tooltip += companion.companion.companionType.GetTooltip();
-        foreach (PowerSO power in companion.combatInstance.GetUniquePowers())
+        List<(PowerSO, int)> activePowers = companion.combatInstance.GetPowersWithStackCounts();
+        foreach ((PowerSO, int) p in activePowers)
         {
-            tooltipOnHover.tooltip += power.GetTooltip();
+            tooltipOnHover.tooltip += p.Item1.GetTooltip(p.Item2);
         }
     }
 
     public void AddTooltip(TooltipViewModel tooltip)
     {
         tooltipOnHover.tooltip += tooltip;
+    }
+
+    public void RemoveTooltipTitleRegexp(string titleRegexp)
+    {
+        tooltipOnHover.tooltip = TooltipViewModel.RemoveLinesByTitleRegexp(tooltipOnHover.tooltip, titleRegexp);
     }
 
     public void DisableTooltip()
@@ -55,6 +61,6 @@ public class CombatCompanionTooltipProvder : MonoBehaviour
                 statusTooltips.Remove(status.type);
                 tooltipOnHover.tooltip -= status.tooltip;
             }
-        }        
+        }
     }
 }

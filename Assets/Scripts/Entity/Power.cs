@@ -5,6 +5,7 @@ using Unity.Collections;
 using UnityEngine;
 using UnityEngine.UIElements;
 using System.Linq;
+using Unity.VisualScripting;
 
 [CreateAssetMenu(
     fileName = "NewPowerSO",
@@ -33,15 +34,13 @@ public class PowerSO : ScriptableObject
     public Sprite displaySprite;
 
     [SerializeReference]
-    private TooltipViewModel tooltip = new();
+    private TooltipViewModel extraTooltip = new();
 
-    // By default, powers will NOT stack.
-    // [SerializeField]
-    // private bool stackable = false;
+    [SerializeField]
+    private bool stackable = false;
 
     // get accessor for stackable:
-    // For now, let's ignore the property and make all powers non-stackable.
-    public bool Stackable { get { return false; } }
+    public bool Stackable { get { return stackable; } }
 
     // Use this to display cached values for the power (e.g. number of triggers left).
     public CacheConfiguration cacheConfiguration = new CacheConfiguration();
@@ -125,14 +124,14 @@ public class PowerSO : ScriptableObject
         Apocalypse,
     }
 
-    public TooltipViewModel GetTooltip()
+    public TooltipViewModel GetTooltip(int stackCount)
     {
-        if (tooltip.empty || tooltip.lines.Count == 0)
-        {
-            TooltipLine x = new TooltipLine(title, description);
-            return new TooltipViewModel(new List<TooltipLine> {x} );
-        }
-        return tooltip;
+        string modTitle = this.title;
+        if (stackCount > 1)
+            modTitle = string.Format("{0} x{1}", this.title, stackCount);
+        TooltipLine basePowerTooltip = new TooltipLine(modTitle, description);
+        TooltipViewModel baseTooltip = new TooltipViewModel(new List<TooltipLine> {basePowerTooltip} );
+        return baseTooltip + extraTooltip;
     }
 }
 

@@ -26,6 +26,11 @@ public class CacheConfiguration {
         x.sprite = sprite;
         return x;
     }
+
+    public bool Enabled()
+    {
+        return key != "" && display;
+    }
 }
 
 public class DisplayedCacheValue {
@@ -394,9 +399,10 @@ public class CombatInstance : MonoBehaviour
     public bool ActivatePower(PowerSO power)
     {
         bool activated = powers.ActivatePower(power);
-
+        int numStacks = GetNumStackOfPower(power.powerType);
         // If the cache configuration is enabled, add to the combat instance's list.
-        if (activated && power.cacheConfiguration.key != "")
+        // Only do it once per stackable power activation.
+        if (activated && numStacks == 1 && power.cacheConfiguration.Enabled())
         {
             cacheConfigs.Add(power.cacheConfiguration);
         }
@@ -427,7 +433,7 @@ public class CombatInstance : MonoBehaviour
         {
             return 0;
         }
-        return GetPowersWithStackCounts().Where(x => x.Item1.powerType == powerType).First().Item2;
+        return GetPowersWithStackCounts().First(x => x.Item1.powerType == powerType).Item2;
     }
 
     public bool HasPower(PowerSO.PowerType powerType)

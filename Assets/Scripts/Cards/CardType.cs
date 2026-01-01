@@ -93,7 +93,10 @@ public class CardType: IdentifiableSO, ITooltipProvider
             ActivatePower activateStep = effectWorkflows[0].effectSteps.OfType<ActivatePower>().ToList().FirstOrDefault();
             if (activateStep != null)
             {
-                return "Gain unique passive: " + activateStep.power.description;
+                string prefix = "Gain passive: ";
+                if (!activateStep.power.Stackable)
+                    prefix = "Gain unique passive: ";
+                return prefix + activateStep.power.description;
             }
         }
         return Description;

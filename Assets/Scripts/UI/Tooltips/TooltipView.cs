@@ -164,6 +164,23 @@ public class TooltipViewModel
         }
         return new TooltipViewModel(newLines);
     }
+
+    public static TooltipViewModel RemoveLinesByTitleRegexp(TooltipViewModel a, string titleRegexp)
+    {
+        List<TooltipLine> newLines = new();
+        if (a.empty)
+        {
+            return new TooltipViewModel();
+        }
+        foreach (var line in a.lines)
+        {
+            if (!System.Text.RegularExpressions.Regex.IsMatch(line.title, titleRegexp))
+            {
+                newLines.Add(line);
+            }
+        }
+        return new TooltipViewModel(newLines);
+    }
 }
 
 public class TooltipView : MonoBehaviour
