@@ -17,18 +17,21 @@ MonoBehaviour:
   description: Every time you play a card, deal 1 damage to a random enemy x2
   abilities:
   - rid: 754093871974056662
-  displaySprite: {fileID: 21300000, guid: 977664b7b0443cc4682f0fb74f848cd1, type: 3}
-  tooltip:
-    rid: 754093871974056657
+  displaySprite: {fileID: 21300000, guid: 5f4a5816818fe0841957c1e340e8a570, type: 3}
+  extraTooltip:
+    rid: 758316142852047283
   stackable: 1
+  cacheConfiguration:
+    key: 
+    display: 1
+    sprite: {fileID: 0}
+    startOfTurnValue: 0
+    setStartOfTurnValue: 0
+    startOfCombatValue: 0
+    setStartOfCombatValue: 0
   references:
     version: 2
     RefIds:
-    - rid: 754093871974056657
-      type: {class: TooltipViewModel, ns: , asm: Assembly-CSharp}
-      data:
-        empty: 0
-        lines: []
     - rid: 754093871974056662
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
@@ -36,6 +39,7 @@ MonoBehaviour:
         effectSteps:
         - rid: 754093871974056663
         - rid: 2511000990761353347
+        weight: 0
     - rid: 754093871974056663
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -47,6 +51,12 @@ MonoBehaviour:
         number: 2
         specialTargetRule: 6
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
+    - rid: 758316142852047283
+      type: {class: TooltipViewModel, ns: , asm: Assembly-CSharp}
+      data:
+        empty: 1
+        lines: []
     - rid: 2511000990761353347
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:

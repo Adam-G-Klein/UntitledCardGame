@@ -10,17 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ac8d29b7a56d46539bdf7eeb2d1260a, type: 3}
-  m_Name: BalancedTemper
+  m_Name: CorneredRat
   m_EditorClassIdentifier: 
   powerType: 30
-  title: Balanced Temper
-  description: End of turn, if above half HP, lose 3 HP and gain 2 strength
+  title: Cornered Rat
+  description: End of turn, if self below half HP, give self 1 strength
   abilities:
   - rid: 2511001254715195769
   displaySprite: {fileID: 21300000, guid: e0ab2143b8408423ab692d481858408a, type: 3}
   tooltip:
     rid: 754093871974056658
-  stackable: 0
+  stackable: 1
+  cacheConfiguration:
+    key: 
+    display: 1
+    sprite: {fileID: 0}
+    startOfTurnValue: 0
+    setStartOfTurnValue: 0
+    startOfCombatValue: 0
+    setStartOfCombatValue: 0
   references:
     version: 2
     RefIds:
@@ -29,6 +37,10 @@ MonoBehaviour:
       data:
         empty: 0
         lines: []
+    - rid: 758316142852047014
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
     - rid: 2511001254715195769
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
@@ -37,9 +49,9 @@ MonoBehaviour:
         - rid: 2511001254715195770
         - rid: 2511001254715195771
         - rid: 2511001254715195772
-        - rid: 2511001254715195773
         - rid: 2511001254715195774
         - rid: 2511001254715195775
+        - rid: 758316142852047014
         weight: 0
     - rid: 2511001254715195770
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -52,6 +64,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 2511001254715195771
       type: {class: FilterEntityByHP, ns: , asm: Assembly-CSharp}
       data:
@@ -60,33 +73,20 @@ MonoBehaviour:
         percentThreshold: 0.5
         absoluteThreshold: 0
         useAbsoluteThreshold: 0
-        outputKey: aboveHalf
-        below: 0
+        outputKey: belowHalf
+        below: 1
     - rid: 2511001254715195772
       type: {class: EndWorkflowIfListEmpty, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EndWorkflowIfListEmpty
-        inputKey1: aboveHalf
-    - rid: 2511001254715195773
-      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CombatEffectStep
-        inputKey: self
-        combatEffect: 16
-        scale: 3
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
-        vfxPrefab: {fileID: 6137048663962808129, guid: 92c26f41ef33c23419e05ceb12660efa, type: 3}
+        inputKey1: belowHalf
     - rid: 2511001254715195774
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ApplyStatus
         inputKey: self
         statusEffect: 0
-        scale: 2
+        scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0

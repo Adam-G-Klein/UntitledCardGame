@@ -19,16 +19,24 @@ MonoBehaviour:
   abilities:
   - rid: 2511001503980847362
   displaySprite: {fileID: 21300000, guid: 04bf14070e798284f9f39ea08b676c4a, type: 3}
-  tooltip:
-    rid: 754093871974056657
-  stackable: 0
+  extraTooltip:
+    rid: 758316142852047292
+  stackable: 1
+  cacheConfiguration:
+    key: 
+    display: 1
+    sprite: {fileID: 0}
+    startOfTurnValue: 0
+    setStartOfTurnValue: 0
+    startOfCombatValue: 0
+    setStartOfCombatValue: 0
   references:
     version: 2
     RefIds:
-    - rid: 754093871974056657
+    - rid: 758316142852047292
       type: {class: TooltipViewModel, ns: , asm: Assembly-CSharp}
       data:
-        empty: 0
+        empty: 1
         lines: []
     - rid: 2511001503980847362
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
@@ -41,6 +49,7 @@ MonoBehaviour:
         - rid: 2511001503980847367
         - rid: 2511001503980847368
         - rid: 2511001503980847369
+        weight: 0
     - rid: 2511001503980847364
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -52,6 +61,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 2511001503980847365
       type: {class: GetNumberOfCardsInHand, ns: , asm: Assembly-CSharp}
       data:

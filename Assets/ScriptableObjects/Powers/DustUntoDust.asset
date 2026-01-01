@@ -19,8 +19,9 @@ MonoBehaviour:
   abilities:
   - rid: 754093991137640772
   displaySprite: {fileID: 21300000, guid: 35286054ab881eb4993a26c55a12dd5a, type: 3}
-  tooltip:
-    rid: 754093871974056657
+  extraTooltip:
+    rid: 758316142852047271
+  stackable: 1
   cacheConfiguration:
     key: 
     display: 1
@@ -32,11 +33,6 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 754093871974056657
-      type: {class: TooltipViewModel, ns: , asm: Assembly-CSharp}
-      data:
-        empty: 0
-        lines: []
     - rid: 754093991137640772
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
@@ -98,3 +94,8 @@ MonoBehaviour:
         effectStepName: CardInHandEffect
         inputKey: target
         effect: 1
+    - rid: 758316142852047271
+      type: {class: TooltipViewModel, ns: , asm: Assembly-CSharp}
+      data:
+        empty: 1
+        lines: []

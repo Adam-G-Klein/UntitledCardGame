@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: DemonRatForm
   m_EditorClassIdentifier: 
   powerType: 13
-  title: Martial Training
+  title: Rat Warleader
   description: End of turn, give self & adjacent 1 strength
   abilities:
   - rid: 754094139776958548
   displaySprite: {fileID: 21300000, guid: e0ab2143b8408423ab692d481858408a, type: 3}
-  tooltip:
-    rid: 754093871974056658
+  extraTooltip:
+    rid: 758316142852047274
+  stackable: 1
   cacheConfiguration:
     key: 
     display: 1
@@ -31,11 +32,6 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 754093871974056658
-      type: {class: TooltipViewModel, ns: , asm: Assembly-CSharp}
-      data:
-        empty: 0
-        lines: []
     - rid: 754094139776958548
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
@@ -58,6 +54,11 @@ MonoBehaviour:
         specialTargetRule: 3
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+    - rid: 758316142852047274
+      type: {class: TooltipViewModel, ns: , asm: Assembly-CSharp}
+      data:
+        empty: 1
+        lines: []
     - rid: 2511000990761353348
       type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
       data:
