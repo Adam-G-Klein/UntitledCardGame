@@ -68,20 +68,7 @@ MonoBehaviour:
     - rid: 2295168179404538063
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
-        effectSteps:
-        - rid: 2295168179404538064
-    - rid: 2295168179404538064
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: self
-        validTargets: 
-        number: 1
-        specialTargetRule: 4
-        cantCancelTargetting: 0
-        cardSelectionHelperText: 
+        effectSteps: []
     - rid: 5602892561590779904
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:

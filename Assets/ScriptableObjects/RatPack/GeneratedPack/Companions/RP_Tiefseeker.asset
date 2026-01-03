@@ -32,7 +32,7 @@ MonoBehaviour:
   cacheValueConfigs:
   - key: numDrawn
     display: 1
-    sprite: {fileID: 21300000, guid: a100f38fb92da834786807cb66e2ebba, type: 3}
+    sprite: {fileID: 21300000, guid: 44f991fc7bf6d4e15b1140543b84ad2b, type: 3}
     startOfTurnValue: 2
     setStartOfTurnValue: 1
     startOfCombatValue: 0
@@ -48,12 +48,12 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Tiefseeker
-      description: The first 2 times you draw a Charm card each turn, draw 1 from
-        self
+      description: The first 2 times you draw a Charm card from another deck each
+        turn, draw 1 from self
       relatedBehaviorIndex: 0
   keepsakeTitle: Hidden Cache
-  keepsakeDescription: The first 2 times you draw a Charm card each turn, draw 1
-    from self
+  keepsakeDescription: The first 2 times you draw a Charm card from another deck
+    each turn, draw 1 from self
   references:
     version: 2
     RefIds:
@@ -62,6 +62,7 @@ MonoBehaviour:
       data:
         abilityTrigger: 19
         effectSteps:
+        - rid: 758316142852047365
         - rid: 754093871974056130
         - rid: 754093968382754844
         - rid: 754093968382754845
@@ -147,6 +148,12 @@ MonoBehaviour:
       data:
         effectStepName: EndWorkflowIfListEmpty
         inputKey1: statusCards
+    - rid: 758316142852047365
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: cardFromThisOrigin
+        conditionToEndOn: 1
     - rid: 2511001095643857206
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:
