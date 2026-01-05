@@ -90,7 +90,7 @@ public class MultiDeckViewManager : GenericSingleton<MultiDeckViewManager>, IMul
             DeckViewTabSection section = new DeckViewTabSection
             {
                 companion = activeCompanions[i].companion,
-                cards = activeCompanions[i].deckInstance.drawPile
+                cards = activeCompanions[i].deckInstance.GetShuffledDrawPile()
             };
             combatDeckViewTab.sections.Add(section);
         }
@@ -272,7 +272,7 @@ public class MultiDeckViewManager : GenericSingleton<MultiDeckViewManager>, IMul
         }
         canvas.worldCamera = mainCamera;
     }
-    
+
     public void SetEnterHandler(EnterExitVoidHandler handler) {
         onViewEnterHandler += handler;
     }
