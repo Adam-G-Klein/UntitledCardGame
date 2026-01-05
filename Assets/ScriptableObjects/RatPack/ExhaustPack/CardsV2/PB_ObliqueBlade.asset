@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: ce06dbcf-a7b6-401b-8d22-674631b810bd
   Name: Oblique Blade
-  Description: Deal {rpl_damage} damage. Give all Oblique Blades in other decks +5
+  Description: Deal {rpl_damage} damage. Give all Oblique Blades in other decks +4
     damage
   defaultValues:
   - key: rpl_damage
@@ -83,7 +83,7 @@ MonoBehaviour:
       data:
         effectStepName: CardModificationEffect
         inputKey: otherBlades
-        scale: 5
+        scale: 4
         affectsAllCardsOfType: 0
         cardTypeToModify: {fileID: 0}
         getScaleFromKey: 0

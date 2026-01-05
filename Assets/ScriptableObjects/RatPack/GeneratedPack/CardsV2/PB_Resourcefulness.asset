@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: PB_Unearth
+  m_Name: PB_Resourcefulness
   m_EditorClassIdentifier: 
-  guid: cc18d2b2-73d7-47c8-bcd7-8d2b7308130c
-  Name: Unearth
-  Description: Draw 1 card from self and adjacent. Discard any non-Charm cards drawn
+  guid: 07c88ea8-6e9d-4cca-8b91-406d4bf143f7
+  Name: Resourcefulness
+  Description: Draw 1 card from self and adjacent. If no Charm cards were drawn,
+    create a Bitterbark in hand for self
   defaultValues: []
-  Cost: 0
+  Cost: 1
   Artwork: {fileID: 21300000, guid: 04a1d976953825d4db586e6147348356, type: 3}
   cardCategory: 2
   packFrom: {fileID: 0}
@@ -41,39 +42,56 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 758316073527279618
-      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
+    - rid: 758316142852047573
+      type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: GetAdjacentCompanions
-        inputKey: self
-        includeInputCompanion: 1
-        outputKey: adj
-    - rid: 2034229587402555940
-      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
+        effectStepName: AddCardsToHand
+        entityFromKey: self
+        cardTypes:
+        - {fileID: 11400000, guid: e5aefb6a1e4354d73910a59bd8677cf0, type: 2}
+        getCardsFromKey: 0
+        inputCardsKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        outputKey: 
+    - rid: 758316142852047577
+      type: {class: CountStep, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: WaitForSecondsEffect
-        seconds: 1.5
+        effectStepName: CountStep
+        inputKey: charm
+        outputKey: numCharm
+    - rid: 758316142852047578
+      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: BooleanComparison
+        hardCodedInputKey1: 1
+        useHardCodedInputKey1: 1
+        inputKey1: 
+        operation: 2
+        inputKey2: numCharm
+        outputKey: charmDrawn
+    - rid: 758316142852047579
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: charmDrawn
+        conditionToEndOn: 1
     - rid: 2034229587402555941
       type: {class: FilterCards, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: FilterCards
         inputKey: cards
         filter:
-          cardCategoriesToInclude: 010000000200000005000000
+          cardCategoriesToInclude: 04000000
           retainedCardsFilter: 0
           exactCardType: {fileID: 0}
-        outputKey: nonGen
-    - rid: 2034229587402555942
-      type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CardInHandEffect
-        inputKey: nonGen
-        effect: 0
+        outputKey: charm
     - rid: 5280922841426165977
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: InstantiatePrefab
-        inputKey: adj
+        inputKey: drawTargets
         prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
         scale: 1.5
     - rid: 5602892723852673195
@@ -81,12 +99,14 @@ MonoBehaviour:
       data:
         effectSteps:
         - rid: 5602892723852673196
-        - rid: 758316073527279618
+        - rid: 7082891405856866304
         - rid: 5602892723852673197
         - rid: 5280922841426165977
-        - rid: 2034229587402555940
         - rid: 2034229587402555941
-        - rid: 2034229587402555942
+        - rid: 758316142852047577
+        - rid: 758316142852047578
+        - rid: 758316142852047579
+        - rid: 758316142852047573
     - rid: 5602892723852673196
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -103,8 +123,15 @@ MonoBehaviour:
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: DrawCards
-        inputKey: adj
+        inputKey: drawTargets
         outputKey: cards
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+    - rid: 7082891405856866304
+      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetAdjacentCompanions
+        inputKey: self
+        includeInputCompanion: 1
+        outputKey: drawTargets

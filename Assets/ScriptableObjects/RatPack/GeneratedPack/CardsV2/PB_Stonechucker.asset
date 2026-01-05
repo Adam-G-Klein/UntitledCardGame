@@ -10,44 +10,38 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: PB_CorneredRat
+  m_Name: PB_Stonechucker
   m_EditorClassIdentifier: 
-  guid: 88e0b548-d51a-42e0-89fe-66f2386679b1
+  guid: b7b3b5a4-4aa2-4a06-8d10-15862639eb47
   Name: 
   Description: 
   defaultValues: []
   Cost: 1
-  Artwork: {fileID: 0}
+  Artwork: {fileID: 21300000, guid: e3425c0bf387f4d47907af9ce0eff56b, type: 3}
   cardCategory: 5
-  packFrom: {fileID: 0}
+  packFrom: {fileID: 11400000, guid: 0d12b03c0c8754470a900cb4f78a9217, type: 2}
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
   retain: 0
   effectWorkflows:
-  - rid: 754093991137641289
+  - rid: 2034230108114649328
   onExhaustEffectWorkflow:
-    rid: -2
+    rid: 2295168179404538063
   onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
-    rid: -2
+    rid: 5602892561590779904
   onDrawEffectWorkflow:
     rid: -2
-  tooltips: 
+  tooltips: 2e000000
   tooltipKeyword: 37
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 754093991137641289
-      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
-      data:
-        effectSteps:
-        - rid: 754093991137641290
-        - rid: 754093991137641291
-    - rid: 754093991137641290
+    - rid: 754093991137640776
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
@@ -59,9 +53,23 @@ MonoBehaviour:
         specialTargetRule: 4
         cantCancelTargetting: 0
         cardSelectionHelperText: 
-    - rid: 754093991137641291
+    - rid: 754093991137640777
       type: {class: ActivatePower, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: ActivatePower
         inputKey: self
-        power: {fileID: 11400000, guid: ad9e65d4e16b74d84ac5db545e2ef018, type: 2}
+        power: {fileID: 11400000, guid: 535226579d138435690672d9cae6245a, type: 2}
+    - rid: 2034230108114649328
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 754093991137640776
+        - rid: 754093991137640777
+    - rid: 2295168179404538063
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps: []
+    - rid: 5602892561590779904
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps: []

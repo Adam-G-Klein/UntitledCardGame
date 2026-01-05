@@ -122,6 +122,8 @@ public class PowerSO : ScriptableObject
         SeizeTheInitiative,
         // _: End turn, if you exhausted at least 3 cards, deal a ton of damage
         Apocalypse,
+        // _: Whenever you draw a Charm card from another deck, deal X damage
+        Stonechucker,
     }
 
     public TooltipViewModel GetTooltip(int stackCount)

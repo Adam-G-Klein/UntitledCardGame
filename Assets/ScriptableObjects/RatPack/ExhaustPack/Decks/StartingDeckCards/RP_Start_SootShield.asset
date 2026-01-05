@@ -79,7 +79,6 @@ MonoBehaviour:
         - rid: 2034230108114649131
         - rid: 1274772082283774506
         - rid: 5602892563578093695
-        - rid: 7401433308100035007
         - rid: 2034230108114649132
         - rid: 5602892563578093696
     - rid: 5602892563578093693
@@ -112,8 +111,3 @@ MonoBehaviour:
         effectStepName: CardInHandEffect
         inputKey: randomCard
         effect: 1
-    - rid: 7401433308100035007
-      type: {class: EndWorkflowIfListEmpty, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: EndWorkflowIfListEmpty
-        inputKey1: validCards
