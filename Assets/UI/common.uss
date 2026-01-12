@@ -470,6 +470,7 @@
     padding-right: 5px;
     padding-bottom: 5px;
     padding-left: 5px;
+    width: 70%;
 }
 
 .tooltip-text {
@@ -481,6 +482,15 @@
     padding-right: 5px;
     padding-bottom: 5px;
     padding-left: 5px;
+}
+
+.tooltip-image {
+    flex-grow: 1;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.tooltip-title-container {
+    flex-direction: row;
 }
 
 .tooltip-background {

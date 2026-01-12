@@ -15,10 +15,18 @@ MonoBehaviour:
   guid: 82f3d4f3-55a4-4463-8bdf-4de484da7bd8
   Name: Protect
   Description: Give any 5 block
+  IconDescription:
+  - tokenType: 0
+    text: 5
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 2
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: da1a1978bec27b446a94d96c66f7fb55, type: 3}
   cardCategory: 2
+  packFrom: {fileID: 0}
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
@@ -31,7 +39,10 @@ MonoBehaviour:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
+  onDrawEffectWorkflow:
+    rid: -2
   tooltips: 
+  tooltipKeyword: 37
   references:
     version: 2
     RefIds:
@@ -62,6 +73,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 9024302470308298761
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:

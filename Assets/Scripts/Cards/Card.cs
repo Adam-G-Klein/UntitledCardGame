@@ -146,10 +146,8 @@ public class Card : Entity, IEquatable<Card>
         return Mathf.Max(0, cardType.Cost - totalReduction);
     }
 
-    public string GetModifiedDescriptionForDeckView(CombatInstance origin)
+    public Dictionary<string, int> GetDefaultValuesMap(CombatInstance origin)
     {
-        // Simple hack where we go through the default values and update for card modifications.
-        // Nice thing is that this lets us visualize in the deck view any long term card buffs.
         Dictionary<string, int> intMap = new();
         foreach (var defaultValue in cardType.defaultValues)
         {
@@ -161,7 +159,7 @@ public class Card : Entity, IEquatable<Card>
             }
             intMap[defaultValue.key] = value;
         }
-        return cardType.GetDescriptionWithUpdatedValues(intMap);
+        return intMap;
     }
 
     public int UpdateScaleForCardModificationsAndPassives(int oldScale, CombatInstance origin) {

@@ -46,6 +46,22 @@ public class KeywordTooltipProvider: GenericSingleton<KeywordTooltipProvider>
         return new TooltipViewModel("Tooltip not found for statusEffect: " + statusEffect);
     }
 
+    public bool HasTooltip(DescriptionToken.DescriptionIconType descriptionIconType)
+    {
+        LoadTooltipMap();
+        return tooltipMap.HasTooltip(descriptionIconType);
+    }
+
+    public TooltipViewModel GetTooltip(DescriptionToken.DescriptionIconType descriptionIconType)
+    {
+        if(HasTooltip(descriptionIconType))
+        {
+            return tooltipMap.GetTooltip(descriptionIconType);
+        }
+        Debug.LogError("Call HasTooltip first: Tooltip not found for descriptionIconType " + descriptionIconType);
+        return new TooltipViewModel("Tooltip not found for descriptionIconType: " + descriptionIconType);
+    }
+
     private void LoadTooltipMap() {
         if(tooltipMap == null)
         {

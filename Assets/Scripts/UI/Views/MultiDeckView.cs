@@ -376,7 +376,7 @@ public class MultiDeckView
                     tooltipController.DestroyTooltip(companionView.container);
                 });
 
-                // Don't put the SFX in the RegisterCallbacks for companions above, it's already done in 
+                // Don't put the SFX in the RegisterCallbacks for companions above, it's already done in
                 // CompanionManagementView
                 companionFocusable.additionalFocusAction += () => {
                     MusicController.Instance.PlaySFX("event:/SFX/SFX_UIHover");
@@ -432,8 +432,17 @@ public class MultiDeckView
                     // Hack to display the modified card values when pulling up the deck values.
                     if (ci != null)
                     {
-                        string modText = card.GetModifiedDescriptionForDeckView(ci.combatInstance);
-                        cardView.UpdateCardText(modText);
+                        Dictionary<string, int> defaultValuesDict = card.GetDefaultValuesMap(ci.combatInstance);
+                        if (card.cardType.HasIconDescription())
+                        {
+                            List<DescriptionToken> iconTokens = card.cardType.GetIconDescriptionTokensWithStylizedValues(defaultValuesDict);
+                            cardView.UpdateCardIconDescription(iconTokens);
+                        }
+                        else
+                        {
+                            string modText = card.cardType.GetDescriptionWithUpdatedValues(defaultValuesDict);
+                            cardView.UpdateCardText(modText);
+                        }
                     }
 
                     if (i != startingIndex)

@@ -15,6 +15,19 @@ MonoBehaviour:
   guid: 34e5d04e-961c-439e-8de7-fac22159beec
   Name: Double Slash
   Description: Deal {rpl_damage} damage x2
+  IconDescription:
+  - tokenType: 0
+    text: '{rpl_damage}'
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 1
+  - tokenType: 0
+    text: ' {rpl_damage}'
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 1
   defaultValues:
   - key: rpl_damage
     value: 4
@@ -33,6 +46,8 @@ MonoBehaviour:
   onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  onDrawEffectWorkflow:
     rid: -2
   tooltips: 
   tooltipKeyword: 37
@@ -58,6 +73,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 9024302470308298776
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:

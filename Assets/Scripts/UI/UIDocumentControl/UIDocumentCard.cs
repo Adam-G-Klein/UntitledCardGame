@@ -83,8 +83,20 @@ public class UIDocumentCard : MonoBehaviour
         //cardView.UpdateManaCost();
         if (cardView == null) return;
 
-        string description = card.cardType.GetDescriptionWithUpdatedValues(document.intMap);
-        cardView.UpdateCardText(description);
+        // string description = card.cardType.GetDescriptionWithUpdatedValues(document.intMap);
+        // cardView.UpdateCardText(description);
+
+        if (card.cardType.HasIconDescription())
+        {
+            List<DescriptionToken> iconTokens = card.cardType.GetIconDescriptionTokensWithStylizedValues(document.intMap);
+            cardView.UpdateCardIconDescription(iconTokens);
+        }
+        else
+        {
+            string modText = card.cardType.GetDescriptionWithUpdatedValues(document.intMap);
+            cardView.UpdateCardText(modText);
+        }
+
         cardView.SetHighlight(document.boolMap.ContainsKey("highlightCard") && document.boolMap["highlightCard"]);
     }
 

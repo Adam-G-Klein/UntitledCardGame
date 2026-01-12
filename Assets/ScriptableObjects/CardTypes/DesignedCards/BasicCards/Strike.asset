@@ -15,12 +15,20 @@ MonoBehaviour:
   guid: 5c444741-8e6f-4770-a4c2-f15ca3074d2c
   Name: Ratslash
   Description: Deal {rpl_damage} damage
+  IconDescription:
+  - tokenType: 0
+    text: '{rpl_damage}'
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 1
   defaultValues:
   - key: rpl_damage
     value: 5
   Cost: 1
   Artwork: {fileID: 21300000, guid: 7a51d6d5cbbba644cbef012d1be241ab, type: 3}
   cardCategory: 1
+  packFrom: {fileID: 0}
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
@@ -33,7 +41,10 @@ MonoBehaviour:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
+  onDrawEffectWorkflow:
+    rid: -2
   tooltips: 
+  tooltipKeyword: 37
   references:
     version: 2
     RefIds:
@@ -71,6 +82,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 4
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 9024302470308298763
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -82,6 +94,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 9024302470308298764
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:

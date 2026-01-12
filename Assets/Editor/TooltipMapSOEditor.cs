@@ -13,8 +13,9 @@ public class ToolipMapSOEditor : Editor {
     string tooltipTitle;
     string tooltipDescription;
     int tooltipRelevantBehaviorIndex;
-    Image tooltipImage;
+    Sprite tooltipImage;
     TooltipKeyword tooltipKeyword;
+    DescriptionToken.DescriptionIconType descriptionIconType;
     public override void OnInspectorGUI() {
         tooltipMapSO = (TooltipMapSO) target;
         DrawDefaultInspector();
@@ -32,23 +33,33 @@ public class ToolipMapSOEditor : Editor {
         tooltipDescription);
 
         tooltipRelevantBehaviorIndex = EditorGUILayout.IntField(
-        "Tooltip Description",
+        "Relevant Behavior Index",
         tooltipRelevantBehaviorIndex);
 
         tooltipKeyword = (TooltipKeyword) EditorGUILayout.EnumPopup(
             "Tooltip Keyword",
             tooltipKeyword);
 
-        tooltipImage = (Image) EditorGUILayout.ObjectField(
+        descriptionIconType = (DescriptionToken.DescriptionIconType) EditorGUILayout.EnumPopup(
+            "Description Icon Type",
+            descriptionIconType);
+
+        tooltipImage = (Sprite) EditorGUILayout.ObjectField(
             "Tooltip Image",
             tooltipImage,
-            typeof(Image),
+            typeof(Sprite),
             true);
 
-        if (GUILayout.Button("Create Tooltip")) {
+        if (GUILayout.Button("Create Keyword Tooltip")) {
             tooltipMapSO.effectTooltipMappings.Add(new KeywordTooltipMapping(tooltipTitle, tooltipDescription, tooltipRelevantBehaviorIndex, tooltipImage, tooltipKeyword));
             save(tooltipMapSO);
         }
+
+        if (GUILayout.Button("Create Description Icon Tooltip")) {
+            tooltipMapSO.descriptionIconTooltipMappings.Add(new DescriptionIconTooltipMapping(descriptionIconType, tooltipTitle, tooltipDescription, tooltipImage));
+            save(tooltipMapSO);
+        }
+
     }
     private void save(TooltipMapSO map) {
         // These three calls cause the asset to actually be modified

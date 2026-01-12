@@ -14,14 +14,27 @@ public class TooltipLine
     public string title;
     public string description;
     public int relatedBehaviorIndex;
+    public Texture2D icon;
     public VisualElement GetVisualElement()
     {
         VisualElement ve = new VisualElement();
         ve.AddToClassList("tooltip-line");
 
+        VisualElement titleContainer = new VisualElement();
+        titleContainer.AddToClassList("tooltip-title-container");
+        ve.Add(titleContainer);
+
         Label title = new Label(this.title);
         title.AddToClassList("tooltip-title");
-        ve.Add(title);
+        titleContainer.Add(title);
+
+        if (icon != null)
+        {
+            VisualElement imgContainer = new VisualElement();
+            imgContainer.AddToClassList("tooltip-image");
+            imgContainer.style.backgroundImage = new StyleBackground(this.icon);
+            titleContainer.Add(imgContainer);
+        }
 
         Label text = new Label(this.description);
         text.AddToClassList("tooltip-text");
@@ -51,11 +64,12 @@ public class TooltipLine
     }
     */
 
-    public TooltipLine(string title, string description, int relatedBehaviorIndex = -1, UnityEngine.UIElements.Image image = null)
+    public TooltipLine(string title, string description, int relatedBehaviorIndex = -1, Texture2D image = null)
     {
         this.title = title;
         this.description = description;
         this.relatedBehaviorIndex = relatedBehaviorIndex;
+        this.icon = image;
     }
 }
 
@@ -89,11 +103,11 @@ public class TooltipViewModel
         return ve;
     }
 
-    public TooltipViewModel(string title, string description, int relateBehaviorIndex = -1, UnityEngine.UIElements.Image image = null)
+    public TooltipViewModel(string title, string description, int relateBehaviorIndex = -1, Texture2D image = null)
     {
         this.empty = false;
         this.lines = new List<TooltipLine>();
-        lines.Add(new TooltipLine(title, description, relateBehaviorIndex));
+        lines.Add(new TooltipLine(title, description, relateBehaviorIndex, image));
     }
 
     public TooltipViewModel(string plainText)

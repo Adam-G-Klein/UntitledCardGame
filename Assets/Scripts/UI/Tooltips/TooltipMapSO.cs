@@ -13,24 +13,48 @@ public class KeywordTooltipMapping {
     public string title;
     public string description;
     public int relateBehaviorIndex;
-    public UnityEngine.UIElements.Image image;
+    public Sprite image;
     [HideInInspector]
     public TooltipViewModel tooltip { get {
-        return new TooltipViewModel(title, description, relateBehaviorIndex, image);
+        return new TooltipViewModel(title, description, relateBehaviorIndex, image != null ? image.texture : null);
     }}
     public TooltipKeyword tooltipKeyword;
-    public KeywordTooltipMapping(string title, string description, int relateBehaviorIndex, Image image, TooltipKeyword tooltipKeyword) {
+    public KeywordTooltipMapping(string title, string description, int relateBehaviorIndex, Sprite image, TooltipKeyword tooltipKeyword) {
         this.title = title;
         this.description = description;
         this.tooltipKeyword = tooltipKeyword;
         this.relateBehaviorIndex = relateBehaviorIndex;
+        this.image = image;
     }
 
 }
+
+[System.Serializable]
+public class DescriptionIconTooltipMapping {
+    public string title;
+    public DescriptionToken.DescriptionIconType descriptionIconType;
+    public string description;
+    public Sprite iconImage;
+
+    public TooltipViewModel tooltip { get {
+        return new TooltipViewModel(title, description, -1, iconImage != null ? iconImage.texture : null);
+    }}
+
+    public DescriptionIconTooltipMapping(DescriptionToken.DescriptionIconType descriptionIconType, string title, string description, Sprite iconImage) {
+        this.descriptionIconType = descriptionIconType;
+        this.title = title;
+        this.description = description;
+        this.iconImage = iconImage;
+    }
+}
+
+
 [CreateAssetMenu(fileName = "TooltipMapSO", menuName = "ScriptableObjects/TooltipMapSO", order = 1)]
 public class TooltipMapSO: ScriptableObject
 {
     public List<KeywordTooltipMapping> effectTooltipMappings;
+
+    public List<DescriptionIconTooltipMapping> descriptionIconTooltipMappings = new();
     public TooltipViewModel GetTooltip(TooltipKeyword tooltipKeyword)
     {
         if(effectTooltipMappings != null)
@@ -47,6 +71,28 @@ public class TooltipMapSO: ScriptableObject
         }
         Debug.LogError("TooltipMapSO: effectTooltipMappings is null");
         return new TooltipViewModel("TooltipMapSO: effectTooltipMappings is null");
+    }
+
+    public TooltipViewModel GetTooltip(DescriptionToken.DescriptionIconType descriptionIconType)
+    {
+        foreach(DescriptionIconTooltipMapping mapping in descriptionIconTooltipMappings)
+        {
+            if(mapping.descriptionIconType == descriptionIconType)
+            {
+                return mapping.tooltip;
+            }
+        }
+        Debug.LogError("Tooltip not found for descriptionIconType: " + descriptionIconType);
+        return new TooltipViewModel("Tooltip not found for descriptionIconType: " + descriptionIconType);
+    }
+
+    public bool HasTooltip(DescriptionToken.DescriptionIconType descriptionIconType) {
+        foreach(DescriptionIconTooltipMapping mapping in descriptionIconTooltipMappings) {
+            if(mapping.descriptionIconType == descriptionIconType) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public bool HasTooltip(TooltipKeyword tooltipKeyword) {

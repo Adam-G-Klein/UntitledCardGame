@@ -16,194 +16,267 @@ MonoBehaviour:
   - title: Strength
     description: Increases every instance of damage this companion deals
     relateBehaviorIndex: 0
+    image: {fileID: 0}
     tooltipKeyword: 6
   - title: Block
     description: Prevents up to X damage dealt to this companion until next turn
     relateBehaviorIndex: 0
+    image: {fileID: 0}
     tooltipKeyword: 7
   - title: Exhaust
     description: Removes a card for the rest of combat
     relateBehaviorIndex: 0
+    image: {fileID: 0}
     tooltipKeyword: 0
   - title: Draw
     description: Choose a companion to draw X cards from
     relateBehaviorIndex: 0
+    image: {fileID: 0}
     tooltipKeyword: 3
   - title: Scry
     description: Look at the top X cards of a chosen deck, discard any number of
       them.
     relateBehaviorIndex: 0
+    image: {fileID: 0}
     tooltipKeyword: 5
   - title: Discard
     description: Moves the card to the companion's discard pile
     relateBehaviorIndex: 0
+    image: {fileID: 0}
     tooltipKeyword: 2
   - title: Attacking
     description: This enemy will attack you next turn
     relateBehaviorIndex: 0
+    image: {fileID: 0}
     tooltipKeyword: 11
   - title: Debuffing
     description: This enemy will debuff you next turn
     relateBehaviorIndex: 0
+    image: {fileID: 0}
     tooltipKeyword: 12
   - title: Charging
     description: This enemy is just charging up this turn
     relateBehaviorIndex: 0
+    image: {fileID: 0}
     tooltipKeyword: 13
   - title: Eye Of Argos
     description: Exhaust. Gain 1 energy and 3 block.
     relateBehaviorIndex: 0
+    image: {fileID: 0}
     tooltipKeyword: 14
   - title: Retain
     description: Cards with retain are not discarded at the end of your turn.
     relateBehaviorIndex: 0
+    image: {fileID: 0}
     tooltipKeyword: 15
   - title: Consume
     description: Remove one aura stack from target companion for an efect
     relateBehaviorIndex: 0
+    image: {fileID: 0}
     tooltipKeyword: 17
   - title: Aura
     description: Status that each companion can have. Often grants these companions
       additional powers
     relateBehaviorIndex: 0
+    image: {fileID: 0}
     tooltipKeyword: 4
   - title: Invulnerable
     description: A companion with invulnerability takes no damage. Goes away at the
       end of the turn.
     relateBehaviorIndex: 0
+    image: {fileID: 0}
     tooltipKeyword: 18
   - title: Debt
     description: 0 mana. Exhaust. Lose $1.
     relateBehaviorIndex: 0
+    image: {fileID: 0}
     tooltipKeyword: 19
   - title: Transform
     description: Turn one card into another card. Effect only lasts until end of
       combat.
     relateBehaviorIndex: 0
+    image: {fileID: 0}
     tooltipKeyword: 20
   - title: Entropy's Burn
     description: 1. Exhaust. When exhausted, deal 5 damage to a random enemy.
     relateBehaviorIndex: 0
+    image: {fileID: 0}
     tooltipKeyword: 21
   - title: Stinkweed - Status
     description: 0. Unplayable. At the end of turn, deal 3 damage at random & increase
       the damage of this card by 3
     relateBehaviorIndex: 0
+    image: {fileID: 0}
     tooltipKeyword: 22
   - title: Arterial Blade
     description: 0. Lose 1 HP. Deal 1 damage twice. Draw 1 card from this companion
     relateBehaviorIndex: 0
+    image: {fileID: 0}
     tooltipKeyword: 25
   - title: Mabs Boon
     description: Exhaust. Draw 1 card from and heal this companion 3 HP
     relateBehaviorIndex: 0
+    image: {fileID: 0}
     tooltipKeyword: 23
   - title: Embued Knife
     description: Exhaust. Deal 3 damage for each aura stack on this companion
     relateBehaviorIndex: 0
+    image: {fileID: 0}
     tooltipKeyword: 26
   - title: Generated Card
     description: A card added to your deck in any way other than by purchasing it
       at the shop.
     relateBehaviorIndex: 0
+    image: {fileID: 0}
     tooltipKeyword: 27
   - title: Permanently Remove
     description: Removes a card for a companions deck permanently. This card will
       not return at the end of combat.
     relateBehaviorIndex: 0
+    image: {fileID: 0}
     tooltipKeyword: 28
   - title: Bulwark
     description: Draw 1 from this companion. If in hand at the end of the turn, parent
       companion gains 1 block for each card you have played this turn.
     relateBehaviorIndex: 0
+    image: {fileID: 0}
     tooltipKeyword: 16
   - title: Hidden Strength
     description: Exhaust. Give target companion 3 strength and draw 1 card from it.
     relateBehaviorIndex: 0
+    image: {fileID: 0}
     tooltipKeyword: 29
   - title: The Good Stuff
     description: 0 mana, exhaust. Gain 2 energy and draw 2 cards from this companion
     relateBehaviorIndex: 0
+    image: {fileID: 0}
     tooltipKeyword: 30
   - title: Charge
     description: At the end of the turn, units with charge lose one charge and gain
       3 block.
     relateBehaviorIndex: 0
+    image: {fileID: 0}
     tooltipKeyword: 31
   - title: Discharge
     description: 'Spend charge as an additional cost to play a card. '
     relateBehaviorIndex: 0
+    image: {fileID: 0}
     tooltipKeyword: 32
   - title: Max Block Lost
     description: 'Rather than losing all block, this is the max amount of block this
       companion will lose at the end of the turn cycle. '
     relateBehaviorIndex: 0
+    image: {fileID: 0}
     tooltipKeyword: 33
   - title: Burn
     description: At the beginning of a Burned unit's turn, the target loses X HP
       and 1 stack of burn.
     relateBehaviorIndex: 0
+    image: {fileID: 0}
     tooltipKeyword: 34
   - title: Extra Cards To Deal Next Turn
     description: Next turn, this deck will deal an extra X cards at the beginning
       of the turn
     relateBehaviorIndex: 0
+    image: {fileID: 0}
     tooltipKeyword: 35
   - title: Greek Fire - Status
     description: 1. Exhaust. When exhausted, deal 5 damage to a random enemy.
     relateBehaviorIndex: 0
+    image: {fileID: 0}
     tooltipKeyword: 36
   - title: Dagger - Attack
     description: 0. Exhaust. Deal 3 damage
     relateBehaviorIndex: 0
+    image: {fileID: 0}
     tooltipKeyword: 38
   - title: Yummy Snack - Status
     description: 0. Exhaust. When exhausted, gain 1 max HP and heal 2 HP
     relateBehaviorIndex: 0
+    image: {fileID: 0}
     tooltipKeyword: 39
   - title: Scrumptious Snack - Status
     description: 0. Exhaust. When exhausted, gain 2 max HP and heal 4 HP
     relateBehaviorIndex: 0
+    image: {fileID: 0}
     tooltipKeyword: 40
   - title: Spice Cake - Status
     description: 0. Exhaust. When exhausted, gain 3 max HP and heal 5 HP and draw
       1 card from self
     relateBehaviorIndex: 0
+    image: {fileID: 0}
     tooltipKeyword: 41
   - title: Basic Strategy - Non Attack
     description: 0. Exhaust. Draw 1 from target companion, then discard 1 card in
       hand.
     relateBehaviorIndex: 0
+    image: {fileID: 0}
     tooltipKeyword: 42
   - title: Careful Strategy - Non Attack
     description: 0. Retain. Exhaust. Draw 1 from target companion, then discard 1
       card in hand.
     relateBehaviorIndex: 0
+    image: {fileID: 0}
     tooltipKeyword: 43
   - title: Advanced Strategy - Non Attack
     description: 0. Retain. Exhaust. Draw 2 from target companion, then discard 1
       card in hand.
     relateBehaviorIndex: 0
+    image: {fileID: 0}
     tooltipKeyword: 44
   - title: Dagger+ - Attack
     description: 0. Exhaust. Deal 5 damage.
     relateBehaviorIndex: 0
+    image: {fileID: 0}
     tooltipKeyword: 45
   - title: Ironskin - Status
     description: 1. Exhaust. If in hand at the end of turn, deal 2 damage to self.
       When exhausted, give all 4 block
     relateBehaviorIndex: 0
+    image: {fileID: 21300000, guid: 99c67c3bfce1d4fbda616a60eb20b02f, type: 3}
     tooltipKeyword: 46
   - title: Treegunk - Status
     description: 0. Unplayable
     relateBehaviorIndex: 0
+    image: {fileID: 0}
     tooltipKeyword: 47
   - title: Powerful Stature - Status
     description: 0. Unplayable. When in hand at the end of turn, deal damage to a
       random enemy equal to the number of cards in this deck.
     relateBehaviorIndex: 0
+    image: {fileID: 0}
     tooltipKeyword: 48
   - title: Tiefvision - Status
     description: 0. Exhaust. Give any 2 block & scry 1 & draw 1.
     relateBehaviorIndex: 0
+    image: {fileID: 0}
     tooltipKeyword: 49
+  descriptionIconTooltipMappings:
+  - title: Damage
+    descriptionIconType: 1
+    description: Deal X damage to foe
+    iconImage: {fileID: 21300000, guid: 104ad0eef62e94fc6a6d6a1777285e63, type: 3}
+  - title: Block
+    descriptionIconType: 2
+    description: Prevents up to X damage dealt to this rat until next turn
+    iconImage: {fileID: 21300000, guid: 99c67c3bfce1d4fbda616a60eb20b02f, type: 3}
+  - title: Draw
+    descriptionIconType: 3
+    description: Draw 1 card from a rat's deck
+    iconImage: {fileID: 21300000, guid: 76dc43b094a9544688fa3e184ed3d9d0, type: 3}
+  - title: Random
+    descriptionIconType: 4
+    description: Indicated effect happens at random
+    iconImage: {fileID: 21300000, guid: 7224a850e69d04e44a74c5709f6c8fc3, type: 3}
+  - title: Adjacent Targeting
+    descriptionIconType: 5
+    description: Indicated effect targets rats adjacent to the caster
+    iconImage: {fileID: 21300000, guid: ff683255dfb09437bb987a2b26f7d373, type: 3}
+  - title: Leftmost Targeting
+    descriptionIconType: 6
+    description: Indicated effect targets the leftmost rat on the team
+    iconImage: {fileID: 21300000, guid: af94bbef0997f43b6babcdc2a60fe878, type: 3}
+  - title: Bleed
+    descriptionIconType: 9
+    description: Rat loses X HP ignoring any block
+    iconImage: {fileID: 21300000, guid: 1651f15b8fe0140c08bb0c6aee1ac076, type: 3}

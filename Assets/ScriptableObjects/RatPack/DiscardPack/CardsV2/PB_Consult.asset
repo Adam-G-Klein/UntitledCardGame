@@ -15,6 +15,16 @@ MonoBehaviour:
   guid: 0c789c1f-c086-445e-8be1-dc2b7bdd8f0f
   Name: Consult
   Description: Draw 1 from any & discard a card in hand
+  IconDescription:
+  - tokenType: 2
+    text: 
+    icon: 3
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 0
+    text: Discard a card
+    icon: 0
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 7d13e867f4dd988488e4c5a179fa0857, type: 3}

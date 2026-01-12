@@ -15,6 +15,19 @@ MonoBehaviour:
   guid: 86fa26da-d171-4659-8113-04dfebd86354
   Name: Wrist Flick
   Description: 'Discard 2 cards in hand & deal {rpl_damage} damage '
+  IconDescription:
+  - tokenType: 0
+    text: Discard 2 cards
+    icon: 0
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 0
+    text: '{rpl_damage}'
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 1
   defaultValues:
   - key: rpl_damage
     value: 10

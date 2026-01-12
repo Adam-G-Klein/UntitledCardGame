@@ -85,6 +85,57 @@ public class CardView {
         Label description = container.Q<Label>("cardDesc");
         description.text = card.GetDescription();
 
+        VisualElement iconDescContainer = container.Q<VisualElement>("cardIconDesc");
+        if (card.HasIconDescription())
+        {
+            // Override the text description with the icon description.
+            description.visible = false;
+
+            // It would be helpful to parse the the Icon description and divide it into separate lines.
+            iconDescContainer.visible = true;
+            iconDescContainer.Clear();
+            // Create the first row.
+            VisualElement row = new VisualElement();
+            row.AddToClassList("iconDescRow");
+            iconDescContainer.Add(row);
+
+            List<DescriptionToken> tokens = card.GetIconDescriptionTokens();
+            for (int i = 0; i < tokens.Count; i++)
+            {
+                DescriptionToken token = tokens[i];
+                switch (token.tokenType)
+                {
+                    case DescriptionToken.TokenType.Icon:
+                        VisualElement icon = new VisualElement();
+                        icon.AddToClassList("iconDescSprite");
+                        if (cardInShop)
+                        {
+                            icon.AddToClassList("iconDescSpriteShop");
+                        }
+                        Sprite s = GameplayConstantsSingleton.Instance.gameplayConstants.descriptionIconSprites[token.icon];
+                        icon.style.backgroundImage = new StyleBackground(s.texture);
+                        row.Add(icon);
+                        break;
+                    case DescriptionToken.TokenType.Text:
+                        Label textLbl = new Label();
+                        textLbl.AddToClassList("iconDescLabel");
+                        textLbl.text = token.text;
+                        textLbl.name = "iconDescText" + i;
+                        row.Add(textLbl);
+                        break;
+                    case DescriptionToken.TokenType.NewLine:
+                        // Start a new row.
+                        row = new VisualElement();
+                        row.AddToClassList("iconDescRow");
+                        iconDescContainer.Add(row);
+                        break;
+                }
+            }
+        } else
+        {
+            iconDescContainer.visible = false;
+        }
+
         /*if (packSO != null)
         {
             container.Q("cardBackground").style.backgroundColor = packSO.packColor;
@@ -103,15 +154,15 @@ public class CardView {
         VisualElement cardBackground = container.Q("cardBackground");
         if (companionType != null) {
             Sprite silhouette = GetSilhouette(companionType.fullSprite, companionType.companionName);
-            cardBackground.style.backgroundImage = new StyleBackground(silhouette.texture);  
+            cardBackground.style.backgroundImage = new StyleBackground(silhouette.texture);
         } else if (packSO != null && packSO.packIcon != null)
         {
             Sprite silhouette = GetSilhouette(packSO.packIcon, packSO.packName);
-            cardBackground.style.backgroundImage = new StyleBackground(silhouette.texture);  
-        } 
+            cardBackground.style.backgroundImage = new StyleBackground(silhouette.texture);
+        }
         else {
             Sprite silhouette = GetSilhouette(GameplayConstantsSingleton.Instance.gameplayConstants.neutralPackIcon, "neutral");
-            cardBackground.style.backgroundImage = new StyleBackground(silhouette.texture);  
+            cardBackground.style.backgroundImage = new StyleBackground(silhouette.texture);
         }
 
         VisualElement rarityIndicator = container.Q("rarityIndicator");
@@ -159,6 +210,7 @@ public class CardView {
             cardTypeLabel.AddToClassList("cardTypeLabelShop");
             manaContainer.AddToClassList("manaLabelShop");
             container.Q("cardOutline").AddToClassList("cardOutlineShop");
+            iconDescContainer.AddToClassList("iconDescContainerShop");
         }
 
 
@@ -199,6 +251,22 @@ public class CardView {
         label.MarkDirtyRepaint();
     }
 
+    public void UpdateCardIconDescription(List<DescriptionToken> newIconDesc) {
+        VisualElement iconDescContainer = cardContainer.Q<VisualElement>("cardIconDesc");
+
+        for (int i = 0; i < newIconDesc.Count; i++)
+        {
+            DescriptionToken token = newIconDesc[i];
+            if (token.tokenType == DescriptionToken.TokenType.Text)
+            {
+                string name = "iconDescText" + i;
+                cardContainer.Q<Label>(name).text = token.text;
+            }
+        }
+
+        iconDescContainer.MarkDirtyRepaint();
+    }
+
     public void UpdateManaCost() {
         Label manaLabel = cardContainer.Q<Label>(null, "mana-card-label");
         setManaCost(manaLabel, cardInstance.cardType);
@@ -236,19 +304,19 @@ public class CardView {
     {
         return cardType;
     }
-        
+
     public static Sprite GetSilhouette(Sprite originalSprite, String UID, float alpha = 0.4f)
     {
         Sprite original = originalSprite;
         // Check if we've already processed this sprite
         if (silhouetteCache.ContainsKey(UID))
             return silhouetteCache[UID];
-        
+
         Sprite silhouette = CreateSilhouette(original, alpha);
-        
+
         // Step 7: Cache it so we don't have to do this again
         silhouetteCache[UID] = silhouette;
-        
+
         return silhouette;
     }
 
@@ -256,7 +324,7 @@ public class CardView {
     {
         // Step 1: Get the original texture from the sprite
         Texture2D originalTex = original.texture;
-        
+
         // Step 2: Create a new texture with same dimensions
         Texture2D newTex = new Texture2D(
             (int)original.textureRect.width,   // Width of the sprite's region in the texture
@@ -264,7 +332,7 @@ public class CardView {
             TextureFormat.RGBA32,              // Color format (Red, Green, Blue, Alpha - 32 bits)
             false                              // No mipmaps (we don't need them for UI)
         );
-        
+
         // Step 3: Get the pixels from the SPECIFIC REGION of the texture that this sprite uses
         // (Important because sprite atlases can have multiple sprites in one texture)
         Color[] pixels = originalTex.GetPixels(
@@ -273,7 +341,7 @@ public class CardView {
             (int)original.textureRect.width,  // How many pixels wide
             (int)original.textureRect.height  // How many pixels tall
         );
-        
+
         // Step 4: Process each pixel - convert to black with modified alpha
         for (int i = 0; i < pixels.Length; i++)
         {
@@ -286,11 +354,11 @@ public class CardView {
                 pixels[i].a * alpha     // A = original alpha × our control value
             );
         }
-        
+
         // Step 5: Write the processed pixels into our new texture
         newTex.SetPixels(pixels);
         newTex.Apply();  // Actually upload to GPU memory
-        
+
         // Step 6: Create a new sprite from this texture
         return Sprite.Create(
             newTex,                                          // The texture we just created

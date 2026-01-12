@@ -12,6 +12,35 @@ public class CardValue
     public int value;
 }
 
+[System.Serializable]
+public class DescriptionToken
+{
+    public enum TokenType
+    {
+        Text,
+        NewLine,
+        Icon,
+    }
+
+    public enum DescriptionIconType
+    {
+        None,
+        Attack,
+        Block,
+        Draw,
+        Random,
+        Adjacent,
+        Leftmost,
+        Strength,
+        TemporaryStrength,
+        Bleed,
+        Energy,
+    }
+    public TokenType tokenType;
+    public string text;
+    public DescriptionIconType icon;
+}
+
 [CreateAssetMenu(
     fileName ="New Card",
     menuName = "Cards/New Card Type")]
@@ -20,6 +49,9 @@ public class CardType: IdentifiableSO, ITooltipProvider
 {
     public string Name;
     public string Description;
+    // Experimental field for a description with hieroglyphic shorthand.
+    public List<DescriptionToken> IconDescription = new();
+
     public List<CardValue> defaultValues = new();
     public int Cost;
     public Sprite Artwork;
@@ -102,6 +134,82 @@ public class CardType: IdentifiableSO, ITooltipProvider
         return Description;
     }
 
+    public bool HasIconDescription()
+    {
+        return IconDescription != null && IconDescription.Count > 0;
+    }
+
+    public List<DescriptionToken> GetIconDescriptionTokens()
+    {
+        // Fill out the default values in the icon description.
+        List<DescriptionToken> filledTokens = new List<DescriptionToken>();
+        foreach (DescriptionToken token in IconDescription)
+        {
+            if (token.tokenType != DescriptionToken.TokenType.Text)
+            {
+                filledTokens.Add(token);
+                continue;
+            }
+            string filledText = token.text;
+            foreach (var defaultValue in defaultValues)
+            {
+                filledText = filledText.Replace($"{{{defaultValue.key}}}", $"{defaultValue.value}");
+            }
+            filledTokens.Add(new DescriptionToken
+            { tokenType = DescriptionToken.TokenType.Text, text = filledText });
+        }
+        return filledTokens;
+    }
+
+    public List<DescriptionToken> GetIconDescriptionTokensWithStylizedValues(Dictionary<string, int> intMap)
+    {
+        // Fill out the default values in the icon description.
+        List<DescriptionToken> filledTokens = new List<DescriptionToken>();
+        foreach (DescriptionToken token in IconDescription)
+        {
+            if (token.tokenType != DescriptionToken.TokenType.Text)
+            {
+                filledTokens.Add(token);
+                continue;
+            }
+            string description = token.text;
+            foreach (var defaultValue in defaultValues)
+            {
+                string key = defaultValue.key;
+                if (intMap.ContainsKey(key))
+                {
+                    int currentValue = intMap[key];
+                    string styledValue;
+
+                    if (currentValue > defaultValue.value)
+                    {
+                        styledValue = $"<color=#045700><b>{currentValue}</b></color>";
+                    }
+                    else if (currentValue < defaultValue.value)
+                    {
+                        styledValue = $"<color=red><b>{currentValue}</b></color>";
+                    }
+                    else
+                    {
+                        styledValue = $"<b>{currentValue}</b>";
+                    }
+
+                    description = description.Replace($"{{{defaultValue.key}}}", styledValue);
+
+                }
+                else
+                {
+                    // If the value isn't in the map, use the default value unstylized
+                    description = description.Replace($"{{{defaultValue.key}}}", $"<b>{defaultValue.value}</b>");
+                }
+            }
+            filledTokens.Add(new DescriptionToken
+            { tokenType = DescriptionToken.TokenType.Text, text = description });
+        }
+        return filledTokens;
+    }
+
+
     public string GetName()
     {
         if (cardCategory == CardCategory.Passive)
@@ -170,6 +278,26 @@ public class CardType: IdentifiableSO, ITooltipProvider
     public TooltipViewModel GetTooltip()
     {
         TooltipViewModel tooltip = new TooltipViewModel(empty: true);
+
+        if (HasIconDescription())
+        {
+            Debug.Log("CardType.GetTooltip(): Generating icon description tooltip");
+            // Loop through the description tokens with icons.
+            List<DescriptionToken> tokens = GetIconDescriptionTokens();
+
+            // With LinQ, extract a list of the unique icon tokens in the description.
+            List<DescriptionToken.DescriptionIconType> uniqueIconTokens = tokens.Where(t => t.tokenType == DescriptionToken.TokenType.Icon).Select(t => t.icon).Distinct().ToList();
+            foreach (DescriptionToken.DescriptionIconType tokenType in uniqueIconTokens)
+            {
+                if (KeywordTooltipProvider.Instance.HasTooltip(tokenType))
+                {
+                    tooltip += KeywordTooltipProvider.Instance.GetTooltip(tokenType);
+                }
+            }
+            return tooltip;
+        }
+
+
         List<TooltipKeyword> tooltipKeywords = new();
         tooltipKeywords.AddRange(tooltips);
         if (!tooltipKeywords.Contains(TooltipKeyword.Exhaust) && exhaustsWhenPlayed)
