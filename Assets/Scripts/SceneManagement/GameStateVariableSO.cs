@@ -222,6 +222,8 @@ public class GameStateVariableSO : ScriptableObject
             currentLocation = Location.SHOP;
         }
         activeEncounter.SetValue(currentEncounter);
+        // Add last encounter safeguard
+        nextEncounter.SetValue(map.GetValue().encounters[currentEncounterIndex+1]);
         updateMusic(currentLocation);
         cancelCurrentDialogue();
         LoadCurrentLocationScene();
