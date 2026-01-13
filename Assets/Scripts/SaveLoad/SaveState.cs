@@ -8,7 +8,6 @@ using UnityEngine;
 [System.Serializable]
 public class SaveState
 {
-
     private string saveName;
     private List<CompanionSerializable> activeCompanions;
     private List<CompanionSerializable> benchCompanions;
@@ -62,5 +61,15 @@ public class SaveState
           gameState.playerData.SetValue(new PlayerData(this.playerData));
           gameState.companions.currentCompanionSlots = this.currentCompanionSlots;
           gameState.ascensionLevel = this.ascensionLevel;
+    }
+
+    public void Print() {
+          Debug.Log("========== Save State ==========\n\n");
+          Debug.Log("========== Encounter Information ==========");
+          Debug.Log($"Current Encounter Index: {currentEncounterIndex}");
+          Debug.Log("Map:");
+          foreach (EncounterSerializable encounterSerializable in map) {
+               Debug.Log($"{encounterSerializable.encounterType} Encounter id={encounterSerializable.id} act={encounterSerializable.act} isCompleted={encounterSerializable.isCompleted}");
+          }
     }
 }

@@ -27,6 +27,7 @@ public class SaveManager : GenericSingleton<SaveManager>
     {
         Debug.Log("HELLO THE LOAD HANDLER BUTTON WAS PRESSED FOR SURE");
         SaveState loadState = SaveSystem.Load<SaveState>();
+        loadState.Print();
         // instantiate the save state from the serializable data
         loadState.LoadToGameState(gameStateVariableSO, soRegistry);
         // print out a buncha companion information
@@ -81,6 +82,12 @@ public class SaveManager : GenericSingleton<SaveManager>
             achievementSO.lockedInProgress = achievementSO.target;
         }
         SavePlayerProgress();
+    }
+
+    [ContextMenu("Print the Save State")]
+    public void PrintSaveState() {
+        SaveState loadState = SaveSystem.Load<SaveState>();
+        loadState.Print();
     }
 
     public void GameStartHandler()
