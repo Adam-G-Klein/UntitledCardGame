@@ -255,28 +255,31 @@ MonoBehaviour:
   - title: Damage
     descriptionIconType: 1
     description: Deal X damage to foe
-    iconImage: {fileID: 21300000, guid: 104ad0eef62e94fc6a6d6a1777285e63, type: 3}
   - title: Block
     descriptionIconType: 2
     description: Prevents up to X damage dealt to this rat until next turn
-    iconImage: {fileID: 21300000, guid: 99c67c3bfce1d4fbda616a60eb20b02f, type: 3}
   - title: Draw
     descriptionIconType: 3
     description: Draw 1 card from a rat's deck
-    iconImage: {fileID: 21300000, guid: 76dc43b094a9544688fa3e184ed3d9d0, type: 3}
   - title: Random
     descriptionIconType: 4
     description: Indicated effect happens at random
-    iconImage: {fileID: 21300000, guid: 7224a850e69d04e44a74c5709f6c8fc3, type: 3}
   - title: Adjacent Targeting
     descriptionIconType: 5
     description: Indicated effect targets rats adjacent to the caster
-    iconImage: {fileID: 21300000, guid: ff683255dfb09437bb987a2b26f7d373, type: 3}
   - title: Leftmost Targeting
     descriptionIconType: 6
     description: Indicated effect targets the leftmost rat on the team
-    iconImage: {fileID: 21300000, guid: af94bbef0997f43b6babcdc2a60fe878, type: 3}
   - title: Bleed
     descriptionIconType: 9
     description: Rat loses X HP ignoring any block
-    iconImage: {fileID: 21300000, guid: 1651f15b8fe0140c08bb0c6aee1ac076, type: 3}
+  - title: Energy
+    descriptionIconType: 10
+    description: Gain 1 energy that you can spend on playing cards
+  - title: Self
+    descriptionIconType: 11
+    description: Indicated effect targets the rat who cast it
+  - title: Self and Adjacent
+    descriptionIconType: 12
+    description: Indicated effect targets the rat who cast it and rats adjacent to
+      the caster

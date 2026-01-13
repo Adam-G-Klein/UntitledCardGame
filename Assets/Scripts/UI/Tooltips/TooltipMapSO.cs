@@ -34,17 +34,16 @@ public class DescriptionIconTooltipMapping {
     public string title;
     public DescriptionToken.DescriptionIconType descriptionIconType;
     public string description;
-    public Sprite iconImage;
 
     public TooltipViewModel tooltip { get {
+        Sprite iconImage = GameplayConstantsSingleton.Instance.gameplayConstants.descriptionIconSprites.GetValueOrDefault(descriptionIconType);
         return new TooltipViewModel(title, description, -1, iconImage != null ? iconImage.texture : null);
     }}
 
-    public DescriptionIconTooltipMapping(DescriptionToken.DescriptionIconType descriptionIconType, string title, string description, Sprite iconImage) {
+    public DescriptionIconTooltipMapping(DescriptionToken.DescriptionIconType descriptionIconType, string title, string description) {
         this.descriptionIconType = descriptionIconType;
         this.title = title;
         this.description = description;
-        this.iconImage = iconImage;
     }
 }
 

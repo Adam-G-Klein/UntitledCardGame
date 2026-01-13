@@ -15,6 +15,25 @@ MonoBehaviour:
   guid: a5894b45-a21f-4325-bf7a-53fcb902dccf
   Name: Bloodied Blade
   Description: Deal {rpl_damage} damage & bleed self and adjacent 1 HP
+  IconDescription:
+  - tokenType: 0
+    text: '{rpl_damage}'
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 1
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 0
+    text: 1
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 9
+  - tokenType: 2
+    text: 
+    icon: 12
   defaultValues:
   - key: rpl_damage
     value: 8

@@ -35,6 +35,8 @@ public class DescriptionToken
         TemporaryStrength,
         Bleed,
         Energy,
+        Self,
+        SelfAndAdjacent,
     }
     public TokenType tokenType;
     public string text;

@@ -56,7 +56,7 @@ public class ToolipMapSOEditor : Editor {
         }
 
         if (GUILayout.Button("Create Description Icon Tooltip")) {
-            tooltipMapSO.descriptionIconTooltipMappings.Add(new DescriptionIconTooltipMapping(descriptionIconType, tooltipTitle, tooltipDescription, tooltipImage));
+            tooltipMapSO.descriptionIconTooltipMappings.Add(new DescriptionIconTooltipMapping(descriptionIconType, tooltipTitle, tooltipDescription));
             save(tooltipMapSO);
         }
 
