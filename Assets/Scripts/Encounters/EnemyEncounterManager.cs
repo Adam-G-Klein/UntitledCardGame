@@ -311,7 +311,8 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         SaveManager.Instance.DeleteSaveData();
         gameState.LoadNextLocation();
         victoryUI.SetActive(true);
-        MusicController.Instance.SetCombatState("Victory");
+        MusicController.Instance.PrepareForGoingBackToMainMenu();
+        MusicController.Instance.PlaySFX("event:/MX/MX_CompletedRun");
         uIStateEvent.Raise(new UIStateEventInfo(UIState.END_ENCOUNTER));
         victoryUI.transform.SetSiblingIndex(postCombatUI.transform.parent.childCount - 1);
         victoryUI.GetComponent<VictoryView>().Setup(gameState.companions.activeCompanions);
