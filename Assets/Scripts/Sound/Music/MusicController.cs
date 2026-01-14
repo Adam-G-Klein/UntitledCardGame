@@ -151,6 +151,11 @@ public class MusicController : GenericSingleton<MusicController>
                 RuntimeManager.StudioSystem.setParameterByName(combatState, 2);
                 PlaySFX("event:/MX/MX_CombatStingers");
                 break;
+            
+            case "Run Complete":
+                RuntimeManager.StudioSystem.setParameterByName(combatState, 3);
+                PlaySFX("event:/MX/MX_CombatStingers");
+                break;
 
             default:
                 break;
