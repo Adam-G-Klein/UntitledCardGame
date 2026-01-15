@@ -44,10 +44,12 @@ Rules:
 - Insert a newline when there is an '&' or a new sentence
 - Only output YAML
 - Do NOT explain anything
-- Compress sentences like 'Draw 1 card from 3 random rats' into multiple tokens as much as possible.
+- When there is a duplicate effect, e.g. (draw 1 from 3 random rats), repeat the icon instead of using text to explain it.
 - Refer to the examples below for how to convert descriptions into IconDescriptions.
 - Make sure it begins with the YAML key 'IconDescription:'
 - Never end with a newline token
+- For examples like 'Give any rat 3 block', output the number as text token '3' and then the block icon. Omit the 'any rat' part, that's implicit.
+- If there is no icon for the effect, just use text tokens.
 
 Examples:
 Description: Draw 1 card from 3 random rats
