@@ -15,6 +15,19 @@ MonoBehaviour:
   guid: 5c862a64-4ce9-4fd0-a9c5-1bb8b1078b19
   Name: Double Strike
   Description: Deal {rpl_damage} damage x2
+  IconDescription:
+  - tokenType: 0
+    text: '{rpl_damage}'
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 1
+  - tokenType: 0
+    text: '{rpl_damage}'
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 1
   defaultValues:
   - key: rpl_damage
     value: 3
