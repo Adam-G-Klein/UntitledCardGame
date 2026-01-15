@@ -8,7 +8,7 @@ using UnityEngine;
 public class RandomCardUnlockerSO : CardUnlockerSO {
     public int numberToUnlock;
 
-    public override List<CardType> ChooseCardsToUnlock(GameStateVariableSO gameState) {
+    public override List<CardType> ChooseCardsToUnlock(GameStateVariableSO gameState, List<CardType> unlockedCards) {
         List<CardType> cardsToUnlock = new List<CardType>();
 
         List<PackSO> activePacks = gameState.baseShopData.activePacks;
@@ -31,7 +31,7 @@ public class RandomCardUnlockerSO : CardUnlockerSO {
 
         // Convert the list to a set for O(1) lookup when checking which cards are unlocked
         HashSet<CardType> alreadyUnlockedCards = new HashSet<CardType>();
-        gameState.unlockedCards.ForEach(c => alreadyUnlockedCards.Add(c));
+        unlockedCards.ForEach(c => alreadyUnlockedCards.Add(c));
 
         // Filter out cards that are already unlocked.
         unlockableCards = unlockableCards.FindAll(x => !alreadyUnlockedCards.Contains(x));

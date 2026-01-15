@@ -20,6 +20,7 @@ public class ProgressManager : GenericSingleton<ProgressManager>
     public List<AchievementSO> achievementSOList;
     public AscensionInfo ascensionInfo;
     public GameStateVariableSO gameState;
+    public PersistentProgressSO progressSO;
     public CardUnlockerSO cardUnlockerSO;
 
     public void ReportProgressEvent(GameActionType gameActionType, int amount)
@@ -59,9 +60,9 @@ public class ProgressManager : GenericSingleton<ProgressManager>
     }
 
     public List<CardType> UnlockCards() {
-        List<CardType> cardsToUnlock = cardUnlockerSO.ChooseCardsToUnlock(gameState);
-        gameState.unlockedCards.AddRange(cardsToUnlock);
-        gameState.cardsUnlockedThisRun = new List<CardType>(cardsToUnlock);
+        List<CardType> cardsToUnlock = cardUnlockerSO.ChooseCardsToUnlock(gameState, progressSO.unlockedCards);
+        progressSO.unlockedCards.AddRange(cardsToUnlock);
+        progressSO.cardsUnlockedThisRun = new List<CardType>(cardsToUnlock);
         return cardsToUnlock;
     }
 }

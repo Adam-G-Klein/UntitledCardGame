@@ -103,16 +103,6 @@ public class GameStateVariableSO : ScriptableObject
     public bool consentToDataCollection = true;
 
     public List<PackSO> previouslySelectedPackSOs;
-    public List<CardType> unlockedCards;
-    // I don't really like where this ended up, but the way we're currently doing progress
-    // has the progress actually being recorded and saved in a different scene than we display
-    // the progress made to the user, so we need somewhere to store which cards were unlocked
-    // from one screen to another. This and the above could go in PlayerData, but PlayerData currently
-    // holds per run info, not persistent across the entire game. Globally persistent data like having seen
-    // tutorials, unlocked cards and progress data, as well as configured player settings (options) should
-    // probably be moved to their own storage mechanism, but I'm choosing not to do it now, which
-    // means it likely won't ever happen and I think I'm ok with that.
-    public List<CardType> cardsUnlockedThisRun;
     public int ascensionLevel = -1;
     public Dictionary<Location, string> locationToScene = new Dictionary<Location, string>() {
         {Location.MAIN_MENU, "MainMenu"},

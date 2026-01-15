@@ -20,7 +20,7 @@ public class PlayerProgressState
      private bool hasSeenPackSelectTutorial;
      private string nextTutorialID;
 
-     public PlayerProgressState(List<AchievementSO> achievementSOList, GameStateVariableSO gameState)
+     public PlayerProgressState(List<AchievementSO> achievementSOList, GameStateVariableSO gameState, List<CardType> unlockedCards)
      {
           this.numAttackCardsPlayed = new AchievementSerializable(achievementSOList.Find(x => x.gameActionType == GameActionType.ZERO_COST_ATTACKS_PLAYED));
           this.hasWonRun = new AchievementSerializable(achievementSOList.Find(x => x.gameActionType == GameActionType.WIN_A_RUN));
@@ -31,7 +31,7 @@ public class PlayerProgressState
           //this.healthGained = new AchievementSerializable(achievementSOList.Find(x => x.gameActionType == GameActionType.HEALTH_GAINED));
           //this.statusCardsGained = new AchievementSerializable(achievementSOList.Find(x => x.gameActionType == GameActionType.STATUS_CARDS_GAINED));
 
-          this.unlockedCardGuids = gameState.unlockedCards.Select(card => card.GUID).ToList();
+          this.unlockedCardGuids = unlockedCards.Select(card => card.GUID).ToList();
 
           this.skipTutorials = gameState.skipTutorials;
           this.hasSeenCombatTutorial = gameState.HasSeenCombatTutorial;
@@ -53,7 +53,7 @@ public class PlayerProgressState
 
           ProgressManager.Instance.ascensionInfo.playersMaxAscensionUnlocked = this.maxAscensionUnlocked;
 
-          gameState.unlockedCards = new List<CardType>();
+          ProgressManager.Instance.progressSO.unlockedCards = new List<CardType>();
           // Backwards compatability, not actually sure if this if is necessary
           if (unlockedCardGuids != null) {
                foreach (string guid in unlockedCardGuids) {
@@ -62,7 +62,7 @@ public class PlayerProgressState
                          Debug.LogError($"LoadToLocalPlayerProgress: No card type found in registry for GUID {guid}!");
                          continue;
                     }
-                    gameState.unlockedCards.Add(cardType);
+                    ProgressManager.Instance.progressSO.unlockedCards.Add(cardType);
                }
           } else {
                Debug.LogError("PlayerProgressState test");
