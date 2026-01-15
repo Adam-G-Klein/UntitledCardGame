@@ -171,7 +171,7 @@ public class OptionsViewController : GenericSingleton<OptionsViewController>, IC
         compendiumUIDocument.rootVisualElement.style.visibility = Visibility.Visible;
         FocusManager.Instance.StashLockedFocusables(this.GetType().Name);
         FocusManager.Instance.UnlockFocusables();
-        compendiumView = new CompendiumView(compendiumUIDocument, companionPool, neutralCardPool, packSOs, tooltipPrefab);
+        compendiumView = new CompendiumView(compendiumUIDocument, companionPool, neutralCardPool, packSOs, tooltipPrefab, gameState.unlockedCards);
     }
     
     public void onCloseCompenidum()

@@ -13,6 +13,7 @@ public class PlayerProgressState
      private AchievementSerializable healthGained;
      private AchievementSerializable statusCardsGained;
      private int maxAscensionUnlocked;
+     private List<string> unlockedCardGuids;
      private bool skipTutorials;
      private bool hasSeenCombatTutorial;
      private bool hasSeenShopTutorial;
@@ -30,6 +31,8 @@ public class PlayerProgressState
           //this.healthGained = new AchievementSerializable(achievementSOList.Find(x => x.gameActionType == GameActionType.HEALTH_GAINED));
           //this.statusCardsGained = new AchievementSerializable(achievementSOList.Find(x => x.gameActionType == GameActionType.STATUS_CARDS_GAINED));
 
+          this.unlockedCardGuids = gameState.unlockedCards.Select(card => card.GUID).ToList();
+
           this.skipTutorials = gameState.skipTutorials;
           this.hasSeenCombatTutorial = gameState.HasSeenCombatTutorial;
           this.hasSeenPackSelectTutorial = gameState.HasSeenPackSelectTutorial;
@@ -38,7 +41,7 @@ public class PlayerProgressState
 
      }
 
-     public void LoadToLocalPlayerProgress(GameStateVariableSO gameState)
+     public void LoadToLocalPlayerProgress(GameStateVariableSO gameState, SORegistry soRegistry)
      {
           CopyAchievementProgress(this.numAttackCardsPlayed, ProgressManager.Instance.achievementSOList.Find(x => x.gameActionType == GameActionType.ZERO_COST_ATTACKS_PLAYED));
           CopyAchievementProgress(this.hasWonRun, ProgressManager.Instance.achievementSOList.Find(x => x.gameActionType == GameActionType.WIN_A_RUN));
@@ -49,6 +52,21 @@ public class PlayerProgressState
           // CopyAchievementProgress(this.statusCardsGained, ProgressManager.Instance.achievementSOList.Find(x => x.gameActionType == GameActionType.STATUS_CARDS_GAINED));
 
           ProgressManager.Instance.ascensionInfo.playersMaxAscensionUnlocked = this.maxAscensionUnlocked;
+
+          gameState.unlockedCards = new List<CardType>();
+          // Backwards compatability, not actually sure if this if is necessary
+          if (unlockedCardGuids != null) {
+               foreach (string guid in unlockedCardGuids) {
+                    CardType cardType = soRegistry.GetAsset<CardType>(guid);
+                    if (cardType == null) {
+                         Debug.LogError($"LoadToLocalPlayerProgress: No card type found in registry for GUID {guid}!");
+                         continue;
+                    }
+                    gameState.unlockedCards.Add(cardType);
+               }
+          } else {
+               Debug.LogError("PlayerProgressState test");
+          }
 
           gameState.skipTutorials = this.skipTutorials;
           gameState.HasSeenCombatTutorial = this.hasSeenCombatTutorial;

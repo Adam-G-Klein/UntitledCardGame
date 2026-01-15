@@ -12,4 +12,8 @@ public class CardPoolSO: ScriptableObject {
     public List<CardType> rareCards;
 
     public Sprite genericCardIconSprite;
+
+    public List<CardType> unlockableCommonCards;
+    public List<CardType> unlockableUncommonCards;
+    public List<CardType> unlockableRareCards;
 }

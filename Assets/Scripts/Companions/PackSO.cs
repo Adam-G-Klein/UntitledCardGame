@@ -12,7 +12,6 @@ public class PackSO : ScriptableObject
     public string packDescription;
     public CompanionPoolSO companionPoolSO;
     public CardPoolSO packCardPoolSO;
-    public UnlockableCardPoolSO unlockableCardPoolSO;
     public Color packColor;
 
     [Header("Art Assets")]

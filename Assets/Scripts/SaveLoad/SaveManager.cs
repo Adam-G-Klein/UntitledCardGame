@@ -69,6 +69,7 @@ public class SaveManager : GenericSingleton<SaveManager>
         gameStateVariableSO.HasSeenCombatTutorial = false;
         gameStateVariableSO.HasSeenPackSelectTutorial = false;
         gameStateVariableSO.HasSeenShopTutorial = false;
+        gameStateVariableSO.unlockedCards = new List<CardType>();
     }
 
     [ContextMenu("Unlock all Achievements and Ascensions")]
@@ -104,7 +105,7 @@ public class SaveManager : GenericSingleton<SaveManager>
     public void LoadPlayerProgress()
     {
         PlayerProgressState playerProgressState = SaveSystem.Load<PlayerProgressState>(SaveSystem.SaveType.Progress);
-        playerProgressState?.LoadToLocalPlayerProgress(gameStateVariableSO);
+        playerProgressState?.LoadToLocalPlayerProgress(gameStateVariableSO, soRegistry);
     }
 
     public void SavePlayerProgress()

@@ -286,6 +286,11 @@ public class CardView {
         ve.MarkDirtyRepaint();
     }
 
+    public void SetLocked() {
+        VisualElement lockedIndicator = cardContainer.Q<VisualElement>("card-locked-indicator");
+        lockedIndicator.style.display = DisplayStyle.Flex;
+    }
+
     public static Tuple<int, int> GetWidthAndHeight() {
         int width = (int)(Screen.width * SCREEN_WIDTH_PERCENT);
         int height = (int)(width * RATIO);

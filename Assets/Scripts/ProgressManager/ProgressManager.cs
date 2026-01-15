@@ -20,6 +20,7 @@ public class ProgressManager : GenericSingleton<ProgressManager>
     public List<AchievementSO> achievementSOList;
     public AscensionInfo ascensionInfo;
     public GameStateVariableSO gameState;
+    public CardUnlockerSO cardUnlockerSO;
 
     public void ReportProgressEvent(GameActionType gameActionType, int amount)
     {
@@ -28,42 +29,6 @@ public class ProgressManager : GenericSingleton<ProgressManager>
         if (achievementSO.currentProgress >= achievementSO.target)
         {
             achievementSO.isCompleted = true;
-        }
-    }
-
-    [ContextMenu("Unlock Random Cards")]
-    public void UnlockRandomCards()
-    {
-        List<PackSO> activePacks = gameState.baseShopData.activePacks;
-        List<UnlockableCard> unlockableCards = new List<UnlockableCard>();
-        foreach (var pack in activePacks)
-        {
-            if (pack.unlockableCardPoolSO == null) continue;
-            unlockableCards.AddRange(pack.unlockableCardPoolSO.GetAllUnlockableCards());
-        }
-        // Filter out cards that are already unlocked.
-        unlockableCards = unlockableCards.FindAll(x => !x.isUnlocked);
-        if (unlockableCards.Count == 0)
-        {
-            Debug.Log("All cards are already unlocked.");
-            return;
-        }
-
-        int numToUnlock = Mathf.Max(1, unlockableCards.Count / 4);
-        List<UnlockableCard> shuffledCards = new List<UnlockableCard>(unlockableCards);
-        // Shuffle the list
-        for (int i = 0; i < shuffledCards.Count; i++)
-        {
-            UnlockableCard temp = shuffledCards[i];
-            int randomIndex = UnityEngine.Random.Range(i, shuffledCards.Count);
-            shuffledCards[i] = shuffledCards[randomIndex];
-            shuffledCards[randomIndex] = temp;
-        }
-
-        for (int i = 0; i < numToUnlock; i++)
-        {
-            Debug.Log($"Unlocking card: {shuffledCards[i].cardType.Name}");
-            shuffledCards[i].isUnlocked = true;
         }
     }
 
@@ -91,5 +56,12 @@ public class ProgressManager : GenericSingleton<ProgressManager>
         // if the ascensipn is not present in the list, it is disabled.
         int index = ascensionInfo.ascensionSOList.FindIndex(x => x.ascensionType == ascensionType);
         return index >= 0 && index <= gameState.ascensionLevel;
+    }
+
+    public List<CardType> UnlockCards() {
+        List<CardType> cardsToUnlock = cardUnlockerSO.ChooseCardsToUnlock(gameState);
+        gameState.unlockedCards.AddRange(cardsToUnlock);
+        gameState.cardsUnlockedThisRun = new List<CardType>(cardsToUnlock);
+        return cardsToUnlock;
     }
 }

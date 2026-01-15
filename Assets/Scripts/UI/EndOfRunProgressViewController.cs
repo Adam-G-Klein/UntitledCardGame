@@ -31,6 +31,8 @@ public class EndOfRunProgressViewController : MonoBehaviour
             endOfRunProgressUIDocument.rootVisualElement.Q<VisualElement>("demo-no-progress").style.display = DisplayStyle.Flex;
         FocusManager.Instance.RegisterFocusableTarget(button.AsFocusable());
 
+        // Display cards unlocked in this run
+
         // Save player progress after the new lockedInProgress values are set
         SaveManager.Instance.SavePlayerProgress();
     }

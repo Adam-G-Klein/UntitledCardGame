@@ -27,5 +27,8 @@
             <ui:Label tabindex="-1" text="Attack" parse-escape-sequences="true" display-tooltip-when-elided="true" name="cardTypeLabel" class="cardTypeLabel" />
         </ui:VisualElement>
         <ui:VisualElement name="cardOutline" class="cardOutline" />
+        <ui:VisualElement name="card-locked-indicator" style="flex-grow: 1; position: absolute; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.96); display: none;">
+            <ui:VisualElement style="flex-grow: 0; background-image: url(&quot;project://database/Assets/Sprites/Z_OldPlaceholderSprites/lock_icon.png?fileID=2800000&amp;guid=04d8fa5cf79c8514197de41cdbb0b48a&amp;type=3#lock_icon&quot;); width: 63%; height: 41%; left: 21%; top: 25%;" />
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

@@ -29,8 +29,16 @@ public class CompendiumView : IControlsReceiver {
     private Button cardButton;
 
     private List<Coroutine> scrollCoroutines = new List<Coroutine>();
+    
+    private HashSet<CardType> unlockedCards;
 
-    public CompendiumView(UIDocument uiDocument, CompanionPoolSO companionPool, CardPoolSO neutralCardPool, List<PackSO> packSOs, GameObject tooltipPrefab) {
+    public CompendiumView(
+            UIDocument uiDocument,
+            CompanionPoolSO companionPool,
+            CardPoolSO neutralCardPool,
+            List<PackSO> packSOs,
+            GameObject tooltipPrefab,
+            List<CardType> unlockedCards) {
         this.tooltipController = new TooltipController(tooltipPrefab);
         FocusManager.Instance.StashFocusables(this.GetType().Name);
         this.uiDocument = uiDocument;
@@ -39,6 +47,8 @@ public class CompendiumView : IControlsReceiver {
         companionScrollView = uiDocument.rootVisualElement.Q<ScrollView>("compendium-companions-scrollView");
         cardsScrollView.Clear();
         companionScrollView.Clear();
+
+        this.unlockedCards = unlockedCards.ToHashSet();
         SetupCardView(companionPool, neutralCardPool, packSOs);
         SetupCompanionView(companionPool);
 
@@ -112,23 +122,23 @@ public class CompendiumView : IControlsReceiver {
         companions.Sort((a, b) => a.companionName.CompareTo(b.companionName)); // we should allow for filtering by rarity or something as well...eventually  
         AddAllCompanionContainers(companions, cardsSection);
         AddAllPackContainers(packSOs, cardsSection);
-        AddCards(neutralCardPool.commonCards, neutralCardPool.uncommonCards, neutralCardPool.rareCards, null, cardsSection);
+        AddCards(neutralCardPool, null, cardsSection);
         cardsScrollView.Add(cardsSection);
     }
 
     private void AddAllCompanionContainers(List<CompanionTypeSO> companions, VisualElement ve) {
         companions.ForEach(companion => {
-            AddCards(companion.cardPool.commonCards, companion.cardPool.uncommonCards, companion.cardPool.rareCards, companion, ve);
+            AddCards(companion.cardPool, companion, ve);
         });
     }
     
     private void AddAllPackContainers(List<PackSO> packSOs, VisualElement ve) {
         packSOs.ForEach(packSO => {
-            AddCards(packSO.packCardPoolSO.commonCards, packSO.packCardPoolSO.uncommonCards, packSO.packCardPoolSO.rareCards, null, ve, packSO);
+            AddCards(packSO.packCardPoolSO, null, ve, packSO);
         });
     }
 
-    private void AddCards(List<CardType> commonCards, List<CardType> uncommonCards, List<CardType> rareCards, CompanionTypeSO companion, VisualElement ve, PackSO packSO = null)
+    private void AddCards(CardPoolSO cardPool, CompanionTypeSO companion, VisualElement ve, PackSO packSO = null)
     {
         Label companionContainerTitle = new Label();
         if (packSO != null) {
@@ -142,22 +152,39 @@ public class CompendiumView : IControlsReceiver {
 
         VisualElement companionCardsContainer = new VisualElement();
         companionCardsContainer.AddToClassList("compendium-section-container");
-        AddCardsForRarity(companionCardsContainer, commonCards, companion, Card.CardRarity.COMMON, packSO);
-        AddCardsForRarity(companionCardsContainer, uncommonCards, companion, Card.CardRarity.UNCOMMON, packSO);
-        AddCardsForRarity(companionCardsContainer, rareCards, companion, Card.CardRarity.RARE, packSO);
+        AddCardsForRarity(companionCardsContainer, cardPool.commonCards, companion, Card.CardRarity.COMMON, packSO);
+        AddCardsForRarity(companionCardsContainer, cardPool.uncommonCards, companion, Card.CardRarity.UNCOMMON, packSO);
+        AddCardsForRarity(companionCardsContainer, cardPool.rareCards, companion, Card.CardRarity.RARE, packSO);
+        AddCardsForRarity(companionCardsContainer, cardPool.unlockableCommonCards, companion, Card.CardRarity.COMMON, packSO, true);
+        AddCardsForRarity(companionCardsContainer, cardPool.unlockableUncommonCards, companion, Card.CardRarity.UNCOMMON, packSO, true);
+        AddCardsForRarity(companionCardsContainer, cardPool.unlockableRareCards, companion, Card.CardRarity.RARE, packSO, true);
         ve.Add(companionCardsContainer);
     }
 
-    private void AddCardsForRarity(VisualElement companionCardsContainer, List<CardType> cards, CompanionTypeSO companion, Card.CardRarity cardRarity, PackSO packSO) {
+    private void AddCardsForRarity(
+            VisualElement companionCardsContainer,
+            List<CardType> cards,
+            CompanionTypeSO companion,
+            Card.CardRarity cardRarity,
+            PackSO packSO,
+            bool unlockable = false) {
         cards.ForEach(card => {
             PackSO packToUse = companion != null ? companion.pack : packSO;
-            VisualElement cardContainer = new CardView(card, companion, cardRarity, true, packToUse).cardContainer;
+            CardView cardView = new CardView(card, companion, cardRarity, true, packToUse);
+
+            bool locked = false;
+            if (unlockable && !unlockedCards.Contains(card)) {
+                cardView.SetLocked();
+                locked = true;
+            }
+
+            VisualElement cardContainer = cardView.cardContainer;
             cardContainer.AddToClassList("compendium-item-container");
             companionCardsContainer.Add(cardContainer);
             cardContainer.name = card.name;
             cardContainer.RegisterCallback<PointerEnterEvent>((evt) => {
                 MusicController.Instance.PlaySFX("event:/SFX/SFX_UIHover");
-                if (card.GetTooltip().empty) {
+                if (card.GetTooltip().empty || locked) {
                     return;
                 }
                 tooltipController.DisplayTooltip(cardContainer, card.GetTooltip(), TooltipContext.CompendiumCard);
@@ -168,7 +195,7 @@ public class CompendiumView : IControlsReceiver {
             VisualElementFocusable cardFocusable = cardContainer.AsFocusable();
             cardFocusable.additionalFocusAction += () => {
                 MusicController.Instance.PlaySFX("event:/SFX/SFX_UIHover");
-                if (card.GetTooltip().empty) {
+                if (card.GetTooltip().empty || locked) {
                     return;
                 }
                 tooltipController.DisplayTooltip(cardContainer, card.GetTooltip(), TooltipContext.CompendiumCard);
