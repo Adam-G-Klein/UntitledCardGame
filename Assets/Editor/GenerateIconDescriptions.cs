@@ -48,6 +48,7 @@ Rules:
 - Refer to the examples below for how to convert descriptions into IconDescriptions.
 - Make sure it begins with the YAML key 'IconDescription:'
 - Never end with a newline token
+- For examples like 'Give any rat 3 block', output the number as text token '3' and then the block icon. Omit the 'any rat' part, that's implicit.
 
 Examples:
 Description: Draw 1 card from 3 random rats
