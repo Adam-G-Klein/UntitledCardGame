@@ -2,21 +2,100 @@ using UnityEngine;
 using UnityEditor;
 using System.IO;
 using System.Text;
+using System.Globalization;
 using System.Collections.Generic;
+using System;
 
 public class GenerateIconDescriptionsWindow : EditorWindow
 {
+    private OpenAI.OpenAIApi openai = new OpenAI.OpenAIApi();
     private string selectedFolderPath = "";
     private List<string> assetPaths = new List<string>();
     private int currentAssetIndex = 0;
     private string currentAssetContent = "";
     private string llmOutput = "";
     private string userFeedback = "";
-    private string systemPrompt = "You are an assistant that modifies asset files. Respond with the modified content.";
+    private string systemPrompt = @"
+You are generating IconDescriptions for a game.
+
+TokenType enum:
+0 = Text
+1 = NewLine
+2 = Icon
+
+DescriptionIconType enum:
+0 = None
+1 = Attack
+2 = Block
+3 = Draw
+4 = Random
+5 = Adjacent
+6 = Leftmost
+7 = Strength
+8 = TemporaryStrength
+9 = Bleed
+10 = Energy
+11 = Self
+12 = SelfAndAdjacent
+
+Rules:
+- Convert the Description into an IconDescription YAML list
+- Use tokenType 0 for text, 1 for newline, 2 for icon
+- Insert a newline when there is an '&' or a new sentence
+- Only output YAML
+- Do NOT explain anything
+- Compress sentences like 'Draw 1 card from 3 random rats' into multiple tokens as much as possible.
+- Refer to the examples below for how to convert descriptions into IconDescriptions.
+- Make sure it begins with the YAML key 'IconDescription:'
+- Never end with a newline token
+
+Examples:
+Description: Draw 1 card from 3 random rats
+IconDescription:
+- tokenType: 2
+text:
+icon: 3
+- tokenType: 2
+text:
+icon: 3
+- tokenType: 2
+text:
+icon: 3
+- tokenType: 2
+text:
+icon: 4
+
+Description: Deal {rpl_damage} damage & bleed self and adjacent 1 HP
+IconDescription:
+- tokenType: 0
+text: '{rpl_damage}'
+icon: 0
+- tokenType: 2
+text:
+icon: 1
+- tokenType: 1
+text:
+icon: 0
+- tokenType: 0
+text: 1
+icon: 0
+- tokenType: 2
+text:
+icon: 9
+- tokenType: 2
+text:
+icon: 12
+";
+
     private Vector2 scrollPositionOriginal;
     private Vector2 scrollPositionOutput;
     private Vector2 scrollPositionFeedback;
     private bool isProcessing = false;
+
+    private CardType currentCardType;
+
+    List<OpenAI.ChatMessage> messages = new List<OpenAI.ChatMessage>();
+
 
     [MenuItem("Tools/Generate Icon Descriptions")]
     public static void ShowWindow()
@@ -50,7 +129,7 @@ public class GenerateIconDescriptionsWindow : EditorWindow
 
         EditorGUILayout.Space();
         GUILayout.Label("System Prompt:");
-        systemPrompt = EditorGUILayout.TextArea(systemPrompt, GUILayout.Height(60));
+        systemPrompt = EditorGUILayout.TextArea(systemPrompt, GUILayout.Height(120));
 
         if (assetPaths.Count > 0)
         {
@@ -120,14 +199,11 @@ public class GenerateIconDescriptionsWindow : EditorWindow
         assetPaths.Clear();
         currentAssetIndex = 0;
 
-        string[] guids = AssetDatabase.FindAssets("", new[] { selectedFolderPath });
+        string[] guids = AssetDatabase.FindAssets("t:CardType", new[] { selectedFolderPath });
         foreach (string guid in guids)
         {
             string path = AssetDatabase.GUIDToAssetPath(guid);
-            if (File.Exists(path) && !AssetDatabase.IsValidFolder(path))
-            {
-                assetPaths.Add(path);
-            }
+            assetPaths.Add(path);
         }
 
         if (assetPaths.Count > 0)
@@ -141,20 +217,44 @@ public class GenerateIconDescriptionsWindow : EditorWindow
         if (currentAssetIndex >= 0 && currentAssetIndex < assetPaths.Count)
         {
             string path = assetPaths[currentAssetIndex];
-            try
+            CardType cardType = AssetDatabase.LoadAssetAtPath<CardType>(path);
+            if (cardType != null)
             {
-                currentAssetContent = File.ReadAllText(path);
-            }
-            catch
-            {
-                currentAssetContent = "[Binary or unreadable file]";
+                currentAssetContent = cardType.Description;
+                currentCardType = cardType;
             }
             llmOutput = "";
             userFeedback = "";
         }
+        Repaint();
     }
 
-    private void GenerateLLMOutput()
+    private async System.Threading.Tasks.Task SendReply()
+    {
+        // Complete the instruction
+        var completionResponse = await openai.CreateChatCompletion(new OpenAI.CreateChatCompletionRequest()
+        {
+            Model = "gpt-4o-mini",
+            Messages = messages
+        });
+
+        if (completionResponse.Choices != null && completionResponse.Choices.Count > 0)
+        {
+            var message = completionResponse.Choices[0].Message;
+            message.Content = message.Content.Trim();
+
+            Debug.Log("LLM Response: " + message.Content);
+
+            messages.Add(message);
+        }
+        else
+        {
+            Debug.LogWarning("No text was generated from this prompt.");
+        }
+    }
+
+
+    private async void GenerateLLMOutput()
     {
         // TODO: Replace with actual LLM API call
         // This is a placeholder that simulates LLM output
@@ -162,35 +262,164 @@ public class GenerateIconDescriptionsWindow : EditorWindow
 
         // Example: You would call your LLM API here
         // For now, this just echoes the content with a note
-        llmOutput = $"[LLM would process this content with prompt: {systemPrompt}]\n\n{currentAssetContent}";
+        messages = new List<OpenAI.ChatMessage>();
+        var systemMessage = new OpenAI.ChatMessage()
+        {
+            Role = "system",
+            Content = systemPrompt
+        };
+        messages.Add(systemMessage);
+
+
+        var newMessage = new OpenAI.ChatMessage()
+        {
+            Role = "user",
+            Content = "Description:\n" + currentAssetContent + "\n\nPlease generate the IconDescription YAML as per the system prompt, omit tick marks, just give the raw YAML"
+        };
+        messages.Add(newMessage);
+
+        await SendReply();
+
+        llmOutput = messages[messages.Count - 1].Content;
 
         isProcessing = false;
         Repaint();
     }
 
-    private void RegenerateWithFeedback()
+    private async void RegenerateWithFeedback()
     {
         // TODO: Replace with actual LLM API call including feedback
         isProcessing = true;
 
+        OpenAI.ChatMessage feedbackMessage = new OpenAI.ChatMessage()
+        {
+            Role = "user",
+            Content = "Please regenerate the IconDescription with the following feedback:\n" + userFeedback
+        };
+
+        messages.Add(feedbackMessage);
+
+        await SendReply();
+
         // Example: Include user feedback in the regeneration
-        llmOutput = $"[LLM regenerated with feedback: {userFeedback}]\n\n{currentAssetContent}";
+        llmOutput = messages[messages.Count - 1].Content;
 
         isProcessing = false;
         Repaint();
     }
+
+    private List<DescriptionToken> ParseLLMOutput(string llmOutput)
+    {
+        var result = new List<DescriptionToken>();
+
+        if (string.IsNullOrWhiteSpace(llmOutput))
+            return result;
+
+        DescriptionToken current = null;
+
+        var lines = llmOutput.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+
+        foreach (var rawLine in lines)
+        {
+            var line = rawLine.Trim();
+
+            // Ignore header
+            if (line.StartsWith("IconDescription:", StringComparison.OrdinalIgnoreCase))
+                continue;
+
+            // Start of a new token
+            if (line.StartsWith("- tokenType:"))
+            {
+                // Flush previous token
+                if (current != null)
+                    result.Add(current);
+
+                current = new DescriptionToken();
+
+                int tokenTypeValue = ParseIntAfterColon(line);
+                current.tokenType = Enum.IsDefined(typeof(DescriptionToken.TokenType), tokenTypeValue)
+                    ? (DescriptionToken.TokenType)tokenTypeValue
+                    : DescriptionToken.TokenType.Text;
+
+                continue;
+            }
+
+            if (current == null)
+                continue;
+
+            if (line.StartsWith("text:"))
+            {
+                current.text = ParseStringAfterColon(line);
+                continue;
+            }
+
+            if (line.StartsWith("icon:"))
+            {
+                int iconValue = ParseIntAfterColon(line);
+                current.icon = Enum.IsDefined(typeof(DescriptionToken.DescriptionIconType), iconValue)
+                    ? (DescriptionToken.DescriptionIconType)iconValue
+                    : DescriptionToken.DescriptionIconType.None;
+                continue;
+            }
+        }
+
+        // Flush last token
+        if (current != null)
+            result.Add(current);
+
+        return result;
+    }
+
+    private static int ParseIntAfterColon(string line)
+    {
+        int colon = line.IndexOf(':');
+        if (colon < 0)
+            return 0;
+
+        var value = line.Substring(colon + 1).Trim();
+
+        return int.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out var result)
+            ? result
+            : 0;
+    }
+
+    private static string ParseStringAfterColon(string line)
+    {
+        int colon = line.IndexOf(':');
+        if (colon < 0)
+            return string.Empty;
+
+        var value = line.Substring(colon + 1).Trim();
+
+        // Handle empty text:
+        if (string.IsNullOrEmpty(value))
+            return string.Empty;
+
+        // Strip single quotes if present
+        if (value.Length >= 2 && value[0] == '\'' && value[^1] == '\'')
+            value = value.Substring(1, value.Length - 2);
+
+        return value;
+    }
+
 
     private void ApplyChanges()
     {
         if (currentAssetIndex >= 0 && currentAssetIndex < assetPaths.Count && !string.IsNullOrEmpty(llmOutput))
         {
             string path = assetPaths[currentAssetIndex];
-            if (EditorUtility.DisplayDialog("Confirm", $"Apply changes to {Path.GetFileName(path)}?", "Yes", "No"))
+            CardType cardType = AssetDatabase.LoadAssetAtPath<CardType>(path);
+            if (cardType != null)
             {
-                File.WriteAllText(path, llmOutput);
-                AssetDatabase.Refresh();
-                currentAssetContent = llmOutput;
-                EditorUtility.DisplayDialog("Success", "Changes applied successfully.", "OK");
+                // Here you would parse llmOutput and update the cardType's IconDescription property
+                // For demonstration, we will just log the output
+                Debug.Log($"Applying changes to {path}:\n{llmOutput}");
+
+                cardType.IconDescription = ParseLLMOutput(llmOutput); // Placeholder assignment
+
+                // Example: cardType.IconDescription = parsedIconDescription;
+                EditorUtility.SetDirty(cardType);
+                AssetDatabase.SaveAssets();
             }
         }
     }
