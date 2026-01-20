@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: abc3c069-a56a-4873-9ba3-9b17cd19dc30
   companionName: Shovy+
-  maxHealth: 30
+  maxHealth: 40
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: 2469958f628c30842b26a86df40127b9, type: 3}
   fullSprite: {fileID: 21300000, guid: 2469958f628c30842b26a86df40127b9, type: 3}
@@ -49,9 +49,12 @@ MonoBehaviour:
     lines:
     - title: Shovy+
       description: The first 2 times each turn you discard a card, gain 1 energy
+        and draw 1 card from random adjacent rat
       relatedBehaviorIndex: 0
+      icon: {fileID: 0}
   keepsakeTitle: 
   keepsakeDescription: The first 2 times each turn you discard a card, gain 1 energy
+    and draw 1 card from random adjacent rat
   references:
     version: 2
     RefIds:
@@ -68,10 +71,40 @@ MonoBehaviour:
         - rid: 7401433308100034733
         - rid: 7401433308100034869
         - rid: 754093848945229867
+        - rid: 7082891692335693911
+        - rid: 7082891692335693912
+        - rid: 7082891692335693913
+        weight: 0
     - rid: 754093848945229867
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EntityAbilityTriggeredVFX
+    - rid: 7082891692335693911
+      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetAdjacentCompanions
+        inputKey: self
+        includeInputCompanion: 0
+        outputKey: adj
+    - rid: 7082891692335693912
+      type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetRandomItems
+        inputKey: adj
+        scale: 1
+        scaleKey: 
+        getScaleFromKey: 0
+        outputKey: out
+        withReplacement: 0
+    - rid: 7082891692335693913
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DrawCards
+        inputKey: out
+        outputKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
     - rid: 7401433308100034728
       type: {class: CombatInstanceCacheLoad, ns: , asm: Assembly-CSharp}
       data:
@@ -90,6 +123,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 7401433308100034730
       type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
       data:

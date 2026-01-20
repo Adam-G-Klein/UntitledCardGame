@@ -16,6 +16,9 @@ public class CombatInstanceTookDamageThisTurn : EffectStep, IEffectStepCalculati
     [SerializeField]
     private string outputKey = "";
 
+    [SerializeField]
+    private string numTimesOutputKey = "";
+
     public CombatInstanceTookDamageThisTurn() {
         effectStepName = "CombatInstanceTookDamageThisTurn";
     }
@@ -32,8 +35,11 @@ public class CombatInstanceTookDamageThisTurn : EffectStep, IEffectStepCalculati
         }
         CombatInstance target = instances[0];
 
-        bool tookDamage = EnemyEncounterManager.Instance.combatEncounterState.DidCombatInstanceTakeDamageThisTurn(target);
-        document.boolMap[outputKey] = tookDamage;
+        int numTimes = EnemyEncounterManager.Instance.combatEncounterState.GetNumTimesCombatInstanceTookDamageThisTurn(target);
+        if (numTimesOutputKey != "") {
+            document.intMap[numTimesOutputKey] = numTimes;
+        }
+        document.boolMap[outputKey] = numTimes > 0;
         yield return null;
     }
 

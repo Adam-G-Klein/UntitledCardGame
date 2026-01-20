@@ -14,6 +14,7 @@ public class ShopDataSO : ScriptableObject
     // It lies here for convenience's sake because we do not stratify shop offerings by packs for now.
     public CompanionPoolSO companionPool;
     public List<PackSO> activePacks;
+    public List<CrossPackCardPoolSO> activeCrossPackCardPools;
 
     public int rerollShopPrice;
     public int cardRemovalPrice;
@@ -35,6 +36,7 @@ public class ShopDataSO : ScriptableObject
     public int companionTypeCardPoolPct;
     public int packCardPoolPct;
     public int neutralCardPoolPct;
+    public int crossPackCardPoolPct;
 
     [Header("Earning post combat")]
     public int goldEarnedPerBattle;

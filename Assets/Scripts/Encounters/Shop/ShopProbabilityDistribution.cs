@@ -39,6 +39,7 @@ public enum CardSource {
     CompanionPool,
     NeutralPool,
     PackPool,
+    CrossPackPool,
 }
 
 public class ShopCardProbabilityDistBuilder {
@@ -52,15 +53,23 @@ public class ShopCardProbabilityDistBuilder {
         // Add the card pools for each companion that is on your team.
         List<ValueTuple<CardPoolSO, CompanionTypeSO, PackSO>> companionCardPools = new();
         List<ValueTuple<CardPoolSO, CompanionTypeSO, PackSO>> packCardPools = new();
+        List<CardPoolSO> crossPackCardPools = new();
         foreach (Companion companion in companionList)
         {
             companionCardPools.Add((companion.companionType.cardPool, companion.companionType, null));
             packCardPools.Add((companion.companionType.pack.packCardPoolSO, null, companion.companionType.pack));
         }
-        // foreach (PackSO activePack in shopData.activePacks)
-        // {
-        //     packCardPools.Add((activePack.packCardPoolSO, null, activePack));
-        // }
+        foreach (CrossPackCardPoolSO crossPackPool in shopData.activeCrossPackCardPools)
+        {
+            // Check if BOTH packs are present in the companion list.
+            // Inefficient search but there are only going to be maximum 10 companions.
+            bool pack1Present = companionList.Any(c => c.companionType.pack == crossPackPool.associatedPack1);
+            bool pack2Present = companionList.Any(c => c.companionType.pack == crossPackPool.associatedPack2);
+            if (pack1Present && pack2Present)
+            {
+                crossPackCardPools.Add(crossPackPool.crossPackCardPool);
+            }
+        }
 
         List<CardWithWeight> allCards = new();
         foreach (ValueTuple<CardPoolSO, CompanionTypeSO, PackSO> tup in companionCardPools) {
@@ -83,6 +92,17 @@ public class ShopCardProbabilityDistBuilder {
             );
             allCards.AddRange(x);
         }
+        foreach (CardPoolSO pool in crossPackCardPools) {
+            var x = ShopCardProbabilityDistBuilder.ExtractCardsFromPool(
+                shopData,
+                pool,
+                null,
+                null,
+                CardSource.CrossPackPool
+            );
+            allCards.AddRange(x);
+        }
+
         var y = ShopCardProbabilityDistBuilder.ExtractCardsFromPool(
                 shopData,
                 shopData.neutralCardPool,
@@ -107,6 +127,7 @@ public class ShopCardProbabilityDistBuilder {
 
         cardSourceProb[CardSource.CompanionPool] = (float) shopData.companionTypeCardPoolPct / 100f;
         cardSourceProb[CardSource.PackPool] = (float) shopData.packCardPoolPct / 100f;
+        cardSourceProb[CardSource.CrossPackPool] = (float) shopData.crossPackCardPoolPct / 100f;
         cardSourceProb[CardSource.NeutralPool] = (float) shopData.neutralCardPoolPct / 100f;
     }
 

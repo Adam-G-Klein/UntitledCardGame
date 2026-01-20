@@ -265,7 +265,7 @@ public class CombatInstance : MonoBehaviour
             StartCoroutine(CombatEntityManager.Instance.OnDamageTaken(this));
 
             // We took damage!!
-            EnemyEncounterManager.Instance.combatEncounterState.RegisterCombatInstanceTookDamageThisTurn(this);
+            EnemyEncounterManager.Instance.combatEncounterState.RecordCombatInstanceTakingDamage(this);
         }
 
         Debug.Log("Take Damage is Setting current health to " + Mathf.Max(combatStats.getCurrentHealth() - damageAfterDefense, 0));

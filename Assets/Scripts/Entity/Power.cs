@@ -124,6 +124,8 @@ public class PowerSO : ScriptableObject
         Apocalypse,
         // _: Whenever you draw a Charm card from another deck, deal X damage
         Stonechucker,
+        // _: Whenever you discard an Attack card, create a Dagger card in your hand
+        ToothExchange
     }
 
     public TooltipViewModel GetTooltip(int stackCount)

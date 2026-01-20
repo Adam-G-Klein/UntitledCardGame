@@ -92,7 +92,6 @@ public class ShopEncounter : Encounter
         this.shopManager = shopManager;
         this.encounterConstants = constants;
         this.encounterType = EncounterType.Shop;
-        validateShopData();
         generateShopEncounter(shopLevel, companionList);
         cardsInShop.ForEach(card => shopManager.shopViewController.AddCardToShopView(card));
         companionsInShop.ForEach(companion => shopManager.shopViewController.AddCompanionToShopView(companion));
@@ -311,20 +310,6 @@ public class ShopEncounter : Encounter
         Rare
     }
 
-    private void validateShopData(){
-        List<CompanionTypeSO> allCompanions = new List<CompanionTypeSO>();
-        allCompanions.AddRange(shopData.companionPool.commonCompanions);
-        allCompanions.AddRange(shopData.companionPool.uncommonCompanions);
-        allCompanions.AddRange(shopData.companionPool.rareCompanions);
-        foreach(CompanionTypeSO companion in allCompanions) {
-            if (companion.cardPool.commonCards.Count == 0 &&
-                companion.cardPool.uncommonCards.Count == 0 &&
-                companion.cardPool.rareCards.Count == 0) {
-                    Debug.LogError("Companion " + companion.name + " has no cards in its pool. " +
-                        "This will cause an error when generating a shop encounter.");
-            }
-        }
-    }
 }
 
 [System.Serializable]

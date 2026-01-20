@@ -1,0 +1,94 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ac8d29b7a56d46539bdf7eeb2d1260a, type: 3}
+  m_Name: ToothExchange
+  m_EditorClassIdentifier: 
+  powerType: 39
+  title: Tooth Exchange
+  description: Whenever you discard an Attack card, create a Dagger in hand for self
+  abilities:
+  - rid: 754093871974056662
+  displaySprite: {fileID: 2128375166, guid: 818b02860100fe742851a85eea5612ad, type: 3}
+  extraTooltip:
+    rid: 7082891488814170924
+  stackable: 1
+  cacheConfiguration:
+    key: 
+    display: 1
+    sprite: {fileID: 0}
+    startOfTurnValue: 0
+    setStartOfTurnValue: 0
+    startOfCombatValue: 0
+    setStartOfCombatValue: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 754093871974056662
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 16
+        effectSteps:
+        - rid: 7082891692335693824
+        - rid: 7082891692335693825
+        - rid: 7082891488814170925
+        - rid: 754093871974056663
+        - rid: 7082891692335693826
+        weight: 0
+    - rid: 754093871974056663
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+    - rid: 7082891488814170924
+      type: {class: TooltipViewModel, ns: , asm: Assembly-CSharp}
+      data:
+        empty: 1
+        lines: []
+    - rid: 7082891488814170925
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+    - rid: 7082891692335693824
+      type: {class: FilterCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FilterCards
+        inputKey: cardDiscarded
+        filter:
+          cardCategoriesToInclude: 01000000
+          retainedCardsFilter: 0
+          exactCardType: {fileID: 0}
+        outputKey: attacks
+    - rid: 7082891692335693825
+      type: {class: EndWorkflowIfListEmpty, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfListEmpty
+        inputKey1: attacks
+    - rid: 7082891692335693826
+      type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: AddCardsToHand
+        entityFromKey: self
+        cardTypes:
+        - {fileID: 11400000, guid: 224034c097974444fa35170919327ce6, type: 2}
+        getCardsFromKey: 0
+        inputCardsKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        outputKey: 

@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: b5cea7e3-0fcb-4f31-9980-57c3e9995b4f
   Name: Peacemaker
-  Description: Unplayable. When discarded, deal {rpl_damage} damage to a random foe
-    x2
+  Description: Unplayable. When discarded, deal {ondiscard_rpl_damage} damage to
+    a random foe x2
+  IconDescription: []
   defaultValues:
-  - key: rpl_damage
+  - key: ondiscard_rpl_damage
     value: 3
   Cost: 0
   Artwork: {fileID: 21300000, guid: 70dd24a7c98646b44870b00b67a720f4, type: 3}

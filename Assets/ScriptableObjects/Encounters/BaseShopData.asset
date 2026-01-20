@@ -32,6 +32,7 @@ MonoBehaviour:
       - title: Upgrade to Level 2
         description: +1 team size, increase shop rarity
         relatedBehaviorIndex: 0
+        icon: {fileID: 0}
   - level: 1
     shopLevelIncrementsToUnlock: 10
     upgradeIncrementCost: 3
@@ -51,6 +52,7 @@ MonoBehaviour:
       - title: Upgrade to Level 3
         description: +1 team size, increase shop rarity
         relatedBehaviorIndex: 0
+        icon: {fileID: 0}
   - level: 2
     shopLevelIncrementsToUnlock: 10
     upgradeIncrementCost: 4
@@ -70,6 +72,7 @@ MonoBehaviour:
       - title: Upgrade to Level 4
         description: +1 mana, increase shop rarity
         relatedBehaviorIndex: 0
+        icon: {fileID: 0}
   - level: 3
     shopLevelIncrementsToUnlock: 1000
     upgradeIncrementCost: 5
@@ -93,6 +96,17 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 79e479ca9df7a4369ba7fa951e0af116, type: 2}
   - {fileID: 11400000, guid: 908f28c6f48104c2d85d2fcbd973771e, type: 2}
   - {fileID: 11400000, guid: 0d12b03c0c8754470a900cb4f78a9217, type: 2}
+  activeCrossPackCardPools:
+  - {fileID: 11400000, guid: ac36f55decb0640ae805ffb12d2befe3, type: 2}
+  - {fileID: 11400000, guid: 198251f0df72247e2911d76a13c21b77, type: 2}
+  - {fileID: 11400000, guid: cb8efd0c3b35242a997e0aafd29bcf54, type: 2}
+  - {fileID: 11400000, guid: d879e7a2e4baa4d75b60c4fb9036d8b8, type: 2}
+  - {fileID: 11400000, guid: 26369d0dc1d05432a839472c533758d6, type: 2}
+  - {fileID: 11400000, guid: 5aefd8f6f1df342b790d9df241852ea2, type: 2}
+  - {fileID: 11400000, guid: f813148dcba294a689b467f250bc75e1, type: 2}
+  - {fileID: 11400000, guid: 15f9e8ab8ae0a47d485a691a2d336c7d, type: 2}
+  - {fileID: 11400000, guid: 24e688fb9bddd43af988a311dd8879b2, type: 2}
+  - {fileID: 11400000, guid: 968e08e64774045e88eb7ebba74c9113, type: 2}
   rerollShopPrice: 2
   cardRemovalPrice: 6
   shopEncounterEvent: {fileID: 11400000, guid: d82ee33fc33d20544bce205c53a0832e, type: 2}
@@ -102,9 +116,10 @@ MonoBehaviour:
   companionKeepsakePrice: 3
   numKeepsakeCopies: 15
   startingGold: 3
-  companionTypeCardPoolPct: 45
-  packCardPoolPct: 45
+  companionTypeCardPoolPct: 35
+  packCardPoolPct: 35
   neutralCardPoolPct: 10
+  crossPackCardPoolPct: 10
   goldEarnedPerBattle: 10
   interestRate: 0.2
   interestCap: 5

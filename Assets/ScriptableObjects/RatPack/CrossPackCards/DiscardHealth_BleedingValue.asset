@@ -1,0 +1,162 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
+  m_Name: DiscardHealth_BleedingValue
+  m_EditorClassIdentifier: 
+  guid: 02d256b6-937e-46f8-8d9b-595b5c6fa1da
+  Name: Bleeding Value
+  Description: Deal {rpl_damage} damage. Discard 4 cards at random, reduced by 1
+    each time self lost HP this turn ({numDiscards} cards)
+  IconDescription: []
+  defaultValues:
+  - key: rpl_damage
+    value: 15
+  - key: numDiscards
+    value: 0
+  Cost: 1
+  Artwork: {fileID: 21300000, guid: 0f5ecf3627abce84490e1f8ec8e4f24f, type: 3}
+  cardCategory: 1
+  packFrom: {fileID: 0}
+  vfxPrefab: {fileID: 0}
+  playable: 1
+  exhaustsWhenPlayed: 0
+  retain: 0
+  effectWorkflows:
+  - rid: 5602892949302281046
+  onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
+    rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  onDrawEffectWorkflow:
+    rid: -2
+  tooltips: 
+  tooltipKeyword: 37
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 758315839196758670
+      type: {class: CombatInstanceTookDamageThisTurn, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatInstanceTookDamageThisTurn
+        inputCombatInstanceKey: self
+        outputKey: tookDamage
+        numTimesOutputKey: numTimes
+    - rid: 758316092100444624
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: cards
+        validTargets: 03000000
+        number: 1
+        specialTargetRule: 2
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+    - rid: 5602892949302281046
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 5602892949302281047
+        - rid: 5602892949302281048
+        - rid: 5602892949302281049
+        - rid: 758315839196758670
+        - rid: 7082891692335693868
+        - rid: 7082891692335693869
+        - rid: 7082891692335693870
+        - rid: 758316092100444624
+        - rid: 7082891692335693871
+        - rid: 7082891692335693872
+    - rid: 5602892949302281047
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 4
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+    - rid: 5602892949302281048
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: enemy
+        validTargets: 02000000
+        number: 1
+        specialTargetRule: 0
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+    - rid: 5602892949302281049
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: enemy
+        combatEffect: 0
+        scale: 15
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 1320532642761013391, guid: 99a456f94890391478f393fcc8ad0b95, type: 3}
+    - rid: 7082891692335693868
+      type: {class: MathStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: MathStep
+        inputKey: numTimes
+        operand2InputKey: UNUSED
+        operation: 0
+        scale: -4
+        outputKey: sub
+    - rid: 7082891692335693869
+      type: {class: MathStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: MathStep
+        inputKey: sub
+        operand2InputKey: UNUSED
+        operation: 2
+        scale: -1
+        outputKey: pos
+    - rid: 7082891692335693870
+      type: {class: MathStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: MathStep
+        inputKey: pos
+        operand2InputKey: UNUSED
+        operation: 4
+        scale: 0
+        outputKey: numDiscards
+    - rid: 7082891692335693871
+      type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetRandomItems
+        inputKey: cards
+        scale: 1
+        scaleKey: numDiscards
+        getScaleFromKey: 1
+        outputKey: selected
+        withReplacement: 0
+    - rid: 7082891692335693872
+      type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardInHandEffect
+        inputKey: selected
+        effect: 0

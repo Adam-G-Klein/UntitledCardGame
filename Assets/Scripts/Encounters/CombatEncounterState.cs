@@ -13,8 +13,8 @@ public class CombatEncounterState
     public List<Card> cardsDiscardedThisCombat = new List<Card>();
     public List<DeckInstance> decksShuffledThisCombat = new List<DeckInstance>();
 
-    private Dictionary<CombatInstance, bool> combatInstanceTookDamageThisTurn =
-        new Dictionary<CombatInstance, bool>();
+    private Dictionary<CombatInstance, int> numTimesCombatInstanceTookDamageThisTurn =
+        new Dictionary<CombatInstance, int>();
 
     public int turn = 1;
 
@@ -43,7 +43,7 @@ public class CombatEncounterState
         cardsExhaustThisTurn = new List<Card>();
         cardsDiscardedThisCombat.AddRange(cardsDiscardedThisTurn);
         cardsDiscardedThisTurn = new List<Card>();
-        combatInstanceTookDamageThisTurn.Clear();
+        numTimesCombatInstanceTookDamageThisTurn.Clear();
     }
 
     public Card GetLastCastCard()
@@ -82,17 +82,24 @@ public class CombatEncounterState
         return count;
     }
 
-    public bool DidCombatInstanceTakeDamageThisTurn(CombatInstance combatInstance)
+    public int GetNumTimesCombatInstanceTookDamageThisTurn(CombatInstance combatInstance)
     {
-        if (combatInstanceTookDamageThisTurn.ContainsKey(combatInstance))
+        if (numTimesCombatInstanceTookDamageThisTurn.ContainsKey(combatInstance))
         {
-            return combatInstanceTookDamageThisTurn[combatInstance];
+            return numTimesCombatInstanceTookDamageThisTurn[combatInstance];
         }
-        return false;
+        return 0;
     }
 
-    public void RegisterCombatInstanceTookDamageThisTurn(CombatInstance combatInstance)
+    public void RecordCombatInstanceTakingDamage(CombatInstance combatInstance)
     {
-        combatInstanceTookDamageThisTurn[combatInstance] = true;
+        if (numTimesCombatInstanceTookDamageThisTurn.ContainsKey(combatInstance))
+        {
+            numTimesCombatInstanceTookDamageThisTurn[combatInstance]++;
+        }
+        else
+        {
+            numTimesCombatInstanceTookDamageThisTurn[combatInstance] = 1;
+        }
     }
 }

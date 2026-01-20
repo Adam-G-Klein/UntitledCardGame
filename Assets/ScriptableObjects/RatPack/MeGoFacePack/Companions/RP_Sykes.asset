@@ -41,11 +41,12 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Sykes
-      description: Each turn, create a "Dagger" in hand for a random adjacent companion
+      description: Each turn, create a "Dagger" in hand for a random adjacent rat
       relatedBehaviorIndex: 0
+      icon: {fileID: 0}
   keepsakeTitle: Daggermunk
   keepsakeDescription: Each turn, create a 0 mana "Dagger" card in hand for a random
-    adjacent companion
+    adjacent rat
   references:
     version: 2
     RefIds:
@@ -72,6 +73,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 1289961959942521114
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -97,6 +99,7 @@ MonoBehaviour:
       data:
         effectStepName: GetAdjacentCompanions
         inputKey: self
+        includeInputCompanion: 0
         outputKey: adj
     - rid: 2511001254715195860
       type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}
@@ -104,7 +107,10 @@ MonoBehaviour:
         effectStepName: GetRandomItems
         inputKey: adj
         scale: 1
+        scaleKey: 
+        getScaleFromKey: 0
         outputKey: target
+        withReplacement: 0
     - rid: 7707884639552274889
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
