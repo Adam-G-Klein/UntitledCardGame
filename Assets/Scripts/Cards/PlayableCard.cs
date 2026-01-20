@@ -39,6 +39,7 @@ public class PlayableCard : MonoBehaviour,
 
     public GameObject cardCastVFXPrefab;
     public GameObject cardExhaustVFXPrefab;
+    public GameObject passiveVFXPrefab;
 
     private UIDocumentCard docCard;
     public bool interactable = false; // To be set to true when clicking on the card shouldn't do anything
@@ -154,6 +155,7 @@ public class PlayableCard : MonoBehaviour,
             // Non-power cards should discard to deck after they are played.
             if (card.cardType.cardCategory == CardCategory.Passive)
             {
+                PassiveAppliedVFX();
                 cleanupAndDestroy();
             }
             else
@@ -196,6 +198,15 @@ public class PlayableCard : MonoBehaviour,
             this.gameObject.transform.SetParent(null);
         };
         experience.StartExperience();
+    }
+
+    public void PassiveAppliedVFX() {
+        GameObject passiveVFX = Instantiate(passiveVFXPrefab, deckFrom.transform.position, Quaternion.identity);
+        Transform cardTransform = passiveVFX.transform.Find("Exhaust Card");
+        if (cardTransform != null) {
+            ParticleSystemRenderer renderer = cardTransform.gameObject.GetComponent<ParticleSystemRenderer>();
+            renderer.material.SetTexture("_MainTex", docCard.GetTexture());
+        }
     }
 
     private IEnumerator CardDiscardVFX(GameObject cardGameObject)

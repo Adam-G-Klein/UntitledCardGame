@@ -104,4 +104,8 @@ public class UIDocumentCard : MonoBehaviour
     {
         //doc.panelSettings.targetTexture = defaultTexture;
     }
+
+    public Texture GetTexture() {
+        return doc.panelSettings.targetTexture;
+    }
 }
