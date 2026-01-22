@@ -6,12 +6,15 @@ using TMPro;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
 using System.Linq;
+using UnityEngine.Rendering.Universal;
 
 public class OptionsViewController : GenericSingleton<OptionsViewController>, IControlsReceiver
 {
     private Slider musicVolumeSlider;
     private Slider sfxVolumeSlider;
     private Slider timescaleSlider;
+    [SerializeField]
+    private UniversalRenderPipelineAsset pipelineAsset;
     [SerializeField]
     private UIDocument optionsUIDocument;
     [SerializeField]
@@ -33,6 +36,8 @@ public class OptionsViewController : GenericSingleton<OptionsViewController>, IC
     private Toggle fullscreenToggle;
     private Toggle autoUpgradeToggle;
     private Toggle dataConsentToggle;
+    private DropdownField renderScaleDropdown;
+    private DropdownField antiAliasingDropdown;
     [SerializeField]
     private GameStateVariableSO gameState;
     // Start is called before the first frame update
@@ -83,6 +88,14 @@ public class OptionsViewController : GenericSingleton<OptionsViewController>, IC
         gameState.consentToDataCollection = value;
     }
 
+    public int getRenderScaleDropdown() {
+        return renderScaleDropdown.index;
+    }
+
+    public void setRenderScaleDropdown(int index) {
+        renderScaleDropdown.index = index;
+    }
+
     void Awake() {
         // DontDestroyOnLoad(this.gameObject);
         canvasGroup = GetComponent<CanvasGroup>();
@@ -120,6 +133,10 @@ public class OptionsViewController : GenericSingleton<OptionsViewController>, IC
         dataConsentToggle = optionsUIDocument.rootVisualElement.Q<Toggle>("data-consent-toggle");
         dataConsentToggle.RegisterValueChangedCallback(DataConsentToggleEvent);
         dataConsentToggle.value = gameState.consentToDataCollection;
+        renderScaleDropdown = optionsUIDocument.rootVisualElement.Q<DropdownField>("render-scale-dropdown");
+        antiAliasingDropdown = optionsUIDocument.rootVisualElement.Q<DropdownField>("anti-aliasing-dropdown");
+        renderScaleDropdown.RegisterValueChangedCallback(RenderScaleDropdownChanged);
+        antiAliasingDropdown.RegisterValueChangedCallback(AntiAliasingDropdownChanged);
 
         canvasGroup.blocksRaycasts = false;
 
@@ -261,5 +278,41 @@ public class OptionsViewController : GenericSingleton<OptionsViewController>, IC
 
     public void SetExitHandler(EnterExitVoidHandler handler) {
         onViewExitHandler += handler;
+    }
+
+    public void RenderScaleDropdownChanged(ChangeEvent<string> evt) {
+        switch (evt.newValue) {
+            case "1.0":
+                pipelineAsset.renderScale = 1.0f;
+            break;
+
+            case "1.5":
+                pipelineAsset.renderScale = 1.5f;
+            break;
+
+            case "2.0":
+                pipelineAsset.renderScale = 2f;
+            break;
+        }
+    }
+
+    public void AntiAliasingDropdownChanged(ChangeEvent<string> evt) {
+        switch (evt.newValue) {
+            case "Disabled":
+                pipelineAsset.msaaSampleCount = 1;
+            break;
+
+            case "2x":
+                pipelineAsset.msaaSampleCount = 2;
+            break;
+
+            case "4x":
+                pipelineAsset.msaaSampleCount = 4;
+            break;
+
+            case "8x":
+                pipelineAsset.msaaSampleCount = 8;
+            break;
+        }
     }
 }

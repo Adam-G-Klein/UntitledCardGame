@@ -12,6 +12,7 @@ public class PlayerSettingsState {
      private bool fullScreen;
      private bool autoUpgrade;
      private bool consentToDataCollection;
+     private int renderScale;
 
      public PlayerSettingsState()
      {
@@ -21,6 +22,7 @@ public class PlayerSettingsState {
           this.fullScreen = OptionsViewController.Instance.getIsFullScreened();
           this.autoUpgrade = OptionsViewController.Instance.getIsAutoUpgradeEnabled();
           this.consentToDataCollection = OptionsViewController.Instance.getIsDataCollectionEnabled();
+          this.renderScale = OptionsViewController.Instance.getRenderScaleDropdown();
      }
 
      public void LoadPlayerSettings()
@@ -31,5 +33,6 @@ public class PlayerSettingsState {
           OptionsViewController.Instance.setIsFullScreened(this.fullScreen);
           OptionsViewController.Instance.setIsAutoUpgradeEnabled(this.autoUpgrade);
           OptionsViewController.Instance.setIsDataCollectionEnabled(this.consentToDataCollection);
+          OptionsViewController.Instance.setRenderScaleDropdown(this.renderScale);
      }
 }
