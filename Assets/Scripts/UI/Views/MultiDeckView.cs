@@ -405,6 +405,8 @@ public class MultiDeckView
                     cardView.cardContainer.AddToClassList("multi-deck-view-focus-item");
                     cardView.cardContainer.MakeFocusable();
                     scrollView.Add(cardView.cardContainer);
+                    cardView.cardFocusable.canFocusOffscreen = true;
+                    cardView.cardFocusable.commonalityObject = scrollView;
                     FocusManager.Instance.RegisterFocusableTarget(cardView.cardFocusable);
 
                     cardView.cardContainer.RegisterCallback<PointerEnterEvent>((evt) => {
@@ -419,6 +421,7 @@ public class MultiDeckView
                     });
                     VisualElementFocusable cardFocusable = cardView.cardContainer.AsFocusable();
                     cardFocusable.additionalFocusAction += () => {
+                        scrollView.ScrollToMakeElementVisible(cardFocusable.GetVisualElement(), 20f); 
                         MusicController.Instance.PlaySFX("event:/SFX/SFX_UIHover");
                         if (card.cardType.GetTooltip().empty) {
                             return;

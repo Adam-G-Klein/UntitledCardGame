@@ -7,6 +7,8 @@ public class VisualElementFocusable : IFocusableTarget
 {
     public Action additionalFocusAction = null;
     public Action additionalUnfocusAction = null;
+    public bool canFocusOffscreen = false;
+    public object commonalityObject = null;
     private VisualElement element;
     private Dictionary<GFGInputAction, Action> actionMap;
     private Targetable.TargetType optionalTargetType = Targetable.TargetType.None;
@@ -108,5 +110,14 @@ public class VisualElementFocusable : IFocusableTarget
     public Vector2 GetUIPosition()
     {
         return element.worldBound.center;
+    }
+
+    public bool CanFocusOffscreen()
+    {
+        return canFocusOffscreen;
+    }
+
+    public object GetCommonalityObject() {
+        return commonalityObject;
     }
 }

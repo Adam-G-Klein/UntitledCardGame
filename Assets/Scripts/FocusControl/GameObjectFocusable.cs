@@ -7,6 +7,7 @@ public class GameObjectFocusable : MonoBehaviour, IFocusableTarget
     [SerializeField] private UnityEvent focusEvent;
     [SerializeField] private UnityEvent unfocusEvent;
     [SerializeField] private List<GFGInputActionEvent> eventList;
+    [SerializeField] private bool canFocusOffscreen;
 
     void OnEnable() {
         FocusManager.Instance.RegisterFocusableTarget(this);
@@ -55,6 +56,15 @@ public class GameObjectFocusable : MonoBehaviour, IFocusableTarget
     public Vector2 GetUIPosition()
     {
         throw new System.NotImplementedException();
+    }
+
+    public bool CanFocusOffscreen() {
+        return canFocusOffscreen;
+    }
+
+    public object GetCommonalityObject()
+    {
+        return null;
     }
 
     [System.Serializable]

@@ -193,7 +193,10 @@ public class CompendiumView : IControlsReceiver {
                 tooltipController.DestroyTooltip(cardContainer);
             });
             VisualElementFocusable cardFocusable = cardContainer.AsFocusable();
+            cardFocusable.canFocusOffscreen = true;
+            cardFocusable.commonalityObject = cardsScrollView;
             cardFocusable.additionalFocusAction += () => {
+                cardsScrollView.ScrollToMakeElementVisible(cardFocusable.GetVisualElement(), 70f); 
                 MusicController.Instance.PlaySFX("event:/SFX/SFX_UIHover");
                 if (card.GetTooltip().empty || locked) {
                     return;
@@ -239,7 +242,10 @@ public class CompendiumView : IControlsReceiver {
                     tooltipController.DestroyTooltip(companionView.container);
                 });
                 VisualElementFocusable entityViewFocusable = companionView.container.GetUserData<VisualElementFocusable>();
+                entityViewFocusable.canFocusOffscreen = true;
+                entityViewFocusable.commonalityObject = companionScrollView;
                 entityViewFocusable.additionalFocusAction += () => {
+                    companionScrollView.ScrollToMakeElementVisible(entityViewFocusable.GetVisualElement(), 70f); 
                     tooltipController.DisplayTooltip(companionView.container, companionToDisplay.companionType.GetTooltip(), TooltipContext.CompendiumCompanion);
                 };
                 entityViewFocusable.additionalUnfocusAction += () => {

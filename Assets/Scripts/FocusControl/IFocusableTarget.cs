@@ -8,4 +8,6 @@ public interface IFocusableTarget
     Vector2 GetWorldspacePosition();
     Vector2 GetUIPosition();
     bool IsOnScreen();
+    bool CanFocusOffscreen();
+    object GetCommonalityObject();
 }

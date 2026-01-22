@@ -21,6 +21,8 @@ public class FocusManager : GenericSingleton<FocusManager>, IControlsReceiver
     private bool areFocusablesLocked = false;
     private List<IFocusableTarget> lockedFocusables = new List<IFocusableTarget>();
 
+    private static float MAX_FOCUS_JUMP_DISTANCE = 9f; // 9 is half one screen width
+
     // Own script's internal setup
     void Awake() {
     }
@@ -204,9 +206,16 @@ public class FocusManager : GenericSingleton<FocusManager>, IControlsReceiver
         foreach (IFocusableTarget target in focusableTargets) {
             if (target == currentFocus || disabledFocusableTargets.Contains(target)) continue;
 
-            if (!target.IsOnScreen()) continue;
+            if (!target.IsOnScreen() && !target.CanFocusOffscreen()) continue;
 
             Vector2 candidateCenter = target.GetWorldspacePosition();
+
+            float distance = Vector2.Distance(currentCenter, candidateCenter);
+
+            // Adding this to attempt to fix the compendium from being really slow
+            // since there's so many focusables on screen at once
+            if (distance > MAX_FOCUS_JUMP_DISTANCE) continue;
+
             Vector2 toCandidate = (candidateCenter - currentCenter).normalized;
 
             float dot = Vector2.Dot(direction, toCandidate);
@@ -214,10 +223,12 @@ public class FocusManager : GenericSingleton<FocusManager>, IControlsReceiver
             // Only consider if directionally aligned (within ~70° cone)
             if (dot < 0.01f) continue;
 
-            float distance = Vector2.Distance(currentCenter, candidateCenter);
-
             float alignment = Mathf.Clamp01(dot);
             float score = distance / (alignment); // add a little epsilon to avoid divide-by-zero
+
+            if (HasCommonality(currentFocus, target)) {
+                score /= 10f;
+            }
 
             if (score < bestScore) {
                 bestScore = score;
@@ -231,6 +242,21 @@ public class FocusManager : GenericSingleton<FocusManager>, IControlsReceiver
             currentFocus.Focus();
             onFocusDelegate?.Invoke(currentFocus);
         }
+    }
+
+    private bool HasCommonality(IFocusableTarget current, IFocusableTarget candidate) {
+        object commonalityCurrent = current.GetCommonalityObject();
+        object commonalityCandidate = candidate.GetCommonalityObject();
+        
+        if (commonalityCurrent == null || commonalityCandidate == null) {
+            return false;
+        }
+
+        if (commonalityCurrent.Equals(commonalityCandidate)) {
+            return true;
+        }
+
+        return false;
     }
 
     public void ProcessGFGInputAction(GFGInputAction action)
