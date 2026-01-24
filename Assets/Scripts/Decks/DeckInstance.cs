@@ -232,7 +232,7 @@ public class DeckInstance : MonoBehaviour
 
     public bool ContainsCardById(string id)
     {
-        return drawPile.Exists(c => c.id == id) || discardPile.Exists(c => c.id == id);
+        return drawPile.Exists(c => c.id == id) || discardPile.Exists(c => c.id == id) || inHand.Exists(c => c.id == id);
     }
 
     public Card GetCardById(string id)
@@ -241,6 +241,10 @@ public class DeckInstance : MonoBehaviour
         if (card == null)
         {
             card = discardPile.Find(c => c.id == id);
+        }
+        if (card == null)
+        {
+            card = inHand.Find(c => c.id == id);
         }
         return card;
     }

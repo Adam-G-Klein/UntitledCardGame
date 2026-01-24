@@ -44,6 +44,7 @@ MonoBehaviour:
       description: Each turn, create a 0 mana "Dagger+" card in hand for a random
         adjacent companion x2
       relatedBehaviorIndex: 0
+      icon: {fileID: 0}
   keepsakeTitle: Level Three Daggermunk
   keepsakeDescription: Each turn, create a 0 mana "Dagger+" card in hand for a random
     adjacent companion x2
@@ -62,8 +63,7 @@ MonoBehaviour:
         - rid: 2511001254715195866
         - rid: 2034230017118175331
         - rid: 2511001254715195867
-        - rid: 1289961959942521115
-        - rid: 2511001254715195868
+        - rid: 7150943289421332712
         weight: 0
     - rid: 205828032053379326
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -83,14 +83,10 @@ MonoBehaviour:
         effectStepName: GetRandomItems
         inputKey: adj
         scale: 1
+        scaleKey: 
+        getScaleFromKey: 0
         outputKey: target1
-    - rid: 1289961959942521115
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: target1
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
-        scale: 1
+        withReplacement: 0
     - rid: 2034230017118175331
       type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
       data:
@@ -109,6 +105,7 @@ MonoBehaviour:
       data:
         effectStepName: GetAdjacentCompanions
         inputKey: self
+        includeInputCompanion: 0
         outputKey: adj
     - rid: 2511001254715195866
       type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}
@@ -116,7 +113,10 @@ MonoBehaviour:
         effectStepName: GetRandomItems
         inputKey: adj
         scale: 1
+        scaleKey: 
+        getScaleFromKey: 0
         outputKey: target2
+        withReplacement: 0
     - rid: 2511001254715195867
       type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
       data:
@@ -130,13 +130,10 @@ MonoBehaviour:
         getScaleFromKey: 0
         inputScaleKey: 
         outputKey: 
-    - rid: 2511001254715195868
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+    - rid: 7150943289421332712
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: InstantiatePrefab
-        inputKey: target2
-        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
-        scale: 1
+        effectStepName: EntityAbilityTriggeredVFX
     - rid: 7707884639552274897
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:

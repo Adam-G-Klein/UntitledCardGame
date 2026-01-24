@@ -9,6 +9,7 @@ public class GetCombatEncounterStat : EffectStep, IEffectStepCalculation
         NumCardsDiscardedThisTurn,
         NumCardsPlayedThisTurn,
         NumCardsExhaustedThisTurn,
+        NumCardsExhaustedThisCombat,
     }
 
     [SerializeField]
@@ -34,6 +35,9 @@ public class GetCombatEncounterStat : EffectStep, IEffectStepCalculation
                 break;
             case StatType.NumCardsExhaustedThisTurn:
                 document.intMap[outputKey] = EnemyEncounterManager.Instance.combatEncounterState.cardsExhaustThisTurn.Count;
+                break;
+            case StatType.NumCardsExhaustedThisCombat:
+                document.intMap[outputKey] = EnemyEncounterManager.Instance.combatEncounterState.cardsExhaustThisCombat.Count;
                 break;
         }
         yield return null;

@@ -290,3 +290,15 @@ MonoBehaviour:
     descriptionIconType: 13
     description: Selected card leaves the hand and goes to the discard pile of the
       rat who owns it
+  - title: When Discarded
+    descriptionIconType: 15
+    description: When this card is discarded from a card or ability effect, trigger
+      the effect indicated
+  - title: When Exhausted
+    descriptionIconType: 16
+    description: When this card is exhausted from a card or ability effect, trigger
+      the effect indicated
+  - title: In Hand End of Turn
+    descriptionIconType: 17
+    description: If this card is still in hand at the end of the turn, trigger the
+      effect indicated

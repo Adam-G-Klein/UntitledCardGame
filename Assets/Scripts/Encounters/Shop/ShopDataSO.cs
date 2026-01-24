@@ -72,6 +72,12 @@ public class ShopDataSO : ScriptableObject
         Debug.LogWarning("Specified shop level not found, using default shop level");
         return shopLevels[0];
     }
+
+    public int GetCardRemovalPrice(int level)
+    {
+        ShopLevel shopLevel = GetShopLevel(level);
+        return Math.Max(0, cardRemovalPrice - shopLevel.cardRemovalDiscount);
+    }
 }
 
 [Serializable]
@@ -93,6 +99,12 @@ public class ShopLevel {
     public int commonCardPercentage;
     public int uncommonCardPercentage;
     public int rareCardPercentage;
+
+    [Space(10)]
+    [Header("Unique bonuses")]
+    public int ratBonusHealth;
+    public int cardRemovalDiscount;
+    public int numLessCardsInStartingDeck;
 
     [Space(10)]
     [Header("Help the player understand this shit")]

@@ -16,7 +16,31 @@ MonoBehaviour:
   Name: Peacemaker
   Description: Unplayable. When discarded, deal {ondiscard_rpl_damage} damage to
     a random foe x2
-  IconDescription: []
+  IconDescription:
+  - tokenType: 0
+    text: Unplayable.
+    icon: 0
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 15
+  - tokenType: 0
+    text: ':'
+    icon: 0
+  - tokenType: 0
+    text: '{ondiscard_rpl_damage}'
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 1
+  - tokenType: 2
+    text: 
+    icon: 4
+  - tokenType: 0
+    text: x2
+    icon: 0
   defaultValues:
   - key: ondiscard_rpl_damage
     value: 3

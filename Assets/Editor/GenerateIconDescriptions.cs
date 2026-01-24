@@ -40,6 +40,9 @@ DescriptionIconType enum:
 12 = SelfAndAdjacent
 13 = Discard
 14 = Exhaust
+15 = WhenDiscarded
+16 = WhenExhausted
+17 = InHandEndOfTurn
 
 Rules:
 - Convert the Description into an IconDescription YAML list
@@ -53,6 +56,7 @@ Rules:
 - Never end with a newline token
 - For examples like 'Give any rat 3 block', output the number as text token '3' and then the block icon. Omit the 'any rat' part, that's implicit.
 - If there is no icon for the effect, just use text tokens.
+- For text such as 'When exhausted' or 'When discarded', output the WhenDiscarded or WhenExhausted icon, then a text colon ':' token afterwards.
 
 Examples:
 Description: Draw 1 card from 3 random rats
@@ -108,6 +112,48 @@ icon: 0
 - tokenType: 2
 text:
 icon: 1
+
+Description: 'Unplayable. End of turn, give leftmost rat 2 block. When exhausted, give leftmost rat 6 block'
+IconDescription:
+- tokenType: 0
+  text: 'Unplayable.'
+  icon: 0
+- tokenType: 1
+  text: ''
+  icon: 0
+- tokenType: 2
+  text: ''
+  icon: 17
+- tokenType: 0
+  text: ':'
+  icon: 0
+- tokenType: 0
+  text: '2'
+  icon: 0
+- tokenType: 2
+  text: ''
+  icon: 2
+- tokenType: 2
+  text: ''
+  icon: 6
+- tokenType: 1
+  text: ''
+  icon: 0
+- tokenType: 2
+  text: ''
+  icon: 16
+- tokenType: 0
+  text: ':'
+  icon: 0
+- tokenType: 0
+  text: '6'
+  icon: 0
+- tokenType: 2
+  text: ''
+  icon: 2
+- tokenType: 2
+  text: ''
+  icon: 6
 ";
 
     private Vector2 scrollPositionOriginal;

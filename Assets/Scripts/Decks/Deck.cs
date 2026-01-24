@@ -36,6 +36,20 @@ public class Deck
         }
     }
 
+    public void PurgeStarterDeckCard(List<CardType> allowedCardTypes, bool deterministic = true)
+    {
+        if (!deterministic)
+            cards.Shuffle();
+        for (int i = 0; i < cards.Count; i++)
+        {
+            if (allowedCardTypes.Contains(cards[i].cardType))
+            {
+                cards.RemoveAt(i);
+                break;
+            }
+        }
+    }
+
     public void PurgeCard(string cardId)
     {
         cards.RemoveAll(card => card.id == cardId);

@@ -14,18 +14,76 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerType: 20
   title: Hot Streak
-  description: Attacks from this companion deal +1 damage for each card you discarded
-    this turn
-  abilities: []
-  displaySprite: {fileID: 21300000, guid: 2077de71db7acc841bbffcc95a8abe51, type: 3}
-  tooltip:
-    rid: 754093871974056657
-  stackable: 1
+  description: This rat's attacks deal +1 damage for each card you discarded this
+    turn
+  abilities:
+  - rid: 7150943289421332744
+  displaySprite: {fileID: 0}
+  extraTooltip:
+    rid: 7150943289421332484
+  stackable: 0
+  cacheConfiguration:
+    key: numDiscarded
+    display: 1
+    sprite: {fileID: 21300000, guid: b8234437e62f749a9b907d6e36c2e1e1, type: 3}
+    startOfTurnValue: 0
+    setStartOfTurnValue: 1
+    startOfCombatValue: 0
+    setStartOfCombatValue: 0
   references:
     version: 2
     RefIds:
-    - rid: 754093871974056657
+    - rid: 7150943289421332484
       type: {class: TooltipViewModel, ns: , asm: Assembly-CSharp}
       data:
-        empty: 0
+        empty: 1
         lines: []
+    - rid: 7150943289421332744
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 16
+        effectSteps:
+        - rid: 7150943289421332745
+        - rid: 7150943289421332747
+        - rid: 7150943289421332748
+        - rid: 7150943289421332746
+        weight: 0
+    - rid: 7150943289421332745
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+    - rid: 7150943289421332746
+      type: {class: CombatInstanceCacheStore, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatInstanceCacheStore
+        inputCombatInstanceKey: self
+        hardCodedBool: 0
+        useHardCodedBool: 0
+        hardCodedInt: 0
+        useHardCodedInt: 0
+        currentWorkflowKey: numDiscarded
+        cacheKey: numDiscarded
+    - rid: 7150943289421332747
+      type: {class: CombatInstanceCacheLoad, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatInstanceCacheLoad
+        inputCombatInstanceKey: self
+        cacheKey: numDiscarded
+        currentWorkflowKey: numDiscarded
+    - rid: 7150943289421332748
+      type: {class: MathStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: MathStep
+        inputKey: numDiscarded
+        operand2InputKey: UNUSED
+        operation: 0
+        scale: 1
+        outputKey: numDiscarded

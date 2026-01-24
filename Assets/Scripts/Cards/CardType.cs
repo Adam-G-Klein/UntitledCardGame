@@ -39,6 +39,9 @@ public class DescriptionToken
         SelfAndAdjacent,
         Discard,
         Exhaust,
+        WhenDiscarded,
+        WhenExhausted,
+        InHandEndOfTurn,
     }
     public TokenType tokenType;
     public string text;

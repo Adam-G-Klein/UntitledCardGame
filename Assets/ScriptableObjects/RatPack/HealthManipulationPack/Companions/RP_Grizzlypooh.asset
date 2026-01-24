@@ -35,18 +35,20 @@ MonoBehaviour:
   speakerType: {fileID: 0}
   abilitiesV2:
   - rid: 205828107393564721
+  - rid: 7082891827957727338
   level: 0
   upgradeTo: {fileID: 11400000, guid: 2a11578238a0e4a1cbccb7ff3a158763, type: 2}
   tooltip:
     empty: 0
     lines:
     - title: Grizzlypooh
-      description: Whenever Grizzlypooh loses HP, give leftmost rat 2 block & give
-        self 1 block
+      description: Start of turn, bleed self & adjacent 1 HP. Whenever Grizzlypooh
+        loses HP, give leftmost rat 2 block & give self 1 block
       relatedBehaviorIndex: 0
+      icon: {fileID: 0}
   keepsakeTitle: 
-  keepsakeDescription: Whenever Grizzlypooh loses HP, give leftmost rat 2 block &
-    give self 1 block
+  keepsakeDescription: Start of turn, bleed self & adjacent 1 HP. Whenever Grizzlypooh
+    loses HP, give leftmost rat 2 block & give self 1 block
   references:
     version: 2
     RefIds:
@@ -135,6 +137,52 @@ MonoBehaviour:
         inputKey: self
         prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
         scale: 1
+    - rid: 7082891827957727338
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 12
+        effectSteps:
+        - rid: 7082891827957727339
+        - rid: 7082891827957727340
+        - rid: 7082891827957727341
+        - rid: 7082891827957727342
+        weight: 0
+    - rid: 7082891827957727339
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+    - rid: 7082891827957727340
+      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetAdjacentCompanions
+        inputKey: self
+        includeInputCompanion: 1
+        outputKey: adj
+    - rid: 7082891827957727341
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: adj
+        combatEffect: 16
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 6137048663962808129, guid: 92c26f41ef33c23419e05ceb12660efa, type: 3}
+    - rid: 7082891827957727342
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
     - rid: 7707884639552274900
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:

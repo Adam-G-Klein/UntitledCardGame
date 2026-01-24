@@ -34,7 +34,15 @@ public class ShopItemView : ICompanionViewDelegate {
 
         // Bit of a hack, but I don't feel like completely refactoring entity view right now
         Companion tempCompanion = new Companion(companion.companionType);
-        tempCompanion.combatStats.currentHealth -= companion.sustainedDamage;
+        tempCompanion.combatStats.IncreaseMaxHealth(companion.maxHealthBonus);
+        tempCompanion.combatStats.currentHealth = tempCompanion.combatStats.getMaxHealth() - companion.sustainedDamage;
+        for (int i = 0; i < ShopManager.Instance.GetShopLevel().numLessCardsInStartingDeck; i++) {
+            tempCompanion.deck.PurgeStarterDeckCard(ShopManager.Instance.gameState.baseShopData.baseCardsToRemoveOnUpgrade);
+        }
+        // for (int i = 0; i < tempCompanion.deck.cards.Count; i++) {
+            // Debug.Log("Card at index " + i + " in temp companion deck: " + tempCompanion.deck.cards[i].cardType.name);
+        // }
+
         companionView = new CompanionView(tempCompanion, template, 0, CompanionView.SHOP_CONTEXT, this);
         shopItemElement.Add(companionView.container);
 
@@ -131,7 +139,7 @@ public class ShopItemView : ICompanionViewDelegate {
     {
         throw new NotImplementedException();
     }
-    
+
     public CompanionView GetCompanionView()
     {
         return companionView;

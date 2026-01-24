@@ -70,23 +70,9 @@ MonoBehaviour:
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
-        - rid: 5602892679876706522
-        - rid: 5602892679876706520
-        - rid: 7401433059192471625
         - rid: 1289961820425027957
         - rid: 5602892679876706521
-    - rid: 5602892679876706520
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: cards
-        validTargets: 03000000
-        number: 1
-        specialTargetRule: 2
-        cantCancelTargetting: 0
-        cardSelectionHelperText: 
+        - rid: 5602892679876706522
     - rid: 5602892679876706521
       type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
       data:
@@ -100,8 +86,3 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
-    - rid: 7401433059192471625
-      type: {class: EndWorkflowIfListEmpty, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: EndWorkflowIfListEmpty
-        inputKey1: cards

@@ -46,14 +46,16 @@ public class CompanionInShopWithPrice {
     public int price;
     public bool increasedPrice;
     public int sustainedDamage = 0;
+    public int maxHealthBonus = 0;
     public CompanionRarity rarity;
 
-    public CompanionInShopWithPrice(CompanionTypeSO companionType, int price, int sustainedDamage, CompanionRarity rarity)
+    public CompanionInShopWithPrice(CompanionTypeSO companionType, int price, int sustainedDamage, int maxHealthBonus, CompanionRarity rarity)
     {
         this.companionType = companionType;
         this.price = price;
         this.increasedPrice = false;
         this.sustainedDamage = sustainedDamage;
+        this.maxHealthBonus = maxHealthBonus;
         this.rarity = rarity;
     }
 }
@@ -203,8 +205,10 @@ public class ShopEncounter : Encounter
                     sustainedDamage = (int)UnityEngine.Random.Range(min, max);
                 }
             }
+            int maxHealthBonus = shopLevel.ratBonusHealth;
+
             CompanionInShopWithPrice keepsake = new CompanionInShopWithPrice(
-                selected, shopData.companionKeepsakePrice, sustainedDamage, rarity
+                selected, shopData.companionKeepsakePrice, sustainedDamage, maxHealthBonus, rarity
             );
             int bonusCost = AddBonusRatCost();
             keepsake.price += bonusCost;

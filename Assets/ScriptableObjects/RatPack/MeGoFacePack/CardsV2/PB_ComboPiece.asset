@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: PB_CircularBlade
+  m_Name: PB_ComboPiece
   m_EditorClassIdentifier: 
   guid: eb32ee39-0f5b-4255-8962-0dc38701f8bc
-  Name: Circular Blade
+  Name: Combo Piece
   Description: Deal {rpl_damage} damage & if the last card you played was an Attack,
     draw 1 card from 2 random rats
+  IconDescription: []
   defaultValues:
   - key: rpl_damage
     value: 7

@@ -41,49 +41,34 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Chunkrat++
-      description: At end of combat, choose a card from own deck to permanently transform
-        into a "Spice Cake".
+      description: End of combat, permanently add a "Spice Cake" to this deck.
       relatedBehaviorIndex: 0
+      icon: {fileID: 0}
   keepsakeTitle: 
-  keepsakeDescription: At end of combat, choose a card from own deck to permanently
-    transform into a "Spice Cake" status card
+  keepsakeDescription: End of combat, permanently add a "Spice Cake" to this deck.
   references:
     version: 2
     RefIds:
-    - rid: 754093646965899314
-      type: {class: GetCardsFromDeck, ns: , asm: Assembly-CSharp}
+    - rid: 7150943289421332715
+      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: GetCardsFromDeck
+        effectStepName: AddCardsToDeck
         inputKey: self
-        getLimitedNumber: 0
-        numberOfCardsToGet: 1
-        shuffleIfEmpty: 1
-        outputKey: allCards
-        getAllCardsFromEntities: 0
-        getCardsFromSourceDeck: 1
-        getAllFromOnlyDrawPile: 0
-    - rid: 754093646965899315
-      type: {class: SelectCardsFromList, ns: , asm: Assembly-CSharp}
+        cardTypes:
+        - {fileID: 11400000, guid: 9f768b34b9ed540059f2007e7ced70b9, type: 2}
+        addToDeckMethod: 3
+        getCardsFromKey: 0
+        inputCardsKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 7150943289421332716
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: SelectCardsFromList
-        inputKey: allCards
-        outputKey: out
-        promptText: 'Chunkrat++ ability: Select card to perma transform into a "Spice
-          Cake" status card that gives max HP and heals and draws.'
-        minTargets: 0
-        maxTargets: 1
-        getNumberOfTargetsFromKey: 0
-        inputNumberOfTargetsKey: 
-        randomizeOrder: 0
-    - rid: 754093646965899317
-      type: {class: CardInDeckEffect, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CardInDeckEffect
-        inputCardsKey: out
-        inputDeckKey: self
-        effect: 4
-        cardToTransformInto: {fileID: 11400000, guid: 9f768b34b9ed540059f2007e7ced70b9, type: 2}
-        outputKey: 
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        scale: 1
     - rid: 7401433059192472041
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
@@ -91,9 +76,8 @@ MonoBehaviour:
         effectSteps:
         - rid: 7707884639552274982
         - rid: 7401433128868512212
-        - rid: 754093646965899314
-        - rid: 754093646965899315
-        - rid: 754093646965899317
+        - rid: 7150943289421332715
+        - rid: 7150943289421332716
         weight: 0
     - rid: 7401433128868512212
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -106,6 +90,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 7707884639552274982
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:

@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 484ca44a-34dd-4933-95b3-4a3f660fb658
   Name: Bogmarch Eddy
-  Description: Exhaust any Charm card in hand & draw 1 card from 2 random rats &
-    gain 1 energy
+  Description: Exhaust 2 Charm cards in hand & draw 1 card from 3 random rats & gain
+    1 energy
+  IconDescription: []
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 70dd24a7c98646b44870b00b67a720f4, type: 3}
@@ -62,6 +63,8 @@ MonoBehaviour:
         filter:
           cardCategoriesToInclude: 04000000
           retainedCardsFilter: 0
+          manaCostFilter: 0
+          manaCost: 0
           exactCardType: {fileID: 0}
         outputKey: statusCards
     - rid: 2295168179404538104
@@ -97,7 +100,7 @@ MonoBehaviour:
         inputKey: statusCards
         outputKey: targetCard
         validTargets: 03000000
-        number: 1
+        number: 2
         specialTargetRule: 0
         cantCancelTargetting: 0
         cardSelectionHelperText: 
@@ -119,7 +122,7 @@ MonoBehaviour:
       data:
         effectStepName: GetRandomItems
         inputKey: all
-        scale: 2
+        scale: 3
         scaleKey: 
         getScaleFromKey: 0
         outputKey: target

@@ -75,7 +75,7 @@ public class CompanionCombinationManager : MonoBehaviour
         }
         else
         {
-            // get earlier level 1 companion index 
+            // get earlier level 1 companion index
             resultingIndex = GetFirstCompanionTypeOccurence(newGuy.companionType);
         }
 
@@ -193,6 +193,8 @@ public class CompanionCombinationManager : MonoBehaviour
             }
         }
 
+        Deck starterDeck = new Deck(cards, companions[0].companionType.upgradeTo.initialCardsDealtPerTurn);
+
         // Remove one card from the base deck each time you upgrade.
         // This is a great experimental idea from Ethan that we should try.
         int cardsToRemove = 1;
@@ -203,19 +205,10 @@ public class CompanionCombinationManager : MonoBehaviour
         }
         if (cardsToRemove > 0)
         {
-            cards.Shuffle();
-            for (int i = 0; i < cards.Count; i++)
-            {
-                if (gameState.baseShopData.baseCardsToRemoveOnUpgrade.Contains(cards[i].cardType))
-                {
-                    cards.RemoveAt(i);
-                    break;
-                }
-            }
+            starterDeck.PurgeStarterDeckCard(ShopManager.Instance.gameState.baseShopData.baseCardsToRemoveOnUpgrade);
         }
 
-
-        return new Deck(cards, companions[0].companionType.upgradeTo.initialCardsDealtPerTurn);
+        return starterDeck;
     }
 
     private int maxHealthForCombinedCompanion(Companion upgradedCompanion, List<Companion> companions)

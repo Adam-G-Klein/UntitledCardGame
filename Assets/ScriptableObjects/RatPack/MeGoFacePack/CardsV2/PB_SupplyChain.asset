@@ -1,0 +1,105 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
+  m_Name: PB_SupplyChain
+  m_EditorClassIdentifier: 
+  guid: 8a680950-0eb8-47bf-a2a3-54da866c728d
+  Name: Supply Chain
+  Description: Draw 1 card from self and adjacent. Discount any Attacks drawn by
+    1 energy
+  IconDescription: []
+  defaultValues: []
+  Cost: 1
+  Artwork: {fileID: 21300000, guid: 5f66e07752da0d34ca5ca0b6a327d011, type: 3}
+  cardCategory: 2
+  packFrom: {fileID: 11400000, guid: 908f28c6f48104c2d85d2fcbd973771e, type: 2}
+  vfxPrefab: {fileID: 0}
+  playable: 1
+  exhaustsWhenPlayed: 0
+  retain: 0
+  effectWorkflows:
+  - rid: 7082891692335694194
+  onExhaustEffectWorkflow:
+    rid: -2
+  onDiscardEffectWorkflow:
+    rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  onDrawEffectWorkflow:
+    rid: -2
+  tooltips: 
+  tooltipKeyword: 37
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 7082891692335694194
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 7082891827957727344
+        - rid: 7082891827957727345
+        - rid: 7082891827957727346
+        - rid: 7082891692335694196
+        - rid: 7082891692335694198
+    - rid: 7082891692335694196
+      type: {class: FilterCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FilterCards
+        inputKey: drawn
+        filter:
+          cardCategoriesToInclude: 01000000
+          retainedCardsFilter: 0
+          manaCostFilter: 2
+          manaCost: 1
+          exactCardType: {fileID: 0}
+        outputKey: attacks
+    - rid: 7082891692335694198
+      type: {class: CardModificationEffect, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CardModificationEffect
+        inputKey: attacks
+        scale: 1
+        affectsAllCardsOfType: 0
+        cardTypeToModify: {fileID: 0}
+        getScaleFromKey: 0
+        scaleKey: 
+        modification: 2
+    - rid: 7082891827957727344
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 4
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+    - rid: 7082891827957727345
+      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetAdjacentCompanions
+        inputKey: self
+        includeInputCompanion: 1
+        outputKey: adj
+    - rid: 7082891827957727346
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DrawCards
+        inputKey: adj
+        outputKey: drawn
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 

@@ -1,0 +1,121 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
+  m_Name: PB_KingOfTheWoods
+  m_EditorClassIdentifier: 
+  guid: e663f924-eaab-4a2b-ae66-d79e7f69edda
+  Name: King of the Woods
+  Description: Unplayable. End of turn, deal {inhand_rpl_damage} damage to a random
+    foe for each Charm card in hand ({numCharms} cards)
+  IconDescription: []
+  defaultValues:
+  - key: inhand_rpl_damage
+    value: 3
+  - key: numCharms
+    value: 0
+  Cost: 0
+  Artwork: {fileID: 21300000, guid: bdd59c505b86bf44cabf5f9f82a41064, type: 3}
+  cardCategory: 4
+  packFrom: {fileID: 0}
+  vfxPrefab: {fileID: 0}
+  playable: 0
+  exhaustsWhenPlayed: 0
+  retain: 0
+  effectWorkflows:
+  - rid: 205828032053379180
+  onExhaustEffectWorkflow:
+    rid: 2034230108114649282
+  onDiscardEffectWorkflow:
+    rid: -2
+  inPlayerHandEndOfTurnWorkflow:
+    rid: 1289961959942521117
+  onDrawEffectWorkflow:
+    rid: -2
+  tooltips: 
+  tooltipKeyword: 37
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 205828032053379180
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps: []
+    - rid: 1289961959942521117
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 1289961959942521118
+        - rid: 7150943289421332672
+        - rid: 7150943289421332673
+        - rid: 1289961959942521120
+        - rid: 1289961959942521121
+    - rid: 1289961959942521118
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: allCards
+        validTargets: 03000000
+        number: 1
+        specialTargetRule: 1
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+    - rid: 1289961959942521120
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: enemy
+        validTargets: 02000000
+        number: 1
+        specialTargetRule: 6
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+    - rid: 1289961959942521121
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: enemy
+        combatEffect: 14
+        scale: 3
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 1
+        inputMultiplicityKey: numCharms
+        vfxPrefab: {fileID: 1320532642761013391, guid: 4847f21b038e1aa42bceefe5c97ab1ab, type: 3}
+    - rid: 2034230108114649282
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps: []
+    - rid: 7150943289421332672
+      type: {class: FilterCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FilterCards
+        inputKey: allCards
+        filter:
+          cardCategoriesToInclude: 04000000
+          retainedCardsFilter: 0
+          manaCostFilter: 0
+          manaCost: 0
+          exactCardType: {fileID: 0}
+        outputKey: charms
+    - rid: 7150943289421332673
+      type: {class: CountStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CountStep
+        inputKey: charms
+        outputKey: numCharms
