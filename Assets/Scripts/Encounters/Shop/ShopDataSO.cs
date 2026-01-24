@@ -72,6 +72,12 @@ public class ShopDataSO : ScriptableObject
         Debug.LogWarning("Specified shop level not found, using default shop level");
         return shopLevels[0];
     }
+
+    public int GetCardRemovalPrice(int level)
+    {
+        ShopLevel shopLevel = GetShopLevel(level);
+        return Math.Max(0, cardRemovalPrice - shopLevel.cardRemovalDiscount);
+    }
 }
 
 [Serializable]

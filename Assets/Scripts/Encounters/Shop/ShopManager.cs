@@ -70,7 +70,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         shopViewController.SetMoney(gameState.playerData.GetValue().gold);
         shopViewController.SetShopUpgradePrice(shopLevel.upgradeIncrementCost);
         shopViewController.SetShopRerollPrice(shopEncounter.shopData.rerollShopPrice);
-        shopViewController.SetShopCardRemovalPrice(shopEncounter.shopData.cardRemovalPrice);
+        shopViewController.SetShopCardRemovalPrice(shopEncounter.shopData.GetCardRemovalPrice(gameState.playerData.GetValue().shopLevel));
 
         CheckDisableUpgradeButtonV2();
 
@@ -366,7 +366,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     }
 
     public void ProcessCardRemoval() {
-        gameState.playerData.GetValue().gold -= shopEncounter.shopData.cardRemovalPrice;
+        gameState.playerData.GetValue().gold -= shopEncounter.shopData.GetCardRemovalPrice(gameState.playerData.GetValue().shopLevel);
         shopViewController.SetMoney(gameState.playerData.GetValue().gold);
         removingCard = false;
     }
@@ -435,6 +435,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             AnalyticsManager.Instance.RecordEvent(eventData);
 
             shopViewController.SetShopUpgradePrice(shopLevel.upgradeIncrementCost);
+            shopViewController.SetShopCardRemovalPrice(shopEncounter.shopData.GetCardRemovalPrice(gameState.playerData.GetValue().shopLevel));
             InstantiateShopVFX(shopUpgradePrefab, shopViewController.GetUpgradeShopButton(), 1f);
             MusicController.Instance.PlaySFX("event:/MX/MX_Shop_Upgrade_Stinger");
             CheckDisableUpgradeButtonV2();
@@ -505,7 +506,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         // wanna keep this right next to the bools the manager tracks in case we wanna unite state someday
         // "Dalinar... you must UNITE THEM"
         // NonMouseInputManager.Instance.SetUIState(UIState.REMOVING_CARD);
-        if (gameState.playerData.GetValue().gold >= shopEncounter.shopData.cardRemovalPrice) {
+        if (gameState.playerData.GetValue().gold >= shopEncounter.shopData.GetCardRemovalPrice(gameState.playerData.GetValue().shopLevel)) {
             shopViewController.StartCardRemoval();
         } else {
             shopViewController.NotEnoughMoney();
