@@ -95,6 +95,12 @@ public class ShopLevel {
     public int rareCardPercentage;
 
     [Space(10)]
+    [Header("Unique bonuses")]
+    public int ratBonusHealth;
+    public int cardRemovalDiscount;
+    public int numLessCardsInStartingDeck;
+
+    [Space(10)]
     [Header("Help the player understand this shit")]
     public TooltipViewModel upgradeTooltip;
 

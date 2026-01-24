@@ -39,7 +39,7 @@ public class TeamSelectionUI : MonoBehaviour, ICompanionViewDelegate
             List<PackSO> mutablePackSOs = new List<PackSO>(packSOWithCommonCompanions);
             CompanionListVariableSO chosen = new();
             chosen.activeCompanions = new List<Companion>();
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < gameState.baseShopData.shopLevels[0].teamSize; i++)
             {
                 int chosenIndex = rnd.Next(mutablePackSOs.Count);
                 PackSO chosenPack = mutablePackSOs[chosenIndex];
@@ -98,7 +98,7 @@ public class TeamSelectionUI : MonoBehaviour, ICompanionViewDelegate
     {
         gameState.companions.activeCompanions = new List<Companion>();
         gameState.companions.benchedCompanions = new List<Companion>();
-        gameState.companions.currentCompanionSlots = 3;
+        gameState.companions.currentCompanionSlots = gameState.baseShopData.shopLevels[0].teamSize;
 
         foreach (CompanionTypeSO companionType in team1ActiveCompanions.GetCompanionTypes())
         {

@@ -17,7 +17,7 @@ MonoBehaviour:
     shopLevelIncrementsToUnlock: 7
     upgradeIncrementCost: 2
     mana: 3
-    teamSize: 3
+    teamSize: 4
     numCardsToShow: 3
     numKeepsakesToShow: 2
     commonCompanionPercentage: 100
@@ -26,11 +26,14 @@ MonoBehaviour:
     commonCardPercentage: 95
     uncommonCardPercentage: 5
     rareCardPercentage: 0
+    ratBonusHealth: 0
+    cardRemovalDiscount: 0
+    numLessCardsInStartingDeck: 0
     upgradeTooltip:
       empty: 0
       lines:
       - title: Upgrade to Level 2
-        description: +1 team size, increase shop rarity
+        description: Increase shop rarity, bonus max HP
         relatedBehaviorIndex: 0
         icon: {fileID: 0}
   - level: 1
@@ -46,11 +49,15 @@ MonoBehaviour:
     commonCardPercentage: 79
     uncommonCardPercentage: 20
     rareCardPercentage: 1
+    ratBonusHealth: 5
+    cardRemovalDiscount: 0
+    numLessCardsInStartingDeck: 0
     upgradeTooltip:
       empty: 0
       lines:
       - title: Upgrade to Level 3
-        description: +1 team size, increase shop rarity
+        description: +1 team size, increase shop rarity, bonus max HP, better card
+          removal
         relatedBehaviorIndex: 0
         icon: {fileID: 0}
   - level: 2
@@ -66,11 +73,14 @@ MonoBehaviour:
     commonCardPercentage: 70
     uncommonCardPercentage: 20
     rareCardPercentage: 10
+    ratBonusHealth: 10
+    cardRemovalDiscount: 2
+    numLessCardsInStartingDeck: 0
     upgradeTooltip:
       empty: 0
       lines:
       - title: Upgrade to Level 4
-        description: +1 mana, increase shop rarity
+        description: +1 mana, increase shop rarity, better starting decks
         relatedBehaviorIndex: 0
         icon: {fileID: 0}
   - level: 3
@@ -86,6 +96,9 @@ MonoBehaviour:
     commonCardPercentage: 50
     uncommonCardPercentage: 30
     rareCardPercentage: 20
+    ratBonusHealth: 10
+    cardRemovalDiscount: 2
+    numLessCardsInStartingDeck: 1
     upgradeTooltip:
       empty: 0
       lines: []

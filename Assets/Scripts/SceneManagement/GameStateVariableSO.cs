@@ -31,7 +31,7 @@ public enum Location
 
 public enum BuildType
 {
-    RELEASE, // eventually used for the release version 
+    RELEASE, // eventually used for the release version
     DEMO, // shows "warning" message about art not being done and gates player progress
     CONVENTION // resets progress/tutorials after each run
 }
@@ -340,7 +340,7 @@ public class GameStateVariableSO : ScriptableObject
     public void KillPlayer() {
         Debug.Log("killing player");
         playerData.respawn(baseShopData);
-        companions.respawn();
+        companions.respawn(numSlots: baseShopData.shopLevels[0].teamSize);
         map.SetValue(mapGenerator.generateMap());
         SetLocation(Location.WAKE_UP_ROOM);
         LoadCurrentLocationScene();

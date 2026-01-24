@@ -12,7 +12,7 @@ public class CompanionListVariableSO : ScriptableObject
 {
     public List<Companion> activeCompanions;
     public List<Companion> benchedCompanions;
-    public List<Companion> allCompanions { get { 
+    public List<Companion> allCompanions { get {
         return activeCompanions.Concat(benchedCompanions).ToList(); } }
     public bool spaceInActiveCompanions { get { return activeCompanions.Count < currentCompanionSlots; } }
     public int currentCompanionSlots;
@@ -34,9 +34,9 @@ public class CompanionListVariableSO : ScriptableObject
         return companionTypes;
     }
 
-    public void respawn() {
+    public void respawn(int numSlots = 3) {
         activeCompanions = new List<Companion>();
         benchedCompanions = new List<Companion>();
-        currentCompanionSlots = 3;
+        currentCompanionSlots = numSlots;
     }
 }

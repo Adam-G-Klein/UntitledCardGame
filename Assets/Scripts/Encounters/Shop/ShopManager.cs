@@ -164,7 +164,13 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             // them to your team;
             this.companionInShop = companionInShop;
             newCompanion = new Companion(companionInShop.companionType);
-            newCompanion.combatStats.currentHealth -= companionInShop.sustainedDamage;
+            newCompanion.combatStats.IncreaseMaxHealth(companionInShop.maxHealthBonus);
+            newCompanion.combatStats.currentHealth = newCompanion.combatStats.getMaxHealth() - companionInShop.sustainedDamage;
+            for (int i = 0; i < GetShopLevel().numLessCardsInStartingDeck; i++) {
+                Debug.Log("Purging a card from " + newCompanion.companionType.name + "'s deck for shop level " + ShopManager.Instance.GetShopLevel().level);
+                newCompanion.deck.PurgeStarterDeckCard(ShopManager.Instance.gameState.baseShopData.baseCardsToRemoveOnUpgrade);
+            }
+
             // companionToAdd is the final companion to add to your team :)
             Companion companionToAdd = newCompanion;
 

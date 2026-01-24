@@ -1672,6 +1672,10 @@ public class ShopViewController : MonoBehaviour,
 
     public void DisplayCards(CompanionTypeSO companion)
     {
-        MultiDeckViewManager.Instance.ShowShopDeckView(true, new Companion(companion), MultiDeckViewManager.TabType.ForPurchase);
+        Companion companionToShow = new Companion(companion);
+        for (int i = 0; i < shopManager.GetShopLevel().numLessCardsInStartingDeck; i++) {
+            companionToShow.deck.PurgeStarterDeckCard(ShopManager.Instance.gameState.baseShopData.baseCardsToRemoveOnUpgrade);
+        }
+        MultiDeckViewManager.Instance.ShowShopDeckView(true, companionToShow, MultiDeckViewManager.TabType.ForPurchase);
     }
 }
