@@ -80,11 +80,11 @@ public class UIDocumentCard : MonoBehaviour
 
     public void UpdateCardText(EffectDocument document)
     {
-        //cardView.UpdateManaCost();
         if (cardView == null) return;
 
         // string description = card.cardType.GetDescriptionWithUpdatedValues(document.intMap);
         // cardView.UpdateCardText(description);
+        cardView.UpdateManaCost();
 
         if (card.cardType.HasIconDescription())
         {

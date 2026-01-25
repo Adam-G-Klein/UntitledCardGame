@@ -268,7 +268,7 @@ public class CardView {
     }
 
     public void UpdateManaCost() {
-        Label manaLabel = cardContainer.Q<Label>(null, "mana-card-label");
+        Label manaLabel = cardContainer.Q<Label>(null, "manaLabel");
         setManaCost(manaLabel, cardInstance.cardType);
         manaLabel.MarkDirtyRepaint();
     }
