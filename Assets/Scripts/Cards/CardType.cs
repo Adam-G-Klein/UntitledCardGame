@@ -375,6 +375,14 @@ public class CardFilter
         OnlyNonRetainedCards
     }
 
+    public enum ManaCostFilter
+    {
+        None,
+        ExactManaCost,
+        AtLeastManaCost,
+        AtMostManaCost
+    }
+
     // If empty, will not be applied.
     // Otherwise, will return true if and only if the card belongs to one of the categories.
     public List<CardCategory> cardCategoriesToInclude;
@@ -383,6 +391,9 @@ public class CardFilter
     // Otherwise, will return true if that card is in hand and retained.
     // Note: only applies to "PlayableCard" objects.
     public RetainedCardFilter retainedCardsFilter;
+
+    public ManaCostFilter manaCostFilter = ManaCostFilter.None;
+    public int manaCost = 0;
 
     // Match an exact card type.
     public CardType exactCardType = null;
@@ -399,6 +410,21 @@ public class CardFilter
         if (exactCardType != null)
         {
             includeCard &= card.cardType == exactCardType;
+        }
+        if (manaCostFilter != ManaCostFilter.None)
+        {
+            switch (manaCostFilter)
+            {
+                case ManaCostFilter.ExactManaCost:
+                    includeCard &= card.cardType.Cost == manaCost;
+                    break;
+                case ManaCostFilter.AtLeastManaCost:
+                    includeCard &= card.cardType.Cost >= manaCost;
+                    break;
+                case ManaCostFilter.AtMostManaCost:
+                    includeCard &= card.cardType.Cost <= manaCost;
+                    break;
+            }
         }
         return includeCard;
     }

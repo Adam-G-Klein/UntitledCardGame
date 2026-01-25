@@ -70,6 +70,8 @@ MonoBehaviour:
         filter:
           cardCategoriesToInclude: 01000000
           retainedCardsFilter: 0
+          manaCostFilter: 2
+          manaCost: 1
           exactCardType: {fileID: 0}
         outputKey: attacks
     - rid: 7082891692335694197
