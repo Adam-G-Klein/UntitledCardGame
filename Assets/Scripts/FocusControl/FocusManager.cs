@@ -21,7 +21,7 @@ public class FocusManager : GenericSingleton<FocusManager>, IControlsReceiver
     private bool areFocusablesLocked = false;
     private List<IFocusableTarget> lockedFocusables = new List<IFocusableTarget>();
 
-    private static float MAX_FOCUS_JUMP_DISTANCE = 9f; // 9 is half one screen width
+    private static float MAX_FOCUS_JUMP_DISTANCE = 18f; // 9 is half one screen width
 
     // Own script's internal setup
     void Awake() {
