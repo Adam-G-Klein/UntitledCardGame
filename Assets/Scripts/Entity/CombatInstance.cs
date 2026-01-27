@@ -135,11 +135,13 @@ public class CombatInstance : MonoBehaviour
         if(statusEffect != StatusEffectType.Defended && statusEffect != StatusEffectType.Orb && statusEffect != StatusEffectType.Strength && statusEffect != StatusEffectType.TemporaryStrength) {
             //PlaySFX();
             MusicController.Instance.PlaySFX("event:/SFX/SFX_NegativeEffect");
+            MusicController.Instance.PlaySFX("event:/VO/Combat/Status/VO_NegativeStatus_Medium");
             AddVFX();
         }
         else
         {
             MusicController.Instance.PlaySFX("event:/SFX/SFX_PositiveEffect");
+            MusicController.Instance.PlaySFX("event:/VO/Combat/Status/VO_PositiveStatus_Medium");
         }
         UpdateView();
         onStatusEffectChangeHandler?.Invoke();
@@ -209,6 +211,7 @@ public class CombatInstance : MonoBehaviour
                 if (effector.GetComponent<CompanionInstance>() != null)
                 {
                     MusicController.Instance.PlaySFX("event:/SFX/SFX_BasicAttack");
+                    MusicController.Instance.PlaySFX("event:/VO/Combat/Attacks/VO_CombatBarks_AttacksMedium");
                 }
                 else if (effector.GetComponent<EnemyInstance>() != null)
                 {
@@ -219,6 +222,7 @@ public class CombatInstance : MonoBehaviour
                     else
                     {
                         MusicController.Instance.PlaySFX("event:/SFX/SFX_EnemyAttack");
+                        MusicController.Instance.PlaySFX("event:/VO/Combat/Damage/VO_CombatBarks_DamageMedium");
                     }
                 }
                 if (shouldShake) AddShake(damageTaken);
@@ -226,6 +230,7 @@ public class CombatInstance : MonoBehaviour
                 break;
             case CombatEffect.Heal:
                 MusicController.Instance.PlaySFX("event:/SFX/SFX_PositiveEffect");
+                MusicController.Instance.PlaySFX("event:/VO/Combat/Status/VO_PositiveStatus_Medium");
                 int diff = combatStats.Heal(scale);
                 if (diff > 0)
                 {
