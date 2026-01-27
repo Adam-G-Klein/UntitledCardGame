@@ -9,7 +9,7 @@ using System.Linq;
 
 public class FocusManager : GenericSingleton<FocusManager>, IControlsReceiver
 {
-    private List<IFocusableTarget> focusableTargets = new List<IFocusableTarget>();
+    private HashSet<IFocusableTarget> focusableTargets = new HashSet<IFocusableTarget>();
     private Dictionary<string, List<IFocusableTarget>> stashedFocusables = new Dictionary<string, List<IFocusableTarget>>();
     private HashSet<IFocusableTarget> disabledFocusableTargets = new HashSet<IFocusableTarget>();
     private IFocusableTarget currentFocus = null;
@@ -33,7 +33,7 @@ public class FocusManager : GenericSingleton<FocusManager>, IControlsReceiver
 
     [ContextMenu("Focus")]
     private void TestFocus() {
-        currentFocus = focusableTargets[0];
+        currentFocus = focusableTargets.ToList()[0];
         currentFocus.Focus();
     }
 

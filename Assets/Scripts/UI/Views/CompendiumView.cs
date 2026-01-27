@@ -32,6 +32,9 @@ public class CompendiumView : IControlsReceiver {
     
     private HashSet<CardType> unlockedCards;
 
+    private bool cardsSetup = false;
+    private bool companionsSetup = false;
+
     public CompendiumView(
             UIDocument uiDocument,
             CompanionPoolSO companionPool,
@@ -49,8 +52,8 @@ public class CompendiumView : IControlsReceiver {
         companionScrollView.Clear();
 
         this.unlockedCards = unlockedCards.ToHashSet();
-        SetupCardView(companionPool, neutralCardPool, packSOs);
-        SetupCompanionView(companionPool);
+        uiDocument.StartCoroutine(SetupCardView(companionPool, neutralCardPool, packSOs));
+        uiDocument.StartCoroutine(SetupCompanionView(companionPool));
 
         // setup buttons
         companionButton = uiDocument.rootVisualElement.Q<Button>("companionButton");
@@ -61,16 +64,24 @@ public class CompendiumView : IControlsReceiver {
         companionButton.clicked += CompanionButtonHandler;
         uiDocument.rootVisualElement.Q<Button>("enemyButton").clicked += EnemyButtonHandler;
 
-        FocusManager.Instance.RegisterFocusables(uiDocument);
-        MusicController.Instance.RegisterButtonClickSFX(uiDocument);
+        // FocusManager.Instance.RegisterFocusables(uiDocument);
+        // MusicController.Instance.RegisterButtonClickSFX(uiDocument);
         uiDocument.StartCoroutine(RegisterControlsReceiverAtEndOfFrame());
 
-        CardButtonHandler();
+        // CardButtonHandler();
+        uiDocument.StartCoroutine(FinishInitOnceSetupComplete());
     }
 
     private IEnumerator RegisterControlsReceiverAtEndOfFrame() {
         yield return new WaitForEndOfFrame();
         ControlsManager.Instance.RegisterControlsReceiver(this);
+    }
+
+    private IEnumerator FinishInitOnceSetupComplete() {
+        yield return new WaitUntil(() => cardsSetup && companionsSetup);
+        FocusManager.Instance.RegisterFocusables(uiDocument);
+        MusicController.Instance.RegisterButtonClickSFX(uiDocument);
+        CardButtonHandler();
     }
 
     private void EnemyButtonHandler()
@@ -115,31 +126,41 @@ public class CompendiumView : IControlsReceiver {
         OptionsViewController.Instance.onCloseCompenidum();
     }
 
-    private void SetupCardView(CompanionPoolSO companionPool,CardPoolSO neutralCardPool, List<PackSO> packSOs) {
+    // private void SetupCardView(CompanionPoolSO companionPool,CardPoolSO neutralCardPool, List<PackSO> packSOs) {
+    private IEnumerator SetupCardView(CompanionPoolSO companionPool,CardPoolSO neutralCardPool, List<PackSO> packSOs) {
         cardsSection = new VisualElement();
         cardsSection.AddToClassList("compendium-container");
+        cardsScrollView.Add(cardsSection);
         List<CompanionTypeSO> companions = companionPool.commonCompanions.Concat(companionPool.uncommonCompanions).Concat(companionPool.rareCompanions).ToList();
         companions.Sort((a, b) => a.companionName.CompareTo(b.companionName)); // we should allow for filtering by rarity or something as well...eventually  
-        AddAllCompanionContainers(companions, cardsSection);
-        AddAllPackContainers(packSOs, cardsSection);
-        AddCards(neutralCardPool, null, cardsSection);
-        cardsScrollView.Add(cardsSection);
+        yield return AddAllCompanionContainers(companions, cardsSection);
+        yield return AddAllPackContainers(packSOs, cardsSection);
+        yield return AddCards(neutralCardPool, null, cardsSection);
+        cardsSetup = true;
     }
 
-    private void AddAllCompanionContainers(List<CompanionTypeSO> companions, VisualElement ve) {
-        companions.ForEach(companion => {
-            AddCards(companion.cardPool, companion, ve);
-        });
+    // private void AddAllCompanionContainers(List<CompanionTypeSO> companions, VisualElement ve) {
+    private IEnumerator AddAllCompanionContainers(List<CompanionTypeSO> companions, VisualElement ve) {
+        // companions.ForEach(companion => {
+        //     yield return AddCards(companion.cardPool, companion, ve);
+        // });
+        foreach (CompanionTypeSO companion in companions) {
+            yield return AddCards(companion.cardPool, companion, ve);
+        }
     }
     
-    private void AddAllPackContainers(List<PackSO> packSOs, VisualElement ve) {
-        packSOs.ForEach(packSO => {
-            AddCards(packSO.packCardPoolSO, null, ve, packSO);
-        });
+    // private void AddAllPackContainers(List<PackSO> packSOs, VisualElement ve) {
+    private IEnumerator AddAllPackContainers(List<PackSO> packSOs, VisualElement ve) {
+        // packSOs.ForEach(packSO => {
+        //     yield return AddCards(packSO.packCardPoolSO, null, ve, packSO);
+        // });
+        foreach (PackSO packSO in packSOs) {
+            yield return AddCards(packSO.packCardPoolSO, null, ve, packSO);
+        }
     }
 
-    private void AddCards(CardPoolSO cardPool, CompanionTypeSO companion, VisualElement ve, PackSO packSO = null)
-    {
+    // private void AddCards(CardPoolSO cardPool, CompanionTypeSO companion, VisualElement ve, PackSO packSO = null) {
+    private IEnumerator AddCards(CardPoolSO cardPool, CompanionTypeSO companion, VisualElement ve, PackSO packSO = null) {
         Label companionContainerTitle = new Label();
         if (packSO != null) {
             companionContainerTitle.text = packSO.packName + " Pack Cards";
@@ -159,6 +180,7 @@ public class CompendiumView : IControlsReceiver {
         AddCardsForRarity(companionCardsContainer, cardPool.unlockableUncommonCards, companion, Card.CardRarity.UNCOMMON, packSO, true);
         AddCardsForRarity(companionCardsContainer, cardPool.unlockableRareCards, companion, Card.CardRarity.RARE, packSO, true);
         ve.Add(companionCardsContainer);
+        yield return null;
     }
 
     private void AddCardsForRarity(
@@ -209,7 +231,8 @@ public class CompendiumView : IControlsReceiver {
         });
     }
 
-    private void SetupCompanionView(CompanionPoolSO companionPool) {
+    // private void SetupCompanionView(CompanionPoolSO companionPool) {
+    private IEnumerator SetupCompanionView(CompanionPoolSO companionPool) {
         companionsSection = new VisualElement();
         companionsSection.AddToClassList("compendium-container");
         List<CompanionTypeSO> companions = companionPool.commonCompanions.Concat(companionPool.uncommonCompanions).Concat(companionPool.rareCompanions).ToList();
@@ -254,10 +277,12 @@ public class CompendiumView : IControlsReceiver {
                 FocusManager.Instance.RegisterFocusableTarget(entityViewFocusable);
             };
             companionsSection.Add(companionRow);
+            yield return null;
         }
         companionScrollView.Add(companionsSection);
         DisableCompanionFocusables();
-        companionScrollView.style.display = DisplayStyle.None; 
+        companionScrollView.style.display = DisplayStyle.None;
+        companionsSetup = true;
     }
 
     private void DisableCompanionFocusables() {
