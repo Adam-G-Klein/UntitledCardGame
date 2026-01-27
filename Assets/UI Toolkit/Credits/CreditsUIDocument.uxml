@@ -1,0 +1,20 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/fontStyling.uss?fileID=7433441132597879392&amp;guid=d0c0881f1c32747ecb649373600de095&amp;type=3#fontStyling" />
+    <Style src="project://database/Assets/UI%20Toolkit/Stylesheets/Credits.uss?fileID=7433441132597879392&amp;guid=197ca33525d0cf949aca21499264e78b&amp;type=3#Credits" />
+    <ui:VisualElement name="background" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Sprites/NovPlaytestArt/GreenhouseGood_WarmWGradient.png?fileID=2800000&amp;guid=ac201e65a2bbcae4fa3138b66356afad&amp;type=3#GreenhouseGood_WarmWGradient&quot;); align-items: center; -unity-background-image-tint-color: rgba(89, 89, 89, 0.98);">
+        <ui:VisualElement name="content-container" style="flex-grow: 1; width: 82%;">
+            <ui:ScrollView horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" name="credits-scroll-view" style="flex-grow: 1;">
+                <ui:VisualElement class="credits-line-parent" style="flex-grow: 1; display: none;">
+                    <ui:VisualElement class="credits-line-sprite" style="flex-grow: 0;" />
+                    <ui:VisualElement class="credits-line-title-parent" style="flex-grow: 0; width: 35%;" />
+                    <ui:VisualElement class="credit-line-name-parent" style="flex-grow: 0;" />
+                    <ui:VisualElement class="credits-line-sprite" style="flex-grow: 0;" />
+                </ui:VisualElement>
+            </ui:ScrollView>
+            <ui:VisualElement name="credits-skip-credits" style="flex-grow: 1; position: absolute; bottom: 0; right: -10%; width: 20%; height: 10%; flex-direction: row; align-items: center; visibility: hidden;">
+                <ui:VisualElement name="credits-skip-credits-icon" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Sprites/ControlsSprites/Keyboard%20&amp;%20Mouse/Dark/J_Key_Dark.png?fileID=2800000&amp;guid=d637228b4635c8049a82228c50e40a7a&amp;type=3#J_Key_Dark&quot;); height: 70%; -unity-background-scale-mode: scale-to-fit;" />
+                <ui:Label tabindex="-1" text="Skip Credits" parse-escape-sequences="true" display-tooltip-when-elided="true" style="color: rgb(255, 255, 255); font-size: 39px; -unity-text-align: upper-left; align-items: auto;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

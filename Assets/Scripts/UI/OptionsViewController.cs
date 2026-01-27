@@ -27,12 +27,16 @@ public class OptionsViewController : GenericSingleton<OptionsViewController>, IC
     private CanvasGroup canvasGroup;
     [SerializeField]
     private List<PackSO> packSOs;
+    [SerializeField]
+    private GameObject creditsPrefab;
     private Canvas canvas;
     private CompendiumView compendiumView;
+    private CreditsView creditsView = null;
     private Button backButton;
     private Button quitButton;
     private Button mainMenuButton;
     private Button compendiumButton;
+    private Button creditsButton;
     private Toggle fullscreenToggle;
     private Toggle autoUpgradeToggle;
     private Toggle dataConsentToggle;
@@ -124,6 +128,8 @@ public class OptionsViewController : GenericSingleton<OptionsViewController>, IC
         mainMenuButton.RegisterOnSelected(onMainMenuButtonHandler);
         quitButton = optionsUIDocument.rootVisualElement.Q<Button>("quitButton");
         quitButton.RegisterOnSelected(onExitGameHandler);
+        creditsButton = optionsUIDocument.rootVisualElement.Q<Button>("creditsButton");
+        creditsButton.RegisterOnSelected(onCreditsHandler);
         fullscreenToggle = optionsUIDocument.rootVisualElement.Q<Toggle>("fullscreenToggle");
         fullscreenToggle.value = gameState.fullscreenEnabled;
         fullscreenToggle.RegisterValueChangedCallback(FullScreenToggleEvent);
@@ -146,8 +152,9 @@ public class OptionsViewController : GenericSingleton<OptionsViewController>, IC
 
     private void OptionsMenuButton()
     {
-        compendiumView?.ExitButtonHandler();
-        ToggleVisibility(optionsUIDocument.rootVisualElement.style.visibility == Visibility.Hidden);
+        if (compendiumView != null) compendiumView.ExitButtonHandler();
+        else if (creditsView != null) creditsView.OnCompleted();
+        else ToggleVisibility(optionsUIDocument.rootVisualElement.style.visibility == Visibility.Hidden);
     }
 
     private void RegisterFocusables() {
@@ -181,6 +188,25 @@ public class OptionsViewController : GenericSingleton<OptionsViewController>, IC
         Application.Quit();
     }
 
+    public void onCreditsHandler() {
+        creditsView = null;
+        FocusManager.Instance.StashLockedFocusables(this.GetType().Name);
+        GameObject creditsGO = Instantiate(creditsPrefab, Vector3.zero, Quaternion.identity);
+        creditsView = creditsGO.GetComponent<CreditsView>();
+        creditsView.Init(creditsFinishedHandler);
+    }
+
+    public void creditsFinishedHandler() {
+        creditsView = null;
+        SetFocusOnBackButton();
+    }
+
+    public void SetFocusOnBackButton() {
+        if (ControlsManager.Instance.GetControlMethod() == ControlsManager.ControlMethod.KeyboardController) {
+            FocusManager.Instance.SetFocus(backButton.AsFocusable());
+        }
+    }
+
     public void onCompendiumButtonHandler()
     {
         compendiumView = null;
@@ -194,6 +220,7 @@ public class OptionsViewController : GenericSingleton<OptionsViewController>, IC
     public void onCloseCompenidum()
     {
         compendiumView = null;
+        SetFocusOnBackButton();
     }
 
     public void onVolumeSliderChangedHandler(float value, VolumeType volumeType) {

@@ -31,7 +31,7 @@
                         <ui:Label tabindex="-1" text="5   " parse-escape-sequences="true" display-tooltip-when-elided="true" style="-unity-font-style: normal;" />
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement style="flex-grow: 1; width: 100%; margin-top: 10px; margin-bottom: 10px;">
+                <ui:VisualElement style="flex-grow: 1; width: 100%; margin-top: 10px; margin-bottom: 10px; height: 21%;">
                     <ui:VisualElement class="menu-option" style="flex-grow: 0;">
                         <ui:Toggle label="Full Screen" name="fullscreenToggle" class="focusable selected-sfx options-menu-toggle" />
                     </ui:VisualElement>
@@ -53,6 +53,9 @@
                 </ui:VisualElement>
                 <ui:VisualElement name="VisualElement" class="menu-option">
                     <ui:Button text="Back" parse-escape-sequences="true" display-tooltip-when-elided="true" name="backButton" class="focusable selected-sfx main-menu-button options-menu-button" />
+                </ui:VisualElement>
+                <ui:VisualElement name="VisualElement" class="menu-option">
+                    <ui:Button text="Credits" parse-escape-sequences="true" display-tooltip-when-elided="true" name="creditsButton" class="focusable selected-sfx main-menu-button options-menu-button" />
                 </ui:VisualElement>
                 <ui:VisualElement name="VisualElement" class="menu-option">
                     <ui:Button text="Main Menu" parse-escape-sequences="true" display-tooltip-when-elided="true" name="exitButton" class="focusable selected-sfx main-menu-button options-menu-button" />

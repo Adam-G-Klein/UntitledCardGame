@@ -1,0 +1,255 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1815400659478919269
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4096024295038777727}
+  - component: {fileID: 2038400869975874102}
+  - component: {fileID: 7845758611001924353}
+  - component: {fileID: 609750691877203412}
+  - component: {fileID: 8051364423163415789}
+  - component: {fileID: 6177736260147552267}
+  - component: {fileID: 5232479038143343340}
+  - component: {fileID: 6005228486226906212}
+  m_Layer: 5
+  m_Name: CreditsView
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4096024295038777727
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1815400659478919269}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0, y: 0}
+--- !u!223 &2038400869975874102
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1815400659478919269}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 1
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
+--- !u!114 &7845758611001924353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1815400659478919269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UiScaleMode: 1
+  m_ReferencePixelsPerUnit: 100
+  m_ScaleFactor: 1
+  m_ReferenceResolution: {x: 1920, y: 1080}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 0
+  m_PhysicalUnit: 3
+  m_FallbackScreenDPI: 96
+  m_DefaultSpriteDPI: 96
+  m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
+--- !u!114 &609750691877203412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1815400659478919269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+--- !u!114 &8051364423163415789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1815400659478919269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PanelSettings: {fileID: 11400000, guid: 241f29abd9342464d9827f63977b6be8, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: b27a97c719558c84e9fa84577712de2a, type: 3}
+  m_SortingOrder: 0
+--- !u!222 &6177736260147552267
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1815400659478919269}
+  m_CullTransparentMesh: 1
+--- !u!114 &5232479038143343340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1815400659478919269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 2100000, guid: 6bdbd452fba48dd41ac2fd3deba3d346, type: 2}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Texture: {fileID: 8400000, guid: c387f195d7476154b95b2bff161b1e01, type: 2}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+--- !u!114 &6005228486226906212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1815400659478919269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b48dc16ad236f6943ad8e40b722cdcb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiDoc: {fileID: 8051364423163415789}
+  creditPages:
+  - creditPageLogo: {fileID: 21300000, guid: 695a3622f1f6a054c8653e3f00d4b48b, type: 3}
+    creditLines:
+    - name: Adam Klein
+      title: 'Studio Director
+
+        Gameplay Engineer
+
+        Narrative Designer'
+      rat: {fileID: 21300000, guid: c1ba3b774ff3ec6438f6984cded94a37, type: 3}
+    - name: Jasmine Sumpter
+      title: 'Creative Director
+
+        UX/UI Lead
+
+        Narrative Designer'
+      rat: {fileID: 21300000, guid: c2029d3d35ba2714d827b1fb8fa4a0fe, type: 3}
+    - name: Kimya Taheri
+      title: "Systems Admin\t"
+      rat: {fileID: 21300000, guid: aed7ded5c1952734c85f8ad6acc3e85b, type: 3}
+    - name: Andrea Swihart
+      title: Art Producer
+      rat: {fileID: 21300000, guid: b746caed2c443064cbd845440619f239, type: 3}
+    - name: Ayo Afolabi
+      title: VFX Artist
+      rat: {fileID: 21300000, guid: 2469958f628c30842b26a86df40127b9, type: 3}
+    - name: Kalila Workman
+      title: 'Environment Artist
+
+        Technical Artist'
+      rat: {fileID: 21300000, guid: bf1e6f00d6394484db7d9385d1fb2729, type: 3}
+    - name: Yeeun Min
+      title: Art Generalist
+      rat: {fileID: 21300000, guid: 94d8a9a58ebf84465a87bcde6fcc8c7b, type: 3}
+    - name: "Beatriz Garc\xEDa Cano"
+      title: 'Concept Artist
+
+        UI Artist'
+      rat: {fileID: 21300000, guid: 41eb5816dd3ee4b6f82ccbf293455e75, type: 3}
+    - name: Jordan Vincent
+      title: Marketing Director
+      rat: {fileID: 21300000, guid: 34af0ef08494934478eca248b698d0ec, type: 3}
+    - name: Hsiu Hsiu Lin
+      title: Marketing Content
+      rat: {fileID: 21300000, guid: 2bcd09ec1f96a4a4aace6d4639d6c7eb, type: 3}
+    - name: Jada Sumpter
+      title: Marketing Designer
+      rat: {fileID: 21300000, guid: e085badec44688745b2add8395e572e2, type: 3}
+    - name: Ethan Tucker
+      title: 'Design Director
+
+        Gameplay Engineer
+
+        UX/UI Designer'
+      rat: {fileID: 21300000, guid: 948db1674be21c24790387166ea4bef1, type: 3}
+    - name: James Conant
+      title: 'Game Design Lead
+
+        Narrative Designer
+
+        Gameplay Engineer'
+      rat: {fileID: 21300000, guid: b746caed2c443064cbd845440619f239, type: 3}
+    - name: Luke Leonard
+      title: 'Software Lead
+
+        Gameplay Engineer'
+      rat: {fileID: 21300000, guid: 8ea58ca3c6523004ab86c4be3646ef3c, type: 3}
+    additionalCredits: []
+  - creditPageLogo: {fileID: 21300000, guid: 6964db6a11c63fe4ea94a4536cf3f562, type: 3}
+    creditLines:
+    - name: Matt Novak
+      title: 'Head of Spacecat
+
+        Audio Director'
+      rat: {fileID: 21300000, guid: 0d9420d39ed7f1d4197a84b0331cd727, type: 3}
+    - name: Paul Naser
+      title: 'Audio Implementer
+
+        Sound Designer'
+      rat: {fileID: 21300000, guid: b746caed2c443064cbd845440619f239, type: 3}
+    - name: Greg Martin
+      title: Composer
+      rat: {fileID: 21300000, guid: 57a7589ca9d8b4ebdb923a34a7184edf, type: 3}
+    additionalCredits: []

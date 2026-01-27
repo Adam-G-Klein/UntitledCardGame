@@ -128,12 +128,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e569b36d33be43ba9c8e41a550c8950, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pipelineAsset: {fileID: 0}
   optionsUIDocument: {fileID: 8130441167465002805}
   compendiumUIDocument: {fileID: 4276408167836295075}
   companionPool: {fileID: 11400000, guid: 1a5aa5f2c25ef434a822f87e97339f33, type: 2}
   neutralCardPool: {fileID: 11400000, guid: f16e9cd7d69314290ae5bed1edae4ce0, type: 2}
   canvasGroup: {fileID: 0}
   packSOs: []
+  creditsPrefab: {fileID: 1815400659478919269, guid: 777d6723aeb4fa747ac016118012752e, type: 3}
   gameState: {fileID: 11400000, guid: 9e326417f60894341a96cc8d02868bbe, type: 2}
   tooltipPrefab: {fileID: 2816874809441598624, guid: ae38d023550871540b736760d4242071, type: 3}
 --- !u!1001 &7648190593628460788
