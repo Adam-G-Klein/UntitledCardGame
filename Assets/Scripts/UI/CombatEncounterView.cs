@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -42,6 +43,10 @@ public class CombatEncounterView : MonoBehaviour,
     private GameObject cardViewUIPrefab;
     [SerializeField]
     private GameObject newCardViewUIPrefab;
+    [SerializeField]
+    private GameObject victoryPopupPrefab;
+    [SerializeField]
+    private GameObject defeatPopupPrefab;
     private bool inMenu = false;
     private bool inDeckView = false;
     private bool combatOver = false;
@@ -511,5 +516,22 @@ public class CombatEncounterView : MonoBehaviour,
 
     public List<EnemyView> GetEnemyViews() {
         return entityViews;
+    }
+
+    public IEnumerator DisplayVictory() {
+        if (EnemyEncounterManager.Instance.isBoss == true) yield break;
+        yield return new WaitForSeconds(0.25f);
+        GameObject victory = Instantiate(victoryPopupPrefab, this.transform.parent); 
+        victory.transform.localPosition = new Vector3(0, 0, -100f);
+        yield return new WaitForSeconds(3f);
+        Destroy(victory);
+    }
+
+    public IEnumerator DisplayDefeat() {
+        yield return new WaitForSeconds(0.25f);
+        GameObject defeat = Instantiate(defeatPopupPrefab, this.transform.parent);
+        defeat.transform.localPosition = new Vector3(0, 0, -100f);
+        yield return new WaitForSeconds(3f);
+        Destroy(defeat);
     }
 }

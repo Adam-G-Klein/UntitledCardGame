@@ -202,6 +202,9 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         combatOver = true;
         combatEncounterView.SetEndCombat(true);
 
+        yield return new WaitForSeconds(1f);
+
+
         // Fire off a combatEnded Analytics event.
         var combatEndedEvent = new CombatEndedAnalyticsEvent
         {
@@ -213,9 +216,11 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         Debug.Log("EndEncounterHandler called, info.outcome is " + info.outcome + " gameState.GetLoopIndex() is " + gameState.GetLoopIndex() + " gameState.lastTutorialLoopIndex is " + gameState.lastTutorialLoopIndex);
         if (info.outcome == EncounterOutcome.Defeat)
         {
+            StartCoroutine(combatEncounterView.DisplayDefeat());
             LoseGameHandler();
             yield break;
         }
+        StartCoroutine(combatEncounterView.DisplayVictory());
         if (gameState.activeEncounter.GetValue().id == gameState.map.GetValue().encounters[gameState.map.GetValue().encounters.Count - 1].id)
         {
             if (isBoss) {

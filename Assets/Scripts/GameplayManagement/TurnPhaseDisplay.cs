@@ -39,14 +39,14 @@ public class TurnPhaseDisplay : MonoBehaviour {
         Destroy(playerTurn);
     }
 
-    public void EndEncounterHandler(EndEncounterEventInfo info) {
-        print("EndEncounterHandler called, info.outcome is " + info.outcome);
-        if(info.outcome == EncounterOutcome.Victory) {
-            StartCoroutine(DisplayVictory());
-            return;
-        }
-        StartCoroutine(DisplayDefeat());
-    }
+    // public void EndEncounterHandler(EndEncounterEventInfo info) {
+    //     print("EndEncounterHandler called, info.outcome is " + info.outcome);
+    //     if(info.outcome == EncounterOutcome.Victory) {
+    //         StartCoroutine(DisplayVictory());
+    //         return;
+    //     }
+    //     StartCoroutine(DisplayDefeat());
+    // }
 
     public IEnumerator DisplayVictory() {
         if (EnemyEncounterManager.Instance.isBoss == true) yield break;
@@ -57,7 +57,7 @@ public class TurnPhaseDisplay : MonoBehaviour {
     }
 
     public IEnumerator DisplayDefeat() {
-        GameObject defeat = Instantiate(defeatPrefab, effectParent.transform); 
+        GameObject defeat = Instantiate(defeatPrefab, effectParent.transform);
         defeat.transform.localPosition = new Vector3(0, 0, effectZOffset);
         yield return new WaitForSeconds(victoryDuration);
         Destroy(defeat);

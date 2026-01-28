@@ -3642,6 +3642,14 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 430066739}
+    - target: {fileID: 5946589008991207965, guid: a01603c96ed613e4dadddb16c94272d3, type: 3}
+      propertyPath: defeatPopupPrefab
+      value: 
+      objectReference: {fileID: 8675841362600845815, guid: eecaccd0cc6f3f243980d00b9e241a15, type: 3}
+    - target: {fileID: 5946589008991207965, guid: a01603c96ed613e4dadddb16c94272d3, type: 3}
+      propertyPath: victoryPopupPrefab
+      value: 
+      objectReference: {fileID: 8675841362600845815, guid: 0d6dccb09c4b79c48b5f51cb9e3d07e8, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 1624549941427933647, guid: a01603c96ed613e4dadddb16c94272d3, type: 3}
