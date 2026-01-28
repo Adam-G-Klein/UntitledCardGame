@@ -400,7 +400,7 @@ public class MultiDeckView
                 for (int j = 0; j < cards.Count; j++)
                 {
                     Card card = cards[j];
-                    CardView cardView = new CardView(card.cardType, companion.companionType, card.shopRarity, true);
+                    CardView cardView = new CardView(card, companion.companionType, true);
                     cardView.cardContainer.AddToClassList("cardView");
                     cardView.cardContainer.AddToClassList("multi-deck-view-focus-item");
                     cardView.cardContainer.MakeFocusable();
@@ -421,7 +421,7 @@ public class MultiDeckView
                     });
                     VisualElementFocusable cardFocusable = cardView.cardContainer.AsFocusable();
                     cardFocusable.additionalFocusAction += () => {
-                        scrollView.ScrollToMakeElementVisible(cardFocusable.GetVisualElement(), 20f); 
+                        scrollView.ScrollToMakeElementVisible(cardFocusable.GetVisualElement(), 20f);
                         MusicController.Instance.PlaySFX("event:/SFX/SFX_UIHover");
                         if (card.cardType.GetTooltip().empty) {
                             return;
@@ -446,6 +446,8 @@ public class MultiDeckView
                             string modText = card.cardType.GetDescriptionWithUpdatedValues(defaultValuesDict);
                             cardView.UpdateCardText(modText);
                         }
+
+                        cardView.UpdateManaCost();
                     }
 
                     if (i != startingIndex)

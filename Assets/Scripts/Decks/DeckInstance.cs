@@ -16,7 +16,6 @@ public class DeckInstance : MonoBehaviour
     public CombatInstance combatInstance;
 
     private TurnPhaseTrigger drawCardsTurnPhaseTrigger;
-    private TurnPhaseTrigger resetTempCardModificationsTrigger;
     private TurnPhaseTrigger dealExtraCardsTrigger;
 
     int extraCardsToDeal = 0;
@@ -28,7 +27,6 @@ public class DeckInstance : MonoBehaviour
     {
         SetupPiles(sourceDeck);
         RegisterDrawTrigger();
-        RegisterEndTurnTrigger();
         RegisterEndOfEncounterHandler();
         RegisterDealExtraCardsTrigger();
         combatInstance.onDeathHandler += OnDeath;
@@ -46,13 +44,6 @@ public class DeckInstance : MonoBehaviour
         TurnManager.Instance.addTurnPhaseTrigger(drawCardsTurnPhaseTrigger);
     }
 
-    private void RegisterEndTurnTrigger()
-    {
-        resetTempCardModificationsTrigger = new TurnPhaseTrigger(
-            TurnPhase.END_PLAYER_TURN, ResetTempCardModifications());
-        TurnManager.Instance.addTurnPhaseTrigger(resetTempCardModificationsTrigger);
-    }
-
     private void RegisterDealExtraCardsTrigger()
     {
         dealExtraCardsTrigger = new TurnPhaseTrigger(
@@ -66,11 +57,6 @@ public class DeckInstance : MonoBehaviour
         TurnManager.Instance.removeTurnPhaseTrigger(drawCardsTurnPhaseTrigger);
     }
 
-    private void DeregisterEndTurnTrigger()
-    {
-        TurnManager.Instance.removeTurnPhaseTrigger(resetTempCardModificationsTrigger);
-    }
-
     private void DeregisterDealExtraCardsTrigger()
     {
         TurnManager.Instance.removeTurnPhaseTrigger(dealExtraCardsTrigger);
@@ -79,7 +65,6 @@ public class DeckInstance : MonoBehaviour
     private IEnumerator OnDeath(CombatInstance killer)
     {
         DeregisterDrawTrigger();
-        DeregisterEndTurnTrigger();
         DeregisterDealExtraCardsTrigger();
         yield return null;
     }
@@ -205,6 +190,11 @@ public class DeckInstance : MonoBehaviour
 
     public void DiscardCards(List<Card> cards)
     {
+        // Also reset until leave hand modifications on any of those cards.
+        for (int i = 0; i < cards.Count; i++)
+        {
+            cards[i].cardModifications[CardModification.UntilLeavesHandManaDecrease] = 0;
+        }
         inHand.RemoveAll(c => cards.Contains(c));
         discardPile.AddRange(cards);
     }
@@ -435,30 +425,6 @@ public class DeckInstance : MonoBehaviour
             card.ResetCardModifications();
             card.cardType.ResetCardModifications();
         }
-    }
-
-    private IEnumerable ResetTempCardModifications()
-    {
-        foreach (Card card in drawPile)
-        {
-            card.ResetTempCardModifications();
-        }
-
-        foreach (Card card in discardPile)
-        {
-            card.ResetTempCardModifications();
-        }
-
-        foreach (Card card in inHand)
-        {
-            card.ResetTempCardModifications();
-        }
-
-        foreach (Card card in exhaustPile)
-        {
-            card.ResetTempCardModifications();
-        }
-        yield break;
     }
 
     private IEnumerable DealExtraCards()

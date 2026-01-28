@@ -138,8 +138,8 @@ public class Card : Entity, IEquatable<Card>
         {
             ResetCardModifications();
         }
-        totalReduction += cardModifications[CardModification.ThisTurnManaDecrease];
-        totalReduction += cardType.cardModifications[CardModification.ThisTurnManaDecrease];
+        totalReduction += cardModifications[CardModification.UntilLeavesHandManaDecrease];
+        totalReduction += cardType.cardModifications[CardModification.UntilLeavesHandManaDecrease];
         totalReduction += cardModifications[CardModification.ThisCombatManaDecrease];
         totalReduction += cardType.cardModifications[CardModification.ThisCombatManaDecrease];
 
@@ -203,9 +203,6 @@ public class Card : Entity, IEquatable<Card>
         return newScale;
     }
 
-    public void ResetTempCardModifications() {
-        cardModifications[CardModification.ThisTurnManaDecrease] = 0;
-    }
 
     public void ResetCardModifications() {
         cardModifications = new Dictionary<CardModification, int>();
