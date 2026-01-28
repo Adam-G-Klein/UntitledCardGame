@@ -37,6 +37,8 @@ DescriptionIconType enum:
 10 = Energy
 11 = Self
 12 = SelfAndAdjacent
+13 = Discard
+14 = Exhaust
 
 Rules:
 - Convert the Description into an IconDescription YAML list
@@ -87,6 +89,24 @@ icon: 9
 - tokenType: 2
 text:
 icon: 12
+
+Description: 'Discard 2 cards in hand & deal {rpl_damage} damage '
+IconDescription:
+- tokenType: 2
+text:
+icon: 13
+- tokenType: 2
+text:
+icon: 13
+- tokenType: 1
+text:
+icon: 0
+- tokenType: 0
+text: '{rpl_damage}'
+icon: 0
+- tokenType: 2
+text:
+icon: 1
 ";
 
     private Vector2 scrollPositionOriginal;

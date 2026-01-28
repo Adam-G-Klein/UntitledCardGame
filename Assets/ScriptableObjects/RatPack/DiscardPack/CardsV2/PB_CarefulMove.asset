@@ -15,6 +15,25 @@ MonoBehaviour:
   guid: 83245228-f489-4c93-9afb-150db8dd4ab6
   Name: Careful Move
   Description: Retain. Discard a card in hand & deal {rpl_damage} damage
+  IconDescription:
+  - tokenType: 0
+    text: Retain.
+    icon: 0
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 13
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 0
+    text: '{rpl_damage}'
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 1
   defaultValues:
   - key: rpl_damage
     value: 6

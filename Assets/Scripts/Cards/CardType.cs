@@ -37,6 +37,8 @@ public class DescriptionToken
         Energy,
         Self,
         SelfAndAdjacent,
+        Discard,
+        Exhaust,
     }
     public TokenType tokenType;
     public string text;
