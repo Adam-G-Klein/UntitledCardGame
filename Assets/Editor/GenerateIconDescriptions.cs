@@ -12,7 +12,8 @@ public class GenerateIconDescriptionsWindow : EditorWindow
     private string selectedFolderPath = "";
     private List<string> assetPaths = new List<string>();
     private int currentAssetIndex = 0;
-    private string currentAssetContent = "";
+    private string currentAssetDescription = "";
+    private string currentAssetIconDescription = "";
     private string llmOutput = "";
     private string userFeedback = "";
     private string systemPrompt = @"
@@ -110,6 +111,7 @@ icon: 1
 ";
 
     private Vector2 scrollPositionOriginal;
+    private Vector2 scrollPositionIconDescription;
     private Vector2 scrollPositionOutput;
     private Vector2 scrollPositionFeedback;
     private bool isProcessing = false;
@@ -172,9 +174,15 @@ icon: 1
             EditorGUILayout.EndHorizontal();
 
             EditorGUILayout.Space();
-            GUILayout.Label("Original Content:");
-            scrollPositionOriginal = EditorGUILayout.BeginScrollView(scrollPositionOriginal, GUILayout.Height(150));
-            EditorGUILayout.TextArea(currentAssetContent, GUILayout.ExpandHeight(true));
+            GUILayout.Label("Original Description:");
+            scrollPositionOriginal = EditorGUILayout.BeginScrollView(scrollPositionOriginal, GUILayout.Height(50));
+            EditorGUILayout.TextArea(currentAssetDescription, GUILayout.ExpandHeight(true));
+            EditorGUILayout.EndScrollView();
+
+            EditorGUILayout.Space();
+            GUILayout.Label("Current Icon Description:");
+            scrollPositionIconDescription = EditorGUILayout.BeginScrollView(scrollPositionIconDescription, GUILayout.Height(100));
+            EditorGUILayout.TextArea(currentAssetIconDescription, GUILayout.ExpandHeight(true));
             EditorGUILayout.EndScrollView();
 
             EditorGUILayout.Space();
@@ -242,13 +250,27 @@ icon: 1
             CardType cardType = AssetDatabase.LoadAssetAtPath<CardType>(path);
             if (cardType != null)
             {
-                currentAssetContent = cardType.Description;
+                currentAssetDescription = cardType.Description;
+                currentAssetIconDescription = cardType.IconDescription != null ? IconDescriptionToString(cardType.IconDescription) : "";
                 currentCardType = cardType;
             }
             llmOutput = "";
             userFeedback = "";
         }
         Repaint();
+    }
+
+    private string IconDescriptionToString(List<DescriptionToken> iconDescription)
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.AppendLine("IconDescription:");
+        foreach (var token in iconDescription)
+        {
+            sb.AppendLine("- tokenType: " + (int)token.tokenType);
+            sb.AppendLine("  text: '" + token.text.Replace("'", "''") + "'");
+            sb.AppendLine("  icon: " + (int)token.icon);
+        }
+        return sb.ToString();
     }
 
     private async System.Threading.Tasks.Task SendReply()
@@ -296,7 +318,7 @@ icon: 1
         var newMessage = new OpenAI.ChatMessage()
         {
             Role = "user",
-            Content = "Description:\n" + currentAssetContent + "\n\nPlease generate the IconDescription YAML as per the system prompt, omit tick marks, just give the raw YAML"
+            Content = "Description:\n" + currentAssetDescription + "\n\nPlease generate the IconDescription YAML as per the system prompt, omit tick marks, just give the raw YAML"
         };
         messages.Add(newMessage);
 

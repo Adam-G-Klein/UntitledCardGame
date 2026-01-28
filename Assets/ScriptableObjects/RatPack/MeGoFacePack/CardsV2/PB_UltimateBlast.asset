@@ -15,6 +15,16 @@ MonoBehaviour:
   guid: a272cf9d-a633-4d5a-ab65-fd0028d11058
   Name: Ultimate Blast
   Description: Deal {rpl_damage} damage x7.
+  IconDescription:
+  - tokenType: 0
+    text: '{rpl_damage}'
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 1
+  - tokenType: 0
+    text: x7
+    icon: 0
   defaultValues:
   - key: rpl_damage
     value: 2

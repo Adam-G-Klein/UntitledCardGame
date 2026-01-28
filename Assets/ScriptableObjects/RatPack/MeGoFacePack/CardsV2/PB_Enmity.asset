@@ -15,6 +15,25 @@ MonoBehaviour:
   guid: b8cfff9f-dcdd-488c-9c5c-4f21264a6a20
   Name: Enmity
   Description: Retain. Deal {rpl_damage} damage. End of turn, gain +1 damage
+  IconDescription:
+  - tokenType: 0
+    text: Retain.
+    icon: 0
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 0
+    text: '{rpl_damage}'
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 1
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 0
+    text: End of turn, gain +1 damage
+    icon: 0
   defaultValues:
   - key: rpl_damage
     value: 5

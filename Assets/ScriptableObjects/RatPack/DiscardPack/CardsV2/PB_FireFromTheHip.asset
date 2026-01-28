@@ -15,6 +15,22 @@ MonoBehaviour:
   guid: 3e04d2f9-ca32-4013-94b9-4eee0d4573a2
   Name: Fire from the Hip
   Description: Deal {rpl_damage} damage and discard 2 cards at random
+  IconDescription:
+  - tokenType: 0
+    text: '{rpl_damage}'
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 1
+  - tokenType: 2
+    text: 
+    icon: 13
+  - tokenType: 2
+    text: 
+    icon: 13
+  - tokenType: 2
+    text: 
+    icon: 4
   defaultValues:
   - key: rpl_damage
     value: 6

@@ -15,6 +15,25 @@ MonoBehaviour:
   guid: cba8e345-82df-4239-ab6b-68d0e49b8900
   Name: Bellows
   Description: Draw 1 card from 2 random rats & choose 2 cards in hand to exhaust.
+  IconDescription:
+  - tokenType: 2
+    text: 
+    icon: 3
+  - tokenType: 2
+    text: 
+    icon: 3
+  - tokenType: 2
+    text: 
+    icon: 4
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 14
+  - tokenType: 2
+    text: 
+    icon: 14
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 0f91baf441838d747bea7dbae09bfb7f, type: 3}
@@ -72,7 +91,10 @@ MonoBehaviour:
         effectStepName: GetRandomItems
         inputKey: targets
         scale: 2
+        scaleKey: 
+        getScaleFromKey: 0
         outputKey: targetCompanion
+        withReplacement: 0
     - rid: 9024302470308298797
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:
