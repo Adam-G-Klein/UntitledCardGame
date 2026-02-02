@@ -59,6 +59,7 @@ public class ProgressManager : GenericSingleton<ProgressManager>
         return index >= 0 && index <= gameState.ascensionLevel;
     }
 
+    [ContextMenu("Unlock Cards")]
     public List<CardType> UnlockCards() {
         List<CardType> cardsToUnlock = cardUnlockerSO.ChooseCardsToUnlock(gameState, progressSO.unlockedCards);
         progressSO.unlockedCards.AddRange(cardsToUnlock);
