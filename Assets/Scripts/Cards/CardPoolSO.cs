@@ -17,12 +17,12 @@ public class CardPoolSO: ScriptableObject {
     public List<CardType> unlockableUncommonCards;
     public List<CardType> unlockableRareCards;
 
-    public List<CardType> AllUnlockedCommonCards(List<CardType> unlockedCards)
+    public List<CardType> AllUnlockedCommonCards(List<CardType> unlockedCards, bool includeAll = false)
     {
         List<CardType> cards = new List<CardType>(commonCards);
         foreach (CardType card in unlockableCommonCards)
         {
-            if (unlockedCards.Contains(card))
+            if ((unlockedCards != null && unlockedCards.Contains(card)) || includeAll)
             {
                 cards.Add(card);
             }
@@ -30,12 +30,12 @@ public class CardPoolSO: ScriptableObject {
         return cards;
     }
 
-    public List<CardType> AllUnlockedUncommonCards(List<CardType> unlockedCards)
+    public List<CardType> AllUnlockedUncommonCards(List<CardType> unlockedCards, bool includeAll = false)
     {
         List<CardType> cards = new List<CardType>(uncommonCards);
         foreach (CardType card in unlockableUncommonCards)
         {
-            if (unlockedCards.Contains(card))
+            if ((unlockedCards != null && unlockedCards.Contains(card)) || includeAll)
             {
                 cards.Add(card);
             }
@@ -43,12 +43,12 @@ public class CardPoolSO: ScriptableObject {
         return cards;
     }
 
-    public List<CardType> AllUnlockedRareCards(List<CardType> unlockedCards)
+    public List<CardType> AllUnlockedRareCards(List<CardType> unlockedCards, bool includeAll = false)
     {
         List<CardType> cards = new List<CardType>(rareCards);
         foreach (CardType card in unlockableRareCards)
         {
-            if (unlockedCards.Contains(card))
+            if ((unlockedCards != null && unlockedCards.Contains(card)) || includeAll)
             {
                 cards.Add(card);
             }
