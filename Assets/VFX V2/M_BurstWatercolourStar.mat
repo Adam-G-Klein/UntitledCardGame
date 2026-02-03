@@ -71,6 +71,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _OverlayTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _UV_Distorion_Mask_Tex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -110,6 +114,7 @@ Material:
     - _Mask_Power: 0.33
     - _Mask_Strength: 0
     - _Not_using_Dist_in_Custom_Data: 1
+    - _Overlay_Strength: 0
     - _Partcle_System: 1
     - _QueueControl: 0
     - _QueueOffset: 0
@@ -120,6 +125,7 @@ Material:
     - _Use_Cutoff: 1
     - _Use_Fade_Tex_Instead: 1
     - _Use_Lerp: 0
+    - _Use_Overlay_0_No: 0
     - _Use_Radial: 0
     - _Use_Soft_Sides: 0
     - _Vertex_Displacement_Strength: 0
@@ -139,6 +145,7 @@ Material:
     - _Main_Tex_Colour: {r: 8, g: 8, b: 8, a: 1}
     - _Main_Text_Scroll_Speed: {r: 0, g: 0, b: 0, a: 0}
     - _Mask_Scroll_Speed: {r: 0, g: 0, b: 0, a: 0}
+    - _Overlay_Speed: {r: 0, g: 0, b: 0, a: 0}
     - _Scroll_Speed: {r: 0, g: 0, b: 0, a: 0}
     - _VFX: {r: 0, g: 0, b: 0, a: 0}
     - _Vertex_Displacement_Speed: {r: 0, g: 0, b: 0, a: 0}
