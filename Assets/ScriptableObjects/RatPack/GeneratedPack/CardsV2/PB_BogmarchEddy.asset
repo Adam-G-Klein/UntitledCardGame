@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 484ca44a-34dd-4933-95b3-4a3f660fb658
   Name: Bogmarch Eddy
-  Description: Exhaust 2 Charm cards in hand & draw 1 card from 3 random rats & gain
+  Description: Exhaust any Charm card in hand & draw 1 card from 1 random rat & gain
     1 energy
   IconDescription: []
   defaultValues: []
@@ -100,7 +100,7 @@ MonoBehaviour:
         inputKey: statusCards
         outputKey: targetCard
         validTargets: 03000000
-        number: 2
+        number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
         cardSelectionHelperText: 
@@ -122,7 +122,7 @@ MonoBehaviour:
       data:
         effectStepName: GetRandomItems
         inputKey: all
-        scale: 3
+        scale: 1
         scaleKey: 
         getScaleFromKey: 0
         outputKey: target

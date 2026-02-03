@@ -13,8 +13,12 @@ MonoBehaviour:
   m_Name: RP_FirebreatherCardPool
   m_EditorClassIdentifier: 
   commonCards:
-  - {fileID: 11400000, guid: c8b7e8b640f224017ac7a30acf28cbe3, type: 2}
+  - {fileID: 11400000, guid: 98cc35cf24cbc45f0a736dd873d829d8, type: 2}
   uncommonCards:
   - {fileID: 11400000, guid: fe9ecbe0c763f4403b7d2307ee95a220, type: 2}
-  rareCards: []
+  rareCards:
+  - {fileID: 11400000, guid: 2f37c4fa8d336469a9e951b707c7c629, type: 2}
   genericCardIconSprite: {fileID: 0}
+  unlockableCommonCards: []
+  unlockableUncommonCards: []
+  unlockableRareCards: []

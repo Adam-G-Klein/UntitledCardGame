@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: RP_WatersOfRenewal
+  m_Name: PB_MonsoonSeason
   m_EditorClassIdentifier: 
   guid: 84eaaf60-4185-4756-ad4f-fe93c0866379
-  Name: Waters of Renewal
-  Description: Retain. Exhaust all Charm cards in hand. Give any 4 block for each
-    exhausted ({b} block)
+  Name: Monsoon Season
+  Description: Retain. Exhaust. Exhaust all Charm cards in hand. Give any 4 block
+    for each exhausted ({b} block)
   IconDescription: []
   defaultValues:
   - key: b
@@ -26,7 +26,7 @@ MonoBehaviour:
   packFrom: {fileID: 0}
   vfxPrefab: {fileID: 0}
   playable: 1
-  exhaustsWhenPlayed: 0
+  exhaustsWhenPlayed: 1
   retain: 1
   effectWorkflows:
   - rid: 5602892874868589218
@@ -83,7 +83,7 @@ MonoBehaviour:
         inputKey: numStatus
         operand2InputKey: UNUSED
         operation: 2
-        scale: 5
+        scale: 4
         outputKey: b
     - rid: 1289961959942521138
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
