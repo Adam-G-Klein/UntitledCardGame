@@ -60,13 +60,13 @@ public class ExportCardsToCSV
             // string displayName = obj.name.Replace(",", "");  // Remove commas for safety
             // string value = obj.name.ToString();
 
-            foreach (CardType common in pool.commonCards) {
+            foreach (CardType common in pool.AllUnlockedCommonCards(null, true)) {
                 csv.AppendLine(createCSVLine(common, pool, Card.CardRarity.COMMON));
             }
-            foreach (CardType uncommon in pool.uncommonCards) {
+            foreach (CardType uncommon in pool.AllUnlockedUncommonCards(null, true)) {
                 csv.AppendLine(createCSVLine(uncommon, pool, Card.CardRarity.UNCOMMON));
             }
-            foreach (CardType rare in pool.rareCards) {
+            foreach (CardType rare in pool.AllUnlockedRareCards(null, true)) {
                 csv.AppendLine(createCSVLine(rare, pool, Card.CardRarity.RARE));
             }
         }
