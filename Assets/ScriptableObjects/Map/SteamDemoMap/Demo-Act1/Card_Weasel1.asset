@@ -14,18 +14,46 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 48574e13-6305-40c3-91af-6dc3a7d6a5df
   Name: Stinky Cheese
-  Description: Unplayable. But it smells nice
-  IconDescription: []
+  Description: 
+  IconDescription:
+  - tokenType: 0
+    text: Exhaust
+    icon: 0
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 3
+  - tokenType: 2
+    text: 
+    icon: 3
+  - tokenType: 2
+    text: 
+    icon: 11
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 0
+    text: 3
+    icon: 0
+  - tokenType: 2
+    text: 2
+    icon: 9
+  - tokenType: 2
+    text: 2
+    icon: 11
   defaultValues: []
   Cost: 0
   Artwork: {fileID: -1654676150, guid: f32701b9e6adece4a8eeacbe035e0b1e, type: 3}
   cardCategory: 4
   packFrom: {fileID: 0}
   vfxPrefab: {fileID: 0}
-  playable: 0
-  exhaustsWhenPlayed: 0
+  playable: 1
+  exhaustsWhenPlayed: 1
   retain: 0
-  effectWorkflows: []
+  effectWorkflows:
+  - rid: 7150943289421333052
   onExhaustEffectWorkflow:
     rid: -2
   onDiscardEffectWorkflow:
@@ -41,3 +69,44 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 7150943289421333052
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 7150943289421333053
+        - rid: 7150943289421333054
+        - rid: 7150943289421333055
+    - rid: 7150943289421333053
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 4
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+    - rid: 7150943289421333054
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: self
+        combatEffect: 16
+        scale: 3
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 6137048663962808129, guid: 92c26f41ef33c23419e05ceb12660efa, type: 3}
+    - rid: 7150943289421333055
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DrawCards
+        inputKey: self
+        outputKey: 
+        scale: 2
+        getScaleFromKey: 0
+        inputScaleKey: 
