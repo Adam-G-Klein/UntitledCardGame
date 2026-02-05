@@ -171,7 +171,7 @@ public class CombatEncounterView : MonoBehaviour,
         {
             SetupFromGamestate(this.enemyEncounterManager);
         } else {
-            var moneyVisElem = root.Q<Label>("money-indicator-label"); 
+            var moneyVisElem = root.Q<Label>("money-indicator-label");
             // TODO, nullptr if big boss fight cuz no money indicator
             if(moneyVisElem != null)
             {
@@ -210,6 +210,16 @@ public class CombatEncounterView : MonoBehaviour,
     }
 
     void Update() { }
+
+    public void UpdateSpriteForEnemy(Enemy enemy, Sprite sprite)
+    {
+        EnemyView enemyView = entityViews.Find(ev => ev.GetEnemy() == enemy);
+        if (enemyView != null)
+        {
+            Debug.Log($"Updating sprite for enemy {enemy.GetName()}");
+            enemyView.UpdateSprite(sprite);
+        }
+    }
 
     // This function runs the first frame, which creates the enemy views before the enemy instances
     // exist.
@@ -409,7 +419,7 @@ public class CombatEncounterView : MonoBehaviour,
                     damageLabel.transform.scale = new Vector3(value, value, 1f);
                 });
 
-            // X Position 
+            // X Position
             LeanTween.value(0f, 1f, damageIndicatorTime)
                 .setEase(damageIndicatorXCurve)
                 .setOnUpdate((float value) =>
@@ -521,7 +531,7 @@ public class CombatEncounterView : MonoBehaviour,
     public IEnumerator DisplayVictory() {
         if (EnemyEncounterManager.Instance.isBoss == true) yield break;
         yield return new WaitForSeconds(0.25f);
-        GameObject victory = Instantiate(victoryPopupPrefab, this.transform.parent); 
+        GameObject victory = Instantiate(victoryPopupPrefab, this.transform.parent);
         victory.transform.localPosition = new Vector3(0, 0, -100f);
         yield return new WaitForSeconds(3f);
         Destroy(victory);
