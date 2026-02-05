@@ -28,9 +28,13 @@
                     <ui:VisualElement name="VisualElement" style="flex-grow: 0; align-items: center;">
                         <ui:VisualElement name="horizontlLineBreak" style="flex-grow: 1; margin-top: 3%; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px; width: 70%; align-items: center; margin-bottom: 3%;" />
                     </ui:VisualElement>
-                    <ui:VisualElement class="combat-rewards-section" style="flex-direction: row; justify-content: space-between;">
+                    <ui:VisualElement name="VisualElement" class="combat-rewards-section" style="flex-direction: row; justify-content: space-between;">
                         <ui:Label tabindex="-1" text="RP Earned:" display-tooltip-when-elided="true" name="upgradeIncrementsLabel" class="post-combat-text" style="margin-left: 20px;" />
                         <ui:Label tabindex="-1" text="1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="upgradeIncrementsEarned" class="post-combat-text" style="margin-right: 20px; font-size: 28px;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="bonus-elite-reward-container" class="combat-rewards-section" style="flex-direction: row; justify-content: space-between;">
+                        <ui:Label tabindex="-1" text="Boss Reward:" display-tooltip-when-elided="true" name="upgradeIncrementsLabel" class="post-combat-text" style="margin-left: 20px;" />
+                        <ui:Label tabindex="-1" text="+1 team size" parse-escape-sequences="true" display-tooltip-when-elided="true" name="bonus-elite-reward-text" class="post-combat-text" style="margin-right: 20px; font-size: 28px;" />
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:Button text="&#10;" display-tooltip-when-elided="true" name="next-scene" style="font-size: 20px; width: 15%; height: 7%; background-image: url(&quot;project://database/Assets/Sprites/Z_OldPlaceholderSprites/arrow_next_noglow.png?fileID=2800000&amp;guid=af68a8e3c8c054de0b2efb914e24434e&amp;type=3#arrow_next_noglow&quot;); background-color: rgba(188, 188, 188, 0); border-left-color: rgba(149, 149, 149, 0); border-right-color: rgba(149, 149, 149, 0); border-top-color: rgba(149, 149, 149, 0); border-bottom-color: rgba(149, 149, 149, 0); align-self: center; -unity-background-scale-mode: scale-to-fit; position: absolute; bottom: 20px;" />

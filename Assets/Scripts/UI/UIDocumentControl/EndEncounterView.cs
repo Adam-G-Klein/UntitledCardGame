@@ -18,8 +18,11 @@ public class EndEncounterView : MonoBehaviour
     private CanvasGroup canvasGroup;
     private VisualElement goldEarnedContainer;
     private VisualElement interestEarnedContainer;
+    private VisualElement bonusEarnedContainer;
     private int goldEarned;
     private int interestEarned;
+    private int bonusTeamSizeReward;
+    private int bonusManaReward;
 
 
     void OnEnable()
@@ -44,17 +47,20 @@ public class EndEncounterView : MonoBehaviour
         FocusManager.Instance.RegisterFocusableTarget(nextSceneButtonFocusable);
         goldEarnedContainer = doc.rootVisualElement.Q("base-gold-container");
         interestEarnedContainer = doc.rootVisualElement.Q("interest-container");
+        bonusEarnedContainer = doc.rootVisualElement.Q("bonus-elite-reward-container");
     }
 
-    public void Setup(int baseGoldEarnedPerBattle, int interestEarned, int interestCap, float interestPercentage)
+    public void Setup(int baseGoldEarnedPerBattle, int interestEarned, int interestCap, float interestPercentage, int bonusManaReward = 0, int bonusTeamSizeReward = 0)
     {
         goldEarnedContainer.Clear();
         interestEarnedContainer.Clear();
 
         this.goldEarned = baseGoldEarnedPerBattle;
         this.interestEarned = interestEarned;
+        this.bonusManaReward = bonusManaReward;
+        this.bonusTeamSizeReward = bonusTeamSizeReward;
         /*doc.rootVisualElement.Q<Label>("interest-help").text = "(You earn " +
-            interestPercentage.ToString("P0") + 
+            interestPercentage.ToString("P0") +
             " of your current Gold as Interest, capped at " +
             interestCap.ToString() + " gold per combat)";*/
         // add the above back in if we need modularity in interest cap/percent
@@ -66,6 +72,22 @@ public class EndEncounterView : MonoBehaviour
         canvasGroup.blocksRaycasts = true;
         mat.SetFloat("_alpha", 0);
         canvasGroup.alpha = 0;
+
+        if (this.bonusManaReward > 0 || this.bonusTeamSizeReward > 0) {
+            bonusEarnedContainer.visible = true;
+            Label bonusLabel = bonusEarnedContainer.Q<Label>("bonus-elite-reward-text");
+            string bonusText = "";
+            if (this.bonusManaReward > 0) {
+                bonusText = $"+{this.bonusManaReward} Energy";
+            }
+            if (this.bonusTeamSizeReward > 0) {
+                bonusText = $"+{this.bonusTeamSizeReward} Team Size";
+            }
+            bonusLabel.text = bonusText;
+        } else {
+            bonusEarnedContainer.visible = false;
+        }
+
         LeanTween.value(gameObject, 0, 1, fadeTime)
             .setOnUpdate((float val) => {
                 mat.SetFloat("_alpha", val);

@@ -10,6 +10,8 @@ using UnityEngine.UIElements;
 public class EnemyEncounter : Encounter
 {
     public bool isEliteEncounter;
+    public int bonusManaReward = 0;
+    public int bonusTeamSizeReward = 0;
     public List<Enemy> enemyList = new List<Enemy>();
 
     private EncounterConstantsSO encounterConstants;
@@ -38,10 +40,20 @@ public class EnemyEncounter : Encounter
         this.enemyList = enemyEncounterSerializable.enemies.Select(enemy => new Enemy(enemy, registry)).ToList();
         this.isEliteEncounter = enemyEncounterSerializable.isEliteEncounter;
         this.encounterName = enemyEncounterSerializable.encounterName;
+        this.bonusManaReward = enemyEncounterSerializable.bonusManaReward;
+        this.bonusTeamSizeReward = enemyEncounterSerializable.bonusTeamSizeReward;
     }
 
     public void SetIsElite(bool isElite) {
         isEliteEncounter = isElite;
+    }
+
+    public void SetBonusMana(int bonusMana) {
+        this.bonusManaReward = bonusMana;
+    }
+
+    public void SetBonusTeamSize(int bonusTeamSize) {
+        this.bonusTeamSizeReward = bonusTeamSize;
     }
 
     // sorry to mess up the beautiful pattern but we gotta go fast here
@@ -157,6 +169,8 @@ public class EnemyEncounterSerializable : EncounterSerializable
     public List<EnemySerializeable> enemies;
     public bool isEliteEncounter;
     public string encounterName;
+    public int bonusManaReward = 0;
+    public int bonusTeamSizeReward = 0;
 
     public EnemyEncounterSerializable(EnemyEncounter encounter) : base(encounter)
     {
@@ -165,5 +179,7 @@ public class EnemyEncounterSerializable : EncounterSerializable
             .ToList();
         this.isEliteEncounter = encounter.isEliteEncounter;
         this.encounterName = encounter.encounterName;
+        this.bonusManaReward = encounter.bonusManaReward;
+        this.bonusTeamSizeReward = encounter.bonusTeamSizeReward;
     }
 }

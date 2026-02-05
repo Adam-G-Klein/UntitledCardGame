@@ -49,6 +49,8 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     private bool inDeckView = false;
     private bool inOptionsView = false;
     private bool isEliteCombat = false;
+    private int bonusManaReward = 0;
+    private int bonusTeamSizeReward = 0;
     public bool isBoss = false;
     private string encounterName;
 
@@ -114,6 +116,8 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         combatOver = false;
         isEliteCombat = encounter.isEliteEncounter;
         encounterName = encounter.encounterName;
+        bonusManaReward = encounter.bonusManaReward;
+        bonusTeamSizeReward = encounter.bonusTeamSizeReward;
 
         switch (encounter.act) {
             case Act.One:
@@ -248,6 +252,12 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         // Give player shop upgrade increments for defeating the enemy
         gameState.EarnUpgradeIncrement();
 
+        PlayerData pd = gameState.playerData.GetValue();
+        gameState.companions.SetCompanionSlots(pd.teamSize + bonusTeamSizeReward);
+        pd.manaPerTurn += bonusManaReward;
+        // pd.shopLevelIncrementsEarned = 0;
+        // pd.manaPerTurn = shopLevel.mana;
+
         if (onEncounterEndHandler != null)
         {
             foreach (OnEncounterEndHandler handler in onEncounterEndHandler.GetInvocationList())
@@ -293,7 +303,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         //postCombatUI.transform.SetSiblingIndex(postCombatUI.transform.parent.childCount - 1);
 
         TurnOffFocusing();// Needs to go before the next line bc this line disables existing focus, while the next line sets up more focus
-        postCombatUI.GetComponent<EndEncounterView>().Setup(baseGoldEarnedPerBattle, extraGold, gameState.baseShopData.interestCap, gameState.baseShopData.interestRate);
+        postCombatUI.GetComponent<EndEncounterView>().Setup(baseGoldEarnedPerBattle, extraGold, gameState.baseShopData.interestCap, gameState.baseShopData.interestRate, bonusManaReward, bonusTeamSizeReward);
         StartCoroutine(displayPostCombatUIAfterDelay());
 
         DialogueManager.Instance.SetDialogueLocation(gameState);

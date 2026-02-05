@@ -9,4 +9,6 @@ using UnityEngine;
 public class EnemyEncounterPoolSO: ScriptableObject {
     public List<EnemyEncounterTypeSO> enemyEncounterTypes;
     public bool isElite;
+    public int bonusManaReward = 0;
+    public int bonusTeamSizeReward = 0;
 }

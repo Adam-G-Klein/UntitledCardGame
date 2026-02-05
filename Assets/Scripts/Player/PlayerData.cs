@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class PlayerData 
+public class PlayerData
 {
     public int gold = 0;
     public int shopLevel = 0;
     public int shopLevelIncrementsEarned = 0;
     public int manaPerTurn = 3;
+    public int teamSize = 4;
     // TODO: make this a scriptableobject for things they have and haven't done
     public bool seenTutorial = false;
     public bool inTutorialRun = true;
@@ -20,9 +21,10 @@ public class PlayerData
         this.shopLevel = playerDataSerializeable.shopLevel;
         this.shopLevelIncrementsEarned = playerDataSerializeable.shopLevelIncrementsEarned;
         this.manaPerTurn = playerDataSerializeable.manaPerTurn;
+        this.teamSize = playerDataSerializeable.teamSize;
         this.seenTutorial = playerDataSerializeable.seenTutorial;
     }
-} 
+}
 
 [System.Serializable]
 public class PlayerDataSerializable {
@@ -30,6 +32,7 @@ public class PlayerDataSerializable {
     public int shopLevel;
     public int shopLevelIncrementsEarned;
     public int manaPerTurn;
+    public int teamSize;
     public bool seenTutorial;
     public bool inTutorialRun;
 
@@ -38,6 +41,7 @@ public class PlayerDataSerializable {
         this.shopLevel = playerData.shopLevel;
         this.shopLevelIncrementsEarned = playerData.shopLevelIncrementsEarned;
         this.manaPerTurn = playerData.manaPerTurn;
+        this.teamSize = playerData.teamSize;
         this.seenTutorial = playerData.seenTutorial;
         this.inTutorialRun = playerData.inTutorialRun;
     }
