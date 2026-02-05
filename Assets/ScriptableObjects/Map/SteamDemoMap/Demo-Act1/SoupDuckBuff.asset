@@ -17,7 +17,7 @@ MonoBehaviour:
   maxHealth: 12
   baseAttackDamage: 0
   enemyDisplayType: 0
-  sprite: {fileID: 21300000, guid: 2bcd09ec1f96a4a4aace6d4639d6c7eb, type: 3}
+  sprite: {fileID: 21300000, guid: 90312fe27b6b1487bbb504ceb21997ca, type: 3}
   backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
   entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
   morale: 0
@@ -25,6 +25,17 @@ MonoBehaviour:
   cacheValueConfigs: []
   enemyPattern:
     behaviors:
+    - intent: 1
+      enemyTargetMethod: 0
+      targetsKey: target
+      displayValue: 3
+      effectSteps:
+      - rid: 3931529445166809421
+      - rid: 173314522967966481
+      - rid: 3931529445166809422
+      - rid: 5633448213729509463
+      - rid: 5633448213729509464
+      - rid: 7150943289421332988
     - intent: 1
       enemyTargetMethod: 0
       targetsKey: target
@@ -49,6 +60,7 @@ MonoBehaviour:
     - title: Bite and drink soup
       description: Attack and grows stronger
       relatedBehaviorIndex: -1
+      icon: {fileID: 0}
   DEADLIER_ENEMY_BONUS_STR: -1
   HEALTHIER_ENEMY_BONUS_HEALTH: -1
   references:
@@ -104,3 +116,8 @@ MonoBehaviour:
         inputKey: self
         prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
         scale: 1
+    - rid: 7150943289421332988
+      type: {class: SpriteSwap, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: SpriteSwap
+        newSprite: {fileID: 21300000, guid: b6cf1072ed69948d59063d56e6acb117, type: 3}

@@ -17,7 +17,7 @@ MonoBehaviour:
   maxHealth: 18
   baseAttackDamage: 0
   enemyDisplayType: 0
-  sprite: {fileID: 21300000, guid: a0d9bb37e958a694fac646b3cab615ee, type: 3}
+  sprite: {fileID: 21300000, guid: 4ac8fc33a227c424c9559e23af5cf04e, type: 3}
   backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
   entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
   morale: 0
@@ -47,6 +47,7 @@ MonoBehaviour:
     - title: Bite
       description: Simple attack
       relatedBehaviorIndex: -1
+      icon: {fileID: 0}
   DEADLIER_ENEMY_BONUS_STR: -1
   HEALTHIER_ENEMY_BONUS_HEALTH: -1
   references:

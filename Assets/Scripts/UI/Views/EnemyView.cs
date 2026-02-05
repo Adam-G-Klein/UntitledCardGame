@@ -20,6 +20,9 @@ public class EnemyView : IUIEventReceiver
     private float ENEMY_RATIO = 1.15f;
 
     private Enemy enemy = null;
+    public Enemy GetEnemy() {
+        return this.enemy;
+    }
     private EnemyInstance enemyInstance = null;
     private CombatInstance combatInstance = null;
     private VisualTreeAsset template;
@@ -50,6 +53,8 @@ public class EnemyView : IUIEventReceiver
 
     private static string HEALTH_LABEL_STRING = "{0}/{1}";
 
+    private Sprite currentEnemySprite;
+
 
     public EnemyView(
         Enemy enemy,
@@ -58,6 +63,7 @@ public class EnemyView : IUIEventReceiver
         EnemyInstance enemyInstance = null)
     {
         this.enemy = enemy;
+        currentEnemySprite = enemy.enemyType.sprite;
         this.enemyInstance = enemyInstance;
         this.index = index;
         this.viewDelegate = viewDelegate;
@@ -121,8 +127,19 @@ public class EnemyView : IUIEventReceiver
 
     private void SetupSprite()
     {
-        Sprite sprite = this.enemy.enemyType.sprite;
-        this.spriteElement.style.backgroundImage = new StyleBackground(sprite);
+        this.spriteElement.style.backgroundImage = new StyleBackground(currentEnemySprite);
+    }
+
+    public void UpdateSprite(Sprite newSprite)
+    {
+        currentEnemySprite = newSprite;
+        // Force a clear then set to ensure UI Toolkit recognizes the change
+        this.spriteElement.style.backgroundImage = StyleKeyword.Null;
+        this.spriteElement.style.display = DisplayStyle.None;
+        this.spriteElement.style.backgroundImage = new StyleBackground(newSprite);
+        this.spriteElement.style.display = DisplayStyle.Flex;
+        // Mark this as dirty so it's redrawn.
+        this.spriteElement.MarkDirtyRepaint();
     }
 
     private void SetupName() {
@@ -326,7 +343,7 @@ public class EnemyView : IUIEventReceiver
 
     public void DamageScaleBump(int scale = -1)
     {
-        if (scale == 0 || this.isTweening) return; 
+        if (scale == 0 || this.isTweening) return;
 
         float duration = 0.125f;  // Total duration for the scale animation
         float minScale = .8f; // (float)Math.Min(.75, .9 - scale / 500);  // scale bump increases in intensity if entity takes more damage (haven't extensively tested this)
@@ -430,7 +447,7 @@ public class EnemyView : IUIEventReceiver
 
     public IEnumerator AbilityActivatedVFX() {
         VisualElement spriteCopy = new VisualElement();
-        spriteCopy.style.backgroundImage = new StyleBackground(this.enemy.enemyType.sprite);
+        spriteCopy.style.backgroundImage = new StyleBackground(this.currentEnemySprite);
         spriteCopy.style.width = new Length(100, LengthUnit.Percent);
         spriteCopy.style.height = new Length(100, LengthUnit.Percent);
         yield return EntityAbilityInstance.GenericAbilityTriggeredVFX(this.spriteElement, spriteCopy);

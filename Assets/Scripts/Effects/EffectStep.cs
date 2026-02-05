@@ -53,6 +53,7 @@ public enum EffectStepName
     RemoveStatus,
     SelectCardsFromList,
     SetCardEffectWorkflow,
+    SpriteSwap,
     SummonMinion,
     Taunt,
     TransmogrifyCard,
