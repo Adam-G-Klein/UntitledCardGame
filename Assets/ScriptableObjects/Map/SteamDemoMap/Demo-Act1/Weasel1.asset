@@ -1,0 +1,120 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
+  m_Name: Weasel1
+  m_EditorClassIdentifier: 
+  guid: 2e877640-0560-47f8-8d5f-ae9002076a94
+  displayName: Shifty Winslow
+  maxHealth: 15
+  baseAttackDamage: 0
+  enemyDisplayType: 0
+  sprite: {fileID: 21300000, guid: 4ac8fc33a227c424c9559e23af5cf04e, type: 3}
+  backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
+  entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
+  morale: 1
+  abilities: []
+  cacheValueConfigs: []
+  enemyPattern:
+    behaviors:
+    - intent: 3
+      enemyTargetMethod: 4
+      targetsKey: randomCompanion
+      displayValue: 0
+      effectSteps:
+      - rid: 5280922829633618019
+      - rid: 5602892723852673492
+      - rid: 5280922829633618018
+    behaviorType: 0
+  belowHalfHPEnemyPattern:
+    behaviors: []
+    behaviorType: 0
+  adaptWhenAloneEnemyPattern:
+    behaviors:
+    - intent: 1
+      enemyTargetMethod: 0
+      targetsKey: target
+      displayValue: 8
+      effectSteps:
+      - rid: 754093826381185270
+      - rid: 754093826381185271
+    behaviorType: 0
+  initialStatuses: []
+  tooltip:
+    empty: 0
+    lines:
+    - title: You can't live without it!
+      description: Puts a Stinky Cheese on top of a random rat's deck
+      relatedBehaviorIndex: -1
+      icon: {fileID: 0}
+  DEADLIER_ENEMY_BONUS_STR: -1
+  HEALTHIER_ENEMY_BONUS_HEALTH: -1
+  references:
+    version: 2
+    RefIds:
+    - rid: 754093826381185270
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: target
+        combatEffect: 0
+        scale: 8
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 6137048663962808129, guid: 92c26f41ef33c23419e05ceb12660efa, type: 3}
+    - rid: 754093826381185271
+      type: {class: ScriptableObjectEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ScriptableObjectEffectStep
+        effectStepSO: {fileID: 11400000, guid: 46ac36b880e2ff14aa699c90b6e9f19c, type: 2}
+    - rid: 5280922829633618018
+      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FXEffectStep
+        waitForEffect: 1
+        fXExperiencePrefab: {fileID: 4075960956037802917, guid: ec7b1a1529f9141458320888bf8e3d96, type: 3}
+        rootLocationGameObjectKey: 
+        positionMappingList:
+        - fromWorkflow: randomCompanion
+          toFxExperience: end
+        - fromWorkflow: self
+          toFxExperience: start
+        gameobjectMappingList: []
+        vePositionMappingList: []
+        veMappingList: []
+    - rid: 5280922829633618019
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+    - rid: 5602892723852673492
+      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: AddCardsToDeck
+        inputKey: randomCompanion
+        cardTypes:
+        - {fileID: 11400000, guid: 9714339dc814347a695896e260c24c6c, type: 2}
+        addToDeckMethod: 0
+        getCardsFromKey: 0
+        inputCardsKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 

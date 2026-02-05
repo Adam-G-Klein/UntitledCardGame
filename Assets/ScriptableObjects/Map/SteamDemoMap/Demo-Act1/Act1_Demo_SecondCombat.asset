@@ -10,8 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24f95da87f612e047aaeac10756d2ec7, type: 3}
-  m_Name: Act1_Demo_NormalEnemyPool
+  m_Name: Act1_Demo_SecondCombat
   m_EditorClassIdentifier: 
   enemyEncounterTypes:
-  - {fileID: 11400000, guid: 2547a6417ee3f4f67a1056e151e5c46b, type: 2}
+  - {fileID: 11400000, guid: 370f2652d20fb483aaee6ba8b6975fb6, type: 2}
   isElite: 0
+  bonusManaReward: 0
+  bonusTeamSizeReward: 1
