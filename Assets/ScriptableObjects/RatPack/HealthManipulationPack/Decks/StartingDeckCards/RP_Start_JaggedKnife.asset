@@ -15,6 +15,25 @@ MonoBehaviour:
   guid: 70081cd2-5c3b-4aa2-a6da-96f491157a3d
   Name: Jagged Knife
   Description: Deal {rpl_damage} damage. Lose 2 HP.
+  IconDescription:
+  - tokenType: 0
+    text: '{rpl_damage}'
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 1
+  - tokenType: 1
+    text: 
+    icon: 1
+  - tokenType: 0
+    text: 2
+    icon: 9
+  - tokenType: 2
+    text: 
+    icon: 9
+  - tokenType: 2
+    text: 
+    icon: 11
   defaultValues:
   - key: rpl_damage
     value: 6
@@ -33,6 +52,8 @@ MonoBehaviour:
   onDiscardEffectWorkflow:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
+    rid: -2
+  onDrawEffectWorkflow:
     rid: -2
   tooltips: 
   tooltipKeyword: 37
@@ -60,6 +81,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 4
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 5602892949302281048
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -71,6 +93,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 5602892949302281049
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
