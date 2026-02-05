@@ -372,6 +372,9 @@ public class GameStateVariableSO : ScriptableObject
         currentRunID = Guid.NewGuid();
         setMapGenerator(mapGeneratorSO);
         map.SetValue(mapGenerator.generateMap());
+
+        baseShopData = mapGenerator.getShopData();
+
         playerData.initialize(baseShopData);
         viewedSequences = new List<DialogueSequenceSO>();
 
