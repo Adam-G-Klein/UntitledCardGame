@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(
-    fileName = "NewEnemyTypeMapGenerator", 
+    fileName = "NewEnemyTypeMapGenerator",
     menuName = "Map/Map Generator/Enemy Type Map Generator")]
 [System.Serializable]
 public class EnemyTypeMapGeneratorSO: MapGeneratorSO {
@@ -20,5 +20,9 @@ public class EnemyTypeMapGeneratorSO: MapGeneratorSO {
         }
 
         return new Map(encounters);
+    }
+
+    public override ShopDataSO getShopData() {
+        return shopData;
     }
 }

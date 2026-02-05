@@ -50,9 +50,14 @@ public class SimpleEnemyPoolMapGeneratorSO: MapGeneratorSO {
                 SE.act = GetAct(actNumber);
                 encounters.Add(SE);
             }
+
         }
 
         return new Map(encounters);
+    }
+
+    public override ShopDataSO getShopData() {
+        return shopData;
     }
 
     private Act GetAct(int actNum) {
