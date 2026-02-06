@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: fbf7618c-85e7-4c1b-83af-a162b23c98cb
   displayName: Worker Wombat
-  maxHealth: 35
+  maxHealth: 22
   baseAttackDamage: 0
   enemyDisplayType: 0
   sprite: {fileID: 21300000, guid: 9bd71e2f3cc128d41905a6db51025fd0, type: 3}
@@ -48,8 +48,9 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Hard work pays off
-      description: Attacks and grows in strength
+      description: Chips away at the first rat and slowly powers up
       relatedBehaviorIndex: -1
+      icon: {fileID: 0}
   DEADLIER_ENEMY_BONUS_STR: -1
   HEALTHIER_ENEMY_BONUS_HEALTH: -1
   references:
@@ -71,6 +72,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 3931529445166809422
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
