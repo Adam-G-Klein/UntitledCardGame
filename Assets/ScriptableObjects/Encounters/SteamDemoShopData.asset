@@ -16,8 +16,6 @@ MonoBehaviour:
   - level: 0
     shopLevelIncrementsToUnlock: 3
     upgradeIncrementCost: 4
-    mana: 3
-    teamSize: 4
     numCardsToShow: 4
     numKeepsakesToShow: 2
     commonCompanionPercentage: 85
@@ -28,6 +26,7 @@ MonoBehaviour:
     rareCardPercentage: 0
     ratBonusHealth: 0
     cardRemovalDiscount: 0
+    numCardRemovalsAllowed: 2
     numLessCardsInStartingDeck: 0
     upgradeTooltip:
       empty: 0
@@ -39,8 +38,6 @@ MonoBehaviour:
   - level: 1
     shopLevelIncrementsToUnlock: 3
     upgradeIncrementCost: 4
-    mana: 3
-    teamSize: 4
     numCardsToShow: 4
     numKeepsakesToShow: 2
     commonCompanionPercentage: 55
@@ -51,6 +48,7 @@ MonoBehaviour:
     rareCardPercentage: 5
     ratBonusHealth: 5
     cardRemovalDiscount: 0
+    numCardRemovalsAllowed: 1
     numLessCardsInStartingDeck: 1
     upgradeTooltip:
       empty: 0
@@ -62,8 +60,6 @@ MonoBehaviour:
   - level: 2
     shopLevelIncrementsToUnlock: 1000
     upgradeIncrementCost: 5
-    mana: 3
-    teamSize: 4
     numCardsToShow: 4
     numKeepsakesToShow: 3
     commonCompanionPercentage: 40
@@ -74,6 +70,7 @@ MonoBehaviour:
     rareCardPercentage: 20
     ratBonusHealth: 10
     cardRemovalDiscount: 3
+    numCardRemovalsAllowed: 3
     numLessCardsInStartingDeck: 1
     upgradeTooltip:
       empty: 0
@@ -99,6 +96,7 @@ MonoBehaviour:
   rerollShopPrice: 2
   incrementalRerollPriceIncrease: 0.5
   cardRemovalPrice: 5
+  cardRemovalPriceIncrease: 4
   shopEncounterEvent: {fileID: 11400000, guid: d82ee33fc33d20544bce205c53a0832e, type: 2}
   commonCardPrice: 1
   uncommonCardPrice: 2

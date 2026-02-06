@@ -19,6 +19,7 @@ public class ShopDataSO : ScriptableObject
     public int rerollShopPrice;
     public float incrementalRerollPriceIncrease = 1f;
     public int cardRemovalPrice;
+    public int cardRemovalPriceIncrease = 4;
     public ShopEncounterEvent shopEncounterEvent;
 
     public int commonCardPrice = 1;
@@ -75,10 +76,12 @@ public class ShopDataSO : ScriptableObject
         return shopLevels[0];
     }
 
-    public int GetCardRemovalPrice(int level)
+    public int GetCardRemovalPrice(int level, int timesCardRemovedThisShop)
     {
         ShopLevel shopLevel = GetShopLevel(level);
-        return Math.Max(0, cardRemovalPrice - shopLevel.cardRemovalDiscount);
+        int cardRemovalPrice = this.cardRemovalPrice - shopLevel.cardRemovalDiscount;
+        cardRemovalPrice += timesCardRemovedThisShop * cardRemovalPriceIncrease; // Each subsequent removal in the same shop costs more
+        return Math.Max(0, cardRemovalPrice);
     }
 }
 
@@ -88,8 +91,6 @@ public class ShopLevel {
     public int level;
     public int shopLevelIncrementsToUnlock;
     public int upgradeIncrementCost;
-    public int mana;
-    public int teamSize;
     public int numCardsToShow;
     public int numKeepsakesToShow;
 
@@ -106,6 +107,7 @@ public class ShopLevel {
     [Header("Unique bonuses")]
     public int ratBonusHealth;
     public int cardRemovalDiscount;
+    public int numCardRemovalsAllowed = 1;
     public int numLessCardsInStartingDeck;
 
     [Space(10)]

@@ -1275,7 +1275,7 @@ public class ShopViewController : MonoBehaviour,
 
 
     public void CardRemoved() {
-        cardRemovalButton.SetEnabled(false);
+        // cardRemovalButton.SetEnabled(false);
         MusicController.Instance.PlaySFX("event:/SFX/SFX_CardRemoval");
         StartCoroutine(ShowGenericNotification("Card Removed!"));
         StopRemovingCard();
@@ -1345,6 +1345,17 @@ public class ShopViewController : MonoBehaviour,
     public void SetShopCardRemovalPrice(int amount) {
         cardRemovalPriceLabel.text = "$" + amount.ToString();
     }
+
+    public void DisableCardRemovalButton()
+    {
+        cardRemovalButton.SetEnabled(false);
+    }
+
+    public void EnableCardRemovalButton()
+    {
+        cardRemovalButton.SetEnabled(true);
+    }
+
 
     public void DisableUpgradeButton()
     {

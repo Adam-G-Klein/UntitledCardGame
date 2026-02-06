@@ -340,7 +340,7 @@ public class GameStateVariableSO : ScriptableObject
     public void KillPlayer() {
         Debug.Log("killing player");
         playerData.respawn(baseShopData);
-        companions.respawn(numSlots: baseShopData.shopLevels[0].teamSize);
+        companions.respawn(numSlots: playerData.GetValue().teamSize);
         map.SetValue(mapGenerator.generateMap());
         SetLocation(Location.WAKE_UP_ROOM);
         LoadCurrentLocationScene();
