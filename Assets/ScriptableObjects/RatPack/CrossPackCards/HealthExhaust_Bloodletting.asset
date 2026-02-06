@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: HealthExhaust_Theranoose
+  m_Name: HealthExhaust_Bloodletting
   m_EditorClassIdentifier: 
   guid: d7a05ee9-f205-4c2a-b95f-0ca77fda0fdd
-  Name: Theranoose
+  Name: Bloodletting
   Description: Bleed any 1 HP for each card in own deck ({allCards} cards) & give
-    any 13 block
+    any 8 block
   IconDescription: []
   defaultValues:
   - key: allCards
@@ -121,6 +121,8 @@ MonoBehaviour:
         filter:
           cardCategoriesToInclude: 
           retainedCardsFilter: 0
+          manaCostFilter: 0
+          manaCost: 0
           exactCardType: {fileID: 0}
         includeDrawPile: 1
         includeDiscardPile: 1
