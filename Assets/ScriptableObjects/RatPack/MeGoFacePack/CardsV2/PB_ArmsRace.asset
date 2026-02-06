@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: cfacdffc-026b-481b-9235-22f83cf4a90e
   Name: Arms Race
-  Description: Gain 1 strength. Create a Dagger in hand for a random rat for each
-    strength self has
+  Description: Exhaust. Gain 1 strength. Create a Dagger in hand for a random rat
+    for each strength self has
   IconDescription: []
   defaultValues: []
   Cost: 1
@@ -24,7 +24,7 @@ MonoBehaviour:
   packFrom: {fileID: 0}
   vfxPrefab: {fileID: 0}
   playable: 1
-  exhaustsWhenPlayed: 0
+  exhaustsWhenPlayed: 1
   retain: 0
   effectWorkflows:
   - rid: 5602892723852673313
