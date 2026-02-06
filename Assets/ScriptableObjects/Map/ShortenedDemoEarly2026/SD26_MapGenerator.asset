@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91f1eda0703df25428929ed3086994ce, type: 3}
+  m_Name: SD26_MapGenerator
+  m_EditorClassIdentifier: 
+  enemyEncounterPools:
+  - {fileID: 11400000, guid: 2a0367f0701a39c4ba9b4c3c66e5a78e, type: 2}
+  - {fileID: 11400000, guid: 73d3633c40a1c1946bb0af19a8251e43, type: 2}
+  - {fileID: 11400000, guid: b0703b279ed15e24c9214a0f53cd7e3b, type: 2}
+  - {fileID: 11400000, guid: 229c2a54c73aa48458f591ffa7e25a59, type: 2}
+  shopData: {fileID: 11400000, guid: 683d8c1c96c655b448f5db17d6831be8, type: 2}

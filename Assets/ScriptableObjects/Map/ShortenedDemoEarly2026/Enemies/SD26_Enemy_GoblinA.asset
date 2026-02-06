@@ -1,0 +1,85 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
+  m_Name: SD26_Enemy_GoblinA
+  m_EditorClassIdentifier: 
+  guid: 223261d9-567c-4a6a-bd9a-4aff3375fa2c
+  displayName: Angriff Goblin
+  maxHealth: 20
+  baseAttackDamage: 0
+  enemyDisplayType: 0
+  sprite: {fileID: -2013906114, guid: 52ef76537258f7d43a3a9dc144329c2f, type: 3}
+  backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
+  entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
+  morale: 0
+  abilities: []
+  cacheValueConfigs: []
+  enemyPattern:
+    behaviors:
+    - intent: 1
+      enemyTargetMethod: 0
+      targetsKey: target
+      displayValue: 6
+      effectSteps:
+      - rid: 3931529445166809421
+      - rid: 173314522967966403
+      - rid: 3931529445166809422
+    behaviorType: 0
+  belowHalfHPEnemyPattern:
+    behaviors: []
+    behaviorType: 0
+  adaptWhenAloneEnemyPattern:
+    behaviors: []
+    behaviorType: 0
+  initialStatuses: []
+  tooltip:
+    empty: 0
+    lines:
+    - title: Goblin Might
+      description: Small but mighty attack
+      relatedBehaviorIndex: -1
+      icon: {fileID: 0}
+  DEADLIER_ENEMY_BONUS_STR: -1
+  HEALTHIER_ENEMY_BONUS_HEALTH: -1
+  references:
+    version: 2
+    RefIds:
+    - rid: 173314522967966403
+      type: {class: ScriptableObjectEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ScriptableObjectEffectStep
+        effectStepSO: {fileID: 11400000, guid: 46ac36b880e2ff14aa699c90b6e9f19c, type: 2}
+    - rid: 3931529445166809421
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+    - rid: 3931529445166809422
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: target
+        combatEffect: 0
+        scale: 6
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 0}

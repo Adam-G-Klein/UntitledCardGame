@@ -23,9 +23,17 @@ public class CompanionListVariableEditor : Editor {
         
         if (GUILayout.Button("Add Companion")) {
             if (companionType != null)
+            {
+                if(companionListVariable.activeCompanions == null)
+                {
+                    companionListVariable.activeCompanions = new List<Companion>();
+                }
                 companionListVariable.activeCompanions.Add(new Companion(companionType));
+            }
             else
+            {
                 Debug.LogWarning("Must set companion type first!");
+            }
             
             // These three calls cause the asset to actually be modified
             // on disc when we hit the button

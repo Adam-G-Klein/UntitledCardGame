@@ -1,0 +1,145 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e34d394278f1a1d49b4df179ce5c1804, type: 3}
+  m_Name: SD26_ShopData
+  m_EditorClassIdentifier: 
+  shopLevels:
+  - level: 0
+    shopLevelIncrementsToUnlock: 7
+    upgradeIncrementCost: 2
+    mana: 3
+    teamSize: 3
+    numCardsToShow: 3
+    numKeepsakesToShow: 2
+    commonCompanionPercentage: 100
+    uncommonCompanionPercentage: 0
+    rareCompanionPercentage: 0
+    commonCardPercentage: 95
+    uncommonCardPercentage: 5
+    rareCardPercentage: 0
+    ratBonusHealth: 0
+    cardRemovalDiscount: 0
+    numLessCardsInStartingDeck: 0
+    upgradeTooltip:
+      empty: 0
+      lines:
+      - title: Upgrade to Level 2
+        description: +1 team size, increase shop rarity
+        relatedBehaviorIndex: 0
+        icon: {fileID: 0}
+  - level: 1
+    shopLevelIncrementsToUnlock: 10
+    upgradeIncrementCost: 3
+    mana: 3
+    teamSize: 4
+    numCardsToShow: 4
+    numKeepsakesToShow: 2
+    commonCompanionPercentage: 65
+    uncommonCompanionPercentage: 33
+    rareCompanionPercentage: 2
+    commonCardPercentage: 79
+    uncommonCardPercentage: 20
+    rareCardPercentage: 1
+    ratBonusHealth: 0
+    cardRemovalDiscount: 0
+    numLessCardsInStartingDeck: 0
+    upgradeTooltip:
+      empty: 0
+      lines:
+      - title: Upgrade to Level 3
+        description: +1 team size, increase shop rarity
+        relatedBehaviorIndex: 0
+        icon: {fileID: 0}
+  - level: 2
+    shopLevelIncrementsToUnlock: 10
+    upgradeIncrementCost: 4
+    mana: 3
+    teamSize: 5
+    numCardsToShow: 4
+    numKeepsakesToShow: 2
+    commonCompanionPercentage: 40
+    uncommonCompanionPercentage: 50
+    rareCompanionPercentage: 10
+    commonCardPercentage: 70
+    uncommonCardPercentage: 20
+    rareCardPercentage: 10
+    ratBonusHealth: 0
+    cardRemovalDiscount: 0
+    numLessCardsInStartingDeck: 0
+    upgradeTooltip:
+      empty: 0
+      lines:
+      - title: Upgrade to Level 4
+        description: +1 mana, increase shop rarity
+        relatedBehaviorIndex: 0
+        icon: {fileID: 0}
+  - level: 3
+    shopLevelIncrementsToUnlock: 1000
+    upgradeIncrementCost: 5
+    mana: 4
+    teamSize: 5
+    numCardsToShow: 4
+    numKeepsakesToShow: 3
+    commonCompanionPercentage: 30
+    uncommonCompanionPercentage: 40
+    rareCompanionPercentage: 30
+    commonCardPercentage: 50
+    uncommonCardPercentage: 30
+    rareCardPercentage: 20
+    ratBonusHealth: 0
+    cardRemovalDiscount: 0
+    numLessCardsInStartingDeck: 0
+    upgradeTooltip:
+      empty: 0
+      lines: []
+  companionPool: {fileID: 11400000, guid: 48c7b3405cbcdcc4da342fd49d591dba, type: 2}
+  activePacks:
+  - {fileID: 11400000, guid: 5f4300e0913784f05aeff0dd086d4338, type: 2}
+  - {fileID: 11400000, guid: a87b5da767d4e4659b2965e31e340c58, type: 2}
+  - {fileID: 11400000, guid: 79e479ca9df7a4369ba7fa951e0af116, type: 2}
+  - {fileID: 11400000, guid: 908f28c6f48104c2d85d2fcbd973771e, type: 2}
+  activeCrossPackCardPools:
+  - {fileID: 11400000, guid: ac36f55decb0640ae805ffb12d2befe3, type: 2}
+  - {fileID: 11400000, guid: 198251f0df72247e2911d76a13c21b77, type: 2}
+  - {fileID: 11400000, guid: cb8efd0c3b35242a997e0aafd29bcf54, type: 2}
+  - {fileID: 11400000, guid: d879e7a2e4baa4d75b60c4fb9036d8b8, type: 2}
+  - {fileID: 11400000, guid: 26369d0dc1d05432a839472c533758d6, type: 2}
+  - {fileID: 11400000, guid: 5aefd8f6f1df342b790d9df241852ea2, type: 2}
+  - {fileID: 11400000, guid: f813148dcba294a689b467f250bc75e1, type: 2}
+  - {fileID: 11400000, guid: 15f9e8ab8ae0a47d485a691a2d336c7d, type: 2}
+  - {fileID: 11400000, guid: 24e688fb9bddd43af988a311dd8879b2, type: 2}
+  - {fileID: 11400000, guid: 968e08e64774045e88eb7ebba74c9113, type: 2}
+  rerollShopPrice: 2
+  cardRemovalPrice: 6
+  shopEncounterEvent: {fileID: 11400000, guid: d82ee33fc33d20544bce205c53a0832e, type: 2}
+  commonCardPrice: 1
+  uncommonCardPrice: 2
+  rareCardPrice: 3
+  companionKeepsakePrice: 3
+  numKeepsakeCopies: 15
+  startingGold: 100
+  companionTypeCardPoolPct: 35
+  packCardPoolPct: 35
+  neutralCardPoolPct: 10
+  crossPackCardPoolPct: 10
+  goldEarnedPerBattle: 10
+  interestRate: 0.5
+  interestCap: 10
+  neutralCardPool: {fileID: 11400000, guid: f16e9cd7d69314290ae5bed1edae4ce0, type: 2}
+  numCompanionsSellFactor: 1.5
+  numCardsBoughtSellFactor: 1
+  numCardsRemovedSellFactor: 2
+  baseCardsToRemoveOnUpgrade:
+  - {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
+  - {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
+  benchHealingAmount: 10
+  postEliteHealingAmount: 5
