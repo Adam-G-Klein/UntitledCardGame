@@ -9,6 +9,8 @@ using UnityEngine;
 public class EnemyEncounterPoolSO: ScriptableObject {
     public List<EnemyEncounterTypeSO> enemyEncounterTypes;
     public bool isElite;
+    [Header("Whether to increase the act number after this encounter.")]
+    public bool incActNumber = false;
     public int bonusManaReward = 0;
     public int bonusTeamSizeReward = 0;
 }
