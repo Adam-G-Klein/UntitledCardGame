@@ -15,12 +15,29 @@ MonoBehaviour:
   guid: a83a4578-7255-4676-82a9-1f98a27ee17f
   Name: Pew Pew
   Description: Discard a card in hand and deal {rpl_damage} damage at random
+  IconDescription:
+  - tokenType: 2
+    text: 
+    icon: 13
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 0
+    text: '{rpl_damage}'
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 1
+  - tokenType: 2
+    text: 
+    icon: 4
   defaultValues:
   - key: rpl_damage
     value: 6
   Cost: 1
   Artwork: {fileID: 21300000, guid: e8c1b164e48b3ed4ea21cc0ef5d14b1a, type: 3}
   cardCategory: 1
+  packFrom: {fileID: 0}
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
@@ -33,7 +50,10 @@ MonoBehaviour:
     rid: 2034230108114649711
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
+  onDrawEffectWorkflow:
+    rid: -2
   tooltips: 
+  tooltipKeyword: 37
   references:
     version: 2
     RefIds:
@@ -60,6 +80,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 6
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 5602892563578094203
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -92,3 +113,4 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 5
         cantCancelTargetting: 0
+        cardSelectionHelperText: 

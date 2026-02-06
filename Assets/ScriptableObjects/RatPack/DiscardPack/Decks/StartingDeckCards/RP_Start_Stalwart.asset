@@ -15,6 +15,31 @@ MonoBehaviour:
   guid: 0a47eb48-1b86-4d01-8892-d6245eccfacd
   Name: Stalwart
   Description: Give any 5 block. When discarded, give leftmost rat 2 block
+  IconDescription:
+  - tokenType: 0
+    text: 5
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 2
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 15
+  - tokenType: 0
+    text: ':'
+    icon: 0
+  - tokenType: 0
+    text: 2
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 2
+  - tokenType: 2
+    text: 
+    icon: 6
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: c0e53d043957bac4c8fb2528ecd0a1b9, type: 3}
