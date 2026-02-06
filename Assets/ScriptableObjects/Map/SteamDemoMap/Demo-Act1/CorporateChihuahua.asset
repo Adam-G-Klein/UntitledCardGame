@@ -1,0 +1,129 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
+  m_Name: CorporateChihuahua
+  m_EditorClassIdentifier: 
+  guid: e41211b0-7cf9-4742-880a-b286b7e279ff
+  displayName: Mr. Huahua
+  maxHealth: 15
+  baseAttackDamage: 0
+  enemyDisplayType: 0
+  sprite: {fileID: 21300000, guid: 34a3a74b7458048f4b606cabcfba9b36, type: 3}
+  backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
+  entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
+  morale: 1
+  abilities: []
+  cacheValueConfigs: []
+  enemyPattern:
+    behaviors:
+    - intent: 2
+      enemyTargetMethod: 6
+      targetsKey: 
+      displayValue: 0
+      effectSteps:
+      - rid: 4463205916933357946
+      - rid: 7150943289421333083
+      - rid: 4463205916933357947
+      - rid: 5280922829633618020
+      - rid: 7150943289421333084
+    behaviorType: 0
+  belowHalfHPEnemyPattern:
+    behaviors: []
+    behaviorType: 0
+  adaptWhenAloneEnemyPattern:
+    behaviors:
+    - intent: 0
+      enemyTargetMethod: 0
+      targetsKey: 
+      displayValue: 10
+      effectSteps:
+      - rid: 2034229587402555939
+      - rid: 8034949815888773155
+    behaviorType: 0
+  initialStatuses: []
+  tooltip:
+    empty: 0
+    lines:
+    - title: Best in the Business
+      description: Good corporate defense lawyers never rest. Gives block to a random
+        ally.
+      relatedBehaviorIndex: 0
+      icon: {fileID: 0}
+  DEADLIER_ENEMY_BONUS_STR: -1
+  HEALTHIER_ENEMY_BONUS_HEALTH: -1
+  references:
+    version: 2
+    RefIds:
+    - rid: 2034229587402555939
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: target
+        combatEffect: 0
+        scale: 10
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 6137048663962808129, guid: 418a03ccd75ca98409952e0384c196fd, type: 3}
+    - rid: 4463205916933357946
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: enemies
+        validTargets: 02000000
+        number: 1
+        specialTargetRule: 2
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+    - rid: 4463205916933357947
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: out
+        statusEffect: 2
+        scale: 5
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+    - rid: 5280922829633618020
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: out
+        prefabToInstantiate: {fileID: 98836261379580132, guid: 2966b1c84e69765449eba50d57d74158, type: 3}
+        scale: 1
+    - rid: 7150943289421333083
+      type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetRandomItems
+        inputKey: enemies
+        scale: 1
+        scaleKey: 
+        getScaleFromKey: 0
+        outputKey: out
+        withReplacement: 0
+    - rid: 7150943289421333084
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+    - rid: 8034949815888773155
+      type: {class: ScriptableObjectEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ScriptableObjectEffectStep
+        effectStepSO: {fileID: 11400000, guid: 46ac36b880e2ff14aa699c90b6e9f19c, type: 2}
