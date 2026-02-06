@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98c54fe17bbfaba4697c85c1618843f4, type: 3}
   m_Name: HealthAttack_CardPool
   m_EditorClassIdentifier: 
-  commonCards: []
+  commonCards:
+  - {fileID: 11400000, guid: 1f3ae0572dd074fe0a86cf0fd9952288, type: 2}
   uncommonCards:
   - {fileID: 11400000, guid: 84a91b5aceca24a62a8d5ccf65fb7066, type: 2}
   rareCards:
