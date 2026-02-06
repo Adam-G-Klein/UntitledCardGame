@@ -121,10 +121,10 @@ MonoBehaviour:
       data:
         effectStepName: GetCardsFromDeck
         inputKey: target
-        getLimitedNumber: 0
+        getLimitedNumber: 1
         numberOfCardsToGet: 1
         shuffleIfEmpty: 0
-        outputKey: topCard
+        outputKey: nextTopCard
         getAllCardsFromEntities: 0
         getCardsFromSourceDeck: 0
         getAllFromOnlyDrawPile: 0
@@ -132,7 +132,7 @@ MonoBehaviour:
       type: {class: FilterCards, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: FilterCards
-        inputKey: topCard
+        inputKey: nextTopCard
         filter:
           cardCategoriesToInclude: 04000000
           retainedCardsFilter: 0

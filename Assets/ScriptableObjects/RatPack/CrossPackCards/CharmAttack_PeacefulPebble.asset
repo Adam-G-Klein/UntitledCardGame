@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 85b7133f-1f8e-4d6e-84bf-808c97e997e2
   Name: Peaceful Pebble
-  Description: Unplayable. End of turn, give self 2 block for each Attack card in
+  Description: Unplayable. End of turn, give self 3 block for each Attack card in
     hand ({numCards} cards)
   IconDescription: []
   defaultValues:
@@ -79,6 +79,8 @@ MonoBehaviour:
         filter:
           cardCategoriesToInclude: 01000000
           retainedCardsFilter: 0
+          manaCostFilter: 0
+          manaCost: 0
           exactCardType: {fileID: 0}
         outputKey: attacks
     - rid: 7082891692335694190
@@ -105,7 +107,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: self
         statusEffect: 2
-        scale: 2
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0

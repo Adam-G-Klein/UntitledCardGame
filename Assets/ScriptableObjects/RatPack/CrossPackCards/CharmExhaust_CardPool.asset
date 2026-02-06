@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98c54fe17bbfaba4697c85c1618843f4, type: 3}
   m_Name: CharmExhaust_CardPool
   m_EditorClassIdentifier: 
-  commonCards: []
+  commonCards:
+  - {fileID: 11400000, guid: 4393b1810d1d7422698a423b70296bee, type: 2}
   uncommonCards:
   - {fileID: 11400000, guid: ae59976bcda1443a699148381e4474b7, type: 2}
-  - {fileID: 11400000, guid: 4393b1810d1d7422698a423b70296bee, type: 2}
   rareCards: []
   genericCardIconSprite: {fileID: 0}
   unlockableCommonCards: []
