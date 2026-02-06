@@ -479,17 +479,17 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     {
         // Default to increasing the reroll cost by 1 each time.
         var baseIncrease = 0;
-        var incIncrease = 1;
+        float incIncrease = shopEncounter.shopData.incrementalRerollPriceIncrease;
 
         if (ProgressManager.Instance.IsFeatureEnabled(AscensionType.COSTLY_REROLLS))
         {
             baseIncrease = (int) ProgressManager.Instance.GetAscensionSO(AscensionType.COSTLY_REROLLS).
                 ascensionModificationValues.GetValueOrDefault("baseCostIncrease", 0f);
-            incIncrease = (int) ProgressManager.Instance.GetAscensionSO(AscensionType.COSTLY_REROLLS).
+            incIncrease = ProgressManager.Instance.GetAscensionSO(AscensionType.COSTLY_REROLLS).
                 ascensionModificationValues.GetValueOrDefault("incrementalCostIncrease", 1f);
         }
 
-        return shopEncounter.shopData.rerollShopPrice + baseIncrease + incIncrease * timesRerolledThisShop;
+        return shopEncounter.shopData.rerollShopPrice + baseIncrease + (int)Math.Floor(incIncrease * timesRerolledThisShop);
     }
 
     private void rerollShop()

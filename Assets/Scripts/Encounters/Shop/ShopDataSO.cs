@@ -17,6 +17,7 @@ public class ShopDataSO : ScriptableObject
     public List<CrossPackCardPoolSO> activeCrossPackCardPools;
 
     public int rerollShopPrice;
+    public float incrementalRerollPriceIncrease = 1f;
     public int cardRemovalPrice;
     public ShopEncounterEvent shopEncounterEvent;
 
