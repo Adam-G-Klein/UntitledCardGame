@@ -15,6 +15,22 @@ MonoBehaviour:
   guid: 3f1a39a4-06f1-4493-9878-91dc193f851f
   Name: Reckless Blow
   Description: Bleed any 3 HP & deal {rpl_damage} damage
+  IconDescription:
+  - tokenType: 0
+    text: 3
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 9
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 0
+    text: '{rpl_damage}'
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 1
   defaultValues:
   - key: rpl_damage
     value: 13
