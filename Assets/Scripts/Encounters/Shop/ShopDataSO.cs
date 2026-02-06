@@ -38,6 +38,7 @@ public class ShopDataSO : ScriptableObject
     public int packCardPoolPct;
     public int neutralCardPoolPct;
     public int crossPackCardPoolPct;
+    public bool alwaysShowUnlockedCards = false;
 
     [Header("Earning post combat")]
     public int goldEarnedPerBattle;

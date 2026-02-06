@@ -139,9 +139,9 @@ public class ShopCardProbabilityDistBuilder {
         CardSource cardSource
     ) {
         List<CardWithWeight> cards = new();
-        List<CardType> commonPool = pool.AllUnlockedCommonCards(ProgressManager.Instance.progressSO.unlockedCards, true);
-        List<CardType> uncommonPool = pool.AllUnlockedUncommonCards(ProgressManager.Instance.progressSO.unlockedCards, true);
-        List<CardType> rarePool = pool.AllUnlockedRareCards(ProgressManager.Instance.progressSO.unlockedCards, true);
+        List<CardType> commonPool = pool.AllUnlockedCommonCards(ProgressManager.Instance.progressSO.unlockedCards, shopData.alwaysShowUnlockedCards);
+        List<CardType> uncommonPool = pool.AllUnlockedUncommonCards(ProgressManager.Instance.progressSO.unlockedCards, shopData.alwaysShowUnlockedCards);
+        List<CardType> rarePool = pool.AllUnlockedRareCards(ProgressManager.Instance.progressSO.unlockedCards, shopData.alwaysShowUnlockedCards);
         foreach (CardType card in commonPool) {
             CardInShopWithPrice c = new CardInShopWithPrice(card, shopData.commonCardPrice, dude, pool, Card.CardRarity.COMMON, packSO);
             cards.Add(new CardWithWeight(c, 1f, c.rarity, cardSource));
