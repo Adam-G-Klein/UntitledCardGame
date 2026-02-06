@@ -41,7 +41,7 @@ public class SimpleEnemyPoolMapGeneratorSO: MapGeneratorSO {
             EE.SetIsElite(pool.isElite);
             EE.SetBonusMana(pool.bonusManaReward);
             EE.SetBonusTeamSize(pool.bonusTeamSizeReward);
-            if (pool.isElite) {
+            if (pool.isElite || pool.incActNumber) {
                 actNumber += 1;
             }
             encounters.Add(EE);
