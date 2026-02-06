@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shopLevels:
   - level: 0
-    shopLevelIncrementsToUnlock: 5
-    upgradeIncrementCost: 5
+    shopLevelIncrementsToUnlock: 4
+    upgradeIncrementCost: 3
     mana: 3
     teamSize: 4
     numCardsToShow: 4
@@ -37,18 +37,18 @@ MonoBehaviour:
         relatedBehaviorIndex: 0
         icon: {fileID: 0}
   - level: 1
-    shopLevelIncrementsToUnlock: 5
-    upgradeIncrementCost: 5
+    shopLevelIncrementsToUnlock: 4
+    upgradeIncrementCost: 4
     mana: 3
     teamSize: 4
     numCardsToShow: 4
     numKeepsakesToShow: 2
-    commonCompanionPercentage: 60
+    commonCompanionPercentage: 55
     uncommonCompanionPercentage: 35
-    rareCompanionPercentage: 5
-    commonCardPercentage: 70
+    rareCompanionPercentage: 10
+    commonCardPercentage: 65
     uncommonCardPercentage: 27
-    rareCardPercentage: 3
+    rareCardPercentage: 8
     ratBonusHealth: 5
     cardRemovalDiscount: 0
     numLessCardsInStartingDeck: 1
@@ -69,9 +69,9 @@ MonoBehaviour:
     commonCompanionPercentage: 50
     uncommonCompanionPercentage: 35
     rareCompanionPercentage: 15
-    commonCardPercentage: 60
-    uncommonCardPercentage: 30
-    rareCardPercentage: 10
+    commonCardPercentage: 50
+    uncommonCardPercentage: 35
+    rareCardPercentage: 16
     ratBonusHealth: 10
     cardRemovalDiscount: 3
     numLessCardsInStartingDeck: 1
@@ -97,6 +97,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 24e688fb9bddd43af988a311dd8879b2, type: 2}
   - {fileID: 11400000, guid: 968e08e64774045e88eb7ebba74c9113, type: 2}
   rerollShopPrice: 2
+  incrementalRerollPriceIncrease: 0.5
   cardRemovalPrice: 6
   shopEncounterEvent: {fileID: 11400000, guid: d82ee33fc33d20544bce205c53a0832e, type: 2}
   commonCardPrice: 1
@@ -104,13 +105,13 @@ MonoBehaviour:
   rareCardPrice: 3
   companionKeepsakePrice: 3
   numKeepsakeCopies: 15
-  startingGold: 3
+  startingGold: 0
   companionTypeCardPoolPct: 30
   packCardPoolPct: 40
   neutralCardPoolPct: 10
   crossPackCardPoolPct: 10
-  goldEarnedPerBattle: 20
-  interestRate: 1
+  goldEarnedPerBattle: 25
+  interestRate: 0.5
   interestCap: 10
   neutralCardPool: {fileID: 11400000, guid: f16e9cd7d69314290ae5bed1edae4ce0, type: 2}
   numCompanionsSellFactor: 1.5
