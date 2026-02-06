@@ -15,10 +15,27 @@ MonoBehaviour:
   guid: ef7877f2-5332-4414-849b-bce3c0182839
   Name: Investigate
   Description: Draw 1 card from random x2, then discard 1 card
+  IconDescription:
+  - tokenType: 2
+    text: 
+    icon: 3
+  - tokenType: 2
+    text: 
+    icon: 3
+  - tokenType: 2
+    text: 
+    icon: 4
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 13
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 04a1d976953825d4db586e6147348356, type: 3}
   cardCategory: 2
+  packFrom: {fileID: 0}
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
@@ -31,7 +48,10 @@ MonoBehaviour:
     rid: 2034230108114649711
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
+  onDrawEffectWorkflow:
+    rid: -2
   tooltips: 
+  tooltipKeyword: 37
   references:
     version: 2
     RefIds:
@@ -62,6 +82,7 @@ MonoBehaviour:
         number: 2
         specialTargetRule: 1
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 7401433308100034873
       type: {class: DrawCards, ns: , asm: Assembly-CSharp}
       data:
@@ -82,6 +103,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 5
         cantCancelTargetting: 1
+        cardSelectionHelperText: 
     - rid: 7401433308100034876
       type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
       data:
@@ -101,4 +123,7 @@ MonoBehaviour:
         effectStepName: GetRandomItems
         inputKey: all
         scale: 2
+        scaleKey: 
+        getScaleFromKey: 0
         outputKey: target
+        withReplacement: 0
