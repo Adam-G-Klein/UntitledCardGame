@@ -26,7 +26,7 @@ MonoBehaviour:
     rareCardPercentage: 0
     ratBonusHealth: 0
     cardRemovalDiscount: 0
-    numCardRemovalsAllowed: 2
+    numCardRemovalsAllowed: 1
     numLessCardsInStartingDeck: 0
     upgradeTooltip:
       empty: 0
@@ -54,7 +54,7 @@ MonoBehaviour:
       empty: 0
       lines:
       - title: Upgrade to Level 3
-        description: Increase shop rarity, bonus max HP, better card removal
+        description: Increase shop rarity, bonus max HP, more and cheaper card removals
         relatedBehaviorIndex: 0
         icon: {fileID: 0}
   - level: 2
