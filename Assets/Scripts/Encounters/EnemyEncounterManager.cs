@@ -361,8 +361,14 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     private IEnumerator displayPostCombatUIAfterDelay()
     {
         yield return new WaitForSeconds(endCombatScreenDelay);
-        postCombatUI.GetComponent<EndEncounterView>().Show();
-        //MusicController.Instance.PlaySFX("event:/SFX/SFX_EarnMoney");
+        EndEncounterView endEncounterView = postCombatUI.GetComponent<EndEncounterView>();
+        if (gameState.buildType == BuildType.DEMO && !DemoDirector.Instance.IsStepCompleted(DemoStepName.MoreRewardsThanUsual)) {
+            endEncounterView.Show(true);
+            yield return new WaitForSeconds(0.5f);
+            yield return DemoDirector.Instance.InvokeDemoStepCorouutine(DemoStepName.MoreRewardsThanUsual);
+            endEncounterView.EnableNextButton();
+        }
+        else endEncounterView.Show();
     }
     private IEnumerator displayVictoryUIAfterDelay() {
         yield return new WaitForSeconds(endCombatScreenDelay);

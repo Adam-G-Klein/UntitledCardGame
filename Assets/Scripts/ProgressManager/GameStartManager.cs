@@ -11,6 +11,7 @@ public class GameStartManager : GenericSingleton<GameStartManager>
     public void Start()
     {
         StartCoroutine(WaitForSaveManagerAndStart());
+        DemoDirector.Instance.Reset();
     }
 
     private IEnumerator WaitForSaveManagerAndStart()

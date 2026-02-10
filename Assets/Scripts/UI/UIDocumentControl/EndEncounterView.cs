@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -60,7 +61,7 @@ public class EndEncounterView : MonoBehaviour
         // add the above back in if we need modularity in interest cap/percent
     }
 
-    public void Show() {
+    public void Show(bool keepButtonDisabled = false) {
         nextSceneButton.SetEnabled(false);
         // Ensure the initial alpha is set to 0 before starting the fade-in
         canvasGroup.blocksRaycasts = true;
@@ -73,10 +74,17 @@ public class EndEncounterView : MonoBehaviour
             })
             .setOnComplete(() => {
                 StartCoroutine(AnimateText());
+                if (keepButtonDisabled) return;
                 nextSceneButton.SetEnabled(true);
                 FocusManager.Instance.EnableFocusableTarget(nextSceneButton.AsFocusable());
                 FocusManager.Instance.SetFocus(nextSceneButton.AsFocusable());
             });
+    }
+
+    public void EnableNextButton() {
+        nextSceneButton.SetEnabled(true);
+        FocusManager.Instance.EnableFocusableTarget(nextSceneButton.AsFocusable());
+        FocusManager.Instance.SetFocus(nextSceneButton.AsFocusable());
     }
 
     private IEnumerator AnimateText()

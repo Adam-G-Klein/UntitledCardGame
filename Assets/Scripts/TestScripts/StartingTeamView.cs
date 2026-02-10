@@ -1,11 +1,8 @@
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
-using System;
-using UnityEditor;
-using Unity.VisualScripting;
 
 public class TeamSelectionUI : MonoBehaviour, ICompanionViewDelegate
 {
@@ -70,11 +67,24 @@ public class TeamSelectionUI : MonoBehaviour, ICompanionViewDelegate
         root = GetComponent<UIDocument>().rootVisualElement;
         InitializeCompanions(team1ActiveCompanions.activeCompanions);
 
-        var next = root.Q<UnityEngine.UIElements.Button>("Next");
+        Button next = root.Q<UnityEngine.UIElements.Button>("Next");
         next.RegisterOnSelected(() => initializeRun());
         FocusManager.Instance.RegisterFocusableTarget(next.AsFocusable());
 
         tooltipController = new TooltipController(tooltipPrefab);
+
+        if (gameState.buildType == BuildType.DEMO && !DemoDirector.Instance.IsStepCompleted(DemoStepName.BendingTheRules)) {
+            next.SetEnabled(false);
+            FocusManager.Instance.DisableAll();
+            StartCoroutine(DisplayDemoDialogue());
+        }
+    }
+
+    private IEnumerator DisplayDemoDialogue() {
+        yield return DemoDirector.Instance.InvokeDemoStepCorouutine(DemoStepName.BendingTheRules);
+        Button next = root.Q<UnityEngine.UIElements.Button>("Next");
+        next.SetEnabled(true);
+        FocusManager.Instance.EnableAll();
     }
 
     private void InitializeCompanions(List<Companion> companions) {

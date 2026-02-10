@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
-public class DialogueView : GenericSingleton<DialogueView>
+public class DialogueView : GenericSingleton<DialogueView>, IControlsReceiver
 {
     public UIDocument uiDoc;
     public RawImage rawImage;
@@ -21,21 +21,56 @@ public class DialogueView : GenericSingleton<DialogueView>
     private Label label;
 
     private Coroutine runningCoroutine = null;
+    private bool waitingForClick = false;
+    private bool hasClicked = false;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         this.portraitElement = uiDoc.rootVisualElement.Q<VisualElement>("speaker-portrait");
         this.label = uiDoc.rootVisualElement.Q<Label>("main-text-label");
     }
 
-    public void SpeakLine(CompanionTypeSO companion, string line)
+    void Start() {
+        ControlsManager.Instance.RegisterControlsReceiver(this);
+    }
+
+    public void SpeakLine(Sprite sprite, string line)
     {
         if (runningCoroutine != null) StopCoroutine(runningCoroutine);
-        portraitElement.style.backgroundImage = new StyleBackground(companion.fullSprite);
+        portraitElement.style.backgroundImage = new StyleBackground(sprite);
         label.text = "";
         label.style.fontSize = CalculateFontSize(line);
-        runningCoroutine = StartCoroutine(Typewriter(line));
+        runningCoroutine = StartCoroutine(Typewriter(line, postFullTextDelay));
+    }
+
+    public IEnumerator SpeakLineCoroutine(Sprite sprite, string line, bool waitForClick = false) {
+        if (runningCoroutine != null) StopCoroutine(runningCoroutine);
+        portraitElement.style.backgroundImage = new StyleBackground(sprite);
+        label.text = "";
+        label.style.fontSize = CalculateFontSize(line);
+
+        runningCoroutine = StartCoroutine(Typewriter(line, 0f, false));
+
+        yield return runningCoroutine;
+
+        if (!waitForClick) {
+            yield break;
+        }
+
+        waitingForClick = true;
+        runningCoroutine = StartCoroutine(WaitForClick());
+        yield return runningCoroutine;
+        waitingForClick = false;
+        hasClicked = false;
+    }
+
+    public void Hide() {
+        rawImage.enabled = false;
+    }
+
+    private IEnumerator WaitForClick() {
+        yield return new WaitUntil(() => Input.GetMouseButtonDown(0) || hasClicked == true);
     }
 
     private int CalculateFontSize(string line)
@@ -47,7 +82,7 @@ public class DialogueView : GenericSingleton<DialogueView>
         return fontSize;
     }
 
-    private IEnumerator Typewriter(string fullText)
+    private IEnumerator Typewriter(string fullText, float endDelay, bool hideOnComplete = true)
     {
         yield return new WaitForSeconds(0.05f);
         rawImage.enabled = true;
@@ -60,8 +95,20 @@ public class DialogueView : GenericSingleton<DialogueView>
             label.text = visible + invisible;
             yield return new WaitForSeconds(charRevealDelay);
         }
-        yield return new WaitForSeconds(postFullTextDelay);
-        rawImage.enabled = false;
+        yield return new WaitForSeconds(endDelay);
+        if (hideOnComplete) rawImage.enabled = false;
         runningCoroutine = null;
+    }
+
+    public void ProcessGFGInputAction(GFGInputAction action)
+    {
+        if (action == GFGInputAction.SELECT && waitingForClick) {
+            hasClicked = true;
+        }
+    }
+
+    public void SwappedControlMethod(ControlsManager.ControlMethod controlMethod)
+    {
+        return;
     }
 }

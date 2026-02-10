@@ -104,6 +104,20 @@ public class FocusManager : GenericSingleton<FocusManager>, IControlsReceiver
         }
     }
 
+    public void DisableAll() {
+        List<IFocusableTarget> focusablesToDisable = new List<IFocusableTarget>(focusableTargets);
+        foreach (IFocusableTarget target in focusablesToDisable) {
+            DisableFocusableTarget(target);
+        }
+    }
+
+    public void EnableAll() {
+        List<IFocusableTarget> focusablesToEnable = new List<IFocusableTarget>(disabledFocusableTargets);
+        foreach (IFocusableTarget target in focusablesToEnable) {
+            EnableFocusableTarget(target);
+        }
+    }
+
     public void DisableFocusableTarget(IFocusableTarget target) {
         lockedFocusables.Remove(target);
         disabledFocusableTargets.Add(target);
