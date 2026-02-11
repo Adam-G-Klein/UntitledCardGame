@@ -15,10 +15,17 @@ public class MapView
     private Label mainTextLabel;
     private VisualElement arrow;
 
+    private float originDeg = 90f;
+    private float offset = 40f;
+
     private Map map;
     private int currentEncounterIndex;
     private EncounterType encounterType;
+    // Only gets set if the curernt encounter is an enemy encounter
     private VisualElement activeEncounterIcon;
+    private bool isShopEncounter = false;
+    // Only gets set if the current encounter is a shop encounter
+    private VisualElement previousEncounterIcon;
 
     public MapView(Map map, int currentEncounterIndex, EncounterType encounterType)
     {
@@ -69,6 +76,11 @@ public class MapView
             VisualElement mapIcon = new VisualElement();
             mapIcon.AddToClassList("map-icon-base-style");
 
+            if (currentEncounterIndex - 1 == i) {
+                previousEncounterIcon = mapIcon;
+                isShopEncounter = true;
+            }
+
             // if we've already complete the encounter than it should be light gray
             if (IsEliteEncounter(encounter))
             {
@@ -111,14 +123,12 @@ public class MapView
         float w = mapIconContainer.resolvedStyle.width;
         float h = mapIconContainer.resolvedStyle.height;
 
+        float startDeg = originDeg + offset;
+        float endDeg = originDeg - offset;
+
         Vector2 center = new Vector2(w * 0.5f, -h * 0.8f);
 
         float radius = h * 1.45f;
-
-        float originDeg = 90f;
-        float offset = 40f;
-        float startDeg = originDeg + offset;
-        float endDeg = originDeg - offset;
 
         for (int i = 0; i < mapIcons.Count; i++) {
             VisualElement mapIcon = mapIcons[i];
@@ -141,7 +151,17 @@ public class MapView
     }
 
     private void PositionArrow() {
-        Vector2 target = activeEncounterIcon.worldBound.center;
+        List<VisualElement> mapIcons = mapIconContainer.Children().ToList();
+
+        Vector2 target;
+        if (isShopEncounter) {
+            Vector2 prevPos = previousEncounterIcon.worldBound.center;
+            int prevIndex = mapIcons.IndexOf(previousEncounterIcon);
+            Vector2 nextPos = mapIcons[prevIndex + 1].worldBound.center;
+            target = prevPos + (nextPos - prevPos) * 0.5f;
+        } else {
+            target = activeEncounterIcon.worldBound.center;
+        }
         Vector2 pivot = VisualElementUtils.GetWorldPivot(arrow);
         Vector2 direction = target - pivot;
         float arrowDeg = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
