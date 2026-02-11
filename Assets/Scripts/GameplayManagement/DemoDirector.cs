@@ -54,7 +54,7 @@ public class DemoDirector : GenericSingleton<DemoDirector>
             yield return DialogueView.Instance.SpeakLineCoroutine(speakerSprite, line, true);
         }
         DialogueView.Instance.Hide();
-        demoDataSO.stepCompletion[DemoStepName.BendingTheRules] = true;
+        demoDataSO.stepCompletion[DemoStepName.MoreRewardsThanUsual] = true;
     }
 }
 
