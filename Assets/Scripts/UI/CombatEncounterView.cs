@@ -96,8 +96,8 @@ public class CombatEncounterView : MonoBehaviour,
         // for the boss fight
         VisualElement mapRoot = root.Q("mapRoot");
         mapRoot.Clear();
-        mapView = new MapView(enemyEncounterManager);
-        mapView.mapContainer.Q<Label>("money-indicator-label").text = gameState.playerData.GetValue().gold.ToString() + "$";
+        mapView = new MapView(gameState.map.GetValue(), gameState.currentEncounterIndex, EncounterType.Enemy);
+        mapView.UpdateMoneyAmount(gameState.playerData.GetValue().gold);
         mapRoot.Add(mapView.mapContainer);
 
         cardInHandSelectionView = new CardInHandSelectionView(uiDoc, root.Q<VisualElement>("card-in-hand-selection-view"));

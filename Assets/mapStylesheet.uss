@@ -1,35 +1,27 @@
 .active-elite-encounter {
-    border-left-color: rgb(255, 0, 0);
-    border-right-color: rgb(255, 0, 0);
-    border-top-color: rgb(255, 0, 0);
-    border-bottom-color: rgb(255, 0, 0);
-    border-top-width: 4px;
-    border-right-width: 4px;
-    border-bottom-width: 4px;
-    border-left-width: 4px;
+    background-image: url("project://database/Assets/Sprites/UI/Map/ACTIVE%20BOSS%20CIRCLE.png?fileID=2800000&guid=8264af585bc860f49988f488fe181f6b&type=3#ACTIVE BOSS CIRCLE");
+    -unity-background-scale-mode: scale-to-fit;
 }
 
 .upcoming-elite-encounter {
-    border-left-color: rgb(255, 0, 0);
-    border-right-color: rgb(255, 0, 0);
-    border-top-color: rgb(255, 0, 0);
-    border-bottom-color: rgb(255, 0, 0);
-    border-top-width: 2px;
-    border-right-width: 2px;
-    border-bottom-width: 2px;
-    border-left-width: 2px;
+    background-image: url("project://database/Assets/Sprites/UI/Map/BOSS%20BASE%20BUTTON.png?fileID=2800000&guid=d440ea3b6822a4844bd60e105554d2b1&type=3#BOSS BASE BUTTON");
+    -unity-background-scale-mode: scale-to-fit;
 }
 
 .map-icon-completed {
-    -unity-background-image-tint-color: rgb(212, 212, 212);
+    -unity-background-scale-mode: scale-to-fit;
+    background-image: url("project://database/Assets/Sprites/UI/Map/BROKEN%20CIRCLE%20MAP.png?fileID=2800000&guid=f673376eb002f9e4b9f825dc1f9d184e&type=3#BROKEN CIRCLE MAP");
 }
 
 .map-icon-upcoming {
-    -unity-background-image-tint-color: rgb(160, 237, 255);
+    background-image: url("project://database/Assets/Sprites/UI/Map/BASE%20CIRCLE%20MAP.png?fileID=2800000&guid=48489db1d3e615d4688200151e4d657d&type=3#BASE CIRCLE MAP");
+    -unity-background-scale-mode: scale-to-fit;
+    -unity-background-image-tint-color: rgb(231, 231, 231);
 }
 
 .map-icon-active {
-    -unity-background-image-tint-color: rgb(0, 42, 214);
+    background-image: url("project://database/Assets/Sprites/UI/Map/ACTIVE%20CIRCLE%20MAP.png?fileID=2800000&guid=2bba9cdde6fd3484abaa0a581a8075b5&type=3#ACTIVE CIRCLE MAP");
+    -unity-background-scale-mode: scale-to-fit;
 }
 
 .map-icon-locked {
@@ -51,4 +43,11 @@
     max-height: 20%;
     justify-content: flex-start;
     align-items: center;
+}
+
+.map-icon-base-style {
+    flex-grow: 0;
+    width: 20%;
+    height: 47%;
+    position: absolute;
 }

@@ -276,10 +276,10 @@ public class ShopViewController : MonoBehaviour,
         return benchSlots[i].root;
     }
 
-    private void SetupMap(IEncounterBuilder encounterBuilder)
+    private void SetupMap(ShopManager shopManager)
     {
         mapContainer.Clear();
-        mapContainer.Add(new MapView(encounterBuilder).mapContainer);
+        mapContainer.Add(new MapView(shopManager.gameState.map.GetValue(), shopManager.gameState.currentEncounterIndex, EncounterType.Shop).mapContainer);
     }
 
     public void SetupUpgradeIncrements(bool shopFullyUpgraded = false) {

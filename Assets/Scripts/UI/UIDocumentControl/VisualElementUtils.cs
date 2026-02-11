@@ -43,4 +43,11 @@ public class VisualElementUtils
         }
         return root;
     }
+
+    public static Vector2 GetWorldPivot(VisualElement ve)
+    {
+        var origin = ve.resolvedStyle.transformOrigin;
+        Vector2 localPivot = new Vector2(origin.x, origin.y);
+        return ve.LocalToWorld(localPivot);
+    }
 }
