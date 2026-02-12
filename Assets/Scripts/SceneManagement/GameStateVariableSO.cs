@@ -163,7 +163,14 @@ public class GameStateVariableSO : ScriptableObject
                 currentLocation = Location.PACK_SELECT;
                 break;
             case Location.INTRO_CUTSCENE:
-                currentLocation = Location.TUTORIAL;
+                // Modified for Shortened Demo pre GDC 2026
+                // currentLocation = Location.TUTORIAL;
+                // Remove below and uncomment above to return to previous behavior
+                if (buildType == BuildType.DEMO) {
+                    currentLocation = Location.STARTING_TEAM;
+                } else {
+                    currentLocation = Location.TUTORIAL;
+                }
                 break;
             case Location.STARTING_TEAM:
                 currentLocation = Location.COMBAT;
@@ -178,7 +185,9 @@ public class GameStateVariableSO : ScriptableObject
                 break;
             case Location.POST_COMBAT:
                 Debug.Log("Leaving post combat, current location is: " + currentLocation);
-                if (skipTutorials || hasSeenShopTutorial) {
+                // Modified for Shortened Demo pre GDC 2026
+                // if (skipTutorials || hasSeenShopTutorial) {
+                if (skipTutorials || hasSeenShopTutorial || buildType == BuildType.DEMO) {
                     currentLocation = Location.SHOP;
                     AdvanceEncounter();
                 } else {
