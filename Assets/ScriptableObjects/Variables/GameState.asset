@@ -15,11 +15,11 @@ MonoBehaviour:
   companions: {fileID: 11400000, guid: a3ca1b79c2cb46b44b803f391e148eb5, type: 2}
   playerData: {fileID: 11400000, guid: 04fd9f244e2a13e4d9e28d6e1a2f7a9a, type: 2}
   map: {fileID: 11400000, guid: 981cfb3346592264a80aab03d0b9594d, type: 2}
-  baseShopData: {fileID: 11400000, guid: 64b1d5221aac20348909c6cab7cc24d6, type: 2}
+  baseShopData: {fileID: 11400000, guid: 515dffcf0e63c46b4a7a6b27f073d38a, type: 2}
   activeEncounter: {fileID: 11400000, guid: deac3f5e60dfbd647ad11d47b5314123, type: 2}
   nextMapIndex: 1
   nextEncounter: {fileID: 11400000, guid: be6d9bd186c0c05468222dc18bd747fa, type: 2}
-  currentLocation: 13
+  currentLocation: 7
   dialogueLocations: {fileID: 11400000, guid: dcfe75135791c4649a555d2303b78336, type: 2}
   debugSingleEncounterMode: 0
   viewedSequences: []
@@ -27,10 +27,10 @@ MonoBehaviour:
   currentEncounterIndex: 0
   skipTutorials: 0
   hasSeenPackSelectTutorial: 0
-  hasSeenShopTutorial: 0
-  hasSeenCombatTutorial: 0
+  hasSeenShopTutorial: 1
+  hasSeenCombatTutorial: 1
   autoUpgrade: 0
-  buildType: 2
+  buildType: 1
   consentToDataCollection: 1
   previouslySelectedPackSOs:
   - {fileID: 11400000, guid: 5f4300e0913784f05aeff0dd086d4338, type: 2}
