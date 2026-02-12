@@ -1,35 +1,19 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/UI%20Toolkit/Shop/ShopUIStylesheet.uss?fileID=7433441132597879392&amp;guid=b4d5060bf962ba64c83be6329cd47b49&amp;type=3#ShopUIStylesheet" />
-    <Style src="project://database/Assets/UI/common.uss?fileID=7433441132597879392&amp;guid=8d0bc28a2ed710a44b762e4c857ac6f9&amp;type=3#common" />
     <Style src="project://database/Assets/mapStylesheet.uss?fileID=7433441132597879392&amp;guid=8bfd0d4a4dd91435a81ceda51a241a08&amp;type=3#mapStylesheet" />
-    <Style src="project://database/Assets/fontStyling.uss?fileID=7433441132597879392&amp;guid=d0c0881f1c32747ecb649373600de095&amp;type=3#fontStyling" />
-    <ui:VisualElement style="flex-grow: 1; flex-direction: row; width: 100%; align-items: center;">
-        <ui:VisualElement name="map" style="flex-grow: 0; height: 100%; flex-shrink: 0; justify-content: center; width: 100%; align-items: center; background-image: resource(&apos;Maps/AlexisMap&apos;); -unity-background-scale-mode: stretch-to-fill;">
-            <ui:VisualElement class="map-container" style="height: 65%; max-height: 65%; padding-top: 0;">
-                <ui:VisualElement name="VisualElement" style="flex-grow: 1; width: 17%; margin-bottom: 2%; bottom: 17%;">
-                    <ui:Label tabindex="-1" text="20G" parse-escape-sequences="true" display-tooltip-when-elided="true" name="money-indicator-label" style="-unity-font-style: bold; color: rgb(243, 235, 10); -unity-font: resource(&apos;fonts/static/Jost-Bold&apos;); font-size: 22px; -unity-text-outline-width: 2px; -unity-text-outline-color: rgb(0, 0, 0); -unity-text-align: upper-center; bottom: -15%; right: -27%;" />
-                </ui:VisualElement>
-                <ui:VisualElement name="mapIcons" style="flex-grow: 1; flex-direction: row; width: 60%; height: 100%; justify-content: space-around; padding-right: 6%; padding-left: 6%; padding-bottom: 1%;">
-                    <ui:VisualElement name="VisualElement" class="map-section">
-                        <ui:VisualElement class="map-symbol map-icon-active" />
-                    </ui:VisualElement>
-                    <ui:VisualElement name="VisualElement" class="map-section">
-                        <ui:VisualElement name="VisualElement" class="map-symbol map-icon-upcoming" />
-                    </ui:VisualElement>
-                    <ui:VisualElement name="VisualElement" class="map-section">
-                        <ui:VisualElement class="map-symbol map-icon-locked" />
-                    </ui:VisualElement>
-                    <ui:VisualElement name="VisualElement" class="map-section">
-                        <ui:VisualElement class="map-symbol map-icon-completed" style="background-image: resource(&apos;Maps/whiteCircle&apos;);" />
-                    </ui:VisualElement>
-                </ui:VisualElement>
-                <ui:VisualElement name="VisualElement" style="flex-grow: 1; width: 17%; align-items: center; margin-bottom: 2%;">
-                    <ui:Label tabindex="-1" text="1–2" parse-escape-sequences="true" display-tooltip-when-elided="true" name="encounterNumberLabel" style="font-size: 22px; -unity-font: resource(&apos;fonts/static/Jost-Medium&apos;); padding-right: 2%; right: 22%; bottom: 17%; color: rgb(255, 255, 255);" />
-                </ui:VisualElement>
+    <ui:VisualElement style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Sprites/UI/Map/MAP%20RENDER%20BASE.png?fileID=2800000&amp;guid=c9bc5577bb22eb145b4643cffa9a4bbd&amp;type=3#MAP RENDER BASE&quot;); align-items: center;">
+        <ui:VisualElement style="flex-grow: 0; height: 42%; flex-direction: row; justify-content: space-around; width: 80%;">
+            <ui:VisualElement name="map-view-money-indicator-parent" style="flex-grow: 0; width: 27%; justify-content: center; align-items: center; flex-direction: row;">
+                <ui:VisualElement style="flex-grow: 0; background-image: url(&quot;project://database/Assets/Sprites/UI/Map/MoneySymbol.png?fileID=2800000&amp;guid=acdf549222fc7ed48958590f79ac634e&amp;type=3#MoneySymbol&quot;); -unity-background-scale-mode: scale-to-fit; width: 19%; height: 58%;" />
+                <ui:Label tabindex="-1" text="0" parse-escape-sequences="true" display-tooltip-when-elided="true" name="map-view-money-label" style="font-size: 30px; -unity-font: resource(&apos;fonts/NewTegomin-Regular&apos;); -unity-font-definition: initial; color: rgb(85, 13, 5); translate: 0 -5%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; width: 22%;" />
             </ui:VisualElement>
-            <ui:VisualElement>
-                <ui:Label tabindex="-1" text="Turn 1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="turnNumberLabel" style="color: rgb(255, 255, 255); top: 2px;" />
+            <ui:VisualElement name="map-view-turn-indicator-parent" style="flex-grow: 0; width: 45%; align-items: center; justify-content: center;">
+                <ui:Label tabindex="-1" text="Turn 1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="map-view-main-text-label" style="font-size: 30px; -unity-font-definition: initial; -unity-font: resource(&apos;fonts/NewTegomin-Regular&apos;); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; translate: 0 -10%; color: rgb(85, 13, 5);" />
+            </ui:VisualElement>
+            <ui:VisualElement name="map-view-act-enc-indicator-parent" style="flex-grow: 0; width: 27%; justify-content: center; align-items: center; font-size: 30px; -unity-font-definition: initial; -unity-font: resource(&apos;fonts/NewTegomin-Regular&apos;);">
+                <ui:Label tabindex="-1" text="1-1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="map-view-act-enc-label" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; translate: 0 0; color: rgb(85, 13, 5);" />
             </ui:VisualElement>
         </ui:VisualElement>
+        <ui:VisualElement name="map-view-arrow" style="flex-grow: 1; position: absolute; background-image: url(&quot;project://database/Assets/Sprites/UI/Map/ARROW%20MAP.png?fileID=2800000&amp;guid=e61466a3ca0442f47b884ca6973fa902&amp;type=3#ARROW MAP&quot;); -unity-background-scale-mode: scale-to-fit; width: 10%; height: 32%; top: 35%; left: 45%; transform-origin: center 35%; rotate: 0;" />
+        <ui:VisualElement name="map-view-icon-area" style="flex-grow: 1; position: absolute; bottom: 0; top: 44%; left: 33%; right: 33%;" />
     </ui:VisualElement>
 </ui:UXML>
