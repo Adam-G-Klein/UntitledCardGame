@@ -11,6 +11,8 @@ public class DemoDirector : GenericSingleton<DemoDirector>
     public List<string> bendingTheRulesStepDialogue;
     [TextArea]
     public List<string> moreRewardsThanUsualStepDialogue;
+    [TextArea]
+    public List<string> startOfShopStepDialogue;
 
     public void Reset() {
         demoDataSO.stepCompletion = new Dictionary<DemoStepName, bool>();
@@ -37,6 +39,10 @@ public class DemoDirector : GenericSingleton<DemoDirector>
             case DemoStepName.MoreRewardsThanUsual:
                 yield return MoreRewardsThanUsualStep();
             break;
+
+            case DemoStepName.StartOfShop:
+                yield return StartOfShopStep();
+            break;
         }
         yield return null;
     }
@@ -55,6 +61,14 @@ public class DemoDirector : GenericSingleton<DemoDirector>
         }
         DialogueView.Instance.Hide();
         demoDataSO.stepCompletion[DemoStepName.MoreRewardsThanUsual] = true;
+    }
+
+    public IEnumerator StartOfShopStep() {
+        foreach (string line in startOfShopStepDialogue) {
+            yield return DialogueView.Instance.SpeakLineCoroutine(speakerSprite, line, true);
+        }
+        DialogueView.Instance.Hide();
+        demoDataSO.stepCompletion[DemoStepName.StartOfShop] = true;
     }
 }
 

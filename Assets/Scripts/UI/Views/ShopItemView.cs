@@ -11,6 +11,8 @@ public class ShopItemView : ICompanionViewDelegate {
     public CardInShopWithPrice cardInShop = null;
     private CompanionView companionView = null;
     private IShopItemViewDelegate viewDelegate;
+    
+    private bool interactionsEnabled = true;
 
     public ShopItemView(IShopItemViewDelegate viewDelegate, CompanionInShopWithPrice companion, VisualTreeAsset template = null) {
         this.viewDelegate = viewDelegate;
@@ -103,6 +105,8 @@ public class ShopItemView : ICompanionViewDelegate {
     }
 
     private void ShopItemViewOnClicked() {
+        if (!interactionsEnabled) return;
+
         viewDelegate.ShopItemOnClick(this);
         viewDelegate.DestroyTooltip(shopItemElement);
     }
@@ -111,7 +115,16 @@ public class ShopItemView : ICompanionViewDelegate {
         shopItemElement.visible = false;
     }
 
+    public void DisableInteractions() {
+        interactionsEnabled = false;
+    }
+
+    public void EnableInteractions() {
+        interactionsEnabled = true;
+    }
+
     private void OnPointerEnter(PointerEnterEvent evt) {
+        if (!interactionsEnabled) return;
         viewDelegate.ShopItemViewHovered(this);
         if (companionInShop != null) {
             viewDelegate.DisplayTooltip(shopItemElement, companionInShop.companionType.GetTooltip(), TooltipContext.Shop);
@@ -123,6 +136,7 @@ public class ShopItemView : ICompanionViewDelegate {
     }
 
     private void OnPointerLeave(PointerLeaveEvent evt) {
+        if (!interactionsEnabled) return;
         viewDelegate.DestroyTooltip(shopItemElement);
     }
 

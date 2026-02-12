@@ -80,6 +80,15 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             gameState.dialogueLocations.GetDialogueLocation(gameState));
         DialogueManager.Instance.StartAnyDialogueSequence();
         */
+        if (gameState.buildType == BuildType.DEMO && DemoDirector.Instance.IsStepCompleted(DemoStepName.StartOfShop)) {
+            shopViewController.DisableAllUI();
+        }
+    }
+
+    private IEnumerator RunStartOfShopStep() {
+        shopViewController.DisableAllUI();
+        yield return DemoDirector.Instance.InvokeDemoStepCorouutine(DemoStepName.StartOfShop);
+        shopViewController.EnableAllUI();
     }
 
     public void SetupUnitManagement() {
@@ -97,6 +106,10 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             yield return new WaitForEndOfFrame();
             HealCompanionsOnBench();
             healedCompanions = true;
+        }
+        
+        if (gameState.buildType == BuildType.DEMO && !DemoDirector.Instance.IsStepCompleted(DemoStepName.StartOfShop)) {
+            StartCoroutine(RunStartOfShopStep());
         }
     }
 

@@ -27,6 +27,7 @@ public class CompanionManagementView : IControlsReceiver {
     private bool draggingThisCompanion = false;
     private bool isSellingDisabled = false;
     private bool upgradeAnimationPlaying = false;
+    private bool interactionsEnabled = true;
 
     private int lastHealthValue;
     private bool isHealthTweening = false;
@@ -154,6 +155,7 @@ public class CompanionManagementView : IControlsReceiver {
 
     public void CompanionManagementOnPointerEnter(PointerEnterEvent evt)
     {
+        if (!interactionsEnabled) return;
         MusicController.Instance.PlaySFX("event:/SFX/SFX_UIHover");
         if (viewDelegate == null) return;
         if (viewDelegate.IsSellingCompanions() || viewDelegate.IsDraggingCompanion() || upgradeAnimationPlaying) return;
@@ -171,10 +173,12 @@ public class CompanionManagementView : IControlsReceiver {
     }
 
     public void CompanionManagementOnClick(ClickEvent evt) {
+        if (!interactionsEnabled) return;
         viewDelegate.CompanionManagementOnClick(this);
     }
 
     public void CompanionManagementOnPointerDown(PointerDownEvent evt, bool usingMouse) {
+        if (!interactionsEnabled) return;
         Debug.Log("Companion on pointer down");
         RemoveCompanionHoverButtons();
         viewDelegate.DestroyTooltip(container);
@@ -194,15 +198,18 @@ public class CompanionManagementView : IControlsReceiver {
     }
 
     private void CompanionManagementOnPointerMove(PointerMoveEvent evt) {
+        if (!interactionsEnabled) return;
         viewDelegate?.CompanionManagementOnPointerMove(this, evt.position);
     }
 
     public void ComapnionManagementOnPointerUp(PointerUpEvent evt) {
+        if (!interactionsEnabled) return;
         viewDelegate.ComapnionManagementOnPointerUp(this, evt.position);
         draggingThisCompanion = false;
     }
 
     public void ComapnionManagementOnPointerLeave(PointerLeaveEvent evt) {
+        if (!interactionsEnabled) return;
         if (viewDelegate == null) return;
         viewDelegate.CompanionManagementOnPointerLeave(this, evt);
         viewDelegate.DestroyTooltip(container);
@@ -379,6 +386,18 @@ public class CompanionManagementView : IControlsReceiver {
         int height = (int) ((float) width * (160f/260f)); // 1:1 aspect ratio
 
         return new Tuple<int, int>(width, height);
+    }
+
+    public void DisableInteractions() {
+        interactionsEnabled = false;
+        // The below all exists because when UI is disabled, this might be hovered
+        ComapnionManagementOnPointerLeave(null);
+        RemoveCompanionHoverButtons();
+        viewDelegate.DestroyTooltip(container);
+    }
+
+    public void EnableInteractions() {
+        interactionsEnabled = true;
     }
 
     public void ProcessGFGInputAction(GFGInputAction action)

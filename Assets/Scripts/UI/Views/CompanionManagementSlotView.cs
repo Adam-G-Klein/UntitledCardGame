@@ -134,6 +134,14 @@ public class CompanionManagementSlotView {
         }
     }
 
+    public void DisableInteractions() {
+        if (!IsEmpty()) companionManagementView.DisableInteractions();
+    }
+
+    public void EnableInteractions() {
+        if (!IsEmpty()) companionManagementView.EnableInteractions();
+    }
+
     public static void MakeAllFocusable(List<CompanionManagementSlotView> slots) {
         slots.ForEach((slot) => {
             if (!slot.IsBlocked()) FocusManager.Instance.EnableFocusableTarget(slot.veFocusable);

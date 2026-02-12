@@ -1674,4 +1674,54 @@ public class ShopViewController : MonoBehaviour,
         }
         MultiDeckViewManager.Instance.ShowShopDeckView(true, companionToShow, MultiDeckViewManager.TabType.ForPurchase);
     }
+
+    public void DisableAllUI() {
+        rerollButton.SetEnabled(false);
+        upgradeButton.SetEnabled(false);
+        cardRemovalButton.SetEnabled(false);
+        startNextCombatButton.SetEnabled(false);
+
+        foreach (ShopItemView entry in cardItemToViewMap.Values) {
+            entry.DisableInteractions();
+        }
+
+        foreach (ShopItemView entry in companionItemToViewMap.Values) {
+            entry.DisableInteractions();
+        }
+
+        foreach (CompanionManagementSlotView slot in activeSlots) {
+            slot.DisableInteractions();
+        }
+
+        foreach (CompanionManagementSlotView slot in benchSlots) {
+            slot.DisableInteractions();
+        }
+
+        FocusManager.Instance.StashFocusables(this.GetType().Name);
+    }
+
+    public void EnableAllUI() {
+        rerollButton.SetEnabled(true);
+        upgradeButton.SetEnabled(true);
+        cardRemovalButton.SetEnabled(true);
+        startNextCombatButton.SetEnabled(true);
+
+        foreach (ShopItemView entry in cardItemToViewMap.Values) {
+            entry.EnableInteractions();
+        }
+
+        foreach (ShopItemView entry in companionItemToViewMap.Values) {
+            entry.EnableInteractions();
+        }
+
+        foreach (CompanionManagementSlotView slot in activeSlots) {
+            slot.EnableInteractions();
+        }
+
+        foreach (CompanionManagementSlotView slot in benchSlots) {
+            slot.EnableInteractions();
+        }
+
+        FocusManager.Instance.UnstashFocusables(this.GetType().Name);
+    }
 }
