@@ -1,0 +1,97 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
+  m_Name: SD_Chunkrat
+  m_EditorClassIdentifier: 
+  guid: 1ac5d020-ae2e-4e74-93b9-3361f21cf3a7
+  companionName: Chunkrat
+  maxHealth: 20
+  initialCardsDealtPerTurn: 1
+  sprite: {fileID: 21300000, guid: 94d8a9a58ebf84465a87bcde6fcc8c7b, type: 3}
+  fullSprite: {fileID: 21300000, guid: 94d8a9a58ebf84465a87bcde6fcc8c7b, type: 3}
+  backgroundImage: {fileID: 21300000, guid: cf0b03f8254f64d7ca33d64244db66e4, type: 3}
+  entityFrame: {fileID: 21300000, guid: d4ddadb9b0de34fe68babd80a4878635, type: 3}
+  companionManagementFrame: {fileID: 21300000, guid: 17b9618f5107840a8b89e8b21a1a69c8, type: 3}
+  startingDeck: {fileID: 11400000, guid: aa042ebbd52a14c809592880711cfb35, type: 2}
+  cardBack: {fileID: 21300000, guid: 3296a63e824de414bb4b578c4822fbdb, type: 3}
+  cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
+  cardTypeIconOverride: {fileID: 0}
+  rarity: 0
+  cardIdleVfxPrefab: {fileID: 0}
+  genericCompanionSFX: {fileID: 0}
+  genericCompanionVFX: {fileID: 0}
+  cacheValueConfigs: []
+  cardPool: {fileID: 11400000, guid: 59b17a3fd7e314a7b8db8673d584fead, type: 2}
+  pack: {fileID: 11400000, guid: 0d12b03c0c8754470a900cb4f78a9217, type: 2}
+  speakerType: {fileID: 0}
+  abilitiesV2:
+  - rid: 205827988172308710
+  level: 0
+  upgradeTo: {fileID: 11400000, guid: aed0fde511fac419883a3af25f731bdc, type: 2}
+  tooltip:
+    empty: 0
+    lines:
+    - title: Chunkrat
+      description: End of combat, permanently add a "Yummy Snack" to this deck.
+      relatedBehaviorIndex: 0
+      icon: {fileID: 0}
+  keepsakeTitle: Chunkrat's Bulk
+  keepsakeDescription: End of combat, permanently add a "Yummy Snack" to this deck.
+  references:
+    version: 2
+    RefIds:
+    - rid: 205827988172308710
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 1
+        effectSteps:
+        - rid: 205827988172308711
+        - rid: 7707884639552274944
+        - rid: 205828032053379183
+        - rid: 205828126246961707
+        weight: 0
+    - rid: 205827988172308711
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+    - rid: 205828032053379183
+      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: AddCardsToDeck
+        inputKey: self
+        cardTypes:
+        - {fileID: 11400000, guid: 50f891c78e09f4b6691a4f72688b127b, type: 2}
+        addToDeckMethod: 3
+        getCardsFromKey: 0
+        inputCardsKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 205828126246961707
+      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: InstantiatePrefab
+        inputKey: self
+        prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
+        scale: 1
+    - rid: 7707884639552274944
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX

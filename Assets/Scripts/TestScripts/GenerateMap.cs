@@ -16,7 +16,7 @@ public class GenerateMap : MonoBehaviour
     public MapGeneratorSO demoMapGenerator;
 
     public void generateMapAndChangeScenes() {
-        if (gameState.buildType == BuildType.DEMO)
+        if (gameState.buildType == BuildType.DEMO || gameState.buildType == BuildType.CONVENTION)
             gameState.StartNewRun(demoMapGenerator);
         else
             gameState.StartNewRun(mapGenerator);
