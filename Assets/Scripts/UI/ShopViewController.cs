@@ -34,7 +34,7 @@ public class ShopViewController : MonoBehaviour,
     private VisualElement upgradeIncrementContainer;
     private Button rerollButton;
     private Button cardRemovalButton;
-    private Label moneyLabel;
+    private MapView mapView;
     private Label notEnoughMoneyLabel;
     public VisualElement selectingCompanionVeil;
     public VisualElement selectingIndicator;
@@ -121,7 +121,6 @@ public class ShopViewController : MonoBehaviour,
         shopGoodsArea = uiDoc.rootVisualElement.Q("shop-goods-area");
         activeContainer = uiDoc.rootVisualElement.Q("unit-active-container");
         benchContainer = uiDoc.rootVisualElement.Q("bench-container");
-        moneyLabel = uiDoc.rootVisualElement.Q<Label>("money-indicator-label");
         notEnoughMoneyLabel = uiDoc.rootVisualElement.Q<Label>("not-enough-money-indicator");
         selectingCompanionVeil = uiDoc.rootVisualElement.Q("selecting-companion-veil");
         selectingIndicator = uiDoc.rootVisualElement.Q("companion-selection-indicator");
@@ -279,7 +278,8 @@ public class ShopViewController : MonoBehaviour,
     private void SetupMap(ShopManager shopManager)
     {
         mapContainer.Clear();
-        mapContainer.Add(new MapView(shopManager.gameState.map.GetValue(), shopManager.gameState.currentEncounterIndex, EncounterType.Shop).mapContainer);
+        mapView = new MapView(shopManager.gameState.map.GetValue(), shopManager.gameState.currentEncounterIndex, EncounterType.Shop);
+        mapContainer.Add(mapView.mapContainer);
     }
 
     public void SetupUpgradeIncrements(bool shopFullyUpgraded = false) {
@@ -1188,7 +1188,7 @@ public class ShopViewController : MonoBehaviour,
     }
 
     public void SetMoney(int money) {
-        moneyLabel.text = money.ToString() + "$";
+        mapView.UpdateMoneyAmount(money);
     }
 
     public void NotEnoughMoney() {
@@ -1479,10 +1479,6 @@ public class ShopViewController : MonoBehaviour,
 
     public VisualElement GetRerollShopButton() {
         return rerollButton;
-    }
-
-    public VisualElement GetMoneyIndicator() {
-        return moneyLabel;
     }
 
     public void ShowCompanionUpgradeMenu(List<Companion> companions, Companion upgradeCompanion)
