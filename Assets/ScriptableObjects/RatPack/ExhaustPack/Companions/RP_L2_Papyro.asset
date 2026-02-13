@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
-  m_Name: RP_L2_Entropy
+  m_Name: RP_L2_Papyro
   m_EditorClassIdentifier: 
   guid: 73fcfccd-1c0e-4350-b378-90e20659ca89
-  companionName: Entropy+
+  companionName: Dr. Papyro+
   maxHealth: 30
   initialCardsDealtPerTurn: 1
-  sprite: {fileID: 21300000, guid: 150186c3627b44cc3825efcd8588d9c2, type: 3}
-  fullSprite: {fileID: 21300000, guid: 150186c3627b44cc3825efcd8588d9c2, type: 3}
+  sprite: {fileID: 21300000, guid: da7bfe1085d51954eaca41431462382a, type: 3}
+  fullSprite: {fileID: 21300000, guid: da7bfe1085d51954eaca41431462382a, type: 3}
   backgroundImage: {fileID: 21300000, guid: 51acef32dcac74705a26476ebe2fcef6, type: 3}
   entityFrame: {fileID: 21300000, guid: a8fa2ecee207041998d05babf6bcc914, type: 3}
   companionManagementFrame: {fileID: 21300000, guid: 6816075e96cf94121bbef6520deb584f, type: 3}
-  startingDeck: {fileID: 11400000, guid: 583b1de8b4e66492eb4afaaa9e408467, type: 2}
+  startingDeck: {fileID: 11400000, guid: a8089ca7a87f448de91096b27f1f3d4e, type: 2}
   cardBack: {fileID: 21300000, guid: 20b46ccd593516f4badbdcdb021f67c1, type: 3}
   cardFrame: {fileID: 21300000, guid: e44243240dcfea04b91f6a9793d745e8, type: 3}
   cardTypeIconOverride: {fileID: 0}
@@ -41,10 +41,11 @@ MonoBehaviour:
   tooltip:
     empty: 0
     lines:
-    - title: Entropy+
+    - title: Dr. Papyro+
       description: Transform 1 card into "Greek Fire" at the end of combat. Whenever
         you exhaust a card, deal 2 damage to a random enemy
       relatedBehaviorIndex: 0
+      icon: {fileID: 0}
   keepsakeTitle: 
   keepsakeDescription: Transform 1 card into an exhaustable "Greek Fire" status card
     at the end of combat. Whenever you exhaust a card, deal 2 damage to a random

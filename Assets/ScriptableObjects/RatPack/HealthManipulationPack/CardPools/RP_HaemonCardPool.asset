@@ -10,14 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 98c54fe17bbfaba4697c85c1618843f4, type: 3}
-  m_Name: RP_EntropyCardPool
+  m_Name: RP_HaemonCardPool
   m_EditorClassIdentifier: 
   commonCards:
-  - {fileID: 11400000, guid: 2c3ca969195e84102bc0582d8150cf7d, type: 2}
-  uncommonCards: []
-  rareCards:
-  - {fileID: 11400000, guid: 7e75d6741120448b28ad91f5aabfb873, type: 2}
+  - {fileID: 11400000, guid: 3327bc9645b4e4a2a93ba1a53a640e34, type: 2}
+  uncommonCards:
+  - {fileID: 11400000, guid: b0cbabbbdcef5404788f384c86a1175b, type: 2}
+  rareCards: []
   genericCardIconSprite: {fileID: 0}
-  unlockableCommonCards: []
-  unlockableUncommonCards: []
-  unlockableRareCards: []

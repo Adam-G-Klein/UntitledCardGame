@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
-  m_Name: RP_L2_Beezelbumbler
+  m_Name: RP_Hex
   m_EditorClassIdentifier: 
-  guid: 3394e4dd-8f3e-4cd3-b16d-e0d3c6ef95a9
-  companionName: Beezel+
-  maxHealth: 30
+  guid: 0cb85a22-217b-405f-865b-bba0b32161bf
+  companionName: Hex
+  maxHealth: 15
   initialCardsDealtPerTurn: 1
-  sprite: {fileID: 21300000, guid: b2c03f209141544b38b538492ea66b34, type: 3}
-  fullSprite: {fileID: 21300000, guid: b2c03f209141544b38b538492ea66b34, type: 3}
+  sprite: {fileID: 21300000, guid: 3489f32d537178446aae3f15990ca556, type: 3}
+  fullSprite: {fileID: 21300000, guid: 3489f32d537178446aae3f15990ca556, type: 3}
   backgroundImage: {fileID: 21300000, guid: 741949db90bb4412ba7493960e001481, type: 3}
   entityFrame: {fileID: 21300000, guid: e8e1fad73c653473d90feb9b744f60c6, type: 3}
   companionManagementFrame: {fileID: 21300000, guid: ad4f2340ea2464bc780af3b16bf27412, type: 3}
@@ -35,23 +35,24 @@ MonoBehaviour:
     sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
     startOfTurnValue: 0
     setStartOfTurnValue: 0
-    startOfCombatValue: 3
+    startOfCombatValue: 2
     setStartOfCombatValue: 1
   cardPool: {fileID: 11400000, guid: 3a6947a78ef594b05ba01c0f08056a55, type: 2}
   pack: {fileID: 11400000, guid: a87b5da767d4e4659b2965e31e340c58, type: 2}
   speakerType: {fileID: 0}
   abilitiesV2:
   - rid: 2034230176448512006
-  level: 1
-  upgradeTo: {fileID: 11400000, guid: 79718d299b4a141779f730c91670077d, type: 2}
+  level: 0
+  upgradeTo: {fileID: 11400000, guid: a10a7597f04484f7eb5c6c9ba3d20054, type: 2}
   tooltip:
     empty: 0
     lines:
-    - title: Beezel+
-      description: The first 3 times Beezel+ takes damage in combat, it gains 1 strength
+    - title: Hex
+      description: The first 2 times Hex takes damage in combat, it gains 1 strength
       relatedBehaviorIndex: 0
-  keepsakeTitle: 
-  keepsakeDescription: The first 3 times Beezelbumbler+ takes damage in combat, it
+      icon: {fileID: 0}
+  keepsakeTitle: Beezelbumbler's Fangs
+  keepsakeDescription: The first 2 times Beezelbumbler takes damage in combat, it
     gains 1 strength
   references:
     version: 2
@@ -66,10 +67,10 @@ MonoBehaviour:
         - rid: 2034230176448512009
         - rid: 7401433308100034592
         - rid: 2034230176448512010
-        - rid: 7707884639552274902
         - rid: 7401433308100034593
         - rid: 2034230176448512011
         - rid: 2034230176448512012
+        - rid: 7707884639552274751
         - rid: 2034230176448512013
         weight: 0
     - rid: 2034230176448512007
@@ -89,6 +90,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 2034230176448512009
       type: {class: CombatInstanceCacheLoad, ns: , asm: Assembly-CSharp}
       data:
@@ -152,7 +154,7 @@ MonoBehaviour:
         operation: 1
         scale: 1
         outputKey: numBuffsSubtracted
-    - rid: 7707884639552274902
+    - rid: 7707884639552274751
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EntityAbilityTriggeredVFX

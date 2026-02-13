@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
-  m_Name: RP_L3_Entropy
+  m_Name: RP_Papyro
   m_EditorClassIdentifier: 
-  guid: aebb0a36-388c-42ee-8897-d193adcb47fe
-  companionName: Entropy++
-  maxHealth: 45
+  guid: bf499411-f8ab-49fb-9008-31f47f293ac9
+  companionName: Dr. Papyro
+  maxHealth: 15
   initialCardsDealtPerTurn: 1
-  sprite: {fileID: 21300000, guid: 150186c3627b44cc3825efcd8588d9c2, type: 3}
-  fullSprite: {fileID: 21300000, guid: 150186c3627b44cc3825efcd8588d9c2, type: 3}
+  sprite: {fileID: 21300000, guid: da7bfe1085d51954eaca41431462382a, type: 3}
+  fullSprite: {fileID: 21300000, guid: da7bfe1085d51954eaca41431462382a, type: 3}
   backgroundImage: {fileID: 21300000, guid: 51acef32dcac74705a26476ebe2fcef6, type: 3}
   entityFrame: {fileID: 21300000, guid: a8fa2ecee207041998d05babf6bcc914, type: 3}
   companionManagementFrame: {fileID: 21300000, guid: 6816075e96cf94121bbef6520deb584f, type: 3}
-  startingDeck: {fileID: 11400000, guid: 583b1de8b4e66492eb4afaaa9e408467, type: 2}
+  startingDeck: {fileID: 11400000, guid: a8089ca7a87f448de91096b27f1f3d4e, type: 2}
   cardBack: {fileID: 21300000, guid: 20b46ccd593516f4badbdcdb021f67c1, type: 3}
-  cardFrame: {fileID: 21300000, guid: e44243240dcfea04b91f6a9793d745e8, type: 3}
+  cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
   cardTypeIconOverride: {fileID: 0}
   rarity: 1
   cardIdleVfxPrefab: {fileID: 0}
@@ -34,36 +34,34 @@ MonoBehaviour:
   pack: {fileID: 11400000, guid: 79e479ca9df7a4369ba7fa951e0af116, type: 2}
   speakerType: {fileID: 0}
   abilitiesV2:
-  - rid: 205828032053380025
-  - rid: 205828032053380031
-  level: 2
-  upgradeTo: {fileID: 0}
+  - rid: 205827988172308718
+  level: 0
+  upgradeTo: {fileID: 11400000, guid: 8eb0a1d776cbb4743bbc5204835d25a3, type: 2}
   tooltip:
     empty: 0
     lines:
-    - title: Entropy++
-      description: Transform 1 card into "Greek Fire" at the end of combat. Whenever
-        you exhaust a card, deal 4 damage to a random enemy.
+    - title: Dr. Papyro
+      description: Transform 1 card into "Greek Fire" at the end of combat.
       relatedBehaviorIndex: 0
+      icon: {fileID: 0}
   keepsakeTitle: 
   keepsakeDescription: Transform 1 card into an exhaustable "Greek Fire" status card
-    at the end of combat. Whenever you exhaust a card, deal 4 damage to a random
-    enemy.
+    at the end of combat.
   references:
     version: 2
     RefIds:
-    - rid: 205828032053380025
+    - rid: 205827988172308718
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
         abilityTrigger: 1
         effectSteps:
-        - rid: 7707884639552275425
-        - rid: 205828032053380027
-        - rid: 205828032053380028
-        - rid: 205828032053380029
-        - rid: 205828032053380030
+        - rid: 7707884639552275417
+        - rid: 205827988172308721
+        - rid: 205827988172308722
+        - rid: 205827988172308723
+        - rid: 205827988172308724
         weight: 0
-    - rid: 205828032053380027
+    - rid: 205827988172308721
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
@@ -75,7 +73,7 @@ MonoBehaviour:
         specialTargetRule: 0
         cantCancelTargetting: 1
         cardSelectionHelperText: 
-    - rid: 205828032053380028
+    - rid: 205827988172308722
       type: {class: GetCardsFromDeck, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetCardsFromDeck
@@ -87,66 +85,28 @@ MonoBehaviour:
         getAllCardsFromEntities: 0
         getCardsFromSourceDeck: 1
         getAllFromOnlyDrawPile: 0
-    - rid: 205828032053380029
+    - rid: 205827988172308723
       type: {class: SelectCardsFromList, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: SelectCardsFromList
         inputKey: allCardsInDeck
-        outputKey: targetCard
+        outputKey: cardToTransform
         promptText: Select a card to transform into "Greek Fire"
         minTargets: 1
         maxTargets: 1
         getNumberOfTargetsFromKey: 0
         inputNumberOfTargetsKey: 
         randomizeOrder: 0
-    - rid: 205828032053380030
+    - rid: 205827988172308724
       type: {class: CardInDeckEffect, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CardInDeckEffect
-        inputCardsKey: targetCard
+        inputCardsKey: cardToTransform
         inputDeckKey: target
         effect: 4
         cardToTransformInto: {fileID: 11400000, guid: 07ddcab78d7f64ac1849ccdb53efe2c0, type: 2}
         outputKey: 
-    - rid: 205828032053380031
-      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
-      data:
-        abilityTrigger: 9
-        effectSteps:
-        - rid: 7707884639552275426
-        - rid: 7401433059192472089
-        - rid: 7401433059192472088
-        weight: 0
-    - rid: 7401433059192472088
-      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CombatEffectStep
-        inputKey: target
-        combatEffect: 14
-        scale: 4
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
-        vfxPrefab: {fileID: 1320532642761013391, guid: 4847f21b038e1aa42bceefe5c97ab1ab, type: 3}
-    - rid: 7401433059192472089
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: target
-        validTargets: 02000000
-        number: 1
-        specialTargetRule: 6
-        cantCancelTargetting: 0
-        cardSelectionHelperText: 
-    - rid: 7707884639552275425
-      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: EntityAbilityTriggeredVFX
-    - rid: 7707884639552275426
+    - rid: 7707884639552275417
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EntityAbilityTriggeredVFX

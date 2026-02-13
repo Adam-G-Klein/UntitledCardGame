@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
-  m_Name: RP_Beezelbumbler
+  m_Name: RP_L3_Hex
   m_EditorClassIdentifier: 
-  guid: 0cb85a22-217b-405f-865b-bba0b32161bf
-  companionName: Beezel
-  maxHealth: 15
+  guid: e72c5fd3-180f-4aa3-8fe4-7b85677cfc1e
+  companionName: Hex++
+  maxHealth: 45
   initialCardsDealtPerTurn: 1
-  sprite: {fileID: 21300000, guid: b2c03f209141544b38b538492ea66b34, type: 3}
-  fullSprite: {fileID: 21300000, guid: b2c03f209141544b38b538492ea66b34, type: 3}
-  backgroundImage: {fileID: 21300000, guid: 741949db90bb4412ba7493960e001481, type: 3}
-  entityFrame: {fileID: 21300000, guid: e8e1fad73c653473d90feb9b744f60c6, type: 3}
-  companionManagementFrame: {fileID: 21300000, guid: ad4f2340ea2464bc780af3b16bf27412, type: 3}
+  sprite: {fileID: 21300000, guid: 3489f32d537178446aae3f15990ca556, type: 3}
+  fullSprite: {fileID: 21300000, guid: 3489f32d537178446aae3f15990ca556, type: 3}
+  backgroundImage: {fileID: 21300000, guid: 3d949f712517a4846a59e1b81e5d2626, type: 3}
+  entityFrame: {fileID: 21300000, guid: 917225be64994484da5c72a7b08a3d6c, type: 3}
+  companionManagementFrame: {fileID: 21300000, guid: ff816818ae73449c997132f7ec8ab23c, type: 3}
   startingDeck: {fileID: 11400000, guid: 466520c011e0b499e9ec3a59502a6788, type: 2}
   cardBack: {fileID: 21300000, guid: 3296a63e824de414bb4b578c4822fbdb, type: 3}
   cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
@@ -42,17 +42,18 @@ MonoBehaviour:
   speakerType: {fileID: 0}
   abilitiesV2:
   - rid: 2034230176448512006
-  level: 0
-  upgradeTo: {fileID: 11400000, guid: a10a7597f04484f7eb5c6c9ba3d20054, type: 2}
+  level: 2
+  upgradeTo: {fileID: 0}
   tooltip:
     empty: 0
     lines:
-    - title: Beezel
-      description: The first 2 times Beezel takes damage in combat, it gains 1 strength
+    - title: Hex++
+      description: The first 2 times Hex takes damage in combat, it gains 3 strength
       relatedBehaviorIndex: 0
-  keepsakeTitle: Beezelbumbler's Fangs
+      icon: {fileID: 0}
+  keepsakeTitle: Bumbler's Deviltooth
   keepsakeDescription: The first 2 times Beezelbumbler takes damage in combat, it
-    gains 1 strength
+    gains 3 strength
   references:
     version: 2
     RefIds:
@@ -64,12 +65,12 @@ MonoBehaviour:
         - rid: 2034230176448512007
         - rid: 2034230176448512008
         - rid: 2034230176448512009
-        - rid: 7401433308100034592
+        - rid: 7401433308100034656
         - rid: 2034230176448512010
-        - rid: 7401433308100034593
+        - rid: 7707884639552274908
+        - rid: 7401433308100034657
         - rid: 2034230176448512011
-        - rid: 2034230176448512012
-        - rid: 7707884639552274751
+        - rid: 7401433308100034658
         - rid: 2034230176448512013
         weight: 0
     - rid: 2034230176448512007
@@ -89,6 +90,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 2034230176448512009
       type: {class: CombatInstanceCacheLoad, ns: , asm: Assembly-CSharp}
       data:
@@ -113,19 +115,6 @@ MonoBehaviour:
         useHardCodedInt: 0
         currentWorkflowKey: numBuffsSubtracted
         cacheKey: numBuffs
-    - rid: 2034230176448512012
-      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: ApplyStatus
-        inputKey: self
-        statusEffect: 0
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplyByNumAuraStacks: 0
-        multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
     - rid: 2034230176448512013
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -133,7 +122,7 @@ MonoBehaviour:
         inputKey: self
         prefabToInstantiate: {fileID: 2729960547564495472, guid: a6a1a26d43bc7114eba88909bdbfccc7, type: 3}
         scale: 1
-    - rid: 7401433308100034592
+    - rid: 7401433308100034656
       type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: BooleanComparison
@@ -143,7 +132,7 @@ MonoBehaviour:
         operation: 0
         inputKey2: numBuffs
         outputKey: done
-    - rid: 7401433308100034593
+    - rid: 7401433308100034657
       type: {class: MathStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: MathStep
@@ -152,7 +141,20 @@ MonoBehaviour:
         operation: 1
         scale: 1
         outputKey: numBuffsSubtracted
-    - rid: 7707884639552274751
+    - rid: 7401433308100034658
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: self
+        statusEffect: 0
+        scale: 3
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+    - rid: 7707884639552274908
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EntityAbilityTriggeredVFX

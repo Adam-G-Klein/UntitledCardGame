@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 98c54fe17bbfaba4697c85c1618843f4, type: 3}
-  m_Name: RP_DustmiteCardPool
+  m_Name: RP_PapyroCardPool
   m_EditorClassIdentifier: 
   commonCards:
-  - {fileID: 11400000, guid: d4e238d6b5f4841d390d076ab2ae4606, type: 2}
-  uncommonCards:
-  - {fileID: 11400000, guid: f4097b13ae1f7416e8f506a992540b34, type: 2}
-  rareCards: []
+  - {fileID: 11400000, guid: 2c3ca969195e84102bc0582d8150cf7d, type: 2}
+  uncommonCards: []
+  rareCards:
+  - {fileID: 11400000, guid: 7e75d6741120448b28ad91f5aabfb873, type: 2}
   genericCardIconSprite: {fileID: 0}
   unlockableCommonCards: []
   unlockableUncommonCards: []
