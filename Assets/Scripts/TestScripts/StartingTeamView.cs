@@ -8,7 +8,7 @@ public class TeamSelectionUI : MonoBehaviour, ICompanionViewDelegate
 {
     public GameStateVariableSO gameState;
     public CompanionListVariableSO team1ActiveCompanions;
-    public CompanionListVariableSO testTeamActiveCompanions;
+    public CompanionListVariableSO staticTeamActiveCompanions;
     public GameObject deckViewUIPrefab;
     private VisualElement root;
     private Button next;
@@ -61,7 +61,7 @@ public class TeamSelectionUI : MonoBehaviour, ICompanionViewDelegate
         }
         else
         {
-            team1ActiveCompanions = testTeamActiveCompanions;
+            team1ActiveCompanions = staticTeamActiveCompanions;
         }
         docRenderer = GetComponent<UIDocumentScreenspace>();
 
