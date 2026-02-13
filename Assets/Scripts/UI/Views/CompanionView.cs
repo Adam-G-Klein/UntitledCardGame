@@ -522,6 +522,11 @@ public class CompanionView : IUIEventReceiver
         this.isFullyDisabled = true;
     }
 
+    public void EnableInteractions() {
+        this.isFullyDisabled = false;
+        SetPickingModes(true);
+    }
+
     public IEnumerator AbilityActivatedVFX() {
         VisualElement spriteCopy = new VisualElement();
         spriteCopy.style.backgroundImage = new StyleBackground(this.companion.companionType.fullSprite);

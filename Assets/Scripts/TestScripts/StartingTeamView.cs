@@ -11,6 +11,7 @@ public class TeamSelectionUI : MonoBehaviour, ICompanionViewDelegate
     public CompanionListVariableSO testTeamActiveCompanions;
     public GameObject deckViewUIPrefab;
     private VisualElement root;
+    private Button next;
     [SerializeField]
     private bool displayOnStart = true;
     [SerializeField]
@@ -67,24 +68,37 @@ public class TeamSelectionUI : MonoBehaviour, ICompanionViewDelegate
         root = GetComponent<UIDocument>().rootVisualElement;
         InitializeCompanions(team1ActiveCompanions.activeCompanions);
 
-        Button next = root.Q<UnityEngine.UIElements.Button>("Next");
+        next = root.Q<Button>("Next");
         next.RegisterOnSelected(() => initializeRun());
         FocusManager.Instance.RegisterFocusableTarget(next.AsFocusable());
 
         tooltipController = new TooltipController(tooltipPrefab);
 
         if (gameState.buildType == BuildType.DEMO && !DemoDirector.Instance.IsStepCompleted(DemoStepName.BendingTheRules)) {
-            next.SetEnabled(false);
-            FocusManager.Instance.DisableAll();
+            DisableUI();
             StartCoroutine(DisplayDemoDialogue());
+        }
+    }
+
+    private void DisableUI() {
+        next.SetEnabled(false);
+        FocusManager.Instance.DisableAll();
+        foreach (CompanionView companion in companionViews) {
+            companion.DisableInteractions();
+        }
+    }
+
+    private void EnableUI() {
+        next.SetEnabled(true);
+        FocusManager.Instance.EnableAll();
+        foreach (CompanionView companion in companionViews) {
+            companion.EnableInteractions();
         }
     }
 
     private IEnumerator DisplayDemoDialogue() {
         yield return DemoDirector.Instance.InvokeDemoStepCorouutine(DemoStepName.BendingTheRules);
-        Button next = root.Q<UnityEngine.UIElements.Button>("Next");
-        next.SetEnabled(true);
-        FocusManager.Instance.EnableAll();
+        EnableUI();
     }
 
     private void InitializeCompanions(List<Companion> companions) {
@@ -101,6 +115,7 @@ public class TeamSelectionUI : MonoBehaviour, ICompanionViewDelegate
             companionView.container.RegisterOnFocused(() => tooltipController.DisplayTooltip(companionView.container, companion.companionType.GetTooltip(), TooltipContext.StartingTeam));
             companionView.container.RegisterOnUnfocused(() => tooltipController.DestroyTooltip(companionView.container));
             FocusManager.Instance.RegisterFocusableTarget(companionView.focusable);
+            companionViews.Add(companionView);
         }
     }
 
