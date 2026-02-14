@@ -92,10 +92,3 @@ public enum DemoStepName {
     StartOfShop,
     BuyCompanionReminder
 }
-
-[CreateAssetMenu(
-    fileName = "DemoDataSO",
-    menuName = "ScriptableObjects/Demo Data SO")]
-public class DemoDataSO : ScriptableObject {
-    public Dictionary<DemoStepName, bool> stepCompletion;
-}

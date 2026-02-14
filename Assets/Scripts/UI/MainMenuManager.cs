@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
+using UnityEngine.InputSystem;
 
 public class MainMenuManager : MonoBehaviour
 {
@@ -29,6 +30,22 @@ public class MainMenuManager : MonoBehaviour
         gameState.currentLocation = Location.MAIN_MENU;
         StartCoroutine(SetupWhenReady());
         MusicController.Instance.RegisterButtonClickSFX(mainMenuUIDocument);
+    }
+
+    void Update() {
+        if (
+            Keyboard.current != null &&
+            Keyboard.current.bKey.wasPressedThisFrame &&
+            Keyboard.current.ctrlKey.isPressed &&
+            Keyboard.current.shiftKey.isPressed
+        )
+        {
+            if (gameState.buildType != BuildType.DEMO) {
+                gameState.buildType = BuildType.DEMO;
+            } else {
+                gameState.buildType = BuildType.RELEASE;
+            }
+        }
     }
 
     private IEnumerator SetupWhenReady()

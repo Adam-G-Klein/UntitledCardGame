@@ -32,6 +32,7 @@ public class GenericSingleton<T> : MonoBehaviour where T : Component
                 {
                     for (int i = 1; i < objs.Length; i++)
                     {
+                        Debug.LogError("Found more than one singleton, all but one are being destroyed.");
                         Destroy(objs[i].gameObject);
                     }
                 }
@@ -40,6 +41,7 @@ public class GenericSingleton<T> : MonoBehaviour where T : Component
                 // and attach the generic instance
                 if (instance == null)
                 {
+                    Debug.LogError("Found a null singleton, creating a new one. This should not be happening.");
                     GameObject obj = new GameObject();
                     obj.name = typeof(T).Name;
                     instance = obj.AddComponent<T>();
