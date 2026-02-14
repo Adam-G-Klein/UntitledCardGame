@@ -9,7 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70a6a5ea04739c248ba9bf7d709ddfdd, type: 3}
-  m_Name: StaticShopEncounters
+  m_Script: {fileID: 11500000, guid: 24f95da87f612e047aaeac10756d2ec7, type: 3}
+  m_Name: Act1_Demo_JustMeothraPool
   m_EditorClassIdentifier: 
-  shopEncounters: []
+  enemyEncounterTypes:
+  - {fileID: 11400000, guid: c943de554e28b5d408e5601d8ff303b2, type: 2}
+  isElite: 1
+  incActNumber: 0
+  bonusManaReward: 0
+  bonusTeamSizeReward: 0

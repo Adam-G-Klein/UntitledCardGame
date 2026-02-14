@@ -13,44 +13,44 @@ MonoBehaviour:
   m_Name: SD26_CL_HighDamage_3Companions
   m_EditorClassIdentifier: 
   activeCompanions:
-  - id: 1cae4d48-ca08-46b7-b9ad-5a5259b5f458
+  - id: ea85a5e4-89a7-4ceb-b30f-186a911c3d53
     entityType: 0
-    companionType: {fileID: 11400000, guid: e65d0392c4877436e8ce3c44d1e27ac5, type: 2}
+    companionType: {fileID: 11400000, guid: bb82c6f907d7346c1b0aa5847e323c44, type: 2}
     deck:
       cards:
-      - id: ddc02f01-c6d9-4f00-95b4-cea582ea7578
-        entityType: 0
-        shopRarity: 0
-        castCount: 0
-        tempManaCost: -1
-        generated: 0
-        cardType: {fileID: 11400000, guid: 81075961e1b6a46399bac8d8fc62808b, type: 2}
-      - id: 2e1d080e-a787-408c-a282-91c19f0b0037
-        entityType: 0
-        shopRarity: 0
-        castCount: 0
-        tempManaCost: -1
-        generated: 0
-        cardType: {fileID: 11400000, guid: a934a515f0a594e8bb1a8693741dd2bb, type: 2}
-      - id: f08a70eb-5ee0-452a-922c-5a79ead505c7
-        entityType: 0
-        shopRarity: 0
-        castCount: 0
-        tempManaCost: -1
-        generated: 0
-        cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
-      - id: 63e98a8e-bcb7-4afb-b018-81674a2ae51e
+      - id: eda903e6-5b56-4597-9960-affe4de7a9be
         entityType: 0
         shopRarity: 0
         castCount: 0
         tempManaCost: -1
         generated: 0
         cardType: {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
+      - id: 4d72a1cd-725b-41c8-a060-4a70a327b904
+        entityType: 0
+        shopRarity: 0
+        castCount: 0
+        tempManaCost: -1
+        generated: 0
+        cardType: {fileID: 11400000, guid: ca645d118bf9a4152ac96c71ab0eb6d6, type: 2}
+      - id: 10205186-b948-4002-bea6-01677f68bfc6
+        entityType: 0
+        shopRarity: 0
+        castCount: 0
+        tempManaCost: -1
+        generated: 0
+        cardType: {fileID: 11400000, guid: e60d76bf01ab44dda8a2572d65a03ebe, type: 2}
+      - id: dcb9bdce-f2dc-4e2b-8c4a-4190572cdbf0
+        entityType: 0
+        shopRarity: 0
+        castCount: 0
+        tempManaCost: -1
+        generated: 0
+        cardType: {fileID: 11400000, guid: 8f91ac8e9c34b574699f7ab51ed581a6, type: 2}
       cardsDealtPerTurn: 1
     combatStats:
-      maxHealth: 25
+      maxHealth: 15
       maxHealthBuffs: 0
-      currentHealth: 25
+      currentHealth: 15
       baseAttackDamage: 0
     onCombineAbilities: []
     trackingStats:

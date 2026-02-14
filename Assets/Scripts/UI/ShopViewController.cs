@@ -890,7 +890,19 @@ public class ShopViewController : MonoBehaviour,
     }
 
     public void StartNextCombatOnClick(ClickEvent evt) {
+        if (shopManager.gameState.buildType == BuildType.DEMO
+            && !DemoDirector.Instance.IsStepCompleted(DemoStepName.BuyCompanionReminder)
+            && shopManager.HasEmptyTeamSlotAndCanAffordCompanion()) {
+            StartCoroutine(RunBuyCompanionReminderStep());
+            return;
+        }
         shopManager.exitShop();
+    }
+
+    private IEnumerator RunBuyCompanionReminderStep() {
+        DisableAllUI();
+        yield return DemoDirector.Instance.InvokeDemoStepCorouutine(DemoStepName.BuyCompanionReminder);
+        EnableAllUI();
     }
 
     public void SellCompanionOnClick() {

@@ -7,6 +7,7 @@ using UnityEngine;
     menuName = "Encounters/Shop/New Static Shop Encounters")]
 public class StaticShopEncountersSO : ScriptableObject
 {
+    [Header("One set of cards and companions for each shop encounter that will be shown first")]
     public List<StaticShopEncounter> shopEncounters;
 }
 

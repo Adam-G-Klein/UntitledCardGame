@@ -13,6 +13,8 @@ public class DemoDirector : GenericSingleton<DemoDirector>
     public List<string> moreRewardsThanUsualStepDialogue;
     [TextArea]
     public List<string> startOfShopStepDialogue;
+    [TextArea]
+    public List<string> buyCompanionReminderStepDialogue;
 
     public void Reset() {
         demoDataSO.stepCompletion = new Dictionary<DemoStepName, bool>();
@@ -43,6 +45,10 @@ public class DemoDirector : GenericSingleton<DemoDirector>
             case DemoStepName.StartOfShop:
                 yield return StartOfShopStep();
             break;
+
+            case DemoStepName.BuyCompanionReminder:
+                yield return BuyCompanionReminderStep();
+            break;
         }
         yield return null;
     }
@@ -70,12 +76,21 @@ public class DemoDirector : GenericSingleton<DemoDirector>
         DialogueView.Instance.Hide();
         demoDataSO.stepCompletion[DemoStepName.StartOfShop] = true;
     }
+
+    public IEnumerator BuyCompanionReminderStep() {
+        foreach (string line in buyCompanionReminderStepDialogue) {
+            yield return DialogueView.Instance.SpeakLineCoroutine(speakerSprite, line, true);
+        }
+        DialogueView.Instance.Hide();
+        demoDataSO.stepCompletion[DemoStepName.BuyCompanionReminder] = true;
+    }
 }
 
 public enum DemoStepName {
     BendingTheRules,
     MoreRewardsThanUsual,
-    StartOfShop
+    StartOfShop,
+    BuyCompanionReminder
 }
 
 [CreateAssetMenu(

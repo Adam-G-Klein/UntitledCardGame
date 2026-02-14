@@ -15,6 +15,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     [Header("Shop")]
     public ShopViewController shopViewController;
     public EncounterConstantsSO encounterConstants;
+    public StaticShopEncountersSO staticShopEncounters;
     public VoidGameEvent shopRefreshEvent;
     public GameObject companionViewUIPrefab;
 
@@ -67,7 +68,16 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         List<Companion> allCompanions = new();
         allCompanions.AddRange(gameState.companions.activeCompanions);
         allCompanions.AddRange(gameState.companions.benchedCompanions);
-        shopEncounter.Build(this, allCompanions, encounterConstants, this.shopLevel);
+
+        StaticShopEncounter staticEncounter = null;
+        if (gameState.buildType == BuildType.DEMO && staticShopEncounters != null) {
+            int shopIndex = gameState.currentEncounterIndex / 2;
+            if (shopIndex < staticShopEncounters.shopEncounters.Count) {
+                staticEncounter = staticShopEncounters.shopEncounters[shopIndex];
+            }
+        }
+
+        shopEncounter.Build(this, allCompanions, encounterConstants, this.shopLevel, staticEncounter);
         shopViewController.SetMoney(gameState.playerData.GetValue().gold);
         shopViewController.SetShopUpgradePrice(shopLevel.upgradeIncrementCost);
         shopViewController.SetShopRerollPrice(shopEncounter.shopData.rerollShopPrice);
@@ -81,7 +91,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             gameState.dialogueLocations.GetDialogueLocation(gameState));
         DialogueManager.Instance.StartAnyDialogueSequence();
         */
-        if (gameState.buildType == BuildType.DEMO && DemoDirector.Instance.IsStepCompleted(DemoStepName.StartOfShop)) {
+        if (gameState.buildType == BuildType.DEMO && !DemoDirector.Instance.IsStepCompleted(DemoStepName.StartOfShop)) {
             shopViewController.DisableAllUI();
         }
     }
@@ -632,5 +642,18 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     public void SetAutoUpgrade(bool v)
     {
         gameState.autoUpgrade = v;
+    }
+
+    public bool HasEmptyTeamSlotAndCanAffordCompanion() {
+        if (gameState.companions.activeCompanions.Count >= gameState.companions.currentCompanionSlots) {
+            return false;
+        }
+        int playerGold = gameState.playerData.GetValue().gold;
+        foreach (CompanionInShopWithPrice companion in shopEncounter.companionsInShop) {
+            if (companion.price <= playerGold) {
+                return true;
+            }
+        }
+        return false;
     }
 }

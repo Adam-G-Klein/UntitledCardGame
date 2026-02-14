@@ -89,12 +89,13 @@ public class ShopEncounter : Encounter
             ShopManager shopManager,
             List<Companion> companionList,
             EncounterConstantsSO constants,
-            ShopLevel shopLevel)
+            ShopLevel shopLevel,
+            StaticShopEncounter staticEncounter = null)
     {
         this.shopManager = shopManager;
         this.encounterConstants = constants;
         this.encounterType = EncounterType.Shop;
-        generateShopEncounter(shopLevel, companionList);
+        generateShopEncounter(shopLevel, companionList, staticEncounter);
         cardsInShop.ForEach(card => shopManager.shopViewController.AddCardToShopView(card));
         companionsInShop.ForEach(companion => shopManager.shopViewController.AddCompanionToShopView(companion));
         shopManager.SetupUnitManagement();
@@ -109,15 +110,28 @@ public class ShopEncounter : Encounter
         encounterBuilder.BuildShopEncounter(this);
     }
 
-    private void generateShopEncounter(ShopLevel shopLevel, List<Companion> companionList) {
+    private void generateShopEncounter(ShopLevel shopLevel, List<Companion> companionList, StaticShopEncounter staticEncounter = null) {
         cardsInShop = new List<CardInShopWithPrice>();
         companionsInShop = new List<CompanionInShopWithPrice>();
 
-        generateCards(shopLevel, companionList);
-        generateKeepsakes(shopLevel, companionList);
+        generateCards(shopLevel, companionList, staticEncounter);
+        generateKeepsakes(shopLevel, companionList, staticEncounter);
     }
 
-    private void generateCards(ShopLevel shopLevel, List<Companion> companionList) {
+    private void generateCards(ShopLevel shopLevel, List<Companion> companionList, StaticShopEncounter staticEncounter = null) {
+        if (staticEncounter != null && staticEncounter.cardTypes != null && staticEncounter.cardTypes.Count > 0) {
+            foreach (CardType cardType in staticEncounter.cardTypes) {
+                Card.CardRarity rarity = DetermineCardRarity(cardType);
+                int price = GetCardPriceForRarity(rarity);
+                CardInShopWithPrice card = new CardInShopWithPrice(cardType, price, null, null, rarity, null);
+                int bonusCost = AddBonusCardCost();
+                card.price += bonusCost;
+                card.increasedPrice = bonusCost > 0;
+                cardsInShop.Add(card);
+            }
+            return;
+        }
+
         ShopCardProbabilityDistBuilder b = new(
             shopData, shopLevel, companionList
         );
@@ -132,8 +146,62 @@ public class ShopEncounter : Encounter
         }
     }
 
-    public void generateKeepsakes(ShopLevel shopLevel, List<Companion> team)
+    private Card.CardRarity DetermineCardRarity(CardType cardType) {
+        // Search through all card pools (neutral, pack, and companion)
+        // to determine which rarity tier a card belongs to.
+        List<CardPoolSO> pools = new() { shopData.neutralCardPool };
+        foreach (PackSO pack in shopData.activePacks) {
+            if (pack.packCardPoolSO != null) pools.Add(pack.packCardPoolSO);
+        }
+        // Also check companion-specific card pools.
+        List<CompanionTypeSO> allCompanionTypes = new();
+        allCompanionTypes.AddRange(shopData.companionPool.commonCompanions);
+        allCompanionTypes.AddRange(shopData.companionPool.uncommonCompanions);
+        allCompanionTypes.AddRange(shopData.companionPool.rareCompanions);
+        foreach (CompanionTypeSO companion in allCompanionTypes) {
+            if (companion.cardPool != null && !pools.Contains(companion.cardPool))
+                pools.Add(companion.cardPool);
+        }
+
+        foreach (CardPoolSO pool in pools) {
+            if (pool.commonCards.Contains(cardType) || pool.unlockableCommonCards.Contains(cardType))
+                return Card.CardRarity.COMMON;
+            if (pool.uncommonCards.Contains(cardType) || pool.unlockableUncommonCards.Contains(cardType))
+                return Card.CardRarity.UNCOMMON;
+            if (pool.rareCards.Contains(cardType) || pool.unlockableRareCards.Contains(cardType))
+                return Card.CardRarity.RARE;
+        }
+
+        Debug.LogWarning($"Could not determine rarity for card {cardType.name}, defaulting to COMMON");
+        return Card.CardRarity.COMMON;
+    }
+
+    private int GetCardPriceForRarity(Card.CardRarity rarity) {
+        return rarity switch {
+            Card.CardRarity.COMMON => shopData.commonCardPrice,
+            Card.CardRarity.UNCOMMON => shopData.uncommonCardPrice,
+            Card.CardRarity.RARE => shopData.rareCardPrice,
+            _ => shopData.commonCardPrice,
+        };
+    }
+
+    public void generateKeepsakes(ShopLevel shopLevel, List<Companion> team, StaticShopEncounter staticEncounter = null)
     {
+        if (staticEncounter != null && staticEncounter.companionTypes != null && staticEncounter.companionTypes.Count > 0) {
+            foreach (CompanionTypeSO companionType in staticEncounter.companionTypes) {
+                CompanionRarity rarity = DetermineCompanionRarity(companionType);
+                int maxHealthBonus = shopLevel.ratBonusHealth;
+                CompanionInShopWithPrice keepsake = new CompanionInShopWithPrice(
+                    companionType, shopData.companionKeepsakePrice, 0, maxHealthBonus, rarity
+                );
+                int bonusCost = AddBonusRatCost();
+                keepsake.price += bonusCost;
+                if (bonusCost > 0) keepsake.increasedPrice = true;
+                companionsInShop.Add(keepsake);
+            }
+            return;
+        }
+
         int numKeepsakesToGenerate = shopLevel.numKeepsakesToShow;
 
         // Maintain a list of the keepsakes that are out of the shop pool.
@@ -239,6 +307,18 @@ public class ShopEncounter : Encounter
 
         return (int) ProgressManager.Instance.GetAscensionSO(AscensionType.STINGY_CONCIERGE).
             ascensionModificationValues.GetValueOrDefault("costIncrease", 1f);
+    }
+
+    private CompanionRarity DetermineCompanionRarity(CompanionTypeSO companionType) {
+        if (shopData.companionPool.commonCompanions.Contains(companionType))
+            return CompanionRarity.COMMON;
+        if (shopData.companionPool.uncommonCompanions.Contains(companionType))
+            return CompanionRarity.UNCOMMON;
+        if (shopData.companionPool.rareCompanions.Contains(companionType))
+            return CompanionRarity.RARE;
+
+        Debug.LogWarning($"Could not determine rarity for companion {companionType.name}, defaulting to COMMON");
+        return CompanionRarity.COMMON;
     }
 
     private int numCompanionsOfType(List<CompanionTypeSO> companions, CompanionTypeSO companionType)
