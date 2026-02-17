@@ -9,7 +9,7 @@
                 <ui:Label tabindex="-1" text="Combat Rewards!" parse-escape-sequences="true" display-tooltip-when-elided="true" class="post-combat-text" style="translate: 0 0; font-size: 48px; transform-origin: center; margin-top: 2%;" />
                 <ui:VisualElement style="top: 50%; position: absolute; min-width: 100%; left: 50%; translate: -50% -50%;">
                     <ui:VisualElement class="combat-rewards-section" style="border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; flex-direction: row; justify-content: space-between;">
-                        <ui:Label tabindex="-1" text="1 interest per $5 (5 max): " display-tooltip-when-elided="true" name="interest-help" class="post-combat-text" style="-unity-text-align: middle-left; font-size: 28px; -unity-font-style: bold; color: rgb(255, 255, 255); margin-left: 20px;" />
+                        <ui:Label tabindex="-1" text="1 interest per ${0} ({1} max):" display-tooltip-when-elided="true" name="interest-help" enable-rich-text="true" class="post-combat-text" style="-unity-text-align: middle-left; font-size: 28px; -unity-font-style: bold; color: rgb(255, 255, 255); margin-left: 20px;" />
                         <ui:VisualElement name="interest-container" class="post-combat-reward-container">
                             <ui:Label tabindex="-1" text="5" display-tooltip-when-elided="true" name="interest" class="post-combat-text post-combat-reward-dollar" style="margin-right: 0;" />
                             <ui:Label tabindex="-1" text="5" display-tooltip-when-elided="true" name="interest" class="post-combat-text post-combat-reward-dollar" style="margin-right: 0;" />
@@ -33,7 +33,7 @@
                         <ui:Label tabindex="-1" text="1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="upgradeIncrementsEarned" class="post-combat-text" style="margin-right: 20px; font-size: 28px;" />
                     </ui:VisualElement>
                     <ui:VisualElement name="bonus-elite-reward-container" class="combat-rewards-section" style="flex-direction: row; justify-content: space-between;">
-                        <ui:Label tabindex="-1" text="Boss Reward:" display-tooltip-when-elided="true" name="upgradeIncrementsLabel" class="post-combat-text" style="margin-left: 20px;" />
+                        <ui:Label tabindex="-1" text="Bonus Reward:" display-tooltip-when-elided="true" name="upgradeIncrementsLabel" class="post-combat-text" style="margin-left: 20px;" />
                         <ui:Label tabindex="-1" text="+1 team size" parse-escape-sequences="true" display-tooltip-when-elided="true" name="bonus-elite-reward-text" class="post-combat-text" style="margin-right: 20px; font-size: 28px;" />
                     </ui:VisualElement>
                 </ui:VisualElement>

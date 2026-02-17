@@ -22,6 +22,8 @@ public class EndEncounterView : MonoBehaviour
     private VisualElement bonusEarnedContainer;
     private int goldEarned;
     private int interestEarned;
+    private float interestRate;
+    private int interestCap;
     private int bonusTeamSizeReward;
     private int bonusManaReward;
 
@@ -58,12 +60,15 @@ public class EndEncounterView : MonoBehaviour
 
         this.goldEarned = baseGoldEarnedPerBattle;
         this.interestEarned = interestEarned;
+        this.interestCap = interestCap;
+        this.interestRate = interestPercentage;
         this.bonusManaReward = bonusManaReward;
         this.bonusTeamSizeReward = bonusTeamSizeReward;
-        /*doc.rootVisualElement.Q<Label>("interest-help").text = "(You earn " +
-            interestPercentage.ToString("P0") +
-            " of your current Gold as Interest, capped at " +
-            interestCap.ToString() + " gold per combat)";*/
+
+        int earnOneInterestEveryXGold = (int)(1 / interestPercentage);
+
+        string templateText = doc.rootVisualElement.Q<Label>("interest-help").text;
+        doc.rootVisualElement.Q<Label>("interest-help").text = string.Format(templateText, earnOneInterestEveryXGold, interestCap);
         // add the above back in if we need modularity in interest cap/percent
     }
 
