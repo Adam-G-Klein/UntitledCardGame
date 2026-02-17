@@ -53,7 +53,7 @@ public class GetRandomItems : EffectStep, IEffectStepCalculation
     }
 
     private List<object> RandomlyGetItems(List<object> objs, int items) {
-        if (items > objs.Count) {
+        if (items > objs.Count && !withReplacement) {
             return objs;
         }
         List<object> returnList = new List<object>();

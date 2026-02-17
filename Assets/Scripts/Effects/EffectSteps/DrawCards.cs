@@ -37,12 +37,15 @@ public class DrawCards : EffectStep /*, ITooltipProvider*/
             yield return null;
         }
 
+        Debug.Log("There are " + instances.Count + " deck instances under key " + inputKey);
+
         int finalScale = scale;
         if (getScaleFromKey && document.intMap.ContainsKey(inputScaleKey)) {
             finalScale = document.intMap[inputScaleKey];
         }
         List<PlayableCard> cardsDelt = new List<PlayableCard>();
         foreach (DeckInstance instance in instances) {
+            Debug.Log("Drawing " + finalScale + " cards from deck instance for companion " + instance.combatInstance.GetCompanionInstance().companion.GetName());
             cardsDelt.AddRange(instance.DealCardsToPlayerHand(finalScale, document.originEntityType == EntityType.Card));
         }
         // Add both versions of the cards delt to the document
