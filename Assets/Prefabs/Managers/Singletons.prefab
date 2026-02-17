@@ -912,16 +912,24 @@ MonoBehaviour:
   demoDataSO: {fileID: 11400000, guid: 93580874b1544ad4aaef0f5027620bb0, type: 2}
   speakerSprite: {fileID: 21300000, guid: 34af0ef08494934478eca248b698d0ec, type: 3}
   bendingTheRulesStepDialogue:
-  - I'm gonna bend the rules a little bit for you since it's your first time.
-  - I've assembled you some of the best and brightest!
+  - I'm going to bend the rules for you since it's your first time.
+  - Normally you would receive a random team of rats here, but I made sure you got
+    something nice and balanced.
   moreRewardsThanUsualStepDialogue:
-  - You're receiving a lot more rewards here than normal.
-  - This is my doing, want to start you off right.
+  - My, that's a lot of money. You're receiving much more than usual since this is
+    a shortened experience.
   startOfShopStepDialogue:
-  - In the shop, you can buy new cards and recruit new rats!
+  - Welcome to the shop. This is where the best players separate themselves from
+    the rest of the pack.
+  - You can recruit new rats for your team and buy cards. Be careful with where you
+    place cards - that's a key element of strategy in Paccarat.
+  - Oh, and if you want to see more powerful rats and cards, I'd recommend buying
+    RP to upgrade the shop.
   buyCompanionReminderStepDialogue:
-  - I pushed the syndicate to let you have another rat friend in this next fight
+  - I pushed the Syndicate to let you have another rat friend in this next fight
   - Add one to your team from among those hanging out here
+  shopPivotSuggestionDialogue:
+  - meep meep
 --- !u!1 &5109742072706344275
 GameObject:
   m_ObjectHideFlags: 0
