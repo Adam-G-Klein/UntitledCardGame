@@ -35,19 +35,20 @@ MonoBehaviour:
   speakerType: {fileID: 0}
   abilitiesV2:
   - rid: 205828107393564721
+  - rid: 7150943403050008684
   level: 1
   upgradeTo: {fileID: 11400000, guid: 4a6b01665ca634dbbb92cb334d73c641, type: 2}
   tooltip:
     empty: 0
     lines:
     - title: Spaulder+
-      description: Whenever Spaulder loses HP, give leftmost rat 3 block & give self
-        1 block
+      description: Start of turn, bleed self & adjacent 1 HP. Whenever Spaulder+
+        loses HP, give leftmost rat 3 block & give self 1 block
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
   keepsakeTitle: 
-  keepsakeDescription: Whenever Grizzlypooh loses HP, give leftmost rat 3 block &
-    give self 1 block
+  keepsakeDescription: Start of turn, bleed self & adjacent 1 HP. Whenever Spaulder+
+    loses HP, give leftmost rat 3 block & give self 1 block
   references:
     version: 2
     RefIds:
@@ -136,6 +137,52 @@ MonoBehaviour:
         effectStepName: EndWorkflowIfConditionMet
         inputKey1: selfDamaged
         conditionToEndOn: 0
+    - rid: 7150943403050008684
+      type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
+      data:
+        abilityTrigger: 12
+        effectSteps:
+        - rid: 7150943403050008685
+        - rid: 7150943403050008686
+        - rid: 7150943403050008688
+        - rid: 7150943403050008687
+        weight: 0
+    - rid: 7150943403050008685
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: self
+        validTargets: 00000000
+        number: 1
+        specialTargetRule: 3
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+    - rid: 7150943403050008686
+      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetAdjacentCompanions
+        inputKey: self
+        includeInputCompanion: 1
+        outputKey: adj
+    - rid: 7150943403050008687
+      type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EntityAbilityTriggeredVFX
+    - rid: 7150943403050008688
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: adj
+        combatEffect: 16
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 6137048663962808129, guid: 92c26f41ef33c23419e05ceb12660efa, type: 3}
     - rid: 7707884639552274903
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
