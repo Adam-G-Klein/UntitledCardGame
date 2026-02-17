@@ -912,24 +912,31 @@ MonoBehaviour:
   demoDataSO: {fileID: 11400000, guid: 93580874b1544ad4aaef0f5027620bb0, type: 2}
   speakerSprite: {fileID: 21300000, guid: 34af0ef08494934478eca248b698d0ec, type: 3}
   bendingTheRulesStepDialogue:
-  - I'm going to bend the rules for you since it's your first time.
-  - Normally you would receive a random team of rats here, but I made sure you got
-    something nice and balanced.
+  - Normally you would receive a random team of rats here, but I arranged something
+    nice and balanced for you since it's your first time.
   moreRewardsThanUsualStepDialogue:
-  - My, that's a lot of money. You're receiving much more than usual since this is
-    a shortened experience.
+  - My, that's a lot of money. It looks like you are receiving much more than usual.
   startOfShopStepDialogue:
   - Welcome to the shop. This is where the best players separate themselves from
     the rest of the pack.
-  - You can recruit new rats for your team and buy cards. Be careful with where you
-    place cards - that's a key element of strategy in Paccarat.
+  - You can recruit new rats for your team and buy cards. Think about where you place
+    cards and which rats go well with each other.
   - Oh, and if you want to see more powerful rats and cards, I'd recommend buying
     RP to upgrade the shop.
   buyCompanionReminderStepDialogue:
-  - I pushed the Syndicate to let you have another rat friend in this next fight
-  - Add one to your team from among those hanging out here
+  - Before you go, I pushed the Syndicate to let you have another rat friend in this
+    next fight.
+  - It helps a lot - you draw an extra card each turn. Choose one from the available
+    in the shop.
   shopPivotSuggestionDialogue:
-  - meep meep
+  - Now, we arrive at a fork in the road. If you so choose, you can reorient your
+    team around one of the powerful rats in the shop.
+  - 'Do you choose the renowned draw engineer Tjork, who draws new cards each time
+    you exhaust a card? '
+  - Or do you prefer the steadfast Spaulder, a giant tank of a rat who gets along
+    well with other blood pack rats like Hex and Mab?
+  - If neither of the two appeal, there are also powerful discard pack cards available.
+    Good luck.
 --- !u!1 &5109742072706344275
 GameObject:
   m_ObjectHideFlags: 0

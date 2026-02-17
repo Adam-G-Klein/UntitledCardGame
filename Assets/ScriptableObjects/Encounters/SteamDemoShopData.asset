@@ -61,7 +61,7 @@ MonoBehaviour:
     shopLevelIncrementsToUnlock: 1000
     upgradeIncrementCost: 5
     numCardsToShow: 4
-    numKeepsakesToShow: 3
+    numKeepsakesToShow: 2
     commonCompanionPercentage: 40
     uncommonCompanionPercentage: 40
     rareCompanionPercentage: 20
@@ -105,11 +105,11 @@ MonoBehaviour:
   numKeepsakeCopies: 15
   startingGold: 0
   companionTypeCardPoolPct: 35
-  packCardPoolPct: 40
+  packCardPoolPct: 50
   neutralCardPoolPct: 10
-  crossPackCardPoolPct: 15
+  crossPackCardPoolPct: 5
   alwaysShowUnlockedCards: 1
-  goldEarnedPerBattle: 25
+  goldEarnedPerBattle: 30
   interestRate: 0.5
   interestCap: 10
   neutralCardPool: {fileID: 11400000, guid: f16e9cd7d69314290ae5bed1edae4ce0, type: 2}

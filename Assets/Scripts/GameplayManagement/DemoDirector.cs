@@ -6,7 +6,7 @@ using UnityEngine;
 public class DemoDirector : GenericSingleton<DemoDirector>
 {
     public DemoDataSO demoDataSO;
-    public Sprite speakerSprite; 
+    public Sprite speakerSprite;
     [TextArea]
     public List<string> bendingTheRulesStepDialogue;
     [TextArea]
@@ -15,6 +15,8 @@ public class DemoDirector : GenericSingleton<DemoDirector>
     public List<string> startOfShopStepDialogue;
     [TextArea]
     public List<string> buyCompanionReminderStepDialogue;
+    [TextArea]
+    public List<string> shopPivotSuggestionDialogue;
 
     public void Reset() {
         demoDataSO.stepCompletion = new Dictionary<DemoStepName, bool>();
@@ -49,6 +51,10 @@ public class DemoDirector : GenericSingleton<DemoDirector>
             case DemoStepName.BuyCompanionReminder:
                 yield return BuyCompanionReminderStep();
             break;
+
+            case DemoStepName.ShopPivotSuggestion:
+                yield return ShopPivotSuggestionStep();
+            break;
         }
         yield return null;
     }
@@ -77,6 +83,14 @@ public class DemoDirector : GenericSingleton<DemoDirector>
         demoDataSO.stepCompletion[DemoStepName.StartOfShop] = true;
     }
 
+    public IEnumerator ShopPivotSuggestionStep() {
+        foreach (string line in shopPivotSuggestionDialogue) {
+            yield return DialogueView.Instance.SpeakLineCoroutine(speakerSprite, line, true);
+        }
+        DialogueView.Instance.Hide();
+        demoDataSO.stepCompletion[DemoStepName.ShopPivotSuggestion] = true;
+    }
+
     public IEnumerator BuyCompanionReminderStep() {
         foreach (string line in buyCompanionReminderStepDialogue) {
             yield return DialogueView.Instance.SpeakLineCoroutine(speakerSprite, line, true);
@@ -90,5 +104,6 @@ public enum DemoStepName {
     BendingTheRules,
     MoreRewardsThanUsual,
     StartOfShop,
-    BuyCompanionReminder
+    BuyCompanionReminder,
+    ShopPivotSuggestion
 }

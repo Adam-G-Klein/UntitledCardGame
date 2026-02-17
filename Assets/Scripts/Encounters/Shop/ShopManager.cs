@@ -91,14 +91,21 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             gameState.dialogueLocations.GetDialogueLocation(gameState));
         DialogueManager.Instance.StartAnyDialogueSequence();
         */
-        if (gameState.buildType == BuildType.DEMO && !DemoDirector.Instance.IsStepCompleted(DemoStepName.StartOfShop)) {
+        if (gameState.buildType == BuildType.DEMO && (!DemoDirector.Instance.IsStepCompleted(DemoStepName.StartOfShop) || !DemoDirector.Instance.IsStepCompleted(DemoStepName.ShopPivotSuggestion))) {
             shopViewController.DisableAllUI();
         }
     }
 
     private IEnumerator RunStartOfShopStep() {
-        shopViewController.DisableAllUI();
-        yield return DemoDirector.Instance.InvokeDemoStepCorouutine(DemoStepName.StartOfShop);
+        // shopViewController.DisableAllUI();
+        if (!DemoDirector.Instance.IsStepCompleted(DemoStepName.StartOfShop))
+        {
+            yield return DemoDirector.Instance.InvokeDemoStepCorouutine(DemoStepName.StartOfShop);
+        }
+        else if (!DemoDirector.Instance.IsStepCompleted(DemoStepName.ShopPivotSuggestion))
+        {
+            yield return DemoDirector.Instance.InvokeDemoStepCorouutine(DemoStepName.ShopPivotSuggestion);
+        }
         shopViewController.EnableAllUI();
     }
 
@@ -118,8 +125,8 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             HealCompanionsOnBench();
             healedCompanions = true;
         }
-        
-        if (gameState.buildType == BuildType.DEMO && !DemoDirector.Instance.IsStepCompleted(DemoStepName.StartOfShop)) {
+
+        if (gameState.buildType == BuildType.DEMO && (!DemoDirector.Instance.IsStepCompleted(DemoStepName.StartOfShop) || !DemoDirector.Instance.IsStepCompleted(DemoStepName.ShopPivotSuggestion))) {
             StartCoroutine(RunStartOfShopStep());
         }
     }
