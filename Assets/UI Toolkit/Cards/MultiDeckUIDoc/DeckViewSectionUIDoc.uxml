@@ -3,7 +3,8 @@
     <Style src="project://database/Assets/multiDeckViewStyles.uss?fileID=7433441132597879392&amp;guid=f6a6ab37e49bd49099fca9ceac746c41&amp;type=3#multiDeckViewStyles" />
     <Style src="project://database/Assets/UI%20Toolkit/Stylesheets/CompanionView.uss?fileID=7433441132597879392&amp;guid=715a20f0aa0920b47918dd6f4e424bbf&amp;type=3#CompanionView" />
     <ui:VisualElement name="SectionContainer" class="sectionContainer" style="min-width: 13%; flex-grow: 0; min-height: 25%; height: 100%;">
-        <ui:VisualElement name="DeckViewContainer" class="deckViewContainer" style="border-top-width: 0; border-bottom-width: 0; border-left-color: rgb(181, 181, 181); border-right-color: rgb(181, 181, 181); border-top-color: rgb(181, 181, 181); border-bottom-color: rgb(181, 181, 181); border-right-width: 2px; border-left-width: 2px;">
+        <ui:VisualElement name="DeckViewContainer" class="deckViewContainer" style="border-left-color: rgba(255, 255, 255, 0); border-right-color: rgba(255, 255, 255, 0); border-top-color: rgba(255, 255, 255, 0); border-bottom-color: rgba(255, 255, 255, 0);">
+            <ui:VisualElement name="SectionDivider" style="flex-grow: 1; position: absolute; background-image: url(&quot;project://database/Assets/Sprites/UI/MultiDeckView/3_Multideck%20Frame%20Line.png?fileID=21300000&amp;guid=1f912bc56ab808f45aeaab47e5697e7a&amp;type=3#3_Multideck Frame Line&quot;); height: 100%; width: 202px; -unity-background-scale-mode: stretch-to-fill; right: 0; bottom: 0;" />
             <ui:VisualElement name="SectionHeader" style="height: 25%; justify-content: center;" />
             <ui:ScrollView name="ScrollView" focusable="true" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" mouse-wheel-scroll-size="3" style="flex-grow: 1;" />
         </ui:VisualElement>

@@ -142,15 +142,15 @@ public class TeamSelectionUI : MonoBehaviour, ICompanionViewDelegate
 
     public void ViewDeck(DeckViewType deckViewType, Companion companion = null, CompanionInstance companionInstance = null)
     {
-        DeckViewTab deckViewTab = new DeckViewTab
+        DeckTab deckViewTab = new DeckTab
         {
             title = "Deck"
         };
-        List<DeckViewTabSection> sections = new List<DeckViewTabSection>();
+        List<DeckTabSection> sections = new List<DeckTabSection>();
         int startingIndex = 0;
 
         for (int i = 0; i < team1ActiveCompanions.activeCompanions.Count; i++) {
-            DeckViewTabSection section = new DeckViewTabSection
+            DeckTabSection section = new DeckTabSection
             {
                 companion = team1ActiveCompanions.activeCompanions[i],
                 cards = team1ActiveCompanions.activeCompanions[i].deck.cards
@@ -163,6 +163,6 @@ public class TeamSelectionUI : MonoBehaviour, ICompanionViewDelegate
         deckViewTab.sections = sections;
 
         MultiDeckViewManager.Instance.OnViewEnter();
-        MultiDeckViewManager.Instance.ShowView(new List<DeckViewTab>() { deckViewTab }, 0, startingIndex);
+        MultiDeckViewManager.Instance.ShowView(new List<DeckTab>() { deckViewTab }, 0, startingIndex);
     }
 }

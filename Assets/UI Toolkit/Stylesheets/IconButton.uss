@@ -24,3 +24,13 @@
     object-fit: contain;
     translate: -50% 0;
 }
+
+.icon-button-icon-right {
+    position: absolute;
+    max-height: 100%;
+    width: auto;
+    aspect-ratio: auto;
+    object-fit: contain;
+    translate: 50% 0;
+    right: 0;
+}

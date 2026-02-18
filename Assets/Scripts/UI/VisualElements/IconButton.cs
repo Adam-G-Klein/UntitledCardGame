@@ -46,6 +46,11 @@ public class IconButton : Button, IIconChange
         });
     }
 
+    public void SetIconRight() {
+        _icon.RemoveFromClassList("icon-button-icon");
+        _icon.AddToClassList("icon-button-icon-right");
+    }
+
     public GFGInputAction GetAction() {
         return this.action;
     }

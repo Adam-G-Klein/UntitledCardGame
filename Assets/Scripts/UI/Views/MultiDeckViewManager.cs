@@ -4,13 +4,13 @@ using UnityEngine.UIElements;
 using System.Linq;
 using System.Collections.Generic;
 
-public class DeckViewTab
+public class DeckTab
 {
     public string title;
-    public List<DeckViewTabSection> sections;
+    public List<DeckTabSection> sections;
 }
 
-public class DeckViewTabSection
+public class DeckTabSection
 {
     public Companion companion;
     public List<Card> cards;
@@ -56,7 +56,7 @@ public class MultiDeckViewManager : GenericSingleton<MultiDeckViewManager>, IMul
         onViewEnterHandler?.Invoke();
     }
 
-    public void ShowView(List<DeckViewTab> deckViewTabs = null, int startingTab = 0, int startingIndex = 0)
+    public void ShowView(List<DeckTab> deckViewTabs = null, int startingTab = 0, int startingIndex = 0)
     {
         FocusManager.Instance.StashFocusables(this.GetType().Name);
         multiDeckView.PopulateDeckView(deckViewTabs, startingTab, startingIndex);
@@ -78,16 +78,16 @@ public class MultiDeckViewManager : GenericSingleton<MultiDeckViewManager>, IMul
         OnViewEnter();
         int startingIndex = companionInstance == null ? 0 : CombatEntityManager.Instance.getCompanions().Where(c => c != null).ToList().IndexOf(companionInstance);
 
-        List<DeckViewTab> deckViewTabs = new List<DeckViewTab>();
-        DeckViewTab combatDeckViewTab = new DeckViewTab
+        List<DeckTab> deckViewTabs = new List<DeckTab>();
+        DeckTab combatDeckViewTab = new DeckTab
         {
             title = "Deck",
-            sections = new List<DeckViewTabSection>()
+            sections = new List<DeckTabSection>()
         };
         List<CompanionInstance> activeCompanions = CombatEntityManager.Instance.getCompanions().Where(c => c != null).ToList();
         for (int i = 0; i < activeCompanions.Count; i++)
         {
-            DeckViewTabSection section = new DeckViewTabSection
+            DeckTabSection section = new DeckTabSection
             {
                 companion = activeCompanions[i].companion,
                 cards = activeCompanions[i].deckInstance.GetShuffledDrawPile()
@@ -96,15 +96,15 @@ public class MultiDeckViewManager : GenericSingleton<MultiDeckViewManager>, IMul
         }
         deckViewTabs.Add(combatDeckViewTab);
 
-        DeckViewTab discardDeckViewTab = new DeckViewTab
+        DeckTab discardDeckViewTab = new DeckTab
         {
             title = "Discard",
-            sections = new List<DeckViewTabSection>()
+            sections = new List<DeckTabSection>()
         };
         for (int i = 0; i < activeCompanions.Count; i++)
         {
             Companion companion = activeCompanions[i].companion;
-            DeckViewTabSection section = new DeckViewTabSection
+            DeckTabSection section = new DeckTabSection
             {
                 companion = companion,
                 cards = activeCompanions[i].deckInstance.discardPile
@@ -129,18 +129,18 @@ public class MultiDeckViewManager : GenericSingleton<MultiDeckViewManager>, IMul
         OnViewEnter();
 
         List<Companion> activeCompanions = gameState.companions.activeCompanions;
-        List<DeckViewTab> shopDeckViewTabs = new List<DeckViewTab>();
+        List<DeckTab> shopDeckViewTabs = new List<DeckTab>();
         bool noActiveCompanions = activeCompanions.Count == 0;
         if (!noActiveCompanions)
         {
-            DeckViewTab activeDeckTab = new DeckViewTab
+            DeckTab activeDeckTab = new DeckTab
             {
                 title = "Active",
-                sections = new List<DeckViewTabSection>()
+                sections = new List<DeckTabSection>()
             };
             for (int i = 0; i < activeCompanions.Count; i++)
             {
-                DeckViewTabSection section = new DeckViewTabSection
+                DeckTabSection section = new DeckTabSection
                 {
                     companion = activeCompanions[i],
                     cards = activeCompanions[i].deck.cards
@@ -153,15 +153,15 @@ public class MultiDeckViewManager : GenericSingleton<MultiDeckViewManager>, IMul
         List<Companion> benchCompanions = gameState.companions.benchedCompanions;
         if (benchCompanions.Count != 0)
         {
-            DeckViewTab benchDeckViewTab = new DeckViewTab
+            DeckTab benchDeckViewTab = new DeckTab
             {
                 title = "Bench",
-                sections = new List<DeckViewTabSection>()
+                sections = new List<DeckTabSection>()
             };
             for (int i = 0; i < benchCompanions.Count; i++)
             {
                 Companion companion = benchCompanions[i];
-                DeckViewTabSection section = new DeckViewTabSection
+                DeckTabSection section = new DeckTabSection
                 {
                     companion = companion,
                     cards = companion.deck.cards
@@ -173,13 +173,13 @@ public class MultiDeckViewManager : GenericSingleton<MultiDeckViewManager>, IMul
 
         if (showCompanionForPurchase)
         {
-            DeckViewTab companionForPurchaseDeckViewTabs = new DeckViewTab
+            DeckTab companionForPurchaseDeckViewTabs = new DeckTab
             {
                 title = "For Purchase",
-                sections = new List<DeckViewTabSection>()
+                sections = new List<DeckTabSection>()
             };
 
-            DeckViewTabSection companionForPurchase = new DeckViewTabSection
+            DeckTabSection companionForPurchase = new DeckTabSection
             {
                 companion = companionToShow,
                 cards = companionToShow.deck.cards
@@ -233,11 +233,11 @@ public class MultiDeckViewManager : GenericSingleton<MultiDeckViewManager>, IMul
         }
         if (action == GFGInputAction.MULTI_DECK_VIEW_SECTION_LEFT)
         {
-            multiDeckView.LeftButtonClicked(multiDeckView.tabLeftButton.CreateFakeClickEvent());
+            multiDeckView.LeftButtonClicked(null);
         }
         if (action == GFGInputAction.MULTI_DECK_VIEW_SECTION_RIGHT)
         {
-            multiDeckView.RightButtonClicked(multiDeckView.tabRightButton.CreateFakeClickEvent());
+            multiDeckView.RightButtonClicked(null);
         }
         if (action == GFGInputAction.SECONDARY_DOWN_START)
         {
@@ -256,7 +256,11 @@ public class MultiDeckViewManager : GenericSingleton<MultiDeckViewManager>, IMul
 
     public void SwappedControlMethod(ControlsManager.ControlMethod controlMethod)
     {
-        // just had to be here tbh
+        if (controlMethod == ControlsManager.ControlMethod.KeyboardController) {
+            multiDeckView.SetTabButtonIconsPositionAndVisible(true);
+        } else if (controlMethod == ControlsManager.ControlMethod.Mouse) {
+            multiDeckView.SetTabButtonIconsPositionAndVisible(false);
+        }
     }
 
     private void UpdateCameraReference()

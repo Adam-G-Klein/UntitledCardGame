@@ -4,16 +4,18 @@ using UnityEngine.UIElements;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor.IMGUI.Controls;
 
 public class MultiDeckView
 {
     private int currentTabIndex = 0;
     private VisualElement tabsContainer;
-    private VisualElement deckViewsContainer;
     public IconButton leftButton { get; private set; }
     public IconButton rightButton { get; private set; }
-    public IconButton tabLeftButton { get; private set; }
-    public IconButton tabRightButton { get; private set; }
+    public List<Button> tabButtons;
+    public VisualElement tabLeftIcon;
+    public VisualElement tabRightIcon;
     public IconButton exitButton { get; private set; }
     [SerializeField]
     private UIDocument uiDocument;
@@ -24,16 +26,15 @@ public class MultiDeckView
     [SerializeField]
     private LeanTweenType animationEaseType = LeanTweenType.easeInOutSine;
     private Vector2 CARD_SIZE = new();
-    // The following should likely be grouped into a tabData structure
-    private List<VisualElement> deckViewTabVisualElements = new List<VisualElement>();
-    private List<int> focusedSectionsForEachTab = new List<int>();
-    private List<int> numSectionsForEachTab = new List<int>();
     private VisualElement visibilityRoot;
     private IMultiDeckViewDelegate multiDeckViewDelegate;
     private bool inTransition = false;
-    private VisualElement tabDescriptorContainer;
+    private Label nameLabel;
+    private VisualElement tabButtonContainer;
     private string TAB_DESCRIPTOR = "tab-descriptor-{0}";
     private bool isEnabled = true;
+    private List<DeckTab> deckTabs;
+    private List<DeckTabView> deckTabViews;
 
     private TooltipController tooltipController;
 
@@ -51,68 +52,78 @@ public class MultiDeckView
         this.uiDocument = uIDocument;
         this.canvasGroup = canvasGroup;
         this.multiDeckViewDelegate = multiDeckViewDelegate;
+        this.tabButtons = new List<Button>();
 
         Tuple<int, int> cardSizeTuple = CardView.GetWidthAndHeight();
         CARD_SIZE = new Vector2(cardSizeTuple.Item1, cardSizeTuple.Item2);
         tabsContainer = uiDocument.rootVisualElement.Q("SectionsContainer");
         visibilityRoot = uiDocument.rootVisualElement.Q("rootElement");
-        tabDescriptorContainer = uiDocument.rootVisualElement.Q("tab-descriptor-container");
+        nameLabel = uiDocument.rootVisualElement.Q<Label>("multi-deck-view-name-label");
+        tabButtonContainer = uiDocument.rootVisualElement.Q<VisualElement>("multi-deck-view-tab-button-container");
+        tabLeftIcon = uiDocument.rootVisualElement.Q<VisualElement>("multi-deck-view-tab-left-icon");
+        tabRightIcon = uiDocument.rootVisualElement.Q<VisualElement>("multi-deck-view-tab-right-icon");
         ToggleVisibility(false);
         SetupButtons();
     }
 
-    public void PopulateDeckView(List<DeckViewTab> deckViewTabs, int startingTab = 0, int startingIndex = 0)
+    public void PopulateDeckView(List<DeckTab> deckTabs, int startingTab = 0, int startingIndex = 0)
     {
+        this.deckTabs = deckTabs;
+        this.deckTabViews = new List<DeckTabView>();
         currentTabIndex = 0;
-        tabDescriptorContainer.DoForAllChildren((element) => element.style.display = DisplayStyle.None);
-        for (int i = 0; i < deckViewTabs.Count; i++)
+        tabButtonContainer.Clear();
+        for (int i = 0; i < deckTabs.Count; i++)
         {
-            DeckViewTab tab = deckViewTabs[i];
-            deckViewTabVisualElements.Add(tabsContainer.Children().ToList()[i]);
-            numSectionsForEachTab.Add(tab.sections.Count);
-            focusedSectionsForEachTab.Add(i == startingTab ? startingIndex : 0);
-            VisualElement tabContainer = deckViewTabVisualElements[i];
-            SetupCards(tab, tabContainer, i == startingTab, i == startingTab ? startingIndex : 0);
+            DeckTab tab = deckTabs[i];
+            DeckTabView deckTabView = new DeckTabView(tabsContainer.Children().ToList()[i], tab);
+            deckTabViews.Add(deckTabView);
+            SetupCards(deckTabView, i == startingTab, i == startingTab ? startingIndex : 0);
+            Button newButton = new Button();
+            newButton.AddToClassList("multi-deck-view-tab-button");
+            newButton.AddToClassList("multi-deck-view-focus-item");
+            newButton.RegisterOnSelected(TabButtonClicked);
+            newButton.text = tab.title;
+            newButton.SetUserData<TabButton>(new TabButton(i));
+            tabButtonContainer.Add(newButton);
             if (i == startingTab)
             {
-                MoveInTab(tabContainer, false, true);
-                SetTabDescriptorActive(i);
+                MoveInTab(deckTabView.container, false, true);
+                newButton.AddToClassList("multi-deck-view-tab-button-selected");
             }
             else
             {
-                MoveOutTab(tabContainer, false, true);
+                MoveOutTab(deckTabView.container, false, true);
             }
-            VisualElement tabDescriptor = uiDocument.rootVisualElement.Q<VisualElement>(String.Format(TAB_DESCRIPTOR, i));
-            tabDescriptor.style.display = DisplayStyle.Flex;
-            tabDescriptor.Q<Label>().text = tab.title;
-            // currentTabIndex += 1;
         }
         currentTabIndex = startingTab;
+        nameLabel.text = deckTabViews[startingTab].sectionViews[startingIndex].deckTabSection.companion.GetName();
 
-        if (deckViewTabs.Count == 1) {
-            uiDocument.rootVisualElement.Q<IconButton>("tabLeftButton").style.visibility = Visibility.Hidden;
-            uiDocument.rootVisualElement.Q<IconButton>("tabRightButton").style.visibility = Visibility.Hidden;
-        } else {
-            uiDocument.rootVisualElement.Q<IconButton>("tabLeftButton").style.visibility = StyleKeyword.Null;
-            uiDocument.rootVisualElement.Q<IconButton>("tabRightButton").style.visibility = StyleKeyword.Null;
+        if (ControlsManager.Instance.GetControlMethod() == ControlsManager.ControlMethod.KeyboardController) {
+            // Wait two frames to update the tab button icons
+            tabButtonContainer.schedule.Execute(() => { 
+                tabButtonContainer.schedule.Execute(() => { 
+                    SetTabButtonIconsPositionAndVisible(true); 
+                }).StartingIn(0);
+            }).StartingIn(0);
         }
 
-        //hover first card
-        List<VisualElement> focusedDeck = deckViewTabVisualElements[startingTab].Q<VisualElement>("SectionsContainer").Children().ToList()[startingIndex].Q<ScrollView>("ScrollView").contentContainer.Children().ToList();
+        // hover first card
+        List<VisualElement> focusedDeck = deckTabViews[currentTabIndex].focusedSectionView.scrollView.Children().ToList();
         if (focusedDeck.Count == 0) return;
         if (ControlsManager.Instance.GetControlMethod() == ControlsManager.ControlMethod.Mouse) return;
         VisualElement firstCard = focusedDeck[0];
-        FocusManager.Instance.SetFocus(firstCard.AsFocusable());
+        // Trying to solve some weirdness with timing and tooltips
+        FocusManager.Instance.Unfocus();
     }
 
     private void SetupButtons()
     {
         // leftButton and rightButton move which companion you're looking at
-        // tabLeftButton and tabRightButton move what set of companions / sets
-        // of cards you're looking at (active/bench or draw/discard)
         // setup leftButton
         leftButton = uiDocument.rootVisualElement.Q<IconButton>("leftButton");
         leftButton.RegisterOnSelected(LeftButtonClicked);
+        leftButton.SetIconRight();
+        leftButton.SetIconHeight(1.25f);
 
         leftButton.SetIcon(
             GFGInputAction.MULTI_DECK_VIEW_SECTION_LEFT,
@@ -122,27 +133,23 @@ public class MultiDeckView
         // setup rightButton
         rightButton = uiDocument.rootVisualElement.Q<IconButton>("rightButton");
         rightButton.RegisterOnSelected(RightButtonClicked);
+        rightButton.SetIconHeight(1.25f);
 
         rightButton.SetIcon(
             GFGInputAction.MULTI_DECK_VIEW_SECTION_RIGHT,
             ControlsManager.Instance.GetSpriteForGFGAction(GFGInputAction.MULTI_DECK_VIEW_SECTION_RIGHT));
         ControlsManager.Instance.RegisterIconChanger(rightButton);
 
-        tabLeftButton = uiDocument.rootVisualElement.Q<IconButton>("tabLeftButton");
-        tabLeftButton.RegisterOnSelected(TabLeftButtonClicked);
+        // TODO Setup IconChanger visual elements for tab buttons
+        IconVisualElement leftTabIconVE = new IconVisualElement(tabLeftIcon);
+        leftTabIconVE.SetIcon(GFGInputAction.MULTI_DECK_VIEW_TAB_LEFT, 
+                ControlsManager.Instance.GetSpriteForGFGAction(GFGInputAction.MULTI_DECK_VIEW_TAB_LEFT));
+        ControlsManager.Instance.RegisterIconChanger(leftTabIconVE);
 
-        tabLeftButton.SetIcon(
-            GFGInputAction.MULTI_DECK_VIEW_TAB_LEFT,
-            ControlsManager.Instance.GetSpriteForGFGAction(GFGInputAction.MULTI_DECK_VIEW_TAB_LEFT));
-        ControlsManager.Instance.RegisterIconChanger(tabLeftButton);
-        // setup rightButton
-        tabRightButton = uiDocument.rootVisualElement.Q<IconButton>("tabRightButton");
-        tabRightButton.RegisterOnSelected(TabRightButtonClicked);
-
-        tabRightButton.SetIcon(
-            GFGInputAction.MULTI_DECK_VIEW_TAB_RIGHT,
-            ControlsManager.Instance.GetSpriteForGFGAction(GFGInputAction.MULTI_DECK_VIEW_TAB_RIGHT));
-        ControlsManager.Instance.RegisterIconChanger(tabRightButton);
+        IconVisualElement rightTabIconVE = new IconVisualElement(tabRightIcon);
+        rightTabIconVE.SetIcon(GFGInputAction.MULTI_DECK_VIEW_TAB_RIGHT, 
+                ControlsManager.Instance.GetSpriteForGFGAction(GFGInputAction.MULTI_DECK_VIEW_TAB_RIGHT));
+        ControlsManager.Instance.RegisterIconChanger(rightTabIconVE);
 
         exitButton = uiDocument.rootVisualElement.Q<IconButton>("exitButton");
         exitButton.RegisterOnSelected(ExitButtonClicked);
@@ -156,8 +163,9 @@ public class MultiDeckView
     {
         FocusManager.Instance.RegisterFocusableTarget(leftButton.AsFocusable());
         FocusManager.Instance.RegisterFocusableTarget(rightButton.AsFocusable());
-        FocusManager.Instance.RegisterFocusableTarget(tabLeftButton.AsFocusable());
-        FocusManager.Instance.RegisterFocusableTarget(tabRightButton.AsFocusable());
+        // FocusManager.Instance.RegisterFocusableTarget(tabLeftButton.AsFocusable());
+        // FocusManager.Instance.RegisterFocusableTarget(tabRightButton.AsFocusable());
+        // TODO setup tab buttons for focus, loop through tabButtonContainer children
         FocusManager.Instance.RegisterFocusableTarget(exitButton.AsFocusable());
     }
 
@@ -165,35 +173,36 @@ public class MultiDeckView
     {
         FocusManager.Instance.UnregisterFocusableTarget(leftButton.AsFocusable());
         FocusManager.Instance.UnregisterFocusableTarget(rightButton.AsFocusable());
-        FocusManager.Instance.UnregisterFocusableTarget(tabLeftButton.AsFocusable());
-        FocusManager.Instance.UnregisterFocusableTarget(tabRightButton.AsFocusable());
+        // FocusManager.Instance.UnregisterFocusableTarget(tabLeftButton.AsFocusable());
+        // FocusManager.Instance.UnregisterFocusableTarget(tabRightButton.AsFocusable());
+        // TODO setup tab buttons for unregister, loop through tabButtonContainer children
         FocusManager.Instance.UnregisterFocusableTarget(exitButton.AsFocusable());
     }
 
-    public void UnFocusDeckSection(VisualElement deckView, bool instant = false)
+    private void UnFocusDeckSection(DeckSectionView deckView, bool instant = false)
     {
         LeanTween.value(1f, 0f, instant ? 0f : animationDuration)
         .setOnUpdate((float val) =>
         {
-            deckView.style.flexGrow = val;
+            deckView.container.style.flexGrow = val;
         })
         .setEase(animationEaseType);
 
-        ToggleDeckFocusability(deckView.Q<ScrollView>("ScrollView").contentContainer.Children().ToList(), false);
-        VisualElement companionView = deckView.Q<VisualElement>(className: "companionView");
+        ToggleDeckFocusability(deckView.scrollView.contentContainer.Children().ToList(), false);
+        VisualElement companionView = deckView.companionView.container;
         if (companionView != null) FocusManager.Instance.DisableFocusableTarget(companionView.AsFocusable());
-        SetPositionForUnSelectedSection(deckView, instant);
+        SetPositionForUnSelectedSection(deckView.container, instant);
     }
 
-    public void FocusDeckSection(VisualElement deckView, bool instant = false)
+    private void FocusDeckSection(DeckSectionView deckView, bool instant = false)
     {
         inTransition = true;
-        ScrollView scrollView = deckView.Q<ScrollView>("ScrollView");
-        VisualElement companionView = deckView.Q<VisualElement>(className: "companionView");
+        ScrollView scrollView = deckView.scrollView;
+        VisualElement companionView = deckView.companionView.container;
         LeanTween.value(0f, 1f, instant ? 0f : animationDuration)
             .setOnUpdate((float val) =>
             {
-                deckView.style.flexGrow = val;
+                deckView.container.style.flexGrow = val;
             })
             .setEase(animationEaseType)
             .setOnComplete(() => {
@@ -210,14 +219,14 @@ public class MultiDeckView
         if (companionView != null) FocusManager.Instance.EnableFocusableTarget(companionView.AsFocusable());
         if (ControlsManager.Instance.GetControlMethod() == ControlsManager.ControlMethod.Mouse) return;
         VisualElement firstCard = scrollView.contentContainer.Children().ToList()[0];
-        FocusManager.Instance.SetFocus(firstCard.AsFocusable());
+        FocusManager.Instance.SetFocusNextFrame(firstCard.AsFocusable());
     }
 
     private void ToggleDeckFocusability(List<VisualElement> elements, bool enable)
     {
         foreach (VisualElement element in elements)
         {
-            if (element.focusable)
+            if (element.HasUserData<VisualElementFocusable>())
             {
                 if (enable) FocusManager.Instance.EnableFocusableTarget(element.AsFocusable());
                 else FocusManager.Instance.DisableFocusableTarget(element.AsFocusable());
@@ -227,50 +236,103 @@ public class MultiDeckView
 
     public void LeftButtonClicked(ClickEvent evt)
     {
-        if (inTransition || focusedSectionsForEachTab[currentTabIndex] == 0) return; // remove this line to enable wrap around...I don't think I like it
-        UnFocusDeckSection(deckViewTabVisualElements[currentTabIndex].Q<VisualElement>("SectionsContainer").Children().ToList()[focusedSectionsForEachTab[currentTabIndex]], false);
-        focusedSectionsForEachTab[currentTabIndex]--;
-        FocusDeckSection(deckViewTabVisualElements[currentTabIndex].Q<VisualElement>("SectionsContainer").Children().ToList()[focusedSectionsForEachTab[currentTabIndex]], false);
+        DeckTabView deckTabView = deckTabViews[currentTabIndex];
+        DeckSectionView deckSectionView = deckTabView.focusedSectionView;
+        int indexOfSection = deckTabView.sectionViews.IndexOf(deckSectionView);
+
+        if (inTransition || indexOfSection == 0) return; // remove this line to enable wrap around
+        UnFocusDeckSection(deckSectionView, false);
+        
+        FocusDeckSection(deckTabView.sectionViews[indexOfSection - 1], false);
+        deckTabView.focusedSectionView = deckTabView.sectionViews[indexOfSection - 1];
+        nameLabel.text = deckTabView.focusedSectionView.deckTabSection.companion.GetName();
     }
+
     public void RightButtonClicked(ClickEvent evt)
     {
-        if (inTransition || focusedSectionsForEachTab[currentTabIndex] == numSectionsForEachTab[currentTabIndex] - 1) return; // remove this line to enable wrap around...I don't think I like it
-        UnFocusDeckSection(deckViewTabVisualElements[currentTabIndex].Q<VisualElement>("SectionsContainer").Children().ToList()[focusedSectionsForEachTab[currentTabIndex]], false);
-        focusedSectionsForEachTab[currentTabIndex]++;
-        FocusDeckSection(deckViewTabVisualElements[currentTabIndex].Q<VisualElement>("SectionsContainer").Children().ToList()[focusedSectionsForEachTab[currentTabIndex]], false);
+        DeckTabView deckTabView = deckTabViews[currentTabIndex];
+        DeckSectionView deckSectionView = deckTabView.focusedSectionView;
+
+        int indexOfSection = deckTabView.sectionViews.IndexOf(deckSectionView);
+
+        if (inTransition || indexOfSection == deckTabView.sectionViews.Count - 1) return; // remove this line to enable wrap around
+
+        UnFocusDeckSection(deckSectionView, false);
+
+        FocusDeckSection(deckTabView.sectionViews[indexOfSection + 1], false);
+        deckTabView.focusedSectionView = deckTabView.sectionViews[indexOfSection + 1];
+        nameLabel.text = deckTabView.focusedSectionView.deckTabSection.companion.GetName();
     }
 
     public void TabLeftButtonClicked(ClickEvent evt)
     {
-        //UpdateActiveTab();
-        if (inTransition || currentTabIndex == 0) return; // remove this line to enable wrap around...I don't think I like it
-        MoveOutTab(deckViewTabVisualElements[currentTabIndex], true);
-        int newIndex = (currentTabIndex - 1 + deckViewTabVisualElements.Count) % deckViewTabVisualElements.Count;
-        MoveInTab(deckViewTabVisualElements[newIndex], true);
-        SetTabDescriptorActive(newIndex);
+        if (inTransition || currentTabIndex == 0) return; // remove this line to enable wrap around
+
+        DeckTabView currDeckTabView = deckTabViews[currentTabIndex];
+        MoveOutTab(currDeckTabView.container, true);
+        ToggleDeckFocusability(currDeckTabView.focusedSectionView.scrollView.Children().ToList(), false);
+        int newIndex = currentTabIndex - 1;
+        DeckTabView newDeckTabView = deckTabViews[newIndex];
+        MoveInTab(newDeckTabView.container, true);
         currentTabIndex = newIndex;
+        ToggleDeckFocusability(newDeckTabView.focusedSectionView.scrollView.Children().ToList(), true);
+        SetTabButtonStyle(tabButtonContainer.Children().ToList()[currentTabIndex]);
+        nameLabel.text = nameLabel.text = newDeckTabView.focusedSectionView.deckTabSection.companion.GetName();
     }
 
     public void TabRightButtonClicked(ClickEvent evt)
     {
-        //UpdateActiveTab();
-        if (inTransition || currentTabIndex == deckViewTabVisualElements.Count - 1) return; // remove this line to enable wrap around...I don't think I like it
-        MoveOutTab(deckViewTabVisualElements[currentTabIndex], false);
-        ToggleDeckFocusability(deckViewTabVisualElements[currentTabIndex].Q<VisualElement>("SectionsContainer").Children().ToList(), false);
-        int newIndex = (currentTabIndex + 1 + deckViewTabVisualElements.Count) % deckViewTabVisualElements.Count;
-        MoveInTab(deckViewTabVisualElements[newIndex], false);
-        SetTabDescriptorActive(newIndex);
+        if (inTransition || currentTabIndex == deckTabViews.Count - 1) return; // remove this line to enable wrap around
+
+        DeckTabView currDeckTabView = deckTabViews[currentTabIndex];
+        MoveOutTab(currDeckTabView.container, false);
+        ToggleDeckFocusability(currDeckTabView.focusedSectionView.scrollView.Children().ToList(), false);
+        int newIndex = currentTabIndex + 1;
+        DeckTabView newDeckTabView = deckTabViews[newIndex];
+        MoveInTab(newDeckTabView.container, false);
         currentTabIndex = newIndex;
-        ToggleDeckFocusability(deckViewTabVisualElements[currentTabIndex].Q<VisualElement>("SectionsContainer").Children().ToList(), true);
+        ToggleDeckFocusability(newDeckTabView.focusedSectionView.scrollView.Children().ToList(), true);
+        SetTabButtonStyle(tabButtonContainer.Children().ToList()[currentTabIndex]);
+        nameLabel.text = nameLabel.text = newDeckTabView.focusedSectionView.deckTabSection.companion.GetName();
     }
 
     public void ExitButtonClicked(ClickEvent evt)
     {
-        MoveOutTab(deckViewTabVisualElements[currentTabIndex], true, true);
+        MoveOutTab(deckTabViews[currentTabIndex].container, true, true);
         ToggleVisibility(false);
         multiDeckViewDelegate.HideDeckView();
         // Cleanup
         CleanUp();
+    }
+
+    public void TabButtonClicked(ClickEvent evt) {
+        VisualElement ve = evt.target as VisualElement;
+        int tabIndex = ve.GetUserData<TabButton>().index;
+
+        bool sendRight = true;
+        if (currentTabIndex < tabIndex) sendRight = false;
+
+        DeckTabView currDeckTabView = deckTabViews[currentTabIndex];
+        MoveOutTab(currDeckTabView.container, sendRight);
+        ToggleDeckFocusability(currDeckTabView.focusedSectionView.scrollView.Children().ToList(), false);
+
+        int newIndex = tabIndex;
+        DeckTabView newDeckTabView = deckTabViews[newIndex];
+        MoveInTab(newDeckTabView.container, sendRight);
+        currentTabIndex = newIndex;
+        ToggleDeckFocusability(newDeckTabView.focusedSectionView.scrollView.Children().ToList(), true);
+        nameLabel.text = nameLabel.text = newDeckTabView.focusedSectionView.deckTabSection.companion.GetName();
+        SetTabButtonStyle(ve);
+    }
+
+    private void SetTabButtonStyle(VisualElement ve) {
+        foreach (VisualElement element in tabButtonContainer.Children()) {
+            if (element.Equals(ve)) {
+                element.AddToClassList("multi-deck-view-tab-button-selected");
+            } else {
+                element.RemoveFromClassList("multi-deck-view-tab-button-selected");
+            }
+        }
     }
 
     public void StartScrolling(int direction) {
@@ -282,10 +344,7 @@ public class MultiDeckView
     }
 
     private ScrollView GetCurrentScrollView() {
-        return deckViewTabVisualElements[currentTabIndex].Q<VisualElement>("SectionsContainer")
-            .Children()
-            .ToList()[focusedSectionsForEachTab[currentTabIndex]]
-            .Q<ScrollView>("ScrollView");
+        return deckTabViews[currentTabIndex].focusedSectionView.scrollView;
     }
 
     private void MoveOutTab(VisualElement visualElementToMoveOut, bool sendRight, bool instant = false)
@@ -329,141 +388,121 @@ public class MultiDeckView
         });
     }
 
-    private void SetTabDescriptorActive(int index) {
-        for (int i = 0; i < 3; i++) {
-            if (i == index) uiDocument.rootVisualElement.Q<VisualElement>(String.Format(TAB_DESCRIPTOR, i)).AddToClassList("tab-descriptor-selected");
-            else uiDocument.rootVisualElement.Q<VisualElement>(String.Format(TAB_DESCRIPTOR, i)).RemoveFromClassList("tab-descriptor-selected");
-        }
-    }
-
-    private void SetupCards(DeckViewTab deckViewTab, VisualElement tabContainer, bool isStartingTab, int startingIndex = 0)
+    private void SetupCards(DeckTabView deckTabView, bool isStartingTab, int startingIndex = 0)
     {
-        deckViewsContainer = tabContainer.Q("SectionsContainer");
-        for (int i = 0; i < deckViewsContainer.Children().Count(); i++)
+        for (int i = 0; i < deckTabView.sectionViews.Count; i++)
         {
-            if (i >= deckViewTab.sections.Count)
+            DeckSectionView deckSectionView = deckTabView.sectionViews[i];
+            if (i >= deckTabView.deckTab.sections.Count)
             {
-                deckViewsContainer.Children().ToList()[i].style.display = DisplayStyle.None;
+                return;
             }
-            else
+
+            deckSectionView.container.style.display = DisplayStyle.Flex;
+            Companion companion = deckTabView.sectionViews[i].deckTabSection.companion;
+            VisualTreeAsset companionTemplate = EncounterConstantsSingleton.Instance.encounterConstantsSO.companionManagementViewTemplate;
+            CompanionManagementView companionView = new CompanionManagementView(companion, companionTemplate, null);
+            VisualElementFocusable companionFocusable = companionView.container.AsFocusable();
+            companionView.container.RegisterCallback<PointerEnterEvent>((evt) => {
+                tooltipController.DisplayTooltip(companionView.container, companion.companionType.GetTooltip(), TooltipContext.MultiDeckView);
+            });
+            companionView.container.RegisterCallback<PointerLeaveEvent>((evt) => {
+                tooltipController.DestroyTooltip(companionView.container);
+            });
+
+            // Don't put the SFX in the RegisterCallbacks for companions above, it's already done in
+            // CompanionManagementView
+            companionFocusable.additionalFocusAction += () => {
+                MusicController.Instance.PlaySFX("event:/SFX/SFX_UIHover");
+                tooltipController.DisplayTooltip(companionView.container, companion.companionType.GetTooltip(), TooltipContext.MultiDeckView);
+            };
+            companionFocusable.additionalUnfocusAction += () => {
+                MusicController.Instance.PlaySFX("event:/SFX/SFX_UIHover");
+                tooltipController.DestroyTooltip(companionView.container);
+            };
+            FocusManager.Instance.RegisterFocusableTarget(companionFocusable);
+            companionView.container.AddToClassList("companionView");
+            companionView.container.AddToClassList("multi-deck-view-focus-item");
+            companionView.UpdateWidthAndHeight(.15f);
+            deckSectionView.header.Add(companionView.container);
+            deckSectionView.companionView = companionView;
+            if (i == deckTabView.sectionViews.Count - 1) {
+                // The divider is on the right of each container. The last one shouldn't have
+                // the divider because it'd just overlap with the overall frame
+                deckSectionView.divider.style.visibility = Visibility.Hidden;
+            }
+
+            // Note, this is only valid for during combat. In the shop, we will have no valid combat instance.
+            CompanionInstance ci = CombatEntityManager.Instance.GetCompanionInstanceAtPosition(i);
+
+            List<Card> cards = deckTabView.sectionViews[i].deckTabSection.cards;
+            for (int j = 0; j < cards.Count; j++)
             {
-                if (deckViewsContainer.Children().ToList()[i].style.display == DisplayStyle.None) {
-                    int index = i;
-                    deckViewsContainer.Children().ToList()[i].style.display = DisplayStyle.Flex;
-                    EventCallback<GeometryChangedEvent> onGeometryChanged = null;
-                    onGeometryChanged = (evt) => {
-                        if ((isStartingTab && index == startingIndex) || (!isStartingTab && index == 0)) {
-                            FocusDeckSection(deckViewsContainer.Children().ToList()[index], true);
-                        }
-                        else {
-                            UnFocusDeckSection(deckViewsContainer.Children().ToList()[index], true);
-                        }
-                        (evt.target as VisualElement).UnregisterCallback<GeometryChangedEvent>(onGeometryChanged);
-                    };
-                    deckViewsContainer.Children().ToList()[i].RegisterCallback<GeometryChangedEvent>(onGeometryChanged);
+                Card card = cards[j];
+                CardView cardView = new CardView(card, companion.companionType, true);
+                cardView.cardContainer.AddToClassList("cardView");
+                cardView.cardContainer.AddToClassList("multi-deck-view-focus-item");
+                cardView.cardContainer.MakeFocusable();
+                deckSectionView.scrollView.Add(cardView.cardContainer);
+                cardView.cardFocusable.canFocusOffscreen = true;
+                cardView.cardFocusable.commonalityObject = deckSectionView.scrollView;
+                FocusManager.Instance.RegisterFocusableTarget(cardView.cardFocusable);
+
+                cardView.cardContainer.RegisterCallback<PointerEnterEvent>((evt) => {
+                    MusicController.Instance.PlaySFX("event:/SFX/SFX_UIHover");
+                    if (card.cardType.GetTooltip().empty) {
+                        return;
+                    }
+                    tooltipController.DisplayTooltip(cardView.cardContainer, card.cardType.GetTooltip(), TooltipContext.MultiDeckView);
+                });
+                cardView.cardContainer.RegisterCallback<PointerLeaveEvent>((evt) => {
+                    tooltipController.DestroyTooltip(cardView.cardContainer);
+                });
+                VisualElementFocusable cardFocusable = cardView.cardContainer.AsFocusable();
+                cardFocusable.additionalFocusAction += () => {
+                    deckSectionView.scrollView.ScrollToMakeElementVisible(cardFocusable.GetVisualElement(), 20f);
+                    MusicController.Instance.PlaySFX("event:/SFX/SFX_UIHover");
+                    if (card.cardType.GetTooltip().empty) {
+                        return;
+                    }
+                    tooltipController.DisplayTooltip(cardView.cardContainer, card.cardType.GetTooltip(), TooltipContext.MultiDeckView);
+                };
+                cardFocusable.additionalUnfocusAction += () => {
+                    tooltipController.DestroyTooltip(cardView.cardContainer);
+                };
+
+                // Hack to display the modified card values when pulling up the deck values.
+                if (ci != null)
+                {
+                    Dictionary<string, int> defaultValuesDict = card.GetDefaultValuesMap(ci.combatInstance);
+                    if (card.cardType.HasIconDescription())
+                    {
+                        List<DescriptionToken> iconTokens = card.cardType.GetIconDescriptionTokensWithStylizedValues(defaultValuesDict);
+                        cardView.UpdateCardIconDescription(iconTokens);
+                    }
+                    else
+                    {
+                        string modText = card.cardType.GetDescriptionWithUpdatedValues(defaultValuesDict);
+                        cardView.UpdateCardText(modText);
+                    }
+
+                    cardView.UpdateManaCost();
                 }
 
-                deckViewsContainer.Children().ToList()[i].style.display = DisplayStyle.Flex;
-                VisualElement sectionContainer = deckViewsContainer.Children().ToList()[i];
-                Companion companion = deckViewTab.sections[i].companion;
-                VisualTreeAsset companionTemplate = EncounterConstantsSingleton.Instance.encounterConstantsSO.companionManagementViewTemplate;
-                CompanionManagementView companionView = new CompanionManagementView(companion, companionTemplate, null);
-                VisualElementFocusable companionFocusable = companionView.container.AsFocusable();
-                companionView.container.RegisterCallback<PointerEnterEvent>((evt) => {
-                    tooltipController.DisplayTooltip(companionView.container, companion.companionType.GetTooltip(), TooltipContext.MultiDeckView);
-                });
-                companionView.container.RegisterCallback<PointerLeaveEvent>((evt) => {
-                    tooltipController.DestroyTooltip(companionView.container);
-                });
-
-                // Don't put the SFX in the RegisterCallbacks for companions above, it's already done in
-                // CompanionManagementView
-                companionFocusable.additionalFocusAction += () => {
-                    MusicController.Instance.PlaySFX("event:/SFX/SFX_UIHover");
-                    tooltipController.DisplayTooltip(companionView.container, companion.companionType.GetTooltip(), TooltipContext.MultiDeckView);
-                };
-                companionFocusable.additionalUnfocusAction += () => {
-                    MusicController.Instance.PlaySFX("event:/SFX/SFX_UIHover");
-                    tooltipController.DestroyTooltip(companionView.container);
-                };
-                FocusManager.Instance.RegisterFocusableTarget(companionFocusable);
-                companionView.container.AddToClassList("companionView");
-                companionView.container.AddToClassList("multi-deck-view-focus-item");
-                companionView.UpdateWidthAndHeight(.15f);
-                sectionContainer.Q("SectionHeader").Add(companionView.container);
-
-                // Note, this is only valid for during combat. In the shop, we will have no valid combat instance.
-                CompanionInstance ci = CombatEntityManager.Instance.GetCompanionInstanceAtPosition(i);
-
-                ScrollView scrollView = sectionContainer.Q<ScrollView>("ScrollView");
-                List<Card> cards = deckViewTab.sections[i].cards;
-                for (int j = 0; j < cards.Count; j++)
+                if (i != startingIndex)
                 {
-                    Card card = cards[j];
-                    CardView cardView = new CardView(card, companion.companionType, true);
-                    cardView.cardContainer.AddToClassList("cardView");
-                    cardView.cardContainer.AddToClassList("multi-deck-view-focus-item");
-                    cardView.cardContainer.MakeFocusable();
-                    scrollView.Add(cardView.cardContainer);
-                    cardView.cardFocusable.canFocusOffscreen = true;
-                    cardView.cardFocusable.commonalityObject = scrollView;
-                    FocusManager.Instance.RegisterFocusableTarget(cardView.cardFocusable);
-
-                    cardView.cardContainer.RegisterCallback<PointerEnterEvent>((evt) => {
-                        MusicController.Instance.PlaySFX("event:/SFX/SFX_UIHover");
-                        if (card.cardType.GetTooltip().empty) {
-                            return;
-                        }
-                        tooltipController.DisplayTooltip(cardView.cardContainer, card.cardType.GetTooltip(), TooltipContext.MultiDeckView);
-                    });
-                    cardView.cardContainer.RegisterCallback<PointerLeaveEvent>((evt) => {
-                        tooltipController.DestroyTooltip(cardView.cardContainer);
-                    });
-                    VisualElementFocusable cardFocusable = cardView.cardContainer.AsFocusable();
-                    cardFocusable.additionalFocusAction += () => {
-                        scrollView.ScrollToMakeElementVisible(cardFocusable.GetVisualElement(), 20f);
-                        MusicController.Instance.PlaySFX("event:/SFX/SFX_UIHover");
-                        if (card.cardType.GetTooltip().empty) {
-                            return;
-                        }
-                        tooltipController.DisplayTooltip(cardView.cardContainer, card.cardType.GetTooltip(), TooltipContext.MultiDeckView);
-                    };
-                    cardFocusable.additionalUnfocusAction += () => {
-                        tooltipController.DestroyTooltip(cardView.cardContainer);
-                    };
-
-                    // Hack to display the modified card values when pulling up the deck values.
-                    if (ci != null)
-                    {
-                        Dictionary<string, int> defaultValuesDict = card.GetDefaultValuesMap(ci.combatInstance);
-                        if (card.cardType.HasIconDescription())
-                        {
-                            List<DescriptionToken> iconTokens = card.cardType.GetIconDescriptionTokensWithStylizedValues(defaultValuesDict);
-                            cardView.UpdateCardIconDescription(iconTokens);
-                        }
-                        else
-                        {
-                            string modText = card.cardType.GetDescriptionWithUpdatedValues(defaultValuesDict);
-                            cardView.UpdateCardText(modText);
-                        }
-
-                        cardView.UpdateManaCost();
-                    }
-
-                    if (i != startingIndex)
-                    {
-                        FocusManager.Instance.DisableFocusableTarget(cardView.cardFocusable);
-                    }
+                    FocusManager.Instance.DisableFocusableTarget(cardView.cardFocusable);
                 }
             }
 
             if ((isStartingTab && i == startingIndex) || (!isStartingTab && i == 0))
             {
-                FocusDeckSection(deckViewsContainer.Children().ToList()[i], true);
+                FocusDeckSection(deckSectionView, true);
+                deckTabView.focusedSectionView = deckSectionView;
             }
             else
             {
-                UnFocusDeckSection(deckViewsContainer.Children().ToList()[i], true);
+                UnFocusDeckSection(deckSectionView, true);
             }
         }
     }
@@ -479,8 +518,8 @@ public class MultiDeckView
             VisualElement element = scrollViewContents[i];
             float initialTop = element.resolvedStyle.top;
             float initialLeft = element.resolvedStyle.left;
-            float finalLeft = basePosition.x + X_STEP * (i % CARDS_WIDE_PER_COMP_NUM[numSectionsForEachTab[currentTabIndex]]);
-            float finalTop = basePosition.y + Y_STEP * Mathf.Floor(i / CARDS_WIDE_PER_COMP_NUM[numSectionsForEachTab[currentTabIndex]]);
+            float finalLeft = basePosition.x + X_STEP * (i % CARDS_WIDE_PER_COMP_NUM[deckTabViews[currentTabIndex].sectionViews.Count]);
+            float finalTop = basePosition.y + Y_STEP * Mathf.Floor(i / CARDS_WIDE_PER_COMP_NUM[deckTabViews[currentTabIndex].sectionViews.Count]);
             LeanTween.value(0f, 1f, instant ? 0f : animationDuration)
             .setOnUpdate((float val) =>
             {
@@ -538,26 +577,25 @@ public class MultiDeckView
             canvasGroup.blocksRaycasts = false;
             UIDocumentUtils.SetAllPickingMode(uiDocument.rootVisualElement, PickingMode.Ignore);
             visibilityRoot.style.visibility = Visibility.Hidden;
+            // These get set specifically because they're style is overridden so they
+            // don't inherit from parent
+            tabLeftIcon.style.visibility = Visibility.Hidden;
+            tabRightIcon.style.visibility = Visibility.Hidden;
         }
     }
 
     public void CleanUp()
     {
         UnregisterFocusables();
-        foreach (VisualElement tab in deckViewTabVisualElements)
+        foreach (DeckTabView deckTabView in deckTabViews)
         {
-            List<VisualElement> sections = tab.Q<VisualElement>("SectionsContainer").Children().ToList();
-            foreach (VisualElement section in sections)
+            foreach (DeckSectionView section in deckTabView.sectionViews)
             {
-                section.Q<VisualElement>("SectionHeader").Clear();
-                ScrollView scrollView = section.Q<ScrollView>("ScrollView");
-                scrollView.Clear();
+                section.header.Clear();
+                section.scrollView.Clear();
                 UnFocusDeckSection(section, true);
             }
         }
-        deckViewTabVisualElements.Clear();
-        focusedSectionsForEachTab.Clear();
-        numSectionsForEachTab.Clear();
         tooltipController.DestroyAllTooltips();
     }
 
@@ -565,6 +603,71 @@ public class MultiDeckView
         ToggleVisibility(false);
         CleanUp();
         isEnabled = false;
+    }
+
+    public void SetTabButtonIconsPositionAndVisible(bool visible) {
+        Visibility visibility;
+
+        if (visible && deckTabViews.Count != 1) {
+            visibility = Visibility.Visible;
+            List<VisualElement> buttons = tabButtonContainer.Children().ToList();
+            VisualElement first = buttons.First();
+            VisualElement last = buttons.Last();
+            tabLeftIcon.style.left = first.worldBound.xMin - tabLeftIcon.worldBound.width;
+            tabRightIcon.style.left = last.worldBound.xMax;
+        }
+        else visibility = Visibility.Hidden;
+
+        tabLeftIcon.style.visibility = visibility;
+        tabRightIcon.style.visibility = visibility;
+    }
+
+    private class DeckTabView {
+        public VisualElement container;
+        public List<DeckSectionView> sectionViews;
+        public DeckSectionView focusedSectionView;
+        public DeckTab deckTab;
+
+        public DeckTabView(VisualElement container, DeckTab deckTab) {
+            this.container = container;
+            this.deckTab = deckTab;
+            this.sectionViews = new List<DeckSectionView>();
+            List<VisualElement> sectionContainers = container.Q<VisualElement>("SectionsContainer").Children().ToList();
+            for (int i = 0; i < sectionContainers.Count; i++) {
+                if (i >= deckTab.sections.Count) {
+                    sectionContainers[i].style.display = DisplayStyle.None;
+                    continue;
+                }
+                DeckSectionView deckSectionView = new DeckSectionView(sectionContainers[i], deckTab.sections[i]);
+                deckSectionView.container.style.display = DisplayStyle.Flex;
+                this.sectionViews.Add(deckSectionView);
+            }
+        }
+    }
+
+    private class DeckSectionView {
+        public VisualElement container;
+        public VisualElement header;
+        public VisualElement divider;
+        public ScrollView scrollView;
+        public CompanionManagementView companionView;
+        public DeckTabSection deckTabSection;
+
+        public DeckSectionView(VisualElement container, DeckTabSection deckTabSection) {
+            this.container = container;
+            this.deckTabSection = deckTabSection;
+            this.header = container.Q("SectionHeader");
+            this.divider = container.Q("SectionDivider");
+            this.scrollView = container.Q<ScrollView>();
+        }
+    }
+
+    private class TabButton {
+        public int index;
+
+        public TabButton(int index) {
+            this.index = index;
+        }
     }
 }
 
