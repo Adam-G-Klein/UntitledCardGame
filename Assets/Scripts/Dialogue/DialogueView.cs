@@ -35,6 +35,12 @@ public class DialogueView : GenericSingleton<DialogueView>, IControlsReceiver
         ControlsManager.Instance.RegisterControlsReceiver(this);
     }
 
+    void Update() {
+        if (Input.GetMouseButtonDown(0)) {
+            hasClicked = true;
+        }
+    }
+
     public void SpeakLine(Sprite sprite, string line)
     {
         if (runningCoroutine != null) StopCoroutine(runningCoroutine);
@@ -84,6 +90,7 @@ public class DialogueView : GenericSingleton<DialogueView>, IControlsReceiver
 
     private IEnumerator Typewriter(string fullText, float endDelay, bool hideOnComplete = true)
     {
+        hasClicked = false;
         yield return new WaitForSeconds(0.05f);
         rawImage.enabled = true;
         string invisibleText = $"<color=#00000000>{fullText}</color>";
@@ -93,21 +100,17 @@ public class DialogueView : GenericSingleton<DialogueView>, IControlsReceiver
             string visible = fullText.Substring(0, i);
             string invisible = $"<color=#00000000>{fullText.Substring(i)}</color>";
             label.text = visible + invisible;
-            if(Input.GetMouseButtonDown(0)) hasClicked = true;
             if(hasClicked)
             {
-                label.text = invisibleText;
+                label.text = fullText;
+                hasClicked = false;
                 break;
             }
             yield return new WaitForSeconds(charRevealDelay);
         }
-        if(!hasClicked)
-        {
-            yield return new WaitForSeconds(endDelay);
-        }
+        yield return new WaitForSeconds(endDelay);
         if (hideOnComplete) rawImage.enabled = false;
         runningCoroutine = null;
-        hasClicked = false; // in case it was used to skip, reset it to need another click to proceed
         yield return null;
     }
 
