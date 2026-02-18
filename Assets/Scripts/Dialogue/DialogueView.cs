@@ -93,16 +93,27 @@ public class DialogueView : GenericSingleton<DialogueView>, IControlsReceiver
             string visible = fullText.Substring(0, i);
             string invisible = $"<color=#00000000>{fullText.Substring(i)}</color>";
             label.text = visible + invisible;
+            if(Input.GetMouseButtonDown(0)) hasClicked = true;
+            if(hasClicked)
+            {
+                label.text = invisibleText;
+                break;
+            }
             yield return new WaitForSeconds(charRevealDelay);
         }
-        yield return new WaitForSeconds(endDelay);
+        if(!hasClicked)
+        {
+            yield return new WaitForSeconds(endDelay);
+        }
         if (hideOnComplete) rawImage.enabled = false;
         runningCoroutine = null;
+        hasClicked = false; // in case it was used to skip, reset it to need another click to proceed
+        yield return null;
     }
 
     public void ProcessGFGInputAction(GFGInputAction action)
     {
-        if (action == GFGInputAction.SELECT && waitingForClick) {
+        if (action == GFGInputAction.SELECT) {
             hasClicked = true;
         }
     }

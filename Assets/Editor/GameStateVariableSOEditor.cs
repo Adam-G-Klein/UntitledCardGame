@@ -40,11 +40,11 @@ public class GameStateVariableSOEditor : Editor {
         EditorGUILayout.Space(20);
         EditorGUILayout.LabelField("Active Encounter Controls");
         EditorGUILayout.Space(10);
-        encounterType = (EncounterType) EditorGUILayout.EnumPopup("Encounter Type:", encounterType);
+        encounterType = (EncounterType) EditorGUILayout.EnumPopup("Encounter Type (set index to -1 to use):", encounterType);
         EditorGUILayout.Space(2);
         GUIStyle textStyle = EditorStyles.label;
         textStyle.wordWrap = true;
-        string text = "Optional: Designate which encounter to use by its mapIndex.\nSet to -1 to use the map's first encounter of the above type.";
+        string text = "Optional: Designate which encounter to use by its mapIndex.\nDoes require figuring out which mapIndex has the encounter type you're looking for.\n OR Set to -1 to use the map's first encounter of the above type.";
         Rect textRect = GUILayoutUtility.GetRect(new GUIContent(text), textStyle);
         EditorGUI.LabelField(textRect, text, textStyle);
         mapIndex = EditorGUILayout.IntField("Map Index:", mapIndex);
@@ -126,12 +126,14 @@ public class GameStateVariableSOEditor : Editor {
 
     private void setNextEncounterAndMapIndex(GameStateVariableSO gameStateVariableSO, Encounter encounter, int mapIndex) {
         if(mapIndex != -1 && mapIndex < gameStateVariableSO.map.GetValue().encounters.Count - 1) {
-            gameStateVariableSO.nextEncounter.SetValue(gameStateVariableSO.map.GetValue().encounters[mapIndex + 1]);
+            gameStateVariableSO.nextEncounter.SetValue(encounter);
             gameStateVariableSO.nextMapIndex = mapIndex + 1;
+            gameStateVariableSO.currentEncounterIndex = mapIndex;
         }
         else {
             gameStateVariableSO.nextEncounter.SetValue(gameStateVariableSO.map.GetValue().encounters[0]);
             gameStateVariableSO.nextMapIndex = 0;
+            gameStateVariableSO.currentEncounterIndex = mapIndex;
         }
     }
 }
