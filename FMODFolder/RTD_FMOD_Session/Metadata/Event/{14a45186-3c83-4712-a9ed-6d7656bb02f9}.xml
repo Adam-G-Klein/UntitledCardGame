@@ -5,7 +5,7 @@
 			<value>VO_NegativeStatus_Low</value>
 		</property>
 		<property name="outputFormat">
-			<value>1</value>
+			<value>0</value>
 		</property>
 		<relationship name="folder">
 			<destination>{396942fb-408b-46f4-81df-d7b3a86811fc}</destination>
@@ -103,10 +103,6 @@
 		<relationship name="sounds">
 			<destination>{cc88d242-81ed-4460-8342-66ae81db925c}</destination>
 			<destination>{6d106ffe-4c0a-404b-a49b-a57206d2a843}</destination>
-			<destination>{636d0b60-3663-4641-8701-8c3b906e93a9}</destination>
-			<destination>{46bb5964-48d6-4728-af66-490cbed2d8ea}</destination>
-			<destination>{7250dff7-dd87-4eb3-a14c-aaa93be5b72d}</destination>
-			<destination>{7bdfc5a9-5703-4244-9d51-9abda5f58715}</destination>
 			<destination>{bf7ff3b4-1fa9-4217-8d66-e30737c2acd9}</destination>
 			<destination>{7291cfb5-9e1d-4965-986e-f8027005299e}</destination>
 		</relationship>
@@ -115,26 +111,6 @@
 	<object class="MixerBusFader" id="{58c39232-fa93-4b62-a6f8-e55613795d41}" />
 	<object class="SilenceSound" id="{cc88d242-81ed-4460-8342-66ae81db925c}" />
 	<object class="SilenceSound" id="{6d106ffe-4c0a-404b-a49b-a57206d2a843}" />
-	<object class="SingleSound" id="{636d0b60-3663-4641-8701-8c3b906e93a9}">
-		<relationship name="audioFile">
-			<destination>{2628e527-ae99-4d67-afe3-fcf2b4db9101}</destination>
-		</relationship>
-	</object>
-	<object class="SingleSound" id="{46bb5964-48d6-4728-af66-490cbed2d8ea}">
-		<relationship name="audioFile">
-			<destination>{130b2605-64c7-42cc-90a6-a2452ac02787}</destination>
-		</relationship>
-	</object>
-	<object class="SingleSound" id="{7250dff7-dd87-4eb3-a14c-aaa93be5b72d}">
-		<relationship name="audioFile">
-			<destination>{7ee1add7-d19d-45a5-bd4f-f6a062b944b1}</destination>
-		</relationship>
-	</object>
-	<object class="SingleSound" id="{7bdfc5a9-5703-4244-9d51-9abda5f58715}">
-		<relationship name="audioFile">
-			<destination>{74194733-0bbf-43e5-83d5-f90d2f7c853a}</destination>
-		</relationship>
-	</object>
 	<object class="SilenceSound" id="{bf7ff3b4-1fa9-4217-8d66-e30737c2acd9}" />
 	<object class="SilenceSound" id="{7291cfb5-9e1d-4965-986e-f8027005299e}" />
 </objects>

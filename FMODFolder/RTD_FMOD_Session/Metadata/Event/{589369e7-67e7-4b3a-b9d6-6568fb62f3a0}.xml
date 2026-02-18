@@ -5,7 +5,7 @@
 			<value>VO_CompanionDeathLow 2</value>
 		</property>
 		<property name="outputFormat">
-			<value>1</value>
+			<value>0</value>
 		</property>
 		<relationship name="folder">
 			<destination>{3939e0c6-b633-4a00-ac61-042933827e07}</destination>
@@ -99,22 +99,7 @@
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{7d26a3e1-a82d-4e60-9f39-3ccbbad0e67c}" />
-	<object class="MultiSound" id="{f9be8ca9-bf36-4484-857d-cd731d6fffd9}">
-		<relationship name="sounds">
-			<destination>{52677b8c-46f3-4448-ba3e-c6146c016939}</destination>
-			<destination>{277c6a4f-8840-4ee4-b1ec-300da58bcf8e}</destination>
-		</relationship>
-	</object>
+	<object class="MultiSound" id="{f9be8ca9-bf36-4484-857d-cd731d6fffd9}" />
 	<object class="MixerBusFader" id="{bdb34950-db2e-4b56-a581-20279b640fcf}" />
 	<object class="MixerBusFader" id="{6040efae-3a97-4928-8ed2-b15e9f5d2b67}" />
-	<object class="SingleSound" id="{52677b8c-46f3-4448-ba3e-c6146c016939}">
-		<relationship name="audioFile">
-			<destination>{a0cdb1d0-6991-47b6-a31f-335828843b55}</destination>
-		</relationship>
-	</object>
-	<object class="SingleSound" id="{277c6a4f-8840-4ee4-b1ec-300da58bcf8e}">
-		<relationship name="audioFile">
-			<destination>{5fc15c01-96fa-4789-b98e-9d0a98e49279}</destination>
-		</relationship>
-	</object>
 </objects>

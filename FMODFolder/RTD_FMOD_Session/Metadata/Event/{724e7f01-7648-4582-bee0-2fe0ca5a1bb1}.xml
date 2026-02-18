@@ -5,7 +5,7 @@
 			<value>VO_PositiveStatus_Low</value>
 		</property>
 		<property name="outputFormat">
-			<value>1</value>
+			<value>0</value>
 		</property>
 		<relationship name="folder">
 			<destination>{396942fb-408b-46f4-81df-d7b3a86811fc}</destination>
@@ -104,11 +104,6 @@
 			<destination>{f5a6d1d6-a5b5-4750-b51c-9dacadc08116}</destination>
 			<destination>{8fc840b2-72c7-4a11-9554-9b07bc45e56d}</destination>
 			<destination>{ec7b828e-4bd5-4ae5-af64-03bc6d84f49e}</destination>
-			<destination>{78135c91-d3c1-416b-9d8a-997cfbceaa43}</destination>
-			<destination>{c2232a42-4ba4-44d3-852b-5a1eb0273ef8}</destination>
-			<destination>{8cfc3e09-7942-4994-92b1-7109fe0ec487}</destination>
-			<destination>{63b6cc10-3d44-47e0-81a2-a27bdb7d5c78}</destination>
-			<destination>{e2938a35-ab38-47dc-9f20-fd2f1449dd3f}</destination>
 			<destination>{07299b13-d997-4251-aa7e-c61431d0e5c0}</destination>
 		</relationship>
 	</object>
@@ -117,30 +112,5 @@
 	<object class="SilenceSound" id="{f5a6d1d6-a5b5-4750-b51c-9dacadc08116}" />
 	<object class="SilenceSound" id="{8fc840b2-72c7-4a11-9554-9b07bc45e56d}" />
 	<object class="SilenceSound" id="{ec7b828e-4bd5-4ae5-af64-03bc6d84f49e}" />
-	<object class="SingleSound" id="{78135c91-d3c1-416b-9d8a-997cfbceaa43}">
-		<relationship name="audioFile">
-			<destination>{bde9228e-b879-46fc-9249-8047a23f3b8b}</destination>
-		</relationship>
-	</object>
-	<object class="SingleSound" id="{c2232a42-4ba4-44d3-852b-5a1eb0273ef8}">
-		<relationship name="audioFile">
-			<destination>{9cef5f04-99af-4c45-a774-82a06e3b26ad}</destination>
-		</relationship>
-	</object>
-	<object class="SingleSound" id="{8cfc3e09-7942-4994-92b1-7109fe0ec487}">
-		<relationship name="audioFile">
-			<destination>{7075d50b-72a7-41b7-b86d-99b7e2faa0f5}</destination>
-		</relationship>
-	</object>
-	<object class="SingleSound" id="{63b6cc10-3d44-47e0-81a2-a27bdb7d5c78}">
-		<relationship name="audioFile">
-			<destination>{88d256f4-a9b1-4d6f-83a5-6fa96e35ffb4}</destination>
-		</relationship>
-	</object>
-	<object class="SingleSound" id="{e2938a35-ab38-47dc-9f20-fd2f1449dd3f}">
-		<relationship name="audioFile">
-			<destination>{f0d3caa2-3e17-44f7-a7c7-4efeaa2ea20f}</destination>
-		</relationship>
-	</object>
 	<object class="SilenceSound" id="{07299b13-d997-4251-aa7e-c61431d0e5c0}" />
 </objects>

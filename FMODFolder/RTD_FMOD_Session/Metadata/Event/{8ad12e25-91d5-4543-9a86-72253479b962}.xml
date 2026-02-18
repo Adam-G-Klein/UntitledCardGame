@@ -5,7 +5,7 @@
 			<value>VO_CombatBarks_DamageLow</value>
 		</property>
 		<property name="outputFormat">
-			<value>1</value>
+			<value>0</value>
 		</property>
 		<relationship name="folder">
 			<destination>{24187e97-0527-49a7-ac46-1636fb0de8fe}</destination>
@@ -103,28 +103,10 @@
 		<relationship name="sounds">
 			<destination>{8e0aa195-2a48-4057-90fb-39af782c10fe}</destination>
 			<destination>{1bdd5462-ab19-4599-a3fd-e5b25dc1a726}</destination>
-			<destination>{7885c945-d5ec-4bb6-9fd5-0cfc3c222106}</destination>
-			<destination>{f1dd81ac-da8f-4fef-9439-62d35cea86e5}</destination>
-			<destination>{98607de5-a34f-4036-9ae4-0ae29d2b2fe6}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusFader" id="{89d2c0dd-4aa9-4349-9f16-39a4c4264b23}" />
 	<object class="MixerBusFader" id="{157c16a6-cf58-4800-b5be-b7638f560dbc}" />
 	<object class="SilenceSound" id="{8e0aa195-2a48-4057-90fb-39af782c10fe}" />
 	<object class="SilenceSound" id="{1bdd5462-ab19-4599-a3fd-e5b25dc1a726}" />
-	<object class="SingleSound" id="{7885c945-d5ec-4bb6-9fd5-0cfc3c222106}">
-		<relationship name="audioFile">
-			<destination>{2d585841-70fa-42e0-adbb-d9887ab3c13f}</destination>
-		</relationship>
-	</object>
-	<object class="SingleSound" id="{f1dd81ac-da8f-4fef-9439-62d35cea86e5}">
-		<relationship name="audioFile">
-			<destination>{981cdb5b-a606-4ff2-ab30-688fbc938eb6}</destination>
-		</relationship>
-	</object>
-	<object class="SingleSound" id="{98607de5-a34f-4036-9ae4-0ae29d2b2fe6}">
-		<relationship name="audioFile">
-			<destination>{29295165-fc8c-4100-ab99-7ea1d3a91145}</destination>
-		</relationship>
-	</object>
 </objects>
