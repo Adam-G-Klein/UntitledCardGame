@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: ab269716-f448-4bdd-b825-cf9f5af094e6
   displayName: Baron Grimmclaw
-  maxHealth: 150
+  maxHealth: 120
   baseAttackDamage: 0
   enemyDisplayType: 2
   sprite: {fileID: 21300000, guid: 27f1adcfc988441759631bb342034add, type: 3}
@@ -28,7 +28,7 @@ MonoBehaviour:
     - intent: 0
       enemyTargetMethod: 0
       targetsKey: target
-      displayValue: 10
+      displayValue: 12
       effectSteps:
       - rid: 3931529445166809421
       - rid: 173314522967966481
@@ -90,7 +90,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: target
         combatEffect: 0
-        scale: 10
+        scale: 12
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
