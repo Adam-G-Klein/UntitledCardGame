@@ -2,10 +2,7 @@ using UnityEngine;
 using System;
 using UnityEngine.UIElements;
 using System.Linq;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.IMGUI.Controls;
 
 public class MultiDeckView
 {
@@ -53,6 +50,7 @@ public class MultiDeckView
         this.canvasGroup = canvasGroup;
         this.multiDeckViewDelegate = multiDeckViewDelegate;
         this.tabButtons = new List<Button>();
+        this.deckTabViews = new List<DeckTabView>();
 
         Tuple<int, int> cardSizeTuple = CardView.GetWidthAndHeight();
         CARD_SIZE = new Vector2(cardSizeTuple.Item1, cardSizeTuple.Item2);

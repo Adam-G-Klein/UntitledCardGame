@@ -97,7 +97,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     }
 
     private IEnumerator RunStartOfShopStep() {
-        // shopViewController.DisableAllUI();
+        shopViewController.DisableAllUI();
         if (!DemoDirector.Instance.IsStepCompleted(DemoStepName.StartOfShop))
         {
             yield return DemoDirector.Instance.InvokeDemoStepCorouutine(DemoStepName.StartOfShop);

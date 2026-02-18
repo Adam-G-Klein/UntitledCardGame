@@ -146,7 +146,10 @@ public class FocusManager : GenericSingleton<FocusManager>, IControlsReceiver
                 }
             }
         }
-        stashedFocusables[stashedBy] = newStashedFocusables;
+        if (!stashedFocusables.ContainsKey(stashedBy)) {
+            stashedFocusables[stashedBy] = new List<IFocusableTarget>();
+        }
+        stashedFocusables[stashedBy].AddRange(newStashedFocusables);
     }
 
     public void StashFocusableTarget(string stashedBy, IFocusableTarget target) {
