@@ -313,7 +313,7 @@ IconDescription:
         foreach (var token in iconDescription)
         {
             sb.AppendLine("- tokenType: " + (int)token.tokenType);
-            sb.AppendLine("  text: '" + token.text.Replace("'", "''") + "'");
+            sb.AppendLine("  text: '" + (token.text ?? "").Replace("'", "''") + "'");
             sb.AppendLine("  icon: " + (int)token.icon);
         }
         return sb.ToString();
@@ -368,9 +368,17 @@ IconDescription:
         };
         messages.Add(newMessage);
 
+        int countBefore = messages.Count;
         await SendReply();
 
-        llmOutput = messages[messages.Count - 1].Content;
+        if (messages.Count > countBefore)
+        {
+            llmOutput = messages[^1].Content;
+        }
+        else
+        {
+            Debug.LogError("GenerateLLMOutput: No response was added to messages — API call may have failed. Check console for errors.");
+        }
 
         isProcessing = false;
         Repaint();
@@ -389,10 +397,18 @@ IconDescription:
 
         messages.Add(feedbackMessage);
 
+        int countBefore = messages.Count;
         await SendReply();
 
         // Example: Include user feedback in the regeneration
-        llmOutput = messages[messages.Count - 1].Content;
+        if (messages.Count > countBefore)
+        {
+            llmOutput = messages[^1].Content;
+        }
+        else
+        {
+            Debug.LogError("RegenerateWithFeedback: No response was added to messages — API call may have failed. Check console for errors.");
+        }
 
         isProcessing = false;
         Repaint();

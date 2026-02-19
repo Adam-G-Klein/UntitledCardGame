@@ -33,9 +33,6 @@ MonoBehaviour:
       - rid: 5280922829633618019
       - rid: 5602892723852673492
       - rid: 5280922829633618018
-      - rid: 5280922829633618022
-      - rid: 5602892723852673495
-      - rid: 5280922829633618023
     behaviorType: 0
   belowHalfHPEnemyPattern:
     behaviors: []
@@ -124,45 +121,4 @@ MonoBehaviour:
         inputCardsKey: 
         scale: 1
         getScaleFromKey: 0
-        inputScaleKey: 
-    - rid: 5280922829633618022
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: randomCompanion2
-        validTargets:
-        - 0
-        number: 1
-        specialTargetRule: 6
-        cantCancelTargetting: 0
-        cardSelectionHelperText: 
-    - rid: 5602892723852673495
-      type: {class: AddCardsToDeck, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: AddCardsToDeck
-        inputKey: randomCompanion2
-        cardTypes:
-        - {fileID: 11400000, guid: 9714339dc814347a695896e260c24c6c, type: 2}
-        addToDeckMethod: 0
-        getCardsFromKey: 0
-        inputCardsKey: 
-        scale: 1
-        getScaleFromKey: 0
-        inputScaleKey: 
-    - rid: 5280922829633618023
-      type: {class: FXEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: FXEffectStep
-        waitForEffect: 1
-        fXExperiencePrefab: {fileID: 4075960956037802917, guid: ec7b1a1529f9141458320888bf8e3d96, type: 3}
-        rootLocationGameObjectKey: 
-        positionMappingList:
-        - fromWorkflow: randomCompanion2
-          toFxExperience: end
-        - fromWorkflow: self
-          toFxExperience: start
-        gameobjectMappingList: []
-        vePositionMappingList: []
-        veMappingList: []
+        inputScaleKey:

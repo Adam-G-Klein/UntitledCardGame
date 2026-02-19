@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
-  m_Name: RazorWeesel
+  m_Name: CheeseWeesel2
   m_EditorClassIdentifier: 
-  guid: aa23063f-d016-4e4b-b3a0-6a16ae389d34
-  displayName: Bobby Pinkus
-  maxHealth: 20
+  guid: 2831b41a-4d10-410b-8ae4-6e07c051275e
+  displayName: Shifty Winslow
+  maxHealth: 18
   baseAttackDamage: 0
   enemyDisplayType: 0
-  sprite: {fileID: 21300000, guid: 63cef8bf5cc0e4008aa20a17f5389c74, type: 3}
+  sprite: {fileID: 21300000, guid: 4ac8fc33a227c424c9559e23af5cf04e, type: 3}
   backgroundImage: {fileID: 21300000, guid: 364ba42c643334c26880972451ab7240, type: 3}
   entityFrame: {fileID: 21300000, guid: f0a49663f732b49a4b8a9ee152f517fe, type: 3}
   morale: 1
@@ -51,12 +51,12 @@ MonoBehaviour:
   tooltip:
     empty: 0
     lines:
-    - title: Go ahead, take a bite!
-      description: Puts a Wooden Idol on top of a random rat's deck
+    - title: You can't live without it!
+      description: Puts a Stinky Cheese on top of a random rat's deck
       relatedBehaviorIndex: -1
       icon: {fileID: 0}
-    - title: Razor Candy
-      description: Give target companion 8 block, bleed them for 2.
+    - title: Stinky Cheese
+      description: 0 mana. Exhaust. Draw 2 cards from self & bleed self 3 HP
       relatedBehaviorIndex: -1
       icon: {fileID: 0}
   DEADLIER_ENEMY_BONUS_STR: -1
@@ -115,7 +115,7 @@ MonoBehaviour:
         effectStepName: AddCardsToDeck
         inputKey: randomCompanion
         cardTypes:
-        - {fileID: 11400000, guid: 0ad2414dc8171cf4ab92e3c0ea8e6e50, type: 2}
+        - {fileID: 11400000, guid: 9714339dc814347a695896e260c24c6c, type: 2}
         addToDeckMethod: 0
         getCardsFromKey: 0
         inputCardsKey: 
