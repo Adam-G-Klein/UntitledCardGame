@@ -15,7 +15,6 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     [Header("Shop")]
     public ShopViewController shopViewController;
     public EncounterConstantsSO encounterConstants;
-    public StaticShopEncountersSO staticShopEncounters;
     public VoidGameEvent shopRefreshEvent;
     public GameObject companionViewUIPrefab;
 
@@ -70,6 +69,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         allCompanions.AddRange(gameState.companions.benchedCompanions);
 
         StaticShopEncounter staticEncounter = null;
+        StaticShopEncountersSO staticShopEncounters = shopEncounter.shopData.staticShopEncounters;
         if (gameState.buildType == BuildType.DEMO && staticShopEncounters != null) {
             int shopIndex = gameState.currentEncounterIndex / 2;
             if (shopIndex < staticShopEncounters.shopEncounters.Count) {

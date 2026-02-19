@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
   m_Name: WorkerWombat
   m_EditorClassIdentifier: 
-  guid: fbf7618c-85e7-4c1b-83af-a162b23c98cb
-  displayName: Worker Wombat
-  maxHealth: 16
+  guid: ec3d278e-afe6-4c36-a3ee-8e65aa76f40e
+  displayName: WorkerWombat
+  maxHealth: 14
   baseAttackDamage: 0
   enemyDisplayType: 0
   sprite: {fileID: 21300000, guid: 9bd71e2f3cc128d41905a6db51025fd0, type: 3}
@@ -28,11 +28,14 @@ MonoBehaviour:
     - intent: 1
       enemyTargetMethod: 0
       targetsKey: target
-      displayValue: 3
+      displayValue: 2
       effectSteps:
       - rid: 3931529445166809421
       - rid: 173314522967966541
       - rid: 3931529445166809422
+      - rid: 8192895876551933958
+      - rid: 8192895876551933959
+      - rid: 8192895876551933957
       - rid: 5280922829633618025
       - rid: 5633448273828905019
       - rid: 5280922829633618024
@@ -48,8 +51,8 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Hard work pays off
-      description: Chips away at the first rat and slowly powers up
-      relatedBehaviorIndex: -1
+      description: Acts just like his fellow normal working wombat
+      relatedBehaviorIndex: 0
       icon: {fileID: 0}
   DEADLIER_ENEMY_BONUS_STR: -1
   HEALTHIER_ENEMY_BONUS_HEALTH: -1
@@ -104,10 +107,34 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: self
         statusEffect: 0
-        scale: 1
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
+    - rid: 8192895876551933957
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: strengthThreshold
+        conditionToEndOn: 1
+    - rid: 8192895876551933958
+      type: {class: CountStatusEffectsStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CountStatusEffectStep
+        inputKey: self
+        statusEffect: 0
+        onlyCountStatusOnce: 0
+        outputKey: strength
+    - rid: 8192895876551933959
+      type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: BooleanComparison
+        hardCodedInputKey1: 9
+        useHardCodedInputKey1: 1
+        inputKey1: 
+        operation: 2
+        inputKey2: strength
+        outputKey: strengthThreshold
