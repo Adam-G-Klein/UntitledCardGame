@@ -914,29 +914,23 @@ MonoBehaviour:
   bendingTheRulesStepDialogue:
   - Normally you would receive a random team of rats here, but I arranged something
     nice and balanced for you since it's your first time.
-  moreRewardsThanUsualStepDialogue:
-  - My, that's a lot of money. It looks like you are receiving much more than usual.
+  moreRewardsThanUsualStepDialogue: []
   startOfShopStepDialogue:
   - Welcome to the shop. This is where the best players separate themselves from
     the rest of the pack.
-  - You can recruit new rats for your team and buy cards. Think about where you place
-    cards and which rats go well with each other.
-  - Oh, and if you want to see more powerful rats and cards, I'd recommend buying
-    RP to upgrade the shop.
+  - For your sake, I temporarily suspended the market economy that usually defines
+    the full Paccarat experience.
   buyCompanionReminderStepDialogue:
   - Before you go, I pushed the Syndicate to let you have another rat friend in this
     next fight.
   - It helps a lot - you draw an extra card each turn. Choose one from the available
     in the shop.
-  shopPivotSuggestionDialogue:
-  - Now, we arrive at a fork in the road. If you so choose, you can reorient your
-    team around one of the powerful rats in the shop.
-  - 'Do you choose the renowned draw engineer Tjork, who draws new cards each time
-    you exhaust a card? '
-  - Or do you prefer the steadfast Spaulder, a giant tank of a rat who gets along
-    well with other blood pack rats like Hex and Mab?
-  - If neither of the two appeal, there are also powerful discard pack cards available.
-    Good luck.
+  shopPivotSuggestionDialogue: []
+  cardOfferingTipsDialogue:
+  - Now you can pick cards to equip your rats for the rest of the game. Allow me
+    to offer a few words of advice.
+  - You draw one card from each rat every turn. If you put cards that go well together
+    on different rats, you are more likely to draw them in the same hand.
 --- !u!1 &5109742072706344275
 GameObject:
   m_ObjectHideFlags: 0

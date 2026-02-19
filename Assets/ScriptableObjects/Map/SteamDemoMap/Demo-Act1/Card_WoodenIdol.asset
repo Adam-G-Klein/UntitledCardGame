@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: Card_Weasel2
+  m_Name: Card_WoodenIdol
   m_EditorClassIdentifier: 
-  guid: 6f063cc3-5afe-4a36-aaef-26f773b2ea51
+  guid: d62c0908-798e-4fbc-b75f-6241022da842
   Name: Wooden Idol
-  Description: Unplayable.
+  Description: Unplayable
   IconDescription: []
   defaultValues: []
   Cost: 0
@@ -26,7 +26,7 @@ MonoBehaviour:
   exhaustsWhenPlayed: 0
   retain: 0
   effectWorkflows:
-  - rid: 7150943289421333130
+  - rid: 7150943746640576556
   onExhaustEffectWorkflow:
     rid: -2
   onDiscardEffectWorkflow:
@@ -42,7 +42,7 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 7150943289421333130
+    - rid: 7150943746640576556
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps: []

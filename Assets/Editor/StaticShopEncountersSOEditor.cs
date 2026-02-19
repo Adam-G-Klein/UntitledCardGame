@@ -12,5 +12,10 @@ public class StaticShopEncountersSOEditor : Editor {
             StaticShopEncounter newEncounter = new StaticShopEncounter();
             staticShopEncounters.shopEncounters.Add(newEncounter);
         }
+
+        if (GUILayout.Button("Add Shop Pool Encounter")) {
+            StaticShopPoolEncounter newPoolEncounter = new StaticShopPoolEncounter();
+            staticShopEncounters.shopPoolEncounters.Add(newPoolEncounter);
+        }
     }
 }

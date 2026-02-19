@@ -28,7 +28,7 @@ MonoBehaviour:
     - intent: 2
       enemyTargetMethod: 6
       targetsKey: 0
-      displayValue: 10
+      displayValue: 5
       effectSteps:
       - rid: 3931529445166809421
       - rid: 2268260642759377006
@@ -36,7 +36,7 @@ MonoBehaviour:
     - intent: 2
       enemyTargetMethod: 6
       targetsKey: 0
-      displayValue: 10
+      displayValue: 5
       effectSteps:
       - rid: 3931529445166809421
       - rid: 2268260642759377006
@@ -91,7 +91,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: self
         statusEffect: 0
-        scale: 10
+        scale: 5
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0

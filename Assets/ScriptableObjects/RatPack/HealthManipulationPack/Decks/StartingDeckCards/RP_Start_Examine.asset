@@ -10,38 +10,35 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: RazorCandy
+  m_Name: RP_Start_Examine
   m_EditorClassIdentifier: 
-  guid: 8d50644f-e89b-4486-8bd6-b4d7476646f5
-  Name: RazorCandy
-  Description: Bleed 3 and give 8 block.
+  guid: 39b6f6b9-bd2d-4dd0-bdff-c921e1482ee5
+  Name: Examine
+  Description: 
   IconDescription:
   - tokenType: 0
-    text: 3
-    icon: 0
+    text: 1
+    icon: 9
   - tokenType: 2
     text: 
     icon: 9
   - tokenType: 1
     text: 
-    icon: 0
-  - tokenType: 0
-    text: 8
-    icon: 0
+    icon: 9
   - tokenType: 2
     text: 
-    icon: 2
+    icon: 3
   defaultValues: []
   Cost: 0
-  Artwork: {fileID: -1654676150, guid: f32701b9e6adece4a8eeacbe035e0b1e, type: 3}
-  cardCategory: 4
-  packFrom: {fileID: 0}
+  Artwork: {fileID: 21300000, guid: e0ab2143b8408423ab692d481858408a, type: 3}
+  cardCategory: 2
+  packFrom: {fileID: 11400000, guid: a87b5da767d4e4659b2965e31e340c58, type: 2}
   vfxPrefab: {fileID: 0}
   playable: 1
-  exhaustsWhenPlayed: 1
+  exhaustsWhenPlayed: 0
   retain: 0
   effectWorkflows:
-  - rid: 7150943289421333052
+  - rid: 5602892949302281051
   onExhaustEffectWorkflow:
     rid: -2
   onDiscardEffectWorkflow:
@@ -57,15 +54,23 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 7150943289421333052
+    - rid: 2034230176448512019
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DrawCards
+        inputKey: target
+        outputKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+    - rid: 5602892949302281051
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
         effectSteps:
-        - rid: 7150943289421333053
-        - rid: 7150943289421333054
-        - rid: 8192895876551934028
-        - rid: 8192895876551934029
-    - rid: 7150943289421333053
+        - rid: 5602892949302281052
+        - rid: 2034230176448512019
+        - rid: 5602892949302281053
+    - rid: 5602892949302281052
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
@@ -77,36 +82,16 @@ MonoBehaviour:
         specialTargetRule: 0
         cantCancelTargetting: 0
         cardSelectionHelperText: 
-    - rid: 7150943289421333054
+    - rid: 5602892949302281053
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
         inputKey: target
         combatEffect: 16
-        scale: 3
+        scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
         vfxPrefab: {fileID: 6137048663962808129, guid: 92c26f41ef33c23419e05ceb12660efa, type: 3}
-    - rid: 8192895876551934028
-      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: ApplyStatus
-        inputKey: target
-        statusEffect: 2
-        scale: 8
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplyByNumAuraStacks: 0
-        multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
-    - rid: 8192895876551934029
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: target
-        prefabToInstantiate: {fileID: 98836261379580132, guid: 4d7101a33d0460546a469ad075160bdf, type: 3}
-        scale: 1.5

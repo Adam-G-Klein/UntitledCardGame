@@ -618,6 +618,8 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 6591284524624904358
       type: {class: UnityEventTutorialStep, ns: , asm: Assembly-CSharp}
       data:
@@ -625,14 +627,9 @@ MonoBehaviour:
         stepName: Start
         actions:
         - rid: 6591284524624904360
-        - rid: 6591284524624904359
+        - rid: -2
         - rid: 6591284527365881861
         initAction: 0
-    - rid: 6591284524624904359
-      type: {class: DialogueAction, ns: , asm: Assembly-CSharp}
-      data:
-        tutorialActionType: Dialouge Action
-        dialogueSequenceSO: {fileID: 11400000, guid: d4009cabfe9612346b4465013361936e, type: 2}
     - rid: 6591284524624904360
       type: {class: DebugAction, ns: , asm: Assembly-CSharp}
       data:
@@ -798,6 +795,22 @@ PrefabInstance:
       propertyPath: randomStarterCompanionGen
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6186197053694851764, guid: 607fb3500676b2f4b9224240dd2d6e46, type: 3}
+      propertyPath: staticTeamCompanions.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6186197053694851764, guid: 607fb3500676b2f4b9224240dd2d6e46, type: 3}
+      propertyPath: staticTeamCompanions.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: bb82c6f907d7346c1b0aa5847e323c44, type: 2}
+    - target: {fileID: 6186197053694851764, guid: 607fb3500676b2f4b9224240dd2d6e46, type: 3}
+      propertyPath: staticTeamCompanions.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f16f5410550d4b59aca1f1dc6e5f733, type: 2}
+    - target: {fileID: 6186197053694851764, guid: 607fb3500676b2f4b9224240dd2d6e46, type: 3}
+      propertyPath: staticTeamCompanions.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 8cf1e25e553d14d1283947f19397edb3, type: 2}
     - target: {fileID: 6776026775712146023, guid: 607fb3500676b2f4b9224240dd2d6e46, type: 3}
       propertyPath: m_Pivot.x
       value: 0
