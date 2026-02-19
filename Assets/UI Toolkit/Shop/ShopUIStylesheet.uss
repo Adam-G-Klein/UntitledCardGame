@@ -307,3 +307,14 @@
     margin-bottom: 0;
     font-size: 32px;
 }
+
+.temp-required-buys-container {
+    justify-content: center;
+    background-image: url("project://database/Assets/Sprites/UI/MultiDeckView/Multiscreen_Exit_Button.png?fileID=2800000&guid=4c51223a65a23bc48a47dcac7cea9c37&type=3#Multiscreen_Exit_Button");
+    flex-grow: 1;
+    -unity-background-scale-mode: stretch-to-fill;
+    height: 20%;
+    width: 80%;
+    -unity-text-align: middle-center;
+    font-size: 28px;
+}

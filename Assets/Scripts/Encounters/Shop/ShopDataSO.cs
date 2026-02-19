@@ -41,6 +41,10 @@ public class ShopDataSO : ScriptableObject
     public int crossPackCardPoolPct;
     public bool alwaysShowUnlockedCards = false;
 
+    [Header("Demo only fields")]
+    public int numCardsBuyPerShop = 5;
+    public int numRatsBuyPerShop = 4;
+
     [Header("Earning post combat")]
     public int goldEarnedPerBattle;
     public float interestRate;

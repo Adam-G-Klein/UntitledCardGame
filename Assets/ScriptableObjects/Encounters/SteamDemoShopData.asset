@@ -14,16 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shopLevels:
   - level: 0
-    shopLevelIncrementsToUnlock: 3
+    shopLevelIncrementsToUnlock: 6
     upgradeIncrementCost: 4
-    numCardsToShow: 4
-    numKeepsakesToShow: 2
-    commonCompanionPercentage: 85
-    uncommonCompanionPercentage: 15
-    rareCompanionPercentage: 0
-    commonCardPercentage: 85
-    uncommonCardPercentage: 15
-    rareCardPercentage: 0
+    numCardsToShow: 3
+    numKeepsakesToShow: 3
+    commonCompanionPercentage: 60
+    uncommonCompanionPercentage: 30
+    rareCompanionPercentage: 10
+    commonCardPercentage: 50
+    uncommonCardPercentage: 35
+    rareCardPercentage: 15
     ratBonusHealth: 0
     cardRemovalDiscount: 0
     numCardRemovalsAllowed: 1
@@ -98,17 +98,19 @@ MonoBehaviour:
   cardRemovalPrice: 5
   cardRemovalPriceIncrease: 4
   shopEncounterEvent: {fileID: 11400000, guid: d82ee33fc33d20544bce205c53a0832e, type: 2}
-  commonCardPrice: 1
-  uncommonCardPrice: 2
-  rareCardPrice: 3
-  companionKeepsakePrice: 3
+  commonCardPrice: 0
+  uncommonCardPrice: 0
+  rareCardPrice: 0
+  companionKeepsakePrice: 0
   numKeepsakeCopies: 15
   startingGold: 0
-  companionTypeCardPoolPct: 35
-  packCardPoolPct: 50
+  companionTypeCardPoolPct: 30
+  packCardPoolPct: 60
   neutralCardPoolPct: 10
   crossPackCardPoolPct: 0
   alwaysShowUnlockedCards: 0
+  numCardsBuyPerShop: 5
+  numRatsBuyPerShop: 4
   goldEarnedPerBattle: 7
   interestRate: 0.5
   interestCap: 5

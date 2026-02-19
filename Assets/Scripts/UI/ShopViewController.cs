@@ -50,6 +50,10 @@ public class ShopViewController : MonoBehaviour,
     public Label upgradePriceLabel;
     public Label rerollPriceLabel;
     public Label cardRemovalPriceLabel;
+
+    public Label numRatsRequiredLabel;
+    public Label numCardsRequiredLabel;
+
     public SellingCompanionConfirmationView sellingCompanionConfirmationView;
     private VisualElement deckView;
     private VisualElement deckViewContentContainer;
@@ -136,6 +140,13 @@ public class ShopViewController : MonoBehaviour,
         upgradePriceLabel = uiDoc.rootVisualElement.Q<Label>("upgrade-price-label");
         rerollPriceLabel = uiDoc.rootVisualElement.Q<Label>("reroll-price-label");
         cardRemovalPriceLabel = uiDoc.rootVisualElement.Q<Label>("card-remove-price-label");
+
+        numRatsRequiredLabel = uiDoc.rootVisualElement.Q<Label>("num-required-rats");
+        numCardsRequiredLabel = uiDoc.rootVisualElement.Q<Label>("num-required-cards");
+
+        // SetNumCardsRequiredText(0, shopManager.getShopEncounter().shopData.numCardsBuyPerShop);
+        // SetNumRatsRequiredText(0, shopManager.getShopEncounter().shopData.numRatsBuyPerShop);
+
 
         sellingCompanionConfirmationView = new SellingCompanionConfirmationView(uiDoc.rootVisualElement.Q("selling-companion-confirmation"), this);
 
@@ -322,6 +333,16 @@ public class ShopViewController : MonoBehaviour,
 
     public void ActivateUpgradeIncrement(int upgradeIncrementIndex) {
         upgradeIncrementContainer.Children().ToList()[upgradeIncrementIndex].AddToClassList("upgradeIncrementEarned");
+    }
+
+    public void SetNumRatsRequiredText(int numRatsBought, int numRatsRequired)
+    {
+        numRatsRequiredLabel.text = $"{numRatsBought}/{numRatsRequired} Rats Bought";
+    }
+
+    public void SetNumCardsRequiredText(int numCardsBought, int numCardsRequired)
+    {
+        numCardsRequiredLabel.text = $"{numCardsBought}/{numCardsRequired} Cards Bought";
     }
 
     public void Clear()
@@ -1318,6 +1339,16 @@ public class ShopViewController : MonoBehaviour,
 
     public void NotEnoughMoney() {
         StartCoroutine(ShowGenericNotification("Not enough $!"));
+    }
+
+    public void AlreadyBoughtBudgetOfRats()
+    {
+        StartCoroutine(ShowGenericNotification("Already bought the budget of rats."));
+    }
+
+    public void AlreadyBoughtBudgetOfCards()
+    {
+        StartCoroutine(ShowGenericNotification("Already bought the budget of cards."));
     }
 
     public void CardBuyingSetup(ShopItemView shopItemView, CardInShopWithPrice cardInShop) {
