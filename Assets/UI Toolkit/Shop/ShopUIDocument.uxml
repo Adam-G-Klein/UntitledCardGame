@@ -32,11 +32,11 @@
                         <ui:Button text="Buy RP" parse-escape-sequences="true" display-tooltip-when-elided="true" name="upgrade-button" class="shopButton" style="margin-right: 0; background-image: url(&quot;project://database/Assets/Sprites/UI/TrimmedPlainButton.png?fileID=2800000&amp;guid=85a91730dc15b6f47b0a0f5923d2e07e&amp;type=3#TrimmedPlainButton&quot;); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; background-color: rgba(214, 162, 104, 0); padding-top: 12px; padding-right: 12px; padding-bottom: 12px; padding-left: 12px;" />
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="VisualElement" class="temp-required-buys-container">
+                <ui:VisualElement name="VisualElement" class="temp-required-buys-container" style="display: none;">
                     <ui:Label tabindex="-1" text="1 of 5 cards bought" parse-escape-sequences="true" display-tooltip-when-elided="true" name="num-required-cards" />
                 </ui:VisualElement>
                 <ui:VisualElement name="VisualElement" class="temp-required-buys-container">
-                    <ui:Label tabindex="-1" text="1 of 4 rats bought" parse-escape-sequences="true" display-tooltip-when-elided="true" name="num-required-rats" />
+                    <ui:Label tabindex="-1" text="1 of 4 rats bought" parse-escape-sequences="true" display-tooltip-when-elided="true" name="num-required-rats" style="white-space: normal; font-size: 32px; padding-top: 5%; padding-right: 5%; padding-bottom: 5%; padding-left: 5%;" />
                 </ui:VisualElement>
                 <ui:VisualElement class="shopButtonContainer" style="width: 80%; flex-direction: row-reverse; display: none;">
                     <ui:Label tabindex="-1" text="$1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="reroll-price-label" style="background-image: url(&quot;project://database/Assets/Sprites/ShopSprites/DialogueBox.png?fileID=2800000&amp;guid=e1a81dd917fe696459cd192b12e9b3fc&amp;type=3#DialogueBox&quot;); align-self: center; margin-left: 0; width: 20%; height: 33%; align-items: center; justify-content: flex-start; -unity-text-align: middle-center; -unity-font-style: bold; font-size: 18px; translate: -18% 0;" />

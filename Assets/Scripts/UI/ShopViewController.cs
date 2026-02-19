@@ -340,9 +340,19 @@ public class ShopViewController : MonoBehaviour,
         numRatsRequiredLabel.text = $"{numRatsBought}/{numRatsRequired} Rats Bought";
     }
 
+    public void SetNumRatsRequiredText(string text)
+    {
+        numRatsRequiredLabel.text = text;
+    }
+
     public void SetNumCardsRequiredText(int numCardsBought, int numCardsRequired)
     {
         numCardsRequiredLabel.text = $"{numCardsBought}/{numCardsRequired} Cards Bought";
+    }
+
+    public void ClearShopGoods()
+    {
+        shopGoodsArea.Clear();
     }
 
     public void Clear()

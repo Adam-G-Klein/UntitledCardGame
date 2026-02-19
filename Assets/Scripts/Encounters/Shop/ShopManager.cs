@@ -49,6 +49,12 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     private int timesCardRemovedThisShop = 0;
     private int numRatsBoughtThisShop = 0;
     private int numCardsBoughtThisShop = 0;
+    private enum ShopPhase {
+        RAT_BUYING_PHASE,
+        CARD_BUYING_PHASE,
+        DONE,
+    }
+    ShopPhase currentPhase;
     private bool healedCompanions;
     private int availableBenchSlots;
     public int AvailableBenchSlots {
@@ -86,9 +92,14 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             }
         }
 
-        StaticCardTypeGroup staticCards = getCurrentStaticCardGroup();
+        currentPhase = ShopPhase.RAT_BUYING_PHASE;
+        shopViewController.SetNumRatsRequiredText($"Choose {shopEncounter.shopData.numRatsBuyPerDisplay} rats for your team\n({shopEncounter.shopData.numRatsBuyPerShop} remaining)");
+
+        StaticCardTypeGroup staticCards = new StaticCardTypeGroup
+        {
+            cardTypes = new List<CardType>()
+        };
         StaticCompanionTypeGroup staticRats = getCurrentStaticRatGroup();
-;
 
         shopEncounter.Build(this, allCompanions, encounterConstants, this.shopLevel, staticCards, staticRats);
         shopViewController.SetMoney(gameState.playerData.GetValue().gold);
@@ -323,11 +334,21 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
                 // two places, same thing? am i good software engineer? no lol.
                 numRatsBoughtThisShop++;
-                shopViewController.SetNumRatsRequiredText(numRatsBoughtThisShop, shopEncounter.shopData.numRatsBuyPerShop);
-                consumedRatGroupIndices.Add(currentRatGroupIndex);
-                incrementRatGroupIndex();
+                shopViewController.SetNumRatsRequiredText($"Choose {shopEncounter.shopData.numRatsBuyPerDisplay} rats for your team\n({shopEncounter.shopData.numRatsBuyPerShop - numRatsBoughtThisShop} remaining)");
 
-                rerollShop();
+                if (numRatsBoughtThisShop % shopEncounter.shopData.numRatsBuyPerDisplay == 0)
+                {
+                    consumedRatGroupIndices.Add(currentRatGroupIndex);
+                    incrementRatGroupIndex();
+
+                    if (numRatsBoughtThisShop >= shopEncounter.shopData.numRatsBuyPerShop)
+                    {
+                        currentPhase = ShopPhase.CARD_BUYING_PHASE;
+                        shopViewController.SetNumRatsRequiredText($"Choose a card for a rat on your team\n({shopEncounter.shopData.numCardsBuyPerShop} cards remaining)");
+                    }
+
+                    rerollShop();
+                }
 
                 return;
             }
@@ -357,14 +378,21 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
 
             numRatsBoughtThisShop++;
-            shopViewController.SetNumRatsRequiredText(numRatsBoughtThisShop, shopEncounter.shopData.numRatsBuyPerShop);
+            shopViewController.SetNumRatsRequiredText($"Choose {shopEncounter.shopData.numRatsBuyPerDisplay} rats for your team\n({shopEncounter.shopData.numRatsBuyPerShop - numRatsBoughtThisShop} remaining)");
 
-            consumedRatGroupIndices.Add(currentRatGroupIndex);
+            if (numRatsBoughtThisShop % shopEncounter.shopData.numRatsBuyPerDisplay == 0)
+            {
+                consumedRatGroupIndices.Add(currentRatGroupIndex);
+                incrementRatGroupIndex();
 
-            incrementRatGroupIndex();
+                if (numRatsBoughtThisShop >= shopEncounter.shopData.numRatsBuyPerShop)
+                {
+                    currentPhase = ShopPhase.CARD_BUYING_PHASE;
+                    shopViewController.SetNumRatsRequiredText($"Choose a card for a rat on your team\n({shopEncounter.shopData.numCardsBuyPerShop} cards remaining)");
+                }
 
-            // Only for the demo.
-            rerollShop();
+                rerollShop();
+            }
         }
         else
         {
@@ -494,13 +522,25 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
             numCardsBoughtThisShop++;
 
-            shopViewController.SetNumCardsRequiredText(numCardsBoughtThisShop, shopEncounter.shopData.numCardsBuyPerShop);
+            shopViewController.SetNumRatsRequiredText($"Choose a card for a rat on your team\n({shopEncounter.shopData.numCardsBuyPerShop - numCardsBoughtThisShop} remaining)");
 
-            consumedCardGroupIndices.Add(currentCardGroupIndex);
-            incrementCardGroupIndex();
+            if (numCardsBoughtThisShop % shopEncounter.shopData.numCardsBuyPerDisplay == 0)
+            {
+                consumedCardGroupIndices.Add(currentCardGroupIndex);
+                incrementCardGroupIndex();
 
-            // Only for the demo.
-            rerollShop();
+                if (numCardsBoughtThisShop >= shopEncounter.shopData.numCardsBuyPerShop)
+                {
+                    currentPhase = ShopPhase.DONE;
+                    shopViewController.ClearShopGoods();
+                    shopViewController.SetNumRatsRequiredText($"Out of stock. Come back after the next combat");
+                }
+                else
+                {
+                    rerollShop();
+                }
+            }
+
         }
 
         if (removingCard) {
@@ -659,8 +699,23 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         // incrementCardGroupIndex();
         // incrementRatGroupIndex();
 
-        StaticCardTypeGroup staticCards = getCurrentStaticCardGroup();
-        StaticCompanionTypeGroup staticRats = getCurrentStaticRatGroup();
+        StaticCardTypeGroup staticCards = new StaticCardTypeGroup
+        {
+            cardTypes = new List<CardType>()
+        };
+        StaticCompanionTypeGroup staticRats = new StaticCompanionTypeGroup
+        {
+            companionTypes = new List<CompanionTypeSO>()
+        };
+
+        if (currentPhase == ShopPhase.RAT_BUYING_PHASE)
+        {
+            staticRats = getCurrentStaticRatGroup();
+        }
+        else if (currentPhase == ShopPhase.CARD_BUYING_PHASE)
+        {
+            staticCards = getCurrentStaticCardGroup();
+        }
 
         shopEncounter.Reroll(allCompanions, this.shopLevel, staticCards, staticRats);
     }

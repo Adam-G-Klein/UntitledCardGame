@@ -43,7 +43,9 @@ public class ShopDataSO : ScriptableObject
 
     [Header("Demo only fields")]
     public int numCardsBuyPerShop = 5;
-    public int numRatsBuyPerShop = 4;
+    public int numCardsBuyPerDisplay = 1;
+    public int numRatsBuyPerShop = 6;
+    public int numRatsBuyPerDisplay = 2;
 
     [Header("Earning post combat")]
     public int goldEarnedPerBattle;
