@@ -107,11 +107,11 @@ MonoBehaviour:
   companionTypeCardPoolPct: 35
   packCardPoolPct: 50
   neutralCardPoolPct: 10
-  crossPackCardPoolPct: 5
-  alwaysShowUnlockedCards: 1
+  crossPackCardPoolPct: 0
+  alwaysShowUnlockedCards: 0
   goldEarnedPerBattle: 7
   interestRate: 0.5
-  interestCap: 10
+  interestCap: 5
   neutralCardPool: {fileID: 11400000, guid: f16e9cd7d69314290ae5bed1edae4ce0, type: 2}
   numCompanionsSellFactor: 1.5
   numCardsBoughtSellFactor: 1
