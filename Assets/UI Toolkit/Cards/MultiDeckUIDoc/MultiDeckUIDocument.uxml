@@ -3,7 +3,7 @@
     <Style src="project://database/Assets/fontStyling.uss?fileID=7433441132597879392&amp;guid=d0c0881f1c32747ecb649373600de095&amp;type=3#fontStyling" />
     <Style src="project://database/Assets/UI%20Toolkit/Stylesheets/IconButton.uss?fileID=7433441132597879392&amp;guid=45daf1b0dd28cfb42b3347777cd65e2d&amp;type=3#IconButton" />
     <Style src="project://database/Assets/multiDeckViewStyles.uss?fileID=7433441132597879392&amp;guid=f6a6ab37e49bd49099fca9ceac746c41&amp;type=3#multiDeckViewStyles" />
-    <ui:VisualElement name="rootElement" style="flex-grow: 1; visibility: visible;">
+    <ui:VisualElement name="rootElement" style="flex-grow: 1; visibility: hidden;">
         <ui:VisualElement style="flex-grow: 1; position: absolute; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0);">
             <ui:VisualElement name="multi-deck-view-top" style="flex-grow: 1; position: absolute; width: 100%; height: 100%; align-self: center; background-image: url(&quot;project://database/Assets/Sprites/UI/MultiDeckView/1_Multideck%20Frame%20Top%20BG.png?fileID=2800000&amp;guid=11123b71636a5cd4497583ae65b0b763&amp;type=3#1_Multideck Frame Top BG&quot;); -unity-background-scale-mode: scale-and-crop; border-bottom-color: rgb(180, 180, 180); border-bottom-width: 4px;" />
             <ui:VisualElement name="multi-deck-view-frame-bg" style="flex-grow: 1; position: absolute; background-image: url(&quot;project://database/Assets/Sprites/UI/MultiDeckView/2_Multideck%20Frame%20BG.png?fileID=2800000&amp;guid=d1a9a018807b4bd4e892f092ad696bcd&amp;type=3#2_Multideck Frame BG&quot;); width: 100%; height: 100%;" />
