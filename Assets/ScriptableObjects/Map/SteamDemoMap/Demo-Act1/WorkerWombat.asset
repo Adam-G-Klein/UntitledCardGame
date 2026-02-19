@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: ec3d278e-afe6-4c36-a3ee-8e65aa76f40e
   displayName: WorkerWombat
-  maxHealth: 14
+  maxHealth: 16
   baseAttackDamage: 0
   enemyDisplayType: 0
   sprite: {fileID: 21300000, guid: 9bd71e2f3cc128d41905a6db51025fd0, type: 3}
@@ -28,7 +28,7 @@ MonoBehaviour:
     - intent: 1
       enemyTargetMethod: 0
       targetsKey: target
-      displayValue: 2
+      displayValue: 1
       effectSteps:
       - rid: 3931529445166809421
       - rid: 173314522967966541
@@ -82,7 +82,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: target
         combatEffect: 0
-        scale: 3
+        scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
@@ -107,7 +107,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: self
         statusEffect: 0
-        scale: 3
+        scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
@@ -132,7 +132,7 @@ MonoBehaviour:
       type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: BooleanComparison
-        hardCodedInputKey1: 9
+        hardCodedInputKey1: 8
         useHardCodedInputKey1: 1
         inputKey1: 
         operation: 2
