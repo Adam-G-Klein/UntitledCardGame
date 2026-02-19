@@ -320,6 +320,15 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
                     // the rest are animated from other companionManagementView (this does need to be handled slightly differently)
                 }
+
+                // two places, same thing? am i good software engineer? no lol.
+                numRatsBoughtThisShop++;
+                shopViewController.SetNumRatsRequiredText(numRatsBoughtThisShop, shopEncounter.shopData.numRatsBuyPerShop);
+                consumedRatGroupIndices.Add(currentRatGroupIndex);
+                incrementRatGroupIndex();
+
+                rerollShop();
+
                 return;
             }
             if (gameState.companions.activeCompanions.Count + shopViewController.GetBlockedCompanionSlots() == 5 && gameState.companions.benchedCompanions.Count == availableBenchSlots)
@@ -351,6 +360,8 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             shopViewController.SetNumRatsRequiredText(numRatsBoughtThisShop, shopEncounter.shopData.numRatsBuyPerShop);
 
             consumedRatGroupIndices.Add(currentRatGroupIndex);
+
+            incrementRatGroupIndex();
 
             // Only for the demo.
             rerollShop();
@@ -486,6 +497,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             shopViewController.SetNumCardsRequiredText(numCardsBoughtThisShop, shopEncounter.shopData.numCardsBuyPerShop);
 
             consumedCardGroupIndices.Add(currentCardGroupIndex);
+            incrementCardGroupIndex();
 
             // Only for the demo.
             rerollShop();
@@ -644,8 +656,8 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         allCompanions.AddRange(gameState.companions.activeCompanions);
         allCompanions.AddRange(gameState.companions.benchedCompanions);
 
-        incrementCardGroupIndex();
-        incrementRatGroupIndex();
+        // incrementCardGroupIndex();
+        // incrementRatGroupIndex();
 
         StaticCardTypeGroup staticCards = getCurrentStaticCardGroup();
         StaticCompanionTypeGroup staticRats = getCurrentStaticRatGroup();
