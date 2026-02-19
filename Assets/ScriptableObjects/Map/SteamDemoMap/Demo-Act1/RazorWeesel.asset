@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c75450655d80cac4ea4b0c2e3c0e01f3, type: 3}
-  m_Name: Weasel2
+  m_Name: RazorWeesel
   m_EditorClassIdentifier: 
   guid: aa23063f-d016-4e4b-b3a0-6a16ae389d34
   displayName: Bobby Pinkus
@@ -51,12 +51,12 @@ MonoBehaviour:
   tooltip:
     empty: 0
     lines:
-    - title: It's priceless, one of a kind!
+    - title: Go ahead, take a bite!
       description: Puts a Wooden Idol on top of a random rat's deck
       relatedBehaviorIndex: -1
       icon: {fileID: 0}
-    - title: Wooden Idol
-      description: Unplayable. It does nothing.
+    - title: Razor Candy
+      description: Give target companion 8 block, bleed them for 2.
       relatedBehaviorIndex: -1
       icon: {fileID: 0}
   DEADLIER_ENEMY_BONUS_STR: -1
