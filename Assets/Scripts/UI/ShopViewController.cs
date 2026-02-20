@@ -33,7 +33,11 @@ public class ShopViewController : MonoBehaviour,
     private Button upgradeButton;
     private VisualElement upgradeIncrementContainer;
     private Button rerollButton;
+    private VisualElement freeRerollsContainer;
+    private Label freeRerollsLabel;
     private Button cardRemovalButton;
+    private VisualElement freeRemovalsContainer;
+    private Label freeRemovalsLabel;
     private MapView mapView;
     private Label notEnoughMoneyLabel;
     public VisualElement selectingCompanionVeil;
@@ -148,6 +152,14 @@ public class ShopViewController : MonoBehaviour,
         FocusManager.Instance.RegisterFocusableTarget(rerollButton.AsFocusable());
         disableOnCompanionDrag.Add(rerollButton.AsFocusable());
 
+        freeRerollsContainer = uiDoc.rootVisualElement.Q<VisualElement>("reroll-button-free-rerolls");
+        freeRerollsLabel = freeRerollsContainer.Q<Label>("reroll-button-free-rerolls-label");
+        if (shopManager.gameState.playerData.GetValue().storedRerolls != 0) {
+            freeRerollsContainer.style.visibility = Visibility.Visible;
+            freeRerollsLabel.text = shopManager.gameState.playerData.GetValue().storedRerolls.ToString();
+            rerollPriceLabel.text = "$0";
+        }
+
         selectingCancelButton.RegisterOnSelected(CancelCardBuy);
         FocusManager.Instance.RegisterFocusableTarget(selectingCancelButton.AsFocusable());
         FocusManager.Instance.DisableFocusableTarget(selectingCancelButton.AsFocusable());
@@ -177,6 +189,14 @@ public class ShopViewController : MonoBehaviour,
         cardRemovalButton.RegisterOnSelected(CardRemovalButtonOnClick);
         FocusManager.Instance.RegisterFocusableTarget(cardRemovalButton.AsFocusable());
         disableOnCompanionDrag.Add(cardRemovalButton.AsFocusable());
+
+        freeRemovalsContainer = uiDoc.rootVisualElement.Q<VisualElement>("card-remove-button-free-removals");
+        freeRemovalsLabel = freeRemovalsContainer.Q<Label>("card-remove-button-free-removals-label");
+        if (shopManager.gameState.playerData.GetValue().storedCardRemovals != 0) {
+            freeRemovalsContainer.style.visibility = Visibility.Visible;
+            freeRemovalsLabel.text = shopManager.gameState.playerData.GetValue().storedCardRemovals.ToString();
+            cardRemovalPriceLabel.text = "$0";
+        }
 
         selectingIndicatorForCardRemovalIndicator = uiDoc.rootVisualElement.Q<VisualElement>("companion-selection-for-card-removal-indicator");
         cancelCardRemovalButton = uiDoc.rootVisualElement.Q<Button>("companion-selection-for-card-removal-cancel-button");
@@ -1439,16 +1459,30 @@ public class ShopViewController : MonoBehaviour,
         this.tooltip = background;
     }
 
-    public void SetShopRerollPrice(int amount) {
-        rerollPriceLabel.text = "$" + amount.ToString();
+    public void SetShopRerollPrice(int amount, int storedRerolls) {
+        if (storedRerolls > 0) {
+            rerollPriceLabel.text = "$0";
+            freeRerollsLabel.text = storedRerolls.ToString();
+        }
+        else {
+            rerollPriceLabel.text = "$" + amount.ToString();
+            freeRerollsContainer.style.visibility = Visibility.Hidden;
+        }
     }
 
     public void SetShopUpgradePrice(int amount) {
         upgradePriceLabel.text = "$" + amount.ToString();
     }
 
-    public void SetShopCardRemovalPrice(int amount) {
-        cardRemovalPriceLabel.text = "$" + amount.ToString();
+    public void SetShopCardRemovalPrice(int amount, int storedRemovals) {
+        if (storedRemovals > 0) {
+            cardRemovalPriceLabel.text = "$0";
+            freeRemovalsLabel.text = storedRemovals.ToString();
+        }
+        else {
+            cardRemovalPriceLabel.text = "$" + amount.ToString();
+            freeRemovalsContainer.style.visibility = Visibility.Hidden;
+        }
     }
 
     public void DisableCardRemovalButton()

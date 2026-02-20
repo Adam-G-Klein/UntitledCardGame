@@ -11,6 +11,8 @@ public class PlayerData
     public int manaPerTurn = 3;
     public int teamSize = 4;
     // TODO: make this a scriptableobject for things they have and haven't done
+    public int storedRerolls = 0;
+    public int storedCardRemovals = 0;
     public bool seenTutorial = false;
     public bool inTutorialRun = true;
 
@@ -22,6 +24,8 @@ public class PlayerData
         this.shopLevelIncrementsEarned = playerDataSerializeable.shopLevelIncrementsEarned;
         this.manaPerTurn = playerDataSerializeable.manaPerTurn;
         this.teamSize = playerDataSerializeable.teamSize;
+        this.storedRerolls = playerDataSerializeable.storedRerolls;
+        this.storedCardRemovals = playerDataSerializeable.storedCardRemovals;
         this.seenTutorial = playerDataSerializeable.seenTutorial;
     }
 }
@@ -33,6 +37,8 @@ public class PlayerDataSerializable {
     public int shopLevelIncrementsEarned;
     public int manaPerTurn;
     public int teamSize;
+    public int storedRerolls;
+    public int storedCardRemovals;
     public bool seenTutorial;
     public bool inTutorialRun;
 
@@ -42,6 +48,8 @@ public class PlayerDataSerializable {
         this.shopLevelIncrementsEarned = playerData.shopLevelIncrementsEarned;
         this.manaPerTurn = playerData.manaPerTurn;
         this.teamSize = playerData.teamSize;
+        this.storedRerolls = playerData.storedRerolls;
+        this.storedCardRemovals = playerData.storedCardRemovals;
         this.seenTutorial = playerData.seenTutorial;
         this.inTutorialRun = playerData.inTutorialRun;
     }

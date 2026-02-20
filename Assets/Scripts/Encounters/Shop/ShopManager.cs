@@ -80,8 +80,8 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         shopEncounter.Build(this, allCompanions, encounterConstants, this.shopLevel, staticEncounter);
         shopViewController.SetMoney(gameState.playerData.GetValue().gold);
         shopViewController.SetShopUpgradePrice(shopLevel.upgradeIncrementCost);
-        shopViewController.SetShopRerollPrice(shopEncounter.shopData.rerollShopPrice);
-        shopViewController.SetShopCardRemovalPrice(shopEncounter.shopData.GetCardRemovalPrice(gameState.playerData.GetValue().shopLevel, timesCardRemovedThisShop));
+        shopViewController.SetShopRerollPrice(shopEncounter.shopData.rerollShopPrice, gameState.playerData.GetValue().storedRerolls);
+        shopViewController.SetShopCardRemovalPrice(shopEncounter.shopData.GetCardRemovalPrice(gameState.playerData.GetValue().shopLevel, timesCardRemovedThisShop), gameState.playerData.GetValue().storedCardRemovals);
 
         CheckDisableUpgradeButtonV2();
 
@@ -390,14 +390,20 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     }
 
     public int ProcessCardRemoval() {
-        gameState.playerData.GetValue().gold -= shopEncounter.shopData.GetCardRemovalPrice(gameState.playerData.GetValue().shopLevel, timesCardRemovedThisShop);
+        int cardRemovalPrice = shopEncounter.shopData.GetCardRemovalPrice(gameState.playerData.GetValue().shopLevel, timesCardRemovedThisShop);
+        if (gameState.playerData.GetValue().storedCardRemovals > 0) {
+            cardRemovalPrice = 0;
+            gameState.playerData.GetValue().storedCardRemovals--;
+        }
+        gameState.playerData.GetValue().gold -= cardRemovalPrice;
         shopViewController.SetMoney(gameState.playerData.GetValue().gold);
-        timesCardRemovedThisShop++;
+        if (cardRemovalPrice != 0) timesCardRemovedThisShop++;
         removingCard = false;
-        if (timesCardRemovedThisShop >= shopEncounter.shopData.GetShopLevel(gameState.playerData.GetValue().shopLevel).numCardRemovalsAllowed) {
+        if (cardRemovalPrice != 0 && 
+                timesCardRemovedThisShop >= shopEncounter.shopData.GetShopLevel(gameState.playerData.GetValue().shopLevel).numCardRemovalsAllowed) {
             shopViewController.DisableCardRemovalButton();
         }
-        shopViewController.SetShopCardRemovalPrice(shopEncounter.shopData.GetCardRemovalPrice(gameState.playerData.GetValue().shopLevel, timesCardRemovedThisShop));
+        shopViewController.SetShopCardRemovalPrice(shopEncounter.shopData.GetCardRemovalPrice(gameState.playerData.GetValue().shopLevel, timesCardRemovedThisShop), gameState.playerData.GetValue().storedCardRemovals);
         return timesCardRemovedThisShop;
     }
 
@@ -466,7 +472,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             {
                 shopViewController.EnableCardRemovalButton();
             }
-            shopViewController.SetShopCardRemovalPrice(shopEncounter.shopData.GetCardRemovalPrice(gameState.playerData.GetValue().shopLevel, timesCardRemovedThisShop));
+            shopViewController.SetShopCardRemovalPrice(shopEncounter.shopData.GetCardRemovalPrice(gameState.playerData.GetValue().shopLevel, timesCardRemovedThisShop), gameState.playerData.GetValue().storedCardRemovals);
             InstantiateShopVFX(shopUpgradePrefab, shopViewController.GetUpgradeShopButton(), 1f);
             MusicController.Instance.PlaySFX("event:/MX/MX_Shop_Upgrade_Stinger");
             CheckDisableUpgradeButtonV2();
@@ -486,15 +492,19 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
     public void ProcessRerollShopClick() {
         int price = GetRerollCost();
+        if (gameState.playerData.GetValue().storedRerolls > 0) {
+            price = 0;
+            gameState.playerData.GetValue().storedRerolls--;
+        }
         if (gameState.playerData.GetValue().gold >= price) {
             MusicController.Instance.PlaySFX("event:/SFX/SFX_Reroll");
             gameState.playerData.GetValue().gold -= price;
             shopViewController.SetMoney(gameState.playerData.GetValue().gold);
             // shopViewController.Clear();
             InstantiateShopVFX(shopRerollPrefab, shopViewController.GetRerollShopButton(), 1.25f);
-            timesRerolledThisShop++;
+            if (price != 0) timesRerolledThisShop++;
             price = GetRerollCost();
-            shopViewController.SetShopRerollPrice(price);
+            shopViewController.SetShopRerollPrice(price, gameState.playerData.GetValue().storedRerolls);
             rerollShop();
         }
         else
