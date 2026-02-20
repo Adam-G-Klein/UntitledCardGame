@@ -98,7 +98,7 @@ public class ShopEncounter : Encounter
         generateShopEncounter(shopLevel, companionList, staticEncounter);
         cardsInShop.ForEach(card => shopManager.shopViewController.AddCardToShopView(card));
         companionsInShop.ForEach(companion => shopManager.shopViewController.AddCompanionToShopView(companion));
-        shopManager.shopViewController.AddCompanionShineVFX();
+        shopManager.shopViewController.AddCompanionShineAfterHeirarchyChanged();
         shopManager.SetupUnitManagement();
     }
 

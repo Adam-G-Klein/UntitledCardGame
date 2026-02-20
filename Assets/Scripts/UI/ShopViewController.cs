@@ -794,6 +794,13 @@ public class ShopViewController : MonoBehaviour,
         disableOnCompanionDrag.Add(newCompanionItemView.visualElementFocusable);
     }
 
+    public void AddCompanionShineAfterHeirarchyChanged() {
+        // Wait two frames
+        uiDoc.rootVisualElement.schedule.Execute(() => {
+            uiDoc.rootVisualElement.schedule.Execute(() => AddCompanionShineVFX()).StartingIn(0);
+        }).StartingIn(0);
+    }
+
     public void AddCompanionShineVFX() {
         HashSet<CompanionTypeSO> baseTypes = new HashSet<CompanionTypeSO>();
         Dictionary<CompanionTypeSO, int> numTypes = new Dictionary<CompanionTypeSO, int>();
