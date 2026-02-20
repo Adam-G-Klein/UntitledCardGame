@@ -93,7 +93,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         }
 
         currentPhase = ShopPhase.RAT_BUYING_PHASE;
-        shopViewController.SetNumRatsRequiredText($"Choose {shopEncounter.shopData.numRatsBuyPerDisplay} rats for your team\n({shopEncounter.shopData.numRatsBuyPerShop} remaining)");
+        SetDraftingHelpText(shopEncounter.shopData.numRatsBuyPerDisplay, shopEncounter.shopData.numRatsBuyPerShop);
 
         StaticCardTypeGroup staticCards = new StaticCardTypeGroup
         {
@@ -334,7 +334,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
                 // two places, same thing? am i good software engineer? no lol.
                 numRatsBoughtThisShop++;
-                shopViewController.SetNumRatsRequiredText($"Choose {shopEncounter.shopData.numRatsBuyPerDisplay} rats for your team\n({shopEncounter.shopData.numRatsBuyPerShop - numRatsBoughtThisShop} remaining)");
+                SetDraftingHelpText(shopEncounter.shopData.numRatsBuyPerDisplay, shopEncounter.shopData.numRatsBuyPerShop - numRatsBoughtThisShop);
 
                 if (numRatsBoughtThisShop % shopEncounter.shopData.numRatsBuyPerDisplay == 0)
                 {
@@ -344,7 +344,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
                     if (numRatsBoughtThisShop >= shopEncounter.shopData.numRatsBuyPerShop)
                     {
                         currentPhase = ShopPhase.CARD_BUYING_PHASE;
-                        shopViewController.SetNumRatsRequiredText($"Choose a card for a rat on your team\n({shopEncounter.shopData.numCardsBuyPerShop} cards remaining)");
+                        SetDraftingHelpText(shopEncounter.shopData.numCardsBuyPerDisplay, shopEncounter.shopData.numCardsBuyPerShop - numCardsBoughtThisShop);
                     }
 
                     rerollShop();
@@ -378,7 +378,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
 
             numRatsBoughtThisShop++;
-            shopViewController.SetNumRatsRequiredText($"Choose {shopEncounter.shopData.numRatsBuyPerDisplay} rats for your team\n({shopEncounter.shopData.numRatsBuyPerShop - numRatsBoughtThisShop} remaining)");
+            SetDraftingHelpText(shopEncounter.shopData.numRatsBuyPerDisplay, shopEncounter.shopData.numRatsBuyPerShop - numRatsBoughtThisShop);
 
             if (numRatsBoughtThisShop % shopEncounter.shopData.numRatsBuyPerDisplay == 0)
             {
@@ -388,7 +388,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
                 if (numRatsBoughtThisShop >= shopEncounter.shopData.numRatsBuyPerShop)
                 {
                     currentPhase = ShopPhase.CARD_BUYING_PHASE;
-                    shopViewController.SetNumRatsRequiredText($"Choose a card for a rat on your team\n({shopEncounter.shopData.numCardsBuyPerShop} cards remaining)");
+                    SetDraftingHelpText(shopEncounter.shopData.numCardsBuyPerDisplay, shopEncounter.shopData.numCardsBuyPerShop - numCardsBoughtThisShop);
                 }
 
                 rerollShop();
@@ -522,8 +522,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
             numCardsBoughtThisShop++;
 
-            shopViewController.SetNumRatsRequiredText($"Choose a card for a rat on your team\n({shopEncounter.shopData.numCardsBuyPerShop - numCardsBoughtThisShop} remaining)");
-
+            SetDraftingHelpText(shopEncounter.shopData.numCardsBuyPerDisplay, shopEncounter.shopData.numCardsBuyPerShop - numCardsBoughtThisShop);
             if (numCardsBoughtThisShop % shopEncounter.shopData.numCardsBuyPerDisplay == 0)
             {
                 consumedCardGroupIndices.Add(currentCardGroupIndex);
@@ -533,7 +532,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
                 {
                     currentPhase = ShopPhase.DONE;
                     shopViewController.ClearShopGoods();
-                    shopViewController.SetNumRatsRequiredText($"Out of stock. Come back after the next combat");
+                    SetDraftingHelpText(0, 0);
                 }
                 else
                 {
@@ -545,6 +544,23 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
         if (removingCard) {
             shopViewController.ShopDeckViewForCardRemoval(companion);
+        }
+    }
+
+    public void SetDraftingHelpText(int numPerDisplay, int remaining)
+    {
+        string cardsFormat = "Choose {0} cards for rats on your team\n({1} remaining)";
+        string ratsFormat = "Choose {0} rats for your team\n({1} remaining)";
+        if (currentPhase == ShopPhase.CARD_BUYING_PHASE)
+        {
+            shopViewController.SetNumRatsRequiredText(string.Format(cardsFormat, numPerDisplay, remaining));
+        }
+        else if (currentPhase == ShopPhase.RAT_BUYING_PHASE)
+        {
+            shopViewController.SetNumRatsRequiredText(string.Format(ratsFormat, numPerDisplay, remaining));
+        } else if (currentPhase == ShopPhase.DONE)
+        {
+            shopViewController.SetNumRatsRequiredText($"Out of stock. Come back after the next combat");
         }
     }
 
