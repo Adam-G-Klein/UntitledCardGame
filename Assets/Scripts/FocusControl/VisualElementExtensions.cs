@@ -141,6 +141,15 @@ public static class VisualElementExtensions
         return element.userData is UserDataWrapper wrapper && wrapper.Has<T>();
     }
 
+    public static void ClearUserData<T>(this VisualElement element) where T : class
+    {
+        if (!(element.userData is UserDataWrapper wrapper) || !wrapper.Has<T>()) {
+            return;
+        }
+
+        (element.userData as UserDataWrapper).Clear<T>();
+    }
+
     public static void DoForAllChildren(this VisualElement element, Action<VisualElement> action) {
         foreach (VisualElement child in element.Children()){
             action(child);

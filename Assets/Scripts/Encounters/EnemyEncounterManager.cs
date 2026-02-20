@@ -305,9 +305,6 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         TurnOffFocusing();// Needs to go before the next line bc this line disables existing focus, while the next line sets up more focus
         postCombatUI.GetComponent<EndEncounterView>().Setup(baseGoldEarnedPerBattle, extraGold, gameState.baseShopData.interestCap, gameState.baseShopData.interestRate, bonusManaReward, bonusTeamSizeReward);
         StartCoroutine(displayPostCombatUIAfterDelay());
-
-        DialogueManager.Instance.SetDialogueLocation(gameState);
-        DialogueManager.Instance.StartAnyDialogueSequence();
         SetInToolTip(false);
         yield return null;
     }

@@ -20,4 +20,9 @@ public class UserDataWrapper
     }
 
     public bool Has<T>() where T : class => _data.ContainsKey(typeof(T));
+
+    public void Clear<T>()
+    {
+        _data.Remove(typeof(T));
+    }
 }

@@ -52,21 +52,6 @@ public class Companion : Entity, ICombatStats, IDeckEntity, IUIEntity
         return this.companionType.sprite;
     }
 
-    public Sprite GetBackgroundImage()
-    {
-        return this.companionType.backgroundImage;
-    }
-
-    public Sprite GetEntityFrame()
-    {
-        return this.companionType.entityFrame;
-    }
-
-    public Sprite GetCompanionManagementViewFrame()
-    {
-        return this.companionType.companionManagementFrame;
-    }
-
 
     public Deck getDeck()
     {

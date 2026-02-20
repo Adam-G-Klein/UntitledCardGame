@@ -26,17 +26,12 @@ public class CompanionTypeSO : IdentifiableSO
     [Header("Art Assets")]
     public Sprite sprite;
     public Sprite fullSprite;
-    public Sprite backgroundImage;
-    public Sprite entityFrame;
-    public Sprite companionManagementFrame;
+    [Space(8)]
     public StartingDeck startingDeck;
-    public Sprite cardBack;
-    public Sprite cardFrame;
-    public Sprite cardTypeIconOverride;
     public CompanionRarity rarity;
-    public GameObject cardIdleVfxPrefab;
-    public AudioClip genericCompanionSFX;
-    public GameObject genericCompanionVFX;
+
+    [Header("Base level one companion (empty if this is L1)")]
+    public CompanionTypeSO baseCompanionType;
 
     public List<CacheConfiguration> cacheValueConfigs;
 
@@ -44,11 +39,8 @@ public class CompanionTypeSO : IdentifiableSO
     public CardPoolSO cardPool;
     [Header("Which pack the companion is a part of")]
     public PackSO pack;
-    [Header("Dialogue hook-in")]
-    public SpeakerTypeSO speakerType;
+
     [Header("Companion passive abilities")]
-
-
     [SerializeReference]
     public List<EntityAbility> abilitiesV2;
     [Header("Companion upgrade / combination spec")]

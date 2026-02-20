@@ -79,11 +79,6 @@ public class PlayableCard : MonoBehaviour,
         if (currentState != UIState.DEFAULT || !interactable || EnemyEncounterManager.Instance.GetCastingCard() || !PlayerHand.Instance.GetCanPlayCards()) return;
         if (card.GetManaCost() > ManaManager.Instance.currentMana)
         {
-            // StartCoroutine(GenericEntityDialogueParticipant
-            //     .Instance
-            //     .SpeakCompanionLine(
-            //         "You don't have enough mana for me to cast that for you :(",
-            //         deckFrom.GetComponent<CompanionInstance>().companion.companionType, 3f));
             DialogueView.Instance.gameObject.SetActive(true);
             DialogueView.Instance.SpeakLine(deckFrom.GetComponent<CompanionInstance>().companion.companionType.fullSprite,
                     "You don't have enough mana for me to cast that for you.");
@@ -92,11 +87,9 @@ public class PlayableCard : MonoBehaviour,
 
         if (!card.cardType.playable)
         {
-            StartCoroutine(GenericEntityDialogueParticipant
-                .Instance
-                .SpeakCompanionLine(
-                    "Not sure what I can do with that one :(",
-                    deckFrom.GetComponent<CompanionInstance>().companion.companionType, 3f));
+            DialogueView.Instance.gameObject.SetActive(true);
+            DialogueView.Instance.SpeakLine(deckFrom.GetComponent<CompanionInstance>().companion.companionType.fullSprite,
+                    "This card can't be played.");
             return;
         }
         if (eventData != null && eventData.button != PointerEventData.InputButton.Left) return;

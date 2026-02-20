@@ -162,9 +162,6 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     }
 
     public void ProcessCardBuyRequestV2(ShopItemView shopItemView, CardInShopWithPrice cardInShop) {
-        if (DialogueManager.Instance.dialogueInProgress) {
-            return;
-        }
         if (gameState.playerData.GetValue().gold >= cardInShop.price) {
             this.buyingCard = true;
             this.currentCardBuyRequest = cardInShop;
@@ -185,10 +182,6 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
     public void ProcessCompanionBuyRequest(ShopItemView shopItemView, CompanionInShopWithPrice companionInShop) {
         Debug.Log("Processing companion buy request");
-        if (DialogueManager.Instance.dialogueInProgress) {
-            return;
-        }
-
         if (gameState.playerData.GetValue().gold >= companionInShop.price)
         {
             // Create a new instance of the companion and then attempt companion upgrades before adding
@@ -233,7 +226,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
                     CompanionManagementSlotView startingSlotView = shopViewController.GetCompanionManagementSlotView(companion);
                     animationsToDo -= 1;
                     bool isLastAnimation = animationsToDo == 0;
-                    shopViewController.AnimateExistingCompanionToSlot(startingSlotView, slotView, true, delay, () => { AnimateExistingCompanionToSlotOnComplete(startingSlotView, slotView.companionManagementView.container, isLastAnimation, slotView, upgradeInfo); });
+                    shopViewController.AnimateExistingCompanionToSlot(startingSlotView, slotView, true, delay, () => { AnimateExistingCompanionToSlotOnComplete(startingSlotView, slotView.companionManagementView.container, isLastAnimation, slotView, upgradeInfo); shopViewController.AddCompanionShineVFX(); });
                     delay += .3f;
 
                     // the rest are animated from other companionManagementView (this does need to be handled slightly differently)
@@ -251,7 +244,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             shopViewController.SetMoney(gameState.playerData.GetValue().gold);
             gameState.AddCompanionToTeam(companionToAdd);
             CompanionManagementSlotView companionManagementSlotView = shopViewController.FindNextAvailableSlot();
-            shopViewController.AnimateNewCompanionToSlot(companionInShop, companionManagementSlotView, false, 0, () => { CompanionBoughtAnimationOnComplete(companionToAdd, companionManagementSlotView); });
+            shopViewController.AnimateNewCompanionToSlot(companionInShop, companionManagementSlotView, false, 0, () => { CompanionBoughtAnimationOnComplete(companionToAdd, companionManagementSlotView); shopViewController.AddCompanionShineVFX(); });
             InstantiateShopVFX(moneySpentPrefab, shopItemView.shopItemElement, 1.5f);
             MusicController.Instance.PlaySFX("event:/SFX/SFX_CompanionBuy");
 
@@ -439,9 +432,6 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     // }
 
     public void ProcessUpgradeShopClick() {
-        if(DialogueManager.Instance.dialogueInProgress) {
-            return;
-        }
         PlayerData playerData = gameState.playerData.GetValue();
         if (playerData.gold >= shopLevel.upgradeIncrementCost) {
             // Clean up hoverables for old shop items
@@ -495,9 +485,6 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     }
 
     public void ProcessRerollShopClick() {
-        if(DialogueManager.Instance.dialogueInProgress) {
-            return;
-        }
         int price = GetRerollCost();
         if (gameState.playerData.GetValue().gold >= price) {
             MusicController.Instance.PlaySFX("event:/SFX/SFX_Reroll");

@@ -218,7 +218,6 @@ public class GameStateVariableSO : ScriptableObject
         }
 
         updateMusic(currentLocation);
-        cancelCurrentDialogue();
         LoadCurrentLocationScene();
     }
 
@@ -234,7 +233,6 @@ public class GameStateVariableSO : ScriptableObject
         // Add last encounter safeguard
         nextEncounter.SetValue(map.GetValue().encounters[currentEncounterIndex+1]);
         updateMusic(currentLocation);
-        cancelCurrentDialogue();
         LoadCurrentLocationScene();
     }
 
@@ -257,13 +255,6 @@ public class GameStateVariableSO : ScriptableObject
             }
         } else {
             this.companions.benchedCompanions.Add(c);
-        }
-    }
-
-
-    public void cancelCurrentDialogue() {
-        if(DialogueManager.Instance != null) {
-            DialogueManager.Instance.skipCurrentDialogue();
         }
     }
 

@@ -19,8 +19,6 @@ public interface IUIEntity : ICombatStats
     // will return null if not in combat or not a companion
     public DeckInstance GetDeckInstance();
     public Targetable GetTargetable();
-    Sprite GetBackgroundImage();
-    Sprite GetEntityFrame();
 
     DisplayType GetDisplayType();
 }

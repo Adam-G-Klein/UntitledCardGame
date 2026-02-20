@@ -6595,6 +6595,10 @@ PrefabInstance:
       value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: companionOnTeamVFX
+      value: 
+      objectReference: {fileID: 3571919509826873128, guid: e5cad5479ef6c3446ac6d220bf7ac1ba, type: 3}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
       propertyPath: companionUpgradeTime
       value: 0.35
       objectReference: {fileID: 0}
@@ -6606,6 +6610,10 @@ PrefabInstance:
       propertyPath: cardSelectionViewPrefab
       value: 
       objectReference: {fileID: 7796338826870056937, guid: dfe80e002ae2aa74faee37067abac6d2, type: 3}
+    - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: companionWouldBeUpgradedVFX
+      value: 
+      objectReference: {fileID: 3571919509826873128, guid: cedd826918ca1974d944d8ab0db1090e, type: 3}
     - target: {fileID: 1280703752314967124, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
       propertyPath: newItemsCurve.m_Curve.Array.size
       value: 3

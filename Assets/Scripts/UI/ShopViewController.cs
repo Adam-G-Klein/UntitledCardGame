@@ -82,6 +82,10 @@ public class ShopViewController : MonoBehaviour,
     [SerializeField] private float oldToNewDelay;
     [SerializeField] private float rerollTimeBetweenItems = .1f;
 
+    [Header("Misc")]
+    [SerializeField] private GameObject companionOnTeamVFX;
+    [SerializeField] private GameObject companionWouldBeUpgradedVFX;
+
     private IEnumerator notEnoughMoneyCoroutine;
     private IEnumerator upgradeButtonTooltipCoroutine = null;
     private VisualElement tooltip;
@@ -335,6 +339,7 @@ public class ShopViewController : MonoBehaviour,
     public void AnimateNewCompanionToSlot(CompanionInShopWithPrice companion, CompanionManagementSlotView companionManagementSlotView, bool isUpgrade = false, float delay = 0, Action onComplete = null)
     {
         ShopItemView shopItemView = companionItemToViewMap[companion];
+        RemoveCompanionShineVFX(shopItemView);
         Vector2 startPoint = VisualElementUtils.GetCenterOfVisualElement(shopItemView.shopItemElement);
         Vector2 endPoint = VisualElementUtils.GetCenterOfVisualElement(companionManagementSlotView.root); // this is the root rather than the companionView (may have a slightly different width and height)
 
@@ -635,6 +640,7 @@ public class ShopViewController : MonoBehaviour,
     // Handles both the VFX and setting up the new area
     public void Reroll(List<CardInShopWithPrice> cards, List<CompanionInShopWithPrice> companions)
     {
+        RemoveAllCompanionShineVFX();
         rerollButton.SetEnabled(false);
         VisualElement tempParentContainer = CreateTempContainer(shopGoodsArea.resolvedStyle.width, shopGoodsArea.resolvedStyle.height);
         tempParentContainer.style.overflow = Overflow.Hidden;
@@ -758,6 +764,7 @@ public class ShopViewController : MonoBehaviour,
                     newItemsContainer.RemoveFromHierarchy();
                     tempParentContainer.RemoveFromHierarchy();
                     rerollButton.SetEnabled(true);
+                    AddCompanionShineVFX();
                 });
             delay += rerollTimeBetweenItems;
         }
@@ -785,6 +792,85 @@ public class ShopViewController : MonoBehaviour,
 
         FocusManager.Instance.RegisterFocusableTarget(newCompanionItemView.visualElementFocusable);
         disableOnCompanionDrag.Add(newCompanionItemView.visualElementFocusable);
+    }
+
+    public void AddCompanionShineVFX() {
+        HashSet<CompanionTypeSO> baseTypes = new HashSet<CompanionTypeSO>();
+        Dictionary<CompanionTypeSO, int> numTypes = new Dictionary<CompanionTypeSO, int>();
+        foreach (Companion companion in shopManager.gameState.companions.activeCompanions) {
+            if (companion.companionType.baseCompanionType == null) {
+                baseTypes.Add(companion.companionType);
+            } else {
+                baseTypes.Add(companion.companionType.baseCompanionType);
+            }
+            numTypes[companion.companionType] = numTypes.TryGetValue(companion.companionType, out int i) ? i + 1 : 1;
+        }
+
+        foreach (Companion companion in shopManager.gameState.companions.benchedCompanions) {
+            if (companion.companionType.baseCompanionType == null) {
+                baseTypes.Add(companion.companionType);
+            } else {
+                baseTypes.Add(companion.companionType.baseCompanionType);
+            }
+            numTypes[companion.companionType] = numTypes.TryGetValue(companion.companionType, out int i) ? i + 1 : 1;
+        }
+
+        foreach (CompanionInShopWithPrice companion in companionItemToViewMap.Keys) {
+            int companionsForCombine = GameplayConstantsSingleton.Instance.gameplayConstants.COMPANIONS_FOR_LEVELTWO_COMBINATION;
+            Vector3 worldspacePos = UIDocumentGameObjectPlacer.GetWorldPositionFromElement(companionItemToViewMap[companion].shopItemElement);
+            GameObject vfx = null;
+            bool isUpgrade = true;
+            if (numTypes.ContainsKey(companion.companionType) && numTypes[companion.companionType] == companionsForCombine - 1) {
+                vfx = Instantiate(companionWouldBeUpgradedVFX, worldspacePos, Quaternion.identity);
+            } else if (baseTypes.Contains(companion.companionType)) {
+                vfx = Instantiate(companionOnTeamVFX, worldspacePos, Quaternion.identity);
+                isUpgrade = false;
+            }
+
+            if (vfx == null) {
+                continue;
+            }
+
+            // If a companion already has the VFX, double check that it still wants it
+            if (companionItemToViewMap[companion].shopItemElement.HasUserData<ShopItemVFX>()) {
+                ShopItemVFX oldVFX = companionItemToViewMap[companion].shopItemElement.GetUserData<ShopItemVFX>();
+                // Replace existing "is on team" vfx with the upgrade VFX
+                if (isUpgrade && !oldVFX.isUpgrade) {
+                    companionItemToViewMap[companion].shopItemElement.ClearUserData<ShopItemVFX>();
+                    Destroy(oldVFX.vfxGO);
+                }
+                // Replace existing upgrade vfx with "is on team VFX" 
+                else if (!isUpgrade && oldVFX.isUpgrade) {
+                    companionItemToViewMap[companion].shopItemElement.ClearUserData<ShopItemVFX>();
+                    Destroy(oldVFX.vfxGO);
+                }
+                else {
+                    Destroy(vfx);
+                    continue;
+                }
+            }
+
+            ShopItemVFX itemVfx = new ShopItemVFX(vfx, isUpgrade);
+            companionItemToViewMap[companion].shopItemElement.SetUserData<ShopItemVFX>(itemVfx);
+        }
+    }
+
+    private void RemoveAllCompanionShineVFX() {
+        foreach (ShopItemView itemView in companionItemToViewMap.Values) {
+            if (itemView.shopItemElement.HasUserData<ShopItemVFX>()) {
+                GameObject vfxGO = itemView.shopItemElement.GetUserData<ShopItemVFX>().vfxGO;
+                itemView.shopItemElement.ClearUserData<ShopItemVFX>();
+                Destroy(vfxGO);
+            }
+        }
+    }
+
+    private void RemoveCompanionShineVFX(ShopItemView itemView) {
+            if (itemView.shopItemElement.HasUserData<ShopItemVFX>()) {
+                GameObject vfxGO = itemView.shopItemElement.GetUserData<ShopItemVFX>().vfxGO;
+                itemView.shopItemElement.ClearUserData<ShopItemVFX>();
+                Destroy(vfxGO);
+            }
     }
 
     // Handles removing cards when bought, see Reroll for rerolling
@@ -1746,5 +1832,16 @@ public class ShopViewController : MonoBehaviour,
         }
 
         FocusManager.Instance.UnstashFocusables(this.GetType().Name);
+    }
+
+    private class ShopItemVFX {
+        public GameObject vfxGO;
+        // Alternative is just "is on the team"
+        public bool isUpgrade;
+
+        public ShopItemVFX(GameObject vfxGO, bool isUpgrade) {
+            this.vfxGO = vfxGO;
+            this.isUpgrade = isUpgrade;
+        }
     }
 }
