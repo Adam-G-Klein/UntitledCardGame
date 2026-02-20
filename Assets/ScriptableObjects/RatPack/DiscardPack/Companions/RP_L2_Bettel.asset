@@ -18,17 +18,9 @@ MonoBehaviour:
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: 0d9420d39ed7f1d4197a84b0331cd727, type: 3}
   fullSprite: {fileID: 21300000, guid: 0d9420d39ed7f1d4197a84b0331cd727, type: 3}
-  backgroundImage: {fileID: 21300000, guid: 094c4d0ce89284effb02b7e66c41c106, type: 3}
-  entityFrame: {fileID: 21300000, guid: 93992d0d35ca9405b831e052145f48f8, type: 3}
-  companionManagementFrame: {fileID: 21300000, guid: 3438500f50c834ffd8cab1850f7e94bf, type: 3}
   startingDeck: {fileID: 11400000, guid: de5f5f358da2f418397bc9379e0dd14f, type: 2}
-  cardBack: {fileID: 21300000, guid: a5222a8d127763c49b397cce916345ec, type: 3}
-  cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
-  cardTypeIconOverride: {fileID: 0}
   rarity: 1
-  cardIdleVfxPrefab: {fileID: 0}
-  genericCompanionSFX: {fileID: 0}
-  genericCompanionVFX: {fileID: 0}
+  baseCompanionType: {fileID: 11400000, guid: d22f2948b60ca4407adf434a68bb3ea9, type: 2}
   cacheValueConfigs:
   - key: numCardsToDraw
     display: 1
@@ -39,7 +31,6 @@ MonoBehaviour:
     setStartOfCombatValue: 0
   cardPool: {fileID: 11400000, guid: b6835d8af5b684b6c904b33760cfef3c, type: 2}
   pack: {fileID: 11400000, guid: 5f4300e0913784f05aeff0dd086d4338, type: 2}
-  speakerType: {fileID: 0}
   abilitiesV2:
   - rid: 205828032053379705
   level: 1
@@ -51,6 +42,7 @@ MonoBehaviour:
       description: The first 3 times each turn you discard a card, draw a card from
         this companion
       relatedBehaviorIndex: 0
+      icon: {fileID: 0}
   keepsakeTitle: 
   keepsakeDescription: The first 3 times each turn you discard a card, draw a card
     from this companion
@@ -70,6 +62,7 @@ MonoBehaviour:
         - rid: 7401433308100034733
         - rid: 7401433308100034734
         - rid: 754093848945229864
+        weight: 0
     - rid: 754093848945229864
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
@@ -92,6 +85,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 7401433308100034730
       type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}
       data:

@@ -18,17 +18,9 @@ MonoBehaviour:
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: bb0c01087809cb24f90cf67857b3fcdb, type: 3}
   fullSprite: {fileID: 21300000, guid: bb0c01087809cb24f90cf67857b3fcdb, type: 3}
-  backgroundImage: {fileID: 21300000, guid: 741949db90bb4412ba7493960e001481, type: 3}
-  entityFrame: {fileID: 21300000, guid: e8e1fad73c653473d90feb9b744f60c6, type: 3}
-  companionManagementFrame: {fileID: 21300000, guid: ad4f2340ea2464bc780af3b16bf27412, type: 3}
   startingDeck: {fileID: 11400000, guid: 01bed10f78baa4885922ab894d8dd770, type: 2}
-  cardBack: {fileID: 21300000, guid: 3296a63e824de414bb4b578c4822fbdb, type: 3}
-  cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
-  cardTypeIconOverride: {fileID: 0}
   rarity: 2
-  cardIdleVfxPrefab: {fileID: 0}
-  genericCompanionSFX: {fileID: 0}
-  genericCompanionVFX: {fileID: 0}
+  baseCompanionType: {fileID: 11400000, guid: eee8f1da4c1704bb9aa5f1be418fd762, type: 2}
   cacheValueConfigs:
   - key: numDamage
     display: 1
@@ -39,7 +31,6 @@ MonoBehaviour:
     setStartOfCombatValue: 1
   cardPool: {fileID: 11400000, guid: a1865aba1d57e42319eced1382227f3d, type: 2}
   pack: {fileID: 11400000, guid: a87b5da767d4e4659b2965e31e340c58, type: 2}
-  speakerType: {fileID: 0}
   abilitiesV2:
   - rid: 205828107393564721
   level: 1

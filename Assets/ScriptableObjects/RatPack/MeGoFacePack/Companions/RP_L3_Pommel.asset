@@ -18,21 +18,12 @@ MonoBehaviour:
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: c1ba3b774ff3ec6438f6984cded94a37, type: 3}
   fullSprite: {fileID: 21300000, guid: c1ba3b774ff3ec6438f6984cded94a37, type: 3}
-  backgroundImage: {fileID: 21300000, guid: 22837063fa3474fd092bd296d2b73738, type: 3}
-  entityFrame: {fileID: 21300000, guid: 9a026bca7d3604d08abdabfa7cf9d88e, type: 3}
-  companionManagementFrame: {fileID: 21300000, guid: d2fe52314fcc84db0b56064f21090a6f, type: 3}
   startingDeck: {fileID: 11400000, guid: b7fb5f30fc0c4400aa60c7d3769912bd, type: 2}
-  cardBack: {fileID: 21300000, guid: 20b46ccd593516f4badbdcdb021f67c1, type: 3}
-  cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
-  cardTypeIconOverride: {fileID: 0}
   rarity: 2
-  cardIdleVfxPrefab: {fileID: 0}
-  genericCompanionSFX: {fileID: 0}
-  genericCompanionVFX: {fileID: 0}
+  baseCompanionType: {fileID: 11400000, guid: 78fe07f26375b42c9bfd64f03469d871, type: 2}
   cacheValueConfigs: []
   cardPool: {fileID: 11400000, guid: 43d7da1f16b024762bfa16d90f44fd77, type: 2}
   pack: {fileID: 11400000, guid: 908f28c6f48104c2d85d2fcbd973771e, type: 2}
-  speakerType: {fileID: 0}
   abilitiesV2:
   - rid: 2034230176448512458
   level: 2
@@ -43,6 +34,7 @@ MonoBehaviour:
     - title: Pommel++
       description: Each time you play an Attack, give adjacent companions 1 strength
       relatedBehaviorIndex: 0
+      icon: {fileID: 0}
   keepsakeTitle: 
   keepsakeDescription: Each time you play an Attack, give adjacent companions 1 strength
   references:
@@ -69,6 +61,9 @@ MonoBehaviour:
         filter:
           cardCategoriesToInclude: 01000000
           retainedCardsFilter: 0
+          manaCostFilter: 0
+          manaCost: 0
+          exactCardType: {fileID: 0}
         outputKey: attackCardPlayed
     - rid: 2034230176448512492
       type: {class: EndWorkflowIfListEmpty, ns: , asm: Assembly-CSharp}
@@ -112,6 +107,7 @@ MonoBehaviour:
       data:
         effectStepName: GetAdjacentCompanions
         inputKey: self
+        includeInputCompanion: 0
         outputKey: adj
     - rid: 7707884639552274898
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}

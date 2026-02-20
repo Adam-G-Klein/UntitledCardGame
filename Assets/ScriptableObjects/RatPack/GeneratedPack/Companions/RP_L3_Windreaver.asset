@@ -18,21 +18,12 @@ MonoBehaviour:
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: a295995a4e3ab4ceb87ca93dd1b953fc, type: 3}
   fullSprite: {fileID: 21300000, guid: a295995a4e3ab4ceb87ca93dd1b953fc, type: 3}
-  backgroundImage: {fileID: 21300000, guid: cf0b03f8254f64d7ca33d64244db66e4, type: 3}
-  entityFrame: {fileID: 21300000, guid: d4ddadb9b0de34fe68babd80a4878635, type: 3}
-  companionManagementFrame: {fileID: 21300000, guid: 17b9618f5107840a8b89e8b21a1a69c8, type: 3}
   startingDeck: {fileID: 11400000, guid: 8cfb59c3193db4a2cbced98c8ef59eda, type: 2}
-  cardBack: {fileID: 21300000, guid: c08a02b0b1e86fb4b96393e9d8fb4714, type: 3}
-  cardFrame: {fileID: 21300000, guid: 6cee2343f3114be45be30618b977bcb0, type: 3}
-  cardTypeIconOverride: {fileID: 0}
   rarity: 1
-  cardIdleVfxPrefab: {fileID: 0}
-  genericCompanionSFX: {fileID: 0}
-  genericCompanionVFX: {fileID: 0}
+  baseCompanionType: {fileID: 11400000, guid: 3e106f4f46ecc4b3e999378b87e6b0de, type: 2}
   cacheValueConfigs: []
   cardPool: {fileID: 11400000, guid: 345480ef663c54cdfbd4be4285e0a8d6, type: 2}
   pack: {fileID: 11400000, guid: 0d12b03c0c8754470a900cb4f78a9217, type: 2}
-  speakerType: {fileID: 0}
   abilitiesV2:
   - rid: 7401433308100035453
   level: 2
@@ -44,6 +35,7 @@ MonoBehaviour:
       description: At the end of turn, retain 2 Charm cards chosen at random. If
         you have 2 or less Charm cards in hand, give leftmost rat 7 block
       relatedBehaviorIndex: 0
+      icon: {fileID: 0}
   keepsakeTitle: Level Three Windreaver
   keepsakeDescription: At the end of turn, retain 2 Charm cards chosen at random.
     If you have 2 or less Charm cards in hand, give leftmost rat 7 block
@@ -82,6 +74,8 @@ MonoBehaviour:
         filter:
           cardCategoriesToInclude: 04000000
           retainedCardsFilter: 2
+          manaCostFilter: 0
+          manaCost: 0
           exactCardType: {fileID: 0}
         outputKey: status
     - rid: 1289961959942521053

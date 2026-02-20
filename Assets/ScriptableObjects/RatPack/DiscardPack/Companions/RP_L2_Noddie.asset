@@ -18,17 +18,9 @@ MonoBehaviour:
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: c2029d3d35ba2714d827b1fb8fa4a0fe, type: 3}
   fullSprite: {fileID: 21300000, guid: c2029d3d35ba2714d827b1fb8fa4a0fe, type: 3}
-  backgroundImage: {fileID: 21300000, guid: 094c4d0ce89284effb02b7e66c41c106, type: 3}
-  entityFrame: {fileID: 21300000, guid: 93992d0d35ca9405b831e052145f48f8, type: 3}
-  companionManagementFrame: {fileID: 21300000, guid: 3438500f50c834ffd8cab1850f7e94bf, type: 3}
   startingDeck: {fileID: 11400000, guid: b23f200d4ca864a2d8598bdda929ba0f, type: 2}
-  cardBack: {fileID: 21300000, guid: a5222a8d127763c49b397cce916345ec, type: 3}
-  cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
-  cardTypeIconOverride: {fileID: 0}
   rarity: 0
-  cardIdleVfxPrefab: {fileID: 0}
-  genericCompanionSFX: {fileID: 0}
-  genericCompanionVFX: {fileID: 0}
+  baseCompanionType: {fileID: 11400000, guid: 04c7e341cd1cb4872bc1252299c09f2e, type: 2}
   cacheValueConfigs:
   - key: turnsRemaining
     display: 1
@@ -39,7 +31,6 @@ MonoBehaviour:
     setStartOfCombatValue: 1
   cardPool: {fileID: 11400000, guid: 5b268e007a928469b9689a9868334b23, type: 2}
   pack: {fileID: 11400000, guid: 5f4300e0913784f05aeff0dd086d4338, type: 2}
-  speakerType: {fileID: 0}
   abilitiesV2:
   - rid: 7401433308100034736
   level: 1
@@ -51,6 +42,7 @@ MonoBehaviour:
       description: At the start of the first 3 turns of combat, create a "Careful
         Strategy" in hand
       relatedBehaviorIndex: 0
+      icon: {fileID: 0}
   keepsakeTitle: Thistleton
   keepsakeDescription: At the start of the first 3 turns of combat, create in hand
     a 0 mana card with Retain that draws and discards
@@ -86,6 +78,7 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 3
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
     - rid: 7401433308100034739
       type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
       data:
