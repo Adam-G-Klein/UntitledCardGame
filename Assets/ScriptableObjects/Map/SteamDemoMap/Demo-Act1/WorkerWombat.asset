@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: WorkerWombat
   m_EditorClassIdentifier: 
   guid: ec3d278e-afe6-4c36-a3ee-8e65aa76f40e
-  displayName: WorkerWombat
+  displayName: Worker Wombat
   maxHealth: 16
   baseAttackDamage: 0
   enemyDisplayType: 0
@@ -51,7 +51,7 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Hard work pays off
-      description: Acts just like his fellow normal working wombat
+      description: Chips away at the first rat on your team
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
   DEADLIER_ENEMY_BONUS_STR: -1
