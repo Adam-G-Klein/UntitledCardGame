@@ -192,7 +192,7 @@ public class MultiDeckView
         SetPositionForUnSelectedSection(deckView.container, instant);
     }
 
-    private void FocusDeckSection(DeckSectionView deckView, bool instant = false)
+    private void FocusDeckSection(DeckSectionView deckView, bool instant = false, bool enableFocusables = true)
     {
         inTransition = true;
         ScrollView scrollView = deckView.scrollView;
@@ -204,20 +204,22 @@ public class MultiDeckView
             })
             .setEase(animationEaseType)
             .setOnComplete(() => {
-                OnFocusComplete(scrollView, companionView);
+                OnFocusComplete(scrollView, companionView, enableFocusables);
             });
         SetPositionForSelectedSection(scrollView, instant);
     }
-    public void OnFocusComplete(ScrollView scrollView, VisualElement companionView)
+    public void OnFocusComplete(ScrollView scrollView, VisualElement companionView, bool enableFocusables = true)
     {
         // ideally do after a slight delay
         inTransition = false;
         if (scrollView.contentContainer.Children().ToList().Count == 0) return;
-        ToggleDeckFocusability(scrollView.contentContainer.Children().ToList(), true);
-        if (companionView != null) FocusManager.Instance.EnableFocusableTarget(companionView.AsFocusable());
-        if (ControlsManager.Instance.GetControlMethod() == ControlsManager.ControlMethod.Mouse) return;
-        VisualElement firstCard = scrollView.contentContainer.Children().ToList()[0];
-        FocusManager.Instance.SetFocusNextFrame(firstCard.AsFocusable());
+        if (enableFocusables) {
+            ToggleDeckFocusability(scrollView.contentContainer.Children().ToList(), true);
+            if (companionView != null) FocusManager.Instance.EnableFocusableTarget(companionView.AsFocusable());
+            if (ControlsManager.Instance.GetControlMethod() == ControlsManager.ControlMethod.Mouse) return;
+            VisualElement firstCard = scrollView.contentContainer.Children().ToList()[0];
+            FocusManager.Instance.SetFocusNextFrame(firstCard.AsFocusable());
+        }
     }
 
     private void ToggleDeckFocusability(List<VisualElement> elements, bool enable)
@@ -486,16 +488,11 @@ public class MultiDeckView
 
                     cardView.UpdateManaCost();
                 }
-
-                if (i != startingIndex)
-                {
-                    FocusManager.Instance.DisableFocusableTarget(cardView.cardFocusable);
-                }
             }
 
             if ((isStartingTab && i == startingIndex) || (!isStartingTab && i == 0))
             {
-                FocusDeckSection(deckSectionView, true);
+                FocusDeckSection(deckSectionView, true, isStartingTab && i == startingIndex);
                 deckTabView.focusedSectionView = deckSectionView;
             }
             else
