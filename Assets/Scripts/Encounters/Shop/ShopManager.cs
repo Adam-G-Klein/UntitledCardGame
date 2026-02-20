@@ -209,6 +209,13 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         shopViewController.EnableAllUI();
     }
 
+    public IEnumerator RunShopDialogueStep(DemoStepName stepName)
+    {
+        shopViewController.DisableAllUI();
+        yield return DemoDirector.Instance.InvokeDemoStepCorouutine(stepName);
+        shopViewController.EnableAllUI();
+    }
+
     public void SetupUnitManagement() {
         StartCoroutine(DelayedSetupUnitManagement());
     }
@@ -344,6 +351,9 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
                     if (numRatsBoughtThisShop >= shopEncounter.shopData.numRatsBuyPerShop)
                     {
                         currentPhase = ShopPhase.CARD_BUYING_PHASE;
+                        if (gameState.buildType == BuildType.DEMO && !DemoDirector.Instance.IsStepCompleted(DemoStepName.CardOfferingTips)) {
+                            StartCoroutine(RunShopDialogueStep(DemoStepName.CardOfferingTips));
+                        }
                         SetDraftingHelpText(shopEncounter.shopData.numCardsBuyPerDisplay, shopEncounter.shopData.numCardsBuyPerShop - numCardsBoughtThisShop);
                     }
 
@@ -388,6 +398,9 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
                 if (numRatsBoughtThisShop >= shopEncounter.shopData.numRatsBuyPerShop)
                 {
                     currentPhase = ShopPhase.CARD_BUYING_PHASE;
+                    if (gameState.buildType == BuildType.DEMO && !DemoDirector.Instance.IsStepCompleted(DemoStepName.CardOfferingTips)) {
+                        StartCoroutine(RunShopDialogueStep(DemoStepName.CardOfferingTips));
+                    }
                     SetDraftingHelpText(shopEncounter.shopData.numCardsBuyPerDisplay, shopEncounter.shopData.numCardsBuyPerShop - numCardsBoughtThisShop);
                 }
 
