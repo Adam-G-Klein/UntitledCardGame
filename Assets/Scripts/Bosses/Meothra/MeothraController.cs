@@ -56,9 +56,15 @@ public class MeothraController : MonoBehaviour, IBossController
 
     private IEnumerator Attack(List<Vector3> positions)
     {
-        yield return StartCoroutine(
-            meothraAnimationController.StrikeAnimation(positions[0])
-        );
+        if(positions.Count == 1)
+        {
+            yield return StartCoroutine(
+                meothraAnimationController.StrikeAnimation(positions[0])
+            );
+        } else
+        {
+            yield return StartCoroutine(meothraAnimationController.FullTeamStrikeAnimation(positions));
+        }
         yield return null;
     }
 

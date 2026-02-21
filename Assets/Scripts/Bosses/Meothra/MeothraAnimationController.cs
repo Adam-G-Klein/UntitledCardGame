@@ -37,6 +37,10 @@ public class MeothraAnimationController: MonoBehaviour
     [SerializeField] private float strikeTime;
     [SerializeField] private float multiTargetSweepTime = 1f;
     [SerializeField] private GameObject strikeVFX;
+    [Header("Full Team Strike Spline Settings")]
+    [SerializeField] private float fullTeamSplineScaleX = 1.5f;
+    [SerializeField] private float fullTeamSplineScaleY = 0.3f;
+    [SerializeField] private float fullTeamSplineRotation = 0f;
     /* // for curve debugging
     [SerializeField] private float currentStrikeTime;
     [SerializeField] private Vector3 currentStrikePosition;
@@ -249,6 +253,62 @@ public class MeothraAnimationController: MonoBehaviour
             yield return new WaitUntil(() => !LeanTween.isTweening(_sweepTweenId) || !_isSweeping);
             goingRight = !goingRight;
         }
+    }
+
+    public IEnumerator FullTeamStrikeAnimation(List<Vector3> targets)
+    {
+        StopSweep();
+
+        // Find the middle-most target by sorting on X and taking the centre index
+        List<Vector3> sorted = new List<Vector3>(targets);
+        sorted.Sort((a, b) => a.x.CompareTo(b.x));
+        Vector3 middleTarget = sorted[sorted.Count / 2];
+
+        float splineRotationAmount = fullTeamSplineRotation;
+
+        Dictionary<GameObject, Transform> instantiateSplineToHandleMap = new Dictionary<GameObject, Transform>();
+        foreach (KeyValuePair<GameObject, Transform> entry in splineToHandleMap)
+        {
+            GameObject splineObj = Instantiate(entry.Key, entry.Value.position, Quaternion.identity);
+            splineObj.transform.Rotate(Vector3.forward, splineRotationAmount);
+            Vector3 s = splineObj.transform.localScale;
+            s.x *= fullTeamSplineScaleX;
+            s.y *= fullTeamSplineScaleY;
+            splineObj.transform.localScale = s;
+            instantiateSplineToHandleMap.Add(splineObj, entry.Value);
+            StartCoroutine(MoveGameObjectToStartOfSpline(splineObj, entry.Value, strikePrepTime));
+        }
+
+        // Left hand spline centred on the middle-most target
+        GameObject leftHandSpline = Instantiate(lhstrikeSpline, middleTarget, Quaternion.identity);
+        leftHandSpline.transform.Rotate(Vector3.forward, splineRotationAmount);
+        Vector3 lhScale = leftHandSpline.transform.localScale;
+        lhScale.x *= fullTeamSplineScaleX;
+        lhScale.y *= fullTeamSplineScaleY;
+        leftHandSpline.transform.localScale = lhScale;
+
+        StartCoroutine(ZoomCamera(maxOrthoSize, strikePrepTime));
+        yield return MoveGameObjectToStartOfSpline(leftHandSpline, lhTarg.transform, strikePrepTime);
+
+        animator.Play("Strike");
+        foreach (KeyValuePair<GameObject, Transform> entry in instantiateSplineToHandleMap)
+        {
+            StartCoroutine(MoveGameObjectOnSpline(entry.Key, entry.Value, strikeTime));
+        }
+        StartCoroutine(MoveGameObjectOnSpline(leftHandSpline, lhTarg.transform, strikeTime));
+        StartCoroutine(ZoomCamera(minOrthoSize, strikeTime));
+        yield return new WaitForSeconds(strikeTime / 2);
+
+        foreach (Vector3 target in targets)
+        {
+            GameObject.Instantiate(strikeVFX, target, Quaternion.identity);
+        }
+        MusicController.Instance.PlaySFX("event:/SFX/BossFight/SFX_MeothraAttack");
+        yield return new WaitForSeconds(strikeTime / 2);
+
+        animator.Play("Idle");
+        StartCoroutine(BackToIdlePositions());
+        StartCoroutine(ZoomCamera(normalOrthoSize, backToIdleTime));
     }
 
     public void PlayHurtAnimation()

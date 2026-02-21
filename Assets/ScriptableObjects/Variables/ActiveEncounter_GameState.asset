@@ -25,13 +25,15 @@ MonoBehaviour:
         isCompleted: 1
         act: 0
         isEliteEncounter: 0
+        bonusManaReward: 0
+        bonusTeamSizeReward: 0
         enemyList:
         - id: 004be887-0170-4329-9a90-26d7f7043d1b
           entityType: 1
-          enemyType: {fileID: 11400000, guid: 1e01ae2a7723d1a46ad929b8fd229d98, type: 2}
+          enemyType: {fileID: 11400000, guid: d8f9cc54732a4b74d89d92e6f6d75a19, type: 2}
           combatStats:
             maxHealth: 18
             maxHealthBuffs: 0
-            currentHealth: 0
+            currentHealth: 1
             baseAttackDamage: 0
         encounterName: Enc_FreakyGeese
