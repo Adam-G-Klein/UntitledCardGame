@@ -35,6 +35,7 @@ public class MeothraAnimationController: MonoBehaviour
     [SerializeField] private GameObject headstrikeSpline;
 
     [SerializeField] private float strikeTime;
+    [SerializeField] private float multiTargetSweepTime = 1f;
     [SerializeField] private GameObject strikeVFX;
     /* // for curve debugging
     [SerializeField] private float currentStrikeTime;
@@ -46,6 +47,9 @@ public class MeothraAnimationController: MonoBehaviour
     [SerializeField] private float strikePrepTime = 1f;
     [SerializeField] private float backToIdleTime = 1f;
     private Animator animator;
+
+    private bool _isSweeping = false;
+    private int _sweepTweenId = -1;
 
     private Dictionary<GameObject, Transform> splineToHandleMap = new Dictionary<GameObject, Transform> ();
     private Dictionary<Transform, Transform> handleToRestPositionMap = new Dictionary<Transform, Transform>();
@@ -67,7 +71,6 @@ public class MeothraAnimationController: MonoBehaviour
     {
         if (animator == null) animator = GetComponent<Animator>();
         // special case for left hand since we want it to go right over the target
-        // TODO: poles
         splineToHandleMap.Add(lpolestrikeSpline, lPole);
         splineToHandleMap.Add(rhstrikeSpline, rhTarg);
         splineToHandleMap.Add(rpolestrikeSpline, rPole);
@@ -87,10 +90,21 @@ public class MeothraAnimationController: MonoBehaviour
         }
 
     }
+    private void StopSweep()
+    {
+        _isSweeping = false;
+        if (_sweepTweenId != -1)
+        {
+            LeanTween.cancel(_sweepTweenId);
+            _sweepTweenId = -1;
+        }
+    }
+
     // TODO: rotate strike spline based on how negative or positive the x position is
     // TODO: rotate and move root motion and right hand
     public IEnumerator StrikeAnimation(Vector3 strikePosition)
     {
+        StopSweep();
 
         float strikePositionDelta = strikePosition.x - primeStrikeLocation.position.x;
         float splineRotationAmount = degSplineRotationPerXOffset * strikePositionDelta;
@@ -176,7 +190,7 @@ public class MeothraAnimationController: MonoBehaviour
         yield return null;
     }
 
-    public IEnumerator DisplayNextTarget(Vector3 targetPosition)
+    public IEnumerator DisplaySingleTarget(Vector3 targetPosition)
     {
         if(animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "Idle")
             animator.Play("Idle");
@@ -192,6 +206,49 @@ public class MeothraAnimationController: MonoBehaviour
             rhTarg.rotation = Quaternion.Lerp(startRRot, handIntentLocation.rotation, val);
         }).setEaseInOutQuint().id;
         yield return new WaitForSeconds(tweenBackToPointingTime);
+    }
+
+
+    public IEnumerator DisplayMultipleTargets(List<Vector3> targetPositions)
+    {
+        if (animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "Idle")
+            animator.Play("Idle");
+
+        // Find the furthest left and right positions
+        Vector3 leftmost = targetPositions[0];
+        Vector3 rightmost = targetPositions[0];
+        foreach (Vector3 pos in targetPositions)
+        {
+            if (pos.x < leftmost.x) leftmost = pos;
+            if (pos.x > rightmost.x) rightmost = pos;
+        }
+
+        Vector3 leftTarget  = leftmost  + intentTargettingPointerOffset;
+        Vector3 rightTarget = handIntentLocation.position;
+
+        // Initial tween: settle right hand to handIntentLocation, left hand to leftmost target
+        Vector3 startLPos = lhTarg.position;
+        Vector3 startRPos = rhTarg.position;
+        Quaternion startRRot = rhTarg.rotation;
+        int initTween = LeanTween.value(0f, 1f, tweenBackToPointingTime).setOnUpdate((float val) =>
+        {
+            lhTarg.position = Vector3.Lerp(startLPos, leftTarget, val);
+            rhTarg.position = Vector3.Lerp(startRPos, handIntentLocation.position, val);
+            rhTarg.rotation = Quaternion.Lerp(startRRot, handIntentLocation.rotation, val);
+        }).setEaseInOutQuint().id;
+        yield return new WaitUntil(() => !LeanTween.isTweening(initTween));
+
+        // Sweep left hand back and forth until StrikeAnimation cancels the loop
+        _isSweeping = true;
+        bool goingRight = true;
+        while (_isSweeping)
+        {
+            Vector3 sweepTarget = goingRight ? rightTarget : leftTarget;
+            _sweepTweenId = LeanTween.move(lhTarg.gameObject, sweepTarget, multiTargetSweepTime)
+                .setEaseInOutSine().id;
+            yield return new WaitUntil(() => !LeanTween.isTweening(_sweepTweenId) || !_isSweeping);
+            goingRight = !goingRight;
+        }
     }
 
     public void PlayHurtAnimation()

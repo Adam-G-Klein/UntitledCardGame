@@ -110,11 +110,19 @@ public class EnemyInstance : MonoBehaviour, IUIEntity
         // Note: this only allows the enemies to target companions for now.
         // There is nothing that allows targeting other enemies, but this is not
         // an important behavior to support for now.
-        CompanionInstance target = ChooseTargets(action.enemyTargetMethod);
-        List<CompanionInstance> targetList = new();
-        if (target != null)
+        List<CompanionInstance> targetList;
+        if (action.enemyTargetMethod == EnemyTargetMethod.AllCompanions)
         {
-            targetList.Add(target);
+            targetList = CombatEntityManager.Instance.getCompanions();
+        }
+        else
+        {
+            CompanionInstance target = ChooseTargets(action.enemyTargetMethod);
+            targetList = new();
+            if (target != null)
+            {
+                targetList.Add(target);
+            }
         }
 
         behaviorIndices[brain] = new ValueTuple<int, int>(behaviorIndex, nextBehaviorIndex);

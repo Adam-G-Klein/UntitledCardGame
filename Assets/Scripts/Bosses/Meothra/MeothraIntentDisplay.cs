@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -43,9 +44,17 @@ public class MeothraIntentDisplay: MonoBehaviour
     }
 
     private IEnumerable UpdateIntent() {
-        yield return meothraAnimationController.DisplayNextTarget(
-            enemyInstance.currentIntent.targets[0].transform.position
-        );
+        List<Vector3> targets = enemyInstance.currentIntent.targets.Select(t => t.transform.position).ToList();
+        if(targets.Count == 1)
+        {
+            yield return meothraAnimationController.DisplaySingleTarget(
+                targets[0]
+            );
+        } else
+        {
+            // don't yield here because it loops
+            StartCoroutine(meothraAnimationController.DisplayMultipleTargets(targets));
+        }
         intentUIDoc.rootVisualElement.visible = true;
         intentImage.style.backgroundImage = new StyleBackground(
                 enemyIntentsSO.GetIntentImage(enemyInstance.currentIntent.intentType));
