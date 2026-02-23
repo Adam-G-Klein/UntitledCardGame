@@ -3,6 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum ShopMode
+{
+    Default,
+    StaticChooseNDemo,
+}
+
 [CreateAssetMenu(
     fileName = "Shop",
     menuName = "Encounters/Shop/New Shop")]
@@ -40,6 +46,8 @@ public class ShopDataSO : ScriptableObject
     public int neutralCardPoolPct;
     public int crossPackCardPoolPct;
     public bool alwaysShowUnlockedCards = false;
+
+    public ShopMode shopMode;
 
     [Header("Demo only fields")]
     public int numCardsBuyPerShop = 5;

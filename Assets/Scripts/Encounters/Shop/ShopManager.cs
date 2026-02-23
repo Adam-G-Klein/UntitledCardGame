@@ -54,7 +54,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         CARD_BUYING_PHASE,
         DONE,
     }
-    ShopPhase currentPhase;
+    ShopPhase currentDemoShopPhase;
     private bool healedCompanions;
     private int availableBenchSlots;
     public int AvailableBenchSlots {
@@ -82,24 +82,27 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         allCompanions.AddRange(gameState.companions.activeCompanions);
         allCompanions.AddRange(gameState.companions.benchedCompanions);
 
-        StaticShopEncounter staticEncounter = null;
         StaticShopEncountersSO staticShopEncounters = shopEncounter.shopData.staticShopEncounters;
-        if (gameState.buildType == BuildType.DEMO && staticShopEncounters != null) {
-            int shopIndex = gameState.currentEncounterIndex / 2;
-            if (shopIndex < staticShopEncounters.shopEncounters.Count) {
-                // staticEncounter = staticShopEncounters.shopEncounters[shopIndex];
-                currentStaticShopPoolEncounter = staticShopEncounters.shopPoolEncounters[shopIndex];
+        StaticCardTypeGroup staticCards = null;
+        StaticCompanionTypeGroup staticRats = null;
+        // Set up the Choose N rats / cards demo :)
+        if (shopEncounter.shopData.shopMode == ShopMode.StaticChooseNDemo) {
+            if (staticShopEncounters != null)
+            {
+                int shopIndex = gameState.currentEncounterIndex / 2;
+                if (shopIndex < staticShopEncounters.shopEncounters.Count) {
+                    currentStaticShopPoolEncounter = staticShopEncounters.shopPoolEncounters[shopIndex];
+                }
+
+                staticCards = new StaticCardTypeGroup
+                {
+                    cardTypes = new List<CardType>()
+                };
+                staticRats = getCurrentStaticRatGroup();
             }
+            currentDemoShopPhase = ShopPhase.RAT_BUYING_PHASE;
+            SetDraftingHelpText(shopEncounter.shopData.numRatsBuyPerDisplay, shopEncounter.shopData.numRatsBuyPerShop);
         }
-
-        currentPhase = ShopPhase.RAT_BUYING_PHASE;
-        SetDraftingHelpText(shopEncounter.shopData.numRatsBuyPerDisplay, shopEncounter.shopData.numRatsBuyPerShop);
-
-        StaticCardTypeGroup staticCards = new StaticCardTypeGroup
-        {
-            cardTypes = new List<CardType>()
-        };
-        StaticCompanionTypeGroup staticRats = getCurrentStaticRatGroup();
 
         shopEncounter.Build(this, allCompanions, encounterConstants, this.shopLevel, staticCards, staticRats);
         shopViewController.SetMoney(gameState.playerData.GetValue().gold);
@@ -211,9 +214,9 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
     public IEnumerator RunShopDialogueStep(DemoStepName stepName)
     {
-        shopViewController.DisableAllUI();
+        // shopViewController.DisableAllUI();
         yield return DemoDirector.Instance.InvokeDemoStepCorouutine(stepName);
-        shopViewController.EnableAllUI();
+        // shopViewController.EnableAllUI();
     }
 
     public void SetupUnitManagement() {
@@ -306,15 +309,22 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             Companion companionToAdd = newCompanion;
 
             UpgradeInfo upgradeInfo = companionCombinationManager.PurchaseWouldCauseUpgrade(newCompanion);
+            // If no upgrade would occur, check if we have space on the team.
+            if (upgradeInfo == null && gameState.companions.activeCompanions.Count + shopViewController.GetBlockedCompanionSlots() == 5 && gameState.companions.benchedCompanions.Count == availableBenchSlots)
+            {
+                StartCoroutine(shopViewController.ShowGenericNotification("You have reached the maximum number of companions.", 2));
+                return;
+            }
+
+            shopViewController.isBuyingDisabled = true;
+            shopViewController.canDragCompanions = false;
+            gameState.playerData.GetValue().gold -= companionInShop.price;
+            shopViewController.SetMoney(gameState.playerData.GetValue().gold);
+            InstantiateShopVFX(moneySpentPrefab, shopItemView.shopItemElement, 1.5f);
+            MusicController.Instance.PlaySFX("event:/SFX/SFX_CompanionBuy");
+
             if (upgradeInfo != null)
             {
-                shopViewController.isBuyingDisabled = true;
-                shopViewController.canDragCompanions = false;
-                gameState.playerData.GetValue().gold -= companionInShop.price;
-                shopViewController.SetMoney(gameState.playerData.GetValue().gold);
-                InstantiateShopVFX(moneySpentPrefab, shopItemView.shopItemElement, 1.5f);
-                MusicController.Instance.PlaySFX("event:/SFX/SFX_CompanionBuy");
-
                 // first we need to find the companionManagementSlotView that all of them are animating towards
                 CompanionManagementSlotView slotView = shopViewController.GetCompanionManagementSlotView(upgradeInfo.resultingSlotViewIndex, upgradeInfo.onBench);
                 Companion targetCompanion = slotView.companionManagementView.companion;
@@ -338,44 +348,13 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
                     // the rest are animated from other companionManagementView (this does need to be handled slightly differently)
                 }
-
-                // two places, same thing? am i good software engineer? no lol.
-                numRatsBoughtThisShop++;
-                SetDraftingHelpText(shopEncounter.shopData.numRatsBuyPerDisplay, shopEncounter.shopData.numRatsBuyPerShop - numRatsBoughtThisShop);
-
-                if (numRatsBoughtThisShop % shopEncounter.shopData.numRatsBuyPerDisplay == 0)
-                {
-                    consumedRatGroupIndices.Add(currentRatGroupIndex);
-                    incrementRatGroupIndex();
-
-                    if (numRatsBoughtThisShop >= shopEncounter.shopData.numRatsBuyPerShop)
-                    {
-                        currentPhase = ShopPhase.CARD_BUYING_PHASE;
-                        if (gameState.buildType == BuildType.DEMO && !DemoDirector.Instance.IsStepCompleted(DemoStepName.CardOfferingTips)) {
-                            StartCoroutine(RunShopDialogueStep(DemoStepName.CardOfferingTips));
-                        }
-                        SetDraftingHelpText(shopEncounter.shopData.numCardsBuyPerDisplay, shopEncounter.shopData.numCardsBuyPerShop - numCardsBoughtThisShop);
-                    }
-
-                    rerollShop();
-                }
-
-                return;
             }
-            if (gameState.companions.activeCompanions.Count + shopViewController.GetBlockedCompanionSlots() == 5 && gameState.companions.benchedCompanions.Count == availableBenchSlots)
+            else
             {
-                StartCoroutine(shopViewController.ShowGenericNotification("You have reached the maximum number of companions.", 2));
-                return;
+                gameState.AddCompanionToTeam(companionToAdd);
+                CompanionManagementSlotView companionManagementSlotView = shopViewController.FindNextAvailableSlot();
+                shopViewController.AnimateNewCompanionToSlot(companionInShop, companionManagementSlotView, false, 0, () => { CompanionBoughtAnimationOnComplete(companionToAdd, companionManagementSlotView); shopViewController.AddCompanionShineVFX(); });
             }
-            shopViewController.isBuyingDisabled = true;
-            shopViewController.canDragCompanions = false;
-            gameState.playerData.GetValue().gold -= companionInShop.price;
-            shopViewController.SetMoney(gameState.playerData.GetValue().gold);
-            gameState.AddCompanionToTeam(companionToAdd);
-            CompanionManagementSlotView companionManagementSlotView = shopViewController.FindNextAvailableSlot();
-            shopViewController.AnimateNewCompanionToSlot(companionInShop, companionManagementSlotView, false, 0, () => { CompanionBoughtAnimationOnComplete(companionToAdd, companionManagementSlotView); shopViewController.AddCompanionShineVFX(); });
-            InstantiateShopVFX(moneySpentPrefab, shopItemView.shopItemElement, 1.5f);
-            MusicController.Instance.PlaySFX("event:/SFX/SFX_CompanionBuy");
 
             // Also record an analytics event for buying the companion.
             var eventData = new CompanionBuyAnalyticsEvent
@@ -387,24 +366,27 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             AnalyticsManager.Instance.RecordEvent(eventData);
 
 
+
             numRatsBoughtThisShop++;
-            SetDraftingHelpText(shopEncounter.shopData.numRatsBuyPerDisplay, shopEncounter.shopData.numRatsBuyPerShop - numRatsBoughtThisShop);
-
-            if (numRatsBoughtThisShop % shopEncounter.shopData.numRatsBuyPerDisplay == 0)
+            if (shopEncounter.shopData.shopMode == ShopMode.StaticChooseNDemo)
             {
-                consumedRatGroupIndices.Add(currentRatGroupIndex);
-                incrementRatGroupIndex();
-
-                if (numRatsBoughtThisShop >= shopEncounter.shopData.numRatsBuyPerShop)
+                SetDraftingHelpText(shopEncounter.shopData.numRatsBuyPerDisplay, shopEncounter.shopData.numRatsBuyPerShop - numRatsBoughtThisShop);
+                if (numRatsBoughtThisShop % shopEncounter.shopData.numRatsBuyPerDisplay == 0)
                 {
-                    currentPhase = ShopPhase.CARD_BUYING_PHASE;
-                    if (gameState.buildType == BuildType.DEMO && !DemoDirector.Instance.IsStepCompleted(DemoStepName.CardOfferingTips)) {
-                        StartCoroutine(RunShopDialogueStep(DemoStepName.CardOfferingTips));
-                    }
-                    SetDraftingHelpText(shopEncounter.shopData.numCardsBuyPerDisplay, shopEncounter.shopData.numCardsBuyPerShop - numCardsBoughtThisShop);
-                }
+                    consumedRatGroupIndices.Add(currentRatGroupIndex);
+                    incrementRatGroupIndex();
 
-                rerollShop();
+                    if (numRatsBoughtThisShop >= shopEncounter.shopData.numRatsBuyPerShop)
+                    {
+                        currentDemoShopPhase = ShopPhase.CARD_BUYING_PHASE;
+                        if (gameState.buildType == BuildType.DEMO && !DemoDirector.Instance.IsStepCompleted(DemoStepName.CardOfferingTips)) {
+                            StartCoroutine(RunShopDialogueStep(DemoStepName.CardOfferingTips));
+                        }
+                        SetDraftingHelpText(shopEncounter.shopData.numCardsBuyPerDisplay, shopEncounter.shopData.numCardsBuyPerShop - numCardsBoughtThisShop);
+                    }
+
+                    rerollShop();
+                }
             }
         }
         else
@@ -535,24 +517,26 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
             numCardsBoughtThisShop++;
 
-            SetDraftingHelpText(shopEncounter.shopData.numCardsBuyPerDisplay, shopEncounter.shopData.numCardsBuyPerShop - numCardsBoughtThisShop);
-            if (numCardsBoughtThisShop % shopEncounter.shopData.numCardsBuyPerDisplay == 0)
+            if (shopEncounter.shopData.shopMode == ShopMode.StaticChooseNDemo)
             {
-                consumedCardGroupIndices.Add(currentCardGroupIndex);
-                incrementCardGroupIndex();
+                SetDraftingHelpText(shopEncounter.shopData.numCardsBuyPerDisplay, shopEncounter.shopData.numCardsBuyPerShop - numCardsBoughtThisShop);
+                if (numCardsBoughtThisShop % shopEncounter.shopData.numCardsBuyPerDisplay == 0)
+                {
+                    consumedCardGroupIndices.Add(currentCardGroupIndex);
+                    incrementCardGroupIndex();
 
-                if (numCardsBoughtThisShop >= shopEncounter.shopData.numCardsBuyPerShop)
-                {
-                    currentPhase = ShopPhase.DONE;
-                    shopViewController.ClearShopGoods();
-                    SetDraftingHelpText(0, 0);
-                }
-                else
-                {
-                    rerollShop();
+                    if (numCardsBoughtThisShop >= shopEncounter.shopData.numCardsBuyPerShop)
+                    {
+                        currentDemoShopPhase = ShopPhase.DONE;
+                        shopViewController.ClearShopGoods();
+                        SetDraftingHelpText(0, 0);
+                    }
+                    else
+                    {
+                        rerollShop();
+                    }
                 }
             }
-
         }
 
         if (removingCard) {
@@ -564,14 +548,14 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     {
         string cardsFormat = "Choose {0} cards for rats on your team\n({1} remaining)";
         string ratsFormat = "Choose {0} rats for your team\n({1} remaining)";
-        if (currentPhase == ShopPhase.CARD_BUYING_PHASE)
+        if (currentDemoShopPhase == ShopPhase.CARD_BUYING_PHASE)
         {
             shopViewController.SetNumRatsRequiredText(string.Format(cardsFormat, numPerDisplay, remaining));
         }
-        else if (currentPhase == ShopPhase.RAT_BUYING_PHASE)
+        else if (currentDemoShopPhase == ShopPhase.RAT_BUYING_PHASE)
         {
             shopViewController.SetNumRatsRequiredText(string.Format(ratsFormat, numPerDisplay, remaining));
-        } else if (currentPhase == ShopPhase.DONE)
+        } else if (currentDemoShopPhase == ShopPhase.DONE)
         {
             shopViewController.SetNumRatsRequiredText($"Out of stock. Come back after the next combat");
         }
@@ -725,25 +709,27 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         allCompanions.AddRange(gameState.companions.activeCompanions);
         allCompanions.AddRange(gameState.companions.benchedCompanions);
 
-        // incrementCardGroupIndex();
-        // incrementRatGroupIndex();
+        StaticCardTypeGroup staticCards = null;
+        StaticCompanionTypeGroup staticRats = null;
+        if (shopEncounter.shopData.shopMode == ShopMode.StaticChooseNDemo)
+        {
+            staticCards = new StaticCardTypeGroup
+            {
+                cardTypes = new List<CardType>()
+            };
+            staticRats = new StaticCompanionTypeGroup
+            {
+                companionTypes = new List<CompanionTypeSO>()
+            };
 
-        StaticCardTypeGroup staticCards = new StaticCardTypeGroup
-        {
-            cardTypes = new List<CardType>()
-        };
-        StaticCompanionTypeGroup staticRats = new StaticCompanionTypeGroup
-        {
-            companionTypes = new List<CompanionTypeSO>()
-        };
-
-        if (currentPhase == ShopPhase.RAT_BUYING_PHASE)
-        {
-            staticRats = getCurrentStaticRatGroup();
-        }
-        else if (currentPhase == ShopPhase.CARD_BUYING_PHASE)
-        {
-            staticCards = getCurrentStaticCardGroup();
+            if (currentDemoShopPhase == ShopPhase.RAT_BUYING_PHASE)
+            {
+                staticRats = getCurrentStaticRatGroup();
+            }
+            else if (currentDemoShopPhase == ShopPhase.CARD_BUYING_PHASE)
+            {
+                staticCards = getCurrentStaticCardGroup();
+            }
         }
 
         shopEncounter.Reroll(allCompanions, this.shopLevel, staticCards, staticRats);
