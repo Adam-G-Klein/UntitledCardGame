@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_CardCya
+  m_Name: M_Highligjht
   m_Shader: {fileID: -6465566751694194690, guid: e246ebafd25da4e4f8fe71260a5bdf56, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -35,7 +35,7 @@ Material:
     RenderType: Transparent
   disabledShaderPasses:
   - DepthOnly
-  m_LockedProperties: _Colour_B _Cutoff_Value
+  m_LockedProperties: _Cutoff_Value
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -45,26 +45,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _Distortion_Tex:
         m_Texture: {fileID: 2800000, guid: 0009a37dcf5808e4fbf074aeca753987, type: 3}
-        m_Scale: {x: 1.5, y: 1.5}
-        m_Offset: {x: 0, y: 0.06}
-    - _FadeTexture:
-        m_Texture: {fileID: 2800000, guid: 927e903a92ee5e749b2a31ef62dcae4d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Fade_Secondary_Tex:
-        m_Texture: {fileID: 2800000, guid: 0ae5d39b9aae86a469831c696c91cffa, type: 3}
+    - _FadeTexture:
+        m_Texture: {fileID: 2800000, guid: bac663f48896f8247a78ff1b41d93aa9, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Fresnel_Texture:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _LERP_Mask_Texture:
-        m_Texture: {fileID: 2800000, guid: 927e903a92ee5e749b2a31ef62dcae4d, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _LERP_Texture:
-        m_Texture: {fileID: 2800000, guid: 0ae5d39b9aae86a469831c696c91cffa, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -72,15 +60,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Mask_Tex:
-        m_Texture: {fileID: 2800000, guid: 0ae5d39b9aae86a469831c696c91cffa, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _OverlayTex:
-        m_Texture: {fileID: 2800000, guid: 2a65b923cce726d48ae361548a3d2f01, type: 3}
-        m_Scale: {x: 2, y: 2}
-        m_Offset: {x: 0, y: 0}
     - _UV_Distorion_Mask_Tex:
-        m_Texture: {fileID: 2800000, guid: 0ae5d39b9aae86a469831c696c91cffa, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -102,24 +86,21 @@ Material:
     - _Blend: 0
     - _CastShadows: 1
     - _Cull: 0
-    - _Cutoff_Softness: 0.85
+    - _Cutoff_Softness: 0.03
     - _Cutoff_Value: 0
     - _Dissolve_Amount: 0
     - _Distorion_in_Custom_Data: 0
-    - _Distort_the_Mask: 1
-    - _Distortion_Strength: 0.18
+    - _Distort_the_Mask: 0
+    - _Distortion_Strength: 0
     - _DstBlend: 10
-    - _Fade_Secondary_Tex_Power: 1
     - _Fade_Tex_Dissolve_Amount: 0
-    - _Fade_Tex_Pow: -1.63
+    - _Fade_Tex_Pow: 1
     - _Fresnel: 0
     - _Fresnel_Thickness: 2.11
-    - _Intensity: 0.74
-    - _Mask_Power: 0
+    - _Mask_Power: 0.33
     - _Mask_Strength: 0
     - _Not_using_Dist_in_Custom_Data: 1
-    - _Overlay_Strength: 0.25
-    - _Partcle_System: 0
+    - _Partcle_System: 1
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Soft_Sides_Opacity: 30
@@ -128,8 +109,6 @@ Material:
     - _Text_Power: 1
     - _Use_Cutoff: 1
     - _Use_Fade_Tex_Instead: 1
-    - _Use_Lerp: 1
-    - _Use_Overlay_0_No: 1
     - _Use_Radial: 0
     - _Use_Soft_Sides: 0
     - _Vertex_Displacement_Strength: 0
@@ -137,19 +116,15 @@ Material:
     - _ZWrite: 0
     - _ZWriteControl: 0
     m_Colors:
-    - _Color: {r: 2.670157, g: 2.670157, b: 2.670157, a: 1}
-    - _Colour_A: {r: 1, g: 1, b: 1, a: 1}
-    - _Colour_B: {r: 0, g: 0, b: 0, a: 1}
+    - _Color: {r: 1.4980392, g: 1.4980392, b: 1.4980392, a: 1}
     - _Dissolve_Speed: {r: 0, g: 0, b: 0, a: 0}
-    - _Distortion_Speed: {r: 0, g: -0.04, b: 0, a: 0}
-    - _Fade_Tex_Speed: {r: 0, g: -0.025, b: 0, a: 0}
+    - _Distortion_Speed: {r: 0, g: 0.1, b: 0, a: 0}
+    - _Fade_Tex_Speed: {r: 0, g: 0, b: 0, a: 0}
     - _Fresnel_Color: {r: 1, g: 1, b: 1, a: 0}
     - _Fresnel_Speed: {r: 0, g: 0, b: 0, a: 0}
-    - _LERP_Texture_Scroll: {r: 0, g: 0, b: 0, a: 0}
     - _Main_Tex_Colour: {r: 8, g: 8, b: 8, a: 1}
     - _Main_Text_Scroll_Speed: {r: 0, g: 0, b: 0, a: 0}
     - _Mask_Scroll_Speed: {r: 0, g: 0, b: 0, a: 0}
-    - _Overlay_Speed: {r: 0, g: -0.05, b: 0, a: 0}
     - _Scroll_Speed: {r: 0, g: 0, b: 0, a: 0}
     - _VFX: {r: 0, g: 0, b: 0, a: 0}
     - _Vertex_Displacement_Speed: {r: 0, g: 0, b: 0, a: 0}
