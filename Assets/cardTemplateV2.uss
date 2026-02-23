@@ -6,7 +6,7 @@
     -unity-text-align: middle-center;
     font-size: 28px;
     -unity-font: resource('fonts/static/Jost-Medium');
-    top: 13.5%;
+    top: 15%;
 }
 
 .cardTypeLabelShop {
@@ -166,4 +166,9 @@
 .iconDescSpriteShop {
     width: 25%;
     height: 100%;
+}
+
+.unity-label {
+    -unity-font-definition: initial;
+    -unity-font: resource('fonts/IMFellEnglish-Regular');
 }
