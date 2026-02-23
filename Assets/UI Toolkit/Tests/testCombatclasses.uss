@@ -194,22 +194,40 @@
 }
 
 .end-turn-button:hover {
-    -unity-background-image-tint-color: rgb(205, 205, 205);
+    -unity-background-image-tint-color: rgb(255, 240, 128);
 }
 
 .end-turn-button:focus {
-    -unity-background-image-tint-color: rgb(205, 205, 205);
+    -unity-background-image-tint-color: rgb(255, 240, 128);
+}
+
+.deck-view-button:hover {
+    -unity-background-image-tint-color: rgb(255, 240, 128);
+}
+
+.deck-view-button:focus {
+    -unity-background-image-tint-color: rgb(255, 240, 128);
 }
 
 .end-turn-button .icon-button-icon {
     position: absolute;
     left: 0;
     max-height: 200%;
-    width: 60%;
+    width: 22%;
     aspect-ratio: auto;
     object-fit: contain;
-    translate: -50% 20%;
-    height: 60%;
+    translate: -50% 41%;
+    height: 56%;
+}
+
+.deck-view-button .icon-button-icon {
+    position: absolute;
+    left: 0;
+    max-height: 200%;
+    width: 35%;
+    aspect-ratio: auto;
+    object-fit: contain;
+    height: 97%;
 }
 
 .mana-container-styling {

@@ -1,4 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/Stylesheets/CompanionView.uss?fileID=7433441132597879392&amp;guid=715a20f0aa0920b47918dd6f4e424bbf&amp;type=3#CompanionView" />
     <ui:VisualElement name="companion-view-parent-container" picking-mode="Ignore" focusable="true" class="focusable" style="flex-grow: 0; align-items: center; justify-content: flex-end; flex-shrink: 0; width: 100%; height: 100%;">
         <ui:VisualElement picking-mode="Ignore" style="flex-grow: 1; flex-shrink: 0; width: 91%; justify-content: flex-end; align-items: center;">
             <ui:VisualElement name="companion-view-background-gradient" style="flex-grow: 0; width: 100%; height: 45%; translate: 0 2%; flex-shrink: 0;">
@@ -25,13 +26,13 @@
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="companion-view-draw-discard-container" style="flex-grow: 1; position: absolute; width: 100%; height: 15%; bottom: -15%; flex-direction: row; justify-content: space-around; display: none; visibility: visible;">
-            <ui:VisualElement style="flex-grow: 0; flex-direction: row; justify-content: space-around; width: 90%; flex-shrink: 0;">
-                <IconButton text="Deck" name="companion-view-draw-pile-button" class="companion-view-button" style="flex-grow: 1; max-width: 40%; font-size: 20px; margin-right: 4px; margin-left: 10px; border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px;" />
-                <IconButton text="Discard" name="companion-view-discard-pile-button" class="companion-view-button" style="flex-grow: 1; max-width: 40%; font-size: 20px; margin-right: 4px; margin-left: 4px; border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px;" />
+            <ui:VisualElement style="flex-grow: 0; flex-direction: row; justify-content: space-around; width: 90%; flex-shrink: 0; display: flex;">
+                <IconButton text="Deck" name="companion-view-draw-pile-button" class="companion-view-button" style="flex-grow: 1; max-width: 40%; font-size: 20px; margin-right: 4px; margin-left: 10px; border-left-color: rgba(149, 149, 149, 0); border-right-color: rgba(149, 149, 149, 0); border-top-color: rgba(149, 149, 149, 0); border-bottom-color: rgba(149, 149, 149, 0); background-color: rgba(188, 188, 188, 0);" />
+                <IconButton text="Discard" name="companion-view-discard-pile-button" class="companion-view-button" style="flex-grow: 1; max-width: 40%; font-size: 20px; margin-right: 4px; margin-left: 4px; background-color: rgba(188, 188, 188, 0); border-left-color: rgba(149, 149, 149, 0); border-right-color: rgba(149, 149, 149, 0); border-top-color: rgba(149, 149, 149, 0); border-bottom-color: rgba(149, 149, 149, 0);" />
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="companion-view-view-deck-container" style="flex-grow: 1; position: absolute; width: 100%; height: 15%; bottom: -15%; flex-direction: row; justify-content: center; display: none; visibility: visible;">
-            <IconButton text="View Deck" name="companion-view-view-deck-button" class="companion-view-button" style="flex-grow: 1; max-width: 60%; font-size: 20px; margin-right: 4px; margin-left: 10px; display: flex;" />
+            <IconButton text="View Deck" name="companion-view-view-deck-button" class="companion-view-button" style="flex-grow: 1; max-width: 47%; font-size: 20px; margin-right: 4px; margin-left: 10px; display: flex; border-left-color: rgba(149, 149, 149, 0); border-right-color: rgba(149, 149, 149, 0); border-top-color: rgba(149, 149, 149, 0); border-bottom-color: rgba(149, 149, 149, 0); background-color: rgba(188, 188, 188, 0); background-image: url(&quot;project://database/Assets/Sprites/UI/CombatScreen_HoverButton.png?fileID=2800000&amp;guid=5a7e6950ede86cb47811b1d9e1947916&amp;type=3#CombatScreen_HoverButton&quot;);" />
         </ui:VisualElement>
         <ui:VisualElement name="companion-view-lower-hover-detector" style="flex-grow: 1; position: absolute; width: 100%; height: 50%; bottom: 0; left: 0;">
             <ui:VisualElement name="companion-view-status-area" picking-mode="Ignore" style="flex-grow: 1;" />

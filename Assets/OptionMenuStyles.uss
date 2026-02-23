@@ -1,3 +1,29 @@
+.options-menu-button {
+    font-size: 28px;
+    min-height: 11%;
+    height: 100%;
+    background-image: url("project://database/Assets/Sprites/UI/OptionsMenu_Button.png?fileID=2800000&guid=c6f43df39e10505468d873cc296c3479&type=3#OptionsMenu_Button");
+    width: 44%;
+    -unity-background-scale-mode: scale-to-fit;
+    background-color: rgba(0, 0, 0, 0);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+}
+
+.options-menu-button:focus {
+    -unity-background-image-tint-color: rgb(255, 200, 190);
+}
+
+.options-menu-button:hover {
+    -unity-background-image-tint-color: rgb(255, 200, 190);
+}
+
+.options-menu-button:active {
+    background-image: url("project://database/Assets/Sprites/UI/OptionsMenu_Button_Pressed.png?fileID=2800000&guid=307f2b51d5a42f34bb874a1ea1b33ebc&type=3#OptionsMenu_Button_Pressed");
+}
+
 .unity-label {
     color: rgb(255, 255, 255);
     -unity-font: resource('fonts/Jost-VariableFont_wght');
@@ -6,4 +32,33 @@
 
 .unity-toggle__input {
     flex-direction: row-reverse;
+}
+
+.menu-option {
+    width: 100%;
+    align-items: center;
+    margin-top: 12px;
+}
+
+.menu-option-title {
+    font-size: 24px;
+}
+
+.menu-scrollbar-container {
+    width: 86%;
+    align-items: center;
+    align-self: center;
+    flex-direction: row;
+    justify-content: space-between;
+    -unity-text-align: middle-center;
+    font-size: 18px;
+}
+
+.unity-slider:focus .unity-base-slider__dragger {
+    background-color: rgb(0, 0, 0);
+}
+
+.options-menu-toggle {
+    font-size: 18px;
+    width: 70%;
 }

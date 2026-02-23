@@ -642,10 +642,6 @@
     max-height: 60%;
 }
 
-.options-menu-button {
-    font-size: 23px;
-}
-
 .compendium-card-row-element {
     flex-grow: 0;
     width: 25%;
@@ -739,7 +735,7 @@
     width: 40%;
     font-size: 18px;
     color: rgb(0, 0, 0);
-    background-image: url("project://database/Assets/Sprites/UI/TrimmedPlainButton.png?fileID=2800000&guid=85a91730dc15b6f47b0a0f5923d2e07e&type=3#TrimmedPlainButton");
+    background-image: url("project://database/Assets/Sprites/UI/MainMenu_BaseButton.png?fileID=2800000&guid=907770250ea9f1346b4ddc31db30674e&type=3#MainMenu_BaseButton");
     background-color: rgba(255, 255, 255, 0);
     border-left-color: rgba(255, 255, 255, 0);
     border-right-color: rgba(255, 255, 255, 0);
@@ -767,7 +763,7 @@
     width: 37%;
     font-size: 36px;
     color: rgb(0, 0, 0);
-    background-image: url("project://database/Assets/Sprites/UI/TrimmedPlainButton.png?fileID=2800000&guid=85a91730dc15b6f47b0a0f5923d2e07e&type=3#TrimmedPlainButton");
+    background-image: url("project://database/Assets/Sprites/UI/MainMenu_BaseButton.png?fileID=2800000&guid=907770250ea9f1346b4ddc31db30674e&type=3#MainMenu_BaseButton");
     background-color: rgba(0, 0, 0, 0);
     -unity-font-style: normal;
     border-left-color: rgba(0, 0, 0, 0);
@@ -778,17 +774,17 @@
 }
 
 .main-menu-button:hover {
-    -unity-background-image-tint-color: rgb(202, 202, 202);
     scale: 1.1 1.1;
+    -unity-background-image-tint-color: rgb(255, 248, 178);
 }
 
 .main-menu-button:active {
-    -unity-background-image-tint-color: rgb(135, 135, 135);
+    background-image: url("project://database/Assets/Sprites/UI/MainMenu_BaseButton_Pressed.png?fileID=2800000&guid=cb10d80b2a4c04744abba661183b4397&type=3#MainMenu_BaseButton_Pressed");
 }
 
 .main-menu-button:focus {
-    -unity-background-image-tint-color: rgb(202, 202, 202);
     scale: 1.1 1.1;
+    -unity-background-image-tint-color: rgb(255, 248, 178);
 }
 
 .unity-slider:focus .unity-base-slider__dragger {
@@ -838,17 +834,6 @@
     margin-left: 7px;
 }
 
-.options-menu-button {
-    font-size: 28px;
-    min-height: 11%;
-    height: 100%;
-}
-
-.options-menu-toggle {
-    font-size: 18px;
-    width: 70%;
-}
-
 .post-combat-background {
     width: 100%;
     align-self: center;
@@ -861,8 +846,8 @@
 }
 
 .compendium-button {
-    width: 176px;
-    height: 50px;
+    width: 10%;
+    height: 56px;
     margin-bottom: 0;
     padding-bottom: 5px;
     font-size: 24px;
@@ -871,6 +856,12 @@
     border-top-color: rgba(0, 0, 0, 0);
     border-bottom-color: rgba(0, 0, 0, 0);
     bottom: 4px;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("project://database/Assets/Sprites/UI/CompendiumScreen_Buttons.png?fileID=2800000&guid=1c813175b483f554bbfaf52ba47fe420&type=3#CompendiumScreen_Buttons");
+    -unity-background-scale-mode: scale-to-fit;
+    -unity-font: resource('fonts/NewTegomin-Regular');
+    -unity-font-definition: initial;
+    color: rgb(56, 21, 19);
 }
 
 .compendium-button-disabled {
@@ -894,8 +885,4 @@
     width: 237px;
     height: 75px;
     padding-bottom: 6px;
-}
-
-.main-menu-button-size {
-    background-image: url("project://database/Assets/Sprites/UI/TrimmedPlainButton.png?fileID=2800000&guid=85a91730dc15b6f47b0a0f5923d2e07e&type=3#TrimmedPlainButton");
 }
