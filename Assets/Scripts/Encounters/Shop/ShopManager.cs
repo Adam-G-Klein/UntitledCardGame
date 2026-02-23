@@ -102,6 +102,9 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             }
             currentDemoShopPhase = ShopPhase.RAT_BUYING_PHASE;
             SetDraftingHelpText(shopEncounter.shopData.numRatsBuyPerDisplay, shopEncounter.shopData.numRatsBuyPerShop);
+
+            shopViewController.EnableDraftingHelp();
+            shopViewController.DisableButtonsForDemo();
         }
 
         shopEncounter.Build(this, allCompanions, encounterConstants, this.shopLevel, staticCards, staticRats);
@@ -109,8 +112,6 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         shopViewController.SetShopUpgradePrice(shopLevel.upgradeIncrementCost);
         shopViewController.SetShopRerollPrice(shopEncounter.shopData.rerollShopPrice, gameState.playerData.GetValue().storedRerolls);
         shopViewController.SetShopCardRemovalPrice(shopEncounter.shopData.GetCardRemovalPrice(gameState.playerData.GetValue().shopLevel, timesCardRemovedThisShop), gameState.playerData.GetValue().storedCardRemovals);
-        shopViewController.SetNumCardsRequiredText(0, shopEncounter.shopData.numCardsBuyPerShop);
-        shopViewController.SetNumRatsRequiredText(0, shopEncounter.shopData.numRatsBuyPerShop);
 
         CheckDisableUpgradeButtonV2();
 
@@ -550,14 +551,14 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         string ratsFormat = "Choose {0} rats for your team\n({1} remaining)";
         if (currentDemoShopPhase == ShopPhase.CARD_BUYING_PHASE)
         {
-            shopViewController.SetNumRatsRequiredText(string.Format(cardsFormat, numPerDisplay, remaining));
+            shopViewController.SetDraftingHelpText(string.Format(cardsFormat, numPerDisplay, remaining));
         }
         else if (currentDemoShopPhase == ShopPhase.RAT_BUYING_PHASE)
         {
-            shopViewController.SetNumRatsRequiredText(string.Format(ratsFormat, numPerDisplay, remaining));
+            shopViewController.SetDraftingHelpText(string.Format(ratsFormat, numPerDisplay, remaining));
         } else if (currentDemoShopPhase == ShopPhase.DONE)
         {
-            shopViewController.SetNumRatsRequiredText($"Out of stock. Come back after the next combat");
+            shopViewController.SetDraftingHelpText($"Out of stock. Come back after the next combat");
         }
     }
 

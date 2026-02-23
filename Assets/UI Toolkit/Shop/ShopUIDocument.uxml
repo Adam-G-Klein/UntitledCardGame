@@ -18,7 +18,7 @@
         </ui:VisualElement>
         <ui:VisualElement name="middle-section" style="flex-grow: 1; flex-direction: row; max-height: 45%; min-height: 40%;">
             <ui:VisualElement name="VisualElement" style="flex-grow: 1; flex-basis: auto; width: 30%; height: 100%; justify-content: center; align-self: flex-start; align-items: center;">
-                <ui:VisualElement name="VisualElement" class="shopButtonContainer" style="align-items: center; width: 80%; flex-direction: row-reverse; display: none;">
+                <ui:VisualElement name="upgrade-button-container" class="shopButtonContainer" style="align-items: center; width: 80%; flex-direction: row-reverse; display: none;">
                     <ui:Label tabindex="-1" text="$1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="upgrade-price-label" class="shopButtonPriceTag" style="translate: -18% 0;" />
                     <ui:VisualElement name="VisualElement" style="flex-grow: 1; flex-direction: row; justify-content: center;">
                         <ui:VisualElement name="upgrade-increment-container" class="upgradeIncrementContainer">
@@ -32,13 +32,10 @@
                         <ui:Button text="Buy RP" parse-escape-sequences="true" display-tooltip-when-elided="true" name="upgrade-button" class="shopButton" style="margin-right: 0; background-image: url(&quot;project://database/Assets/Sprites/UI/TrimmedPlainButton.png?fileID=2800000&amp;guid=85a91730dc15b6f47b0a0f5923d2e07e&amp;type=3#TrimmedPlainButton&quot;); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; background-color: rgba(214, 162, 104, 0); padding-top: 12px; padding-right: 12px; padding-bottom: 12px; padding-left: 12px;" />
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="VisualElement" class="temp-required-buys-container" style="display: none;">
-                    <ui:Label tabindex="-1" text="1 of 5 cards bought" parse-escape-sequences="true" display-tooltip-when-elided="true" name="num-required-cards" />
+                <ui:VisualElement name="drafting-help-container" class="temp-required-buys-container">
+                    <ui:Label tabindex="-1" text="1 of 4 rats bought" parse-escape-sequences="true" display-tooltip-when-elided="true" name="drafting-help-label" style="white-space: normal; font-size: 32px; padding-top: 5%; padding-right: 5%; padding-bottom: 5%; padding-left: 5%;" />
                 </ui:VisualElement>
-                <ui:VisualElement name="VisualElement" class="temp-required-buys-container">
-                    <ui:Label tabindex="-1" text="1 of 4 rats bought" parse-escape-sequences="true" display-tooltip-when-elided="true" name="num-required-rats" style="white-space: normal; font-size: 32px; padding-top: 5%; padding-right: 5%; padding-bottom: 5%; padding-left: 5%;" />
-                </ui:VisualElement>
-                <ui:VisualElement class="shopButtonContainer" style="width: 80%; flex-direction: row-reverse; display: none;">
+                <ui:VisualElement name="reroll-button-container" class="shopButtonContainer" style="width: 80%; flex-direction: row-reverse; display: none;">
                     <ui:Label tabindex="-1" text="$1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="reroll-price-label" style="background-image: url(&quot;project://database/Assets/Sprites/ShopSprites/DialogueBox.png?fileID=2800000&amp;guid=e1a81dd917fe696459cd192b12e9b3fc&amp;type=3#DialogueBox&quot;); align-self: center; margin-left: 0; width: 20%; height: 33%; align-items: center; justify-content: flex-start; -unity-text-align: middle-center; -unity-font-style: bold; font-size: 18px; translate: -18% 0;" />
                     <ui:Button text="Reroll" parse-escape-sequences="true" display-tooltip-when-elided="true" name="reroll-button" class="shopButton" style="margin-right: 0; background-color: rgba(214, 162, 104, 0); background-image: url(&quot;project://database/Assets/Sprites/UI/TrimmedPlainButton.png?fileID=2800000&amp;guid=85a91730dc15b6f47b0a0f5923d2e07e&amp;type=3#TrimmedPlainButton&quot;); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; padding-top: 15px; padding-right: 15px; padding-bottom: 15px; padding-left: 15px;" />
                     <ui:VisualElement name="reroll-button-free-rerolls" style="flex-grow: 1; position: absolute; width: 12%; height: 35%; right: 22%; top: 0; visibility: hidden;">
@@ -46,7 +43,7 @@
                         <ui:Label tabindex="-1" text="0" parse-escape-sequences="true" display-tooltip-when-elided="true" name="reroll-button-free-rerolls-label" style="position: absolute; width: 100%; height: 100%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-text-align: middle-center; font-size: 21px;" />
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="VisualElement" class="shopButtonContainer" style="width: 80%; flex-direction: row-reverse; display: none;">
+                <ui:VisualElement name="card-removal-container" class="shopButtonContainer" style="width: 80%; flex-direction: row-reverse; display: none;">
                     <ui:Label tabindex="-1" text="$8" parse-escape-sequences="true" display-tooltip-when-elided="true" name="card-remove-price-label" style="background-image: url(&quot;project://database/Assets/Sprites/ShopSprites/DialogueBox.png?fileID=2800000&amp;guid=e1a81dd917fe696459cd192b12e9b3fc&amp;type=3#DialogueBox&quot;); align-self: center; margin-left: 0; width: 20%; height: 33%; align-items: center; justify-content: flex-start; -unity-text-align: middle-center; -unity-font-style: bold; font-size: 18px; translate: -18% 0;" />
                     <ui:Button text="Remove Card" parse-escape-sequences="true" display-tooltip-when-elided="true" name="card-remove-button" class="shopButton" style="margin-right: 0; background-color: rgba(214, 162, 104, 0); background-image: url(&quot;project://database/Assets/Sprites/UI/TrimmedPlainButton.png?fileID=2800000&amp;guid=85a91730dc15b6f47b0a0f5923d2e07e&amp;type=3#TrimmedPlainButton&quot;); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; -unity-text-align: middle-center; padding-top: 17px; padding-right: 17px; padding-bottom: 17px; padding-left: 17px;" />
                     <ui:VisualElement name="card-remove-button-free-removals" style="flex-grow: 1; position: absolute; width: 12%; height: 35%; right: 22%; top: 0; visibility: hidden;">

@@ -51,8 +51,7 @@ public class ShopViewController : MonoBehaviour,
     public Label rerollPriceLabel;
     public Label cardRemovalPriceLabel;
 
-    public Label numRatsRequiredLabel;
-    public Label numCardsRequiredLabel;
+    public Label draftingHelpLabel;
 
     public SellingCompanionConfirmationView sellingCompanionConfirmationView;
     private VisualElement deckView;
@@ -110,6 +109,8 @@ public class ShopViewController : MonoBehaviour,
     private IEnumerator waitAndHideMessageCoroutine;
     private TooltipController tooltipController;
 
+    private VisualElement draftingHelpContainer;
+
     public void Start()
     {
         // Init(null);
@@ -141,12 +142,7 @@ public class ShopViewController : MonoBehaviour,
         rerollPriceLabel = uiDoc.rootVisualElement.Q<Label>("reroll-price-label");
         cardRemovalPriceLabel = uiDoc.rootVisualElement.Q<Label>("card-remove-price-label");
 
-        numRatsRequiredLabel = uiDoc.rootVisualElement.Q<Label>("num-required-rats");
-        numCardsRequiredLabel = uiDoc.rootVisualElement.Q<Label>("num-required-cards");
-
-        // SetNumCardsRequiredText(0, shopManager.getShopEncounter().shopData.numCardsBuyPerShop);
-        // SetNumRatsRequiredText(0, shopManager.getShopEncounter().shopData.numRatsBuyPerShop);
-
+        draftingHelpLabel = uiDoc.rootVisualElement.Q<Label>("drafting-help-label");
 
         sellingCompanionConfirmationView = new SellingCompanionConfirmationView(uiDoc.rootVisualElement.Q("selling-companion-confirmation"), this);
 
@@ -157,6 +153,14 @@ public class ShopViewController : MonoBehaviour,
         SetupActiveSlots();
         SetBlockedActiveSlotsIfNecessary(shopManager.gameState.companions.currentCompanionSlots);
         SetupBenchSlots();
+
+        selectingCancelButton.RegisterOnSelected(CancelCardBuy);
+        FocusManager.Instance.RegisterFocusableTarget(selectingCancelButton.AsFocusable());
+        FocusManager.Instance.DisableFocusableTarget(selectingCancelButton.AsFocusable());
+
+        // Hide the drafting help; will show it when the shop manager decides.
+        draftingHelpContainer = uiDoc.rootVisualElement.Q("drafting-help-container");
+        draftingHelpContainer.visible = false;
 
         rerollButton = uiDoc.rootVisualElement.Q<Button>("reroll-button");
         rerollButton.RegisterOnSelected(RerollButtonOnClick);
@@ -171,10 +175,6 @@ public class ShopViewController : MonoBehaviour,
             rerollPriceLabel.text = "$0";
         }
 
-        selectingCancelButton.RegisterOnSelected(CancelCardBuy);
-        FocusManager.Instance.RegisterFocusableTarget(selectingCancelButton.AsFocusable());
-        FocusManager.Instance.DisableFocusableTarget(selectingCancelButton.AsFocusable());
-
         upgradeButton = uiDoc.rootVisualElement.Q<Button>("upgrade-button");
         upgradeButton.RegisterOnSelected(UpgradeButtonOnClick);
         upgradeButton.RegisterCallback<PointerEnterEvent>(UpgradeButtonOnPointerEnter);
@@ -186,15 +186,11 @@ public class ShopViewController : MonoBehaviour,
         FocusManager.Instance.RegisterFocusableTarget(upgradeButtonFocusable);
         disableOnCompanionDrag.Add(upgradeButtonFocusable);
 
-        startNextCombatButton = uiDoc.rootVisualElement.Q<Button>("start-next-combat-button");
-        startNextCombatButton.RegisterOnSelected(StartNextCombatOnClick);
-        FocusManager.Instance.RegisterFocusableTarget(startNextCombatButton.AsFocusable());
-        disableOnCompanionDrag.Add(startNextCombatButton.AsFocusable());
-
-        Button closeCompanionDeckViewButton = deckView.Q<Button>();
-        closeCompanionDeckViewButton.RegisterOnSelected((evt) => CloseCompanionDeckView());
-        FocusManager.Instance.RegisterFocusableTarget(closeCompanionDeckViewButton.AsFocusable());
-        FocusManager.Instance.DisableFocusableTarget(closeCompanionDeckViewButton.AsFocusable());
+        selectingIndicatorForCardRemovalIndicator = uiDoc.rootVisualElement.Q<VisualElement>("companion-selection-for-card-removal-indicator");
+        cancelCardRemovalButton = uiDoc.rootVisualElement.Q<Button>("companion-selection-for-card-removal-cancel-button");
+        cancelCardRemovalButton.RegisterOnSelected(CancelCardRemoval);
+        FocusManager.Instance.RegisterFocusableTarget(cancelCardRemovalButton.AsFocusable());
+        FocusManager.Instance.DisableFocusableTarget(cancelCardRemovalButton.AsFocusable());
 
         cardRemovalButton = uiDoc.rootVisualElement.Q<Button>("card-remove-button");
         cardRemovalButton.RegisterOnSelected(CardRemovalButtonOnClick);
@@ -208,12 +204,15 @@ public class ShopViewController : MonoBehaviour,
             freeRemovalsLabel.text = shopManager.gameState.playerData.GetValue().storedCardRemovals.ToString();
             cardRemovalPriceLabel.text = "$0";
         }
+        startNextCombatButton = uiDoc.rootVisualElement.Q<Button>("start-next-combat-button");
+        startNextCombatButton.RegisterOnSelected(StartNextCombatOnClick);
+        FocusManager.Instance.RegisterFocusableTarget(startNextCombatButton.AsFocusable());
+        disableOnCompanionDrag.Add(startNextCombatButton.AsFocusable());
 
-        selectingIndicatorForCardRemovalIndicator = uiDoc.rootVisualElement.Q<VisualElement>("companion-selection-for-card-removal-indicator");
-        cancelCardRemovalButton = uiDoc.rootVisualElement.Q<Button>("companion-selection-for-card-removal-cancel-button");
-        cancelCardRemovalButton.RegisterOnSelected(CancelCardRemoval);
-        FocusManager.Instance.RegisterFocusableTarget(cancelCardRemovalButton.AsFocusable());
-        FocusManager.Instance.DisableFocusableTarget(cancelCardRemovalButton.AsFocusable());
+        Button closeCompanionDeckViewButton = deckView.Q<Button>();
+        closeCompanionDeckViewButton.RegisterOnSelected((evt) => CloseCompanionDeckView());
+        FocusManager.Instance.RegisterFocusableTarget(closeCompanionDeckViewButton.AsFocusable());
+        FocusManager.Instance.DisableFocusableTarget(closeCompanionDeckViewButton.AsFocusable());
 
         // setup upgradeMenu
         Button cancelUpgradeButton = uiDoc.rootVisualElement.Q<Button>(name: "cancelUpgrade");
@@ -242,6 +241,31 @@ public class ShopViewController : MonoBehaviour,
             FocusManager.Instance.RegisterFocusableTarget(focusable);
             FocusManager.Instance.DisableFocusableTarget(focusable);
         });
+    }
+
+    public void EnableDraftingHelp()
+    {
+        uiDoc.rootVisualElement.Q("drafting-help-container").visible = true;
+    }
+
+    public void DisableButtonsForDemo() {
+
+        VisualElement upgradeButtonContainer = uiDoc.rootVisualElement.Q("upgrade-button-container");
+        VisualElement rerollContainer = uiDoc.rootVisualElement.Q("reroll-button-container");
+        VisualElement cardRemovalContainer = uiDoc.rootVisualElement.Q("card-removal-container");
+
+        rerollButton.SetEnabled(false);
+        FocusManager.Instance.DisableFocusableTarget(rerollButton.AsFocusable());
+
+        upgradeButton.SetEnabled(false);
+        FocusManager.Instance.DisableFocusableTarget(upgradeButton.AsFocusable());
+
+        cardRemovalButton.SetEnabled(false);
+        FocusManager.Instance.DisableFocusableTarget(cardRemovalButton.AsFocusable());
+
+        upgradeButtonContainer.visible = false;
+        rerollContainer.visible = false;
+        cardRemovalContainer.visible = false;
     }
 
     private void PreviewUpgradedDeck() {
@@ -335,19 +359,9 @@ public class ShopViewController : MonoBehaviour,
         upgradeIncrementContainer.Children().ToList()[upgradeIncrementIndex].AddToClassList("upgradeIncrementEarned");
     }
 
-    public void SetNumRatsRequiredText(int numRatsBought, int numRatsRequired)
+    public void SetDraftingHelpText(string text)
     {
-        numRatsRequiredLabel.text = $"{numRatsBought}/{numRatsRequired} Rats Bought";
-    }
-
-    public void SetNumRatsRequiredText(string text)
-    {
-        numRatsRequiredLabel.text = text;
-    }
-
-    public void SetNumCardsRequiredText(int numCardsBought, int numCardsRequired)
-    {
-        numCardsRequiredLabel.text = $"{numCardsBought}/{numCardsRequired} Cards Bought";
+        draftingHelpLabel.text = text;
     }
 
     public void ClearShopGoods()
@@ -897,7 +911,7 @@ public class ShopViewController : MonoBehaviour,
                     companionItemToViewMap[companion].shopItemElement.ClearUserData<ShopItemVFX>();
                     Destroy(oldVFX.vfxGO);
                 }
-                // Replace existing upgrade vfx with "is on team VFX" 
+                // Replace existing upgrade vfx with "is on team VFX"
                 else if (!isUpgrade && oldVFX.isUpgrade) {
                     companionItemToViewMap[companion].shopItemElement.ClearUserData<ShopItemVFX>();
                     Destroy(oldVFX.vfxGO);
