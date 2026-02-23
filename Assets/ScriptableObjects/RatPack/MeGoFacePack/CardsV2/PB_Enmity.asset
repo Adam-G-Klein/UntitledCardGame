@@ -31,9 +31,16 @@ MonoBehaviour:
   - tokenType: 1
     text: 
     icon: 0
+  - tokenType: 2
+    text: Gain +1 damage
+    icon: 17
   - tokenType: 0
-    text: End of turn, gain +1 damage
+    text: Gain +1 damage
     icon: 0
+  IconDescriptionTooltipLines:
+  - Deal X damage to target foe
+  - If this card is still in hand at the end of the turn, gain +1 damage for the
+    rest of combat
   defaultValues:
   - key: rpl_damage
     value: 5

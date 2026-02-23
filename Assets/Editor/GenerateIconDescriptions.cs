@@ -45,7 +45,7 @@ DescriptionIconType enum:
 17 = InHandEndOfTurn
 
 Rules:
-- Convert the Description into an IconDescription YAML list
+- Convert the Description into an IconDescription YAML list and a Tooltip YAML list.
 - Use tokenType 0 for text, 1 for newline, 2 for icon
 - Insert a newline when there is an '&' or a new sentence
 - Only output YAML
@@ -57,6 +57,17 @@ Rules:
 - For examples like 'Give any rat 3 block', output the number as text token '3' and then the block icon. Omit the 'any rat' part, that's implicit.
 - If there is no icon for the effect, just use text tokens.
 - For text such as 'When exhausted' or 'When discarded', output the WhenDiscarded or WhenExhausted icon, then a text colon ':' token afterwards.
+- The tooltip should be a description of each line in the icon description.
+- Use the Tooltip explanations below as a guide for how to phrase the tooltip descriptions, but feel free to deviate as needed to accurately describe the effect.
+
+Tooltip explanations:
+- Exhaust: remove the card for the rest of combat
+- Discard: remove the card from hand and add it to the owner's discard pile
+- WhenExhausted: this effect happens when the card is exhausted
+- WhenDiscarded: this effect happens when the card is discarded
+- InHandEndOfTurn: this effect happens at the end of the player's turn while the card is in their hand
+- Strength: all attack cards deal more damage equal to the strength value
+- TemporaryStrength: same as Strength but the strength is removed at the end of the turn
 
 Examples:
 Description: Draw 1 card from 3 random rats
@@ -73,6 +84,8 @@ icon: 3
 - tokenType: 2
 text:
 icon: 4
+Tooltip:
+- Draw 1 card from 3 randomly selected rats.
 
 Description: Deal {rpl_damage} damage & bleed self and adjacent 1 HP
 IconDescription:
@@ -94,6 +107,9 @@ icon: 9
 - tokenType: 2
 text:
 icon: 12
+Tooltip:
+- Deal X damage to target foe
+- Bleed 1 HP ignoring any block from self and adjacent rats.
 
 Description: 'Discard 2 cards in hand & deal {rpl_damage} damage '
 IconDescription:
@@ -112,48 +128,9 @@ icon: 0
 - tokenType: 2
 text:
 icon: 1
-
-Description: 'Unplayable. End of turn, give leftmost rat 2 block. When exhausted, give leftmost rat 6 block'
-IconDescription:
-- tokenType: 0
-  text: 'Unplayable.'
-  icon: 0
-- tokenType: 1
-  text: ''
-  icon: 0
-- tokenType: 2
-  text: ''
-  icon: 17
-- tokenType: 0
-  text: ':'
-  icon: 0
-- tokenType: 0
-  text: '2'
-  icon: 0
-- tokenType: 2
-  text: ''
-  icon: 2
-- tokenType: 2
-  text: ''
-  icon: 6
-- tokenType: 1
-  text: ''
-  icon: 0
-- tokenType: 2
-  text: ''
-  icon: 16
-- tokenType: 0
-  text: ':'
-  icon: 0
-- tokenType: 0
-  text: '6'
-  icon: 0
-- tokenType: 2
-  text: ''
-  icon: 2
-- tokenType: 2
-  text: ''
-  icon: 6
+Tooltip:
+- Choose 2 cards in hand to discard, removing them from hand and adding them to their owner's discard pile.
+- Then, deal X damage to target foe.
 ";
 
     private Vector2 scrollPositionOriginal;
@@ -414,6 +391,38 @@ IconDescription:
         Repaint();
     }
 
+    private List<string> ParseTooltipFromLLMOutput(string llmOutput)
+    {
+        var tooltipLines = new List<string>();
+        bool inTooltip = false;
+
+        var lines = llmOutput.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+        foreach (var rawLine in lines)
+        {
+            var line = rawLine.Trim();
+            if (line.StartsWith("Tooltip:", StringComparison.OrdinalIgnoreCase))
+            {
+                inTooltip = true;
+                continue;
+            }
+
+            if (inTooltip && line.StartsWith("- tokenType:"))
+            {
+                break;
+            }
+
+            if (inTooltip)
+            {
+                // Remove the "- " prefix if present
+                if (line.StartsWith("- "))
+                    line = line[2..].Trim();
+                tooltipLines.Add(line);
+            }
+        }
+
+        return tooltipLines;
+    }
+
     private List<DescriptionToken> ParseLLMOutput(string llmOutput)
     {
         var result = new List<DescriptionToken>();
@@ -522,6 +531,7 @@ IconDescription:
                 Debug.Log($"Applying changes to {path}:\n{llmOutput}");
 
                 cardType.IconDescription = ParseLLMOutput(llmOutput); // Placeholder assignment
+                cardType.IconDescriptionTooltipLines = ParseTooltipFromLLMOutput(llmOutput); // Placeholder assignment
 
                 // Example: cardType.IconDescription = parsedIconDescription;
                 EditorUtility.SetDirty(cardType);

@@ -15,6 +15,21 @@ MonoBehaviour:
   guid: b8cf7a5b-9409-479b-9f2f-c8669d46bdb8
   Name: Ritual
   Description: Bleed any 2 HP & draw 1 card x2
+  IconDescription:
+  - tokenType: 0
+    text: 2
+    icon: 9
+  - tokenType: 2
+    text: 
+    icon: 9
+  - tokenType: 2
+    text: 
+    icon: 3
+  - tokenType: 0
+    text: x2
+    icon: 9
+  IconDescriptionTooltipLines:
+  - Choose a rat to bleed 2 HP and draw a card. Repeat 2 times total.
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: e0ab2143b8408423ab692d481858408a, type: 3}

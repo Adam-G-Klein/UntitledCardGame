@@ -15,6 +15,7 @@ public class TooltipLine
     public string description;
     public int relatedBehaviorIndex;
     public Texture2D icon;
+    public List<DescriptionToken> iconDescriptionLine;
     public VisualElement GetVisualElement()
     {
         VisualElement ve = new VisualElement();
@@ -24,17 +25,40 @@ public class TooltipLine
         titleContainer.AddToClassList("tooltip-title-container");
         ve.Add(titleContainer);
 
-        Label title = new Label(this.title);
-        title.AddToClassList("tooltip-title");
-        titleContainer.Add(title);
-
-        if (icon != null)
+        if (iconDescriptionLine != null && iconDescriptionLine.Count > 0)
         {
-            VisualElement imgContainer = new VisualElement();
-            imgContainer.AddToClassList("tooltip-image");
-            imgContainer.style.backgroundImage = new StyleBackground(this.icon);
-            titleContainer.Add(imgContainer);
+            foreach (var token in iconDescriptionLine)
+            {
+                if (token.tokenType == DescriptionToken.TokenType.Text)
+                {
+                    Label title = new Label(token.text);
+                    title.AddToClassList("tooltip-icon-description-text");
+                    titleContainer.Add(title);
+                }
+                else if (token.tokenType == DescriptionToken.TokenType.Icon)
+                {
+                    VisualElement imgContainer = new VisualElement();
+                    imgContainer.AddToClassList("tooltip-icon-description-image");
+                    imgContainer.style.backgroundImage = new StyleBackground(GameplayConstantsSingleton.Instance.gameplayConstants.descriptionIconSprites[token.icon]);
+                    titleContainer.Add(imgContainer);
+                }
+            }
         }
+        else
+        {
+            Label title = new Label(this.title);
+            title.AddToClassList("tooltip-title");
+            titleContainer.Add(title);
+
+            if (icon != null)
+            {
+                VisualElement imgContainer = new VisualElement();
+                imgContainer.AddToClassList("tooltip-image");
+                imgContainer.style.backgroundImage = new StyleBackground(this.icon);
+                titleContainer.Add(imgContainer);
+            }
+        }
+
 
         Label text = new Label(this.description);
         text.AddToClassList("tooltip-text");
@@ -110,6 +134,13 @@ public class TooltipViewModel
         lines.Add(new TooltipLine(title, description, relateBehaviorIndex, image));
     }
 
+    public TooltipViewModel(string description, List<DescriptionToken> iconDescriptionLine)
+    {
+        this.empty = false;
+        this.lines = new List<TooltipLine>();
+        lines.Add(new TooltipLine("", description, -1, null) { iconDescriptionLine = iconDescriptionLine });
+    }
+
     public TooltipViewModel(string plainText)
     {
         this.empty = false;
@@ -149,10 +180,13 @@ public class TooltipViewModel
             var existingTitles = new System.Collections.Generic.HashSet<string>(newLines.Select(l => l.title));
             foreach (var line in b.lines)
             {
-                if (!existingTitles.Contains(line.title))
+                if (!existingTitles.Contains(line.title) || string.IsNullOrEmpty(line.title))
                 {
                     newLines.Add(line);
-                    existingTitles.Add(line.title);
+                    if (!string.IsNullOrEmpty(line.title))
+                    {
+                        existingTitles.Add(line.title);
+                    }
                 }
             }
         }

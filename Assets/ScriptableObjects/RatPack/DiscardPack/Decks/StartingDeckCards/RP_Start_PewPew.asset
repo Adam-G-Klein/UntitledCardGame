@@ -31,6 +31,10 @@ MonoBehaviour:
   - tokenType: 2
     text: 
     icon: 4
+  IconDescriptionTooltipLines:
+  - Choose a card in hand to discard, which removes it from hand and puts it in the
+    owner rat's discard pile
+  - Then, deal X damage to a foe selected at random.
   defaultValues:
   - key: rpl_damage
     value: 6

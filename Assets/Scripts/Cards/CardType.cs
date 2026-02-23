@@ -58,6 +58,7 @@ public class CardType: IdentifiableSO, ITooltipProvider
     public string Description;
     // Experimental field for a description with hieroglyphic shorthand.
     public List<DescriptionToken> IconDescription = new();
+    public List<string> IconDescriptionTooltipLines = new();
 
     public List<CardValue> defaultValues = new();
     public int Cost;
@@ -292,15 +293,45 @@ public class CardType: IdentifiableSO, ITooltipProvider
             // Loop through the description tokens with icons.
             List<DescriptionToken> tokens = GetIconDescriptionTokens();
 
-            // With LinQ, extract a list of the unique icon tokens in the description.
-            List<DescriptionToken.DescriptionIconType> uniqueIconTokens = tokens.Where(t => t.tokenType == DescriptionToken.TokenType.Icon).Select(t => t.icon).Distinct().ToList();
-            foreach (DescriptionToken.DescriptionIconType tokenType in uniqueIconTokens)
+            // // With LinQ, extract a list of the unique icon tokens in the description.
+            // List<DescriptionToken.DescriptionIconType> uniqueIconTokens = tokens.Where(t => t.tokenType == DescriptionToken.TokenType.Icon).Select(t => t.icon).Distinct().ToList();
+            // foreach (DescriptionToken.DescriptionIconType tokenType in uniqueIconTokens)
+            // {
+            //     if (KeywordTooltipProvider.Instance.HasTooltip(tokenType))
+            //     {
+            //         tooltip += KeywordTooltipProvider.Instance.GetTooltip(tokenType);
+            //     }
+            // }
+
+            // Split across newlines
+            List<List<DescriptionToken>> descriptionLines = new List<List<DescriptionToken>> { new List<DescriptionToken>() };
+            foreach (DescriptionToken token in tokens)
             {
-                if (KeywordTooltipProvider.Instance.HasTooltip(tokenType))
+                if (token.tokenType == DescriptionToken.TokenType.NewLine)
                 {
-                    tooltip += KeywordTooltipProvider.Instance.GetTooltip(tokenType);
+                    descriptionLines.Add(new List<DescriptionToken>());
+                }
+                else
+                {
+                    descriptionLines.Last().Add(token);
                 }
             }
+            // Remove lines without at least one icon token.
+            descriptionLines = descriptionLines.Where(line => line.Any(token => token.tokenType == DescriptionToken.TokenType.Icon)).ToList();
+            for (int i = 0; i < descriptionLines.Count; i++)
+            {
+                List<DescriptionToken> line = descriptionLines[i];
+                if (i < IconDescriptionTooltipLines.Count)
+                {
+                    tooltip += new TooltipViewModel(IconDescriptionTooltipLines[i], line);
+                }
+                // Do not add the tooltips if they haven't been filled out yet.
+                // else
+                // {
+                //     tooltip += new TooltipViewModel("TODO", line);
+                // }
+            }
+
             return tooltip;
         }
 

@@ -31,6 +31,10 @@ MonoBehaviour:
   - tokenType: 2
     text: 
     icon: 1
+  IconDescriptionTooltipLines:
+  - Choose 2 cards in hand to discard, removing them from hand and adding them to
+    their owner's discard pile.
+  - Then, deal X damage to target foe.
   defaultValues:
   - key: rpl_damage
     value: 10

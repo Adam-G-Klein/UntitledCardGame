@@ -31,6 +31,10 @@ MonoBehaviour:
   - tokenType: 2
     text: 
     icon: 4
+  IconDescriptionTooltipLines:
+  - Give rat of your choice X block, which prevents damage until the start of the
+    next turn
+  - Exhaust a random card in hand, removing it for the rest of combat
   defaultValues: []
   Cost: 2
   Artwork: {fileID: 21300000, guid: b0388336af3869341bb50af8ec281a8a, type: 3}
