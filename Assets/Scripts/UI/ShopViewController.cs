@@ -108,6 +108,11 @@ public class ShopViewController : MonoBehaviour,
     private static string UPGRADE_MENU = "UpgradeMenu";
     private IEnumerator waitAndHideMessageCoroutine;
     private TooltipController tooltipController;
+    [SerializeField]
+    private VisualTreeAsset tutorialShopUIDoc;
+
+    [SerializeField]
+    private VisualTreeAsset normalShopUIDoc;
 
     private VisualElement draftingHelpContainer;
 
@@ -117,9 +122,17 @@ public class ShopViewController : MonoBehaviour,
         ControlsManager.Instance.RegisterControlsReceiver(this);
     }
 
-    public void Init(ShopManager shopManager) {
+    public void Init(ShopManager shopManager, ShopMode shopMode) {
         if (uiDoc == null) {
             uiDoc = GetComponent<UIDocument>();
+        }
+
+        if(shopMode == ShopMode.StaticChooseNDemo)
+        {
+            uiDoc.visualTreeAsset = tutorialShopUIDoc;
+        } else
+        {
+            uiDoc.visualTreeAsset = normalShopUIDoc;
         }
 
         this.shopManager = shopManager;
@@ -158,9 +171,13 @@ public class ShopViewController : MonoBehaviour,
         FocusManager.Instance.RegisterFocusableTarget(selectingCancelButton.AsFocusable());
         FocusManager.Instance.DisableFocusableTarget(selectingCancelButton.AsFocusable());
 
+        if(shopMode == ShopMode.StaticChooseNDemo)
+        {
         // Hide the drafting help; will show it when the shop manager decides.
         draftingHelpContainer = uiDoc.rootVisualElement.Q("drafting-help-container");
         draftingHelpContainer.visible = false;
+
+        }
 
         rerollButton = uiDoc.rootVisualElement.Q<Button>("reroll-button");
         rerollButton.RegisterOnSelected(RerollButtonOnClick);

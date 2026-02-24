@@ -11,7 +11,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e34d394278f1a1d49b4df179ce5c1804, type: 3}
   m_Name: SD26TutorialShop_SteamDemoShopData
-  m_EditorClassIdentifier:
+  m_EditorClassIdentifier: 
   shopLevels:
   - level: 0
     shopLevelIncrementsToUnlock: 6
@@ -35,6 +35,7 @@ MonoBehaviour:
         description: Increase shop rarity, bonus max HP, better starting decks
         relatedBehaviorIndex: 0
         icon: {fileID: 0}
+        iconDescriptionLine: []
   - level: 1
     shopLevelIncrementsToUnlock: 3
     upgradeIncrementCost: 4
@@ -57,6 +58,7 @@ MonoBehaviour:
         description: Increase shop rarity, bonus max HP, more and cheaper card removals
         relatedBehaviorIndex: 0
         icon: {fileID: 0}
+        iconDescriptionLine: []
   - level: 2
     shopLevelIncrementsToUnlock: 1000
     upgradeIncrementCost: 5
@@ -109,7 +111,7 @@ MonoBehaviour:
   neutralCardPoolPct: 10
   crossPackCardPoolPct: 0
   alwaysShowUnlockedCards: 0
-  shopMode: 1
+  shopMode: 0
   numCardsBuyPerShop: 6
   numCardsBuyPerDisplay: 2
   numRatsBuyPerShop: 6
