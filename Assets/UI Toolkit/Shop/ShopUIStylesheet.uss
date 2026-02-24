@@ -53,7 +53,7 @@
 }
 
 .shopButton:hover {
-    -unity-background-image-tint-color: rgb(207, 207, 207);
+    -unity-background-image-tint-color: rgb(255, 241, 192);
 }
 
 .shopButton:focus {
@@ -68,10 +68,10 @@
     border-right-width: 4px;
     border-bottom-width: 4px;
     border-left-width: 4px;
-    border-left-color: rgb(0, 0, 0);
-    border-right-color: rgb(0, 0, 0);
-    border-top-color: rgb(0, 0, 0);
-    border-bottom-color: rgb(0, 0, 0);
+    border-left-color: rgb(181, 104, 0);
+    border-right-color: rgb(181, 104, 0);
+    border-top-color: rgb(181, 104, 0);
+    border-bottom-color: rgb(181, 104, 0);
     width: 20%;
     height: 100%;
     flex-shrink: 0;

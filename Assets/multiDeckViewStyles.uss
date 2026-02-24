@@ -105,11 +105,12 @@
     margin-bottom: 0;
     margin-left: 0;
     transform-origin: bottom;
+    -unity-background-image-tint-color: rgba(174, 174, 174, 0.64);
 }
 
 .multi-deck-view-tab-button-selected {
     scale: 1.1 1.1;
-    -unity-background-image-tint-color: rgba(174, 174, 174, 0.64);
+    -unity-background-image-tint-color: rgb(255, 255, 255);
 }
 
 .icon-button-icon {
