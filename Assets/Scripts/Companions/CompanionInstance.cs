@@ -21,6 +21,7 @@ public class CompanionInstance : MonoBehaviour, IUIEntity
     // of all of the ui elements in the ui doc and placed the companionInstances in their
     // proper location on the screen
     public CompanionView companionView;
+    public GameObject highlightedVfx;
 
     private List<TurnPhaseTrigger> statusEffectTriggers = new List<TurnPhaseTrigger>();
 

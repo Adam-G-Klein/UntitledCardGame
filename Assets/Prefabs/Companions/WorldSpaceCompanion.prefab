@@ -36,7 +36,8 @@ Transform:
   m_LocalPosition: {x: -0.7253561, y: 0.193294, z: 0.2666891}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 613603799493993731}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5285687428135354732
@@ -72,6 +73,7 @@ MonoBehaviour:
   deckInstance: {fileID: 8670881613562720748}
   statusEffectsDisplay: {fileID: 8494857512198128503}
   tooltipProvider: {fileID: -4785001928966702165}
+  highlightedVfx: {fileID: 4563441446422324415}
   references:
     version: 2
     RefIds: []
@@ -236,3 +238,74 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statusEffectsSO: {fileID: 11400000, guid: b5e8681fc02be284eb308731b490c4c5, type: 2}
+--- !u!1001 &4859129716611651067
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5285687428135354735}
+    m_Modifications:
+    - target: {fileID: 5471009176790888696, guid: 3c2b2c8ed4388464b91d1a70f9680cb5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5471009176790888696, guid: 3c2b2c8ed4388464b91d1a70f9680cb5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5471009176790888696, guid: 3c2b2c8ed4388464b91d1a70f9680cb5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5471009176790888696, guid: 3c2b2c8ed4388464b91d1a70f9680cb5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5471009176790888696, guid: 3c2b2c8ed4388464b91d1a70f9680cb5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5471009176790888696, guid: 3c2b2c8ed4388464b91d1a70f9680cb5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5471009176790888696, guid: 3c2b2c8ed4388464b91d1a70f9680cb5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5471009176790888696, guid: 3c2b2c8ed4388464b91d1a70f9680cb5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5471009176790888696, guid: 3c2b2c8ed4388464b91d1a70f9680cb5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5471009176790888696, guid: 3c2b2c8ed4388464b91d1a70f9680cb5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8951890979739316548, guid: 3c2b2c8ed4388464b91d1a70f9680cb5, type: 3}
+      propertyPath: m_Name
+      value: Combat Screen Highlight
+      objectReference: {fileID: 0}
+    - target: {fileID: 8951890979739316548, guid: 3c2b2c8ed4388464b91d1a70f9680cb5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3c2b2c8ed4388464b91d1a70f9680cb5, type: 3}
+--- !u!4 &613603799493993731 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5471009176790888696, guid: 3c2b2c8ed4388464b91d1a70f9680cb5, type: 3}
+  m_PrefabInstance: {fileID: 4859129716611651067}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4563441446422324415 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8951890979739316548, guid: 3c2b2c8ed4388464b91d1a70f9680cb5, type: 3}
+  m_PrefabInstance: {fileID: 4859129716611651067}
+  m_PrefabAsset: {fileID: 0}
