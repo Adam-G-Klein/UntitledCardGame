@@ -217,7 +217,7 @@ public class GameStateVariableSO : ScriptableObject
             if (!debug) SaveManager.Instance.SaveHandler();
         }
 
-        updateMusic(currentLocation);
+        updateMusic(currentLocation, currentLocation == Location.COMBAT ? activeEncounter.GetValue().act : Act.One);
         LoadCurrentLocationScene();
     }
 
@@ -232,7 +232,7 @@ public class GameStateVariableSO : ScriptableObject
         activeEncounter.SetValue(currentEncounter);
         // Add last encounter safeguard
         nextEncounter.SetValue(map.GetValue().encounters[currentEncounterIndex+1]);
-        updateMusic(currentLocation);
+        updateMusic(currentLocation, currentLocation == Location.COMBAT ? activeEncounter.GetValue().act : Act.One);
         LoadCurrentLocationScene();
     }
 
@@ -347,10 +347,10 @@ public class GameStateVariableSO : ScriptableObject
 
     }
 
-    private void updateMusic(Location newLocation) {
+    private void updateMusic(Location newLocation, Act act) {
         // Just not changing the music on the map right now
         if(newLocation != Location.MAP && MusicController.Instance != null) {
-            MusicController.Instance.PlayMusicLocation(newLocation);
+            MusicController.Instance.PlayMusicLocation(newLocation, act);
         }
     }
 

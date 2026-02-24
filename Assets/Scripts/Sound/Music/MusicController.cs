@@ -64,7 +64,7 @@ public class MusicController : GenericSingleton<MusicController>
         }
     }
     
-    public void PlayMusicLocation(Location location)
+    public void PlayMusicLocation(Location location, Act act = Act.One)
     {
         if (locationTracks == null) {
             Debug.LogWarning("No location tracks set in MusicController2");
@@ -86,6 +86,10 @@ public class MusicController : GenericSingleton<MusicController>
                 currentReference = locationTrack.eventReference;
                 // Debug.Log(locationTrack.eventReference);
                 // Debug.Log(locationTrack.location);
+                // This is always set to Act.One when loading a non-combat encounter
+                if (act != Act.One) {
+                    Debug.Log("Making music update for act " + act.ToString());
+                }
             }
         }
     }
