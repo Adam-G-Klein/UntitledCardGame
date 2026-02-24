@@ -26,7 +26,7 @@ MonoBehaviour:
   enemyPattern:
     behaviors:
     - intent: 2
-      enemyTargetMethod: 6
+      enemyTargetMethod: 7
       targetsKey: 0
       displayValue: 5
       effectSteps:
@@ -67,14 +67,17 @@ MonoBehaviour:
       description: Taking my sweet time, don't mess with me
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
+      iconDescriptionLine: []
     - title: Patience
       description: Taking my sweet time, don't mess with me
       relatedBehaviorIndex: 1
       icon: {fileID: 0}
+      iconDescriptionLine: []
     - title: Scary Grandma Power
       description: Fierce big attack
       relatedBehaviorIndex: 2
       icon: {fileID: 0}
+      iconDescriptionLine: []
   DEADLIER_ENEMY_BONUS_STR: 5
   HEALTHIER_ENEMY_BONUS_HEALTH: 5
   references:
