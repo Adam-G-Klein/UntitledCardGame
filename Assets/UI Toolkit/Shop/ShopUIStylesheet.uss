@@ -120,6 +120,12 @@
 
 .companion-view-deck-button {
     font-size: 24px;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("project://database/Assets/Sprites/UI/CombatScreen_HoverButton.png?fileID=2800000&guid=5a7e6950ede86cb47811b1d9e1947916&type=3#CombatScreen_HoverButton");
+}
+
+.companion-view-deck-button:hover {
+    -unity-background-image-tint-color: rgb(255, 233, 173);
 }
 
 .companion-sell-button {
@@ -128,12 +134,12 @@
     top: -38%;
     right: 0;
     font-size: 24px;
-    -unity-background-image-tint-color: rgb(255, 173, 173);
-    background-image: url("project://database/Assets/Sprites/UI/TrimmedPlainButton.png?fileID=2800000&guid=85a91730dc15b6f47b0a0f5923d2e07e&type=3#TrimmedPlainButton");
+    background-image: url("project://database/Assets/Sprites/UI/CombatScreen_HoverButton.png?fileID=2800000&guid=5a7e6950ede86cb47811b1d9e1947916&type=3#CombatScreen_HoverButton");
+    background-color: rgba(0, 0, 0, 0);
 }
 
 .companion-sell-button:hover {
-    -unity-background-image-tint-color: rgb(205, 140, 140);
+    -unity-background-image-tint-color: rgb(255, 230, 230);
 }
 
 .companion-sell-button:active {

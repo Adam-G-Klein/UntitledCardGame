@@ -175,7 +175,7 @@ public class MultiDeckViewManager : GenericSingleton<MultiDeckViewManager>, IMul
         {
             DeckTab companionForPurchaseDeckViewTabs = new DeckTab
             {
-                title = "For Purchase",
+                title = "For Sale",
                 sections = new List<DeckTabSection>()
             };
 

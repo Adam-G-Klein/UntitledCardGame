@@ -309,6 +309,8 @@ public class MultiDeckView
         VisualElement ve = evt.target as VisualElement;
         int tabIndex = ve.GetUserData<TabButton>().index;
 
+        if (currentTabIndex == tabIndex) return;
+
         bool sendRight = true;
         if (currentTabIndex < tabIndex) sendRight = false;
 
@@ -426,10 +428,12 @@ public class MultiDeckView
             companionView.UpdateWidthAndHeight(.15f);
             deckSectionView.header.Add(companionView.container);
             deckSectionView.companionView = companionView;
-            if (i == deckTabView.sectionViews.Count - 1) {
+            if (i >= deckTabView.sectionViews.Count - 1) {
                 // The divider is on the right of each container. The last one shouldn't have
                 // the divider because it'd just overlap with the overall frame
                 deckSectionView.divider.style.visibility = Visibility.Hidden;
+            } else {
+                deckSectionView.divider.style.visibility = Visibility.Visible;
             }
 
             // Note, this is only valid for during combat. In the shop, we will have no valid combat instance.

@@ -184,6 +184,8 @@ public class CompanionView : IUIEventReceiver
         this.containerThatHoverIndicatorShows = this.viewDeckContainer;
 
         this.pickingModePositionList.Add(this.viewDeckButton);
+
+        this.viewDeckButton.style.fontSize = context.viewDrawDiscardDeckFontSize;
     }
 
     private void SetupDrawDiscardContainer() {
@@ -207,6 +209,9 @@ public class CompanionView : IUIEventReceiver
 
         this.pickingModePositionList.Add(this.drawPileButton);
         this.pickingModePositionList.Add(this.discardPileButton);
+
+        this.drawPileButton.style.fontSize = context.viewDrawDiscardDeckFontSize;
+        this.discardPileButton.style.fontSize = context.viewDrawDiscardDeckFontSize;
     }
 
     private void HiddenContainerPointerEnter(PointerEnterEvent evt) {
@@ -542,6 +547,7 @@ public class CompanionView : IUIEventReceiver
         public bool setupViewDeckButton;
         public bool enableSelectedIndicator;
         public int nameFontSize;
+        public int viewDrawDiscardDeckFontSize;
         public float screenWidthPercent;
 
         public CompanionViewContext(
@@ -549,25 +555,27 @@ public class CompanionView : IUIEventReceiver
                 bool setupViewDeckButton,
                 bool enableSelectedIndicator,
                 int nameFontSize,
+                int viewDrawDiscardDeckFontSize,
                 float screenWidthPercent) {
             this.setupDrawDiscardButtons = setupDrawDiscardButtons;
             this.setupViewDeckButton = setupViewDeckButton;
             this.enableSelectedIndicator = enableSelectedIndicator;
             this.nameFontSize = nameFontSize;
+            this.viewDrawDiscardDeckFontSize = viewDrawDiscardDeckFontSize;
             this.screenWidthPercent = screenWidthPercent;
         }
     }
 
     public static CompanionViewContext COMBAT_CONTEXT = new CompanionViewContext(
-        true, false, true, 24, 0.15f);
+        true, false, true, 24, 20, 0.15f);
     public static CompanionViewContext SHOP_CONTEXT = new CompanionViewContext(
-        false, true, false, 18, 0.15f * .75f);
+        false, true, false, 18, 16, 0.15f * .75f);
     public static CompanionViewContext STARTING_TEAM_CONTEXT = new CompanionViewContext(
-        false, true, false, 28, 0.15f * .75f);
+        false, true, false, 28, 20, 0.15f * .75f);
     public static CompanionViewContext COMPENDIUM_CONTEXT = new CompanionViewContext(
-        false, false, false, 26, 0.2f);
+        false, false, false, 26, 20, 0.2f);
     public static CompanionViewContext CARD_SELECTION_CONTEXT = new CompanionViewContext(
-        false, false, true, 26, 0.2f);
+        false, false, true, 26, 20, 0.2f);
     public static CompanionViewContext COMPANION_UPGRADE_CONTEXT = new CompanionViewContext(
-        false, false, false, 21, 0.15f);
+        false, false, false, 21, 20, 0.15f);
 }

@@ -226,7 +226,7 @@ public class CompanionManagementView : IControlsReceiver {
             viewDeckButton.RemoveFromHierarchy();
         }
         viewDeckButton = new IconButton();
-        viewDeckButton.AddToClassList("shopButton");
+        // viewDeckButton.AddToClassList("shopButton");
         viewDeckButton.AddToClassList("companion-view-deck-button");
         viewDeckButton.AddToClassList("icon-button-absolute");
         viewDeckButton.SetIconHeight(1f);
@@ -250,7 +250,7 @@ public class CompanionManagementView : IControlsReceiver {
             sellCompanionButton.RemoveFromHierarchy();
         }
         sellCompanionButton = new IconButton();
-        sellCompanionButton.AddToClassList("shopButton");
+        // sellCompanionButton.AddToClassList("shopButton");
         sellCompanionButton.AddToClassList("companion-sell-button");
         sellCompanionButton.AddToClassList("icon-button-absolute");
         sellCompanionButton.SetIconHeight(1f);

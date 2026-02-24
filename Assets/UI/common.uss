@@ -800,7 +800,11 @@
 }
 
 .next-button:focus {
-    -unity-background-image-tint-color: rgb(145, 145, 145);
+    -unity-background-image-tint-color: rgb(255, 190, 190);
+}
+
+.next-button:hover {
+    -unity-background-image-tint-color: rgb(255, 190, 190);
 }
 
 .companion-info-container:focus {
