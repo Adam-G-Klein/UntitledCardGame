@@ -62,7 +62,8 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     }
     void Awake() {
         gameObject.GetComponent<UIDocument>().enabled = true;
-        shopViewController.Init(this);
+        // holy god oh no it's gross, but read from gamestate here too so we know what ui doc view to use
+        shopViewController.Init(this, ((ShopEncounter)gameState.activeEncounter.GetValue()).shopData.shopMode);
         // This ends up calling BuildShopEncounter below
         gameState.activeEncounter.GetValue().BuildWithEncounterBuilder(this);
     }
