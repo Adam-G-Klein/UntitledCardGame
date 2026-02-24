@@ -236,6 +236,7 @@ public class MultiDeckView
 
     public void LeftButtonClicked(ClickEvent evt)
     {
+        tooltipController.DestroyAllTooltips();
         DeckTabView deckTabView = deckTabViews[currentTabIndex];
         DeckSectionView deckSectionView = deckTabView.focusedSectionView;
         int indexOfSection = deckTabView.sectionViews.IndexOf(deckSectionView);
@@ -250,6 +251,7 @@ public class MultiDeckView
 
     public void RightButtonClicked(ClickEvent evt)
     {
+        tooltipController.DestroyAllTooltips();
         DeckTabView deckTabView = deckTabViews[currentTabIndex];
         DeckSectionView deckSectionView = deckTabView.focusedSectionView;
 
@@ -266,6 +268,7 @@ public class MultiDeckView
 
     public void TabLeftButtonClicked(ClickEvent evt)
     {
+        tooltipController.DestroyAllTooltips();
         if (inTransition || currentTabIndex == 0) return; // remove this line to enable wrap around
 
         DeckTabView currDeckTabView = deckTabViews[currentTabIndex];
@@ -282,6 +285,7 @@ public class MultiDeckView
 
     public void TabRightButtonClicked(ClickEvent evt)
     {
+        tooltipController.DestroyAllTooltips();
         if (inTransition || currentTabIndex == deckTabViews.Count - 1) return; // remove this line to enable wrap around
 
         DeckTabView currDeckTabView = deckTabViews[currentTabIndex];
@@ -306,6 +310,7 @@ public class MultiDeckView
     }
 
     public void TabButtonClicked(ClickEvent evt) {
+        tooltipController.DestroyAllTooltips();
         VisualElement ve = evt.target as VisualElement;
         int tabIndex = ve.GetUserData<TabButton>().index;
 

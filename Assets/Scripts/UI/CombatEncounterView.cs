@@ -313,7 +313,7 @@ public class CombatEncounterView : MonoBehaviour,
 
         VisualElementFocusable entityViewFocusable = newEntityView.container.GetUserData<VisualElementFocusable>();
         entityViewFocusable.SetTargetType(Targetable.TargetType.Enemy);
-        FocusManager.Instance.RegisterFocusableTarget(entityViewFocusable);
+        if (enemy.enemyType.enemyDisplayType == DisplayType.UIDOC) FocusManager.Instance.RegisterFocusableTarget(entityViewFocusable);
 
         return newEntityView;
     }

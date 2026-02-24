@@ -43,7 +43,6 @@ public class MeothraController : MonoBehaviour, IBossController
         enemyInstance.preEnactIntentHook += Attack;
         enemyInstance.combatInstance.onDamageHandler += OnDamageHandler;
         enemyInstance.combatInstance.onDeathHandler += OnDeath;
-        FocusManager.Instance.RegisterFocusableTarget(focusable);
         FocusManager.Instance.DisableFocusableTarget(focusable);
     }
 
