@@ -113,6 +113,11 @@ public class EnemyView : IUIEventReceiver
         this.intentImage = enemyRoot.Q<VisualElement>("enemy-view-intent-image");
         this.intentLabel = enemyRoot.Q<Label>("enemy-view-intent-label");
 
+        if (this.combatInstance != null)
+        {
+            enemyRoot.Q<VisualElement>("enemy-view-background-gradient").visible = false;
+        }
+
         // Moving past the random VisualElement parent CloneTree() creates
         this.container = enemyRoot.Children().First();
         this.container.name = container.name + this.index;

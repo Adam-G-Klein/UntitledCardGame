@@ -100,6 +100,10 @@ public class CompanionView : IUIEventReceiver
         this.selectedIndicator = companionRoot.Q<VisualElement>("companion-view-selected-indicator");
         this.rarityIndicator = companionRoot.Q<VisualElement>("companion-view-rarity-icon");
 
+        if (combatInstance != null) {
+            companionRoot.Q<VisualElement>("companion-view-background-gradient").style.display = DisplayStyle.None;
+        }
+
         // Moving past the random VisualElement parent CloneTree() creates
         this.container = companionRoot.Children().First();
         this.container.name = container.name + this.index;
