@@ -10,6 +10,9 @@ public class SimpleEnemyPoolMapGeneratorSO: MapGeneratorSO {
 
     public List<EnemyEncounterPoolSO> enemyEncounterPools;
     public ShopDataSO shopData;
+    public bool useDifferentShopDatas = false;
+    [Header("Only used if above boolean is checked")]
+    public List<ShopDataSO> shopDatas;
 
     public override Map generateMap() {
         List<Encounter> encounters = new List<Encounter>();
@@ -46,7 +49,15 @@ public class SimpleEnemyPoolMapGeneratorSO: MapGeneratorSO {
             }
             encounters.Add(EE);
             if (i != enemyEncounterPools.Count - 1) {
-                ShopEncounter SE = new ShopEncounter(shopData);
+                ShopDataSO currentShopData;
+                if(useDifferentShopDatas)
+                {
+                    currentShopData = shopDatas[i];
+                } else
+                {
+                    currentShopData = shopData;
+                }
+                ShopEncounter SE = new ShopEncounter(currentShopData);
                 SE.act = GetAct(actNumber);
                 encounters.Add(SE);
             }

@@ -173,9 +173,9 @@ public class ShopViewController : MonoBehaviour,
 
         if(shopMode == ShopMode.StaticChooseNDemo)
         {
-        // Hide the drafting help; will show it when the shop manager decides.
-        draftingHelpContainer = uiDoc.rootVisualElement.Q("drafting-help-container");
-        draftingHelpContainer.visible = false;
+            // Hide the drafting help; will show it when the shop manager decides.
+            draftingHelpContainer = uiDoc.rootVisualElement.Q("drafting-help-container");
+            draftingHelpContainer.visible = false;
 
         }
 
