@@ -14,10 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shopLevels:
   - level: 0
-    shopLevelIncrementsToUnlock: 7
+    shopLevelIncrementsToUnlock: 2
     upgradeIncrementCost: 2
-    mana: 3
-    teamSize: 3
     numCardsToShow: 3
     numKeepsakesToShow: 2
     commonCompanionPercentage: 100
@@ -28,6 +26,7 @@ MonoBehaviour:
     rareCardPercentage: 0
     ratBonusHealth: 0
     cardRemovalDiscount: 0
+    numCardRemovalsAllowed: 1
     numLessCardsInStartingDeck: 0
     upgradeTooltip:
       empty: 0
@@ -36,11 +35,10 @@ MonoBehaviour:
         description: +1 team size, increase shop rarity
         relatedBehaviorIndex: 0
         icon: {fileID: 0}
+        iconDescriptionLine: []
   - level: 1
-    shopLevelIncrementsToUnlock: 10
+    shopLevelIncrementsToUnlock: 3
     upgradeIncrementCost: 3
-    mana: 3
-    teamSize: 4
     numCardsToShow: 4
     numKeepsakesToShow: 2
     commonCompanionPercentage: 65
@@ -51,6 +49,7 @@ MonoBehaviour:
     rareCardPercentage: 1
     ratBonusHealth: 0
     cardRemovalDiscount: 0
+    numCardRemovalsAllowed: 1
     numLessCardsInStartingDeck: 0
     upgradeTooltip:
       empty: 0
@@ -59,11 +58,10 @@ MonoBehaviour:
         description: +1 team size, increase shop rarity
         relatedBehaviorIndex: 0
         icon: {fileID: 0}
+        iconDescriptionLine: []
   - level: 2
-    shopLevelIncrementsToUnlock: 10
+    shopLevelIncrementsToUnlock: 4
     upgradeIncrementCost: 4
-    mana: 3
-    teamSize: 5
     numCardsToShow: 4
     numKeepsakesToShow: 2
     commonCompanionPercentage: 40
@@ -74,6 +72,7 @@ MonoBehaviour:
     rareCardPercentage: 10
     ratBonusHealth: 0
     cardRemovalDiscount: 0
+    numCardRemovalsAllowed: 1
     numLessCardsInStartingDeck: 0
     upgradeTooltip:
       empty: 0
@@ -82,11 +81,10 @@ MonoBehaviour:
         description: +1 mana, increase shop rarity
         relatedBehaviorIndex: 0
         icon: {fileID: 0}
+        iconDescriptionLine: []
   - level: 3
-    shopLevelIncrementsToUnlock: 1000
+    shopLevelIncrementsToUnlock: 0
     upgradeIncrementCost: 5
-    mana: 4
-    teamSize: 5
     numCardsToShow: 4
     numKeepsakesToShow: 3
     commonCompanionPercentage: 30
@@ -97,6 +95,7 @@ MonoBehaviour:
     rareCardPercentage: 20
     ratBonusHealth: 0
     cardRemovalDiscount: 0
+    numCardRemovalsAllowed: 1
     numLessCardsInStartingDeck: 0
     upgradeTooltip:
       empty: 0
@@ -119,7 +118,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 24e688fb9bddd43af988a311dd8879b2, type: 2}
   - {fileID: 11400000, guid: 968e08e64774045e88eb7ebba74c9113, type: 2}
   rerollShopPrice: 2
+  incrementalRerollPriceIncrease: 1
   cardRemovalPrice: 6
+  cardRemovalPriceIncrease: 4
   shopEncounterEvent: {fileID: 11400000, guid: d82ee33fc33d20544bce205c53a0832e, type: 2}
   commonCardPrice: 1
   uncommonCardPrice: 2
@@ -131,6 +132,12 @@ MonoBehaviour:
   packCardPoolPct: 35
   neutralCardPoolPct: 10
   crossPackCardPoolPct: 10
+  alwaysShowUnlockedCards: 0
+  shopMode: 0
+  numCardsBuyPerShop: 5
+  numCardsBuyPerDisplay: 1
+  numRatsBuyPerShop: 6
+  numRatsBuyPerDisplay: 2
   goldEarnedPerBattle: 10
   interestRate: 0.5
   interestCap: 10
@@ -143,3 +150,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 921440763c921be489a650611fa6cdaf, type: 2}
   benchHealingAmount: 10
   postEliteHealingAmount: 5
+  staticShopEncounters: {fileID: 11400000, guid: 7a57828b0bbc47199eb31241252d695c, type: 2}

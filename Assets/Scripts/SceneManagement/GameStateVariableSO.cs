@@ -378,4 +378,9 @@ public class GameStateVariableSO : ScriptableObject
         SetLocation(Location.MAIN_MENU);
         LoadNextLocation();
     }
+
+    public bool BuildTypeDemoOrConvention()
+    {
+        return buildType == BuildType.DEMO || buildType == BuildType.CONVENTION;
+    }
 }

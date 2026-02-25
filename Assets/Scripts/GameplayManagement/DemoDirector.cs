@@ -19,6 +19,12 @@ public class DemoDirector : GenericSingleton<DemoDirector>
     public List<string> shopPivotSuggestionDialogue;
     [TextArea]
     public List<string> cardOfferingTipsDialogue;
+    [TextArea]
+    public List<string> secondShopTutorialStep1Dialogue;
+    [TextArea]
+    public List<string> secondShopTutorialStep2Dialogue;
+    [TextArea]
+    public List<string> secondShopTutorialStep3Dialogue;
 
     public void Reset() {
         demoDataSO.stepCompletion = new Dictionary<DemoStepName, bool>();
@@ -29,6 +35,12 @@ public class DemoDirector : GenericSingleton<DemoDirector>
 
     public bool IsStepCompleted(DemoStepName stepName) {
         // Shouldn't hit this case but worth checking
+
+            // DEBUG, REMEMBER TO REMOVE
+        if(stepName == DemoStepName.StartOfShop || stepName == DemoStepName.ShopPivotSuggestion)
+        {
+            return true;
+        }
         if(demoDataSO.stepCompletion == null) // necessary when running in editor
         {
             Reset();
@@ -64,6 +76,18 @@ public class DemoDirector : GenericSingleton<DemoDirector>
 
             case DemoStepName.CardOfferingTips:
                 yield return CardOfferingTipsStep();
+            break;
+
+            case DemoStepName.SecondShopTutorialStep1:
+                yield return SecondShopTutorialStep1();
+            break;
+
+            case DemoStepName.SecondShopTutorialStep2:
+                yield return SecondShopTutorialStep2();
+            break;
+
+            case DemoStepName.SecondShopTutorialStep3:
+                yield return SecondShopTutorialStep3();
             break;
         }
         yield return null;
@@ -116,6 +140,30 @@ public class DemoDirector : GenericSingleton<DemoDirector>
         DialogueView.Instance.Hide();
         demoDataSO.stepCompletion[DemoStepName.CardOfferingTips] = true;
     }
+
+    public IEnumerator SecondShopTutorialStep1() {
+        foreach (string line in secondShopTutorialStep1Dialogue) {
+            yield return DialogueView.Instance.SpeakLineCoroutine(speakerSprite, line, true);
+        }
+        DialogueView.Instance.Hide();
+        demoDataSO.stepCompletion[DemoStepName.SecondShopTutorialStep1] = true;
+    }
+
+    public IEnumerator SecondShopTutorialStep2() {
+        foreach (string line in secondShopTutorialStep2Dialogue) {
+            yield return DialogueView.Instance.SpeakLineCoroutine(speakerSprite, line, true);
+        }
+        DialogueView.Instance.Hide();
+        demoDataSO.stepCompletion[DemoStepName.SecondShopTutorialStep2] = true;
+    }
+
+    public IEnumerator SecondShopTutorialStep3() {
+        foreach (string line in secondShopTutorialStep3Dialogue) {
+            yield return DialogueView.Instance.SpeakLineCoroutine(speakerSprite, line, true);
+        }
+        DialogueView.Instance.Hide();
+        demoDataSO.stepCompletion[DemoStepName.SecondShopTutorialStep2] = true;
+    }
 }
 
 public enum DemoStepName {
@@ -124,5 +172,8 @@ public enum DemoStepName {
     StartOfShop,
     BuyCompanionReminder,
     ShopPivotSuggestion,
-    CardOfferingTips
+    CardOfferingTips,
+    SecondShopTutorialStep1,
+    SecondShopTutorialStep2,
+    SecondShopTutorialStep3
 }

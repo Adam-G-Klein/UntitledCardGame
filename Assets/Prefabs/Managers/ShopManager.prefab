@@ -947,6 +947,7 @@ GameObject:
   - component: {fileID: 8043239241588595786}
   - component: {fileID: 1280703752314967124}
   - component: {fileID: 5649425133306110964}
+  - component: {fileID: 1495959041875994929}
   m_Layer: 0
   m_Name: ShopManager
   m_TagString: Untagged
@@ -999,6 +1000,7 @@ MonoBehaviour:
   healPrefab: {fileID: 0}
   sparklePrefab: {fileID: 0}
   bigSparklePrefab: {fileID: 0}
+  shopTutorialDisplay: {fileID: 0}
   tooltipPrefab: {fileID: 6007338781981315851, guid: fb50e2e263898e24cbb2b01b146179b6, type: 3}
 --- !u!114 &730168205578750882
 MonoBehaviour:
@@ -1196,6 +1198,19 @@ MonoBehaviour:
   m_ParentUI: {fileID: 0}
   sourceAsset: {fileID: 9197481963319205126, guid: eb992eec49264d0bb49fdecebef35d56, type: 3}
   m_SortingOrder: 0
+--- !u!114 &1495959041875994929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3701935023595913666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a18d5b53945e074ca39ae5dc7634eaa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fullyUpgradeShopTime: 3
 --- !u!1 &4037506046362703525
 GameObject:
   m_ObjectHideFlags: 0

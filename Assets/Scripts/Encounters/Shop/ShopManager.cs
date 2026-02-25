@@ -42,6 +42,9 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     private CompanionCombinationManager companionCombinationManager;
     [SerializeField]
     public UIDocumentGameObjectPlacer placer { get; set; }
+    [SerializeField]
+    private ShopTutorialDisplay shopTutorialDisplay;
+    private bool cinematicIntroComplete = false;
     private CompanionInShopWithPrice companionInShop;
     private Companion newCompanion;
     public GameObject tooltipPrefab;
@@ -83,30 +86,33 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         allCompanions.AddRange(gameState.companions.activeCompanions);
         allCompanions.AddRange(gameState.companions.benchedCompanions);
 
-        StaticShopEncountersSO staticShopEncounters = shopEncounter.shopData.staticShopEncounters;
         StaticCardTypeGroup staticCards = null;
         StaticCompanionTypeGroup staticRats = null;
-        // Set up the Choose N rats / cards demo :)
-        if (shopEncounter.shopData.shopMode == ShopMode.StaticChooseNDemo) {
+        if(gameState.BuildTypeDemoOrConvention())
+        {
+            // Steal James's excellent game design decisions for the demo regardless of shop type :)
+            StaticShopEncountersSO staticShopEncounters = shopEncounter.shopData.staticShopEncounters;
             if (staticShopEncounters != null)
             {
                 int shopIndex = gameState.currentEncounterIndex / 2;
                 if (shopIndex < staticShopEncounters.shopEncounters.Count) {
                     currentStaticShopPoolEncounter = staticShopEncounters.shopPoolEncounters[shopIndex];
                 }
-
-                staticCards = new StaticCardTypeGroup
-                {
-                    cardTypes = new List<CardType>()
-                };
-                staticRats = getCurrentStaticRatGroup();
             }
-            currentDemoShopPhase = ShopPhase.RAT_BUYING_PHASE;
-            SetDraftingHelpText(shopEncounter.shopData.numRatsBuyPerDisplay, shopEncounter.shopData.numRatsBuyPerShop);
+            staticRats = getCurrentStaticRatGroup();
+            staticCards = getCurrentStaticCardGroup();
+            
+            if (shopEncounter.shopData.shopMode == ShopMode.StaticChooseNDemo) {
+                
+                // Set up the Choose N rats / cards demo :)
+                currentDemoShopPhase = ShopPhase.RAT_BUYING_PHASE;
+                SetDraftingHelpText(shopEncounter.shopData.numRatsBuyPerDisplay, shopEncounter.shopData.numRatsBuyPerShop);
 
-            shopViewController.EnableDraftingHelp();
-            shopViewController.DisableButtonsForDemo();
+                shopViewController.EnableDraftingHelp();
+                shopViewController.DisableButtonsForDemo();
+            }
         }
+
 
         shopEncounter.Build(this, allCompanions, encounterConstants, this.shopLevel, staticCards, staticRats);
         shopViewController.SetMoney(gameState.playerData.GetValue().gold);
@@ -122,9 +128,63 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             gameState.dialogueLocations.GetDialogueLocation(gameState));
         DialogueManager.Instance.StartAnyDialogueSequence();
         */
-        if (gameState.buildType == BuildType.DEMO && (!DemoDirector.Instance.IsStepCompleted(DemoStepName.StartOfShop) || !DemoDirector.Instance.IsStepCompleted(DemoStepName.ShopPivotSuggestion))) {
-            shopViewController.DisableAllUI();
-        }
+
+        cinematicIntroComplete = true;
+        if (gameState.BuildTypeDemoOrConvention())
+        {
+            if(!DemoDirector.Instance.IsStepCompleted(DemoStepName.StartOfShop) 
+            || !DemoDirector.Instance.IsStepCompleted(DemoStepName.ShopPivotSuggestion))
+            {
+                StartCoroutine(RunStartOfShopStep());
+                
+            } else if (!DemoDirector.Instance.IsStepCompleted(DemoStepName.SecondShopTutorialStep1))
+            {
+
+                shopViewController.DisableAllUIPreserveAppearance();
+                shopTutorialDisplay = GetComponent<ShopTutorialDisplay>();
+                // this setup method is what plays the dialogue and then the timeline 
+                shopTutorialDisplay?.Setup(shopEncounter.shopData);
+                cinematicIntroComplete = false;
+                StartCoroutine(CinematicStartOfShopCoroutine());
+            }
+        } 
+    }
+
+    public void CinematicIntroComplete()
+    {
+        cinematicIntroComplete = true;
+    }
+
+    private IEnumerator CinematicStartOfShopCoroutine()
+    {
+        Debug.Log("ShopManager: waiting for cinematic intro to complete");
+        shopViewController.DisableAllUIPreserveAppearance();
+
+        yield return new WaitUntil(() => cinematicIntroComplete == true);
+        shopViewController.EnableAllUI();
+        Debug.Log("ShopManager: cinematic intro complete");
+    }
+
+
+ // Used in the SD26 GDC tutorial cinematic
+    public void UpgradeShopForFree()
+    {
+        shopViewController.GetUpgradeShopButton().SimulateSubmit();
+    }
+
+    // Used in the SD26 GDC tutorial cinematic
+    public void AddFreeReroll()
+    {
+        InstantiateShopVFX(shopRerollPrefab, shopViewController.GetRerollShopButton(), 1.5f);
+        gameState.playerData.GetValue().storedRerolls += 1;
+        shopViewController.ShowFreeRerolls();
+    }
+
+    public void AddFreeCardRemoval()
+    {
+        InstantiateShopVFX(moneyGainedPrefab, shopViewController.GetRemoveCardButton(), 1.5f);
+        gameState.playerData.GetValue().storedCardRemovals += 1;
+        shopViewController.ShowFreeCardRemovals();
     }
 
     private StaticCardTypeGroup getCurrentStaticCardGroup() {
@@ -238,9 +298,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             healedCompanions = true;
         }
 
-        if (gameState.buildType == BuildType.DEMO && (!DemoDirector.Instance.IsStepCompleted(DemoStepName.StartOfShop) || !DemoDirector.Instance.IsStepCompleted(DemoStepName.ShopPivotSuggestion))) {
-            StartCoroutine(RunStartOfShopStep());
-        }
+        // Demo shop UI enabling is handled by PreEncounterCoroutine waiting on ShopTutorialDisplay
     }
 
     private void HealCompanionsOnBench()
@@ -713,7 +771,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
         StaticCardTypeGroup staticCards = null;
         StaticCompanionTypeGroup staticRats = null;
-        if (shopEncounter.shopData.shopMode == ShopMode.StaticChooseNDemo)
+        if(gameState.BuildTypeDemoOrConvention())
         {
             staticCards = new StaticCardTypeGroup
             {
@@ -724,15 +782,24 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
                 companionTypes = new List<CompanionTypeSO>()
             };
 
-            if (currentDemoShopPhase == ShopPhase.RAT_BUYING_PHASE)
+            if (shopEncounter.shopData.shopMode == ShopMode.StaticChooseNDemo)
+            {
+                if (currentDemoShopPhase == ShopPhase.RAT_BUYING_PHASE)
+                {
+                    staticRats = getCurrentStaticRatGroup();
+                }
+                else if (currentDemoShopPhase == ShopPhase.CARD_BUYING_PHASE)
+                {
+                    staticCards = getCurrentStaticCardGroup();
+                }
+            } else
             {
                 staticRats = getCurrentStaticRatGroup();
-            }
-            else if (currentDemoShopPhase == ShopPhase.CARD_BUYING_PHASE)
-            {
                 staticCards = getCurrentStaticCardGroup();
+
             }
         }
+
 
         shopEncounter.Reroll(allCompanions, this.shopLevel, staticCards, staticRats);
     }

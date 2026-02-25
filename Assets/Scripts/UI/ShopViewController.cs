@@ -186,10 +186,9 @@ public class ShopViewController : MonoBehaviour,
 
         freeRerollsContainer = uiDoc.rootVisualElement.Q<VisualElement>("reroll-button-free-rerolls");
         freeRerollsLabel = freeRerollsContainer.Q<Label>("reroll-button-free-rerolls-label");
-        if (shopManager.gameState.playerData.GetValue().storedRerolls != 0) {
-            freeRerollsContainer.style.visibility = Visibility.Visible;
-            freeRerollsLabel.text = shopManager.gameState.playerData.GetValue().storedRerolls.ToString();
-            rerollPriceLabel.text = "$0";
+        if (shopManager.gameState.playerData.GetValue().storedRerolls != 0)
+        {
+            ShowFreeRerolls();
         }
 
         upgradeButton = uiDoc.rootVisualElement.Q<Button>("upgrade-button");
@@ -216,10 +215,9 @@ public class ShopViewController : MonoBehaviour,
 
         freeRemovalsContainer = uiDoc.rootVisualElement.Q<VisualElement>("card-remove-button-free-removals");
         freeRemovalsLabel = freeRemovalsContainer.Q<Label>("card-remove-button-free-removals-label");
-        if (shopManager.gameState.playerData.GetValue().storedCardRemovals != 0) {
-            freeRemovalsContainer.style.visibility = Visibility.Visible;
-            freeRemovalsLabel.text = shopManager.gameState.playerData.GetValue().storedCardRemovals.ToString();
-            cardRemovalPriceLabel.text = "$0";
+        if (shopManager.gameState.playerData.GetValue().storedCardRemovals != 0)
+        {
+            ShowFreeCardRemovals();
         }
         startNextCombatButton = uiDoc.rootVisualElement.Q<Button>("start-next-combat-button");
         startNextCombatButton.RegisterOnSelected(StartNextCombatOnClick);
@@ -263,6 +261,21 @@ public class ShopViewController : MonoBehaviour,
     public void EnableDraftingHelp()
     {
         uiDoc.rootVisualElement.Q("drafting-help-container").visible = true;
+    }
+
+    public void ShowFreeRerolls()
+    {
+        freeRerollsContainer.style.visibility = Visibility.Visible;
+        freeRerollsLabel.text = shopManager.gameState.playerData.GetValue().storedRerolls.ToString();
+        rerollPriceLabel.text = "$0";
+    }
+
+    public void ShowFreeCardRemovals()
+    {
+
+        freeRemovalsContainer.style.visibility = Visibility.Visible;
+        freeRemovalsLabel.text = shopManager.gameState.playerData.GetValue().storedCardRemovals.ToString();
+        cardRemovalPriceLabel.text = "$0";
     }
 
     public void DisableButtonsForDemo() {
@@ -373,6 +386,11 @@ public class ShopViewController : MonoBehaviour,
     }
 
     public void ActivateUpgradeIncrement(int upgradeIncrementIndex) {
+        if(upgradeIncrementIndex >= upgradeIncrementContainer.Children().ToList().Count - 1)
+        {
+            Debug.LogWarning("Tried to upgrade past full upgrade. This probably happened because Adam was too lazy to fix his off by one errors before GDC 2026");
+            return;
+        }
         upgradeIncrementContainer.Children().ToList()[upgradeIncrementIndex].AddToClassList("upgradeIncrementEarned");
     }
 
@@ -1703,6 +1721,11 @@ public class ShopViewController : MonoBehaviour,
         return rerollButton;
     }
 
+    public VisualElement GetRemoveCardButton()
+    {
+        return cardRemovalButton;
+    }
+
     public void ShowCompanionUpgradeMenu(List<Companion> companions, Companion upgradeCompanion)
     {
         currentUpgradeCompanion = upgradeCompanion;
@@ -1922,11 +1945,47 @@ public class ShopViewController : MonoBehaviour,
         FocusManager.Instance.StashFocusables(this.GetType().Name);
     }
 
+    // Disables interaction without applying the disabled visual style — elements remain non-interactable
+    // but look enabled. Use EnableAllUI() to restore.
+    public void DisableAllUIPreserveAppearance() {
+        rerollButton.pickingMode = PickingMode.Ignore;
+        upgradeButton.pickingMode = PickingMode.Ignore;
+        cardRemovalButton.pickingMode = PickingMode.Ignore;
+        startNextCombatButton.pickingMode = PickingMode.Ignore;
+
+        foreach (ShopItemView entry in cardItemToViewMap.Values) {
+            entry.DisableInteractions();
+        }
+
+        foreach (ShopItemView entry in companionItemToViewMap.Values) {
+            entry.DisableInteractions();
+        }
+
+        foreach (CompanionManagementSlotView slot in activeSlots) {
+            slot.DisableInteractions();
+        }
+
+        foreach (CompanionManagementSlotView slot in benchSlots) {
+            slot.DisableInteractions();
+        }
+
+        FocusManager.Instance.StashFocusables(this.GetType().Name);
+    }
+
     public void EnableAllUI() {
         rerollButton.SetEnabled(true);
-        upgradeButton.SetEnabled(true);
+        rerollButton.pickingMode = PickingMode.Position;
+        // IF THE UPGRADE BUTTON IS NOT ENABLING AND IT SHOULD BE THE BUG IS HERE
+        // blame adam coding on a plane at 11pm
+        if(shopManager.gameState.playerData.GetValue().shopLevel < shopManager.gameState.baseShopData.shopLevels.Count - 1)
+        {
+            upgradeButton.SetEnabled(true);
+            upgradeButton.pickingMode = PickingMode.Position;
+        }
         cardRemovalButton.SetEnabled(true);
+        cardRemovalButton.pickingMode = PickingMode.Position;
         startNextCombatButton.SetEnabled(true);
+        startNextCombatButton.pickingMode = PickingMode.Position;
 
         foreach (ShopItemView entry in cardItemToViewMap.Values) {
             entry.EnableInteractions();
