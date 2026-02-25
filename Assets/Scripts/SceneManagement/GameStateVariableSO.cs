@@ -187,7 +187,7 @@ public class GameStateVariableSO : ScriptableObject
                 Debug.Log("Leaving post combat, current location is: " + currentLocation);
                 // Modified for Shortened Demo pre GDC 2026
                 // if (skipTutorials || hasSeenShopTutorial) {
-                if (skipTutorials || hasSeenShopTutorial || buildType == BuildType.DEMO) {
+                if (skipTutorials || hasSeenShopTutorial || BuildTypeDemoOrConvention()) {
                     currentLocation = Location.SHOP;
                     AdvanceEncounter();
                 } else {

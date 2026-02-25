@@ -82,6 +82,12 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     public void BuildShopEncounter(ShopEncounter shopEncounter) {
         this.shopEncounter = shopEncounter;
         this.shopLevel = shopEncounter.shopData.GetShopLevel(gameState.playerData.GetValue().shopLevel);
+        if(shopEncounter.shopData != gameState.baseShopData)
+        {
+            // We've been using these two semi-interchangeably, causes some bugs if we don't reconcile them
+            // consider yourself bandaided :)
+            gameState.baseShopData = shopEncounter.shopData; 
+        }
         List<Companion> allCompanions = new();
         allCompanions.AddRange(gameState.companions.activeCompanions);
         allCompanions.AddRange(gameState.companions.benchedCompanions);
@@ -139,10 +145,9 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         cinematicIntroComplete = true;
         if (gameState.BuildTypeDemoOrConvention())
         {
-            if(!DemoDirector.Instance.IsStepCompleted(DemoStepName.StartOfShop))
+            if(!DemoDirector.Instance.IsStepCompleted(DemoStepName.StartOfShop) || shopEncounter.shopData.shopMode == ShopMode.StaticChooseNDemo)
             {
                 StartCoroutine(RunStartOfShopStep());
-                
             } else if (!DemoDirector.Instance.IsStepCompleted(DemoStepName.SecondShopTutorialStep1))
             {
 
