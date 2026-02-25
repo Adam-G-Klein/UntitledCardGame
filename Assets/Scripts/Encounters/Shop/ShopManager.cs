@@ -139,8 +139,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         cinematicIntroComplete = true;
         if (gameState.BuildTypeDemoOrConvention())
         {
-            if(!DemoDirector.Instance.IsStepCompleted(DemoStepName.StartOfShop) 
-            || !DemoDirector.Instance.IsStepCompleted(DemoStepName.ShopPivotSuggestion))
+            if(!DemoDirector.Instance.IsStepCompleted(DemoStepName.StartOfShop))
             {
                 StartCoroutine(RunStartOfShopStep());
                 
@@ -213,10 +212,10 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
                 cardTypes = new List<CardType>()
             };
         }
-        if (currentCardGroupIndex >= currentStaticShopPoolEncounter.cardGroups.Count - 1)
+        if (currentCardGroupIndex >= currentStaticShopPoolEncounter.cardGroups.Count)
         {
             return null; // ShopEncounter.generateEncounter checks for null here, and uses the normal generation methods if it finds it
-            // best practice? no. functional? 
+            // best practice? no. functional?
             // uh
             // hopefully
         }
@@ -235,10 +234,10 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
                 companionTypes = new List<CompanionTypeSO>()
             };
         }
-        if (currentRatGroupIndex >= currentStaticShopPoolEncounter.ratGroups.Count - 1)
+        if (currentRatGroupIndex >= currentStaticShopPoolEncounter.ratGroups.Count)
         {
             return null; // ShopEncounter.generateEncounter checks for null here, and uses the normal generation methods if it finds it
-            // best practice? no. functional? 
+            // best practice? no. functional?
             // uh
             // hopefully
         }
@@ -307,10 +306,6 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         if (!DemoDirector.Instance.IsStepCompleted(DemoStepName.StartOfShop))
         {
             yield return DemoDirector.Instance.InvokeDemoStepCoroutine(DemoStepName.StartOfShop);
-        }
-        else if (!DemoDirector.Instance.IsStepCompleted(DemoStepName.ShopPivotSuggestion))
-        {
-            yield return DemoDirector.Instance.InvokeDemoStepCoroutine(DemoStepName.ShopPivotSuggestion);
         }
         shopViewController.EnableAllUI();
     }

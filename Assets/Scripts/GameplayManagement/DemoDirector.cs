@@ -16,8 +16,6 @@ public class DemoDirector : GenericSingleton<DemoDirector>
     [TextArea]
     public List<string> buyCompanionReminderStepDialogue;
     [TextArea]
-    public List<string> shopPivotSuggestionDialogue;
-    [TextArea]
     public List<string> cardOfferingTipsDialogue;
     [TextArea]
     public List<string> secondShopTutorialStep1Dialogue;
@@ -66,10 +64,6 @@ public class DemoDirector : GenericSingleton<DemoDirector>
                 yield return BuyCompanionReminderStep();
             break;
 
-            case DemoStepName.ShopPivotSuggestion:
-                yield return ShopPivotSuggestionStep();
-            break;
-
             case DemoStepName.CardOfferingTips:
                 yield return CardOfferingTipsStep();
             break;
@@ -115,14 +109,6 @@ public class DemoDirector : GenericSingleton<DemoDirector>
         }
         DialogueView.Instance.Hide();
         demoDataSO.stepCompletion[DemoStepName.StartOfShop] = true;
-    }
-
-    public IEnumerator ShopPivotSuggestionStep() {
-        foreach (string line in shopPivotSuggestionDialogue) {
-            yield return DialogueView.Instance.SpeakLineCoroutine(speakerSprite, line, true);
-        }
-        DialogueView.Instance.Hide();
-        demoDataSO.stepCompletion[DemoStepName.ShopPivotSuggestion] = true;
     }
 
     public IEnumerator BuyCompanionReminderStep() {
@@ -179,7 +165,6 @@ public enum DemoStepName {
     MoreRewardsThanUsual,
     StartOfShop,
     BuyCompanionReminder,
-    ShopPivotSuggestion,
     CardOfferingTips,
     SecondShopTutorialStep1,
     SecondShopTutorialStep2,
