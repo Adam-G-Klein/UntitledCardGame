@@ -101,11 +101,10 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             }
             staticRats = getCurrentStaticRatGroup();
             staticCards = getCurrentStaticCardGroup();
-            
+
             if (shopEncounter.shopData.shopMode == ShopMode.StaticChooseNDemo) {
                 
                 // Set up the Choose N rats / cards demo :)
-                currentDemoShopPhase = ShopPhase.RAT_BUYING_PHASE;
                 SetDraftingHelpText(shopEncounter.shopData.numRatsBuyPerDisplay, shopEncounter.shopData.numRatsBuyPerShop);
 
                 shopViewController.EnableDraftingHelp();
@@ -199,6 +198,13 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
                 cardTypes = new List<CardType>()
             };
         }
+        if (currentCardGroupIndex >= currentStaticShopPoolEncounter.cardGroups.Count - 1)
+        {
+            return null; // ShopEncounter.generateEncounter checks for null here, and uses the normal generation methods if it finds it
+            // best practice? no. functional? 
+            // uh
+            // hopefully
+        }
         return currentStaticShopPoolEncounter.cardGroups[currentCardGroupIndex];
     }
 
@@ -214,51 +220,71 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
                 companionTypes = new List<CompanionTypeSO>()
             };
         }
+        if (currentRatGroupIndex >= currentStaticShopPoolEncounter.ratGroups.Count - 1)
+        {
+            return null; // ShopEncounter.generateEncounter checks for null here, and uses the normal generation methods if it finds it
+            // best practice? no. functional? 
+            // uh
+            // hopefully
+        }
         return currentStaticShopPoolEncounter.ratGroups[currentRatGroupIndex];
     }
 
     private void incrementCardGroupIndex()
     {
-        // Get the next available index that is less than the number of card groups, and that hasn't been consumed yet. If there are no available indices, return -1
-        // Make it loop around to the beginning if we reach the end of the list of groups, since there are some groups that we want to show multiple times throughout the demo
-        int nextIndex = -1;
-        for (int i = 1; i < currentStaticShopPoolEncounter.cardGroups.Count; i++)
+        if(shopEncounter.shopData.shopMode == ShopMode.StaticChooseNDemo)
         {
-            int indexToCheck = (currentCardGroupIndex + i) % currentStaticShopPoolEncounter.cardGroups.Count;
-            if (!consumedCardGroupIndices.Contains(indexToCheck))
+            // Get the next available index that is less than the number of card groups, and that hasn't been consumed yet. If there are no available indices, return -1
+            // Make it loop around to the beginning if we reach the end of the list of groups, since there are some groups that we want to show multiple times throughout the demo
+            int nextIndex = -1;
+            for (int i = 1; i < currentStaticShopPoolEncounter.cardGroups.Count; i++)
             {
-                nextIndex = indexToCheck;
-                break;
+                int indexToCheck = (currentCardGroupIndex + i) % currentStaticShopPoolEncounter.cardGroups.Count;
+                if (!consumedCardGroupIndices.Contains(indexToCheck))
+                {
+                    nextIndex = indexToCheck;
+                    break;
+                }
             }
-        }
-        Debug.Log("Current card group index: " + currentCardGroupIndex + ", Next card group index: " + nextIndex);
-        if (nextIndex == -1)
+            Debug.Log("Current card group index: " + currentCardGroupIndex + ", Next card group index: " + nextIndex);
+            if (nextIndex == -1)
+            {
+                Debug.LogWarning("No more static card groups available to show.");
+            }
+            currentCardGroupIndex = nextIndex;
+        } else
         {
-            Debug.LogWarning("No more static card groups available to show.");
+            currentCardGroupIndex += 1;
         }
-        currentCardGroupIndex = nextIndex;
     }
 
     private void incrementRatGroupIndex()
     {
         // Get the next available index that is less than the number of rat groups, and that hasn't been consumed yet. If there are no available indices, return -1
         // Make it loop around to the beginning if we reach the end of the list of groups, since there are some groups that we want to show multiple times throughout the demo
-        int nextIndex = -1;
-        for (int i = 1; i < currentStaticShopPoolEncounter.ratGroups.Count; i++)
+
+        if(shopEncounter.shopData.shopMode == ShopMode.StaticChooseNDemo)
         {
-            int indexToCheck = (currentRatGroupIndex + i) % currentStaticShopPoolEncounter.ratGroups.Count;
-            if (!consumedRatGroupIndices.Contains(indexToCheck))
+            int nextIndex = -1;
+            for (int i = 1; i < currentStaticShopPoolEncounter.ratGroups.Count; i++)
             {
-                nextIndex = indexToCheck;
-                break;
+                int indexToCheck = (currentRatGroupIndex + i) % currentStaticShopPoolEncounter.ratGroups.Count;
+                if (!consumedRatGroupIndices.Contains(indexToCheck))
+                {
+                    nextIndex = indexToCheck;
+                    break;
+                }
             }
-        }
-        Debug.Log("Current rat group index: " + currentRatGroupIndex + ", Next rat group index: " + nextIndex);
-        if (nextIndex == -1)
+            Debug.Log("Current rat group index: " + currentRatGroupIndex + ", Next rat group index: " + nextIndex);
+            if (nextIndex == -1)
+            {
+                Debug.LogWarning("No more static rat groups available to show.");
+            }
+            currentRatGroupIndex = nextIndex;
+        } else
         {
-            Debug.LogWarning("No more static rat groups available to show.");
+            currentRatGroupIndex += 1;
         }
-        currentRatGroupIndex = nextIndex;
     }
 
     private IEnumerator RunStartOfShopStep() {
@@ -794,9 +820,10 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
                 }
             } else
             {
+                incrementCardGroupIndex();
+                incrementRatGroupIndex();
                 staticRats = getCurrentStaticRatGroup();
                 staticCards = getCurrentStaticCardGroup();
-
             }
         }
 

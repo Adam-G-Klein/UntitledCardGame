@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 056f170a-f56f-48c3-8614-0198ce1ebcd7
   Name: Healing Fountain
-  Description: Exhaust. Heal self & adjacent 12 HP
+  Description: Exhaust. Heal self & adjacent 8 HP
+  IconDescription: []
+  IconDescriptionTooltipLines: []
   defaultValues: []
   Cost: 2
   Artwork: {fileID: 21300000, guid: 06c409edcf5e308438ea9c89ccd99c68, type: 3}
@@ -32,7 +34,10 @@ MonoBehaviour:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
+  onDrawEffectWorkflow:
+    rid: -2
   tooltips: 
+  tooltipKeyword: 37
   references:
     version: 2
     RefIds:
@@ -44,7 +49,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: target
         combatEffect: 9
-        scale: 12
+        scale: 8
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
@@ -56,6 +61,7 @@ MonoBehaviour:
       data:
         effectStepName: GetAdjacentCompanions
         inputKey: target
+        includeInputCompanion: 0
         outputKey: adj
     - rid: 2511001503980847379
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
@@ -63,7 +69,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: adj
         combatEffect: 9
-        scale: 12
+        scale: 8
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
@@ -89,3 +95,4 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 4
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
