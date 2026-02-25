@@ -9,6 +9,7 @@ public class MusicController : GenericSingleton<MusicController>
 {
     [SerializeField] FMODUnity.EventReference fmodMixer;
     [SerializeField][ParamRef] public string combatState;
+    [SerializeField][ParamRef] public string combatAct;
     public FMODUnity.EventReference meothraMusic;
     private FMOD.Studio.EventInstance mixerInstance;
     private FMOD.Studio.EventInstance instance;
@@ -74,6 +75,7 @@ public class MusicController : GenericSingleton<MusicController>
         if (location == Location.COMBAT)
         {
             SetCombatState("Combat");
+            SetComabtAct(act);
         }
 
         foreach (LocationTrack locationTrack in locationTracks) {
@@ -162,6 +164,25 @@ public class MusicController : GenericSingleton<MusicController>
                 break;
 
             default:
+                break;
+        }
+    }
+
+    public void SetComabtAct(Act act)
+    {
+        switch(act)
+        {
+            case Act.One:
+                Debug.Log("act set");
+                RuntimeManager.StudioSystem.setParameterByName(combatAct, 1);
+                break;
+            case Act.Two:
+                Debug.Log("act set");
+                RuntimeManager.StudioSystem.setParameterByName(combatAct, 2);
+                break;
+            case Act.Three:
+                Debug.Log("act set");
+                RuntimeManager.StudioSystem.setParameterByName(combatAct, 3);
                 break;
         }
     }
