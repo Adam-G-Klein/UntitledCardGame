@@ -22,6 +22,12 @@ public class CompanionInstance : MonoBehaviour, IUIEntity
     // proper location on the screen
     public CompanionView companionView;
     public GameObject highlightedVfx;
+    public Color bronzeColor;
+    public Color silverColor;
+    public Color goldColor;
+    private Gradient rarityColorGradient;
+    private ParticleSystem ps;
+    private ParticleSystem.ColorOverLifetimeModule col;
 
     private List<TurnPhaseTrigger> statusEffectTriggers = new List<TurnPhaseTrigger>();
 
@@ -42,6 +48,38 @@ public class CompanionInstance : MonoBehaviour, IUIEntity
         deckInstance.sourceDeck = companion.deck;
         // ---- set up the sprite for this entity in the world ----
         // GetComponentInChildren<CombatInstanceDisplayWorldspace>().Setup(combatInstance, wpve);
+        rarityColorGradient = new Gradient();
+        Color rarityColor = goldColor;
+        Debug.LogError(companion.companionType.level);
+        switch(companion.companionType.level)
+        {
+            case CompanionLevel.LevelThree:
+                rarityColor = goldColor;
+                break;
+            case CompanionLevel.LevelTwo:
+                rarityColor = silverColor;
+                break;
+            case CompanionLevel.LevelOne:  
+                rarityColor = bronzeColor;
+                break;
+        }
+        rarityColorGradient.SetKeys(
+            new GradientColorKey[] {
+                new GradientColorKey(rarityColor, 0f),
+                new GradientColorKey(rarityColor, 1f)  // solid color, just set both keys the same
+            },
+            new GradientAlphaKey[] {
+                new GradientAlphaKey(1f, 0f),
+                new GradientAlphaKey(1f, 1f)
+            }
+        );
+
+        ps = highlightedVfx.GetComponentsInChildren<ParticleSystem>()
+            .First(p => p.gameObject != highlightedVfx);
+;
+        col = ps.colorOverLifetime;
+        col.color = rarityColorGradient;
+
         // ---- set up status effects turn triggers, so they update when turn phases change ----
         RegisterUpdateStatusEffects();
 
