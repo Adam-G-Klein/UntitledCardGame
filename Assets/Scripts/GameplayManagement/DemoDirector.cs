@@ -25,6 +25,8 @@ public class DemoDirector : GenericSingleton<DemoDirector>
     public List<string> secondShopTutorialStep2Dialogue;
     [TextArea]
     public List<string> secondShopTutorialStep3Dialogue;
+    [TextArea]
+    public List<string> secondShopTutorialStep4Dialogue;
 
     public void Reset() {
         demoDataSO.stepCompletion = new Dictionary<DemoStepName, bool>();
@@ -35,12 +37,6 @@ public class DemoDirector : GenericSingleton<DemoDirector>
 
     public bool IsStepCompleted(DemoStepName stepName) {
         // Shouldn't hit this case but worth checking
-
-            // DEBUG, REMEMBER TO REMOVE
-        if(stepName == DemoStepName.StartOfShop || stepName == DemoStepName.ShopPivotSuggestion)
-        {
-            return true;
-        }
         if(demoDataSO.stepCompletion == null) // necessary when running in editor
         {
             Reset();
@@ -52,7 +48,7 @@ public class DemoDirector : GenericSingleton<DemoDirector>
         return demoDataSO.stepCompletion[stepName];
     }
 
-    public IEnumerator InvokeDemoStepCorouutine(DemoStepName demoStepName) {
+    public IEnumerator InvokeDemoStepCoroutine(DemoStepName demoStepName) {
         switch (demoStepName) {
             case DemoStepName.BendingTheRules:
                 yield return BendingTheRulesStep();
@@ -88,6 +84,10 @@ public class DemoDirector : GenericSingleton<DemoDirector>
 
             case DemoStepName.SecondShopTutorialStep3:
                 yield return SecondShopTutorialStep3();
+            break;
+
+            case DemoStepName.SecondShopTutorialStep4:
+                yield return SecondShopTutorialStep4();
             break;
         }
         yield return null;
@@ -162,7 +162,15 @@ public class DemoDirector : GenericSingleton<DemoDirector>
             yield return DialogueView.Instance.SpeakLineCoroutine(speakerSprite, line, true);
         }
         DialogueView.Instance.Hide();
-        demoDataSO.stepCompletion[DemoStepName.SecondShopTutorialStep2] = true;
+        demoDataSO.stepCompletion[DemoStepName.SecondShopTutorialStep3] = true;
+    }
+
+    public IEnumerator SecondShopTutorialStep4() {
+        foreach (string line in secondShopTutorialStep4Dialogue) {
+            yield return DialogueView.Instance.SpeakLineCoroutine(speakerSprite, line, true);
+        }
+        DialogueView.Instance.Hide();
+        demoDataSO.stepCompletion[DemoStepName.SecondShopTutorialStep4] = true;
     }
 }
 
@@ -175,5 +183,6 @@ public enum DemoStepName {
     CardOfferingTips,
     SecondShopTutorialStep1,
     SecondShopTutorialStep2,
-    SecondShopTutorialStep3
+    SecondShopTutorialStep3,
+    SecondShopTutorialStep4
 }

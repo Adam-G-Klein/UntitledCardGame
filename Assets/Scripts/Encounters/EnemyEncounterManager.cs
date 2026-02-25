@@ -372,7 +372,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         if (gameState.buildType == BuildType.DEMO && !DemoDirector.Instance.IsStepCompleted(DemoStepName.MoreRewardsThanUsual)) {
             endEncounterView.Show(true);
             yield return new WaitForSeconds(0.5f);
-            yield return DemoDirector.Instance.InvokeDemoStepCorouutine(DemoStepName.MoreRewardsThanUsual);
+            yield return DemoDirector.Instance.InvokeDemoStepCoroutine(DemoStepName.MoreRewardsThanUsual);
             endEncounterView.EnableNextButton();
         }
         else endEncounterView.Show();

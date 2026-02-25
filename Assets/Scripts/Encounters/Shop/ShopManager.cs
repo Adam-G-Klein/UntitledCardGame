@@ -99,8 +99,6 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
                     currentStaticShopPoolEncounter = staticShopEncounters.shopPoolEncounters[shopIndex];
                 }
             }
-            staticRats = getCurrentStaticRatGroup();
-            staticCards = getCurrentStaticCardGroup();
 
             if (shopEncounter.shopData.shopMode == ShopMode.StaticChooseNDemo) {
                 
@@ -109,6 +107,16 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
                 shopViewController.EnableDraftingHelp();
                 shopViewController.DisableButtonsForDemo();
+                staticRats = getCurrentStaticRatGroup();
+                staticCards = new StaticCardTypeGroup
+                    {
+                        cardTypes = new List<CardType>()
+                    };
+            } else
+            {
+
+                staticRats = getCurrentStaticRatGroup();
+                staticCards = getCurrentStaticCardGroup();
             }
         }
 
@@ -177,6 +185,13 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         InstantiateShopVFX(shopRerollPrefab, shopViewController.GetRerollShopButton(), 1.5f);
         gameState.playerData.GetValue().storedRerolls += 1;
         shopViewController.ShowFreeRerolls();
+    }
+
+    public void AddFreeMoney()
+    {
+        InstantiateShopVFX(moneySpentPrefab, shopViewController.GetMoneyDisplay(), 1.5f);
+        gameState.playerData.GetValue().gold += 1;
+        shopViewController.SetMoney(gameState.playerData.GetValue().gold);
     }
 
     public void AddFreeCardRemoval()
@@ -291,11 +306,11 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         shopViewController.DisableAllUI();
         if (!DemoDirector.Instance.IsStepCompleted(DemoStepName.StartOfShop))
         {
-            yield return DemoDirector.Instance.InvokeDemoStepCorouutine(DemoStepName.StartOfShop);
+            yield return DemoDirector.Instance.InvokeDemoStepCoroutine(DemoStepName.StartOfShop);
         }
         else if (!DemoDirector.Instance.IsStepCompleted(DemoStepName.ShopPivotSuggestion))
         {
-            yield return DemoDirector.Instance.InvokeDemoStepCorouutine(DemoStepName.ShopPivotSuggestion);
+            yield return DemoDirector.Instance.InvokeDemoStepCoroutine(DemoStepName.ShopPivotSuggestion);
         }
         shopViewController.EnableAllUI();
     }
@@ -303,7 +318,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     public IEnumerator RunShopDialogueStep(DemoStepName stepName)
     {
         // shopViewController.DisableAllUI();
-        yield return DemoDirector.Instance.InvokeDemoStepCorouutine(stepName);
+        yield return DemoDirector.Instance.InvokeDemoStepCoroutine(stepName);
         // shopViewController.EnableAllUI();
     }
 

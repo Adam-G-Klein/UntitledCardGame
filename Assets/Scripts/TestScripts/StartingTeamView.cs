@@ -105,7 +105,7 @@ public class TeamSelectionUI : MonoBehaviour, ICompanionViewDelegate
     }
 
     private IEnumerator DisplayDemoDialogue() {
-        yield return DemoDirector.Instance.InvokeDemoStepCorouutine(DemoStepName.BendingTheRules);
+        yield return DemoDirector.Instance.InvokeDemoStepCoroutine(DemoStepName.BendingTheRules);
         EnableUI();
     }
 

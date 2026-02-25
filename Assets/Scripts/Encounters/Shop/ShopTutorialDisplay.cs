@@ -12,6 +12,12 @@ public class ShopTutorialDisplay : MonoBehaviour
     [SerializeField]
     private float postShopUpgradeDelay = 1f;
     [SerializeField]
+    private int freeMoney = 60;
+    [SerializeField]
+    private float delayPerFreeMoneyGiven = 0.1f;
+    [SerializeField]
+    private float postFreeMoneyDelay = 1f;
+    [SerializeField]
     private int freeRerolls = 6;
     [SerializeField]
     private float delayPerFreeRerollGiven = 0.5f;
@@ -31,24 +37,17 @@ public class ShopTutorialDisplay : MonoBehaviour
     public IEnumerator ShopTutorialCoroutine()
     {
         // UI stays disabled from the call in ShopManager, it's waiting on cinematicIntroComplete = true;
-        yield return DemoDirector.Instance.InvokeDemoStepCorouutine(DemoStepName.SecondShopTutorialStep1);
+        yield return DemoDirector.Instance.InvokeDemoStepCoroutine(DemoStepName.SecondShopTutorialStep1);
+        yield return GiveFreeMoney();
+        yield return new WaitForSeconds(postFreeMoneyDelay);
+        yield return DemoDirector.Instance.InvokeDemoStepCoroutine(DemoStepName.SecondShopTutorialStep2);
         yield return FullyUpgradeShopCoroutine();
         yield return new WaitForSeconds(postShopUpgradeDelay);
-        yield return PlayShopDialogue2();
+        yield return DemoDirector.Instance.InvokeDemoStepCoroutine(DemoStepName.SecondShopTutorialStep3);
         yield return GiveFreeRerolls();
         yield return GiveFreeCardRemovals();
-        yield return PlayShopDialogue3();
+        yield return DemoDirector.Instance.InvokeDemoStepCoroutine(DemoStepName.SecondShopTutorialStep4);
         CinematicIntroComplete();
-    }
-
-    public IEnumerator PlayShopDialogue2()
-    {
-        yield return DemoDirector.Instance.InvokeDemoStepCorouutine(DemoStepName.SecondShopTutorialStep2);
-    }
-
-    public IEnumerator PlayShopDialogue3()
-    {
-        yield return DemoDirector.Instance.InvokeDemoStepCorouutine(DemoStepName.SecondShopTutorialStep3);
     }
 
     public IEnumerator GiveFreeRerolls()
@@ -60,6 +59,18 @@ public class ShopTutorialDisplay : MonoBehaviour
             yield return new WaitForSeconds(delayPerFreeRerollGiven);
             rerollsGiven += 1;
         }
+    }
+
+    public IEnumerator GiveFreeMoney()
+    {
+        int moneyGiven = 0;
+        while (moneyGiven < freeMoney)
+        {
+            ShopManager.Instance.AddFreeMoney();
+            yield return new WaitForSeconds(delayPerFreeMoneyGiven);
+            moneyGiven += 1;
+        }
+
     }
 
     public IEnumerator GiveFreeCardRemovals()

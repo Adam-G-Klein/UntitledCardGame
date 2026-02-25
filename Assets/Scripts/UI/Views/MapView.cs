@@ -215,4 +215,8 @@ public class MapView
     public void UpdateMoneyAmount(int money) {
         moneyLabel.text = money.ToString();
     }
+
+    public VisualElement GetMoneyDisplay() {
+        return moneyLabel;
+    }
 }

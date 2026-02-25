@@ -1211,6 +1211,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fullyUpgradeShopTime: 3
+  postShopUpgradeDelay: 1.5
+  freeMoney: 40
+  delayPerFreeMoneyGiven: 0.05
+  postFreeMoneyDelay: 1
+  freeRerolls: 6
+  delayPerFreeRerollGiven: 0.5
+  freeCardRemovals: 2
+  delayPerFreeCardRemovalGiven: 1
 --- !u!1 &4037506046362703525
 GameObject:
   m_ObjectHideFlags: 0

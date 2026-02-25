@@ -1094,7 +1094,7 @@ public class ShopViewController : MonoBehaviour,
 
     private IEnumerator RunBuyCompanionReminderStep() {
         DisableAllUI();
-        yield return DemoDirector.Instance.InvokeDemoStepCorouutine(DemoStepName.BuyCompanionReminder);
+        yield return DemoDirector.Instance.InvokeDemoStepCoroutine(DemoStepName.BuyCompanionReminder);
         EnableAllUI();
     }
 
@@ -1394,6 +1394,10 @@ public class ShopViewController : MonoBehaviour,
 
     public void SetMoney(int money) {
         mapView.UpdateMoneyAmount(money);
+    }
+
+    public VisualElement GetMoneyDisplay() {
+        return mapView.GetMoneyDisplay();
     }
 
     public void NotEnoughMoney() {
