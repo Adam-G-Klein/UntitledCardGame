@@ -25,6 +25,7 @@ public class CompanionInstance : MonoBehaviour, IUIEntity
     public Color bronzeColor;
     public Color silverColor;
     public Color goldColor;
+    private Gradient whiteGradient;
     private Gradient rarityColorGradient;
     private ParticleSystem ps;
     private ParticleSystem.ColorOverLifetimeModule col;
@@ -49,6 +50,7 @@ public class CompanionInstance : MonoBehaviour, IUIEntity
         // ---- set up the sprite for this entity in the world ----
         // GetComponentInChildren<CombatInstanceDisplayWorldspace>().Setup(combatInstance, wpve);
         rarityColorGradient = new Gradient();
+        whiteGradient = new Gradient();
         Color rarityColor = goldColor;
         Debug.LogError(companion.companionType.level);
         switch(companion.companionType.level)
@@ -76,9 +78,19 @@ public class CompanionInstance : MonoBehaviour, IUIEntity
 
         ps = highlightedVfx.GetComponentsInChildren<ParticleSystem>()
             .First(p => p.gameObject != highlightedVfx);
-;
         col = ps.colorOverLifetime;
         col.color = rarityColorGradient;
+
+        whiteGradient.SetKeys(
+            new GradientColorKey[] {
+                new GradientColorKey(Color.white, 0f),
+                new GradientColorKey(Color.white, 1f)  // solid color, just set both keys the same
+            },
+            new GradientAlphaKey[] {
+                new GradientAlphaKey(1f, 0f),
+                new GradientAlphaKey(1f, 1f)
+            }
+        );
 
         // ---- set up status effects turn triggers, so they update when turn phases change ----
         RegisterUpdateStatusEffects();
@@ -131,6 +143,11 @@ public class CompanionInstance : MonoBehaviour, IUIEntity
             }
         }
         tooltipProvider.AddTooltip(power.GetTooltip(selected.First().Item2));
+    }
+
+    public void ToggleHighlightGlow(bool turnOn)
+    {
+        col.color = turnOn ? whiteGradient : rarityColorGradient;
     }
 
     private void RegisterUpdateStatusEffects()

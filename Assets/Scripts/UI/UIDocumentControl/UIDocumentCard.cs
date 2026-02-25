@@ -30,6 +30,7 @@ public class UIDocumentCard : MonoBehaviour
     private bool renderTextureCoroutineIsRunning = false;
     private PlayableCard pCard = null;
     private CardView cardView = null;
+    private VisualElement darkOverlay = null;
 
     void Start()
     {
@@ -63,6 +64,7 @@ public class UIDocumentCard : MonoBehaviour
         boxCollider.size = HITBOX_SIZE;
         // pCard.UpdateCardText(); //we gonna run this shit like a millino times
         spriteRenderer.material.SetTexture("_SecondTex", doc.panelSettings.targetTexture);
+        darkOverlay = doc.rootVisualElement.Q<VisualElement>("card-dark-overlay");
     }
 
     void Update()
@@ -107,5 +109,11 @@ public class UIDocumentCard : MonoBehaviour
 
     public Texture GetTexture() {
         return doc.panelSettings.targetTexture;
+    }
+
+    public void ToggleDarkOverlay(bool turnOn)
+    {
+        // likely want to use tweens and alpha instead so that it isn't so jarring
+        darkOverlay.visible = turnOn;
     }
 }

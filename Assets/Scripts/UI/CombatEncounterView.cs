@@ -305,6 +305,15 @@ public class CombatEncounterView : MonoBehaviour,
         return companionView;
     }
 
+    public void HighlightRelevantCompanions(CombatInstance combatInstance)
+    {
+        foreach (CompanionView companionView in companionViews)
+        {
+            bool turnOffGlow = combatInstance == null || combatInstanceToCompanionView[combatInstance] != companionView;
+            companionView.GetCompanionInstance()?.ToggleHighlightGlow(!turnOffGlow);
+        }
+    }
+
     private EnemyView setupEnemy(Enemy enemy, int index, EnemyInstance enemyInstance = null)
     {
         EnemyView newEntityView = new EnemyView(enemy, index, this, enemyInstance);

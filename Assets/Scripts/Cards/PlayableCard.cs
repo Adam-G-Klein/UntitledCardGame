@@ -361,7 +361,7 @@ public class PlayableCard : MonoBehaviour,
         HoverAssociatedCompanion();
         // Set the volume first
         MusicController.Instance.PlaySFX("event:/SFX/SFX_UIHover");
-        transform.SetAsLastSibling();
+        transform.SetAsLastSibling(); // this doesn't seem to be working
         PlayerHand.Instance.HoverCard(this);
     }
 
@@ -454,4 +454,8 @@ public class PlayableCard : MonoBehaviour,
         companionInstanceFrom.companionView.SetSelectionIndicatorVisibility(false);
     }
 
+    public void ToggleDarkOverlay(bool turnOn)
+    {
+        docCard.ToggleDarkOverlay(turnOn);
+    }
 }

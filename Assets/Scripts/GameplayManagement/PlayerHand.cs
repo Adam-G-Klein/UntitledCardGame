@@ -253,6 +253,8 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         LeanTween.moveLocal(card.gameObject, new Vector3(0, yOffset, hoverZOffset), hoverAnimationTime)
             .setEase(LeanTweenType.easeOutQuint);
         UpdateCardPositions(null);
+
+        HighlightRelevantCards(card.deckFrom);
     }
 
     public void UnhoverCard(PlayableCard card)
@@ -263,6 +265,21 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         LeanTween.moveLocal(card.gameObject, new Vector3(0, 0, 0), hoverAnimationTime)
                 .setEase(LeanTweenType.easeOutQuint);
         UpdateCardPositions();
+
+        HighlightRelevantCards(null);
+    }
+
+    public void HighlightRelevantCards(DeckInstance deckFrom)
+    {
+        foreach (PlayableCard playableCard in GetCardsOrdered())
+        {
+            // will need to decide which behavior makes sense for the null case
+            playableCard.ToggleDarkOverlay(deckFrom != null && deckFrom != playableCard.deckFrom);
+        }
+
+        // highlightRelevantCompanions...not 100% sure where this code should live
+        CombatEncounterView combatEncounterView = EnemyEncounterManager.Instance.combatEncounterView;
+        combatEncounterView.HighlightRelevantCompanions(deckFrom?.combatInstance);
     }
 
     // Function that updates all card positions
