@@ -145,7 +145,8 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         cinematicIntroComplete = true;
         if (gameState.BuildTypeDemoOrConvention())
         {
-            if(!DemoDirector.Instance.IsStepCompleted(DemoStepName.StartOfShop) || shopEncounter.shopData.shopMode == ShopMode.StaticChooseNDemo)
+            //if(!DemoDirector.Instance.IsStepCompleted(DemoStepName.StartOfShop) || shopEncounter.shopData.shopMode == ShopMode.StaticChooseNDemo)
+            if(false)
             {
                 StartCoroutine(RunStartOfShopStep());
             } else if (!DemoDirector.Instance.IsStepCompleted(DemoStepName.SecondShopTutorialStep1))
@@ -187,6 +188,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     public void AddFreeReroll()
     {
         InstantiateShopVFX(shopRerollPrefab, shopViewController.GetRerollShopButton(), 1.5f);
+        MusicController.Instance.PlaySFX("event:/SFX/SFX_Reroll");
         gameState.playerData.GetValue().storedRerolls += 1;
         shopViewController.ShowFreeRerolls();
     }
@@ -194,6 +196,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     public void AddFreeMoney()
     {
         InstantiateShopVFX(moneySpentPrefab, shopViewController.GetMoneyDisplay(), 1.5f);
+        MusicController.Instance.PlaySFX("event:/SFX/SFX_EarnMoney");
         gameState.playerData.GetValue().gold += 1;
         shopViewController.SetMoney(gameState.playerData.GetValue().gold);
     }
@@ -201,6 +204,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     public void AddFreeCardRemoval()
     {
         InstantiateShopVFX(moneyGainedPrefab, shopViewController.GetRemoveCardButton(), 1.5f);
+        MusicController.Instance.PlaySFX("event:/SFX/SFX_CardRemoval");
         gameState.playerData.GetValue().storedCardRemovals += 1;
         shopViewController.ShowFreeCardRemovals();
     }

@@ -37,7 +37,9 @@ public class ShopTutorialDisplay : MonoBehaviour
     public IEnumerator ShopTutorialCoroutine()
     {
         // UI stays disabled from the call in ShopManager, it's waiting on cinematicIntroComplete = true;
+        int prevGold = ShopManager.Instance.gameState.playerData.GetValue().gold;
         ShopManager.Instance.gameState.playerData.initialize(ShopManager.Instance.getShopEncounter().shopData);
+        ShopManager.Instance.gameState.playerData.GetValue().gold = prevGold;
         yield return DemoDirector.Instance.InvokeDemoStepCoroutine(DemoStepName.SecondShopTutorialStep1);
         yield return GiveFreeMoney();
         yield return new WaitForSeconds(postFreeMoneyDelay);
