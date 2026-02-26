@@ -483,7 +483,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
                     if (numRatsBoughtThisShop >= shopEncounter.shopData.numRatsBuyPerShop)
                     {
                         currentDemoShopPhase = ShopPhase.CARD_BUYING_PHASE;
-                        if (gameState.buildType == BuildType.DEMO && !DemoDirector.Instance.IsStepCompleted(DemoStepName.CardOfferingTips)) {
+                        if (gameState.BuildTypeDemoOrConvention() && !DemoDirector.Instance.IsStepCompleted(DemoStepName.CardOfferingTips)) {
                             StartCoroutine(RunShopDialogueStep(DemoStepName.CardOfferingTips));
                         }
                         SetDraftingHelpText(shopEncounter.shopData.numCardsBuyPerDisplay, shopEncounter.shopData.numCardsBuyPerShop - numCardsBoughtThisShop);

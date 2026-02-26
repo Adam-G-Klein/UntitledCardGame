@@ -64,10 +64,14 @@ public class MainMenuManager : MonoBehaviour
         optionsButton = mainMenuUIDocument.rootVisualElement.Q<Button>("optionsButton");
         exitButton = mainMenuUIDocument.rootVisualElement.Q<Button>("exitButton");
 
-        if (gameState.buildType == BuildType.DEMO) {
+        if (gameState.BuildTypeDemoOrConvention()) {
             mainMenuUIDocument.rootVisualElement.Q<Label>("game-isnt-fully-done-label").style.display = DisplayStyle.Flex;
             mainMenuUIDocument.rootVisualElement.Q<Button>("wishlistButton").style.display = DisplayStyle.Flex;
             mainMenuUIDocument.rootVisualElement.Q<Button>("wishlistButton").clicked += VisitSteamPageHandler;
+        }
+
+        if (gameState.buildType == BuildType.CONVENTION) {
+            continueButton.SetEnabled(false);
         }
 
         startButton.RegisterOnSelected(startButtonHandler);
@@ -110,7 +114,7 @@ public class MainMenuManager : MonoBehaviour
     }
 
     public void exitButtonHandler() {
-        if (gameState.buildType == BuildType.DEMO) {
+        if (gameState.BuildTypeDemoOrConvention()) {
             SceneTransitionManager.LoadScene("DemoExitGameMenu");
             return;
         }

@@ -82,7 +82,7 @@ public class TeamSelectionUI : MonoBehaviour, ICompanionViewDelegate
 
         tooltipController = new TooltipController(tooltipPrefab);
 
-        if (gameState.buildType == BuildType.DEMO && !DemoDirector.Instance.IsStepCompleted(DemoStepName.BendingTheRules)) {
+        if (gameState.BuildTypeDemoOrConvention() && !DemoDirector.Instance.IsStepCompleted(DemoStepName.BendingTheRules)) {
             DisableUI();
             StartCoroutine(DisplayDemoDialogue());
         }

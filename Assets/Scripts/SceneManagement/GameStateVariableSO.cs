@@ -134,7 +134,7 @@ public class GameStateVariableSO : ScriptableObject
                 AdvanceEncounter();
 
                 // The following is only necessary while we don't want the pack selection tutorial early in the experience as it currently looks bad
-                if (skipTutorials && buildType != BuildType.DEMO) {
+                if (skipTutorials && !BuildTypeDemoOrConvention()) {
                     currentLocation = Location.PACK_SELECT;
                     break;
                 } else if (skipTutorials) {
@@ -147,7 +147,7 @@ public class GameStateVariableSO : ScriptableObject
                     break;
                 }
 
-                if (hasSeenCombatTutorial && hasSeenShopTutorial && buildType != BuildType.DEMO) {
+                if (hasSeenCombatTutorial && hasSeenShopTutorial && !BuildTypeDemoOrConvention()) {
                     if (hasSeenPackSelectTutorial) {
                         currentLocation = Location.PACK_SELECT;
                     }
@@ -166,7 +166,7 @@ public class GameStateVariableSO : ScriptableObject
                 // Modified for Shortened Demo pre GDC 2026
                 // currentLocation = Location.TUTORIAL;
                 // Remove below and uncomment above to return to previous behavior
-                if (buildType == BuildType.DEMO) {
+                if (BuildTypeDemoOrConvention()) {
                     currentLocation = Location.STARTING_TEAM;
                 } else {
                     currentLocation = Location.TUTORIAL;

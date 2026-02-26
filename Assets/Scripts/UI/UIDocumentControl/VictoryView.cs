@@ -40,6 +40,11 @@ public class VictoryView : MonoBehaviour
         button = doc.rootVisualElement.Q<Button>();
         button.RegisterOnSelected(() => {
             button.SetEnabled(false);
+            // Added for GDC 2026
+            if (EnemyEncounterManager.Instance.gameState.BuildTypeDemoOrConvention()) {
+                SceneTransitionManager.LoadScene("MainMenu");
+                return;
+            }
             // go to end of run progress scene if there are any achievements to display
             if (ProgressManager.Instance.achievementSOList.Exists(x => x.lockedInProgress < x.target)) {
                 SceneTransitionManager.LoadScene("EndOfRunProgressScene");

@@ -379,7 +379,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     {
         yield return new WaitForSeconds(endCombatScreenDelay);
         EndEncounterView endEncounterView = postCombatUI.GetComponent<EndEncounterView>();
-        if (gameState.buildType == BuildType.DEMO && !DemoDirector.Instance.IsStepCompleted(DemoStepName.MoreRewardsThanUsual)) {
+        if (gameState.BuildTypeDemoOrConvention() && !DemoDirector.Instance.IsStepCompleted(DemoStepName.MoreRewardsThanUsual)) {
             endEncounterView.Show(true);
             yield return new WaitForSeconds(0.5f);
             yield return DemoDirector.Instance.InvokeDemoStepCoroutine(DemoStepName.MoreRewardsThanUsual);

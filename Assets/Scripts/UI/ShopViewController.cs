@@ -1079,7 +1079,7 @@ public class ShopViewController : MonoBehaviour,
     }
 
     public void StartNextCombatOnClick(ClickEvent evt) {
-        if (shopManager.gameState.buildType == BuildType.DEMO
+        if (shopManager.gameState.BuildTypeDemoOrConvention()
             && !DemoDirector.Instance.IsStepCompleted(DemoStepName.BuyCompanionReminder)
             && shopManager.HasEmptyTeamSlotAndCanAffordCompanion()) {
             StartCoroutine(RunBuyCompanionReminderStep());
