@@ -11,6 +11,7 @@ public class ShopItemView : ICompanionViewDelegate {
     public CardInShopWithPrice cardInShop = null;
     private CompanionView companionView = null;
     private IShopItemViewDelegate viewDelegate;
+    private static string COIN = char.ConvertFromUtf32(0xE001);
     
     private bool interactionsEnabled = true;
 
@@ -95,7 +96,7 @@ public class ShopItemView : ICompanionViewDelegate {
         Label label = new Label();
         priceTag.AddToClassList("shop-item-price-tag-background");
         label.AddToClassList("shop-item-price-tag-label");
-        label.text = "$" + price.ToString();
+        label.text = COIN + price.ToString();
         priceTag.Add(label);
 
         if (increasedPrice) {

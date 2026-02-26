@@ -20,7 +20,7 @@
             <ui:VisualElement name="shop-view-button-container" class="shop-view-button-container" style="flex-grow: 1; flex-basis: auto; justify-content: center; align-self: flex-start; align-items: center;">
                 <ui:VisualElement name="shop-view-button-container-background" style="flex-grow: 1; position: absolute; width: 89%; height: 85%; background-image: url(&quot;project://database/Assets/Sprites/UI/Shop/ShopScreen_Frame.png?fileID=2800000&amp;guid=f0c3f2da469d1504fa6c4951fc8b4f85&amp;type=3#ShopScreen_Frame&quot;); border-top-left-radius: 26px; border-top-right-radius: 26px; border-bottom-right-radius: 26px; border-bottom-left-radius: 26px;" />
                 <ui:VisualElement name="upgrade-button-container" class="shopButtonContainer" style="align-items: center; width: 80%; flex-direction: row-reverse; display: flex;">
-                    <ui:Label tabindex="-1" text="$1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="upgrade-price-label" class="shopButtonPriceTag" />
+                    <ui:Label tabindex="-1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="upgrade-price-label" class="shopButtonPriceTag" />
                     <ui:VisualElement name="VisualElement" style="flex-grow: 1; flex-direction: row; justify-content: center;">
                         <ui:VisualElement name="upgrade-increment-container" class="upgradeIncrementContainer">
                             <ui:VisualElement class="upgradeIncrement upgradeIncrementEarned" />

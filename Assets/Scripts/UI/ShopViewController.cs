@@ -109,6 +109,7 @@ public class ShopViewController : MonoBehaviour,
 
     private static string COMPANION_MANAGEMENT = "CompanionManagement";
     private static string UPGRADE_MENU = "UpgradeMenu";
+    private static string COIN = char.ConvertFromUtf32(0xE001);
     private IEnumerator waitAndHideMessageCoroutine;
     private TooltipController tooltipController;
 
@@ -276,7 +277,7 @@ public class ShopViewController : MonoBehaviour,
     {
         freeRerollsContainer.style.visibility = Visibility.Visible;
         freeRerollsLabel.text = shopManager.gameState.playerData.GetValue().storedRerolls.ToString();
-        rerollPriceLabel.text = "$0";
+        rerollPriceLabel.text = COIN + "0";
     }
 
     public void ShowFreeCardRemovals()
@@ -284,7 +285,7 @@ public class ShopViewController : MonoBehaviour,
 
         freeRemovalsContainer.style.visibility = Visibility.Visible;
         freeRemovalsLabel.text = shopManager.gameState.playerData.GetValue().storedCardRemovals.ToString();
-        cardRemovalPriceLabel.text = "$0";
+        cardRemovalPriceLabel.text = COIN + "0";
     }
 
     private void PreviewUpgradedDeck() {
@@ -1390,7 +1391,7 @@ public class ShopViewController : MonoBehaviour,
     }
 
     public void NotEnoughMoney() {
-        StartCoroutine(ShowGenericNotification("Not enough $!"));
+        StartCoroutine(ShowGenericNotification("Not enough " + COIN + "!"));
     }
 
     public void AlreadyBoughtBudgetOfRats()
@@ -1544,26 +1545,26 @@ public class ShopViewController : MonoBehaviour,
 
     public void SetShopRerollPrice(int amount, int storedRerolls) {
         if (storedRerolls > 0) {
-            rerollPriceLabel.text = "$0";
+            rerollPriceLabel.text = COIN + "0";
             freeRerollsLabel.text = storedRerolls.ToString();
         }
         else {
-            rerollPriceLabel.text = "$" + amount.ToString();
+            rerollPriceLabel.text = COIN + amount.ToString();
             freeRerollsContainer.style.visibility = Visibility.Hidden;
         }
     }
 
     public void SetShopUpgradePrice(int amount) {
-        upgradePriceLabel.text = "$" + amount.ToString();
+        upgradePriceLabel.text = COIN + amount.ToString();
     }
 
     public void SetShopCardRemovalPrice(int amount, int storedRemovals) {
         if (storedRemovals > 0) {
-            cardRemovalPriceLabel.text = "$0";
+            cardRemovalPriceLabel.text = COIN + "0";
             freeRemovalsLabel.text = storedRemovals.ToString();
         }
         else {
-            cardRemovalPriceLabel.text = "$" + amount.ToString();
+            cardRemovalPriceLabel.text = COIN + amount.ToString();
             freeRemovalsContainer.style.visibility = Visibility.Hidden;
         }
     }
