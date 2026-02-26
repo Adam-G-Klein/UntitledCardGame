@@ -340,6 +340,8 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 6591284524624904358
       type: {class: UnityEventTutorialStep, ns: , asm: Assembly-CSharp}
       data:
@@ -7062,6 +7064,10 @@ PrefabInstance:
       propertyPath: bigSparklePrefab
       value: 
       objectReference: {fileID: 5129385027391316217, guid: ba5a33c24436d654d961e1cbaf9f22ae, type: 3}
+    - target: {fileID: 5649425133306110964, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
+      propertyPath: sourceAsset
+      value: 
+      objectReference: {fileID: 9197481963319205126, guid: eb992eec49264d0bb49fdecebef35d56, type: 3}
     - target: {fileID: 6649195418733374106, guid: 46876332ab8dd8b4a8efc1e901b565f0, type: 3}
       propertyPath: m_IsActive
       value: 0

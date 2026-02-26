@@ -25,6 +25,8 @@ public class ShopViewController : MonoBehaviour,
     private Dictionary<CompanionInShopWithPrice, ShopItemView> companionItemToViewMap;
 
     // Specific shop VisualElement references
+    private VisualElement shopGoodsAreaContainer;
+    private VisualElement shopButtonsContainer;
     private VisualElement shopGoodsArea;
     private VisualElement benchContainer;
     private VisualElement activeContainer;
@@ -108,17 +110,11 @@ public class ShopViewController : MonoBehaviour,
     private static string UPGRADE_MENU = "UpgradeMenu";
     private IEnumerator waitAndHideMessageCoroutine;
     private TooltipController tooltipController;
-    [SerializeField]
-    private VisualTreeAsset tutorialShopUIDoc;
-
-    [SerializeField]
-    private VisualTreeAsset normalShopUIDoc;
 
     private VisualElement draftingHelpContainer;
 
     public void Start()
     {
-        // Init(null);
         ControlsManager.Instance.RegisterControlsReceiver(this);
     }
 
@@ -126,8 +122,6 @@ public class ShopViewController : MonoBehaviour,
         if (uiDoc == null) {
             uiDoc = GetComponent<UIDocument>();
         }
-
-        uiDoc.visualTreeAsset = normalShopUIDoc;
 
         this.shopManager = shopManager;
 
@@ -138,7 +132,9 @@ public class ShopViewController : MonoBehaviour,
 
         mapContainer = uiDoc.rootVisualElement.Q("mapContainer");
         SetupMap(shopManager);
+        shopGoodsAreaContainer = uiDoc.rootVisualElement.Q("shop-view-goods-area-container");
         shopGoodsArea = uiDoc.rootVisualElement.Q("shop-goods-area");
+        shopButtonsContainer = uiDoc.rootVisualElement.Q("shop-view-button-container");
         activeContainer = uiDoc.rootVisualElement.Q("unit-active-container");
         benchContainer = uiDoc.rootVisualElement.Q("bench-container");
         notEnoughMoneyLabel = uiDoc.rootVisualElement.Q<Label>("not-enough-money-indicator");
@@ -165,13 +161,8 @@ public class ShopViewController : MonoBehaviour,
         FocusManager.Instance.RegisterFocusableTarget(selectingCancelButton.AsFocusable());
         FocusManager.Instance.DisableFocusableTarget(selectingCancelButton.AsFocusable());
 
-        if(shopMode == ShopMode.StaticChooseNDemo)
-        {
-            // Hide the drafting help; will show it when the shop manager decides.
-            draftingHelpContainer = uiDoc.rootVisualElement.Q("drafting-help-container");
-            draftingHelpContainer.visible = false;
-
-        }
+        // For the demo, isn't visible or used in the regular shop    
+        draftingHelpContainer = uiDoc.rootVisualElement.Q("drafting-help-container");
 
         rerollButton = uiDoc.rootVisualElement.Q<Button>("reroll-button");
         rerollButton.RegisterOnSelected(RerollButtonOnClick);
@@ -254,9 +245,27 @@ public class ShopViewController : MonoBehaviour,
 
     public void EnableDraftingHelp()
     {
-        var container = uiDoc.rootVisualElement.Q("drafting-help-container");
-        container.style.display = DisplayStyle.Flex;
-        container.visible = true;
+        draftingHelpContainer.style.display = DisplayStyle.Flex;
+
+        shopGoodsAreaContainer.AddToClassList("shop-view-goods-area-container-narrower");
+        shopButtonsContainer.AddToClassList("shop-view-button-container-wider");
+
+        VisualElement upgradeButtonContainer = uiDoc.rootVisualElement.Q("upgrade-button-container");
+        VisualElement rerollContainer = uiDoc.rootVisualElement.Q("reroll-button-container");
+        VisualElement cardRemovalContainer = uiDoc.rootVisualElement.Q("card-removal-container");
+
+        rerollButton.SetEnabled(false);
+        FocusManager.Instance.DisableFocusableTarget(rerollButton.AsFocusable());
+
+        upgradeButton.SetEnabled(false);
+        FocusManager.Instance.DisableFocusableTarget(upgradeButton.AsFocusable());
+
+        cardRemovalButton.SetEnabled(false);
+        FocusManager.Instance.DisableFocusableTarget(cardRemovalButton.AsFocusable());
+
+        upgradeButtonContainer.style.display = DisplayStyle.None;
+        rerollContainer.style.display = DisplayStyle.None;
+        cardRemovalContainer.style.display = DisplayStyle.None;
     }
 
     public void ShowFreeRerolls()
@@ -272,26 +281,6 @@ public class ShopViewController : MonoBehaviour,
         freeRemovalsContainer.style.visibility = Visibility.Visible;
         freeRemovalsLabel.text = shopManager.gameState.playerData.GetValue().storedCardRemovals.ToString();
         cardRemovalPriceLabel.text = "$0";
-    }
-
-    public void DisableButtonsForDemo() {
-
-        VisualElement upgradeButtonContainer = uiDoc.rootVisualElement.Q("upgrade-button-container");
-        VisualElement rerollContainer = uiDoc.rootVisualElement.Q("reroll-button-container");
-        VisualElement cardRemovalContainer = uiDoc.rootVisualElement.Q("card-removal-container");
-
-        rerollButton.SetEnabled(false);
-        FocusManager.Instance.DisableFocusableTarget(rerollButton.AsFocusable());
-
-        upgradeButton.SetEnabled(false);
-        FocusManager.Instance.DisableFocusableTarget(upgradeButton.AsFocusable());
-
-        cardRemovalButton.SetEnabled(false);
-        FocusManager.Instance.DisableFocusableTarget(cardRemovalButton.AsFocusable());
-
-        upgradeButtonContainer.visible = false;
-        rerollContainer.visible = false;
-        cardRemovalContainer.visible = false;
     }
 
     private void PreviewUpgradedDeck() {

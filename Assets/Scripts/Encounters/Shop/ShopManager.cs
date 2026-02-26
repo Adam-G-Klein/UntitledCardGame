@@ -112,7 +112,6 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
                 SetDraftingHelpText(shopEncounter.shopData.numRatsBuyPerDisplay, shopEncounter.shopData.numRatsBuyPerShop);
 
                 shopViewController.EnableDraftingHelp();
-                shopViewController.DisableButtonsForDemo();
                 staticRats = getCurrentStaticRatGroup();
                 staticCards = new StaticCardTypeGroup
                     {
