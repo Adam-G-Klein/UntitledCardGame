@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
-  m_Name: RP_L3_Ashlurker
+  m_Name: RP_L2_Tjork
   m_EditorClassIdentifier: 
-  guid: 4c6428ff-7cc1-40ca-95a4-bb0b9e7581c6
-  companionName: Ashlurker++
-  maxHealth: 60
+  guid: b1b487b2-5bca-49ff-a71e-c41616c2869c
+  companionName: "Tj\xF6rk+"
+  maxHealth: 40
   initialCardsDealtPerTurn: 1
-  sprite: {fileID: 21300000, guid: 4bf0ef30d3fe043ac844e2be153b9fb0, type: 3}
-  fullSprite: {fileID: 21300000, guid: 4bf0ef30d3fe043ac844e2be153b9fb0, type: 3}
-  startingDeck: {fileID: 11400000, guid: de5f5f358da2f418397bc9379e0dd14f, type: 2}
+  sprite: {fileID: 21300000, guid: e9108acc0c564144288cabd141d39174, type: 3}
+  fullSprite: {fileID: 21300000, guid: e9108acc0c564144288cabd141d39174, type: 3}
+  startingDeck: {fileID: 11400000, guid: 669d7190127094f0395e06bc6cb98d0e, type: 2}
   rarity: 2
   baseCompanionType: {fileID: 11400000, guid: 8950a2a36d4be461eaa44c386b13c760, type: 2}
   cacheValueConfigs: []
@@ -26,17 +26,18 @@ MonoBehaviour:
   pack: {fileID: 11400000, guid: 79e479ca9df7a4369ba7fa951e0af116, type: 2}
   abilitiesV2:
   - rid: 205828032053379705
-  level: 2
-  upgradeTo: {fileID: 0}
+  level: 1
+  upgradeTo: {fileID: 11400000, guid: 4c72807e00e9242eb843c847e7de5012, type: 2}
   tooltip:
     empty: 0
     lines:
-    - title: Ashlurker++
-      description: Whenever you exhaust a card, draw 2 cards from this companion
+    - title: "Tj\xF6rk+"
+      description: "Whenever you exhaust a card, draw a card from Tj\xF6rk"
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
+      iconDescriptionLine: []
   keepsakeTitle: 
-  keepsakeDescription: Whenever you exhaust a card, draw 2 cards from this companion
+  keepsakeDescription: "Whenever you exhaust a card, draw a card from Tj\xF6rk"
   references:
     version: 2
     RefIds:
@@ -45,7 +46,7 @@ MonoBehaviour:
       data:
         abilityTrigger: 9
         effectSteps:
-        - rid: 7707884639552275422
+        - rid: 7707884639552275418
         - rid: 7401433308100034729
         - rid: 7401433308100034734
         - rid: 7401433308100034735
@@ -68,7 +69,7 @@ MonoBehaviour:
         effectStepName: DrawCards
         inputKey: self
         outputKey: 
-        scale: 2
+        scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
     - rid: 7401433308100034735
@@ -78,7 +79,7 @@ MonoBehaviour:
         inputKey: self
         prefabToInstantiate: {fileID: 2729960547564495472, guid: b154b671b3d45ef448e7d9eb6a35363a, type: 3}
         scale: 1
-    - rid: 7707884639552275422
+    - rid: 7707884639552275418
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EntityAbilityTriggeredVFX

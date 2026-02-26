@@ -52,7 +52,6 @@ public class CompanionInstance : MonoBehaviour, IUIEntity
         rarityColorGradient = new Gradient();
         whiteGradient = new Gradient();
         Color rarityColor = goldColor;
-        Debug.LogError(companion.companionType.level);
         switch(companion.companionType.level)
         {
             case CompanionLevel.LevelThree:

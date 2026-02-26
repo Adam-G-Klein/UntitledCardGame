@@ -10,56 +10,39 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
-  m_Name: RP_Firebreather
+  m_Name: RP_L2_Pluck
   m_EditorClassIdentifier: 
-  guid: db0511e6-1aa3-49cb-89d8-bcf32cc32ae3
-  companionName: Firebreather
-  maxHealth: 20
+  guid: f5e4feca-e5df-4538-907c-38584ccb5e3a
+  companionName: Pluck+
+  maxHealth: 40
   initialCardsDealtPerTurn: 1
-  sprite: {fileID: 21300000, guid: a2a0a304ab14046b09042692e44d4e13, type: 3}
-  fullSprite: {fileID: 21300000, guid: a2a0a304ab14046b09042692e44d4e13, type: 3}
-  backgroundImage: {fileID: 21300000, guid: cf0b03f8254f64d7ca33d64244db66e4, type: 3}
-  entityFrame: {fileID: 21300000, guid: d4ddadb9b0de34fe68babd80a4878635, type: 3}
-  companionManagementFrame: {fileID: 21300000, guid: 17b9618f5107840a8b89e8b21a1a69c8, type: 3}
+  sprite: {fileID: 21300000, guid: 2cf756261bc36e24a8b80c0bb481b331, type: 3}
+  fullSprite: {fileID: 21300000, guid: 2cf756261bc36e24a8b80c0bb481b331, type: 3}
   startingDeck: {fileID: 11400000, guid: 9bd279683242744af81f7d07ca8471fc, type: 2}
-  cardBack: {fileID: 21300000, guid: 3296a63e824de414bb4b578c4822fbdb, type: 3}
-  cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
-  cardTypeIconOverride: {fileID: 0}
   rarity: 2
-  cardIdleVfxPrefab: {fileID: 0}
-  genericCompanionSFX: {fileID: 0}
-  genericCompanionVFX: {fileID: 0}
+  baseCompanionType: {fileID: 11400000, guid: f62014069b44b496abfab485bce40fd4, type: 2}
   cacheValueConfigs: []
   cardPool: {fileID: 11400000, guid: af660616ddae84306801a30cf4e9036f, type: 2}
   pack: {fileID: 11400000, guid: 0d12b03c0c8754470a900cb4f78a9217, type: 2}
-  speakerType: {fileID: 0}
   abilitiesV2:
   - rid: 2034230017118175443
-  level: 0
-  upgradeTo: {fileID: 11400000, guid: 15c15b571e5c74d31b15016cd4ee60a0, type: 2}
+  level: 1
+  upgradeTo: {fileID: 11400000, guid: a3b8e0f9405d44dfdbfdbf027f710a8e, type: 2}
   tooltip:
     empty: 0
     lines:
-    - title: Firebreather
-      description: At the end of turn, deal 4 damage to a random foe for each Charm
-        card in your hand
+    - title: Pluck+
+      description: At the end of turn, deal 5 damage to all foes for each Charm card
+        in your hand
       relatedBehaviorIndex: 0
-  keepsakeTitle: Firebreather
-  keepsakeDescription: At the end of turn, deal 4 damage to a random foe for each
-    Charm card in your hand
+      icon: {fileID: 0}
+      iconDescriptionLine: []
+  keepsakeTitle: Pluck
+  keepsakeDescription: At the end of turn, deal 5 damage to all foes for each Charm
+    card in your hand
   references:
     version: 2
     RefIds:
-    - rid: 758316092100444272
-      type: {class: GetRandomItems, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetRandomItems
-        inputKey: enemies
-        scale: 1
-        scaleKey: numStatusCards
-        getScaleFromKey: 1
-        outputKey: targets
-        withReplacement: 1
     - rid: 2034230017118175443
       type: {class: EntityAbility, ns: , asm: Assembly-CSharp}
       data:
@@ -68,10 +51,9 @@ MonoBehaviour:
         - rid: 2034230017118175444
         - rid: 2034230017118175446
         - rid: 2034230176448512932
-        - rid: 7707884639552274946
+        - rid: 7707884639552274978
         - rid: 2034230176448512829
         - rid: 2034230176448512927
-        - rid: 758316092100444272
         - rid: 2034230176448512928
         - rid: 2034230176448512930
         weight: 0
@@ -95,6 +77,8 @@ MonoBehaviour:
         filter:
           cardCategoriesToInclude: 04000000
           retainedCardsFilter: 0
+          manaCostFilter: 0
+          manaCost: 0
           exactCardType: {fileID: 0}
         outputKey: statusCards
     - rid: 2034230176448512829
@@ -119,9 +103,9 @@ MonoBehaviour:
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
-        inputKey: targets
+        inputKey: enemies
         combatEffect: 14
-        scale: 4
+        scale: 5
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
@@ -138,7 +122,7 @@ MonoBehaviour:
       data:
         effectStepName: EndWorkflowIfListEmpty
         inputKey1: statusCards
-    - rid: 7707884639552274946
+    - rid: 7707884639552274978
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EntityAbilityTriggeredVFX

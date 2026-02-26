@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
-  m_Name: RP_L2_Windreaver
+  m_Name: RP_L2_Rilla
   m_EditorClassIdentifier: 
   guid: 88a9e397-6d82-4d1c-b1d2-a7e8f494c09d
-  companionName: Windreaver+
+  companionName: Rilla+
   maxHealth: 40
   initialCardsDealtPerTurn: 1
-  sprite: {fileID: 21300000, guid: a295995a4e3ab4ceb87ca93dd1b953fc, type: 3}
-  fullSprite: {fileID: 21300000, guid: a295995a4e3ab4ceb87ca93dd1b953fc, type: 3}
+  sprite: {fileID: 21300000, guid: db071cc09a4801d448917a976d3c6ee4, type: 3}
+  fullSprite: {fileID: 21300000, guid: db071cc09a4801d448917a976d3c6ee4, type: 3}
   startingDeck: {fileID: 11400000, guid: 8cfb59c3193db4a2cbced98c8ef59eda, type: 2}
   rarity: 1
   baseCompanionType: {fileID: 11400000, guid: 3e106f4f46ecc4b3e999378b87e6b0de, type: 2}
@@ -31,12 +31,13 @@ MonoBehaviour:
   tooltip:
     empty: 0
     lines:
-    - title: Windreaver+
+    - title: Rilla+
       description: At the end of turn, retain 1 Charm card chosen at random. If you
         have 2 or less Charm cards in hand, give leftmost rat 6 block
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
-  keepsakeTitle: Level Two Windreaver
+      iconDescriptionLine: []
+  keepsakeTitle: Rilla+
   keepsakeDescription: At the end of turn, retain 1 Charm card chosen at random.
     If you have 2 or less Charm cards in hand, give leftmost rat 6 block
   references:

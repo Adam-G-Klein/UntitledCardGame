@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
-  m_Name: RP_L2_Firebreather
+  m_Name: RP_L3_Pluck
   m_EditorClassIdentifier: 
-  guid: f5e4feca-e5df-4538-907c-38584ccb5e3a
-  companionName: Firebreather+
-  maxHealth: 40
+  guid: 906eeb41-cdd1-4e52-a389-1b9dc6a90b99
+  companionName: Pluck++
+  maxHealth: 60
   initialCardsDealtPerTurn: 1
-  sprite: {fileID: 21300000, guid: a2a0a304ab14046b09042692e44d4e13, type: 3}
-  fullSprite: {fileID: 21300000, guid: a2a0a304ab14046b09042692e44d4e13, type: 3}
+  sprite: {fileID: 21300000, guid: 2cf756261bc36e24a8b80c0bb481b331, type: 3}
+  fullSprite: {fileID: 21300000, guid: 2cf756261bc36e24a8b80c0bb481b331, type: 3}
   startingDeck: {fileID: 11400000, guid: 9bd279683242744af81f7d07ca8471fc, type: 2}
   rarity: 2
   baseCompanionType: {fileID: 11400000, guid: f62014069b44b496abfab485bce40fd4, type: 2}
@@ -26,18 +26,19 @@ MonoBehaviour:
   pack: {fileID: 11400000, guid: 0d12b03c0c8754470a900cb4f78a9217, type: 2}
   abilitiesV2:
   - rid: 2034230017118175443
-  level: 1
-  upgradeTo: {fileID: 11400000, guid: a3b8e0f9405d44dfdbfdbf027f710a8e, type: 2}
+  level: 2
+  upgradeTo: {fileID: 0}
   tooltip:
     empty: 0
     lines:
-    - title: Firebreather+
-      description: At the end of turn, deal 5 damage to all foes for each Charm card
-        in your hand
+    - title: Pluck++
+      description: At the end of turn, deal 10 damage to all foes for each Charm
+        card in your hand
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
-  keepsakeTitle: Firebreather
-  keepsakeDescription: At the end of turn, deal 5 damage to all foes for each Charm
+      iconDescriptionLine: []
+  keepsakeTitle: Pluck++
+  keepsakeDescription: At the end of turn, deal 10 damage to all foes for each Charm
     card in your hand
   references:
     version: 2
@@ -50,7 +51,7 @@ MonoBehaviour:
         - rid: 2034230017118175444
         - rid: 2034230017118175446
         - rid: 2034230176448512932
-        - rid: 7707884639552274978
+        - rid: 7707884639552274983
         - rid: 2034230176448512829
         - rid: 2034230176448512927
         - rid: 2034230176448512928
@@ -104,7 +105,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: enemies
         combatEffect: 14
-        scale: 5
+        scale: 10
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
@@ -121,7 +122,7 @@ MonoBehaviour:
       data:
         effectStepName: EndWorkflowIfListEmpty
         inputKey1: statusCards
-    - rid: 7707884639552274978
+    - rid: 7707884639552274983
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EntityAbilityTriggeredVFX
