@@ -22,6 +22,8 @@ public class ShopTutorialDisplay : MonoBehaviour
     [SerializeField]
     private float delayPerFreeRerollGiven = 0.5f;
     [SerializeField]
+    private float postFreeRerollDelay = 1f;
+    [SerializeField]
     private int freeCardRemovals = 2;
     [SerializeField]
     private float delayPerFreeCardRemovalGiven = 1f;
@@ -48,6 +50,7 @@ public class ShopTutorialDisplay : MonoBehaviour
         yield return new WaitForSeconds(postShopUpgradeDelay);
         yield return DemoDirector.Instance.InvokeDemoStepCoroutine(DemoStepName.SecondShopTutorialStep3);
         yield return GiveFreeRerolls();
+        yield return new WaitForSeconds(postFreeRerollDelay);
         yield return GiveFreeCardRemovals();
         yield return DemoDirector.Instance.InvokeDemoStepCoroutine(DemoStepName.SecondShopTutorialStep4);
         CinematicIntroComplete();

@@ -145,8 +145,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         cinematicIntroComplete = true;
         if (gameState.BuildTypeDemoOrConvention())
         {
-            //if(!DemoDirector.Instance.IsStepCompleted(DemoStepName.StartOfShop) || shopEncounter.shopData.shopMode == ShopMode.StaticChooseNDemo)
-            if(false)
+            if(!DemoDirector.Instance.IsStepCompleted(DemoStepName.StartOfShop) || shopEncounter.shopData.shopMode == ShopMode.StaticChooseNDemo)
             {
                 StartCoroutine(RunStartOfShopStep());
             } else if (!DemoDirector.Instance.IsStepCompleted(DemoStepName.SecondShopTutorialStep1))
@@ -377,7 +376,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     }
 
     public void ProcessCardBuyRequestV2(ShopItemView shopItemView, CardInShopWithPrice cardInShop) {
-        if (numCardsBoughtThisShop < shopEncounter.shopData.numCardsBuyPerShop) {
+        if (shopEncounter.shopData.shopMode != ShopMode.StaticChooseNDemo || numCardsBoughtThisShop < shopEncounter.shopData.numCardsBuyPerShop) {
             this.buyingCard = true;
             this.currentCardBuyRequest = cardInShop;
             this.currentCardBuyRequestItemView = shopItemView;
@@ -397,7 +396,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
     public void ProcessCompanionBuyRequest(ShopItemView shopItemView, CompanionInShopWithPrice companionInShop) {
         Debug.Log("Processing companion buy request");
-        if (numRatsBoughtThisShop < shopEncounter.shopData.numRatsBuyPerShop)
+        if (shopEncounter.shopData.shopMode != ShopMode.StaticChooseNDemo || numRatsBoughtThisShop < shopEncounter.shopData.numRatsBuyPerShop)
         {
             // Create a new instance of the companion and then attempt companion upgrades before adding
             // them to your team;

@@ -127,13 +127,7 @@ public class ShopViewController : MonoBehaviour,
             uiDoc = GetComponent<UIDocument>();
         }
 
-        if(shopMode == ShopMode.StaticChooseNDemo)
-        {
-            uiDoc.visualTreeAsset = tutorialShopUIDoc;
-        } else
-        {
-            uiDoc.visualTreeAsset = normalShopUIDoc;
-        }
+        uiDoc.visualTreeAsset = normalShopUIDoc;
 
         this.shopManager = shopManager;
 
@@ -260,7 +254,9 @@ public class ShopViewController : MonoBehaviour,
 
     public void EnableDraftingHelp()
     {
-        uiDoc.rootVisualElement.Q("drafting-help-container").visible = true;
+        var container = uiDoc.rootVisualElement.Q("drafting-help-container");
+        container.style.display = DisplayStyle.Flex;
+        container.visible = true;
     }
 
     public void ShowFreeRerolls()
