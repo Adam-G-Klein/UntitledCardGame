@@ -27,6 +27,7 @@ public class ShopViewController : MonoBehaviour,
     // Specific shop VisualElement references
     private VisualElement shopGoodsAreaContainer;
     private VisualElement shopButtonsContainer;
+    private VisualElement shopButtonsContainerBg;
     private VisualElement shopGoodsArea;
     private VisualElement benchContainer;
     private VisualElement activeContainer;
@@ -135,6 +136,7 @@ public class ShopViewController : MonoBehaviour,
         shopGoodsAreaContainer = uiDoc.rootVisualElement.Q("shop-view-goods-area-container");
         shopGoodsArea = uiDoc.rootVisualElement.Q("shop-goods-area");
         shopButtonsContainer = uiDoc.rootVisualElement.Q("shop-view-button-container");
+        shopButtonsContainerBg = uiDoc.rootVisualElement.Q("shop-view-button-container-background");
         activeContainer = uiDoc.rootVisualElement.Q("unit-active-container");
         benchContainer = uiDoc.rootVisualElement.Q("bench-container");
         notEnoughMoneyLabel = uiDoc.rootVisualElement.Q<Label>("not-enough-money-indicator");
@@ -249,6 +251,8 @@ public class ShopViewController : MonoBehaviour,
 
         shopGoodsAreaContainer.AddToClassList("shop-view-goods-area-container-narrower");
         shopButtonsContainer.AddToClassList("shop-view-button-container-wider");
+
+        shopButtonsContainerBg.visible = false;
 
         VisualElement upgradeButtonContainer = uiDoc.rootVisualElement.Q("upgrade-button-container");
         VisualElement rerollContainer = uiDoc.rootVisualElement.Q("reroll-button-container");

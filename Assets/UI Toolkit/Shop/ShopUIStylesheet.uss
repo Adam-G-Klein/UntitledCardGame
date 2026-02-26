@@ -3,7 +3,7 @@
     font-size: 30px;
     flex-grow: 1;
     align-self: center;
-    background-image: url("project://database/Assets/Sprites/UI/TrimmedPlainButton.png?fileID=2800000&guid=85a91730dc15b6f47b0a0f5923d2e07e&type=3#TrimmedPlainButton");
+    background-image: url("project://database/Assets/Sprites/UI/MainMenu_BaseButton.png?fileID=2800000&guid=907770250ea9f1346b4ddc31db30674e&type=3#MainMenu_BaseButton");
     border-top-width: 0;
     border-right-width: 0;
     border-bottom-width: 0;
@@ -23,10 +23,10 @@
 }
 
 .shopButtonPriceTag {
-    background-image: url("project://database/Assets/Sprites/ShopSprites/DialogueBox.png?fileID=2800000&guid=e1a81dd917fe696459cd192b12e9b3fc&type=3#DialogueBox");
+    background-image: url("project://database/Assets/Sprites/UI/Shop/ShopScreen_CardPriceFrame.png?fileID=2800000&guid=1d310283061b9e84698a2eb551f87ec5&type=3#ShopScreen_CardPriceFrame");
     align-self: center;
-    margin-left: 0;
-    width: 20%;
+    margin-left: 5%;
+    width: 14%;
     height: 33%;
     align-items: center;
     justify-content: flex-start;
@@ -98,13 +98,14 @@
 .shop-item-price-tag-background {
     flex-grow: 1;
     position: absolute;
-    background-image: url("project://database/Assets/Sprites/AidensRoom/DialogueBoxRotated.png?fileID=2800000&guid=d7a8d837df054914fa96d4e6f5f6598f&type=3#DialogueBoxRotated");
+    background-image: url("project://database/Assets/Sprites/UI/Shop/ShopScreen_CardPriceFrame.png?fileID=2800000&guid=1d310283061b9e84698a2eb551f87ec5&type=3#ShopScreen_CardPriceFrame");
     top: -22%;
     bottom: 100%;
     left: 80px;
     right: 80px;
     justify-content: center;
     align-items: center;
+    -unity-background-scale-mode: scale-to-fit;
 }
 
 .shop-item-price-tag-increased {
