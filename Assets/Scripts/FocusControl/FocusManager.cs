@@ -301,7 +301,7 @@ public class FocusManager : GenericSingleton<FocusManager>, IControlsReceiver
         }
     }
 
-    private void FocusFirstEnabledFocusable() {
+    public void FocusFirstEnabledFocusable() {
         Debug.Log("Focusing first focusable");
         foreach (IFocusableTarget target in focusableTargets) {
             if (!disabledFocusableTargets.Contains(target) && target.IsOnScreen()) {

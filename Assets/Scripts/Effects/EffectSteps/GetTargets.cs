@@ -181,7 +181,6 @@ public class GetTargets : EffectStep, IEffectStepCalculation
             return;
         }
 
-        TargettingArrowsController.Instance.createTargettingArrow(validTargets, self);
         targetsList.Add(target);
 
         if (number > targetsList.Count) {

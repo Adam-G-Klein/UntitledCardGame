@@ -38,6 +38,8 @@ public class TargettingArrowsController : GenericSingleton<TargettingArrowsContr
             GameObject origin) {
         currentArrow = createArrow(validTypes, origin);
         arrows.Add(currentArrow);
+        if (ControlsManager.Instance.GetControlMethod() == ControlsManager.ControlMethod.KeyboardController)
+            FocusManager.Instance.FocusFirstEnabledFocusable();
     }
 
     private TargettingArrow createArrow(
