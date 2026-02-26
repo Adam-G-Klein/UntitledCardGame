@@ -46,10 +46,10 @@ Material:
     - _Distortion_Tex:
         m_Texture: {fileID: 2800000, guid: 0009a37dcf5808e4fbf074aeca753987, type: 3}
         m_Scale: {x: 1.5, y: 1.5}
-        m_Offset: {x: 0, y: 0.06}
+        m_Offset: {x: 0, y: 0}
     - _FadeTexture:
         m_Texture: {fileID: 2800000, guid: 927e903a92ee5e749b2a31ef62dcae4d, type: 3}
-        m_Scale: {x: 1, y: 1}
+        m_Scale: {x: 0.1, y: 0.1}
         m_Offset: {x: 0, y: 0}
     - _Fade_Secondary_Tex:
         m_Texture: {fileID: 2800000, guid: 0ae5d39b9aae86a469831c696c91cffa, type: 3}
@@ -102,14 +102,14 @@ Material:
     - _Blend: 0
     - _CastShadows: 1
     - _Cull: 0
-    - _Cutoff_Softness: 0.85
-    - _Cutoff_Value: 0
+    - _Cutoff_Softness: 0.64
+    - _Cutoff_Value: 0.28
     - _Dissolve_Amount: 0
     - _Distorion_in_Custom_Data: 0
     - _Distort_the_Mask: 1
-    - _Distortion_Strength: 0.18
+    - _Distortion_Strength: 0.49
     - _DstBlend: 10
-    - _Fade_Secondary_Tex_Power: 1
+    - _Fade_Secondary_Tex_Power: 1.04
     - _Fade_Tex_Dissolve_Amount: 0
     - _Fade_Tex_Pow: -1.63
     - _Fresnel: 0
@@ -133,6 +133,7 @@ Material:
     - _Use_Radial: 0
     - _Use_Soft_Sides: 0
     - _Vertex_Displacement_Strength: 0
+    - _World_Texture_Smoothstep: 1
     - _ZTest: 4
     - _ZWrite: 0
     - _ZWriteControl: 0
@@ -142,7 +143,7 @@ Material:
     - _Colour_B: {r: 0, g: 0, b: 0, a: 1}
     - _Dissolve_Speed: {r: 0, g: 0, b: 0, a: 0}
     - _Distortion_Speed: {r: 0, g: -0.04, b: 0, a: 0}
-    - _Fade_Tex_Speed: {r: 0, g: -0.025, b: 0, a: 0}
+    - _Fade_Tex_Speed: {r: 0, g: -0.075, b: 0, a: 0}
     - _Fresnel_Color: {r: 1, g: 1, b: 1, a: 0}
     - _Fresnel_Speed: {r: 0, g: 0, b: 0, a: 0}
     - _LERP_Texture_Scroll: {r: 0, g: 0, b: 0, a: 0}

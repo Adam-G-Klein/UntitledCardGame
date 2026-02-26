@@ -51,6 +51,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: 0a27beb87d8947349aeeb58116c8e9dd, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Fade_Secondary_Tex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Fresnel_Texture:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -105,6 +109,7 @@ Material:
     - _Distort_the_Mask: 0
     - _Distortion_Strength: -0.2
     - _DstBlend: 10
+    - _Fade_Secondary_Tex_Power: 1
     - _Fade_Tex_Dissolve_Amount: 0
     - _Fade_Tex_Pow: 1
     - _Float: 0
@@ -130,6 +135,7 @@ Material:
     - _Use_Radial: 0
     - _Use_Soft_Sides: 0
     - _Vertex_Displacement_Strength: 0
+    - _World_Texture_Smoothstep: 0
     - _ZTest: 4
     - _ZWrite: 0
     - _ZWriteControl: 0
