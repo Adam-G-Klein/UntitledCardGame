@@ -925,7 +925,6 @@ MonoBehaviour:
     next fight.
   - It helps a lot - you draw an extra card each turn. Choose one from the available
     in the shop.
-  shopPivotSuggestionDialogue: []
   cardOfferingTipsDialogue:
   - Now you can pick cards to equip your rats for the rest of the game. Allow me
     to offer a few words of advice.
@@ -941,6 +940,9 @@ MonoBehaviour:
   - ...And you know what? 6 free rerolls and 2 free card removals, on the house.
   secondShopTutorialStep4Dialogue:
   - Regardless of the outcome, I appreciate you coming to help us. Good luck.
+  postCombatRewardsDialogueDialogue:
+  - 'Your first post combat rewards. '
+  - The Cats want you to keep playing, so they give you some cheese to chase.
 --- !u!1 &5109742072706344275
 GameObject:
   m_ObjectHideFlags: 0

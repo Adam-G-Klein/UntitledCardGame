@@ -25,6 +25,8 @@ public class DemoDirector : GenericSingleton<DemoDirector>
     public List<string> secondShopTutorialStep3Dialogue;
     [TextArea]
     public List<string> secondShopTutorialStep4Dialogue;
+    [TextArea]
+    public List<string> postCombatRewardsDialogueDialogue;
 
     public void Reset() {
         demoDataSO.stepCompletion = new Dictionary<DemoStepName, bool>();
@@ -82,6 +84,10 @@ public class DemoDirector : GenericSingleton<DemoDirector>
 
             case DemoStepName.SecondShopTutorialStep4:
                 yield return SecondShopTutorialStep4();
+            break;
+
+            case DemoStepName.PostCombatRewardsDialogue:
+                yield return PostCombatRewardsDialogueStep();
             break;
         }
         yield return null;
@@ -158,6 +164,14 @@ public class DemoDirector : GenericSingleton<DemoDirector>
         DialogueView.Instance.Hide();
         demoDataSO.stepCompletion[DemoStepName.SecondShopTutorialStep4] = true;
     }
+
+    public IEnumerator PostCombatRewardsDialogueStep() {
+        foreach (string line in postCombatRewardsDialogueDialogue) {
+            yield return DialogueView.Instance.SpeakLineCoroutine(speakerSprite, line, true);
+        }
+        DialogueView.Instance.Hide();
+        demoDataSO.stepCompletion[DemoStepName.PostCombatRewardsDialogue] = true;
+    }
 }
 
 public enum DemoStepName {
@@ -169,5 +183,6 @@ public enum DemoStepName {
     SecondShopTutorialStep1,
     SecondShopTutorialStep2,
     SecondShopTutorialStep3,
-    SecondShopTutorialStep4
+    SecondShopTutorialStep4,
+    PostCombatRewardsDialogue
 }

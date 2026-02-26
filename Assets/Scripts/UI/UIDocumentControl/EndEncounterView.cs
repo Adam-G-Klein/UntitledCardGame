@@ -101,10 +101,7 @@ public class EndEncounterView : MonoBehaviour
             })
             .setOnComplete(() => {
                 StartCoroutine(AnimateText());
-                if (keepButtonDisabled) return;
-                nextSceneButton.SetEnabled(true);
-                FocusManager.Instance.EnableFocusableTarget(nextSceneButton.AsFocusable());
-                FocusManager.Instance.SetFocus(nextSceneButton.AsFocusable());
+                StartCoroutine(PostShowCoroutine(keepButtonDisabled));
             });
     }
 
@@ -112,6 +109,17 @@ public class EndEncounterView : MonoBehaviour
         nextSceneButton.SetEnabled(true);
         FocusManager.Instance.EnableFocusableTarget(nextSceneButton.AsFocusable());
         FocusManager.Instance.SetFocus(nextSceneButton.AsFocusable());
+    }
+
+    private IEnumerator PostShowCoroutine(bool keepButtonDisabled) {
+        if (gameState.BuildTypeDemoOrConvention()
+                && DemoDirector.Instance != null
+                && !DemoDirector.Instance.IsStepCompleted(DemoStepName.PostCombatRewardsDialogue)) {
+            yield return DemoDirector.Instance.InvokeDemoStepCoroutine(DemoStepName.PostCombatRewardsDialogue);
+        }
+        if (!keepButtonDisabled) {
+            EnableNextButton();
+        }
     }
 
     private IEnumerator AnimateText()
