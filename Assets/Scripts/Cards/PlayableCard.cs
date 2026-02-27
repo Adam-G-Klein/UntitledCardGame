@@ -95,6 +95,7 @@ public class PlayableCard : MonoBehaviour,
         if (eventData != null && eventData.button != PointerEventData.InputButton.Left) return;
         EnemyEncounterManager.Instance.SetCastingCard(true);
         PlayerHand.Instance.SetHoverable(false);
+        PlayerHand.Instance.HighlightRelevantCards(null);
         interactable = false;
         currentlyCastingCard = true;
 
@@ -435,7 +436,8 @@ public class PlayableCard : MonoBehaviour,
             Debug.LogError("[PlayableCard] deckfrom doesn't have a companion instance, can't highlight selected companion");
             return;
         }
-        companionInstanceFrom.companionView.SetSelectionIndicatorVisibility(true);
+        if (!currentlyCastingCard) companionInstanceFrom.ToggleHighlightGlow(true);
+        //companionInstanceFrom.companionView.SetSelectionIndicatorVisibility(true);
     }
 
     private void UnHoverAssociatedCompanion()
@@ -451,7 +453,8 @@ public class PlayableCard : MonoBehaviour,
             Debug.LogError("[PlayableCard] deckfrom doesn't have a companion instance, can't highlight selected companion");
             return;
         }
-        companionInstanceFrom.companionView.SetSelectionIndicatorVisibility(false);
+        companionInstanceFrom.ToggleHighlightGlow(false);
+        //companionInstanceFrom.companionView.SetSelectionIndicatorVisibility(false);
     }
 
     public void ToggleDarkOverlay(bool turnOn)

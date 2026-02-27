@@ -416,7 +416,7 @@ public class CompanionView : IUIEventReceiver
 
         try {
             if (this.companionInstance == null) return;
-            PlayerHand.Instance.HighlightRelevantCards(this.companionInstance.deckInstance);
+            //PlayerHand.Instance.HighlightRelevantCards(this.companionInstance.deckInstance);
             Targetable targetable = this.companionInstance.GetTargetable();
             if (targetable == null) return;
             targetable.OnPointerEnterUI(evt);
@@ -436,7 +436,7 @@ public class CompanionView : IUIEventReceiver
         try
         {
             if (this.companionInstance == null) return;
-            PlayerHand.Instance.HighlightRelevantCards(null);
+            //PlayerHand.Instance.HighlightRelevantCards(null);
             Targetable targetable = this.companionInstance.GetTargetable();
             if (targetable == null) return;
             targetable.OnPointerLeaveUI(evt);

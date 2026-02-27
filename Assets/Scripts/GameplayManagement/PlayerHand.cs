@@ -254,6 +254,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             .setEase(LeanTweenType.easeOutQuint);
         UpdateCardPositions(null);
 
+        if (EnemyEncounterManager.Instance.GetCastingCard()) return;
         HighlightRelevantCards(card.deckFrom);
     }
 
@@ -276,10 +277,6 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             // will need to decide which behavior makes sense for the null case
             playableCard.ToggleDarkOverlay(deckFrom != null && deckFrom != playableCard.deckFrom);
         }
-
-        // highlightRelevantCompanions...not 100% sure where this code should live
-        CombatEncounterView combatEncounterView = EnemyEncounterManager.Instance.combatEncounterView;
-        combatEncounterView.HighlightRelevantCompanions(deckFrom?.combatInstance);
     }
 
     // Function that updates all card positions
