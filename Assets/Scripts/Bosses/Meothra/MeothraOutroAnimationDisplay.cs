@@ -48,6 +48,7 @@ public class MeothraOutroAnimationDisplay : MonoBehaviour
         director.time = 0.0f;
         director.Play();
         yield return new WaitForSeconds((float)outroTimeline.duration);
+        MusicController.Instance.SetCombatState("Run Complete");
         Debug.Log("MeothraOutroAnimationDisplay: Outro animation complete!");
         EnemyEncounterManager.Instance.CinematicOutroComplete();
     }
