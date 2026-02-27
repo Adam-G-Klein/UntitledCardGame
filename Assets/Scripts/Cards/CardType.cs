@@ -201,7 +201,7 @@ public class CardType: IdentifiableSO, ITooltipProvider
                     }
                     else
                     {
-                        styledValue = $"<b>{currentValue}</b>";
+                        styledValue = $"{currentValue}"; // removed bold here as it just felt weird for the numbers to have different weight for no reason
                     }
 
                     description = description.Replace($"{{{defaultValue.key}}}", styledValue);
