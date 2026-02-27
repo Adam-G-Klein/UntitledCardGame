@@ -538,6 +538,7 @@ public class ShopViewController : MonoBehaviour,
 
     public void CompanionUpgradeAnimation(CompanionManagementSlotView companionManagementSlotView, UpgradeInfo upgradeInfo)
     {
+        DestroyAllTooltips();
         FocusManager.Instance.DisableFocusableTarget(companionManagementSlotView.veFocusable);
         companionManagementSlotView.companionManagementView.SetUpdateAnimationPlaying(true);
         Companion companion = upgradeInfo.resultingCompanion;
@@ -633,6 +634,7 @@ public class ShopViewController : MonoBehaviour,
 
     public void AnimateCardToCompanion(CardInShopWithPrice card, CompanionManagementView companionView)
     {
+        DestroyAllTooltips();
         ShopItemView shopItemView = cardItemToViewMap[card];
         Vector2 startPoint = VisualElementUtils.GetCenterOfVisualElement(shopItemView.shopItemElement);
         Vector2 endPoint = VisualElementUtils.GetCenterOfVisualElement(companionView.container);
@@ -1133,6 +1135,7 @@ public class ShopViewController : MonoBehaviour,
     {
         if (!canDragCompanions && !isDraggingCompanion) return;
 
+        DestroyAllTooltips();
         CompanionManagementSlotView parentSlot = GetParentSlotViewForCompanion(companionView);
         if (parentSlot == null) {
             Debug.LogWarning("RESETTING COMPANION MANAGEMENT VIEW");
@@ -1912,6 +1915,10 @@ public class ShopViewController : MonoBehaviour,
             companionToShow.deck.PurgeStarterDeckCard(ShopManager.Instance.gameState.baseShopData.baseCardsToRemoveOnUpgrade);
         }
         MultiDeckViewManager.Instance.ShowShopDeckView(true, companionToShow, MultiDeckViewManager.TabType.ForPurchase);
+    }
+
+    public void DestroyAllTooltips() {
+        tooltipController.DestroyAllTooltips();
     }
 
     public void DisableAllUI() {

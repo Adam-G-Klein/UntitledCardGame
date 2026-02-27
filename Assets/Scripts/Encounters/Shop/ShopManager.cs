@@ -380,6 +380,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             this.currentCardBuyRequest = cardInShop;
             this.currentCardBuyRequestItemView = shopItemView;
             shopViewController.CardBuyingSetup(shopItemView, cardInShop);
+            shopViewController.DestroyAllTooltips();
         } else {
             shopViewController.AlreadyBoughtBudgetOfCards();
         }
@@ -425,6 +426,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             shopViewController.SetMoney(gameState.playerData.GetValue().gold);
             InstantiateShopVFX(moneySpentPrefab, shopItemView.shopItemElement, 1.5f);
             MusicController.Instance.PlaySFX("event:/SFX/SFX_CompanionBuy");
+            shopViewController.DestroyAllTooltips();
 
             if (upgradeInfo != null)
             {
@@ -595,6 +597,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         Companion companion = companionView.companion;
         if (this.buyingCard)
         {
+            shopViewController.DestroyAllTooltips();
             if (!IsApplicableCompanion(currentCardBuyRequest, companion)) return;
             Card newCard = new Card(currentCardBuyRequest.cardType, companion.companionType, currentCardBuyRequest.rarity);
             companion.deck.cards.Add(newCard);
@@ -643,6 +646,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         }
 
         if (removingCard) {
+            shopViewController.DestroyAllTooltips();
             shopViewController.ShopDeckViewForCardRemoval(companion);
         }
     }
