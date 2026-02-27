@@ -310,7 +310,9 @@ public class CombatEncounterView : MonoBehaviour,
         foreach (CompanionView companionView in companionViews)
         {
             bool turnOffGlow = combatInstance == null || combatInstanceToCompanionView[combatInstance] != companionView;
-            companionView.GetCompanionInstance()?.ToggleHighlightGlow(!turnOffGlow);
+            if (!companionView.IsDead() && companionView.GetCompanionInstance() != null) {
+                companionView.GetCompanionInstance().ToggleHighlightGlow(!turnOffGlow);
+            }
         }
     }
 

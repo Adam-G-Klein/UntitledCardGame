@@ -468,6 +468,10 @@ public class CompanionView : IUIEventReceiver
         yield return null;
     }
 
+    public bool IsDead() {
+        return isDead;
+    }
+
     private void DamageScaleBump(int scale) {
         if (scale == 0 || this.isTweening) return; // this could mean the damage didn't go through the block or that the companion died while taking damage
 
