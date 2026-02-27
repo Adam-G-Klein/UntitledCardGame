@@ -16,7 +16,6 @@ public class SelectionPurposeTextPair
     public string text;
 }
 
-[ExecuteInEditMode]
 [RequireComponent(typeof(TurnPhaseEventListener))]
 public class PlayerHand : GenericSingleton<PlayerHand>
 {
