@@ -110,16 +110,17 @@ public class EndEncounterView : MonoBehaviour
         FocusManager.Instance.EnableFocusableTarget(nextSceneButton.AsFocusable());
         FocusManager.Instance.SetFocus(nextSceneButton.AsFocusable());
     }
+    public void DisableNextButton() {
+        nextSceneButton.SetEnabled(false);
+        FocusManager.Instance.DisableFocusableTarget(nextSceneButton.AsFocusable());
+        FocusManager.Instance.Unfocus();
+    }
 
     private IEnumerator PostShowCoroutine(bool keepButtonDisabled) {
-        if (gameState.BuildTypeDemoOrConvention()
-                && DemoDirector.Instance != null
-                && !DemoDirector.Instance.IsStepCompleted(DemoStepName.PostCombatRewardsDialogue)) {
-            yield return DemoDirector.Instance.InvokeDemoStepCoroutine(DemoStepName.PostCombatRewardsDialogue);
-        }
         if (!keepButtonDisabled) {
             EnableNextButton();
         }
+        yield return null;
     }
 
     private IEnumerator AnimateText()
