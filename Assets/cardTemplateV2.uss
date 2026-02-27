@@ -1,3 +1,8 @@
+.unity-label {
+    -unity-font-definition: initial;
+    -unity-font: resource('fonts/Quattrocento-Regular');
+}
+
 .cardTypeLabel {
     position: absolute;
     width: 20%;
@@ -154,6 +159,7 @@
     align-self: auto;
     flex-wrap: wrap;
     white-space: normal;
+    -unity-font: resource('fonts/Quattrocento-Regular');
 }
 
 .iconDescSprite {
@@ -167,9 +173,4 @@
 .iconDescSpriteShop {
     width: 25%;
     height: 100%;
-}
-
-.unity-label {
-    -unity-font-definition: initial;
-    -unity-font: resource('fonts/IMFellEnglish-Regular');
 }

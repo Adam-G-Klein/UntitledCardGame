@@ -14,8 +14,8 @@
             <ui:VisualElement name="rarityIndicator" style="flex-grow: 1; bottom: 3.8%; right: 7%; position: absolute; width: 9%; height: 6%; background-image: url(&quot;project://database/Assets/Sprites/PackIcons/StatusUncommon.png?fileID=2800000&amp;guid=c5c99d615482947edba9de79d6472e12&amp;type=3#StatusUncommon&quot;); -unity-background-scale-mode: scale-to-fit;" />
             <ui:Label tabindex="-1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="manaLabel" text="2" class="manaLabel" style="-unity-font: resource(&apos;fonts/Quattrocento-Regular&apos;);" />
             <ui:Label tabindex="-1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="cardDesc" class="cardDescription" />
-            <ui:Label tabindex="-1" text="Eternal Flame" parse-escape-sequences="true" display-tooltip-when-elided="true" name="cardName" class="cardName" />
-            <ui:Label tabindex="-1" text="Attack" parse-escape-sequences="true" display-tooltip-when-elided="true" name="cardTypeLabel" class="cardTypeLabel" />
+            <ui:Label tabindex="-1" text="Eternal Flame" parse-escape-sequences="true" display-tooltip-when-elided="true" name="cardName" class="cardName" style="-unity-font: resource(&apos;fonts/Quattrocento-Bold&apos;); -unity-font-style: normal;" />
+            <ui:Label tabindex="-1" text="Attack" parse-escape-sequences="true" display-tooltip-when-elided="true" name="cardTypeLabel" class="cardTypeLabel" style="-unity-font: resource(&apos;fonts/Quattrocento-Regular&apos;);" />
         </ui:VisualElement>
         <ui:VisualElement name="cardIconDesc" class="iconDescContainer cardDescription" style="display: flex;">
             <ui:VisualElement name="firstRow" class="iconDescRow">
