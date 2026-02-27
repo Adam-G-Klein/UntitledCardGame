@@ -54,6 +54,7 @@ public class GetTargets : EffectStep, IEffectStepCalculation
     [SerializeField]
     private bool cantCancelTargetting = false;
     [SerializeField] private string cardSelectionHelperText;
+    [SerializeField] private SelectionPurposeEnum selectionPurpose;
     private bool cancelled = false;
 
     private List<Targetable> targetsList;
@@ -121,7 +122,7 @@ public class GetTargets : EffectStep, IEffectStepCalculation
                         targetsList.Add(card.GetComponent<Targetable>());
                     }
                     selected = true;
-                }, originCard, !cantCancelTargetting, cardSelectionHelperText);
+                }, originCard, !cantCancelTargetting, cardSelectionHelperText, selectionPurpose);
                 yield return new WaitUntil(() => selected == true || (!cantCancelTargetting && cancelled));
             } else {
                 TargettingManager.Instance.targetSuppliedHandler += TargetSuppliedHandler;
@@ -385,5 +386,13 @@ public class GetTargets : EffectStep, IEffectStepCalculation
         TargetRandom,
         TargetLeftmost,
         TargetAllEntitiesExceptEntityThatDealtCard,
+    }
+
+    public enum SelectionPurposeEnum {
+        None,
+        Exhaust,
+        Discard,
+        Retain,
+        Discount
     }
 }

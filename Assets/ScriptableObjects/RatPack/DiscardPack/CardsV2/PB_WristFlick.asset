@@ -75,6 +75,7 @@ MonoBehaviour:
         specialTargetRule: 5
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 2
     - rid: 1289961820425028077
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
@@ -100,6 +101,7 @@ MonoBehaviour:
         specialTargetRule: 0
         cantCancelTargetting: 1
         cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 2116895648763871336
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:

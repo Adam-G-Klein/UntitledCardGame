@@ -9,6 +9,12 @@ using UnityEngine.Playables;
 using UnityEditor;
 using Unity.VisualScripting;
 
+[Serializable]
+public class SelectionPurposeTextPair
+{
+    public GetTargets.SelectionPurposeEnum purpose;
+    public string text;
+}
 
 [ExecuteInEditMode]
 [RequireComponent(typeof(TurnPhaseEventListener))]
@@ -47,6 +53,8 @@ public class PlayerHand : GenericSingleton<PlayerHand>
 
     [SerializeField]
     private SplineContainer cardInHandSelectionSpline;
+    [SerializeField]
+    private List<SelectionPurposeTextPair> selectionPurposeToText;
 
 
     private GameObject cardPrefab;
@@ -771,7 +779,8 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             Action<List<PlayableCard>> callback,
             PlayableCard cardCast, // Nullable
             bool canCancel,
-            string helperText = "")
+            string helperText = "",
+            GetTargets.SelectionPurposeEnum selectionPurpose = GetTargets.SelectionPurposeEnum.None)
     {
         string CHOOSE_X_CARDS = "Choose {0} cards{1}";
         string CHOOSE_A_CARD = "Choose a card{0}";
@@ -930,17 +939,34 @@ public class PlayerHand : GenericSingleton<PlayerHand>
 
         string GetPromptText()
         {
+            string extraText = "";
+            if (helperText != "") {
+                extraText = helperText;
+            }
+            else if (selectionPurpose != GetTargets.SelectionPurposeEnum.None) {
+                extraText = GetTextForPurpose(selectionPurpose);
+            }
             int cardsRemainingToSelect = number - selectedCards.Count;
             if (cardsRemainingToSelect > 1)
             {
-                return String.Format(CHOOSE_X_CARDS, cardsRemainingToSelect, helperText);
+                return String.Format(CHOOSE_X_CARDS, cardsRemainingToSelect, extraText);
             }
             else if (cardsRemainingToSelect == 1)
             {
-                return String.Format(CHOOSE_A_CARD, helperText);
+                return String.Format(CHOOSE_A_CARD, extraText);
             }
 
             return SELECT_CONFIRM;
+        }
+
+        string GetTextForPurpose(GetTargets.SelectionPurposeEnum purpose)
+        {
+            foreach (var pair in selectionPurposeToText)
+            {
+                if (pair.purpose == purpose)
+                    return pair.text;
+            }
+            return string.Empty;
         }
 
         void GeoChangedHandler(GeometryChangedEvent evt)

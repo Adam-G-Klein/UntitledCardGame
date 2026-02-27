@@ -113,6 +113,7 @@ MonoBehaviour:
         specialTargetRule: 0
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 1
     - rid: 5602892563578093695
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -125,6 +126,7 @@ MonoBehaviour:
         specialTargetRule: 2
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 5602892563578093696
       type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
       data:

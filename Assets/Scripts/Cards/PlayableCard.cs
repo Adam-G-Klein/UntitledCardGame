@@ -436,7 +436,7 @@ public class PlayableCard : MonoBehaviour,
             Debug.LogError("[PlayableCard] deckfrom doesn't have a companion instance, can't highlight selected companion");
             return;
         }
-        if (!currentlyCastingCard) companionInstanceFrom.ToggleHighlightGlow(true);
+        if (!EnemyEncounterManager.Instance.GetCastingCard()) companionInstanceFrom.ToggleHighlightGlow(true);
         //companionInstanceFrom.companionView.SetSelectionIndicatorVisibility(true);
     }
 

@@ -2001,6 +2001,42 @@ PrefabInstance:
       propertyPath: cardInHandSelectionSpline
       value: 
       objectReference: {fileID: 1577616520}
+    - target: {fileID: 6016206815298092238, guid: 28a067a8b113e3a4aadb83e0e82a16bd, type: 3}
+      propertyPath: selectionPurposeToText.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6016206815298092238, guid: 28a067a8b113e3a4aadb83e0e82a16bd, type: 3}
+      propertyPath: selectionPurposeToText.Array.data[0].text
+      value: ' to exhaust'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6016206815298092238, guid: 28a067a8b113e3a4aadb83e0e82a16bd, type: 3}
+      propertyPath: selectionPurposeToText.Array.data[1].text
+      value: ' to discard'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6016206815298092238, guid: 28a067a8b113e3a4aadb83e0e82a16bd, type: 3}
+      propertyPath: selectionPurposeToText.Array.data[2].text
+      value: ' to retain'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6016206815298092238, guid: 28a067a8b113e3a4aadb83e0e82a16bd, type: 3}
+      propertyPath: selectionPurposeToText.Array.data[3].text
+      value: ' to discount'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6016206815298092238, guid: 28a067a8b113e3a4aadb83e0e82a16bd, type: 3}
+      propertyPath: selectionPurposeToText.Array.data[0].purpose
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6016206815298092238, guid: 28a067a8b113e3a4aadb83e0e82a16bd, type: 3}
+      propertyPath: selectionPurposeToText.Array.data[1].purpose
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6016206815298092238, guid: 28a067a8b113e3a4aadb83e0e82a16bd, type: 3}
+      propertyPath: selectionPurposeToText.Array.data[2].purpose
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6016206815298092238, guid: 28a067a8b113e3a4aadb83e0e82a16bd, type: 3}
+      propertyPath: selectionPurposeToText.Array.data[3].purpose
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 6256734607495897998, guid: 28a067a8b113e3a4aadb83e0e82a16bd, type: 3}
       propertyPath: m_Name
       value: EncounterManager
@@ -2594,15 +2630,10 @@ MonoBehaviour:
         actions:
         - rid: 6591284524624904360
         - rid: 8205569917033382011
-        - rid: 6591284524624904359
+        - rid: -2
         - rid: 8205569917033382012
         - rid: 8205569917033382013
         initAction: 0
-    - rid: 6591284524624904359
-      type: {class: DialogueAction, ns: , asm: Assembly-CSharp}
-      data:
-        tutorialActionType: Dialouge Action
-        dialogueSequenceSO: {fileID: 11400000, guid: c633c71e6316740acbe44a60bf23217f, type: 2}
     - rid: 6591284524624904360
       type: {class: DebugAction, ns: , asm: Assembly-CSharp}
       data:
@@ -2658,14 +2689,9 @@ MonoBehaviour:
         stepName: Card Highlight step
         actions:
         - rid: 8205569917033382017
-        - rid: 8205569917033382016
+        - rid: -2
         - rid: 8205569917033382018
         initAction: 5
-    - rid: 8205569917033382016
-      type: {class: DialogueAction, ns: , asm: Assembly-CSharp}
-      data:
-        tutorialActionType: Dialouge Action
-        dialogueSequenceSO: {fileID: 11400000, guid: 2be9ff29669cb4688a51b961d7d9d98f, type: 2}
     - rid: 8205569917033382017
       type: {class: EventAction, ns: , asm: Assembly-CSharp}
       data:
@@ -2711,7 +2737,7 @@ MonoBehaviour:
         stepName: Highlight Enemy Step
         actions:
         - rid: 8205569917033382020
-        - rid: 8205569917033382066
+        - rid: -2
         - rid: 8205569917033382067
         initAction: 2
     - rid: 8205569917033382020
@@ -2740,7 +2766,7 @@ MonoBehaviour:
         stepName: Highlight Mana Step
         actions:
         - rid: 8205569917033382059
-        - rid: 8205569917033382060
+        - rid: -2
         - rid: 8205569917033382061
         initAction: 3
     - rid: 8205569917033382059
@@ -2762,11 +2788,6 @@ MonoBehaviour:
                 m_StringArgument: 
                 m_BoolArgument: 1
               m_CallState: 2
-    - rid: 8205569917033382060
-      type: {class: DialogueAction, ns: , asm: Assembly-CSharp}
-      data:
-        tutorialActionType: Dialouge Action
-        dialogueSequenceSO: {fileID: 11400000, guid: 7c26b5849ff2f4c3bb0a776c6ba59318, type: 2}
     - rid: 8205569917033382061
       type: {class: EventAction, ns: , asm: Assembly-CSharp}
       data:
@@ -2793,7 +2814,7 @@ MonoBehaviour:
         stepName: Highlight End Turn
         actions:
         - rid: 8205569917033382063
-        - rid: 8205569917033382064
+        - rid: -2
         - rid: 8205569917033382065
         initAction: 4
     - rid: 8205569917033382063
@@ -2815,11 +2836,6 @@ MonoBehaviour:
                 m_StringArgument: 
                 m_BoolArgument: 1
               m_CallState: 2
-    - rid: 8205569917033382064
-      type: {class: DialogueAction, ns: , asm: Assembly-CSharp}
-      data:
-        tutorialActionType: Dialouge Action
-        dialogueSequenceSO: {fileID: 11400000, guid: cbd0411b181c2426f86a431daef10500, type: 2}
     - rid: 8205569917033382065
       type: {class: EventAction, ns: , asm: Assembly-CSharp}
       data:
@@ -2839,11 +2855,6 @@ MonoBehaviour:
                 m_StringArgument: 
                 m_BoolArgument: 0
               m_CallState: 2
-    - rid: 8205569917033382066
-      type: {class: DialogueAction, ns: , asm: Assembly-CSharp}
-      data:
-        tutorialActionType: Dialouge Action
-        dialogueSequenceSO: {fileID: 11400000, guid: 6395c449bf6e6465694ecf511294aa8d, type: 2}
     - rid: 8205569917033382067
       type: {class: EventAction, ns: , asm: Assembly-CSharp}
       data:
@@ -2872,7 +2883,7 @@ MonoBehaviour:
         - rid: 2240256403092013059
         - rid: 2240256403092013060
         - rid: 8205569917033382832
-        - rid: 8205569917033382834
+        - rid: -2
         - rid: 8205569917033382833
         initAction: 0
     - rid: 8205569917033382832
@@ -2913,11 +2924,6 @@ MonoBehaviour:
                 m_StringArgument: 
                 m_BoolArgument: 0
               m_CallState: 2
-    - rid: 8205569917033382834
-      type: {class: DialogueAction, ns: , asm: Assembly-CSharp}
-      data:
-        tutorialActionType: Dialouge Action
-        dialogueSequenceSO: {fileID: 11400000, guid: 0b6439bf11f5548ecb828bf65e914624, type: 2}
 --- !u!4 &1809619708
 Transform:
   m_ObjectHideFlags: 0
