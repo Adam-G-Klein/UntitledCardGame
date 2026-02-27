@@ -38,7 +38,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -5.54, y: 2.37}
-  m_SizeDelta: {x: 5.5286, y: 2.7643}
+  m_SizeDelta: {x: 6.91075, y: 3.455375}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &4388585096898539770
 Canvas:
@@ -131,6 +131,6 @@ MonoBehaviour:
   canvas: {fileID: 4388585096898539770}
   charRevealDelay: 0.02
   postFullTextDelay: 2
-  maxChars: 120
-  minFontSize: 42
+  maxChars: 250
+  minFontSize: 40
   maxFontSize: 60

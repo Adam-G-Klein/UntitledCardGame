@@ -912,8 +912,10 @@ MonoBehaviour:
   demoDataSO: {fileID: 11400000, guid: 93580874b1544ad4aaef0f5027620bb0, type: 2}
   speakerSprite: {fileID: 21300000, guid: 34af0ef08494934478eca248b698d0ec, type: 3}
   bendingTheRulesStepDialogue:
-  - Normally you would receive a random team of rats here, but I arranged something
-    nice and balanced for you since it's your first time.
+  - "Normally, the starting team is left entirely to chance\u2026 However! As this
+    is your introduction to the delicate matter of reclaiming Hotel Bubeau, I\u2019ve
+    taken the precaution of arranging a balanced crew who are, at the very least,
+    on speaking terms."
   moreRewardsThanUsualStepDialogue: []
   startOfShopStepDialogue:
   - Welcome to the shop. This is where the best players separate themselves from
@@ -921,28 +923,35 @@ MonoBehaviour:
   - For your sake, I temporarily suspended the market economy that usually defines
     the full Paccarat experience.
   buyCompanionReminderStepDialogue:
-  - Before you go, I pushed the Syndicate to let you have another rat friend in this
-    next fight.
-  - It helps a lot - you draw an extra card each turn. Choose one from the available
-    in the shop.
+  - Pardon my intrusion, but proceeding with an unoccipied position is ill advised.
+    We did bring you here to win...
+  - An additional companion results in an extra card drawn each turn. Please choose
+    from one of our available candidates.
   cardOfferingTipsDialogue:
-  - Now you can pick cards to equip your rats for the rest of the game. Allow me
-    to offer a few words of advice.
-  - You draw one card from each rat every turn. If you put cards that go well together
-    on different rats, you are more likely to draw them in the same hand.
+  - You can purchase cards to add to your companion's respective decks. These cards
+    will stay in a companion's deck for the rest of your run- so please distribute
+    them strategically.
+  - 'You will draw one card from each rat in every turn. A word of advice, if I may:
+    separating cards that work well together across different rats increases the
+    likelihood they can be drawn in the same hand.'
+  - Do with that what you will!
   secondShopTutorialStep1Dialogue:
-  - This is what the shop usually looks like.
-  - Ah, it looks like the Baron's wants to see you already. Here, take some of our
-    savings to add to the tokens you've accumulated.
+  - The invisible paw of the Paccarat market has returned- this is how you can expect
+    things here to appear from now on.
+  - 'Ah, it looks like the Baron would like to see you already. Very Well. Take a
+    portion of our reserves and combine it with the coins you''ve earned thus far. '
   secondShopTutorialStep2Dialogue:
-  - Hmm, let's go ahead and fully upgrade the shop while we're at it.
+  - Respectfully, we did not share our savings with you without expectation. Please
+    invest in fully upgrading the shop.
   secondShopTutorialStep3Dialogue:
-  - ...And you know what? 6 free rerolls and 2 free card removals, on the house.
+  - Very good! As gesture of good faith, 6 rerolls and 2 card removals on the house!
   secondShopTutorialStep4Dialogue:
-  - Regardless of the outcome, I appreciate you coming to help us. Good luck.
+  - Regardless of the outcome, we greatly appreciate you coming to help us. Should
+    things go poorly, I suppose we will have the chance to become better aquainted!
   postCombatRewardsDialogueDialogue:
-  - 'Your first post combat rewards. '
-  - The Cats want you to keep playing, so they give you some cheese to chase.
+  - Well earned, your first Paccarat rewards!
+  - The Cats are incentivised to keep us playing, so you'll be rewarded with some
+    fluer de cheese upon each win.
 --- !u!1 &5109742072706344275
 GameObject:
   m_ObjectHideFlags: 0
