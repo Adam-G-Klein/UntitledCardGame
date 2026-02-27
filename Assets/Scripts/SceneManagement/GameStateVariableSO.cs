@@ -142,7 +142,7 @@ public class GameStateVariableSO : ScriptableObject
                     break;
                 }
 
-                if (!hasSeenCombatTutorial) {
+                if (!hasSeenCombatTutorial || BuildTypeDemoOrConvention()) {
                     currentLocation = Location.INTRO_CUTSCENE;
                     break;
                 }
