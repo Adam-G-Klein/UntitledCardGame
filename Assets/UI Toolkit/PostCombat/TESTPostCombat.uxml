@@ -8,7 +8,7 @@
             <ui:VisualElement name="dialogue-speaker-portrait" picking-mode="Ignore" style="width: 25%; height: 130%; flex-shrink: 0; -unity-background-scale-mode: scale-to-fit;" />
             <ui:VisualElement picking-mode="Ignore" style="flex-grow: 1; height: 65%; background-image: url(&quot;project://database/Assets/Sprites/UI/GFG_UI__0004s_0001s_0003_Unit-management_BG_Flat.png?fileID=2800000&amp;guid=4e65776cb2eab7a44b2c15877ca4f342&amp;type=3#GFG_UI__0004s_0001s_0003_Unit-management_BG_Flat&quot;);">
                 <ui:VisualElement picking-mode="Ignore" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Sprites/UI/GFG_UI__0004s_0001s_0000_Unit-Managementbox.png?fileID=2800000&amp;guid=859b2acc6dd679a4f8840c2041fadcd0&amp;type=3#GFG_UI__0004s_0001s_0000_Unit-Managementbox&quot;); align-items: center; justify-content: center;">
-                    <ui:Label tabindex="-1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="dialogue-text-label" text="" picking-mode="Ignore" style="width: 90%; height: 75%; font-size: 36px; white-space: normal; color: rgb(255, 255, 255);" />
+                    <ui:Label tabindex="-1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="dialogue-text-label" picking-mode="Ignore" style="width: 90%; height: 75%; font-size: 36px; white-space: normal; color: rgb(255, 255, 255);" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
@@ -45,7 +45,7 @@
                         <ui:Label tabindex="-1" text="+1 team size" parse-escape-sequences="true" display-tooltip-when-elided="true" name="bonus-elite-reward-text" class="post-combat-text" style="margin-right: 20px; font-size: 28px;" />
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:Button text="&#10;" display-tooltip-when-elided="true" name="next-scene" style="font-size: 20px; width: 15%; height: 7%; background-image: url(&quot;project://database/Assets/Sprites/Z_OldPlaceholderSprites/arrow_next_noglow.png?fileID=2800000&amp;guid=af68a8e3c8c054de0b2efb914e24434e&amp;type=3#arrow_next_noglow&quot;); background-color: rgba(188, 188, 188, 0); border-left-color: rgba(149, 149, 149, 0); border-right-color: rgba(149, 149, 149, 0); border-top-color: rgba(149, 149, 149, 0); border-bottom-color: rgba(149, 149, 149, 0); align-self: center; -unity-background-scale-mode: scale-to-fit; position: absolute; bottom: 20px;" />
+                <ui:Button text="&#10;" display-tooltip-when-elided="true" name="next-scene" style="font-size: 20px; width: 28%; height: 11%; background-image: url(&quot;project://database/Assets/Sprites/UI/StartingTeam_Arrow.png?fileID=2800000&amp;guid=0e19332fea075744bb1b78df99b21af2&amp;type=3#StartingTeam_Arrow&quot;); background-color: rgba(188, 188, 188, 0); border-left-color: rgba(149, 149, 149, 0); border-right-color: rgba(149, 149, 149, 0); border-top-color: rgba(149, 149, 149, 0); border-bottom-color: rgba(149, 149, 149, 0); align-self: center; -unity-background-scale-mode: scale-to-fit; position: absolute; bottom: 20px; translate: 0 26%;" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
