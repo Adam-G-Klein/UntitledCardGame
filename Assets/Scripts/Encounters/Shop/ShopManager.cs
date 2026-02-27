@@ -375,7 +375,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     }
 
     public void ProcessCardBuyRequestV2(ShopItemView shopItemView, CardInShopWithPrice cardInShop) {
-        if (shopEncounter.shopData.shopMode != ShopMode.StaticChooseNDemo || numCardsBoughtThisShop < shopEncounter.shopData.numCardsBuyPerShop) {
+        if ((shopEncounter.shopData.shopMode != ShopMode.StaticChooseNDemo && gameState.playerData.GetValue().gold >= cardInShop.price) || (shopEncounter.shopData.shopMode == ShopMode.StaticChooseNDemo && numCardsBoughtThisShop < shopEncounter.shopData.numCardsBuyPerShop)) {
             this.buyingCard = true;
             this.currentCardBuyRequest = cardInShop;
             this.currentCardBuyRequestItemView = shopItemView;
@@ -396,7 +396,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
     public void ProcessCompanionBuyRequest(ShopItemView shopItemView, CompanionInShopWithPrice companionInShop) {
         Debug.Log("Processing companion buy request");
-        if (shopEncounter.shopData.shopMode != ShopMode.StaticChooseNDemo || numRatsBoughtThisShop < shopEncounter.shopData.numRatsBuyPerShop)
+        if ((shopEncounter.shopData.shopMode != ShopMode.StaticChooseNDemo && gameState.playerData.GetValue().gold >= companionInShop.price) || (shopEncounter.shopData.shopMode == ShopMode.StaticChooseNDemo && numRatsBoughtThisShop < shopEncounter.shopData.numRatsBuyPerShop))
         {
             // Create a new instance of the companion and then attempt companion upgrades before adding
             // them to your team;
@@ -496,8 +496,8 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         }
         else
         {
-            Debug.Log("Not enuff munny");
-            shopViewController.AlreadyBoughtBudgetOfRats();
+            if (shopEncounter.shopData.shopMode == ShopMode.StaticChooseNDemo) shopViewController.AlreadyBoughtBudgetOfRats();
+            else shopViewController.NotEnoughMoney();
         }
     }
     private void AnimateExistingCompanionToSlotOnComplete(CompanionManagementSlotView companionManagementSlotView, VisualElement visualElement, bool isLastAnimation, CompanionManagementSlotView remainingSlotView, UpgradeInfo upgradeInfo)
