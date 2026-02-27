@@ -55,6 +55,8 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     private SplineContainer cardInHandSelectionSpline;
     [SerializeField]
     private List<SelectionPurposeTextPair> selectionPurposeToText;
+    [SerializeField]
+    private UIDocument cardInHandSelectionDoc;
 
 
     private GameObject cardPrefab;
@@ -81,6 +83,8 @@ public class PlayerHand : GenericSingleton<PlayerHand>
 
     public delegate IEnumerator OnCardDrawHandler(PlayableCard card);
     public PriorityEventDispatcher<OnCardDrawHandler> onCardDrawDispatcher = new();
+
+    private CardInHandSelectionView selectionView;
 
     private bool cardsInHandLocked = false;
     private readonly float cardDealDelay = .05f;
@@ -113,6 +117,9 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         this.orderedDeckInstances = new List<DeckInstance>();
         this.deckInstanceToPlayableCard = new Dictionary<DeckInstance, List<PlayableCard>>();
         this.orderedCards = new List<PlayableCard>();
+        selectionView = new CardInHandSelectionView(
+                cardInHandSelectionDoc, 
+                cardInHandSelectionDoc.rootVisualElement.Q<VisualElement>("card-in-hand-selection-view"));
     }
 
     void Start()
@@ -788,7 +795,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         string SELECT_CONFIRM = "Select Confirm";
 
         CombatEncounterView combatEncounterView = EnemyEncounterManager.Instance.combatEncounterView;
-        CardInHandSelectionView selectionView = combatEncounterView.GetCardSelectionView();
+        // CardInHandSelectionView selectionView = combatEncounterView.GetCardSelectionView();
 
         SetHoverable(true);
 

@@ -51,7 +51,6 @@ public class CombatEncounterView : MonoBehaviour,
     private bool inDeckView = false;
     private bool combatOver = false;
     public MapView mapView;
-    private CardInHandSelectionView cardInHandSelectionView;
     private UnityEngine.UIElements.Button endTurnButton;
 
     private Dictionary<CombatInstance, CompanionView> combatInstanceToCompanionView;
@@ -99,8 +98,6 @@ public class CombatEncounterView : MonoBehaviour,
         mapView = new MapView(gameState.map.GetValue(), gameState.currentEncounterIndex, EncounterType.Enemy);
         mapView.UpdateMoneyAmount(gameState.playerData.GetValue().gold);
         mapRoot.Add(mapView.mapContainer);
-
-        cardInHandSelectionView = new CardInHandSelectionView(uiDoc, root.Q<VisualElement>("card-in-hand-selection-view"));
 
         IconButton deckViewButton = root.Q<IconButton>("deck-view-button");
         deckViewButton.RegisterOnSelected(ShowDeckView);
@@ -338,11 +335,6 @@ public class CombatEncounterView : MonoBehaviour,
     public void updateMoney(int money)
     {
         docRenderer.SetStateDirty();
-    }
-
-    public CardInHandSelectionView GetCardSelectionView()
-    {
-        return this.cardInHandSelectionView;
     }
 
     public Sprite GetStatusEffectSprite(StatusEffectType statusEffectType)
