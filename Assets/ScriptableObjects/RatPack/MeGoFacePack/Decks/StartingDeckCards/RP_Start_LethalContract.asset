@@ -17,6 +17,7 @@ MonoBehaviour:
   Description: Deal {rpl_damage} damage & create a Dagger in hand for a random adjacent
     rat
   IconDescription: []
+  IconDescriptionTooltipLines: []
   defaultValues:
   - key: rpl_damage
     value: 2
@@ -57,6 +58,7 @@ MonoBehaviour:
         specialTargetRule: 0
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 758316092100444259
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
@@ -82,6 +84,7 @@ MonoBehaviour:
         specialTargetRule: 4
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 2034230020176347211
       type: {class: AddCardsToHand, ns: , asm: Assembly-CSharp}
       data:

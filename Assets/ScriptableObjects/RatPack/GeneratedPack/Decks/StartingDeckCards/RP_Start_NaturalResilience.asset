@@ -15,6 +15,8 @@ MonoBehaviour:
   guid: 504cfe20-d733-4c63-8c61-d37c18be102f
   Name: Natural Resilience
   Description: Give any 3 block & put a Ironseed on top of their deck
+  IconDescription: []
+  IconDescriptionTooltipLines: []
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 6cb44060d9d637b44a6b0567dd3ff92f, type: 3}
@@ -81,6 +83,7 @@ MonoBehaviour:
         specialTargetRule: 0
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 8034950120506655343
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:

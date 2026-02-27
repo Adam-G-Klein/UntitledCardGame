@@ -16,9 +16,15 @@ MonoBehaviour:
   Name: Pew Pew
   Description: Discard a card in hand and deal {rpl_damage} damage at random
   IconDescription:
+  - tokenType: 0
+    text: 1
+    icon: 0
   - tokenType: 2
     text: 
     icon: 13
+  - tokenType: 2
+    text: 
+    icon: 18
   - tokenType: 1
     text: 
     icon: 0

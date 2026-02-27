@@ -42,6 +42,8 @@ public class DescriptionToken
         WhenDiscarded,
         WhenExhausted,
         InHandEndOfTurn,
+        AnyTarget,
+        RandomRat
     }
     public TokenType tokenType;
     public string text;

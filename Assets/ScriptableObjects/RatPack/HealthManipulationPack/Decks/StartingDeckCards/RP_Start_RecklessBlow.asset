@@ -22,6 +22,9 @@ MonoBehaviour:
   - tokenType: 2
     text: 
     icon: 9
+  - tokenType: 2
+    text: 
+    icon: 18
   - tokenType: 1
     text: 
     icon: 0
@@ -31,6 +34,9 @@ MonoBehaviour:
   - tokenType: 2
     text: 
     icon: 1
+  - tokenType: 2
+    text: 
+    icon: 18
   IconDescriptionTooltipLines:
   - Choose a rat on your team to lose 3 HP.
   - Then, deal X damage to a foe of your choice.
@@ -82,6 +88,7 @@ MonoBehaviour:
         specialTargetRule: 0
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 5602892949302281048
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -94,6 +101,7 @@ MonoBehaviour:
         specialTargetRule: 0
         cantCancelTargetting: 1
         cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 5602892949302281049
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:

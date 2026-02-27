@@ -15,19 +15,8 @@ MonoBehaviour:
   guid: f3bcbedc-1ba2-404a-9c0d-91600d23040e
   Name: Honed Blade
   Description: Deal {rpl_damage} damage and gain +2 damage
-  IconDescription:
-  - tokenType: 0
-    text: '{rpl_damage}'
-    icon: 0
-  - tokenType: 2
-    text: 
-    icon: 1
-  - tokenType: 1
-    text: 
-    icon: 0
-  - tokenType: 0
-    text: Gain +2 damage
-    icon: 0
+  IconDescription: []
+  IconDescriptionTooltipLines: []
   defaultValues:
   - key: rpl_damage
     value: 5
@@ -75,6 +64,7 @@ MonoBehaviour:
         specialTargetRule: 0
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 1488501614819147777
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
@@ -119,6 +109,7 @@ MonoBehaviour:
         specialTargetRule: 3
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 5280922841426165940
       type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
       data:

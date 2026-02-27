@@ -15,6 +15,18 @@ MonoBehaviour:
   guid: 607ff063-5e85-4039-a2f5-01eaf93a9449
   Name: Peptalk
   Description: Give any 3 temporary strength
+  IconDescription:
+  - tokenType: 0
+    text: 3
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 8
+  - tokenType: 2
+    text: 
+    icon: 18
+  IconDescriptionTooltipLines:
+  - Give 3 temporary strength to any companion
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 5f66e07752da0d34ca5ca0b6a327d011, type: 3}
@@ -67,6 +79,7 @@ MonoBehaviour:
         specialTargetRule: 0
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 5602892533381726228
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:

@@ -16,9 +16,9 @@ MonoBehaviour:
   Name: Investigate
   Description: Draw 1 card from random x2, then discard 1 card
   IconDescription:
-  - tokenType: 2
-    text: 
-    icon: 3
+  - tokenType: 0
+    text: 1
+    icon: 0
   - tokenType: 2
     text: 
     icon: 3
@@ -28,9 +28,15 @@ MonoBehaviour:
   - tokenType: 1
     text: 
     icon: 0
+  - tokenType: 0
+    text: 1
+    icon: 0
   - tokenType: 2
     text: 
     icon: 13
+  - tokenType: 0
+    text: 
+    icon: 18
   IconDescriptionTooltipLines:
   - Draw 1 card from 2 randomly selected rats.
   - Then, choose 1 card in hand to discard, removing it from hand and putting it

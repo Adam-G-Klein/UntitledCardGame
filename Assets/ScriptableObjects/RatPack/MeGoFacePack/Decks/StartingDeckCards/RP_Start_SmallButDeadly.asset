@@ -28,6 +28,9 @@ MonoBehaviour:
   - tokenType: 2
     text: 1
     icon: 8
+  - tokenType: 2
+    text: 1
+    icon: 18
   IconDescriptionTooltipLines:
   - Give a rat of your choice 1 strength and 1 temporary strength, which buff the
     damage of all attacks from this rat
@@ -97,6 +100,7 @@ MonoBehaviour:
         specialTargetRule: 0
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 5602892533381726228
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:

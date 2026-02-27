@@ -40,6 +40,9 @@ MonoBehaviour:
   - tokenType: 2
     text: 
     icon: 2
+  - tokenType: 2
+    text: 
+    icon: 18
   IconDescriptionTooltipLines:
   - Bleed 3 HP from the rat casting this card
   - Then, give 6 block to a rat of your choice, which prevents damage until the start
@@ -91,6 +94,7 @@ MonoBehaviour:
         specialTargetRule: 4
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 7150943289421333054
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
@@ -116,6 +120,7 @@ MonoBehaviour:
         specialTargetRule: 0
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 7150943700835893314
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:

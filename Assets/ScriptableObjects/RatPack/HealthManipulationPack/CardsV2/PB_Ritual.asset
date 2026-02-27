@@ -22,12 +22,33 @@ MonoBehaviour:
   - tokenType: 2
     text: 
     icon: 9
+  - tokenType: 0
+    text: 1
+    icon: 0
   - tokenType: 2
     text: 
     icon: 3
+  - tokenType: 2
+    text: 
+    icon: 18
+  - tokenType: 1
+    text: 
+    icon: 0
   - tokenType: 0
-    text: x2
+    text: 2
+    icon: 0
+  - tokenType: 2
+    text: 
     icon: 9
+  - tokenType: 0
+    text: 1
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 3
+  - tokenType: 2
+    text: 
+    icon: 18
   IconDescriptionTooltipLines:
   - Choose a rat to bleed 2 HP and draw a card. Repeat 2 times total.
   defaultValues: []
@@ -84,6 +105,7 @@ MonoBehaviour:
         specialTargetRule: 0
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 5602892949302281053
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:

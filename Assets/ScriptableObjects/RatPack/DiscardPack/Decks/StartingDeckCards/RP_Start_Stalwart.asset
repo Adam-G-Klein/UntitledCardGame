@@ -22,6 +22,9 @@ MonoBehaviour:
   - tokenType: 2
     text: 
     icon: 2
+  - tokenType: 2
+    text: 
+    icon: 18
   - tokenType: 1
     text: 
     icon: 0
@@ -96,6 +99,7 @@ MonoBehaviour:
         specialTargetRule: 0
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 8034949928137261060
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
@@ -128,6 +132,7 @@ MonoBehaviour:
         specialTargetRule: 7
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 8034950092883230781
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:

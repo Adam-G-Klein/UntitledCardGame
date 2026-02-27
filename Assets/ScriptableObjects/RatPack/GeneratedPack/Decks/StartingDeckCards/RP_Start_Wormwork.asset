@@ -15,6 +15,8 @@ MonoBehaviour:
   guid: 09325321-fdbb-48cc-8910-2c4543112aa9
   Name: Wormwork
   Description: Give any 6 block & exhaust a Charm card in hand at random
+  IconDescription: []
+  IconDescriptionTooltipLines: []
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 8c16952da6b2cfa4181be941e4a49469, type: 3}
@@ -53,6 +55,7 @@ MonoBehaviour:
         specialTargetRule: 2
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 1
     - rid: 1289961959942521127
       type: {class: FilterCards, ns: , asm: Assembly-CSharp}
       data:
@@ -61,6 +64,8 @@ MonoBehaviour:
         filter:
           cardCategoriesToInclude: 04000000
           retainedCardsFilter: 0
+          manaCostFilter: 0
+          manaCost: 0
           exactCardType: {fileID: 0}
         outputKey: statusCards
     - rid: 2295168179404538104
@@ -75,6 +80,7 @@ MonoBehaviour:
         specialTargetRule: 0
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 2295168179404538105
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:

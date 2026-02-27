@@ -22,6 +22,12 @@ MonoBehaviour:
   - tokenType: 2
     text: 
     icon: 2
+  - tokenType: 2
+    text: 
+    icon: 18
+  IconDescriptionTooltipLines:
+  - Give rat of your choice 5 block, which prevents damage until the start of the
+    next turn
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: da1a1978bec27b446a94d96c66f7fb55, type: 3}
@@ -74,6 +80,7 @@ MonoBehaviour:
         specialTargetRule: 0
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 9024302470308298761
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
