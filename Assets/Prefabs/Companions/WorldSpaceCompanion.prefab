@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 1520036689927399670}
   - component: {fileID: -4785001928966702165}
   - component: {fileID: 8494857512198128503}
+  - component: {fileID: 7059583637049954402}
   m_Layer: 0
   m_Name: WorldSpaceCompanion
   m_TagString: Companion
@@ -241,6 +242,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statusEffectsSO: {fileID: 11400000, guid: b5e8681fc02be284eb308731b490c4c5, type: 2}
+--- !u!114 &7059583637049954402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5285687428135354733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1ff1cf37b68c9948a040440320b0331, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: bebc4e32d3a0471488e3fdf381854cb2, type: 2}
+  unityEventResponse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1520036689927399670}
+        m_TargetAssemblyTypeName: TooltipOnHover, Assembly-CSharp
+        m_MethodName: Clear
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &4859129716611651067
 PrefabInstance:
   m_ObjectHideFlags: 0

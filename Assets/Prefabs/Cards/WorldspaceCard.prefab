@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 7940304150393147120}
   - component: {fileID: 7195285628578429125}
   - component: {fileID: 6705822849354828075}
+  - component: {fileID: 7608243220703675890}
   m_Layer: 0
   m_Name: WorldspaceCard
   m_TagString: Untagged
@@ -122,7 +123,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1374400395
-  m_SortingLayer: 2
+  m_SortingLayer: 9
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 6cee2343f3114be45be30618b977bcb0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -416,6 +417,35 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  canFocusOffscreen: 0
+--- !u!114 &7608243220703675890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6517496529593941963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1ff1cf37b68c9948a040440320b0331, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: bebc4e32d3a0471488e3fdf381854cb2, type: 2}
+  unityEventResponse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7940304150393147120}
+        m_TargetAssemblyTypeName: TooltipOnHover, Assembly-CSharp
+        m_MethodName: Clear
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7307527227678954699
 GameObject:
   m_ObjectHideFlags: 0

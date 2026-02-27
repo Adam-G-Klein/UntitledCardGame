@@ -34,6 +34,8 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     [SerializeField]
     private TurnPhaseEvent turnPhaseEvent;
     [SerializeField]
+    private VoidGameEvent destroyTooltipsEvent;
+    [SerializeField]
     private GameObject postGamePopup;
     [SerializeField]
     public GameObject placerGO;
@@ -545,6 +547,10 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
 
     public void DamageIndicator(CombatInstance instance, int damage) {
         combatEncounterView.DamageIndicator(instance, damage);
+    }
+
+    public void DestroyAllTooltips() {
+        destroyTooltipsEvent.Raise(null);
     }
 
     public void ProcessGFGInputAction(GFGInputAction action)

@@ -782,6 +782,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             string helperText = "",
             GetTargets.SelectionPurposeEnum selectionPurpose = GetTargets.SelectionPurposeEnum.None)
     {
+        EnemyEncounterManager.Instance.DestroyAllTooltips();
         string CHOOSE_X_CARDS = "Choose {0} cards{1}";
         string CHOOSE_A_CARD = "Choose a card{0}";
         string SELECT_CONFIRM = "Select Confirm";

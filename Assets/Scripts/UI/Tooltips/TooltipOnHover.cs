@@ -86,9 +86,13 @@ public class TooltipOnHover : MonoBehaviour,
 
     public void Destroy() {
         ResetCoroutine();
-        if(instantaitedViews.Count >= 0) DestroyAllInstantiatedViews();
         DestroyAllInstantiatedViews();
         destroyed = true;
+    }
+
+    public void Clear() {
+        ResetCoroutine();
+        DestroyAllInstantiatedViews();
     }
 
     /*
