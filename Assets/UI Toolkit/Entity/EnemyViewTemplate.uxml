@@ -11,8 +11,8 @@
                     <ui:Label tabindex="-1" text="45/50" parse-escape-sequences="true" display-tooltip-when-elided="true" name="enemy-view-health-bar-label" style="position: absolute; left: 25%; right: 25%; top: 0; bottom: 0; -unity-font-style: bold; -unity-text-align: middle-center; font-size: 16px; color: rgb(30, 30, 30); margin-top: 2px;" />
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement name="enemy-view-intent-container-parent" style="flex-grow: 1; align-items: center;">
-                <ui:VisualElement name="enemy-view-intent-container" style="flex-grow: 0; height: 71%; width: 43%; flex-direction: row; align-items: auto; justify-content: center; display: none;">
+            <ui:VisualElement name="enemy-view-intent-container-parent" style="flex-grow: 1; align-items: center; margin-bottom: 2px;">
+                <ui:VisualElement name="enemy-view-intent-container" style="flex-grow: 0; height: 69%; width: 43%; flex-direction: row; align-items: auto; justify-content: center; display: none;">
                     <ui:VisualElement name="enemy-view-intent-image" style="flex-grow: 0; background-image: url(&quot;project://database/Assets/Sprites/UI/EnemyIntents/EnemyIntent_Attack.png?fileID=2800000&amp;guid=3c45c0e653cd06242bdb1f7d9a96b136&amp;type=3#EnemyIntent_Attack&quot;); width: 33%; height: 116%; flex-shrink: 0; -unity-background-scale-mode: scale-to-fit; translate: 0 10%;" />
                     <ui:Label tabindex="-1" text="15" parse-escape-sequences="true" display-tooltip-when-elided="true" name="enemy-view-intent-label" style="width: 35%; -unity-text-align: middle-center; font-size: 30px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; color: rgb(255, 255, 255);" />
                 </ui:VisualElement>
