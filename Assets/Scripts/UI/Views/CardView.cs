@@ -42,10 +42,10 @@ public class CardView {
     // we do.
     private static Dictionary<String, Sprite> silhouetteCache = new Dictionary<String, Sprite>();
 
-    public CardView(CardType cardType, CompanionTypeSO companionType, Card.CardRarity rarity, bool cardInShop = false, PackSO packSO = null) {
+    public CardView(CardType cardType, CompanionTypeSO companionType, Card.CardRarity rarity, bool cardInShop = false, PackSO packSO = null, bool hideBackground = false) {
         this.cardType = cardType;
         this.rarity = rarity;
-        cardContainer = makeCardView(cardType, companionType, cardInShop, packSO);
+        cardContainer = makeCardView(cardType, companionType, cardInShop, packSO, hideBackground);
     }
 
     public CardView(Card card, CompanionTypeSO companionType, bool cardInShop = false) {
@@ -55,7 +55,7 @@ public class CardView {
         this.cardInstance = card;
     }
 
-    private VisualElement makeCardView(CardType card, CompanionTypeSO companionType, bool cardInShop = false, PackSO packSO = null) {
+    private VisualElement makeCardView(CardType card, CompanionTypeSO companionType, bool cardInShop = false, PackSO packSO = null, bool hideBackground = false) {
         VisualTreeAsset visualTreeAsset = GameplayConstantsSingleton.Instance.gameplayConstants.cardTemplate;
         VisualElement container = visualTreeAsset.CloneTree();
         container.focusable = true;
@@ -151,18 +151,24 @@ public class CardView {
             companionNameLabel.text = "ANY";
             companionNameLabel.AddToClassList("card-type-label-any");
         }*/
+
         VisualElement cardBackground = container.Q("cardBackground");
-        if (companionType != null) {
-            Sprite silhouette = GetSilhouette(companionType.fullSprite, companionType.companionName);
-            cardBackground.style.backgroundImage = new StyleBackground(silhouette.texture);
-        } else if (packSO != null && packSO.packIcon != null)
+        if (hideBackground)
         {
-            Sprite silhouette = GetSilhouette(packSO.packIcon, packSO.packName);
-            cardBackground.style.backgroundImage = new StyleBackground(silhouette.texture);
-        }
-        else {
-            Sprite silhouette = GetSilhouette(GameplayConstantsSingleton.Instance.gameplayConstants.neutralPackIcon, "neutral");
-            cardBackground.style.backgroundImage = new StyleBackground(silhouette.texture);
+            cardBackground.visible = false;
+        } else {
+            if (companionType != null) {
+                Sprite silhouette = GetSilhouette(companionType.fullSprite, companionType.companionName);
+                cardBackground.style.backgroundImage = new StyleBackground(silhouette.texture);
+            } else if (packSO != null && packSO.packIcon != null)
+            {
+                Sprite silhouette = GetSilhouette(packSO.packIcon, packSO.packName);
+                cardBackground.style.backgroundImage = new StyleBackground(silhouette.texture);
+            }
+            else {
+                Sprite silhouette = GetSilhouette(GameplayConstantsSingleton.Instance.gameplayConstants.neutralPackIcon, "neutral");
+                cardBackground.style.backgroundImage = new StyleBackground(silhouette.texture);
+            }   
         }
 
         VisualElement rarityIndicator = container.Q("rarityIndicator");

@@ -72,9 +72,9 @@ public class ShopItemView : ICompanionViewDelegate {
 
         CardView cardView;
         if (card.sourceCompanion != null) {
-            cardView = new CardView(card.cardType, card.sourceCompanion, card.rarity, true, card.packSO);
+            cardView = new CardView(card.cardType, card.sourceCompanion, card.rarity, true, card.packSO, true);
         } else {
-            cardView = new CardView(card.cardType, null, card.rarity, true, card.packSO);
+            cardView = new CardView(card.cardType, null, card.rarity, true, card.packSO, true);
         }
 
         shopItemElement.Add(cardView.cardContainer);
