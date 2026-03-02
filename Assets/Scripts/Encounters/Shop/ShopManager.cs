@@ -86,7 +86,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         {
             // We've been using these two semi-interchangeably, causes some bugs if we don't reconcile them
             // consider yourself bandaided :)
-            gameState.baseShopData = shopEncounter.shopData; 
+            gameState.baseShopData = shopEncounter.shopData;
         }
         List<Companion> allCompanions = new();
         allCompanions.AddRange(gameState.companions.activeCompanions);
@@ -107,7 +107,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             }
 
             if (shopEncounter.shopData.shopMode == ShopMode.StaticChooseNDemo) {
-                
+
                 // Set up the Choose N rats / cards demo :)
                 SetDraftingHelpText(shopEncounter.shopData.numRatsBuyPerDisplay, shopEncounter.shopData.numRatsBuyPerShop);
 
@@ -117,6 +117,9 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
                     {
                         cardTypes = new List<CardType>()
                     };
+
+                // Disable the next combat button until the end of the demo shop tutorial steps
+                shopViewController.DisableNextCombatButton();
             } else
             {
 
@@ -152,12 +155,12 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
 
                 shopViewController.DisableAllUIPreserveAppearance();
                 shopTutorialDisplay = GetComponent<ShopTutorialDisplay>();
-                // this setup method is what plays the dialogue and then the timeline 
+                // this setup method is what plays the dialogue and then the timeline
                 shopTutorialDisplay?.Setup(shopEncounter.shopData);
                 cinematicIntroComplete = false;
                 StartCoroutine(CinematicStartOfShopCoroutine());
             }
-        } 
+        }
     }
 
     public void CinematicIntroComplete()
@@ -470,8 +473,6 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
             };
             AnalyticsManager.Instance.RecordEvent(eventData);
 
-
-
             numRatsBoughtThisShop++;
             if (shopEncounter.shopData.shopMode == ShopMode.StaticChooseNDemo)
             {
@@ -635,6 +636,10 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
                     {
                         currentDemoShopPhase = ShopPhase.DONE;
                         shopViewController.ClearShopGoods();
+
+                        // Enable the next combat button since the demo shop is over.
+                        shopViewController.EnableNextCombatButton();
+
                         SetDraftingHelpText(0, 0);
                     }
                     else

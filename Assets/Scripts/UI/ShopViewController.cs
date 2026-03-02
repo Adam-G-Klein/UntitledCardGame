@@ -164,7 +164,7 @@ public class ShopViewController : MonoBehaviour,
         FocusManager.Instance.RegisterFocusableTarget(selectingCancelButton.AsFocusable());
         FocusManager.Instance.DisableFocusableTarget(selectingCancelButton.AsFocusable());
 
-        // For the demo, isn't visible or used in the regular shop    
+        // For the demo, isn't visible or used in the regular shop
         draftingHelpContainer = uiDoc.rootVisualElement.Q("drafting-help-container");
 
         rerollButton = uiDoc.rootVisualElement.Q<Button>("reroll-button");
@@ -271,6 +271,18 @@ public class ShopViewController : MonoBehaviour,
         upgradeButtonContainer.style.display = DisplayStyle.None;
         rerollContainer.style.display = DisplayStyle.None;
         cardRemovalContainer.style.display = DisplayStyle.None;
+    }
+
+    public void DisableNextCombatButton()
+    {
+        startNextCombatButton.SetEnabled(false);
+        FocusManager.Instance.DisableFocusableTarget(startNextCombatButton.AsFocusable());
+    }
+
+    public void EnableNextCombatButton()
+    {
+        startNextCombatButton.SetEnabled(true);
+        FocusManager.Instance.EnableFocusableTarget(startNextCombatButton.AsFocusable());
     }
 
     public void ShowFreeRerolls()
