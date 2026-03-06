@@ -862,7 +862,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         // wanna keep this right next to the bools the manager tracks in case we wanna unite state someday
         // "Dalinar... you must UNITE THEM"
         // NonMouseInputManager.Instance.SetUIState(UIState.REMOVING_CARD);
-        if (gameState.playerData.GetValue().gold >= shopEncounter.shopData.GetCardRemovalPrice(gameState.playerData.GetValue().shopLevel, timesCardRemovedThisShop)) {
+        if (gameState.playerData.GetValue().storedCardRemovals > 0 || gameState.playerData.GetValue().gold >= shopEncounter.shopData.GetCardRemovalPrice(gameState.playerData.GetValue().shopLevel, timesCardRemovedThisShop)) {
             shopViewController.StartCardRemoval();
         } else {
             shopViewController.NotEnoughMoney();
