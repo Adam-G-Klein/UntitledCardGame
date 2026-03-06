@@ -18,21 +18,12 @@ MonoBehaviour:
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: 2ab42d2580735414ca464cf674ac304d, type: 3}
   fullSprite: {fileID: 21300000, guid: 2ab42d2580735414ca464cf674ac304d, type: 3}
-  backgroundImage: {fileID: 21300000, guid: 741949db90bb4412ba7493960e001481, type: 3}
-  entityFrame: {fileID: 21300000, guid: e8e1fad73c653473d90feb9b744f60c6, type: 3}
-  companionManagementFrame: {fileID: 21300000, guid: ad4f2340ea2464bc780af3b16bf27412, type: 3}
   startingDeck: {fileID: 11400000, guid: 48ca101f5863e4a2cb39e4a1b8a42f71, type: 2}
-  cardBack: {fileID: 21300000, guid: 3296a63e824de414bb4b578c4822fbdb, type: 3}
-  cardFrame: {fileID: 21300000, guid: 3e1fc5a0e17b3be45a466562a912f5b9, type: 3}
-  cardTypeIconOverride: {fileID: 0}
   rarity: 1
-  cardIdleVfxPrefab: {fileID: 0}
-  genericCompanionSFX: {fileID: 0}
-  genericCompanionVFX: {fileID: 0}
+  baseCompanionType: {fileID: 0}
   cacheValueConfigs: []
   cardPool: {fileID: 11400000, guid: eecf4bcc7e4ac4faf9a6978b22d9c3d1, type: 2}
   pack: {fileID: 11400000, guid: a87b5da767d4e4659b2965e31e340c58, type: 2}
-  speakerType: {fileID: 0}
   abilitiesV2:
   - rid: 205828107393564721
   - rid: 7082891827957727338
@@ -42,10 +33,11 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Spaulder
-      description: Start of turn, bleed self & adjacent 1 HP. Whenever Spaulder loses
-        HP, give leftmost rat 2 block & give self 1 block
+      description: Start of turn, bleed self & adjacent 1 HP unless they would die.
+        Whenever Spaulder loses HP, give leftmost rat 2 block & give self 1 block
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
+      iconDescriptionLine: []
   keepsakeTitle: 
   keepsakeDescription: Start of turn, bleed self & adjacent 1 HP. Whenever Spaulder
     loses HP, give leftmost rat 2 block & give self 1 block
@@ -105,6 +97,7 @@ MonoBehaviour:
         specialTargetRule: 7
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 758316073527279626
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -117,6 +110,7 @@ MonoBehaviour:
         specialTargetRule: 3
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 758316073527279627
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
@@ -144,6 +138,7 @@ MonoBehaviour:
         effectSteps:
         - rid: 7082891827957727339
         - rid: 7082891827957727340
+        - rid: 7994246834120818792
         - rid: 7082891827957727341
         - rid: 7082891827957727342
         weight: 0
@@ -159,6 +154,7 @@ MonoBehaviour:
         specialTargetRule: 3
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 7082891827957727340
       type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
       data:
@@ -170,7 +166,7 @@ MonoBehaviour:
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
-        inputKey: adj
+        inputKey: aboveOneHP
         combatEffect: 16
         scale: 1
         getScaleFromKey: 0
@@ -187,6 +183,16 @@ MonoBehaviour:
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EntityAbilityTriggeredVFX
+    - rid: 7994246834120818792
+      type: {class: FilterEntityByHP, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FilterEntityByHP
+        inputKey: adj
+        percentThreshold: 0
+        absoluteThreshold: 2
+        useAbsoluteThreshold: 1
+        outputKey: aboveOneHP
+        below: 0
     - rid: 8790164513324270201
       type: {class: EndWorkflowIfNoMapElement, ns: , asm: Assembly-CSharp}
       data:

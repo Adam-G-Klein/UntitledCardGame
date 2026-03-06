@@ -50,7 +50,7 @@ MonoBehaviour:
     combatStats:
       maxHealth: 25
       maxHealthBuffs: 0
-      currentHealth: 25
+      currentHealth: 23
       baseAttackDamage: 0
     onCombineAbilities: []
     trackingStats:
@@ -94,13 +94,13 @@ MonoBehaviour:
     combatStats:
       maxHealth: 15
       maxHealthBuffs: 0
-      currentHealth: 15
+      currentHealth: 1
       baseAttackDamage: 0
     onCombineAbilities: []
     trackingStats:
       numCardsRemoved: 0
       cardsBought: []
-      numDeaths: 0
+      numDeaths: 3
   - id: cfbfdc5c-c058-4183-ac46-0ec14a56a98e
     entityType: 0
     companionType: {fileID: 11400000, guid: 04c7e341cd1cb4872bc1252299c09f2e, type: 2}
@@ -144,7 +144,7 @@ MonoBehaviour:
     trackingStats:
       numCardsRemoved: 0
       cardsBought: []
-      numDeaths: 0
+      numDeaths: 1
   - id: 1d7c4655-96c0-4dc0-a4e1-1ca31687c7a7
     entityType: 0
     companionType: {fileID: 11400000, guid: 68509f5678faf8348a5bd7458649d3c2, type: 2}

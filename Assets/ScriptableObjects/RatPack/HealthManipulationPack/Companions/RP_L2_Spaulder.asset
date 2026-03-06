@@ -33,10 +33,11 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Spaulder+
-      description: Start of turn, bleed self & adjacent 1 HP. Whenever Spaulder+
-        loses HP, give leftmost rat 3 block & give self 1 block
+      description: Start of turn, bleed self & adjacent 1 HP unless they would die.
+        Whenever Spaulder+ loses HP, give leftmost rat 3 block & give self 1 block
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
+      iconDescriptionLine: []
   keepsakeTitle: 
   keepsakeDescription: Start of turn, bleed self & adjacent 1 HP. Whenever Spaulder+
     loses HP, give leftmost rat 3 block & give self 1 block
@@ -90,6 +91,7 @@ MonoBehaviour:
         specialTargetRule: 7
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 2511001503980847380
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -102,6 +104,7 @@ MonoBehaviour:
         specialTargetRule: 3
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 2511001503980847382
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
@@ -135,6 +138,7 @@ MonoBehaviour:
         effectSteps:
         - rid: 7150943403050008685
         - rid: 7150943403050008686
+        - rid: 7994246834120818793
         - rid: 7150943403050008688
         - rid: 7150943403050008687
         weight: 0
@@ -150,6 +154,7 @@ MonoBehaviour:
         specialTargetRule: 3
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 7150943403050008686
       type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
       data:
@@ -165,7 +170,7 @@ MonoBehaviour:
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
-        inputKey: adj
+        inputKey: aboveOneHp
         combatEffect: 16
         scale: 1
         getScaleFromKey: 0
@@ -178,6 +183,16 @@ MonoBehaviour:
       type: {class: EntityAbilityTriggeredVFX, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: EntityAbilityTriggeredVFX
+    - rid: 7994246834120818793
+      type: {class: FilterEntityByHP, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: FilterEntityByHP
+        inputKey: adj
+        percentThreshold: 0
+        absoluteThreshold: 2
+        useAbsoluteThreshold: 1
+        outputKey: aboveOneHp
+        below: 0
     - rid: 8790164513324270202
       type: {class: EndWorkflowIfNoMapElement, ns: , asm: Assembly-CSharp}
       data:
