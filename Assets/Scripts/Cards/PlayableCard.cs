@@ -94,6 +94,7 @@ public class PlayableCard : MonoBehaviour,
         }
         if (eventData != null && eventData.button != PointerEventData.InputButton.Left) return;
         EnemyEncounterManager.Instance.SetCastingCard(true);
+        EnemyEncounterManager.Instance.DestroyAllTooltips();
         PlayerHand.Instance.SetHoverable(false);
         PlayerHand.Instance.HighlightRelevantCards(null);
         interactable = false;

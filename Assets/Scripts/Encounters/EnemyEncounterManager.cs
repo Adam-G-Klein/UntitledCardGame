@@ -536,7 +536,10 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     public void TryEndPlayerTurn()
     {
         if (endTurnEnabled && TurnManager.Instance.GetTurnPhase() == TurnPhase.PLAYER_TURN)
+        {
+            FocusManager.Instance.Unfocus();
             StartCoroutine(turnPhaseEvent.RaiseAtEndOfFrameCoroutine(new TurnPhaseEventInfo(TurnPhase.BEFORE_END_PLAYER_TURN)));
+        }
     }
 
     public void CanEndTurn(bool val) {
