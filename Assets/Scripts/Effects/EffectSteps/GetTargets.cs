@@ -117,6 +117,7 @@ public class GetTargets : EffectStep, IEffectStepCalculation
                 FocusManager.Instance.StashFocusablesNotOfTargetType(validTargets, this.GetType().Name);
                 UIStateManager.Instance.setState(UIState.EFFECT_TARGETTING);
                 bool selected = false;
+                // TODO (James): would be nice to wait until the draw queue is empty before resolving the card selection.
                 PlayerHand.Instance.SelectCardsFromHand(number, disallowedTargets, limitOptions, CancelHandler, (List<PlayableCard> selectedCards) => {
                     foreach (PlayableCard card in selectedCards) {
                         targetsList.Add(card.GetComponent<Targetable>());

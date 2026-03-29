@@ -117,7 +117,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         this.deckInstanceToPlayableCard = new Dictionary<DeckInstance, List<PlayableCard>>();
         this.orderedCards = new List<PlayableCard>();
         selectionView = new CardInHandSelectionView(
-                cardInHandSelectionDoc, 
+                cardInHandSelectionDoc,
                 cardInHandSelectionDoc.rootVisualElement.Q<VisualElement>("card-in-hand-selection-view"));
     }
 
@@ -788,6 +788,32 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             string helperText = "",
             GetTargets.SelectionPurposeEnum selectionPurpose = GetTargets.SelectionPurposeEnum.None)
     {
+        // Do a check on the number of targets we can select.
+        int numValidTargets = 0;
+        foreach (PlayableCard card in GetCardsOrdered())
+        {
+            if ((disallowedCards == null || !disallowedCards.Contains(card.gameObject)) &&
+                (cardsLimitedTo == null || cardsLimitedTo.Contains(card.gameObject)))
+            {
+                numValidTargets++;
+            }
+        }
+        // TODO(James): fix this hack, would be nice to deal with actual PlayableCard references instead of assuming all cards to be drawn are targetable.
+        Debug.Log("PlayerHand: There are " + numValidTargets + " valid targets for card selection");
+        int cardsToBeDrawn = cardDealQueue.Count;
+        numValidTargets += cardsToBeDrawn;
+        Debug.Log("PlayerHand: There are " + cardsToBeDrawn + " cards queued to be drawn, adjusting valid targets to " + numValidTargets);
+        if (numValidTargets == 0)
+        {
+            Debug.Log("PlayerHand: No valid targets for card selection, returning :)");
+            callback(new List<PlayableCard>());
+            return;
+        } else if (numValidTargets < number)
+        {
+            Debug.Log("PlayerHand: effect wants the player to select " + number + " cards, but there are only " + numValidTargets + " valid targets, adjusting number to select accordingly");
+            number = numValidTargets;
+        }
+
         EnemyEncounterManager.Instance.DestroyAllTooltips();
         string CHOOSE_X_CARDS = "Choose {0} cards{1}";
         string CHOOSE_A_CARD = "Choose a card{0}";
