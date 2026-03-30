@@ -15,6 +15,7 @@ MonoBehaviour:
   map:
     encounters:
     - rid: 3054805330898190336
+  shopData: {fileID: 11400000, guid: 64b1d5221aac20348909c6cab7cc24d6, type: 2}
   references:
     version: 2
     RefIds:
@@ -25,6 +26,8 @@ MonoBehaviour:
         isCompleted: 0
         act: 0
         isEliteEncounter: 0
+        bonusManaReward: 0
+        bonusTeamSizeReward: 0
         enemyList:
         - id: boss123
           entityType: 1
