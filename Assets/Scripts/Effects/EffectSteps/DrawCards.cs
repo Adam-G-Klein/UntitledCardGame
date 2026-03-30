@@ -24,6 +24,9 @@ public class DrawCards : EffectStep /*, ITooltipProvider*/
     private bool getScaleFromKey = false;
     [SerializeField]
     private string inputScaleKey = "";
+    // This field is useful when we have a card selection action after a draw, and we want to make sure all the cards are in hand.
+    [SerializeField]
+    private bool waitForDrawsToResolve = false;
 
     public DrawCards() {
         effectStepName = "DrawCards";
@@ -51,6 +54,24 @@ public class DrawCards : EffectStep /*, ITooltipProvider*/
         // Add both versions of the cards delt to the document
         document.map.AddItems<PlayableCard>(outputKey, cardsDelt);
         cardsDelt.ForEach(playableCard => document.map.AddItem<Card>(outputKey, playableCard.card));
+
+        if (waitForDrawsToResolve)
+        {
+            Debug.Log("Waiting for drawn cards to be in hand...");
+            yield return new WaitUntil(() => {
+                foreach (PlayableCard card in cardsDelt)
+                {
+                    if (!PlayerHand.Instance.ContainsPlayableCard(card))
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            });
+            // yield return new WaitForSeconds(0.3f); // Small delay to ensure all card state updates have resolved
+            yield return new WaitUntil(() => LeanTween.tweensRunning == 0);
+        }
+
         yield return null;
     }
 

@@ -359,6 +359,11 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         return Mathf.Clamp01(positionCalc);
     }
 
+    public bool ContainsPlayableCard(PlayableCard card)
+    {
+        return GetCardsOrdered().Contains(card);
+    }
+
     private void MoveSingleCard(PlayableCard cardToMove, Vector3 position, Quaternion rotation, bool isNewCard)
     {
         if (isNewCard)
@@ -800,9 +805,9 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         }
         // TODO(James): fix this hack, would be nice to deal with actual PlayableCard references instead of assuming all cards to be drawn are targetable.
         Debug.Log("PlayerHand: There are " + numValidTargets + " valid targets for card selection");
-        int cardsToBeDrawn = cardDealQueue.Count;
-        numValidTargets += cardsToBeDrawn;
-        Debug.Log("PlayerHand: There are " + cardsToBeDrawn + " cards queued to be drawn, adjusting valid targets to " + numValidTargets);
+        // int cardsToBeDrawn = cardDealQueue.Count;
+        // numValidTargets += cardsToBeDrawn;
+        // Debug.Log("PlayerHand: There are " + cardsToBeDrawn + " cards queued to be drawn, adjusting valid targets to " + numValidTargets);
         if (numValidTargets == 0)
         {
             Debug.Log("PlayerHand: No valid targets for card selection, returning :)");

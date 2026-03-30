@@ -86,8 +86,8 @@ MonoBehaviour:
         effectSteps:
         - rid: 9024302470308298798
         - rid: 2295168179404538024
-        - rid: 9024302470308298797
         - rid: 1274772082283774361
+        - rid: 9024302470308298797
         - rid: 9024302470308298800
         - rid: 1274772082283774362
         - rid: 9024302470308298799
@@ -110,6 +110,7 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+        waitForDrawsToResolve: 1
     - rid: 9024302470308298798
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -141,4 +142,4 @@ MonoBehaviour:
         specialTargetRule: 5
         cantCancelTargetting: 1
         cardSelectionHelperText: 
-        selectionPurpose: 0
+        selectionPurpose: 1
