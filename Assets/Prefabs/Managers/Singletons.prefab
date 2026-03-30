@@ -101,8 +101,8 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 522868713
-  m_SortingOrder: 0
+  m_SortingLayerID: 628815193
+  m_SortingOrder: 200
   m_TargetDisplay: 0
 --- !u!114 &5249614791031580760
 MonoBehaviour:
@@ -1227,7 +1227,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8352697225991080914}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.566}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.00008, y: 1.00008, z: 1.00008}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1370,10 +1370,6 @@ PrefabInstance:
     - target: {fileID: 4405034290732355255, guid: f56ace11eca35482fa0b76e4ccaa2728, type: 3}
       propertyPath: m_RenderMode
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4405034290732355255, guid: f56ace11eca35482fa0b76e4ccaa2728, type: 3}
-      propertyPath: m_SortingOrder
-      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 6414891375994710130, guid: f56ace11eca35482fa0b76e4ccaa2728, type: 3}
       propertyPath: m_Name

@@ -393,7 +393,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                 {
                     if (!isNewCard) return;
 
-                    if (cardToMove.TryGetComponent<SpriteRenderer>(out var SR)) SR.sortingLayerName = "Cards"; // what is this magic
+                    // if (cardToMove.TryGetComponent<SpriteRenderer>(out var SR)) SR.sortingLayerName = "Cards"; // what is this magic
                     cardToMove.interactable = true;
                     cardToMove.hoverable = true;
 

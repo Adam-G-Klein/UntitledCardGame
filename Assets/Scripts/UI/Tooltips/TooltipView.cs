@@ -265,7 +265,7 @@ public class TooltipView : MonoBehaviour
     {
         if (canvas != null)
         {
-            canvas.sortingLayerName = "OverlayUI";
+            canvas.sortingLayerName = "Tooltips";
             canvas.targetDisplay = 0; // Ensure valid display target
         }
 
@@ -273,7 +273,7 @@ public class TooltipView : MonoBehaviour
         VisualElement root = GetComponent<MiniUIDocumentScreenspace>().doc.rootVisualElement;
         background = root.Q<VisualElement>("tooltip-background");
         mat = GetComponent<RawImage>().material;
-        transform.position = new Vector3(transform.position.x, transform.position.y, 15f);
+        transform.position = new Vector3(transform.position.x, transform.position.y, 10f);
         Fill();
     }
 

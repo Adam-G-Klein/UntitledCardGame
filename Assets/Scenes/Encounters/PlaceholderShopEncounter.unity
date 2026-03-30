@@ -5764,7 +5764,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6216190684483306987, guid: a246cd575c4606b48aa933beb9c080a8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 6216190684483306987, guid: a246cd575c4606b48aa933beb9c080a8, type: 3}
       propertyPath: m_LocalRotation.w
@@ -6288,7 +6288,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1890755354}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 10}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.009259259, y: 0.009259259, z: 0.009259259}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6372,7 +6372,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: -229093509
+  m_SortingLayerID: -1746327665
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!1 &1986919766
@@ -6416,7 +6416,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1789748239383973054, guid: ff6847b1fc70cf54998d656e52466f4a, type: 3}
       propertyPath: m_Name
-      value: WorldspaceDialogueView (1)
+      value: WorldspaceDialogueView
       objectReference: {fileID: 0}
     - target: {fileID: 4103760935828464813, guid: ff6847b1fc70cf54998d656e52466f4a, type: 3}
       propertyPath: m_Pivot.x
@@ -6498,6 +6498,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4388585096898539770, guid: ff6847b1fc70cf54998d656e52466f4a, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1086324131}
     - target: {fileID: 8359563904592804469, guid: ff6847b1fc70cf54998d656e52466f4a, type: 3}
       propertyPath: sourceAsset
       value: 
@@ -7136,7 +7140,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2084954350121844303, guid: 3baf1124637dfad49861a9472e95fbae, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.38
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2084954350121844303, guid: 3baf1124637dfad49861a9472e95fbae, type: 3}
       propertyPath: m_LocalRotation.w

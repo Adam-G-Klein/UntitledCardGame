@@ -441,7 +441,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1789748239383973054, guid: ff6847b1fc70cf54998d656e52466f4a, type: 3}
       propertyPath: m_Name
-      value: WorldspaceDialogueView (1)
+      value: WorldspaceDialogueView
       objectReference: {fileID: 0}
     - target: {fileID: 4103760935828464813, guid: ff6847b1fc70cf54998d656e52466f4a, type: 3}
       propertyPath: m_Pivot.x
@@ -523,6 +523,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4388585096898539770, guid: ff6847b1fc70cf54998d656e52466f4a, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 601238120}
     - target: {fileID: 8359563904592804469, guid: ff6847b1fc70cf54998d656e52466f4a, type: 3}
       propertyPath: sourceAsset
       value: 
@@ -540,10 +544,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 246839474529508921, guid: b3624fa3d2367944f9f9ff9793633969, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 601238120}
     - target: {fileID: 428804735140336026, guid: b3624fa3d2367944f9f9ff9793633969, type: 3}
       propertyPath: m_Name
       value: Singletons
       objectReference: {fileID: 0}
+    - target: {fileID: 471265052921669561, guid: b3624fa3d2367944f9f9ff9793633969, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 601238120}
     - target: {fileID: 4658088288143552190, guid: b3624fa3d2367944f9f9ff9793633969, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.020032
@@ -791,6 +803,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 601238120}
+    - target: {fileID: 3691959019451719562, guid: 607fb3500676b2f4b9224240dd2d6e46, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1746327665
+      objectReference: {fileID: 0}
     - target: {fileID: 5427687416918855016, guid: 607fb3500676b2f4b9224240dd2d6e46, type: 3}
       propertyPath: m_Name
       value: Canvas
