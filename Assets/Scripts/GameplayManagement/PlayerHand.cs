@@ -56,12 +56,15 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     private List<SelectionPurposeTextPair> selectionPurposeToText;
     [SerializeField]
     private UIDocument cardInHandSelectionDoc;
+    [SerializeField]
+    private GameObject cardTabPrefab;
 
 
     private GameObject cardPrefab;
     private List<DeckInstance> orderedDeckInstances;
     private Dictionary<DeckInstance, List<PlayableCard>> deckInstanceToPlayableCard;
     private List<PlayableCard> orderedCards;
+    private Dictionary<GameObject, CardTab> companionGOToCardTab;
     public delegate IEnumerator OnCardExhaustHandler(DeckInstance deckFrom, PlayableCard card);
     public PriorityEventDispatcher<OnCardExhaustHandler> onCardExhaustDispatcher = new();
 
@@ -94,7 +97,6 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     private int indexToHover = -1;
 
     private Queue<(PlayableCard, bool)> cardDealQueue = new Queue<(PlayableCard, bool)>();
-
 
 
     private int MAX_HAND_SIZE;
@@ -134,10 +136,15 @@ public class PlayerHand : GenericSingleton<PlayerHand>
     // to ensure the companions have been registered with the combat entity manager
     public void SetupCompanionOrder()
     {
+        companionGOToCardTab = new Dictionary<GameObject, CardTab>();
         foreach (CompanionInstance companion in CombatEntityManager.Instance.getCompanions())
         {
             orderedDeckInstances.Add(companion.GetDeckInstance());
             deckInstanceToPlayableCard.Add(companion.GetDeckInstance(), new List<PlayableCard>());
+            GameObject cardTabGO = Instantiate(cardTabPrefab);
+            CardTab cardTab = cardTabGO.GetComponent<CardTab>();
+            cardTab.Init(companion);
+            companionGOToCardTab.Add(companion.gameObject, cardTab);
         }
     }
 
@@ -373,6 +380,12 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         }
         GameObject moveGO = cardToMove.transform.parent.gameObject;
         GameObject rotateGO = cardToMove.gameObject;
+
+        CardTab cardTab = null;
+        if (deckInstanceToPlayableCard[cardToMove.deckFrom].IndexOf(cardToMove) == 0) {
+            cardTab = companionGOToCardTab[cardToMove.deckFrom.gameObject];
+        }
+
         float rotationTime = 0.25f;
         float moveTime = 0.25f;
         float dealMoveTime = 0.5f;
@@ -388,10 +401,19 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                     .setEase(LeanTweenType.easeInOutQuad);
         }
 
+        if (cardTab != null) {
+            LeanTween.rotate(cardTab.gameObject, rotation.eulerAngles, rotationTime)
+                    .setEase(LeanTweenType.easeInOutQuad);
+            Vector3 modifiedPosition = new Vector3(position.x, position.y, position.z + 0.1f);
+            LeanTween.move(cardTab.gameObject, modifiedPosition, isNewCard ? dealMoveTime : moveTime);
+        }
+
         LeanTween.move(moveGO, position, isNewCard ? dealMoveTime : moveTime)
                 .setOnComplete(() =>
                 {
                     if (!isNewCard) return;
+
+                    if (cardTab != null) cardTab.Show();
 
                     // if (cardToMove.TryGetComponent<SpriteRenderer>(out var SR)) SR.sortingLayerName = "Cards"; // what is this magic
                     cardToMove.interactable = true;
@@ -583,6 +605,9 @@ public class PlayerHand : GenericSingleton<PlayerHand>
 
             cardsInHand = retainedCards;
             UpdateCardPositions();
+            foreach (CardTab cardTab in companionGOToCardTab.Values) {
+                cardTab.Hide();
+            }
         }
     }
 
