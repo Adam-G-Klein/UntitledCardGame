@@ -616,8 +616,17 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         yield return new WaitUntil(() => !cardsInHandLocked);
         // cardsInHand.Remove(card);
         deckInstanceToPlayableCard[card.deckFrom].Remove(card);
+        SetTabVisibility(card);
         if (cardsInSelectionSpline != null && cardsInSelectionSpline.Contains(card)) cardsInSelectionSpline.Remove(card);
         UpdateOrderedCards();
+    }
+
+    private void SetTabVisibility(PlayableCard card) {
+        if (deckInstanceToPlayableCard[card.deckFrom].Count > 0) {
+            companionGOToCardTab[card.deckFrom.gameObject].Show();
+        } else {
+            companionGOToCardTab[card.deckFrom.gameObject].Hide();
+        }
     }
 
     public void SafeRemoveCardFromHand(Card card)
@@ -935,6 +944,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                 UpdateOrderedCards();
                 // targetCard.interactable = false;
                 UnhoverCard(targetCard);
+                SetTabVisibility(targetCard);
                 UpdateCardSelectionSplineCardPositions();
                 UpdateCardPositions();
                 selectionView.UpdateLabelText(GetPromptText());
@@ -964,6 +974,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
             {
                 selectedCards.Remove(card);
                 deckInstanceToPlayableCard[card.deckFrom].Add(card);
+                SetTabVisibility(card);
             }
             if (cardCast != null) {
                 cardCast.hoverable = true;
@@ -992,6 +1003,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                 {
                     Debug.Log(String.Format("SelectingCardConfirmed: {0}", card));
                     deckInstanceToPlayableCard[card.deckFrom].Add(card);
+                    SetTabVisibility(card);
                     cardsInSelectionSpline.Remove(card);
                     card.hoverInPlace = false;
                 }
@@ -1048,6 +1060,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                 Vector3 worldspacePosition = UIDocumentGameObjectPlacer.GetWorldPositionFromElement(selectionView.GetCardCastLocationElement());
                 Debug.Log("SelectCardsFromHand: worldspace position " + worldspacePosition.ToString());
                 deckInstanceToPlayableCard[cardCast.deckFrom].Remove(cardCast);
+                SetTabVisibility(cardCast);
                 UpdateOrderedCards();
                 UpdateCardPositions();
                 MoveSingleCard(cardCast, worldspacePosition, Quaternion.identity, false);
