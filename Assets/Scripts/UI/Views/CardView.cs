@@ -2,7 +2,6 @@ using UnityEngine;
 using System;
 using UnityEngine.UIElements;
 using System.Linq;
-using Unity.VisualScripting;
 using System.Collections.Generic;
 
 
@@ -11,35 +10,17 @@ using System.Collections.Generic;
 public class CardView {
     public VisualElement cardContainer;
     public VisualElementFocusable cardFocusable;
-    // TODO, could require the stylesheet in the constructor and fetch these from there
-    public static int CARD_DESC_SIZE_FULL_TEXTURE = 40; //px
-    public static int CARD_TITLE_SIZE_FULL_TEXTURE = 60; //px
-    public static int CARD_DESC_SIZE_SHOP_SCREEN = 16; //px
-    public static int CARD_TITLE_SIZE_SHOP_SCREEN = 18; //px
-    public static int CARD_DESC_MAX_FULL_SIZE_CHARS_FULL_TEXTURE = 60; // guess
-    public static int CARD_TITLE_MAX_FULL_SIZE_CHARS_FULL_TEXTURE = 7; // guess
-    public static int CARD_DESC_MAX_FULL_SIZE_CHARS_SHOP_SCREEN = 30; // guess
-    public static int CARD_TITLE_MAX_FULL_SIZE_CHARS_SHOP_SCREEN = 5; // guess
-    public static int COMPANION_AND_MANA_INDICATOR_WIDTH_HEIGHT_COMBAT = 80;
-    public static int COMPANION_AND_MANA_INDICATOR_WIDTH_HEIGHT_SHOP = 30;
-
-    // Trying to define single pixel sizes for cards to bring some conformity to the look. Changing text sizes reads a little messy imo
-    private static int CARD_TITLE_COMBAT = 32;
-    private static int CARD_DESC_COMBAT = 28;
-    private static int CARD_TITLE_SHOP = 12;
-    private static int CARD_DESC_SHOP = 10;
 
     public Card cardInstance = null;
     public Color modifiedManaCostColor = Color.green;
 
-    private static float SCREEN_WIDTH_PERCENT = 0.11f;
-    private static float RATIO = 832f/543f;
+    private static float BASE_WIDTH = 543f;
+    private static float BASE_HEIGHT = 832f;
     private CardType cardType;
 
+    private VisualElement cardRoot;
+
     private Card.CardRarity rarity = Card.CardRarity.NONE;
-    // fillUIDocument - in some cases (like the current shop and the intro screen) we don't want this card to
-    // take up its whole ui doc. In others, like combat (where the card is in worldspace splatted to a texture)
-    // we do.
     private static Dictionary<String, Sprite> silhouetteCache = new Dictionary<String, Sprite>();
 
     public CardView(CardType cardType, CompanionTypeSO companionType, Card.CardRarity rarity, bool cardInShop = false, PackSO packSO = null, bool hideBackground = false) {
@@ -59,26 +40,16 @@ public class CardView {
         VisualTreeAsset visualTreeAsset = GameplayConstantsSingleton.Instance.gameplayConstants.cardTemplate;
         VisualElement container = visualTreeAsset.CloneTree();
         container.focusable = true;
-        container.AddToClassList("card-container");
+        container.AddToClassList("card-view-container");
         container.AddToClassList("focusable");
         cardFocusable = container.AsFocusable();
+        container.RegisterCallback<GeometryChangedEvent>(ScaleCardRootToFitContainer);
+
+        cardRoot = container.Children().First();
+        cardRoot.style.display = DisplayStyle.None;
 
         Label manaContainer = container.Q<Label>("manaLabel");
         setManaCost(manaContainer, card);
-
-        /*VisualElement rarityGem = container.Q("rarityGem");
-        switch (rarity) {
-            case Card.CardRarity.COMMON:
-            case Card.CardRarity.NONE:
-                rarityGem.AddToClassList("rarity-gem-common");
-                break;
-            case Card.CardRarity.UNCOMMON:
-                rarityGem.AddToClassList("rarity-gem-uncommon");
-                break;
-            case Card.CardRarity.RARE:
-                rarityGem.AddToClassList("rarity-gem-rare");
-                break;
-        }*/
 
         Label title = container.Q<Label>("cardName");
         title.text = card.GetName();
@@ -136,22 +107,6 @@ public class CardView {
             iconDescContainer.visible = false;
         }
 
-        /*if (packSO != null)
-        {
-            container.Q("cardBackground").style.backgroundColor = packSO.packColor;
-            companionNameLabel.text = packSO.packName + " Pack";
-        }
-        else if (companionType != null)
-        {
-            container.Q("cardBackground").style.backgroundColor = companionType.pack.packColor;
-            companionNameLabel.text = companionType.companionName;
-        }
-        else
-        {
-            companionNameLabel.text = "ANY";
-            companionNameLabel.AddToClassList("card-type-label-any");
-        }*/
-
         VisualElement cardBackground = container.Q("cardBackground");
         if (hideBackground)
         {
@@ -205,21 +160,6 @@ public class CardView {
             card.cardCategory.ToString(), "(?<!^)([A-Z])", " $1"
         ).Trim();
 
-        if (cardInShop)
-        {
-            Tuple<int, int> cardWidthHeight = GetWidthAndHeight();
-            container.style.width = cardWidthHeight.Item1;
-            container.style.height = cardWidthHeight.Item2;
-
-            title.AddToClassList("cardNameShop");
-            description.AddToClassList("cardDescriptionShop");
-            cardTypeLabel.AddToClassList("cardTypeLabelShop");
-            manaContainer.AddToClassList("manaLabelShop");
-            container.Q("cardOutline").AddToClassList("cardOutlineShop");
-            iconDescContainer.AddToClassList("iconDescContainerShop");
-        }
-
-
         return container;
     }
 
@@ -235,20 +175,6 @@ public class CardView {
             }
         }
 
-    }
-
-    private int getDescFontSize(string desc, bool cardInShop) {
-        int maxChars = cardInShop ? CARD_DESC_MAX_FULL_SIZE_CHARS_SHOP_SCREEN : CARD_DESC_MAX_FULL_SIZE_CHARS_FULL_TEXTURE;
-        int fontSize = cardInShop ? CARD_DESC_SIZE_SHOP_SCREEN : CARD_DESC_SIZE_FULL_TEXTURE;
-
-        return UIDocumentUtils.UpdateTextSize(desc, maxChars, fontSize);
-    }
-
-    private int getTitleFontSize(string title, bool cardInShop) {
-        int maxChars = cardInShop ? CARD_TITLE_MAX_FULL_SIZE_CHARS_SHOP_SCREEN : CARD_TITLE_MAX_FULL_SIZE_CHARS_FULL_TEXTURE;
-        int fontSize = cardInShop ? CARD_TITLE_SIZE_SHOP_SCREEN : CARD_TITLE_SIZE_FULL_TEXTURE;
-
-        return UIDocumentUtils.UpdateTextSize(title, maxChars, fontSize, 2);
     }
 
     public void UpdateCardText(string newText) {
@@ -297,18 +223,18 @@ public class CardView {
         lockedIndicator.style.display = DisplayStyle.Flex;
     }
 
-    public static Tuple<int, int> GetWidthAndHeight() {
-        int width = (int)(Screen.width * SCREEN_WIDTH_PERCENT);
-        int height = (int)(width * RATIO);
+    private void ScaleCardRootToFitContainer(GeometryChangedEvent evt) {
+        cardContainer.UnregisterCallback<GeometryChangedEvent>(ScaleCardRootToFitContainer);
 
-        // This drove me insane btw
-        #if UNITY_EDITOR
-        UnityEditor.PlayModeWindow.GetRenderingResolution(out uint windowWidth, out uint windowHeight);
-        width = (int)(windowWidth * SCREEN_WIDTH_PERCENT);
-        height = (int)(width * RATIO);
-        #endif
+        float width = cardContainer.resolvedStyle.width;
+        float height = cardContainer.resolvedStyle.height;
 
-        return new Tuple<int, int>(width, height);
+        float scaleX = width / BASE_WIDTH;
+        float scaleY = height / BASE_HEIGHT;
+        float uniformScale = Mathf.Min(scaleX, scaleY);
+
+        cardRoot.transform.scale = new Vector3(uniformScale, uniformScale, 1f);
+        cardRoot.style.display = DisplayStyle.Flex;
     }
 
     public CardType GetCardType()

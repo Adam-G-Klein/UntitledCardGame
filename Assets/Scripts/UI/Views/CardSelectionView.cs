@@ -32,8 +32,6 @@ public class CardSelectionView : MonoBehaviour
         }
         Canvas canvas = GetComponent<Canvas>();
         canvas.worldCamera = Camera.main;
-        canvas.sortingLayerName = "OverlayUI";
-        canvas.sortingOrder = -5; // Necessary to have options menu appear above
     }
 
     public void Setup(List<Card> cards, Companion companion, VisualTreeAsset companionViewTemplate) {

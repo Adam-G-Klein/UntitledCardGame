@@ -22,7 +22,7 @@ public class MultiDeckView
     private float animationDuration = 0.25f;
     [SerializeField]
     private LeanTweenType animationEaseType = LeanTweenType.easeInOutSine;
-    private Vector2 CARD_SIZE = new();
+    private Vector2 CARD_SIZE = new Vector2(205, 315);
     private VisualElement visibilityRoot;
     private IMultiDeckViewDelegate multiDeckViewDelegate;
     private bool inTransition = false;
@@ -52,8 +52,6 @@ public class MultiDeckView
         this.tabButtons = new List<Button>();
         this.deckTabViews = new List<DeckTabView>();
 
-        Tuple<int, int> cardSizeTuple = CardView.GetWidthAndHeight();
-        CARD_SIZE = new Vector2(cardSizeTuple.Item1, cardSizeTuple.Item2);
         tabsContainer = uiDocument.rootVisualElement.Q("SectionsContainer");
         visibilityRoot = uiDocument.rootVisualElement.Q("rootElement");
         nameLabel = uiDocument.rootVisualElement.Q<Label>("multi-deck-view-name-label");

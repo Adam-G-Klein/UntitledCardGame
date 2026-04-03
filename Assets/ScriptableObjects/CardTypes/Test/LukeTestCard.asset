@@ -12,11 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
   m_Name: LukeTestCard
   m_EditorClassIdentifier: 
+  guid: c17a0f5f-9ea6-4248-883b-ab3f0d3cdabc
   Name: Bing Bong
   Description: Deal {0} damage.
+  IconDescription: []
+  IconDescriptionTooltipLines: []
+  defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 21631059f2c81c04c9664407e7242c63, type: 3}
   cardCategory: 1
+  packFrom: {fileID: 0}
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
@@ -25,9 +30,14 @@ MonoBehaviour:
   - rid: 1935436885617803282
   onExhaustEffectWorkflow:
     rid: -2
+  onDiscardEffectWorkflow:
+    rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
+  onDrawEffectWorkflow:
+    rid: -2
   tooltips: 
+  tooltipKeyword: 37
   references:
     version: 2
     RefIds:
@@ -38,7 +48,8 @@ MonoBehaviour:
       data:
         effectSteps:
         - rid: 1935436885617803284
-        - rid: 5280922807842373635
+        - rid: 8952225957853790344
+        - rid: 8952225957853790353
     - rid: 1935436885617803284
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -50,13 +61,29 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
-    - rid: 5280922807842373635
-      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+    - rid: 8952225957853790344
+      type: {class: GetCardsFromDeck, ns: , asm: Assembly-CSharp}
       data:
-        effectStepName: ApplyStatus
+        effectStepName: GetCardsFromDeck
         inputKey: target
-        statusEffect: 9
-        scale: 3
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplyByNumAuraStacks: 0
+        getLimitedNumber: 0
+        numberOfCardsToGet: 1
+        shuffleIfEmpty: 1
+        outputKey: cards
+        getAllCardsFromEntities: 0
+        getCardsFromSourceDeck: 1
+        getAllFromOnlyDrawPile: 0
+    - rid: 8952225957853790353
+      type: {class: SelectCardsFromList, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: SelectCardsFromList
+        inputKey: cards
+        outputKey: 
+        promptText: 
+        minTargets: 1
+        maxTargets: -1
+        getNumberOfTargetsFromKey: 0
+        inputNumberOfTargetsKey: 
+        randomizeOrder: 0

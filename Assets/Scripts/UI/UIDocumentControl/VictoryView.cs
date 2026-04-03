@@ -80,10 +80,11 @@ public class VictoryView : MonoBehaviour
             cardsContainer.AddToClassList("victory-companion-cards-container");
             
             List<Card> deckToDisplay = companion.deck.cards;
+            float yTotal = 315f;
             for (int j = 0; j < deckToDisplay.Count; j++) {
                 VisualElement cardContainer = new CardView(deckToDisplay[j], companionType, true).cardContainer;
                 cardContainer.style.position = Position.Absolute;
-                cardContainer.style.top = cardContainer.style.height.value.value / 30 * j;
+                cardContainer.style.top = yTotal / 30 * j;
                 cardsContainer.Add(cardContainer);
             }
             companionContainer.Add(cardsContainer);

@@ -12,12 +12,18 @@
     -unity-background-image-tint-color: rgb(188, 188, 188);
 }
 
-.card-container:focus {
+.card-view-container:focus {
     scale: 1.1 1.1;
 }
 
-.card-container:hover {
+.card-view-container:hover {
     scale: 1.1 1.1;
+}
+
+.card-view-container {
+    width: 205px;
+    height: 315px;
+    flex-shrink: 0;
 }
 
 .card-selected {

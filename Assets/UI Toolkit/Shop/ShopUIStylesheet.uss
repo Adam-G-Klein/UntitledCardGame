@@ -345,3 +345,9 @@
 .shop-view-goods-area-container-narrower {
     width: 72%;
 }
+
+.card-view-container {
+    width: 100%;
+    flex-shrink: 0;
+    height: 100%;
+}
