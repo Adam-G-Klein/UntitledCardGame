@@ -16,9 +16,17 @@ public class TooltipLine
     public int relatedBehaviorIndex;
     public Texture2D icon;
     public List<DescriptionToken> iconDescriptionLine;
+    public CardType card;
     public VisualElement GetVisualElement()
     {
         VisualElement ve = new VisualElement();
+
+        if (card != null) {
+            CardView cardView = new CardView(card, null, Card.CardRarity.COMMON);
+            ve.Add(cardView.cardContainer);
+            return ve;
+        }
+
         ve.AddToClassList("tooltip-line");
 
         VisualElement titleContainer = new VisualElement();
@@ -66,27 +74,6 @@ public class TooltipLine
 
         return ve;
     }
-
-    /* todo, dynamic sizing for tooltips
-
-    private int getDescFontSize(string desc) {
-        if (desc.Length > CARD_DESC_MAX_FULL_SIZE_CHARS) {
-            Debug.Log("desc.Length: " + desc.Length + " CARD_DESC_MAX_FULL_SIZE_CHARS: " + CARD_DESC_MAX_FULL_SIZE_CHARS + " CARD_DESC_MAX_FULL_SIZE_CHARS / desc.Length: " + (CARD_DESC_MAX_FULL_SIZE_CHARS / desc.Length) + " CARD_DESC_SIZE: " + CARD_DESC_SIZE + " CARD_DESC_SIZE * (CARD_DESC_MAX_FULL_SIZE_CHARS / desc.Length): " + (CARD_DESC_SIZE * (CARD_DESC_MAX_FULL_SIZE_CHARS / desc.Length)) + " (int)(CARD_DESC_SIZE * (CARD_DESC_MAX_FULL_SIZE_CHARS / desc.Length)): " + (int)(CARD_DESC_SIZE * (CARD_DESC_MAX_FULL_SIZE_CHARS / desc.Length)));
-            float textSizeRatio = (float) CARD_DESC_MAX_FULL_SIZE_CHARS / (float) desc.Length;
-            double scalingRatio = Math.Pow(textSizeRatio, (float)1/ (float)4);
-            return (int)Math.Floor(CARD_DESC_SIZE * scalingRatio);
-        }
-        return CARD_DESC_SIZE;
-    }
-
-    private int getTitleFontSize(string title) {
-        if (title.Length > CARD_TITLE_MAX_FULL_SIZE_CHARS) {
-            float textSizeRatio = (float) CARD_TITLE_MAX_FULL_SIZE_CHARS / (float) title.Length;
-            return (int)Math.Floor(CARD_TITLE_SIZE * textSizeRatio);
-        }
-        return CARD_TITLE_SIZE;
-    }
-    */
 
     public TooltipLine(string title, string description, int relatedBehaviorIndex = -1, Texture2D image = null)
     {
@@ -303,19 +290,6 @@ public class TooltipView : MonoBehaviour
 
     public void Hide()
     {
-        // TODO: add a quick fade or dissolve effect for funsies?
-        /* TODO: make tooltips support transparency without getting occluded
-            by the combat UI. Timeboxed before magwest
-        LeanTween.value(1, 0, fadeInOutTime)
-            .setOnUpdate((float val) =>
-            {
-                mat.SetFloat("_alpha", val);
-            }).setOnComplete(() =>
-            {
-                background.Clear();
-                Destroy(gameObject);
-            });
-            */
         background.Clear();
         Destroy(gameObject);
     }
