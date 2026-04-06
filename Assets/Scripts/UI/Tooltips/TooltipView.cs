@@ -82,6 +82,10 @@ public class TooltipLine
         this.relatedBehaviorIndex = relatedBehaviorIndex;
         this.icon = image;
     }
+
+    public TooltipLine(CardType cardType) {
+        this.card = cardType;
+    }
 }
 
 [System.Serializable]
