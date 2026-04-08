@@ -464,7 +464,7 @@ public class PlayerHand : GenericSingleton<PlayerHand>
                 break;
             }
 
-            Vector3 startPos = deckFrom.transform.position;
+            Vector3 startPos = deckFrom.GetCardDealPosition();
             PlayableCard newCard = PrefabInstantiator.InstantiateCard(
                 cardPrefab,
                 EnemyEncounterManager.Instance.transform,

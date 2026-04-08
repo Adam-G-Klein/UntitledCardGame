@@ -18,6 +18,7 @@ public class CompanionView : IUIEventReceiver
     public CompanionInstance GetCompanionInstance() { return companionInstance; }
     private Companion companion = null;
     private CombatInstance combatInstance = null;
+    private DeckInstance deckInstance = null;
 
     private VisualElement statusArea;
     private VisualElement spriteElement;
@@ -38,6 +39,9 @@ public class CompanionView : IUIEventReceiver
     private VisualElement hoverDetector;
     private VisualElement selectedIndicator;
     private VisualElement rarityIndicator;
+    private VisualElement pilesContainer;
+    private VisualElement drawPileIcon;
+    private VisualElement discardPileIcon;
 
     private List<VisualElement> pickingModePositionList = new List<VisualElement>();
     private List<VisualElement> elementsKeepingHiddenContainerVisible = new List<VisualElement>();
@@ -65,6 +69,7 @@ public class CompanionView : IUIEventReceiver
 
         if (this.companionInstance != null) {
             this.combatInstance = this.companionInstance.combatInstance;
+            this.deckInstance = this.companionInstance.deckInstance;
         }
 
         SetupCompanionView();
@@ -120,6 +125,7 @@ public class CompanionView : IUIEventReceiver
         if (this.context.setupDrawDiscardButtons || this.context.setupViewDeckButton) SetupHoverDetector();
         if (this.context.setupDrawDiscardButtons) SetupDrawDiscardContainer();
         if (this.context.setupViewDeckButton) SetupViewDeckContainer();
+        if (this.context.setupPileIcons) SetupDrawDiscardPileIcons();
 
         UpdateWidthAndHeight(container);
     }
@@ -129,6 +135,59 @@ public class CompanionView : IUIEventReceiver
         SetupStatusIndicators();
     }
 
+    private void SetupDrawDiscardPileIcons() {
+        pilesContainer = container.Q<VisualElement>("companion-view-deck-piles-container");
+        drawPileIcon = container.Q<VisualElement>("companion-view-draw-pile");
+        discardPileIcon = container.Q<VisualElement>("companion-view-discard-pile");
+        drawPileIcon.RegisterCallback<ClickEvent>(DrawPileButtonOnClick);
+        discardPileIcon.RegisterCallback<ClickEvent>(DiscardPileButtonOnClick);
+        if (deckInstance != null) {
+            deckInstance.OnDrawDiscardPilesChanged += OnDecksChangedHandler;
+            deckInstance.OnDrawPileShuffled += ShuffleDiscardIntoDrawVFX;
+            deckInstance.InvokeDrawDiscardPilesChanged();
+            pilesContainer.RegisterCallback<GeometryChangedEvent>(SetDrawDiscardPilePositions);   
+        }
+        pilesContainer.style.display = DisplayStyle.Flex;
+        pickingModePositionList.Add(drawPileIcon);
+        pickingModePositionList.Add(discardPileIcon);
+    }
+
+    private void SetDrawDiscardPilePositions(GeometryChangedEvent evt) {
+
+        Vector3 drawPos = UIDocumentGameObjectPlacer.GetWorldPositionFromElement(drawPileIcon);
+        Vector3 discardPos = UIDocumentGameObjectPlacer.GetWorldPositionFromElement(discardPileIcon);
+        deckInstance.SetDrawDiscardPositions(drawPos, discardPos);
+        pilesContainer.UnregisterCallback<GeometryChangedEvent>(SetDrawDiscardPilePositions);
+    }
+
+    private void OnDecksChangedHandler(List<Card> draw, List<Card> discard) {
+        SetPileIcon(drawPileIcon, draw.Count);
+        SetPileIcon(discardPileIcon, discard.Count);
+    }
+
+    private void SetPilesNumbers(int draw, int discard) {
+        SetPileIcon(drawPileIcon, draw);
+        SetPileIcon(discardPileIcon, discard);
+    }
+
+    private void SetPileIcon(VisualElement pile, int count) {
+        pile.RemoveFromClassList("pile-no-cards");
+        pile.RemoveFromClassList("pile-one-card");
+        pile.RemoveFromClassList("pile-two-cards");
+        pile.RemoveFromClassList("pile-three-cards");
+        pile.RemoveFromClassList("pile-four-plus-cards");
+        if (count == 0) {
+            pile.AddToClassList("pile-no-cards");
+        } else if (count == 1) {
+            pile.AddToClassList("pile-one-card");
+        } else if (count == 2) {
+            pile.AddToClassList("pile-two-cards");
+        } else if (count == 3) {
+            pile.AddToClassList("pile-three-cards");
+        } else {
+            pile.AddToClassList("pile-four-plus-cards");
+        }
+    }
 
     private void SetupLevelIndicator() {
         bronzeFrame.style.visibility = Visibility.Hidden;
@@ -465,6 +524,8 @@ public class CompanionView : IUIEventReceiver
     private IEnumerator OnDeathHandler(CombatInstance killer) {
         FocusManager.Instance.UnregisterFocusableTarget(this.focusable);
         isDead = true;
+        deckInstance.OnDrawDiscardPilesChanged -= OnDecksChangedHandler;
+        pilesContainer.style.display = DisplayStyle.None;
         yield return null;
     }
 
@@ -552,9 +613,77 @@ public class CompanionView : IUIEventReceiver
         yield return EntityAbilityInstance.GenericAbilityTriggeredVFX(this.spriteElement, spriteCopy);
     }
 
+    public IEnumerator ShuffleDiscardIntoDrawVFX(int cardsShuffled) {
+        Vector2 start = GetElementCenterInParentSpace(discardPileIcon, container);
+        Vector2 end = GetElementCenterInParentSpace(drawPileIcon, container);
+        int cardsInDiscard = cardsShuffled;
+        int cardsInDraw = 0;
+        List<VisualElement> tweens = new List<VisualElement>();
+        for (int i = 0; i < cardsShuffled; i++) {
+            VisualElement card = new VisualElement();
+            card.AddToClassList("companion-view-deck-shuffled-card");
+            card.style.width = discardPileIcon.resolvedStyle.width;
+            card.style.height = discardPileIcon.resolvedStyle.height;
+            container.Add(card);
+            float arcHeight = UnityEngine.Random.Range(5, 35);
+            cardsInDiscard -= 1;
+            tweens.Add(card);
+            LeanTween.value(0f, 1f, 0.2f)
+                .setEase(LeanTweenType.easeInOutQuad)
+                .setOnUpdate((float t) => {
+                    Vector2 pos = EvaluateArc(start, end, arcHeight, t);
+                    SetElementCenter(card, pos);
+                    float rot = Mathf.Lerp(-8f, 8f, t);
+                    card.style.rotate = new StyleRotate(new Rotate(new Angle(rot)));
+                })
+                .setOnComplete(() => {
+                    card.RemoveFromHierarchy();
+                    cardsInDraw += 1;
+                    tweens.Remove(card);
+                });
+            SetPilesNumbers(cardsInDraw, cardsInDiscard);
+            yield return new WaitForSeconds(0.1f);
+        }
+        yield return new WaitUntil(() => tweens.Count == 0);
+    }
+
+    private static Vector2 EvaluateArc(Vector2 start, Vector2 end, float arcHeight, float t)
+    {
+        // Linear X/Y from start to end
+        Vector2 pos = Vector2.Lerp(start, end, t);
+
+        // Parabolic offset:
+        // 0 at t=0 and t=1, max at t=0.5
+        float arcOffset = 4f * arcHeight * t * (1f - t);
+
+        // UI Toolkit Y grows downward, so subtract to go upward
+        pos.y -= arcOffset;
+
+        return pos;
+    }
+
+    private static void SetElementCenter(VisualElement element, Vector2 center)
+    {
+        float width = Mathf.Max(element.resolvedStyle.width, 1f);
+        float height = Mathf.Max(element.resolvedStyle.height, 1f);
+
+        element.style.left = center.x - width * 0.5f;
+        element.style.top = center.y - height * 0.5f;
+    }
+
+    private static Vector2 GetElementCenterInParentSpace(VisualElement element, VisualElement targetParent)
+    {
+        Rect worldBound = element.worldBound;
+        Vector2 worldCenter = worldBound.center;
+
+        Vector2 localCenter = targetParent.WorldToLocal(worldCenter);
+        return localCenter;
+    }
+
     public class CompanionViewContext {
         public bool setupDrawDiscardButtons;
         public bool setupViewDeckButton;
+        public bool setupPileIcons;
         public bool enableSelectedIndicator;
         public int nameFontSize;
         public int viewDrawDiscardDeckFontSize;
@@ -563,12 +692,14 @@ public class CompanionView : IUIEventReceiver
         public CompanionViewContext(
                 bool setupDrawDiscardButtons,
                 bool setupViewDeckButton,
+                bool setupPileIcons,
                 bool enableSelectedIndicator,
                 int nameFontSize,
                 int viewDrawDiscardDeckFontSize,
                 float screenWidthPercent) {
             this.setupDrawDiscardButtons = setupDrawDiscardButtons;
             this.setupViewDeckButton = setupViewDeckButton;
+            this.setupPileIcons = setupPileIcons;
             this.enableSelectedIndicator = enableSelectedIndicator;
             this.nameFontSize = nameFontSize;
             this.viewDrawDiscardDeckFontSize = viewDrawDiscardDeckFontSize;
@@ -577,15 +708,15 @@ public class CompanionView : IUIEventReceiver
     }
 
     public static CompanionViewContext COMBAT_CONTEXT = new CompanionViewContext(
-        true, false, true, 24, 20, 0.15f);
+        false, false, true, true, 24, 20, 0.15f);
     public static CompanionViewContext SHOP_CONTEXT = new CompanionViewContext(
-        false, true, false, 18, 16, 0.15f * .75f);
+        false, true, false, false, 18, 16, 0.15f * .75f);
     public static CompanionViewContext STARTING_TEAM_CONTEXT = new CompanionViewContext(
-        false, true, false, 28, 20, 0.15f * .75f);
+        false, true, false, false, 28, 20, 0.15f * .75f);
     public static CompanionViewContext COMPENDIUM_CONTEXT = new CompanionViewContext(
-        false, false, false, 26, 20, 0.2f);
+        false, false, false, false, 26, 20, 0.2f);
     public static CompanionViewContext CARD_SELECTION_CONTEXT = new CompanionViewContext(
-        false, false, true, 26, 20, 0.2f);
+        false, false, false, true, 26, 20, 0.2f);
     public static CompanionViewContext COMPANION_UPGRADE_CONTEXT = new CompanionViewContext(
-        false, false, false, 21, 20, 0.15f);
+        false, false, false, false, 21, 20, 0.15f);
 }

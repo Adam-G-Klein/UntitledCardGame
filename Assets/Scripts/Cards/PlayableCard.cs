@@ -51,8 +51,6 @@ public class PlayableCard : MonoBehaviour,
 
     private const string CardCalculationDamageKey = "card_calculation_rpl_damage_key";
 
-    private Vector3 discardDest;
-
     public void Awake()
     {
         docCard = GetComponent<UIDocumentCard>();
@@ -60,7 +58,6 @@ public class PlayableCard : MonoBehaviour,
     public void Start()
     {
         transform.localScale = new Vector3(nonHoverScale, nonHoverScale, 1);
-        discardDest = this.deckFrom.transform.position;
     }
 
     public void OnPointerClickVoid()
@@ -214,7 +211,7 @@ public class PlayableCard : MonoBehaviour,
             { "CardScaleTrack", cardGameObject },
         });
         experience.AddLocationToKey("Card", this.transform.position);
-        experience.AddLocationToKey("Companion", discardDest);
+        experience.AddLocationToKey("Companion", deckFrom.GetCardDiscardPosition());
         // This makes it so that we can use 0,0 as the "current position of the card"
         cardGameObject.transform.SetParent(experience.transform);
         experience.onExperienceOver += CardDiscardVFXFinished;
@@ -228,6 +225,7 @@ public class PlayableCard : MonoBehaviour,
     {
         // If we don't do this, then the crew (the card) goes down with the ship (the FXExperience)
         this.gameObject.transform.SetParent(null);
+        deckFrom.InvokeDrawDiscardPilesChanged();
         cleanupAndDestroy();
     }
 

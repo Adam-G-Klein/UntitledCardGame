@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
@@ -15,8 +16,14 @@ public class DeckInstance : MonoBehaviour
     public List<Card> exhaustPile;
     public CombatInstance combatInstance;
 
+    public event Action<List<Card>, List<Card>> OnDrawDiscardPilesChanged;
+    public event Func<int, IEnumerator> OnDrawPileShuffled;
+
     private TurnPhaseTrigger drawCardsTurnPhaseTrigger;
     private TurnPhaseTrigger dealExtraCardsTrigger;
+
+    private Vector3 cardDealPosition;
+    private Vector3 cardDiscardPosition;
 
     int extraCardsToDeal = 0;
 
@@ -75,7 +82,7 @@ public class DeckInstance : MonoBehaviour
         {
             Debug.Log("Dealing extra cards for this deck instance, count: " + extraCardsToDeal);
         }
-        DealCardsToPlayerHand(sourceDeck.cardsDealtPerTurn + extraCardsToDeal);
+        yield return DealCardsToPlayerHand(sourceDeck.cardsDealtPerTurn + extraCardsToDeal);
         yield return null;
     }
 
@@ -110,13 +117,20 @@ public class DeckInstance : MonoBehaviour
 
     [ContextMenu("DealOneCard")]
     public void DealOneCard() {
-        DealCardsToPlayerHand(1);
+        StartCoroutine(DealCardsToPlayerHand(1));
     }
 
-    public List<PlayableCard> DealCardsToPlayerHand(int numCards, bool fromCardCast = false)
+    public IEnumerator DealCardsToPlayerHand(int numCards, List<PlayableCard> deltCards = null, bool fromCardCast = false)
     {
-        List<Card> cards = DealCardsFromDeck(numCards);
-        return PlayerHand.Instance.DealCards(cards, this, true, fromCardCast);
+        List<Card> cards = new List<Card>();
+        for (int i = 0; i < numCards; i++)
+        {
+            yield return DealCardFromDeckToList(cards, false);
+        }
+        inHand.AddRange(cards);
+        List<PlayableCard> cardsDelt = PlayerHand.Instance.DealCards(cards, this, true, fromCardCast);
+        deltCards?.AddRange(cardsDelt);
+        InvokeDrawDiscardPilesChanged();
     }
 
     public void AddCardFromDeckToHand(Card card)
@@ -128,18 +142,7 @@ public class DeckInstance : MonoBehaviour
         }
     }
 
-    public List<Card> DealCardsFromDeck(int numCards, bool withReplacement = false)
-    {
-        List<Card> returnList = new List<Card>();
-        for (int i = 0; i < numCards; i++)
-        {
-            DealCardFromDeckToList(returnList, withReplacement);
-        }
-        inHand.AddRange(returnList);
-        return returnList;
-    }
-
-    private void DealCardFromDeckToList(List<Card> toList, bool withReplacement = false)
+    private IEnumerator DealCardFromDeckToList(List<Card> toList, bool withReplacement = false)
     {
         // Check to see if the draw pile is empty
         if (drawPile.Count == 0)
@@ -149,9 +152,9 @@ public class DeckInstance : MonoBehaviour
             if (discardPile.Count == 0)
             {
                 // big loser moment
-                return;
+                yield break;
             }
-            ShuffleDiscardIntoDraw();
+            yield return ShuffleDiscardIntoDraw();
         }
         Card card = drawPile[0];
         if (!withReplacement)
@@ -178,14 +181,17 @@ public class DeckInstance : MonoBehaviour
         }
     }
 
-    public void ShuffleDiscardIntoDraw()
+    public IEnumerator ShuffleDiscardIntoDraw()
     {
         Debug.Log("Shuffling discard pile into draw pile, triggering downstream effects");
         EnemyEncounterManager.Instance.DeckShuffled(this);
         PlayerHand.Instance.StartCoroutine(PlayerHand.Instance.OnDeckShuffled(this));
+        int numInDiscard = discardPile.Count;
+        if (OnDrawPileShuffled != null) yield return OnDrawPileShuffled.Invoke(numInDiscard);
         drawPile.AddRange(discardPile);
         drawPile.Shuffle();
         discardPile.Clear();
+        yield return null;
     }
 
     public void DiscardCards(List<Card> cards)
@@ -205,6 +211,7 @@ public class DeckInstance : MonoBehaviour
         drawPile.AddRange(cards);
 
         drawPile.Shuffle();
+        InvokeDrawDiscardPilesChanged();
     }
 
     public void AddCardsToTopOfDeck(List<Card> cards)
@@ -214,6 +221,7 @@ public class DeckInstance : MonoBehaviour
         newDrawPile.AddRange(cards);
         newDrawPile.AddRange(drawPile);
         drawPile = newDrawPile;
+        InvokeDrawDiscardPilesChanged();
     }
 
     public void AddCardsToBottomOfDeck(List<Card> cards)
@@ -223,11 +231,13 @@ public class DeckInstance : MonoBehaviour
         newDrawPile.AddRange(drawPile);
         newDrawPile.AddRange(cards);
         drawPile = newDrawPile;
+        InvokeDrawDiscardPilesChanged();
     }
     public void AddCardsToDiscard(List<Card> cards)
     {
         Debug.Log("Adding " + cards.Count + " cards to the discard pile");
         discardPile.AddRange(cards);
+        InvokeDrawDiscardPilesChanged();
     }
 
     public bool ContainsCardById(string id)
@@ -267,6 +277,7 @@ public class DeckInstance : MonoBehaviour
             inHand.Remove(card);
         }
         exhaustPile.Add(card);
+        InvokeDrawDiscardPilesChanged();
     }
 
     public void DiscardCard(Card card)
@@ -283,6 +294,7 @@ public class DeckInstance : MonoBehaviour
             inHand.Remove(card);
             discardPile.Add(card);
         }
+        InvokeDrawDiscardPilesChanged();
     }
 
     public void PurgeCard(Card card)
@@ -301,6 +313,26 @@ public class DeckInstance : MonoBehaviour
             inHand.Remove(card);
         }
         sourceDeck.PurgeCard(card.id);
+        InvokeDrawDiscardPilesChanged();
+    }
+
+    public void InvokeDrawDiscardPilesChanged() {
+        OnDrawDiscardPilesChanged?.Invoke(drawPile, discardPile);
+    }
+
+    public void SetDrawDiscardPositions(Vector3 drawPos, Vector3 discardPos) {
+        this.cardDealPosition = drawPos;
+        this.cardDiscardPosition = discardPos;
+    }
+
+    public Vector3 GetCardDealPosition() {
+        if (cardDealPosition != null) return cardDealPosition;
+        return transform.position;
+    }
+
+    public Vector3 GetCardDiscardPosition() {
+        if (cardDiscardPosition != null) return cardDiscardPosition;
+        return transform.position;
     }
 
     public void TransformAllCardsOfType(
@@ -357,6 +389,7 @@ public class DeckInstance : MonoBehaviour
         {
             inHand.Remove(card);
         }
+        InvokeDrawDiscardPilesChanged();
     }
 
     public List<Card> GetShuffledDrawPile()

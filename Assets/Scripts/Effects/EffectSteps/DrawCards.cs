@@ -49,7 +49,7 @@ public class DrawCards : EffectStep /*, ITooltipProvider*/
         List<PlayableCard> cardsDelt = new List<PlayableCard>();
         foreach (DeckInstance instance in instances) {
             Debug.Log("Drawing " + finalScale + " cards from deck instance for companion " + instance.combatInstance.GetCompanionInstance().companion.GetName());
-            cardsDelt.AddRange(instance.DealCardsToPlayerHand(finalScale, document.originEntityType == EntityType.Card));
+            yield return instance.DealCardsToPlayerHand(finalScale, cardsDelt, document.originEntityType == EntityType.Card);
         }
         // Add both versions of the cards delt to the document
         document.map.AddItems<PlayableCard>(outputKey, cardsDelt);
