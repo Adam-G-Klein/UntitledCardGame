@@ -7,63 +7,59 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: WorldCardShader
-  m_Shader: {fileID: -6465566751694194690, guid: f07a57d6e9b414642bacb1a8c483b6a2, type: 3}
+  m_Name: NormalMaster
+  m_Shader: {fileID: -6465566751694194690, guid: fd05011c2273ced4ca22cd3dd14edc95, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _ALPHAPREMULTIPLY_ON
-  - _GRADIENTSELECT_NONE
   - _SURFACE_TYPE_TRANSPARENT
-  m_InvalidKeywords:
-  - _ENUM_INDEX_B_TO_T
-  - _GRADIENT_DEFAULT
-  m_LightmapFlags: 4
+  m_InvalidKeywords: []
+  m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
+  m_CustomRenderQueue: -1
   stringTagMap:
     RenderType: Transparent
   disabledShaderPasses:
   - DepthOnly
-  - SHADOWCASTER
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
     - _Distortion_Tex:
-        m_Texture: {fileID: 2800000, guid: 035fccc8d123ffe49bb042e478f93c43, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _FadeTexture:
-        m_Texture: {fileID: 2800000, guid: d50569c4e8032c3408b54117313f5ff2, type: 3}
-        m_Scale: {x: 0.66, y: 0.26}
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Fade_Tex:
-        m_Texture: {fileID: 2800000, guid: 458658c84ab034746898412c44ca3172, type: 3}
+    - _Fade_Secondary_Tex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LERP_Mask_Texture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LERP_Texture:
+        m_Texture: {fileID: 2800000, guid: e90cc63685fcdc549a8228a36c9c0717, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 7591ab07c17e9d3488e733dae166d7af, type: 3}
+        m_Texture: {fileID: 2800000, guid: 481342b5dd8b24948a3886b49c906a1b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Mask_Tex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _NormalFromTexture_f4b854987254441f8464b526e2f9f020_Texture_0_Texture2D:
-        m_Texture: {fileID: 2800000, guid: 481342b5dd8b24948a3886b49c906a1b, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _NormalMainTex:
+    - _Normal_Tex:
         m_Texture: {fileID: 2800000, guid: 570c1ac3122162d448c5ba8fe3019c85, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_4d9b7a87003442db99dab0f9ed394240_Texture_1_Texture2D:
-        m_Texture: {fileID: 2800000, guid: 570c1ac3122162d448c5ba8fe3019c85, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _SecondTex:
+    - _OverlayTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -89,48 +85,51 @@ Material:
     - _AlphaToMask: 0
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
-    - _CastShadows: 0
-    - _Cull: 0
-    - _Cutoff_Softness: 0.1
-    - _Cutoff_Value: -0.25
-    - _Cuttoff_Gradient_Power: 0.75
-    - _Cuttoff_Rotation: 0
+    - _CastShadows: 1
+    - _Cull: 2
+    - _Cutoff_Softness: 1
+    - _Cutoff_Value: 0
     - _Distort_the_Mask: 0
     - _Distortion_Strength: 0
     - _DstBlend: 10
-    - _ENUM_INDEX: 2
+    - _Fade_Secondary_Tex_Power: 1
     - _Fade_Tex_Pow: 1
-    - _Fade_Tex_Power: 1
-    - _GRADIENT: 0
-    - _GRADIENTSELECT: 0
-    - _GradientIndex: 0
-    - _Gradient_Power: 1
-    - _Gradient_Selector: 5.05
-    - _Inverse_Gradient: 0
-    - _Mask_Power: 0
+    - _Intensity: 0
+    - _Mask_Power: 1
     - _Mask_Strength: 0
-    - _Normal_Power: 10
+    - _Norm_Strength: 0.24
+    - _Overlay_Strength: 0
+    - _Partcle_System: 0
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
+    - _Soft_Sides_Opacity: 30
     - _SrcBlend: 1
     - _Surface: 1
     - _Text_Power: 1
-    - _Use_Cutoff: 1
+    - _Use_Cutoff: 0
     - _Use_Fade_Tex_Instead: 1
+    - _Use_Lerp: 0
+    - _Use_Overlay_0_No: 0
     - _Use_Radial: 0
+    - _Use_Soft_Sides: 0
     - _WorkflowMode: 1
+    - _World_Texture_Smoothstep: 0
     - _ZTest: 4
     - _ZWrite: 0
     - _ZWriteControl: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Distortion_Speed: {r: 0, g: -0.2, b: 0, a: 0}
-    - _Fade_Tex_Speed: {r: 0, g: -3, b: 0, a: 0}
+    - _Colour_A: {r: 1, g: 1, b: 1, a: 1}
+    - _Colour_B: {r: 1, g: 0, b: 0, a: 1}
+    - _Distortion_Speed: {r: 1, g: 1, b: 0, a: 0}
+    - _Fade_Tex_Speed: {r: 0, g: 0, b: 0, a: 0}
+    - _LERP_Texture_Scroll: {r: 0, g: 0, b: 0, a: 0}
     - _Main_Text_Scroll_Speed: {r: 0, g: 0, b: 0, a: 0}
     - _Mask_Scroll_Speed: {r: 0, g: 0, b: 0, a: 0}
+    - _Overlay_Speed: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
---- !u!114 &6510237202539223063
+--- !u!114 &6564498462649572222
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
