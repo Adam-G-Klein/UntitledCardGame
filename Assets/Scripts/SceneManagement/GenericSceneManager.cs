@@ -32,6 +32,7 @@ public class GenericSceneManager : MonoBehaviour, IControlsReceiver
     }
 
     public void ContinueGameState() {
+        Debug.Log("ContinueGameState");
         gameState.LoadNextLocation();
     }
 

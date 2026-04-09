@@ -11,7 +11,7 @@ public class SceneTransitionManager : MonoBehaviour
     
     private static SceneTransitionManager instance;
     private Image fadeImage;
-    private bool isFading = false;
+    private Coroutine fadeCoroutine;
 
     private void Awake()
     {
@@ -55,9 +55,12 @@ public class SceneTransitionManager : MonoBehaviour
 
     public static void LoadScene(string sceneName, float delay = 0f)
     {
-        if (instance != null && !instance.isFading)
+        Debug.Log($"SceneTransitionManager: Loading scene {sceneName}");
+        // if (instance != null && !instance.isFading)
+        if (instance != null)
         {
-            instance.StartCoroutine(instance.WaitAndLoadScene(sceneName));
+            if (instance.fadeCoroutine != null) instance.StopCoroutine(instance.fadeCoroutine);
+            instance.fadeCoroutine = instance.StartCoroutine(instance.WaitAndLoadScene(sceneName));
         }
     }
     
@@ -70,8 +73,6 @@ public class SceneTransitionManager : MonoBehaviour
 
     private IEnumerator FadeAndLoadScene(string sceneName)
     {
-        isFading = true;
-
         // Fade to black
         yield return StartCoroutine(Fade(1f));
 
@@ -82,8 +83,6 @@ public class SceneTransitionManager : MonoBehaviour
 
         // Fade back in
         yield return StartCoroutine(Fade(0f));
-
-        isFading = false;
     }
 
     private IEnumerator Fade(float targetAlpha)
