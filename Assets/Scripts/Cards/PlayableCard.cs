@@ -118,6 +118,7 @@ public class PlayableCard : MonoBehaviour,
         StartCoroutine(cardCastEvent.RaiseAtEndOfFrameCoroutine(new CardCastEventInfo(card)));
         IncrementCastCount();
         EnemyEncounterManager.Instance.combatEncounterState.CastCard(card);
+        UnHoverAssociatedCompanion();
         PlayerHand.Instance.SetHoverable(true);
         yield return StartCoroutine(PlayerHand.Instance.OnCardCast(this));
 

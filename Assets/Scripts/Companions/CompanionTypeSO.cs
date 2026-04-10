@@ -26,6 +26,7 @@ public class CompanionTypeSO : IdentifiableSO
     [Header("Art Assets")]
     public Sprite sprite;
     public Sprite fullSprite;
+    public List<Sprite> animationSprites;
     [Space(8)]
     public StartingDeck startingDeck;
     public CompanionRarity rarity;

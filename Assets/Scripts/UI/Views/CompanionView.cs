@@ -49,6 +49,9 @@ public class CompanionView : IUIEventReceiver
     private bool isFullyDisabled = false;
     private VisualElement containerThatHoverIndicatorShows;
     private bool isTweening = false;
+    private IVisualElementScheduledItem animationItem;
+    private int currentFrame;
+    private List<Sprite> animationFrames;
 
     private int lastHealthValue;
     private bool isHealthTweening = false;
@@ -412,6 +415,21 @@ public class CompanionView : IUIEventReceiver
     }
 
     private void SetupCompanionSprite() {
+        if (this.companion.companionType.animationSprites == null || this.companion.companionType.animationSprites.Count == 0) {
+            SetStaticSprite();
+            return;
+        }
+
+        animationFrames = this.companion.companionType.animationSprites;
+        currentFrame = 0;
+        this.spriteElement.style.backgroundImage = new StyleBackground(animationFrames[0]);
+        animationItem = this.spriteElement.schedule.Execute(() => {
+            currentFrame = (currentFrame + 1) % animationFrames.Count;
+            this.spriteElement.style.backgroundImage = new StyleBackground(animationFrames[currentFrame]);
+        }).Every(250);
+    }
+
+    private void SetStaticSprite() {
         Sprite sprite = this.companion.companionType.fullSprite;
         if (sprite == null) {
             sprite = this.companion.getSprite();
@@ -526,6 +544,8 @@ public class CompanionView : IUIEventReceiver
         isDead = true;
         deckInstance.OnDrawDiscardPilesChanged -= OnDecksChangedHandler;
         pilesContainer.style.display = DisplayStyle.None;
+        animationItem?.Pause();
+        SetStaticSprite();
         yield return null;
     }
 
