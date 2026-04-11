@@ -539,6 +539,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         {
             FocusManager.Instance.Unfocus();
             StartCoroutine(turnPhaseEvent.RaiseAtEndOfFrameCoroutine(new TurnPhaseEventInfo(TurnPhase.BEFORE_END_PLAYER_TURN)));
+            MusicController.Instance.PlaySFX("event:/SFX/SFX_PlayerEndTurn");
         }
     }
 
