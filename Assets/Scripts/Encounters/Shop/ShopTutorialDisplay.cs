@@ -12,19 +12,13 @@ public class ShopTutorialDisplay : MonoBehaviour
     [SerializeField]
     private float postShopUpgradeDelay = 1f;
     [SerializeField]
-    private int freeMoney = 60;
-    [SerializeField]
     private float delayPerFreeMoneyGiven = 0.1f;
     [SerializeField]
     private float postFreeMoneyDelay = 1f;
     [SerializeField]
-    private int freeRerolls = 6;
-    [SerializeField]
     private float delayPerFreeRerollGiven = 0.5f;
     [SerializeField]
     private float postFreeRerollDelay = 1f;
-    [SerializeField]
-    private int freeCardRemovals = 2;
     [SerializeField]
     private float delayPerFreeCardRemovalGiven = 1f;
 
@@ -59,7 +53,7 @@ public class ShopTutorialDisplay : MonoBehaviour
     public IEnumerator GiveFreeRerolls()
     {
         int rerollsGiven = 0;
-        while (rerollsGiven < freeRerolls)
+        while (rerollsGiven < shopData.freeRerolls)
         {
             ShopManager.Instance.AddFreeReroll();
             yield return new WaitForSeconds(delayPerFreeRerollGiven);
@@ -70,7 +64,7 @@ public class ShopTutorialDisplay : MonoBehaviour
     public IEnumerator GiveFreeMoney()
     {
         int moneyGiven = 0;
-        while (moneyGiven < freeMoney)
+        while (moneyGiven < shopData.freeMoney)
         {
             ShopManager.Instance.AddFreeMoney();
             yield return new WaitForSeconds(delayPerFreeMoneyGiven);
@@ -82,7 +76,7 @@ public class ShopTutorialDisplay : MonoBehaviour
     public IEnumerator GiveFreeCardRemovals()
     {
         int removalsGiven = 0;
-        while (removalsGiven < freeCardRemovals)
+        while (removalsGiven < shopData.freeCardRemovals)
         {
             ShopManager.Instance.AddFreeCardRemoval();
             yield return new WaitForSeconds(delayPerFreeCardRemovalGiven);

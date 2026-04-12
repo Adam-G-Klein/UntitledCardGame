@@ -299,7 +299,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
 
         // Skip the first post-combat screen for demo/convention builds — no rewards, go straight to shop.
         // Still wait for endCombatScreenDelay so the victory popup (fired above) has time to play.
-        if (gameState.BuildTypeDemoOrConvention() && gameState.currentEncounterIndex == 0)
+        if (gameState.BuildTypeDemoOrConvention() && gameState.currentEncounterIndex <= 2)
         {
             yield return new WaitForSeconds(endCombatScreenDelay);
             gameState.LoadNextLocation(); // COMBAT → POST_COMBAT

@@ -14,17 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: b8cf7a5b-9409-479b-9f2f-c8669d46bdb8
   Name: Ritual
-  Description: Bleed any 2 HP & draw 1 card x2
+  Description: Bleed any 1 HP & draw 1 card x2
   IconDescription:
   - tokenType: 0
-    text: 2
+    text: 1
     icon: 9
   - tokenType: 2
     text: 
     icon: 9
-  - tokenType: 0
-    text: 1
-    icon: 0
   - tokenType: 2
     text: 
     icon: 3
@@ -35,14 +32,11 @@ MonoBehaviour:
     text: 
     icon: 0
   - tokenType: 0
-    text: 2
+    text: 1
     icon: 0
   - tokenType: 2
     text: 
     icon: 9
-  - tokenType: 0
-    text: 1
-    icon: 0
   - tokenType: 2
     text: 
     icon: 3
@@ -50,7 +44,7 @@ MonoBehaviour:
     text: 
     icon: 18
   IconDescriptionTooltipLines:
-  - Choose a rat to bleed 2 HP and draw a card. Repeat 2 times total.
+  - Choose a rat to bleed 1 HP and draw a card. Repeat 2 times total.
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: e0ab2143b8408423ab692d481858408a, type: 3}
@@ -86,6 +80,7 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+        waitForDrawsToResolve: 0
     - rid: 5602892949302281051
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
@@ -112,7 +107,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: target
         combatEffect: 16
-        scale: 2
+        scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1

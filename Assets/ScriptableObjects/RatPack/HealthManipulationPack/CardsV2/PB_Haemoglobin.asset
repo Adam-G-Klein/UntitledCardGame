@@ -10,12 +10,42 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: PB_Haemosteel
+  m_Name: PB_Haemoglobin
   m_EditorClassIdentifier: 
   guid: a20d7a77-87de-486b-84cc-b017b7ff01d9
-  Name: Haemosteel
+  Name: Haemoglobin
   Description: Give any rat 4 block & if self lost HP this turn, give leftmost rat
     4 block
+  IconDescription:
+  - tokenType: 0
+    text: 5
+    icon: 2
+  - tokenType: 2
+    text: 
+    icon: 2
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 9
+  - tokenType: 0
+    text: '? '
+    icon: 0
+  - tokenType: 0
+    text: 3
+    icon: 0
+  - tokenType: 2
+    text: 4
+    icon: 2
+  - tokenType: 2
+    text: 4
+    icon: 6
+  IconDescriptionTooltipLines:
+  - Give a rat of your choice 5 block, which prevents damage until the start of next
+    turn.
+  - If the owner rat lost HP this turn, give 3 block to the leftmost rat on your
+    team
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 06c409edcf5e308438ea9c89ccd99c68, type: 3}
@@ -48,6 +78,7 @@ MonoBehaviour:
         effectStepName: CombatInstanceTookDamageThisTurn
         inputCombatInstanceKey: self
         outputKey: tookDamage
+        numTimesOutputKey: 
     - rid: 758315839196758639
       type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
       data:
@@ -60,7 +91,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: target
         statusEffect: 2
-        scale: 4
+        scale: 5
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
@@ -73,7 +104,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: left
         statusEffect: 2
-        scale: 4
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0
@@ -92,6 +123,7 @@ MonoBehaviour:
         specialTargetRule: 0
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 758315839196758754
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -104,6 +136,7 @@ MonoBehaviour:
         specialTargetRule: 7
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 758315839196758755
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -125,11 +158,11 @@ MonoBehaviour:
         - rid: 5602892723852673319
         - rid: 758315839196758753
         - rid: 758315839196758751
+        - rid: 758315839196758755
         - rid: 758315839196758638
         - rid: 758315839196758639
         - rid: 758315839196758754
         - rid: 758315839196758752
-        - rid: 758315839196758755
         - rid: 758315839196758756
     - rid: 5602892723852673319
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -143,3 +176,4 @@ MonoBehaviour:
         specialTargetRule: 4
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0

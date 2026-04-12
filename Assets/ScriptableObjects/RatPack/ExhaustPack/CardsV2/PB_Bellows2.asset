@@ -10,21 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: RP_Start_Fwoosh
+  m_Name: PB_Bellows2
   m_EditorClassIdentifier: 
-  guid: 497a5540-e457-46a4-b13a-38e5ee87d807
-  Name: Fwoosh
-  Description: Draw 2 cards from any & choose 1 card in hand to exhaust.
+  guid: 905f15ec-9bc7-4a2e-8c79-aa32f28396af
+  Name: Bellows
+  Description: Draw 1 card from the rat who owns this card and rats adjacent to the
+    owner. & choose 2 cards in hand to exhaust.
   IconDescription:
   - tokenType: 2
-    text: 2
-    icon: 3
-  - tokenType: 2
     text: 
     icon: 3
   - tokenType: 2
     text: 
-    icon: 18
+    icon: 12
   - tokenType: 1
     text: 
     icon: 0
@@ -33,15 +31,18 @@ MonoBehaviour:
     icon: 14
   - tokenType: 2
     text: 
+    icon: 14
+  - tokenType: 2
+    text: 
     icon: 18
   IconDescriptionTooltipLines:
-  - Draw 2 cards from a rat of your choice.
-  - Then, choose a card in hand to exhaust, removing it for the rest of combat.
+  - Draw 1 card from the rat who owns this card and rats adjacent to the owner.
+  - Then, choose 2 cards in hand to exhaust, removing them for the rest of combat
   defaultValues: []
   Cost: 1
-  Artwork: {fileID: 21300000, guid: 90fa2971dfe769a49a60ad648e956340, type: 3}
+  Artwork: {fileID: 21300000, guid: 0f91baf441838d747bea7dbae09bfb7f, type: 3}
   cardCategory: 2
-  packFrom: {fileID: 0}
+  packFrom: {fileID: 11400000, guid: 79e479ca9df7a4369ba7fa951e0af116, type: 2}
   vfxPrefab: {fileID: 0}
   playable: 1
   exhaustsWhenPlayed: 0
@@ -63,6 +64,13 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 578314564356800688
+      type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetAdjacentCompanions
+        inputKey: targets
+        includeInputCompanion: 1
+        outputKey: targetCompanion
     - rid: 1274772082283774361
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -82,8 +90,9 @@ MonoBehaviour:
       data:
         effectSteps:
         - rid: 9024302470308298798
-        - rid: 9024302470308298797
+        - rid: 578314564356800688
         - rid: 1274772082283774361
+        - rid: 9024302470308298797
         - rid: 9024302470308298800
         - rid: 1274772082283774362
         - rid: 9024302470308298799
@@ -93,7 +102,7 @@ MonoBehaviour:
         effectStepName: DrawCards
         inputKey: targetCompanion
         outputKey: 
-        scale: 2
+        scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
         waitForDrawsToResolve: 1
@@ -103,13 +112,13 @@ MonoBehaviour:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: targetCompanion
+        outputKey: targets
         validTargets: 00000000
         number: 1
-        specialTargetRule: 0
+        specialTargetRule: 4
         cantCancelTargetting: 0
         cardSelectionHelperText: 
-        selectionPurpose: 1
+        selectionPurpose: 0
     - rid: 9024302470308298799
       type: {class: CardInHandEffect, ns: , asm: Assembly-CSharp}
       data:
@@ -124,7 +133,7 @@ MonoBehaviour:
         inputKey: 
         outputKey: cardToExhaust
         validTargets: 03000000
-        number: 1
+        number: 2
         specialTargetRule: 5
         cantCancelTargetting: 1
         cardSelectionHelperText: 

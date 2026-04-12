@@ -15,6 +15,8 @@ MonoBehaviour:
   guid: 7b22e77f-56ed-4b48-a0dc-93452098d59d
   Name: Respite
   Description: Give any 6 block. When exhausted, heal self 5 HP
+  IconDescription: []
+  IconDescriptionTooltipLines: []
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 35286054ab881eb4993a26c55a12dd5a, type: 3}
@@ -79,6 +81,7 @@ MonoBehaviour:
         specialTargetRule: 4
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 2034230108114649131
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
@@ -111,3 +114,4 @@ MonoBehaviour:
         specialTargetRule: 0
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0

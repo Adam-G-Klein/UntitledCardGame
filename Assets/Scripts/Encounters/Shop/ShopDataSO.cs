@@ -54,6 +54,9 @@ public class ShopDataSO : ScriptableObject
     public int numCardsBuyPerDisplay = 1;
     public int numRatsBuyPerShop = 6;
     public int numRatsBuyPerDisplay = 2;
+    public int freeMoney = 60;
+    public int freeRerolls = 6;
+    public int freeCardRemovals = 2;
 
     [Header("Earning post combat")]
     public int goldEarnedPerBattle;

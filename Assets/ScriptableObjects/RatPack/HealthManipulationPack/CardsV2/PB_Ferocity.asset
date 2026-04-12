@@ -15,6 +15,25 @@ MonoBehaviour:
   guid: 85f67b0b-a47c-4438-b7e4-897480446381
   Name: Ferocity
   Description: Bleed any rat 3 HP & give 2 strength
+  IconDescription:
+  - tokenType: 0
+    text: 3
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 9
+  - tokenType: 2
+    text: 
+    icon: 7
+  - tokenType: 2
+    text: 
+    icon: 7
+  - tokenType: 2
+    text: 
+    icon: 18
+  IconDescriptionTooltipLines:
+  - Bleed a rat of your choice 3 HP and give the rat 2 strength, which increases
+    the damage of attacks
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: 0f5ecf3627abce84490e1f8ec8e4f24f, type: 3}
@@ -74,6 +93,7 @@ MonoBehaviour:
         specialTargetRule: 0
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 5602892675124822084
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:

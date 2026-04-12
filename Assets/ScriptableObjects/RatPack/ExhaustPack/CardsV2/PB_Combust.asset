@@ -19,18 +19,18 @@ MonoBehaviour:
   - tokenType: 2
     text: 
     icon: 14
+  - tokenType: 2
+    text: 
+    icon: 18
   - tokenType: 1
     text: 
-    icon: 0
-  - tokenType: 0
-    text: 1
     icon: 0
   - tokenType: 2
     text: 
     icon: 10
   IconDescriptionTooltipLines:
   - Choose a card in hand to exhaust, removing it for the rest of combat.
-  - Gain 1 energy to spend on other cards.
+  - "Gain 1 \xC9lan to spend playing other cards."
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 47602993e540997478144938c9b7ec9b, type: 3}

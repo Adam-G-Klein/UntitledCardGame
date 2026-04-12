@@ -28,9 +28,6 @@ MonoBehaviour:
   - tokenType: 1
     text: 
     icon: 0
-  - tokenType: 0
-    text: 1
-    icon: 0
   - tokenType: 2
     text: 
     icon: 3
@@ -107,6 +104,7 @@ MonoBehaviour:
         scale: 1
         getScaleFromKey: 0
         inputScaleKey: 
+        waitForDrawsToResolve: 0
     - rid: 5602892675124822189
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
