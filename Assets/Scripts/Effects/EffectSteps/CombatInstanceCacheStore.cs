@@ -75,15 +75,17 @@ public class CombatInstanceCacheStore : EffectStep
                 target.cachedEffectValues.intMap[cacheKey] = document.intMap[currentWorkflowKey];
                 Debug.Log("[CombatInstanceCacheStore] Key '" + cacheKey + "' updated INT value " + target.cachedEffectValues.intMap[cacheKey]);
             }
-            EnemyEncounterViewModel.Instance.SetStateDirty();
-            yield break;
+        }
+        else {
+            if (useHardCodedBool) {
+                target.cachedEffectValues.boolMap[cacheKey] = hardCodedBool;
+            }
+            if (useHardCodedInt) {
+                target.cachedEffectValues.intMap[cacheKey] = hardCodedInt;
+            }
         }
 
-        if (useHardCodedBool) {
-            target.cachedEffectValues.boolMap[cacheKey] = hardCodedBool;
-        }
-        if (useHardCodedInt) {
-            target.cachedEffectValues.intMap[cacheKey] = hardCodedInt;
-        }
+
+        EnemyEncounterViewModel.Instance.SetStateDirty();
     }
 }

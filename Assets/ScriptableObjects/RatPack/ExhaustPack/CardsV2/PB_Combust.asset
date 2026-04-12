@@ -28,6 +28,9 @@ MonoBehaviour:
   - tokenType: 2
     text: 
     icon: 10
+  IconDescriptionTooltipLines:
+  - Choose a card in hand to exhaust, removing it for the rest of combat.
+  - Gain 1 energy to spend on other cards.
   defaultValues: []
   Cost: 0
   Artwork: {fileID: 21300000, guid: 47602993e540997478144938c9b7ec9b, type: 3}
@@ -66,6 +69,7 @@ MonoBehaviour:
         specialTargetRule: 5
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 5602892679876706519
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:

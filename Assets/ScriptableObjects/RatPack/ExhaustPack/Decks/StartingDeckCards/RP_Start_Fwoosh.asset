@@ -99,6 +99,7 @@ MonoBehaviour:
         scale: 2
         getScaleFromKey: 0
         inputScaleKey: 
+        waitForDrawsToResolve: 1
     - rid: 9024302470308298798
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -130,4 +131,4 @@ MonoBehaviour:
         specialTargetRule: 5
         cantCancelTargetting: 1
         cardSelectionHelperText: 
-        selectionPurpose: 0
+        selectionPurpose: 1

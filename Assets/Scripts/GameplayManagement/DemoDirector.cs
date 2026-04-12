@@ -3,6 +3,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
+public enum ShopDemoEvent
+{
+    None,
+    EnterShop,
+    CardOfferingTips,
+}
+
+[Serializable]
+public class ShopDemoDialogueForEvent
+{
+    [SerializeField]
+    public ShopDemoEvent shopDemoEvent;
+    [SerializeField]
+    [TextArea]
+    public List<string> dialogueLines;
+
+    public ShopDemoDialogueForEvent() {
+        shopDemoEvent = ShopDemoEvent.None;
+        dialogueLines = new List<string>();
+    }
+}
+
+[Serializable]
+public class ShopDemoDialogues
+{
+    [SerializeField]
+    public List<ShopDemoDialogueForEvent> shopDemoDialoguesForEvents;
+
+    public ShopDemoDialogues() {
+        shopDemoDialoguesForEvents = new List<ShopDemoDialogueForEvent>();
+    }
+}
+
 public class DemoDirector : GenericSingleton<DemoDirector>
 {
     public DemoDataSO demoDataSO;
@@ -12,7 +46,9 @@ public class DemoDirector : GenericSingleton<DemoDirector>
     [TextArea]
     public List<string> moreRewardsThanUsualStepDialogue;
     [TextArea]
-    public List<string> startOfShopStepDialogue;
+    public List<string> startOfFirstStaticChooseNShopDialogue;
+    [TextArea]
+    public List<string> startOfSecondStaticChooseNShopDialogue;
     [TextArea]
     public List<string> buyCompanionReminderStepDialogue;
     [TextArea]
@@ -28,11 +64,32 @@ public class DemoDirector : GenericSingleton<DemoDirector>
     [TextArea]
     public List<string> postCombatRewardsDialogueDialogue;
 
+    // Shop demo dialogues for a specific shop (index 0 is the first shop, index 1 is the second shop, etc.)
+    [SerializeField]
+    public List<ShopDemoDialogues> shopDemoDialogues;
+
     public void Reset() {
         demoDataSO.stepCompletion = new Dictionary<DemoStepName, bool>();
         foreach (DemoStepName name in Enum.GetValues(typeof(DemoStepName))) {
             demoDataSO.stepCompletion[name] = false;
         }
+    }
+
+    public IEnumerator InvokeDemoStepForShopDemoEventCoroutine(ShopDemoEvent shopDemoEvent, int shopIndex) {
+        if (shopIndex >= shopDemoDialogues.Count) {
+            yield break;
+        }
+
+        ShopDemoDialogues dialoguesForShop = shopDemoDialogues[shopIndex];
+        ShopDemoDialogueForEvent dialogueForEvent = dialoguesForShop.shopDemoDialoguesForEvents.Find(dialogue => dialogue.shopDemoEvent == shopDemoEvent);
+        if (dialogueForEvent == null) {
+            yield break;
+        }
+
+        foreach (string line in dialogueForEvent.dialogueLines) {
+            yield return DialogueView.Instance.SpeakLineCoroutine(speakerSprite, line, true);
+        }
+        DialogueView.Instance.Hide();
     }
 
     public bool IsStepCompleted(DemoStepName stepName) {
@@ -58,8 +115,12 @@ public class DemoDirector : GenericSingleton<DemoDirector>
                 yield return MoreRewardsThanUsualStep();
             break;
 
-            case DemoStepName.StartOfShop:
-                yield return StartOfShopStep();
+            case DemoStepName.StartOfFirstStaticChooseNShop:
+                yield return StartOfFirstStaticChooseNShopStep();
+            break;
+
+            case DemoStepName.StartOfSecondStaticChooseNShop:
+                yield return StartOfSecondStaticChooseNShopStep();
             break;
 
             case DemoStepName.BuyCompanionReminder:
@@ -70,20 +131,20 @@ public class DemoDirector : GenericSingleton<DemoDirector>
                 yield return CardOfferingTipsStep();
             break;
 
-            case DemoStepName.SecondShopTutorialStep1:
-                yield return SecondShopTutorialStep1();
+            case DemoStepName.FullFeatureShopTutorialStep1:
+                yield return FullFeatureShopTutorialStep1();
             break;
 
-            case DemoStepName.SecondShopTutorialStep2:
-                yield return SecondShopTutorialStep2();
+            case DemoStepName.FullFeatureShopTutorialStep2:
+                yield return FullFeatureShopTutorialStep2();
             break;
 
-            case DemoStepName.SecondShopTutorialStep3:
-                yield return SecondShopTutorialStep3();
+            case DemoStepName.FullFeatureShopTutorialStep3:
+                yield return FullFeatureShopTutorialStep3();
             break;
 
-            case DemoStepName.SecondShopTutorialStep4:
-                yield return SecondShopTutorialStep4();
+            case DemoStepName.FullFeatureShopTutorialStep4:
+                yield return FullFeatureShopTutorialStep4();
             break;
 
             case DemoStepName.PostCombatRewardsDialogue:
@@ -109,12 +170,20 @@ public class DemoDirector : GenericSingleton<DemoDirector>
         demoDataSO.stepCompletion[DemoStepName.MoreRewardsThanUsual] = true;
     }
 
-    public IEnumerator StartOfShopStep() {
-        foreach (string line in startOfShopStepDialogue) {
+    public IEnumerator StartOfFirstStaticChooseNShopStep() {
+        foreach (string line in startOfFirstStaticChooseNShopDialogue) {
             yield return DialogueView.Instance.SpeakLineCoroutine(speakerSprite, line, true);
         }
         DialogueView.Instance.Hide();
-        demoDataSO.stepCompletion[DemoStepName.StartOfShop] = true;
+        demoDataSO.stepCompletion[DemoStepName.StartOfFirstStaticChooseNShop] = true;
+    }
+
+    public IEnumerator StartOfSecondStaticChooseNShopStep() {
+        foreach (string line in startOfSecondStaticChooseNShopDialogue) {
+            yield return DialogueView.Instance.SpeakLineCoroutine(speakerSprite, line, true);
+        }
+        DialogueView.Instance.Hide();
+        demoDataSO.stepCompletion[DemoStepName.StartOfSecondStaticChooseNShop] = true;
     }
 
     public IEnumerator BuyCompanionReminderStep() {
@@ -133,36 +202,36 @@ public class DemoDirector : GenericSingleton<DemoDirector>
         demoDataSO.stepCompletion[DemoStepName.CardOfferingTips] = true;
     }
 
-    public IEnumerator SecondShopTutorialStep1() {
+    public IEnumerator FullFeatureShopTutorialStep1() {
         foreach (string line in secondShopTutorialStep1Dialogue) {
             yield return DialogueView.Instance.SpeakLineCoroutine(speakerSprite, line, true);
         }
         DialogueView.Instance.Hide();
-        demoDataSO.stepCompletion[DemoStepName.SecondShopTutorialStep1] = true;
+        demoDataSO.stepCompletion[DemoStepName.FullFeatureShopTutorialStep1] = true;
     }
 
-    public IEnumerator SecondShopTutorialStep2() {
+    public IEnumerator FullFeatureShopTutorialStep2() {
         foreach (string line in secondShopTutorialStep2Dialogue) {
             yield return DialogueView.Instance.SpeakLineCoroutine(speakerSprite, line, true);
         }
         DialogueView.Instance.Hide();
-        demoDataSO.stepCompletion[DemoStepName.SecondShopTutorialStep2] = true;
+        demoDataSO.stepCompletion[DemoStepName.FullFeatureShopTutorialStep2] = true;
     }
 
-    public IEnumerator SecondShopTutorialStep3() {
+    public IEnumerator FullFeatureShopTutorialStep3() {
         foreach (string line in secondShopTutorialStep3Dialogue) {
             yield return DialogueView.Instance.SpeakLineCoroutine(speakerSprite, line, true);
         }
         DialogueView.Instance.Hide();
-        demoDataSO.stepCompletion[DemoStepName.SecondShopTutorialStep3] = true;
+        demoDataSO.stepCompletion[DemoStepName.FullFeatureShopTutorialStep3] = true;
     }
 
-    public IEnumerator SecondShopTutorialStep4() {
+    public IEnumerator FullFeatureShopTutorialStep4() {
         foreach (string line in secondShopTutorialStep4Dialogue) {
             yield return DialogueView.Instance.SpeakLineCoroutine(speakerSprite, line, true);
         }
         DialogueView.Instance.Hide();
-        demoDataSO.stepCompletion[DemoStepName.SecondShopTutorialStep4] = true;
+        demoDataSO.stepCompletion[DemoStepName.FullFeatureShopTutorialStep4] = true;
     }
 
     public IEnumerator PostCombatRewardsDialogueStep() {
@@ -177,12 +246,13 @@ public class DemoDirector : GenericSingleton<DemoDirector>
 public enum DemoStepName {
     BendingTheRules,
     MoreRewardsThanUsual,
-    StartOfShop,
+    StartOfFirstStaticChooseNShop,
     BuyCompanionReminder,
     CardOfferingTips,
-    SecondShopTutorialStep1,
-    SecondShopTutorialStep2,
-    SecondShopTutorialStep3,
-    SecondShopTutorialStep4,
-    PostCombatRewardsDialogue
+    FullFeatureShopTutorialStep1,
+    FullFeatureShopTutorialStep2,
+    FullFeatureShopTutorialStep3,
+    FullFeatureShopTutorialStep4,
+    PostCombatRewardsDialogue,
+    StartOfSecondStaticChooseNShop,
 }

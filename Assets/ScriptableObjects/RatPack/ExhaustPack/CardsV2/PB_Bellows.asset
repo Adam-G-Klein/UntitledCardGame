@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: cba8e345-82df-4239-ab6b-68d0e49b8900
   Name: Bellows
-  Description: Draw 1 card from 2 random rats & choose 2 cards in hand to exhaust.
+  Description: Draw 1 card from 3 random rats & choose 2 cards in hand to exhaust.
   IconDescription:
   - tokenType: 0
-    text: 2
+    text: 3
     icon: 0
   - tokenType: 2
     text: 
@@ -38,7 +38,7 @@ MonoBehaviour:
     text: 
     icon: 18
   IconDescriptionTooltipLines:
-  - Draw 1 card from 2 randomly selected rats.
+  - Draw 1 card from 3 randomly selected rats.
   - Then, choose 2 cards in hand to exhaust, removing them for the rest of combat
   defaultValues: []
   Cost: 1
@@ -96,7 +96,7 @@ MonoBehaviour:
       data:
         effectStepName: GetRandomItems
         inputKey: targets
-        scale: 2
+        scale: 3
         scaleKey: 
         getScaleFromKey: 0
         outputKey: targetCompanion

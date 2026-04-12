@@ -77,7 +77,7 @@ public class ShopDataSO : ScriptableObject
     public int postEliteHealingAmount;
 
     [Header("Static shop encounters (demo)")]
-    public StaticShopEncountersSO staticShopEncounters;
+    public StaticShopEncounterSO staticShopEncounters;
 
     public ShopLevel GetShopLevel(int level)
     {

@@ -8,8 +8,6 @@ public class TeamSelectionUI : MonoBehaviour, ICompanionViewDelegate
 {
     public GameStateVariableSO gameState;
     public CompanionListVariableSO team1ActiveCompanions;
-    // public CompanionListVariableSO staticTeamActiveCompanions;
-    public List<CompanionTypeSO> staticTeamCompanions;
     public GameObject deckViewUIPrefab;
     private VisualElement root;
     private Button next;
@@ -64,7 +62,7 @@ public class TeamSelectionUI : MonoBehaviour, ICompanionViewDelegate
         {
             CompanionListVariableSO chosen = new();
             chosen.activeCompanions = new List<Companion>();
-            foreach (CompanionTypeSO companionType in staticTeamCompanions)
+            foreach (CompanionTypeSO companionType in gameState.staticStartingTeamCompanions)
             {
                 Debug.Log("StartingTeamPreview: Adding companion " + companionType.name + " to starting team");
                 chosen.activeCompanions.Add(new Companion(companionType));

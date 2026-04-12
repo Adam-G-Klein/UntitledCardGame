@@ -15,10 +15,54 @@ MonoBehaviour:
   guid: 83f75257-cb11-4e7e-8ae3-bf1774998be4
   Name: Greek Fire
   Description: Exhaust. When exhausted, deal {onexhaust_rpl_damage} damage to a random
-    enemy.
+    enemy and draw 1 card from a random rat x2
+  IconDescription:
+  - tokenType: 0
+    text: Exhaust
+    icon: 0
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 16
+  - tokenType: 0
+    text: ':'
+    icon: 0
+  - tokenType: 0
+    text: '{onexhaust_rpl_damage}'
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 1
+  - tokenType: 2
+    text: 
+    icon: 4
+  - tokenType: 1
+    text: 
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 16
+  - tokenType: 0
+    text: ':'
+    icon: 0
+  - tokenType: 2
+    text: 
+    icon: 3
+  - tokenType: 2
+    text: 
+    icon: 19
+  - tokenType: 0
+    text: x2
+    icon: 19
+  IconDescriptionTooltipLines:
+  - This card exhausts when played, removing it for the rest of combat.
+  - When this card is exhausted, it deals X damage to a random foe and draws a card
+    from a random rat twice
   defaultValues:
   - key: onexhaust_rpl_damage
-    value: 5
+    value: 7
   Cost: 1
   Artwork: {fileID: 21300000, guid: fccdd43ca64c8644fa54c06ab327bdd3, type: 3}
   cardCategory: 4
@@ -35,13 +79,38 @@ MonoBehaviour:
     rid: -2
   inPlayerHandEndOfTurnWorkflow:
     rid: -2
+  onDrawEffectWorkflow:
+    rid: -2
   tooltips: 
-  tooltipKeyword: 36
+  tooltipKeyword: 37
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 3051694091506811091
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: random
+        validTargets: 00000000
+        number: 2
+        specialTargetRule: 6
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+    - rid: 3051694091506811092
+      type: {class: DrawCards, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: DrawCards
+        inputKey: random
+        outputKey: 
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
+        waitForDrawsToResolve: 0
     - rid: 4463206262261416071
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -56,6 +125,8 @@ MonoBehaviour:
         - rid: 5602892557111787553
         - rid: 5602892557111787554
         - rid: 4463206262261416071
+        - rid: 3051694091506811091
+        - rid: 3051694091506811092
     - rid: 5602892557111787553
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -67,13 +138,15 @@ MonoBehaviour:
         number: 1
         specialTargetRule: 6
         cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 5602892557111787554
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
         inputKey: enemy
         combatEffect: 14
-        scale: 5
+        scale: 7
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1

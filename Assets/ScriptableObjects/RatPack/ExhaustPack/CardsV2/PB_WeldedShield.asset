@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 41004be0-53a5-4f13-8c0f-0e020342f029
   Name: Welded Shield
-  Description: Give any 6 block. When exhausted, give leftmost rat 4 block
+  Description: Give any 7 block. When exhausted, give leftmost rat 4 block
   IconDescription: []
+  IconDescriptionTooltipLines: []
   defaultValues: []
   Cost: 1
   Artwork: {fileID: 21300000, guid: b0388336af3869341bb50af8ec281a8a, type: 3}
@@ -61,6 +62,7 @@ MonoBehaviour:
         specialTargetRule: 7
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 758315839196758759
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
@@ -120,3 +122,4 @@ MonoBehaviour:
         specialTargetRule: 0
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0

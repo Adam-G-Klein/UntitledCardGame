@@ -43,6 +43,7 @@ public enum BuildType
 public class GameStateVariableSO : ScriptableObject
 {
     public CompanionListVariableSO companions;
+    public List<CompanionTypeSO> staticStartingTeamCompanions;
     public PlayerDataVariableSO playerData;
     public MapVariableSO map;
     public ShopDataSO baseShopData;

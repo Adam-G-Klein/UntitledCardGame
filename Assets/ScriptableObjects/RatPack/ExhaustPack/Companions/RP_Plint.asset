@@ -30,7 +30,7 @@ MonoBehaviour:
   - key: numCardsExhausted
     display: 1
     sprite: {fileID: 21300000, guid: c4c548a339b4d41a590928c0c98934a7, type: 3}
-    startOfTurnValue: 2
+    startOfTurnValue: 1
     setStartOfTurnValue: 1
     startOfCombatValue: 0
     setStartOfCombatValue: 0
@@ -44,18 +44,42 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Plint
-      description: The first 2 times each turn you exhaust a card, give leftmost
-        rat 2 block
+      description: The first time each turn you exhaust a card, give leftmost rat
+        3 block. If the card exhausted came from Plint, give 5 block instead
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
       iconDescriptionLine: []
       card: {fileID: 0}
+    - title: Exhaust
+      description: Select a card in your hand and remove it for the rest of combat
+      relatedBehaviorIndex: 0
+      icon: {fileID: 0}
+      iconDescriptionLine: []
   keepsakeTitle: Plint's Armor
-  keepsakeDescription: The first 2 times each turn you exhaust a card, give leftmost
-    rat 2 block
+  keepsakeDescription: The first time each turn you exhaust a card, give leftmost
+    rat 3 block. If the card exhausted came from Plint, give 5 block instead
   references:
     version: 2
     RefIds:
+    - rid: 578314559416696874
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: exhaustedFromThisOrigin
+        conditionToEndOn: 0
+    - rid: 578314559416696875
+      type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ApplyStatus
+        inputKey: left
+        statusEffect: 2
+        scale: 2
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplyByNumAuraStacks: 0
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
     - rid: 758316092100444255
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -84,6 +108,8 @@ MonoBehaviour:
         - rid: 758316092100444255
         - rid: 2034230017118175365
         - rid: 2034230017118175366
+        - rid: 578314559416696874
+        - rid: 578314559416696875
         weight: 0
     - rid: 2034230017118175364
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -104,7 +130,7 @@ MonoBehaviour:
         effectStepName: ApplyStatus
         inputKey: left
         statusEffect: 2
-        scale: 2
+        scale: 3
         getScaleFromKey: 0
         inputScaleKey: 
         multiplyByNumAuraStacks: 0

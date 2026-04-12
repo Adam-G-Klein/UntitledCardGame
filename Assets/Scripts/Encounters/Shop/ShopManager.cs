@@ -31,9 +31,6 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
     private StaticShopPoolEncounter currentStaticShopPoolEncounter;
     private int currentRatGroupIndex = 0;
     private int currentCardGroupIndex = 0;
-    private List<int> consumedRatGroupIndices = new List<int>();
-    private List<int> consumedCardGroupIndices = new List<int>();
-
     private ShopLevel shopLevel;
     private bool buyingCard = false;
     private bool removingCard = false;
@@ -58,6 +55,7 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         DONE,
     }
     ShopPhase currentDemoShopPhase;
+    int shopIndex = 0; // only used for demo shops, to track which shop we're on for the purposes of demo dialogue and stuff
     private bool healedCompanions;
     private int availableBenchSlots;
     public int AvailableBenchSlots {
@@ -97,14 +95,8 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         if(gameState.BuildTypeDemoOrConvention())
         {
             // Steal James's excellent game design decisions for the demo regardless of shop type :)
-            StaticShopEncountersSO staticShopEncounters = shopEncounter.shopData.staticShopEncounters;
-            if (staticShopEncounters != null)
-            {
-                int shopIndex = gameState.currentEncounterIndex / 2;
-                if (shopIndex < staticShopEncounters.shopEncounters.Count) {
-                    currentStaticShopPoolEncounter = staticShopEncounters.shopPoolEncounters[shopIndex];
-                }
-            }
+            currentStaticShopPoolEncounter = shopEncounter.shopData.staticShopEncounters.shopPoolEncounter;
+            shopIndex = gameState.currentEncounterIndex / 2;
 
             if (shopEncounter.shopData.shopMode == ShopMode.StaticChooseNDemo) {
 
@@ -147,10 +139,11 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         cinematicIntroComplete = true;
         if (gameState.BuildTypeDemoOrConvention())
         {
-            if(!DemoDirector.Instance.IsStepCompleted(DemoStepName.StartOfShop) || shopEncounter.shopData.shopMode == ShopMode.StaticChooseNDemo)
+            if(shopEncounter.shopData.shopMode == ShopMode.StaticChooseNDemo)
             {
-                StartCoroutine(RunStartOfShopStep());
-            } else if (!DemoDirector.Instance.IsStepCompleted(DemoStepName.SecondShopTutorialStep1))
+                StartCoroutine(RunShopDialogueStep(ShopDemoEvent.EnterShop));
+            }
+            else if (!DemoDirector.Instance.IsStepCompleted(DemoStepName.FullFeatureShopTutorialStep1))
             {
 
                 shopViewController.DisableAllUIPreserveAppearance();
@@ -214,21 +207,6 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         if (currentStaticShopPoolEncounter == null || currentStaticShopPoolEncounter.cardGroups == null || currentStaticShopPoolEncounter.cardGroups.Count == 0) {
             return null;
         }
-        if (currentCardGroupIndex == -1)
-        {
-            // Return empty cards if we finish picking.
-            return new StaticCardTypeGroup
-            {
-                cardTypes = new List<CardType>()
-            };
-        }
-        if (currentCardGroupIndex >= currentStaticShopPoolEncounter.cardGroups.Count)
-        {
-            return null; // ShopEncounter.generateEncounter checks for null here, and uses the normal generation methods if it finds it
-            // best practice? no. functional?
-            // uh
-            // hopefully
-        }
         return currentStaticShopPoolEncounter.cardGroups[currentCardGroupIndex];
     }
 
@@ -236,95 +214,27 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
         if (currentStaticShopPoolEncounter == null || currentStaticShopPoolEncounter.ratGroups == null || currentStaticShopPoolEncounter.ratGroups.Count == 0) {
             return null;
         }
-        if (currentRatGroupIndex == -1)
-        {
-            // Return empty rats if we finish picking.
-            return new StaticCompanionTypeGroup
-            {
-                companionTypes = new List<CompanionTypeSO>()
-            };
-        }
-        if (currentRatGroupIndex >= currentStaticShopPoolEncounter.ratGroups.Count)
-        {
-            return null; // ShopEncounter.generateEncounter checks for null here, and uses the normal generation methods if it finds it
-            // best practice? no. functional?
-            // uh
-            // hopefully
-        }
         return currentStaticShopPoolEncounter.ratGroups[currentRatGroupIndex];
     }
 
     private void incrementCardGroupIndex()
     {
-        if(shopEncounter.shopData.shopMode == ShopMode.StaticChooseNDemo)
-        {
-            // Get the next available index that is less than the number of card groups, and that hasn't been consumed yet. If there are no available indices, return -1
-            // Make it loop around to the beginning if we reach the end of the list of groups, since there are some groups that we want to show multiple times throughout the demo
-            int nextIndex = -1;
-            for (int i = 1; i < currentStaticShopPoolEncounter.cardGroups.Count; i++)
-            {
-                int indexToCheck = (currentCardGroupIndex + i) % currentStaticShopPoolEncounter.cardGroups.Count;
-                if (!consumedCardGroupIndices.Contains(indexToCheck))
-                {
-                    nextIndex = indexToCheck;
-                    break;
-                }
-            }
-            Debug.Log("Current card group index: " + currentCardGroupIndex + ", Next card group index: " + nextIndex);
-            if (nextIndex == -1)
-            {
-                Debug.LogWarning("No more static card groups available to show.");
-            }
-            currentCardGroupIndex = nextIndex;
-        } else
-        {
-            currentCardGroupIndex += 1;
-        }
+        // Cycle through the options.
+        currentCardGroupIndex += 1;
+        currentCardGroupIndex = currentCardGroupIndex % currentStaticShopPoolEncounter.cardGroups.Count;
     }
 
     private void incrementRatGroupIndex()
     {
-        // Get the next available index that is less than the number of rat groups, and that hasn't been consumed yet. If there are no available indices, return -1
-        // Make it loop around to the beginning if we reach the end of the list of groups, since there are some groups that we want to show multiple times throughout the demo
-
-        if(shopEncounter.shopData.shopMode == ShopMode.StaticChooseNDemo)
-        {
-            int nextIndex = -1;
-            for (int i = 1; i < currentStaticShopPoolEncounter.ratGroups.Count; i++)
-            {
-                int indexToCheck = (currentRatGroupIndex + i) % currentStaticShopPoolEncounter.ratGroups.Count;
-                if (!consumedRatGroupIndices.Contains(indexToCheck))
-                {
-                    nextIndex = indexToCheck;
-                    break;
-                }
-            }
-            Debug.Log("Current rat group index: " + currentRatGroupIndex + ", Next rat group index: " + nextIndex);
-            if (nextIndex == -1)
-            {
-                Debug.LogWarning("No more static rat groups available to show.");
-            }
-            currentRatGroupIndex = nextIndex;
-        } else
-        {
-            currentRatGroupIndex += 1;
-        }
+        currentRatGroupIndex += 1;
+        currentRatGroupIndex = currentRatGroupIndex % currentStaticShopPoolEncounter.ratGroups.Count;
     }
 
-    private IEnumerator RunStartOfShopStep() {
-        shopViewController.DisableAllUI();
-        if (!DemoDirector.Instance.IsStepCompleted(DemoStepName.StartOfShop))
-        {
-            yield return DemoDirector.Instance.InvokeDemoStepCoroutine(DemoStepName.StartOfShop);
-        }
-        shopViewController.EnableAllUI();
-    }
-
-    public IEnumerator RunShopDialogueStep(DemoStepName stepName)
+    public IEnumerator RunShopDialogueStep(ShopDemoEvent stepName)
     {
-        // shopViewController.DisableAllUI();
-        yield return DemoDirector.Instance.InvokeDemoStepCoroutine(stepName);
-        // shopViewController.EnableAllUI();
+        shopViewController.DisableAllUI();
+        yield return DemoDirector.Instance.InvokeDemoStepForShopDemoEventCoroutine(stepName, shopIndex);
+        shopViewController.EnableAllUI();
     }
 
     public void SetupUnitManagement() {
@@ -479,14 +389,14 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
                 SetDraftingHelpText(shopEncounter.shopData.numRatsBuyPerDisplay, shopEncounter.shopData.numRatsBuyPerShop - numRatsBoughtThisShop);
                 if (numRatsBoughtThisShop % shopEncounter.shopData.numRatsBuyPerDisplay == 0)
                 {
-                    consumedRatGroupIndices.Add(currentRatGroupIndex);
                     incrementRatGroupIndex();
 
                     if (numRatsBoughtThisShop >= shopEncounter.shopData.numRatsBuyPerShop)
                     {
                         currentDemoShopPhase = ShopPhase.CARD_BUYING_PHASE;
-                        if (gameState.BuildTypeDemoOrConvention() && !DemoDirector.Instance.IsStepCompleted(DemoStepName.CardOfferingTips)) {
-                            StartCoroutine(RunShopDialogueStep(DemoStepName.CardOfferingTips));
+                        if (gameState.BuildTypeDemoOrConvention())
+                        {
+                            StartCoroutine(RunShopDialogueStep(ShopDemoEvent.CardOfferingTips));
                         }
                         SetDraftingHelpText(shopEncounter.shopData.numCardsBuyPerDisplay, shopEncounter.shopData.numCardsBuyPerShop - numCardsBoughtThisShop);
                     }
@@ -629,7 +539,6 @@ public class ShopManager : GenericSingleton<ShopManager>, IEncounterBuilder
                 SetDraftingHelpText(shopEncounter.shopData.numCardsBuyPerDisplay, shopEncounter.shopData.numCardsBuyPerShop - numCardsBoughtThisShop);
                 if (numCardsBoughtThisShop % shopEncounter.shopData.numCardsBuyPerDisplay == 0)
                 {
-                    consumedCardGroupIndices.Add(currentCardGroupIndex);
                     incrementCardGroupIndex();
 
                     if (numCardsBoughtThisShop >= shopEncounter.shopData.numCardsBuyPerShop)

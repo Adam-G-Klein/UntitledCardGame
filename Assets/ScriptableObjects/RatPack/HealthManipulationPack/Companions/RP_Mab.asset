@@ -18,21 +18,12 @@ MonoBehaviour:
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: 57a7589ca9d8b4ebdb923a34a7184edf, type: 3}
   fullSprite: {fileID: 21300000, guid: 57a7589ca9d8b4ebdb923a34a7184edf, type: 3}
-  backgroundImage: {fileID: 21300000, guid: 741949db90bb4412ba7493960e001481, type: 3}
-  entityFrame: {fileID: 21300000, guid: e8e1fad73c653473d90feb9b744f60c6, type: 3}
-  companionManagementFrame: {fileID: 21300000, guid: ad4f2340ea2464bc780af3b16bf27412, type: 3}
   startingDeck: {fileID: 11400000, guid: 6ca114c35524b446d8c7ce4a668c0593, type: 2}
-  cardBack: {fileID: 21300000, guid: a5222a8d127763c49b397cce916345ec, type: 3}
-  cardFrame: {fileID: 21300000, guid: 106aacbbfd302814982ff4ed944fbaed, type: 3}
-  cardTypeIconOverride: {fileID: 0}
   rarity: 0
-  cardIdleVfxPrefab: {fileID: 0}
-  genericCompanionSFX: {fileID: 0}
-  genericCompanionVFX: {fileID: 0}
+  baseCompanionType: {fileID: 0}
   cacheValueConfigs: []
   cardPool: {fileID: 11400000, guid: 5f4dfcdc555374920a665ed173393d99, type: 2}
   pack: {fileID: 11400000, guid: a87b5da767d4e4659b2965e31e340c58, type: 2}
-  speakerType: {fileID: 11400000, guid: 9e835f3c4c49e9f4da934369a0a7132b, type: 2}
   abilitiesV2:
   - rid: 205828032053379072
   - rid: 2034230176448512342
@@ -42,9 +33,11 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Mab
-      description: At the end of combat, heal adjacent rats 4 HP. Each turn, adjacent
-        rats lose 1 HP unless they would die
+      description: At the end of combat, give adjacent rats 4 max HP. Each turn,
+        adjacent rats lose 1 HP unless they would die
       relatedBehaviorIndex: 0
+      icon: {fileID: 0}
+      iconDescriptionLine: []
   keepsakeTitle: Mab's Mercy
   keepsakeDescription: At the end of combat, heal adjacent rats 4 HP. Each turn,
     adjacent rats lose 1 HP unless they would die
@@ -60,7 +53,7 @@ MonoBehaviour:
         - rid: 7707884639552274914
         - rid: 2034230176448512341
         - rid: 205828107393564676
-        - rid: 2034230176448512343
+        - rid: 578314559416696876
         weight: 0
     - rid: 205828032053379073
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
@@ -74,6 +67,7 @@ MonoBehaviour:
         specialTargetRule: 3
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 205828107393564676
       type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
       data:
@@ -81,6 +75,15 @@ MonoBehaviour:
         inputKey: adj
         prefabToInstantiate: {fileID: 3850217184923880746, guid: 604f6efaa1e828d4bacfc84a25dfbd7a, type: 3}
         scale: 1
+    - rid: 578314559416696876
+      type: {class: PermanentStatIncrease, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: PermanentStatIncrease
+        inputKey: adj
+        statIncreaseType: 1
+        scale: 4
+        getScaleFromKey: 0
+        inputScaleKey: 
     - rid: 2034230176448512341
       type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
       data:
@@ -99,19 +102,6 @@ MonoBehaviour:
         - rid: 7401433059192472008
         - rid: 2034230176448512348
         weight: 0
-    - rid: 2034230176448512343
-      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CombatEffectStep
-        inputKey: adj
-        combatEffect: 9
-        scale: 4
-        getScaleFromKey: 0
-        inputScaleKey: 
-        multiplicity: 1
-        getMultiplicityFromKey: 0
-        inputMultiplicityKey: 
-        vfxPrefab: {fileID: 0}
     - rid: 2034230176448512345
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -124,6 +114,7 @@ MonoBehaviour:
         specialTargetRule: 3
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 2034230176448512346
       type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
       data:

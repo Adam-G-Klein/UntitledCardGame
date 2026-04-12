@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: PB_Pureknife
+  m_Name: PB_Claymore
   m_EditorClassIdentifier: 
-  guid: 05913102-c3c1-4d33-b2c9-1bb04ef13165
-  Name: Pureknife
-  Description: Deal {rpl_damage} damage. When drawn, gain +4 damage
+  guid: d848b9c2-61e9-4c7e-8a34-e9aea0e7abb8
+  Name: Claymore
+  Description: 
   IconDescription:
   - tokenType: 0
     text: '{rpl_damage}'
@@ -27,23 +27,26 @@ MonoBehaviour:
     icon: 0
   - tokenType: 2
     text: 
-    icon: 3
+    icon: 16
   - tokenType: 0
     text: ':'
-    icon: 0
+    icon: 16
   - tokenType: 0
-    text: +4
-    icon: 0
+    text: '{onexhaust_rpl_damage}'
+    icon: 1
   - tokenType: 2
     text: 
     icon: 1
-  IconDescriptionTooltipLines:
-  - Deal X damage to a foe of your choice
-  - Whenever this card is drawn from the owner rat's deck, it deals +4 extra damage
+  - tokenType: 2
+    text: 
+    icon: 4
+  IconDescriptionTooltipLines: []
   defaultValues:
   - key: rpl_damage
-    value: 2
-  Cost: 1
+    value: 12
+  - key: onexhaust_rpl_damage
+    value: 8
+  Cost: 2
   Artwork: {fileID: 21300000, guid: b36bd4612398377409a80259b0f5a90a, type: 3}
   cardCategory: 1
   packFrom: {fileID: 0}
@@ -71,80 +74,68 @@ MonoBehaviour:
     - rid: 758315839196758761
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
-        effectSteps:
-        - rid: 758315839196758762
-        - rid: 758315839196758763
-        - rid: 758315839196758764
-        - rid: 758315839196758765
-    - rid: 758315839196758762
-      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: GetTargets
-        useInputToLimitOptions: 0
-        inputKey: 
-        outputKey: card
-        validTargets: 03000000
-        number: 1
-        specialTargetRule: 3
-        cantCancelTargetting: 0
-        cardSelectionHelperText: 
-        selectionPurpose: 0
-    - rid: 758315839196758763
-      type: {class: CardModificationEffect, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: CardModificationEffect
-        inputKey: card
-        scale: 4
-        affectsAllCardsOfType: 0
-        cardTypeToModify: {fileID: 0}
-        getScaleFromKey: 0
-        scaleKey: 
-        modification: 0
-    - rid: 758315839196758764
-      type: {class: WaitForSecondsEffect, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: WaitForSecondsEffect
-        seconds: 0.2
-    - rid: 758315839196758765
-      type: {class: InstantiatePrefab, ns: , asm: Assembly-CSharp}
-      data:
-        effectStepName: InstantiatePrefab
-        inputKey: card
-        prefabToInstantiate: {fileID: 6137048663962808129, guid: 032e33b914ed32b418cdc1ed2f15fc6e, type: 3}
-        scale: 1
+        effectSteps: []
     - rid: 758315839196758766
       type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
       data:
-        effectSteps: []
-    - rid: 1488501614819147776
+        effectSteps:
+        - rid: 758316092100444221
+        - rid: 758316092100444222
+    - rid: 758316092100444221
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: GetTargets
         useInputToLimitOptions: 0
         inputKey: 
-        outputKey: enemy
+        outputKey: enemies
+        validTargets: 02000000
+        number: 1
+        specialTargetRule: 6
+        cantCancelTargetting: 0
+        cardSelectionHelperText: 
+        selectionPurpose: 0
+    - rid: 758316092100444222
+      type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: CombatEffectStep
+        inputKey: enemies
+        combatEffect: 0
+        scale: 8
+        getScaleFromKey: 0
+        inputScaleKey: 
+        multiplicity: 1
+        getMultiplicityFromKey: 0
+        inputMultiplicityKey: 
+        vfxPrefab: {fileID: 1320532642761013391, guid: 99a456f94890391478f393fcc8ad0b95, type: 3}
+    - rid: 2116895648763871339
+      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
+      data:
+        effectSteps:
+        - rid: 3051694091506811144
+        - rid: 3051694091506811145
+    - rid: 3051694091506811144
+      type: {class: GetTargets, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: GetTargets
+        useInputToLimitOptions: 0
+        inputKey: 
+        outputKey: target
         validTargets: 02000000
         number: 1
         specialTargetRule: 0
         cantCancelTargetting: 0
         cardSelectionHelperText: 
         selectionPurpose: 0
-    - rid: 1488501614819147777
+    - rid: 3051694091506811145
       type: {class: CombatEffectStep, ns: , asm: Assembly-CSharp}
       data:
         effectStepName: CombatEffectStep
-        inputKey: enemy
+        inputKey: target
         combatEffect: 0
-        scale: 2
+        scale: 12
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
         getMultiplicityFromKey: 0
         inputMultiplicityKey: 
-        vfxPrefab: {fileID: 1320532642761013391, guid: e5b31df2ee072994fa599e7e501a9061, type: 3}
-    - rid: 2116895648763871339
-      type: {class: EffectWorkflow, ns: , asm: Assembly-CSharp}
-      data:
-        effectSteps:
-        - rid: 1488501614819147776
-        - rid: 1488501614819147777
+        vfxPrefab: {fileID: 1320532642761013391, guid: 99a456f94890391478f393fcc8ad0b95, type: 3}

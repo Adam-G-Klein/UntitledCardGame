@@ -42,17 +42,17 @@ public class ShopTutorialDisplay : MonoBehaviour
         int prevGold = ShopManager.Instance.gameState.playerData.GetValue().gold;
         ShopManager.Instance.gameState.playerData.initialize(ShopManager.Instance.getShopEncounter().shopData);
         ShopManager.Instance.gameState.playerData.GetValue().gold = prevGold;
-        yield return DemoDirector.Instance.InvokeDemoStepCoroutine(DemoStepName.SecondShopTutorialStep1);
+        yield return DemoDirector.Instance.InvokeDemoStepCoroutine(DemoStepName.FullFeatureShopTutorialStep1);
         yield return GiveFreeMoney();
         yield return new WaitForSeconds(postFreeMoneyDelay);
-        yield return DemoDirector.Instance.InvokeDemoStepCoroutine(DemoStepName.SecondShopTutorialStep2);
+        yield return DemoDirector.Instance.InvokeDemoStepCoroutine(DemoStepName.FullFeatureShopTutorialStep2);
         yield return FullyUpgradeShopCoroutine();
         yield return new WaitForSeconds(postShopUpgradeDelay);
-        yield return DemoDirector.Instance.InvokeDemoStepCoroutine(DemoStepName.SecondShopTutorialStep3);
+        yield return DemoDirector.Instance.InvokeDemoStepCoroutine(DemoStepName.FullFeatureShopTutorialStep3);
         yield return GiveFreeRerolls();
         yield return new WaitForSeconds(postFreeRerollDelay);
         yield return GiveFreeCardRemovals();
-        yield return DemoDirector.Instance.InvokeDemoStepCoroutine(DemoStepName.SecondShopTutorialStep4);
+        yield return DemoDirector.Instance.InvokeDemoStepCoroutine(DemoStepName.FullFeatureShopTutorialStep4);
         CinematicIntroComplete();
     }
 
@@ -92,7 +92,7 @@ public class ShopTutorialDisplay : MonoBehaviour
 
     private IEnumerator FullyUpgradeShopCoroutine()
     {
-        int totalIncrementsNeeded = 0; 
+        int totalIncrementsNeeded = 0;
         foreach(ShopLevel shopLevel in shopData.shopLevels)
         {
             totalIncrementsNeeded += shopLevel.shopLevelIncrementsToUnlock;

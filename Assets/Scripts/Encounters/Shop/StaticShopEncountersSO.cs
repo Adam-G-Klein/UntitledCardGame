@@ -3,21 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(
-    fileName = "StaticShopEncounters",
-    menuName = "Encounters/Shop/New Static Shop Encounters")]
-public class StaticShopEncountersSO : ScriptableObject
+    fileName = "StaticShopEncounter",
+    menuName = "Encounters/Shop/New Static Shop Encounter")]
+public class StaticShopEncounterSO : ScriptableObject
 {
-    [Header("One set of cards and companions for each shop encounter that will be shown first")]
-    public List<StaticShopEncounter> shopEncounters;
-    [Header("Static groups of cards and companions for each shop encounter. The shop rotates through the groups so we get to control the options")]
-    public List<StaticShopPoolEncounter> shopPoolEncounters;
-}
-
-[Serializable]
-public class StaticShopEncounter
-{
-    public List<CardType> cardTypes;
-    public List<CompanionTypeSO> companionTypes;
+    [Header("Static pools of cards and rats to pull from")]
+    public StaticShopPoolEncounter shopPoolEncounter;
 }
 
 [Serializable]

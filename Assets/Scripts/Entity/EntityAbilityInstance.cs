@@ -246,6 +246,10 @@ public abstract class EntityAbilityInstance
         EffectDocument document = createEffectDocument();
         if (deckFrom != null && deckFrom.TryGetComponent(out CompanionInstance companion)) {
             EffectUtils.AddCompanionToDocument(document, "companionExhaustedFrom", companion);
+            if (document.originEntityType == EntityType.CompanionInstance) {
+                CompanionInstance source = document.map.GetItem<CompanionInstance>(EffectDocument.ORIGIN, 0);
+                document.boolMap.Add("exhaustedFromThisOrigin", source == companion);
+            }
         }
         document.map.AddItem<PlayableCard>("cardExhausted", card);
         EffectManager.Instance.QueueEffectWorkflow(new EffectWorkflowClosure(document, ability.effectWorkflow, null));

@@ -917,11 +917,10 @@ MonoBehaviour:
     I\u2019ve taken the precaution of arranging a balanced crew who are, at the very
     least, on squeaking terms."
   moreRewardsThanUsualStepDialogue: []
-  startOfShopStepDialogue:
-  - Welcome to the shop. This is where the best players separate themselves from
-    the rest of the pack.
-  - For your sake, I temporarily suspended the market economy that usually defines
-    the full Paccarat experience.
+  startOfFirstStaticChooseNShopDialogue:
+  - meow
+  startOfSecondStaticChooseNShopDialogue:
+  - meow u are in the second choose N shop
   buyCompanionReminderStepDialogue:
   - Pardon my intrusion, but proceeding with an unoccipied position is ill advised.
     We did bring you here to win...
@@ -952,6 +951,28 @@ MonoBehaviour:
   - Well earned, your first Paccarat rewards!
   - The Cats are incentivised to keep us playing, so you'll be rewarded with some
     fluer de cheese upon each win.
+  shopDemoDialogues:
+  - shopDemoDialoguesForEvents:
+    - shopDemoEvent: 1
+      dialogueLines:
+      - 'Welcome to the shop. This is where the best players separate themselves
+        from the rest of the pack.
+
+'
+      - 'For your sake, I temporarily suspended the market economy that usually defines
+        the full Paccarat experience.
+
+'
+    - shopDemoEvent: 2
+      dialogueLines:
+      - hey u should  buy some cards bozo
+  - shopDemoDialoguesForEvents:
+    - shopDemoEvent: 1
+      dialogueLines:
+      - hi u in the second shop what up with it
+    - shopDemoEvent: 2
+      dialogueLines:
+      - u are a chump ;)
 --- !u!1 &5109742072706344275
 GameObject:
   m_ObjectHideFlags: 0
