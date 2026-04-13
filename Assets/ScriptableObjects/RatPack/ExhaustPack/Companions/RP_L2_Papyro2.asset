@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 96c715ac0cb218d4c9181220c5a8a246, type: 3}
-  m_Name: RP_Papyro
+  m_Name: RP_L2_Papyro2
   m_EditorClassIdentifier: 
-  guid: bf499411-f8ab-49fb-9008-31f47f293ac9
-  companionName: Dr. Papyro
-  maxHealth: 20
+  guid: a6904078-ff6c-4baa-8dbe-9a07823709cb
+  companionName: Dr. Papyro+
+  maxHealth: 40
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: da7bfe1085d51954eaca41431462382a, type: 3}
   fullSprite: {fileID: 21300000, guid: da7bfe1085d51954eaca41431462382a, type: 3}
@@ -34,13 +34,13 @@ MonoBehaviour:
   pack: {fileID: 11400000, guid: 79e479ca9df7a4369ba7fa951e0af116, type: 2}
   abilitiesV2:
   - rid: 3051694091506811081
-  level: 0
-  upgradeTo: {fileID: 11400000, guid: bd22398e6d2b743f09da6bc22956dbd4, type: 2}
+  level: 1
+  upgradeTo: {fileID: 11400000, guid: 2410f6e261b324576b2bca64f8c34f91, type: 2}
   tooltip:
     empty: 0
     lines:
-    - title: Dr. Papyro
-      description: Every 3 times you exhaust a card, shuffle a "Greek Fire" into
+    - title: Dr. Papyro+
+      description: Every 3 times you exhaust a card, shuffle a "Greek Fire+" into
         Dr. Papyro's deck
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
@@ -154,7 +154,7 @@ MonoBehaviour:
         effectStepName: AddCardsToDeck
         inputKey: self
         cardTypes:
-        - {fileID: 11400000, guid: 07ddcab78d7f64ac1849ccdb53efe2c0, type: 2}
+        - {fileID: 11400000, guid: 76c738e1379314519bf65c83b26a247c, type: 2}
         addToDeckMethod: 1
         getCardsFromKey: 0
         inputCardsKey: 

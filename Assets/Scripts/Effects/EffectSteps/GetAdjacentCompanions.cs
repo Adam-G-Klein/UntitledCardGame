@@ -24,9 +24,9 @@ public class GetAdjacentCompanions : EffectStep, IEffectStepCalculation {
         }
 
         List<CompanionInstance> adjacentCompanions = new List<CompanionInstance>();
-        List<CompanionInstance> allCompanions = CombatEntityManager.Instance.getCompanions();
+        // List<CompanionInstance> allCompanions = CombatEntityManager.Instance.getCompanions();
         foreach (CompanionInstance instance in companionInstances) {
-            adjacentCompanions.AddRange(GetAdjacentCompanionns(instance, allCompanions));
+            adjacentCompanions.AddRange(CombatEntityManager.Instance.GetAdjacentCompanions(instance, false));
         }
         if (includeInputCompanion) {
             adjacentCompanions.AddRange(companionInstances);
@@ -41,33 +41,4 @@ public class GetAdjacentCompanions : EffectStep, IEffectStepCalculation {
         yield return invoke(document);
     }
 
-    private List<CompanionInstance> GetAdjacentCompanionns(CompanionInstance instance, List<CompanionInstance> allCompanions) {
-        List<CompanionInstance> adjacentCompanions = new List<CompanionInstance>();
-        int companionIndex = allCompanions.IndexOf(instance);
-        // Debug.Log("Dingo");
-        Debug.Log(companionIndex);
-        Debug.Log(allCompanions.Count);
-
-        // Check if for some reason the companion chosen isn't in the list of all companions
-        // Also check if only one single companion in the list
-        if (companionIndex == -1 || allCompanions.Count == 1) {
-            return adjacentCompanions;
-        }
-
-        // Check if the companion is in the back (0 index)
-        if (companionIndex == 0) {
-            adjacentCompanions.Add(allCompanions[1]);
-            return adjacentCompanions;
-        }
-
-        // Check if the companion is at the front (Count - 1 index)
-        if (companionIndex == allCompanions.Count - 1) {
-            adjacentCompanions.Add(allCompanions[companionIndex - 1]);
-            return adjacentCompanions;
-        }
-
-        adjacentCompanions.Add(allCompanions[companionIndex - 1]);
-        adjacentCompanions.Add(allCompanions[companionIndex + 1]);
-        return adjacentCompanions;
-    }
 }

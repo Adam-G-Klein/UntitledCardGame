@@ -301,6 +301,9 @@ public abstract class EntityAbilityInstance
             if (document.originEntityType == EntityType.CompanionInstance) {
                 CompanionInstance source = document.map.GetItem<CompanionInstance>(EffectDocument.ORIGIN, 0);
                 document.boolMap.Add("selfDamaged", source == companion);
+
+                List<CompanionInstance> selfAndAdjacentCompanions = CombatEntityManager.Instance.GetAdjacentCompanions(source, true);
+                document.boolMap.Add("damagedSelfOrAdjacent", selfAndAdjacentCompanions.Contains(companion));
             }
         } else if (damagedInstance.parentType == CombatInstance.CombatInstanceParent.ENEMY) {
             EnemyInstance enemy = CombatEntityManager.Instance.getEnemyInstanceForCombatInstance(damagedInstance);

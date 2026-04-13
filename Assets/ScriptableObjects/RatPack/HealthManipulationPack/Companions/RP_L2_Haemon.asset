@@ -18,6 +18,7 @@ MonoBehaviour:
   initialCardsDealtPerTurn: 1
   sprite: {fileID: 21300000, guid: bb0c01087809cb24f90cf67857b3fcdb, type: 3}
   fullSprite: {fileID: 21300000, guid: bb0c01087809cb24f90cf67857b3fcdb, type: 3}
+  animationSprites: []
   startingDeck: {fileID: 11400000, guid: 01bed10f78baa4885922ab894d8dd770, type: 2}
   rarity: 2
   baseCompanionType: {fileID: 11400000, guid: eee8f1da4c1704bb9aa5f1be418fd762, type: 2}
@@ -39,11 +40,15 @@ MonoBehaviour:
     empty: 0
     lines:
     - title: Haemon+
-      description: Every 4 times a rat loses HP, give self and adjacent 2 strength
+      description: Every 5 times Haemon or an adjacent rat loses HP, give Haemon
+        and adjacent rats 2 strength
       relatedBehaviorIndex: 0
       icon: {fileID: 0}
+      iconDescriptionLine: []
+      card: {fileID: 0}
   keepsakeTitle: 
-  keepsakeDescription: Every 4 times a rat loses HP, give self and adjacent 2 strength
+  keepsakeDescription: Every 5 times Haemon or an adjacent rat loses HP, give Haemon
+    and adjacent rats 2 strength
   references:
     version: 2
     RefIds:
@@ -53,6 +58,7 @@ MonoBehaviour:
         abilityTrigger: 11
         effectSteps:
         - rid: 8790164513324270201
+        - rid: 578314564356800757
         - rid: 7401433558763438356
         - rid: 7401433558763438393
         - rid: 7401433558763438394
@@ -67,6 +73,12 @@ MonoBehaviour:
         - rid: 7401433558763438357
         - rid: 7401433558763438358
         weight: 0
+    - rid: 578314564356800757
+      type: {class: EndWorkflowIfConditionMet, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: EndWorkflowIfConditionMet
+        inputKey1: damagedSelfOrAdjacent
+        conditionToEndOn: 0
     - rid: 7082891692335693829
       type: {class: GetAdjacentCompanions, ns: , asm: Assembly-CSharp}
       data:
@@ -97,6 +109,7 @@ MonoBehaviour:
         specialTargetRule: 3
         cantCancelTargetting: 0
         cardSelectionHelperText: 
+        selectionPurpose: 0
     - rid: 7401433558763438357
       type: {class: ApplyStatus, ns: , asm: Assembly-CSharp}
       data:
@@ -140,7 +153,7 @@ MonoBehaviour:
         inputKey: numDamage
         operand2InputKey: UNUSED
         operation: 3
-        scale: 4
+        scale: 5
         outputKey: numDamageDiv3
     - rid: 7401433558763438396
       type: {class: MathStep, ns: , asm: Assembly-CSharp}
@@ -149,7 +162,7 @@ MonoBehaviour:
         inputKey: numDamagePlus
         operand2InputKey: UNUSED
         operation: 3
-        scale: 4
+        scale: 5
         outputKey: numDamagePlusDiv3
     - rid: 7401433558763438397
       type: {class: BooleanComparison, ns: , asm: Assembly-CSharp}

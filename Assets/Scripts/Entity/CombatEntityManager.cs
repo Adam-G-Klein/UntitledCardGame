@@ -125,6 +125,27 @@ public class CombatEntityManager : GenericSingleton<CombatEntityManager>
         return enemies;
     }
 
+    public List<CompanionInstance> GetAdjacentCompanions(CompanionInstance instance, bool includeInputCompanion)
+    {
+        List<CompanionInstance> adjacentCompanions = new List<CompanionInstance>();
+        int companionIndex = companions.IndexOf(instance);
+        // Check if the companion is on the left (0 index)
+        if (companionIndex == 0) {
+            adjacentCompanions.Add(companions[1]);
+        } else if (companionIndex == companions.Count - 1) {
+            adjacentCompanions.Add(companions[companionIndex - 1]);
+        } else if (companionIndex > 0 && companionIndex < companions.Count - 1) {
+            adjacentCompanions.Add(companions[companionIndex - 1]);
+            adjacentCompanions.Add(companions[companionIndex + 1]);
+        }
+
+        if (includeInputCompanion) {
+            adjacentCompanions.Add(instance);
+        }
+
+        return adjacentCompanions;
+    }
+
     public void EnemyDied(EnemyInstance enemyInstance)
     {
         enemies.Remove(enemyInstance);

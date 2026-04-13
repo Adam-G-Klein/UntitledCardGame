@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ae10e10c3e9eb64dad3d693aa88aeee, type: 3}
-  m_Name: RP_GreekFire
+  m_Name: RP_GreekFire+
   m_EditorClassIdentifier: 
-  guid: 83f75257-cb11-4e7e-8ae3-bf1774998be4
-  Name: Greek Fire
+  guid: 1b2090b0-9c20-4a58-95cf-1be7f11429f7
+  Name: Greek Fire+
   Description: Exhaust. When exhausted, deal {onexhaust_rpl_damage} damage to a random
     enemy and draw 1 card from a random rat x2
   IconDescription:
@@ -49,20 +49,20 @@ MonoBehaviour:
     icon: 0
   - tokenType: 2
     text: 
+    icon: 10
+  - tokenType: 2
+    text: 
     icon: 3
   - tokenType: 2
     text: 
     icon: 19
-  - tokenType: 0
-    text: x2
-    icon: 19
   IconDescriptionTooltipLines:
   - This card exhausts when played, removing it for the rest of combat.
-  - When this card is exhausted, it deals X damage to a random foe and draws a card
-    from a random rat twice
+  - "When this card is exhausted, it deals X damage to a random foe, gains 1 \xC9lan,
+    and draws a card from a random rat"
   defaultValues:
   - key: onexhaust_rpl_damage
-    value: 5
+    value: 10
   Cost: 1
   Artwork: {fileID: 21300000, guid: fccdd43ca64c8644fa54c06ab327bdd3, type: 3}
   cardCategory: 4
@@ -88,6 +88,13 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 578314564356800758
+      type: {class: ManaChange, ns: , asm: Assembly-CSharp}
+      data:
+        effectStepName: ManaChange
+        scale: 1
+        getScaleFromKey: 0
+        inputScaleKey: 
     - rid: 3051694091506811091
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -96,7 +103,7 @@ MonoBehaviour:
         inputKey: 
         outputKey: random
         validTargets: 00000000
-        number: 2
+        number: 1
         specialTargetRule: 6
         cantCancelTargetting: 0
         cardSelectionHelperText: 
@@ -127,6 +134,7 @@ MonoBehaviour:
         - rid: 4463206262261416071
         - rid: 3051694091506811091
         - rid: 3051694091506811092
+        - rid: 578314564356800758
     - rid: 5602892557111787553
       type: {class: GetTargets, ns: , asm: Assembly-CSharp}
       data:
@@ -146,7 +154,7 @@ MonoBehaviour:
         effectStepName: CombatEffectStep
         inputKey: enemy
         combatEffect: 14
-        scale: 5
+        scale: 10
         getScaleFromKey: 0
         inputScaleKey: 
         multiplicity: 1
