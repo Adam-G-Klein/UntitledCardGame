@@ -816,6 +816,18 @@ public class PlayerHand : GenericSingleton<PlayerHand>
         return canPlayCards;
     }
 
+    public bool StillEnoughManaToPlayCards(int currentMana)
+    {
+        foreach (PlayableCard card in GetCardsOrdered())
+        {
+            if (card.card.GetManaCost() <= currentMana && card.card.cardType.playable)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void SelectCardsFromHand(
             int number,
             List<GameObject> disallowedCards,

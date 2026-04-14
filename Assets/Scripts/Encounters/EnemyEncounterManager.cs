@@ -55,6 +55,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     private int bonusTeamSizeReward = 0;
     public bool isBoss = false;
     private string encounterName;
+    private bool prematureEndTurnReminderDone = false;
 
 
     [SerializeField]
@@ -120,6 +121,7 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
         encounterName = encounter.encounterName;
         bonusManaReward = encounter.bonusManaReward;
         bonusTeamSizeReward = encounter.bonusTeamSizeReward;
+        prematureEndTurnReminderDone = false;
 
         switch (encounter.act) {
             case Act.One:
@@ -562,13 +564,30 @@ public class EnemyEncounterManager : GenericSingleton<EnemyEncounterManager>, IE
     public void ProcessGFGInputAction(GFGInputAction action)
     {
         if (action == GFGInputAction.END_TURN) {
+            // Premature end turn reminder that helps the player not end turn when they still have cards to play.
+            if (gameState.BuildTypeDemoOrConvention()
+                && PlayerHand.Instance.StillEnoughManaToPlayCards(ManaManager.Instance.currentMana)
+                && !prematureEndTurnReminderDone)
+            {
+                CanEndTurn(false);
+                StartCoroutine(PrematureEndTurnReminderCoroutine());
+                return;
+            }
+
             TryEndPlayerTurn();
+            prematureEndTurnReminderDone = false;
         }
         if (action == GFGInputAction.OPEN_MULTI_DECK_VIEW)
         {
             if (combatOver) return;
             MultiDeckViewManager.Instance.ShowCombatDeckView(gameState.hoveredCompanion);
         }
+    }
+
+    public IEnumerator PrematureEndTurnReminderCoroutine() {
+        yield return DemoDirector.Instance.InvokeDemoStepCoroutine(DemoStepName.PrematureEndTurnReminder);
+        prematureEndTurnReminderDone = true;
+        CanEndTurn(true);
     }
 
     public void SwappedControlMethod(ControlsManager.ControlMethod controlMethod)
