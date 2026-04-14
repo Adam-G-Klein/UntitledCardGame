@@ -875,6 +875,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7022720311151252816}
   - component: {fileID: 8021884933009846604}
+  - component: {fileID: 3814443417465339182}
   m_Layer: 0
   m_Name: DemoDirector
   m_TagString: Untagged
@@ -910,6 +911,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   demoDataSO: {fileID: 11400000, guid: 93580874b1544ad4aaef0f5027620bb0, type: 2}
+  gameState: {fileID: 11400000, guid: 9e326417f60894341a96cc8d02868bbe, type: 2}
   speakerSprite: {fileID: 21300000, guid: 34af0ef08494934478eca248b698d0ec, type: 3}
   bendingTheRulesStepDialogue:
   - "Normally, the starting team is left entirely to chance\u2026 However! "
@@ -937,25 +939,24 @@ MonoBehaviour:
   secondShopTutorialStep1Dialogue:
   - The invisible paw of the Paccarat market has returned- this is how you can expect
     things here to appear from now on.
-  - 'Ah, it looks like the Baron would like to see you already. Very well, take a
-    portion of our reserves and combine it with the fleur de cheese you''ve earned
-    thus far. '
+  - 'Ah, it looks like the Baron would like to see you already. Very Well. Take a
+    portion of our reserves and combine it with the coins you''ve earned thus far. '
   secondShopTutorialStep2Dialogue:
   - Respectfully, we did not share our savings with you without expectation. Please
     invest in fully upgrading the shop.
   secondShopTutorialStep3Dialogue:
-  - Excellent. As a gesture of good faith, here are some free rerolls and card removals
+  - Excellent. As gesture of good faith, here are some free rerolls and card removals
     on the house.
   secondShopTutorialStep4Dialogue:
   - 'Regardless of the outcome, we greatly appreciate you coming to help us. '
-  - Should things go poorly, I suppose we will have the chance to become better aquainted...
+  - Should things go poorly, I suppose we will have the chance to become better aquainted!
   postCombatRewardsDialogueDialogue:
   - Well earned, your first Paccarat rewards!
   - The Cats are incentivised to keep us playing, so you'll be rewarded with some
     fluer de cheese upon each win.
   prematureEndTurnReminderDialogueLines:
-  - Forgive me, but you still have cards in your hand you can play. Are you sure
-    you want to end your turn?
+  - "Hey boss, you still have \xC9lan to play cards. It's usually efficient to play
+    as many cards as you can each turn. "
   shopDemoDialogues:
   - shopDemoDialoguesForEvents:
     - shopDemoEvent: 1
@@ -970,22 +971,29 @@ MonoBehaviour:
 '
     - shopDemoEvent: 2
       dialogueLines:
-      - Now, you get to add new cards to your rats' decks. If you don't mind, I'll
-        pass on some advice from a wise old rat who used to work here.
-      - Take a look at your team's decks before placing new cards. Decks do not exist
-        in isolation in Paccarat.
-      - 'Last thing, cards that work well together should go in different decks,
-        because you''re more likely to draw them at the same time. '
+      - hey u should  buy some cards bozo
   - shopDemoDialoguesForEvents:
     - shopDemoEvent: 1
       dialogueLines:
-      - Now you can take a break from the mayhem and prepare for the next table.
-        This time I pulled some strings so you have more cards and rats to choose
-        from.
+      - hi u in the second shop what up with it
     - shopDemoEvent: 2
       dialogueLines:
-      - You'll notice that certain rats and cards look similar. They are organized
-        into packs. Usually rats and cards from the same pack work well together.
+      - u are a chump ;)
+--- !u!114 &3814443417465339182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3836094675198101184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a980e8f7ac0e6734c8d516ac0d2b4bc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speakerSprite: {fileID: 21300000, guid: 34af0ef08494934478eca248b698d0ec, type: 3}
+  combatIntroductionDialogue:
+  - No UI, no rats, no enemies. Just u and me buddy.
 --- !u!1 &5109742072706344275
 GameObject:
   m_ObjectHideFlags: 0
